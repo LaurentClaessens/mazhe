@@ -44,6 +44,33 @@ Si \( \mu\) est une mesure sur \( \eR^d\), une fonction \( f\colon \eR^d\to \eR\
 \end{equation}
 où \( dx\) est la mesure de Lebesgue.
 
+La \defe{fonction caractéristique}{fonction caractéristique} de la variable aléatoire \( X\colon \Omega\to \eR\) est la fonction réelle définie par
+\begin{equation}
+    \Phi_X(t)=E( e^{itX}),
+\end{equation}
+ou encore, si \( X\) a une densité \( f_X\),
+\begin{equation}
+    \Phi_X(t)=\int_{\eR} e^{itX}dP_X(x)=\int_{\eR} e^{itx}f_X(x)dx
+\end{equation}
+Nous reconnaissons la transformée de Fourier :
+\begin{equation}
+    \Phi_X(t)=(TF\,f_X)(-t/2\pi).
+\end{equation}
+
+\begin{theorem}
+    Si \( \Phi_X=\Phi_Y\), alors \( P_X=P_Y\).
+\end{theorem}
+\begin{proof}
+    No proof.
+\end{proof}
+Notons que cela n'implique pas que \( X=Y\). En effet \( X\) et \( Y\) peuvent même être définis sur des espaces probabilisés différents.
+
+Dans le cas d'une variable aléatoire vectorielle, nous définissons \( \Phi_X\colon \eR^d\to \eR\) par
+\begin{equation}
+    \Phi_X(v)=E\big(  e^{i\langle v, X\rangle } \big)
+\end{equation}
+
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Intégrale par rapport à une mesure}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -264,6 +291,20 @@ en vertu de la proposition appliquée à la fonction \( f(x)=x\).
     \end{equation}
 \end{proposition}
 
+Le lien entre la densité \( f_X\) de la variable aléatoire \( X\) et sa loi est
+\begin{equation}
+    P_X(A)=\int_Af_X(x)dx
+\end{equation}
+pour tout ensemble mesurable \( A\subset\eR\). Le lien entre la mesure de Lebesgue et celle de la loi de \( X\) est alors donné par
+\begin{equation}
+    dP_X(x)=f_X(x)dx.
+\end{equation}
+En particulier l'espérance de \( X\) peut être calculée à partir de sa densité via la formule
+\begin{equation}        \label{EqEspDensform}
+    E(X)=\int_{\eR}xdP_X(x)=\int_{\eR}x f_X(x)dx.
+\end{equation}
+
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Lois usuelles}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -297,6 +338,110 @@ et par conséquent \( P_{X^2}=P_X\) et \( E(X^2)=E(X)\). Nous trouvons donc la v
 \subsection{Loi normale}
 %---------------------------------------------------------------------------------------------------------------------------
 
+La loi normale de paramètres \( m\) et \( \sigma>0\), notée \( \dN(m,\sigma^2)\) est la loi donnée par la densité
+\begin{equation}
+    \gamma_{m,\sigma^2}(x)=\frac{1}{ \sigma\sqrt{2\pi} }\exp\left[ -\frac{ 1 }{2}\left( \frac{ x-m }{ \sigma } \right)^2 \right].
+\end{equation}
+
+\begin{proposition}
+    Si la variable aléatoire réelle \( X\) suit une loi normale \( \dN(m,\sigma^2)\), alors nous avons \( E(X)=m\) et \( \Var(X)=\sigma^2\).
+\end{proposition}
+
+\begin{proof}
+    L'espérance d'une variable aléatoire se calcule à partir de la formule \eqref{EqEspDensform}:
+    \begin{subequations}
+        \begin{align}
+            E(X)&=\frac{1}{ \sigma\sqrt{2\pi} }\int_{\eR}x\exp\left[ -\frac{1}{ 2 }\left( \frac{ x-m }{ \sigma } \right)^2 \right]dx\\
+            &=\frac{1}{ \sigma\sqrt{2\pi} }\sigma\int_{\eR}(\sigma u+m) e^{-u^2/2}
+        \end{align}
+    \end{subequations}
+    où nous avons effectué le changement de variable \( u=(x-m)/\sigma\). Nous utilisons ensuite l'intégrale remarquable
+    \begin{equation}
+        \int_{\eR} e^{-u^2/2}du=\sqrt{2\pi}.
+    \end{equation}
+
+    En ce qui concerne la variance, nous avons le même genre de calculs.
+\end{proof}
+
+La \defe{loi normale réduite}{normale!loi réduite} est la densité
+\begin{equation}
+    \gamma(x)=\gamma_{0,1}(x)=\frac{1}{ \sqrt{2\pi} } e^{-x^2/2}.
+\end{equation}
+La variable aléatoire \( X\) suit la loi \( \dN(m,\sigma^2)\) si et seulement si la variable aléatoire $Z=\frac{ X-m }{ \sigma }$ suit la loi normale réduite \( \dN(0,1)\).
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Événements}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Deux événements \( A\) et \( B\) sont dits \defe{indépendants}{indépendance} si
+    \begin{equation}
+        P(A\cap B)=P(A)P(B).
+    \end{equation}
+\end{definition}
+Si nous considérons \( n\) variables aléatoires réelles \( X_1,\ldots,X_n\colon\Omega\to\eR\), la loi du \( n\)-uplet \( X=(X_1,\ldots,X_n)\) est une variable aléatoire \( X\colon \Omega\to \eR^n\) appelée la \defe{loi conjointe}{loi!conjointe} des lois \( X_i\). Dans ce cas, les variables aléatoires \( X_i\) elles-mêmes sont dites lois \defe{marginales}{loi!marginale} de \( X\).
+
+\begin{proposition}
+    Les variables aléatoires \( \{ X_i \}\) sont indépendantes si et seulement si
+    \begin{equation}
+        P_{(X_1,\ldots,X_n)}=P_{X_1}\otimes\ldots\otimes P_{X_n}.
+    \end{equation}
+\end{proposition}
+
+Si les \( X_1,\ldots,X_n\) sont des variables aléatoires on considère la \defe{moyenne empirique}{moyenne!empirique}
+\begin{equation}
+    \bar X_n=\frac{ X_1+\ldots+X_n }{ n }.
+\end{equation}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Convergence}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soient \( X_i\) des variables aléatoires réelles définies sur le même espace de probabilité \( (\Omega,\tribA,P)\). Nous disons que \( X_i\) converge \defe{presque surement}{convergence!presque surement} vers la variable aléatoire \( X\) et nous notons 
+\begin{equation}
+    X_n\stackrel{p.s.}{\longrightarrow}X
+\end{equation}
+si
+\begin{equation}
+    P\big( \{ \omega\in\Omega\tq\,X_n(\omega)\to X(\omega) \} \big)=1
+\end{equation}
+où la convergence \( X_n(\omega)\to X(\omega)\) est la convergence usuelle dans \( \eR\).
+
+\begin{lemma}
+    Nous avons \( X_n\stackrel{p.s.}{\longrightarrow}X\) si et seulement si il existe un événement \( A\in\tribA\) tel que \( P(A)=1\) et tel que \( X_n(\omega)\to X(\omega)\) pour tout \( \omega\in A\).
+\end{lemma}
+
+Nous disons que les variables aléatoires réelles \( X_n\) convergent \defe{en probabilité}{convergence!en probabilité} vers la variable aléatoire \( X\) si pour tout \( \eta>0\), on a
+\begin{equation}
+    P\big( | X_n-X |\geq \eta \big)\to 0,
+\end{equation}
+et on note
+\begin{equation}
+    X_n\stackrel{P}{\longrightarrow}X.
+\end{equation}
+
+Nous disons que \( X_n\) converge vers \( X\) \defe{en loi}{convergence!en loi} vers la variable aléatoire \( X\) et nous notons
+\begin{equation}
+    X_n\stackrel{\mL}{\longrightarrow}X
+\end{equation}
+si pour toute fonction continue et bornée \( g\) nous avons
+\begin{equation}
+    E\big( g(X_n) \big)\to E\big( g(X) \big)=\int gdP_X.
+\end{equation}
 
 
-
+\begin{proposition}
+    Deux autres caractérisations de la convergence en loi.
+    \begin{enumerate}
+        \item
+            Nous avons \( X_n\stackrel{\mL}{\longrightarrow}X\) si et seulement si
+            \begin{equation}
+                \Phi_{X_n}(v)\to\Phi_X(v)
+            \end{equation}
+            pour tout \( v\in\eR^d\). Ici \( \Phi_X\) est la fonction caractéristique de \( X\).
+        \item
+            Dans la définition de la convergence en loi nous pouvons indifféremment utiliser les fonctions continues et bornées, les fonctions continues à support compact ou les fonctions bornées uniformément continues.
+    \end{enumerate}
+    <++>
+\end{proposition}
+<++>
