@@ -1,33 +1,130 @@
+% This is part of Agregation : modélisation
+% Copyright (c) 2011
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
 Ce chapitre provient en grande partie de \cite{ProbaDanielLi}.
 
 \begin{definition}
-    Si \( \Omega\) est un ensemble, un ensemble \( \mA\) de sous-ensembles de \( \Omega\) est une \defe{tribu}{tribu} si
+    Si \( \Omega\) est un ensemble, un ensemble \( \tribA\) de sous-ensembles de \( \Omega\) est une \defe{tribu}{tribu} si
     \begin{enumerate}
         \item
-            \( \Omega\in\mA\);
+            \( \Omega\in\tribA\);
         \item
-            \( A\cup B\in\mA\) pour tout \( A,B\in\mA\), ce qui signifie que toutes les unions finies d'éléments de \( \mA\) sont dans \( \mA\);
+            \( A\cup B\in\tribA\) pour tout \( A,B\in\tribA\), ce qui signifie que toutes les unions finies d'éléments de \( \tribA\) sont dans \( \tribA\);
         \item
-            \( \complement A\in A\) pour tout \( A\in\mA\);
+            \( \complement A\in A\) pour tout \( A\in\tribA\);
         \item
-            si \( A_n\) est une suite dénombrable d'éléments de \( \mA\), alors \( \sup_{n\geq 1}A_n\in\mA\).
+            si \( A_n\) est une suite dénombrable d'éléments de \( \tribA\), alors \( \sup_{n\geq 1}A_n\in\tribA\).
     \end{enumerate}
-    Le couple \( (\Omega,\mA)\) est alors un \defe{espace mesuré}{espace!mesuré}.
+    Le couple \( (\Omega,\tribA)\) est alors un \defe{espace mesuré}{espace!mesuré}.
 \end{definition}
 
-Une \defe{\wikipedia{en}{Measure_space}{mesure}}{mesure} sur l'espace mesurable \( (\Omega,\mA)\) est une application \( \mu\colon \mA\to \eR\cup\{ \infty \}\) telle que
+Une \defe{\wikipedia{en}{Measure_space}{mesure}}{mesure} sur l'espace mesurable \( (\Omega,\tribA)\) est une application \( \mu\colon \tribA\to \eR\cup\{ \infty \}\) telle que
 \begin{enumerate}
     \item
-        \( \mu(A)\geq 0\) pour tout \( A\in\mA\);
+        \( \mu(A)\geq 0\) pour tout \( A\in\tribA\);
     \item
         \( \mu(\emptyset)=0\);
     \item
-        \( \mu\left( \bigcup_{i=0}^{\infty}A_i\right)=\sum_{i=0}^{\infty}\mu(A_i)\) si les \( A_i\) sont des éléments de \( \mA\) deux à deux disjoints.
+        \( \mu\left( \bigcup_{i=0}^{\infty}A_i\right)=\sum_{i=0}^{\infty}\mu(A_i)\) si les \( A_i\) sont des éléments de \( \tribA\) deux à deux disjoints.
 \end{enumerate}
 
-Une \defe{mesure de probabilité}{mesure!probabilité} sur un espace mesuré \( (\Omega,\mA)\) est une mesure positive telle que \( P(\Omega)=1\). Dans ce cas, le triple \( (\Omega,\mA,P)\) est un \defe{espace de probabilité}{espace!de probabilité}.
+Une \defe{mesure de probabilité}{mesure!probabilité} sur un espace mesuré \( (\Omega,\tribA)\) est une mesure positive telle que \( P(\Omega)=1\). Dans ce cas, le triple \( (\Omega,\tribA,P)\) est un \defe{espace de probabilité}{espace!de probabilité}.
 
-Un point \( \omega\in\Omega\) est une \defe{observation}{observation}, une partie mesurable \( A\in\mA\) est un \defe{événement}{événement}. L'ensemble \( A\cup B\) représente l'événement \( A\) ou \( B\) tandis que l'ensemble \( A\cap B\) représente l'événement \( A\) et \( B\).
+Un point \( \omega\in\Omega\) est une \defe{observation}{observation}, une partie mesurable \( A\in\tribA\) est un \defe{événement}{événement}. L'ensemble \( A\cup B\) représente l'événement \( A\) ou \( B\) tandis que l'ensemble \( A\cap B\) représente l'événement \( A\) et \( B\).
 
 
+Si les \( A_n\) sont des événements, nous définissons la \defe{limite supérieur}{limite!supérieure} et la \defe{limite inférieure}{limite!inférieure} de la suite \( A_n\) par
+\begin{equation}
+    \limsup_{n\to\infty}A_n=\bigcap_{n\geq 1}\bigcup_{k\geq n}A_k
+\end{equation}
+et
+\begin{equation}
+    \liminf_{n\to\infty}A_n=\bigcup_{n\geq 1}\bigcap_{k\geq n}A_k
+\end{equation}
+Si \( \omega\in\liminf A_n\), alors \( \omega\) réalise tous les \( A_n\) sauf un nombre fini.
+
+Nous avons
+\begin{equation}
+    \limsup A_n=\{ \omega\in\Omega\tq \omega\in A_n\text{pour une infinité de \( n\)} \}.
+\end{equation}
+
+\begin{theorem}[Borel-Cantelli]\index{théorème!Borel-Cantelli}
+    Si
+    \begin{equation}
+        \sum_{n=1}^{\infty}P(A_n)<\infty
+    \end{equation}
+    alors \( P(\limsup A_n)=0\).
+\end{theorem}
+
+\begin{proof}
+    La condition \( \sum_{n\geq 1}P(A_n)<\infty\) signifie que la fonction
+    \begin{equation}
+        \varphi=\sum_{n\geq 1}\caract_{A_n}
+    \end{equation}
+    est \( P\)-intégrable. Par conséquent, elle est finie presque partout (au sens de \( P\)), c'est à dire
+    \begin{equation}
+        P(\varphi=\infty)=0.
+    \end{equation}
+    Les points \( \omega\) sur lesquels \( \varphi(\omega)=\infty\) sont ceux tels que
+    \begin{equation}
+        \sum_{n\geq 1}\caract_{A_n}(\omega)=\infty,
+    \end{equation}
+    c'est à dire les \( \omega\) qui appartiennent à une infinité d'ensembles \( A_n\), ou encore les \( \omega\in\limsup A_n\). Nous avons donc montré que
+    \begin{equation}
+        \{ \omega\tq \varphi(\omega)=\infty \}=\{ \omega\in\Omega\tq \omega\in A_n\text{pour une infinité de \( n\)} \}=\limsup A_n.
+    \end{equation}
+    Or l'hypothèse signifie que la probabilité du membre de gauche est nulle.
+\end{proof}
+
+\begin{corollary}
+    Si \( \sum_{n=1}^{\infty}P(\complement A_n)<\infty\), alors presque surement tous les \( B_n\) sont réalisés à l'exception d'un nombre fini.
+\end{corollary}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Variables aléatoires}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Une \defe{variable aléatoire}{variable aléatoire} est une application mesurable
+    \begin{equation}
+        X\colon (\Omega,\tribA)\to (\eR^d,\Borelien(\eR^d)).
+    \end{equation}
+\end{definition}
+Nous convenons que \( \eR^1=\bar\eR\), c'est à dire que dans le cas où la variable aléatoire \( X\) est réelle, nous acceptons les valeurs \( \pm\infty\).
+
+On dit que la variable aléatoire \( X\) a un \defe{moment d'ordre \( p\)}{moment} si \( X\in L^p(\Omega,\tribA,P)\) (\( 1\leq p<\infty\)). Si \( X\) est \defe{intégrable}{variable aléatoire!intégrable} (c'est à dire si \( X\in L^1\)), alors nous définissons
+\begin{equation}
+    E(X)=\int_{\Omega}XdP\in\eR^d.
+\end{equation}
+Si \( E(X)=0\) nous disons que la variable aléatoire est \defe{centrée}{variable aléatoire!centrée}. La variable aléatoire \( X-E(X)\) est la variable aléatoire centrée associée à \( X\).
+
+Si \( X\in L^2(\Omega,\tribA,P)\) alors nous définissons la \defe{variance}{variance} de \( X\) par
+\begin{equation}
+    \Var(X)=E\big( [X-E(X)]^2 \big).
+\end{equation}
+
+\begin{proposition}
+    La variance de la variable aléatoire \( X\) peut être exprimée par la formule
+    \begin{equation}
+        \Var(X)=E(X^2)-[E(X)]^2
+    \end{equation}
+    où \( X^2=X\cdot X\) et \( E(X)^2=\) sont des produits scalaires dans \( \eR^d\).
+\end{proposition}
+
+\begin{proof}
+    De façon explicité, nous avons
+    \begin{equation}
+        E\big( [X-E(X)]^2 \big)=\int_{\Omega}\big( X(\omega)-E(X) \big)\cdot\big( X(\omega)-E(X) \big)dP(\omega)
+    \end{equation}
+    où \( E(X)\in\eR^d\) est une constante. En développant le produit scalaire nous avons
+    \begin{subequations}
+        \begin{align}
+            E\big( [X-E(X)]^2 \big)&=E\big( X^2-2X\cdot E(X)+E(X)^2 \big)\\
+            &=E(X^2)-2E(X)^2+E(X)^2\\
+            &=E(X^2)-E(X)^2.
+        \end{align}
+    \end{subequations}
+\end{proof}
 
