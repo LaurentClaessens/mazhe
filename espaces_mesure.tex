@@ -44,7 +44,7 @@ Si \( \mu\) est une mesure sur \( \eR^d\), une fonction \( f\colon \eR^d\to \eR\
 \end{equation}
 où \( dx\) est la mesure de Lebesgue.
 
-La \defe{fonction caractéristique}{fonction caractéristique} de la variable aléatoire \( X\colon \Omega\to \eR\) est la fonction réelle définie par
+La \defe{fonction caractéristique}{fonction!caractéristique} de la variable aléatoire \( X\colon \Omega\to \eR\) est la fonction réelle définie par
 \begin{equation}
     \Phi_X(t)=E( e^{itX}),
 \end{equation}
@@ -190,6 +190,14 @@ On dit que la variable aléatoire \( X\) a un \defe{moment d'ordre \( p\)}{momen
     E(X)=\int_{\Omega}XdP\in\eR^d.
 \end{equation}
 Si \( E(X)=0\) nous disons que la variable aléatoire est \defe{centrée}{variable aléatoire!centrée}. La variable aléatoire \( X-E(X)\) est la variable aléatoire centrée associée à \( X\).
+
+La définition suivante vient de l'instructive motivation de \cite{CourgGudRennes}.
+\begin{definition}
+    Les variables aléatoires \( X\) sur \( (\Omega,\tribA)\) et \( X'\) sur \( (\Omega',\tribA')\) sont \defe{indépendantes}{indépendance!variables aléatoires} si \( \forall B\in\tribA\) et \( \forall B'\in\tribA'\) nous avons
+    \begin{equation}
+        P(X\in B,X'\in B')=P(X\in B)P(X'\in B').
+    \end{equation}
+\end{definition}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Variance}
@@ -471,14 +479,112 @@ Dans le cas particulier \( d=1\) nous avons quelque critères supplémentaires.
     pour tout \( k\in\eN\).
 \end{proposition}
 
+\begin{proposition}     \label{PropXncvXFXcvFxt}
+    Soient \( X_n\) et \( X\) des variables aléatoires réelles. Nous avons
+    \begin{equation}
+        X_n\stackrel{\hL}{\longrightarrow}X
+    \end{equation}
+    si et seulement si pour tout \( t\) où \( F_X\) est continue,
+    \begin{equation}
+        \lim_{n\to \infty} F_{X_n}(t)=F_x(t).
+    \end{equation}
+\end{proposition}
+Pour une preuve, voir \cite{CourgGudRennes}.
+
+\begin{proposition}     \label{PropCvLfcvPsicst}
+    Soit \( X_n\) une suite de variables aléatoires \( \Omega\to \eR^d\) et \( a\in\eR^d\). Si \( X_n\stackrel{\hL}{\longrightarrow}\), alors
+    \begin{equation}
+        X_n\stackrel{P}{\longrightarrow}a.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Cette preuve provient de \cite{CourgGudRennes}. Quitte à passer aux composantes, nous pouvons supposer que \( d=1\). Nous avons
+    \begin{subequations}
+        \begin{align}
+           P\big( | X_n-a |>\eta \big)&=P(X_n-a>\eta)+P(-X_n-a>\eta)\\
+           &=P(X_n>\eta+a)+1-P(X_n>a-\eta)  \label{EqPXngeqetaapumP}\\
+           &=1-F_{X_n}(\eta+a)+F_{X_n}(a-\eta).
+        \end{align}
+    \end{subequations}
+    Nous allons utiliser la proposition \ref{PropXncvXFXcvFxt}. La fonction de répartition de la variable aléatoire constante \( X=a\) est donnée par
+    \begin{equation}
+        F_a(t)=P(a<t)=\caract{\eR^+}(t-a).
+    \end{equation}
+    Par conséquent, la convergence en loi \( X_n\stackrel{\hL}{\longrightarrow}a\) nous montre que
+    \begin{equation}
+        F_{X_n}(t)\to \caract_{\eR^+}(t-a)
+    \end{equation}
+    pour tout \( t\neq a\) parce que \( t=0\) est un point de discontinuité de \( \caract_{\eR^+}\). Nous avons par conséquent
+    \begin{equation}
+        P\big( | X_n-a |>\eta \big)=1-\caract_{\eR^+}(\eta)+\caract_{\eR^+}(-\eta)=0
+    \end{equation}
+    parce que \( \eta>0\).
+\end{proof}
+
+\begin{probleme}
+    Dans \cite{CourgGudRennes}, l'équation \eqref{EqPXngeqetaapumP} arrive avec une inégalité. Pourquoi ?
+\end{probleme}
+
 \begin{lemma}[Slutsky]\index{lemme!de Slutsky}
-    Soit \( X_n\) une suite de variables aléatoires réelles qui converge en loi vers la variable aléatoire réelle \( X\) et \( Y_n\), une suite de variables aléatoires réelle qui converge en loi vers la constante \( a\in\eR\). Alors la suite \( (X_n,Y_n)\) converge en loi vers \( (X,Y)\).
+    Soient \( X_n\) et \( Y_n\) des suites de variables aléatoires réelles telles que
+    \begin{equation}
+        \begin{aligned}[]
+            X_n&\stackrel{\hL}{\longrightarrow} X&\text{et}&&Y_n&\stackrel{\hL}{\longrightarrow}a\in\eR.
+        \end{aligned}
+    \end{equation}
+    Alors \( (X_n,Y_n)\stackrel{\hL}{\longrightarrow}(X,a)\).
 \end{lemma}
 
 \begin{proof}
-    Cette preuve vient de \cite{MPSmaitrise}.
+    La preuve qui suit provient de \cite{MPSmaitrise}. Étant donné que \( Y_n\stackrel{\hL}{\longrightarrow} a\), nous avons \( Y_n\stackrel{P}{\longrightarrow} a\) par la proposition \ref{PropCvLfcvPsicst}. Soit une fonction \(f\colon \eR^2\to \eR^2 \); nous devons prouver que
+    \begin{equation}
+        E\big( f(X_n,Y_n) \big)\to E\big( f(X,a) \big).
+    \end{equation}
+    Soit \( \epsilon>0\). Nous avons
+    \begin{equation}    \label{EqEparXnYnfXa}
+        E\big( \| f(X_n,Y_n)-f(X,a) \| \big)\leq E\big(  \| f(X_n,Y_n)-f(X_n,a) \|  \big)+E\big(   \| f(X_n,a)-f(X,a) \|  \big).
+    \end{equation}
+    La fonction\( g(t)=f(t,a)\) étant continue et bornée, la convergence en loi \( X_n\stackrel{\hL}{\longrightarrow}X\) donne
+    \begin{equation}
+        E\big( \| f(X_n,a)-f(X,a) \| \big)\to 0.
+    \end{equation}
+    Étudions à présent le premier terme du membre de droite de \eqref{EqEparXnYnfXa}. Pour tout \( \eta> 0\) et toute variables aléatoires \( Z\) et \( Z'\) nous avons
+    \begin{equation}
+        E(Z)=E(Z\caract_{| Z' |<\eta})+E(Z\caract_{| Z' |\geq \eta}).
+    \end{equation}
+    Nous décomposons donc le premier terme de \eqref{EqEparXnYnfXa} en
+    \begin{equation}    \label{EqEXnADecomsecvolta}
+        \begin{aligned}[]
+            E\big( \| f(X_n,Y_n)-f(X_n,a) \| \big)&=E\big( \| f(X_n,Y_n)-f(X_n,a) \|\caract_{| Y_n-a |<\eta} \big)\\
+            &\quad+E\big( \| f(X_n,Y_n)-f(X_n,a) \|\caract_{| Y_n-a |\geq\eta} \big).
+        \end{aligned}
+    \end{equation}
+    Choisissons maintenant une valeur de \( \eta\) telle que
+    \begin{equation}
+        | (x,y)-(x',y') |<\eta\Rightarrow| f(x,y)-f(x',y') |\leq \epsilon.
+    \end{equation}
+    Un tel \( \eta\) existe par l'uniforme continuité de \( f\). Dans le premier terme, \( | Y_n-a |<\eta\), par conséquent
+    \begin{equation}
+        \| (X_n,Y_n)-(X_n,a) \|=| Y_n-a |<\eta
+    \end{equation}
+    et donc
+    \begin{equation}
+        \| f(X_n,Y_n)-f(X_n,a) \|\leq \epsilon.
+    \end{equation}
+    Le premier terme devient donc
+    \begin{equation}
+        E\big( \| f(X_n,Y_n)-f(X_n,a) \|\caract_{| Y_n-a |<\eta} \big)\leq \epsilon E(\caract_{| Y_n-a |<\eta})\leq \epsilon
+    \end{equation}
+    parce que \( E(\caract_A)=P(A)\leq 1\). Pour le second terme de \eqref{EqEXnADecomsecvolta} nous effectuons la majoration
+    \begin{equation}
+        \| f(X_n,Y_n)-f(X_n,a) \|\leq 2\| f \|_{\infty}
+    \end{equation}
+    tandis que la convergence \( Y_n\stackrel{P}{\longrightarrow} a\) entraine 
+    \begin{equation}
+        P\big( | Y_n-a |\geq \eta \big).
+    \end{equation}
 \end{proof}
-<++>
 
 \begin{lemma}[Borel-Cantelli]\index{lemme!de Borel-Cantelli}
     Soit \( (A_n)\) une suite d'événements (avec \( A_n\in\tribA\) pour tout \( n\)).
@@ -500,8 +606,77 @@ La notation \( P(A_n\,\text{i.s.})\) signifie «infiniment souvent», c'est à d
     P(A_n\,\text{i.s.})=P\big( \bigcap_{N\in\eN}\bigcup_{k\geq N}A_k \big)=P(\limsup A_n)
 \end{equation}
 
-\begin{example}
-    Soit une suite \( A_n\) de variables aléatoires et \( X\), une autre variable aléatoire. 
-\end{example}
-<++>
+Une façon de paraphraser le lemme de Borel-Cantelli est que nous avons l'alternative
+\begin{equation}    \label{EqparaphrCantelli}<++>
+    P(\limsup A_n)=\begin{cases}
+        0    &   \text{si $\sum_{n\geq 0}P(A_n)<\infty$}\\
+        1    &    \text{sinon}.
+    \end{cases}
+\end{equation}
 
+\begin{proposition}
+    Soit \( X_n\), une suite de variables aléatoires et \( X\) une variable aléatoires. Si
+    \begin{equation}
+        \sum_nP\big( \| X_n-X \|>\eta \big)<\infty
+    \end{equation}
+    pour tout \( \epsilon\), alors \( X_n\stackrel{p.s.}{\longrightarrow}X\).
+\end{proposition}
+
+\begin{proof}
+    Fixons \( \epsilon\) et considérons les événements \( A_{n}=\| X_n-X \|>\epsilon\). L'hypothèse dit que
+    \begin{equation}
+        \sum_nP(A_{n,\epsilon})<\infty
+    \end{equation}
+    et le lemme de Borel-Cantelli implique que
+    \begin{equation}
+        P(\limsup\| X_n-X \|>\epsilon)=0.
+    \end{equation}
+    Un élément \( \omega\) est dans \( \limsup A_n\) si il est contenu dans tous les \( A_n\), par conséquent, pour chaque \( \epsilon\) nous avons l'inclusion
+    \begin{equation}
+        \{ \omega\in\Omega\tq X_n(\omega)\to X(\omega) \}\subset\complement\limsup A_n.
+    \end{equation}
+    Nous pouvons aller plus loin et écrire
+    \begin{equation}        \label{EqProbomOmXnmXforalleps}
+        \{ \omega\in\Omega\tq X_n(\omega)\to X(\omega) \}=\complement\{ \omega\in\Omega\tq \| X_n-X \|>\epsilon,\forall\epsilon>0 \}.
+    \end{equation}
+    Or la probabilité de l'ensemble
+    \begin{equation}
+        \{ \omega\in\Omega\tq\| X_n-X \|>\epsilon \}
+    \end{equation}
+    est \( 0\) pour chaque \( \epsilon\), et par conséquent la probabilité du membre de droite de \eqref{EqProbomOmXnmXforalleps} est \( 1\).
+\end{proof}
+
+\begin{example}
+    Considérons une suite de \( 0\) et de \( 1\) dans laquelle le \( 1\) arrive avec une probabilité \( p\) et le \( 0\) avec une probabilité \( 1-p\). Une telle suite est modélisée par une suite de variables aléatoires de Bernouilli \( (X_n)_{n\in\eN}\) indépendantes de paramètre \( p\).
+
+    Question : une telle suite contient elle une infinité de \( 1\) ? Considérons les événements indépendants \( A_n=\{ X_n=1 \}\). Nous avons
+    \begin{equation}
+        \sum_n P(A_n)=\sum_nP(X_n=1)=\sum_np=\infty.
+    \end{equation}
+    Par Borel-Cantelli et son expression \eqref{EqparaphrCantelli}, nous avons alors
+    \begin{equation}
+        P(\limsup A_n)=1.
+    \end{equation}
+    Donc une infinité d'événements \( A_n\) se produisent, et nous avons bien une infinité de \( 1\) dans la suite.
+
+    Remarque : dans ce raisonnement nous pouvons considérer une probabilité non constante \( p_n\) tant que la série \( \sum_np_n\) diverge.
+\end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Loi des grands nombres, théorème central limite}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{theorem}[Loi forte des grands nombres]
+    Soit \( (X_n)\) une suite de variables aléatoires
+    \begin{enumerate}
+        \item
+            indépendantes et identiquement distribuées,
+        \item
+            intégrables (c'est à dire dans \( L^1\)),
+    \end{enumerate}
+    et \( \bar X_n=\frac{1}{ n }\sum_{i=1}^nX_i\). Alors
+    \begin{equation}
+        \bar X_n\stackrel{p.s.}{\longrightarrow} E(X_1).
+    \end{equation}
+\end{theorem}
+Note : étant donné que les variables aléatoires sont identiquement distribuées, nous avons évidemment \( E(X_1)=E(X_2)=\ldots\)
