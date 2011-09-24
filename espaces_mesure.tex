@@ -421,6 +421,43 @@ Si nous considérons \( n\) variables aléatoires réelles \( X_1,\ldots,X_n\col
     \end{equation}
 \end{proposition}
 
+\begin{definition}      \label{DefFonrepConj}
+    Soient \( \{ X_i \}_{1\leq i\leq n}\) des variables aléatoires réelles (pas spécialement indépendantes). La \defe{densité conjointe}{densité!conjointe} de \( X_1\),\ldots,\( X_n\) est la fonction \( f\colon \eR^n\to \eR\) qui satisfait
+    \begin{enumerate}
+        \item
+            \( f(x_1,\ldots,x_n)\geq 0\) pour tout \( (x_1,\ldots,x_n)\in\eR^n\),
+        \item
+            \( \int_{\eR^n}f=1\),
+        \item       \label{ItemDefFonrepConjiii}<++>
+            pour tout \( A_i\subset\eR \) nous avons
+            \begin{equation}
+                P(\bigcap_{i=1}^n X_i\in A_i)=\int_{\prod_i A_i}f(x_1,\ldots,x_n)dx_1\ldots dx_n.
+            \end{equation}
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}     \label{PropDensiteConjIndep}<++>
+    Si les variables aléatoires \( X_1\),\ldots \( X_n\) sont indépendantes et ont des densités \( f_{X_1}\),\ldots,\( f_{X_n}\), alors la variable aléatoire conjointe \( X=(X_1,\ldots,X_n)\) a pour densité conjointe la fonction
+    \begin{equation}
+        f_X(x_1,\ldots,x_n)=f_{X_1}(x_1)\ldots f_{X_n}(x_n).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    En partant de la définition de l'indépendance et de la fonction de densité conjointe, ainsi qu'en utilisant le théorème de Fubini,
+    \begin{equation}
+        \begin{aligned}[]
+            \int_{A_1\times \ldots\times A_n}f_X(x_1,\ldots,x_n)dx_1\ldots dx_n&=
+            P(X_1\in A_1,\ldots,X_n\in A_n)\\
+            &=P(X_1\in A_1)\ldots P(X_n\in A_n)\\
+            &=\left( \int_{A_1}f_{X_1}(x_1)dx_1 \right)\ldots\left( \int_{A_n}f_{X_n}(x_n)dx_n \right)\\
+            &=\int_{A_1\times\ldots\times A_n}f_{X_1}(x_1)\ldots f_{X_n}(x_n)dx_1\ldots dx_n.
+        \end{aligned}
+    \end{equation}
+    La fonction \( (x_1,\ldots,x_n)\mapsto f_{X_1}(x_1)\ldots f_{X_n}(x_n)\) vérifie donc la condition \ref{ItemDefFonrepConjiii} de la définition \ref{DefFonrepConj}. La vérification des autres conditions est immédiate.
+\end{proof}
+
+
 La proposition suivante\cite{ProbaDanielLi} provient du fait que la mesure d'une loi conjointe est le produit des mesures lorsque les variables aléatoires sont indépendantes (proposition \ref{PropPXXXPXPXPX}).
 \begin{proposition}
     Si les variables aléatoires réelles \( X_1\),\ldots,\( X_n\) sont intégrables et indépendantes, alors leur produit est intégrable et l'espérance du produit est égal au produit des espérances :
@@ -428,6 +465,38 @@ La proposition suivante\cite{ProbaDanielLi} provient du fait que la mesure d'une
         E(X_1\cdots X_n)=E(X_1)\ldots E(X_n).
     \end{equation}
 \end{proposition}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Somme de variables aléatoires indépendantes}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\label{subsubsecscnvommevariablsindep}
+
+Le cas plus général de variable aléatoires non indépendantes peut être trouvé dans \cite{Marazzi}.
+
+Soient \( X\) et \( Y\), deux variables aléatoires réelles indépendantes. Nous voudrions étudier la loi de la variable aléatoire \( S=X+Y\). Nous commençons par calculer la fonction de répartition en utilisant le résultat de la proposition \ref{PropDensiteConjIndep} :
+\begin{subequations}
+    \begin{align}
+        F_{X+Y}(z)=P(X+Y\leq z)&=\int_{x+y\leq z}f_{X,Y}(x,y)dx\,dy\\
+        &=\int_{-\infty}^{\infty}dx\int_{-\infty}^{z-x}dyf_X(x)f_Y(y)\\
+        &=\int_{\eR}\left( \int_{-\infty}^{z-x}f_Y(y)dy \right)f_X(x)dx\\
+        &=\int_{\eR}F_Y(z-x)f_X(x)dx.
+    \end{align}
+\end{subequations}
+Pour calculer la fonction de densité de \( S\), nous dérivons la fonction de répartition :
+\begin{subequations}
+    \begin{align}
+        f_{X+Y}(z)&=\frac{ d F_{X+Y} }{ d z }(z)\\
+        &=\int_{\eR}f_Y(z-x)f_X(x)dx,
+    \end{align}
+\end{subequations}
+ce qui nous amène à dire que la densité de la somme est le produit de convolution\index{convolution} des densités :
+\begin{equation}
+    f_{X+Y}(x)=\int_{\eR}f_Y(x-t)f_X(t)dt,
+\end{equation}
+ou encore \( f_{X+Y}=f_X\star f_Y\).
+
+Notez que nous avons passé sous le silence la difficulté d'inverser la dérivée et l'intégrale. Un exemple sera donné au point \ref{subsecPoissonetexpo}.
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Lois usuelles}
@@ -517,7 +586,7 @@ La variable aléatoire \( X\) suit la loi \( \dN(m,\sigma^2)\) si et seulement s
     \end{subequations}
     Étant donné que \( X\) et \( Y\) sont indépendantes nous avons \( E(XY)=E(X)E(Y)\).
 \end{proof}
-<++>
+
 
 Si les \( X_1,\ldots,X_n\) sont des variables aléatoires on considère la \defe{moyenne empirique}{moyenne!empirique}
 \begin{equation}
@@ -730,7 +799,7 @@ La notation \( P(A_n\,\text{i.s.})\) signifie «infiniment souvent», c'est à d
 \end{equation}
 
 Une façon de paraphraser le lemme de Borel-Cantelli est que nous avons l'alternative
-\begin{equation}    \label{EqparaphrCantelli}<++>
+\begin{equation}    \label{EqparaphrCantelli}
     P(\limsup A_n)=\begin{cases}
         0    &   \text{si $\sum_{n\geq 0}P(A_n)<\infty$}\\
         1    &    \text{sinon}.
