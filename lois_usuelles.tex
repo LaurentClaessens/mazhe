@@ -1,0 +1,169 @@
+% This is part of Agregation : modélisation
+% Copyright (c) 2011
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Les lois usuelles}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Loi de Bernoulli}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Une expérience de Bernoulli consiste à tirer au hasard un \( 0\) ou un \( 1\) avec une probabilité \( p\) de tomber sur \( 1\) et \( 1-p\) de tomber sur zéro. Il s'agit donc d'une expérience qui réussi ou qui rate.
+
+Le cas typique est une urne avec des boules indiscernables blanches ou noires. La probabilité \( p\) est la proportion de blanches dans l'urne (avec remise entre les tirages). Dans ce cas, nous avons l'espace de probabilité \( (\Omega,\tribA,P)\) où \( \Omega\) représente l'ensemble des boules, \( \tribA\) est l'ensemble des parties de \( \Omega\) et \( P\) est l'équiprobabilité sur \( \Omega\). Une variable aléatoire est une application
+\begin{equation}
+    \begin{aligned}
+        X\colon \Omega&\to \{ 0,1 \} \\
+        \omega&\mapsto \text{couleur de la boule \( \omega\)}.
+    \end{aligned}
+\end{equation}
+Nous notons \( \dB(1,p)\) la loi de Bernoulli. Elle a une expression très simple :
+\begin{subequations}
+    \begin{align}
+        \dB(0,1)\big( \{ 1 \} \big)&=p\\
+        \dB(0,1)\big( \{ 0 \} \big)&=1-p
+    \end{align}
+\end{subequations}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Loi binomiale}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Une expérience binomiale consiste à répéter \( n\) expériences de Bernoulli de paramètre \( p\) et de compter le nombre de réussites. Une telle expérience peut être réalisée selon la procédure suivante.
+
+Soit une urne contenant \( N\) boules dont une proportion \( p\) de \( 1\) et \( 1-p\) de \( 0\). Une expérience binomiale de paramètres \( n\) et \( p\) consistera à prendre \( n\) boules \emph{avec remise} et à compter le nombre de \( 1\) obtenus.
+
+En termes d'espaces probabilisé, nous avons \( \Omega\) qui est l'ensemble des tuple de taille \( n\) à valeurs dans \( \{ 0,1 \}\), la tribu \( \tribA\) est l'ensemble des parties de \( \Omega\), et la probabilité \( P\) est l'équiprobabilité :
+\begin{equation}
+    P(\omega)=\frac{1}{ N^n }
+\end{equation}
+si il y a \( N\) boules dans l'urne. Nous construisons alors la variable aléatoire
+\begin{equation}
+    X(\omega)=\sum_{i=1}^n\omega_i
+\end{equation}
+où \( \omega\) est une suite de taille \( n\) de $0$ et de \( 1\).
+
+Calculons \( P(x=k)\). Il s'agit de considérer tous les sous-ensembles de taille \( n\) de \( \Omega\) contenant exactement \( k\) fois \( 1\). Il y a \( {n\choose k}\) manière de décider lesquelles des \( n\) boules seront blanches. Ensuite, chaque boule blanche peut être choisie parmi les \( m\) boules disponibles, et chaque boule noire peut être choisie parmi les  \( (N-m)\) disponibles. Nous avons donc
+\begin{equation}        \label{EqformunPxkBin}
+    P(X=k)={n\choose k}\frac{ m^k(N-m)^{n-k} }{ N^k }.
+\end{equation}
+En effet la mesure de probabilité sur \( \Omega\) est la mesure de comptage renormalisée par le cardinal de \( \Omega\) qui vaut \( N^m\). Étant donné que \( p=m/N\), nous transformons facilement \eqref{EqformunPxkBin} en
+\begin{equation}
+    P(X=k)={n\choose k}p^k(1-p)^{n-k}.
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Loi géométrique}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit \( (X_n)\) une suite indépendante et identiquement distribuée de lois de Bernoulli de paramètre \( p\). Alors la variable aléatoire
+\begin{equation}
+    Z=\inf\{ n\geq 1\tq X_n=1 \}
+\end{equation}
+est une loi géométrique de paramètre \( p\).
+
+La loi géométrique compte donc le nombre d'expériences de Bernoulli à effectuer avant que le premier succès soit au rendez-vous. Nous avons
+\begin{equation}
+    P(Z=k)=P(X_k=1)P(X_1,\ldots,X_{k-1}=0)=p(1-p)^{k-1}
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Loi de Poisson}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Une variable aléatoire \( Z\) suit une \defe{loi de Poisson}{loi!de Poisson} de paramètre \( \lambda\), notée \( \dP(\lambda)\) si
+\begin{equation}
+    P(Z=k)= e^{-\lambda}\frac{ \lambda^k }{ k! }
+\end{equation}
+pour tout \( k\in\eN\).
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Approximation de la binomiale par une Poisson}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}
+    Soit \( (X_n)\) une suite de variables aléatoires avec \( X_n\sim\dB(n,p_n)\) telle que \( np_n\) converge vers une constante \( \lambda>0\). Alors \( X_n\stackrel{\hL}{\longrightarrow}\dP(\lambda)\).
+\end{proposition}
+
+\begin{proof}
+    Commençons par écrire la loi binomiale sous une forme plus adaptée au passage à la limite :
+    \begin{equation}
+        P(X=k)={n\choose k}p^k(1-p)^{n_k}=\frac{ n(n-1)\ldots (n-k+1) }{ k! }p^k(1-p)^{n-k}.
+    \end{equation}
+    Le produit au numérateur contient \( k\) termes dans lesquels nous mettons \( n\) en évidence. Nous trouvons
+    \begin{equation}
+        P(X=k)=\frac{ (np)^k\left( 1-\frac{1}{ n } \right)\left( 1-\frac{ 2 }{ n } \right)\ldots\left( 1-\frac{ k-1 }{ n } \right) }{ k! }p^k(n-p)^{n-k}.
+    \end{equation}
+    Lorsque nous passons à la limite, tous les facteurs du type \( 1-l/n\) tendent vers \( 1\) ainsi que \( (1-p_n)^{-k}\). Les facteurs sont la limite n'est pas \( 1\) sont donc
+    \begin{equation}
+        P(X_n=k)\simeq\frac{ (np_n)^k }{ k! }(1-p_n)^k.
+    \end{equation}
+    Nous avons
+    \begin{equation}
+        \lim_{n\to \infty} (1-p_n)^n=\lim_{n\to \infty} \left( 1-\frac{ np_n }{ n } \right)^n= e^{-\lambda}.
+    \end{equation}
+    La thèse est alors obtenue en remettant les morceaux ensemble.
+\end{proof}
+
+\begin{example}
+    Considérons un serveur informatique qui reçoit des requêtes. Toutes les \( \unit{10^{-3}}{\second}\) il reçoit une requête avec une probabilité \( p=0.05\). La variable aléatoire qui consiste à donner le nombre de requêtes effectivement effectuées en une seconde suit une loi binomiale \( \dP(1000,p)\).
+
+    Déterminons la probabilité que le serveur reçoive \( 20\) requêtes en une seconde. Nous approximons \( \dB(1000,0.05)\) par \( \dP(50)\), et la réponse est
+    \begin{equation}
+        e^{-50}\frac{ 50^{20} }{ 20! }\simeq 7\cdot 10^{-7}.
+    \end{equation}
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Loi exponentielle}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La loi exponentielle de paramètre \( \lambda\), notée \( \dE(\lambda)\) est la loi de densité
+\begin{equation}
+    x\mapsto\begin{cases}
+        \lambda e^{-\lambda x}    &   \text{si \( x\geq 0\)}\\
+        0    &    \text{sinon}.
+    \end{cases}
+\end{equation}
+Si \( X\sim\dE(\lambda)\), alors la fonction de répartition de \( X\) est donnée par
+\begin{equation}
+    P(X\leq x)=\begin{cases}
+        1- e^{-\lambda x}    &   \text{si \( x\geq 0\)}\\
+        0    &    \text{sinon}.
+    \end{cases}
+\end{equation}
+En ce qui concerne l'espérance nous faisons le calcul suivant :
+\begin{equation}
+    E(X)=\int_{\eR}xf_X(x)dx=\lambda\int_{\eR^+}x e^{-\lambda x}dx=\frac{1}{ \lambda }.
+\end{equation}
+La loi exponentielle est une loi \emph{sans mémoire} en ce sens que
+\begin{equation}
+    P(X>x+y|X>y)=P(X>x).
+\end{equation}
+En effet nous utilisons la règle de la probabilité conditionnelle
+\begin{equation}
+    P(A|B)=\frac{ P(A\cap B) }{ P(B) }.
+\end{equation}
+Ici,
+\begin{equation}
+    P(X>x+y|X>y)=\frac{ P(X>x+y) }{ P(X>y) }= e^{-\lambda x}.
+\end{equation}
+
+\begin{example}
+    Une machine a une durée de vie représentée par une variable aléatoire suivant une loi de Poisson de paramètre \( \lambda\). Soit \( T_y\) la variable aléatoire qui représente la temps de vie restant sachant que la machine a déjà vécu un temps \( y\). Nous voulons trouver la fonction de répartition de \( T_y\). Nous avons
+    \begin{equation}
+        P(T_y>x)=P(X>x+y|X>y)=P(X>x)= e^{-\lambda x}.
+    \end{equation}
+    Dans ce cas, la loi de \( T_y\) ne dépend pas de \( y\). Cela signifie que la machine ne vieilli pas et surtout que le modèle n'est pas réaliste.
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Loi de Poisson et loi exponentielle}
+%---------------------------------------------------------------------------------------------------------------------------
+
+
+
+
