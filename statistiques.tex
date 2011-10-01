@@ -350,7 +350,7 @@ La première et la dernière égalité sont des notations; la seconde est une co
 \end{example}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Statistiques, estimateurs}
+\section{Statistiques et estimateurs}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \begin{definition}
@@ -368,4 +368,98 @@ La fonction \( \hat\theta_n\) est borélienne à valeurs dans \( \Theta\).
 \begin{example}
     Soit un \( n\)-échantillon de loi \( \dB(1,\theta)_{\theta\in\mathopen[ 0 , 1 \mathclose]}\). Les fonctions \( \hat\theta_n=\frac{1}{ n }\sum_{i=1}^nX_i\) et \( \hat\varphi_n=\frac{ 1 }{2}\) sont des estimateurs. Cependant nous devinons que la première va être plus intéressante que la seconde.
 \end{example}
+Pour la suite, nous travaillerons avec des estimateurs de carré intégrable, c'est à dire que
+\begin{equation}
+    E_{\theta}\big( | \hat\theta_n(X_1,\ldots,X_n) |^2 \big)<\infty
+\end{equation}
+pour tout \( \theta\in\Theta\).
 
+\begin{definition}
+    Une estimateur est \defe{convergent}{convergent!estimateur} si pour tout \( \theta\in\Theta\), la suite de variables aléatoires \( \hat\theta_n(X_1,\ldots,X_n)\) converge en probabilité vers \( \theta\).
+\end{definition}
+En d'autres termes, l'estimateur \( \hat\theta_n\) est convergent si pour tout \( \theta\in\Theta\) et pour tout \( \eta>0\),
+\begin{equation}
+    \lim_{n\to \infty} P\big( | \hat\theta_n(X_1,\ldots,X_n)-\theta |>\eta \big)=0.
+\end{equation}
+La probabilité dans le membre de gauche est donnée par
+\begin{equation}
+    \mu^{\otimes n}_{\theta}\Big( \big\{ (x_1,\ldots,x_n)\in\eR^n\tq| \hat\theta_n(x_1,\ldots,x_n)-\theta |>\eta \big\} \Big).
+\end{equation}
+
+Nous allons maintenant étudier quelque manières de construire des estimateurs convergents. Il vont évidemment s'appuyer sur la loi des grands nombres.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Méthode des moments}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Sans surprises, un bon estimateur pour la moyenne est
+\begin{equation}
+    \hat\theta_n(X_1,\ldots,X_n)=\frac{1}{ n }\sum_{i=1}^nX_i.
+\end{equation}
+
+Plus généralement, nous supposons qu'il existe une fonction borélienne \( M\colon \eR\to \eR\) telle que
+\begin{equation}
+    E_{\theta}\big( | M(X) | \big)<\infty
+\end{equation}
+où \( X\) est la loi parente de l'échantillon. Supposons également que la fonction 
+\begin{equation}
+    h(\theta)=E_{\theta}\big( M(X) \big)
+\end{equation}
+soit inversible et continue sur \( \Theta\). Dans ce cas, pour estimer le paramètre \( \theta\), nous considérons l'estimateur
+\begin{equation}
+    \hat\theta_n=h^{-1}\left( \frac{1}{ n }\sum_{i=1}^nM(X_i) \right).
+\end{equation}
+Cela est un estimateur convergent. En effet, la loi des grands nombres dit que
+\begin{equation}
+    \frac{1}{ n }\sum_iM(X_i)\stackrel{p.s.}{\longrightarrow}E_{\theta}\big( M(X) \big).
+\end{equation}
+En composant avec la fonction \( h\), nous avons
+\begin{equation}
+    \hat\theta_n\stackrel{p.s.}{\longrightarrow}h^{-1}\Big( E_{\theta}\big( M(X) \big) \Big)=\theta.
+\end{equation}
+Dans cette construction, \( M(X)\) est le moment de \( X\) que l'on souhaite déterminer.
+
+\begin{example}
+    Soit \( (X_1,\ldots,X_n)\) un échantillon de loi \( \dE(\lambda)\). Construire \( \hat\lambda_n\). Pour une loi exponentielle,
+    \begin{equation}
+        E(X)=\frac{1}{ \lambda }.
+    \end{equation}
+    Nous devons donc déterminer le moment d'ordre \( 1\) de \( X\) (c'est à dire sa moyenne). Nous considérons donc la fonction \( M(x)=x\); par conséquent
+    \begin{equation}
+        h(\lambda)=E(X)=\frac{1}{ \lambda }
+    \end{equation}
+    et \( h^{-1}(\theta)=1/\theta\). L'estimateur que nous considérons pour \( \lambda\) est finalement
+    \begin{equation}
+        \hat\theta_n=\frac{1}{ \frac{1}{ n }\sum_{i=1}^nX_i }.
+    \end{equation}
+    
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Méthode de substitution}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Supposons que nous connaissions un estimateur convergent \( \hat\theta_n\to\theta\). Si \( g\colon \eR^d\to \eR\) est une fonction continue, alors
+\begin{equation}
+    g(\hat\theta_n)\to g(\theta).
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Méthode du maximum de vraisemblance}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{example}
+    Nous désirons contrôler la qualité d'une chaîne de production; pour cela nous prélevons un échantillon de \( 10\) pièces, et nous en trouvons \( 3\) défectueuses. Que dire de la proportion de pièces défectueuses ?
+
+    Évidemment, le plus probable est que la proportion de pièces défectueuses soit de \( 1/3\). Analysons en détail comment nous arrivons à ce résultat. Nous considérons que le fait de tirer \( 10\) pièces revient à une expérience binomiale de paramètres \( 10\) et de probabilité \( p\) inconnue. Dans ce cas, la probabilité d'observer exactement \( 3\) pièces défectueuses est de 
+    \begin{equation}
+        L(p)=P(X=3)={10\choose 3}p^3(1-p)^{7}.
+    \end{equation}
+    Affin de trouver le \( p\) qui réalise le maximum de \( P(X=3)\), nous annulons la dérivée et nous trouvons \( p=3/10\).
+
+The result is on figure \ref{LabelFigMaxVraissLp}.
+\newcommand{\CaptionFigMaxVraissLp}{<+Type your caption here+>}
+\input{Fig_MaxVraissLp.pstricks}
+
+\end{example}
+<++>
