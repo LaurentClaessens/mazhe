@@ -172,8 +172,8 @@ La proposition suivante signifie que la moyenne empirique est une «bonne» faç
             Nous avons les convergences
             \begin{subequations}
                 \begin{align}
-                    \bar X_n\stackrel{p.s.}{\longrightarrow} m\\
-                    \frac{ \bar X_n-m }{ \sigma/\sqrt{n} }\stackrel{\hL}{\longrightarrow} Z\sim\dN(0,1).
+                    \bar X_n&\stackrel{p.s.}{\longrightarrow} m\\
+                    \frac{ \bar X_n-m }{ \sigma/\sqrt{n} }&\stackrel{\hL}{\longrightarrow} Z\sim\dN(0,1).
                 \end{align}
             \end{subequations}
         \item
@@ -196,14 +196,176 @@ La \defe{variance empirique corrigée}{variance!empirique corrigée} est la vari
 \begin{equation}
     S_n^2=\frac{1}{ n-1 }\sum_{i=1}^n(X_i-\bar X_n)^2.
 \end{equation}
-La variance corrigée est meilleure parce que
-\begin{subequations}
-    \begin{align}
-        E(V_n^2)&=\frac{ n-1 }{ n }\sigma^2\\
-        E(S_n^2)&=\sigma^2.
-    \end{align}
-\end{subequations}
-<++>
 
+\begin{lemma}
 
+    La variance corrigée et la variance empirique ont comme espérances :
+    \begin{subequations}
+        \begin{align}
+            E(V_n^2)&=\frac{ n-1 }{ n }\sigma^2\\
+            E(S_n^2)&=\sigma^2.
+        \end{align}
+    \end{subequations}
+\end{lemma}
+
+\begin{proof}
+    Nous commençons par calculer l'espérance de la variance non corrigée. La première étape est de la récrire sous la forme
+    \begin{equation}
+        \begin{aligned}[]
+            V_n^2&=\frac{1}{ n }\sum_k(X_k^2-2X_k\bar X_n+\bar X_n^2)\\
+            &=\frac{1}{ n }\sum_kX_k^2-2\bar X_n\underbrace{\sum_kX_k}_{=n\bar X_n}+\bar X_n^2\\
+            &=\frac{1}{ n }\sum_k X_k-\bar X_n^2.
+        \end{aligned}
+    \end{equation}
+    Nous calculons séparément l'espérance de ces deux termes. Si \( X\) est la loi parente des \( X_i\), en utilisant l'indépendance des \( X_i\) nous trouvons
+    \begin{equation}
+        \begin{aligned}[]
+            E\left( \frac{1}{ n }\sum_kX_k^2 \right)&=\frac{1}{ n }\sum_{k=1}^nE(X_k^2)\\
+            &=E(X^2)\\
+            &=E(X)^2-\Var(X).
+        \end{aligned}
+    \end{equation}
+    Nous devons à présent calculer l'espérance de \( \bar X_n^2\):
+    \begin{equation}
+        E(\bar X_n^2)=E(\bar X_n)^2+\Var(\bar X_n).
+    \end{equation}
+    En utilisant le lemme \ref{LemVarXpYsmindep},
+    \begin{subequations}
+        \begin{align}
+            \Var(\bar X_n)&=\Var\left( \frac{1}{ n }\sum_kX_k \right)\\
+            &=\frac{1}{ n^2 }\sum_k\Var(X_k)\\
+            &=\frac{1}{ n }\Var(X).
+        \end{align}
+    \end{subequations}
+    Par conséquent
+    \begin{equation}
+        E(V_n^2)=\Var(X)\left( 1-\frac{1}{ n } \right)=\frac{ n-1 }{ n }\Var(X).
+    \end{equation}
+
+    En ce qui concerne la variance corrigée,
+    \begin{equation}
+        S_n^2=\frac{1}{ n-1 }\sum_k(X_k-\bar X_n)^2=\frac{ n }{ n-1 }V_n^2,
+    \end{equation}
+    par conséquent \( E(S_n^2)=\frac{ n }{ n-1 }E(V_n^2)=\Var(X)\).
+\end{proof}
+
+\begin{proposition}
+    Soit \( X\) une variable aléatoire de variance \( \Var(X)=\sigma\). Si \( E(X^4)<\infty\), alors
+    \begin{enumerate}
+        \item
+            \( S_n^2\stackrel{p.s.}{\longrightarrow}\sigma^2\).
+        \item
+            \begin{equation}
+                \frac{ S_n^2-\sigma^2 }{ \sqrt{\frac{ \mu^4-\sigma^4 }{ n }} }\stackrel{\hL}{\longrightarrow}Z\sim\dN(0,1)
+            \end{equation}
+            où \( \mu^4=E(X^4)\) est le moment d'ordre \( 4\) de \( X\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{theorem}
+    Si \( (X_1,\ldots,X_n)\) est un \( n\)-échantillon de loi parente \( \dN(m,\sigma^2)\), alors
+    \begin{enumerate}
+        \item
+            Les variables aléatoires 
+            \begin{equation}
+                \begin{aligned}[]
+                    \frac{ \bar X_n-m }{ \sigma/\sqrt{n} }&\text{et}&(n-1)\frac{ S_n^2 }{ \sigma^2 }
+                \end{aligned}
+            \end{equation}
+            sont indépendantes.
+        \item
+            La loi de \( (n-1)\frac{ S_n^2 }{ \sigma^2 }\) est \( \chi^2(n-1)\).
+    \end{enumerate}
+    Si un échantillon vérifie ces deux propriétés, alors les \( X_i\) sont de loi \( \dN(m,\sigma^2)\).
+\end{theorem}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Estimation ponctuelle}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous considérons un modèle statistique 
+\begin{equation}
+    \statS=\big[ (\Omega,\tribF,P),(X_{\theta}),(\mu_{\theta}) \big]_{\theta\in\Theta}
+\end{equation}
+et pour tout \( \theta\) nous notons \( X=(X_{\theta,1},\ldots,X_{\theta,n})\) un échantillon de loi parente \( \mu_{\theta}\). Tant que nous travaillerons avec un \( \theta\) fixé, nous écrirons \( X=(X_1,\ldots,X_n)\) sans expliciter la paramètre \( \theta\). Nous noterons 
+\begin{equation}
+    E_{\theta}\big( \varphi(X_1,\ldots,X_n) \big)=\int_{\eR^n}\varphi(x_1,\ldots,x_n)d\mu_{\theta}^{\otimes n}(x_1,\ldots,x_n).
+\end{equation}
+Dans cette notation nous plaçons le \( \theta\) sur l'espérance, tandis qu'en réalité le \( \theta\) devrait être sur chaque \( X_1\). Tant qu'aucune confusion n'est possible nous ferons toujours cet abus d'écriture.
+
+Le but de la théorie de l'estimation est de déduire la valeur de \( \theta\) (et donc la loi \( \mu_{\theta}\)) à partir d'un échantillon de loi parente \( \theta\). 
+
+Nous posons les hypothèses suivantes.
+\begin{enumerate}
+    \item
+        Le modèle statistique \( \statS\) est paramétré, c'est à dire que \( \Theta\subset\eR^d\) avec le plus souvent \( d=1,2\). Typiquement les paramètres seront la moyenne et la variance.
+    \item
+        Le modèle statistique est \defe{identifiable}{identifiable}, c'est à dire que pour tout couple \( (\theta_1,\theta_2)\in\Theta^2\), si \( \theta_1\neq\theta_2\), alors \( \mu_{\theta_1}\neq\mu_{\theta_2}\).
+    \item
+        Le modèle \( \statS\) est \defe{dominé}{dominé!modèle statistique} par la mesure de Lebesgue si les lois \( \mu_{\theta}\) sont continues et par la mesure de comptage si les lois \( \mu_{\theta}\) sont discrètes.
+\end{enumerate}
+
+\begin{example}
+    La famille des lois exponentielles \( \big( \dE(\lambda) \big)_{\lambda>0}\) est identifiable. Les lois gaussiennes \( \big( \dN(m,\sigma^2) \big)_{m\in\eR,\sigma^2>0}\) sont également identifiables.
+
+    En réalité il est assez compliqué de trouver un exemple de modèle non identifiable à moins de la faire exprès. Par exemple en paramétrant les lois exponentielles de la façon suivante : \( \big( \dE(\sin(\lambda)) \big)_{\lambda\in\eR}\). Cette famille n'est pas identifiable.
+\end{example}
+
+Le corollaire \ref{CorDomDens} ainsi que l'hypothèse de modèle dominé implique que les lois ont des densités. Si la loi \( \mu_{\theta}\) est discrète, nous notons 
+\begin{equation}
+    p(x,\theta)=\mu_{\theta}(\{ x \})
+\end{equation}
+la densité de \( \mu_{\theta}\) par rapport à la mesure de comptage. Si La loi \( \mu_{\theta}\) est continue, nous notons
+\begin{equation}
+    p(x,\theta)=f_{\theta}(x)
+\end{equation}
+la densité par rapport à la mesure de Lebesgue.
+
+Si \( \mu_{\theta}\) est une loi discrète et si \( (X_1,\ldots,X_n)\) est un échantillon de taille \( n\), alors pour tout \( (x_1,\ldots,x_n)\in\eR^n\) nous avons
+\begin{equation}
+    p_n(x_1,\ldots,x_n;\theta)=\mu_{\theta}^{\otimes n}\big( \{ x_1,\ldots,x_n \} \big)=\mu_{\theta}(\{ x_1 \})\ldots\mu_{\theta}(\{ x_n \})=p(x_1,\theta)\ldots p(x_n,\theta).
+\end{equation}
+La première et la dernière égalité sont des notations; la seconde est une conséquence de l'indépendance des \( X_i\) contenues dans l'échantillon. Pour une loi continues, nous adoptons la même notation. Le vecteur aléatoire \( (X_1,\ldots,X_n)\) admet la densité
+\begin{equation}
+    (x_1,\ldots,x_n)\mapsto p_n(x_1,\ldots,x_n;\theta)=f_{\theta}(x_1)\ldots f_{\theta}(x_n)=p(x_1,\theta)\ldots p(x_n,\theta).
+\end{equation}
+
+\begin{example}
+    Soit \( (X_1,\ldots,X_n)\) un \( n\)-échantillon de loi \( \dB(1,\theta)\) avec \( \theta\in\mathopen] 0 , 1 \mathclose[\). C'est une loi discrète portée par l'ensemble \( \{ 0,1 \}\). Nous avons
+    \begin{equation}
+        p(x,\theta)=\begin{cases}
+            0    &   \text{si \( 0\neq x\neq 1\)}\\
+            1-\theta    &   \text{si \( x=0\)}\\
+            \theta    &    \text{si \( x=1\).}
+        \end{cases}
+    \end{equation}
+    De façon plus condensée nous pouvons écrire 
+    \begin{equation}
+        p(x,\theta)=\theta^x(1-\theta)^{1-x}\mtu_{\{ 0,1 \}}(x).
+    \end{equation}
+    Pour tout \( (x_1,\ldots,x_n)\in\eR^p\), la densité du \( n\)-échantillon est donnée par
+    \begin{equation}
+        p_n(x_1,\ldots,x_n;\theta)=\theta^{x_1+\ldots+x_n}(1-p)^{1-\sum_i(1-x_i)}\mtu_{\{ 0,1 \}^n}(x_1,\ldots,x_n).
+    \end{equation}
+\end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Statistiques, estimateurs}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Une \defe{statistique}{statistique} sur un modèle d'échantillonnage est une variable aléatoire fonction de l'échantillon \( (X_1,\ldots,X_n)\) ne dépendant pas de \( \theta\). C'est à dire une application borélienne \( T\colon \eR^n\to \eR\) ne dépendant pas de \( \theta\). La statistique associée à cette application est $S=T(X_1,\ldots,X_n)$.
+\end{definition}
+
+Les fonctions \( T(X_1,\ldots,X_n)\) données par \( \sum_iX_i\), \(  e^{\sum X_i}\) sont des statistiques. La constante \( \frac{ 1 }{2}\) est également une statistique (mais elle est moins intéressante).
+
+Un \defe{estimateur}{estimateur} est une statistique qui prend ses valeurs dans \( \Theta\). Nous la noterons
+\begin{equation}
+    \hat\theta_n=\theta(X_1,\ldots,X_n).
+\end{equation}
+La fonction \( \hat\theta_n\) est borélienne à valeurs dans \( \Theta\).
+
+\begin{example}
+    Soit un \( n\)-échantillon de loi \( \dB(1,\theta)_{\theta\in\mathopen[ 0 , 1 \mathclose]}\). Les fonctions \( \hat\theta_n=\frac{1}{ n }\sum_{i=1}^nX_i\) et \( \hat\varphi_n=\frac{ 1 }{2}\) sont des estimateurs. Cependant nous devinons que la première va être plus intéressante que la seconde.
+\end{example}
 

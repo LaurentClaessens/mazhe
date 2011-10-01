@@ -45,6 +45,62 @@ Si \( \mu\) est une mesure sur \( \eR^d\), une fonction \( f\colon \eR^d\to \eR\
 où \( dx\) est la mesure de Lebesgue.
 
 %---------------------------------------------------------------------------------------------------------------------------
+\subsection{Mesure dominée}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soient \( \mu\) et \( \nu\) deux mesures sur le même espace \( \Omega\) et la même tribu \( \tribA\). Nous disons que la mesure \( \mu\) est \defe{dominée}{dominée!mesure}\cite{PersoFeng} par \( \nu\) si pour tout ensemble mesurable \( A\), \( \nu(A)=0\) implique \( \mu(A)=0\).
+
+La mesure \( \mu\) est \defe{portée}{portée!mesure} par l'ensemble \( E\in\tribA\) si pour tout \( A\in\tribA\), 
+\begin{equation}
+    \mu(A)=\mu(A\cap E).
+\end{equation}
+
+Nous écrivons que \( \mu\perp\nu\)\nomenclature{\( \mu\perp\nu\)}{mesures perpendiculaires} si il existe un ensemble \( E\in\tribA\) tel que \( \mu\) soit porté par \( E\) et \( \nu\) soit porté par \( \complement E\).
+
+\begin{theorem}[Radon-Nykodym]\index{Radon-Nykodym}
+    Soient \( \mu\) et \( \nu\) deux mesures \( \sigma\)-finies sur un espace métrisable \( (\Omega,\tribA)\).
+    \begin{enumerate}
+        \item
+            Il existe un unique couple de mesures \( \mu_1\) et \( \mu_2\) telles que
+            \begin{enumerate}
+                \item
+                    \( \mu=\mu_1+\mu_2\)
+                \item
+                    \( \mu_1\) est dominé par \( \nu\)
+                \item
+                    \( \mu_2\perp\nu\).
+            \end{enumerate}
+            Dans ce cas, les mesures \( \mu_1\) et \( \mu_2\) sont positives et \( \sigma\)-finies.
+        \item
+            À égalité \( \nu\)-presque partout près, il existe une unique fonction mesurable positive \( f\) telle que pour tout mesurable \( A\),
+            \begin{equation}
+                \mu_1(A)=\int_Ad\nu=\int_{\Omega}\mtu_Afd\nu.
+            \end{equation}
+    \end{enumerate}
+\end{theorem}
+
+\begin{corollary}       \label{CorDomDens}
+    Soient \( \mu\) et \( \nu\), deux mesures positives \( \sigma\)-finies sur \( (\Omega,\tribA)\). Alors \( \nu\) domine \( \mu\) si et seulement si \( \mu\) possède une densité par rapport à \( \nu\).
+\end{corollary}
+ 
+\begin{proof}
+    Si \( \mu\) est dominée par \( \nu\), alors la décomposition \( \mu=\mu+0\) satisfait le théorème de Radon-Nykodym. Par conséquent il existe une fonction \( f\) telle que
+    \begin{equation}
+        \mu(A)=\int_Afd\nu.
+    \end{equation}
+    Cette fonction est alors une densité pour \( \mu\) par rapport à \( \nu\).
+
+    Pour la réciproque, nous supposons que \( \mu\) a une densité \( f\) par rapport à \( \nu\), et que \( A\) est une ensemble de \( \nu\)-mesure nulle :
+    \begin{equation}
+        \nu(A)=\int_{\Omega}\mtu_Ad\nu=0.
+    \end{equation}
+    Cela signifie que la fonction \( \mtu_A\) est \( \nu\)-presque partout nulle. La fonction produit \( \mtu_Af\) est également nulle \( \nu\)-presque partout, et par conséquent
+    \begin{equation}
+        \mu(A)=\int_{\Omega}\mtu_Afd\nu=0.
+    \end{equation}
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
 \subsection{Intégrale par rapport à une mesure}
 %---------------------------------------------------------------------------------------------------------------------------
 
@@ -408,6 +464,9 @@ En particulier l'espérance de \( X\) peut être calculée à partir de sa densi
     E(X)=\int_{\eR}xdP_X(x)=\int_{\eR}x f_X(x)dx.
 \end{equation}
 
+
+
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Lois conjointes et indépendance}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -473,7 +532,7 @@ La proposition suivante\cite{ProbaDanielLi} provient du fait que la mesure d'une
 \end{proposition}
 
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-\subsubsection{Somme de variables aléatoires indépendantes}
+\subsubsection{Somme et produit de variables aléatoires indépendantes}
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 \label{subsubsecscnvommevariablsindep}
 
@@ -503,6 +562,34 @@ ou encore \( f_{X+Y}=f_X\star f_Y\).
 
 Notez que nous avons passé sous le silence la difficulté d'inverser la dérivée et l'intégrale. Un exemple sera donné au point \ref{subsecPoissonetexpo}.
 
+
+\begin{lemma}       \label{LemEXYEXEYprodindep}
+    Soient \( X\) et \( Y\), deux variables aléatoires indépendantes et identiquement distribuées. Alors
+    \begin{equation}
+        E(XY)=E(X)E(Y).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Par indépendance, fonction de densité conjointe de \( X\) et \( Y\) vaut \( f_{X,Y}=f_Xf_Y\). Par conséquent l'utilisation de Fubini entraine
+    \begin{equation}
+        E(XY)=\int_{\eR\times\eR}xyf_{X,Y}(x,y)dxdy=E(X)E(Y).
+    \end{equation}
+\end{proof}
+
+\begin{lemma}   \label{LemVarXpYsmindep}
+    Soit \( X\) et \( Y\) deux variables aléatoires indépendantes et identiquement distribuées. Alors
+    \begin{equation}
+        \Var(X+Y)=\Var(X)+\Var(Y).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Par définition, \( \Var(X+Y)=E\big( [X+Y-E(X)-E(Y)]^2 \big)\). En développant le carré et en utilisant le lemme \ref{LemEXYEXEYprodindep},
+    \begin{equation}
+        \Var(X+Y)=E(X^2)-E(X)^2+E(Y^2)-E(Y)^2=\Var(X)+\Var(Y).
+    \end{equation}
+\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Lois usuelles}
