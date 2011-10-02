@@ -10,7 +10,8 @@ def MaxVraissLp():
     l=Segment(M,Mx)
     l.parameters.style="dotted"
 
-    pspict.axes.single_axeX.add_label(0.3,-90,"$p$")
+    pspict.axes.single_axeX.put_mark(0.3,-90,"$p$")
+    pspict.axes.single_axeY.put_mark(0.3,180,"$L(p)$",automatic_place=(pspict,"E"))
     pspict.axes.single_axeX.Dx=0.3
     pspict.axes.single_axeY.Dx=0.2
 
