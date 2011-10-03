@@ -5,9 +5,10 @@ from phystricks import *
 import sys
 
 from phystricksMaxVraissLp import MaxVraissLp
+from phystricksBiaisOuPas import BiaisOuPas
 
 def AllFigures():
-    test_list=[MaxVraissLp]
+    test_list=[MaxVraissLp,BiaisOuPas]
 
     tests=main.FigureGenerationSuite(test_list,first=0,title=u"Modélisation")
     tests.generate()
