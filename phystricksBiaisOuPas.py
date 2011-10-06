@@ -22,6 +22,6 @@ def BiaisOuPas():
 
     pspict.DrawGraphs(f1,f2,measure)
     pspict.DrawDefaultAxes()
-    pspict.dilatation(3)
+    pspict.dilatation(2.5)
     fig.conclude()
     fig.write_the_file()
