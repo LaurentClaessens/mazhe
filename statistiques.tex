@@ -534,4 +534,79 @@ Un estimateur sans biais n'est pas toujours de meilleur qualité qu'un estimateu
 \section{Estimation par intervalle de confiance}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+Nous voudrions estimer la proportion d'individus dans une population ayant un certain caractère déterminé par une variable booléenne : chaque individu a ou non le caractère étudié. L'échantillon sera donc une suite de \( 0\) et de \( 1\).
+
+Pour tout \( i\in\{ 1,\ldots, n \}\) nous notons
+\begin{equation}
+    x_i=\begin{cases}
+        1    &   \text{si le \( i\)ème individu a la caractère}\\
+        0    &    \text{sinon}.
+    \end{cases}
+\end{equation}
+et \( \bar x_n=\frac{1}{ n }\sum_{i=1}^n x_i\). Notre modèle statistique sera
+\begin{equation}
+    \statS=\Big[ (\Omega,\tribF,P),(X_{\theta}),B(1,\theta) \Big]
+\end{equation}
+où \( \Omega\) est l'ensemble des individus étudiés, \( P\) est la manière de choisir les individus lors du sondage (essentiellement c'est une loi uniforme) et \( X_{\theta}\) est la variable aléatoire
+\begin{equation}
+    X(\omega)=\begin{cases}
+        1    &   \text{si \( \omega\) a le caractère}\\
+        0    &    \text{sinno}
+    \end{cases}
+\end{equation}
+Cela est une variable aléatoire de distribution \( \dB(1,o)\) où \( p\) est inconnu. Ici, \( \Theta=\mathopen[ 0 , 1 \mathclose]\) est l'ensemble des \( p\) possibles.
+
+Nous supposons que nous ayons un échantillon \( (X_1,\ldots,X_n)\) dont nous avons observé une réalisation \( (x_1,\ldots,x_n)\) de fréquence \( \bar x_n\). Nous voudrions déterminer un intervalle dans lequel \( \bar X_n\) a de fortes chances de se trouver. Plus précisément nous considérons un petit \( \alpha\) et nous cherchons \( \epsilon\) tel que
+\begin{equation}
+    P\big( p\in\mathopen[ \bar X_n-\epsilon , \bar X_n+\epsilon \mathclose] \big)=1-\alpha.
+\end{equation}
+Typiquement, \( \alpha=5\%\). Le nombre \( \alpha\) est le \defe{niveau de confiance}{niveau de confiance} que nous nous fixons a priori.
+
+Il y a deux points de départs pour trouver l'intervalle. Le plus simple est d'utiliser le théorème central limite et considérer
+\begin{equation}
+    \sqrt{n}\frac{ \bar X_n-p }{ \sqrt{p(1-p)} }\stackrel{\hL}{\longrightarrow}\dN(0,1).
+\end{equation}
+La seconde est d'utiliser la loi exacte : \( n\bar X_n=\sum_i X_i\sim \dB(n,p)\).
+
+Bien entendu la seconde donne lieu à des calculs plus compliquée.
+
+\begin{remark}
+    Dans certaines vraies vies (par exemple en médecine), la taille des échantillons est très réduite. Dans ce cas le théorème central limite n'a aucun sens et les calculs exact s'imposent.
+\end{remark}
+
+Dans la suite, nous allons supposer que \( n\) est suffisamment grand pour justifier l'approximation normale. Si \( Z\) est une variable aléatoire normale centrée réduite, nous avons
+\begin{subequations}
+    \begin{align}
+        1-\alpha&=P\big( p\in\mathopen[ \bar X_n-\epsilon , \bar X_n+\epsilon \mathclose] \big)\\
+        &=P\left( \frac{ -\epsilon\sqrt{n} }{ \sqrt{p(1-p)} }\leq \sqrt{n}\frac{ \bar X_n-p }{ \sqrt{p(1-p)} }\leq \frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} } \right)\\
+        &\simeq P\left( -\frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} }\leq Z\leq \frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} } \right)\\
+        &=2P\left( Z\leq \frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} } \right)-1.
+    \end{align}
+\end{subequations}
+La dernière ligne utilise la symétrie de la distribution \( \dN(0,1)\). Le nombre \( \epsilon\) que nous cherchons vérifie donc
+\begin{equation}
+    P\left( Z\leq \frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} } \right)=1-\frac{ \alpha }{2}.
+\end{equation}
+De nos jours, les ordinateur donnent la loi de répartition inverse des normales. Cela nous fournit un nombre \( T_{\alpha}\) tel que
+\begin{equation}    \label{Eqepsnqsrtpptalpah}
+    \frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} }=t_{\alpha}
+\end{equation}
+où \( t_{\alpha}\) est le nombre tel que \( P(Z\leq t_{\alpha})=1-\alpha/2\). Le problème est que nous ne pouvons pas déduire \( \epsilon\) de l'équation \eqref{Eqepsnqsrtpptalpah} parce que \( p\) est inconnu.
+
+L'astuce est évidemment de remplacer \( p\) par \( \bar X_n\), mais il faut le justifier. Une première façon de le justifier est de remarquer que l'événement 
+\begin{equation}
+    -\frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} }\leq \sqrt{n}\frac{ \bar X_n-p }{ \sqrt{p(1-p)} }\leq \frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} }
+\end{equation}
+est le même que l'événement
+\begin{equation}
+    \left| \sqrt{n}\frac{ \bar X_n-p }{ \sqrt{p(1-p)} } \right| \leq t_{\alpha}.
+\end{equation}
+Vu que \( t_{\alpha}\) est positif, cela est encore le même événement que
+\begin{equation}
+    n\frac{ (\bar X_n-p)^2 }{ p(1-p) }\leq t_{\alpha}^2
+\end{equation}
+ou encore
+\begin{equation}
+    p^2(n+t_{\alpha}^2)-p(2n\bar X_n+t_{\alpha}^2)+n\bar X_n^2\leq 0.
+\end{equation}
 <++>
