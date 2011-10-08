@@ -147,6 +147,7 @@ Nous noterons souvent \( (X_1,\ldots,X_n)\) à la place de \( (X_{\theta,1},\ldo
 \section{Modèles d'échantillonnages}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+
 Soit \( X\), une variable aléatoire sur \( (\Omega,\tribF,P)\). Un \defe{échantillon}{échantillon} de taille \( n\) pour \( X\) est une suite de \( n\) variables aléatoires \( (X_1,\ldots,X_n)\) définies sur \( (\Omega,\tribF,P)\) indépendantes et de même loi que \( X\). Nous disons que la loi de \( X\) est la \defe{loi parente}{loi!parente d'un échantillon} de la suite \( X_i\).
 
 \begin{definition}
@@ -554,7 +555,11 @@ où \( \Omega\) est l'ensemble des individus étudiés, \( P\) est la manière d
         0    &    \text{sinno}
     \end{cases}
 \end{equation}
-Cela est une variable aléatoire de distribution \( \dB(1,o)\) où \( p\) est inconnu. Ici, \( \Theta=\mathopen[ 0 , 1 \mathclose]\) est l'ensemble des \( p\) possibles.
+Cela est une variable aléatoire de distribution \( \dB(1,p)\) où \( p\) est inconnu. Ici, \( \Theta=\mathopen[ 0 , 1 \mathclose]\) est l'ensemble des \( p\) possibles.
+
+\begin{remark}
+    Nous supposons que \( \Omega\) est la population entière et que la variable aléatoire est l'opinion de la personne \( \omega\). En cela, nous considérons que le tirage de l'échantillon est sans remise. Le fait que nous modélisions par une variable aléatoire de Bernoulli signifie que nous considérons l'approximation dans laquelle la population globale est grande.
+\end{remark}
 
 Nous supposons que nous ayons un échantillon \( (X_1,\ldots,X_n)\) dont nous avons observé une réalisation \( (x_1,\ldots,x_n)\) de fréquence \( \bar x_n\). Nous voudrions déterminer un intervalle dans lequel \( \bar X_n\) a de fortes chances de se trouver. Plus précisément nous considérons un petit \( \alpha\) et nous cherchons \( \epsilon\) tel que
 \begin{equation}
@@ -577,7 +582,7 @@ Bien entendu la seconde donne lieu à des calculs plus compliquée.
 Dans la suite, nous allons supposer que \( n\) est suffisamment grand pour justifier l'approximation normale. Si \( Z\) est une variable aléatoire normale centrée réduite, nous avons
 \begin{subequations}
     \begin{align}
-        1-\alpha&=P\big( p\in\mathopen[ \bar X_n-\epsilon , \bar X_n+\epsilon \mathclose] \big)\\
+        1-\alpha&=P\big( p\in\mathopen[ \bar X_n-\epsilon , \bar X_n+\epsilon \mathclose] \big) \label{subEqumaleftLthe}\\
         &=P\left( \frac{ -\epsilon\sqrt{n} }{ \sqrt{p(1-p)} }\leq \sqrt{n}\frac{ \bar X_n-p }{ \sqrt{p(1-p)} }\leq \frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} } \right)\\
         &\simeq P\left( -\frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} }\leq Z\leq \frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} } \right)\\
         &=2P\left( Z\leq \frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} } \right)-1.
@@ -587,13 +592,18 @@ La dernière ligne utilise la symétrie de la distribution \( \dN(0,1)\). Le nom
 \begin{equation}
     P\left( Z\leq \frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} } \right)=1-\frac{ \alpha }{2}.
 \end{equation}
-De nos jours, les ordinateur donnent la loi de répartition inverse des normales. Cela nous fournit un nombre \( T_{\alpha}\) tel que
+De nos jours, les ordinateur donnent la loi de répartition inverse des normales. Cela nous fournit un nombre \( t_{\alpha}\) tel que
 \begin{equation}    \label{Eqepsnqsrtpptalpah}
     \frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} }=t_{\alpha}
 \end{equation}
 où \( t_{\alpha}\) est le nombre tel que \( P(Z\leq t_{\alpha})=1-\alpha/2\). Le problème est que nous ne pouvons pas déduire \( \epsilon\) de l'équation \eqref{Eqepsnqsrtpptalpah} parce que \( p\) est inconnu.
 
-L'astuce est évidemment de remplacer \( p\) par \( \bar X_n\), mais il faut le justifier. Une première façon de le justifier est de remarquer que l'événement 
+L'astuce est évidemment de remplacer \( p\) par \( \bar X_n\), mais il faut le justifier. 
+
+\begin{description}
+    \item[Première méthode] 
+
+Une première façon de le justifier est de remarquer que l'événement 
 \begin{equation}
     -\frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} }\leq \sqrt{n}\frac{ \bar X_n-p }{ \sqrt{p(1-p)} }\leq \frac{ \epsilon\sqrt{n} }{ \sqrt{p(1-p)} }
 \end{equation}
@@ -609,4 +619,47 @@ ou encore
 \begin{equation}
     p^2(n+t_{\alpha}^2)-p(2n\bar X_n+t_{\alpha}^2)+n\bar X_n^2\leq 0.
 \end{equation}
-<++>
+Les racines du polynôme du membre de gauche sont
+\begin{equation}
+    p_{\pm}=\frac{ 2n\bar X_n+t_{\alpha}^2\pm\sqrt{ (2n\bar X_n+t_{\alpha})^2-4(n+t_{\alpha}^2)n\bar X_n^2  } }{ 2(n+t_{\alpha}^2) }.
+\end{equation}
+Le but étant d'effectuer une limite \( n\to\infty\), nous mettons \( n\) en évidence. Après simplification
+\begin{equation}
+    p_{\pm}=\frac{ \bar X_n+\frac{ t_{\alpha} }{ 2n }\pm t_{\alpha}\sqrt{\frac{ t_{\alpha}^2 }{ 4n^2 }+\frac{ \bar X_n(1-\bar X_n) }{ n }} }{ 1+\frac{ t_{\alpha} }{ n } }.
+\end{equation}
+Étant donné que nous considérons que \( n\) est grand, nous allons négliger les termes en \( \frac{1}{ n }\) en faisant attention à ce que le terme en $\frac{1}{ n }$ sous la racine est en réalité \( 1/\sqrt{n}\) et ne doit pas être négligé. Nous trouvons, à cette approximation, que
+\begin{equation}
+    p\in\mathopen\Big[  \bar X_n-t_{\alpha}\sqrt{\frac{ \bar X_n(1-\bar X_n) }{ n }}  , \bar X_n+t_{\alpha}\sqrt{\frac{ \bar X_n(1-\bar X_n) }{ n }} \mathclose\Big]
+\end{equation}
+avec une probabilité \( 1-\alpha\).
+
+    \item[Seconde méthode]
+
+        Nous pouvons utiliser le lemme de Slutsky. Étant donné le théorème central limite,
+        \begin{equation}
+            \sqrt{n}\frac{ \bar X_n-p }{ \sqrt{p(1-p)} }\stackrel{\hL}{\longrightarrow}\dN(0,1)
+        \end{equation}
+        et par la loi des grands nombres,
+        \begin{equation}
+            \bar X_n(1-\bar X_n)\stackrel{p.s.}{\longrightarrow}p(1-p).
+        \end{equation}
+        Par conséquent le lemme de Slutsky implique la convergence en loi du couple. En appliquant maintenant la proposition \ref{PropcvLsousfonc} avec la fonction 
+        \begin{equation}
+            h(x,y)=\frac{ x\sqrt{p(1-p)} }{ y },
+        \end{equation}
+        nous trouvons que
+        \begin{equation}
+            \sqrt{n}\frac{ \bar X_n-p }{ \sqrt{\bar X_n(1-\bar X_n)} }\stackrel{\hL}{\longrightarrow}\dN(0,1).
+        \end{equation}
+        Nous pouvons alors écrire, à la place de la formule \eqref{subEqumaleftLthe}:
+        \begin{equation}
+            1-\alpha=P\left( \frac{ -\sqrt{n}\epsilon }{ \sqrt{\bar X_n(1-\bar X_n)} }\leq \sqrt{n}\frac{ \bar X_n-p }{ \sqrt{\bar X_n(1-\bar X_n)} }\leq \frac{ \epsilon\sqrt{n} }{ \sqrt{\bar X_n(1-\bar X_n)} } \right);
+        \end{equation}
+        en continuant le calcul de la même façon, nous trouvons à la place de \eqref{Eqepsnqsrtpptalpah} la relation
+        \begin{equation}
+            t_{\alpha}=\frac{ \epsilon\sqrt{n} }{ \sqrt{\bar X_n(1-\bar X_n)} }.
+        \end{equation}
+
+\end{description}
+
+\Exo{Model-0002}
