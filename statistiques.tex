@@ -34,7 +34,7 @@ En théorie des probabilités, nous connaissons la loi de la variable aléatoire
 \section{Modèle statistique}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Une \defe{modèle statistique}{modèle statistique} est un triplet
+Une \defe{modèle statistique}{modèle!statistique} est un triplet
 \begin{equation}
     \statS=\Big[ (\Omega,\tribF,P),(X_{\theta})_{\theta\in\Theta},(\mu_{\theta})_{\theta\in\Theta} \Big]
 \end{equation}
@@ -280,6 +280,29 @@ La \defe{variance empirique corrigée}{variance!empirique corrigée} est la vari
     Si un échantillon vérifie ces deux propriétés, alors les \( X_i\) sont de loi \( \dN(m,\sigma^2)\).
 \end{theorem}
 
+
+L'inégalité de Markov donne une borne supérieure à la probabilité qu'une variable aléatoire positive soit plus grande ou égale à une constante.
+\begin{theorem}[Inégalité de Markov]\index{Markov!inégalité}    \label{ThoInegMarkov}
+    Soit \( X\) une variable aléatoire à valeurs dans \( \eR^d\) et \( \varphi\colon \eR^d\to \mathopen[ 0 , \infty [\). Alors
+    \begin{equation}
+        P\big( \varphi(X)\geq a \big)\leq\frac{ E\big( \varphi(X) \big) }{ a }
+    \end{equation}
+    pour tout \( a>0\).
+\end{theorem}
+
+\begin{proof}
+    Calculons le second membre :
+    \begin{equation}
+        \begin{aligned}[]
+            \frac{ E\big( \varphi(X) \big) }{ a }&=\int_{\Omega}\frac{ \varphi(X) }{ a }dP\\
+            &=\int_{\varphi(X)\geq a}\underbrace{\frac{ \varphi(X) }{ a }}_{\leq 1}dP+\int_{\varphi(X)<a}\frac{ \varphi(X) }{ a }dP\\
+            &\geq\int_{\varphi(X)\leq a}dP\\
+            &=P\big( \varphi(X)\leq a \big).
+        \end{aligned}
+    \end{equation}
+    D'où l'inégalité voulue.
+\end{proof}
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Estimation ponctuelle}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -459,7 +482,7 @@ Supposons que nous connaissions un estimateur convergent \( \hat\theta_n\to\thet
     Le maximum de \( L(p)\) est \( p=3/10\).
 
     % \ref{LabelFigMaxVraissLp}.
-    \newcommand{\CaptionFigMaxVraissLp}{La fonction de vraissemblance de l'exemple \ref{ExVrasMaxLp}.}
+    \newcommand{\CaptionFigMaxVraissLp}{La fonction de vraisemblance de l'exemple \ref{ExVrasMaxLp}.}
     \input{Fig_MaxVraissLp.pstricks}
 \end{example}
 
@@ -481,7 +504,9 @@ La variable aléatoire \( \hat\theta_n=\hat\theta_n(X_1,\ldots,X_n)\) est l'\def
 
 \Exo{Model-0000}
 \Exo{Model-0001}
+\Exo{Model-0002}
 
+\Exo{Model-0003}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Qualité des estimateurs}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -508,7 +533,7 @@ Nous disons qu'un estimateur \( \hat\theta_{n,1}\) est préférable à \( \hat\t
         E_{\theta}\left( (\hat\theta_n-\theta)^2 \right)=\Var(\hat\theta_n-\theta)-E_{\theta}(\hat\theta_n-\theta)^2.
     \end{equation}
     D'une part \( \Var(\hat\theta_n-\theta)=\Var(\hat\theta_n)\) et d'autre part \( E_{\theta}(\hat\theta_n-\theta)^2=\big[ E(\hat\theta_n)-\theta \big]^2\). Par conséquent
-    \begin{equation}
+    \begin{equation}    \label{EqRisqueetbaisiVar}
         R(\hat\theta_n,\theta)=\Var(\hat\theta_n)-\Big( E(\hat\theta_n)-\theta \Big)^2.
     \end{equation}
 \end{proof}
@@ -530,6 +555,49 @@ Un estimateur sans biais n'est pas toujours de meilleur qualité qu'un estimateu
 \newcommand{\CaptionFigBiaisOuPas}{Un estimateur sans biais et un avec biais.}
 \input{Fig_BiaisOuPas.pstricks}
 
+\Exo{Model-0004}
+
+\Exo{Model-0005}
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Espérance et variance d'un estimateur}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit \( T_n=T_(X_1,\ldots,X_n)\) un estimateur du paramètre \( \theta\) dans un modèle d'échantillonnage. Les moyennes et variances de l'estimateur sont les variables aléatoires
+\begin{subequations}
+    \begin{align}
+        m_{\theta,n}&=E_{\theta}(T_n)=\int_{\eR^n}T_n(x_1,\ldots,x_n)d\mu_{\theta}^{\otimes n}(x1,\ldots,x_n),\\
+        \Var_{\theta}(T_n)&=\int_{\eR^n}[T_n(x_1,\ldots,x_n)-m_{\theta,n}]^2d\mu_{\theta}^{\otimes n}(x1,\ldots,x_n),
+    \end{align}
+\end{subequations}
+
+\begin{lemma}
+    Si l'estimateur \( T_n\) satisfait
+    \begin{subequations}
+        \begin{align}
+            \lim_{n\to \infty} E_{\theta}(T_n)&=\theta\\
+            \lim_{n\to \infty} \Var_{\theta}(T_n)&=0,
+        \end{align}
+    \end{subequations}
+    alors il est convergent.
+\end{lemma}
+
+\begin{proof}
+    Nous utilisons l'inégalité de Markov (théorème \ref{ThoInegMarkov}) et nous introduisons l'espérance de l'estimateur :
+    \begin{subequations}
+        \begin{align}
+            P\big( | T_n(X_1,\ldots ,X_n)-\theta |>\epsilon \big)&\leq\frac{1}{ \epsilon }E\big( T_n(X_1,\ldots,X_n)-\theta \big)\\
+            &\leq \frac{1}{ \epsilon }E\big( | T_n-m_{n,\theta} | \big)+\frac{1}{ \epsilon }E\big(| m_{n,\theta}-\theta |\big)\\
+        \end{align}
+    \end{subequations}
+    Le second terme est l'espérance d'une constante. Nous majorons le premier terme en utilisant le fait que \( \| . \|_1\leq\| . \|_2\) (voir la remarque \ref{RemNormuptNird} après l'inégalité de Hölder):
+    \begin{subequations}
+        \begin{align}
+            P\big( | T_n(X_1,\ldots ,X_n)-\theta |>\epsilon \big)&\leq \frac{1}{ \epsilon }E\big( | T_n-m_{n,\theta} |^2 \big)^{1/2}+\frac{1}{ \epsilon }| E_{\theta}(T_n)-\theta |\\
+            &=\frac{1}{ \epsilon }\Var(T_n)^{1/2}+\frac{1}{ \epsilon }| E_{\theta}(T_n)-\theta |.
+        \end{align}
+    \end{subequations}
+    Les deux termes tendent séparément vers zéro par hypothèse. Nous avons par conséquent la convergence en probabilité \( T_n\to \theta\).
+\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Estimation par intervalle de confiance}
@@ -552,7 +620,7 @@ où \( \Omega\) est l'ensemble des individus étudiés, \( P\) est la manière d
 \begin{equation}
     X(\omega)=\begin{cases}
         1    &   \text{si \( \omega\) a le caractère}\\
-        0    &    \text{sinno}
+        0    &    \text{sinon}
     \end{cases}
 \end{equation}
 Cela est une variable aléatoire de distribution \( \dB(1,p)\) où \( p\) est inconnu. Ici, \( \Theta=\mathopen[ 0 , 1 \mathclose]\) est l'ensemble des \( p\) possibles.
@@ -662,4 +730,3 @@ avec une probabilité \( 1-\alpha\).
 
 \end{description}
 
-\Exo{Model-0002}

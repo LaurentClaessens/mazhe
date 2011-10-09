@@ -5,6 +5,23 @@
 
 Ce chapitre provient en grande partie de \cite{ProbaDanielLi}.
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Rappels}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Ici nous utilisons la convention de la transformée de Fourier de \wikipedia{fr}{Transformée_de_Fourier}{wikipedia}, c'est à dire
+\begin{subequations}
+    \begin{align}
+        \hat f(\xi)&=\int_{\eR} e^{-i\xi x}f(x)dx\\
+        f(x)&=2\pi\int_{\eR} e^{i\xi x}\hat f(\xi)d\xi.
+    \end{align}
+\end{subequations}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Théorie de la mesure}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Espaces mesurables et mesurés}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -176,6 +193,20 @@ Il existe divers théorèmes qui répondent à ces questions. Dans notre cadre n
     \end{equation}
 \end{theorem}
 
+\begin{proposition}[Innégalité de Hölder]
+    Soit \( \Omega\) un espace mesuré et \( 1\leq p\), \( q\leq\infty\) satisfaisant \( \frac{1}{ p }+\frac{1}{ q }=1\). Soient \( f\in L^p(\Omega)\), \( g\in L^q(\Omega)\). Alors le produit \( fg\) est dans \( L^1(\Omega)\) et nous avons
+    \begin{equation}
+        \| fg \|_1\leq \| f \|_p\| g \|_q.
+    \end{equation}
+\end{proposition}
+
+\begin{remark}      \label{RemNormuptNird}
+    Dans le cas d'un espace de probabilité, la fonction constante \( g=1\) appartient à \( L^p(\Omega)\). En prenant \( p=q=2\) nous obtenons
+    \begin{equation}
+        \| f \|_1\leq\| f \|_2.
+    \end{equation}
+\end{remark}
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Espace de probabilité}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -327,6 +358,10 @@ On définit encore la \defe{moyenne quadratique}{moyenne!quadratique} de \( X\) 
     \| X \|_{L^2}=\big[ E(X^2) \big]^{1/2}.
 \end{equation}
 
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Fonction de répartition et fonction caractéristique}
+%---------------------------------------------------------------------------------------------------------------------------
+
 Si \( X\) est une variable aléatoire réelle, nous définissons sa \defe{fonction de répartition}{fonction!de répartition} par
 \begin{equation}
     \begin{aligned}
@@ -338,11 +373,15 @@ Si \( X\) est une variable aléatoire réelle, nous définissons sa \defe{foncti
 
 La \defe{fonction caractéristique}{fonction!caractéristique} de la variable aléatoire \( X\colon \Omega\to \eR\) est la fonction réelle définie par
 \begin{equation}
-    \Phi_X(t)=E( e^{itX}),
+    \Phi_X(t)=E( e^{itX}).
+\end{equation}
+Une autre façon d'écrire la définition est
+\begin{equation}
+    \Phi_X(t)=\int_{\eR} e^{itX}dP_X(x),
 \end{equation}
 ou encore, si \( X\) a une densité \( f_X\),
-\begin{equation}
-    \Phi_X(t)=\int_{\eR} e^{itX}dP_X(x)=\int_{\eR} e^{itx}f_X(x)dx
+\begin{equation}        \label{EqFnCaractfncadens}
+    \Phi_X(t)=\int_{\eR} e^{itx}f_X(x)dx
 \end{equation}
 Nous reconnaissons la transformée de Fourier :
 \begin{equation}
@@ -537,10 +576,10 @@ La proposition suivante\cite{ProbaDanielLi} provient du fait que la mesure d'une
     \end{equation}
 \end{proposition}
 
-%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-\subsubsection{Somme et produit de variables aléatoires indépendantes}
-%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-\label{subsubsecscnvommevariablsindep}
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Somme et produit de variables aléatoires indépendantes}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{subsecscnvommevariablsindep}
 
 Le cas plus général de variable aléatoires non indépendantes peut être trouvé dans \cite{Marazzi}.
 
@@ -596,70 +635,6 @@ Notez que nous avons passé sous le silence la difficulté d'inverser la dériv�
         \Var(X+Y)=E(X^2)-E(X)^2+E(Y^2)-E(Y)^2=\Var(X)+\Var(Y).
     \end{equation}
 \end{proof}
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Lois usuelles}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Loi de Bernoulli}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Une variable aléatoire réelle est de \defe{Bernoulli}{Bernoulli} de paramètre \( p\) (\( 0<p<1\)) si
-\begin{equation}
-    X\colon \Omega\to \eR
-\end{equation}
-avec \( P(x=1)=p\) et \( P(X=0)=1-p\). En tant que mesure sur \( \eR\), nous avons
-\begin{equation}
-    P_X=p\delta_1+(1-p)\delta_0.
-\end{equation}
-Une fonction \( h\) qui réalise le supremum de la formule \eqref{EqDefintYfdmu} est par exemple une fonction en escalier qui vaut en \( x\) le plus petit entier plus grand ou égal à \( x\). L'espérance d'une loi de Bernoulli est alors
-\begin{equation}
-    E(x)=p.
-\end{equation}
-Étant donné que la variable aléatoire \( X\) prend seulement les valeurs \( 0\) et \( 1\), nous avons pour tout ensemble mesurable \( B\)
-\begin{equation}
-    P_{X^2}(B)=P(X^2\in B)=P(X\in B),
-\end{equation}
-et par conséquent \( P_{X^2}=P_X\) et \( E(X^2)=E(X)\). Nous trouvons donc la variance
-\begin{equation}
-    \Var(X)=E(X^2)-E(X)^2=p-p^2=p(1-p).
-\end{equation}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Loi normale}
-%---------------------------------------------------------------------------------------------------------------------------
-
-La loi normale de paramètres \( m\) et \( \sigma>0\), notée \( \dN(m,\sigma^2)\) est la loi donnée par la densité
-\begin{equation}
-    \gamma_{m,\sigma^2}(x)=\frac{1}{ \sigma\sqrt{2\pi} }\exp\left[ -\frac{ 1 }{2}\left( \frac{ x-m }{ \sigma } \right)^2 \right].
-\end{equation}
-
-\begin{proposition}
-    Si la variable aléatoire réelle \( X\) suit une loi normale \( \dN(m,\sigma^2)\), alors nous avons \( E(X)=m\) et \( \Var(X)=\sigma^2\).
-\end{proposition}
-
-\begin{proof}
-    L'espérance d'une variable aléatoire se calcule à partir de la formule \eqref{EqEspDensform}:
-    \begin{subequations}
-        \begin{align}
-            E(X)&=\frac{1}{ \sigma\sqrt{2\pi} }\int_{\eR}x\exp\left[ -\frac{1}{ 2 }\left( \frac{ x-m }{ \sigma } \right)^2 \right]dx\\
-            &=\frac{1}{ \sigma\sqrt{2\pi} }\sigma\int_{\eR}(\sigma u+m) e^{-u^2/2}
-        \end{align}
-    \end{subequations}
-    où nous avons effectué le changement de variable \( u=(x-m)/\sigma\). Nous utilisons ensuite l'intégrale remarquable
-    \begin{equation}
-        \int_{\eR} e^{-u^2/2}du=\sqrt{2\pi}.
-    \end{equation}
-
-    En ce qui concerne la variance, nous avons le même genre de calculs.
-\end{proof}
-
-La \defe{loi normale réduite}{normale!loi réduite} est la densité
-\begin{equation}
-    \gamma(x)=\gamma_{0,1}(x)=\frac{1}{ \sqrt{2\pi} } e^{-x^2/2}.
-\end{equation}
-La variable aléatoire \( X\) suit la loi \( \dN(m,\sigma^2)\) si et seulement si la variable aléatoire $Z=\frac{ X-m }{ \sigma }$ suit la loi normale réduite \( \dN(0,1)\).
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Événements}
@@ -1261,8 +1236,4 @@ En dimension \( d>1\), nous avons encore un théorème central limite.
     \begin{equation}
         \Sigma=\big( \Cov(X_1^{(1),\ldots,X_1^{(d)}}) \big)_{i,j=1,\ldots,d}.
     \end{equation}
-    
 \end{theorem}
-
-
-

@@ -28,6 +28,97 @@ Nous notons \( \dB(1,p)\) la loi de Bernoulli. Elle a une expression très simpl
     \end{align}
 \end{subequations}
 
+Une variable aléatoire réelle est de \defe{Bernoulli}{Bernoulli} de paramètre \( p\) (\( 0<p<1\)) si
+\begin{equation}
+    X\colon \Omega\to \eR
+\end{equation}
+avec \( P(x=1)=p\) et \( P(X=0)=1-p\). En tant que mesure sur \( \eR\), nous avons
+\begin{equation}
+    P_X=p\delta_1+(1-p)\delta_0.
+\end{equation}
+Une fonction \( h\) qui réalise le supremum de la formule \eqref{EqDefintYfdmu} est par exemple une fonction en escalier qui vaut en \( x\) le plus petit entier plus grand ou égal à \( x\). L'espérance d'une loi de Bernoulli est alors
+\begin{equation}
+    E(x)=p.
+\end{equation}
+Étant donné que la variable aléatoire \( X\) prend seulement les valeurs \( 0\) et \( 1\), nous avons pour tout ensemble mesurable \( B\)
+\begin{equation}
+    P_{X^2}(B)=P(X^2\in B)=P(X\in B),
+\end{equation}
+et par conséquent \( P_{X^2}=P_X\) et \( E(X^2)=E(X)\). Nous trouvons donc la variance
+\begin{equation}
+    \Var(X)=E(X^2)-E(X)^2=p-p^2=p(1-p).
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Loi normale}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La loi normale de paramètres \( m\) et \( \sigma>0\), notée \( \dN(m,\sigma^2)\) est la loi donnée par la densité
+\begin{equation}
+    \gamma_{m,\sigma^2}(x)=\frac{1}{ \sigma\sqrt{2\pi} }\exp\left[ -\frac{ 1 }{2}\left( \frac{ x-m }{ \sigma } \right)^2 \right].
+\end{equation}
+
+\begin{proposition}
+    Si la variable aléatoire réelle \( X\) suit une loi normale \( \dN(m,\sigma^2)\), alors nous avons \( E(X)=m\) et \( \Var(X)=\sigma^2\).
+\end{proposition}
+
+\begin{proof}
+    L'espérance d'une variable aléatoire se calcule à partir de la formule \eqref{EqEspDensform}:
+    \begin{subequations}
+        \begin{align}
+            E(X)&=\frac{1}{ \sigma\sqrt{2\pi} }\int_{\eR}x\exp\left[ -\frac{1}{ 2 }\left( \frac{ x-m }{ \sigma } \right)^2 \right]dx\\
+            &=\frac{1}{ \sigma\sqrt{2\pi} }\sigma\int_{\eR}(\sigma u+m) e^{-u^2/2}
+        \end{align}
+    \end{subequations}
+    où nous avons effectué le changement de variable \( u=(x-m)/\sigma\). Nous utilisons ensuite l'intégrale remarquable
+    \begin{equation}
+        \int_{\eR} e^{-u^2/2}du=\sqrt{2\pi}.
+    \end{equation}
+
+    En ce qui concerne la variance, nous avons le même genre de calculs.
+\end{proof}
+
+La \defe{loi normale réduite}{normale!loi réduite} est la densité
+\begin{equation}
+    \gamma(x)=\gamma_{0,1}(x)=\frac{1}{ \sqrt{2\pi} } e^{-x^2/2}.
+\end{equation}
+La variable aléatoire \( X\) suit la loi \( \dN(m,\sigma^2)\) si et seulement si la variable aléatoire $Z=\frac{ X-m }{ \sigma }$ suit la loi normale réduite \( \dN(0,1)\).
+
+\begin{proposition}     \label{PropFnCaractNorm}
+    La fonction caractéristique de la distribution normale \( \dN(m,\sigma^2)\) est
+    \begin{equation}
+        \Phi_{\dN(m,\sigma^2)}(t)=\exp\left( itm-\frac{ \sigma^2t^2 }{ 2 } \right).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    En suivant la formule \eqref{EqFnCaractfncadens}, l'intégrale à calculer est 
+    \begin{equation}
+        \Phi_{\dN(m,\sigma^2)}(t)=\frac{1}{ \sigma\sqrt{2\pi} }\int_{\eR} e^{itx} e^{-\frac{ 1 }{2}\left( \frac{ x-m }{ \sigma } \right)^2}dx.
+    \end{equation}
+    Nous reconnaissons une transformée de Fourier. Afin de la calculer sans encombres, nous passons par les fonctions intermédiaires suivantes :
+    \begin{equation}
+        \begin{aligned}[]
+            g(x)&= e^{-\frac{ 1 }{2}x^2}\\
+            h(x)&=g\left( \frac{ x }{ \sigma } \right)\\
+            k(x)&=h(x-m).
+        \end{aligned}
+    \end{equation}
+    La fonction caractéristique que nous cherchons est \( \frac{1}{ \sigma\sqrt{2\pi} }\hat k(t)\). Les formules liées à la transformée de Fourier nous donnent
+    \begin{subequations}
+        \begin{align}
+            \hat k(t)&=\hat h(t) e^{itm}    \label{subeqhatktrTFinvitm}\\
+            \hat h(t)&=\sigma\hat g(\sigma t)\\
+            \hat g(t)&=\int_{\eR} e^{-itx} e^{-\frac{ 1 }{2}x^2}dx=\sqrt{2\pi} e^{-t^2/2}.
+        \end{align}
+    \end{subequations}
+    Attention : l'intégrale à calculer est une transformée de Fourier \emph{inverse}, d'où la formule \eqref{subeqhatktrTFinvitm} qui a un signe de différence avec la formule usuelle. En recombinant toutes ces expressions nous trouvons
+    \begin{equation}
+        \Phi_{\dN(m,\sigma^2)}= e^{-\sigma^2t^2/2} e^{itm},
+    \end{equation}
+    ce qu'il nous fallait.
+\end{proof}
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Loi binomiale}
 %---------------------------------------------------------------------------------------------------------------------------
