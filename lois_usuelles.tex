@@ -256,7 +256,7 @@ Ici,
 %---------------------------------------------------------------------------------------------------------------------------
 \label{subsecPoissonetexpo}
 
-Soient \( X_1,\ldots,X_n\) des variables aléatoires réelles indépendantes de loi exponentielle de paramètre \( \lambda\). En utilisant le produit de convolution, nous pouvons trouver la fonction de densité de la somme (voir point \ref{subsubsecscnvommevariablsindep}). Commençons avec deux variables aléatoires \( X\) et \( Y\). Les densités sont
+Soient \( X_1,\ldots,X_n\) des variables aléatoires réelles indépendantes de loi exponentielle de paramètre \( \lambda\). En utilisant le produit de convolution, nous pouvons trouver la fonction de densité de la somme (voir point \ref{subsecscnvommevariablsindep}). Commençons avec deux variables aléatoires \( X\) et \( Y\). Les densités sont
 \begin{subequations}
     \begin{align}
         f_X(x)&=\mtu_{[x\geq 0]}\lambda e^{-\lambda x}\\
@@ -335,4 +335,280 @@ et \( \Vol(B_n)=\frac{ t^n }{ n! }\). Finalement nous avons
 \begin{equation}
     P(n_t=n)=P(S_n\leq t\leq S_{n+1})=\frac{ (\lambda t)^n }{ n! } e^{-(\lambda t)}.
 \end{equation}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Simulations de réalisations de variables aléatoires}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Le générateur de base que possède un système informatique est un générateur de nombres pseudo-aléatoires de nombres entiers entre \( 0\) et \( m-1\) généré par une suite du type
+\begin{equation}
+    x_{n+1}=(ax_n+b)\mod m.
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Générateur uniforme}
+%---------------------------------------------------------------------------------------------------------------------------
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Première méthode}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Une première façon de générer une variable aléatoire de loi uniforme sur \( \mathopen] 0 , 1 \mathclose[\) est de diviser par \( m-1\) la suite de \( x_n\). En effet nous avons la proposition suivante.
+
+\begin{proposition}
+    Si \( (Y_n)\) est une suite de variables aléatoires indépendantes et identiquement distribuées de loi uniforme sur \( \{ 0,\ldots,n-1 \}\). Alors
+    \begin{equation}
+        \frac{ Y_n }{ n }\stackrel{\hL}{\longrightarrow}\dU\mathopen[ 0 , 1 \mathclose].
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Nous prouvons la convergence en loi en passant par la fonction de répartition et la proposition \ref{PropoFnrepCvL}. La fonction de répartition de la densité \( \dU[0,1]\) est 
+    \begin{equation}
+        F_X(x)=x\mtu|_{\mathopen[ 0 , 1 \mathclose]}.
+    \end{equation}
+    La fonction de répartition de la variable aléatoire (discrète) \( X_n=\frac{ Y_n }{ n }\) est
+    \begin{equation}
+        P(\frac{ Y_n }{ n }\leq x)=P(Y_n\leq nx)=\frac{ \lfloor nx \rfloor }{ n }
+    \end{equation}
+    où \( \lfloor a\rfloor\) est le plus grand entier inférieur à \( a\). Nous avons évidemment 
+    \begin{equation}
+        \lim_{n\to \infty} \frac{ \lfloor nx\rfloor }{ n }=x,
+    \end{equation}
+    ce qui montre la convergence des fonctions de répartitions et donc la convergence en loi qui nous intéresse.
+\end{proof}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Seconde méthode}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Soit \( (Y_n)\) une suite de variables aléatoires indépendantes et identiquement distribuées selon la loi \( Y_n\sim\dU\{ 0,\ldots,m-1 \}\). Alors la série de variables aléatoires
+\begin{equation}
+    Z=\sum_{k=0}^{\infty}\frac{ Y_k }{ m^{k+1} }
+\end{equation}
+est une série qui converge presque surement parce que \( Y_k\) est borné par \( m\). Avec probabilité zéro nous avons \( Z=\sum_k1/m^k\) qui converge. Nous avons
+\begin{equation}
+    Z\sim\dU\mathopen[ 0 , 1 \mathclose].
+\end{equation}
+L'argument pour montrer cette loi est qu'en base \( m\), la variable aléatoire \( Z\) a un développement décimal \( Z=0.Y_1Y_2Y_3Y_4\cdots\).
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Simulation par inversion}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous cherchons maintenant à simuler une loi \( X\) de fonction de répartition \( F\).
+
+\begin{definition}
+    Soit \( f\colon \eR\to \mathopen[ 0 , 1 \mathclose]\) une fonction croissante, continue à droite et telle que
+    \begin{subequations}
+        \begin{align}
+            \lim_{x\to -\infty} f(x)=0\\
+            \lim_{x\to \infty} f(x)=1.
+        \end{align}
+    \end{subequations}
+    L'\defe{inverse généralisé}{inverse généralisé} de \( f\), notée \( f^{-1}\) est la fonction définie par
+    \begin{equation}
+        f^{-1}(t)=\inf\{ x\tq f(x)\geq t \}.
+    \end{equation}
+\end{definition}
+
+\begin{remark}
+    L'inverse généralisé d'une fonction bijective est la vraie fonction réciproque usuelle.
+\end{remark}
+
+\begin{proposition}     \label{PropInvgenecntddr}
+    Soit \( f\) une fonction admettant un inverse généralisé \( f^{-1}\). Alors nous avons \( f^{-1}(t)\leq a\) si et seulement si \( t\leq f(a)\).
+\end{proposition}
+La continuité à droite joue pour démontrer cette proposition.
+
+
+\begin{proposition}
+    Si \( F\) est la fonction de répartition de la variable aléatoire \( X\) et si \( V\) est une variable aléatoire de loi uniforme \( \dU\mathopen[ 0 , 1 \mathclose]\), alors \( F^{-1}(U)\) a la même loi que \( X\).
+\end{proposition}
+
+\begin{proof}
+    Nous montrons que les fonction de répartition de \( X\) et de \( F^{-1}(U)\) sont identiques. En utilisant la proposition \ref{PropInvgenecntddr}, nous avons
+    \begin{subequations}
+        \begin{align}
+            P\big( F^{-1}(U)\leq y \big)&=P\big( U\leq F(y) \big)\\
+            &=F(y)\\
+            &=P(X\leq y).
+        \end{align}
+    \end{subequations}
+    Donc \( F^{-1}(U)\) est la fonction de répartition de \( X\).
+\end{proof}
+
+La difficulté de la méthode par inversion est qu'il faut être capable de calculer l'inverse de la fonction de répartition de la loi à simuler.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Loi exponentielle}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+La loi exponentielle est une loi qui peut être simulée par inversion. La fonction de répartition vaut
+\begin{equation}
+    F(x)=1- e^{\lambda x},
+\end{equation}
+et l'inverse vaut
+\begin{equation}
+    F^{-1}(x)=-\frac{1}{ \lambda }\ln(1-y).
+\end{equation}
+Par conséquent, une bonne formule pour simuler une loi exponentielle est
+\begin{equation}
+    -\frac{1}{ \lambda }\ln(1-U).
+\end{equation}
+Notez que \( U\) étant uniforme, nous pouvons tout autant prendre \( -\ln(U)/\lambda\).
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Algorithme de Box-Muller}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Il s'agit de simuler une loi gaussienne. La proposition est la suivante.
+
+\begin{proposition}
+    Si \( U\) et \( V\) sont des variables aléatoires indépendantes de même loi uniforme sur \( \mathopen[ 0 , 1 \mathclose]\), alors le couple
+    \begin{equation}
+        (X,Y)=\big( \sqrt{-2\ln(U)}\cos(2\pi V),\sqrt{-2\ln(U)}\sin(2\pi V) \big)
+    \end{equation}
+    vérifie
+    \begin{enumerate}
+        \item
+            \( X\) est indépendante de \( Y\)
+        \item
+            \( X\) et \( Y\) sont de loi \( \dN(0,1)\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Nous allons montrer la proposition en utilisant les fonctions tests. Soit donc \( \varphi\colon \eR^2\to \eR\) une fonction bornée et mesurable. Soient \( Z\) et \( W\), deux variables aléatoires indépendantes de loi \( \dN(0,1)\). Nous allons montrer que
+    \begin{equation}
+        F\big( \varphi(X,Y) \big)=E\Big[ \varphi\big( \sqrt{-2\ln(U)}\cos(2\pi V),\sqrt{-2\ln(U)}\sin(2\pi V) \big) \Big].
+    \end{equation}
+    Par indépendance de \( U\) et \( V\), la densité du couple est le produit des densités, donc en passant aux coordonnées polaires,
+    \begin{subequations}
+        \begin{align}
+            \diamondsuit&=E\big[ \varphi(Z,W) \big]\\
+            &=\frac{1}{ 2\pi }\int_{-\infty}^{\infty}\int_{\infty}^{\infty}\varphi(x,y) e^{-x^2/2} e^{-y^2/2}dxdy\\
+            &=\frac{1}{ 2\pi }\int_0^{2\pi}d\theta\int_0^{\infty}\varphi(r\cos\theta,r\sin\theta) e^{-r^2/2}rdr.
+        \end{align}
+    \end{subequations}
+    Nous posons \( u= e^{-r^2/2}\) et \( v=\frac{ \theta }{ 2\pi }\). En particulier \( r=\sqrt{-2\ln(u)}\) et
+    \begin{subequations}
+        \begin{align}
+            \diamondsuit&=\int_0^1\int_0^1\varphi\big( \sqrt{-2\ln(u)}\cos(2\pi v),\sqrt{-2\ln(u)}\sin(2\pi v) \big)dudv\\
+            &=E\Big( \varphi\big( \sqrt{-2\ln(U)}\cos(2\pi V),\sqrt{-2\ln(U)}\sin(2\pi V) \big) \Big)
+        \end{align}
+    \end{subequations}
+    parce que mesure \( dudv\) est la densité de la loi uniforme.
+\end{proof}
+
+En pratique, la formule 
+\begin{equation}
+    (x,y)\mapsto\big( \sqrt{-2\ln x}\cos(2\pi y),\sqrt{-2\ln x}\sin(2\pi y) \big)
+\end{equation}
+est une façon d'obtenir deux gaussiennes à partir de deux variables uniformes.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Méthode du rejet}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La méthode du rejet permet de simuler des lois à densité. Soit \( f\) la densité de la loi à simuler. Nous faisons les hypothèses suivantes.
+\begin{enumerate}
+    \item
+        Il existe une densité \( g\) d'une variable aléatoire facile à simuler.
+    \item
+        Il existe un \( k\geq 0\) tel que \( f(x)\leq kg(x)\).
+\end{enumerate}
+
+\begin{remark}
+    Le \( k\) de la seconde hypothèse est nécessairement plus grand que \( 1\). En effet,
+    \begin{equation}
+        1=\int f\leq k\int g=k
+    \end{equation}
+    parce que \( f\) et \( g\) sont des densités et ont donc une intégrale égale à \( 1\).
+\end{remark}
+
+\begin{proposition}
+    Soient \( (X_n)\) et \( (U_n)\) des suites de variables aléatoires indépendantes au sens où non seulement les \( X_i\) et \( U_k\) sont indépendants entre eux, mais de plus \( X_i\) est indépendant de \( U_j\) pour tout \( i\) et \( j\). Nous supposons que les \( X_i\) sont indépendantes et identiquement distribuées, de densité \( g\) et que les \( U_i\) sont indépendantes et identiquement distribuées de loi uniforme.
+
+    Nous introduisons la variable aléatoire à valeurs dans \( \eN\)
+    \begin{equation}
+        p(\omega)=\inf\{ n\geq 0\tq \alpha\big( X_n(\omega) \big)\geq U_n(\omega) \}
+    \end{equation}
+    où \( \alpha\) est la fonction définie par
+    \begin{equation}
+        \alpha(x)=\begin{cases}
+            \frac{ f(x) }{ kg(x) }    &   \text{si \( g(x)\neq 0\)}\\
+            0    &    \text{si \( g(x)=0\)}.
+        \end{cases}
+    \end{equation}
+    Alors la variable aléatoire \( Y\) définie par 
+    \begin{equation}
+        Y(\omega)=X_{p(\omega)}(\omega)
+    \end{equation}
+    admet \( f\) pour densité.
+\end{proposition}
+
+\begin{proof}
+    D'abord étant donné que \( f(x)\leq kg(x)\) nous avons \( \alpha(x)\in\mathopen[ 0 , 1 \mathclose]\). Nous pouvons a priori avoir \( p(\omega)=\infty\), ce qui rendrait caduque la définition de \( Y(\omega)\). Montrons donc pour commencer que \( P(p=\infty)=0\). En utilisant l'indépendance nous avons
+    \begin{subequations}        \label{EqSubEqPnNinftyalphaUu}
+        \begin{align}
+            P\big( \alpha(X_n)<U_n,\forall n\big)&=\lim_{N\to \infty} \prod_{i=1}^NP\big( \alpha(X_i)< U_i \big)\\
+            &=\lim_{N\to \infty} P\big( \alpha(X_1)<U_1 \big)^N.
+        \end{align}
+    \end{subequations}
+    Pour conclure nous devons prouver que \( P\big( \alpha(X_1)<U_1 \big)< 1\). Pour cela nous calculons
+    \begin{subequations}
+        \begin{align}
+            P\big( \alpha(X_1)<U_1 \big)&=\int_{\eR}dx\int_0^1du\mtu_{\alpha(x)<u}g(x)\\
+            &=\int_{\eR}g(x)\big( 1-\alpha(x) \big)dx\\
+            &=\int_{\eR}\left( g(x)-\frac{ f(x) }{ k } \right)\\
+            &=1-\frac{1}{ k }\\
+            &<1.
+        \end{align}
+    \end{subequations}
+    L'équation \eqref{EqSubEqPnNinftyalphaUu} nous permet donc de conclure que \( P\big( \alpha(X_n)<U_n,\forall n\big)=0\). Par conséquent la variable aléatoire \( Y(\omega)=X_{p(\omega)}(\omega)\) a un sens.
+
+    Nous devons maintenant prouver que \( Y\) a bien \( f\) pour densité. Pour cela nous considérons un ensemble mesurable \( A\in\Borelien(\eR)\) et nous montrons que \( P(Y\in A)=\int_Af(x)dx\). Nous avons
+    \begin{equation}    \label{EqdscPAYXjApj}
+        P(Y\in A)=P(X_p\in A)=\sum_{i=1}^{\infty}P(X_j\in A,p=j).
+    \end{equation}
+    Par ailleurs nous avons
+    \begin{equation}        \label{EqalPXjAvpjalphaXj}
+        \begin{aligned}[]
+            P(X_j\in A,p=j)&=P\big( X_j\in A,\alpha(X_j)\geq U_j,\alpha(X_m)<U_m\,\forall m\leq j-1 \big)\\
+            &=P\big( X_j\in A,\alpha(X_j)\geq U_j \big)P\big( \alpha(X_1)<U_1 \big)^{j-1}\\
+            &=P\big( X_j\in A,\alpha(X_j)\geq U_j \big)\left( 1-\frac{1}{ k } \right)^{j-1}.
+        \end{aligned}
+    \end{equation}
+    Étant donné que \( g(x)dx\) est la densité de \( X_j\) et que \( du\) est la densité de \( U\), nous avons
+    \begin{subequations}
+        \begin{align}
+        P\big( X_j\in A,\alpha(X_j)\geq U_j \big)&=\int_{\eR}\int_0^1\mtu_{x\in A}\mtu_{\alpha(x)\geq u}g(x)dudx\\
+        &=\int_{\eR}g(x)\mtu_{x\in A}\underbrace{\int_0^1\mtu_{\alpha(x)\geq u}du}_{\alpha(x)}\,dx.\\
+        &=\int_{\eR}\mtu_{x\in A}\frac{ f(x) }{ k }dx\\
+        &=\frac{1}{ k }P(X\in A).
+        \end{align}
+    \end{subequations}
+    En remplaçant dans l'équation \eqref{EqalPXjAvpjalphaXj} nous trouvons
+    \begin{equation}
+        P(X_j\in A,p=j)=\frac{1}{ k }P(X\in A)\left( 1-\frac{1}{ k } \right)^{j-1}.
+    \end{equation}
+    Et enfin, l'équation \eqref{EqdscPAYXjApj} donne
+    \begin{equation}
+        P(Y\in A)=\frac{1}{ k }P(X\in A)\sum_{i=1}^{\infty}\left( 1-\frac{1}{ k } \right)^{j-1}=P(X\in A).
+    \end{equation}
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Monte Carlo}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous voudrions calculer une valeur approchée de l'intégrale
+\begin{equation}
+    I=\int_a^bf(x)dx.
+\end{equation}
+Les méthodes classiques consistent à discrétiser l'intervalle \( \mathopen[ a , b \mathclose]\) et en calculant une somme de la forme \( \sum_iw_if(x_i)\).
+
+L'idée de Monté Carlo est de remplacer le découpage déterministe \( x_i\) par des variables aléatoires \( X_i\). Pour cela nous commençons par écrire l'intégrale comme une espérance : \( I=E(X)\) où \( X\) est une variable aléatoire définie sur un espace probabilisé \( (\Omega,\tribF,P)\) à déterminer. Une contrainte est évidemment d'avoir \( X\in L^1(\Omega,\tribF,P)\).
+ 
 
