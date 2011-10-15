@@ -599,9 +599,9 @@ La méthode du rejet permet de simuler des lois à densité. Soit \( f\) la dens
     \end{equation}
 \end{proof}
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Monte Carlo}
-%---------------------------------------------------------------------------------------------------------------------------
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Monte-Carlo}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Nous voudrions calculer une valeur approchée de l'intégrale
 \begin{equation}
@@ -609,6 +609,87 @@ Nous voudrions calculer une valeur approchée de l'intégrale
 \end{equation}
 Les méthodes classiques consistent à discrétiser l'intervalle \( \mathopen[ a , b \mathclose]\) et en calculant une somme de la forme \( \sum_iw_if(x_i)\).
 
-L'idée de Monté Carlo est de remplacer le découpage déterministe \( x_i\) par des variables aléatoires \( X_i\). Pour cela nous commençons par écrire l'intégrale comme une espérance : \( I=E(X)\) où \( X\) est une variable aléatoire définie sur un espace probabilisé \( (\Omega,\tribF,P)\) à déterminer. Une contrainte est évidemment d'avoir \( X\in L^1(\Omega,\tribF,P)\).
+L'idée de Monté Carlo est de remplacer le découpage déterministe \( x_i\) par des variables aléatoires \( X_i\) en trois étapes. 
+
+\begin{enumerate}
+    \item
+        Pour cela nous commençons par écrire l'intégrale comme une espérance : \( I=E(X)\) où \( X\) est une variable aléatoire définie sur un espace probabilisé \( (\Omega,\tribF,P)\) à déterminer. Une contrainte est évidemment d'avoir \( X\in L^1(\Omega,\tribF,P)\).
+
+    \item
+        Nous générons une suite indépendantes et identiquement distribuée de variables aléatoires \( (X_n)\) de même loi que \( X\) et la loi (forte) des grands nombres implique que
+        \begin{equation}
+            \bar X_n=\frac{1}{ n }\sum_{k=1}^nX_k\stackrel{p.s.}{\longrightarrow} E(X)=I.
+        \end{equation}
+        
+    \item
+        Le dernier point sera de donner un intervalle de confiance.
+\end{enumerate}
  
+\begin{example}
+    Nous voudrions déterminer de façon approchée l'intégrale \( I=\int_0^1 f(x)dx\). Si \( U\sim\dU\mathopen[ 0 , 1 \mathclose]\), alors
+    \begin{equation}
+        I=E\big( f(U) \big)
+    \end{equation}
+    et il suffit de faire
+    \begin{equation}
+        I\simeq\frac{1}{ n }\sum_{k=1}^nf(U_i).
+    \end{equation}
+    où mes \( U_i\) sont indépendantes et identiquement distribuées de loi \( \dU\mathopen[ 0 , 1 \mathclose]\).
+\end{example}
+
+\begin{example}
+    Supposons que la fonction à intégrer se présente sous la forme \( f(x)=h(x)g(x)\) avec \( g\geq 0\) et telle que l'intégrale \( \int_{\eR}g\) existe. Notons
+    \begin{equation}
+        c=\int_{\eR}g
+    \end{equation}
+    et
+    \begin{equation}
+        I=\int_{\eR}h(x)c\frac{ g(x) }{ c }dx.
+    \end{equation}
+    Nous avons alors \( I=E\big( ch(Y) \big)\) où \( Y\) admet la densité \( g(x)c\).
+\end{example}
+
+Passons au cas de plusieurs variables et considérons l'intégrale
+\begin{equation}
+    I=\int_{\mathopen[ 0 , 1 \mathclose]^1}f(x_1,\ldots,x_d)dx_1\ldots dx_d.
+\end{equation}
+Nous écrivons
+\begin{equation}
+    I=E\big( f(U_1,\ldots,U_d) \big)
+\end{equation}
+où les \( U_i\) sont de loi uniformes sur \( \mathopen[ 0 , 1 \mathclose]\). En pratique, nous générons une suite de variables aléatoires de \( (Z_k)\) de lois uniformes que nous regroupons par paquets :
+\begin{equation}
+    V_k=(Z_{dk},Z_{dk+1},\ldots,Z_{d(k+1)-1}).
+\end{equation}
+Ces variables aléatoires \( V_k\) sont indépendantes et identiquement distribuées de loi \( \dU\mathopen[ 0 , 1 \mathclose]^{d}\). Ensuite la loi des grands nombres nous indique que
+\begin{equation}
+    I\sim\frac{1}{ n }\sum_{k=1}^nf(V_k).
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intervalle de confiance}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous supposons que nous travaillons sur une approximation de Monte-Carlo telle que la variable aléatoire choisie soit dans \( L^2\). La loi des grands nombres nous dit que \( \bar X_n\sim I\) tandis que le théorème central limite nous enseigne que
+\begin{equation}
+    \frac{ \bar X_n-E(X) }{ \sigma/\sqrt{n} }\stackrel{\hL}{\longrightarrow}\dN\left( 0,1 \right).
+\end{equation}
+Par conséquent
+\begin{equation}
+    P\left( \frac{ \bar X_n-E(X) }{ \sigma/\sqrt{n} }\in\mathopen[ -u , u \mathclose] \right)\simeq P(-u\leq Z\leq u)
+\end{equation}
+où \( Z\sim\dN(0,1)\). En remplaçant \( E(X)\) par \( I\) et en effectuant les manipulations usuelles, nous trouvons que \( P(I\in J_{\alpha})=1-\alpha\) si
+\begin{equation}
+    J_{\alpha}=\big[ \bar X_n-u_{\alpha}\frac{ \sigma }{ \sqrt{n} },\bar X_n+u_{\alpha}\frac{ \sigma }{ \sqrt{n} } \big]
+\end{equation}
+où \( \sigma^2\) est la variance de \( X\). Si \( \sigma\) n'est pas connue, alors nous le remplaçons par un estimateur
+\begin{equation}
+    S'_n=\frac{1}{ n-1 }\sum_{k=1}^n(X_k-\bar X_n)^2
+\end{equation}
+et nous considérons l'intervalle
+\begin{equation}
+    J'_{\alpha}=\big[ \bar X_n-u_{\alpha}\frac{ S'_n }{ \sqrt{n} }\bar X_n+u_{\alpha}\frac{ S'_n }{ \sqrt{n} } \big].
+\end{equation}
+Il y a deux façons de faire diminuer la longueur de l'intervalle de confiance : augmenter \( n\) ou diminuer \( \sigma\). Pour le second point, le choix de \( X\) dans \( I=E(X)\) est essentiel.
+
 
