@@ -275,17 +275,6 @@ Nous avons
 \end{definition}
 Nous convenons que \( \eR^1=\bar\eR\), c'est à dire que dans le cas où la variable aléatoire \( X\) est réelle, nous acceptons les valeurs \( \pm\infty\).
 
-On dit que la variable aléatoire \( X\) a un \defe{moment d'ordre \( p\)}{moment} si \( X\in L^p(\Omega,\tribA,P)\) (\( 1\leq p<\infty\)). Si \( X\) est \defe{intégrable}{variable aléatoire!intégrable} (c'est à dire si \( X\in L^1\)), alors nous définissons l'\defe{espérance}{espérance} de \( X\) par
-\begin{equation}
-    E(X)=\int_{\Omega}XdP\in\eR^d.
-\end{equation}
-Si \( E(X)=0\) nous disons que la variable aléatoire est \defe{centrée}{variable aléatoire!centrée}. La variable aléatoire \( X-E(X)\) est la variable aléatoire centrée associée à \( X\).
-
-Le \defe{moment}{moment} d'ordre \( p\) de la variable aléatoire \( X\) est l'espérance
-\begin{equation}
-    m_n(X)=E(X^n).
-\end{equation}
-
 
 \begin{definition}      \label{DefAbsoluCont}
     Une fonction \( F\colon \eR\to \eR\) est \defe{absolument continue}{absolument continue} sur \( \mathopen[ a , b \mathclose]\) si il existe une fonction \( f\) sur \( \mathopen[ a , b \mathclose]\) telle que
@@ -302,6 +291,10 @@ Le \defe{moment}{moment} d'ordre \( p\) de la variable aléatoire \( X\) est l'e
 \end{definition}
 
 
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Indépendance}
+%---------------------------------------------------------------------------------------------------------------------------
+
 
 La définition suivante vient de l'instructive motivation de \cite{CourgGudRennes}.
 \begin{definition}
@@ -311,6 +304,43 @@ La définition suivante vient de l'instructive motivation de \cite{CourgGudRenne
     \end{equation}
 \end{definition}
 
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Espérance}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous dirons que la variable aléatoire \( X\) a un \defe{moment d'ordre \( p\)}{moment} si \( X\in L^p(\Omega,\tribA,P)\) (\( 1\leq p<\infty\)). Si \( X\) est \defe{intégrable}{variable aléatoire!intégrable} (c'est à dire si \( X\in L^1\)), alors nous définissons l'\defe{espérance}{espérance} de \( X\) par
+\begin{equation}
+    E(X)=\int_{\Omega}XdP\in\eR^d.
+\end{equation}
+Si \( E(X)=0\) nous disons que la variable aléatoire est \defe{centrée}{variable aléatoire!centrée}. La variable aléatoire \( X-E(X)\) est la variable aléatoire centrée associée à \( X\).
+
+Le \defe{moment}{moment} d'ordre \( p\) de la variable aléatoire \( X\) est l'espérance
+\begin{equation}
+    m_n(X)=E(X^n).
+\end{equation}
+
+\begin{proposition}
+    Si \( X\) et \( Y\) sont deux variables aléatoires, nous avons
+    \begin{equation}
+        E(X+Y)=E(X)+E(Y).
+    \end{equation}
+    Ce résultat est encore valide si \( X\) et \( Y\) ne sont pas indépendantes.
+\end{proposition}
+
+\begin{proof}
+    Nous avons le calcul suivant :
+    \begin{subequations}
+        \begin{align}
+            E(X+Y)&=\int_{\eR}xf_{X+Y}(x)dx\\
+            &=\int_{\eR}x\int_{\eR}f_Y(x-t)f_X(t)dtdx\\
+            &=\int_{\eR}f_X(t)\underbrace{\int_{\eR}xf_Y(x-t)dx}_{=E(Y)+t}\,dt\\
+            &=\int_{\eR}f_X(t)\big( E(Y)+t \big)dt\\
+            &=E(Y)+\int_{\eR}ff_X(t)dt\\
+            &=E(Y)+E(X)
+        \end{align}
+    \end{subequations}
+    où nous avons utilisé la proposition \ref{EqdensitesooemXYint} et le fait que l'intégrale sur \( \eR\) d'une densité vaut \( 1\).
+\end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Variance}
@@ -357,6 +387,50 @@ On définit encore la \defe{moyenne quadratique}{moyenne!quadratique} de \( X\) 
 \begin{equation}
     \| X \|_{L^2}=\big[ E(X^2) \big]^{1/2}.
 \end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Covariance}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soient \( X\) et \( Y\), deux variables aléatoires réelles. Leur \defe{covariance}{covariance} est définie par
+\begin{equation}
+    \Cov(X,Y)=E\Big[ \big( X-E(X) \big)\big( Y-E(Y) \big) \Big].
+\end{equation}
+L'idée est que la covariance devient grande si \( X\) et \( Y\) s'écartent de leurs moyennes dans le même sens. Il existe une formule alternative :
+\begin{equation}
+    \Cov(X,Y)=E(XY)-E(X)E(Y)
+\end{equation}
+
+En ce qui concerne les dimensions plus hautes, si \( X\colon \Omega\to \eR^d\) est un vecteur aléatoire de carré intégrable, nous définissons
+\begin{equation}
+    \Cov(X)=E\Big[ \big( X-E(X) \big)^t(X-E(X)) \Big].
+\end{equation}
+
+\begin{proposition}
+    Si \( X\) et \( Y\) sont deux variables aléatoires non spécialement indépendantes, nous avons
+    \begin{equation}
+        \Var(X+Y)=\Var(X)+\Var(Y)+2\Cov(X+Y).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Il s'agit d'un calcul en partant de
+    \begin{equation}
+        \begin{aligned}[]
+            \Var(X+Y)&=E\big( (X+Y)^2 \big)-E(X+Y)^2\\
+            &=E(X^2)+E(Y^2)+2E(XY)\\
+            &\quad+\big( E(X)+E(Y) \big)^2-2E(X)^2-2E(X)E(Y)\\
+            &\quad-2 E(Y)E(X)-2E(Y)^2.
+        \end{aligned}
+    \end{equation}
+    À partir d'ici il s'agit de recombiner tous les termes pour former la formule annoncée.
+\end{proof}
+
+Plus généralement nous avons la formule
+\begin{equation}
+    \Var(\sum_i X_i)=\sum_i\Var(X_i)+2\sum_{1\leq i< j\leq n}\Cov(X_i,X_j).
+\end{equation}
+
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Fonction de répartition et fonction caractéristique}
@@ -538,7 +612,7 @@ Si nous considérons \( n\) variables aléatoires réelles \( X_1,\ldots,X_n\col
             \( f(x_1,\ldots,x_n)\geq 0\) pour tout \( (x_1,\ldots,x_n)\in\eR^n\),
         \item
             \( \int_{\eR^n}f=1\),
-        \item       \label{ItemDefFonrepConjiii}<++>
+        \item       \label{ItemDefFonrepConjiii}
             pour tout \( A_i\subset\eR \) nous avons
             \begin{equation}
                 P(\bigcap_{i=1}^n X_i\in A_i)=\int_{\prod_i A_i}f(x_1,\ldots,x_n)dx_1\ldots dx_n.
@@ -546,7 +620,7 @@ Si nous considérons \( n\) variables aléatoires réelles \( X_1,\ldots,X_n\col
     \end{enumerate}
 \end{definition}
 
-\begin{proposition}     \label{PropDensiteConjIndep}<++>
+\begin{proposition}     \label{PropDensiteConjIndep}
     Si les variables aléatoires \( X_1\),\ldots \( X_n\) sont indépendantes et ont des densités \( f_{X_1}\),\ldots,\( f_{X_n}\), alors la variable aléatoire conjointe \( X=(X_1,\ldots,X_n)\) a pour densité conjointe la fonction
     \begin{equation}
         f_X(x_1,\ldots,x_n)=f_{X_1}(x_1)\ldots f_{X_n}(x_n).
@@ -600,7 +674,7 @@ Pour calculer la fonction de densité de \( S\), nous dérivons la fonction de r
     \end{align}
 \end{subequations}
 ce qui nous amène à dire que la densité de la somme est le produit de convolution\index{convolution} des densités :
-\begin{equation}
+\begin{equation}        \label{EqdensitesooemXYint}
     f_{X+Y}(x)=\int_{\eR}f_Y(x-t)f_X(t)dt,
 \end{equation}
 ou encore \( f_{X+Y}=f_X\star f_Y\).
