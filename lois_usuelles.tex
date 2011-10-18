@@ -151,7 +151,7 @@ La loi exponentielle de paramètre \( \lambda\), notée \( \dE(\lambda)\) est la
 \end{equation}
 Si \( X\sim\dE(\lambda)\), alors la fonction de répartition de \( X\) est donnée par
 \begin{equation}
-    P(X\leq x)=\begin{cases}
+    F(x)=P(X\leq x)=\begin{cases}
         1- e^{-\lambda x}    &   \text{si \( x\geq 0\)}\\
         0    &    \text{sinon}.
     \end{cases}
@@ -609,6 +609,28 @@ La méthode du rejet permet de simuler des lois à densité. Soit \( f\) la dens
     \end{equation}
 \end{proof}
 
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Simuler une loi géométrique à l'ordinateur}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si \( (X_n)\) est une suite de variables aléatoires indépendantes et identiquement distribuées avec \( X_n\sim \dB(p)\), alors
+\begin{equation}
+    Z=\min\{ k\geq 1\tq X_k=1 \}\sim\dG(p).
+\end{equation}
+Nous avons alors \( P(Z=k)=(1-p)^kp\). 
+
+Si nous avons un générateur de lois de Bernoulli de paramètre \( p\), alors nous on simulons jusqu'à obtenir \( 1\) et nous comptons combien de simulations ont été nécessaires.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Simuler une loi exponentielle à l'ordinateur}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous pouvons utiliser la méthode de l'inversion. Étant donné que la fonction de répartition de la loi exponentielle est \( F(x)=1- e^{-\lambda x}\), nous avons \( F^{-1}(y)=\frac{1}{ \lambda }\ln(1-y)\). Par conséquent à partir d'un générateur uniforme \( U\), nous pouvons calculer
+\begin{equation}
+    F^{-1}(U)=\frac{1}{ \lambda }\ln(U)
+\end{equation}
+qui suivra une loi exponentielle d'espérance \( 1/\lambda\).
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Monte-Carlo}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -635,7 +657,7 @@ L'idée de Monté Carlo est de remplacer le découpage déterministe \( x_i\) pa
         Le dernier point sera de donner un intervalle de confiance.
 \end{enumerate}
  
-\begin{example}     \label{ExempleIintfdxEXu}<++>
+\begin{example}     \label{ExempleIintfdxEXu}
     Nous voudrions déterminer de façon approchée l'intégrale \( I=\int_0^1 f(x)dx\). Si \( U\sim\dU\mathopen[ 0 , 1 \mathclose]\), alors
     \begin{equation}
         I=E\big( f(U) \big)
@@ -772,5 +794,21 @@ Ici \( 1-U\) est encore une variable aléatoire uniforme sur \( \mathopen[ 0 , 1
 \begin{equation}
     Z=\frac{ 1 }{2}\big( f(U)+f(1-U) \big)
 \end{equation}
-a une variance inférieure à \( \Var\big( f(U) \big)\). En effet, \( f(U)\) et \( f(1-U)\) ne sont pas indépendantes, par conséquent le résultat du lemme \ref{LemVarXpYsmindep} n'est pas valide.
+a une variance inférieure à \( \Var\big( f(U) \big)\). En effet, \( f(U)\) et \( f(1-U)\) ne sont pas indépendantes, par conséquent le résultat du lemme \ref{LemVarXpYsmindep} n'est pas valide, par contre la proposition \ref{PropoVarXpYCov} reste vraie et nous avons
+\begin{equation}
+    \Var(Z)=\frac{1}{ 4 }\Var\big( f(U) \big)+\frac{1}{ 4 }\Var\big( f(1-U) \big)+\frac{ 1 }{2}\Cov\big( f(U),f(1-U) \big).
+\end{equation}
+Nous avons \( \Var\big( f(1-U) \big)=\Var\big( f(U) \big)\). En ce qui concerne le terme avec la covariance, nous lui appliquons l'équation \eqref{EqEXYleqXdYdNormHolder} :
+\begin{subequations}
+    \begin{align}
+        \Cov\big( f(U),f(1-U) \big)&=E\Big( (f(U)-I)(f(1-U)-I) \Big)\\
+        &\leq E\big( (f(U)-I)^2 \big)^{1/2}E\big( (f(1-U)-I)^2 \big)^{1/2}\\
+        &=\Var\big( f(U) \big)
+    \end{align}
+\end{subequations}
+où nous avons utilisé le fait que \( E\big( f(U) \big)=E\big( f(1-U) \big)=I\). Au final nous avons bien obtenu
+\begin{equation}
+    \Var(Z)\leq \Var\big( f(U) \big).
+\end{equation}
+
 
