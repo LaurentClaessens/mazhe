@@ -6,9 +6,10 @@ import sys
 
 from phystricksMaxVraissLp import MaxVraissLp
 from phystricksBiaisOuPas import BiaisOuPas
+from phystricksChiSquared import ChiSquared
 
 def AllFigures():
-    test_list=[MaxVraissLp,BiaisOuPas]
+    test_list=[MaxVraissLp,BiaisOuPas,ChiSquared]
 
     tests=main.FigureGenerationSuite(test_list,first=0,title=u"Modélisation")
     tests.generate()
