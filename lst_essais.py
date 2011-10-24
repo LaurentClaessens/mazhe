@@ -12,7 +12,7 @@ def Prerequiste(medicament):
 myRequest = LaTeXparser.PytexTools.Request("MesEssais")
 myRequest.prerequiste_list.append(Prerequiste)
 
-myRequest.original_filename="essais.tex"
+myRequest.original_filename="to_be_checked.tex"
 
 myRequest.ok_filenames_list=[]
 #myRequest.ok_filenames_list.append("<++>")
