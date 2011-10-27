@@ -55,6 +55,12 @@ La tribu que nous utiliserons toujours dans \( \eR^d\) est la tribu des \defe{bo
     \end{enumerate}
 \end{definition}
 
+Une application entre espace mesurés
+\begin{equation}
+    f\colon (\Omega,\tribA)\to (\Omega',\tribA')
+\end{equation}
+est \defe{mesurable}{mesurable!application} si pour tout \( B\in\tribA'\), l'ensemble \( f^{-1}(B)\) est dans \( \tribA\).
+
 Si \( \mu\) est une mesure sur \( \eR^d\), une fonction \( f\colon \eR^d\to \eR\) est une \defe{densité}{densité d'une mesure} si pour tout \( A\subset\eR^d\) nous avons
 \begin{equation}
     \mu(A)=\int_Af(x)dx
@@ -316,13 +322,79 @@ La définition d'indépendance de deux événements se généralise à \( n\) é
     Les sous tribus \( \tribA_1,\ldots,\tribA_n\) sont \defe{indépendantes}{indépendance!sous tribus} si pour tout choix \( A_i\in \tribA_i\), les événements \( A_i\) sont indépendants.
 \end{definition}
 
-\begin{lemma}
-    Les tribus \( \tribA_1,\ldots,\tribA_n\) sont indépendantes si
+\begin{lemma}       \label{LemTribIndepProdProb}
+    Les tribus \( \tribA_1,\ldots,\tribA_n\) sont indépendantes si et seulement si
     \begin{equation}
         P(A_1\cap\ldots\cap A_n)=P(A_1)\ldots P(A_n)
     \end{equation}
     pour tout \( A_i\in\tribA_i\).
 \end{lemma}
+
+\begin{proof}
+    L'implication dans le sens direct découle immédiatement des définitions.
+
+    Nous supposons avoir un choix \( (A_i)_{i=1,\ldots,n}\) avec \( A_i\in\tribA_i\) et nous devons montrer que ces événements sont indépendants, c'est à dire que si \( J\subset\{ 1,\ldots,n \}\) alors les événements \( (A_j)_{j\in J}\) sont indépendants. Sans perte de généralité, nous pouvons supposer que si \( i\notin J\), \( A_i=\Omega\). Alors nous avons
+    \begin{equation}
+        P\big( \bigcap_{j\in J}A_j \big)=P\big( \bigcap_{i=1}^nA_i \big)=\prod_{i=1}^nP(A_i)=\prod_{j\in J}P(A_j)
+    \end{equation}
+    parce que \( P(A_i)=P(\Omega)=1\) lorsque \( i\) n'est pas dans \( J\).
+\end{proof}
+
+Si \( A\) est un événement, la \defe{tribu engendrée}{tribu!engendrée!par un événement} par \( A\) est
+\begin{equation}
+    \sigma(A)=\{ \emptyset,A,\complement A,\Omega \}.
+\end{equation}
+
+Soit \( X\colon \Omega\to eR^d\) une variable aléatoire. La \defe{tribu engendrée}{tribu!engendrée!par une variable aléatoire} est
+\begin{equation}
+    \tribA_X=\{ X^{-1}(B)\tq B\in\Borelien(\eR^d) \}.
+\end{equation}
+Nous disons que les variables aléatoires \( X_k\colon \Omega\to \eR^d\) sont \defe{indépendantes}{indépendance!variables aléatoires} si les tribus \( \tribA_{X_1},\ldots,\tribA_{X_n}\) le sont.
+
+\begin{proposition}
+    Soient \( (X_k\colon \Omega\to \eR^{d_k})\) des variables aléatoires indépendantes et \( B_k\in \Borelien(\eR^{d_k})\). Alors
+    \begin{equation}
+        P(X_k\in B_k\forall k\leq n)=P(X_1\in B_1)\ldots P(X_n\in B_n).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Lorsque nous écrivons \( X_i\in B_i\), nous parlons de l'événement
+    \begin{equation}
+        (X_i\in _i)=\{ \omega\in\Omega\tq X_i(\omega)\in B_i \}=X_i^{-1}(B_i)\in \tribA_{X_i}.
+    \end{equation}
+    Vu que par hypothèse les tribus \( (\tribA_i)\) sont indépendantes, le lemme \ref{LemTribIndepProdProb} nous montre que
+    \begin{equation}
+        P\big( \bigcap_{i=1}^nX_i\in B_i \big)=\prod_iP(X_i\in B_i).
+    \end{equation}
+    Il reste à voir que l'ensemble \( X_i^{-1}(B_i)\) fait partie de la tribu \( \tribA\) de départ. Cela est la définition du fait que l'application \( X_i\) soit une variable aléatoire : elle doit être mesurable en tant qu'application
+    \begin{equation}
+        X_i\colon (\Omega,\tribA)\to (\eR^d,\Borelien(\eR^d)).
+    \end{equation}
+\end{proof}
+
+\begin{proposition}
+    Les événements \( (A_i)_{i=1,\ldots,n}\) sont indépendants si et seulement si les variables aléatoires \( \mtu_{A_1},\ldots,\mtu_{A_n}\) le sont.
+\end{proposition}
+
+\begin{proof}
+    La tribu engendrée par la variable aléatoire \( \mtu_{A_k}\) est
+    \begin{equation}    \label{EqtribAAimtu}
+        \tribA_{\mtu_{A_k}}=\{ \emptyset,A_k,\complement A_k,\Omega \}.
+    \end{equation}
+    En effet si \( 1\in B\), alors \( A_i\subset\mtu_{A_i}^{-1}(B)\), et si \( 0\in B\), alors \( \complement A_i\subset\mtu_{A_i}^{-1}(B)\). Les éléments \( 0\) et \( 1\) sont tous deux soit dans \( B\), soit hors de \( B\). Cela donne les \( 4\) possibilités énumérées dans \eqref{EqtribAAimtu}.
+
+    Supposons que les événements \( (A_i)\) sont indépendants. Nous devons vérifier que les tribus le soient, c'est à dire que les événements \( A_i\) et \( \complement A_j\) sont indépendants. Nous avons
+    \begin{subequations}
+        \begin{align}
+            P(A_i\cap \complement A_j)&=P\big(A_i\setminus (A_i\cap A_j)\big)\\
+            &=P(A_i)-P(A_i\cap A_j)\\
+            &=P(A_i)-P(A_i)P(A_j)\\
+            &=P(A_i)\big( 1-P(A_j) \big)\\
+            &=P(A_i)P(\complement A_j).
+        \end{align}
+    \end{subequations}
+\end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Espérance}

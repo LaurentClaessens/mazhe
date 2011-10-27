@@ -139,7 +139,7 @@ Nous noterons souvent \( (X_1,\ldots,X_n)\) à la place de \( (X_{\theta,1},\ldo
     \end{equation}
 \end{example}
 
-\begin{proposition}
+\begin{proposition}     \label{PropLimxBNpxbxbsqrt}
     Soit \( X_i\) des variables aléatoires indépendantes et identiquement distribuées de loi parente \( \dB(n,p)\). Alors si \( \bar X_n\) désigne la moyenne empirique,
     \begin{equation}
         \sqrt{n}\frac{ \bar X_n-p }{ \sqrt{\bar X_n(1-\bar X_n)} }\stackrel{\hL}{\longrightarrow}Z\sim\dN(0,1).
@@ -173,9 +173,7 @@ Nous noterons souvent \( (X_1,\ldots,X_n)\) à la place de \( (X_{\theta,1},\ldo
     \begin{equation}
         \sqrt{n}\frac{ \bar X_n-p }{ \sqrt{\bar X_n(1-\bar X_n)} }\stackrel{\hL}{\longrightarrow}Z\sim\dN(0,1).
     \end{equation}
-
 \end{proof}
-<++>
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Statistiques descriptives}
@@ -184,7 +182,6 @@ Nous noterons souvent \( (X_1,\ldots,X_n)\) à la place de \( (X_{\theta,1},\ldo
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Modèles d'échantillonnages}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 
 Soit \( X\), une variable aléatoire sur \( (\Omega,\tribF,P)\). Un \defe{échantillon}{échantillon} de taille \( n\) pour \( X\) est une suite de \( n\) variables aléatoires \( (X_1,\ldots,X_n)\) définies sur \( (\Omega,\tribF,P)\) indépendantes et de même loi que \( X\). Nous disons que la loi de \( X\) est la \defe{loi parente}{loi!parente d'un échantillon} de la suite \( X_i\).
 
@@ -865,8 +862,31 @@ La loi de \( \bar X_n\) est une binomiale. Sa densité n'est pas symétrique, ma
 \begin{equation}
     I=[\bar X_n-\epsilon,\bar X_n+\epsilon]
 \end{equation}
-tel que \( P(p_A\in I)=1-\alpha\). Pour cela nous considérons le fait que \( n=2500\) est grand et nous utilisons la limite
+tel que \( P(p_A\in I)=1-\alpha\). Pour cela nous considérons le fait que \( n=2500\) est grand et nous utilisons la limite de la proposition \ref{PropLimxBNpxbxbsqrt} :
 \begin{equation}
     Z_n=\sqrt{n}\frac{ \bar X_n-p_A }{ \sqrt{\bar X_n(1-\bar X_n)} }\stackrel{\hL}{\longrightarrow}Z\sim\dN(0,1).
 \end{equation}
-<++>
+La variable aléatoire \( Z_n\) est asymptotiquement pivotale et normale centrée réduite. Nous cherchons donc un intervalle symétrique pour \( \bar X_n-p_A\) :
+\begin{equation}
+    1-\alpha=P(-\epsilon\leq \bar X_n-p_A\leq \epsilon),
+\end{equation}
+c'est à dire, si \( n\) est grand, 
+\begin{equation}
+    1-\alpha=P\left( -\epsilon\frac{ \sqrt{n} }{ \sqrt{\bar X_n(1-\bar X_n)} }\leq Z_n\leq\epsilon\frac{ \sqrt{n} }{ \sqrt{\bar X_n(1-\bar X_n)} } \right)
+\end{equation}
+où \( Z_n\) est une normale centrée réduite. Nous trouvons ainsi, via les tables que
+\begin{equation}
+    \frac{ \epsilon\sqrt{n} }{ \sqrt{\bar X_n(1-\bar X_n)} }=1.96
+\end{equation}
+si nous voulons un intervalle à \( 5\%\). Par conséquent nous avons \( \epsilon=1.96\frac{ \sqrt{\bar X_n(1-\bar X_n)} }{ \sqrt{nj} }\) et l'intervalle de confiance est 
+\begin{equation}
+    I_C=\left[ \bar X_n-\frac{ 1.96\sqrt{\bar X_n(1-\bar X_n)} }{ \sqrt{n} },\bar X_n+\frac{ 2.96\sqrt{\bar X_n(1-\bar X_n)} }{ \sqrt{n} } \right].
+\end{equation}
+La propriété de cet intervalle est que
+\begin{equation}
+    \lim_{n\to \infty} P(p_A\in I_c)=1-\alpha.
+\end{equation}
+
+\begin{remark}
+    À quel moment avons nous fait une hypothèse sur la taille de la population globale ? En modélisant les sondés par des variables de Bernoulli et leur somme par une binomiale, nous supposons que le sondage est \emph{avec remise}, sinon, elles ne seraient pas indépendantes. En supposant les sondés indépendants, nous avons donc fait comme si la population totale était infinie.
+\end{remark}
