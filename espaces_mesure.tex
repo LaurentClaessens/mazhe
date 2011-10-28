@@ -32,14 +32,24 @@ Ici nous utilisons la convention de la transformée de Fourier de \wikipedia{fr}
         \item
             \( \Omega\in\tribA\);
         \item
-            \( A\cup B\in\tribA\) pour tout \( A,B\in\tribA\), ce qui signifie que toutes les unions finies d'éléments de \( \tribA\) sont dans \( \tribA\);
-        \item
             \( \complement A\in A\) pour tout \( A\in\tribA\);
         \item
-            si \( A_n\) est une suite dénombrable d'éléments de \( \tribA\), alors \( \sup_{n\geq 1}A_n\in\tribA\).
+            si \( (A_i)_{i\in I}\) est un ensemble au plus dénombrable d'éléments de \( \tribA\), alors \( \sup_{n\geq 1}A_n=\bigcup_{i\in I}A_i\in\tribA\).
     \end{enumerate}
     Le couple \( (\Omega,\tribA)\) est alors un \defe{espace mesuré}{espace!mesuré}.
 \end{definition}
+
+\begin{lemma}
+    Une tribu est stable par intersections au plus dénombrables.
+\end{lemma}
+
+\begin{proof}
+    Soit \( (A_i)_{i\in I}\) une famille au plus dénombrable d'éléments de la tribu \( \tribA\). Nous devons prouver que \( \bigcap_{i\in I}A_i\) est également un élément de \( \tribA\). Pour cela nous passons au complémentaire :
+    \begin{equation}
+        \complement\left( \bigcap_{i\in I}A_i \right)=\bigcup_{i\in I}\complement A_i.
+    \end{equation}
+    La définition d'une tribu implique que le membre de droite est un élément de la tribu. Par stabilité d'une tribu par complémentaire, l'ensemble \( \bigcap_{i\in I}A_i\) est également un élément de la tribu.
+\end{proof}
 
 La tribu que nous utiliserons toujours dans \( \eR^d\) est la tribu des \defe{boréliens}{boréliens}, notée \( \Borelien(\eR^d)\), qui est la tribu engendrée par les ouverts de \( \eR^d\). Une fonction \( f\colon (\Omega,\tribA)\to (\eR^d,\Borelien(\eR^d))\) est \defe{borélienne}{borélienne} si pour tout \( \mO\in\Borelien\), \( f^{-1}(\mO)\in\tribA\).
 
@@ -349,6 +359,9 @@ Soit \( X\colon \Omega\to eR^d\) une variable aléatoire. La \defe{tribu engendr
 \begin{equation}
     \tribA_X=\{ X^{-1}(B)\tq B\in\Borelien(\eR^d) \}.
 \end{equation}
+Cela est la plus petite tribu sous tribu de \( \tribA\) pour laquelle \( X\) est mesurable.
+
+
 Nous disons que les variables aléatoires \( X_k\colon \Omega\to \eR^d\) sont \defe{indépendantes}{indépendance!variables aléatoires} si les tribus \( \tribA_{X_1},\ldots,\tribA_{X_n}\) le sont.
 
 \begin{proposition}
@@ -373,6 +386,22 @@ Nous disons que les variables aléatoires \( X_k\colon \Omega\to \eR^d\) sont \d
     \end{equation}
 \end{proof}
 
+\begin{lemma}       \label{LemIndepEvenCompl}
+    Les événements \( (A_i)_{i=0,\ldots,n}\) sont indépendants si et seulement si les événements obtenus en remplaçant certains des \( A_i\) par \( \complement A_i\).
+\end{lemma}
+
+\begin{proof}
+    Sans perte de généralité, nous pouvons nous contenter de prouver que les événements \( \complement A_0,A_1,\ldots,A_n\) sont indépendants sous l'hypothèse que les événements \( A_0,A_1,\ldots,A_n\) sont indépendants. Soit \( I\) un sous-ensemble de \( \{ 1,\ldots,n \}\). Nous avons
+    \begin{subequations}
+        \begin{align}
+            P\big( \complement A_0\bigcap_{i\in I}A_i \big)&=P\big( \bigcap_{i\in I}A_i\setminus\bigcap_{i\in I}A_i\cap A_0 \big)\\
+            &=P\big( \bigcap_{i\in I}A_i \big)-P\big( \bigcap_{i\in I}A_i\cap A_0 \big)\\
+            &=P\big( \bigcap_{i\in I}A_i \big)\big( 1-P(\complement A_0) \big)\\
+            &=P\big( \bigcap_{i\in I}A_i \big)P(\complement A_0).
+        \end{align}
+    \end{subequations}
+\end{proof}
+
 \begin{proposition}
     Les événements \( (A_i)_{i=1,\ldots,n}\) sont indépendants si et seulement si les variables aléatoires \( \mtu_{A_1},\ldots,\mtu_{A_n}\) le sont.
 \end{proposition}
@@ -384,16 +413,27 @@ Nous disons que les variables aléatoires \( X_k\colon \Omega\to \eR^d\) sont \d
     \end{equation}
     En effet si \( 1\in B\), alors \( A_i\subset\mtu_{A_i}^{-1}(B)\), et si \( 0\in B\), alors \( \complement A_i\subset\mtu_{A_i}^{-1}(B)\). Les éléments \( 0\) et \( 1\) sont tous deux soit dans \( B\), soit hors de \( B\). Cela donne les \( 4\) possibilités énumérées dans \eqref{EqtribAAimtu}.
 
-    Supposons que les événements \( (A_i)\) sont indépendants. Nous devons vérifier que les tribus le soient, c'est à dire que les événements \( A_i\) et \( \complement A_j\) sont indépendants. Nous avons
-    \begin{subequations}
-        \begin{align}
-            P(A_i\cap \complement A_j)&=P\big(A_i\setminus (A_i\cap A_j)\big)\\
-            &=P(A_i)-P(A_i\cap A_j)\\
-            &=P(A_i)-P(A_i)P(A_j)\\
-            &=P(A_i)\big( 1-P(A_j) \big)\\
-            &=P(A_i)P(\complement A_j).
-        \end{align}
-    \end{subequations}
+    Supposons que les événements \( (A_i)\) sont indépendants. Nous devons vérifier que les tribus le soient, c'est à dire que les événements \( A_i\) et \( \complement A_j\) sont indépendants. Cela est une conséquence du lemme \ref{LemIndepEvenCompl}.
+\end{proof}
+
+\begin{theorem}     \label{ThofrestemesurablesXYYX}<++>
+    Soit \( X\colon \Omega\to \eR^d\) une variable aléatoire. Une fonction \( Y\colon \Omega\to \eR^{d'}\) est une variable aléatoire \( \tribA_X\)-mesurable si et seulement si il existe une fonction borélienne \( f\colon \eR^d\to \eR^{d'}\) telle que \( Y=f(X)\).
+\end{theorem}
+
+\begin{proposition}
+    Soient des variables aléatoires \( X_k\colon \Omega\to \eR^{d_k}\) des variables aléatoires indépendantes et des fonctions boréliennes \( f_k\colon eR^{d_k}\to \eR^{d'_k}\). Alors les variables aléatoires \( f_k(X_k)\) sont indépendantes.
+\end{proposition}
+
+\begin{proof}
+    Le théorème \ref{ThofrestemesurablesXYYX} assure que les applications
+    \begin{equation}
+        f_k\circ X_k\colon \Omega\to \eR^{d_k}
+    \end{equation}
+    sont \( \tribA_{X_k}\)-mesurables. En particulier pour tout borélien \( B\subset\eR^{d'_k}\), nous avons \( X^{-1}_k\circ f^{-1}_k(B)\in\tribA_{X_k}\). Nous avons donc
+    \begin{equation}
+        \sigma(f_k\circ X_k)\subset\sigma(X_k),
+    \end{equation}
+    et par conséquent les tribus \( \sigma(f_k\circ X_k)\) sont indépendantes étant donné que les tribus \( \sigma(X_k)\) le sont.
 \end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
@@ -1418,3 +1458,4 @@ En dimension \( d>1\), nous avons encore un théorème central limite.
         \Sigma=\big( \Cov(X_1^{(1),\ldots,X_1^{(d)}}) \big)_{i,j=1,\ldots,d}.
     \end{equation}
 \end{theorem}
+
