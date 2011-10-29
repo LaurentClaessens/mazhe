@@ -12,8 +12,6 @@ from phystricksChiSquaresQuantile import ChiSquaresQuantile
 def AllFigures():
     test_list=[MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile]
 
-    test_list=[ChiSquaresQuantile]
-
     tests=main.FigureGenerationSuite(test_list,first=0,title=u"Modélisation")
     tests.generate()
     tests.summary()
