@@ -87,5 +87,173 @@ Cet événement est l'ensemble
 \begin{equation}
     X_0^{-1}(x_0)\cap Y_1^{-1}(x_1-x_0)\cap\ldots\cap Y_{n}^{-1}(x_n-x_{n-1})
 \end{equation}
-qui est dans la tribu engendrée par les variables aléatoires \( X_0,(Y_i)_{i=1,\ldots,n}\).
+qui est dans la tribu engendrée par les variables aléatoires \( X_0,(Y_i)_{i=1,\ldots,n}\). Le point délicat du raisonnement est de montrer que les événements \( A\) et \( B\) donnés par
+\begin{subequations}
+    \begin{align}
+        A&=\{ Y_{n+1}=x_{n+1}-x_n \}\\
+        B&=\{ X_0=x_0 \}\cap\bigcap_{i=1}^n Y_i=x_i-x_{i-1}
+    \end{align}
+\end{subequations}
+sont indépendants. Nous ne pouvons pas montrer directement que \( P(A\cap B)=P(A)P(B)\) parce que cela est la formule que nous voulons utiliser pour montrer que la chaîne est de Markov. Nous passons donc par les tribus :
+\begin{subequations}        \label{subesqqsABtribsYYXzY}
+    \begin{align}
+        A&\in\sigma(Y_{n+1})\\
+        B&\in\sigma(X_0,Y_1,\ldots,Y_n).
+    \end{align}
+\end{subequations}
+Nous utilisons maintenant l'hypothèse d'indépendance des variables aléatoires \( X_0\) et \( Y_i\) pour conclure que les deux tribus des équations \eqref{subesqqsABtribsYYXzY} sont indépendantes. Les événements \( A\) et \( B\) sont par conséquent indépendants. De la même façon, l'événement \( A\) est indépendant de l'événement \( \{ X_n=x_n \}\). Nous avons donc successivement
+\begin{subequations}
+    \begin{align}
+        P(X_{n+1}=x_{n+1}|Y_i=x_i-x_{i-1},X_0=x_0)&=P(Y_{n+1}=x_{n+1}-x_n)\\
+        &=P(Y_{n+1}=x_{x+1}-x_n|X_n=x_n)\\
+        &=P(Y_{n+1}=x_{n+1}-X_n|X_n=x_n)\\
+        &=P(X_{n+1}=x_{n+1}|X_n=x_n).
+    \end{align}
+\end{subequations}
+La chaîne est par conséquent de Markov.
+
+La matrice de transition de cette chaîne de Markov est une matrice infinie «dans tous les sens» :
+\begin{equation}
+    p(x,y)=\begin{cases}
+        p    &   \text{si y=x-1}\\
+        (1-p)    &    \text{si y=x+1}\\
+        0    &   \text{sinon}.
+    \end{cases}
+\end{equation}
+
+\begin{proposition}
+    Voici quelque propriétés des chaînes de Markov homogènes.
+    \begin{enumerate}
+        \item
+            La probabilité d'une trajectoire donnée est
+            \begin{equation}
+                P(X_n=x_n,X_{n-1}=x_{n-1},\ldots,X_0=x_0)=p(x_{n-1},x_n)\dots p(x_0,x_1)P(X_0=x_0).
+            \end{equation}
+        \item
+            La probabilité de transition «en \( n\) coups» est donnée par la puissance \( n\)ième de la matrice de transition :
+            \begin{equation}
+                P(X_n=x_n|X_0=x_0)=Q^n_{x_0,x_n}.
+            \end{equation}
+        \item
+            Si l'espace des états \( E\) est fini, l'espérance d'une fonction bornée \( f\colon E\to \eR\) de l'état est donné par
+            \begin{subequations}
+                \begin{align}
+                    E\big( f(X_{n+1})|X_n=x_n,\ldots,X_0=x_0 \big)&=E\big( f(X_{n+1})|X_n=x_n \big)\\
+                    &=\sum_{y\in E}f(y)p(x_n,y).j
+                \end{align}
+            \end{subequations}
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            Étant donné que \( P(A\cap B)=P(A|B)P(B)\), nous avons
+            \begin{equation}
+                P(X_n=x_n,\ldots,X_0=x_0)=P(X_n=x_n|X_{n-1}=x_{n-1},\ldots,X_0=x_0)P(X_{n-1}=x_{n-1},\ldots,X_0=x_0).
+            \end{equation}
+            Par la propriété de Markov, le premier facteur est
+            \begin{equation}
+                P(X_n=x_n|X_{n-1}=x_{n-1})=p(x_{n-1},x_n).
+            \end{equation}
+            Le reste est une récurrence sur \( n\).
+
+        \item
+            Montrons avec \( n=2\). En utilisant les divers points du théorème \ref{ThoBayesEtAutres}, nous avons
+            \begin{subequations}
+                \begin{align}
+                    P(X_2=x_2|X_0=x_0)&=\sum_{y\in E}P(X_2=x_2,X_1=y|X_0=x_0)\\
+                    &=\sum_{y\in E}P(X_2=x_2|X_1=y,X_0=x_0)P(X_1=y|X_0=x_0)\\
+                    &=\sum_{y\in E}P(X_2=x_2|X_1=y)P(X_1=y|X_0=x_0)\\
+                    &=\sum_{y\in E}p(x_2,y)p(y,x_0) \label{subEqyExdyyxz}\\
+                    &=Q^2_{x_2,x_0}.
+                \end{align}
+            \end{subequations}
+            Bien entendu ici la notion de produit matriciel doit être comprise de façon formelle lorsque \( E\) est infini.
+            \begin{remark}
+                Nous avons utilisé l'homogénéité de la chaîne de Markov au moment d'écrire l'expression \eqref{subEqyExdyyxz}. En principe nous aurions dû écrire \( p_2(y,x_2)p_1(x_0,y)\).
+            \end{remark}
+    \end{enumerate}
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Graphe de transition}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Le \defe{graphe de transition}{graphe de transition} d'une chaîne de Markov est le graphe dont les sommets sont les éléments de l'espace des états de la chaîne et dont les sommets sont reliés par des arrêtes pondérées par la probabilité de transition correspondante.
+
+\begin{definition}
+    Une chaîne de Markov est \defe{irréductible}{irréductible!chaîne de Markov}\index{chaîne de Markov!irréductible} si pour tout \( x,y\in E\), il existe \( n\) tel que \( p^n(x,y)>0\) où 
+    \begin{equation}
+        p^n(x,y)=P(X_n=y|X_0=x).
+    \end{equation}
+    Le nombre \( n\) peut dépendre de \( x\) et \( y\).
+\end{definition}
+
+\begin{lemma}
+    Une chaîne de Markov homogène est irréductible si et seulement si son graphe de transition est connexe.
+\end{lemma}
+
+\begin{proof}
+    Pour chaque couple \( (x,y)\in E^2\) nous avons
+    \begin{equation}
+        \begin{aligned}[]
+            p^n(x,y)&=\sum_{z_i\in E}P(X_n=y,X_{n-1}=z_{n-1},\ldots,X_1=z_1,X_0=x)\\
+            &=\sum_{z_i}p(z_{n-1},y)p(z_{n-2},z_{n-1})\ldots p(z_1,z_2)p(x,z_1).
+        \end{aligned}
+    \end{equation}
+    La positivité d'un des termes de la somme signifie que le graphe est connexe tandis que la positivité de \( p^n(x,y)\) signifie que la chaîne est irréductible.
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Classification des états}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Sauf mention expresse du contraire, nous considérons toujours une chaîne de Markov homogène.
+
+\begin{definition}
+    Un état \( x\in E\) est \defe{absorbant}{absorbant} pour la chaine \( (X_n)\) si \( p(x,x)=1\).
+\end{definition}
+Il n'est pas spécialement impossible d'arriver sur un état absorbant, mais il est impossible d'en sortir.
+
+Si \( x\in E\), nous notons
+\begin{equation}
+    T(x)=\inf\{ k\geq 1\tq X_k=x \},
+\end{equation}
+le \defe{premier temps d'atteinte}{premier temps d'atteinte} de l'état \( x\). Si \( X_0=x\), alors \( T(x)\) est le \defe{temps de retour}{temps de retour} en \( x\). Si \( p\in \eN\) nous notons
+\begin{equation}
+    T_p(x)=\inf\{ k\geq 1\tq X_{k+p}=x \}.
+\end{equation}
+C'est le temps mis pour atteindre \( x\) à partir de l'instant \( p\).
+
+\begin{proposition}
+    La loi de la variable aléatoire \( [T_p(x)|X_p=x]\) est la même que celle de la variable aléatoire \( [T(x)|X_0=x]\).
+\end{proposition}
+
+\begin{proof}
+    Nous devons montrer que 
+    \begin{equation}
+        P(T_p(x)=k|X_p=x)=P(T(x)=k|X_0=x).
+    \end{equation}
+    Cela est intuitivement évident du fait qu'une chaîne de Markov soit un processus sans mémoire. Affin de prouver, nous allons sommer sur tous les états intermédiaires possibles :
+    \begin{subequations}
+        \begin{align}
+            P&(T_p(x)=k|X_0=x)=P(X_{p+k}=x,X_{p+k-1}\neq x,\ldots,X_{p+1}\neq x|X_p=x)\\
+            &=\sum_{z_i\neq x}P(X_{p+k}=x,X_{p+k-1}=z_{k-1},\ldots,X_{p+1}=z_1|X_p=x)\\
+            &=\sum_{z_i}P(X_{p+k}=x,X_{p+k-i}=z_i|X_{p+1}=z_1,X_p=x)\underbrace{P(X_{p+1}=z_1|X_p=x)}_{=p(x,z_1)}\\
+            &=\sum_{z_i}P(X_{p+k}=x,X_{p+k-i}=z_i|X_{p+2}=z_2,X_{p+1}=z_1,X_p=x)\\
+            &\qquad\underbrace{P(X_{p+2}=z_2|X_{p+1}=z_1,X_p=x)}_{P(X_{p+2}=z_2|X_{p+1}=z_1)=p(z_1,z_2)}p(x,z_1)\\
+            &=\ldots\\
+            &=\sum_{z_i}p(x,z_1)p(z_1,z_2)\ldots p(z_{k-1},z_{k-1})p(z_{k-1},x).
+        \end{align}
+    \end{subequations}
+    À ce point ci, nous avons éliminé toute référence à \( p\) grâce à l'homogénéité de la chaîne. Nous pouvons refaire le calcul à l'envers pour reconstituer l'expression de départ sans le \( p\) :
+    \begin{subequations}
+        \begin{align}
+         \sum_{z_i}p(x,z_1)p(z_1,z_2)\ldots p(z_{k-1},z_{k-1})p(z_{k-1},x)&=P(x_k=x,X_{k-1}\neq x,\ldots,X_1\neq x|X_0=x)\\
+         &=P(T(x)=k),
+        \end{align}
+    \end{subequations}
+    ce qu'il fallait obtenir.
+\end{proof}
 

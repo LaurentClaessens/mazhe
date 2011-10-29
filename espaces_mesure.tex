@@ -312,16 +312,7 @@ Nous convenons que \( \eR^1=\bar\eR\), c'est à dire que dans le cas où la vari
 %---------------------------------------------------------------------------------------------------------------------------
 
 La définition suivante vient de l'instructive motivation de \cite{CourgGudRennes}.
-\begin{definition}
-    Les variables aléatoires \( X\) sur \( (\Omega,\tribA)\) et \( X'\) sur \( (\Omega',\tribA')\) sont \defe{indépendantes}{indépendance!variables aléatoires} si \( \forall B\in\tribA\) et \( \forall B'\in\tribA'\) nous avons
-    \begin{equation}
-        P(X\in B,X'\in B')=P(X\in B)P(X'\in B').
-    \end{equation}
-\end{definition}
 
-\begin{example}
-    Soit \( \Omega=\mathopen[ 0 , 1 \mathclose]\times \mathopen[ 0 , 1 \mathclose]\) muni de la mesure de Lebesgue. Soient \( A=\mathopen[ 0 , a \mathclose]\times \mathopen[ 0 , 1 \mathclose]\) et \( B=\mathopen[ 0 , 1 \mathclose]\times \mathopen[ 0 , b \mathclose]\). Nous avons \( P(A)=a\) et \( P(B)=b\) ainsi que \( P(A\cup B)=ab\).
-\end{example}
 
 La définition d'indépendance de deux événements se généralise à \( n\) événements de la façon suivante.
 \begin{definition}
@@ -331,6 +322,10 @@ La définition d'indépendance de deux événements se généralise à \( n\) é
     \end{equation}
     Les sous tribus \( \tribA_1,\ldots,\tribA_n\) sont \defe{indépendantes}{indépendance!sous tribus} si pour tout choix \( A_i\in \tribA_i\), les événements \( A_i\) sont indépendants.
 \end{definition}
+
+\begin{example}
+    Soit \( \Omega=\mathopen[ 0 , 1 \mathclose]\times \mathopen[ 0 , 1 \mathclose]\) muni de la mesure de Lebesgue. Soient \( A=\mathopen[ 0 , a \mathclose]\times \mathopen[ 0 , 1 \mathclose]\) et \( B=\mathopen[ 0 , 1 \mathclose]\times \mathopen[ 0 , b \mathclose]\). Nous avons \( P(A)=a\) et \( P(B)=b\) ainsi que \( P(A\cup B)=ab\).
+\end{example}
 
 \begin{lemma}       \label{LemTribIndepProdProb}
     Les tribus \( \tribA_1,\ldots,\tribA_n\) sont indépendantes si et seulement si
@@ -416,7 +411,7 @@ Nous disons que les variables aléatoires \( X_k\colon \Omega\to \eR^d\) sont \d
     Supposons que les événements \( (A_i)\) sont indépendants. Nous devons vérifier que les tribus le soient, c'est à dire que les événements \( A_i\) et \( \complement A_j\) sont indépendants. Cela est une conséquence du lemme \ref{LemIndepEvenCompl}.
 \end{proof}
 
-\begin{theorem}     \label{ThofrestemesurablesXYYX}<++>
+\begin{theorem}     \label{ThofrestemesurablesXYYX}
     Soit \( X\colon \Omega\to \eR^d\) une variable aléatoire. Une fonction \( Y\colon \Omega\to \eR^{d'}\) est une variable aléatoire \( \tribA_X\)-mesurable si et seulement si il existe une fonction borélienne \( f\colon \eR^d\to \eR^{d'}\) telle que \( Y=f(X)\).
 \end{theorem}
 
@@ -434,6 +429,76 @@ Nous disons que les variables aléatoires \( X_k\colon \Omega\to \eR^d\) sont \d
         \sigma(f_k\circ X_k)\subset\sigma(X_k),
     \end{equation}
     et par conséquent les tribus \( \sigma(f_k\circ X_k)\) sont indépendantes étant donné que les tribus \( \sigma(X_k)\) le sont.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Probabilité conditionnelle}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit \( (\Omega,\tribA,P)\) un espace de probabilité et \( B\in\tribA\) avec $P(B)>0$. Nous pouvons introduire une nouvelle loi de probabilité sur \( (\Omega,\tribA)\) en définissant
+\begin{equation}    \label{EqProbCond}
+    P_B(A)=\frac{ P(A\cap B) }{ P(B) }=P(A|B).
+\end{equation}
+La première égalité est la définition de \( P_B\). La seconde est une notation. On vérifie que \( (\Omega,\tribA,P)\) est un espace de probabilité parce que \( P_B(\Omega)=1\) et 
+\begin{equation}
+    P_B(\bigcup_iA_i)=\sum_iP_B(A_i)
+\end{equation}
+si les \( A_i\) sont deux à deux disjoints.
+
+Une conséquence immédiate de \eqref{EqProbCond} est que si \( A\) et \( B\) sont des événements indépendants alors
+\begin{equation}
+    P(A|B)=\frac{ P(A\cap B) }{ P(B) }=P(A).
+\end{equation}
+
+\begin{theorem}     \label{ThoBayesEtAutres}
+    Soient \( (B_n)_{n\geq 1}\) une partition finie de \( \Omega\) telle que \( P(B_i)>0\). Soit \( A\in\tribA\) tel que \( P(A)>0\).
+    \begin{enumerate}
+        \item
+            Si \( A\), \( B\) et \( C\) sont des événements, alors
+            \begin{equation}
+                P(A\cap B|C)=P(A|B\cap C)P(B|C).
+            \end{equation}
+        \item
+            Si \( P(B)>0\), alors \( P(A\cap B)=P(A|B)P(B)=P(B|A)P(A)\).
+        \item On a la \defe{formule des probabilités totales}{formule!probabilité totales} :
+            \begin{equation}
+                P(A)=\sum_{i=1}^nP(A|B_i)P(B_i)=\sum_iP(A\cap B_i).
+            \end{equation}
+        \item
+            On a la \defe{formule de Bayes}{formule!Bayes} :
+            \begin{equation}
+                P(B_k|A)=\frac{ P(A|B_k)P(B_k) }{ \sum_iP(A|B_i)P(B_i) }.
+            \end{equation}
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            En développant le membre de droite,
+            \begin{equation}
+                \begin{aligned}[]
+                    P(A\cap B|C)&=\frac{ P(A\cap B\cap C) }{ P(B\cap C) }\frac{ P(B\cap C) }{ P(C) }\\
+                    &=P(A\cap B|C).
+                \end{aligned}
+            \end{equation}
+        \item
+            C'est la définition de \( P(A|B)\) et \( P(B|A)\).
+        \item
+            Vu que les \( B_i\) forment une partition, nous avons
+            \begin{equation}
+                P(A)=\sum_iP(A\cap B_i)=\sum_iP(A|B_i)P(B_i).
+            \end{equation}
+        \item
+            En utilisant les deux premiers points, nous trouvons
+            \begin{equation}
+                \begin{aligned}[]
+                    P(A|B_k)P(B_k)&=P(A\cap B_k)\\
+                    &=P(B_k|A)P(A)\\
+                    &=P(B_k|A)\sum_iP(A|B_i)P(B_i).
+                \end{aligned}
+            \end{equation}
+    \end{enumerate}
 \end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
