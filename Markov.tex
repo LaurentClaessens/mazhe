@@ -268,7 +268,7 @@ Nous introduisons une variable aléatoire qui compte le nombre de fois que la ch
 \end{equation}
 C'est une variable aléatoire à valeurs dans \( \eN\cup\{ \infty \}\).
 
-\begin{proposition}
+\begin{proposition} \label{PropEquivEPrecuequiv}
     Les deux propriétés suivantes sont équivalentes à dire que \( x\) est récurrent:
     \begin{enumerate}
         \item
@@ -314,7 +314,7 @@ C'est une variable aléatoire à valeurs dans \( \eN\cup\{ \infty \}\).
             Pour \eqref{subEqPFnXkneqxiii}, l'événement \( X_k\neq x\) pour tout \( k\geq 1\) est exactement l'événement \( T(x)=\infty\).
     \end{enumerate}
     En nous servant de l'exemple \ref{ExempInversSumIntFub} d'application du théorème de Fubini, nous permutons l'espérance et la somme dans l'expression
-    \begin{subequations}
+    \begin{subequations}        \label{EqPEEEntstq}
         \begin{align}
             \sum_{n=0}^{\infty}P(X_n=x|X_0=x)&=\sum_{n=0}^{\infty}E(\mtu_{\{ X_n=x \}}|X_0=x)\\
             &=E\big( \sum_{n=0}^{\infty}\mtu_{\{ X_n=x \}}|X_0=x \big)\\
@@ -381,13 +381,44 @@ C'est une variable aléatoire à valeurs dans \( \eN\cup\{ \infty \}\).
     \begin{subequations}
         \begin{align}
             P(X_{n+r+s}=y|X_0=y)&\geq P(X_{n+r+s}=y,X_{n+s}=x,X_s=x|X_0=y)\\
-            &=P(X_{n+r+s}=y|X_{n+s}=x,X_s=x,X_0=y)P(X_{n+s}=x|X_s=x,X_0=y)P(X_s=x|X_0=y).
+            &=P(X_{n+r+s}=y|X_{n+s}=x,X_s=x,X_0=y)\\
+            &\qquad P(X_{n+s}=x|X_s=x,X_0=y)P(X_s=x|X_0=y)\nonumber.
         \end{align}
     \end{subequations}
     Les deux premiers facteurs se calculent en utilisant la propriété de Markov et l'homogénéité de la chaîne. Pour le premier,
     \begin{equation}
         P(X_{n+s}=x|X_s=x,X_0=y)=P(X_{n+s}=x|X_s=x)=P(X_n=x|X_0=x).
     \end{equation}
-\end{proof}
-<++>
+    Nous avons donc
+    \begin{equation}
+        \sum_{n\in\eN}P(X_{n+r+s}=y|X_0=y)\geq p^r(x,y)p^s(y,x)\sum_{n\in\eN}P(X_n=x|X_0=x).
+    \end{equation}
+    En réutilisant Fubini comme dans l'équation \eqref{EqPEEEntstq}, nous avons
+    \begin{equation}
+        \sum_{n\in \eN}P(X_{n+r+s}=y|X_0=y)\geq KE(N_x|X_0=x)
+    \end{equation}
+    où \( K\) est une constante strictement positive, par hypothèse d'irréductibilité de la chaîne de Markov.
 
+    Si \( x\) est un état récurrent, alors le membre de gauche est infini par la proposition \eqref{PropEquivEPrecuequiv} et donc
+    \begin{equation}
+        \sum_{n\in\eN}P(X_{n+r+s}=y|X_0=y)=\infty.
+    \end{equation}
+    Aux \( r+s\) premiers termes près (qui ne changent pas la somme), nous avons 
+    \begin{equation}
+        \sum_{n\in\eN}P(X_n=y|X_0=y)=\infty,
+    \end{equation}
+    ce qui signifie que \( y\) est récurrent.
+\end{proof}
+
+Nous rappelons que \( T(x)\) est le temps que première atteinte de l'état \( x\). Nous notons
+\begin{equation}
+    \pi(x)=\frac{1}{ E\big( T(x)|X_0=x \big) }.
+\end{equation}
+Étant donné que \( T(x)\) est un entier positif ou nul nous avons \( E\big( T(x)|X_0=x \big)\in\mathopen[ 1 , \infty \mathclose]\) et donc \( \pi(x)\in\mathopen[ 0 , 1 \mathclose]\).
+
+Si \( x\) est un état transient, alors \( T(x)=\infty\) lorsque \( X_0=x\) et donc \( E\big( T(x)|X_0=x \big)=0\) et \( \pi(x)=0\). Si \( x\) est récurent par contre, \( P\big( T(x)<\infty|X_0=x \big)=1\) et il n'y a pas de garanties sur la valeur de \( E\big( T(x)|X_0=x \big)\).
+
+\begin{definition}
+    Si \( x\) est un état récurent, et si \( E\big( T(x)|X_0=x \big)<\infty\), alors \( \pi(x)>0\) et nous disons que \( x\) est \defe{récurent positif}{récurent!positif}. Si \( E\big( T(x)|X_0=x \big)=\infty\) alors \( \pi(x)=0\) et l'état \( x\) est \defe{récurrent nul}{récurent!nul}.
+\end{definition}
+<++>
