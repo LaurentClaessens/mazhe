@@ -259,7 +259,7 @@ C'est le temps mis pour atteindre \( x\) à partir de l'instant \( p\).
 \end{proof}
 
 \begin{definition}
-    Un état \( x\) est \defe{récurrent}{récurrent!état} si \( P(T(x)=\infty|X_0=0)=0\), c'est à dire si la probabilité de ne jamais retourner en $x$ lorsqu'on y est passé est nulle. L'état \( x\) est \defe{transient}{transient!état} dans le cas contraire.
+    Un état \( x\) est \defe{récurrent}{récurrent!état} si \( P(T(x)=\infty|X_0=x)=0\), c'est à dire si la probabilité de ne jamais retourner en $x$ lorsqu'on y est passé est nulle. L'état \( x\) est \defe{transient}{transient!état} dans le cas contraire.
 \end{definition}
 
 Nous introduisons une variable aléatoire qui compte le nombre de fois que la chaîne de Markov passe par l'état \( x\) :
@@ -284,4 +284,110 @@ C'est une variable aléatoire à valeurs dans \( \eN\cup\{ \infty \}\).
             \( E(N_x|X_0=x)<\infty\).
     \end{enumerate}
 \end{proposition}
+
+\begin{proof}
+    En tant que événements, nous avons l'égalité
+    \begin{equation}
+        N_x<\infty=\bigcup_{n\in\eN}\{\underbrace{ X_n=x,X_{n+k}\neq x\forall k\geq 1}_{F_n} \}.
+    \end{equation}
+    Nous avons donc 
+    \begin{equation}    \label{Eqreprencalculstd}
+        P(N_x<\infty|X_0=x)=\sum_{n=0}^{\infty}P(F_n|X_0=x),
+    \end{equation}
+    et
+    \begin{subequations}
+        \begin{align}
+            P(F_n|X_0=x)&=P(X_{n+k}\neq x, \forall k\geq 1,X_n=x|X_0=x)\\
+            &=P(X_{n+k}\neq x,k\geq 1|X_n=x,X_0=x)P(X_n=x|X_0=x)\\
+            &=P(X_{n+k}\neq x,k\geq 1|X_n=x)P(X_n=x|X_0=x)  \label{subEqPFnXkneqxii}\\
+            &=P(X_k\neq x,k\geq 1|X_0=x)P(X_n=x|X_0=x)  \label{subEqPFnXkneqxi}\\
+            &=P(T(x)=\infty|X_0=x)P(X_n=x|X_0=x)    \label{subEqPFnXkneqxiii}
+        \end{align}
+    \end{subequations}
+    Justifications :
+    \begin{enumerate}
+        \item
+            Pour \eqref{subEqPFnXkneqxii}, nous utilisons le fait que la chaîne soit «sans mémoire».
+        \item
+            Pour \eqref{subEqPFnXkneqxi}, nous utilisons le fait que la chaîne soit homogène.
+        \item
+            Pour \eqref{subEqPFnXkneqxiii}, l'événement \( X_k\neq x\) pour tout \( k\geq 1\) est exactement l'événement \( T(x)=\infty\).
+    \end{enumerate}
+    En nous servant de l'exemple \ref{ExempInversSumIntFub} d'application du théorème de Fubini, nous permutons l'espérance et la somme dans l'expression
+    \begin{subequations}
+        \begin{align}
+            \sum_{n=0}^{\infty}P(X_n=x|X_0=x)&=\sum_{n=0}^{\infty}E(\mtu_{\{ X_n=x \}}|X_0=x)\\
+            &=E\big( \sum_{n=0}^{\infty}\mtu_{\{ X_n=x \}}|X_0=x \big)\\
+            &=E(N_x|X_0=x).
+        \end{align}
+    \end{subequations}
+    Voyons ce passage plus en détail. D'abord, en général nous avons
+    \begin{subequations}
+        \begin{align}
+            E(Y|X=x_0)&=\int_{\{ X=x_0 \}}Y(\omega)dP(\omega)\\
+            &=\int_{\Omega}\mtu_{\{ X=x_0 \}}(\omega)Y(\omega)dP(\omega).
+        \end{align}
+    \end{subequations}
+    Dans notre cas,
+    \begin{equation}
+        E\big( \mtu_{\{ X_n=x \}}|X_0=x \big)=\int_{\Omega}\mtu_{X_0=x}(\omega)\mtu_{\{ X_n=x \}}(\omega)dP(\omega).
+    \end{equation}
+    La fonction qui correspond à l'exemple \ref{ExempInversSumIntFub} est
+    \begin{equation}
+        f(n,\omega)=f_n(\omega)=\delta_{X_0(\omega),x}\delta_{X_n(\omega),x},
+    \end{equation}
+    qui est bien une fonction positive et mesurable.
+
+    Nous reprenons à présent le calcul \eqref{Eqreprencalculstd} en remplaçant les éléments par leurs valeurs que nous avons calculées :
+    \begin{equation}    \label{EqPnxXzTxarn}
+        P(N_x<\infty|X_0=x)=P\big(T(x)=\infty|X_0=x\big)E(N_x|X_0=x).
+    \end{equation}
+    Si \( x\) est récurrent, nous avons \( P\big( T(x)=\infty|X_0=x \big)=0\), mais la relation \eqref{EqPnxXzTxarn} ne permet pas de conclure que le membre de gauche est nul parce qu'il reste la possibilité que \( E(N_x|X_0=x)=\infty\). Nous devons donc faire un pas en arrière et écrire cette espérance comme la limite des sommes partielles :
+    \begin{equation}
+        P(N_x<\infty|X_0=x)=\lim_{N\to \infty} \sum_{n=0}^NP\big( T(x)=\infty|X_0=x \big)P(X_n=x|X_0=x)=0
+    \end{equation}
+    parce que tous les termes de la suite des sommes partielles sont nuls. Nous avons donc bien que \( P(N_x<\infty|X_0=x)=0\). Il s'ensuit immédiatement que \( E(N_x|X_0=x)=1\).
+
+    Nous devons maintenant démontrer l'implication inverse. Supposons que \( P(N_x<\infty|X_0=x)=0\). Dans ce cas nous avons immédiatement \( P(N_x=\infty|X_0=x)=1\) et \( E(N_x|X_0=x)=\infty\). L'équation \eqref{EqPnxXzTxarn} nous indique alors que 
+    \begin{equation}
+        P\big( T(x)=\infty|X_0=x \big)=0,
+    \end{equation}
+    c'est à dire que \( x\) est récurrent.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Chaînes irréductibles}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}
+    Soit \( (X_n)\) une chaîne de Markov irréductible.
+    \begin{enumerate}
+        \item
+            Un état \( x\) est récurrent si et seulement si tous les états sont récurrents.
+        \item
+            Un état \( x\) est transient si et seulement si tous les états sont transients.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Soient \( x\) et \( y\) des états de la chaîne de Markov. Nous devons tester la valeur de \( P(X_n=y|X_0=y)\). Afin d'exploiter l'hypothèse d'irréductibilité, nous considérons \( r,s\in\eN\) tels que
+    \begin{subequations}
+        \begin{align}
+            p^r(x,y)>0\\
+            p^s(y,x)>0
+        \end{align}
+    \end{subequations}
+    et nous calculons majorons en passant par quelque intermédiaires :
+    \begin{subequations}
+        \begin{align}
+            P(X_{n+r+s}=y|X_0=y)&\geq P(X_{n+r+s}=y,X_{n+s}=x,X_s=x|X_0=y)\\
+            &=P(X_{n+r+s}=y|X_{n+s}=x,X_s=x,X_0=y)P(X_{n+s}=x|X_s=x,X_0=y)P(X_s=x|X_0=y).
+        \end{align}
+    \end{subequations}
+    Les deux premiers facteurs se calculent en utilisant la propriété de Markov et l'homogénéité de la chaîne. Pour le premier,
+    \begin{equation}
+        P(X_{n+s}=x|X_s=x,X_0=y)=P(X_{n+s}=x|X_s=x)=P(X_n=x|X_0=x).
+    \end{equation}
+\end{proof}
+<++>
 
