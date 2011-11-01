@@ -903,10 +903,167 @@ Une usine fabrique des composantes électronique garantis un an. Le constructeur
 
 Nous supposons que la durée de vie \( T\) d'une pièce soit une variable aléatoire suivant une loi exponentielle de paramètre \( \lambda\) (qui est l'inverse de la moyenne : \( \theta=1/\lambda\)). Le fabriquant veut donc s'assurer que
 \begin{equation}
-    0.05\leq P(T\geq 1),
+    0.95\leq P(T\geq 1),
 \end{equation}
 ou encore
 \begin{equation}
-    P(T\geq 1)=\int_0^{\infty}\frac{1}{ \theta } e^{-x/\theta}dx= e^{-1/\theta}.
+    P(T\geq 1)=\int_0^{\infty}\frac{1}{ \theta } e^{-x/\theta}dx= e^{-1/\theta}\geq 0.95,
 \end{equation}
-<++>
+donc le fabriquant doit s'assurer que
+\begin{equation}
+    \theta\geq\frac{1}{ \ln\left( \frac{1}{ 0.95 } \right) }.
+\end{equation}
+Nous posons donc \( \theta_0=19.5\) et nous prenons comme modèle de décision que si \( \theta<\theta_0\), alors la chaîne de production doit être revue, et si \( \theta>\theta_0\), alors l'usine peut continuer son travail.
+
+Ce dont nous disposons n'est pas de \( \theta\), mais d'une estimation de \( \theta\) à partir d'un échantillon. Cela étant il faudra aussi pouvoir estimer la probabilité de faire un mauvais choix.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Exemple : la résistance d'un fil}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{subsecExempLFilResituzz}<++>
+
+Un artisan a besoin d'un fil qui a une résistance à une traction de \( \unit{100}{\gram}\) en moyenne. Si la résistance est trop faible, le fil casse; si elle est trop grande, c'est trop rigide et ça ne convient pas.
+
+\begin{remark}
+    Dans l'exemple précédent, avoir \( \theta>\theta_0\) ne dérange pas. Si la durée de vie moyenne est de \( 2\) ans, le directeur de l'usine ne sera pas malheureux. Ici par contre l'artisan cherche une valeur précise et a donc une borne vers le haut et vers le bas.
+\end{remark}
+
+L'artisan reçoit un lot de fils et souhaite savoir si il est conforme. Pour cela, il prend \( 4\) fils au hasard et mesure une moyenne de \( \unit{112}{\gram}\). Est-ce que cela est cohérent avec une moyenne de \( \unit{100}{\gram}\) ?
+
+Nous faisons l'hypothèse que ma résistance des fils suit une loi normale \( \dN(m,\sigma^2)\) avec \( m\) inconnu. Pour la simplicité nous supposons que \( \sigma\) est connu et vaut \( 10\).
+
+Nous devons prendre une décision entre deux hypothèses. L'hypothèse \( H_0\) sera de dire que le lot a une résistance de \( \unit{100}{\gram}\) et l'hypothèse alternative sera que le lot a une résistance différente.
+
+Les \( 4\) observations sont quatre variables aléatoires \( (X_i)_{i=1,2,3,4}\), et le nombre \( 112\) est une réalisation de la variable aléatoire
+\begin{equation}
+    \bar X_4=\frac{1}{ 4 }(X_1+X_2+X_3+X_4).
+\end{equation}
+
+Nous supposons que \( H_0\) est vraie, et nous calculons quelle est l'intervalle autour de \( m=100\) qui a \( 95\%\) de chances de contenir la moyenne observée. Si \( 112\) est dedans, nous acceptons \( H_0\) et si \( 112\) est hors de cet intervalle, nous refusons \( H_0\).
+
+Compte tenue de l'hypothèse \( H_0\), nous avons
+\begin{equation}
+    \frac{ \bar X_4-100 }{ \frac{ 10 }{ \sqrt{4} } }=\frac{ \bar X_4-100 }{ 5 }\sim\dN(0,1).
+\end{equation}
+Nous commençons à connaître par cœur l'intervalle de confiance à \( 95\%\) d'une loi normale centrée réduite; le quantile est à \( 1.96\), c'est à dire
+\begin{equation}
+    P\left( -1.96\leq\frac{ \bar X_4-100 }{ 5 }\leq 1.96 \right)=0.95,
+\end{equation}
+ou encore
+\begin{equation}
+    P\big( \bar X_4\in\mathopen[ 90.2 , 109.8 \mathclose] \big).
+\end{equation}
+Il y a donc moins de \( 5\%\) de chances que la moyenne de ces quatre fils tombent en dehors de l'intervalle \( \mathopen[ 90.2 , 109.8 \mathclose]\). L'artisan doit donc rejeter l'hypothèse et considérer que le lot est mauvais.
+
+La région
+\begin{equation}
+    \mathopen] -\infty , 90.2 \mathclose]\cup\mathopen[ 109.8 , \infty [
+\end{equation}
+est la \defe{région de rejet}{rejet!région dans une prise de décision}, ou \defe{région critique}{critique!région}.
+
+Ici, le nombre \( 5\%\) représente le risque de refuser \( H_0\) alors qu'elle était vraie. Notons que nous ne pouvons pas calculer le risque d'accepter \( H_0\) alors qu'elle est fausse. En effet, si \( H_0\) est fausse, nous ne savons pas quelles sont les valeurs de \( \bar X_4\) acceptables parce qu'il y a une infinité de possibilités pour \( m\) qui soient alternatifs à \( m=100\).
+
+Évidemment si la vraie moyenne est \( 100+10^{-7}\), l'hypothèse \( H_0\) sera acceptée, mais nous n'avons aucun moyen de savoir si elle est vraie ou non.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Vocabulaire et théorie}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous avons un modèle d'échantillonnage paramétrique \(  (X_{\theta,1},\ldots,X_{\theta,n})  \) de taille \( n\) et de paramètre inconnu \( \theta\), de loi parente \( \mu_{\theta}\) appartenant à une famille paramétrique de lois \( (\mu_{\theta})_{\theta\in\Theta}\).
+
+Soient \( H_0\) et \( H_1\) deux ensembles disjoints tels que \( \Theta=H_0\cup H_1\). L'ensemble \( H_0\) sera nommé \defe{hypothèse nulle}{hypothèse!nulle} et l'ensemble \( H_1\) sera l'\defe{hypothèse alternative}{hypothèse!alternative}. 
+
+Pour l'exemple des fils, nous avions \( H_0=\{ 100 \}\) et \( H_1=\eR\setminus\{ 100 \}\). Si une hypothèse est réduite à un singleton, nous parlons d'hypothèse \defe{simple}{hypothèse!simple} et sinon c'est une hypothèse \defe{composite}{hypothèse!composite} ou \defe{multiple}{hypothèse!multiple}. Faire un tests consiste à déterminer une région critique.
+
+\begin{definition}
+    Un \defe{test}{test} est une application mesurable \( \delta\) qui à \( (x_1,\ldots,x_n)\in\eR^n\) associe
+    \begin{equation}
+        \delta(x_1,\ldots,x_n)\in\{ 0,1 \}.
+    \end{equation}
+    Si \( \delta(x_1,\ldots,x_n)=0\) on accepte l'hypothèse \( H_0\) pour l'échantillon \( x_1,\ldots,x_n\), et si \( \delta(x_1,\ldots,x_n)=1\), alors on rejette \( H_0\) et on choisit \( H_1\). L'ensemble
+    \begin{equation}
+        W=\{ (x_1,\ldots,x_n)\in\eR^n\tq \delta(x_1,\ldots,x_n)=1 \}
+    \end{equation}
+    est la \defe{région de rejet}{région!de rejet} ou la \defe{région critique}{région!critique}.
+\end{definition}
+
+L'ensemble \( W=\delta^{-1}(1)\) est un borélien de \( \eR^n\) parce que \( \delta\) est mesurable. L'événement auquel nous sommes intéressé est l'événement
+\begin{equation}
+    R=\{ (X_{\theta,1},\ldots,X_{\theta,n})\in W \}.
+\end{equation}
+
+
+\begin{example}
+    Pour l'exemple de \ref{subsecExempLFilResituzz} nous avions
+    \begin{equation}
+        \delta(x_1,\ldots,x_4)=\mtu_{\complement\mathopen[ 90.2 , 109.8 \mathclose]}(\bar x_4).
+    \end{equation}
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Risque de première et seconde espèce}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Le modèle de décision que nous avons introduit comprend deux façons de se tromper. Soit nous rejetons \( H_0\) alors qu'elle est vraie (c'est le \defe{risque de première espèce}{risque!première espèce}), soit nous acceptions \( H_0\) alors qu'elle est fausse (risque de \defe{seconde espèce}{risque!seconde espèce}). Nous pouvons formaliser ces concepts de la façon suivante.
+
+Nous considérons un test de région critique \( W\). Le risque de première espèce, noté \( \alpha\) est la fonction
+\begin{equation}
+    \begin{aligned}
+        \alpha\colon H_0&\to \mathopen[ 0 , 1 \mathclose] \\
+        \theta&\mapsto P\big( (X_{\theta,1},\ldots,X_{\theta,n})\in W \big). 
+    \end{aligned}
+\end{equation}
+Il s'agit de la probabilité de rejeter \( H_0\) alors qu'elle es vraie. Le risque de seconde espèce est la fonction
+\begin{equation}
+    \begin{aligned}
+        \beta\colon H_1&\to \mathopen[ 0 , 1 \mathclose] \\
+        \theta&\mapsto P\big( (X_{\theta,1},\ldots,X_{\theta,n})\notin W \big). 
+    \end{aligned}
+\end{equation}
+C'est la probabilité d'accepter \( H_0\) alors qu'elle est fausse.
+
+
+\begin{definition}
+    Soit \( \delta\) un test de région critique \( W\). La \defe{puissance}{puissance!d'un test} du test est la fonction
+    \begin{equation}
+        \begin{aligned}
+            \eta\colon H_1&\to \mathopen[ 0 , 1 \mathclose] \\
+            \theta&\mapsto P\big( (X_{\theta,1},\ldots,X_{\theta,n})\in W \big). 
+        \end{aligned}
+    \end{equation}
+    La \defe{courbe d'efficacité}{efficacité!courbe}\index{courbe!efficacité} du test est la fonction
+    \begin{equation}
+        \begin{aligned}
+            h\colon \Theta&\to \mathopen[ 0 , 1 \mathclose] \\
+            \theta&\mapsto  P\big( (X_{\theta,1},\ldots,X_{\theta,n})\notin W \big).
+        \end{aligned}
+    \end{equation}
+\end{definition}
+La puissance d'un test est la probabilité de rejeter \( H_0\) lorsque \( H_1\) est vraie. Plus la puissance est grande, mieux c'est. La courbe d'efficacité du test est la probabilité d'accepter \( H_0\) pour une certaine valeur de \( \theta\).
+
+Soit un test \( \delta\). Une statistique \( T_{\theta}=T_n(X_{\theta,1},\ldots,X_{\theta,n})\) est une \defe{variable de décision}{variable!de décision} pour \( \delta\) si \( \complement W\) peut s'écrire d'une des façons suivantes\index{test!unilatéral}
+\begin{equation}
+    \complement W=\begin{cases}
+        \{ (x_1,\ldots,x_n)\in\eR^n\tq T_n(x_1,\ldots,x_n)<c \}     &\text{test unilatéral à droite}  \\
+        \{ (x_1,\ldots,x_n)\in\eR^n\tq T_n(x_1,\ldots,x_n)>c \}   &\text{test unilatéral à gauche} \\
+        \{ (x_1,\ldots,x_n)\in\eR^n\tq c_1\leq T_n(x_1,\ldots,x_n)<c_2 \}   &\text{test bilatéral}.
+    \end{cases}
+\end{equation}\index{test!bilatéral}
+
+Le plus souvent la variable de décision sera la moyenne : \( T_n(x_1,\ldots,x_n)=\frac{1}{ n }\sum_{i=1}^nx_i\). Les valeurs \( c,c_1,c_2\) sont des \defe{valeurs critiques}{critique!valeur}.
+
+En ce qui concerne les notations, ici \( T_n\) représente la valeur mesurée sur un \( n\)-échantillon (d'où l'indice \( n\)) alors que \( T_{\theta}\) est la valeur \emph{théorique} de \( T\) lorsque \( \theta\) est la vraie valeur du paramètre qu'on veut estimer.
+
+Pour un test unilatéral à gauche, nous fixons la valeur critique \( c\) de telle manière a avoir
+\begin{equation}
+    P(T_{\theta}>c)\leq \alpha.
+\end{equation}
+Pour un test unilatéral à gauche, nous fixons \( c\) de telle manière a avoir
+\begin{equation}
+    P(T_{\theta}<c)\leq \alpha
+\end{equation}
+et pour un test bilatéral nous fixons \( c_1\) et \( c_2\) de telle façon à avoir
+\begin{equation}
+    P(T_{\theta}>c_2)=P(T_{\theta}<c_1)\leq\frac{ \alpha }{2}.
+\end{equation}
+
