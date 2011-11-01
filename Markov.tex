@@ -263,7 +263,7 @@ C'est le temps mis pour atteindre \( x\) à partir de l'instant \( p\).
 \end{definition}
 
 Nous introduisons une variable aléatoire qui compte le nombre de fois que la chaîne de Markov passe par l'état \( x\) :
-\begin{equation}
+\begin{equation}    \label{EqDefNxmtuXkn}
     N_x=\sum_{k=0}^{\infty}\mtu_{\{ X_k=x\}}.
 \end{equation}
 C'est une variable aléatoire à valeurs dans \( \eN\cup\{ \infty \}\).
@@ -359,7 +359,7 @@ C'est une variable aléatoire à valeurs dans \( \eN\cup\{ \infty \}\).
 \subsection{Chaînes irréductibles}
 %---------------------------------------------------------------------------------------------------------------------------
 
-\begin{proposition}
+\begin{proposition}     \label{Proptoustanstousrecirrsi}
     Soit \( (X_n)\) une chaîne de Markov irréductible.
     \begin{enumerate}
         \item
@@ -421,4 +421,79 @@ Si \( x\) est un état transient, alors \( T(x)=\infty\) lorsque \( X_0=x\) et d
 \begin{definition}
     Si \( x\) est un état récurent, et si \( E\big( T(x)|X_0=x \big)<\infty\), alors \( \pi(x)>0\) et nous disons que \( x\) est \defe{récurent positif}{récurent!positif}. Si \( E\big( T(x)|X_0=x \big)=\infty\) alors \( \pi(x)=0\) et l'état \( x\) est \defe{récurrent nul}{récurent!nul}.
 \end{definition}
-<++>
+
+\begin{proposition} \label{PropMrkIrreLoishLCkpjkptXk}
+    Soit \( (X_n)\) est une chaîne de Markov irréductible.
+    \begin{enumerate}
+        \item
+            Si \( x\) est un état récurrent, alors \( T(X)<\infty\) presque surement.
+        \item
+            Nous avons une égalité entre les lois
+            \begin{equation}    \label{PropMrkIrreLoishLCkpjkptXkItemii}
+                \hL\big( X_{k+T(x)}|T(x)<\infty \big)=\hL(X_k|X_0=x).
+            \end{equation}
+    \end{enumerate}
+\end{proposition}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Nombre de visites}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La fonction
+\begin{equation}
+    \frac{1}{ n }\sum_{k=1}^n\mtu_{\{ X_k=x \}}
+\end{equation}
+est la \defe{fréquence empirique}{fréquence!empirique} de la chaîne de Markov.
+
+\begin{proposition}
+    Si \( (X_n)\) est une chaîne de Markov irréductible et si \( x\in E\) alors
+    \begin{equation}        \label{EqPiEndempropropkeu}
+        \pi(x)=\lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^n\mtu_{\{ X_k=x \}}
+    \end{equation}
+    presque surement.
+\end{proposition}
+
+\begin{proof}
+    Étant donné que la chaîne est irréductible, les états sont soit tous transient soit tous récurrents par la proposition \ref{Proptoustanstousrecirrsi}. Nous commençons par considérer que \( x\) est transient.
+
+    En comparant la définition \eqref{EqDefNxmtuXkn} de \( N_x\) et le membre de droite de \eqref{EqPiEndempropropkeu}, nous avons
+    \begin{equation}    \label{EqkkueusnfracunENx}
+        \frac{1}{ n }\sum_{k=1}^n\mtu_{\{ X_k=x \}}\leq\frac{1}{ n }E(N_x).
+    \end{equation}
+    Dans le cas d'un élément transient, nous avons \( \pi(x)=0\), donc il serait bon de montrer que \( E(N_x)<\infty\), de telle façon à ce que prendre la limite \( n\to\infty\) dans \eqref{EqkkueusnfracunENx} donne zéro.
+
+    Nous décomposons le calcul en deux morceaux :
+    \begin{equation}
+        E(N_x)=E\big( N_x|T(x)=\infty \big)P\big( T(x)=\infty \big)+E\big( N_x|T(x)<\infty \big)P\big( T(x)<\infty \big).
+    \end{equation}
+    Le fait que le premier terme soit fini découle immédiatement du fait que \( T(x)=\infty\) implique \( X_k\neq x\) pour tout \( k\geq 1\). Dans ce cas l'espérance de \( N_x\) est évidemment finie.
+
+    Pour le second terme nous avons
+    \begin{subequations}
+        \begin{align}
+            E\big( N_x|T(x)<\infty \big)&=E\big( \sum_{k=0}^{\infty}\mtu_{\{ X_k=x \}}|T(x)<\infty \big)\\
+            &=\sum_{k=1}^{\infty}E\big( \mtu_{\{ X_k=x \}}|T(x)<\infty \big).
+        \end{align}
+    \end{subequations}
+    Pour inverser la somme et l'espérance, nous avons utilisé le théorème de théorème de Fubini-Tonelli qui est encore valable pour des fonctions qui prennent la valeur \( \infty\). Le fait d'inverser ne signifie pas que ni la somme ni l'intégrale soit finie. D'ailleurs c'est exactement ce que nous sommes en train de déterminer.
+
+    Étant donné que nous voulons seulement savoir si cette somme est finie ou non, nous pouvons nous restreindre à la somme depuis \( k=1\) ou oublier le premier terme. D'autre par nous avons
+    \begin{equation}
+        \sum_{k=1}^{\infty}\mtu_{\{ X_k=x \}}=\sum_{j=0}^{\infty}\mtu_{\{ X_{j+T(x)}=x \}}
+    \end{equation}
+    parce que les \( T(x)\) premiers termes sont par définition nuls. Nous regardons donc
+    \begin{subequations}
+        \begin{align}
+            \sum_{j=0}^{\infty}E\big( \mtu_{X_{j+T(x)}=x}|T(x)<\infty \big)&=\sum_{j}P\big( X_{j+T(x)}=x|T(x)<\infty \big)\\
+            &=\sum_jP(X_j=x|X_0=x)  \label{subeqsumkPXjXzsezii}\\
+            &=\sum_jE\big( \mtu_{\{ X_j=x \}}|X_0=x \big)\\
+            &=E\big( \sum_j\mtu_{X_j=x}|X_0=x \big)\\
+            &=E(N_x|X_0=x)\\
+            &<\infty    &\text{parce que \( x\) est transient.}
+        \end{align}
+    \end{subequations}
+    L'équation \eqref{subeqsumkPXjXzsezii} provient de la proposition \ref{PropMrkIrreLoishLCkpjkptXk} et plus précisément de l'égalité entre les lois \eqref{PropMrkIrreLoishLCkpjkptXkItemii}.
+
+
+    Nous passons maintenant au cas où \( x\) est récurrent.
+\end{proof}
