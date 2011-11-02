@@ -13,3 +13,4 @@ myRequest.original_filename="modelisation.tex"
 
 myRequest.ok_filenames_list=["e_modelisation"]
 myRequest.ok_filenames_list.append("groupes")
+myRequest.ok_filenames_list.append("anneauxCorps")
