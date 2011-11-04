@@ -450,7 +450,7 @@ Soit \( x\) un état récurent, c'est à dire que \( P\big( T(x)<\infty|X_0=x \b
     \begin{align}
         T_1(x)&=T(x)=\inf\{ k\geq 1\tq X_k=x \}\\
         T_2(x)&=\inf\{ k\geq 1\tq X_{T_1(x)+k}=x \}\\
-        &\vdots
+        &\vdots\\
         T_n(x)&=\inf\{ k\geq 1\tq X_{T_{n-1}(x)+k}=x \}\\
     \end{align}
 \end{subequations}
@@ -458,6 +458,33 @@ La variable aléatoire \( T_i\) représente le temps entre la visite numéro \( 
 \begin{equation}
     S_n=\sum_{k=1}^nT_k(x).
 \end{equation}
+
+\begin{lemma}
+    Les variables aléatoires \( T_i\) sont indépendantes.
+\end{lemma}
+
+\begin{proof}
+    Nous choisissons \( n\) des \( T_i\) et nous calculons la probabilité
+    \begin{equation}
+        \spadesuit=P(T_{i_1}=k_1,T_{i_2}=k_2,\ldots,T_{i_n}=k_n)
+    \end{equation}
+    où nous supposons \( i_1>i_2>\ldots>i_n\). Nous décomposons cette probabilité en sommant sur toute les histoires de la chaîne de Markov compatibles avec les nombres \( k_i\) donnés :
+    \begin{equation}
+        \spadesuit=\sum_{\substack{\{ z_j \}\\\text{compatibles}}}P(X_j=z_j,j=1,\ldots,N).
+    \end{equation}
+    Notons qu'ici, le numéro du dernier terme de la somme n'est pas certain parce que tous les \( T_i\) ne sont pas fixés. Nous l'avons noté \( N\), mais en réalité il est différent d'un terme à l'autre de la somme. Il est certain que \( z_N=x\) et \( z_{N-k_1}=x\) et si \( N-k_1<j<N\), alors \( z_j\neq x\). Cela est simplement le fait que nous demandions aux \( z_i\) de respecter les conditions données par les \( k_i\). Nous avons
+    \begin{subequations}
+        \begin{align}
+            \spadesuit&=\sum_{\{ z_j \}} P(X_N=x,X_j=z_j,N-k_1<j<N|X_j=z_j,j\leq N-k_1)P(X_j=z_j,j<N-k_1)\\
+            &=\sum_{\{ z_j \}} P(X_N=x,X_j=z_j,N-k_1<j<N|X_{N-k_1}=x)P(X_j=z_j,j<N-k_1)\\
+        \end{align}
+    \end{subequations}
+    Le premier facteur est \( P(T_{i_1}=k_1)\) tandis que le second facteur est précisément \( P(T_{j}=k_j,j>1)\). Nous avons donc montré que
+    \begin{equation}
+        P(T_{i_1}=k_1,T_{i_2}=k_2,\ldots,T_{i_n}=k_n)=P(T_{i_1}=k_1)P(T_{j}=k_j,j>1),
+    \end{equation}
+    et donc les \( T_i\) sont indépendants.
+\end{proof}
 
 \begin{proposition}
     Si \( (X_n)\) est une chaîne de Markov irréductible et si \( x\in E\) alors
