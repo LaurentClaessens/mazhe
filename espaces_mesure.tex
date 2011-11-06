@@ -199,6 +199,35 @@ si \( f\) est une fonction mesurable sur \( \Omega\).
     est mesurable, mais non intégrable.
 \end{remark}
 
+\begin{lemma}   \label{Lemfobnwt}
+    Soit \( f\) une fonction mesurable positive ou nulle telle que
+    \begin{equation}
+        \int_{\Omega}fd\mu=0.
+    \end{equation}
+    Alors \( f=0\) \( \mu\)-presque partout.
+\end{lemma}
+
+\begin{proof}
+    L'ensemble des points \( x\in\Omega\) tels que \( f(x)\neq 0\) peut s'écrire comme une union dénombrable disjointe :
+    \begin{equation}
+        \{ x\in\Omega\tq f(x)\neq 0 \}=\bigcup_{i=0}^{\infty}E_i
+    \end{equation}
+    avec
+    \begin{subequations}
+        \begin{align}
+            E_0&=\{ x\in\Omega\tq f(x)>1 \}\\
+            E_i&=\{ x\in\Omega\tq \frac{1}{ i+1 }\leq f(x)<\frac{1}{ i } \}.
+        \end{align}
+    \end{subequations}
+    Si un des ensembles \( E_i\) est de mesure non nulle, alors nous pouvons considérer la fonction simple \( h(x)=\frac{1}{ i+1 }\mtu_{E_i}\) dont l'intégrale sur \( \Omega\) est strictement positive. Par conséquent le supremum de la définition \eqref{EqDefintYfdmu} est strictement positif.
+
+    Nous savons donc que \( \mu(E_i)=0\) pour tout \( i\). Étant donné que la mesure d'une union disjointe dénombrable est égale à la somme des mesures, nous avons
+    \begin{equation}
+        \mu\{ x\in\Omega\tq f(x)\neq 0 \}=0,
+    \end{equation}
+    ce qui signifie que \( f\) est nulle \( \mu\)-presque partout.
+\end{proof}
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Dérivation sous le signe intégral}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -260,7 +289,7 @@ Dans le cas particulier de la norme
 nous parlons que \defe{convergence uniforme}{convergence!uniforme}.
 
 \begin{theorem}[Critère de Cauchy]  \label{ThoCauchyZelUF}
-    Une suite de fonctions  \( (f_n)_{n\in\eN}\) sur \( \Omega\) converge uniformément sur \( \Omega\) si et seulement si \( \forall\epsilon>0\), \( \exists N\) tel que
+    Une suite de fonctions  \( (f_n)_{n\in\eN}\) sur \( \Omega\) converge en norme sur \( \Omega\) si et seulement si \( \forall\epsilon>0\), \( \exists N\) tel que
     \begin{equation}
         \| f_n-f_m \|<\epsilon
     \end{equation}
@@ -279,8 +308,12 @@ nous parlons que \defe{convergence uniforme}{convergence!uniforme}.
     L'hypothèse montre que la suite des sommes partielles de la série \( \sum f_n\) vérifie le critère de Cauchy du théorème \ref{ThoCauchyZelUF}.
 \end{proof}
 
+\begin{definition}
+    Nous disons qu'un sous ensemble \( A\) de \( \Omega\) est \defe{complet}{complet} si toute suite de Cauchy d'éléments de \( A\) converge vers un élément de \( A\).
+\end{definition}
+
 \begin{theorem}[Weierstrass]
-    La série de fonctions \( \sum_{n=1}^{\infty}f_n\) converge si \( \| f_n \|\leq M_n\) avec \( \sum_nM_n<\infty\).
+    La série de fonctions \( \sum_{n=1}^{\infty}f_n\) converge en norme si \( \| f_n \|\leq M_n\) avec \( \sum_nM_n<\infty\).
 \end{theorem}
 
 \begin{proof}
@@ -462,11 +495,37 @@ et la norme associée
 \end{equation}
 Nous considérons l'ensemble
 \begin{equation}
-    \mL^2(\Omega,\mu)=\{ f\colon \Omega\to \eR\tq \| f \|_2<\infty \}.
+    \mL^2(\Omega,\mu)=\{ f\colon \Omega\to \eR\tq \| f \|_2<\infty \}
+\end{equation}
+et la relation d'équivalence \( f\sim g\) si et seulement si \( f(x)=g(x)\) pour \( \mu\)-presque tout \( x\). L'espace que nous considérons est
+\begin{equation}
+    L^2=\mL^2/\sim.
 \end{equation}
 
 \begin{lemma}
-    La formule \eqref{DefProdScalLubrgTj} définit un produit scalaire sur \( \mL^2\).
+    La formule \eqref{DefProdScalLubrgTj} définit un produit scalaire sur \( L^2\).
 \end{lemma}
-<++>
 
+\begin{proof}
+    Nous devons d'abord montrer que la formule passe au quotient. Pour cela, nous considérons des fonctions \( \alpha\) et \( \beta\) nulles presque partout et nous regardons le produit de \( f_1=f+\alpha\) par \( g_1=g+\beta\) :
+    \begin{equation}
+        \langle f_1, g_1\rangle =\int fg+\beta f+\alpha g+ \alpha\beta.
+    \end{equation}
+    Les fonction \( \beta f\), \( \alpha g\) et \( \alpha\beta\) étant nulles presque partout, leur intégrale est nulle et nous avons bien \( \langle f_1, g_1\rangle =\langle f,g \rangle \). Nous pouvons donc considérer le produit sur l'ensemble des classes.
+
+    Pour vérifier que la formule est un produit scalaire, le seul point non évidement est de prouver que \( \langle f, f\rangle =0\) implique \( f=0\). Cela découle du fait que
+    \begin{equation}
+        \langle f, f\rangle =\int_{\Omega}| f |^2.
+    \end{equation}
+    La fonction \( x\mapsto | f(x) |^2\) vérifie les hypothèses du lemme \ref{Lemfobnwt}. Par conséquent \( | f(x) |^2\) est presque partout nulle.
+\end{proof}
+
+Nous montrons maintenant que \( L^2\) est un espace vectoriel complet. Soit \( (f_n)\) une suite ce Cauchy dans \( (L^2,\| . \|_2)\). Pour tout \( n\in\eN\), il existe \( N_n\in\eN\) tel que si \( p,q\geq N_n\) alors
+\begin{equation}
+    \| f_p-f_q \|<2^{-n}.
+\end{equation}
+Nous avons 
+\begin{equation}
+    \| \sum_{n=1}^{\infty} f_{N_n+1}-f_{N_n} \|\leq\sum_{n}\| f_{N_n+1}-f_{N_n} \|<\infty
+\end{equation}
+parce que la série des \( 2^{-n}\) converge.
