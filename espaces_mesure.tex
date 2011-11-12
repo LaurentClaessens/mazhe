@@ -261,6 +261,10 @@ Nous écrivons que \( \mu\perp\nu\)\nomenclature[Y]{\( \mu\perp\nu\)}{mesures pe
 
 Source : \cite{TrenchRealAnalisys}.
 
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Convergence de suites de fonctions}
+%---------------------------------------------------------------------------------------------------------------------------
+
 Nous considérons un espace normé \( (\Omega,\| . \|)\). Nous disons qu'une suite de fonctions \( f_n\) \defe{converge}{convergence!en norme} vers \( f\) pour la norme \( \| . \|\) si \( \forall \epsilon>0\), \( \exists N\) tel que \( n\geq N\) implique \( \| f_n-f \|<\epsilon\).
 
 Dans le cas particulier de la norme 
@@ -328,7 +332,7 @@ En corollaire, si \( \sum_n\| f_n \|\) converge, alors \( \sum_nf_n\) converge.
 
 Source : \cite{mathmecaChoi}.
 
-\begin{theorem}
+\begin{theorem}[Théorème de la convergence monotone ou de Beppo-Levi] \label{ThoConvMonFtBoVh}\index{théorème!convergence monotone}\index{théorème!Beppo-Levi}
     Soit un espace mesuré \( (\Omega,\tribA,\mu)\) et \( (f_n)\) une suite croissante de fonctions mesurables à valeurs dans \( \mathopen[ 0 , \infty \mathclose]\). Alors la limite ponctuelle \( \lim_{n\to \infty} f_n\) existe, est mesurable et
     \begin{equation}
         \lim_{n\to \infty} \int_{\Omega}f_nd\mu= \int_{\Omega}\lim_{n\to \infty} f_nd\mu.
@@ -371,6 +375,25 @@ Source : \cite{mathmecaChoi}.
         \lim_{n\to \infty} \int_{\Omega}f_n\geq\int_{\Omega}f,
     \end{equation}
     ce qu'il nous fallait.
+\end{proof}
+
+\begin{corollary}[Inversion de somme et intégrales]
+    Si \( (u_n)\) est une suite de fonctions mesurables positives ou nulles, alors
+    \begin{equation}
+        \sum_{i=0}^{\infty}\int u_i=\int\sum_{i=0}^{\infty}u_i.
+    \end{equation}
+\end{corollary}
+
+\begin{proof}
+    Nous considérons la suite des sommes partielles de \( (u_n)\) : \( f_n(x)=\sum_{i=0}^nu_n(x)\). Le théorème de la convergence monotone (théorème \ref{ThoConvMonFtBoVh}) implique que
+    \begin{equation}
+        \lim_{n\to \infty} \int f_n=\int\lim_{n\to \infty} f_n.
+    \end{equation}
+    Nous remplaçons maintenant \( f_n\) par sa valeur en termes des \( u_i\) et dans le membre de gauche nous permutons l'intégrale avec la somme finie :
+    \begin{equation}
+        \lim_{n\to \infty} \sum_{i=0}^{\infty}\int u_n=\int\sum_{i=0}^{\infty}u_n,
+    \end{equation}
+    ce qu'il fallait démontrer.
 \end{proof}
 
 \begin{lemma}[Lemme de Fatou]\index{Lemme!Fatou}\index{Fatou}   \label{LemFatouUOQqyk}
@@ -420,7 +443,7 @@ Nous avons évidemment \( g_n(x)=0\) tandis que \( \int_{\mathopen[ 0 , 2 \mathc
 \subsection{Convergence dominée de Lebesgue}
 %---------------------------------------------------------------------------------------------------------------------------
 
-\begin{theorem}[Convergence dominée de Lebesgue]\index{théorème!convergence dominée de Lebesgue}
+\begin{theorem}[Convergence dominée de Lebesgue]\index{théorème!convergence dominée de Lebesgue}        \label{ThoConvDomLebVdhsTf}
     Soit \( (f_n)_{n\in\eN}\) une suite de fonctions intégrables sur \( (\Omega,\tribA,\mu)\) à valeurs dans \( \eC\) ou \( \eR\). Nous supposons que  \( f_n\to f\) simplement sur \( \Omega\) presque partout et qu'il existe une fonction intégrable \( g\) telle que
     \begin{equation}
         | f_n(x) |<| g(x) |
@@ -438,19 +461,40 @@ Nous avons évidemment \( g_n(x)=0\) tandis que \( \int_{\mathopen[ 0 , 2 \mathc
 
 \begin{proof}
 
-    La fonction limite \( f\) est intégrable parce que \( | f |\leq g\) et \( g\) est intégrable (lemme \ref{LemPfHgal})<++>.
-
-    Par hypothèse nous avons
+    La fonction limite \( f\) est intégrable parce que \( | f |\leq g\) et \( g\) est intégrable (lemme \ref{LemPfHgal}). Par hypothèse nous avons
     \begin{equation}
         -g(x)\leq f_n(x)\leq g(x).
     \end{equation}
-    En particulier la fonction \( f_n+g\) est positive et mesurable si bien que le lemme de Fatou (lemme \ref{LemFatouUOQqyk}) implique
+    En particulier la fonction \( g_n=f_n+g\) est positive et mesurable si bien que le lemme de Fatou (lemme \ref{LemFatouUOQqyk}) implique
     \begin{equation}
-        \int_{\Omega}\liminf g_n\leq\liminf\int_{\Omega}g_n
+        \int_{\Omega}\liminf g_n\leq\liminf\int_{\Omega}g_n.
     \end{equation}
-    où nous avons posé \( g_n=f_n+g\).
+    Évidement nous avons \( \liminf g_n=f+g\), de telle sorte que
+    \begin{equation}
+        \int f+\int g\leq \liminf\int g_n=\liminf\int f_n+\int g,
+    \end{equation}
+    et le nombre \( \int g\) étant fini, nous pouvons le retrancher des deux côtés de l'inégalité :
+    \begin{equation}
+        \int f\leq\liminf\int f_n.
+    \end{equation}
+    Afin d'obtenir une minoration de \( \int f\) nous refaisons exactement le même raisonnement en utilisant la suite de fonctions \( k_n=-f_n\to k=-f\). Nous obtenons que
+    \begin{equation}
+        \int k\geq\liminf\int k_n=-\limsup\int f_n,
+    \end{equation}
+    et par conséquent
+    \begin{equation}    \label{IneqsndMYTO}
+        \liminf\int f_n\leq\int f\leq\limsup\int f_n.
+    \end{equation}
+    La limite supérieure étant plus grande ou égale à la limite inférieure, les trois quantités dans les inégalités \eqref{IneqsndMYTO} sont égales.
 \end{proof}
-<++>
+
+\begin{corollary}
+    Soit \( (a_i)_{i\in \eN}\) une suite numérique absolument convergente. Alors elle est convergente. Il en est de même pour les séries de fonctions si on considère la convergence ponctuelle.
+\end{corollary}
+
+\begin{proof}
+    L'hypothèse est la convergence de l'intégrale \( \int_{\eN}| a_i |dm(i)\) où \( dm\) est la mesure de comptage. Étant donné que \( | a_i |\leq | a_i |\), la fonction \( a_i\) (fonction de \( i\)) peut jouer le rôle de \( g\) dans le théorème de la convergence dominée de Lebesgue (théorème \ref{ThoConvDomLebVdhsTf}).
+\end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Dérivation sous le signe intégral}
@@ -690,12 +734,15 @@ et la relation d'équivalence \( f\sim g\) si et seulement si \( f(x)=g(x)\) pou
     La fonction \( x\mapsto | f(x) |^2\) vérifie les hypothèses du lemme \ref{Lemfobnwt}. Par conséquent \( | f(x) |^2\) est presque partout nulle.
 \end{proof}
 
+Sources : \cite{SuquetFourierProba}, le \wikipedia{fr}{théorème_de_Riesz-Fischer}{théorème de Riesz-Fischer} sur wikipedia.
+
+
 Nous montrons maintenant que \( L^2\) est un espace vectoriel complet. Soit \( (f_n)\) une suite ce Cauchy dans \( (L^2,\| . \|_2)\). Pour tout \( n\in\eN\), il existe \( N_n\in\eN\) tel que si \( p,q\geq N_n\) alors
 \begin{equation}
     \| f_p-f_q \|<2^{-n}.
 \end{equation}
 Nous avons 
 \begin{equation}
-    \| \sum_{n=1}^{\infty} f_{N_n+1}-f_{N_n} \|\leq\sum_{n}\| f_{N_n+1}-f_{N_n} \|<\infty
+    \| \sum_{n=0}^{\infty} f_{N_n+1}-f_{N_n} \|\leq\sum_{n=0}^{\infty}\| f_{N_n+1}-f_{N_n} \|<\infty
 \end{equation}
 parce que la série des \( 2^{-n}\) converge.
