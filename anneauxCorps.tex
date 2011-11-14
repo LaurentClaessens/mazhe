@@ -185,6 +185,9 @@ est un anneau appelé \defe{anneau quotient}{anneau!quotient par un idéal}. La 
 
     Si \( n\) n'est pas premier, il existe \( p,q\in\eN^*\) tels que \( pq=n\). Dans ce cas au niveau des classes nous avons \( \tilde p\tilde q=0\) avec \( \tilde p\neq 0\neq\tilde q\), ce qui montre que \( \eZ_n\) a des diviseurs de zéro et n'est pas intègre.
 \end{proof}
+
+Un idéal \( I\) dans \(\eA\) est \defe{principal à gauche}{idéal!principal!à gauche} si il existe \( a\in I\) tel que \( I=\eA a\). Il est \defe{principal à droite}{idéal!principal!à droite} si il existe \( a\in I\) tel que \( I=a\eA\). Nous disons qu'il est \defe{principal}{principal!idéal} si il est principal à gauche et à droite.
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Caractéristique}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -329,16 +332,17 @@ Par le lemme \ref{LemCaractIntergernbrcartpre}, un anneau sans diviseur de zéro
 \section{Modules}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Soit \( E\) un \( A\)-module et \( x=(x_i)_{i\in I}\) une famille d'éléments de \( E\), paramétrée par l'ensemble \( I\). Nous considérons l'application
+Soit \( \modE\) un \( A\)-module et \( x=(x_i)_{i\in I}\) une famille d'éléments de \( \modE\), paramétrée par l'ensemble \( I\). Nous considérons l'application
 \begin{equation}
     \begin{aligned}
-        \mu_x\colon A^{(I)}&\to E \\
+        \mu_x\colon A^{(I)}&\to \modE \\
         (a_i)_{i\in I}&\mapsto \sum_{i\in I}a_ix_i.
     \end{aligned}
 \end{equation}
-Ici \( A^{(I)}\) désigne l'ensemble de toutes les applications \( I\to A\) de support fini.
+Ici \( A^{(I)}\) désigne l'ensemble de toutes les applications \( I\to A\) de support fini.  
 
 \begin{definition}      \label{DefBasePouyKj}
+    À l'instar des espaces vectoriels, les modules ont une notion de partie libre, génératrice et de bases :
     \begin{enumerate}
         \item
             Si \( \mu_x\) est surjective, nous disons que \( x\) est une partie \defe{génératrice}{génératrice!partir d'un module}.
@@ -348,6 +352,25 @@ Ici \( A^{(I)}\) désigne l'ensemble de toutes les applications \( I\to A\) de s
             Si \( \mu_x\) est bijective, nous disons que la partie \( x\) est une \defe{base}{base!d'un module}.
     \end{enumerate}
 \end{definition}
+
+\begin{definition}
+    Soit \( \modE\) un module sur un anneau commutatif \( A\). Un \defe{projecteur}{projecteur!dans un module} est une application linéaire \( p\colon \modE\to \modE\) telle que \( p^2=p\).
+
+    Une famille \( (p_i)_{i\in I}\) sur \( \modE\) est \defe{orthogonale}{orthogonal!famille de projecteurs} si \( p_i\circ p_j=0\) pour tout \( i\neq j\).
+\end{definition}
+
+\begin{theorem}     \label{ThoProjModpAlsUR}
+    Soient des sous modules \( \modE_1,\ldots,\modE_n\) du module \( \modE\) tels que \( \modE=\modE_1\oplus\ldots\oplus\modE_n\). Les applications \( p_i\) définies par
+    \begin{equation}
+        p_i(x_1+x_n)=x_i
+    \end{equation}
+    forment une famille orthogonale de projecteurs et \( p_1+\ldots +p_n=\id\).
+
+    Inversement, si \( (p_1,\ldots, p_n)\) est une famille orthogonale de projecteurs dans un module \( \modE\) tel que \( \sum_{i=1}^np_i=\id\), alors
+    \begin{equation}
+        \modE=\bigoplus_{i=1}^np_i(\modE).
+    \end{equation}
+\end{theorem}
 
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -440,7 +463,78 @@ Un polynôme est \defe{irréductible}{irréductible!polynôme} lorsqu'il ne peut
     divise également \( P\). Ce dernier est un polynôme à coefficients réels de degré \( 2\). Donc tout polynôme de degré \( 3\) ou plus est réductible.
 \end{proof}
 
-Nous disons que \( P\i\eK[X]\setminus\eK\) est \defe{scindé}{polynôme!scindé} sur \(\eK\) si il est produit dans \(\eK[X]\) de polynômes de degré \( 1\).
+Nous disons que \( P\in\eK[X]\setminus\eK\) est \defe{scindé}{polynôme!scindé} sur \(\eK\) si il est produit dans \(\eK[X]\) de polynômes de degré \( 1\).
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Division euclidienne}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Le théorème suivant établit la \defe{division euclidienne}{division!euclidienne} dans \( \eA[X]\) du polynôme \( A\) par \( B\).
+\begin{theorem}     \label{ThodivEuclPsFexf}
+    Soit \( B\neq 0\) dans \( \eA[X]\) de coefficient dominant inversible dans \( \eA\). Pour tout \( A\in\eA[X]\), il existe \( P,Q\in \eA[X]\) tels que
+    \begin{equation}
+        A=BQ+R
+    \end{equation}
+    avec \( \deg(R)<\deg(B)\).
+
+    Les polynômes \( Q\) et \( R\) sont déterminés de façon univoque par cette condition. Le polynôme \( Q\) est le \defe{quotient}{quotient} et \( R\) est le \defe{reste}{reste} de la division euclidienne de \( A\) par \( B\).
+\end{theorem}
+
+
+\begin{theorem}[Bezout] \label{ThoBezoutOuGmLB}
+    Les polynômes \( P_1,\ldots,P_n\) dans \( \eK[X]\) sont étrangers entre eux si et seulement si il existe des polynômes \( Q_1,\ldots,Q_n\in\eK[X]\) tels que
+    \begin{equation}
+        P_1Q_1+\ldots+P_nQ_n=1.
+    \end{equation}
+\end{theorem}
+
+\begin{lemma}       \label{LemuALZHn}
+    Soient \( (P_i)_{i=1,\ldots,n}\in \eK[X]\) des polynômes étrangers deux à deux. Alors les polynômes
+    \begin{equation}
+        Q_i=\prod_{j\neq i}P_j
+    \end{equation}
+    sont étrangers entre eux\footnote{Et non juste deux à deux.}.
+\end{lemma}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Idéaux}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit \( P\in \eK[X]\) un polynôme. Nous notons \( (P)\) l'idéal engendré par \( P\) :
+\begin{equation}
+    (P)=\{ PR\tq R\in\eK[X] \}.
+\end{equation}
+
+\begin{lemma}
+    Nous avons
+    \begin{enumerate}
+        \item
+            \( (P)\subset (Q)\) si et seulement si \( Q\) divise \( P\),
+        \item
+            \( (P)=(Q)\) si et seulement si \( P\) et \( Q\) sont multiples (non nuls) l'un de l'autre.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Si \( (P)\subset (Q)\), en particulier \( P\in(Q)\) et il existe \( R\in\eK[X]\) tel que \( P=QR\), ce qui signifie que \( Q\) divise \( P\).
+
+    Si les idéaux de \( P\) et de \( Q\) sont identiques, l'un divise l'autre et l'autre divise l'un. Ils sont donc multiples l'un de l'autre.
+\end{proof}
+
+\begin{theorem}
+    Soit \( I\) un idéal dans \( \eK[X]\). Alors il existe un polynôme \( P\) tel que \( I=(P)\).
+
+    De plus si \( I\neq \{  0\}\), il existe un unique polynôme unitaire \( U\) tel que \( I=(U)\).
+\end{theorem}
+
+\begin{proof}
+    Si \( I=\{ 0 \}\), le résultat est évident. Nous supposons donc \( I\) non nul. Soit \( P\) de degré minimum parmi les éléments de \( I\). Évidemment \( (P)\subset I\). Nous allons démontrer qu'en réalité \( (P)=I\).
+
+    Soit \( A\in I\). Par le théorème \ref{ThodivEuclPsFexf} de la division euclidienne\footnote{Ici \( \eK\) est un corps et donc l'hypothèse d'inversibilité est automatiquement vérifiée.}, il existe \( Q\) et \( R\) dans \( \eK[X]\) tels que \( A=PQ+R\) avec \( \deg(R)<\deg(P)\). Étant donné que \( R=A-PQ\) nous avons \( R\in I\) et par conséquent \( R=0\) parce que \( P\) a été choisit de degré minimum dans \( I\). Nous avons donc \( A=PQ\) et \( I\subset (P)\).
+
+    L'existence d'un polynôme unitaire qui génère \( I\) est obtenu en choisissant \( U=P/a_n\) où \( a_n\) est le coefficient du terme de plus haut degré.
+\end{proof}
+Nous voyons que n'importe quel polynôme de degré minimum dans un idéal génère l'idéal.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Endomorphismes}
@@ -454,7 +548,7 @@ Soit \( A\) un anneau commutatif et \( \eK\), un corps commutatif. L'injection c
 \begin{equation}
    \eM(A)\to\eM\big( A[X] \big).
 \end{equation}
-Si \( u\i\eM_n(A)\), nous définissons le \defe{polynôme caractéristique de \( u\)}{polynôme!caractéristique} :
+Si \( u\in\eM_n(A)\), nous définissons le \defe{polynôme caractéristique de \( u\)}{polynôme!caractéristique} :
 \begin{equation}
     \chi_u(X)=\det(X\mtu_n-u).
 \end{equation} 
@@ -538,11 +632,90 @@ Sur l'ensemble \( \eM_n(\eK)\) des matrices \( n\times n\) à coefficients dans 
     Si \( A\) est une matrice triangulaire supérieure de taille \( n\) telle que \( A_{ii}=1\), alors \( \det(A-\lambda\mtu)=(1-\lambda)^n\), ce qui signifie que \( \Spec(A)=\{ 1 \}\). Pour la diagonaliser, il faudrait une matrice \( P\in\GL(n,\eK)\) telle que \( \mtu=P^{-1}AP\), ce qui est uniquement possible si \( A=\mtu\).
 \end{proof}
 
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Polynômes d'endomorphismes}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit \( u\) un endomorphisme d'un \( \eK\)-espace vectoriel \( E\) et \( P\), un polynôme. Nous disons que \( P\) est un polynôme \defe{annulateur}{polynôme!annulateur} de \( u\) si \( P(u)=0\) en tant que endomorphisme de \( E\).
+
+\begin{lemma}       \label{LemQWvhYb}
+    Si \( P\) et \( Q\) sont des polynômes dans \( \eK[X]\) et si \( u\) est un endomorphisme d'un \( \eK\)-espace vectoriel \( E\), nous avons
+    \begin{equation}
+        (PQ)(u)=P(u)\circ Q(u).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Si \( P=\sum_i a_iX^i\) et \( Q=\sum_j b_jX^j\), alors le coefficient de \( X^k\) dans \( PQ\) est
+    \begin{equation}        \label{EqCoefGPyVcv}
+        \sum_la_lb_{k-l}.
+    \end{equation}
+    Par conséquent \( (PQ)(u)\) contient \( \sum_la_lb_{k-l}u^k\). Par ailleurs \( P(u)\circ Q(u)\) est donné par
+    \begin{equation}
+        \sum_ia_iu^i\left( \sum_jb_ju^j \right)(x)=\sum_{ij}a_ib_ju^{i+j}(x).
+    \end{equation}
+    Le coefficient du terme en \( u^k\) est bien le même que celui donné par \eqref{EqCoefGPyVcv}.
+\end{proof}
+
+\begin{theorem}[Décomposition des noyaux]
+    Soit \( u\) un endomorphisme du \( \eK\)-espace vectoriel \( E\). Soit \( P\in\eK[X]\) un polynôme tel que \( P(u)=0\). Nous supposons que \( P\) s'écrive comme le produit \( P=P_1\cdots P_n\) de polynômes deux à deux étrangers. Alors
+    \begin{equation}
+        E=\ker P_1(u)\oplus\ldots\oplus\ker P_n(u).
+    \end{equation}
+    De plus les projecteurs associés à cette décomposition sont des polynômes en \( u\).
+\end{theorem}
+
+\begin{proof}
+    Nous posons 
+    \begin{equation}
+        Q_i=\prod_{j\neq i}P_i.
+    \end{equation}
+    Par le lemme \ref{LemuALZHn} ces polynômes sont étrangers entre eux et le théorème de Bezout (théorème \ref{ThoBezoutOuGmLB}) donne l'existence de polynômes \( R_i\) tels que
+    \begin{equation}
+        R_1Q_1+\ldots+R_nQ_n=1.
+    \end{equation}
+    Si nous appliquons cette égalité à \( u\) et ensuite à \( x\in E\) nous trouvons
+    \begin{equation}        \label{EqqVcpUy}
+        \sum_{i=1}^n(R_iQ_i)(u)(x)=x,
+    \end{equation}
+    et en particulier si nous posons \( E_i=\Image\big(P_iQ_i(u)\big)\) nous avons
+    \begin{equation}
+        E=\sum_{i=1}^nE_i.
+    \end{equation}
+    Cette dernière somme n'est éventuellement pas une somme directe. Si \( i\neq j\), alors \( Q_iQ_j\) est multiple de \( P\) et nous avons, en utilisant le lemme \ref{LemQWvhYb}, 
+    \begin{equation}
+        (R_iQ_i)(u)\circ (R_jQ_j)(u)=\big( R_iQ_iR_jQ_j \big)(u)=S_{ij}(u)\circ P(u)=0
+    \end{equation}
+    où \( S_{ij}\) est un polynôme. 
+
+    Nous pouvons voir \( E\) comme un \( \eK\)-module et appliquer le théorème \ref{ThoProjModpAlsUR}. Les opérateurs \( R_iQ_i(u)\) ont l'identité comme somme et sont orthogonaux, et nous avons donc la décomposition en somme directe :
+    \begin{equation}
+        E=\bigoplus_{i=1}^nR_iQ_i(u)E.
+    \end{equation}
+
+    Afin de terminer la preuve, nous devons montrer que \( R_iQ_i(u)E=\ker P_i(u)\). D'abord nous avons
+    \begin{equation}
+        P_iR_iQ_i(u)=(R_iP)(u)=R_i(u)\circ P(u)=0,
+    \end{equation}
+    par conséquent \( \Image(R_iQ_i(u))\subset \ker P_i(u)\). Pour obtenir l'inclusion inverse, nous reprenons l'équation \eqref{EqqVcpUy} avec \( x\in\ker P_i(u)\). Elle se réduit à
+    \begin{equation}
+        (R_iQ_i)(u)x=x.
+    \end{equation}
+    Par conséquent \( x\in\Image\big( R_iQ_i(u) \big)\).
+\end{proof}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Diagonalisation}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Ici encore \( \eK\) est un corps commutatif.
+
 \begin{theorem}
     Soit \( E\), un \(\eK\)-espace vectoriel de dimension \( n\) et \( u\in\End(E)\). Les propriétés suivantes sont équivalentes.
     \begin{enumerate}
         \item
-            Il existe un polynôme \( P\i\eK[X]\) non constant, scindé sur \(\eK\) dont toutes les racines sont simples tel que \( P(u)=0\).
+            Il existe un polynôme \( P\in\eK[X]\) non constant, scindé sur \(\eK\) dont toutes les racines sont simples tel que \( P(u)=0\).
         \item
             Le polynôme \( \mu_u\) est scindé sur \(\eK\) et toutes ses racines sont simples
         \item
@@ -556,6 +729,4 @@ Sur l'ensemble \( \eM_n(\eK)\) des matrices \( n\times n\) à coefficients dans 
         F=\sum_{\lambda}E_{\lambda}\cap F.
     \end{equation}
 \end{theorem}
-
-
 

@@ -44,8 +44,28 @@
 %ftp://ftp.belnet.be/packages/ctan/macros/latex/contrib/SIunits/SIunits.pdf
 
 \usepackage[nottoc]{tocbibind}
-\usepackage[ps2pdf]{hyperref}       %Doit être appelé en dernier.
-\hypersetup{colorlinks=true,linkcolor=blue}
+
+
+\newcounter{VerifForwardRef}
+\setcounter{VerifForwardRef}{1}
+\ifthenelse{\value{VerifForwardRef}=0}{
+    \usepackage[ps2pdf,linkcolor=blue,urlcolor=cyan]{hyperref}                  %Doit êre appelé en dernier.
+    \hypersetup{colorlinks=true,linkcolor=blue}         %Pour enlever toutes les couleurs, ajouter draft=true
+    \usepackage[numbers,sort&compress]{natbib}
+    \usepackage{hypernat}
+}
+
+\ifthenelse{\value{VerifForwardRef}=1}{
+    \let\Oldref\ref
+    \renewcommand{\ref}[1]{%
+    \ifthenelse{\value{page}<\pageref{#1}}{ {\huge ATTENTION} }{}%
+    \Oldref{#1}%
+    }
+    \newcommand{\url}[1]{}
+    \newcommand{\href}[2]{}
+    \renewcommand{\caption}[1]{}
+    \newcommand{\texorpdfstring}[2]{#1}
+}{}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -55,6 +75,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%
 
 % ENSEMBLES DE NOMBRES
+\newcommand{\eA}{\mathbbm{A}}
 \newcommand{\eC}{\mathbbm{C}}
 \newcommand{\eK}{\mathbbm{K}}
 \newcommand{\eM}{\mathbbm{M}}
@@ -177,7 +198,8 @@
 \renewcommand{\theCountExercice}{\arabic{section}.\arabic{CountExercice}}       % Ce compteur est défini dans SystemeCorr.sty
 \newcommand{\defe}[2]{\textbf{#1}\index{#2}}
 
-\renewcommand{\theenumi}{(\roman{enumi})}
+%\renewcommand{\labelenumi}{\theenumi}
+%\renewcommand{\theenumi}{(\roman{enumi})}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -213,6 +235,9 @@
 \newcommand{\dU}{\mathscr{U}}       % la distribution uniforme
 
 \newcommand{\hL}{\mathscr{L}}       
+
+\newcommand{\modE}{\mathcal{E}}         % Le E des modules
+\newcommand{\hH}{\mathscr{H}}           % Le H des espaces de Hilbert
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -264,7 +289,7 @@
 
 \DeclareMathOperator{\GL}{GL}   % le groupe linéaire
 
-\DeclareMathOperator{\Image}{Im}        % ... avec \Image qui donne l'image d'une fonction ou d'un opérateur.
+\DeclareMathOperator{\Image}{Image}        % ... avec \Image qui donne l'image d'une fonction ou d'un opérateur.
 \DeclareMathOperator{\Kernel}{Ker}
 \DeclareMathOperator{\End}{End}     % L'ensemble des endomorphismes
 
