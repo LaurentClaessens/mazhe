@@ -58,6 +58,10 @@ from phystricksIntDeuxCarres import IntDeuxCarres
 from phystricksExPolygone import ExPolygone
 from phystricksMoulinEau import MoulinEau
 
+from phystricksMethodeNewton import MethodeNewton
+
+
+
 def AllFigures():
     figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,
             MomentForce,Parallelogramme,CouroneExam,
@@ -69,7 +73,7 @@ def AllFigures():
             SurfaceHorizVerti,SurfaceCercle,ExoCourone,IntRectangle,IntTriangle,
             IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,IntCourbePolaire,ConeRevolution,
             ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
-            MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile]
+            MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton]
 
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"mes notes de mathématique")
     tests.generate()

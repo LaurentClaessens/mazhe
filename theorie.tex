@@ -1,0 +1,340 @@
+% This is part of Exercices et corrections de MAT1151
+% Copyright (C) 2010
+%   Laurent Claessens
+% See the file LICENCE.txt for copying conditions.
+
+D'autres lectures agréables dans \cite{GianlucaB,cmcsNum}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Corrigez vous vous même}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Propagande : utilisez votre ordinateur !}
+%---------------------------------------------------------------------------------------------------------------------------
+
+De nos jours, les ordinateurs sont capables de faire à peu près tous les calculs dont vous avez besoin. Pourquoi s'en priver pour se corriger soi-même lorsqu'on fait des exercices ? 
+
+% Pour la commande \st, c'est le paquet soul
+De nombreuses universités ou collègues vous suggèrent \st{de pirater} d'utiliser Matlab. Je vous propose plutôt d'utiliser \href{http://sagemath.org}{Sage} dont les possibilités de programmation sont nettement plus nombreuses.
+
+Pour l'utiliser, il n'est même pas nécessaire de l'installer sur votre ordinateur~: il tourne en ligne, directement dans votre navigateur.
+
+\begin{enumerate}
+
+	\item
+		Allez sur \href{http://www.sagenb.org}{http://www.sagenb.org}
+	\item
+		Créez un compte
+	\item
+		Créez des feuilles de calcul et amusez vous !
+
+\end{enumerate}
+
+Il y a beaucoup de \href{http://lmgtfy.com/?q=sage+documentation}{documentation} sur le \href{http://www.sagemath.org}{site officiel}\footnote{\href{http://www.sagemath.org}{http://www.sagemath.org}}.
+
+Si vous comptez utiliser régulièrement ce logiciel, je vous recommande \emph{chaudement} de \href{http://mirror.switch.ch/mirror/sagemath/index.html}{l'installer} sur votre ordinateur\footnote{Le paquet sagemath fourni par Ubuntu dans Karmic est très bogué, ne l'utilisez pas. Si vous avez une version plus récente d'Ubuntu, renseignez vous.}. Ce logiciel étant distribué sous licence GPL, vous ne devez ni payer ni vous procurer de codes.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Ce que Sage peut faire pour vous}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Pour certaines choses complexes, j'ai tapé un module nommé \verb+outilsMAT1151+. Pour l'obtenir, allez sur \href{http://www.gitorious.org/math1151}{gitorious}. et téléchargez le fichier \verb+outilsINGE.py+ ainsi que tous les fichiers dont le nom termine par \verb+.sage+. Ces derniers contiennent le code qui fournit les réponses pour un certain nombre d'exercices.
+
+Voici une liste absolument pas exhaustive de ce que Sage peut faire pour vous, avec des exemples. 
+\begin{enumerate}
+
+	\item
+		Calculer le conditionnement d'un problème, voir exercice \ref{exoSerieQuatre0008}.
+	\item
+		Tracer des fonctions, voir exercice \ref{exoSerieQuatre0007}.
+	\item
+		Calculer des limites, des dérivées, intégrer, calculer des valeurs propres de matrices et diagonaliser, voir la note sur Sage dans \href{http://student.ulb.ac.be/~lclaesse/geog.pdf}{le cours de math générale}.
+
+\end{enumerate}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Conditionnement et stabilité}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+
+	Soit $F$ une fonction à valeurs réelles définie sur ${\bf X}\times{\bf D}$ o\`u ${\bf X}$ et ${\bf D}$ sont des espaces vectoriels réels normés. Le problème de la recherche des solutions de 
+	\begin{equation}
+		F(x,d)=0
+	\end{equation}
+	est dit \defe{stable}{Stable} si 
+	\begin{enumerate}
+		\item 
+			la solution $x=x(d)$ existe et est unique pour tout $d$;
+		\item \label{ItemProbStableB}
+			Pour tout $\eta>0$, et pour tout $d_0$, il existe un nombre $K>0$ tel que $|d-d_0|<\eta$ entraine $|x(d)-x(d_0)|\;\leq\;K\;|d-d_0|$.
+	\end{enumerate}
+\end{definition}
+Le nombre 
+\begin{equation}		\label{EqDefAABSOLU}
+	K_{abs}(d_0,\eta):=\sup_{d\text{ tel que $|d_0-d|<\eta$}}\frac{|x(d)-x(d_0)|}{|d-d_0|}
+\end{equation}
+est appelé le \defe{conditionnement absolu}{Conditionnement!absolu} du problème autour de $d_0$.
+
+\begin{definition}	
+	Soit $F(x,d)=0$ un problème stable de conditionnement absolu $K_{\text{abs}}(d,\eta)$.  Le conditionnement relatif est défini par
+	\begin{equation}
+		K_{\text{rel}}(d,\eta):=K_{\text{abs}}(d,\eta)\frac{|d|}{|x(d)|}.
+	\end{equation}
+	Le problème est dit \defe{bien conditionné}{Bien conditionné} près de $d$ si $K_{\text{rel}}(d,\eta)$ est petit.
+\end{definition}
+
+Un résultat pratique pour étudier le conditionnement d'un problème est le suivant.
+\begin{corollary}		\label{CorConditionnementNormeNabla}
+	Soit $x=x(d)$ un problème stable. Supposons $\eD$ de dimension finie, supposons que $U$ est ouvert dans $\eD$. Supposons encore $x\colon U\to \eR$ différentiable en $d_0$. Alors quand $\eta$ est petit, on a
+	\begin{equation}
+		K_{\text{abs}}^{\eta}(d_0)\sim \| \nabla x(d_0) \|.
+	\end{equation}
+\end{corollary}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Comment choisir et penser le $K$?}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La formule \eqref{EqDefAABSOLU} contient une formule qui ressemble étrangement à la dérivée. La stabilité d'un problème est très liée à la dérivée de $F$. La stabilité et la dérivée ne sont pas les mêmes choses, mais il n'est pas mauvais de penser au $K$ de la stabilité comme la dérivée. Ou plus précisément : le supremum de la dérivée.
+
+Un fil conducteur des exercices \ref{exoSerieUn0002}, \ref{exoSerieUn0003} et \ref{exoSerieUn0001} est que l'on a un $K$ qui fonctionne lorsque la dérivée est bornée sur l'intervalle $\mathopen] d_0-\eta , d_0+\eta \mathclose[$. Dans le cas où ce supremum existe, le prendre en guise de $K$ fonctionne souvent.
+
+Il faut cependant parfois faire acte d'imagination. La fonction $x\mapsto| x |$ n'est pas dérivable en $0$. Il n'empêche que $K=1$ fait fonctionner la définition de la stabilité. Remarquez que $K=1$ est le supremum de la dérivée là où elle existe.
+
+À partir du moment où c'est clair que le $K$ est le supremum de la dérivée, on comprend pourquoi c'est le gradient qui arrive dans le corollaire \ref{CorConditionnementNormeNabla}. En effet, le gradient indique la direction de plus grande pente. C'est donc bien dans cette direction qu'il faut chercher la «plus grande dérivée».
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Norme opérateur}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Une \defe{norme}{Norme} sur un espace vectoriel réel $V$ est une application $\| . \|\colon V\to \eR$ telle que
+\begin{enumerate}
+		\label{PgDefNorme}
+
+	\item
+		$\| v \|=0$ seulement si $A=0$,
+	\item
+		$\| \lambda v \|=| \lambda |\cdot\| v \|$,
+	\item
+		$\| v+w \|\leq\| v \|+\| w \|$
+
+\end{enumerate}
+pour tout $v,w\in V$ et pour tout $\lambda\in\eR$.
+
+\begin{definition}
+	Soit $\alpha$ une application linéaire entre espaces vectoriels réels normés. On définit sa \defe{\wikipedia{fr}{Norme_d'opérateur}{norme opérateur}}{Norme!opérateur} comme le nombre
+	\begin{equation}
+		|\alpha|_{\mbox{op}}:=\sup_{|x|=1}\{|\alpha(x)|\}.
+	\end{equation}
+\end{definition}
+
+\begin{proposition}	
+	Pour le problème stable $x=x(d)$ avec $x\in C^1(\eR^n,\eR)$, on a
+	\begin{equation}
+		K_{abs}(d)\sim|x_{\star d}|_{\mbox{op}}
+	\end{equation}
+	où $x_{\star d}$ désigne la différentielle de $x$ en $d$.
+\end{proposition}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Algorithmes, stabilité, convergence et conditionnement}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Méthode de Newton pour trouver une racine d'une fonction}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{SubSecMethodeNewton}
+
+La méthode de Newton consiste a exprimer la solution $x$ de $f(x)=0$ avec $f\in C^1(\eR)$ comme limite d'une suite $\{x_n\}_{n\in\eN}$ définie par récurrence par la formule
+\begin{equation}
+	x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}.
+\end{equation}
+où $x_0$ est arbitraire.
+
+Si on veut exprimer cela en termes d'algorithmes, nous disons que l'algorithme de Newton est donné par la suite de problèmes
+\begin{equation}		\label{EqFPourNewtonUn}
+	F_n(x_{n+1},x_n,f)=x_{n+1}-x_n+\frac{ f(x_n) }{ f'(x_n) }.
+\end{equation}
+La donnée du problème est la fonction $f$, et rien que elle.
+
+Plus précisément, une fois que la fonction $f$ est donnée, il existe une infinité de problèmes : pour chaque $a\in \eR$ nous avons le problème
+\begin{equation}
+	G_a(x_n,f)=x-a+\frac{ f(a) }{ f'(a) }.
+\end{equation}
+La méthode de Newton consiste à sélectionner une partie de ces problèmes de la façon suivante :
+\begin{subequations}
+	\begin{numcases}{}
+		F_0=G_{x_0}\\
+		F_n=G_{x_n}.
+	\end{numcases}
+\end{subequations}
+Le problème $F_0$ fournit un nombre $x_1$ qui nous permet de sélectionner le problème $G_{x_1}$ qui va fournir le nombre $x_2$, etc.
+
+Au moment de calculer le conditionnement de $F_n$, nous ne devons pas voir $x_{n-1}$ comme fonction de $x_0$ et de la donnée $f$. Il ne faut donc pas dériver à travers les $x_n$.
+
+L'algorithme de Newton a les caractéristiques suivantes :
+\begin{enumerate}
+
+	\item
+		Pour résoudre le problème numéro $n$, il faut avoir résolu le problème numéro $n-1$.
+	\item
+		Aucune des solutions $x_n$ aux problèmes intermédiaires n'est une solution au problème de départ (à moins d'un coup de chance).
+	\item
+		Étant donné que la donnée du problème $F_n$ est la fonction $f$ de départ, nous avons $d_m=d_n=d$ pour tout $m$ et $n$.
+
+\end{enumerate}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Résoudre un système linéaire}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Pour résoudre un système linéaire d'équations, nous échelonnons la matrice du système. Soit à résoudre le système $Ax=b$ où
+\begin{equation}
+	\begin{aligned}[]
+		A&=\begin{pmatrix}
+			2	&	4	&	-6	\\
+			1	&	5	&	3	\\
+			1	&	3	&	2
+		\end{pmatrix}, &\text{et}&&b=\begin{pmatrix}
+			-4	\\ 
+			10	\\ 
+			5	
+		\end{pmatrix}.
+	\end{aligned}
+\end{equation}
+En termes de problèmes, on écrit $F\big( x,(A,b) \big)=Ax-b$. La donnée de ce problème est le couple $(A,b)$.
+
+En ce qui concerne l'algorithme, on pose comme premier problème
+\begin{equation}
+	F_1\big(x_1,(A_1,b_1)\big)=A_1x_1-b_1=0
+\end{equation}
+avec $A_1=A$ et $b_1=b$.
+
+Ensuite, on commence à échelonner et le second problème est
+\begin{equation}
+	F_2\big(x_2,(A_2,b_2)\big)=A_2x_2-b_2=0
+\end{equation}
+avec 
+\begin{equation}
+	\begin{aligned}[]
+		A&=\begin{pmatrix}
+			2	&	4	&	-6	\\
+			0	&	3	&	6	\\
+			0	&	1	&	5
+		\end{pmatrix}, &\text{et}&&b=\begin{pmatrix}
+			-4	\\ 
+			12	\\ 
+			13	
+		\end{pmatrix}.
+	\end{aligned}
+\end{equation}
+Le troisième problème sera
+\begin{equation}
+	F_3\big(x_3,(A_3,b_3)\big)=A_3x_3-b_3=0
+\end{equation}
+avec 
+\begin{equation}
+	\begin{aligned}[]
+		A&=\begin{pmatrix}
+			2	&	4	&	-6	\\
+			0	&	3	&	6	\\
+			0	&	0	&	3
+		\end{pmatrix}, &\text{et}&&b=\begin{pmatrix}
+			-4	\\ 
+			12	\\ 
+			3	
+		\end{pmatrix}.
+	\end{aligned}
+\end{equation}
+Ce problème est facile à résoudre «à la main». Nous nous arrêtons donc ici avec l'algorithme, et nous trouvons le $x_3$ qui résous le problème $F_3$.
+
+L'algorithme de résolution de systèmes linéaires d'équations a les propriétés suivantes, à mettre en contraste avec celles de Newton :
+\begin{enumerate}
+
+	\item
+		Pour résoudre le problème numéro $n$, il n'a pas fallu résoudre le problème numéro $n-1$.
+	\item
+		Toutes les solutions $x_n$ des problèmes intermédiaires sont solutions du problème de départ. Nous avons $F_n(x,d_n)=0$ pour tout $n$ (ici, $d_n=(A_n,b_n)$).
+	\item
+		D'un problème à l'autre, les données changent énormément : la matrice échelonnée peut être très différente de la matrice de départ.
+
+\end{enumerate}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Définitions}
+%---------------------------------------------------------------------------------------------------------------------------
+
+	Nous allons maintenant formaliser en donnant quelque définitions pour nommer les propriétés que nous avons vues. D'abord, un algorithme est une suite de problèmes. Un \defe{algorithme}{Algorithme} pour résoudre un problème $F(x,d)=0$ est une suite de problèmes $\{F_n(x_n,d_n)=0\}_{n\in\eN}$.  
+
+\begin{definition}
+	Un tel algorithme est dit  \defe{fortement consistant}{Algorithme!fortement consistant} si pour toutes données admissibles $d_n$, on a
+	\begin{equation}
+		F_n(x,d_n)=0\quad\forall \;n,
+	\end{equation}
+	où $x$ est la solution de $F(x,d)=0$.
+\end{definition}
+L'algorithme des matrices est fortement consistant, mais pas l'algorithme de Newton.
+
+\begin{definition}
+	Un algorithme est \defe{consistant}{Algorithme!consistant} si $\lim_{n\to\infty}F_n(x,d_n)=0$.
+\end{definition}
+Dans le cas de l'algorithme de Newton, c'est plutôt une telle consistance qu'on attend.
+
+L'algorithme est dit \defe{stable}{Algorithme!stable} si pour tout $n$ le problème correspondant est stable.  Dans ce cas, on note $K^{\mbox{num}}$ le  \defe{conditionnement relatif asymptotique}{Conditionnement!relatif asymptotique} défini par
+\begin{equation}
+	K^{\mbox{num}}=\limsup_nK_n
+\end{equation}
+où $K_n$ est le conditionnement relatif du problème $F_n(x_n,d_n)=0$.
+
+\begin{definition}		\label{DefAlgoConverge}
+	Un algorithme est dit \defe{convergent}{Algorithme!convergent} (en $d$) si pour tout $\epsilon>0$, il existe $N=N(\epsilon)$ et $\delta=\delta(N,\epsilon)$ tels que pour $n\geq0$ et $|d-d_n|<\delta$, on ait $|x(d)-x_n(d_n)|<\epsilon$.
+\end{definition}
+
+\begin{remark}		\label{RemConvAlgoNewton}
+Dans le cas de l'algorithme de Newton, nous avons vu que la donnée $d_n$ du problème $F_n$ était en fait la même que la donnée initiale $d$, donc nous avons $d_n=d$, et par conséquent nous avons toujours $| d-d_n |<\delta$. Dans ce cas, la définition de la convergence revient à demander que la suite numérique des $x_n$ converge vers la solution $x$.
+\end{remark}
+
+\begin{remark}
+Dans le cas des matrices par contre, les données sont très différentes les unes des autres, nous avons donc en général que $| d-d_n |>\delta$. Mais en revanche nous savons que tous les problèmes intermédiaires $F_n$ acceptent une solution unique\footnote{Nous n'envisageons que le cas où le déterminant est non nul.} $x_n(d_n)=x(d)$. Par conséquent, $| x_n(d_n)-x(d) |$ est toujours plus petit que $\epsilon$. L'algorithme des matrice est donc toujours un algorithme convergent.
+\end{remark}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Représentations numériques, erreurs}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+	Soit $x$ un réel. On définit sa \defe{représentation en virgule fixe}{Représentation!virgule fixe} par 
+	\begin{equation}
+		x=\{[x_nx_{n-1}...x_0,x_{-1}...x_{-m}], b, s\}
+	\end{equation}
+	avec  $b\in\eN, b\geq2$, $s\in\{0,1\}$ et $x_j\in\eN,x_j<b$ suivant la formule
+	\begin{equation}
+		x=(-1)^{s}\sum_{j=-m}^nx_j.b^j.
+	\end{equation}
+	On définit sa \defe{représentation en \href{http://docs.python.org/tutorial/floatingpoint.html}{virgule flottante} normalisée}{Représentation!virgule flottante normalisée} par 
+	\begin{equation}
+		\{[a_1...a_t],b,e,s\}
+	\end{equation}
+	où $e\in\eZ,e\in[L,U]$ et $a_j\in\eN;0\leq a_j<b; a_1\geq1$ suivant la formule
+	\begin{equation}		\label{EqRepreFlotNOrm}
+		x=(-1)^sb^e\sum_{j=1}^ta_jb^{-j}.
+	\end{equation}
+\end{definition}
+
+\begin{definition}
+	L'\defe{erreur relative}{Erreur relative} commise en remplaçant un nombre réel $x$ par une valeur approchée $\hat{x}$ est définie par 
+	\begin{equation}
+		\epsilon_x:=\left|\frac{x-\hat{x}}{x}\right|.
+	\end{equation}
+\end{definition}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Permutations}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+On rappelle que toute permutation de $N$ objets s'écrit de manière unique comme composée de cycles disjoints. De plus, tout cycle de longueur $k$ s'écrit comme composée de $k-1$ transpositions. En particulier, pour chaque permutation $\sigma$,  il existe un nombre bien défini $t(\sigma)$ de transpositions dont la composée est $\sigma$. Le signe $\epsilon(\sigma):=(-1)^{t(\sigma)}$ est appelé la \defe{signature}{Signature} de la permutation $\sigma$.
+
