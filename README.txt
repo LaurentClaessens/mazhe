@@ -45,3 +45,16 @@ Index, bibliography and list of notations
 	makeindex GeomAnal
 	makeindex -s nomencl.ist -o GeomAnal.nls GeomAnal.nlo
 
+De Outils math
+===============
+
+
+Le fichier
+corrDerive_0001.txt
+est créé par
+./corrDerive_0001.sage  > corrDerive_0001.txt
+
+Le fichier
+corrDerive_0002.txt
+est créé par
+./corrDerive_0002.sage  > corrDerive_0002.txt

@@ -9,6 +9,79 @@ from phystricksBiaisOuPas import BiaisOuPas
 from phystricksChiSquared import ChiSquared
 from phystricksChiSquaresQuantile import ChiSquaresQuantile
 
+from phystricksratrap import ratrap
+from phystricksCouroneExam import CouroneExam
+from phystricksContourTgNDivergence import ContourTgNDivergence
+from phystricksContourSqL import ContourSqL
+from phystricksContourGreen import ContourGreen
+from phystricksExSinLarge import ExSinLarge
+from phystricksToreRevolution import ToreRevolution
+from phystricksConeRevolution import ConeRevolution
+from phystricksIntCourbePolaire import IntCourbePolaire
+from phystricksExPolygone import ExPolygone
+from phystricksIntegraleSimple import IntegraleSimple
+from phystricksExoMagnetique import ExoMagnetique
+from phystricksCurvilignesPolaires import CurvilignesPolaires
+from phystricksRefraction import Refraction
+from phystricksMomentForce import MomentForce
+from phystricksParallelogramme import Parallelogramme
+from phystricksDivergenceTrois import DivergenceTrois
+from phystricksDivergenceDeux import DivergenceDeux
+from phystricksDivergenceUn import DivergenceUn
+from phystricksArcCercleAngle import ArcCercleAngle
+from phystricksChampGraviation import ChampGraviation
+from phystricksFnCosApprox import FnCosApprox
+from phystricksNiveauHyperbole import NiveauHyperbole
+from phystricksBateau import Bateau
+from phystricksFonctionXtrois import FonctionXtrois
+from phystricksFonctionEtDerive import FonctionEtDerive
+from phystricksSurfaceDerive import SurfaceDerive
+from phystricksRechercheTangente import RechercheTangente
+from phystricksDerivTangente import DerivTangente
+from phystricksCoordPolaires import CoordPolaires
+from phystricksDefinitionCartesiennes import DefinitionCartesiennes
+from phystricksProjectionScalaire import ProjectionScalaire
+from phystricksCercleTrigono import CercleTrigono
+from phystricksTriangleRectangle import TriangleRectangle
+from phystricksTgCercleTrigono import TgCercleTrigono
+from phystricksExoPolaire import ExoPolaire
+from phystricksExoProjection import ExoProjection
+from phystricksExoUnSurxPolaire import ExoUnSurxPolaire
+from phystricksSurfaceHorizVerti import SurfaceHorizVerti
+from phystricksSurfaceCercle import SurfaceCercle
+from phystricksExoCourone import ExoCourone
+from phystricksIntRectangle import IntRectangle
+from phystricksIntTriangle import IntTriangle
+from phystricksIntEcourbe import IntEcourbe
+from phystricksIntBoutCercle import IntBoutCercle
+from phystricksIntDeuxCarres import IntDeuxCarres
+from phystricksExPolygone import ExPolygone
+from phystricksMoulinEau import MoulinEau
+
+def AllFigures():
+    if False :
+        pass
+    figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,
+            MomentForce,Parallelogramme,CouroneExam,
+            DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,
+            ChampGraviation,FnCosApprox,NiveauHyperbole,Bateau,FonctionXtrois,FonctionEtDerive,
+            SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,
+            ExoProjection,ExoPolaire,CoordPolaires,TriangleRectangle,
+            DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
+            SurfaceHorizVerti,SurfaceCercle,ExoCourone,IntRectangle,IntTriangle,
+            IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,IntCourbePolaire,ConeRevolution,
+            ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap]
+
+    tests=main.FigureGenerationSuite(figures_list,first=0,title=u"Outils mathématiques")
+    tests.generate()
+    tests.summary()
+
+if __name__=="__main__":
+    if "--all" in sys.argv :
+        AllFigures()
+    else:
+        ContourTgNDivergence()
+
 def AllFigures():
     test_list=[MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile]
 
