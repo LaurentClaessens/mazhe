@@ -1,0 +1,1607 @@
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Rappel sur les intégrales usuelles}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soit une fonction
+\begin{equation}
+    \begin{aligned}
+        f\colon \mathopen[ a , b \mathclose]\subset\eR&\to \eR^+ \\
+        x&\mapsto f(x) .
+    \end{aligned}
+\end{equation}
+L'intégrale de $f$ sur le segment $\mathopen[ a , b \mathclose]$, notée $\int_a^bf(x)dx$ est le nombre égal à l'aire de la surface située entre le graphe de $f$ et l'axe des $x$, comme indiqué à la figure \ref{LabelFigIntegraleSimple}.
+\newcommand{\CaptionFigIntegraleSimple}{L'intégrale de $f$ entre $a$ et $b$ représente la surface sous la fonction.}
+\input{Fig_IntegraleSimple.pstricks}
+
+\begin{definition}
+    Si $f$ est une fonction de une variable à valeurs réelles, une \defe{primitive}{primitive} de $f$ est une fonction $F$ telle que $F'=f$.
+\end{definition}
+
+Toute fonction continue admet une primitive.
+
+\begin{theorem}[Théorème fondamental du caclul intégral]
+    Si $f$ est une fonction positive et continue, et si $F$ est une primitive de $f$, alors
+    \begin{equation}
+        \int_a^bf(x)dx=F(b)-F(a).
+    \end{equation}
+\end{theorem}
+
+\begin{remark}
+    Si $f$ est une fonction continue par morceaux, l'intégrale de $f$ se calcule comme la somme des intégrales de ses morceaux. Plus précisément si nous avons $a=x_0<x_1<\ldots<x_n=b$ et si $f$ est continue sur $\mathopen] x_i , x_{i+1} \mathclose[$ pour tout $i$, alors nous posons
+    \begin{equation}
+        \int_a^bf(x)dx=\int_{x_0}^{x_1}f(x)dx+\int_{x_1}^{x_2}f(x)dx+\ldots+\int_{x_{n-1}}^{n_n}f(x)dx.
+    \end{equation}
+    Sur chacun des morceaux, l'intégrale se calcule normalement en passant par une primitive.
+\end{remark}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Intégration de fonction à deux variables}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégration sur un domaine rectangulaire}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{PgRapIntMultFubiniRect}
+
+Soit une fonction positive
+\begin{equation}
+    \begin{aligned}
+        f\colon \mathopen[ a , b \mathclose]\times\mathopen[ c , d \mathclose]&\to \eR^+ \\
+        (x,y)&\mapsto f(x,y). 
+    \end{aligned}
+\end{equation}
+
+L'intégrale de $f$ sur le rectangle $\mathopen[ a , b \mathclose]\times\mathopen[ c , d \mathclose]$ est le volume sous le graphe de la fonction. C'est à dire le volume de l'ensemble
+\begin{equation}
+    \{ (x,y,z)\tq (x,y)\in\mathopen[ a , b \mathclose]\times\mathopen[ c , d \mathclose], z\leq f(x,y) \}.
+\end{equation}
+
+\begin{theorem}[Théorème de Fubini]
+    Soit une fonction $f\colon \eR^2\to \eR$ une fonction continue par morceaux sur $\mR=\mathopen[ a , b \mathclose]\times\mathopen[ c , d \mathclose]$. Alors
+    \begin{equation}
+        \int_{\mR}f(x,y)dxdy=\int_a^b\left[ \int_c^df(x,y)dy \right]dx=\int_c^d\left[ \int_a^bf(x,y)dx \right]dy.
+    \end{equation}
+\end{theorem}
+En pratique, nous utilisons le théorème de Fubini pour calculer les intégrales sur des rectangles.
+
+
+\begin{example}
+    
+    Nous voudrions intégrer la fonction $f(x,y)-4+x^2+y^2$ sur le rectangle de la figure \ref{LabelFigIntRectangle}.
+    \newcommand{\CaptionFigIntRectangle}{Intégration sur un rectangle.}
+    \input{Fig_IntRectangle.pstricks}
+    L'ensemble sur lequel nous intégrons est donné par le produit cartésien d'intervalles $E=[0,1]\times[0,2]$. Le \defe{théorème de Fubuni}{Théorème!Fubini} montre que nous pouvons intégrer séparément sur l'intervalle horizontal et vertical :
+    \begin{equation}
+    	\int_{E=[0,1]\times[0,2]}f=\int_{[0,1]}\left( \int_{[0,2]}(4-x^2-y^2)dy \right)dx.
+    \end{equation}
+    Ces intégrales sont maintenant des intégrales usuelles qui s'effectuent en calculant des primitives :
+    \begin{equation}
+        \begin{aligned}[]
+            \int_0^1\int_0^2(4-x^2-y^2)dy\,dx&=\int_0^1\left[ 4y-x^2y-\frac{ y^3 }{ 3 } \right]_0^2dx\\
+            &=\int_0^1(8-2x^2-\frac{ 8 }{ 3 })dx\\
+            &=\left[ \frac{ 16x }{ 3 }-\frac{ 2x^3 }{ 3 } \right]_0^1\\
+            &=\frac{ 14 }{ 3 }.
+        \end{aligned}
+    \end{equation}
+    Avec Sage, on peut faire comme ceci :
+
+    \begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.6.1, Release Date: 2011-01-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: f(x,y)=4-x**2-y**2                  
+sage: f.integrate(y,0,2).integrate(x,0,1)
+(x, y) |--> 14/3
+
+    \end{verbatim}
+
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégration sur un domaine non rectangulaire}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{PgRapIntMultFubiniTri}
+
+
+Nous voulons maintenant intégrer la fonction $f(x,y)=x^2+y^2$ sur le triangle de la figure \ref{LabelFigIntTriangle}.
+\newcommand{\CaptionFigIntTriangle}{Intégration sur un triangle.}
+\input{Fig_IntTriangle.pstricks}
+
+Étant donné que $y$ varie de $0$ à $2$ et que \emph{pour chaque $y$}, la variable $x$ varie de $0$ à $y$, nous écrivons l'intégrale sur le triangle sous la forme :
+\begin{equation}
+	\int_{\text{triangle}}(x^2+y^2)dx dy=\int_0^2\left( \int_0^y(x^2+y^2)dx \right)dy.
+\end{equation}
+
+Il existe principalement deux types de domaines non rectangulaires : les «horizontales» et les «verticales», voir figure \ref{LabelFigSurfaceHorizVerti}.
+
+\newcommand{\CaptionFigSurfaceHorizVerti}{Deux types de surfaces. Nous avons tracé un rectangle qui contient chacune des deux surfaces. L'intégrale sur un domaine sera l'intégrale sur le rectangle de la fonction qui vaut zéro en dehors du domaine.}
+\input{Fig_SurfaceHorizVerti.pstricks}
+%See also the subfigure \ref{LabelFigSurfaceHorizVertissLabelSubFigSurfaceHorizVerti0}
+%See also the subfigure \ref{LabelFigSurfaceHorizVertissLabelSubFigSurfaceHorizVerti1}
+
+Les surfaces horizontales sont de la forme 
+\begin{equation}
+    D=\{ (x,y)\tq x\in\mathopen[ a , b \mathclose],\varphi_1(x)\leq y\leq \varphi_2(x) \}
+\end{equation}
+où $\varphi_1$ et $\varphi_2$ sont les deux fonctions qui bornent le domaine. Le domaine $D$ est la région comprise entre les graphes de $\varphi_1$ et $\varphi_2$. Pour un tel domaine nous avons
+\begin{equation}
+    \iint_Df(x,y)dxdy=\int_a^bdx\int_{\varphi_1(x)}^{\varphi_2(x)}f(x,y)dy.
+\end{equation}
+
+Les surfaces verticales sont de la forme 
+\begin{equation}
+    D=\{ (x,y)\tq y\in\mathopen[ c , d \mathclose],\psi_1(y)\leq x\leq \psi_2(y) \}
+\end{equation}
+où $\varphi_1$ et $\varphi_2$ sont les deux fonctions qui bornent le domaine. Le domaine $D$ est la région comprise entre les graphes de $\varphi_1$ et $\varphi_2$. Dans ces cas nous avons
+\begin{equation}
+    \iint_Df=\int_c^d dy\int_{\psi_1(y)}^{\psi_2(y)} f(x,y)dx.
+\end{equation}
+
+\begin{proposition}
+    L'aire du domaine $D$ vaut l'intégrable de la fonction $f(x,y)=1$ sur $D$ :
+    \begin{equation}
+        Aire(D)=\iint_Ddxdy.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Supposons que le domaine soit du type «horizontal». En utilisant le théorème de Fubini avec $f(x,y)=1$ nous avons
+    \begin{equation}
+        \iint_Ddxdy=\int_a^b\left[ \int_{\varphi_1(x)}^{\varphi_2(x)}dy \right]dx=\int_a^b\big[ \varphi_2(x)-\varphi_1(x) \big].
+    \end{equation}
+    Cela représente la surface sous $\varphi_2$ moins la surface sous $\varphi_1$, et par conséquent la surface contenue entre les deux.
+\end{proof}
+
+\begin{example}
+    Cherchons la surface du disque de centre $(0,0)$ et de rayon $1$ dessinée à la figure \ref{LabelFigSurfaceCercle}.
+    \newcommand{\CaptionFigSurfaceCercle}{En bleu, la fonction $\sqrt{r^2-x^2}$ et en rouge, la fonction $-\sqrt{r^2-x^2}$.}
+    \input{Fig_SurfaceCercle.pstricks}
+
+    Le domaine est donné par $\varphi_1(x)\leq y\leq \varphi_2(x)$ et $x\in\mathopen[ -r ,r \mathclose]$ où $\varphi_1(x)=-\sqrt{r^2-x^2}$ et $\varphi_2(x)=\sqrt{r^2-x^2}$. L'aire est donc donnée par
+    \begin{equation}
+        A=\int_{-r}^r\big[ \varphi_2(x)-\varphi_1(x) \big]dx=2\int_{-r}^r\sqrt{r^2-x^2}dx=4\int_0^r\sqrt{r^2-x^2}.
+    \end{equation}
+    Nous effectuons le premier changement de variables $x=ru$, donc $dx=rdu$. En ce qui concerne les bornes, si $x=0$, alors $u=0$ et si $x=r$, alors $u=1$. L'intégrale à calculer devient
+    \begin{equation}
+        A=4\int_0^1\sqrt{r^2-r^2u^2}rdu=4r^2\int_0^1\sqrt{1-u^2}du.
+    \end{equation}
+    Cette dernière intégrale se calcule en posant
+    \begin{equation}
+        \begin{aligned}[]
+            u&=\sin(t)&du&=\cos(t)dt\\
+            u&=0&t&=0\\
+            u&=1&t&=\pi/2.
+        \end{aligned}
+    \end{equation}
+    Nous avons
+    \begin{equation}
+        A=4r^2\int_0^{\pi/2}\sqrt{1-\sin^2(t)}\cos(t)dt=4r^2\int_0^{\pi/2}\cos^2(t)dt.
+    \end{equation}
+    En utilisant la formule $2\cos^2(x)=1+\cos(2x)$, nous avons
+    \begin{equation}
+        A=4r^2\int_0^{\pi/2}\frac{ 1+\cos(2t) }{ 2 }dt=\pi r^2.
+    \end{equation}
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Changement de variables}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Comme dans les intégrales simples, il y a souvent moyen de trouver un changement de variables qui simplifie les expressions.  Le domaine $E=\{ (x,y)\in\eR^2\tq x^2+y^2<1 \}$ par exemple s'écrit plus facilement $E=\{ (r,\theta)\tq r<1 \}$ en coordonnées polaires. Le passage aux coordonnées polaire permet de transformer une intégration sur un domaine rond à une intégration sur le domaine rectangulaire $\mathopen]0,2\pi\mathclose[\times\mathopen]0,1\mathclose[$. La question est évidement de savoir si nous pouvons écrire
+\begin{equation}
+	\int_Ef=\int_{0}^{2\pi}\int_0^1f(r\cos\theta,r\sin\theta)drd\theta.
+\end{equation}
+Hélas ce n'est pas le cas. Il faut tenir compte du fait que le changement de base dilate ou contracte certaines surfaces.
+
+Soit $\varphi\colon D_1\subset\eR^2\to D_2\subset \eR^2$ une fonction bijective de classe $C^1$ dont l'inverse est également de classe $C^1$. On désigne par $x$ et $y$ ses composantes, c'est à dire que
+\begin{equation}
+    \varphi(u,v)=\begin{pmatrix}
+        x(u,v)    \\ 
+        y(u,v)    
+    \end{pmatrix}
+\end{equation}
+avec $(u,v)\in D_1$.
+
+\begin{theorem}     \label{ThoChamDeVarIntDDf}
+    Soit une fonction continue $f\colon D_2\to \eR$. Alors
+    \begin{equation}
+        \iint_{\varphi(D_1)}f(x,y)dxdy=\iint_{D_1}f\big( x(u,v),y(u,v) \big)| J_{\varphi}(u,v) |dudv
+    \end{equation}
+    où $J_{\varphi}$ est le Jacobien de $\varphi$.
+\end{theorem}
+Pour rappel,
+\begin{equation}
+    J_{\varphi}(u,v)=\det\begin{pmatrix}
+        \frac{ \partial x }{ \partial u }    &   \frac{ \partial x }{ \partial v }    \\ 
+        \frac{ \partial y }{ \partial u }    &   \frac{ \partial u }{ \partial v }    
+    \end{pmatrix}.
+\end{equation}
+Ne pas oublier de prendre la valeur absolue lorsqu'on utilise le Jacobien dans un changement de variables.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Le cas des coordonnées polaires}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+La fonction qui donne les coordonnées polaires est
+\begin{equation}
+    \begin{aligned}
+        \varphi\colon \eR^+\times\mathopen] 0 , 2\pi \mathclose[&\to \eR^2 \\
+        (r,\theta)&\mapsto\begin{pmatrix}
+            r\cos(\theta)    \\ 
+            r\sin(\theta)    
+        \end{pmatrix}.
+    \end{aligned}
+\end{equation}
+Son Jacobien vaut
+\begin{equation}
+    J_{\varphi}(r,\theta)=\det\begin{pmatrix}
+        \frac{ \partial x(r,\theta) }{ \partial r }    &   \frac{ \partial x(r,\theta) }{ \partial \theta }    \\ 
+        \frac{ \partial y(r,\theta) }{ \partial r }    &   \frac{ \partial y(r,\theta) }{ \partial \theta }    
+    \end{pmatrix}=
+    \begin{vmatrix}
+        \cos(\theta)    &   -r\sin(\theta)    \\ 
+        \sin(\theta)    &   r\cos(\theta)    
+    \end{vmatrix}=r.
+\end{equation}
+
+\begin{example}
+    Calculons la surface du disque $D$ de rayon $R$. Nous devons calculer
+    \begin{equation}
+        \iint_Ddxdy.
+    \end{equation}
+    Pour passer au polaires, nous savons que le disque est décrit par 
+    \begin{equation}
+        D=\{ (r,\theta)\tq 0\leq r\leq R,0\leq\theta\leq 2\pi \}.
+    \end{equation}
+    Nous avons donc
+    \begin{equation}
+        \iint_Ddxdy=\iint_{D}r\,drd\theta=\int_0^{2\pi}\int_0^Rr\,drd\theta=2\pi\int_0^Rr\,dr=\pi R^2.
+    \end{equation}
+\end{example}
+
+\begin{example}
+    Montrons comment intégrer la fonction $f(x,y)=\sqrt{1-x^2-y^2}$ sur le domaine délimité par la droite $y=x$ et le cercle $x^2+y^2=y$, représenté sur la figure \ref{LabelFigIntBoutCercle}. Notez que pour trouver le centre et le rayon du cercle $x^2+y^2=y$, nous commençons par écrire $x^2+y^2-y=0$, et ensuite nous remarquons que $y^2-y=(y-\frac{ 1 }{2})^2-\frac{1}{ 4 }$.
+    \newcommand{\CaptionFigIntBoutCercle}{Passage en polaire pour intégrer sur un morceau de cercle.}
+    \input{Fig_IntBoutCercle.pstricks}
+    Le passage en polaire transforme les équations du bord du domaine en
+    \begin{equation}
+        \begin{aligned}[]
+            \cos(\theta)&=\sin(\theta)\\
+            r^2&=r\sin(\theta).
+        \end{aligned}
+    \end{equation}
+    L'angle $\theta$ parcours donc $\mathopen] 0 , \pi/4 \mathclose[$, et le rayon, pour chacun de ces $\theta$ parcours $\mathopen] 0 , \sin(\theta) \mathclose[$. La fonction à intégrer se note maintenant $f(r,\theta)=\sqrt{1-r^2}$. Donc l'intégrale à calculer est
+    \begin{equation}		\label{PgRapIntMultFubiniBoutCercle}
+        \int_{0}^{\pi/4}\left( \int_0^{\sin(\theta)}\sqrt{1-r^2}r\,rd \right).
+    \end{equation}
+    Remarquez la présence d'un $r$ supplémentaire pour le jacobien.
+
+    Notez que les coordonnées du point $P$ sont $(1,1)$.
+\end{example}
+
+
+En pratique, lors du passage en coordonnées polaires, le «$dxdy$» devient «$r\,drd\theta$».
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Les coordonnées cylindriques}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+En ce qui concerne les coordonnées cylindriques, le Jacobien est donné par
+\begin{equation}
+    J(r,\theta,z)=\begin{vmatrix}
+        \frac{ \partial x }{ \partial r }    &   \frac{ \partial x }{ \partial \theta }    &   \frac{ \partial x }{ \partial z }    \\
+        \frac{ \partial y }{ \partial r }    &   \frac{ \partial y }{ \partial \theta }    &   \frac{ \partial y }{ \partial z }    \\
+        \frac{ \partial z }{ \partial r }    &   \frac{ \partial z }{ \partial \theta }    &   \frac{ \partial z }{ \partial z }    
+    \end{vmatrix}=
+    \begin{vmatrix}
+        \cos\theta    &   -r\sin\theta    &   0    \\
+        \sin\theta    &   r\cos\theta    &   0    \\
+        0    &   0    &   1
+    \end{vmatrix}=r.
+\end{equation}
+Nous avons donc $dx\,dy\,dz=r\,dr\,d\theta\,dz$.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Coordonnées sphériques}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Le calcul est un peu plus long :
+\begin{equation}
+    \begin{aligned}[]
+        J(\rho,\theta,\varphi)&=\begin{vmatrix}
+            \frac{ \partial x }{ \partial \rho }    &   \frac{ \partial x }{ \partial \theta }    &   \frac{ \partial x }{ \partial \varphi }    \\
+            \frac{ \partial y }{ \partial \rho }    &   \frac{ \partial y }{ \partial \theta }    &   \frac{ \partial y }{ \partial \varphi }    \\
+            \frac{ \partial z }{ \partial \rho }    &   \frac{ \partial z }{ \partial \theta }    &   \frac{ \partial z }{ \partial \varphi }    
+        \end{vmatrix}\\ 
+        &=
+        \begin{vmatrix}
+            \sin\theta\cos\varphi    &   \rho\cos\theta\cos\varphi    &   -\rho\sin\theta\sin\varphi    \\
+            \sin\theta\sin\varphi    &   \rho\cos\theta\sin\varphi    &   -\rho\sin\theta\cos\varphi    \\
+            \cos\theta               &   -\rho\sin\theta              &   0
+        \end{vmatrix}\\
+        &=\rho^2\sin\theta.
+    \end{aligned}
+\end{equation}
+Donc 
+\begin{equation}
+    dx\,dy\,dz=\rho^2\sin(\theta)\,d\rho\,d\theta\,d\varphi.
+\end{equation}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Un autre système utile}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Un changement de variables que l'on voit assez souvent est
+\begin{subequations}
+    \begin{numcases}{}
+        u=x+y\\
+        v=x-y.
+    \end{numcases}
+\end{subequations}
+Affin de calculer son jacobien, il faut d'abord exprimer $x$ et $y$ en fonctions de $u$ et $v$ :
+\begin{subequations}
+    \begin{numcases}{}
+        x=(u+v)/2\\
+        y=(u-v)/2.
+    \end{numcases}
+\end{subequations}
+La matrice jacobienne est
+\begin{equation}
+    \begin{pmatrix}
+        \frac{ \partial x }{ \partial u }    &   \frac{ \partial x }{ \partial v }    \\ 
+        \frac{ \partial y }{ \partial u }    &   \frac{ \partial y }{ \partial v }    
+    \end{pmatrix}=
+    \begin{pmatrix}
+        \frac{ 1 }{2}    &   \frac{ 1 }{2}    \\ 
+        \frac{ 1 }{2}    &   -\frac{ 1 }{2}    
+    \end{pmatrix}.
+\end{equation}
+Le déterminant vaut $-\frac{1}{ 2 }$. Nous avons donc
+\begin{equation}
+    dxdy=\frac{ 1 }{2}dudv.
+\end{equation}
+Nous insistons sur le fait que c'est $\frac{ 1 }{2}$ et non $-\frac{ 1 }{2}$ qui intervient parce que que la formule du changement de variable demande d'introduire la \emph{valeur absolue} du jacobien.
+
+\begin{example}
+    Calculer l'intégrale de la fonction $f(x,y)=x^2-y^2$ sur le domaine représenté sur la figure \ref{LabelFigExPolygone}.
+    \newcommand{\CaptionFigExPolygone}{Un domaine qui s'écrit étonnament bien avec un bon changement de coordonnées.}
+    \input{Fig_ExPolygone.pstricks}
+
+    Les droites qui délimitent le domaine d'intégration sont
+    \begin{equation}
+        \begin{aligned}[]
+            y&=-x+2\\
+            y&=x-2\\
+            y&=x\\
+            y&=-x
+        \end{aligned}
+    \end{equation}
+    Le domaine est donc donné par les équations
+    \begin{subequations}
+        \begin{numcases}{}
+            y+x<2\\
+            y-x>-2\\
+            y-x<0 \\
+            y+x>0.
+        \end{numcases}
+    \end{subequations}
+    En utilisant le changement de variables $u=x+y$, $v=x-y$ nous trouvons le domaine $0<u<2$, $0<v<2$. En ce qui concerne la fonction, $f(x,y)=(x+y)(x-y)$ et par conséquent
+    \begin{equation}
+        f(u,v)=uv.
+    \end{equation}
+    L'intégrale à calculer est simplement
+    \begin{equation}
+        \int_0^2\int_0^2 uv\,dudv=\int_0^2 u\,du\left[ \frac{ v^2 }{ 2 } \right]_0^2=2\int_0^2u\,du=4.
+    \end{equation}
+    
+\end{example}
+
+
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Les intégrales triples}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Les intégrales triples fonctionnent exactement de la même manière que les intégrales doubles. Il s'agit de déterminer sur quelle domaine les variables varient et d'intégrer successivement par rapport à $x$, $y$ et $z$. Il est autorisé de permuter l'ordre d'intégration\footnote{En toute rigueur, cela n'est pas vrai, mais nous ne considérons seulement des cas où cela est autorisé.} à condition d'adapter les domaines d'intégration. 
+
+\begin{example}
+    Soit le domaine parallélépipédique rectangle 
+    \begin{equation}
+        R=\mathopen[ 0 , 1 \mathclose]\times \mathopen[ 1 , 2 \mathclose]\times\mathopen[ 0 , 4 \mathclose].
+    \end{equation}
+    Pour intégrer la fonction $f(x,y,z)=x^2y\sin(z)$ sur $R$, nous faisons
+    \begin{equation}
+        \begin{aligned}[]
+            I&=\iiint_Rx^2y\sin(z)\,dxdydz\\
+            &=\int_0^1dx\int_1^2dy\int_0^4x^2y\sin(z)dz\\
+            &=\int_0^1dx\int_1^2 x^2y(1-\cos(4))dy\\
+            &=\int_0^1\frac{ 3 }{2}(1-\cos(4))x^2dx\\
+            &=\frac{ 1 }{2}\big( 1-\cos(4) \big).
+        \end{aligned}
+    \end{equation}
+    
+    \begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.6.1, Release Date: 2011-01-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: f(x,y,z)=x**2*y*sin(z)                                                                                                                                                            
+sage: f.integrate(x,0,1).integrate(y,1,2).integrate(z,0,4)                                                                                                                               
+(x, y, z) |--> -1/2*cos(4) + 1/2
+    \end{verbatim}
+\end{example}
+
+
+\begin{example}
+    Soit $D$ la région délimitée par le plan $x=0$, $y=0$, $z=2$ et la surface d'équation
+    \begin{equation}
+        z=x^2+y^2.
+    \end{equation}
+    Cherchons à calculer $\iiiint_Dx\,dx\,dy\,dz$. Ici, un dessin indique que le volume considéré est $z\geq x^2+y^2$. Il y a plusieurs façon de décrire cet ensemble. Une est celle-ci :
+    \begin{equation}
+        \begin{aligned}[]
+            z&\colon 0\to 2\\
+            x&\colon 0\to \sqrt{z}\\
+            y&\colon 0\to \sqrt{z-x^2}.
+        \end{aligned}
+    \end{equation}
+    Cela revient à dire que $z$ peut prendre toutes les valeurs de $0$ à $2$, puis que pour chaque $z$, la variable $x$ peut aller de $0$ à $\sqrt{z}$, mais que pour chaque $z$ et $x$ fixés, la variable $y$ ne peut pas dépasser $\sqrt{z-x^2}$. En suivant cette méthode, l'intégrale à calculer est
+    \begin{equation}
+        \int_0^2dz\int_0^{\sqrt{z}}dx\int_0^{\sqrt{z-x^2}}f(x,y,z)dy.
+    \end{equation}
+    \begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.6.1, Release Date: 2011-01-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: f(x,y,z)=x
+sage: assume(z>0)
+sage: assume(z-x**2>0)
+sage: f.integrate(y,0,sqrt(z-x**2)).integrate(x,0,sqrt(z)).integrate(z,0,2)
+(x, y, z) |--> 8/15*sqrt(2)
+    \end{verbatim}
+    Notez qu'il a fallu aider Sage en lui indiquant que $z>0$ et $z-x^2>0$.
+
+    Une autre paramétrisation serait
+    \begin{equation}
+        \begin{aligned}[]
+            x&\colon 0\to \sqrt{2}\\
+            y&\colon 0\to \sqrt{2-x^2}\\
+            z&\colon x^2+y^2\to 2.
+        \end{aligned}
+    \end{equation}
+    \begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.6.1, Release Date: 2011-01-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: f(x,y,z)=x
+sage: assume(2-x**2>0)
+sage: f.integrate(y,0,sqrt(z-x**2)).integrate(x,0,sqrt(z)).integrate(z,0,2)
+(x, y, z) |--> 8/15*sqrt(2)
+    \end{verbatim}
+
+    Écrivons le détail de cette dernière intégrale :
+    \begin{equation}
+        \begin{aligned}[]
+            I&=\int_0^{\sqrt{2}}dx\int_0^{\sqrt{2-x^2}}dy\int_{x^2+y^2}^2xdz\\
+            &=\int_0^{\sqrt{2}}dx\int_0^{\sqrt{2-x^2}}x(2-x^2-y^2)dy\\
+            &=\int_0^{\sqrt{2}}dx\,x\left[ (2-x^2)y-\frac{ y^3 }{ 3 } \right]_0^{\sqrt{2-x^2}}\\
+            &=\int_0^{\sqrt{2}}\frac{ 2 }{ 3 }x(2-x^2)^{3/2}dx.
+        \end{aligned}
+    \end{equation}
+    Ici nous effectuons le changement de variable $u=x^2$, $du=2xdx$. Ne pas oublier de changer les bornes de l'intégrale :
+    \begin{equation}
+        I=\frac{1}{ 3 }\int_0^2(2-u)^{3/2}du.
+    \end{equation}
+    Le changement de variable $t=2-u$, $dt=-du$ fait venir (attention aux bornes !!)
+    \begin{equation}
+        I=-\frac{1}{ 3 }\int_2^0t^{3/2}dt=\frac{1}{ 3 }\left[ \frac{ t^{5/2} }{ 5/2 } \right]_0^2=\frac{ 8 }{ 15 }\sqrt{2}.
+    \end{equation}
+       
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Volume}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Parmi le nombreuses interprétations géométriques de l'intégrale triple, notons celle-ci :
+\begin{proposition}
+    Soit $D\subset \eR^3$. Le volume de $D$ est donné par 
+    \begin{equation}
+        Vol(D)=\iiint_D dxdydz.
+    \end{equation}
+    C'est à dire l'intégrale de la fonction $f(x,y,z)=1$ sur $D$.
+\end{proposition}
+Suivant les points de vue, cette proposition peut être considérée comme une \emph{définition}] du volume.
+
+\begin{example}     \label{ExemVolSphCart}
+    Calculons le volume de la sphère de rayon $R$. Le domaine de variation des variables $x$, $y$ et $z$ pour la sphère est
+    \begin{equation}
+        \begin{aligned}[]
+            x&\colon -R\to R\\
+            y&\colon -\sqrt{R^2-x^2}\to \sqrt{R^2-x^2}\\
+            z&\colon -\sqrt{R^2-x^2-y^2}\to \sqrt{R^2-x^2-y^2}.
+        \end{aligned}
+    \end{equation}
+    Par conséquent nous devons calculer l'intégrale
+    \begin{equation}
+        V=\int_{-R}^Rdx\int_{-\sqrt{R^2-x^2}}^{\sqrt{R^2-x^2}}dy\int_{-\sqrt{R^2-x^2-y^2}}^{\sqrt{R^2-x^2-y^2}}dz.
+    \end{equation}
+    La première intégrale est simple :
+    \begin{equation}
+        V=2\int_{-R}^Rdx\int_{-\sqrt{R^2-x^2}}^{\sqrt{R^2-x^2}}\sqrt{R^2-x^2-y^2}dy.
+    \end{equation}
+    Afin de simplifier la notation, nous posons $a=R^2-x^2$. Ceci n'est pas un changement de variables : juste une notation provisoire le temps d'effectuer l'intégration sur $y$. Étudions donc
+    \begin{equation}
+        I=\int_{-\sqrt{a}}^{\sqrt{a}}\sqrt{a-y^2}dy,
+    \end{equation}
+    ce qui est la surface du demi-disque de rayon $\sqrt{a}$. Nous avons donc
+    \begin{equation}
+        I=\frac{ \pi a }{ 2 }=\frac{ \pi }{ 2 }(R^2-x^2),
+    \end{equation}
+    et
+    \begin{equation}
+        V=2\int_{-R}^R\frac{ \pi }{ 2 }(R^2-x^2)dx=\pi\left[ R^2x-\frac{ x^3 }{ 3 } \right]_{-R}^R=\frac{ 4 }{ 3 }\pi R^3.
+    \end{equation}    
+\end{example}
+
+\begin{example}
+    Nous pouvons calculer le volume de la sphère en utilisant les coordonnées sphériques. Les bornes des variables pour la sphère de rayon $R$ sont
+    \begin{equation}
+        \begin{aligned}[]
+            \rho&\colon 0\to R\\
+            \theta&\colon 0\to \pi\\
+            \varphi&\colon 0\to 2\pi.
+        \end{aligned}
+    \end{equation}
+    En n'oubliant pas le jacobien $\rho^2\sin(\theta)$, l'intégrale à calculer est
+    \begin{equation}
+        V=\int_0^Rd\rho\int_0^{2\pi}d\varphi\int_0^{\pi}\rho^2\sin(\theta)d\theta
+    \end{equation}
+    L'intégrale sur $\varphi$ fait juste une multiplication par $2\pi$. Celle sur $\rho$ vaut
+    \begin{equation}
+        \int_0^R\rho^2d\rho=\frac{ R^3 }{ 3 }.
+    \end{equation}
+    L'intégrale sur $\theta$ donne
+    \begin{equation}
+        \int_0^{\pi}\sin(\theta)d\theta=[-\cos(\theta)]_{0}^{\pi}=2.
+    \end{equation}
+    Le tout fait par conséquent
+    \begin{equation}
+        V=\frac{ 4 }{ 3 }\pi R^3.
+    \end{equation}
+    Sans contestes, le passage aux coordonnées sphériques a considérablement simplifié le calcul par rapport à celui de l'exemple \ref{ExemVolSphCart}.
+\end{example}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Un petit peu plus formel}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégration sur un domaine non rectangulaire}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\newcommand{\CaptionFigIntEcourbe}{Intégrer sur des domaines plus complexes.}
+\input{Fig_IntEcourbe.pstricks}
+
+Considérons le domaine 
+\begin{equation}
+	E=\{ (x,y)\in\eR^2\tq a<x<b\text{ et } \alpha(x)<y<\beta(x) \}
+\end{equation}
+représenté sur la figure \ref{LabelFigIntEcourbe}. 
+
+Nous considérons la fonction
+\begin{equation}
+	\tilde f(x,y)=\begin{cases}
+	f(x,y)	&	\text{si $(x,y)\in E$}\\
+	0	&	 \text{sinon.}
+\end{cases}
+\end{equation}
+Ensuite intégrons $\tilde f$ sur un rectangle qui englobe la surface à intégrer à l'aide de Fubini. 
+
+Étant donné que $\tilde f=f$ sur la surface et que $\tilde f$ est nulle en dehors, nous avons
+\begin{equation}
+	\int_Ef=\int_E\tilde f=\int_{\text{rectangle}}\tilde f=\int_a^b\left( \int_{\alpha(x)}^{\beta(x)}f(x,y)dy \right)dx.
+\end{equation}
+
+
+\begin{remark}
+    Le nombre $\iint_{D}f(x,y)dxdy$ ne dépend pas du choix du rectangle englobant $D$.
+\end{remark}
+
+En pratique, nous calculons l'intégrale en utilisant une extension du théorème de Fubini :
+\begin{theorem}
+    Soit $f\colon D\subset\eR^2\to \eR$ une fonction continue où $D$ est un domaine de type vertical ou horizontal.
+    \begin{enumerate}
+        \item
+            Si $D$ est vertical, alors
+            \begin{equation}
+                \iint_Df=\int_a^b\left[ \int_{\varphi_1(x)}^{\varphi_2(x)}f(x,y)dy \right]dx.
+            \end{equation}
+        \item
+            Si $D$ est horizontal, alors
+            \begin{equation}
+                \iint_Df=\int_c^d\left[ \int_{\psi_1(y)}^{\psi_2(y)}f(x,y)dx \right]dy.
+            \end{equation}
+    \end{enumerate}
+    
+\end{theorem}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Changement de variables}
+%---------------------------------------------------------------------------------------------------------------------------
+
+
+Le théorème du changement de variable est le suivant.
+\begin{theorem}
+Soit $g\colon A\to B$ un difféomorphisme. Soient $F\subset B$ un ensemble mesurable et borné et $f\colon F\to \eR$ une fonction bornée et intégrable. Supposons que $g^{-1}(F)$ soit borné et que $Jg$ soit borné sur $g^{-1}(F)$. Alors
+\begin{equation}
+    \int_Ff(x)dy=\int_{g^{-1}(F)}f\big( g(x) \big)| Jg(x) |dx
+\end{equation}
+\end{theorem}
+Pour rappel, $Jg$ est le déterminant de la matrice \href{http://fr.wikipedia.org/wiki/Matrice_jacobienne}{jacobienne} (aucun lien de \href{http://fr.wikipedia.org/wiki/Jacob}{parenté}) donnée par
+\begin{equation}
+	Jg=\det\begin{pmatrix}
+	\partial_xg_1	&	\partial_yg_1	\\ 
+	\partial_xg_2	&	\partial_tg_2	
+\end{pmatrix}.
+\end{equation}
+Un \defe{difféomorphisme}{Difféomorphisme} est une application $g\colon A\to B$ telle que $g$ et $g^{-1}\colon B\to A$ soient de classe $C^1$.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+					\subsubsection{Coordonnées polaires}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Les coordonnées polaires sont données par le difféomorphisme
+\begin{equation}
+	\begin{aligned}
+		g\colon \mathopen]0,\infty\mathclose[\times\mathopen]0,2\pi\mathclose[ &\to\eR^2\setminus D\\
+		(r,\theta)&\mapsto \big( r\cos(\theta),r\sin(\theta) \big)
+	\end{aligned}
+\end{equation}
+où $D$ est la demi droite $y=0$, $x\geq 0$. Le fait que les coordonnées polaires ne soient pas un difféomorphisme sur tout $\eR^2$ n'est pas un problème pour l'intégration parce que le manque de difféomorphisme est de mesure nulle dans $\eR^2$. Le jacobien est donné par
+\begin{equation}
+	Jg=\det\begin{pmatrix}
+	\partial_rx	&	\partial_{\theta}x	\\ 
+	\partial_ry	&	\partial_{\theta}y
+\end{pmatrix}=\det\begin{pmatrix}
+	\cos(\theta)	&	-r\sin(\theta)	\\ 
+	\sin(\theta)	&	r\cos(\theta)	
+\end{pmatrix}=r.
+\end{equation}
+
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+					\subsubsection{Coordonnées sphériques}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Les coordonnées sphériques sont données par
+\begin{equation}		\label{EqChmVarSpherique}
+	\left\{
+\begin{array}{lllll}
+x=r\cos\theta\sin\varphi	&			&r\in\mathopen] 0 , \infty \mathclose[\\
+y=r\sin\theta\sin\varphi	&	\text{avec}	&\theta\in\mathopen] 0 , 2\pi \mathclose[\\
+z=r\cos\varphi			&			&\phi\in\mathopen] 0 , \pi \mathclose[.
+\end{array}
+\right.
+\end{equation}
+Le jacobien associé est $Jg(r,\theta,\varphi)=-r^2\sin\varphi$. Rappelons que ce qui rentre dans l'intégrale est la valeur absolue du jacobien.
+
+Si nous voulons calculer le volume de la sphère de rayon $R$, nous écrivons donc
+\begin{equation}
+	\int_0^Rdr\int_{0}^{2\pi}d\theta\int_0^{\pi}r^2 \sin(\phi)d\phi=4\pi R=\frac{ 4 }{ 3 }\pi R^3.
+\end{equation}
+Ici, la valeur absolue n'est pas importante parce que lorsque $\phi\in\mathopen] 0,\pi ,  \mathclose[$, le sinus de $\phi$ est positif.
+
+Des petits malins pourraient remarquer que le changement de variable \eqref{EqChmVarSpherique} est encore une paramétrisation de $\eR^3$ si on intervertit le domaine des angles : 
+\begin{equation}
+	\begin{aligned}[]
+		\theta&\colon 0 \to \pi\\
+		\phi	&\colon 0\to 2\pi,
+	\end{aligned}
+\end{equation}
+alors nous paramétrons encore parfaitement bien la sphère, mais hélas
+\begin{equation}		\label{EqVolumeIncorrectSphere}
+	\int_0^Rdr\int_{0}^{\pi}d\theta\int_0^{2\pi}r^2 \sin(\phi)d\phi=0.
+\end{equation}
+Pourquoi ces \og nouvelles\fg{}  coordonnées sphériques sont-elles mauvaises ? Il y a que quand l'angle $\phi$ parcours $\mathopen] 0 , 2\pi \mathclose[$, son sinus n'est plus toujours positif, donc la \emph{valeur absolue} du jacobien n'est plus $r^2\sin(\phi)$, mais $r^2\sin(\phi)$ pour les $\phi$ entre $0$ et $\pi$, puis $-r^2\sin(\phi)$ pour $\phi$ entre $\pi$ et $2\pi$. Donc l'intégrale \eqref{EqVolumeIncorrectSphere} n'est pas correcte. Il faut la remplacer par
+\begin{equation}
+	\int_0^Rdr\int_{0}^{\pi}d\theta\int_0^{\pi}r^2 \sin(\phi)d\phi- \int_0^Rdr\int_{0}^{\pi}d\theta\int_{\pi}^{2\pi}r^2 \sin(\phi)d\phi = \frac{ 4 }{ 3 }\pi R^3
+\end{equation}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Intégrales curvilignes}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous savons maintenant commet intégrer des fonctions sur des volumes dans $\eR^3$ et sur des surfaces dans $\eR^2$. Nous savons également intégrer des champs de vecteurs sur des lignes dans $\eR^3$. Nous allons maintenant voir comment on intègre des fonctions sur des lignes et surfaces dans $\eR^3$.
+
+Soit un chemin $\sigma\colon \mathopen[ a , b \mathclose]\to \eR^3$, et une fonction $f\colon \eR^3 \to \eR$ définie au moins sur l'image de $\sigma$. Nous définissons l'intégrale de $f$ sur $\sigma$ par
+\begin{equation}
+    \int_{\sigma}f\,ds=\int_a^bf\big( \sigma(t) \big)\| \sigma'(t) \|dt.
+\end{equation}
+
+\begin{remark}
+    Nous désignons par «$\sigma$» autant la fonction que son image dans $\eR^3$.
+\end{remark}
+
+
+\begin{example}
+    Soit l'hélice
+    \begin{equation}
+        \begin{aligned}
+            \sigma\colon \mathopen[ 0 , 2\pi \mathclose]&\to \eR^3 \\
+            t&\mapsto \begin{pmatrix}
+                \cos(t)    \\ 
+                \sin(t)    \\ 
+                t    
+            \end{pmatrix},
+        \end{aligned}
+    \end{equation}
+    et la fonction $f(x,y,z)=x^2+y^2+z^2$. L'intégrale de $f$ sur $\sigma$ est
+    \begin{equation}
+        \begin{aligned}[]
+            \int_{\sigma}f&=\int_0^{2\pi}(\cos^2t+\sin^2t+t^2)\| \sigma'(t) \|dt\\
+            &=\int_0^{2\pi}(1+t^2)\sqrt{2}dt\\
+            &=\sqrt{2}\left[ t+\frac{ t^3 }{ 3 } \right]_0^{2\pi}\\
+            &=\sqrt{2}\left( 2\pi+\frac{ 8\pi^3 }{ 8 } \right).
+        \end{aligned}
+    \end{equation}
+    
+\end{example}
+
+\begin{remark}
+    Si $f=1$, alors nous tombons sur
+    \begin{equation}
+        \int_{\sigma}ds=\int_a^b\| \sigma'(t) \|dt,
+    \end{equation}
+    qui n'est autre que la longueur de la courbe. Encore une fois, l'intégrale de la fonction $1$ donne la «mesure» de l'ensemble.
+\end{remark}
+
+\begin{proposition}
+    La valeur de l'intégrale de $f$ sur $\sigma$ ne dépend pas du paramétrage (équivalent ou pas) choisi.
+\end{proposition}
+
+\begin{proof}
+    Soit $\varphi\colon \mathopen[ c , d \mathclose]\to \mathopen[ a , b \mathclose]$, une reparamétrisation de classe $C^1$, strictement monotone et $\gamma(s)=\sigma\big( \varphi(s) \big)$ avec $s\in\mathopen[ c , d \mathclose]$. En supposant que $\varphi'(s)\geq 0$, nous avons
+    \begin{equation}
+        \begin{aligned}[]
+            I=\int_{\gamma}f&=\int_c^df\big( \gamma(s) \big)\| \gamma'(s) \|ds\\
+            &=\int_c^df\Big( \sigma\big( \varphi(s) \big) \Big)\| \sigma'\big( \varphi(s) \big) \| |\varphi'(s) |ds.
+        \end{aligned}
+    \end{equation}
+    Pour cette intégrale, nous posons $t=\varphi(s)$, et par conséquent $dt=\varphi'(s)ds$. Étant donné que $\varphi'(s)\geq 0$, nous pouvons supprimer les valeurs absolues, et obtenir
+    \begin{equation}
+        \begin{aligned}[]
+            I&=\int_{\varphi(c)}^{\varphi(d)}f\big( \sigma(t) \big)\| \sigma'(t) \|dt\\
+            &=\int_a^bf\big( \sigma(t) \big)\| \sigma'(t) \|dt\\
+            &=\int_{\sigma}f.
+        \end{aligned}
+    \end{equation}
+
+    Essayez de fait le cas $\varphi'(s)\leq 0$. 
+\end{proof}
+
+\begin{remark}
+    Si $\sigma'(t)\neq 0$, nous pouvons considérer le vecteur unitaire tangent à la courbe :
+    \begin{equation}
+        T(t)=\frac{ \sigma'(t) }{ \| \sigma'(t) \| }.
+    \end{equation}
+    Si $F$ est un champ de vecteurs sur $\eR^3$, la circulation de $F$ le long de $\sigma$ sera donnée par 
+    \begin{equation}
+        \int_{\sigma}F\cdot ds=\int_a^b F\big( \sigma(t) \big)\cdot \sigma'(t)dt=\int_{a}^bF\big( \sigma(t) \big)\cdot\frac{ \sigma'(t) }{ \| \sigma'(t) \| }dt=\int_{\sigma} F\cdot T ds
+    \end{equation}
+    où dans la dernière expression, $F\cdot T$ est vu comme fonction $(x,y,z)\mapsto F(x,y,z)\cdot T(x,y,z)$. L'intégrale d'un champ de vecteurs sur une courbe n'est donc rien d'autre que l'intégrale de la composante tangentielle du champ de vecteurs.
+\end{remark}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Surfaces paramétrées}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+De la même façon qu'un chemin dans $\eR^3$ est décrit comme une application $\sigma\colon \eR\to \eR^3$, une surface dans $\eR^3$ sera vue comme une application $\varphi\colon \eR^2\to \eR^3$. Une \defe{surface paramétrée}{surface paramétrée} dans $\eR^3$ est une application
+\begin{equation}
+    \begin{aligned}
+        \varphi\colon D\subset\eR^2&\to \eR^3 \\
+        (u,v)&\mapsto \varphi(u,v)=\begin{pmatrix}
+            x(u,v)    \\ 
+            y(u,v)    \\ 
+            z(u,z)    
+        \end{pmatrix}.
+    \end{aligned}
+\end{equation}
+Nous allons parler de la «surface $\varphi$» pour désigner l'image de $\varphi$ dans $\eR^3$.
+
+Si on fixe le paramètre $u-u_0$, alors l'application
+\begin{equation}
+    v\mapsto\varphi(u_0,v)
+\end{equation}
+est un chemin dans la surface. Un vecteur tangent à ce chemin sera tangent à la courbe :
+\begin{equation}
+    \frac{ \partial \varphi }{ \partial v }(u_0,v_0)=
+    \begin{pmatrix}
+        \frac{ \partial x }{ \partial v }(u_0,v_O)    \\ 
+        \frac{ \partial y }{ \partial v }(u_0,v_O)    \\ 
+        \frac{ \partial z }{ \partial v }(u_0,v_O)    
+    \end{pmatrix}.
+\end{equation}
+De même, en fixant $v_0$, on considère le chemin
+\begin{equation}
+    u\mapsto\varphi(u,v_0).
+\end{equation}
+Le vecteur tangent à ce chemin est égalent tangent à la surface :
+\begin{equation}
+    \frac{ \partial \varphi }{ \partial u }=
+    \begin{pmatrix}
+        \frac{ \partial x }{ \partial u }(u_0,v_O)    \\ 
+        \frac{ \partial y }{ \partial u }(u_0,v_O)    \\ 
+        \frac{ \partial z }{ \partial u }(u_0,v_O)    
+    \end{pmatrix}
+\end{equation}
+
+\begin{definition}      \label{DefSurfReguliere}
+    Nous disons que la surface est \defe{régulière}{régulière!surface} si les vecteurs $\partial_u\varphi(u_0,v_0)$ et $\partial_v\varphi(u_0,v_0)$ sont non nuls et non colinéaires. 
+\end{definition}
+Si la surface est régulière, les vecteurs tangents à la paramétrisation forment le plan tangent à la surface au point $\varphi(u_0,v_0)$.
+
+Un vecteur orthogonal à la surface (et donc au plan tangent) est donc donné par le produit vectoriel :
+\begin{equation}
+    n(u_0,v_0)=\frac{ \partial \varphi }{ \partial u }(u_0,v_0)  \times \frac{ \partial \varphi }{ \partial v }(u_0,v_0).
+\end{equation}
+L'équation du plan tangent est alors obtenue par
+\begin{equation}        \label{EqPlanTgSurfaceParm}
+    \begin{pmatrix}
+        x-x_0    \\ 
+        y-y_0    \\ 
+        z-z_0    
+    \end{pmatrix}\cdot n(u_0,v_0)=0
+\end{equation}
+où $x_0=x(u_0,v_0)$, $y_0=y(u_0,v_0)$, $z_0=z(u_0,v_0)$.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Graphe d'une fonction}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit la fonction $f\colon D\subset\eR^2\to \eR$. Le graphe de $f$ est l'ensemble des points de la forme
+\begin{equation}
+    \big( x,y,f(x,y) \big)
+\end{equation}
+tels que $(x,y)\in D$. Cela est une surface paramétrée par
+\begin{equation}
+    \begin{aligned}
+        \varphi\colon D&\to \eR^3 \\
+        (x,y)&\mapsto \begin{pmatrix}
+            x    \\ 
+            y    \\ 
+            f(x,y)    
+        \end{pmatrix}.
+    \end{aligned}
+\end{equation}
+Les vecteurs tangents sont
+\begin{equation}
+    \begin{aligned}[]
+        \frac{ \partial \varphi }{ \partial x }&=\begin{pmatrix}
+            1    \\ 
+            0    \\ 
+            \frac{ \partial f }{ \partial x }    
+        \end{pmatrix},
+        &\frac{ \partial \varphi }{ \partial y }&=\begin{pmatrix}
+            0    \\ 
+            1    \\ 
+            \frac{ \partial \varphi }{ \partial y }    
+        \end{pmatrix}.
+    \end{aligned}
+\end{equation}
+La surface est donc partout régulière parce que ces deux vecteurs ne sont jamais nuls ou colinéaires. Un vecteur normal à cette surface au point $(x_0,y_0,f(x_0,y_0))$ est donné par le produit vectoriel
+\begin{equation}
+    n=\begin{vmatrix}
+         e_x   &   e_y    &   e_z    \\
+        1    &   0    &   \partial_xf(x_0,y_0)    \\
+        0    & 1    &   \partial_yf(x_0,y_0)    
+    \end{vmatrix}
+    =-\frac{ \partial f }{ \partial x }(x_0,y_0)e_x-\frac{ \partial f }{ \partial y }(x_0,y_0)e_y+e_z.
+\end{equation}
+En suivant l'équation \eqref{EqPlanTgSurfaceParm}, nous avons l'équation suivante pour le plan :
+\begin{equation}      
+    \begin{pmatrix}
+        x-x_0    \\ 
+        y-y_0    \\ 
+        z-z_0    
+    \end{pmatrix}\cdot
+    \begin{pmatrix}
+        -\frac{ \partial f }{ \partial x }(x_0,y_0)    \\ 
+        -\frac{ \partial f }{ \partial y }(x_0,y_0)    \\ 
+        1
+    \end{pmatrix}=0,
+\end{equation}
+c'est à dire
+\begin{equation}
+    -(x-x_0)\frac{ \partial f }{ \partial x }(x_0,y_0)-(y-y_0)\frac{ \partial f }{ \partial y }(x_0,y_0)+z-f(x_0,y_0)=0,
+\end{equation}
+ce qui revient à
+\begin{equation}
+    z-f(x_0,y_0)=\frac{ \partial f }{ \partial x }(x_0,y_0)(x-x_0)+\frac{ \partial f }{ \partial y }(x_0,y_0)(y-y_0).
+\end{equation}
+Nous retrouvons donc l'équation du plan tangent à un graphe.
+
+\begin{example}
+    La sphère de rayon $R$ peut être paramétrée par les angles sphériques :
+    \begin{equation}
+        \phi(\theta,\varphi)=\begin{pmatrix}
+            R\sin\theta\cos\varphi    \\ 
+            R\sin\theta\sin\varphi    \\ 
+            R\cos\theta    
+        \end{pmatrix}
+    \end{equation}
+    avec $(\theta,\varphi)\in\mathopen[ 0 , \pi \mathclose]\times \mathopen[ 0 , 2\pi \mathclose]$.
+
+    Tentons d'en trouver le plan tangent au point $(x,y,z)=(R,0,0)$. Un petit dessin nous montre que c'est un plan vertical d'équation $x=R$. Montrons cela en utilisant la théorie que nous venons de découvrir. D'abord le point $(R,0,0)$ correspond à $\theta_0=\frac{ \pi }{ 2 }$ et $\varphi=0$. Les vecteurs tangents sont
+    \begin{equation}        \label{EqTthetaSph}
+        T_{\theta}=\frac{ \partial \phi }{ \partial \theta }(R,\frac{ \pi }{2},0)=\begin{pmatrix}
+            R\cos\theta\cos\varphi    \\ 
+            R\cos\theta\sin\varphi    \\ 
+            -R\sin\theta    
+        \end{pmatrix}=\begin{pmatrix}
+            0    \\ 
+            0    \\ 
+            -R    
+        \end{pmatrix},
+    \end{equation}
+    et
+    \begin{equation}    \label{EqTvarphiSph}
+        T_{\varphi}=\frac{ \partial \phi }{ \partial \varphi }(R,\frac{ \pi }{2},0)=\begin{pmatrix}
+            -R\sin\theta\sin\varphi\\
+            R\sin\theta\cos\varphi\\
+            0
+        \end{pmatrix}=\begin{pmatrix}
+            0    \\ 
+            R    \\ 
+            0    
+        \end{pmatrix}.
+    \end{equation}
+    Cela sont de toute évidence bien les deux vecteurs tangents à la sphère au point $(x,y,z)=(R,0,0)$. Le vecteur normal est
+    \begin{equation}
+        \begin{vmatrix}
+            e_x    &   e_y    &   e_z    \\
+            0    &   0    &   -R    \\
+            0    &   R    &   0
+        \end{vmatrix}=R^2e_x.
+    \end{equation}
+    Ici encore, nous avons le vecteur que nous attendions sur un dessin. L'équation du plan tangent est maintenant
+    \begin{equation}
+        \begin{pmatrix}
+            x-R    \\ 
+            y    \\ 
+            z    
+        \end{pmatrix}\cdot
+        \begin{pmatrix}
+            R^2    \\ 
+            0    \\ 
+            0    
+        \end{pmatrix}=0,
+    \end{equation}
+    c'est à dire $R^2(x-R)=0$ et donc $x=R$.
+\end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Intégrales de surface}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Aire d'une surface paramétrée}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Lorsque nous avions vu la longueur d'une courbe paramétrée, nous avions pris comme «élément de longueur» la norme du vecteur tangent. Il est donc naturel de prendre comme «élément de surface» une petite surface que l'on peut construire à partir des deux vecteurs tangents à la surface.
+
+Au point $\varphi(u_0,v_0)$, nous avons les deux vecteurs tangents
+\begin{equation}
+    \begin{aligned}[]
+        T_u&=\frac{ \partial \varphi }{ \partial u }(u_0,v_0)&T_v&=\frac{ \partial \varphi }{ \partial v }(u_0,v_0).
+    \end{aligned}
+\end{equation}
+L'élément de surface que nous pouvons construire à partir de ces deux vecteurs est la surface du parallélogramme, donnée par la norme du produit vectoriel :
+\begin{equation}
+    dS=\| T_u\times T_v \|.
+\end{equation}
+
+L'aire de la surface donné par $\varphi\colon D\subset\eR^2\to \eR^3$ sera donc donnée par
+\begin{equation}
+    Aire\big( \varphi(D) \big)=\iint_D\| T_u\times T_v \|du\,dv.
+\end{equation}
+
+\begin{example}
+    Calculons l'aire de la sphère. Les vecteurs tangents ont déjà été calculés aux équations \eqref{EqTthetaSph} et \eqref{EqTvarphiSph} :
+    \begin{equation}
+        \begin{aligned}[]
+            T_{\theta}&=\begin{pmatrix}
+                R\cos\theta\cos\varphi    \\ 
+                R\cos\theta\sin\varphi    \\ 
+                -R\sin\theta    
+            \end{pmatrix},
+            &T_{\varphi}&=\begin{pmatrix}
+                -R\sin\theta\sin\varphi    \\ 
+                R\sin\theta\cos\varphi    \\ 
+                0    
+            \end{pmatrix}.
+        \end{aligned}
+    \end{equation}
+    Le produit vectoriel vaut
+    \begin{equation}
+        \begin{aligned}[]
+            T_{\theta}\times T_{\varphi}&=
+            \begin{vmatrix}
+                e_x    &   e_y    &   e_z    \\
+             R\cos\theta\cos\varphi   &   R\cos\theta\sin\varphi    &   -R\sin\theta    \\
+            -R\sin\theta\sin\varphi    &   R\sin\theta\cos\varphi    &   0
+            \end{vmatrix}\\
+            &=(R^2\sin^2\theta\cos\varphi)e_x+(R^2\sin^2\theta\sin\varphi)e_y\\
+            &\quad +(R^2\cos\theta\sin\theta\cos^2\varphi+R^2\sin\theta\cos\theta \sin^2\varphi)e_z.
+        \end{aligned}
+    \end{equation}
+    La norme demande quelque calculs et mises en évidences. Le résultat est :
+    \begin{equation}        \label{EqProdVectTTSPh}
+        \| T_{\theta}\times T_{\varphi} \|=R^2\sin\theta.
+    \end{equation}
+    L'aire de la sphère est donc donnée par
+    \begin{equation}
+        Aire=\int_0^{2\pi}d\varphi\int_0^{\pi} R^2\sin\theta d\theta=2\pi R^2[-\cos\theta]_0^{\pi}=4\pi R^2.
+    \end{equation}
+    
+    Il est bon de se souvenir que, en coordonnées sphériques, 
+    \begin{equation}
+        \| T_{\theta}\times T_{\varphi} \|=R^2\sin\theta.
+    \end{equation}
+    Or nous savons que ce vecteur est dirigé dans le sens de $e_r$ parce que ce dernier est le vecteur qui est constamment dirigé radialement. En coordonnées sphériques nous avons donc
+    \begin{equation}        \label{EqNormalEnSpeh}
+        T_{\theta}\times T_{\varphi}=R^2\sin(\theta)e_r.
+    \end{equation}
+    
+\end{example}
+
+\begin{remark}
+    L'équation \eqref{EqProdVectTTSPh} donne l'élément de surface pour la sphère. Notez que cela est justement l'expression du jacobien des coordonnées sphériques. Cela n'est évidemment pas une coïncidence.
+\end{remark}
+
+\begin{example}
+    Nous pouvons donner l'aire du graphe d'une fonction quelconque. La surface est paramétrée par
+    \begin{equation}
+        \varphi(x,y)=\begin{pmatrix}
+            x    \\ 
+            y    \\ 
+            f(x,y)    
+        \end{pmatrix}.
+    \end{equation}
+    Les vecteurs tangents sont
+    \begin{equation}
+        \begin{aligned}[]
+            T_x&=\begin{pmatrix}
+                1    \\ 
+                0    \\ 
+                \partial_xf    
+            \end{pmatrix},&T_y&=\begin{pmatrix}
+                0    \\ 
+                1    \\ 
+                \partial_yf    
+            \end{pmatrix}.
+        \end{aligned}
+    \end{equation}
+    Le produit vectoriel est donné par
+    \begin{equation}
+        T_x\times T_y=\begin{vmatrix}
+             e_x   &   e_y    &   e_z    \\
+            1    &   0    &   \partial_xf    \\
+            0    &   1    &   \partial_yf
+        \end{vmatrix}=(-\partial_xf)e_x-(\partial_yf)e_y+e_z.
+    \end{equation}
+    L'élément de surface est par conséquent
+    \begin{equation}
+        dS=\sqrt{\left( \frac{ \partial f }{ \partial x } \right)^2+\left( \frac{ \partial f }{ \partial y } \right)^2+1},
+    \end{equation}
+    et la surface du graphe sera
+    \begin{equation}
+        Aire=\iint_D\sqrt{\left( \frac{ \partial f }{ \partial x }(x,y) \right)^2+\left( \frac{ \partial f }{ \partial y }(x,y) \right)^2+1}\,dx\,dy
+    \end{equation}
+    
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrale d'une fonction sur une surface}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si $S$ est une surface dans $\eR^3$ paramétrée par
+\begin{equation}
+    \begin{aligned}
+        \varphi\colon D&\to \eR^3 \\
+        (u,v)&\mapsto \varphi(u,v)\in S,
+    \end{aligned}
+\end{equation}
+et si $f$ est une fonction $f\colon \eR^3\to \eR$ définie au moins sur $S$, l'intégrale de $f$ sur $S$ est logiquement définie par
+\begin{equation}
+    \int_S f\,dS=\iint_D f\big( \varphi(u,v) \big)\| T_u(u,v)\times T_v(u,v) \|dudv
+\end{equation}
+où $T_u=\frac{ \partial \varphi }{ \partial u }$ et $Y_v=\frac{ \partial \varphi }{ \partial v }$. La quantité
+\begin{equation}
+    \| T_u(u,v)\times T_v(u,v) \|dudv
+\end{equation}
+est appelé \defe{élément de surface}{élément!de surface}.
+
+Encore une fois, si on prend $f=1$, alors on retrouve la surface de $S$ :
+\begin{equation}
+    \int_SdS=Aire(S).
+\end{equation}
+
+\begin{remark}
+    Le nombre $\int_SfdS$ ne dépend pas de la paramétrisation choisie pour $S$.
+\end{remark}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Aire d'une surface de révolution}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit $\gamma$ une courbe dans le plan $xy$, paramétrée par
+\begin{equation}
+    \gamma(u)=\begin{pmatrix}
+        x(u)    \\ 
+        y(u)    \\ 
+        0    
+    \end{pmatrix}
+\end{equation}
+avec $u\in\mathopen[ a , b \mathclose]$. Nous supposons que la courbe est toujours positive, c'est à dire $y(u)>0$ pour tout $u$.
+
+Nous voulons considérer la surface obtenue en effectuant une rotation de cette ligne autour de l'axe $X$. Chaque point de la courbe va parcourir un cercle de rayon $y(u)$ dans le plan $YX$ et centré en $(x(u),0,0)$. La surface est donc donnée par
+\begin{equation}
+    \varphi(u,\theta)=\begin{pmatrix}
+        x(u)    \\ 
+        y(u)\cos\theta    \\ 
+        y(u)\sin\theta    
+    \end{pmatrix}
+\end{equation}
+avec $(u,\theta)\in\mathopen[ a , b \mathclose]\times \mathopen[ 0 , 2\pi \mathclose]$. Notez que la courbe de départ correspond à $\theta=0$.
+
+Les vecteurs tangents à la surface pour cette paramétrisation sont
+\begin{equation}
+    \begin{aligned}[]
+        T_u&=\frac{ \partial \varphi }{ \partial u }=\begin{pmatrix}
+            x'(u)    \\ 
+            y'(u)\cos\theta    \\ 
+            y'(u)\sin\theta    
+        \end{pmatrix}&
+        T_{\theta}&=\frac{ \partial \varphi }{ \partial \theta }=\begin{pmatrix}
+            0    \\ 
+            -y(u)\sin\theta    \\ 
+            y(u)\cos\theta    
+        \end{pmatrix}.
+    \end{aligned}
+\end{equation}
+Le produit vectoriel de ces deux vecteurs vaut
+\begin{equation}
+    \begin{aligned}[]
+        T_u\times T_{\theta}&=\begin{vmatrix}
+            e_x    &   e_y    &   e_z    \\
+            x'    &   y'\cos\theta    &   y'\sin\theta    \\
+            0    &   -y\sin\theta    &   y\cos\theta
+        \end{vmatrix}\\
+        &=y'(u)y(u)\,e_x-x'(u)y(u)\cos\theta\, e_y+x'(u)y(u)\sin\theta\, e_z.
+    \end{aligned}
+\end{equation}
+En ce qui concerne la norme :
+\begin{equation}
+    dS=\| T_u\times T_{\theta} \|=\sqrt{(y'y)^2+(x'y)^2}=| y(u) |\sqrt{y'(u)^2+x'(u)^2}.
+\end{equation}
+Étant donné que nous avons supposé que $y(u)>0$, nous pouvons supprimer les valeurs absolues, et l'aire de la surface de révolution devient :
+\begin{equation}
+    \begin{aligned}[]
+        Aire(S)&=\int_0^{2\pi}d\theta\int_a^b y(u)\sqrt{x'(u)^2+y'(u)^2}du\\
+        &=2\pi\int_a^b y(u)\sqrt{x'(u)^2+y'(u)^2}du.
+    \end{aligned}
+\end{equation}
+
+\begin{example}
+    Calculons la surface du cône de révolution de rayon (à la base) $R$ et de hauteur $h$. La courbe de départ est le segment droite qui part de $(0,0)$ et qui termine en $(R,h)$ de la figure \ref{LabelFigConeRevolution}.
+    \newcommand{\CaptionFigConeRevolution}{En faisant tourner cette droite autour de l'axe $X$, nous obtenons un cône.}
+    \input{Fig_ConeRevolution.pstricks}
+    Ce segment peut être paramétré par
+    \begin{equation}
+        \gamma(u)=\begin{pmatrix}
+            Ru    \\ 
+            hu    \\ 
+            0    
+        \end{pmatrix}
+    \end{equation}
+    avec $u\in\mathopen[ 0 , 1 \mathclose]$. Cela donne $x(u)=Ru$, $y(u)=hu$ et par conséquent
+    \begin{equation}
+        Aire=2\pi\int_0^1hu\sqrt{R^2+h^2}=\pi h\sqrt{R^2+h^2}.
+    \end{equation}
+    Nous pouvons aussi exprimer ce résultat en fonction de l'angle, en sachant que $h=\sqrt{h^2+R^2}\sin(\alpha)$ :
+    \begin{equation}
+        Aire=\pi(R^2+h^2)\sin(\alpha).
+    \end{equation}
+    
+\end{example}
+
+\begin{example}
+    Calculons la surface latérale du tore obtenu par révolution du cercle de la figure \ref{LabelFigToreRevolution}.                                                                                           
+    \newcommand{\CaptionFigToreRevolution}{Si nous tournons ce cercle autour de l'axe $X$, nous obtenons un tore de rayon «externe» $a$ et de rayon «interne» $R$.}
+    \input{Fig_ToreRevolution.pstricks}
+
+    Le chemin qui détermine le cercle de départ est
+    \begin{equation}
+        \gamma(u)=\begin{pmatrix}
+            R\cos(u)    \\ 
+            a+R\sin(u)    \\ 
+            0    
+        \end{pmatrix},
+    \end{equation}
+    c'est à dire $x(u)=R\cos(u)$, $y(u)=a+R\sin(u)$ avec $u\in\mathopen[ 0 , 2\pi \mathclose]$. Nous avons donc l'aire
+    \begin{equation}
+        \begin{aligned}[]
+            Aire&=2\pi\int_0^{2\pi}\big( a+R\sin(u) \big)R\,du\\
+            &=2\pi R\big( 2\pi a+R[-\cos(u)]_0^{2\pi} \big)\\
+            &=4\pi^2aR.
+        \end{aligned}
+    \end{equation}
+\end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Flux d'un champ de vecteurs à travers une surface}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous voulons construire un moulin à eau. Comment placer les pales pour maximiser le travail de la pression de l'eau ? On n'a pas attendu l'invention du calcul intégral pour répondre à cette question. Trois paramètres rentrent en ligne de compte :
+\begin{enumerate}
+    \item
+        plus il y a d'eau, plus ça pousse;
+    \item
+        plus la surface de la palle est grande, plus on va utiliser d'eau;
+    \item
+        plus la palle est perpendiculaire au courant, plus on va en profiter.
+\end{enumerate}
+Nous voyons sur la figure \ref{LabelFigMoulinEau} que lorsque la palle du moulin est inclinée, non seulement elle prend moins d'eau sur elle, mais qu'en plus elle la prend avec un moins bon angle : une partie de la force ne sert pas à la faire tourner.
+\newcommand{\CaptionFigMoulinEau}{La partie rouge de la force est perdue si l'eau ne pousse pas perpendiculairement. De plus lorsque la palle est inclinée, elle prend moins d'eau sur elle.}
+\input{Fig_MoulinEau.pstricks}
+%See also the subfigure \ref{LabelFigMoulinEaussLabelSubFigMoulinEau0}
+%See also the subfigure \ref{LabelFigMoulinEaussLabelSubFigMoulinEau1}
+
+
+L'idée du flux d'un champ de vecteurs à travers une surface est de savoir quelle est la quantité «utile» de vecteurs qui traverse la surface. Ce sera simplement l'intégrale sur la surface de la composante du champ de vecteurs normale à la surface. Il reste deux problèmes à régler : le premier est de savoir quel est le vecteur normal à la surface, et le second est de savoir comment «sélectionner» la composante normale d'un champ de vecteurs $F$.
+
+Le problème de trouver un vecteur normal est résolu par le produit vectoriel des vecteurs tangents. Si la surface est donnée par $\varphi\colon D\subset\eR^2\to \eR^3$, les vecteurs tangents sont $T_u=\partial_u\varphi(u,v)$ et  $T_v=\partial_v\varphi(u,v)$. Le normal de norme $1$ est donné par :
+\begin{equation}
+    n(u,v)=\frac{ T_u\times T_v }{ \| T_u\times T_v \| }.
+\end{equation}
+
+Si $p$ est un point de la surface $\varphi(D)$, la composante de $F(p)$ qui est normale à la surface au point $p$ est donnée par le produit scalaire
+\begin{equation}
+    F(p)_{\perp}=F(p)\cdot n(p).
+\end{equation}
+C'est ce nombre là que nous intégrons sur la surface. 
+
+\begin{definition}
+    Le \defe{flux du champ de vecteurs}{flux d'un champ de vecteurs} à travers la surface $S=\varphi(D)$ est
+    \begin{equation}
+        \int F\cdot dS=\int F \cdot n\,dudv.
+    \end{equation}
+\end{definition}
+
+Une petite simplification se produit lorsqu'on veut calculer effectivement cette intégrale. En effet $F\cdot n$ est, en soi, une fonction sur $S$. Pour l'intégrer, il faut donc la multiplier par $\| T_u\times T_v \|$ (c'est la définition de l'intégrale d'une fonction sur une surface). Donc, étant donné que $n=(T_u\times T_v)/\| T_u\times T_v \|$, nous avons
+\begin{equation}
+    \int F\cdot dS=\iint_D F\big( \varphi(u,v) \big)\cdot (T_u\times T_v)\,dudv
+\end{equation}
+où $T_u=\frac{ \partial \phi }{ \partial u }$ et $T_v=\frac{ \partial \varphi }{ \partial v }$.
+
+
+\begin{example}
+    Soit le champ de vecteurs
+    \begin{equation}
+        F=\begin{pmatrix}
+            2x    \\ 
+            2y    \\ 
+            2z    
+        \end{pmatrix}.
+    \end{equation}
+    Calculons son flux au travers de la sphère de rayon $R$.
+
+    Nous choisissons de paramétrer la sphère en coordonnées sphériques avec $\phi(\theta,\varphi)$. Nous pouvons reprendre le résultat \eqref{EqNormalEnSpeh} :
+    \begin{equation}
+        T_{\theta}\times T_{\varphi}=R^2\sin(\theta).
+    \end{equation}
+    Nous savons aussi que
+    \begin{equation}
+        F\big( \phi(\theta,\varphi) \big)=2e_r.
+    \end{equation}
+    L'intégrale à calculer est donc
+    \begin{equation}
+        I=\int_0^{\pi}d\theta\int_0^{2\pi}d\varphi\, 2e_r\cdot\big( R^2\sin(\theta)e_r \big).
+    \end{equation}
+    Vu que le produit scalaire $e_r\cdot e_r$ vaut $1$, nous calculons
+    \begin{equation}
+        \begin{aligned}[]
+            I=4\pi R^2\int_0^{\pi}\sin(\theta)d\theta=8\pi R^2.
+        \end{aligned}
+    \end{equation}
+    
+\end{example}
+
+\begin{example}
+    Calculons le flux du champ de force de gravitation d'une masse au travers de la sphère de centre $R$ centrée autour la masse. À un coefficient constant près, le champ vaut
+    \begin{equation}
+        G(r,\theta,\varphi)=\frac{1}{ r^2 }e_r.
+    \end{equation}
+    Sur la sphère de rayon $R$, nous avons
+    \begin{equation}
+        G\big( \phi(\theta,\varphi) \big)=\frac{1}{ R^2 }e_r.
+    \end{equation}
+    L'intégrale est donc
+    \begin{equation}
+        \int_0^{\pi}d\theta\int_0^{2\pi}\frac{1}{ R^2 }e_r\cdot \big( R^2\sin(\theta)e_r \big)d\varphi=8\pi.
+    \end{equation}
+    Ce flux ne dépend pas de $R$.
+\end{example}
+
+\begin{example}
+    Soit $S$ le disque de rayon $5$ placé horizontalement à la hauteur $12$. Calculer le flux du champ de vecteurs
+    \begin{equation}
+        F(x,y,z)=xe_x+ye_y+ze_z.
+    \end{equation}
+    Les équations de la surface sont $z=12$, $x^2+y^2\leq 25$. Nous prenons le paramétrage en coordonnées cylindriques :
+    \begin{equation}
+        \varphi(r,\theta)=\begin{pmatrix}
+            r\cos(\theta)    \\ 
+            r\sin(\theta)    \\ 
+            12    
+        \end{pmatrix}.
+    \end{equation}
+    Les vecteurs tangents sont
+    \begin{equation}
+        \begin{aligned}[]
+            T_r=\frac{ \partial \varphi }{ \partial r }&=\begin{pmatrix}
+                \cos\theta    \\ 
+                \sin\theta    \\ 
+                0    
+            \end{pmatrix}&T_{\theta}=\frac{ \partial \varphi }{ \partial \theta }&=\begin{pmatrix}
+                -r\sin\theta    \\ 
+                r\cos\theta    \\ 
+                0    
+            \end{pmatrix}.
+        \end{aligned}
+    \end{equation}
+    Le vecteur normal est alors
+    \begin{equation}
+        T_r\times T_{\theta}=re_z.
+    \end{equation}
+    Sur la surface, le champ de vecteurs s'écrit
+    \begin{equation}
+        F\big( \varphi(r,\theta) \big)=r\cos(\theta)e_x+r\sin(\theta)e_y+12e_z.
+    \end{equation}
+    Par conséquent
+    \begin{equation}
+        F\cdot(T_r\times T_{\theta})=12r.
+    \end{equation}
+    L'intégrale à calculer est
+    \begin{equation}
+        \begin{aligned}[]
+            \int_0^5dr\int_0^{2\pi}12r\,d\theta&=12\cdot 2\pi\int_0^5r\,dr\\
+            &=\frac{ 25 }{ 2 }24\pi\\
+            &=300\pi.
+        \end{aligned}
+    \end{equation}
+    
+\end{example}
+
+\clearpage
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Résumé des intégrales vues}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous sommes maintenant capables de revoir tous les types d'intégrales vues jusqu'ici de façon très cohérentes. Nous commencerons par les intégrales de fonctions et nous ferons ensuite les intégrales de champs de vecteurs.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{L'intégrale d'une fonction sur les réels}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si $f\colon \mathopen[ a , b \mathclose]\subset\eR\to \eR$ est une fonction usuelle, sont intégrale est
+\begin{equation}
+    \int_a^bf(x)dx=F(b)-F(a)
+\end{equation}
+où $F$ est une primitive de $f$.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrale d'une fonction sur un chemin}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si $f$ est une fonction sur $\eR^3$ et si $\sigma\colon \mathopen[ a , b \mathclose]\to \eR^3$ est un chemin dans $\eR^3$, l'intégrale de $f$ sur $\sigma$ est, par définition, 
+\begin{equation}
+    \int f\,d\sigma=\int_a^b f\big( \sigma(t) \big)\| \sigma'(t) \|dt.
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrale d'une fonction sur une surface}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous devons paramétrer la surface $S$ par une application $\varphi\colon D\subset\eR^2\to \eR^3$. À partir d'une telle paramétrisation, nous construisons un élément de surface en prenant le produit vectoriel des deux vecteurs tangents :
+\begin{equation}
+    dS=\frac{ \partial \varphi }{ \partial u }\times\frac{ \partial \varphi }{ \partial v }dudv.
+\end{equation}
+L'intégrale est
+\begin{equation}        \label{EqDefIntSurffS}
+    \int f\,dS=\iint_Df\big( \varphi(u,v) \big)\left\| \frac{ \partial \varphi }{ \partial u }\times\frac{ \partial \varphi }{ \partial v } \right\|dudv.
+\end{equation}
+
+Il ne faut pas rajouter de jacobien : la norme du produit vectoriel \emph{est} le produit vectoriel.
+
+\begin{remark}
+    La formule \eqref{EqDefIntSurffS} est autant valable pour des surfaces dans $\eR^2$ que dans $\eR^3$. Si nous considérons une surface dans $\eR^2$, nous la voyons dans $\eR^3$ en ajoutant un zéro comme troisième composante.
+\end{remark}
+
+\begin{example}
+    Les coordonnées polaires sont données par
+    \begin{equation}
+        \varphi(r,\theta)=\begin{pmatrix}
+            r\cos\theta    \\ 
+            r\sin\theta    \\ 
+            0    
+        \end{pmatrix}.
+    \end{equation}
+    Les vecteurs tangents à cette paramétrisation sont
+    \begin{equation}
+        \begin{aligned}[]
+            T_r&=\frac{ \partial \varphi }{ \partial r }=\begin{pmatrix}
+                \cos\theta    \\ 
+                \sin\theta    \\ 
+                0    
+            \end{pmatrix},&T_{\theta}&=\frac{ \partial \varphi }{ \partial \theta }=\begin{pmatrix}
+                -r\sin\theta    \\ 
+                r\cos\theta    \\ 
+                0    
+            \end{pmatrix}.
+        \end{aligned}
+    \end{equation}
+    Le vecteur normal est
+    \begin{equation}
+        \frac{ \partial \varphi }{ \partial r }\times\frac{ \partial \varphi }{ \partial \theta }=\begin{vmatrix}
+            e_x    &   e_y    &   e_z    \\
+            \cos\theta    &   \sin\theta    &   0    \\
+            -r\sin\theta    &   r\cos\theta    &   0
+        \end{vmatrix}=re_z.
+    \end{equation}
+    Nous trouvons donc que l'élément de surface est la norme de $re_z$, c'est à dire $r$, le jacobien connu.
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrale d'une fonction sur un volume}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si $V$ est un volume dans $\eR^3$, nous effectuons la même procédure : nous trouvons une paramétrisation, et nous formons un élément de volume avec les vecteurs tangents de la paramétrisation. Nous avons donc un volume déterminé par l'application
+\begin{equation}
+    \varphi\colon D\subset\eR^3\to \eR^3,
+\end{equation}
+et ses trois vecteurs tangents
+\begin{equation}
+    \begin{aligned}[]
+        T_u&=\frac{ \partial \varphi }{ \partial u }\\
+        T_v&=\frac{ \partial \varphi }{ \partial v }\\
+        T_w&=\frac{ \partial \varphi }{ \partial w }.
+    \end{aligned}
+\end{equation}
+Comment former un volume avec trois vecteurs ? Réponse : le produit mixte. L'intégrale de $f$ sur $V$ sera
+\begin{equation}
+    \int f\,dV=\iiint_D f\big( \varphi(u,v,w) \big)\left\| \frac{ \partial \varphi }{ \partial u }\cdot \left( \frac{ \partial \varphi }{ \partial v }\times\frac{ \partial \varphi }{ \partial w }\right) \right\|dudv.
+\end{equation}
+
+Encore une fois, le produit mixte \emph{est} le jacobien. Prenons les coordonnées sphériques :
+\begin{equation}
+    \begin{aligned}[]
+        x(r,\theta,\varphi)&=r\sin(\theta)\cos(\varphi)\\
+        y(r,\theta,\varphi)&=r\sin(\theta)\sin(\varphi)\\
+        z(r,\theta,\varphi)&=r\cos(\theta)
+    \end{aligned}
+\end{equation}
+Les trois vecteurs tangents seront
+\begin{subequations}
+    \begin{align}
+        T_r&=\begin{pmatrix}
+            \frac{ \partial x }{ \partial r }    \\ 
+            \frac{ \partial y }{ \partial r }    \\ 
+            \frac{ \partial z }{ \partial r }    
+        \end{pmatrix}=\begin{pmatrix}
+            \sin(\theta)\cos(\varphi)    \\ 
+            \sin(\theta)\sin(\varphi)    \\ 
+            \cos(\theta)    
+        \end{pmatrix}\\
+        T_{\theta}&=\begin{pmatrix}
+            \frac{ \partial x }{ \partial \theta }    \\ 
+            \frac{ \partial y }{ \partial \theta }    \\ 
+            \frac{ \partial z }{ \partial \theta }    
+        \end{pmatrix}=\begin{pmatrix}
+            r\cos(\theta)\cos(\varphi)    \\ 
+            r\cos(\theta)\sin(\varphi)    \\ 
+            -r\sin(\theta)    
+        \end{pmatrix}\\
+        T_{\varphi}&=\begin{pmatrix}
+            \frac{ \partial x }{ \partial \varphi }    \\ 
+            \frac{ \partial y }{ \partial \varphi }    \\ 
+            \frac{ \partial z }{ \partial \varphi }    
+        \end{pmatrix}=\begin{pmatrix}
+            -r\sin(\theta)\sin(\varphi)    \\ 
+            r\sin(\theta)\cos(\varphi)    \\ 
+            0
+        \end{pmatrix}
+        \end{align}
+\end{subequations}
+Nous avons vu que le produit mixte revient à mettre toutes les composantes dans une matrice. Ici nous avons donc
+\begin{equation}
+    \frac{ \partial \phi }{ \partial r }\cdot\left( \frac{ \partial \phi }{ \partial \theta }\times\frac{ \partial \phi }{ \partial \varphi } \right)=\begin{vmatrix}
+        \frac{ \partial x }{ \partial r }    &   \frac{ \partial y }{ \partial r }    &   \frac{ \partial z }{ \partial r }    \\
+        \frac{ \partial x }{ \partial \theta }    &   \frac{ \partial y }{ \partial \theta }    &   \frac{ \partial z }{ \partial \theta }    \\
+        \frac{ \partial x }{ \partial \varphi }    &   \frac{ \partial y }{ \partial \varphi }    &   \frac{ \partial z }{ \partial \varphi }    
+    \end{vmatrix}
+\end{equation}
+Cela est précisément le jacobien dont nous parlions plus haut.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Conclusion pour les fonctions}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Lorsque nous intégrons une fonction sur un chemin, une surface ou un volume, la technique est toujours la même :
+\begin{enumerate}
+    \item
+        Trouver une paramétrisation à une, deux ou trois variables.
+    \item
+        Dériver la paramétrisation par rapport à ses variables.
+    \item
+        Construire un élément de longueur, surface ou volume à partir des vecteurs que l'on a. Cela se fait en prenant la norme, le produit vectoriel ou le produit mixte.
+\end{enumerate}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Circulation d'un champ de vecteurs}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Pour les champs de vecteurs, nous faisons la même chose, mais au lieu de \emph{multiplier} par l'élément de longueur ou de surface, nous prenons le produit scalaire. Si nous considérons la courbe paramétrée $\sigma\colon \mathopen[ a , b \mathclose]\to \eR^3$ et le champ de vecteurs $F$, nous avons donc
+\begin{equation}
+    \int_{\sigma}F=\int F\cdot d\sigma=\int_a^bF\big( \sigma(t) \big)\cdot\sigma'(t)dt.
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Flux d'un champ de vecteurs}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si la surface $S\subset\eR^3$ est paramétrée par
+\begin{equation}
+    \begin{aligned}
+        \phi\colon D\subset\eR^2&\to \eR^3 \\
+        (u,v)&\mapsto \phi(u,v), 
+    \end{aligned}
+\end{equation}
+et si $F$ est un champ de vecteurs, alors on a
+\begin{equation}        \label{EqResIntFluxPhi}
+    \int_SF=\int_S F\cdot dS=\iint_D F\big( \phi(u,v) \big)\cdot\left( \frac{ \partial \phi }{ \partial u }\times\frac{ \partial \phi }{ \partial v } \right)\,dudv.
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Conclusion pour les champs de vecteurs}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La circulation et le flux ne représentent pas tout à fait la même chose. En effet pour la circulation, nous sélectionnons la composante \emph{tangente} à la courbe, c'est à dire la partie du vecteurs qui «circule» le long de la courbe. Une force perpendiculaire au mouvement ne travaille pas.
+
+La situation est exactement le contraire pour le flux. Étant donné que le vecteur
+\begin{equation}
+    \frac{ \partial \phi }{ \partial u }\times\frac{ \partial \phi }{ \partial v }
+\end{equation}
+est normal à la surface, le fait de prendre le produit scalaire du champ de vecteurs avec lui sélectionne la composante \emph{normale} à la surface, c'est à dire la partie du vecteur qui traverse la surface.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Attention pour les surfaces fermées !}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si nous considérons une surface fermée, il faut faire attention à choisir une \emph{orientation}. Les vecteurs normaux doivent soit tous pointer vers l'intérieur soit tous vers l'extérieur. En effet, en tant que vecteur normal, nous avons choisit de prendre
+\begin{equation}
+    T_u\times T_v.
+\end{equation}
+Mais le vecteur $T_v\times T_u$ est tout aussi normal ! Il n'y a pas a priori de façon standard pour choisir l'un ou l'autre. Il faut juste être cohérent : il faut que si on divise la surface en plusieurs morceaux, tous les vecteurs pointent dans le même sens.
+
+Notez que si vous faites un choix et que votre voisin fait le choix inverse, vous obtiendrez des réponses qui diffèrent d'un signe. Sans plus de précisions\footnote{Il faudrait définir ce qu'est une surface \emph{orientable} et choisir une orientation.}, les deux réponses sont correctes.
+
+Un exemple de ce problème est donné dans l'exercice \ref{exoOutilsMath-0110}.

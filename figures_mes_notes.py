@@ -59,8 +59,6 @@ from phystricksExPolygone import ExPolygone
 from phystricksMoulinEau import MoulinEau
 
 def AllFigures():
-    if False :
-        pass
     figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,
             MomentForce,Parallelogramme,CouroneExam,
             DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,
@@ -70,22 +68,10 @@ def AllFigures():
             DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
             SurfaceHorizVerti,SurfaceCercle,ExoCourone,IntRectangle,IntTriangle,
             IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,IntCourbePolaire,ConeRevolution,
-            ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap]
+            ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
+            MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile]
 
-    tests=main.FigureGenerationSuite(figures_list,first=0,title=u"Outils mathématiques")
-    tests.generate()
-    tests.summary()
-
-if __name__=="__main__":
-    if "--all" in sys.argv :
-        AllFigures()
-    else:
-        ContourTgNDivergence()
-
-def AllFigures():
-    test_list=[MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile]
-
-    tests=main.FigureGenerationSuite(test_list,first=0,title=u"Modélisation")
+    tests=main.FigureGenerationSuite(figures_list,first=0,title=u"mes notes de mathématique")
     tests.generate()
     tests.summary()
 
