@@ -61,10 +61,12 @@ from phystricksMoulinEau import MoulinEau
 from phystricksMethodeNewton import MethodeNewton
 
 from phystricksSurfacePrimiteGeog import SurfacePrimiteGeog
+from phystricksSurfaceEntreCourbes import SurfaceEntreCourbes
+
 
 def AllFigures():
     figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,
-            MomentForce,Parallelogramme,CouroneExam,SurfacePrimiteGeog,
+            MomentForce,Parallelogramme,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
             DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,
             ChampGraviation,FnCosApprox,NiveauHyperbole,Bateau,FonctionXtrois,FonctionEtDerive,
             SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,

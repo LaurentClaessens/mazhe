@@ -20,11 +20,20 @@ def SurfacePrimiteGeog():
 
 
     surface=SurfaceUnderFunction(f,ms,Ms)
+    surface.parameters.color="blue"
+    surface.Isegment.parameters.style="dashed"
+    surface.Fsegment.parameters.style="dashed"
 
-    a.put_mark(0.3,-90,"none","$a$")
-    x.put_mark(0.3,-90,"none","$x$")
-    F.put_mark(0.5,0,"none","$f(x)$")
-    N.put_mark(2,0,"none","$S=F(x)=\int_a^xf(t)dt$")
+    a.put_mark(0.3,-90,"$a$")
+    x.put_mark(0.3,-90,"$x$")
+    F.put_mark(0.5,0,"$f(x)$")
+    N.put_mark(2,0,"$S=F(x)=\int_a^xf(t)dt$")
+    a.parameters.symbol="none"
+    x.parameters.symbol="none"
+    F.parameters.symbol="none"
+    N.parameters.symbol="none"
+
+    pspict.axes.no_graduation()
 
     pspict.DrawGraphs(f,surface,a,x,F,N,surface)
 
