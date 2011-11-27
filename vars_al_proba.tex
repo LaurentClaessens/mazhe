@@ -193,12 +193,14 @@ Nous disons que les variables aléatoires \( X_k\colon \Omega\to \eR^d\) sont \d
     Supposons que les événements \( (A_i)\) sont indépendants. Nous devons vérifier que les tribus le soient, c'est à dire que les événements \( A_i\) et \( \complement A_j\) sont indépendants. Cela est une conséquence du lemme \ref{LemIndepEvenCompl}.
 \end{proof}
 
-\begin{theorem}     \label{ThofrestemesurablesXYYX}
-    Soit \( X\colon \Omega\to \eR^d\) une variable aléatoire. Une fonction \( Y\colon \Omega\to \eR^{d'}\) est une variable aléatoire \( \tribA_X\)-mesurable si et seulement si il existe une fonction borélienne \( f\colon \eR^d\to \eR^{d'}\) telle que \( Y=f(X)\).
+\begin{theorem}[Doob]     \label{ThofrestemesurablesXYYX}
+    Soit \( X\colon \Omega\to \eR^d\) une variable aléatoire. Une fonction \( Y\colon \Omega\to \eR^{p}\) est une variable aléatoire \( \tribA_X\)-mesurable si et seulement si il existe une fonction borélienne \( f\colon \eR^d\to \eR^{p}\) telle que \( Y=f(X)\).
 \end{theorem}
 
+Il y a une preuve de ce théorème dans \cite{ProbaDanielLi}.
+
 \begin{proposition}
-    Soient des variables aléatoires \( X_k\colon \Omega\to \eR^{d_k}\) des variables aléatoires indépendantes et des fonctions boréliennes \( f_k\colon eR^{d_k}\to \eR^{d'_k}\). Alors les variables aléatoires \( f_k(X_k)\) sont indépendantes.
+    Soient des variables aléatoires \( X_k\colon \Omega\to \eR^{d_k}\) des variables aléatoires indépendantes et des fonctions boréliennes \( f_k\colon eR^{d_k}\to \eR^{p_k}\). Alors les variables aléatoires \( f_k(X_k)\) sont indépendantes.
 \end{proposition}
 
 \begin{proof}
@@ -206,7 +208,7 @@ Nous disons que les variables aléatoires \( X_k\colon \Omega\to \eR^d\) sont \d
     \begin{equation}
         f_k\circ X_k\colon \Omega\to \eR^{d_k}
     \end{equation}
-    sont \( \tribA_{X_k}\)-mesurables. En particulier pour tout borélien \( B\subset\eR^{d'_k}\), nous avons \( X^{-1}_k\circ f^{-1}_k(B)\in\tribA_{X_k}\). Nous avons donc
+    sont \( \tribA_{X_k}\)-mesurables. En particulier pour tout borélien \( B\subset\eR^{p_k}\), nous avons \( X^{-1}_k\circ f^{-1}_k(B)\in\tribA_{X_k}\). Nous avons donc
     \begin{equation}
         \sigma(f_k\circ X_k)\subset\sigma(X_k),
     \end{equation}
@@ -335,7 +337,7 @@ En effet
 %---------------------------------------------------------------------------------------------------------------------------
 
 
-\begin{theorem}
+\begin{theorem}     \label{ThoMWfDPQ}
     Soit un espace de probabilité \( (\Omega,\tribA,P)\) et une variable aléatoire intégrable \( X\colon \Omega\to \eR\). Pour chaque sous tribu \( \tribF\) de \( \tribA\), il existe une (presque partout) unique variable aléatoire \( Y\colon \Omega\to \eR\) telle que
     \begin{enumerate}
         \item
@@ -445,15 +447,57 @@ En effet
     \end{description}
 \end{proof}
 
-Soit \( \tribA\) une sous tribu de la tribu \( \tribF\) et \( X\), une variable aléatoire \( \tribF\)-mesurable et intégrable. Alors nous notons 
-\begin{equation}
-    E(X|\tribA)
-\end{equation}
-l'unique variable aléatoire à être \( \tribA\)-mesurable telle que pour toute variable aléatoire \( \tribA\)-mesurable \( Y\),
-\begin{equation}
-    E\big( E(X|\tribA)Y \big)=E(XY).
-\end{equation}
+\begin{proposition}
+    Soit \( (\Omega,\tribF,P)\) un espace de probabilité, soit \( \tribA\) une sous tribu de \( \tribF\) et \( X\), une variable aléatoire \( \tribF\)-mesurable et intégrable. Alors la variable aléatoire \( E(X|\tribA)\) du théorème \ref{ThoMWfDPQ} est l'unique (presque partout) variable aléatoire à être \( \tribA\)-mesurable telle que nous ayons
+    \begin{equation}
+        E\big( E(X|\tribA)Y \big)=E(XY).
+    \end{equation}  
+    pour toute variable aléatoire \( Y\) \( \tribA\)-mesurable.
+\end{proposition}
 
+\begin{proof}
+    Supposons pour commencer que \( Y\) soit une fonction simple positive, alors \( Y=\sum_{i=1}^na_i\mtu_{E_i}\) et nous avons
+    \begin{subequations}
+        \begin{align}
+            \int_{\Omega}E(X|Y)&=\sum_{i}a_i\int_{E_i}E(X|\tribA)\\
+            &=\sum_ia_i\int_{E_i}X\\
+            &=\int_{\Omega}XY.
+        \end{align}
+    \end{subequations}
+    Maintenant si \( Y\) est mesurable et bornée, elle est limite croissante de fonctions simples bornées (proposition \ref{PropWBavIf}) et le résultat tient par la convergence monotone, théorème \ref{ThoConvMonFtBoVh}.
+
+    Si \( Y\) n'est pas positive, nous séparons \( Y=Y_+-Y_-\).
+
+    Pour l'unicité, soit \( Z\) et \( Z'\) deux variables aléatoires telles que pour toute variable aléatoire \( Y\),
+    \begin{equation}
+        \int_{\Omega}ZY=\int_{\Omega}XY=\int_{\Omega}Z'Y.
+    \end{equation}
+    Si nous prenons \( Y=\mtu_{\{ Z\neq Z' \}}\), nous avons
+    \begin{equation}
+        0=\int_{\Omega}(Z-Z')\mtu_{Z\neq Z'}=\int_{Z\neq Z'}Z-Z',
+    \end{equation}
+    d'où le fait que \( P(Z\neq Z')=0\).
+\end{proof}
+
+\begin{definition}
+    Soit \( Z\) une variable aléatoire. L'\defe{espérance conditionnelle}{espérance!conditionnelle} «\( X\) sachant \( Z\)» est la variable aléatoire
+    \begin{equation}
+        E(X|Z)=E(X|\sigma(Z))
+    \end{equation}
+    où \( \sigma(Z)\) est la tribu engendrée par \( Z\).
+\end{definition}
+
+\begin{proposition}
+    Soit une variable aléatoire réelle \( X\in L^1(\Omega,\tribA,P)\). Pour toute variable aléatoire \( Y\colon \Omega\to \eR^d\), il existe une fonction borélienne \( \tribA_Y\)-mesurable \( h\colon \eR^d\to \eR\) telle que
+    \begin{equation}
+        E(X|Y)=h\circ Y.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Nous utilisons le résultat de Doob (théorème \ref{ThofrestemesurablesXYYX}. Par définition \( E(X|Y)\) est une variable aléatoire réelle \( \tribA_Y\)-mesurable, et il existe une fonction borélienne \( h\colon \eR^d\to \eR\) telle que \( E(X|Y)=f\circ Y\).
+\end{proof}
+<++>
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Variance}
