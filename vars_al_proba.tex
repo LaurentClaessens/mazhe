@@ -132,7 +132,7 @@ Si \( A\) est un événement, la \defe{tribu engendrée}{tribu!engendrée!par un
     \sigma(A)=\{ \emptyset,A,\complement A,\Omega \}.
 \end{equation}
 
-Soit \( X\colon \Omega\to eR^d\) une variable aléatoire. La \defe{tribu engendrée}{tribu!engendrée!par une variable aléatoire} est
+Soit \( X\colon \Omega\to \eR^d\) une variable aléatoire. La \defe{tribu engendrée}{tribu!engendrée!par une variable aléatoire} est
 \begin{equation}
     \tribA_X=\{ X^{-1}(B)\tq B\in\Borelien(\eR^d) \}.
 \end{equation}
@@ -495,9 +495,75 @@ En effet
 \end{proposition}
 
 \begin{proof}
-    Nous utilisons le résultat de Doob (théorème \ref{ThofrestemesurablesXYYX}. Par définition \( E(X|Y)\) est une variable aléatoire réelle \( \tribA_Y\)-mesurable, et il existe une fonction borélienne \( h\colon \eR^d\to \eR\) telle que \( E(X|Y)=f\circ Y\).
+    Nous utilisons le résultat de Doob (théorème \ref{ThofrestemesurablesXYYX}). Par définition \( E(X|Y)\) est une variable aléatoire réelle \( \tribA_Y\)-mesurable, et il existe une fonction borélienne \( h\colon \eR^d\to \eR\) telle que \( E(X|Y)=f\circ Y\).
 \end{proof}
-<++>
+
+Cette fonction \( h\colon \eR^d\to \eR\) nous permet de définir\index{espérance!conditionnelle!variable aléatoire}
+\begin{equation}
+    E(X|Z=z)=h(z).
+\end{equation}
+Cela est l'espérance conditionnelle d'une variable aléatoire par rapport à une valeur donnée d'une autre variable aléatoire.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Probabilité conditionnelle}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit \( A\in\tribA\) un événement et \( \tribF\) une sous tribu de \( \tribA\). Nous définissons\index{espérance!conditionnelle!événement} \( P(A|\tribF)\) par
+\begin{equation}
+    P(A|\tribF)=E(\mtu_{A}|\tribF).
+\end{equation}
+Notons que cela est une variable aléatoire et non un réel.
+
+Pour la suite de la construction nous avons besoin du lemme suivant.
+\begin{lemma}
+    Soit \( (B_i)_{i\in\eN}\) une partition de \( \Omega\) en éléments de \( \tribA\) deux à deux disjoints tels que \( P(B_i)\neq 0\). Soit \( \tribF\) la tribu engendrée par les \( B_i\). Une variable aléatoire réelle est \( \tribF\)-mesurable si et seulement si elle est constante sur chaque \( B_i\).
+\end{lemma}
+
+Si \( X\) est une variable aléatoire, alors \( E(X|\tribF)\) est une variable aléatoire \( \tribF\)-mesurable et elle est donc constante sur les ensembles \( B_i\) :
+\begin{equation}
+    E(X|\tribF)=\sum_{i\in\eN}a_i\mtu_{B_i}.
+\end{equation}
+Étant donné que, par construction, \( B_i\) est \( \tribF\)-mesurable, nous avons 
+\begin{subequations}
+    \begin{align}
+        \int_{B_i}XdP&=\in_{B_i}E(X|\tribF)\\
+        &=\sum_ja_j\int_{B_i}\mtu_{B_j}\\
+        &=\sum_ja_j\delta_{ij}P(B_j)\\
+        &=a_iP(B_i).
+    \end{align}
+\end{subequations}
+Par conséquent
+\begin{equation}
+    a_i=\frac{1}{ P(B_i) }\int_{B_i}XdP
+\end{equation}
+et
+\begin{equation}    \label{EqCibwoG}
+    E(X|\tribF)=\sum_{i\in \eN}\left( \frac{1}{ P(B_i) }\int_{B_i}XdP \right)\mtu_{B_i}.
+\end{equation}
+En particulier si \( B\in \tribA\) nous considérons la partition \( \{ B,\complement B \}\) de \( \Omega\) et la tribu engendrée
+\begin{equation}
+    \tribF=\{ \emptyset,B,\complement B,\Omega \}.
+\end{equation}
+La formule \eqref{EqCibwoG} devient
+\begin{equation}
+    E(X|\tribF)=\left( \frac{1}{ P(B) }\int_BXdP \right)\mtu_B+\left( \frac{1}{ P(\complement B) }\int_{\complement B}XdP \right)\mtu_{\complement B}.
+\end{equation}
+Si nous considérons \( A\in\tribA\), nous écrivons cette égalité avec \( X=\mtu_A\) pour obtenir
+\begin{subequations}
+    \begin{align}
+        P(A|\tribF)=E(\mtu_A|\tribF)&=\frac{ P(A\cap B) }{ P(B) }\mtu_B+\frac{ P(A\cap\complement B) }{ P(\complement B) }\mtu_{\complement B}\\
+        &=P(A|B)\mtu_B+P(A|\complement B)\mtu_{\complement B}
+    \end{align}
+\end{subequations}
+où nous avons noté
+\begin{equation}
+    P(A|B)=\frac{ P(A\cap B) }{ P(B) }
+\end{equation}
+l'\defe{espérance conditionnelle}{espérance!conditionnelle!événements} de «\( A\) sachant \( B\)».
+
+\begin{remark}
+    La définition \(P(A|\tribF)=P(\mtu_A|\tribF)\) n'est pas la probabilité conditionnelle de \( A\) sachant \( B\), même si la tribu \( \tribF\) est la tribu engendrée par l'événement \( B\).
+\end{remark}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Variance}
