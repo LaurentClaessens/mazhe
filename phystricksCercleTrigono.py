@@ -18,8 +18,8 @@ def CercleTrigono():
 	pc.parameters.color="brown"
 	pc.parameters.style="dotted"
 	ps.parameters=pc.parameters
-	measureCos=MeasureLength(Segment(O,C),-0.2)
-	measureSin=MeasureLength(Segment(O,S),0.2)
+	measureCos=MeasureLength(Segment(O,C),0.2)
+	measureSin=MeasureLength(Segment(O,S),-0.2)
 	measureCos.put_mark(0.1,-90,r"$\cos(\theta)$",automatic_place=(pspict,"N"))
 	measureSin.put_mark(-0.1,0,r"$\sin(\theta)$",automatic_place=(pspict,"E"))
 
