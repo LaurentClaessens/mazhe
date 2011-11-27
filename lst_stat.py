@@ -9,9 +9,9 @@ def Prerequiste(medicament):
 
 myRequest = LaTeXparser.PytexTools.Request("statistiques")
 myRequest.prerequiste_list.append(Prerequiste)
-myRequest.original_filename="modelisation.tex"
+myRequest.original_filename="mes_notes.tex"
 
-myRequest.ok_filenames_list=["e_modelisation"]
+myRequest.ok_filenames_list=["e_mes_notes"]
 #myRequest.ok_filenames_list.append("espaces_mesure")
 myRequest.ok_filenames_list.append("lois_usuelles")
 myRequest.ok_filenames_list.append("statistiques")
