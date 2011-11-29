@@ -1,0 +1,1088 @@
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Introduction}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+La valeur absolue est essentielle pour introduire les notions de limite et de continuité pour les fonctions d'une variable (voir appendice \ref{AppendiceAnalyseR} pour un rappel). En fait nous disons que la fonction $f\colon \eR\to \eR$ est continue au point $a$ lorsque pour tout $\varepsilon$, il existe un $\delta$ tel que
+\begin{equation}
+	| x-a |\leq\delta \Rightarrow | f(x)-f(a) |\leq \varepsilon.
+\end{equation}
+La quantité $| x-a |$ donne la «distance» entre $x$ et $a$; la définition de la continuité signifie que pour tout $\varepsilon$, il existe un $\delta$ tel que si $a$ et $x$ sont au plus à la distance $\delta$ l'un de l'autre, alors $f(x)$ et $f(a)$ ne seront éloigné au plus d'une distance $\varepsilon$.
+
+La valeur absolue, dans $\eR$, nous sert donc à mesurer des distances entre les nombres. Les principales propriétés de la valeur absolue sont :
+\begin{enumerate}
+
+	\item
+		$| x |=0$ implique $x=0$,
+	\item
+		$| \lambda x |=| \lambda | |x |$,
+	\item
+		$| x+y |\leq | x |+| y |$
+
+\end{enumerate}
+pour tout $x,y\in\eR$ et $\lambda\in\eR$.
+
+Afin de donner une notion de limite pour les fonctions de plusieurs variables, nous devons trouver un moyen de définir les notion de <<taille>> d'un vecteur et de distance entre deux points de $\eR^n$, avec $n>1$. La notion de <<taille>> doit satisfaire propriétés analogues à celles de la valeur absolue. 
+
+La premier notion de <<taille>> pour un vecteur de $\eR^2$ que nous vient à l'esprit est la longueur du segment entre l'origine et l'extrémité libre du vecteur. Cela peut être calculée à l'aide du théorème de Pythagore : 
+\begin{equation}
+  \textrm{taille de } (a,b) = \sqrt{a^2+b^2}.
+\end{equation}
+Nous pouvons introduire une la notion de distance entre les éléments de $\eR^2$ de façon similaire :
+\begin{equation}
+	d\big((a_x,a_y),(b_x,b_y)\big)=\sqrt{  (a_x-b_x)^2+(a_y-b_y)^2  }.
+\end{equation}
+Cette définition a l'air raisonnable; est-elle mathématiquement correcte ? Peut-elle jouer le rôle de la valeur absolue dans $\eR^2$ ? Est-elle la seule définitions possibles de <<taille>> et distance en $\eR^2$ ?  
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Normes et distances}\label{Sect_definition}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous voulons formaliser les notions de «taille» et de distance dans $\eR^n$, et plus généralement dans un espace vectoriel $V$ de dimension finie. Pour cela nous nous inspirons des propriétés de la valeur absolue.
+\begin{definition}		\label{DefNorme}
+	Soit $V$ un espace vectoriel réel. Une \defe{norme}{norme!définition} est une application $N\colon V\to \eR^+$ vérifiant les axiomes 
+	\begin{enumerate}
+
+		\item
+			$N(0_V)=0$, et $N(x)=0$ implique $x=0_V$;
+		\item\label{ItemDefNormeii}
+			$N(\lambda x)=| \lambda |N(x)$ pour tout $\lambda\in\eR$ et $x\in V$;
+		\item\label{ItemDefNormeiii}
+			$N(x+y)\leq N(x)+N(y)$ pour tout $x,y\in V$. Cette propriété est appelée \defe{inégalité triangulaire}{inégalité triangulaire}.
+	\end{enumerate}
+	Ici et dans la suite, $0_V$ désigne l'élément zéro de l'espace $V$.
+\end{definition}
+En prenant $\lambda=-1$ dans la propriété \ref{ItemDefNormeii}, nous trouvons immédiatement que $N(-x)=N(x)$.
+
+\begin{proposition}		\label{PropNmNNm}
+	Toute norme $N$ sur l'espace vectoriel $V$ vérifie l'inégalité
+	\begin{equation}
+		\big| N(x)-N(y) \big|\leq N(x-y)
+	\end{equation}
+	pour tout $x,y\in V$.
+\end{proposition}
+	
+\begin{proof}
+	Nous avons, en utilisant le point \ref{ItemDefNormeiii} de la définition \ref{DefNorme},
+	\begin{subequations}
+		\begin{align}
+			N(x)&=N(x-y+y)\leq N(x-y)+N(y),	\label{subEqNNNxxyyya}\\
+			N(y)&=N(y-x+x)\leq N(y-x)+N(x).	\label{subEqNNNxxyyyb}
+		\end{align}
+	\end{subequations}
+	Supposons d'abord que $N(x)\geq N(y)$. Dans ce cas, en utilisant \eqref{subEqNNNxxyyya},
+	\begin{equation}
+		\big| N(x)-N(y) \big|=N(x)-N(y)\leq N(x-y)+N(y)-N(y)=N(x-y).
+	\end{equation}
+	Si par contre $N(x)\leq N(y)$, alors nous utilisons \eqref{subEqNNNxxyyyb} et nous trouvons
+	\begin{equation}
+		\big| N(x)-N(y) \big|=N(y)-N(x)\leq N(y-x)+N(x)-N(x)=N(y-x).
+	\end{equation}
+	Dans les deux cas, nous avons retrouvé l'inégalité annoncée.
+\end{proof}
+Cette proposition signifie aussi que
+\begin{equation}	\label{EqNleqNNleqNvqlqbs}
+	-N(x-y)\leq N(x)-N(y)\leq N(x-y).
+\end{equation}
+
+Afin de suivre une notation proche de celle de la valeur absolue, à partir de maintenant, la norme d'un vecteur $v$ sera notée $\| v\|$ au lieu de $N(v)$.
+\begin{definition}		\label{DefEVNetDistance}
+	Un espace vectoriel $V$ muni d'une norme est une \defe{espace vectoriel normé}{normé!espace vectoriel}, et on écrit $(V,\| . \|)$. La \defe{distance induite}{distance (d'une norme)} par la norme entre les points $a$ et $b$ de $V$ est le nombre $d(a,b)=\| a-b \|$.
+
+	Si $A$ est une partie de $V$ et si $x\in V$, nous disons que la \defe{distance}{distance!point et ensemble} entre $A$ et $x$ est le nombre
+	\begin{equation}		\label{EqdefDistaA}
+		d(x,A)=\inf_{a\in A}d(x,a).
+	\end{equation}
+\end{definition}
+%The result is on the figure \ref{LabelFigDistanceEnsemble}
+\newcommand{\CaptionFigDistanceEnsemble}{La distance entre $x$ et $A$ est donnée par la distance entre $x$ et $p$. Les distances entre $x$ et les autres points de $A$ sont plus grandes que $d(x,p)$.}
+\input{Fig_DistanceEnsemble.pstricks}
+
+Il est possible de définir de nombreuses normes sur $\eR^n$. Citons en quelque unes. Les normes $\| . \|_{L^p}$ ($p\in\eN$) sont définies de la façon suivante :
+\begin{equation}		\label{EqDeformeLp}
+	\| x \|_{L^p}=\Big( \sum_{i=1}^n| x_i |^p\Big)^{1/p},
+\end{equation}
+pour tout $x=(x_1,\ldots,x_n)\in\eR^n$. Parmi ces normes, celles qui seront le plus souvent utilisées dans ces notes sont
+\begin{equation}
+	\begin{aligned}[]
+		\| x \|_{L^1}&=\sum_{i=1}^n| x_i |,\\
+		\| x \|_{L^2}&=\Big( \sum_{i=1}^n| x_i |^2 \Big)^{1/2}.
+	\end{aligned}
+\end{equation}
+La norme $L^2$ est la \defe{norme euclidienne}{norme!euclidienne}. Nous définissons également la \defe{norme supremum}{norme!supremum} par
+\begin{equation}
+	\| x \|_{\infty}=\sup_{1\leq i\leq n}| x_i |.
+\end{equation}
+Nous admettons sans démonstration que les fonctions $\| . \|_{L^p}\colon \eR^n\to \eR^+$ sont bien des normes.
+
+\newcommand{\CaptionFigDistanceEuclide}{La \emph{norme} euclidienne induit la \emph{distance} euclidienne. D'où son nom. Le point $C$ est construit aux coordonnées $(A_x,B_y)$.}
+\input{Fig_DistanceEuclide.pstricks}
+
+Soient $A=(A_x,A_y)$ et $B=(B_x,B_y)$ deux éléments de $\eR^2$. La distance\footnote{Ne pas confondre «distance» et «norme».} euclidienne entre $A$ et $B$ est donnée par $\| A-B \|_2$. En effet, sur la figure \ref{LabelFigDistanceEuclide}, la distance entre les points $A$ et $B$ est donnée par
+\begin{equation}
+	| AB |^2=| AC |^2+| CB |^2=| A_x-B_x |^2+| A_y-B_y |^2,
+\end{equation}
+par conséquent,
+\begin{equation}
+	| AB |=\sqrt{| A_x-B_x |^2+| A_y-B_y |^2}=\| A-B \|_2.
+\end{equation}
+
+\begin{remark}
+	Si $A$, $B$ et $C$ sont trois points dans le plan $\eR^2$, alors l'inégalité triangulaire $| AB |\leq| AC |+| CB |$ est précisément la propriété \ref{ItemDefNormeiii} de la norme (définition \ref{DefNorme}). En effet l'inégalité triangulaire s'exprime de la façon suivante en terme de la norme $\| . \|_2$ :
+	\begin{equation}	\label{EqNDeuxAmBNNdd}
+		\| A-B \|_2\leq \| A-C \|_2+\| C-B \|_2.
+	\end{equation}
+	En notant $u=A-C$ et $v=C-B$, l'équation \eqref{EqNDeuxAmBNNdd} devient exactement la propriété de définition de la norme :
+	\begin{equation}
+		\| u+v \|_2\leq \| u \|_2+\| v \|_2.
+	\end{equation}
+	Ceci explique pourquoi cette propriété des norme est appelée «inégalité triangulaire».
+\end{remark}
+
+Les distances que nous avons vues jusqu'à présent sont des distances définies à partir d'une norme. La définition suivante donne une notion générale de distance sur un espace vectoriel \( V\).
+
+\begin{definition}
+    Soit \( V\) un espace vectoriel. Une \defe{distance}{distance} sur \( V\) est une application \( d\colon V\times V\to \eR\) telle que
+    \begin{enumerate}
+        \item
+            \( d(x,y)\geq 0\) pour tout \( x,y\in V\);
+        \item
+            \( d(x,y)=0\) si et seulement si \( x=y\);
+        \item
+            \( d(x,y)=d(y,x)\) pour tout \( x,y\in V\);
+        \item
+            \( d(x,y)\leq d(x,z)+d(z,y)\) pour tout \( x,y,z\in V\).
+    \end{enumerate}
+    La dernière condition est l'inégalité triangulaire. Le nombre \( d(x,y)\) est la \emph{distance} entre \( x\) et \( y\).
+\end{definition}
+Toute distance définit une norme en posant \( \| v \|=d(v,0)\).
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Boules et sphères}\label{Sect_boules}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+	Soit $(V,\| . \|)$, un espace vectoriel normé, $a\in V$ et $r>0$. Nous allons abondamment nous servir des ensembles suivants :
+	\begin{enumerate}
+
+		\item
+			la \defe{boule ouverte}{boule!ouverte} $B(a,r)=\{ x\in V\tq \| x-a \|<r \}$;
+		\item
+			la \defe{boule fermée}{boule!fermée} $\bar B(a,r)=\{ x\in V\tq \| x-a \|\leq r \}$;
+		\item
+			la \defe{sphère}{sphère} $S(a,r)=\{ x\in V\tq \| x-a \|=r \}$.
+
+	\end{enumerate}
+\end{definition}
+Les différences entre ces trois ensembles sont très importantes. D'abord, les \emph{boules} sont pleines tandis que la \emph{sphère} est creuse. En comparant à une pomme, la boule ouverte serait la pomme «sans la peau», la boule fermée serait «avec la peau» tandis que la sphère serait seulement la peau. Nous avons
+\begin{equation}
+	\bar B(a,r)=B(a,r)\cup S(a,r).
+\end{equation}
+
+\begin{definition}
+	Une partie $A$ de $V$ est dite \defe{bornée}{borné!partie de $V$} si il existe un réel $R$ tel que $A\subset B(0_V,R)$.
+\end{definition}
+Une partie est donc bornée si elle est contenue dans une boule de rayon fini.
+
+\begin{example}
+	Dans $\eR$, les boules sont  les intervalles ouverts et fermés tandis que la sphère est donnée par les points extrêmes des intervalles :
+	\begin{equation}
+		\begin{aligned}[]
+			B(a,r)&=\mathopen] a-r , a+r \mathclose[,\\
+			\bar B(a,r)&=\mathopen[ a-r , a+b \mathclose],\\
+			S(a,r)&=\{ a-r,a+r \}.
+		\end{aligned}
+	\end{equation}
+\end{example}
+
+\begin{example}
+	Si nous considérons $\eR^2$, la situation est plus riche parce que nous avons plus de normes. Essayons de voir les sphères de centre $(0,0)\in\eR^2$ et de rayon $r$ pour les normes $\| . \|_1$, $\| . \|_2$ et $\| . \|_{\infty}$.
+
+	Pour la norme $\| . \|_1$, la sphère de rayon $r$ est donnée par l'équation
+	\begin{equation}
+		| x |+| y |=r.
+	\end{equation}
+	Pour la norme $\| . \|_2$, l'équation de la sphère de rayon $r$ est
+	\begin{equation}
+		\sqrt{x^2+y^2}=r,
+	\end{equation}
+	et pour la norme supremum, la sphère de rayon $r$ a pour équation
+	\begin{equation}
+		\max\{ | x |,| y | \}=r.
+	\end{equation}
+	Elles sont dessinées sur la figure \ref{LabelFigLesSpheres}
+\newcommand{\CaptionFigLesSpheres}{Les sphères de rayon $1$ pour les trois normes classiques.}
+\input{Fig_LesSpheres.pstricks}
+\end{example}
+
+\newcommand{\CaptionFigBoulePtLoin}{Le point $P$ est un peu plus loin que $x$, en suivant la même droite.}
+\input{Fig_BoulePtLoin.pstricks}
+
+\begin{proposition}		\label{PropBoitPtLoin}
+	Soient $V$ un espace vectoriel normé, $a$ dans $V$ et $x$ tel que $d(a,x)=r$, c'est à dire $x\in S(a,r)$. Dans ce cas, toute boule centrée en $x$ contient un point $P$ tel que $d(P,a)>r$ et un point $Q$ tel que $d(Q,a)<r$.
+\end{proposition}
+
+\begin{proof}
+	Soit une boule de rayon $\delta$ autour de $x$. Le but est de trouver un point $P$ tel que $d(P,a)>r$ et $d(P,x)<\delta$. Pour cela, nous prenons $P$ sur la même droite que $x$ (en partant de $a$), mais juste «un peu plus loin» (voir figure \ref{LabelFigBoulePtLoin}). Plus précisément, nous considérons le point
+	\begin{equation}
+		P=x+\frac{ v }{ N }
+	\end{equation}
+	où $v=x-a$ et $N$ est suffisamment grand pour que $d(x,P)$ soit plus petit que $\delta$. Cela est toujours possible parce que
+	\begin{equation}
+		d(P,x)=\| P-x \|=\frac{ \| v \| }{ N }
+	\end{equation}
+	peut être rendu aussi petit que l'on veut par un choix approprié de $N$. Montrons maintenant que $d(a,P)>d(a,x)$ :
+	\begin{equation}
+		\begin{aligned}[]
+			d(a,P)&=\| a-x-\frac{ v }{ N }\| \\
+			&=\| a-x+\frac{ a }{ N }-\frac{ x }{ N } \|\\
+			&=\| \big( 1+\frac{1}{ N }(a-x) \big) \|\\
+			&>\| a-x \|=d(a,x).
+		\end{aligned}
+	\end{equation}
+	Nous laissons en exercice le soin de trouver un point $Q$ tel que $d(Q,a)<r$ et $d(Q,x)<\delta$.
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Topologie}\label{Sect_topologie}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Ouverts, fermés, intérieur et adhérence}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+	Soit $(V,\| . \|)$ un espace vectoriel normé et $A$, une partie de $V$. Un point $a$ est dit \defe{intérieur}{intérieur!point} à $A$ si il existe une boule ouverte centrée en $a$ et contenue dans $A$.
+
+	On appelle \defe{l'intérieur}{intérieur!d'un ensemble} de $A$ l'ensemble des points qui sont intérieurs à $A$. Nous notons $\Int(A)$ l'intérieur de $A$.
+\end{definition}
+Notons que $\Int(A)\subset A$ parce que si $a\in\Int(A)$, nous avons $B(a,r)\subset A$ pour un certain $r$ et en particulier $a\in A$.
+
+\begin{example}
+	Trouver l'intérieur d'un intervalle dans $\eR$ consiste à «ouvrir là où c'est fermé». 
+	\begin{enumerate}
+
+		\item
+			$\Int\big(\mathopen[ 0 , 1 [\big)=\mathopen] 0 , 1 \mathclose[$. 
+			
+			Prouvons d'abord que $\mathopen] 0,1  \mathclose[\subset\Int(\mathopen[ 0 , 1 [)$. Si $a\in\mathopen] 0 , 1 \mathclose[$, alors $a$ est strictement supérieur à $0$ et strictement inférieur à $1$. Dans ce cas, la boule de centre $a$ et de rayon $\frac{ \min\{ a,1-a \} }{ 2 }$ est contenue dans $\mathopen] 0 , 1 \mathclose[$ (voir figure \ref{LabelFigIntervalle}). Cela prouve que $a$ est dans l'intérieur de $\mathopen[ 0 , 1 [$.
+
+\newcommand{\CaptionFigIntervalle}{Trouver le rayon d'une boule autour de $a$. Une boule qui serait centrée en $a$ avec un rayon strictement plus petit à la fois de $a$ et de $1-a$ est entièrement contenue dans le segment $\mathopen] 0 , 1 \mathclose[$.}
+\input{Fig_Intervalle.pstricks}
+
+			Prouvons maintenant que $\Int\big( \mathopen[ 0 , 1 [ \big)\subset\mathopen] 0 , 1 \mathclose[$. Vu que l'intérieur d'un ensemble est inclus à l'ensemble, nous savons déjà que $\Int\big( \mathopen[ 0 , 1 [ \big)\subset\mathopen[ 0 , 1 [$. Nous devons donc seulement montrer que $0$ n'est pas dans l'intérieur de $\mathopen[ 0 , 1 [$. C'est le cas parce que toute boule du type $B(0,r)$ contient le point $-r/2$ qui n'est pas dans $\mathopen[ 0 , 1 [$.
+
+		\item
+			$\Int\Big( \mathopen[ 0 , \infty [ \Big)=\mathopen] 0 , \infty \mathclose[$.
+		\item
+			$\Int\big( \mathopen] 2 , 3 \mathclose[ \big)=\mathopen] 2 , 3 \mathclose[$.
+
+	\end{enumerate}
+	
+\end{example}
+
+\begin{example}			\label{ExempleIntBoules}
+	Les intérieurs des boules et sphères sont importantes à savoir.
+	\begin{enumerate}
+		\item 
+			$\Int\big( B(a,r) \big)=B(a,r)$. Si $x\in B(a,r)$, nous avons $d(a,x)<r$. Alors la boule $B\big(x,r-d(x,a)\big)$ est incluse à $B(a,r)$, et donc $x$ est dans l'intérieur de $B(a,r)$. Conseil : faire un dessin.
+		\item
+			$\Int\big( \bar B(a,r) \big)=B(a,r)$. Par le point précédent, la boule $B(a,r)$ est certainement dans l'intérieur de la boule fermée. Il reste à montrer que les points de $\bar B(a,r)$ qui ne sont pas dans $B(a,r)$ ne sont pas dans l'intérieur. Ces points sont ceux dont la distance à $a$ est \emph{égale} à $r$. Le résultat découle alors de la proposition \ref{PropBoitPtLoin}.
+			
+		\item
+			$\Int\big( S(a,r) \big)=\emptyset$. Si $x\in S(a,r)$, toute boule centrée en $a$ contient des points qui ne sont pas à distance $r$ de $a$.
+			
+			Notez que la sphère est un exemple d'ensemble non vide mais d'intérieur vide.
+	\end{enumerate}
+\end{example}
+
+
+\begin{definition}
+	Une partie $A$ de l'espace vectoriel normé $(V,\| . \|)$ est dite \defe{ouverte}{ouvert} si chacun de ses points est intérieur. La partie $A$ est donc ouverte si $A\subset\Int(A)$. Par convention, nous disons que l'ensemble vide $\emptyset$ est ouvert.
+
+	Une partie est dite \defe{fermée}{fermé} si son complémentaire est ouvert. La partie $A$ est donc fermée si $V\setminus A$ est ouverte.
+\end{definition}
+
+Remarque : un ensemble $A$ est ouvert si et seulement si $\Int(A)=A$.
+
+\begin{definition}
+	Une partie $A$ de l'espace vectoriel normé $V$ est dite \defe{compacte}{compact} si elle est fermée et bornée.
+\end{definition}
+
+Nous verrons tout au long de ce cours que les ensembles compacts, et les fonctions définies sur ces ensembles ont de nombreuses propriétés agraables.
+
+\begin{example}		\label{ExempleFermeIntevrR}
+	En ce qui concerne les intervalles de $\eR$,
+	\begin{itemize}
+		\item $\mathopen] 1 , 2 \mathclose[$ est ouvert;
+		\item $\mathopen[ 3,  4 \mathclose]$ est fermé;
+		\item $\mathopen[ 5 , 6 [$ n'est ni ouvert ni fermé;
+	\end{itemize}
+	Les intervalles fermés de $\eR$ sont toujours compacts.
+\end{example}
+
+\begin{proposition}		\label{PropTopologieAx}
+	Soit $V$ un espace vectoriel normé.
+	\begin{enumerate}
+		\item
+			L'ensemble $V$ lui-même et le vide sont à la fois fermées et ouvertes.
+		\item
+			Toute union d'ouverts est ouverte.
+		\item
+			Toute intersection \emph{finie} d'ouverts est ouverte.
+		\item		\label{ItemPropTopologieAxiv}
+			Le vide et $V$ sont les seules parties de $V$ à être à la fois fermées et ouvertes.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	L'ingrédient principal de cette démonstration est que si $a$ est un point d'un ouvert $\mO$, alors il existe une boule autour de $a$ contenue dans $\mO$ parce que $a$ doit être dans l'intérieur de $\mO$.
+	\begin{enumerate}
+
+		\item
+			Nous avons déjà dit que, par définition, l'ensemble vide est ouvert. Cela implique que $V$ lui-même est fermé (parce que son complémentaire est le vide). De plus, $V$ est ouvert parce que toutes les boules sont inclues à $V$. Le vide est alors fermé (parce que son complémentaire est $V$).
+		\item
+			Soit une famille $(\mO_i)_{i\in I}$ d'ouverts\footnote{L'ensemble $I$ avec lequel nous «numérotons» les ouverts $\mO_i$ est \emph{quelconque}, c'est à dire qu'il peut être $\eN$, $\eR$, $\eR^n$ ou n'importe quel autre ensemble, fini ou infini.}, et l'union
+			\begin{equation}
+				\mO=\bigcup_{i\in I}\mO_i.
+			\end{equation}
+			Soit maintenant $a\in\mO$. Nous devons prouver qu'il existe une boule centrée en $a$ entièrement contenue dans $\mO$. Étant donné que $a\in\mO$, il existe $i\in I$ tel que $a\in\mO_i$ (c'est à dire que $a$ est au moins dans un des $\mO_i$). Par hypothèse l'ensemble $\mO_i$ est ouvert et donc tous ses points (en particulier $a$) sont intérieurs; il existe donc une boule $B(a,r)$ centrée en $a$ telle que $B(a,r)\subset\mO_i\subset\mO$.
+		
+		\item
+			Soit une famille finie d'ouverts $(\mO_k)_{k\in\{ 1,\ldots,n \}}$, et $a\in\mO$ où
+			\begin{equation}
+				\mO=\bigcap_{k=1}^n\mO_k.
+			\end{equation}
+			Vu que $a$ appartient à chaque ouvert $\mO_k$, nous pouvons trouver, pour chacun de ces ouverts, une boule $B(a,r_k)$ contenue dans $\mO_k$. Chacun des $r_k$ est strictement positif, et nous n'en avons qu'un nombre fini, donc le nombre $r=\min\{ r_1,\ldots,r_n \}$ est strictement positif. La boule $B(a,r)$ est inclue dans toutes les autres (parce que $B(a,r)\subset B(a,r')$ lorsque $r\leq r'$), par conséquent
+			\begin{equation}
+				B(a,r)\subset\bigcap_{k=1}^nB(a,r_k)\subset\bigcap_{k=1}^n\mO_k=\mO,
+			\end{equation}
+			c'est à dire que la boule de rayon $r$ est une boule centrée en $a$ contenue dans $\mO$, ce qui fait que $a$ est intérieur à $\mO$.
+		\item
+			Nous acceptons ce point sans démonstration. 
+	\end{enumerate}
+	
+\end{proof}
+
+La proposition dit que toute intersection \emph{finie} d'ouvert est ouverte. Il est faux de croire que cela se généralise aux intersections infinies, comme le montre l'exemple suivant :
+\begin{equation}
+	\bigcap_{i=1}^{\infty}\mathopen] -\frac{1}{ n } , \frac{1}{ n } \mathclose[=\{ 0 \}.
+\end{equation}
+Chacun des ensembles $\mathopen] -\frac{1}{ n } , \frac{1}{ n } \mathclose[$ est ouvert, mais le singleton $\{ 0 \}$ est fermé (pourquoi ?).
+
+Nous reportons à la proposition \ref{PropBorneSupInf} la preuve du fait que tout ensemble borné de $\eR$ possède un infimum et un supremum.
+
+
+
+\begin{definition}
+	L'ensemble des ouverts de $V$ est la \defe{topologie}{topologie} de $V$. La topologie dont nous parlons ici est dite \defe{induite}{induite!topologie} par la norme $\| . \|$ de $V$ (parce que cette norme définit la notion de boule et qu'à son tour la notion de boule définit la notion d'ouverts). Un \defe{voisinage}{voisinage} de $a$ dans $V$ est un ensemble contenant un ouvert contenant $a$.
+\end{definition}
+
+Il existe de nombreuses topologies sur un espace vectoriel donné, mais certaines sont plus fameuses que d'autres. Dans le cas de $V=\eR^n$, la topologie \defe{usuelle}{topologie!usuelle sur $\eR^n$} est celle induite par la norme euclidienne. Lorsque nous parlons de boules, de fermés, de voisinages ou d'autres notions topologiques (y compris de convergence, voir plus bas) dans $\eR^n$, nous sous-entendons toujours la topologie de la norme euclidienne.
+
+\begin{example}
+	Les ensemble suivants sont des voisinages de $3$ dans $\eR$ :
+	\begin{itemize}
+		\item
+			$\mathopen] 1 , 5 \mathclose[$;
+		\item
+			$\mathopen[ 0 , 10 \mathclose]$;
+		\item
+			$\eR$.
+	\end{itemize}
+	Les ensembles suivants ne sont pas des voisinages de $3$ dans $\eR$ :
+	\begin{itemize}
+		\item 
+			$\mathopen] 1 , 3 \mathclose[$;
+		\item
+			$\mathopen] 1 , 3 \mathclose]$;
+		\item
+			$\mathopen[ 0 , 5 [\setminus\{ 3 \}$.
+	\end{itemize}
+\end{example}
+
+\begin{proposition}
+	Dans un espace vectoriel normé,
+	\begin{enumerate}
+		\item
+			toute intersection de fermés est fermée;
+		\item
+			toute union \emph{finie} de fermés est fermée.
+	\end{enumerate}
+\end{proposition}
+Encore une fois, l'hypothèse de finitude de l'intersection est indispensable comme le montre l'exemple suivant :
+\begin{equation}
+	\bigcup_{n=1}^{\infty}\mathopen[ -1+\frac{1}{ n } , 1-\frac{1}{ n } \mathclose]=\mathopen] -1 , 1 \mathclose[.
+\end{equation}
+Chacun des intervalles dont on prend l'union est fermé tandis que l'union est ouverte.
+
+\begin{definition}
+	Soit $A$, une partie de l'espace vectoriel normé $V$. Un point $a\in V$ est dit \defe{adhérent}{adhérence} à $A$ dans $V$ si pour tout $\varepsilon>0$,
+	\begin{equation}
+		B(a,\varepsilon)\cap A\neq\emptyset.
+	\end{equation}
+	Nous notons $\bar A$ l'ensemble des points adhérents à $a$ et nous disons que $\bar A$ est l'adhérence de $A$. L'ensemble $\bar A$ sera aussi souvent nommé \defe{fermeture}{fermeture} de l'ensemble $A$.
+\end{definition}
+Un point peut être adhérent à $A$ sans faire partie de $A$, et nous avons toujours $A\subset\bar A$.
+
+\begin{example}
+	La terminologie «fermeture» de $A$ pour désigner $\bar A$ provient de deux origines.
+	\begin{enumerate}
+		\item
+			L'ensemble $\bar A$ est le plus petit fermé contenant $A$. Cela signifie que si $B$ est un fermé qui contient $A$, alors $\bar A\subset A$. Nous acceptons cela sans preuve.
+            % position 25804
+            %Nous allons prouver cette affirmation dans l'exercice \ref{exoGeomAnal-0008}.
+		\item
+			Pour les intervalles dans $\eR$, trouver $\bar A$ revient à fermer les extrémités qui sont ouvertes, comme on en a parlé dans l'exemple \ref{ExempleFermeIntevrR}.
+	\end{enumerate}
+\end{example}
+
+\begin{example}
+	Dans $\eR$, l'infimum et le supremum d'un ensemble sont des points adhérents. En effet si $M$ est le supremum de $A\subset\eR$, pour tout $\varepsilon$, il existe un $a\in A$ tel que $a>M-\varepsilon$, tandis que $M>a$. Cela fait que $a\in B(M,\varepsilon)$, et en particulier que pour tout rayon $\varepsilon$, nous avons $B(M,\varepsilon)\cap A\neq\emptyset$.
+
+	Le même raisonnement montre que l'infimum est également dans l'adhérence de $A$.
+\end{example}
+
+\begin{example}		\label{ParlerEncoredeF}
+	Il ne faut pas conclure de l'exemple précédent qu'un point limite ou adhérent est automatiquement un minimum ou un maximum. En effet, si nous regardons l'ensemble formé par les points de la suite $x_n=(-1)^n/n$, le nombre zéro est un point adhérent et une limite, mais pas un infimum ni un maximum.
+\end{example}
+
+\begin{lemma}
+	Si $B$ est une partie fermée de $V$, alors $B=\bar B$.
+\end{lemma}
+
+\begin{proof}
+	Supposons qu'il existe $a\in\bar B$ tel que $a\notin B$. Alors il n'y a pas d'ouverts autour de $a$ qui soit contenu dans $\complement B$. Cela prouve que $\complement B$ n'est pas ouvert, et par conséquent que $B$ n'est pas fermé. Cela est une contradiction qui montre que tout point de $\bar B$ doit appartenir à $B$ lorsque $B$ est fermé.
+\end{proof}
+
+\begin{example}
+	Au niveau des intervalles dans $\eR$, prendre l'adhérence consiste à «fermer là où c'est ouvert». Attention cependant à ne pas fermer l'intervalle en l'infini.
+	\begin{enumerate}
+		\item
+			$\overline{ \mathopen[ 0 , 2 [ }=\mathopen[ 0 , 2 \mathclose]$.
+		\item
+			$\overline{ \mathopen] 3 , \infty \mathopen] }=\mathopen[ 3 , \infty [$.
+	\end{enumerate}
+\end{example}
+
+\begin{proposition}
+	Soit $V$ un espace vectoriel normé et $a\in V$. Les trois conditions suivantes sont équivalentes :
+	\begin{enumerate}
+		\item
+			$a\in\bar A$;
+		\item
+			il existe une suite d'éléments $x_n$ dans $A$ qui converge vers $a$;
+		\item
+			$d(a,A)=0$.
+	\end{enumerate}
+\end{proposition}
+Notez que dans cette proposition, nous ne supposons pas que $a$ soit dans $A$.
+
+\begin{proposition}		\label{PropComleIntBar}
+	Pour toute partie $A$ d'un espace vectoriel normé nous avons
+	\begin{enumerate}
+		\item
+			$V\setminus\bar A=\Int(V\setminus A)$,
+		\item
+			$V\setminus\Int(A)=\overline{ V\setminus A }$.
+	\end{enumerate}
+\end{proposition}
+
+En utilisant les notations du complémentaire (appendice \ref{AppComplement}), les deux points de la proposition se récrivent
+\begin{enumerate}
+	\item
+		$\complement \bar A=\Int(\complement A)$,
+	\item\label{ItemLemPropComplementiv}
+		$\complement\Int(A)=\overline{ \complement A }$.
+\end{enumerate}
+
+\begin{proof}
+	Nous avons $a\in V\setminus\bar A$ si et seulement si $a\notin\bar A$. Or ne pas être dans $\bar A$ signifie qu'il existe un rayon $\varepsilon$ tel que la boule $B(a,\varepsilon)$ n'intersecte pas $A$. Le fait que la boule $B(a,\varepsilon)$ n'intersecte pas $A$ est équivalent à dire que $B(a,\varepsilon)\subset V\setminus A$. Or cela est exactement la définition du fait que $a$ est à l'intérieur de $V\setminus A$. Nous avons donc montré que $a\in V\setminus \bar A$ si et seulement si $a\in\Int(V\setminus A)$. Cela prouve la première affirmation.
+
+	Pour prouver la seconde affirmation, nous appliquons la première au complémentaire de $A$ : $\complement(\overline{ \complement A })=\Int(\complement\complement A)$. En prenant le complémentaire des deux membres nous trouvons successivement
+	\begin{equation}
+		\begin{aligned}[]
+			\complement\complement(\overline{ \complement A })&=\complement\Int(\complement\complement A),\\
+			\overline{ \complement A }&=\complement\Int(A),
+		\end{aligned}
+	\end{equation}
+	ce qu'il fallait démontrer.
+\end{proof}
+
+Attention à ne pas confondre $\complement \bar A$ et $\overline{ \complement A }$. Ces deux ensembles ne sont pas égaux. En effet, en tant que complément d'un fermé, l'ensemble $\complement \bar A$ est certainement ouvert, tandis que, en tant que fermeture, l'ensemble $\overline{ \complement A }$ est fermé. Pouvez-vous trouver des exemples d'ensembles $A$ tels que $\complement \bar A=\overline{ \complement A }$ ?
+
+\begin{proposition}
+	Soient $A$ et $B$ deux parties de l'espace vectoriel normé $V$.
+	\begin{enumerate}
+		\item
+			Pour les inclusions, si $A\subset B$, alors $\Int(A)\subset\Int(B)$ et $\bar A\subset\bar B$.
+		\item
+			Pour les unions, $\overline{ A\cup B }=\overline{ A }\cup\overline{ B }$ et $\overline{ A\cap B }\subset\bar A\cap\bar B$.
+		\item
+			Pour les intersections, $\Int(A)\cap\Int(B)=\Int(A\cap B)$ et $\Int(A)\cup\Int(B)\subset\Int(A\cup B)$.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}
+		\item
+			Si $a$ est dans l'intérieur de $A$, il existe une boule autour de $a$ contenue dans $A$. Cette boule est alors contenue dans $B$ et donc est une boule autour de $a$ contenue dans $B$, ce qui fait que $a$ est dans l'intérieur de $B$. Si maintenant $a$ est dans l'adhérence de $A$, toute boule centrée en $a$ contient un élément de $A$ et donc un élément de $B$, ce qui prouve que $a$ est dans l'adhérence de $B$.
+		\item
+			Nous avons $A\subset A\cup B$ et donc, en utilisant le premier point, $\bar A\subset\overline{ A\cup B }$. De la même manière, $\bar B\subset\overline{ A\cup B }$. En prenant l'union, $\bar A\cup\bar B\subset\overline{ A\cup B }$.
+
+			Réciproquement, soit $a\in\overline{ A\cup B }$ et montrons que $a\in\bar A\cup\bar B$. Supposons par l'absurde que $a$ ne soit ni dans $\bar A$ ni dans $\bar B$. Il existe donc des rayon $\varepsilon_1$ et $\varepsilon_2$ tels que
+			\begin{equation}
+				\begin{aligned}[]
+					B(a,\varepsilon_1)\cap A&=\emptyset,\\
+					B(a,\varepsilon_2)\cap B&=\emptyset.
+				\end{aligned}
+			\end{equation}
+			En prenant $r=\min\{ \varepsilon_1,\varepsilon_2 \}$, la boule $B(a,r)$ est inclue aux deux boules citées et donc n'intersecte ni $A$ ni $B$. Donc $a\notin\overline{ A\cup B }$, d'où la contradiction.
+
+		\item
+			Si nous appliquons le second point à $\complement A$ et $\complement B$, nous trouvons
+			\begin{equation}
+				\overline{ \complement A\cup\complement B }=\overline{ \complement A}\cup\overline{ \complement B}.
+			\end{equation}
+			En utilisant les propriétés du lemme \ref{LemPropsComplement}, le membre de gauche devient
+			\begin{equation}	\label{Eq2707CACBCAB}
+				\overline{ \complement A\cup\complement B }=\overline{ \complement(A\cap B) }=\complement\Int(A\cap B),
+			\end{equation}
+			tandis que le membre de droite devient
+			\begin{equation}		\label{Eq2707cAcBACAACB}
+				\overline{ \complement A }\cup\overline{ \complement B }=\complement\Int(A)\cup\complement\Int(A)=\complement\Big( \Int(A)\cap\Int(B) \Big).
+			\end{equation}
+			En égalisant le membre de droite de \eqref{Eq2707CACBCAB} avec celui de \eqref{Eq2707cAcBACAACB} et en passant au complémentaire nous trouvons
+			\begin{equation}
+				\Int(A\cap B)=\Int(A)\cap\Int(B),
+			\end{equation}
+			comme annoncé.
+
+			La dernière affirmation provient du fait que $\Int(A)\subset\Int(A\cup B)$ et de la propriété équivalente pour $B$.
+	\end{enumerate}
+\end{proof}
+
+\begin{remark}
+	Nous avons prouvé que $\overline{ A\cap B }\subset\bar A\cap\bar B$. Il arrive que l'inclusion soit stricte, comme dans l'exemple suivant. Si nous prenons $A=\mathopen[ 0 , 1 \mathclose]$ et $B=\mathopen] 1 , 2 \mathclose]$, nous avons $A\cap B=\emptyset$ et donc $\overline{ A\cap B }=\emptyset$. Par contre nous avons $\bar A\cap\bar B=\{ 1 \}$.
+\end{remark}
+
+\begin{definition}
+	La \defe{frontière}{frontière} d'un sous-ensemble $A$ de l'espace vectoriel normé $V$ est l'ensemble des points $a\in V$ tels que
+	\begin{equation}
+		\begin{aligned}[]
+			B(a,r)\cap A&\neq \emptyset,\\
+			B(a,r)\cap \complement A&\neq \emptyset,
+		\end{aligned}
+	\end{equation}
+	pour tout rayon $r$. En d'autres termes, toute boule autour de $a$ contient des points de $A$ et des points de $\complement A$. La frontière de $A$ se note $\partial A$\nomenclature[T]{$\partial A$}{La frontière de l'ensemble $A$}.
+\end{definition}
+
+\begin{proposition}		\label{PropDescFrpbsmI}
+	La frontière d'une partie $A$ d'un espace vectoriel normé $V$ s'exprime sous la forme
+	\begin{equation}
+		\partial A=\bar A\setminus\Int(A).
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Le fait pour un point $a$ de $V$ d'appartenir à $\bar A$ signifie que toute boule centrée en $a$ intersecte $A$. De la même façon, le fait de ne pas appartenir à $\Int(A)$ signifie que toute boule centrée en $a$ intersecte $\complement A$.
+\end{proof}
+
+La description de la frontière donnée par la proposition \ref{PropDescFrpbsmI} est celle qu'en pratique nous utilisons le plus souvent. Dans certains textes, elle est prise comme définition de la frontière.
+
+\begin{lemma}
+	La frontière de $A$ peut également s'exprimer des façons suivantes :
+	\begin{equation}
+		\partial A= \bar A\cap\complement\Int(A)=\bar A\cap\overline{ \complement A },
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	En partant de $\partial A=\bar A\setminus \Int(A)$, la première égalité est une application de la propriété \ref{ItemLemPropComplementiii} du lemme \ref{LemPropsComplement}. La seconde égalité est alors la proposition \ref{PropComleIntBar}.
+\end{proof}
+
+\begin{example}
+	Dans $\eR$, la frontière d'un intervalle est la paire constituée des points extrêmes. En effet
+	\begin{equation}
+		\partial\mathopen[ a , b [=\overline{ \mathopen[ a , b [ }\setminus\Int\big( \mathopen[ a , b [ \big)=\mathopen[ a , b \mathclose]\setminus\mathopen] a , b \mathclose[=\{ a,b \}.
+	\end{equation}
+
+	Toujours dans $\eR$ nous avons
+	\begin{equation}
+		\partial\eR=\bar\eR\setminus\Int(\eR)=\eR\setminus\eR=\emptyset,
+	\end{equation}
+	et
+	\begin{equation}
+		\partial\eQ=\bar\eQ\setminus\Int(\eQ)=\eR\setminus\emptyset=\eR.
+	\end{equation}
+\end{example}
+
+\begin{example}
+	Dans $\eR^n$, nous avons
+	\begin{equation}
+		\partial B(a,r)=\partial\bar B(a,r)=S(a,r).
+	\end{equation}
+	La première égalité provient du fait que pour tout ensemble, nous ayons $\partial A=\partial\bar A$. Nous cherchons donc $\partial\bar B(a,r)$. Évidement, la fermeture de cet ensemble est lui-même (parce qu'il est déjà fermé), nous avons donc $\partial\bar B(a,r)=\bar B(a,r)\setminus\Int\big( \bar B(a,r) \big)$. Nous avons déjà vu dans l'exemple \ref{ExempleIntBoules} que $\Int\big( \bar B(a,r) \big)=B(a,r)$.
+
+	Nous avons donc
+	\begin{equation}
+		\partial\bar B(a,r)=\bar B(a,r)\setminus B(a,r)=S(a,r).
+	\end{equation}
+
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Point isolé, point d'accumulation}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+	Soit $D$, une partie de $V$.
+	\begin{enumerate}
+		\item
+			Un point $a\in D$ est dit \defe{isolé}{isolé!point dans $V$} dans $D$ relativement à $V$ si il existe un $\varepsilon>0$ tel que
+			\begin{equation}
+				B(a,\varepsilon)\cap D=\{ a \}.
+			\end{equation}
+		\item
+			Un point $a\in V$ est un \defe{point d'accumulation}{accumulation!dans espace vectoriel normé} de $D$ si pour tout $\varepsilon>0$,
+			\begin{equation}
+				\Big( B(a,\varepsilon)\setminus\{ a \}\Big)\cap D\neq \emptyset.
+			\end{equation}
+	\end{enumerate}
+\end{definition}
+
+\newcommand{\CaptionFigAccumulationIsole}{L'ensemble décrit par l'équation \eqref{Eq2807BouleIso}. Le point $P$ est un point isolé de $D$, tandis que  les points $S$ et $Q$ sont des points d'accumulation.}
+\input{Fig_AccumulationIsole.pstricks}
+
+\begin{example}
+	Considérons la partie suivante de $\eR^2$ :
+	\begin{equation}	\label{Eq2807BouleIso}
+		D=\{ (x,y)\tq x^2+y^2<1\}\cup\{ (1,1) \}.
+	\end{equation}
+	Comme on peut le voir sur la figure \ref{LabelFigAccumulationIsole}, le point $P=(1,1)$ est un point isolé de $D$ parce qu'on peut tracer une boule autour de $P$ sans inclure d'autres points de $D$ que $P$ lui-même. Le point $Q=(-1,0)$ est un point d'accumulation de $D$ parce que toute boule autour de $Q$ contient des points de $D$.
+
+    Le point $S$, étant un point intérieur, est un point d'accumulation : toute boule autour de $S$ intersecte $D$.
+    
+    Notez cependant que le point $Q$ lui-même n'est pas dans $D$ parce que l'inégalité qui définit $D$ est stricte.
+\end{example}
+
+\begin{remark}
+    À propos de la position des points d'accumulation et des points isolés.
+    \begin{enumerate}
+        \item
+            Les points intérieurs sont tous des points d'accumulation.
+        \item
+            Les points isolés ne sont jamais intérieurs.
+        \item
+            Certains points d'accumulation ne font pas partie de l'ensemble. Par exemple le point $1$ est un point d'accumulation de $E=\mathopen] 0 , 1 \mathclose[$.
+        \item
+            Les points de la frontière sont soit d'accumulation soit isolés.
+    \end{enumerate}
+\end{remark}
+
+
+\begin{example}
+	Tous les points de $\eR$ sont des points d'accumulation de $\eQ$ parce que dans toute boule autour d'un réel, on peut trouver un nombre rationnel.
+\end{example}
+
+\begin{remark}
+	L'ensemble des points d'accumulation d'un ensemble n'est pas exactement son adhérence. En effet, un point isolé dans $A$ est dans l'adhérence de $A$, mais n'est pas un point d'accumulation de $A$.
+\end{remark}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Convergence de suites}\label{Sect_suites}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous disons qu'une suite réelle $(x_n)$ converge\footnote{Voir appendice \ref{AppendiceAnalyseR} et la définition \ref{DefLimiteSuiteNum} pour plus de détail.} vers $\ell$ lorsque pour tout $\varepsilon$, il existe un $M$ tel que
+\begin{equation}
+	n>N\Rightarrow | x_n-\ell |\leq\varepsilon.
+\end{equation}
+Le concept fondamental de cette définition est la notion de valeur absolue qui permet de donner la «distance» entre deux réels. Dans un espace vectoriel normé quelconque, cette notion est généralisée par la distance associée à la norme (définition \ref{DefEVNetDistance}). Nous pouvons donc facilement définir le concept de convergence d'une suite dans un espace vectoriel normé.
+
+\begin{definition}		\label{DefCvSuiteEGVN}
+	Soit une suite $(x_n)$ dans un espace vectoriel normé $V$. Nous disons qu'elle est \defe{convergente}{convergence!dans un espace vectoriel normé} si il existe un élément $\ell\in V$ tel que
+	\begin{equation}
+		\forall \varepsilon>0,\,\exists N\in\eN\tq n\geq N\Rightarrow \| x_n-l \|<\varepsilon.
+	\end{equation}
+	Dans ce cas, $\ell$ est appelé la \defe{limite}{limite!suite} de la suite $(x_n)$.
+\end{definition}
+
+
+
+
+\begin{lemma}		\label{LemLimAbarA}
+	Soit $(x_n)$ une suite convergente contenue dans un ensemble $A\subset V$. Alors la limite $x_n$ appartient à $\bar A$.
+\end{lemma}
+
+\begin{proof}
+	Supposons que nous ayons une partie $A$ de $V$, et une suite $(x_n)$ dont la limite $\ell$ se trouve hors de $\bar A$. Dans ce cas, il existe un $r>0$ tel que\footnote{Une autre manière de dire la même chose : si $\ell\notin\bar A$, alors $d(\ell,A)>0$.} $B(\ell,r)\cap A=\emptyset$. Si tous les éléments $x_n$ de la suite sont dans $A$, il n'y en a donc aucun tel que $d(x_n,\ell)=\| x_n-\ell \|<r$. Cela contredit la notion de convergence $x_n\to \ell$.
+\end{proof}
+
+Nous avons déjà mentionné dans l'exemple \ref{ParlerEncoredeF} que zéro était un point adhérent à l'ensemble $F=\{ (-1)^n/n\tq n\in\eN_0 \}$. Nous savons maintenant que $0$ étant la limite de la suite, il est automatiquement adhérent à l'ensemble des éléments de la suite.
+
+\begin{corollary}		\label{CorAdhEstLim}
+	Soit $a$ un point de l'adhérence d'une partie $A$ de $V$. Alors il existe une suite d'éléments dans $A$ qui converge vers $a$.
+\end{corollary}
+
+\begin{proof}
+	Si $a\in A$, alors nous pouvons prendre la suite constante $x_n=a$. Si $a$ n'est pas dans $A$, alors $a$ est dans $\partial A$, et pour tout $n$, il existe un point de $A$ dans la boule $B(a,\frac{1}{ n })$. Si nous nommons $x_n$ ce point, la suite ainsi construite est une suite contenue dans $A$ et qui converge vers $a$ (ce dernier point est laissé à la sagacité du lecteur ou de la lectrice).
+\end{proof}
+
+En termes savants, ce corollaire signifie que la fermeture $\bar A$ est composé de $A$ plus de toutes les limites de toutes les suites contenues dans $A$.
+
+
+\begin{proposition}		\label{PropSuiteCompactSScv}
+	Si $K$ est une partie compacte de $V$ et si $(x_n)$ est une suite contenue dans $K$, alors $(x_n)$ possède une sous-suite convergente.
+\end{proposition}
+
+Nous ne donnons pas de preuves de cette proposition, étant donné qu'une preuve sera donnée dans le cas particulier de $V=\eR^m$ pour le théorème \ref{ThoBolzanoWeierstrassRn}. Cette preuve fonctionne ici mot à mot en remplaçant $\eR^m$ par $V$ en en réfléchissant un peu sur le concept de «composante».
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Fonctions}		\label{Sect_fonctions}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soient $(V,\| . \|_V)$ et $(W,\| . \|_W)$ deux espaces vectoriels normés, et une fonction $f$ de $V$ dans $W$. Il est maintenant facile de définir les notions de limites et de continuité pour de telles fonctions en copiant les définitions données pour les fonctions de $\eR$ dans $\eR$ en changeant simplement les valeurs absolues par les normes sur $V$ et $W$.
+
+En nous inspirant de la définition \ref{DefLimiteFonction}, nous écrivons
+\begin{definition}		\label{LimiteDansEVN}
+	Soit $f\colon V\to W$ une fonction de domaine \( \Domaine(f)\subset V\) et soit $a$ un point d'accumulation de $\Domaine(f)$. Nous disons que $f$ \defe{admet une limite}{limite!espace vectoriel normé} en $a$ si il existe un élément $\ell\in W$ tel que pour tout $\varepsilon>0$, il existe un $\delta>0$ tel que pour tout $x\in \Domaine(f)$,
+    \begin{equation}        \label{EqDefLimzxmasubV}
+		0<\| x-a \|_V<\delta\,\Rightarrow\,\| f(x)-\ell \|_W<\varepsilon.
+	\end{equation}
+	Dans ce cas, nous écrivons $\lim_{x\to a} f(x)=\ell$ et nous disons que $\ell$ est la \defe{limite}{limite} de $f$ lorsque $x$ tend vers $a$.
+\end{definition}
+
+\begin{remark}
+    Le fait que nous limitions la formule \eqref{EqDefLimzxmasubV} aux \( x\) dans le domaine de \( f\) n'est pas anodin. Considérons la fonction \( f(x)=\sqrt{x^2-4}\), de domaine \( | x |\geq 2\). Nous avons
+    \begin{equation}
+        \lim_{x\to 2} \sqrt{x^2-4}=0.
+    \end{equation}
+    Nous ne pouvons pas dire que cette limite n'existe pas en justifiant que la limite à gauche n'existe pas. Les points \( x<2\) sont hors du domaine de \( f\) et ne comptent dons pas dans l'appréciation de l'existence de la limite.
+
+    Vous verrez plus tard que ceci provient de la \wikipedia{fr}{Topologie_induite}{topologie induite} de \( \eR\) sur l'ensemble \( \mathopen[ 2 , \infty [\).
+\end{remark}
+
+De la même manière, nous «recopions» la définition \ref{DefFonctContinueRR} pour obtenir la définition d'une fonction continue entre deux espaces vectoriels normés.
+
+\begin{definition}\label{DefContDansEVN}
+	Une fonction $f\colon D\subset V\to W$ entre deux espaces vectoriels normés $V$ et $W$ est dite \defe{continue}{continue!fonction sur espace vectoriel normé} au point $a\in\bar D$ si $f(x)$ admet une limite pour $x$ tendant vers $a$ et si $\lim_{x\to a} f(x)=f(a)$.
+\end{definition}
+
+\input{Hors_matiere_evn}
+% D'après ce qui est dit dans le mode d'emploi, ce qui est ici n'est pas dans la matière.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Produit d'espaces vectoriels normés}\label{sec_prod}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Norme}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soient $V$ et $W$ deux espaces vectoriels normés. On appelle \defe{espace produit}{produit d'espaces vectoriels normés} de $V$ et $W$ le produit cartésien $V\times W$ 
+\begin{equation}
+V\times W=\{(v,w)\,|\, v\in V,\, w\in W\},
+\end{equation}
+muni de la norme $\|\cdot \|_{V\times W}$
+\begin{equation}	\label{EqNormeVxWmax}
+	\|(v,w) \|_{V\times W}=\max\{\|v\|_{V},\|w\|_W\}.
+\end{equation}
+Il est presque immédiat de vérifier que le produit cartésien $V\times W$ est un espace vectoriel pour les opération de somme et multiplication par les scalaires définies composante par composante. C'est à dire,  si $(v_1,w_1)$, $(v_2,w_2)$ sont dans $V\times W$ et $a$, $b$ sont des scalaires, alors  
+\begin{equation}
+ a (v_1,w_1)+ b(v_2,w_2)=(av_1,aw_1)+ (bv_2,bw_2)=(av_1+bv_2,aw_1+bw_2).
+\end{equation}
+
+\begin{lemma}
+	L'opération $\|\cdot \|_{V\times W}\colon V\times W\to \eR$ est une norme.
+\end{lemma}
+
+\begin{proof}
+	On doit vérifier les trois conditions de la définition \ref{DefNorme}.
+	\begin{itemize}
+		\item Soit $(v,w)$ dans $V\times W$ tel que $\|(v,w)\|_{V\times W}=\max\{\|v\|_{V},\|w\|_W\}=0$. Alors $\|v\|_V=0$ et $\|w\|_W=0$, donc $v=0_V$ et $w=0_W$. Cela implique $(v,w)=(0_v,0_w)=0_{V\times W}$. 
+		\item Pour tout $a$ dans $\eR$ et $(v,w)$ dans $V\times W$,  la norme $\|a (v,w)\|_{V\times W}$ est donnée par  $\max\{\|av\|_{V},\|aw\|_W\}$. On peut factoriser $\|av\|_{V}=|a|\|v\|_{V}$ et $\|aw\|_W=|a|\|w\|_W$ et donc $\|a (v,w)\|_{V\times W}=|a|\max\{\|v\|_{V},\|w\|_W\}=|a|\|(v,w)\|_{V\times W}$.
+		\item Soient $(v_1,w_1)$ et $(v_2,w_2)$ dans $V\times W$. 
+		\begin{equation}
+			\begin{aligned}
+				\|(v_1,w_1)+(v_2,w_2)\|_{V\times W}&=\max\{\|v_1+v_2\|_{V},\|w_1+w_2\|_W\}\leq\\
+				&\leq \max\{\|v_1\|_V+\|v_2\|_{V},\|w_1\|_W+\|w_2\|_W\}\leq\\
+				&\leq\max\{\|v_1\|_V,\|w_1\|_W\}+ \max\{\|v_2\|_{V},\|w_2\|_W\}=\\
+				&=\|(v_1,w_1)\|_{V\times W}+\|(v_2,w_2)\|_{V\times W}.
+			\end{aligned}
+		\end{equation}
+	\end{itemize} 
+\end{proof}
+On remarque tout de suite que la norme $\|\cdot\|_\infty$ sur $\eR^2$ est la norme de l'espace produit $\eR\times\eR$. En outre cette définition nous permet de trouver plusieurs nouvelles normes dans les espaces $\eR^p$. Par exemple, si nous écrivons $\eR^4$ comme $\eR^2\times \eR^2$ on peut munir $\eR^4$ de la norme produit
+\[
+\|(x_1,x_2,x_3,x_4)\|_{\infty, 2}=\max\{\|(x_1,x_2)\|_\infty, \|(x_3,x_4)\|_2\}. 
+\]    
+Les applications de projection de l'espace produit $V\times W$ vers les espaces <<facteurs>>, $V$ $W$ sont notées $\pr_V$ et $\pr_W$ et sont définies par
+\begin{equation}
+	\begin{aligned}
+		\pr_V\colon V\times W&\to V \\
+		(v,w)&\mapsto v 
+	\end{aligned}
+\end{equation}
+et
+\begin{equation}
+	\begin{aligned}
+		\pr_W\colon V\times W &\to W \\
+		(v,w)&\mapsto w. 
+	\end{aligned}
+\end{equation}
+Les inégalités suivantes sont évidentes
+\begin{equation}
+	\begin{aligned}[]
+		\|\pr_V(v,w)\|_V&\leq \|(v,w)\|_{V\times W} \\
+		\|\pr_W(v,w)\|_W&\leq \|(v,w)\|_{V\times W}.
+	\end{aligned}
+\end{equation}
+La topologie de l'espace produit est induite par les topologies des espaces <<facteurs>>. La construction est faite en deux passages : d'abord nous disons que une partie $A\times B$ de $V\times W$ est ouverte si $A$ et $B$ sont des parties ouvertes de $V$ et de $W$ respectivement.  Ensuite nous définissons que une partie quelconque de $V\times W$ est ouverte si elle est une intersection finie ou une réunion de parties ouvertes de $V\times W$ de la forme $A\times B$. 
+
+Ce choix de topologie donne deux propriétés utiles de l'espace produit 
+\begin{enumerate}
+	\item
+		Les projections sont des \defe{applications ouvertes}{application!ouverte}. Cela veut dire que l'image par $\pr_V$ (respectivement $\pr_W$) de toute partie ouverte de $V\times W$ est une partie ouverte de $V$ (respectivement $W$). 
+	\item 
+		Pour toute partir $A$ de $V$ et $B$ de $W$, nous avons $\Int (A\times B)=\Int A\times \Int B$.\label{PgovlABeqbAbB}
+\end{enumerate}
+Une propriété moins facile a prouver est que pour toute partie $A$ de $V$ et $B$ de $W$ nous avons  $\overline{A\times B}=\bar{A}\times \bar{B}$. Voir le lemme \ref{LemCvVxWcvVW}.
+% position 26329
+%et l'exercice \ref{exoGeomAnal-0009}.
+  
+Ce que nous avons dit jusqu'ici est valable pour tout produit d'un nombre fini d'espaces vectoriels normés. En particulier, pour tout $m>0$  l'espace  $\eR^m$ peut être considéré  comme le produit de $m$ copies de $\eR$. 
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Suites}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous allons maintenant parler de suites dans $V\times W$. Nous noterons $(v_n,w_n)$ la suite dans $V\times W$ dont l'élément numéro $n$ est le couple $(v_n,w_n)$ avec $v_n\in V$ et $w_n\in W$. La notions de convergence de suite découle de la définition de la norme via la définition usuelle \ref{DefCvSuiteEGVN}. Il se fait que dans le cas des produits d'espaces, la convergence d'une suite est équivalente à la convergence des composantes. Plus précisément, nous avons le lemme suivant.
+\begin{lemma}		\label{LemCvVxWcvVW}
+	La suite $(v_n,w_n)$ converge vers $(v,w)$ dans $V\times W$ si et seulement les suites $(v_n)$ et $(w_n)$ convergent séparément vers $v$ et $w$ respectivement dans $V$ et $W$. 
+	
+\end{lemma}
+
+\begin{proof}
+	Pour le sens direct, nous devons étudier le comportement de la norme de $(v_n,w_n)-(v,w)$ lorsque $n$ devient grand. En vertu de la définition de la norme dans $V\times W$ nous avons
+	\begin{equation}
+		\Big\| (v_n,w_n)-(v,w) \Big\|_{V\times W}=\max\big\{ \| v_n-v \|_V,\| w_n-w \|_W \big\}.
+	\end{equation}
+	Soit $\varepsilon>0$. Par définition de la convergence de la suite $(v_n,w_n)$, il existe un $N\in\eN$ tel que $n>N$ implique
+	\begin{equation}
+		\max\big\{ \| v_n-v \|_V,\| w_n-w \|_W \big\}<\varepsilon,
+	\end{equation}
+	et donc en particulier les deux inéquations
+	\begin{subequations}
+		\begin{align}
+			\| v_n-v \|&<\varepsilon\\
+			\| w_n-w \|&<\varepsilon.
+		\end{align}
+	\end{subequations}
+	De la première, il ressort que $(v_n)\to v$, et de la seconde que $(w_n)\to w$.
+
+	Pour le sens inverse, nous avons pour tout $\varepsilon$ un $N_1$ tel que $\| v_n-v \|_V\leq\varepsilon$ pour tout $n>N_1$ et un $N_2$ tel que $\| w_n-w \|_W\leq\varepsilon$ pour tout $n>N_2$. Si nous posons $N=\max\{ N_1,N_2 \}$ nous avons les deux inégalités simultanément, et donc
+	\begin{equation}
+		\max\big\{ \| v_n-v \|_V,\| w_n-w \|_W \big\}<\varepsilon,
+	\end{equation}
+	ce qui signifie que la suite $(v_n,w_n)$ converge vers $(v,w)$ dans $V\times W$.
+\end{proof}
+
+\begin{remark}		\label{RemTopoProdPasRm}
+	Il faut remarquer que la norme \eqref{EqNormeVxWmax} est une norme \emph{par défaut}. C'est la norme qu'on met quand on ne sait pas quoi mettre. Or il y a au moins un cas d'espace produit dans lequel on sait très bien quelle norme prendre : les espaces $\eR^m$. La norme qu'on met sur $\eR^2$ est
+	\begin{equation}
+		\| (x,y) \|=\sqrt{x^2+y^2},
+	\end{equation}
+	et non la norme «par défaut» de $\eR^2=\eR\times\eR$ qui serait
+	\begin{equation}
+		\| (x,y) \|=\max\{ | x |,| y | \}.
+	\end{equation}
+	Les théorèmes que nous avons donc démontré à propos de $V\times W$ ne sont donc pas immédiatement applicables au cas de $\eR^2$.
+
+	Cette remarque est valables pour tous les espaces $\eR^m$. À moins de mention contraire explicite, nous ne considérons jamais la norme par défaut \eqref{EqNormeVxWmax} sur un espace $\eR^m$.
+\end{remark}
+
+Étant donné la remarque \ref{RemTopoProdPasRm}, nous ne savons pas comment calculer par exemple la fermeture du produit d'intervalle $\mathopen] 0,1 ,  \mathclose[\times\mathopen[ 4 , 5 [$. Il se fait que, dans $\eR^m$, les fermetures de produits sont quand même les produits de fermetures.
+
+\begin{proposition}		\label{PropovlAxBbarAbraB}
+	Soit $A\subset\eR^m$ et $B\subset\eR^m$. Alors dans $\eR^{m+n}$ nous avons $\overline{ A\times B }=\bar A\times \bar B$.
+\end{proposition}
+
+La démonstration risque d'être longue; nous ne la faisons pas ici.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Normes de matrices}
+%---------------------------------------------------------------------------------------------------------------------------
+De bonnes choses peuvent être lues dans \cite{BrunelleMatricielle}.
+
+L'ensemble de toutes les matrices de taille \( n\times n\) est un espace vectoriel de dimension \( n^2\) (voir exercice \ref{exoEspVectoNorme0009}). Nous pouvons donc y appliquer toute la théorie que nous venons de développer. Plusieurs normes sont envisageables.
+
+\begin{definition}
+    Soient $A,B\in \eM_n(\eR)$. On dit qu'une application $\| . \|: \eM_n(\eR)\to\eR$ est une \defe{norme matricielle}{norme matricielle} si
+\begin{enumerate}
+\item $\| A \|\geq 0\ \forall A\in \eM_n(\eR)$ et $\| A \|=0$ si et seulement si $A=0$
+\item $\| \beta A\|=| \beta |\|B\|$ pour tous $\beta\in\eR$ et \( A\in\eM(\eR)\)
+\item $\|A+B\|\leq\|A\|+\|B\|$ pour tous $A,B\in \eM_n(\eR)$
+\item $\|AB\|\leq\|A\|\, \|B\|$ pour tous $A,B\in \eM_n(\eR)$
+\end{enumerate}
+\end{definition}
+
+Remarquons que par rapport à la définition \ref{DefNorme}, nous ajoutons la condition que \( \| AB \|\leq \| A \|\| B \|\). Comme vous le verrez (ou pas) dans les années à venir, cela correspond à une condition pour obtenir une algèbre de Banach.
+
+\begin{example}     \label{ExemdefnormpMrt}
+    Pour chaque norme sur \( \eR^n\), nous pouvons définir une norme correspondante sur \( \eM_n(\eR)\), appelée \defe{norme opérateur}{norme!opérateur}. Si \( \| . \|\) est une norme sur \( \eR^n\), nous définissons \( \| A \|\) par
+    \begin{equation}
+        \|A\|=\sup_{\|x\|\neq 0}\frac{\|Ax\|}{\|x\|}
+    \end{equation}
+    En particulier, cela donne lieu à toutes les normes \( \| A \|_p\) qui correspondent aux normes \( \| . \|_p\) sur \( \eR^n\).
+\end{example}
+
+\begin{lemma}
+    Cette norme peut aussi être écrite sous la forme
+    \begin{equation}
+        \| A \|_p=\sup_{\|x\|_p=1}\|Ax\|_p.
+    \end{equation}
+\end{lemma}
+
+La preuve est l'exercice \ref{exoGeomAnal-0040}.
+
+
+\begin{definition}
+    Le \defe{\wikipedia{en}{Spectral_radius}{rayon spectral}}{rayon spectral} d'une matrice carrée $A$, noté $\rho(A)$, est défini de la manière suivante :
+    \begin{equation}
+        \rho(A)=\max_i|\lambda_i|
+    \end{equation}
+    où les $\lambda_i$ sont les valeurs propres de $A$.
+\end{definition}
+
+\begin{theorem}
+    La norme 2 d'une matrice peut se calculer de la manière suivante $$\|A\|_2=\sqrt{\rho(A{^t}A)}$$
+\end{theorem}
+
+
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Équivalence des normes}\label{normes_equiv}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Au premier coup d'œil, les notions dont nous parlons dans ce chapitre ont l'air très générales. Nous prenons en effet n'importe quel espace vectoriel $V$ de dimension finie, et nous le munissons de n'importe quelle norme (rien que dans $\eR^m$ nous en avons définis une infinité par l'équation \eqref{EqDeformeLp}). À partir de ces données, nous définissons les boules, la topologie, l'adhérence, etc.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{En dimension finie}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Dans $\eR^n$, les normes $\| . \|_{L^1}$, $\| . \|_{L^2}$ et $\| . \|_{\infty}$ ne sont pas égales. Cependant elles ne sont pas complètement indépendante au sens où l'on sent bien que si un vecteur sera grand pour une norme, il sera également grand pour les autres normes; les normes «vont dans le même sens». Cette notion est précisée par le concept de norme équivalente (voir appendice \ref{appEquivalence}).
+
+\begin{definition}		\label{DefEquivNorm}
+	Deux normes $N_1$ et $N_2$ sur $\eR^m$ sont \defe{\wikipedia{fr}{Norme_équivalente}{équivalentes}}{equivalence@équivalence!norme} si il existe deux nombres réels strictement positifs $k_1$ et $k_2$ tels que
+	\begin{equation}
+		k_1N_1(x)\leq N_2(x)\leq k_2 N_1(x),
+	\end{equation}
+	pour tout $x$ dans $\eR^m$. Dans ce cas nous écrivons que $N_1\sim N_2$.
+\end{definition}
+Il est possible de démontrer que cette notion est une relation d'équivalence sur l'ensemble des normes existantes sur $\eR^m$.
+
+
+
+\begin{proposition}
+    Nous avons les équivalences de normes $\| . \|_{L^1}\sim\| . \|_{L^2}$, $\| . \|_{L^1}\sim\| . \|_{\infty}$ et $\| . \|_{L^2}\sim\| . \|_{\infty}$. Plus précisément nous avons les inégalités
+    \begin{subequations}
+        \begin{align}
+            \| x \|_2&\leq \| x \|_1\leq\sqrt{n}\| x \|_2,  \label{EqEquivdui}\\
+            \| x \|_{\infty}&\leq \| x \|_1\leq n \| x \|_{\infty},\\
+            \| x \|_{\infty}&\leq \| x \|_2\leq \sqrt{n}\| x \|_{\infty}.\label{EqEquivduiii}
+        \end{align}
+    \end{subequations}
+\end{proposition}
+
+\begin{proof}
+    En mettant au carré la première inégalité \eqref{EqEquivdui}, nous voyons que nous devons vérifier l'inégalité
+    \begin{equation}
+        | x_1 |^2+\ldots+| x_n |^2\leq\big( | x_1 |+\ldots+| x_n | \big)^2
+    \end{equation}
+    qui est vraie parce que le membre de droite est égal au carré de chaque terme plus les double produits. La seconde inégalité \eqref{EqEquivdui} provient de l'inégalité de Cauchy-Schwarz (théorème \ref{ThoCauchySchwarzIneg}) sur les vecteurs
+    \begin{equation}
+        \begin{aligned}[]
+            v&=\begin{pmatrix}
+                1/n    \\ 
+                \vdots    \\ 
+                1/n    
+            \end{pmatrix},
+            &w&=\begin{pmatrix}
+                | x_1 |    \\ 
+                \vdots    \\ 
+                | x_n |    
+            \end{pmatrix}.
+        \end{aligned}
+    \end{equation}
+    Nous trouvons 
+    \begin{equation}
+        \frac{1}{ n }\sum_i| x_i |\leq\sqrt{b\cdot\frac{1}{ n }}\sqrt{\sum_i| x_i |^2},
+    \end{equation}
+    et par conséquent
+    \begin{equation}
+        \sum_i| x_i |\leq\sqrt{n}\| x \|_2.
+    \end{equation}
+    
+    La première inégalité \eqref{EqEquivduiii} se démontre en remarquant que si \( a\) et \( b\) sont positifs, \( a\leq\sqrt{a^2+b}\). En appliquant cela à \( a=\max_i| x_i |\), nous avons
+    \begin{equation}
+        \max_i| x_i |\leq\sqrt{ | x_1 |^2+\ldots+| x_n |^2  }
+    \end{equation}
+    parce que \( \max_i| x_i |\) est évidemment un des termes de la somme. Pour la seconde inégalité \eqref{EqEquivduiii}, nous avons
+    \begin{equation}
+        \sqrt{\sum_k| x_k |^2}\leq\left( \sum_k\max_i| x_i |^2 \right)^{1/2}=\sqrt{n}\| x \|_{\infty}.
+    \end{equation}
+    Pour obtenir cette inégalité, nous avons remplacé tous les termes \( | x_k |\) par le maximum.
+\end{proof}
+
+En réalité, toutes les normes \( \| . \|_{L^p}\) et \( \| . \|_{\infty}\) sont équivalentes et, plus généralement, nous avons le résultat suivant, très étonnant à première vue, et en réalité assez difficile à prouver :
+\begin{theorem}		\label{ThoNormesEquiv}
+	Sur un espace vectoriel de dimension finie, toutes les normes (pas seulement les normes $L^p$ que nous avons définies sur $\eR^m$) sont équivalentes.
+\end{theorem}
+
+La preuve de ce théorème dépasse largement le cadre de ce cours et peut être trouvée dans \cite{TrenchRealAnalisys} (page 583). 
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Contre-exemple en dimension infinie}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{SubSecPOlynomesCE}
+
+Lorsque nous considérons des espaces vectoriels de dimension infinie, les choses ne sons plus aussi simples. Nous voyons ici sur l'exemple de l'espace des polynômes que le théorème \ref{ThoNormesEquiv} n'est plus valable si on enlève l'hypothèse de dimension finie.
+
+On considère l'ensemble des fonctions polynômiales à coefficients réels sur  l'intervalle $[0,1]$.
+\begin{equation}
+\mathcal{P}_\eR([0,1])=\{p:[0,1]\to \eR\,|\, p : x\mapsto a_0+a_1 x +a_2 x^2 + \ldots, \, a_i\in\eR,\,\forall i\in \eN\}.
+\end{equation}
+Cet ensemble, muni des opérations usuelles de somme entre polynômes et multiplications par les scalaires, est un espace vectoriel.  
+
+Sur $\mathcal{P}(\eR)$ on définit les normes suivantes 
+\begin{equation}
+\begin{aligned}
+&\|p\|_\infty=\sup_{x\in[0,1]}\{p(x)\},\\
+&\|p\|_1 =\int_0^1|p(x)|\, dx,\\
+&\|p\|_2 =\left(\int_0^1|p(x)|^2\, dx\right)^{1/2}.\\
+\end{aligned}
+\end{equation}
+Les inégalités suivantes sont  immédiates
+\begin{equation}
+\begin{aligned}
+&\|p\|_1 =\int_0^1|p(x)|\, dx\leq \|p\|_\infty,\\
+&\|p\|_2 =\left(\int_0^1|p(x)|^2\, dx\right)^{1/2}\leq \|p\|_\infty,\\
+\end{aligned}
+\end{equation}
+mais la norme $\|\cdot\|_\infty$ n'est  équivalente ni à $\|\cdot\|_1$, ni à $\|\cdot\|_2$. Soit $p_k(x)= x^k$. Alors
+\begin{equation}
+\begin{aligned}
+&\|p_k\|_\infty=1,\\
+&\|p_k\|_1 =\int_0^1x^k\, dx=  \frac{1}{k+1},\\
+&\|p_k\|_2 =\left(\int_0^1x^{2k}\, dx\right)^{1/2}=\sqrt{\frac{1}{2k+1}}.
+\end{aligned}
+\end{equation}
+Pour $k\to \infty$ les normes $\|p_k\|_1$, $\|p_k\|_2$ tendent vers zéro, alors que la norme $\|p_k\|_\infty$ est constante, donc les normes ne sont pas équivalentes parce que il n'existe pas un nombre positif $m$ tel que 
+\begin{equation}
+\begin{aligned}
+& m \|p_k\|_\infty\leq \|p_k\|_1 ,\\
+& m \|p_k\|_\infty\leq \|p_k\|_2 ,\\
+\end{aligned}
+\end{equation}
+uniformément pour tout $k$ dans $\eN$.
