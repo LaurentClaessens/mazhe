@@ -1022,7 +1022,7 @@ Il s'agit de la probabilité de rejeter \( H_0\) alors qu'elle es vraie. Le risq
 C'est la probabilité d'accepter \( H_0\) alors qu'elle est fausse.
 
 
-\begin{definition}
+\begin{definition}  \label{DefPuisszYkrQa}
     Soit \( \delta\) un test de région critique \( W\). La \defe{puissance}{puissance!d'un test} du test est la fonction
     \begin{equation}
         \begin{aligned}
@@ -1065,4 +1065,73 @@ et pour un test bilatéral nous fixons \( c_1\) et \( c_2\) de telle façon à a
 \begin{equation}
     P(T_{\theta}>c_2)=P(T_{\theta}<c_1)\leq\frac{ \alpha }{2}.
 \end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Modèle paramétrique de loi gaussienne}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit un modèle statistique paramétrique de lois gaussiennes \( \dN(m,1)\) de moyenne \( m\) inconnue avec \( m\in\eR^+\). Nous avons \( \Theta=\mathopen[ 0 , \infty [\).
+
+Nous observons un échantillon de taille \( n=36\). Avec un risque de première espèce de \( 5\%\) nous voulons estimer l'hypothèse \( H_0=\{ 0 \}\) contre l'hypothèse \( H_1=\mathopen] 0 , \infty \mathclose[\). De notre échantillon nous construisons la variable aléatoire
+\begin{equation}
+    \bar X_n=\frac{1}{ n }\sum_{i=1}^nX_i
+\end{equation}
+dans laquelle les \( X_i\) sont les éléments de l'échantillon, elles sont indépendantes et identiquement distribuées de loi \( \dN(m,1)\) avec \( m\) inconnu.
+
+Si \( \bar X_n\) est proche de zéro nous acceptons \( H_0\), sinon nous la rejetons. La région de rejet s'écrit donc sous la forme
+\begin{equation}
+    W=\{ (x_1,\ldots,x_n)\in\eR^n\tq\bar x_n=\frac{1}{ n }\sum_{i=1}^nx_i>u \}
+\end{equation}
+dans lequel il faut fixer le \( u\) pour satisfaire au risque de première espèce de \( 5\%\). La contrainte est d'avoir
+\begin{equation}    \label{EqQaNgBo}
+    P(\bar X_n>u)=\alpha
+\end{equation}
+si \( H_0\) est vérifiée. Cela revient à dire que dans \( 5\%\) des cas où \( H_0\) est correcte, nous la rejetterons. Si \( H_0\) est vraie alors \( \bar X_n\) est une moyenne de gaussiennes de moyennes \( m\) et nous avons
+\begin{equation}
+    \frac{ \bar X_n-m }{ \sigma/\sqrt{n} }\sim\dN(0,1)
+\end{equation}
+avec \( m=0\) et \( \sigma=1\). L'équation \eqref{EqQaNgBo} devient donc
+\begin{equation}
+    \alpha=P\left( \frac{ \bar X_n }{ 1/\sqrt{n} }>\frac{ u }{ 1/\sqrt{n} } \right)=P(T>\sqrt{n}u)
+\end{equation}
+où \( T\sim\dN(0,1)\). Avec \( n=36\) et \( \alpha=5\%\) nous trouvons 
+\begin{equation}
+    u=\frac{ 1.645 }{ 6 }\simeq 0.274
+\end{equation}
+La règle de décision est donc la suivante : si \( \bar x_n>0.274\) alors nous rejetons \( H_0\), et sinon nous l'acceptons.
+
+Calculons la puissance de ce test (définition \ref{DefPuisszYkrQa}). C'est la fonction donnée par
+    \begin{equation}
+        \begin{aligned}
+            \eta\colon H_1&\to \eR \\
+            m&\mapsto P\big( (X_{1,m},\ldots, X_{n,m})\in W \big)=P\left( \frac{1}{ n }\sum X_i>u \right) .
+        \end{aligned}
+    \end{equation}
+    Dans ce calcul, les \( X_i\) sont d'une loi normale \( \dN(m,1)\), et non \( \dN(0,1)\). En retranchant \( m\) et en divisant par \( 1/\sqrt{n}\) nous trouvons
+    \begin{subequations}
+        \begin{align}
+            \eta(m)&=P\left( \frac{ \frac{1}{ n }\sum X_i-m }{ 1/\sqrt{t} }>\frac{ u-m }{ 1/\sqrt{n} } \right) \\    
+            &=P(T>\sqrt{n}(u-m))\\
+            &=P(T>16.45-6m)\\
+            &=1-\Phi(1.645-6m)
+        \end{align}
+    \end{subequations}
+où \( \Phi\) est la fonction de répartition de \( \dN(0,1)\). La fonction \( \eta\) a les propriétés suivantes :
+\begin{subequations}
+    \begin{align}
+        \lim_{m\to-\infty}\eta(m)&=0\\
+        \lim_{m\to\infty}\eta(m)&=1\\
+        \eta(0)&=\frac{ 5 }{ 100 }.
+    \end{align}
+\end{subequations}
+
+\begin{remark}
+    Si nous regardons \( m=0.001\), le risque de seconde espèce est quasiment de \( 90\%\). En effet le risque de seconde espèce est d'accepter \( H_0\) alors qu'il est faux. Lorsque \( m=0.001\), l'hypothèse \( H_0\) est fausse, mais la probabilité qu'on l'accepte est grande. D'ailleurs les conséquences de l'accepter à tord ne sont peut-être pas si grandes que cela.
+\end{remark}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Tests paramétriques}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 
