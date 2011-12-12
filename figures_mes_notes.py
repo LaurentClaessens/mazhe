@@ -17,7 +17,7 @@ from phystricksContourGreen import ContourGreen
 from phystricksExSinLarge import ExSinLarge
 from phystricksToreRevolution import ToreRevolution
 from phystricksConeRevolution import ConeRevolution
-from phystricksIntCourbePolaire import IntCourbePolaire
+#from phystricksIntCourbePolaire import IntCourbePolaire
 from phystricksExPolygone import ExPolygone
 from phystricksIntegraleSimple import IntegraleSimple
 from phystricksExoMagnetique import ExoMagnetique
@@ -64,6 +64,7 @@ from phystricksSurfacePrimiteGeog import SurfacePrimiteGeog
 from phystricksSurfaceEntreCourbes import SurfaceEntreCourbes
 
 
+# Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
     figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,
             MomentForce,Parallelogramme,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
@@ -73,9 +74,13 @@ def AllFigures():
             ExoProjection,ExoPolaire,CoordPolaires,TriangleRectangle,
             DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
             SurfaceHorizVerti,SurfaceCercle,ExoCourone,IntRectangle,IntTriangle,
-            IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,IntCourbePolaire,ConeRevolution,
+            IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,
+            ConeRevolution,
             ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
             MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton]
+
+    
+    figures_list=[ CouroneExam,ratrap ]
 
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"mes notes de mathématique")
     tests.generate()
