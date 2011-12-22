@@ -1005,7 +1005,7 @@ Nous avons déjà défini le corps fini \( \eF_p\) lorsque \( p\) est un nombre 
 
 \end{proof}
 
-Le théorème \ref{ThoOzgSfy} ne permet pas de \emph{construire} le corps à \( q=p^n\) éléments. Nous allons maintenant voir un certain nombre de résultats donnant des façons de construire. Ces résultats proviennent de \cite{MichelMerlecorpsfinis}, de \wikipedia{fr}{Théorème_de_l'élément_primitif}{wikipedia} et de \cite{GabrielPeyre}.
+Le théorème \ref{ThoOzgSfy} ne permet pas de \emph{construire} le corps à \( q=p^n\) éléments. Nous allons maintenant voir un certain nombre de résultats donnant des façons de construire. Ces résultats proviennent de \cite{MichelMerlecorpsfinis,GabrielPeyre,RodierCorpsFinis} et de \wikipedia{fr}{Théorème_de_l'élément_primitif}{wikipedia} 
 
 \begin{proposition}     \label{PropnfebjI}
     Soit \( \eK\) un corps fini. Alors le groupe multiplicatif \( \eK^*\) est cyclique.
@@ -1061,7 +1061,7 @@ Lorsque \( \eK\) est un corps les éléments du groupe \( \eK^*\) sont les \defe
 \end{proposition}
 
 \begin{proof}
-    Le groupe \( \eK^*\) ayant \( q-1\) éléments, ses éléments vérifient \( a^{q-1}=1\) et par conséquent \( a^q=aa^{q-1}=a \).
+    Le groupe \( \eK^*\) ayant \( q-1\) éléments, ses éléments vérifient \( a^{q-1}=1\) par le corollaire \ref{CorpZItFX} et par conséquent \( a^q=aa^{q-1}=a \).
 
     Soit \( a\in \eK\). Étant donné que \( a^q-a=0\), le polynôme \( (X-a)\) divise \( X^q-X\) dans \( \eK[X]\). Par conséquent 
     \begin{equation}
@@ -1126,7 +1126,7 @@ Notez que la définition d'extension finie ne suppose ni que \( \eK\) ni que \( 
     \begin{equation}
         \{ 1,\alpha,\cdots,\alpha^{\ell-1} \}\subset\eK
     \end{equation}
-    est libre. Pour rappel \( \eK\) est une espace vectoriel sur \( \eF_p\). Il existe des \( a_i\in \eF_p\) tels que
+    soit libre. Pour rappel \( \eK\) est une espace vectoriel sur \( \eF_p\). Il existe des \( a_i\in \eF_p\) tels que
     \begin{equation}
         \alpha^{\ell}+a_{\ell-1}\alpha^{\ell-1}+\ldots+a_0=0.
     \end{equation}
@@ -1257,19 +1257,130 @@ Nous pouvons construire le corps à \( p^n\) éléments en prenant le quotient d
 \subsubsection{La version plus élaborée}
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+Construire \( \eF_q\) comme quotient de \( \eF_p[X]\) par un polynôme irréductible quelconque ne donne pas d'informations sur les générateurs de \( \eF_q^*\), et en particulier il n'est pas toujours vrai que \( \bar X\) est générateur.
 
+\begin{example}     \label{ExemWUdrcs}
+    Cherchons à construire \( \eF_{16}\) comme quotient de \( \eF_2\) par un polynôme de degré \( 4\).
+    \begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.7.1, Release Date: 2011-08-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: x=polygen(GF(2))
+sage: -x-1
+x + 1
+sage: Q=x**15-1
+sage: Q.factor()
+(x + 1) * (x^2 + x + 1) * (x^4 + x + 1) * (x^4 + x^3 + 1) * (x^4 + x^3 + x^2 + x + 1)
+    \end{verbatim}
+    Les polynômes candidats a avoir des racines génératrices sont donc au nombre de \( 3\):
+    \begin{subequations}
+        \begin{align}
+            P_1&=X^4+X+1\\
+            P_2&=X^4+X^3+1\\
+            P_3&=X^4+X^3+X^2+X+1.
+        \end{align}
+    \end{subequations}
+    Dans le quotient \( \eF_2[X]/P_3\), l'élément \( \bar X\) n'est pas générateur. En effet nous avons \( X^4=X^3+X^2+X+1\) et par conséquent les puissances successives de \( X\) sont
+    \begin{subequations}
+        \begin{align}
+            X&\\
+            X^2&\\
+            X^3&\\
+            X^4&=X^3+X^2+X+1\\
+            1.
+        \end{align}
+    \end{subequations}
+    La classe de \( X\) dans \( \eF_2[X]/P_3\) n'est donc pas génératrice du groupe \( (\eF_2[X]/P_3)^*\).
 
-\begin{proposition}
-    Soit \( P\) un polynôme irréductible unitaire primitif dans \( \eF_p[X]\). Alors
+    Le polynôme \( P_1=X^4+X+1\) par contre est primitif parce que les puissances de \( X\) dans \( \eF_2[X]/P_1\) sont
+    \begin{subequations}
+        \begin{align}
+            X\\
+            X^2\\
+            X^3\\
+            X+1\\
+            X^2+X\\
+            X^3+X^2\\
+            X+1+X^3\\
+            X^2+1\\
+            X^3+X\\
+            X+1+X^2\\
+            X^2+X+X^3\\
+            X^3+X^2+X+1\\
+            1+X^2+X^2\\
+            1+X^3\\
+            1
+        \end{align}
+    \end{subequations}
+    Cela fait \( 15\) puissances distinctes, ce qui prouve que \( P_1\) est primitif. Nous verrons un peu plus loin comment alléger un peu la vérification de la primitivité de \( P_1\).
+\end{example}
+
+\begin{definition}
+    Soit \( p\), un nombre premier et \( P\) un polynôme unitaire irréductible de degré $n$ dans \( \eF_p[X]\). Nous disons que \( P\) est \defe{primitif}{primitif} si les racines de \( P\) sont d'ordre \( p^n-1\) dans \( \eF_p[X]/P\).
+\end{definition}
+
+Nous serions donc intéressé à construire $\eF_{q}$ comme quotient de \( \eF_p[X]\) par un polynôme primitif.
+
+\begin{lemma}       \label{Lembcerei}
+    Si \( \alpha\) est une racine primitive de \( P\) alors les autres racines sont également primitives.
+\end{lemma}
+
+\begin{proof}
+    Soit \( \alpha\in \eF_p[X]/P\) une racine primitive de \( P\). L'élément \( \alpha^p\) est également une racine parce que si \( P=\sum_ka_kX^k\),
+    \begin{equation}
+        P(\alpha^p)=\sum_k(a_k\alpha^k)^p=\big( \sum_ka_k\alpha^k \big)^p=0
+    \end{equation}
+    où nous avons utilisé le fait que \( a_k^p=a_k\) étant donné que \( a_k\in\eF_p\). Par hypothèse \( \alpha\) est une racine primitive et les éléments \( \alpha,\alpha^p,\alpha^{p^2},\ldots,\alpha^{p^n-1}\) sont des racines distinctes de \( P\). Elles sont donc \emph{toutes} les racines de \( P\).
+
+    Toutes les racines de \( P\) sont donc primitives parce que pour la racine \( \beta=\alpha^{p^k}\) nous avons
+    \begin{equation}
+        \alpha^{p^l}=\beta^{p^{l-k}}
+    \end{equation}
+    c'est à dire que la racine \( \alpha^l\) est bien de la forme \( \beta^{p^{r}}\) pour un certain \( r\).
+\end{proof}
+
+\begin{proposition}     \label{PropNsLqWb}
+    Soit \( P\) un polynôme irréductible unitaire primitif dans \( \eF_p[X]\). Nous considérons \( \eK=\eF_p/P\) et \( \alpha=\bar X\in \eK\). Alors
     \begin{enumerate}
         \item
-            Les racines de \( P\) sont \( \{ \alpha,\alpha^p,\ldots, \alpha^{p^{n-1}} \}\).
+            \( P\) est le polynôme minimal de \( \alpha\).
+        \item
+            Les racines de \( P\) sont \( \{ \alpha,\alpha^p,\ldots, \alpha^{p^{n-1}} \}\) et \( \alpha^q=\alpha\).
         \item
             \( P\) est scindé dans \( \eK\).
         \item
-            \( P\) divise \( X^q-X\) dans \( \eF_p[X]\).
+            \( P\) divise \( X^q-X\) dans \( \eK\).
         \item
-            La famille \( \{ \alpha,\alpha^p,\ldots, \alpha^{p^{n-1}} \}\) est une base de \( \eK\) en tant qu'espace vectoriel sur \( \eF_p\).
+            La famille \( \{1, \alpha,\alpha^2,\ldots, \alpha^{n-1} \}\) est une base de \( \eK\) en tant qu'espace vectoriel sur \( \eF_p\).
+        \item
+            En tant qu'ensemble,
+            \begin{equation}
+                \eF_q=\{0, \alpha,\alpha^2,\alpha^3,\ldots, \alpha^{q-1} \},
+            \end{equation}
+            et les \( \alpha^k\) sont distincts pour \( k=1,\ldots, q-1\).
     \end{enumerate}
 \end{proposition}
+
+\begin{proof}
+    La plupart des assertions sont des corollaires ou des paraphrases de résultats contenus dans les propositions précédentes.
+    \begin{enumerate}
+        \item
+            Le fait que \( P(\bar X)=0\) est la définition du quotient de \( \eF_p[X]\) par l'idéal engendré par \( P\). Supposons avoir un polynôme \( \tilde P\) tel que \( \tilde P(\alpha)=0\) et \( \deg(\tilde P)<\deg(P)\). Par division euclidienne (théorème \ref{ThodivEuclPsFexf}) nous avons des polynômes \( Q\) et \( R\) tels que
+            \begin{equation}        \label{EqPWaRUl}
+                P=\tilde PQ+R
+            \end{equation}
+            avec \( \deg(R)<\deg(\tilde P)\). En appliquant l'égalité \( \eqref{EqPWaRUl}\) à \( \alpha\) nous trouvons \( R(\alpha)=0\). Par récurrence nous avons des polynômes annulateurs de \( \alpha\) de degré arbitrairement bas, ce qui est absurde.
+        \item
+            L'assertion à propos des racines de \( P\) est contenue dans le lemme \ref{Lembcerei}. Par le corollaire \ref{CorpZItFX}, dans un groupe cyclique d'ordre \( q\), tous les éléments vérifient \( x^q=x\).
+        \item
+            Possédant \( n\) racines distinctes dans \( \eK\), le polynôme \( P\) est scindé.
+        \item
+            Le polynôme \( P\) possède \( q\) racines dans \( \eK\); il est scindé et toutes ses racines sont également racines de \( X^q-X\).
+        \item
+            Une combinaison linéaire nulle entre les éléments de \( \{ 1,\alpha,\alpha^2,\ldots, \alpha^{n-1} \}\) serait un polynôme annulateur de degré \( n-1\) de \( \alpha\). Cet ensemble est donc libre. Par ailleurs un ensemble libre de \( n\) éléments dans un espace vectoriel de dimension \( n\) est générateur.
+
+    \end{enumerate}
+    <++>
+\end{proof}
 <++>
