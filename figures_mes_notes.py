@@ -79,8 +79,8 @@ def AllFigures():
             ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
             MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton]
 
-    
-    figures_list=[ CouroneExam,ratrap ]
+    figures_list=[ IntegraleSimple,SurfacePrimiteGeog,ArcCercleAngle,DefinitionCartesiennes,ExoCourone,IntRectangle ]
+
 
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"mes notes de mathématique")
     tests.generate()
