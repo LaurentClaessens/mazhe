@@ -76,7 +76,7 @@ def AllFigures():
             DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
             SurfaceHorizVerti,SurfaceCercle,ExoCourone,IntRectangle,IntTriangle,
             IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,
-            ConeRevolution,ChoixInfini
+            ConeRevolution,ChoixInfini,
             ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
             MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton]
 
