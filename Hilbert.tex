@@ -132,7 +132,7 @@ et la relation d'équivalence \( f\sim g\) si et seulement si \( f(x)=g(x)\) pou
 \section{Espaces de Hilbert}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-\begin{proposition}
+\begin{proposition}     \label{PropTdupIG}
     Si \( \hH\) est un espace de Hilbert réel, alors
     \begin{equation}
         \| x+y \|^2=\| x \|^2+\| y \|^2+2\langle x, y\rangle .
@@ -353,11 +353,38 @@ Sources : \cite{ProbCOndutetz} et \wikipedia{en}{Hilbert_projection_theorem}{th�
     Étant donné que nous avons supposé \( f\geq 0\) nous avons alors \( \mu(A)=0\). D'où le fait que \( \pr_Kf\) est presque partout positive.
 \end{proof}
 
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Systèmes orthogonaux et bases}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Sources : \cite{HilbertLi}. Dans cette partie nous noterons \( \eK\) le corps de base de l'espace \( \hH\). Seuls deux cas sont envisagés : \( \eK=\eC\) ou \( \eK=\eR\).
+
+Pour chaque \( x\in\hH\) nous considérons l'application
+\begin{equation}
+    \begin{aligned}
+        \Phi_x\colon \hH&\to \eK \\
+        y&\mapsto \langle x, y\rangle . 
+    \end{aligned}
+\end{equation}
+
+\begin{lemma}       \label{LemjYVcHE}
+    L'application \( y\mapsto\Phi_y\) est une isométrie : nous avons \( \| \Phi_y \|=\| y \|\).
+\end{lemma}
+
+\begin{proof}
+    En utilisant la définition de la norme opérateur et l'inégalité de Cauchy-Schwarz,
+    \begin{equation}
+        \| \Phi_y \|=\sup_{\| x \| =1}\| \Phi_y(x) \|=\sup| \langle x, y\rangle  |\leq\sup\| x \|\| y \|=\| y \|.
+    \end{equation}
+    Par conséquent \( \| \Phi_y \|\leq\| y \|\). Mais d'autre part le fait que \( \Phi_y(y)=\| y \|^2\) montre que \( \| \Phi_y \|\geq \| y \|\).
+\end{proof}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Orthogonalité}
+%---------------------------------------------------------------------------------------------------------------------------
+
 
 \begin{definition}
     Un espace vectoriel muni d'un produit scalaire est une espace \defe{préhilbertien}{préhilbertien}. Si il est complet pour la norme induite par le produit scalaire alors il est de \defe{Hilbert}{Hilbert}.
@@ -374,14 +401,7 @@ cet ensemble est l'\defe{orthogonal}{orthogonal} de \( A\).
 \end{proposition}
 
 \begin{proof}
-    Pour chaque \( x\in\hH\) nous considérons l'application
-    \begin{equation}
-        \begin{aligned}
-            \Phi_x\colon \hH&\to \eK \\
-            y&\mapsto \langle x, y\rangle . 
-        \end{aligned}
-    \end{equation}
-    Par définition cette application est continue et par conséquent l'ensemble \( \ker\Phi_x=\Phi_x^{-1}(\{ 0 \})\) est fermé. L'ensemble
+    Par définition l'application \( \Phi_x\) est continue pour chaque \( x\in\hH\) et par conséquent l'ensemble \( \ker\Phi_x=\Phi_x^{-1}(\{ 0 \})\) est fermé. L'ensemble
     \begin{equation}
         A^{\perp}=\bigcap_{x\in A}\ker\Phi_x
     \end{equation}
@@ -498,6 +518,172 @@ Pour vérifier si un sous espace vectoriel d'un espace de Hilbert est dense, il 
     pour tout ensemble mesurable \( A\subset I\). Si nous notons \( dx\) la mesure de Lebesgue, les mesures \( g^+dx\) et \( g^-dx\) sont par conséquent égales et dominées par \( dx\). Par le corollaire \ref{CorZDkhwS} du théorème de Radon Nikodym, les fonctions \( g^+\) et \( g^-\) sont égales.
 \end{proof}
  
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Dual}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Le \defe{dual}{dual} de l'espace de Hilbert \( \hH\) est l'ensemble\nomenclature[Y]{\( \hH^*\)}{dual}
+\begin{equation}
+    H^*=\{ \Phi\colon \hH\to \eK\text{ linéaire et continue} \}.
+\end{equation}
+Notons que dans le contexte des espaces linéaires nous demandons la continuité des éléments du dual parce qu'elle n'est pas automatique par la linéarité dans les cas de dimensions infinies.
+
+\begin{theorem}[Fréchet-Riesz]\index{théorème!Fréchet-Riesz}        \label{ThoQgTovL}
+    L'application
+    \begin{equation}
+        \begin{aligned}
+            J\colon \hH&\to \hH^* \\
+            y&\mapsto \Phi_y 
+        \end{aligned}
+    \end{equation}
+    est une bijection isométrique.
+\end{theorem}
+
+\begin{proof}
+    Nous savons du lemme \ref{LemjYVcHE} que \(J\) est une isométrique. Nous devons seulement montrer que \( J\) est surjective. Soit \( \Phi\in \hH^*\). Par continuité nous savons que \( F=\ker\Phi\) est fermé, donc
+    \begin{equation}
+        \hH=\ker\Phi\oplus(\ker\Phi)^{\perp}
+    \end{equation}
+    par le théorème \ref{ThowZyaiz}. Nous considérons une base de \( H\) adaptée à cette décomposition, c'est à dire
+    \begin{itemize}
+        \item \( (u_s)_{s\in S}\) une base de \( \ker\Phi\),
+        \item
+            \( (v_t)_{t\in T}\) une base de \( (\ker\Phi)^{\perp}\).
+    \end{itemize}
+    Il se fait que \( T\) se réduit à un seul élément parce que si \( v\in (\ker\Phi)^{\perp}\), alors \( \Phi(v)\neq 0\), et par conséquent \( \{ \Phi(v) \}\) est déjà une base de \( \Image\Phi=\eK\). Le théorème du rang (théorème \ref{ThoGkkffA}) assure alors que
+    \begin{equation}
+        \{ v \}\cup\{ u_s \}_{s\in S}
+    \end{equation}
+    est une base de \( \hH\) avec \( v\in(\ker\Phi)^{\perp}\) et \( u_s\in \ker\Phi\). Nous choisissons \( v\) pour avoir \( \| v \|=1\).
+
+    Nous pouvons maintenant prouver l'existence de \( y\) tel que \( \Phi_y=\Phi\). En effet si nous posons \( y=\overline{ \Phi(v) }v\) nous avons \( \Phi_y=\Phi\), en effet
+    \begin{subequations}
+        \begin{align}
+            \Phi_y(v)=\langle v, y\rangle =\Phi(v)\langle v, v\rangle =\Phi(v)\\
+            \Phi_y(u_s)=\langle u_s, y\rangle =0.
+        \end{align}
+    \end{subequations}
+    Par conséquent \( \Phi_y\) et \( \Phi\) coïncident sur une base de \( \hH\).
+
+    En ce qui concerne l'unicité, d'abord si \( \Phi_y=\Phi\) alors nous devons avoir \( y\in(\ker\Phi)^{\perp}\) et par conséquent \( y=\lambda v\) pour un certain \( \lambda\in \eK\). Nous avons alors
+    \begin{equation}
+        \Phi_y(v)=\bar\lambda\langle v, v\rangle =\bar\lambda.
+    \end{equation}
+    Pour que cela soit égal à \( \Phi(v)\), nous fixons \( \lambda=\overline{ \Phi(v) }\).
+    
+\end{proof}
+Notons que nous avons réellement utilisé le théorème du rang pour l'unicité. Si nous ne demandions pas l'unicité, alors nous n'avions pas besoin du fait que \( \dim(\ker\Phi)^{\perp}=1\), et nous aurons donc pu parler de formes plus générales à valeurs dans \( \eK^n\).
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Séparabilité}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Un espace topologique est \defe{séparable}{séparable} si il possède une partie dénombrable dense.
+
+    Si \( E\) est un espace vectoriel normé nous disons que \( \Delta\) est une partie \defe{totale}{totale}\index{partie!totale} de \( E\) si \( \Span\Delta\) est dense dans \( E\).
+\end{definition}
+
+\begin{proposition}
+    Un espace vectoriel normé est séparable si et seulement si il possède une partie totale dénombrable.
+\end{proposition}
+
+\begin{proof}
+    Si \( \Delta\) est une partie dénombrable de \( E\), alors le \( \eQ\)-espace vectoriel \( \Span_{\eQ}\Delta\) est dénombrable, et sa fermeture est la même que celle de \( \Span_{\eK}\Delta\).
+\end{proof}
+
+\begin{definition}
+    Une famille \( (u_i)_{i\in I}\) d'éléments de \( \hH\) indicée par un ensemble quelconque \( I\) est un \defe{système orthonormé}{orthonormé!système}\index{système orthonormé} si
+    \begin{enumerate}
+        \item
+            \( \| u_i \|=1\) pour tout \( i\in I\),
+        \item
+            \( u_i\perp u_j\) pour tout \( i\neq j\).
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    Dans l'ensemble \( L^2(a,b)\) avec \( b-a=L\) l'ensemble des fonctions
+    \begin{equation}        \label{EqxNXguH}
+        e_n(t)=\frac{1}{ \sqrt{b-a} }\exp(\frac{ 2\pi }{ L }int)
+    \end{equation}
+    avec \( n\in \eZ\) forme un système orthonormé. En effet
+    \begin{equation}
+        \langle e_n, e_n\rangle =\frac{1}{ b-a }\int_a^b\exp(\frac{ 2\pi }{ L }int)\exp(-\frac{ 2\pi }{ L }int)=1
+    \end{equation}
+    et
+    \begin{equation}
+        \langle e_n, e_m\rangle =\frac{1}{ b-a }\int_a^b e^{\frac{ 2\pi }{ L }(n-m)t}dt=0.
+    \end{equation}
+    Dans cette intégrale nous utilisons le fait que \( b=a+(b-a)\) pour simplifier les expressions en cours de calcul.
+
+    La famille \eqref{EqxNXguH} est le \defe{système trigonométrique}{système!trigonométrique} de \( L^2(a,b)\).
+\end{example}
+
+\begin{proposition}
+    Un système orthonormé est libre.
+\end{proposition}
+
+\begin{proof}
+    Soit \( (u_i)_{i\in I}\) un système orthonormé de \( \hH\) et une combinaison linéaire \emph{finie} nulle :
+    \begin{equation}
+        \sum_{k=1}^{n}a_ku_k=0.
+    \end{equation}
+    Nous développons la somme en utilisant les formules de la proposition \ref{PropTdupIG} :
+    \begin{equation}
+        0=\| \sum_ka_ku_k \|^2=\sum_k| a_k |^2\| u_k \|^2+2\sum_{k<l}\langle a_ku_k, a_lu_l\rangle .
+    \end{equation}
+    Le système étant orthonormé, les choses se simplifient en
+    \begin{equation}
+        \sum_k| a_k |^2=0,
+    \end{equation}
+    ce qui signifie que \( a_k=0\) pour tout \( k\).
+\end{proof}
+
+Avant de continuer nous devons définir comment nous calculons des sommes sur des ensembles quelconques. Si \( I\) est un ensemble et si pour chaque \( i\in I\) nous avons un nombre réel positif \( a_i\), alors nous définissons
+\begin{equation}
+    \sum_{i\in I}a_i=\sup_{\substack{J\subset I\\\text{ \( J\) fini }}}\sum_{j\in J} a_j.
+\end{equation}
+
+\begin{proposition}[Inégalités de Bessel]\index{Bessel!inégalités}\index{Inégalités!Bessel}
+    Soit \( \hH\) un préhilbert. Si \( (u_i)_{i\in I}\) est un système orthonormé et si \( x\in \hH\), alors
+    \begin{equation}
+        \sum_{i\in I}\big| \langle x, u_i\rangle  \big|^2\leq \| x \|^2.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Posons \( \xi_i=\langle x, u_i\rangle \). Pour toute partie finie \( J\subset I\) nous avons
+    \begin{equation}
+        0\leq \big\| x-\sum_{j\in J}\xi_ju_j \big\|^2=\| x \|^2-2\Reel\sum_{j}\langle x, \xi_ju_j\rangle +\sum_j| \xi_j |^2.
+    \end{equation}
+    Mais en tenant compte du fait que 
+    \begin{equation}
+        \langle x, \xi_ju_j\rangle =\bar \xi_j\langle x, u_j\rangle =| \xi_j |^2,
+    \end{equation}
+    des choses se simplifient et nous restons avec
+    \begin{equation}
+        \sum_{j\in J}| \xi_j |^2\leq \| x \|^2.
+    \end{equation}
+    Ayant cette inégalité pour toute partie finie de \( I\), nous l'avons encore pour le supremum.
+\end{proof}
+
+Dans la suite les systèmes orthonormés dénombrables vont jouer un rôle important. Nous allons conventionnellement les indicer par \( \eN\).
+\begin{proposition}
+    Soit \( \hH\) un préhilbert et un système orthonormé dénombrable \( (u_n)_{n\in \eN}\). Si 
+    \begin{equation}        \label{EqitrzXi}
+        x=\sum_{n=1}^{\infty}\xi_nu_n,
+    \end{equation}
+    alors \( \xi_n=\langle x, u_n\rangle \).
+\end{proposition}
+
+\begin{proof}
+    Nous appliquons \( \Phi_{u_k}\) à l'équation \eqref{EqitrzXi}. Étant donné que le produit scalaire est continu, nous pouvons permuter avec la somme infinie et obtenir
+    \begin{equation}
+        \langle x, u_k\rangle =\sum_{n=0}^{\infty}\langle u_n, u_k\rangle =\xi_k.
+    \end{equation}
+\end{proof}
+<++>
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Théorème de Kochen-Specker}
@@ -505,7 +691,7 @@ Pour vérifier si un sous espace vectoriel d'un espace de Hilbert est dense, il 
 
 Le théorème suivant\cite{BainKochen} est \wikipedia{en}{Kochen-Specker_theorem}{central en mécanique quantique}.
 \begin{theorem}[Kochen-Specker]
-    Soit \( \hH\) un espace de Hilbert de dimension plus grande ou égale à trois. Soit \( \mA\) une famille d'opérateurs hermitiens sur \( \hH\). Une fonction réelle sur \( \mA\) ne peut pas satisfaire les deux propriétés suivantes en même temps
+   Soit \( \hH\) un espace de Hilbert de dimension plus grande ou égale à trois. Soit \( \mA\) une famille d'opérateurs hermitiens sur \( \hH\). Une fonction réelle sur \( \mA\) ne peut pas satisfaire les deux propriétés suivantes en même temps
     \begin{enumerate}
         \item
             \( f(A+B)=f(A)+f(B)\)
