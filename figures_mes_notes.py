@@ -63,6 +63,9 @@ from phystricksMethodeNewton import MethodeNewton
 from phystricksSurfacePrimiteGeog import SurfacePrimiteGeog
 from phystricksSurfaceEntreCourbes import SurfaceEntreCourbes
 from phystricksChoixInfini import ChoixInfini
+from phystricksProjPoly import ProjPoly
+
+
 
 
 # Il me semble que la figure IntCourbePolaire est inutile
@@ -76,7 +79,7 @@ def AllFigures():
             DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
             SurfaceHorizVerti,SurfaceCercle,ExoCourone,IntRectangle,IntTriangle,
             IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,
-            ConeRevolution,ChoixInfini,
+            ConeRevolution,ChoixInfini,ProjPoly,
             ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
             MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton]
 
