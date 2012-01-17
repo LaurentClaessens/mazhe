@@ -935,6 +935,75 @@ Un des points délicats est de se ramener au cas de fonctions \( C^{\infty}\). P
 \end{theorem}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+					\section{Développements de Taylor et Maclaurin}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Fonctions «petit o» }
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous voulons formaliser l'idée d'une fonction qui tend vers zéro \og plus vite\fg{} qu'une autre. Nous disons que $f\in o\big(\varphi(x)\big)$ si
+\begin{equation}
+	\lim_{x\to 0} \frac{ f(x) }{ \varphi(x) }=0.
+\end{equation}
+En particulier, nous disons que $f\in o(x)$ lorsque $\lim_{x\to 0} f(x)/x=0$.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Formule et reste}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}		\label{PropDevTaylorPol}
+    Soient $f\colon I\subset\eR\to \eR$ et $a\in\Int(I)$. Soit un entier $k\geq 1$. Si $f$ est $k$ fois dérivable en $a$, alors il existe un et un seul polynôme $P$ de degré $\leq k$ tel que
+    \begin{equation}
+        f(x)-P(x-a)\in o\big( | x-a |^k \big)
+    \end{equation}
+    lorsque $x\to a$, $x\neq a$. Ce polynôme  est donné par
+    \begin{equation}
+        P(h)=f(a)+f'(a)h+\frac{ f''(a) }{ 2! }h^2+\ldots+\frac{ f^{(k)}(a) }{ k! }h^k.
+    \end{equation}
+    Notons encore deux façons alternatives d'écrire le résultat. Si \( f\in C^k\) il existe une fonction \( \alpha\) telle que \( \lim_{t\to 0} \alpha(t)=0\) et
+    \begin{equation}
+        f(x)=\sum_{n=0}^k\frac{ f^{(n)}(a) }{ n! }(x-a)^n+(x-a)^n\alpha(x-a).
+    \end{equation}
+    Si \( f\in C^{k+1}\) alors
+    \begin{equation}        \label{EquQtpoN}
+        f(x)=\sum_{n=0}^k\frac{ f^{(n)}(a) }{ n! }(x-a)^n+(x-a)^{n+1}\xi(x-a)
+    \end{equation}
+    où \( \xi\) est une fonction telle que \( \xi(t)\) tend vers une constante lorsque \( t\to 0\).
+\end{proposition}
+
+La proposition suivant donne une intéressante façon de trouver le reste d'un développement de Taylor.
+\begin{proposition}		\label{PropResteTaylorc}
+Soient $I$, un intervalle dans $\eR$ et $f\colon I\to \eR$ une fonction de classe $C^k$ sur $I$ telle que $f^{(k+1)}$ existe sur $I$. Soient $a\in\Int(I)$ et $x\in I$. Alors il existe $c$ strictement compris entre $x$ et $a$ tel que 
+\begin{equation}
+	R_{f,a,k}(x)=\frac{ f^{(k+1)}(c) }{ (k+1)! }(x-a)^{k+1}.
+\end{equation}
+\end{proposition}
+
+%---------------------------------------------------------------------------------------------------------------------------
+					\subsection{Exemple : un calcul heuristique de limite}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{SubSecCalcLimHeuris}
+
+Au cours de la résolution de l'exercice \ref{exoEqsDiff0002}\ref{ItemfEqsDiff00002}, nous devons calculer la limite suivante :
+\begin{equation}
+	\lim_{x\to 0} \frac{  e^{-2\cos(x)+2}\sin(x) }{ \sqrt{ e^{2\cos(x)+2}}-1 }.
+\end{equation}
+La stratégie que nous allons suivre pour calculer cette limite est de développer certaines parties de l'expression en série de Taylor, afin de simplifier l'expression. La première chose à faire est de remplacer $ e^{y(x)}$ par $1+y(x)$ lorsque $y(x)\to 0$. La limite devient
+\begin{equation}
+	\lim_{x\to 0} \frac{ \big( -2\cos(x)+3 \big)\sin(x) }{ \sqrt{-2\cos(x)+2} }.
+\end{equation}
+Nous allons maintenant remplacer $\cos(x)$ par $1$ au numérateur et par $1-x^2/2$ au dénominateur. Pourquoi ? Parce que le cosinus du dénominateur est dans une racine, donc nous nous attendons à ce que le terme de degré deux du cosinus donne un degré un en dehors de la racine, alors que du degré un est exactement ce que nous avons au numérateur : le développement du sinus commence par $x$.
+
+Nous calculons donc
+\begin{equation}
+	\begin{aligned}[]
+		\lim_{x\to 0} \frac{ \sin(x) }{ \sqrt{-2\left( 1-\frac{ x^2 }{ 2 } \right)+2} }=\lim_{x\to 0} \frac{ \sin(x) }{ x }=1.
+	\end{aligned}
+\end{equation}
+Tout ceci n'est évidement pas très rigoureux, mais en principe vous avez tous les éléments en main pour justifier les étapes.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Théorème de Cauchy-Lipschitz}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -1060,5 +1129,67 @@ Un des points délicats est de se ramener au cas de fonctions \( C^{\infty}\). P
 \section{Méthode de Newton}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Source : \cite{DemaillyNum}.
+L'objectif de la méthode de Newton est d'évaluer une racine \( a\) de l'équation \( f(x)=0\) lorsque nous avons déjà une approximation \( x_0\) de \( a\).
+
+\begin{theorem}[Méthode de Newton\cite{ChambertNewton}]\index{Newton!méthode}\index{méthode!Newton}
+    Soit \( f\colon \eR^n\to \eR^n\) une application de classe \( C^2\) et \( a\in \eR^n\) tel que \( f(a)=0\). Nous supposons que \( df_a\) est inversible.
+
+    Alors il existe un voisinage \( V\) de \( a\) tel que pour tout \( x_0\in V\) la suite définie par récurrence
+    \begin{equation}
+        x_{n+1}=x_n-(df_a)^{-1}\big( f(x_n) \big)
+    \end{equation}
+    converge vers \( a\). De plus la vitesse est quadratique au sens où il existe \( C>1\) tel que 
+    \begin{equation}
+        \| x_n-a \|\leq C^{-1-2^n}.
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Étant donné que \( df_a\) est inversible et que \( df\) est continue, l'application \( df_x\) est continue\footnote{Nous pouvons voir \( df\) comme l'application qui à \( x\) fait correspondre la matrice \( df_x\in\eM(n,\eR)\). Cette application étant continue et la non inversibilité d'une matrice étant donnée par l'annulation du déterminant, les matrices inversibles forment un ouvert dans l'ensemble des matrices.} pour tout \( x\) dans un voisinage de \( a\). Nous prenons \( r>0\) tel que \( df_x\) est inversible pour tout \( x\in B(a,r)\).
+
+    Nous considérons la fonction 
+    \begin{equation}
+        \begin{aligned}
+                F\colon B(a,r)&\to \eR^n \\
+                x&\mapsto x-(df_x)^{-1}\big( f(x) \big). 
+            \end{aligned}
+        \end{equation}
+        Cela est une application \( C^1\). Montrons qu'elle est contractante si \( r\) est assez petit. Nous avons
+        \begin{equation}        \label{EqyDLQeE}
+            F(a+h)-F(a)=h-\big( df_{a+h} \big)^{-1}\big( f(a+h) \big).
+        \end{equation}
+        Nous allons maintenant utiliser un développement de Taylor par rapport à \( h\) en suivant la formule \eqref{EquQtpoN}. Nous avons
+        \begin{equation}
+            f(a+h)=f(a)+df_a(h)+\| h \|^2\xi(h)
+        \end{equation}
+        où \( \xi\colon \eR^n\to \eR^n\) est une fonction qui tend vers une constante lorsque \( h\to 0\). Nous avons aussi
+        \begin{equation}
+            df_{a+h}=df_a+\| h \|\tau(h)
+        \end{equation}
+        où \( \tau\colon \eR^n\to \eM(n,\eR)\) est une application qui tend vers une constante lorsque \( h\to 0\). En ce qui concerne l'inverse nous avons
+        \begin{equation}
+            \big( df_a+\| h \|\tau(h) \big)^{-1}=\big( (df_a)^{-1}+\| h \|A(h) \big)
+        \end{equation}
+        où \( A\) est une autre matrice fonction de \(h\) qui tend vers une constante lorsque \( h\) tend vers zéro. En substituant le tout dans \eqref{EqyDLQeE} nous trouvons
+        \begin{equation}
+            F(a+h)-F(a)=\| h \|^2(df_a)^{-1}\xi(h)+\| h \|\big( A(h)\circ df_a \big)(h)+\| h \|^3A(h)\xi(h).
+        \end{equation}
+        En ce qui concerne la norme nous utilisons le fait que si \( T\) est un opérateur, \( \| Tx \|\leq \| T \|\| x \|\). Nous trouvons
+    \begin{equation}
+        \| F(a+h)-F(a) \|\leq \| h \|^2\| (df_a)^{-1} \|\| \xi(h) \|+\| h \|^2\| A(h)\circ df_a \|+\| h \|^3\| A(h) \|\| \xi(h) \|=\| h \|^2\alpha(h)
+    \end{equation}
+    pour une certaine fonction \( \alpha\colon \eR^n\to \eR\) qui tend vers une constante lorsque \( h\to 0\). 
+
+    En posant \( C=\lim_{h\to 0}\alpha(h) \) nous avons la majoration
+    \begin{equation}        \label{EqSYiuYF}
+        \| F(a+h)-F(a) \|\leq C\| h \|^2.
+    \end{equation}
+    Nous pouvons supposer que \( C>1\).
+
+\end{proof}
+
+\begin{remark}
+    La valeur de la constate \( C\) a été fixée par l'équation \eqref{EqSYiuYF}. Certes nous pouvons toujours choisir \( C\) plus grand affin d'augmenter la vitesse de convergence, mais le point de départ \( x_0\) devant être dans une boule de taille \( 1/C^2\) autour de \( a\), demander \( C \) plus grand revient à demander un point de départ plus précis.
+\end{remark}
+<++>
 
