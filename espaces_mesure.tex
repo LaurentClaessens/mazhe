@@ -1131,6 +1131,48 @@ Tout ceci n'est évidement pas très rigoureux, mais en principe vous avez tous 
 
 L'objectif de la méthode de Newton est d'évaluer une racine \( a\) de l'équation \( f(x)=0\) lorsque nous avons déjà une approximation \( x_0\) de \( a\).
 
+\begin{lemma}       \label{LemXdObnV}
+    Soient \( A\) et \( B\) deux matrices inversibles telles que la matrice \( (A+\epsilon B)\) soit inversible pour tout \( \epsilon\) assez petit. Alors il existe une matrice \( X(\epsilon)\) telle que
+    \begin{equation}
+        (A+\epsilon B)^{-1}=(A^{-1}+\epsilon X)
+    \end{equation}
+    et telle que \( \lim_{\epsilon\to 0}X(\epsilon)=-A^{-1} BA^{-1}\).
+\end{lemma}
+
+\begin{proof}
+    Le candidat matrice \( X\) est relativement simple à trouver en écrivant
+    \begin{equation}
+        (A+\epsilon B)(A^{-1}+\epsilon X)=\mtu+\epsilon AX+\epsilon BA^{-1}+\epsilon^2BX.
+    \end{equation}
+    En imposant que cela soit \( \mtu\), nous trouvons
+    \begin{equation}
+        X(\epsilon)=-(A+\epsilon B)^{-1} BA^{-1}.
+    \end{equation}
+    La matrice \( X(\epsilon)\) étant un inverse à droite de \( (A+\epsilon B)\), son déterminant est non nul et \( X\) est inversible. Par conséquent elle est également inversible au sens usuel. Le calcul de la limite est direct :
+    \begin{equation}
+        \lim_{\epsilon\to 0}-(A+\epsilon B)^{-1} BA^{-1}=A^{-1} BA^{-1}
+    \end{equation}
+    parce que l'inverse est une fonction continue sur \( \eM(n,\eR)\).
+\end{proof}
+
+\begin{remark}
+    Un calcul naïf nous permet de trouver le même résultat de façon plus heuristique. En effet un développement usuel (dans \( \eR\)) est
+    \begin{equation}
+        \frac{1}{ a+\epsilon b }=\frac{1}{ a }-\frac{ \epsilon b }{ a^2 }+\ldots
+    \end{equation}
+    Si nous récrivons cela avec des matrices, nous écrivons (attention : passage heuristique!) :
+    \begin{equation}
+        (A+\epsilon B)^{-1}=A^{-1}-\epsilon A^{-1} BA^{-1}+\ldots
+    \end{equation}
+    Notons le choix de généraliser \( b/a^2\) par \( a^{-1} ba^{-1}\). Dans les réels les deux écritures sont équivalentes, mais pas dans les matrices.
+
+    Étudions si \( A^{-1}-\epsilon A^{-1}BA^{-1}\) est bien un inverse à \( \epsilon^2\) près de \( (A+\epsilon B)\) :
+    \begin{equation}
+        (A+\epsilon B)(A^{-1}+\epsilon A^{-1} BA^{-1})=1-\epsilon BA^{-1}+\epsilon BA^{-1}-\epsilon^2BA^{-1}BA^{-1}=1-\epsilon^2BA^{-1} BA^{-1}.
+    \end{equation}
+    Par conséquent, à des termes en \( \epsilon^2\) près la matrice \( A^{-1}-\epsilon A^{-1}BA^{-1}\) est bien un inverse de \( A+\epsilon B\).
+\end{remark}
+
 \begin{theorem}[Méthode de Newton\cite{ChambertNewton}]\index{Newton!méthode}\index{méthode!Newton}
     Soit \( f\colon \eR^n\to \eR^n\) une application de classe \( C^2\) et \( a\in \eR^n\) tel que \( f(a)=0\). Nous supposons que \( df_a\) est inversible.
 
@@ -1139,7 +1181,7 @@ L'objectif de la méthode de Newton est d'évaluer une racine \( a\) de l'équat
         x_{n+1}=x_n-(df_a)^{-1}\big( f(x_n) \big)
     \end{equation}
     converge vers \( a\). De plus la vitesse est quadratique au sens où il existe \( C>1\) tel que 
-    \begin{equation}
+    \begin{equation}        \label{EqtkiDXt}
         \| x_n-a \|\leq C^{-1-2^n}.
     \end{equation}
 \end{theorem}
@@ -1154,7 +1196,7 @@ L'objectif de la méthode de Newton est d'évaluer une racine \( a\) de l'équat
                 x&\mapsto x-(df_x)^{-1}\big( f(x) \big). 
             \end{aligned}
         \end{equation}
-        Cela est une application \( C^1\). Montrons qu'elle est contractante si \( r\) est assez petit. Nous avons
+        Cela est une application \( C^1\). La clef est de montrer que l'application de \( F\) à un point \( a+h\) rapproche de \( a\) pourvu que \( h\) soit assez petit. Nous avons la formule suivante :
         \begin{equation}        \label{EqyDLQeE}
             F(a+h)-F(a)=h-\big( df_{a+h} \big)^{-1}\big( f(a+h) \big).
         \end{equation}
@@ -1166,9 +1208,9 @@ L'objectif de la méthode de Newton est d'évaluer une racine \( a\) de l'équat
         \begin{equation}
             df_{a+h}=df_a+\| h \|\tau(h)
         \end{equation}
-        où \( \tau\colon \eR^n\to \eM(n,\eR)\) est une application qui tend vers une constante lorsque \( h\to 0\). En ce qui concerne l'inverse nous avons
+        où \( \tau\colon \eR^n\to \eM(n,\eR)\) est une application qui tend vers une constante lorsque \( h\to 0\). En ce qui concerne l'inverse nous utilisons le lemme\footnote{Pour l'inversibilité de \( \| h \|\tau(h)\), notons que \( df_a\) est inversible et que par hypothèse la somme \( df_a+\| h \|\tau(h)\) est inversible.} \ref{LemXdObnV} :
         \begin{equation}
-            \big( df_a+\| h \|\tau(h) \big)^{-1}=\big( (df_a)^{-1}+\| h \|A(h) \big)
+            \big( df_a+\| h \|\tau(h) \big)^{-1}=(df_a)^{-1}+\| h \|A(h)
         \end{equation}
         où \( A\) est une autre matrice fonction de \(h\) qui tend vers une constante lorsque \( h\) tend vers zéro. En substituant le tout dans \eqref{EqyDLQeE} nous trouvons
         \begin{equation}
@@ -1185,14 +1227,21 @@ L'objectif de la méthode de Newton est d'évaluer une racine \( a\) de l'équat
 
     En posant \( C=\lim_{h\to 0}\alpha(h) \) nous avons la majoration
     \begin{equation}        \label{EqSYiuYF}
-        \| F(a+h)-F(a) \|\leq C\| h \|^2.
+        \| F(x)-a \|\leq C\| x-a \|^2.
     \end{equation}
-    Nous pouvons supposer que \( C>1\).
+    Nous pouvons également supposer que \( C>1\). Affin de prouver la vitesse de convergence \eqref{EqtkiDXt}, nous allons encore redéfinir \( r\) en demandant \( r<1/C^2\). De cette manière nous avons
+    \begin{equation}
+        \| x_0-a \|\leq \frac{1}{ C^2 }
+    \end{equation}
+    et
+    \begin{equation}
+        \| x_{n+1}-a \|=\| F(x_n)-a \|\leq C\| x_n-a \|^2\leq C\big( C^{-1-2^n} \big)^2=C^{-1-2^{n+1}}.
+    \end{equation}
 
 \end{proof}
 
 \begin{remark}
     La valeur de la constate \( C\) a été fixée par l'équation \eqref{EqSYiuYF}. Certes nous pouvons toujours choisir \( C\) plus grand affin d'augmenter la vitesse de convergence, mais le point de départ \( x_0\) devant être dans une boule de taille \( 1/C^2\) autour de \( a\), demander \( C \) plus grand revient à demander un point de départ plus précis.
 \end{remark}
-<++>
+
 
