@@ -16,6 +16,74 @@ Ici nous utilisons la convention de la transformée de Fourier de \wikipedia{fr}
     \end{align}
 \end{subequations}
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+					\section{Développements de Taylor et Maclaurin}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Fonctions «petit o» }
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous voulons formaliser l'idée d'une fonction qui tend vers zéro \og plus vite\fg{} qu'une autre. Nous disons que $f\in o\big(\varphi(x)\big)$ si
+\begin{equation}
+	\lim_{x\to 0} \frac{ f(x) }{ \varphi(x) }=0.
+\end{equation}
+En particulier, nous disons que $f\in o(x)$ lorsque $\lim_{x\to 0} f(x)/x=0$.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Formule et reste}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}		\label{PropDevTaylorPol}
+    Soient $f\colon I\subset\eR\to \eR$ et $a\in\Int(I)$. Soit un entier $k\geq 1$. Si $f$ est $k$ fois dérivable en $a$, alors il existe un et un seul polynôme $P$ de degré $\leq k$ tel que
+    \begin{equation}
+        f(x)-P(x-a)\in o\big( | x-a |^k \big)
+    \end{equation}
+    lorsque $x\to a$, $x\neq a$. Ce polynôme  est donné par
+    \begin{equation}
+        P(h)=f(a)+f'(a)h+\frac{ f''(a) }{ 2! }h^2+\ldots+\frac{ f^{(k)}(a) }{ k! }h^k.
+    \end{equation}
+    Notons encore deux façons alternatives d'écrire le résultat. Si \( f\in C^k\) il existe une fonction \( \alpha\) telle que \( \lim_{t\to 0} \alpha(t)=0\) et
+    \begin{equation}
+        f(x)=\sum_{n=0}^k\frac{ f^{(n)}(a) }{ n! }(x-a)^n+(x-a)^n\alpha(x-a).
+    \end{equation}
+    Si \( f\in C^{k+1}\) alors
+    \begin{equation}        \label{EquQtpoN}
+        f(x)=\sum_{n=0}^k\frac{ f^{(n)}(a) }{ n! }(x-a)^n+(x-a)^{n+1}\xi(x-a)
+    \end{equation}
+    où \( \xi\) est une fonction telle que \( \xi(t)\) tend vers une constante lorsque \( t\to 0\).
+\end{proposition}
+
+La proposition suivant donne une intéressante façon de trouver le reste d'un développement de Taylor.
+\begin{proposition}		\label{PropResteTaylorc}
+Soient $I$, un intervalle dans $\eR$ et $f\colon I\to \eR$ une fonction de classe $C^k$ sur $I$ telle que $f^{(k+1)}$ existe sur $I$. Soient $a\in\Int(I)$ et $x\in I$. Alors il existe $c$ strictement compris entre $x$ et $a$ tel que 
+\begin{equation}
+	R_{f,a,k}(x)=\frac{ f^{(k+1)}(c) }{ (k+1)! }(x-a)^{k+1}.
+\end{equation}
+\end{proposition}
+
+%---------------------------------------------------------------------------------------------------------------------------
+					\subsection{Exemple : un calcul heuristique de limite}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{SubSecCalcLimHeuris}
+
+Au cours de la résolution de l'exercice \ref{exoEqsDiff0002}\ref{ItemfEqsDiff00002}, nous devons calculer la limite suivante :
+\begin{equation}
+	\lim_{x\to 0} \frac{  e^{-2\cos(x)+2}\sin(x) }{ \sqrt{ e^{2\cos(x)+2}}-1 }.
+\end{equation}
+La stratégie que nous allons suivre pour calculer cette limite est de développer certaines parties de l'expression en série de Taylor, afin de simplifier l'expression. La première chose à faire est de remplacer $ e^{y(x)}$ par $1+y(x)$ lorsque $y(x)\to 0$. La limite devient
+\begin{equation}
+	\lim_{x\to 0} \frac{ \big( -2\cos(x)+3 \big)\sin(x) }{ \sqrt{-2\cos(x)+2} }.
+\end{equation}
+Nous allons maintenant remplacer $\cos(x)$ par $1$ au numérateur et par $1-x^2/2$ au dénominateur. Pourquoi ? Parce que le cosinus du dénominateur est dans une racine, donc nous nous attendons à ce que le terme de degré deux du cosinus donne un degré un en dehors de la racine, alors que du degré un est exactement ce que nous avons au numérateur : le développement du sinus commence par $x$.
+
+Nous calculons donc
+\begin{equation}
+	\begin{aligned}[]
+		\lim_{x\to 0} \frac{ \sin(x) }{ \sqrt{-2\left( 1-\frac{ x^2 }{ 2 } \right)+2} }=\lim_{x\to 0} \frac{ \sin(x) }{ x }=1.
+	\end{aligned}
+\end{equation}
+Tout ceci n'est évidement pas très rigoureux, mais en principe vous avez tous les éléments en main pour justifier les étapes.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Théorie de la mesure}
@@ -774,149 +842,6 @@ Il existe divers théorèmes qui répondent à ces questions. Dans notre cadre n
 \end{theorem}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Formes différentielles}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-Nous allons donner une toute petite introduction aux formes différentielles sur des variétés compactes.
-
-\begin{lemma}[\cite{SpindelGeomDoff}]       \label{LemdwLGFG}
-    Soit \( \omega\) une \( k\)-forme sur \( \eR^n\) et \( f\), une fonction \( C^{\infty}\) sur \( \eR^n\). Alors \( d(f^*\omega)=f^*d\omega\).
-\end{lemma}
-
-\begin{proof}
-    Nous effectuons la preuve par récurrence sur le degré de la forme. Soit d'abord une \( 0\)-forme, c'est à dire une fonction \( g\colon \eR^n\to \eR\). Nous avons
-    \begin{equation}
-        d(d^*g)X=d(g\circ f)X=(dg\circ df)X=dg\big( df X \big)=(f^*dg)(X).
-    \end{equation}
-    
-    Supposons maintenant que le résultat soit exact pour toute les \( p-1\) formes et montrons qu'il reste valable pour les \( p\)-formes. Par linéarité de la différentielle nous pouvons nous contenter de considérer la forme différentielle
-    \begin{equation}
-        \omega=g\,dx^1\wedge\ldots dx^p
-    \end{equation}
-    où \( g\) est une fonction \(  C^{\infty}\). Pour soulager les notations nous allons noter \( dx^I=dx^1\wedge\ldots dx^{p-1}\). Nous avons
-    \begin{subequations}
-        \begin{align}
-            d(f^*\omega)&=d\big( f^*(gdx^I\wedge dx^p) \big)\\
-            &=d\big( f^*(gdx^I)\wedge f^*dx^p \big)\\
-            &=d\big( f^*(gdx^I)\big)\wedge f^*dx^p+(-1)^{p-1}f^*(gdx^I)\wedge(f^*dx^p)  \label{gnAnSt}\\
-            &=f^*\big( d(gdx^I) \big)\wedge f^*dx^p      \label{xZrfjZ}\\
-            &=f^*\big( d(gdx^I)\wedge dx^p \big)\\
-            &=f^*d\omega        \label{loWUji}
-        \end{align}
-    \end{subequations}
-    Justifications : \eqref{gnAnSt} est la formule de Leibnitz. \eqref{xZrfjZ} est parce que le second terme est nul : \( d(f^*dx^p)=f^*(d^2x^p)=0\). Nous avons utilisé l'hypothèse de récurrence et le fait que \( d^2=0\). L'étape \eqref{loWUji} est une utilisation à l'envers de la règle de Leibnitz en tenant compte que \( d^2x^p=0\).
-\end{proof}
-
-Soit \( M\) une variété de dimension \( n\) et \( \omega\) une \( n\)-forme différentielle
-\begin{equation}
-    \omega_p=f(p)dx_1\wedge\ldots\wedge dx_n.
-\end{equation}
- Si \( (U,\varphi)\) est une carte (\( U\subset\eR^n\) et \( \varphi\colon U\to M\)) alors nous définissons
-\begin{equation}
-    \int_{\varphi(U)}\omega=\int_{U}f\big( \varphi(x) \big)dx_1\ldots dx_n.     
-\end{equation}
-Lorsque nous voulons intégrer sur une partie plus grande qu'une carte nous utilisons une partition de l'unité.
-\begin{lemma}
-    Soit \( \{ U_i \}\) un recouvrement de \( M\) par un nombre fini d'ouverts\footnote{Si \( M\) n'est pas compacte, alors il faut utiliser une version un peu plus élaborée du lemme\cite{SpindelGeomDoff}.}. Alors il existe une famille de fonctions \( f_i\in  C^{\infty}(M)\) telle que
-    \begin{enumerate}
-        \item
-            \( \supp f_i\subset U_i\),
-        \item
-            pour tout \( i\), nous avons \( f_i\geq 0\),
-        \item
-            pour tout \( p\in M\) nous avons \( \sum_i f_i(p)=1\).
-    \end{enumerate}
-\end{lemma}
-La famille \( (f_i)\) est une \defe{partition de l'unité}{partition!de l'unité} subordonnée au recouvrement \( \{ U_i \}\). Si \( \{ f_i \}\) est une partition de l'unité subordonnée à un atlas de \( M\) nous définissons
-\begin{equation}
-    \int_M\omega=\sum_i\int_{U_i}f\omega.
-\end{equation}
-Il est possible de montrer que cette définition ne dépend pas du choix de la partition de l'unité.
-
-\begin{remark}
-    Nous ne définissons pas d'intégrale de \( k\)-forme différentielle sur une variété de dimension \( n\neq k\). Le seul cas où cela se fait est le cas de \( 0\)-formes (les fonctions), mais cela n'est pas vraiment un cas particulier vu que les \( 0\)-formes sont associées aux \( n\)-formes de façon évidente.
-\end{remark}
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Théorème de Brouwer}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-Nous commençons par énoncer et démontrer le théorème de Brouwer dans le cas des fonctions \(  C^{\infty}\) en utilisant le théorème de Stockes.
-\begin{proposition}     \label{PropDRpYwv}
-    Soit \( B\) la boule fermée de centre \( 0\) et de rayon \( 1\) de \( \eR^n\) et \( f\colon B\to B\) une fonction \(  C^{\infty}\). Alors \( f\) admet un point fixe.
-\end{proposition}
-
-\begin{proof}
-    Supposons que \( f\) ne possède pas de points fixes. Alors pour tout \( x\in B\) nous considérons la ligne droite partant de \( x\) dans la direction de \( f(x)\) (cette droite existe parce que \( x\) et \( f(x)\) sont supposés distincts). Cette ligne intersecte \( \partial B\) en un point que nous appelons \( F(x)\). La fonction \( F\) ainsi définie vérifie deux propriétés :
-    \begin{enumerate}
-        \item
-            elle est \(  C^{\infty}\) parce que \( f\) l'est;
-        \item
-            elle est l'identité sur \( \partial B\).
-    \end{enumerate}
-    La suite de la preuve consiste à montrer qu'une telle rétraction sur \( B\) ne peut pas exister\footnote{Notons qu'il n'existe pas non plus de rétractions continues sur \( B\), mais pour le montrer il faut utiliser d'autres méthodes que Stockes, ou alors présenter les choses dans un autre ordre.}.
-
-    Nous considérons une forme de volume \( \omega\) sur \( \partial B\) : l'intégrale de \( \omega\) sur \( \partial B\) est la surface de \( \partial B\) qui est non nulle. Nous avons alors
-    \begin{equation}
-        0<\int_{\partial B}\omega
-        =\int_{\partial B}F^*\omega
-        =\int_Bd(F^*\omega)
-        =\int_Bd^*(d\omega)
-        =0
-    \end{equation}
-    Justifications :
-    \begin{itemize}
-        \item 
-            L'intégrale \( \int_{\partial B}\omega\) est la surface de \( \partial B\) et est donc non nulle.
-        \item
-            La fonction \( F\) est l'identité sur \( \partial B\). Nous avons donc \( \omega=F^*\omega\).
-        \item
-            Théorème de Stockes.
-        \item
-            Le lemme \ref{LemdwLGFG}.
-        \item
-            La forme \( \omega\) est de volume, par conséquent de degré maximum et \( d\omega=0\).
-    \end{itemize}
-\end{proof}
-
-Un des points délicats est de se ramener au cas de fonctions \( C^{\infty}\). Pour la régularisation par convolution, voir \cite{AllardBrouwer}; pour celle utilisant le théorème de Weierstrass, voir \cite{KuttlerTopInAl}.
-\begin{theorem}[Brouwer]\index{théorème!Brouwer}
-    Soit \( B\) la boule fermée de centre \( 0\) et de rayon \( 1\) de \( \eR^n\) et \( f\colon B\to B\) une fonction continue. Alors \( f\) admet un point fixe.
-\end{theorem}
-
-\begin{proof}
-    Nous commençons par définir une suite de fonctions
-    \begin{equation}
-        f_k(x)=\frac{ f(x) }{ 1+\frac{1}{ k } }.
-    \end{equation}
-    Nous avons \( \| f_k-f \|_{\infty}\leq \frac{1}{ 1+k }\) où la norme est la norme uniforme sur \( B\). Par le théorème de Weierstrass \ref{ThoWmAzSMF} il existe une suite de fonctions \(  C^{\infty}\) \( g_k\) telles que
-    \begin{equation}
-        \|  g_k-f_k\|_{\infty}\leq\frac{1}{ 1+k }.
-    \end{equation}
-    Vérifions que cette fonction \( g_k\) soit bien une fonction qui prend ses valeurs dans \( B\) :
-    \begin{subequations}
-        \begin{align}
-            \| g_k(x) \|&\leq \| g_k(x)-f_k(x) \|+\| f_k(x) \|\\
-            &\leq \frac{1}{ 1+k }+\frac{ \| f(x) \| }{ 1+\frac{1}{ k } }\\
-            &\leq \frac{1}{ 1+k}+\frac{1}{ 1+\frac{1}{ k } }\\
-            &=1.
-        \end{align}
-    \end{subequations}
-    Par la version \(  C^{\infty}\) du théorème (proposition \ref{PropDRpYwv}), \( g_k\) admet un point fixe que l'on nomme \( x_k\).
-
-    Étant donné que \( x_k\) est dans le compact \( B\), quitte à prendre une sous suite nous supposons que la suite \( (x_k)\) converge vers un élément \( x\in B\). Nous montrons maintenant que \( x\) est un point fixe de \( f\) :
-    \begin{subequations}
-        \begin{align}
-            \| f(x)-x \|&=\| f(x)-g_k(x)+g_k(x)-x_k+x_k-x \|\\
-            &\leq \| f(x)-g_k(x) \| +\underbrace{\| g_k(x)-x_k \|}_{=0}+\| x_k-x \|\\
-            &\leq \frac{1}{ 1+k }+\| x_k-x \|.
-        \end{align}
-    \end{subequations}
-    En prenant le limite \( k\to\infty\) le membre de droite tend vers zéro et nous obtenons \( f(x)=x\).
-\end{proof}
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Théorème du point fixe de Picard}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -934,78 +859,9 @@ Un des points délicats est de se ramener au cas de fonctions \( C^{\infty}\). P
     \end{equation}
 \end{theorem}
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-					\section{Développements de Taylor et Maclaurin}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Fonctions «petit o» }
+\subsection{Théorème de Cauchy-Lipschitz}
 %---------------------------------------------------------------------------------------------------------------------------
-
-Nous voulons formaliser l'idée d'une fonction qui tend vers zéro \og plus vite\fg{} qu'une autre. Nous disons que $f\in o\big(\varphi(x)\big)$ si
-\begin{equation}
-	\lim_{x\to 0} \frac{ f(x) }{ \varphi(x) }=0.
-\end{equation}
-En particulier, nous disons que $f\in o(x)$ lorsque $\lim_{x\to 0} f(x)/x=0$.
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Formule et reste}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{proposition}		\label{PropDevTaylorPol}
-    Soient $f\colon I\subset\eR\to \eR$ et $a\in\Int(I)$. Soit un entier $k\geq 1$. Si $f$ est $k$ fois dérivable en $a$, alors il existe un et un seul polynôme $P$ de degré $\leq k$ tel que
-    \begin{equation}
-        f(x)-P(x-a)\in o\big( | x-a |^k \big)
-    \end{equation}
-    lorsque $x\to a$, $x\neq a$. Ce polynôme  est donné par
-    \begin{equation}
-        P(h)=f(a)+f'(a)h+\frac{ f''(a) }{ 2! }h^2+\ldots+\frac{ f^{(k)}(a) }{ k! }h^k.
-    \end{equation}
-    Notons encore deux façons alternatives d'écrire le résultat. Si \( f\in C^k\) il existe une fonction \( \alpha\) telle que \( \lim_{t\to 0} \alpha(t)=0\) et
-    \begin{equation}
-        f(x)=\sum_{n=0}^k\frac{ f^{(n)}(a) }{ n! }(x-a)^n+(x-a)^n\alpha(x-a).
-    \end{equation}
-    Si \( f\in C^{k+1}\) alors
-    \begin{equation}        \label{EquQtpoN}
-        f(x)=\sum_{n=0}^k\frac{ f^{(n)}(a) }{ n! }(x-a)^n+(x-a)^{n+1}\xi(x-a)
-    \end{equation}
-    où \( \xi\) est une fonction telle que \( \xi(t)\) tend vers une constante lorsque \( t\to 0\).
-\end{proposition}
-
-La proposition suivant donne une intéressante façon de trouver le reste d'un développement de Taylor.
-\begin{proposition}		\label{PropResteTaylorc}
-Soient $I$, un intervalle dans $\eR$ et $f\colon I\to \eR$ une fonction de classe $C^k$ sur $I$ telle que $f^{(k+1)}$ existe sur $I$. Soient $a\in\Int(I)$ et $x\in I$. Alors il existe $c$ strictement compris entre $x$ et $a$ tel que 
-\begin{equation}
-	R_{f,a,k}(x)=\frac{ f^{(k+1)}(c) }{ (k+1)! }(x-a)^{k+1}.
-\end{equation}
-\end{proposition}
-
-%---------------------------------------------------------------------------------------------------------------------------
-					\subsection{Exemple : un calcul heuristique de limite}
-%---------------------------------------------------------------------------------------------------------------------------
-\label{SubSecCalcLimHeuris}
-
-Au cours de la résolution de l'exercice \ref{exoEqsDiff0002}\ref{ItemfEqsDiff00002}, nous devons calculer la limite suivante :
-\begin{equation}
-	\lim_{x\to 0} \frac{  e^{-2\cos(x)+2}\sin(x) }{ \sqrt{ e^{2\cos(x)+2}}-1 }.
-\end{equation}
-La stratégie que nous allons suivre pour calculer cette limite est de développer certaines parties de l'expression en série de Taylor, afin de simplifier l'expression. La première chose à faire est de remplacer $ e^{y(x)}$ par $1+y(x)$ lorsque $y(x)\to 0$. La limite devient
-\begin{equation}
-	\lim_{x\to 0} \frac{ \big( -2\cos(x)+3 \big)\sin(x) }{ \sqrt{-2\cos(x)+2} }.
-\end{equation}
-Nous allons maintenant remplacer $\cos(x)$ par $1$ au numérateur et par $1-x^2/2$ au dénominateur. Pourquoi ? Parce que le cosinus du dénominateur est dans une racine, donc nous nous attendons à ce que le terme de degré deux du cosinus donne un degré un en dehors de la racine, alors que du degré un est exactement ce que nous avons au numérateur : le développement du sinus commence par $x$.
-
-Nous calculons donc
-\begin{equation}
-	\begin{aligned}[]
-		\lim_{x\to 0} \frac{ \sin(x) }{ \sqrt{-2\left( 1-\frac{ x^2 }{ 2 } \right)+2} }=\lim_{x\to 0} \frac{ \sin(x) }{ x }=1.
-	\end{aligned}
-\end{equation}
-Tout ceci n'est évidement pas très rigoureux, mais en principe vous avez tous les éléments en main pour justifier les étapes.
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Théorème de Cauchy-Lipschitz}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \begin{definition}
     Une fonction 
@@ -1046,7 +902,7 @@ Tout ceci n'est évidement pas très rigoureux, mais en principe vous avez tous 
             y(t_0)=y_0
         \end{numcases}
     \end{subequations}
-    où \( f\colon U\to \eR^n\) est une fonction continue et localement Lipschitz en \( y\) et \( U\) est un ouvert de \( R\times \eR^n\). Alors le système \eqref{XtiXON} admet une unique solution maximale. Cette solution est \( C^1\). 
+    où \( f\colon U\to \eR^n\) est une fonction continue et localement Lipschitz en \( y\) et \( U\) est un ouvert de \( \eR\times \eR^n\). Alors le système \eqref{XtiXON} admet une unique solution maximale. Cette solution est \( C^1\). 
 \end{theorem}
 
 \begin{remark}
@@ -1126,6 +982,186 @@ Tout ceci n'est évidement pas très rigoureux, mais en principe vous avez tous 
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Théorèmes de Brouwer et Schauder}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Formes différentielles}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous allons donner une toute petite introduction aux formes différentielles sur des variétés compactes.
+
+\begin{lemma}[\cite{SpindelGeomDoff}]       \label{LemdwLGFG}
+    Soit \( \omega\) une \( k\)-forme sur \( \eR^n\) et \( f\), une fonction \( C^{\infty}\) sur \( \eR^n\). Alors \( d(f^*\omega)=f^*d\omega\).
+\end{lemma}
+
+\begin{proof}
+    Nous effectuons la preuve par récurrence sur le degré de la forme. Soit d'abord une \( 0\)-forme, c'est à dire une fonction \( g\colon \eR^n\to \eR\). Nous avons
+    \begin{equation}
+        d(d^*g)X=d(g\circ f)X=(dg\circ df)X=dg\big( df X \big)=(f^*dg)(X).
+    \end{equation}
+    
+    Supposons maintenant que le résultat soit exact pour toute les \( p-1\) formes et montrons qu'il reste valable pour les \( p\)-formes. Par linéarité de la différentielle nous pouvons nous contenter de considérer la forme différentielle
+    \begin{equation}
+        \omega=g\,dx^1\wedge\ldots dx^p
+    \end{equation}
+    où \( g\) est une fonction \(  C^{\infty}\). Pour soulager les notations nous allons noter \( dx^I=dx^1\wedge\ldots dx^{p-1}\). Nous avons
+    \begin{subequations}
+        \begin{align}
+            d(f^*\omega)&=d\big( f^*(gdx^I\wedge dx^p) \big)\\
+            &=d\big( f^*(gdx^I)\wedge f^*dx^p \big)\\
+            &=d\big( f^*(gdx^I)\big)\wedge f^*dx^p+(-1)^{p-1}f^*(gdx^I)\wedge(f^*dx^p)  \label{gnAnSt}\\
+            &=f^*\big( d(gdx^I) \big)\wedge f^*dx^p      \label{xZrfjZ}\\
+            &=f^*\big( d(gdx^I)\wedge dx^p \big)\\
+            &=f^*d\omega        \label{loWUji}
+        \end{align}
+    \end{subequations}
+    Justifications : \eqref{gnAnSt} est la formule de Leibnitz. \eqref{xZrfjZ} est parce que le second terme est nul : \( d(f^*dx^p)=f^*(d^2x^p)=0\). Nous avons utilisé l'hypothèse de récurrence et le fait que \( d^2=0\). L'étape \eqref{loWUji} est une utilisation à l'envers de la règle de Leibnitz en tenant compte que \( d^2x^p=0\).
+\end{proof}
+
+Soit \( M\) une variété de dimension \( n\) et \( \omega\) une \( n\)-forme différentielle
+\begin{equation}
+    \omega_p=f(p)dx_1\wedge\ldots\wedge dx_n.
+\end{equation}
+ Si \( (U,\varphi)\) est une carte (\( U\subset\eR^n\) et \( \varphi\colon U\to M\)) alors nous définissons
+\begin{equation}
+    \int_{\varphi(U)}\omega=\int_{U}f\big( \varphi(x) \big)dx_1\ldots dx_n.     
+\end{equation}
+Lorsque nous voulons intégrer sur une partie plus grande qu'une carte nous utilisons une partition de l'unité.
+\begin{lemma}
+    Soit \( \{ U_i \}\) un recouvrement de \( M\) par un nombre fini d'ouverts\footnote{Si \( M\) n'est pas compacte, alors il faut utiliser une version un peu plus élaborée du lemme\cite{SpindelGeomDoff}.}. Alors il existe une famille de fonctions \( f_i\in  C^{\infty}(M)\) telle que
+    \begin{enumerate}
+        \item
+            \( \supp f_i\subset U_i\),
+        \item
+            pour tout \( i\), nous avons \( f_i\geq 0\),
+        \item
+            pour tout \( p\in M\) nous avons \( \sum_i f_i(p)=1\).
+    \end{enumerate}
+\end{lemma}
+La famille \( (f_i)\) est une \defe{partition de l'unité}{partition!de l'unité} subordonnée au recouvrement \( \{ U_i \}\). Si \( \{ f_i \}\) est une partition de l'unité subordonnée à un atlas de \( M\) nous définissons
+\begin{equation}
+    \int_M\omega=\sum_i\int_{U_i}f\omega.
+\end{equation}
+Il est possible de montrer que cette définition ne dépend pas du choix de la partition de l'unité.
+
+\begin{remark}
+    Nous ne définissons pas d'intégrale de \( k\)-forme différentielle sur une variété de dimension \( n\neq k\). Le seul cas où cela se fait est le cas de \( 0\)-formes (les fonctions), mais cela n'est pas vraiment un cas particulier vu que les \( 0\)-formes sont associées aux \( n\)-formes de façon évidente.
+\end{remark}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Théorème de Brouwer}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous commençons par énoncer et démontrer le théorème de Brouwer dans le cas des fonctions \(  C^{\infty}\) en utilisant le théorème de Stockes.
+\begin{proposition}     \label{PropDRpYwv}
+    Soit \( B\) la boule fermée de centre \( 0\) et de rayon \( 1\) de \( \eR^n\) et \( f\colon B\to B\) une fonction \(  C^{\infty}\). Alors \( f\) admet un point fixe.
+\end{proposition}
+
+\begin{proof}
+    Supposons que \( f\) ne possède pas de points fixes. Alors pour tout \( x\in B\) nous considérons la ligne droite partant de \( x\) dans la direction de \( f(x)\) (cette droite existe parce que \( x\) et \( f(x)\) sont supposés distincts). Cette ligne intersecte \( \partial B\) en un point que nous appelons \( F(x)\). La fonction \( F\) ainsi définie vérifie deux propriétés :
+    \begin{enumerate}
+        \item
+            elle est \(  C^{\infty}\) parce que \( f\) l'est;
+        \item
+            elle est l'identité sur \( \partial B\).
+    \end{enumerate}
+    La suite de la preuve consiste à montrer qu'une telle rétraction sur \( B\) ne peut pas exister\footnote{Notons qu'il n'existe pas non plus de rétractions continues sur \( B\), mais pour le montrer il faut utiliser d'autres méthodes que Stockes, ou alors présenter les choses dans un autre ordre.}.
+
+    Nous considérons une forme de volume \( \omega\) sur \( \partial B\) : l'intégrale de \( \omega\) sur \( \partial B\) est la surface de \( \partial B\) qui est non nulle. Nous avons alors
+    \begin{equation}
+        0<\int_{\partial B}\omega
+        =\int_{\partial B}F^*\omega
+        =\int_Bd(F^*\omega)
+        =\int_Bd^*(d\omega)
+        =0
+    \end{equation}
+    Justifications :
+    \begin{itemize}
+        \item 
+            L'intégrale \( \int_{\partial B}\omega\) est la surface de \( \partial B\) et est donc non nulle.
+        \item
+            La fonction \( F\) est l'identité sur \( \partial B\). Nous avons donc \( \omega=F^*\omega\).
+        \item
+            Théorème de Stockes.
+        \item
+            Le lemme \ref{LemdwLGFG}.
+        \item
+            La forme \( \omega\) est de volume, par conséquent de degré maximum et \( d\omega=0\).
+    \end{itemize}
+\end{proof}
+
+Un des points délicats est de se ramener au cas de fonctions \( C^{\infty}\). Pour la régularisation par convolution, voir \cite{AllardBrouwer}; pour celle utilisant le théorème de Weierstrass, voir \cite{KuttlerTopInAl}.
+\begin{theorem}[Brouwer]\index{théorème!Brouwer}
+    Soit \( B\) la boule fermée de centre \( 0\) et de rayon \( 1\) de \( \eR^n\) et \( f\colon B\to B\) une fonction continue. Alors \( f\) admet un point fixe.
+\end{theorem}
+
+\begin{proof}
+    Nous commençons par définir une suite de fonctions
+    \begin{equation}
+        f_k(x)=\frac{ f(x) }{ 1+\frac{1}{ k } }.
+    \end{equation}
+    Nous avons \( \| f_k-f \|_{\infty}\leq \frac{1}{ 1+k }\) où la norme est la norme uniforme sur \( B\). Par le théorème de Weierstrass \ref{ThoWmAzSMF} il existe une suite de fonctions \(  C^{\infty}\) \( g_k\) telles que
+    \begin{equation}
+        \|  g_k-f_k\|_{\infty}\leq\frac{1}{ 1+k }.
+    \end{equation}
+    Vérifions que cette fonction \( g_k\) soit bien une fonction qui prend ses valeurs dans \( B\) :
+    \begin{subequations}
+        \begin{align}
+            \| g_k(x) \|&\leq \| g_k(x)-f_k(x) \|+\| f_k(x) \|\\
+            &\leq \frac{1}{ 1+k }+\frac{ \| f(x) \| }{ 1+\frac{1}{ k } }\\
+            &\leq \frac{1}{ 1+k}+\frac{1}{ 1+\frac{1}{ k } }\\
+            &=1.
+        \end{align}
+    \end{subequations}
+    Par la version \(  C^{\infty}\) du théorème (proposition \ref{PropDRpYwv}), \( g_k\) admet un point fixe que l'on nomme \( x_k\).
+
+    Étant donné que \( x_k\) est dans le compact \( B\), quitte à prendre une sous suite nous supposons que la suite \( (x_k)\) converge vers un élément \( x\in B\). Nous montrons maintenant que \( x\) est un point fixe de \( f\) :
+    \begin{subequations}
+        \begin{align}
+            \| f(x)-x \|&=\| f(x)-g_k(x)+g_k(x)-x_k+x_k-x \|\\
+            &\leq \| f(x)-g_k(x) \| +\underbrace{\| g_k(x)-x_k \|}_{=0}+\| x_k-x \|\\
+            &\leq \frac{1}{ 1+k }+\| x_k-x \|.
+        \end{align}
+    \end{subequations}
+    En prenant le limite \( k\to\infty\) le membre de droite tend vers zéro et nous obtenons \( f(x)=x\).
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Théorème de Schauder et équations différentielles}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Une conséquence du théorème de Brouwer est le théorème de Schauder qui est valide en dimension infinie.
+\begin{theorem}[Théorème de Schauder\cite{LeDretSc}]\index{théorème!Schauder}       \label{ThovHJXIU}
+    Soit \( E\), un espace vectoriel normé, \( C\) un convexe compact de \( E\) et \( f\colon C\to C\) une fonction continue. Alors \( f\) admet un point fixe.
+\end{theorem}
+
+Ce théorème permet de démontrer une version du théorème de Cauchy-Lipschitz (théorème \ref{ThokUUlgU}) sans la condition Lipschitz, mais alors sans unicité de la solution. Notons que de ce point de vue nous sommes dans la même situation que la différence entre le théorème de Brouwer et celui de Picard : hors hypothèse de type «contraction», point d'unicité.
+
+\begin{theorem}[Cauchy-Arzela\cite{ClemKetl}]\index{théorème!Cauchy-Arzela}
+    Nous considérons le système d'équation différentielles
+    \begin{subequations}        \label{EqTXlJdH}
+        \begin{numcases}{}
+            y'=f(t,y)\\
+            y(t_0)=y_0.
+        \end{numcases}
+    \end{subequations}
+    avec \( f\colon U\to \eR^n\), continue où \( U\) est ouvert dans \( \eR\times \eR^n\). Alors il existe un voisinage fermé \( V\) de \( t_0\) sur lequel une solution \( C^1\) du problème \eqref{EqTXlJdH} existe.
+\end{theorem}
+
+\begin{proof}[Idée de la démonstration]
+    Nous considérons \( M=\| f \|_{\infty}\) et \( K\), l'ensemble des fonctions \( M\)-Lipschitz sur \( U\). Nous prouvons que \( (K,\| . \|_{\infty})\) est compact. Ensuite nous considérons l'application
+    \begin{equation}
+        \begin{aligned}
+            \Phi\colon K&\to K \\
+            \Phi(f)(t)=x_0+\int_{t_0}^tf\big( u,f(u) \big)du. 
+        \end{aligned}
+    \end{equation}
+    Après avoir prouvé que \( \Phi\) était continue, nous concluons qu'elle a un point fixe par le théorème de Schauder \ref{ThovHJXIU}.
+\end{proof}
+<++>
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Méthode de Newton}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -1174,7 +1210,7 @@ L'objectif de la méthode de Newton est d'évaluer une racine \( a\) de l'équat
 \end{remark}
 
 \begin{theorem}[Méthode de Newton\cite{ChambertNewton}]\index{Newton!méthode}\index{méthode!Newton}
-    Soit \( f\colon \eR^n\to \eR^n\) une application de classe \( C^2\) et \( a\in \eR^n\) tel que \( f(a)=0\). Nous supposons que \( df_a\) est inversible.
+    Soit \( f\colon \eR^n\to \eR^n\) une application de classe \( C^2\) et un point \( a\in \eR^n\) tel que \( f(a)=0\). Nous supposons que \( df_a\) est inversible.
 
     Alors il existe un voisinage \( V\) de \( a\) tel que pour tout \( x_0\in V\) la suite définie par récurrence
     \begin{equation}
