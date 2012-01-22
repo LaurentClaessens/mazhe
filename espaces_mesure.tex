@@ -1,20 +1,257 @@
-% This is part of Agregation : modélisation
+% This is part of Mes notes de mathématique
 % Copyright (c) 2011-2012
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Rappels}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Séries}
+\label{secseries}
 
-Ici nous utilisons la convention de la transformée de Fourier de \wikipedia{fr}{Transformée_de_Fourier}{wikipedia}, c'est à dire
-\begin{subequations}
-    \begin{align}
-        \hat f(\xi)&=\int_{\eR} e^{-i\xi x}f(x)dx\\
-        f(x)&=2\pi\int_{\eR} e^{i\xi x}\hat f(\xi)d\xi.
-    \end{align}
-\end{subequations}
+\subsection{Rappels et définitions}
+La notion de série formalise le concept de somme infinie. L'absence de
+certaines propriétés de ces objets (problèmes de commutativité et même
+d'associativité) incitent à la prudence et montrent à quel point une
+définition précise est importante.
+
+Soit ${(a_k)}_{k \geq k_0}$ une suite réelle. La \Defn{série de terme
+  général $(a_k)$}, notée
+\begin{math}
+  \sum_{i=k_0}^\infty a_i,
+\end{math}
+est la suite ${(s_n)}_{n \geq k_0}$ dont les termes sont donnés par
+\begin{equation*}
+  s_n \pardef \sum_{i=k_0}^k a_i
+\end{equation*}
+et sont appelés les \Defn{sommes partielles} de la série.
+
+La série $\sum_{i=k_0}^\infty a_i$ \Defn{converge} si la suite $(s_n)$
+converge vers un réel $s$. Sa limite est appelée la \Defn{somme de la
+  série} et on note
+\begin{equation}		\label{EqDefSommeLim}
+  \sum_{i=k_0}^\infty a_i = \lim_{n\to\infty}\sum_{i=k_0}^na_i.
+\end{equation}
+Si la série ne converge pas, elle \Defn{diverge} et peut alors avoir
+une limite infinie (uniquement si le terme général est réel, on note
+alors $+\infty$ ou $-\infty$ sa limite) ou pas de limite.  La série
+$\sum_{i=k_0}^\infty a_i$ \Defn{converge absolument} si la série
+$\sum_{i=k_0}^\infty \abs{a_i}$ converge.
+
+\begin{proposition}\label{propnseries_propdebase}
+Les principales propriétés de la somme définie par la limite \eqref{EqDefSommeLim} sont
+  \begin{enumerate}
+  \item Si une série converge absolument, alors elle converge
+    (simplement).
+  \item Si la série est à termes positifs --c'est-à-dire pour tout
+    indice $k$, $a_k \in \eR$ et $a_k \geq 0$-- il n'y a aucune
+    différence entre convergence absolue et convergence simple.
+  \item\label{point3-seriepropdebase} Si une série converge, son terme général doit tendre vers $0$.
+\item 
+Si la série converge alors la somme est associative
+\item
+Si la série converge absolument, alors la somme est commutative.
+  \end{enumerate}
+\end{proposition}
+
+\begin{remark}Vue comme somme infinie, l'associativité et la
+  commutativité dans une série sont perdues. Néanmoins, il subsiste
+  que
+  \begin{enumerate}
+  \item si la série converge, on peut regrouper ses termes sans
+    modifier la convergence ni la somme (associativité),
+  \item si la série converge absolument, on peut modifier l'ordre des
+    termes sans modifier la convergence ni la somme (commutativité).
+  \end{enumerate}
+\end{remark}
+
+\begin{example}\label{exemplesseries}
+\begin{enumerate}
+
+\item
+La \Defn{série harmonique} est
+\begin{equation*}
+\sum_{i=1}^\infty \frac1i
+\end{equation*}
+et diverge (possède une limite $+\infty$).
+
+\item
+La \Defn{série géométrique de raison $q \in \CC$} est
+\begin{equation*}
+\sum_{i=0}^\infty q^i
+\end{equation*}
+et converge absolument si $\abs{q} < 1$ et diverge si $\abs{q}
+\geq 1$. De plus, pour tout naturel $n$,
+\begin{equation*}
+\sum_{i=0}^n q^i =  \frac{1-q^{n+1}}{1-q} \quad\text{et}\quad \sum_{i=0}^\infty q^i = \frac{1}{1-q}.
+\end{equation*}
+La seconde égalité est vraie si et seulement si $| q |<1$.
+
+\item
+Pour $\alpha \in \RR$, la série de Riemann (ou Dirichlet)
+\begin{equation}		\label{EqSerRiem}
+\sum_{i=1}^\infty \frac1{i^\alpha}
+\end{equation}
+converge (absolument, puisque réelle et positive) si et seulement
+si $\alpha > 1$, et diverge sinon.
+\end{enumerate}
+\end{example}
+
+\subsection{Critères de convergence absolue}
+
+  Étant donné le terme général d'une série, il est souvent --dans les cas qui nous intéressent-- difficile de déterminer la somme de la série. L'exemple de la série géométrique est particulier, puisqu'on connait une formule pour chaque somme partielle, mais pour l'exemple des séries de Riemann il n'y a aucune formule simple pour un $\alpha$ général. D'où l'intérêt d'avoir des critères de convergence ne nécessitant aucune connaissance de l'éventuelle limite de la série.
+
+\subsubsection{Critère de comparaison} 
+
+Soient $\sum_i a_i$ et $\sum_j
+b_j$ deux séries à termes positifs vérifiant
+\begin{equation*}
+  0 \leq a_i \leq b_i
+\end{equation*}
+alors
+\begin{enumerate}
+\item si $\sum_i a_i$ diverge, alors $\sum_j b_j$ diverge,
+\item si $\sum_j b_j$ converge, alors $\sum_i a_i$ converge
+  (absolument).
+\end{enumerate}
+
+\subsubsection{Critère d'équivalence}
+\label{PgCritEquiv}
+
+\begin{proposition}[\cite{TrenchRealAnalisys}]
+ Soient $\sum_i a_i$ et $\sum_j b_j$ deux séries à termes positifs. Supposons l'existence de la limite (éventuellement infinie) suivante
+\begin{equation}
+  \limite i \infty \frac{a_i}{b_i} = \alpha \in \RR \text{ ou $\alpha =
+    \infty$.}
+\end{equation}
+Dans ce cas, nous avons
+\begin{enumerate}
+\item si $\alpha \neq 0$ et $\alpha\neq \infty$, alors
+  \begin{equation}
+    \sum_i a_i \text{~converge} \ssi \sum_j b_j\text{~converge,}
+  \end{equation}
+\item si $\alpha = 0$ et $\sum_j b_j$ converge, alors $\sum_i a_i$
+  converge (absolument),
+\item si $\alpha = +\infty$ et $\sum_j b_j$ diverge, alors $\sum_i
+  a_i$ diverge.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+	\item
+		Le fait que la suite $a_n/b_n$ converge vers $\alpha$ signifie que tant sa limite supérieure que sa limite inférieure convergent vers $\alpha$. En particulier la suite $\frac{ a_n }{ b_n }$ est bornée vers le haut et vers le bas. À partir d'un certain rang $N$, il existe $M$ tel que 
+		\begin{equation}
+			\frac{ a_n }{ b_n }<M
+		\end{equation}
+		et il existe $m$ tel que
+		\begin{equation}
+			\frac{ a_n }{ b_n }>m.
+		\end{equation}
+		Nous avons donc $a_n<Mb_n$ et $a_n>mb_n$. La série de $(a_n)$ converge donc si et seulement si la série de $(b_n)$ converge.
+	\item
+		Si $\alpha=0$, cela signifie que pour tout $\epsilon$, il existe un rang tel que $\frac{ a_n }{ b_n }<\epsilon$, et donc tel que $a_n<\epsilon b_k$. La suite de $(a_i)$ converge donc dès que la suite de $(b_i)$ converge.
+	\item
+		Pour tout $M$, il existe un rang dans la suite à partir duquel on a $\frac{ a_i }{ b_i }>M$, et donc $a_k>Mb_k$. Si la série de $(b_k)$ diverge, la série de $(a_k)$ doit également diverger.
+\end{enumerate}
+\end{proof}
+
+\subsubsection{Critère du quotient}
+
+\begin{proposition}[\cite{KeislerElemCalculus}]
+    Soit $\sum_i a_i$ une série. Supposons l'existence de la limite (éventuellement infinie) suivante
+    \begin{equation}
+      \limite i \infty \abs{\frac{a_{i+1}}{a_i}} = L\in \RR \text{ ou $L =
+        \infty$.}
+    \end{equation}
+    Alors
+    \begin{enumerate}
+    \item si $L < 1$, la série converge absolument,
+    \item si $L > 1$, la série diverge,
+    \item si $L = 1$ le critère échoue : il existe des exemple de convergence et des exemples de divergence.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+	\item
+		Soit $b$ tel que $L<b<1$. À partir d'un certain rang $K$, on a $\left| \frac{ a_{i+1} }{ a_i } \right| <b$. En particulier,
+		\begin{equation}
+			| a_{K+1} |<b| a_K |,
+		\end{equation}
+		et pour $a_{K+2}$ nous avons
+		\begin{equation}
+			| a_{K+2} |<b| a_{K+1} |<b^2| a_K |.
+		\end{equation}
+		Au final,
+		\begin{equation}
+			| a_{K+n} |<b^n| a_K |.
+		\end{equation}
+		Étant donné que la série $\sum_{n\geq K}b^n$ converge (parce que $b<1$), la queue de suite $\sum_{i\geq K}a_i$ converge, et par conséquent la suite au complet converge.
+	\item
+		Si $L>1$, on a
+		\begin{equation}
+			| a_K |<| a_{K+1} |<| a_{K+2} |<\ldots
+		\end{equation}
+		Il est donc impossible que la suite $(a_i)$ converge vers zéro. La série ne peut donc pas converger.
+	\item
+		Par exemple la suite harmonique $a_n=\frac{1}{ n }$ vérifie $L=1$, mais la série ne converge pas. Par contre, la suite $a_n=\frac{ 1 }{ n^2 }$ vérifie aussi le critère avec $L=1$ tandis que la série $\sum_n\frac{1}{ n^2 }$ converge.
+\end{enumerate}
+\end{proof}
+
+\subsubsection{Critère de la racine}
+
+\begin{proposition}[\cite{TrenchRealAnalisys}]
+    Soit $\sum_i a_i$ une série, et considérons
+    \begin{equation*}
+      \limsup_{i \rightarrow \infty} \sqrt[i]{\abs{a_i}} = L \in \RR
+      \text{ ou $L =
+        \infty$.}
+    \end{equation*}
+    Alors
+    \begin{enumerate}
+    \item si $L < 1$, la série converge absolument,
+    \item si $L> 1$, la série diverge,
+    \item si $L = 1$ le critère échoue.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            Si $L<1$, il existe un $r\in \mathopen] 0 , 1 \mathclose[$ tel que $| a_n |^{1/n}<r$ pour les grands $n$. Dans ce cas, $| a_n |<r^{n}$, et la série converge absolument parce que la série $\sum_nr^n$ converge du fait que $r<1$.
+        \item
+            Si $L>1$, il existe un $r>1$ tel que $| a_n |^{1/n}>r>1$. Cela fait que $| a_n |$ prend des valeurs plus grandes que $n$ pour une infinité de termes. Le terme général $a_n$ ne peut donc pas être une suite convergente. Par conséquent la suite diverge au sens où elle ne converge pas.
+
+    \end{enumerate}
+\end{proof}
+
+\%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Critères de convergence simple}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les critères de comparaison, d'équivalence, du quotient et de la racine sont des critères de convergence absolue. Pour conclure à une convergence simple qui n'est pas une convergence absolue, le critère d'Abel sera notre outil principal.  
+
+\subsubsection{Critère d'Abel}
+
+\begin{proposition}[Critère d'Abel]
+    Soit la série $\sum_i c_iz_i$ avec
+    \begin{enumerate}
+        \item $(c_i)$ est une suite réelle décroissante qui tend vers zéro,
+        \item $(z_i)$ est une suite dans $\eC$ dont la suite des sommes partielles est bornée dans $\eC$, c'est à dire qu'il existe un $M>0$ tel que pour tout $n$,
+        \begin{equation}
+            \left| \sum_{i=1}^nz_i \right| \leq M.
+        \end{equation}
+        Alors la série $\sum_ic_iz_i$ est convergente.
+    \end{enumerate}
+\end{proposition}
+Remarquons que ce critère ne donne pas de convergence absolue.
+
+\begin{example}
+    Le \defe{critère des séries alternées}{critère!séries alternées} est un cas particulier de ce critère : si $c_i$ est une suite décroissante à limite nulle, alors la série
+  \begin{equation}
+    \sum_{i=0}^\infty {(-1)}^i c_i
+  \end{equation}
+  converge simplement.
+\end{example}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 					\section{Développements de Taylor et Maclaurin}
@@ -1028,7 +1265,7 @@ Soit \( M\) une variété de dimension \( n\) et \( \omega\) une \( n\)-forme di
     \int_{\varphi(U)}\omega=\int_{U}f\big( \varphi(x) \big)dx_1\ldots dx_n.     
 \end{equation}
 Lorsque nous voulons intégrer sur une partie plus grande qu'une carte nous utilisons une partition de l'unité.
-\begin{lemma}
+\begin{lemma}   \label{LemGPmRGZ}
     Soit \( \{ U_i \}\) un recouvrement de \( M\) par un nombre fini d'ouverts\footnote{Si \( M\) n'est pas compacte, alors il faut utiliser une version un peu plus élaborée du lemme\cite{SpindelGeomDoff}.}. Alors il existe une famille de fonctions \( f_i\in  C^{\infty}(M)\) telle que
     \begin{enumerate}
         \item
@@ -1092,7 +1329,7 @@ Nous commençons par énoncer et démontrer le théorème de Brouwer dans le cas
 \end{proof}
 
 Un des points délicats est de se ramener au cas de fonctions \( C^{\infty}\). Pour la régularisation par convolution, voir \cite{AllardBrouwer}; pour celle utilisant le théorème de Weierstrass, voir \cite{KuttlerTopInAl}.
-\begin{theorem}[Brouwer]\index{théorème!Brouwer}
+\begin{theorem}[Brouwer]\index{théorème!Brouwer}\label{ThoRGjGdO}
     Soit \( B\) la boule fermée de centre \( 0\) et de rayon \( 1\) de \( \eR^n\) et \( f\colon B\to B\) une fonction continue. Alors \( f\) admet un point fixe.
 \end{theorem}
 
@@ -1136,6 +1373,67 @@ Une conséquence du théorème de Brouwer est le théorème de Schauder qui est 
     Soit \( E\), un espace vectoriel normé, \( C\) un convexe compact de \( E\) et \( f\colon C\to C\) une fonction continue. Alors \( f\) admet un point fixe.
 \end{theorem}
 
+\begin{proof}
+    Étant donné que \( f\colon K\to K\) est continue, elle y est uniformément continue. Si nous choisissons \( \epsilon\) alors il existe \( \delta>0\) tel que 
+    \begin{equation}
+        \| f(x)-f(y) \|\leq \epsilon
+    \end{equation}
+    dès que \( \| x-y \|\leq \delta\). La compacité de \( K\) permet de choisir un recouvrement fini par des ouverts de la forme
+    \begin{equation}    \label{EqKNPUVR}
+        K\subset \bigcup_{1\leq i\leq p}B(x_j,\delta)
+    \end{equation}
+    où \( \{ x_1,\ldots, x_p \}\subset K\). Nous considérons maintenant \( L=\Span\{ f(x_j)\tq 1\leq j\leq p \}\) et
+    \begin{equation}
+        K^*=K\cap L.
+    \end{equation}
+    Le fait que \( K\) et \( L\) soient convexes implique que \( K^*\) est convexe. L'ensemble \( K^*\) est également compact parce qu'il s'agit d'une partie fermée de \( K\) qui est compact (lemme \ref{LemnAeACf}). Notons en particulier que \( K^*\) est contenu dans un espace vectoriel de dimension finie, ce qui n'est pas le cas de \( K\).
+
+    Nous allons à présent construire une sorte de partition de l'unité subordonnée au recouvrement \eqref{EqKNPUVR} sur \( K\) (voir le lemme \ref{LemGPmRGZ}). Nous commençons par définir
+    \begin{equation}
+        \psi_j(x)=\begin{cases}
+            0    &   \text{si \( \| x-x_j \|\geq \delta\)}\\
+            1-\frac{ \| x-x_j \| }{ \delta }    &    \text{sinon}.
+        \end{cases}
+    \end{equation}
+    pour chaque \( 1\leq j\leq p\). Notons que \( \psi_j\) est une fonction positive, nulle en-dehors de \( B(x_j,\delta)\). En particulier la fonction suivante est bien définie :
+    \begin{equation}
+        \varphi_j(x)=\frac{ \psi_j(x) }{ \sum_{k=1}^p\psi_k(x) }
+    \end{equation}
+    et nous avons \( \sum_{j=1}^p\varphi_j(x)=1\). Les fonctions \( \varphi_j\) sont continues sur \( K\) et nous définissons finalement
+    \begin{equation}
+        g(x)=\sum_{j=1}^p\varphi_j(x)f(x_j).
+    \end{equation}
+    Pour chaque \( x\in K\), l'élément \( g(x)\) est une combinaison des éléments \( f(x_j)\in K^*\). Étant donné que \( K^*\) est convexe et que la somme des coefficients \( \varphi_j(x)\) vaut un, nous avons que \( g\) prend ses valeurs dans \( K^*\) par la proposition \ref{PropPoNpPz}.
+
+    Nous considérons seulement la restriction \( g\colon K^*\to K^*\) qui est continue sur un compact contenu dans un espace vectoriel de dimension finie. Le théorème de Brouwer nous enseigne alors que \( g\) a un point fixe (proposition \ref{ThoRGjGdO}). Nous nommons \( y^*\) ce point fixe. Notons que \( y^*\) est fonction du \( \epsilon\) choisit au début de la construction, via le \( \delta\) qui avait conditionné la partition de l'unité.
+
+    Nous avons
+    \begin{subequations}        \label{EqoXuTzE}
+        \begin{align}
+            f(y)-y&=f(y)-g(y)\\
+            &=\sum_{j=1}^p\varphi_j(y)f(y)-\sum_{j=1}^p\varphi_j(x)f(x_j)\\
+            &=\sum_{j=1}^p\varphi(j)(y)\big( f(y)-f(x_j) \big).
+        \end{align}
+    \end{subequations}
+    Par construction, \( \varphi_j(y)\neq 0\) seulement si \( \| y-x_j \|\leq \delta\) et par conséquent seulement si \( \| f(y)-f(x_j) \|\leq \epsilon\). D'autre par nous avons \( \varphi_j(y)\geq 0\); en prenant la norme de \eqref{EqoXuTzE} nous trouvons
+    \begin{equation}
+        \| f(y)-y \|\leq \sum_{j=1}^p\| \varphi_j(y)\big( f(y)-f(x_j) \big) \|\leq \sum_{j=1}^p\varphi_j(y)\epsilon=\epsilon.
+    \end{equation}
+    Nous nous souvenons maintenant que \( y\) était fonction de \( \epsilon\). Soit \( y_m\) le \( y\) qui correspond à \( \epsilon=2^{-m}\). Nous avons alors
+    \begin{equation}
+        \| f(y_m)-y_m \|\leq 2^{-m}.
+    \end{equation}
+    L'élément \( y_m\) est dans \( K^*\) qui est compact, donc quitte à choisir une sous suite nous pouvons supposer que \( y_m\) est une suite qui converge vers \( y^*\in K\)\footnote{Notons que même dans la sous suite nous avons \( \| f(y_m)-y_m \|\leq 2^{-m}\), avec le même «\( m\)» des deux côtés de l'inégalité.}. Nous avons les majorations
+    \begin{equation}
+        \| f(y^*)-y^* \|\leq \| f(y^*)-f(y_m) \|+\| f(y_m)-y_m \|+\| y_m-y^* \|.
+    \end{equation}
+    Si \( m\) est assez grand, les trois termes du membre de droite peuvent être rendus arbitrairement petits, d'où nous concluons que
+    \begin{equation}
+        f(y^*)=y^*
+    \end{equation}
+    et donc que \( f\) possède un point fixe.
+\end{proof}
+
 Ce théorème permet de démontrer une version du théorème de Cauchy-Lipschitz (théorème \ref{ThokUUlgU}) sans la condition Lipschitz, mais alors sans unicité de la solution. Notons que de ce point de vue nous sommes dans la même situation que la différence entre le théorème de Brouwer et celui de Picard : hors hypothèse de type «contraction», point d'unicité.
 
 \begin{theorem}[Cauchy-Arzela\cite{ClemKetl}]\index{théorème!Cauchy-Arzela}
@@ -1154,12 +1452,11 @@ Ce théorème permet de démontrer une version du théorème de Cauchy-Lipschitz
     \begin{equation}
         \begin{aligned}
             \Phi\colon K&\to K \\
-            \Phi(f)(t)=x_0+\int_{t_0}^tf\big( u,f(u) \big)du. 
+            \Phi(f)(t)&=x_0+\int_{t_0}^tf\big( u,f(u) \big)du. 
         \end{aligned}
     \end{equation}
     Après avoir prouvé que \( \Phi\) était continue, nous concluons qu'elle a un point fixe par le théorème de Schauder \ref{ThovHJXIU}.
 \end{proof}
-<++>
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Méthode de Newton}
@@ -1279,5 +1576,3 @@ L'objectif de la méthode de Newton est d'évaluer une racine \( a\) de l'équat
 \begin{remark}
     La valeur de la constate \( C\) a été fixée par l'équation \eqref{EqSYiuYF}. Certes nous pouvons toujours choisir \( C\) plus grand affin d'augmenter la vitesse de convergence, mais le point de départ \( x_0\) devant être dans une boule de taille \( 1/C^2\) autour de \( a\), demander \( C \) plus grand revient à demander un point de départ plus précis.
 \end{remark}
-
-
