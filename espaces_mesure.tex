@@ -1222,15 +1222,182 @@ Il existe divers théorèmes qui répondent à ces questions. Dans notre cadre n
 \subsection{Théorème d'inversion locale}
 %---------------------------------------------------------------------------------------------------------------------------
 
+Le théorème suivant est une conséquence du théorème de point fixe de Picard \ref{ThoEPVkCL}.
 \begin{theorem}[Inversion locale]
     Soit \( a\in U\) avec \( U\), un ouvert de \( \eR^n\) et \( f\colon U\to \eR^n\), une application \( C^1\) telle que \( df_a\) soit inversible. Alors il existe un voisinage \( V\) de \( a\) et un voisinage \( W\) de \( f(a)\) tels que \( f\colon V\to W\) soit un homéomorphisme.
 \end{theorem}
+
+\begin{example}
+    Est-ce que l'équation \( e^{y}+xy=0\) définit au moins localement une fonction \( y(x)\) ? Nous considérons la fonction
+    \begin{equation}
+        f(x,y)=\begin{pmatrix}
+            x    \\ 
+            e^{y}+xy    
+        \end{pmatrix}
+    \end{equation}
+    La différentielle de cette application est
+    \begin{subequations}
+        \begin{align}
+            df_{(0,0)}(u)&=\frac{ d }{ dt }\Big[ f(tu_1,tu_2) \Big]_{t=0}\\
+            &=\frac{ d }{ dt }\begin{pmatrix}
+                tu_1    \\ 
+                e^{tu_2}+t^2u_1u_2    
+            \end{pmatrix}_{t=0}\\
+            &=\begin{pmatrix}
+                u_1    \\ 
+                u_2    
+            \end{pmatrix}.
+        \end{align}
+    \end{subequations}
+    L'application \( f\) définit donc un difféomorphisme local autour des points \( (x_0,y_0)\) et \( f(x_0,y_0)\). Soit \( (u,0)\) un point dans le voisinage de \( f(x_0,y_0)\). Alors il existe un unique \( (x,y)\) tel que
+    \begin{equation}
+        f(x,y)=\begin{pmatrix}
+               x \\ 
+            e^y+xy    
+        \end{pmatrix}=
+        \begin{pmatrix}
+            u    \\ 
+                0
+        \end{pmatrix}.
+    \end{equation}
+    Nous avons automatiquement \( x=u\) et \( e^y+xy=0\). Notons toutefois que pour que ce procédé donne effectivement une fonction implicite \( y(x)\) nous devons avoir des points de la forme \( (u,0)\) dans le voisinage de \( f(x_0,y_0)\).
+\end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+					\section{Théorème de la fonction implicite}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Mise en situation}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Dans un certain nombre de situation, il n'est pas possible de trouver des solutions explicites aux équations qui apparaissent. Néanmoins, l'existence «théorique» d'une telle solution est souvent déjà suffisante. C'est l'objet du théorème de la fonction implicite.
+
+Prenons par exemple la fonction sur $\eR^2$ donnée par 
+\begin{equation}
+	F(x,y)=x^2+y^2-1.
+\end{equation}
+Nous pouvons bien entendu regarder l'ensemble des points donnés par $F(x,y)=0$. C'est le cercle dessiné à la figure \ref{LabelFigCercleImplicite}.
+\newcommand{\CaptionFigCercleImplicite}{Un cercle pour montrer l'intérêt de la fonction implicite.}
+\input{Fig_CercleImplicite.pstricks}
+Nous ne pouvons pas donner le cercle sous la forme $y=y(x)$ à cause du $\pm$ qui arrive quand on prend la racine carrée. Mais si on se donne le point $P$, nous pouvons dire que \emph{autour de $P$}, le cercle est la fonction
+\begin{equation}
+	y(x)=\sqrt{1-x^2}.
+\end{equation}
+Tandis que autour du point $P'$, le cercle est la fonction
+\begin{equation}
+	y(x)=-\sqrt{1-x^2}.
+\end{equation}
+Autour de ces deux point, donc, le cercle est donné par une fonction. Il n'est par contre pas possible de donner le cercle autour du point $Q$ sous la forme d'une fonction.
+
+Ce que nous voulons faire, en général, est de voir si l'ensemble des points tels que
+\begin{equation}
+	F(x_1,\ldots,x_n,y)=0
+\end{equation}
+peut être donné par une fonction $y=y(x_1,\ldots,x_n)$. En d'autre termes, est-ce qu'il existe une fonction $y(x_1,\ldots,x_n)$ telle que
+\begin{equation}
+	F\big( x_1,\ldots,x_n,y(x_1,\ldots,x_n)\big)=0.
+\end{equation}
+
+
+
+\subsection{Définitions et rappels}
+Soit
+\begin{equation*}
+  F : D \subset (\RR^n \times \RR^m) \to \RR^m : (x,y) \mapsto F(x,y) =
+  (F_1(x,y),\ldots,F_m(x,y))
+\end{equation*}
+avec $x = (x_1,\ldots, x_n)$ et $y = (y_1,\ldots,y_m)$.
+% Pour chaque $x$ fixé, on s'intéresse aux solutions du système de $m$
+% équations $F(x,y) = 0$ pour les inconnues $y$ ; en particulier, on
+% voudrait pouvoir écrire $y = \varphi(x)$ vérifiant $F(x,\varphi(x))
+% = 0$.
+
+Pour $(x,y) \in \interieur D$, la matrice
+\begin{equation*}
+\begin{pmatrix}
+\pder {F_1}{y_1}(x,y)& \ldots& \pder {F_1}{y_m}(x,y)\\
+\vdots& \ddots & \vdots\\
+\pder {F_m}{y_1}(x,y)& \ldots& \pder {F_m}{y_m}(x,y)\\
+\end{pmatrix}
+\end{equation*}
+est la \defe{matrice jacobienne}{jacobienne!matrice} de $F$ par rapport à $y$ (au point
+$(x,y)$; son déterminant est appelé le \defe{jacobien}{jacobien} de F par
+    rapport à y et se note
+  $\pder{(F_1,\ldots,F_m)}{(y_1,\ldots,y_m)}(x,y)$.
+
+
+\begin{theorem}
+	Soit $(\bar x,\bar y)$ tel que $F(\bar x,\bar y) = 0$ et
+  $\pder{(F_1,\ldots,F_m)}{(y_1,\ldots,y_m)}(\bar x,\bar y) \neq
+  0$. Alors il existe un voisinage $U$ de $x$ dans $\RR^n$, un
+  voisinage $V$ de $y$ dans $\RR^m$ et une unique application $\varphi
+  : U \to V$ tels que
+  \begin{enumerate}
+  \item $\varphi(\bar x) = \bar y$ ; 
+  \item $F(x,\varphi(x)) = 0$ pour tout $x \in U$.
+  \end{enumerate}
+\end{theorem}
+	
+Le théorème de la fonction implicite a pour objet de donner l'existence de la fonction $\varphi$. Maintenant nous pouvons dire beaucoup de choses sur les dérivées de $\varphi$ en considérant la fonction
+\begin{equation}
+	x\mapsto F\big( x,\varphi(x) \big).
+\end{equation}
+Par définition de $\varphi$, cette fonction est toujours nulle. En particulier, nous pouvons dériver l'équation
+\begin{equation}
+	F\big( x,\varphi(x) \big)=0,
+\end{equation}
+et nous trouvons plein de choses.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Exemple}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Prenons par exemple la fonction
+\begin{equation}
+	F\big( (x,y),z \big)=ze^z-x-y,
+\end{equation}
+et demandons nous ce que nous pouvons dire sur la fonction $z(x,y)$ telle que
+\begin{equation}
+	F\big( x,y,z(x,y) \big)=0,
+\end{equation}
+c'est à dire telle que
+\begin{equation}		\label{EqDefZImplExemple}
+	z(x,y) e^{z(x,y)}-x-y=0.
+\end{equation}
+pour tout $x$ et $y\in\eR$. Nous pouvons facilement trouver $z(0,0)$ parce que
+\begin{equation}
+	z(0,0) e^{z(0,0)}=0,
+\end{equation}
+donc $z(0,0)=0$.
+
+Nous pouvons dire des choses sur les dérivées de $z(x,y)$. Voyons par exemple $(\partial_xz)(x,y)$. Pour trouver cette dérivée, nous dérivons la relation \eqref{EqDefZImplExemple} par rapport à $x$. Ce que nous trouvons est
+\begin{equation}
+	(\partial_xz)e^z+ze^z(\partial_xz)-1=0.
+\end{equation}
+Cette équation peut être résolue par rapport à $\partial_xz$~:
+\begin{equation}
+	\frac{ \partial z }{ \partial x }(x,y)=\frac{1}{ e^z(1+z) }.
+\end{equation}
+Remarquez que cette équation ne donne pas tout à fait la dérivée de $z$ en fonction de $x$ et $y$, parce que $z$ apparaît dans l'expression, alors que $z$ est justement la fonction inconnue. En général, c'est la vie, nous ne pouvons pas faire mieux.
+
+Dans certains cas, on peut aller plus loin. Par exemple, nous pouvons calculer cette dérivée au point $(x,y)=(0,0)$ parce que $z(0,0)$ est connu :
+\begin{equation}
+	\frac{ \partial z }{ \partial x }(0,0)=1.
+\end{equation}
+Cela est pratique pour calculer, par exemple, le développement en Taylor de $z$ autour de $(0,0)$.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Théorèmes de Brouwer et Schauder}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+\begin{proposition}
+    Soit \( f\colon \mathopen[ 0 , 1 \mathclose]\to \mathopen[ 0 , 1 \mathclose]\) une fonction continue. Alors \( f\) accepte un point fixe.
+\end{proposition}
 
+\begin{proof}
+    En effet si nous considérons \( g(x)=f(x)-x\) alors nous avons \( g(0)=f(0)\geq 0\) et \( g(1)=f(1)-1\leq 0\). Si \( g(0)\) ou \( g(1)\) est nul, la proposition est démontrée; nous supposons donc que \( g(0)>0\) et \( g(1)<0\). La proposition découle à présent du théorème des valeurs intermédiaires.
+\end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Formes différentielles}
@@ -1473,6 +1640,41 @@ Ce théorème permet de démontrer une version du théorème de Cauchy-Lipschitz
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 L'objectif de la méthode de Newton est d'évaluer une racine \( a\) de l'équation \( f(x)=0\) lorsque nous avons déjà une approximation \( x_0\) de \( a\).
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Points fixes attractifs et répulsifs}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Source : \cite{DemaillyNum}.
+
+Soit \( I\) un intervalle fermé de \( \eR\) et \( \varphi\colon I\to I\) une application \( C^1\). Soit \( a\) un point fixe de \( \varphi\). Nous disons que \( a\) est \defe{attractif}{point fixe!attractif}\index{attractif!point fixe} si il existe un voisinage \( V\) de \( a\) tel que pour tout \( x_0\in V\) la suite \( x_{n+1}=\varphi(x_n)\) converge vers \( a\). Le point \( a\) sera dit \defe{répulsif}{répulsif!point fixe} si il existe un voisinage \( V\) de \( a\) tel que pour tout \( x_0\in V\) la suite \( x_{n+1}=\varphi(x_n)\) diverge.
+
+\begin{lemma}
+    Si \( | \varphi'(a) |<1\) alors \( a\) est attractif et la convergence est au moins exponentielle.
+
+    Si \( | \varphi'(a) |>1\) alors \( a\) est répulsif et la divergence est au moins exponentielle.
+\end{lemma}
+
+\begin{proof}
+    Si \( | \varphi'(a)<1 |\) alors il existe \( k\) tel que \( | \varphi'(a) |<k<1\) et par continuité il existe un voisinage \( V\) de \( a\) dans lequel \( | \varphi'(x) |<k\) pour tout \( x\in V\). En utilisant le théorème des accroissements finis nous avons
+    \begin{equation}
+        | x_n-a |=\big| f(x_{n-1}-a) \big|\leq k| x_{n-1}-a |
+    \end{equation}
+    et par récurrence
+    \begin{equation}
+        | x_n-a |\leq k^n| x_0-a |.
+    \end{equation}
+
+    Le cas \( | \varphi'(a)>1 |\) se traite de façon similaire.
+\end{proof}
+
+\begin{remark}
+    Dans le cas \(| \varphi'(a) |=1\), nous ne pouvons rien conclure. Si \( \varphi(x)=\sin(x)\) nous avons \( \sin(x)<x\) et le point \( a=0\) est attractif. A contrario, si \( \varphi(x)=\sinh(x)\) nous avons \( |\sinh(x)|>|x|\) et le point \( a=0\) est répulsif.
+\end{remark}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Méthode de Newton}
+%---------------------------------------------------------------------------------------------------------------------------
 
 \begin{lemma}       \label{LemXdObnV}
     Soient \( A\) et \( B\) deux matrices inversibles telles que la matrice \( (A+\epsilon B)\) soit inversible pour tout \( \epsilon\) assez petit. Alors il existe une matrice \( X(\epsilon)\) telle que
