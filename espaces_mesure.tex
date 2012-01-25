@@ -1112,6 +1112,31 @@ Il existe divers théorèmes qui répondent à ces questions. Dans notre cadre n
     \end{equation}
 \end{theorem}
 
+\begin{remark}
+    Nous verrons dans la sous section \ref{subseciKpMFx} que la suite convergente donnée par le théorème de Picard est résistante aux erreurs. En effet si à chaque étape du calcul nous commettons une erreur (pas trop grande), alors la suite obtenue converge également vers le point fixe cherché. Cette propriété se transmet automatiquement aux théorèmes de Cauchy-Lipschitz et à la méthode de Newton.
+\end{remark}
+
+\begin{remark}
+    Si \( f\) elle-même n'est pas contractante, mais si \( f^p\) est contractante pour un certain \( p\in \eN\) alors la conclusion du théorème de Picard reste valide et \( f\) a le même unique point fixe que \( f^p\). En effet nommons \( x\) le point fixe de \( f\) : \( f^p(x)=x\). Nous avons alors
+    \begin{equation}
+        f^p\big( f(x) \big)=f\big( f^p(x) \big)=f(x),
+    \end{equation}
+    ce qui prouve que \( f(x)\) est un point fixe de \( f^p\). Par unicité nous avons alors \( f(x)=x\), c'est à dire que \( x\) est également un point fixe de \( f\).
+\end{remark}
+
+Si la fonction n'est pas Lipschitz mais presque, nous avons une variante.
+\begin{proposition}
+    Soit \( E\) un ensemble compact\footnote{Notez cette hypothèse plus forte} et si \( f\colon E\to E\) est une fonction telle que
+    \begin{equation}        \label{EqLJRVvN}
+        \| f(x)-f(y) \|< \| x-y \|
+    \end{equation}
+    pour tout \( x\neq y\) dans \( E\) alors \( f\) possède un unique point fixe.
+\end{proposition}
+
+\begin{proof}
+    La suite \( x_{n+1}=f(x_n)\) possède une sous suite convergente. La limite de cette sous suite est un point fixe de \( f\) parce que \( f\) est continue. L'unicité est due à l'aspect strict de l'inégalité \eqref{EqLJRVvN}.
+\end{proof}
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Théorème de Cauchy-Lipschitz}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -1218,7 +1243,7 @@ Il existe divers théorèmes qui répondent à ces questions. Dans notre cadre n
     \begin{equation}
         \big\| \Phi^p(x)-\Phi^p(y) \big\|_{\infty}\leq \frac{ k^pT^p }{ p! }\| x-y \|_{\infty}.
     \end{equation}
-    Notons encore que les fonctions \( x\) et \( y\) prenant leurs valeurs dans \( \overline{ B(y_0,r)}\), le nombre \( \| x-y \|_{\infty}\) est majoré sur \( \mF\). Le membre de droite tend vers zéro lorsque \( p\to\infty\) parce que \( k<1\) et \( T^p/p!\to 0\). Nous concluons donc que \( \Phi^p\) est une contraction pour un certain \( p\).
+    Le membre de droite tend vers zéro lorsque \( p\to\infty\) parce que \( k<1\) et \( T^p/p!\to 0\). Nous concluons donc que \( \Phi^p\) est une contraction pour un certain \( p\).
 
     L'unique point fixe de \( \Phi\) est alors l'unique solution de l'équation différentielle \eqref{XtiXON}, et elle est \( C^1\).
 
@@ -1879,3 +1904,70 @@ Soit \( I\) un intervalle fermé de \( \eR\) et \( \varphi\colon I\to I\) une ap
 \begin{remark}
     La valeur de la constate \( C\) a été fixée par l'équation \eqref{EqSYiuYF}. Certes nous pouvons toujours choisir \( C\) plus grand affin d'augmenter la vitesse de convergence, mais le point de départ \( x_0\) devant être dans une boule de taille \( 1/C^2\) autour de \( a\), demander \( C \) plus grand revient à demander un point de départ plus précis.
 \end{remark}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Auto correction d'erreurs}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{subseciKpMFx}
+
+Source : \cite{NourdinAnal}\footnote{Il me semble qu'à la page 100 de ce livre, l'hypothèse H1 qui est prouvée ne prouve pas Hn dans le cas \( n=1\).}.
+
+Nous commençons par donner une précision au théorème de Picard.
+\begin{proposition}
+    Soit \( (X,d)\) un espace métrique complet et \( f\colon X\to X\) une application contractante. Alors \( f\) admet un unique point fixe. De plus pour tout \( x_0\in X\), l'unique point fixe de \( f\) est donné par la limite de la suite définie par
+    \begin{equation}
+        x_{n+1}=f(x_n).
+    \end{equation}
+    De plus nous estimons l'erreur par
+    \begin{equation}    \label{EqKErdim}
+        \| x_n-x \|\leq \frac{ k^n }{ 1-k }\| x_n-x_{n-1} \|\leq \frac{ k^n }{ 1-k }\| x_1-x_0 \|.
+    \end{equation}
+\end{proposition}
+La première inégalité donne une estimation de l'erreur calculable en cours de processus; la seconde donne une estimation de l'erreur calculable avant de commencer.
+
+\begin{proof}
+    Nous devons seulement prouver les inégalités \eqref{EqKErdim}. En utilisant une somme télescopique nous avons
+    \begin{subequations}
+        \begin{align}
+            \| x_{n+p}-x_n \|&\leq \| x_{n+p}-x_{n+p-1} \|+\ldots +\| x_{n+1}-x_n \|\\
+            &\leq k^p\| x_n-x_{n-1} \|+k^{p-1}\| x_n-x_{n-1} \|+\ldots +k\| x_n-x_{n-1} \|\\
+            &=k(1+\ldots +k^{p-1})\| x_n-x_{n-1} \\
+            &\leq \frac{ k }{ 1-k }\| x_n-x_{n-1} \|.
+        \end{align}
+    \end{subequations}
+    En prenant la limite \( p\to \infty\) nous trouvons
+    \begin{equation}        \label{EqlUMVGW}
+        \| x-x_n \|\leq \frac{ k }{ 1-k }\| x_n-x_{n-1} \|\leq \frac{ k }{ 1-k }\| x_1-x_0 \|.
+    \end{equation}
+\end{proof}
+
+Nous pouvons maintenant établir le résultat d'auto correction de la suite de Picard.
+\begin{proposition}
+    Soit \( E\) un espace métrique complet, \( a\in E\), \( K\) la boule fermée de rayon \( r\) centrée en \( a\) et une application contractante \( f\colon K\to K\) de constante Lipschitz \( k\). Nous définissons les suites \( (u_n)\) et \( (v_n)\) de la façon suivante :
+    \begin{enumerate}
+        \item
+            \( u_0=v_0\in B(a,r)\).
+        \item
+            \( u_{n+1}=f(v_n)\), \( v_n\in B(u_n,\epsilon)\).
+    \end{enumerate}
+    Alors \( f\) a un point fixe \( \xi\in B(a,r)\) et 
+    \begin{equation}
+        \| v_n-\xi \|\leq \frac{ k^n }{ 1-k }\| u_1-u_0 \|+\frac{ \epsilon }{ 1-k }.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Le fait que \( f\) ait un point fixe est simplement une application du théorème de Picard. Nous allons montrer la relation par récurrence. Tout d'abord pour \( n=1\) nous avons
+    \begin{equation}
+        \| v_1-\xi \|\leq\| v_1-u_1 \|+\| u_1-\xi \|\leq \epsilon+\frac{ k }{ 1-k }\| u_1-u_0 \|
+    \end{equation}
+    où nous avons utilisé l'estimation \eqref{EqlUMVGW}. Nous pouvons maintenant faire la récurrence :
+    \begin{subequations}
+        \begin{align}
+            \| v_{n+1}-\xi \|&\leq \| v_{n+1}-u_{n+1} \|+\| u_{n+1}-\xi \|\\
+            &\leq \epsilon+k\| v_n-\xi \|\\
+            &\leq \epsilon+k\left( \frac{ k^n }{ 1-k }\| u_1-u_0 \|+\frac{ \epsilon }{ 1-k } \right)\\
+            &=\frac{ \epsilon }{ 1-k }+\frac{ k^{n+1} }{ 1-k }\| u_1-u_0 \|.
+        \end{align}
+    \end{subequations}
+\end{proof}
