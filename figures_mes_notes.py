@@ -57,13 +57,12 @@ from phystricksIntBoutCercle import IntBoutCercle
 from phystricksIntDeuxCarres import IntDeuxCarres
 from phystricksExPolygone import ExPolygone
 from phystricksMoulinEau import MoulinEau
-
 from phystricksMethodeNewton import MethodeNewton
-
 from phystricksSurfacePrimiteGeog import SurfacePrimiteGeog
 from phystricksSurfaceEntreCourbes import SurfaceEntreCourbes
 from phystricksChoixInfini import ChoixInfini
 from phystricksProjPoly import ProjPoly
+from phystrickstrigoWedd import trigoWedd
 
 
 
@@ -79,7 +78,7 @@ def AllFigures():
             DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
             SurfaceHorizVerti,SurfaceCercle,ExoCourone,IntRectangle,IntTriangle,
             IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,
-            ConeRevolution,ChoixInfini,ProjPoly,
+            ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,
             ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
             MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton]
 
