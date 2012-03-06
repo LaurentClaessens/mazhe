@@ -1,0 +1,898 @@
+% This is part of Mes notes de mathématique
+% Copyright (c) 2011-2012
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Séries entières}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Source : \cite{RomainBoilEnt}. Dans cette section nous allons parler de séries complexes autant que de séries réelles. L'étude des propriétés à proprement parler complexes des séries entières (holomorphie) sera effectuée dans le chapitre dédié, à la section \ref{SecoLNvnO}.
+
+Nous rappelons qu'une série de nombres \( \sum_{n=0}^{\infty}a_n\) converge \defe{absolument}{convergence!absolue} si la série
+\begin{equation}
+    \sum_{n=0}^{\infty}| a_n |
+\end{equation}
+converge. Cette définition s'étend immédiatement aux séries dans n'importe quel espace normé.
+
+La convergence est \defe{normale}{convergence!normale} si la suite de fonctions \( f_N(z)=\sum_{n=0}^N a_nz^n\) converge uniformément (c'est à dire pour la norme supremum).
+
+\begin{definition}
+    Une \defe{série entière}{série!entière} est une somme de la forme
+    \begin{equation}
+        \sum_{n=0}^{\infty}a_nz^n
+    \end{equation}
+    avec \( a_n,z\in\eC\).    
+\end{definition}
+Une série entière peut définir une fonction
+\begin{equation}
+    f(z)=\sum_na_nz^n.
+\end{equation}
+Le but de cette section est d'étudier des conditions sur la suite \( (a_n)\) qui assurent la continuité de \( f\) ou la possibilité de dériver ou intégrer la série terme à terme.
+
+%---------------------------------------------------------------------------------------------------------------------------
+					\subsection{Série de puissances}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Une \defe{série de puissance}{Série!de puissance} est une série de la forme
+\begin{equation}		\label{eqseriepuissance}
+	\sum_{k=0}^{\infty}c_k(z-z_0)^k
+\end{equation}
+où $z_0\in \eC$ est fixé, $(c_k)$ est une suite complexe fixée, et $z$ est un paramètre complexe. Nous disons que cette série est \emph{centrée} en $z_0$.
+
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Convergence normale}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Une série de fonctions \( \sum_{n\in \eN}u_n \) converge \defe{normalement}{convergence!normale} si la série de nombre \( \sum_n\| u_n \|_{\infty}\) converge.
+
+\begin{lemma}
+    Soient des fonctions \( u_n\colon \Omega\to \eC\). Si il existe une suite réelle positive \( (a_n)_{n\in \eN}\) telle que
+    \begin{enumerate}
+        \item
+            pour tout \( z\in \Omega\) et pour tout \( n\in \eN\) nous avons \( | u_n(z) |\leq a_n\) (c'est à dire \( a_n\geq \| u_n \|_{\infty}\)),
+        \item
+            la somme \( \sum_{n}a_n\) converge,
+    \end{enumerate}
+    alors la série de fonctions \( \sum_{n=0}^{\infty}u_n\) converge normalement.
+\end{lemma}
+
+\begin{proof}
+    Découle du lemme de comparaison.
+\end{proof}
+
+\begin{proposition}     \label{PropUEMoNF}
+    Soit \( (u_n)\) une suite de fonctions continues \( u_n\colon \Omega\subset\eC\to \eC\). Si la série \( \sum_nu_n\) converge normalement alors la somme est continue.
+\end{proposition}
+
+\begin{proof}
+    Nous posons \( u(z)=\lim_{n\to \infty} u_n(z)\), et nous vérifions que la fonction ainsi définie sur \( \Omega\) est continue. Soit \( z\in \Omega\) et prouvons la continuité de \( u\) au point \( z\). Pour tout \( z'\) dans un voisinage de \( z\) nous avons 
+    \begin{subequations}
+        \begin{align}
+            \big| u(z)-u(z') \big|&=\left| \sum_{n=0}^{N}u_n(z)-\sum_{n=0}^{N}u_n(z')+\sum_{n=N+1}^{\infty}u_n(z)-\sum_{n=N+1}^{\infty}u_n(z') \right| \\
+            &\leq \left| \sum_{n=0}^N u_n(z)-\sum_{n=0}^Nu_n(z') \right| +\sum_{n=N+1}^{\infty}| u_n(z) |+\sum_{n=N+1}^{\infty}| u_n(z') |.
+        \end{align}
+    \end{subequations}
+    Étant donné que les sommes partielles sont continues, en prenant \( N\) suffisamment grand, le premier terme peut être rendu arbitrairement petit. Si \( N\) est suffisamment grand, le second terme est également petit. Par contre, cet argument ne tient pas pour le troisième terme parce que nous souhaitons une majoration pour tout \( z'\) dans une boule autour de \( z\). Nous devons donc écrire
+    \begin{equation}
+        \sum_{n=N}^{\infty}| u_(z) |\leq \sum_{n=N+1}^{\infty}\| u_n \|_{\infty}.
+    \end{equation}
+    Ce dernier est arbitrairement petit lorsque \( N\) est grand. Notons que nous avons utilisé l'hypothèse de convergence normale.
+\end{proof}
+
+\begin{lemma}[Critère d'Abel]\index{critère!Abel}
+    Soit \( (a_n)\) une suite dans \( \eC\) et \( r>0\). Si la suite \( (a_nr^n)\) est bornée alors pour tout \( z\in B(0,r)\) la série \( \sum a_nz^n\) converge absolument.
+\end{lemma}
+
+\begin{proof}
+    Soit \( M\in \eR\) tel que \( | a_n |r^n\leq M\) pour tout \( n\). Alors nous avons
+    \begin{equation}
+        | a_nz^n |=| a_n |r^n\big( \frac{ | z | }{ r } \big)^n\leq M\left( \frac{ | z | }{ r } \right)^n
+    \end{equation}
+    Si \( | z |<r\) alors nous tombons sur la série géométrique qui converge. Par le critère de comparaison la série \( \sum_{n=0}^{\infty}| a_nz^n |\) converge.
+\end{proof}
+
+\begin{definition}
+    Soit \( \sum_{n\in \eN}a_nz^n\) une série entière. Le \defe{rayon de convergence}{rayon!de convergence} de cette série est le nombre
+    \begin{equation}
+        R=\sup\{ r\in \eR^+\tq \text{la suite \((a_nr^n)\) est bornée} \}\in\mathopen[ 0 , \infty \mathclose].
+    \end{equation}
+\end{definition}
+Le rayon de convergence d'une série ne dépend que des réels \( | a_n |\), même si à la base \( a_n\in \eC\).
+
+\begin{theorem}
+    Soit \( R>0\) le rayon de convergence de la somme \( \sum_na_nz^n\) et \( z\in \eC\).
+    \begin{enumerate}
+        \item
+            Si \( | z |<R\) alors la série converge absolument.
+        \item
+            Si \( R<\infty\) et si \( | z |>R\) alors la suite \( (a_nz^n)\) n'est pas bornée et la série diverge.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            Étant donné que \( | z |<R\), il existe \( r>0\) tel que \( | z |<r<R\). On a que \( (a_nr^n)\) est borné (parce que \( R\) est le supremum) et donc \( (a_n| z_n |)\) est bornée. Le critère d'Abel conclu.
+        \item
+            Par hypothèse la suite \( (a_n| z |^n)\) n'est pas bornée. La suite \( (a_nz^n)\) n'est donc pas bornée non plus et la série ne peut pas converger.
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}[Formule de Hadamard]\index{formule!Hadamard}\index{Hadamard!formule}		\label{ThoSerPuissRap}
+Le rayon de convergence de la série entière \( \sum_n c_n z^n\) est donné par une des deux formules
+\begin{equation}		\label{EqRayCOnvSer}
+	\frac{1}{ R } =\limsup\sqrt[k]{| a_k |}
+\end{equation}
+ou
+\begin{equation}		\label{EqAlphaSerPuissAtern}
+	\frac{1}{ R }=\limite k \infty \abs{\frac{a_{k+1}}{a_k}}
+\end{equation}
+lorsque $a_k$ est non nul à partir d'un certain $k$.
+\end{theorem}
+
+Le disque $| z-z_0 |\leq R$ est le \defe{disque de convergence}{Disque de convergence} de la série \( \sum_n a_n(z-z_0)^n\). Notons que le critère d'Abel ne dit rien pour les points tels que $| z-z_0 |=R$. Il faut traiter ces points au cas par cas. Et le pire, c'est qu'une série donnée peut converger pour certain des points sur le bord du disque, et diverger en d'autres. Le théorème d'Abel radial (théorème \ref{ThoLUXVjs})
+Il y a un dessin à la figure \ref{LabelFigDisqueConv}.
+\newcommand{\CaptionFigDisqueConv}{À l'intérieur du disque de convergence, la convergence est absolue. En dehors, la série diverge. Sur le cercle proprement dit, tout peut arriver.}
+\input{Fig_DisqueConv.pstricks}
+
+Si les suites \( a_n\) et \( b_n\) sont équivalentes, alors les séries correspondantes auront le même rayon de convergence. Cela ne signifie pas que sur le bord du disque de convergence, elles aient même comportement. Par exemple nous avons
+\begin{equation}
+    \frac{1}{ \sqrt{n} }\sim \frac{1}{ \sqrt{n} }+\frac{ (-1)^n }{ n }.
+\end{equation}
+En même temps, en \( z=-1\) la série 
+\begin{equation}
+    \sum_{n\geq 1}\frac{ z^n }{ \sqrt{n} }
+\end{equation}
+converge par le critère des séries alternées (corollaire \ref{CoreMjIfw}). Par contre la série
+\begin{equation}
+    \sum_{n\geq 1}\left( \frac{1}{ \sqrt{n} }+\frac{ (-1)^n }{ n } \right)z^n
+\end{equation}
+ne converge pas pour \( z=-1\).
+
+\begin{example}
+    Soit \( \alpha\in \eR\) et considérons la série \( \sum_{n\geq 1}a_nz^n\) où \( a_n\) est la \( n\)-ième décimale de \( \alpha\). Si \( \alpha\) est un nombre décimal limité, la suite \( (a_n)\) est finie et le rayon de convergence est infini. Sinon, pour tout \( N\) il existe un \( n>N\) tel que \( a_n\neq 0\) et la suite \( (a_n)\) ne tend pas vers zéro. Par conséquent la série
+    \begin{equation}
+        \sum_{n}a_nz^n
+    \end{equation}
+    diverge pour \( z=1\) et le rayon de convergence satisfait \( R\leq 1\). Nous avons aussi \( | a_n |\leq 9\), de telle manière à ce que la série soit bornée et par conséquent majorée en module par \( 9z^n\), ce qui signifie que \( R\geq 1\). 
+
+    Nous déduisons alors \( R=1\).
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Propriétés de la somme}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}     \label{ThokPTXYC}
+    Soient \( \sum_na_nz^n\) et \( \sum b_nz^n\) deux séries de rayon de convergences respectivement \( R_a\) et \( R_b\).
+    \begin{enumerate}
+        \item   \label{IteWlajij}
+            Si \( R_s\) est le rayon de convergence de \( \sum_n(a_n+b_n)z^n\), nous avons
+            \begin{equation}
+                R_s\geq \min\{ R_a,R_b \}
+            \end{equation}
+            et nous avons l'égalité si pour tout \( |z |\leq\min\{ R_a,R_b \}\), \( \sum (a_n+b_n)z^n=\sum_n a_nz^n+\sum_nb_nz^n\).
+        \item
+            Si \( \lambda\neq 0\) la série \( \sum_n(\lambda a_n)z^n\) a le même rayon de convergence que la série \( \sum_na_nz^n\) et si \( | z |<R_a\) nous avons
+            \begin{equation}
+                \sum_{n=0}^{\infty}(\lambda a_n)z^n=\lambda\sum_{n=0}^{\infty}a_nz^n.
+            \end{equation}
+        \item
+            Le \defe{produit de Cauchy}{Cauchy!produit}\index{produit!de Cauchy} des deux séries est donné par
+            \begin{equation}
+                \sum_{n=0}^{\infty}\left( \sum_{i+j=n}a_ib_j \right)z^n.
+            \end{equation}
+            Si \( R_p\) est le rayon de convergence de ce produit nous avons
+            \begin{equation}
+                R_p\geq \min\{ R_a,R_b \}
+            \end{equation}
+            et si \( | z |<\min\{ R_a,R_b \}\) alors
+            \begin{equation}
+                \sum_{n=0}^{\infty}\left( \sum_{i+j=n}a_ib_j \right)z^n=\left( \sum_{n=0}^{\infty}a_nz^n \right)\left( \sum_{n=0}^{\infty}b_nz^n \right).
+            \end{equation}
+            
+    \end{enumerate}
+    
+\end{theorem}
+
+\begin{proof}
+    Nous prouvons la partie sur le produit de Cauchy. En utilisant la propriété du produit de la somme par un scalaire nous avons
+    \begin{subequations}
+        \begin{align}
+            \left( \sum_{n=0}^{\infty}a_nz^n \right)\left( \sum_{m=0}^{\infty}b_mz^m \right)&=\sum_{n=0}^{\infty}\left( \sum_{m=0}^{\infty}b_ma_nz^{m+n} \right)\\
+            &=\lim_{N\to \infty} \lim_{M\to \infty} \sum_{n=0}^N\sum_{m=0}^Mb_ma_nz^{m+n}\\
+            &=\lim_{N\to \infty} \lim_{M\to \infty} \sum_{k=0}^{N+M}\sum_{i+k=k}b_ia_jz^k\\
+            &=\lim_{N\to \infty} \sum_{k=0}^{\infty}\sum_{i+k=k}b_ia_jz^k\\
+            &=\sum_{k=0}^{\infty}\sum_{i+j=k}b_ia_jz^k.
+        \end{align}
+    \end{subequations}
+\end{proof}
+
+\begin{example}
+    Montrons un produit de Cauchy dont le rayon de convergence est strictement plus grand que le minimum. D'abord nous considérons
+    \begin{equation}
+        A=1-z,
+    \end{equation}
+    c'est à dire \( a_0=1\), \( a_1=-1\), \( a_{n\geq 2}=0\) avec \( R_a=\infty\). Ensuite nous considérons
+    \begin{equation}
+        B=\sum_nz^n,
+    \end{equation}
+    c'est à dire \( B=(1-z)^{-1}\) et \( R_b=1\). Le produit de Cauchy de ces deux séries valant \( 1\), le rayon de convergence est infini.
+\end{example}
+
+\Exo{reserve0005}
+
+\begin{theorem}
+    Une série entière converge normalement sur tout disque fermé inclus au disque de convergence.
+\end{theorem}
+
+\begin{proof}
+    Toute boule fermée inclue à \( B(0,R)\) est inclue à la boule \( \overline{ B(0,r) }\) pour un certain \( r<R\). Nous nous concentrons donc sur une telle boule fermée.
+
+    Pour chaque \( n\) nous posons \( u_n(z)=a_nz^n\) que nous voyons comme une fonction sur \( \overline{ B(0,r) }\). Pour tout \( n\in \eN\) et tout \( z\in\overline{ B(0,r) }\) nous avons 
+    \begin{equation}
+        \| u_n \|_{\infty}\leq| a_nz^n |\leq | a_n |r^n.
+    \end{equation}
+    Étant donné que \( r<R\) la série \( \sum_n | a_n |r^n\) converge et la série \( \sum_n\| u_n \|\) est convergente. La série \( \sum_na_nz^n\) est alors normalement convergente.
+\end{proof}
+
+\begin{example}
+    Encore une fois nous n'avons pas d'informations sur le comportement au bord. Par exemple la série \( \sum_nz^n\) a pour rayon de convergence \( R=1\), mais \( \sup_{z\in B(0,1)}| z^n |=1\) de telle façon à ce que nous n'avons pas de convergence normale sur la boule fermée.
+\end{example}
+La convergence normale n'est donc pas de mise sur tout l'intérieur du disque de convergence. La continuité, par contre est effective sur la boule. En effet si \( z_0\in B(0,R)\) alors il existe un rayon \( 0<r<R\) tel que \( B(z_0,r)\subset B(0,R)\). Sur \( B(z_0,r)\) nous avons convergence normale et donc continuité en \( z_0\).
+
+La différence est que la continuité est une propriété locale tandis que la convergence normale est une propriété globale.
+
+\begin{proposition}
+    Soit \( f(z)=\sum_na_nz^n\) avec un rayon de convergence \( R\). Si \( \sum | a_n |R^n\) converge alors
+    \begin{enumerate}
+        \item
+            la série \( \sum_na_nz^n\) converge normalement sur \( \overline{ B(0,R) }\),
+        \item
+            \( f\) est continue sur \( \overline{ B(0,R) }\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    La conclusion est claire dans l'intérieur du disque de convergence. En ce qui concerne le bord, chacune des sommes partielles est une fonction continue. De plus nous avons \( \| u_n \|\leq | a_n |R^n\), dont la série converge. Par conséquent nous avons convergence normale sur le disque fermé.
+\end{proof}
+
+Le théorème suivant permet de donner, dans le cas de fonctions réelle, des informations sur la convergence en une des deux extrémités de l'intervalle de convergence.
+\begin{theorem}[Convergene radiale de Abel]\index{Abel!convergence radiale} \label{ThoLUXVjs}
+    Soit \( f(x)=\sum_na_nx^n\) une série réelle de rayon de convergence \( 0<R<\infty\).
+    \begin{enumerate}
+        \item
+            Si \( \sum a_nR^n\) converge, alors \( f\) est continue sur \( \mathopen[ 0 , R \mathclose]\).
+        \item
+            Si \( \sum_na_n(-R)^n\) converge, alors \( f\) est continue sur \( \mathopen[ -R , 0 \mathclose]\).
+    \end{enumerate}
+\end{theorem}
+
+\Exo{reserve0006}
+
+Le résultat suivant permet d'identifier deux séries complexes lorsque leurs valeurs sur \( \eR\) sont identiques.
+\begin{proposition}
+    Soient les séries \( f(z)=\sum a_nz^n\) et \( g(z)=\sum b_n z^n\) convergentes dans \( B(0,R)\). Si \( f(x)=g(x)\) pour \( x\in \mathopen[ 0 , R [\) alors \( a_n=b_n\).
+\end{proposition}
+
+\begin{proof}
+    Soit \( n_0\) le plus petit entier tel que \( a_{n_0}\neq b_{n_0}\). Pour tout \( z\in B(0,R)\) nous avons
+    \begin{equation}
+        f(z)-g(z)=\sum_{n=n_0}^{\infty}(a_n-b_n)z^n=z^{n_0}\varphi(z)
+    \end{equation}
+    où
+    \begin{equation}
+        \varphi(z)=\sum_{n\geq 0}(a_{n+n_0}-b_{n+n_0})z^n.
+    \end{equation}
+    Par le théorème \ref{ThokPTXYC}\ref{IteWlajij} le rayon de convergence de \( \varphi\) est plus grand que \( R\) et la fonction \( \varphi\) est continue en \( 0\). Étant donné que \( \varphi(0)=a_{n_0}-b_{n_0}\neq 0\) et que \( \varphi\) est continue nous avons un \( \rho\) tel que \( \varphi\neq 0\) sur \( B(0,\rho)\). Or cela n'est pas possible parce que au moins sur la partie réelle de cette dernière boule, \( \varphi\) doit être nulle.
+\end{proof}
+
+\begin{lemma}       \label{LemFVMaSD}
+    Soit une série entière \( \sum a_nz^n\) de rayon de convergence \( R\). Les séries
+    \begin{equation}
+        \sum \frac{ a_n }{ n+1 }z^{n+1}
+    \end{equation}
+    et
+    \begin{equation}
+        \sum_{n\geq 1}na_nz^{n-1}
+    \end{equation}
+    ont même rayon de convergence \( R\).
+\end{lemma}
+
+Notons toutefois que nonobstant ce lemme, les séries dont il est question peuvent se comporter différemment sur le bord du disque de convergence. En effet la série
+\begin{equation}
+    \sum \frac{1}{ n }z^n
+\end{equation}
+diverge pour \( z=1\) alors que 
+\begin{equation}
+    \sum\frac{1}{ n(n+1) }z^{n+1}
+\end{equation}
+converge pour \( z=1\).
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Dérivation, intégration}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les théorèmes de dérivation et d'intégration de séries de fonctions (théorèmes \ref{ThoCciOlZ} et \ref{ThoCSGaPY}) fonctionnent bien dans le cas des séries entières.
+
+\begin{proposition}
+    Soit la série entière
+    \begin{equation}
+        f(x)=\sum a_nx^n
+    \end{equation}
+    de rayon de convergence \( R\). Pour tout segment \( \mathopen[ a , b \mathclose]\subset\mathopen] -R , R \mathclose[\) nous pouvons intégrer terme à terme :
+    \begin{equation}
+        \int_a^bf(t)dt=\sum_{n=0}^{\infty}a_n\int_a^bt^ndt.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Ceci est un cas particulier du théorème général \ref{ThoCciOlZ}. Notons que par le lemme \ref{LemFVMaSD}, la série entière qui intègre la série de \( f\) terme à terme a le même rayon de convergence que celui de \( f\).
+\end{proof}
+
+\begin{proposition}     \label{ProptzOIuG}
+    Soit la série entière
+    \begin{equation}
+        f(x)=\sum_{n=0}^{\infty}a_n x^n
+    \end{equation}
+    de rayon de convergence \( R\). Alors la fonction \( f\) est \( C^1\) sur \( \mathopen] -R , R \mathclose[\) et se dérive terme à terme :
+    \begin{equation}
+        f'(x)=\sum_{n=1}^{\infty}na_nx^{n-1}
+    \end{equation}
+    pour tout \( x\in\mathopen] -R , R \mathclose[\).
+\end{proposition}
+
+\begin{proof}
+    Nous savons que la série \( \sum_{n=1}^{\infty}na_nx^{n-1}\) a le même rayon de convergente que celui de la série \( f\). En particulier cette série des dérivées converge normalement sur tout compact dans \( \mathopen] -R , R \mathclose[\) et la somme est continue. Le théorème \ref{ThoCSGaPY} conclu.
+\end{proof}
+
+\begin{example}
+    Montrons que la fonction
+    \begin{equation}
+        \begin{aligned}
+            f\colon \eR_+\setminus\{ 0,1 \}&\to \eR \\
+            x&\mapsto \frac{ \ln(x) }{ x-1 } 
+        \end{aligned}
+    \end{equation}
+    admet un prolongement \( C^{\infty}\) sur \( \eR_+\setminus\{ 0 \}\).
+
+    Nous allons étudier la fonction
+    \begin{equation}
+        f(x)=\frac{ \ln(1+x) }{ x }
+    \end{equation}
+    autour de \( x=0\). Le logarithme ne pose pas de problèmes à développer dans un voisinage :
+    \begin{subequations}
+        \begin{align}
+            f(x)&=\frac{1}{ x }\sum_{n=1}^{\infty}\frac{ (-1)^{n+1} }{ n }x^n\\
+            &=\sum_{n=1}^{\infty}\frac{ (-1)^{n+1} }{ n }x^{n-1}\\
+            &=\sum_{n=0}^{\infty}\frac{ (-1)^k }{ k+1 }x^k.
+        \end{align}
+    \end{subequations}
+    Cette série a un rayon de convergence égal à \( 1\), et donc définit sans problèmes une fonction \( C^{\infty}\) dans un voisinage de \( x=0\). Notons que par convention \( x^0=1\) même si \( x=0\).
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Développement en série et Taylor}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}  \label{DefwmRzKh}
+    Soit une fonction \( f\colon \eC\to \eC\) et \( z_0\in \eC\). Nous disons que \( f\) est \defe{développable en série entière}{développable!en série entière} dans un voisinage de \( z_0\) si il existe une série \( \sum_n a_nz^n\) de rayon de convergence \( R>0\) et \( r\leq R\) tel que
+    \begin{equation}
+        f(z)=\sum_{n=0}^{\infty}a_n(z-z_0)^n
+    \end{equation}
+    pour tout \( z\in B(z_0,r)\).
+\end{definition}
+
+\begin{proposition}
+    Si \( V\) est un ouvert dans \( \eC\) alors l'ensemble des fonctions \( V\to \eC\) développables en série entière forme une \( \eC\)-algèbre.
+\end{proposition}
+
+\begin{proof}
+    Les séries entières passent aux sommes et aux produits en gardant des rayons de convergence non nuls.
+\end{proof}
+
+\begin{proposition}
+    Si \( f\) est développable en série entière à l'origine alors elle est \( C^{\infty}\) sur un voisinage de l'origine et le développement est celui de \defe{Taylor}{Taylor!série entière} :
+    \begin{equation}
+        f(x)=\sum_{n=0}^{\infty}\frac{ f^{(n)}(0) }{ n! }x^n
+    \end{equation}
+    pour tout \( x\) dans un voisinage de \( 0\).
+\end{proposition}
+
+\begin{proof}
+    Si \( f(x)=\sum a_nx^n\), nous savons que \( f\) est \( C^1\) et que nous pouvons dériver terme à terme (au moins dans un voisinage). De plus le fait de dériver ne change pas le domaine. Par récurrence, la fonction est \( C^{\infty}\) sur le voisinage. En dérivant \( k\) fois la série \( \sum a_nx^n\) nous trouvons
+    \begin{equation}
+        f^{(k)}(x)=\sum_{n=k}^{\infty}n(n-1)\ldots (n-k+1)a_nx^{n-k}.
+    \end{equation}
+    En calculant en \( x=0\) nous trouvons
+    \begin{equation}
+        f^{(k)}(0)=k! a_k,
+    \end{equation}
+    d'où le terme général
+    \begin{equation}
+        a_k=\frac{ f^{(k)}(0) }{ k! }.
+    \end{equation}
+\end{proof}
+
+Si \( f\) est une fonction et si la série
+\begin{equation}
+    T_f(x)=\sum_{n=0}^{\infty}\frac{ f^{(n)}(0) }{ n! }x^n
+\end{equation}
+converge, alors cette série est la \defe{série de Taylor}{série!Taylor} de \( f\).
+
+\begin{remark}
+    La série de Taylor d'une fonction n'est pas liée à sa fonction de façon aussi raide qu'on pourrait le croire. Même dans le cas d'une fonction \( C^{\infty}\) il peut arriver que \( T_f(x)\neq f(x)\).
+    
+    Il peut aussi arriver que \( f\) ne soit pas développable en série entières.
+\end{remark}
+
+\begin{example}
+    Nous considérons la fonction
+    \begin{equation}
+        f(x)=\begin{cases}
+            e^{-1/x^2}    &   \text{si \( x\neq 0\)}\\
+            0    &    \text{si \( x=0\).}
+        \end{cases}
+    \end{equation}
+    Nous avons
+    \begin{equation}
+        f'(x)=\begin{cases}
+            \frac{ 2 }{ x^3 } e^{-1/x^2}    &   \text{si \( x\neq 0\)}\\
+            0    &    \text{si \( x=0\)}.
+        \end{cases}
+    \end{equation}
+    Note : pour la seconde ligne nous devons faire explicitement le calcul
+    \begin{equation}
+        f'(0)=\lim_{t\to 0} \frac{ f(t)-f(0) }{ t }=\lim_{y\to 0} \frac{1}{ t } e^{-1/t^2}=0.
+    \end{equation}
+    Plus généralement nous avons \( f^{(k)}(0)=0\), et par conséquent la série de Fourier converge (trivialement) vers la fonction identiquement nulle.
+
+    Cette fonction n'est donc pas développable en série entière vu qu'il n'existe aucun voisinage de zéro sur lequel la série de \( f\) coïncide avec \( f\).
+\end{example}
+
+\begin{example}     \label{ExwobBAW}
+    Développement de \( f(x)=\arctan(x)\). Nous savons que
+    \begin{equation}
+        f'(x)=\frac{1}{ 1+x^2 },
+    \end{equation}
+    alors que nous connaissons le développement
+    \begin{equation}
+        \frac{1}{ 1-x }=\sum_{n=0}^{\infty}x^n
+    \end{equation}
+    pour tout \( x\in B(0,1)\). Nous avons donc successivement
+    \begin{subequations}
+        \begin{align}
+            \frac{1}{ 1+x }&=\sum_{n=0}(-x)^n\\
+            \frac{ 1 }{ 1+x^2 }&=\sum_{n=0}(-1)^nx^{2n}\\
+            \arctan(x)&=\sum_{n=1}^{\infty}(-1)^n\frac{ x^{2n+1} }{ 2n+1 }+C.
+        \end{align}
+    \end{subequations}
+    Notons que dans la dernière nous avons évité d'écrire la somme depuis \( n=0\) (qui serait un terme constat) et nous avons écris explicitement \( «+C» \). Étant donné que \( \arctan(0)=0\), nous devons poser \( C=0\) et donc
+    \begin{equation}
+        \arctan(x)=\sum_{n=1}^{\infty}(-1)^n\frac{ x^{2n+1} }{ 2n+1 }.
+    \end{equation}
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Resommer une série}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous avons vu comment trouver la série correspondant à une fonction donnée. Un exercice difficile consiste à trouver la fonction qui correspond à une somme donnée. Pour des techniques de calculs de sommes, voir \cite{DAnSerEntiere}.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Les sommes du type \texorpdfstring{$ \sum_nP(n)x^n$}{P}}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Pour calculer 
+\begin{equation}
+    \sum_{n=0}^{\infty}P(n)x^n
+\end{equation}
+où \( P\) est un polynôme de degré \( m\) nous commençons par écrire
+\begin{equation}
+    P(n)=\alpha_0+\alpha_1(n+1)+\alpha_2(n+1)(n+2)+\ldots +\alpha_m(n+1)\ldots (n+m).
+\end{equation}
+Nous décomposons alors la somme en \( m\) sommes de la forme
+\begin{equation}
+    \sum_{n=0}^{\infty}\alpha_k\frac{ (n+k)! }{ n! }x^n=\alpha_k\left( \sum_{n=0}^{\infty}x^{n+k} \right)^{(k)}.
+\end{equation}
+Effectuons par exemple\footnote{Je crois qu'ici il y a une faute de signe dans \cite{DAnSerEntiere}.}
+\begin{equation}
+    \sum_{n=0}^{\infty}x^{n+3}=\frac{1}{ 1-x }-1-x-x^2
+\end{equation}
+Notons que dans un usage pratique, ce terme devra être ensuite dérivé trois fois, de telle manière à ce que les termes «correctifs» n'interviennent pas. Cette méthode ne demande donc que de calculer les dérivées successives de \( 1/(1-x)\).
+
+\begin{example}
+    Calculons la fonction
+    \begin{equation}
+        f(x)=\sum_{n=0}^{\infty}n^3x^n.
+    \end{equation}
+    D'abord nous écrivons
+    \begin{equation}
+        n^3=-1+7(n+1)-6(n+1)(n+2)+(n+1)(n+2)(n+3).
+    \end{equation}
+    Nous avons 
+    \begin{equation}
+        \sum_{n=0}^{\infty}(n+1)x^n=\left( \sum_{n=0}^{\infty}x^{n+1} \right)'=\left( \frac{1}{ 1-x }-1 \right)'=\frac{1}{ (x-1)^2 }.
+    \end{equation}
+    De la même façon,
+    \begin{subequations}
+        \begin{align}
+            \sum_n (n+1)(n+2)x^n&=\left( \sum x^{n+2} \right)''=\frac{ -2 }{ (x-1)^3 }\\
+            \sum_n (n+1)(n+2)(n+3)x^n=\frac{ 6 }{ (x-1)^4 }.
+        \end{align}
+    \end{subequations}
+    En remettant tout ensemble nous obtenons
+    \begin{equation}
+        \sum_{n=0}^{\infty}n^3x^n=-\frac{1}{ 1-x }+\frac{ 7 }{ (x-1)^2 }+\frac{ 12 }{ (x-1)^3 }+\frac{ 6 }{ (x-1)^4 }.
+    \end{equation}
+
+    Nous pouvons vérifier ce résultat en traçant les deux courbes et en remarquant qu'elles coïncident.
+\begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.7.1, Release Date: 2011-08-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: n=var('n')
+sage: S(x)=sum(  [ n**3*x**n for n in range(0,30)  ]   )
+sage: f(x)=-1/(1-x)+7/((x-1)**2)+12/((x-1)**3)+6/( (x-1)**4  )
+sage: S(0.1)
+0.214906264288980
+sage: f(0.1)
+0.214906264288981
+sage: f.plot(-0.5,0.5)+S.plot(-0.5,0.5)
+\end{verbatim}
+\end{example}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Les sommes du type \texorpdfstring{$ \sum_nx^n/P(n)$}{P}}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Si \( P(n)\) a des racines entières, nous pouvons le décomposer en fractions simples et utiliser la somme
+\begin{equation}
+    \sum_{n=1}^{\infty}\frac{ x^n }{ n }=-\ln(1-x).
+\end{equation}
+Nous avons par exemple
+\begin{subequations}
+    \begin{align}
+        \sum_{n=0}^{\infty}\frac{1}{ n+1 }x^n&=\frac{1}{ x }\sum_{n=0}\frac{ x^{n+1} }{ n+1 }\\
+        &=\frac{1}{ x }\sum_{n=1}^{\infty}\frac{ x^n }{ n }=-\frac{ \ln(1-x) }{ x }.
+    \end{align}
+\end{subequations}
+Notez le changement de point de départ de la somme au passage.
+
+Autre exemple :
+\begin{subequations}
+    \begin{align}
+        \sum_{n=0}^{\infty}\frac{ x^n }{ n+3 }&=\frac{1}{ x^3 }\left( \sum_{n=1}^{\infty}\frac{ x^n }{ n }-x-\frac{ x^2 }{ 2 } \right)\\
+        &=-\frac{ \ln(x-1) }{ x^3 }-\frac{1}{ x^2 }-\frac{1}{ 2x }.
+    \end{align}
+\end{subequations}
+
+Si le polynôme possède des racines non entières, les choses se compliquent. 
+
+\begin{example}
+Calculons
+\begin{equation}
+    \sum_{n=0}^{\infty}\frac{ x^n }{ 2n+1 }.
+\end{equation}
+Si \( x\geq\), en posant \( t=\sqrt{x}\) nous trouvons
+\begin{equation}
+    \sum_{n=0}^{\infty}\frac{ x^n }{ 2n+1 }=\frac{1}{ t }\sum_{n=0}^{\infty}\frac{ t^{2n+1} }{ 2n+1 }.
+\end{equation}
+Étudions
+\begin{equation}
+    H(t)=\sum_{n=0}^{\infty}\frac{ t^{2n+1} }{ 2n+1 }.
+\end{equation}
+Nous avons 
+\begin{equation}     \label{EqBuPjcM}
+    H'(t)=\sum_{n=0}^{\infty}t^{2n}=\sum_{n=0}(t^2)^n=\frac{1}{ 1-t^2 }.
+\end{equation}
+Une primitive de cette fonction est
+\begin{equation}
+    \frac{ 1 }{2}\ln\left| \frac{ t+1 }{ t-1 } \right|.
+\end{equation}
+En \( t=0\), cette fonction vaut \( 0\) qui est la bonne valeur. Donc nous avons bien
+\begin{equation}
+    H(t)=\frac{ 1 }{2}\ln\left| \frac{ t+1 }{ t-1 } \right|.
+\end{equation}
+
+Notons que ce que l'équation \eqref{EqBuPjcM} nous dit est que \( H(t)\) est une primitive de \( 1/(1-t^2)\). Il faut choisir la bonne primitive en fixant une valeur.
+
+
+
+
+
+Nous avons donc
+\begin{equation}
+    \sum_{n=0}^{\infty}\frac{ x^n }{ 2n+1 }=\frac{ 1 }{2\sqrt{x}}\ln\left| \frac{ \sqrt{x}+1 }{ \sqrt{x}-1 } \right| 
+\end{equation}
+pour \( x>0\). Nous devons encore trouver ce que cela vaut pour \( x<0\).
+
+    Nous posons successivement \( X=-x\) puis \( g(X)=f(-X)\). Ce que nous devons calculer est
+    \begin{equation}
+        g(t)=\frac{1}{ t }\sum_{n=0}^{\infty}\frac{ (-1)^nt^{2n+1} }{ 2n+1 }.
+    \end{equation}
+    Si nous posons
+    \begin{equation}
+        h(t)=\sum \frac{ (-1)^nt^{2n+1} }{ 2n+1 },
+    \end{equation}
+    alors
+    \begin{equation}
+        h'(t)=\sum (-1)^nt^{2n}=\sum (-t^2)^n=\frac{1}{ 1+t^2 },
+    \end{equation}
+    par conséquent \( h(t)=\arctan(t)\) (cela avait déjà été déduit à l'envers dans l'exemple \ref{ExwobBAW}).
+
+    Au final
+    \begin{equation}        \label{EqIHlDjG}
+        f(x)=\sum_{n=0}^{\infty}\frac{ x^n }{ 2n+1 }=\begin{cases}
+            \frac{ 1 }{2\sqrt{x}}\ln\left| \frac{ \sqrt{x}+1 }{ \sqrt{x}-1 } \right|     &   \text{si \( x>0\)}\\
+            \frac{ \arctan(\sqrt{-x}) }{ \sqrt{-x} }    &    \text{si \( x<0\)}\\
+            1   &\text{si \( x=0\)}.
+        \end{cases}
+    \end{equation}
+    Notons qu'elle est continue en zéro à gauche et à droite.
+
+\end{example}
+
+\begin{example}
+Nous considérons l'exemple suivant :
+\begin{equation}
+    f(x)=\sum_{n=0}^{\infty}\frac{ x^n }{ 3n+2 }.
+\end{equation}
+Nous posons \( t=\sqrt[3]{x}\), et nous substituons :
+\begin{equation}
+    \frac{ x^n }{ 3n+2 }=\frac{ t^{3n} }{ 3n+2 }=\frac{1}{ t^2 }\frac{ t^{3n+2} }{ 3n+2 }.
+\end{equation}
+Nous devons étudier la fonction
+\begin{equation}
+    g(t)=\sum_{n=0}^{\infty}\frac{ t^{3n+2} }{ 3n+2 }
+\end{equation}
+Nous avons
+\begin{equation}
+    g'(t)=\sum_{n=0}t^{3n+1}=t\sum_{n=0}t^{3n}=\frac{ t }{ 1-t^3 }.
+\end{equation}
+Notons que \( g(0)=0\). 
+\end{example}
+
+\begin{example}
+    Calculer le nombre
+    \begin{equation}        \label{EqgUyKYe}
+        \sum_{n=0}^{\infty}\frac{ (-1)^n }{ 2n+1 }.
+    \end{equation}
+    Nous aurions envie de dire que cela est \( f(-1)\) pour la fonction \( f\) donnée en \eqref{EqIHlDjG}. Le problème est que le rayon de convergence de \( f\) étant \( 1\), rien n'est garantit quand au fait que la fonction y soit continue en \( x=-1\). En particulier nous devons justifier le fait que
+    \begin{equation}
+        \lim_{x\to -1} \sum_n\frac{ x^n }{ 2n+1 }=\lim_{x\to -1} \frac{1}{ \sqrt{-x} }\arctan(\sqrt{-x}).
+    \end{equation}
+    Ce qui nous sauve est le critère d'Abel radial (théorème \ref{ThoLUXVjs}). En effet la série
+    \begin{equation}        \label{EqAFrXRB}
+        \sum\frac{ r^n }{ 2n+1 }
+    \end{equation}
+    étant convergente avec \( r=-1\), la série correspondante est continue sur \( \mathopen[ -1 , 0 \mathclose]\). Nous pouvons donc calculer la série \eqref{EqgUyKYe} en posant \( x=-1\) dans \eqref{EqIHlDjG} :
+    \begin{equation}       
+        \sum_{n=0}^{\infty}\frac{ (-1)^n }{ 2n+1 }=\frac{ \pi }{ 4 }.
+    \end{equation}
+
+    Note : la série \eqref{EqAFrXRB} ne converge pas avec \( r=1\). La fonction \( f\) n'est pas continue en \( x=1\).
+\end{example}
+
+\begin{example}     \label{ExGxzLlP}
+    Nous avons
+    \begin{equation}
+        \sum_{n=1}^{\infty}nx^{n-1}=\frac{1}{ (1-x)^2 }.
+    \end{equation}
+    En effet si nous désignons par \( f\) la somme à gauche, nous trouvons que \( f=g'\) avec
+    \begin{equation}
+        g(x)=\sum_{n=1}^{\infty}x^n.
+    \end{equation}
+    Nous savons par ailleurs que \( g(x)=1/(1-x)\). Par conséquent
+    \begin{equation}
+        f(x)=\left( \frac{1}{ 1-x } \right)'=\frac{1}{ (1-x)^2 }.
+    \end{equation}
+\end{example}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Sage, primitives et logarithme complexe}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\label{PgpXBuBh}
+
+Attention : Sage pourrait nous induire en erreur si nous n'y prenions pas garde. En effet ce que vous ne savez pas mais que Sage sait, c'est que
+\begin{equation}
+    \ln(-1)=i\pi.
+\end{equation}
+Par conséquent Sage se permet de donner des primitives sans valeurs absolues dans le logarithme :
+\begin{verbatim}
+sage: f(x)=1/x
+sage: f.integrate(x)
+x |--> log(x)
+\end{verbatim}
+La primitive à laquelle on s'attend d'habitude est \( \ln(| x |)\). Ici la réponse est correcte parce que si \( x\) est négatif nous avons
+\begin{equation}
+    \ln(x)=\ln\big( (-1)| x | \big)=\ln(-1)+\ln(| x |).
+\end{equation}
+Cette fonction est donc décalée de la primitive usuelle seulement de la constante \( \ln(-1)\).
+
+Un exemple plus élaboré :
+\begin{verbatim}
+sage: h(x)=1/(1-x**2)
+sage: H=h.integrate(x)
+sage: H
+x |--> -1/2*log(x - 1) + 1/2*log(x + 1)
+sage: H(0)
+-1/2*I*pi
+\end{verbatim}
+    
+
+
+
+\begin{example}
+Encore une fois il faut faire attention en demandant la primitive à Sage :
+\begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.7.1, Release Date: 2011-08-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: f(x)=x/(1-x**3)
+sage: F=f.integrate(x)
+sage: F(0)
+-1/3*I*pi - 1/3*sqrt(3)*arctan(1/3*sqrt(3))
+\end{verbatim}
+Cette fois la primitive proposée diffère de celle qu'on cherche de la constante complexe
+\begin{equation}
+    -\frac{ \pi }{ 3 }-\frac{1}{ 3 }\sqrt{3}\arctan(\frac{ \sqrt{3} }{ 3 })
+\end{equation}
+Mais il y a pire si nous voulons tracer. Nous voudrions définir la fonction \( F_2(x)=F(x)-F(0)\). Mathématiquement c'est bien de cette fonction que nous parlons, mais :
+\begin{verbatim}
+sage: F2(x)=F(x)-F(0)
+sage: F2(x)
+1/3*I*pi - 1/3*sqrt(3)*arctan(1/3*(2*x + 1)*sqrt(3)) + 
+    +1/3*sqrt(3)*arctan(1/3*sqrt(3)) - 1/3*log(x - 1) + 1/6*log(x^2 + x + 1)
+sage: F2.plot(x,-0.1,0.1)
+verbose 0 (4101: plot.py, generate_plot_points) WARNING: When plotting, failed to evaluate function at 200 points.
+verbose 0 (4101: plot.py, generate_plot_points) Last error message: 'unable to simplify to float approximation'
+\end{verbatim}
+Il refuse de tracer. Pourquoi ? La partie complexe de l'expression de \( F_2\) est mathématiquement nulle, mais elle est en deux parties :
+\begin{equation}
+    \frac{ \pi }{ 3 }+\text{la partie imaginaire de} -\frac{1}{ 3 }\ln(x-1).
+\end{equation}
+Lorsque Sage tente de tracer, il donne à \( x\) un certain nombre de valeurs et calcule une \emph{valeur approchée} de \( \ln(x-1)\). Cette dernière ne se simplifie pas avec le nombre \emph{exact} \( \pi/3\). Sage reste donc avec une partie imaginaire qu'il ne peut pas tracer.
+
+Notez la nuance :
+\begin{verbatim}
+sage: ln(-0.1)
+-2.30258509299405 + 3.14159265358979*I
+sage: ln(-1/10)
+I*pi + log(1/10)
+\end{verbatim}
+Du coup nous avons aussi
+\begin{verbatim}
+sage: F2(-0.1)
+1/3*I*pi - 1/3*sqrt(3)*arctan(0.266666666666667*sqrt(3)) 
+    + 1/3*sqrt(3)*arctan(1/3*sqrt(3)) - 0.0474885065133152 - 1.04719755119660*I
+\end{verbatim}
+
+    
+\end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Fonctions définies par une intégrale}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Supposons $A\subset\eR^m$  et $B\subset\eR^n$ compact. Nous considérons $f(x,t)\colon A\times B\to \eR$ une fonction bornée sur $A\times B$ et intégrable par rapport à $t$ pour tout $x\in A$. Soit $F\colon A\to \eR$ définie par
+\begin{equation}
+	F(x)=\int_Bf(x,t)dt.
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+					\subsection{Continuité}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}		\label{ThoInDerrtCvUnifFContinue}
+    Nous considérons \( F(x)=\int_a^{\infty}f(x,t)dt\). Si \( f\) est continue sur $[\alpha,\beta]\times[a,\alpha[$ et l'intégrale converge uniformément, alors $F(x)$ est continue.
+\end{theorem}
+
+%---------------------------------------------------------------------------------------------------------------------------
+					\subsection{Critères de convergence uniforme}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Affin de tester l'uniforme convergence d'une intégrale, nous avons le \defe{critère de Weierstrass}{Critère!Weierstrass}:
+\begin{theorem}		\label{ThoCritWeiIntUnifCv}
+Soit $f(x,t)\colon [\alpha,\beta]\times[a,\infty[ \to \eR$, une fonction dont la restriction à toute demi-droite $x=cst$ est mesurable. Si $| f(x,t) |< \varphi(t)$ et $\int_a^{\infty}\varphi(t)dt$ existe, alors l'intégrale
+\begin{equation}
+	\int_0^{\infty}f(x,t)dt
+\end{equation}
+est uniformément convergente.
+\end{theorem}
+
+Le théorème suivant est le \defe{critère d'Abel}{Critère!Abel pour intégrales} :
+\begin{theorem}		\label{ThoAbelIntUnif}
+	Supposons que $f(x,t)=\varphi(x,t)\psi(x,t)$ où $\varphi$ et $\psi$ sont bornée et intégrables en $t$ au sens de Riemann sur tout compact $[a,b]$, $b\geq a$. Supposons que :
+	\begin{enumerate}
+		\item $| \int_a^{T}\varphi(x,t)dt |\leq M$ où $M$ est indépendant de $T$ et de $x$,
+		\item $\psi(x,t)\geq 0$,
+		\item pour tout $x\in[\alpha,\beta]$, $\psi(x,t)$ est une fonction décroissante de $t$,
+		\item les fonctions $x\mapsto \psi(x,t)$ convergent uniformément vers $0$ lorsque $t\to\infty$.
+	\end{enumerate}
+	Alors l'intégrale
+	\begin{equation}
+		\int_a^{\infty}f(x,t)dt
+	\end{equation}
+	est uniformément convergente.
+\end{theorem}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Dérivation sous l'intégrale}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Une question classique est la dérivation par rapport à \( x\) d'une fonction du type
+\begin{equation}
+    F(x)=\int f(x,t)dt.
+\end{equation}
+
+\begin{theorem}
+		Supposons $f$ continue et sa dérivée partielle $\frac{ \partial f }{ \partial x }$ continue sur $[\alpha,\beta]\times[a,\alpha[$. Supposons que $F(x)=\int_a^{\infty}f(x,t)dt$ converge et que $\int_a^{\infty}\frac{ \partial f }{ \partial x }dt$ converge uniformément. Alors $F$ est $C^1$ sur $[\alpha,\beta]$ et 
+		\begin{equation}
+			\frac{ dF }{ dx }=\int_a^{\infty}\frac{ \partial f }{ \partial x }dt.
+		\end{equation}
+\end{theorem}
+
+\begin{proposition}		\label{PropDerrSSIntegraleDSD}
+Supposons $A\subset\eR^m$ ouvert et $B\subset\eR^n$ compact. Si pour un $i\in\{ i,\ldots,n \}$, la dérivée partielle $\frac{ \partial f }{ \partial x_i }$ existe dans $A\times B$ et est continue, alors $\frac{ \partial F }{ \partial x_i }$ existe dans $A$, est continue et
+\begin{equation}
+	\frac{ \partial F }{ \partial x_i }=\int_B\frac{ \partial f }{ \partial x_i }(x,t)dt,
+\end{equation}
+l'égalité signifie que l'on peut \og dériver sous le signe intégral\fg.
+\end{proposition}
+
+Il existe divers théorèmes qui répondent à ces questions. Dans notre cadre nous utiliserons le suivant.
+\begin{theorem}     \label{ThoDerSousIntegrale}
+    Soit \( A\) un ouvert de \( \eR\) et \( \Omega\), un espace mesuré. Soit une fonction \( f\colon A\times \Omega\to \eR\) qui satisfait
+    \begin{enumerate}
+        \item
+            La fonction \( f\) est mesurable en tant que fonction \( A\times\Omega\to \eR\). Pour chaque \( x\in A\), la fonction \( f(x,\cdot)\) est intégrable sur \( \Omega\).
+        \item
+            Pour presque tout \( \omega\in\Omega\), la fonction \( f(x,\omega)\) est une fonction absolument continue de \( x\).
+        \item
+            La fonction \( \frac{ \partial f }{ \partial x }\) est localement intégrable, c'est à dire que pour tout \( \mathopen[ a , b \mathclose]\subset A\),
+            \begin{equation}
+                \int_a^b\int_{\Omega}\left| \frac{ \partial f }{ \partial x }(x,\omega) \right| d\omega\,dx<\infty.
+            \end{equation}
+    \end{enumerate}
+    Alors la fonction de \( x\)
+    \begin{equation}
+        F(x)=\int_{\Omega}f(x,\omega)d\omega
+    \end{equation}
+    est absolument continue et pour presque tout \( x\in A\), la dérivée est donné par
+    \begin{equation}
+        \frac{ d }{ dx }\int_{\Omega}f(x,\omega)d\omega=\int_{\Omega}\frac{ \partial f }{ \partial x }(x,\omega)d\omega.
+    \end{equation}
+\end{theorem}
+
+\begin{proposition}		\label{PropDerrFnAvecBornesFonctions}
+Soit $f(x,t)$ une fonction continue sur $[\alpha,\beta]\times[a,b]$, telle que $\frac{ \partial f }{ \partial x }$ existe et soit continue sur $]\alpha,\beta[\times[a,b]$. Soient $\varphi(x)$ et $\psi(x)$, des fonctions continues de $[\alpha,\beta]$ dans $\eR$ et admettant une dérivée continue sur $]\alpha,\beta [$. Alors la fonction
+\begin{equation}
+	F(x)=\int_{\varphi(x)}^{\psi(x)}f(x,t)dt
+\end{equation}
+admet une dérivée continue sur $]\alpha,\beta[$ et
+\begin{equation}	\label{EqFormDerrFnAvecBorneNInt}
+	\frac{ dF }{ dx }=\int_{\varphi(x)}^{\psi(x)}\frac{ \partial f }{ \partial x }(x,t)dt+f\big( x,\psi(x) \big)\cdot\frac{ d\psi }{ dx }- f\big( x,\varphi(x) \big)\cdot\frac{ d\varphi }{ dx }.
+\end{equation}
+\end{proposition}
+
+\begin{proposition}[Innégalité de Hölder]
+    Soit \( \Omega\) un espace mesuré et \( 1\leq p\), \( q\leq\infty\) satisfaisant \( \frac{1}{ p }+\frac{1}{ q }=1\). Soient \( f\in L^p(\Omega)\), \( g\in L^q(\Omega)\). Alors le produit \( fg\) est dans \( L^1(\Omega)\) et nous avons
+    \begin{equation}
+        \| fg \|_1\leq \| f \|_p\| g \|_q.
+    \end{equation}
+\end{proposition}
+
+\begin{remark}      \label{RemNormuptNird}
+    Dans le cas d'un espace de probabilité, la fonction constante \( g=1\) appartient à \( L^p(\Omega)\). En prenant \( p=q=2\) nous obtenons
+    \begin{equation}
+        \| f \|_1\leq\| f \|_2.
+    \end{equation}
+\end{remark}
+
