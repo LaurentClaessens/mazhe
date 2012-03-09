@@ -15,4 +15,4 @@ myRequest.prerequiste_list.append(Prerequiste)
 myRequest.original_filename="to_be_checked.tex"
 
 myRequest.ok_filenames_list=[]
-#myRequest.ok_filenames_list.append("<++>")
+#myRequest.ok_filenames_list.append("geometrie")
