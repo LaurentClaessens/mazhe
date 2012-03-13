@@ -31,6 +31,12 @@ permettent ensuite de simuler à partir de la loi uniforme, un grand nombre de
 lois, plus ou moins quelconques. Dans la pratique, on met en {\oe}uvre des
 algorithmes rapides de génération de suites pseudo-aléatoires.
 
+\ML{} permet de simuler une loi uniforme (resp. normale) via la fonction
+\texttt{rand} (resp. \texttt{randn}). La bibliothèque \SB{} fournit de
+nombreuses autres simulations de lois discrètes et continues qui en sont
+dérivées~: faites \texttt{help stixbox} ou reportez vous à la table
+\ref{ta:stixbox-rand}, page \pageref{ta:stixbox-rand}, qui donne la liste des
+générateurs aléatoires de la bibliothèque \SB{}.
 
 %
 \section{Complexité de Kolmogorov et entropie de Shannon}
@@ -190,12 +196,13 @@ dans $\dZ_m$. On rappelle que d'après le (petit) théorème de Fermat-Euler,
 l'ordre de $a$ divise l'indicateur d'Euler de $a$ (qui vaut $m-1$ quand $m$
 est premier).
 
-Dans certaines bibliothèques de calcul
+\ML{} 4 utilise un algorithme de ce type pour implémenter la fonction
+\texttt{rand} mais les versions plus récentes de \ML{} utilisent un algorithme
+différent et plus performant. Dans certaines bibliothèques de calcul
 scientifique, on utilise $(a,m)=(13^{13},2^{59})$ ou encore
-$(a,m)=(7^5,2^{31}-1)$, cf. \cite[page 74]{bouleau}.  L'algorithme utilisé par Octave 2.1 pour \texttt{rand} est le «Mersenne Twister», cf.
-\url{http://www.math.keio.ac.jp/~matumoto/emt.html}.
-
-On pourra également
+$(a,m)=(7^5,2^{31}-1)$, cf. \cite[page 74]{bouleau}.  L'algorithme utilisé par
+\OC{} 2.1 pour \texttt{rand} est le «Mersenne Twister», cf.
+\url{http://www.math.keio.ac.jp/~matumoto/emt.html}.  On pourra également
 consulter \cite{knuth-taocp-2-3} à propos de la génération aléatoire en
 général. Le théorème suivant nous assure la possibilité, théorique, de simuler
 n'importe quelle loi de probabilité sur $\dR^d$ à partir de la loi uniforme~:
@@ -221,7 +228,7 @@ une loi uniforme sur $[0,1]$. Le théorème précédent affirme alors l'existenc
 d'une fonction $f_\mu$ telle que $f_\mu(U_1(\om)),\ldots,f(U_n(\om))$ soient les
 réalisations de $n$ v.a. i.i.d. de loi $\mu$.
 
-\begin{remark}
+\begin{rem}
   Remarquons que d'après la loi des grands nombres, si
   $$(X_n:(\Om,\cA,\dP)\to\dR^d,n\in\dN^*)$$
   est une suite de v.a. i.i.d. de loi
@@ -241,7 +248,7 @@ réalisations de $n$ v.a. i.i.d. de loi $\mu$.
   l'un des objectifs principaux de la statistique est de se servir de ces
   suites finies de ce type pour approximer ou estimer la loi $\mu$ de certains
   phénomènes, à laquelle on n'a pas directement accès.
-\end{remark}
+\end{rem}
 
 %
 \section{Simulation de lois par leur fonction de répartition}
@@ -254,9 +261,9 @@ G(p):=\inf\{x:F(x)\geq p\},
 $$
 alors, pour toute v.a. uniforme $U$ sur $[0,1]$, la v.a. $G(U)$ est de loi
 $\mu$. Par exemple, pour la loi de Cauchy, de densité $(\pi(1+x^2))^{-1}$ sur
-$\dR$, on a $F(x)=\arctan(x)/\pi+1/2$ et $G(p)=\tan(\pi(p-1/2))$. 
-
-Les fonctions de répartitions inverses pour quelques lois usuelles, cf. tableau \ref{ta:stixbox-rand} page
+$\dR$, on a $F(x)=\arctan(x)/\pi+1/2$ et $G(p)=\tan(\pi(p-1/2))$. La
+bibliothèque \SB{} pour \ML{} fournit les fonctions de répartitions inverses
+pour quelques lois usuelles, cf. tableau \ref{ta:stixbox-rand} page
 \pageref{ta:stixbox-rand}.
 
 \begin{thm}[Simulation de la loi exponentielle]\label{th:simexp}
@@ -266,8 +273,19 @@ Les fonctions de répartitions inverses pour quelques lois usuelles, cf. tableau
 \end{thm}
 Cette méthode s'applique bien entendu aux lois de Weibull (cf. section
 \ref{ss:loi:weibull} page \pageref{ss:loi:weibull}), dont les lois
-exponentielles ne constituent qu'un cas très particulier. 
-
+exponentielles ne constituent qu'un cas très particulier. Voici un exemple
+d'illustration en \ML{} dont la sortie graphique est donnée par la figure
+\ref{fi:simexp}~:
+%
+\MFILE{simexp}
+%
+\FIG{simexp}{1}{htbp}{Simulation de la loi exponentielle de paramètre $1/2$ au
+  moyen de sa fonction de répartition.}
+%
+La biliothèque \SB{} fournit la fonction \texttt{rexpweib} qui permet
+d'obtenir des réalisations de loi de Weibull et donc en particulier de loi
+exponentielle. Faites \texttt{help rexpweib}.
+ 
 
 %
 \section{Simulation de lois par la méthode du rejet}
@@ -317,7 +335,11 @@ $p_1,\ldots,p_n$, il vient~:
   $$
   suit la loi $P$.
 \end{thm}
-
+Le code \ML{} suivant fournit la fonction \texttt{rdist} qui
+implémente le résultat du théorème \ref{th:simdiscr}~:
+%
+\MFILE{rdist}
+%
 \begin{exo}
   Montrez que cette méthode s'étend sans difficultés aux lois discrètes à
   support dénombrable. Donnez un petit programme d'illustration.
@@ -410,6 +432,7 @@ presque-sûrement une injection, et donc une bijection p.s.
   En déduire une méthode pour générer d'un seul coup $k$ réalisations
   indépendantes de loi uniforme sur $\{1,\ldots,n\}$ à partir d'une
   réalisation de précision $k$ en base $n$ d'une loi uniforme sur $[0,1]$.
+  Implémenter ce résultat en écrivant une fonction \ML.
 \end{exo}
 
 Que se passe-t-il pour $U$ si l'on suppose que les $X_i$ ne suivent plus une
@@ -451,8 +474,12 @@ d'abord $X_0$ puis $\cL(X_n\,|\,X_0)$, toujours avec le théorème
 
 Lorsque la chaîne de Markov est à espace d'états fini, $K$ peut être identifié
 à une matrice de transition $P$ et on a $K_n=P^n$. Il suffit donc de calculer
-la puissance de la matrice de transition $P$ oour pouvoir appliquer
-ensuite le théorème \ref{th:simdiscr}. 
+la puissance de la matrice de transition $P$ sous \ML{} pour pouvoir appliquer
+ensuite le théorème \ref{th:simdiscr}. Voici un code \ML{} illustrant la
+méthode décrite pour une matrice de transition $3× 3$. Il fait appel à la
+fonction \ML{} \texttt{rdist} donnée page \pageref{co:rdist}.
+%
+\MFILE{simchma}
 
 \subsection{Simulation du processus de Poisson simple}
 
@@ -500,7 +527,18 @@ données réelles.
 
 Pour simuler une trajectoire du processus $\PAR{N_t,t\in\dR+}$, il suffit de
 simuler des lois exponentielles (par exemple avec le théorème \ref{th:simexp})
-et de «sauter» en conséquence. 
+et de «sauter» en conséquence. Voici un exemple de code \ML{} faisant appel au
+générateur exponentiel \texttt{rexpweib} de la bibliothèque \SB{}, dont la
+sortie graphique est donnée par la figure \ref{fi:simpp0}
+%
+\MFILE{simps-short}
+%
+\FIG{simpp0}{1}{htbp}
+    {Simulation d'une trajectoire d'un processus de Poisson simple.}
+%
+\FIG{simpp1}{1}{htbp}
+    {Simulation d'une trajectoire renormalisée d'un processus de Poisson simple.}
+%
 \begin{exo}
   Assurez-vous de bien avoir compris le code précédent.  En simulant plusieurs
   fois ce genre de trajectoire, retrouver empiriquement que la v.a. $N_t$ suit
@@ -508,7 +546,7 @@ et de «sauter» en conséquence.
   loi exponentielle des sauts.
 \end{exo}
 
-\begin{remark}[Assurances et réservoir percé]
+\begin{rem}[Assurances et réservoir percé]
 La valeur $X_t$ du compte en banque à l'instant $t$ d'un assureur communiste peut être 
 modélisée par un processus de Poisson avec dérive :
 $$
@@ -527,7 +565,7 @@ en bourse, pour mieux servir ses adhérents.  On peut aussi voir $-X_t$ comme
 la quantité d'eau dans un réservoir à ciel ouvert percé d'un petit trou :
 $N_t$ représente l'eau apportée par les averses, supposées brèves, et $-\alpha t$
 l'eau qui s'écoule continûement par le petit trou.
-\end{remark}
+\end{rem}
 
 %
 \section{Simulation des lois gaussiennes}
@@ -563,6 +601,13 @@ graphique est donnée par la figure \ref{fi:simnorm}~:
 %
 \FIG{simnorm}{1}{htbp}{Simulation de la loi normale par méthode «polaire»}
 %
+Il est préférable d'utiliser la fonction \ML{} \texttt{randn} (ou bien la
+fonction \SB{} \texttt{rnorm}) qui est déjà toute programmée et qui fait appel
+à une méthode plus efficace. Cette méthode de simulation polaire est coûteuse
+en temps de calcul car elle nécessite l'évaluation des fonctions $\log$,
+$\sqrt{\ }$ et $\cos$. On peut se passer du $\cos$ en faisant appel à la
+méthode du rejet, comme décrit ci-après.
+
 \subsection{Méthode polaire - rejet}
 
 Si $(X,Y)=(\rho\cos(\theta),\rho\sin(\theta))$ suit la loi uniforme sur le
@@ -589,8 +634,9 @@ $$
 =
 \int_0^{+\infty} \!\!\!f(u)\,\frac{1}{2}\,e^{-u/2}\,du.
 $$
-
-Cette méthode demeure cependant assez lente, en raison à la fois des 21\% de rejet et de
+Cette méthode, que l'on peut qualifier de «polaire - rejet», est celle
+utilisée dans \ML{} 4 pour implémenter la fonction \texttt{randn}.
+Elle demeure cependant assez lente, en raison à la fois des 21\% de rejet et de
 l'évaluation des fonctions $\log$ et $\sqrt{\ }$.
 
 \subsection{Méthode de Marsaglia (algorithme du Ziggurat)}
@@ -849,7 +895,7 @@ régularité non constante en temps ou en espace, qualifiés de
 «multifractionnaires», font l'objet de recherches dans le monde des
 probabilités.
 
-\begin{remark}
+\begin{rem}
   Le mouvement brownien pouvant être vu comme une somme infinie de petits
   accroissements gaussiens indépendants, il est naturel de s'attendre à une
   sorte de «loi des grands nombres». Cette intuition est juste, et l'on montre
@@ -857,9 +903,9 @@ probabilités.
   \begin{equation}
     \frac{B_t}{t} \limPS{t} 0.\label{eq:LGN-brown}
   \end{equation}
-\end{remark}
+\end{rem}
 
-\begin{remark}
+\begin{rem}
   Insistons sur le fait que chaque «trajectoire simulée» obtenue par ces
   procédés correspond plutôt à une réalisation
   $(X_{t_1}(\om),\ldots,X_{t_n}(\om))$, pour un $\om$ donné, de la loi
@@ -872,7 +918,7 @@ probabilités.
   fini-dimentionnelles de la variable aléatoire à valeurs fonctionnelles
   $(\om\in\Om\mapsto\PAR{t\in\dR_+\mapsto X_t(\om)})$. Elle sont à percevoir
   comme des discrétisations de trajectoires probables du processus.
-\end{remark}
+\end{rem}
 
 %
 \section{Simulation de la loi uniforme sur les p-sphères}
@@ -1190,7 +1236,7 @@ Kolmog.-Smir. &               &\texttt{pks}&  & &\\\hline
 \caption{Générateurs aléatoires de la bibliothèque \SB.}\label{ta:stixbox-rand}
 \end{table}
 
-\begin{remark}[Terminologie anglaise]
+\begin{rem}[Terminologie anglaise]
 En anglais, la densité est souvent appelée
 «probability density function» (pdf),
 et la fonction de répartition «distribution function»
@@ -1205,7 +1251,7 @@ inverses par \texttt{q} comme «quantile»,
 les fonctions de répartitions par \texttt{p} comme
 «probability» et enfin les générateurs aléatoires via la méthode
 de rejet par \texttt{rj} comme «reject».
-\end{remark}
+\end{rem}
 
 %% Local Variables: 
 %% x-symbol-8bits: t
@@ -1263,15 +1309,15 @@ finie p.s. et donc $\PAR{S_n}^4$ converge p.s. vers $0$ en tant que terme
 général d'une série convergente, d'où la convergence p.s. vers $0$ de $S_n$,
 CQFD.
 
-\begin{remark}
+\begin{rem}
   On parle souvent de «loi faible des grands nombres» lorsque seule la
   convergence en probabilité est énoncée. Pour les lois discrètes, cette
   version faible est ancienne et remonte sans doute aux travaux de Markov.
   D'autre part, le fait qu'il y ait convergence $\bL^1$ dans la LGN est
   souvent désigné sous le nom de «loi des grands nombres de Kolmogorov».
-\end{remark}
+\end{rem}
 
-\begin{remark}
+\begin{rem}
   Les hypothèses faites sur la suite des v.a. dans la LGN peuvent être
   considérablement affaiblies, au détriment de la preuve qui est alors plus
   difficile (par exemple le théorème d'Etemadi qui ne requière que
@@ -1284,7 +1330,7 @@ CQFD.
   généralement dans le chapitre \ref{ch:markmart} page \pageref{ch:markmart}
   que des théorèmes du type LGN et TCL existent pour des suites de variables
   aléatoires «dépendantes».
-\end{remark}
+\end{rem}
 
 %
 \subsection{Mesure empirique}
@@ -1769,7 +1815,7 @@ dont la sortie graphique est donnée par la figure \ref{fi:llid}~:
 \FIG{llid}{1}{htbp}{Illustration de la loi du log. itéré de Strassen (distance
   à $[-\si,+\si]$).}
 %
-\begin{remark}[Sens des simulations]
+\begin{rem}[Sens des simulations]
   Le code précédent pose le problème de ce qu'apporte une simulation numérique
   d'un point de vue rationnel. Contraîrement au calcul formel, une simulation
   numérique ne prouve rien. C'est plutôt la théorie qui permet de justifier
@@ -1788,7 +1834,7 @@ dont la sortie graphique est donnée par la figure \ref{fi:llid}~:
   de nombreux mathématiciens, comme Kronecker par exemple. Les choses ont un
   peu changé depuis, comme vous l'avez constaté au cours de votre cursus
   mathématique !
-\end{remark}
+\end{rem}
 
 
 %
@@ -1964,9 +2010,13 @@ théorème, dont la sortie graphique est donnée par la figure \ref{fi:wigner}~:
 
 %% Local Variables: 
 %% x-symbol-coding: iso-8859-1
-%% x-se Lebesgue $dx$ sur $\dR$~:
+%% x-symbol-8bits: t
+%% mode: latex
+%% TeX-master: "agregation"
+%% End: 
 %
-\chapter{Intervalles de confiance et tests statistiques}
+%
+\chapter{Intervalles de confiance \& tests statistiques}
 \label{ch:ic+tests}
 %
 %
@@ -1975,7 +2025,7 @@ théorème, dont la sortie graphique est donnée par la figure \ref{fi:wigner}~:
 %Parler de vraissemblance
 %DCD autour des pages 45 et 50
 %DCD section 4.4, pages 101 et suivantes. 
-% «Ãchantillon d'une loi et estimation de cette loi»
+% «Échantillon d'une loi et estimation de cette loi»
 
 La statistique paramétrique consiste à considérer qu'un phénomène aléatoire
 obéit à une loi de probabilité qui appartient à une famille de loi indexée par
@@ -2000,7 +2050,7 @@ famille de lois de probabilité $\{\dP_\te,\te\in\Te\}$ sur l'espace mesurable
 $(\cE,\dA)$ indexée par un ouvert $\Te$ de $\dR^k$. L'exemple le plus
 classique est donné par $\cE=\dR$ et
 $$
-(\dP_\te)_{\te\in\Te}:=\BRA{\cN(m,\si^2),\,(m,\si^2}\in \eR\times \eR^2}.
+(\dP_\te)_{\te\in\Te}:=\BRA{\cN(m,\si^2),\,(m,\si^2)\in\dR×\dR^+}.
 $$
 En voici un autre, encore plus simple : $\cE=\{0,1\}$ et
 $$
@@ -2011,7 +2061,7 @@ paramètres d'une loi de probabilités, sensée représenter une \emph{informati
   a priori} sur la valeur du paramètre.
 
 Idéalement, on dispose de données $x_1,\ldots,x_n$, qui constituent un
-\emph{échantillon}, et que l'on suppose Ãªtre des \emph{réalisations}
+\emph{échantillon}, et que l'on suppose être des \emph{réalisations}
 $X_1(\om),\ldots,X_n(\om)$ de v.a. i.i.d. $X_1,\ldots,X_n$ de \emph{loi inconnue}
 $\dP_{\te_0}$ qui appartient à la famille $\{\dP_\te,\te\in\Te\}$. On parle
 parfois d'\emph{observations} pour désigner les données. Chaque $\om\in\Om$
@@ -2065,7 +2115,7 @@ donne :
 $$
 \dP(\ABS{Y_n-m} \geq a) \leq \frac{\si^2}{na^2},
 $$
-oÃ¹ $\si^2$ désigne la variance de la loi des $X_i$. Cette inégalité n'est
+où $\si^2$ désigne la variance de la loi des $X_i$. Cette inégalité n'est
 rien d'autre que la loi faible des grands nombres, qui indique que $Y_n$
 converge vers $m$ en probabilité. Les principes de grandes déviations
 introduits dans la section \ref{se:pgd} page \pageref{se:pgd} indiquent que la
@@ -2073,19 +2123,19 @@ probabilité que $\ABS{Y_n-m}$ dépasse le seuil $a>0$ décroit exponentiellemen
 vite. Dans la pratique, $\si^2$ est inconnu et l'on est parfois amené à le
 remplacer par la variance empirique.
 
-De faÃ§on plus générale, lorsque le paramètre à estimer n'est pas la moyenne,
+De façon plus générale, lorsque le paramètre à estimer n'est pas la moyenne,
 on est parfois amené à utiliser des théorèmes de convergence en loi pour
 l'estimateur $Y_n$ et des résultats de rapidité de convergence en loi pour
 déterminer une valeur acceptable de $n$ pour laquelle la loi de l'estimateur
 est identifiée à la loi limite du théorème de convergence en loi.
 
-\subsection{L'exemple des sondages binaires : une approche naÃ¯ve}
+\subsection{L'exemple des sondages binaires : une approche naïve}
 
 On modélise l'intention de vote des électeurs à un référendum par $0$ pour
 \emph{non} et $1$ pour \emph{oui}. On cherche à estimer la probabilité
 $p\in[0,1]$ qu'un électeur vote \emph{oui}. Pour ce faire, on interroge $n$
 personnes choisies au hasard, dont les réponses $x_1,\ldots,x_n$ sont
-considérées comme des réalisations de v.a. $X_1,\ldots,X_n$ i.i.d. de mÃªme loi
+considérées comme des réalisations de v.a. $X_1,\ldots,X_n$ i.i.d. de même loi
 de Bernoulli $(1-p)\de_0+p\de_1$. On propose donc le modèle paramétrique
 $\cE=\{0,1\}$, $P_\te=(1-\te)\de_0+\te\de_1$ avec $\te\in\Te=[0,1]$. On désire
 donc estimer la moyenne $p$ des $X_i$. Pour ce faire, on utilise l'estimateur
@@ -2104,7 +2154,7 @@ $1/4$, on a
 $$
 \dP(\ABS{Y_n-p} \geq a) \leq \frac{1}{4na^2},
 $$
-et de faÃ§on équivalente
+et de façon équivalente
 $$
 \dP([Y_n-a,Y_n+a] \text{ contient } p) > 1-\frac{1}{4na^2}.
 $$
@@ -2134,7 +2184,7 @@ approximée par la loi $\cN(0,1)$. On écrit alors pour tout $a>0$ :
   &\geq \dP\PAR{\ABS{Z_n} \leq a\,\sqrt{4n}} \\
   &\simeq \Phi(a\sqrt{4n})-\Phi(-a\sqrt{4n}) = 2\,\Phi(a\sqrt{4n})-1,
 \end{align*}
-oÃ¹ $\Phi$ est la fonction de répartition de la loi gaussienne standard
+où $\Phi$ est la fonction de répartition de la loi gaussienne standard
 $\cN(0,1)$. Ainsi, on obtient l'intervalle de confiance
 $$
 \SBRA{Y_n-(4n)^{-1/2}\,\Phi^{-1}((1+\al)/2)\;,\;Y_n+(4n)^{-1/2}\,\Phi^{-1}((1+\al)/2)}
@@ -2156,14 +2206,14 @@ borne obtenue par l'inégalité de Chebychev est toujours valide.
   moyenne empirique.}
 %
 
-\begin{remark}
+\begin{rem}
   En France, les instituts de sondages font souvent appel à des techniques de
   «fourchettes», qui permettent de construire un échantillon «représentatif»
   de la population par quotas en fonction de critères sociaux-culturels par
   exemple.  Cette approche, sensée améliorer les intervalles de confiance, est
-  discutable dans la mesure oÃ¹ elle fait intervenir une information a priori
+  discutable dans la mesure où elle fait intervenir une information a priori
   dont on mesure mal l'impact.
-\end{remark}
+\end{rem}
 
 %
 \section{Divers procédés d'obtention d'intervalles de confiances}
@@ -2177,7 +2227,7 @@ $$
 \widehat{\si_n}^2:=\frac{1}{n-1}\,\sum_{i=1}^n (X_i-\bar{X}_n)^2.
 $$
 %FIXME: expliquer pourquoi on divise par n-1.
-Ces deux valeurs $\bar{X}_n$ et $\widehat{\si_n}$ peuvent Ãªtre obtenues avec
+Ces deux valeurs $\bar{X}_n$ et $\widehat{\si_n}$ peuvent être obtenues avec
 les fonctions \texttt{mean} et \texttt{std} de \ML.
 
 %
@@ -2195,7 +2245,7 @@ I_\al=\SBRA{\bar{X}_n-\frac{\si \, q_{(1-\al/2)}}{\sqrt{n}},
   \bar{X}_n+\frac{\si \, q_{(1-\al/2)}}{\sqrt{n}}} \;,\;
 \text{\quad pour un niveau de confiance voisin de $1-\alpha$},  
 $$
-oÃ¹ $q_a$ représente le \emph{quantile} d'ordre $a$ pour la loi $\cN(0,1)$.
+où $q_a$ représente le \emph{quantile} d'ordre $a$ pour la loi $\cN(0,1)$.
 En pratique, on utilise ce résultat dès que $n \geq 30$, ce qui est justifié
 par des résultat de rapidité de convergence que nous ne donnons pas ici.
 
@@ -2205,7 +2255,7 @@ Si la loi $\mu$ de l'échantillon est gaussienne, alors on a
 $$
 \cL\PAR{\sqrt{n}\,\frac{\bar{X}_n-m}{\si}} = \cN(0,1),
 $$
-et l'intervalle de confiance est le mÃªme que précédemment, sans limitations
+et l'intervalle de confiance est le même que précédemment, sans limitations
 sur la valeur de $n$.
 
 
@@ -2221,26 +2271,26 @@ I_\al=\SBRA{\bar{X}_n-\frac{\widehat{\si}_n\,q_{(1-\al/2)}}{\sqrt{n}},
   \bar{X}_n+\frac{\widehat{\si}_n\,q_{(1-\al/2)}}{\sqrt{n}}},
 \text{\quad pour un niveau de confiance voisin de $1-\alpha$},
 $$
-oÃ¹ $q_a$ représente le quantile d'ordre $a$ pour la loi $\cN(0,1)$.
+où $q_a$ représente le quantile d'ordre $a$ pour la loi $\cN(0,1)$.
 Remarquons que ce résultat est vrai avec tout autre estimation convergente
 de $\si$. On l'utilise en pratique dès que $n \geq 30$.
 
 \subsubsection{Loi de Student} 
 
 Si l'on suppose que la loi $\mu$ de l'échantillon est gaussienne, le résultat
-précédent reste vrai mais peut Ãªtre amélioré pour les petites valeurs de $n$
+précédent reste vrai mais peut être amélioré pour les petites valeurs de $n$
 en utilisant le fait que pour tout $n\geq 2$, on a :
 $$
 \cL\PAR{\sqrt{n}\,\frac{\bar{X}_n-m}{\widehat{\si_n}}} = t(n-1),
 $$
-oÃ¹ $t$ est la loi de Student à $(n-1)$ degrés de liberté. Ceci donne
+où $t$ est la loi de Student à $(n-1)$ degrés de liberté. Ceci donne
 l'intervalle de confiance suivant pour un niveau de confiance voisin de
 $1-\alpha$ :
 $$
 I_\al=\SBRA{\bar{X}_n-\frac{\widehat{\si_n}\,t_{(1-\al/2)}(n-1)}{\sqrt{n}},
   \bar{X}_n+\frac{\widehat{\si_n}\,t_{(1-\al/2)}(n-1)}{\sqrt{n}}},
 $$
-oÃ¹ $t_a(n)$ représente le quantile d'ordre $a$ pour la loi $t(n)$.
+où $t_a(n)$ représente le quantile d'ordre $a$ pour la loi $t(n)$.
 
 \subsubsection{Loi binomiale} 
 
@@ -2269,7 +2319,7 @@ $$
 I_\al=\SBRA{\frac{1}{c_{(1-\al/2)}(n)}\sum_{i=1}^n (X_i-m)^2\;,\;
   \frac{1}{c_{\al/2}(n)}\sum_{i=1}^n (X_i-m)^2},
 $$
-oÃ¹ $c_a(n)$ représente le quantile d'ordre $a$ pour la loi $\chi^2(n)$.
+où $c_a(n)$ représente le quantile d'ordre $a$ pour la loi $\chi^2(n)$.
 
 \subsubsection{Moyenne inconnue} 
 
@@ -2284,13 +2334,13 @@ I_\al=\SBRA{\frac{(n-1)}{c_{(1-\al/2)}(n)}\widehat{\si_n}^2\;,\;
   \frac{(n-1)}{c_{\al/2}(n)}\widehat{\si_n}^2},
 \text{\quad pour le niveau de confiance $1-\alpha$},
 $$
-oÃ¹ $c_a(n)$ représente le quantile d'ordre $a$ de la loi $\chi^2(n)$.
+où $c_a(n)$ représente le quantile d'ordre $a$ de la loi $\chi^2(n)$.
 
 \subsection{Intervalles sur la différence de deux moyennes}
 
 On suppose que $(X_1,\ldots,X_n)$ et $(Y_1,\ldots,Y_m)$ sont deux échantillons
-indépendants de \emph{loi gaussienne de mÃªme variance mais pas forcément de
-  mÃªme moyenne}. On note $d:=m_X-m_Y$ la différence entre les moyennes de $X$
+indépendants de \emph{loi gaussienne de même variance mais pas forcément de
+  même moyenne}. On note $d:=m_X-m_Y$ la différence entre les moyennes de $X$
 et de $Y$, alors pour tout $n \geq 2$ et $m \geq 2$ on a :
 $$ 
 \cL\PAR{
@@ -2299,7 +2349,7 @@ $$
 {\sqrt{(n-1)\widehat{\si_n(X)}^2+(m-1)\widehat{\si_n(Y)}^2}}}
 =t(n+m-2),
 $$
-oÃ¹ $t(n+m-2)$ est la loi de Student à $n+m-2$ degrés de liberté. On en
+où $t(n+m-2)$ est la loi de Student à $n+m-2$ degrés de liberté. On en
 déduit l'intervalle de confiance $I=[a_\al,b_\al]$ pour $d$ avec :
 $$
 a_\al:=(\bar{X}_n-\bar{Y}_m)-t_{(1-\al/2)}(n+m-2)\,
@@ -2312,7 +2362,7 @@ b_\al:=(\bar{X}_n -\bar{Y}_m)+t_{(1-\al/2)}(n+m-2)\,
        \sqrt{\frac{(n+m)((n-1)\widehat{\si_n(X)}^2
                    +(m-1)\widehat{\si_n(Y)}^2)}{nm(n+m-2)}},
 $$
-et oÃ¹ $t_a(n)$ représente le le quantile d'ordre $a$ de la loi $t(n)$.
+et où $t_a(n)$ représente le le quantile d'ordre $a$ de la loi $t(n)$.
 
 
 %
@@ -2325,7 +2375,7 @@ réalisations i.i.d. de loi uniforme. Si $(X_n)_{n\geq 1}$ est une suite de
 v.a. i.i.d. de loi uniforme sur $[0,1]^m$ et si $f:[0,1]^m\to\dR$ est une
 fonction mesurable, alors la loi des grands nombre (cf. section \ref{se:lgn}
 page \pageref{se:lgn}) appliquée à la suite de v.a.r. i.i.d. $(f(X_n))_{n\geq
-  1}$ entraÃ®ne la convergence presque-sûre suivante :
+  1}$ entraîne la convergence presque-sûre suivante :
 $$
 \frac{1}{n}\,\PAR{f(X_1)+\cdots+f(X_n)}
 \limn{n}
@@ -2368,7 +2418,7 @@ Testez le avec $n=10^4$, $10^5$, $10^6$.
   grand, on obtient également l'intervalle de confiance sur la moyenne dans le
   cas non-gaussien.
 \item \texttt{test2n} permet dans le cas de deux échantillons gaussiens de
-  mÃªme variance d'obtenir des intervalles de confiance sur la différence des
+  même variance d'obtenir des intervalles de confiance sur la différence des
   moyennes et sur la variance. Pour $n$ grand, on obtient aussi l'intervalle
   de confiance sur la différence des moyennes dans le cas non-gaussien.
 \item \texttt{ciquant} fournit un intervalle de confiance sur le quantile
@@ -2378,7 +2428,7 @@ Testez le avec $n=10^4$, $10^5$, $10^6$.
 \begin{exo}
   Simuler un $n$-échantillon de variables de Bernoulli de paramètre $p$.
   Donner un intervalle de confiance à $95\%$ pour $p$. Reproduire $N$ fois la
-  simulation précédente et déterminer le nombre de fois oÃ¹ l'intervalle de
+  simulation précédente et déterminer le nombre de fois où l'intervalle de
   confiance proposé contient bien le véritable paramètre $p$. Reprendre cette
   étude avec des échantillons gaussiens (on calculera alors des intervalles de
   confiance pour la moyenne et pour la variance de ces variables).
@@ -2428,10 +2478,10 @@ Testez le avec $n=10^4$, $10^5$, $10^6$.
 
 La théorie des tests constitue un pan important de la statistique. Ce chapitre
 a pour but d'en donner quelques éléments. Dans l'optique de la préparation à
-l'oral, on pourra par exemple consulter les ouvrages en franÃ§ais \cite{vokac},
+l'oral, on pourra par exemple consulter les ouvrages en français \cite{vokac},
 \cite{dacunha-castelle-duflo}, \cite{paul-toulouse}, \cite{saporta} et
-\cite{tomassone}. Dans ce qui suit, nous commenÃ§ons par introduire la notion
-de test en statistique paramétrique de faÃ§on succincte. Nous définissons
+\cite{tomassone}. Dans ce qui suit, nous commençons par introduire la notion
+de test en statistique paramétrique de façon succincte. Nous définissons
 ensuite les notions de niveau et de puissance d'un test. La section suivante
 présente brièvement le test du $\chi^2$, illustré par quelques exemples.
 Enfin, la dernière section est consacrée au test de Kolmogorov-Smirnov, qui
@@ -2477,10 +2527,10 @@ La \emph{puissance} du test est par définition la fonction $\te\in H_1
 \label{ss:test-chideux}
 %
 
-Considérons un phénomène aléatoire de loi inconnue $P=p_1\de_1+\cdots+p_k\de_k$ oÃ¹
+Considérons un phénomène aléatoire de loi inconnue $P=p_1\de_1+\cdots+p_k\de_k$ où
 l'on suppose que les $p_i$ sont tous non nuls. Nous allons supposer que des
 considérations extérieures (théorie, etc) nous font penser que la loi du
-phénomène aléatoire est $Q=q_1\de_1+\cdots+q_k\de_k$, oÃ¹ les $q_k$ sont tous non
+phénomène aléatoire est $Q=q_1\de_1+\cdots+q_k\de_k$, où les $q_k$ sont tous non
 nuls. Partant d'observations supposées indépendantes du phénomène aléatoire,
 on désire tester l'hypothèse $H_0 : P=Q$ contre l'hypothèse antagoniste
 générale $H_1: P\neq Q$. On définit la pseudo-distance du $\chi^2$ entre deux
@@ -2510,7 +2560,7 @@ $\al\in[0,1]$ consiste en ce qui suit, pour $n$ «assez grand» :
 \item si $n\chi^2(P_n,Q)>\chi_\al^2(k-1)$, on choisit $H_1$,
 \item si $n\chi^2(P_n,Q)\leq\chi_\al^2(k-1)$, on choisit $H_0$,
 \end{itemize}
-oÃ¹ $\chi^2_\al$ est le fractile $1-\al$ de la loi $\chi^2(k-1)$.
+où $\chi^2_\al$ est le fractile $1-\al$ de la loi $\chi^2(k-1)$.
 On montre facilement que la puissance de ce test tend vers $1$ quand $n$ tend
 vers l'infini.
 
@@ -2524,7 +2574,7 @@ classe $i\in\{1,\ldots,k\}$, définie par :
 \begin{equation*}
   \hat f_i=\frac{1}{n}\,\sum_{m=1}^n \rI_\BRA{X_m \in I_k}.
 \end{equation*}
-Soit $\nu$ une loi de probabilité connue, de mÃªme nature que $\mu$. On désire
+Soit $\nu$ une loi de probabilité connue, de même nature que $\mu$. On désire
 tester l'hypothèse :
 $$
 H_0:=\text{« La loi des } X_i \text{ est } \nu \text{ »} 
@@ -2603,7 +2653,7 @@ On a alors sous $H_0$ :
 
 \begin{exo}
   Générez un échantillon de taille $100$ de loi uniforme sur $[0,1]$,
-  décomposez le en $k$ classes de mÃªme longueur et faites un test du $\chi^2$
+  décomposez le en $k$ classes de même longueur et faites un test du $\chi^2$
   d'ajustement à la loi uniforme. Recommencez en augmentant la taille de
   l'échantillon, le nombre de classes, puis en changeant de loi : normale,
   binomiale, Poisson par exemple.
@@ -2615,10 +2665,10 @@ On a alors sous $H_0$ :
 \end{exo}
 
 \begin{exo}
-  Générez deux échantillons de mÃªme loi -- par exemple uniforme ou normale ou
+  Générez deux échantillons de même loi -- par exemple uniforme ou normale ou
   exponentielle ou binomiale -- et de tailles différentes, par exemple $1000$ et
   $10000$. Testez ensuite l'homogénéité de ces deux échantillons. Faire de
-  mÃªme avec deux échantillons de lois distinctes mais de mÃªme support.
+  même avec deux échantillons de lois distinctes mais de même support.
 \end{exo}
 
 \begin{exo}[Les matheux sont-ils philosophes ?]
@@ -2641,11 +2691,11 @@ On a alors sous $H_0$ :
 \begin{exo}
   Générez un échantillon $(X_1,\ldots,X_n)$ de taille $n=1000$ de loi normale
   centrée réduite. Considérer $Y_i:=X_i^2$, puis testez l'indépendance de $X$
-  et de $Y$. Faire de mÃªme avec d'autres lois : Bernoulli, exponentielle,
+  et de $Y$. Faire de même avec d'autres lois : Bernoulli, exponentielle,
   uniforme\ldots.
 \end{exo}
 
-\begin{exo}[Cas oÃ¹ l'asymptotique du $\chi^2$ ne s'applique pas]
+\begin{exo}[Cas où l'asymptotique du $\chi^2$ ne s'applique pas]
   On reprend l'exercice \cite[page 97]{tomassone}. On désire
   savoir si la couleur du verre à une influence sur l'appréciation de la
   qualité d'un vin. On dispose des données suivantes :
@@ -2666,7 +2716,7 @@ On a alors sous $H_0$ :
 \begin{exo}
   En reprenant les données de \SB{} obtenues par \texttt{getdata}, faites des
   tests d'ajustement pour les modéliser par des lois connues, que vous
-  proposerez en traÃ§ant des histogrammes.
+  proposerez en traçant des histogrammes.
 \end{exo}
 
 
@@ -2706,28 +2756,79 @@ que lorsque la loi $\mu$ n'a pas d'atomes.
 \MFILE{gauss}
 \MFILE{gauss2}
 
-\subsubsection{Tes celle de Kolmogorov-Smirnov pour $n$ assez grand, $n \geq 80$
-par exemple. On peut alors utiliser les quantiles ÃÂ  $0.95$ et $0.99$
-correspondants ÃÂ  $u=1.3581$ et $u=1.629$, pour obtenir un test de risque
-$0.05$ et $0.01$ sur l'adÃÂ©quation de la loi de l'ÃÂ©chantillon ÃÂ  $\mu$. Pour $n$
-petit, on peut utiliser des tables, cf. \cite{saporta}.  La bibliothÃÂ¨que \SB{}
-founit la fonction \texttt{pks} qui donne la valeur de la fonction de
-rÃÂ©partition de Kolmogorov-Smirnov et la fonction \texttt{kstwo} qui permet de
-tester l'homogÃÂ©nÃÂ©itÃÂ© de deux lois continues. Il est trÃÂ¨s important de se
-souvenir que la convergence vers la loi de Kolmogorov-Smirnov n'est garantie
-que lorsque la loi $\mu$ n'a pas d'atomes.
+\subsubsection{Test d'homogénéité}
 
-\begin{exo}[Test d'adÃÂ©quation pour les gÃÂ©nÃÂ©rateurs alÃÂ©atoires]
-  Voici deux petits programmes \ML{} qui font appel au test de
-  Kolmogorov-Smirnov pour tester les gÃÂ©nÃÂ©rateurs alÃÂ©atoires gaussiens. Ils
-  sont aisÃÂ©ment adaptables aux autres gÃÂ©nÃÂ©rateurs alÃÂ©atoires de distributions
-  continues.
+Soient $(X_1,\ldots,X_n)$ et $(Y_1,\ldots,Y_m)$ deux échantillons de lois continues
+inconnues. On a la convergence en loi suivante pour tester si leurs lois sont
+identiques :
+$$
+\sqrt{\frac{nm}{n+m}}
+\,
+\sup_{x \in \dR}|F_n^{(X)}(x)-F_m^{(Y)}(x)|
+\limL{n,m} 
+\bF,
+$$
+où $\bF$ désigne la fonction de répartition de Kolmogorov-Smirnov.
+
+\subsubsection{Exercices faisant appel aux processus empiriques}
+
+\begin{exo}
+  Générez un échantillon de taille $100$ de loi uniforme sur $[0,1]$ puis
+  tracez sur le même graphique la fonction de répartition empirique et la
+  fonction de répartition théorique. Faites un test de Kolmogorov-Smirnov sur
+  cet échantillon pour un risque de $0.05$, recommencer $100$ fois le test.
+  Combien de fois l'hypothèse $H_0$ est-elle acceptée ? Faites la même chose
+  pour la loi normale centrée réduite et comparez au résultat obtenu avec
+  un test du $\chi^2$.
 \end{exo}
 
-\MFILE{gauss}
-\MFILE{gauss2}
+\begin{exo}
+  Reprenez l'exercice précédent avec un échantillon de taille $10$ de loi
+  uniforme, et tracer les fonctions de répartitions emprique et théorique.
+  Pour utiliser le test, déterminez la distribution empirique de
+  $\sqrt{10}\sup _{x \in [0,1]} |F_n(x)-F(x)|$ en utilisant $1000$
+  échantillons de taille $10$ de loi uniforme sur $[0,1]$. En déduire le
+  quantile empirique à $0.95$ et conclure pour le test du premier échantillon.
+  Refaites la même chose avec la loi normale.
+\end{exo}
 
-\subsubsection{Tes%
+\begin{exo}
+  Faire un test d'homogénéité de Kolmogorov-Smirnov pour deux échantillons de
+  loi uniformes sur $[0,1]$ et de tailles respectives $100$ et $1000$.
+\end{exo}
+
+\begin{exo}
+  La mesure empirique d'un échantillon $(X_1,\ldots,X_n)$ constitue une
+  approximation discrète (atomique) de la densité de la loi commune de
+  l'échantillon.  On peut la lisser en remplaçant les masses de Dirac par des
+  approximations lisses : on parle alors de \emph{méthode d'estimation par
+    noyaux}. Le plus souvent, le lissage est obtenu en prenant la convolée de
+  la distribution empirique par une fonction lisse appellée \emph{noyau}.
+  Plus précisément, soit $K:\dR \to \dR^+$ une fonction bornée, intégrable
+  pour la mesure de Lebesgue et nulle à l'infini, par exemple $K=\rI_{[-5,5]}$
+  ou encore $K(x)=(2\pi)^{-1/2} \exp(-x^2/2)$.  On considère alors
+  $$
+  \hat{f}_{n,h}(x)(\om)
+  :=\frac{1}{n}\,\sum_{k=1}^n \frac{1}{h} K\PAR{\frac{x-X_i(\om)}{h}}.
+  $$
+  Si $h$ est une fonction de $n$ telle que $\lim_{n \to +\infty} h(n)=0$ et
+  $\lim_{n \to +\infty} (n/\log n) h(n)=+\infty$, si $f$ est continue en $x$
+  avec $f(x) \neq 0$, et enfin si $K$ est à support compact, alors
+  $$
+  \ABS{\hat{f}_{n,h}(x)-f(x)} \limPS{n} 0.
+  $$
+  $\hat f_{n,h}(x)$ est donc un estimateur convergent de $f(x)$. Ecrivez un
+  code \ML{} qui implémente cette méthode d'estimation de la densité par
+  noyaux.
+\end{exo}
+
+%% Local Variables: 
+%% x-symbol-8bits: t
+%% x-symbol-coding: iso-8859-1
+%% mode: latex
+%% TeX-master: "agregation"
+%% End:
+%
 %
 \chapter{Vecteurs aléatoires gaussiens}
 %
@@ -3848,7 +3949,7 @@ masse de Dirac en $0$ est donc l'élément neutre de la convolution.
   est donc naturel que la masse de Dirac en $0$ soit l'élément neutre de la
   convolution. Si $g$ est lisse, on fait donc du lissage de $f$. Pour ce
   faire, on prend souvent pour $g$ une fonction $\cC^\infty$ paire et à
-  décroissance rapide voire mÃªme à support compact de faÃ§on à remplacer $f(x)$
+  décroissance rapide voire même à support compact de façon à remplacer $f(x)$
   par une «$g$-moyenne» de $f$ au voisinage de $x$.  Penser à la technique de
   régularisation par convolution utilisée en analyse, en particulier pour
   montrer la densité de $\cC^\infty_c$ dans les espaces $\bL^p$ de Lebesgue.
@@ -3861,15 +3962,15 @@ masse de Dirac en $0$ est donc l'élément neutre de la convolution.
   Ainsi, si $X$ est indépendante de $Y$, la v.a. $X+Y$ aura en général des
   valeurs mieux réparties que celles de $X$ lorsque $g$ est lisse.  La densité
   de $X+Y$ est la convolée de la densité $f$ de la v.a. $X$ par la densité $g$
-  de la v.a. $Y$.  Si $g$ est lisse, il en sera de mÃªme pour $f*g$.  Ainsi,
+  de la v.a. $Y$.  Si $g$ est lisse, il en sera de même pour $f*g$.  Ainsi,
   lisser une densité se traduit sur les v.a. par l'addition d'une v.a.
   indépendante à densité lisse (penser par exemple au lissage d'une v.a.
-  discrète $X$ par addition d'une v.a. indépendante $Y$ de loi uniforme oÃ¹
+  discrète $X$ par addition d'une v.a. indépendante $Y$ de loi uniforme où
   gaussienne, centrée et de faible variance par rapport à l'écart entre les
   valeurs discrètes prises pas $X$).
 \end{eur}
 
-\begin{remark}[Fonctions de répartition et densité]
+\begin{rem}[Fonctions de répartition et densité]
   Considérons une loi de probabilité $\mu$ sur $\dR$, de fonction de
   répartition $F$. En tant que fonction de répartition, la fonction $F$ est
   croissante, continue à droite, et $F(\dR)=[0,1]$. On montre alors qu'elle ne
@@ -3881,7 +3982,7 @@ masse de Dirac en $0$ est donc l'élément neutre de la convolution.
   $$
   F=\al F_{\text{disc}} + \be F_{\text{sing}} + \ga F_{\text{cont}},
   $$
-  oÃ¹ les fonctions $F_\bullet$, qui vérifient les propriétés suivantes,
+  où les fonctions $F_\bullet$, qui vérifient les propriétés suivantes,
   n'existent que lorsque le coefficient associé est non nul :
   \begin{enumerate}
   \item $F_{\text{disc}}$ est constante par morceaux, et c'est la fonction de
@@ -3904,9 +4005,9 @@ masse de Dirac en $0$ est donc l'élément neutre de la convolution.
   \ref{ss:lois-fractales} page \pageref{ss:lois-fractales}.  Bien entendu, si
   $F$ est $C^1$, alors $\mu$ admet une densité qui n'est rien d'autre que
   $F'$.
-\end{remark}
+\end{rem}
 
-\begin{remark}[Densité au sens de la théorie des distributions]
+\begin{rem}[Densité au sens de la théorie des distributions]
   Une loi de probabilité est, en tant que mesure de Radon, une distribution.
   Elle s'identifie à sa densité lorsque cette dernière existe.  La fonction de
   répartition $F_X$ d'une v.a.r. $X$ existe toujours. Sa dérivée $F'_X$ au
@@ -3921,15 +4022,15 @@ masse de Dirac en $0$ est donc l'élément neutre de la convolution.
   comme l'intégrale d'une fonction $\bL^1$ (qui est alors la densité
   associée). Une condition suffisante d'absolue continuité est que $F_X$ soit
   $\cC^1$.
-\end{remark}
+\end{rem}
 
-\begin{remark}
+\begin{rem}
   Les générateurs aléatoires de la bibliothèque \SB{} pour \ML{} sont listés
   dans la table \ref{ta:stixbox-rand} page \pageref{ta:stixbox-rand}.  Le
   tableau \ref{tab:lois} page \pageref{tab:lois} recense quelques lois
   usuelles. Pour les démonstrations et des extensions, on renvoie
   principalement à \cite{dacunha-castelle-duflo} et \cite{bouleau}.
-\end{remark}
+\end{rem}
 
 %
 \section{Fonctions génératrices -- la transformée du pauvre}
@@ -3973,10 +4074,10 @@ $$
 \subsection{Loi uniforme discrète}\label{ss:loi:uniforme-discrete}
 %
 
-C'est la loi donnée par~: $\PAR{\de_{a_1}+\cdots+\de_{a_n}}/n$, oÃ¹ les $a_i$ sont
+C'est la loi donnée par~: $\PAR{\de_{a_1}+\cdots+\de_{a_n}}/n$, où les $a_i$ sont
 tous différents. Elle a pour moyenne $(a_1+\cdots+a_n)/n$ et pour variance
 $(n\NRM{a}_2^2/n-(a_1+\cdots+a_n)^2)/n^2$. On l'utilise pour modéliser un phénomène
-pouvant prendre $n$ valeurs différentes $a_1,\ldots,a_n$ avec la mÃªme probabilité
+pouvant prendre $n$ valeurs différentes $a_1,\ldots,a_n$ avec la même probabilité
 $1/n$. Elle a pour propriété remarquable de maximiser, à $n$ fixé, l'entropie
 de Shannon $\bH(p_1,\ldots,p_n)$ définie pour une loi de probabilité
 $p_1\de_{a_1}+\cdots+p_n\de_{a_n}$ par~:
@@ -3988,7 +4089,7 @@ $$
 \subsection{Loi de Bernoulli}\label{ss:loi:bernoulli}
 %
 
-C'est la loi $q\de_a+p\de_b$ oÃ¹ $p\in[0,1]$, $q:=1-p$ et $a\neq b$. Le plus
+C'est la loi $q\de_a+p\de_b$ où $p\in[0,1]$, $q:=1-p$ et $a\neq b$. Le plus
 souvent, on utilise $q\de_{-1}+p\de_1$ ou $q\de_0+p\de_1$.  La loi
 $q\de_0+p\de_1$, notée $\cB(1,p)$, est de moyenne $p$ et de variance $pq$.
 Elle permet de modéliser le résultat d'une expérience à deux issues possibles,
@@ -4012,7 +4113,7 @@ moyenne est $np$ et sa variance $npq$. Elle a pour fonction génératrice~:
 $$
 G_{\cB(n,p)}(s):=\moy{\cB(n,p)}{s^\bullet}=\PAR{q+ps}^n.
 $$
-La loi gaussienne peut Ãªtre obtenue par passage à la limite, cf. théorème
+La loi gaussienne peut être obtenue par passage à la limite, cf. théorème
 \ref{th:moivre-laplace}, page \pageref{th:moivre-laplace}.
 
 %
@@ -4038,7 +4139,7 @@ $$
 p\,\sum_{k=0}^{+\infty} q^k\de_k,
 $$
 qui a pour moyenne $q/p$ et pour variance $q/p^2$.
-Sous certains aspects, la loi géométrique peut Ãªtre vue
+Sous certains aspects, la loi géométrique peut être vue
 comme l'analogue discrète de la loi exponentielle. 
 
 %
@@ -4047,12 +4148,12 @@ comme l'analogue discrète de la loi exponentielle.
 
 C'est la loi du nombre de lancés nécessaires à un jeu de pile ou face de
 probabilité de gain $p$ pour obtenir exactement $m$ succès.  C'est donc la loi
-de la v.a. $T_m(p)$ oÃ¹ $T_1(p)=T(p)$ (de loi géométrique) et $T_i(p)$ ($i\geq 1$) est
+de la v.a. $T_m(p)$ où $T_1(p)=T(p)$ (de loi géométrique) et $T_i(p)$ ($i\geq 1$) est
 défini par récurrence par~:
 $$
 T_i(p):=\inf\BRA{n>T_{i-1}, X_n=1}.
 $$
-Il est facile de voir que $T_m(p)$ à la mÃªme loi que la somme de $m$ v.a.
+Il est facile de voir que $T_m(p)$ à la même loi que la somme de $m$ v.a.
 i.i.d. de loi géométrique de paramètre $p$. On a donc~:
 $$
 \cG_m(p)= \sum_{k=m}^{+\infty} C_{n-1}^{m-1}\,p^m q^{k-m} \,\de_k
@@ -4062,12 +4163,12 @@ On retrouve bien la loi géométrique pour $m=1$ : $\cG(p)=\cG_1(p)$. La loi
 $\cG_m(p)$ a pour moyenne $m/p$, pour variance $mq/p^2$ et pour fonction
 génératrice $\PAR{ps/(1-sq)}^m$. Elle tire son nom du fait que les
 coefficients de sa fonction génératrice proviennent d'une sorte de «formule du
-binÃ´me inversé».
+binôme inversé».
 
 %
-\begin{remark}[Schéma de Bernoulli]\label{ss:loi:schema-bernoulli}
+\begin{rem}[Schéma de Bernoulli]\label{ss:loi:schema-bernoulli}
   Le schéma de Bernoulli correspond à un jeu de pile ou face infini, avec
-  probabilité $p\in]0,1[$ de succès à chaque lancé (les cas extrÃªmes sont
+  probabilité $p\in]0,1[$ de succès à chaque lancé (les cas extrêmes sont
   triviaux). On le modélise par la donnée d'une suite $(X_n,n\in\dN^*)$ de v.a.
   i.i.d. de loi de Bernoulli de paramètre $p$ sur $\BRA{0,1}$~: à chaque
   lancé, on code $0$ un échec (probabilité $q:=1-p$) et $1$ un succès
@@ -4080,7 +4181,7 @@ binÃ´me inversé».
   $a\in\BRA{0,1}^n$, par indépendance des $X_1,\ldots,X_n$~:
   $\dP(X_1=a_1,\ldots,X_n=a_n)=\dP(X_1=a_1)\cdots\dP(X_n=a_n)$. 
   Cela correspond à l'événement cylindrique 
-  $\BRA{a_1}Ã\cdotsÃ\BRA{a_n}Ã\BRA{0,1}Ã\BRA{0,1}Ã \cdots$. La plupart des questions
+  $\BRA{a_1}×\cdots×\BRA{a_n}×\BRA{0,1}×\BRA{0,1}× \cdots$. La plupart des questions
   que l'on peut se poser sur le jeu de pile ou face reviennent à étudier
   certaines propriétés de la loi $\cL$. Ses marginales sont des lois de 
   Bernoulli $\cB(1,p)$, et la loi de la somme de $k$ termes est binomiale
@@ -4092,7 +4193,7 @@ binÃ´me inversé».
   systèmes dynamiques\ldots). La section \ref{ss:lois-fractales} page
   \pageref{ss:lois-fractales} donne une propriété fractale amusante de
   certains schémas de Bernoulli.
-\end{remark}
+\end{rem}
 
 %
 \subsection{Loi de Poisson}\label{ss:loi:poisson}
@@ -4106,7 +4207,7 @@ C'est la loi du nombre de v.a.r. i.i.d. de loi exponentielle de paramètre
 $\la$ qu'il faut additionner pour dépasser le seuil 1. Elle a pour moyenne et
 variance $\la$ et pour fonction génératrice $e^{\la(s-1)}$.
 La loi de Poisson est en quelque sorte l'analogue discret de la loi gaussienne.
-On a par exemple $\cP(\la_1)*\cP(\la_2)=\cP(\la_1+\la_2)$. On dispose mÃªme
+On a par exemple $\cP(\la_1)*\cP(\la_2)=\cP(\la_1+\la_2)$. On dispose même
 d'un «théorème central limite poissonien»~: 
 $\cB(n,\la/n)$ converge étroitement vers $\cP(\la)$ lorsque $n\to+\infty$,
 cf. \cite[th. V.5.6 p. 148]{barbe-ledoux}.
@@ -4126,7 +4227,7 @@ $$
 \cM(n,k,p_1,\ldots,p_k)\PAR{\BRA{n_1,\ldots,n_k}}
 :=\frac{n!}{n_1!\cdots n_k!}\,p_1^{n_1}\cdots p_k^{n_k}.
 $$
-Elle tire son nom de la formule du multinÃ´me~: 
+Elle tire son nom de la formule du multinôme~: 
 $$
 \PAR{a_1+\cdots+a_k}^n=
 \!\!\sum_{\SSK{0\leq n_1,\ldots,n_k\leq n\\n_1+\cdots+n_k=n}} 
@@ -4139,7 +4240,7 @@ $$
 \frac{n!}{n_1!\cdots n_k!}\,p_1^{n_1}\cdots p_k^{n_k} 
 \,\de_{(n_1,\ldots,n_k)} = \PAR{p_1\de_{e_1}+\cdots+p_k\de_{e_k}}^{*n},
 $$
-oÃ¹ $\BRA{e_1,\ldots,e_k}$ est la base canonique de $\dR^k$.
+où $\BRA{e_1,\ldots,e_k}$ est la base canonique de $\dR^k$.
 On retrouve la loi binomiale pour $k=1$~: 
 $$
 \cM(n,1,p)=\cB(n,p).
@@ -4151,13 +4252,13 @@ alors $(N_1,\ldots,N_k)$ suit la loi $\cM(n,k,p_1,\ldots,p_k)$.
 Remarquons que par définition, $N_1+\cdots+N_k=n$. La loi
 multinomiale permet par exemple de modéliser les résultats de $n$ lancés
 indépendants d'un dé à $k$ faces, $N_i$ représentant alors le nombre de fois
-oÃ¹ la face numéro $i$ a été obtenue. On a enfin la convergence étroite
+où la face numéro $i$ a été obtenue. On a enfin la convergence étroite
 suivante vers une loi normale~:
 $$
 \PAR{\frac{N_1-np_1}{\sqrt{np_1}},\ldots,\frac{N_k-np_k}{\sqrt{np_k}}}
 \limE{n} \cN(0,\Si_{p_1,\ldots,p_k}),
 $$
-oÃ¹ 
+où 
 $$
 \Si_{p_1,\ldots,p_k}:=\bI_k-\PAR{\sqrt{p_1},\ldots,\sqrt{p_k}}^\top\PAR{\sqrt{p_1},\ldots,\sqrt{p_k}}.
 $$
@@ -4170,7 +4271,7 @@ elle est donc dégénérée (i.e. singulière).
 \subsection{Loi hypergéométrique}\label{loi:hypergeom}
 %
 
-La loi hypergéométrique de paramètres $(N,N_1,n)\in\dN^*Ã\dN^*Ã\dN^*$
+La loi hypergéométrique de paramètres $(N,N_1,n)\in\dN^*×\dN^*×\dN^*$
 avec $N_1\leq N$ et $n\leq N$ est la loi sur $\BRA{0,\ldots,n}$ donnée par~:
 $$
 \sum_{k=0}^n \frac{C_{N_1}^kC_{N-N_1}^{n-k}}{C_N^n}\,\de_k.
@@ -4179,11 +4280,11 @@ Si l'on considère une population de $N$ individus dont $N_1$ possèdent un
 caractère particulier, par exemple une maladie, alors la loi hypergéométrique
 de paramètre $(N,N_1,n)$ représente la loi du nombre d'individus possédant ce
 caractère dans un échantillon de taille $n$ de la population. C'est donc la
-loi de $X_1+\cdots+X_n$ oÃ¹ les v.a. $X_i$ sont i.i.d. et ont pour loi
+loi de $X_1+\cdots+X_n$ où les v.a. $X_i$ sont i.i.d. et ont pour loi
 $((N-N_1)/N)\de_0+(N_1/N)\de_1$.
 
 Elle a pour moyenne $nN_1/N$ et pour variance
-$n(N-n)N_1(N-N_1)(N-1)^{-1}N^{-2}$. Bien sûr, de la mÃªme faÃ§on que 
+$n(N-n)N_1(N-N_1)(N-1)^{-1}N^{-2}$. Bien sûr, de la même façon que 
 la loi multinomiale généralise la loi binomiale, on pourrait définir une
 loi hypergéométrique multiple lorsque l'on s'intéresse à un nombre $m\geq 1$ de
 caractères dans la population.
@@ -4196,7 +4297,7 @@ caractères dans la population.
 Pour les lois continues, la fonction génératrice est remplacée par la
 transformée de Fourier ou de Laplace, qui sont plus puissantes et gardent leur
 sens pour les lois discrètes. Soit $\mu$ une mesure de probabilité sur
-$\PAR{\Om,\cA}$ oÃ¹ $\Om$ est un espace vectoriel topologique et $\cA$ sa tribu
+$\PAR{\Om,\cA}$ où $\Om$ est un espace vectoriel topologique et $\cA$ sa tribu
 borélienne. On note $\Om'$ l'espace dual topologique de $\Om$, constitué des
 formes linéaires continues sur $\Om$. La transformée de Fourier de $\mu$ est
 définie par~:
@@ -4218,8 +4319,8 @@ Formellement, il suffit de prendre $s=iu$ dans la définition de la transformée
 de Fourier pour obtenir la transformée de Laplace, lorsqu'elle existe.
 
 La transformée de Fourier (ou de Laplace) caractérise la loi et
-l'indépendance. Ainsi, deux v.a. ont la mÃªme loi si et seulement si elles ont
-mÃªme transformée et $X$ et $Y$ sont indépendantes si et seulement si la
+l'indépendance. Ainsi, deux v.a. ont la même loi si et seulement si elles ont
+même transformée et $X$ et $Y$ sont indépendantes si et seulement si la
 transformée du couple $(X,Y)$ en $(s_1,s_2)$ est égale au produit des
 transformées respectives en $s_1$ et $s_2$ pour tout $(s_1,s_2)$. bien
 entendu, la transformée en $s$ de la somme de deux v.a. indépendantes est
@@ -4278,7 +4379,7 @@ de Fourier est~:
 $$
 e^{is(a+b)/2}\,\frac{\sin(s(b-a)/2)}{s(b-a)/2}.
 $$
-Tout ceci se généralise sans difficultés à un pavé $[a_1,b_1]Ã\cdotsÃ[a_n,b_n]$ de
+Tout ceci se généralise sans difficultés à un pavé $[a_1,b_1]×\cdots×[a_n,b_n]$ de
 $\dR^n$.
 
 %
@@ -4328,12 +4429,12 @@ $$
 \subsection{Loi exponentielle et loi gamma}\label{ss:loi:gamma}
 %
 
-La loi gamma $\Ga(a,\la)$ de paramètres $(a,\la)\in\dR_+^*Ã\dR_+^*$ a pour
+La loi gamma $\Ga(a,\la)$ de paramètres $(a,\la)\in\dR_+^*×\dR_+^*$ a pour
 densité sur $\dR$ par rapport à la mesure de Lebesgue $dx$ sur $\dR$~:
 $$
 \frac{\la^a}{\Ga(a)}\,x^{a-1}\,e^{-\la x}\,\rI_{\dR^+}(x),
 $$
-oÃ¹ $\Ga(a)$ est la fonction Gamma d'Euler définie par~:
+où $\Ga(a)$ est la fonction Gamma d'Euler définie par~:
 $$
 \Ga(a):=\int_0^{+\infty}\!x^{a-1}\,e^{-x}\,dx, \text{\quad en particulier }\Ga(n)=(n-1)!. 
 $$
@@ -4344,7 +4445,7 @@ $$
 \Ga(1,\la)=G(1,1/\la)=\cE(\la).
 $$
 La loi exponentielle est l'analogue continu de la loi géométrique, elle
-apparaÃ®t comme loi du temps inter-sauts du processus de Poisson. La loi
+apparaît comme loi du temps inter-sauts du processus de Poisson. La loi
 exponentielle est également sans mémoire : si $\cL(X)=\cE(\la)$, alors $\dP(X
 \geq t+s\;\vert\;X\geq t)=\exp(-\la s)$ ne dépend que de $s$ et pas de $t$. Cette
 propriété la caractérise dans l'ensemble des lois continues, et traduit bien
@@ -4365,8 +4466,8 @@ processus de Poisson est une loi gamma, car convolution de lois exponentielles.
 \subsection{Loi double exponentielle}\label{ss:loi:laplace}
 %
 
-Ãgalement appelée loi de Laplace. Elle a pour densité sur $\dR$ par rapport à
-la mesure de Lebesgue $dx$ sur $\dR$~: $\la\exp(-\la\ABS{x})/2$, oÃ¹ $\la$ est
+Également appelée loi de Laplace. Elle a pour densité sur $\dR$ par rapport à
+la mesure de Lebesgue $dx$ sur $\dR$~: $\la\exp(-\la\ABS{x})/2$, où $\la$ est
 un paramètre dans $\dR_+$. Sa moyenne vaut $0$, sa variance $2/\la^2$ et sa
 transformée de Fourier est $1/(1+s^2/\la^2)$.
 
@@ -4399,14 +4500,14 @@ La loi du $\chi^2(n)$ à $n$ degrès de liberté n'est rien d'autre que la loi d
 somme des carrés de $n$ v.a.r. i.i.d. de loi normale centrées réduites sur
 $\dR$. C'est aussi la loi gamma $G(n/2,2)$ de paramètres $(a,b):=(n/2,2)$,
 i.e. la loi gamma $\Ga(n/2,1/2)$ de paramètres $(a,\la):=(n/2,1/2)$. La loi du
-$\chi^2(n)$ intervient dans le test du mÃªme nom (cf. \ref{ss:test-chideux} page
+$\chi^2(n)$ intervient dans le test du même nom (cf. \ref{ss:test-chideux} page
 \pageref{ss:test-chideux}).
 
 %
 \subsection{Loi exponentielle et loi de Weibull}\label{ss:loi:weibull}
 %
 
-La loi de Weibull $W(\alpha,\lambda)$ de paramètres $(\alpha,\lambda)\in\dR_+^*Ã\dR_+^*$ est la loi sur
+La loi de Weibull $W(\alpha,\lambda)$ de paramètres $(\alpha,\lambda)\in\dR_+^*×\dR_+^*$ est la loi sur
 $\dR$ dont la densité par rapport à la mesure de Lebesgue $dx$ sur $\dR$ est~:
 $$
 \alpha\lambda\,x^{\alpha-1}\,\exp\PAR{-\lambda x^\alpha}\,\rI_{\dR_+}(x).
@@ -4435,23 +4536,23 @@ $\dR$~:
 $$
 \frac{c}{\pi}\,\frac{1}{c^2+x^2},
 $$
-oÃ¹ $c$ est un paramètre positif. Elle n'a pas de moyenne et donc pas de
+où $c$ est un paramètre positif. Elle n'a pas de moyenne et donc pas de
 variance. Sa transformée de Fourier est $\exp\PAR{-c\ABS{s}^2}$.
 
 %
 \subsection{Loi Beta}\label{ss:loi:beta}
 %
 
-La loi bÃªta de paramètres $(a,b)\in\dR_+^*Ã\dR_+^*$ est la loi sur $\dR$ de
+La loi bêta de paramètres $(a,b)\in\dR_+^*×\dR_+^*$ est la loi sur $\dR$ de
 densité par rapport à la mesure de Lebesgue $dx$ sur $\dR$~:
 $$
 \frac{1}{B(a,b)}\,x^{a-1}(1-x)^{b-1}\,\rI_{\BRA{0<x<1}}(x),
 $$
-oÃ¹ $B(a,b)$ est la fonction bÃªta d'Euler définie par~:
+où $B(a,b)$ est la fonction bêta d'Euler définie par~:
 $$
 B(a,b):=\int_0^1\!x^{a-1}(1-x)^{b-1}\,dx=\frac{\Ga(a)\Ga(b)}{\Ga(a+b)}.
 $$
-La loi bÃªta de paramètres $(a,b)$ a pour moyenne $a/(a+b)$ et pour variance
+La loi bêta de paramètres $(a,b)$ a pour moyenne $a/(a+b)$ et pour variance
 $ab(a+b)^{-2}(a+b+1)^{-1}$.
 
 %
@@ -4490,7 +4591,7 @@ de
 $$
 \frac{X/n}{Y/m},
 $$
-oÃ¹ $X$ et $Y$ sont indépendantes et ont pour lois respectives $\chi^2(n)$
+où $X$ et $Y$ sont indépendantes et ont pour lois respectives $\chi^2(n)$
 et $\chi^2(m)$. Elle a pour densité par rapport à la mesure de Lebesgue $dx$
 sur $\dR$~:
 $$
@@ -4508,7 +4609,7 @@ La loi de Student $\cT_n$ à $n$ degrés de liberté est la loi de
 $$
 \frac{\sqrt{n}\,X}{\sqrt{Y}},
 $$
-oÃ¹ $X$ et et $Y$ sont indépendantes et ont pour lois respectives $\cN(0,1)$
+où $X$ et et $Y$ sont indépendantes et ont pour lois respectives $\cN(0,1)$
 et $\chi^2(n)$. Elle a pour densité par rapport à la mesure de Lebesgue $dx$ sur
 $\dR$~:
 $$
@@ -4539,45 +4640,313 @@ de la valeur absolue d'un pont brownien sur $[0,1]$ (cf. section
 
 %FIXME: à compléter.
 
-Soit $\mun-2)n^{-1}(m-4)^{-1}(m-2)^{-2}$.
+Soit $\mu$ une loi de probabilité sur $\dR$, de fonction de répartition $F$. On
+note $F(x^-)$ sa limite à gauche en $x$. On dit qu'un réel $m$ est une
+\emph{médiane} pour $\mu$ lorsque $F(m^-)\leq 1/2 \leq F(m)$. Plus généralement, pour
+tout $\al\in\,]0,1[$, on dit qu'un réel $q_\al$ est un \emph{quantile} d'ordre
+$\al$ pour $\mu$ lorsque $F(q^-_\al)\leq \al \leq F(q_\al)$. Pour tout ordre $\al$, un
+quantile d'ordre $\al$ existe toujours, car la fonction de répartition $F$ est
+croissante, et a pour limite $0$ en $-\infty$ et $1$ en $+\infty$. La croissance de $F$
+entraîne également que l'ensemble des quantiles d'ordre $\al$ est un
+intervalle. Si $q$ est un quantile, l'intervalle des quantiles du même ordre
+est réduit à $\BRA{q}$ si et seulement si $\mu\PAR{\BRA{q_\al}}=0$, et alors $F$
+est continue en $\al$ (on rappelle qu'une fonction de répartition est toujours
+continue à droite). Souvent, on appelle encore quantile d'ordre $\al$ le
+milieu de l'intervalle des quantiles d'ordre $\al$, ce qui permet de parler
+\emph{du} quantile d'ordre $\al$, même quand il y en a plusieurs. Enfin,
+lorsque la loi $\mu$ possède une densité, sa fonction de répartition est
+continue et les intervalles quantiles sont tous des singletons.
+
+On parle de \emph{déciles} pour les quantiles d'ordre $1/10$, de
+\emph{quartiles} pour ceux d'ordre $1/4$, etc. On parle aussi parfois de
+\emph{percentiles} pour les quantiles. Une médiane est un quantile d'ordre
+$1/2$. La fonction \ML{} \texttt{median} permet d'obtenir la médiane empirique
+d'un échantillon (i.e. la médiane de la fonction de répartition empirique),
+alors que la fonction \SB{} \texttt{quantile} permet d'obtenir un quantile
+empirique d'ordre quelconque d'un échantillon.
+
+Si $(x_1,\ldots,x_n)$ est un vecteur de $\dR^n$, on note $(x_{(1)},\ldots,x_{(n)})$ le
+vecteur de $\dR^n$ obtenu en réordonnant de façon croissante les composantes
+de $x$. Si $X:=(X_1,\ldots,X_n)$ est un vecteur aléatoire de $\dR^n$, on appelle
+statistique d'ordre de $X$ le vecteur aléatoire
+$\tilde{X}:=(X_{(1)},\ldots,X_{(n)})$ obtenu en réordonnant les coordonnées de $X$
+à $\om$ fixé. La fonction \ML{} \texttt{sort} permet de trier de façon
+croissante un vecteur.
+
+Si $X:=(X_1,\ldots,X_n)$ est un échantillon d'une loi $\mu$ sur $\dR$, alors la
+médiane empirique n'est rien d'autre que $X_{((n+1)/2)}$ si $n$ est impair et
+$(X_{((n/2)}+X_{((1+n/2)})/2$ si $n$ est pair. De manière générale, si $\al$
+n'est pas un multiple de $1/n$, le quantile d'ordre $\al$ empirique vaut
+$(X_{([n\al])}+X_{([n\al]+1)})/2$. Enfin, on peut montrer que si $\mu$ a une
+densité $f$ par rapport à la mesure de Lebesgue, alors la loi de $X_{(i)}$ a
+pour densité :
+$$
+f_i(x)=\frac{n!}{(i-1)!(n-i)!}F^{i-1}(x)(1-F(x))^{n-i}f(x),
+$$
+où $F$ est la fonction de répartition de $\mu$. On retrouve bien $f$ pour
+$n=1$. Si $x:=(x_1,\ldots,x_n)\in\dR^n$, on appelle \emph{rang} de $x_i$ dans la
+suite $x$ la quantité
+$$
+r_i(x):=\sum_{j=1}^n \rI_{x_j\leq x_i},
+$$
+qui représente le nombre de composantes de $x$ qui sont inférieures ou
+égales à $x_i$. Il peut arriver que $r_i=r_j$, mais on a toujours
+$x_{r_i(x)}=x_{(i)}$. Lorsque les composantes de $x$ sont toutes différentes,
+l'application $r:i\in\BRA{1,\ldots,n}\mapsto r_i(x)\BRA{1,\ldots,n}$ est une permutation.  Le
+vecteur $r(x):=(r_1(x),\ldots,r_n(x))$ est appelé \emph{vecteur rang} de $x$. On
+définit naturellement le vecteur aléatoire rang $R(X)$ d'un vecteur aléatoire
+$X:=(X_1,\ldots,X_n)$ par $R(X)(\om):=r(X(\om))$. On montre, cf. \cite[thm 4.4.29
+page 107]{dacunha-castelle-duflo} que pour un échantillon $X:=(X_1,\ldots,X_n)$ d'une loi
+$\mu$ sur $\dR$, continue :
+\begin{itemize}
+\item le vecteur rang $R(X)$ est presque-sûrement une permutation
+\item le vecteur rang $R(X)$ suit la loi uniforme sur l'ensemble des
+  permutations de $\{1,\ldots,n\}$
+\item la statistique d'ordre $\tilde{X}$ de $X$ et son rang $R(X)$ sont
+  indépendants 
+\item la statistique d'ordre $\tilde{X}$ a pour loi la loi trace de $n!
+  \mu\otimes\cdots\otimes\mu$ sur $\BRA{x\in\dR^n,\,x_1\leq\cdots\leq x_n}$.
+\end{itemize}
 
 %
-\subsection{Loi de Student}\label{ss:loi:student}
+\section{Convolutions \& convergences}
 %
 
-La loi de Student $\cT_n$ ÃÂ  $n$ degrÃÂ©s de libertÃÂ© est la loi de
+On a les propriétés suivantes~:
+\begin{enumerate}
+\item $\textrm{Bern}(p,\BRA{0,1})^{*n}=\cB(n,p)$.
+\item $\cG(p)^{*m} =  \cG_m(p)$.
+\item $\cG_{m_1}(p)*\cdots*\cG_{m_n}(p) =  \cG_{m_1+\cdots+m_n}(p)$. 
+\item $\cE(\la)^{*n}=\Ga(n,\la)$.
+\item $\cN(m_1,\Si_1)*\cdots*\cN(m_n,\Si_n)=\cN(m_1+\cdots+m_n,\Si_1+\cdots+\Si_n)$.
+\item $\cP(\la_1)*\cdots*\cP(\la_n)=\cP(\la_1+\cdots+\la_n)$.
+\item Si $\cL(X)=\cN(0,\bI_n)$ alors $\cL(X_1^2+\cdots+X_n^2)=G(n/2,2)=\chi^2(n)$.
+\item Si $\cL((X,Y))=\Ga(a,1)\otimes\Ga(b,1)$ alors
+  $\cL(X/(X+Y))=\textrm{Beta}(a,b)$.
+\item Si $\cL(X)=\Ga(1,\la)=\cE(\la)$ alors $\cL(X^{-\alpha})=W(\alpha,\lambda)$.
+\item Si $\cL((X,Y))=\chi^2(n)\otimes\chi^2(m)$, alors $\cL((mX)/(nY))=\cF(n,m)$.
+\item Si $\cL((X,Y))=\cN(0,1)\otimes\chi^2(n)$, alors $\cL(\sqrt{n}X/\sqrt{Y})=\cT(n)$.
+\item Si $\cL((X_n,n\in\dN^*))=\cE(\la)^{\dN^*}$ et
 $$
-\frac{\sqrt{n}\,X}{\sqrt{Y}},
+N_t:=\sum_{n=1}^{+\infty}\,\rI_{X_1+\cdots+X_n \leq t}=\inf\BRA{n\in\dN,\,X_1+\cdots+X_n>t},
 $$
-oÃÂ¹ $X$ et et $Y$ sont indÃÂ©pendantes et ont pour lois respectives $\cN(0,1)$
-et $\chi^2(n)$. Elle a pour densitÃÂ© par rapport ÃÂ  la mesure de Lebesgue $dx$ sur
-$\dR$~:
-$$
-\frac{\Ga((n+1)/2)}{\Ga(n/2)\sqrt{n\pi}}\,\PAR{1+\frac{x^2}{n}}^{-(n+1)/2}.
-$$
-Elle est centrÃÂ©e et sa variance vaut $n/(n-2)$ pour $n>2$.
+alors pour tout $t\in\dR_+$, $\cL(N_t)=\cP(\la t)$ (processus de Poisson
+simple d'intensité $\la$).
+\item $\cB(n,\la/n) \limE{n} \cP(\la)$
+\end{enumerate}
 
-%
-\subsection{Loi de Kolmogorov-Smirnov}\label{ss:loi:kolmogorov-smirnov}
-%
+\begin{enumerate}
+\item $X_n\limP{n}X$
+  \begin{enumerate}
+  \item ssi $\PAR{\forall\veps>0}\;\;\dP\PAR{\BRA{\ABS{X_n-X}\geq\veps}}\limn{n}0$
+  \item ssi $\moy{}{\ABS{X_n-X}\land 1}\limn{n}0$
+  \item ssi $\moy{}{\ABS{X_n-X}/(1+\ABS{X_n-X})}\limn{n}0$
+  \item ssi de toute sous suite $\PAR{X_{n_k},k\in\dN^*}$, on peut
+    extraire une sous-suite qui converge p.s. vers $X$
+  \end{enumerate}
+\item $X_n\limL{n}\mu$ \quad ssi \quad $\cL(X_n)\limE{n}\mu$.
+\item $\mu_n\limE{n}\mu$ \quad (avec $\mu_n$ et $\mu$ probas)
+  \begin{enumerate}
+  \item ssi $\PAR{\forall f\in\cC_b}\;\; \moy{\mu_n}{f}\limn{n}\moy{\mu}{f}$
+  \item ssi $\PAR{\forall s\in\dR}\;\; 
+    \moy{\mu_n}{e^{is\bullet}}\limn{n}\moy{\mu}{e^{is\bullet}}$
+  \item ssi $\PAR{\forall t\in\mathrm{Cont(F_\mu)}}\;\; F_{\mu_n}(t)\limn{n}F_\mu(t)$
+  \end{enumerate}
+\item La famille de v.a. $\PAR{X_i,i\in I}\subset\bL^1$ est uniformément intégrable (UI)
+  \begin{enumerate}
+  \item ssi $\sup_{i{\in}I}\moy{}{\ABS{X_i}\rI_{\BRA{\ABS{X_i}>c}}}\limn{c}0$
+  \item ssi\footnote{Critère «epsilon-delta» ou encore d'équi-intégrabilité.}
+    $\sup_{i\in{I}}\moy{}{\ABS{X_i}}<+\infty$ et $\PAR{\forall\veps>0}\PAR{\exists\delta>0}\PAR{\forall
+      A}
+    \PAR{\dP(A)\leq \delta \Rightarrow \sup_{i\in I}\moy{}{\ABS{X_i}\rI_A}\leq\veps}$
+  \item ssi\footnote{Critère de Lavallée-Poussin. cf. \cite[p. 10]{borkar}} $\exists
+    \Psi:\dR_+\to\dR_+$ telle que $\sup_{i\in{I}}\moy{}{\Psi\PAR{\ABS{X_i}}}<+\infty$ et
+    $\Psi(x)/x\limn{x}+\infty$.
+  \end{enumerate}
+\item Une famille bornée dans $\bL^1$ est UI.
+\item Soit $\PAR{X_n,n\in\dN^*}\subset\bL^1$, il y a équivalence entre~:
+  \begin{enumerate}
+  \item $X_n\limLeb{n}{1}X$ avec $X\in\bL^1$
+  \item $\PAR{X_n,n\in\dN^*}$ est UI et $X_n\limP{n}X$
+  \end{enumerate}
+\item Si $X_n\limLeb{n}{p}X$ avec $p\geq 1$, alors de toute sous-suite
+  $\PAR{X_{n_k},k\in\dN^*}$, on peut extraire une sous-suite qui converge p.s.
+  vers $X$
+\item Si $X_n\limL{n}\mu$ alors\footnote{Théorème de continuité de Paul Lévy,
+    cf. \cite[p. 32]{borkar}.}  $s\mapsto\moy{}{e^{isX_n}}$ converge vers
+  $s\mapsto\moy{\mu}{e^{is\bullet}}$ uniformément sur tout compact
+\item Soit $\PAR{\mu_n,n\in\dN^*}$ des probas. Si
+  $s\mapsto\moy{\mu_n}{e^{is\bullet}}$ converge simplement vers $s\mapsto G(s)$
+  continue en $0$ alors\footnote{Théorème de continuité de Paul Lévy, cf.
+    \cite[p.  32]{borkar}.} $G$ est la transformée de Fourier d'une loi $\mu$ et
+  $\mu_n\limE{n}\mu$.
+\item Soit $\PAR{X_n,n\in\dN^*}$ v.a.r. indép. et $S_n:=X_1+\cdots+X_n$. Il y a
+  équivalence entre\footnote{Théorème de Paul Lévy, cf. \cite[p.
+    83]{borkar}}~:
+  \begin{enumerate}
+  \item $\PAR{S_n,n\in\dN^*}$ converge p.s.
+  \item $\PAR{S_n,n\in\dN^*}$ converge en $\dP$
+  \item $\PAR{S_n,n\in\dN^*}$ converge en $\cL$
+  \end{enumerate}
+  De plus\footnote{Théorème des trois séries de Kolmogorov, cf. \cite[p.
+    85]{borkar}}, si $c>0$ et $Y_n:=X_n\rI_{\BRA{\ABS{X_n}\leq c}}$ alors
+  $\PAR{S_n,n\in\dN^*}$ converge p.s. ssi on a à la fois~:
+ \begin{enumerate}
+ \item $\sum_{n=1}^{+\infty} \dP\PAR{\BRA{X_n\neq Y_n}}<+\infty$
+ \item $\sum_{n=1}^{+\infty} \moy{}{Y_n}<+\infty$
+ \item $\sum_{n=1}^{+\infty} \var{}{Y_n}<+\infty$ 
+ \end{enumerate}
+\item Si $X_n\limPS{n}X$ et $Y_n\limPS{n}Y$ et $(a,b)\in\dR^2$ alors 
+  $aX_n+bY_n\limPS{n}aX+bY$ et $X_nY_n\limPS{n}XY$
+\item L'espace $\bL^0$ des fonctions mesurables muni de la topologie de la CV
+  en $\dP$ associée à la distance $d(X,Y):=\moy{}{\ABS{X-Y}/(1+\ABS{X-Y})}$
+  est un espace de Banach\footnote{Donc un espace vectoriel normé, d'où
+    l'additivité des suites convergentes en $\dP$.}.
+\item Si $X_n\limP{n}X$ et $Y_n\limP{n}Y$ alors $X_nY_n\limP{n}XY$
+\item Si $X_n\limLeb{n}{1}X$ et $Y_n\limP{n}Y$ et $\PAR{Y_n,n\in\dN^*}$ unif.
+  bornée alors $X_nY_n\limLeb{n}{1}XY$
+\item Si $\PAR{X_n,Y_n}\limL{n}(X,Y)$ alors $X_n+Y_n\limL{n}X+Y$ et
+  $X_n\limL{n}X$ et $Y_n\limL{n}Y$
+\item Si $X_n\limL{n}X$ et $Y_n\limL{n}Y$ et $\PAR{X_n,Y_n,n\in\dN^*}$ indép.
+  alors $X$ et $Y$ indép. et $X_n+Y_n\limL{n}X+Y$
+\end{enumerate}
 
-C'est la loi sur $\dR$ de fonction de rÃÂ©partition~:
-$$
-\bF(u):=
-\begin{cases}
-  0 & \text{si } u\leq0,\\
-  \ds{1+2 \sum_{k=1}^{+\infty} (-1)^k e^{-2k^2u^2}} & \text{si } u>0.
-\end{cases}
-$$
-Elle intervient dans le test d'adÃÂ©quation de Kolmogorov-Smirnov (cf.
-\ref{ss:test-ks} page \pageref{ss:test-ks}). C'est aussi la loi sur supremum
-de la valeur absolue d'un pont brownien sur $[0,1]$ (cf. section
-\ref{se:vitesse-tgc} page \pageref{se:vitesse-tgc}).
+\begin{table}[htbp]
+  \begin{center}
+    \begin{sideways}
+    \begin{tabular}[c]{|l||l|l|l|}\hline
+      Loi & Moyenne & Variance & Transformée de Fourier en $s\in\dC$\\\hline\hline
+      $\de_a$ 
+      & $a$
+      & $0$
+      & $e^{ias}$ \\\hline
+      Bern. $q\de_0+p\de_1$ 
+      & $p$
+      & $pq$
+      & $1+pe^{is}$ \\\hline
+      Bern. $q\de_{-1}+p\de_1$ 
+      & $q-p$
+      & $pq$
+      & $qe^{-is}+pe^{is}$ \\\hline
+      Unif. sur $\BRA{a_1,\ldots,a_n}$
+      & $(a_1+\cdots+a_n)/n$
+      & $(\sum_ka_k^2)/n-(\sum_k a_k)^2/n^2$
+      & $\sum_k e^{ia_ks}/n$\\\hline
+      $\cB(n,p)$
+      & $np$
+      & $npq$
+      & $(1+pe^{is})^n$\\\hline
+      Géom$(p)$ (sur $\dN$)
+      & $q/p$
+      & $q/p^2$
+      & \\\hline
+      $\cG(p)$ (sur $\dN^*$)
+      & $1/p$
+      & $q/p^2$
+      & $pe^{is}\PAR{1-qe^{is}}^{-1}$ \\\hline
+      $\cG_m(p)$
+      & $m/p$
+      & $q/p^2$
+      & $p^me^{mis}\PAR{1-qe^{is}}^{-m}$ \\\hline
+      $\cP(\la)$
+      & $\la$
+      & $\la$
+      & $\exp\PAR{\la(e^{is}-1)}$\\\hline
+      Unif. $\cU(a,b)$
+      & $(a+b)/2$
+      & $(b-a)^2/12$
+      & $2s^{-1}(b-a)^{-1}\exp\PAR{is(a+b)/2}\sin(s(b-a)/2)$ \\\hline
+      $\cE(\la)$
+      & $1/\la$
+      & $1/\la^2$
+      & $\PAR{1-is\la^{-1}}^{-1}$ \\\hline
+      $\Ga(a,\la)$
+      & $a/\la$
+      & $a/\la^2$
+      & $\PAR{1-is\la^{-1}}^{-a}$\\\hline
+      $G(a,b)$
+      & $ab$
+      & $ab^2$
+      & $\PAR{1-ibs}^{-a}$ \\\hline
+      $\cN(m,\Si)$
+      & $m$
+      & $\Si$
+      & $\exp\PAR{i<m,s>-<\Si\,s,s>/2}$\\\hline
+      $\chi^2(n)$
+      & $n$
+      & $2n$
+      & $\PAR{1-2is}^{-n/2}$ \\\hline
+      $W(\al,\la)$
+      & $\la^{-1/\al}\Ga(1+\al{-1})$
+      & $\la^{-2/\al}\PAR{\Ga(1+2\al^{-1})-\PAR{\Ga(1+\al^{-1})}^2}$
+      & \\\hline
+      $\cF(n,m)$
+      & $m/(m-2)$ si $m>4$
+      & $2m^2(m+n-2)n^{-1}(m-4)^{-1}(m-2)^{-2}$
+      & \\\hline
+      $\cT(n)$      
+      & $0$
+      & $n/(n-2)$ si $n>2$
+      & \\\hline
+    \end{tabular}
+    \end{sideways}
+    \caption{Tableau récapitulatif de quelques lois usuelles}
+    \label{tab:lois}
+  \end{center}
+\end{table}
 
-%
-\subsection{Statistique d'ordre, quantiles, mÃÂ©diane}\label{ss:loi:statordre}
-%
+\begin{table}[htbp]
+  \begin{center}
+    \begin{tabular}[c]{|l|l|}\hline
+      Loi $\mu$ & Fonction de répartition $F_\mu(t):=\mu\PAR{[t,+\infty[}$\\\hline
+      Discrète $\sum_{n\geq 0} p_n\de_{a_n}$ ($a_n<a_{n+1}$)
+      & $\sum_{n\geq 0} p_n\rI_{[a_{n},a_{n+1}[}(t)$\\
+      Unif. $\cU(a,b)$
+      & $(b-a)^{-1}(t-a)\rI_{[a,b]}(t)+\rI_{]b,+\infty[}(t)$\\
+      $\cE(\la)$
+      & $\PAR{1-\exp\PAR{-\la t}}\rI_{\dR_+}(t)$ \\
+      $W(\al,\la)$
+      & $\PAR{1-\exp\PAR{-\la t^\al}}\rI_{\dR_+}(t)$ \\
+      $\cN(0,1)$
+      & $\Phi(t)\sim_{+\infty}1-t^{-1}\exp\PAR{-t^2/2}$\\
+      Kolmogorov-Smirnov
+      & $\PAR{1+2 \sum_{k=1}^{+\infty} (-1)^k e^{-2k^2u^2}}\rI_{\dR_+^*}(t)$\\ \hline
+    \end{tabular}
+    \caption{Quelques fonctions de répartition}
+    \label{tab:fonctions-de-repartition}
+  \end{center}
+\end{table}
 
-%FIXME: ÃÂ  complÃÂ©ter.
+\begin{figure}[htbp] 
+ $$
+ \begin{array}[c]{ccccc}
+ &&\text{CV }\bL^{p>1}&&\\
+ &&\Downarrow&&\\
+ &&\text{CV }\bL^1&&\\
+ &&\Downarrow&&\\
+ \text{CV p.s.}
+ &\Rightarrow
+ &\text{CV en } \dP
+ &\Rightarrow
+ &\text{CV en } \cL
+ \end{array}
+ $$
+ $$
+ \text{CV } \bL^1 \underset{\text{sous suites}}{\Longrightarrow}\text{CV p.s.}
+ $$
+ $$
+ \text{CV } \dP \underset{\text{sous suites}}{\Longrightarrow}\text{CV p.s.}
+ $$
+ $$
+ \text{CV } \dP \underset{\text{si UI}}{\Longrightarrow}\text{CV } \bL^1
+ $$
+ \caption{Relations entre les différents types de convergences de v.a.}
+ \label{tab:convergences}
+\end{figure}
 
-Soit $\mu
+%% Local Variables: 
+%% x-symbol-8bits: t
+%% x-symbol-coding: iso-8859-1
+%% mode: latex
+%% TeX-master: "agregation"
+%% End: 
