@@ -69,21 +69,28 @@ from phystricksExempleNonRang import ExempleNonRang
 from phystricksCercleTnu import CercleTnu
 from phystricksExoXLVL import ExoXLVL
 from phystricksDessinExp import DessinExp
+from phystricksDessinLim import DessinLim
+from phystricksQQa import QQa
+from phystricksQCb import QCb
+from phystricksLaurin import Laurin
+from phystricksCoinPasVar import CoinPasVar
+from phystricksExoVarj import ExoVarj
 
 # Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
     figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,
             MomentForce,Parallelogramme,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
-            DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,
+            DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin,
             ChampGraviation,FnCosApprox,NiveauHyperbole,Bateau,FonctionXtrois,FonctionEtDerive,
-            SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,DessinExp,
-            ExoProjection,ExoPolaire,CoordPolaires,TriangleRectangle,CercleTnu,
+            SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim,
+            ExoProjection,ExoPolaire,CoordPolaires,TriangleRectangle,CercleTnu,QCb,
             DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
-            SurfaceHorizVerti,SurfaceCercle,ExoCourone,IntRectangle,IntTriangle,
-            IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,
+            SurfaceHorizVerti,SurfaceCercle,ExoCourone,IntRectangle,IntTriangle,CoinPasVar,
+            IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa,
             ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang,
             ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
-            MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton]
+            MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,
+            ExoVarj]
 
 
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"mes notes de mathématique")
@@ -94,4 +101,4 @@ if __name__=="__main__":
     if "--all" in sys.argv :
         AllFigures()
     else:
-        DessinExp()
+        ExoVarj()
