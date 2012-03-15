@@ -63,8 +63,9 @@ from phystricksSurfaceEntreCourbes import SurfaceEntreCourbes
 from phystricksChoixInfini import ChoixInfini
 from phystricksProjPoly import ProjPoly
 from phystrickstrigoWedd import trigoWedd
-
-
+from phystricksDisqueConv import DisqueConv
+from phystricksCercleImplicite import CercleImplicite
+from phystricksExempleNonRang import ExempleNonRang
 
 
 # Il me semble que la figure IntCourbePolaire est inutile
@@ -77,10 +78,12 @@ def AllFigures():
             ExoProjection,ExoPolaire,CoordPolaires,TriangleRectangle,
             DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
             SurfaceHorizVerti,SurfaceCercle,ExoCourone,IntRectangle,IntTriangle,
-            IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,
-            ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,
+            IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,
+            ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang,
             ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
             MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton]
+
+    figures_list=[CercleImplicite]
 
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"mes notes de mathématique")
     tests.generate()
@@ -90,4 +93,4 @@ if __name__=="__main__":
     if "--all" in sys.argv :
         AllFigures()
     else:
-        pass
+        ExempleNonRang()

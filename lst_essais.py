@@ -6,7 +6,7 @@ import LaTeXparser.PytexTools
 
 
 def Prerequiste(medicament):
-	medicament.Sortie.pdf=True
+	#medicament.Sortie.pdf=True
 	medicament.Compil.tout=True
 
 myRequest = LaTeXparser.PytexTools.Request("MesEssais")
