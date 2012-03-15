@@ -66,16 +66,18 @@ from phystrickstrigoWedd import trigoWedd
 from phystricksDisqueConv import DisqueConv
 from phystricksCercleImplicite import CercleImplicite
 from phystricksExempleNonRang import ExempleNonRang
-
+from phystricksCercleTnu import CercleTnu
+from phystricksExoXLVL import ExoXLVL
+from phystricksDessinExp import DessinExp
 
 # Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
     figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,
             MomentForce,Parallelogramme,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
-            DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,
+            DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,
             ChampGraviation,FnCosApprox,NiveauHyperbole,Bateau,FonctionXtrois,FonctionEtDerive,
-            SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,
-            ExoProjection,ExoPolaire,CoordPolaires,TriangleRectangle,
+            SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,DessinExp,
+            ExoProjection,ExoPolaire,CoordPolaires,TriangleRectangle,CercleTnu,
             DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
             SurfaceHorizVerti,SurfaceCercle,ExoCourone,IntRectangle,IntTriangle,
             IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,
@@ -83,7 +85,6 @@ def AllFigures():
             ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
             MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton]
 
-    figures_list=[CercleImplicite]
 
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"mes notes de mathématique")
     tests.generate()
@@ -93,4 +94,4 @@ if __name__=="__main__":
     if "--all" in sys.argv :
         AllFigures()
     else:
-        ExempleNonRang()
+        DessinExp()
