@@ -75,6 +75,7 @@ from phystricksQCb import QCb
 from phystricksLaurin import Laurin
 from phystricksCoinPasVar import CoinPasVar
 from phystricksExoVarj import ExoVarj
+from phystricksTriangleUV import TriangleUV
 
 # Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
@@ -90,7 +91,7 @@ def AllFigures():
             ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang,
             ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
             MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,
-            ExoVarj]
+            ExoVarj,TriangleUV]
 
 
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"mes notes de mathématique")
@@ -101,4 +102,4 @@ if __name__=="__main__":
     if "--all" in sys.argv :
         AllFigures()
     else:
-        ExoVarj()
+        TriangleUV()
