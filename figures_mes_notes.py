@@ -102,4 +102,4 @@ if __name__=="__main__":
     if "--all" in sys.argv :
         AllFigures()
     else:
-        TriangleUV()
+        ExoCourone()

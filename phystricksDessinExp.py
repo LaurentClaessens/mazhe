@@ -18,13 +18,5 @@ def DessinExp():
         pspict[i].DrawDefaultAxes()
         pspict[i].dilatation(1)
 
-    for i,psp in enumerate(pspict):
-        print i
-        list_to_be_drawn = [a for a in psp.record_draw_graph if a.take_graph]
-        for x in list_to_be_drawn:
-            print x.graph
-            print x.graph.bounding_box(psp)
-
-
     fig.conclude()
     fig.write_the_file()
