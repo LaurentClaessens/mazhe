@@ -49,7 +49,7 @@ from phystricksExoProjection import ExoProjection
 from phystricksExoUnSurxPolaire import ExoUnSurxPolaire
 from phystricksSurfaceHorizVerti import SurfaceHorizVerti
 from phystricksSurfaceCercle import SurfaceCercle
-from phystricksExoCourone import ExoCourone
+#from phystricksExoCourone import ExoCourone
 from phystricksIntRectangle import IntRectangle
 from phystricksIntTriangle import IntTriangle
 from phystricksIntEcourbe import IntEcourbe
@@ -86,13 +86,13 @@ def AllFigures():
             SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim,
             ExoProjection,ExoPolaire,CoordPolaires,TriangleRectangle,CercleTnu,QCb,
             DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
-            SurfaceHorizVerti,SurfaceCercle,ExoCourone,IntRectangle,IntTriangle,CoinPasVar,
+            SurfaceHorizVerti,SurfaceCercle,
+            IntRectangle,IntTriangle,CoinPasVar,
             IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa,
             ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang,
             ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
             MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,
             ExoVarj,TriangleUV]
-
 
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"mes notes de mathématique")
     tests.generate()
@@ -102,4 +102,4 @@ if __name__=="__main__":
     if "--all" in sys.argv :
         AllFigures()
     else:
-        ExoCourone()
+        BiaisOuPas()

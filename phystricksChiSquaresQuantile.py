@@ -1,6 +1,8 @@
 from phystricks import *
 def ChiSquaresQuantile():
     pspict,fig = SinglePicture("ChiSquaresQuantile")
+    pspict.dilatation_X(0.5)
+    pspict.dilatation_Y(50)
 
     mx=0
     Mx=30
@@ -23,7 +25,5 @@ def ChiSquaresQuantile():
     pspict.axes.single_axeY.Dx=0.05
 
     pspict.DrawDefaultAxes()
-    pspict.dilatation_X(0.5)
-    pspict.dilatation_Y(50)
     fig.conclude()
     fig.write_the_file()

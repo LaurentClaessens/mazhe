@@ -36,6 +36,7 @@ def ExoXLVL():
 
 
     pspict.axes.no_graduation()
+
     pspict.DrawGraphs(C1,C2,C3,C4,a1,a2,a3,a4)
     pspict.DrawDefaultAxes()
     pspict.dilatation(1)

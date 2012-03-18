@@ -16,7 +16,7 @@ def IntDeuxCarres():
     rectangle2.parameters.fill.color="white"
 
     pspict.DrawGraphs(rectangle1,rectangle2)
-    pspict.DrawDefaultAxes()
+
     pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()

@@ -24,6 +24,8 @@ def IntBoutCercle():
     surface.curve2.parameters=surface.curve1.parameters
 
     pspict.DrawGraphs(c1,c2,surface,segment,P)
+
+    pspict.axes.no_graduation()
     pspict.DrawDefaultAxes()
     pspict.dilatation(2)
     fig.conclude()
