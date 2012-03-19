@@ -15,3 +15,5 @@ myRequest.ok_filenames_list=["e_mes_notes"]
 #myRequest.ok_filenames_list.append("espaces_mesure")
 myRequest.ok_filenames_list.append("lois_usuelles")
 myRequest.ok_filenames_list.append("statistiques")
+myRequest.ok_filenames_list.append("vars_al_proba")
+

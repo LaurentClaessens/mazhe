@@ -397,6 +397,92 @@ Une espérance qui sert de temps en temps est celle de \( X= e^{\beta Z}\) lorsq
 \end{subequations}
 
 %---------------------------------------------------------------------------------------------------------------------------
+\subsection{Vecteur gaussien}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Source : \cite{ProbaDanielLi}.
+
+\begin{definition}
+    Un vecteur aléatoire \( X\colon \Omega\to \eR^d\) est un \defe{vecteur gaussien}{vecteur!gaussien}\index{loi!normale!vecteur gaussien} si toutes les combinaisons linéaires de ses composantes sont des variables aléatoires normales. En d'autres termes, \( X\) est un vecteur gaussien si pour tout vecteur \( u\), la variable aléatoire \( u\cdot X\) est gaussienne.
+\end{definition}
+
+Le vecteur moyenne d'un vecteur gaussien est \( E(X)=\big( E(X_1),\ldots, E(X_n) \big)\) et sa matrice de \defe{variance-covariance}{variance!vecteur gaussien} est la matrice
+\begin{equation}
+    \Var(X)=E\Big[ \big( X-E(X) \big)\otimes \big( X-E(X) \big) \Big]
+\end{equation}
+où par \( \otimes\) nous entendons l'opération suivante. Si \( a\) et \( b\) sont des vecteurs, \( a\otimes b\) est la matrice \( ab^t\), et nous noterons
+\begin{equation}
+    (a\otimes b)(v,w)=(a\cdot v)(b\cdot w)=v\cdot (a\otimes b)w
+\end{equation}
+où \( (a\otimes b)w\) est l'action de la matrice \( (a\otimes b)_{ij}=a_ib_j\) sur le vecteur \( w\).
+
+\begin{lemma}
+    Si les variables aléatoires réelles \( X_1,\ldots, X_n\) sont des variables aléatoires réelles gaussiennes indépendantes, alors le vecteur \( X=(X_1,\ldots, X_n)\) est un vecteur gaussien.
+\end{lemma}
+
+\begin{proof}
+    Nous devons montrer que si \( X\) et \( Y\) sont des variables aléatoires gaussiennes indépendantes, alors \( X+Y\) est encore gaussienne. L'indépendance nous assure les égalités suivantes pour la fonction caractéristique :
+    \begin{equation}
+        \Phi_{X+Y}(t)=E\big(  e^{it(X-Y)} \big)=E\big(  e^{itX} \big)E\big(  e^{itY} \big).
+    \end{equation}
+    Dans le cas où \( X\) et \( Y\) sont gaussiens nous trouvons
+    \begin{equation}
+        \Phi_{X+Y}(t)=\exp\left( im_1t-\frac{ \sigma_1^2t^2 }{2} \right)\exp\left( im_2t-\frac{ \sigma_2^2t^2 }{2} \right)=\exp\left( i(m_1+m_2)t-\frac{ (\sigma_1^2+\sigma_2^2)t^2 }{2} \right).
+    \end{equation}
+    Étant donné que la loi d'une variable aléatoire est entièrement déterminée par sa fonction caractéristique (théorème \ref{ThonMxtTy}), nous déduisons que \( X+Y\) est une normale de moyenne \( m_1+m_2\) et de variance \( \sigma^2=\sqrt{\sigma_1^2+\sigma_2^2}\).
+\end{proof}
+
+\begin{proposition}
+    La fonction caractéristique d'un vecteur gaussien est donnée par
+    \begin{equation}
+        \Phi_X(u)=\exp\left( iu\cdot E(X)- \frac{ 1 }{2} u\cdot K_Xu \right)
+    \end{equation}
+    où \( K_X\) est la matrice de covariance de \( X\).
+\end{proposition}
+
+\begin{proof}
+    Nous considérons la variable aléatoire réelle gaussienne \( u\cdot X\). Son espérance \( m=E(u\cdot X)=u\cdot E(X)\). Nous commençons par établir la formule suivante :
+    \begin{equation}
+        u^tK_Xu=u\cdot K_Xu=E\Big[ \big( [X-E(X)]\cdot u \big)^2 \Big].
+    \end{equation}
+    Utilisant la linéarité de l'espérance,
+    \begin{equation}
+        \sum_{kl}E(A_{kl})u_ku_l=\sum_{kl}E(A_{kl}u_ku_l),
+    \end{equation}
+    nous trouvons
+    \begin{subequations}
+        \begin{align}
+            K_X(u,u)&=E\Big( [X-E(X)]\otimes [X-E(X)] \Big)(u,u)\\
+            &=E\Big( \big( [X-E(X)]\otimes [X-E(X)] \big)(u,u) \Big)\\
+            &=E\Big( \big( [X-E(X)]\cdot u \big)\big( [X-E(X)]\cdot u \big) \Big)\\
+            &=E\left( \big( [X-E(X)]\cdot u \big)^2 \right).
+        \end{align}
+    \end{subequations}
+    Par la linéarité du produit scalaire et de l'espérance,
+    \begin{equation}
+        [X-E(X)]\cdot u=u\cdot X-E(u\cdot X),
+    \end{equation}
+    ce qui nous ramène à la variable aléatoire \( u\cdot X\). Nous avons alors
+    \begin{subequations}
+        \begin{align}
+            K_X(u,u)=E\left[ \big( [X-E(X)]\cdot u \big)^2 \right]=\Var(u\cdot X).
+        \end{align}
+    \end{subequations}
+    Nous avons donc obtenu une forme pour la variance de la variable aléatoire \( u\cdot X\). Étant donné que \( u\cdot X\) est gaussienne de moyenne \( m=u\cdot E(X)\) et de variance \( \sigma^2=K_X(u,u)\), nous avons
+    \begin{equation}    \label{EqJJftOX}
+        \Phi_{u\cdot X}(t)=\exp\big( itm-\frac{ 1 }{2}\sigma^2t^2 \big).
+    \end{equation}
+    Par ailleurs nous avons \( \Phi_X(u)=\Phi_{u\cdot X}(1)\) parce que
+    \begin{equation}
+        \Phi_X(u)=E\big(  e^{iu\cdot X} \big)=\Phi_{u\cdot X}(1).
+    \end{equation}
+    En utilisant la forme \eqref{EqJJftOX} pour \( \Phi_{u\cdot X}\) nous trouvons
+    \begin{equation}
+        \Phi_X(u)=\Phi_{u\cdot X}(1)=\exp\big( im-\frac{ 1 }{2}\sigma^2 \big)=\exp\Big( iE(u\cdot X)-\frac{ 1 }{2}u\cdot KXu \Big).
+    \end{equation}
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
 \subsection{Théorème de Cochran}
 %---------------------------------------------------------------------------------------------------------------------------
 
