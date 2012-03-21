@@ -432,7 +432,7 @@ où \( (a\otimes b)w\) est l'action de la matrice \( (a\otimes b)_{ij}=a_ib_j\) 
     Étant donné que la loi d'une variable aléatoire est entièrement déterminée par sa fonction caractéristique (théorème \ref{ThonMxtTy}), nous déduisons que \( X+Y\) est une normale de moyenne \( m_1+m_2\) et de variance \( \sigma^2=\sqrt{\sigma_1^2+\sigma_2^2}\).
 \end{proof}
 
-\begin{proposition}
+\begin{proposition} \label{Propfmzuol}
     La fonction caractéristique d'un vecteur gaussien est donnée par
     \begin{equation}
         \Phi_X(u)=\exp\left( iu\cdot E(X)- \frac{ 1 }{2} u\cdot K_Xu \right)
@@ -487,7 +487,80 @@ où \( (a\otimes b)w\) est l'action de la matrice \( (a\otimes b)_{ij}=a_ib_j\) 
 \end{theorem}
 
 \begin{proof}
-    Nous savons que les variables aléatoires indépendantes sont non corrélées.
+    Nous savons que les variables aléatoires indépendantes sont non corrélées. Nous devons donc surtout prouver le contraire. Le fait que les variables aléatoires \( X_i\) soient non corrélées signifie que la matrice de covariance est
+    \begin{equation}
+        K_X=\begin{pmatrix}
+            \sigma_1^2    &       &   0    \\
+                &   \ddots    &       \\
+            0    &       &   \sigma_d^2
+        \end{pmatrix}
+    \end{equation}
+    où \( \sigma_k^2=\Var(X_k)\). Notons \( m_k=E(X_k)\). Si \( u\in \eR^d\), nous avons en vertu de la proposition \ref{Propfmzuol} que
+    \begin{subequations}
+        \begin{align}
+            \Phi_X(u)&=\exp\Big( i(u_1m_1+\ldots +u_dm_d)-\frac{ 1 }{2}(\sigma_1^2u_1^2+\ldots +\sigma_d^2u_d^2) \Big)\\
+            &=\exp\big( iu_1m_1-\frac{ 1 }{2}\sigma_1^2u_1^2 \big)\ldots\exp\big( iu_dm_d-\frac{ 1 }{2}\sigma_d^2u_d^2 \big)\\
+            &=\Phi_{X_1}(u_1)\ldots \Phi_{X_d}(u_d).
+        \end{align}
+    \end{subequations}
+    Les variables aléatoires \( X_i\) sont donc indépendantes parce que la fonction caractéristique se factorise.
+\end{proof}
+
+\begin{example}
+    Nous donnons à présent un exemple de deux variables aléatoires gaussiennes qui ne forment pas un vecteur gaussien. Pour ce faire nous devons chercher des variables aléatoires non indépendantes. Soit \( Y\sim \dN(0,1)\) et \( \epsilon\) une variable aléatoire (indépendante de \( Y\)) donnée par \( P(\epsilon=-1)=\frac{ 1 }{2}\), \( P(\epsilon=1)=\frac{ 1 }{2}\). Nous considérons le vecteur \( (Y,\epsilon Y)\).
+
+    D'abord montrons que \( \epsilon Y\) est une variable aléatoire gaussienne. Soit \( A\) un borélien de \( \eR\). Nous avons
+    \begin{equation}
+        P(\epsilon Y\in A)=P(\epsilon=-1,Y\in A)+P(\epsilon=-1,-Y\in A).
+    \end{equation}
+    Par indépendance et par symétrie de \( Y\) nous trouvons
+    \begin{subequations}
+        \begin{align}
+            P(\epsilon Y\in A)&=P(\epsilon=1)P(Y\in A)+P(\epsilon=-1)P(-\in A)\\
+            &=\frac{ 1 }{2}P(Y\in A)+\frac{ 1 }{2}P(-Y\in A)\\
+            &=P(Y\in A).
+        \end{align}
+    \end{subequations}
+    Nous avons donc \( Y\sim \epsilon Y\), et donc \( \epsilon Y\) est gaussienne.
+
+    En ce qui concerne la covariance, nous savons que \( E(Y)=E(\epsilon)=0\), donc
+    \begin{equation}
+        \Cov(Y,\epsilon Y)=E(Y\cdot \epsilon Y)=E(\epsilon Y^2)=E(\epsilon)E(Y^2)=0.
+    \end{equation}
+    Note : \( E(Y^2)=1\).
+
+    Les variables aléatoires \( Y\) et \( \epsilon Y\) ne sont pas indépendantes. En effet si elles l'étaient, \( Y\) serait aussi indépendante de \( (\epsilon Y)^2=Y^2\), alors que \( Y\) et \( Y^2\) ne sont pas indépendantes. Donc \( X=(Y,\epsilon Y)\) n'est pas un vecteur gaussien.
+\end{example}
+
+\begin{theorem}[\cite{ProbaDanielLi}]
+    Soit \( m\in \eR^d\) et \( K\in \eM(d,\eR)\) une matrice symétrique et positive. Alors il existe un vecteur gaussien de moyenne \( m\) et de matrice de covariance \( K\).
+\end{theorem}
+
+\begin{proof}
+    Nous effectuons la preuve avec \( m=0\). Nous choisissons l'espace probabilisé \( (\Omega,\tribA)=(\eR^r,\Borelien(\eR^r))\) où \( r\) est le rang de \( K\) muni de la probabilité de densité
+    \begin{equation}    \label{EqozOZiQ}
+        \gamma(u)=\frac{1}{ (2\pi)^{r/2} }\exp\big( -\frac{ 1 }{2}\| u \|^2 \big).
+    \end{equation}
+    Nous considérons la variable aléatoire
+    \begin{equation}
+        \begin{aligned}
+            Y_0\colon \Omega&\to \eR^r \\
+            u&\mapsto u. 
+        \end{aligned}
+    \end{equation}
+    C'est une variable aléatoire gaussienne de loi \( P_{Y_0}=\gamma\lambda_d\) où \( \lambda_d\) est la mesure de Lebesgue sur \( \eR^d\). Sa densité \eqref{EqozOZiQ} s'écrit comme le produit de \( r\) gaussiennes indépendantes; sa matrice de covariance est donc \( \mtu_{r\times r}\).
+
+    Étant donné que \( K\) est symétrique et positive, il existe une matrice \( d\times r\) telle que \( K=AA^t\). Pour voir cela, remarquons qu'il existe une matrice \( d\times d\) qui fait le travail. En effet \( K\) se diagonalise par une orthogonale (théorème \ref{ThoeTMXla}) :
+    \begin{equation}
+        K=ADA^t=A\sqrt{D}\sqrt{D}A^t
+    \end{equation}
+    où \( D\) est une matrice diagonale contenant \( d-r\) zéros et \( \sqrt{D}\) est la matrice que l'on imagine. Donc la matrice \( L=A\sqrt{D}\) est une matrice telle que \( LL^t=K\). Maintenant, étant donné que les \( d-r\) dernières lignes de \( D\) sont vides, les \( d-r\) dernières lignes de \( L\) n'ont pas d'importance et peuvent être choisies nulles, voire même ne pas exister. La matrice \( A\in\eM_{d\times r,\eR}\) qui réalise \( AA^t=K\) est la «troncature» de \( L\) à ses \( r\) premières lignes.
+    
+    Nous considérons la variable aléatoire \( Y=AY_0\colon \Omega\to \eR^d\). Étant donné que \( AY_0\) est une transformation linéaire d'un vecteur gaussien, c'est un vecteur gaussien. Nous avons encore \( m(Y)=0\) et 
+    \begin{equation}
+        \Var(Y)=E(Y\otimes Y)=E\big( (AY_0)\otimes (AY_0) \big)=AE(Y_0\otimes Y_0)A^t=AA^t=K
+    \end{equation}
+    parce que \( E(Y_0\otimes Y_0)=\mtu\). Nous avons utilisé les formules de la section \ref{SeOOpHsn}.
 \end{proof}
 <++>
 
