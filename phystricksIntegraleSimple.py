@@ -1,6 +1,7 @@
 from phystricks import *
 def IntegraleSimple():
     pspict,fig = SinglePicture("IntegraleSimple")
+    pspict.dilatation(1)
 
 
     a=-pi/2
@@ -19,10 +20,6 @@ def IntegraleSimple():
     surface.f1.parameters.style="solid"
     surface.f1.parameters.color="blue"
     surface.parameters.color="red"
-
-    pspict.DrawGraphs(A,B,surface)
-    pspict.axes.no_graduation()
-    pspict.DrawDefaultAxes()
 
     pspict.DrawGraphs(A,B,surface)
     pspict.axes.no_graduation()
