@@ -94,8 +94,6 @@ def AllFigures():
             MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,
             ExoVarj,TriangleUV]
 
-    figures_list=[ IntegraleSimple,ExoMagnetique,CouroneExam,SurfacePrimiteGeog,ExoXLVL,Laurin,FnCosApprox,NiveauHyperbole,Bateau,FonctionXtrois,FonctionEtDerive,SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,DessinLim,ExoProjection,ExoPolaire,CoordPolaires,QCb,DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,SurfaceCercle,IntRectangle,IntTriangle,CoinPasVar,IntEcourbe,IntBoutCercle,ExPolygone,CercleImplicite,ConeRevolution,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang,ToreRevolution,ExSinLarge,ContourSqL,ratrap,MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,ExoVarj,TriangleUV ]
-
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"mes notes de mathématique")
     tests.generate()
     tests.summary()

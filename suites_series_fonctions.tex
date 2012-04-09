@@ -8,24 +8,89 @@
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Source : \cite{TrenchRealAnalisys}.
 
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Suites de fonctions}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Nous disons qu'une suite de fonctions \( (f_n)\) définies sur un ensemble \( A\) \defe{converge uniformément}{convergence!uniforme} vers une fonction \( f\) si
+    \begin{equation}
+        \lim_{n\to \infty} \| f_n-f \|_A=0
+    \end{equation}
+    où \( \| g \|_A=\sup_{x\in A}\| g(x) \|\).
+\end{definition}
+
 \begin{theorem}			\label{ThoUnigCvCont}
-	Soit $f_k\colon A\subset\eR^n\to \eR^m$ une suite de fonctions continues, convergeant uniformément vers $f$. Alors $f$ est continue.
+    Soit \( A\), un ensemble mesuré et \( f_n\colon A\to \eR^n\), une suite de fonctions continues convergeant uniformément vers \( f\). Si les fonctions \( f_n\) sont toutes continues en \( x_0\in A\), alors \( f\) est continue en \( x_0\).
 \end{theorem}
+
+\begin{proof}
+    Soit \( \epsilon>0\). Si \( x\in A\) nous avons, pour tout \( n\), la majoration
+    \begin{subequations}
+        \begin{align}
+            \| f(x)-f(x_0) \|&\leq \| f(x)-f_n(x) \|+\| f_n(x)-f_n(x_0) \|+\| f_n(x_0)-f(x_0) \|\\
+            &\leq\| f_n(x)-f_n(x_0) \|+2\| f_n-f \|_{\infty}.
+        \end{align}
+    \end{subequations}
+    Grâce à l'uniforme convergence, nous considérons \(N\in \eN\) tel que \( \| f_n-f \|\leq \epsilon\) pour tout \( n\geq N\). Pour de tels \( n\), nous avons
+    \begin{equation}
+        \| f(x)-f(x_0) \|\leq 2\epsilon\| f_n-f \|+\| f_n(x)-f_n(x_0) \|.
+    \end{equation}
+    La continuité de \( f_n\) nous fournit un \( \delta>0\) tel que \( \| f_n(x_0)-f_n(x) \|<\epsilon\) dès que \( \| x-x_0 \|<\delta\). Pour ce \( \delta\), nous avons alors \( \| f(x)-f(x_0) \|<\epsilon\).
+\end{proof}
+
+\begin{proposition}[Permuter limite et intégrale]       \label{PropbhKnth}
+    Soit \( f_n\to f\) uniformément sur un ensemble mesuré \( A\) de mesure finie. Alors si les fonctions \( f_n\) et \( f\) sont intégrables sur \( A\), nous avons
+    \begin{equation}
+        \lim_{n\to \infty} \int_A f_n=\int_A \lim_{n\to \infty} f_n.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Notons \( f\) la limite de la suite \( (f_n)\). Pour tout \( n\) nous avons les majorations
+    \begin{subequations}
+        \begin{align}
+            \left| \int_A f_n d\mu-\int_A fd\mu \right| &\leq \int_A| f_n-f |d\mu\\
+            &\leq \int_A \| f_n-f \|_{\infty}d\mu\\
+            &=\mu(A)\| f_n-f \|_{\infty}
+        \end{align}
+    \end{subequations}
+    où \( \mu(A)\) est la mesure de \( A\). Le résultat découle maintenant du fait que \( \| f_n-f \|_{\infty}\to 0\).
+\end{proof}
+Il existe un résultat considérablement plus intéressant que cette proposition. En effet, l'intégrabilité de \( f\) n'est pas nécessaire. Cette hypothèse peut être remplacée soit par l'uniforme convergence de la suite (théorème \ref{ThoUnifCvIntRiem}), soit par le fait que les normes des \( f_n\) sont uniformément bornées (théorème de la convergence dominée de Lebesgue \ref{ThoConvDomLebVdhsTf}).
 
 \begin{theorem}			\label{ThoUnifCvIntRiem}
-	Soit $A$ un ensemble mesurable et borné de $\eR^n$ et $f_k\colon A\to \eR$ des fonctions bornées et intégrables au sens de Lebesgue. Si la suite $f_k$ converge uniformément vers $f$, alors $f$ est bornée et intégrable au sens de Lebesgue et 
-	\begin{equation}
-		\int_A f=\lim_{k\to\infty} f_k.
-	\end{equation}
+    La limite uniforme d'une suite de fonctions intégrables sur un borné est intégrable, et on peut permuter la limite et l'intégrale. 
+    
+    Plus précisément, soit \( A\) un ensemble de \( \mu\)-mesure finie et \( f_n\colon A\to \eR\) des fonctions intégrables sur \( A\). Si la limite \( f_n\to f\) est uniforme, alors \( f\) est intégrable sur \( A\) et nous pouvons inverser la limite et l'intégrale :
+    \begin{equation}
+        \lim_{n\to \infty} \int_A f_n=\int_A\lim_{n\to \infty} f_n.
+    \end{equation}
 \end{theorem}
+La preuve suivante est inspirée de celle fournie par \href{http://dubois.gilles.pagesperso-orange.fr/analyse_reelle/intlimites.html}{Gilles Dubois} dans le cas de l'intégrale de Riemann sur un intervalle compact.
 
-\begin{theorem}			\label{ThoSerUnifCont}
-	Si les $g_k$ sont continues et si $\sum g_k$ converge uniformément, alors $\sum g_k$ est continue.
-\end{theorem}
+\begin{proof}
+    Soit \( \epsilon>0\) et \( n\) tel que \( \| f_n-f \|_{\infty}\leq \epsilon\) (ici la norme uniforme est prise sur \( A\)). Étant donné que \( f_n\) est intégrable sur \( A\), il existe une fonction simple \( \varphi_n\) qui minore \( f_n\) telle que
+    \begin{equation}
+        \left| \int_{A}\varphi_n-\int_A f_n \right| <\epsilon.
+    \end{equation}
+    La fonction \( \varphi_n+\epsilon\) est une fonction simple qui majore la fonction \( f\). Si \( \psi\) est une fonction simple qui minore \( f\), alors
+    \begin{equation}
+        \int_A\psi\leq\int_A\varphi_n+\epsilon\leq\int_A f_n+\epsilon\mu(A).
+    \end{equation}
+    Par conséquent le supremum qui définit \( \int_A f\) existe, ce qui montre que \( f\) est intégrable. Le fait qu'on puisse inverser la limite et l'intégrale est maintenant une conséquence de la proposition \ref{PropbhKnth}.
+\end{proof}
 
-\begin{theorem}		\label{ThoCritWeierstrass}
-	Soient $g_k\colon A\to \eC$ et $\sum_{k=1}^{\infty}g_k$. Si $| g_k(x) |\leq M_k\in\eR$, $\forall x\in A$ et si $\sum_{k=1}^{\infty}M_k$ converge, alors $\sum_{k=1}^{\infty}g_k$ converge absolument et uniformément.
-\end{theorem}
+\begin{remark}
+    L'hypothèse sur le fait que \( A\) est de mesure finie est importante. Il n'est pas vrai qu'une suite uniformément convergente de fonctions intégrables est intégrables. En effet nous avons par exemple la suite
+    \begin{equation}
+        f_n(x)=\begin{cases}
+            1/x    &   \text{si \( x<n\)}\\
+            0    &    \text{sinon}
+        \end{cases}
+    \end{equation}
+    qui converge uniformément vers \( f(x)=1/x\) sur \( A=\mathopen[ 1 , \infty [\). Le limite n'est cependant pas intégrable sur \( A\).
+\end{remark}
 
 \begin{theorem}[Page I.12]		\label{ThoSerUnifDerr}
 	Soit $U\subset\eR^n$ ouvert, $f_k\colon U\to \eR$ et $f_k$ de classe $C^1$. Supposons que $f_k$ converge simplement vers $f$ et que $\partial_if_k$ converge uniformément sur tout compact  vers une fonction $g_i$ pour $i=1,\ldots,n$. Alors $f$ est de classe $C^1$ et $\partial_if=g_i$. De plus, $f_k$ converge vers $f$ uniformément.
@@ -282,133 +347,92 @@ Nous avons évidemment \( g_n(x)=0\) tandis que \( \int_{\mathopen[ 0 , 2 \mathc
 \begin{proof}
     L'hypothèse est la convergence de l'intégrale \( \int_{\eN}| a_i |dm(i)\) où \( dm\) est la mesure de comptage. Étant donné que \( | a_i |\leq | a_i |\), la fonction \( a_i\) (fonction de \( i\)) peut jouer le rôle de \( g\) dans le théorème de la convergence dominée de Lebesgue (théorème \ref{ThoConvDomLebVdhsTf}).
 \end{proof}
-
 Nous utiliseront ce résultat pour montrer que la transformée de Fourier d'une fonction \( L^1(\eR^d)\) est continue (proposition \ref{PropJvNfj}).
 
-\begin{theorem} \label{ThoKnuSNd}
-    Soit \( (\Omega,\mu)\) est un espace mesuré, soit \( x_0\in \eR\) et \( f\colon \eR\times \Omega\to \eR\). Nous supposons que
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Séries de fonctions}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les séries de fonctions sont des cas particuliers de suites, étant donné que, par définition,
+\begin{equation}
+    \sum_{n=1}^{\infty}f_n=\lim_{N\to \infty} \sum_{n=1}^{N}f_n.
+\end{equation}
+
+Nous rappelons qu'une série de nombres \( \sum_{n=0}^{\infty}a_n\) converge \defe{absolument}{convergence!absolue} si la série
+\begin{equation}
+    \sum_{n=0}^{\infty}| a_n |
+\end{equation}
+converge. Cette définition s'étend immédiatement aux séries dans n'importe quel espace normé.
+
+Une série de fonctions \( \sum_{n\in \eN}u_n \) converge \defe{normalement}{convergence!normale} si la série de nombre \( \sum_n\| u_n \|_{\infty}\) converge.
+
+La convergence normale est à ne pas confondre avec la convergence uniforme. La somme \( \sum_nf_n\) \defe{converge uniformément}{convergence!uniforme!série de fonctions} si la suite des sommes partielles converge uniformément, c'est à dire si 
+\begin{equation}
+    \lim_{N\to \infty} \| \sum_{n=1}^Nf_n-f \|_{\infty}=0.
+\end{equation}
+
+\begin{lemma}
+    Soient des fonctions \( u_n\colon \Omega\to \eC\). Si il existe une suite réelle positive \( (a_n)_{n\in \eN}\) telle que
     \begin{enumerate}
         \item
-            La fonction \( f(x,.)\) est dans \( L^1(\Omega,\mu)\) pour tout \( x \in \eR\).
+            pour tout \( z\in \Omega\) et pour tout \( n\in \eN\) nous avons \( | u_n(z) |\leq a_n\) (c'est à dire \( a_n\geq \| u_n \|_{\infty}\)),
         \item
-            La fonction \( f(.,\omega)\) est continue en \( x_0\) pour tout \( \omega\in\Omega\).
-        \item       \label{ItemNAuYNG}
-            Il existe une fonction \( G\in L^1(\Omega)\) telle que
-            \begin{equation}
-                | f(x,\omega) |\leq G(\omega)
-            \end{equation}
-            pour tout \( x\in \eR\).
+            la somme \( \sum_{n}a_n\) converge,
     \end{enumerate}
-    Alors la fonction 
-    \begin{equation}
-        \begin{aligned}
-            F\colon \eR&\to \eR \\
-            x&\mapsto \int_{\Omega}f(x,\omega)d\mu(\omega) 
-        \end{aligned}
-    \end{equation}
-    est continue en \( x_0\).
-\end{theorem}
-
-\begin{proof}
-    Soit \( (x_n)\) une suite convergente vers \( x_0\). Nous considérons la suite de fonctions \( f_n(\omega)=f(x_n,\omega)\) pour qui nous pouvons utiliser le théorème de la convergence dominée (théorème \ref{ThoConvDomLebVdhsTf}) pour obtenir
-    \begin{subequations}
-        \begin{align}
-            \lim_{n\to \infty} F(x_n)&=\lim_{n\to \infty} \int_{\Omega}f(x_n,\omega)d\mu(\omega)\\
-            &=\int_{\Omega}\lim_{n\to \infty} f(x_n,\omega)d\mu(\omega)\\
-            &=\int_{\Omega}f(x,\omega)d\mu(\omega)\\
-            &=F(x).
-        \end{align}
-    \end{subequations}
-    Nous avons utilisé la continuité de \( f(.,\omega)\).
-\end{proof}
-
-Soit \( (\Omega,\mu)\) un espace mesuré. Nous disons que l'intégrale
-\begin{equation}
-    \int_{\Omega}f(x,\omega)d\mu(\omega)
-\end{equation}
-\defe{converge uniformément}{convergence!uniforme!intégrale} si pour tout \( \epsilon>0\), il existe un compact \( K_0\) tel que pour tout compact \( K\) tel que \( K_0\subset K\) nous avons
-\begin{equation}
-    \left| \int_{\Omega\setminus K}f(x,\omega)d\mu(\omega) \right| \leq \epsilon.
-\end{equation}
-Le point important est que le choix de \( K_0\) ne dépend pas de \( x\).
-
-\begin{lemma}       \label{LemOgQdpJ}
-    Soit
-    \begin{equation}
-        F(x)=\int_{\Omega}f(x,\omega)d\mu(\omega),
-    \end{equation}
-    une intégrale uniformément convergente. Pour chaque \( k\in \eN\) nous considérons un compact \( K_k\) tel que
-    \begin{equation}
-        \left| \int_{\Omega\setminus K_k}f(x,\omega)d\mu(\omega) \right| \leq\frac{1}{ k }.
-    \end{equation}
-    Alors la suite de fonctions \( F_k\) définie par
-    \begin{equation}
-        F_k(x)=\int_{K_k}f(x,\omega)d\mu(\omega)
-    \end{equation}
-    converge uniformément vers \( F\).
+    alors la série de fonctions \( \sum_{n=0}^{\infty}u_n\) converge normalement.
 \end{lemma}
 
 \begin{proof}
-    Nous avons
-    \begin{subequations}
-        \begin{align}
-            \big| F_k(x)-F(x) \big|&=\left| \int_{K_k}f(x,\omega)d\mu(\omega)-\int_{\Omega}f(x,\omega)d\mu(\omega) \right| \\
-            &=| \int_{\Omega\setminus K_k}f(x,\omega)d\mu(\omega) |\\
-            &\leq \frac{1}{ k }.
-        \end{align}
-    \end{subequations}
+    Découle du lemme de comparaison \ref{LemgHWyfG}.
 \end{proof}
 
-Si nous avons un peu de compatibilité entre la topologie et la mesure, alors nous pouvons utiliser l'uniforme convergence d'une intégrale pour obtenir la continuité d'une fonction définie par une intégrale.
+\begin{proposition}     \label{PropUEMoNF}
+    Soit \( (u_n)\) une suite de fonctions continues \( u_n\colon \Omega\subset\eC\to \eC\). Si la série \( \sum_nu_n\) converge normalement alors la somme est continue.
+\end{proposition}
 
-\begin{theorem}
-    Soit \( (\Omega,\mu)\) un espace topologique mesuré tel que tout compact est de mesure finie. Soit une fonction \( f\colon \eR\times \Omega\to \eR\) telle que
-    \begin{enumerate}
-        \item
-            Pour chaque \( x\in \eR\), la fonction \( f(x,.)\) est \( L^1(\Omega,\mu)\).
-        \item
-            Pour chaque \( \omega\in \Omega\), la fonction \( f(.,\omega)\) est continue en \( x_0\).
-        \item
-            L'intégrale
-            \begin{equation}
-                F(x)=\int_{\Omega}f(x,\omega)d\mu(\omega)
-            \end{equation}
-            est uniformément convergente.
-    \end{enumerate}
-    Alors la fonction \( F\) est continue en \( x_0\).
+\begin{proof}
+    Nous posons \( u(z)=\lim_{n\to \infty} u_n(z)\), et nous vérifions que la fonction ainsi définie sur \( \Omega\) est continue. Soit \( z\in \Omega\) et prouvons la continuité de \( u\) au point \( z\). Pour tout \( z'\) dans un voisinage de \( z\) nous avons 
+    \begin{subequations}
+        \begin{align}
+            \big| u(z)-u(z') \big|&=\left| \sum_{n=0}^{N}u_n(z)-\sum_{n=0}^{N}u_n(z')+\sum_{n=N+1}^{\infty}u_n(z)-\sum_{n=N+1}^{\infty}u_n(z') \right| \\
+            &\leq \left| \sum_{n=0}^N u_n(z)-\sum_{n=0}^Nu_n(z') \right| +\sum_{n=N+1}^{\infty}| u_n(z) |+\sum_{n=N+1}^{\infty}| u_n(z') |.
+        \end{align}
+    \end{subequations}
+    Étant donné que les sommes partielles sont continues, en prenant \( N\) suffisamment grand, le premier terme peut être rendu arbitrairement petit. Si \( N\) est suffisamment grand, le second terme est également petit. Par contre, cet argument ne tient pas pour le troisième terme parce que nous souhaitons une majoration pour tout \( z'\) dans une boule autour de \( z\). Nous devons donc écrire
+    \begin{equation}
+        \sum_{n=N}^{\infty}| u_(z) |\leq \sum_{n=N+1}^{\infty}\| u_n \|_{\infty}.
+    \end{equation}
+    Ce dernier est arbitrairement petit lorsque \( N\) est grand. Notons que nous avons utilisé l'hypothèse de convergence normale.
+\end{proof}
+
+\begin{theorem}			\label{ThoSerUnifCont}
+	Si les $g_k$ sont continues et si $\sum g_k$ converge uniformément, alors $\sum g_k$ est continue.
+\end{theorem}
+
+\begin{theorem}		\label{ThoCritWeierstrass}
+	Soient $g_k\colon A\to \eC$ et $\sum_{k=1}^{\infty}g_k$. Si $| g_k(x) |\leq M_k\in\eR$, $\forall x\in A$ et si $\sum_{k=1}^{\infty}M_k$ converge, alors $\sum_{k=1}^{\infty}g_k$ converge absolument et uniformément.
+\end{theorem}
+
+\begin{theorem}      \label{ThoCciOlZ}
+    La somme uniforme de fonctions intégrables sur un ensemble de mesure fini est intégrable et on peut permuter la somme et l'intégrale.
+
+    En d'autres termes, supposons que \( \sum_{n=0}^{\infty}f_n\) converge uniformément vers \( F\) sur \( A\) avec \( \mu(A)<\infty\). Si \( F\) et \( f_n\) sont des fonctions intégrables sur \( A\) alors
+    \begin{equation}
+        \int_AF(x)d\mu(x)=\sum_{n=0}^{\infty}\int_Af_n(x)d\mu(x).
+    \end{equation}
 \end{theorem}
 
 \begin{proof}
-    Nous reprenons les notations du lemme \ref{LemOgQdpJ}. Les fonctions
+    Ce théorème est une conséquence du théorème \ref{ThoUnifCvIntRiem}. En effet nous définissons la suite des sommes partielles
     \begin{equation}
-        F_k(x)=\int_{K_k}f(x,\omega)d\mu(\omega)
+        F_N=\sum_{n=0}^Nf_n.
     \end{equation}
-    existent parce que les fonctions \( f(x,.)\) sont dans \( L^1(\Omega)\). Montrons que les fonctions \( F_k\) sont continues. Soit une suite \( x_k\to x_0\) nous avons
+    La limite \( \lim_{N\to \infty} F_N=F\) est uniforme. Par conséquent la fonction \( F\) est intégrable et
     \begin{equation}
-        \lim_{n\to \infty} F_k(x_n)=\lim_{n\to \infty} \int_{K_k}f(x_n,\omega)d\mu(\omega).
+        \int_A F=\lim_{N\to \infty} \int_AF_N=\lim_{N\to \infty} \int_A\sum_{n=0}^Nf_n=\lim_{N\to \infty} \sum_{n=0}^N\int_Af_n=\sum_{n=0}^{\infty}\int_Af_n.
     \end{equation}
-    Nous pouvons inverser la limite et l'intégrale en utilisant le théorème de la convergence dominée. Pour cela, la fonction \( f(x_n,\omega)\) étant continue sur le compact \( K_k\), elle y est majorée par une constante. Le fait que les compacts soient de mesure finie (hypothèse) implique que les constantes soient intégrales sur \( K_k\). Le théorème de la convergence dominée implique alors que
-    \begin{equation}
-        \lim_{n\to \infty} F_k(x_n)=\int_{K_k}\lim_{n\to \infty} f(x_n,\omega)d\mu(\omega)=\int_{K_k}f(x_0,\omega)d\mu(\omega)=F_k(x_0).
-    \end{equation}
-    Nous avons utilisé le fait que \( f(.,\omega)\) était continue en \( x_0\).
-
-
-    
-    Le lemme \ref{LemOgQdpJ} nous indique alors que la convergence \( F_k\to F\) est uniforme. Les fonctions \( F_k\) étant continues, la fonction \( F\) est continue.
+    La première égalité est le théorème \ref{ThoUnifCvIntRiem}, les autres sont de simples manipulations rhétoriques.
 \end{proof}
-
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Dérivation, intégration}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{theorem}[\cite{TrenchRealAnalisys}]      \label{ThoCciOlZ}
-    Supposons que \( \sum_{n=0}^{\infty}f_n\) converge uniformément vers \( F\) sur \( \mathopen[ a , b \mathclose]\). Si \( F\) et \( f_n\) sont des fonctions intégrables sur \( \mathopen[ a , b \mathclose]\) alors
-    \begin{equation}
-        \int_a^bF(x)dx=\sum_{n=0}^{\infty}\int_a^bf_n(x)dx.
-    \end{equation}
-\end{theorem}
 
 \begin{theorem} \label{ThoCSGaPY}
     Soit \( f_n\) des fonctions \( C^1\mathopen[ a , b \mathclose]\) telles que
