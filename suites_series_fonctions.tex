@@ -149,35 +149,6 @@ nous parlons que \defe{convergence uniforme}{convergence!uniforme!suite de fonct
     Nous disons qu'un sous ensemble \( A\) de \( \Omega\) est \defe{complet}{complet} si toute suite de Cauchy d'éléments de \( A\) converge vers un élément de \( A\).
 \end{definition}
 
-\begin{theorem}[Weierstrass]
-    La série de fonctions \( \sum_{n=1}^{\infty}f_n\) converge en norme si \( \| f_n \|\leq M_n\) avec \( \sum_nM_n<\infty\).
-\end{theorem}
-
-\begin{proof}
-    Si \( (S_n)_{n\in\eN}\) est la suite des sommes partielles de \( \sum M_n\), alors le critère de Cauchy pour la convergence de suites numériques dit que si \( m\) et \( n\) sont assez grands, \( S_m-S_{n-1}<\epsilon\), c'est à dire
-    \begin{equation}
-        M_n+\ldots+M_n<\epsilon.
-    \end{equation}
-    Par conséquent nous avons
-    \begin{equation}
-        \| f_n+\ldots+f_m \|\leq\| f_n \|+\ldots\| f_m \|\leq \epsilon.
-    \end{equation}
-    Le corollaire \ref{CorCauchyCkXnvY} montre alors la convergence de la série.
-\end{proof}
-
-En corollaire, si \( \sum_n\| f_n \|\) converge, alors \( \sum_nf_n\) converge.
-
-\begin{remark}
-    Il n'y a pas de critère correspondant pour les suites. Il n'est pas vrai que si \( \lim_{n\to \infty}\| f_n \| \) existe, alors \( \lim_{n\to \infty} f_n\) existe, comme le montre l'exemple
-    \begin{equation}
-        f_n(x)=\begin{cases}
-            1    &   \text{si \( x\in\mathopen[ 0 , 1 \mathclose]\) et \( n\) est pair}\\
-            1    &    \text{si \( x\in\mathopen[ 1 , 2 \mathclose]\) et \( n\) est impair}\\
-             0   &    \text{sinon.}
-        \end{cases}
-    \end{equation}
-\end{remark}
-
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Convergence monotone}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -366,9 +337,9 @@ converge. Cette définition s'étend immédiatement aux séries dans n'importe q
 
 Une série de fonctions \( \sum_{n\in \eN}u_n \) converge \defe{normalement}{convergence!normale} si la série de nombre \( \sum_n\| u_n \|_{\infty}\) converge.
 
-La convergence normale est à ne pas confondre avec la convergence uniforme. La somme \( \sum_nf_n\) \defe{converge uniformément}{convergence!uniforme!série de fonctions} si la suite des sommes partielles converge uniformément, c'est à dire si 
+La convergence normale est à ne pas confondre avec la convergence uniforme. La somme \( \sum_nf_n\) \defe{converge uniformément}{convergence!uniforme!série de fonctions} vers la fonction \( F\) si la suite des sommes partielles converge uniformément, c'est à dire si 
 \begin{equation}
-    \lim_{N\to \infty} \| \sum_{n=1}^Nf_n-f \|_{\infty}=0.
+    \lim_{N\to \infty} \| \sum_{n=1}^Nf_n-F \|_{\infty}=0.
 \end{equation}
 
 \begin{lemma}
@@ -409,9 +380,41 @@ La convergence normale est à ne pas confondre avec la convergence uniforme. La 
 	Si les $g_k$ sont continues et si $\sum g_k$ converge uniformément, alors $\sum g_k$ est continue.
 \end{theorem}
 
-\begin{theorem}		\label{ThoCritWeierstrass}
-	Soient $g_k\colon A\to \eC$ et $\sum_{k=1}^{\infty}g_k$. Si $| g_k(x) |\leq M_k\in\eR$, $\forall x\in A$ et si $\sum_{k=1}^{\infty}M_k$ converge, alors $\sum_{k=1}^{\infty}g_k$ converge absolument et uniformément.
+\begin{theorem}[Critère de Weierstrass]\index{critère!Weierstrass!série de fonctions}		\label{ThoCritWeierstrass}
+	Soit une suite de fonctions $f_k\colon A\to \eC$ telles que $| f_k(x) |\leq M_k\in\eR$, $\forall x\in A$. Si $\sum_{k=1}^{\infty}M_k$ converge, alors $\sum_{k=1}^{\infty}f_k$ converge absolument et uniformément.
 \end{theorem}
+
+\begin{proof}
+    La convergence normale est facile : l'hypothèse dit que \( \| f_k \|_{\infty}\leq M_k\), et donc que
+    \begin{equation}
+        \sum_{k=1}^{\infty}\| f_k \|_{\infty}\leq \sum_kM_k<\infty.
+    \end{equation}
+    
+    La convergence uniforme est à peine plus subtile. Nous nommons \( F\) la fonction somme. Pour tout \( x\) et pour tout \( N\), nous avons
+    \begin{subequations}
+        \begin{align}
+            \left\| \sum_{n=1}^Nf_n(x)-F(x) \right\|&=\| \sum_{n=N}^{\infty}f_n(x) \|\\
+            &\leq\sum_{n=N}^{\infty}\| f_k(x) \|\\
+            &\leq \sum_{n=N}^{\infty}\| f_n \|_{\infty}.
+        \end{align}
+    \end{subequations}
+    La convergence normale étant assurée, la série \( \sum_{n_1}^{\infty}\| f_n \|_{\infty}\) est finie, ce qui implique que la queue de somme \( \sum_{n=N}^{\infty}\| f_n \|_{\infty}\) tend vers zéro lorsque \( N\to \infty\). Pour tout \( \epsilon\), il existe donc un \( N\) (non dépendant de \( x\)) tel que
+    \begin{equation}
+        \| \sum_{n=1}^Nf_n(x)-F(x) \|\leq \epsilon.
+    \end{equation}
+    En prenant le supremum sur \( x\in A\) nous trouvons la convergence uniforme.
+\end{proof}
+
+\begin{remark}
+    Il n'y a pas de critère correspondant pour les suites. Il n'est pas vrai que si \( \lim_{n\to \infty}\| f_n \| \) existe, alors \( \lim_{n\to \infty} f_n\) existe, comme le montre l'exemple
+    \begin{equation}
+        f_n(x)=\begin{cases}
+            1    &   \text{si \( x\in\mathopen[ 0 , 1 \mathclose]\) et \( n\) est pair}\\
+            1    &    \text{si \( x\in\mathopen[ 1 , 2 \mathclose]\) et \( n\) est impair}\\
+             0   &    \text{sinon.}
+        \end{cases}
+    \end{equation}
+\end{remark}
 
 \begin{theorem}      \label{ThoCciOlZ}
     La somme uniforme de fonctions intégrables sur un ensemble de mesure fini est intégrable et on peut permuter la somme et l'intégrale.
