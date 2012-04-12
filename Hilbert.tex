@@ -295,7 +295,7 @@ Sources : \cite{ProbCOndutetz} et \wikipedia{en}{Hilbert_projection_theorem}{th�
     \end{equation}
 \end{proof}
 
-\begin{theorem}[Projection orthogonale]\index{projection!orthogonale}   \index{théorème!projection!cas vectoriel}
+\begin{theorem}[Projection orthogonale]\index{projection!orthogonale}   \index{théorème!projection!cas vectoriel}   \label{ThoMXwOjb}
     Soit \( \hH\) un espace de Hilbert et \( K\), un sous espace vectoriel fermé non réduit à \( \{ 0 \}\) et \( x\in\hH\). L'élément \( \pr_K(x)\) est l'unique élément de \( K\) tel que
     \begin{equation}
         x-y\in K^{\perp}.
@@ -849,17 +849,59 @@ dans les livres de mécanique quantique par exemple.
 \section{Théorème de Kochen-Specker}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Le théorème suivant\cite{BainKochen} est \wikipedia{en}{Kochen-Specker_theorem}{central en mécanique quantique}.
+Le théorème suivant est \wikipedia{en}{Kochen-Specker_theorem}{central en mécanique quantique}. La démonstration provient de \cite{BainKochen} et de Wikipédia. Nous allons démontrer complètement le théorème seulement pour les espaces de Hilbert de dimension plus grande ou égale à \( 4\).
+
 \begin{theorem}[Kochen-Specker]
-   Soit \( \hH\) un espace de Hilbert de dimension plus grande ou égale à trois. Soit \( \mA\) une famille d'opérateurs hermitiens sur \( \hH\). Une fonction réelle sur \( \mA\) ne peut pas satisfaire les deux propriétés suivantes en même temps
+    Soit \( \hH\) un espace de Hilbert de dimension plus grande ou égale à \( 3\). Une fonction \( v\) sur l'ensemble des opérateurs de \( \hH\) ne peut pas satisfaire aux conditions suivantes :
     \begin{enumerate}
         \item
-            \( f(A+B)=f(A)+f(B)\)
+            Si \( A\) et \( B\) sont compatibles, alors \( v(A+B)=v(A)+v(B)\),
         \item
-            \( f(AB)=f(A)f(B)\)
+            Si \( A\) et \( B\) sont compatibles, alors \( v(AB)=v(A)v(B)\).
     \end{enumerate}
-    pour tout opérateurs \( A,B\in\mA\) possédants une base commune de vecteurs propres.
+    Ici nous disons que deux opérateurs sont \emph{compatibles} lorsqu'ils possèdent une base hilbertienne commune de vecteurs propres.
 \end{theorem}
 
-%TODO : la preuve. Il faudra élucider des points comme le fait que si H est un Hilbert séparable, alors il a
-%       une base dénombrable.
+\begin{proof}
+    Soit \( \{ u_n \}_{n\in \eN}\) une base hilbertienne de \( \hH\). Nous notons \( \pr_i\) l'opérateur de projection sur l'espace (fermé) engendré par \( u_i\). Ce sont des opérateurs compatibles deux à deux parce que la base \( \{ u_n \}_{n\in \eN}\) est une base commune de vecteurs propres\footnote{Pour les besoins de la physique, nous remarquons que ces opérateurs sont des opérateurs hermitiens qui commutent, mais ça ne joue pas ici.}.
+
+    D'abord nous devons avoir \( v(\mtu)=1\). En effet pour tout opérateur \( A\), nous avons
+    \begin{equation}
+        v(A)=v(A\mtu)=v(A)v(\mtu).
+    \end{equation}
+    Pour peu que \( v(A)\neq 0\), cela nous fait \( v(\mtu)=1\).
+
+    En vertu du théorème \ref{ThoyAjoqP}, un vecteur \( x\in\hH\) se décompose en \( x=\sum_n\langle x, u_n\rangle u_n\), et nous avons
+    \begin{equation}    \label{EqFFuXvq}
+        \pr_ix=\langle x, u_i\rangle u_i.
+    \end{equation}
+    En effet le théorème de la projection orthogonale \ref{ThoMXwOjb} nous enseigne que \( \pr_ix\) serait l'unique vecteur de la forme \( \lambda u_i\) tel que \( \lambda u_i-x\perp u_i\). Il est facile de vérifier que le vecteur proposé par \eqref{EqFFuXvq} vérifie cette propriété.
+
+    Une conséquence est que
+    \begin{equation}
+        \left( \sum_{i=0}^{\infty}\pr_i \right)(x)=x.
+    \end{equation}
+    Par conséquent, par hypothèse du théorème nous devons avoir
+    \begin{equation}    \label{EqUeZHJH}
+        \sum_iv(\pr_i)=v(\mtu)=1.
+    \end{equation}
+    Étant donné que les projections sont idempotentes,
+    \begin{equation}
+        v(\pr_i)=v(\pr_i^2)=v(\pr_i)^2
+    \end{equation}
+    et donc \( v(\pr_i)\) doit valoir zéro ou un. Mais la relation \eqref{EqUeZHJH} donne une forte contrainte sur le choix de \( 0\) et de \( 1\). En effet, parmi les \( v(\pr_i)\), un et un seul doit valoir \( 1\), les autres doivent valoir \( 0\).
+
+    Refaisant le raisonnement pour une autre base orthonormale hilbertienne, nous trouvons que les valeurs de \( v\) sur les opérateurs de projection sur les différentes directions doivent être choisies de telle façon à ce que tout choix de base hilbertienne orthogonale contienne exactement un \( 1\) et les reste de zéros.
+
+    Nous voudrions maintenant insister sur un point. Le problème de déterminer de façon cohérente les valeurs \( 0\) ou \( 1\) pour tous les \( v(\pr_i)\) revient à attacher \( 0\) ou \( 1\) à tous les \emph{rayons} de \( \hH\) de façon à ce que toute base orthogonale de \( \hH\) contienne exactement un \( 1\). Un rayon est une direction, c'est à dire une classe d'équivalence \( x\sim \lambda x\). Si nous décidons de nommer «blanc»  les rayons attachés à la valeur \( 0\) et «noirs»  ceux attachés à la valeur \( 1\), le problème se réduit à colorer la boule unité de façon compatible.
+
+    Soit \( \{ u_i \}_{i\in \eN}\) une base orthogonale de \( \hH\) numérotée de telle sorte que \( v(u_0)=1\) et \( v(u_k)=0\) pour \( k\neq 0\). Nous allons maintenant nous particulariser au cas de dimension supérieure ou égale à \( 4\). Si \( R\) est une rotation dans le plan \( \Span\{ u_0,u_1,u_2,u_3 \}\), alors l'ensemble
+    \begin{equation}
+        \{ Ru_0,Ru_1,Ru_2,Ru_3,u_k \}_{k\geq 3}
+    \end{equation}
+    est encore une base orthogonale de \( \hH\) et nous avons encore \( v(u_k)=0\) pour \( k\geq 4\). Par conséquent un et un seul des vecteurs \( Ru_0\), \( Ru_1\), \( Ru_2\) ou \( Ru_3\) est colorié en noir; les trois autres étant blancs. Le problème est maintenant complètement réduit à la dimension \( 4\). Note : pour réduire à la dimension \( 3\), on procède de même, mais pour conclure, il faut travailler plus.
+
+    Nous allons construire \( 9\) base orthogonales de \( \eR^4\) à partir de \( 18\) vecteurs, chacun arrivant dans exactement deux des bases.
+\end{proof}
+<++>
+

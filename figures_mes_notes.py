@@ -76,6 +76,7 @@ from phystricksLaurin import Laurin
 from phystricksCoinPasVar import CoinPasVar
 from phystricksExoVarj import ExoVarj
 from phystricksTriangleUV import TriangleUV
+from phystricksKScolorD import KScolorD
 
 # Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
@@ -86,7 +87,7 @@ def AllFigures():
             SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim,
             ExoProjection,ExoPolaire,CoordPolaires,TriangleRectangle,CercleTnu,QCb,
             DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
-            SurfaceHorizVerti,SurfaceCercle,
+            SurfaceHorizVerti,SurfaceCercle,KScolorD,
             IntRectangle,IntTriangle,CoinPasVar,
             IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa,
             ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang,
