@@ -14,4 +14,5 @@ myRequest.original_filename="mes_notes.tex"
 myRequest.ok_filenames_list=["e_mes_notes"]
 myRequest.ok_filenames_list.append("groupes")
 myRequest.ok_filenames_list.append("anneauxCorps")
+myRequest.ok_filenames_list.append("elemPrimitif")
 myRequest.ok_filenames_list.append("EspacesVecto")
