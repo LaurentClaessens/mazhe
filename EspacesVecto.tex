@@ -76,6 +76,26 @@ Le théorème suivant est valable également en dimension infinie; ce sera une d
 \end{proof}
 Un exemple d'utilisation de ce théorème en dimension infinie sera donné dans le cadre du théorème de Fréchet-Riesz, théorème \ref{ThoQgTovL}.
 
+\begin{proposition}[\cite{RombaldiO}]   \label{PropTVKbxU}
+    Soit \( E\), un espace vectoriel sur un corps infini et \( (F_k)_{k=1,\ldots, r}\), des sous-espaces vectoriels de \( E\) tels que \( \bigcup_{i=1}^rF_i=E\). Alors \( E=F_k\) pour un certain \( k\).
+
+    Autrement dit, l'union finie de sous espaces propres ne peut être égal à l'espace complet.
+\end{proposition}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Dualité}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit \( E\), un espace vectoriel, et \( F\) une sous espace de \( E\). L'\defe{orthogonal}{orthogonal!sous espace} de \( F\) est la partie \( F^{\perp}\subset E^*\) donnée par
+\begin{equation}
+    F^{\perp}=\{ \alpha\in E^*\tq \forall x\in F,\alpha(x)=0 \}.
+\end{equation}
+Cette notion d'orthogonal dans le dual est un peu plus générale que la notion d'orthogonal usuelle qui serait
+\begin{equation}
+    F^{\perp}=\{ y\in E\tq \forall x\in F,y\cdot x=0 \}.
+\end{equation}
+En effet cette dernière définition demande la donnée d'un produit scalaire. Évidemment dans le cas de \( \eR^n\) munie du produit scalaire usuel et de l'identification usuelle entre \( \eR^n\) et \( (\eR^n)^*\) via une base, les deux notions d'orthogonal coïncident.
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Endomorphismes}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -88,7 +108,7 @@ Soit \( A\) un anneau commutatif et \( \eK\), un corps commutatif. L'injection c
 \begin{equation}
    \eM(A)\to\eM\big( A[X] \big).
 \end{equation}
-Si \( u\in\eM_n(A)\), nous définissons le \defe{polynôme caractéristique de \( u\)}{polynôme!caractéristique} :
+Si \( u\in\eM_n(A)\), nous définissons le \defe{polynôme caractéristique de \( u\)}{polynôme!caractéristique}\index{caractéristique!polynôme} :
 \begin{equation}
     \chi_u(X)=\det(X\mtu_n-u).
 \end{equation} 
@@ -250,6 +270,21 @@ Soit \( u\) un endomorphisme d'un \( \eK\)-espace vectoriel \( E\) et \( P\), un
 
 \begin{proof}
     L'ensemble \( I=\{ Q\in \eK[X]\tq Q(u)=0 \}\) est un idéal par le lemme \ref{LemQWvhYb}. Le polynôme minimal de \( u\) est un élément de degré plus bas dans \( I\) et par conséquent \( I=(\mu_u)\) par le théorème \ref{ThoCCHkoU}. Nous concluons que \( \mu_u\) divise tous les éléments de \( I\).
+\end{proof}
+
+\begin{lemma}
+    Soit \( f\) un endomorphisme cyclique d'un espace vectoriel \( E\) de dimension finie et \( y\), un vecteur cyclique de \( f\). Alors le polynôme minimal de \( f\) en \( y\) est le polynôme minimal de \( f\).
+\end{lemma}
+
+\begin{proof}
+    En utilisant les notations de la définition \ref{Decyyumy}, nous devons démontrer que \( \mu_{f,y}=\mu_f\). Bien entendu, \( \mu_f\in I_{y,f}\), donc \( \mu_{f,y}\) divise \( \mu_f\). Montrons que \( \mu_{f,y}\) est un polynôme annulateur de \( f\). Dans ce cas \( \mu_f\) divisera \( \mu_{f,y}\) et le lemme sera démontré.
+
+    Le vecteur \( y\) étant cyclique, tout élément de \( E\) s'écrit sous la forme \( x=P(f)y\) où \( P\) est un polynôme (de degré égal à la dimension de \( E\)). En utilisant le lemme \ref{LemQWvhYb} nous avons
+    \begin{equation}
+            \mu_{f,y}(f)x=\big( \mu_{f,y}(f)\circ P(f) \big)y
+            =\big( P(f)\circ \mu_{f,y}(f) \big)y
+            =0.
+    \end{equation}
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1010,7 +1045,7 @@ Par conséquent \( f'(t)=R'(t)f_0=AR(t)f_0=Af(t)\).
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Matrice compagnon}
+\section{Matrice compagnon, endomorphismes cycliques et décomposition de Frobenius}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Soit le polynôme \( P=X^n-a_{n-1}X^{n-1}-\ldots-a_1X-a_0\) dans \( \eK[X]\). La \defe{matrice compagnon}{matrice!compagnon} de \( P\) est la matrice\nomenclature[A]{\( C(P)\)}{matrice compagnon} donnée par
@@ -1042,42 +1077,93 @@ Cet endomorphisme est conçu pour vérifier \( P(f)e_1=0\).
     Donc \( P\) divise \( \chi_f\) et est de degré égal à celui de \( \chi_f\). Étant donné qu'ils sont tous deux unitaires, ils sont égaux.
 \end{proof}
 
+\begin{definition}[Matrices, endomorphismes et vecteurs cycliques]
+    Une matrice est \defe{cyclique}{cyclique!matrice}\index{matrice!cyclique} si elle est semblable à une matrice compagnon. Un endomorphisme \( f\colon E\to E\) est \defe{cyclique}{cyclique!endomorphisme}\index{endomorphisme!cyclique} si il existe un vecteur \( x\in E\) tel que \( \{ f^k(x)\tq k=1,\ldots, n-1 \}\) est une base de \( E\). Un vecteur ayant cette propriété est un \defe{vecteur cyclique}{vecteur!cyclique} pour \( f\).
+\end{definition}
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Norme opérateur}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\label{SeckwyQjK}
+\begin{lemma}
+    Un endomorphisme est cyclique si et seulement si sa matrice associée est cyclique.
+\end{lemma}
 
-Soit \( E\) un espace vectoriel (pas spécialement de dimension finie) et un opérateur \( A\colon E\to E\). La \defe{norme opérateur}{norme!opérateur} de \( A\) est le nombre
-\begin{equation}    \label{EqThUCEJ}
-    \| A \|_{\infty}=\sup_{\| x \|=1}\| Ax \|.
-\end{equation}
-où dans le membre de droite, la norme est celle choisie sur \( E\). Cette norme donne lieu à la \defe{topologie forte}{topologie!forte} sur l'espace des opérateurs.
-
-La proposition suivante est valable également en dimension infinie. C'est elle qui montre que le produit scalaire est continu dans un espace de Hilbert par exemple.
-\begin{proposition}     \label{PropmEJjLE}
-    Soient \( V\) et \( W\) deux espaces vectoriels et \( T\colon V\to W\) une application linéaire bornée. Alors elle est continue.
-\end{proposition}
+\begin{theorem}[Décomposition de Frobenius \cite{AutourFrobCompa,Vialivs}]
+    Soit \( E\), un \( \eK\)-espace vectoriel et \( f\in \End(E)\). Alors il existe une suite de sous espaces \( E_1,\ldots, E_r\) stables par \( f\) tels que
+    \begin{enumerate}
+        \item   \label{ItemmpwjnSs}
+            \( E=\bigoplus_{i=1}^rE_i\);
+        \item
+            pour chaque \( E_i\), l'endomorphisme restreint \( f_i=f|_{E_i}\) est cyclique;
+        \item
+            si \( \mu_i\) est le polynôme minimal de \( f_i\) alors \( \mu_{i+1}\) divise \( \mu_i\);
+    \end{enumerate}
+    Une telle décomposition vérifie automatiquement \( \mu_1=\mu_f\) et \( \mu_1\cdots \mu_r=\chi_f\), et la suite \( (\mu_i)_{i=1,\ldots, r}\) ne dépend que de \( f\) et non du choix de la décomposition du point \ref{ItemmpwjnSs}.
+\end{theorem}
 
 \begin{proof}
-    Pour tout \( x,y\in V\) nous avons
+    Soit \( d\), le degré du polynôme minimal de \( f\) et \( y\in E\) tel que \( \mu_f=\mu_{f,y}\) (voir lemme \ref{LemSYsJJj}). Le plus petit espace stable sous \( f\) contenant \( y\) est
     \begin{equation}
-        \| T(x)-T(y) \|=\| T(x-y) \|\leq \| T \|\| x-y \|.
+        E_y=\Span\{ y,f(y),\ldots, f^{d-1}(y) \}.
     \end{equation}
-    En particulier si \( x_n\) est une suite qui converge vers \( x\) alors
+    Nous notons \( e_i=f^{i-1}(y)\). Notons que les vecteurs donnés forment bien une base de \( E_y\) parce que si les \( e_i\) n'était pas linéairement indépendants, alors soit \( \sum_ka_ke_k=0\). Donc ce cas nous aurions
     \begin{equation}
-        0\leq \| T(x_n)-T(x) \|\leq \{ T \}\| x-x_n \|\to 0
+        \big( \sum_ka_kX^k \big)(f)y=0,
     \end{equation}
-    et \( T\) est continue.
+    ce qui contredirait la minimalité de \( \mu_{f,y}\).
+
+    La difficulté du théorème est de trouver un complément de \( E_y\) qui soit également stable sous \( f\). Nous commençons par étendre\footnote{Pour autant que j'aie compris, cette extension manque dans \cite{AutourFrobCompa}. Corrigez moi si je me trompe.} \( \{ e_1,\ldots, e_d \}\) en une base \( \{ e_1,\ldots, e_n \}\) de \( E\). Ensuite nous allons montrer que
+    \begin{equation}
+        E=E_y\oplus F
+    \end{equation}
+    avec
+    \begin{equation}
+        F=\{ x\in E\tq  e^*_d\big( f^k(x) \big)=0\forall k\in \eN \}.
+    \end{equation}
+    Par construction, \( F\) est invariant sous \( f\). Montrons pour commencer que \( E_y\cap F=\{ 0 \}\). Un élément de \( E_y\) s'écrit
+    \begin{equation}
+        z=a_1e_1+\ldots +a_ke_k
+    \end{equation}
+    avec \( k\leq d\). Étant donné que \( f\) décale les vecteurs de base, nous avons \( e^*_d\big( f^{d-k}(z) \big)=a_k\). Du coup \( z\in F\) si et seulement si \( a_1=\ldots=a_d=0\), c'est à dire que \( E_y\cap F=\{ 0 \}\).
+
+    Nous montrons maintenant que \( \dim F=n-d\). Pour cela nous considérons l'application
+    \begin{equation}
+        \begin{aligned}
+            T\colon \eK[F]&\to E^* \\
+            g&\mapsto e^*_d\circ g. 
+        \end{aligned}
+    \end{equation}
+    Cette application est injective. En effet un élément général de \( \eK[f]\) est
+    \begin{equation}
+        g=a_1\id+a_2f+\ldots +a_pf^{p-1}
+    \end{equation}
+    avec \( p\leq d\). Si \( T(g)=0\), alors nous avons en particulier
+    \begin{equation}
+        0=T(g)e_{_d-p+1}=e^*_d(a_1e_{d-p+1}+a_2e_{d-p+2}+\ldots +a_pe_d)=a_p.
+    \end{equation}
+    Donc \( a_p=0\) et en appliquant maintenant \( T(g)\) à \( e_{d-p}\) nous obtenons \( a_{p-1}=0\). Au final nous trouvons que \( g=0\) et donc que \( T\) est injective.
+
+    Étant donné que \( \dim\eK[f]=d\) et que \( T\) est injective, \( \dim\Image(T)=d\). Nous regardons l'orthogonal de l'image :
+    \begin{subequations}
+        \begin{align}
+            (\Image(T))^{\perp}&=\{ x\in E\tq T(g)x=0\forall g\in\eK[f] \}\\
+            &=\{ x\in E\tq e^*_d\big( g(x) \big)=0\forall g\in \eK[f] \}\\
+            &=F.
+        \end{align}
+    \end{subequations}
+    Par conséquent \( F^{\perp}=\Image(T)\). Vu que \( \dim\Image(T)=d\), nous avons donc \( \dim F=n-d\) et il est établi que \( E=E_y\oplus F\).
+
+    Nous avons donc trouvé \( F\), stable par \( f\) et tel que \( E=E_y\oplus F\). Nous devons maintenant nous assurer que cette décomposition tombe bien pour les polynômes minimaux.
+
 \end{proof}
+<++>
 
-La topologie forte n'est pas la seule possible. Il existe aussi par exemple la \defe{topologie faible}{topologie!faible} donnée par la notion de convergence \( A_i\to A\) si et seulement si \( A_ix\to Ax\) pour tout \( x\in E\).Il faut noter que la topologie faible n'est pas une topologie métrique. Cela même si la condition \( A_ix\to Ax\), elle, est métrique vu qu'elle est écrite dans \( E\).
-
-et que dans le cas où \( E\) est de dimension infinie, elle est réellement différente de la topologie forte. Nous verrons à la sous-section \ref{subsecaeSywF} que dans le cas des projections sur un espaces de Hilbert, l'égalité
-\begin{equation}
-    \sum_{i=1}^{\infty}\pr_{u_i}=\id
-\end{equation}
-est vraie pour la topologie faible, mais pas pour la topologie forte.
+    Sous forme matricielle, ce théorème dit que toute matrice est semblable à une matrice de la forme bloc-diagonale
+    \begin{equation}
+        f=\begin{pmatrix}
+            C_{\mu_1}    &       &       \\
+                &   \ddots    &       \\
+                &       &   C_{\mu_r}
+        \end{pmatrix}
+    \end{equation}
+Le coup du ppcm vient de \cite{MoncetIVS}.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Mini introduction au produit tensoriel}
@@ -1122,31 +1208,41 @@ Cette façon d'écrire a l'avantage de ne pas demander de se souvenir qui est un
 \end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Décomposition de Frobenius}
-%---------------------------------------------------------------------------------------------------------------------------
+\section{Norme opérateur}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SeckwyQjK}
 
+Soit \( E\) un espace vectoriel (pas spécialement de dimension finie) et un opérateur \( A\colon E\to E\). La \defe{norme opérateur}{norme!opérateur} de \( A\) est le nombre
+\begin{equation}    \label{EqThUCEJ}
+    \| A \|_{\infty}=\sup_{\| x \|=1}\| Ax \|.
+\end{equation}
+où dans le membre de droite, la norme est celle choisie sur \( E\). Cette norme donne lieu à la \defe{topologie forte}{topologie!forte} sur l'espace des opérateurs.
 
-\begin{theorem}[Décomposition de Frobenius \cite{AutourFrobCompa}]
-    Soit \( E\), un \( \eK\)-espace vectoriel et \( u\in \End(E)\). Alors il existe une suite de sous espaces \( E_1,\ldots, E_r\) stables par \( u\) tels que
-    \begin{enumerate}
-        \item   \label{ItemmpwjnSs}
-            \( E=\bigoplus_{i=1}^rE_i\);
-        \item
-            pour chaque \( E_i\), l'endomorphisme restreint \( u_i=u|_{E_i}\) est cyclique;
-        \item
-            si \( \mu_i\) est le polynôme minimal de \( u_i\) alors \( \mu_{i+1}\) divise \( \mu_i\);
-        \item
-            la suite \( (\mu_i)_{i=1,\ldots, r}\) ne dépend que de \( u\) et non du choix de la décomposition du point \ref{ItemmpwjnSs}.
-    \end{enumerate}
-    En particulier toute matrice est semblable à une matrice diagonale par blocs dont chaque bloc est une matrice compagnon. Il existe une une base dans laquelle la matrice de \( u\) est de la forme
+La proposition suivante est valable également en dimension infinie. C'est elle qui montre que le produit scalaire est continu dans un espace de Hilbert par exemple.
+\begin{proposition}     \label{PropmEJjLE}
+    Soient \( V\) et \( W\) deux espaces vectoriels et \( T\colon V\to W\) une application linéaire bornée. Alors elle est continue.
+\end{proposition}
+
+\begin{proof}
+    Pour tout \( x,y\in V\) nous avons
     \begin{equation}
-        u!=\begin{pmatrix}
-            C_{\mu_1}    &       &       \\
-                &   \ddots    &       \\
-                &       &   C_{\mu_r}
-        \end{pmatrix}
+        \| T(x)-T(y) \|=\| T(x-y) \|\leq \| T \|\| x-y \|.
     \end{equation}
-    avec \( \mu_1=\mu_u\) et \( \mu_1\cdot\ldots \mu_r=\chi_u\).
-\end{theorem}
-<++>
+    En particulier si \( x_n\) est une suite qui converge vers \( x\) alors
+    \begin{equation}
+        0\leq \| T(x_n)-T(x) \|\leq \{ T \}\| x-x_n \|\to 0
+    \end{equation}
+    et \( T\) est continue.
+\end{proof}
 
+La topologie forte n'est pas la seule possible. Il existe aussi par exemple la \defe{topologie faible}{topologie!faible} donnée par la notion de convergence \( A_i\to A\) si et seulement si \( A_ix\to Ax\) pour tout \( x\in E\).Il faut noter que la topologie faible n'est pas une topologie métrique. Cela même si la condition \( A_ix\to Ax\), elle, est métrique vu qu'elle est écrite dans \( E\).
+
+et que dans le cas où \( E\) est de dimension infinie, elle est réellement différente de la topologie forte. Nous verrons à la sous-section \ref{subsecaeSywF} que dans le cas des projections sur un espaces de Hilbert, l'égalité
+\begin{equation}
+    \sum_{i=1}^{\infty}\pr_{u_i}=\id
+\end{equation}
+est vraie pour la topologie faible, mais pas pour la topologie forte.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
