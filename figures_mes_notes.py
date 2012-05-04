@@ -77,17 +77,16 @@ from phystricksCoinPasVar import CoinPasVar
 from phystricksExoVarj import ExoVarj
 from phystricksTriangleUV import TriangleUV
 from phystricksKScolorD import KScolorD
+from phystricksIsomCarre import IsomCarre
 
-# Il me semble que la figure IntCourbePolaire est inutile
-def AllFigures():
-    figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,
+figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,
             MomentForce,Parallelogramme,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
             DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin,
             ChampGraviation,FnCosApprox,NiveauHyperbole,Bateau,FonctionXtrois,FonctionEtDerive,
             SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim,
             ExoProjection,ExoPolaire,CoordPolaires,TriangleRectangle,CercleTnu,QCb,
             DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
-            SurfaceHorizVerti,SurfaceCercle,KScolorD,
+            SurfaceHorizVerti,SurfaceCercle,KScolorD,IsomCarre,
             IntRectangle,IntTriangle,CoinPasVar,
             IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa,
             ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang,
@@ -95,6 +94,9 @@ def AllFigures():
             MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,
             ExoVarj,TriangleUV]
 
+
+# Il me semble que la figure IntCourbePolaire est inutile
+def AllFigures():
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"mes notes de mathématique")
     tests.generate()
     tests.summary()
@@ -103,4 +105,4 @@ if __name__=="__main__":
     if "--all" in sys.argv :
         AllFigures()
     else:
-        BiaisOuPas()
+        IsomCarre()
