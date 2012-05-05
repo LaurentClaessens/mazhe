@@ -647,6 +647,10 @@ Le résultat suivant est une généralisation au cas des anneaux commutatifs.
 %---------------------------------------------------------------------------------------------------------------------------
 \label{SecEVaFYi}
 
+\begin{probleme}
+    Je ne suis pas très sûr de ce que j'ai écrit ici. Il vaut mieux lire \wikipedia{fr}{Rivest_Shamir_Adleman}{la page Wikipédia}. Merci de me contacter si vous trouvez des fautes.
+\end{probleme}
+
 Alice veut envoyer un message à Bob. Pour ce faire, Bob choisit deux nombres premiers \( p_1,p_2\), calcule \( n=p_1p_2\) et choisit un nombre \( e\in \eF_n\), c'est à dire \( e\) premier avec \( n\). Bob publie le couple \( (n,e)\).
 
 Alice convertit son message en un élément \( X\in \eF_n\), et envoie \( Y=X^e\). Notons qu'Alice a utilisé \( n\) et \( e\). Pour décoder, Bob doit simplement calculer \( d=e^{-1}\) dans \( \eF_n\) et faire l'opération
@@ -1070,6 +1074,61 @@ Nous supposons que \( \eK\) est une corps commutatif, et nous étudions l'anneau
 
     Une base de \( \eL\) est donnée par les projections de \( 1,X,X^2,\ldots, X^n\).
 \end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Anneaux euclidiens}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[\wikipedia{fr}{Anneau_euclidien}{Wikipédia}]
+    Soit \( \eA\) un anneau intègre. Un \defe{stathme euclidien}{stathme euclidien} sur \( \eA\) est une application \( \alpha\colon \eA\setminus\{ 0 \}\to \eN\) tel que
+    \begin{enumerate}
+        \item
+            \( \forall a,b\in \eA\setminus\{ 0 \}\), il existe \( q,r\in \eA\) tel que
+            \begin{equation}
+                a=bq+r
+            \end{equation}
+            et \( \alpha(r)<\alpha(b)\).
+        \item
+            Pour tout \( a,b\in \eA\setminus\{ 0 \}\), \( \alpha(b)\leq \alpha(ab)\).
+    \end{enumerate}
+    Un anneau est \defe{euclidien}{euclidien!anneau} si il accepte un stathme euclidien.
+\end{definition}
+Le stathme est la fonction qui donne le «degré» à utiliser dans la division euclidienne. La contrainte est que le degré du reste soit plus petit que le degré du dividende.
+
+\begin{theorem}[Théorème des deux carrés]
+    Un nombre premier est somme de deux carrés si et seulement si \( p=2\) ou \( p=1\mod 4\).
+\end{theorem}
+\begin{remark}
+    Il n'est pas dit que les nombres dans \( 1\mod 4\) sont premiers (\( 9=8+1\) ne l'est pas par exemple). Le théorème signifie que (à part \( 2\)), si un nombre premier est dans \( 1\mod 4\) alors il est somme de deux carrés, et inversement, si un nombre premier est somme de deux carrés, il est dans \( 1\mod 4\).
+\end{remark}
+
+\begin{proof}
+    Nous notons \( \Sigma=\{ a^2+b^2\tq a,b\in \eN \}\). Soit \( p\) un nombre premier dans \( \Sigma\). Si \( a=2k\), alors \( a^2=4k^2\) et \( a^2=0\mod 4\). Si au contraire \( a\) est impair, \( a=2k+1\) et \( a^2=4k^2+1+4k=1\mod 4\). La même chose est valable pour \( b\). Par conséquent, \( a^2+b^2\) est automatiquement \( [0]_4\), \( [1]_4\) ou \( [2]_4\). Évidemment les nombres de la forme \( 0\mod 4\) ne sont pas premiers; parmi les \( 2\mod 4\), seul \( p=2\) est premier (et vaut \( 1^2+1^2\)).
+
+    Nous avons démontré que les seuls premiers de la forme \( a^2+b^2\) sont \( p=2\) et les \( p=1\mod 4\). Il reste à faire le contraire : démontrer que si un nombre premier \( p\) vaut \( 1\mod 4\), alors il est premier. Nous considérons l'anneau
+    \begin{equation}
+        \eZ[i]=\{ a+bi\tq a,b\in \eZ \}.
+    \end{equation}
+    puis l'application
+    \begin{equation}
+        \begin{aligned}
+            N\colon \eZ[i]&\to \eN \\
+            a+bi&\mapsto a^2+b^2. 
+        \end{aligned}
+    \end{equation}
+    Un peu de calcul dans \( \eC\) montre que pour tout \( z,z'\in \eZ[i]\), \( N(zz')=N(z)N(z')\).
+
+    Déterminons maintenant les éléments inversibles de \( \eZ[i]\). Si \( z\in \eZ[i]^*\), alors il existe \( z'\in \eZ[i]^*\) tel que \( zz'=1\). Dans ce cas nous aurions
+    \begin{equation}
+        1=N(zz')=N(z)N(z'),
+    \end{equation}
+    ce qui est uniquement possible avec \( N(z)=N(z')=1\), c'est à dire \( z=\pm 1\) ou \( z=\pm i\). Nous avons donc
+    \begin{equation}
+        \eZ[i]^*=\{ \pm 1,\pm i \}.
+    \end{equation}
+\end{proof}
+<++>
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Polynômes cyclotomiques}
@@ -1759,6 +1818,34 @@ nous définissons la \defe{somme de Gauss}{Gauss!somme de} par
     \end{equation}
 \end{proof}
 
+\begin{lemma}\label{Lemoabzrn}
+    Si \( p\) est un nombre premier \( p\geq 3\), alors le symbole de Legendre \( x\mapsto\left(\frac{x}{p}\right)\) est l'unique morphisme non trivial de \( \eF^*_p\) dans \( \{ -1,1 \}\).
+\end{lemma}
+
+\begin{proof}
+    Le fait que le symbole de Legendre soit non trivial est simplement le fait qu'il y ait des carrés et des non carrés dans \( \eF_p^*\); voir la proposition \ref{PropcGsJjk}. Pour l'unicité, soit \( \alpha\colon \eF^*_p\to \{ -1,1 \}\) un morphisme surjectif (c'est à dire non trivial). Étant donné que 
+    \begin{equation}
+        \eF^*_p=\ker(\alpha)\cup-\ker(\alpha),
+    \end{equation}
+    le groupe \( \eF_p^*/\ker(\alpha)\) ne contient que deux éléments : \( [1]\) et \( [-1]\). Autrement dit, \( \ker(\alpha)\) est d'indice \( 2\) dans \( \eF_p^*\). 
+    
+    Or \( \eF_p^*\) ne possède qu'un seul sous-groupe d'indice \( 2\). En effet soit \( S\) un tel sous groupe et \( a\), un générateur de \( \eF_p^*\) (qui est cyclique par la proposition \ref{PropnfebjI}), alors \( a^2\in S)\) par le lemme \ref{PropubeiGX}. Par conséquent \( S\) contient le groupe des puissances paires de \( a\). Le groupe $S$ ne peut rien contenir de plus parce qu'il est d'indice \( 2\) et que l'ordre de \( \eF_p^*\) est pair.
+
+    Bref, le sous-groupe \( \ker(\alpha)\) est l'unique sous-groupe d'indice \( 2\) dans \( \eF_p^*\). Mais la proposition \ref{PropcGsJjk} nous indique que \( | (\eF_p^*)^2 |=\frac{ p-1 }{2}\), c'est à dire que le groupe des carrés est d'indice \( 2\). Nous avons donc, par l'unicité,
+    \begin{equation}
+        \ker(\alpha)=(\eF_p^*)^2.
+    \end{equation}
+    Au final, pour \( y\in \eF_p^*\),
+    \begin{equation}
+        \alpha(y)=\begin{cases}
+           1 &   \text{si \( y\) est un carré}\\
+            -1    &    \text{sinon.}
+        \end{cases}
+    \end{equation}
+    Cela est bien la définition des symboles de Legendre.
+\end{proof}
+ 
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Théorème de Chevalley-Warning}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -1807,7 +1894,7 @@ nous définissons la \defe{somme de Gauss}{Gauss!somme de} par
     Étant donné que \( y^m\neq 1\), la seule solution est \( S_m=0\).
 \end{proof}
 
-\begin{theorem}[\wikipedia{en}{Chevalley–Warning_theorem}{Chevalley-Warning}]\index{théorème!Chevalley-Warning}.        \label{ThoLTcYKk}
+\begin{theorem}[\wikipedia{en}{Chevalley–Warning_theorem}{Chevalley-Warning}]\index{théorème!Chevalley-Warning}        \label{ThoLTcYKk}
     Soit \( \eK\) un corps fini de cardinal \( q\) et de caractéristique \( p\). Soient \( P_1,\ldots, P_r\) des éléments de \( \eK[X_1,\ldots, X_n]\) tels que \( \sum_{i=1}^r\deg(P_i)<n\). Nous considérons l'ensemble des zéros communs à tous les polynômes :
     \begin{equation}
         V=\{ x\in \eK^n\tq P_1(x)=\ldots=P_r(x)=0 \}.
