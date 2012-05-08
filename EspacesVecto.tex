@@ -1187,7 +1187,7 @@ Le théorème suivant généralise le théorème de diagonalisabilité \ref{ThoD
 Si l'espace vectoriel est sur un corps algébriquement clos, alors les endomorphismes semi-simples sont les endomorphismes diagonaux.
 
 
-\begin{theorem}[Décomposition de Dunford]\index{décomposition!Dunford}\index{Dunford!décomposition}
+\begin{theorem}[Décomposition de Dunford]\index{décomposition!Dunford}\index{Dunford!décomposition} \label{ThoRURcpW}
     Soit \( E\) un espace vectoriel sur le corps algébriquement clos \( \eK\) et \( u\in\End(E)\) un endomorphisme de \( E\). Alors \( u\) se décompose de façon unique sous la forme
     \begin{equation}
         u=s+n
@@ -1320,6 +1320,39 @@ En effet
     \end{pmatrix}\right]=R'(t).
 \end{equation}
 Par conséquent \( f'(t)=R'(t)f_0=AR(t)f_0=Af(t)\).
+
+\begin{theorem}
+    Soit une matrice \( A\in \eM(n,\eC)\). On a que la suite \( (A^kx)\) tends vers zéro pour tout \( x\) si et seulement si \( \rho(A)<1\) où \( \rho(A)\)\index{rayon!spectral} est le rayon spectral de $A$
+\end{theorem}
+
+\begin{proof}
+    Dans le sens direct, il suffit de prendre comme \( x\), un vecteur propre de \( A\). Dans ce cas nous avons \( A^kx=\lambda^kx\). Mais \( \lambda^kx\) ne tend vers zéro que si \( \lambda<1\). Donc toute les valeurs propres de \( A\) doivent être plus petite que \( 1\) et \( \rho(A)<1\).
+
+    Pour l'autre sens nous utilisons la décomposition de Dunford (théorème \ref{ThoRURcpW}) : il existe une matrice inversible \( P\) telle que
+    \begin{equation}
+        A=P^{-1}(D+N)P
+    \end{equation}
+    où \( D\) est diagonale, \( N\) est nilpotente et \( [D,N]=0\). Étant donné que \( D+N\) est triangulaire, son polynôme caractéristique que
+    \begin{equation}
+        \chi_{D+N}(\lambda)=\prod_i D_{ii}-\lambda.
+    \end{equation}
+    Par similitude, c'est le même polynôme caractéristique que celui de \( A\) et nous savons alors que la diagonale de \( D\) contient les valeurs propres de \( A\).
+
+    Par ailleurs nous avons
+    \begin{subequations}
+        \begin{align}
+            A^k&=P^{-1}(D+N)^kP\\
+            &=P^{-1}\sum_{j=0}^k{j\choose k}D^{j-k}N^jP\\
+            &==P^{-1}\sum_{j=0}^{n-1}{j\choose k}D^{j-k}N^jP
+        \end{align}
+    \end{subequations}
+    où nous avons utilité le fait que \( D\) et \( N\) commutent ainsi que \( N^{n-1}=0\) parce que \( N\) est nilpotente. Nous utilisons la norme matricielle usuelle, pour laquelle \( \| D \|=\rho(D)=\rho(A)\). Nous avons alors
+    \begin{equation}
+        \| (D+N)^k \|\leq \sum_{j=0}^k{j\choose k}\rho(D)^{k-j}\| N \|^j.
+    \end{equation}
+    Du coup si \( \rho(D)<1\) alors \( \| (D+N)^k \|\to 0\) (et c'est même un si et seulement si).
+\end{proof}
+
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Valeurs singulières}
@@ -1703,11 +1736,27 @@ Cette façon d'écrire a l'avantage de ne pas demander de se souvenir qui est un
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \label{SeckwyQjK}
 
-Soit \( E\) un espace vectoriel (pas spécialement de dimension finie) et un opérateur \( A\colon E\to E\). La \defe{norme opérateur}{norme!opérateur} de \( A\) est le nombre
-\begin{equation}    \label{EqThUCEJ}
-    \| A \|_{\infty}=\sup_{\| x \|=1}\| Ax \|.
-\end{equation}
-où dans le membre de droite, la norme est celle choisie sur \( E\). Cette norme donne lieu à la \defe{topologie forte}{topologie!forte} sur l'espace des opérateurs.
+
+Soit \( E\) un espace vectoriel (pas spécialement de dimension finie). Une  \defe{norme}{norme} sur $E$ est une application $\| . \|\colon E\to \eR$ telle que
+\begin{enumerate}
+		\label{PgDefNorme}
+	\item
+		$\| v \|=0$ seulement si $A=0$,
+	\item
+		$\| \lambda v \|=| \lambda |\cdot\| v \|$,
+	\item
+		$\| v+w \|\leq\| v \|+\| w \|$
+
+\end{enumerate}
+pour tout $v,w\in E$ et pour tout $\lambda\in\eR$.
+
+\begin{definition}
+	Soit $A$ une application linéaire entre espaces vectoriels réels normés. On définit sa \defe{\wikipedia{fr}{Norme_d'opérateur}{norme opérateur}}{norme!opérateur} comme le nombre
+	\begin{equation}\label{EqThUCEJ}
+		|A|_{\mbox{op}}:=\sup_{|x|=1}\{|\alpha(x)|\}.
+	\end{equation}
+\end{definition}
+où dans le membre de droite, la norme est celle choisie sur \( E\). On l'écrit aussi souvent \( \| A \|_{\infty}\) parce que cette norme donne lieu à la \defe{topologie forte}{topologie!forte} sur l'espace des opérateurs.
 
 La proposition suivante est valable également en dimension infinie. C'est elle qui montre que le produit scalaire est continu dans un espace de Hilbert par exemple.
 \begin{proposition}     \label{PropmEJjLE}
@@ -1734,6 +1783,15 @@ et que dans le cas où \( E\) est de dimension infinie, elle est réellement dif
 \end{equation}
 est vraie pour la topologie faible, mais pas pour la topologie forte.
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{definition}
+    Une \defe{norme matricielle}{norme!matricielle} est une norme sur \( \eM(n,\eC)\) telle que pour toute matrice \( A\) et \( B\), 
+    \begin{equation}
+        \| AB \|\leq \| A \|\| B \|.
+    \end{equation}
+\end{definition}
+La norme opérateur est une norme matricielle.
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{proposition}
+    Pour tout norme matricielle, le rayon spectral d'une matrice sur \( \eC\) est toujours plus petit que sa norme. C'est à dire que nous avons toujours \( \rho(A)\leq \| A \|\) pour toute norme matricielle \( \| . \|\).
+\end{proposition}
+
