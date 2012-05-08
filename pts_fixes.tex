@@ -165,15 +165,96 @@ Nous pouvons maintenant énoncer et démontrer une forme nettement plus généra
     \end{equation}
 \end{definition}
 
-\begin{theorem}[Picard \cite{ClemKetl}]     \label{ThoEPVkCL}\index{théorème!Picard}
-    Soit \( (X,d)\) un espace métrique complet et \( f\colon X\to X\) une application contractante. Alors \( f\) admet un unique point fixe. De plus pour tout \( x_0\in X\), l'unique point fixe de \( f\) est donné par la limite de la suite définie par
+
+\begin{theorem}[Picard \cite{ClemKetl,NourdinAnal}\footnote{Il me semble qu'à la page 100 de \cite{NourdinAnal}, l'hypothèse H1 qui est prouvée ne prouve pas Hn dans le cas \( n=1\). Merci de m'écrire si vous pouvez confirmer ou infirmer. La preuve donnée ici ne contient pas cette «erreur».}.]     \label{ThoEPVkCL}\index{théorème!Picard}
+    Soit \( X\) un espace métrique complet et \( f\colon X\to X\) une application contractante, de constante de Lipschitz \( k\). Alors \( f\) admet un unique point fixe, nommé \( \xi\). Ce dernier est donné par la limite de la suite définie par récurrence 
+    \begin{subequations}
+        \begin{numcases}{}
+            x_0\in X\\
+            x_{n+1}=f(x_n).
+        \end{numcases}
+    \end{subequations}
+    De plus nous pouvons majorer l'erreur par
+    \begin{equation}    \label{EqKErdim}
+        \| x_n-x \|\leq \frac{ k^n }{ 1-k }\| x_n-x_{n-1} \|\leq \frac{ k^n }{ 1-k }\| x_1-x_0 \|.
+    \end{equation}
+
+    Soit \( r>0\), \( a\in X\) tels que la fonction \( f\) laisse la boule \( K=\overline{ B(a,r) }\) invariante (c'est à dire que \( f\) se restreint à \( f\colon K\to K\)). Nous considérons les suites \( (u_n)\) et \( (v_n)\) définies par
+    \begin{subequations}
+        \begin{numcases}{}
+            u_0=v_0\in K\\
+            u_{n+1}=f(v_n), v_{n+1}\in B(u_n,\epsilon).
+        \end{numcases}
+    \end{subequations}
+    Alors le point fixe \( \xi\) de \( f\) est dans \( K\) et la suite \( (v_n)\) satisfait l'estimation
     \begin{equation}
-        x_{n+1}=f(x_n).
+        \| v_n-\xi \|\leq \frac{ k^n }{ 1-k }\| u_1-u_0 \|+\frac{ \epsilon }{ 1-k }.
     \end{equation}
 \end{theorem}
 
+La première inégalité \eqref{EqKErdim} donne une estimation de l'erreur calculable en cours de processus; la seconde donne une estimation de l'erreur calculable avant de commencer.
+
+\begin{proof}
+    
+    Nous commençons par l'unicité du point fixe. Si \( a\) et \( b\) sont des points fixes, alors \( f(a)=a\) et \( f(b)=b\). Par conséquent
+    \begin{equation}
+        \| f(a)-f(b) \|=\| a-b \|,
+    \end{equation}
+    ce qui contredit le fait que \( f\) soit une contraction.
+
+    En ce qui concerne l'existence, notons que si la suite des \( x_n\) converge dans \( X\), alors la limite est un point fixe. En effet en prenant la limite des deux côtés de l'équation \( x_{n+1}=f(x_n)\), nous obtenons \( \xi=f(\xi)\), c'est à dire que \( \xi\) est un point fixe de \( f\). Notons que nous avons utilisé ici la continuité de \( f\), laquelle est une conséquence du fait qu'elle soit Lipschitz. Nous allons donc porter nos efforts à prouver que la suite est de Cauchy (et donc convergente parce que \( X\) est complet). Nous commençons par prouver que \( \| x_{n+1}-x_n \|\leq k^n\| x_0-x_1 \|\). En effet pour tout \( n\) nous avons
+    \begin{equation}
+        \| x_{n+1}-x_n \|=\| f(x_n)-f(x_{n-1}) \|\leq k\| x_n-x_{n-1} \|.
+    \end{equation}
+    La relation cherchée s'obtient alors par récurrence. Soient \( q>p\). En utilisant une somme téléscopique,
+    \begin{subequations}
+        \begin{align}
+            \| x_q-x_p \|&\leq \sum_{l=p}^{q-1}\| x_{l+1}-x_l \|\\
+            &\leq\left( \sum_{l=p}^{q-1}k^l \right)\| x_1-x_0 \|\\
+            &\leq\left(\sum_{l=p}^{\infty}k^l\right)\| x_1-x_0 \|.
+        \end{align}
+    \end{subequations}
+    Étant donné que \( k<1\), la parenthèse est la queue d'une série qui converge, et donc tend vers zéro lorsque \( p\) tend vers l'infini.
+
+    En ce qui concerne les inégalités \eqref{EqKErdim}, nous refaisons une somme téléscopique :
+    \begin{subequations}
+        \begin{align}
+            \| x_{n+p}-x_n \|&\leq \| x_{n+p}-x_{n+p-1} \|+\ldots +\| x_{n+1}-x_n \|\\
+            &\leq k^p\| x_n-x_{n-1} \|+k^{p-1}\| x_n-x_{n-1} \|+\ldots +k\| x_n-x_{n-1} \|\\
+            &=k(1+\ldots +k^{p-1})\| x_n-x_{n-1}\|  \\
+            &\leq \frac{ k }{ 1-k }\| x_n-x_{n-1} \|.
+        \end{align}
+    \end{subequations}
+    En prenant la limite \( p\to \infty\) nous trouvons
+    \begin{equation}        \label{EqlUMVGW}
+        \| \xi-x_n \|\leq \frac{ k }{ 1-k }\| x_n-x_{n-1} \|\leq \frac{ k }{ 1-k }\| x_1-x_0 \|.
+    \end{equation}
+
+    Nous passons maintenant à la seconde partie du théorème en supposant que \( f\) se restreigne en une fonction \( f\colon K\to K\). D'abord \( K\) est encore un espace métrique complet, donc la première partie du théorème s'y applique et \( f\) y a un unique point fixe.
+    
+    Nous allons montrer la relation par récurrence. Tout d'abord pour \( n=1\) nous avons
+    \begin{equation}
+        \| v_1-\xi \|\leq\| v_1-u_1 \|+\| u_1-\xi \|\leq \epsilon+\frac{ k }{ 1-k }\| u_1-u_0 \|
+    \end{equation}
+    où nous avons utilisé l'estimation \eqref{EqlUMVGW}, qui reste valable en remplaçant \( x_1\) par \( u_1\)\footnote{Elle n'est cependant pas spécialement valable si on remplace \( x_n\) par \( u_n\).}. Nous pouvons maintenant faire la récurrence :
+    \begin{subequations}
+        \begin{align}
+            \| v_{n+1}-\xi \|&\leq \| v_{n+1}-u_{n+1} \|+\| u_{n+1}-\xi \|\\
+            &\leq \epsilon+k\| v_n-\xi \|\\
+            &\leq \epsilon+k\left( \frac{ k^n }{ 1-k }\| u_1-u_0 \|+\frac{ \epsilon }{ 1-k } \right)\\
+            &=\frac{ \epsilon }{ 1-k }+\frac{ k^{n+1} }{ 1-k }\| u_1-u_0 \|.
+        \end{align}
+    \end{subequations}
+\end{proof}
+
 \begin{remark}
-    Nous verrons dans la sous section \ref{subseciKpMFx} que la suite convergente donnée par le théorème de Picard est résistante aux erreurs. En effet si à chaque étape du calcul nous commettons une erreur (pas trop grande), alors la suite obtenue converge également vers le point fixe cherché. Cette propriété se transmet automatiquement aux théorèmes de Cauchy-Lipschitz et à la méthode de Newton.
+    Ce théorème comporte deux parties d'intérêts différents. La première partie est un théorème de point fixe usuel, qui sera utilisé pour prouver l'existence de certaines équations différentielles.
+
+    La seconde partie est intéressante d'un point de vie numérique. En effet, ce qu'elle nous enseigne est que si à chaque pas de calcul de la récurrence \( x_{n+1}=f(x_n)\) nous commettons une erreur d'ordre de grandeur \( \epsilon\), alors le procédé (la suite \( (v_n)\)) ne converge plus spécialement vers le point fixe, mais tend vers le point fixe avec une erreur majorée par \( \epsilon/(k-1)\).
+\end{remark}
+
+\begin{remark}
+Au final l'erreur minimale qu'on peut atteindre est de l'ordre de \( \epsilon\). Évidemment si on commet une faute de calcul de l'ordre de \( \epsilon\) à chaque pas, on ne peut pas espérer mieux.
 \end{remark}
 
 \begin{remark}  \label{remIOHUJm}
