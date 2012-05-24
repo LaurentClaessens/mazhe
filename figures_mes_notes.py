@@ -78,6 +78,7 @@ from phystricksExoVarj import ExoVarj
 from phystricksTriangleUV import TriangleUV
 from phystricksKScolorD import KScolorD
 from phystricksIsomCarre import IsomCarre
+from phystricksCheminFresnel import CheminFresnel
 
 figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre,
             MomentForce,Parallelogramme,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
@@ -86,7 +87,7 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
             SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim,
             ExoProjection,ExoPolaire,CoordPolaires,TriangleRectangle,CercleTnu,QCb,
             DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
-            SurfaceHorizVerti,SurfaceCercle,KScolorD,
+            SurfaceHorizVerti,SurfaceCercle,KScolorD,CheminFresnel,
             IntRectangle,IntTriangle,CoinPasVar,
             IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa,
             ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang,
@@ -104,4 +105,4 @@ if __name__=="__main__":
     if "--all" in sys.argv :
         AllFigures()
     else:
-        IsomCarre()
+        CheminFresnel()
