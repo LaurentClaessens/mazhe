@@ -892,11 +892,29 @@ Nous allons calculer l'intégrale demandée en passant par la fonction
 \begin{equation}
     f(x)= e^{-z^2}
 \end{equation}
-définie sur le plan complexe.
-
-
-
-Pour vérifier que \( f\) est bien holomorphe, nous utilisons le critère du théorème \ref{ThokwIQwg}. Le calcul de \( \frac{ \partial f }{ \partial \bar z }\) se fait simplement en posant \( f(x,y)= e^{-(x+iy)^2}\). Le calcul est usuel :
+définie sur le plan complexe. Nous l'intégrons sur le chemin \( \gamma=\gamma_1+\gamma_2-\gamma_3\) indiqué à la figure \ref{LabelFigCheminFresnel}.
+\newcommand{\CaptionFigCheminFresnel}{Chemin d'intégration pour l'intégrale de Fresnel}
+\input{Fig_CheminFresnel.pstricks}
+Ces chemins sont donnés par
+\begin{equation}
+    \begin{aligned}
+        \gamma_1\colon \mathopen[ 0 , R \mathclose]&\to \eC \\
+        t&\mapsto t, 
+    \end{aligned}
+\end{equation}
+\begin{equation}
+    \begin{aligned}
+        \gamma_2\colon \mathopen[ 0 , \frac{ \pi }{ 4 } \mathclose]&\to \eC \\
+        t&\mapsto R e^{it}, 
+    \end{aligned}
+\end{equation}
+\begin{equation}
+    \begin{aligned}
+        \gamma_3\colon \mathopen[ 0 , R \mathclose]&\to \eC \\
+        t&\mapsto t e^{i\pi/4}. 
+    \end{aligned}
+\end{equation}
+Tout d'abord la fonction \( f\) est bien holomorphe par le critère du théorème \ref{ThokwIQwg}. Le calcul de \( \frac{ \partial f }{ \partial \bar z }\) se fait simplement en posant \( f(x,y)= e^{-(x+iy)^2}\). Le calcul est usuel :
 \begin{verbatim}
 ----------------------------------------------------------------------
 | Sage Version 4.8, Release Date: 2012-01-20                         |
@@ -907,4 +925,49 @@ sage: A=f.diff(x)+I*f.diff(y)
 sage: A.simplify_full()
 (x, y) |--> 0
 \end{verbatim}
-
+Nous avons donc
+\begin{equation}    \label{EqfaoRgU}
+    0=\int_{\gamma}f=\underbrace{\int_0^R e^{-t^2}dt}_{I_1(R)}+\underbrace{\int_0^{\pi/4} e^{-R^2 e^{2it}}Ri e^{it}dt}_{I_2(R)}+\underbrace{\int_0^R e^{-t^2 e^{i\pi/2}} e^{i\pi/4}dt}_{I_3(R)}.
+\end{equation}
+L'intégrale est nulle pour tout \( R\) en vertu de la proposition \ref{PrpopwQSbJg}. L'intégrale \( I_1\) est une gaussienne et nous avons
+\begin{equation}
+    \lim_{R\to\infty}I_1(R)=\frac{ \sqrt{\pi} }{ 2 }
+\end{equation}
+par l'exemple \ref{ExrgMIni}. Nous montrons maintenant que \( \lim_{R\to\infty}| I_2(R) |=0\)\footnote{Dans \cite{FresnelDavidS}, ce fait est démontré via le lemme de Jordan. Nous donnons ici une démonstration moins technologique.}. D'abord nous majorons en prenant la norme puis nous effectuons le changement de variables \( u=2t\) :
+\begin{subequations}
+    \begin{align}
+        | I_2(R) |&\leq \int_{0}^{\pi/4}R e^{-R^2\cos(2t)}dt\\
+        &=\frac{ R }{ 2 }\int_0^{\pi/2} e^{-R^2\cos(u)}du.
+    \end{align}
+\end{subequations}
+Nous savons que le graphe du cosinus est concave : il reste au-dessus de la droite que joint \( (0,1)\) à \( (\frac{ \pi }{2},0)\). Du coup \( \cos(u)\geq 1-\frac{ 2 }{ \pi }u\) et par conséquent
+\begin{subequations}
+    \begin{align}
+        e^{-R^2\cos(u)}&\leq  e^{-R^2(1-\frac{ 2 }{ \pi }u)}\\
+        &= e^{R^2(\frac{ 2 }{ \pi }u-1)}.
+    \end{align}
+\end{subequations}
+Nous effectuons l'intégrale
+\begin{subequations}
+    \begin{align}
+        | I_2(R) |&\leq \frac{ R }{2}\int_0^{\pi/2} e^{-R^2} e^{\frac{ 2R^2 }{ \pi }u}du\\
+        &=\frac{ R }{2} e^{-R^2}\left[ \frac{ \pi }{ 2R^2 } e^{2R^2 u/\pi} \right]_0^{\pi/2}\\
+        &=\frac{ \pi }{ 4R }-\frac{ \pi e^{-R^2} }{ 4R },
+    \end{align}
+\end{subequations}
+et nous avons bien \( \lim_{R\to\infty}| I_2(R) |=0\). Nous passons à la troisième intégrale. En tenant compte que \(  e^{i\pi/2}=i\), nous avons
+\begin{subequations}
+    \begin{align}
+        I_3(R)&=-\int_0^R e^{-\gamma_3(t)^2} e^{i\pi/4}dt\\
+        &=-\frac{ 1+i }{ \sqrt{2} }\int_0^R e^{-t^2} e^{2i\pi/4}\\
+        &=-\frac{ 1+i }{ \sqrt{2} }\int_0^R e^{-it^2}.
+    \end{align}
+\end{subequations}
+En passant à la limite \( R\to 0 \), de l'équation \eqref{EqfaoRgU} il ne reste que
+\begin{equation}
+    0=\frac{ \sqrt{2} }{2}-\frac{ 1+i }{ \sqrt{2} }\int_0^{\infty} e^{-it^2}dt,
+\end{equation}
+ce qui signifie que
+\begin{equation}
+    \int_0^{\infty} e^{-it^2}dt=\frac{ \sqrt{2\pi} }{ 2(1+i) }=\frac{ \sqrt{\pi} }{2} e^{-i\pi/4}.
+\end{equation}
