@@ -150,7 +150,7 @@ Nous disons que les variables aléatoires \( X_k\colon \Omega\to \eR^d\) sont \d
 \begin{proof}
     Lorsque nous écrivons \( X_i\in B_i\), nous parlons de l'événement
     \begin{equation}
-        (X_i\in _i)=\{ \omega\in\Omega\tq X_i(\omega)\in B_i \}=X_i^{-1}(B_i)\in \tribA_{X_i}.
+        (X_i\in B_i)=\{ \omega\in\Omega\tq X_i(\omega)\in B_i \}=X_i^{-1}(B_i)\in \tribA_{X_i}.
     \end{equation}
     Vu que par hypothèse les tribus \( (\tribA_i)\) sont indépendantes, le lemme \ref{LemTribIndepProdProb} nous montre que
     \begin{equation}
@@ -325,14 +325,14 @@ Le \defe{moment}{moment} d'ordre \( p\) de la variable aléatoire \( X\) est l'e
             &=\int_{\eR}x\int_{\eR}f_Y(x-t)f_X(t)dtdx\\
             &=\int_{\eR}f_X(t)\underbrace{\int_{\eR}xf_Y(x-t)dx}_{=E(Y)+t}\,dt\\
             &=\int_{\eR}f_X(t)\big( E(Y)+t \big)dt\\
-            &=E(Y)+\int_{\eR}ff_X(t)dt\\
+            &=E(Y)+\int_{\eR}tf_X(t)dt\\
             &=E(Y)+E(X)
         \end{align}
     \end{subequations}
     où nous avons utilisé la proposition \ref{EqdensitesooemXYint} et le fait que l'intégrale sur \( \eR\) d'une densité vaut \( 1\).
 \end{proof}
 
-Une application de l'inégalité de Hölder est la suivante. Si \( X\) et \( Y\) sont des variables aléatoires intégrables alors
+Une application de l'inégalité de Hölder (proposition \ref{ProptYqspT}) est la suivante. Si \( X\) et \( Y\) sont des variables aléatoires intégrables alors
 \begin{equation}
     E(XY)\leq E(X^2)^{1/2}E(Y^2)^{1/2}.
 \end{equation}
@@ -345,14 +345,13 @@ En effet
 \subsection{Espérance conditionnelle}
 %---------------------------------------------------------------------------------------------------------------------------
 
-
 \begin{theorem}     \label{ThoMWfDPQ}
     Soit un espace de probabilité \( (\Omega,\tribA,P)\) et une variable aléatoire intégrable \( X\colon \Omega\to \eR\). Pour chaque sous tribu \( \tribF\) de \( \tribA\), il existe une (presque partout) unique variable aléatoire \( Y\colon \Omega\to \eR\) telle que
     \begin{enumerate}
         \item
             \( Y\) est \( \tribF\)-mesurable
         \item
-            \( Y\) est \( P_{\tribF}\)-intégrable
+            \( Y\) est \( P\)-intégrable
         \item
             pour tout \( A\in\tribF\),
             \begin{equation}
@@ -456,6 +455,29 @@ En effet
     \end{description}
 \end{proof}
 
+\begin{proposition}[Transitivité de l'espérance conditionnelle]
+    Si \( \tribB_2\subseteq\tribB_1\subset\tribA\) alors
+    \begin{equation}
+        E\Big( E(X|\tribB_1)|\tribB_2 \Big)=E(X|\tribB_2).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Si \( B\in\tribB_2\), nous avons
+    \begin{equation}
+        \int_BE\big( E(X|\tribB_1)|\tribB_2 \big)dP=\int_B E(X|\tribB_1)dP=\int_BdP.
+    \end{equation}
+    La première égalité est la définition de l'espérance conditionnelle par rapport à \( \tribB_2\). La seconde égalité est celle de l'espérance conditionnelle par rapport à \( \tribB_1\) et le fait que \( B\in\tribB_2\subset\tribB_1\). Ce que nous avons prouvé est que
+    \begin{equation}
+        E\big( E(X|\tribB_1)|\tribB_2 \big)
+    \end{equation}
+    est une variable aléatoire \( \tribB_2\)-mesurable vérifiant la condition
+    \begin{equation}
+        \int_BE\big( E(X|\tribB_1)|\tribB_2 \big)=\int_BE(X|\tribB_2)
+    \end{equation}
+    pour tout \( B\in \tribB_2\). C'est donc \( E(X|\tribB_2)\) par la partie unicité du théorème \ref{ThoMWfDPQ}.
+\end{proof}
+
 \begin{proposition}
     Soit \( (\Omega,\tribF,P)\) un espace de probabilité, soit \( \tribA\) une sous tribu de \( \tribF\) et \( X\), une variable aléatoire \( \tribF\)-mesurable et intégrable. Alors la variable aléatoire \( E(X|\tribA)\) du théorème \ref{ThoMWfDPQ} est l'unique (presque partout) variable aléatoire à être \( \tribA\)-mesurable telle que nous ayons
     \begin{equation}
@@ -487,6 +509,89 @@ En effet
     \end{equation}
     d'où le fait que \( P(Z\neq Z')=0\).
 \end{proof}
+
+Si \( X\) est une variable aléatoire dont la tribu engendrée est indépendante de la tribu \( \tribF\), nous voudrions que la connaissance de \( \tribF\) n'influence pas la connaissance de \( X\), c'est à dire que
+\begin{equation}
+    E(X|\tribF)=E(X).
+\end{equation}
+Ce que nous avons est même mieux. Nous avons le lemme suivant.
+\begin{lemma}[\cite{ProbaDanielLi}]     \label{LemxUZFPV}
+    Les tribus \( \tribF_1\) et \( \tribF_2\) sont indépendantes si et seulement si
+    \begin{equation}
+        E(U|\tribF_1)=E(U)
+    \end{equation}
+    pour toute variable aléatoire \( U\) étant \( \tribF_1\)-mesurable.
+\end{lemma}
+Ici, par \( E(U)\) nous entendons la variable aléatoire constante prenant la valeur numérique \( E(U)\) en tout point de \( \Omega\).
+
+\begin{proof}
+    Si \( \tribF_1\) et \( \tribF_2\) sont indépendantes, alors pour tout \( B\in\tribF_2\) nous avons
+    \begin{subequations}    \label{EqGGqgxl}
+            \begin{align}
+                \int_B UdP&=E(U\mtu_B)\\
+                &=E(U)E(\mtu_B)         \label{subeqBZWLNS}\\
+                &=E(U)\int_{\Omega}\mtu_BdP\\
+                &=\int_B E(U)dP.
+            \end{align}
+        \end{subequations}
+    Justifications.
+    \begin{itemize}
+        \item L'intégrale \( \int_BUdP\) a un sens même si \( B\in\tribF_2\) alors que \( U\) est \( \tribF_1\)-mesurable. Le supremum \eqref{EqDefintYfdmu} définissant l'intégrale est tout de même bien défini, en particulier, l'ensemble sur lequel on prend le supremum est non vide.
+        \item
+            Pour \eqref{subeqBZWLNS}, la variable aléatoire \( U\) est \( \tribF_1\)-mesurable (donc la tribu engendrée par \( U\) est dans \( \tribF_1\)) alors que \( \mtu_B\) est \( \tribF_2\)-mesurable. Les tribus engendrées étant indépendantes, les variables aléatoires le sont et nous pouvons décomposer l'espérance.
+    \end{itemize}
+    Ce que montre le calcul \eqref{EqGGqgxl} est que \( E(U)\) est une variable aléatoire \( \tribF_2\)-mesurable (parce que constante) dont l'intégrale sur chaque élément de \( \tribF_2\) vaut l'intégrale de \( U\). Par la partie unicité du théorème \ref{ThoMWfDPQ}, nous déduisons que \( E(U)=E(U|\tribF_2)\).
+\end{proof}
+
+\begin{example}
+    Soient \( X_1\), \( X_2\) deux variables aléatoires à valeurs dans \( \{ 0,1 \}\) avec probabilité \( 1/2\) et indépendantes. Nous considérons \( S=X_1+X_2\). La situation est modélisée par l'espace
+    \begin{equation}
+        \Omega=\{ (0,0),(0,1),(1,0),(1,1) \}
+    \end{equation}
+    et les variables aléatoires
+    \begin{subequations}
+        \begin{align}
+            X_i(\omega_1,\omega_2)=\omega_{i}\\
+            S(\omega_1,\omega_2)=\omega_1+\omega_2.
+        \end{align}
+    \end{subequations}
+    Pour vérifier que de cette manière nous avons bien que \( X_1\) est indépendante de \( X_2\), nous commençons par voir les tribus associées. Un ouvert de \( \eR\) soit contient \( 0\) et \( 1\), soit contient un seul des deux soit n'en contient aucun des deux. En appliquant \( X_1^{-1}\) à chacune de ces quatre situations nous voyons que la tribu \( \sigma(X_1)\) est
+    \begin{equation}
+        \tribF_1=\sigma(X_1)=\big\{ \{ (0,0),(0,1) \},\{ (1,0),(1,1) \},\Omega,\emptyset \}.
+    \end{equation}
+    De la même façon nous avons
+    \begin{equation}
+        \tribF_2=\sigma(X_1)=\big\{ \{ (0,0),(1,0) \},\{ (0,1),(1,1) \},\Omega,\emptyset \}.
+    \end{equation}
+    Nous posons
+    \begin{subequations}
+        \begin{align}
+            A_0&=\{ (0,0),(0,1) \}\\
+            A_1&=\{ (1,0),(1,1) \}\\
+            B_0&=\{ (0,0),(1,0) \}\\
+            B_1&=\{ (0,1),(1,1) \}.
+        \end{align}
+    \end{subequations}
+    Étant donné que \( A_i\cap B_j=(i,j)\), nous avons toujours que \( P(A_i\cap B_j)=\frac{1}{ 4 }=P(A_i)P(B_j)\). L'indépendance est donc assurée.
+
+    Calculons l'espérance conditionnelle \( E(S|\tribF_1)\). Une fonction \( \tribF_1\)-mesurable doit être constante sur \( A_0\) et \( A_1\), donc l'espérance conditionnelle est une fonction constante sur \( A_0\) et \( A_1\) dont l'intégrale sur ces ensembles est égale à l'intégrale de \( S\). Nous avons en particulier
+    \begin{equation}
+        \int_{A_0}E(S|\tribF_1)=\int_{A_0}S,
+    \end{equation}
+    c'est à dire
+    \begin{equation}
+        E(S|\tribF_1)(0,0)+E(S|\tribF_1)(0,1)=S(0,0)+S(0,1)=1.
+    \end{equation}
+    Nous en concluons que \( E(S|\tribF_1)(0,0)=E(S|\tribF_1)(0,1)=\frac{ 1 }{2}\). Cela correspond à l'intuition que si on est au point \( (0,1)\) ou au point \( (0,0)\) en ne sachant que \( X_1\), nous ne savons que le premier zéro, et donc l'espérance de la somme est \( \frac{ 1 }{2}\).
+
+    Un calcul très similaire montre que
+    \begin{equation}
+        E(S|\tribF_1)(1,0)=E(S|\tribF_1)(1,1)=\frac{ 3 }{2}.
+    \end{equation}
+    Cela correspond au fait qu'en ces points, nous ne savons que le fait que le premier tirage a donné \( 1\), et donc que l'espérance est \( \frac{ 3 }{2}\).
+
+    Complétons ce tour d'horizon en mentionnant que la tribu engendrée par \( X_1\) et \( X_2\) est la tribu des parties de \( \Omega\), de telle façon que l'espérance conditionnelle de \( S\) sachant \( X_1\) et \( X_2\) est égale à \( S\).
+\end{example}
 
 \begin{definition}
     Soit \( Z\) une variable aléatoire. L'\defe{espérance conditionnelle}{espérance!conditionnelle} «\( X\) sachant \( Z\)» est la variable aléatoire

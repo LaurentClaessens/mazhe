@@ -1,3 +1,7 @@
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Généralités}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 Les chaînes de Markov interviennent pour la description des systèmes dont l'évolution future ne dépend que de l'état présent.
 
 \begin{definition}
@@ -59,9 +63,8 @@ parce que c'est la somme de toutes les transitions possibles en partant de \( x\
 
 \begin{example}
     Si \( N_t\) est un processus de Poisson, alors les variables aléatoires \( X_n=N_n\) forment une chaîne de Markov.
-
-    En effet
 \end{example}
+% TODO : donner une raison.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Marche aléatoire sur \texorpdfstring{$\eZ$}{\( \eZ\)}}
@@ -1146,10 +1149,74 @@ Le cas \( m<1\) est dit \defe{sous-critique}{Galton-Watson!sous-critique}, le ca
         G(s)<s-1+G(1)=s.
     \end{equation}
     Nous avons donc \( G(s)<s\) dans un voisinage de \( 1\). Mais \( G(0)-0=p_0>0\), donc la fonction \( f(s)=G(s)-s\) est positive en \( 0\) et négative proche de \( s=1\). Le théorème de la valeur intermédiaire nous indique alors qu'il existe un \( s\in \mathopen] 0 , 1 \mathclose[\) tel que \( f(s)=0\), c'est à dire tel que \( G(s)=s\).
-    
     \end{subproof}
-
 \end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Martingales}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Si \( \tribA\) est une tribu, une \defe{filtration}{filtration} de \( \tribA\) est une suite croissante de sous-tribus \( \tribB_i\subseteq\tribB_{i+1}\subseteq\tribA\).
+\end{definition}
+
+\begin{definition}
+    Une \defe{martingale}{martingale} adaptée à la filtration \( (\tribB_n)_{n\in \eN}\) est une suite de variables aléatoires \( M_n\in L^1(\Omega,\tribA,P)\) telle que
+    \begin{enumerate}
+        \item
+            \( M_n\) est \( \tribB_n\)-mesurable,
+        \item
+            \( E(M_{n+1}|\tribB_n)=M_n\).
+    \end{enumerate}
+    Nous disons que la martingale \( (M_n)_{n\geq 1}\) est \defe{terminée}{terminée!martingale} si il existe \( M\in L^1(\Omega,\tribA,P)\) telle que \( M_n=E(M|\tribA_n)\) pour tout \( n>1\).
+\end{definition}
+
+\begin{example}
+    Si \( M\in L^1(\Omega,\tribA,P)\) et si \( (\tribB_n)_{n\in \eN}\) est une filtration, nous pouvons considérer la martingale \( M_n=E(M|\tribB_n)\).
+\end{example}
+
+\begin{example}
+    Soit \( (X_i)_{i\geq 1}\) une suite de variables aléatoires indépendantes et centrées. On pose
+    \begin{equation}
+        S_n=X_1+\ldots +X_n
+    \end{equation}
+    et la filtration \( \tribB_n=\sigma(X_1,\ldots, X_n)\). Pour montrer que cela est une martingale, nous commençons par remarquer que
+    \begin{equation}
+        E(X_{n+1}|\tribB_n)=E(X_{n+1})=0
+    \end{equation}
+    par indépendance des tribus \( \tribB_n\) et \( \sigma(X_{n+1})\). Ici c'est le lemme \ref{LemxUZFPV} qui joue.
+
+    Ensuite nous argumentons que \( E(X_1+\ldots +X_n|\tribB_n)=X_1+\ldots +X_n\). En effet d'une part \( X_1+\ldots +X_n\) est \( \tribB_n\)-mesurable et évidemment la condition intégrale de l'espérance conditionnelle est satisfaite.
+
+    Plus généralement si \( X\) est une variable aléatoire et si \( \sigma(X)\subset\tribB\) alors \( E(X|\tribB)=X\).
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Convergence de martingales}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Sources : \cite{GubinelliMartin,PMCmartinLP}.
+
+\begin{theorem}[Doob]\index{théorème!Doob de convergence des martingales}
+    \begin{enumerate}
+        \item
+            Une martingale terminée converge presque partout et en norme \( L^1\).
+        \item
+            Une martingale bornée dans \( L^2\) converge presque surement et en norme \( L^2\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{example}
+    Soient des variables aléatoires indépendantes \( V_k\sim\dE(2^n\lambda)\) et la variable aléatoire somme
+    \begin{equation}
+        S_n=\sum_{k=1}^nV_k.
+    \end{equation}
+    Nous allons montrer que \( S_n\stackrel{p.s.}{\longrightarrow}X\) où \( X\) est une variable aléatoire presque surement finie. Nous posons
+    \begin{equation}
+        M_n=S_n-\sum_{k=1}^n\frac{1}{ 2^k\lambda }
+    \end{equation}
+    et nous allons voir que c'est une martingale adaptée à la filtration \( \tribF_n=\sigma(V_1,\ldots, V_n)\).
+\end{example}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Simulations en scilab}
