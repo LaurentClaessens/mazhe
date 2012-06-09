@@ -1,3 +1,7 @@
+\begin{quote}
+    Mets tes deux pieds en canard, c'est la chaîne de Markov qui se prépare.
+\end{quote}
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Généralités}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -389,7 +393,7 @@ C'est le temps mis pour atteindre \( x\) à partir de l'instant \( p\).
 \end{proof}
 
 \begin{definition}
-    Un état \( x\) est \defe{récurrent}{récurrent!état} si \( P(T(x)=\infty|X_0=x)=0\), c'est à dire si la probabilité de ne jamais retourner en $x$ lorsqu'on y est passé est nulle. L'état \( x\) est \defe{transient}{transient!état} dans le cas contraire.
+    Un état \( x\) est \defe{récurrent}{récurrent!état} si \( P(T(x)=\infty|X_0=x)=0\), c'est à dire si la probabilité de ne jamais retourner en $x$ lorsqu'on y est passé est nulle. L'état \( x\) est \defe{transient}{transient!état} ou \defe{transitoire}{transitoire!état} dans le cas contraire.
 \end{definition}
 
 Nous introduisons une variable aléatoire qui compte le nombre de fois que la chaîne de Markov passe par l'état \( x\) :
@@ -408,7 +412,7 @@ C'est une variable aléatoire à valeurs dans \( \eN\cup\{ \infty \}\).
     \end{enumerate}
     Les deux propriétés suivantes sont équivalentes à dire que \( x\) est transient :
     \begin{enumerate}
-        \item
+        \item   \label{ItemiMnGpD}
             \( P(N_x<\infty|X_0=x)=1\)
         \item
             \( E(N_x|X_0=x)<\infty\).
@@ -949,6 +953,124 @@ En ce qui concerne les notations, l'hypothèse \( f\in L^1(E,\mu)\) signifie
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Convergence vers l'équilibre}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous voudrions savoir sous quelles conditions la variable aléatoire \( X_n\) converge en loi vers quelque chose lorsque \( n\to \infty\). Une telle loi limite doit dépendre de la loi initiale\footnote{Lorsque la loi limite ne dépend pas de la loi initiale, nous disons que la chaîne de Markov est ergodique, nous y reviendrons.} comme le montre l'exemple de la chaîne de Markov
+\begin{equation}
+\xymatrix{%
+A\ar@(dl,ul)^1  & C\ar[l]_{1/2}\ar[r]^{1/2} &  B\ar@(dr,ur)_1
+   }
+\end{equation}
+Si \( X_0=C\), alors la loi limite est
+\begin{equation}
+    \frac{ 1 }{2}(\delta_A+\delta_B).
+\end{equation}
+Si par contre \( X_0=B\), la loi limite est \(\delta_B\). Notons que la chaîne de Markov proposée ici est irréductible.
+
+Notons qu'il n'y a pas toujours de lois limite comme le montre l'exemple
+\begin{equation}
+    \xymatrix{%
+        A\ar@<1ex>[r]^1  & B\ar@<1ex>[l]^1
+       }
+\end{equation}
+avec \( X_0=A\). La loi en est
+\begin{equation}
+    X_k=\begin{cases}
+        \delta_A    &   \text{si \( k\) est pair}\\
+        \delta_B    &    \text{si \( k\) est impair}.
+    \end{cases}
+\end{equation}
+
+\begin{lemma}
+    Si nous avons une loi limite
+    \begin{equation}    \label{EqmbQMAY}
+        P(X_n=x)\to l(x),
+    \end{equation}
+    et que la chaîne est irréductible, alors nous avons \( l=\pi\).
+\end{lemma}
+
+\begin{proof}
+    D'après la proposition \ref{PropjOjDux} nous avons
+    \begin{equation}
+        \frac{1}{ n }\sum_{k=1}^nP(X_k=x)\to \pi(x).
+    \end{equation}
+    Par le lemme \ref{LemyGjMqM} sur la moyenne de Cesaro et l'hypothèse \eqref{EqmbQMAY}, nous avons aussi
+    \begin{equation}
+        \frac{1}{ n }\sum_{k=1}^nP(X_k=x)\to l(x).
+    \end{equation}
+    Du coup \( \pi(x)=l(x)\).
+\end{proof}
+
+\begin{lemma}[\cite{MarkGuy}]
+    Si \( \pi\) est une loi stationnaire et si \( x\) est un étant transient, alors \( \pi(x)=0\).
+\end{lemma}
+Ce lemme (qui peut être prouvé rigoureusement) est principalement dû au fait que la chaîne de Markov ne visite un état transitoire qu'un nombre fini de fois par la proposition \ref{PropEquivEPrecuequiv}\ref{ItemiMnGpD}.
+
+\begin{definition}
+    Un état \( x\in E\) est \defe{apériodique}{état!apériodique}\index{apériodique!état d'une chaîne de Markov} si
+    \begin{equation}
+        \pgcd\{ n\geq 1\tq p^n(x,x)>0 \}=1.
+    \end{equation}
+\end{definition}
+Mettons que tous les \( n\) tels que \( p^n(x,x)>0\) ont \( 2\) comme diviseur. L'état n'est alors pas apériodique, mais on voit que si \( X_0=x\), alors les états impairs ne peuvent pas être sur \( x\). Cela est une forme de périodicité.
+
+Si un état est apériodique, il existe \( p\) et \( q\) premiers entre eux tels que \( p^p(x,x)\) et \( p^q(x,x)\) sont non nuls. En particulier pour tout \( n\in p\eN+q\eN\), \( P(X_n=x)\neq 0\). Par conséquent la proposition \ref{PropLAbRSE} nous indique qu'à partir d'un certain moment tous les \( X_k\) pourraient être \( x\).
+
+L'état \( C\) de la chaîne de Markov suivante est apériodique :
+\begin{equation}
+    \xymatrix{%
+    A\ar@<0.5ex>[rr]^1  && B\ar@<0.5ex>[ll]^{2/3}\ar[dl]^{1/3}\\
+    &C\ar[ul]^1
+       }
+\end{equation}
+En effet \( p^3(C,C)\neq 0\) par le chemin \( C\to A\to B\to C\) tandis que \( p^5(C,C)\neq 0\) également par le chemin \( C\to A\to B\to A\to B\to C\). Or \( \pgcd\{ 3,5 \}=1\).
+
+\begin{proposition}[\cite{MarkGuy}]     \label{PropSaOysS}
+    Soit \( (X_n)\), une chaîne de Markov irréductible. Un état \( x\) est apériodique si et seulement si il existe \( N\) tel que
+    \begin{equation}
+        p^k(x,x)=P(X_k=x|X_0=x)>0
+    \end{equation}
+    pour tout \( k\geq N\).
+\end{proposition}
+
+La proposition suivante va nous permettre de parler de \defe{chaîne apériodique}{chaîne de Markov!apériodique}\index{apériodique!chaîne de Markov}.
+\begin{proposition}
+    Si une chaîne de Markov est irréductible, alors un état est apériodique si et seulement si tous les états sont apériodiques.
+\end{proposition}
+
+\begin{proof}
+    Soit \( x\) un état apériodique de la chaîne de Markov \( (X_n)_{n\in \eN}\). En vertu de la proposition \ref{PropSaOysS} il existe \( N_x\) tel que \( p^k(x,x)\neq 0\) pour tout \( k\geq N_x\). Soit \( y\in E\). Étant donné que la chaîne est irréductible, il existe \( r\) et \( s\) tels que\( p^r(x,y)>0\) et \( p^s(y,x)>0\). Nous avons
+    \begin{equation}
+        p^{k+r+s}(y,y)=P(X_{k+r+s}=y|X_0=y)\geq p^s(x,y)P(X_k=x|X_0=x)p^r(y,x).
+    \end{equation}
+    Si \( k\) est assez grand, cette quantité est strictement positive. Donc il suffit de prendre \( N_y=N_x+r+s\) pour savoir que \( y\) est également apériodique.
+\end{proof}
+
+Si \( E\) est fini et si la chaîne de Markov est irréductible, alors en posant \( N=\max_{x\in E}N(x)\), la matrice \( P^k\) a des éléments non nuls sur toute la diagonale pour tout \( k>N\). Ces éléments diagonaux ne sont autre que les \( p^k(x,x)\).
+
+\begin{theorem}[Convergence en loi des chaîne de Markov]
+    Si \( (X_n)\) est
+    \begin{enumerate}
+        \item
+            irréductible,
+        \item
+            récurrente positive,
+        \item
+            apériodique,
+    \end{enumerate}
+    alors \( X_n\) converge en loi vers l'unique probabilité invariante \( \pi\) qui vérifie
+    \begin{equation}
+        \pi(x)=\sum_{u\in E}p(y,x)\pi(y)=\frac{1}{ E\big( T(x)|X_0=x \big) }.
+    \end{equation}
+
+    Cette convergence est indépendante de la loi de \( X_0\) et on a
+    \begin{equation}
+        P(X_n=x|X_0=y)\to_{n\to \infty} \pi(x).
+    \end{equation}
+\end{theorem}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Processus de Galton-Watson}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \index{processus!Galton-Watson}
@@ -1304,6 +1426,50 @@ Notons en particulier que la variable aléatoire \( M_{\infty}\) est presque sur
 \end{example}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Processus de Poisson, files d'attente}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SecHxbtzQ}
+
+\begin{definition}
+    Une famille de variables aléatoires \( (N_t)_{t\geq 0}\) est une \defe{processus de Poisson}{processus!Poisson}\index{Poisson!processus} d'intensité \( \lambda\) si il existe une suite de variables aléatoires indépendantes et identiquement distribuées \( (T_k)_{k\in \eN}\) de loi \( \dE(\lambda)\) telles que 
+    \begin{equation}
+        N_t=\sup\{ n\geq 0\tq \sum_{k=1}^nT_k\leq t \}.
+    \end{equation}
+\end{definition}
+Si nous posons \( S_n=\sum_{k=1}^nT_k\), alors nous avons une expression plus pratique pour \( N_t\) :
+\begin{equation}
+    N_t=\sum_{n=1}^{\infty}\mtu_{\{ S_n\leq t \}}.
+\end{equation}
+Nous avons par la proposition \ref{PropGMntiy} vu que \( N_t\sim\dP(\lambda t)\).
+
+
+Pour chaque \( \omega\in \Omega\), la fonction \( t\mapsto N_t(\omega)\) est une fonction (pas du tout strictement) croissante à valeurs dans $\eN$. Cette fonction part de \( 0\) et fait un saut de taille \( 1\) après des intervalles de temps \( T_1(\infty)\), \( T_2(\omega)\), etc. Elle est continue ) droite.
+
+Nous avons les égalités d'événements suivantes qui sont pratiques :
+\begin{subequations}
+    \begin{align}
+        \{ s<S_n\leq t \}=\{ N_t\geq n>N_s \}\\
+        \{ N_t=n \}=\{ S_n\leq t\leq S_{n+1} \}.
+    \end{align}
+\end{subequations}
+
+\begin{theorem}
+    Les variables aléatoires \( (N_t)_{t\geq 0}\) est un processus de Poisson d'intensité \( \lambda\) si et seulement si elles vérifient les trois propriétés suivantes.
+    \begin{description}
+        \item[Accroissements indépendants] Pour tout choix \( 0<t_0<t_1<\ldots t_n\), les variables aléatoires \( N_{t_{i+1}}-N_{t_i}\) sont indépendantes. 
+        \item[Accroissements stationnaires] Si \( 0<s<t\) et \( h>0\) alors
+            \begin{equation}
+                N_{t+h}-N_{s+h}\stackrel{\mL}{=}N_t-N_s,
+            \end{equation}
+            c'est à dire que les accroissements décalés suivent les mêmes lois.
+        \item[Poisson] Pour tout \( t\) nous avons \( N_t\sim\dP(\lambda t)\).
+    \end{description}
+\end{theorem}
+Une conséquence des accroissements stationnaires est que \( N_t-N_s\stackrel{\mL}{=}N_{t-s}-N_0=N_{t-s}\) parce que \( N_0=0\).
+
+
 \section{Simulations en scilab}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
