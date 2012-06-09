@@ -300,9 +300,13 @@ Notons que cette proposition ne dit pas qu'il existe un sous-groupe d'ordre \( n
 \section{Action de groupes}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Si \( G\) agit sur un ensemble \( E\), nous notons \( G\cdot x\) l'orbite de \( x\in E\) sous l'action de $G$. Nous notons \( G_x\) le stabilisateur de \( x\) :
+Si \( G\) agit sur un ensemble \( E\), nous notons \( G\cdot x\) l'orbite de \( x\in E\) sous l'action de $G$. Nous notons \( G_x\)\nomenclature[R]{\( G_x\)}{stabilisateur de \( x\)} ou \( \Stab(x)\) le stabilisateur de \( x\) :
 \begin{equation}
-    G_x=\{ g\in G\tq g\cdot x=x \}.
+    G_x=\Stab(x)=\{ g\in G\tq g\cdot x=x \}.
+\end{equation}
+Pour \( g\in G\), nous notons aussi \( \Fix(g)\) le \defe{stabilisateur}{stabilisateur} de \( g\) :
+\begin{equation}
+    \Stab(g)=\{ x\in E\tq g\cdot x=x \}.
 \end{equation}
 
 Le groupe \( G\) agit toujours sur lui même à gauche et à droite. L'action à gauche est \( g\cdot h=gh\); celle à droite est \( g\cdot h=hg^{-1}\). Il existe aussi l'action \defe{adjointe}{action!adjointe} définie par \( g\cdot h=ghg^{-1}\).
@@ -474,7 +478,37 @@ C'est la formule \eqref{EqnLCHCE} qui est nommée \wikipedia{fr}{Action_de_group
     Étant donné que les classes de conjugaison sont disjointes, le cardinal de \( G\) est bien la somme des cardinaux de ses classes. Les classes ne contenant que un seul élément sont celles des éléments de \( Z(G)\). En ce qui concerne les autres orbites, \( \Card(C_{g_i})=| G:Z_{g_i} |\) par le théorème orbite-stabilisateur (proposition \ref{Propszymlr}).
 \end{proof}
 
+\begin{theorem}[\wikipedia{fr}{Action_de_groupe_(mathématiques)}{formule de Burnside}]  \index{Burnisde!formule}\index{formule!Burnside}
+    Si \( G\) est un groupe fini agissant sur l'ensemble fini \( E\) et si \( \Omega\) est l'ensemble des orbites, alors
+    \begin{equation}
+        \Card(\Omega)=\frac{1}{ | G | }\sum_{g\in G}\Card\big( \Fix(g) \big).
+    \end{equation}
+\end{theorem}
 
+\begin{proof}
+    Nous considérons l'ensemble 
+    \begin{equation}
+        A=\{ (g,x)\in G\times E\tq gx=x \},
+    \end{equation}
+    et nous en calculons le cardinal de deux façons. D'abord
+    \begin{subequations}
+        \begin{align}
+            \Card(A)&=\sum_{x\in E}\Card\{ g\in g\tq gx=x \}\\
+            &=\sum_{x\in E}\Card(\Stab(x))\\
+            &=\sum_{\omega\in \Omega}\sum_{x\in \omega}\Card(\Stab(x))\\
+            &=\sum_{x\in \omega}\frac{ | G | }{ \Card(\omega) }     \label{EqyVtkyf}\\
+            &=| G |.
+        \end{align}
+    \end{subequations}
+    Pour obtenir \eqref{EqyVtkyf} nous avons utilisé l'équation des classes \eqref{EqCewSXT}. L'autre façon de calculer \( \Card(A)\) est de regrouper ainsi :
+    \begin{equation}
+        \Card(A)=\sum_{g\in G}\Card\{ x\in E\tq gx=x \}=\sum_{g\in G}\Card(\Fix(g)).
+    \end{equation}
+    En égalisant les deux expressions de \( \Card(A)\) nous trouvons
+    \begin{equation}
+        | G |\Card(\Omega)=\sum_{g\in G}\Card(\Fix(g)).
+    \end{equation}
+\end{proof}
 
 \begin{proposition}
     Soit \( G\) un groupe et \( H\), un sous groupe du centre de \( G\).
@@ -707,9 +741,31 @@ Le groupe \( A_n\)\nomenclature[A]{\( A_n\)}{groupe alterné} des permutations p
     
     Dans tous les cas nous avons trouvé un \( 3\)-cycle dans \( N\) et nous avons par conséquent \( N=A_n\), ce qui fait que \( A_n\) ne contient pas de sous groupes normaux non triviaux. Le groupe alterné \( A_n\) est donc simple.
 
-
 \end{proof}
 
+Le théorème suivant montre que tout groupe peut être vu, en agissant sur lui-même, comme une partie du groupe symétrique.
+\begin{theorem}
+    Un groupe \( G\) est isomorphe à un sous groupe de son groupe symétrique \( S(G)\).
+\end{theorem}
+
+\begin{proof}
+    Nous considérons \( \varphi\), la translation à gauche :
+    \begin{equation}
+        \begin{aligned}
+            \varphi\colon G&\to S(G) \\
+            g&\mapsto t_g 
+        \end{aligned}
+    \end{equation}
+    où \( f_g(h)=gh\). Étant donné que
+    \begin{equation}
+        \varphi(gh)&=& ghx=g(t_hx)=\t_g\circ t_h(x),
+    \end{equation}
+    l'application \( \varphi\) est un morphisme de groupes. Il est injectif parce que si \( gx=hx\) pour tout \( x\), en particulier pour \( x=e\) nous trouvons \( g=h\). 
+    
+    De la même manière, \( \varphi(g)x=\varphi(g)y\) implique \( x=y\). Cela montre que l'image est bien dans le groupe symétrique.
+
+    L'ensemble \( \Image(\varphi)\) est donc un sous groupe de \( S(G)\), et \( \varphi\) est un isomorphisme vers ce groupe.
+\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Le groupe des entiers}
