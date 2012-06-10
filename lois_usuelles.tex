@@ -145,7 +145,7 @@ Si un événement se produit en moyenne \( p\) fois par seconde, la probabilité
 
 La loi de exponentielle représente le temps qu'il faut attendre pour qu'une particule se désintègre si elle a en permanence une probabilité \( \lambda dt\) de se désintégrer entre \( t\) et \( t+dt\). L'espérance est donc \( 1/\lambda\).
 
-Il se passe donc en moyenne \( \lambda\) événements par seconde. Le nombre d'événements se produisant en une seconde suit une loi de Poisson de paramètre \( \lambda\) par la proposition \ref{}<++>
+Il se passe donc en moyenne \( \lambda\) événements par seconde. Le nombre d'événements se produisant en une seconde suit une loi de Poisson de paramètre \( \lambda\) par la proposition \ref{PropGMntiy}.
 
 Plus formellement, la loi exponentielle de paramètre \( \lambda\), notée \( \dE(\lambda)\) est la loi de densité
 \begin{equation}
@@ -163,6 +163,10 @@ Plus formellement, la loi exponentielle de paramètre \( \lambda\), notée \( \d
             0    &    \text{sinon}.
     \end{cases}
     \end{equation}
+    La fonction caractéristique est donnée par
+    \begin{equation}
+        E( e^{itX})=\frac{ \lambda }{ \lambda-it }.
+    \end{equation}
     L'espérance et la variance sont données par
     \begin{equation}
         \begin{aligned}[]
@@ -173,6 +177,20 @@ Plus formellement, la loi exponentielle de paramètre \( \lambda\), notée \( \d
 \end{proposition}
 
 \begin{proof}    
+    Pour la fonction caractéristique,
+    \begin{subequations}
+        \begin{align}
+            E( e^{itX})&=\int_{-\infty}^{\infty} e^{it x}\lambda e^{-\lambda x}\mtu_{\mathopen[ 0 , \infty [}(x)dx\\
+            &=\lambda\int_0^{\infty} e^{x(-\lambda+it)}dx\\
+            &=\lim_{A\to\infty}\left[  \frac{  e^{x(-\lambda+it)} }{ it-\lambda } \right]_{x=0}^{x=A}\\
+            &=\lim_{A\to \infty}\frac{  e^{A(it-\lambda)} }{ it-\lambda }-\frac{1}{ it-\lambda }.
+        \end{align}
+    \end{subequations}
+    Le premier terme est nul parce que si on prend la norme,
+    \begin{equation}
+        \left| \frac{  e^{A(-\lambda+it)} }{ -\lambda+it } \right| =\frac{  e^{-\lambda A} }{ | it-\lambda | }\to 0.
+    \end{equation}
+
     En ce qui concerne l'espérance nous faisons le calcul suivant :
     \begin{equation}
         E(X)=\int_{\eR}xf_X(x)dx=\lambda\int_{\eR^+}x e^{-\lambda x}dx=\frac{1}{ \lambda }.
@@ -217,7 +235,43 @@ Ici,
         \item
             \( \min(X,Y)\sim\dE(\lambda+\mu)\).
     \end{enumerate}
+    De plus les variables aléatoires exponentielles ont une propriété d'absence de mémoire :
+    \begin{equation}
+        P(X>t+s|X>s)=P(X>t)= e^{-\lambda t}.
+    \end{equation}
 \end{proposition}
+
+\begin{proof}
+    Étant donné que \( X\) et \( Y\) sont indépendantes, la densité conjointe est le produit des densités (\ref{PropDensiteConjIndep}). Nous avons donc
+    \begin{equation}
+        P(X>Y)=\int_D\lambda e^{-\lambda x}\mu e^{-\mu y}dxdy
+    \end{equation}
+    où \( D\) est le domaine \( D=\{ (x,y)\in \eR^2\tq x,y>0, x>y \}\). Nous avons donc
+    \begin{equation}
+        P(X>Y)=\lambda\mu\int_0^{\infty}dx\int_0^xdy  e^{-\lambda x} e^{-\mu y}=\frac{ \mu }{ \lambda+\mu }.
+    \end{equation}
+    \begin{verbatim}
+sage: var('a,b')
+(a, b)
+sage: f(x,y)=exp(-a*x)*exp(-b*y)
+sage: assume(a>0)
+sage: assume(b>0)
+sage: a*b*f.integrate(y,0,x).integrate(x,0,oo)
+(x, y) |--> a*b/(a^2 + a*b)
+    \end{verbatim}
+    
+    Pour trouver la loi de \( \min(X,Y)\), nous écrivons
+    \begin{subequations}
+        \begin{align}
+            P\big( \min(X,Y)>t \big)&=P(X>t,Y>t)\\
+            &=P(X>t)P(Y>t)  &\text{par indépendance}\\
+            &=\big( 1-F_X(t) \big)\big( 1-T_Y(t) \big)\\
+            &= e^{-(\lambda+\mu)t}\mtu_{\mathopen[ 0 , \infty [}(t)\\
+            &=1-F_Z(t)
+        \end{align}
+    \end{subequations}
+    où \( Z\sim \dE(\lambda+\mu)\).
+\end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Approximation de la binomiale par une Poisson}
