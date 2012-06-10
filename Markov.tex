@@ -1540,10 +1540,74 @@ La relation \eqref{EqvaVYAs} est appelée \defe{loi des grands nombres}{loi des 
 
 Pour le théorème central limite d'un processus de Poisson, nous visons un résultat du style de
 \begin{equation}
-    \frac{ S_n-mn }{ \sigma\sqrt{n} }\stackrel{\hL}{\longrightarrow}\dN(0,1).
+    \frac{ \frac{1}{ n }\sum_iX_i-mn }{ \sigma\sqrt{n} }\stackrel{\hL}{\longrightarrow}\dN(0,1).
 \end{equation}
-<++>
+Nous écrivons le théorème central limite pour le nombre de sauts que le processus de Poisson a connu en un temps \( t\). Le rôle de la moyenne empirique est joué par \( N_t\). Nous considérons avoir fait \emph{une seule expérience} qui a duré un temps \( t\). Donc le rôle de \( n\) est joué par \( 1\) (et non \( t\) comme on pourrait le croire). Pour le reste, le nombre de succès en un temps \( t\) d'une variable aléatoire exponentielle de paramètre \( \lambda\) est une variable aléatoire de Poisson de paramètre \( \lambda t\), en vertu de ce qui est raconté au point \ref{subsecPoissonetexpo}. C'est cela qui motive l'énoncé suivant.
 
+\begin{theorem}[théorème central limite pour les processus de Poisson]\index{théorème!central limite!processus de Poisson}  \label{ThoCSuLLo}
+    Si \( (N_t)_{t>0}\) est un processus de Poisson de paramètre \( \lambda\), alors nous avons
+    \begin{equation}
+        \frac{ N_t-\lambda t }{ \sqrt{\lambda t} }\stackrel{\hL}{\longrightarrow}\dN(0,1).
+    \end{equation}
+\end{theorem}
+
+\begin{remark}
+    Avant de nous lancer dans la démonstration, remarquons que si nous nous limitons à \( t\in \eN\), alors nous avons
+    \begin{equation}
+        \frac{ N_n-\lambda n }{ \sqrt{\lambda n} }=\frac{ \sum_{k=1}^n(N_k-N_{k-1})-\lambda n }{ \sqrt{\lambda n} }
+    \end{equation}
+    or par définition nous avons les égalités de lois
+    \begin{equation}
+        N_k-N_{k-1}\sim N_1\sim \dP(\lambda),
+    \end{equation}
+    donc
+    \begin{equation}
+        \frac{ S_n-\lambda n }{ \sqrt{\lambda n} }=\frac{ \frac{1}{ n }S_n-\lambda }{ \frac{ \sqrt{\lambda n} }{ n } }=\frac{ \frac{1}{ n }S_n-\lambda }{ \sqrt{\lambda}/\sqrt{n} },
+    \end{equation}
+    ce qui est exactement le théorème central limite pour une suite de lois de Poisson\footnote{Au fait près que nous devrions encore montrer que \( S_n\) est de carré intégrable.}.
+\end{remark}
+
+\begin{proof}
+    Nous écrivons \( \bar t\) la partie entière de \( \bar t\) et nous décomposons :
+    \begin{equation}
+        \frac{ N_t-\lambda t }{ \sqrt{\lambda t} }=\underbrace{\frac{ N_t-N_{\bar t} }{ \sqrt{\lambda t} }}_A+\underbrace{\frac{ N_{\bar t}-\lambda \bar t }{ \sqrt{\lambda t} }}_B+\underbrace{\frac{ \lambda \bar t-\lambda t }{ \sqrt{\lambda t} }}_C.
+    \end{equation}
+    En ce qui concerne le terme \( B\), nous avons
+    \begin{equation}
+        B=\sqrt{\frac{ \bar t }{ t }}\frac{ N_{\bar t}-\lambda \bar t }{ \sqrt{\lambda \bar t} }\to\dN(0,1).
+    \end{equation}
+    Notons que nous utilisons le fait que si \( a_n\to 1\) (en tant que suite de nombre) et si \( X_n\to\dN(0,1)\) (limite en loi), alors \( a_nX_n\to \dN(0,1)\) en loi.
+
+    Le terme \( C\) est également facile parce que \( \lambda \bar t-\lambda t\) est majoré en norme par \( \lambda\). Du coup
+    \begin{equation}
+        -\frac{ \lambda }{ \sqrt{\lambda t} }\leq C\leq \frac{ \lambda }{ \sqrt{\lambda t} }.
+    \end{equation}
+    Donc $\lim_{t\to \infty} C=0$.
+
+    Reste à travailler sur \( A\). Vu que \( t\mapsto N_t\) est croissante, la différence \( N_t-N_{\bar t}\) est positive. Soit \( \eta>0\), nous avons
+    \begin{equation}
+        P(| A |>\eta)=P(N_t-N_{\bar t}>\sqrt{\lambda t}\eta)\leq P\big( N_{\bar t+1}-N_{\bar t}\geq \sqrt{\lambda t}\eta \big)=P(N_1\geq \eta\sqrt{\lambda t})
+    \end{equation}
+    parce que nous savons que $N_{\bar t+1}-N_{\bar t}\sim N_1\sim\dP(\lambda)$. En vertu des propriétés de la loi de Poisson,
+    \begin{equation}
+        \lim_{t\to \infty}P(N_1\geq \eta\sqrt{\lambda t})=0.
+    \end{equation}
+    En effet si \( Z\) est une variable aléatoire de Poisson de paramètre \( \lambda\) nous avons
+    \begin{equation}
+        P(Z>l)=\sum_{k=l}^{\infty}P(Z=k)= e^{-\lambda}\sum_{k=l}^{\infty}\frac{ \lambda^k }{ k! }.
+    \end{equation}
+    Nous reconnaissons la queue de série de \(  e^{\lambda}\), qui tend donc vers zéro lorsque \( l\to \infty\). Nous avons donc prouvé que
+    \begin{equation}
+        \lim_{t\to \infty} P\big( | A |>\eta \big)=0,
+    \end{equation}
+    c'est à dire la convergence en probabilité de \( A\) vers zéro.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{File d'attente}
+%---------------------------------------------------------------------------------------------------------------------------
+
+<++>
 
 \section{Simulations en scilab}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
