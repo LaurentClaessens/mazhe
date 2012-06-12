@@ -773,7 +773,7 @@ Plus généralement nous avons la formule
 \end{equation}
 
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Fonction de répartition et fonction caractéristique}
+\subsection{Fonction de répartition}
 %---------------------------------------------------------------------------------------------------------------------------
 
 Si \( X\) est une variable aléatoire réelle, nous définissons sa \defe{fonction de répartition}{fonction!de répartition} par
@@ -783,6 +783,11 @@ Si \( X\) est une variable aléatoire réelle, nous définissons sa \defe{foncti
         F_X(x)&=P(X\leq x). 
     \end{aligned}
 \end{equation}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Fonction caractéristique}
+%---------------------------------------------------------------------------------------------------------------------------
 
 La \defe{fonction caractéristique}{fonction!caractéristique!d'une variable aléatoire} de la variable aléatoire \( X\colon \Omega\to \eR\) est la fonction réelle définie par
 \begin{equation}
@@ -803,7 +808,7 @@ Nous reconnaissons la transformée de Fourier :
 
 La proposition suivante se déduit en utilisant le théorème de dérivation sous l'intégrale \ref{ThoDerSousIntegrale}.
 \begin{proposition}     \label{PropDerFnCaract}
-    Soit $X$ une variable aléatoire qui accepte un moment d'ordre \( r\geq 1\). Alors la fonction de répartition \( \Phi_X\) est \( r\) fois continument dérivable et
+    Soit $X$ une variable aléatoire qui accepte un moment d'ordre \( r\geq 1\). Alors la fonction caractéristique \( \Phi_X\) est \( r\) fois continument dérivable et
     \begin{equation}
         \Phi_X^{(r)}(t)=E\big( (iX)^r e^{itX} \big).
     \end{equation}
@@ -866,6 +871,76 @@ Dans le cas d'une variable aléatoire vectorielle, nous définissons \( \Phi_X\c
 \begin{equation}        \label{EqydvDxg}
     \Phi_X(v)=E\big(  e^{i\langle v, X\rangle } \big)
 \end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Fonction génératrice des moments, transformée de Laplace}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit \( X\) une variable aléatoire. Sa \defe{transformée de Laplace}{transformée!Laplace} ou \defe{fonction génératrice des moments}{moment!fonction génératrice} est la fonction
+\begin{equation}
+    M_X(t)=E( e^{tX})
+\end{equation}
+pour chaque \( t\) tel que cette espérance existe.
+
+\begin{theorem}[\cite{LetacGen}]
+    Soit \( X\) une variable aléatoire réelle et
+    \begin{equation}
+        I_X=\{ t\in \eR\tq \text{ $E( e^{tX})$ existe}\}.
+    \end{equation}
+    La fonction
+    \begin{equation}
+        \begin{aligned}
+            M_X\colon I_X&\to \eR \\
+            t&\mapsto E( e^{tX}) 
+        \end{aligned}
+    \end{equation}
+    est la \defe{transformée de Laplace}{transformée!Laplace}\index{Laplace!transformée} de \( X\). 
+    \begin{enumerate}
+        \item
+            \( I_X\) est un intervalle contenant \( 0\).
+        \item
+            Si \( I_X\) n'est pas réduit à \( \{ 0 \}\) alors \( M_X\) se développe en série entière
+            \begin{equation}
+                M_X(t)=\sum_{n=0}^{\infty}\frac{ E(X^n) }{ n! }t^n.
+            \end{equation}
+        \item
+            Si \( X\) et \( Y\) sont des variables aléatoires indépendantes, alors \( I_{X+Y}=I_X\cap I_Y\) et 
+            \begin{equation}
+                M_{X+Y}=M_XM_Y
+            \end{equation}
+            sur \( I_{X+Y}\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Le fait que \( 0\) soit dans \( I_X\) est évident : \( E(1)=1\). Pour montrer que \( I_X\) est un intervalle nous prenons \( z\in I_X\) et \( 0<s<z\) ou \( z<s<0\), puis nous montrons que \( s\in I_X\). Il faut remarquer que dans tous les cas,
+    \begin{equation}
+        e^{sX}\leq 1+ e^{zX}.
+    \end{equation}
+    En effet soit \( sX\) et \( zX\) sont tous deux à gauche de zéro et alors ils sont tous deux plus petit que \( 1\); soit ils sont tous deux à droite de \( 0\) et alors \( e^{zX}> e^{sX}\) par croissance de l'exponentielle. Nous avons donc dans tous les cas que
+    \begin{equation}
+        E( e^{sX})=\int_{\eR}f_X(x) e^{sX}dx\leq \int_{\eR}f_X(x)(1+ e^{zx})=1+E( e^{zX}).
+    \end{equation}
+    
+    Soit maintenant \( a>0\) tel que \( \mathopen[ -a , a \mathclose]\in I_X\). Étant donné que \(  e^{a| X |}< e^{aX} e^{-aX}\), l'espérance \( E( e^{a| X |})\) existe toujours pour \( | t |\). Nous avons
+    \begin{subequations}
+        \begin{align}
+            \left| M_X(t)-\sum_{n=0}^N\frac{ E(X^n) }{ n! }t^n \right| &=\left| E\Big(  e^{tX}-\sum_{n=0}^N\frac{ X^n }{ n! }t^n \Big) \right| \\
+            &=\left| E\Big( \sum_{n=N+1}^{\infty}\frac{ X^n }{ n! }t^n \Big) \right| \\
+            &\leq E\left( \sum_{n=N+1}^{\infty}\frac{ | tX |^n }{ n! } \right).
+        \end{align}
+    \end{subequations}
+    Maintenant le but est de prendre la limite \( N\to\infty\) en inversant la limite et l'espérance par le théorème de la convergence dominée (\ref{ThoConvDomLebVdhsTf}). L'intégrale à traiter est
+    \begin{equation}
+        \lim_{N\to \infty} \int_{\Omega}\sum_{n=N+1}^{\infty}\frac{ | tX(\omega) |^n }{ n! }dP(\omega).
+    \end{equation}
+    L'intégrante est uniformément borné (en \( N\)) par \(  e^{tX(\omega)}\), qui est intégrable par hypothèse (choix de \( t\)). Du coup
+    \begin{equation}
+        \lim_{N\to \infty} \int_{\Omega}\sum_{n=N+1}^{\infty}\frac{ | tX(\omega) |^n }{ n! }dP(\omega)=E\left( \lim_{N\to \infty} \sum_{n=N+1}^{\infty}\frac{ | tX |^n }{ n! } \right)=0.
+    \end{equation}
+\end{proof}
+<++>
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Loi d'une variable aléatoire}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -1190,7 +1265,7 @@ Dans le cas particulier \( d=1\) nous avons quelque critères supplémentaires.
     pour tout \( k\in\eN\).
 \end{proposition}
 
-\begin{proposition}     \label{PropXncvXFXcvFxt}
+\begin{proposition}[\cite{CourgGudRennes}]     \label{PropXncvXFXcvFxt}
     Soient \( X_n\) et \( X\) des variables aléatoires réelles. Nous avons
     \begin{equation}
         X_n\stackrel{\hL}{\longrightarrow}X
@@ -1200,17 +1275,16 @@ Dans le cas particulier \( d=1\) nous avons quelque critères supplémentaires.
         \lim_{n\to \infty} F_{X_n}(t)=F_X(t).
     \end{equation}
 \end{proposition}
-Pour une preuve, voir \cite{CourgGudRennes}.
 
-\begin{proposition}     \label{PropCvLfcvPsicst}
-    Soit \( X_n\) une suite de variables aléatoires \( \Omega\to \eR^d\) et \( a\in\eR^d\). Si \( X_n\stackrel{\hL}{\longrightarrow}\), alors
+\begin{proposition}[\cite{CourgGudRennes}]     \label{PropCvLfcvPsicst}
+    Soit \( X_n\) une suite de variables aléatoires \( \Omega\to \eR^d\) et \( a\in\eR^d\). Si \( X_n\stackrel{\hL}{\longrightarrow}a\), alors
     \begin{equation}
         X_n\stackrel{P}{\longrightarrow}a.
     \end{equation}
 \end{proposition}
 
 \begin{proof}
-    Cette preuve provient de \cite{CourgGudRennes}. Quitte à passer aux composantes, nous pouvons supposer que \( d=1\). Nous avons
+    Quitte à passer aux composantes, nous pouvons supposer que \( d=1\). Nous avons
     \begin{subequations}
         \begin{align}
            P\big( | X_n-a |>\eta \big)&=P(X_n-a>\eta)+P(-X_n-a>\eta)\\
