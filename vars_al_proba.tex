@@ -13,7 +13,6 @@ Une \defe{mesure de probabilité}{mesure!probabilité} sur un espace mesuré \( 
 
 Un point \( \omega\in\Omega\) est une \defe{observation}{observation}, une partie mesurable \( A\in\tribA\) est un \defe{événement}{événement}. L'ensemble \( A\cup B\) représente l'événement \( A\) ou \( B\) tandis que l'ensemble \( A\cap B\) représente l'événement \( A\) et \( B\).
 
-
 Si les \( A_n\) sont des événements, nous définissons la \defe{limite supérieur}{limite!supérieure} et la \defe{limite inférieure}{limite!inférieure} de la suite \( A_n\) par
 \begin{equation}
     \limsup_{n\to\infty}A_n=\bigcap_{n\geq 1}\bigcup_{k\geq n}A_k
@@ -221,11 +220,156 @@ Nous disons que les variables aléatoires \( X_k\colon \Omega\to \eR^d\) sont \d
 Une preuve a l'air d'être donnée dans \cite{VincentBa}.
 %TODO : lire cette preuve.
 
+
+
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Probabilité conditionnelle}
+\subsection{Espérance}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Soit \( (\Omega,\tribA,P)\) un espace de probabilité et \( B\in\tribA\) avec $P(B)>0$. Nous pouvons introduire une nouvelle loi de probabilité sur \( (\Omega,\tribA)\) en définissant
+Nous dirons que la variable aléatoire \( X\) a un \defe{moment d'ordre \( p\)}{moment} si \( X\in L^p(\Omega,\tribA,P)\) (\( 1\leq p<\infty\)). Si \( X\) est \defe{intégrable}{variable aléatoire!intégrable} (c'est à dire si \( X\in L^1\)), alors nous définissons l'\defe{espérance}{espérance} de \( X\) par
+\begin{equation}        \label{EqdCBLst}
+    E(X)=\int_{\Omega}XdP\in\eR^d.
+\end{equation}
+Si \( E(X)=0\) nous disons que la variable aléatoire est \defe{centrée}{variable aléatoire!centrée}. La variable aléatoire \( X-E(X)\) est la variable aléatoire centrée associée à \( X\).
+
+Le \defe{moment}{moment} d'ordre \( p\) de la variable aléatoire \( X\) est l'espérance
+\begin{equation}
+    m_n(X)=E(X^n).
+\end{equation}
+
+\begin{proposition}
+    Si \( X\) et \( Y\) sont deux variables aléatoires, nous avons
+    \begin{equation}
+        E(X+Y)=E(X)+E(Y).
+    \end{equation}
+    Ce résultat est encore valide si \( X\) et \( Y\) ne sont pas indépendantes.
+\end{proposition}
+
+\begin{proof}
+    Nous avons le calcul suivant :
+    \begin{subequations}
+        \begin{align}
+            E(X+Y)&=\int_{\eR}xf_{X+Y}(x)dx\\
+            &=\int_{\eR}x\int_{\eR}f_Y(x-t)f_X(t)dtdx\\
+            &=\int_{\eR}f_X(t)\underbrace{\int_{\eR}xf_Y(x-t)dx}_{=E(Y)+t}\,dt\\
+            &=\int_{\eR}f_X(t)\big( E(Y)+t \big)dt\\
+            &=E(Y)+\int_{\eR}tf_X(t)dt\\
+            &=E(Y)+E(X)
+        \end{align}
+    \end{subequations}
+    où nous avons utilisé la proposition \ref{EqdensitesooemXYint} et le fait que l'intégrale sur \( \eR\) d'une densité vaut \( 1\).
+\end{proof}
+
+Une application de l'inégalité de Hölder (proposition \ref{ProptYqspT}) est la suivante. Si \( X\) et \( Y\) sont des variables aléatoires intégrables alors
+\begin{equation}
+    E(XY)\leq E(X^2)^{1/2}E(Y^2)^{1/2}.
+\end{equation}
+En effet
+\begin{equation}    \label{EqEXYleqXdYdNormHolder}
+    E(XY)\leq \| XY \|_{L^1(\Omega)}\leq \| X \|_{L^2(\Omega)}\| Y \|_{L^2(\Omega)}.
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Variance}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si \( X\in L^2(\Omega,\tribA,P)\) alors nous définissons la \defe{variance}{variance} de \( X\) par
+\begin{equation}
+    \Var(X)=E\big( [X-E(X)]^2 \big).
+\end{equation}
+
+\begin{proposition}     \label{PrropVarAlterfrom}
+    La variance de la variable aléatoire \( X\) peut être exprimée par la formule
+    \begin{equation}        \label{EqtWqMGB}
+        \Var(X)=E(X^2)-[E(X)]^2
+    \end{equation}
+    où \( X^2=X\cdot X\) et \( E(X)^2=\) sont des produits scalaires dans \( \eR^d\).
+\end{proposition}
+
+\begin{proof}
+    De façon explicite, nous avons
+    \begin{equation}
+        E\big( [X-E(X)]^2 \big)=\int_{\Omega}\big( X(\omega)-E(X) \big)\cdot\big( X(\omega)-E(X) \big)dP(\omega)
+    \end{equation}
+    où \( E(X)\in\eR^d\) est une constante. En développant le produit scalaire nous avons
+    \begin{subequations}
+        \begin{align}
+            E\big( [X-E(X)]^2 \big)&=E\big( X^2-2X\cdot E(X)+E(X)^2 \big)\\
+            &=E(X^2)-2E(X)^2+E(X)^2\\
+            &=E(X^2)-E(X)^2.
+        \end{align}
+    \end{subequations}
+\end{proof}
+
+
+Nous définissons l'\defe{écart-type}{écart-type} de \( X\) par
+\begin{equation}
+    \sigma_X=\sqrt{\Var(X)}.
+\end{equation}
+En d'autres termes,
+\begin{equation}
+    \sigma_X=\| X-E(X) \|_{L^2}.
+\end{equation}
+On définit encore la \defe{moyenne quadratique}{moyenne!quadratique} de \( X\) par
+\begin{equation}
+    \| X \|_{L^2}=\big[ E(X^2) \big]^{1/2}.
+\end{equation}
+
+La variable aléatoire 
+\begin{equation}
+    \bar V_n=\frac{1}{ n }\sum_i(X_i-\bar X_n)^2
+\end{equation}
+est la \defe{variance empirique}{variance!empirique} de l'échantillon \( (X_i)\).
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Covariance}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soient \( X\) et \( Y\), deux variables aléatoires réelles. Leur \defe{covariance}{covariance} est définie par
+\begin{equation}
+    \Cov(X,Y)=E\Big[ \big( X-E(X) \big)\big( Y-E(Y) \big) \Big]
+\end{equation}
+L'idée est que la covariance devient grande si \( X\) et \( Y\) s'écartent de leurs moyennes dans le même sens. Il existe une formule alternative :
+\begin{equation}
+    \Cov(X,Y)=E(XY)-E(X)E(Y)
+\end{equation}
+
+En ce qui concerne les dimensions plus hautes, si \( X\colon \Omega\to \eR^d\) est un vecteur aléatoire de carré intégrable, nous définissons
+\begin{equation}    \label{EqZlvLWx}
+    \Cov(X)=E\Big[ \big(  X-E(X) \big)\otimes\big( X-E(X)\big) \Big]
+\end{equation}
+où par \( a\otimes b\) nous entendons la matrice \( (a\otimes b)_{ij}=a_ib_j\). Cela peut aussi être noté \( a^tb\) si l'on fait bien attention à qui est un vecteur colonne et qui est un vecteur ligne.
+
+\begin{proposition}     \label{PropoVarXpYCov}
+    Si \( X\) et \( Y\) sont deux variables aléatoires non spécialement indépendantes, nous avons
+    \begin{equation}
+        \Var(X+Y)=\Var(X)+\Var(Y)+2\Cov(X+Y).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Il s'agit d'un calcul en partant de
+    \begin{equation}
+        \begin{aligned}[]
+            \Var(X+Y)&=E\big( (X+Y)^2 \big)-E(X+Y)^2\\
+            &=E(X^2)+E(Y^2)+2E(XY)\\
+            &\quad+\big( E(X)+E(Y) \big)^2-2E(X)^2-2E(X)E(Y)\\
+            &\quad-2 E(Y)E(X)-2E(Y)^2.
+        \end{aligned}
+    \end{equation}
+    À partir d'ici il s'agit de recombiner tous les termes pour former la formule annoncée.
+\end{proof}
+
+Plus généralement nous avons la formule
+\begin{equation}
+    \Var(\sum_i X_i)=\sum_i\Var(X_i)+2\sum_{1\leq i< j\leq n}\Cov(X_i,X_j).
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Probabilité conditionnelle, première}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit \( (\Omega,\tribA,P)\) un espace de probabilité et \( B\in\tribA\) avec $P(B)>0$. Nous pouvons introduire une nouvelle loi de probabilité \( P_B\) sur \( (\Omega,\tribA)\) en définissant
 \begin{equation}    \label{EqProbCond}
     P_B(A)=\frac{ P(A\cap B) }{ P(B) }=P(A|B).
 \end{equation}
@@ -292,53 +436,6 @@ Une conséquence immédiate de \eqref{EqProbCond} est que si \( A\) et \( B\) so
 \end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Espérance}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Nous dirons que la variable aléatoire \( X\) a un \defe{moment d'ordre \( p\)}{moment} si \( X\in L^p(\Omega,\tribA,P)\) (\( 1\leq p<\infty\)). Si \( X\) est \defe{intégrable}{variable aléatoire!intégrable} (c'est à dire si \( X\in L^1\)), alors nous définissons l'\defe{espérance}{espérance} de \( X\) par
-\begin{equation}        \label{EqdCBLst}
-    E(X)=\int_{\Omega}XdP\in\eR^d.
-\end{equation}
-Si \( E(X)=0\) nous disons que la variable aléatoire est \defe{centrée}{variable aléatoire!centrée}. La variable aléatoire \( X-E(X)\) est la variable aléatoire centrée associée à \( X\).
-
-Le \defe{moment}{moment} d'ordre \( p\) de la variable aléatoire \( X\) est l'espérance
-\begin{equation}
-    m_n(X)=E(X^n).
-\end{equation}
-
-\begin{proposition}
-    Si \( X\) et \( Y\) sont deux variables aléatoires, nous avons
-    \begin{equation}
-        E(X+Y)=E(X)+E(Y).
-    \end{equation}
-    Ce résultat est encore valide si \( X\) et \( Y\) ne sont pas indépendantes.
-\end{proposition}
-
-\begin{proof}
-    Nous avons le calcul suivant :
-    \begin{subequations}
-        \begin{align}
-            E(X+Y)&=\int_{\eR}xf_{X+Y}(x)dx\\
-            &=\int_{\eR}x\int_{\eR}f_Y(x-t)f_X(t)dtdx\\
-            &=\int_{\eR}f_X(t)\underbrace{\int_{\eR}xf_Y(x-t)dx}_{=E(Y)+t}\,dt\\
-            &=\int_{\eR}f_X(t)\big( E(Y)+t \big)dt\\
-            &=E(Y)+\int_{\eR}tf_X(t)dt\\
-            &=E(Y)+E(X)
-        \end{align}
-    \end{subequations}
-    où nous avons utilisé la proposition \ref{EqdensitesooemXYint} et le fait que l'intégrale sur \( \eR\) d'une densité vaut \( 1\).
-\end{proof}
-
-Une application de l'inégalité de Hölder (proposition \ref{ProptYqspT}) est la suivante. Si \( X\) et \( Y\) sont des variables aléatoires intégrables alors
-\begin{equation}
-    E(XY)\leq E(X^2)^{1/2}E(Y^2)^{1/2}.
-\end{equation}
-En effet
-\begin{equation}    \label{EqEXYleqXdYdNormHolder}
-    E(XY)\leq \| XY \|_{L^1(\Omega)}\leq \| X \|_{L^2(\Omega)}\| Y \|_{L^2(\Omega)}.
-\end{equation}
-
-%---------------------------------------------------------------------------------------------------------------------------
 \subsection{Espérance conditionnelle}
 %---------------------------------------------------------------------------------------------------------------------------
 
@@ -350,9 +447,9 @@ En effet
         \item
             \( Y\) est \( P\)-intégrable
         \item
-            pour tout \( A\in\tribF\),
-            \begin{equation}
-                \int_{A}XdP=\int_A YdP.
+            pour tout \( B\in\tribF\),
+            \begin{equation}        \label{EqBwBkgE}
+                \int_{B}XdP=\int_B YdP.
             \end{equation}
     \end{enumerate}
     Cette variable aléatoire sera notée \( E(X|\tribF)\)\nomenclature[P]{\( E(X|\tribF)\)}{Espérance conditionnelle de \( X\) sachant \( \tribF\)} pour des raisons qui apparaîtront plus tard.
@@ -540,6 +637,24 @@ Ici, par \( E(U)\) nous entendons la variable aléatoire constante prenant la va
     Ce que montre le calcul \eqref{EqGGqgxl} est que \( E(U)\) est une variable aléatoire \( \tribF_2\)-mesurable (parce que constante) dont l'intégrale sur chaque élément de \( \tribF_2\) vaut l'intégrale de \( U\). Par la partie unicité du théorème \ref{ThoMWfDPQ}, nous déduisons que \( E(U)=E(U|\tribF_2)\).
 \end{proof}
 
+\begin{corollary}   \label{CorakyvMp}
+    Si \( X\) est une variable aléatoire et si \( \tribF\) est une tribu, alors
+    \begin{equation}
+        E\big( E(X|\tribF) \big)=E(X).
+    \end{equation}
+\end{corollary}
+
+\begin{proof}
+    Il suffit d'appliquer la définition \eqref{EqBwBkgE} à \( B=\Omega\) :
+    \begin{subequations}
+        \begin{align}
+            E\big( E(X|\tribF) \big)&=\int_{\Omega}E(X|\tribF)(\omega)dP(\omega)\\
+            &=\int_{\Omega}X(\omega)dP(\omega)\\
+            &=E(X).
+        \end{align}
+    \end{subequations}
+\end{proof}
+
 \begin{example}
     Soient \( X_1\), \( X_2\) deux variables aléatoires à valeurs dans \( \{ 0,1 \}\) avec probabilité \( 1/2\) et indépendantes. Nous considérons \( S=X_1+X_2\). La situation est modélisée par l'espace
     \begin{equation}
@@ -616,7 +731,7 @@ Cette fonction \( h\colon \eR^d\to \eR\) nous permet de définir\index{espéranc
 Cela est l'espérance conditionnelle d'une variable aléatoire par rapport à une valeur donnée d'une autre variable aléatoire.
 
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Probabilité conditionnelle}
+\subsection{Probabilité conditionnelle, seconde}
 %---------------------------------------------------------------------------------------------------------------------------
 
 Soit \( A\in\tribA\) un événement et \( \tribF\) une sous tribu de \( \tribA\). Nous définissons\index{espérance!conditionnelle!événement} \( P(A|\tribF)\) par
@@ -676,100 +791,76 @@ l'\defe{espérance conditionnelle}{espérance!conditionnelle!événements} de «
     La définition \(P(A|\tribF)=P(\mtu_A|\tribF)\) n'est pas la probabilité conditionnelle de \( A\) sachant \( B\), même si la tribu \( \tribF\) est la tribu engendrée par l'événement \( B\).
 \end{remark}
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Variance}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Si \( X\in L^2(\Omega,\tribA,P)\) alors nous définissons la \defe{variance}{variance} de \( X\) par
+Il nous reste à définir la probabilité conditionnelle d'un événement relativement à une variable aléatoire. Si la variable aléatoire \( X\) est à valeurs discrètes, nous disons que \( P(A|X)\) est la variable aléatoire de valeur
 \begin{equation}
-    \Var(X)=E\big( [X-E(X)]^2 \big).
+    P(A|X)(\omega)=P(A|X=X(\omega)).
+\end{equation}
+Dans le cas d'une variable aléatoire à valeurs continues, cette définition ne fonctionne pas parce que la condition \( X=X(\omega)\) est souvent de probabilité nulle, tandis que c'est toujours une mauvaise idée de conditionner par rapport à un événement de probabilité nulle. C'est la base du \wikipedia{en}{Borel's_paradox}{paradoxe de Borel}. La bonne définition du conditionnement de l'événement \( A\) par rapport à la variable aléatoire $X$ est
+\begin{equation}
+    P(A|X)=P(A|\sigma(X))=E\big( \mtu_A|\sigma(X) \big).
 \end{equation}
 
-\begin{proposition}     \label{PrropVarAlterfrom}
-    La variance de la variable aléatoire \( X\) peut être exprimée par la formule
-    \begin{equation}        \label{EqtWqMGB}
-        \Var(X)=E(X^2)-[E(X)]^2
+\begin{proposition}
+    Si \( X\) est une variable aléatoire et si \( A\) est un événement, alors
+    \begin{equation}
+        E\big( P(A|X) \big)=P(A).
     \end{equation}
-    où \( X^2=X\cdot X\) et \( E(X)^2=\) sont des produits scalaires dans \( \eR^d\).
 \end{proposition}
 
 \begin{proof}
-    De façon explicite, nous avons
+    Nous commençons par le cas discret, c'est à dire \( X\colon \Omega\to \eN\). Nous notons \( p_k=P(X=k)\). En décomposant l'intégrale sur \( \Omega\) par rapport à l'union disjointe
     \begin{equation}
-        E\big( [X-E(X)]^2 \big)=\int_{\Omega}\big( X(\omega)-E(X) \big)\cdot\big( X(\omega)-E(X) \big)dP(\omega)
+        \Omega=\bigcup_{k\in \eN}A_k=\bigcup_{k\in \eN}\{ \omega\in\Omega \tq X(\omega)=k\},
     \end{equation}
-    où \( E(X)\in\eR^d\) est une constante. En développant le produit scalaire nous avons
+    nous obtenons
     \begin{subequations}
         \begin{align}
-            E\big( [X-E(X)]^2 \big)&=E\big( X^2-2X\cdot E(X)+E(X)^2 \big)\\
-            &=E(X^2)-2E(X)^2+E(X)^2\\
-            &=E(X^2)-E(X)^2.
+            E\big( P(A|X) \big)&=\int_{\Omega}P(A|X)(\omega)dP(\omega)\\
+            &=\sum_{k=0}^{\infty}\int_{A_k}P(A|X=X(\omega))dP(\omega)\\
+            &=\sum_k\int_{A_k}\frac{ P(A\cap X=k) }{ P(X=k) }dP(\omega) & \text{dans \( A_k\), \( X(\omega)=k\)}\\
+            &=\sum_k\frac{1}{ p_k }P(A\cap X=k)\underbrace{\int_{A_k}1dP(\omega)}_{P(A_k)=p_k}\\
+            &=\sum_{k}P(A\cap X=k)\\
+            &=P(A).
         \end{align}
     \end{subequations}
+    Nous devons maintenant prouver la propriété dans le cas où \( X\) prend des valeurs continues. Pour cela il suffit d'appliquer le corollaire \ref{CorakyvMp} :
+    \begin{equation}
+        E\big( E(\mtu_A|\sigma(A)) \big)=E(\mtu_A)=P(A).
+    \end{equation}
 \end{proof}
 
-
-Nous définissons l'\defe{écart-type}{écart-type} de \( X\) par
-\begin{equation}
-    \sigma_X=\sqrt{\Var(X)}.
-\end{equation}
-En d'autres termes,
-\begin{equation}
-    \sigma_X=\| X-E(X) \|_{L^2}.
-\end{equation}
-On définit encore la \defe{moyenne quadratique}{moyenne!quadratique} de \( X\) par
-\begin{equation}
-    \| X \|_{L^2}=\big[ E(X^2) \big]^{1/2}.
-\end{equation}
-
-La variable aléatoire 
-\begin{equation}
-    \bar V_n=\frac{1}{ n }\sum_i(X_i-\bar X_n)^2
-\end{equation}
-est la \defe{variance empirique}{variance!empirique} de l'échantillon \( (X_i)\).
-
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Covariance}
+\subsection{Résumé des choses conditionnelles}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Soient \( X\) et \( Y\), deux variables aléatoires réelles. Leur \defe{covariance}{covariance} est définie par
+La probabilité conditionnelle d'un événement par rapport à un autre est un nombre :
 \begin{equation}
-    \Cov(X,Y)=E\Big[ \big( X-E(X) \big)\big( Y-E(Y) \big) \Big]
-\end{equation}
-L'idée est que la covariance devient grande si \( X\) et \( Y\) s'écartent de leurs moyennes dans le même sens. Il existe une formule alternative :
-\begin{equation}
-    \Cov(X,Y)=E(XY)-E(X)E(Y)
+    P(A|B)=\frac{ P(A\cap B) }{ P(B) }.
 \end{equation}
 
-En ce qui concerne les dimensions plus hautes, si \( X\colon \Omega\to \eR^d\) est un vecteur aléatoire de carré intégrable, nous définissons
-\begin{equation}    \label{EqZlvLWx}
-    \Cov(X)=E\Big[ \big(  X-E(X) \big)\otimes\big( X-E(X)\big) \Big]
-\end{equation}
-où par \( a\otimes b\) nous entendons la matrice \( (a\otimes b)_{ij}=a_ib_j\). Cela peut aussi être noté \( a^tb\) si l'on fait bien attention à qui est un vecteur colonne et qui est un vecteur ligne.
-
-\begin{proposition}     \label{PropoVarXpYCov}
-    Si \( X\) et \( Y\) sont deux variables aléatoires non spécialement indépendantes, nous avons
-    \begin{equation}
-        \Var(X+Y)=\Var(X)+\Var(Y)+2\Cov(X+Y).
-    \end{equation}
-\end{proposition}
-
-\begin{proof}
-    Il s'agit d'un calcul en partant de
-    \begin{equation}
-        \begin{aligned}[]
-            \Var(X+Y)&=E\big( (X+Y)^2 \big)-E(X+Y)^2\\
-            &=E(X^2)+E(Y^2)+2E(XY)\\
-            &\quad+\big( E(X)+E(Y) \big)^2-2E(X)^2-2E(X)E(Y)\\
-            &\quad-2 E(Y)E(X)-2E(Y)^2.
-        \end{aligned}
-    \end{equation}
-    À partir d'ici il s'agit de recombiner tous les termes pour former la formule annoncée.
-\end{proof}
-
-Plus généralement nous avons la formule
+La probabilité conditionnelle d'un événement vis-à-vis d'une variable aléatoire discrète est une variable aléatoire :
 \begin{equation}
-    \Var(\sum_i X_i)=\sum_i\Var(X_i)+2\sum_{1\leq i< j\leq n}\Cov(X_i,X_j).
+    P(A|X)(\omega)=P(A|X=X(\omega)).
+\end{equation}
+Dans le cas continu,
+\begin{equation}
+    P(A|X)=P(A|\sigma(X))=E(\mtu_A|\sigma(X)).
+\end{equation}
+
+L'espérance conditionnelle d'une variable aléatoire par rapport à une tribu \( E(X|\tribF)\) est la variable aléatoire \( \tribF\)-mesurable telle que
+\begin{equation}
+    \int_BE(X|\tribF)=\int_BX
+\end{equation}
+pour tout \( X\in \tribF\). Si \( X\in L^2(\Omega,\tribA,P)\) alors \( E(X|\tribF)=\pr_K(X)\) où \( K\) est le sous-ensemble de \( L^2(\Omega,\tribA,P)\) des fonctions \( \tribF\)-mesurables (théorème \ref{ThoMWfDPQ}). Cela au sens des projections orthogonales.
+
+L'espérance conditionnelle d'une variable aléatoire par rapport à une autre est une variation sur le thème :
+\begin{equation}
+    E(X|Y)=E(X|\sigma(Y)).
+\end{equation}
+
+La probabilité conditionnelle d'un événement par rapport à une tribu est la variable aléatoire
+\begin{equation}
+    P(A|\tribF)=E(\mtu_A|\tribF).
 \end{equation}
 
 %---------------------------------------------------------------------------------------------------------------------------
@@ -783,7 +874,6 @@ Si \( X\) est une variable aléatoire réelle, nous définissons sa \defe{foncti
         F_X(x)&=P(X\leq x). 
     \end{aligned}
 \end{equation}
-
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Fonction caractéristique}
@@ -862,9 +952,7 @@ La proposition suivante se déduit en utilisant le théorème de dérivation sou
 \begin{theorem}     \label{ThonMxtTy}
     Si \( \Phi_X=\Phi_Y\), alors \( P_X=P_Y\).
 \end{theorem}
-\begin{proof}
-    No proof.
-\end{proof}
+%TODO : trouver une preuve.
 Notons que cela n'implique pas que \( X=Y\). En effet \( X\) et \( Y\) peuvent même être définis sur des espaces probabilisés différents.
 
 Dans le cas d'une variable aléatoire vectorielle, nous définissons \( \Phi_X\colon \eR^d\to \eR\) par
@@ -939,7 +1027,6 @@ pour chaque \( t\) tel que cette espérance existe.
         \lim_{N\to \infty} \int_{\Omega}\sum_{n=N+1}^{\infty}\frac{ | tX(\omega) |^n }{ n! }dP(\omega)=E\left( \lim_{N\to \infty} \sum_{n=N+1}^{\infty}\frac{ | tX |^n }{ n! } \right)=0.
     \end{equation}
 \end{proof}
-<++>
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Loi d'une variable aléatoire}
@@ -996,9 +1083,6 @@ En particulier l'espérance de \( X\) peut être calculée à partir de sa densi
 \begin{equation}        \label{EqEspDensform}
     E(X)=\int_{\eR}xdP_X(x)=\int_{\eR}x f_X(x)dx.
 \end{equation}
-
-
-
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Lois conjointes et indépendance}
@@ -1511,9 +1595,9 @@ Une façon de paraphraser le lemme de Borel-Cantelli est que nous avons l'altern
         \item
             intégrables (c'est à dire dans \( L^1\)),
     \end{enumerate}
-    et \( \bar X_n=\frac{1}{ n }\sum_{i=1}^nX_i\). Alors
+    alors
     \begin{equation}
-        \bar X_n\stackrel{p.s.}{\longrightarrow} E(X_1).
+        \frac{1}{ n }\sum_{i=1}^nX_i  \stackrel{p.s.}{\longrightarrow} E(X_1).
     \end{equation}
 \end{theorem}
 Note : étant donné que les variables aléatoires sont identiquement distribuées, nous avons évidemment \( E(X_1)=E(X_2)=\ldots\)
@@ -1660,7 +1744,7 @@ De plus nous connaissons la vitesse de divergence : elle est linéaire. Le mobil
     \end{enumerate}
     alors nous notons \( \bar X_n=\frac{1}{ n }\sum_{i=1}^{n}X_i\), \( m=E(X_1)\) et \( \sigma^2=\Var(X_1)\) et nous avons
     \begin{equation}
-        \frac{ \bar X_n-E(X) }{ \sqrt{\Var(X)/n} }=\frac{ \bar X_n-E(X) }{ \sigma/\sqrt{n} }\stackrel{\hL}{\longrightarrow}\dN(0,1).
+        \frac{ \bar X_n-E(X) }{ \sqrt{\Var(X)/n} }=\frac{ \bar X_n-m }{ \sigma/\sqrt{n} }\stackrel{\hL}{\longrightarrow}\dN(0,1).
     \end{equation}
     
 \end{theorem}
