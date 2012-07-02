@@ -5,7 +5,7 @@ def CercleTnu():
     x=var('x')
     C=Circle(Point(0,0),2)
 
-    C.parameters.color="purple"
+    C.parameters.color="brown"
     C.parameters.hatched()
     C.parameters.hatch.color="blue"
 
