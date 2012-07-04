@@ -109,6 +109,173 @@ Cette expression est pour l'instant purement formelle. Cela ne présume ni de la
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Noyaux pour retrouver la fonction}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Un \defe{polynôme trigonométrique}{polynôme!trigonométrique} est une fonction de la forme
+\begin{equation}
+    P(t)=\sum_{n=-N}^Nc_n e^{int}.
+\end{equation}
+
+Le \defe{noyau de Dirichlet}{noyau!Dirichlet}\index{Dirichlet!noyau} est la fonction
+\begin{equation}
+    D_n(t)=\sum_{k=-n}^n e^{int}.
+\end{equation}
+Le \defe{noyau de Fejér}{noyau!Fejér}\index{Fejér!noyau} est la moyenne de Cesaro des noyaux de Dirichlet :
+\begin{equation}
+    F_n(t)=\frac{1}{ n }\sum_{k=0}^{n-1}D_k(t).
+\end{equation}
+
+\begin{lemma}
+    Le noyau de Dirichlet s'exprime sous la forme
+    \begin{equation}
+        D_n(t)=\frac{ \sin\left( \frac{ 2n+1 }{ 2 }t \right) }{ \sin(t/2) }
+    \end{equation}
+\end{lemma}
+Note : ce noyau n'est pas positif.
+
+\begin{proof}
+    Nous commençons par mettre en évidence le premier terme :
+    \begin{equation}
+        D_n(t)=\sum_{k=-n}^n e^{int}= e^{-int}\sum_{k=0}^{2n} e^{ikt}.
+    \end{equation}
+    En utilisant la formule de la somme géométrique,
+    \begin{subequations}
+        \begin{align}
+            D_n(t)&= e^{-int}\frac{ 1-( e^{it})^{2n+1} }{ 1- e^{it} }\\
+            &= e^{-int}\frac{ 1- e^{(2n+1)it} }{ 1- e^{it} }\\
+            &= e^{-int}\frac{  e^{(2n+1)it/2} }{  e^{i\frac{ t }{ 2 }} }\frac{  e^{-(2n+1)it/2}- e^{(2n+1)it/2} }{  e^{-it/2}- e^{it/2} }\\
+            &=\frac{ (-2i)\sin\left( \frac{ 2n+1 }{ 2 }t \right) }{ (-2i)\sin\left( \frac{ t }{2} \right) }.
+        \end{align}
+    \end{subequations}
+\end{proof}
+
+\begin{lemma}
+    Le noyau de Fejér s'exprime sous la forme
+    \begin{equation}
+        F_n(t)=\frac{1}{ n }\left( \frac{ \sin\frac{ nt }{2} }{ \sin\frac{ t }{2} } \right)^2.
+    \end{equation}
+\end{lemma}
+Note : ce noyau est positif. C'est important parce qu'on s'en sert dans la preuve du théorème de Fejér.
+
+\begin{proof}
+    L'astuce est de noter \( \sin(x)=\Im( e^{ix})\) et de repartir du résultat à propos du noyau de Dirichlet. En utilisant encore la formule de la série géométrique partielle,
+    \begin{subequations}
+        \begin{align}
+            F_n(t)&=\frac{1}{ n\sin(t/2) }\Im\sum_{k=0}^{n-1} e^{(2k+1)it/2}\\
+            &=\frac{1}{ n\sin(t/2) }\Im e^{\frac{ it }{ 2 }}\sum_{k=0}^{n-1}\\
+            &=\frac{1}{ n\sin(t/2) }\Im e^{\frac{ it }{ 2 }}\left( \frac{ 1- e^{nit} }{ 1- e^{it} } \right)\\
+            &=\frac{1}{ n\sin(t/2) }\Im e^{it/2}\frac{  e^{\frac{ nit }{ 2 }}\left(  e^{-\frac{ int }{2}}- e^{\frac{ nit }{2}} \right) }{  e^{\frac{ it }{2}}\left(  e^{-it/2}- e^{it/2} \right) }\\
+            &=\frac{1}{ n\sin(t/2) }\underbrace{\Im e^{\frac{ nit }{2}}}_{\sin(nt/2)}\frac{ \sin\left( \frac{ nt }{ 2 } \right) }{ \sin(\frac{ t }{2}) }\\
+            &=\frac{1}{ n }\left( \frac{ \sin\frac{ nt }{2} }{ \sin\frac{ t }{2} } \right)^2.
+        \end{align}
+    \end{subequations}
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Théorème de Fejér}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}[Fejèr]
+    Soit une fonction continue et \( 2\pi\)-périodique \( f\colon \eR\to \eC\). Pour tout \( k\in \eZ\) nous notons
+    \begin{equation}
+        \begin{aligned}
+            e_k\colon \eR&\to \eC \\
+            x&\mapsto  e^{ikx}. 
+        \end{aligned}
+    \end{equation}
+    Pour chaque \( n\in \eN\) nous posons
+    \begin{subequations}
+        \begin{align}
+            D_n&=\sum_{k=-n}^ne_k& \tilde D_n&=\sum_{k=-n}^nc_k(f)e_k\\
+            F_n&=\frac{  D_0+\ldots + D_{n-1} }{ n }&  \tilde F_n&=\frac{ \tilde D_0+\ldots +\tilde D_{n-1} }{ n }
+        \end{align}
+    \end{subequations}
+    Alors
+    \begin{enumerate}
+        \item
+            $\int_{-\pi}^{\pi}F_n(t)dt=1$.
+        \item
+            Pour tout \( \alpha\in \mathopen] 0 , \pi \mathclose[\), \( F_n\) converge uniformément sur \( \mathopen[ -\pi , \pi \mathclose]\setminus\mathopen[ -\alpha , \alpha \mathclose]\).
+        \item
+            La suite \( \tilde F_n \) converge uniformément sur \( \eR\) vers \( f\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Un calcul usuel montre que
+    \begin{equation}
+        \int_{-\pi}^{\pi}e_l(t)dt=\begin{cases}
+            0    &   \text{si \( l\neq 0\)}\\
+            1    &    \text{si \( l=0\)}
+        \end{cases}
+    \end{equation}
+    Nous avons alors
+    \begin{equation}
+        \int_{-\pi}^{\pi}F_n(t)dt=\frac{1}{ n }\sum_{k=0}^{n-1}\sum_{l=-k}^k\underbrace{\int_{-\pi}^{\pi}e_l(t)dt}_{\delta_l}=\frac{1}{ n }\sum_{k=0}^{n-1}1=1.
+    \end{equation}
+    Cela prouve déjà le premier point.
+\end{proof}
+<++>
+
+\begin{corollary}   \label{CordgtXlC}
+    Soient \( f,g\) deux fonctions continues et \( 2\pi\)-périodiques. Si \( c_n(f)=c_n(g)\) alors \( f=g\).
+\end{corollary}
+
+\begin{proof}
+    Dans le cas de fonctions continues, le théorème de Fejér nous enseigne que si nous posons 
+    \begin{equation}
+        S_n(x)=\sum_{k=-n}^{n}c_k(f) e^{ikx}
+    \end{equation}
+    alors nous avons la convergence
+    \begin{equation}
+        \frac{1}{ N+1 }\sum_{n=0}^NS_n(f)(x)\to f(x).
+    \end{equation}
+    C'est à dire qu'une fonction continue est déterminée par ses coefficients de Fourier.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{À propos des coefficients}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous considérons l'application
+\begin{equation}
+    \begin{aligned}
+        c\colon \big( L^1_{2\pi},\| . \|_1 \big)&\to \big( C_0,\| .\|_{\infty} \big) \\
+        f&\mapsto (c_n(f))_{n\in \eZ} 
+    \end{aligned}
+\end{equation}
+qui à une fonction \( 2\pi\)-périodique fait correspondre la suite (bornée) de ses coefficients de Fourier. Nous rappelons la définition
+\begin{equation}
+    c_n(f)=\int_0^{2\pi}f(t) e^{-int}.
+\end{equation}
+Nous allons montrer que cette application est linéaire, continue, injective et non surjective. Pour la continuité, par la linéarité il suffit de la montrer en \( 0\). Nous devons donc montrer que si nous avons une suite de fonctions \( f_k\) qui tend vers \( 0\) au sens \( L^1\), alors \( c(f_k)\to 0\) au sens de la norme \( \| . \|_{\infty}\) sur l'ensemble des suites.
+
+Si nous posons \( r_k=\int_0^{2\pi}| f_k(t) |dt\), alors \( r_k=\| f_k \|_1\) et nous avons \( r_k\to 0\). Mais par définition
+\begin{equation}
+    | c_n(f_k) |\leq r_k,
+\end{equation}
+et donc \( \| c(f_k) \|_{\infty}\leq r_k\). L'application \( c\) est donc continue. L'injectivité est donnée par le corollaire \ref{CordgtXlC}. 
+
+Si nous supposons que l'application \( c\) est continue, alors le théorème d'isomorphisme de Banach (\ref{ThofQShsw}) nous dit que cela devrait être un homéomorphisme, c'est à dire que \( c^{-1}\) serait également continue. Nous allons montrer qu'il n'en est rien.
+
+Nous considérons la suite de suite
+\begin{equation}    \label{EqdMtbOB}
+    (c_n)_k=\begin{cases}
+        1    &   \text{si \( k<n\)}\\
+        0    &    \text{sinon}.
+    \end{cases}
+\end{equation}
+Ici \( (c_n)_k\) est le terme numéro \( k\) de la suite \( n\). Par injectivité de l'application qui à une fonction fait correspondre la suite de ses coefficients de Fourier, la seule fonction qui possède ces coefficients est
+\begin{equation}
+    f_n(t)=\sum_{k\in \eN}c_{n,k} e^{ikt}.
+\end{equation}
+Étant donné que \( \| f_n \|_1=n\), la suite \( (\| f_n \|_1)\) n'est pas bornée alors que a suite de suites \eqref{EqdMtbOB} est bornée dans l'ensemble des suites parce que \( \| c_n \|_{\infty}=1\).
+
+
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Transformée de Fourier}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -375,50 +542,52 @@ c'est à dire \( \lim_{n\to \infty} \hat f(\xi_n)=\hat f(\xi)\). La fonction \( 
     \end{subproof}
 \end{proof}
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Théorème de Fejér}
-%---------------------------------------------------------------------------------------------------------------------------
-
-
-\begin{corollary}   \label{CordgtXlC}
-    Soient \( f,g\) deux fonctions continues et \( 2\pi\)-périodiques. Si \( c_n(f)=c_n(g)\) alors \( f=g\).
-\end{corollary}
-
-\begin{proof}
-    Dans le cas de fonctions continues, le théorème de Fejér nous enseigne que si nous posons 
+\begin{example}\label{ExDLjesf}
+    La formule sommatoire de Poisson peut être utilisée pour calculer des sommes dans l'espace de Fourier plutôt que dans l'espace direct. Nous allons montrer dans cet exemple l'égalité
     \begin{equation}
-        S_n(x)=\sum_{k=-n}^{n}c_k(f) e^{ikx}
+        \sum_{n=-\infty}^{\infty} e^{-\alpha n^2}=\sum_{n=-\infty}^{\infty}\sqrt{\frac{ \pi }{ \alpha }} e^{-\pi^2 n^2/\alpha}.
     \end{equation}
-    alors nous avons la convergence
+    Si \( \alpha\) est grand, alors la somme de gauche est plus rapide, tandis que si \( \alpha\) est petit, c'est le contraire.
+
+    Nous appliquons la formule sommatoire de Poisson à la fonction
     \begin{equation}
-        \frac{1}{ N+1 }\sum_{n=0}^NS_n(f)(x)\to f(x).
+        f(x)= e^{-\alpha x^2}.
     \end{equation}
-    C'est à dire qu'une fonction continue est déterminée par ses coefficients de Fourier.
-\end{proof}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{À propos des coefficients}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Nous considérons l'application
-\begin{equation}
-    \begin{aligned}
-        c\colon \big( L^1_{2\pi},\| . \|_1 \big)&\to \big( C_0,\| .\|_{\infty} \big) \\
-        f&\mapsto (c_n(f))_{n\in \eZ} 
-    \end{aligned}
-\end{equation}
-qui à une fonction \( 2\pi\)-périodique fait correspondre la suite (bornée) de ses coefficients de Fourier. Nous rappelons la définition
-\begin{equation}
-    c_n(f)=\int_0^{2\pi}f(t) e^{-int}.
-\end{equation}
-Nous allons montrer que cette application est linéaire, continue, injective et non surjective. Pour la continuité, par la linéarité il suffit de la montrer en \( 0\). Nous devons donc montrer que si nous avons une suite de fonctions \( f_k\) qui tend vers \( 0\) au sens \( L^1\), alors \( c(f_k)\to 0\) au sens de la norme \( \| . \|_{\infty}\) sur l'ensemble des suites.
-
-Si nous posons \( r_k=\int_0^{2\pi}| f_k(t) |dt\), alors \( r_k=\| f_k \|_1\) et nous avons \( r_k\to 0\). Mais par définition
-\begin{equation}
-    | c_n(f_k) |\leq r_k,
-\end{equation}
-et donc \( \| c(f_k) \|_{\infty}\leq r_k\). L'application \( c\) est donc continue. L'injectivité est donnée par le corollaire \ref{CordgtXlC}.
-
-
-
+    Nous avons
+    \begin{subequations}        \label{EqCDeLht}
+        \begin{align}
+            \hat f(x)&=\int_{\eR} e^{-\alpha t^2-ixt}dt\\
+            &= e^{-x^2/4\alpha}\int_{\eR}e^{ -(\sqrt{\alpha}t+\frac{ ix }{ 2\sqrt{\alpha} })^2 }\\
+            &= e^{-x^2/4\alpha}\frac{1}{ \sqrt{\alpha} }\int_{\eR+\frac{ ix }{ 2\sqrt{\alpha} }} e^{-u^2}du.
+        \end{align}
+    \end{subequations}
+    Pour traiter cette intégrale nous utilisons la proposition \ref{PrpopwQSbJg} en considérant le chemin rectangulaire fermé qui joint les points \( -R\), \( R\), \( R+ai\), \( -R+ai\) et \( f(z)= e^{-z^2}\). Calculons l'intégrale sur les deux côtés verticaux. Nous posons
+    \begin{equation}
+        \gamma_R(t)=R+tia
+    \end{equation}
+    avec \( t\colon 0\to 1\). Nous avons
+    \begin{subequations}
+        \begin{align}
+            \int_{\gamma_R}f&=\int_0^1f\big( \gamma_R(t) \big)\| \gamma_R'(t) \|dt\\
+            &=a e^{-R^2}\int_0^1 e^{-2tRia+at^2}dt,
+        \end{align}
+    \end{subequations}
+    donc en module nous avons
+    \begin{equation}
+        | \int_{\gamma_R}f |\leq a e^{-R^2}\int_0^1 e^{at^2}dt\leq M e^{-R^2},
+    \end{equation}
+    où \( M\) est une constante ne dépendant pas de \( R\). Lorsque \( R\to \infty\), la contribution des chemins verticaux s'annule et nous trouvons que
+    \begin{equation}    \label{EqjrNxLr}
+        \int_{\eR+ai} e^{-u^2}du=\int_{\eR} e^{-u^2}du,
+    \end{equation}
+    que nous pouvons utiliser pour continuer le calcul \eqref{EqCDeLht}. Nous avons
+    \begin{equation}
+        \hat f(x)= \frac{ e^{-x^2/4\alpha}}{\sqrt{\alpha}}\int_{R} e^{-u^2}du\\
+            =\sqrt{\frac{ \pi }{ \alpha }} e^{-x^2/4\alpha}
+    \end{equation}
+    où nous avons utilisé la formule \eqref{EqFDvHTg}. Par conséquent ce qui rentre dans la formule sommatoire de Poisson est
+    \begin{equation}
+        \hat f(2\pi n)=\sqrt{\frac{ \pi }{ \alpha }} e^{-\pi^2 n^2/\alpha}.
+    \end{equation}
+\end{example}
 
