@@ -28,6 +28,19 @@ L'équation différentielle~(\ref{eqequadiff}) sera raccourcie sous la forme
 	se ramène à la recherche des primitives de $f$ sur l'intervalle $I$.
 \end{example}
 
+Le lemme suivant sert de temps en temps.
+\begin{lemma}[Lemme de Gronwall]\index{Gronwall (lemme)}\index{lemme!Gronwall}. \label{LemuBVozy}
+    Soient \( \phi\) et \( \psi\) deux fonctions telles que pour tout \( t\in\mathopen[ t_0 , t_1 \mathclose]\), \( \phi(t)\geq 0\), \( \psi(t)\geq 0\) et
+    \begin{equation}
+        \phi(t)\leq +L\int_{t_0}^f\psi(s)\phi(s)ds
+    \end{equation}
+    où \( K\) et \( L\) sont des constantes positives. Alors
+    \begin{equation}
+        \phi(t)\leq K\exp\big( L\int_{t_0}^t\ŝi \big).
+    \end{equation}
+\end{lemma}
+%TODO : la preuve.
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 					\section{Équations différentielles}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -186,6 +199,126 @@ si $z$ est une solution de \eqref{EqDiffSeparee} sur $I''\subset I'$ avec $t_0\i
 
 \end{enumerate}
 \end{proposition}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Équation \texorpdfstring{$y''+q(t)y=0$}{y'+q(t)y=0}}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soient deux solutions \( y_1\) et \( y_2\) de l'équation différentielle. Le \defe{Wronskien}{Wronskien} de ces deux solutions est le déterminant
+\begin{equation}
+    W(t)=\begin{vmatrix}
+        y_1    &   y_2    \\ 
+        y'_1    &   y'_2    
+    \end{vmatrix}.
+\end{equation}
+Si nous considérons l'équation différentielle
+\begin{equation}
+    y''+py'+qy=0,
+\end{equation}
+le Wronskien peut être déterminé sans savoir explicitement \( y_1\) et \( y_2\) parce que \( W=y_1y'_2-y'_1y_2\), et en dérivant,
+\begin{subequations}
+    \begin{align}
+        W'&=y_1y_2''+y'_1y'_2-y''_1y_2-y'_1y'_2\\
+        &=y_1(-py'_2-qy_2)-(-py'_1-qy_1)y_2\\
+        &=-p\begin{vmatrix}
+            y_1    &   y_2    \\ 
+            y'_1    &   y'_2    
+        \end{vmatrix},
+    \end{align}
+\end{subequations}
+c'est à dire
+\begin{equation}    \label{EqHEMRgM}
+    W'=-pW.
+\end{equation}
+Il suffit donc de savoir une condition initiale pour obtenir une équation différentielle pour \( W\).
+
+Nous allons donner quelque propriété des solutions de l'équation
+\begin{equation}
+    y''+qy=0
+\end{equation}
+en fonction de telle ou telle hypothèse sur \( q\).
+
+\begin{proposition}
+    Si \( q\colon \eR^+\to \eR\) est continue et si
+    \begin{equation}
+        \int_0^{\infty}| q(t) |dt
+    \end{equation}
+    converge, alors
+    \begin{enumerate}
+        \item
+            toute solution bornée de \( y''+qy=0\) vérifie \( \lim_{t\to \infty} y'(t)\),
+        \item
+            l'équation \( y''+qy=0\) admet des solutions non bornées.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Soit \( y\) une solution bornée, et intégrons l'équation différentielle entre \( 0\) et \( \infty\) :
+    \begin{equation}
+        \int_0^{\infty}y''(t)dt=-\int_0^{\infty}q(t)y(t)dt.
+    \end{equation}
+    La fonction \( y\) étant bornée, l'hypothèse sur \( q\) permet de dire que l'intégrale de droite existe. Par ailleurs,
+    \begin{equation}
+        \int_0^{\infty}y''=\lim_{a\to \infty}\int_0^ay''=\lim_{a\to \infty}y'(a)-y'(0).
+    \end{equation}
+    Cela justifie que la limite \( \lim_{t\to \infty} y'(t)\) existe. Posons \( \alpha=\lim_{t\to \infty} y'(t)\) et supposons par l'absurde que \( \alpha\neq 0\). Soit \( \epsilon>0\) et \( \lambda\) assez grand pour que
+    \begin{equation}
+        \| y'-\alpha \|_{\mathopen[ \lambda , \infty [}<\epsilon.
+    \end{equation}
+    Soit aussi \( x>\lambda\). Nous avons
+    \begin{subequations}
+        \begin{align}
+            y(x)&=y(\lambda)+\int_{\lambda}^xy'(t)dt\\
+            &\geq y(\lambda)\int_{\lambda}^x(\alpha-\epsilon)\\
+            &=y(\lambda)+\alpha x-\epsilon\lambda.
+        \end{align}
+    \end{subequations}
+    En prenant la limite des deux côtés on voit que \( y(x)\to \infty\) dès que \( \alpha\neq 0\), ce qui est contraire aux hypothèses. Donc \( \alpha=0\).
+
+    Pour la seconde partie de la proposition, nous devons prouver que l'équation \( y''+qy=0\) possède des solutions non bornées. Si l'équation a seulement des solutions bornées et si \( \{ u,v \}\) est une base de solutions, alors nous avons \( u',v'\to 0\). Si nous reprenons l'équation \eqref{EqHEMRgM} avec \( p=0\) nous savons que dans notre cas le Wronskien satisfait à \( W'=0\), c'est à dire qu'il est constant. Mais vu que \( u\) et \( v\) sont bornées et que les dérivées tendent vers zéro, nous avons \( W(t)\to 0\) et donc \( W(t)=0\).
+
+    Or l'annulation identique du Wronskien contredit que \( \{ u,v \}\) serait une base de solutions. Donc il existe des solutions non bornées.
+\end{proof}
+
+\begin{proposition}
+    Soit l'équation différentielle \( y''+qy=0\). Si \( q\) est \( C^1\), strictement positive et croissante, alors toutes les solutions sont bornées.
+\end{proposition}
+
+\begin{proof}
+    Soit \( y\) une solution et multiplions l'équation par \( 2y'\) (qui est non nulle par hypothèse) :
+    \begin{equation}
+        2y'y''+2qy'y=0.
+    \end{equation}
+    Nous allons intégrer cela en nous souvenant que \( 2y'y''\) est la dérivée de \( (y')^2\). Pour tout \( x>0\) nous avons
+    \begin{subequations}
+        \begin{align}
+            0&=y'(x)^2-y'(0)^2+2\underbrace{\int_0^xq(t)y'(t)y(t)dt}_{\text{par partie}}\\
+            &=y'(x)^2-y'(0)^2+2\left( [qy^2]_0^x-\int_0^xq'y^2 \right)\\
+        \end{align}
+    \end{subequations}
+    Le terme qui nous intéresse est celui qui contient \( y(x)\) :
+    \begin{equation}
+        2q(x)y(x)^2=-y'(x)^2+y'(0)^2+2q(0)y(0)^2+2\int_0^x q'y^2
+    \end{equation}
+    Nous pouvons majorer \( -y'(x)^2\) par zéro et remplace toutes les constantes pas \( K\) :
+    \begin{equation}
+        q(x)y(x)^2<\int_0^xq'y^2+K=\int_0^x\frac{ q' }{ q }qy^2.
+    \end{equation}
+    C'est le moment d'utiliser le lemme de Gronwall (\ref{LemuBVozy}) avec \( \phi=qy^2\) et \( \psi=q'/q\). Les hypothèses de croissance et de positivité ont été posées exprès. Bref, on a
+    \begin{subequations}
+        \begin{align}
+            qy^2&\leq K\exp\left( \int_0^x\frac{ q'(s) }{ q(s) }ds \right)\\
+            &=K\exp\left( \ln\frac{ q(x) }{ q(0) } \right)\\
+            &=K\frac{ q(x) }{ q(0) }.
+        \end{align}
+    \end{subequations}
+    Notons que \( q(0)\) est strictement positif. Nous déduisons que
+    \begin{equation}
+        y^2\leq \frac{ K }{ q(0) }
+    \end{equation}
+    et donc \( y\) est bornée.
+\end{proof}
+<++>
 
 %---------------------------------------------------------------------------------------------------------------------------
 					\subsection{Équations linéaires}
@@ -431,7 +564,7 @@ Une équation différentielle linéaire d'ordre $n$ sur $I$ est une
 \end{equation}
 où $v$ et $u_k$ sont des fonctions continues fixées de $I$ vers $\eR$.
 
-Pour résoudre cette équation, il faut commencer par résoudre l'équation homogène correspondante (c'est à dire celle que l'on obtient en posant $v(t)=0$). Ensuite, nous trouvons la solution de l'équation \eqref{EqLinRappels} en appliquant la méthode de la \defe{variation des constantes}{Variations des constantes}.
+Pour résoudre cette équation, il faut commencer par résoudre l'équation homogène correspondante (c'est à dire celle que l'on obtient en posant $v(t)=0$). Ensuite, nous trouvons la solution de l'équation \eqref{EqLinRappels} en appliquant la méthode de la \defe{variation des constantes}{variations des constantes}.
 
 Donnons un exemple du pourquoi la méthode de variations des constantes est efficace. Soit l'équation 
 \begin{equation}		\label{EqDiffExempleVarCst}
