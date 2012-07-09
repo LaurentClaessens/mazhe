@@ -86,6 +86,15 @@ Un exemple d'utilisation de ce théorème en dimension infinie sera donné dans 
 \subsection{Dualité}
 %---------------------------------------------------------------------------------------------------------------------------
 
+\begin{definition}
+    Si \( E\) est un espace vectoriel, le \defe{dual}{dual} de \( E\) est l'ensemble des formes linéaires sur \( E\). Le \defe{dual topologique}{dual!topologique} est l'ensemble des formes linéaires continues.
+
+    En dimension infinies, ces deux notions ne coïncident pas.
+\end{definition}
+%TODO : trouver un exemple où ça ne coïncide pas.
+% Si je me souviens bien, pour les opérateurs linéaires, borné est équivalent à continu. Il faudra chercher de ce côté.
+
+
 Soit \( E\), un espace vectoriel, et \( F\) une sous espace de \( E\). L'\defe{orthogonal}{orthogonal!sous espace} de \( F\) est la partie \( F^{\perp}\subset E^*\) donnée par
 \begin{equation}    \label{Eqiiyple}
     F^{\perp}=\{ \alpha\in E^*\tq \forall x\in F,\alpha(x)=0 \}.
@@ -1125,9 +1134,9 @@ Le théorème suivant et la preuve proviennent de \cite{LecLinAlgAllen}, \wikipe
     où nous avons utilisé le fait que \( Q\) était orthogonale (\( Q^{-1}=Q^t\)) et que \( A\) était symétrique (\( A^t=A\)). Une matrice triangulaire supérieure symétrique est obligatoirement une matrice diagonale.
 \end{proof}
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Quelque truc de topologie sur les espaces de matrices}
-%---------------------------------------------------------------------------------------------------------------------------
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Espaces de matrices}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \begin{lemma}
     Les groupes \( \gU(n)\) et \( \SU(n)\) sont connexes par arcs.
@@ -1204,9 +1213,43 @@ Le théorème suivant et la preuve proviennent de \cite{LecLinAlgAllen}, \wikipe
     converge vers \( \det( e^{A})\). Mais nous avons \( a_k=b_k\) pour tout \( k\); les limites sont donc égales.
 \end{proof}
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Sous espaces caractéristiques}
-%---------------------------------------------------------------------------------------------------------------------------
+\begin{lemma}
+    Les formes linéaires sur \( \eM(n,\eR)\) sont les applications de la forme
+    \begin{equation}
+        \begin{aligned}
+            f_A\colon \eM_n(\eR)&\to \eR \\
+            M&\mapsto \tr(AM). 
+        \end{aligned}
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Nous considérons l'application
+    \begin{equation}
+        \begin{aligned}
+            f\colon \eM(n,\eR)&\to \eM(n,\eR)' \\
+            A&\mapsto f_A 
+        \end{aligned}
+    \end{equation}
+    et nous voulons prouver que c'est une bijection. Étant donné que nous sommes en dimension finie, nous avons égalité des dimensions de \( \eM_n(\eR)\) et \( \eM_n(\eR)'\), et il suffit de prouver que \( f\) est injective. Soit donc \( A\) telle que \( f_A=0\). Nous l'appliquons à la matrice \( (E_{ij})_{kl}=\delta_{ik}\delta_{jl}\) :
+    \begin{subequations}
+        \begin{align}
+            0&=f_A(E_{ij})\\
+            &=\sum_{k}(AE_{ij})_{kk}\\
+            &=\sum_{kl}A_{kl}\delta_{il}\delta_{jk}\\
+            &=A_{ij}.
+        \end{align}
+    \end{subequations}
+    Donc \( A=0\).
+\end{proof}
+
+\begin{theorem}
+    L'enveloppe convexe de \( O(n)\) dans \( \eM_n(\eR)\) est la boule unité pour la norme induite de \( \| . \|_2\) sur \( \eR^n\).
+\end{theorem}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Sous espaces caractéristiques}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Sources : \cite{MneimneReduct} et \wikipedia{fr}{Décomposition_de_Dunford}{divers articles sur wikipédia}.
 
@@ -1464,38 +1507,6 @@ Au final,
 \begin{equation}
     e^A=-Ae(A-2)+e^2(A-1)^2.
 \end{equation}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Résolution de systèmes d'équations différentielles}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Nous considérons l'équation différentielle
-\begin{equation}    \label{EqOOsXZJ}
-    f'(t)=Af(t)
-\end{equation}
-pour la fonction \( f\colon \eR\to \eR^n\) et \( A\) est une matrice ne dépendant pas de \( t\). Nous supposons que \( A\) est diagonalisable pour les vecteurs propres \( v_i\) et les valeurs propres \( \lambda_i\) correspondantes.
-
-La matrice 
-\begin{equation}
-    R(t)=\big[  e^{\lambda_1t}v_1\, \ldots  e^{\lambda_nt}v_n \big]
-\end{equation}
-est la \defe{matrice résolvante}{résolvante} du système. Alors la solution du système \eqref{EqOOsXZJ} pour la condition initiale \( f(0)=f_0\) est 
-\begin{equation}
-    f(t)=R(t)f_0.
-\end{equation}
-En effet
-\begin{equation}
-    AR(t)=\left[  A\begin{pmatrix}
-        \uparrow    \\ 
-        e^{\lambda_1t}v_1    \\ 
-        \downarrow    
-    \end{pmatrix}\,\ldots\,A\begin{pmatrix}
-        \uparrow    \\ 
-        e^{\lambda_nt}v_n    \\ 
-            \downarrow
-    \end{pmatrix}\right]=R'(t).
-\end{equation}
-Par conséquent \( f'(t)=R'(t)f_0=AR(t)f_0=Af(t)\).
 
 \begin{theorem}
     Soit une matrice \( A\in \eM(n,\eC)\). On a que la suite \( (A^kx)\) tends vers zéro pour tout \( x\) si et seulement si \( \rho(A)<1\) où \( \rho(A)\)\index{rayon!spectral} est le rayon spectral de $A$
