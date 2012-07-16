@@ -79,6 +79,62 @@ from phystricksTriangleUV import TriangleUV
 from phystricksKScolorD import KScolorD
 from phystricksIsomCarre import IsomCarre
 from phystricksCheminFresnel import CheminFresnel
+from phystricksSuiteUnSurn import SuiteUnSurn
+from phystricksSpiraleLimite import SpiraleLimite
+from phystricksCornetGlace import CornetGlace
+from phystricksCSCvi import CSCvi
+from phystricksCSCii import CSCii
+from phystricksCSCiii import CSCiii
+from phystricksCSCiv import CSCiv
+from phystricksCSCv import CSCv
+from phystricksCardioideexo import Cardioideexo
+from phystricksOsculateur import Osculateur
+from phystricksQuelCote import QuelCote
+from phystricksAdhIntFr import AdhIntFr
+from phystricksAdhIntFrDeux import AdhIntFrDeux
+from phystricksAdhIntFrTrois import AdhIntFrTrois
+from phystricksAdhIntFrSix import AdhIntFrSix
+from phystricksDifferentielle import Differentielle
+from phystricksMethodeChemin import MethodeChemin
+from phystricksDeuxCercles import DeuxCercles
+from phystricksIntTrois import IntTrois
+from phystricksTraceCycloide import TraceCycloide
+from phystricksArcLongueurFinesse import ArcLongueurFinesse
+from phystricksTangentSegment import TangentSegment
+from phystricksBoulePtLoin import BoulePtLoin
+from phystricksIntervalleUn import IntervalleUn
+from phystricksUneCellule import UneCellule
+from phystricksDistanceEuclide import DistanceEuclide
+from phystricksLesSpheres import LesSpheres
+from phystricksDistanceEnsemble import DistanceEnsemble
+from phystricksAccumulationIsole import AccumulationIsole
+from phystricksSenoTopologo import SenoTopologo
+from phystricksRegioniPrimoeSecondoTipo import RegioniPrimoeSecondoTipo
+from phystricksPolirettangolo import Polirettangolo
+from phystricksParamTangente import ParamTangente
+from phystricksExampleChangementVariables import ExampleChangementVariables
+from phystricksExampleIntegrationdeux import ExampleIntegrationdeux
+from phystricksExampleIntegration import ExampleIntegration
+from phystricksCardioid import Cardioid
+from phystricksCycloideA import CycloideA
+from phystricksSuiteInverseAlterne import SuiteInverseAlterne
+from phystricksCourbeRectifiable import CourbeRectifiable
+from phystricksExempleArcParam import ExempleArcParam
+from phystricksexamssepti import examssepti
+from phystricksexamsseptii import examsseptii
+from figure_devoir1 import exercice1A1,exercice1A2,exercice4
+from phystricksDefinitionCartesiennes import DefinitionCartesiennes
+from phystricksProjectionScalaire import ProjectionScalaire
+from phystricksCercleTrigono import CercleTrigono
+from phystricksTgCercleTrigono import TgCercleTrigono
+from phystricksCoordPolaires import CoordPolaires
+from phystricksParallelogramme import Parallelogramme
+#from phystricksTriangleRectangle import TriangleRectangle  # Il faudrait aussi le remettre dans figures_list
+from phystricksExoParamCD import ExoParamCD
+from phystricksCbCartTui import CbCartTui
+from phystricksCbCartTuii import CbCartTuii
+from phystricksCbCartTuiii import CbCartTuiii
+from phystricksDS2010exo1 import DS2010exo1
 
 figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre,
             MomentForce,Parallelogramme,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
@@ -93,7 +149,20 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
             ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang,
             ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
             MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,
-            ExoVarj,TriangleUV]
+            ExoVarj,TriangleUV,
+            DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,CoordPolaires,Parallelogramme,
+            ExoParamCD,CbCartTui,CbCartTuii,CbCartTuiii,
+            exercice1A1,exercice1A2,exercice4,DS2010exo1,
+            SuiteUnSurn, SpiraleLimite, IntTrois, CornetGlace, Differentielle, CSCiv, CSCvi,
+            CSCii, CSCiii, CSCv, Cardioideexo, DistanceEuclide, LesSpheres, IntervalleUn,
+            DistanceEnsemble, AccumulationIsole, MethodeChemin, ExempleArcParam,
+            CourbeRectifiable, SuiteInverseAlterne, CycloideA, Cardioid,  
+            ParamTangente, Polirettangolo, RegioniPrimoeSecondoTipo, ExampleIntegration, 
+            ExampleIntegrationdeux, ExampleChangementVariables, ArcLongueurFinesse, 
+            TangentSegment, BoulePtLoin, UneCellule,
+            SenoTopologo, AdhIntFr, AdhIntFrDeux, AdhIntFrTrois, AdhIntFrSix, DeuxCercles, 
+            TraceCycloide, QuelCote, Osculateur,examssepti,examsseptii]
+
 
 # Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():

@@ -41,6 +41,7 @@ def TgCercleTrigono():
 	A.parameters.color=vP.parameters.color
 	B.parameters.color=vQ.parameters.color
 
+	#pspict.DrawGraphs(tg_theta,tg_phi,Cercle,theta,phi,vP,vQ,vertical,A,B,pspict.bounding_box(pspict))
 	pspict.DrawGraphs(tg_theta,tg_phi,Cercle,theta,phi,vP,vQ,vertical,A,B)
 	pspict.axes.no_graduation()
 	pspict.DrawDefaultAxes()
