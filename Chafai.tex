@@ -1,1268 +1,5 @@
 Cette partie est entièrement pompée du cours \cite{ChaDjelil}.
 
-%
-%
-\chapter{Qu'est-ce que la simulation ?}
-%
-%
-
-Considérons une suite de chiffres $x_0,x_1,x_2,\ldots,x_n$ de l'intervalle $[0,1]$
-ou d'entiers entre $0$ et $9$. Quand peut-on dire qu'elle est constituée de
-réalisations indépendantes d'une loi uniforme sur $[0,1]$ (resp. sur
-$\{0,\ldots,9\}$) ? Et bien dans tout les cas bien sûr. Cependant, l'intuition nous
-indique que ce sont les propriétés «statistiques» des suites qui sont
-importantes, et pas celles d'\emph{une} suite donnée\ldots{} Pour certains, une
-suite qui peut être générée par un algorithme n'est pas aléatoire. De ce point
-de vue, une suite finie n'est jamais aléatoire ! Cf. \cite[chap. IV, page
-73]{bouleau} et \cite{knuth-taocp-2-3}. Les notions de complexité de
-Kolmogorov et d'entropie de Shannon, brièvement présentées dans les sections
-\ref{ss:kolmogorov} et \ref{ss:shannon} qui suivent, permettent de mieux
-définir et quantifier le caractère «désordonné» d'une suite.
-
-Pour nous, simuler une loi de probabilité $\cL$ consistera à écrire un
-programme informatique pouvant générer des suites finies dont on considèrera
-que ce sont des réalisations indépendantes de loi $\cL$. Bien entendu, comme
-nous ferons appel le plus souvent à des algorithmes déterministes, les suites
-générées ne sont pas du tout aléatoires et encore moins indépendantes. On
-parlera de suites \emph{pseudo-aléatoires}. Cependant, elles se montreront
-suffisantes dans la pratique et l'on vérifiera expérimentalement plus loin
-qu'elles ont de «bonnes» propriétés en utilisant des tests statistiques.
-
-La loi uniforme est la première loi que l'on simule. Diverses méthodes
-permettent ensuite de simuler à partir de la loi uniforme, un grand nombre de
-lois, plus ou moins quelconques. Dans la pratique, on met en {\oe}uvre des
-algorithmes rapides de génération de suites pseudo-aléatoires.
-
-\ML{} permet de simuler une loi uniforme (resp. normale) via la fonction
-\texttt{rand} (resp. \texttt{randn}). La bibliothèque \SB{} fournit de
-nombreuses autres simulations de lois discrètes et continues qui en sont
-dérivées~: faites \texttt{help stixbox} ou reportez vous à la table
-\ref{ta:stixbox-rand}, page \pageref{ta:stixbox-rand}, qui donne la liste des
-générateurs aléatoires de la bibliothèque \SB{}.
-
-%
-\section{Complexité de Kolmogorov et entropie de Shannon}
-%
-
-Les sections \ref{ss:kolmogorov} et \ref{ss:shannon} peuvent être ignorées en
-première lecture. Les notions évoquées sortent du cadre du programme de
-l'oral. Elles donnent cependant des idées et enrichissent l'intuition
-probabiliste. Commençons par un exemple tout simple. La suite de dix chiffres
-suivante
-$$1,1,1,1,1,1,1,1,1,1$$
-nous semble beaucoup moins complexe que la suite
-$$1,2,3,1,0,9,0,8,0,5.$$
-Pour coder brièvement la première, il suffit d'écrire
-«dix fois un», alors que la seconde nécessite plus de «détails». On peut
-également observer que ce phénomène se constate immédiatement sur les
-fréquences des chiffres dans ces deux suites. En revanche, contraîrement à un
-algorithme de génération, les fréquences ne contiennent aucune information sur
-la structure de la deuxième suite, et l'information retenue est donc pauvre, à
-moins de faire intervenir les fréquences d'apparition des couples et plus
-généralement des $n$-uplets.
-
-Ce sont ces deux idées qui sont à la base des notions de complexité de
-Kolmogorov et d'entropie de Shannon~: la complexité pour le versant
-algorithmique de description minimale et l'entropie pour le versant
-probabiliste lié aux fréquences d'apparition. Nous allons voir de plus que
-contraîrement à ce que l'on pourrait croire, ces deux notions sont intimement
-reliées.
-
-Pour la petite histoire, Shannon a introduit l'entropie qui porte son nom à la
-fin des années $1940$ -- en s'inspirant de l'entropie thermodynamique de
-Boltzmann en théorie cinétique des gaz -- pour les besoins de ce qui sera
-appelé plus tard théorie de l'information ou de la communication. Kolmogorov,
-père fondateur des probabilités modernes (i.e. basées sur la théorie de la
-mesure), a repris et développé cette idée d'entropie-information pour l'étude
-des systèmes dynamiques en particulier. Ses élèves ont beaucoup contribué à
-donner un cadre mathématique rigoureux à la théorie de l'information. La
-notion de complexité de Kolmogorov constitue une tentative de quantification
-de l'aléatoire par une approche algorithmique.
-
-\subsection{Complexité de Kolmogorov}\label{ss:kolmogorov}
-
-Considérons une machine informatique $M$ pouvant exécuter des programmes.  On
-dit que cette machine est universelle lorsqu'elle peut émuler n'importe quelle
-autre machine informatique. La machine universelle de Turing en est un exemple
-\cite{turing-girard}.
- 
-On note $\cP_M$ l'ensemble des programmes écrits pour la machine $M$. Pour un
-programme $p\in\cP_M$, on note $l(p)$ sa longueur en nombre d'instructions pour
-la machine $M$ et $s(p)$ sa sortie. La complexité de Kolmogorov $\bK_M(x)$, ou
-complexité algorithmique, d'une suite $x:=(x_i)_i$ pour une machine $M$ est
-définie par~:
-$$
-\bK_M(x):=\min_{p\in\cP_M,\,s(p)=x} l(p).
-$$
-C'est donc la longueur du plus petit programme écrit pour la machine $M$
-qui génère la suite $x$.  Une suite constante a une complexité faible car les
-programmes qui la génèrent peuvent être très courts.
-
-Reste à savoir dans quelle mesure la fonction $\bK_M$ dépend de la machine
-$M$, car on peut tout à fait imaginer une machine possèdant des instructions
-simples pour générer certaines suites complexes. La réponse est la suivante~:
-soit $U$ une machine universelle et $M$ une machine, alors il existe une
-constante $c_M$ telle que pour toute suite $x$, on ait~:
-$$
-\bK_U(x) \leq \bK_M(x)+c_M.
-$$
-On parle alors d'universalité de la complexité de Kolmogorov, en ce sens
-qu'elle ne dépend pas, à une constante additive près, de la machine
-considérée. Ainsi, on peut se ramener à une machine universelle dont la
-définition est élémentaire (celle de Turing). Une suite peut alors être
-considérée comme d'autant plus «aléatoire» que sa complexité est grande par
-rapport à sa taille. De ce point de vue, les décimales des nombres $\pi$, $e$ ou
-$\sqrt{2}$ ne sont pas vraiment aléatoires puisqu'il existe des algorithmes
-très simples pour les générer. Cela dit, on montre qu'il n'existe pas
-d'algorithme pour calculer la complexité de Kolmogorov en toute généralité !
-On peut cependant obtenir des encadrements et des estimations. Mais arrêtons
-là cette digression culturelle, elle nous mènerait trop loin ! Pour en savoir
-plus, consultez par exemple \cite[chap. 7]{cover-thomas}.
-
-\subsection{Entropie de Shannon}\label{ss:shannon}
-
-Une autre approche au «désordre» d'une suite est celle de Shanonn. L'entropie
-de Shannon d'une loi de probabilité discrète 
-$$P:=p_1\delta_1+\cdots+p_n\delta_n$$
-est définie par~:
-$$
-\bH(P):=\sum_{i=1}^n p_i\log \frac{1}{p_i}.
-$$
-Elle est maximale pour la loi uniforme pour laquelle elle vaut $\log n$ et
-minimale pour les masses ponctuelles pour lesquelles elle est nulle (car la
-fonction $x\geq 0\mapsto x\log x$ est nulle en $0$ et $1$). Elle mesure donc
-le désordre en quelque sorte. On pourra consulter \cite[chap. 6]{applebaum}
-pour plus d'explications.
-
-Soit $m\in\eN^*$ un entier non nul, $U$ une machine universelle et $\cP_m$
-l'ensemble des programmes écrits pour cette machine dont la longueur de la
-sortie est de $m$. On note $\bK(x|m)$ la complexité de Kolmogorov de taille
-$m$ d'une suite $y=(y_1,\ldots,y_m)$ de longueur $m$, définie par~:
-$$
-\bK(y|m):=\min_{p\in\cP_m,\,s(p)=y} l(p).
-$$
-Soit à présent une suite de variables aléatoires i.i.d. $(X_i,i\in\eN)$ de
-loi discrète $P:=p_1\delta_{x_1}+\cdots+p_n\delta_{x_n}$ où les $x_i$ sont tous
-différents. On note $\cX:=\{x_1,\ldots,x_n\}$, qui représente un alphabet dans lequel
-les suites seront écrites. Alors, on montre qu'il existe une constante $c>0$
-telle que pour tout $m\in\eN^*$~:
-$$
-\bH(P) \leq\frac{1}{m}\,\sum_{y\in\cX^m}\! p_{y_1}\cdots p_{y_m} \bK(y|m)
-\leq\bH(P)+\frac{n\log m}{m}+\frac{c}{m}.
-$$
-Cf. \cite[théorème 7.3.1 page 154]{cover-thomas} pour une preuve. Ainsi, on
-a~:
-$$
-\lim_{m\to+\infty}\eE\PAR{\frac{1}{m}\,\bK\PAR{(X_1,\ldots,X_m)|m}}=\bH(P).
-$$
-La complexité de Kolmogorov et l'entropie de Shannon sont donc très liées.
-
-%
-\section{Loi uniforme et théorème fondamental de la simulation}
-%
-
-Les générateurs de nombres aléatoires sont très importants dans les
-applications. Ils permettent d'une part de simuler des phénomènes dont la
-modélisation fait appel à des lois de probabilités et d'autre part de
-sécuriser les échanges de données, dans les réseaux téléinformatiques par
-exemple. Dans la pratique, les générateurs aléatoires sont basés sur des
-algorithmes déterministes, comme nous allons le voir, ou encore sur une source
-d'«entropie» extérieure difficilement prédictible liée au fonctionnement de la
-machinerie informatique (par exemple le temps séparant deux interruptions du
-processeur), ces deux approches pouvant être combinées dans un même
-processus\footnote{Sur le système Linux, on dispose d'une source algorithmique
-  \textsf{/dev/urandom} et d'une source «entropique» \textsf{/dev/random}
-  utile pour la sécurisation car difficilement prédictible.}.
-
-Simuler la loi uniforme consiste à produire une suite de nombres qui peuvent
-être considérés comme autant de réalisations indépendantes de variables
-aléatoires uniformes sur $[0,1]$. Bien entendu, un algorithme est toujours
-déterministe lorsqu'on le connaît, et il vaut donc mieux parler de générateur
-pseudo-aléatoire de la loi uniforme. Mathématiquement, les $n$ sorties
-successives d'un tel générteur seront considérées comme la donnée de
-$U_1(\om),\dots,U_n(\om)$ pour un $\om\in\Om$ où les $U_i$ sont des v.a.r.
-i.i.d. $U_i:(\Om,\cA,\eP)\to[0,1]$ de loi uniforme.
-
-La mémoire des ordinateurs étant finie, il est impossible de stocker des
-suites infinies. En conséquence, les nombres réels sont toujours approximés,
-avec une certaine précision. Soit donc $p\in\eN^*$ qui va jour le rôle de
-précision. Un réel $x_n$ dans $[0,1]$ s'écrira $y_n/p$ où $y_n$ est un entier
-dans $\{0,\ldots,p\}$. Un algorithme très usité pour générer les $y_n$
-consiste à utiliser la relation de récurrence $x_n=y_n/p$ où $y_{n+1}\equiv a
-y_n [m]$ où $a$ et $m$ sont des entiers et $m$ est assez grand.
-
-En général, la période de $(y_n)_n$ est plus petite que $m$. Plus précisément,
-si $a$ et $m$ sont premiers entre eux, et si $0<y_0<m$, alors $y_n$ n'est
-jamais nul et la période de $(y_n)_n$ n'est rien d'autre que l'ordre de $a$
-dans $\dZ_m$. On rappelle que d'après le (petit) théorème de Fermat-Euler,
-l'ordre de $a$ divise l'indicateur d'Euler de $a$ (qui vaut $m-1$ quand $m$
-est premier).
-
-\ML{} 4 utilise un algorithme de ce type pour implémenter la fonction
-\texttt{rand} mais les versions plus récentes de \ML{} utilisent un algorithme
-différent et plus performant. Dans certaines bibliothèques de calcul
-scientifique, on utilise $(a,m)=(13^{13},2^{59})$ ou encore
-$(a,m)=(7^5,2^{31}-1)$, cf. \cite[page 74]{bouleau}.  L'algorithme utilisé par
-\OC{} 2.1 pour \texttt{rand} est le «Mersenne Twister», cf.
-\url{http://www.math.keio.ac.jp/~matumoto/emt.html}.  On pourra également
-consulter \cite{knuth-taocp-2-3} à propos de la génération aléatoire en
-général. Le théorème suivant nous assure la possibilité, théorique, de simuler
-n'importe quelle loi de probabilité sur $\dR^d$ à partir de la loi uniforme~:
-
-\begin{thm}[Théorème fondamental de la simulation]
-  Soit $m>1$ un entier, et $U_1,\ldots,U_m$ des variables aléatoires i.i.d. de loi
-  uniforme sur $[0,1]$. Pour toute loi de probabilité $\mu$ sur $\dR^d$, il
-  existe une fonction borélienne $f_{\mu,m}:\dR^m\to\dR^d$ dont l'ensemble des
-  points de discontinuité est Lebesgue-négligeable telle que la variable
-  aléatoire $Y:=f_{\mu,m}(U_1,\ldots,U_m)$ suive la loi $\mu$.
-\end{thm}
-
-Ce théorème donne un résulat théorique intéressant, bien que l'on ne s'en
-serve pas dans la pratique. On en trouvera une preuve dans \cite[chap. X page
-267]{bouleau}. En lisant la preuve, on s'aperçoit que la fonction $f$ peut
-être explicitée. On peut donc théoriquement simuler toute loi à partir d'une
-simulation de la loi uniforme. En effet, supposons que nous désirions obtenir
-$n$ réalisations indépendantes de loi $\mu$. Prenons alors $m=1$ dans le
-théorème précédent. Un générateur pseudo-aléatoire uniforme, du type
-\texttt{rand}, nous fournit une suite $U_1(\om),\ldots,U_n(\om)$, qui sont
-considérées comme les réalisations pour $\om\in\Om$ de $n$ v.a.r. i.i.d. suivant
-une loi uniforme sur $[0,1]$. Le théorème précédent affirme alors l'existence
-d'une fonction $f_\mu$ telle que $f_\mu(U_1(\om)),\ldots,f(U_n(\om))$ soient les
-réalisations de $n$ v.a. i.i.d. de loi $\mu$.
-
-\begin{rem}
-  Remarquons que d'après la loi des grands nombres, si
-  $$(X_n:(\Om,\cA,\eP)\to\dR^d,n\in\eN^*)$$
-  est une suite de v.a. i.i.d. de loi
-  $\mu$, en d'autre termes un «échantillon de taille infinie»,
-  alors pour $\mu$-presque tout $\om\in\Om$, la mesure empirique
-  $$
-  \cE_n(\om):=\frac{1}{n}\,\sum_{i=1}^n \delta_{X_i(\om)}
-  $$
-  converge étroitement vers la loi $\mu$. Il en découle que pour $\mu$-presque
-  tout $\om\in\Om$, la donnée de la \emph{suite infine} $(X_n(\om),n\in\eN^*)$
-  caractérise \emph{théoriquement} la loi $\mu$. 
-  Un générateur de nombres pseudo-aléatoires ne
-  fournit que des \emph{suites finies} $(X_1(\om),\ldots,X_n(\om))$, qui ne
-  suffisent pas à caractériser la loi $\mu$. De même,
-  les échantillons provenant de données réelles utilisés en statistique sont 
-  toujours \emph{finis}, et
-  l'un des objectifs principaux de la statistique est de se servir de ces
-  suites finies de ce type pour approximer ou estimer la loi $\mu$ de certains
-  phénomènes, à laquelle on n'a pas directement accès.
-\end{rem}
-
-%
-\section{Simulation de lois par leur fonction de répartition}
-%
-
-Soit $\mu$ une loi sur $\dR$ de fonction de répartition $F$. Si $G$ désigne
-l'inverse continue à gauche de $F$, définie pour tout $y$ dans $[0,1]$ par
-$$
-G(p):=\inf\{x:F(x)\geq p\},
-$$
-alors, pour toute v.a. uniforme $U$ sur $[0,1]$, la v.a. $G(U)$ est de loi
-$\mu$. Par exemple, pour la loi de Cauchy, de densité $(\pi(1+x^2))^{-1}$ sur
-$\dR$, on a $F(x)=\arctan(x)/\pi+1/2$ et $G(p)=\tan(\pi(p-1/2))$. La
-bibliothèque \SB{} pour \ML{} fournit les fonctions de répartitions inverses
-pour quelques lois usuelles, cf. tableau \ref{ta:stixbox-rand} page
-\pageref{ta:stixbox-rand}.
-
-\begin{thm}[Simulation de la loi exponentielle]\label{th:simexp}
-  Soit $U$ une v.a.r. de loi uniforme sur $[0,1]$ et $\la>0$ un réel, alors la
-  v.a.r. $-\lambda^{-1} \log U$ suit la loi exponentielle de paramètre
-  $\lambda$.
-\end{thm}
-Cette méthode s'applique bien entendu aux lois de Weibull (cf. section
-\ref{ss:loi:weibull} page \pageref{ss:loi:weibull}), dont les lois
-exponentielles ne constituent qu'un cas très particulier. Voici un exemple
-d'illustration en \ML{} dont la sortie graphique est donnée par la figure
-\ref{fi:simexp}~:
-%
-\MFILE{simexp}
-%
-\FIG{simexp}{1}{htbp}{Simulation de la loi exponentielle de paramètre $1/2$ au
-  moyen de sa fonction de répartition.}
-%
-La biliothèque \SB{} fournit la fonction \texttt{rexpweib} qui permet
-d'obtenir des réalisations de loi de Weibull et donc en particulier de loi
-exponentielle. Faites \texttt{help rexpweib}.
- 
-
-%
-\section{Simulation de lois par la méthode du rejet}
-%
-
-On attribue parfois cette méthode à J. von Neumann. Soit une loi $\mu$ de
-densité $f$ sur $\dR$, que l'on désire simuler.
-
-\begin{enumerate}
-\item Supposons que $f$ est continue et à support compact $[a,b]$. Le graphe
-  de $f$ est donc contenu dans un rectangle $[a,b]\times[0,M]$. On considère alors
-  des vecteurs aléatoires indépendants $((X_n,Y_n))_{n\geq0}$ suivant une loi
-  uniforme sur $[a,b]\times[0,M]$. On définit ensuite $T$ comme le plus petit $n$
-  tel que $f(X_n) \leq Y_n$. Alors on montre que $T$ est fini presque sûrement et
-  que $X_T$ a pour loi $\mu$.
-\item Supposons qu'il existe une densité $g$ facile à simuler telle que $f\leq c
-  g$ pour une constante $c>0$. Soit alors $(W_n)_n$ et $(U_n)_n$ deux suites
-  de v.a.r. i.i.d. indépendantes avec les $W_n$ de loi de densité $g$ et les
-  $U_n$ de loi uniforme sur $[0,1]$.  On pose $Y_n=cU_ng(W_n)$ et $T$ le plus
-  petit $n$ tel que $Y_n<f(W_n)$. Alors la loi de $U_{T}$ a pour densité $f$.
-\end{enumerate}
-Ces deux méthodes s'étendent sans difficultés à des lois à densité sur
-$\dR^d$. Les méthodes de rejet ont été développées et améliorées, et sont
-largement utilisées dans la pratique. Elles ont l'avantage de nécessiter peu
-de calculs lorsqu'elles sont couplées à des tables. La bibliothèque \SB{}
-fournit trois fonctions \texttt{rjbinom}, \texttt{rjgamma} et \texttt{rjpoiss}
-qui permettent d'obtenir des réalisations de lois binomiales, gamma et de
-Poisson avec la méthode du rejet. On pourra consulter \cite[IV.4.3, p.
-79]{bouleau} ou encore \cite[VI.5.15, p. 180]{barbe-ledoux} pour des preuves.
-
-%
-\section{Simulation de lois discrètes}
-%
-
-Soit $p_1,\ldots,p_n$ des nombres dans $[0,1]$ tels que $p_1+\cdots+p_n=1$. En
-partitionnant l'intervalle $[0,1]$ en morceaux adjacents de longueurs
-$p_1,\ldots,p_n$, il vient~:
-
-
-\begin{thm}[Simulation d'une loi discrète à support fini]\label{th:simdiscr}
-  Soit $U$ une v.a.r. de loi uniforme sur $[0,1]$ et $P:=p_1\delta_{x_1}+\cdots+p_n
-  \delta_{x_n}$ une loi discrète où les $x_i$ sont tous différents. Alors la v.a.r.
-  $$
-  x_1 \rI_{\{U < p_1\}} 
-  + x_2 \rI_{\{p_1\leq U \leq p_1+p_2\}} 
-  + \cdots + x_n \rI_{\{p_1 + \cdots + p_{n-1} \leq U \leq 1\}}
-  $$
-  suit la loi $P$.
-\end{thm}
-Le code \ML{} suivant fournit la fonction \texttt{rdist} qui
-implémente le résultat du théorème \ref{th:simdiscr}~:
-%
-\MFILE{rdist}
-%
-\begin{exo}
-  Montrez que cette méthode s'étend sans difficultés aux lois discrètes à
-  support dénombrable. Donnez un petit programme d'illustration.
-\end{exo}
-La bibliothèque \SB{} fournit la fonction \texttt{quantile} qui permet
-d'obtenir les quantiles d'une loi à partir d'un échantillon empirique. Faites
-\texttt{help quantile}.
-
-Le nombre moyen d'instructions \texttt{if} exécutées dans le code de la
-fonction \texttt{rdist} est voisin de $\log n$. On pourra consulter par
-exemple \cite{knuth-taocp-2-3} pour des méthodes plus rapides faisant
-intervenir des tables précalculées à partir des probabilités $p_i$. La loi
-uniforme discrète peut être simulée très rapidement, sans aucune instruction
-conditionnelle, comme le montre le code suivant :
-%
-\MFILE{randiscr}
-%
-
-\begin{thm}[Simulation de la loi binomiale]
-  Soient $U_1,\ldots,U_n$ des v.a.r. i.i.d. de loi uniforme sur $[0,1]$,
-  alors la v.a.r. 
-  $$
-  \sum_{i=1}^n \rI_{\{U_i < p\}}
-  $$
-  suit une loi binomiale de taille $n$ et de paramètre $p$.
-\end{thm}
-
-\begin{thm}[Simulation de la loi de Poisson]
-  Soient $(E_i)_{i\geq 1}$ des v.a.r. i.i.d. de loi exponentielle de paramètre
-  $\lambda >0$, alors la v.a.r.
-  $$
-  \rI_{\{E_1\leq 1 < E_1+E_2\}} 
-  + 2 \rI_{\{E_1+E_2\leq 1 < E_1+E_2+E_3\}}
-  + 3 \rI_{\{E_1+E_2+E_3\leq 1 < E_1+E_2+E_3+E_4\}}
-  + \cdots
-  $$
-  suit une loi de Poisson de paramètre $\lambda$. Il en est de même pour :
-  $$
-  \rI_{\{E_1\leq 1\}} 
-  + \rI_{\{E_1+E_2\leq 1\}}
-  + \rI_{\{E_1+E_2+E_3\leq 1\}}
-  + \cdots
-  $$
-\end{thm}
-Comme nous le verrons plus loin, cette méthode correspond à la simulation de
-la loi de $N_1$ où $(N_t)_{t\geq 0}$ est un processus de Poisson simple
-d'intensité $\lambda$. L'événement $\BRA{E_1+\cdots+E_i \leq 1 < E_1+\cdots+E_{i+1}}$ correspond
-au cas où le processus a sauté exactement $i$ fois avant le temps $1$.
-
-%
-\subsection{Lois fractales}
-\label{ss:lois-fractales}
-%
-
-Soit $n\in\eN^*$ une base de numération.  Chaque résultat d'un schéma de
-Bernoulli consistant en une suite d'expériences i.i.d. $(X_i,i\in\eN^*)$ à $n$
-issues possibles de loi uniforme sur $\{0,\ldots,n-1\}$ peut se représenter
-par l'écriture en base $n$ d'un nombre réel dans $[0,1]$. En d'autres termes,
-on a la surjection $\cI_n$ suivante :
-$$
-\cI_n: (x_1,\ldots,x_k,\ldots)\in\{0,\ldots,n-1\}^{\eN^*} 
-\mapsto \sum_{i=1}^{+\infty} n^{-i}\,x_i 
-= \underbrace{0,x_1\cdots x_k\cdots}_{\text{en base }n} \in [0,1].
-$$
-On pourra penser à la base $n=2$ et au schéma de Bernoulli classique de pile ou face
-avec une pièce équilibrée. La variable aléatoire $U$ définie par :
-$$
-U:=\cI_n(X_1,\ldots,X_k,\ldots):=\sum_{i=1}^{+\infty} n^{-i}\,X_i,
-$$
-suit une loi uniforme sur $[0,1]$.  
-En effet, si $a:=a_1 n^{-1}+\cdots+a_m n^{-m}$ est un nombre $n$-adique, on a :
-$$
-\eP( a < U < a+n^{-m})
-=
-\eP( X_1 = a_1,\ldots,X_m=a_m)
-=
-\eP( X_1 = a_1) \cdots \eP(X_m=a_m)
-=
-n^{-m}.
-$$
-Réciproquement, ce calcul montre que les coefficients $(X_m)_{m\geq 1}$ de
-l'écriture en base $n$ d'une variable aléatoire uniforme sur $[0,1]$ sont
-i.i.d. de loi uniforme sur $\{0,\ldots,n-1\}$. Remarquons que l'ensemble des
-nombres $n$-adiques est de mesure nulle pour la loi uniforme. Ainsi, les
-nombres de $[0,1]$ dont l'écriture en base $n$ est constante à partir d'un
-certain rang «ne comptent pas» en quelque sorte, et $\cI_n$ est
-presque-sûrement une injection, et donc une bijection p.s.
-
-\begin{exo}
-  En déduire une méthode pour générer d'un seul coup $k$ réalisations
-  indépendantes de loi uniforme sur $\{1,\ldots,n\}$ à partir d'une
-  réalisation de précision $k$ en base $n$ d'une loi uniforme sur $[0,1]$.
-  Implémenter ce résultat en écrivant une fonction \ML.
-\end{exo}
-
-Que se passe-t-il pour $U$ si l'on suppose que les $X_i$ ne suivent plus une
-loi uniforme sur $\{0,n-1\}$ mais plutôt une loi $\{p_1,\ldots,p_n\}$ quelconque fixée
-d'avance ? En d'autres termes, quelles sont les lois images possibles pour la
-fonction $\cI_n$ sur $[0,1]$ ?  Comme $(n^rU)\text{ mod } n^r$ a la même loi
-que $U$ pour tout $r\in\eN$, le graphe de la fonction de répartition de $U$
-possède une propriété d'invariance d'échelle : c'est un fractal. La fonction
-de répartition de $U$ est continue, mais la la loi de $U$ est étrangère à la
-mesure de Lebesgue et les lois de $U$ sont toutes étrangères entre elles quand
-la loi des $X_i$ balaye l'ensemble des lois discrètes sur $\{0,\ldots,n-1\}$.
-L'exemple de code pour \OC{} qui suit avec sa sortie graphique \ref{fi:base2}
-page \pageref{fi:base2} illustre ce phénomène. On pourra consulter \cite[exe.
-3.3.15 page 81]{dacunha-castelle-duflo}, \cite[expl. IV.3.6.iii pages 100-103
-et V.5.3 page 144]{barbe-ledoux} et enfin \cite[exe. V.6.15 page
-155]{barbe-ledoux} à propos de ces «lois fractales»
-
-
-%
-\MFILE{loisfrac}
-%
-\FIG{base2}{1}{htbp}{Lois fractales associées à un schéma de Bernoulli.}
-%
-
-\subsection{Simulation des chaînes de Markov à valeurs dénombrables}
-
-Soit $(X_n,n\geq 0)$ une chaîne de Markov à espace d'états $\eN$ (pour
-simplifier). On note
-$$K:\eN\times\eN\to[0,1]$$
-son noyau de transition. On a donc par définition
-$K(x,y):=\eP(X_{n+1}=y\,|\,X_n=x)$. Le noyau de transition itéré est
-$K_n(x,y):=\eP(X_{n+1}=y\,|\,X_1=x)$. Comme
-$$\cL(X_n\,|\,X_0=x)=\sum_{y\in\eN}K_n(y,x)\delta_y,$$
-on peut utiliser le théorème
-\ref{th:simdiscr} pour simuler $\cL(X_n\,|\,X_0=x)$ lorsque l'on connaît
-$K_n$. Pour simuler $\cL(X_n)$ lorsque $\cL(X_0)$ est connue, on simule
-d'abord $X_0$ puis $\cL(X_n\,|\,X_0)$, toujours avec le théorème
-\ref{th:simdiscr}.
-
-Lorsque la chaîne de Markov est à espace d'états fini, $K$ peut être identifié
-à une matrice de transition $P$ et on a $K_n=P^n$. Il suffit donc de calculer
-la puissance de la matrice de transition $P$ sous \ML{} pour pouvoir appliquer
-ensuite le théorème \ref{th:simdiscr}. Voici un code \ML{} illustrant la
-méthode décrite pour une matrice de transition $3\times3$. Il fait appel à la
-fonction \ML{} \texttt{rdist} donnée page \pageref{co:rdist}.
-%
-\MFILE{simchma}
-
-\subsection{Simulation du processus de Poisson simple}
-
-Un processus de Poisson simple d'intensité $\la>0$ est une famille
-$\PAR{N_t,t\in\dR_+}$ de v.a. indexée par $\dR_+$ et à valeurs dans $\eN$
-telle que~:
-\begin{enumerate}
-\item Pour tout $t\in\dR_+$, la v.a. $N_t$ suit une loi de Poisson de paramètre
-  $\la t$
-\item Pour tout $(s,t)\in\dR_+\times\dR_+$, les v.a. $N_{t+s}-N_s$ et $N_s$ sont
-  indépendantes.
-\end{enumerate}
-On définit les instants de saut de ce processus par récurrence en posant
-$T_0:=0$ et :
-$$
-T_n:=\inf\BRA{t\geq 0,\,N_t>N_{T_{n-1}}}.
-$$
-On montre facilement que les v.a.r. $(S_n:=T_n-T_{n-1},n\in\eN^*)$ sont i.i.d.
-de loi exponentielle de paramètre $\la$, et l'on a la décomposition suivante~:
-\begin{equation}\label{eq:def-pps}
-N_t=\sum_{n=1}^{+\infty} \rI_{\{T_n \leq t\}},
-\end{equation}
-Réciproquement, si l'on considère des v.a.r. $(S_n,n\in\eN^*)$ i.i.d. de loi
-exponentielle de paramètre $\la>0$, et si l'on pose $T_0:=0$ et
-$T_n=S_1+\cdots+S_n$, alors l'équation \eqref{eq:def-pps} définit un processus de
-Poisson $\PAR{N_t,t\in\dR_+}$ d'intensité $\la$.  Les v.a.r. $(S_n,n\eN^*)$
-représentent les temps inter-sauts du processus. On montre enfin à partir de
-la propriété des accroissements i.i.d. du processus que l'on a une «loi des
-grands nombres» :
-\begin{equation}
-\frac{N_t}{t} \limPS{t} \la.\label{eq:LGN-ppoiss}
-\end{equation}
-Le processus $\PAR{N_t,t\in\dR+}$ apparaît comme le \emph{processus de comptage}
-de la suite à accroissements indépendants $(T_n)_n$. Il permet de modéliser
-des \emph{files d'attentes} pour lesquelles les v.a.r. $T_n$ représentent les
-temps d'arrivées dans la file et $N_t$ le nombre d'éléments dans la file à
-l'instant $t$. Pensez par exemple à un guichet d'une administration, à une
-caisse de supermarché ou encore à un aéroport. Dans la pratique, une fois que
-l'on a décidé de simuler un phénomène avec un tel processus, il nous faut
-ajuster l'intensité $\la$ en se servant des données (échantillons) dont on
-dispose sur le phénomène en question. On parle alors d'estimation, et la
-statistique pointe le bout de son nez. Ici, les choses sont très simples
-puisque $\eE(N_t)=(t\la)^{-1}$, moyenne que l'on peut estimer à partir des
-données réelles.
-
-Pour simuler une trajectoire du processus $\PAR{N_t,t\in\dR+}$, il suffit de
-simuler des lois exponentielles (par exemple avec le théorème \ref{th:simexp})
-et de «sauter» en conséquence. Voici un exemple de code \ML{} faisant appel au
-générateur exponentiel \texttt{rexpweib} de la bibliothèque \SB{}, dont la
-sortie graphique est donnée par la figure \ref{fi:simpp0}
-%
-\MFILE{simps-short}
-%
-\FIG{simpp0}{1}{htbp}
-    {Simulation d'une trajectoire d'un processus de Poisson simple.}
-%
-\FIG{simpp1}{1}{htbp}
-    {Simulation d'une trajectoire renormalisée d'un processus de Poisson simple.}
-%
-\begin{exo}
-  Assurez-vous de bien avoir compris le code précédent.  En simulant plusieurs
-  fois ce genre de trajectoire, retrouver empiriquement que la v.a. $N_t$ suit
-  bien une loi de Poisson de paramètre $\la t$ où $\la$ est le paramètre de la
-  loi exponentielle des sauts.
-\end{exo}
-
-\begin{rem}[Assurances et réservoir percé]
-La valeur $X_t$ du compte en banque à l'instant $t$ d'un assureur communiste peut être 
-modélisée par un processus de Poisson avec dérive :
-$$
-X_t:=\alpha t - N_t,
-$$
-où la partie $\alpha t$ représente les apports, supposés continus et positifs
-des assurés (cotisations) et $N_t$ les dépenses correspondant aux
-remboursements liés aux sinistres des assurés. L'assureur étant communiste, il
-ne touche aucun intérêt lié à son capital, et ne place pas son argent en
-bourse par conviction.  Modéliser le compte en banque d'un assureur capitalise
-est plus compliqué, et nécessite l'intervention de processus du type
-«exponentielle de brownien» pour modéliser les placements destinés à faire des
-bénéfices.  Une mutuelle constitue un cas intermédiaire, puisqu'elle ne doit
-pas faire de bénéfices mais fait quand même fructifier son capital, y compris
-en bourse, pour mieux servir ses adhérents.  On peut aussi voir $-X_t$ comme
-la quantité d'eau dans un réservoir à ciel ouvert percé d'un petit trou :
-$N_t$ représente l'eau apportée par les averses, supposées brèves, et $-\alpha t$
-l'eau qui s'écoule continûement par le petit trou.
-\end{rem}
-
-%
-\section{Simulation des lois gaussiennes}
-\label{ss:simu-gauss}
-%
-
-Dans la pratique, les méthodes du type «Marsaglia» semblent être de loin les
-plus performantes. Cependant, nous commençons par la méthode «polaire», qui
-est à la fois très classique et\ldots{} très lente.
-
-\subsection{Méthode polaire pure}
-
-\begin{thm}[Simulation d'une loi normale]
-  Soit $(X,Y)=(r\cos(\te),r\sin(\te))$ un vecteur aléatoire de $\dR^2$. Alors
-  $(X,Y)$ suit une loi $\cN(0,\rI_2)$ si et seulement si $r^2=X^2+Y^2$ et
-  $\te=\arg(X+iY)$ sont indépendantes et suivent respectivement une loi
-  exponentielle de paramètre $1/2$ et une loi uniforme sur $[0,2\pi]$.
-\end{thm}
-
-Il en découle que si $U_1$ et $U_2$ sont indépendantes et uniformes sur
-$[0,1]$, alors les v.a.r.
-$$
-\sqrt{-2\log U_1} \cos(2\pi U_2) \text{\quad et\quad} \sqrt{-2\log U_1}\sin(2\pi U_2)
-$$
-sont i.i.d. de loi normale centrée réduite. Bien entendu, pour tout
-$(m,\si)\in\dR\times\dR_+^*$, une variable aléatoire réelle $Z$ suit la loi
-$\cN(0,1)$ si et seulement si la v.a.r. $m+\si Z$ suit la loi $\cN(m,\si^2)$.
-Nous avons donc là une méthode de simulation de lois gaussiennes
-unidimensionnelles quelconques. Voici un exemple d'illustration dont la sortie
-graphique est donnée par la figure \ref{fi:simnorm}~:
-%
-\MFILE{simnorm}
-%
-\FIG{simnorm}{1}{htbp}{Simulation de la loi normale par méthode «polaire»}
-%
-Il est préférable d'utiliser la fonction \ML{} \texttt{randn} (ou bien la
-fonction \SB{} \texttt{rnorm}) qui est déjà toute programmée et qui fait appel
-à une méthode plus efficace. Cette méthode de simulation polaire est coûteuse
-en temps de calcul car elle nécessite l'évaluation des fonctions $\log$,
-$\sqrt{\ }$ et $\cos$. On peut se passer du $\cos$ en faisant appel à la
-méthode du rejet, comme décrit ci-après.
-
-\subsection{Méthode polaire - rejet}
-
-Si $(X,Y)=(\rho\cos(\theta),\rho\sin(\theta))$ suit la loi uniforme sur le
-disque unité du plan, alors le vecteur aléatoire
-
-$$
-\frac{\sqrt{-4\log(\rho)}}{\rho}\,(X,Y)
-$$
-suit une loi normale centrée réduite bidimensionnelle.  La loi de $(X,Y)$
-est facile à simuler par la méthode du rejet à partir d'une loi uniforme sur
-le carré $[-1,+1]^2$ (rejet dans 21\% des cas puisque $\pi/4\simeq 0.79$).
-
-On remarquera qu'ici, $\theta$ et $\rho$ sont indépendantes, que $\rho$ suit une loi de
-densité $u\mapsto 2u\mathrm{I}_{[0,1]}(u)$ et que $\theta$ suit une loi uniforme sur
-$[0,2\pi]$. D'autre part, on a
-$$
-\frac{\sqrt{-4\log(\rho)}}{\rho}\,(X,Y) 
-= \sqrt{-4\log(\rho)}\,(\cos(\theta),\sin(\theta)).
-$$
-On vérifie alors facilement que $-4\log(\rho)$ suit une loi exponentielle de
-paramètre $1/2$ :
-$$
-\int_0^1 \!\!\!f(-4\log(\rho))\,2\rho\,d\rho
-=
-\int_0^{+\infty} \!\!\!f(u)\,\frac{1}{2}\,e^{-u/2}\,du.
-$$
-Cette méthode, que l'on peut qualifier de «polaire - rejet», est celle
-utilisée dans \ML{} 4 pour implémenter la fonction \texttt{randn}.
-Elle demeure cependant assez lente, en raison à la fois des 21\% de rejet et de
-l'évaluation des fonctions $\log$ et $\sqrt{\ }$.
-
-\subsection{Méthode de Marsaglia (algorithme du Ziggurat)}
-
-Les versions 5 et 6 de \ML{} utilisent plutôt une méthode due à Marsaglia,
-appelée «algorithme du Ziggurat\footnote{Il s'agit de temples de Mésopotamie,
-  dont la forme consiste en un empilement de parallélépipèdes rectangles de
-  plus en plus petits.}».  Elle consiste à utiliser la méthode du rejet
-conjointement avec des tables donnant une approximation de la densité
-gaussienne par des rectangles.  Ces tables étant précalculées, la génération
-de nombres aléatoires gaussiens est très rapide, quasiment aussi rapide que
-celle des nombres aléatoires uniformes.  On pourra en trouver une version
-moins optimisée dans le tome II du livre de Knuth : «The Art of Computer
-Programming» \cite{knuth-taocp-2-3}.
-
-On observe tout d'abord qu'il suffit de savoir simuler une v.a.r.  de
-densité
-$$
-f(u):=\sqrt{\frac{\pi}{2}}\,e^{-u^2/2}\,\mathrm{I}_{[0,+\infty[}(u),
-$$
-puisque le signe peut être obtenu via une loi de Bernoulli symétrique.
-Considérons à présent $n$ points $x_1<\cdots<x_n$.  En prenant $x_1=0$ et
-$x_{n+1}=+\infty$, les points du plan de coordonnées $(x_i,f(x_i))$ constituent les
-coins inférieurs droits de $n$ rectangles plats adjacents (horizontaux), qui
-recouvrent par excès l'aire sous la courbe de $f$.  La hauteur du
-$k^\text{ième}$ rectangle vaut $f(x_k)-f(x_{k+1})$.
-
-On choisit les $x_i$ de telle sorte que la portion d'aire de $f$ située dans
-chaque rectangle soit constante (et égale à $1/n$). Ensuite, l'algorithme
-consiste à choisir l'un des rectangles en simulant une loi uniforme sur les
-entiers $\{1,\ldots,n\}$. Une fois le rectangle choisi, on utilise :
-\begin{itemize}
-\item la méthode du rejet exacte pour le premier et le dernier
-  rectangle, via l'expression de $f$;
-\item la méthode du rejet approximative pour les rectangles
-  intermédiaires, qui consiste à utiliser la partie du rectangle sous
-  la courbe de $f$, via le rapport $\sigma_k:=x_{k-1}/x_k$, sans faire
-  appel à l'expression de $f$.
-\end{itemize}
-Les $x_i$ et les $\sigma_i$ sont précalculés une fois pour toutes et stockés dans
-une table, et $n$ est choisi suffisamment grand\footnote{Dans \ML{}, $n=128$.}
-pour que les taux de rejet soient faibles et les approximations bonnes.  Les
-calculs sont très réduits une fois la phase d'initialisation passée.
-
-Il n'est pas nécessaire de considérer la partie positive de la densité
-gaussienne, puisque le découpage en rectangles est symétrisable.
-
-%
-\subsection{Simulation d'un vecteur gaussien}\label{se:simvg}
-%
-
-%FIXME: utiliser imagec et contourplot
-% Matrice de covariance et matrice des coefficients de corrélation
-
-Soit $m\in\dR^n$ et $\Ga\in\cS_n^+(\dR)$ une matrice réelle de taille $n$,
-symétrique positive, et soit $Y$ est un vecteur aléatoire gaussien standard de
-moyenne nulle et de matrice de covariance $\ID_n$, alors le vecteur aléatoire
-$X:=\Ga^{\frac{1}{2}} Y + m$ est un vecteur gaussien de moyenne $m$ et de
-matrice de covariance $\Ga$. Réciproquement, si $X$ est un vecteur gaussien de
-loi $\cN(m,\Ga)$, alors $\Ga^{-1/2}(X-m)$ est un vecteur aléatoire gaussien de
-loi $\cN(0,\ID_n)$.
-
-On peut également utiliser la décomposition de Cholesky de $\Ga=AA^\top$ où
-$A$ est une matrice triangulaire inférieure, en lieu et place de la
-décomposition en racine carrée $\Ga=\Ga^{1/2}\Ga^{1/2}$, ce qui moins coûteux
-en terme de calculs (on évite de diagonaliser $\Ga$ et $A$ est creuse).
-
-Si $Y$ est un vecteur gaussien de loi $\cN(0,\ID_n)$, ses coordonnées sont
-i.i.d. de loi $\cN(0,1)$. Ainsi, on peut simuler une réalisation de $Y$ en
-simulant $n$ réalisations indépendantes $Y_1(\om),\ldots,Y_n(\om)$ de loi
-$\cN(0,1)$. Il suffit alors de calculer $\Ga^{1/2}Y(\om)+m$ pour
-obtenir une réalisation de loi $\cN(m,\Ga)$.
-
-Voici un exemple de simulation de vecteur gaussien écrit en \ML{}~:
-%
-\MFILE{simvg}
-%
-
-%
-\subsection{Simulation d'un mouvement brownien}
-%
-
-Vers 1827, le jeune botaniste écossais Robert Brown obserse au microscope le
-mouvement incessant de grains de pollen dans une goûte d'eau, et a alors
-l'intuition que cette agitation est d'origine physique, et non pas biologique.
-Ce faisant, il vient de mettre en évidence le phénomène qui porte aujourd'hui
-son nom : le mouvement brownien. Vers 1900, le mathématicien Louis Bachelier
-s'intéressa dans sa thèse intitulée «La théorie de la spéculation», méprisée à
-l'époque et tombée longtemps dans l'oubli, à l'évolution des cours de la
-bourse, dont le comportement ressemble à un mouvement brownien. Quelques
-années plus tard (1905), et de façon indépendante, le physicien Albert
-Einstein donne une explication théorique du mouvement brownien à base de
-physique classique : chaque particule subit des chocs incessants du milieu qui
-provoquent son agitation «brownienne». Un peu plus tard, le physicien Paul
-Langevin améliorera cette approche en tenant compte de l'effet du fluide ou
-d'une force extérieure sur la diffusion des particules. Tous ces
-développements vont conduire le mathématicien Norbert Wiener à introduire vers
-1923 la notion mathématique de mouvement brownien, telle que nous la
-connaissons aujourd'hui. Ce travail fondamental constitue le socle d'un pan
-important de la théorie des probabilités modernes construites à partir de la
-théorie de la mesure, au milieu du vingtième siècle, par de nombreux
-mathématiciens dont les plus illustres sont sans doute Kolmogorov, Doob et
-Lévy\footnote{Citons également Wolfang Doeblin, qui appartient au club très
-  ouvert des oubliés de l'histoire \cite{doeblin}.}. Les objets et assertions
-mathématiques construits à partir du mouvement brownien forment ce que l'on
-appelle de nos jours la «théorie des processus stochastiques»
-\cite{bass-2,karatzas-shreve}. Très dévoloppée par l'école française de
-probabilités, elle possède un vaste champ d'application : analyse
-mathématique, géométrie, physique, biologie, finance\ldots
-
-Un mouvement brownien unidimentionnel standard sur l'intervalle de temps
-$[0,1]$, issu de $x\in\dR$, est une famille $(B_t,t\in[0,1])$ de variables
-aléatoires
-$$
-\begin{array}[c]{rcl}
-B_t:\PAR{\Om,\cA,\eP}&\to&\dR\\
-\om&\mapsto&B_t(\om),
-\end{array}
-$$
-indexée par $t\in[0,1]$ et vérifiant les propriétés suivantes :
-\begin{enumerate}
-\item $B_0=x$
-\item Pour presque tout $\om$, la fonction $t\in[0,1]\mapsto B_t(\om)$ est
-  continue.
-\item Pour tout $t\in\,]0,1]$, la v.a. $B_t$ est gaussienne centrée de
-  variance $t$.
-\item Pour tous $(t,s)\in\,]0,1]^2$, les variables $B_t$ et $B_{t+s}-B_t$ sont
-  indépendantes.
-\end{enumerate}
-Pour résumer, il s'agit d'un \emph{processus gaussien centré à trajectoires
-  continues et à accroissement indépendants}. On montre de différentes
-manières qu'il est possible de construire un tel processus\footnote{Un
-  théorème de Kolmogorov assure l'unicité de la loi du processus lorsque l'on
-  fixe les lois marginales fini-dimensionnelles.}, cf. par exemple
-\cite{karatzas-shreve}. Le processus $B:=(B_t,t\in[0,1])$ peut également être
-vu comme \emph{une} variable aléatoire à valeurs dans l'espace des fonctions
-continues nulles en zéro $\cC_0([0,1],\dR)$, muni de la topologie
-adéquate\footnote{Topologie de la convegence simple sur $\cC([0,1],\dR)$,
-  induite sur $\cC([0,1],\dR)\subset\dR^{[0,1]}$ par celle générée sur
-  $\dR^{[0,1]}$ par les cylindres $A_1 \times\cdots \times A_m \times \dR \times \cdots \subset
-  \dR^{[0,1]}$ où $m\geq 0$ et les $A_1,\ldots,A_m$ sont des ouverts de $\dR$.
-  C'est-à-dire la plus petite topologie qui rend les applications
-  $b_t:\om\in\cC([0,1],\dR)\mapsto \om(t)$ continues pour tout $t\in[0,1]$.} :
-$$
-\begin{array}[c]{rcl}
-B:\PAR{\Om,\cA,\eP}&\to&\cC_0([0,1],\dR)\\
-\om&\mapsto&\PAR{t\in[0,1]\mapsto B_t(\om)}.
-\end{array}
-$$
-On parle de loi du processus pour désigner la loi de cette variable
-aléatoire à valeurs dans un espace de fonctions. La loi $\cW$ du mouvement
-brownien standard est appelée \emph{mesure de Wiener}. C'est en quelque sorte
-une mesure gaussienne de dimension infinie sur $\cC_0([0,1],\dR)$ puisque pour
-tout $t$, la variable aléatoire à valeurs réelles
-$$
-\begin{array}[c]{rcl}
-b_t:\PAR{\cC_0([0,1],\dR),\cW}&\mapsto&\dR\\
-f&\mapsto& \om_t(f):=f(t)
-\end{array}
-$$
-est une gaussienne dans $\dR$ de même loi que $B_t$.  Ainsi, les v.a.r.
-$B_t$ apparaîssent comme les lois marginales de la loi gaussienne de dimension
-infinie $\cW$. Nous vérons plus loin que la coraviance de $B_t$ et $B_s$ est
-exactement $\min(t,s)$.
-
-On généralise sans trop de difficultés la définition précédente à tout $\dR_+$
-en temps. Un mouvement brownien quelconque à valeurs dans $\dR^d$ s'obtient en
-considérant l'image de $(B^{(1)}_t,\ldots,B^{(d)}_t)$ par une matrice
-constante $M\in\cM_d(\dR)$, où les
-$(B^{(1)}_t,t\in\dR_+),\ldots,(B^{(d)}_t,t\in\dR_+)$ sont des mouvements
-brownien unidimentionnels standards et \emph{indépendants} sur $\dR_+$.
-
-Le mouvement brownien joue un rôle central dans la théorie des probabilités.
-Heuristiquement, il constitue l'analogue continu d'une marche aléatoire
-simple, dont il peut d'ailleurs se déduire par le théorème central limite (cf.
-théorème \ref{th:pid} page \pageref{th:pid}). À chaque instant, une marche
-aléatoire simple choisit de façon indépendante de son passé l'accroissement de
-sa position actuelle dans son voisinage, un peu comme un ivrogne. Le mouvement
-brownien est l'analogue continu de ce processus dans la mesure où les instants
-de choix de nouvelle position ne sont plus discrets mais «infiniment
-rapprochés». Si l'on revient à l'image physique d'une particule brownienne,
-$B_t$ représente la position (ou la vitesse selon que l'on considère les
-modèles d'Einstein ou de Langevin) de la particule à l'instant $t$.
-
-Pour simuler une trajectoire d'un mouvement brownien, il suffit de remarquer
-que pour tout $0<t_1<\cdots<t_n$, le vecteur aléatoire
-$\PAR{B_{t_1},\ldots,B_{t_n}}$ suit une loi gaussienne centrée de matrice de
-covariance $\Ga$ connue. En effet, pour $i<j$, on a~:
-$$
-\Ga_{i,j}
-=\moyp{}{B_{t_i}B_{t_j}}
-=\moyp{}{B_{t_i}\PAR{B_{t_j}-B_{t_i}}}+\moyp{}{B_{t_i}^2}=t_i.
-$$
-On a donc $\Ga_{i,j}=\min(t_i,t_j)$, et de façon plus générale :
-$$
-\cov{}{B_t}{B_s}=\min(t,s)=\frac{1}{2}\PAR{t+s-|t-s|}
-\text{\quad et \quad} 
-\eE(|B_t-B_s|^2)=|t-s|^2.
-$$
-Il ne reste donc plus qu'à utiliser la méthode présentée dans la section
-\ref{se:simvg} pour simuler une réalisation du vecteur gaussien
-$\PAR{B_{t_1},\ldots,B_{t_n}}$.  Cette méthode peut être utilisée pour simuler
-la loi d'un processus gaussien quelconque $\PAR{X_t,t\in\dR_+}$ à partir de sa
-fonction de covariance $(t,s)\in\dR_+^2\mapsto\cov{}{X_t}{X_s}$. Le code \ML{}
-suivant en donne un exemple, dont la sortie graphique est donnée par la figure
-\ref{fi:simmb}~:
-%
-\MFILE{simmb}
-%
-\FIG{simmb}{1}{htbp}{Simulation d'une trajectoire d'un processus gaussien à
-  partir de sa fonction de covariance (mouvement brownien ici).}
-%
-Le mouvement brownien étant à accroissements indépendants, il satisfait en
-particulier à la propriété de Markov. En d'autre termes, le futur du processus
-est indépendant du passé lorsque l'on connaît le présent. Il a donc une
-mémoire courte en quelque sorte. Ainsi, pour prolonger une trajectoire
-simulée, on peut utiliser la même méthode à partir du dernier point de cette
-trajectoire, ce qui n'est pas possible avec des processus à mémoire longue.
-Ainsi, on a pour un mouvement brownien standard $\PAR{B_t,t\in\dR_+}$ avec
-$B_0:=0$
-$$
-(B_{t_1},\ldots,B_{t_n}):=(Z_1,Z_1+Z_2,\ldots,Z_1+\cdots+Z_n), \text{ où }
-Z_k:=B_{t_k}-B_{t_{k-1}}.
-$$
-Les $Z_k$ sont des v.a.r. gaussiennes indépendantes de variances
-respectives $t_{k+1}-t_k$.  Ceci est bien conforme à l'intuition que l'on peut
-avoir du mouvement brownien~: une succession de petits sauts gaussiens
-indépendants. Voici un code \ML{} faisant appel à cette méthode pour simuler
-une trajectoire brownienne, et dont la sortie graphique est donnée par la
-figure \ref{fi:simmb}~:
-%
-\MFILE{simmb2}
-%
-Cette méthode est beaucoup plus efficace que la précédente, mais repose de
-façon cruciale sur l'indépendance des accroissements du mouvement brownien,
-propriété que n'a pas forcément un processus gaussien quelconque.
-%
-\FIG{simmb2}{1}{htbp}{Simulation d'une trajectoire d'un mouvement brownien.}
-%  
-Comme nous l'avons dit, les trajectoires browniennes sont presque-sûrement
-continues. En revanche, elles ne sont pas dérivables, mais sont hölderiennes
-d'indice $1/2-\veps$ pour tout $\veps>0$, c'est-à-dire que pour presque tout
-$\om$, il existe une constante $c>0$ telle que pour tous $t$ et $s$ :
-$$
-\ABS{B_t(\om)-B_s(\om)} \leq c\,\ABS{t-s}^{1/2-\veps}.
-$$
-Cela a motivé l'introduction et l'étude de processus gaussiens de
-régularité höldérienne arbitraire, appelés «browniens fractionnaires», de
-fonction de covariance $(t^h+s^h+|t-s|^{2h})/2$ avec $0<h<1$ fixé (paramètre
-de Hurst). Le brownien fractionnaire d'indice $h$ a des trajectoires
-höldériennes d'indice $h-\veps$, et il correspond au mouvement brownien pour
-$h=1/2$. Ces processus ne sont pas à accroissements indépendants, et ne sont
-pas de Markov, pour $h\neq 1/2$. Il permettent donc de modéliser des
-phénomènes à mémoire longue. À l'heure actuelle, de nouveaux processus à
-régularité non constante en temps ou en espace, qualifiés de
-«multifractionnaires», font l'objet de recherches dans le monde des
-probabilités.
-
-\begin{rem}
-  Le mouvement brownien pouvant être vu comme une somme infinie de petits
-  accroissements gaussiens indépendants, il est naturel de s'attendre à une
-  sorte de «loi des grands nombres». Cette intuition est juste, et l'on montre
-  que l'on a :
-  \begin{equation}
-    \frac{B_t}{t} \limPS{t} 0.\label{eq:LGN-brown}
-  \end{equation}
-\end{rem}
-
-\begin{rem}
-  Insistons sur le fait que chaque «trajectoire simulée» obtenue par ces
-  procédés correspond plutôt à une réalisation
-  $(X_{t_1}(\om),\ldots,X_{t_n}(\om))$, pour un $\om$ donné, de la loi
-  fini-dimentionnelle du processus $(X_t,t\in\dR_+)$ aux instants
-  $t_1,\ldots,t_n$.  Simuler la véritable loi du processus n'a pas beaucoup de
-  sens car il s'agirait alors de d'obtenir une courbe 
-  $$t\in\dR_+\mapsto X_t(\om),$$
-  or $\dR$ est infini donc inaccessible dans sa
-  totalité sur un ordinateur !  On simule donc des lois marginales
-  fini-dimentionnelles de la variable aléatoire à valeurs fonctionnelles
-  $(\om\in\Om\mapsto\PAR{t\in\dR_+\mapsto X_t(\om)})$. Elle sont à percevoir
-  comme des discrétisations de trajectoires probables du processus.
-\end{rem}
-
-%
-\section{Simulation de la loi uniforme sur les p-sphères}
-\label{se:unif-pspheres}
-%
-
-Nous savons que si $(X,Y)$ est un vecteur gaussien de loi normale centrée
-réduite, et si $(r,\theta)$ désigne son écriture en coordonnées polaires :
-$(X,Y)=(r\cos(\theta),r\sin(\theta))$, alors $r^2$ et $\theta$ sont des v.a.r. indépendantes
-qui suivent respectivement une loi exponentielle de paramètre $1/2$ et une loi
-uniforme sur $[0,2\pi]$. Le vecteur aléatoire $(X,Y)/r$ suit la loi uniforme sur
-le cercle unité. De façon générale, si $(X_1,\ldots,X_n)$ est un vecteur gaussien
-de loi $\cN(0,\rI_n)$ et
-$$
-\NRM{X}_2:=\sqrt{X_1^2+\cdots+X_n^2},
-$$
-alors $(X_1/\NRM{X}_2,\ldots,X_n/\NRM{X}_2)$ et $\NRM{X}_2$ sont
-indépendants, $\NRM{X}_2^2$ suit une loi du $\chi^2$ à $n$ degrés de liberté,
-et $(X_1/\NRM{X}_2,\ldots,X_n/\NRM{X}_2)$ suit la loi uniforme sur la sphère
-euclidienne unité de $\dR^n$. Attention, les v.a.r. $X_i/(\sqrt{n}\NRM{X}_2)$
-ne suivent pas des lois de Student, car $\NRM{X}_2$ et $X_i$ ne sont pas
-indépendantes !
-
-Ce qui précède peut s'étendre à des normes non euclidiennes : pour tout
-$n\in\{2,3,\ldots\}$, tout $p\in\dR_+^*$ et tout $x\in\dR^n$, on pose
-$$
-\NRM{x}_p:=(\ABS{x_1}^p+\cdots+\ABS{x_n}^p)^{1/p}.
-$$ 
-On étend cette définition au cas $p=\infty$ en posant
-$$
-\NI{x}:=\max\PAR{\ABS{x_1},\ldots,\ABS{x_n}}.
-$$
-La $p$-sphère positive de $\dR^n$, notée $\dS(n,p)$, est définie par :
-$$
-\dS_+(n,p):=\BRA{x\in\dR_+^n,\,\NRM{x}_p=1}.
-$$
-Pour $p=1$, on obtient le «simplexe» standard, pour $p=2$, la portion à
-coordonnées positives de la sphère euclidienne de rayon $1$, et pour
-$p=\infty$, la surface du cube unité $[0,1]^n$.  Des dessins peuvent aider à
-mieux se repérer. $\dS_+(n,p)$ est donc une surface compacte de $\dR^n$, de
-dimension $n-1$.  Il serait possible de définir une mesure uniforme sur
-$\dS_+(n,p)$, en considérant la trace de la mesure de Lebesgue sur
-$\dS_+(n,p)$. Par soucis de simplicité, nous ne le feront pas ici, et nous
-nous restreignons volontairement aux cas $p\in\{1,2,\infty\}$.
-
-En tant que surface du cube $[0,1]^n$, $\dS_+(n,\infty)$ peut être vu comme la
-réunion disjointe, mais connexe, de $2n$ faces, chacune étant identifiable à
-$[0,1]^{n-1}$. La mesure uniforme sur $\dS_+(n,\infty)$ peut donc être définie
-en considérant la mesure uniforme sur chaque face. Cette loi uniforme sur
-$\dS_+(n,\infty)$ est très simple à simuler puisqu'il suffit de choisir la
-face uniformément sur $\{1,\ldots,2n\}$, puis de générer une réalisation d'un
-vecteur aléatoire $(X_1,\ldots,X_{n-1})$ dont les entrées sont i.i.d. et de
-loi uniforme sur $[0,1]$, obtenues par \texttt{rand} par exemple.  Si l'on
-désigne par $(A,I)\in\{0,1\}\times\{1,\ldots,n\}$ la face aléatoirement
-choisie, le vecteur aléatoire $(Y_1,\ldots,Y_n)$ obtenu en insérant $A$ en
-position $I$ de la suite $X_1,\ldots,X_{n-1}$ suit la loi uniforme sur
-$\dS_+(n,\infty)$.
-
-Pour $p=2$, la loi uniforme sur $\dS_+(n,2)$ est la restriction normalisée de
-la mesure uniforme sur la sphère. Cette dernière se simule comme expliqué à la
-fin de la section \ref{ss:simu-gauss}, à partir d'une loi gaussienne. En fait,
-si $(X_1,\ldots,X_n)$ est un vecteur aléatoire à composantes i.i.d.
-\emph{positives} de loi de densité
-$\sqrt{2/\pi}\,\exp(-x^2/2)\,\rI_{[0,+\infty[}\,dx$, alors le vecteur aléatoire
-$X/\sqrt{X_1^2+\cdots+X_n^2}$ suit la loi uniforme sur $\dS_+(n,2)$.
-
-Pour $p=1$, $\dS_+(n,1)$ est un simplexe, qui est constitué de la partie à
-coordonnées positives de l'hyperplan $\dH_n$ d'équation $x_1+\cdots+x_n=1$.
-Pour $n=2$, on obtient un segment de longueur $\sqrt{2}$, pour $n=3$, un
-triangle équilatéral de côté $\sqrt{2}$, pour $n=4$, un tétrahèdre régulier de
-côté $\sqrt{2}$, etc.  Mentalement, nous effectuons naturellement une
-identification entre $\dH_n$ et $\dR^{n-1}$ lorsque $n$ vaut $2$ et $3$, en
-identifiant par rotation de centre $(1,0,\ldots,0)$ l'hyperplan $\dH_n$ à
-$\dR^{n-1}\times\{0\}$. En considérant la mesure Lebesgue $\la_{n-1}$ sur
-$\dH_n$ découlant de celle de $\dR^{n-1}$ par cette identification, l'ensemble
-$\dS_+(3,2)$ par exemple a pour mesure $\sqrt{3}/2$, qui est la surface du
-triangle équilatéral de côté $\sqrt{2}$ (souvenez-vous, «base fois hauteur sur
-2»). De façon plus générale, on montre que
-$\la_{n-1}(\dS_+(n,1))=\sqrt{n}/(n-1)!$. Il est naturel d'appeler loi uniforme
-sur $\dS_+(n,1)$ la restriction de $\la_{n-1}$ à $\dS_+(n,1)$, normalisée en
-la divisant par $\la_{n-1}(\dS_+(n,1))$. Comment simuler cette loi ? En
-d'autres termes, comment faire pour obtenir des réalisations i.i.d. d'un
-vecteur aléatoire $(X_1,\ldots,X_n)$ dont la loi serait la loi uniforme sur
-$\dS_+(n,1)$ que nous venons de décrire ?
-
-On pourrait croire que si $X:=(X_1,\ldots,X_n)$ est un vecteur aléatoire de
-$\dR^n$ à coordonnées i.i.d. et uniformes sur $[0,1]$, alors le vecteur
-aléatoire $X/(X_1+\cdots+X_n)$, qui est à valeurs dans $\dS_+(n,1)$, suit la
-loi uniforme sur $\dS_+(n,1)$. C'est faux malheureusement, comme on peut s'en
-convaincre déjà lorsque $n=2$.
-
-La solution consiste à imiter la méthode gaussienne utilisée pour $p=2$. Si
-$X:=(X_1,\ldots,X_n)$ est un vecteur aléatoire à coordonnées i.i.d. de loi
-exponentielle de paramètre $1$, alors le vecteur aléatoire
-$X/(X_1+\cdots+X_n)$ suit la loi uniforme sur $\dS_+(n,1)$. La preuve n'est
-pas difficile, mais nous l'omettons ici.
-
-De manière plus générale, pour tout $p\in\dR_+$, on peut montrer que si
-$X:=(X_1,\ldots,X_n)$ est un vecteur aléatoire à composantes i.i.d. suivant
-une loi de densité
-$$
-\frac{p}{\Ga(p)}\,\exp(-t^p)\,\rI_{\dR_+}(t)
-$$
-alors le vecteur aléatoire $X/\NRM{X}_p$ suit la loi uniforme sur
-$\dS_+(n,p)$, et qu'il est de plus indépendant de la v.a.r. $\NRM{X}_p$.
-
-Le cas $p=1$, pour lequel $\dS_+(n,1)$ est un simplexe, est très important car
-$\dS_+(n,1)$ représente l'ensemble des lois de probabilités discrètes sur
-$\{1,\ldots,n\}$. Simuler la loi uniforme sur $\dS_+(n,1)$ revient à choisir
-uniformément une loi de probabilité discrète sur $\{1,\ldots,n\}$.  La loi
-uniforme sur $\dS_+(n,1)$ est un cas particulier de la loi de Dirichlet, cf.
-\ref{ss:loi:dirichlet}. Voici un exemple de fonction \ML{} qui renvoie une
-réalisation de la loi de Dirichlet :
-%
-\MFILE{rdirichlet}
-%
-Cette méthode permet également de choisir de manière «uniforme» la matrice de
-transition d'une chaîne de Markov, en utilisant des réalisations indépendantes
-de la loi uniforme sur le simplexe. Voici un exemple de code \ML{} :
-%
-\MFILE{rmatmar}
-%
-Bien entendu, tout repose sur le sens que l'on donne à la «loi uniforme» sur
-les classes d'objets considérés. Il y a une part d'arbitraire que l'on ne peut
-pas évacuer.
-
-%
-\section{Un exemple : processus de Poisson composé gaussien}
-%
-
-Soit $\PAR{X_n,n\in\eN^*}$ une suite de v.a.r. i.i.d. de loi normale et
-$\PAR{U_n,n\in\eN^*}$ une suite de v.a.r. i.i.d. de loi exponentielle de
-paramètre $\la>0$, indépendante de la suite précédente. On pose $T_0:=0$ et
-$T_n:=U_1+\cdots+U_n$ pour tout $n\in\eN\*$. On définit à présent le processus
-$\PAR{Y_t,t\in\dR_+}$ par~:
-$$
-Y_t:=\sum_{n=0}^{+\infty} X_n\,\rI_{[T_n,T_{n+1}[}(t).
-$$
-Ce type de processus peut par exemple modéliser la quantité d'argent dans
-une caisse commune. Les temps de sauts correspondent à des apports (sauts
-positifs) des membres ou à des dépenses (sauts négatifs). Bien entendu, on
-tolère alors des dettes arbitrairement grandes ici\ldots On dit que
-$(Y_t,t\in\dR_+)$ suit un \emph{processus de Poisson composé}.  Cette
-terminologie n'est pas très heureuse dans la mesure où la loi du processus à
-un instant donné n'est pas forcément une loi de Poisson. Ici, on peut vérifier
-sans difficulté (exercice !) que le processus est bien défini et que sa loi
-conditionnelle sachant les instants de sauts $(T_n,n\in\eN^*)$ est gaussienne.
-La loi de $Y_t$ pour $t>0$ fixé n'est pas une loi de Poisson. Voici un code
-\ML{} simulant une trajectoire d'un tel processus, dont la sortie graphique
-est donnée par la figure \ref{fi:simpsn} :
-%
-\MFILE{simpscg-short}
-%
-\FIG{simpsn}{1}{htbp}{Simulation d'une trajectoire d'un processus à temps de
-  sauts exponentiels et à amplitudes de sauts gaussiennes.}
-%
-\begin{exo}
-  À votre avis, que permet de simuler le code suivant~?
-  \begin{center}
-    \texttt{stairs(cumsum(rgamma(30,3,1)),cumsum(rpoiss(30,1)+randn(30,1)));}
-  \end{center}
-\end{exo}
-
-%
-\section{Évaluation de la qualité d'une simulation}
-%
-
-%DCD section 4.4, pages 101 et suivantes.
-%FIXME:
-De nombreuses méthodes existent. Les tests statistiques, comme le test du
-chi-deux ou le test de Kolmogorov-Smirnov, permettent de comparer la loi
-empirique avec la loi véritable, cf. chapitre \ref{ch:ic+tests} page
-\pageref{ch:ic+tests}. 
-
-%
-\section{Un exemple de simulation d'une loi compliquée}
-%
-
-On se propose de transposer en \ML{} un petit exercice qui figure dans
-\cite[page 82]{bouleau}. La figure \ref{fi:fiab} représente un réseau
-électrique constitué de $7$ éléments entre deux points $A$ et $B$. Les durées
-de vie des éléments sont représentées par des variables aléatoires
-$T_1,\ldots,T_7$. La durée de vie du système est alors donnée par
-$$
- T := T_7 \lor \PAR{\PAR{T_1 \lor T_2 \lor T_3} \land \PAR{T_6 \lor \PAR{T_4 \land T_5}}}
-$$
-où $\lor$ désigne le supremum et $\land$ l'infimum. On peut donc simuler $T$
-à partir d'une simulation de la loi jointe des $T_i$.
-%
-\FIG{fiab}{.6}{htbp}{Schéma d'un réseau}
-%
-On considère le cas où $(T_1,T_2,T_3,T_4)$ sont indépendants de loi
-exponentielles de paramètres respectifs $(1/2,1/2,1/2,1/3)$ et que le couple
-$(T_5,T_6)$ sont indépendantes des précédentes, de loi jointe de densité
-$$
-\frac{1}{6} 1_{\{2\leq x+y \leq 8\}} 1_{\{-1\leq x-y \leq 1\}} dx dy,
-$$
-et enfin, $T_7=T_4$.  Notons que le couple $((T_5+T_6-2)/6,(T_5-T_6+1)/2)$
-suit une loi uniforme sur $[0,1]^2$, produit tensoriel de deux lois uniformes
-sur $[0,1]$ (donc indépendantes).
-%
-\MFILE{fiab}
-%
-Intéressons nous à la durée de vie moyenne du système, qui n'est rien d'autre
-que $\eE(T)$.  Si $X_1,\ldots,X_n$ sont $n$ v.a.r. i.i.d. de même loi que $T$,
-nous savons simuler des réalisations $X_1(\om),\ldots,X_n(\om)$. L'inégalité
-de Chebychev donne :
-$$
-\eP\PAR{\ABS{\frac{X_1+\cdots+X_n}{n}-\eE(T)}>\veps} \leq\frac{\varp{}{T}}{n\veps^2}.
-$$
-La quantité $(X_1+\cdots+X_n)/n$ représente la moyenne empirique que nous
-pouvons obtenir par simulation. Reste à majorer la variance $\varp{}{T}$.
-L'encadrement $T_7 \leq T \leq T_7+T_1+T_2+T_3$ permet d'écrire :
-\begin{align*}
-  \varp{}{T}&=\moyp{}{T^2}-\moyp{}{T}^2\\
-  &\leq\eE(\PAR{T_7+T_1+T_2+T_3}^2)-\eE(T_7)^2\\
-  &=\varp{}{T_7+T_1+T_2+T_3}+\PAR{\eE(T_7)+\eE(T_1)+\eE(T_2)+\eE(T_3)}^2-\eE(T_7)^2\\
-  &=\frac{1}{\la_1^2}+\frac{1}{\la_2^2}+\frac{1}{\la_3^2}+\frac{1}{\la_4^2}
-  +\PAR{\frac{1}{\la_1}+\frac{1}{\la_2}+\frac{1}{\la_3}+\frac{1}{\la_4}}^2
-  -\frac{1}{\la_4^2}\\
-  &=93.
-\end{align*}
-On constate empiriquement que cette majoration de la variance est très
-mauvaise puisque la variance empirique est plutôt de l'ordre de quelques
-unités. Cependant, elle a le mérite d'exister.  On peut donc affirmer que l'on
-a
-$$
-\eP\PAR{\ABS{\frac{X_1+\cdots+X_n}{n}-\eE(T)}>\frac{1}{10}}
-\leq\frac{1}{10},
-$$
-pour $n\geq n_0:=93000$. Bien évidemment, ce seuil $n_0$ sur $n$ sera
-d'autant meilleur (i.e. petit) que notre majoration de la variance $\varp{}{T}$
-sera bonne. 
-
-\begin{exo}
-  Supposons que $T_7$ suive une loi exponentielle indépendante des autres de
-  paramètre $\te$. Écrire un programme \ML{} qui détermine une valeur de $\te$
-  telle que $\eE(T_7)$ soit minimale et $\eE(T) \geq 10$.
-\end{exo}
-
-%
-\subsection{Rudiments de fiabilité}
-%
-
-Soit $T$ la date de première défaillance d'un système mis en marche à
-la date $t=0$, alors :
-\begin{itemize}
-\item La \emph{durée de vie du système} est la variable $T$.
-\item La \emph{fiabilité} à la date $t$ est : $R(t):=\eP(T \geq t)$.
-\item La \emph{durée de survie} du système à l'instant $t$ est la
-  variable $T_t$ de distribution :
-  $$
-  \eP(T_t \geq s) =\eP(T-t\geq s\ |\ T\geq t) =\frac{R(t+s)}{R(t)}
-  \text{ pour } s \geq 0.
-  $$
-\item Le \emph{taux de défaillance} ou \emph{taux de panne} du système
-  est la fonction~: $$h(t):=-\frac{R'(t)}{R(t)}.$$
-\item Le \emph{temps moyen de panne} du système (Mean Time To Failure,
-  MTTF) est : $m:=\eE(T)$.
-\end{itemize}
-
-Soit un système à $n$ composantes, de durée de vie respectives
-$T_1,\ldots,T_n$. On note $T$ la durée de vie du système. Alors:
-\begin{itemize}
-\item Si les composants sont en série, $T=\min(T_1,\ldots,T_n)$ et
-  $R(t)=R_1(t)R_2(t)\ldots R_n(t)$.
-\item Si les composants sont en parallèle, $T=\max(T_1,\ldots,T_n)$ et
-  $R(t)=1-(1-R_1(t))(1-R_2(t))\cdots(1-R_n(t))$.
-\end{itemize}
-
-La loi exponentielle (de paramètre $\la$) est souvent utilisée pour
-modéliser une durée de vie $T$, sa fiabilité est $R(t)=e^{\la
-  t}\,\rI_{\dR_+}(t)$. Sa durée de survie à l'instant $t$ est
-indépendante de $t$, et l'on parle alors de \emph{système sans
-  mémoire} :
-$$
-\eP(T \geq t+s\,|\,T\geq t)=\eP(T \geq s).
-$$
-On peut montrer que la loi exponentielle est la seule loi non
-triviale à support dans $\dR^+$ qui a cette propriété.  La somme de
-$n$ v.a. i.i.d. de loi exponentielle de paramètre $\la$ est une loi
-Gamma de paramètres $(\la,n)$, dite aussi loi de Erlang. Une autre loi
-utilisée pour modéliser les durées de vie est la de Weibull $W(a,b)$,
-définie à partir de sa fiabilité, qui vaut par définition
-$R(t)=1-F(t)=e^{-(bt)^a}\rI_{\{t \geq 0\}}$. Elle modélise bien le
-comportement de $a$ composants de loi exponentielle de paramètre $b$
-en parallèle pour $t$ pas trop grand.  La loi exponentielle de
-paramètre $\la>0$ correspond à $W(\la,1)$.
-
-\begin{table}[tbp]
-\begin{center}
-\begin{sideways}
-\begin{tabular}[c]{|l|l|l|l|l|l|}\hline
-\textbf{Loi}&\textbf{Densité}&\textbf{F. de Rép.}&\textbf{F. R. Inverse}&\textbf{Générateur}&
- \textbf{Remarques}\\\hline\hline
-Beta          &\texttt{dbeta} &\texttt{pbeta}&\texttt{qbeta} &\texttt{rbeta}   &\\\hline
-Binômiale     &\texttt{dbinom}&\texttt{pbinom}&\texttt{qbinom}&\texttt{rbinom}  &
- Voir aussi \texttt{rjbinom}\\\hline
-Chi-2         &\texttt{dchisq}&\texttt{pchisq}&\texttt{qchiq} &\texttt{rchiq}   &\\\hline
-Fisher        &\texttt{df}    &\texttt{pf}&\texttt{qf}    &\texttt{rf}      &\\\hline
-Gamma         &\texttt{dgamma}&\texttt{pgamma}&\texttt{qgamma}&\texttt{rgamma}  &
- Voir aussi \texttt{rjgamma}\\\hline
-Géométrique   &               &&               &\texttt{rgeom}   &\\\hline
-Hyper géom.   &\texttt{dhypg} &\texttt{phypg}&\texttt{qhypg} &\texttt{rhypg}   &\\\hline
-Normale       &\texttt{dnorm} &\texttt{pnorm}&\texttt{qnorm} &\texttt{rnorm}   &
- Voir aussi \texttt{randn} de \ML\\\hline
-Poisson       &               &&               &\texttt{rpoiss}  &
- Voir aussi \texttt{rjpoiss}\\\hline
-Student       &\texttt{dt}    &\texttt{pt}&\texttt{qt}    &\texttt{rt}      &\\\hline
-Weibull \& exp.&              &&               &\texttt{rexpweib}&\\\hline
-Kolmog.-Smir. &               &\texttt{pks}&  & &\\\hline
-\end{tabular}
-\end{sideways}
-\end{center}
-\caption{Générateurs aléatoires de la bibliothèque \SB.}\label{ta:stixbox-rand}
-\end{table}
-
-\begin{rem}[Terminologie anglaise]
-En anglais, la densité est souvent appelée
-«probability density function» (pdf),
-et la fonction de répartition «distribution function»
-ou encore «cumulative distribution function» (cdf).
-La connaissance de cette terminologie peut vous aider à la 
-compréhension de l'aide des fonctions de \SB.
-Les noms des générateurs aléatoires de \SB{} commencent par 
-la lettre \texttt{r}
-comme «random», les densités ou lois par \texttt{d}
-comme «density», les fonctions de répartitions
-inverses par \texttt{q} comme «quantile»,
-les fonctions de répartitions par \texttt{p} comme
-«probability» et enfin les générateurs aléatoires via la méthode
-de rejet par \texttt{rj} comme «reject».
-\end{rem}
-
-%% Local Variables: 
-%% x-symbol-8bits: t
-%% x-symbol-coding: iso-8859-1
-%% mode: latex
-%% TeX-master: "agregation"
-%% End:
-%
-%
 \chapter{Théorèmes limites classiques}
 %
 %
@@ -1282,7 +19,7 @@ moyenne arithmétique des v.a. soit de l'ordre de $1/\sqrt{n}$, et donc à ce
 qu'elle converge vers $0$. C'est ce que confirme la loi des grands nombres
 (LGN) :
 
-\begin{thm}[Loi des Grands Nombres]
+\begin{theorem}[Loi des Grands Nombres]
   Soit $(X_n,n\in\eN^*)$ une suite de variables aléatoires i.i.d. de loi $\mu$ sur
   $\dR$, alors leur moyenne arithmétique 
   $$
@@ -1291,7 +28,7 @@ qu'elle converge vers $0$. C'est ce que confirme la loi des grands nombres
   converge $\mu$-presque-surement si et seulement si les $X_n$ sont
   intégrables. De plus, dans ce cas, la limite vaut $m_\mu:=\moyp{}{X_1}$ et la
   convergence a également lieu dans $\bL^1$.
-\end{thm}
+\end{theorem}
 
 Ce théorème est très facile à démontrer si l'on renforce les hypothèses.
 Supposons par exemple que les v.a. $\PAR{X_n,n\in\eN^*}$ sont i.i.d., dans
@@ -1392,7 +129,7 @@ convergence étroite des mesures empiriques peut être affiné en une convergenc
 uniforme des fonctions de répartition, comme le précise le théorème de
 Glivenko-Cantelli :
 
-\begin{thm}[Glivenko-Cantelli]\label{th:gc}
+\begin{theorem}[Glivenko-Cantelli]\label{th:gc}
   Soit $(X_n,n\in\eN^*)$ une suite de variables aléatoires i.i.d. de loi $\mu$
   sur $\dR$, de fonction de répartition $F$, alors on a pour
   $\mu$-presque-tout $\om$
@@ -1401,7 +138,7 @@ Glivenko-Cantelli :
 \end{equation}
 où $F_n(\om)(\cdot)$ désigne la fonction de répartition empirique des
 $X_1(\om),\ldots,X_n(\om)$.
-\end{thm}
+\end{theorem}
 
 \begin{exo}[Polynômes de Bernstein \& théorème de Weierstrass]
   
@@ -1421,16 +158,6 @@ $X_1(\om),\ldots,X_n(\om)$.
   de $f$ (théorème de Heine).  Pour illustrer ce qui précède, créer un fichier
   \textsf{ber.m} contenant le code suivant :
   %
-  \MFILE{ber} 
-  %
-  Voici maintenant un petit programme faisant appel à cette fonction, dont la
-  sortie graphique est donnée par la figure \ref{fi:bertest} :
-  %
-  \MFILE{bertest}
-  %
-  \FIG{bertest}{1}{htbp}{Illustration du théorème de Weierstrass avec les
-    polynômes de Bernstein.}
-  %
 \end{exo}
 La méthode de Monte-Carlo pour le calcul approché d'intégrales est également
 basée sur la loi des grands nombres, cf. section \ref{ss:mc} page
@@ -1447,11 +174,11 @@ $n$ tend vers l'infini. Cette intuition est confirmée par le Théorème Central
 Limite (TCL\footnote{On parle également parfois de «Théorème de la Limite
   Centrale».  En anglais, on dit tout simplement «Central Limit Theorem», que
   l'on abrège en CLT.}) :
-\begin{thm}[Théorème Central Limite]
+\begin{theorem}[Théorème Central Limite]
   Si $(X_n,n\in\eN^*)$ est une suite de v.a.r. i.i.d. de carré intégrable de
   moyenne $m$ et de variance $\si^2$, alors
   $$Y_n:=\frac{X_1+\cdots+X_n-nm}{\si\sqrt{n}}\limL{n}\cN(0,1).$$
-\end{thm}
+\end{theorem}
 De manière équivalente, si $Q_n$ désigne la fonction de répartition de la
 v.a.r. $Y_n$ et $\Phi$ la fonction de répartition de la loi normale $\cN(0,1)$~:
 $$
@@ -1481,7 +208,7 @@ affaiblir l'indépendance requise ou encore se passer du fait que les v.a.
 aient la même loi, moyennant une hypothèse sur leurs moments. Historiquement,
 le premier TCL concernait les lois de Bernoulli :
 
-\begin{thm}[Théorème de Moivre-Laplace]\label{th:moivre-laplace}
+\begin{theorem}[Théorème de Moivre-Laplace]\label{th:moivre-laplace}
   Soit $(X_n,n\in\eN^*)$ des v.a. i.i.d. de loi de Bernoulli sur $\{0,1\}$ et
   de paramètre $p\in[0,1]$, alors, pour tout $a\in\dR$ et $b\in\dR$ avec
   $a<b$, on a :
@@ -1491,15 +218,10 @@ le premier TCL concernait les lois de Bernoulli :
     =\PAR{2\pi}^{-1/2}\,\int_a^b\!e^{-x^2/2}\,dx,
   $$
   où $q:=1-p$.
-\end{thm}
+\end{theorem}
 On en trouvera une preuve dans \cite[cor. 8.9]{applebaum} et dans
-\cite[expl. V.5.5(i) pages 145-146]{barbe-ledoux}. Voici un exemple de code
-\ML{} illustrant le TCL, dont la sortie graphique est donnée par la figure
-\ref{fi:tcl1} :
-%
-\MFILE{tcl1}
-%
-\FIG{tcl1}{1}{htbp}{Illustration du TCL (lois uniformes).}
+\cite[expl. V.5.5(i) pages 145-146]{barbe-ledoux}. 
+
 %
 Le théorème suivant est une conséquence du TCL. Il affirme que les courbes
 affines par morceaux construites à partir des sommes partielles renormalisées
@@ -1508,7 +230,7 @@ loi vers la loi d'un mouvement brownien». Il constitue donc une justification
 de l'intuition selon laquelle une marche aléatoire est un analogue discret du
 mouvement brownien :
 
-\begin{thm}[Principe d'invariance de Donsker-Prohorov]\label{th:pid}
+\begin{theorem}[Principe d'invariance de Donsker-Prohorov]\label{th:pid}
   Soit $(X_n,n\in\eN^*)$ une suite de v.a.r. i.i.d. centrées de variance
   $\si^2$. On définit la suite de v.a. $\PAR{Y_n,n \in \eN^*}$ à valeurs dans
   $\cC(\dR_+,\dR)$ muni de sa tribu borélienne associée à la topologie
@@ -1530,14 +252,7 @@ mouvement brownien :
   $$
   \PAR{Y_n(t_1),\ldots,Y_n(t_n)}\limL{n}\PAR{B(t_1),\ldots,B(t_n)}.
   $$
-\end{thm}
-Voici une illustration de ce théorème en \ML{}, dont la sortie graphique est
-donnée par la figure \ref{fi:donsker}~:
-%
-\MFILE{donsker}
-%
-\FIG{donsker}{1}{htbp}{Illustration du théorème de Donsker.}
-%
+\end{theorem}
 
 %
 \section{Vitesse de convergence dans le TCL}
@@ -1557,7 +272,7 @@ $$
 Le théorème suivant donne une estimée uniforme sur la vitesse de cette
 convergence, cf. \cite{petrov} pour une preuve :
 
-\begin{thm}[Berry-Essen]
+\begin{theorem}[Berry-Essen]
   Soit $(X_n,n\in\eN^*)$ une suite de v.a.r. i.i.d. de variance $\si^2>0$ et
   possédant un moment d'ordre $3$. Alors on a~:
   $$
@@ -1565,7 +280,7 @@ convergence, cf. \cite{petrov} pour une preuve :
   $$
   où $\rho:=\moyp{}{\ABS{X_1-\moyp{}{X_1}}^3}$ et $C$ est une constante positive qui ne
   dépend pas de la loi des $X_n$.
-\end{thm}
+\end{theorem}
 
 Il existe des versions dites «locales», du TCL, qui donnent des estimées sur
 les densités plutôt que sur les fonctions de répartition. Elles sont plus
@@ -1574,7 +289,7 @@ la version forte du théorème de Moivre-Laplace \ref{th:moivre-laplace}, dont
 on trouvera une preuve faisant appel à la formule de Stirling dans \cite[thm
 2.2.4 page 35]{dacunha-castelle-duflo} :
 
-\begin{thm}[Théorème de Moivre-Laplace «fort»]\label{th:moivre-laplace-fort}
+\begin{theorem}[Théorème de Moivre-Laplace «fort»]\label{th:moivre-laplace-fort}
   Soit $(S_n,n\in\eN^*)$ des v.a. i.i.d. de loi binomiale $\cB(n,p)$ de taille
   $n$ et de paramètre $p\in]0,1[$. On pose $q:=1-p$. Alors, pour tout couple
   $(a,b)\in\dR^2$ avec $a<b$, on a~:
@@ -1584,7 +299,7 @@ on trouvera une preuve faisant appel à la formule de Stirling dans \cite[thm
   \limn{n} 0,
   $$
   où $I_n$ désigne le support de la v.a. discrète $\PAR{S_n-np}/\sqrt{npq}$.
-\end{thm}
+\end{theorem}
 
 %
 \section{Vitesse de convergence dans le théorème de Glivenko-Cantelli}
@@ -1627,14 +342,8 @@ et que~:
 \sqrt{n}\,\sup_{x \in \dR}\ABS{F_n(x)-F(x)}\limL{n}\sup_{0\leq t\leq1}|X_t|.
 \end{equation}
 La convergence en loi \eqref{eq:ks-gc-2} n'est qu'une réécriture de
-\eqref{eq:ks-gc-0}. En voici une illustration en \ML, dont la sortie graphique
-est donnée par la figure \ref{fi:pontbrown} :
-%
-\MFILE{pontbrown}
-%
-\FIG{pontbrown}{1}{htbp}{Convergence vers la distribution de Komogorov-Smirnov pour
-  le théorème de Glivenko-Cantelli (loi normale).}
-%
+\eqref{eq:ks-gc-0}. 
+
 
 %
 \section{Principes de Grandes Déviations}\label{se:pgd}
@@ -1703,7 +412,7 @@ nulle. Quelques exemples de transformées de Cramér sont donnés dans la table
 \end{table}
 De nombreux autres théorèmes autour des PGD existent, notamment celui de Sanov
 qui concerne la convergence de la mesure empirique vers la loi $\mu$ :
-\begin{thm}[Théorème de Sanov]
+\begin{theorem}[Théorème de Sanov]
   Soit $(X_n,n\in\eN^*)$ une suite de v.a. i.i.d. intégrables, de loi commune
   $\mu$ sur $\dR^n$. On note $(L_n,n\in\eN^*)$ les mesures empiriques associées et
   on munit l'ensemble $\cP(\dR^n)$ des lois de probabilité sur $\dR^n$ de la
@@ -1727,12 +436,12 @@ $$
 +\infty & \text{sinon}.
 \end{cases}
 $$
-\end{thm}
+\end{theorem}
 Le symbole $\ll$ désigne l'absolue continuité. On peut retrouver le théorème
 de Cramér à partir d'un théorème du «type Sanov» pour les lois de probabilité
 sur $\{1,\ldots,n\}$. L'entropie relative se muant en transformée de Cramér.
 
-\begin{xpl}
+\begin{example}
   Considérons une suite $\PAR{X_n,n\in\eN^*}$ de v.a. i.i.d. de loi de
   Bernoulli sur $\BRA{0,1}$ de paramètre $p\in]0,1[$. Soit $r$ un réel
   positif. On note $S_n:=(X_1+\cdots+X_n)/n$ leur moyenne arithmétique. La
@@ -1756,15 +465,7 @@ sur $\{1,\ldots,n\}$. L'entropie relative se muant en transformée de Cramér.
   \log \eP\PAR{S_n-p \geq r}
   \simeq -n\PAR{(p+r)\log\frac{p+r}{p} + (1-p-r)\log\frac{1-p-r}{1-p}}.
   $$  
-  Voici un code \ML{} illustrant ces trois estimées, dont la sortie graphique
-  est donnée par la figure \ref{fi:tclvspgd} :
-  %
-  \MFILE{tclvspgd}
-  %
-  \FIG{tclvspgd}{1}{htbp}{Comparaison des approximations par TCL et PGD pour
-    un écart à la moyenne de la loi binomiale.}
-  %
-\end{xpl}
+\end{example}
 
 
 %
@@ -1806,16 +507,10 @@ accessible numériquement puisque les échantillons dont on dispose sont finis.
 Voici un petit bout de code pour s'en convaincre (à exécuter plusieurs
 fois\ldots)~:
 %
-\MFILE{lli}
 %
 En revanche, on peut visualiser la convergence vers $0$ de la distance de la
-suite $\PAR{Y_n,n\in\eN^*}$ à l'intervalle $[-\si,+\si]$. Voici un code \ML{}
-dont la sortie graphique est donnée par la figure \ref{fi:llid}~:
-%
-\MFILE{llid}
-%
-\FIG{llid}{1}{htbp}{Illustration de la loi du log. itéré de Strassen (distance
-  à $[-\si,+\si]$).}
+suite $\PAR{Y_n,n\in\eN^*}$ à l'intervalle $[-\si,+\si]$. 
+
 %
 \begin{rem}[Sens des simulations]
   Le code précédent pose le problème de ce qu'apporte une simulation numérique
@@ -1957,9 +652,7 @@ plutôt la vitesse de convergence dans le théorème de Glivenko-Cantelli.
 %FIXME: vrai ?
 
 %
-\MFILE{tcl2}
 %
-\FIG{tcl2}{1}{htbp}{Approximation de la loi normale par TCL (lois uniformes).}
 %
 
 %
@@ -1985,7 +678,7 @@ obtenue en tronquant le tableau à partir de son coin supérieur gauche.
 Les valeurs propres de $W_n$ sont réelles
 d'après le théorème spectral.
 
-\begin{thm}[Wigner]
+\begin{theorem}[Wigner]
   Supposons que les v.a. $\PAR{w_{i,j},1\leq i<j}$ sont i.i.d. de variance finie
   $\si^2$ et que les v.a. $\PAR{w_{i,i},1\leq i}$ sont i.i.d.  Si
   $\PAR{\la_{n,1}(\om),\ldots,\la_{n,n}(\om)}$ désigne le spectre de
@@ -1998,26 +691,11 @@ d'après le théorème spectral.
   $$
   \frac{1}{2\pi\si^2}\,\sqrt{4\si^2-x^2}\;\rI_{\BRA{-2\si\leq x \leq 2\si}}(x).
   $$
-\end{thm}
+\end{theorem}
 Remarquons que les v.a. $\la_{n,i}$ ne sont pas i.i.d. et on ne peut donc pas
-appliquer la loi des grands nombres. Voici un code \ML{} pour illustrer ce
-théorème, dont la sortie graphique est donnée par la figure \ref{fi:wigner}~:
-%
-\MFILE{wigner}
-%
-\FIG{wigner}{1.0}{htbp}{Illustration du théorème de Wigner.}
-%
-%FIXME: blabla sur le role des matrices aléatoires en physique, en théorie des
-%nombres, en statistique, ...
+appliquer la loi des grands nombres. 
 
-%% Local Variables: 
-%% x-symbol-coding: iso-8859-1
-%% x-symbol-8bits: t
-%% mode: latex
-%% TeX-master: "agregation"
-%% End: 
-%
-%
+
 \chapter{Intervalles de confiance \& tests statistiques}
 \label{ch:ic+tests}
 %
@@ -2200,13 +878,6 @@ lorsque le niveau de confiance est proche de $1$, à condition bien sûr que
 l'approximation gaussienne soit justifiée (i.e. $n$ grand). A contrario, la
 borne obtenue par l'inégalité de Chebychev est toujours valide.
 
-%
-\MFILE{iconfcompare}
-%
-\FIG{iconfcompare}{1}{htbp}{Comparaison des bornes des intervalles de
-  confiance lors de l'estimation de la moyenne d'une loi de Bernoulli par la
-  moyenne empirique.}
-%
 
 \begin{rem}
   En France, les instituts de sondages font souvent appel à des techniques de
@@ -2391,7 +1062,7 @@ régularité sur $f$ n'est requise ici. La méthode de Monte-Carlo reste valable
 lorsque $f$ est à support quelconque, en prenant par exemple des $X_i$ de loi
 gaussienne.
 
-\begin{xpl}
+\begin{example}
   On se propose d'évaluer la valeur de $\pi$ à partir des trois intégrales
   suivantes, en utilisant la méthode de Monte-Carlo :
 \begin{enumerate}
@@ -2401,16 +1072,9 @@ gaussienne.
   unité).
 \end{enumerate}
 %
-\MFILE{montecarlo}
 %
-Testez le avec $n=10^4$, $10^5$, $10^6$.
 %
-\MFILE{montecarlo2}
-%
-\FIG{montecarlo2}{1}{htbp}{Approximation de $\pi$ par méthodes de
-  Monte-Carlo.}
-%
-\end{xpl}
+\end{example}
 
 \subsection{Exercices sur les intervalles de confiance}
 
@@ -2755,8 +1419,6 @@ que lorsque la loi $\mu$ n'a pas d'atomes.
   continues.
 \end{exo}
 
-\MFILE{gauss}
-\MFILE{gauss2}
 
 \subsubsection{Test d'homogénéité}
 
@@ -2901,7 +1563,6 @@ $$
 où $\Ga_\PAR{k,i}:=(\Ga_{i,k+1},\ldots,\Ga_{i,n})^\top$. Voici un
 exemple d'illustration en \ML{}~:
 %
-\MFILE{normproj}
 %
 %
 
@@ -2939,17 +1600,7 @@ méthode consiste utiliser ce que l'on appelle le degrés de liberté (DF), qui
 est donné par $\Tr(\ID_n-\Ga_1\Ga_2^{-1})$. En diagonalisant
 $\Ga_1\Ga_2^{-1}$, la comparaison classique entre moyenne arithmétique et
 géométrique $(\la_1\cdots\la_n)^{1/n} \leq (\la_1+\cdots+\la_n)/n$, appliquée au spectre de
-$\Ga_1\Ga_2^{-1}$ donne que $ER\geq -(n/2)\log_2(1-DF/n)$. Voici un exemple écrit
-en \ML{} illustrant la perte en degrés de liberté et la réduction d'entropie
-dans le programme précédent. Sa sortie graphique est donnée par la figure
-\ref{fi:erdfs}~:
-%
-\MFILE{erdfs}
-%
-%
-\FIG{erdfs}{1}{htbp}{Reduction d'entropie et de DFS empirique/théorique lors
-  d'une simulation d'un vecteur gaussien.}
-%
+$\Ga_1\Ga_2^{-1}$ donne que $ER\geq -(n/2)\log_2(1-DF/n)$. 
 
 %
 \section{Le filtre de Kalman}
@@ -3138,14 +1789,6 @@ Déterminez la matrice de transition, puis montrez qu'elle est
 récurrente-irréductible. Vérifier que la loi binomiale de taille $n$ et de
 paramètre $1/2$ est invariante (car symétrique, i.e. $\nu(i) P_{ij} = \nu(j)
 P_{ji}$ pour tout $i$ et $j$). 
- 
-Voici un programme \ML{} qui compare la distribution empirique à la loi
-binomiale (on a convergence presque sûre d'après le théorème ergodique)~:
-%
-\MFILE{ehrenfest}
-%
-\FIG{ehrenfest}{1}{htbp}{Comparaison des mesures ivariantes théorique et
-  simulée pour le modèle d'Ehrenfest.}
 %
 \begin{exo}
   On pourrait adapter la fonction $rmtpsim$ pour simuler une loi
@@ -3269,7 +1912,6 @@ $$
 cf. \cite[exercice 8.8 page 247]{cottrell-duhamel}.
 
 %
-\MFILE{ruine}
 % 
 
 Tentez de retrouver les formules précédentes pour $\eE(T)$ et
@@ -3600,7 +2242,6 @@ Sur chaque intervalle de temps $[T_n,T_{n+1}[$, $N_t$ vaut $X_n$ et chaque
 instant de saut $T_n$ correspond à l'arrivée d'un nouveau client ou à la fin
 d'un service (départ d'un client). Voici un code \ML{} illustrant ce procédé :
 
-\MFILE{fileattente}
 
 Lorsque $\rho:=\la/\mu<1$, $N_t$ converge en loi vers la loi géométrique de
 paramètre $\rho$ lorsque $t$ tend vers $+\infty$. La file d'attente atteint
@@ -3859,7 +2500,6 @@ $f(s)=p_0+p_1s+p_2s^2$ et $f(s)=s$ si et seulement si
 $s\in\{1,p_0/p_2\}$, d'où $q=p_0/p_2$.
 
 %
-\MFILE{gwpop-discr}
 %
 
 Pour $P=p\,\sum_{k=0} (1-p)^k\,\delta_k$, on a $m=(1-p)/p$,
@@ -3867,19 +2507,15 @@ $f(s)=p/(1-(1-p)s)$ et $f(s)=s$ si et seulement si $s\in\{1,1/m\}$,
 d'où $q=p/(1-p)$.
 
 %
-\MFILE{gwpop-geom}
 %
 
 %
-\MFILE{gwpop-histo}
 %
 
 %
-\MFILE{gwpop-pext}
 %
 
 %
-\FIG{gwpop-pext}{0.5}{htbp}{Probabilité d'extinction empirique}
 %
 
 \begin{exo}
