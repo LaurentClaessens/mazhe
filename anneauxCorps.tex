@@ -113,40 +113,6 @@ Si \( f\) est un morphisme, nous avons \( f(0)=0\) et \( f(x)^{-1}=f(x^{-1})\).
 \end{proposition}
 Nous le nommons le \defe{morphisme de Frobenius}{morphisme!Frobenius}\index{Frobenius!morphisme}. Nous utiliserons aussi les itérés du morphisme de Frobenius : \( \Frob^k\colon x\mapsto x^{p^k}\).
 
-\begin{theorem}[Petit théorème de Fermat]       \label{ThoOPQOiO}   \index{théorème!petit de Fermat}\index{petit théorème de Fermat}
-    Soit \( p\) un nombre premier. Si \( x\in \eF_p\) alors \( x^p=x\). Si \( x\in(\eF_p)^*\), alors \( x^{p-1}=1\).
-
-    En particulier si \( x\in \eF_p^*\) alors \( x^{-1}=x^{p-2}\).
-\end{theorem}
-
-\begin{proof}
-    Étant donné que \( \eF_p\) est un corps commutatif et que \( p\) est premier, la proposition \ref{Propqrrdem} nous indique que \( \sigma(x)=x^p\) est un automorphisme. La proposition \ref{PropqPPrgJ} nous indique alors que
-    \begin{equation}
-        a^p=a.
-    \end{equation}
-    Si \( a\) est inversible alors \( a^{p-1}=a^pa^{-1}=1\).
-\end{proof}
-
-\begin{remark}      \label{RemCoSnxh}
-    Une autre façon d'énoncer le petit théorème de Fermat \ref{ThoOPQOiO} est que si \( p\) est premier et si \( a\) est premier avec \( a\), alors \( a^{p-1}\in[1]_p\). Le nombre \( a\) n'est pas premier avec \( p\) uniquement lorsque \( a\) est multiple de \( p\). Dans ce cas c'est \( a=0\) dans \( \eF_p\) et donc \( a^{p-1=0}\).
-\end{remark}
-
-\begin{example}
-    Soit \( \eK=\eF_{29}^*\). Le nombre \( 29\) étant premier, \( \eK\) est un corps premier. C'est le corps des entier modulo \( 29\). Nous avons donc
-    \begin{equation}
-            -142=-113=-84=-55=-26=3=32=61=90=119.
-    \end{equation}
-    Le petit théorème de Fermat nous permet aussi de calculer des exposants et des inverses. Nous avons
-    \begin{equation}
-        x^{-a}=(x^a)^{27}=x^{27a}.
-    \end{equation}
-    Le nombre \( 27 a\) peut être grand par rapport à \( 29\). Étant donné que \( 1=x^{28}\) nous avons
-    \begin{equation}
-        x^{-a}=x^{27 a\mod 28}.
-    \end{equation}
-    Dans les exposants nous calculons modulo \( 28\).
-\end{example}
-
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Idéaux dans les anneaux}
@@ -719,8 +685,410 @@ sage: (z**3).expand()
 \end{example}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Anneau \texorpdfstring{$\eZ$}{Z} et \texorpdfstring{ $\eZ/n\eZ$}{Z/nZ}}
+\section{Anneaux des polynômes}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soit \( A\) un anneau commutatif. Nous considérons \( \polyP\) l'ensemble des suites presque nulles d'éléments de \( A\), ce sont les suites \( (a_n)_{n\in\eN}\) telles que il existe \( N\) tel que \( a_i=0\) pour tout \( i>N\).
+
+Cela est un \( A\)-module libre de base (définition \ref{DefBasePouyKj})
+\begin{equation}
+    (e_n)_k=\delta_{nk}.
+\end{equation}
+Si \( (a_n)_{n\in \eN}\) et \( (b_n)_{n\in\eN}\) sont des éléments de \( \polyP\), nous définissons le produit \( ab\) par
+\begin{equation}
+    (ab)_n=\sum_{p+q=n}a_pb_q.
+\end{equation}
+Cela est bien un élément de \( \polyP\) parce qu'il existe \( N\in\eN\) tel que \( a_n=b_n=0\) pour tout \( n\geq N\). Avec la somme et le produit par un scalaire, le module \( \polyP\) devient une \( A\)-algèbre commutative unitaire. L'unité est 
+\begin{equation}
+    e_0=(1,0,\ldots).
+\end{equation}
+
+\begin{definition}
+    En tant que \( A\)-algèbre, l'ensemble \( \polyP\) est l'\defe{algèbre des polynômes en une indéterminée}{algèbre!polynômes} à coefficients dans \( A\).
+\end{definition}
+
+Si nous posons que \( X=e_1\), et que nous prenons la convention \( X^0=1\), alors nous avons \( e_k=X^k\) et nous notons \( A[X]\) l'anneau \( \polyP\) exprimé avec \( X\). Les éléments de la forme \( \lambda X^k\) avec \( \lambda\in A\) et \( k\in\eN\) sont des \defe{monômes}{monôme}. Nous allons aussi considérer
+\begin{equation}\nomenclature[A]{\( A_n[X]\)}{les polynômes à coefficients dans \( A\) et de degré inférieur à \( n\)}
+    A_n[X]=\{ P\in A[X]\tq \deg(P)\leq n \}.
+\end{equation}
+Cela est un sous module libre.
+
+\begin{theorem}
+    L'anneau \( A\) est intègre si et seulement si \( A[X]\) est intègre.
+\end{theorem}
+
+\begin{proof}
+    Soient \( P\) et \( Q\) des éléments non nuls de \( A[X]\). Vu que l'anneau \( A\) est intègre, nous avons
+    \begin{equation}
+        \deg(PQ)=\deg(P)+\deg(Q)
+    \end{equation}
+    et le produit ne peut pas être nul. L'anneau \( A[X]\) est donc intègre.
+
+    Si \( A[X]\) est intègre, \( A\) est intègre parce qu'il peut être vu comme sous anneau.
+\end{proof}
+
+\begin{remark}
+    Si \( A\) n'est pas intègre, soit \( \alpha\beta=0\), alors \( (\alpha X)(\beta x)=0\) et le degré du produit n'est pas la somme des degrés.
+\end{remark}
+
+\begin{corollary}
+    Si \( A\) est intègre, les inversibles de \( A[X]\) sont les éléments de \( U(A)\).
+\end{corollary}
+
+\begin{proof}
+    Pour que \( Q\) soit inversible, il faut un \( P\) tel que \( PQ=1\). Mais l'anneau \( A\) étant intègre, les degrés s'additionnent. Par conséquent ils doivent être de degrés zéro et il faut que \( P,Q\in A\). Enfin pour qu'ils soient inversibles, ils doivent être dans \( U(A)\).
+\end{proof}
+
+La \defe{valuation}{valuation} de \( P\) du polynôme \( P=\sum_n a_nX^n\), notée \( \val(P)\), est 
+\begin{equation}
+    \val(P)=\min\{ n\tq a_n\neq 0 \}.
+\end{equation}
+Nous avons \( \val(P)\leq \deg(P)\) et \( \val(P)=\deg(P)\) si et seulement si \( P\) est un monôme. Si \( P=0\), nous convenons que \( \val(0)=\infty\) et \( \deg(0)=-\infty\).
+
+\begin{proposition}     \label{PropqGZXvr}
+    L'anneau \( \eK[X]\) des polynômes sur un corps commutatif \( \eK\) est factoriel.
+\end{proposition}
+
+Le théorème suivant est une particuliarisation à \( \eK[X]\) du théorème chinois \ref{ThofPXwiM}.
+\begin{theorem}[Théorème chinois]\index{théorème!chinois!anneau des polynômes}
+    Si \( P\) et \( Q\) sont deux polynômes premiers entre eux, alors nous avons l'isomorphisme
+    \begin{equation}
+        \eK[X]/(P,Q)\simeq\eK[X]/(P)\times \eK[X]/(Q).
+    \end{equation}
+\end{theorem}
+% TODO : s'assuer que c'est bien un icp du théorème chinois de plus haut.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Irréductibilité}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}[d'Alembert-Gauss]\index{théorème!d'Alembert-Gauss}      \label{ThovgyUuA}
+    Tout polynôme non constant à coefficients complexes possède au moins une racine complexe.
+\end{theorem}
+
+
+\begin{definition}      \label{DefIrredfIqydS}
+    Un polynôme est \defe{irréductible}{irréductible!polynôme} lorsqu'il ne peut pas être écrit sous la forme de produits de polynômes de degré supérieurs à \( 1\).
+\end{definition}
+
+\begin{proposition}
+    Un polynôme irréductible à coefficients réels est soit de degré un soit de degré \( 2\) avec un discriminant négatif.
+\end{proposition}
+
+\begin{proof}
+    Soit un polynôme \( P\) à coefficients réels de degré plus grand que \( 1\). Alors le théorème de d'Alembert-Gauss (théorème \ref{ThovgyUuA}) implique l'existence d'une racine \( \alpha\). Il est facile de montrer que le conjugué complexe \( \bar \alpha\) est également racine. Par conséquent les polynômes \( (X-\alpha)\) et \( (X-\bar \alpha)\) divisent \( P\).
+
+    Ces deux polynômes sont premiers entre eux parce que
+    \begin{equation}
+        a(X-\alpha)+b(X-\bar \alpha)=0
+    \end{equation}
+    implique \( a=b=0\). Par conséquent le produit 
+    \begin{equation}
+        X^2-(\alpha+\bar \alpha)X+\alpha\bar\alpha
+    \end{equation}
+    divise également \( P\). Ce dernier est un polynôme à coefficients réels de degré \( 2\). Donc tout polynôme de degré \( 3\) ou plus est réductible.
+\end{proof}
+
+Nous disons que \( P\in\eK[X]\setminus\eK\) est \defe{scindé}{polynôme!scindé} sur \(\eK\) si il est produit dans \(\eK[X]\) de polynômes de degré \( 1\).
+
+\begin{theorem}[Conséquence du \wikipedia{fr}{Lemme_de_Gauss_(polynômes)}{lemme de Gauss}]\index{primitif!polynôme}     \label{ThofiIpXg} 
+    Soit \( \eA\) un anneau factoriel et \( \Frac(\eA)\) son corps des fractions. Un polynôme non constant \( P\in \eA[X]\) est irréductible (sur \( \eA\)) si et seulement si il est irréductible et primitif sur \( \Frac(\eA)[X]\). 
+\end{theorem}
+Dans cet énoncé, un polynôme primitif est un polynôme dont le \( \pgcd\) des coefficients est \( 1\). Voir la remarque \ref{RemwwJbYP}. Notons qu'ici nous considérons des polynômes dont les coefficients sont dans un anneau et non dans un corps comme nous en avons l'habitude.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Division euclidienne}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Le théorème suivant établit la \defe{division euclidienne}{division!euclidienne} dans \( \eA[X]\) du polynôme \( A\) par \( B\).
+\begin{theorem}     \label{ThodivEuclPsFexf}
+    Soit \( B\neq 0\) dans \( \eA[X]\) de coefficient dominant inversible dans \( \eA\). Pour tout \( A\in\eA[X]\), il existe \( Q,R\in \eA[X]\) tels que
+    \begin{equation}
+        A=BQ+R
+    \end{equation}
+    avec \( \deg(R)<\deg(B)\).
+
+    Les polynômes \( Q\) et \( R\) sont déterminés de façon univoque par cette condition. Le polynôme \( Q\) est le \defe{quotient}{quotient} et \( R\) est le \defe{reste}{reste} de la division euclidienne de \( A\) par \( B\).
+\end{theorem}
+
+\begin{definition}
+Deux polynômes \( P\) et \( Q\) sont dits \defe{étrangers}{étrangers!polynômes} entre eux si \( 1\) est un \( \pgcd\) de \( P\) et \( Q\). Un ensemble de polynômes \( (P_i)_{i\in I}\) est étranger \defe{dans leur ensemble}{étranger!dans leur ensemble} si \( 1\) est un \( \pgcd\) des \( P_i\).
+    
+Les polynômes \( P\) et \( Q\) sont \defe{premiers entre eux}{premier!deux polynômes entre eux} si les seuls diviseurs communs de \( P\) et \( Q\) sont les inversibles.
+\end{definition}
+
+\begin{theorem}[Bézout] \label{ThoBezoutOuGmLB}
+    Les polynômes \( P_1,\ldots,P_n\) dans \( \eK[X]\) sont étrangers entre eux si et seulement si il existe des polynômes \( Q_1,\ldots,Q_n\in\eK[X]\) tels que
+    \begin{equation}
+        P_1Q_1+\ldots+P_nQ_n=1.
+    \end{equation}
+\end{theorem}
+
+\begin{lemma}       \label{LemuALZHn}
+    Soient \( (P_i)_{i=1,\ldots,n}\in \eK[X]\) des polynômes étrangers deux à deux. Alors les polynômes \begin{equation} Q_i=\prod_{j\neq i}P_j \end{equation}
+    sont étrangers entre eux\footnote{Et non juste deux à deux.}.
+\end{lemma}
+
+\begin{lemma}   \label{LemzwkYdn}
+    Soit \( \eK\) un corps commutatif et \( \eA\subset \eK\) un sous anneau de \( \eK\). Soit \( \phi\in \eK[X]\). Si il existe \( Q\in \eA[X]\) unitaire tel que \( \phi Q\in \eA[X]\), alors \( \phi\in \eA[X]\).
+\end{lemma}
+Une preuve peut être trouvée dans la page des lemmes pour le théorème de Wedderburn sur \href{http://www.les-mathematiques.net/d/a/w/node5.php}{les-mathematiques.net}.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Idéaux}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit \( P\in \eK[X]\) un polynôme. Nous notons \( (P)\) l'idéal engendré par \( P\) :
+\begin{equation}        \label{EqDefxMkDtW}
+    (P)=\{ PR\tq R\in\eK[X] \}.
+\end{equation}
+
+\begin{lemma}
+    Nous avons
+    \begin{enumerate}
+        \item
+            \( (P)\subset (Q)\) si et seulement si \( Q\) divise \( P\),
+        \item
+            \( (P)=(Q)\) si et seulement si \( P\) et \( Q\) sont multiples (non nuls) l'un de l'autre.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Si \( (P)\subset (Q)\), en particulier \( P\in(Q)\) et il existe \( R\in\eK[X]\) tel que \( P=QR\), ce qui signifie que \( Q\) divise \( P\).
+
+    Si les idéaux de \( P\) et de \( Q\) sont identiques, l'un divise l'autre et l'autre divise l'un. Ils sont donc multiples l'un de l'autre.
+\end{proof}
+
+\begin{theorem}     \label{ThoCCHkoU}
+    Soit \( \eK\) un corps commutatif.
+    \begin{enumerate}
+        \item
+            L'anneau \( \eK[X]\) est principal. 
+        \item
+            Si \( I\) est un idéal dans \( \eK[X]\) et si \( P\) est de degré minimal, alors \( (P)=I\).
+        \item
+            De plus si \( I\neq \{  0\}\), il existe un unique polynôme unitaire \( \mu\) tel que \( I=(\mu)\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    L'anneau \( \eK[X]\) est commutatif et intègre (pas de diviseurs de zéro). Nous devons encore montrer que tous les idéaux sont principaux.
+
+    Si \( I=\{ 0 \}\), le résultat est évident. Nous supposons donc \( I\) non nul. Soit \( P\) de degré minimum parmi les éléments de \( I\). Évidemment \( (P)\subset I\). Nous allons démontrer qu'en réalité \( (P)=I\).
+
+    Soit \( A\in I\). Par le théorème \ref{ThodivEuclPsFexf} de la division euclidienne\footnote{Ici \( \eK\) est un corps et donc l'hypothèse d'inversibilité est automatiquement vérifiée.}, il existe \( Q\) et \( R\) dans \( \eK[X]\) tels que \( A=PQ+R\) avec \( \deg(R)<\deg(P)\). Étant donné que \( R=A-PQ\) nous avons \( R\in I\) et par conséquent \( R=0\) parce que \( P\) a été choisit de degré minimum dans \( I\). Nous avons donc \( A=PQ\) et \( I\subset (P)\).
+
+    L'existence d'un polynôme unitaire qui génère \( I\) est obtenu en choisissant \( U=P/a_n\) où \( a_n\) est le coefficient du terme de plus haut degré.
+\end{proof}
+Nous voyons que n'importe quel polynôme de degré minimum dans un idéal génère l'idéal. Une importante conséquence du théorème \ref{ThoCCHkoU} que nous verrons plus bas est que tout polynôme annulateur d'un endomorphisme est divisé par le polynôme minimal (proposition \ref{PropAnnncEcCxj}).
+
+\begin{corollary}
+    Soit \( P\in \eK[X]\) et \( a\in \eK\), une racine de \( P\). Alors le polynôme minimal de \( a\) dans \( \eK[X]\) divise \( P\). En d'autre termes, le polynôme minimal d'un élément divise tout polynôme annulateur.
+\end{corollary}
+
+\begin{proof}
+    Nous considérons l'idéal
+    \begin{equation}
+        I=\{ Q\in \eK[X]\tq Q(a)=0 \}.
+    \end{equation}
+    Le fait que cela soit un idéal est simplement dû à la définition du produit : \( (PQ)(a)=P(a)Q(a)\). Par le théorème \ref{ThoCCHkoU}, le polynôme minimal \( \mu_a\) de \( a\) est dans \( I\) et qui plus est le génère : \( I=(\mu_a)\). Par conséquent tout polynôme annulateur de \( a\) est divisé par \( \mu_a\).
+\end{proof}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Corps}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Un \defe{corps}{corps} est un anneau non nul dans lequel tout élément non nul est inversible.
+\end{definition}
+
+\begin{lemma}       \label{LemAnnCorpsnonInterdivzer}
+    En tant que anneau, un corps n'a pas de diviseurs zéro.
+\end{lemma}
+
+\begin{proof}
+    En effet si \( a\) est un diviseur de zéro, alors \( ax=0\) pour un certain \( x\neq 0\). Si \( a\) était inversible, nous aurions \( x=a^{-1}ax=0\), ce qui est impossible.
+\end{proof}
+
+Par le lemme \ref{LemCaractIntergernbrcartpre}, un anneau sans diviseur de zéro est de caractéristique zéro ou première. Le fait d'être intègre pour un anneau n'assure cependant pas le fait d'être un corps. Nous avons cependant ce résultat pour les anneaux finis.
+
+\begin{proposition}     \label{PropanfinintimpCorp}
+    Un anneau fini intègre est un corps.
+\end{proposition}
+
+\begin{proof}
+    Soit \( A\) un tel anneau. Soit \( a\neq 0\). Les applications 
+    \begin{subequations}
+        \begin{align}
+            l_a\colon x\to ax\\
+            r_a\colon x\to xa
+        \end{align}
+    \end{subequations}
+    sont injectives. En tant que applications injectives entre ensembles finis, elles sont surjectives. Il existe donc \( b\) et \( c\) tels que \( 1=ba=ac\). Il se fait que \( b\) et \( c\) sont égaux parce que
+    \begin{equation}
+        b=b(ac)=(ba)c=c.
+    \end{equation}
+    Par conséquent \( b\) est un inverse de \( a\).
+\end{proof}
+
+\begin{proposition}     \label{PropzhFgNJ}
+    Soit \( n\in\eN^*\). Les conditions suivantes sont équivalentes :
+    \begin{enumerate}
+        \item
+            \( n\) est premier.
+        \item
+            \( \eZ_n\) est un anneau intègre.
+        \item
+            \( \eZ_n\) est un corps.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    L'équivalence entre les deux premiers points est le contenu du corollaire \ref{CorZnInternprem}. Le fait que \( \eZ_n\) soit un corps lorsque \( \eZ_n\) est intègre est la proposition \ref{PropanfinintimpCorp}. Le fait que \( \eZ_n\) soit intègre lorsque \( \eZ_n\) est un corps est une propriété générale des corps : ce sont en particulier des anneaux intègres (lemme \ref{LemAnnCorpsnonInterdivzer}).
+\end{proof}
+
+\begin{proposition}     \label{AnnCorpsIdeal}
+    Si \( A\) est un anneau, nous avons les équivalences
+    \begin{enumerate}
+        \item
+            \( A\) est un corps.
+        \item
+            \( A\) est non nul et ses seuls idéaux à gauche sont \( \{ 0 \}\) et \( A\).
+        \item
+            \( A\) est non nul et ses seuls idéaux à droite sont \( \{ 0 \}\) et \( A\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+    Soit \( A\), un anneau commutatif non nul et \( I\), un idéal dans \( A\). L'ensemble \( I\) est un idéal maximum de \( A\) si et seulement si \( A/I\) est un corps.
+\end{proposition}
+
+\begin{proof}
+    Par la proposition \ref{AnnCorpsIdeal}, le fait pour \( A/I\) d'être un corps signifie qu'il n'a pas d'idéaux non triviaux. Si \( \phi\) est la projection canonique \( A\mapsto A/I\), nous savons que les idéaux de \( A/I\) sont les \( \phi(J)\) où \( J\) est un idéal de \( A\) contenant \( I\) (proposition \ref{PropIJJIdsousphi}). Si \( I\) est un idéal maximum de \( A\), un tel \( J\) n'existe pas. Inversement si \( A/I\) n'a pas d'autres idéaux que \( A/I\) et \( \phi(0)\), c'est que \( I\) est un idéal maximum.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Corps des fractions}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}     \label{ThogbhWgo}
+    Soit \( \eA\) un anneau commutatif intègre. Il existe un corps commutatif \( \eK\) et un morphisme injectif (d'anneaux) \( \epsilon\colon \eA\to \eK\) tels que pour tout \( \lambda\in\eK\), il existe \( (a,b)\in \eA\times \eA^*\) tels que
+    \begin{equation}
+        \lambda=\epsilon(a)\big( \epsilon(b) \big)^{-1}
+    \end{equation}
+
+    De plus si \( (\eK',\epsilon')\) est un autre couple qui vérifie la propriété, les corps \( \eK\) et \( \eK'\) sont isomorphes.
+\end{theorem}
+Le corps \( \eK\) associé à l'anneau \( \eA\) est le \defe{corps des fractions}{corps!des fractions}\index{fractions (corps)} de \( \eA\), et sera noté \( \Frac(\eA)\).\nomenclature[A]{\( \Frac(\eA)\)}{Le corps des fractions de l'anneau \( \eA\)}
+
+Notons que l'application \( \eA\times \eA^*\to \eK\) donnée par \( (a,b)\mapsto \epsilon(a)\big( \epsilon(b) \big)^{-1}\) envoie \( (xa,xb)\) sur le même que \( (a,b)\).
+
+L'ensemble \( \eQ\)\nomenclature[A]{\( \eQ\)}{corps des fractions sur \( \eZ\)} est le corps des fractions de \( \eZ\).
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Corps premier}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{subseccorpspremhBlYIv}
+
+\begin{definition}
+    Un corps est \defe{premier}{corps!premier}\index{premier!corps} si il est son seul sous corps. Le \defe{sous corps premier}{premier!sous corps} d'un corps est l'intersection de tous ses sous corps.
+\end{definition}
+
+\begin{lemma}
+    Un corps premier est commutatif
+\end{lemma}
+
+\begin{proof}
+    Le centre d'un corps est certainement un sous corps. Par conséquent un corps premier doit être contenu dans son propre centre, c'est à dire être commutatif.
+\end{proof}
+
+Soit \( p\) un nombre premier. Nous notons \( \eF_p=\eZ_p=\eZ/p\eZ\)\nomenclature[A]{\( \eF_p\)}{lorsque \( p\) est premier}. Nous verrons plus loin (section \ref{SecCorpsFinizkAcbS}) comment nous pouvons définir \( \eF_{p^n}\) lorsque \( p\) est premier.
+
+Nous avons par exemple 
+\begin{equation}
+    \eF_2=\eZ/2\eZ=\{ 0,1 \}
+\end{equation}
+avec la loi \( 2=0\).
+
+Notons que \( \eF_p\) est un corps possédant \( p\) éléments. L'ensemble \( \eF_p^*\) est un groupe d'ordre \( p-1\).
+
+\begin{lemma}
+    Les corps \( \eQ\) et \( \eF_p\) (avec \( p\) premier) sont premiers.
+\end{lemma}
+
+\begin{proof}
+    Tout sous corps de \( \eQ\) doit contenir \( 1\), et par conséquent \( \eZ\). Devant également contenir tous les inverses, il contient \( \eQ\).
+
+    Tout sous corps de \(\eF_p \) doit contenir \( 1\) et donc \( \eF_p\) en entier. Par ailleurs nous savons de la proposition \ref{PropzhFgNJ} que \( \eF_p\) est un corps lorsque \( p\) est premier.
+\end{proof}
+
+\begin{proposition}
+    Soit \( \eK\) un corps de caractéristique \( p\) et \( \eP\) son sous corps premier. Si \( p=0\) alors \( \eP=\eQ\). Si \( p>0\), alors \( \eP=\eF_p\).
+\end{proposition}
+
+\begin{proof}
+    Notons d'abord que la caractéristique d'un corps est toujours un nombre premier parce qu'un corps est en particulier un anneau intègre (proposition \ref{LemCaractIntergernbrcartpre}).
+
+    Étant donné que \( 1\) est dans tout sous corps, nous devons avoir \( \eZ 1\subseteq \eP\). Si \( p=0\), alors \( \eZ 1\simeq \eZ\), et nous avons
+    \begin{equation}
+        \eZ 1_{\eA}\subset \eP\subset \eK.
+    \end{equation}
+    Pour chaque \( (n,m)\in \eZ 1_{\eA}\times (\eZ 1_{\eA})^*\) l'élément \( nm^{-1}\in \eK\) est dans \( \eP\) parce que \( \eP\) est un corps. Nous en déduisons que le corps des fractions de \( \eZ\) est contenu dans \( \eP\) par conséquent \( \eP=\eQ\) (théorème \ref{ThogbhWgo}). 
+
+    Si par contre la caractéristique de \( \eK\) est \( p\neq 0\), nous avons \( \eZ 1_{\eA}\simeq\eZ/p\eZ=\eF_p\) par le lemme \ref{LemHmDaYH}. L'ensemble \( \eF_p\) étant un corps, c'est le corps premier de \( \eK\).
+\end{proof}
+
+\begin{proposition}     \label{PropqPPrgJ}
+    Soit \( \eK\) un corps et \( \eP\) sont sous corps premier. Si \( \sigma\in\Aut(\eK)\) alors \( \sigma|_{\eP}=\id\), c'est à dire que
+    \begin{equation}
+        \sigma(x)=x
+    \end{equation}
+    pour tout \( x\in \eP\).
+\end{proposition}
+
+Le lemme suivant est une généralisation du lemme de Gauss dans \( \eZ\) (lemme \ref{LemSdnZNX}).
+\begin{lemma}[Lemme de Gauss]       \label{LemEfdkZw}   \index{lemme!Gauss!polynômes}\index{Gauss!lemme!polynômes}
+    Soient les polynômes \( P=X^m+\sum_{i=1}^{m-1}a_iX^i\) et \( Q=x^n+\sum_{j=1}^{n-1}b_jX^j\) dont tous les coefficients \( a_i\) et \( b_j\) sont rationnels. Si l'un d'eux n'est pas entier, alors un des coefficients du produit \( PQ\) est non entier.
+\end{lemma}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Petit théorème de Fermat}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}[Petit théorème de Fermat]       \label{ThoOPQOiO}   \index{théorème!petit de Fermat}\index{petit théorème de Fermat}
+    Soit \( p\) un nombre premier. Si \( x\in \eF_p\) alors \( x^p=x\). Si \( x\in(\eF_p)^*\), alors \( x^{p-1}=1\).
+
+    En particulier si \( x\in \eF_p^*\) alors \( x^{-1}=x^{p-2}\).
+\end{theorem}
+
+\begin{proof}
+    Étant donné que \( \eF_p\) est un corps commutatif et que \( p\) est premier, la proposition \ref{Propqrrdem} nous indique que \( \sigma(x)=x^p\) est un automorphisme. La proposition \ref{PropqPPrgJ} nous indique alors que
+    \begin{equation}
+        a^p=a.
+    \end{equation}
+    Si \( a\) est inversible alors \( a^{p-1}=a^pa^{-1}=1\).
+\end{proof}
+
+\begin{remark}      \label{RemCoSnxh}
+    Une autre façon d'énoncer le petit théorème de Fermat \ref{ThoOPQOiO} est que si \( p\) est premier et si \( a\) est premier avec \( a\), alors \( a^{p-1}\in[1]_p\). Le nombre \( a\) n'est pas premier avec \( p\) uniquement lorsque \( a\) est multiple de \( p\). Dans ce cas c'est \( a=0\) dans \( \eF_p\) et donc \( a^{p-1=0}\).
+\end{remark}
+
+\begin{example}
+    Soit \( \eK=\eF_{29}^*\). Le nombre \( 29\) étant premier, \( \eK\) est un corps premier. C'est le corps des entier modulo \( 29\). Nous avons donc
+    \begin{equation}
+            -142=-113=-84=-55=-26=3=32=61=90=119.
+    \end{equation}
+    Le petit théorème de Fermat nous permet aussi de calculer des exposants et des inverses. Nous avons
+    \begin{equation}
+        x^{-a}=(x^a)^{27}=x^{27a}.
+    \end{equation}
+    Le nombre \( 27 a\) peut être grand par rapport à \( 29\). Étant donné que \( 1=x^{28}\) nous avons
+    \begin{equation}
+        x^{-a}=x^{27 a\mod 28}.
+    \end{equation}
+    Dans les exposants nous calculons modulo \( 28\).
+\end{example}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Résultats chinois}
@@ -988,7 +1356,7 @@ Dans la méthode de déchiffrage proposée ici, \( p\) et \( q\) sont utilisés 
 \subsubsection{Note non mathématique pour doucher l'enthousiasme}
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Il est \href{https://www.torproject.org/about/torusers.html.en#activists}{souvent dit} que différents systèmes de chiffrement peuvent aider à avoir des discussions «discrètes» dans les régimes totalitaires. La technologie au service de la démocratie, voila qui enthousiasme la jeunesse. 
+Il est \href{https://www.torproject.org/about/torusers.html.en#activists}{souvent dit} que différents systèmes de chiffrement peuvent aider à avoir des discussions «discrètes» dans les régimes totalitaires. La technologie au service de la démocratie, voila qui enthousiasme la jeunesse. La réalité est qu'il est souvent possible de craquer un système de chiffrement arbitrairement complexe, même sans connaitre le petit théorème de Fermat \ldots
 
 \begin{center}
         \ifpdf
@@ -1000,246 +1368,480 @@ Il est \href{https://www.torproject.org/about/torusers.html.en#activists}{souven
         \url{http://xkcd.com/538/}. Ce dessin est publié sous licence \href{http://creativecommons.org/licenses/by-nc/2.5/}{ Creative Commons Attribution-NonCommercial 2.5 License}.
 \end{center}
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Anneaux des polynômes}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\noindent \ldots tout dépends du contexte.
 
-Soit \( A\) un anneau commutatif. Nous considérons \( \polyP\) l'ensemble des suites presque nulles d'éléments de \( A\), ce sont les suites \( (a_n)_{n\in\eN}\) telles que il existe \( N\) tel que \( a_i=0\) pour tout \( i>N\).
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Anneaux principaux et polynômes}
+%---------------------------------------------------------------------------------------------------------------------------
 
-Cela est un \( A\)-module libre de base (définition \ref{DefBasePouyKj})
-\begin{equation}
-    (e_n)_k=\delta_{nk}.
-\end{equation}
-Si \( (a_n)_{n\in \eN}\) et \( (b_n)_{n\in\eN}\) sont des éléments de \( \polyP\), nous définissons le produit \( ab\) par
-\begin{equation}
-    (ab)_n=\sum_{p+q=n}a_pb_q.
-\end{equation}
-Cela est bien un élément de \( \polyP\) parce qu'il existe \( N\in\eN\) tel que \( a_n=b_n=0\) pour tout \( n\geq N\). Avec la somme et le produit par un scalaire, le module \( \polyP\) devient une \( A\)-algèbre commutative unitaire. L'unité est 
-\begin{equation}
-    e_0=(1,0,\ldots).
-\end{equation}
-
-\begin{definition}
-    En tant que \( A\)-algèbre, l'ensemble \( \polyP\) est l'\defe{algèbre des polynômes en une indéterminée}{algèbre!polynômes} à coefficients dans \( A\).
-\end{definition}
-
-Si nous posons que \( X=e_1\), et que nous prenons la convention \( X^0=1\), alors nous avons \( e_k=X^k\) et nous notons \( A[X]\) l'anneau \( \polyP\) exprimé avec \( X\). Les éléments de la forme \( \lambda X^k\) avec \( \lambda\in A\) et \( k\in\eN\) sont des \defe{monômes}{monôme}. Nous allons aussi considérer
-\begin{equation}\nomenclature[A]{\( A_n[X]\)}{les polynômes à coefficients dans \( A\) et de degré inférieur à \( n\)}
-    A_n[X]=\{ P\in A[X]\tq \deg(P)\leq n \}.
-\end{equation}
-Cela est un sous module libre.
-
-\begin{theorem}
-    L'anneau \( A\) est intègre si et seulement si \( A[X]\) est intègre.
-\end{theorem}
-
-\begin{proof}
-    Soient \( P\) et \( Q\) des éléments non nuls de \( A[X]\). Vu que l'anneau \( A\) est intègre, nous avons
-    \begin{equation}
-        \deg(PQ)=\deg(P)+\deg(Q)
-    \end{equation}
-    et le produit ne peut pas être nul. L'anneau \( A[X]\) est donc intègre.
-
-    Si \( A[X]\) est intègre, \( A\) est intègre parce qu'il peut être vu comme sous anneau.
-\end{proof}
+Nous supposons que \( \eK\) est une corps commutatif, et nous étudions l'anneau \( \eK[X]\). Étant donné que \( \eK\) est commutatif pour tout polynôme que l'idéal engendré par \( P\) est \( (P)=\eK[X]P\), voir la notation \eqref{EqDefxMkDtW}.
 
 \begin{remark}
-    Si \( A\) n'est pas intègre, soit \( \alpha\beta=0\), alors \( (\alpha X)(\beta x)=0\) et le degré du produit n'est pas la somme des degrés.
+    Un polynôme est irréductible dans \( \eK[X]\) au sens de la définition \ref{DeirredBDhQfA} si et seulement si il est irréductible au sens de la définition \ref{DefIrredfIqydS} parce que seules les constantes (non nulles) sont inversibles dans \( \eK[X]\).
 \end{remark}
 
-\begin{corollary}
-    Si \( A\) est intègre, les inversibles de \( A[X]\) sont les éléments de \( U(A)\).
+\begin{corollary}       \label{CorsLGiEN}
+    Si \( \eK\) est un corps et si \( P\) est un polynôme irréductible de degré \( n\), alors l'ensemble \( \eL=\eK[X]/(P)\) est un corps. De plus \( \eL\) est un espace vectoriel de dimension \( n\).
 \end{corollary}
 
 \begin{proof}
-    Pour que \( Q\) soit inversible, il faut un \( P\) tel que \( PQ=1\). Mais l'anneau \( A\) étant intègre, les degrés s'additionnent. Par conséquent ils doivent être de degrés zéro et il faut que \( P,Q\in A\). Enfin pour qu'ils soient inversibles, ils doivent être dans \( U(A)\).
+    En effet \( \eK[X]\) est un anneau principal par le théorème \ref{ThoCCHkoU}, par conséquent la proposition \ref{PropoTMMXCx} déduit que \( \eK[X]/(P)\) est un corps.
+
+    Une base de \( \eL\) est donnée par les projections de \( 1,X,X^2,\ldots, X^n\).
 \end{proof}
 
-La \defe{valuation}{valuation} de \( P\) du polynôme \( P=\sum_n a_nX^n\), notée \( \val(P)\), est 
-\begin{equation}
-    \val(P)=\min\{ n\tq a_n\neq 0 \}.
-\end{equation}
-Nous avons \( \val(P)\leq \deg(P)\) et \( \val(P)=\deg(P)\) si et seulement si \( P\) est un monôme. Si \( P=0\), nous convenons que \( \val(0)=\infty\) et \( \deg(0)=-\infty\).
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Extensions de corps}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-\begin{proposition}     \label{PropqGZXvr}
-    L'anneau \( \eK[X]\) des polynômes sur un corps commutatif \( \eK\) est factoriel.
-\end{proposition}
-
-Le théorème suivant est une particuliarisation à \( \eK[X]\) du théorème chinois \ref{ThofPXwiM}.
-\begin{theorem}[Théorème chinois]\index{théorème!chinois!anneau des polynômes}
-    Si \( P\) et \( Q\) sont deux polynômes premiers entre eux, alors nous avons l'isomorphisme
-    \begin{equation}
-        \eK[X]/(P,Q)\simeq\eK[X]/(P)\times \eK[X]/(Q).
+\begin{lemma}       \label{LemobATFP}
+    Soit \( \eL\) un corps fini et \( \eK\) un sous corps de \( \eK\). Alors il existe \( s\in \eN\) tel que
+    \begin{equation}        \label{EqUgqlJQ}
+        \Card(\eK)=\Card(\eL)^n.
     \end{equation}
-\end{theorem}
-% TODO : s'assuer que c'est bien un icp du théorème chinois de plus haut.
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Irréductibilité}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{theorem}[d'Alembert-Gauss]\index{théorème!d'Alembert-Gauss}      \label{ThovgyUuA}
-    Tout polynôme non constant à coefficients complexes possède au moins une racine complexe.
-\end{theorem}
-
-
-\begin{definition}      \label{DefIrredfIqydS}
-    Un polynôme est \defe{irréductible}{irréductible!polynôme} lorsqu'il ne peut pas être écrit sous la forme de produits de polynômes de degré supérieurs à \( 1\).
-\end{definition}
-
-\begin{proposition}
-    Un polynôme irréductible à coefficients réels est soit de degré un soit de degré \( 2\) avec un discriminant négatif.
-\end{proposition}
+\end{lemma}
 
 \begin{proof}
-    Soit un polynôme \( P\) à coefficients réels de degré plus grand que \( 1\). Alors le théorème de d'Alembert-Gauss (théorème \ref{ThovgyUuA}) implique l'existence d'une racine \( \alpha\). Il est facile de montrer que le conjugué complexe \( \bar \alpha\) est également racine. Par conséquent les polynômes \( (X-\alpha)\) et \( (X-\bar \alpha)\) divisent \( P\).
-
-    Ces deux polynômes sont premiers entre eux parce que
-    \begin{equation}
-        a(X-\alpha)+b(X-\bar \alpha)=0
-    \end{equation}
-    implique \( a=b=0\). Par conséquent le produit 
-    \begin{equation}
-        X^2-(\alpha+\bar \alpha)X+\alpha\bar\alpha
-    \end{equation}
-    divise également \( P\). Ce dernier est un polynôme à coefficients réels de degré \( 2\). Donc tout polynôme de degré \( 3\) ou plus est réductible.
+    Le corps \( \eL\) est un \( \eK\)-espace vectoriel de dimension finie. Si \( s\) est la dimension alors nous avons la formule \eqref{EqUgqlJQ} parce que chaque élément de \( \eL\) est un \( s\)-uple d'éléments de \( \eK\).
 \end{proof}
 
-Nous disons que \( P\in\eK[X]\setminus\eK\) est \defe{scindé}{polynôme!scindé} sur \(\eK\) si il est produit dans \(\eK[X]\) de polynômes de degré \( 1\).
+\begin{definition}
+    Soit \( \eK\) un corps commutatif. Une \defe{extension}{extension!de corps} de \( \eK\) est un corps \( \eL\) muni d'un morphisme \( i\colon \eL\to \eK\). Nous identifions le plus souvent \( \eK\) avec \( i(\eK)\subset \eL\).
 
-\begin{theorem}[Conséquence du \wikipedia{fr}{Lemme_de_Gauss_(polynômes)}{lemme de Gauss}]\index{primitif!polynôme}     \label{ThofiIpXg} 
-    Soit \( \eA\) un anneau factoriel et \( \Frac(\eA)\) son corps des fractions. Un polynôme non constant \( P\in \eA[X]\) est irréductible (sur \( \eA\)) si et seulement si il est irréductible et primitif sur \( \Frac(\eA)[X]\). 
-\end{theorem}
-Dans cet énoncé, un polynôme primitif est un polynôme dont le \( \pgcd\) des coefficients est \( 1\). Voir la remarque \ref{RemwwJbYP}. Notons qu'ici nous considérons des polynômes dont les coefficients sont dans un anneau et non dans un corps comme nous en avons l'habitude.
+    Une extension est \defe{algébrique}{extension!algébrique}\index{algébrique!extension} de \( \eK\) est une extension dont tous les éléments sont racines de polynômes dans \( \eK[X]\).
+\end{definition}
+Notons que \( \eR\) n'est pas une extension algébrique de \( \eQ\). En effet il existe seulement une infinité \emph{dénombrable} de polynômes dans \( \eQ[X]\) et donc une infinité dénombrable de racines de tels polynômes. Toute extension algébrique de \( \eQ\) est donc dénombrable.
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Division euclidienne}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Le théorème suivant établit la \defe{division euclidienne}{division!euclidienne} dans \( \eA[X]\) du polynôme \( A\) par \( B\).
-\begin{theorem}     \label{ThodivEuclPsFexf}
-    Soit \( B\neq 0\) dans \( \eA[X]\) de coefficient dominant inversible dans \( \eA\). Pour tout \( A\in\eA[X]\), il existe \( Q,R\in \eA[X]\) tels que
-    \begin{equation}
-        A=BQ+R
-    \end{equation}
-    avec \( \deg(R)<\deg(B)\).
-
-    Les polynômes \( Q\) et \( R\) sont déterminés de façon univoque par cette condition. Le polynôme \( Q\) est le \defe{quotient}{quotient} et \( R\) est le \defe{reste}{reste} de la division euclidienne de \( A\) par \( B\).
-\end{theorem}
-
-Deux polynômes \( P\) et \( Q\) sont dits \defe{étrangers}{étrangers!polynômes} entre eux si \( 1\) est un \( \pgcd\) de \( P\) et \( Q\). Un ensemble de polynômes \( (P_i)_{i\in I}\) est étranger \defe{dans leur ensemble}{étranger!dans leur ensemble} si \( 1\) est un \( \pgcd\) des \( P_i\).
-
-\begin{theorem}[Bézout] \label{ThoBezoutOuGmLB}
-    Les polynômes \( P_1,\ldots,P_n\) dans \( \eK[X]\) sont étrangers entre eux si et seulement si il existe des polynômes \( Q_1,\ldots,Q_n\in\eK[X]\) tels que
-    \begin{equation}
-        P_1Q_1+\ldots+P_nQ_n=1.
-    \end{equation}
-\end{theorem}
-
-\begin{lemma}       \label{LemuALZHn}
-    Soient \( (P_i)_{i=1,\ldots,n}\in \eK[X]\) des polynômes étrangers deux à deux. Alors les polynômes \begin{equation} Q_i=\prod_{j\neq i}P_j \end{equation}
-    sont étrangers entre eux\footnote{Et non juste deux à deux.}.
-\end{lemma}
-
-\begin{lemma}   \label{LemzwkYdn}
-    Soit \( \eK\) un corps commutatif et \( \eA\subset \eK\) un sous anneau de \( \eK\). Soit \( \phi\in \eK[X]\). Si il existe \( Q\in \eA[X]\) unitaire tel que \( \phi Q\in \eA[X]\), alors \( \phi\in \eA[X]\).
-\end{lemma}
-Une preuve peut être trouvée dans la page des lemmes pour le théorème de Wedderburn sur \href{http://www.les-mathematiques.net/d/a/w/node5.php}{les-mathematiques.net}.
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Idéaux}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Soit \( P\in \eK[X]\) un polynôme. Nous notons \( (P)\) l'idéal engendré par \( P\) :
-\begin{equation}        \label{EqDefxMkDtW}
-    (P)=\{ PR\tq R\in\eK[X] \}.
+Notons que \( \eL\) est un espace vectoriel sur \( \eK\) parce que si \( \lambda\in \eK\) et \( x\in \eL\) nous pouvons considérer la multiplication scalaire
+\begin{equation}
+    \lambda\cdot x=i(\lambda)x
 \end{equation}
+où la multiplication du membre de droite est celle du corps \( \eL\). Le \defe{degré}{degré!extension de corps} de \( \eL\) est la dimension de cet espace vectoriel. Il est noté \( [\eL:\eK]\)\nomenclature[A]{\( [\eL:\eK]\)}{degré d'une extension de corps}; notons qu'il peut être infini.
+
+Soit \( \eL\) une extension de \( \eK\) et \( A\subset \eL\). Nous notons \( \eK(A)\)\nomenclature[A]{$\eK(A)$}{corps contenant \( \eK\) et \( A\)} le plus petit sous corps de \( \eL\) qui contient \( \eK\) et \( A\). Nous notons \( \eK[A]\)\nomenclature[A]{$\eK[A]$}{anneau contenant \( \eK\) et \( A\)} le plus petit sous anneau de \( \eL\) qui contienne \( \eK\) et \( A\).
+
+Nous disons que l'extension \( \eL\) de \( \eK\) est \defe{monogène}{monogène!extension de corps} ou \defe{\wikipedia{fr}{Extension_simple}{simple}}{extension!simple}\index{simple!extension de corps} si il existe \( x\in\eL\) tel que \( \eL=\eK(x)\).
+
+
+\begin{example} \label{ExLQhLhJ}
+    Si nous prenons \( \eF_5\) et que nous l'étendons par \( i\), nous obtenons le corps \( \eK=\eF_5(i)\). Nous savons que tous les éléments \( a\in \eF_5\) sont racines de \( X^5-X\). Mais étant donné que \( i^5=i\), nous avons aussi \( x^5=x\) pour tout \( x\in \eF_5(i)\). Pour le prouver, utiliser le morphisme de Frobenius. Le polynôme \( X^5-X\) est donc le polynôme nul dans \( \eK\).
+
+    Ceci est un cas très particulier parce que nous avons étendus \( \eF_p\) par un élément \( \alpha\) tel que \( \alpha^p=\alpha\). En général sur \( \eF_p(\alpha)\), le polynôme \( X^p-X\) n'est pas identiquement nul, et possède donc au maximum \( p\) racines. Pour \( x\in \eF_p(\alpha)\), nous avons \( x^p=x\) si et seulement si \( x\in \eF_p\).
+\end{example}
 
 \begin{lemma}
-    Nous avons
-    \begin{enumerate}
-        \item
-            \( (P)\subset (Q)\) si et seulement si \( Q\) divise \( P\),
-        \item
-            \( (P)=(Q)\) si et seulement si \( P\) et \( Q\) sont multiples (non nuls) l'un de l'autre.
-    \end{enumerate}
+    Soit \( P\in\eK[X]\) un polynôme unitaire irréductible de degré \( n\). Il existe une extension \( \eL\) de \( \eK\) et \( a\in \eL\) telle que \( \eL=\eK(a)\) et \( P\) est le polynôme minimal de \( a\) dans \( \eL\).
 \end{lemma}
 
 \begin{proof}
-    Si \( (P)\subset (Q)\), en particulier \( P\in(Q)\) et il existe \( R\in\eK[X]\) tel que \( P=QR\), ce qui signifie que \( Q\) divise \( P\).
+    Nous prenons \( \eL=\eK[X]/(P)\) où \( (P)\) est l'idéal dans \( \eK[X]\) généré par \( P\). Cela est un corps par le corollaire \ref{CorsLGiEN}. Nous identifions \( \eK\) avec \( \phi(\eK)\) où
+    \begin{equation}
+        \phi\colon \eK[X]\to \eL 
+    \end{equation}
+    est la projection canonique. Nous considérons également \( a=\phi(X)\).
 
-    Si les idéaux de \( P\) et de \( Q\) sont identiques, l'un divise l'autre et l'autre divise l'un. Ils sont donc multiples l'un de l'autre.
+    Nous avons alors \( P(a)=0\) dans \( \eL\). En effet \( P(a)=P\big( \phi(X) \big)\) est à voir comme l'application du polynôme \( P\) au polynôme \( X\), le résultat étant encore un élément de \( \eL\). En l'occurrence le résultat est \( P\) qui vaut \( 0\) dans \( \eL\).
+
+    Le polynôme \( P\) étant unitaire et irréductible, il est minimum dans \( \eL\).
+
+    Nous devons encore montrer que \( \eL=\eK(a)\). Le fait que \( \eK(a)\subset \eL\) est une tautologie parce qu'on calcule \( \eK(a)\) dans \( \eL\). Pour l'inclusion inverse soit \( Q(X)=\sum_iQ_iX^i\) dans \( \eK[X]\). Dans \( \eL\) nous avons évidemment \( Q=\sum_iQ_ia^i\).
 \end{proof}
 
-\begin{theorem}     \label{ThoCCHkoU}
-    Soit \( \eK\) un corps commutatif.
-    \begin{enumerate}
-        \item
-            L'anneau \( \eK[X]\) est principal. 
-        \item
-            Si \( I\) est un idéal dans \( \eK[X]\) et si \( P\) est de degré minimal, alors \( (P)=I\).
-        \item
-            De plus si \( I\neq \{  0\}\), il existe un unique polynôme unitaire \( \mu\) tel que \( I=(\mu)\).
-    \end{enumerate}
-\end{theorem}
+\begin{proposition} \label{PropyMTEbH}
+    Soit \( \eK\), un corps et \( P\in \eK[X]\) un polynôme. Soient \( a\) et \( b\), deux racines de \( P\) dans (éventuellement) une extension \( \eL\) de \( \eK\). Si \( \mu_a\) et \( \mu_b\) sont les polynômes minimaux de \( a\) et \( b\) (dans \( \eK[X]\)) et si \( \mu_a\neq \mu_b\), alors \( \mu_a\mu_b\) divise \( P\) dans \( \eK[X]\).
+\end{proposition}
 
 \begin{proof}
-    L'anneau \( \eK[X]\) est commutatif et intègre (pas de diviseurs de zéro). Nous devons encore montrer que tous les idéaux sont principaux.
+    Nous considérons les idéaux
+    \begin{subequations}
+        \begin{align}
+            I_a=\{ Q\in \eK[X]\tq Q(a)=0 \};
+            I_b=\{ Q\in \eK[X]\tq Q(b)=0 \};
+        \end{align}
+    \end{subequations}
+    même si \( Q(a)\) est calculé dans \( \eL\), ce sont des idéaux de \( \eK[X]\). Le polynôme \( \mu_a\) est par définition le générateur unitaire de \( I_a\), et vu que \( a\) est une racine de \( P\), nous avons \( P\in I_a\) et il existe un polynôme \( Q\in \eK[X]\) tel que 
+    \begin{equation}    \label{EqvTPoSq}
+        P=\mu_aQ.
+    \end{equation}
 
-    Si \( I=\{ 0 \}\), le résultat est évident. Nous supposons donc \( I\) non nul. Soit \( P\) de degré minimum parmi les éléments de \( I\). Évidemment \( (P)\subset I\). Nous allons démontrer qu'en réalité \( (P)=I\).
+    Montrons que \( \mu_a(b)\neq 0\). En effet supposons que \( \mu_a(b)=0\). Nous avons alors \( \mu_a\in I_b\) et il existe \( R\in \eK[X]\) tel que \( \mu_a=\mu_bR\). Étant donné que \( \mu_b\) divise \( \mu_a\) et que \( \mu_b\neq \mu_a\), nous ne pouvons pas avoir \( \mu_b(a)=0\) parce que \( \mu_b\) divise \( \mu_a\) et que \( \mu_a\) est minimal. Du coup nous devons avoir \( R(a)=0\), ce qui contredirait la minimalité de \( \mu_a\).
 
-    Soit \( A\in I\). Par le théorème \ref{ThodivEuclPsFexf} de la division euclidienne\footnote{Ici \( \eK\) est un corps et donc l'hypothèse d'inversibilité est automatiquement vérifiée.}, il existe \( Q\) et \( R\) dans \( \eK[X]\) tels que \( A=PQ+R\) avec \( \deg(R)<\deg(P)\). Étant donné que \( R=A-PQ\) nous avons \( R\in I\) et par conséquent \( R=0\) parce que \( P\) a été choisit de degré minimum dans \( I\). Nous avons donc \( A=PQ\) et \( I\subset (P)\).
-
-    L'existence d'un polynôme unitaire qui génère \( I\) est obtenu en choisissant \( U=P/a_n\) où \( a_n\) est le coefficient du terme de plus haut degré.
+    Étant donné que \( \mu_a(b)\neq 0\), l'évaluation de \eqref{EqvTPoSq} en \( b\) montre que \( Q(b)=0\), de telle sorte que \( Q\in I_b\) et il existe une polynôme \( S\) tel que \( Q=\mu_bS\), c'est à dire tel que \( P=\mu_a\mu_bS\), ce qui signifie que \( \mu_a\mu_b\) divise \( P\).
 \end{proof}
-Nous voyons que n'importe quel polynôme de degré minimum dans un idéal génère l'idéal. Une importante conséquence du théorème \ref{ThoCCHkoU} que nous verrons plus bas est que tout polynôme annulateur d'un endomorphisme est divisé par le polynôme minimal (proposition \ref{PropAnnncEcCxj}).
+
+\begin{example}
+    Soit \( P=(X^2+1)(X^2+2)\) dans \( \eR[X]\). Dans \( \eC\) nous avons les racines \( a=i\) et \( b=\sqrt{2}i\) dont les polynômes minimaux sont \( \mu_a=X^2+1\) et \( \mu_2=X^2+2\). Nous avons effectivement \( \mu_a\mu_b\) divise \( P\) dans \( \eR[X]\).
+
+    Si par contre nous considérions les racines \( a=i\) et \( b=-i\), nous aurions \( \mu_a=\mu_n=X^2+1\), et les polynôme \( \mu_a^2\) ne divise pas \( P\).
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Corps de rupture}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Soit \( P\in\eK[X]\) un polynôme irréductible. Une extension \( \eL\) de \( \eK\) est un \defe{corps de rupture}{corps!de rupture}\index{rupture!corps} pour \( P\) si il existe \( a\in \eL\) tel que \( P(a)=0\) et \( \eL=\eK(a)\).
+\end{definition}
+
+\begin{example}     \label{ExemGVxJUC}
+    Soit \( \eK=\eQ\) et \( P(X)=X^2-2\). On pose \( a=\sqrt{2}\) et \( \eL=\eQ(\sqrt{2})\subset\eR\). De cette façon \( P\) est scindé :
+    \begin{equation}
+        P=(X-\sqrt{2})(X+\sqrt{2}).
+    \end{equation}
+    Le corps \( \eQ(\sqrt{2})\) est donc un corps de rupture pour \( P\).
+\end{example}
+
+\begin{example}
+    Dans l'exemple \ref{ExemGVxJUC}, le polynôme \( P\) était scindé dans son corps de rupture. Il n'en est pas toujours ainsi. Prenons 
+    \begin{equation}
+        P(X)=X^3-2
+    \end{equation}
+    et \( a=\sqrt[3]{2}\). Nous avons, certes, \( P(a)=0\) dans \( \eQ(\sqrt[3]{2})\), mais \( P\) n'est pas scindé parce qu'il y a deux racines complexes.
+\end{example}
+
+\begin{example}
+    Nous considérons le corps \( \eZ/p\eZ\) où \( p\) est un nombre premier. Si \( s\in \eZ/p\eZ\) n'est pas un carré, alors le polynôme \(P= X^2+s\) est irréductible et un corps de rupture de \( P\) sur \( \eZ/p\eZ\) est donné par \( (\eZ/p\eZ)[X]/(X^2+s)\), c'est à dire l'ensemble des polynômes de degrés \( 1\) en \( \sqrt{s}\). Le cardinal en est \( p^2\).
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Corps de décomposition}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Soit \( \eK\) un corps commutatif et \( F=(P_i)_{i\in I}\) une famille d'éléments non constants de \( \eK[X]\). Un \defe{corps de décomposition}{corps!de décomposition}\index{décomposition!corps} de \( F\) est une extension \( \eL\) de \( \eK\) telle que
+    \begin{enumerate}
+        \item
+            les \( P_i\) sont scindés sur \( \eL\),
+        \item
+            \( \eL=\eK(R)\) où \( R=\bigcup_{i\in I}\{ x\in\eL\tq P_i(x)=0 \}\).
+    \end{enumerate}
+    C'est à dire que \( \eL\) étends \( \eK\) par toutes les racines de tous les polynômes de \( F\).
+\end{definition}
+
+L'unicité est due à la proposition suivante.
+\begin{proposition}     \label{PropTMkfyM}
+    Soit \( \eK\) un corps et \( P\in\eK[X]\). Soient \( \eL\) et \( \eF\) deux corps de décomposition de \( P\). Alors il existe un isomorphisme \( f\colon \eL\to \eF\) tel que \( f|_{\eK}=\id\).
+\end{proposition}
+Nous pouvons donc parler du corps de décomposition d'un polynôme.
+
+Soit \( \eK\), un corps et \( \eL\), une extension de \( \eK\). Un élément \( a\in \eL\) est \defe{algébrique}{algébrique!nombre} sur \( \eK\) si il existe un polynôme \( P\in \eK[X]\) tel que \( P(a)=0\).
+
+Une \defe{clôture algébrique}{clôture algébrique} du corps \( \eK\) est une extension algébriquement close de \( \eK\) dont tous les éléments sont algébriques sur \( \eK\).
+
+\begin{remark}
+    L'ensemble \( \eC\) n'est pas une clôture algébrique de \( \eQ\) parce qu'il existe des éléments de \( \eC\) qui ne sont pas des racines de polynômes à coefficients rationnels.
+\end{remark}
+L'existence d'une clôture algébrique pour tout corps est le théorème de Steinitz.
+%TODO : à faire, le théorème de Steinitz.
+
+\begin{example}     \label{ExfUqQXQ}
+    Soit \( p\) un nombre premier. Montrons que le polynôme 
+    \begin{equation}
+        Q(X)=X^p-X+1
+    \end{equation}
+    est irréductible dans \( \eF_p\). 
+
+    Nous supposons qu'il n'est pas irréductible, c'est à dire que
+    \begin{equation}
+        Q(X)=R(X)S(X)
+    \end{equation}
+    avec \( R\) et \( S\), des polynômes de degrés \( \geq 1\) dans \( \eF_p[X]\)
+
+    Soit \( \bar\eF_p\) une clôture algébrique de \( \eF_p\) et \( \alpha\in \bar \eF_p\) tel que \( R(\alpha)=0\). Pour tout \( a\in \eF_p\), nous avons
+    \begin{subequations}
+        \begin{align}
+            Q(\alpha+a)&=(\alpha+a)^p-(\alpha+a)+1\\
+            &=\alpha^p+a^p-\alpha-a+1\\
+            &=\alpha^p-\alpha+1\\
+            &=Q(\alpha)\\
+            &=0
+        \end{align}
+    \end{subequations}
+    où nous avons utilisé le fait que \( a^p=a\) et que \( \alpha\) était une racine de \( Q\). Ce que nous venons de prouver est que l'ensemble des racines de \( Q\) dans \( \bar\eF_p\) est donné par \( \{ \alpha+a\tq a\in \eF_p \}\).
+
+    Les polynômes \( R\) et \( S\) sont donc formés de produits de termes \( X-(\alpha+a)\) avec \( a\in \eF_p\). L'un des deux --disons \( R\) pour fixer les idées-- doit bien en avoir plus que \( 1\). Nous avons alors
+    \begin{equation}
+        R(X)=\prod_{i=1}^{k}\big( X-(\alpha+a_i) \big)
+    \end{equation}
+    où les \( a_i\) sont les éléments de \( \eF_p\). En développant un peu,
+    \begin{equation}
+        R(X)=X^k-\sum_{i=1}^k(\alpha+a_i^{k-1})+\text{termes de degré plus bas en \( X\)}.
+    \end{equation}
+    Le coefficient devant \( X^{k-1}\) n'est autre que \( k\alpha+\sum_ia_i\). Étant donné que \( k\neq 0\) et que \( R\in \eF_p[X]\), nous devons avoir \( \alpha\in \eF_p\). Par conséquent nous avons \( \alpha^p=\alpha\) et une contradiction :
+    \begin{equation}
+        Q(\alpha)=\alpha^p-\alpha+1=1\neq 0.
+    \end{equation}
+
+    Le polynôme \( X^p-X+1\) est donc irréductible sur \( \eF_p\).
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Clôture algébrique}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}
+    Tout corps \( \eK\) possède une clôture algébrique \( \Omega\). De plus si \( \eL\) est une extension de \( \eK\), alors \( \eL\) est \( \eK\)-isomorphe à un sous corps de \( \Omega\).
+\end{theorem}
+Les deux parties de ce théorème utilisent l'axiome du choix.
+
+Notons en particulier que si \( \Omega'\) est une autre clôture algébrique de \( \eK\), alors \( \Omega\) et \( \Omega'\) sont des sous corps l'un de l'autre et sont donc \( \eK\)-isomorphes.
+
+\begin{lemma}
+    Les polynômes \( P,Q\in \eK[X]\) ne sont pas premiers entre eux si et seulement si ils ont une racine commune dans la clôture algébrique \( \Omega\) de \( \eK\).
+\end{lemma}
+
+\begin{proof}
+    Soit \( A\) un polynôme non inversible divisant \( P\) et $Q$. Par définition de \( \Omega\), ce polynôme \( A\) a une racine dans \( \Omega\) qui est alors une racine commune à \( P\) et \( Q\) dans \( \Omega\).
+
+    Pour le sens inverse, si \( \alpha\) est une racine commune de \( P\) et \( Q\), alors le polynôme \( X-\alpha\) divise \( P\) et \( Q\) et donc \( P\) et \( Q \) ne sont pas premiers entre eux.
+\end{proof}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Extensions séparables}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Source : \cite{vgQYwF}.
+
+Notons que dans ce qui va suivre nous allons parler de \( \eK[X]\), l'ensemble des polynômes sur un corps. Cela ne s'applique donc pas à \( \eZ[X]\) par exemple.
+
+\begin{definition}
+    Soit \( \eK\) un corps. Un polynôme \emph{irréductible} \( P\in \eK[X]\) est \defe{séparable}{séparable!polynôme irréductible} sur $\eK$ si dans un corps de décomposition, ses racines sont distinctes.
+
+    Si \( P\) est un polynôme non constant dont la décomposition en irréductibles est \( P=P_1\ldots P_r\), nous disons qu'il est \defe{séparable}{séparable!polynôme non constant} si tous les \( P_i\) le sont.
+\end{definition}
+
+La proposition suivante donne un sens à la définition de polynôme irréductible séparable.
+\begin{proposition}
+    Soit \( P\) irréductible dans \( \eK[X]\) ayant des racines distinctes dans le corps de décomposition \( \eL\). Si \( \eL'\) est un autre corps de décomposition pour \( P\), alors \( P\) a aussi ses racines distinctes dans \( \eL\).
+\end{proposition}
+
+\begin{proof}
+    L'ingrédient est la proposition \ref{PropTMkfyM} qui donne l'unicité du corps de décomposition à \( \eK\)-isomorphisme près. Soit donc \( \psi\colon \eL\to \eL'\) un isomorphisme laissant invariant les éléments de \( \eK\). D'une part, étant donné que \( P\) est à coefficients dans \( \eK\), nous avons \( \psi(P)=P\). D'autre part dans \( \eL\) le polynôme \( P\) s'écrit
+    \begin{equation}
+        P=a(X-\alpha_1)\ldots (X-\alpha_n)
+    \end{equation}
+    avec \( a\in \eK\) et \( \alpha_i\in \eL\). Nous avons donc
+    \begin{equation}
+        P=\psi(P)=a(X-\psi(\alpha_1))\ldots (X-\psi(\alpha_n)).
+    \end{equation}
+    Donc les racines de \( P\) dans \( \eL'\) sont les éléments \( \psi(\alpha_i)\) qui sont distincts.
+\end{proof}
+
+\begin{example}
+    Un polynôme peut être séparable sur un corps, mais non séparable sur un autre. Soit \( \eL=\eF_p(T)\) et \( \eK=\eF_p(T^p)\). Nous considérons le polynôme
+    \begin{equation}
+        P=X^p-T^p
+    \end{equation}
+    dans \( \eK[X]\). Par le morphisme de Frobenius nous avons 
+    \begin{equation}
+        P=(X-T)^p
+    \end{equation}
+    dans \( \eL[X]\). Le polynôme \( P\) est irréductible sur \( \eK[X]\) parce que ses diviseurs sont de la forme \( (X-T)^k\) qui contiennent \( T^k\) qui n'est pas dans \( \eK\) (sauf si \( k=n\) ou \( k=0\)).
+
+    Ce polynôme n'est pas séparable sur \( \eK\) parce que dans le corps de décomposition \( \eL\), la racine \( T\) est multiple. Notons bien le raisonnement : \( P\) étant irréductible, pour savoir si il est séparable, on le regarde dans un corps de décomposition.
+
+    Par contre si nous regardons \( P\) dans \( \eL[X]\) alors \( P\) n'est plus irréductible parce que ses facteurs irréductibles sont \( (X-T)\). N'étant pas irréductible, nous regardons les racines de \emph{ses facteurs irréductibles}. Or chacun des facteurs irréductibles étant \( X-T\), les racines sont simples.
+\end{example}
+
+\begin{example}
+    Le polynôme \( (X-1)^3\) est séparable sur \( \eQ\) parce que ses facteurs irréductibles dans \( \eQ[X]\) sont \( X-1\) qui ont des racines simples.
+\end{example}
+
+\begin{example}
+    Le polynôme \( (X^2+1)^2\) est séparable dans \( \eQ[X]\). En effet, il a pour facteurs irréductible le polynôme \( X^2+1\) dont les racines sont \( \pm i\) dans l'extension \( \eQ(i)\).
+\end{example}
+
+\begin{proposition}[\cite{vgQYwF}]  \label{PropolyeZff}
+    Soit \( P\in \eK[X]\) un polynôme non constant. Les trois propriétés suivantes sont équivalentes.
+    \begin{enumerate}
+        \item\label{ItemdqPFUi}
+            \( P\) a une racine multiple dans une extension de \( \eK\). C'est à dire qu'il existe une extension de \( \eK\) dans laquelle \( P\) a une racine multiple.
+        \item\label{ItemdqPFUib}
+            \( P\) a une racine multiple dans tout corps de décomposition .
+        \item\label{ItemdqPFUii}
+            \( P\) et \( P'\) ont une racine commune dans une extension de \( \eK\).
+        \item\label{ItemdqPFUiii}
+            le degré de \( \pgcd(P,P')\) est \( \geq 1\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{subproof}
+    \item[\ref{ItemdqPFUi}\( \Rightarrow\)\ref{ItemdqPFUib}] Soit \( a\), une racine multiple de \( P\) dans une extension \( \eL\) de \( \eK\), et \( \eE\), un corps de décomposition de \( P\). Alors nous voulons prouver que \( P\) ait une racine multiple dans \( \eE\).
+
+        Nous pouvons voir \( P\in \eL[X]\), et construire une corps de décomposition \( \eE'\) qui est une extension de \( \eL\). Vu que \( \eE\) et \( \eE'\) sont deux corps de décomposition de \( P\) 
+        % iDIUoR
+        nous avons un isomorphisme \( \psi\colon \eE\to \eE'\). Si \( a\in \eE\) est une racine multiple de \( P\), alors \( \psi(a)\) est une racine multiple de \( P\) dans \( \eE'\) parce que
+        \begin{equation}
+            P\big( \psi(a) \big)=\psi\big( P(a) \big).
+        \end{equation}
+    \item[\ref{ItemdqPFUi}\( \Rightarrow\)\ref{ItemdqPFUii}] Soit \( \eL\) un corps de décomposition de \( P\) sur \( \eK\) et \( a\in \eL\), une racine multiple de \( P\). On a alors \( P=(X-a)^2Q\) avec \( Q\in \eL[X]\). En dérivant,
+        \begin{equation}
+            P'=2(X-a)Q+(X-a)^2Q',
+        \end{equation}
+        et donc \( a\) est également une racine de \( P'\).
+    \item[\ref{ItemdqPFUii}\( \Rightarrow\)\ref{ItemdqPFUiii}] Soit \( D\) un \( \pgcd\) de \( P\) et \( P'\). D'après le théorème de Bézout il existe \( A,B\in \eK[X]\) tels que 
+        \begin{equation}
+            AP+BP'=D.
+        \end{equation}
+        Si \( a\) est une racine commune de \( P\) et \( P'\) dans une extension \( \eL\), alors c'est aussi une racine de \( D\) et donc \( \deg(D)\geq 1\).
+    \item[\ref{ItemdqPFUiii}\(\Rightarrow\)\ref{ItemdqPFUi}] Si le degré de \( D\) est plus grand ou égal à \( 1\), alors nous considérons une racine \( a\) de \( D\) dans \( \eL\) (une extension de \( \eK\)). Étant donné que \( D\) divise \( P\) et \( P'\), l'élément \( a\) est une racine commune de \( P\) et \( P'\). Nous montrons maintenant que \( a\) est alors une racine multiple de \( P\). Vu que \( P(a)=0\) nous avons
+        \begin{equation}
+            P=(X-a)Q,
+        \end{equation}
+        et \( P'=Q+(X-a)Q'\). Mais alors \( P'(a)=Q(a)\) et donc \( Q(a)=0\) et donc \( a\) est une racine double de \( P\). Par conséquent \( a\) est une racine multiple de \( P\) dans \( \eK\).
+    \end{subproof}
+\end{proof}
+Notons que si \( P\) est irréductible, cette proposition donne des conditions pour que \( P\) ne soit pas séparable.
+
+\begin{proposition}
+    Soit \( P\in \eK[X]\) irréductible. Le polynôme \( P\) est séparable si et seulement si \( P'\neq 0\).
+\end{proposition}
+
+\begin{proof}
+    Soit \( D=\pgcd(P,P')\) et nous voudrions prouver que \( \deg(D)\geq 1\) si et seulement si \( P'=0\). Si \( P'=0\), alors \( \pgcd(P,P')=P\) est donc \( \deg'(D)\geq 1\).
+
+    Dans l'autre sens, si \( P\) est irréductible, il est associé à \( D\) parce qu'il n'a pas d'autres diviseurs que lui-même (à part \( 1\)). Nous avons donc \( P=\lambda D\) avec \( \lambda\in \eK\) et donc \( \deg(P)\geq 1\). Cela prouve immédiatement que \( P'\neq 0\).
+\end{proof}
 
 \begin{corollary}
-    Soit \( P\in \eK[X]\) et \( a\in \eK\), une racine de \( P\). Alors le polynôme minimal de \( a\) dans \( \eK[X]\) divise \( P\). En d'autre termes, le polynôme minimal d'un élément divise tout polynôme annulateur.
+    Si \( \eK\) est de caractéristique nulle, alors tout polynôme de \( \eK[X]\) est séparable.
 \end{corollary}
 
 \begin{proof}
-    Nous considérons l'idéal
-    \begin{equation}
-        I=\{ Q\in \eK[X]\tq Q(a)=0 \}.
-    \end{equation}
-    Le fait que cela soit un idéal est simplement dû à la définition du produit : \( (PQ)(a)=P(a)Q(a)\). Par le théorème \ref{ThoCCHkoU}, le polynôme minimal \( \mu_a\) de \( a\) est dans \( I\) et qui plus est le génère : \( I=(\mu_a)\). Par conséquent tout polynôme annulateur de \( a\) est divisé par \( \mu_a\).
+    Il suffit de montrer que les irréductibles sont séparables. Soit \( P\) un polynôme irréductible et unitaire de degré \( d\). Le terme de plus haut degré de \( P'\) est alors \( dX^{d-1}\) qui est non nul parce que \( d\neq 0\) en caractéristique nulle. Donc \( P'\neq 0\) et donc \( P\) est séparable par la proposition \ref{PropolyeZff}.
 \end{proof}
 
-\begin{definition}  \label{Decyyumy}
-    Soit \( E\), un espace vectoriel et \( f\colon E\to E\) un endomorphisme de \( E\). Pour chaque \( x\in E\) nous considérons l'idéal
-    \begin{equation}
-        I_{f,x}=\{ P\in \eK[X]\tq P(f)x=0 \}.
-    \end{equation}
-    C'est l'ensemble des polynômes qui annulent \( f\) en \( x\). Le générateur unitaire de \( I_{f,x}\) est le \defe{polynôme minimal ponctuel}{polynôme!minimal!ponctuel}\index{polynôme!minimal!relativement à un point} de \( f\) en \( x\). Il sera noté \( \mu_{f,x}\).
+\begin{definition}
+    Soit \( \eL\) une extension algébrique de \( \eK\).
+    \begin{enumerate}
+        \item
+            On dit que l'élément \( a\in \eL\) est \defe{séparable}{séparable!élément d'une extension} sur \( \eK\) si son polynôme minimal dans \( \eK[X]\) est séparable sur \( \eK\).
+        \item
+            L'extension \( \eL\) est \defe{séparable}{séparable!extension de corps} si tous ses éléments sont séparables.
+    \end{enumerate}
 \end{definition}
-Ces définitions sont légitimées par les faits suivants. L'idéal \( I_{f,x}\) n'est pas réduit à \( \{ 0 \}\) parce que le polynôme minimal de \( f\) fait partie de \( I_{f,x}\). C'est le théorème \ref{ThoCCHkoU} qui nous assure l'existence d'un unique générateur unitaire dans~\( I_{f,x}\). 
 
-\begin{lemma}\label{LemSYsJJj}
-    Soit \( f\colon E\to E\) un endomorphisme de l'espace vectoriel \( E\). Il existe un élément \( x\in E\) tel que \( \mu_{f,x}=\mu_f\).
+\begin{proposition} \label{PropUmxJVw}
+    Soit \( \eK\) un corps. Les conditions suivantes sont équivalentes :
+    \begin{enumerate}
+        \item
+            toutes les extensions algébriques de \( \eK\) sont séparables;
+        \item
+            tout polynôme irréductible de \( \eK[X]\) est séparable.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Soit \( P\) un polynôme irréductible dans \( \eK[X]\). Soient \( a\) et \( b\) des racines de \( P\) dans un corps de décomposition \( \eL\). Par hypothèse, \( \eL\) est séparables, donc les polynômes minimaux \( \mu_a\) et \( \mu_b\) sont séparables dans \( \eK[X]\). Étant donné que \( P\) est irréductible, il est le seul à se diviser lui-même et donc \( \mu_a=\mu_b=P\). Donc \( P\) est séparable sur \( \eK\).
+
+    Dans l'autre sens, soit \( \eL\) une extension algébrique de \( \eK\), soit \( a\in \eL\) et le polynôme minimal \( \mu_a\in \eK[X]\). Par définition il est irréductible et donc séparable (par hypothèse). Donc \( a\) est séparable et \( \eL\) est une extension séparable.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Idéal maximum}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Un nombre (dans \( \eC\)) est \defe{transcendant}{transcendant} si il n'est racine d'aucun polynôme non nul à coefficients entiers. Plus généralement si \( \eL\) est un extension du corps \( \eK\) alors si \( t\in \eL\) est une racine d'un polynôme dans \( \eK[X]\) nous disons que \( t\) est \defe{algébrique}{algébrique!par rapport à une extension de corps} sur \( \eK\); sinon nous disons que \( t\) est \defe{transcendant}{transcendant!par rapport à une extension de corps} sur \( \eK\).
+\end{definition}
+
+\begin{definition}
+    Une \( \eK\)-algèbre est de \defe{type fini}{type fini (algèbre)} si elle est le quotient de \( \eK[X_1,\ldots, X_n]\) par un idéal (pour un certain \( n\)).
+\end{definition}
+
+\begin{theorem}[\wikipedia{fr}{Idéal_maximal}{wikipédia}]\index{idéal!maximum}       \label{ThorqTTiJ}
+    un idéal \( I\) d'un anneau commutatif \( \eA\) est maximal si et seulement si le quotient \( \eA/I\) est un corps.
+\end{theorem}
+%TODO : faire la démonstration
+
+\begin{theorem}[\cite{OorXst}]      \label{ThonoZyKa}
+    Soit \( \eK\) un corps et \( B\), une \( \eK\)-algèbre de type fini. Si \( B\) est un corps, alors c'est une extension algébrique finie de \( \eK\).
+\end{theorem}
+%TODO : faire la démonstration
+
+\begin{theorem}[\cite{OorXst}]  \label{ThowgZYqx}
+    Si \( \eK\) est un corps algébriquement clos, les idéaux maximaux de \( \eK[X_1,\ldots, X_n]\) sont de la forme
+    \begin{equation}
+        (X_1-a_1,\ldots, X_n-a_n)
+    \end{equation}
+    où les \( a_i\) sont des éléments de \( \eK\).
+\end{theorem}
+
+\begin{proof}
+    Nous commençons par montrer que
+    \begin{equation}
+        J=(X_1-a_1,\ldots, X_n-a_n)
+    \end{equation}
+    est un idéal maximum. Pour cela nous considérons le morphisme surjectif d'anneaux
+    \begin{equation}
+        \begin{aligned}
+            \phi\colon \eK[X_1,\ldots, X_n]&\to \eK \\
+            P&\mapsto P(a_1,\ldots, a_n). 
+        \end{aligned}
+    \end{equation}
+    Soit \( P\in\ker(\phi)\); nous écrivons la division euclidienne de \( P\) par \( X-a_1\) puis celle du reste par \( X-a_2\) et ainsi de suite :
+    \begin{equation}    \label{EqDAkijH}
+        P=(X-a_1)Q_1+\ldots +(X_n-a_n)Q_n+R
+    \end{equation}
+    où \( R\) doit être une constante pare que le premier reste est de degré zéro en \( X_1\), le second est de degré zéro en \( X_1\) et \( X_2\), etc. Afin d'identifier cette constante, nous appliquons l'égalité \eqref{EqDAkijH} à \( (a_1,\ldots, a_n)\) et en nous rappelant que \( P\in \ker(\phi)\) nous obtenons
+    \begin{equation}
+        0=P(a_1,\ldots, a_n)=R,
+    \end{equation}
+    donc \( R=0\) et \( P=(X_1-a_1)Q_1+\ldots +(X_n-a_n)Q_n\), c'est à dire \( P\in J\). Nous avons donc \( \ker(\phi)\subset J\). Par ailleurs \( J\subset \ker(\phi)\) est évident, donc \( J=\ker(\phi)\).
+
+    Vu que \( J\) est le noyau de l'application \( \eK[X_1,\ldots, X_n]\to \eK\), nous avons 
+    \begin{equation}
+        \frac{ \eK[X_1,\ldots, X_n] }{ J }=\eK.
+    \end{equation}
+    Donc \( J\) est un idéal maximal parce que tout polynôme n'étant pas dans \( J\) doit avoir un terme indépendant non nul et donc être dans \( \eK\) vis à vis du quotient \( \eK[X_1,\ldots, X_n]/J\).
+
+    Nous montrons maintenant l'implication inverse. Nous supposons que \( I\) est un idéal maximum et nous montrons qu'il doit être égal à \( J\) (pour un certain choix de \( a_1,\ldots, a_n\)).
+
+    Le quotient
+    \begin{equation}
+        \frac{ \eK[X_1,\ldots, X_n] }{ I }
+    \end{equation}
+    est une \( \eK\)-algèbre de type fini (définition). De plus c'est un corps par le théorème \ref{ThorqTTiJ}. C'est donc une extension algébrique finie de \( \eK\) par le théorème \ref{ThonoZyKa}. Mais \( \eK\) étant algébriquement clos, il est sa propre et unique extension algébrique; nous en déduisons que
+    \begin{equation}
+        \frac{ \eK[X_1,\ldots, X_n] }{ I }=\eK.
+    \end{equation}
+    Donc pour tout \( 1\leq i\leq n\), il existe \( a_i\in \eK\) tel que \( X_i-a_i\in I\), sinon le monôme \( X_i\) ne se projetterait pas sur un élément dans \( \eK\) dans le quotient. Cela prouve que \( J\) est contenu dans \( I\); par maximalité nous avons donc \( I=J\).
+\end{proof}
+
+\begin{corollary}
+    Soit \( \eK\) un corps algébriquement clos et \( I\), un idéal de \( \eK[X_1,\ldots, X_n]\). Si nous notons
+    \begin{equation}
+        V(I)=\{ x\in \eK^n\tq P(x_1,\ldots, x_n)=0 \}
+    \end{equation}
+    l'ensemble des racines communes à tous les éléments de \( I\), on a \( V(I)=\emptyset\) si et seulement si \( I=\eK[X_1,\ldots, X_n]\).
+\end{corollary}
+
+\begin{proof}
+    Si \( I=\eK[X_1,\ldots, X_n]\) en particulier \( 1\in I\) et nous avons évidemment \( V(I)=\emptyset\). Le sens difficile est l'autre sens.
+
+    Supposons que \( I\neq \eK[X_1,\ldots, X_n]\) et que \( K\) est un idéal maximum contenu dans \( I\). Nous savons déjà par le théorème \ref{ThowgZYqx} que \( K\) est de la forme \( K=(X_1-a_1,\ldots, X_n-a_n)\). Un élément de \( I\) est dans \( K\), donc si \( P\in I\) nous avons
+    \begin{equation}
+        P(a_1,\ldots, a_n)=0,
+    \end{equation}
+    c'est à dire que \( (a_1,\ldots, a_n)\in V(I)\) et donc que \( V(I)\neq 0\).
+\end{proof}
+
+\begin{lemma}[\cite{fJhCTE}]
+    Soit \( \eK\) une extension de degré \( \delta\) de \( \eQ\) et \( P\in \eK[T_1,\ldots, T_mj]\). Alors il existe \( \bar P\in \eQ[T_1,\ldots, T_m]\) tel que
+    \begin{enumerate}
+        \item
+            $\deg\bar P=\delta\deg(P)$
+        \item
+            pour tout \( (z_1,\ldots, z_m)\in \eC^m\) tel que \( P(z_1,\ldots, z_m)=0\), on a \( \bar P(z_1,\ldots, z_m)=0\).
+    \end{enumerate}
 \end{lemma}
 
 \begin{proof}
-    Nous savons que pour tout \( x\in E\), \( \mu_f\in I_{f,x}\), donc le polynôme \( \mu_{f,x}\) divise \( \mu_f\) pour tous les \( x\). Nous en déduisons que l'ensemble
-    \begin{equation}
-        \{ \mu_{f,x}\tq x\in E \}
-    \end{equation}
-    est en réalité un ensemble fini, sinon \( \mu_f\) ne serait pas un polynôme. Soient donc les points \( x_1,\ldots, x_l\) tels que
-    \begin{equation}
-        \{ \mu_{f,x}\tq x\in E \}=\{ \mu_{f,x_1},\ldots, \mu_{f,x_l} \}.
-    \end{equation}
-    Étant donné que \( x\in \ker\mu_{f,x}\) nous avons \( \mu_{f,x}\in I_{f,x}\) et donc \( \mu_{f,x}(f)x=0\). Par conséquent
-    \begin{equation}
-        E=\bigcup_{1\leq i\leq l}\ker\mu_{f,x_i(f)}.
-    \end{equation}
-    En vertu de la proposition \ref{PropTVKbxU}, un des termes de l'union doit être l'espace \( E\) entier. Il existe donc un \( x_i\) tel que
-    \begin{equation}
-        E=\ker\big( \mu_{f,x_i}(f) \big).
-    \end{equation}
-    Le polynôme \( \mu_{f,x_i}\) annule \( f\) et est donc divisé par le polynôme minimal de \( f\). Nous avons donc montré que \( \mu_{f,_{x_i}}\) divise et est divisé par \( \mu_f\). Par conséquent \( \mu_f=\mu_{f,x_i}\).
+    <++>
 \end{proof}
-
-\Exo{reserve0004}
+<++>
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Racines de polynômes}
@@ -1400,184 +2002,6 @@ sage: (S1**3+6*S3-P).expand()
 \end{example}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Corps}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-\begin{definition}
-    Un \defe{corps}{corps} est un anneau non nul dans lequel tout élément non nul est inversible.
-\end{definition}
-
-\begin{lemma}       \label{LemAnnCorpsnonInterdivzer}
-    En tant que anneau, un corps n'a pas de diviseurs zéro.
-\end{lemma}
-
-\begin{proof}
-    En effet si \( a\) est un diviseur de zéro, alors \( ax=0\) pour un certain \( x\neq 0\). Si \( a\) était inversible, nous aurions \( x=a^{-1}ax=0\), ce qui est impossible.
-\end{proof}
-
-Par le lemme \ref{LemCaractIntergernbrcartpre}, un anneau sans diviseur de zéro est de caractéristique zéro ou première. Le fait d'être intègre pour un anneau n'assure cependant pas le fait d'être un corps. Nous avons cependant ce résultat pour les anneaux finis.
-
-\begin{proposition}     \label{PropanfinintimpCorp}
-    Un anneau fini intègre est un corps.
-\end{proposition}
-
-\begin{proof}
-    Soit \( A\) un tel anneau. Soit \( a\neq 0\). Les applications 
-    \begin{subequations}
-        \begin{align}
-            l_a\colon x\to ax\\
-            r_a\colon x\to xa
-        \end{align}
-    \end{subequations}
-    sont injectives. En tant que applications injectives entre ensembles finis, elles sont surjectives. Il existe donc \( b\) et \( c\) tels que \( 1=ba=ac\). Il se fait que \( b\) et \( c\) sont égaux parce que
-    \begin{equation}
-        b=b(ac)=(ba)c=c.
-    \end{equation}
-    Par conséquent \( b\) est un inverse de \( a\).
-\end{proof}
-
-\begin{proposition}     \label{PropzhFgNJ}
-    Soit \( n\in\eN^*\). Les conditions suivantes sont équivalentes :
-    \begin{enumerate}
-        \item
-            \( n\) est premier.
-        \item
-            \( \eZ_n\) est un anneau intègre.
-        \item
-            \( \eZ_n\) est un corps.
-    \end{enumerate}
-\end{proposition}
-
-\begin{proof}
-    L'équivalence entre les deux premiers points est le contenu du corollaire \ref{CorZnInternprem}. Le fait que \( \eZ_n\) soit un corps lorsque \( \eZ_n\) est intègre est la proposition \ref{PropanfinintimpCorp}. Le fait que \( \eZ_n\) soit intègre lorsque \( \eZ_n\) est un corps est une propriété générale des corps : ce sont en particulier des anneaux intègres (lemme \ref{LemAnnCorpsnonInterdivzer}).
-\end{proof}
-
-\begin{proposition}     \label{AnnCorpsIdeal}
-    Si \( A\) est un anneau, nous avons les équivalences
-    \begin{enumerate}
-        \item
-            \( A\) est un corps.
-        \item
-            \( A\) est non nul et ses seuls idéaux à gauche sont \( \{ 0 \}\) et \( A\).
-        \item
-            \( A\) est non nul et ses seuls idéaux à droite sont \( \{ 0 \}\) et \( A\).
-    \end{enumerate}
-\end{proposition}
-
-\begin{proposition}
-    Soit \( A\), un anneau commutatif non nul et \( I\), un idéal dans \( A\). L'ensemble \( I\) est un idéal maximum de \( A\) si et seulement si \( A/I\) est un corps.
-\end{proposition}
-
-\begin{proof}
-    Par la proposition \ref{AnnCorpsIdeal}, le fait pour \( A/I\) d'être un corps signifie qu'il n'a pas d'idéaux non triviaux. Si \( \phi\) est la projection canonique \( A\mapsto A/I\), nous savons que les idéaux de \( A/I\) sont les \( \phi(J)\) où \( J\) est un idéal de \( A\) contenant \( I\) (proposition \ref{PropIJJIdsousphi}). Si \( I\) est un idéal maximum de \( A\), un tel \( J\) n'existe pas. Inversement si \( A/I\) n'a pas d'autres idéaux que \( A/I\) et \( \phi(0)\), c'est que \( I\) est un idéal maximum.
-\end{proof}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Corps des fractions}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{theorem}     \label{ThogbhWgo}
-    Soit \( \eA\) un anneau commutatif intègre. Il existe un corps commutatif \( \eK\) et un morphisme injectif (d'anneaux) \( \epsilon\colon \eA\to \eK\) tels que pour tout \( \lambda\in\eK\), il existe \( (a,b)\in \eA\times \eA^*\) tels que
-    \begin{equation}
-        \lambda=\epsilon(a)\big( \epsilon(b) \big)^{-1}
-    \end{equation}
-
-    De plus si \( (\eK',\epsilon')\) est un autre couple qui vérifie la propriété, les corps \( \eK\) et \( \eK'\) sont isomorphes.
-\end{theorem}
-Le corps \( \eK\) associé à l'anneau \( \eA\) est le \defe{corps des fractions}{corps!des fractions}\index{fractions (corps)} de \( \eA\), et sera noté \( \Frac(\eA)\).\nomenclature[A]{\( \Frac(\eA)\)}{Le corps des fractions de l'anneau \( \eA\)}
-
-Notons que l'application \( \eA\times \eA^*\to \eK\) donnée par \( (a,b)\mapsto \epsilon(a)\big( \epsilon(b) \big)^{-1}\) envoie \( (xa,xb)\) sur le même que \( (a,b)\).
-
-L'ensemble \( \eQ\)\nomenclature[A]{\( \eQ\)}{corps des fractions sur \( \eZ\)} est le corps des fractions de \( \eZ\).
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Corps premier}
-%---------------------------------------------------------------------------------------------------------------------------
-\label{subseccorpspremhBlYIv}
-
-\begin{definition}
-    Un corps est \defe{premier}{corps!premier}\index{premier!corps} si il est son seul sous corps. Le \defe{sous corps premier}{premier!sous corps} d'un corps est l'intersection de tous ses sous corps.
-\end{definition}
-
-\begin{lemma}
-    Un corps premier est commutatif
-\end{lemma}
-
-\begin{proof}
-    Le centre d'un corps est certainement un sous corps. Par conséquent un corps premier doit être contenu dans son propre centre, c'est à dire être commutatif.
-\end{proof}
-
-Soit \( p\) un nombre premier. Nous notons \( \eF_p=\eZ_p=\eZ/p\eZ\)\nomenclature[A]{\( \eF_p\)}{lorsque \( p\) est premier}. Nous verrons plus loin (section \ref{SecCorpsFinizkAcbS}) comment nous pouvons définir \( \eF_{p^n}\) lorsque \( p\) est premier.
-
-Nous avons par exemple 
-\begin{equation}
-    \eF_2=\eZ/2\eZ=\{ 0,1 \}
-\end{equation}
-avec la loi \( 2=0\).
-
-Notons que \( \eF_p\) est un corps possédant \( p\) éléments. L'ensemble \( \eF_p^*\) est un groupe d'ordre \( p-1\).
-
-\begin{lemma}
-    Les corps \( \eQ\) et \( \eF_p\) (avec \( p\) premier) sont premiers.
-\end{lemma}
-
-\begin{proof}
-    Tout sous corps de \( \eQ\) doit contenir \( 1\), et par conséquent \( \eZ\). Devant également contenir tous les inverses, il contient \( \eQ\).
-
-    Tout sous corps de \(\eF_p \) doit contenir \( 1\) et donc \( \eF_p\) en entier. Par ailleurs nous savons de la proposition \ref{PropzhFgNJ} que \( \eF_p\) est un corps lorsque \( p\) est premier.
-\end{proof}
-
-\begin{proposition}
-    Soit \( \eK\) un corps de caractéristique \( p\) et \( \eP\) son sous corps premier. Si \( p=0\) alors \( \eP=\eQ\). Si \( p>0\), alors \( \eP=\eF_p\).
-\end{proposition}
-
-\begin{proof}
-    Notons d'abord que la caractéristique d'un corps est toujours un nombre premier parce qu'un corps est en particulier un anneau intègre (proposition \ref{LemCaractIntergernbrcartpre}).
-
-    Étant donné que \( 1\) est dans tout sous corps, nous devons avoir \( \eZ 1\subseteq \eP\). Si \( p=0\), alors \( \eZ 1\simeq \eZ\), et nous avons
-    \begin{equation}
-        \eZ 1_{\eA}\subset \eP\subset \eK.
-    \end{equation}
-    Pour chaque \( (n,m)\in \eZ 1_{\eA}\times (\eZ 1_{\eA})^*\) l'élément \( nm^{-1}\in \eK\) est dans \( \eP\) parce que \( \eP\) est un corps. Nous en déduisons que le corps des fractions de \( \eZ\) est contenu dans \( \eP\) par conséquent \( \eP=\eQ\) (théorème \ref{ThogbhWgo}). 
-
-    Si par contre la caractéristique de \( \eK\) est \( p\neq 0\), nous avons \( \eZ 1_{\eA}\simeq\eZ/p\eZ=\eF_p\) par le lemme \ref{LemHmDaYH}. L'ensemble \( \eF_p\) étant un corps, c'est le corps premier de \( \eK\).
-\end{proof}
-
-\begin{proposition}     \label{PropqPPrgJ}
-    Soit \( \eK\) un corps et \( \eP\) sont sous corps premier. Si \( \sigma\in\Aut(\eK)\) alors \( \sigma|_{\eP}=\id\), c'est à dire que
-    \begin{equation}
-        \sigma(x)=x
-    \end{equation}
-    pour tout \( x\in \eP\).
-\end{proposition}
-
-Le lemme suivant est une généralisation du lemme de Gauss dans \( \eZ\) (lemme \ref{LemSdnZNX}).
-\begin{lemma}[Lemme de Gauss]       \label{LemEfdkZw}   \index{lemme!Gauss!polynômes}\index{Gauss!lemme!polynômes}
-    Soient les polynômes \( P=X^m+\sum_{i=1}^{m-1}a_iX^i\) et \( Q=x^n+\sum_{j=1}^{n-1}b_jX^j\) dont tous les coefficients \( a_i\) et \( b_j\) sont rationnels. Si l'un d'eux n'est pas entier, alors un des coefficients du produit \( PQ\) est non entier.
-\end{lemma}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Anneaux principaux et polynômes}
-%---------------------------------------------------------------------------------------------------------------------------
-
-
-Nous supposons que \( \eK\) est une corps commutatif, et nous étudions l'anneau \( \eK[X]\). Étant donné que \( \eK\) est commutatif pour tout polynôme que l'idéal engendré par \( P\) est \( (P)=\eK[X]P\), voir la notation \eqref{EqDefxMkDtW}.
-
-\begin{remark}
-    Un polynôme est irréductible dans \( \eK[X]\) au sens de la définition \ref{DeirredBDhQfA} si et seulement si il est irréductible au sens de la définition \ref{DefIrredfIqydS} parce que seules les constantes (non nulles) sont inversibles dans \( \eK[X]\).
-\end{remark}
-
-\begin{corollary}       \label{CorsLGiEN}
-    Si \( \eK\) est un corps et si \( P\) est un polynôme irréductible de degré \( n\), alors l'ensemble \( \eL=\eK[X]/(P)\) est un corps. De plus \( \eL\) est un espace vectoriel de dimension \( n\).
-\end{corollary}
-
-\begin{proof}
-    En effet \( \eK[X]\) est un anneau principal par le théorème \ref{ThoCCHkoU}, par conséquent la proposition \ref{PropoTMMXCx} déduit que \( \eK[X]/(P)\) est un corps.
-
-    Une base de \( \eL\) est donnée par les projections de \( 1,X,X^2,\ldots, X^n\).
-\end{proof}
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Polynômes cyclotomiques}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -1585,12 +2009,11 @@ Nous supposons que \( \eK\) est une corps commutatif, et nous étudions l'anneau
 \subsection{Définitions et propriétés}
 %---------------------------------------------------------------------------------------------------------------------------
 
-
 Pour \( n\in\eN^*\) nous considérons l'ensemble
 \begin{equation}
     \Delta_n=\{  e^{2ki\pi/n}\tq 0\leq k\leq n-1,\pgcd(k,n)=1 \}.
 \end{equation}
-Voir \ref{sssechZeTuL}. Le \defe{polynôme cyclotomique}{polynôme!cyclotomique} d'indice \( n\) est le polynôme
+Voir \ref{SubSechZeTuL}. Le \defe{polynôme cyclotomique}{polynôme!cyclotomique} d'indice \( n\) est le polynôme
 \begin{equation}
     \phi_n(X)=\prod_{z\in\Delta_n}(X-z)
 \end{equation}
@@ -1826,235 +2249,6 @@ Notons que cette fois \( G\) ne contient plus que \( n/2\) symétries passant pa
     \Card(\Omega)=\frac{1}{ 2n }\left( \sum_{d\divides n}\varphi(d)q^{n/d}+\frac{ n }{2}q^{(n+2)/2}+\frac{ n }{2}q^{n/2} \right).
 \end{equation}
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Extensions de corps}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-\begin{lemma}       \label{LemobATFP}
-    Soit \( \eL\) un corps fini et \( \eK\) un sous corps de \( \eK\). Alors il existe \( s\in \eN\) tel que
-    \begin{equation}        \label{EqUgqlJQ}
-        \Card(\eK)=\Card(\eL)^n.
-    \end{equation}
-\end{lemma}
-
-\begin{proof}
-    Le corps \( \eL\) est un \( \eK\)-espace vectoriel de dimension finie. Si \( s\) est la dimension alors nous avons la formule \eqref{EqUgqlJQ} parce que chaque élément de \( \eL\) est un \( s\)-uple d'éléments de \( \eK\).
-\end{proof}
-
-\begin{definition}
-    Soit \( \eK\) un corps commutatif. Une \defe{extension}{extension!de corps} de \( \eK\) est un corps \( \eL\) muni d'un morphisme \( i\colon \eL\to \eK\). Nous identifions le plus souvent \( \eK\) avec \( i(\eK)\subset \eL\).
-\end{definition}
-
-Notons que \( \eL\) est un espace vectoriel sur \( \eK\) parce que si \( \lambda\in \eK\) et \( x\in \eL\) nous pouvons considérer la multiplication scalaire
-\begin{equation}
-    \lambda\cdot x=i(\lambda)x
-\end{equation}
-où la multiplication du membre de droite est celle du corps \( \eL\). Le \defe{degré}{degré!extension de corps} de \( \eL\) est la dimension de cet espace vectoriel. Il est noté \( [\eL:\eK]\)\nomenclature[A]{\( [\eL:\eK]\)}{degré d'une extension de corps}; notons qu'il peut être infini.
-
-Soit \( \eL\) une extension de \( \eK\) et \( A\subset \eL\). Nous notons \( \eK(A)\)\nomenclature[A]{$\eK(A)$}{corps contenant \( \eK\) et \( A\)} le plus petit sous corps de \( \eL\) qui contient \( \eK\) et \( A\). Nous notons \( \eK[A]\)\nomenclature[A]{$\eK[A]$}{anneau contenant \( \eK\) et \( A\)} le plus petit sous anneau de \( \eL\) qui contienne \( \eK\) et \( A\).
-
-Nous disons que l'extension \( \eL\) de \( \eK\) est \defe{monogène}{monogène!extension de corps} ou \defe{\wikipedia{fr}{Extension_simple}{simple}}{extension!simple}\index{simple!extension de corps} si il existe \( x\in\eL\) tel que \( \eL=\eK(x)\).
-
-
-\begin{example} \label{ExLQhLhJ}
-    Si nous prenons \( \eF_5\) et que nous l'étendons par \( i\), nous obtenons le corps \( \eK=\eF_5(i)\). Nous savons que tous les éléments \( a\in \eF_5\) sont racines de \( X^5-X\). Mais étant donné que \( i^5=i\), nous avons aussi \( x^5=x\) pour tout \( x\in \eF_5(i)\). Pour le prouver, utiliser le morphisme de Frobenius. Le polynôme \( X^5-X\) est donc le polynôme nul dans \( \eK\).
-
-    Ceci est un cas très particulier parce que nous avons étendus \( \eF_p\) par un élément \( \alpha\) tel que \( \alpha^p=\alpha\). En général sur \( \eF_p(\alpha)\), le polynôme \( X^p-X\) n'est pas identiquement nul, et possède donc au maximum \( p\) racines. Pour \( x\in \eF_p(\alpha)\), nous avons \( x^p=x\) si et seulement si \( x\in \eF_p\).
-\end{example}
-
-\begin{lemma}
-    Soit \( P\in\eK[X]\) un polynôme unitaire irréductible de degré \( n\). Il existe une extension \( \eL\) de \( \eK\) et \( a\in \eL\) telle que \( \eL=\eK(a)\) et \( P\) est le polynôme minimal de \( a\) dans \( \eL\).
-\end{lemma}
-
-\begin{proof}
-    Nous prenons \( \eL=\eK[X]/(P)\) où \( (P)\) est l'idéal dans \( \eK[X]\) généré par \( P\). Cela est un corps par le corollaire \ref{CorsLGiEN}. Nous identifions \( \eK\) avec \( \phi(\eK)\) où
-    \begin{equation}
-        \phi\colon \eK[X]\to \eL 
-    \end{equation}
-    est la projection canonique. Nous considérons également \( a=\phi(X)\).
-
-    Nous avons alors \( P(a)=0\) dans \( \eL\). En effet \( P(a)=P\big( \phi(X) \big)\) est à voir comme l'application du polynôme \( P\) au polynôme \( X\), le résultat étant encore un élément de \( \eL\). En l'occurrence le résultat est \( P\) qui vaut \( 0\) dans \( \eL\).
-
-    Le polynôme \( P\) étant unitaire et irréductible, il est minimum dans \( \eL\).
-
-    Nous devons encore montrer que \( \eL=\eK(a)\). Le fait que \( \eK(a)\subset \eL\) est une tautologie parce qu'on calcule \( \eK(a)\) dans \( \eL\). Pour l'inclusion inverse soit \( Q(X)=\sum_iQ_iX^i\) dans \( \eK[X]\). Dans \( \eL\) nous avons évidemment \( Q=\sum_iQ_ia^i\).
-\end{proof}
-
-\begin{proposition} \label{PropyMTEbH}
-    Soit \( \eK\), un corps et \( P\in \eK[X]\) un polynôme. Soient \( a\) et \( b\), deux racines de \( P\) dans (éventuellement) une extension \( \eL\) de \( \eK\). Si \( \mu_a\) et \( \mu_b\) sont les polynômes minimaux de \( a\) et \( b\) (dans \( \eK\)) et si \( \mu_a\neq \mu_b\), alors \( \mu_a\mu_b\) divise \( P\) dans \( \eK[X]\).
-\end{proposition}
-
-\begin{proof}
-    Nous considérons les idéaux
-    \begin{subequations}
-        \begin{align}
-            I_a=\{ Q\in \eK[X]\tq Q(a)=0 \};
-            I_b=\{ Q\in \eK[X]\tq Q(b)=0 \};
-        \end{align}
-    \end{subequations}
-    même si \( Q(a)\) est calculé dans \( \eL\), ce sont des idéaux de \( \eK[X]\). Le polynôme \( \mu_a\) est par définition le générateur unitaire de \( I_a\), et vu que \( a\) est une racine de \( P\), nous avons \( P\in I_a\) et il existe un polynôme \( Q\in \eK[X]\) tel que 
-    \begin{equation}    \label{EqvTPoSq}
-        P=\mu_aQ.
-    \end{equation}
-
-    Montrons que \( \mu_a(b)\neq 0\). En effet supposons que \( \mu_a(b)=0\). Nous avons alors \( \mu_a\in I_b\) et il existe \( R\in \eK[X]\) tel que \( \mu_a=\mu_bR\). Étant donné que \( \mu_b\) divise \( \mu_a\) et que \( \mu_b\neq \mu_a\), nous ne pouvons pas avoir \( \mu_b(a)=0\) parce que \( \mu_b\) divise \( \mu_a\) et que \( \mu_a\) est minimal. Du coup nous devons avoir \( R(a)=0\), ce qui contredirait la minimalité de \( \mu_a\).
-
-    Étant donné que \( \mu_a(b)\neq 0\), l'évaluation de \eqref{EqvTPoSq} en \( b\) montre que \( Q(b)=0\), de telle sorte que \( Q\in I_b\) et il existe une polynôme \( S\) tel que \( Q=\mu_bS\), c'est à dire tel que \( P=\mu_a\mu_bS\), ce qui signifie que \( \mu_a\mu_b\) divise \( P\).
-\end{proof}
-
-\begin{example}
-    Soit \( P=(X^2+1)(X^2+2)\) dans \( \eR[X]\). Dans \( \eC\) nous avons les racines \( a=i\) et \( b=\sqrt{2}i\) dont les polynômes minimaux sont \( \mu_a=X^2+1\) et \( \mu_2=X^2+2\). Nous avons effectivement \( \mu_a\mu_b\) divise \( P\) dans \( \eR[X]\).
-
-    Si par contre nous considérions les racines \( a=i\) et \( b=-i\), nous aurions \( \mu_a=\mu_n=X^2+1\), et les polynôme \( \mu_a^2\) ne divise pas \( P\).
-\end{example}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Clôture algébrique}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{theorem}
-    Tout corps \( \eK\) possède une clôture algébrique \( \Omega\). De plus si \( \eL\) est une extension de \( \eK\), alors \( \eL\) est \( \eK\)-isomorphe à un sous corps de \( \Omega\).
-\end{theorem}
-Notons en particulier que si \( \Omega'\) est une autre clôture algébrique de \( \eK\), alors \( \Omega\) et \( \Omega'\) sont des sous corps l'un de l'autre et sont donc \( \eK\)-isomorphes.
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Extensions séparables}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Source : \cite{vgQYwF}.
-
-Notons que dans ce qui va suivre nous allons parler de \( \eK[X]\), l'ensemble des polynômes sur un corps. Cela ne s'applique donc pas à \( \eZ[X]\) par exemple.
-
-\begin{definition}
-    Soit \( \eK\) un corps. Un polynôme \emph{irréductible} \( P\in \eK[X]\) est \defe{séparable}{séparable!polynôme irréductible} sur $\eK$ si dans un corps de décomposition, ses racines sont distinctes.
-
-    Si \( P\) est un polynôme non constant dont la décomposition en irréductibles est \( P=P_1\ldots P_r\), nous disons qu'il est \defe{séparable}{séparable!polynôme non constant} si tous les \( P_i\) le sont.
-\end{definition}
-
-La proposition suivante donne un sens à la définition de polynôme irréductible séparable.
-\begin{proposition}
-    Soit \( P\) irréductible dans \( \eK[X]\) ayant des racines distinctes dans le corps de décomposition \( \eL\). Si \( \eL'\) est un autre corps de décomposition pour \( P\), alors \( P\) a aussi ses racines distinctes dans \( \eL\).
-\end{proposition}
-
-\begin{proof}
-    L'ingrédient est la proposition \ref{PropTMkfyM} qui donne l'unicité du corps de décomposition à \( \eK\)-isomorphisme près. Soit donc \( \psi\colon \eL\to \eL'\) un isomorphisme laissant invariant les éléments de \( \eK\). D'une part, étant donné que \( P\) est à coefficients dans \( \eK\), nous avons \( \psi(P)=P\). D'autre part dans \( \eL\) le polynôme \( P\) s'écrit
-    \begin{equation}
-        P=a(X-\alpha_1)\ldots (X-\alpha_n)
-    \end{equation}
-    avec \( a\in \eK\) et \( \alpha_i\in \eL\). Nous avons donc
-    \begin{equation}
-        P=\psi(P)=a(X-\psi(\alpha_1))\ldots (X-\psi(\alpha_n)).
-    \end{equation}
-    Donc les racines de \( P\) dans \( \eL'\) sont les éléments \( \psi(\alpha_i)\) qui sont distincts.
-\end{proof}
-
-\begin{example}
-    Un polynôme peut être séparable sur un corps, mais non séparable sur un autre. Soit \( \eL=\eF_p(T)\) et \( \eK=\eF_p(T^p)\). Nous considérons le polynôme
-    \begin{equation}
-        P=X^p-T^p
-    \end{equation}
-    dans \( \eK[X]\). Par le morphisme de Frobenius nous avons 
-    \begin{equation}
-        P=(X-T)^p
-    \end{equation}
-    dans \( \eL[X]\). Le polynôme \( P\) est irréductible sur \( \eK[X]\) parce que ses diviseurs sont de la forme \( (X-T)^k\) qui contiennent \( T^k\) qui n'est pas dans \( \eK\) (sauf si \( k=n\) ou \( k=0\)).
-
-    Ce polynôme n'est pas séparable sur \( \eK\) parce que dans le corps de décomposition \( \eL\), la racine \( T\) est multiple. Notons bien le raisonnement : \( P\) étant irréductible, pour savoir si il est séparable, on le regarde dans un corps de décomposition.
-
-    Par contre si nous regardons \( P\) dans \( \eL[X]\) alors \( P\) n'est plus irréductible parce que ses facteurs irréductibles sont \( (X-T)\). N'étant pas irréductible, nous regardons les racines de \emph{ses facteurs irréductibles}. Or chacun des facteurs irréductibles étant \( X-T\), les racines sont simples.
-\end{example}
-
-\begin{example}
-    Le polynôme \( (X-1)^3\) est séparable sur \( \eQ\) parce que ses facteurs irréductibles dans \( \eQ[X]\) sont \( X-1\) qui ont des racines simples.
-\end{example}
-
-\begin{example}
-    Le polynôme \( (X^2+1)^2\) est séparable dans \( \eQ[X]\). En effet, il a pour facteurs irréductible le polynôme \( X^2+1\) dont les racines sont \( \pm i\) dans l'extension \( \eQ(i)\).
-\end{example}
-
-\begin{proposition}[\cite{vgQYwF}]  \label{PropolyeZff}
-    Soit \( P\in \eK[X]\) un polynôme non constant. Les trois propriétés suivantes sont équivalentes.
-    \begin{enumerate}
-        \item\label{ItemdqPFUi}
-            \( P\) a une racine multiple dans une extension de \( \eK\). C'est à dire qu'il existe une extension de \( \eK\) dans laquelle \( P\) a une racine multiple.
-        \item\label{ItemdqPFUib}
-            \( P\) a une racine multiple dans tout corps de décomposition .
-        \item\label{ItemdqPFUii}
-            \( P\) et \( P'\) ont une racine commune dans une extension de \( \eK\).
-        \item\label{ItemdqPFUiii}
-            le degré de \( \pgcd(P,P')\) est \( \geq 1\).
-    \end{enumerate}
-\end{proposition}
-
-\begin{proof}
-    \begin{subproof}
-    \item[\ref{ItemdqPFUi}\( \Rightarrow\)\ref{ItemdqPFUib}] Soit \( a\), une racine multiple de \( P\) dans une extension \( \eL\) de \( \eK\), et \( \eE\), un corps de décomposition de \( P\). Alors nous voulons prouver que \( P\) ait une racine multiple dans \( \eE\).
-
-        Nous pouvons voir \( P\in \eL[X]\), et construire une corps de décomposition \( \eE'\) qui est une extension de \( \eL\). Vu que \( \eE\) et \( \eE'\) sont deux corps de décomposition de \( P\) 
-        % iDIUoR
-        nous avons un isomorphisme \( \psi\colon \eE\to \eE'\). Si \( a\in \eE\) est une racine multiple de \( P\), alors \( \psi(a)\) est une racine multiple de \( P\) dans \( \eE'\) parce que
-        \begin{equation}
-            P\big( \psi(a) \big)=\psi\big( P(a) \big).
-        \end{equation}
-    \item[\ref{ItemdqPFUi}\( \Rightarrow\)\ref{ItemdqPFUii}] Soit \( \eL\) un corps de décomposition de \( P\) sur \( \eK\) et \( a\in \eL\), une racine multiple de \( P\). On a alors \( P=(X-a)^2Q\) avec \( Q\in \eL[X]\). En dérivant,
-        \begin{equation}
-            P'=2(X-a)Q+(X-a)^2Q',
-        \end{equation}
-        et donc \( a\) est également une racine de \( P'\).
-    \item[\ref{ItemdqPFUii}\( \Rightarrow\)\ref{ItemdqPFUiii}] Soit \( D\) un \( \pgcd\) de \( P\) et \( P'\). D'après le théorème de Bézout il existe \( A,B\in \eK[X]\) tels que 
-        \begin{equation}
-            AP+BP'=D.
-        \end{equation}
-        Si \( a\) est une racine commune de \( P\) et \( P'\) dans une extension \( \eL\), alors c'est aussi une racine de \( D\) et donc \( \deg(D)\geq 1\).
-    \item[\ref{ItemdqPFUiii}\(\Rightarrow\)\ref{ItemdqPFUi}] Si le degré de \( D\) est plus grand ou égal à \( 1\), alors nous considérons une racine \( a\) de \( D\) dans \( \eL\) (une extension de \( \eK\)). Étant donné que \( D\) divise \( P\) et \( P'\), l'élément \( a\) est une racine commune de \( P\) et \( P'\). Nous montrons maintenant que \( a\) est alors une racine multiple de \( P\). Vu que \( P(a)=0\) nous avons
-        \begin{equation}
-            P=(X-a)Q,
-        \end{equation}
-        et \( P'=Q+(X-a)Q'\). Mais alors \( P'(a)=Q(a)\) et donc \( Q(a)=0\) et donc \( a\) est une racine double de \( P\). Par conséquent \( a\) est une racine multiple de \( P\) dans \( \eK\).
-    \end{subproof}
-\end{proof}
-Notons que si \( P\) est irréductible, cette proposition donne des conditions pour que \( P\) ne soit pas séparable.
-
-\begin{proposition}
-    Soit \( P\in \eK[X]\) irréductible. Le polynôme \( P\) est séparable si et seulement si \( P'\neq 0\).
-\end{proposition}
-
-\begin{proof}
-    Soit \( D=\pgcd(P,P')\) et nous voudrions prouver que \( \deg(D)\geq 1\) si et seulement si \( P'=0\). Si \( P'=0\), alors \( \pgcd(P,P')=P\) est donc \( \deg'(D)\geq 1\).
-
-    Dans l'autre sens, si \( P\) est irréductible, il est associé à \( D\) parce qu'il n'a pas d'autres diviseurs que lui-même (à part \( 1\)). Nous avons donc \( P=\lambda D\) avec \( \lambda\in \eK\) et donc \( \deg(P)\geq 1\). Cela prouve immédiatement que \( P'\neq 0\).
-\end{proof}
-
-\begin{corollary}
-    Si \( \eK\) est de caractéristique nulle, alors tout polynôme de \( \eK[X]\) est séparable.
-\end{corollary}
-
-\begin{proof}
-    Il suffit de montrer que les irréductibles sont séparables. Soit \( P\) un polynôme irréductible et unitaire de degré \( d\). Le terme de plus haut degré de \( P'\) est alors \( dX^{d-1}\) qui est non nul parce que \( d\neq 0\) en caractéristique nulle. Donc \( P'\neq 0\) et donc \( P\) est séparable par la proposition \ref{PropolyeZff}.
-\end{proof}
-
-\begin{definition}
-    Soit \( \eL\) une extension algébrique de \( \eK\).
-    \begin{enumerate}
-        \item
-            On dit que \( a\in \eL\) est \defe{séparable}{séparable!élément d'une extension} sur \( \eK\) si son polynôme minimal dans \( \eK[X]\) est séparable sur \( \eK\).
-        \item
-            L'extension \( \eL\) est \defe{séparable}{séparable!extension de corps} si tous ses éléments sont séparables.
-    \end{enumerate}
-\end{definition}
-
-\begin{proposition}
-    Soit \( \eK\) un corps. Les conditions suivantes sont équivalentes :
-    \begin{enumerate}
-        \item
-            toutes les extensions algébriques de \( \eK\) sont séparables;
-        \item
-            tout polynôme irréductible de \( \eK[X]\) est séparable.
-    \end{enumerate}
-    <++>
-\end{proposition}
-<++>
-
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Théorème de Wedderburn}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -2142,210 +2336,6 @@ Notons que si \( P\) est irréductible, cette proposition donne des conditions p
 
     Nous avons ainsi obtenu une contradiction, et nous concluons que le corps \( \eK\) est commutatif.
 \end{proof}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Corps de rupture}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{definition}
-    Soit \( P\in\eK[X]\) un polynôme irréductible. Une extension \( \eL\) de \( \eK\) est un \defe{corps de rupture}{corps!de rupture}\index{rupture!corps} pour \( P\) si il existe \( a\in \eL\) tel que \( P(a)=0\) et \( \eL=\eK(a)\).
-\end{definition}
-
-\begin{example}     \label{ExemGVxJUC}
-    Soit \( \eK=\eQ\) et \( P(X)=X^2-2\). On pose \( a=\sqrt{2}\) et \( \eL=\eQ(\sqrt{2})\subset\eR\). De cette façon \( P\) est scindé :
-    \begin{equation}
-        P=(X-\sqrt{2})(X+\sqrt{2}).
-    \end{equation}
-    Le corps \( \eQ(\sqrt{2})\) est donc un corps de rupture pour \( P\).
-\end{example}
-
-\begin{example}
-    Dans l'exemple \ref{ExemGVxJUC}, le polynôme \( P\) était scindé dans son corps de rupture. Il n'en est pas toujours ainsi. Prenons 
-    \begin{equation}
-        P(X)=X^3-2
-    \end{equation}
-    et \( a=\sqrt[3]{2}\). Nous avons, certes, \( P(a)=0\) dans \( \eQ(\sqrt[3]{2})\), mais \( P\) n'est pas scindé parce qu'il y a deux racines complexes.
-\end{example}
-
-\begin{example}
-    Nous considérons le corps \( \eZ/p\eZ\) où \( p\) est un nombre premier. Si \( s\in \eZ/p\eZ\) n'est pas un carré, alors le polynôme \(P= X^2+s\) est irréductible et un corps de rupture de \( P\) sur \( \eZ/p\eZ\) est donné par \( (\eZ/p\eZ)[X]/(X^2+s)\), c'est à dire l'ensemble des polynômes de degrés \( 1\) en \( \sqrt{s}\). Le cardinal en est \( p^2\).
-\end{example}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Corps de décomposition}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{definition}
-    Soit \( \eK\) un corps commutatif et \( F=(P_i)_{i\in I}\) une famille d'éléments non constants de \( \eK[X]\). Un \defe{corps de décomposition}{corps!de décomposition}\index{décomposition!corps} de \( F\) est une extension \( \eL\) de \( \eK\) telle que
-    \begin{enumerate}
-        \item
-            les \( P_i\) sont scindés sur \( \eL\),
-        \item
-            \( \eL=\eK(R)\) où \( R=\bigcup_{i\in I}\{ x\in\eL\tq P_i(x)=0 \}\).
-    \end{enumerate}
-    C'est à dire que \( \eL\) étends \( \eK\) par toutes les racines de tous les polynômes de \( F\).
-\end{definition}
-
-L'unicité est due à la proposition suivante.
-\begin{proposition}     \label{PropTMkfyM}
-    Soit \( \eK\) un corps et \( P\in\eK[X]\). Soient \( \eL\) et \( \eF\) deux corps de décomposition de \( P\). Alors il existe un isomorphisme \( f\colon \eL\to \eF\) tel que \( f|_{\eK}=\id\).
-\end{proposition}
-Nous pouvons donc parler du corps de décomposition d'un polynôme.
-
-Soit \( \eK\), un corps et \( \eL\), une extension de \( \eK\). Un élément \( a\in \eL\) est \defe{algébrique}{algébrique!nombre} sur \( \eK\) si il existe un polynôme \( P\in \eK[X]\) tel que \( P(a)=0\).
-
-Une \defe{clôture algébrique}{clôture algébrique} du corps \( \eK\) est une extension algébriquement close de \( \eK\) dont tous les éléments sont algébriques sur \( \eK\).
-
-\begin{remark}
-    L'ensemble \( \eC\) n'est pas une clôture algébrique de \( \eQ\) parce qu'il existe des éléments de \( \eC\) qui ne sont pas des racines de polynômes à coefficients rationnels.
-\end{remark}
-L'existence d'une clôture algébrique pour tout corps est le théorème de Steinitz.
-%TODO : à faire, le théorème de Steinitz.
-
-\begin{example}     \label{ExfUqQXQ}
-    Soit \( p\) un nombre premier. Montrons que le polynôme 
-    \begin{equation}
-        Q(X)=X^p-X+1
-    \end{equation}
-    est irréductible dans \( \eF_p\). 
-
-    Nous supposons qu'il n'est pas irréductible, c'est à dire que
-    \begin{equation}
-        Q(X)=R(X)S(X)
-    \end{equation}
-    avec \( R\) et \( S\), des polynômes de degrés \( \geq 1\) dans \( \eF_p[X]\)
-
-    Soit \( \bar\eF_p\) une clôture algébrique de \( \eF_p\) et \( \alpha\in \bar \eF_p\) tel que \( R(\alpha)=0\). Pour tout \( a\in \eF_p\), nous avons
-    \begin{subequations}
-        \begin{align}
-            Q(\alpha+a)&=(\alpha+a)^p-(\alpha+a)+1\\
-            &=\alpha^p+a^p-\alpha-a+1\\
-            &=\alpha^p-\alpha+1\\
-            &=Q(\alpha)\\
-            &=0
-        \end{align}
-    \end{subequations}
-    où nous avons utilisé le fait que \( a^p=a\) et que \( \alpha\) était une racine de \( Q\). Ce que nous venons de prouver est que l'ensemble des racines de \( Q\) dans \( \bar\eF_p\) est donné par \( \{ \alpha+a\tq a\in \eF_p \}\).
-
-    Les polynômes \( R\) et \( S\) sont donc formés de produits de termes \( X-(\alpha+a)\) avec \( a\in \eF_p\). L'un des deux --disons \( R\) pour fixer les idées-- doit bien en avoir plus que \( 1\). Nous avons alors
-    \begin{equation}
-        R(X)=\prod_{i=1}^{k}\big( X-(\alpha+a_i) \big)
-    \end{equation}
-    où les \( a_i\) sont les éléments de \( \eF_p\). En développant un peu,
-    \begin{equation}
-        R(X)=X^k-\sum_{i=1}^k(\alpha+a_i^{k-1})+\text{termes de degré plus bas en \( X\)}.
-    \end{equation}
-    Le coefficient devant \( X^{k-1}\) n'est autre que \( k\alpha+\sum_ia_i\). Étant donné que \( k\neq 0\) et que \( R\in \eF_p[X]\), nous devons avoir \( \alpha\in \eF_p\). Par conséquent nous avons \( \alpha^p=\alpha\) et une contradiction :
-    \begin{equation}
-        Q(\alpha)=\alpha^p-\alpha+1=1\neq 0.
-    \end{equation}
-
-    Le polynôme \( X^p-X+1\) est donc irréductible sur \( \eF_p\).
-\end{example}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Idéal maximum}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{definition}
-    Un nombre (dans \( \eC\)) est \defe{transcendant}{transcendant} si il n'est racine d'aucun polynôme non nul à coefficients entiers. Plus généralement si \( \eL\) est un extension du corps \( \eK\) alors si \( t\in \eL\) est une racine d'un polynôme dans \( \eK[X]\) nous disons que \( t\) est \defe{algébrique}{algébrique!par rapport à une extension de corps} sur \( \eK\); sinon nous disons que \( t\) est \defe{transcendant}{transcendant!par rapport à une extension de corps} sur \( \eK\).
-\end{definition}
-
-\begin{definition}
-    Une \( \eK\)-algèbre est de \defe{type fini}{type fini (algèbre)} si elle est le quotient de \( \eK[X_1,\ldots, X_n]\) par un idéal (pour un certain \( n\)).
-\end{definition}
-
-\begin{theorem}[\wikipedia{fr}{Idéal_maximal}{wikipédia}]\index{idéal!maximum}       \label{ThorqTTiJ}
-    un idéal \( I\) d'un anneau commutatif \( \eA\) est maximal si et seulement si le quotient \( \eA/I\) est un corps.
-\end{theorem}
-%TODO : faire la démonstration
-
-\begin{theorem}[\cite{OorXst}]      \label{ThonoZyKa}
-    Soit \( \eK\) un corps et \( B\), une \( \eK\)-algèbre de type fini. Si \( B\) est un corps, alors c'est une extension algébrique finie de \( \eK\).
-\end{theorem}
-%TODO : faire la démonstration
-
-\begin{theorem}[\cite{OorXst}]  \label{ThowgZYqx}
-    Si \( \eK\) est un corps algébriquement clos, les idéaux maximaux de \( \eK[X_1,\ldots, X_n]\) sont de la forme
-    \begin{equation}
-        (X_1-a_1,\ldots, X_n-a_n)
-    \end{equation}
-    où les \( a_i\) sont des éléments de \( \eK\).
-\end{theorem}
-
-\begin{proof}
-    Nous commençons par montrer que
-    \begin{equation}
-        J=(X_1-a_1,\ldots, X_n-a_n)
-    \end{equation}
-    est un idéal maximum. Pour cela nous considérons le morphisme surjectif d'anneaux
-    \begin{equation}
-        \begin{aligned}
-            \phi\colon \eK[X_1,\ldots, X_n]&\to \eK \\
-            P&\mapsto P(a_1,\ldots, a_n). 
-        \end{aligned}
-    \end{equation}
-    Soit \( P\in\ker(\phi)\); nous écrivons la division euclidienne de \( P\) par \( X-a_1\) puis celle du reste par \( X-a_2\) et ainsi de suite :
-    \begin{equation}    \label{EqDAkijH}
-        P=(X-a_1)Q_1+\ldots +(X_n-a_n)Q_n+R
-    \end{equation}
-    où \( R\) doit être une constante pare que le premier reste est de degré zéro en \( X_1\), le second est de degré zéro en \( X_1\) et \( X_2\), etc. Afin d'identifier cette constante, nous appliquons l'égalité \eqref{EqDAkijH} à \( (a_1,\ldots, a_n)\) et en nous rappelant que \( P\in \ker(\phi)\) nous obtenons
-    \begin{equation}
-        0=P(a_1,\ldots, a_n)=R,
-    \end{equation}
-    donc \( R=0\) et \( P=(X_1-a_1)Q_1+\ldots +(X_n-a_n)Q_n\), c'est à dire \( P\in J\). Nous avons donc \( \ker(\phi)\subset J\). Par ailleurs \( J\subset \ker(\phi)\) est évident, donc \( J=\ker(\phi)\).
-
-    Vu que \( J\) est le noyau de l'application \( \eK[X_1,\ldots, X_n]\to \eK\), nous avons 
-    \begin{equation}
-        \frac{ \eK[X_1,\ldots, X_n] }{ J }=\eK.
-    \end{equation}
-    Donc \( J\) est un idéal maximal parce que tout polynôme n'étant pas dans \( J\) doit avoir un terme indépendant non nul et donc être dans \( \eK\) vis à vis du quotient \( \eK[X_1,\ldots, X_n]/J\).
-
-    Nous montrons maintenant l'implication inverse. Nous supposons que \( I\) est un idéal maximum et nous montrons qu'il doit être égal à \( J\) (pour un certain choix de \( a_1,\ldots, a_n\)).
-
-    Le quotient
-    \begin{equation}
-        \frac{ \eK[X_1,\ldots, X_n] }{ I }
-    \end{equation}
-    est une \( \eK\)-algèbre de type fini (définition). De plus c'est un corps par le théorème \ref{ThorqTTiJ}. C'est donc une extension algébrique finie de \( \eK\) par le théorème \ref{ThonoZyKa}. Mais \( \eK\) étant algébriquement clos, il est sa propre et unique extension algébrique; nous en déduisons que
-    \begin{equation}
-        \frac{ \eK[X_1,\ldots, X_n] }{ I }=\eK.
-    \end{equation}
-    Donc pour tout \( 1\leq i\leq n\), il existe \( a_i\in \eK\) tel que \( X_i-a_i\in I\), sinon le monôme \( X_i\) ne se projetterait pas sur un élément dans \( \eK\) dans le quotient. Cela prouve que \( J\) est contenu dans \( I\); par maximalité nous avons donc \( I=J\).
-\end{proof}
-
-\begin{corollary}
-    Soit \( \eK\) un corps algébriquement clos et \( I\), un idéal de \( \eK[X_1,\ldots, X_n]\). Si nous notons
-    \begin{equation}
-        V(I)=\{ x\in \eK^n\tq P(x_1,\ldots, x_n)=0 \}
-    \end{equation}
-    l'ensemble des racines communes à tous les éléments de \( I\), on a \( V(I)=\emptyset\) si et seulement si \( I=\eK[X_1,\ldots, X_n]\).
-\end{corollary}
-
-\begin{proof}
-    Si \( I=\eK[X_1,\ldots, X_n]\) en particulier \( 1\in I\) et nous avons évidemment \( V(I)=\emptyset\). Le sens difficile est l'autre sens.
-
-    Supposons que \( I\neq \eK[X_1,\ldots, X_n]\) et que \( K\) est un idéal maximum contenu dans \( I\). Nous savons déjà par le théorème \ref{ThowgZYqx} que \( K\) est de la forme \( K=(X_1-a_1,\ldots, X_n-a_n)\). Un élément de \( I\) est dans \( K\), donc si \( P\in I\) nous avons
-    \begin{equation}
-        P(a_1,\ldots, a_n)=0,
-    \end{equation}
-    c'est à dire que \( (a_1,\ldots, a_n)\in V(I)\) et donc que \( V(I)\neq 0\).
-\end{proof}
-
-\begin{lemma}[\cite{fJhCTE}]
-    Soit \( \eK\) une extension de degré \( \delta\) de \( \eQ\) et \( P\in \eK[T_1,\ldots, T_mj]\). Alors il existe \( \bar P\in \eQ[T_1,\ldots, T_m]\) tel que
-    \begin{enumerate}
-        \item
-            $\deg\bar P=\delta\deg(P)$
-        \item
-            pour tout \( (z_1,\ldots, z_m)\in \eC^m\) tel que \( P(z_1,\ldots, z_m)=0\), on a \( \bar P(z_1,\ldots, z_m)=0\).
-    \end{enumerate}
-\end{lemma}
-
-\begin{proof}
-    <++>
-\end{proof}
-<++>
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Minuscule morceau sur la théorie de Galois}
