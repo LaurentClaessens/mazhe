@@ -171,8 +171,6 @@ L'exemple suivant est une source classique d'erreurs en ce qui concerne l'infimu
 \section{Limites de suites}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-L'étude des limites et de la continuité dans $\eR$ est déjà connue. Un rappel est donné en appendice dans les sections \ref{SecLimiteFontion} et \ref{SecContinue}. Lors de cette étude, nous avons remarqué que la valeur absolue jouait un rôle fondamental en mesurant la distance entre les points de $\eR$. Maintenant que nous avons étudié en détail la notion de norme et de distance sur un espace vectoriel normé, nous pouvons facilement définir et étudier les notions de limites et de continuité pour les fonctions $f\colon \eR^m\to \eR^n$.
-
 Bien que nous allons parler de l'espace $\eR^n$ muni de la norme $\| . \|_2$, toute la partie limite et continuité dans $\eR^m$ sera recopier presque mot à mot ce qu'on a fait dans la partie sur les espaces vectoriels normés en général.
 
 La définition suivante copie la définition \ref{DefCvSuiteEGVN}.
@@ -232,6 +230,291 @@ Notez aussi la similarité avec la définition \ref{DefLimiteSuiteNum}.
 \begin{example}
 	Étant donné que la suite $(-1)^n$ n'est pas convergente, la suite $x_n=\big( (-1)^n,\frac{1}{ n } \big)$ n'est pas convergente dans $\eR^2$.
 \end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Suites et séries de nombres}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%\label{secseries}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Moyenne de Cesaro}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si \( (a_n)_{n\in \eN} \) est une suite dans \( \eR\) ou \( \eC\), alors sa \defe{moyenne de Cesaro}{moyenne!de Cesaro}\index{Cesaro!moyenn} est la limite (si elle existe) de la suite
+\begin{equation}
+    c_n=\frac{1}{ n }\sum_{k=1}^na_k.
+\end{equation}
+En un mot, c'est la limite des moyennes partielles.
+
+\begin{lemma}       \label{LemyGjMqM}
+    Si la suite \( (a_n)\) converge vers la limite \( \ell\) alors la suite admet une moyenne de Cesaro qui vaudra \( \ell\).
+\end{lemma}
+
+\begin{proof}
+    Soit \( \epsilon>0\) et \( N\in \eN\) tel que \( | a_n-\ell |<\epsilon\) pour tout \( n>N\). En remarquant que
+    \begin{equation}
+        \frac{1}{ n }\sum_{k=1}^nk-\ell=\frac{1}{ n }\sum_{k=1}^n(a_k-\ell),
+    \end{equation}
+    nous avons
+    \begin{subequations}
+        \begin{align}
+            | \frac{1}{ n }\sum_{k=1}^na_k-\ell |&\leq| \frac{1}{ n }\sum_{k=1}^N| a_k-\ell | |+\big| \frac{1}{ n }\sum_{k=N+1}^n\underbrace{| a_k-\ell |}_{\leq \epsilon} \big|\\
+            &\leq \epsilon+\frac{ n-N-1 }{ n }\epsilon\\
+            &\leq 2\epsilon.
+        \end{align}
+    \end{subequations}
+    Dans ce calcul nous avons redéfinit \( N\) de telle sorte que le premier terme soit inférieur à \( \epsilon\).
+\end{proof}
+
+
+\subsection{Rappels et définitions}
+
+La notion de série formalise le concept de somme infinie. L'absence de certaines propriétés de ces objets (problèmes de commutativité et même d'associativité) incitent à la prudence et montrent à quel point une définition précise est importante.
+
+Soit ${(a_k)}_{k \geq k_0}$ une suite réelle. La \defe{série}{série} de terme général $(a_k)${série}, notée
+\begin{math}
+  \sum_{i=k_0}^\infty a_i,
+\end{math}
+est la suite ${(s_n)}_{n \geq k_0}$ dont les termes sont donnés par
+\begin{equation*}
+  s_n \pardef \sum_{i=k_0}^k a_i
+\end{equation*}
+et sont appelés les \defe{sommes partielles}{somme!partielle} de la série.
+
+La série $\sum_{i=k_0}^\infty a_i$ \defe{converge}{série!convergence} si la suite $(s_n)$
+converge vers un réel $s$. Sa limite est appelée la \defe{somme de la
+série}{série!somme} et on note
+\begin{equation}        \label{EqDefSommeLim}
+  \sum_{i=k_0}^\infty a_i = \lim_{n\to\infty}\sum_{i=k_0}^na_i.
+\end{equation}
+Si la série ne converge pas, elle \defe{diverge}{série!divergence} et peut alors avoir
+une limite infinie (uniquement si le terme général est réel, on note
+alors $+\infty$ ou $-\infty$ sa limite) ou pas de limite.  La série
+$\sum_{i=k_0}^\infty a_i$ \defe{converge absolument}{convergence!absolue} si la série
+$\sum_{i=k_0}^\infty \abs{a_i}$ converge.
+
+\begin{proposition}\label{propnseries_propdebase}
+Les principales propriétés de la somme définie par la limite \eqref{EqDefSommeLim} sont
+  \begin{enumerate}
+  \item Si une série converge absolument, alors elle converge
+    (simplement).
+  \item Si la série est à termes positifs --c'est-à-dire pour tout
+    indice $k$, $a_k \in \eR$ et $a_k \geq 0$-- il n'y a aucune
+    différence entre convergence absolue et convergence simple.
+  \item\label{point3-seriepropdebase} Si une série converge, son terme général doit tendre vers $0$.
+\item 
+Si la série converge alors la somme est associative
+\item
+Si la série converge absolument, alors la somme est commutative.
+  \end{enumerate}
+\end{proposition}
+
+\begin{remark}Vue comme somme infinie, l'associativité et la
+  commutativité dans une série sont perdues. Néanmoins, il subsiste
+  que
+  \begin{enumerate}
+  \item si la série converge, on peut regrouper ses termes sans
+    modifier la convergence ni la somme (associativité),
+  \item si la série converge absolument, on peut modifier l'ordre des
+    termes sans modifier la convergence ni la somme (commutativité).
+  \end{enumerate}
+\end{remark}
+
+\begin{example}\label{exemplesseries}
+\begin{enumerate}
+
+\item
+    La \defe{série harmonique}{série!harmonique} est
+\begin{equation}
+\sum_{i=1}^\infty \frac1i
+\end{equation}
+et diverge (possède une limite $+\infty$).
+
+\item
+    La \defe{série géométrique}{série!géométrique} de raison $q \in \eC$ est
+\begin{equation}
+\sum_{i=0}^\infty q^i.
+\end{equation}
+Étudions la somme partielle \( S_N=1+q+q^2+\ldots +q^{n}\). Nous avons évidemment $S_N-zS_N=1-q^{N+1}$ et donc
+\begin{equation}
+    S_N=\sum_{n=0}^Nq^n=\frac{ 1-q^{N+1} }{ 1-q }.
+\end{equation}
+La limite \( \lim_{N\to \infty} S_N\) existe si et seulement si \( | q |\leq 1\) et dans ce cas nous avons
+\begin{equation}
+    \sum_{n=1}^{\infty}z^n=\frac{ 1 }{ 1-z }.
+\end{equation}
+La convergence est absolue.
+
+\item
+Pour $\alpha \in \RR$, la série de Riemann (ou Dirichlet)
+\begin{equation}        \label{EqSerRiem}
+\sum_{i=1}^\infty \frac1{i^\alpha}
+\end{equation}
+converge (absolument, puisque réelle et positive) si et seulement
+si $\alpha > 1$, et diverge sinon.
+\end{enumerate}
+\end{example}
+
+\subsection{Critères de convergence absolue}
+
+  Étant donné le terme général d'une série, il est souvent --dans les cas qui nous intéressent-- difficile de déterminer la somme de la série. L'exemple de la série géométrique est particulier, puisqu'on connait une formule pour chaque somme partielle, mais pour l'exemple des séries de Riemann il n'y a aucune formule simple pour un $\alpha$ général. D'où l'intérêt d'avoir des critères de convergence ne nécessitant aucune connaissance de l'éventuelle limite de la série.
+
+\subsubsection{Critère de comparaison} 
+
+\begin{lemma}[Critère de comparaison]   \label{LemgHWyfG}
+Soient $\sum_i a_i$ et $\sum_j
+b_j$ deux séries à termes positifs vérifiant
+\begin{equation*}
+  0 \leq a_i \leq b_i
+\end{equation*}
+alors
+\begin{enumerate}
+\item si $\sum_i a_i$ diverge, alors $\sum_j b_j$ diverge,
+\item si $\sum_j b_j$ converge, alors $\sum_i a_i$ converge
+  (absolument).
+  \end{enumerate}
+\end{lemma}
+
+\subsubsection{Critère d'équivalence}
+%\label{PgCritEquiv}
+
+\begin{proposition}[\cite{TrenchRealAnalisys}]
+ Soient $\sum_i a_i$ et $\sum_j b_j$ deux séries à termes positifs. Supposons l'existence de la limite (éventuellement infinie) suivante
+\begin{equation}
+  \limite i \infty \frac{a_i}{b_i} = \alpha \in \RR \text{ ou $\alpha =
+    \infty$.}
+\end{equation}
+Dans ce cas, nous avons
+\begin{enumerate}
+\item si $\alpha \neq 0$ et $\alpha\neq \infty$, alors
+  \begin{equation}
+    \sum_i a_i \text{~converge} \ssi \sum_j b_j\text{~converge,}
+  \end{equation}
+\item si $\alpha = 0$ et $\sum_j b_j$ converge, alors $\sum_i a_i$
+  converge (absolument),
+\item si $\alpha = +\infty$ et $\sum_j b_j$ diverge, alors $\sum_i
+  a_i$ diverge.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+    \item
+        Le fait que la suite $a_n/b_n$ converge vers $\alpha$ signifie que tant sa limite supérieure que sa limite inférieure convergent vers $\alpha$. En particulier la suite $\frac{ a_n }{ b_n }$ est bornée vers le haut et vers le bas. À partir d'un certain rang $N$, il existe $M$ tel que 
+        \begin{equation}
+            \frac{ a_n }{ b_n }<M
+        \end{equation}
+        et il existe $m$ tel que
+        \begin{equation}
+            \frac{ a_n }{ b_n }>m.
+        \end{equation}
+        Nous avons donc $a_n<Mb_n$ et $a_n>mb_n$. La série de $(a_n)$ converge donc si et seulement si la série de $(b_n)$ converge.
+    \item
+        Si $\alpha=0$, cela signifie que pour tout $\epsilon$, il existe un rang tel que $\frac{ a_n }{ b_n }<\epsilon$, et donc tel que $a_n<\epsilon b_k$. La suite de $(a_i)$ converge donc dès que la suite de $(b_i)$ converge.
+    \item
+        Pour tout $M$, il existe un rang dans la suite à partir duquel on a $\frac{ a_i }{ b_i }>M$, et donc $a_k>Mb_k$. Si la série de $(b_k)$ diverge, la série de $(a_k)$ doit également diverger.
+\end{enumerate}
+\end{proof}
+
+\subsubsection{Critère du quotient}
+
+\begin{proposition}[\cite{KeislerElemCalculus}]
+    Soit $\sum_i a_i$ une série. Supposons l'existence de la limite (éventuellement infinie) suivante
+    \begin{equation}
+      \limite i \infty \abs{\frac{a_{i+1}}{a_i}} = L\in \RR \text{ ou $L =
+        \infty$.}
+    \end{equation}
+    Alors
+    \begin{enumerate}
+    \item si $L < 1$, la série converge absolument,
+    \item si $L > 1$, la série diverge,
+    \item si $L = 1$ le critère échoue : il existe des exemple de convergence et des exemples de divergence.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+    \item
+        Soit $b$ tel que $L<b<1$. À partir d'un certain rang $K$, on a $\left| \frac{ a_{i+1} }{ a_i } \right| <b$. En particulier,
+        \begin{equation}
+            | a_{K+1} |<b| a_K |,
+        \end{equation}
+        et pour $a_{K+2}$ nous avons
+        \begin{equation}
+            | a_{K+2} |<b| a_{K+1} |<b^2| a_K |.
+        \end{equation}
+        Au final,
+        \begin{equation}
+            | a_{K+n} |<b^n| a_K |.
+        \end{equation}
+        Étant donné que la série $\sum_{n\geq K}b^n$ converge (parce que $b<1$), la queue de suite $\sum_{i\geq K}a_i$ converge, et par conséquent la suite au complet converge.
+    \item
+        Si $L>1$, on a
+        \begin{equation}
+            | a_K |<| a_{K+1} |<| a_{K+2} |<\ldots
+        \end{equation}
+        Il est donc impossible que la suite $(a_i)$ converge vers zéro. La série ne peut donc pas converger.
+    \item
+        Par exemple la suite harmonique $a_n=\frac{1}{ n }$ vérifie $L=1$, mais la série ne converge pas. Par contre, la suite $a_n=\frac{ 1 }{ n^2 }$ vérifie aussi le critère avec $L=1$ tandis que la série $\sum_n\frac{1}{ n^2 }$ converge.
+\end{enumerate}
+\end{proof}
+
+\subsubsection{Critère de la racine}
+
+\begin{proposition}[\cite{TrenchRealAnalisys}]
+    Soit $\sum_i a_i$ une série, et considérons
+    \begin{equation*}
+      \limsup_{i \rightarrow \infty} \sqrt[i]{\abs{a_i}} = L \in \RR
+      \text{ ou $L =
+        \infty$.}
+    \end{equation*}
+    Alors
+    \begin{enumerate}
+    \item si $L < 1$, la série converge absolument,
+    \item si $L> 1$, la série diverge,
+    \item si $L = 1$ le critère échoue.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            Si $L<1$, il existe un $r\in \mathopen] 0 , 1 \mathclose[$ tel que $| a_n |^{1/n}<r$ pour les grands $n$. Dans ce cas, $| a_n |<r^{n}$, et la série converge absolument parce que la série $\sum_nr^n$ converge du fait que $r<1$.
+        \item
+            Si $L>1$, il existe un $r>1$ tel que $| a_n |^{1/n}>r>1$. Cela fait que $| a_n |$ prend des valeurs plus grandes que $n$ pour une infinité de termes. Le terme général $a_n$ ne peut donc pas être une suite convergente. Par conséquent la suite diverge au sens où elle ne converge pas.
+
+    \end{enumerate}
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Critères de convergence simple}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les critères de comparaison, d'équivalence, du quotient et de la racine sont des critères de convergence absolue. Pour conclure à une convergence simple qui n'est pas une convergence absolue, le critère d'Abel sera notre outil principal.  
+
+\subsubsection{Critère d'Abel}
+
+\begin{proposition}[Critère d'Abel]
+    Soit la série $\sum_i c_iz_i$ avec
+    \begin{enumerate}
+        \item $(c_i)$ est une suite réelle décroissante qui tend vers zéro,
+        \item $(z_i)$ est une suite dans $\eC$ dont la suite des sommes partielles est bornée dans $\eC$, c'est à dire qu'il existe un $M>0$ tel que pour tout $n$,
+        \begin{equation}
+            \left| \sum_{i=1}^nz_i \right| \leq M.
+        \end{equation}
+        Alors la série $\sum_ic_iz_i$ est convergente.
+    \end{enumerate}
+\end{proposition}
+Remarquons que ce critère ne donne pas de convergence absolue.
+
+\begin{corollary}[Critère des séries alternées]\index{critère!série alternée}       \label{CoreMjIfw}
+    Si \( (a_n)\) est une suite décroissante à limite nulle, alors la série
+  \begin{equation}
+    \sum_{n=0}^\infty {(-1)}^n a_n
+  \end{equation}
+  converge simplement.
+\end{corollary}
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Limite de fonction}
@@ -962,6 +1245,235 @@ Cette propriété signifie que si une fonction passe par la hauteur $y_1$ et pui
 \begin{corollary}
 	Soit $f\colon I\to \eR$ une fonction continue et deux points $a<b$ dans $I$ tels que $f(a)<0$ et $f(b)>0$. Alors il existe $c\in\mathopen] a , b \mathclose[$ tel que $f(c)=0$.
 \end{corollary}
+
+\section{Continuité et dérivabilité}
+\label{seccontetderiv}
+
+On considère dans la suite une fonction $f : A \to \eR$, où $a \in A \subset \eR$ ; cependant, les notions de continuité et de dérivabilité se généralisent immédiatement au cas de fonctions à valeurs vectorielles ; la notion de continuité se généralise au cas des fonctions à plusieurs variables (la notion de dérivabilité est remplacée par celle de différentiabilité dans ce cadre).
+
+\begin{definition}
+    La fonction $f$ est \Defn{continue en $a$} si
+  \begin{equation*}
+    \limite x a f(x)
+  \end{equation*}
+  existe (et vaut alors $f(a)$).
+\end{definition}
+
+\begin{definition}
+    La fonction $f$ est \Defn{dérivable en $a$} si $a \in
+  \operatorname{int} A$ et si
+  \begin{equation*}
+    \lim_{\substack{x\rightarrow a\\x\neq a}} \frac{f(x)-f(a)}{x-a}
+  \end{equation*}
+  existe. On note alors cette quantité $f^\prime(a)$, c'est le nombre
+  dérivé de $f$ en $a$. La \Defn{fonction dérivée} de $f$ est
+  \begin{equation*}
+    f^\prime : A^\prime \to \eR : a \mapsto f^\prime(a)
+  \end{equation*}
+  définie sur l'ensemble noté $A^\prime$ des points $a$ où $f$ est
+  dérivable.
+\end{definition}
+
+\begin{definition}
+  Une fonction est \Defn{continue} (resp. \Defn{dérivable}) si elle est continue (resp. dérivable) en tout point $a \in A$ de son domaine.
+\end{definition}
+
+\begin{example}
+      Montrons que la fonction $f : \eR \to \eR : x\mapsto x$ est continue et dérivable. Exceptionnellement (bien qu'on sache que la dérivabilité implique la continuité), montrons ces deux assertions séparément.
+      \begin{description}
+      \item[Continuité] Pour prouver la continuité au point $a \in \eR$ nous devons montrer que
+     \begin{equation}
+       \limite x a x = a
+     \end{equation}
+     c'est-à-dire
+     \begin{equation}
+       \forall \epsilon > 0, \exists \delta > 0 :  \forall x \in \eR \abs{x-a} <
+       \delta \Rightarrow \abs{x-a} < \epsilon
+     \end{equation}
+     ce qui est clair en prenant $\delta = \epsilon$.
+
+      \item[Dérivabilité] Soit $a \in \eR$. Calculons la limite du quotient différentiel
+        \begin{equation}
+          \limite[x\neq a]{x}{a} \frac{x-a}{x-a} = \limite[x\neq a]x a 1 = 1
+        \end{equation}
+        ce qui prouve que $f$ est dérivable et que sa dérivée vaut $1$ en
+        tout point $a$ de $\eR$.
+      \end{description}
+
+     On a donc montré que la fonction $x \mapsto x$ est continue, dérivable, et que sa dérivée vaut $1$ en tout point $a$ de son domaine.
+
+\end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Espace des fonctions continues}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Soit \( I\), un intervalle de \( \eR\). L'\defe{oscillation}{oscillation!d'une fonction} sur \( I\) est le nombre
+    \begin{equation}
+        \omega_f(I)=\sup_{x\in I}f(x)-\inf_{x\in I}f(x).
+    \end{equation}
+\end{definition}
+    Pour chaque \( x\) fixé, la fonction
+    \begin{equation}
+        x\mapsto \omega_f\big( B(x,\delta) \big)
+    \end{equation}
+    est une fonction positive, croissante et a donc une limite (pour \( \delta\to 0\)). Nous notons \( \omega_f(x)\) cette limite qui est l'\defe{oscillation}{oscillation!d'une fonction en un point} de \( f\) en ce point. Une propriété immédiate est que \( f\) est continue en \( x_0\) si et seulement si \( \omega_f(x_0)=0\).
+
+    \begin{lemma}       \label{LemuaPbtQ}
+    L'ensemble des points de discontinuité d'une fonction \( f\colon \eR\to \eR\) est une réunion dénombrable de fermés.
+\end{lemma}
+
+\begin{proof}
+    Soit \( D\) l'ensemble des points de discontinuité de \( f\). Nous avons
+    \begin{equation}
+        D=\bigcup_{n=1}^{\infty}\{ x\tq \omega_f(x)\geq \frac{1}{ n } \}.
+    \end{equation}
+    Il nous suffit donc de montrer que pour tout \( \epsilon\), l'ensemble
+    \begin{equation}
+        \{ x\tq \omega_f(x)<\epsilon \}
+    \end{equation}
+    est ouvert. Soit en effet \( x_0\) dans cet ensemble. Il existe \( \delta\) tel que \( \omega_f\big( B(x_0,\delta) \big)<\epsilon\). Si \( x\in B(x_0,\delta)\), alors si on choisit \( \delta'\) tel que \( B(x,\delta')\subset B(x_0,\delta)\), nous avons \( \omega_f\big( B(x,\delta') \big)<\epsilon\), ce qui justifie que \( \omega_f(x)<\epsilon\) et donc que \( x\) est également dans l'ensemble considéré.
+\end{proof}
+
+\begin{theorem}
+    L'ensemble des points de discontinuité d'une limite simple de fonctions continues est de première catégorie.
+\end{theorem}
+
+\begin{proof}
+    Soit \( (f_n)\) une suite de fonctions convergent simplement vers \( f\). Nous devons écrire l'ensemble des points de discontinuité de \( f\) comme une union dénombrable d'ensembles tels que sur tout intervalle \( I\), aucun de ces ensembles n'est dense. Nous savons déjà par le lemme \ref{LemuaPbtQ} que l'ensemble des points de discontinuité  de \( f\) est donné par
+    \begin{equation}
+        D=\bigcup_{n=1}^{\infty}\{ x\tq \omega_f(x)\geq \frac{1}{  n } \}.
+    \end{equation}
+    Nous essayons donc de prouver que pour tout \( \epsilon\), l'ensemble 
+    \begin{equation}
+        F=\{ x\tq \omega_f(x)\geq \epsilon \}
+    \end{equation}
+    est nulle part dense. Soit
+    \begin{equation}
+        E_n=\bigcap_{i,j>n}\{ x\tq | f_i(x)-f_j(x) |<\epsilon \}.
+    \end{equation}
+    Nous montrons que cet ensemble est fermée en étudiant le complémentaire. Soit \( x\notin E_n\); alors il existe un couple \( (i,j)\) tel que
+    \begin{equation}
+        | f_i(x)-f_j(x) |>\epsilon.
+    \end{equation}
+    Par continuité, cette inégalité reste valide dans un voisinage de \( x\). Donc il existe un voisinage de \( x\) contenu dans \( \complement E_n\) et \( E_n\) est donc fermé.
+
+    De plus nous avons \( E_n\subset E_{n+1}\) et \( \bigcup_nE_n=\eR\). Ce dernier point est dû au fait que pour tout \( x\), il existe \( N\) tel que \( i,j>N\) implique \( | f_i(x)-f_j(x) |\leq \epsilon\). Cela est l'expression du fait que la suite \( \big( f_n(x) \big)_{n\in \eN}\) est de Cauchy.
+
+    Soit \( I\), un intervalle fermé de \( \eR\). Nous voulons trouver un intervalle \( J\subset I\) sur lequel \( f\) est continue. Nous écrivons \( I\) sous la forme 
+    \begin{equation}
+        I=\bigcup_{n=1}^{\infty}(E_n\cap I).
+    \end{equation}
+    Tous les ensembles \( J_n=E_n\cap I\) ne peuvent être nulle part dense en même temps (à cause du théorème de Baire \ref{ThoQGalIO}). Il existe donc un \( n\) tel que \( J_n\) contienne un ouvert \( J\). Le but est de montrer que \( f\) est continue sur \( J\). Pour ce faire, nous n'allons pas simplement majorer \( | f(x)-f(x_0) |\) par \( \epsilon\) lorsque \( | x-x_0 |\) est petit. Ce que nous allons faire est majorer l'oscillation de \( f\) sur \( B(x_0,\delta)\) lorsque \( \delta\) est petit. Pour cela nous prenons \( x_0\) et \( x\) dans \( J\) et nous écrivons
+    \begin{equation}
+        | f(x)-f(x_0) |\leq | f(x)-f_n(x) |+| f_n(x)-f_n(x_0) |.
+    \end{equation}
+    À ce niveau nous rappelons que \( n\) est fixé par le choix de \( J\), dans lequel \( \epsilon\) est déjà inclus. Nous choisissons évidemment \( | x-x_0 |\leq \delta\) de telle sorte que le second terme soit plus petit que \( \epsilon\) en vertu de la continuité de \( f_n\). Pour le premier terme, pour tout \( i,j\geq n\) nous avons
+    \begin{equation}
+        | f_i(x)-f_j(x) |<\epsilon.
+    \end{equation}
+    Si nous posons \( j=n\) et \( i\to\infty\), en tenant compte du fait que \( f_i\to f\) simplement,
+    \begin{equation}
+        | f(x)-f_n(x) |\leq \epsilon.
+    \end{equation}
+    Nous avons donc obtenu \( | f(x)-f_n(x_0) |\leq 2\epsilon\). Cela signifie que dans un voisinage de rayon \( \delta\) autour de \( x_0\), les valeurs extrêmes prises par \( f(x) \) sont \( f_n(x_0)\pm 4\epsilon\). Nous avons donc prouvé que pour tout \( \epsilon\), il existe \( \delta\) tel que
+    \begin{equation}
+        \omega_f\big( \mathopen[ x_0-\delta , x_0+\delta \mathclose] \big)\leq 4\epsilon.
+    \end{equation}
+    De là nous concluons que
+    \begin{equation}
+        \lim_{\delta\to 0}\omega_f\big( \mathopen[ x_0-\delta , x_0+\delta \mathclose] \big)=0,
+    \end{equation}
+    ce qui signifie que \( f\) est continue en \( x_0\).
+\end{proof}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Limites à plusieurs variables}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SecLimVarsPlus}
+
+Prenons une fonction $f\colon \eR^n\to \eR$. Nous disons que
+\begin{equation}
+    \lim_{x\to x_0}f(x)=l\in\eR
+\end{equation}
+lorsque $\forall \epsilon>0$, $\exists\delta$ tel que $\| x-x_0 \|\leq\delta$ implique $| f(x)-l |\leq \epsilon$. 
+
+Remarquez qu'ici, $x\in\eR^n$, et sachez distinguer $\| . \|$, la norme dans $\eR^n$ de $| . |$ qui est la valeur absolue dans $\eR$. Une autre façon d'exprimer cette définition est que l'ensemble des valeurs atteintes par $f$ dans une boule de rayon $\delta$ autour de $x_0$ n'est pas très loin de $l$. Nous définissons donc
+\begin{equation}
+    E_{\delta}=\{ f(x)\tq x\in B(x_0,\delta) \}.
+\end{equation}
+Notez que si $f$ n'est pas définie en $x_0$, il n'y a pas de valeurs correspondantes au centre de la boule dans $E_{\delta}$. Ceci est évidement la situation générique lorsqu'il y a une indétermination à lever dans le calcul de la limite. Nous avons alors que
+\begin{equation}
+    \lim_{x\to x_0}f(x)=l
+\end{equation}
+lorsque $\forall\epsilon>0$, $\exists\delta$ tel que 
+\begin{equation}        \label{Eqvmoinsrapplimdeux}
+    \sup\{ | v-l |\tq v\in E_{\delta} \}\leq\epsilon.
+\end{equation}
+Une façon classique de montrer qu'une limite n'existe pas, est de prouver que, pour tout $\delta$, l'ensemble $E_{\delta}$ contient deux valeurs constantes. Si par exemple $0\in E_{\delta}$ et $1\in E_{\delta}$ pour tout $\delta$, alors aucune valeur de $l$ (même pas $l=\pm\infty$) ne peut satisfaire à la condition \eqref{Eqvmoinsrapplimdeux} pour toute valeur de $\epsilon$.
+
+Nous laissons à la sagacité de l'étudiant le soin d'adapter tout ceci pour le cas $\lim_{x\to x_0}f(x)=\pm\infty$.
+
+La proposition suivante semble évidente, mais nous sera tellement
+utile qu'il est préférable de l'expliciter~:
+\begin{proposition}
+Soit $f : D \to \eR$ une fonction dont le domaine
+  s'écrit comme une réunion \emph{finie}
+  \begin{equation*}
+    D = \bigcup_{i=1}^k A_i
+  \end{equation*}  
+  où $k$ est un entier. Soit $a \in \adh D$ tel que $a \in \adh A_i$
+  pour tout $i \leq k$, et soit $b \in \eR$. Alors, la limite
+  \begin{equation*}
+    \limite x a f(x)
+  \end{equation*}
+  existe et vaut $b$ si et seulement si chacune des limites
+  \begin{equation*}
+    \limite[x \in A_i] x a f(x)
+  \end{equation*}
+  existe et vaut $b$.
+\end{proposition}
+
+\begin{proof}On sait déjà que si la limite de $f : D \to \eR$
+  existe, alors toute restriction à $A_i$ admet la même limite. Il
+  suffit donc de prouver la réciproque.
+
+  Par hypothèse, pour tout $i = 1 \ldots k$, nous savons que
+  \begin{equation*}
+    \forall \epsilon > 0\, \exists \delta_i > 0 \tq (x \in A_i)
+    \text{ et }
+    (\norme{x-a} < \delta_i) \Rightarrow \norme{f(x) - b} < \epsilon
+  \end{equation*}
+
+  Si $\epsilon$ est fixé, posons $\delta = \min_i\{\delta_i\}$. Nous
+  savons alors que
+  \begin{enumerate}
+  \item pour tout $x \in D$, il existe $i$ tel que $x \in A_i$, et
+  \item si $x$ vérifie $\norme{x-a} < \delta$, alors pour tout $i$,
+    $\norme{x-a} < \delta_i$ par définition de $\delta$.
+  \end{enumerate}
+  
+  On en déduit que si $x \in D$ et $\norme{x-a} < \delta$, alors il
+  existe $i$ tel que $x \in A_i$ et $\norme{x-a} < \delta_i$, ce qui
+  implique $\abs{f(x) - b} < \epsilon$ et prouve la continuité.
+\end{proof}
+
+\begin{example}
+  \begin{enumerate}
+  \item Pour qu'une fonction $f : \eR \to \eR$ admette une limite en
+    $a \in \eR$, il faut et il suffit qu'elle y admette une limite à
+    droite et une limite à gauche qui soient égales.
+
+  \item Une suite $(x_k)$ admet une limite si et seulement si les
+    sous suites $(x_{2k})$ et $(x_{2k+1})$ convergent vers la même
+    limite. Ceci n'est pas une application directe de la proposition,
+    mais la teneur est la même.
+  \end{enumerate}
+\end{example}
+
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Fonction sur des compacts}		\label{SecFonctionsSurCompacts}
