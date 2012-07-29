@@ -35,6 +35,376 @@ Toute fonction continue admet une primitive.
 \end{remark}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Intégration de fonction à deux variables}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégration sur un domaine rectangulaire}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{PgRapIntMultFubiniRect}
+
+Soit une fonction positive
+\begin{equation}
+    \begin{aligned}
+        f\colon \mathopen[ a , b \mathclose]\times\mathopen[ c , d \mathclose]&\to \eR^+ \\
+        (x,y)&\mapsto f(x,y). 
+    \end{aligned}
+\end{equation}
+
+L'intégrale de $f$ sur le rectangle $\mathopen[ a , b \mathclose]\times\mathopen[ c , d \mathclose]$ est le volume sous le graphe de la fonction. C'est à dire le volume de l'ensemble
+\begin{equation}
+    \{ (x,y,z)\tq (x,y)\in\mathopen[ a , b \mathclose]\times\mathopen[ c , d \mathclose], z\leq f(x,y) \}.
+\end{equation}
+
+\begin{theorem}[Théorème de Fubini]
+    Soit une fonction $f\colon \eR^2\to \eR$ une fonction continue par morceaux sur $\mR=\mathopen[ a , b \mathclose]\times\mathopen[ c , d \mathclose]$. Alors
+    \begin{equation}
+        \int_{\mR}f(x,y)dxdy=\int_a^b\left[ \int_c^df(x,y)dy \right]dx=\int_c^d\left[ \int_a^bf(x,y)dx \right]dy.
+    \end{equation}
+\end{theorem}
+En pratique, nous utilisons le théorème de Fubini pour calculer les intégrales sur des rectangles.
+
+
+\begin{example}
+    
+    Nous voudrions intégrer la fonction $f(x,y)-4+x^2+y^2$ sur le rectangle de la figure \ref{LabelFigIntRectangle}.
+    \newcommand{\CaptionFigIntRectangle}{Intégration sur un rectangle.}
+    \input{Fig_IntRectangle.pstricks}
+    L'ensemble sur lequel nous intégrons est donné par le produit cartésien d'intervalles $E=[0,1]\times[0,2]$. Le \defe{théorème de Fubuni}{théorème!Fubini} montre que nous pouvons intégrer séparément sur l'intervalle horizontal et vertical :
+    \begin{equation}
+    	\int_{E=[0,1]\times[0,2]}f=\int_{[0,1]}\left( \int_{[0,2]}(4-x^2-y^2)dy \right)dx.
+    \end{equation}
+    Ces intégrales sont maintenant des intégrales usuelles qui s'effectuent en calculant des primitives :
+    \begin{equation}
+        \begin{aligned}[]
+            \int_0^1\int_0^2(4-x^2-y^2)dy\,dx&=\int_0^1\left[ 4y-x^2y-\frac{ y^3 }{ 3 } \right]_0^2dx\\
+            &=\int_0^1(8-2x^2-\frac{ 8 }{ 3 })dx\\
+            &=\left[ \frac{ 16x }{ 3 }-\frac{ 2x^3 }{ 3 } \right]_0^1\\
+            &=\frac{ 14 }{ 3 }.
+        \end{aligned}
+    \end{equation}
+    Avec Sage, on peut faire comme ceci :
+
+    \begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.6.1, Release Date: 2011-01-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: f(x,y)=4-x**2-y**2                  
+sage: f.integrate(y,0,2).integrate(x,0,1)
+(x, y) |--> 14/3
+
+    \end{verbatim}
+
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégration sur un domaine non rectangulaire}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{PgRapIntMultFubiniTri}
+
+
+Nous voulons maintenant intégrer la fonction $f(x,y)=x^2+y^2$ sur le triangle de la figure \ref{LabelFigIntTriangle}.
+\newcommand{\CaptionFigIntTriangle}{Intégration sur un triangle.}
+\input{Fig_IntTriangle.pstricks}
+
+Étant donné que $y$ varie de $0$ à $2$ et que \emph{pour chaque $y$}, la variable $x$ varie de $0$ à $y$, nous écrivons l'intégrale sur le triangle sous la forme :
+\begin{equation}
+	\int_{\text{triangle}}(x^2+y^2)dx dy=\int_0^2\left( \int_0^y(x^2+y^2)dx \right)dy.
+\end{equation}
+
+Il existe principalement deux types de domaines non rectangulaires : les «horizontales» et les «verticales», voir figure \ref{LabelFigSurfaceHorizVerti}.
+
+\newcommand{\CaptionFigSurfaceHorizVerti}{Deux types de surfaces. Nous avons tracé un rectangle qui contient chacune des deux surfaces. L'intégrale sur un domaine sera l'intégrale sur le rectangle de la fonction qui vaut zéro en dehors du domaine.}
+\input{Fig_SurfaceHorizVerti.pstricks}
+%See also the subfigure \ref{LabelFigSurfaceHorizVertissLabelSubFigSurfaceHorizVerti0}
+%See also the subfigure \ref{LabelFigSurfaceHorizVertissLabelSubFigSurfaceHorizVerti1}
+
+Les surfaces horizontales sont de la forme 
+\begin{equation}
+    D=\{ (x,y)\tq x\in\mathopen[ a , b \mathclose],\varphi_1(x)\leq y\leq \varphi_2(x) \}
+\end{equation}
+où $\varphi_1$ et $\varphi_2$ sont les deux fonctions qui bornent le domaine. Le domaine $D$ est la région comprise entre les graphes de $\varphi_1$ et $\varphi_2$. Pour un tel domaine nous avons
+\begin{equation}
+    \iint_Df(x,y)dxdy=\int_a^bdx\int_{\varphi_1(x)}^{\varphi_2(x)}f(x,y)dy.
+\end{equation}
+
+Les surfaces verticales sont de la forme 
+\begin{equation}
+    D=\{ (x,y)\tq y\in\mathopen[ c , d \mathclose],\psi_1(y)\leq x\leq \psi_2(y) \}
+\end{equation}
+où $\varphi_1$ et $\varphi_2$ sont les deux fonctions qui bornent le domaine. Le domaine $D$ est la région comprise entre les graphes de $\varphi_1$ et $\varphi_2$. Dans ces cas nous avons
+\begin{equation}
+    \iint_Df=\int_c^d dy\int_{\psi_1(y)}^{\psi_2(y)} f(x,y)dx.
+\end{equation}
+
+\begin{proposition}
+    L'aire du domaine $D$ vaut l'intégrable de la fonction $f(x,y)=1$ sur $D$ :
+    \begin{equation}
+        Aire(D)=\iint_Ddxdy.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Supposons que le domaine soit du type «horizontal». En utilisant le théorème de Fubini avec $f(x,y)=1$ nous avons
+    \begin{equation}
+        \iint_Ddxdy=\int_a^b\left[ \int_{\varphi_1(x)}^{\varphi_2(x)}dy \right]dx=\int_a^b\big[ \varphi_2(x)-\varphi_1(x) \big].
+    \end{equation}
+    Cela représente la surface sous $\varphi_2$ moins la surface sous $\varphi_1$, et par conséquent la surface contenue entre les deux.
+\end{proof}
+
+\begin{example}
+    Cherchons la surface du disque de centre $(0,0)$ et de rayon $1$ dessinée à la figure \ref{LabelFigSurfaceCercle}.
+    \newcommand{\CaptionFigSurfaceCercle}{En bleu, la fonction $\sqrt{r^2-x^2}$ et en rouge, la fonction $-\sqrt{r^2-x^2}$.}
+    \input{Fig_SurfaceCercle.pstricks}
+
+    Le domaine est donné par $\varphi_1(x)\leq y\leq \varphi_2(x)$ et $x\in\mathopen[ -r ,r \mathclose]$ où $\varphi_1(x)=-\sqrt{r^2-x^2}$ et $\varphi_2(x)=\sqrt{r^2-x^2}$. L'aire est donc donnée par
+    \begin{equation}
+        A=\int_{-r}^r\big[ \varphi_2(x)-\varphi_1(x) \big]dx=2\int_{-r}^r\sqrt{r^2-x^2}dx=4\int_0^r\sqrt{r^2-x^2}.
+    \end{equation}
+    Nous effectuons le premier changement de variables $x=ru$, donc $dx=rdu$. En ce qui concerne les bornes, si $x=0$, alors $u=0$ et si $x=r$, alors $u=1$. L'intégrale à calculer devient
+    \begin{equation}
+        A=4\int_0^1\sqrt{r^2-r^2u^2}rdu=4r^2\int_0^1\sqrt{1-u^2}du.
+    \end{equation}
+    Cette dernière intégrale se calcule en posant
+    \begin{equation}
+        \begin{aligned}[]
+            u&=\sin(t)&du&=\cos(t)dt\\
+            u&=0&t&=0\\
+            u&=1&t&=\pi/2.
+        \end{aligned}
+    \end{equation}
+    Nous avons
+    \begin{equation}
+        A=4r^2\int_0^{\pi/2}\sqrt{1-\sin^2(t)}\cos(t)dt=4r^2\int_0^{\pi/2}\cos^2(t)dt.
+    \end{equation}
+    En utilisant la formule $2\cos^2(x)=1+\cos(2x)$, nous avons
+    \begin{equation}
+        A=4r^2\int_0^{\pi/2}\frac{ 1+\cos(2t) }{ 2 }dt=\pi r^2.
+    \end{equation}
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Changement de variables}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Comme dans les intégrales simples, il y a souvent moyen de trouver un changement de variables qui simplifie les expressions.  Le domaine $E=\{ (x,y)\in\eR^2\tq x^2+y^2<1 \}$ par exemple s'écrit plus facilement $E=\{ (r,\theta)\tq r<1 \}$ en coordonnées polaires. Le passage aux coordonnées polaire permet de transformer une intégration sur un domaine rond à une intégration sur le domaine rectangulaire $\mathopen]0,2\pi\mathclose[\times\mathopen]0,1\mathclose[$. La question est évidement de savoir si nous pouvons écrire
+\begin{equation}
+	\int_Ef=\int_{0}^{2\pi}\int_0^1f(r\cos\theta,r\sin\theta)drd\theta.
+\end{equation}
+Hélas ce n'est pas le cas. Il faut tenir compte du fait que le changement de base dilate ou contracte certaines surfaces.
+
+Soit $\varphi\colon D_1\subset\eR^2\to D_2\subset \eR^2$ une fonction bijective de classe $C^1$ dont l'inverse est également de classe $C^1$. On désigne par $x$ et $y$ ses composantes, c'est à dire que
+\begin{equation}
+    \varphi(u,v)=\begin{pmatrix}
+        x(u,v)    \\ 
+        y(u,v)    
+    \end{pmatrix}
+\end{equation}
+avec $(u,v)\in D_1$.
+
+\begin{theorem}     \label{ThoChamDeVarIntDDf}
+    Soit une fonction continue $f\colon D_2\to \eR$. Alors
+    \begin{equation}
+        \iint_{\varphi(D_1)}f(x,y)dxdy=\iint_{D_1}f\big( x(u,v),y(u,v) \big)| J_{\varphi}(u,v) |dudv
+    \end{equation}
+    où $J_{\varphi}$ est le Jacobien de $\varphi$.
+\end{theorem}
+Pour rappel,
+\begin{equation}
+    J_{\varphi}(u,v)=\det\begin{pmatrix}
+        \frac{ \partial x }{ \partial u }    &   \frac{ \partial x }{ \partial v }    \\ 
+        \frac{ \partial y }{ \partial u }    &   \frac{ \partial u }{ \partial v }    
+    \end{pmatrix}.
+\end{equation}
+Ne pas oublier de prendre la valeur absolue lorsqu'on utilise le Jacobien dans un changement de variables.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Le cas des coordonnées polaires}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+La fonction qui donne les coordonnées polaires est
+\begin{equation}
+    \begin{aligned}
+        \varphi\colon \eR^+\times\mathopen] 0 , 2\pi \mathclose[&\to \eR^2 \\
+        (r,\theta)&\mapsto\begin{pmatrix}
+            r\cos(\theta)    \\ 
+            r\sin(\theta)    
+        \end{pmatrix}.
+    \end{aligned}
+\end{equation}
+Son Jacobien vaut
+\begin{equation}
+    J_{\varphi}(r,\theta)=\det\begin{pmatrix}
+        \frac{ \partial x(r,\theta) }{ \partial r }    &   \frac{ \partial x(r,\theta) }{ \partial \theta }    \\ 
+        \frac{ \partial y(r,\theta) }{ \partial r }    &   \frac{ \partial y(r,\theta) }{ \partial \theta }    
+    \end{pmatrix}=
+    \begin{vmatrix}
+        \cos(\theta)    &   -r\sin(\theta)    \\ 
+        \sin(\theta)    &   r\cos(\theta)    
+    \end{vmatrix}=r.
+\end{equation}
+
+\begin{example}
+    Calculons la surface du disque $D$ de rayon $R$. Nous devons calculer
+    \begin{equation}
+        \iint_Ddxdy.
+    \end{equation}
+    Pour passer au polaires, nous savons que le disque est décrit par 
+    \begin{equation}
+        D=\{ (r,\theta)\tq 0\leq r\leq R,0\leq\theta\leq 2\pi \}.
+    \end{equation}
+    Nous avons donc
+    \begin{equation}
+        \iint_Ddxdy=\iint_{D}r\,drd\theta=\int_0^{2\pi}\int_0^Rr\,drd\theta=2\pi\int_0^Rr\,dr=\pi R^2.
+    \end{equation}
+\end{example}
+
+
+02/02/2012
+02/2/2012
+
+\begin{example}     \label{ExpmfDtAtV}
+    Montrons comment intégrer la fonction $f(x,y)=\sqrt{1-x^2-y^2}$ sur le domaine délimité par la droite $y=x$ et le cercle $x^2+y^2=y$, représenté sur la figure \ref{LabelFigIntBoutCercle}. Pour trouver le centre et le rayon du cercle $x^2+y^2=y$, nous commençons par écrire $x^2+y^2-y=0$, et ensuite nous reformons le carré : $y^2-y=(y-\frac{ 1 }{2})^2-\frac{1}{ 4 }$.
+    \newcommand{\CaptionFigIntBoutCercle}{Passage en polaire pour intégrer sur un morceau de cercle.}
+    \input{Fig_IntBoutCercle.pstricks}
+    Le passage en polaire transforme les équations du bord du domaine en
+    \begin{equation}
+        \begin{aligned}[]
+            \cos(\theta)&=\sin(\theta)\\
+            r^2&=r\sin(\theta).
+        \end{aligned}
+    \end{equation}
+    L'angle $\theta$ parcours donc $\mathopen] 0 , \pi/4 \mathclose[$, et le rayon, pour chacun de ces $\theta$ parcours $\mathopen] 0 , \sin(\theta) \mathclose[$. La fonction à intégrer se note maintenant $f(r,\theta)=\sqrt{1-r^2}$. Donc l'intégrale à calculer est
+    \begin{equation}		\label{PgRapIntMultFubiniBoutCercle}
+        \int_{0}^{\pi/4}\left( \int_0^{\sin(\theta)}\sqrt{1-r^2}r\,rd \right).
+    \end{equation}
+    Remarquez la présence d'un $r$ supplémentaire pour le jacobien.
+
+    Notez que les coordonnées du point $P$ sont $(1,1)$.
+\end{example}
+
+
+En pratique, lors du passage en coordonnées polaires, le «$dxdy$» devient «$r\,drd\theta$».
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Les coordonnées cylindriques}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+En ce qui concerne les coordonnées cylindriques, le Jacobien est donné par
+\begin{equation}
+    J(r,\theta,z)=\begin{vmatrix}
+        \frac{ \partial x }{ \partial r }    &   \frac{ \partial x }{ \partial \theta }    &   \frac{ \partial x }{ \partial z }    \\
+        \frac{ \partial y }{ \partial r }    &   \frac{ \partial y }{ \partial \theta }    &   \frac{ \partial y }{ \partial z }    \\
+        \frac{ \partial z }{ \partial r }    &   \frac{ \partial z }{ \partial \theta }    &   \frac{ \partial z }{ \partial z }    
+    \end{vmatrix}=
+    \begin{vmatrix}
+        \cos\theta    &   -r\sin\theta    &   0    \\
+        \sin\theta    &   r\cos\theta    &   0    \\
+        0    &   0    &   1
+    \end{vmatrix}=r.
+\end{equation}
+Nous avons donc $dx\,dy\,dz=r\,dr\,d\theta\,dz$.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Coordonnées sphériques}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Le calcul est un peu plus long :
+\begin{equation}
+    \begin{aligned}[]
+        J(\rho,\theta,\varphi)&=\begin{vmatrix}
+            \frac{ \partial x }{ \partial \rho }    &   \frac{ \partial x }{ \partial \theta }    &   \frac{ \partial x }{ \partial \varphi }    \\
+            \frac{ \partial y }{ \partial \rho }    &   \frac{ \partial y }{ \partial \theta }    &   \frac{ \partial y }{ \partial \varphi }    \\
+            \frac{ \partial z }{ \partial \rho }    &   \frac{ \partial z }{ \partial \theta }    &   \frac{ \partial z }{ \partial \varphi }    
+        \end{vmatrix}\\ 
+        &=
+        \begin{vmatrix}
+            \sin\theta\cos\varphi    &   \rho\cos\theta\cos\varphi    &   -\rho\sin\theta\sin\varphi    \\
+            \sin\theta\sin\varphi    &   \rho\cos\theta\sin\varphi    &   -\rho\sin\theta\cos\varphi    \\
+            \cos\theta               &   -\rho\sin\theta              &   0
+        \end{vmatrix}\\
+        &=\rho^2\sin\theta.
+    \end{aligned}
+\end{equation}
+Donc 
+\begin{equation}
+    dx\,dy\,dz=\rho^2\sin(\theta)\,d\rho\,d\theta\,d\varphi.
+\end{equation}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Un autre système utile}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Un changement de variables que l'on voit assez souvent est
+\begin{subequations}
+    \begin{numcases}{}
+        u=x+y\\
+        v=x-y.
+    \end{numcases}
+\end{subequations}
+Affin de calculer son jacobien, il faut d'abord exprimer $x$ et $y$ en fonctions de $u$ et $v$ :
+\begin{subequations}
+    \begin{numcases}{}
+        x=(u+v)/2\\
+        y=(u-v)/2.
+    \end{numcases}
+\end{subequations}
+La matrice jacobienne est
+\begin{equation}
+    \begin{pmatrix}
+        \frac{ \partial x }{ \partial u }    &   \frac{ \partial x }{ \partial v }    \\ 
+        \frac{ \partial y }{ \partial u }    &   \frac{ \partial y }{ \partial v }    
+    \end{pmatrix}=
+    \begin{pmatrix}
+        \frac{ 1 }{2}    &   \frac{ 1 }{2}    \\ 
+        \frac{ 1 }{2}    &   -\frac{ 1 }{2}    
+    \end{pmatrix}.
+\end{equation}
+Le déterminant vaut $-\frac{1}{ 2 }$. Nous avons donc
+\begin{equation}
+    dxdy=\frac{ 1 }{2}dudv.
+\end{equation}
+Nous insistons sur le fait que c'est $\frac{ 1 }{2}$ et non $-\frac{ 1 }{2}$ qui intervient parce que que la formule du changement de variable demande d'introduire la \emph{valeur absolue} du jacobien.
+
+\begin{example}
+    Calculer l'intégrale de la fonction $f(x,y)=x^2-y^2$ sur le domaine représenté sur la figure \ref{LabelFigExPolygone}.
+    \newcommand{\CaptionFigExPolygone}{Un domaine qui s'écrit étonnament bien avec un bon changement de coordonnées.}
+    \input{Fig_ExPolygone.pstricks}
+
+    Les droites qui délimitent le domaine d'intégration sont
+    \begin{equation}
+        \begin{aligned}[]
+            y&=-x+2\\
+            y&=x-2\\
+            y&=x\\
+            y&=-x
+        \end{aligned}
+    \end{equation}
+    Le domaine est donc donné par les équations
+    \begin{subequations}
+        \begin{numcases}{}
+            y+x<2\\
+            y-x>-2\\
+            y-x<0 \\
+            y+x>0.
+        \end{numcases}
+    \end{subequations}
+    En utilisant le changement de variables $u=x+y$, $v=x-y$ nous trouvons le domaine $0<u<2$, $0<v<2$. En ce qui concerne la fonction, $f(x,y)=(x+y)(x-y)$ et par conséquent
+    \begin{equation}
+        f(u,v)=uv.
+    \end{equation}
+    L'intégrale à calculer est simplement
+    \begin{equation}
+        \int_0^2\int_0^2 uv\,dudv=\int_0^2 u\,du\left[ \frac{ v^2 }{ 2 } \right]_0^2=2\int_0^2u\,du=4.
+    \end{equation}
+    
+\end{example}
+
+
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Les intégrales triples}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
