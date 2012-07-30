@@ -1,7 +1,203 @@
 % This is part of Mes notes de mathématique
 % Copyright (c) 2011-2012
-%   Laurent Claessens
+%   Laurent Claessens, Carlotta Donadello
 % See the file fdl-1.3.txt for copying conditions.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Parties libres, génératrices et bases}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+\begin{definition}
+	Un sous-ensemble $B=\{v_1,\ldots,v_q\}$ de $\eR^m$ est une \defe{base}{base} de $\eR^m$ s'il satisfait les conditions suivantes
+\begin{itemize}
+	\item $B$ est \defe{libre}{libre}, c'est à dire
+\[
+\sum_{i=1}^{q}a_i v_i=0_{m} \quad\Leftrightarrow\quad a_i=0, \forall i=1,\ldots,q.
+\]
+\item $B$ est \defe{générateur}{générateur}, c'est à dire que pour tout $x$ dans $\eR^m$ il existe un ensemble de coefficients $\{a_i\in\eR, i=1,\ldots,n\}$ tel que
+\[\sum_{i=1}^{q}a_i v_i=x.\]
+\end{itemize}
+\end{definition}
+Il existe une infinité de bases de $\eR^m$. On peut démontrer que le cardinal de toute base de $\eR^m$ est $m$, c'est à dire que toute base de $\eR^m$ possède exactement $m$ éléments.
+
+La base de $\eR^m$ qu'on dit \defe{canonique}{canonique!base}\index{base!canonique de $\eR^m$} (c.à.d. celle qu'on utilise tout le temps) est $\mathcal{B}=\{e_1,\ldots, e_m\}$, où le vecteur $e_j$ est 
+\begin{equation}\nonumber
+  e_j=
+\begin{array}{cc}
+  \begin{pmatrix}
+    0\\\vdots\\0\\1\\ 0\\\vdots\\0
+  \end{pmatrix} & 
+  \begin{matrix}
+    \quad\\\quad\\\leftarrow\textrm{j-ème} \quad\\\quad\\\quad\\
+  \end{matrix}
+\end{array}.
+\end{equation}
+La composante numéro $j$ de $e_i$ est $1$ si $i=j$ et $0$ si $i\neq j$. Cela s'écrit $(e_i)_j=\delta_{ij}$ où $\delta$ est le \defe{symbole de Kronecker}{Kronecker} défini par
+\begin{equation}
+	\delta_{ij}=\begin{cases}
+		1	&	\text{si $i=j$}\\
+		0	&	 \text{si $i\neq j$.}
+	\end{cases}
+\end{equation}
+Les éléments de la base canonique de $\eR^m$ peuvent donc être écrits $e_i=\sum_{k=1}^m\delta_{ik}e_k$.
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Produit scalaire}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}      \label{DefYNWUFc}
+	Soient $u$ et $v$, deux vecteurs de $\eR^m$. Le \defe{produit scalaire}{produit!scalaire} de $u$ et $v$, noté $\langle u, v\rangle $ ou $u\cdot v$ est le réel
+	\begin{equation}		\label{EqDefProdScalsumii}
+		\langle u, v\rangle =\sum_{k=1}^m u_kv_k=u_1v_1+u_2v_2+\ldots+u_mv_n.
+	\end{equation}
+\end{definition}
+
+Calculons par exemple le produit scalaire de deux vecteurs de la base canonique : $\langle e_i, e_j\rangle $. En utilisant la formule de définition et le fait que $(e_i)_k=\delta_{ik}$, nous avons
+\begin{equation}
+	\langle e_i, e_j\rangle =\sum_{k=1}^m\delta_{ik}\delta_{jk}.
+\end{equation}
+Nous pouvons effectuer la somme sur $k$ en remarquant qu'à cause du $\delta_{ik}$, seul le terme avec $k=i$ n'est pas nul. Effectuer la somme revient donc à remplacer tous les $k$ par des $i$ :
+\begin{equation}
+	\langle e_i, e_j\rangle =\delta_{ii}\delta_{ji}=\delta_{ji}.
+\end{equation}
+
+Une des propriétés intéressantes du produit scalaire est qu'il permet de décomposer un vecteur dans une base, comme nous le montre la proposition suivante.
+
+\begin{proposition}		\label{PropScalCompDec}
+	Si nous notons $v_i$ les composantes du vecteur $v$, c'est à dire si $v=\sum_{i=1}^m v_ie_i$, alors nous avons $v_j=\langle v, e_j\rangle $.
+\end{proposition}
+
+\begin{proof}
+	\begin{equation}		\label{Eqvejscalcomp}
+		v\cdot e_j=\sum_{i=1}^m\langle v_ie_i, e_j\rangle =\sum_{i=1}^mv_i\langle e_i, e_j\rangle =\sum_{i=1}^mv_i\delta_{ij}
+	\end{equation}
+	En effectuant la somme sur $i$ dans le membre de droite de l'équation \eqref{Eqvejscalcomp}, tous les termes sont nuls sauf celui où $i=j$; il reste donc
+	\begin{equation}
+		v\cdot e_j=v_j.
+	\end{equation}
+\end{proof}
+
+Le produit scalaire ne dépend en réalité pas de la base orthogonale choisie. 
+
+\begin{lemma}
+	Si $\{ e_i \}$ est la base canonique, et si $\{ f_i \}$ est une autre base orthonormale, alors si $u$ et $v$ sont deux vecteurs de $\eR^m$, nous avons
+	\begin{equation}
+		\sum_i u_iv_j=\sum_iu'_iv'_j
+	\end{equation}
+	où $u_i$ sont les composantes de $u$ dans la base $\{ e_i \}$ et $u'_i$ sont celles dans la base $\{ f_i \}$.
+\end{lemma}
+
+\begin{proof}
+	La preuve demande un peu d'algèbre linéaire. Étant donné que $\{ f_i \}$ est une base orthonormale, il existe une matrice $A$ orthogonale ($AA^t=\mtu$) telle que $u'_i=\sum_jA_{ij}u_j$ et idem pour $v$. Nous avons alors
+	\begin{equation}
+		\begin{aligned}[]
+			\sum_iu'_iv'_j&=\sum_i\left( \sum_jA_{ij} u_j\right)\left( \sum_k A_{ik}v_k \right)\\
+			&=\sum_{ijk}A_{ij}A_{ik}u_jv_k\\
+			&=\sum_{jk}\underbrace{\sum_i(A^t)_{ji}A_{ik}}_{=\delta_{jk}}u_jv_k\\
+			&=\sum_{jk}\delta_{jk}u_jv_k\\
+			&=\sum_ku_jv_k.
+		\end{aligned}
+	\end{equation}	
+\end{proof}
+
+Cette proposition nous permet de réellement parler du produit scalaire entre deux vecteurs de façon intrinsèque sans nous soucier de la base dans laquelle nous regardons les vecteurs.
+
+Nous dirons que deux vecteurs sont \defe{orthogonaux}{orthogonal} lorsque leur produit scalaire est nul. Nous écrivons que $u\perp v$ lorsque $\langle u, v\rangle =0$.
+\begin{definition}	\label{DefNormeEucleApp}
+	La \defe{norme euclidienne}{norme euclidienne!dans $\eR^m$} d'un élément de $\eR^m$ est définie par $\| u \|=\sqrt{u\cdot u}$.
+\end{definition}
+
+Cette définition est motivée par le fait que le produit scalaire $u\cdot u$ donne exactement la norme usuelle donnée par le théorème de Pythagore :
+\begin{equation}
+	u\cdot u=\sum_{i=1}^mu_iu_i=\sum_{i=1}^m u_i^2=u_1^2+u_2^2+\ldots+u_m^2.
+\end{equation}
+
+Le fait que $e_i\cdot e_j=\delta_{ij}$ signifie que la base canonique est \defe{orthonormée}{orthonormé}, c'est à dire que les vecteurs de la base canonique sont orthogonaux deux à deux et qu'ils ont tout $1$ comme norme.
+
+\begin{lemma}\label{LemSclNormeXi}
+	Pour tout $u\in\eR^m$, il existe un $\xi\in\eR^m$ tel que $\| u \|=\xi\cdot u$ et $\| \xi \|=1$.
+\end{lemma}
+
+\begin{proof}
+	Vérifions que le vecteur $\xi=u/\| u \|$ ait les propriétés requises. D'abord $\| \xi \|=1$ parce que $u\cdot u=\| u \|^2$. Ensuite
+	\begin{equation}
+		\xi\cdot u=\frac{ u\cdot u }{ \| u \| }=\frac{ \| u \|^2 }{ \| u \| }=\| u \|.
+	\end{equation}
+\end{proof}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Produit vectoriel}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+	Soient $u$ et $v$, deux vecteurs de $\eR^3$. Le \defe{produit vectoriel}{produit!vectoriel} de $u$ et $v$ est le vecteur $u\times v$ défini par 
+	\begin{equation}
+		\begin{aligned}[]
+		u\times v&=\begin{vmatrix}
+			e_1	&	e_2	&	e_3	\\
+			u_1	&	u_2	&	u_3	\\
+			v_1	&	v_2	&	v_3
+		\end{vmatrix}\\
+		&=
+		(u_2v_3-u_3v_2)e_1+(u_3v_1-u_1v_3)e_2+(u_1v_2-u_2v_1)e_3
+		\end{aligned}
+	\end{equation}
+	où les vecteurs $e_1$, $e_2$ et $e_3$ sont les vecteurs de la base canonique de $\eR^3$.
+\end{definition}
+La notion de produit vectoriel est propre à $\eR^3$; il n'y a pas de généralisation simple aux espaces $\eR^m$.
+
+Nous n'allons pas nous attarder sur les nombreuses propriétés du produit vectoriel. Les principales sont résumées dans la proposition suivante.
+\begin{proposition}
+	Si $u$ et $v$ sont des vecteurs de $\eR^3$, alors le vecteur $u\times v$ est l'unique vecteur qui est perpendiculaire à $u$ et $v$ en même temps, de norme égal à la surface du parallélogramme construit sur $u$ et $v$ et tel que les vecteurs $u$, $v$, $u\times v$ forment une base dextrogyre.
+\end{proposition}
+La chose importante à retenir est que le produit vectoriel permet de construire un vecteur simultanément perpendiculaire à deux vecteurs donnés. Le vecteur $u\times v$ est donc linéairement indépendant de $u$ et $v$. En pratique, si $u$ et $v$ sont déjà linéairement indépendants, alors le produit vectoriel permet de compléter une base de $\eR^3$.
+
+À l'aide du produit vectoriel et du produit scalaire, nous construisons le \defe{produit mixte}{produit!mixte} de trois vecteurs de $\eR^3$ par la formule
+\begin{equation}
+	(u\times v)\cdot w=\begin{vmatrix}
+			u_1	&	u_2	&	u_3	\\
+			v_1	&	v_2	&	v_3	\\
+			w_1	&	w_2	&	w_3	
+	\end{vmatrix}.
+\end{equation}
+
+Pourquoi nous ne considérons pas la combinaison $(u\cdot v)\times w$ ?
+
+\begin{proposition}		 \label{PropScalMixtLin}
+	Les applications produit scalaire, vectoriel et mixte sont multilinéaires. Spécifiquement, nous avons les propriétés suivantes.
+	\begin{enumerate}
+		\item
+			Les applications produit scalaire et vectoriel sont bilinéaires. Le produit mixte est trilinéaire.
+		\item
+			Le produit vectoriel est antisymétrique, c'est à dire $u\times v=-v\times u$.
+		\item
+			Nous avons $u\times v=0$ si et seulement si $u$ et $v$ sont colinéaires, c'est à dire si et seulement si l'équation $\alpha u+\beta v=0$ a une solution différente de la solution triviale $(\alpha,\beta)=(0,0)$.
+		\item		\label{ItemPropScalMixtLiniv}
+			Pour tout $u$ et $v$ dans $\eR^3$, nous avons
+			\begin{equation}
+				\langle u, v\rangle^2 +\| u\times v \|^2=\| u \|^2\| v \|^2
+			\end{equation}
+		\item
+			Par rapport à la dérivation, le produit scalaire et vectoriel vérifient une règle de Leibnitz. Soit $I$ un intervalle de $\eR$, et si $u$ et $u$ sont dans $C^1(I,\eR^3)$, alors
+			\begin{equation}		\label{EqFormLeibProdscalVect}
+				\begin{aligned}[]
+					\frac{ d }{ dt }\big( u(t)\cdot v(t) \big)&=\big( u'(t)\cdot v(t) \big)+\big( u(t)\cdot v'(t) \big)\\
+					\frac{ d }{ dt }\big( u(t)\times v(t) \big)&=\big( u'(t)\times v(t) \big)+\big( u(t)\times v'(t) \big).
+				\end{aligned}
+			\end{equation}
+		\end{enumerate}
+\end{proposition}
+
+Les deux formules suivantes, qui mêlent le produit scalaire et le produit vectoriel, sont souvent utiles en analyse vectorielle :
+\begin{equation}
+	\begin{aligned}[]
+		(u\times v)\cdot w&=u\cdot(v\times w)\\
+		(u\times v)\times w&=-(v\cdot w)u+(u\cdot w)v		\label{EqFormExpluxxx}
+	\end{aligned}
+\end{equation}
+pour tout vecteurs $u$, $v$ et $w$ dans $\eR^3$. Nous les admettons sans démonstration. La seconde formule est parfois appelée \defe{formule d'expulsion}{formule d'expulsion}.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Parties libres, génératrices et bases}
@@ -204,6 +400,430 @@ Ici \( \epsilon\) est la signature de \( u \) vue comme une permutation des él�
     \end{equation}
     Nous savons qu'un cycle de longueur \( n\) est de signature \( (-1)^{n+1}\). Ici le cycle est de longueur \( q-1\) qui est pair (pare que \( p\geq 3\)) et par conséquent, l'application \( \beta\) est de signature \( -1\).
 \end{proof}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Applications linéaires}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Définition}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+	Une application $T: \eR^m\to\eR^n$ est dite \defe{linéaire}{linéaire (application)} si 
+\begin{itemize}
+\item $T(x+y)=T(x)+T(y)$ pour tout $x$ et $y$ dans $\eR^m$,  
+\item $T(\lambda x)=\lambda T(x)$ pour tout $\lambda$ dans $\eR^m$ et $\lambda$ dans $\eR$.
+\end{itemize}
+\end{definition}
+
+Si $V$ et $W$ sont deux espaces vectoriels réels, nous définissons de la même manière une application linéaire de $V$ dans $W$ comme étant une application $T\colon V\to W$ telle que $T(v_1+v_2)=T(v_1)+T(v_2)$ et $T(\lambda v)=\lambda T(v)$ pour tout $v,v_1,v_2$ dans $V$ et pour tout réel $\lambda$.
+
+L'ensemble des applications linéaires de $\eR^m$ vers $\eR^n$ est noté $\mathcal{L}(\eR^m, \eR^n)$, et plus généralement nous notons $\aL(V,W)$\nomenclature{$\aL(V,W)$}{Ensemble des applications linéaires de $V$ dans $W$} l'ensemble des applications linéaires de $V$ dans $W$. 
+
+\begin{example}
+Soit $m=n=1$. Pour tout $b$ dans $\eR$ la fonction $T_b(x)= bx$ est une application linéaire de $\eR$ dans $\eR$. En effet,
+\begin{itemize}
+\item  $T_b(x+y)= b(x+y)= bx + by = T_b(x)+T_b(y)$,
+\item $T_b(ax)=b(ax)= abx = a T_b(x)$.
+\end{itemize}
+De la même façon on peut montrer que la fonction $T_{\lambda}$ définie par $T_{\lambda}(x)=bx$ est un application linéaire de $\eR^m$ dans $\eR^m$ pour tout $\lambda$ dans $\eR$ et $m$ dans $\eN$.
+\end{example}
+
+\begin{example}\label{ex_affine}
+	Soit $m=n$. On fixe $\lambda$ dans $\eR$ et $v$ dans $\eR^m$. L'application $U_{\lambda}$ de $\eR^m$ dans $\eR^m$ définie par $U_{\lambda}(x)=\lambda x+v$ n'est pas une application linéaire, parce que 
+\[
+U_{\lambda}(ax)=\lambda(ax)+v\neq \lambda(bx+v)=a U_{\lambda}(x).
+\]
+\end{example}
+
+\begin{example}
+	Si $V$ et $W$ sont deux espaces vectoriels, nous pouvons considérer le produit $E=V\times W$. Les projections $\pr_V$ et $\pr_W$\nomenclature{$\pr_V$}{projection de $V\times W$ sur $V$}, définies dans la section \ref{sec_prod}, sont des applications linéaires. 
+
+	En effet, la projection $\pr_V\colon V\times W\to V$ est donnée par $\pr_V(v,w)=v$. Alors,
+	\begin{equation}
+		\begin{aligned}[]
+			\pr_V\big( (v,w)+(v',w') \big)&=\pr_V\big( (v+v'),(w+w') \big)\\
+			&=v+v'\\
+			&=\pr_V(v,w)+\pr_V(v',w'),
+		\end{aligned}
+	\end{equation}
+	et
+	\begin{equation}
+		\pr_V\big( \lambda(v,w) \big)=\pr_V\big( (\lambda v,\lambda w) \big)=\lambda v=\lambda\pr_V(v,w).
+	\end{equation}
+	Nous laissons en exercice le soin d'adapter ces calculs pour montrer que $\pr_W$ est également une projection.
+\end{example}
+
+\begin{example}\label{exampleT_A}
+	Soit $A$ une matrice fixée de $\mathcal{M}_{n\times m}$\nomenclature{$\mathcal{M}_{n\times m}$}{l'ensemble des matrices $n\times m$}. La fonction $T_A\colon \eR^m\to \eR^n$ définie par $T_A(x)=Ax$ est une application linéaire. En effet, 
+\begin{itemize}
+\item  $T_A(x+y)= A(x+y)= Ax + Ay = T_A(x)+T_A(y)$,
+\item $T_A(ax)=A(ax)= a(Ax) = a T_A(x)$.
+\end{itemize}
+\end{example}
+
+On peut observer que, si on identifie $\mathcal{M}_{1\times 1}$ et $\eR$, on obtient le premier exemple comme cas particulier.
+
+\begin{proposition}
+ Toute application linéaire $T$ de $\eR^m$ dans $\eR^n$ s'écrit de manière unique par rapport aux bases canoniques de $\eR^m$ et $\eR^n$ sous la forme
+\[
+T(x)=Ax,
+\]
+avec $A$ dans $\mathcal{M}_{n\times m}$.
+\end{proposition}
+
+\begin{proof}
+  Soit $x$ un vecteur dans $\eR^m$. On peut écrire $x$ sous la forme $ x=\sum_{i=1}^{m}x_i e_i$. Comme $T$ est une application linéaire on a
+\[
+T(x)=\sum_{i=1}^{m}x_iT(e_i).
+\]
+Les images de la base de $\eR^m$, $T(e_j), \, j=1,\ldots,m$, sont des éléments de $\eR^n$, donc on peut les écrire sous la forme de vecteurs
+\[
+T(e_i)=
+\begin{pmatrix}
+  a_{1i}\\
+\vdots\\
+a_{ni}
+\end{pmatrix}.
+\] 
+On obtient alors
+\[
+T(x)=\sum_{i=1}^{m}x_iT(e_i)=\sum_{i=1}^{m}x_i\begin{pmatrix}
+  a_{1i}\\
+\vdots\\
+a_{ni}
+\end{pmatrix}=
+\begin{pmatrix}
+  a_{11} \ldots a_{1m}\\
+\vdots \ddots \vdots\\
+ a_{n1} \ldots a_{nm}\\
+\end{pmatrix}
+\begin{pmatrix}
+  x_1\\
+\vdots\\
+x_m
+\end{pmatrix}=Ax.
+\]
+\end{proof}
+
+
+\begin{definition}
+  Une application $S: \eR^m\to\eR^n$ est dite \defe{affine}{affine (application)} si elle est la somme d'une application linéaire et d'une application constante. Autrement dit, $S$ est affine s'il existe $T: \eR^m\to\eR^n$, linéaire, telle que $S(x)-T(x)$ soit un vecteur constant dans $\eR^n$. 
+\end{definition}
+
+\begin{example}
+	Les exemples les plus courants d'applications affines sont les droites et les plans ne passant pas par l'origine.
+	\begin{description}
+		\item[Les droites] Une droite dans $\eR^2$ (ou $\eR^3$) qui ne passe pas par l'origine est le graphe d'une fonction de la forme $s(x)=ax+b$ (ou $s(t)=u x +v$, avec $u$ et $v$  dans $\eR^2$). On reconnait ici la fonction de l'exemple \ref{ex_affine}.
+			
+		\item[Les plans]
+			De la même façon nous savons que tout plan qui ne passe pas par l'origine dans $\eR^3$ est le graphe d'une application affine, $P(x,y)= (a,b)^T\cdot(x,y)^T+(c,d)^T$.
+	\end{description}
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Norme d'une application linéaire}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous pouvons munir $\aL(\eR^m, \eR^n)$ d'une structure d'espace vectoriel sur $\eR$ en définissant la somme et le produit par un scalaire de la façon suivante. Si $T$ et $U$ sont des élément de $\aL(\eR^m,\eR^m)$ et si $\lambda$ est un réel, nous définissons les éléments $T+U$ et $\lambda T$ par
+\begin{enumerate}
+	\item
+		$(T+U)(x)=T(x)+U(x)$;
+	\item
+		$(\lambda T)(x)=\lambda T(x)$
+\end{enumerate}
+pour tout $x$ in $\eR^m$. Nous définissons exactement de la même manière la structure d'espace vectoriel sur $\aL(V,W)$ lorsque $V$ et $W$ sont deux espaces vectoriels.
+
+Nous pouvons de plus définir une norme (au sens de la définition \ref{DefNorme}) sur $\aL(\eR^m,\eR^n)$ afin d'obtenir un espace vectoriel normé.
+\begin{definition}		\label{DefNormeAppLineaire}
+	Le nombre
+	\begin{equation}
+		\|T\|_{\mathcal{L}}=\sup_{x\in\eR^m}\frac{\|T(x)\|_{\eR^n}}{\|x\|_{\eR^m}}=\sup_{\|x\|_{\eR^m}\leq 1}\|T(x)\|_{\eR^n}
+	\end{equation}
+	est la \defe{norme}{norme!d'application linéaire} de $T$. De la même manière, si $T\in\aL(V,W)$ nous définissons
+	\begin{equation}
+		\| T \|_{\aL}=\sup_{v\in V}\frac{ \| T(v) \|_W }{ \| V \|_V }.
+	\end{equation}
+\end{definition}
+
+Nous vérifions que l'application $\| . \|$ de $\aL(\eR^m,\eR^n)$ dans $\eR$ ainsi définie est effectivement une norme.
+\begin{enumerate}
+\item $\|T\|_{\mathcal{L}}=0$ signifie que $\|T(x)\|_{\eR^n}=0$ pour tout $x$ dans $\eR^m$. Comme  $\|\cdot\|_{\eR^n}$ est une norme on conclut que $T(x)=0_{n}$ pour tout $x$ dans $\eR^m$, donc $T$ est l'application nulle. 
+\item Pour tout $a$ dans $\eR$ et tout  $T$ dans $\mathcal{L}(\eR^m, \eR^n)$ on a 
+\[
+\|aT\|_{\mathcal{L}}=\sup_{\|x\|_{\eR^m}\leq 1}\|aT(x)\|_{\eR^n}=|a|\sup_{\|x\|_{\eR^m}\leq 1}\|T(x)\|_{\eR^n}=|a|\|T\|_{\mathcal{L}}.
+\]
+\item Pour tous $T_1$ et $T_2$ dans $\mathcal{L}(\eR^m, \eR^n)$ on a 
+  \begin{equation}\nonumber
+    \begin{aligned}
+       \|T_1+ T_2\|_{\mathcal{L}}&=\sup_{\|x\|_{\eR^m}\leq 1}\|T_1(x)+T_2(x)\|_{\eR^n}\leq\\
+ &\leq\sup_{\|x\|_{\eR^m}\leq 1}\|T_1(x)\|_{\eR^n} +\sup_{\|x\|_{\eR^m}\leq 1}\|T_2(x)\|_{\eR^n}\\
+ &=\|T_1\|_{\mathcal{L}}+\|T_2\|_{\mathcal{L}}.
+    \end{aligned}
+  \end{equation}
+\end{enumerate}
+\emph{Mutatis mutandis} la même preuve tient pour $\aL(V,W)$.
+
+Le fait que la norme d'une application linéaire est toujours finie est une conséquence du corollaire \ref{CorFnContinueCompactBorne} et du fait que l'ensemble $\{ \| x \|\leq 1 \}$ est compact. Par conséquent la fonction
+\begin{equation}
+	x\mapsto \frac{ \| T(x) \|_{\eR^n} }{ \| x \|_{\eR^m} }
+\end{equation}
+est une fonction continue et est donc bornée sur le compact donné par la condition $\| x \|\leq 1$. Le supremum est donc un nombre réel fini.
+
+L'espace $\big( \aL(\eR^m,\eR^m),\| . \|_{\aL} \big)$ devient un espace vectoriel normé, et nous pouvons par conséquent y appliquer tous les concepts et théorèmes vus dans le chapitre \ref{ChapEspVectNorm}. Il est donc maintenant possible de considérer des suites d'applications et d'étudier leur convergence. Nous y reviendrons plus tard.
+
+\begin{example}
+	Soit $m=n$, un point $\lambda$ dans $\eR$ et $T_{\lambda}$ l'application linéaire définie par $T_{\lambda}(x)=\lambda x$. La norme de $T_{\lambda}$ est alors
+\[
+\|T_{\lambda}\|_{\mathcal{L}}=\sup_{\|x\|_{\eR^m}\leq 1}\|\lambda x\|_{\eR^n}= |\lambda|.
+\]
+Notez que $T_{\lambda}$ n'est rien d'autre que l'homothétie de rapport $\lambda$ dans $\eR^m$.
+\end{example}
+
+\begin{example}
+	Considérons la rotation $T_{\alpha}$ d'angle $\alpha$ dans $\eR^2$. Elle est donnée par l'équation matricielle
+	\begin{equation}
+		T_{\alpha}\begin{pmatrix}
+			x	\\ 
+			y	
+		\end{pmatrix}=\begin{pmatrix}
+			\cos\alpha	&	\sin\alpha	\\ 
+			-\sin\alpha	&	\cos\alpha	
+		\end{pmatrix}\begin{pmatrix}
+			x	\\ 
+			y	
+		\end{pmatrix}=\begin{pmatrix}
+			\cos(\alpha)x+\sin(\alpha)y	\\ 
+			-\sin(\alpha)x+\cos(\alpha)y	
+		\end{pmatrix}
+	\end{equation}
+	Étant donné que cela est une rotation, c'est une isométrie : $\| T_{\alpha}x \|=\| x \|$. En ce qui concerne la norme de $T_{\alpha}$ nous avons
+	\begin{equation}
+		\| T_{\alpha} \|=\sup_{x\in\eR^2}\frac{ \| T_{\alpha}(x) \| }{ \| x \| }=\sup_{x\in\eR^2}\frac{ \| x \| }{ \| x \| }=1.
+	\end{equation}
+	Toutes les rotations dans le plan ont donc une norme $1$. La même preuve tient pour toutes les rotations en dimension quelconque. 
+\end{example}
+
+\begin{example}
+  Soit $m=n$, un point $b$ dans $\eR^m$ et $T_b$ l'application linéaire définie par $T_b(x)=b\cdot x$ (petit exercice : vérifiez qu'il s'agit vraiment d'une application linéaire).  La norme de $T_b$ satisfait les inégalités suivantes 
+ \[
+\|T_b\|_{\mathcal{L}}=\sup_{\|x\|_{\eR^m}\leq 1}\|b\cdot x\|_{\eR^n}\leq \sup_{\|x\|_{\eR^m}\leq 1}\|b \|_{\eR^n}\|x\cdot x\|_{\eR^n}\leq\|b \|_{\eR^n},
+\]
+\[
+\|T_b\|_{\mathcal{L}}=\sup_{\|x\|_{\eR^m}\leq 1}\|b\cdot x\|_{\eR^n}\geq \left\|b\cdot \frac{b}{\|b \|_{\eR^n}}\right\|_{\eR^n}=\|b \|_{\eR^n},
+\]
+donc $\|T_b\|_{\mathcal{L}}=\|b \|_{\eR^n}$.
+\end{example}
+
+Une inégalité que nous utiliserons quelque fois dans la suite, y compris dans la proposition qui suit.
+\begin{lemma}		\label{LemAvmajAfoisv}
+	Soit $T$ une application linéaire de $\eR^m$ vers $\eR^n$. Alors
+	\begin{equation}
+		\| Av \|_n\leq \| A \|_{\aL}\| v \|_m.
+	\end{equation}
+	pour tout $v\in\eR^m$.
+\end{lemma}
+
+\begin{proof}
+	Étant donné que le supremum d'un ensemble est plus grand ou égal à tous les éléments qui le compose,
+	\begin{equation}
+		\| A \|_{\aL(\eR^m,\eR^n)}=\sup_{x\in\eR^m}\frac{ \| Ax \| }{ \| x \| }\geq\frac{ \| Av \| }{ \| v \| },
+	\end{equation}
+	d'où le résultat.
+\end{proof}
+
+\begin{proposition}
+  Toute application linéaire $T$ de $\eR^m$ dans $\eR^n$ est continue. 
+\end{proposition}
+\begin{proof}
+  Soit $x$ un point dans $\eR^m$. Nous devons vérifier l'égalité
+\[
+\lim_{h\to 0_m}T(x+h)=T(x).
+\]
+Cela revient à prouver que $\lim_{h\to 0_m}T(h)=0$, parce que $T(x+h)=T(x)+T(h)$. Nous pouvons toujours majorer $\|T(h)\|_n$ par $\|T\|_{\mathcal{L}(\eR^m,\eR^n)}\| h \|_{\eR^m}$ (lemme \ref{LemAvmajAfoisv}). Quand $h$ s'approche de $ 0_m $ sa norme $\|h\|_m$ tend vers $0$, ce que nous permet de conclure parce que nous savons que de toutes façons, $\| T \|_{\aL}$ est fini.
+\end{proof}
+
+\begin{proposition}
+  Soit $T_1$ dans $\mathcal{L}(\eR^m, \eR^n)$ et $T_2$ dans $\mathcal{L}(\eR^n, \eR^p)$ . Alors l'application composée $T_2\circ T_1 $ est dans $\mathcal{L}(\eR^m, \eR^p)$ et sa norme satisfait
+\[
+\|T_2\circ T_1 \|_{\mathcal{L}}\leq\|T_1\|_{\mathcal{L}} \|T_2\|_{\mathcal{L}}.
+\]
+\end{proposition}
+\begin{proof}
+  \begin{itemize}
+  \item $T_2\circ T_1 $ est dans $\mathcal{L}(\eR^m, \eR^p)$ : soient $x,\, y$ dans $\eR^m$ et $a,\, b$ dans $\eR$ . 
+    \begin{equation}\nonumber
+      \begin{aligned}
+       T_2&\circ T_1 (ax+by)= T_2\left(T_1(ax+by)\right)=T_2(aT_1(x)+bT_1(y))=\\
+&= aT_2\left(T_1(x)\right)+ bT_2\left(T_1(y)\right) = aT_2\circ T_1(x)+ bT_2\circ T_1(y). 
+      \end{aligned}
+    \end{equation}  
+\item
+	On veut une estimation de la norme de $T_2\circ T_1 $ :
+\[
+\|T_2\circ T_1 \|_{\mathcal{L}}= \sup_{x\in\eR^m}\frac{\left\|T_2\left(T_1(x)\right)\right\|_{\eR^p}}{\|x\|_{\eR^m}}\leq  \sup_{x\in\eR^m}\frac{\|T_2\|_{\mathcal{L}}\left\|\left(T_1(x)\right)\right\|_{\eR^p}}{\|x\|_{\eR^m}} =\|T_1\|_{\mathcal{L}} \|T_2\|_{\mathcal{L}}.
+\]
+  \end{itemize}
+\end{proof}
+
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Espaces de polynômes}		\label{SecEspacePolynomes}
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+Dans cette section nous abandonnons pour quelques minutes l'espace $\eR^m$ et considérons plus attentivement l'espace des fonctions polynômiales $\mathcal{P}_{\eR}$, que nous avons déjà rencontré dans la section \ref{normes_equiv}, et ses sous-espaces $\mathcal{P}_{\eR}^k$, pour $k$ dans $\eN_0$. 
+
+Pour chaque $k>0$ donné nous définissons
+\begin{equation}
+\mathcal{P}_\eR^k=\{p:\eR\to \eR\,|\, p : x\mapsto a_0+a_1 x +a_2 x^2 + \ldots+a_k x^k, \, a_i\in\eR,\,\forall i=0,\ldots,k\}.
+\end{equation}   
+Il est facile de se convaincre que la somme de deux polynômes de degré inférieur ou égal à $k$ est encore un polynôme de degré inférieur ou égal à $k$. En outre il est clair que la multiplication par un scalaire ne peut pas augmenter le degré d'un polynôme. L'ensemble $\mathcal{P}_\eR^k$ est donc un espace vectoriel muni des opérations héritées de $\mathcal{P}_{\eR}$. 
+
+La base canonique de l'espace $\mathcal{P}_\eR^k$ est donné par les monômes $\mathcal{B}=\{x\mapsto x^j \,|\, j=0, \ldots, k\}$. Le fait que cela soit une base est vraiment facile à démontrer et est un exercice très utile si vous ne l'avez pas encore vu dans un cours précédent. 
+
+Nous allons maintenant étudier trois application linéaires de $\mathcal{P}_\eR^k$ vers des autres espaces vectoriels
+\begin{description}
+  \item[L'isomorphisme canonique  $\phi:\mathcal{P}_\eR^k \to\eR^{k+1}$] Nous définissons $\phi$ par les relations suivantes
+\[
+\phi(x^j)=e_{j+1}, \qquad \forall j\in\{0,\dots, k\}. 
+\]
+Cela veut dire que pour tout $p$ dans $\mathcal{P}_\eR^k$, avec $p(x)=a_0+a_1 x +a_2 x^2 + \ldots+a_k x^K$, l'image de $p$ par $\phi$ est 
+\[
+\phi(p)=\phi\left(\sum_{j=0}^k a_j x^j\right)=\sum_{j=0}^k a_j e_{j+1}.
+\]
+\begin{example} Soit $k=5$ on a 
+  \begin{equation}
+    \phi(-8-7x-4x^2+4x^3+2x^5)=
+  \begin{pmatrix}
+    -8\\
+    -7\\
+    -4\\
+    4\\
+    0\\
+    2
+  \end{pmatrix}.
+  \end{equation}
+\end{example}
+Cette application est clairement bijective et respecte les opérations d'espace vectoriel, donc elle est un isomorphisme d'espaces vectoriels. L'existence d'un isomorphisme entre $\mathcal{P}_\eR^k$  et $\eR^{k+1}$ est un cas particulier du théorème qui dit que  pour chaque $m$ dans $\eN_0$ fixée, tous les espaces vectoriels sur $\eR$ de dimension $m$ sont isomorphes à $\eR^m$. Vous connaissez peut être déjà ce théorème depuis votre cours d'algèbre linéaire.  
+    \item[La dérivation $d: \mathcal{P}_\eR^k \to \mathcal{P}_\eR^{k-1}$] L'application de dérivation $d$ fait exactement ce qu'on s'attend d'elle 
+\[
+d(x^0)=d(1)=0, \qquad d(x^j)=j x^{j-1}, \quad \forall j\in\{1,\dots, k\}. 
+\]
+Cette application n'est pas injective, parce que l'image de $p$ ne dépend pas de la valeur de $a_0$, donc si deux polynômes sont les mêmes à une constante près ils auront la même image par $d$.
+\begin{example} Soit $k=3$ on a 
+  \begin{equation}
+    d(-8-12x+4x^3)= -12 (1) + 4 (3x^2) = -12+12 x^2.
+    \end{equation}
+
+    Noter que $d(-30-12x+4x^3)=d(-8-12x+4x^3)$. Cela confirme, comme mentionné plus haut que la dérivée n'est pas injective.
+\end{example}
+      \item[L'intégration $I: \mathcal{P}_\eR^k \to \mathcal{P}_\eR^{k+1}$] Nous pouvons définir une application que est <<à une constante prés>> l'application inverse de la dérivation
+        \begin{equation}
+          I(p)= \int_0^x p(t) \,dt.
+        \end{equation}
+Il faut comprendre que dans l'intégral la variable $t$ est simplement la variable d'intégration. La <<vraie>> variable de la fonction image de $p$ sera $x$ !
+ 
+Comme d'habitude nous écrivons explicitement l'action de $I$ sur les éléments de la base canonique
+\[
+I(x^j)=\int_0^x t^k \,dt= \frac{x^{j+1}}{j+1}.
+\] 
+\begin{example} Soit $k=4$ on a 
+  \begin{equation}
+    I(6+2x+x^2+x^4)= 6x+x^2+\frac{x^3}{3}+\frac{x^5}{5}.
+    \end{equation}
+\end{example}
+Remarquez que, étant donné que dans la définition de $I$ nous avons décidé d'intégrer entre zéro et $x$, tous les polynômes dans $\mathcal{P}_\eR^{k+1}$ qui sont l'image par $I$ d'un polynôme de $\mathcal{P}_\eR^{k}$ ont $a_0=0$. Cela veut dire que nous pouvons générer toute l'image de $I$ en utilisant un sous-ensemble de la base canonique de $\mathcal{P}_\eR^{k+1}$,  en particulier $\mathcal{B}_1=\{x\mapsto x^j \,|\, j=1, \ldots, k\}\subset \mathcal{B}$ nous suffira. Cela n'est guère surprenant, parce que l'image par une application linéaire d'un espace vectoriel de dimension finie ne peut pas être un espace de dimension supérieure. 
+\end{description}
+
+Les applications de dérivation et intégration correspondent évidemment à des application linéaires de $\mathcal{P}_\eR$ dans lui-même. 
+
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Applications multilinéaires}
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+ 	Une application $T: \eR^{m_1}\times \ldots \times\eR^{m_k}\to\eR^p $ est dite $k$-linéaire si pour tout $X=(x_1, \ldots,x_k)$ dans $ \eR^{m_1}\times \ldots \times\eR^{m_k}$ les applications $x_i\mapsto T(x_1, \ldots, x_i,\ldots,x_k)$ sont linéaires pour tout $i$ dans $\{1,\ldots,k\}$, c'est à dire
+	\begin{equation}
+		\begin{aligned}[]
+			T(\cdot,x_2, \ldots, x_i,\ldots,x_k)&\in \mathcal{L}(\eR^{m_1}, \eR^p),\\
+			T(x_1,\cdot, \ldots, x_i,\ldots,x_k)&\in \mathcal{L}(\eR^{m_2}, \eR^p),\\
+						& \vdots\\
+			T(x_1, \ldots, x_i,\ldots,x_{k-1},\cdot)&\in \mathcal{L}(\eR^{m_k}, \eR^p).\\
+		\end{aligned}
+	\end{equation}
+	En particulier lorsque $k=2$, nous parlons d'applications \defe{bilinéaires}{bilinéaire}. Vous pouvez deviner ce que sont les applications \emph{tri}linéaire ou \emph{quadri}linéaire.
+\end{definition}
+
+L'ensemble des applications $k$-linéaires de $ \eR^{m_1}\times \ldots \times\eR^{m_k}$ dans $\eR^p$ est noté $\mathcal{L}(\eR^{m_1}\times \ldots \times\eR^{m_k}, \eR^p)$ ou $\mathcal{L}(\eR^{m_1}, \ldots,\eR^{m_k}; \eR^p)$.
+\begin{example}
+  Soit $A$ une matrice avec $m$ lignes et $n$ colonnes. L'application bilinéaire de $\eR^m\times \eR^n$ dans $\eR$ associée à $A$ est définie par
+\[
+T_A(x,y)= x^TAy=\sum_{i,j}a_{i,j}x_i y_j, \qquad \forall x\in \eR^m, \, y \in \eR^n.
+\]
+\end{example}
+
+\begin{definition}
+	La norme sur l'espace $\mathcal{L}(\eR^{m_1}\times \ldots \times\eR^{m_k}, \eR^p)$ des fonction $k$-linéaires et continues est donnée par le meilleur $L$ possible, plus précisément elle est  définie par 
+	\begin{equation}
+		\|T\|_{\mathcal{L}(\eR^{m_1}\times \ldots \times\eR^{m_k}, \eR^p)}=\sup\{ \|T(u_1, \ldots,u_k)\|_p\,\vert\,\|u_i\|_{m_i}\leq 1, i=1,\ldots, k \}.
+	\end{equation}
+\end{definition}
+
+\begin{proposition}
+  L'application $k$-linéaire  $T: \eR^{m_1}\times \ldots \times\eR^{m_k}\to\eR^p $ est continue si et seulement s'il existe $L\geq 0$, réel, tel que
+  \begin{equation}\label{limitatezza}
+     \|T(x_1, \ldots,x_k)\|_p\leq L \|x_1\|_{m_1}\cdots\|x_k\|_{m_k}, \qquad \forall x_i\in\eR^{m_i},\,\forall i \in \{1,\ldots, k\}.
+  \end{equation}
+\end{proposition}
+
+\begin{proof}
+  Pour simplifier l'exposition nous nous limitons au cas $k=2$. On adopte la notation $T(x,y)=x*y$
+
+Supposons que l'inégalité \eqref{limitatezza} soit satisfaite. 
+\begin{equation}\label{LimImplCont}
+  \begin{aligned}
+    \|x*y-x_0*y_0\|_p&=\|(x-x_0)*y-x_0*(y-y_0)\|_p\leq\\
+&\leq \|(x-x_0)*y\|_p+\|x_0*(y-y_0)\|_p\leq\\
+&\leq L\|x-x_0\|_m\|y\|_n + L\|x_0\|_m\|y-y_0\|_n.
+  \end{aligned}
+\end{equation}
+Si $x\to x_0$ et $y\to y_0$  on voit que $T$ est continue en passant à la limite aux deux côtes de l'inégalité \eqref{LimImplCont}.
+
+Soit $T$ continue en $(0_m,0_n)$. Évidemment $0_m*0_n=0_p$, donc il existe $\delta>0$ tel que si $x$ est dans la boule de rayon $\delta$ centrée en $0_m$ et  $y$ est dans la boule de rayon $\delta$ centrée en $0_n$ alors $\|x*y\|_p\leq 1$. Soient maintenant  $x$ dans $\eR^m\setminus\{ 0_m\}$ et $y$ dans $\eR^n\setminus\{ 0_n\}$
+\begin{equation}
+  \begin{aligned}
+    x*y=&\left(\frac{\|x\|_m}{\delta}\frac{\delta x}{\|x\|_m}\right)*\left(\frac{\|y\|_n}{\delta}\frac{\delta y}{\|y\|_n}\right)=\\
+&=\frac{\|x\|_m\|y\|_n}{\delta^2} \left(\frac{\delta x}{\|x\|_m}\right)*\left(\frac{\delta y}{\|y\|_n}\right).
+  \end{aligned}
+ \end{equation}
+On remarque que $\delta x/\|x\|_m$ est dans la boule de rayon $\delta$ centrée en $0_m$ et que $\delta y/\|y\|_n$ est dans la boule de rayon $\delta$ centrée en $0_n$. On conclut 
+\[
+ x*y\leq \frac{\|x\|_m\|y\|_n}{\delta^2}.
+\]
+Il faut prendre $L=1/\delta^2$.
+\end{proof}
+\begin{proposition}\label{isom_isom}
+  On définit les fonctions
+  \begin{equation}
+    \begin{array}{rccc}
+      \omega_g: & \mathcal{L}(\eR^{m}\times\eR^{n}, \eR^p)&\to &\mathcal{L}(\eR^{m}, \mathcal{L}(\eR^{n}, \eR^p)),\\
+      \omega_d: & \mathcal{L}(\eR^{m}\times\eR^{n}, \eR^p)&\to &\mathcal{L}(\eR^{n}, \mathcal{L}(\eR^{m}, \eR^p)),
+    \end{array}
+  \end{equation}
+par 
+\[
+\omega_g(T)(x)=T(x,\cdot), \qquad \forall x\in\eR^m,
+\]
+et
+\[
+\omega_d(T)(y)=T(\cdot, y), \qquad \forall y\in\eR^n.
+\]
+Les fonctions $\omega_g$ et $\omega_d$ sont des isomorphismes qui préservent les normes.    
+\end{proposition}
+
+
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Endomorphismes}
