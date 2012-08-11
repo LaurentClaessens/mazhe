@@ -8,6 +8,7 @@ myRequest = LaTeXparser.PytexTools.Request("mesure")
 myRequest.original_filename="mes_notes.tex"
 
 myRequest.ok_filenames_list=["e_mes_notes"]
+myRequest.ok_filenames_list.append("questionsMesNotes")
 myRequest.ok_filenames_list.append("groupes")
 myRequest.ok_filenames_list.append("topologie")
 myRequest.ok_filenames_list.append("StructAnneaux")
