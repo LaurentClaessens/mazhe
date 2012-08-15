@@ -4,7 +4,6 @@
 import LaTeXparser
 import LaTeXparser.PytexTools
 
-
 myRequest = LaTeXparser.PytexTools.Request("groupes")
 myRequest.original_filename="mes_notes.tex"
 
