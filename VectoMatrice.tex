@@ -714,6 +714,56 @@ Ici \( \epsilon\) est la signature de \( u \) vue comme une permutation des él�
 \end{proposition}
 Le déterminant de Vandermonde est entre autres utilisé pour prouver que \( \tr(u^p)=0\) pour tout \( p\) si et seulement si \( u\) est nilpotente (lemme \ref{LemzgNOjY}).
 
+\begin{proof}
+    Nous considérons le polynôme
+    \begin{equation}
+        f(X)=V(T_1,\ldots, T_{n-1},X)\in \big( \eK[T_1,\ldots, T_{n-1}] \big)[X].
+    \end{equation}
+    C'est un polynôme de degré au plus \( n-1\) en \( X\) et il s'annule aux points \( T_1,\ldots, T_{n-1}\). Par conséquent il existe \( \alpha\in \eK[T_1,\ldots, T_{n-1}]\) tel que
+    \begin{equation}    \label{EqeVxRwO}
+        f=\alpha(X-T_{n-1})\ldots(X-T_1).
+    \end{equation}
+    Nous trouvons \( \alpha\) en écrivant \( f(0)\). D'une part la formule \eqref{EqeVxRwO} nous donne
+    \begin{equation}    \label{EqblwWMj}
+        f(0)=\alpha(-1)^{n-1}T_1\ldots T_{n-1}.
+    \end{equation}
+    D'autre par la définition donne
+    \begin{subequations}
+        \begin{align}
+            f(0)&=\det\begin{pmatrix}
+                 1   &   \cdots    &   1    &   1    \\
+                 T_1      &       &   T_{n-1}    &   0    \\
+                 \vdots   &       &   \vdots    &   \vdots    \\ 
+                 T_1^{n-1}   &   \cdots    &   T_{n-1}^{n-1}    &   0     
+             \end{pmatrix}\\
+             &=(-1)^{n-1}\det\begin{pmatrix}
+                 T_1   &   \ldots    &   T_{n-1}    \\
+                 \vdots   &   \ddots    &   \vdots    \\
+                 T_1^{n-1}   &   \ldots    &   T_{n-1}^{n-1}
+             \end{pmatrix}\\
+             &=(-1)^{n-1}T_1\ldots T_{n-1}\det\begin{pmatrix}
+                 1   &   \cdots    &   1    \\
+                 \vdots   &   \ddots    &   \vdots    \\
+                 T_1^{n-1}   &   \cdots    &   T_{n-1}^{n-1}
+             \end{pmatrix}\\
+             &=(-1)^{n-1}T_1\ldots T_{n-1}V(T_1,\ldots, T_{n-1})
+        \end{align}
+    \end{subequations}
+    En égalisant avec \eqref{EqblwWMj}, nous trouvons \( \alpha=V(T_1,\ldots, T_{n-1})\), et donc
+    \begin{equation}
+        f=V(T_1,\ldots, T_{n-1})\prod_{j\leq n-1}(X-T_j)
+    \end{equation}
+    Enfin, une récurrence montre que
+    \begin{subequations}
+        \begin{align}
+            V(T_1,\ldots, T_n)&=f(T_n)\\
+            &=V(T_1,\ldots, T_{n-1})\prod_{j\leq n-1}(T_n-T_j)\\
+            &=\prod_{k\leq n}\prod_{j\leq k-1}(T_k-T_j)\\
+            &=\prod_{1\leq j<k\leq n}(T_i-T_j).
+        \end{align}
+    \end{subequations}
+\end{proof}
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Déterminant de Gram}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -1243,10 +1293,12 @@ Cette application n'est pas injective, parce que l'image de $p$ ne dépend pas d
 Il faut comprendre que dans l'intégral la variable $t$ est simplement la variable d'intégration. La <<vraie>> variable de la fonction image de $p$ sera $x$ !
  
 Comme d'habitude nous écrivons explicitement l'action de $I$ sur les éléments de la base canonique
-\[
-I(x^j)=\int_0^x t^k \,dt= \frac{x^{j+1}}{j+1}.
-\] 
-\begin{example} Soit $k=4$ on a 
+\begin{equation}
+    I(x^j)=\int_0^x t^k \,dt= \frac{x^{j+1}}{j+1}.
+\end{equation}
+
+\begin{example} 
+   Soit $k=4$ on a 
   \begin{equation}
     I(6+2x+x^2+x^4)= 6x+x^2+\frac{x^3}{3}+\frac{x^5}{5}.
     \end{equation}
@@ -1258,6 +1310,118 @@ Remarquez que, étant donné que dans la définition de $I$ nous avons décidé 
 Les applications de dérivation et intégration correspondent évidemment à des application linéaires de $\mathcal{P}_\eR$ dans lui-même. 
 
 L'espace de tous les polynômes étant de dimension infinie, il peut servir de contre exemple assez simple. Dans la sous-section \ref{SubSecPOlynomesCE}, nous verrons que toutes les normes ne sont pas équivalentes sur l'espace des polynômes.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Polynômes symétriques, alternés ou semi-symétriques}
+%---------------------------------------------------------------------------------------------------------------------------
+\cite{fJhCTE}.
+
+Soit \( \eK\) un corps de caractéristique différente\footnote{Le truc de la caractéristique deux est que \( a=-a\) n'implique pas \( a=0\).} de \(2\). Le groupe \( S_n\) agit sur l'anneau \( \eK[T_1,\ldots, T_n]\) par
+\begin{equation}
+    (\sigma\cdot f)(T_1,\ldots, T_n)=f\big( T_{\sigma(1)},\ldots, T_{\sigma(n)} \big).
+\end{equation}
+On peut vérifier que c'est un action.
+
+\begin{definition}
+    Un polynôme \( Q\) en \( n\) indéterminées est 
+    \begin{enumerate}
+        \item
+            \defe{symétrique}{polynôme!symétrique}\index{symétrique!polynôme} si \( Q=\sigma\cdot Q\) pour tout \( \sigma\in S_n\);
+        \item
+            \defe{alterné}{polynôme!alterné}\index{alterné!polynôme} si \( \sigma\cdot Q=\epsilon(\sigma)Q\) pour tout \( \sigma\in S_n\);
+        \item
+            \defe{semi-symétrique}{semi-symétrique!polynôme}\index{polynôme!semi-symétrique} si \( \sigma\cdot Q=Q\) pour tout \( \sigma\in A_n\)
+    \end{enumerate}
+\end{definition}
+Le polynôme \( T_1+T_2\) est symétrique; le polynôme \( T_1+T_2^2\) ne l'est pas. 
+
+\begin{example}
+    Le déterminant de Vandermonde (proposition \ref{PropnuUvtj}) est alterné, semi-symétrique et non symétrique. Le fait qu'il soit alterné est le fait qu'il soit un déterminant. Étant donné qu'il est alterné, il est semi-symétrique parce que sur \( A_n\), nous avons \( \epsilon=1\). Étant donné qu'il est alterné, il change de signe sous l'action des éléments impairs de \( S_n\) et n'est donc pas symétrique.
+\end{example}
+
+\begin{proposition}
+    Un polynôme semi-symétrique \( f\in \eK[T_1,\ldots, T_n]\) se décompose de façon unique en
+    \begin{equation}
+        f=P+VQ
+    \end{equation}
+    où \( P\) et \( Q\) sont deux polynômes symétriques.
+\end{proposition}
+
+\begin{proof}
+    
+\end{proof}
+<++>
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Polynôme symétrique élémentaire}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Le \( k\)ième \defe{polynôme symétrique élémentaire}{élémentaire!polynôme symétrique} à \( n\) inconnues est le polynôme est
+\begin{equation}
+    \sigma_k(T_1,\ldots, T_n)=\sum_{s\in F_k}\prod_{i=1}^kT_{s(i)}
+\end{equation}
+où \( F_k\) est l'ensemble des fonctions strictement croissantes \( \{ 1,2,\ldots, k \}\to\{ 1,2,\ldots, n \}\). Une autre façon de décrire ces polynômes élémentaires est
+\begin{equation}
+    \sigma_k=\sum_{1\leq i_1<\ldots<i_k\leq n}X_{i_1}\ldots X_{i_k}.
+\end{equation}
+Par exemple
+\begin{subequations}
+    \begin{align}
+        \sigma_1(T_1,\ldots, T_n)&=T_1+T_2+\ldots +T_n\\
+        \sigma_2(T_1,\ldots, T_n)&=T_1T_2+\ldots +T_1T_n+T_2T_3+\ldots +T_2T_n+\ldots +T_{n-1}T_n\\
+        \sigma_n(T_1,\ldots, T_n)&=T_1\ldots T_n.
+    \end{align}
+\end{subequations}
+En particulier, \( \sigma_2(x,y,z)=xy+yz+xz\).
+
+\begin{theorem}[\cite{PoloPolSym}]  \label{TholReBiw}
+    Si \( Q\) est un polynôme symétrique en \( T_1,\ldots, T_n\), alors il existe un et un seul polynôme \( P\) en \( n\) indéterminées tel que
+    \begin{equation}
+        Q(T_1,\ldots, T_n)=P\big( \sigma_1(T_1,\ldots, T_n),\ldots, \sigma_n(T_1,\ldots, T_n) \big).
+    \end{equation}
+\end{theorem}
+%TODO : la preuve de ce théorème
+
+\begin{example}
+    Nous voulons décomposer \( P(x,y,z)=x^3+y^3+z^3\) en polynômes symétriques élémentaires, c'est à dire en
+    \begin{subequations}
+        \begin{numcases}{}
+            \sigma_1=x+y+z\\
+            \sigma_2=xy+xz+yz\\
+            \sigma_3=xyz.
+        \end{numcases}
+    \end{subequations}
+    Étant donné que \( P\) est de degré \( 3\), les seules combinaisons des \( \sigma_i\) qui peuvent intervenir sont \( \sigma_1^3\), \( \sigma_1\sigma_2\) et \( \sigma_3\). Étant donné que dans \( P\) le coefficient de \( x^3\) est un, il est obligatoire d'avoir un coefficient \( 1\) devant \( \sigma_1^3\). Nous le calculons :
+    \begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.8, Release Date: 2012-01-20                         |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: var('x,y,z')
+(x, y, z)
+sage: P=x**3+y**3+z**3  
+sage: S1=x+y+z    
+sage: S2=x*y+x*z+y*z
+sage: S3=x*y*z
+sage: (S1**3).expand()
+x^3 + 3*x^2*y + 3*x^2*z + 3*x*y^2 + 6*x*y*z + 3*x*z^2 + y^3 + 3*y^2*z + 3*y*z^2 + z^3
+sage: (S1**3-P).expand()
+3*x^2*y + 3*x^2*z + 3*x*y^2 + 6*x*y*z + 3*x*z^2 + 3*y^2*z + 3*y*z^2
+x^3 + 3*x^2*y + 3*x^2*z + 3*x*y^2 + 6*x*y*z + 3*x*z^2 + y^3 + 3*y^2*z + 3*y*z^2 + z^3
+    \end{verbatim}
+    Dans la différence \( \sigma_1^3-P\) nous voyons que le terme en \( xyz\) est \( 6xyz\); par conséquent nous savons que le coefficient de \( \sigma_3\) sera \( -6\). Il nous reste :
+    \begin{verbatim}
+sage: (S1**3+6*S3-P).expand()
+3*x^2*y + 3*x^2*z + 3*x*y^2 + 12*x*y*z + 3*x*z^2 + 3*y^2*z + 3*y*z^2    
+    \end{verbatim}
+    que nous identifions facilement avec \( 3\sigma_1\sigma_2\). Nous avons donc
+    \begin{equation}
+        P=\sigma_1^3-3\sigma_1\sigma_2+3\sigma_3.
+    \end{equation}
+\end{example}
+
+
+
 
 %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Applications multilinéaires}
@@ -1277,6 +1441,7 @@ L'espace de tous les polynômes étant de dimension infinie, il peut servir de c
 \end{definition}
 
 L'ensemble des applications $k$-linéaires de $ \eR^{m_1}\times \ldots \times\eR^{m_k}$ dans $\eR^p$ est noté $\mathcal{L}(\eR^{m_1}\times \ldots \times\eR^{m_k}, \eR^p)$ ou $\mathcal{L}(\eR^{m_1}, \ldots,\eR^{m_k}; \eR^p)$.
+
 \begin{example}
   Soit $A$ une matrice avec $m$ lignes et $n$ colonnes. L'application bilinéaire de $\eR^m\times \eR^n$ dans $\eR$ associée à $A$ est définie par
 \[
