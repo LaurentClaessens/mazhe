@@ -1,0 +1,387 @@
+% This is part of Un soupçon de physique, sans être agressif pour autant
+% Copyright (C) 2006-2009
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+
+\section{Continuité}
+%+++++++++++++++++++
+
+Nous allons considérer trois approches différentes de la continuité. La première sera de définir la continuité de fonctions de $\eR$ vers $\eR$ au moyen du critère usuel. Ensuite, nous définiront la continuité des applications entre n'importes quels espaces métriques, et nous montrerons que les deux définitions sont équivalentes dans le cas des fonctions sur $\eR$ à valeurs réelles.
+
+Enfin, un peu plus tard nous verrons que la continuité peut également être vue en termes de limites. Encore une fois nous verrons que dans le cas de fonctions de $\eR$ vers $\eR$ cette troisième approche est équivalentes aux deux premières.
+
+\subsection{Approche analytique}
+%-------------------------------
+
+Une question qu'on peut se poser, c'est de savoir quand le graphe d'une fonction peut être dessiné sans lever le crayon. Regarde les exemples de la figure \ref{FigUncontDeuxpasC}. Le premier graphe semble pouvoir être dessiné sans lever son crayon. C'est une courbe en un seul morceau. La seconde par contre ne peut pas être dessinée sans lever le crayon. Elle est en deux morceaux.
+\begin{figure}[ht] 
+\centering
+\subfigure[Cette fonction peut manifestement être tracée au crayon sans lever la main.]{%
+\begin{pspicture}(-2.9,-1)(3.2,4.2)
+  \psaxes[dotsep=1pt]{->}(0,0)(-2.9,0)(2.9,3.5)
+	%\psframe[linecolor=yellow](-2.9,-1)(3.2,4.2)
+	\psset{PointSymbol=none, PointName=none}
+
+   %\pstGeonode[PosAngle={90,90,90}, CurveType=curve]
+    %              (-3,1){A}(-2,2){B}(0,0.5){C}(1,1){D}(2,2){F}(3,0){G}
+   \pstGeonode[PosAngle={90,90,90}, CurveType=curve]
+                  (-3,1){A}(-2,2){B}(0,0.5){C}(2,2){F}(3,0){G}
+\end{pspicture}
+}
+%
+\subfigure[Cette fonction ne peut pas être tracée au crayon sans lever la main. Le point noir signifie que $f(1)=2$, et non $1$.]{%
+\begin{pspicture}(-2.9,-1)(3.2,4.2)
+  \psaxes[dotsep=1pt]{->}(0,0)(-2.9,0)(2.9,3.5)
+	%\psframe[linecolor=yellow](-2.9,-1)(3.2,4.2)
+	\psset{PointSymbol=none, PointName=none}
+
+   \pstGeonode[PosAngle={90,90,90}, CurveType=curve, dotscale=2, PointSymbol={none,none,none,none}]
+                  (-3,1){A}(-2,2){B}(0,0.5){C}(1,1){D}
+   \pstGeonode[PosAngle={90,90,90}, CurveType=curve, dotscale=2,PointSymbol={none,none,none}]
+                  (1,2){E}(2,3){F}(3,1){G}
+	\psline[linestyle=dotted](D)(E)
+	\pscircle[fillstyle=solid,fillcolor=white,linecolor=black](D){0.1}					% Le 0.1 est la taille du point. Si on change l'un, il faut changer l'autre.
+	\pscircle[fillstyle=solid,fillcolor=black,linecolor=black](E){0.1}					% Par «l'autre», je veux dire : celui-ci.
+\end{pspicture}	\label{subFigdiscontpasC}
+}
+%
+\caption{Exemple d'une fonction continue et d'une fonction non continue.}\label{FigUncontDeuxpasC}
+\end{figure}
+
+Demandons nous ce exactement quelle propriété a la courbe de la figure \ref{subFigdiscontpasC} pour ne pas pouvoir être tracée sans lever le crayon. Mettons que tu dessines de gauche à droite. Dans ce cas, au fur et à mesure que tu avances en t'approchant de $x=1$, la courbe te mène vers le point $(1,1)$ tandis qu'en réalité, $f(1)=2$. C'est à dire que quand $x$ s'approche de $1$, eh bien $f(x)$ ne s'approche pas de $f(1)$.
+
+Nous allons donc dire qu'une fonction est continue quand plus $x$ s'approche de $a$ en suivant la courbe, plus $f(x)$ s'approche de $f(a)$. Voici la définition précise.
+
+\begin{definition}		\label{DefContinue}
+Nous disons que la fonction $x\mapsto f(x)$ est \defe{continue en $a$}{Continue} si
+\begin{equation}
+ \forall \epsilon>0,\exists \delta\text{ tel que } \big(| x-a |\leq\delta\big)\Rightarrow | f(x)-f(a) |\leq \epsilon.
+\end{equation}
+
+\end{definition}
+
+Nous allons maintenant étudier quelque conséquences de cette définition. Je te préviens tout de suite qu'il va y avoir certaines conséquences qui ne collent pas bien avec l'intuition d'un graphe qu'on peut tracer sans lever le crayon.
+
+\begin{enumerate}
+\item D'abord on voit que la continuité n'a été définie qu'en un point. On peut dire que la fonction $f$ est continue \emph{en tel point donné}, mais nous n'avons pas dit ce qu'est une fonction continue \emph{dans son ensemble}.
+
+\item Si $I$ est un intervalle de $\eR$, on dit que $f$ est \defe{continue sur l'intervalle}{Continuité sur un intervalle} $I$ si elle est continue en chaque point de $I$.
+
+\item Comme la définition de $f$ continue en $a$ fait intervenir $f(x)$ pour tous les $x$ pas trop loin de $a$, il faut au moins déjà que $f$ soit définie sur ces $x$. En d'autres termes, dire que $f$ est continue en $a$ demande que $f$ existe sur un intervalle autour de $a$. 
+
+Ceci couplé à la définition précédente laisse penser qu'il est surtout intéressant d'étudier les fonctions qui sont continues sur un intervalle.
+
+\item L'intuition comme quoi une fonction continue doit pouvoir être tracée sans lever la main correspond aux fonctions continues sur des intervalles. Au moins sur l'intervalle où elle est continue, elle est traçable en un morceau.
+\end{enumerate}
+
+
+Nous allons démontrer maintenant une série de petits résultats qui permettent de simplifier la démonstration de la continuité de toute une série de fonctions.
+\begin{theorem}
+Si la fonction $f$ est continue au point $a$, alors la fonction $\lambda f$ est également continue en $a$.
+\end{theorem}
+
+\begin{proof}
+Soit $\epsilon>0$. Nous avons besoin d'un $\delta>0$ tel que pour chaque $x$ à moins de $\delta$ de $a$, la fonction $\lambda f$ soit à moins de $\epsilon$ de $(\lambda f)(a)=\lambda f(a)$. Étant donné que la fonction $f$ est continue en $a$, on sait déjà qu'il existe un $\delta_1$ (nous notons $\delta_1$ affin de ne pas confondre ce nombre dont on est sûr de l'existence avec le $\delta$ que nous sommes en train de chercher) tel que 
+\[ 
+  (| x-a |\leq \delta_1)\Rightarrow | f(x)-f(a) |\leq \epsilon_1.
+\]
+Hélas, ce $\delta_1$ n'est pas celui qu'il faut faut parce que nous travaillons avec $\lambda f$ au lieu de $f$, ce qui fait qu'au lieux d'avoir $| f(x)-f(a) |$, nous avons $| \lambda f(x)-\lambda f(a) |=| \lambda |\cdot | f(x)-f(a) |$.  Ce que $\delta_1$ fait avec $(\lambda f)$, c'est
+\[ 
+  (| x-a |\leq\delta_1)\Rightarrow  | (\lambda f)(x)- (\lambda f)(a)|\leq | \lambda |\epsilon_1.
+\]
+Ce que nous apprend la continuité de $f$, c'est que pour chaque choix de $\epsilon_1$, on a un $\delta_1$ qui fait cette implication. Comme cela est vrai pour chaque choix de $\epsilon_1$, essayons avec $\epsilon_1=\epsilon/| \lambda |$ pour voir ce que ça donne. Nous avons donc un $\delta_1$ qui fait
+\[ 
+  (| x-a |\leq\delta_1)\Rightarrow  | (\lambda f)(x)- (\lambda f)(a)|\leq | \lambda |\epsilon_1=\epsilon.
+\]
+Ce $\delta_1$ est celui qu'on cherchait. 
+\end{proof}
+
+\begin{theorem}
+Si $f$ et $g$ sont deux fonctions continues en $a$, alors la fonction $f+g$ est également continue en $a$.
+\end{theorem}
+
+\begin{proof}
+La continuité des fonctions $f$ et $g$ au point $a$ fait en sorte que pour tout choix de $\epsilon_1$ et $\epsilon_2$, il existe $\delta_1$ et $\delta_2$ tels que 
+\[ 
+  (| x-a |\leq \delta_1)\Rightarrow | f(x)-f(a) |\leq \epsilon_1.
+\]
+et
+\[ 
+  (| x-a |\leq \delta_2)\Rightarrow | g(x)-g(a) |\leq \epsilon_2.
+\]
+La quantité que nous souhaitons analyser est $| f(x)+g(x)-f(a)-g(a) |$. Tout le jeu de la démonstration de la continuité est de triturer cette expression pour en tirer quelque chose en termes de $\epsilon_1$ et $\epsilon_2$. Si nous supposons avoir prit $| x-a |$ plus petit en même temps que $\delta_1$ et que $\delta_2$, nous avons
+\[
+| f(x)+g(x)-f(a)-g(a) |\leq| f(x)-g(x) |+| g(x)-g(a) |\leq\epsilon_1+\epsilon_2 
+\]
+en utilisant la formule générale $| a+b |\leq | a |+| b |$. Maintenant si on choisit $\epsilon_1$ et $\epsilon_2$ tels que $\epsilon_1+\epsilon_2<\epsilon$, et les $\delta_1$, $\delta_2$ correspondants, on a que 
+\[
+| f(x)+g(x)-f(a)-g(a) |\leq\epsilon,
+\]
+pourvu que $| x-a |$ soit plus petit que $\delta_1$ et $\delta_2$. Le bon $\delta$ a prendre est donc le minimum de $\delta_1$ et $\delta_2$ qui eux-même sont donnés par un choix de $\epsilon_1$ et $\epsilon_2$ tels que $\epsilon_1+\epsilon_2\leq\epsilon$.
+\end{proof}
+
+Pour résumer ces deux théorèmes, on dit que si $f$ et $g$ sont continues en $a$, alors la fonction $\alpha f+\beta g$ est également continue en $a$ pour tout $\alpha$, $\beta\in\eR$.
+
+Parmi les propriétés immédiates de la continuité d'une fonction, nous avons ceci qui est souvent bien utile.
+
+\begin{corollary}
+Si la fonction $f$ est continue en $a$ et si $f(a)>0$, alors $f$ est positive sur un intervalle autour de $a$.
+\end{corollary}
+
+\begin{proof}
+Prenons $\epsilon<f(a)$ et voyons\footnote{ici, nous insistons sur le fait que nous prenons $\epsilon$ \emph{strictement} plus petit que $f(a)$.} ce que la continuité de $f$ en $a$ nous offre : il existe un $\delta$ tel que
+\[ 
+  (| x-a |\leq \delta)\Rightarrow | f(x)-f(a) |\leq\epsilon < f(a).
+\]
+Nous en retenons que sur un intervalle (de largeur $\delta$), nous avons $| f(x)-f(a) |\leq f(a)$. Par hypothèse, $f(a)>0$, donc si $f(x)<0$, alors la différence $f(x)-f(a)$ donne un nombre encore plus négatif que $-f(a)$, c'est à dire que $| f(x)-f(a) |>f(a)$, ce qui est contraire à ce que nous venons de démontrer. D'où la conclusion que $f(x)>0$.
+\end{proof}
+
+
+\subsection{La fonction la moins continue du monde}
+%--------------------------------------------------
+
+Si tu veux des exemples de fonctions qui ne sont pas continues, c'est pas compliqué : dessine n'importe quoi qui fait un saut comme sur la figure \ref{subFigdiscontpasC}. Mais il y a moyen de donner des exemples de fonctions encore plus sales. Celle-ci par exemple :
+\[ 
+  \chi_{\eQ}(x)=
+\begin{cases}
+	1 \text{ si $x\in\eQ$}\\
+	0 \text{ sinon.}
+\end{cases}
+\]
+Par exemple, $\chi_{\eQ}(0)=1$, et\footnote{Pour prouver que $\sqrt{2}$ n'est pas rationnel, c'est pas trop compliqué, mais pour prouver que $\pi$ ne l'est pas non plus, tu devras encore manger de la soupe.} $\chi_{\eQ}(\pi)=\chi_{\eQ}(\sqrt{2})=0$. Malgré que $\chi_{\eQ}(0)=1$, il n'existe \emph{aucun} voisinage de $1$ sur lequel la fonction reste proche de $1$, parce que tout voisinage va contenir au moins un irrationnel. À chaque millimètre, cette fonction fait une infinité de bonds !
+
+Cette fonction n'est donc continue nulle part. 
+
+Tu sais que l'interprétation usuelle de la continuité est la capacité à pouvoir dessiner la fonction sans lever le crayon. Donc il te semblerait logique que si une fonction est continue en un point, elle soit au mois plus ou moins sympathique autour du point. En fait, ce que tu espères secrètement, c'est que si une fonction est continue en un point, alors elle est continue au moins sur un voisinage du point. Hélas, cela est faux : regarde la fonction
+\[ 
+  f(x)=x\chi_{\eQ}(x)=
+\begin{cases}
+x\text{ si $x\in\eQ$}\\
+0\text{ sinon.}
+\end{cases}
+\]
+Cette fonction est continue en zéro. En effet, prenons $\delta>0$; il nous faut un $\epsilon$ tel que $| x |\leq\epsilon$ implique $f(x)\leq \delta$ parce que $f(0)=0$. Bon ben prendre simplement $\epsilon=\delta$ nous contente. Cette fonction est donc très facilement continue en zéro.
+
+Et pourtant, dès que l'on s'écarte un tant soit peu de zéro, elle fait des bons une infinité de fois par millionième de millimètre ! Cette fonction est donc la plus discontinue du monde en tous les points saut un (zéro) où elle est une fonction continue !
+
+Oui, les math recèlent quelque exemples de monstres de ce type qui heurtent l'intuition et qui nous rappellent qu'il faut être très prudent. Tant qu'on n'a pas une démonstration complète d'un fait, des choses incroyables peuvent arriver.
+
+\subsection{Approche topologique}
+%--------------------------------
+
+Nous avons vu que sur tout ensemble métrique, nous pouvons définir ce qu'est un ouvert : c'est un ensemble qui contient une boule ouverte autour de chacun de ses points. Quand on est dans un ensemble ouvert, on peut toujours un peu se déplacer sans sortir de l'ensemble.
+
+Le théorème suivant est une très importante caractérisation des fonctions continues (de $\eR$ dans $\eR$) en termes de topologie, c'est à dire en termes d'ouverts.
+
+\begin{theorem}		\label{ThoContInvOuvert}
+Si $I$ est un intervalle ouvert contenu dans $\dom f$, alors $f$ est continue sur $I$ si et seulement si pour tout ouvert $\mO$ dans $\eR$, l'image inverse $f|_I^{^{-1}}(\mO)$ est ouvert.
+\end{theorem}
+
+Par abus de langage, nous exprimons souvent cette condition par \og une fonction est continue si et seulement si l'image inverse de tout ouvert est un ouvert\fg.
+
+\begin{proof}
+
+Dans un premier temps, nous allons transformer le critère de continuité en termes de boules ouvertes, et ensuite, nous passeront à la démonstration proprement dite. Le critère de continuité de $f$ au point $x$ dit que
+\begin{equation}		\label{EqDEfCOntAn}
+  \forall \delta>0,\exists\,\epsilon>0\text{ tel que }\big( | x-a |< \epsilon \big)\Rightarrow| f(x)-f(a) |<\delta.
+\end{equation}
+Cette condition peut être exprimée sous la forme suivante :
+\[ 
+  \forall \delta>0,\exists\epsilon\text{ tel que } a\in B(x,\epsilon)\Rightarrow f(a)\in B\big( f(x),\delta \big),
+\]
+ou encore
+\begin{equation}		\label{EqRedefContBoules}
+  \forall \delta>0,\exists\epsilon\text{ tel que } f\big( B(x,\epsilon) \big)\subset B\big( f(x),\delta \big).
+\end{equation}
+Jusque ici, nous n'avons fait que du jeu de notations. Nous avons exprimé en termes de topologie des inégalités analytiques. Si tu veux, tu peux retenir cette condition \eqref{EqRedefContBoules} comme définition d'une fonction continue en $x$. Si tu choisit de vivre comme ça, tu dois être capable de retrouver \eqref{EqDEfCOntAn} à partir de \eqref{EqRedefContBoules}.
+ 
+Passons maintenant à la démonstration proprement dite du théorème. Comme quasiment toutes les démonstrations de \og si et seulement si\fg, cette démonstrations est en deux parties. Une dans chaque sens.
+
+D'abord, supposons que $f$ est continue sur $I$, et prenons $\mO$, un ouvert quelconque. Le but est de prouver que $f|_I^{-1}(\mO)$ est ouvert. Pour cela, nous prenons un point $x_0\in f|_I^{-1}(\mO)$ et nous allons trouver un ouvert autour ce ce point contenu dans $f|_I^{-1}(\mO)$. Nous écrivons $y_0=f(x_0)$. Évidement, $y_0\in\mO$, donc on a une boule autour de $y_0$ qui est contenue dans $\mO$, soit donc $\delta>0$ tel que
+\[  
+  B(y_0,\delta)\subset\mO.
+\]
+Par hypothèse, $f$ est continue en $x_0$, et nous pouvons donc y appliquer le critère \eqref{EqRedefContBoules}. Il existe donc $\epsilon>0$ tel que 
+\[ 
+  f\big( B(x_0,\epsilon) \big)\subset B\big( f(x_0),\delta \big)\subset\mO.
+\]
+Cela prouve que $B(x_0,\epsilon)\subset f|_I^{-1}(\mO)$.
+
+Dans l'autre sens, maintenant. Nous prenons $x_0\in I$ et nous voulons prouver que $f$ est continue en $x_0$, c'est à dire que pour tout $\delta$ nous cherchons un $\epsilon$ tel que $f\big( B(x_0,\epsilon) \big)\subset B\big( f(x_0),\delta \big)$. Oui, mais $B\big( f(x_0),\delta \big)$ est ouverte, donc par hypothèse, $f|_I^{-1}\Big( B\big( f(x_0),\delta \big) \Big)$ est ouvert, inclue à $I$ et contient $x_0$. Donc il existe un $\epsilon$ tel que
+\[ 
+  B(x_0,\epsilon)\subset f|_I^{-1}\Big( B\big( f(x_0),\delta \big) \Big),
+\]
+et donc tel que 
+\[ 
+  f\big( B(x_0,\epsilon) \big)\subset B\big( f(x_0),\delta \big),
+\]
+ce qu'il fallait prouver.
+\end{proof}
+
+
+Avant de démontrer le théorème des valeurs intermédiaires, nous avons encore besoin d'un petit lemme.
+\begin{lemma}	\label{LemConncontconn}
+L'image d'un ensemble connexe par une fonction continue est connexe.
+\end{lemma}
+
+\begin{proof}
+Tu sais quoi ? Nous allons encore faire la contraposée. Soit $A$ une partie de $\eR$ telle que $f(A)$ ne soit pas connexe. Nous allons prouver que $A$ elle-même n'est pas connexe. Dire que $f(A)$ n'est pas connexe, c'est dire qu'il existe $\mO_1$ et $\mO_2$, deux ouverts disjoints qui recouvrent $f(A)$. Je prétends que $f^{-1}(\mO_1)$ et $f^{-1}(\mO_2)$ sont ouverts, disjoints et qu'ils recouvrent $A$.
+\begin{itemize}
+\item Ces deux ensembles sont ouverts parce qu'ils sont images inverses d'ouverts par une fonction continue (théorème \ref{ThoContInvOuvert}).
+\item Si $x\in f^{-1}(\mO_1)\cap f^{-1}(\mO_2)$, alors $f(x)\in \mO_1\cap\mO_2$, ce qui contredirait le fait que $\mO_1$ et $\mO_2$ sont disjoints. Il n'y a donc pas d'éléments dans l'intersection de $f^{-1}(\mO_1)$ et de $f^{-1}(\mO_2)$.
+\item Si $f^{-1}(\mO_1)$ et $f^{-1}(\mO_2)$ ne recouvrent pas $A$, il existe un $x$ dans $A$ qui n'est dans aucun des deux. Dans ce cas, $f(x)$ est dans $f(A)$, mais n'est ni dans $\mO_1$, ni dans $\mO_2$, ce qui contredirait le fait que ces deux derniers recouvrent $f(A)$.
+\end{itemize}
+Nous déduisons que $A$ n'est pas connexe. Et donc le lemme.
+\end{proof}
+
+\begin{theorem}[Théorème des valeurs intermédiaires]		\label{ThoValInter}
+Soit $f$, une fonction continue sur $[a,b]$, et supposons que $f(a)<f(b)$. Alors pour tout $y$ tel que $f(a)\leq y\leq f(b)$, il existe un $x$ entre $a$ et $b$ tel que $f(x)=y$.
+\end{theorem}
+
+\begin{proof}
+Nous savons que $[a,b]$ est connexe pare que c'est un intervalle (proposition \ref{PropInterssiConn}). Donc $f\big( [a,b] \big)$ est connexe (lemme \ref{LemConncontconn}) et donc est un intervalle (à nouveau la proposition \ref{PropInterssiConn}). Étant donné que $f\big( [a,b] \big)$ est un intervalle, il contient toutes les valeurs intermédiaires entre n'importe quels deux de ses éléments. En particulier toutes les valeurs intermédiaires entre $f(a)$ et $f(b)$.
+\end{proof}
+
+\begin{corollary}		\label{CorImInterInter}
+L'image d'un intervalle par une fonction continue est un intervalle.
+\end{corollary}
+La preuve est laissée à titre d'exercice.
+
+Intuitivement, ce théorème est évident : si tu veux tracer une courbe qui commence en $-1$ et qui finit en $4$ sans lever ton crayon, tu devras bien passer par $0$, $1$, $3$, $3.56123$ et tous les intermédiaires. Mais comme tu le vois, ce résultat intuitivement évident est plutôt compliqué à prouver : ça demande des tonnes de subtilités en topologie\footnote{Il existe une preuve qui ne fait pas appel à la topologie, mais qui demande de savoir des propriétés avancées des limites de suites.}.
+\begin{figure}
+\centering
+\begin{pspicture}(-0.5,-0.5)(5.5,5.5)
+   %\psframe[linecolor=cyan](-0.5,-0.5)(5.5,5.5)
+   \psset{PointName=none}
+	\pstGeonode(0,0){A}(5,5){B}
+   \psset{PointSymbol=none,PointName=none}
+   \pstGeonode(0,3){Pg}(5,3){Pd}
+	\psline[linecolor=green](Pg)(Pd)	
+	\pscurve[linecolor=red](A)(4,1)(B)
+	\pscurve[linecolor=cyan](A)(1,4)(B)
+	\pscurve[linecolor=blue](A)(1,2)(2,1)(3,3.5)(4,3)(B)
+	\pstMarquePoint{A}{0.3;-90}{$A$}
+	\pstMarquePoint{B}{0.3;90}{$B$}
+	\cnode[fillstyle=solid,fillcolor=black](A){0.5mm}{bla}
+	\cnode[fillstyle=solid,fillcolor=black](B){0.5mm}{blo}
+\end{pspicture}
+
+\caption{Comment passer du point $A$ au point $B$ sans couper la ligne verte ? Avec une fonction continue, ce n'est pas possible.}  \label{FigContiValInter}
+\end{figure}
+
+\subsection{Exercices}
+%---------------------
+
+\Exo{210}
+\Exo{211}
+\Exo{209}
+\Exo{208}
+
+
+\subsection{Continuité de la racine carré}
+%-----------------------------------------
+
+Pourquoi nous intéresser particulièrement à cette fonction ? Parce qu'elle a une sale condition d'existence : son domaine de définition n'est pas ouvert. Or dans tous les théorèmes de continuité d'approche topologique que nous avons vus, nous avons donné des contions \emph{pour tout ouvert}. Nous nous attendons donc a avoir des difficultés avec la continuité de $\sqrt{x}$ en zéro.
+
+Prenons $I$, n'importe quel intervalle ouvert dans $\eR^+$, et voyons que la fonction
+\begin{equation}
+\begin{aligned}
+ f\colon \eR^+&\to \eR^+ \\ 
+   x&\mapsto \sqrt{x} 
+\end{aligned}
+\end{equation}
+est continue sur $I$. Remarque déjà que si $I$ est un ouvert dans $\eR^+$, il ne peut pas contenir zéro. Avant de nous lancer dans notre propos, nous prouvons un lemme qui fera tout le travail\footnote{C'est toujours ingrat d'être un lemme : on fait tout le travail et c'est toujours le théorème qui est nommé.}.
+
+\begin{lemma}
+Soit $\mO$, un ouvert dans $\eR^+$. Alors $\mO^2=\{ x^2\tq x\in\mO \}$ est également ouvert .
+\end{lemma}
+
+\begin{proof}
+Un élément de $\mO^2$ s'écrit sous la forme $x^2$ pour un certain $x\in\mO$. Le but est de trouver un ouvert autour de $x^2$ qui soit contenu dans $\mO^2$. Étant donné que $\mO$ est ouvert, on a une boule centrée en $x$ contenue dans $\mO$. Nous appelons $\delta$ le rayon de cette boule :
+\[ 
+  B(x,\delta)\subset\mO.
+\]
+Étant donné que cet ensemble est connexe, nous savons par le lemme \ref{LemConncontconn} que $B(x,\delta)^2$ est également connexe (parce que la fonction $x\mapsto x^2$ est continue). Son plus grand élément est $(x+\delta)^2=x^2+\delta^2+2x\delta>x^2+\delta^2$, et son plus petit élément est $(x-\delta)^2=x^2+\delta^2-2x\delta$. 
+
+Ce qui serait pas mal, c'est que ces deux bornes entourent $x^2$, de telle façon à ce qu'elles définissent un ouvert autour de $x^2$ qui soit dans $\mO^2$. Hélas, c'est pas gagné que $x^2+\delta^2-2x\delta$ soit plus petit que $x^2$. 
+
+Heureusement, en fait c'est vrai parce que d'une part, du fait que $\mO\subset\eR^+$, on a $x>0$, et d'autre part, pour que $\mO$ soit positif, il faut que $\delta<x$. Donc on a évidement que $\delta<2x$, et donc que
+\[ 
+  x^2+\delta^2-2x\delta=x^2+\delta\underbrace{(\delta-2x)}_{<0}<x^2.
+\]
+Donc nous avons fini : l'ensemble
+\[ 
+  B(x,\delta)^2=]x^2+\delta^2-2x\delta,x^2+\delta^2+2x\delta[\subset\mO^2
+\]
+est un intervalle qui contient $x^2$, et donc qui contient une boule ouverte centrée en~$x^2$.
+
+\end{proof}
+
+Maintenant nous pouvons nous attaquer à la continuité de la racine carré sur tout ouvert positif en utilisant le théorème \ref{ThoContInvOuvert}. Soit $\mO$ n'importe quel ouvert de $\eR$, et prouvons que $f|_I^{-1}(\mO)$ est ouvert. Par définition,
+\begin{equation}
+  f|_I^{-1}(\mO)=\{ x\in I\tq \sqrt{x}\in\mO \}.
+\end{equation}
+Maintenant c'est un tout petit effort que de remarquer que $f|_I^{-1}(\mO)=\mO^2\cap I$. De là, on a gagné parce que $\mO^2$ et $I$ sont des ouverts. Or l'intersection de deux ouverts est ouvert. 
+
+Nous n'en avons pas fini avec la fonction $\sqrt{x}$. Ce que nous avons fait est représenté à la figure \ref{FigSqrtpqsz}. Nous avons la continuité de la racine carré pour tous les réels strictement positifs. Il reste à pouvoir dire que la fonction est continue en zéro malgré qu'elle ne soit pas définie sur un ouvert autour de zéro. Encore de la mauvaise foi de mathématicien en perspective.
+\begin{figure}[ht]
+\begin{center}
+	\psset{xunit=0.06cm,yunit=0.5cm}
+\begin{pspicture}(-10,-1.5)(210,16)
+   \psset{PointSymbol=none, PointName=none}
+	%\psframe[linecolor=cyan](-10,-1.5)(210,16)
+  	\psaxes[dotsep=1pt, Dx=50, Dy=2]{->}(0,0)(0,0)(210,16)
+
+   \def\Fn{x sqrt}	
+	\psplot[linecolor=blue,plotpoints=1000]{0}{200}{\Fn}
+
+   \pstGeonode(10,1){A}(190,1){B}(210,1){C}
+	\psline[linecolor=green](A)(B)
+	\psline[linecolor=green,linestyle=dotted](B)(C)
+	\pscircle[linecolor=red,fillstyle=solid,fillcolor=white](A){0.1}
+
+\end{pspicture}
+\end{center}
+\caption{Nous avons prouvé la continuité de $x\mapsto\sqrt{x}$ pour tous les intervalles du type de celui représenté en vert. Remarque que cet intervalle ne contient pas le premier point : il est ouvert à sa gauche. Mais ce premier point peut être en réalité aussi près que l'on veut de zéro, sans toutefois l'atteindre. Bref, il ne nous manque la continuité qu'en $0$. Ce serait frustrant que cette fonction ne soit juste pas continue en ce point hein ?}\label{FigSqrtpqsz}
+\end{figure}
+
+Il est possible de dire que la racine carré est continue en $0$, malgré qu'elle ne soit pas définie sur un ouvert autour de $0$\ldots en tout cas pas un ouvert au sens que tu as en tête. Nous allons rentabiliser un bon coup notre travail sur les espaces métriques.
+
+Nous pouvons définir la notion de boule ouverte sur n'importe quel espace métrique $A$ en disant que
+\[ 
+  B(x,r)=\{ y\in A\tq d(x,y)<r \}.
+\]
+\begin{definition}		\label{DefContMetrique}
+Soit $f\colon A\to B$, une application entre deux espaces métriques. Nous disons que $f$ est \defe{continue}{Continue!sur espace métrique} au point $a\in A$ si $\forall \delta>0$, $\exists\epsilon>0$ tel que 
+\begin{equation}
+  f\big( B(a,\epsilon) \big)\subset B\big( f(a),\delta \big).
+\end{equation}
+\end{definition}
+Tu reconnais évidement la condition \eqref{EqRedefContBoules}. Nous l'avons juste recopiée. Tu remarqueras cependant que cette définition généralise immensément la continuité que l'on avait travaillé à propos des fonctions de $\eR$ vers $\eR$. Maintenant tu peux prendre n'importe quel espace métrique et c'est bon.
+
+Nous n'allons pas faire un tour complet des conséquences et exemples de cette définition. Au lieu de cela, nous allons juste montrer en quoi cette définition règle le problème de la continuité de la racine carré en zéro.
+
+La fonction que nous regardons est 
+\begin{equation}
+\begin{aligned}
+f \colon \eR^+&\to \eR^+ \\ 
+   x&\mapsto \sqrt{x}.
+\end{aligned}
+\end{equation}
+Mais cette fois, nous ne la voyons pas comme étant une fonction dont le domaine est une partie de $\eR$, mais comme fonction dont le domaine est $\eR^+$ vu comme un espace métrique en soi. Quelles sont les boules ouvertes dans $\eR^+$ autour de zéro ? Réponse : la boule ouverte de rayon $r$ autour de zéro dans $\eR^+$ est :
+\[ 
+  B(0,r)_{\eR^+}=\{ x\in\eR^+\tq d(x,0)<r \}=[0,r[.  
+\]
+Cet intervalle est un ouvert. Aussi incroyable que cela puisse paraître !
+
+Testons la continuité de la racine carré en zéro dans ce contexte. Il s'agit de prendre $A=\eR^+$, $B=\eR^+$ et $a=0$ dans la définition \ref{DefContMetrique}. Nous avons que $B(\sqrt{0},\delta)=B(0,\delta)=[0,\delta[$ pour la topologie de $\eR^+$.
+
+Il s'agit maintenant de trouver un $\epsilon$ tel que $f\big( B(0,\epsilon) \big)\subset [0,\delta[$. Par définition, nous avons que
+\[ 
+  f\big( B(0,\epsilon) \big)=[0,\sqrt{\epsilon}[,
+\]
+le problème revient dont à trouver $\epsilon$ tel que $\sqrt{\epsilon}\leq\delta$. Prendre $\epsilon<\delta^2$ fait l'affaire.
+
+
+Donc voila. Au sens de la \href{http://fr.wikipedia.org/wiki/Topologie_induite}{topologie propre} à $\eR^+$, nous pouvons dire que la fonction racine carré est partout continue.
