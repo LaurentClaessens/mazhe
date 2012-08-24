@@ -8,7 +8,8 @@ def remove_exercice_part(A):
     #s="\part{Exercices}"
     #t="\corrChapitre{Corrigés systématiques}"
     u="\setcounter{isAgreg}{0}"
-    return A.replace(u,u.replace("0","1"))
+    A = A.replace(u,u.replace("0","1"))
+    return A
 
 myRequest = LaTeXparser.PytexTools.Request("mesure")
 myRequest.plugin_list=[remove_exercice_part]
