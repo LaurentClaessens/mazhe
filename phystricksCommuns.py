@@ -1,4 +1,9 @@
 # -*- coding: utf8 -*-
+
+# Note : si tu modifie ce fichier, tu dois le copier à la main vers le répertoire de test.
+# ~/script/modules/phystricks/tests
+
+
 from phystricks import *
 def CorrectionParametrique(curve,LLms,name,dilatation=1):
 	fig = GenericFigure("SubfiguresCDU"+name)

@@ -55,7 +55,6 @@ from phystricksIntTriangle import IntTriangle
 from phystricksIntEcourbe import IntEcourbe
 from phystricksIntBoutCercle import IntBoutCercle
 from phystricksIntDeuxCarres import IntDeuxCarres
-from phystricksExPolygone import ExPolygone
 from phystricksMoulinEau import MoulinEau
 from phystricksMethodeNewton import MethodeNewton
 from phystricksSurfacePrimiteGeog import SurfacePrimiteGeog
@@ -123,12 +122,6 @@ from phystricksExempleArcParam import ExempleArcParam
 from phystricksexamssepti import examssepti
 from phystricksexamsseptii import examsseptii
 from figure_devoir1 import exercice1A1,exercice1A2,exercice4
-from phystricksDefinitionCartesiennes import DefinitionCartesiennes
-from phystricksProjectionScalaire import ProjectionScalaire
-from phystricksCercleTrigono import CercleTrigono
-from phystricksTgCercleTrigono import TgCercleTrigono
-from phystricksCoordPolaires import CoordPolaires
-from phystricksParallelogramme import Parallelogramme
 #from phystricksTriangleRectangle import TriangleRectangle  # Il faudrait aussi le remettre dans figures_list
 from phystricksExoParamCD import ExoParamCD
 from phystricksCbCartTui import CbCartTui
@@ -137,12 +130,12 @@ from phystricksCbCartTuiii import CbCartTuiii
 from phystricksDS2010exo1 import DS2010exo1
 
 figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre,
-            MomentForce,Parallelogramme,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
+            MomentForce,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
             DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin,
             ChampGraviation,FnCosApprox,NiveauHyperbole,Bateau,FonctionXtrois,FonctionEtDerive,
             SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim,
-            ExoProjection,ExoPolaire,CoordPolaires,TriangleRectangle,CercleTnu,QCb,
-            DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
+            ExoProjection,ExoPolaire,TriangleRectangle,CercleTnu,QCb,
+            ProjectionScalaire,CercleTrigono,TgCercleTrigono,
             SurfaceHorizVerti,SurfaceCercle,KScolorD,CheminFresnel,
             IntRectangle,IntTriangle,CoinPasVar,
             IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa,
@@ -150,7 +143,7 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
             ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
             MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,
             ExoVarj,TriangleUV,
-            DefinitionCartesiennes,ProjectionScalaire,CercleTrigono,TgCercleTrigono,CoordPolaires,Parallelogramme,
+            DefinitionCartesiennes,CoordPolaires,Parallelogramme,
             ExoParamCD,CbCartTui,CbCartTuii,CbCartTuiii,
             exercice1A1,exercice1A2,exercice4,DS2010exo1,
             SuiteUnSurn, SpiraleLimite, IntTrois, CornetGlace, Differentielle, CSCiv, CSCvi,
