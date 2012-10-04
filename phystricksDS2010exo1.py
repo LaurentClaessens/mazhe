@@ -1,6 +1,6 @@
 from phystricks import *
 def DS2010exo1():
-    pspict,fig = SinglePicture("DSdmdexou")
+    pspict,fig = SinglePicture("DSdmdexou",script_filename="DS2010exo1")
 
     mx=-1
     Mx=4

@@ -3,10 +3,9 @@
 # Note : si tu modifie ce fichier, tu dois le copier à la main vers le répertoire de test.
 # ~/script/modules/phystricks/tests
 
-
 from phystricks import *
 def CorrectionParametrique(curve,LLms,name,dilatation=1):
-	fig = GenericFigure("SubfiguresCDU"+name)
+	fig = GenericFigure("SubfiguresCDU"+name,script_filename="Communs")
 
 	ssfig1 = fig.new_subfigure(u"Quelque points de repères","SS1"+name)
 	pspict1 = ssfig1.new_pspicture(name+"psp1")

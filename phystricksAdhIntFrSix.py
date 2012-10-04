@@ -1,6 +1,6 @@
 from phystricks import *
 def AdhIntFrSix():
-	pspict,fig = SinglePicture("exAdhIntFrSix")
+	pspict,fig = SinglePicture("AdhIntFrSix")
 
 	N=100
 	for n in range(1,N):

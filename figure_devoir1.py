@@ -2,10 +2,8 @@
 # -*- coding: utf8 -*-
 
 from phystricks import *
-
-
 def exercice1A1():
-    pspict,fig = SinglePicture("exerciceunAun")
+    pspict,fig = SinglePicture("exerciceunAun",script_filename="figure_devoir1")
     
 
     x=var('x')
@@ -44,7 +42,7 @@ def exercice1A1():
 
 def exercice1A2():
     
-    pspict,fig = SinglePicture("exerciceunAdeux")
+    pspict,fig = SinglePicture("exerciceunAdeux",script_filename="figure_devoir1")
 
     x=var('x')
     epsilon=0.005
@@ -95,10 +93,9 @@ def exercice1A2():
 
 
 def exercice4():
-
-    pspictOne,figOne = SinglePicture("levelsetsOne")
-    pspictTwo,figTwo = SinglePicture("levelsetsTwo")
-    pspictThree,figThree = SinglePicture("levelsetsThree")
+    pspictOne,figOne = SinglePicture("levelsetsOne",script_filename="figure_devoir1")
+    pspictTwo,figTwo = SinglePicture("levelsetsTwo",script_filename="figure_devoir1")
+    pspictThree,figThree = SinglePicture("levelsetsThree",script_filename="figure_devoir1")
     
     x,y=var('x,y')
 

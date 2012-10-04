@@ -1,7 +1,7 @@
 from phystricks import *
 
 def CSCv():
-	fig = GenericFigure("SubfiguresCSCv")
+	fig = GenericFigure("CSCv")
 
 	ssfig1 = fig.new_subfigure(r"Le graphique de $r(\theta)$","CSCvGr")
 	pspict1 = ssfig1.new_pspicture("CSCvGraphe")

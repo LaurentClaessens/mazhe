@@ -1,6 +1,6 @@
 from phystricks import *
 def AdhIntFrDeux():
-    pspict,fig = SinglePicture("exAdhIntFrDeux")
+    pspict,fig = SinglePicture("AdhIntFrDeux")
 
     x=var('x')
     mx=-0.5

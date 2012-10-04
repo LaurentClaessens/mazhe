@@ -1,6 +1,6 @@
 from phystricks import *
 def SenoTopologo():
-	pspict,fig = SinglePicture("senotopologo")
+	pspict,fig = SinglePicture("SenoTopologo")
 
 	a=-0.5
 	b=0.5

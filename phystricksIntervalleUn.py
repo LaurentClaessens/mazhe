@@ -1,6 +1,6 @@
 from phystricks import *
 def IntervalleUn():
-	pspict,fig = SinglePicture("Intervalle")
+	pspict,fig = SinglePicture("IntervalleUn")
 
 	O=Point(0,0)
 	A=Point(0.3,0)

@@ -3,9 +3,8 @@
 
 from phystricks import *
 
-
 def exercice1A1():
-    pspict,fig = SinglePicture("exerciceunAun")
+    pspict,fig = SinglePicture("exerciceunAun",script_filename="figure_devoir2")
     
 
     x=var('x')
@@ -98,9 +97,9 @@ exercice1A2()
 
 def exercice4():
 
-    pspictOne,figOne = SinglePicture("levelsetsOne")
-    pspictTwo,figTwo = SinglePicture("levelsetsTwo")
-    pspictThree,figThree = SinglePicture("levelsetsThree")
+    pspictOne,figOne = SinglePicture("levelsetsOne",script_filename="figure_devoir2")
+    pspictTwo,figTwo = SinglePicture("levelsetsTwo",script_filename="figure_devoir2")
+    pspictThree,figThree = SinglePicture("levelsetsThree",script_filename="figure_devoir2")
     
     x,y=var('x,y')
 

@@ -1,6 +1,6 @@
 from phystricks import *
 def AdhIntFrTrois():
-	pspict,fig = SinglePicture("exAdhIntFrTrois")
+	pspict,fig = SinglePicture("AdhIntFrTrois")
 
 	x=var('x')
 	epsilon=0.005

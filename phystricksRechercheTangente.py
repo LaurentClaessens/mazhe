@@ -1,9 +1,9 @@
 # -*- coding: utf8 -*-
 from phystricks import *
 def RechercheTangente():
-	pspictQuestion,figQuestion = SinglePicture("TangenteQuestion")
-	pspictDetail,figDetail = SinglePicture("TangenteDetail")
-	fig=GenericFigure("LesSubFigures")
+	pspictQuestion,figQuestion = SinglePicture("TangenteQuestion",script_filename="RechercheTangente")
+	pspictDetail,figDetail = SinglePicture("TangenteDetail",script_filename="RechercheTangente")
+	fig=GenericFigure("LesSubFigures",script_filename="RechercheTangente")
 
 	mx=0.7
 	Mx=5
