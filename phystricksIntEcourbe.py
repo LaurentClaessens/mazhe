@@ -13,7 +13,7 @@ def IntEcourbe():
     surface.f2.parameters=surface.f1.parameters
 
 
-    pspict.DrawGraphs(surface,surface.bounding_box())
+    pspict.DrawGraphs(surface,surface.bounding_box(pspict))
     pspict.DrawDefaultAxes()
     pspict.dilatation(1)
     fig.conclude()
