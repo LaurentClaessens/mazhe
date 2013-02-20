@@ -4,6 +4,10 @@
 from phystricks import *
 import sys
 
+from phystricksIWuPxFc import IWuPxFc
+from phystricksMCQueGF import MCQueGF
+from phystricksYWxOAkh import YWxOAkh
+from phystricksLAfWmaN import LAfWmaN
 from phystricksMaxVraissLp import MaxVraissLp
 from phystricksBiaisOuPas import BiaisOuPas
 from phystricksChiSquared import ChiSquared
@@ -121,40 +125,28 @@ from phystricksCourbeRectifiable import CourbeRectifiable
 from phystricksExempleArcParam import ExempleArcParam
 from phystricksexamssepti import examssepti
 from phystricksexamsseptii import examsseptii
-from figure_devoir1 import exercice1A1,exercice1A2,exercice4
+#from figure_devoir1 import exercice1A1,exercice1A2,exercice4
 #from phystricksTriangleRectangle import TriangleRectangle  # Il faudrait aussi le remettre dans figures_list
 from phystricksExoParamCD import ExoParamCD
 from phystricksCbCartTui import CbCartTui
 from phystricksCbCartTuii import CbCartTuii
 from phystricksCbCartTuiii import CbCartTuiii
 from phystricksDS2010exo1 import DS2010exo1
+from phystricksPHTVjfk import PHTVjfk
 
-figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre,
-            MomentForce,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
-            DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin,
-            ChampGraviation,FnCosApprox,NiveauHyperbole,Bateau,FonctionXtrois,FonctionEtDerive,
-            SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim,
-            ExoProjection,ExoPolaire,TriangleRectangle,CercleTnu,QCb,
-            ProjectionScalaire,CercleTrigono,TgCercleTrigono,
-            SurfaceHorizVerti,SurfaceCercle,KScolorD,CheminFresnel,
-            IntRectangle,IntTriangle,CoinPasVar,
-            IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa,
-            ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang,
-            ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
-            MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,
-            ExoVarj,TriangleUV,
-            DefinitionCartesiennes,CoordPolaires,Parallelogramme,
-            ExoParamCD,CbCartTui,CbCartTuii,CbCartTuiii,
-            exercice1A1,exercice1A2,exercice4,DS2010exo1,
-            SuiteUnSurn, SpiraleLimite, IntTrois, CornetGlace, Differentielle, CSCiv, CSCvi,
-            CSCii, CSCiii, CSCv, Cardioideexo, DistanceEuclide, LesSpheres, IntervalleUn,
-            DistanceEnsemble, AccumulationIsole, MethodeChemin, ExempleArcParam,
-            CourbeRectifiable, SuiteInverseAlterne, CycloideA, Cardioid,  
-            ParamTangente, Polirettangolo, RegioniPrimoeSecondoTipo, ExampleIntegration, 
-            ExampleIntegrationdeux, ExampleChangementVariables, ArcLongueurFinesse, 
-            TangentSegment, BoulePtLoin, UneCellule,
-            SenoTopologo, AdhIntFr, AdhIntFrDeux, AdhIntFrTrois, AdhIntFrSix, DeuxCercles, 
-            TraceCycloide, QuelCote, Osculateur,examssepti,examsseptii]
+figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre, MomentForce,CouroneExam,SurfacePrimiteGeog,
+        SurfaceEntreCourbes, DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin, ChampGraviation,FnCosApprox,NiveauHyperbole,
+        Bateau,FonctionXtrois,FonctionEtDerive, SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim, ExoProjection,
+        ExoPolaire,TriangleRectangle,CercleTnu,QCb, ProjectionScalaire,CercleTrigono,TgCercleTrigono, SurfaceHorizVerti,SurfaceCercle,KScolorD,
+        CheminFresnel, IntRectangle,IntTriangle,CoinPasVar, IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa, ConeRevolution,
+        ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang, ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
+        MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton, ExoVarj,TriangleUV, DefinitionCartesiennes,CoordPolaires,Parallelogramme,
+        ExoParamCD,CbCartTui,CbCartTuii,CbCartTuiii, exercice1A1,exercice1A2,exercice4,DS2010exo1, SuiteUnSurn, SpiraleLimite, IntTrois, CornetGlace,
+        Differentielle, CSCiv, CSCvi, CSCii, CSCiii, CSCv, Cardioideexo, DistanceEuclide, LesSpheres, IntervalleUn, DistanceEnsemble, AccumulationIsole,
+        MethodeChemin, ExempleArcParam, CourbeRectifiable, SuiteInverseAlterne, CycloideA, Cardioid,  ParamTangente, Polirettangolo,
+        RegioniPrimoeSecondoTipo,ExampleIntegration, ExampleIntegrationdeux, ExampleChangementVariables, ArcLongueurFinesse, TangentSegment,
+        BoulePtLoin, UneCellule, SenoTopologo, AdhIntFr, AdhIntFrDeux, AdhIntFrTrois, AdhIntFrSix, DeuxCercles, TraceCycloide, QuelCote, Osculateur,
+        examssepti,examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc]
 
 
 # Il me semble que la figure IntCourbePolaire est inutile

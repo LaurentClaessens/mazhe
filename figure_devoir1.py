@@ -3,8 +3,8 @@
 
 from phystricks import *
 def exercice1A1():
+
     pspict,fig = SinglePicture("exerciceunAun",script_filename="figure_devoir1")
-    
 
     x=var('x')
     f1=2*x**2+4*x+2
@@ -23,8 +23,6 @@ def exercice1A1():
     l1=phyFunction(0.5).graph(mx,Mx)
     l2=phyFunction(-1.5).graph(mx,Mx)
 
-    #A=v1.get_point(0)
-
     B=v1.get_point(-1.5)
     C=v2.get_point(-1.5)
     sh=Segment(B,C)
@@ -41,7 +39,7 @@ def exercice1A1():
 
 
 def exercice1A2():
-    
+
     pspict,fig = SinglePicture("exerciceunAdeux",script_filename="figure_devoir1")
 
     x=var('x')
@@ -88,9 +86,6 @@ def exercice1A2():
     
     fig.conclude()
     fig.write_the_file()
-
-    
-
 
 def exercice4():
     pspictOne,figOne = SinglePicture("levelsetsOne",script_filename="figure_devoir1")
