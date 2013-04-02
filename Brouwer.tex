@@ -312,7 +312,7 @@ Le théorème suivant est une conséquence du théorème de Markov-Katutani.
 \end{theorem}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Prolongement de fonctions}
+\section{Prolongement de fonctions et complétion d'espaces métriques}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Sources : \cite{RasclAnaFonc,MaurayAnalSpec}
@@ -451,11 +451,136 @@ Dans la même veine nous avons ce résultat.
     Les fonction s\( u\) et \( \tilde u\) ayant le même module de continuité, le lemme \ref{LemeERapq} nous enseigne que l'une est uniformément continue si et seulement si l'autre l'est. Vu que \( u\) est uniformément continue par hypothèse, le prolongement \( \tilde u\) est uniformément continu.
 \end{proof}
 
+\begin{definition}
+    Un \defe{plongement}{plongement} de l'espace topologique \( X\) dans \( Y\) est une application \( f\colon X\to Y\) telle que \( f\colon X\to f(X)\) soit un homéomorphisme.
+\end{definition}
+
 Une conséquence du théorème de prolongement est le théorème suivant qui permet de compléter un espace métrique.
-\begin{theorem}
+\begin{theorem}[Complétion d'un espace métrique\cite{DOVXZwP,JBRzHwn}]
+
     Tout espace métrique se plonge par une isométrie à image dense dans un espace métrique complet. De plus ce dernier est unique à isométrie près.
+
+    Plus précisément, soit \( (M,d)\) un espace métrique. Il existe un espace métrique complet \( \tilde M\) muni d'un plongement isométrique \( \varphi\colon M\to \tilde M\) tel que \( \varphi(M)\) soit dense dans \( \tilde M\).
+
+    Ce complété\index{complété!d'un espace métrique} de \( M\) est unique au sens suivant. Si \( \tilde M_1\) et \( \tilde M_2\) sont deux espaces métriques complets munis de plongements isométriques \( f_i\colon M\to \tilde M_1\) dont les images sont denses, alors il existe une bijection isométrique \( \phi\colon \tilde M_1\to \tilde M_2\) telle que \( \phi\circ f_1=f_2\).
 \end{theorem}
-Cet espace est nommé le \defe{complété}{complété!espace métrique}.
+
+\begin{proof}
+    Nous ne prouvons que l'existence.
+
+    Soit \( C_M\) l'ensemble des suites de Cauchy de \( M\). Nous définissons
+    \begin{equation}
+        \begin{aligned}
+            f\colon C_M\times C_M&\to \eR \\
+            u,v&\mapsto \lim_{n\to \infty} d(u_n,v_n).
+        \end{aligned}
+    \end{equation}
+    Notre première tâche est de nous assurer que cela est bien défini, c'est à dire que la limite existe toujours. En effet, si \( u\) et \( v\) sont des suites de Cauchy dans \( M\), nous avons
+    \begin{equation}
+        \left| d(u_n,v_n)-d(u_m,v_m) \right| \leq d(u_n,v_n)+d(u_m,v_m)\leq 2\epsilon
+    \end{equation}
+    dès que \( m\) et \( n\) sont assez grand. Cela prouve que la suite \( n\mapsto d(u_n,v_n)\) est de Cauchy dans \( \eR\). Par complétude de \( \eR\), elle converge\footnote{Ici nous utilisons la complétude de \( \eR\). Cette dernière doit donc être démontrée indépendamment. De plus nous ne pouvons pas définir \( \eR\) comme étant le complété de \( \eQ\) en utilisant ce théorème.}. 
+    %TODO : lorsque ce sera fait, il faudra mettre ici une référence vers le théorème qui donne la complétude de la droite réelle.
+    
+    Nous considérons la relation d'équivalence \( u\sim v\) si et seulement si \( f(u,v)=0\). Nous posons \( \tilde M=C_M/\sim\) et nous y mettons la distance
+    \begin{equation}    \label{EqDDLNRNF}
+        d( [u],[v]  )=f(u,v)
+    \end{equation}
+    et nous devons encore vérifier que cela est bien défini. Prenons \( u'\sim u\) et \( v'\sim v\). Alors nous avons
+    \begin{equation}
+        d(u'_n,v'_n)\leq d(u'_n,u_n)+d(u_n,v_n)+d(v_n,v'_n),
+    \end{equation}
+    et donc 
+    \begin{equation}
+        d(u',v')=\lim_{n\to \infty} d(u'_n,v'n)\leq \lim_{n\to \infty} d(u_n,v_n)=d(u,v).
+    \end{equation}
+    Le même argument en inversant les primes et les non primes montre l'inégalité inverse. Donc \( d(u,v)=d(u',v')\) dans \( C_M\), et donc la distance \eqref{EqDDLNRNF} est bien définie sur \( \tilde M\).
+
+    Affin de s'assurer que \( \tilde M\) répond bien à la question du théorème, il faut encore démontrer les points suivants :
+    \begin{itemize}
+        \item \( M\) se plonge isométriquement dans \( \tilde M\).
+        \item l'image de \( M\) par le plongement est dense dans \( \tilde M\).
+        \item \( \tilde M\) est complet.
+    \end{itemize}
+
+    Nous allons maintenant considérer l'application
+    \begin{equation}
+        \begin{aligned}
+            \varphi\colon M&\to \tilde M \\
+            x&\mapsto \text{la classe de la suite constante \( x\).} 
+        \end{aligned}
+    \end{equation}
+    \begin{subproof}
+        \item[Plongement isométrique]
+        Nous allons montrer que cela est une isométrie bijective et que \( \varphi(M)\) est dense dans \( \tilde M\). Le fait que \( \varphi\) soit bijective entre \( M\) et \( \varphi(M)\) est évident. C'est une isométrie parce que
+        \begin{equation}
+            d\big( \varphi(x),\varphi(y) \big)=\lim_{n\to \infty} d\big(\varphi(x)_n,\varphi(y)_n\big)=d(x,y).
+        \end{equation}
+        
+    \item[Densité]
+
+        Soit \( [u]\in \tilde M\). Tous les termes \( u_n\) sont des éléments de \( M\). Nous considérons la suite dans \( \varphi(M)\) donnée par
+        \begin{equation}
+            a_n=\varphi(u_n)
+        \end{equation}
+        Chaque \( a_n\) est un élément\footnote{À partir de maintenant nous n'écrivons plus explicitement la classe d'équivalence.} de \( \tilde M\). Montrons que \( (a_n)\) converge dans \( \tilde M\) vers \( u\). Nous avons
+        \begin{subequations}
+            \begin{align}
+                d(a_n,u)&=\lim_{k\to \infty} d\big( (a_n)_k,u_k \big)\\
+                &=\lim_{k\to \infty} d(u_n,u_k)\\
+                &=d(u_n,\ell)
+            \end{align}
+        \end{subequations}
+        en notant \( \ell\) la limite de la suite \( (u_n)\). Ici nous avons utilisé le fait que la fonction distance était continue pour l'inverser avec la limite, par le théorème \ref{ThoLimSuite}. Nous avons alors
+        \begin{equation}
+            \lim_{n\to \infty} d(a_n,[u])=\lim_{n\to \infty} d(u_n,\ell)=0.
+        \end{equation}
+        
+    \item[Complétude]
+        Nous passons maintenant à la preuve du fait que \( \tilde M\) est complet. Soit \( (y_n)\) une suite de Cauchy dans \( \tilde M\). Soit \( \epsilon>0\); nous définissons \( K(n)\) par
+        \begin{equation}
+            d\big( (y_n)_k,(y_n)_l \big)<\epsilon
+        \end{equation}
+        dès que \( k,l\geq K(n)\). Cette définition fonctionne parce que pour chaque \( n\), \( y_n\) est une suite de Cauchy dans \( M\). Nous posons
+        \begin{equation}
+            x_n=(y_n)_{K(n)}\in M
+        \end{equation}
+        et nous allons montrer que \( (x_n)\) est de Cauchy dans \( M\) --donc est un élément de \( \tilde M\)-- et que \( y_k\to (x_n)\) dans \( \tilde M\). 
+        
+        Nous commençons par montrer que \( (x_n)\) est de Cauchy dans \( M\). Nous avons
+        \begin{subequations}
+            \begin{align}
+                d(x_n,x_m)&=d\big( (y_n)_{K(n)},(y_m)_{K(m)} \big)\\
+                &\leq d\big( (y_n)_{K(n)},(y_n)_l \big)+d\big( (y_n)_{l},(y_m)_l \big)+d\big( (y_m)_{l},(y_m)_{K(m)} \big)
+            \end{align}
+        \end{subequations}
+        Nous choisissons \( n,m\) tels que \( d(y_n,y_m)<\epsilon\), ce qui nous permet de choisir \( l\) de telle façon à avoir \( d\big( (y_n)_k,(y_m)_k \big)<\epsilon\) pour tout \( k\geq l\). De plus, quitte à encore augmenter \( l\), nous supposons que \( l>K(m)\) et \( l>K(m)\). Avec ces choix nous voyons que \( d(x_n,x_m)<3\epsilon\), ce qui signifie que la suite \( (x_n)\) est de Cauchy dans \( M\).
+
+        En ce qui concerne la convergence \( y_n\to (x)\), on a 
+        \begin{subequations}
+            \begin{align}
+                d\big( y_n,(x) \big)&=\lim_{k\to \infty} d\big( (y_n)_k,(y_k)_{K(k)} \big)\\
+                &\leq \lim_{k\to \infty} d\big( (y_n)_k,(y_n)_l \big)+\lim_{k\to \infty} d\big( (y_n)_l,(y_k)_{l} \big)+\lim_{k\to \infty} d\big( (y_k)_l,(y_k)_{K(k)} \big)    \label{EqABmqNwo}
+            \end{align}
+        \end{subequations}
+        Nous devons trouver un \( n\) tel que si \( k\) est suffisamment grand, le tout est majoré par \( \epsilon\). Voici nos choix :
+        \begin{itemize}
+            \item \( n\) tel que \( d(y_n,y_m)<\epsilon\) dès que \( m\geq n\),
+            \item \( k>n\),
+            \item \( k>K(n)\),
+            \item \( l>k\),
+            \item \( l>K(k)\),
+            \item \( l\) suffisamment grand pour que \( d\big( (y_n)_l,(y_k)_l \big)<\epsilon\).
+        \end{itemize}
+        Avec tous ces choix, les trois termes de \eqref{EqABmqNwo} sont plus petits que \( \epsilon\).
+
+        Ceci prouve que \( \tilde M\) est complet.
+    \end{subproof}
+\end{proof}
+%TODO : prouver l'unicité.
+%TODO : la construction de la droite réelle et sa complétude.
+
+La partie unicité est le théorème \ref{ThoPVFQMi}, mais j'avoue ne pas trop comprendre pourquoi.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 					\section{Un petit extra}
