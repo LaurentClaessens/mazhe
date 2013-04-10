@@ -3,6 +3,230 @@
 %   Laurent Claessens, Carlotta Donadello
 % See the file fdl-1.3.txt for copying conditions.
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Un peu de topologie sur $\eR$}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Afin de pouvoir étudier la topologie des espaces métriques, il faut savoir quelque propriétés des réels parce que nous allons étudier la fonction distance qui est une fonction continue à valeurs dans les réels.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Critère de Cauchy}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Une suite \( (x_n)\) dans \( \eR\) est \defe{de Cauchy}{suite!de Cauchy}\index{Cauchy!suite} si pour tout \( \epsilon>0\), il existe \( N\in \eN\) tel que \( m,n>N\) implique \( | x_n-x_m |<\epsilon\).
+\end{definition}
+
+Toute suite de Cauchy est évidemment bornée et donc continue dans un compact.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Maximum, supremum et compagnie}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Ce n'est un secret pour personne que $\eR$ est un \href{http://fr.wikipedia.org/wiki/Relation_d'ordre}{ensemble ordonné} : il y a des éléments plus grands que d'autres, et mieux : à chaque fois que je prends deux éléments différents dans $\eR$, il y en a un des deux qui est plus grand que l'autre. Il n'y a pas d'\emph{ex æquo} dans $\eR$.
+
+  Si je regarde l'intervalle $I=[0,1]$, je peux même dire que $10$ est plus grand que tous les éléments de $I$. Nous disons que $10$ est un \emph{majorant} de $[0,1]$. La définition est la suivante.
+\begin{definition}
+Lorsque $A$ est un sous-ensemble de $\eR$, on dit que $s$ est un \defe{majorant}{majorant} de $A$ si $s$ est plus grand que tous les éléments de $A$. En d'autres termes, si
+\[
+  \forall x\in A,\,s\geq x.
+\]
+\end{definition}
+Je me permet d'insister sur le fait que l'inégalité n'est pas stricte. Ainsi, $1$ est un majorant de $[0,1]$. Dès qu'un ensemble a un majorant, il en a plein. Si $s$ majore l'ensemble $A$, alors évident $s+1$, $s+4$, $s+\pi^2$ majorent également $A$.
+
+\begin{example}
+Une petite galerie d'exemples de majorants.
+\begin{itemize}
+\item L'intervalle fermé $[4,8]$ admet entre autres $8$ et $130$ comme majorants,
+\item l'intervalle ouvert $]4,8[$ admet également $8$ et $130$ comme majorants,
+\item $7$ n'est pas un majorant de $[1,5]\cup]8,32]$,
+\item $10/10$ majore les côtes qu'on peut obtenir à une interrogation,
+\item l'intervalle $[4,\infty[$ n'a pas de majorants.
+\end{itemize}
+\end{example}
+
+\begin{definition}
+Le \defe{supremum}{supremum} d'un ensemble est le plus petit majorant. En d'autres terme, $s$ est un supremum de $A$ si tout nombre plus petit que $s$ ne majore pas $A$, ou encore,
+\[
+  \forall x<s,\exists y\in A\text{ tel que } y>x.
+\]
+Nous disons que $M$ est un \defe{maximum}{maximum} de $A$ si $M$ est un supremum \emph{et} $M\in A$.
+\end{definition}
+Quand $s$ est un supremum de $A$, ça veut dire que le moindre pas vers la gauche que l'on fait à partir de $s$ (c'est à dire le moindre $\epsilon$), et on tombe dans $A$, ou tout au moins, il existe des éléments de $A$ qui sont plus grand que $s-\epsilon$.
+
+\subsubsection{\ldots et quelque exemples}
+%//////////////////////
+
+En matières de notations, le maximum de l'ensemble $A$ est noté $\max A$, le supremum est noté $\sup A$. Le minimum et l'infimum sont notés $\min A$ et $\inf A$.
+
+\begin{example}
+Exemples de différence entre majorant, supremum et maximum.
+\begin{itemize}
+\item Le nombre $10$ est un supremum, majorant et maximum de l'intervalle fermé $[0,10]$,
+\item Le nombre $10$ est un majorant et un supremum, mais pas un maximum de l'intervalle ouvert $]0,10[$,
+\item Le nombre $136$ est un majorant, mais ni un maximum ni un supremum de l'intervalle $[0,10]$.
+\end{itemize}
+\end{example}
+
+En utilisant les notations concises, ces différents cas s'écrivent ainsi :
+\begin{align*}
+10&=\max[0,10]=\sup[0,10]	& 10&=\sup[0,10[
+\end{align*}
+
+
+\begin{example}
+Si on dit que un pont s'effondre à partir d'une charge de $10$ tonnes, alors $10$ tonnes est un \emph{supremum} des charges que le pont peut supporter : si on met $9,999999$ tonnes dessus, il tient encore le coup, mais si on ajoute un gramme, alors il s'effondre (on sort de l'ensemble des charges acceptables).
+\end{example}
+
+\begin{example}
+Si on dit qu'un pont résiste jusqu'à $10$ tonnes, alors $10$ tonnes est un \emph{maximum} de la charge acceptable. Sur ce pont-ci, on peut ajouter le dernier gramme. Mais à partir de là, le moindre truc qu'on ajoute, il s'effondre.
+\end{example}
+
+Maintenant il est important de se rendre compte d'une chose : un ensemble ne peut avoir qu'un seul maximum et supremum. Jusqu'à présent nous avons toujours dit \emph{un} supremum. À partir de maintenant nous pouvons dire \emph{le} supremum. La preuve de cela est assez simple.
+\begin{proposition}
+Si $A$ est un sous-ensemble de $\eR$ admettant un supremum, alors il n'a qu'un seul supremum; et si il accepte un maximum, il n'en accepte un seul, et le maximum est égal au supremum.
+\end{proposition}
+
+\begin{proof}
+Commençons par l'affirmation concernant le supremum. Supposons que $x$ et $y$ soient tous les deux suprema différents de $A$. Étant donné que $x\neq y$, nous pouvons supposer que $x<y$, et donc, par définition du fait que $y$ est un supremum, il existe un élément de $A$ qui est plus grand que $x$. Cela contredit le fait que $x$ soit supremum. En conclusion, il ne peut pas y avoir deux suprema différents pour un même ensemble.
+
+Étant donné qu'un maximum est un supremum, il ne peut pas y avoir deux maxima différents vu qu'il ne peut pas y avoir deux suprema différents.
+\end{proof}
+
+
+Lorsque vous lisez que la charge maximale d'un camion est de \unit{2.5}{\ton}, est-ce que cela veut dire que vous pouvez y mettre \unit{2.5}{\ton}, mais qui si un oiseau se pose dessus, le camion s'effondre ? Ou bien est-ce que cela signifie qu'à \unit{2.5}{\ton} le camion s'écroule, mais que toute charge inférieure est valable ?
+
+C'est à cette rude question que nous allons nous attaquer maintenant.
+
+\begin{definition}
+Soit une partie $A$ de $\eR$. Nous disons qu'un nombre $M$ est un \defe{majorant}{majorant} de $A$ si $M$ est plus grand ou égal que tous les éléments de $A$, c'est à dire si
+\begin{equation}
+	\forall a\in A,\, M\geq a.
+\end{equation}
+Un \defe{minorant}{minorant} de $A$ est un nombre $m$ tel que 
+\begin{equation}
+	\forall a\in A,\, m\leq a.
+\end{equation}
+\end{definition}
+
+\begin{definition}		\label{DefSupeA}
+Soit $A$ une partie majorée de $\eR$. Le \defe{supremum}{supremum} de $A$ est le plus petit des majorants, c'est à dire le nombre $M$ tel que
+\begin{enumerate}
+	\item
+		$M\geq x$ pour tout $x\in A$,
+	\item
+		pour tout $\varepsilon$, le nombre $M-\varepsilon$ n'est pas un majorant de $a$, c'est à dire qu'il existe un élément $x\in A$ tel que $x>M-\varepsilon$.
+\end{enumerate}
+Nous notons $\sup A$ le supremum de $A$.
+
+De la même façon, \defe{l'infimum}{infimum} de $A$, noté $\inf A$, est le plus grand de ses minorants. 
+\end{definition}
+Par convention, si la partie n'est pas bornée vers le haut, nous dirons que son supremum n'existe pas, ou bien qu'il est égal à $+\infty$, suivant les contextes. Pour votre culture générale, sachez toutefois que $\infty\notin\eR$.
+
+La définition est justifiée par le lemme \ref{LemInfUnique} et la proposition \ref{PropBorneSupInf}. Le premier montre que si $A$ possède un infimum, alors il est unique, tandis que le second montre que toute partie majorée de $\eR$ accepter un supremum, et que toute partie minorée accepte un infimum.
+\begin{lemma}		\label{LemInfUnique}
+	Soit $A$ une partie de $\eR$. Supposons que $m_1$ et $m_2$ soient deux nombres qui vérifient les propriétés de l'infimum de $A$. Alors $m_1=m_2$.
+\end{lemma}
+
+\begin{proof}
+	Si $_1\neq m_2$, nous pouvons supposer $m_2>m_1$. Dans ce cas, étant donné que $m_1$ est un infimum, $m_2$ ne peut pas minorer $A$, et donc ne peut pas être un infimum.
+\end{proof}
+
+\begin{proposition}		\label{PropBorneSupInf}
+	Tout sous-ensemble de $\eR$ borné vers le bas possède un infimum; tout sous-ensemble de $\eR$ borné vers le haut possède un supremum.
+\end{proposition}
+
+La preuve qui suit est proche de celle donnée par Wikipédia  dans l'article \wikipedia{en}{http://en.wikipedia.org/wiki/Least_upper_bound_principle}{Least uppert bound principle}.
+
+\begin{proof}
+	Soit $A$, une partie de $\eR$. Nous allons trouver son infimum en suivant une méthode de dichotomie. Pour cela nous allons construire trois suites en même temps de la façon suivante. D'abord nous choisissons un point $x_0$ de $A$ et un point $x_1$ qui minore $A$ (qui existe par hypothèse) :
+	\begin{equation}
+		\begin{aligned}[]
+			x_0&\text{ est un élément de $A$},\\
+			x_1&\text{ est un minorant de $A$},\\
+			a_0&=x_0\\
+			b_0&=x_1\\
+			b_1&=x_1.
+		\end{aligned}
+	\end{equation}
+	Ensuite, nous faisons la récurrence suivante :
+	\begin{equation}
+		\begin{aligned}[]
+			x_{n+1}&=\frac{ a_n+b_n }{2},\\
+			a_{n+1}&=\begin{cases}
+				a_{n}	&	\text{si $x_{n+1}$ minore $A$}\\
+				x_{n+1}	&	 \text{sinon},
+			\end{cases}\\
+			b_{n+1}&=\begin{cases}
+				x_{n+1}	&	\text{si $x_{n+1}$ minore $A$}\\
+				b_n	&	 \text{sinon}.
+			\end{cases}
+		\end{aligned}
+	\end{equation}
+    Nous allons montrer que \( a_n\) et \( (b_n)\) sont des suites convergentes de même limite et que cette limite est l'infimum de \( A\).
+
+	Soit $n\in\eN$; il y a deux possibilités. Soit $a_n=a_{n-1}$ et $b_n=x_n$, soit $a_n=x_n$ et $b_n=b_{n-1}$. Supposons que nous soyons dans le premier cas (le second se traite de façon similaire). Alors nous avons
+	\begin{equation}
+		\begin{aligned}[]
+			| a_n-b_n |&=| a_{n-1}-x_n |\\
+			&=\left| a_{n-1}-\frac{ a_{n-1}+b_{n-1} }{2} \right| \\
+			&=\frac{ 1 }{2}| a_{n-1}-b_{n-1} |,
+		\end{aligned}
+	\end{equation}
+	ce qui prouve que $| a_n-b_n |\to 0$. Nous montrons maintenant que la suite \( (a_n)\) est de Cauchy. En effet nous avons
+    \begin{equation}
+        | a_n-a_{n-1} |=\begin{cases}
+          0\\
+          \left| \frac{ a_n -b_n}{ 2} \right|   
+      \end{cases}\leq \frac{1}{ 2n }.
+    \end{equation}
+    Il en est de même pour la suite \( (b_n)\). Ce sont deux suites de Cauchy (donc convergentes) qui convergent vers la même limite. Soit \( \ell\) cette limite.
+    
+	Le nombre $\ell$ minore $A$. En effet si $a\in A$ est plus petit que $\ell$, les éléments $b_n$ tels que $| b_n-\ell |<| a-\ell |$ ne peuvent pas minorer $A$. D'autre part, pour tout $\epsilon$, le nombre $\ell+\epsilon$ ne peut pas minorer $A$. En effet, $\ell$ est la limite de la suite décroissante $(a_n)$, donc il existe $a_n$ entre $\ell$ et $\ell+\epsilon$. Mais $a_n$ ne minore pas $A$, donc $\ell+\epsilon$ ne minore pas non plus $A$.
+
+	Nous avons prouvé que toute partie minorée de $\eR$ possède un infimum. La preuve que toute partie majorée possède un supremum se fait de la même façon.
+	
+\end{proof}
+
+
+\begin{definition}
+	Si le supremum d'un ensemble appartient à l'ensemble, nous l'appelons \defe{maximum}{maximum}. De la même façon si l'infimum d'un ensemble appartient à l'ensemble, nous disons que c'est le \defe{minimum}{minimum}.
+\end{definition}
+
+\begin{example}
+	Pour les intervalles, ces notions sont simples : les bornes de l'intervalle sont les supremum et infimum, et ce sont des minima et maxima si l'intervalle est fermé. Le nombre $53$ est un majorant.
+	\begin{enumerate}
+		\item
+			$A=\mathopen[ 1 , 2 \mathclose]$. Tous les nombres plus petits ou égaux à $1$ sont minorants, $1$ est infimum et minimum. Le nombre $2$ est un majorant, le maximum et le supremum.
+		\item
+			$B=\mathopen] 3 , \pi \mathclose[$. Le nombre $\pi$ est le supremum et est un majorant, mais n'est pas le maximum (parce que $\pi\notin B$). L'ensemble $B$ n'a pas de maximum. Bien entendu, $-1000$ est un minorant.
+	\end{enumerate}
+\end{example}
+
+Il existe évidement de nombreux exemples plus vicieux.
+
+\begin{example}
+	Prenons $E=\{ \frac{1}{ n }\tq n\in\eN_0 \}$, dont les premiers points sont indiqués sur la figure \ref{LabelFigSuiteUnSurn}. Cet ensemble est constitué des nombres $1$, $\frac{ 1 }{2}$, $\frac{1}{ 3 }$, \ldots Le plus grand d'entre eux est $1$ parce que tous les nombres de la forme $\frac{1}{ n }$ avec $n\geq 1$ sont plus petits ou égaux à $1$. Le nombre $1$ est donc maximum de $E$.
+
+	L'ensemble $E$ n'a par contre pas de minimum parce que tout élément de $E$ s'écrit $\frac{1}{ n }$ pour un certain $n$ et est plus grand que $\frac{1}{ n+1 }$ qui est également dans $E$.
+
+	Prouvons que zéro est l'infimum de $E$. D'abord, tous les éléments de $E$ sont strictement positifs, donc zéro est certainement un minorant de $E$. Ensuite, nous savons que pour tout $\varepsilon>0$, il existe un $n$ tel que $\frac{1}{ n }$ est plus petit que $\varepsilon$. L'ensemble $E$ possède donc un élément plus petit que $0+\varepsilon$, et zéro est bien l'infimum.
+\end{example}
+
+\newcommand{\CaptionFigSuiteUnSurn}{Les premiers points du type $x_n=1/n$.}
+\input{Fig_SuiteUnSurn.pstricks}
+
+L'exemple suivant est une source classique d'erreurs en ce qui concerne l'infimum. Il sera à relire après avoir vu la définition de limite (définition \ref{DefLimiteSuiteNum}).
+
+\begin{example}
+	Les premiers points de l'ensemble $F=\{ \frac{ (-1)^n }{ n }\tq n\in\eN_0 \}$ sont représentés à la figure \ref{LabelFigSuiteInverseAlterne}. Bien que (comme nous le verrons plus tard) la limite de la suite $x_n=(-1)^n/n$ soit zéro, il n'est pas correct de dire que zéro est l'infimum de l'ensemble $F$. Le dessin, au contraire, montre bien que $-1$ est le minium (aucun point est plus bas que $-1$), tandis que le maximum est $1/2$.
+
+	Nous reviendrons avec cet exemple dans la suite. Pour l'instant, ayez bien en tête que zéro n'est rien de spécial pour l'ensemble $F$ en ce qui concerne les notions de maximum, minimum et compagnie.
+\end{example}
+\newcommand{\CaptionFigSuiteInverseAlterne}{Les quelque premiers points du type $(-1)^n/n$.}
+\input{Fig_SuiteInverseAlterne.pstricks}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %
    \section{Topologie dans \texorpdfstring{$\eR^n$}{Rn}}
@@ -111,6 +335,7 @@ Autrement dit, quel que soit l'intervalle autour de  $a$ que l'on considère, le
 	Soit $D=\{ \frac{1}{ n }\}_{n\in\eN}$. Tous les points de cet ensemble sont des points isolés (vérifier !).  Aucun point de $D$ n'est point d'accumulation. Cependant $0$ est un point d'accumulation.
 \end{example}
 
+% TODO: retrouver où je comptais mettre cette référence.
 \cite{GGIibHE}
 
 %---------------------------------------------------------------------------------------------------------------------------
@@ -202,10 +427,7 @@ Soient $I$ un intervalle dans $\eR$ et $f\colon I\to \eR$ une fonction continue 
 \section{Topologie}
 %+++++++++++++++++
 
-
-
-
-Lorsque $x\in E$, nous disons qu'un \defe{voisinage}{voisinage} de $x$ est n'importe quel sous-ensemble de $E$ qui contient une boule ouverte centrée en $x$. Nous disons qu'un ensemble est \defe{ouvert}{ouvert} si il contient un voisinage de chacun de ses points. Évidement les boules ouvertes sont les prototypes d'ouverts par le théorème \ref{ThoBoulOuvVois}. Par convention, nous disons que l'ensemble vide est ouvert.
+Lorsque $x\in E$, nous disons qu'un \defe{voisinage}{voisinage} de $x$ est n'importe quel sous-ensemble de $E$ qui contient une boule ouverte centrée en $x$. Nous disons qu'un ensemble est \defe{ouvert}{ouvert} si il contient un voisinage de chacun de ses points. Par convention, nous disons que l'ensemble vide est ouvert.
 
 \begin{definition}
 L'ensemble des boules ouvertes d'un espace métrique forment la \defe{topologie}{topologie!métrique} de l'espace.
@@ -238,23 +460,6 @@ Prouver que, quels que soient les ensembles $A$ et $B$ dans $\eR$, nous avons
 \]
 \end{proposition}
 
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Connexité}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{proposition}
-    Les espaces topologiques \( \eR\) et \( \eR^2\) ne sont pas homéomorphes.
-\end{proposition}
-
-\begin{proof}
-    Soit \( f\colon \eR\to \eR^2\) un homéomorphisme. Nous posons \( E=f\big( \eR\setminus\{ 0 \} \big)\) et \( z_0=f(0)\). Vu que \( f\) est bijective nous avons
-    \begin{equation}
-        E=\eR^2\setminus\{ z_0 \},
-    \end{equation}
-    qui est connexe.
-
-    Vu que \( E\) est connexe et que \( f^{-1}\) est continue, la proposition \ref{PropGWMVzqb} nous dit que \( f^{-1}(E)\) est connexe. Mais par définition, \( f^{-1}(E)=\eR\setminus\{ 0 \}\) qui n'est pas connexe.
-\end{proof}
 
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 \subsubsection{Connexité et intervalles}
@@ -273,6 +478,7 @@ Une des nombreuses propositions qui vont servir à prouver le théorème des \hr
 \begin{proposition} \label{PropInterssiConn}
     Une partie de $\eR$ est connexe si et seulement si c'est un intervalle.
 \end{proposition}
+\index{connexité}
 
 \begin{proof}
     La preuve est en deux partie. D'abord nous démontrons que si un sous-ensemble de $\eR$ est connexe, alors c'est un intervalle; et ensuite nous démontrons que tout intervalle est connexe.

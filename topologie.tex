@@ -15,20 +15,30 @@ Soit $E$, un ensemble et $\mT$, une partie de l'ensemble de ses parties qui vér
 les ensembles $\emptyset$ et $E$ sont dans $\mT$,
 
 \item
-Si $I$ est n'importe quel ensemble et si pour tout $i\in I$, nous avons un élément $\mO_i\in\mT$, alors $\cup_{i\in I}\mO_i\in\mT$,
-
+    Une union quelconque d'éléments de \( \mT\) est dans \( \mT\).
 \item
-Si $J$ est un ensemble fini et si pour tout $j\in J$, nous avons un élément $\mO_j\in\mT$, alors $\cap_{j\in J}\mO_j\in\mT$.
+    Une intersection \emph{finie} d'éléments de \( \mT\) est dans \( \mT\).
 
 \end{enumerate}
-Les deux dernières propriétés s'énoncent en disant que toute réunions d'éléments de $\mT$ est un élément de $\mT$ et que toute intersection \emph{finie} d'éléments de $\mT$ est un élément de $\mT$.
-
 Un tel choix $\mT$ de sous-ensembles de $E$ est une  \defe{\href{http://fr.wikipedia.org/wiki/Espace_topologique}{topologie}}{topologie} sur $E$, et les éléments de $\mT$ sont appelés des \defe{ouverts}{ouvert}. Nous disons que un sous ensemble $A$ de $E$ est \defe{fermé}{fermé} si son complémentaire, $A^c$ est ouvert.
 \end{definition}
+
+\begin{lemma}   \label{LemQYUJwPC}
+    Une intersection quelconque de fermés est fermée.
+\end{lemma}
+
+\begin{proof}
+    Soit \( \{ F_i \}_{i\in I} \) est un ensemble de fermés; nous avons
+    \begin{equation}
+        \left( \bigcap_{i\in I}F_i \right)^c=\cup_{i\in I}F_i^c.
+    \end{equation}
+    L'union de droite est un ouvert (union d'ouvert), et donc le terme de gauche est le complémentaire d'un ouvert. Donc fermé.
+\end{proof}
 
 \begin{definition}
     Un \defe{homéomorphisme}{homéomorphisme} est une application bijective continue entre deux espaces topologiques dont la réciproque est continue. Deux espaces topologiques homéomorphes sont dits \defe{isomorphes}{isomorphisme!d'espaces topologiques}.
 \end{definition}
+%TODO : il faut mettre ici la définition de la continuité pour un espace topologique.
 
 \begin{definition}
     Si deux points distincts ont toujours deux voisinages distincts, nous disons que l'espace est \defe{séparé}{séparé} ou \defe{Hausdorff}{Hausdorff}.
@@ -48,7 +58,7 @@ Pour le sens inverse, pour chaque $x\in A$, nous considérons l'ensemble $\mO_x\
 \begin{equation}	\label{EqAUniondesOx}
 	A=\bigcup_{x\in A}\mO_x.
 \end{equation}
-En effet $A\subset\cup_{x\in A}\mO_x$ parce que tous les éléments de $A$ sont dans un des $\mO_x$, par construction. D'autre part, $\cup_{x\in A}\mO_x\subset A$ parce que chacun des $\mO_x$ est compris dans $A$.
+En effet $A\subset\bigcup_{x\in A}\mO_x$ parce que tous les éléments de $A$ sont dans un des $\mO_x$, par construction. D'autre part, $\bigcup_{x\in A}\mO_x\subset A$ parce que chacun des $\mO_x$ est compris dans $A$.
 
 L'union du membre de droite de \eqref{EqAUniondesOx} est une union d'ouverts et est donc un ouvert. Cela prouve que $A$ est un ouvert.
 
@@ -178,6 +188,21 @@ Si un sous-ensemble n'est pas non-connexe, alors on dit qu'il est connexe.
 \end{definition}
 Une autre façon d'exprimer la condition \eqref{EqDefnnCon} est de dire que $A$ n'est pas connexe quand il est contenu dans la réunion de deux ouverts disjoints qui intersectent tous les deux $A$.
 
+\begin{proposition} \label{PropHSjJcIr}
+    Soit \( X\) un espace topologique. Les conditions suivantes sont équivalentes.
+    \begin{enumerate}
+        \item
+            L'espace \( X\) est connexe.
+        \item
+            Si \( X=A\sqcup B\) avec \( A\) et \( B\) fermés dans \( X\), alors \( A=\emptyset\) ou \( B=\emptyset\).
+        \item
+            Si \( A\subset X\) avec \( A\) ouvert et fermé en même temps, alors \( A=\emptyset\) ou \( A=X\).
+        \item
+            Toute application continue \( X\to \eZ\) est constante.
+    \end{enumerate}
+\end{proposition}
+%TODO : une preuve.
+
 \begin{proposition}\label{PropGWMVzqb}
     L'image d'un ensemble connexe par une fonction continue est connexe.
 \end{proposition}
@@ -189,229 +214,94 @@ Une autre façon d'exprimer la condition \eqref{EqDefnnCon} est de dire que $A$ 
 
     Si \( x\) est un élément de \( f^{-1}(A)\cap f^{-1}(B)\), alors \( f(x)\in A\cap B\), ce qui est impossible parce que nous avons supposé que \( A\) et \( B\) étaient disjoints. Par conséquent \( f^{-1}(A)\) et \( f^{-1}(B)\) sont deux ouverts disjoints recouvrant \( E\). Contradiction avec la connexité de \( E\). Nous concluons que \( f(E)\) est connexe.
 \end{proof}
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Un peu de topologie sur $\eR$}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-Afin de pouvoir étudier la topologie des espaces métriques, il faut savoir quelque propriétés des réels parce que nous allons étudier la fonction distance qui est une fonction continue à valeurs dans les réels.
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Critère de Cauchy}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{definition}
-    Une suite \( (x_n)\) dans \( \eR\) est \defe{de Cauchy}{suite!de Cauchy}\index{Cauchy!suite} si pour tout \( \epsilon>0\), il existe \( N\in \eN\) tel que \( m,n>N\) implique \( | x_n-x_m |<\epsilon\).
-\end{definition}
-
-Toute suite de Cauchy est évidemment bornée et donc continue dans un compact.
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Maximum, supremum et compagnie}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Ce n'est un secret pour personne que $\eR$ est un \href{http://fr.wikipedia.org/wiki/Relation_d'ordre}{ensemble ordonné} : il y a des éléments plus grands que d'autres, et mieux : à chaque fois que je prends deux éléments différents dans $\eR$, il y en a un des deux qui est plus grand que l'autre. Il n'y a pas d'\emph{ex æquo} dans $\eR$.
-
-  Si je regarde l'intervalle $I=[0,1]$, je peux même dire que $10$ est plus grand que tous les éléments de $I$. Nous disons que $10$ est un \emph{majorant} de $[0,1]$. La définition est la suivante.
-\begin{definition}
-Lorsque $A$ est un sous-ensemble de $\eR$, on dit que $s$ est un \defe{majorant}{majorant} de $A$ si $s$ est plus grand que tous les éléments de $A$. En d'autres termes, si
-\[
-  \forall x\in A,\,s\geq x.
-\]
-\end{definition}
-Je me permet d'insister sur le fait que l'inégalité n'est pas stricte. Ainsi, $1$ est un majorant de $[0,1]$. Dès qu'un ensemble a un majorant, il en a plein. Si $s$ majore l'ensemble $A$, alors évident $s+1$, $s+4$, $s+\pi^2$ majorent également $A$.
+Une application de ce théorème sera le théorème de valeurs intermédiaires \ref{ThoValInter}.
 
 \begin{example}
-Une petite galerie d'exemples de majorants.
-\begin{itemize}
-\item L'intervalle fermé $[4,8]$ admet entre autres $8$ et $130$ comme majorants,
-\item l'intervalle ouvert $]4,8[$ admet également $8$ et $130$ comme majorants,
-\item $7$ n'est pas un majorant de $[1,5]\cup]8,32]$,
-\item $10/10$ majore les côtes qu'on peut obtenir à une interrogation,
-\item l'intervalle $[4,\infty[$ n'a pas de majorants.
-\end{itemize}
-\end{example}
-
-\begin{definition}
-Le \defe{supremum}{supremum} d'un ensemble est le plus petit majorant. En d'autres terme, $s$ est un supremum de $A$ si tout nombre plus petit que $s$ ne majore pas $A$, ou encore,
-\[
-  \forall x<s,\exists y\in A\text{ tel que } y>x.
-\]
-Nous disons que $M$ est un \defe{maximum}{maximum} de $A$ si $M$ est un supremum \emph{et} $M\in A$.
-\end{definition}
-Quand $s$ est un supremum de $A$, ça veut dire que le moindre pas vers la gauche que l'on fait à partir de $s$ (c'est à dire le moindre $\epsilon$), et on tombe dans $A$, ou tout au moins, il existe des éléments de $A$ qui sont plus grand que $s-\epsilon$.
-
-\subsubsection{\ldots et quelque exemples}
-%//////////////////////
-
-En matières de notations, le maximum de l'ensemble $A$ est noté $\max A$, le supremum est noté $\sup A$. Le minimum et l'infimum sont notés $\min A$ et $\inf A$.
-
-\begin{example}
-Exemples de différence entre majorant, supremum et maximum.
-\begin{itemize}
-\item Le nombre $10$ est un supremum, majorant et maximum de l'intervalle fermé $[0,10]$,
-\item Le nombre $10$ est un majorant et un supremum, mais pas un maximum de l'intervalle ouvert $]0,10[$,
-\item Le nombre $136$ est un majorant, mais ni un maximum ni un supremum de l'intervalle $[0,10]$.
-\end{itemize}
-\end{example}
-
-En utilisant les notations concises, ces différents cas s'écrivent ainsi :
-\begin{align*}
-10&=\max[0,10]=\sup[0,10]	& 10&=\sup[0,10[
-\end{align*}
-
-
-\begin{example}
-Si on dit que un pont s'effondre à partir d'une charge de $10$ tonnes, alors $10$ tonnes est un \emph{supremum} des charges que le pont peut supporter : si on met $9,999999$ tonnes dessus, il tient encore le coup, mais si on ajoute un gramme, alors il s'effondre (on sort de l'ensemble des charges acceptables).
-\end{example}
-
-\begin{example}
-Si on dit qu'un pont résiste jusqu'à $10$ tonnes, alors $10$ tonnes est un \emph{maximum} de la charge acceptable. Sur ce pont-ci, on peut ajouter le dernier gramme. Mais à partir de là, le moindre truc qu'on ajoute, il s'effondre.
-\end{example}
-
-Maintenant il est important de se rendre compte d'une chose : un ensemble ne peut avoir qu'un seul maximum et supremum. Jusqu'à présent nous avons toujours dit \emph{un} supremum. À partir de maintenant nous pouvons dire \emph{le} supremum. La preuve de cela est assez simple.
-\begin{proposition}
-Si $A$ est un sous-ensemble de $\eR$ admettant un supremum, alors il n'a qu'un seul supremum; et si il accepte un maximum, il n'en accepte un seul, et le maximum est égal au supremum.
-\end{proposition}
-
-\begin{proof}
-Commençons par l'affirmation concernant le supremum. Supposons que $x$ et $y$ soient tous les deux suprema différents de $A$. Étant donné que $x\neq y$, nous pouvons supposer que $x<y$, et donc, par définition du fait que $y$ est un supremum, il existe un élément de $A$ qui est plus grand que $x$. Cela contredit le fait que $x$ soit supremum. En conclusion, il ne peut pas y avoir deux suprema différents pour un même ensemble.
-
-Étant donné qu'un maximum est un supremum, il ne peut pas y avoir deux maxima différents vu qu'il ne peut pas y avoir deux suprema différents.
-\end{proof}
-
-
-Lorsque vous lisez que la charge maximale d'un camion est de \unit{2.5}{\ton}, est-ce que cela veut dire que vous pouvez y mettre \unit{2.5}{\ton}, mais qui si un oiseau se pose dessus, le camion s'effondre ? Ou bien est-ce que cela signifie qu'à \unit{2.5}{\ton} le camion s'écroule, mais que toute charge inférieure est valable ?
-
-C'est à cette rude question que nous allons nous attaquer maintenant.
-
-\begin{definition}
-Soit une partie $A$ de $\eR$. Nous disons qu'un nombre $M$ est un \defe{majorant}{majorant} de $A$ si $M$ est plus grand ou égal que tous les éléments de $A$, c'est à dire si
-\begin{equation}
-	\forall a\in A,\, M\geq a.
-\end{equation}
-Un \defe{minorant}{minorant} de $A$ est un nombre $m$ tel que 
-\begin{equation}
-	\forall a\in A,\, m\leq a.
-\end{equation}
-\end{definition}
-
-\begin{definition}		\label{DefSupeA}
-Soit $A$ une partie majorée de $\eR$. Le \defe{supremum}{supremum} de $A$ est le plus petit des majorants, c'est à dire le nombre $M$ tel que
-\begin{enumerate}
-	\item
-		$M\geq x$ pour tout $x\in A$,
-	\item
-		pour tout $\varepsilon$, le nombre $M-\varepsilon$ n'est pas un majorant de $a$, c'est à dire qu'il existe un élément $x\in A$ tel que $x>M-\varepsilon$.
-\end{enumerate}
-Nous notons $\sup A$ le supremum de $A$.
-
-De la même façon, \defe{l'infimum}{infimum} de $A$, noté $\inf A$, est le plus grand de ses minorants. 
-\end{definition}
-Par convention, si la partie n'est pas bornée vers le haut, nous dirons que son supremum n'existe pas, ou bien qu'il est égal à $+\infty$, suivant les contextes. Pour votre culture générale, sachez toutefois que $\infty\notin\eR$.
-
-La définition est justifiée par le lemme \ref{LemInfUnique} et la proposition \ref{PropBorneSupInf}. Le premier montre que si $A$ possède un infimum, alors il est unique, tandis que le second montre que toute partie majorée de $\eR$ accepter un supremum, et que toute partie minorée accepte un infimum.
-\begin{lemma}		\label{LemInfUnique}
-	Soit $A$ une partie de $\eR$. Supposons que $m_1$ et $m_2$ soient deux nombres qui vérifient les propriétés de l'infimum de $A$. Alors $m_1=m_2$.
-\end{lemma}
-
-\begin{proof}
-	Si $_1\neq m_2$, nous pouvons supposer $m_2>m_1$. Dans ce cas, étant donné que $m_1$ est un infimum, $m_2$ ne peut pas minorer $A$, et donc ne peut pas être un infimum.
-\end{proof}
-
-\begin{proposition}		\label{PropBorneSupInf}
-	Tout sous-ensemble de $\eR$ borné vers le bas possède un infimum; tout sous-ensemble de $\eR$ borné vers le haut possède un supremum.
-\end{proposition}
-
-La preuve qui suit est proche de celle donnée par Wikipédia  dans l'article \wikipedia{en}{http://en.wikipedia.org/wiki/Least_upper_bound_principle}{Least uppert bound principle}.
-
-\begin{proof}
-	Soit $A$, une partie de $\eR$. Nous allons trouver son infimum en suivant une méthode de dichotomie. Pour cela nous allons construire trois suites en même temps de la façon suivante. D'abord nous choisissons un point $x_0$ de $A$ et un point $x_1$ qui minore $A$ (qui existe par hypothèse) :
-	\begin{equation}
-		\begin{aligned}[]
-			x_0&\text{ est un élément de $A$},\\
-			x_1&\text{ est un minorant de $A$},\\
-			a_0&=x_0\\
-			b_0&=x_1\\
-			b_1&=x_1.
-		\end{aligned}
-	\end{equation}
-	Ensuite, nous faisons la récurrence suivante :
-	\begin{equation}
-		\begin{aligned}[]
-			x_{n+1}&=\frac{ a_n+b_n }{2},\\
-			a_{n+1}&=\begin{cases}
-				a_{n}	&	\text{si $x_{n+1}$ minore $A$}\\
-				x_{n+1}	&	 \text{sinon},
-			\end{cases}\\
-			b_{n+1}&=\begin{cases}
-				x_{n+1}	&	\text{si $x_{n+1}$ minore $A$}\\
-				b_n	&	 \text{sinon}.
-			\end{cases}
-		\end{aligned}
-	\end{equation}
-    Nous allons montrer que \( a_n\) et \( (b_n)\) sont des suites convergentes de même limite et que cette limite est l'infimum de \( A\).
-
-	Soit $n\in\eN$; il y a deux possibilités. Soit $a_n=a_{n-1}$ et $b_n=x_n$, soit $a_n=x_n$ et $b_n=b_{n-1}$. Supposons que nous soyons dans le premier cas (le second se traite de façon similaire). Alors nous avons
-	\begin{equation}
-		\begin{aligned}[]
-			| a_n-b_n |&=| a_{n-1}-x_n |\\
-			&=\left| a_{n-1}-\frac{ a_{n-1}+b_{n-1} }{2} \right| \\
-			&=\frac{ 1 }{2}| a_{n-1}-b_{n-1} |,
-		\end{aligned}
-	\end{equation}
-	ce qui prouve que $| a_n-b_n |\to 0$. Nous montrons maintenant que la suite \( (a_n)\) est de Cauchy. En effet nous avons
+    L'application
     \begin{equation}
-        | a_n-a_{n-1} |=\begin{cases}
-          0\\
-          \left| \frac{ a_n -b_n}{ 2} \right|   
-      \end{cases}\leq \frac{1}{ 2n }.
+        \begin{aligned}
+            f\colon \mathopen] 0 , 2\pi \mathclose[&\to S^1 \\
+                x&\mapsto \begin{pmatrix}
+                    \cos(x)    \\ 
+                    \sin(x)    
+                \end{pmatrix}
+        \end{aligned}
     \end{equation}
-    Il en est de même pour la suite \( (b_n)\). Ce sont deux suites de Cauchy (donc convergentes) qui convergent vers la même limite. Soit \( \ell\) cette limite.
-    
-	Le nombre $\ell$ minore $A$. En effet si $a\in A$ est plus petit que $\ell$, les éléments $b_n$ tels que $| b_n-\ell |<| a-\ell |$ ne peuvent pas minorer $A$. D'autre part, pour tout $\epsilon$, le nombre $\ell+\epsilon$ ne peut pas minorer $A$. En effet, $\ell$ est la limite de la suite décroissante $(a_n)$, donc il existe $a_n$ entre $\ell$ et $\ell+\epsilon$. Mais $a_n$ ne minore pas $A$, donc $\ell+\epsilon$ ne minore pas non plus $A$.
+    est un homéomorphisme. Vu que \( \mathopen] 0 , 2\pi \mathclose[\) est connexe (proposition \ref{PropInterssiConn}), nous en concluons que le cercle privé d'un point est connexe.
+\end{example}
 
-	Nous avons prouvé que toute partie minorée de $\eR$ possède un infimum. La preuve que toute partie majorée possède un supremum se fait de la même façon.
-	
+\begin{example}
+    Les espaces topologiques \( \eR\) et \( \eR^2\) ne sont pas homéomorphes.
+\end{example}
+
+\begin{proof}
+    Soit \( f\colon \eR\to \eR^2\) un homéomorphisme. Nous posons \( E=f\big( \eR\setminus\{ 0 \} \big)\) et \( z_0=f(0)\). Vu que \( f\) est bijective nous avons
+    \begin{equation}
+        E=\eR^2\setminus\{ z_0 \},
+    \end{equation}
+    qui est connexe.
+
+    Vu que \( E\) est connexe et que \( f^{-1}\) est continue, la proposition \ref{PropGWMVzqb} nous dit que \( f^{-1}(E)\) est connexe. Mais par définition, \( f^{-1}(E)=\eR\setminus\{ 0 \}\) qui n'est pas connexe.
 \end{proof}
 
 
-\begin{definition}
-	Si le supremum d'un ensemble appartient à l'ensemble, nous l'appelons \defe{maximum}{maximum}. De la même façon si l'infimum d'un ensemble appartient à l'ensemble, nous disons que c'est le \defe{minimum}{minimum}.
-\end{definition}
+\begin{proposition}
+    Si \( A\subset X\) est connexe et si \( A\subset B\subset \bar A\), alors \( B\) est connexe.
+\end{proposition}
+%TODO : une preuve.
 
-\begin{example}
-	Pour les intervalles, ces notions sont simples : les bornes de l'intervalle sont les supremum et infimum, et ce sont des minima et maxima si l'intervalle est fermé. Le nombre $53$ est un majorant.
-	\begin{enumerate}
-		\item
-			$A=\mathopen[ 1 , 2 \mathclose]$. Tous les nombres plus petits ou égaux à $1$ sont minorants, $1$ est infimum et minimum. Le nombre $2$ est un majorant, le maximum et le supremum.
-		\item
-			$B=\mathopen] 3 , \pi \mathclose[$. Le nombre $\pi$ est le supremum et est un majorant, mais n'est pas le maximum (parce que $\pi\notin B$). L'ensemble $B$ n'a pas de maximum. Bien entendu, $-1000$ est un minorant.
-	\end{enumerate}
-\end{example}
+\begin{proposition} \label{PropIWIDzzH}
+    Stabilité de la connexité par union.
+    \begin{enumerate}
+        \item
+    Une union quelconque ce connexes ayant une intersection non vide est connexe.
+\item
+    Si \( A_1,\ldots, A_n\) sont des connexes de \( X\) avec \( A_i\cap A_{i+1}\neq \emptyset\), alors l'union \( \bigcup_{n=1}^nA_i\) est connexe.
+    \end{enumerate}
+\end{proposition}
 
-Il existe évidement de nombreux exemples plus vicieux.
+\begin{proof}
+    \begin{enumerate}
+        \item
+    Soient \( \{ C_i \}_{i\in I}\) un ensemble de connexes et un point \( p\) dans l'intersection : \( p\in\bigcap_{i\in I}C_i\). Supposons que l'union ne soit pas connexe. Alors nous considérons \( A\) et \( B\), deux ouverts disjoints recouvrant tous les \( C_i\) et ayant chacun une intersection non vide avec l'union.
 
-\begin{example}
-	Prenons $E=\{ \frac{1}{ n }\tq n\in\eN_0 \}$, dont les premiers points sont indiqués sur la figure \ref{LabelFigSuiteUnSurn}. Cet ensemble est constitué des nombres $1$, $\frac{ 1 }{2}$, $\frac{1}{ 3 }$, \ldots Le plus grand d'entre eux est $1$ parce que tous les nombres de la forme $\frac{1}{ n }$ avec $n\geq 1$ sont plus petits ou égaux à $1$. Le nombre $1$ est donc maximum de $E$.
+    Supposons pour fixer les idées que \( p\in A\) et prenons \( x\in B\cap\bigcup_{i\in I}C_i\). Il existe un \( j\in I\) tel que \( x\in C_j\). Avec tout cela nous avons
+    \begin{enumerate}
+        \item
+            \( C_j\subset A\cup B\),
+        \item
+            \( C_j\cap A\neq \emptyset\) parce que \( p\) est dans l'intersection,
+        \item
+            \( C_j\cap B\neq\emptyset\) parce que \( x\) est dans cette intersection.
+    \end{enumerate}
+    Cela contredit le fait que \( C_j\) soit connexe.
 
-	L'ensemble $E$ n'a par contre pas de minimum parce que tout élément de $E$ s'écrit $\frac{1}{ n }$ pour un certain $n$ et est plus grand que $\frac{1}{ n+1 }$ qui est également dans $E$.
+\item
 
-	Prouvons que zéro est l'infimum de $E$. D'abord, tous les éléments de $E$ sont strictement positifs, donc zéro est certainement un minorant de $E$. Ensuite, nous savons que pour tout $\varepsilon>0$, il existe un $n$ tel que $\frac{1}{ n }$ est plus petit que $\varepsilon$. L'ensemble $E$ possède donc un élément plus petit que $0+\varepsilon$, et zéro est bien l'infimum.
-\end{example}
+    Pour la seconde partie nous procédons de proche en proche. D'abord \( A_1\cup A_2\) est connexe par la première partie, ensuite \( (A_1\cup A_2)\cup A_3\) est connexe parce que les connexes \( A_1\cap A_2\) et \( A_3\) ont un point d'intersection par hypothèse, et ainsi de suite.
+    \end{enumerate}
+\end{proof}
 
-\newcommand{\CaptionFigSuiteUnSurn}{Les premiers points du type $x_n=1/n$.}
-\input{Fig_SuiteUnSurn.pstricks}
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Connexité de quelque groupes}
+%---------------------------------------------------------------------------------------------------------------------------
 
-L'exemple suivant est une source classique d'erreurs en ce qui concerne l'infimum. Il sera à relire après avoir vu la définition de limite (définition \ref{DefLimiteSuiteNum}).
+\begin{proposition}
+    Nous avons quelque résultats de connexité de groupes.
+    \begin{enumerate}
+        \item
+            Le groupe \( \GL(n,\eC)\) est connexe.
+        \item
+            Le groupe \( \GL(n,\eR)\) n'est pas connexe, mais les groupes \( \GL^+(n,\eR)\) et \( \GL^-(n,\eR)\) le sont.
+        \item
+            Le groupe \( \gO(n)\) n'est pas connexe.
+        \item
+            Les groupes \( \SU(n)\) et \( \SO(n)\) sont connexes.
+    \end{enumerate}
+\end{proposition}
+\index{connexité}
+%TODO : il faut des preuves de tout ça, et certainement déplacer certains.
 
-\begin{example}
-	Les premiers points de l'ensemble $F=\{ \frac{ (-1)^n }{ n }\tq n\in\eN_0 \}$ sont représentés à la figure \ref{LabelFigSuiteInverseAlterne}. Bien que (comme nous le verrons plus tard) la limite de la suite $x_n=(-1)^n/n$ soit zéro, il n'est pas correct de dire que zéro est l'infimum de l'ensemble $F$. Le dessin, au contraire, montre bien que $-1$ est le minium (aucun point est plus bas que $-1$), tandis que le maximum est $1/2$.
-
-	Nous reviendrons avec cet exemple dans la suite. Pour l'instant, ayez bien en tête que zéro n'est rien de spécial pour l'ensemble $F$ en ce qui concerne les notions de maximum, minimum et compagnie.
-\end{example}
-\newcommand{\CaptionFigSuiteInverseAlterne}{Les quelque premiers points du type $(-1)^n/n$.}
-\input{Fig_SuiteInverseAlterne.pstricks}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Espaces métriques}
@@ -679,9 +569,117 @@ Le théorème de Bolzano–Weierstrass \ref{ThoBWFTXAZNH} a l'importante conséq
     \begin{equation}
         \lim_{n\to \infty} d(u_n,u_{n+1})=0.
     \end{equation}
-    Alors l'ensemble des valeurs d'adhérence de \( (u_n)\) est connexe.
+    Alors l'ensemble des points d'accumulation de \( (u_n)\) est connexe.
 \end{proposition}
-\index{Connexité}
+\index{connexité}
+\index{compacité}
+
+\begin{proof}
+    Nous notons \( \Gamma\) l'ensemble des points d'accumulation de la suite.
+    \begin{subproof}
+    \item[\( \Gamma\) est compact]
+        Nous notons \( A_p=\{ u_n\tq n\geq p \}\) et nous avons
+        \begin{equation}
+            \Gamma=\bigcap_{p\in \eN}\overline{ A_p }
+        \end{equation}
+        parce que si \( x\in\Gamma\), alors pour tout \( n\), il existe \( m>n\) tel que \( x_m\in B(x,\epsilon)\), et donc tel que \( x\in B(x_m,\epsilon)\). Donc pour tout \( \epsilon\) et pour tout \( p\), l'intersection \( B(x,\epsilon)\cap A_p\) est non vide.
+
+        En tant qu'intersection de fermés, \( \Gamma\) est fermé (lemme \ref{LemQYUJwPC}). En tant que fermé dans un compact, \( \Gamma\) est compact (lemme \ref{LemnAeACf}).
+
+    \item[Recouvrement par deux compacts]
+
+        Supposons que \( \Gamma\) ne soit\quext{est-ce qu'il faut vraiment un subjonctif ici ?} pas connexe. Nous pouvons alors considérer \( S\) et \( O\), deux ouverts disjoints recouvrant \( \Gamma\) et intersectant tout deux \( \Gamma\). Nous posons alors
+        \begin{subequations}
+            \begin{align}
+                A&=S\cap\Gamma\\
+                B&=O\cap\Gamma,
+            \end{align}
+        \end{subequations}
+        et nous avons évidemment \( \Gamma=A\cup B\). Montrons que \( A\) est fermé (\( B\) le sera aussi par le même raisonnement). Soit une suite d'éléments de \( S\cap \Gamma\) convergent dans \( X\). Alors la limite est dans \( \bar\Gamma=\Gamma\) et donc elle est donc \( O\) ou \( S\), mais elle est certainement dans \( \bar S\). Cependant \( \bar S\) n'intersecte pas \( O\). En effet si \( x\in \bar S\cap O\), alors tout voisinage de \( x\) intersecterait \( S\), mais il y a des voisinages de \( x\) étant inclus dans \( O\) parce que \( O\) est ouvert; cela donnerait une intersection entre \( O\) et \( S\), ce qui est impossible. Donc la limite n'est pas dans \( O\) et donc elle est dans \( S\). Au final la limite est dans \( S\cap \Gamma\), ce qui prouve son caractère fermé. 
+
+        Comme d'habitude, \( \Gamma\cap S\) est compact parce que fermé dans un compact.
+
+    \item[Décomposition en trois morceaux]
+
+        Vu que \( A\) et \( B\) sont des compacts disjoints, nous avons \( d(A,B)=\alpha>0\) pour un certain \( \alpha\) par le lemme \ref{LemKIcAbic}. Nous notons
+        \begin{subequations}
+            \begin{align}
+                A'&=\{x\in X\tq d(x,A)<\frac{ \alpha }{ 3 }\}\\
+                B'&=\{x\in X\tq d(x,B)<\frac{ \alpha }{ 3 }\}
+            \end{align}
+        \end{subequations}
+        Nous avons \( A'=\bigcup_{x\in A}B(x,\frac{ \alpha }{ 3 })\) et donc en tant qu'union d'ouverts, \( A'\) est ouvert (définition de la topologie). Même chose pour \( B'\).
+
+        Enfin nous notons 
+        \begin{equation}
+            K=X\setminus(A'\cup B')
+        \end{equation}
+        qui est fermé en tant que complémentaire d'ouvert, et donc compact. Étant donné que \( A\subset A'\) et \( B\subset B' \), nous avons \( K\cap \Gamma=\emptyset\).
+
+        L'idée est maintenant de montrer que \( K\) contient un point d'accumulation de \( (u_n)\).
+
+    \item[Sous-suites de \( (u_n)\)]
+
+        L'hypothèse sur la suite \( (u_n)\) nous indique qu'il existe un \( N_0\) tel que \( \forall n\geq N_0\),
+        \begin{equation}    \label{EqIHioHjW}
+            d(u_{n},u_{n+1})<\frac{ \alpha }{ 3 }.
+        \end{equation}
+        Soit \( N>N_0 \) et \( x_0\in A\). Étant donné que \( x_0\) est point d'accumulation de la suite, il existe \( n_1>N\) tel que \( d(x_0,u_{n_1})<\frac{ \alpha }{ 3 }\). Même chose dans \( B\) : nous prenons \( y_0\in B\) et un naturel \( n_2>n_1\) tel que \( d(y_0,u_{n_2})<\frac{ \alpha }{ 3 }\). Nous avons \( u_{n_1}\in A'\) et \( u_{n_2}\in B'\).
+
+        Soit \( n_0\) le plus petit naturel supérieur à \( n_1\) tel que \( u_{n_0}\notin A'\). Cela existe parce que \( u_{n_2}\in B'\) et \( B'\cap A'=\emptyset\), mais \( n_0\) n'est pas \( n_2\) lui-même parce que \( d(A',B')\geq \frac{ \alpha }{ 3 }\) alors que nous considérons \( n_0,n_1,n_2>N_0\) et donc pour tous les \( i\) entre \( n_1\) et \( n_2\) (compris), \( d(u_i,u_{i+1})<\frac{ \alpha }{ 3 }\). Notons qu'ici le strict dans la condition \eqref{EqIHioHjW} est important. Nous avons donc \(N_0<n_1<n_0<n_2\).
+
+        Nous allons maintenant montrer que \( u_{n_0}\) est dans \( K\). C'est fait pour : il est loin en même temps de \( A'\) et de \( B'\). En utilisant l'inégalité triangulaire à l'envers, nous avons
+        \begin{equation}
+            \begin{aligned}[]
+            d(u_{n_0},B)&\geq d(u_{n_0-1},B)-d(u_{n_0-1},u_{n0})\\
+            &\geq d(A,B)-d(u_{n_0-1},A)-d(u_{n_0-1},u_{n_0})\\
+            &\geq \alpha-\frac{ \alpha }{ 3 }-\frac{ \alpha }{ 3 }\\
+            &=\frac{ \alpha }{ 3 }.
+            \end{aligned}
+        \end{equation}
+        Pour la dernière inégalité nous avons utilisé le fait que \( u_{n_0-1}\) n'est pas dans \( A'\). Bref, nous avons montré que \( u_{n_0}\) n'est pas dans \( B'\) (dans la définition de ce dernier nous avons bien une inégalité stricte). Vu que par définition \( u_{n_0}\) n'est pas non plus dans \( A'\), nous avons \( u_{n_0}\in K\).
+
+        Nous avons montré jusqu'à présent que pour tout \( N\geq N_0\), il existe un \( n_0\geq N\) tel que \( u_{n_0}\in K\). Cela nous construit donc une sous-suite \( (v_n)\) de \( (u_n)\) contenue dans \( K\). En tant que suite dans le compact \( K\), la suite \( (v_n)\) admet un point d'accumulation dans \( K\). Ce point est également point d'accumulation de la suite \( (u_n)\) complète, ce qui donne un point d'accumulation de \( (u_n)\) dans \( K\) et donc une contradiction.
+
+    \end{subproof}
+    Nous concluons que \( \Gamma\) est connexe.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Ensembles enchaînés}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit \( (x,d)\) un espace métrique.
+\begin{definition}
+    Une \defe{\( \epsilon\)-chaîne}{chaîne} joignant les points \( a\) et \( b\) de \( X\) est une suite finie \( (u_0,\ldots, u_n)\) dans \( X\) telle que \( u_0=a\), \( u_n=b\) et pour tout \( 0\leq i\leq n-1\) nous avons \( d(u_n,u_{n+1})\leq \epsilon\).
+
+    Une partie \( A\) de \( X\) est \defe{bien enchaînée}{bien!enchaîné} si pour tout \( \epsilon>0\) et pour tout \( a,b\in A\), il existe une \( \epsilon\)-chaîne joignant \( a\) et \( b\) dans $A$.
+\end{definition}
+Les rationnels dans \( \eR\) sont bien enchaînés.
+
+\begin{proposition}
+    Un espace connexe est bien enchaîné.
+\end{proposition}
+%TODO: une preuve.
+
+\begin{proposition}
+    La fermeture d'un ensemble bien enchaîné dans un espace métrique compact \( (X,d)\) est connexe.
+\end{proposition}
+\index{connexité}
+\index{compacité}
+
+\begin{proof}
+    Soit \( A\subset X\) un ensemble bien enchaîné, et soient \( a,b\in \bar A\). Nous construisons une suite \( (u_k)\) dans \( A\) de la façon suivante. Pour chaque \( n>0\) nous prenons \( a'\in B(a,\frac{1}{ n })\cap A\) et \( b'\in B(b,\frac{1}{ n })\cap A\). Ensuite nous considérons une \( \frac{1}{ n }\)-chaîne \( \{ v_i^{(n)} \}_{i\in I_n}\) dans \( A\) entre \( a'\) et \( b'\). Ici l'ensemble \( I_n\) est fini. La suite \( (u_k)\) est simplement construite en mettant bout à bout les éléments \( v_i^{(n)}\).
+ 
+    La suite ainsi construite est une suite dans \( A\) admettant \( a\) et \( b\) comme points d'accumulation (les autres points d'accumulation sont également dans \( \bar A\)) et telle que \( \lim_{k\to \infty} d(u_k,u_{k+1})=0\). Par conséquent la proposition \ref{PropLHWACDU} nous dit que l'ensemble des points d'accumulation de \( (u_k)\) est connexe dans \( X\). Nous le notons \( C_{a,b}\).
+
+    Si nous fixons \( a\in \bar A\), alors nous avons
+    \begin{equation}
+        \bigcup_{x\in \bar A}C_{a,x}=\bar A.
+    \end{equation}
+    Vu que le membre de gauche est une union de connexes, c'est un connexe par la proposition \ref{PropIWIDzzH}.
+\end{proof}
+En particulier, un espace métrique compact est connexe si et seulement si il est bien enchaîné.
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Produit dénombrables d'espaces métriques}
@@ -694,7 +692,7 @@ Le théorème de Bolzano–Weierstrass \ref{ThoBWFTXAZNH} a l'importante conséq
     \end{equation}
     où \( d'_i=\min(d_i,1)\).
 \end{definition}
-On peut montrer que ce \( d\) est bien une distance et que \( (E,d)\) est alors bien un espace métrique.
+On peut montrer que ce \( d\) est bien une distance et que \( (E,d)\) devient un espace métrique.
 %TODO: le faire.
 
 \begin{theorem}\label{ThoCDhbZbf}
