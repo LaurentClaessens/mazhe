@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2011-2012
+% Copyright (c) 2011-2013
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
@@ -51,7 +51,7 @@ L'ensemble \( L^1(\eR^n)\) devient alors une algèbre de Banach.
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \begin{definition}
-    Une application \( f\colon (X,\| . \|_X)\to (Y,\| . \|_Y)\) entre deux espaces métriques est \defe{contractante}{contractante} si elle est \( k\)-\defe{Lipschitz}{Lipschitz} pour un certain \( 0\leq k<1\), c'est à dire si pour tout \( x,y\in X\) nous avons
+    Une application \( f\colon (X,\| . \|_X)\to (Y,\| . \|_Y)\) entre deux espaces métriques est une \defe{contraction}{contraction} si elle est \( k\)-\defe{Lipschitz}{Lipschitz} pour un certain \( 0\leq k<1\), c'est à dire si pour tout \( x,y\in X\) nous avons
     \begin{equation}
         \| f(x)-f(y) \|_Y\leq k\| x-y \|_{X}.
     \end{equation}
@@ -171,6 +171,14 @@ Si la fonction n'est pas Lipschitz mais presque, nous avons une variante.
 \begin{proof}
     La suite \( x_{n+1}=f(x_n)\) possède une sous suite convergente. La limite de cette sous suite est un point fixe de \( f\) parce que \( f\) est continue. L'unicité est due à l'aspect strict de l'inégalité \eqref{EqLJRVvN}.
 \end{proof}
+
+\begin{proposition}[\cite{ZCKMFRg}] \label{PropGZoqknC}
+    Soit \( \varphi\colon U\subset \eR^m\to \eR^m\) une \( \lambda\)-contraction. Alors l'application \( f\colon x\mapsto x+\varphi(x)\) est un homéomorphisme sur un ouvert de \( \eR^m\). De plus l'inverse est Lipschitz de constante plus petite ou égale à \( (1-\lambda)^{-1}\).
+\end{proposition}
+%TODO : une preuve.
+Cette proposition utilise le théorème de point fixe de Picard \ref{ThoEPVkCL},
+et sera utilisée pour démontrer le théorème d'inversion locale \ref{ThoXWpzqCn}.
+% note que garder deux lignes ici est important pour vérifier les références vers le futur : la seconde ligne peut être ignorée, pas la seconde.
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Théorème de Cauchy-Lipschitz}
@@ -329,14 +337,231 @@ Si la fonction n'est pas Lipschitz mais presque, nous avons une variante.
     Si \( \lambda\) est assez petit, et si \( p\) est assez grand, l'application \( \Phi^p\) est donc une contraction. Elle possède donc un unique point fixe par le théorème de Picard \ref{ThoEPVkCL}.
 \end{proof}
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+					\section{Théorème d'inversion locale de la fonction implicite}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 %---------------------------------------------------------------------------------------------------------------------------
+\subsection{Mise en situation}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Dans un certain nombre de situation, il n'est pas possible de trouver des solutions explicites aux équations qui apparaissent. Néanmoins, l'existence «théorique» d'une telle solution est souvent déjà suffisante. C'est l'objet du théorème de la fonction implicite.
+
+Prenons par exemple la fonction sur $\eR^2$ donnée par 
+\begin{equation}
+	F(x,y)=x^2+y^2-1.
+\end{equation}
+Nous pouvons bien entendu regarder l'ensemble des points donnés par $F(x,y)=0$. C'est le cercle dessiné à la figure \ref{LabelFigCercleImplicite}.
+\newcommand{\CaptionFigCercleImplicite}{Un cercle pour montrer l'intérêt de la fonction implicite. Si on donne \( x\), nous ne pouvons pas savoir si nous parlons de \( P\) ou de \( P'\).}
+\input{Fig_CercleImplicite.pstricks}
+
+%\ref{LabelFigCercleImplicite}.
+%\newcommand{\CaptionFigCercleImplicite}{Un cercle pour montrer l'intérêt de la fonction implicite.}
+%\input{Fig_CercleImplicite.pstricks}
+
+Nous ne pouvons pas donner le cercle sous la forme $y=y(x)$ à cause du $\pm$ qui arrive quand on prend la racine carrée. Mais si on se donne le point $P$, nous pouvons dire que \emph{autour de $P$}, le cercle est la fonction
+\begin{equation}
+	y(x)=\sqrt{1-x^2}.
+\end{equation}
+Tandis que autour du point $P'$, le cercle est la fonction
+\begin{equation}
+	y(x)=-\sqrt{1-x^2}.
+\end{equation}
+Autour de ces deux point, donc, le cercle est donné par une fonction. Il n'est par contre pas possible de donner le cercle autour du point $Q$ sous la forme d'une fonction.
+
+Ce que nous voulons faire, en général, est de voir si l'ensemble des points tels que
+\begin{equation}
+	F(x_1,\ldots,x_n,y)=0
+\end{equation}
+peut être donné par une fonction $y=y(x_1,\ldots,x_n)$. En d'autre termes, est-ce qu'il existe une fonction $y(x_1,\ldots,x_n)$ telle que
+\begin{equation}
+	F\big( x_1,\ldots,x_n,y(x_1,\ldots,x_n)\big)=0.
+\end{equation}
+
+
+
+\subsection{Définitions et rappels}
+Soit
+\begin{equation}
+    \begin{aligned}
+        F\colon D\subset \eR^n\times \eR^m&\to \eR^m \\
+        (x,y)&\mapsto \big( F_1(x,y),\ldots, F_m(x,y) \big) 
+    \end{aligned}
+\end{equation}
+avec $x = (x_1,\ldots, x_n)$ et $y = (y_1,\ldots,y_m)$.
+
+Pour chaque $x$ fixé, on s'intéresse aux solutions du système de $m$
+ équations $F(x,y) = 0$ pour les inconnues $y$ ; en particulier, on
+ voudrait pouvoir écrire $y = \varphi(x)$ vérifiant $F(x,\varphi(x)) = 0$.
+
+Pour $(x,y) \in \interieur D$, la matrice
+\begin{equation}
+    \frac{ \partial (F_1,\ldots, F_m) }{ \partial (y_1,\ldots, y_m) }=
+\begin{pmatrix}
+\pder {F_1}{y_1}(x,y)& \ldots& \pder {F_1}{y_m}(x,y)\\
+\vdots& \ddots & \vdots\\
+\pder {F_m}{y_1}(x,y)& \ldots& \pder {F_m}{y_m}(x,y)\\
+\end{pmatrix}
+\end{equation}
+est la \defe{matrice jacobienne}{jacobienne!matrice} de $F$ par rapport à $y$ au point
+$(x,y)$; son déterminant est appelé le \defe{jacobien}{jacobien} de $F$ par
+rapport à $y$.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Théorème d'inversion locale}
 %---------------------------------------------------------------------------------------------------------------------------
 
 Le théorème suivant est une conséquence du théorème de point fixe de Picard \ref{ThoEPVkCL}.
-\begin{theorem}[Inversion locale]
-    Soit \( a\in U\) avec \( U\), un ouvert de \( \eR^n\) et \( f\colon U\to \eR^n\), une application \( C^1\) telle que \( df_a\) soit inversible. Alors il existe un voisinage \( V\) de \( a\) et un voisinage \( W\) de \( f(a)\) tels que \( f\colon V\to W\) soit un homéomorphisme.
+\begin{theorem}[Inversion locale\cite{ZCKMFRg}] \label{ThoXWpzqCn}
+    Soit \( f\in C^k(\eR^n,\eR^n)\) et \( x_0\in \eR^n\). Si \( df_{x_0}\) est inversible, alors il existe un voisinage ouvert \( U\) de \( x_0\) et \( V\) de \( f(x_0)\) tels que \( f\colon U\to V\) soit un \( C^k\)-difféomorphisme. (c'est à dire que \( f^{-1}\) est également de classe \( C^k\))
 \end{theorem}
+\index{application!différentiable}
+\index{théorème!inversion locale}
+
+\begin{proof}
+    Nous commençons par simplifier un peu le problème. Pour cela, nous considérons la translation \( T\colon x\mapsto x+x_0 \) qui est  un difféomorphisme. De la même manière nous considérons aussi l'application linéaire
+    \begin{equation}
+        \begin{aligned}
+            L\colon \eR^n&\to \eR^n \\
+            x&\mapsto (df_{x_0}^{-1})x
+        \end{aligned}
+    \end{equation}
+    qui est également un difféomorphisme par hypothèse d'inversibilité. Quitte à travailler avec la fonction \( k=L\circ f\circ T\), nous pouvons supposer que \( x_0=0\) et que \( df_{x_0}=\mtu\).
+
+    Nous posons \( g=f-\mtu\), c'est à dire \( g(x)=f(x)-x\), qui a la propriété \( dg_0=0\). Étant donné que \( g\) est de classe \( C^1\) et que \( dg_x\) est une matrice contenant les dérivées de \( g\), l'application
+    \begin{equation}
+        \begin{aligned}
+            dg\colon \eR^n&\to \GL(n,\eR) \\
+            x&\mapsto dg_x 
+        \end{aligned}
+    \end{equation}
+    est continue. En conséquence de quoi nous avons un voisinage \( U'\) de \( 0 \) pour lequel
+    \begin{equation}    \label{EqSGTOfvx}
+        \sup_{x\in U'}\| dg_x \|<\frac{ 1 }{2}.
+    \end{equation}
+    Maintenant le théorème de la moyenne \ref{val_medio_2} nous indique que pour tout \( x,x'\in U'\) nous avons\footnote{Ici nous supposons avoir choisi \( U'\) convexe afin que tous les \( a\in \mathopen[ x , x' \mathclose]\) soient bien dans \( U'\) et donc soumis à l'inéquation \eqref{EqSGTOfvx}, ce qui est toujours possible, il suffit de prendre une boule.}
+    \begin{equation}
+        \| g(x')-g(x) \|\leq \sup_{a\in\mathopen[ x , x' \mathclose]}\| dg_a \| \cdot \| x-x' \|\leq \frac{ 1 }{2}\| x-x' \|,
+    \end{equation}
+    ce qui prouve que \( g\) est une contraction au moins sur l'ouvert \( U'\). Nous allons aussi donner une idée de la façon dont \( f\) fonctionne : si \( x_1,x_2\in U'\) alors
+    \begin{subequations}
+        \begin{align}
+            \| x_1-x_2 \|&=\| g(x_1)-f(x_1)-g(x_2)+f(x_2) \| \\
+            &\leq \| g(x_1)-g(x_2) \|+\| f(x_1)-f(x_2) \|\\
+            &\leq \frac{ 1 }{2}\| x_1-x_2 \|+\| f(x_1)-f(x_2) \|,
+        \end{align}
+    \end{subequations}
+    ce qui montre que
+    \begin{equation}
+        \| x_1-x_2 \|\leq 2\| f(x_1)-f(x_2) \|.
+    \end{equation}
+    Maintenant que nous savons que \( g\) est contractante de constante \( \frac{ 1 }{2}\) et que \( f=g+\mtu\) nous pouvons utiliser la proposition \ref{PropGZoqknC} pour conclure que \( f\) est un homéomorphisme sur un ouvert \( U\) (partie de \( U'\)) de \( \eR^n\) et \( f^{-1}\) a une constante de Lipschitz plus petite ou égale à \( (1-\frac{ 1 }{2})^{-1}=2\).
+
+    Nous allons maintenant prouver que \( f^{-1}\) est différentiable et que sa différentielle est donnée par \( df^{-1}_{f(x)}=(df_x)^{-1}\).
+
+    Soient \( a,b\in U\) et \( u=b-a\). Étant donné que \( f\) est différentiable en \( a\), il existe une fonction \( \alpha\in o(\| u \|)\) telle que
+    \begin{equation}
+        f(b)-f(a)-df_a(u)=\alpha(u).
+    \end{equation}
+    En notant \( y_a=f(a)\) et \( y_b=f(b)\) et en appliquant \( (df_a)^{-1}\) à cette dernière équation,
+    \begin{equation}
+        (df_a)^{-1}(y_b-y_a)-u=(df_a)^{-1} \big( \alpha(u) \big).
+    \end{equation}
+    Vu que \( df_a\) est bornée (et son inverse aussi), le membre de droite est encore une fonction \( \beta\) ayant la propriété \( \lim_{u\to 0}\beta(u)/\| u \|=0\); en réordonnant les termes,
+    \begin{equation}
+        b-a=(df_a)^{-1}(y_b-y_a)+\beta(u)
+    \end{equation}
+    et donc
+    \begin{equation}
+        f^{-1}(y_b)-f^{-1}(y_a)-(df_a)^{-1}(y_b-y_a)=\beta(u),
+    \end{equation}
+    ce qui prouve que \( f^{-1}\) est différentiable et que \( (df^{-1})_{y_a}=(df_a)^{-1}\).
+
+    La différentielle \( df^{-1}\) est donc obtenue par la chaine
+    \begin{equation}
+    \xymatrix{%
+        df^{-1}\colon f(U) \ar[r]^-{f^{-1}}     &   U'\ar[r]^-{df}&\GL(n,\eR)\ar[r]^-{\Inv}&\GL(n,\eR)
+       }
+    \end{equation}
+    où l'application \( \Inv\colon \GL\to \GL\) est l'application \( X\mapsto X^{-1}\); c'est évidemment une application \(  C^{\infty}\). D'autre part, par hypothèse \( df\) est une application de classe \( C^{k-1}\)\quext{Ici il me semble que dans \cite{ZCKMFRg} il est fautivement noté \( C^k\).} et donc au minimum \( C^0\) parce que \( k\geq 1\). Enfin, l'application \( f^{-1}\colon f(U)\to U\) est continue (parce que la proposition \ref{PropGZoqknC} précise que \( f\) est un homéomorphisme). Donc toute la chaine est continue et \( df^{-1}\) est continue. Cela entraine immédiatement que \( f^{-1}\) est \( C^1\) et donc que toute la chaine est \( C^1\).
+
+    Par récurrence nous obtenons la chaine
+    \begin{equation}
+    \xymatrix{%
+        df^{-1}\colon f(U) \ar[r]^-{f^{-1}}_-{C^{k-1}}     &   U'\ar[r]^-{df}_-{C^{k-1}}&\GL(n,\eR)\ar[r]^-{\Inv}_-{ C^{\infty}}&\GL(n,\eR)
+       }
+    \end{equation}
+    qui prouve que \( df^{-1}\) est \( C^{k-1} \) et donc que \( f^{-1}\) est \( C^k\). La récurrence s'arrête ici parce que \( df\) n'est pas mieux que \( C^{k-1}\).
+\end{proof}
+<++>
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Théorème de la fonction implicite}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}[théorème de la fonction implicite] \index{théorème!fonction implicite} \label{ThoAcaWho}
+    Soit une fonction \( F\colon \eR^n\times \eR^m\to \eR^m\) de classe \( C^k\) et \( (\alpha,\beta)\in \eR^n\times \eR^m\) tels que
+    \begin{enumerate}
+        \item
+            \( f(\alpha,\beta)=0\),
+        \item
+            $\det\frac{ \partial (F_1,\ldots, F_m) }{ \partial (y_1,\ldots, y_m) }\neq 0$.
+    \end{enumerate}
+    Alors il existe un voisinage ouvert \( V\) de \( \alpha\) dans \( \eR^n\), un voisinage ouvert \( W\) de \( \beta\) dans \( \eR^m\) et une application \( \varphi\colon V\to W\) de classe \( C^k\)  telle que pour \( (x,y)\in V\times W\) on ait
+    \begin{equation}
+        F(x,y)=0
+    \end{equation}
+    si et seulement si \( y=\varphi(x)\).
+\end{theorem}
+	
+Le théorème de la fonction implicite a pour objet de donner l'existence de la fonction $\varphi$. Maintenant nous pouvons dire beaucoup de choses sur les dérivées de $\varphi$ en considérant la fonction
+\begin{equation}
+	x\mapsto F\big( x,\varphi(x) \big).
+\end{equation}
+Par définition de $\varphi$, cette fonction est toujours nulle. En particulier, nous pouvons dériver l'équation
+\begin{equation}
+	F\big( x,\varphi(x) \big)=0,
+\end{equation}
+et nous trouvons plein de choses.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Exemple}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Prenons par exemple la fonction
+\begin{equation}
+	F\big( (x,y),z \big)=ze^z-x-y,
+\end{equation}
+et demandons nous ce que nous pouvons dire sur la fonction $z(x,y)$ telle que
+\begin{equation}
+	F\big( x,y,z(x,y) \big)=0,
+\end{equation}
+c'est à dire telle que
+\begin{equation}		\label{EqDefZImplExemple}
+	z(x,y) e^{z(x,y)}-x-y=0.
+\end{equation}
+pour tout $x$ et $y\in\eR$. Nous pouvons facilement trouver $z(0,0)$ parce que
+\begin{equation}
+	z(0,0) e^{z(0,0)}=0,
+\end{equation}
+donc $z(0,0)=0$.
+
+Nous pouvons dire des choses sur les dérivées de $z(x,y)$. Voyons par exemple $(\partial_xz)(x,y)$. Pour trouver cette dérivée, nous dérivons la relation \eqref{EqDefZImplExemple} par rapport à $x$. Ce que nous trouvons est
+\begin{equation}
+	(\partial_xz)e^z+ze^z(\partial_xz)-1=0.
+\end{equation}
+Cette équation peut être résolue par rapport à $\partial_xz$~:
+\begin{equation}
+	\frac{ \partial z }{ \partial x }(x,y)=\frac{1}{ e^z(1+z) }.
+\end{equation}
+Remarquez que cette équation ne donne pas tout à fait la dérivée de $z$ en fonction de $x$ et $y$, parce que $z$ apparaît dans l'expression, alors que $z$ est justement la fonction inconnue. En général, c'est la vie, nous ne pouvons pas faire mieux.
+
+Dans certains cas, on peut aller plus loin. Par exemple, nous pouvons calculer cette dérivée au point $(x,y)=(0,0)$ parce que $z(0,0)$ est connu :
+\begin{equation}
+	\frac{ \partial z }{ \partial x }(0,0)=1.
+\end{equation}
+Cela est pratique pour calculer, par exemple, le développement en Taylor de $z$ autour de $(0,0)$.
+
 
 \begin{example}
     Est-ce que l'équation \( e^{y}+xy=0\) définit au moins localement une fonction \( y(x)\) ? Nous considérons la fonction
