@@ -839,6 +839,10 @@ L'\defe{espace tangent}{espace tangent} de $M$ au point $a$ est l'ensemble décr
             est telle que pour tout \( A\in V\), \( \varphi(A)^t A_0\phi(A)=A\).
     \end{enumerate}
 \end{lemma}
+\index{groupe!\( \GL(n,\eR)\)}
+\index{forme!quadratique}
+\index{matrice!symétrique}
+\index{matrice!semblables}
 C'est à dire que si nous avons une forme quadratique (\( A_0\in S_n\)) assez proche d'une matrice inversible (\( A\in \GL(n,\eR)\)), alors elle est semblable à la matrice non dégénérée.
 
 \begin{proof}
@@ -908,7 +912,7 @@ C'est à dire que si nous avons une forme quadratique (\( A_0\in S_n\)) assez pr
     \end{equation}
 \end{proof}
 
-\begin{lemma}[Lemme de Morse]\index{lemme!de Morse}
+\begin{lemma}[Lemme de Morse]     \label{LemNQAmCLo}
     Soit \( f\in C^3(\mU,\eR)\) où \( \mU\) est un ouvert de \( \eR^n\) contenant \( 0\). Nous supposons que \( df_0=0\) et que \( d^2f_0\) est non dégénérée\footnote{En tant qu'application bilinéaire.} et de signature \( (p,n-p)\). Alors il existe un \( C^1\)-difféomorphisme \( \varphi\) entre deux voisinages de \( 0\) dans \( \eR^n\) tel que
     \begin{enumerate}
         \item
@@ -920,7 +924,9 @@ C'est à dire que si nous avons une forme quadratique (\( A_0\in S_n\)) assez pr
             \end{equation}
     \end{enumerate}
 \end{lemma}
+\index{lemme!de Morse}
 \index{développement!Taylor}
+\index{application!différentiable}
 %AFAIRE : regarder dans quelle leçon c'est.
 
 \begin{proof}
@@ -932,9 +938,22 @@ C'est à dire que si nous avons une forme quadratique (\( A_0\in S_n\)) assez pr
     \begin{equation}
         Q(x)=\int_0^1(1-t)(Hf)_{tx}dt
     \end{equation}
-    qui est une intégrale dans \( \aL^{(2)}(\eR,\eR^n)\).
-
-    %AFAIRE : prouver que \( Q\) est de classe C^1.
+    qui est une intégrale dans \( \aL^{(2)}(\eR^n,\eR)\). Nous prouvons à présent que \( Q\) est de classe \( C^1\) en utilisant le résultat de différentiabilité sous l'intégrale \ref{PropAOZkDsh}. Pour cela nous passons aux composantes (de la matrice) et nous considérons
+    \begin{equation}
+        \begin{aligned}
+            h_{kl}\colon U\times\mathopen[ 0 , 1 \mathclose]&\to \eR \\
+            h_{kl}(x,t)&=(1-t)\frac{ \partial^2f  }{ \partial x_k\partial x_l }(tx).
+        \end{aligned}
+    \end{equation}
+    Étant donné que \( f\) est de classe \( C^3\), la dérivée de \( h_{kl}\) par rapport à \( x_i\) ne pose pas de problèmes :
+    \begin{equation}
+        \frac{ \partial h_{kl} }{ \partial x_i }=t(t-1)\frac{ \partial^3f  }{ \partial x_i\partial x_k\partial x_l }(tx),
+    \end{equation}
+    qui est encore continue à la fois en \( t\) et en \( x\). La proposition \ref{PropAOZkDsh} nous montre à présent que
+    \begin{equation}
+        Q_{kl}(x)=\int_0^1(1-t)h_{kl}(tx)dt
+    \end{equation}
+    est une fonction \( C^1\). Étant donné que les composantes de \( Q\) sont \( C^1\), la fonction \( Q\) est également \( C^1\).
 
     Nous avons \( Q(0)=\frac{ 1 }{2}(Hf)_0\in S_n\cap \GL(n,\eR)\), d'abord parce que \( f\) est \( C^2\) (et donc la matrice hessienne est symétrique), ensuite par hypothèse \( d^2f_0\) est non dégénérée.
     %TODO : prouver que la matrice hessienne est symétrique lorsque f est C^2 (ou vérifier que c'est déjà fait), et référentier ici.
@@ -953,8 +972,48 @@ C'est à dire que si nous avons une forme quadratique (\( A_0\in S_n\)) assez pr
     \end{equation}
     Notons que l'application \( \eM\colon \eR\to \GL(n,\eR)\) est de classe \( C^1\) parce que \( Q\) et \( \phi\) le sont.
 
-    %AFAIRE : teminer cette preuve.
+    Nous avons
+    \begin{equation}
+        f(x)-f(0)=x^tQ(x)x=x^tM(x)^tQ(0)M(x)x=y(x)^tQ(0)y(x)
+    \end{equation}
+    où \( y(x)=M(x)x=(\phi\circ Q)(x)x\) est encore une fonction de classe \( C^1\) parce que la multiplication est une application \(  C^{\infty}\).
+
+    D'un autre côté le théorème de Sylvester \ref{ThoQFVsBCk} nous donne une matrice inversible \( P\) telle que
+    \begin{equation}
+        Q(0)=P^t\begin{pmatrix}
+            \mtu_p    &       \\ 
+            &   -\mtu_{n-p}    
+        \end{pmatrix}P.
+    \end{equation}
+    Et nous posons enfin \( u=\varphi(x)=Py(x)\) qui est toujours de classe \( C^1\) et qui donne
+    \begin{subequations}
+        \begin{align}
+            f(x)-f(0)&=y^tQ(0)y\\
+            &=y^tP^t\begin{pmatrix}
+                \mtu    &       \\ 
+                    &   -\mtu    
+            \end{pmatrix}Py\\
+            &=u^t\begin{pmatrix}
+                \mtu    &       \\ 
+                    &   -\mtu    
+            \end{pmatrix}u\\
+            &=u_1^2+\ldots +u_p^2-u_{p+1}^2-\ldots -u_n^2.
+        \end{align}
+    \end{subequations}
+    
+    Nous devons maintenant montrer que, quitte à réduire son domaine à un ouvert plus petit, \( \varphi\) est un \( C^1\)-difféomorphisme. Dans la chaine qui donne \( \varphi\), seule l'application 
+    \begin{equation}
+        \begin{aligned}
+            g\colon U\subset \eR^n&\to \eR^n \\
+            x&\mapsto M(x)x 
+        \end{aligned}
+    \end{equation}
+    est sujette à caution. Nous allons appliquer le théorème d'inversion locale. Nous savons que \( g\) est de classe \( C^1\) et donc différentiable; calculons la différentielle en utilisant la formule \eqref{EqOWQSoMA} :
+    \begin{equation}
+        dg_0(x)=\Dsdd{ g(tx) }{t}{0}=\Dsdd{ tM(tx)x }{t}{0}=M(0)x.
+    \end{equation}
+    Note que nous avons utilisé la règle de Leibnitz pour la dérivée d'un produit, mais le second terme s'est annulé. Donc \( dg_0=M(0)\in \GL(n,\eR)\) et \( g\) est localement un \( C^1\)-difféomorphisme.
+
+    Il suffit de restreindre \( \varphi\) au domaine sur lequel \( g\) est un \( C^1\)-difféomorphisme pour que \( \varphi\) devienne lui-même un \( C^1\)-difféomorphisme.
 
 \end{proof}
-
-
