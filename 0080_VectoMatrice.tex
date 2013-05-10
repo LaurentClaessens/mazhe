@@ -730,8 +730,11 @@ Nous voyons que sur la ligne numéro \( k\) (en partant du bas et en numérotant
 \begin{proposition} \label{PropAPxzcUl}
     Le résultant de deux polynômes est non nul si et seulement si les deux polynômes sont premiers entre eux.
 \end{proposition}
+\index{déterminant!résultant}
 
 Un polynôme \( P\) a une racine double en \( a\) si et seulement si \( P\) et \( P'\) ont \( a\) comme racine commune, ce qui revient à dire que \( P\) et \( P'\) ne sont pas premiers entre eux. 
+
+Une application importante de ces résultats sera le théorème de Rothstein-Trager \ref{ThoXJFatfu} sur l'intégration de fractions rationnelles.
 
 \begin{example}
     Si nous prenons \( P=aX^2+bX+c\) et \( P'=2aX+b\) alors la taille de la matrice de Sylvester sera \( 2+1=3\) et
@@ -757,7 +760,7 @@ La matrice de Sylvester permet aussi de récrire l'équation de Bézout pour les
 
 Mes sources pour parler d'intégration de fractions rationnelles : \cite{MKucxNb,CPheFRq,LTjwacY,KXjFWKA}.
 
-\begin{theorem}[Rothstein-Trager\cite{MKucxNb}]
+\begin{theorem}[Rothstein-Trager\cite{MKucxNb}] \label{ThoXJFatfu}
     Soient \( P,Q\in \eQ[X]\) premiers entre eux avec \( \pgcd(P,Q)=1\) et \( \deg(P)<\deg(Q)\). Nous supposons que \( Q\) est unitaire et sans facteurs carrés. Supposons que nous puissions écrire, dans un extension \( \eK\) de \( \eQ\) la primitive de \( P/Q\) de la façon suivante :
     \begin{equation}        \label{EqCHVaDay}
         \int\frac{ P }{ Q }=\sum_{i=1}^n c_i\ln(P_i)
@@ -774,6 +777,10 @@ Mes sources pour parler d'intégration de fractions rationnelles : \cite{MKucxNb
     \end{equation}
 \end{theorem}
 \index{théorème!Rothstein-Trager}
+\index{fraction!rationnelle!intégration}
+\index{intégration!fraction rationnelle}
+\index{déterminant!résultant}
+\index{résultant!utilisation}
 
 \begin{proof}
     Nous posons 
@@ -881,6 +888,169 @@ Mes sources pour parler d'intégration de fractions rationnelles : \cite{MKucxNb
     \end{subproof}
 \end{proof}
 
+Ce théorème suggère la méthode suivante pour trouver la primitive de la fraction rationnelle \( P/Q\) (si elle vérifie les hypothèses)
+\begin{enumerate}
+    \item
+        Écrire le résultant \( R(y)=\res_X(P-yQ',Q)\) et en trouver les racines \( \{ c_i \}_{i=1,\ldots, n}\).
+    \item
+        Calculer les \( P_p=\pgcd(P-c_iQ',Q)\).
+    \item
+        Écrire la réponse :
+        \begin{equation}
+            \int\frac{ P }{ Q }=\sum_{i=1}^nc_i\ln(P_i).
+        \end{equation}
+\end{enumerate}
+
+Notons que le polynôme \( R(Y)\) est de degré \( \deg(Q)\) (pour le voir, faire un peu de comptage de lignes et colonnes dans la matrice de Sylvester), donc il n'est a priori pas pire à factoriser que \( Q\) lui-même\footnote{C'est de la factorisation de \( Q\) qu'on a besoin pour utiliser la méthode de décomposition en fractions simples.}. Mais il se peut que nous ayons de la chance et que \( R\) soit plus facile que \( Q\).
+
+À part qu'on a peut-être plus de chance avec \( R\) qu'avec \( Q\), l'avantage de la méthode est qu'elle permet d'éviter de passer par des extensions de \( \eQ\) non nécessaires\quext{J'imagine que pour un ordinateur, c'est plus facile d'éviter les extensions.}.
+
+\begin{example}
+    Cet exemple provient de \cite{MKucxNb}. Prenons la fraction rationnelle \( \frac{ x }{ x^2-3 }\). L'intégration via les fraction simples est :
+\begin{equation}
+    \int\frac{ x }{ x^2-3 }dx=\frac{ 1 }{2}\int\frac{ 1 }{ x-\sqrt{3} }+\frac{ 1 }{2}\int\frac{1}{ x+\sqrt{3} }=\frac{ 1 }{2}\ln(x-\sqrt{3})+\frac{ 1 }{2}\ln(x+\sqrt{3})=\frac{ 1 }{2}\ln(x^2-3).
+\end{equation}
+Nous voyons que dans la réponse, il n'y a pas de racines. Passer par l'extension \( \eQ[\sqrt{3}]\) est par conséquent peut-être un effort inutile. Voyons comment les choses se mettent avec la méthode Rothstein-Trager.
+
+D'abord
+\begin{subequations}
+    \begin{align}
+        R(Y)&=\res_X(X-2YX,X^2-3)\\
+        &=\res_X\big( (1-2Y)X,X^2-3 \big)\\
+        &=\det\begin{pmatrix}
+            1-2Y    &   0    &   0    \\
+            0    &   1-2Y    &   0    \\
+            1    &   0    &   -3
+        \end{pmatrix}\\
+        &=(1-2Y)\big( -3(1-2Y) \big)\\
+        &=-3(1-2Y)^2,
+    \end{align}
+\end{subequations}
+dont les solutions sont faciles : il n'y a que la racine double \( y=\frac{ 1 }{2}\). La somme \eqref{EqCHVaDay} sera donc réduite à un seul terme avec \( c_1=\frac{ 1 }{2}\). Nous calculons \( P_1\) :
+\begin{equation}
+    P_1=\pgcd(X-\frac{ 1 }{2}2X,X^2-3)=\pgcd(0,X^2-3)=X^2-3,
+\end{equation}
+et par conséquent
+\begin{equation}
+    \int\frac{ X }{ X^2-3 }=\frac{ 1 }{2}\ln(X^2-3).
+\end{equation}
+À aucun moment nous ne sommes sortis de \( \eQ\).
+\end{example}
+
+Comme vu sur cet exemple, l'intérêt du théorème de Rothstein-Trager est de permettre, lorsqu'on a de la chance, d'en profiter, et non de nous en rendre compte à la fin en remarquant bêtement que la réponse pouvait s'écrire dans \( \eQ[X]\).
+
+\begin{remark}
+    Afin d'utiliser cette méthode, il faut s'assurer que \( Q\) soit sans facteurs carrés. Si nous devons intégrer un \( \frac{ P }{ Q }\) quelconque, nous devons commencer par écrire
+    \begin{equation}
+        Q=Q_1Q_2^2Q_3^3\ldots Q_r^r,
+    \end{equation}
+    et ensuite il y a moyen de ramener l'intégrale de \( P/Q\) à des intégrales de \( \frac{ P }{ Q_1\ldots Q_r }\). Cela ne demande pas de factoriser complètement \( Q\), mais seulement de trouver ses facteurs irréductibles \( Q_i\) dans \( \eQ[X]\).
+
+    Dans l'exemple donné plus haut, \( Q=X^2-3\) a des facteurs irréductibles autres que \( Q\) lui-même dans \( \eR[X]\), mais nous n'en avons pas besoin.
+\end{remark}
+
+Voici une exemple provenant de \cite{LTjwacY} où nous évitons de passer par les complexes.
+
+\begin{example}
+    D'abord le calcul en décomposant complètement en fractions simples :
+    \begin{equation}
+        \int\frac{1}{ x^3+x }=\int\left( \frac{1}{ x }-\frac{ 1/2 }{ x-i }-\frac{ 1/2 }{ x+i } \right)=\ln(x)-\frac{ 1 }{2}\ln(x-i)-\frac{ 1 }{2}\ln(x+i)=\ln(x)-\frac{ 1 }{2}\ln(x^2+1).
+    \end{equation}
+    Ici encore nous passons par l'extension \( \eQ[i]\) alors que la réponse ne contient que des polynômes dans \( \eQ[X]\). En ce qui concerne la méthode de Rothstein-Trager, nous commençons par calculer le résultat (qui est tout de même un peu de calcul) :
+    \begin{subequations}
+        \begin{align}
+        P(y)&=\res_X\big( -3yX^2-y+1,X^3-X \big)\\
+        &=\det\begin{pmatrix}
+            -3y    &   0    &   1-y    &   0    &   0\\  
+            0    &   -3y    &   0    &   1-y    &   0\\  
+            0    &   0    &   -3y    &   0    &   1-y\\  
+            1    &   0    &   1    &   0    &   0\\  
+            0    &   1    &   0    &   1    &   0    
+        \end{pmatrix}\\
+        &=-(y-1)^2(2y+1)^2
+        \end{align}
+    \end{subequations}
+    
+    \begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 5.7, Release Date: 2013-02-19                         |
+| Type "notebook()" for the browser-based notebook interface.        |
+| Type "help()" for help.                                            |
+----------------------------------------------------------------------
+sage: y=var('y')
+sage: R=matrix(5,5,[-3*y,0,1-y,0,0,0,-3*y,0,1-y,0,0,0,-3*y,0,1-y,1,0,1,0,0,0,1,0,1,0])
+sage: R.determinant().factor()                                                        
+-(y - 1)*(2*y + 1)^2
+    \end{verbatim}
+    Les solutions sont \( c_1=1\) et \( c_2=-\frac{ 1 }{2}\). Nous pouvons alors calculer les \( P_i\) :
+    \begin{equation}
+        P_1=\pgcd(-3X^2,X^3+X)=X
+    \end{equation}
+    et
+    \begin{equation}
+        P_2=\pgcd(\frac{ 3 }{2}X^2+\frac{ 3 }{2},X^3+X)=X^2+1,
+    \end{equation}
+    et finalement
+    \begin{equation}
+        \int\frac{ 1 }{ X^3+X }=\ln(X)-\frac{ 1 }{2}\ln(X^2+1).
+    \end{equation}
+\end{example}
+
+Notons qu'il n'y a pas de miracles : lorsque la réponse contient des racines, nous ne pouvons pas couper à passer par des extensions et factoriser un peu à la dure.
+
+\begin{example} \label{ExYQODuyU}
+    Cet exemple provient de \cite{LTjwacY}. Nous voulons calculer
+    \begin{equation}
+        \int\frac{ 1 }{ X^2+1 }.
+    \end{equation}
+    Nous posons donc \( P=1\) et \( Q=X^2+1\). Le résultant à calculer est
+    \begin{subequations}
+        \begin{align}
+            P(y)=\res_X(-2yX+1,X^2+1)=\det\begin{pmatrix}
+                -2y    &   1    &   0    \\
+                0    &   -2y    &   1    \\
+                1    &   0    &   1
+            \end{pmatrix}=4y^2+1.
+        \end{align}
+    \end{subequations}
+    Les racines de cela sont complexes et il n'y a donc pas d'échappatoires : \( c_1=\frac{ i }{2}\), \( c_2=-\frac{ i }{2}\). Ensuite, étant donné que \( X^2+1=(X+i)(X-i)=i(-iX+1)(X-1)\) nous avons
+    \begin{equation}
+        P_1=\pgcd(-iX+1,X^2+1)=X+i.
+    \end{equation}
+    Notons que de façon naturelle , nous aurions écrit \( P_1=1-iX\), mais par convention nous considérons le PGCD unitaire. Cela ne change rien à la réponse parce que changer \( P_i\) en \( kP_i\) ne fait que rajouter une constante \( \ln(k)\) à la primitive trouvée.
+
+    De la même façon,
+    \begin{equation}
+        P_2=\pgcd(1+iX,X^2+1)=X-i.
+    \end{equation}
+    Au final nous écrivons
+    \begin{equation}
+        \int\frac{1}{ X^2+1 }=\frac{ i }{2}\ln(X+i)-\frac{ i }{2}\ln(X-i).
+    \end{equation}
+\end{example}
+
+\begin{remark}
+    Tout cela est si nous voulons absolument écrire la primitive avec des logarithmes de polynômes. Pour celui de l'exemple \ref{ExYQODuyU}, nous avons trouvé
+    \begin{equation}    \label{EqBCjCCbs}
+        \int\frac{1}{ X^2+1 }=\frac{ i }{2}\ln(X+i)-\frac{ i }{2}\ln(X-i).
+    \end{equation}
+    Mais
+    \begin{verbatim}
+    sage: f(x)=1/(x**2+1)                                                                                                                      
+    sage: f.integrate(x)
+    x |--> arctan(x)
+    \end{verbatim}
+    Si nous acceptons de passer aux fonctions trigonométriques (inverses), la primitive prend un tour très différent et bien réel. Ces deux visions de l'univers sont bien entendu\footnote{Si on croit que la mathématique est cohérente.} compatibles. En effet, affin de tomber juste, nous allons prendre la primitive
+    \begin{equation}
+        f(x)=\frac{ i }{2}\ln(ix-1)-\frac{ i }{2}\ln(ix+1)
+    \end{equation}
+    au lieu de \eqref{EqBCjCCbs}. Il s,agit seulement de multiplier l'intérieur des logarithmes, ce qui ne donne qu'une constante de différence. Ensuite nous passons à la forme trigonométrique des nombres complexes : \( ix-1=\sqrt{x^2+1} e^{i\arctan(-x)}\) et \( ix+1=\sqrt{x^2+1} e^{i\arctan(x)}\). Avec un peu de calcul,
+    \begin{equation}
+        f(x)=-\frac{ 1 }{2}\Big( \arctan(-x)-\arctan(x) \Big)=\arctan(x).
+    \end{equation}
+\end{remark}
+
+%TODO : lorsque j'aurai fait la construction du logarithme et ses propriétés, il faudra en faire référence ici. 
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Applications linéaires}
@@ -969,7 +1139,6 @@ x_m
 \end{pmatrix}=Ax.
 \]
 \end{proof}
-
 
 \begin{definition}
   Une application $S: \eR^m\to\eR^n$ est dite \defe{affine}{affine (application)} si elle est la somme d'une application linéaire et d'une application constante. Autrement dit, $S$ est affine s'il existe $T: \eR^m\to\eR^n$, linéaire, telle que $S(x)-T(x)$ soit un vecteur constant dans $\eR^n$. 
