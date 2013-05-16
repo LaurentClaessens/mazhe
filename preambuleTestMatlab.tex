@@ -1,0 +1,110 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+
+\usepackage[compat2]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{cases}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Choix draft / pas draft
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{ifthen}
+
+\newboolean{draft}
+\setboolean{draft}{false}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% En-tête
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\dateexam}{Novembre 2009}
+
+\newcommand{\entete}{%
+  \noindent
+  \begin{center}
+  \begin{tabular*}{\textwidth}{|c|l|}
+    \hline
+    \begin{minipage}{0.5999\textwidth}
+      \medskip
+      \centering
+      \textbf{BIR1200 Mathématiques générales} \\
+      Test Matlab \\
+      \dateexam
+      \medskip
+    \end{minipage}
+  & 
+    \begin{minipage}{0.35\textwidth}
+      \medskip
+      \textsc{Nom :} \\
+      \textsc{Prénom :} \\
+      Année et groupe :
+      \medskip
+    \end{minipage}
+  \\
+  \hline
+  \end{tabular*}
+  \end{center}
+  
+  \bigskip
+  
+  \noindent
+  \emph{Résolvez les problèmes dans Matlab et recopiez ensuite vos commandes en-dessous de chaque énoncé. Si vos commandes se trouvent dans un fichier, notez clairement son nom \underline{en souligné} avant les lignes de code correspondantes.}
+  
+  \bigskip
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Pour commencer un nouveau questionnaire d'examen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\nouvelexamen}[1]{%
+  \ifthenelse{\boolean{draft}}{%
+    \bigskip\hrule\hrule\bigskip \noindent #1 \bigskip \hrule \bigskip%
+  }{%
+    \setcounter{page}{1}%
+  }
+  \setcounter{numexo}{0}%
+  \renewcommand{\dateexam}{#1}%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Pour compatibilité avec l'incroyable système de Laurent
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\Exo}[1]{%
+  \ifthenelse{\boolean{draft}}{%
+    \noindent (Fichier \emph{exo#1.tex}) \input{exo#1}%
+  }{%
+    \input{exo#1}%
+  }%
+}
+\newcommand{\corrref}[1]{}
+
+\newcounter{numexo}
+\setcounter{numexo}{0}
+\newenvironment{exercice}{
+    \stepcounter{numexo}
+    \ifthenelse{\boolean{draft}}{}{\entete}
+    \noindent\textbf{Question~\the\value{numexo}}
+    \bigskip
+  }{
+    \ifthenelse{\boolean{draft}}{\bigskip}{\newpage}
+  }
+
+\newcommand{\eR}{\mathbb{R}}
+\newcommand{\eZ}{\mathbb{Z}}
+\newcommand{\eQ}{\mathbb{Q}}
+\newcommand{\eC}{\mathbb{C}}
+\newcommand{\eN}{\mathbb{N}}
+
+\newcommand{\per}{/}
+\newcommand{\meter}{m}
+\newcommand{\second}{s}
+\newcommand{\unit}[2]{\ensuremath #1 \, \text{#2}}
+
