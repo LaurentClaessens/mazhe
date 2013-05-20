@@ -737,6 +737,124 @@ Nous avons une illustration de la densité de la loi \( \chi^2(10)\) à la figur
 \section{Estimation des grands écarts}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+Si \( S_n\) est une somme de variables aléatoires de Bernoulli \( X_i\) indépendantes de probabilité \( p\), l'espérance de \( S_n/n\) est \( p\), et nous voudrions savoir quelle est la probabilité d'avoir un taux de succès un peu plus important :
+\begin{equation}
+    P\big( \frac{ S_n }{ n }\geq p+\epsilon \big).
+\end{equation}
+La loi des grands nombres nous permet de dire que ça ne va pas être très grand. En effet si nous posons
+\begin{equation}
+    Y_i=X_i-p-\epsilon
+\end{equation}
+et
+\begin{equation}
+    Z_n=\frac{1}{ n }\sum_{i=1}^nY_i=\frac{ S_n }{ n }-p-\epsilon,
+\end{equation}
+la loi des grands nombres (théorème \ref{ThoefQyKZ}) nous indique que
+\begin{equation}
+    Z_n\stackrel{p.s.}{\longrightarrow}E(Y_1)=-\epsilon.
+\end{equation}
+La proposition \ref{PropJFVJDuX} sur le lien entre les types de convergence nous donne immédiatement la convergence en loi. C'est à dire que pour tout \( \eta>0\),
+\begin{equation}
+    P\Big( | Z_n+\epsilon |\geq \eta \Big)\to 0.
+\end{equation}
+En prenant \( \eta=\frac{ \epsilon }{2}\),
+\begin{equation}
+    P(Z_n=0)\leq P\big( | Z_n+\epsilon |\geq \frac{ \epsilon }{2} \big)\to 0.
+\end{equation}
+
+Tout cela montre que
+\begin{equation}
+    \lim_{n\to \infty} P\big( \frac{ S_n }{ n }\geq p+\epsilon \big)=0.
+\end{equation}
+Autrement dit, la probabilité de tomber à une distance fixée de la moyenne tend vers zéro lorsque le nombre d'essais augmente. Rien d'étonnant.
+%TODO : à mon avis tout cela est très général et mériterait d'être mis en corollaire de la loi des grands nombres.
+
+Le théorème suivant nous indique la vitesse de convergence. Elle est exponentielle et le coefficient est donné en fonction de \( p\) et de \( \epsilon\).
+
+\begin{theorem}[\cite{KXjFWKA}]
+    Soient des variables aléatoires \( X_i\sim\dB(p)\) et
+    \begin{equation}
+        S_n=\sum_{i=1}^nX_i\sim\dB(n,p).
+    \end{equation}
+    Pour \( \epsilon\in\mathopen] 0 , 1-p \mathclose[\), nous définissons
+    \begin{equation}
+        h_+(\epsilon)=(p+\epsilon)\ln\left( \frac{ p+\epsilon }{ p } \right)+(1-p-\epsilon)\ln\left( \frac{ 1-p-\epsilon }{ 1-p } \right).
+    \end{equation}
+    Alors
+    \begin{enumerate}
+        \item\label{ItemUWyKcpMi}
+            \( h_+(\epsilon)>0\).
+        \item\label{ItemUWyKcpMii}
+            Pour tout \( n\geq 1\), nous avons
+            \begin{equation}    \label{EqXFortLp}
+                P\left( \frac{ S_n }{ n }\geq p+\epsilon \right)\leq  e^{-nh_+(\epsilon)}.
+            \end{equation}
+        \item\label{ItemUWyKcpMiii}
+            L'estimation \eqref{EqXFortLp} est optimale au sens que
+            \begin{equation}
+                \lim_{n\to \infty} \frac{1}{ n }\ln\left( P\big( \frac{ S_n }{ n } \geq p+\epsilon \big) \right)=-h_+(\epsilon).
+            \end{equation}
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Pour tout \( t\geq 0\) nous avons :
+    \begin{subequations}
+        \begin{align}
+        P\left( \frac{ S_n }{ n }\geq p+\epsilon \right)&=P\big( S_n\geq np+n\epsilon \big)\\
+        &\leq E\Big(  e^{t(S_n-np-n\epsilon)} \Big)        \label{subeqDUYpBeF}\\
+        &= e^{-nt(p+\epsilon)}E\left(  e^{tS_n} \right)\\
+        &= e^{-nt(p+\epsilon)}\sum_{k=0}^{\infty} e^{tk}P(S_n=k)    \label{subeqXEHKoqk}\\
+        &= e^{-nt(p+\epsilon)}\sum_{k=0}^{n} e^{tk}\binom{n}{k}p^k(1-p)^{n-k}\\
+        &= e^{-nt(p+\epsilon)}\big( (1-p)+pe^t \big)^n\\
+        &=\exp\Big( -n\big( t(p+\epsilon)-\ln(1-p+pe^t) \big) \Big).
+        \end{align}
+    \end{subequations}
+    Justifications :
+    \begin{itemize}
+        \item
+            L'inégalité \eqref{subeqDUYpBeF} est l'inégalité de Markov\quext{Ici je ne comprends pas la première ligne du calcul dans \cite{KXjFWKA}, mais j'obtiens la seconde sans problèmes.} (corollaire \ref{CorEWhIsBB}) avec \( \phi(x)= e^{tx}\). 
+        \item 
+    La ligne \eqref{subeqXEHKoqk} est une utilisation du théorème de transfert \ref{PropintdPintdPXeR}.
+    \end{itemize}
+    Nous posons maintenant
+    \begin{equation}
+        h=\sup_{t>0}\big( t(p+\epsilon)-\ln(1-p+pe^t) \big).
+    \end{equation}
+    Pour cette valeur de \( h\) nous avons
+    \begin{equation}
+        P\left( \frac{ S_n }{ n }\geq p+\epsilon \right)\leq e^{-nh}.
+    \end{equation}
+    Nous considérons la fonction
+    \begin{equation}
+        \begin{aligned}
+            g\colon \eR^+&\to \eR \\
+            t&\mapsto t(p+\epsilon)-\ln(1-p+pe^t). 
+        \end{aligned}
+    \end{equation}
+    Elle vérifie \( g(0)=0\) et
+    \begin{subequations}
+        \begin{align}
+            g'(t)&=(p+\epsilon)- \frac{ pe^t }{ 1-p+pe^t }\\
+            g'(0)&=(p+\epsilon)- \frac{ p }{ 1-p+p }=\epsilon>0.
+        \end{align}
+    \end{subequations}
+    Par conséquent sur un voisinage de \( t=0\) la fonction \( g\) est strictement croissante et nous concluons que \( g\) prend (au moins) quelque valeurs strictement positives. Du coup nous avons
+    \begin{equation}
+        h=\| g \|_{\infty}>0.
+    \end{equation}
+    Nous cherchons maintenant pour quelle valeur de \( t\) est réalisé le maximum de \( g\). D'abord résoudre \( g'(t)=0\) donne
+    \begin{equation}
+        t_0=\ln\left( \frac{ (p+\epsilon)(1-p) }{ p(1-p-\epsilon) } \right)
+    \end{equation}
+    Vu que \( g'(t)\to p+\epsilon-1<0\), nous avons \( \lim_{t\to \infty} g(t)=-\infty\) et donc le \( t_0\) trouvé est bien un maximum et non un minimum.
+
+    Il est maintenant loisible de calculer une valeur pour \( h\) : il suffit de calculer \( g(t_0)\). La calcul n'est pas très compliqué et donne
+    \begin{equation}
+        h=g(t_0)=(p+\epsilon)\ln\left( \frac{ p+\epsilon }{ p } \right)+(p+\epsilon-1)\ln\left( \frac{ 1-p }{ 1-p-\epsilon } \right),
+    \end{equation}
+    ce qui est bien \( h=h_+(\epsilon)\). Cela démontre les points \ref{ItemUWyKcpMi} et \ref{ItemUWyKcpMii}.
+\end{proof}
 <++>
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1230,4 +1348,3 @@ où nous avons utilisé le fait que \( E\big( f(U) \big)=E\big( f(1-U) \big)=I\)
 \begin{equation}
     \Var(Z)\leq \Var\big( f(U) \big).
 \end{equation}
-
