@@ -914,7 +914,7 @@ Nous verrons dans le corollaire \ref{CorCEPJGAu} que ce représentant pourra êt
 \end{probleme}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Théorie des distributions}
+\section{Espaces de Schwartz}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Pour un multiindice \( \alpha=(\alpha_1,\ldots, \alpha_d)\in \eN^d\), nous notons
@@ -926,11 +926,132 @@ pour peu que la fonction \( \varphi\) soit \( | \alpha |=\alpha_1+\ldots +\alpha
 \begin{definition}
     L'\defe{espace de Schwartz}{espace!de Schwartz} est l'ensemble des fonctions infiniment dérivables dont toutes les dérivées décroissent plus vite que tout polynôme :
     \begin{equation}
-        \swS(\eR^d)=\big\{   \varphi\in   \big\}<++>
+        \swS(\eR^d)=\big\{   \varphi\in C^{\infty}(\eR^d)\tq\forall \alpha,\beta\in \eN^d, p_{\alpha,\beta}(\varphi)<\infty   \big\}
     \end{equation}
-    <++>
-    
-    à \defe{décroissance rapide}{fonction!à décroissance rapide} est une fonction
+    où nous avons considéré
+    \begin{equation}
+        p_{\alpha,\beta}(\varphi)=\sup_{x\in \eR^d}| x^{\beta}(\partial^{\alpha}\varphi)(x) |=\| x^{\beta}\partial^{\alpha}\varphi \|_{\infty}.
+    \end{equation}
+    Une fonction \( \varphi\in\swS(\eR^d)\) est dite à \defe{décroissance rapide}{fonction!à décroissance rapide}.
 \end{definition}
+
+Pour simplifier les notations (surtout du côté de Fourier), nous allons parfois écrire \( M_i\varphi\)\nomenclature[Y]{\( M_i\varphi\)}{La fonction \( x\mapsto x_i\varphi(x)\)} pour la fonction \( x\mapsto x_i\varphi(x)\).
+
+\begin{example}
+    La fonction \(  e^{-x^2}\) est une fonction à décroissance rapide sur \( \eR\).
+\end{example}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Topologie}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Si \( E\) est un espace vectoriel, une \defe{semi-norme}{semi-norme} sur \( E\) est une application \( p\colon E\to \eR\) telle que
+    \begin{enumerate}
+        \item
+            \( p(x)\geq 0\),
+        \item
+            \( p(\lambda x)=| \lambda |p(x)\)
+        \item
+            \( p(x+y)\leq p(x)+p(y)\).
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+    Les \( p_{\alpha,\beta}\) donnés ci-dessus sont des semi-normes.
+\end{lemma}
+%TODO : une preuve pour égayer la galerie.
+
+Soit une famille \( (p_i)_{i\in I}\) de semi-normes sur \( E\). Nous en déduisons une topologie sur \( E\) de la façon suivante\cite{SOdaAdx}. Pour tout \( J\) fini dans \( I\) nous définissons les boules ouvertes
+\begin{equation}
+    B_J(x,r)=\{ y\in E\tq p_j(y-x)<r\,\forall j\in J \}.
+\end{equation}
+
+La topologie sur \( E\) donnée par la famille de semi-norme est celle engendrée par les boules ainsi définies.
+
+\begin{proposition}
+    Une suite \( (x_n)\) dans \( E\) converge vers \( x\) au sens de la topologie des semi-normes si et seulement si pour tout \( i\in I\),
+    \begin{equation}
+        p_i(x-x_n)\to 0.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Si la suite \( (x_n)\) converge vers \( x\), alors pour tout ouvert \( \mO\) autour de \( x\), il existe un \( N\) tel que si \( n\geq N\), alors \( x_n\in\mO\). En particulier pour tout \( j\) et pour tout \( \epsilon>0\), il doit exister un \( n\geq N_j\) tel que \( x_n\in B_j(x,\epsilon)\).
+
+    Voyons l'implication inverse. Soit \( \epsilon>0\). Pour tout \( i\in I\), il existe un \( N_i\) tel que \( n\geq N_i\) implique \( p_i(x-x_n)\leq \epsilon\). Si \( \mO\) est un ouvert, il doit contenir une boule du type \( B_J(x,r)\) pour un certain ensemble fini \( J\subset I\).
+
+    En prenant \( N=\max\{ N_j\tq j\in J \}\), nous avons \( p_j(x-x_n)\leq \epsilon\) pour tout \( j\) et donc \( x_n\in B_J(x,r)\).
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Produit de convolution}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}[\cite{CXCQJIt}]
+    Si \( \varphi\in L^1(\eR)\) et \( \psi\in\swS(\eR)\), alors \( \varphi * \psi\in \swS(\eR)\).
+\end{proposition}
+
+\begin{proof}
+    Nous devons prouver que
+    \begin{equation}
+        p_{\alpha,\beta}(\varphi*\psi)=\sup_{x\in \eR^d}| x^{\beta}(\partial^{\alpha}(\varphi*\psi))(x) |
+    \end{equation}
+    est borné pour tout multiindices \( \alpha\) et \( \beta\). En appliquant \( | \alpha |\) fois la proposition \ref{PropHNbdMQe}, nous mettons toutes les dérivées sur \( \psi\) : \( \partial^{\alpha}(\varphi*\psi)=(\varphi*\partial^{\alpha}\psi)\). Cela étant fait, nous majorons
+    \begin{subequations}
+        \begin{align}
+            \big| x^{\beta}(\varphi*\partial^{\alpha}\psi)(x) \big|&\leq| x^{\beta} |\int_{\eR^d} |\varphi(y)|\underbrace{\big| (\partial^{\alpha}\psi)(x-y)\big|}_{\leq\| \partial^{\alpha}\psi \|_{\infty}} dy \big|\\
+            &\leq | x^{\beta} |  \| \partial^{\alpha}\psi \|_{\infty}\int_{\eR^d}| \varphi(y) |dy\\
+            &\leq p_{\alpha,\beta}(\psi)\| \varphi \|_{_{L^1}}.
+        \end{align}
+    \end{subequations}
+    Par conséquent, \( p_{\alpha,\beta}(\varphi*\psi)\leq \| \varphi \|_{L^1}p_{\alpha,\beta}(\psi)<\infty\).
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Transformée de Fourier}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La définition de la transformée de Fourier de \( \varphi\in\swS(\eR^d)\) est 
+\begin{equation}
+    \hat  \varphi(\xi)=\int_{\eR^n}\varphi(x) e^{-ix\cdot \xi}.
+\end{equation}
+
+\begin{lemma}
+    Si \( \varphi\in\swS(\eR^d)\) et si \( \alpha\) est un multiindice, alors
+    \begin{equation}
+        \partial^{\alpha}\hat\varphi=(-i)^{| \alpha |}\widehat{M_{\alpha}\varphi}.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Nous considérons la fonction \( h(x,\xi)=\varphi(x) e^{-ix\cdot \xi}\) dont la dérivée par rapport à \( \xi_i\) est donnée par \( -i(M_{i}\varphi)(x) e^{x\cdot \xi}\). Cette fonction est majorée en norme par
+    \begin{equation}
+        G(x)=M_i\varphi(x),
+    \end{equation}
+    qui est encore une fonction à décroissance rapide et donc parfaitement intégrable sur \( \eR^d\). Le théorème \ref{ThoMWpRKYp} nous dit donc que la dérivée de \( \hat \varphi\) par rapport à \( \xi_i\) existe et vaut
+    \begin{equation}
+        \frac{ \partial \hat\varphi }{ \partial \xi_i }(\xi)=-i\int_{\eR^n}x_i\varphi(x) e^{-i\xi\cdot x}=-i\widehat{M_i\varphi}(\xi).
+    \end{equation}
+    En appliquant ce résultat en chaîne, nous trouvons la formule annoncée.
+\end{proof}
 <++>
+
+\begin{proposition}
+    L'espace de Schwartz est stable par transformée de Fourier. De plus l'application
+    \begin{equation}
+        \TF\colon \swS(\eR^d)\to \swS(\eR^d)
+    \end{equation}
+    est linéaire et continue.
+\end{proposition}
+<++>
+
+
+\begin{theorem}
+    Nous avons la formule d'inversion
+    \begin{equation}
+        f(x)=\frac{1}{ (2\pi)^n }\int_{\eR^n}\hat f(\xi) e^{ix\cdot \xi}d\xi.
+    \end{equation}
+\end{theorem}
+%TODO : à préciser.
 
