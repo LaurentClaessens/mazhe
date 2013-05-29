@@ -3,6 +3,173 @@
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
+Nous allons beaucoup travailler avec le \defe{système trigonométrique}{système!trigonométrique} donné par \( \{ e_n \}_{n\in \eZ}\) et
+\begin{equation}
+    e_n(t)= e^{int}.
+\end{equation}
+Une bonne partie de la douleur du mot «densité» consiste à montrer que ce système est total dans \( L^2(S^1)=L^2(\mathopen[ 0 , 2\pi \mathclose])\), et donc en est une base hilbertienne.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Noyaux pour retrouver la fonction}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Le \defe{noyau de Dirichlet}{noyau!Dirichlet}\index{Dirichlet!noyau} est la fonction
+\begin{equation}
+    D_n(t)=\sum_{k=-n}^n e^{int}.
+\end{equation}
+Le \defe{noyau de Fejér}{noyau!Fejér}\index{Fejér!noyau} est la moyenne de Cesaro des noyaux de Dirichlet :
+\begin{equation}
+    F_n(t)=\frac{1}{ n }\sum_{k=0}^{n-1}D_k(t).
+\end{equation}
+
+\begin{lemma}
+    Le noyau de Dirichlet s'exprime sous la forme
+    \begin{equation}    
+        D_n(t)=\frac{ \sin\left( \frac{ 2n+1 }{ 2 }t \right) }{ \sin(t/2) }
+    \end{equation}
+\end{lemma}
+Note : ce noyau n'est pas positif.
+
+\begin{proof}
+    Nous commençons par mettre en évidence le premier terme :
+    \begin{equation}
+        D_n(t)=\sum_{k=-n}^n e^{int}= e^{-int}\sum_{k=0}^{2n} e^{ikt}.
+    \end{equation}
+    En utilisant la formule de la somme géométrique,
+    \begin{subequations}
+        \begin{align}
+            D_n(t)&= e^{-int}\frac{ 1-( e^{it})^{2n+1} }{ 1- e^{it} }\\
+            &= e^{-int}\frac{ 1- e^{(2n+1)it} }{ 1- e^{it} }\\
+            &= e^{-int}\frac{  e^{(2n+1)it/2} }{  e^{i\frac{ t }{ 2 }} }\frac{  e^{-(2n+1)it/2}- e^{(2n+1)it/2} }{  e^{-it/2}- e^{it/2} }\\
+            &=\frac{ (-2i)\sin\left( \frac{ 2n+1 }{ 2 }t \right) }{ (-2i)\sin\left( \frac{ t }{2} \right) }.
+        \end{align}
+    \end{subequations}
+\end{proof}
+
+\begin{theorem}[Théorème de Dirichlet]\index{théorème!Dirichlet}\index{Dirichlet!théorème}
+    Soit \( f\) une fonction \( 2\pi\)-périodique et \( C^1\) par morceaux. Alors pour tout \( x\in \eR\) nous posons
+    \begin{equation}
+        s_n(x)=\sum_{k=-n}^nc_k(f) e^{ikx}.
+    \end{equation}
+    Alors nous avons
+    \begin{equation}
+        \lim_{n\to \infty} s_n(x)=\frac{ f(x^+)+f(x^-) }{ 2 }.
+    \end{equation}
+\end{theorem}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Théorème de Fejér}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}   \label{LemtCAjJz}
+    Le noyau de Fejér s'exprime sous la forme
+    \begin{equation}    \label{EqLOtzCf}
+        F_n(t)=\frac{1}{ n }\left( \frac{ \sin\frac{ nt }{2} }{ \sin\frac{ t }{2} } \right)^2.
+    \end{equation}
+\end{lemma}
+Note : ce noyau est positif. C'est important parce qu'on s'en sert dans la preuve du théorème de Fejér.
+
+\begin{proof}
+    L'astuce est de noter \( \sin(x)=\Im( e^{ix})\) et de repartir du résultat à propos du noyau de Dirichlet. En utilisant encore la formule de la série géométrique partielle,
+    \begin{subequations}
+        \begin{align}
+            F_n(t)&=\frac{1}{ n\sin(t/2) }\Im\sum_{k=0}^{n-1} e^{(2k+1)it/2}\\
+            &=\frac{1}{ n\sin(t/2) }\Im e^{\frac{ it }{ 2 }}\sum_{k=0}^{n-1}\\
+            &=\frac{1}{ n\sin(t/2) }\Im e^{\frac{ it }{ 2 }}\left( \frac{ 1- e^{nit} }{ 1- e^{it} } \right)\\
+            &=\frac{1}{ n\sin(t/2) }\Im e^{it/2}\frac{  e^{\frac{ nit }{ 2 }}\left(  e^{-\frac{ int }{2}}- e^{\frac{ nit }{2}} \right) }{  e^{\frac{ it }{2}}\left(  e^{-it/2}- e^{it/2} \right) }\\
+            &=\frac{1}{ n\sin(t/2) }\underbrace{\Im e^{\frac{ nit }{2}}}_{\sin(nt/2)}\frac{ \sin\left( \frac{ nt }{ 2 } \right) }{ \sin(\frac{ t }{2}) }\\
+            &=\frac{1}{ n }\left( \frac{ \sin\frac{ nt }{2} }{ \sin\frac{ t }{2} } \right)^2.
+        \end{align}
+    \end{subequations}
+\end{proof}
+
+
+\begin{theorem}[Fejèr]      \label{ThoJFqczow}
+    Soit une fonction continue et \( 2\pi\)-périodique \( f\colon \eR\to \eC\). Pour tout \( k\in \eZ\) nous notons
+    \begin{equation}
+        \begin{aligned}
+            e_k\colon \eR&\to \eC \\
+            x&\mapsto  e^{ikx}. 
+        \end{aligned}
+    \end{equation}
+    Pour chaque \( n\in \eN\) nous posons
+    \begin{subequations}
+        \begin{align}
+            D_n&=\sum_{k=-n}^ne_k& \tilde S_n(f)&=\sum_{k=-n}^nc_k(f)e_k\\
+            F_n&=\frac{  D_0+\ldots + D_{n-1} }{ n }&  \tilde F_n=\sigma_n(f)&=\frac{1}{ n }\sum_{k=0}^{n-1}S_k(f).
+        \end{align}
+    \end{subequations}
+    Alors
+    \begin{enumerate}
+        \item
+            $\frac{1}{ 2\pi }\int_{-\pi}^{\pi}F_n(t)dt=1$.
+        \item
+            Pour tout \( \alpha\in \mathopen] 0 , \pi \mathclose[\), \( F_n\) converge uniformément vers \( 0\) sur \( \mathopen[ -\pi , \pi \mathclose]\setminus\mathopen[ -\alpha , \alpha \mathclose]\).
+        \item
+            La suite \( \tilde F_n \) converge uniformément sur \( \eR\) vers \( f\).
+        \item   \label{ItemUNQSPmyiv}
+            Le système trigonométrique \( \{ e_k \}_{k\in\eZ}\) est total pour l'espace \( \big( C^0(S^1),\| . \|_{\infty} \big)\) des fonctions continues \( 2\pi\)-périodiques.
+    \end{enumerate}
+\end{theorem}
+\index{théorème!Fejér}
+
+\begin{proof}
+    Un calcul usuel montre que
+    \begin{equation}
+        \int_{-\pi}^{\pi}e_l(t)dt=\begin{cases}
+            0    &   \text{si \( l\neq 0\)}\\
+            2\pi    &    \text{si \( l=0\)}
+        \end{cases}
+    \end{equation}
+    Nous avons alors
+    \begin{equation}
+        \int_{-\pi}^{\pi}F_n(t)dt=\frac{1}{ n }\sum_{k=0}^{n-1}\sum_{l=-k}^k\underbrace{\int_{-\pi}^{\pi}e_l(t)dt}_{2\pi\delta_l}=\frac{1}{ n }\sum_{k=0}^{n-1}1=1.
+    \end{equation}
+    Cela prouve déjà le premier point.
+
+    Pour le second point, en partant de l'expression \eqref{EqLOtzCf} et en considérant \( x\in\mathopen[ -\pi, \pi ,  \mathclose]\setminus\mathopen[ -\alpha , \alpha \mathclose]\) (ce qui nous évite l'annulation du dénominateur),
+    \begin{equation}
+        | F_n(x) |\leq\frac{1}{ (n+1)\sin^2(\alpha/2) },
+    \end{equation}
+    et donc \( F_n\to 0\) uniformément sur l'ensemble considéré.
+
+    Nous passons maintenant à cette histoire de convergence uniforme de la moyenne de Cesaro vers \( f\). Pour tout \( n\in \eN\) nous avons
+    \begin{subequations}
+        \begin{align}
+            \tilde  D_n(x)&=\frac{1}{ 2\pi }\sum_{k=-n}^n\left( \int_{-\pi}^{\pi}f(t) e^{-ikt}dt \right) e^{ikx}\\
+            &=\frac{1}{ 2\pi }\int_{-\pi}^{\pi}f(t)\sum_{k=-n}^ne_k(x-t)\\
+            &=\frac{1}{ 2\pi }\int_{-\pi}^{\pi}f(t)D_k(x-t).
+        \end{align}
+    \end{subequations}
+    Par conséquent, en effectuant le changement de variable \( u=x-t\) et la périodicité,
+    \begin{subequations}    \label{EqkDsyAc}
+        \begin{align}
+            \tilde F_n(x)&=\int_{-\pi}^{\pi}f(t)F_n(x-t)dt\\
+            &=-\int_{x+\pi}^{x-\pi}f(x-u)F_n(u)du\\
+            &=\int_{-\pi}^{\pi}f(x-u) F_n(u)du.
+        \end{align}
+    \end{subequations}
+    Nous prouvons à présent l'uniforme continuité. Soit \( \epsilon>0\); étant donné que \( f\) est continue et \( 2\pi\)-périodique, elle est uniformément continue et nous considérons \( \delta>0\) tel que \( | x-y |<\delta\) implique \( \big| f(x)-f(y) \big|<\epsilon\). Soit \( M\) un majorant de \( | f |\) sur \( \eR\). L'équation \eqref{EqkDsyAc} nous donne
+    \begin{subequations}
+        \begin{align}
+            \big| f(x)-\tilde F_n(x) \big|&=\big| \frac{1}{ 2\pi }\int_{-\pi}^{\pi}\big( f(x-t)-f(x) \big)F_n(t)dt \big|    \label{ykuGGh}\\
+            &\leq\frac{1}{ 2\pi }\int_{\delta\leq| t |\leq \pi}| 2MF_n(t) |dt+\frac{1}{ 2\pi }\int_{-\delta}^{\delta}\epsilon| F_n(t) |dt\\
+            &\leq\frac{ 2M }{ 2\pi }\int_{\delta\leq | t |\leq\pi}F_n(t)dt+\epsilon'    \label{uRAMyq}
+        \end{align}
+    \end{subequations}
+    Pour obtenir \eqref{ykuGGh} nous avons pu rentrer \( f(x)\) dans l'intégrale en utilisant le premier point. Pour obtenir \eqref{uRAMyq} nous avons d'abord utilisé la positivité de \( F_n\) (lemme \ref{LemtCAjJz}) pour enlever les valeurs absolues, et nous avons ensuite utilisé le fait que son intégrale valait \( 2\pi\).
+
+    Étant donné que \( F_n\to 0\) uniformément sur \( \mathopen[ -\pi,\pi ,  \mathclose]\setminus\mathopen[ -\alpha , \alpha \mathclose]\), il existe un \( N\) tel que 
+    \begin{equation}
+        \int_{\delta\leq| t |\leq \pi}F_n(t)dt\leq \epsilon
+    \end{equation}
+    dès que \( n>N\). Le résultat découle.
+
+    Pour le point \ref{ItemUNQSPmyiv}, il suffit de remarquer que chacun des \( \tilde F_n\) est une combinaison finie d'éléments du système trigonométrique.
+\end{proof}
+
+
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{L'espace \texorpdfstring{$L^2$}{ L2}}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -25,7 +192,7 @@ Un \defe{polynôme trigonométrique}{polynôme!trigonométrique} est une fonctio
 \end{equation}
 
 \begin{lemma}   \label{LemXGYaRlC}
-    Si \( f\colon \eR\to \eC\) est une fonction \( 2\pi\)-périodique et si \( \epsilon>0\), alors il existe un polynôme trigonométrique \( P\) tel que \( \| f-P \|_{\infty}\leq \epsilon\).
+    Si \( f\colon \eR\to \eC\) est une fonction continue \( 2\pi\)-périodique et si \( \epsilon>0\), alors il existe un polynôme trigonométrique \( P\) tel que \( \| f-P \|_{\infty}\leq \epsilon\).
 \end{lemma}
 
 \begin{proof}
@@ -46,30 +213,69 @@ Un \defe{polynôme trigonométrique}{polynôme!trigonométrique} est une fonctio
     \begin{equation}
         \sum_t| \tilde f( e^{it})-P(t) |<\epsilon.
     \end{equation}
-    Soit \( f\colon \eR\to \eC\) une fonctions \( 2\pi\)-périodique. Nous considérons \( \tilde f\in C(S^1,\eC)\) donnée par \( \tilde f( e^{it})=f(t)\). Alors \( \sup_t| f(t)-P(t) |\leq \epsilon\).
+    Soit \( f\colon \eR\to \eC\) une fonction continue \( 2\pi\)-périodique. Nous considérons \( \tilde f\in C(S^1,\eC)\) donnée par \( \tilde f( e^{it})=f(t)\). Alors \( \sup_t| f(t)-P(t) |\leq \epsilon\).
 \end{proof}
 
-\begin{lemma}
-    Si \( f\in L^2(\mathopen[ 0 , 2\pi \mathclose])\), il existe une suite \( (P_n)\) de polynômes trigonométriques tels que 
-    \begin{equation}
-        \| P_n-f \|_{L^2}\to 0.
-    \end{equation}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Fonctions de Dirichlet}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Une fonction \( f\colon \eR\to \eC\) est une \defe{fonction de Dirichlet}{fonction!de Dirichlet} si
+    \begin{enumerate}
+        \item
+            elle est \( 2\pi\)-périodique,
+        \item
+            elle est continue par morceaux,
+        \item
+            pour tout \( x\in \eR\) nous avons
+            \begin{equation}
+                f(x)=\frac{ f(x^+)+f(x^-) }{2}.
+            \end{equation}
+    \end{enumerate}
+    Nous notons \( \mD\) l'ensemble des fonctions de Dirichlet.
+\end{definition}
+
+\begin{lemma}[\cite{NJsYInp}]   \label{LemVIwMsTC}
+    L'ensemble \( C^0(S^1)\) est dense dans \( \big( \mD,\| . \|_2 \big)\).
 \end{lemma}
-Notons la différence avec le lemme \ref{LemXGYaRlC} qui demandait la périodicité (i.e. \( f(0)=f(2\pi)\) pour obtenir la convergence uniforme.
 
 \begin{proof}
-    Soit \( f_n\) la fonction définie comme suit :
+    Nous commençons par supposer que \( f\in\mD\) n'ait qu'un seul point de discontinuité, \( x_0\). Alors nous considérons la fonction \( f_n\) qui est égale à \( f\) sur \( S^1\setminus B(x_0,\frac{1}{ n })\) et qui sur \( B(x_n,\frac{1}{ n })\) est le segment de droite joignant \( f(x_0-\frac{1}{ n })\) et \( f(x_0+\frac{1}{ n })\). Cela est une fonction continue, et de plus nous avons
     \begin{equation}
-        f_n(x)=\begin{cases}
-            f(x)    &   \text{si \( x\in \mathopen[ 0 , 2\pi-\frac{1}{ n } \mathclose]\)}\\
-            n\big( f(2\pi)-f(2\pi-\frac{1}{ n }) \big)x    &    \text{<++>}<++>
-        \end{cases}<++>
+        | f_n(x) |\leq \| f \|_{\infty}
     \end{equation}
-    <++>
-    
-    sur \( \mathopen[ 0 , 2\pi-\frac{1}{ n } \mathclose]\) nous demandons \( f_n(x)=f(x)\) puis entre
+    pour tout \( x\). En effet si \( x\) est en dehors de \( B(x_0,\frac{1}{ n })\) c'est évident, et si \( x\in B(x_0,\frac{1}{ n })\), alors \( | f_n(x) |\) est majoré soit par \( f(x_0-\frac{1}{ n })\) soit par \( f(x_0+\frac{1}{ n })\) suivant que le raccord affin soit croissant ou décroissant. Avec ça nous avons
+    \begin{equation}
+        \| f_n-f \|_2^2=\int_{x_0-1/n}^{x_0+1/n}| f(x)-f_n(x) |^2dx\leq \int_{x_0-1/n}^{x_0+1/n}4\| f \|_{\infty}=\frac{ 8\| f \|_{\infty} }{ n }.
+    \end{equation}
+    Et nous voyons que \( \| f_n-f \|_2\to 0\).
+
+    Si \( f\) contient plusieurs points de continuité, on fait le même coup autour de chaque point, en prenant \( n\) assez grand pour que si \( x_0\) est un point de discontinuité, \( B(x_0,\frac{1}{ n })\) n'en contienne pas d'autres.
 \end{proof}
-<++>
+
+Notons que la densité de \( C^0(S^1)\) dans \( \big( \mD,\| . \|_{\infty} \big)\) est impossible parce qu'une limite uniforme de fonctions continue est continue.
+
+\begin{theorem}
+    Le système trigonométrique \( \{ e_n \}_{n\in \eZ}\) est total dans \( \big( \mD,\| . \|_2 \big)\).
+\end{theorem}
+
+\begin{proof}
+    Soit \( f\in\mD\). Si elle est continue, le théorème de Fejèr \ref{ThoJFqczow} nous donne convergence uniforme sur \( S^1\) d'une suite de polynômes trigonométriques vers \( f\). Cette convergence est également une convergence \( L^2\) parce que \( S^1\) est compact.
+
+    Prenons donc \( f\in \mD\) non continue et \( \epsilon>0\)\footnote{Par exemple \( \epsilon=0.4\), mais ce n'est qu'un exemple hein. Si vous en voulez un autre, prenez \( p\), un nombre premier puis calculez \( \epsilon=1/p\).}. Par le lemme \ref{LemVIwMsTC}, il existe une fonction \( g\in C^0(S^1)\) telle que
+    \begin{equation}
+        \| g-f \|_2\leq \epsilon.
+    \end{equation}
+    Le théorème de Fejèr donne aussi un polynôme trigonométrique \( P\) tel que \( \| P-g \|_2<\epsilon\); nous avons alors
+    \begin{equation}
+        \| P-f \|_2\leq \| P-g \|_{2}+\| g-f \|_2\leq 2\epsilon.
+    \end{equation}
+\end{proof}
+
+Notons que cette histoire de fonctions de Dirichlet n'a pas attaquée le vrai fond du problème de la densité des polynômes trigonométriques dans \(  L^2(S^1)\) parce que nous restons avec une hypothèse de continuité, alors que les représentants des éléments de \( L^2(S^1)\) n'ont strictement aucune régularité a priori.
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Coefficients de Fourier}
@@ -191,6 +397,49 @@ Pour la suite nous allons considérer des fonctions périodiques de période \( 
     \end{equation}
 \end{proof}
 
+\begin{corollary}   \label{CordgtXlC}
+    Soient \( f,g\) deux fonctions continues et \( 2\pi\)-périodiques. Si \( c_n(f)=c_n(g)\) alors \( f=g\).
+\end{corollary}
+
+\begin{proof}
+    Dans le cas de fonctions continues, le théorème de Fejér nous enseigne que si nous posons 
+    \begin{equation}
+        S_n(x)=\sum_{k=-n}^{n}c_k(f) e^{ikx}
+    \end{equation}
+    alors nous avons la convergence
+    \begin{equation}
+        \frac{1}{ N+1 }\sum_{n=0}^NS_n(f)(x)\to f(x).
+    \end{equation}
+    C'est à dire qu'une fonction continue est déterminée par ses coefficients de Fourier.
+\end{proof}
+
+\begin{example}
+    Considérons la fonction
+    \begin{equation}
+        f(x)=1-\frac{ x^2 }{ \pi^2 }
+    \end{equation}
+    sur \( \mathopen[ -\pi , \pi \mathclose]\). Nous la développons en série trigonométrique, et étant paire il n'y a pas de sinus. Un calcul montre que
+    \begin{equation}
+        a_0=\frac{ 4 }{ 3 }
+    \end{equation}
+    et
+    \begin{equation}
+        a_n=(-1)^{n+1}\frac{ 4 }{ n^2\pi^2 },
+    \end{equation}
+    de telle sorte que
+    \begin{equation}
+        f(x)=\frac{ 2 }{ 3 }-\frac{ 4 }{ \pi^2 }\sum_{n=1}^{\infty}(-1)^n\frac{ \cos(nx) }{ n^2 }.
+    \end{equation}
+    Nous avons \( f(\pi)=0\), mais vu le développement,
+    \begin{equation}
+        f(\pi)=\frac{ 2 }{ 3 }-\frac{ 4 }{ \pi^2 }\sum_{n=1}^{\infty}\frac{1}{ n^2 },
+    \end{equation}
+    donc
+    \begin{equation}
+        \sum_{n=1}^{\infty}\frac{1}{ n^2 }=\frac{ \pi^2 }{ 6 }.
+    \end{equation}
+\end{example}
+
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Inégalité isopérimétrique}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -274,202 +523,6 @@ Le théorème suivant dit que parmi les courbes \( C^1\), le cercle a la plus gr
     qui est un cercle de centre \( c_0(f)\) et de rayon \( | c_1(f) |\).
 \end{proof}
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Noyaux pour retrouver la fonction}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-Le \defe{noyau de Dirichlet}{noyau!Dirichlet}\index{Dirichlet!noyau} est la fonction
-\begin{equation}
-    D_n(t)=\sum_{k=-n}^n e^{int}.
-\end{equation}
-Le \defe{noyau de Fejér}{noyau!Fejér}\index{Fejér!noyau} est la moyenne de Cesaro des noyaux de Dirichlet :
-\begin{equation}
-    F_n(t)=\frac{1}{ n }\sum_{k=0}^{n-1}D_k(t).
-\end{equation}
-
-\begin{lemma}
-    Le noyau de Dirichlet s'exprime sous la forme
-    \begin{equation}    
-        D_n(t)=\frac{ \sin\left( \frac{ 2n+1 }{ 2 }t \right) }{ \sin(t/2) }
-    \end{equation}
-\end{lemma}
-Note : ce noyau n'est pas positif.
-
-\begin{proof}
-    Nous commençons par mettre en évidence le premier terme :
-    \begin{equation}
-        D_n(t)=\sum_{k=-n}^n e^{int}= e^{-int}\sum_{k=0}^{2n} e^{ikt}.
-    \end{equation}
-    En utilisant la formule de la somme géométrique,
-    \begin{subequations}
-        \begin{align}
-            D_n(t)&= e^{-int}\frac{ 1-( e^{it})^{2n+1} }{ 1- e^{it} }\\
-            &= e^{-int}\frac{ 1- e^{(2n+1)it} }{ 1- e^{it} }\\
-            &= e^{-int}\frac{  e^{(2n+1)it/2} }{  e^{i\frac{ t }{ 2 }} }\frac{  e^{-(2n+1)it/2}- e^{(2n+1)it/2} }{  e^{-it/2}- e^{it/2} }\\
-            &=\frac{ (-2i)\sin\left( \frac{ 2n+1 }{ 2 }t \right) }{ (-2i)\sin\left( \frac{ t }{2} \right) }.
-        \end{align}
-    \end{subequations}
-\end{proof}
-
-\begin{theorem}[Théorème de Dirichlet]\index{théorème!Dirichlet}\index{Dirichlet!théorème}
-    Soit \( f\) une fonction \( 2\pi\)-périodique et \( C^1\) par morceaux. Alors pour tout \( x\in \eR\) nous posons
-    \begin{equation}
-        s_n(x)=\sum_{k=-n}^nc_k(f) e^{ikx}.
-    \end{equation}
-    Alors nous avons
-    \begin{equation}
-        \lim_{n\to \infty} s_n(x)=\frac{ f(x^+)+f(x^-) }{ 2 }.
-    \end{equation}
-\end{theorem}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Théorème de Fejér}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{lemma}   \label{LemtCAjJz}
-    Le noyau de Fejér s'exprime sous la forme
-    \begin{equation}    \label{EqLOtzCf}
-        F_n(t)=\frac{1}{ n }\left( \frac{ \sin\frac{ nt }{2} }{ \sin\frac{ t }{2} } \right)^2.
-    \end{equation}
-\end{lemma}
-Note : ce noyau est positif. C'est important parce qu'on s'en sert dans la preuve du théorème de Fejér.
-
-\begin{proof}
-    L'astuce est de noter \( \sin(x)=\Im( e^{ix})\) et de repartir du résultat à propos du noyau de Dirichlet. En utilisant encore la formule de la série géométrique partielle,
-    \begin{subequations}
-        \begin{align}
-            F_n(t)&=\frac{1}{ n\sin(t/2) }\Im\sum_{k=0}^{n-1} e^{(2k+1)it/2}\\
-            &=\frac{1}{ n\sin(t/2) }\Im e^{\frac{ it }{ 2 }}\sum_{k=0}^{n-1}\\
-            &=\frac{1}{ n\sin(t/2) }\Im e^{\frac{ it }{ 2 }}\left( \frac{ 1- e^{nit} }{ 1- e^{it} } \right)\\
-            &=\frac{1}{ n\sin(t/2) }\Im e^{it/2}\frac{  e^{\frac{ nit }{ 2 }}\left(  e^{-\frac{ int }{2}}- e^{\frac{ nit }{2}} \right) }{  e^{\frac{ it }{2}}\left(  e^{-it/2}- e^{it/2} \right) }\\
-            &=\frac{1}{ n\sin(t/2) }\underbrace{\Im e^{\frac{ nit }{2}}}_{\sin(nt/2)}\frac{ \sin\left( \frac{ nt }{ 2 } \right) }{ \sin(\frac{ t }{2}) }\\
-            &=\frac{1}{ n }\left( \frac{ \sin\frac{ nt }{2} }{ \sin\frac{ t }{2} } \right)^2.
-        \end{align}
-    \end{subequations}
-\end{proof}
-
-
-\begin{theorem}[Fejèr]
-    Soit une fonction continue et \( 2\pi\)-périodique \( f\colon \eR\to \eC\). Pour tout \( k\in \eZ\) nous notons
-    \begin{equation}
-        \begin{aligned}
-            e_k\colon \eR&\to \eC \\
-            x&\mapsto  e^{ikx}. 
-        \end{aligned}
-    \end{equation}
-    Pour chaque \( n\in \eN\) nous posons
-    \begin{subequations}
-        \begin{align}
-            D_n&=\sum_{k=-n}^ne_k& \tilde D_n&=\sum_{k=-n}^nc_k(f)e_k\\
-            F_n&=\frac{  D_0+\ldots + D_{n-1} }{ n }&  \tilde F_n&=\frac{ \tilde D_0+\ldots +\tilde D_{n-1} }{ n }
-        \end{align}
-    \end{subequations}
-    Alors
-    \begin{enumerate}
-        \item
-            $\frac{1}{ 2\pi }\int_{-\pi}^{\pi}F_n(t)dt=1$.
-        \item
-            Pour tout \( \alpha\in \mathopen] 0 , \pi \mathclose[\), \( F_n\) converge uniformément sur \( \mathopen[ -\pi , \pi \mathclose]\setminus\mathopen[ -\alpha , \alpha \mathclose]\).
-        \item
-            La suite \( \tilde F_n \) converge uniformément sur \( \eR\) vers \( f\).
-    \end{enumerate}
-\end{theorem}
-
-\begin{proof}
-    Un calcul usuel montre que
-    \begin{equation}
-        \int_{-\pi}^{\pi}e_l(t)dt=\begin{cases}
-            0    &   \text{si \( l\neq 0\)}\\
-            2\pi    &    \text{si \( l=0\)}
-        \end{cases}
-    \end{equation}
-    Nous avons alors
-    \begin{equation}
-        \int_{-\pi}^{\pi}F_n(t)dt=\frac{1}{ n }\sum_{k=0}^{n-1}\sum_{l=-k}^k\underbrace{\int_{-\pi}^{\pi}e_l(t)dt}_{2\pi\delta_l}=\frac{1}{ n }\sum_{k=0}^{n-1}1=1.
-    \end{equation}
-    Cela prouve déjà le premier point.
-
-    Pour le second point, en partant de l'expression \eqref{EqLOtzCf} et en considérant \( x\in\mathopen[ -\pi, \pi ,  \mathclose]\setminus\mathopen[ -\alpha , \alpha \mathclose]\) (ce qui nous évite l'annulation du dénominateur),
-    \begin{equation}
-        | F_n(x) |\leq\frac{1}{ (n+1)\sin^2(\alpha/2) },
-    \end{equation}
-    et donc \( F_n\to 0\) uniformément sur l'ensemble considéré.
-
-    Nous passons maintenant à cette histoire de convergence uniforme de la moyenne de Cesaro vers \( f\). Pour tout \( n\in \eN\) nous avons
-    \begin{subequations}
-        \begin{align}
-            \tilde  D_n(x)&=\frac{1}{ 2\pi }\sum_{k=-n}^n\left( \int_{-\pi}^{\pi}f(t) e^{-ikt}dt \right) e^{ikx}\\
-            &=\frac{1}{ 2\pi }\int_{-\pi}^{\pi}f(t)\sum_{k=-n}^ne_k(x-t)\\
-            &=\frac{1}{ 2\pi }\int_{-\pi}^{\pi}f(t)D_k(x-t).
-        \end{align}
-    \end{subequations}
-    Par conséquent, en effectuant le changement de variable \( u=x-t\) et la périodicité,
-    \begin{subequations}    \label{EqkDsyAc}
-        \begin{align}
-            \tilde F_n(x)&=\int_{-\pi}^{\pi}f(t)F_n(x-t)dt\\
-            &=-\int_{x+\pi}^{x-\pi}f(x-u)F_n(u)du\\
-            &=\int_{-\pi}^{\pi}f(x-u) F_n(u)du.
-        \end{align}
-    \end{subequations}
-    Nous prouvons à présent l'uniforme continuité. Soit \( \epsilon>0\); étant donné que \( f\) est continue et \( 2\pi\)-périodique, elle est uniformément continue et nous considérons \( \delta>0\) tel que \( | x-y |<\delta\) implique \( \big| f(x)-f(y) \big|<\epsilon\). Soit \( M\) un majorant de \( | f |\) sur \( \eR\). L'équation \eqref{EqkDsyAc} nous donne
-    \begin{subequations}
-        \begin{align}
-            \big| f(x)-\tilde F_n(x) \big|&=\big| \frac{1}{ 2\pi }\int_{-\pi}^{\pi}\big( f(x-t)-f(x) \big)F_n(t)dt \big|    \label{ykuGGh}\\
-            &\leq\frac{1}{ 2\pi }\int_{\delta\leq| t |\leq \pi}| 2MF_n(t) |dt+\frac{1}{ 2\pi }\int_{-\delta}^{\delta}\epsilon| F_n(t) |dt\\
-            &\leq\frac{ 2M }{ 2\pi }\int_{\delta\leq | t |\leq\pi}F_n(t)dt+\epsilon'    \label{uRAMyq}
-        \end{align}
-    \end{subequations}
-    Pour obtenir \eqref{ykuGGh} nous avons pu rentrer \( f(x)\) dans l'intégrale en utilisant le premier point. Pour obtenir \eqref{uRAMyq} nous avons d'abord utilisé la positivité de \( F_n\) (lemme \ref{LemtCAjJz}) pour enlever les valeurs absolues, et nous avons ensuite utilisé le fait que son intégrale valait \( 2\pi\).
-
-    Étant donné que \( F_n\to 0\) uniformément sur \( \mathopen[ -\pi,\pi ,  \mathclose]\setminus\mathopen[ -\alpha , \alpha \mathclose]\), il existe un \( N\) tel que 
-    \begin{equation}
-        \int_{\delta\leq| t |\leq \pi}F_n(t)dt\leq \epsilon
-    \end{equation}
-    dès que \( n>N\). Le résultat découle.
-\end{proof}
-
-\begin{corollary}   \label{CordgtXlC}
-    Soient \( f,g\) deux fonctions continues et \( 2\pi\)-périodiques. Si \( c_n(f)=c_n(g)\) alors \( f=g\).
-\end{corollary}
-
-\begin{proof}
-    Dans le cas de fonctions continues, le théorème de Fejér nous enseigne que si nous posons 
-    \begin{equation}
-        S_n(x)=\sum_{k=-n}^{n}c_k(f) e^{ikx}
-    \end{equation}
-    alors nous avons la convergence
-    \begin{equation}
-        \frac{1}{ N+1 }\sum_{n=0}^NS_n(f)(x)\to f(x).
-    \end{equation}
-    C'est à dire qu'une fonction continue est déterminée par ses coefficients de Fourier.
-\end{proof}
-
-\begin{example}
-    Considérons la fonction
-    \begin{equation}
-        f(x)=1-\frac{ x^2 }{ \pi^2 }
-    \end{equation}
-    sur \( \mathopen[ -\pi , \pi \mathclose]\). Nous la développons en série trigonométrique, et étant paire il n'y a pas de sinus. Un calcul montre que
-    \begin{equation}
-        a_0=\frac{ 4 }{ 3 }
-    \end{equation}
-    et
-    \begin{equation}
-        a_n=(-1)^{n+1}\frac{ 4 }{ n^2\pi^2 },
-    \end{equation}
-    de telle sorte que
-    \begin{equation}
-        f(x)=\frac{ 2 }{ 3 }-\frac{ 4 }{ \pi^2 }\sum_{n=1}^{\infty}(-1)^n\frac{ \cos(nx) }{ n^2 }.
-    \end{equation}
-    Nous avons \( f(\pi)=0\), mais vu le développement,
-    \begin{equation}
-        f(\pi)=\frac{ 2 }{ 3 }-\frac{ 4 }{ \pi^2 }\sum_{n=1}^{\infty}\frac{1}{ n^2 },
-    \end{equation}
-    donc
-    \begin{equation}
-        \sum_{n=1}^{\infty}\frac{1}{ n^2 }=\frac{ \pi^2 }{ 6 }.
-    \end{equation}
-\end{example}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Suite équirépartie, critère de Weyl}

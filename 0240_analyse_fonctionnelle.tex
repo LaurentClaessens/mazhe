@@ -1040,15 +1040,40 @@ La définition de la transformée de Fourier de \( \varphi\in\swS(\eR^d)\) est
     En appliquant ce résultat en chaîne, nous trouvons la première formule annoncée.
 
     Nous passons à la seconde formule annoncée. Étant donné que \( \varphi\in\swS\), ses dérivées le sont aussi et par conséquent, il n'y a pas de problèmes pour écrire
-    \begin{equation}
+    \begin{equation}    \label{EqTYizlnia}
         \widehat{\partial_{x_k}\varphi}(\xi)=\int_{\eR^d}\frac{ \partial \varphi }{ \partial x_k }(x) e^{-ix\cdot \xi}dx.
     \end{equation}
     Étant donné que
-    \begin{equation}
-        \frac{ \partial  }{ \partial x_k }
-        %AFAIRE : teminer.
+    \begin{equation}    \label{EqZAeYaCB}
+        \frac{ \partial  }{ \partial x_k }\left( \varphi(x) e^{-ix\cdot\xi} \right)=\frac{ \partial \varphi }{ \partial x_k }(x) e^{-ix\cdot\xi}-i\xi_k\varphi(x) e^{-ix\cdot \xi},
     \end{equation}
-    <++>
+    notre tâche sera de prouver que
+    \begin{equation}    \label{EqVGvYBNK}
+        \int_{\eR^d}\frac{ \partial  }{ \partial x_k }\left( \varphi(x) e^{-ix\cdot \xi} \right)dx=0.
+    \end{equation}
+    Autrement dit, nous voulons montrer que le terme au bord d'une intégration par partie s'annule. D'abord le fait que \( \varphi\) soit à décroissance rapide nous assure que l'intégrale \eqref{EqVGvYBNK} converge. Pour chaque \( \xi\), la fonction
+    \begin{equation}
+        f(x,\xi)=\frac{ \partial x_k }{ \partial  }\left( \varphi(x) e^{-ix\cdot \xi} \right)
+    \end{equation}
+    est intégrable par rapport à \( x\). De plus, \( f\) est dans \( \swS(\eR)\) pour chacune de ses variables (les autres étant fixées). Le théorème de Fubini \ref{ThoFubinioYLtPI} nous permet alors de décomposer l'intégrale en
+    \begin{equation}
+        \int_{\eR^d}f(x,\xi)dx=\int_{\eR}\ldots\int_{\eR} f(x_1,\ldots, x_d)dx_1\ldots dx_d.
+    \end{equation}
+    De plus nous pouvons intégrer dans l'ordre de notre choix et nous choisissons évidemment d'intégrer d'abord par rapport à \( x_k\).  Étudions donc l'intégrale
+    \begin{equation}
+        \int_{\eR}\frac{ \partial  }{ \partial x }\left( \varphi(x) e^{-ix\xi} \right)dx=\lim_{A\to\infty}\int_{-A}^A\frac{ \partial  }{ \partial x }\left( \varphi(x) e^{-ix\xi} \right)dx
+    \end{equation}
+    dans laquelle nous avons un peu allégé les notations. Une primitive de ce qui est intégré est toute trouvée : c'est \( \varphi(x) e^{-ix\xi}\), et nous pouvons utiliser le théorème fondamental du calcul intégral pour écrire que
+    \begin{equation}
+        \int_{-A}^A\left( \varphi(x) e^{-ix\xi} \right)'dx=\left[ \varphi(x) e^{-ix\xi} \right]_{x=-A}^{x=A}.
+    \end{equation}
+    Vu que \( \varphi\) est dans \( \swS\), la limite \( A\to\infty\) donne zéro.
+
+    En substituant maintenant \eqref{EqZAeYaCB} dans \eqref{EqTYizlnia} et en tenant compte du terme que nous venons de montrer s'annuler, nous avons
+    \begin{equation}
+        \widehat{\partial_k\varphi}(\xi)=-i\xi_k\int_{\eR^d}\varphi(x) e^{-ix\cdot \xi}=-i\xi_k\hat\varphi(\xi).
+    \end{equation}
+    En recommençant la procédure \( | \alpha |\) fois nous trouvons la seconde formule annoncée.
 \end{proof}
 
 
@@ -1059,6 +1084,34 @@ La définition de la transformée de Fourier de \( \varphi\in\swS(\eR^d)\) est
     \end{equation}
     est linéaire et continue.
 \end{proposition}
+
+\begin{proof}
+    La linéarité découle de celle de l'intégrale. La difficulté est de prouver que pour \( \varphi\in\swS(\eR^d)\) nous avons bien que \( \hat\varphi\in\swS(\eR^d)\) et que cette association est continue\footnote{Pour rappel, en dimension infinie, il n'est pas garanti qu'une application linéaire soit continue.}.
+    \begin{subproof}
+        \item[Stabilité]
+            Nous devons prouver que pour tout multiindices \( \alpha\) et \( \beta\), nous avons \( p_{\alpha,\beta}(\hat\varphi)<\infty\). Nous avons
+            \begin{equation}
+                \xi^{\beta}\partial^{\alpha}\hat\varphi(\xi)=\xi^{\beta}(-i)^{| \alpha |}\widehat{M_{\alpha}\varphi}(\xi)=(-i)^{| \alpha |+| \beta |}\widehat{\partial^{\beta}M_{\alpha}\varphi}(\xi).
+            \end{equation}
+            Ensuite nous nous souvenons que \( \| \hat f \|_{\infty}\leq \| f \|_1\) parce que
+            \begin{equation}
+                | \hat f(\xi) |\leq\int_{\eR^d}\big| f(x) e^{-ix\cdot \xi} \big|=\int_{\eR^d}| f(x) |dx=\| f \|_1.
+            \end{equation}
+            Donc 
+            \begin{equation}
+                p_{\alpha,\beta}(\hat\varphi)=\| \widehat{\partial^{\beta}M_{\alpha}\varphi} \|_{\infty}\leq \| \partial^{\beta}M_{\alpha}\varphi \|_1.
+            \end{equation}
+            Du fait que \( \varphi\) soit dans \( \swS\), la dernière expression est finie. Cela prouve déjà que
+            \begin{equation}
+                \TF\big( \swS(\eR^d) \big)\subset\swS(\eR^d).
+            \end{equation}
+            
+        \item[Continuité]
+
+            Nous supposons avoir une suite \( \varphi_n\stackrel{\swS}{\to}\varphi\), et nous devons prouver que \( \hat\varphi_n\stackrel{\swS}{\to}\hat\varphi\).
+    \end{subproof}
+    <++>
+\end{proof}
 <++>
 
 
@@ -1068,5 +1121,4 @@ La définition de la transformée de Fourier de \( \varphi\in\swS(\eR^d)\) est
         f(x)=\frac{1}{ (2\pi)^n }\int_{\eR^n}\hat f(\xi) e^{ix\cdot \xi}d\xi.
     \end{equation}
 \end{theorem}
-%TODO : à préciser.
-
+%TODO : à préciser
