@@ -62,9 +62,28 @@ Nous introduisons l'opération
 \begin{equation}
     \| f \|_p=\left( \int_{\Omega}| f(x) |^pd\mu(x) \right)^{1/p}
 \end{equation}
-et nous notons \( \mL^p(\Omega,\mu)\)\nomenclature[Y]{\( \mL^p\)}{espace de Lebesgue, sans les classes} l'ensemble des fonctions sur \( \Omega\) telles que \( \| f \|_p<\infty\).
+et nous notons \( \mL^p(\Omega,\mu)\)\nomenclature[Y]{\( \mL^p\)}{espace de Lebesgue, sans les classes} l'ensemble des fonctions mesurables sur \( \Omega\) telles que \( \| f \|_p<\infty\).
 
-    Cela n'est pas une norme sur \( \mL^p\) parce que pour \( f\) presque partout nulle, nous avons \( | f |_p=0\). Il y a donc des fonctions non nulles sur lesquelles \( \| . \|_p\) s'annule.
+\begin{lemma}
+    L'ensemble \( \mL^p\) est un espace vectoriel.
+\end{lemma}
+
+\begin{lemma}
+    Le fait que si \( f\in L^p\), alors \( \lambda f\in L^p\) est évident. Ce qui est moins immédiat, c'est le fait que \( f+g\in L^p\) lorsque \( f\) et \( g\) sont dans \( L^p\). 
+\end{lemma}
+    
+\begin{proof}
+    Cela découle du fait que la fonction \( \varphi\colon x\mapsto x^p\) est convexe, de telle sorte que
+    \begin{equation}
+        \varphi\left( \frac{ a+b }{2} \right)\leq\frac{ \varphi(a)+\varphi(b) }{2},
+    \end{equation}
+    ou encore
+    \begin{equation}    \label{EqZFSduFa}
+        (a+b)^p\leq 2^{p-1}(a^p+b^p)
+    \end{equation}
+\end{proof}
+
+    L'opération \( f\mapsto \| f \|_p\) n'est pas une norme sur \( \mL^p\) parce que pour \( f\) presque partout nulle, nous avons \( | f |_p=0\). Il y a donc des fonctions non nulles sur lesquelles \( \| . \|_p\) s'annule.
 
 \begin{lemma}       \label{LemKZVHVAR}
     Si \( f\in \mL^p(\Omega)\) et \( f\sim g\), alors \( g\in \mL^p(\Omega)\) et \( \| f \|_p=\| g \|_p\).
@@ -141,6 +160,25 @@ Est-ce qu'on peut faire mieux que la convergence ponctuelle presque partout d'un
 
     Vu que les fonctions du paquet numéro \( k\) ont pour norme \( \| f \|_p=\frac{1}{ k }\), nous avons évidemment \( f_n\to 0\) dans \( L^p\). Il est par contre visible que chaque paquet passe en revue tous les points de \( \mathopen[ 0 , 1 \mathclose]\). Donc pour tout \( x\) et pour tout \( N\), il existe (même une infinité) \( n>N\) tel que \( f_n(x)=1\). Il n'y a donc convergence ponctuelle nulle part.
 \end{example}
+
+La proposition suivante est une espèce de convergence dominée de Lebesgue pour \( L^p\).
+\begin{proposition} \label{PropBVHXycL}
+    Soit \( f\in L^p(\Omega)\) avec \( 1\leq p<\infty\) et \( (f_n)\) une suite de fonctions convergeant ponctuellement vers \( f\) et telle que \( | f_n |\leq | f |\). Alors \( f_n\) converge vers \( f\) au sens de \( L^p\).
+\end{proposition}
+
+\begin{proof}
+    Nous avons immédiatement \( | f_n(x) |^p\leq | f(x) |^p\), de telle sorte que le théorème de la convergence dominée implique que \( f_n\in L^p\). La convergence dominée donne aussi que \( \| f_n \|_p\to\| f \|_p\), mais cela ne nous intéresse pas ici.
+
+    Nous posons \( h_n(x)= | f_n(x)-f(x) | \). En reprenant la formule de majoration \eqref{EqZFSduFa} et en tenant compte du fait que \( | f_n(x) |\leq | f(x) |\), nous avons
+   \begin{equation}
+       h_n(x)\leq 2^{p-1}\big( | f_n(x) |^p+| f(x) |^p \big)\leq 2^p| f(x) |^p,
+   \end{equation}
+   ce qui prouve que \( | h_n |\) est uniformément (en \( n\)) majorée par une fonction intégrable, donc \( h_n\) est intégrable et on peut permuter la limite et l'intégrale (théorème de la convergence dominée \ref{ThoConvDomLebVdhsTf}) :
+   \begin{equation}
+       \lim_{n\to \infty} \| f_n-f \|^p_p=\lim_{n\to \infty} \int_{\eR^d}| f_n(x)-f(x) |^pdx=\int_{\eR^d}\lim_{n\to \infty} h_n(x)dx=0.
+   \end{equation}
+
+\end{proof}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Inégalité de Hölder et de Minkowski}
@@ -435,12 +473,131 @@ Dans le théorème suivant, \( E'\) est le dual topologique, c'est à dire l'esp
     En passant à la limite, nous voyons que \( \Phi_f\) est la forme nulle. Elle est donc égale à \( \Phi_0\). La partie «unicité» du théorème de représentation de Riesz \ref{ThoSCiPRpq} nous indique alors que \( f=0\) dans \( L^p\) et donc \( f=0\) presque partout.
 \end{proof}
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Densité des fonctions infiniment dérivables à support compact}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Une fonction est \defe{étagée par rapport à \( L^p\)}{fonction!étagée} si elle est de la forme
+    \begin{equation}
+        f=\sum_{k=1}^Nc_k\mtu_{B_k}
+    \end{equation}
+    où les \( B_k\) sont des mesurables disjoints et \( \mtu_{B_k}\in L^p\) pour tout \( k\).
+\end{definition}
+
+\begin{lemma}   \label{LemWHIRdaX}
+    Si \( f\) est une fonction étagée en même temps qu'être dans \( L^p\), alors elle est étagée par rapport à \( L^p\).
+\end{lemma}
+
+\begin{proof}
+    Nous pouvons écrire
+    \begin{equation}
+        f=\sum_{k=1}^Nc_k\mtu_{B_k}
+    \end{equation}
+    où les \( B_k\) sont disjoints. Par hypothèse \( \| f \|_p\) existe. Donc chacune des intégrales \( \int_{\Omega}| \mtu_{B_k} |^p\) doit exister parce que les \( B_k\) étant disjoints, nous pouvons inverser la norme et la somme ainsi que la somme et l'intégrale :
+    \begin{equation}
+        \int_{\Omega}|f|^p=\int_{\Omega}\sum_{k=1}^N| c_k\mtu_{B_k}(x) |^pdx=\sum_{k=1}^N\int| c_k\mtu_{B_k}(x) |^pdx=\sum_{k=1}^N| c_k |^p\int_{\Omega}| \mtu_{B_k}(x) |^pdx.
+    \end{equation}
+\end{proof}
+Le contraire n'est pas vrai : la fonction étagée sur \( \eR\) qui vaut \( n\) sur \( B(n,\frac{1}{ 4 })\) est étagée par rapport à \( L^p\), mais n'est pas dans \( L^p\).
+
+\begin{theorem}[\cite{TUEWwUN}] \label{ThoILGYXhX}
+    Nous avons des densités emboitées. Ici \( D\) est un borélien borné de \( \eR^d\) contenu dans \( B(0,r)\) et \( K\) est un compact contenant \( B(0,r+2)\).
+    \begin{enumerate}
+        \item
+            Les fonctions étagées par rapport à \( L^p\) sur \( \eR^d\) sont denses dans \( L^p(\eR^d)\). A fortiori les fonctions étagées sont denses dans \( L^p\), mais nous n'en aurons pas besoin ici.
+        \item\label{ItemYVFVrOIii}
+            Il existe une suite \( f_n\) dans \(  C(K,\eC)\) telle que 
+            \begin{equation}
+                f_n\stackrel{L^p}{\to}\mtu_{D}.
+            \end{equation}
+        \item\label{ItemYVFVrOIiii}
+            Si \( A\) est un borélien tel que \( \mtu_A\in L^p(\eR^d)\)\quext{Je pense que cette hypothèse manque dans \cite{TUEWwUN}. En tout cas je vois mal comment il fait si on prend \( A=\eR^d\).} et si \( \epsilon>0\), alors il existe une suite de boréliens bornée \( (D_n)_{n\in \eN}\) tels que
+            \begin{equation}
+                \mtu_{D_n}\stackrel{L^p}{\to}\mtu_A.
+            \end{equation}
+        \item\label{ItemYVFVrOIiv}
+            Il existe une suite \( \varphi_n\) dans \(  C^{\infty}_c(\eR^d)\) telle que 
+            \begin{equation}
+                \varphi_n\stackrel{L^p}{\to}\mtu_{D}.
+            \end{equation}
+
+        \item
+            L'ensemble \( C^{\infty}_c(\eR^d)\) est dense dans \( L^p(\eR^d)\) pour tout \( 1\leq p<\infty\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+   Nous allons montrer les choses point par point.
+   \begin{enumerate}
+       \item
+           Si \( f\in L^1(\eR^d)\), nous savons par la proposition \ref{PropUXjnwLf} qu'il existe une suite \( f_n\) de fonctions étagées convergeant ponctuellement vers \( f\) telle que \( | f_n |\leq | f |\). La proposition \ref{PropBVHXycL} nous dit qu'alors \( f_n\stackrel{L^p}{\to}f\).
+
+           La fonction \( f_n\) étant étagée et dans \( L^p\) en même temps, elle est automatiquement étagée par rapport à \( L^p\) par le lemme \ref{LemWHIRdaX}.
+
+       \item\label{ItemYVFVrOIi}
+
+           C'est le théorème d'approximation \ref{ThoAFXXcVa} appliqué au borélien \( D\) contenu dans l'espace mesuré \( K\).
+
+       \item
+            
+           En vertu du point \ref{ItemYVFVrOIii}, il existe \( f\in C^0(K,\eR)\) telle que 
+           \begin{equation}
+             \| f-\mtu_D \|_p\leq \epsilon. 
+           \end{equation}
+           Ensuite, par le théorème de Weierstrass, il existe \( \varphi\in C^{\infty}(K,\eR)\) telle que \( \| f-\varphi \|_{\infty}\leq \epsilon\). Nous avons aussi
+           \begin{equation}
+               \| \varphi-f \|^p_p=\int_K| \varphi(x)-f(x) |^pdx\leq\mu(X)\| \varphi-f \|_{\infty}^p\leq \epsilon^p\mu(K).
+           \end{equation}
+           Quitte à prendre un \( \varphi\) correspondant à un \( \epsilon\) plus petit, nous avons
+           \begin{equation}
+               \| \varphi-f \|\leq \epsilon.
+           \end{equation}
+           En combinant et en passant à \( \epsilon/2\) nous avons trouvé une fonction \( \varphi\in  C^{\infty}(K,\eR)\) telle que
+           \begin{equation}
+               \| \varphi-\mtu_D \|\leq \epsilon.
+           \end{equation}
+
+       \item
+
+           Nous considérons les boréliens fermés \( D_n=A\cap B(0,n)\). Alors \( \mtu_{D_n}\in L^p\) et nous avons pour \( n\) assez grand :
+           \begin{equation}
+               \int_{\eR^d}| \mtu_{D_n}(x)-\mtu_{A}(x) |^pdx=\int_{\eR^d\setminus B(0,n)}| \mtu_A(x) |^p<\epsilon,
+           \end{equation}
+           c'est à dire que \( \mtu_{D_n}\stackrel{L^p}{\to}\mtu_A\).
+
+       \item
+
+           Il suffit de remettre tout ensemble. Si \( f\in L^p(\eR^d)\), par le point \ref{ItemYVFVrOIi} nous commençons par prendre \( \sigma\) étagée par rapport à \( L^p\) telle que
+           \begin{equation}
+               \| \sigma-f \|_p\leq\epsilon.
+           \end{equation}
+           Ensuite nous écrivons \( \sigma\) sous la forme
+           \begin{equation}
+               \sigma=\sum_{k=1}^Nc_k\mtu_{B_k}
+           \end{equation}
+           et nous appliquons le point \ref{ItemYVFVrOIiii} à chacune des \( \mtu_{B_k}\) pour trouver des boréliens bornés \( D_k\) tels que
+           \begin{equation}
+               \| \mtu_{D_k}-\mtu_{B_k} \|_p\leq \epsilon.
+           \end{equation}
+           Enfin nous appliquons le point \ref{ItemYVFVrOIiv} pour trouver des fonctions \( \varphi_k\in C^{\infty}_c(\eR^d)\) telles que
+           \begin{equation}
+               \| \varphi_k-\mtu_{D_k} \|_p\leq \epsilon.
+           \end{equation}
+           
+           Il n'est pas compliqué de calculer que
+           \begin{equation}
+               \big\| \sum_{k=1}^Nc_k\varphi_k-f \big\|_p\leq 2\epsilon\sum_kc_k+\epsilon.
+           \end{equation}
+        
+   \end{enumerate}
+\end{proof}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{L'espace \texorpdfstring{$L^2$}{$L^2$}}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \label{SecCKZSrZK}
 
-L'espace \( L^2\) est l'espace \( L^p\) définit à la section \ref{SecVKiVIQK} avec \( p=2\). Cependant il possède une propriété extraordinaire par rapport aux autres \( L^p\), c'est que la norme \( | . |_2\) dérive d'un produit scalaire. Il sera donc un espace de Hilbert.
+L'espace \( L^2\) est l'espace \( L^p\) définit à la section \ref{SecVKiVIQK} avec \( p=2\). Cependant il possède une propriété extraordinaire\footnote{Tant et si bien que certains n'hésitent pas à définir le nombre \( 2\) comme étant l'unique \( p\) tel que \( L^p\) est un Hilbert.} par rapport aux autres \( L^p\), c'est que la norme \( | . |_2\) dérive d'un produit scalaire. Il sera donc un espace de Hilbert.
 
 Soit \( (\Omega,\tribA,\mu)\) un espace mesuré. Nous considérons l'opération
 \begin{equation}    \label{DefProdScalLubrgTj}
