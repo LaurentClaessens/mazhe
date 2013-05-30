@@ -209,16 +209,32 @@ La proposition suivante est une espèce de convergence dominée de Lebesgue pour
     Si \( I\) n'est pas borné, nous refaisons le même raisonnement sur un compact \( K\) de \( I\).
 \end{proof}
 
-\begin{proposition}[Inégalité de Minkowski]     \label{PropInegMinkKUpRHg}
+\begin{proposition}[Inégalité de Minkowski\cite{TUEWwUN}]     \label{PropInegMinkKUpRHg}
     Si \( 1\leq p<\infty\) et si \( f,g\in L^p(\Omega,\tribA,\mu)\) alors
     \begin{enumerate}
-        \item
-            \( \| f+g \|_p\leq \| f \|_p+\| g_p \|\)
+        \item   \label{ItemDHukLJi}
+            \( \| f+g \|_p\leq \| f \|_p+\| g \|_p\)
         \item
             Il y a égalité si et seulement si les vecteurs \( f(x)\) et \( g(x)\) sont presque partout colinéaires : il existe \( \alpha,\beta\) tels que \( \alpha f+\beta g=0\) presque partout.
+
+        \item   \label{ItemDHukLJiii}
+
+            Si \( f(x,y)\) est mesurable sur l'espace produit \( \big( X\times Y,\mu\otimes\nu \big)\) et si \( p\geq 1\), alors
+            \begin{equation}
+                \left\|   x\mapsto\int_Y f(x,y)d\nu(y)   \right\|_p\leq
+                \int_Y  \| f_y \|_pd\nu(y)
+            \end{equation}
+            où \( f_y(x)=f(x,y)\).
+
     \end{enumerate}
 \end{proposition}
+\index{inégalité!Minkowski}
 %TODO : une preuve.
+
+La partie \ref{ItemDHukLJiii} est une généralisation de l'inégalité triangulaire (c'est à dire du point \ref{ItemDHukLJi}) dans le cas où nous n'avons pas une somme de deux fonctions mais d'une infinité paramétrée par \( y\in Y\). Elle sera le plus souvent utilisée sous la forme déballée :
+\begin{equation}    \label{EqZSiTZrH}
+    \left[ \int_X\Big( \int_Y| f(x,y) |d\nu(y) \Big)^pd\mu(x) \right]^{1/p}\leq \int_Y\Big( \int_X| f(x,y) |^pd\mu(x) \Big)^{1/p}d\nu(y).
+\end{equation}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Complétude}
@@ -592,6 +608,109 @@ Le contraire n'est pas vrai : la fonction étagée sur \( \eR\) qui vaut \( n\) 
         
    \end{enumerate}
 \end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Approximation de l'unité}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous considérons \( \Omega=\eR^d\) ou \( (S^1)^d\).
+
+\begin{definition}
+    Une \defe{approximation de l'unité}{approximation!de l'unité} sur \( \Omega\) est une suite \( (\varphi_n)\) dans \( L^1(\Omega)\) telle que
+    \begin{subequations}
+        \begin{align}
+            \sup_k \| \varphi_k \|_1 <\infty\\
+            \int_{\Omega}\varphi_n=1\\
+            \lim_{k\to \infty} \int_{\Omega\setminus B(0,\alpha)}| \varphi_k |=0
+        \end{align}
+    \end{subequations}
+    pour tout \( n\) et pour tout \( \alpha>0\).
+\end{definition}
+Ce sont des fonctions dont la masse vient s'accumuler autour de zéro. En effet quel que soit le voisinage \( B(0,\alpha)\), si \( k\) est assez grand, il n'y a presque plus rien en dehors.
+
+%TODO : voir si ça n'approxime pas un delta de Dirac d'une façon ou d'une autre.
+
+\begin{theorem}[\cite{TUEWwUN}]
+    Soit \( (\varphi_k)\) une approximation de l'unité sur \( \Omega=\eR^d\) ou \( (S^1)^d\).
+    \begin{enumerate}
+        \item
+            Si \( g\) est mesurable et bornée sur \( \Omega\) et si \( g\) est continue en \( x_0\) alors 
+            \begin{equation}
+                (\varphi_k*g)(x_0)\to g(x_0).
+            \end{equation}
+        \item
+            Si \( g\in L^p(\Omega)\) (\( 1\leq p<\infty\)) alors
+            \begin{equation}
+                \varphi_k*g\stackrel{L^p}{\to}g.
+            \end{equation}
+        \item
+            Si \( g\) est uniformément continue et bornée, alors
+            \begin{equation}
+                \varphi_k*g\stackrel{L^{\infty}}{\to}g
+            \end{equation}
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Les trois points vont se ressembler.
+    \begin{enumerate}
+        \item
+            Nous notons \( d_k=(\varphi_k*g)(x_0)-g(x_0)\) et nous devons prouver que \( d_k\to 0\). Vu que \( \varphi_k\) est d'intégrale \( 1\) sur \( \Omega\) nous pouvons écrire
+            \begin{equation}
+                |d_k|=\big| \int_{\Omega}\big( g(x_0-y)-g(x_0) \big)\varphi_k(y)dy\big|\leq\int_{\Omega}\big| g(x_0-y)-g(x_0) \big| |\varphi_k(y) |dy. 
+            \end{equation}
+            Nous notons \( M=\sup_k\| \varphi_k \|_1\), et nous considérons \( \alpha>0\) tel que
+            \begin{equation}
+                \big| g(x_0-y)-g(x_0) \big|\leq \epsilon.
+            \end{equation}
+            Nous nous restreignons maintenant aux \( k\) suffisamment grands pour que \( \int_{\complement B(0,\alpha)}| \varphi_k(y) |dy\leq \epsilon\). Alors en découpant l'intégrale en \( B(0,\alpha)\) et son complémentaire dans \( \Omega\),
+            \begin{equation}
+                | d_k |\leq \epsilon M+\int_{\complement B(0,\alpha)} 2\| g \|_{\infty}| \varphi_k(y) |dy  \leq \epsilon M+2\| g \|_{\infty}\epsilon\leq \epsilon C.
+            \end{equation}
+            Donc oui, nous avons \( | d_k |\to 0\), et donc le premier point du théorème.
+
+        \item
+
+            Nous posons \( d_k(x)=(\varphi_k*g)(x)-g(x)\) et nous voulons prouver que \( \| d_k \|_{\infty}\to 0\), c'est à dire que \( d_k(x)\) converge vers zéro uniformément en \( x\). Nous posons aussi 
+            \begin{equation}
+                \tau_y(g)\colon x\mapsto g(x-y).
+            \end{equation}
+            En récrivant le produit de convolution, une petite majoration donne
+            \begin{equation}
+                | d_k(x) |\leq \int_{\Omega}\| \tau_y(g)-g \|_{\infty}| \varphi_k(y) |dy.
+            \end{equation}
+            L'uniforme continuité de \( g\) signifie que pour tout \( \epsilon\), il existe un \( \alpha\) tel que pour tout \( y\in B(0,\alpha)\),
+            \begin{equation}
+                \| \tau_y(g)-g \|_{\infty}\leq \epsilon.
+            \end{equation}
+            Encore une fois nous découpons le domaine d'intégration en \( B=B(0,\alpha)\) et son complémentaire :
+            \begin{subequations}
+                \begin{align}
+                    \| d_k \|_{\infty}&\leq\int_B\underbrace{\| \tau_y(g)-g \|_{\infty}}_{\leq \epsilon}| \varphi_k(y) |dy+\int_{\complement B}\underbrace{\| \tau_y(g)-g \|_{\infty}}_{\leq 2\| g \|_{\infty}}| \varphi_k(y) |\\
+                    &\leq \epsilon M+2\| g \|_{\infty}\epsilon
+                \end{align}
+            \end{subequations}
+            où la seconde ligne est justifiée par le choix d'un \( k\) assez grand pour que \( \int_{\complement B}| \varphi_k(y) |dy\leq \epsilon\).
+
+            Nous avons donc bien \( \| d_k \|_{\infty}\to 0\).
+
+        \item
+
+            Cette fois \( g\in L^p(\Omega)\) et nous cherchons à montrer que \( \| d_k \|_p\to 0\). Encore qu'ici \( d_k\) soit défini à partir d'un représentant dans la classe de \( g\) et que d'ailleurs, nous allons travailler avec ce représentant.
+
+            D'abord nous développons un peu ce \( d_k\) :
+            \begin{subequations}
+                \begin{align}
+                \| d_k \|_p&=\left[ \int_{\Omega}\left|     \int_{\Omega}\big( g(x-y)-g(x) \big)\varphi_k(y)dy  \right|^pdx \right]^{1/p}\\
+                &\leq\left[    \int_{\Omega}\Big( \int_{\Omega}| g(x-y)-g(x) |\cdot |\varphi_k(y) |dy \Big)^pdx \right]^{1/p}.
+                \end{align}
+            \end{subequations}
+            À cette dernière expression nous appliquons l'inégalité de Minkowski (théorème \ref{PropInegMinkKUpRHg}) sous la forme \eqref{EqZSiTZrH} pour la norme \( d\nu(y)=| \varphi_k(y) |dy\) et \( f(x,y)=g(x-y)-g(x)\) :
+    \end{enumerate}
+    <++>
+\end{proof}
+<++>
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{L'espace \texorpdfstring{$L^2$}{$L^2$}}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
