@@ -796,7 +796,7 @@ La notion de rayon de convergence de cette série reste la même : c'est la déf
     La série du membre de droite converge parce que c'est une série géométrique de raison plus petite que \( 1\); voir l'exemple \ref{exemplesseries}.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition} \label{PropAMBXKgV}
     Soit \( (a_n)\) une suite dans \( \eC\) de rayon de convergence \( R\) et la fonction
     \begin{equation}
         \begin{aligned}
@@ -862,11 +862,9 @@ Notons que \( df_A\) n'est pas tout à fait une série entière. Cependant, en c
     et convergence vers \( df_A\) par le théorème \ref{ThoLDpRmXQ}.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition} \label{PropQIIURAh}
     Si le rayon de convergence de la série \( u(A)=\sum_{k=0}^{\infty}a_kA^k\) est \( R\), alors 
     \begin{enumerate}
-        \item
-            la somme converge absolument sur \( B(0,R)\);
         \item
             elle converge normalement sur tout compact de \( B(0,R)\);
         \item
@@ -882,11 +880,208 @@ Notons que \( df_A\) n'est pas tout à fait une série entière. Cependant, en c
             A&\mapsto a_kA^k 
         \end{aligned}
     \end{equation}
-    qui est évidemment une fonction de classe \(  C^{\infty}\). Sa \( j\Ieme\) différentielle en \( m\) appliquée à \( v_1\) appliquée à \( v_2\), etc s'exprime de la façon suivante :
+    qui est évidemment une fonction de classe \(  C^{\infty}\). Nous étudions la \( j\Ieme\) différentielle en \( m\), pour \( k>j\) (dans une série, nous ne nous intéressons pas aux premiers termes). La \( j\Ieme\) différentielle appliquée à \( v_1\) appliquée à \( v_2\), etc s'exprime de la façon suivante :
     \begin{equation}
         (d^ju_k)_m(v_1,\ldots, v_j)=\frac{ d  }{ d t_1 }\ldots\frac{ d  }{ d t_j }\Big( u_k(m+t_1v_1+\ldots +t_jv_j)    \Big)_{t_i=0}.
     \end{equation}
-    Dans le produit \( (m+t_1v_1+\ldots +t_jv_j)^k\), seuls les termes contenant exactement une fois chacun des \( t_i\) ne s'annulera pas après avoir fait la dérivée et évalué en \( t_i=0\). Combien de termes cela fait ? Il y a \( \binom{ k }{ j }\) façons de placer les \( j\) 
+    Dans le produit \( (m+t_1v_1+\ldots +t_jv_j)^k\), seuls les termes contenant exactement une fois chacun des \( t_i\) ne s'annulera pas après avoir fait la dérivée et évalué en \( t_i=0\). Combien de termes cela fait ? Parmi les \( k\) facteurs, il faut en placer \( j\) qui ne sont pas \( m\) (cela fait \( \binom{ k }{ j }\) possibilités), et puis il faut ordonner ces \( j\) termes, cela fait encore \( j!\) possibilités. Au final,
+    \begin{equation}
+        \| (d^ju_k)_m \|\leq | a_k | \binom{ k }{ j }j!\| m \|^{k-j}=| a_k |P(k)\| m \|^{k-j}
+    \end{equation}
+    où \( P(k)=\frac{ k! }{ (k-j)! }\) est un polynôme de degré \( j\).
+
+    Afin d'étudier la convergence normale sur tout compact de la série des \( d^ju_k\), nous considérons \( r<r_0<R\) et nous allons prouver la convergence normale sur \( \overline{ B(0,r) }\). Vu que c'est un compact, il existe une matrice \( m_k\in\overline{ B(0,r) }\) telle que
+    \begin{subequations}
+        \begin{align}
+            \| d^ju_k \|_{\infty}&=\| (d^ju_k)_{m_k} \|\\
+            &\leq | a_k |P(k)\| m_k \|^{k-j}\\
+            &\leq | a_k |P(k)r^{k-j}\\
+            &=\frac{ | a_k |P(k) }{ r^j }r^k\\
+            &=\frac{ | a_k |r_0^kP(k) }{ r^j }\left( \frac{ r }{ r_0 } \right)^k\\
+            &\leq \frac{ M }{ r^j }P(k)\left( \frac{ r }{ r_0 } \right)^k
+        \end{align}
+    \end{subequations}
+    où \( M\) est un majorant de \( a_nr^n\). Vu que \( r_0/r<1\), la somme sur \( k\) converge et nous avons convergence normale sur tout compact de
+    \begin{equation}
+        d^j\sum_{k=0}^{\infty}a_kA^k=\sum_{k=0}^{\infty}d^j(a_kA^k)
+    \end{equation}
+    avec un peu d'abus de notation.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Exponentielle et logarithme de matrice}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{subsecXNcaQfZ}
+
+\begin{proposition} \label{PropXFfOiOb}
+    L'application
+    \begin{equation}
+        \begin{aligned}
+            \exp\colon \eM(n,\eR)&\to \eM(n,\eR) \\
+            A&\mapsto \sum_{k=0}^{\infty}\frac{ A^k }{ k! } 
+        \end{aligned}
+    \end{equation}
+    est une application de classe \(  C^{\infty}\). Sa différentielle en zéro est l'identité : \( d\exp_0=\id\).
+\end{proposition}
+
+\begin{proof}
+    En ce qui concerne la continuité, nous savons que le rayon de convergence de la suite \( \frac{1}{ k! }\) est infini; la proposition \ref{PropQIIURAh} conclu.
+
+    Pour la différentielle, c'est la proposition \ref{PropAMBXKgV} qui nous permet d'écrire
+    \begin{equation}
+        d\exp_0(U)=\Dsdd{ \exp(tU) }{t}{0}=\Dsdd{ \sum_{k=0}^{\infty}\frac{ t^kU^k }{ k! } }{t}{0}=\left. \sum_{k=0}^{\infty}\frac{ kt^{k-1}U^k }{ k! }\right|_{t=0}=U
+    \end{equation}
+    parce que seul le terme \( k=1\) n'est pas nul.
+\end{proof}
+
+Nous avons vu par la proposition \ref{PropKKdmnkD} que toute matrice complexe inversible a un logarithme. Nous allons maintenant parler de logarithme de matrices réelles avec une condition sur la norme. La formule ci-dessous montre explicitement que le logarithme est réel.
+\begin{equation}
+    \begin{aligned}
+        \ln\colon \{ A\in \eM(n,\eR)\tq \| A-\mtu \| <1 \}&\to \eM(n,\eR) \\
+        A&\mapsto \sum_{k=0}^{\infty}(-1)^k\frac{ (A-\mtu)^{k+1} }{ k+1 }. 
+    \end{aligned}
+\end{equation}
+
+
+\begin{lemma}   \label{LemQZIQxaB}
+    Si \( \| m \|<1\) dans \( \eM(n,\eR)\), alors nous posons
+    \begin{equation}    \label{EqIKgMabb}
+        \ln(\mtu+m)=\sum_{k=0}^{\infty}(-1)^k\frac{ m^{k+1} }{ k+1 }.
+    \end{equation}
+    Cette fonction a les propriétés suivantes.
+    \begin{enumerate}
+        \item
+            Elle est de classe \(  C^{\infty}\).        
+        \item
+            Elle est un bon logarithme au sens où
+            \begin{equation}
+                e^{\ln(\mtu+m)}=\mtu+m.
+            \end{equation}
+        \item
+            Elle vérifie l'approximation
+            \begin{equation}
+                \ln(1+m)=m+\sigma(m)
+            \end{equation}
+            où \( \sigma\) a la propriété que
+            \begin{equation}
+                \lim_{k\to \infty} k\sigma\left( \frac{ m }{ k } \right)=0.
+            \end{equation}
+    \end{enumerate}
+\end{lemma}
+%TODO : le reste de la preuve, en particulier le point avec l'exponentielle.
+
+\begin{proof}
+    
+    Le rayon de convergence de la suite \( a_k=\frac{ (-1)^k }{ k+1 }\) est \( 1\). Donc l'application donnée est \(  C^{\infty}\) sur \( B(0,1)\) par le théorème \ref{PropQIIURAh}.
+
+    D'après la formule \eqref{EqIKgMabb} nous avons
+    \begin{equation}
+        \sigma(m)=\sum_{l=1}^{\infty}(-1)^l\frac{ m^{l+1} }{ l+1 }.
+    \end{equation}
+    Nous avons alors
+    \begin{equation}
+        k\sigma(\frac{ m }{ k })=\sum_{l=1}^{\infty}(-1)^l\frac{ m^{l+1} }{ k^l(l+1) },
+    \end{equation}
+    et donc
+    \begin{equation}
+        \| k\sigma(\frac{ m }{ k }) \|\leq \sum_{l=1}^{\infty}\frac{ \| m \|^{l+1} }{ k^l(l+1) }\leq\frac{1}{ k }\sum_{l=1}^{\infty}\frac{ \| m \|^{l+1} }{ l+1 }\stackrel{k\to\infty}{\to} 0
+    \end{equation}
+    Cela prouve la dernière assertion.   
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Théorème de Von Neumann}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}[\cite{KXjFWKA}]
+    Soit \( G\), un sous groupe fermé de \( \GL(n,\eR)\) et 
+    \begin{equation}
+        \mL_G=\{ m\in \eM(n,\eR)\tq  e^{tm}\in G\,\forall t\in\eR \}.
+    \end{equation}
+    Alors \( \mL_G\) est un sous-espace vectoriel de \( \eM(n,\eR)\).
+\end{lemma}
+
+\begin{proof}
+    Si \( m\in\mL_G\), alors \( \lambda m\in\mL_G\) par construction. Le point délicat à prouver est le fait que si \( a,b\in \mL_G\), alors \( a+b\in\mL_G\). Soit \( a\in \eM(n,\eR)\); nous savons qu'il existe une fonction \( \alpha_a\colon \eR\to \eM\) telle que
+    \begin{equation}
+        e^{ta}=\mtu+ta+\alpha_a(t)
+    \end{equation}
+    et 
+    \begin{equation}
+        \lim_{t\to 0} \frac{ \alpha(t) }{ t }=0.
+    \end{equation}
+    Si \( a\) et \( b\) sont dans \( \mL_G\), alors \(  e^{ta} e^{tb}\in G\), mais il n'est pas vrai en général que cela soit égal à \(  e^{t(a+b)}\). Pour tout \( k\in \eN\) nous avons
+    \begin{equation}
+        e^{a/k} e^{b/k}=\left( \mtu+\frac{ a }{ k }+\alpha_a(\frac{1}{ k }) \right)\left( \mtu+\frac{ b }{ k }+\alpha_b(\frac{1}{ k }) \right)=\mtu+\frac{ a+b }{2}+\beta\left( \frac{1}{ k } \right)
+    \end{equation}
+   où \( \beta\colon \eR\to \eM\) est encore une fonction vérifiant \( \beta(t)/t\to 0\). Si \( k\) est assez grand, nous avons
+   \begin{equation}
+       \left\| \frac{ a+b }{ k }+\beta(\frac{1}{ k })  \right\|<1,
+   \end{equation}
+   et nous pouvons profiter du lemme \ref{LemQZIQxaB} pour écrire alors
+   \begin{equation}
+       \left(  e^{a/k} e^{b/k} \right)^k= e^{k\ln\big(\mtu+\frac{ a+b }{ k }+\beta(\frac{1}{ k })\big)}.
+   \end{equation}
+   Ce qui se trouve dans l'exponentielle est
+   \begin{equation}
+       k\left[ \frac{ a+b }{ k }+\alpha( \frac{1}{ k })+\sigma\left( \frac{ a+b }{ k }+\alpha(\frac{1}{ k }) \right) \right].
+   \end{equation}
+   Les diverses propriétés vues montrent que le tout tend vers \( a+b\) lorsque \( k\to \infty\). Par conséquent
+   \begin{equation}
+       \lim_{k\to \infty} \left(  e^{a/k} e^{b/k} \right)^k= e^{a+b}.
+   \end{equation}
+   Ce que nous avons prouvé est que pour tout \( t\), \(  e^{t(a+b)}\) est une limite d'éléments dans \( G\) et est donc dans \( G\) parce que ce dernier est fermé.
+\end{proof}
+
+Vu que \( \mL_G\) est un sous-espace vectoriel de \( \GL(n,\eR)\), nous pouvons considérer un supplémentaire \( M\).
+
+\begin{lemma}   \label{LemHOsbREC}
+    Il n'existe pas se suites \( (m_k)\) dans \( M\setminus\{ 0 \}\) convergeant vers zéro et telle que \(  e^{m_k}\in G\) pour tout \( k\).
+\end{lemma}
+
+\begin{proof}
+    Supposons que nous ayons \( m_k\to 0\) dans \( M\setminus\{ 0 \}\) avec \(  e^{m_k}\in G\). Nous considérons les éléments \( \epsilon_k=\frac{ m_k }{ \| m_k \| }\) qui sont sur la sphère unité de \(\GL(n,\eR)\). Quitte à prendre une sous-suite, nous pouvons supposer que cette suite converge, et vu que \( M\) est fermé, ce sera vers \( \epsilon\in M\) avec \( \| \epsilon \|=1\). Pour tout \( t\in \eR\) nous avons
+    \begin{equation}
+        e^{t\epsilon}=\lim_{k\to \infty}  e^{t\epsilon_k}.
+    \end{equation}
+    En vertu de la décomposition d'un réel en partie entière et décimale, pour tout \( k\) nous avons \( \lambda_k\in \eZ\) et \( | \mu_k |\leq \frac{ 1 }{2}\) tel que \( t/\| m_k \|=\lambda_k+\mu_k\). Avec ça,
+    \begin{equation}
+        e^{t\epsilon}=\lim_{k\to \infty}\exp\Big( \frac{ t }{ m_k }m_k \Big)=\lim_{k\to \infty}  e^{\lambda_km_k} e^{\mu_km_k}.
+    \end{equation}
+    Pour tout \( k\) nous avons \(  e^{\lambda_km_k}\in G\). De plus \( | \mu_k |\) étant borné et \( m_k\) tendant vers zéro nous avons \(  e^{\mu_km_k}\to 1\). Au final
+    \begin{equation}
+        e^{t\epsilon}=\lim_{k\to \infty}  e^{t\epsilon_k}\in G
+    \end{equation}
+    Cela signifie que \( \epsilon\in\mL_G\), ce qui est impossible parce que nous avions déjà dit que \( \epsilon\in M\setminus\{ 0 \}\).
+\end{proof}
+
+\begin{theorem}[Von Neumann\cite{KXjFWKA}]
+    Tout sous-groupe fermé de \( \GL(n,\eR)\) est une sous-variété de \( \GL(n,\eR)\).
+\end{theorem}
+
+\begin{proof}
+    Soit \( G\) un tel groupe; nous devons prouver que c'est localement difféomorphe à un ouvert de \( \eR^n\). Et si on est pervers, on ne va pas faire localement difféomorphe à un ouvert de \( \eR^n\), mais à un ouvert d'un espace vectoriel de dimension finie. Nous allons être pervers.
+
+    Étant donné que pour tout \( g\in G\), l'application 
+    \begin{equation}
+        \begin{aligned}
+            L_g\colon G&\to G \\
+            h&\mapsto gh 
+        \end{aligned}
+    \end{equation}
+    est de classe \(  C^{\infty}\) et d'inverse \(  C^{\infty}\), il suffit de prouver le résultat pour un voisinage de \( \mtu\).
+
+    Supposons d'abord que \( \mL_G=\{ 0 \}\). Alors \( 0\) est un point isolé de \( \ln(G)\); en effet si ce n'était pas le cas nous aurions un élément \( m_k\) de \( \ln(G)\) dans chaque boule \( B(0,r_k)\). Nous aurions alors \( m_k=\ln(a_k)\) avec \( a_k\in G\) et donc
+    \begin{equation}
+        e^{m_k}=a_k\in G.
+    \end{equation}
+    De plus \( m_k\) appartient forcément à \( M\) parce que \( \mL_G\) est réduit à zéro. Cela nous donnerait une suite \( m_k\to 0\) dans \( M\) dont l'exponentielle reste dans \( G\). Or cela est interdit par le lemme \ref{LemHOsbREC}. Donc \( 0\) est un point isolé de \( \ln(G)\). L'application \(\ln\) étant continue\footnote{Par le lemme \ref{LemQZIQxaB}.}, nous en déduisons que \( \mtu\) est isolé dans \( G\). Par le difféomorphisme \( L_g\), tous les points de \( G\) sont isolés; ce groupe est donc discret et par voie de conséquence une variété.
+
+    Nous supposons maintenant que \( \mL_G\neq\{ 0 \}\). Nous savons par la proposition \ref{PropXFfOiOb} que 
+    \begin{equation}
+        \exp\colon \eM(n,\eR)\to \eM(n,\eR)
+    \end{equation}
+    est une application \(  C^{\infty}\) vérifiant \( d\exp_0=\id\). Nous pouvons donc utiliser le théorème d'inversion locale \ref{ThoXWpzqCn} nous donne donc l'existence d'un voisinage \( V\) de \( 0\) dans \( \eM(n,\eR)\) tel que \( W=\exp(V)\) soit un ouvert de \( \GL(n,\eR)\) et que \( \exp\colon V\to W\) soit un difféomorphisme de classe \(  C^{\infty}\).
 \end{proof}
 <++>
 
