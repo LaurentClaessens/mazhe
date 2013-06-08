@@ -43,15 +43,16 @@ Le but de cette section est d'étudier des conditions sur la suite \( (a_n)\) qu
     Si \( | z |<r\) alors nous tombons sur la série géométrique qui converge. Par le critère de comparaison la série \( \sum_{n=0}^{\infty}| a_nz^n |\) converge.
 \end{proof}
 
-\begin{definition}
+\begin{definition}  \label{DefZWKOZOl}
     Soit \( \sum_{n\in \eN}a_nz^n\) une série entière. Le \defe{rayon de convergence}{rayon!de convergence} de cette série est le nombre
     \begin{equation}
         R=\sup\{ r\in \eR^+\tq \text{la suite \((a_nr^n)\) est bornée} \}\in\mathopen[ 0 , \infty \mathclose].
     \end{equation}
+    Étant donné que cela est une propriété de la suite \( (a_n)\) et non réellement de la série \( \sum_ka_kz^k\), nous allons aussi dire que c'est le rayon de convergence de la suite \( (a_n)\).
 \end{definition}
 Le rayon de convergence d'une série ne dépend que des réels \( | a_n |\), même si à la base \( a_n\in \eC\).
 
-\begin{theorem}
+\begin{theorem} \label{ThoLPWeIHE}
     Soit \( R>0\) le rayon de convergence de la somme \( \sum_na_nz^n\) et \( z\in \eC\).
     \begin{enumerate}
         \item
@@ -69,6 +70,8 @@ Le rayon de convergence d'une série ne dépend que des réels \( | a_n |\), mê
             Par hypothèse la suite \( (a_n| z |^n)\) n'est pas bornée. La suite \( (a_nz^n)\) n'est donc pas bornée non plus et la série ne peut pas converger.
     \end{enumerate}
 \end{proof}
+
+Le théorème \ref{ThoLPWeIHE} parle bien de convergence absolue, et non de convergence normale. Pour chaque \( t\), la série \( \sum_k | a_nt^k |\) converge. Si par contre nous posons \( u_k(t)=a_kt^k\), nous n'avons a priori pas la convergence normale \( \sum_k\| u_k \|_{\infty}\), même pas si la norme est la norme supremum sur \( B(0,R)\)\quext{Il y aurait par contre bien convergence sur tout compact ? Cher lecteur, dites moi ce que vous en pensez}. Prenons comme exemple simplement \( a_k=1\) pour tout \( k\). Pour tout \( | t |<1\), la série \( \sum_k t^k\) converge absolument (série géométrique), mais nous aurions \( \| u_k \|_{\infty}=1\) et donc divergence évidente de \( \sum_k\| u_k \|_{\infty}\).
 
 \begin{theorem}[Formule de Hadamard]\index{formule!Hadamard}\index{Hadamard!formule}		\label{ThoSerPuissRap}
 Le rayon de convergence de la série entière \( \sum_n c_n z^n\) est donné par une des deux formules
@@ -193,6 +196,7 @@ ne converge pas pour \( z=-1\).
 \begin{example}
     Encore une fois nous n'avons pas d'informations sur le comportement au bord. Par exemple la série \( \sum_nz^n\) a pour rayon de convergence \( R=1\), mais \( \sup_{z\in B(0,1)}| z^n |=1\) de telle façon à ce que nous n'avons pas de convergence normale sur la boule fermée.
 \end{example}
+
 La convergence normale n'est donc pas de mise sur tout l'intérieur du disque de convergence. La continuité, par contre est effective sur la boule. En effet si \( z_0\in B(0,R)\) alors il existe un rayon \( 0<r<R\) tel que \( B(z_0,r)\subset B(0,R)\). Sur \( B(z_0,r)\) nous avons convergence normale et donc continuité en \( z_0\).
 
 La différence est que la continuité est une propriété locale tandis que la convergence normale est une propriété globale.
@@ -758,6 +762,133 @@ sage: F2(-0.1)
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Ici nous montrerions bien le théorème \ref{ThoYFAzwSg} sur les nombres de Bell parce que c'est essentiellement un résultat sur les séries entières et leurs manipulations. Hélas, il demande un tout petit peu d'équation différentielle (presque rien). Donc il est postposé jusqu'en page \pageref{ThoYFAzwSg}.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Séries entières de matrices}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{subsecEVnZXgf}
+
+Nous nous proposons d'étudier des séries de la forme
+\begin{equation}
+    \sum_{k=0}^{\infty}a_kA^k
+\end{equation}
+où \( A\) est une matrice. L'essentiel de la théorie va rester. Nous considérons une norme matricielle (définition \ref{DefJWRWQue}), c'est à dire \( \| AB \|\leq \| A \|\| B \|\).
+
+La notion de rayon de convergence de cette série reste la même : c'est la définition \ref{DefZWKOZOl} qui ne dépend que des coefficients \( a_k\) et pas du tout de ce qu'on met à côté dans la somme. Évidemment il faudra montrer que dans le cas des matrices, le nom «rayon de convergence» n'est pas usurpé.
+
+\begin{proposition}
+    Soit \( (a_n)\) une suite dans \( \eC\) de rayon de convergence \( R\) et \( A\in \eM(n,\eR)\) une matrice vérifiant \( \| A \|<R\). Alors la série
+    \begin{equation}
+        \sum_{k=0}^{\infty}a_kA^k
+    \end{equation}
+    converge absolument, c'est à dire que \( \sum_k\| a_kA^k \|<\infty\).
+\end{proposition}
+
+\begin{proof}
+    Nous avons les majorations
+    \begin{equation}
+        \| a_n A^n\|\leq | a_n |\| A^n \|\leq | a_n |\| A \|^n.
+    \end{equation}
+    Par hypothèse \( \| A \|<R\) et \( R\) est un supremum, donc il existe \( r\) tel que \( \| A \|<r<R\) avec \( (a_nr^n)\) borné. Nommons \( M\) un majorant de la suite \( (a_nr^n)\). Alors nous avons
+    \begin{equation}
+        \| A_nA^n \|\leq | a_n |r^n\frac{ \| A \|^n }{ r^n }\leq M\left( \frac{ \| A \| }{ r } \right)^n.
+    \end{equation}
+    La série du membre de droite converge parce que c'est une série géométrique de raison plus petite que \( 1\); voir l'exemple \ref{exemplesseries}.
+\end{proof}
+
+\begin{proposition}
+    Soit \( (a_n)\) une suite dans \( \eC\) de rayon de convergence \( R\) et la fonction
+    \begin{equation}
+        \begin{aligned}
+            f\colon \eM(n,\eR)&\to \eM(n,\eR) \\
+            A&\mapsto \sum_{k=0}^{\infty}a_kA^k 
+        \end{aligned}
+    \end{equation}
+    Alors
+    \begin{enumerate}
+        \item
+            La différentielle de \( f\) sur \( B(0,R)\) est
+            \begin{equation}    \label{EqRDVodDa}
+                df_A(U)=\sum_{k=0}^{\infty}a_k\sum_{l=0}^{k-1}A^lUA^{k-1-l},
+            \end{equation}
+            c'est à dire que l'on peut différentier terme à terme. (Ici c'est \( A\) qui est dans \( B(0,R)\))
+        \item
+            La convergence de la somme \ref{EqRDVodDa} est absolue.
+        \item
+            La convergence de la somme \ref{EqRDVodDa} est normale sur tout compact.
+        \item
+            La fonction \( f\) est de classe \( C^1\) sur \( B(0,R)\), c'est à dire que la fonction \( A\mapsto df_A\) est continue.
+    \end{enumerate}
+\end{proposition}
+Notons que \( df_A\) n'est pas tout à fait une série entière. Cependant, en ce qui concerne les normes, c'est tout comme si ça l'était.
+
+\begin{proof}
+    Nous posons \( u_k(A)=a_kA^k\), qui est une fonction de classe \(  C^{\infty}\) et dont la différentielle est donnée par
+    \begin{equation}
+        (du_k)_A(U)=\Dsdd{ u_k(A+tU) }{t}{0}=a_k\Dsdd{ (A+tU)^k }{t}{0};
+    \end{equation}
+    en distribuant le produit nous trouvons tout un tas de termes dont seuls ceux contenant exactement une fois \( tU\) ne vont pas s'annuler. Étant donné que \( U\) et \( A\) ne commutent pas nous avons l'expression un peu moche
+    \begin{equation}
+        (du_k)_A(U)=\sum_{l=0}^{k-1}a_kA^lUA^{k-1-l}.
+    \end{equation}
+    En ce qui concerne la norme, nous regardons celle de \( (du_k)_A\) pour un \( A\) fixé; c'est à dire que nous en regardons la norme opérateur :
+    \begin{equation}
+        \| (du_k)_A \|=\sup_{\| U \|=1}\| \sum_{l=0}^{k-1}a_kA^lUA^{k-1-l} \|\leq \sum_{l=0}^{k-1}| a_k |\| A \|^{l}\| A \|^{k-1-l}\leq k| a_k |\| A \|^{k-1}.
+    \end{equation}
+    Pour donner la convergence nous considérons un nombre \( r\) tel que \( \| A \|<r<R\), de telle sorte que la suite \( (a_nr^n)\) soit bornée par un nombre \( M\) et que nous puissions écrire
+    \begin{equation}    \label{EqTGEwhnL}
+        \| (du_k)_A \|\leq k| a_k |\| A \|^{k-1}=\frac{ k| a_k |\| A \|^k }{ \| A \| }=\frac{ k| a_k | }{ \| A \| }r^k\left( \frac{ \| A \| }{ r } \right)^k\leq \frac{ M }{ \| A \| }k\left( \frac{ \| A \| }{ r } \right)^k,
+    \end{equation}
+    dont la série converge. Nous avons donc convergence absolue de la série
+    \begin{equation}
+        \sum_{k=0}^{\infty}(du_k)_A.
+    \end{equation}
+    Passons à la convergence normale sur tout compact. Nous nous fixons \( r<R\) et nous nous intéressons à la norme de \( du_k\) sur \( \overline{ B(0,r) }\), c'est à dire
+    \begin{equation}
+        \| du_k \|_{\infty}=\sum_{x\in\overline{ B(0,r) }}\| (du_k)_A \|.
+    \end{equation}
+    Vu que \( \overline{ B(0,r) }\) est compact, ce supremum est un maximum et nous pouvons noter \( A_k\) la matrice qui le réalise. Nous réalisons alors les mêmes manipulations que pour \eqref{EqTGEwhnL} :
+    \begin{equation}
+        \| du_k \|_{\infty}=\| (du_k)_{A_k} \|\leq k| a_k |\| A_k \|^{k-1}\leq  k| a_k |r^{k-1}=\frac{1}{ r }k| a_k |r^k.
+    \end{equation}
+    Nous prenons maintenant \( r<r_0<R\) et \( M\), un majorant de \( (a_nr_0^n)\), de telle sorte qu'en multipliant et divisant par \( r_0^k\),
+    \begin{equation}
+        \| du_k \|_{\infty}\leq \frac{ k| a_k |r_0^k }{ r }\frac{ r^k }{ r_0^k }\leq \frac{ kM }{ r }\left( \frac{ r }{ r_0 } \right)^k,
+    \end{equation}
+    dont la série converge. Nous avons donc convergence normale sur tout compact. Par voie de \sout{fait} conséquences nous avons continuité de la série
+    \begin{equation}
+        \sum_{k=0}^{\infty}(du_k)_A
+    \end{equation}
+    et convergence vers \( df_A\) par le théorème \ref{ThoLDpRmXQ}.
+\end{proof}
+
+\begin{proposition}
+    Si le rayon de convergence de la série \( u(A)=\sum_{k=0}^{\infty}a_kA^k\) est \( R\), alors 
+    \begin{enumerate}
+        \item
+            la somme converge absolument sur \( B(0,R)\);
+        \item
+            elle converge normalement sur tout compact de \( B(0,R)\);
+        \item
+            la fonction \( u\) y est de classe \(  C^{\infty}\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Nous posons 
+    \begin{equation}
+        \begin{aligned}
+            u_k\colon \eM(n,\eR)&\to \eM(n,\eR) \\
+            A&\mapsto a_kA^k 
+        \end{aligned}
+    \end{equation}
+    qui est évidemment une fonction de classe \(  C^{\infty}\). Sa \( j\Ieme\) différentielle en \( m\) appliquée à \( v_1\) appliquée à \( v_2\), etc s'exprime de la façon suivante :
+    \begin{equation}
+        (d^ju_k)_m(v_1,\ldots, v_j)=\frac{ d  }{ d t_1 }\ldots\frac{ d  }{ d t_j }\Big( u_k(m+t_1v_1+\ldots +t_jv_j)    \Big)_{t_i=0}.
+    \end{equation}
+    Dans le produit \( (m+t_1v_1+\ldots +t_jv_j)^k\), seuls les termes contenant exactement une fois chacun des \( t_i\) ne s'annulera pas après avoir fait la dérivée et évalué en \( t_i=0\). Combien de termes cela fait ? Il y a \( \binom{ k }{ j }\) façons de placer les \( j\) 
+\end{proof}
+<++>
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Intégrales convergeant uniformément}
