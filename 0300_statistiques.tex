@@ -558,11 +558,43 @@ est la \defe{vraisemblance}{vraisemblance} de l'échantillon. Nous définissons 
 
 La variable aléatoire \( \hat\theta_n=\hat\theta_n(X_1,\ldots,X_n)\) est l'\defe{estimateur de maximum de vraisemblance}{estimateur!maximum de vraisemblance} de \( \theta\).
 
-
 \Exo{Model-0000}
 \Exo{Model-0001}
 \Exo{Model-0002}
 \Exo{Model-0003}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Estimation d'une fonction de répartition}
+%---------------------------------------------------------------------------------------------------------------------------
+
+%AFAIRE : citer Wikipédia pour ce théorème.
+\begin{theorem}[Glivenko-Cantelli]  \label{ThoXAEMbTI}
+    Soient \( X_i\) des variables aléatoires indépendantes et identiquement distribuées suivant une loi dont la fonction de distribution est \( F\) (inconnue). Nous définissons l'estimateur
+    \begin{equation}    \label{EqMQNRVcT}
+        F_n(x)=\frac{1}{ n }\sum_{i=1}^n\mtu_{X_i\leq x}.
+    \end{equation}
+    Alors
+    \begin{equation}
+        P\big( \lim_{n\to \infty} \| F_n-F \|_{\infty}=0 \big)=1,
+    \end{equation}
+    c'est à dire qu'il y a presque certainement convergence en probabilité.
+\end{theorem}
+\index{théorème!Glivenko-Cantelli}
+\index{estimateur!de fonction de répartition}
+
+\begin{proposition} \label{PropHSHFbEq}
+    Pour presque tout \( x\), l'estimateur \( F_n(x)\) est sans biais par rapport à \( F(x)\) :
+    \begin{equation}
+        E\big( F_n(x) \big)=F(x).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    C'est juste un calcul :
+    \begin{equation}
+        E\big( F_n(x) \big)=\frac{1}{ n }\sum_{i=1}^nE\big( \mtu_{\{ X_i\leq x \}} \big)=\frac{1}{n }\sum_{i=1}^nF(x)=F(x).
+    \end{equation}
+\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Qualité des estimateurs}
@@ -713,6 +745,8 @@ Bien entendu la seconde donne lieu à des calculs plus compliquée.
 
 \begin{remark}
     Dans certaines vraies vies (par exemple en médecine), la taille des échantillons est très réduite. Dans ce cas le théorème central limite n'a aucun sens et les calculs exact s'imposent.
+
+    De plus dans de nombreux cas de la vraie vie, nous avons un ordinateur à disposition pour calculer avec la loi exacte. L'utilisation du théorème central limite dans le but de produire un intervalle de confiance semble donc de plus en plus être une survivance du passé.
 \end{remark}
 
 Dans la suite, nous allons supposer que \( n\) est suffisamment grand pour justifier l'approximation normale. Si \( Z\) est une variable aléatoire normale centrée réduite, nous avons
@@ -921,6 +955,200 @@ La propriété de cet intervalle est que
 \begin{remark}
     À quel moment avons nous fait une hypothèse sur la taille de la population globale ? En modélisant les sondés par des variables de Bernoulli et leur somme par une binomiale, nous supposons que le sondage est \emph{avec remise}, sinon, elles ne seraient pas indépendantes. En supposant les sondés indépendants, nous avons donc fait comme si la population totale était infinie.
 \end{remark}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Estimer une densité lorsqu'on ne sait rien}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous supposons avoir une série d'observations issues d'un processus complexe dont nous n'avons aucune idée de la loi parente, et nous voudrions nous faire une idée de la densité de cette loi inconnue.
+
+Nous observons une suite de réalisations que nous modélisons comme étant des variables aléatoires \( (X_1,\ldots, X_n)\) de loi parente (inconnue) \( \mu\). Notre but est de trouver un estimateur \( \hat \mu\) de \( \mu\). Par simplicité nous allons nous restreindre aux lois admettant une densité par rapport à la mesure de Lebesgue. C'est à dire que nous allons estimer \( \mu\) par une suite de lois \( \hat \mu_n\) qui sont toutes des lois acceptant une densité par rapport à la mesure de Lebesgue.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Distance entre des mesures}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si \( \nu_1\) et \( \nu_2\) sont deux mesures de densité sur \( \eR\), la \defe{distance}{distance!entre deux mesures de probabilités} entre \( \nu_1\) et \( \nu_2\) est définie par
+\begin{equation}
+    d(\nu_1,\nu_2)=\sup_{A\in\Borelien(\eR)}\big| \nu_1(A)-\nu_2(A) \big|    
+\end{equation}
+où \( \Borelien(\eR)\) désigne l'ensemble des boréliens de \( \eR\).
+
+\begin{theorem}[de Scheffé\cite{ABrKyxY}]
+    Si \( f_1\) et \( f_2\) sont les densités de \( \nu_1\) et \( \nu_2\) par rapport à la mesure de Lebesgue, alors
+    \begin{equation}
+        d(\nu_1,\nu_2)=\int_{\eR}(f_1-f_2)_+=\frac{ 1 }{2}\int_{\eR}| f_1-f_2 |=\frac{ 1 }{2}\| f_1-f_2 \|_1
+    \end{equation}
+    où \( f_+\) est la partie positive de \( f\) (pour la décomposition \( f(x)=f_+(x)-f_-(x)\)).
+\end{theorem}
+
+\begin{proof}
+    La dernière égalité est simplement une notation usuelle; nous devons seulement prouver les deux premières. Pour la première nous commençons par prouver que le borélien réalisant le supremum est
+    \begin{equation}
+        B=\{ x\in\eR\tq f_1(x)\geq f_2(x) \}.
+    \end{equation}
+    En effet si \( A\) est un borélien nous avons
+    \begin{equation}
+        \nu_1(A)-\nu_2(A)=\int_Af_1-f_2
+        \leq\int_{A\cap B}f_1-f_2
+        \leq\int_Bf_1-f_2
+        =\int_B(f_2-f_2)_+
+        =\int_{\eR}(f_1-f_2)_+
+    \end{equation}
+    Justifications :
+    \begin{itemize}
+        \item  \( f_1-f_2\) négative sur \( A\cap \complement B\).
+        \item Vu que \( f_1-f_2\geq0\) sur \( B\), l'intégrale augmente si on augmente le domaine.
+        \item Sur \( B\) nous avons \( f_1-f_2=(f_1-f_2)_+\).
+    \end{itemize}
+    Donc pour tout borélien \( A\) nous avons
+    \begin{equation}
+        d(\nu_1,\nu_2)\leq \int_{\eR}(f_1-f_2)_+.
+    \end{equation}
+    Mais pour \( A=B\) nous avons égalité :
+    \begin{equation}
+        \nu_1(B)-\nu_2(B)=\int_{B}f_1-f_2=\int_B(f_1-f_2)_+=\int_{\eR}(f_1-f_2).
+    \end{equation}
+    
+    Pour la seconde égalité nous savons que \( f_1\) et \( f_2\) s'intègrent toutes deux à \( 1\) (parce que ce sont des densités de probabilité), donc
+    \begin{equation}
+        \int_{\eR}f_1-f_2=0.
+    \end{equation}
+    En particulier nous avons
+    \begin{equation}
+        \int_{\eR}(f_1-f_2)_+=\int_{\eR}(f_1-f_2)_-,
+    \end{equation}
+    ce qui donne bien
+    \begin{equation}
+        \int_{\eR}(f_1-f_2)_+=\frac{ 1 }{2}\int_{\eR}|f_1-f_2|.
+    \end{equation}
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Estimateur par fenêtres glissantes}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous considérons les estimations suivantes de la fonction de répartition :
+\begin{equation}
+    F_n(x)=\frac{1}{ n }\sum_{i=1}^n\mtu_{\{ X_i\leq x \}},
+\end{equation}
+et un nombre \( h_n\) qui sera la taille de la fenêtre glissante. Nous avons en tête de faire \( \lim_{n\to \infty} h_n=0\). Nous considérons ceci comme estimateur de la densité inconnue \( f\) des variables aléatoires \( X_i\) :
+\begin{equation}
+    \hat f_n(x)=\frac{ F_n(x+h_n)-F_n(x-h_n) }{ 2h_n }.
+\end{equation}
+L'idée sous-jacente est de prendre la dérivée de la fonction de répartition comme densité.
+
+\begin{lemma}[\cite{ABrKyxY}]
+    Pour tout \( h_n>0\), l'estimateur \( \hat f_n\) est une densité de probabilité.
+\end{lemma}
+
+\begin{proof}
+    D'abord \( \hat f_n\) est bien à valeurs positives ou nulle. Ensuite devons parler de son intégrale. Pour le numérateur nous avons
+    \begin{equation}
+        F_n(x+h_n)-F_n(x-h_n)=\frac{1}{ n }\sum_{i=1}^{n}\mtu_{X_i\in B(x,h_n)}.
+    \end{equation}
+    En réalité cette égalité est valable seulement presque partout parce qu'elle n'est pas valable en \( x=x\pm h_n\), mais cela ne va pas nous ennuyer dans la mesure où nous avons dans l'idée d'intégrer cela sur \( \eR\). Avant de nous lancer dans l'intégrale nous remarquons que \( X_i\in B(x,h_n)\) est la même chose que \( x\in B(X_i,h_n)\), c'est à dire que
+    \begin{equation}
+        \{ X_i\in B(x,h_n) \}=\{ x\in B(X_i,h_n) \}.
+    \end{equation}
+    Donc
+    \begin{equation}
+        \int_{\eR}\hat f_n=\frac{1}{ 2h_n }\frac{1}{ n }\sum_{i=1}^n\underbrace{\int_{\eR}\mtu_{B(X_i,h_n)}}_{2h_n}=\frac{1}{ 2nh_n }\sum_{i=1}^n2h_n=1.
+    \end{equation}
+\end{proof}
+
+\begin{lemma}[\cite{ABrKyxY}]   \label{LemTZopXDd}
+    L'estimateur \( \hat f_n\) est déjà pas mal parce que
+    \begin{equation}
+        \lim_{h_n\to 0} E\big( \hat f_n(x) \big)\to f(x)
+    \end{equation}
+    pour presque tout \( x\in \eR\).
+\end{lemma}
+
+\begin{proof}
+    Nous commençons par nous rappeler le fait que \( F_n(x)\) est un estimateur sans biais de \( F(x)\) (proposition \ref{PropHSHFbEq}). Donc
+    \begin{equation}    \label{EqJEjrfFd}
+        E\big( \hat f_n(x) \big)=\frac{ F(x+h_n)-F(x-h_n) }{ 2h_n }.
+    \end{equation}
+    Nous devons prendre la limite de cela lorsque \( h_n\to 0\), c'est à dire considérer la dérivée de \( F\). Attention : rien ne dit que \( F\) soit dérivable, si ce n'est la proposition \ref{PropJLnPpaw} qui indique qu'elle est dérivable presque partout avec \( f\) comme dérivée.
+
+    La limite \( h_n\to 0\) dans \eqref{EqJEjrfFd} nous donne donc bien presque partout
+    \begin{equation}
+        \lim_{h_n\to 0} E\big( \hat f_n(x) \big)=f(x).
+    \end{equation}
+\end{proof}
+
+\begin{proposition}[\cite{ABrKyxY}]
+    Si la suite \( (h_n)\) est telle que \( h_n\to 0\) et \( nh_n\to \infty\), alors pour presque tout \( x\in \eR\) nous avons les convergences
+    \begin{equation}
+        \hat f_n(x)\stackrel{L^2(P)}{\to}f(x)
+    \end{equation}
+    et
+    \begin{equation}
+        \hat f_n(x)\stackrel{P}{\to}f(x).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Il faut d'abord comprendre ce que signifie la convergence \( L^2(P)\) pour presque tout \( x\). Pour cela il faut comprendre que \( \hat f_n(x)\) est en soi une variable aléatoire et est en réalité une fonction \( \omega\mapsto \hat f_n(x,\omega)\). Ce que nous allons montrer est que pour presque tout \( x\) (maintenant fixé), cette variable aléatoire converge vers une constante (par rapport à \( \omega\)) et que cette constante est \( f(x)\).
+
+    La convergence \( X_n\stackrel{L^2(P)}{\to}X\) signifie \( E\big( | X_n-X |^2 \big)\to 0\), c'est à dire
+    \begin{equation}
+        \int_{\Omega}\big| X_n(\omega)-X(\omega) \big|^2dP(\omega)\to 0.
+    \end{equation}
+    En faisant une décomposition biais-variance nous devons donc étudier
+    \begin{equation}
+        E\Big[ \big( \hat f_n(x)-f(x) \big)^2 \Big]=E\big[ \hat f_n(x)-f(x) \big]^2+\Var\big( \hat f_n(x)-f(x) \big)
+    \end{equation}
+    Ici \( f(x)\) doit être vue comme la variable aléatoire constante sur \( \Omega\). Par le lemme \ref{LemTZopXDd} et la proposition \ref{PropZBnsCgh} le terme de biais converge vers zéro lorsque \( n\to \infty\).
+
+    Pour traiter le terme de biais, nous savons déjà que
+    \begin{equation}
+        2nh_n\hat f_n(x)=\sum_{i=1}^n\mtu_{\{ X_i\in B(x,h_n) \}},
+    \end{equation}
+    où le membre de droite (et donc aussi celui de gauche) est est une variable aléatoire binomiale comptant le nombre de succès de l'expérience \( X_i\in B(x,h_n)\) en \( n\) essais. Nous notons \( p_{x,n}=P\big( X_i\in B(x,h_n) \big)\). Si \( \mu\) est la loi parente des \( X_i\), alors
+    \begin{equation}    \label{EqKBKrSHJ}
+        p_{n,x}=P\big( X_i\in B(x,h_n) \big)=\mu\big( B(x,h_n) \big)=F(x+h_n)-F(x-h_n)
+    \end{equation}
+    où \( F\) est la fonction de répartition (parente) des \( X_i\).
+    
+    Alors la variance de ladite binomiale est donnée par \eqref{EqKLubWlh}, c'est à dire \( np_{x,n}(1-p_{x,n})\). Nous avons alors
+    \begin{equation}
+         \Var\big( 2nh_n\hat f_n(x) \big)=bp_{x,n}(1-p_{x,n})
+    \end{equation}
+    et
+    \begin{equation}
+        \Var\big( \hat f_n(x) \big)=\frac{1}{ 4n^2h_n^2 }np_{x,n}(1-p_{x,n}).
+    \end{equation}
+    Nous pouvons faire la majoration \( t(1-t)\leq t\) qui est valable pour tout \( t\) et écrire
+    \begin{equation}
+        \Var(\hat f_n(x))\leq \frac{1}{ 4nh_n }\frac{ p_{x,n} }{ h_n }.
+    \end{equation}
+    Le premier facteur tend vers zéro parce que nous avons supposé que \( nh_n\to \infty\). Pour le second facteur, il faut remarquer que l'expression \eqref{EqKBKrSHJ} nous donne presque partout
+    \begin{equation}
+        \lim_{h_n\to 0} \frac{ p_{n,x} }{ h_n }=2f(x),
+    \end{equation}
+    qui est constant et certainement borné.
+
+    Nous avons maintenant prouvé que pour presque tout \( x\) nous avons \( \hat f_n(x)\stackrel{L^2(P)}{\to}f(x)\). Montrons que cela implique la convergence en loi, c'est à dire que pour tout \( \eta>0\), nous avons la limite
+    \begin{equation}
+        P\big( | \hat f_n(x)-f(x) |>\eta \big)\to 0.
+    \end{equation}
+    Si cela n'était pas vrai, nous aurions un nombre \( \eta_0>0\) et \( \epsilon>0\) tel que pour tout \( n\) à partir d'une certaine taille,
+    \begin{equation}
+        P\Big( | \hat f_n(x)-f(x) |^2>\eta_0 \Big)>\epsilon,
+    \end{equation}
+    et en particulier en notant \( A\) l'événement \( | \hat f_n(x)-f(x) |^2>\eta_0^2\), \( P(A)>\epsilon\). Alors 
+    \begin{equation}
+        \int_{\Omega}\big| \hat f_n(x,\omega)-f(x,\omega) \big|^2dP(\omega)\geq \int_A\big| \hat f_n(x,\omega)-f(x,\omega) \big|^2dP(\omega)\geq\int_A\eta_0^2=\eta_0^2P(A).
+    \end{equation}
+    Cela signifie que
+    \begin{equation}
+        \| \hat f_n(x)-f(x) \|_{L^2(P)}\geq \eta_0P(A),
+    \end{equation}
+    ce qui contredit la première convergence démontrée.
+\end{proof}
+Note : l'hypothèse \( nh_n\to\infty\) revient à dire que nous voulons que chaque boite contienne de plus en plus d'observations. Si nous avions \( nh_n\to 0\), alors avec \( n\) qui augmente, la majorité des boites deviendraient vides, ce qui reviendrait à une perte d'information.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Test d'hypothèses, prise de décision}
@@ -1396,5 +1624,4 @@ Nous considérons un cas où les \( p_i\) sont inconnus. Ils peuvent être appro
     \begin{equation}
         \| (\alpha_1,\ldots, \alpha_k) \|^2=\sum_{j=1}^k\frac{ (N_j-p_j)^2 }{ np_j }.
     \end{equation}
-
 \end{proof}

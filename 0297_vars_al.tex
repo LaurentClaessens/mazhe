@@ -77,7 +77,7 @@ En effet la mesure de probabilité sur \( \Omega\) est la mesure de comptage ren
 \end{equation}
 
 Une variable aléatoire de loi binomiale étant une somme de variables aléatoires de Bernoulli indépendantes, la variance est égale à la somme des variances :
-\begin{equation}
+\begin{equation}    \label{EqKLubWlh}
     \Var(X)=\sum_{i=1}^n\Var(X_i)=np(1-p)
 \end{equation}
 en vertu de \eqref{EqVarBern}.
@@ -202,7 +202,7 @@ Plus formellement, la loi exponentielle de paramètre \( \lambda\), notée \( \d
     Donc \( \Var(X)=E(X^2)-E(X)^2=\frac{1}{ \lambda^2 }\).
 \end{proof}
 
-La loi exponentielle est une loi \emph{sans mémoire} en ce sens que
+La loi exponentielle est une loi \defe{sans mémoire}{processus!sans mémoire}\index{loi!sans mémoire} en ce sens que
 \begin{equation}
     P(X>x+y|X>y)=P(X>x).
 \end{equation}
@@ -214,6 +214,31 @@ Ici,
 \begin{equation}
     P(X>x+y|X>y)=\frac{ P(X>x+y) }{ P(X>y) }= e^{-\lambda x}.
 \end{equation}
+La proposition suivante montre que la loi exponentielle est à peu près la seule à être sans mémoire. D'où son importance dans l'étude des machines dont les pièces ne subissent pas d'usure.
+
+\begin{proposition} \label{PropREXaIBg}
+    Soit \( X\), une variable aléatoire admettant une densité continue \( f\) par rapport à la mesure de Lebesgue. Si elle est sans mémoire, alors elle est exponentielle.
+\end{proposition}
+
+\begin{proof}
+    Nous posons \( \varphi(x)=P(X\geq x)\). Cela est la fonction de répartition de \( X\) (à part que cette dernière est \( 1-\varphi(x)\) mais c'est pas grave), et est donnée par
+    \begin{equation}
+        \varphi(x)=1-\int_0^xf(t)dt.
+    \end{equation}
+    Cette dernière intégrale vérifie les hypothèses du théorème \ref{PropREXaIBg}, de telle sorte que \( \varphi\) soit une fonction dérivable et \( \varphi'(x)=f(x)\).
+    
+    D'autre part en utilisant la définition de la probabilité conditionnelle la propriété de ne pas avoir de mémoire donne
+    \begin{equation}
+        \varphi(x+y)=\varphi(x)\varphi(y)
+    \end{equation}
+    et de plus \( \varphi(0)=0\). Calculons la dérivée de \( \varphi\) :
+    \begin{equation}
+        \varphi'(x)=\lim_{\epsilon\to 0}\frac{ \varphi(x+\epsilon)-\varphi(x) }{ \epsilon }=\varphi(x)\lim_{\epsilon\to 0}\frac{ \varphi(\epsilon)-1 }{ \epsilon }=\varphi(x)\varphi'(0).
+    \end{equation}
+    Donc \( \varphi\) vérifie l'équation différentielle de l'exponentielle.
+    
+\end{proof}
+\index{fonction!définie par une intégrale!utilisation}
 
 \begin{example}
     Une machine a une durée de vie représentée par une variable aléatoire suivant une loi de Poisson de paramètre \( \lambda\). Soit \( T_y\) la variable aléatoire qui représente la temps de vie restant sachant que la machine a déjà vécu un temps \( y\). Nous voulons trouver la fonction de répartition de \( T_y\). Nous avons
@@ -738,6 +763,7 @@ L'importance de cette loi sera dans le théorème de Cochrane \ref{ThoCochraneCh
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Indépendance, covariance et variance de somme}
 %---------------------------------------------------------------------------------------------------------------------------
+\label{subsecTTHohur}
 
 Si \( X\) et \( Y\) sont des variables aléatoires réelles, nous avons défini la covariance par \eqref{EqHUWtttN}:
 \begin{equation}   
@@ -1277,6 +1303,34 @@ En pratique, la variable aléatoire qui se comporte comme une loi de Poisson de 
 \end{equation}
 Nous générons donc des nombres aléatoires entre \( 1\) et \( 1\) et nous effectuons le produit jusqu'à ce qu'il passe en dessous de \(  e^{-\lambda}\). À ce moment, nous retournons le nombre de nombres qu'il a fallu générer.
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Sage}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous allons montrer maintenant quelque trucs importants dans l'utilisation de Sage pour réaliser des petits graphiques. 
+
+\begin{remark}
+    Dans ce qui suit, nous allons parler de «Sage», mais en réalité nous allons surtout parler du module \info{scipy} qui fait partie des modules hyper-usuels de Python. Les remerciements vont donc au moins autant du côté de l'équipe de \info{scipy} que vers celle de Sage.
+\end{remark}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Loi exponentielle}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Il faut savoir que la définition d'une loi continue retourne automatiquement la loi centrée réduite. Pour avoir une loi exponentielle de moyenne donnée, il faut donc préciser de façon plus maligne que ce que l'on croit.
+
+\lstinputlisting{code_sage1.py}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Inverser des lois}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Pour trouver des intervalles de confiance, il faut souvent calculer des inverses de loi. Bien entendu Sage le fait. Ce que sage connaît, c'est l'inverse de la fonction de survie. Autrement dit si \info{X} est une variable aléatoire, \info{X.sf} est la fonction \( x\mapsto 1-P(X<x)\) et \info{X.isf} en est l'inverse. Pour résoudre \( P(X<\xi)=\alpha\), il faut résoudre \( F(\xi)=\alpha\), c'est à dire 
+\begin{equation}
+    1-F(\xi)=1-\alpha,
+\end{equation}
+ce qui se fait de la façon suivante : le programme suivant donne pour une loi normale centrée réduite la valeur de \( \xi\) pour laquelle \( P(N<\xi)=0.05\) :
+\lstinputlisting{code_sage2.py}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Monte-Carlo}
