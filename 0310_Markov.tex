@@ -14,7 +14,7 @@
 Les chaînes de Markov interviennent pour la description des systèmes dont l'évolution future ne dépend que de l'état présent.
 
 \begin{definition}
-    Soit \( E\) un ensemble au plus dénombrable et \( (\Omega,\tribF,P)\) un espace probabilisé. Une \defe{chaîne de Markov}{chaîne de Markov} à valeurs dans \( E\) est une famille \( (X_n)_{n\in\eN}\) de variables aléatoires telles que pour tout \( x_0,\ldots,x_{n+1}\in E\),
+    Soit \( E\) un ensemble au plus dénombrable et \( (\Omega,\tribF,P)\) un espace probabilisé. Une \defe{chaîne de Markov}{chaîne!de Markov} à valeurs dans \( E\) est une famille \( (X_n)_{n\in\eN}\) de variables aléatoires telles que pour tout \( x_0,\ldots,x_{n+1}\in E\),
     \begin{equation}
         P(X_{n+1}=x_{n+1}|X_n=x_n,\ldots,X_0=x_0)=P(X_{n+1}=x_{n+1}|X_n=x_n).
     \end{equation}
@@ -39,9 +39,6 @@ Nous avons
 \end{equation}
 parce que c'est la somme de toutes les transitions possibles en partant de \( x\). Notons aussi que \( p(x,y)\geq 0\).
 
-\begin{definition}
-    Une matrice dont tous les éléments sont positifs ou nuls et donc la somme de toutes les lignes sont \( 1\) est une \defe{matrice stochastique}{matrice!stochastique}.
-\end{definition}
 
 \begin{lemma}
     Si \( U\) est une matrice stochastique, alors il existe une chaîne de Markov dont la matrice de transition soit \( U\).
@@ -75,10 +72,120 @@ parce que c'est la somme de toutes les transitions possibles en partant de \( x\
 \end{example}
 % TODO : donner une raison.
 
+\begin{definition}
+    Une matrice dont tous les éléments sont positifs ou nuls et donc la somme de toutes les lignes sont \( 1\) est une \defe{matrice stochastique}{matrice!stochastique}.
+\end{definition}
+Notons que l'ensemble des matrices stochastiques est un fermé dans l'ensemble des matrices.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Chaînes de Markov sur un ensemble fini}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%TODO : il y a des tonnes de résultats à déplacer vers cette section.
+
+Une chaîne de Markov est \defe{finie}{chaîne!de Markov!finie} si l'ensemble \( E\) dans lequel elle prend ses valeurs est fini.
+
+\begin{proposition}[\cite{GMbugcT}]
+    Si \( (X_n)\) est une chaîne de Markov irréductible sur un ensemble fini, alors pour tout ensemble \( A\subset E\) nous avons
+    \begin{equation}
+        P(\tau_A<\infty)=\lim_{n\to \infty} P(\tau_A\leq n)=1
+    \end{equation}
+    où \( \tau_A=\min\{ k\tq X_k\in A \}\).
+\end{proposition}
+
+\begin{definition}
+    Une chaîne de Markov finie est \defe{régulière}{chaîne!de Markov!régulière} si il existe un \( n\in \eN\) tel que \( P^n\) a uniquement des éléments strictement positifs.
+\end{definition}
+Les chaîne de Markov régulières sont celles qui vont converger vers un équilibre, comme le montre le théorème suivant.
+
+\begin{theorem}[\cite{GMbugcT}]
+    Soit \( P\) la matrice de transition d'une chaîne de Markov régulière sur un ensemble \( E\) de cardinal \( N\). Alors il existe des nombres \( \pi_1,\ldots, \pi_N>0\) tels que
+    \begin{enumerate}
+        \item
+            \( \pi_1+\ldots +\pi_N=1\)
+        \item
+            \begin{equation}
+                \lim_{n\to \infty} P^n=\Pi=\begin{pmatrix}
+                     \pi_1   &   \pi_2    &   \ldots    &   \pi_N    \\
+                     \vdots   &   \vdots    &       &   \vdots    \\ 
+                     \pi_1   &   \pi_2    &   \ldots    &   \pi_N
+                 \end{pmatrix}
+            \end{equation}
+    \end{enumerate}
+    De plus le vecteur \( \pi=(\pi_1,\ldots, \pi_N)\) est solution de 
+    \begin{equation}
+        \pi P=\pi.
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Si la chaîne n'a qu'un seul état c'est évident parce que la probabilité de transition est toujours \( 1\); fin de l'histoire.
+
+    \begin{subproof}
+        \item[Hypothèse]
+
+            Sinon nous supposons que \( P\) n'a que des éléments positifs, quitte à considérer \( P^n\) au lieu de \( P\). Nous notons \( d\) le plus petit élément de \( P\); il vérifie \( d\leq \frac{ 1 }{2}\) parce que la somme des élément d'une ligne de la matrice \( P\) doit être égale à \( 1\).
+
+        \item[Les suites min et max]
+
+            Soit \( x\) un vecteur quelconque (de composantes positives). Nous notons \( m_0=\min\{ x_i \}\) et \( M_0=\max\{ x_i \}\). Étant donné que les éléments du vecteur \( Px\) sont des moyennes pondérées des éléments de \( x\), si nous posons
+            \begin{subequations}
+                \begin{align}
+                    m_k=\min\{ (P^kx)_i \}_{i=1,\ldots, N}\\
+                    M_k=\max\{ (P^kx)_i \}_{i=1,\ldots, N},
+                \end{align}
+            \end{subequations}
+            la suite \( (m_k)\) est croissante et la suite \( (M_k)\) est décroissante.
+
+        \item[Stricte croissance et décroissance]
+
+            Si \( M_{k+1}=M_k\), alors toutes les composantes de \( P^kx\) sont égales à \( M_k\) et le théorème est prouvé. Cela est encore une propriété de la moyenne. Même remarque pour la suite \( (m_k)\).
+
+            Nous pouvons donc supposer que la suite \( (m_k)\) est strictement croissante et que la suite \( (M_k)\) est strictement décroissante. Elles sont toutes les deux bornées dans \( \mathopen[ m_0 , M_0 \mathclose]\). Le lemme \ref{LemSuiteCrBorncv} nous donne la convergence.
+
+        \item[Égalité des limites]
+
+            Vu que les éléments de \( P^kx\) ne sont pas tous les mêmes et s'étalent de \( m_k\) à \( M_k\), pour majorer \( M_{k+1}\) nous mettons le plus petit coefficient possible (c'est à dire \( d\)) devant \( m_k\) et nous supposons que toutes les autres composantes sont \( M_k\); nous avons alors
+            \begin{equation}
+                M_{k+1}\leq dm_k+(1-d)M_k
+            \end{equation}
+            parce que tous les autres coefficients de la ligne contenant le \( d\) (dans \( P^k\)) sont plus petits ou égaux à \( 1-d\). De la même façon nous avons la minoration
+            \begin{equation}
+                m_{k+1}\geq dM_k+(1-d)m_k.
+            \end{equation}
+            En faisant la différence, et en nous souvenant que \( 0<1-2d<1\),
+            \begin{equation}
+                M_{k+1}-m_k\leq (1-2d)(M_k-m_k),
+            \end{equation}
+            ce qui signifie que
+            \begin{equation}
+                M_{k+1}-m_k\leq (1-2d)^k(M_0-m_0),
+            \end{equation}
+            et donc que les deux limites sont égales.
+
+        \item[Conclusion pour la limite]
+
+            Pour tout vecteur \( x\), la suite \( P^kx\) tend vers un vecteur dont toutes les composantes sont égales. En particulier pour le vecteur \( e_i\) de la base canonique,
+            \begin{equation}
+                P^ke_i\to\begin{pmatrix}
+                    \pi_1    \\ 
+                    \vdots    \\ 
+                    \pi_1    
+                \end{pmatrix}.
+            \end{equation}
+            Mais \( P^ke_i\) est la \( i\Ieme\) colonne de la matrice \( P^k\). Cela prouve la convergence annoncée \( P^k\to \Pi\).
+    \end{subproof}
+
+    Réglons rapidement le cas des deux autres allégations du théorème. D'abord les matrices \( P^k\) sont toutes des matrices stochastiques; et l'ensemble des matrices stochastiques est fermé, donc la convergence se fait à l'intérieur de l'ensemble des matrices stochastiques. Cela prouve que \( \pi_1+\ldots +\pi_N=1\).
+
+    Ensuite la suite \( (m_k)\) étant strictement croissante et \( m_0\) étant égal à \( 0\) dans le cas de \( e_i\) nous avons toujours \( \pi_i>0\) (strictement).
+\end{proof}
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Marche aléatoire sur \texorpdfstring{$\eZ$}{\( \eZ\)}}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \index{variable aléatoire!Bernoulli!marche aléatoire}
+
+%TODO : dans le fichier markov.pdf de Nils Berglund, il y a des choses intéressantes, dont le fait que l'espérance du temps qu'il faut pour retourner en zéro est infinie.
 
 Soit \( (Y_n)\) une suite de variables aléatoires indépendantes et identiquement distribuées valant \( -1\) avec une probabilité \( p\) et \( 1\) avec une probabilité \( (1-p)\). La loi est
 \begin{equation}
@@ -226,7 +333,7 @@ La matrice de transition de cette chaîne de Markov est une matrice infinie «da
 Le \defe{graphe de transition}{graphe!de transition (chaîne de Markov)} d'une chaîne de Markov est le graphe dont les sommets sont les éléments de l'espace des états de la chaîne et dont les sommets sont reliés par des arrêtes pondérées par la probabilité de transition correspondante.
 
 \begin{definition}
-    Une chaîne de Markov est \defe{irréductible}{irréductible!chaîne de Markov}\index{chaîne de Markov!irréductible} si pour tout \( x,y\in E\), il existe \( n\) tel que \( p^n(x,y)>0\) où 
+    Une chaîne de Markov est \defe{irréductible}{irréductible!chaîne de Markov}\index{chaîne!de Markov!irréductible} si pour tout \( x,y\in E\), il existe \( n\) tel que \( p^n(x,y)>0\) où 
     \begin{equation}
         p^n(x,y)=P(X_n=y|X_0=x).
     \end{equation}
@@ -423,9 +530,9 @@ C'est le temps mis pour atteindre \( x\) à partir de l'instant \( p\).
 \end{proof}
 
 \begin{definition}\label{DefWknULk}
-    Un état \( x\) est \defe{récurrent}{récurrent!état} si \( P(T(x)=\infty|X_0=x)=0\), c'est à dire si la probabilité de ne jamais retourner en $x$ lorsqu'on y est passé est nulle. L'état \( x\) est \defe{transient}{transient!état} ou \defe{transitoire}{transitoire!état} dans le cas contraire.
+    Un état \( x\) est \defe{récurrent}{récurrent!état}\index{état!récurrent} si \( P(T(x)=\infty|X_0=x)=0\), c'est à dire si la probabilité de ne jamais retourner en $x$ lorsqu'on y est passé est nulle. L'état \( x\) est \defe{transient}{transient!état} ou \defe{transitoire}{transitoire!état}\index{état!transitoire} dans le cas contraire.
 
-    Si \( x\) est un état récurrent, et si \( E\big( T(x)|X_0=x \big)<\infty\), nous disons que \( x\) est \defe{récurrent positif}{récurrent!positif}. Si \( E\big( T(x)|X_0=x \big)=\infty\) alors nous disons que est \defe{récurrent nul}{récurrent!nul}.
+    Si \( x\) est un état récurrent, et si \( E\big( T(x)|X_0=x \big)<\infty\), nous disons que \( x\) est \defe{récurrent positif}{récurrent!positif}\index{état!récurrent positif}. Si \( E\big( T(x)|X_0=x \big)=\infty\) alors nous disons que est \defe{récurrent nul}{récurrent!nul}.
 \end{definition}
 
 Nous introduisons une variable aléatoire qui compte le nombre de fois que la chaîne de Markov passe par l'état \( x\) :
@@ -488,12 +595,10 @@ C'est une variable aléatoire à valeurs dans \( \eN\cup\{ \infty \}\).
         \end{align}
     \end{subequations}
     Voyons ce passage plus en détail. D'abord, en général nous avons
-    \begin{subequations}
-        \begin{align}
-            E(Y|X=x_0)&=\int_{\{ X=x_0 \}}Y(\omega)dP(\omega)\\
-            &=\int_{\Omega}\mtu_{\{ X=x_0 \}}(\omega)Y(\omega)dP(\omega).
-        \end{align}
-    \end{subequations}
+    \begin{equation}
+            E(Y|X=x_0)=\int_{\{ X=x_0 \}}Y(\omega)dP(\omega)
+            =\int_{\Omega}\mtu_{\{ X=x_0 \}}(\omega)Y(\omega)dP(\omega).
+    \end{equation}
     Dans notre cas,
     \begin{equation}
         E\big( \mtu_{\{ X_n=x \}}|X_0=x \big)=\int_{\Omega}\mtu_{X_0=x}(\omega)\mtu_{\{ X_n=x \}}(\omega)dP(\omega).
@@ -772,7 +877,7 @@ heur\ldots
     \end{equation}
 \end{lemma}
 
-
+La proposition suivante nous permet de parler de chaîne de Markov \defe{récurrence positive}{chaîne!de Markov!récurrente positive}.
 \begin{proposition}     \label{PropUyLCzp}
     Soit \( (x_n)\) une chaîne de Markov irréductible.
     \begin{enumerate}
@@ -850,7 +955,6 @@ heur\ldots
     \end{equation}
     où \( \alpha\) est une constante positive. Le nombre \( \pi(x)\) étant strictement positif par hypothèse nous avons montré que \( \pi(y)>0\), c'est à dire que \( y\) est récurrent positif.
 \end{proof}
-La proposition \ref{PropUyLCzp} nous permet de parler de chaîne de Markov \defe{récurrence positive}{chaîne de Markov!récurrente positive}.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Mesure invariante}
@@ -909,7 +1013,7 @@ Si les états d'une chaîne de Markov ont comme loi une mesure invariante, alors
 \end{theorem}
 
 \begin{proof}
-    Nous n'allons uniquement prouver le théorème ergodique dans le cas où \( E\) est fini. Soit \( (X_n)\) une chaîne de Markov récurrente positive; nous avons \( \pi(x)>0\) pour tout \( x\in E\). Nous allons montrer que \( \pi\) est une mesure invariante.
+    Nous allons seulement prouver le théorème ergodique dans le cas où \( E\) est fini. Soit \( (X_n)\) une chaîne de Markov récurrente positive; nous avons \( \pi(x)>0\) pour tout \( x\in E\). Nous allons montrer que \( \pi\) est une mesure invariante.
 
     Nous commençons par montrer que
     \begin{equation}
@@ -1062,12 +1166,11 @@ En effet \( p^3(C,C)\neq 0\) par le chemin \( C\to A\to B\to C\) tandis que \( p
     pour tout \( k\geq N\).
 \end{proposition}
 
-La proposition suivante va nous permettre de parler de \defe{chaîne apériodique}{chaîne de Markov!apériodique}
+La proposition suivante va nous permettre de parler de \defe{chaîne apériodique}{chaîne!de Markov!apériodique}
 \index{apériodique!chaîne de Markov}.
 \begin{proposition}
     Si une chaîne de Markov est irréductible, alors un état est apériodique si et seulement si tous les états sont apériodiques.
 \end{proposition}
-\index{chaîne!de Markov!apériodique}
 
 \begin{proof}
     Soit \( x\) un état apériodique de la chaîne de Markov \( (X_n)_{n\in \eN}\). En vertu de la proposition \ref{PropSaOysS} il existe \( N_x\) tel que \( p^k(x,x)\neq 0\) pour tout \( k\geq N_x\). Soit \( y\in E\). Étant donné que la chaîne est irréductible, il existe \( r\) et \( s\) tels que\( p^r(x,y)>0\) et \( p^s(y,x)>0\). Nous avons
@@ -1076,6 +1179,20 @@ La proposition suivante va nous permettre de parler de \defe{chaîne apériodiqu
     \end{equation}
     Si \( k\) est assez grand, cette quantité est strictement positive. Donc il suffit de prendre \( N_y=N_x+r+s\) pour savoir que \( y\) est également apériodique.
 \end{proof}
+
+\begin{example}
+Quelle est la différence entre une chaîne irréductible et une chaîne apériodique ? Une chaîne est irréductible lorsque aucune sous-chaîne ne peut piéger le système. Pour toute paire d'états \( x,y\in E\), il existe un \( n\) tel qu'il soit possible d'aller de \( x\) à \( y\) en \( n\) pas. Une chaîne est apériodique lorsqu'après un temps suffisamment long, \emph{tous} les états soient possibles en même temps.
+
+Un exemple de chaîne irréductible non apériodique :
+\begin{equation}
+\xymatrix{%
+    A \ar@/^/[r]^-{1}    &   B\ar@/^/[l]^{1}\\
+   }
+\end{equation}
+Cette chaîne est irréductible parce que le graphe est connexe, par contre il n'est pas apériodique parce que si \( X_0=A\) il n'est pas possible d'être dans l'état \( A\) après un nombre impair de pas.
+
+Plus formellement, \( p^n(A,A)=1\) dès que \( n\) est pair; le PGCD de la définition \ref{DefCxvOaT} n'est donc certainement pas \( 1\).
+\end{example}
 
 Si \( E\) est fini et si la chaîne de Markov est irréductible, alors en posant \( N=\max_{x\in E}N(x)\), la matrice \( P^k\) a des éléments non nuls sur toute la diagonale pour tout \( k>N\). Ces éléments diagonaux ne sont autre que les \( p^k(x,x)\).
 

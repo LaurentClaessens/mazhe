@@ -5,8 +5,6 @@ import LaTeXparser
 import LaTeXparser.PytexTools
 
 def remove_exercice_part(A):
-    #s="\part{Exercices}"
-    #t="\corrChapitre{Corrigés systématiques}"
     u="\setcounter{isAgreg}{0}"
     A = A.replace(u,u.replace("0","1"))
     return A
@@ -16,6 +14,7 @@ myRequest.plugin_list=[remove_exercice_part]
 myRequest.original_filename="mes_notes.tex"
 
 myRequest.ok_filenames_list=["e_mes_notes"]
+myRequest.ok_filenames_list.append("liste_developpements")
 myRequest.ok_filenames_list.append("questionsMesNotes")
 myRequest.ok_filenames_list.append("gardeMesNotes")
 myRequest.ok_filenames_list.append("groupes")
@@ -61,6 +60,5 @@ myRequest.ok_filenames_list.append("integrales")
 myRequest.ok_filenames_list.append("Stockes_et_co")
 myRequest.ok_filenames_list.append("theorie_generale")
 myRequest.ok_filenames_list.append("ExercicesAgreg")
-myRequest.ok_filenames_list.append("liste_developpements")
 
 myRequest.refute_linenames_list=["Exercices"]
