@@ -92,14 +92,35 @@ Une chaîne de Markov est \defe{finie}{chaîne!de Markov!finie} si l'ensemble \(
     où \( \tau_A=\min\{ k\tq X_k\in A \}\).
 \end{proposition}
 
+Les proposition à venir vont montrer que
+\begin{enumerate}
+    \item
+        Toute matrice stochastique admet un état stationnaire, proposition \ref{PropOJumFwe}.
+    \item
+        Si la chaîne de Markov est irréductible, alors il y a unicité de l'état stationnaire, proposition \ref{PropUMPpOHW}. Mais attention : cela ne veut pas encore dire que la chaîne converge effectivement vers cet état.
+    \item
+        Si la chaîne est irréductible et apériodique, alors il y a convergence en loi vers l'unique loi invariante, théorème \ref{ThoQSuLZoz}.
+\end{enumerate}
+%TODO : il faut de preuves à tout ça; c'est dans le document cité. 
+%TODO : mettre les définitions utiles au-dessus.
+
+\begin{proposition}[\cite{MarkGuy}] \label{PropOJumFwe}
+    Toute matrice stochastique admet un état stationnaire.
+\end{proposition}
+
+\begin{proposition}[\cite{MarkGuy}]     \label{PropUMPpOHW}
+    Soit une chaîne de Markov irréductible finie. Alors il existe une unique loi stationnaire \( \pi\) et de plus nous avons \( \pi_i>0\) pour tout état \( i\) de \( E\).
+\end{proposition}
+
 \begin{definition}
     Une chaîne de Markov finie est \defe{régulière}{chaîne!de Markov!régulière} si il existe un \( n\in \eN\) tel que \( P^n\) a uniquement des éléments strictement positifs.
 \end{definition}
-Les chaîne de Markov régulières sont celles qui vont converger vers un équilibre, comme le montre le théorème suivant.
 
 \begin{theorem}[\cite{GMbugcT}]
-    Soit \( P\) la matrice de transition d'une chaîne de Markov régulière sur un ensemble \( E\) de cardinal \( N\). Alors il existe des nombres \( \pi_1,\ldots, \pi_N>0\) tels que
+    Soit \( P\) la matrice de transition d'une chaîne de Markov régulière sur un ensemble \( E\) de cardinal \( N\). Alors il existe des nombres \( \pi_1,\ldots, \pi_N\) tels que
     \begin{enumerate}
+        \item
+            \( \pi_i>0\) pour tout \( i=1,\ldots, N\)
         \item
             \( \pi_1+\ldots +\pi_N=1\)
         \item
@@ -111,7 +132,7 @@ Les chaîne de Markov régulières sont celles qui vont converger vers un équil
                  \end{pmatrix}
             \end{equation}
     \end{enumerate}
-    De plus le vecteur \( \pi=(\pi_1,\ldots, \pi_N)\) est solution de 
+    De plus le vecteur \( \pi=(\pi_1,\ldots, \pi_N)\) est l'unique solution de 
     \begin{equation}
         \pi P=\pi.
     \end{equation}
@@ -180,6 +201,26 @@ Les chaîne de Markov régulières sont celles qui vont converger vers un équil
     Ensuite la suite \( (m_k)\) étant strictement croissante et \( m_0\) étant égal à \( 0\) dans le cas de \( e_i\) nous avons toujours \( \pi_i>0\) (strictement).
 \end{proof}
 
+\begin{theorem}[\cite{MarkGuy}]     \label{ThoQSuLZoz}
+    Si \( (X_n)\) est une chaîne de Markov finie, irréductible et apériodique de loi stationnaire \( \pi\), alors
+    \begin{enumerate}
+        \item
+            La suite de matrices stochastiques \( P^k\) converge vers la matrice
+            \begin{equation}
+                P^k\to\Pi=\begin{pmatrix}
+                    \pi    \\ 
+                    \vdots    \\ 
+                    \pi    
+                \end{pmatrix}.
+            \end{equation}
+        \item
+            Nous avons convergence des variables aléatoires au sens où
+            \begin{equation}
+                P(X_k=\mu P^k)\to \pi.
+            \end{equation}
+    \end{enumerate}
+\end{theorem}
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Marche aléatoire sur \texorpdfstring{$\eZ$}{\( \eZ\)}}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -232,8 +273,7 @@ sont indépendants. Nous ne pouvons pas montrer directement que \( P(A\cap B)=P(
 \end{subequations}
 Nous utilisons maintenant l'hypothèse d'indépendance des variables aléatoires \( X_0\) et \( Y_i\) pour conclure que les deux tribus des équations \eqref{subesqqsABtribsYYXzY} sont indépendantes. Les événements \( A\) et \( B\) sont par conséquent indépendants. 
 
-
-l'événement \( A\) est indépendant de l'événement \( \{ X_n=x_n \}\). Nous avons donc successivement
+L'événement \( A\) est indépendant de l'événement \( \{ X_n=x_n \}\). Nous avons donc successivement
 \begin{subequations}
     \begin{align}
         P\big( X_{n+1}=x_{n+1}| X_n=x_n,\ldots,X_0=x_0 \big)&=P\big( Y_{n+1}=x_{n+1}-x_n| X_n=x_n,\ldots,X_0=x_0 \big)\\
@@ -270,6 +310,22 @@ La matrice de transition de cette chaîne de Markov est une matrice infinie «da
         0    &   \text{sinon}.
     \end{cases}
 \end{equation}
+
+\begin{remark}
+    La plupart du temps lorsqu'il faut démontrer qu'une chaîne est de Markov, il faut suivre la procédure que nous venons de suivre pour la marche aléatoire sur \( \eZ\).
+    \begin{itemize}
+        \item Écrire tout en fonction des incréments.
+        \item Dire que les incréments conditionnés sont indépendants des incréments qui conditionnent (via les tribus engendrées).
+        \item Écrire que la probabilité cherchée est égale à l'événement conditionné dans lequel on a juste remplacé l'incrément par sa valeur.
+        \item Conditionner à nouveau par rapport au dernier incrément qui est indépendant.
+        \item Changer la valeur du dernier incrément par la variable aléatoire.
+    \end{itemize}
+    Dans ce raisonnement nous utilisons deux fois le fait que \( P(A|B)=P(K|B)\) si \( A\cap B=K\cap B\).
+\end{remark}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Chaînes de Markov homogènes}
+%---------------------------------------------------------------------------------------------------------------------------
 
 \begin{proposition}
     Voici quelque propriétés des chaînes de Markov homogènes.
@@ -356,7 +412,7 @@ Le \defe{graphe de transition}{graphe!de transition (chaîne de Markov)} d'une c
 \end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{chaîne de Markov définie par récurrence}
+\subsection{Chaîne de Markov définie par récurrence}
 %---------------------------------------------------------------------------------------------------------------------------
 
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
