@@ -4,6 +4,7 @@
 from phystricks import *
 import sys
 
+from phystricksMCKyvdk import MCKyvdk
 from phystricksIWuPxFc import IWuPxFc
 from phystricksMCQueGF import MCQueGF
 from phystricksYWxOAkh import YWxOAkh
@@ -147,7 +148,7 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         MethodeChemin, ExempleArcParam, CourbeRectifiable, SuiteInverseAlterne, CycloideA, Cardioid,  ParamTangente, Polirettangolo,
         RegioniPrimoeSecondoTipo,ExampleIntegration, ExampleIntegrationdeux, ExampleChangementVariables, ArcLongueurFinesse, TangentSegment,
         BoulePtLoin, UneCellule, SenoTopologo, AdhIntFr, AdhIntFrDeux, AdhIntFrTrois, AdhIntFrSix, DeuxCercles, TraceCycloide, QuelCote, Osculateur,
-        examssepti,examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle]
+        examssepti,examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle,MCKyvdk]
 
 # Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
