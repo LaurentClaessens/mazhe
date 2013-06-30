@@ -540,6 +540,10 @@ Cela se base sur le lemme suivant.
     Ce lemme est surtout intéressant lorsque \( A=qB+r\) est la division euclidienne de \( A\) par \( B\).
 \end{remark}
 
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{L'idée}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 L'algorithme pour calculer \( \pgcd(A,B)\) consiste à écrire la division euclidienne de \( A\) par \( B\) puis celle de \( B\) par \( r\) :
 \begin{subequations}
     \begin{align}
@@ -552,6 +556,10 @@ et donc \( \pgcd(A,B)=\pgcd(B,r)=\pgcd(r,r')\). Étant donné que les inégalit�
     r_{n-1}=q_nr_n,
 \end{equation}
 et à ce moment nous avons \( \pgcd(A,B)=\pgcd(r_{n-1},r_n)=r_n\).
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Pour le PGCD}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Écrivons cela en détail (parce que Bézout, ça va être le même chose en cinq fois plus compliqué). On pose
 \begin{subequations}
@@ -568,7 +576,15 @@ Ensuite, sachant \( r_2\) nous pouvons continuer :
 \begin{equation}
     r_1=q_2r_2+r_3
 \end{equation}
-donne \( q_2\) et \( r_3=r_1-q_2r_2\). On continue avec \( r_2=q_3r_3+r_4\). La suite \( (r_k)\) ainsi construite est strictement décroissante et à chaque étape nous avons
+donne \( q_2\) et \( r_3=r_1-q_2r_2\). On continue avec \( r_2=q_3r_3+r_4\). Tout cela pour poser la suite
+\begin{equation}
+    \begin{aligned}[]
+        r_0&=A\\
+        r_1&=B\\
+        r_k&=q_{k+1}r_{k+1}+r_{r+2}
+    \end{aligned}
+\end{equation}
+où la troisième ligne est la définition de \( r_{k+2}\) et de \( q_{k+1}\) en fonction de \( r_k\) et \( r_{k+1}\). La suite \( (r_k)\) ainsi construite est strictement décroissante et à chaque étape nous avons
 \begin{equation}
     \pgcd(r_k,r_{k+1})=\pgcd(r_{k+1},r_{k+2})=\pgcd(A,B).
 \end{equation}
@@ -588,7 +604,13 @@ La suite étant strictement décroissante, nous prenons \( r_n\), le dernier non
 \begin{equation}
     r_{n-1}=q_nr_n
 \end{equation}
-avec \( \pgcd(A,B)=\pgcd(r_n,r_{n-1})=r_n\). La difficulté est de construire la suite qui donne Bézout. Elle va être construite à l'envers. Nous voulons trouver les couples \( (u_k,v_k)\) de telle façon à avoir à chaque étape
+avec \( \pgcd(A,B)=\pgcd(r_n,r_{n-1})=r_n\). 
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Bézout}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+La difficulté est de construire la suite qui donne Bézout. Elle va être construite à l'envers. Nous voulons trouver les couples \( (u_k,v_k)\) de telle façon à avoir à chaque étape
 \begin{equation}
     r_n=u_kr_k+v_kr_{k-1}.
 \end{equation}
@@ -598,7 +620,7 @@ Notons que c'est à chaque fois \( r_n\) que nous construisons. La première éq
 \end{equation}
 sachant que \( r_{n-1}=q_nr_n\). On pose \( v_n=0\) et \( u_n=1\) et c'est bon. Pour la récurrence, nous égalisons les deux expressions pour \( r_n\) :
 \begin{equation}
-    r_n=u_kr_k+v_kr_{k-1}=u_{k-1}r_{k-1}=v_{k-1}r_{k-2}
+    r_n=u_kr_k+v_kr_{k-1}=u_{k-1}r_{k-1}+v_{k-1}r_{k-2}
 \end{equation}
 dans laquelle nous substituons \( r_{k-2}=q_{k-1}r_{k-1}+r_k\) et nous égalisons les coefficients de \( r_k\) et \( r_{k-1}\) :
 \begin{equation}

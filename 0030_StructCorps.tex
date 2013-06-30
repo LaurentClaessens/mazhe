@@ -405,7 +405,7 @@ Bob se crée une paire de clef publique, clef privée de la façon suivante.
     \item
         Bob choisit deux nombres premiers distincts \( p,q\).
     \item
-        On pose \( n=pq\) .
+        Il calcule \( n=pq\) .
     \item
         Par le corollaire \ref{CorlvTmsf}, l'indicatrice d'Euler \( \varphi(n)=(p-1)(q-1)\) est facile à calculer pour Bob.
     \item
@@ -413,7 +413,11 @@ Bob se crée une paire de clef publique, clef privée de la façon suivante.
 \end{enumerate}
 Maintenant la paire est : clef publique \( (n,e)\) et clef privée \( (n,d)\)\footnote{Le fait que \( e\) soit public et \( d\) soit privé est une convention. \( e\) comme  \emph{encryption} et \( d\) comme \emph{decryption}.}.
 
-Bob envoie la paire \( (n,e)\) à Alice. Ici nous ne supposons pas que la communication soit sure. Une tierce personne peut intercepter le message. D'ailleurs en principe les gens publient leurs clef publique sur leurs sites, voire sur des sites dédiés. Le problème de l'identification reste à résoudre \wikipedia{en}{Key_signing_party}{à l'ancienne}.
+Bob envoie la paire \( (n,e)\) à Alice. 
+
+\begin{remark}
+    Ici nous ne supposons pas que la communication soit sure. Une tierce personne peut intercepter le message. D'ailleurs en principe les gens publient leurs clef publique sur leurs sites, voire sur des sites dédiés. Le problème de l'identification reste à résoudre \wikipedia{en}{Key_signing_party}{à l'ancienne}.
+\end{remark}
 
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 \subsubsection{Chiffrement}
@@ -464,6 +468,23 @@ Si on ne croit pas au lemme chinois, on peut utiliser le lemme de Gauss. Posons
 Dans ce cas \( p\) divise \( bq\), mais \( q\) est premier avec \( p\), donc le lemme de Gauss \ref{LemSdnZNX} nous enseigne\footnote{Ici aussi, si \( p=q\), ça ne marche pas.} que \( p\) divise \( b\).
 
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Une imprudence à ne pas commettre}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Nous avons pris deux cas selon que \( M\) soit ou non premier avec \( p\). Une question qui arrive est la suivante : est-ce que c'est une bonne idée d'envoyer un message qui ne soit pas premier avec \( p\) ?
+
+Si nous savons que \( M\) n'est pas premier avec \( p\), alors nous avons \( M^e=l^ep^e\) et \( n=pq\) qui sont publics. Donc un calcul de PGCD permettrait de trouver \( p\).
+
+Il faut cependant savoir que 
+\begin{itemize}
+    \item La probabilité que ça arrive est infime : vu que \( M\) est entre \( 0\) et \( n=pq\), les multiples de \( p\) possibles sont \( p,2p,\cdots pq\). Il y a dont une chance sur \( p\) que cela arrive. Typiquement avec des \( p\) de l'ordre de \( 10^{120}\), on peut utiliser RSA chaque milliseconde sur chaque atome de l'univers depuis le début des temps que ça ne se serait presque certainement pas encore produit.
+    \item
+        De toutes façons Alice ne sait pas vérifier si son message est premier avec \( p\) parce qu'elle ne connaît pas \( p\).
+    \item 
+        En conclusion la partie de la preuve qui montre que \( M^{1+\varphi(n)}\in [M]_p\cap[M]_q\) dans le cas \( M\) non premier avec \( p\) est, à toutes fins pratiques, inutile parce que ce cas de figure ne se présentera jamais dans toutes l'histoire de l'univers, même pas avec une civilisation intelligente autour de chaque étoile.
+\end{itemize}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 \subsubsection{Problèmes calculatoires}
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -488,7 +509,7 @@ si \( e=2k+1\) alors nous calculons
 \begin{equation}
     M^e=M(M^k)^2.
 \end{equation}
-Le calcul prend alors seulement environ \( \ln(e)\) étapes. Pour donner une idée,
+Le calcul prend alors seulement environ \(  \log_2(e)  \) étapes. Pour donner une idée,
 \begin{equation}
     \log_2(10^{120})\simeq 400.
 \end{equation}
@@ -581,7 +602,7 @@ Le polynôme minimal dépends du corps sur lequel on le considère. Par exemple 
 
 Deux éléments \( \alpha\) et \( \beta\) dans \( \eL\) sont dit \defe{conjugués}{conjugués!éléments d'une extension} si ils ont même polynôme minimal. Par exemple \( i\) et \( -i\) sont conjugués dans \( \eC\) vu comme extension de \( \eQ\).
 
-\begin{lemma}[\href{http://allken-bernard.org/pierre/weblog/?p=2061}{Blog de Pierre Bernard}]
+\begin{lemma}[\cite{UQerHHk}]
     Un nombre complexe algébrique dont tous les conjugués sont de module \( 1\) est une racine de l'unité.
 \end{lemma}
 
