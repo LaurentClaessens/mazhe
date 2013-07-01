@@ -1,0 +1,332 @@
+% This is part of Mes notes de mathématique
+% Copyright (c) 2011-2013
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Transformée de Fourier}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Ici nous utilisons la convention de la transformée de Fourier de \wikipedia{fr}{Transformée_de_Fourier}{wikipedia}, c'est à dire
+\begin{subequations}
+    \begin{align}
+        \hat f(\xi)&=\int_{\eR} e^{-i\xi x}f(x)dx\\
+        f(x)&=2\pi\int_{\eR} e^{i\xi x}\hat f(\xi)d\xi.
+    \end{align}
+\end{subequations}
+
+L'\defe{espace de Schwartz}{Schwartz!espace}\index{espace!de Schwartz} \( \swS(\eR^n,\eC)\)\nomenclature[Y]{\( \swS(\eR^n,\eC)\)}{fonctions Schwartz} est l'ensemble des fonctions dont toutes les dérivées décroissent plus vite que l'inverse de tout polynôme, c'est à dire
+\begin{equation}
+    \swS(\eR^n,\eC)=\{ f\in C^{\infty}(\eR^n,\eC)\tq \forall \alpha,\beta\in \eN^n,\sup_{x\in \eR^n}\big| (x)^{\alpha}D^{\beta}f(x) \big|<\infty \}
+\end{equation}
+où nous utilisons les notations \( x^{\alpha}=(x_1)^{\alpha_1}\ldots (x_n)^{\alpha_n}\) et \( D^{\beta}=\frac{ \partial^n  }{ \partial \beta_1\ldots\partial \beta_n }\).
+
+\begin{proposition}[\cite{MesIntProbb}]
+    La transformée de Fourier est une bijection de \( \swS(\eR^n,\eC)\).    
+\end{proposition}
+
+\begin{theorem}[\cite{MesIntProbb}]      \label{ThoRWEoqY}
+    Soit \( \mu\) une mesure sur les boréliens de \( \eR^n\) finie sur les compacts. Alors \( C^{\infty}_c(\eR^n,\eR)\) est dense dans \( L^1(\eR^n,\Borelien(\eR^n),\mu)\).
+\end{theorem}
+
+\begin{proposition}     \label{PropfqvLOl}
+    La transformée de Fourier est un morphisme vis-à-vis de la convolution\index{produit!de convolution!et Fourier} sur \( L^1(\eR^n)\) :
+    \begin{equation}
+        \widehat{f*g}=\hat f\hat g.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Nous devons étudier l'intégrale
+    \begin{equation}
+        \widehat{f*g}(\xi)=\int_{\eR}\left[ \int_{\eR} f(y)g(t-y)\right] e^{-it\xi} dt.
+    \end{equation}
+    Ici nous avons choisit des représentants \( f\) et \( g\) dans les classes de \( L^1\). Montrons que \( f\) est borélienne. D'abord \( f(x)=f_+(x)-f_-(x)\) où \( f_+\) et \( f_-\) sont des fonctions positives. Afin d'alléger les notations nous supposons un instant que \( f\) est positive et nous posons
+    \begin{equation}
+        f_n(x)=\sum_{k=1}^{2^n} \frac{ k }{ n }\mtu_{f(x)\in\mathopen[ \frac{ k }{ n } , \frac{ k+1 }{ n } [}.
+    \end{equation}
+    Le fait que \( f\) soit dans \( L^1\) implique que chacune des fonctions \( f_n\) est borélienne et donc que \( f\) l'est aussi en tant que limite ponctuelle de fonctions boréliennes\footnote{Le fait que \( f\) soit borélienne est une conséquence du théorème \ref{ThoRWEoqY}.}.
+    
+    Nous allons appliquer le théorème de Fubini \ref{CorTKZKwP} à la fonction
+    \begin{equation}
+        \phi(x,y)=f(x)g(y) e^{-i\xi(x+y)}
+    \end{equation}
+    qui est borélienne en tant que produit et composé de fonctions boréliennes. Nous avons
+    \begin{subequations}
+        \begin{align}
+            \int_{\eR}\left( \int_{\eR}| f(x) e^{-i\xi x} | |g(y) e^{-i\xi y} |dy \right)dx&=\int_{\eR}\left( | f(x) |\int_{\eR}| g(y) |dy \right)dx\\
+            &=\int_{\eR}| f(x) |\| g \|_1\\
+            &=\| f \|_1\| g \|_1<\infty.
+        \end{align}
+    \end{subequations}
+    Le théorème est donc applicable. D'abord nous avons :
+    \begin{subequations}
+        \begin{align}
+            \hat f(\xi)\hat g(\xi)&=\left(\int_{\eR}f(x) e^{-i\xi x}dx\right)\left(\int_{\eR}g(y) e^{-i\xi y}dy\right)\\
+            &=\int_{\eR}\left( \int_{\eR}f(x)g(y) e^{-i\xi(x+y)}dy \right)dx\\
+            &=\int_{\eR}\left( \int_{\eR}f(x)g(t-x) e^{-i\xi t} \right)dx.
+        \end{align}
+    \end{subequations}
+    Jusqu'ici nous n'avons pas utilisé Fubini. Nous avons seulement introduit le nombre \( \int_{\eR}g(y) e^{-i\xi y}dy\) dans l'intégrale par rapport à \( x\) et effectué le changement de variables \( y\mapsto t=x+y\). Maintenant nous appliquons le théorème de Fubini pour inverser l'ordre des intégrales :
+    \begin{subequations}
+        \begin{align}
+            \hat f(\xi)\hat g(\xi)&=\int_{\eR}\left( \int_{\eR}f(x)g(t-x) e^{-it\xi}dx \right)dy\\
+            &=\int_{\eR} e^{-it\xi}\left( \int_{\eR}f(x)g(t-x)dx \right)dt\\
+            &=\int_{\eR} e^{-it\xi}(f*g)(t)dt\\
+            &=\widehat{f*g}(\xi).
+        \end{align}
+    \end{subequations}
+\end{proof}
+
+\begin{proposition}       \label{PropJvNfj}
+    Soit une fonction \( f\in L^1(\eR^d)\). Alors sa transformée de Fourier est continue\index{transformée!de Fourier!continuité}.
+\end{proposition}
+
+\begin{proof}
+    Nous considérons une fonction \( f\) définie sur \( \eR^d\) et à valeurs dans \( \eR\) ou \( \eC\). Sa transformée de Fourier est donnée par
+    \begin{equation}
+        \hat f(\xi)=\int_{\eR^d} e^{-i\xi x}f(x)dx.
+    \end{equation}
+    Pour montrer que cette fonction \( \hat f\) est continue en \( \xi_0\) nous considérons une suite \( (\xi_n)\to \xi_0\) et nous voulons montrer que \( \hat f(\xi_n)\to\hat f(\xi_0)\). Pour cela nous considérons les fonctions
+\begin{equation}
+    g_n(x)= e^{-i\xi_nx}f(x)
+\end{equation}
+qui convergent simplement vers \( g(x)= e^{-i\xi x}f(x)\). Étant donné que
+\begin{equation}
+    | g_n(x) |<| f(x) |,
+\end{equation}
+le théorème de la convergence dominée donne alors
+\begin{equation}
+    \lim_{n\to \infty} \int g_n(x)=\int\lim_{n\to \infty } g_n(x),
+\end{equation}
+c'est à dire \( \lim_{n\to \infty} \hat f(\xi_n)=\hat f(\xi)\). La fonction \( \hat f\) est donc continue.
+\end{proof}
+
+\begin{lemma}
+    Soit \( f\in L^1(\eR)\). Alors \( \| \hat f \|_{\infty}\leq \| f \|_1\).
+\end{lemma}
+
+\begin{proof}
+    Cela est un simple calcul : étant donné que
+    \begin{equation}
+        \hat f(\xi)=\int_{\eR}f(x) e^{-ix\xi}dx,
+    \end{equation}
+    nous avons, pour tout \( \xi\),
+    \begin{equation}
+        | \hat f(\xi) |\leq\int_{\eR}| f(x) |dx,
+    \end{equation}
+    ce qui signifie exactement \( \| \hat f \|_{\infty}\leq \| f \|_1\).
+\end{proof}
+
+\begin{lemma}[Lemme de Riemann-Lebesgue\cite{MaureyHilbertFourier}]     \label{LesmRLaxXkQV}
+    Si \( f\) est une fonction \( L^1(\eR)\) alors \( \lim_{\xi\to\pm\infty} \hat f(\xi)=0\).
+\end{lemma}
+
+\begin{proof}
+    Nous commençons par prouver le résultat dans le cas d'une fonction \( g\) en escalier, et plus précisément par une fonction caractéristique d'un compact \( K=\mathopen[ a , b \mathclose]\). Au niveau de la transformée de Fourier nous avons
+    \begin{equation}
+        \hat\mtu_{K}(\xi)=\int_a^b e^{-i\xi x}dx=-\frac{1}{ i\xi }( e^{-ib\xi}- e^{-ia\xi}).
+    \end{equation}
+    Par conséquent
+    \begin{equation}
+        | \hat\mtu_K(\xi) |\leq \frac{ 2 }{ | \xi | }.
+    \end{equation}
+    Plus généralement si \( g=\sum_{i=1}^Nc_i\mtu_{K_i}\), alors
+    \begin{equation}
+        | \hat g(\xi) |\leq \frac{ 2 }{ | \xi | }\sum_{i=1}^N| c_i |,
+    \end{equation}
+    et donc nous avons effectivement \( \lim_{\xi\to\pm\infty}| \hat g(\xi) |=0\).
+
+    Nous passons maintenant au cas général \( f\in L^1(\eR)\). Étant donné que les fonctions \( L^1\) en escalier sont denses dans \( L^1\), nous considérons une fonction \( g\in L^1(\eR)\) en escalier telle que \( \| f-g \|_1<\epsilon\). Nous avons donc
+    \begin{equation}
+        \| \hat f-\hat g \|_{\infty}\leq \| f-g \|_1<\epsilon.
+    \end{equation}
+    Donc
+    \begin{equation}
+        \| \hat f(\xi) \|\leq \| \hat f(\xi)-\hat g(\xi) \|_| \hat g(\xi) |.
+    \end{equation}
+    Le premier terme est plus petit que \( \epsilon\). Il nous reste à voir que 
+    \begin{equation}
+        \lim_{\xi\to \infty} | \hat g(\xi) |=0,
+    \end{equation}
+    mais cela est le résultat de la première partie de la preuve.    
+\end{proof}
+
+\begin{corollary}
+    La transformée de Fourier d'une fonction \( L^1(\eR)\) est bornée.
+\end{corollary}
+
+\begin{proof}
+    Par le corollaire \ref{PropJvNfj}, la transformée de Fourier d'une fonction \( L^1\) est continue. Le lemme de Riemann-Lebesgue \ref{LesmRLaxXkQV} impliquant qu'elle tend vers zéro en \( \pm\infty\), elle doit être bornée.    
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Formule sommatoire de Poisson}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}[Formule sommatoire de Poisson]   \label{ProprPbkoQ}
+    Soit \( f\colon \eR\to \eC\) une fonction continue et \( L^1(\eR)\). Nous supposons que
+    \begin{enumerate}
+        \item
+    il existe \( M>0\) et \( \alpha>1\) tels que
+    \begin{equation}
+        | f(x) |\leq\frac{ M }{ (1+| x |)^{\alpha} },
+    \end{equation}
+        \item
+            \( \sum_{n=-\infty}^{\infty}| \hat f(2\pi n) |<\infty\).
+
+    \end{enumerate}
+    Alors nous avons
+    \begin{equation}
+        \sum_{n=-\infty}^{\infty}f(n)=\sum_{n=-\infty}^{\infty}\hat f(2\pi n).
+    \end{equation}
+\end{proposition}
+\index{convergence!rapidité}
+\index{série!fonctions}
+\index{transformation!Fourier}
+\index{Fourier}
+\index{série!entière}
+\index{série!de Fourier}
+\index{Poisson!formule sommatoire}
+\index{formule!sommatoire de Poisson}
+
+%TODO : Exprimer ce théorème comme truc sur les distributions et sur les machins tempérées, espace de Schwartz.
+
+\begin{proof}
+    \begin{subproof}
+        \item[Convergence normale]
+    
+    Nous commençons par montrer qu'il y a convergence normale sur tout compact séparément des séries sur les \( n\geq 0\) et sur les \( n<0\).
+    
+    Soit \( K\) un compact de \( \eR\) contenu dans \( \mathopen[ -A , A \mathclose]\) et \( n\in \eZ\) tel que \( | n |\geq 2A\). Pour \( x\in K\) nous avons
+    \begin{equation}
+        | x+n |\geq | n |-| x |\geq | n |-A\geq \frac{ | n | }{ 2 }.
+    \end{equation}
+    Du coup nous avons un \( \alpha>1\) tel que
+    \begin{equation}
+        | f(x+n) |\leq \frac{ M }{ \big( 1+| x+n | \big)^{\alpha} }\leq \frac{ M }{ \left( 1+\frac{ | n | }{2} \right)^{\alpha} }.
+    \end{equation}
+    Lorsque \( n\) est grand, cela a le comportement de \( M/| n |^{\alpha}\) et donc la série
+    \begin{equation}
+        \sum_{n=0}^{\infty}f(x+n)
+    \end{equation}
+    est une série convergent normalement. Les deux séries (usuelles) 
+    \begin{subequations}
+        \begin{align}
+            a_-=\sum_{n\leq 0}f(x+n)\\
+            a_-=\sum_{n> 0}f(x+n)
+        \end{align}
+    \end{subequations}
+    convergent normalement.
+    
+\item[Convergence commutative]
+    Au sens de la définition \ref{DefIkoheE} nous avons
+    \begin{equation}
+        \sum_{n\in \eZ}f(x+n)=a_++a_-.
+    \end{equation}
+    En effet si nous prenons \( J'_0\subset\eN\) fini tel que \( |\sum_{\eN\setminus J_0}f(x+n)-a_+|\leq \epsilon\) et \( J'_1\in -\eN\) tel que \( |\sum_{n\in -\eN\setminus J'_1}f(x+n)|-a_-<\epsilon\), et si nous posons \( J_0=J'_0\cup J'_1\) alors si \( K\) est un ensemble fini de \( \eZ\) contenant \( J_0\) nous avons
+    \begin{equation}
+        | \sum_{n\in K}f(n+x)-(a_++a_-) |\leq | \sum_{n\in \e^+}f(n+x)-a_+ |+| \sum_{n\in K^-}f(n+x)-a_- |\leq 2\epsilon
+    \end{equation}
+    où $K^+$ sont les éléments positifs de \(K\) et \( K^-\) sont les \emph{strictement} négatifs. Maintenant que la famille \( \{ f(n+x) \}_{n\in \eZ}\) est une famille sommable, nous savons qu'elle est commutativement sommable et que la proposition \ref{PropoWHdjw} nous permet de sommer dans l'ordre que l'on veut. Nous pouvons donc écrire sans ambigüité l'expression \( \sum_{n\in \eZ}f(x+n)\) ou \( \sum_{n=-\infty}^{\infty}f(x+n)\).
+    
+    \item[re-convergence normale]
+
+        Nous posons donc sans complexes la série
+        \begin{equation}
+            F(x)=\sum_{n\in \eZ}f(x+n)
+        \end{equation}
+        qui converge tant commutativement que normalement. Notons que nous pouvons maintenant dire que la série sur \( \eZ\) converge normalement; pas seulement les deux séries séparément.
+
+    \item[Continuité, périodicité]
+        Étant donné que chacune des fonctions \( f(x+n)\) est continue, la convergence normale nous assure que \( F\) est continue.
+
+        De plus \( F\) est périodique parce que
+        \begin{equation}
+            F(x+1)=\sum_{n=-\infty}^{\infty}f(x+1+n)=\sum_{p=-\infty}^{\infty}f(x+p)
+        \end{equation}
+        où nous avons posé \( p=1+n\).
+        
+    \item[Coefficients de Fourier]
+
+        En vertu de la définition \eqref{EqhIPoPH} et de la périodicité de \( F\),
+        \begin{subequations}
+            \begin{align}
+                c_n(F)&=\int_{-1/2}^{1/2}F(t) e^{-2\pi int}dt\\
+                &=\int_0^1F(t) e^{-2\pi int}dt\\
+                &=\int_0^1\sum_{n\in \eZ}f(t+n) e^{-2 i\pi nt}dt\\
+                &=\sum_{n\in \eZ}\int_n^{n+1}f(u) e^{-2\pi i (u-n)t}du\\
+                &=\int_{-\infty}^{\infty}f(u) e^{-2\pi inu}du\\
+                &=\hat f(2\pi n).
+            \end{align}
+        \end{subequations}
+        où nous avons effectué le changement de variables \( u=t+n\), et permuté l'intégrale et la somme en vertu du fait que la somme converge normalement.
+
+    \item[Conclusion]
+
+        Étant donné l'hypothèse \( \sum_{n\in \eZ}| \hat f(n) |<\infty\) la proposition \ref{PropSgvPab} nous dit que
+        \begin{equation}
+            F(x)=\sum_{n\in \eZ}c_n(F) e^{2\pi inx},
+        \end{equation}
+        c'est à dire que
+        \begin{equation}
+            \sum_{n-\infty}^{\infty}f(x+n)=\sum_{n=-\infty}^{\infty}\hat f(2\pi n) e^{2\pi i nx}.
+        \end{equation}
+        En écrivant cette égalité en \( x=0\) nous trouvons le résultat :
+        \begin{equation}
+            \sum_{n\in \eZ}f(n)=\sum_{n\in \eZ}\hat f(2\pi n).
+        \end{equation}
+    \end{subproof}
+\end{proof}
+
+\begin{example}\label{ExDLjesf}
+\index{convergence!rapidité}
+    La formule sommatoire de Poisson peut être utilisée pour calculer des sommes dans l'espace de Fourier plutôt que dans l'espace direct. Nous allons montrer dans cet exemple l'égalité
+    \begin{equation}
+        \sum_{n=-\infty}^{\infty} e^{-\alpha n^2}=\sum_{n=-\infty}^{\infty}\sqrt{\frac{ \pi }{ \alpha }} e^{-\pi^2 n^2/\alpha}.
+    \end{equation}
+    Si \( \alpha\) est grand, alors la somme de gauche est plus rapide, tandis que si \( \alpha\) est petit, c'est le contraire.
+
+    Nous appliquons la formule sommatoire de Poisson à la fonction
+    \begin{equation}
+        f(x)= e^{-\alpha x^2}.
+    \end{equation}
+    Nous avons
+    \begin{subequations}        \label{EqCDeLht}
+        \begin{align}
+            \hat f(x)&=\int_{\eR} e^{-\alpha t^2-ixt}dt\\
+            &= e^{-x^2/4\alpha}\int_{\eR}e^{ -(\sqrt{\alpha}t+\frac{ ix }{ 2\sqrt{\alpha} })^2 }\\
+            &= e^{-x^2/4\alpha}\frac{1}{ \sqrt{\alpha} }\int_{\eR+\frac{ ix }{ 2\sqrt{\alpha} }} e^{-u^2}du.
+        \end{align}
+    \end{subequations}
+    Pour traiter cette intégrale nous utilisons la proposition \ref{PrpopwQSbJg} en considérant le chemin rectangulaire fermé qui joint les points \( -R\), \( R\), \( R+ai\), \( -R+ai\) et \( f(z)= e^{-z^2}\). Calculons l'intégrale sur les deux côtés verticaux. Nous posons
+    \begin{equation}
+        \gamma_R(t)=R+tia
+    \end{equation}
+    avec \( t\colon 0\to 1\). Nous avons
+    \begin{subequations}
+        \begin{align}
+            \int_{\gamma_R}f&=\int_0^1f\big( \gamma_R(t) \big)\| \gamma_R'(t) \|dt\\
+            &=a e^{-R^2}\int_0^1 e^{-2tRia+at^2}dt,
+        \end{align}
+    \end{subequations}
+    donc en module nous avons
+    \begin{equation}
+        | \int_{\gamma_R}f |\leq a e^{-R^2}\int_0^1 e^{at^2}dt\leq M e^{-R^2},
+    \end{equation}
+    où \( M\) est une constante ne dépendant pas de \( R\). Lorsque \( R\to \infty\), la contribution des chemins verticaux s'annule et nous trouvons que
+    \begin{equation}    \label{EqjrNxLr}
+        \int_{\eR+ai} e^{-u^2}du=\int_{\eR} e^{-u^2}du,
+    \end{equation}
+    que nous pouvons utiliser pour continuer le calcul \eqref{EqCDeLht}. Nous avons
+    \begin{equation}
+        \hat f(x)= \frac{ e^{-x^2/4\alpha}}{\sqrt{\alpha}}\int_{R} e^{-u^2}du\\
+            =\sqrt{\frac{ \pi }{ \alpha }} e^{-x^2/4\alpha}
+    \end{equation}
+    où nous avons utilisé la formule \eqref{EqFDvHTg}. Par conséquent ce qui rentre dans la formule sommatoire de Poisson est
+    \begin{equation}
+        \hat f(2\pi n)=\sqrt{\frac{ \pi }{ \alpha }} e^{-\pi^2 n^2/\alpha}.
+    \end{equation}
+\end{example}
+
+%AFAIRE : lire l'agenda.
