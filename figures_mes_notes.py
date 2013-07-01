@@ -132,6 +132,7 @@ from phystricksCbCartTuii import CbCartTuii
 from phystricksCbCartTuiii import CbCartTuiii
 from phystricksDS2010exo1 import DS2010exo1
 from phystricksPHTVjfk import PHTVjfk
+from phystrickssenotopologo import senotopologo
 
 from figure_devoir1 import exercice1A1,exercice1A2,exercice4
 from phystricksTriangleRectangle import TriangleRectangle  # Il faudrait aussi le remettre dans figures_list
@@ -148,7 +149,9 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         MethodeChemin, ExempleArcParam, CourbeRectifiable, SuiteInverseAlterne, CycloideA, Cardioid,  ParamTangente, Polirettangolo,
         RegioniPrimoeSecondoTipo,ExampleIntegration, ExampleIntegrationdeux, ExampleChangementVariables, ArcLongueurFinesse, TangentSegment,
         BoulePtLoin, UneCellule, SenoTopologo, AdhIntFr, AdhIntFrDeux, AdhIntFrTrois, AdhIntFrSix, DeuxCercles, TraceCycloide, QuelCote, Osculateur,
-        examssepti,examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle,MCKyvdk]
+        examssepti,examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle,MCKyvdk,senotopologo]
+
+figures_list=[senotopologo]
 
 # Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
