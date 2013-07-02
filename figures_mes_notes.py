@@ -37,6 +37,7 @@ from phystricksArcCercleAngle import ArcCercleAngle
 from phystricksChampGraviation import ChampGraviation
 from phystricksFnCosApprox import FnCosApprox
 from phystricksNiveauHyperbole import NiveauHyperbole
+from phystricksNiveauHyperbole import NiveauHyperboleDeux
 from phystricksBateau import Bateau
 from phystricksFonctionXtrois import FonctionXtrois
 from phystricksFonctionEtDerive import FonctionEtDerive
@@ -140,7 +141,7 @@ from figure_devoir1 import exercice1A1,exercice1A2,exercice4
 from phystricksTriangleRectangle import TriangleRectangle  # Il faudrait aussi le remettre dans figures_list
 
 figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre, MomentForce,CouroneExam,SurfacePrimiteGeog,
-        SurfaceEntreCourbes, DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin, ChampGraviation,FnCosApprox,NiveauHyperbole,
+        SurfaceEntreCourbes, DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin, ChampGraviation,FnCosApprox,
         Bateau,FonctionXtrois,FonctionEtDerive, SurfaceDerive,DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim, ExoProjection,
         ExoPolaire,TriangleRectangle,CercleTnu,QCb, ProjectionScalaire,CercleTrigono,TgCercleTrigono, SurfaceHorizVerti,SurfaceCercle,KScolorD,
         CheminFresnel, IntRectangle,IntTriangle,CoinPasVar, IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa, ConeRevolution,
@@ -152,8 +153,10 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         RegioniPrimoeSecondoTipo,ExampleIntegration, ExampleIntegrationdeux, ExampleChangementVariables, ArcLongueurFinesse, TangentSegment,
         BoulePtLoin, UneCellule, SenoTopologo, AdhIntFr, AdhIntFrDeux, AdhIntFrTrois, AdhIntFrSix, DeuxCercles, TraceCycloide, QuelCote, Osculateur,
         examssepti,examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,
-        LesSubFigures
+        LesSubFigures,NiveauHyperbole,NiveauHyperboleDeux
         ]
+
+figures_list=[NiveauHyperbole,NiveauHyperboleDeux]
 
 # Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
