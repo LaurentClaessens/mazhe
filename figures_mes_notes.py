@@ -41,7 +41,9 @@ from phystricksBateau import Bateau
 from phystricksFonctionXtrois import FonctionXtrois
 from phystricksFonctionEtDerive import FonctionEtDerive
 from phystricksSurfaceDerive import SurfaceDerive
-from phystricksRechercheTangente import RechercheTangente
+from phystricksRechercheTangente import TangenteQuestion
+from phystricksRechercheTangente import TangenteDetail
+from phystricksRechercheTangente import LesSubFigures
 from phystricksDerivTangente import DerivTangente
 from phystricksCoordPolaires import CoordPolaires
 from phystricksDefinitionCartesiennes import DefinitionCartesiennes
@@ -139,7 +141,7 @@ from phystricksTriangleRectangle import TriangleRectangle  # Il faudrait aussi l
 
 figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre, MomentForce,CouroneExam,SurfacePrimiteGeog,
         SurfaceEntreCourbes, DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin, ChampGraviation,FnCosApprox,NiveauHyperbole,
-        Bateau,FonctionXtrois,FonctionEtDerive, SurfaceDerive,RechercheTangente,DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim, ExoProjection,
+        Bateau,FonctionXtrois,FonctionEtDerive, SurfaceDerive,DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim, ExoProjection,
         ExoPolaire,TriangleRectangle,CercleTnu,QCb, ProjectionScalaire,CercleTrigono,TgCercleTrigono, SurfaceHorizVerti,SurfaceCercle,KScolorD,
         CheminFresnel, IntRectangle,IntTriangle,CoinPasVar, IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa, ConeRevolution,
         ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang, ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
@@ -149,9 +151,9 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         MethodeChemin, ExempleArcParam, CourbeRectifiable, SuiteInverseAlterne, CycloideA, Cardioid,  ParamTangente, Polirettangolo,
         RegioniPrimoeSecondoTipo,ExampleIntegration, ExampleIntegrationdeux, ExampleChangementVariables, ArcLongueurFinesse, TangentSegment,
         BoulePtLoin, UneCellule, SenoTopologo, AdhIntFr, AdhIntFrDeux, AdhIntFrTrois, AdhIntFrSix, DeuxCercles, TraceCycloide, QuelCote, Osculateur,
-        examssepti,examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle,MCKyvdk,senotopologo]
-
-figures_list=[senotopologo]
+        examssepti,examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,
+        LesSubFigures
+        ]
 
 # Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
