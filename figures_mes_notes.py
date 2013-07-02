@@ -4,6 +4,7 @@
 from phystricks import *
 import sys
 
+from phystricksJGuKEjH import JGuKEjH
 from phystricksMCKyvdk import MCKyvdk
 from phystricksIWuPxFc import IWuPxFc
 from phystricksMCQueGF import MCQueGF
@@ -153,7 +154,7 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         RegioniPrimoeSecondoTipo,ExampleIntegration, ExampleIntegrationdeux, ExampleChangementVariables, ArcLongueurFinesse, TangentSegment,
         BoulePtLoin, UneCellule, SenoTopologo, AdhIntFr, AdhIntFrDeux, AdhIntFrTrois, AdhIntFrSix, DeuxCercles, TraceCycloide, QuelCote, Osculateur,
         examssepti,examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,
-        LesSubFigures,NiveauHyperbole,NiveauHyperboleDeux
+        LesSubFigures,NiveauHyperbole,NiveauHyperboleDeux,JGuKEjH
         ]
 
 # Il me semble que la figure IntCourbePolaire est inutile
