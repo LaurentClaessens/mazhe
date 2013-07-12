@@ -63,14 +63,17 @@ myRequest.ok_filenames_list.append("0300_statistiques")
 myRequest.ok_filenames_list.append("0310_Markov")
 myRequest.ok_filenames_list.append("Science")
 myRequest.ok_filenames_list.append("liste_developpements")
-myRequest.ok_filenames_list.append("SystemeCoordOM")
-myRequest.ok_filenames_list.append("calcul_differentiel")
-myRequest.ok_filenames_list.append("plusieurs_variables")
-myRequest.ok_filenames_list.append("champs_vecteurs")
-myRequest.ok_filenames_list.append("curviligne")
-myRequest.ok_filenames_list.append("integrales")
-myRequest.ok_filenames_list.append("Stokes_et_co")
-myRequest.ok_filenames_list.append("theorie_generale")
+
+# Je supprime la partie Outils mathématiques du cours d'agrégation.
+
+#myRequest.ok_filenames_list.append("SystemeCoordOM")
+#myRequest.ok_filenames_list.append("calcul_differentiel")
+#myRequest.ok_filenames_list.append("plusieurs_variables")
+#myRequest.ok_filenames_list.append("champs_vecteurs")
+#myRequest.ok_filenames_list.append("curviligne")
+#myRequest.ok_filenames_list.append("integrales")
+#myRequest.ok_filenames_list.append("Stokes_et_co")
+#myRequest.ok_filenames_list.append("theorie_generale")
 myRequest.ok_filenames_list.append("ExercicesAgreg")
 
 myRequest.refute_linenames_list=["Exercices"]
