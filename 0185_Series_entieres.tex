@@ -1635,7 +1635,7 @@ Cet exemple est rendu rigoureux par la proposition suivante.
 \section{Théorème d'Abel angulaire}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-\begin{theorem}[Abel angulaire\cite{KXjFWKA}]
+\begin{theorem}[Abel angulaire\cite{KXjFWKA}]   \label{ThoTGjmeen}
     Soit \( \sum_{n}a_nz^n\) une série entière de rayon de convergence plus grand ou égal à \( 1\) et de somme \( f\). Soit \( \theta_0\in\mathopen[ 0 , \frac{ \pi }{2} \mathclose[\). Nous posons
     \begin{equation}
         \Delta_{\theta_0}=\{ z=1-\rho e^{i\varphi}\tq \rho>0,\varphi\in\mathopen[ \theta_0 , \theta_0 \mathclose],| z |<1 \}.
@@ -1645,6 +1645,10 @@ Cet exemple est rendu rigoureux par la proposition suivante.
         \lim_{\substack{z\to1\\z\in\Delta_0}}f(z)=\sum_{k=0}^{\infty}a_k.
     \end{equation}
 \end{theorem}
+\index{Abel!angulaire}
+\index{convergence!suite numérique!Abel angulaire}
+\index{somme partielles!Abel angulaire}
+\index{série!entière!Abel angulaire}
 
 \begin{proof}
 
@@ -1718,4 +1722,56 @@ Cet exemple est rendu rigoureux par la proposition suivante.
         | f(z)-S |\leq \epsilon\left( 1+\frac{ 2 }{ \cos(\theta_0) } \right).
     \end{equation}
     Nous avons donc bien \( \lim_{\substack{z\to 1\\z\in\Delta_0}}f(z)=S\), comme nous le voulions.
+\end{proof}
+
+Le théorème suivant donne une espèce d'inverse au théorème d'Abel angulaire. En effet il dit que si la série converge  en allant vers \( 1\) le long de l'axe réel, alors ça converge vers la somme des coefficients. Il faut cependant une hypothèse en plus sur les \( a_n\).
+\begin{theorem}[Théorème taubérien faible\cite{KXjFWKA}]
+    Soit \( \sum_na_nz^n\) une série entière de rayon de convergence \( 1\) et de somme \( f\). Nous supposons
+    \begin{enumerate}
+        \item
+            Il existe \( S\in \eC\) tel que \( \lim_{\substack{x\to 1\\x\in\mathopen] -1 , 1 \mathclose[}}f(x)=S\).
+            \item
+                \( \lim_{n\to \infty} na_n=0\).
+    \end{enumerate}
+    Alors la série \( \sum_{n=0}^{\infty}a_n\) converge et vaut \( S\).
+\end{theorem}
+
+\begin{proof}
+    Nous notons \( S_n=\sum_{k=0}a_k\) et \( M=\sup_{k\geq 1}k| a_k |\), qui est fini par hypothèse. Pour \( x\in \mathopen] 0 , 1 \mathclose[\) et \( n\geq 0\) nous avons
+    \begin{equation}
+        S_n-f(x)=\sum_{k=1}^na_k-\sum_{k=1}^na_kx^k-\sum_{k=n+1}^{\infty}a_kx^k=\sum_{k=1}^na_k(1-x^k)-\sum_{k=n+1}^{\infty}a_kx^k.
+    \end{equation}
+    Nous utilisons la série géométrique sous la forme \( 1-x^k=(1-x)\sum_{i=0}^nx^i\) pour écrire
+    \begin{subequations}
+        \begin{align}
+            S_n-f(x)&=\sum_{k=1}^na_k(1-x)\underbrace{\sum_{i=0}^{k-1}x^i}_{\leq k}-\sum_{k=n+1}^{\infty}a_kx^k\\
+            &\leq\sum_{k=1}^nka_k(1-x)-\sum_{k=n+1}^{\infty}a_kx^k,
+        \end{align}
+    \end{subequations}
+    donc en passant à la norme
+    \begin{subequations}
+        \begin{align}
+            \big| S_n-f(x) \big|&\leq (1-x)Mn+\sum_{k=n+1}| a_k |x^k\\
+            &\leq (1-x)Mn+\sum_{k=n+1}^{\infty}\underbrace{\frac{ k }{ n }| a_k |}_{\leq M/n}x^k\\
+            &\leq (1-x)Mn+\frac{ M }{ n }\sum_{k=n+1}^{\infty}x^k\\
+            &\leq (1-x)Mn+\frac{ M }{ n }\frac{1}{ 1-x }.
+        \end{align}
+    \end{subequations}
+    Ce que nous cherchons à étudier est le comportement \( x\to 1\) et montrer que \( S_n\to S\), ce qui nous incite à calculer \( | S_n-f(1-\frac{ \epsilon }{n  }) |\) avec \( 0<\epsilon<1\) :
+    \begin{equation}
+        \big| S_n-f\big( 1-\frac{ \epsilon }{ n } \big) \big|\leq \epsilon M+\epsilon.
+    \end{equation}
+    Nous choisissons \( N_1\) tel que \( \frac{ M }{ n }\leq \epsilon^2\) dès que \( n\geq N_1\). En sus nous savons que 
+    \begin{equation}
+        \lim_{\epsilon\to 0}f(1-\epsilon)=S.
+    \end{equation}
+    Nous choisissons \( N_2\) de telle sorte à avoir
+    \begin{equation}
+        \left| f\left( 1-\frac{ \epsilon }{ n } \right)-S \right| <\epsilon,
+    \end{equation}
+    et en prenant \( n\geq\max(N_1,N_2)\) nous avons
+    \begin{equation}
+        | S_n-S |\leq \left| S_n-f\left( 1-\frac{ \epsilon }{ n } \right) \right| +\left| f\left( 1-\frac{ \epsilon }{ n } \right)-S \right|  \leq \epsilon M+2\epsilon.
+    \end{equation}
+    Il suffit de choisit \( \epsilon\) suffisamment petit (en particulier pour que \( \epsilon M\) soit petit) pour montrer que \( | S_n-S |\) est borné par un nombre arbitrairement petit.
 \end{proof}
