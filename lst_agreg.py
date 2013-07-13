@@ -74,6 +74,6 @@ myRequest.ok_filenames_list.append("liste_developpements")
 #myRequest.ok_filenames_list.append("integrales")
 #myRequest.ok_filenames_list.append("Stokes_et_co")
 #myRequest.ok_filenames_list.append("theorie_generale")
-myRequest.ok_filenames_list.append("ExercicesAgreg")
+#myRequest.ok_filenames_list.append("ExercicesAgreg")
 
 myRequest.refute_linenames_list=["Exercices"]
