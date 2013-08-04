@@ -76,6 +76,7 @@ from phystricksCercleImplicite import CercleImplicite
 from phystricksExempleNonRang import ExempleNonRang
 from phystricksCercleTnu import CercleTnu
 from phystricksExoXLVL import ExoXLVL
+from phystricksFWJuNhU import FWJuNhU
 from phystricksDessinExp import DessinExp
 from phystricksDessinLim import DessinLim
 from phystricksQQa import QQa
@@ -137,6 +138,7 @@ from phystricksCbCartTuiii import CbCartTuiii
 from phystricksDS2010exo1 import DS2010exo1
 from phystricksPHTVjfk import PHTVjfk
 from phystrickssenotopologo import senotopologo
+from phystricksQXyVaKD import QXyVaKD
 
 from figure_devoir1 import exercice1A1,exercice1A2,exercice4
 from phystricksTriangleRectangle import TriangleRectangle  # Il faudrait aussi le remettre dans figures_list
@@ -154,8 +156,10 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         RegioniPrimoeSecondoTipo,ExampleIntegration, ExampleIntegrationdeux, ExampleChangementVariables, ArcLongueurFinesse, TangentSegment,
         BoulePtLoin, UneCellule, SenoTopologo, AdhIntFr, AdhIntFrDeux, AdhIntFrTrois, AdhIntFrSix, DeuxCercles, TraceCycloide, QuelCote, Osculateur,
         examssepti,examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,
-        LesSubFigures,NiveauHyperbole,NiveauHyperboleDeux,JGuKEjH
+        LesSubFigures,NiveauHyperbole,NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD
         ]
+
+figures_list=[QXyVaKD]
 
 # Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
