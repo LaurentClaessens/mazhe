@@ -1,0 +1,154 @@
+% This is part of Mes notes de mathématique
+% Copyright (c) 2012-2013
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Martingales}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Si \( \tribA\) est une tribu, une \defe{filtration}{filtration} de \( \tribA\) est une suite croissante de sous-tribus \( \tribB_i\subseteq\tribB_{i+1}\subseteq\tribA\).
+\end{definition}
+
+\begin{definition}
+    Une \defe{martingale}{martingale} adaptée à la filtration \( (\tribB_n)_{n\in \eN}\) est une suite de variables aléatoires \( M_n\in L^1(\Omega,\tribA,P)\) telle que
+    \begin{enumerate}
+        \item
+            \( M_n\) est \( \tribB_n\)-mesurable,
+        \item
+            \( E(M_{n+1}|\tribB_n)=M_n\).
+    \end{enumerate}
+    Nous disons que la martingale \( (M_n)_{n\geq 1}\) est \defe{terminée}{terminée!martingale} si il existe \( M\in L^1(\Omega,\tribA,P)\) telle que \( M_n=E(M|\tribA_n)\) pour tout \( n>1\).
+\end{definition}
+
+\begin{example}
+    Si \( M\in L^1(\Omega,\tribA,P)\) et si \( (\tribB_n)_{n\in \eN}\) est une filtration, nous pouvons considérer la martingale \( M_n=E(M|\tribB_n)\).
+\end{example}
+
+\begin{example}     \label{ExtFFKTr}
+    Soit \( (X_i)_{i\geq 1}\) une suite de variables aléatoires indépendantes et centrées. On pose
+    \begin{equation}
+        S_n=X_1+\ldots +X_n
+    \end{equation}
+    et la filtration \( \tribB_n=\sigma(X_1,\ldots, X_n)\). Pour montrer que cela est une martingale, nous commençons par remarquer que
+    \begin{equation}
+        E(X_{n+1}|\tribB_n)=E(X_{n+1})=0
+    \end{equation}
+    par indépendance des tribus \( \tribB_n\) et \( \sigma(X_{n+1})\). Ici c'est le lemme \ref{LemxUZFPV} qui joue.
+
+    Ensuite nous argumentons que \( E(X_1+\ldots +X_n|\tribB_n)=X_1+\ldots +X_n\). En effet d'une part \( X_1+\ldots +X_n\) est \( \tribB_n\)-mesurable et évidemment la condition intégrale de l'espérance conditionnelle est satisfaite.
+
+    Plus généralement si \( X\) est une variable aléatoire et si \( \sigma(X)\subset\tribB\) alors \( E(X|\tribB)=X\).
+\end{example}
+
+\begin{lemma}   \label{LemqanhgJ}
+    Soit \( (M_n)\) une martingales adaptée à la filtration \( (\tribF_n)\) et \( n\geq k\). Alors
+    \begin{subequations}
+        \begin{align}
+            E(M_n|\tribF_k)&=M_k\\
+            E(M_k|\tribF_n)&=M_k.
+        \end{align}
+    \end{subequations}
+\end{lemma}
+
+\begin{proof}
+    La seconde relation revient seulement à dire que \( M_k\) est \( \tribF_n\)-mesurable, ce qui est évident parce que \( \tribF_k\subset\tribF_n\).
+
+    Nous prouvons la première par récurrence (à l'envers) sur \( k\). D'abord si \( k=n\), l'égalité \( E(M_n|\tribF_n)=M_n\). Nous supposons maintenant que \( E(M_n|\tribF_k)=M_k\), et nous prouvons que \( E(M_n|\tribF_{k-1})=M_{k-1}\). Si \( B_{k-1}\in \tribF_{k-1}\), nous avons
+    \begin{equation}
+        \int_{B_{k-1}}M_{k-1}=\int_{B_{k-1}}M_{k}=\int_{B_{k-1}}M_n.
+    \end{equation}
+    La première égalité est la définition d'une martingale, et la seconde est l'hypothèse de récurrence.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Convergence de martingales}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}[\cite{GubinelliMartin,PMCmartinLP}]     \label{ThobysyWI}
+    Soit \( (M_n)_{n\geq 0}\) une martingale bornée dans \( L^2(\Omega)\), c'est à dire telle que\index{martingale!bornée dans \( L^2(\Omega)\)}
+    \begin{equation}
+        \alpha=\sup_{n\geq 0}E(M_n^2)<\infty.
+    \end{equation}
+    Alors la suite \( M_n\) converge dans \( L^2(\Omega)\).
+\end{theorem}
+
+\begin{proof}
+    Nous écrivons \( M_n\) en somme télescopique
+    \begin{equation}
+        M_n=M_0+\sum_{k=1}^n\Delta_k
+    \end{equation}
+    où \( \Delta_k=M_k-M_{k-1}\). Nous commençons par monter que les incréments sont orthogonaux au sens où \( E(\Delta_n\Delta_k)=0\). Pour \( n>k\), la variable aléatoire \( E\big( \Delta_n\Delta_k|\tribF_{n-1} \big)\) est la variable aléatoire \( \tribF_{n-1}\)-mesurable telle que
+    \begin{equation}
+        \int_{B_{n-1}}E\big( \Delta_n\Delta_k|\tribF_{n-1} \big)=\int_{B_{n-1}}\Delta_n\Delta_k
+    \end{equation}
+    pour tout \( B_{n-1}\in\tribF_{n-1}\). En particulier avec \( B_{n-1}=\Omega\) nous trouvons
+    \begin{equation}
+        E\Big( E\big( \Delta_n\Delta_k|\tribF_{n-1} \big)\Big)=E(\Delta_n\Delta_k)
+    \end{equation}
+    par la définition de l'espérance \eqref{EqdCBLst}. Par conséquent, en utilisant le lemme \ref{LemqanhgJ} nous avons\footnote{À ce niveau je crois qu'il y a une faute dans \cite{PMCmartinLP} qui conditionne par rapport à \( \tribF_n\).}
+    \begin{equation}
+        E(\Delta_n\Delta_k)=E\Big( E(\Delta_n\Delta_k|\tribF_{n-1}) \Big)=E\Big( \Delta_kE(\Delta_n|\tribF_{n-1}) \Big)=0
+    \end{equation}
+    parce que \( E(\Delta_n|\tribF_{n-1})=E(M_n|\tribF_{n-1})-E(M_{n-1}|\tribF_{n-1})=0\).
+
+    Utilisant l'orthogonalité des incréments, nous avons
+    \begin{equation}
+        E(M_n^2)=E(M_0^2)+\sum_{k=1}^nE(\Delta_k^2).
+    \end{equation}
+    En prenant le supremum (par rapport à \( n\) des deux côtés),
+    \begin{equation}
+        E(M_0^2)+\sum_{k=1}^{\infty}E(\Delta_k^2)=\alpha<\infty.
+    \end{equation}
+    Cela prouve que la suite \( \sum_{k=1}^n\Delta_k\) converge dans \( L^2(\Omega)\). Nous en déduisons immédiatement que \( (M_n)\) est de Cauchy dans \( L^2(\Omega)\) parce que si \( k,l>n\), nous avons (en utilisant encore l'orthogonalité des incréments)
+    \begin{equation}
+        E\big( | M_k-M_l |^2 \big)=\sum_{i=k+1}^lE(\Delta_i^2)\leq\sum_{i=k+1}^{\infty}E(\Delta_i^2),
+    \end{equation}
+    qui tend vers zéro lorsque \( n\to\infty\).
+\end{proof}
+
+Le théorème suivant complète la conclusion du théorème \ref{ThobysyWI}.
+\begin{theorem}[\cite{PMCmartinLP}] \label{ThofcttYW}
+    Soit \( (M_n)_{n\in \eN}\) une martingale bornée dans \( L^2\). Alors \( (M_n)\) converge dans \( L^2(\Omega)\) et presque surement vers une même variable aléatoire \( M_{\infty}\) qui vérifie
+    \begin{equation}        \label{EqmDMfZf}
+        M_n=E(M_{\infty}|\tribF_n).
+    \end{equation}
+\end{theorem}
+
+Notons en particulier que la variable aléatoire \( M_{\infty}\) est presque surement finie parce qu'en vertu de \eqref{EqmDMfZf} nous avons
+\begin{equation}
+    \int_{\Omega}M_{\infty}=\int_{\Omega}M_n<\infty.
+\end{equation}
+
+\begin{example}
+    Soient des variables aléatoires indépendantes \( V_k\sim\dE(2^n\lambda)\) et la variable aléatoire somme
+    \begin{equation}
+        S_n=\sum_{k=1}^nV_k.
+    \end{equation}
+    Nous allons montrer que \( S_n\stackrel{p.s.}{\longrightarrow}X\) où \( X\) est une variable aléatoire presque surement finie. Nous posons
+    \begin{equation}
+        M_n=S_n-\sum_{k=1}^n\frac{1}{ 2^k\lambda }
+    \end{equation}
+    Cela est une martingale adaptée à la filtration \( \tribF_n=\sigma(V_1,\ldots, V_n)\) en vertu de l'exemple \ref{ExtFFKTr}. Nous montrons à présent qu'elle est bornée dans \( L^2(\Omega)\) au sens où \( \sum_{n\geq 1}E(M_n^2)<\infty\). Nous avons
+    \begin{equation}
+        E(M_n^2)=E\left( \big[ S_n-\sum_k\frac{1}{ 2^k\lambda } \big]^2 \right)=E\left( \big[ \sum_k(V_k-\frac{1}{ 2^k\lambda }) \big]^2 \right).
+    \end{equation}
+    La variable aléatoire \( V_k-1/2^k\lambda\) est une variable aléatoire centrée de variance \( 1/(2^k\lambda)^2\) (voir proposition \ref{PropTxGcWn}). Étant donné que \( M_n\) est centrée, \( \Var(M_n)=E(M_n^2)\) et nous avons
+    \begin{equation}
+        E(M_n^2)=\sum_{k=1}^n\Var\left( V_k-\frac{1}{ 2^k\lambda } \right)=\sum_{k=1}^n\frac{1}{ (2^k\lambda)^2 },
+    \end{equation}
+    cette dernière somme étant bornée par \( l=\sum_{k=1}^{\infty}\frac{1}{ (2^k\lambda)^2 }\), nous avons
+    \begin{equation}
+        E(M_n^2)\leq l
+    \end{equation}
+    avec \( l\) indépendant de \( n\). C'est pour cela que \( (M_n)_{n\in \eN}\) est une martingale bornée dans \( L^2(\Omega)\). Par le théorème \ref{ThofcttYW} nous avons \( M_n\to M_{\infty}\) et en faisant \( n\to \infty\) dans
+    \begin{equation}
+        S_n=M_n+\sum_{k=1}^n\frac{1}{ 2^k\lambda },
+    \end{equation}
+    nous trouvons
+    \begin{equation}
+        S_n\to M_{\infty}+\sum_{k=1}^{\infty}\frac{1}{ 2^k\lambda }=M_{\infty}+\frac{1}{ \lambda }
+    \end{equation}
+    qui est presque surement finie.
+\end{example}
