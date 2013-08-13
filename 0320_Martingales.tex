@@ -4,11 +4,13 @@
 % See the file fdl-1.3.txt for copying conditions.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Martingales}
+\section{Convergence de martingales}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \begin{definition}
     Si \( \tribA\) est une tribu, une \defe{filtration}{filtration} de \( \tribA\) est une suite croissante de sous-tribus \( \tribB_i\subseteq\tribB_{i+1}\subseteq\tribA\).
+
+    Nous disons qu'une suite de variables aléatoires \( (X_n)\) est \defe{adaptée}{processus!adapté à une filtration} à une filtration \( (\tribF_n)\) si \( X_i\) est \( \tribF_i\)-mesurable pour tout \( i\).
 \end{definition}
 
 \begin{definition}
@@ -20,6 +22,8 @@
             \( E(M_{n+1}|\tribB_n)=M_n\).
     \end{enumerate}
     Nous disons que la martingale \( (M_n)_{n\geq 1}\) est \defe{terminée}{terminée!martingale} si il existe \( M\in L^1(\Omega,\tribA,P)\) telle que \( M_n=E(M|\tribA_n)\) pour tout \( n>1\).
+
+    Le processus \( M_n\) est une \defe{sur-martingale}{sur-martingale} si \( E(M_{n+1}|\tribB_n)\leq M_n\), et c'est une \defe{sous-martingale}{sous-martingale} si \( E(M_n|\tribB_n)\geq M_n\).
 \end{definition}
 
 \begin{example}
@@ -61,10 +65,6 @@
     \end{equation}
     La première égalité est la définition d'une martingale, et la seconde est l'hypothèse de récurrence.
 \end{proof}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Convergence de martingales}
-%---------------------------------------------------------------------------------------------------------------------------
 
 \begin{theorem}[\cite{GubinelliMartin,PMCmartinLP}]     \label{ThobysyWI}
     Soit \( (M_n)_{n\geq 0}\) une martingale bornée dans \( L^2(\Omega)\), c'est à dire telle que\index{martingale!bornée dans \( L^2(\Omega)\)}
@@ -152,3 +152,169 @@ Notons en particulier que la variable aléatoire \( M_{\infty}\) est presque sur
     \end{equation}
     qui est presque surement finie.
 \end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Temps d'arrêt}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Soit \( (\Omega,\tribF_n,\tribF,P)\) un espace de probabilité filtré. Une application \( T\colon \Omega\to \bar \eN\) est un \defe{temps d'arrêt}{temps d'arrêt} si pour tout \( n\in \eN\) nous avons \( \{ T\leq n \}\in\tribF_n\).
+
+    Le temps d'arrêt $T$ est \defe{borné}{borné!temps d'arrêt} si il existe \( M\in \eN\) tel que \( T(\omega)\leq M\) pour presque tout \( \omega\in \Omega\).
+\end{definition}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Décomposition de martingales}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}[Processus croissant prévisible\cite{PMCmartinLP}]
+    Un processus \( X_n\) adapté à la filtration \( \tribF_n\) est un processus \defe{croissant prévisible}{processus!croissant prévisible} si
+    \begin{enumerate}
+        \item
+            \( A_0=0\)
+        \item
+            \( A_n\leq A_{n+1}\); c'est cette condition qui correspond à «croissant»,
+        \item
+            \( A_{n+1}\) est \( \tribF_n\)-mesurable; c'est cette condition qui correspond à «prévisible».
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}[Décomposition de Doob pour une sous-martingale\cite{PMCmartinLP}]
+    Toute sous-martingale \( (X_n)\) s'écrit de façon unique sous la forme 
+    \begin{equation}\label{EqCCsAwbZ}
+        X_n=M_n+A_n 
+    \end{equation}
+    où \( (M_n)\) est une martingale et \( (A_n)\) est un processus croissant prévisible.
+\end{proposition}
+
+\begin{proof}
+    Nous considérons le processus
+    \begin{subequations}
+        \begin{numcases}{}
+            A_0=0\\
+            A_{n+1}=A_n+E(X_{n+1}-X_n|\tribF_n).
+        \end{numcases}
+    \end{subequations}
+    Nous vérifions que cela est un processus croissant prévisible. D'abord \( E(X_{n+1}-X_n|\tribF_n)=E(X_{n+1}|\tribF_n)-E(X_n|\tribF_n)\). Le second terme est égal à \( X_n\) parce que cette variable aléatoire est \( \tribF_n\)-mesurable tandis que \( (X_n)\) étant une sous-martingale nous avons \( E(X_{n+1}|\tribF_n)\geq X_n\). Nous avons donc bien \( A_{n+1}\geq A_n\) et le processus \( (A_n)\) est croissant.
+
+    En ce qui concerne la prévisibilité nous devons prouver que \( A_{n+1}\) est \( \tribF_n\)-mesurable. D'une part \( A_n\) est \( \tribF_n\)-mesurable et d'autre part par définition de l'espérance conditionnelle, la variable aléatoire \( E(X_{n+1}-X_n|\tribF_n)\) est également \( \tribF_n\)-mesurable.
+
+    Nous posons alors \( M_n=X_n-A_n\) et nous devons prouver que cela est une martingale. Nous avons
+    \begin{equation}
+        E(M_{n+1}-M_n|\tribF_n)=E(X_{n+1}-X_n|\tribF_n)-E(A_{n+1}-A_n|\tribF_n).
+    \end{equation}
+    Le second terme vaut
+    \begin{equation}
+        E(A_{n+1}-A_n|\tribF_n)=E\Big( E(X_{n+1}-X_n|\tribF_n)|\tribF_n \Big)=E(X_{n+1}-X_n|\tribF_n)
+    \end{equation}
+    par la proposition \ref{PropRGcscXj}. Le processus \( (M_n)\) est donc une martingale. La preuve de l'existence d'une décomposition \eqref{EqCCsAwbZ} est achevée.
+
+    Nous passons maintenant à l'unicité en posant \( X_n=M_n+A_n=M'_n+A'_n\). Nous avons \( A_0=A'_0=0\) et \( A'_n=X_n-M'_n\), donc
+    \begin{equation}
+        A'_{n+1}-A'_n=X_{n+1}-X_n+M'_{n+1}-M'_n=X_{n+1}-X_n-(M'_{n+1}-M'_n).
+    \end{equation}
+    Nous appliquons \( E(.|\tribF_n)\) des deux côtés de cette égalité :
+    \begin{equation}
+        \underbrace{E(A'_{n+1}-A'_n|\tribF_n)}_{=A'_{n+1}-A'_n}=E(X_{n+1}-X_n|\tribF_n)-\underbrace{E(M'_{n+1}-M'_n|\tribF_n)}_{=0}.
+    \end{equation}
+    Nous avons utilisé le que que \( (M_n)\) étant une martingale, \( E(M_{n+1}-M_n\tribF_n)=0\), et idem avec \( (M_n')\). Donc
+    \begin{equation}
+        A'_{n+1}-A'_n=E(X_{n+1}-X_n|\tribF_n)=E(M_{n+1}-M_n|\tribF_n)+E(A_{n+1}-A_n|\tribF_n)=A_{n+1}-A_n.
+    \end{equation}
+    Nous avons donc montré que \( A_{n+1}-A_n=A'_{n+1}-A'_n\) et donc que \( A_n=A'_n\) pour tout \( n\). Nous en déduisons immédiatement que \( M_n=M'_n\) pour tout \( n\) et l'unicité de la décomposition.
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Problème de la ruine du joueur}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous considérons un joueur compulsif qui joue à un jeu très simple\footnote{Le gros des choses dites à propos de la ruine du joueur provient de \cite{KXjFWKA}.} : il joue à pile ou face contre la banque avec une pièce truquée. Si pile sort, la banque donne \( 1\) au joueur et si c'est face, c'est le joueur qui donne \( 1\) à la banque. Nous nommons \( a\) la fortune initiale du joueur,  \( b\) celle de la banque et \( p\) la probabilité d'obtenir pile.
+
+Nous supposons que le jeu se poursuit jusqu'à la ruine du joueur ou de la banque. La modélisation est comme suit : nous considérons \( (Y_n)\) une suite de variables aléatoires indépendantes et identiquement distribuées de loi
+\begin{equation}
+    Y_n\sim p\delta_1+(1-p)\delta_{-1}.
+\end{equation}
+C'est le résultat financier pour le joueur du \( n\Ieme\) lancé. La fortune du joueur au bout de \( n\) lancés est la variable aléatoire
+\begin{equation}
+    S_n=a+\sum_{j=1}^nY_j.
+\end{equation}
+Nous notons \( Y_0=a\).
+
+Nous considérons la filtration
+\begin{equation}
+    \tribA_n=\sigma\big( S_i\tq 0\leq i\leq n \big)=\sigma\big( Y_i\tq 0\leq i\leq n \big),
+\end{equation}
+et le temps d'arrêt du jeu :
+\begin{equation}
+    T=\inf\{ n\geq 1\tq S_n\in\{ 0,a+b \} \};
+\end{equation}
+c'est le temps qu'il faut pour que tout l'argent appartienne soit au joueur soit à la banque.
+
+Nous voulons étudier les paramètres suivants :
+\begin{enumerate}
+    \item
+        \( \rho=P(S_T=a+b)\), c'est à dire la probabilité que ce soit le joueur qui gagne contre la banque.
+    \item
+        \( P(T<\infty)\), c'est à dire la probabilité que le jeu se finisse.
+    \item
+        \( E(T)\), combien de temps il faut attendre pour que soit la banque soit le joueur soit ruiné.
+\end{enumerate}
+
+\begin{lemma}   \label{LemEOAmVyZ}
+    Le processus \( S_n\) du problème de la ruine du joueur est vérifie
+    \begin{equation}    \label{EqZQtwVMXyiB}
+        E(S_n|\tribA_{n-1})=S_{n-1}+p-q.
+    \end{equation}
+    De plus le processus \( S_n\) est
+    \begin{enumerate}
+        \item
+            une martingale si \( p=q=\frac{ 1 }{2}\),
+        \item
+            une sous-martingale si \( p>q\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Pour \( n\geq 1 \) nous avons
+    \begin{equation}
+        E(S_n|\tribA_{n-1})=a+\sum_{j=1}^nE(Y_j|\tribA_{n-1})=a+\sum_{j=1}^{n-1}E(Y_j|\tribA_{n-1})+E(Y_n|\tribA_{n-1}).
+    \end{equation}
+    Si \( j\leq n-1\) alors \( Y_j\in m(\tribA_{n-1})\). Mais nous savons que si \( X\) est \( \tribF\)-mesurable, alors \( E(X|\tribF)=X\) (c'est la définition de l'espérance conditionnelle), donc \( \sum_{j=1}^{n-1}E(Y_j|\tribA_{n-1})=\sum_{j=1}^{n-1}Y_j\).
+
+    En ce qui concerne le terme \( j=n\) nous utilisons le fait que \( \sigma(Y_n)\) soit une tribu indépendante de \( \tribA_{n-1}\); nous avons donc au final pour tout \( j\) que \( E(Y_j|\tribA_{n-1}E(Y_j)=p-q\). Nous avons donc
+    \begin{equation}
+        E(S_n|\tribA_{n-1})=S_{n-1}+p-q.
+    \end{equation}
+    Si \( p=q=\frac{ 1 }{2}\) alors c'est une martingale, et si \( p>q\) c'est une sous-martingale.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Le cas où la pièce est truquée}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous supposons être dans le cas \( p>q\). Considérons le processus
+\begin{subequations}
+    \begin{numcases}{}
+        A_0=0\\
+        A_n=A_{n-1}+E(S_n-S_{n-1}|\tribA_{n-1}).
+    \end{numcases}
+\end{subequations}
+Vu que \( E(S_n|\tribA_{n-1})=S_{n-1}+p-q\) (lemme \ref{LemEOAmVyZ}) et que \( E(S_{n-1}|\tribA_{n-1})=S_{n-1}\) (parce que \( S_{n-1}\) est dans la tribu de \( \tribA_{n-1}\)), nous avons \( A_n=A_{n-1}+(p-q)\) et donc
+\begin{equation}
+    A_n=n(p-q).
+\end{equation}
+Ce processus \( (A_n)\) est croissant et prévisible. Nous introduisons le processus
+\begin{equation}    \label{EqMUajTwl}
+    M_n=S_n-A_n
+\end{equation}
+et nous montrons que c'est une martingale\footnote{Ceci est un peu le contraire de la décomposition de Doob.}. Nous conditionnons la définition \eqref{EqMUajTwl} par rapport à \( \tribA_{n-1}\) :
+\begin{equation}
+    E(M_n\tribA_{n-1})=E(S_n|\tribA_{n-1})-\underbrace{E(A_n|\tribA_{n-1})}_{=A_n}=A_n-A_{n-1}+E(S_{n-1}|\tribA_{n-1})-A_n=E(S_{n-1}|\tribA_{n-1})-A_{n-1}.
+\end{equation}
+Mais \( S_{n-1}\) est \( \tribA_{n-1}\)-mesurable, donc \( E(S_{n-1}|\tribA_{n-1})=S_{n-1}\) et
+\begin{equation}
+    E(M_n|\tribA_{n-1})=S_{n-1}-A_{n-1}=M_{n-1},
+\end{equation}
+ce qui signifie que \( (M_n)\) est une martingale.
+
+
