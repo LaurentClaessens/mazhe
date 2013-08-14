@@ -160,8 +160,66 @@ Notons en particulier que la variable aléatoire \( M_{\infty}\) est presque sur
 \begin{definition}
     Soit \( (\Omega,\tribF_n,\tribF,P)\) un espace de probabilité filtré. Une application \( T\colon \Omega\to \bar \eN\) est un \defe{temps d'arrêt}{temps d'arrêt} si pour tout \( n\in \eN\) nous avons \( \{ T\leq n \}\in\tribF_n\).
 
-    Le temps d'arrêt $T$ est \defe{borné}{borné!temps d'arrêt} si il existe \( M\in \eN\) tel que \( T(\omega)\leq M\) pour presque tout \( \omega\in \Omega\).
+    Le temps d'arrêt $T$ est \defe{borné}{borné!temps d'arrêt} si il existe \( k\in \eN\) tel que \( T(\omega)\leq k\) pour presque tout \( \omega\in \Omega\).
 \end{definition}
+
+\begin{theorem}[Théorème d'arrêt borné\cite{PMCmartinLP}]
+    Soit \( (X_n)\) une sur-martingale et \( T_1\leq T_2\), deux temps d'arrêts bornés. Alors
+    \begin{enumerate}
+        \item
+            les variables aléatoires \( X_{T_1}\) et \( X_{T_2}\) sont intégrables,
+        \item
+            \( E(X_{T_2}|  \sigma(T_1) )\leq X_{T_1}\) presque sûrement.
+    \end{enumerate}
+    Si par contre \( (X_n)\) est une martingale alors \( X_{T_1}\) et \( X_{T_2}\) sont bornées, et \( E(X_{T_2}|\sigma(T_1))=X_{T_1}\).
+\end{theorem}
+
+\begin{theorem}[Théorème d'arrêt]   
+    Soit \( (X_n)\) une martingale et un temps d'arrêt \( T\). Nous supposons que 
+    \begin{enumerate}
+        \item
+            \( P(T<\infty)=1\)
+        \item
+            \( E(| X_T |)<\infty\)
+        \item
+            \( \lim_{n\to \infty} E(X_n\mtu_{T>n})=0\).
+    \end{enumerate}
+    Alors
+    \begin{equation}
+        E(X_T)=E(X_0).
+    \end{equation}
+\end{theorem}
+
+\begin{theorem}[Premier théorème d'arrêt de Doob\cite{FUFFxBX}] \label{ThoZTrdjtZ}
+    Soit \( (X_n)\) une martingale et \( T\) un temps d'arrêt; tous deux pour la filtration \( (\tribF_n)\). Nous supposons qu'une des trois propriétés suivantes soit vérifiée :
+    \begin{enumerate}
+        \item
+            \( T\) est presque surement bornée.
+        \item
+            \( E(T)<\infty\) et il existe une constante \( c\) telle que
+            \begin{equation}
+                E\big( | X_{n+1}-X_n |\,|\tribF_n \big)\leq c
+            \end{equation}
+            sur l'événement \( \{ T\geq n \}\).
+        \item   \label{ItemQVWZuBkiii}
+            Il existe une constante \( c\) telle que \( | X_{T\wedge n} |\leq c\) presque sûrement\footnote{Il est d'usage assez classique de noter \( a\wedge b\)\nomenclature[P]{\( a\wedge b\)}{\( \min(a,b)\)} le minimum de \( a\) et \( b\).}.
+    \end{enumerate}
+    Alors \( X_T\) est une variable aléatoire presque surement bien définie nous avons
+    \begin{equation}
+        E(T_T)=E(X_0).
+    \end{equation}
+    Si \( (X_n)\) est une sur-martingale, alors la conclusion est \( E(X_T)\leq E(X_0)\) et si \( (X_n)\) est une sous-martingale, la conclusion est \( E(X_T)\geq E(X_0)\).
+\end{theorem}
+%TODO : la preuve est sur la page de wikipédia https://en.wikipedia.org/wiki/Optional_stopping_theorem
+
+\begin{remark}
+    Sous l'hypothèse \ref{ItemQVWZuBkiii}, il est possible d'avoir \( T=\infty\) sur un ensemble de mesure non nulle. Sur cet ensemble, la variable aléatoire \( X_T\) doit être définie de façon plus fine.
+\end{remark}
+
+\begin{probleme}
+    D'après la \href{https://en.wikipedia.org/wiki/Talk:Optional_stopping_theorem}{page de discussion} de l'article sur Wikipédia, il semblerait que la seconde condition soit mal énoncée. Je n'ai pas vérifié.
+\end{probleme}
+% Lorsque cela sera fait, il faut enlever la question de la liste.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Décomposition de martingales}
@@ -288,6 +346,19 @@ Nous voulons étudier les paramètres suivants :
     Si \( p=q=\frac{ 1 }{2}\) alors c'est une martingale, et si \( p>q\) c'est une sous-martingale.
 \end{proof}
 
+\begin{lemma}   \label{LemXDlNxtE}
+    La variable aléatoire \( T\) est un temps d'arrêt.
+\end{lemma}
+
+\begin{proof}
+    Par définition \( T=\inf\{ n\geq 1\tq S_n\in\{ 0,a+b \} \}\). Vu que les variables aléatoires \( S_i\) avec \( i\leq n\) sont \( \tribF_n\)-mesurables, les ensembles \( \big\{ S_k\notin\{ 0,a+b \} \big\}\) avec \( k\leq n\) sont \( \tribF_n\)-mesurables. Donc les ensembles
+    \begin{equation}
+        \{ T=n \}=\bigcap_{k\leq n}\big\{ S_k\notin\{ 0,a+b \} \big\}\cap\big\{ S_n\in\{ 0,a+b \} \big\}
+    \end{equation}
+    sont \( \tribF_n\)-mesurables. Nous en concluons que l'ensemble \( \{ T\leq n \}\) est également mesurable.
+\end{proof}
+
+
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Le cas où la pièce est truquée}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -308,13 +379,21 @@ Ce processus \( (A_n)\) est croissant et prévisible. Nous introduisons le proce
     M_n=S_n-A_n
 \end{equation}
 et nous montrons que c'est une martingale\footnote{Ceci est un peu le contraire de la décomposition de Doob.}. Nous conditionnons la définition \eqref{EqMUajTwl} par rapport à \( \tribA_{n-1}\) :
-\begin{equation}
-    E(M_n\tribA_{n-1})=E(S_n|\tribA_{n-1})-\underbrace{E(A_n|\tribA_{n-1})}_{=A_n}=A_n-A_{n-1}+E(S_{n-1}|\tribA_{n-1})-A_n=E(S_{n-1}|\tribA_{n-1})-A_{n-1}.
-\end{equation}
+\begin{subequations}
+    \begin{align}
+        E(M_n\tribA_{n-1})&=E(S_n|\tribA_{n-1})-\underbrace{E(A_n|\tribA_{n-1})}_{=A_n}\\
+        &=A_n-A_{n-1}+E(S_{n-1}|\tribA_{n-1})-A_n\\
+        &=E(S_{n-1}|\tribA_{n-1})-A_{n-1}.
+    \end{align}
+\end{subequations}
 Mais \( S_{n-1}\) est \( \tribA_{n-1}\)-mesurable, donc \( E(S_{n-1}|\tribA_{n-1})=S_{n-1}\) et
 \begin{equation}
     E(M_n|\tribA_{n-1})=S_{n-1}-A_{n-1}=M_{n-1},
 \end{equation}
 ce qui signifie que \( (M_n)\) est une martingale.
 
-
+Nous voulons maintenant étudier la variable aléatoire \( M_{T\wedge n}\) où nous rappelons que le lemme \ref{LemXDlNxtE} nous indique que \( T\) est un temps d'arrêt. Le temps d'arrêt \( T\wedge n\) est borné (par \( n\) évidemment) et nous pouvons donc lui appliquer le théorème d'arrêt \ref{ThoZTrdjtZ} pour dire que 
+\begin{equation}
+    E(M_{T\wedge n})=E(M_0).
+\end{equation}
+Le membre de droite est simple parce que \( M_0=S_0-A_0=S_0=a\) parce que c'est l'argent de départ du joueur.
