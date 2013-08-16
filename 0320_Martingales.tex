@@ -221,6 +221,18 @@ Notons en particulier que la variable aléatoire \( M_{\infty}\) est presque sur
 \end{probleme}
 % Lorsque cela sera fait, il faut enlever la question de la liste.
 
+\begin{lemma}
+    Si \( X\) est une variable aléatoire à valeurs dans \( \eR\cup\{ \infty \}\), alors
+    \begin{equation}
+        X\wedge n\stackrel{p.s.}{\longrightarrow}X
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Si \( \omega\in\{ X=\infty \}\) alors \( (X\wedge n)(\omega)=n\) et d'accord. Si par contre \( \omega\in\{ X<\infty \}\) alors il existe \( N\) tel que si \( n\geq N\) alors \( n\geq T(\omega)\) et pour ces grandes valeurs de \( n\) nous avons \( (T\wedge n)(\omega)=T(\omega)\).
+\end{proof}
+
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Décomposition de martingales}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -315,7 +327,7 @@ Nous voulons étudier les paramètres suivants :
     \item
         \( P(T<\infty)\), c'est à dire la probabilité que le jeu se finisse.
     \item
-        \( E(T)\), combien de temps il faut attendre pour que soit la banque soit le joueur soit ruiné.
+        \( E(T)\), la durée moyenne du jeu.
 \end{enumerate}
 
 \begin{lemma}   \label{LemEOAmVyZ}
@@ -358,12 +370,17 @@ Nous voulons étudier les paramètres suivants :
     sont \( \tribF_n\)-mesurables. Nous en concluons que l'ensemble \( \{ T\leq n \}\) est également mesurable.
 \end{proof}
 
-
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Le cas où la pièce est truquée}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Nous supposons être dans le cas \( p>q\). Considérons le processus
+Nous supposons être dans le cas \( p>q\). 
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Introduction d'une martingale}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Considérons le processus
 \begin{subequations}
     \begin{numcases}{}
         A_0=0\\
@@ -392,8 +409,81 @@ Mais \( S_{n-1}\) est \( \tribA_{n-1}\)-mesurable, donc \( E(S_{n-1}|\tribA_{n-1
 \end{equation}
 ce qui signifie que \( (M_n)\) est une martingale.
 
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Finitude du temps d'arrêt}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Nous montrons maintenant, en étudiant \( M_{T\wedge n}\) que \( T\) est intégrable et nous prouvons que \( P(T=\infty)=0\).
+
 Nous voulons maintenant étudier la variable aléatoire \( M_{T\wedge n}\) où nous rappelons que le lemme \ref{LemXDlNxtE} nous indique que \( T\) est un temps d'arrêt. Le temps d'arrêt \( T\wedge n\) est borné (par \( n\) évidemment) et nous pouvons donc lui appliquer le théorème d'arrêt \ref{ThoZTrdjtZ} pour dire que 
 \begin{equation}
     E(M_{T\wedge n})=E(M_0).
 \end{equation}
-Le membre de droite est simple parce que \( M_0=S_0-A_0=S_0=a\) parce que c'est l'argent de départ du joueur.
+Le membre de droite est simple parce que \( M_0=S_0-A_0=S_0=a\) parce que c'est l'argent de départ du joueur. Pour l'autre :
+\begin{equation}    \label{EqKEkJvBg}
+    E(M_{T\wedge n})=E(S_{T\wedge n})-E(A_{T\wedge n}).
+\end{equation}
+D'une part, \( E(A_{T\wedge n})=E\big( (T\wedge n)(p-q) \big)\) et d'autre part, \( E(S_{T\wedge n})\leq a+b\) parce que \( S_T\) vaut zéro ou \( a+b\) (avec des probabilités encore inconnues\footnote{Mais on y travaille.}). En combinant avec ce qui était dit juste au-dessus et remarquant que \( (p-q)E(T\wedge n)\geq 0\) nous pouvons écrire
+\begin{equation}    \label{EqHWtxOcW}
+    0\leq (p-q)E(T\wedge n)\leq b.
+\end{equation}
+La suite de variables aléatoires \( T\wedge n\) est donc croissante, positive et intégrable\footnote{Je rappelle que les constantes sont des fonctions intégrables sur \( \Omega\). Oui, je sais, quand on est habitué à faire de l'analyse sur \( \eR^n\) c'est un truc qu'on perd toujours un peu de vue.} et donc nous avons du travail pour le théorème de la convergence monotone \ref{ThoConvMonFtBoVh}. La variable aléatoire \( T\) est alors mesurable et
+\begin{equation}    \label{EqABPXmgr}
+    \lim_{n\to \infty} E(T\wedge n)=E(T).
+\end{equation}
+Notons que nous n'avons pas encore prouvé que \( E(T)<\infty\), mais en passant à la limite dans \eqref{EqHWtxOcW} nous écrivons
+\begin{equation}
+    0\leq (p-q)E(T)\leq b.
+\end{equation}
+Maintenant nous avons prouvé que \( T\) est intégrable et même \( L^1\). Par conséquent 
+\begin{equation}
+    P(T=\infty)=0.
+\end{equation}
+Le jeu se termine donc presque certainement après un temps fini.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Étude de \( S_{T\wedge n}\)}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Nous commençons par prouver que \( S_{T\wedge n}\stackrel{p.s.}{\longrightarrow}S_T\). Vu que \( T \) est presque sûrement finie, il suffit de prouver que
+\begin{equation}
+    (S_{T\wedge n})(\omega)\to S_T(\omega)
+\end{equation}
+pour tout \( \omega\) tel que \( T(\omega)=k\) pour tout \( k\in \eN\). Soit donc \( \omega\in \Omega\) tel que \( T(\omega)=k\) et \( n>k\). Nous avons
+\begin{equation}
+    (S_{T\wedge n})(\omega)=S_{T(\omega)\wedge n}(\omega)=S_k(\omega)=(S_T)(\omega).
+\end{equation}
+
+\begin{remark}
+    Notons la différence subtile entre \( S_T(\omega)\) et \( (S_T)(\omega\). La première est la variable aléatoire
+    \begin{equation}
+        \omega'\mapsto S_{T(\omega')}(\omega)
+    \end{equation}
+    et la seconde est le nombre \( S_{T(\omega)}(\omega)\).
+\end{remark}
+
+Nous avons les bornes \( 0\leq S_{T\wedge n}\leq a+b\) et comme \( a+b\) est intégrable, \( S_{T\wedge n}\) l'est aussi et nous pouvons parler de \( E(S_{T\wedge n})\). Repartons de \eqref{EqKEkJvBg} :
+\begin{equation}    \label{EqLKdCOQg}
+    a=E(M_0)=E(M_{T\wedge n})=E(S_{T\wedge n})-E(A_{T\wedge n})=E(S_{T\wedge n})-(p-q)E(T\wedge n).
+\end{equation}
+La variable aléatoire \( S_{T\wedge n}\) est majorée par \( a+b\) indépendamment de \( n\); donc le théorème de la convergence dominée \ref{ThoConvDomLebVdhsTf} donne \( \lim_{n\to \infty} E(S_{T\wedge n})=E(S_T)\). En ce qui concerne le second terme, la convergence dominée ne fonctionne pas parce que \( T\wedge n\) n'est pas a priori majoré par quelque chose d'indépendant de \( n\), mais le théorème de la convergence monotone donne \( \lim_{n\to \infty} E(T\wedge n)=E(T)\). Au final en passant à la limite dans \eqref{EqLKdCOQg} nous avons
+\begin{equation}
+    a=E(S_T)-(p-q)E(T).
+\end{equation}
+Étant donné que \( T>0\) et \( p-q>0\) nous pouvons récrire cela sous la forme
+\begin{equation}
+    0\leq (p-q)E(T)=E(S_T)-a.
+\end{equation}
+Par définition de \( T\) nous avons aussi
+\begin{equation}
+    E(S_T)=(a+b)P(S_T=a+b)+0\cdot P(S_T=0)=\rho(a+b).
+\end{equation}
+Nous déduisons
+\begin{equation}
+    E(T)=\frac{ (a+b)\rho-a }{ p-q }.
+\end{equation}
+Ne crions pas victoire trop vite : nous n'avons pas encore d'expression de \( \rho=P(S_T=a+b)\). Nous avons besoin d'exprimer \( \rho\) en termes de \( a\), \( b\) et \( p\).
+
+
+
+
