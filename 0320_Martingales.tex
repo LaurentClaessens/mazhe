@@ -21,7 +21,6 @@
         \item
             \( E(M_{n+1}|\tribB_n)=M_n\).
     \end{enumerate}
-    Nous disons que la martingale \( (M_n)_{n\geq 1}\) est \defe{terminée}{terminée!martingale} si il existe \( M\in L^1(\Omega,\tribA,P)\) telle que \( M_n=E(M|\tribA_n)\) pour tout \( n>1\).
 
     Le processus \( M_n\) est une \defe{sur-martingale}{sur-martingale} si \( E(M_{n+1}|\tribB_n)\leq M_n\), et c'est une \defe{sous-martingale}{sous-martingale} si \( E(M_n|\tribB_n)\geq M_n\).
 \end{definition}
@@ -158,10 +157,23 @@ Notons en particulier que la variable aléatoire \( M_{\infty}\) est presque sû
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \begin{definition}
-    Soit \( (\Omega,\tribF_n,\tribF,P)\) un espace de probabilité filtré. Une application \( T\colon \Omega\to \bar \eN\) est un \defe{temps d'arrêt}{temps d'arrêt} si pour tout \( n\in \eN\) nous avons \( \{ T\leq n \}\in\tribF_n\).
+    Soit \( (\Omega,\tribF_n,\tribF,P)\) un espace de probabilité filtré. Une application \( T\colon \Omega\to \bar \eN\) est un \defe{temps d'arrêt}{temps d'arrêt} adapté à la filtration \( (\tribF_n)\) si pour tout \( n\in \eN\) nous avons \( \{ T\leq n \}\in\tribF_n\).
 
     Le temps d'arrêt $T$ est \defe{borné}{borné!temps d'arrêt} si il existe \( k\in \eN\) tel que \( T(\omega)\leq k\) pour presque tout \( \omega\in \Omega\).
 \end{definition}
+
+\begin{proposition}[\cite{HPVCqkr}]
+    Soit \( (M_n)\) une martingale et \( T\) un temps d'arrêt (pour la même filtration \( (\tribB_n)\)). Alors le processus \( V_n=M_{n\wedge T}\) est une martingale.
+\end{proposition}
+
+\begin{proof}
+    Nous décomposons \( V_n\) de la façon suivante :
+    \begin{equation}
+        V_n=M_{n\wedge T}=M_n\mtu_{T>n}+M_T\mtu_{T\leq n}=M_n\mtu_{T>n}+\sum_{k\leq n}M_k\mtu_{T=k}.
+    \end{equation}
+    Sous cette forme, \( V_n\) est manifestement \( \tribB_n\)-mesurable.
+\end{proof}
+<++>
 
 \begin{theorem}[Théorème d'arrêt borné\cite{PMCmartinLP}]
     Soit \( (X_n)\) une sur-martingale et \( T_1\leq T_2\), deux temps d'arrêts bornés. Alors
@@ -221,17 +233,53 @@ Notons en particulier que la variable aléatoire \( M_{\infty}\) est presque sû
 \end{probleme}
 % Lorsque cela sera fait, il faut enlever la question de la liste.
 
-\begin{lemma}
-    Si \( X\) est une variable aléatoire à valeurs dans \( \eR\cup\{ \infty \}\), alors
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Martingale terminée}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Nous disons que la martingale \( (M_n)_{n\geq 1}\) est \defe{terminée}{terminée!martingale} si il existe \( M\in L^1(\Omega,\tribA,P)\) telle que \( M_n=E(M|\tribA_n)\) pour tout \( n>1\).
+\end{definition}
+
+\begin{definition}  \label{DefOZlZnse}
+    Un ensemble \( H\subset L^1(\Omega,\mu)\) est \defe{équi-intégrable}{équi-intégrable} si
     \begin{equation}
-        X\wedge n\stackrel{p.s.}{\longrightarrow}X
+        \lim_{a\to \infty}\left( \sup_{f\in H}\int_{  | f |>a   }| f(x) |d\mu(x) \right)=0.
     \end{equation}
-\end{lemma}
+\end{definition}
+Notons dans cette définition que vu que \( f\in L^1\) nous avons toujours
+\begin{equation}
+    \lim_{a\to \infty}\int_{| f |>a}| f(x) |d\mu(x)=0.
+\end{equation}
+L'équi-intégrabilité donne une sorte d'uniformité en \( f\) de cette limite.
 
-\begin{proof}
-    Si \( \omega\in\{ X=\infty \}\) alors \( (X\wedge n)(\omega)=n\) et d'accord. Si par contre \( \omega\in\{ X<\infty \}\) alors il existe \( N\) tel que si \( n\geq N\) alors \( n\geq T(\omega)\) et pour ces grandes valeurs de \( n\) nous avons \( (T\wedge n)(\omega)=T(\omega)\).
-\end{proof}
+\begin{theorem} \label{ThoEFbpVXb}
+    Si \( (M_n)\) est une martingale, nous avons équivalence entre
+    \begin{enumerate}
+        \item
+            \( (M_n)\) converge dans \( L^1\);
+        \item
+            \( (M_n)\) est terminée;
+        \item
+            l'ensemble \( \{ M_n \}_{n\geq 1}\) est équi-intégrable.
+    \end{enumerate}
+\end{theorem}
+%TODO : une preuve.
 
+Attention : en vertu de la proposition \ref{PropWoywYG} et surtout de l'exemple \ref{ExPOmxICc}, la convergence \( L^1\) n'implique pas la convergence presque partout.
+
+\begin{theorem}[Théorème de Doob\cite{ProbaDanielLi}]   \label{ThoHBvnTRk}
+    À propos de convergence de martingales.
+    \begin{enumerate}
+        \item
+            Toute martingale terminée converge presque sûrement et pour la norme \( L^1\).
+        \item
+            Toute martingale bornée dans \( L^2\) converge presque sûrement et pour la norme \( L^2\).
+    \end{enumerate}
+\end{theorem}
+\index{théorème!Doob}
+\index{convergence!de martingales}
+% TODO : la preuve est dans la référence.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Décomposition de martingales}
@@ -492,5 +540,34 @@ Nous avons besoin d'exprimer \( \rho\) en termes de \( a\), \( b\) et \( p\). Po
 \begin{equation}
     U_n=\left( \frac{ p }{ q } \right)^{S_n}.
 \end{equation}
-Nous commençons par prouver que c'est une martingale.
+Nous commençons par prouver que c'est une martingale en calculant
+\begin{equation}
+    E(U_n|\tribA_{n-1})=E\left( \left( \frac{ q }{ p } \right)^{S_n-1}\left( \frac{ q }{ p } \right)^{Y_n}|\tribA_{n-1} \right)
+\end{equation}
+Nous utilisons la proposition \ref{PropRNBtfql}. Dans notre cas, \( S_{n-1}\) et \( Y_n\) sont des variables aléatoires \( \tribA_n\)-mesurables; la variable aléatoire \( Y_n\) est même \( \tribA_{n-1}\)-mesurable et sort donc du conditionnement; nous avons donc
+\begin{equation}    \label{EqWTkXcEK}
+    E(U_n|\tribA_{n-1})=\left( \frac{ q }{ p } \right)^{S_{n-1}}E\left( \left( \frac{ q }{ p } \right)^{Y_n} \right)
+\end{equation}
+Nous allons utiliser le théorème de transfert \ref{PropintdPintdPXeR} : 
+\begin{equation}
+    E(s^{Y_n})=\int_{\Omega}s^{Y_n(\omega)}DP(\omega)=\int_{Y_n=1}sdP(\omega)+\int_{Y_n=-1}\frac{1}{ s }dP(\omega).
+\end{equation}
+Mais nous savons que \( P(Y_n=1)=p\) et \( P(Y_n=-1)=1-p=q\), donc
+\begin{equation}
+    E(s^{Y_n})=ps+\frac{ 1-p }{ s }
+\end{equation}
+et
+\begin{equation}
+    E\left( \left( \frac{ p }{ q } \right)^{Y_n} \right)=p+q=1.
+\end{equation}
+Donc
+\begin{equation}
+    E(U_n|\tribA_{n-1})=\left( \frac{ q }{ p } \right)^{S_n-1}=U_{n-1},
+\end{equation}
+ce qui prouve que \( (U_n)\) est une martingale.
 
+Par définition nous avons toujours \( S_n\geq 0\) tant que \( n\leq T\)\footnote{Pour \( n>T\) le jeu est terminé, donc on ne se pose pas la question.}, donc \( U_{T\wedge n}\in\mathopen[ 0 , 1 \mathclose]\). Il est donc évident que si \( a\geq 1\) nous avons
+\begin{equation}
+    \int_{| U_{T\wedge n} |>a}| U_{T\wedge n} |dP=0
+\end{equation}
+parce que le domaine d'intégration est vide. Donc les variables aléatoires \( V_n=U_{T\wedge n}\) sont équi-intégrables\footnote{Définition \ref{DefOZlZnse}.} et le théorème \ref{ThoEFbpVXb} montre que la martingale \( (V_n)\) est terminée; par ricochet\footnote{Nous rappellons que la convergence \( L^1\) n'implique pas la convergence presque partout.} le théorème de Doob \ref{ThoHBvnTRk} montre qu'il existe une variable aléatoire \( X\) telle que $V_n\stackrel{p.s.}{\longrightarrow}X$
