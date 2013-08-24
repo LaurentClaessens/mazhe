@@ -164,27 +164,6 @@ Notons en particulier que la variable aléatoire \( M_{\infty}\) est presque sû
     Le temps d'arrêt $T$ est \defe{borné}{borné!temps d'arrêt} si il existe \( k\in \eN\) tel que \( T(\omega)\leq k\) pour presque tout \( \omega\in \Omega\).
 \end{definition}
 
-\begin{proposition}[\cite{HPVCqkr}]
-    Soit \( (M_n)\) une martingale et \( T\) un temps d'arrêt (pour la même filtration \( (\tribB_n)\)). Alors le processus \( V_n=M_{n\wedge T}\) est une martingale.
-\end{proposition}
-
-\begin{proof}
-    Nous décomposons \( V_n\) de la façon suivante :
-    \begin{equation}    \label{EqYJjUZrv}
-        V_n=M_{n\wedge T}=M_n\mtu_{T\geq n}+M_T\mtu_{T<n}=M_n\mtu_{T\geq n}+\sum_{k< n}M_k\mtu_{T=k}.
-    \end{equation}
-    Nous avons
-    \begin{equation}
-        \{ T\geq n \}=\complement\{ T<n \}=\complement\{ T\leq n-1 \}\in\tribB_{n-1}
-    \end{equation}
-    et, si \( k<n\),
-    \begin{equation}
-        \{ T=k \}=\underbrace{\{ T\leq k \}}_{\in\tribB_k}\setminus\underbrace{\{ T\leq k-1 \}}_{\in\tribB_{k-1}}\in\tribB_k\subset\tribB_n.
-    \end{equation}
-    La forme \eqref{EqYJjUZrv} donne donc manifestement la \( \tribB_n\)-mesurabilité de \( V_n\).
-\end{proof}
-<++>
-
 \begin{theorem}[Théorème d'arrêt borné\cite{PMCmartinLP}]
     Soit \( (X_n)\) une sur-martingale et \( T_1\leq T_2\), deux temps d'arrêts bornés. Alors
     \begin{enumerate}
@@ -290,6 +269,36 @@ Attention : en vertu de la proposition \ref{PropWoywYG} et surtout de l'exemple 
 \index{théorème!Doob}
 \index{convergence!de martingales}
 % TODO : la preuve est dans la référence.
+
+\begin{proposition}[\cite{HPVCqkr}]
+    Soit \( (M_n)\) une martingale et \( T\) un temps d'arrêt (pour la même filtration \( (\tribB_n)\)). Alors le processus \( V_n=M_{n\wedge T}\) est une martingale.
+\end{proposition}
+
+\begin{proof}
+    Nous décomposons \( V_n\) de la façon suivante :
+    \begin{equation}    \label{EqYJjUZrv}
+        V_n=M_{n\wedge T}=M_n\mtu_{T\geq n}+M_T\mtu_{T<n}=M_n\mtu_{T\geq n}+\sum_{k< n}M_k\mtu_{T=k}.
+    \end{equation}
+    Nous avons, grâce au lemme \ref{LemBWNlKfA},
+    \begin{equation}
+        \{ T\geq n \}=\complement\{ T<n \}=\complement\{ T\leq n-1 \}\in\tribB_{n-1}
+    \end{equation}
+    et, si \( k\leq n\),
+    \begin{equation}
+        \{ T=k \}=\underbrace{\{ T\leq k \}}_{\in\tribB_k}\setminus\underbrace{\{ T\leq k-1 \}}_{\in\tribB_{k-1}}\in\tribB_k\subset\tribB_n.
+    \end{equation}
+    La forme \eqref{EqYJjUZrv} donne donc manifestement la \( \tribB_n\)-mesurabilité de \( V_n\).
+
+    En ce qui concerne l'espérance nous devons calculer
+    \begin{equation}
+        E(V_{n+1}|\tribB_n)=E(M_{n+1}\mtu_{T\geq n+1}|\tribB_n)+\sum_{k<n+1}E(M_k\mtu_{T=k}|\tribB_n)
+    \end{equation}
+    où nous avons utilisé la proposition \ref{PropZBnsCgh}. Étant donné que \( \mtu_{T\geq n+1}\) et \( \mtu_{T=k}\) sont des variables aléatoires \( \tribB_n\)-mesurables nous pouvons utiliser la proposition \ref{PropRNBtfql} pour les sortir :
+    \begin{equation}
+        E(V_{n+1}|\tribB_n)=\mtu_{T\geq n+1}M_n+\sum_{k\leq n}\mtu_{T=k}M_k=M_{T\wedge n}=V_n.
+    \end{equation}
+    Pour cela nous avons utilisé \( E(M_{n+1}|\tribB_n)=M_n\) (parce que \( (M_n)\) est une martingale) et \( E(M_k|\tribB_n)=M_k\) parce que \( M_k\) est \( \tribB_n\)-mesurable.
+\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Décomposition de martingales}
@@ -504,7 +513,7 @@ Le jeu se termine donc presque certainement après un temps fini.
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 Nous commençons par prouver que \( S_{T\wedge n}\stackrel{p.s.}{\longrightarrow}S_T\). Vu que \( T \) est presque sûrement finie, il suffit de prouver que
-\begin{equation}
+\begin{equation}    \label{EqRVoKxsN}
     (S_{T\wedge n})(\omega)\to S_T(\omega)
 \end{equation}
 pour tout \( \omega\) tel que \( T(\omega)=k\) pour tout \( k\in \eN\). Soit donc \( \omega\in \Omega\) tel que \( T(\omega)=k\) et \( n>k\). Nous avons
@@ -513,7 +522,7 @@ pour tout \( \omega\) tel que \( T(\omega)=k\) pour tout \( k\in \eN\). Soit don
 \end{equation}
 
 \begin{remark}
-    Notons la différence subtile entre \( S_T(\omega)\) et \( (S_T)(\omega\). La première est la variable aléatoire
+    Notons la différence subtile entre \( S_T(\omega)\) et \( (S_T)(\omega)\). La première est la variable aléatoire
     \begin{equation}
         \omega'\mapsto S_{T(\omega')}(\omega)
     \end{equation}
@@ -580,4 +589,17 @@ Par définition nous avons toujours \( S_n\geq 0\) tant que \( n\leq T\)\footnot
 \begin{equation}
     \int_{| U_{T\wedge n} |>a}| U_{T\wedge n} |dP=0
 \end{equation}
-parce que le domaine d'intégration est vide. Donc les variables aléatoires \( V_n=U_{T\wedge n}\) sont équi-intégrables\footnote{Définition \ref{DefOZlZnse}.} et le théorème \ref{ThoEFbpVXb} montre que la martingale \( (V_n)\) est terminée; par ricochet\footnote{Nous rappellons que la convergence \( L^1\) n'implique pas la convergence presque partout.} le théorème de Doob \ref{ThoHBvnTRk} montre qu'il existe une variable aléatoire \( X\) telle que $V_n\stackrel{p.s.}{\longrightarrow}X$
+parce que le domaine d'intégration est vide. Donc les variables aléatoires \( V_n=U_{T\wedge n}\) sont équi-intégrables\footnote{Définition \ref{DefOZlZnse}.} et le théorème \ref{ThoEFbpVXb} montre que la martingale \( (V_n)\) est terminée; par ricochet\footnote{Nous rappellons que la convergence \( L^1\) n'implique pas la convergence presque partout.} le théorème de Doob \ref{ThoHBvnTRk} montre qu'il existe une variable aléatoire \( X\) telle que $V_n\stackrel{p.s.}{\longrightarrow}X$. Nous allons prouver que \( X=U_T\) presque partout. Nous savions déjà (voir l'équation \eqref{EqRVoKxsN} et ses alentours) que
+\begin{equation}
+    S_{n\wedge T}\stackrel{p.s.}{\longrightarrow}S_T.
+\end{equation}
+Nous avons alors (au sens du presque sûrement) :
+\begin{equation}
+    \lim_{n\to \infty} V_n=\lim_{n\to \infty} U_{T\wedge n}=\lim_{n\to \infty} \left( \frac{ q }{ p } \right)^{S_{T\wedge n}}=\left( \frac{ q }{ p } \right))^{S_T}=U_T.
+\end{equation}
+Donc par unicité de la limite presque partout nous avons \( X=U_T\) presque partout. Par le théorème de transfert \ref{PropintdPintdPXeR} nous évaluons
+\begin{equation}
+    E(U_T)=\left( \frac{ q }{ p } \right)^0P(S_T=0)+\left( \frac{ q }{ p } \right)^{a+b}P(S_T=a+b)=(1-\rho)+\left( \frac{ q }{ p } \right)^{a+b}\rho.
+\end{equation}
+<++>
+
