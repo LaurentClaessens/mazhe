@@ -155,7 +155,7 @@ Notons en particulier que la variable aléatoire \( M_{\infty}\) est presque sû
 \end{example}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Temps d'arrêt}
+\section{Temps d'arrêt et martingale terminée}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \begin{definition}
@@ -164,32 +164,27 @@ Notons en particulier que la variable aléatoire \( M_{\infty}\) est presque sû
     Le temps d'arrêt $T$ est \defe{borné}{borné!temps d'arrêt} si il existe \( k\in \eN\) tel que \( T(\omega)\leq k\) pour presque tout \( \omega\in \Omega\).
 \end{definition}
 
-\begin{theorem}[Théorème d'arrêt borné\cite{PMCmartinLP}]
-    Soit \( (X_n)\) une sur-martingale et \( T_1\leq T_2\), deux temps d'arrêts bornés. Alors
+\begin{theorem}[Théorème d'arrêt borné\cite{PMCmartinLP}]   \label{ThoQMsRbkp}
+    Soit \( (X_n)\) une sur-martingale et \( S\leq T\), deux temps d'arrêts bornés. Alors
     \begin{enumerate}
         \item
-            les variables aléatoires \( X_{T_1}\) et \( X_{T_2}\) sont intégrables,
+            les variables aléatoires \( X_{S}\) et \( X_{T}\) sont intégrables,
         \item
-            \( E(X_{T_2}|  \sigma(T_1) )\leq X_{T_1}\) presque sûrement.
+            \( E(X_{T}|  \sigma(S) )\leq X_{S}\) presque sûrement.
     \end{enumerate}
-    Si par contre \( (X_n)\) est une martingale alors \( X_{T_1}\) et \( X_{T_2}\) sont bornées, et \( E(X_{T_2}|\sigma(T_1))=X_{T_1}\).
-\end{theorem}
-
-\begin{theorem}[Théorème d'arrêt]   
-    Soit \( (X_n)\) une martingale et un temps d'arrêt \( T\). Nous supposons que 
-    \begin{enumerate}
-        \item
-            \( P(T<\infty)=1\)
-        \item
-            \( E(| X_T |)<\infty\)
-        \item
-            \( \lim_{n\to \infty} E(X_n\mtu_{T>n})=0\).
-    \end{enumerate}
-    Alors
+    Si par contre \( (X_n)\) est une martingale alors \( X_{S}\) et \( X_{T}\) sont bornées, et 
     \begin{equation}
-        E(X_T)=E(X_0).
+        E(X_{T}|\sigma(S))=X_{S}.
     \end{equation}
 \end{theorem}
+%TODO Ceci demande une démonstration :)
+% Lorsque cette démonstration sera faite, il faudra intégrer la remarque suivante au théorème.
+\begin{remark}  \label{RemKCdpnid}
+Un cas particulier intéressant de ce théorème \ref{ThoQMsRbkp} est le cas \( S=0\) qui est un temps d'arrêt vérifiant \( \tribF_0=\{ \Omega,\emptyset \}\). Si \( X\) est n'importe quelle variable aléatoire, la tribu engendrée \( \sigma(X)\) est toujours indépendante de la tribu \( \{ \Omega,\emptyset \}\), donc le résultat $E(X_T|\tribF_S)=X_S$ donne
+\begin{equation}
+    E(X_T)=X_0.
+\end{equation}
+\end{remark}
 
 \begin{theorem}[Premier théorème d'arrêt de Doob\cite{FUFFxBX}] \label{ThoZTrdjtZ}
     Soit \( (X_n)\) une martingale et \( T\) un temps d'arrêt; tous deux pour la filtration \( (\tribF_n)\). Nous supposons qu'une des trois propriétés suivantes soit vérifiée :
@@ -222,12 +217,8 @@ Notons en particulier que la variable aléatoire \( M_{\infty}\) est presque sû
 \end{probleme}
 % Lorsque cela sera fait, il faut enlever la question de la liste.
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Martingale terminée}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 \begin{definition}
-    Nous disons que la martingale \( (M_n)_{n\geq 1}\) est \defe{terminée}{terminée!martingale} si il existe \( M\in L^1(\Omega,\tribA,P)\) telle que \( M_n=E(M|\tribA_n)\) pour tout \( n>1\).
+    Nous disons que la martingale \( (M_n)_{n\geq 1}\) est \defe{terminée}{terminée!martingale} si il existe \( M\in L^1(\Omega,\tribA,P)\) telle que \( E(M|\tribA_n)=M\) pour tout \( n>1\).
 \end{definition}
 
 \begin{definition}  \label{DefOZlZnse}
@@ -270,7 +261,7 @@ Attention : en vertu de la proposition \ref{PropWoywYG} et surtout de l'exemple 
 \index{convergence!de martingales}
 % TODO : la preuve est dans la référence.
 
-\begin{proposition}[\cite{HPVCqkr}]
+\begin{proposition}[\cite{HPVCqkr}] \label{PropAYJpGsc}
     Soit \( (M_n)\) une martingale et \( T\) un temps d'arrêt (pour la même filtration \( (\tribB_n)\)). Alors le processus \( V_n=M_{n\wedge T}\) est une martingale.
 \end{proposition}
 
@@ -300,6 +291,12 @@ Attention : en vertu de la proposition \ref{PropWoywYG} et surtout de l'exemple 
     Pour cela nous avons utilisé \( E(M_{n+1}|\tribB_n)=M_n\) (parce que \( (M_n)\) est une martingale) et \( E(M_k|\tribB_n)=M_k\) parce que \( M_k\) est \( \tribB_n\)-mesurable.
 \end{proof}
 
+\begin{definition}
+    Si \( (X_n)\) est un processus adapté à la filtration \( (\tribF_n)\) et si \( T\) est un temps d'arrêt \( \tribF_n\)-mesurable alors le \defe{processus arrêté}{processus!arrêté} à l'instant \( T\) est le processus \( Y_n=X_{n\wedge T}\).
+\end{definition}
+Nous avons déjà vu par la proposition \ref{PropAYJpGsc} que si \( (X_n)\) est une martingale alors son processus arrêté est encore une martingale.
+%TODO : Il faut voir si cette martingale est une martingale arrêtée. Sinon c'est que le vocable est très bizarre.
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Décomposition de martingales}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -326,7 +323,7 @@ Attention : en vertu de la proposition \ref{PropWoywYG} et surtout de l'exemple 
 
 \begin{proof}
     Nous considérons le processus
-    \begin{subequations}
+    \begin{subequations}    \label{EqQFlGRzo}
         \begin{numcases}{}
             A_0=0\\
             A_{n+1}=A_n+E(X_{n+1}-X_n|\tribF_n).
@@ -359,6 +356,53 @@ Attention : en vertu de la proposition \ref{PropWoywYG} et surtout de l'exemple 
         A'_{n+1}-A'_n=E(X_{n+1}-X_n|\tribF_n)=E(M_{n+1}-M_n|\tribF_n)+E(A_{n+1}-A_n|\tribF_n)=A_{n+1}-A_n.
     \end{equation}
     Nous avons donc montré que \( A_{n+1}-A_n=A'_{n+1}-A'_n\) et donc que \( A_n=A'_n\) pour tout \( n\). Nous en déduisons immédiatement que \( M_n=M'_n\) pour tout \( n\) et l'unicité de la décomposition.
+\end{proof}
+
+\begin{lemma}   \label{LemPVgeKfc}
+    Si \( (X_n)\) est une martingale de carré intégrable adaptée à la filtration \( (\tribF_n)\) alors
+    \begin{enumerate}
+        \item
+            Le processus \( (X_n^2)\) est une sous-martingale.
+        \item
+            Si \( X_n^2=M_n+A_n\) est la décomposition de Doob, alors
+            \begin{equation}    \label{EqSTGxVWP}
+                A_n=\sum_{i=1}^n\Big( E(X_i^2|\tribA_{i-1})-X_{i-1}^2 \Big)=\sum_{i=1}^nE\Big( (X_i-X_{i-1})^2|\tribA_{i-1} \Big).
+            \end{equation}
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Pour la première assertion, nous utilisons l'inégalité de Jensen \ref{PropABtKbBo} :
+    \begin{equation}
+        E(X_n^2|\tribF_{n-1})\geq \big( E(X_n|\tribF_{n-1}) \big)^2=X_n^2
+    \end{equation}
+    parce que \( E(X_n|\tribF_{n-1})=X_n\) du fait que \( (X_n)\) soit une martingale.
+
+    En ce qui concerne la seconde assertion, nous nous souvenons que le processus prévisible de la décomposition de Doob d'une sous-martingale est donné par la récurrence \eqref{EqQFlGRzo} que nous recopions ici :
+    \begin{subequations}
+        \begin{numcases}{}
+            A_0=0\\
+            A_{n+1}=A_n+E(X_{n+1}^2-X_n^2|\tribF_n)
+        \end{numcases}
+    \end{subequations}
+    Vu que \( X_n^2\) est \( \tribF_n\)-mesurable, il peut sortir de l'espérance :
+    \begin{equation}
+        A_{n+1}=A_n+E(X_{n+1}^2|\tribF_n)-X_n^2
+    \end{equation}
+    et donc
+    \begin{equation}
+        A_n=\sum_{i=1}^n\Big( E(X_i^2|\tribF_{i-1})-X_{i-1}^2 \Big).
+    \end{equation}
+    Pour obtenir la dernière partie de \eqref{EqSTGxVWP} nous travaillons un peu :
+    \begin{subequations}
+        \begin{align}
+            E\big( (X_i-X_{i-1})^2|\tribF_{i-1} \big)&=E\big( X_i^2+X_{i-1}^2-2X_iX_{i-1}|\tribF_{i-1} \big)\\
+            &=E(X_i^2|\tribF_{i-1})+X_{i-1}^2-2E(X_iX_{i-1}|\tribF_{i-1})\\
+            &=E(X_i^2|\tribF_{i-1})+X_{i-1}^2-2X_{i-1}E(X_i|\tribF_{i-1})   \label{EqFBkXiJH}\\
+            &=E(X_i^2|\tribF_{i-1})+X_{i-1}^2-2X_{i-1}X_i
+        \end{align}
+    \end{subequations}
+    où nous avons utilisé la proposition \ref{PropRNBtfql} pour obtenir \eqref{EqFBkXiJH}.
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -546,7 +590,7 @@ Par définition de \( T\) nous avons aussi
     E(S_T)=(a+b)P(S_T=a+b)+0\cdot P(S_T=0)=\rho(a+b).
 \end{equation}
 Nous déduisons
-\begin{equation}
+\begin{equation}    \label{EqRHUVuKv}
     E(T)=\frac{ (a+b)\rho-a }{ p-q }.
 \end{equation}
 Ne crions pas victoire trop vite : nous n'avons pas encore d'expression de \( \rho=P(S_T=a+b)\). Le temps moyen de jeu n'est donc pas encore tout à fait connu.
@@ -598,8 +642,56 @@ Nous avons alors (au sens du presque sûrement) :
     \lim_{n\to \infty} V_n=\lim_{n\to \infty} U_{T\wedge n}=\lim_{n\to \infty} \left( \frac{ q }{ p } \right)^{S_{T\wedge n}}=\left( \frac{ q }{ p } \right))^{S_T}=U_T.
 \end{equation}
 Donc par unicité de la limite presque partout nous avons \( X=U_T\) presque partout. Par le théorème de transfert \ref{PropintdPintdPXeR} nous évaluons
-\begin{equation}
+\begin{equation}    \label{EqYFycUag}
     E(U_T)=\left( \frac{ q }{ p } \right)^0P(S_T=0)+\left( \frac{ q }{ p } \right)^{a+b}P(S_T=a+b)=(1-\rho)+\left( \frac{ q }{ p } \right)^{a+b}\rho.
 \end{equation}
-<++>
+La remarque \ref{RemKCdpnid} nous permet de dire que
+\begin{equation}
+    E(U_{T\wedge n})=U_0.
+\end{equation}
+Mais par définition
+\begin{equation}
+    U_0=\left( \frac{ q }{ p } \right)^{S_0}=\left( \frac{ q }{ p } \right)^a,
+\end{equation}
+donc nous avons
+\begin{equation}
+    E(U_{T\wedge n})=\left( \frac{ q }{ p } \right)^a.
+\end{equation}
+Nous voudrions passer à la limite \( n\to \infty\) dans cette équation. Pour permuter la limite et l'espérance, il faut utiliser le théorème de la convergence dominée \ref{ThoConvDomLebVdhsTf}. Vu que nous avons choisi \( q>p\), nous avons \( q/p>1\) et donc \( U_{T\wedge n}\leq (q/p)^{a+b}\), ce qui montre que la fonction \( \omega\mapsto (U_{T\wedge n})(\omega)\) est majorée par une constante (qui est une fonction intégrable). Nous pouvons donc permuter la limite et l'espérance :
+\begin{equation}
+    \lim_{n\to \infty} E(U_{T\wedge n})=E\big( \lim_{n\to \infty} U_{T\wedge n} \big).
+\end{equation}
+Mais nous avion déjà montré que \( U_{T\wedge n}\stackrel{p.s.}{\longrightarrow}U_T\). Donc
+\begin{equation}
+    E(U_T)=\left( \frac{ q }{ p } \right)^a.
+\end{equation}
+En égalisant avec l'expression \eqref{EqYFycUag} de \( E(U_T)\) nous trouvons
+\begin{equation}
+    \rho=\frac{ \left( \frac{ q }{ p } \right)^{a}-1 }{ \left( \frac{ q }{ p } \right)^{a+b}-1 }
+\end{equation}
+et ensuite nous trouvons \( E(T)\) en remettant ce \( \rho\) dans l'expression \eqref{EqRHUVuKv} donnée plus haut.
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Le cas où la pièce est non truquée}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Maintenant \( p=q=1/2\). Le lemme \ref{LemEOAmVyZ} nous indique alors que \( (S_n)\) est une martingale et le lemme \ref{LemPVgeKfc} nous permet de dire que \( (S_n^2)\) est alors une sous-martingale. Le processus croissant prévisible de \( (S_n^2)\) est donné par \eqref{EqQFlGRzo} qui en adaptant les notations est
+\begin{subequations}
+    \begin{numcases}{}
+        B_0=0\\
+        B_n=B_{n-1}+E\Big( (S_n-S_{n-1})^2|\tribA_{n-1} \Big).  \label{subEqJQbqJEq}
+    \end{numcases}
+\end{subequations}
+Nous avons toujours \( S_n-S_{n-1}=\pm 1\) parce que soit le joueur gagne soit le joueur perd, mais de toutes façons sa fortune varie de \( 1\) à chaque étape du jeu. Donc \eqref{subEqJQbqJEq} nous donne \( B_n=B_{n-1}+1\) et
+\begin{equation}
+    B_n=n.
+\end{equation}
+Cela nous dit que la variable aléatoire
+\begin{equation}
+    S_n^2-B_n=S_n^2-n
+\end{equation}
+est une martingale. Nous lui appliquons le théorème d'arrêt \ref{ThoQMsRbkp} avec les temps d'arrêt \( 0\) et \( T\wedge n\) :
+\begin{equation}        \label{EqINevNUV}
+    E(S^2_{T\wedge n}-T\wedge n|\tribF_0)=S_0^2-0
+\end{equation}
+où \( \tribF_0\) est la tribu engendrée par la variable aléatoire \( 0\), c'est à dire \( \{ \Omega,\emptyset \}\). Cette tribu est indépendante de toute autre tribu et nous pouvons donc supprimer le conditionnement dans \eqref{EqINevNUV}. Nous avons aussi \( S_0=a\) par définition.
