@@ -1382,15 +1382,14 @@ Nous verrons dans le corollaire \ref{CorCEPJGAu} que ce représentant pourra êt
     Ceci n'invalide pas la preuve donnée, mais ça suggère un sacré raccourcis.
 \end{probleme}
 
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Distributions}
+\section{Théorèmes de Hahn-Banach}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Théorème de Hahn-Banach}
-%---------------------------------------------------------------------------------------------------------------------------
 
-\begin{theorem}[Hahn-Banach\cite{brezis}]
+
+\begin{theorem}[Hahn-Banach\cite{brezis,TQSWRiz}]
     Soit \( E\), un espace vectoriel réel et une application \( p\colon E\to \eR\) satisfaisant
     \begin{enumerate}
         \item
@@ -1484,6 +1483,55 @@ Nous verrons dans le corollaire \ref{CorCEPJGAu} que ce représentant pourra êt
     \end{subproof}
 \end{proof}
 
+\begin{definition}  \label{DefPJokvAa}
+    Un espace topologique est \defe{localement convexe}{convexe!localement} si tout point possède un système fondamental de voisinages formé de convexes.
+\end{definition}
+%TODO : il faudrait parler de système fondamental de voisinages.
+
+\begin{definition}[Hyperplan qui sépare]
+    Soit \( E\) un espace vectoriel topologique ainsi que \( A\), \( B\) des sous-ensembles de \( E\). Nous disons que l'hyperplan d'équation \( f=\alpha\) \defe{sépare au sens large}{hyperplan!séparer!au sens large} les parties \( A\) et \( B\) si \( f(x)\leq \alpha\) pour tout \( x\in A\) et \( f(x)\geq \alpha\) pour tout \( x\in B\).
+
+    La séparation est \defe{au sens strict}{hyperplan!sépare!au sens strict} su il existe \( \epsilon>0\) tel que 
+    \begin{subequations}
+        \begin{align}
+            f(x)\leq \alpha-\epsilon&&\text{pour tout \( x\in A\)}\\
+            f(x)\geq \alpha+\epsilon&&\text{pour tout \( x\in B\)}.
+        \end{align}
+    \end{subequations}
+\end{definition}
+
+\begin{theorem}[Haha-Banach, première forme géométrique\cite{TQSWRiz}]  \label{ThoSAJjdZc}
+    Soit \( E\) un espace vectoriel topologique et \( A\), \( B\) deux convexes non vides disjoints de \( E\). Si \( A\) est ouvert, il existe un hyperplan fermé qui sépare \( A\) et \( B\) au sens large.
+\end{theorem}
+
+\begin{theorem}[Hahn-Banach, seconde forme géométrique] \label{ThoACuKgtW}
+    Soit un espace vectoriel topologique localement convexe\footnote{Définition \ref{DefPJokvAa}.} ainsi que des convexes non vides disjoints \( A\) et \( B\) tels que \( A\) soit compact et \( B\) soit fermé. Alors il existe un hyperplan fermé qui sépare strictement \( A\) et \( B\).
+\end{theorem}
+
+\begin{proof}
+    Vu que \( B\) est fermé, \( A\) est dans l'ouvert \( E\setminus B\). Donc si \( a\in A\), il existe un voisinage ouvert convexe de \( a\) inclus à \( A\). Soit \( U_a\) un voisinage ouvert et convexe de \( 0\) tel que \( (a+U_a)\cap B=\emptyset\).
+
+    Vu que la fonction \( (x,y)\mapsto x+y\) est continue, nous pouvons trouver un ouvert convexe \( V_a\) tel que \( V_a+V_a\subset U_a\). L'ensemble \( a+V_a\) est alors un voisinage ouvert de \( a\) et bien entendu \( \bigcup_a(a+V_a)\) recouvre \( A\) qui est compact. Nous en extrayons un sous-recouvrement fini, c'est à dire que nous considérons \( a_1,\ldots, a_n\in A\) tels que
+    \begin{equation}
+        A\subset \bigcup_{i=1}^n(a_i+V_{a_i}).
+    \end{equation}
+    Nous posons alors 
+    \begin{equation}
+        V=\bigcap_{i=1}^nV_{a_i}.
+    \end{equation}
+    Cet ensemble est non vide parce et il contient un voisinage de zéro parce que c'est une intersection finie de voisinages de zéro. Soit \( x\in A+V\). Il existe \( i\) tel que 
+    \begin{equation}
+        x\in a_i+U_{a_i}+V\subset a_i+V_{a_i}+V_{a_i}\subset a_i+U_{a_i}\subset E\setminus B.
+    \end{equation}
+    Donc \( (A+V)\cap B=\emptyset\). L'ensemble \( A+V\) est alors un ouvert convexe disjoint de \( B\). Par la première forme géométrique du théorème de Hahn-Banach \ref{ThoSAJjdZc} nous avons un hyperplan qui sépare \( A+V\) de \( B\) au sens large : il existe \( f\in E'\setminus\{ 0 \}\) tel que \( f(a)+f(v)\leq f(b)\) pour tout \( a\in A\), \( v\in V\) et \( b\in B\). 
+    
+    Il suffit donc de trouver un \( v\in V\) tel que \( f(v)\neq 0\) pour avoir la séparation au sens strict. Cela est facile : \( V\) étant un voisinage de zéro et \( f\) étant linéaire, si elle était nulle sur \( V\), elle serait nulle sur \( E\).
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Distributions}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Topologie}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -1499,11 +1547,63 @@ En particulier,
 \begin{equation}
     p_{K,0}(f)=\sup_{x\in K}| f(x) |.
 \end{equation}
-La topologie de \(  C^{\infty}(\Omega)\) est la topologie donnée par ces semi-normes. La topologie de \( \swD(\Omega)\) est la topologie induite depuis celle de \(  C^{\infty}(\Omega)\). Cela n'est pas très explicite, mais heureusement nous n'aurons souvent pas besoin de plus que de la notion de convergence dans \( \swD'(\Omega)\).
+La topologie de \(  C^{\infty}(\Omega)\) est la topologie donnée par ces semi-normes. La topologie de \( \swD(\Omega)\) est la topologie induite depuis celle de \(  C^{\infty}(\Omega)\). Cela n'est pas très explicite, mais heureusement nous n'aurons souvent pas besoin de plus que de la notion de convergence dans \( \swD'(\Omega)\). Rappelons que la topologie d'un espace donne la notion de convergence par la définition \ref{DefIQbkyDP}.
 
-\begin{theorem}[\cite{TQSWRiz}]
-    
+\begin{lemma}   \label{LemWEGpemo}
+    Si une fonction \( f\colon \swD(\Omega)\to \eR\) est continue sur chacun des \( \swD(K)\) pour tout \( K\) compact dans \( \Omega\) alors est continue sur \( \swD(\Omega)\).
+\end{lemma}
+
+\begin{proof}
+    Soit \( I\) ouvert dans \( \eR\); nous devons trouver un ouvert \( \mO\) dans \(  C^{\infty}(\Omega)\) tel que \( f^{-1}(I)=\swD(\Omega)\cap\mO\). Vu que \( f\) est continue sur chacun des \( \swD(K)\) avec \( K\) compact dans \( \Omega\), pour tout tel compact nous avons un ouvert \( \mO_K\) dans \( \swD(K)\) tel que \( f^{-1}(I)\cap \swD(K)=\mO_K\). En tant qu'union d'ouverts\footnote{Voir définition \ref{DefTopologieGene}.}, l'ensemble
+    \begin{equation}
+        \mO=\bigcup_{\text{\( K\) compact de \( \Omega\)}}\mO_K
+    \end{equation}
+    est ouvert dans \(  C^{\infty}(\Omega)\). Si \( \phi\inf^{-1}(I)\), nous avons \( \phi\in\swD(K)\) pour un certain \( K\) compact de \( \Omega\), donc \( f^{-1}(I)\subset\mO\). A forciori nous avons \( f^{-1}(I)\subset\mO\cap\swD(\Omega)\).
+
+    Dans l'autre sens, si \( \phi\in\mO\), alors \( \phi\) est dans un des \( \mO_K\) et donc dans \( f^{-1}(I)\). Nous avons donc bien \( f^{-1}(I)=\swD(\Omega)\cap \mO\).
+\end{proof}
+
+\begin{theorem}[Convergence dans \( \swD(\Omega)\)\cite{TQSWRiz}]
+    Soit \( (\varphi_n)_{n\in \eN}\) une suite dans \( \swD(\Omega)\) et \( \varphi\in\swD(\Omega)\). Nous avons \( \varphi_n\stackrel{\swD(\Omega)}{\longrightarrow}\varphi\) si et seulement si il existe \( K\) compact dans \( \Omega\) tel que \( \varphi_n\in\swD(K)\) pour tout \( n\) et \( \varphi_n\stackrel{\swD(K)}{\longrightarrow}\varphi\).
 \end{theorem}
+
+\begin{proof}
+    Supposons que \( \varphi_n\stackrel{\swD(\Omega)}{\longrightarrow}\varphi\) et qu'il n'existe pas de compacts contenant tous les supports des \( \varphi_n\). Alors pour tout compact de \( \Omega\) il existe un \( n\) tel que le support de \( \varphi_n\) ne soit pas dans \( K\). Nous considérons une suite de compacts \( (K_i)\) tels que \( \Int(K_n)\subset K_{n+1}\) et \( \Omega=\bigcup_nK_n\). Une telle suite existe par le lemme \ref{LemGDeZlOo}. Ensuite nous construisons des sous-suites de la façon suivante. D'abord \( L_1=K_1\) et \( n_1\in \eN\) est choisit de telle sorte que \( \varphi_{n_1}\) ait un support non contenu dans \( L_1\). Ensuite \( L_i\) est un compact de la suite \( (K_n)\) choisit plus loin que \( L_{i-1}\) et tel que \( \varphi_{n_{i-1}}\in \swD(L_i)\). Le nombre \( n_{i}\) est alors choisit plus grand que \( n_{i-1}\) de telle sorte que \( \varphi_{n_i}\notin\swD(L_i)\). Ce faisant, en posant \( \phi_i=\varphi_{n_i}\) nous avons
+    \begin{equation}
+        \phi_i\in\swD(L_{i+1})\setminus\swD(L_i)
+    \end{equation}
+    et \( \Int(L_n)\subset L_{n+1}\) et \( \Omega=\bigcup_nL_n\). Étant donné que \( (\phi_i)\) et une sous-suite de \( (\varphi_i)\) nous avons encore \( \phi_i\stackrel{\swD(\Omega)}{\longrightarrow}\varphi\).
+
+    Soit \( i\in \eN\). Nous allons utiliser la seconde forme géométrique du théorème de Hahn-Banach \ref{ThoACuKgtW} pour séparer les parties \( \{ \phi_i \}\) (compact) et \( \swD(L_i)\) (fermé) dans \( \swD(\Omega)\). Nous avons \( f_i\in \swD'(\Omega)\) telle que 
+    \begin{subequations}
+        \begin{numcases}{}
+            f_i(\phi_i)>\alpha\\
+            f\big( \swD(L_i) \big)<\alpha. 
+        \end{numcases}
+    \end{subequations}
+    Nous redéfinissons immédiatement \( f_i\) de façon à avoir
+    \begin{subequations}
+        \begin{numcases}{}
+            f_i(\phi_i)=0\\
+            f\big( \swD(L_i) \big)<0.
+        \end{numcases}
+    \end{subequations}
+
+    Nous introduisons la fonction définie sur \( \swD(\Omega)\) par
+    \begin{equation}    \label{EqJCqeXti}
+        p(\phi)=\sum_{i=1}^{\infty}i\frac{ f_i(\phi) }{ | f_i(\phi_i) | }.
+    \end{equation}
+    Si \( \phi\in L_k\), alors \( f_k(\phi)=0\) et même \( f_{l}(\phi)=0\) pour tout \( l\geq k\). Donc pour chaque \( k\), la somme définissant \( p\) est finie sur \( \swD(L_k)\). Nous en déduisons que \( p\) est continue sur chacun des \( \swD(L_k)\) et donc sur \( \swD(\Omega)\) par le lemme \ref{LemWEGpemo}.
+
+    L'image de la suite convergente \( \phi_k\stackrel{\swD(\Omega)}{\longrightarrow}\varphi\) par \( p\) doit être bornée parce que \( p\) est continue. Mais dans la somme  \eqref{EqJCqeXti}, tous les termes sont positifs et en particulier le terme \( i=k\) vaut \( k\), donc \( p(\phi_k)\geq k\), ce qui contredit le fait que l'image de la suite soit bornée. Nous en déduisons donc l'existence d'un compact \( K\) tel que \( \varphi_n\in \swD(K)\) pour tout \( n\).
+
+    Nous devons encore prouver que \( \varphi_n\stackrel{\swD(K)}{\to}\varphi\) pour ce choix de \( K\). Vu que \( \varphi_n\stackrel{\swD(\Omega)}{\longrightarrow}\varphi\), le lemme \ref{LemPESaiVw} nous dit que nous avons aussi \( \varphi_n\stackrel{ C^{\infty}(\Omega)}{\longrightarrow}\varphi\), ce qui signifie que pour tout \( K\) et \( m\) nous avons
+    \begin{equation}
+        p_{K,m}(\varphi_n-\varphi)\to 0.
+    \end{equation}
+    En particulier pour le \( K\) fixé plus haut nous avons \( p_m(\varphi_n-\varphi)\to 0\), c'est à dire que \( \varphi_n\stackrel{\swD(K)}{\longrightarrow}\varphi\).
+    
+\end{proof}
 <++>
 
 
