@@ -470,10 +470,9 @@ Dès que l'ensemble $E$ est muni d'une distance, nous définissons une topologie
 \end{equation}
 sont ouvertes.
 
-
-
 Nous allons présenter maintenant les bases de la topologie sur des espaces métriques en prenant $\eR$ et $\eR^2$ comme exemple principaux. La topologie est un des fondements de la mathématique et est une prolongation de la théorie des ensembles. Nous n'en trouvons hélas pas beaucoup d'application directes en physique.
 
+\begin{definition}
 Si $E$ est un ensemble quelconque, nous disons qu'une \defe{distance}{distance} sur $E$ est une fonction $d\colon E\times E\to \eR^+$ telle que
 \begin{description}
 \item[Symétrie] $d(x,y)=d(y,x)$,
@@ -481,12 +480,15 @@ Si $E$ est un ensemble quelconque, nous disons qu'une \defe{distance}{distance} 
 \item[Inégalité triangulaire] $d(x,z)\leq d(x,y)+d(y,z)$
 \end{description}
 pour tout $x$, $y$, $z\in E$. Un ensemble muni d'une loi de distance s'appelle un \href{http://fr.wikipedia.org/wiki/Espace_métrique}{espace métrique}.
+\end{definition}
 
+\begin{example}
 Le premier exemple d'espace métrique que nous connaissons est $\eR$ muni de la distance usuelle ente deux nombres :
 \begin{equation}
 d(x,y)=| y-x |.
 \end{equation}
-Je me permet de faire remarquer la valeur absolue.
+Je me permets de faire remarquer la valeur absolue.
+\end{example}
 
 \begin{exercice}
 Que penser de la formule $d(x,y)=y-x$ pour définir une distance sur $\eR$ ?
@@ -516,6 +518,18 @@ Soit donc $z\in B\big(y,r-d(x,y)\big)$ et testons $d(x,z)$ que nous voudrions ê
         &=r.
 \end{align*}
 Remarquez que la première inégalité n'est pas stricte, tandis que la seconde est stricte. Nous avons donc bien $d(x,z)<r$ (strictement) comme le demandé pour que $z$ soit dans la boule \emph{ouverte} de centre $x$ et de rayon $r$.
+\end{proof}
+
+Les espaces métriques ont une propriété importante que la \wikipedia{fr}{Espace_séquentiel}{fermeture séquentielle} est équivalente à la fermeture.
+\begin{proposition}[Caractérisation séquentielle d'un fermé]    \label{PropLFBXIjt}
+    Soit \( X\) un espace métrique et \( F\subset X\). L'ensemble \( F\) est fermé si et seulement si toute suite contenue dans \( F\) et convergeant dans \( X\) converge vers un élément de \( F\).
+\end{proposition}
+\index{fermeture!séquentielle}
+
+\begin{proof}
+    Si \( F\) est fermé alors \( X\setminus F\) est ouvert. Soit une suite \( x_n\stackrel{X}{\longrightarrow}x\) contenue dans \( F\). Si \( A\) est un ouvert autour de \( x\) contenu dans \( X\setminus F\) (existence par le théorème \ref{ThoBoulOuvVois}), alors la suite ne peut pas entrer dans \( A\) et ne peut donc pas converger vers \( x\).
+
+    Dans l'autre sens maintenant. Supposons que \( X\setminus F\) ne soit pas ouvert. Alors il existe \( x\in X\setminus F\) pour lequel tout voisinage intersecte \( F\). En prenant \( x_k\in B(x,\frac{1}{ k })\), nous construisons une suite contenue dans \( F\) qui converge vers \( x\).
 \end{proof}
 
 \begin{proposition}\label{PropLYMgVMJ}
@@ -961,16 +975,52 @@ La topologie sur \( E\) donnée par la famille de semi-norme est celle engendré
     Si \( X\) est un espace topologique, une fonction \( f\colon X\to \eR\) est \defe{séquentiellement continue}{continuité!séquentielle} si pour toute suite convergente \( x_n\to x\) dans \( X\) nous avons \( f(x_n)\to f(x)\) dans \( \eR\).
 \end{definition}
 
+%TODO : il y a un contre-exemple à faire à la page http://www.les-mathematiques.net/phorum/read.php?14,787368,787582
+
 Une fonction continue est séquentiellement continue. Dans les espaces métriques la réciproque est également vraie\footnote{Proposition \ref{PropFnContParSuite}.} et la continuité est équivalente à la continuité séquentielle. Cela n'est cependant pas vrai pour n'importe quel espace topologique.
 
 \begin{definition}
     Un espace topologique est \defe{métrisable}{espace!topologique!métrisable} si il est homéomorphe à un espace métrique.
 \end{definition}
 
+\begin{proposition} \label{PropXIAQSXr}
+    Soit \( E\) et \( Y\), deux espaces métriques. Soit \( f\colon E\to Y\) une application séquentiellement continue. Alors \( f\) est continue.
+\end{proposition}
+
+\begin{proof}
+    Soit \( \mO\) un ouvert de \( Y\); nous allons voir que le complémentaire de \( f^{-1}(\mO)\) est fermé dans \( E\). Pour cela nous considérons une suite convergente \( x_k\stackrel{E}{\longrightarrow} x\) avec \( x_k\in\complement f^{-1}(\mO)\) pour tout \( k\). Nous allons montrer que \( x\in \complement f^{-1}(\mO)\) et la caractérisation séquentielle\footnote{Proposition \ref{PropLFBXIjt}.} de la fermeture conclura que \( \complement f^{-1}(\mO)\) est fermé.
+
+    Pour tout \( k\), nous avons \( f(x_k)\in\complement \mO\), mais \( \mO\) est ouvert et \( f(x_k)\stackrel{Y}{\longrightarrow}f(x)\) parce que \( f\) est séquentiellement continue. Par conséquent \( f(x)\in\complement \mO\) et \( x\in\complement f^{-1}(\mO)\).
+\end{proof}
+
 \begin{proposition}
     Si \( X\) est un espace topologique dont la topologie est donnée par une famille dénombrable de semi-normes, alors il est métrisable.
 \end{proposition}
-    
+%TODO : une preuve
+
+\begin{proposition}
+    Une fonction séquentiellement continue sur un espace métrisable et à valeurs dans un espace métrique est continue.
+\end{proposition}
+
+\begin{proof}
+    Soit \( E\) un espace métrique et un homéomorphisme \( \phi\colon X\to (E,d)\). Nous supposons que \( f\colon X\to Y\) est séquentiellement continue. Nous considérons l'application \( \tilde f=f\circ\phi^{-1}\), c'est à dire
+    \begin{equation}
+        \begin{aligned}
+            \tilde f\colon E&\to Y \\
+            a&\mapsto f\big( \phi^{-1}(a) \big). 
+        \end{aligned}
+    \end{equation}
+    L'application \( \phi^{-1}\) est continue et donc séquentiellement continue. De plus \( \tilde f\) est séquentiellement continue. En effet si \( a_k\stackrel{E}{\longrightarrow}a\), alors
+    \begin{equation}
+        \tilde f(a_k)=f\big( \phi^{-1}(a_k) \big),
+    \end{equation}
+    mais \( \phi^{-1}\) est séquentiellement continue, donc \( \phi^{-1}(a_k)\stackrel{X}{\longrightarrow}\phi^{-1}(a)\), ce qui signifie que \( \phi^{-1}(a_k)\) est une suite convergente dans \( X\) et donc
+    \begin{equation}
+        \lim_{k\to \infty} \tilde f(a_k)=\lim_{k\to \infty} f\big( \phi^{-1}(a_k) \big)=f\big( \phi^{-1}(a) \big)=\tilde f(a).
+    \end{equation}
+    L'application \( \tilde f\) est donc séquentiellement continue. Mais étant donné que \( \tilde f\) est définie sur un espace métrique (\( E\)) et à valeurs dans un métrique, elle est continue par la proposition \ref{PropXIAQSXr}. L'application \( f=\tilde f\circ\phi\) est donc continue en tant que composée d'applications continues.
+\end{proof}
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Espaces de Baire}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
