@@ -159,6 +159,8 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         LesSubFigures,NiveauHyperbole,NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD
         ]
 
+figures_list=[AdhIntFr,AdhIntFrDeux,AdhIntFrTrois,AdhIntFrSix]
+
 # Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"mes notes de mathématique")
