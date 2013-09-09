@@ -1,38 +1,41 @@
 from phystricks import *
 
 def CSCvi():
-	fig = GenericFigure("CSCvi")
+    pspicts,fig = MultiplePictures("CSCvi",2)
 
-	ssfig1 = fig.new_subfigure(r"Le graphique de $r(\theta)$","CSCviGr")
-	pspict1 = ssfig1.new_pspicture("CSCviGraphe")
+    pspicts[0].mother.caption=r"Le graphique de $r(\theta)$"
+    pspicts[1].mother.caption=r"La courbe polaire correspondante"
 
-	x=var('x')
-	epsilon=0.4
-	limite=-pi/2
-	llam=limite+epsilon
-	Llam=pi/2
-	r=phyFunction(cos(x)/(1+sin(x)))
+    #ssfig1 = fig.new_subfigure(r"","CSCviGr")
+    #pspict1 = ssfig1.new_pspicture("CSCviGraphe")
 
-	graphe=r.graph(llam,Llam)
+    x=var('x')
+    epsilon=0.4
+    limite=-pi/2
+    llam=limite+epsilon
+    Llam=pi/2
+    r=phyFunction(cos(x)/(1+sin(x)))
 
-	P=Point(limite,0)
-	Q=Point(limite,graphe.bounding_box().N().y)
-	assymp=Segment(P,Q)
-	assymp.parameters.color="lightgray"
-	assymp.parameters.style="dashed"
-	pspict1.DrawGraphs(graphe,assymp)
+    graphe=r.graph(llam,Llam)
 
-	pspict1.DrawDefaultAxes()
-	pspict1.dilatation(1)
+    P=Point(limite,0)
+    Q=Point(limite,graphe.bounding_box().N().y)
+    assymp=Segment(P,Q)
+    assymp.parameters.color="lightgray"
+    assymp.parameters.style="dashed"
+    pspicts[0].DrawGraphs(graphe,assymp)
 
-	ssfig2 = fig.new_subfigure("La courbe polaire correspondante","CSCviCourbe")
-	pspict2 = ssfig2.new_pspicture("CSCviCourbe")
+    pspicts[0].DrawDefaultAxes()
+    pspicts[0].dilatation(1)
 
-	curve=PolarCurve(r).graph(llam,Llam)
-	pspict2.DrawGraphs(curve)
+    #ssfig2 = fig.new_subfigure("","CSCviCourbe")
+    #pspict2 = ssfig2.new_pspicture("CSCviCourbe")
 
-	pspict2.DrawDefaultAxes()
-	pspict2.dilatation(1)
+    curve=PolarCurve(r).graph(llam,Llam)
+    pspicts[1].DrawGraphs(curve)
 
-	fig.conclude()
-	fig.write_the_file()
+    pspicts[1].DrawDefaultAxes()
+    pspicts[1].dilatation(1)
+
+    fig.conclude()
+    fig.write_the_file()

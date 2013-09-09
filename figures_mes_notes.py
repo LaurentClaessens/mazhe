@@ -159,6 +159,7 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         LesSubFigures,NiveauHyperbole,NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD
         ]
 
+figures_list=[CSCvi]
 
 # Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
