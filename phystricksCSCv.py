@@ -1,27 +1,29 @@
 from phystricks import *
 
 def CSCv():
-	fig = GenericFigure("CSCv")
+    pspicts,fig = MultiplePictures("CSCv",2)
 
-	ssfig1 = fig.new_subfigure(r"Le graphique de $r(\theta)$","CSCvGr")
-	pspict1 = ssfig1.new_pspicture("CSCvGraphe")
+    pspicts[0].mother.caption=r"Le graphique de $r(\theta)$"
+    pspicts[1].mother.caption=r"La courbe polaire correspondante"
+    #ssfig1 = fig.new_subfigure(r"","CSCvGr")
+    #pspict1 = ssfig1.new_pspicture("CSCvGraphe")
 
-	x=var('x')
-	r=phyFunction(cos(x)-cos(2*x)).graph(0,2*pi)
-	pspict1.DrawGraph(r)
+    x=var('x')
+    r=phyFunction(cos(x)-cos(2*x)).graph(0,2*pi)
+    pspicts[0].DrawGraph(r)
 
-	pspict1.DrawDefaultAxes()
-	pspict1.dilatation(1)
+    pspicts[0].DrawDefaultAxes()
+    pspicts[0].dilatation(1)
 
-	ssfig2 = fig.new_subfigure("La courbe polaire correspondante","CSCvCourbe")
-	pspict2 = ssfig2.new_pspicture("CSCvCourbe")
+    #ssfig2 = fig.new_subfigure("","CSCvCourbe")
+    #pspict2 = ssfig2.new_pspicture("CSCvCourbe")
 
-	curve1=PolarCurve(r).graph(0,2*pi/3)
-	curve2=PolarCurve(r).graph(4*pi/3,2*pi)
-	pspict2.DrawGraphs(curve1,curve2)
+    curve1=PolarCurve(r).graph(0,2*pi/3)
+    curve2=PolarCurve(r).graph(4*pi/3,2*pi)
+    pspicts[1].DrawGraphs(curve1,curve2)
 
-	pspict2.DrawDefaultAxes()
-	pspict2.dilatation(1)
+    pspicts[1].DrawDefaultAxes()
+    pspicts[1].dilatation(1)
 
-	fig.conclude()
-	fig.write_the_file()
+    fig.conclude()
+    fig.write_the_file()
