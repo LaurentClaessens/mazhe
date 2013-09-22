@@ -1,3 +1,14 @@
+The following should produce a correct DVI file :
+latex mes_notes.tex
+bibtex mes_notes
+makeindex mes_notes
+
+(to be done several times to get correct cross-references)
+
+
+If you want to compile with pdflatex, it is more complicated.
+
+
 *****************************************************************************
 DEPENDENCIES
 *****************************************************************************
