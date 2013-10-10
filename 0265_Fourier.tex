@@ -814,6 +814,249 @@ La définition de la transformée de Fourier de \( \varphi\in\swS(\eR^d)\) est
 \end{theorem}
 %TODO : à préciser
 
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Distributions tempérées}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Une \defe{distribution tempérée}{distribution!tempérée} est une forme linéaire continue sur \( \swS(\eR^d)\). L'ensemble des distributions tempérées est noté \( \swS'(\eR^d)\)\nomenclature[Y]{\( \swS'(\eR^d)\)}{espace des distributions tempérées}. Si \( T\) est une telle distribution, nous notons $\langle T, \varphi\rangle$ l'image de \( \varphi\) par \( T\).
+\end{definition}
+
+Si \( f\) est une fonction sur \( \eR^d\) telle que \( f\varphi\in L^1(\eR^d)\) pour tout \( \varphi\in \swS(\eR^d)\), alors nous définissons la distribution \( T_f\in\swS'(\eR^d)\) par
+\begin{equation}
+    \langle T_f, \varphi\rangle =\int_{\eR^d}f(x)\varphi(x)dx.
+\end{equation}
+Cette définition ne fonctionne pas pour toute les fonctions. Par exemple pour \( f(x)= e^{x^2}\), et \( \varphi(x)= e^{-x^2}\in\swS(\eR)\) nous avons \( f\varphi=1\) qui n'est pas du tout intégrable sur \( \eR\).
+
+\begin{example}
+    La \defe{distribution de Dirac}{distribution!de Dirac} \( \delta\) est donnée par
+    \begin{equation}
+        \langle \delta, \varphi\rangle =\varphi(0).
+    \end{equation}
+    Montrons qu'elle est continue. Soit une suite \( \varphi_n\stackrel{\swS}{\to}0\). En particulier, \( p_{0,0}(\varphi_n)=\sup_x| \varphi_n(x) |\to 0\). Donc \( \varphi_n(0)\to 0\) comme il le faut.
+\end{example}
+
+\begin{example}
+    La \defe{valeur principale}{valeur!principale (distribution)} de la fonction \( x\mapsto \frac{1}{ x }\) est la distribution
+    \begin{equation}
+        \begin{aligned}
+            T\colon \swS(\eR)&\to \eR \\
+            \varphi&\mapsto \lim_{\substack{\epsilon\to 0\\\epsilon>0}}\int_{| x |>\epsilon}\frac{ \varphi(x) }{ x }.
+        \end{aligned}
+    \end{equation}
+    Montrons que cela définit bien une distribution tempérée.
+
+    D'abord l'intégrale existe pour tout \( \epsilon\), par exemple parce que pour les grands \( | x |\) nous avons par exemple \( | \varphi(x)\leq x^3 |\) et donc \( \varphi(x)/x\leq 1/x^2\) dont l'intégrale converge. Nous devons maintenant regarder la limite.
+
+    Nous considérons une suite \( \epsilon_n\to 0\) et la suite
+    \begin{equation}
+        a_n=\int_{| x |\geq \epsilon_n}\frac{ \varphi(x) }{ x }dx.
+    \end{equation}
+    Nous montrons que cette suite converge dans \( \eR\) en montrant qu'elle est de Cauchy. Pour cela nous travaillons un peu la forme de \( \varphi\) :
+    \begin{equation}
+        \varphi(x)=\varphi(0)+\int_0^x\varphi'(t)dt=\varphi(0)+\int_0^1x\varphi'(x\theta)d\theta.
+    \end{equation}
+    Ce qui est dans l'intégrale est borné par \( K=\| M_x\varphi' \|_{\infty}\) qui est parfaitement fini parce que \( \varphi\) est à décroissance rapide. Lorsque nous calculons \( | a_m-a_n |\), le terme \( \varphi(0)/x\) donne une intégrale nulle parce que le domaine d'intégration \( \epsilon_n\leq | x |\leq \epsilon_n\) est symétrique alors que la fonction \( 1/x\) est impaire.
+    \begin{equation}
+        | a_m-a_n |\leq \big| \int_{\epsilon_m<| x |<\epsilon_n}K \big|=2| \epsilon_n-\epsilon_m |K
+    \end{equation}
+    Tout cela nous dit que \( T\) est bien définie. Nous devons encore étudier sa continuité.
+
+    Soit \( \chi\) une fonction dans \(  C^{\infty}_c(\eR)\) telle valant \( 1\) sur \( \mathopen[ -1 , 1 \mathclose]\), paire et à valeurs dans \( \mathopen[ 0 , 1 \mathclose]\).
+    %TODO : il faudrait montrer qu'il existe des fonctions C infini à support compact qui ne sont pas nulles partout. C'est fait autour du lemme de Borel.
+    Pour tout \( \epsilon>0\) nous avons \( \int_{| x |>\epsilon}\frac{ \chi(x) }{ x }dx=0\). 
+
+    Nous avons aussi \( \varphi=\chi\varphi+(1-\chi)\varphi\), et donc
+    \begin{subequations}
+        \begin{align}
+            \int_{| x |>\epsilon}\frac{ \varphi(x) }{ x }dx&=\int_{| \epsilon |>0}\chi(x)\frac{ \varphi(x)-\varphi(0) }{ x }dx+\int_{| \epsilon |>0}\big( 1-\chi(x) \big)\frac{ \varphi(x) }{ x }dx\\
+            &=\int_{| \epsilon |>0}\chi(x)\int_0^1\underbrace{\varphi'(\theta x)}_{\leq \| \varphi' \|_{\infty}}d\theta+\int_{| x |\geq 1}\big( 1-\chi(x) \big)\frac{ \varphi(x) }{ x }dx\\
+            &\leq\| \varphi' \|_{\infty}\int_{| x |\geq \epsilon}\chi(x)dx+\| \varphi \|_{L^1}\\
+            &=C\| \varphi' \|_{\infty}+\| \varphi \|_{1}.
+        \end{align}
+    \end{subequations}
+    Cela est valable pour toute fonction \( \varphi\in\swS(\eR)\). Mais nous savons que si \( \varphi_n\stackrel{\swS(\eR)}{\to}0\), alors \( \| \varphi_n \|_{\infty}\to 0\), \( \| \varphi'_n \|_{\infty}\to 0\) et \( \| \varphi_n \|_1\to 0\); donc si \( \varphi_n\stackrel{\swS(\eR)}{\to}0\), alors
+    \begin{equation}
+        T(\varphi_n)=\lim_{\substack{\epsilon\to 0\\\epsilon>0}}\int_{| x |>\epsilon}\frac{ \varphi(x) }{ x }\leq C\| \varphi_n' \|_{\infty}+\| \varphi_n \|_1\to 0.
+    \end{equation}
+\end{example}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Topologie}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La topologie que nous mettons sur l'espace \( \swS'(\eR^d)\) est le même type que celle que nous mettons sur \( \swD'(\eR^d)\), c'est à dire celle des semi-normes \( p_{\varphi}(T)=| T(\varphi) |\). La définition \ref{DefASmjVaT} et la proposition \ref{PropEUIsNhD} restent.
+
+\begin{proposition} \label{PropQAuJstI}
+    Nous avons \( T_n\stackrel{\swS'(\eR^d)}{\longrightarrow}T\) si et seulement si pour tout \( \varphi\in\swS(\eR^d)\) nous avons \( T_n(\varphi)\to T(\varphi)\).
+\end{proposition}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Distributions associées à des fonctions}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si \( f\in L^1_{loc}(\eR^d)\) alors nous lui associons une distribution \( T_f\in \swD'(\eR^d)\) définie par la formule
+\begin{equation}
+    T_f(\varphi)=\int_{\eR^d}f(x)\varphi(x)dx.
+\end{equation}
+
+\begin{proposition}
+    L'application ainsi définie
+    \begin{equation}
+        \begin{aligned}
+            L^1_{loc}(\eR^d)&\to \swD'(\eR^d) \\
+            f&\mapsto T_f 
+        \end{aligned}
+    \end{equation}
+    est injective.
+\end{proposition}
+
+\begin{proof}
+    Si \( T_f=0\) alors pour tout \( \varphi\in \swD\) nous avons \( \int_{\eR^d}f\varphi=0\). En vertu de la proposition \ref{PropLGoLtcS} cela implique \( f=0\) presque partout.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Transformée de Fourier}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}
+    Si \( f\in \swS(\eR^d)\), nous avons \( \hat T_f=T_{\hat f}\).
+\end{lemma}
+
+\begin{proof}
+    En utilisant les définitions,
+    \begin{equation}
+        \hat T_f(\varphi)=T_f(\hat \varphi)=\int_{\eR^d}f(x)\hat \varphi(x)dx=\int_{\eR^d}f(x)\left[ \int_{\eR^d}\varphi(y) e^{-iyx}dy \right]dx
+    \end{equation}
+    où nous avons noté \( xy\) le produit scalaire \( x\cdot y\). Nous permutons les intégrales en utilisant le théorème de Fubini \ref{ThoFubinioYLtPI} avec la fonction
+    \begin{equation}
+        (x,y)\mapsto f(x)\varphi(y) e^{-ixy}
+    \end{equation}
+    qui est parfaitement dans \( L^1(\eR^d\times \eR^d)\). Nous écrivons alors
+    \begin{equation}
+        \hat T_f(\varphi)=\int_{\eR^d}\left[ \int_{\eR^d}f(x)\varphi(y) e^{-iyx}dx \right]dy=\int_{\eR^d}\varphi(y)\hat f(y)dy=T_{\hat t}(\varphi).
+    \end{equation}
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Convolution d'une distribution par une fonction}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous savons que si \( \psi\in\swS(\eR^d)\) et si \( x\in\eR^d\) alors la fonction \( y\mapsto\psi(x-y)\) est encore une fonction dans \( \swS(\eR^d)\). Donc si \( T\in\swS'(\eR^d)\) nous pouvons considérer la fonction \( T*\psi=\psi*T\) définie par
+\begin{equation}
+    (T*\psi)(x)=T\big( y\mapsto\psi(x-y) \big).
+\end{equation}
+Notons que \( T*\psi\) est bien une fonction et non une distribution.
+
+Le but de la définition est d'avoir
+\begin{equation}
+    T_f*\psi=f*\psi.
+\end{equation}
+En effet
+\begin{equation}
+    (T_f*\psi)(x)=T_f\big( y\mapsto \psi(x-y) \big)=\int_{\eR^d}f(y)\psi(x-y)dy=(f*\psi)(x).
+\end{equation}
+
+\begin{example}
+    La distribution de Dirac est le neutre pour le produit de convolution. En effet
+    \begin{equation}
+        (\delta*\psi)(x)=\delta\big( y\mapsto\psi(x-y) \big)=\psi(x),
+    \end{equation}
+    c'est à dire \( \delta*\psi=\psi\).
+\end{example}
+
+\begin{proposition}[\cite{OEVAuEz}] \label{PropZMKYMKI}
+    Si \( T\in\swS'(\eR^d)\) et \( \psi\in\swS(\eR^d)\), alors la distribution associée à la fonction \( T*\psi\) est tempérée.
+\end{proposition}
+
+\begin{proof}
+    En agissant sur \( \varphi\in\swD(\eR^d)\) nous avons
+    \begin{subequations}
+        \begin{align}
+            T_{T*\psi}(\varphi)&=\int_{\eR^d}T\big( y\mapsto (t_x\psi)(y) \big)\varphi(x)dx\\
+            &=\int_{\eR^d}T\big( y\mapsto \varphi(x)\psi(x-y) \big)dx\\
+            &=T\left( y\mapsto\int_{\eR^d}\varphi(x)\psi(x-y)dx \right)     \label{SubEqSVDsVTS}\\
+            &=T\big(y\mapsto (\varphi*\check\psi)(y)\big)\\
+            &=T(\varphi*\check\psi).
+        \end{align}
+    \end{subequations}
+
+    Attention :
+    \begin{probleme}
+        Le passage à la ligne \eqref{SubEqSVDsVTS} n'est pas justifié.
+    \end{probleme}
+
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Peigne de Dirac}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}
+    La formule
+    \begin{equation}    \label{EqMEVmKvg}
+        \Delta_a=\sum_{k\in \eZ}\delta_{ka}
+    \end{equation}
+    définit un élément de \( \swD'(\eR)\).
+\end{proposition}
+La forme linéaire \( \Delta_a\) est le \defe{peigne de Dirac}{peigne de Dirac} de pas \( a\).
+
+\begin{proof}
+    Nous utilisons le critère de continuité séquentielle en zéro du théorème \ref{ThoVDDBnVn}. Soit une suite \( \varphi_n\to 0\) dans \( \swD(\eR)\). Par le théorème \ref{ThoXYADBZr} il existe un compact \( K\) de \( \eR\) pour lequel \( \varphi_n\in\swD(K)\) pour tout \( n\) et \( \varphi_n\to0\) dans \( \swD(K)\). La somme \ref{EqMEVmKvg} est donc finie et nous pouvons la permuter avec une limite :
+    \begin{equation}
+        \lim_{n\to \infty} \Delta_a(\varphi_n)=\sum_{k\in\eZ}\lim_{n\to \infty} \varphi_n(ka).
+    \end{equation}
+    La limite \( \varphi_n\to 0\) dans \( \swD(K)\) signifie que nous avons convergence uniforme de la fonction et de toutes ses dérivées vers \( 0\). En particulier \( \| \varphi_n \|_{\infty}\to 0\); disons que la somme (qui est finie) fasse \( s\) termes :
+    \begin{equation}
+        \sum_{k\in \eZ}\varphi_n(ka)\leq s\| \varphi_n \|_{\infty}.
+    \end{equation}
+    Le terme de droite tend vers zéro lorsque \( n\) tend vers l'infini.
+\end{proof}
+Donc \( \Delta_a\) est bien une distribution au sens de la définition \ref{DefPZDtWVP}.
+
+\begin{lemma}[\cite{CXCQJIt}]
+    Le peigne de Dirac vérifie la relation
+    \begin{equation}
+        \Delta_a=\frac{1}{ a }\Delta_1\circ D_a
+    \end{equation}
+    où \( D_a\) est l'application \( D_a\colon \swD(\eR)\to \swD(\eR)\),
+    \begin{equation}
+        (D_af)(x)=af(ax).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Pour \( \varphi\in\swD(\eR)\) nous avons
+    \begin{equation}
+        \Delta_a(\varphi)=\sum_{k\in \eZ}\varphi(ka)=\frac{1}{ a }\sum_{k\in \eZ}(D_a\varphi)(k)=\frac{1}{ a }\Delta_1(D_a\varphi).
+    \end{equation}
+\end{proof}
+
+\begin{proposition}
+    Le peigne de Dirac est une distribution tempérée.
+\end{proposition}
+
+Notez qu'il y a plus de fonctions dans \( \swS(\eR)\) que dans \( \swD(\eR)\); il est donc plus difficile de rentrer dans \( \swS'(\eR)\) que dans \( \swD'(\eR)\) : il est plus compliqué d'avoir existence de \( T(\varphi)\) pour tout \( \varphi\in\swS(\eR)\) que pour tout \( \varphi\in\swD(\eR)\).
+
+\begin{proof}
+    Soit \( \varphi\in\swS(\eR)\). Nous avons
+    \begin{equation}
+        |\Delta_a(\varphi)|=| \sum_k\varphi(ak) |=\left| \sum_k\frac{ (1+a^2k^2)\varphi(ak) }{ 1+a^2k^2 } \right| \leq_{x\in \eR}\big| (1+x^2)\varphi(x) \big|\sum_k\frac{1}{ 1+a^2k^2 }.
+    \end{equation}
+    La somme \( \sum_k\frac{1}{ 1+a^2k^2 }\) est une somme convergente, et et supremum est borné par la proposition \ref{PropCSmzwGv} en prenant \( Q(x)=1+x^2\). En effet sur \( \overline{ B(0,r) }\) la fonction \( x\mapsto (1+x^2)\varphi(x)\) est bornée par ce que c'est une fonction continue sur un compact, et à l'extérieur de \( B(0,r)\) cette fonction est alors bornée par \( 1\).
+\end{proof}
+
+Si aucune ambigüité n'est à craindre, nous noterons \( f\) la distribution \( T_f\).
+
+\begin{example}
+    La transformée de Fourier de la distribution de Dirac est la fonction constante : \( \hat \delta=1\). En effet si nous agissons sur une fonction test,
+    \begin{equation}
+        \hat \delta(\varphi)=\delta(\hat \varphi)=\hat \varphi(0)=\int_{\eR^d}\varphi(x)dx.
+    \end{equation}
+\end{example}
+
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{L'espace \texorpdfstring{$  C^{\infty}(\eR,\swD'(\eR^d))$}{C(R,D')}}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
