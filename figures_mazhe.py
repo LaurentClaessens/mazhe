@@ -5,7 +5,7 @@ from phystricks import *
 import sys
 
 from phystricksNEtAchr import NEtAchr
-from phystricksAIFsOQO import AIFsOQO
+#from phystricksAIFsOQO import AIFsOQO
 from phystricksRQsQKTl import RQsQKTl
 from phystricksDynkinpWjUbE import DynkinpWjUbE
 from phystricksHasseAGdfdy import HasseAGdfdy
