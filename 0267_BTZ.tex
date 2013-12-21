@@ -1,0 +1,3054 @@
+% This is part of (almost) Everything I know in mathematics and physics
+% Copyright (c) 2013
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+\begin{abstract}
+This chapter deals with black holes in anti de Sitter spaces. The latter are the simplest non flat solutions to Einstein's equations with constant negative cosmological constant; they are in particular pseudo-Riemannian manifolds that carry a causal structure, physically due to the finiteness of speed of light. That physical restriction is mathematically encoded by the existence of three types of geodesics: the space-, time- and light-like ones, existence which is in turn implied by the non positivity of the metric. A causal structure is introduced by defining two points as \emph{causally connected} when there exists a time- or light-like path connecting them.
+
+ The  originality of our approach is that the $l$-dimensional space $AdS_l$ is seen as a quotient of groups $\SO(2,l-1)/\SO(1,l-1)=G/H$, and that the special causal black hole structure is described in terms of orbits of the action of a subgroup of the isometry group of the manifold.
+
+Using symmetric spaces techniques, we show that closed orbits of the Iwasawa subgroup of $\SO(2,l-1)$ naturally define a causal black hole singularity in anti de Sitter spaces in $l \geq 3$ dimensions. In particular, we recover for $l=3$ the non-rotating massive BTZ black hole. The method presented here is very simple and in principle generalizable to any semisimple symmetric space.
+
+The main references for this part are \cite{lcTNAdS,articleBVCS,These}.
+
+\end{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+ %
+    \section{Introduction}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Physics and mathematics of black holes}	\label{SubSecGeneBH}
+%--------------------------------------------------
+
+\subsubsection{Notion of Causality}
+%\\\///////////////////////////////
+
+This subsection is devoted to introduce the mathematical definition of a black hole from the intuitive physical notions of causality and maximality of the speed of light. Let us pose the origin of time and space respectively now and here. So we are at $(0,0)$. If we denote by $c$ the seed of light, we cannot reach the moon before time $\unit{340000}{\kilo\meter}/c$. More generally we cannot reach a point at spacial distance $d$ within a time inferior to $d/c$. Then the space is thus divided into three very different regions with respect to causality: the points that we can reach traveling slower than light, the points that only light can reach and points that we cannot reach at all.
+%see figure \ref{FigMink}.
+%\begin{figure}[ht]
+%\begin{center}
+%\begin{pspicture}(-3.3,-1.2)(3.3,3.2)
+%   \psset{PointSymbol=none, PointName=none}
+%   \pstGeonode(0,0){O}(1,0){X}(0,1){Y}(-2.9,-0.9){Bg}(2.9,2.9){Hd}(2.0,0.8){P}
+%   \pstProjectionOrth{O}{X}{Hd}{Ax}
+%   \pstProjectionOrth{O}{Y}{Hd}{At}
+%   \pstProjectionOrth{O}{X}{Bg}{Bx}
+%   \pstProjectionOrth{O}{Y}{Bg}{Bt}
+%   \pstHomO[HomCoef=0.9]{Ax}{Hd}[Bld]
+%   \pstOrtSym{O}{Y}{Bld}[Blg]
+%	\pspolygon[fillstyle=vlines,hatchcolor=red,linecolor=white](O)(Ax)(Bld)
+%	\pspolygon[fillstyle=vlines,hatchcolor=red,linecolor=white](O)(Bx)(Blg)
+%	\psline{->}(Bt)(At)
+%	\psline{->}(Bx)(Ax)
+%	\psline[linecolor=yellow]{->}(O)(Bld)
+%	\psline[linecolor=yellow]{->}(O)(Blg)
+%	\pstMarquePoint{At}{0.3;0}{$t$}
+%	\pstMarquePoint{Ax}{0.3;0}{$x$}
+%	\pstMarquePoint{Bld}{0.3;90}{$s=0$}
+%	\psellipse[fillstyle=solid,fillcolor=white,linecolor=white](P)(0.7,0.4)
+%	\pstMarquePoint{P}{0.1;35}{$s<0$}
+%	\psellipse[fillstyle=solid,fillcolor=white,linecolor=white](Y)(0.7,0.4)
+%	\pstMarquePoint{Y}{0.1;35}{$s>0$}
+%\end{pspicture}
+%\end{center}
+%\caption{Yellow lines correspond to the travel of a light ray, the red zone is unreachable by an observer located at $(0,0)$.}\label{FigMink}
+%\end{figure}
+
+%TODO : refaire cette figure.
+
+It is convenient to introduce the function $s(t,x)=c^2t^2-x^2$ which basically says you which points are accepted and which points are unaccepted. The mathematical way to implement these ideas is to consider a pseudo-Riemannian manifold $(M,g)$. The \defe{norm}{pseudo-Riemannian!norm} of a vector $X\in T_xM$ is defined as $\| X \|^2=g_x(X,X)$. There are three possibilities:
+\begin{itemize}\label{PgDefsGenre}
+	\item if $\| X \|^2>0$, we say that $X$ is \defe{time-like}{time-like},
+	\item if $\| X \|^2<0$, we say that $X$ is \defe{space-like}{space-like},
+	\item if $\| X \|^2=0$, we say that $X$ is \defe{light-like}{light-like}.
+\end{itemize}
+A path $c\colon \eR\to M$ is time, space or light-like when its tangent vector is everywhere time, space or light-like. The manifold $M$ is \defe{time orientable}{time orientation} if it accepts an everywhere time-like vector field. A \emph{time orientation} is the choice of such a vector field. If $T$ is a time orientation on $M$, we say that a vector $X_x\in T_xM$ is \defe{future directed}{future!directed vector} if $g_x(T_x,X)>0$. From now we suppose that a choice of time orientation is possible and done.
+
+The concept of causality is now easy to determine. If $x$ and $y$ belong to $M$, the point $x$ has a \defe{causal influence}{causal!influence} on $y$ if there exists a future directed path $c\colon [0,1]\to M$ such that $c(0)=x$ and $c(1)=y$. One has to notice that the relation \emph{has a causal influence on} is not symmetric in general, but there exist some examples in which it is symmetric.
+
+%As example, consider the space $\eR^2$ represented on the figure \ref{FigMink}. 
+As example consider the space $M=\eR^2$ endowed with the constant pseudo-Riemannian structure $g=\begin{pmatrix}c^2&0\\0&1 \end{pmatrix}$. That space is the \defe{Minkowski space}{Minkowski!space}. The relation of causality is given by the previously mentioned function $s$; this relation is \emph{never} symmetric and there exist pairs of point who have no causal effect on each other. If one takes the quotient by the relation $t\sim t+1$, we get a space in which the causality is everywhere symmetric.
+
+\subsubsection{Notion of singularity and black hole}
+%////////////////////////////////////////////////
+
+Up to the choice of a time orientation, a pseudo-Riemannian manifold is comes with a canonical notion of causality. In order to have a black hole in our causal space we need an extra structure:~the singularity. We take here a very conservative point of view and we say that a \emph{singularity} in $M$ is any strict subset of $M$. In the literature one often add conditions on the singularity such like to be a submanifold, time-like, connected,\ldots of course most of ``real live'' singularities fulfil that kind of conditions.
+
+The singularity defines two types of points in the space: the ones from which every time-like path intersect the singularity (from a physical point of view, these points correspond to observers who will fall in the singularity without doubt) and the points from which at least one time-like path does not intersect the singularity. We define the black hole associated with the singularity $\hS$ as
+\begin{align} 
+  BH=\big\{ x\in M\tq \forall &\text{ future directed time-like path } c \text{ with } c(0)=x,\\
+			&\exists t\geq0  \text{ such that } c(t)\in \hS \big\}.
+\end{align}
+The easiest example is given by defining a small line as singular in the Minkowski space as shown in figure \ref{LabelFigEJRsWXw}. 
+\newcommand{\CaptionFigEJRsWXw}{The red line is the singularity and the green zone is the black hole associated with.}
+\input{Fig_EJRsWXw.pstricks}
+%\begin{figure}[ht]
+%\begin{center}
+%\begin{pspicture}(-3.3,-1.2)(3.3,3.2)
+%   \psset{PointSymbol=none, PointName=none}
+%   \pstGeonode(-3.3,-1.2){cg}(3.3,3.2){cd}		% Ceci sont les points qui définissent le cadre. Il faut les laisser synchronisés avec la bounding box donnée pour la pspicture.
+%   \pstGeonode(0,0){O}(1,0){X}(0,1){Y}(1,1){lcd}	% lcd est le point qui définit la pente du cône de lumière
+%   \pstOrtSym{O}{Y}{lcd}[lcg]
+%   \pstGeonode(-3,1.8){sg}(-0.8,1.5){sd}			% Placer la singularité 
+
+%  \pstTranslation{O}{lcd}{sd}[lcds]
+%  \pstTranslation{O}{lcg}{sg}[lcgs]
+%  \pstInterLL{sd}{lcds}{sg}{lcgs}{t}			% Trois lignes pour trouver le trou noir
+
+
+ %  \pstHomO[HomCoef=0.9]{O}{cd}[Hd]
+ %  \pstHomO[HomCoef=0.9]{O}{cg}[Bg]			% Ici je place les bords des axes et du dessin proprement dit.
+
+%  \pstProjectionOrth{O}{X}{Hd}{Ax}
+%  \pstProjectionOrth{O}{Y}{Hd}{At}
+%  \pstProjectionOrth{O}{X}{Bg}{Bx}
+%   \pstProjectionOrth{O}{Y}{Bg}{Bt}
+%   \pstHomO[HomCoef=0.9]{Ax}{Hd}[Bld]
+%   \pstOrtSym{O}{Y}{Bld}[Blg]
+	%\pspolygon[fillstyle=vlines,hatchcolor=red,linecolor=white](O)(Ax)(Bld)
+	%\pspolygon[fillstyle=vlines,hatchcolor=red,linecolor=white](O)(Bx)(Blg)
+%	\psline{->}(Bt)(At)
+%	\psline{->}(Bx)(Ax)
+	%\psline[linecolor=yellow]{->}(O)(Bld)
+	%\psline[linecolor=yellow]{->}(O)(Blg)
+%	\pstMarquePoint{At}{0.3;0}{$t$}
+%	\pstMarquePoint{Ax}{0.3;0}{$x$}
+
+	%\pstMarquePoint{Bld}{0.3;90}{$s=0$}
+	%\psellipse[fillstyle=solid,fillcolor=white,linecolor=white](P)(0.7,0.4)
+	%\pstMarquePoint{P}{0.1;35}{$s<0$}
+	%\psellipse[fillstyle=solid,fillcolor=white,linecolor=white](Y)(0.7,0.4)
+	%\pstMarquePoint{Y}{0.1;35}{$s>0$}
+%	\pspolygon[fillstyle=vlines,hatchcolor=green,linecolor=green](sg)(sd)(t)
+%	\psline[linecolor=red](sg)(sd)
+%\end{pspicture}
+%\end{center}
+%\caption{The red line is the singularity and the green zone is the black hole associated with.}\label{FigBHMink}
+%\end{figure}
+
+
+In order the construction to be non trivial, we ask the black hole to be bigger than the singularity (that is of course part of the black hole), but smaller that the full space.
+
+%The basic notions needed in order to define a causal structure on a time orientable pseudo-Riemannian manifold are that of time-, light- and space-like tangent vector. A tangent vector is said to be respectively \emph{time-}, \emph{space-} or \emph{light-like} when its norm is positive, negative or null; physically, only time-like vectors are allowed to be the velocity of an observer (this is the fact that light speed cannot be attained by a massive particle), and it is only possible for massless particle (such as photons) to follow trajectories with light-like tangent vectors.
+
+From a geometric point of view, a black hole is the data of a causal manifold $M$ together with a subset $\hS \subset M$ called \emph{singularity} such that the whole manifold is divided into two parts: the \emph{interior} and the \emph{exterior} of the black hole. A point is said to be \emph{interior} if all future light-like geodesics through the point have a non empty intersection with the singularity. A point is \emph{exterior} if it is not interior. An important subset of the space is the \emph{event horizon}: the boundary between these two subsets.
+
+\subsection{BTZ black hole}		\index{BTZ black hole}
+%------------------------------
+
+The BTZ black hole introduced and developed by Bañados, Teitelbaum, Zannelli and Henneaux in \cite{BTZ_un,BTZ_deux} is an example of a black hole whose singularity is not motivated by metric divergences\footnote{It turns out that general relativity accepts a lot of solutions presenting metric divergences; or more precisely, there are a lot of \emph{physical situations} from which Einstein's equations lead to divergences of some metric invariant such as the curvature.}. The construction is roughly as follows. We consider the anti de Sitter space in which we pick up a Killing vector field whose sign of norm is not constant. Then we perform a \emph{discrete} quotient along the integral curves of this vector field. Of course we obtain a lot of closed geodesics. The point is that, in the region where the Killing vector field is space-like, these closed curves are space-like. That violates the physical principle of causality. For that reason, we decree that this region is singular or, equivalently, that the boundary of this region is singular. The BTZ singularity is then the loci where the chosen Killing vector field has a vanishing norm. Since discrete quotients do not affect local structures, the resulting space remains a solution of the $(2+1)$-dimensional general relativity with negative cosmological constant\footnote{For honesty, we have to warn the reader that the real world's cosmological constant has been measured very small but positive. We also have to point out that the four dimensional anti de Sitter space is a solution of general relativity \emph{without masses}. From a physical point of view, this thesis has to be seen as a toy model.}. In this context one can define pertinent notions of  \emph{mass} and \emph{angular momentum} which depend on the chosen Killing vector field.
+
+\begin{probleme}
+Il faut trouver une référence pour dire que la constante cosmologique est positive.
+\end{probleme}
+
+In the case of the \emph{non-rotating massive} BTZ black hole, the structure of the singularity and the horizon are closely related to the action of a minimal parabolic (Iwasawa) subgroup of the isometry group of anti de Sitter, see \cite{BTZB_deux,Keio}. The whole work on the BTZ black hole and the fact that it belongs to the class of causal symmetric spaces (for definitions and some examples, see \cite{HilgertOlaf}) motivate the following definition:
+
+\begin{definition}
+A \defe{causal solvable symmetric black hole}{causal!solvable symmetric black hole} is a causal symmetric space where the closed orbits of minimal parabolic subgroups of its isometry group define a black hole singularity. See section \ref{SecCausal} for definitions of causality and singularity in the $AdS$ case.
+\label{Def1}
+\end{definition}
+
+\subsection{Generalization and group setting}
+%--------------------------------------------
+\label{SubSecGEneBHGrop}
+
+The original BTZ black hole was constructed in dimension three, but we will see in this chapter that, exploiting their group theoretical description, they can easily be generalized to any dimension, as pointed out in \cite{BDRS,lcTNAdS}.  Notice that higher-dimensional generalizations of the BTZ construction have been studied in the physics literature, by classifying the one-parameter isometry subgroups of $\Iso(AdS_l)=\SO(2,l-1)$, see \cite{Figueroa,AdSBH,Madden,Banados:1997df,Aminneborg,HolstPeldan}, but these approaches do not exploit the symmetric space structure of anti de Sitter.
+
+The structure that will be described with full details in next pages may be summarized as follows. Take $G=\SO(2,l-1)$, fix a Cartan involution $\theta$ and a $\theta$-commuting involutive automorphism $\sigma$ of $G$ such that the subgroup $H$ of $G$ of the elements fixed by $\sigma$ is locally isomorphic to $\SO(1,l-1)$. The quotient space $M=G/H$ is a $l$-dimensional Lorentzian symmetric space, the {\sl anti de Sitter space-time}.  We denote by $\sG$ and $\sH$ the Lie algebras of $G$ and $H$. We have the decomposition $\sG=\sH\oplus\sQ$ into the $\pm 1$-eigenspace  of the differential at $e$ of $\sigma$ that we denote again by $\sigma$.  We also consider $\sG=\sK\oplus\sP$, the Cartan decomposition induced by $\theta$; and $\sA$, a $\sigma$-stable maximally abelian subalgebra of $\sP$. A positive system of roots is chosen  and let $\sN$ be the corresponding nilpotent subalgebra (see Iwasawa decomposition, theorem \ref{ThoIwasawaVrai}).  Set  $\overline{\sN}=\theta(\sN)$, $\sR=\sA\oplus\sN$ and $\overline{\sR}=\sA\oplus\overline{\sN}$. Finally denote by $R=AN$ and $\overline{R}=A\overline{N}$ the corresponding analytic subgroups of $G$.  One then has
+
+\begin{theorem}
+The $l$-dimensional anti de Sitter space with $l\geq 3$, seen as the symmetric space $\SO(2,l-1)/\SO(1,l-1)$, becomes a causal solvable symmetric black hole, as defined above, when the closed orbits of the Iwasawa subgroup $R$ of $\SO(2,l-1)$ and its Cartan conjugated $\overline{ R }$ are said to be singular. There exists in particular a non empty event horizon. The group $R$ has exactly two such closed orbits. 
+\label{ThoLeBut}
+ \end{theorem}
+
+ This chapter intends to prove this theorem, and for the sake of completeness, we also analyze in some detail in section \ref{sec_AdSdeux} the two-dimensional case, for which the construction does not yield a black hole structure.
+
+The black hole causal structure is thus completely determined by the action of a solvable group.  This observation gives prominence to potential embeddings of these spaces in the framework of noncommutative geometry, in defining noncommutative causal black holes (see also \cite{BDRS}) through the existence of universal deformation formulae for solvable groups actions which have been obtained in the context of WKB-quantization of symplectic symmetric spaces \cite{StrictSolvableSym,Biel-Massar-2}. These issues are investigated in chapter \ref{ChDefoBH} and in \cite{articleBVCS}.
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+					\subsection{Some notations}
+%---------------------------------------------------------------------------------------------------------------------------
+
+We are going to use the following notations. We denotes the \defe{free part}{free!part of a black hole} of the space $AdS_l$ by $\hF_l$; this is the subset of $AdS_l$ for which there exists a light-like direction which escapes the singularity. We denote by $BH_l$ the black hole in $AdS_l$; this is the set of points from which all the light-like geodesics intersect the singularity.
+
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Visite guidée}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{En termes de BTZ}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous travaillons dans $AdS_l=\SO(2,l-1)/\SO(1,l-1)=G/H$. Nous définissons les orbites fermées de $AN$ et $A\bar N$ (le groupe d'Iwasawa de $G$ et son conjugué par une involution de Cartan) comme \emph{singulières}.
+
+Il a été prouvé il y a déjà bien longtemps que cette définition donne lieu à une structure de trou noir. Cette structure est par ailleurs la même, en dimension 3, que celle du trou noir BTZ connu de la physique. J'ai récemment poussé un peu plus loin et donné la structure de l'horizon en dimension $4$ en termes de celle en dimension $3$. Il se fait que (théorème \ref{ThoEqHorQCoore})
+
+\begin{theorem}
+L'horizon de $AdS_4$ est donné par
+\begin{equation}		
+	\hH_4=G_V\cdot \iota(\hH_3)\cup G_X\cdot\iota(\hH_3),
+\end{equation}
+où $\iota\colon \eR^4\to \eR^5$ est l'inclusion de $AdS_3$ dans $AdS_4$ et où les groupes $G_V$ et $G_X$ sont donnés par
+\begin{equation}
+	G_V=\{  e^{\alpha V}\tq\alpha\in\eR \},
+\end{equation}
+le vecteur $V$ étant l'élément de base de l'espace de racine $\sG_{(0,1)}$ de $\SO(2,3)$, et $X$ est l'élément de base de $\sG_{(0,-1)}$. Ces espaces de racines sont vides dans le cas de $AdS_3$.
+\end{theorem}
+L'inclusion $\iota$ peut également être vue comme l'inclusion du groupe $\SO(2,3)$ dans $\SO(2,4)$. La preuve est faite avec du calcul matriciel explicite très peu généralisable à d'autres espaces symétriques.
+
+L'énoncé de ce théorème est la seule chose élégante de la section \ref{SecHOrOrbEquation}. Le reste est du calcul matriciel. Ce théorème donne, cependant, une bonne idée de ce vers quoi on va : il semble possible que les horizons en dimension supérieure s'obtiennent par récurrence. Le groupe qui générerait la singularité en dimension $l$ serait le groupe généré par les espaces de racines $(1,0)$ et $(0,1)$ de $\SO(2,l-1)$.
+
+Affin de trouver des preuves plus intrinsèques, on commence par bien définir les différents éléments de l'algèbre, et en particulier la base de $\sQ$ en termes des espaces de racines. Cela se passe à la section \ref{SecRebuildStructRoot}. Je définit par exemple
+\begin{equation}
+	\begin{aligned}[]
+		q_0&=(X_{++})_{\sQ\sK}\\
+		q_2&=(X_{++})_{\sQ\sP},
+	\end{aligned}
+\end{equation}
+et je montre que le premier est de norme (de Killing) positive et le second de norme négative, mais qu'en valeur absolue, ils ont la même norme. Je choisit donc $X_{++}$ de telle façon à ce que $q_0$ et $q_1$ soient normés à $1$. Les vecteurs $q_0\pm q_1$ sont donc de genre lumière.
+
+Toute une série de propriétés sont ensuite prouvées. Le but est évidement de construire, de façon intrinsèque, une base de $\sA$, $\sN$, $\sK$ et de $\sQ$ de telle façon à avoir toutes les propriétés agréables que les matrices explicites avaient.
+
+Cette partie est destinée à être remplacée par une application du théorème de structure de Pyatetskii-Shapiro. Un petit changement de base sera toutefois indispensable parce que l'élément dont l'annulation de la norme du champ de vecteur fondamental donne la singularité n'est pas dans la base donnée par Pyatetskii-Shapiro.
+
+Tant que l'on travaillait avec des matrices et qu'on utilisait explicitement le fait que $AdS$ était un sous-ensemble de $\eR^n$, nous utilisions la caractérisation suivante de la singularité :
+\begin{equation}
+	\hS\equiv t^2-y^2=0.
+\end{equation}
+Maintenant, il est bon d'utiliser une caractérisation de la singularité qui ne fait pas appel aux coordonnées. Une telle caractérisation existe : si $J_1$ est un élément de $\sA\cap\sH$ (qui est de dimension $1$), alors la singularité est donnée par
+\begin{equation}
+	\hS\equiv \| J_1^* \|=0
+\end{equation}
+où $J_1^*$ est le champ de vecteur fondamental de l'action de $G$ sur $G/H$ associé au vecteur $J_1$. Cette caractérisation fait qu'un point $[g]\in G/H$ est dans la singularité si et seulement si le vecteur
+\begin{equation}		\label{VisiteEqprQcaract}
+	\pr_{\sQ}\left( \Ad(g^{-1})J_1 \right)
+\end{equation}
+a une norme nulle. Ici, $\pr_{\sQ}$ est la projection sur $\sQ$.
+
+À part une foule de petits détail encore à vérifier, il est maintenant prouvé, en utilisant la caractérisation \eqref{VisiteEqprQcaract}, qu'un point $[kan]$ est dans la singularité si et seulement si il appartient à $[AN]$, $[A\bar N]$, $[-\mtu_{\SO(2)}AN]$ ou $[-\mtu_{\SO(2)}A\bar N]$, c'est à dire à une des orbites fermées de $AN$ ou de $A\bar N$.
+
+
+Tout cela est dans le chapitre \ref{ChapBHinAdS}.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{En termes de généralisations}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Afin de se mettre dans une perspective de généralisation, l'idée suivante est proposée.
+
+\begin{enumerate}
+
+	\item
+		
+
+
+On considère un espace homogène symétrique $G/H$ où $G$ a 1000 décompositions d'Iwasawa possibles.
+
+\item
+ On sait par des arguments d'hermiticité et de $\mZ(\sK)$ non nul que la composante d'Iwasawa de $G$ est une $j$-algèbre.
+
+\item
+Il y a sûrement un argument pour dire qu'il existe des choix d'Iwasawa qui font que les racines positives et les éléments correspondants de $\sA\oplus\sN$ tombent exactement dans les $A$ ,$Z$ et $V $ de la décomposition en $j$-algèbres élémentaires.
+
+\item
+On choisit cette décomposition particulière d'Iwasawa comme décomposition "de référence".
+
+\item
+ On définit la singularité sur $G/H$ par $\| H1+H2\|=0$. Ici, c'est la première fois que le $H$ apparaît dans la construction.
+
+ \item
+ On considère l'Iwasawa qui change de base dans $\sA$ pour choisir $J1=H1+H2$ et $J2=H1-H2$. Cela devrait être fait sans changer de décomposition $\sG=\sK\oplus\sP$.
+
+\item		\label{ItemVGDern}
+ On prouve que la singularité est les orbites fermées de $AN$ et $A\theta(N)$ pour cette nouvelle Iwasawa.
+\end{enumerate}
+
+
+Le point \ref{ItemVGDern} est là uniquement pour montrer que l'ensemble de la construction redonne le BTZ déjà connu.
+
+\section{Connectedness of groups and anti de Sitter spaces}
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\subsection{General results}
+%---------------------------
+
+The following is a general result about Lie groups:
+\begin{lemma}
+If $G$ is a Lie group and $G_0$ is its identity component, the connected components of $G$ are lateral classes of $G_0$. More specifically, if $x\in G_1$, then $G_1=xG_0=G_0x$.
+\label{LemConnSpecMo}
+\end{lemma}
+
+An other general result is lemma 2.4 of \cite{HelgasonSym} states that
+
+\begin{lemma}
+Connectedness of some usual groups:
+\begin{itemize}
+\item 
+    The groups $\SU(p, q)$, $\SU^*(2n)$, $\SO^*(2n)$, $p(n, R)$, and $\SP(p, q)$ are
+all connected.
+\item 
+    The group $\SO(p, q)$ ($0<p<p+q$) have exactly two connected components.
+\end{itemize}
+\label{LemConnSOpq}
+\end{lemma}
+
+\label{PgDisGeoConnSO}We are not going to prove this lemma here. Instead, we give some detail on the geometric nature of the two connected components of $\SO(p,q)$; a physical discussion in the case of $\SO(1,3)$ can be found in the reference \cite{Schomblond_em}. What is proved in \cite{HelgasonSym} is that $\SO(p,q)$ is homeomorphic to the topological product
+\[ 
+  \SO(p,q)=\SO(p,q)\cap\SU(p+q)\times \eR^{d}=\SO(p,q)\cap\SO(p+q)\times \eR^{d}
+\]
+for some $d\in\eN$. Hence an element of $\SO(p,q)$ reads
+\[ 
+  \begin{pmatrix}
+A&0\\
+0&B
+\end{pmatrix}\times v
+\]
+where $v\in\eR^{d}$, $A\in \gO(p)$, $B\in\gO(q)$ are such that $\det A\det B=1$. The $v$ part corresponds to boost while $A$ and $B$ correspond to pure temporal and pure spatial rotations. An element of $\gO(n)$ has always determinant equals to $\pm 1$. Therefore one can decompose the rotation part as $(\det A=\det B=1)\otimes (\det A=\det B=-1)$. Both parts are connected.
+
+Hence the first connected component contains $\mtu$ while the second one contains the element that simultaneously changes the sign of one spacial and one time direction.
+
+\subsection{The quotient for anti de Sitter}
+%--------------------------------------------
+
+Homogeneous space considerations (see section \ref{SecSymeStructAdS}) will naturally lead us to define the anti de Sitter space as the quotient $G/H=\SO(2,l-1)/\SO(1,l-1)$ while the black hole definition (section \ref{SecCausal}) needs to consider Iwasawa decompositions of $G$. So we face the problem that the Iwasawa theorem \ref{ThoIwasawaVrai} only works with connected groups. In order to prevent any problems of this type, we prove now that, if $G_0$ and $H_0$ denote the identity component of $\SO(2,l-1)$ and $\SO(1,l-1)$ respectively, then $G/H=G_0/H_0$.
+
+The groups that are considered here have only two connected components $G_0$ and $G_1$. We can chose $i_1\in G_1\cap H$ such that $i_1^2=\mtu$. Using lemma \ref{LemConnSpecMo}, it easy to prove that 
+\begin{itemize}
+\item $G_0G_0=G_0$,
+\item $G_0G_1=G_1$,
+\item $G_1G_1=G_0$.
+\end{itemize}
+For the last one, take $g$ and $g'$ in $G_1$. Then consider $g_0$ and $g'_0$ in $G_0$ such that $g=g_0i_1$ and $g'=g_0'i_1$. If $g_0(t)$ and $g'_0(t)$ are path from $\mtu$ to $g_0$ and $g_0'$, then the path $g_0(t)i_1g'_0(t)i_1$ is a path from $\mtu$ to $gg'$.
+
+\begin{proposition}
+The map
+\begin{equation}
+\begin{aligned}
+ \psi\colon G/H&\to G_0/H_0 \\ 
+[g]&\mapsto \overline{ g_0 } 
+\end{aligned}
+\end{equation}
+where we define $g_0=g$ when $g\in G_0$ or $g_0=gi_1$ when $g\in G_1$ is a diffeomorphism.  The classes are $[g]=\{ gh\tq h\in H \}$ and $\overline{ g }=\{ gh_0\tq h_0\in H_0 \}$.
+\label{PropGHconn}
+\end{proposition}
+
+\begin{proof}
+First we prove that $\psi$ is well defined. For that we suppose that $[g]=[g']$. There are three cases:
+\begin{enumerate}
+\item The elements $g$ and $g'$ both belong to $G_0$. In this case, $g'=gh_0$ with $h_0\in H_0$ and $\overline{ gh }=\overline{ g }$.
+\item The element $g$ belongs to $G_0$ while $g'$ belongs to $G_1$. In this case, $g'=gh$ with $h=h_0i_1$ and $h_0\in H_0$. Then $\psi[g]=\overline{ g }$ and $\psi[g']= \overline{ (gh_0i_1)_0 }=\overline{ gh_0i_1i_1 }=\overline{ gh_0 }=\overline{ g } $.
+\item The case with $g$ and $g'$ in $G_1$ is similar.
+\end{enumerate}
+
+The fact that the map $\psi$ is surjective is clear. For injectivity, let $\psi[g]=\psi[g']$, i.e. there exists a $h_0$ in $H_0$ such that $g'_0=g_0h_0$. Thus we have $g'i_1^k=gi_1^lh_0$ with $k,l=0,1$ following the cases. Then $g'=gi_1^lh_0i_1^k$ in which $i_1^lh_0i_1^k$ belongs to $H$, so that $[g']=[g]$.
+
+\end{proof}
+
+
+\section{Symmetric space structure on anti de Sitter}\label{SecSymeStructAdS}
+%------------------------------------------
+
+The $l$-dimensional anti de Sitter space $AdS_l$ can be described as set of points $(u,t,x_1,\ldots,x_{l-1})\in \eR^{2,l-1}$  such that $u^2+t^2-x_1^2-\ldots-x_{l-1}^2=1$. The next few pages are devoted to describe the homogeneous and symmetric space structures on $AdS_l$ induced by the transitive an isometric action of $\SO(2,l-1)$. We suppose that the groups $\SO(2,l-1)$ and $\SO(1,l-1)$ are parametrized in such a way that the second, seen as subgroup of the first one, leaves unchanged the vector $(1,0,\ldots,0)$. In this case, proposition 4.3 of chapter II in \cite{Helgason} provides the homogeneous space isomorphism
+\begin{equation}
+\begin{aligned}
+  \SO(2,l-1)/\SO(1,l-1)&\to AdS_l \\ 
+[g]&\mapsto  
+ g\cdot
+\begin{pmatrix}
+1\\0\\\vdots
+\end{pmatrix}
+\end{aligned}
+\end{equation}
+where the dot denotes the usual ``matrix times vector'' action of the representative $g\in [g]$ in the defining representation of $\SO(2,l-1)$ on $\eR^{2,l-1}$. As far as notations are concerned, the classes are taken from the right:  $[g]=\{gh\tq h\in H\}$; in particular the class of the identity $e$ is denoted by $\mfo$; the groups $\SO(2,l-1)$ and $\SO(1,l-1)$ are denoted by $G$ and $H$ respectively and their Lie algebras by $\sG$ and $\sH$. Following proposition \ref{PropGHconn}, we can in fact only consider the identity components of $G$ and $H$. We denote by $\tau$ the natural action of $G$ on $G/H$:
+\begin{equation}
+\begin{aligned}
+ \tau\colon G\times AdS_l&\to AdS_l \\ 
+   \tau_r[g]&= [rg] 
+\end{aligned}
+\end{equation}
+
+\ifthenelse{\value{siTHZ}=1}{}{
+As far as dimensions are concerned, a candidate $R\subset G$ such that $R\cdot\mfo$ is open must satisfy
+\begin{equation}\label{cond_dim}
+                  \dim\mR\geq\dim M.
+\end{equation}
+
+The case that interest us is $G=\SOdn$ and $H=\SOun$:\nomenclature{$AdS_n$}{Anti de Sitter space}
+\[
+M=AdS_{n+1}=\dfrac{\SOdn}{\SOun},
+\]
+ so that we have to consider the action of $\SO(2,n)$ on $AdS_n$.  If $ANK$ is the Iwasawa decomposition of $\SO(2,n)$, we can consider more particularly the action of $R=AN$, and ask us if the orbit $R\cdot\mfo$ is open or not. It is easy to see that the condition \eqref{cond_dim} is satisfied. Indeed,
+\[
+ \dim\lG=\frac{n(n-1)}{2}+2n+1,\qquad\dim\lK=\frac{n(n-1)}{2}+1,
+\]
+so that $\dim(\mA\oplus\mN)=2n$, but $\dim AdS_n=n$. The Iwasawa subgroup\index{Iwasawa!group} $AN$ is a candidate for $AN\cdot\mfo$ to be open in $AdS_n$.
+}		% Fin du siTHZ à propos de la vérification dimensionelle.
+
+\begin{lemma}		\label{lem:Killing_ss_descent}
+If $G$ is a semisimple Lie group and $H$ a semisimple subgroup of $G$, the restrictions on $H$ of the Killing form of $G$ is nondegenerate.
+\end{lemma}
+\begin{probleme}
+Il faut une citation pour ce lemme.
+\label{ProbCitLemDesc}
+\end{probleme}
+
+
+\begin{proposition}
+The homogeneous space $AdS_l$ is reductive\index{reductive!$AdS_n$}.
+\label{PropAdSreduct}
+\end{proposition}
+
+\begin{proof}
+The proof relies on lemma \ref{lem:Killing_ss_descent} and the fact that $\SO(2,n)$ is semisimple. From the Killing form of $G$, one defines
+\[
+   \sQ=\sH^{\perp}=\{X\in\sG:B(X,H)=0\,\forall H\in\sH\}.
+\]
+Let $H$, $H'\in\sH$ and $Y\in\sQ$. From $\ad$-invariance of the Killing form, we have $B([H,Y],H')=0$. Hence $(\ad(\sH)\sQ)\subset \sQ$ and the claim is proved.
+
+\end{proof}
+
+Matrices of $\SO(2,n)$ are $(2+n)\times(2+n)$ matrices while the $n$-dimensional anti de Sitter space is a quotient of $\SO(2,n-1)$. In order to avoid confusions, we will reserve the letter $n$ to the study of the group $\SO(2,n)$ and the letter $l$ will denote the dimension of the anti de Sitter space which will thus be $AdS_l$.
+
+Let us provide a matrix representation now. The matrices of $\so(1,n)$ have to be seen as matrices of $\so(2,n)$ with the condition $Y^t\sigma+\sigma Y=0$ for the  ``metric''\ $\sigma=diag(0,-,+,\ldots,+)$. Hence,
+\begin{equation}		\label{eq:gene_H}
+\sH=\soun\leadsto
+  \begin{pmatrix}
+     \begin{matrix}
+       0&0\\
+       0&0
+     \end{matrix}
+                       &  \begin{pmatrix}
+		             \cdots 0\cdots\\
+			    \leftarrow v^t\rightarrow
+                          \end{pmatrix}\\
+    \begin{pmatrix}	  
+       \vdots & \uparrow\\
+         0    & v \\
+       \vdots & \downarrow
+    \end{pmatrix} &  B
+  \end{pmatrix}
+\end{equation}
+where  $v\in M_{n\times 1}$ and $B\in M_{n\times n}$ is skew-symmetric. Comparing this with the general form \eqref{eq:gene_sodn} of a matrix of $\sodn$ matrix, one immediately finds that, with the choice
+\begin{equation}\label{EqGeneRedQ}
+\sQ\leadsto
+ \begin{pmatrix}
+     \begin{matrix}
+       0&a\\
+       -a&0
+     \end{matrix}
+                       &  \begin{pmatrix}		             
+			  \leftarrow w^t\rightarrow \\
+			     \cdots 0\cdots\\
+                          \end{pmatrix}\\
+    \begin{pmatrix}	  
+      \uparrow   & \vdots\\
+          w      &  0\\
+      \downarrow & \vdots 
+    \end{pmatrix} & 0
+  \end{pmatrix},
+ \end{equation}
+the decomposition $\sG=\sH\oplus\sQ$ is reductive:
+\begin{align}		\label{EqDefRedHQ}
+  [\sH,\sQ]&\subseteq\sQ,
+ &[\sQ,\sQ]&\subseteq\sH,
+\end{align}
+and $B(\sH,\sQ)=0$. In the sequel, we will use the basis of $\sQ$ defined by 
+\begin{align}		\label{EqDefBaseqi}
+  q_0&=E_{12}-E_{21}, &q_i&=E_{1,(i-2)}+E_{(i-2),1}.
+\end{align}
+Notice, for later use that $q_1=J_2$ in the Iwasawa decomposition of $\SO(2,n)$.
+
+We define the involutive automorphism $\sigma=\id|_{\sH}\oplus(-\id)|_{\sQ}$.  The vector space $\sQ$ can be identified with the tangent space $T_{[e]}AdS_l$, and that identification can be extended by defining $\sQ_g=dL_g\sQ$. In this case $\dpt{d\pi}{\sQ_g}{T_{[g]}AdS_l}$ is a vector space isomorphism.\label{PgdpibaseQTgM} An homogeneous metric on $T_{[g]}AdS_l$ is defined as in subsection \ref{SubsecKillHomo}.
+
+Cartan decomposition of $\SO(2,l-1)$ are of crucial importance in chapter~\ref{ChapAdS}, so that we want to use a Cartan involution $\theta$ such that $[\sigma,\theta]=0$ (see \cite{Loos} page 153, theorem 2.1). One can show that $X\mapsto -X^t$ has that property. The corresponding Cartan decomposition is described in subsection \ref{SubSecCartandeuxN}.
+
+As a consequence of relations \eqref{EqDefRedHQ}, 
+\begin{equation}  \label{EqdpiAdpi}
+d\pi\Ad(h)=\Ad(h) d\pi
+\end{equation}
+because, if $X\in\sQ$, $d\pi^{-1}(X)=\{ X+Y\tq Y\in\sH \}$, so $\Ad(h)Y\in\sH$ and $\Ad(h)X\in \sQ$.
+
+\subsection{Anti de Sitter as symmetric space}\index{symmetric!space}
+%--------------------------------------
+\label{pg:AdS_n_syme}
+
+We know the decomposition $\sodn=\sQ\oplus\sH$. From equation \eqref{EqDefRedHQ} one can find an involutive automorphism $\sigma$ of $\sG$ which leaves $\sH$ invariant. 
+
+There exists a neighbourhood $U$ of $0$ in $\sodn$ on which $\exp$ is diffeomorphic to a neighbourhood $V$ of $e$ in $\SOdn$. We define $\dpt{\sigma_G}{V}{V}$ by $\sigma_G(e^X)=e^{\sigma X}$. Now, this $\sigma_G$ can be extended to the whole $G$. From now we will denote by $\sigma$ this map or its differential (i.e. an abuse of notation between $\sigma$ and $d\sigma_e$).
+
+  
+All this make $(\SOdn,\SOun)$ a symmetric pair. Since $H=\SOun$ is connected and fixed by $\sigma$, $H=H_{\sigma}=(H_{\sigma})_0$. Thus theorem  \ref{tho:sigma_theta} gives us a Cartan involution $\theta$ on $\sG$ such that $[\sigma,\theta]=0$ and theorem \ref{tho:sym_homo} gives a symmetric structure to $M=G/H$. Now we understand the computations of page \pageref{pg:calcul_sigma_theta}.
+
+
+\section{Causality, light cone and related topics on anti de Sitter} \label{SecCausal}
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+We particularize the general definitions of subsection \ref{SubSecGeneBH} to the case of the anti de Sitter space. We consider the $l$-dimensional\footnote{The symbol $n$ denotes the number of space-like directions of the underlying space of the matricial group $\SO(2,n)$; this space has dimension $n+2$ while $AdS$ is a quotient by (something like) one time-like direction. In order to avoid confusions, the symbol $l$ denotes the dimension of the $AdS$ space. This is the reason for which we write $\SOdn$ and $AdS_l$. So equation \eqref{eq:defAdS} is best written as \[AdS_l=\frac{\SOdn}{\SO(1,n)}.\]} anti de Sitter space
+\begin{equation}    \label{eq:defAdS}
+  AdS_l=\frac{ \SO(2,l-1) }{ \SO(1,l-1) }(\equiv u^2+t^2-x_1^2-\cdots-x_{l-1}^2=1).
+ \end{equation}
+According to proposition \ref{PropGHconn}, we can only consider the identity component of $\SO(2,l-1)$ and $\SO(1,l-1)$ instead of full groups\footnote{Since we are about to consider Iwasawa decompositions of these groups, actually we \emph{have to} use the identity components.}. The metric that we put on $AdS_l$ is the one induced from the Killing form of $\SO(2,l-1)$ by formula \eqref{EqDefMetrHomo}. This metric has a Minkowskian signature, so that we have  natural notions of time-, space- and light-like vectors. From now we denote by $G$ and $H$ the groups $\SO(2,l-1)$ and $\SO(1,l-1)$. 
+
+An other beautiful way to see that the metric on $AdS$ as one and only one time-like direction is the following. The tangent space of $AdS$ at the point $(u,t,x_1,\cdots,x_{l-1})$ is the orthogonal complement (in $\eR^{2,l-1}$) of that vector. From the very definition of $AdS$, the given vector is time-like (its norm is $1$), so that it remains one and only one time-like vector in the tangent space.
+
+The connected group $\SO_0(2,l-1)$ admits an Iwasawa decomposition $ANK$ (see theorem \ref{ThoIwasawaVrai}). Let $A\bar N$ be the $\theta$-conjugate\footnote{Roughly speaking, it corresponds to different choices in the Iwasawa decomposition of $\SO(2,l-1)$.}group of $AN$ where $\theta$ is the Cartan involution of subsection \ref{SubSecCartandeuxN}. We will see that the actions of $AN$ and $A\bar N$ have closed and open orbits. The closed ones are denoted by $\hS_{AN}$ and $\hS_{A\bar N}$. The following definition is motivated all previously existing work about BTZ black hole.
+
+\begin{definition}		\label{Singular}
+The \defe{singularity}{singularity} in $AdS_l$ is the set
+\[
+  \hS=\text{singularity}=\hS_{AN}\cup\hS_{A\bar N},
+\]
+so that a point is \defe{singular}{singular!point in a black hole} when it belongs to a closed orbit of $AN$ or $A\bar N$. The \defe{black hole}{black hole} is defined as
+\[
+  BH=\{ x\in AdS_{l} \text{ st } \forall \text{ time-like vector } k\in T_xAdS_l,\,  l^k_x\cap\mathcal{S}\neq\emptyset \}
+\]
+where $l^k_x$ is the (future directed) geodesic in the direction $k$ starting at $x$ (see equation \eqref{EqTousVecLumTy} and the discussion above).
+\end{definition}
+
+The aim of this chapter is to prove that the so-defined black hole is non trivial in the sense that the following inclusions are strict:
+\begin{equation}		\label{EqhSssubBH}
+ \hS\subset BH\subset AdS_l.
+ \end{equation}
+
+
+\ifthenelse{\value{siTHZ}=1}{}{
+
+\begin{remark}
+Here, we consider $\SOun$ as a subgroup of $\SOdn$. Thus the matrices of $\SOun$ are $(n+2)\times (n+2)$ of the form
+\[
+\begin{pmatrix}
+   1 & 0\\
+   0 & \fbox{M}
+\end{pmatrix}
+\]
+where $M$ is a $(n+1)\times (n+1)$ matrix of the ``true''\ $\SOun$. From this, one can believe the closeness of $\SOun$ in $\SOdn$.
+\end{remark}
+}		% Fin d'un siTHZ
+
+
+In order to get a full definition of the black hole and its structure, we need to define and characterise the notions of light ray and light cone. These notions are of course directly issued from physics of relativity.  
+\begin{definition}
+A \defe{light ray}{light!ray} is a geodesic whose tangent vector is everywhere light-like.
+\label{lightraycone}
+ \end{definition}
+
+The \defe{causal structure}{causal!structure} of a general pseudo-Riemannian manifold $M$ is the fact that two points are said to be \emph{causally connected} when there exists a light ray which passes by both points. More precisely, we say that $x$ has a \defe{causal effect}{causal!effect} on $y$ if there exists a future oriented time-like path $c\colon [0,1]\to M$ such that $c(0)=x$ and $c(1)=y$.
+
+A light ray trough $\mfo$ is given by a vector of $\sQ$ with vanishing norm. So let us study these vectors. Let $E_1=q_0+q_1$ and $k$, a general element of  $\SO(n)$ which reads $k= e^{K}$ with $K=a^{ij}(E_{ij}-E_{ji})$, $i,j\geq 3$ and $a^{ij}=-a^{ji}$.  If we pose $A_j=E_{1j}+E_{j1}$, we have $[K,E_1]=(2a)^{j3}A_j$ and $[K,A_k]=a^{jk}A_j$. Hence,
+\[
+\ad(K)^nE_1=\big((2a)^n\big)^{k3}A_k,
+\]
+and
+\begin{equation} \label{eq:Adkeu} 
+\begin{split}
+\Ad(k)E_1=e^{\ad K}E_1&=E_1+\sum_{n\geq 1}\big( (2a)^n\big)^{k3}A_k\\
+	      &=E_1+\sum_{n=0}^{\infty}\big(  (2a)^n \big)^{k3}A_k-\delta^{j3}A_j\\
+		&=E_1-E_{31}-E_{13}+\big( e^{2a}\big)^{j3}A_j\\
+	      &=q_0+\sum_{j=1}^{l-1}w_jq_j
+\end{split}
+\end{equation}
+where $w_i=\big(  e^{2a} \big)^{i3}$. Under an explicit form, we have 
+ \begin{equation} \label{eq:AdkE} 
+   \Ad(k)E_1=
+\begin{pmatrix}
+0&1&w_1&w_2&\ldots\\
+-1\\
+w_1\\
+w_2\\
+\vdots
+\end{pmatrix}
+\end{equation}
+The exponential $ e^{2a}$ being an element of $\SO(n)$, the parameters $w_i$ are restricted by the condition $\sum_{k}w_k^2=1$.  Remark moreover that \emph{every} matrix of $\SO(2)$ can be written under the form $e^{2a}$ for a good choice of $a\in\sod$. The light cone is therefore given by the set of vectors of the form $(1,w_i)$ with $\|w\|^2=1$. If we consider the metric $diag(+--\cdots)$ on $\sQ$ with respect to the basis $\{q_i\}$, we have
+\[
+  \|\Ad(k)E_1\|^2=0.
+\]
+This is coherent with the intuitive notion of light cone. On the one hand \emph{every} light-like vector of $\sQ$ reads $\Ad(k)E_1$ for some $k\in\SO(n)$. On the other hand every nilpotent element of $\sQ$ is light-like because trace of nilpotent matrix is zero (using \wikipedia{en}{Engel_theorem}{Engel's theorem}). In definitive, we proved the following:
+
+\begin{proposition}		\label{PropNormZeroEQnil}
+When $E$ is any nilpotent element of $\sQ$, the set of light-like vectors of $\sQ$ is parametrized by $\lambda\Ad(k)E$ with $k\in\SO(n)$ and $\lambda\in\eR$.
+\label{PropToutVectLumQ}
+\end{proposition}
+
+\begin{corollary}		\label{CorNormZeroEQnil}
+An element of $\sQ$ has a vanishing norm if and only if it is nilpotent.
+\end{corollary}
+
+\begin{proof}
+We know that, when $E$, is any nilpotent in $\sQ$, the set of vanishing norm vectors in $\sQ$ are given by $\{ \lambda\Ad(k)E \}$, but all these vectors are nilpotent.
+\end{proof}
+
+Let us point out the fact that only the first column of the ``direction''{} $k\in \SO(n)$ has an importance in causality issues. So the word ``directions''{} will often be used to refer to the vector $w$. It is not a particular feature of our particular matrix representation choice. Indeed the element $k$ only appears in the combination $\Ad(k)E$ which is a light-like vector in $\sQ$, i.e. $\Ad(k)E=tq'_0+\sum_i x_iq'_i$ with $t^2-\sum_i x_i^2=0$ for any orthonormal basis $\{q'_i\}$ of $\sQ$. As far as causality is concerned, a rescaling $\Ad(k)E$ to $\lambda\Ad(k)E$ has no importance, so one can choice $t=1$ and find back $\sum_i x_i^2=1$. We see that it is a natural feature that the light-like rays are parametrized by  unital vectors of $\eR^n$.
+
+\begin{lemma}		\label{LemGeodGenreLumiere}
+Let $E$ be a nilpotent element in $\sQ$, and $\pi: G \rightarrow G/H$, the canonical projection. A light ray through $[g]\in AdS_l$ has the form
+\begin{equation}
+   l^k_{[g]}(s)=\pi\big( ge^{-s\Ad(k)E} \big)
+\end{equation}
+for a certain $k\in K_H=K\cap H=\SO(n)$.
+ \label{lem:AdkEcone}
+\end{lemma}
+
+\begin{proof}
+General theory of symmetric spaces (see \cite{kobayashi2}, pages 230--233, particularly theorem 3.2) proves that a light ray through $\mfo=[e]$ has the form
+\[
+  l(s)=\pi\big( e^{sX} \big).
+\]
+
+\begin{probleme}
+	Il me semble que ce qui est de cette forme, ce sont les géodésiques, et non les rayons de lumière. Relire Kobayashi-Nomizu.
+\end{probleme}
+
+
+In our context, we have the additional request for the tangent vector to be light-like. Proposition \ref{PropToutVectLumQ} thus imposes $X$ to be of the form $\Ad(k)E$. That proves the claim for geodesics trough $\mfo$.
+
+The fact that $d\tau_g$ is an nondegenerate isometry then extends the result to all points.
+
+\end{proof}
+
+\begin{corollary}		\label{CorNilLightQ}
+If $E$ is nilpotent in $\sQ$, then $\{\Ad(k)E\}_{k\in K_H}$ is the set of light-like vectors in $T_{[\mfo]}AdS_l\simeq\sQ$. Therefore
+\begin{equation}
+  \exp_{\mfo}( t\Ad(k)E )=\exp(t\Ad(k)E)\cdot\mfo.
+\end{equation}
+is the light cone of $\mfo$ in $AdS_l$.
+\ifthenelse{\value{siTHZ}=1}{}{Note that in this equation, the first $\exp$ is the
+one defined from the $AdS_l$-connection while the second is the exponential from a Lie algebra to the Lie group. It comes from the fact that in a symmetric space, $\exp_o v=e^z\cdot\mfo$.}
+\end{corollary}
+
+In order to fix ideas, we will always use the element $E_1$ as choice of nilpotent element in $\sQ$ in order to parametrize light-cone.  Since $\SO(2,l-1)$ acts on $AdS_l$ by isometries, the \defe{light cone}{light!cone} at $\pi(g)$ is given by a translation of the one at $\mfo$:
+\begin{equation}	\label{eq_defcone}
+  C^+_{\pi(g)}=g\cdot C_{\mfo}=\{  \pi\big( g e^{t\Ad(k)E_1}  \big)  \}_{\substack{t\in\eR^+\\ k\in K_H}}.
+\end{equation} 
+The product being taken at left while the quotient being taken at right, one can fear a problem of well definiteness in this expression. The following proposition shows that all is right.
+
+\begin{proposition}		\label{PropDefConeIndepRepre}
+Definition \eqref{eq_defcone} is independent of the representative $g$ in the class $\pi(g)$. In other words,
+\begin{equation}  \label{eq_statdefcone}
+  \{ \Ad(hk)E_1 \}_{k\in K_H}=\{ \Ad(k)E_1 \}_{k\in K_H}
+\end{equation} 
+for all $h\in H$. 
+\end{proposition}
+
+\begin{proof}
+The metric on $\sQ$ is the restriction of the Killing form of $\sG$ (notice that $\sQ$ has no own Killing form for the simple reason that it is not a Lie algebra). From $\Ad$-invariance, we have in particular
+\[
+  B\big(\Ad(h)X,\Ad(h)Y \big)=B(X,Y)
+\]
+for all $h\in \SO(1,l-1)$. The point is that reducibility makes $\Ad(h)X\in\sQ$ when $X\in\sQ$. The element $\Ad(hk)E_1$ in the left hand side of equation \eqref{eq_statdefcone} being zero-normed in $\sQ$, it reads $\Ad(k')E_1$ for some $k'\in K_H$. That proves the inclusion in one sense. For the second inclusion, we have to find a $k'\in K_H$ such that $\Ad(hk')E_1=\Ad(k)E_1$. Existence of such a $k'$ follows from the fact that $\Ad(h^{-1}k)E_1$ is a light-like vector of $\sQ$.
+\end{proof}
+
+\begin{remark}		\label{RemGedNonInvarChoix}
+Although the \emph{set} of geodesics $\{ \pi(g e^{s\Ad(k)E_2}) \}$ is equal to the \emph{set} of geodesics $\pi(gh e^{s\Ad(k)E_1})$, each geodesic are not independent in the choice of the representative $g$: $\pi(g e^{\Ad(k)E_1})\neq\pi(gh e^{\Ad(k)E_1})$ in general.
+
+In particular, in the setting of the anti de Sitter black hole, the property ``intersect the singularity'' for the geodesic $\pi(g e^{s\Ad(k)E_1})$ is not invariant under the choice of the representative $g$ in the class $[g]$.
+\end{remark}
+
+It is also possible to prove result of independence \ref{PropDefConeIndepRepre} with a lot of matricial computations: let us decompose $h=a_hn_hk_h$; the part $k_h$ is just a redefinition of $k$ in equation \eqref{eq_statdefcone}, so we forget it. We begin by proving that \eqref{eq_statdefcone} holds whenever $\Ad(h)\in \SO(\sQ)$. Consider $\Ad(k')E_1=X\in\sQ$. If $\Ad(h)\in \SO(\sQ)$, then $\Ad(h^{-1})\in \SO(\sQ)$ too and we consider $Y=\Ad(h^{-1})X$ which is a vector of norm zero in $\sQ$. There exists $\bar k\in K_H$ such that $\Ad(\bar k)E_1X=Y$. Now,
+\begin{equation}
+\Ad(h\bar kk')E_1=\Ad(h\bar k)X
+		=\Ad(h)Y
+		=X.
+\end{equation}
+In order to prove that $\Ad(a_h)\in \SO(\sQ)$, we compute
+\[
+  \ad(J_1)\begin{pmatrix}
+0	& z	& w_1	& w_2	& w3\\
+-z\\
+w_1\\
+w_2\\
+w_3
+\end{pmatrix}
+=\ad(J_1)(zq_0+w_iq_i).
+\]
+In the basis $\{ q_0,q_i \}$, we see that
+\[
+  \ad(J_1)=\begin{pmatrix}
+0&0&-1&0\\
+0\\-1\\0
+\end{pmatrix}\in\mathfrak{so}(1,3),
+\]
+so $\Ad(J_1)\in \SO(\sQ)$. On the other hand, a general element of $\sN_{\sH}$ is
+\[
+  A=\begin{pmatrix}
+\cdot\\
+&\cdot& a&\cdot& v\\
+&a&\cdot &-a&\cdot\\
+&  \cdot& a&\cdot& v\\
+&v&\cdot&-v&\cdot\\
+\end{pmatrix},
+\]
+and simple computations shows that on $\sQ$,
+\[
+  \ad(A)=\begin{pmatrix}
+\cdot &-a&\cdot&-v\\
+-a&\cdot&-a&\cdot\\
+\cdot&a&\cdot &v\\
+-v&\cdot&v&\cdot
+\end{pmatrix}\in\mathfrak{so}(1,3).
+\]
+
+\subsection{Time orientation}
+%////////////////////////////
+
+A \defe{time orientation}{time!orientation} on $\sQ$ is the choice of a vector $T$ such that $\scal{T}{T}>0$. When such a choice is made, a vector $v$ is \defe{future directed}{future!directed vector} when $\scal{v}{T}>0$. In our case, the choice is the intuitive one: the vector $q_0$ defines the time orientation on $\sQ$ and $v=(v^0,v^1,v^2,v^3)$ is future directed if and only if $v^0>0$. So a light-like future directed vector is always --up to a positive multiple-- of the form $(1,\overline{v})$ with $\|\overline{v}\|=1$. For this reason, the set
+\begin{equation}	\label{EqTousVecLumTy}
+  \{t\Ad(k)E_1\}_{%
+\begin{subarray}{l}
+t>0\\k\in \SO(3)
+\end{subarray}
+}
+\end{equation}
+is exactly the set of light-like future-directed vectors of $\sQ$.
+
+We are now able to define causality as follows.  A point $[g]\in AdS_l$ belongs to the \defe{interior region}{interior!region} if for every direction $k\in K_H$, the future light ray $l^k_{[g]}$ intersects the singularity within a \emph{finite} time.  In other words, it is interior when the whole light cone ends up in the singularity.  A point which is not interior is said to be \defe{exterior}{exterior!point}. A particularly important set is the \defe{event horizon}{event horizon}, or simply \emph{horizon}, defined as the boundary of the interior. When a space contains a non trivial causal structure (i.e. when there exists a non empty horizon), we say that the definition of singularity gives rise to a \defe{black hole}{black hole}.  By extension, the term ``black hole'' often refers to the set of interior points.
+
+\subsection{Action of \texorpdfstring{$H$}{H} and \texorpdfstring{$\Ad(\sQ)$}{AdQ}}
+%///////////////////////////////
+
+Remember that we decree closed orbits to be \emph{singular}. Now the fact for a point $\pi(g)\in AdS_l$ to be \emph{exterior} is that there exists an non empty set $\mO$ of $K_H$ such that $\forall k\in\mO$,
+\[
+  \pi\big( g e^{t\Ad(k)E_1}  \big)\cap\mS=\emptyset.
+\]
+
+The restriction of the Killing form to $\sQ$ reads
+\begin{subequations}
+\begin{align}
+	B(q_0,q_0)&=\tr(q_0q_0)=-2,\\
+	B(q_{i},q_{i})&=\tr(q_{i},q_{i})=2&\textrm{for $i\geq 1$}.
+\end{align}
+\end{subequations}
+So the norm on $\sQ$ is $\| X \|=-\frac{ 1 }{2}B(X,X)$. The bi-invariance of the Killing form and the fact that the decomposition $\sG=\sQ\oplus\sH$ is reductive  imply $\| \Ad(h)X \|=\| X \|$, hence
+\begin{equation}  \label{EqInclAdHSOq}
+  \Ad(H)|_{\sQ}\subset\SO(\sQ).
+\end{equation} 
+A question is to know the kernel of this inclusion: which $h\in H$ fulfill $\Ad(h)q_i=q_i$ for all $i$ ? The equation $Aq_iA^{-1}=q_i$ can be simplified (from a computational point of view) using the relation $A^{-1}=\eta A^t\eta$ which defines $\SO(1,n)$. It is a somewhat long but easy computation to prove that $A=\pm\mtu$ are the only two solutions in $SO(1,n)$ to the system $A(q_i\eta)A^t=q_i\eta$.
+
+One can go further than inclusion \eqref{EqInclAdHSOq} and prove the following
+\begin{proposition}		
+ Let $h\in H_0$ seen as a matrix acting on $\eR^{1,l-1}$ and let see $\Ad(h)$ as a matrix acting on $\sQ$. In this case we have $\Ad(h)_{ij}=h_{ij}$. In particular
+\begin{equation}
+   \Ad(H_0)=\SO_0(\sQ)
+\end{equation} 
+where the index zero denotes the identity component.
+\label{PropSOADHequal}
+\end{proposition}
+
+\begin{proof}
+We will prove that for each unital vector $X\in\sQ$, the element $\Ad(h)X$ is a general element of norm $1$ in $\sQ$ when $h$ runs over $H_0$. Explicit matrix computation will show by the way the equality  $\Ad(h)_{ij}=h_{ij}$. The general product to be computed is
+\[ 
+\Ad(h)X=
+  \begin{pmatrix}
+1	&	0\\
+0	&
+\begin{pmatrix}
+&&\\
+&h^{-1}\\
+&&
+\end{pmatrix}
+\end{pmatrix}
+\begin{pmatrix}
+0&-w_0&w_1&\cdots\\
+w_0\\
+w_1\\
+\vdots
+\end{pmatrix}
+  \begin{pmatrix}
+1	&	0\\
+0	&
+\begin{pmatrix}
+&&\\
+&h\\
+&&
+\end{pmatrix}
+\end{pmatrix}.
+\]
+But we know that the result is a matrix of $\sQ$, so it is sufficient to compute the first line. If we denote by $c_i$ the columns of $h$, we find
+\[ 
+  \Ad(h)X=\sum_{i=0}^{l-1}(w\cdot c_i)q_i
+\]
+where the dot denotes the inner product of $\eR^{1,l-1}$. Since $\{ c_i \}$ is a general orthonormal basis of $\eR^{1,l-1}$, the latter expression is a general vector of norm $1$ in $\sQ$.
+\end{proof}
+
+
+
+\section{Open and closed orbits}
+%+++++++++++++++++++++++++++++++
+
+\subsection{Openness of orbits in homogeneous spaces} \label{subsec:question}
+%---------------------------------------------------
+
+\begin{proposition}
+The orbits of $AN$ are submanifolds of $G/H$.
+\label{pg:orbit_ssvar}
+\end{proposition}
+
+\begin{proof}
+ Indeed\ifthenelse{\value{siTHZ}=1}{ proposition 4.4 in \cite{Helgason} (page 125)}{ proposition \ref{prop:orbit_N_ss_var}} makes $R/(R\cap H)$ the orbit of $\pi(e)$ by $R$ and assure us that it is a submanifold of $G/H$. That proves the proposition for the orbit of $e$. 
+
+For the other orbits, we consider the group $R_z=\AD(z^{-1})R$ which is also a Lie  subgroup of $G$. The space $R_z/(R_z\cap H)$ is isomorphic to the orbit of $\pi(e)$ under the action of $R_z$. Therefore $zR[z^{-1}]$ is a submanifold of $G/H$ and the very definition of a Lie group makes that  $R[z^{-1}]$ is a submanifold too.
+
+\end{proof}
+
+Let us start by computing the closed orbits of the actions of $AN$ and $A\bar{N}$ on $AdS_l$. In order to see if $[g]\in AdS_l$ belongs to a closed orbit of $AN$, we ``compare'' the space spanned by the basis $\{d\pi dL_g q_i\}$ of $T_{[g]}AdS_l$ and the space spanned by the fundamental vectors of the action. If these two spaces are equal, then $[g]$ belongs to an open orbit (because a submanifold is open if and only if it has same dimension as the main manifold). That idea is precisely contained in the following theorem which holds for any homogeneous space $M=G/H$.
+
+\begin{probleme}
+Il faut trouver une référence pour ce théorème.
+\end{probleme}
+
+
+\begin{theorem}
+If $R$ is a subgroup of $G$ with Lie algebra $\sR$, then the orbit $R\cdot \mfo$ is open in $G/H$ if and only if the projection $\dpt{\pr}{\sR}{\sQ}$ parallel to $\sH$ is surjective.
+\label{tho:pr_ouvert}
+\end{theorem}
+
+The projection is defined by $\pr(X)=X_{\sQ}$ if $X=X_{\sQ}+X_{\sH}$ is the decomposition of $X\in\sG$ with respect to the decomposition $\sG=\sH\oplus\sQ$. We need two lemmas before to prove the theorem.
+
+\begin{lemma}
+The orbit $R\cdot\mfo$ is open if and only if
+\[
+    \Span\{X^*_{\mfo}|X\in\mR\}=T_{\mfo}M
+\]
+where $X^*$ is the fundamental field defined by equation \eqref{EqDefChmpFonfOff}.
+\label{lem:equiv_1}
+\end{lemma}
+
+\begin{proof}
+From general theory of fundamental fields\ifthenelse{\value{siTHZ}=1}{}{ (lemma \ref{LemFundSpansTan})} we know that
+\[
+\Span\{X^*_{\mfo}|X\in\sG\}=T_{\mfo}M.
+\]
+The game is now to prove that one can replace $\sG$ by $\sR$ if and only if $R\cdot \mfo$ is open.
+
+\subdem{Necessary condition}
+If $R\cdot\mfo$ is open, we have a neighbourhood of $\mfo$ which is contained in $R\cdot\mfo$. Then for any $X\in\sG$, and for a small enough $t$, the element $e^{-tX}\cdot\mfo$ belongs to $R\cdot\mfo$. Hence we have a path $r_X(t)$ in $R$ such that $e^{-tX}\cdot\mfo=r_X(t)\cdot\mfo$:
+\[
+      \Dsdd{e^{-tX}\cdot\mfo}{t}{0}=\Dsdd{r_X(t)\cdot\mfo}{t}{0}.
+\]
+Since $r_X(t)$ is a path in $R$, we can replace it by a $e^{-tY}$ with a $Y\in\mR$ in the derivative. For this $Y$, we have $X^*_{\mfo}=Y^*_{\mfo}$.
+
+\subdem{Sufficient condition} We have $\dim(R\cdot\mfo)=\dim\Span\{ X^*_{\mfo}\tq X\in\sR \}=\dim T_{\mfo}M$,
+so $R\cdot\mfo$ has the same dimension as $M$. The conclusion follows from the fact that a submanifold is open if and only if it has maximal dimension.
+
+\end{proof}
+
+\begin{lemma}
+The canonical projection is surjective from $\sR$ to the tangent space to identity:
+\begin{equation}\label{eq:equiv_2}
+    \Span\{X^*_{\mfo}|X\in\mR\}=d\pi_e(\mR).
+\end{equation}
+
+\label{XsdpiR}
+
+\end{lemma}
+
+\begin{proof}
+ Consider the following computation when $X\in\mR=T_eR$ is given by the path $X(t)=e^{tX}$:
+\begin{equation}
+  d\pi_e X=\Dsdd{[X(t)]}{t}{0}
+	=\Dsdd{e^{tX}\mfo}{t}{0}
+	=Y^*_{\mfo}
+\end{equation}
+with $Y=-X$. Reading these lines from left to right shows that $d\pi_e(\mR)\subseteq\{X^*_{\mfo}:X\in\mR\}$ while reading it from right to left shows the inverse inclusion.
+\end{proof}
+
+%\begin{proposition}
+%The orbit $R\cdot\mfo$ is open in $G/H$ if and only if $\dpt{\pr}{\mR}{\sQ}$ is surjective.
+%\label{prop:ouvert_ssi}
+%\end{proposition}
+
+We are now able to prove the theorem.
+
+\begin{proof}[Proof of theorem \ref{tho:pr_ouvert}]
+From lemma \ref{lem:equiv_1} and lemma \ref{XsdpiR}, the orbit $R\cdot\mfo$ is open if and only if $\dpt{d\pi_e}{\mR}{T_{\mfo}M}$ is surjective. On the one hand any $X\in\mR$ can uniquely be written as $X=X_{\sH}+X_{\sQ}$ with $X_{\sH}\in\sH$ and $X_{\sQ}\in\sQ$. On the other hand it is clear that $d\pi_e X_{\sH}=0$, thus $R\cdot\mfo$ is open if and only if $\dpt{d\pi_e}{\RM}{T_{\mfo}M}$ is surjective.
+
+Now, recall that $d\pi_e$ is surjective from $\sG$, hence it is surjective from $\sQ$. The first conclusion is that if $\dpt{\pr}{\mR}{\sQ}$ is surjective, then $R\cdot\mfo$ is open. The inverse implication remains to be proved.
+
+We know that openness $R\cdot\mfo$ implies that $\dpt{d\pi_e}{\RM}{T_{\mfo}M}$ is bijective (surjective because $R\cdot\mfo$ is open and injective because $\dpt{d\pi_e}{\sQ}{T_{\mfo}M}$ is injective by lemma \ref{LemdpiisomMTM}). From all that, one concludes that $\RM=\sQ$. Indeed,  suppose that $X_{\sQ}\in\sQ$ and $X_{\sQ}\notin\RM$. Since $\dpt{d\pi_e}{\RM}{T_{\mfo}M}$ is surjective, there exists a $X_{\sQ}'\in\RM$ such that $d\pi_eX_{\sQ}'=d\pi_eX_{\sQ}'$. This is impossible because $d\pi_e$ is injective from the whole $\sQ$.
+
+\end{proof}
+
+\subsection{Open orbits in anti de Sitter spaces}
+%----------------------------------------------
+
+Now the strategy is to to check openness of the $R$-orbit of $[g]$ by checking openness of the $\AD(g^{-1})R$-orbit of $\mfo$ using the theorem \ref{tho:pr_ouvert}.
+
+The problem is simplified by the following remark.  We know that matrices of $K$ and $H$ are given by
+\begin{equation}	\label{eq:K_H_SO}
+  K\leadsto \begin{pmatrix}
+                \SO(2)&   \\
+		      & \SO(n)
+            \end{pmatrix},\quad
+  H\leadsto \begin{pmatrix}
+                    1 & \\
+		     & \SOun
+            \end{pmatrix},
+\end{equation}
+so we obviously have
+\[
+\bigcup_{s\in \SO(2)} \tau_{AN}([s]) =\bigcup_{\substack { s\in \SO(2)\\ h\in \SO(n)}}[ANsh] =\bigcup_{k\in K} [ANk] =[G].
+\]
+This is nothing else than the fact that the $AN$-orbits are $AN$-invariant.
+So the $K$ part of $[g]=ank$ alone fixes the orbit which contains $[g]$ and we have at most one orbit for each element in $\SO(2)$. Computations using theorem \ref{tho:pr_ouvert} show that the $R$-orbits of $[\mu]$ with
+\[
+\mu=
+\begin{pmatrix}
+\cos\mu &\sin\mu\\
+-\sin\mu&\cos\mu\\
+&&\mtu
+\end{pmatrix}
+\]
+is not open if and only if $\sin \mu=0$. We will see later that they are actually closed (page \pageref{PgTopoOrb}), so that the singularity is described as
+\begin{equation}\label{Sing2}
+\hS=[AN(\pm\mtu_{\SO(2)})]\bigcup[A \bar{N}(\pm\mtu_{\SO(2)})].
+\end{equation}
+ Because of $AN$-invariance of the $AN$-orbits, the equation of the $AN$-closed orbits can be expressed as
+\begin{equation}
+\sin \mu=0.
+\end{equation}
+
+Let us recall that $-\mtu_{\SO(2)}=k_{\theta}= e^{\pi q_0}$. With these notations, we have that the closed orbits of $AN$ are
+\begin{equation}
+	\begin{aligned}[]
+		[AN]&&\text{and}&&[ANk_{\theta}]=[k_{\theta}A\bar N],
+	\end{aligned}
+\end{equation}
+while the closed orbits of $A\bar N$ are given by
+\begin{equation}
+	\begin{aligned}[]
+		[A\bar N]&&\text{and}&&[A\bar Nk_{\theta}]=[k_{\theta}AN].
+	\end{aligned}
+\end{equation}
+
+Notice that there are some differences between the two choices of Iwasawa decompositions of equations \eqref{TabelPrem} and \eqref{TableSeconde} in the determination of open and closed orbits. In the $AN$ Iwasawa decomposition, up to matrices of $\sH$ (given in equation \eqref{eq:gene_H}), a general matrix of $\sR$ is $jJ_1+mM+lL+kJ_2$. If we note $x=m+l$,
+\begin{equation} \label{eq:geneR}
+\sR\leadsto
+\begin{pmatrix}
+0&x&k&-x\\
+-x\\
+k\\
+-x
+\end{pmatrix}
+\end{equation}
+and it is obvious that the matrix $q_0$ can't be obtained by combinations of such matrices. So the $R$-orbit of $\mfo$ is not open.
+
+We can do the same computation with the Iwasawa group $\bar\sR=\sA\oplus\bar\sN$. A general element of this is of the form $jJ_1+kJ_2+nN+fF$. If we write $a=n+f$ and $b=n-f$, we get
+\begin{equation}
+	\begin{pmatrix}
+ 0	&	a	&	k	&	a	&	0\\ 
+ -a	&	0	&	b	&	j	&	0\\ 
+ k	&	b	&	0	&	b	&	0\\ 
+ a	&	j	&	-b	&	0	&	0\\ 
+0	&	0	&	0	&	0	&	0
+ \end{pmatrix}.
+\end{equation}
+Looking at the positions of the $a$, we see that it is impossible to put the element $q_0$ under that form. We deduce that the $\bar R$-orbits of $\mfo$ are not open neither.
+
+That situation is, however, not generic. If we use for example the other Iwasawa decomposition, the one of subsection \ref{SubSecANbarIwa}, the result is completely different. We have
+\begin{align}
+  q_{0}&=\pr\left( \frac{ N+M }{ 2 } \right),
+&q_{1}&=\pr H_{2},
+&q_{2}&=\pr\left( N-\frac{ N+M }{ 2 } \right),
+\end{align}
+and other elements of $\sQ$ are projections of the matrices $V_{i}$'s.  So we see that the map $\dpt{\pr}{\iR}{\sQ}$ is surjective and \label{pg:mfo_ouvert} the orbit $R\cdot\mfo$ is open.
+
+\ifthenelse{\value{siTHZ}=1}{}{ Here is some explicit matricial computation.
+\[
+   M+N=2
+ \underbrace{
+\begin{pmatrix}
+  0 &1&0&0\\
+  -1&0&0&0\\
+  0 &0&0&0\\
+  0 &0&0&0
+\end{pmatrix}}_{\displaystyle\in\sQ}
++
+\underbrace{
+\begin{pmatrix}
+  0&0&0&0\\
+  0&0&2&0\\
+  0&2&0&0\\
+  0&0&0&0
+\end{pmatrix}}_{\displaystyle\in\sH},
+\]
+thus $\pr(\frac{M+N}{2})$ is yet a part of $\sQ$. An other:
+\[
+ \underbrace{
+\begin{pmatrix}
+  0 &0&1&0\\
+  0&0&0&0\\
+  1 &0&0&0\\
+  0 &0&0&0
+\end{pmatrix}}_{\displaystyle =m_2}
+= \underbrace{
+\begin{pmatrix}
+  0 &0  &1 &0\\
+  0 &0  &0 &-1\\
+  1 & 0 &0 &0\\
+  0 &-1 &0 &0
+\end{pmatrix}}_{\displaystyle =H_1}
++
+\underbrace{
+\begin{pmatrix}
+  0&0&0&0\\
+  0&0&0&1\\
+  0&0&0&0\\
+  0&1&0&0
+\end{pmatrix}}_{\displaystyle =h\in\sH},
+\]
+so that $\pr H_1=\pr(m_2-h)=m_2$. Third,
+\[
+\underbrace{
+\begin{pmatrix}
+ 0&0&0&1\\
+ 0\\
+ 0\\
+ 1
+\end{pmatrix}}_{\displaystyle=m_3}
+=
+\underbrace{N-\frac{M+N}{2}}_{\displaystyle\in\iR}
+-
+\underbrace{%
+\begin{pmatrix}
+  0&0&0 &0\\
+  0&0&0 &0\\
+  0&0&0 &1\\
+  0&0&-1&0\\
+\end{pmatrix}}_{\displaystyle\in\sH},
+\]
+thus $\pr(N-\frac{M+N}{2})=m_3$. The last possibility in $\sQ$ is $m_i=E_{1i}+E_{i1}$ ($i\geq 5$), but
+\[
+  \underbrace{V_i}_{\displaystyle\in\iR}
+    =\underbrace{E_{1i}+E_{i1}}_{\displaystyle =m_i}+\underbrace{E_{3i}-E_{i3}}_{\displaystyle\in\sH}.
+\]
+     }			% Fin si siTHZ sur du calcul de matrice explicites.
+
+\subsection{Two other characterizations of the singularity}		\label{SubSecTwoCharSing}
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+In this short section, we first give a coordinatewise characterization of the singularity (which allows some brute force computations), and then we point out that the vector field $J_1^*$ has vanishing norm on the singularity (see also proposition \ref{PropAdSDeuxJannule}). That should make the connection with the quotient construction of the original BTZ black hole.  Notice that we do not classify all vectors from which vanishing of the norm define a singularity. The point is that one can make our black hole ``causally inextensible'' by making a discrete quotient of $AdS_l$ along the integral curves of $J^*_1$.
+
+\begin{proposition}		\label{Proptcarrycarr}
+In term of the embedding of $AdS_l$ in $\eR^{2,l-1}$, the closed orbits of $AN \subset \SO(2,l-1)$ are located at $y-t = 0$.  Similarly, the closed orbits of $A \bar{N}$ correspond to $y+t=0$. In other words, the equation
+\begin{equation} \label{tcarrycarr}
+t^2-y^2=0
+ \end{equation}
+describes the singularity $\hS=\hS_{AN}\cup\hS_{A\bar{N}}$.
+
+More precisely, a point belongs to a closed orbit of $AN$ if and only if $t-y=0$ and to a closed orbit of $A\bar N$ if and only if $t+y=0$.
+\end{proposition}
+
+\begin{proof}
+The different fundamental vector fields of the $AN$ action can be computed with the matricial relation $X^*_{[g]}=-Xg\cdot\mfo$. For example, in $AdS_3$,
+\[
+\begin{split}
+   M^*_{[g]}&=
+\begin{pmatrix}
+0&-1&0&1\\
+1&0&-1&0\\
+0&-1&0&1\\
+1&0&-1&0
+\end{pmatrix}
+\begin{pmatrix}
+u\\t\\x\\y
+\end{pmatrix}
+=
+\begin{pmatrix}
+-t+y\\u-x\\-t+y\\u-x
+\end{pmatrix}\\
+&=(y-t)\partial_u+(u-x)\partial_t+(y-t)\partial_x+(u-x)\partial_y.
+\end{split}
+\]
+Full results are
+\begin{subequations}\label{Gen}
+\begin{align}
+J_1^*&=-y\partial_t-t\partial_y							\label{EqNormeJun}\\
+J_2^*&=-x\partial_u-u\partial_x                                                      \label{eq:Jds}\\
+M^*  &=(y-t)\partial_u+(u-x)\partial_t+(y-t)\partial_x+(u-x)\partial_y\\
+L^*  &=(y-t)\partial_u+(u+x)\partial_t+(t-y)\partial_x+(u+x)\partial_y\\
+W_i^*&=-x_i\partial_t-x_i\partial_y+(y-t)\partial_i\\
+V_j^*&=-x_j\partial_u-x_j\partial_x+(x-u)\partial_j,
+\label{eq:Vjs}
+\end{align}
+\end{subequations}
+with $i,j=3,\ldots,l-1$.
+First consider points satisfying $t-y=0$. It is clear that, at these points, the $l$ vectors $J_1^*$, $M^*$, $L^*$ and $W_i^*$ only span the direction $\partial_t+\partial_y$. Thus, there are at most $l-1$ linearly independent vectors amongst the $2(l-1)$ vectors \eqref{Gen}. We conclude that a point satisfying $t-y=0$ belongs to a closed orbit of $AN$.
+
+Now we show that a point with $t-y\neq 0$ belongs to an open orbit of $AN$. It is easy to see that $J_1^*$, $M^*$ and $L^*$ are three linearly independent vectors. The vectors $V_i^*$ gives us $l-3$ more. Then they span a $l$-dimensional space.
+
+The same can be done with the closed orbits of $A\bar{N}$. We have
+\begin{subequations}
+\begin{align}
+	N^*	&=	-(y+t)\partial_u+(u-x)\partial_t-(y+t)\partial_x+(x-u)\partial_y\\
+	F^*	&=	-(y+t)\partial_u+(x+y)\partial_t+(y+t)\partial_x-(x+u)\partial_y\\
+	X^*_i	&=	-x_i\partial_u+x_i\partial_x-(x+u)\partial_i\\
+	Y_j^*	&=	z\partial_t-z\partial_y+(y+t)\partial_i.
+\end{align}
+\end{subequations}
+When $t+y=0$, the vectors $J_1^*$, $N^*$, $F^*$ and $Y_j^*$ only span the direction $\partial_t-\partial_y$. On the other hand, if $t+y\neq 0$, we look at the vectors $J_1^*$, $N^*$ and $F^*$. The vector $J_1^*$ is linearly independent of $N^*$ and $F^*$ because is does not contain a $\partial_u$ component. Now, the vector $N^*$ contains a component $\partial_u+\partial_x$ while $F^*$ contains $\partial_u-\partial_x$. We conclude that the vectors $J_1^*$, $N^*$ and $F^*$ span three linearly independent vectors. Thus a point with $t+y\neq 0$ belongs to an open orbit of $A\bar N$.
+
+The result is that a point belongs to a closed orbit of $A\bar{N}$ if and only if $t+y=0$.
+\end{proof}
+This shows that in the three dimensional case, our black hole reduces to the previously existing one. 
+
+The following corollary shows that a discrete quotient of $AdS_l$ along the orbits of $J_1^*$ gives a direct higher-dimensional generalization of the non-rotating BTZ black hole.
+\begin{corollary}
+The singularity coincides with the set of points in $AdS_l$ where $\| J_1^* \|^2 = 0$ for the metric induced from the ambient space $\eR^{2,l-1}$.
+\label{CorJannsingul}
+\end{corollary}
+
+\begin{proof}
+The expression \eqref{EqNormeJun} shows that the norm of $J_1^* $ is $y^2-t^2$ which vanishes on the singularity.
+\end{proof}
+
+In the three-dimensional case, it was shown in \cite{BTZ_deux,BTZB_un} that the non-rotating BTZ black hole singularity is precisely given by equation \eqref{tcarrycarr}. Hence, the following is a particular case of theorem \ref{ThoLeBut}:
+
+\begin{corollary}
+ The non-rotating BTZ black hole is a causal symmetric solvable black hole.
+\end{corollary}
+\subsection{A criterion with the tangent spaces}\label{subsec:R_z}
+%-----------------------------------------------
+
+Since $G$ acts transitively on $G/H$, the tangent spaces of $G/H$ at different points are not really independents: it is possible to guess global structure from consideration about tangent spaces. If $\mO$ denotes the orbit of $[z]$ under $R$, we have
+\[
+   T_{[z]}\mO=\Span\{X^*_{[z]}\tq X\in\sR\}.
+\]
+\begin{problemeT}
+C'est le lemme \ref{lem:equiv_1} pris en un autre point. Il faut trouver un argument pour voir que c'est correct.
+\end{problemeT}
+
+We can work out the structure of the fundamentals vector fields\index{fundamental!vector field}:
+ \begin{equation}
+  X^*_{[z]}=\Dsdd{ \pi(e^{-tX}z) }{t}{0}
+	   =(d\pi)_z(dR_z)_e\Dsdd{e^{-tX}}{t}{0}
+	   =-(d\pi)_z\utX_z
+\end{equation}
+where $\utX$ denotes the right invariant vector field of $X\in\sG$. 
+
+\begin{problemeT}
+Il y a presque certainement une faute de notation entre le tilde au-dessus et celui en-dessous.
+\end{problemeT}
+
+If $\tau$ is the action of $G$ on $G/H$, we can try to bring the expression of $X^*_{[z]}$ in $T_{[e]}\mO$ in the following sense:
+\begin{equation}
+\begin{split}
+(d\tau_{z^{-1}})_{[z]}X^*_{[z]}&=(d\tau_{z^{-1}})_{\pi(z)}(d\pi)_z\utX_z
+                              =d(\tau_{z^{-1}}\circ \pi)_z\utX_z\\
+			      &=\Dsdd{ \pi( z^{-1} e^{-tX}z ) }{t}{0}
+			      =(d\pi)_e\Ad(z^{-1})X.
+\end{split}
+\end{equation}
+Now we define the space\nomenclature{$\sR_z$}{Trick to compute open orbits}
+\begin{equation}
+\sR_z=(d\pi)_e\Ad(z^{-1})\sR,
+\end{equation}
+and we can state a necessary condition for two points to belongs to the same orbit.
+
+\begin{proposition}
+If the elements $z$ and $z'$ of $G$ are related by $r\in R$ (i.e. $z'=rz$), then $\sR_{z'}=\sR_z$.
+\end{proposition}
+
+\begin{proof}
+If is just a computation. Let $z'=rz$; we have
+\begin{equation}
+\begin{split}
+\sR_{z'}=(d\pi)_e\Ad(z'\,\!^{-1})\sR
+        =(d\pi)_e\Ad(z^{-1} r^{-1})\sR
+	=(d\pi)_e\Ad(z^{-1})\Ad(r^{-1})\sR
+	=\sR_z
+\end{split}
+\end{equation}
+because $\Ad(r^{-1})\sR=\sR$.
+\end{proof}
+
+Taking the general form \eqref{eq:geneR} of an element in $\sR$, we compute
+\begin{equation}
+\begin{split}
+\Ad(z)\sR&=
+\begin{pmatrix}
+\cos\mu & \sin\mu\\
+-\sin\mu & \cos\mu\\
+&&\mtu
+\end{pmatrix}
+\begin{pmatrix}
+0&x&k&-x\\
+-x&0&0&j\\
+k&0&0&0\\
+-x&j&0&0
+\end{pmatrix}
+\begin{pmatrix}
+\cos\mu & -\sin\mu\\
+\sin\mu & \cos\mu\\
+&&\mtu
+\end{pmatrix}
+\\
+&\simeq
+\begin{pmatrix}
+0& x&k\cos\mu &-x\cos\mu+j\sin\mu\\
+-x\\
+k\cos\mu\\
+-c\cos\mu+j\sin\mu
+\end{pmatrix}
+\end{split}
+\end{equation}
+where $\simeq$ stand for ``equals up to a matrix of $\sH$''. If $\cos\mu=0$, then $\sR_z\neq\sR$. This shows that 
+\begin{equation}
+\begin{pmatrix}
+0&1\\
+-1&0\\
+&&1\\
+&&&1
+\end{pmatrix}
+\text{ and }
+\begin{pmatrix}
+0&-1\\
+1&0\\
+&&1\\
+&&&1
+\end{pmatrix}
+\end{equation}
+does not belong to the orbit of $\mfo$. We also see that $\cos \mu=-1$ is either not in the orbit of $\mfo$.
+
+\subsubsection{Search for open orbits}
+%/////////////////////////////////////
+
+We consider the group $R_z=\AD(z)R=zRz^{-1}$ for some $z\in \SO(2)$. The openness of the $R_z$-orbit of $\mfo$ is the same as the one of the $R$-orbit of $[z^{-1}]$. Matrices of $\sR_z=z\sR z^{-1}$ are easy to find. Here are the projections on $\sQ$: 
+\begin{subequations}
+\begin{align}
+\pr_{\sQ} M_z&=
+\begin{pmatrix}
+0&1&\sin\mu&-\cos\mu\\
+-1\\
+\sin\mu\\
+-\cos\mu
+\end{pmatrix}
+&\pr_{\sQ} L_z&=
+\begin{pmatrix}
+0&1&-\sin\mu&-\cos\mu\\
+-1\\-\sin\mu\\
+-\cos\mu
+\end{pmatrix}\\
+ \pr_{\sQ} {J_1}_z&=
+\begin{pmatrix}
+0&0&0&\sin\mu&\\
+0\\
+0\\
+\sin\mu
+\end{pmatrix}
+&\pr_{\sQ} {J_2}_z&=
+\begin{pmatrix}
+0&0&\cos\mu&0\\
+0\\
+\cos\mu\\
+0
+\end{pmatrix}\\
+ \pr_{\sQ} {W_i}_z&=\sin\mu(E_{i1}+E_{1i})&\pr_{\sQ} {V_i}_z&=\cos\mu(E_{i1}+E_{1i})
+\end{align}
+\end{subequations}
+When $\sin\mu$ and $\cos\mu$ are non-zero, we have
+\begin{subequations}
+\begin{align}
+q_0&=\frac{1}{2}\big(M_z+L_z+\frac{\cos\mu}{\sin\mu}{J_1}_z\big)&q_1&=\us{\cos\mu}{J_2}_z\\
+q_2&=\us{\sin\mu}{J_1}_z&q_i&=\us{\sin\mu}{W_i}_z=\us{\cos\mu}{V_i}_z
+\end{align}
+\end{subequations}
+ So when $\sin\mu=0$, the element $q_{0}$ does not belong to $\pr_{\sQ}\sR_{z}$. Hence the $R_z$-orbit of $\mfo$ is non open if and only if $\sin \mu=0$.
+
+\subsection{Orbits  and topology}
+%--------------------------------
+\label{PgTopoOrb}
+
+Let  $D^{\pm}=AN\SO(n)\SO(2)^{\pm}$ where $\SO(2)^{\pm}$ are the subgroups of $\SO(2)\subset \SO(2,n)$ with strictly positive (negative) cosine. We see $\SO(2)$ and $\SO(n)$ as subgroups of $\SO(2,n)$ in the way indicated by equation \eqref{eq:K_H_SO}. Notice that the parts $\SO(2)$ and $\SO(n)$ are commuting and that $\SO(n)\subset H$. The notation $-\mtu_{\SO(2)}$ refers to the element of $\SO(2,n)$ which the identity as $AN$-component and $-\mtu$ as $\SO(2)$-component.
+
+A continuous path from $[D^+]$ to $[D^-]$ must pass trough an element of the form $[AN\mtu_{\SO(2)}]$. We saw that the $AN$-orbit of such an element is not open while the $AN$-orbit of an element of $[D^+]$ is open. So we deduce that an orbit passing trough $[D^+]$ does not intersect $[D^-]$.
+
+The set $[D^+]$ is connected in $G/H$ and $D^+$  being open in $G$, the set $[D^+]=\pi(D^+)$ is also open in $G/H$ from the definition of the topology (\ifthenelse{\value{siTHZ}=1}{see \cite{Helgason}, chapter II, paragraph 4 and particularly the theorem 4.2}{see theorem \ref{tho:struc_anal}}). Now, the orbits of $AN$ in $[D^+]$ (who are all open) furnish an open partition of $[D^+]$. Such a partition is impossible for an open connected set. We deduce that $[D^+]$ is only one orbit of $AN$ in $G/H$. The same can be done with $[D^-]$.
+
+We are left with the sets $[AN]$ and $[AN(-\mtu_{\SO(2)})]$ whose union is closed because we just saw that the complement is open. Now we prove that these two sets are disjoint, in such a way that they have to be separately closed. Existence of an intersection point between $[AN]$ and $[AN(-\mtu_{\SO(2)})]$ would lead to the existence of a $h\in H$ such that $an\mtu_{\SO(2)}=(-\mtu_{\SO(2)})h$, or
+\[ 
+  h=(-\mtu_{\SO(2)})an,
+\]
+that is a non trivial $K$-component to $h$ in the decomposition $KAN$, but the only $K$-component in $H$ is $\SO(n)$. Hence such a $h$ does not exist and $R[\mtu]\cap R[-\mtu_{\SO(2)}]=\emptyset$.
+
+The conclusion is that the Iwasawa group $AN$ has only four orbits :
+\begin{align}
+[D^+],&&[D^-],&&[AN\mtu_{\SO(2)}],&&[AN(-\mtu_{\SO(2)})].
+\end{align}
+The two first are open and the other two are closed. Remark\label{PgNoticeKpassung} that an element of $[K]$ does not belong to a closed orbit of $AN$ or $A\bar N$.
+
+
+\subsection{The volume form method}    \label{subsecVolumeForm}
+%-----------------------------------
+
+Let us give an alternative to proposition \ref{tho:pr_ouvert} to study the openness of an $AN$-orbit. We explain the method for $\hS_{AN}$, but the same with trivial adaptations is true for $\hS_{A\bar{N}}$.
+
+If $x\in M$ belongs to $\hS_{AN}$, the tangent space of its $AN$-orbit has lower dimension than the tangent space of $M$.  In this case the volume spanned by the fundamental vectors at $x$ is zero.  The idea is to build the volume form $\nu_x$ of $T_xM$ and then apply it on a basis of the fundamental fields.  If the result is zero, then $x$ belongs to the $\hS_{AN}$.  More precisely, the action is given by
+		\begin{equation}
+		\begin{aligned}
+			\tau \colon AN\times M &\to M\
+			(an,[g])&\mapsto [ang].
+		\end{aligned}
+	\end{equation}	
+If $X\in\sA\oplus\sN$ and $[g]\in M$, then
+\begin{equation}
+  X^*_{[g]}=-d(\pi\circ R_g)X.
+\end{equation}
+As mentioned in corollary \ref{Cordpiietwii}, if $\{q_i\}$ is a basis of $\sQ$ then a basis of $T_{[g]}M$ is given by $\{d\pi dL_gq_i\}$. We define
+\[
+\nu=q_0^{\flat}\wedge q_1^{\flat}\wedge \ldots \wedge
+q_{l-1}^{\flat}
+\]
+where $q_{i[g]}^{\flat}=B_{[g]}(d\pi dL_g q_i,\cdot)$. The condition for $[g]$ to belongs to $\hS_{AN}$ reads
+\begin{equation}\label{eq:nusurN}
+\nu_{[g]}(N_1^*{}_{[g]},N_2^*{}_{[g]},\ldots,N_l^*{}_{[g]})=0
+\end{equation}
+for every choices of $N_j$ in a basis of $\sA\oplus\sN$. It corresponds to the vanishing of $l \times l$ determinants. Our purpose is now to compute the products
+\[
+\begin{split}
+  B_{[g]}(d\pi dL_g q_i,N^*_j{}_{[h]})	&=-B_g(\pr dL_g q_i,\pr dR_g N_j)\\
+					&=-B_g(dL_g q_i,dR_g N_j)\\
+					&=-B_e(q_i,\Ad(g^{-1})N_j).
+\end{split}
+\]
+where $\pr\colon T_{g}M\to dL_{g}\sQ$ is the projection. The step from the first to the second line is as follows. First, $\pr dL_gq_i=dL_gq_i$ by definition. For the second, let us write $dR_g X=dL_g X_h+dL_g X_q$ with $X_h\in\sH$ and $X_q\in\sQ$. From equations \eqref{EqDefRedHQ}, we see that $B(\sQ,\sH)=0$, so $B(dL_g q_i,dL_g X_h+dL_g X_q)=B(dL_g q_i,dL_g X_q)$. Remark that one cannot do it computing $\|J_i^*\|$.
+
+We consider the quantity 
+\[
+\Delta_{ij}([g])=B(q_i,\Ad(g^{-1})N_j)
+\]
+where $N_j$ runs over a basis of $\sA\oplus\sN$ and $q_i$ a one of $\sQ$. Our problem of light cone (see explanations in section \ref{SecCausal}) leads us to compute
+ \begin{equation} \label{eq:elemtr}
+\Delta_{ij}(\pi(ge^{-tk\cdot E}))=B(\Ad(e^{-tk\cdot
+E})q_i,\Ad(g^{-1})N_j)
+\end{equation}
+where $k\cdot E$ is a notation for $\Ad(k)E$.
+
+A way to proceed is\ifthenelse{\value{siTHZ}=1}{}{, following proposition \ref{prop:enuc},}  to express all our elements of $\so(2,n)$ in the root space decomposition
+\[
+\sG=\sG_{(0,0)}\bigoplus_{\lambda\in\Sigma}\sG_{\lambda}.
+\]
+The purpose of that resides in the fact that the Killing form $B(X,Y)$ is easier to compute when $X$ and $Y$ belongs to some root spaces.
+
+An important computational remark is the fact that $E$ is nilpotent, so $\Ad(k)E$ also is and $\Ad(e^{-t\Ad(k)E})X=e^{-t\ad(k)E}X$ only gives second order expressions with respect to $t$. These computations are nevertheless heavy, but can fortunately be circumvented by a simple counting of dimensions, as we describe in proposition \ref{Proptcarrycarr}.
+
+Let us make some computations now. In a first time, we restrict ourself to elements in $K$: we put $g=e^{uR}$ with
+\[
+R=
+\begin{pmatrix}
+0&1\\
+-1&0\\
+&&0\\
+&&&0
+\end{pmatrix}\in\sK.
+\]
+On the other hand, an useful way to express $k\cdot E_1$ is the following (cf. equations \eqref{eq:Adkeu} ):
+\[
+\Ad(k)E_1=
+\begin{pmatrix}
+0&1&w_1&w_2&w_3\\
+-1\\
+w_1\\
+w_2\\
+w_3
+\end{pmatrix}
+=q_0+w_1q_1+w_2q_2+w_3q_3\in \sQ.
+\]
+It should be noted that by choosing $k$, all the vectors $\begin{pmatrix}w_1&w_2&w_3\end{pmatrix}$ with $\|w\|^2=1$ are possible.
+
+Let us begin by systematically computing the elements $[k\cdot E_1,q_i]$ and $[k\cdot E_1,[k\cdot E_1,q_i]]$; the others $\ad(k\cdot E_1)^nq_i$ are zero because one can see that $\ad(E_1)^3X_{\alpha}=0$ for all $X_{\alpha}$ in the root spaces. All computations can be performed by decomposing the $q_i$'s in the root space basis and using the known commutations relations between root spaces. The way we choose here is to directly use the huge formula
+\begin{equation}
+\begin{split}
+[k\cdot E_1,[k\cdot E_1]]&=w_1^2[q_1,[q_1,q_i]]\\
+                         &\quad +w_1w_2\big(  [q_1,[q_2,q_i]]+[q_2,[q_1,q_i]]  \big)\\
+                         &\quad +w_1w_3\big(  [q_1,[q_3,q_i]]+[q_3,[q_1,q_i]]  \big)\\
+                         &\quad +w_2^2[q_2,[q_2,q_i]]\\
+                         &\quad +w_2w_3\big(  [q_2,[q_3,q_i]]+[q_3,[q_2,q_i]]  \big)\\
+                         &\quad +w_3^2[q_3,[q_3,q_i]]\\
+\end{split}
+\end{equation}
+and use the commutations relations between the $q_i$'s. The results are
+\begin{equation}
+\begin{split}
+\ad(k\cdot E_1)q_0 &=\frac{w_1}{4}(M+N-L-F)+w_2J_1+\frac{w_3}{2}(W-Y)\\
+\ad(k\cdot E_1)q_1 &=\frac{1}{4}(L+F-M-N)+\frac{w_2}{4}(F+M-L-M)-\frac{w_3}{2}(V+X)\\
+\ad(k\cdot E_1)q_2 &=J_1+\frac{w_1}{4}(L+N-F-M)-\frac{w_3}{2}(W+Y)\\
+\ad(k\cdot E_1)q_3 &=\frac{1}{2}(Y-W)+\frac{w_1}{2}(V+X)+\frac{w_2}{2}(W+Y)\\
+\end{split}
+\end{equation}
+and
+\begin{equation}
+\begin{split}
+\ad(k\cdot E_1)^2q_0 &=k\cdot E_1\\
+\ad(k\cdot E_1)^2q_1 &=-w_1q_0+(w_2^2+w_3^2-1)q_1-w_1w_2q_2-w_1w_3q_3\\
+\ad(k\cdot E_1)^2q_2 &=-w_2q_0-w_1w_2q_1+(w_1^2+w_3^2-1)q_2-w_2w_3q_3\\
+\ad(k\cdot E_1)^2q_3 &=-w_3q_0-w_1w_3q_1-w_2w_3q_2+(w_1^2+w_2^2-1)q_3\\
+\end{split}
+\end{equation}
+It is rather easy to check that $\ad(k\cdot E_1)^3q_i=0$ by virtue of $\|w\|^2=0$. All these expressions have to be extended in the basis of the root spaces.
+\begin{equation}
+\begin{split}
+\ad(k\cdot E_1)^2q_0 &=\frac{1}{4}(M+N+L+F)+\frac{w_2}{4}(N+F-M-L)\\
+                     &\quad +\frac{w_3}{2}(V-X)+w_1q_1\\
+\ad(k\cdot E_1)^2q_1 &=-\frac{w_1}{4}(M+N+L+F)+ \frac{w_1w_2}{4}(M+L-N-F)\\
+                     &\quad +\frac{w_1w_3}{2}(X-V) +(w_2^2+w_3^2-1)q_1\\
+\ad(k\cdot E_1)^2q_2 &=-\frac{w_2}{4}(M+N+L+F)+\frac{w_1^2+w_3^2-1}{4}(N+F-M-L)\\
+                     &\quad +\frac{w_2w_3}{2} (X-V)-w_1w_2q_1\\
+\ad(k\cdot E_1)^2q_3 &= -\frac{w_3}{4}(M+N+L+F) +\frac{w_2w_3}{4}(M+L-N-F)\\
+                     &\quad +\frac{w_1^2+w_2^2-1}{2}(V-X)-w_1w_3q_1
+\end{split}
+\end{equation}
+
+
+\subsubsection{The column of \texorpdfstring{$V$}{V}}
+%///////////////////////////////
+
+An explicit computation shows that
+\begin{equation}
+\begin{split}
+\Ad(e^{uR})V&=
+\begin{pmatrix}
+&&&&\cos u\\
+&&&&-\sin u\\
+&&&&1\\
+&&&&0\\
+\cos u&-\sin u&-1&0&0
+\end{pmatrix}\\
+  &=\frac{1}{2}(1-\cos u)X+\frac{1}{2}(\sin u) Y\\
+  &\quad+\frac{1}{2}(1+\cos u)V-\frac{1}{2}(\sin u) W.
+\end{split}
+\end{equation}
+
+\begin{remark}
+Because of the invert in \eqref{eq:elemtr}, we are looking at the destiny of the point $[e^{-uR}]$, not the one of $[e^{uR}]$.
+\end{remark}
+
+Thanks to the properties of the root space decomposition, we know that the only non zero Killing form containing $X,Y,V,W$ are $B(W,Y)$ and $B(V,X)$. So in the expression
+\[
+\Ad(k\cdot E_1)q_0=q_0+\frac{tw_1}{4}(N+M+L+F)+tw_2J_1+\frac{tw_3}{2}(W-Y)+\frac{t^2w_3}{2}(V-X),
+\]
+we can forget the three first terms when we compute $\Delta_{q_0,V}$. The result is
+\begin{equation}
+\boxed{\Delta_{q_0,V}=B(W,Y)\frac{tw_3}{2}\sin u-B(V,X)\frac{t^2w_3}{4}\cos u}
+\end{equation}
+In the same way,
+\begin{equation}
+\boxed{\Delta_{q_1,V}=-B(V,X)\left( \frac{tw_3}{2}+\frac{t^2w_2w_3}{4} \right)},
+\end{equation}
+\begin{equation}
+ \boxed{ \Delta_{q_2,V}=B(X,V)\frac{t^2w_2w_3}{4}\cos u },
+\end{equation}
+\begin{equation}
+\boxed{\Delta_{q_3,V}=-B(V,X)\frac{1}{2}\big(  \cos u-tw_1+\frac{t^2}{2}(w_1^2+w_2^2-1)\cos u  \big)-B(W,Y)\frac{t}{2}\sin u}
+\end{equation}
+Remark that the only term in this column which doesn't vanishes when $t=0$ contains $\cos u$.
+
+\subsubsection{The column of \texorpdfstring{$J_1$}{J1}}
+%//////////////////////////////////
+
+\begin{probleme}
+C'est justement un de ceux que tu soup\c connes de ne servir \`a rien.
+\end{probleme}
+
+A direct computation shows that 
+\begin{equation}
+\begin{split}
+\Ad(e^{uR})J_1&=\sin(u) q_2+\cos(u) J_1\\
+              &=\us{4}\sin(u)(N+F-M-L)+\cos(u) J_1.
+\end{split}
+\end{equation}
+We only have to consider the non zero Killing form $B(J_1,J_1)$, $B(W,Y)$, $B(V,X)$, $B(N,L)$, $B(M,F)$.
+\begin{equation}
+\boxed{\Delta_{q_0,J_1}=6t^2w_2\sin u+6tw_2\cos u}
+\end{equation}
+
+\subsubsection{The column of \texorpdfstring{$J_2$}{J2}}
+%//////////////////////////////////
+
+For the computation of $\Ad(e^{uR})J_2$, we recall that $R=q_0$ and $J_2=q_1$. It is easy to see that $[q_0,q_1]=\us{4}(L+F-M-N)$ and $[q_0,[q_0,q_1]]=-q_1$, so that the exponential series looks good and gives
+\[
+  \Ad(e^{uR})q_1= \cos(u)q_1+\frac{\sin u}{4}(L+F-M-N).
+\]
+A lot of computation gives
+\begin{equation}
+\boxed{\Delta_{q_0,J_2}=3t^2w_1\cos u-6tw_1\sin u}
+\end{equation}
+
+
+
+\begin{equation}
+\boxed{\Delta_{q_1,J_2}=-3t^2w_1\cos u+6t\sin u+6\cos u}
+\end{equation}
+
+
+
+\begin{equation}
+\boxed{\Delta_{q_2,J_2}=-3t^2w_1w_2\cos u}
+\end{equation}
+
+
+\begin{equation}
+\boxed{\Delta_{q_3,J_2}=-3t^2w_1w_3\cos u}
+\end{equation}
+
+
+\subsubsection{The column of \texorpdfstring{$M$}{M}}
+%///////////////////////////////
+
+The first computation is 
+\[
+  \Ad(e^{uR})M=\frac{1-\cos u}{2}(F-M)+\sin(u)(q_1+J_1)+M.
+\]
+
+\begin{equation}
+\boxed{\Delta_{q_0,M}=6(1+w_1\sin u)+6t(w_1(1-\cos u)+w_2\sin u)+3t^2(1+w_2\cos u).
+}
+\end{equation}
+
+\begin{align}
+\Delta_{q_1,M}=B
+\Big(&
+  q_1+\frac{t}{4}(F-M)+\frac{tw_2}{4}(F-M)\\
+          &+\frac{t^2}{2}
+      \big[
+            -\frac{w_1}{4}(F+M)+\frac{w_1w_2}{4}(M-F)-w_1^2q_1
+      \big],\\
+  &\frac{1}{2}(1-\cos u)(F-M)+\sin u(q_1+J_1)+M
+\Big).
+\end{align}
+Collecting the terms and using the following relations,
+\begin{subequations}
+\begin{align}
+B(M+F,F-M)&=0&B(M-F,F-M)&=3\cdot 16\\
+B(F-M,M)&=3\cdot 8&B(F+M,M)&=3\cdot 8.
+\end{align}
+\end{subequations}
+we find
+\begin{equation}
+\boxed{\Delta_{q_1,M}=6\sin u-6t(2-\cos u)(1+w_2)+3t^2(w_1+w_1w_2\cos u-w_2^2\sin u)}
+\end{equation}
+
+\begin{equation}
+\boxed{%
+\begin{aligned}
+\Delta_{q_2,M}=-6(2-\cos u)&+6t(\sin u+w_1)\\&+3t^2\big(
+-w_2+\frac{w_2^2}{2}(1-\cos u)-w_1w_2\sin u
+\big)
+\end{aligned}
+}
+\end{equation}
+
+\begin{equation}
+\boxed
+{
+  \Delta_{q_3,M}=3t^2w_3(1+w_2(2-\cos u)-w_1\sin u).
+}
+\end{equation}
+
+\subsubsection{Existence for \texorpdfstring{$AdS_3$}{AdS3}}
+%////////////////////////////////////
+
+From computer computations, the (non identically zero) volume determinants are given by
+\begin{subequations}
+\begin{align}
+  &-32(tw_2+t\cos u-\sin u)^2\big(\cos u+t(\sin u-w_1)\big)\\
+  &-32(tw_2+t\cos u-\sin u)^9\\
+\begin{split}
+16t^2w_3\Big(&w_2(w_1-\sin u)+\cos u(w_1-\sin u)-w_2\cos u\\
+	&-\cos^2u+\sin u(-w_1+\sin u)
+\Big)+16tw_3\cos u\sin u
+\end{split}\\
+&16tw_3
+\big(
+ -\cos u+t(w_1-\sin u)
+\big)
+(tw_2+t\cos u-\sin u)
+\end{align}
+\end{subequations}
+
+
+One can deduce the existence of an horizon. Indeed the vanishing of all the determinants for a point in $[\SO(2)]$ with respect to the $AN$ singularity only requires 
+\begin{subequations} \label{eq:annul_trois}
+\begin{align}
+t_{AN}=\frac{\sin u}{\cos u-\sin k}
+\intertext{while the same for $A \overline{N}$ requires}
+   t_{A\overline{N}}=\frac{\sin u}{\sin k+\cos u}
+\end{align}
+\end{subequations}
+The (class of the) point $u$ belongs to the black hole if for all $k\in \SO(2)$, $t_{AN}>0$ or $t_{A\overline{N}}>0$. In this case, all light-like geodesic from the point $u$ fall into the hole after a positive time. There are two possibilities  :
+\begin{subequations}
+\begin{align}
+\begin{split}
+\sin u<0\\
+\cos u<0
+\end{split}\\
+\intertext{or}
+\begin{split}
+\sin u>0\\
+\cos u>0
+\end{split}
+\end{align}
+\end{subequations}
+Let us insist to the fact that the points $u=0$ and $u=\pi$ are not in the horizon although they separate black points and free points. These two points belongs to the singularity. In fact the spaces $\sin u\geq0$ and $\sin u \leq0$ are two completely separated spaces.
+
+So in the space $\sin u\geq 0$, the point $u=\pi/2$ is part of the horizon. This proves the existence of an horizon and gives one point of it. The determination of the horizon is not likely easy.
+
+\subsubsection{Existence for \texorpdfstring{$AdS_4$}{AdS4}}
+%///////////////////////////////////
+
+One can parametrize $\Ad(k)E_1$ as
+\begin{equation}
+\Ad(k)E_1=
+\begin{pmatrix}
+0&1&w_1&w_2&w_3\\
+-1\\
+w_1\\
+w_2\\
+w_3
+\end{pmatrix}.
+\end{equation}
+The volume forms for the $AN$ and $A \overline{N}$ orbits are respectively annihilated by
+\begin{equation}
+t_{AN}=\frac{\sin u}{\cos u+w_2}, \text{ and } t_{A \overline{N}}=\frac{\sin u}{\cos u-w_2}.
+\end{equation}
+These are the same as \eqref{eq:annul_trois}. Once again the doomed part of the space is given by
+\begin{subequations}
+\begin{align}
+\begin{split}
+\sin u<0\\
+\cos u<0
+\end{split}\\
+\intertext{or}
+\begin{split}  \label{eq:possdeux}
+\sin u>0\\
+\cos u>0
+\end{split}
+\end{align}
+\end{subequations}
+For example in the case \eqref{eq:possdeux}, the directions with $\cos u<w_2<-\cos u$ escape the singularity.
+\section{Existence of a non trivial horizon}		\label{SecExistenceHor}
+%++++++++++++++++++++++++++++++++++++++++++++
+
+We are now able to prove that definition \ref{Singular} provides a non empty horizon satisfying condition \eqref{EqhSssubBH}.  First we  consider points of the form $\SO(2)\cdot\mfo$, which are parametrized by an angle $\mu$. By lemma \ref{LemGeodGenreLumiere}, up to the choice of this parametrization, a light-like geodesic trough $\mu$ is given by
+ \begin{equation}
+   K\cdot \mbox{e}^{-s\Ad(k)E_1}\cdot\mfo
+\end{equation}
+with $k\in \SO(l-1)$ and  $s\in\eR$. Using the isomorphism $[g]\mapsto g\cdot \mfo$ between $G/H$ and $AdS_l$, we find
+\begin{equation}		\label{EqhohnCondHOrExpl}
+  l^k_{[u]}(s)= \pi\big( u e^{s\Ad(k)E_1} \big)=
+\begin{pmatrix}
+\cos\mu&\sin\mu\\
+-\sin\mu&\cos\mu\\
+&&1\\
+&&&1\\
+&&&&1\\
+&&&&&\ddots
+\end{pmatrix}
+ e^{s\Ad(k)E_1}
+\begin{pmatrix}
+1\\0\\0\\0\\0\\\vdots
+\end{pmatrix}
+=
+\begin{pmatrix}
+u_{k}(s)\\t_{k}(s)\\x_{k}(s)\\y_{k}(s)\\z_{k}(s)\\\vdots
+\end{pmatrix}
+\end{equation}
+According to proposition \ref{Proptcarrycarr}, this geodesic reaches the singularity in the future if $t_{k}(s)^{2}-y_{k}(s)^{2}=0$ for a certain positive $s$. Since $\Ad(k)E_1$ is nilpotent, the computation of $ e^{s\Ad(k)E_1}$ is simple and we only need the first column because it only acts on the first basis vector. A short computation shows that
+\begin{equation}  \label{EqGedCompo}
+  l_{[\mu]}^{k}(s)=
+\begin{pmatrix}
+\cos\mu-s\sin\mu\\
+-\sin\mu-s\cos\mu\\
+sw_{1}\\
+sw_{2}\\
+\vdots
+\end{pmatrix}.
+\end{equation}
+
+We used the computation
+\[
+  e^{s\Ad(k)E_1}=\mtu+s
+\begin{pmatrix}
+0&1&w_1&w_2&w_3&\cdots\\
+-1\\w_1\\w_2\\w_3\\\vdots
+\end{pmatrix}
++\frac{s^2}{2}
+\begin{pmatrix}
+0&0&0&0&0&\cdots\\
+0&-1&-w_1&-w_2&-w_3&\cdots\\
+0&w_1&w_1w_1&w_1w_2&w_1w_3&\cdots\\
+0&w_2&w_2w_1&w_2w_2&w_2w_3&\cdots\\
+\vdots&\vdots&\vdots&\vdots&\vdots
+\end{pmatrix}
++\cdots
+\]
+Notice that the sum if finite because $E_1$ is nilpotent. However, the first power of $E_1$ which vanishes depends on the dimension.
+
+We conclude that the geodesic reaches $\hS_{AN}$ and $\hS_{A\bar{N}}$ for values $s_{AN}$ and $s_{A\bar{N}}$ of the affine parameter, given by
+\begin{align}   \label{eq:tempssingul}
+ s_{AN}&= \frac{\sin\mu}{\cos\mu - w_2}&s_{A\bar{N}}&= \frac{\sin\mu}{\cos\mu + w_2}
+\end{align}
+where $w_{2}$ is the second component of the first column of $k$, see equation \eqref{eq:AdkE}; in particular $-1\leq w_2 \leq 1$.
+
+Since the part $\sin \mu =0$ is precisely  $\hS_{AN}$, we may restrict ourselves to the open connected domain of $AdS_l$ given by $\sin \mu > 0$. More precisely, $\sin\mu=0$ is the equation of $\hS_{AN}$ in the $ANK$ decomposition. In the same way, $\hS_{A\bar{N}}$ is given by $\sin\mu'=0$ in the $A\bar{N}K$ decomposition.  In order to escape the singularity, the point $[\mu]$ needs both $s_{AN}$ and $s_{A\bar{N}}$ to be strictly positive.  It is only possible to find directions (i.e. a parameter $w_2$) which respects this condition when $\cos \mu>0$.  So the point
+\begin{equation}  \label{EqUnPtHoriz}
+u\equiv \cos\mu=0
+\end{equation}
+is one point of the horizon. Theorem \ref{ThoLeBut} is now proved. Remark that the two-dimensional case here appears as degenerate. Therefore, it is treated later in section \ref{SecAdS2}, where we show that \emph{no black hole arises from this construction in $AdS_2$}.
+
+The following proposition contains some physical intuition about the nature of the horizon.
+
+\begin{proposition}
+A light-like geodesic which escapes the singularity (i.e. which does not intersect $\hS$) and which passes trough a point of the horizon is contained in the horizon.
+\end{proposition}
+
+\begin{proof}
+Let $x=[g]$ be a point of the horizon and $\pi(ge^{tAd(k)E_1})$, a light-like geodesic escaping the singularity. Near from $x$, there exists a point $y=[g']$ in the black hole. From definition of a black hole, for all $k\in \SO(3)$ and $t_{0}\in\eR^{+}$, points of the form  $\pi(g'e^{t_0Ad(k)E_1})$ also belong to the black hole. From continuity, in each neighbourhood of $\pi(ge^{t_0Ad(k)E_1})$, there is such a $\pi(g'e^{t_0Ad(k)E_1})$. This proves that $\pi(ge^{t_0Ad(k)E_1})$ belongs to the closure of the black hole. But it is not in the interior of the black hole because (by assumption) the given geodesic escapes the singularity, so every point of the form $\pi\big( g e^{t_0\Ad(k)E_1} \big)$ belongs to the horizon.
+\end{proof}
+
+\begin{proposition}		\label{PropTNFerme}
+The set $BH_l\setminus\hS_l$ is open.
+\end{proposition}
+
+\begin{proof}
+A point $v\in AdS_l$ belongs to $BH_l\setminus\hS_l$ if and only if all  the solutions in $s$ of the equation
+\begin{equation}
+	(T\pm Y)\big( v e^{s\Ad(k)E_1} \big)\in\hS_l
+\end{equation}
+are strictly positive (and non infinite). The \emph{strict} is due to the fact that we excluded $\hS_l$ itself. Let $s_{\pm(v,k)}$ be these solutions for the point $v\in AdS_l$ and the direction $k\in S^l$. Let now consider $v_0\in BH_l\setminus\hS_l$. The function $s_{\pm}(v_0,.)\colon S^l\to \eR$ is a continuous function on the compact set $S^l$, thus its image is a compact subset of $\eR_0^+$, because the function reach its extrema.
+
+The function $v\mapsto s_{\pm}(v,k)$ is also continuous, so that, if $\epsilon$ is small enough, and if $v\in B(v_0,\epsilon)$, the image of $s_{\pm}(v,.)$ is still a compact subset of $\eR_0^+$. That means that, from the point $v$, every light-like geodesic intersect the singularity within a finite strictly positive time, this is the fact that $v\in BH_l\setminus\hS_l$.
+\end{proof}
+
+\begin{corollary}		\label{CorTNFermeHorEchape}
+The set of free points in $AdS_l$ is closed and the points on the horizon do have at least one direction which escape the singularity.
+\end{corollary}
+
+Let us consider the point of the horizon that we know (the one given by \eqref{EqUnPtHoriz}), and see how can that point hope to escape the singularity.  Equations \eqref{eq:tempssingul} which give the time needed to fall into the singularity become
+\begin{align}
+  t_{AN}&=\frac{1}{w_{2}}&t_{A \bar{N}}&=-\frac{1}{w_{2}}.
+\end{align}
+So for every $w_{2}\neq 0$, this point reaches the singularity within a finite time. Taking the direction $w_{2}=0$ the point is able to reject his fall to infinity. This agrees to physical intuition which is that the horizon corresponds to points that fall into the singularity within an infinite time.
+
+Up to a reparametrization of $\SO(n)$, the safe directions are given by (equation \eqref{eq:AdkE} with $w_2=0$)
+\[
+   \Ad(k)E_1=
+\begin{pmatrix}
+0&1&\cos a&0&\sin a\\
+-1\\
+\cos a\\
+0\\
+\sin a
+\end{pmatrix}.
+\]
+A direct  computation of equation \eqref{EqGedCompo}  shows that the points of the horizon that are joined by this way are given by
+$
+\begin{pmatrix}
+-1\\
+0\\
+\cos a\\
+0\\
+\sin a
+\end{pmatrix}.
+$
+
+\section{Characterization by angles in \texorpdfstring{$SO(l-1)$}{SOl-1}}
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Let $D[g]$ be the set of light-like directions (vectors in $\SO(n)$) for which the point $[g]$ falls into $\hS_{AN}$. Similarly, the set $\overline{D}[g]$ is the one of directions which fall into $\hS_{A \bar{N}}$. One can express $\overline{ D }$ in terms of $D$:
+\[
+\begin{split}
+\overline{ D }[g]&=\{ k\in\SO(n)\tq\exists t\text{ for which }\pi\big( g e^{t\Ad(k)E_1} \big)\in\hS_{A\bar N} \}\\
+		&=\{ k\in\SO(n)\tq\exists t\text{ for which }\pi\big( \theta(g)\theta( e^{tAd(k)E_1}) \big)\in\hS_{AN}\}\\
+		&=\{ k\in\SO(n)\tq \pi(k)\in D\big( \theta[g] \big)\}\\
+		&=\{ k\in\SO(n)\tq k\in\big( D(\theta[g]) \big)_{\theta}\},
+\end{split}
+\]
+So
+\begin{equation} \label{eq:DbarD}
+\overline{D}[g]=(D\theta[g])_{\theta}
+\end{equation}
+where by definition, $k_{\theta}=Jk$ with $J$ being defined by $\theta=\Ad(J)$ ($\theta$ is the Cartan involution). It is easy to see that $\theta$ changes the sign of the spacial part of $k$, i.e. changes $w_i\to -w_i$.
+
+\begin{probleme}
+C'est la même chose qu'un autre problème que de voir l'involution de Cartan comme un automorphisme interne.
+\label{propCrtadeux}
+\end{probleme}
+
+ A main property of $k_{\theta}$ is
+\[
+	\theta(\Ad(k)E_1)=\Ad(k_{\theta})E_1.
+\]
+Since $k_{\theta}$ only appears in the expression $\Ad(k)E_1$, that property is actually a sufficient characterization of $k_{\theta}$ for our purpose. In particular, $k_{\theta\theta}\neq k$, but $\Ad(k_{\theta\theta})E_1=\Ad(k)E_1$.
+
+How to express the condition $g\in\hH$ in terms of $D[g]$ ? The condition to belong to the black hole is $D[g]\cup \overline{D}[g]=\SO(n)$. If the complementary of $D[g]\cup \overline{D}[g]$ has an interior (i.e. if it contains an open subset), then by continuity the complementary $D[g']\cup \overline{D}[g']$ has also an interior for all $[g']$ near from $[g]$. In this case, $[g]$ cannot belong to the horizon. So a characterization of $\hH$ is the fact that the boundary of $D[g]$ and $\overline{D}[g]$ coincide. Equation \eqref{eq:DbarD} expresses this condition under the form
+\begin{equation}
+  \Fr D[g]=\Fr \big( D(\theta[g])\big)_{\theta},
+ \end{equation}
+from which one immediately deduces that $\hH$ is $\theta$-invariant.
+
+We have an expression of $D[\mu]$ for $\mu\in \SO(2)$ by examining equations \eqref{eq:tempssingul}. The set $D[\mu]$ is the set of $w_2\in [-1,1]$ such that $\cos \mu+w_2>0$:
+\begin{equation}
+  D[\mu]=]-\cos \mu,1[.
+\end{equation}
+So in order for $\mu$ to belong to $\hH$, the point $[\mu]$ must satisfy
+\[
+\overline{D}[\mu]=D[\theta \mu]_{\theta}=]-1,-\cos \mu[.
+\]
+Consequently, if $\mu'$ is the $K$-component of $\theta \mu$ in the $ANK$ decomposition, we impose $]-\cos \mu',1[=D[\theta \mu]\stackrel{!}{=}]-\cos \mu',1[$\,, and we can describe the horizon by
+\begin{equation} \label{eq:caractcous}
+\cos \mu=-\cos \mu'
+\end{equation}
+where $\mu'$ is the $K$-component of $\mu$ in the $A\bar{N}K$ decomposition.
+
+
+\subsection{Another (useless) characterisation}
+%----------------------------------------------
+
+A way to express our characterization \eqref{eq:caractcous} is $ank=a'\overline{n}k'$ with $k'=e^{i\pi}k^{-1}$. We know\quext{Mais faudra lire Helgason hein.} that $NA\bar{N}$ is dense in $G$. Let $k_0\in \SO(2)$ and $m=k_0^2e^{i\pi}$. We define $n,n'\in N$, $a\in A$ such that $m=n^{-1} a\theta(n')$.\quext{Il faudra voir si le coup de la densit\'e fait quelque chose dans cette histoire}. For this $n$, the point $[k_0n]$ belongs to the horizon because
+\begin{equation}
+nk_0=a\theta(n')m^{-1} k_0
+    =a\theta(n')e^{-i\pi}k_0^{-1}.
+\end{equation}
+Then this $nk$ reads in decomposition $A\bar{N}K$ with $k'=e^{-i\pi}k^{-1}$. Then (almost) all element in $\SO(2)$ give rise to an element in $\hH$.
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+					\section{Characterisation as orbit of group (by the equation)}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SecHOrOrbEquation}
+
+This section proves that, if we embed $AdS_3$ in $AdS_4$, one can express the horizon in $AdS_4$ as the result of the action of a one dimensional group on the horizon of $AdS_3$ (seen in $AdS_4$), theorem \ref{ThoEqHorQCoore}.
+
+%---------------------------------------------------------------------------------------------------------------------------
+					\subsection{The old three dimensional case}
+%---------------------------------------------------------------------------------------------------------------------------
+
+As mentioned in \cite{Keio}, the singularity of the three dimensional black hole in $AdS_3$ (seen as the group $\SL(2,\eR)$) accepts a nice description as lateral classes of $AN$ and $A\bar N$. That description is recalled in the proposition \ref{PropLatClassANSLdeuxR}. We want here to provide a similar description for the dimensional generalization $AdS_l=\SO(2,l-1)/\SO(1,l-1)$. 
+
+Let us first make a simple remark. A lateral class in the description of proposition \ref{PropLatClassANSLdeuxR} is not guaranteed to be a lateral class in the description $AdS=G/H$. Moreover the ``$AN$'' of equation  \eqref{EqHorClassLatdeux} is not the ``$AN$'' of $\SO(2,2)$, but the one of $\SL(2,\eR)$. The results from the description $AdS_3=\SL(2,\eR)$ cannot be that simply translated into results in the description of $AdS_3=\SO(2,2)/\SO(1,2)$.
+
+Let us begin by finding a group description of the horizon in $AdS_3$ in the description $AdS_3=\SO(2,2)/SO(1,2)$. The matricial expression of $ANJ$ in $AdS_3=\SL(2,\eR)$ is
+\begin{equation}		\label{EqProSLJANexp}
+\begin{pmatrix}
+	e^a	&	le^a	\\ 
+	0	&	 e^{-a}	
+\end{pmatrix}
+\begin{pmatrix}
+	0	&	1	\\ 
+	-1	&	0	
+\end{pmatrix}
+=
+\begin{pmatrix}
+	-le^a	&	e^a	\\ 
+	- e^{-a}	&	0	
+\end{pmatrix}
+\end{equation}
+The part of the hyperboloid described by these matrices is obtained by equating \eqref{EqProSLJANexp} with the matrix
+\begin{equation}		\label{EqIdentMatriSLAdS}
+	\begin{pmatrix}
+	u+x	&	y+t	\\ 
+	y-t	&	u-x	
+\end{pmatrix}.
+\end{equation}
+The result is the vectors of the form
+\begin{equation}		\label{EqVectoPotementSingAN}
+\psi\big( Z(G)ANJ \big)\leadsto
+	\begin{pmatrix}
+	u	\\ 
+	t	\\ 
+	x	\\ 
+	y	
+\end{pmatrix}=
+\pm
+\begin{pmatrix}
+	-\frac{ 1 }{2}e^al	\\ 
+	\cosh(a)	\\ 
+	-\frac{ 1 }{2}e^al	\\ 
+	\sinh(a)	
+\end{pmatrix}
+=
+\pm
+\begin{pmatrix}
+	\alpha	\\ 
+	\cosh(a)	\\ 
+	\alpha	\\ 
+	\sinh(a)	
+\end{pmatrix}
+=\pm r_{AN}
+\end{equation}
+with $\alpha$, $a\in\eR$. This is a (almost\footnote{We did not compute the $A\bar N$ part of the horizon in $\SL(2,\eR)$.}) general vector of $AdS_3$ with $u^2-x^2=0$, which is coherent with the description \eqref{BTZSingHor}.
+
+The same computation, using \eqref{EqGeneANbarSLdeuxR}, shows that the other part of the horizon in $AdS_3$ is given by
+\begin{equation}		\label{EqVectoPotementSingANbar}
+\psi\big( Z(G)A\bar NJ\big)
+=
+\pm\psi
+\begin{pmatrix}
+	0	&	e^a	\\ 
+	- e^{-a}	&	l e^{-a}	
+\end{pmatrix}
+\leadsto
+\begin{pmatrix}
+	u	\\ 
+	t	\\ 
+	x	\\ 
+	y	
+\end{pmatrix}=
+\pm
+\begin{pmatrix}
+	\frac{1}{ 2 } e^{-a}l	\\ 
+	\cosh(a)	\\ 
+	-\frac{1}{ 2 } e^{-a}l	\\ 
+	\sinh(a)	
+\end{pmatrix}
+=
+\pm
+\begin{pmatrix}
+	\alpha	\\ 
+	\cosh(a)	\\ 
+	-\alpha	\\ 
+	\sinh(a)	
+\end{pmatrix}
+=\pm
+r_{A\bar N}
+\end{equation}
+where $a$ and $\alpha$ are running over $\eR$.
+
+From the equations \eqref{EqVectoPotementSingAN} and \eqref{EqVectoPotementSingANbar}, we are able to express the horizon in $AdS_3$ as union of lateral classes of the element
+\begin{equation}
+	b=\begin{pmatrix}
+		0	\\ 
+		1	\\ 
+		0	\\ 
+		0	
+	\end{pmatrix}.
+\end{equation}
+It is, indeed, easy to see that $G_{ X_{(-1,1)},J_1}\cdot b =G_{ X_{(1,1)},J_1}\cdot b$ and $G_{ J_1,X_{(1,-1)},J_1}\cdot b=G_{ J_1,X_{(-1,-1)} ,J_1}\cdot b$. We can express the horizon $\hH_3$ in the following way :
+\begin{equation}
+	\begin{aligned}[]
+		\hH_3	&=\pm G_{ X_{(-1,1)},J_1}\cdot b\cup \pm G_{ X_{(1,-1)},J_1}\cdot b  \\
+			&=\pm G_{ \{J_1,X_{(1,1)}\}}\cdot b\cup \pm G_{ \{J_1,X_{(-1,-1)}\}}\cdot b,
+	\end{aligned}
+\end{equation}
+and the two other combinations. Here, $G_{X,Y}$ is the group generated by $X$ and $Y$.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Characterization by induction on the dimension}
+%---------------------------------------------------------------------------------------------------------------------------
+
+From a computational point of view, it reveals to be more or less impossible to directly check that \eqref{EqVectoPotementSingAN} belongs to the singularity using the method of equation \eqref{EqhohnCondHOrExpl}, not even in dimension $4$. Here is the strategy to compute the horizon in higher dimension:
+\begin{enumerate}
+\item
+The map $\psi\colon \SL(2,\eR)\to AdS_3$ given by \eqref{EqIdentMatriSLAdS} is an isometry which maps the singularity into the singularity. Thus it has to map the horizon to the horizon. If $\hH_{\SL(2,\eR)}$ denotes the horizon in $\SL(2,\eR)$, then the set $\psi\big( \hH_{\SL(2,\eR)} \big)$ is the horizon in $AdS_3=\SO(2,2)/SO(2,1)$.
+
+\item
+We consider the inclusion $\iota\colon \SO(2,n)\to \SO(2,n+1)$ given by $g\mapsto\begin{pmatrix}
+	g	&	0	\\ 
+	0	&	1	
+\end{pmatrix}$ and its differential $d\iota\colon \so(2,n)\to \so(2,n+1)$, $X\mapsto\begin{pmatrix}
+	X	&	0	\\ 
+	0	&	0	
+\end{pmatrix}$. Now, we are going to build the horizons of $AdS_l$ by induction over $l$, starting on $l=3$.
+\end{enumerate}
+
+We denote by $\hH_l$ and $\hS_l$ the horizon and the singularity in $AdS_l$. The structure of the algebras (equations \eqref{EqLeANEnDimAlg} and \eqref{EqTableSOIwa}) show immediately that
+\begin{equation}
+	(\sA\oplus\sN)_{\so(2,n+1)}=\Span\left\{   d\iota(\sA\oplus\sN)_{\so(2,n)},V_{n+2},W_{n+2}  \right\},
+\end{equation}
+so that the structure of one dimension is defined from the structure of the previous one by adding the two new vectors $V$ and $W$. The same holds for $\sA\oplus\bar\sN$.
+
+
+Now, the work is to find what is \emph{added} to the horizon when one passes from one dimension to the higher one. From that point of view, the matrix $V_i$ has a wonderful property: $ e^{V}$ does not change the $t$ and $y$ component of the vector on which it acts. Thus we have the following.
+\begin{lemma}		\label{LemHorpigeVDdeux}
+We have
+\begin{equation}
+	\pi(g e^{-s\Ad(k)E_1})\in\hS
+\end{equation}
+if and only if
+\begin{equation}
+	 \pi(e^{V}g e^{-s\Ad(k)E_1})\in\hS.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+The exponential of the matrix $V_5$ is given in equation \eqref{EqExpDeV}. The second and fourth column being the identity, $e^V1_t=1_y$ and $e^V1_y=1_y$. Thus the characterisation $t^2-y^2=0$ of the singularity is satisfied for one point $x\in AdS$ if and only if it is satisfied by the point $e^Vx$.
+\end{proof}
+
+Lemma \ref{LemHorpigeVDdeux} still holds if one replace $V$ by $X$.
+	
+We consider the following points in the horizon:
+\begin{equation}		\label{EqPartewWrAN}
+	\begin{aligned}[]
+	r(a,\alpha,w)&= e^{wW}r_{AN}=
+\frac{ 1 }{2}
+\begin{pmatrix}
+	2\alpha	\\ 
+	e^{-a}w^2+2\cosh(a)\\ 
+	2\alpha	\\ 
+	e^{-a}w^2+2\sinh(a)	\\ 
+	2 e^{-a}w	
+\end{pmatrix},\\
+	\bar r(a,\alpha,w)&= e^{wW}r_{A\bar N}=
+\frac{ 1 }{2}
+\begin{pmatrix}
+	2\alpha	\\ 
+	 e^{-a}w^2+2\cosh(a) \\ 
+	-2\alpha	\\ 
+	e^{-a}w^2+2\sinh(a)	\\ 
+	 2e^{-a}w	
+\end{pmatrix}.
+	\end{aligned}
+\end{equation}
+
+The tangent vectors of that surface are given by
+\begin{equation}
+	\begin{aligned}[]
+		(\partial_ar)(a,\alpha,w)&=
+\begin{pmatrix}
+	0	\\ 
+	\frac{ - e^{-a}w^2+2\sinh(a) }{2}	\\ 
+	0	\\ 
+	\frac{ - e^{-a}w^2+2\cosh(a) }{2}	\\ 
+	- e^{-a}w	
+\end{pmatrix}
+,&
+		(\partial_{\alpha}r)(a,\alpha,w)&=
+\begin{pmatrix}
+	1	\\ 
+	0\\ 
+	1	\\ 
+	0\\ 
+	0	
+\end{pmatrix}
+,&
+		(\partial_wr)(a,\alpha,w)&=
+\begin{pmatrix}
+	0	\\ 
+	 e^{-a}w\\ 
+	0	\\ 
+	 e^{-a}w\\ 
+	e^{-a}
+\end{pmatrix}
+	\end{aligned}.
+\end{equation}
+Notice that these three vectors are nowhere vanishing. It is immediate that the vector $\partial_{\alpha}r$ is linearly independent of $\partial_{a}r$ and of $\partial_wr$. It is also immediately apparent that $\partial_ar=-w\partial_wr$ is the worse possible situation. It is, however, not possible because it would imply that 
+\begin{equation}
+	\begin{aligned}[]
+		-w^2 e^{-a}&=\frac{ - e^{-a}w^2+2\sinh(a) }{2}&\text{and}&&-w^2 e^{-a}&=\frac{ - e^{-a}w^2+2\cosh(a) }{2},
+	\end{aligned}
+\end{equation}
+which is only possible when $\cosh(a)=\sinh(a)$, in other words : never. Thus, the part of $AdS_4$ described by \eqref{EqPartewWrAN} has dimension $3$.
+
+
+\begin{proposition}
+We have
+\begin{equation}
+	 G_W\cdot\iota(\hH_3)=
+	\{ r(a,\alpha,w)\cup\bar r(a,\alpha,w) \}_{a,\alpha,w\in\eR}.	
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The facts that $G_W\cdot\iota(\hH_3)=\{ r(a,\alpha,w)\cup\bar r(a,\alpha,w) \}_{a,\alpha,w\in\eR}$ and that all the elements of that set are subject to $u^2-x^2=0$ are by construction.
+
+We still have to prove that $\{ u^2-x^2=0\}\subseteq G_W\cdot\iota(\hH_3)$.
+
+Let $v=(y,t,x,y,z)$ be a vector which satisfies $u^2-x^2=0$. Following the signs of $u$ and $t$, we are searching $v$ under the form $\pm r(\alpha,a,w)$ or $\pm \bar r(\alpha,a,w)$. In any case, the value of $u$ and $x$ fix $\alpha$ and we are left with the condition
+\begin{equation}
+\pm\frac{ 1 }{2}
+	\begin{pmatrix}
+	e^{-a}w^2+2\cosh(a)	\\ 
+	e^{-a}w^2+2\sinh(a)	\\ 
+	2 e^{-a}w	
+\end{pmatrix}
+=
+\begin{pmatrix}
+	t	\\ 
+	y	\\ 
+	z	
+\end{pmatrix}
+\end{equation}
+with $t^2-y^2-z^2=1$.  If $t-y>0$, we choose the sign $+$ and the value of $t-y$ fixes $a$ because $t-y= e^{-a}$. In that situation, $w$ is given by $w= e^{a}\big(2y-2\sinh(a)\big)$. If $t-y<0$, we have $t-y=- e^{-a}$ and the same argument holds.
+
+\end{proof}
+
+In the sequel, we will use the following notations :
+\begin{equation}
+	\begin{aligned}[]
+		G_W&=\{  e^{wW}\tq w\in\eR \}\\
+		G_V&=\{  e^{\alpha V}\tq \alpha\in\eR \}\\
+		G_X&=\{  e^{\beta X}\tq \beta\in\eR \}\\
+		G_Y&=\{  e^{y Y}\tq y\in\eR \}
+	\end{aligned}
+\end{equation}
+These are one parameter subgroups of $SO(2,3)$.
+
+\begin{proposition}		\label{PropInclusionsTroisQuatreWVXY}
+If $v\in AdS_4$ satisfies $u-t\neq 0$, then $v= e^{wW}v'$ for a certain $v'\in AdS_3$. In other words,
+\begin{equation}
+	\{ y-t\neq 0 \}_4\subset G_W\cdot\iota(AdS_3).
+\end{equation}
+In particular, every points outside the singularity $\hS_4$ are obtained by action of $G_W$ on a point of $AdS_3$. We also have
+\begin{equation}
+	\begin{aligned}[]
+		\{ x-u\neq 0 \}_4&\subseteq G_V\cdot\iota(AdS_3)\\
+		\{ x+u\neq 0 \}_4&\subseteq G_X\cdot\iota(AdS_3).
+	\end{aligned}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+We have
+\begin{equation}
+	 e^{wW}
+\begin{pmatrix}
+	u'	\\ 
+	t'	\\ 
+	x'	\\ 
+	y'	\\ 
+	0	
+\end{pmatrix}=
+\begin{pmatrix}
+	u'	\\ 
+	\left( 1+\frac{ w^2 }{2} \right)t'-\frac{ w^2 }{2}y'	\\ 
+	x'	\\ 
+	\frac{ w^2 }{2}t'+\left( 1-\frac{ w^2 }{2} \right)y'	\\ 
+	w(t'-y')	
+\end{pmatrix}
+=
+\begin{pmatrix}
+	u	\\ 
+	t	\\ 
+	x	\\ 
+	y	\\ 
+	z	
+\end{pmatrix}
+\end{equation}
+when
+\begin{equation}
+	\begin{aligned}[]
+		u'&=u,& t'&=\frac{ z^2+2ty-2t^2 }{ 2(y-t) },&x'&=x,&y'&=\frac{ z^2-2ty+2y^2 }{ 2(y-t) },&w&=-\frac{ z }{ y-t }.
+	\end{aligned}
+\end{equation}
+In the same way, the equation
+\begin{equation}
+	 e^{\alpha V}\begin{pmatrix}
+	u'	\\ 
+	t'	\\ 
+	x'	\\ 
+	y'	\\ 
+	0	
+\end{pmatrix}=
+	 \begin{pmatrix}
+	u	\\ 
+	t\\ 
+	x	\\ 
+	y\\ 
+	z	
+\end{pmatrix}
+\end{equation}
+is solved by
+\begin{equation}
+	\begin{aligned}[]
+		u'&=\frac{ z^2+2ux-2u^2 }{ 2(x-u) },&x'&=\frac{ z^2-2ux+2x^2 }{ 2(x-u) },&\alpha&=-\frac{ z }{ x-u }.
+	\end{aligned}
+\end{equation}
+Thus, $\{ x-u\neq 0 \}_4\subseteq G_V\cdot\iota(AdS_3)$. And, finally, the equation
+\begin{equation}
+	 e^{\beta X}\begin{pmatrix}
+	u'	\\ 
+	t'	\\ 
+	x'	\\ 
+	y'	\\ 
+	0	
+\end{pmatrix}=
+	 \begin{pmatrix}
+	u	\\ 
+	t	\\ 
+	x	\\ 
+	y	\\ 
+	z	
+\end{pmatrix}
+\end{equation}
+is solved by
+\begin{equation}
+	\begin{aligned}[]
+		u'&=\frac{ z^2-2ux-2u^2 }{ 2(x+u) },&x'&=\frac{ z^2+2ux+2x^2 }{ 2(x+u) },&\beta&=-\frac{ z }{ x+u }.
+	\end{aligned}
+\end{equation}
+Thus, $\{ x+u\neq 0 \}_4\subseteq G_X\cdot\iota(AdS_3)$. 
+
+\end{proof}
+
+One interest of that proposition resides in the fact that every element of $AdS_4$ outside the singularity is the image of an element of $AdS_3$ by $G_W$.
+
+
+\begin{proposition}		\label{PropSingQTiV}
+We have 
+\begin{equation}
+	\hS_4=G_V\cdot\iota(\hS_3)
+\end{equation}
+where $G_V=\{  e^{vV}\tq v\in\eR \}$ is the group generated by $V$.
+\end{proposition}
+
+\begin{proof}
+A point of $\iota(\hS_3)$ is of the form
+$	\begin{pmatrix}
+	u	\\ 
+	\alpha	\\ 
+	x	\\ 
+	\epsilon\alpha	\\ 
+	0	
+\end{pmatrix}
+$, while an element of $\hS_4$ is of the form
+$
+	\begin{pmatrix}
+	u'	\\ 
+	\alpha	\\ 
+	x'	\\ 
+	\epsilon\alpha	\\ 
+	z'	
+\end{pmatrix}
+$ where $\epsilon=\pm 1$. So we have to solve the equation
+\begin{equation}
+	 e^{vV}
+\begin{pmatrix}
+	u	\\ 
+	\alpha	\\ 
+	x	\\ 
+	\epsilon\alpha	\\ 
+	0	
+\end{pmatrix}=
+\begin{pmatrix}
+	u\left( \frac{ v^2 }{ 2 }+1 \right)+\frac{ v^2 }{2}x	\\ 
+	\alpha	\\ 
+	\left( 1-\frac{ v^2 }{2} \right)x+\frac{ v^2 }{2}u	\\ 
+	\epsilon\alpha	\\ 
+	v(u-x)	
+\end{pmatrix}
+\stackrel{!}{=}
+\begin{pmatrix}
+	u'	\\ 
+	\alpha	\\ 
+	x'	\\ 
+	\epsilon\alpha	\\ 
+	z'	
+\end{pmatrix}
+\end{equation}
+with respect to $v$, $u$ and $x$. A solution is given by
+\begin{equation}
+	\begin{aligned}[]
+		u&=\frac{ z'^2+2u'x'-2u'^2 }{ 2(x'-u') },&x&=\frac{ z'^2-2u'x'+2x'^2 }{ 2(x'-u') },&v&=-\frac{ z' }{ x'-u' }.
+	\end{aligned}
+\end{equation}
+The condition $u'^2-x'^2-z'^2=1$ imposes $x'\neq u'$, so that that solution always makes sense: a point of $\hS_4$ is always obtained as the result of the action of an element of $G_V$ on an element of~$\hS_3$.
+
+Since the operator $ e^{vV}$ does not touch the variables $t$ and $y$, it is obvious that $G_V\cdot \hS_3\subseteq\hS_4$.
+\end{proof}
+
+\begin{lemma}		\label{LemTNTroisIneq}
+In $AdS_3$, the black hole is given by $u^2-x^2>0$
+\end{lemma}
+
+\begin{proof}
+The black hole is the set of point from which every light ray intersect the singularity. The boundary of that set is given by the horizon (this is the definition of the horizon), and we already proved that $\hH_3\equiv u^2-x^2=0$. Thus the black hole is $u^2-x^2>0$, or $u^2-x^2<0$. Since the singularity (which is part of the black hole) is given by $t^2-y^2=0$, the singularity satisfies $u^2-x^2=1$, and is thus in the part $u^2-x^2>0$.
+\end{proof}
+
+
+Let $TN[g]$ be the subset of $\{ \Ad(k)E_1 \}_{k\in \SO(3)}$ of elements for which there exists a $s>0$ such that
+\begin{equation}
+	\pi(g e^{s\Ad(k)E_1})\in\hS.
+\end{equation}
+In other words, $TN[g]$ is the set of directions along which $[g]$ falls in the singularity. If the complementary $TN[g]^c$ has a non empty interior, the by continuity, the complementary $TN[g']$ will have an interior as well for every $[g']$ close enough from $[g]$. In that case, $[g]$ does not belongs to the horizon. So a point belongs to the horizon when the set of safe direction has no interior.
+
+
+\begin{lemma}
+We have
+\begin{equation}
+	G_V\cdot\iota(\hH_3)\equiv u^2-x^2-z^2=0,
+\end{equation}
+so that it is the good candidate to be the horizon.
+\end{lemma}
+
+\begin{proof}
+An element of $\iota(\hH_3)$ has the form
+$r=\begin{pmatrix}
+	u'	\\ 
+	t'	\\ 
+	x'	\\ 
+	\pm\sqrt{t'^2-1}	\\ 
+	0	
+\end{pmatrix}$,
+so that we have to solve the equation
+\begin{equation}
+	 e^{vV}r=\begin{pmatrix}
+	\left( \frac{ v^2 }{ 2 }+1 \right)u'-\frac{ v^2 }{ 2 }x'	\\ 
+	t'	\\ 
+	\left( 1-\frac{ v^2 }{ 2 } \right)x'+\frac{ v^2 }{ 2 }u'	\\ 
+	\pm\sqrt{t'^2-1}	\\ 
+	v(u'-x')	
+\end{pmatrix}
+=
+\begin{pmatrix}
+	u	\\ 
+	t	\\ 
+	x	\\ 
+	\pm\sqrt{t^2-1}	\\ 
+	z	
+\end{pmatrix}.
+\end{equation}
+The solution is
+\begin{equation}
+	\begin{aligned}[]
+		u'&=\frac{ z^2+2ux-2u^2 }{ 2(x-u) },&x'&=\frac{ z^2-2ux+2x^2 }{ 2(x-u) },&v&=-\frac{ z }{ x-u }.
+	\end{aligned}
+\end{equation}
+Since $u^2-x^2-z^2=1$, we have $x-u\neq 0$, so that these solutions always make sense.
+\end{proof}
+
+\begin{lemma}
+If $[g]=\begin{pmatrix}
+	u	\\ 
+	t	\\ 
+	x	\\ 
+	y	\\ 
+	z	
+\end{pmatrix}\in AdS_4$ with $u$ and $x$ not both vanishing, then 
+\begin{equation}
+	[g]\in G_V\cdot\iota(AdS_3)\cup G_X\cdot \iota(AdS_3).
+\end{equation}
+Notice that the union is not disjoint.
+\end{lemma}
+
+\begin{proof}
+The proof is a simple computation. Following proposition \ref{PropInclusionsTroisQuatreWVXY}, we have $\{ x-u\neq 0 \}_4\subseteq G_V\cdot\iota(AdS_3)$ and $\{ x+u\neq 0 \}_4\subseteq G_X\cdot\iota(AdS_3)$.
+
+So the only part of $AdS_4$ which is not included in $G_V\cdot \iota(AdS_3)\cup G_X\cdot\iota(AdS_3)$ is the part where $x+u=x-u=0$.
+\end{proof}
+
+Now, we want to study the horizon, that means the boundary of $BH_4$. If $v\in\partial\big(\Adh(BH_4) \big)$, there exists, in any neighbourhood of $v$, an element $\bar v$ and a direction following which the geodesic from $\bar v$ escapes the singularity.
+
+Up to now, we studied the way $AdS_3$ embed in $AdS_4$. In particular, we proved that the horizon of $AdS_3$ is included in the horizon of $AdS_4$. We can propagate the results by $G_V$ and $G_X$ because, given a $v\in AdS_3$, the existence of a $\alpha$ such that $ e^{\alpha V}v\in\iota(AdS_3)$ or $ e^{\alpha X}v\in\iota(AdS_3)$ is related to the fact that $u^2-x^2\neq 0$, while that condition holds in a neighbourhood of $v$. 
+
+\begin{lemma}		\label{LemPresqueHOrQadp}
+Let $v\in\hH_4$ such that $u$ and $x$ are not both vanishing. In that case, $v\in G_V\cdot \iota(\hH_3)\cup G_X\cdot\iota(\hH_3)$.
+\end{lemma}
+
+\begin{proof}
+The assumption on $u$ and $x$ make that $v\in G_V\cdot(AdS_3)\cup G_X\iota(AdS_3)$. In order to fix ideas, let us suppose that $v= e^{\alpha V}\iota(v')$ with $v'\in AdS_3$. Since the set of directions $(w_1,w_2,w_3)\in S^2$ which save the points $v$, $ e^{\alpha V}v$ and $ e^{\beta X}v$ are the same, the assumption that $v\in\hH_4$ implies that $\iota(v')\in \hH_4$, which in turn proves that $v'\in \hH_3$ by lemma \ref{LemHinteridansH}. Thus $v\in G_V\cdot\iota(\hH_3)$.
+
+The same being true with $X$ instead of $V$, the lemma is proved.
+\end{proof}
+
+%klklklmkmlkklmmlkkmlkmùlmklkll
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Organization of the next few pages}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{abstract}
+	This paper is a sequel of \emph{Solvable symmetric black hole in anti de Sitter spaces} \cite{lcTNAdS}. In the latter, we described the BTZ black hole in every dimension by defining the singularity as the closed orbits of the Iwasawa subgroup of $\SO(2,n)$. In this article, we study the horizon of the black hole and we show that it is expressed as lateral classes of one point of the space. The computation is given in the four-dimensional case, but it makes no doubt that it can be generalized to any dimension.
+
+	The main idea is to define an ``inclusion map'' from $AdS_3$ into $AdS_4$ and to show that all the relevant structure pass trough the inclusion. We prove, for example, that the inclusion of the three dimensional horizon into $AdS_4$ belongs to the four dimensional horizon : $\iota(\hH_3)\subseteq\hH_4$ and then we deduce the expression of the horizon in $AdS_4$.
+\end{abstract}
+
+
+In section \ref{SecOldResults}, we describe some old results about BTZ black hole.
+
+In subsection \ref{SubSecHorInThreeDimensionOld}, we recall how we proved the existence of the black hole structure in \cite{lcTNAdS} and how the horizon was described in the three dimensional case in \cite{Keio}. We adapt the latter result in our homogeneous space setting.
+
+The subsection \ref{subSecTopoHor} gives some topological remarks about the black hole and the horizon. We point out that there are some light-like geodesics that are intersecting the singularity \emph{and then} the free part later in the future. We explain why that circumstance is very different from the situation of the most famous black holes in physics like the Schwarzschild's one.
+
+Section \ref{SecNewWithMatrices} is devoted to the proof of our main result: the horizon of the BTZ black hole in $AdS_4$ is given by
+\begin{equation}
+	\hH_4=G_{X_{0+}}\cdot \iota(\hH_3)\cup G_{X_{0-}}\iota(\hH_3).
+\end{equation}
+where $\iota$ is the inclusion of $AdS_3$ in $AdS_4$ and $\hH_3$ is the horizon of the BTZ black hole in $AdS_3$.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Some old results}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SecOldResults}
+
+From the results of section \ref{SecExistenceHor}, we know that a non trivial horizon exists. However, the question of the structure of the horizon was not yet addressed. This is what we are going to do now.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Horizon in the three dimensional case}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{SubSecHorInThreeDimensionOld}
+
+The structure of the horizon of $AdS_3$ was described in \cite{Keio} in the setting of $AdS_3=\SL(2,\eR)$. Our first job is to translate that result into the language of quotient of groups. This is done by the identification
+\begin{equation}
+	\begin{aligned}
+		\psi\colon \SL(2,\eR)&\to AdS_3 \\
+		\begin{pmatrix}
+			u+x	&	y+t	\\ 
+			y-t	&	u-x	
+		\end{pmatrix}&\mapsto \begin{pmatrix}
+			u	\\ 
+			t	\\ 
+			x	\\ 
+			y	
+		\end{pmatrix}.
+	\end{aligned}
+\end{equation}
+We see that the points of the horizon are given by
+\begin{equation}			\label{EqHOrAdSTroisVecteur}
+	\begin{aligned}[]
+		\pm\begin{pmatrix}
+			\alpha	\\ 
+			\cosh(a)	\\ 
+			\alpha	\\ 
+			\sinh(a)	
+		\end{pmatrix}&&\text{and}&&\pm\begin{pmatrix}
+			\alpha	\\ 
+			\cosh(a)	\\ 
+			-\alpha	\\ 
+			\sinh(a)	
+		\end{pmatrix},
+	\end{aligned}
+\end{equation}
+which correspond to the points $(u,t,x,y)$ such that $u^2-x^2=0$. One should notice that these points can be expressed as lateral classes of the point $b=(0,1,0,0)$~:
+\begin{equation}
+	\hH_3=\pm G_{\{ J_1,X_{++} \}}b\cup\pm G_{\{ J_1,X_{--} \}}b
+\end{equation}
+where $G_{\{ X,Y \}}$ is the group of elements of the form $\exp(aX+bY)$. Notice that $G_{\{ J_1,X_{++} \}}b=G_{\{ J_1,X_{-+} \}}b$ and $G_{\{ J_1,X_{--} \}}b=G_{\{ J_1,X_{+-} \}}b$. For example,
+\begin{equation}
+	e^{aJ_2} e^{\alpha X_{++}}b=\begin{pmatrix}
+		\alpha	\\ 
+		\cosh(a)	\\ 
+		\alpha	\\ 
+		\sinh(a)	
+	\end{pmatrix}.
+\end{equation}
+We are now intended to extend that result and express the horizon in $AdS_4$ as lateral classes of the horizon in $AdS_3$. Before to complete that work, we have to make a few remarks about the topology.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Topology and horizon}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{subSecTopoHor}
+
+The definition given in the previous sections produces a paradox. Let $x\in AdS$ and $l(s)$ be a light like geodesic trough $x$ which only intersects the singularity in past. We suppose that $l(0)=x$ and that $s_0<0$ is the biggest value of $s$ such that $l(s_0)\in \hS$. Thus, all points of the form $l(s)$ with $s_0<s<0$ are free. That form a sequence of free points which converges to the singularity, and then $l(s_0)$ belongs to the horizon.
+
+This is however not possible in $AdS_3$ because the equation of the singularity is $t^2-y^2=0$ while the equation of the horizon is $u^2-x^2=0$. These two parts are really separated. 
+
+The situation here is really different from the situation in the Schwarzschild's case. In the latter the singularity is well inside the horizon, and there are no geodesics reaching the infinity which have intersected the singularity in the past.
+
+In our case, however, such geodesics do exist. The reason of such a difference resides in the fact that the causal structure (geodesics) are defined by the metric while, in our BTZ black hole, the singularity is not defined from metric considerations. There are thus no reasons to expect some compatibility relations like the fact to have a non naked singularity.
+
+In order to correctly define the horizon, we have to introduce the space $BTZ=AdS\setminus\hS$ which in endowed with the induced topology. Then we define
+\begin{equation}
+	BH=\{ v\in BTZ\tq\forall k\in \SO(n),\, l_v^k(s)\in\hS\text{ has a solution with $s>0$} \}.
+\end{equation}
+Let us point out that the singularity itself is not part of the black hole, because it is not even part of $BTZ$. We define the free part of $BTZ$ as the set of points from which there exists a light-like geodesics which does not intersects the singularity in the future:
+\begin{equation}
+	\hF=\{ v\in BTZ\tq\exists k\in \SO(n),\, l_v^k(s)\in\hS\Rightarrow s<0 \}.
+\end{equation}
+The first definition makes that the black hole part is open by continuity and compactness of $\SO(n)$ : the minimum and the maximum of time to reach the singularity from one point of the black hole are both strictly positive numbers, and then can be maintained strictly positive in a neighborhood of the point.
+
+\begin{proposition}		\label{PropBHouvertLibreFerme}
+	The set of points in the black hole is open and set of free points is closed. In particular, the horizon is contained in the free set.
+\end{proposition}
+
+\begin{proof}
+	The first point is the remark above. Now, the free part is closed in $BTZ$ as complementary of an open set.	
+\end{proof}
+
+The following theorem says that if the set of directions escaping the singularity from a point in $BTZ$ has an interior, then that point does not lies in the horizon. 
+\begin{proposition}		\label{PropvFOsvghorvec}
+	A point $v\in\hF_l$ such that there is an open set $\mO\subset S^{l-1}$ of directions for which $l^{w}_v(s)\in\hS$ has no solutions for $s\in\eR^+_0$ belongs to $\Int(\hF)$.
+\end{proposition}
+
+\begin{proof}
+	Using the matricial representation \eqref{eq:AdkE}, we see that a point $v=[g]$ belongs to the singularity if the vector
+	\begin{equation}
+		g\cdot \begin{pmatrix}
+			1	\\ 
+			-s	\\ 
+			s\bar w	
+		\end{pmatrix}
+	\end{equation}
+	satisfies $t^2-y^2=0$. That equation is a second order polynomial in $s$ whose coefficients cannot be a constant for an open set with respect to $\bar w\in S^{l-1}$. From the assumptions, all the roots of that polynomial belong to $\eC\setminus\eR^+_0$. The latter being open, the roots of $l_{v'}^w(s)\in\hS$ are still in $\eC\setminus\eR^+_0$ when $v'$ runs over a small enough open set around $v$.
+
+	We conclude that $v$ is in the interior of the free zone rather than on the horizon.
+\end{proof}
+
+An important characterisation of the horizon, pointed out in \cite{Keio}, is the following.
+\begin{theorem}		\label{ThoHorIntDansS}
+	A point belongs to the horizon if and only if the set of light-like directions for which the geodesics does not intersects the singularity has no interior in $S^{l-1}$.
+\end{theorem}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{The horizon of the BTZ black hole}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SecNewWithMatrices}
+
+In this section, we show, that the horizon of the horizon of $AdS_4$ can be obtained using the action of a very simple group on the horizon of $AdS_3$, which is, itself, the orbit of one point under a known group. The result opens the possibility of describing the horizon in $AdS_l$ by induction on the dimension, and the possibility to compute the group which generates the horizon.  We define the inclusion map 
+\begin{equation}
+	\begin{aligned}
+		\iota\colon AdS_3&\to AdS_4 \\
+		\begin{pmatrix}
+			u	\\ 
+			t	\\ 
+			x	\\ 
+			y	
+		\end{pmatrix}&\mapsto \begin{pmatrix}
+			u	\\ 
+			t	\\ 
+			x	\\ 
+			y	\\ 
+			0	
+		\end{pmatrix}.
+	\end{aligned}
+\end{equation}
+At the matrix level, it corresponds to add a line and a column of zeros. We will denote by $\hF_l$ the free part of $AdS_l$. By definition, if $v\in\hF_l$, there exists a light like geodesic trough $v$ which does not intersect the singularity in the future. We also denote by $BH_l$ the set of elements of $AdS_l$ from which all the light-like geodesics intersect the singularity in the future.
+
+Notice that $BH_l$ is open while $\hF_l$ is closed, as explained in proposition \ref{PropBHouvertLibreFerme}.
+
+\begin{lemma}		\label{LemOouversttq}
+	Let $v\in AdS_4$ and $g\in \SO(2,3)$ be a representative of $v$. If the set
+	\begin{equation}
+		\{ \begin{pmatrix}
+			w_1	\\ 
+			w_2	
+		\end{pmatrix}\in S^2\tq
+		\pi g\begin{pmatrix}
+			1	\\ 
+			-s	\\ 
+			s\bar w	\\ 
+			0	
+		\end{pmatrix}\cap\hS_4=\emptyset\text{ with $s>0$}
+				\}
+	\end{equation}
+	has an interior in $S^1$, then the set
+	\begin{equation}
+		\{ 
+		\begin{pmatrix}
+			w_1	\\ 
+			w_2	\\ 
+			w_3	
+		\end{pmatrix}\in S^2\tq
+		\pi g\begin{pmatrix}
+			1	\\ 
+			-s	\\ 
+			s\bar w		
+		\end{pmatrix}\cap\hS_4=\emptyset\text{ with $s>0$}
+		\}
+	\end{equation}
+	has an interior in $S^2$.
+\end{lemma}
+
+\begin{proof}
+The matrix $g$ in $\SO(2,3)$ representing the point $v$ has the form
+\begin{equation}
+	g=\begin{pmatrix}
+ u	&	.	&	.	&	.	&	.\\ 
+ t	&	a	&	b	&	c	&	d\\ 
+ x	&	.	&	.	&	.	&	.\\ 
+ y	&	a'	&	b'	&	c'	&	d'\\ 
+z	&	.	&	.	&	.	&	. 
+ \end{pmatrix}
+\end{equation}
+where the numbers $a,b,c,d,a',b',c',d'$ are not uniquely determined. We choose the representative in such a way to have $b\neq \pm b'$, which is always possible.
+
+The assumption is that there exists an open set (with respect to $(w_1,w_2)\in S^1$) around $(w_1,w_2,0)$ such that the path
+\begin{equation}		\label{EqPathgexpUTXYZ}
+	\pi(g e^{s\Ad\left( k \right)E_1)})=
+	\begin{pmatrix}
+		U	\\ 
+		T	\\ 
+		X	\\ 
+		Y	\\ 
+		Z	
+	\end{pmatrix}=
+	\begin{pmatrix}
+ u	&	.	&	.	&	.	&	.\\ 
+ t	&	a	&	b	&	c	&	d\\ 
+ x	&	.	&	.	&	.	&	.\\ 
+ y	&	a'	&	b'	&	c'	&	d'\\ 
+z	&	.	&	.	&	.	&	. 
+ \end{pmatrix}
+ \begin{pmatrix}
+	 1	\\ 
+	 -s	\\ 
+	 sw_1	\\ 
+	 sw_2	\\ 
+	 0	
+ \end{pmatrix}
+\end{equation}
+does not intersects the singularity in the future. In other words, we have $T\pm Y=0$ only with $s\leq 0$. Let
+\begin{equation}
+	\begin{aligned}[]
+		T(w_1,w_2)&=t+s(bw_1+cw_2-a)\\
+		Y(w_1,w_2)&=y+s(b'w_1+c'w_2-a')\\
+		A_+(w_1,w_2)&=(b+b')w_1+(c+c')w_2-(a+a')\\
+		A_-(w_1,w_2)&=(b-b')w_1+(c-c')w_2-(a-a').
+	\end{aligned}
+\end{equation}
+We also denote by $\sigma_{\pm}$ the sign of $t\pm y$.
+
+A simple computation shows that $T+Y=0$ when
+\begin{equation}
+	s=s_+=-\frac{ t+y }{ A_+(w_1,w_2) },
+\end{equation}
+and $T-Y=0$ when
+\begin{equation}
+	s=s_-=-\frac{ t-y }{ A_-(w_1,w_2) },
+\end{equation}
+The assumption is that the direction $(w_1,w_2,0)$ (and an open set in $S^1$ with respect to $(w_1,w_2)$) escapes the singularity, so that for every $(w_1',w_2')$ in a neighborhood of $(w_1,w_2)$, we have
+\begin{equation}
+	\begin{aligned}[]
+		\sigma_{\pm}A_{\pm}(w_1',w_2')\geq 0,
+	\end{aligned}
+\end{equation}
+which assures that the values of $s$ which annihilate $T+Y$ and $T-Y$ are negative or non existing. Since we choose $b\neq \pm b'$, the functions $A_{\pm}$ are nowhere constant, so we can find a direction $(w_1,w_2)$ such that $\sigma_{\pm}A_{\pm}(w_1,w_2)>0$. Notice that, by continuity, there exists a neighbourhood of $(w_1,w_2)$ in $S^1$ which escapes the singularity.
+
+We are now studying what happens when one looks at a neighbourhood of $(w_1,w_2,0)$ in $S^3$. The path \eqref{EqPathgexpUTXYZ} is replaced by
+\begin{equation}
+	\pi(g e^{s\Ad(k)E_1})= 
+	\begin{pmatrix}
+ u	&	.	&	.	&	.	&	.\\ 
+ t	&	a	&	b	&	c	&	d\\ 
+ x	&	.	&	.	&	.	&	.\\ 
+ y	&	a'	&	b'	&	c'	&	d'\\ 
+z	&	.	&	.	&	.	&	. 
+ \end{pmatrix}
+\begin{pmatrix}
+	1	\\ 
+	-s	\\ 
+	s(w_1+\epsilon_1)	\\ 
+	s(w_2+\epsilon_2)	\\ 
+	\epsilon_3	
+\end{pmatrix},
+\end{equation}
+and we consider
+\begin{equation}
+	\begin{aligned}[]
+		T(w_1,w_2,\bar\epsilon)&=t+s\big( b(w_1+\epsilon_1)+c(w_2+\epsilon_2)+d\epsilon_3-a \big)\\
+		Y(w_1,w_2,\bar\epsilon)&=y+s\big( b'(w_1+\epsilon_1)+c'(w_2+\epsilon_2)+d'\epsilon_3-a' \big)
+	\end{aligned}
+\end{equation}
+where $\bar\epsilon$ stands for $\epsilon_1$, $\epsilon_2$ and $\epsilon_3$. The same computations as before shows that $T+Y=0$ when
+\begin{equation}
+	s=s_+=-\frac{ t+y }{ A_+(w_1,w_2)+(b+b')\epsilon_1+(c+c')\epsilon_2+(d+d')\epsilon_3 },
+\end{equation}
+Since $\sigma_+A(w_1,w_2)>0$, there exists a $\delta$ such that $s_+$ remains negative for every choice of $\bar\epsilon<\delta$. The same holds with $T-Y$ which is zero when
+\begin{equation}
+	s=s_-=-\frac{ t-y }{ A_-(w_1,w_2)+(b-b')\epsilon_1+(c-c')\epsilon_2 +(d-d')\epsilon_3 }.
+\end{equation}
+Since $\sigma_-A_-(w_1,w_2)>0$, one can find a $\delta>0$ such that $\bar\epsilon<\delta$ implies that this fraction remains negative.
+
+Thus, there exists a neighbourhood of $(w_1,w_2,0)$ in $S^2$ of directions escaping the singularity from the point $v$.
+\end{proof}
+
+\begin{lemma}		\label{LemIntTroisQueatr}
+	With the notations defined before, we have
+	\begin{equation}
+		\iota\big( \Int(\hF_3) \big)\subseteq \Int\big( \hF_4 \big)
+	\end{equation}
+	where $\Int$ stands for the interior. In other words,
+	\begin{equation}
+		\Adh(BH_4)\cap\iota(AdS_3)\subset\iota\big( \Adh(BH_3) \big).
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+
+	Let $v=\iota(v')\notin\iota\big( \Adh(BH_3) \big)$, we also consider $g'$ a representative of $v'$ and $g=\iota(g')$, which is a representative of $v$. The element $v'$ is in the interior of the free zone: there exists an open set of directions which do not intersect the singularity of $AdS_3$ by theorem \ref{ThoHorIntDansS}. In other words, the set
+\begin{equation}		\label{EqwwswswUn}
+	\{ \begin{pmatrix}
+	w_1	\\ 
+	w_2	
+\end{pmatrix}\in S^1\tq
+\pi g'\begin{pmatrix}
+	1	\\ 
+	-s	\\ 
+	sw_1	\\ 
+	sw_2	
+\end{pmatrix}\cap\hS_3 =\emptyset\}
+\end{equation}
+contains an open set of $S^1$. On the other hand, the $z$-component of the latter vector is obviously zero because $g=\iota(g')$ has the form
+\begin{equation}
+	g=\begin{pmatrix}
+ .	&	.	&	.	&	.	&	0\\ 
+ .	&	.	&	.	&	.	&	0\\ 
+ .	&	.	&	.	&	.	&	0\\ 
+ .	&	.	&	.	&	.	&	0\\ 
+0	&	0	&	0	&	0	&	1 
+ \end{pmatrix},
+\end{equation}
+thus equation \eqref{EqwwswswUn} can be ``extended'' and there exists an open set in $S^1$ such that
+\begin{equation}
+	\pi g\begin{pmatrix}
+		1	\\ 
+		-s	\\ 
+		sw_1	\\ 
+		sw_2	\\ 
+		0	
+	\end{pmatrix}\cap\iota(\hS_3)=\emptyset.
+\end{equation}
+Now, lemma \ref{LemOouversttq} shows that the set
+\begin{equation}
+	\{ 
+		\begin{pmatrix}
+			w_1	\\ 
+			w_2	\\ 
+			w_3	
+		\end{pmatrix}\in S^2\tq
+		\pi g\begin{pmatrix}
+			1	\\ 
+			-s	\\ 
+			sw_1	\\ 
+			sw_2	\\ 
+			sw_3	
+		\end{pmatrix}\cap\hS_4=\emptyset
+	\}
+\end{equation}
+contains an open subset of $S^2$. That means that $\pi(g)=v$ belongs to the interior of $\hF_4$.
+\end{proof}
+
+\begin{proposition}		\label{PropFqTroisFt}
+We have $\hF_4\cap\iota(AdS_3)\subset \iota(\hF_3)$.
+\end{proposition}
+
+\begin{proof}
+Let $v\in\hF_4\cap\iota(AdS_3)$. With the same notations as above, we have
+\begin{equation}		\label{EqRepresSOiotag}
+	\iota(g')=
+\begin{pmatrix}
+ u	&	.	&	.	&	.	&	0\\ 
+ t	&	a	&	b	&	c	&	0\\ 
+ x	&	.	&	.	&	.	&	0\\ 
+ y	&	a'	&	b'	&	c'	&	0\\ 
+0	&	0	&	0	&	0	&	1 
+ \end{pmatrix}
+\end{equation}
+The assumption is that, for every representative $g'$ of $v'$, there exists a direction $(w_1,w_2,w_3)\in S^2$ such that the path
+\begin{equation}		\label{EqGedgpudt}
+	\pi   \iota(g')\begin{pmatrix}
+	1	\\ 
+	-s	\\ 
+	sw_1	\\ 
+	sw_2	\\ 
+	sw_3	
+\end{pmatrix} 
+\end{equation}
+only intersects the singularity fore negative values of $s$. The values of $s$ that annihilate $t^2-y^2$ in the geodesic \eqref{EqGedgpudt} are
+\begin{equation}
+	\begin{aligned}[]
+		s_+	&=-\frac{ t+y }{ -(a+a')+(b+b')w_1+(c+c')w_2 }\\
+		s_-	&=-\frac{ t-y }{ -(a-a')+(b-b')w_1+(c-c')w_2 },
+	\end{aligned}
+\end{equation}
+and these two values are either negative either non existing (vanishing denominator).
+
+The work is now to find a direction $(w'_1,w'_2)\in S^1$ such that the geodesic
+\begin{equation}
+	\pi\big( g'\begin{pmatrix}
+	1	\\ 
+	-s	\\ 
+	sw'_1	\\ 
+	sw'_2	
+\end{pmatrix} \big)
+\end{equation}
+does not intersect the singularity. The values of $s$ for which the latter geodesics intersects the singularity are
+\begin{equation}
+	\begin{aligned}[]
+		s'_+	&=-\frac{ t+y }{ -(a+a')+(b+b')w'_1+(c+c')w'_2 }\\
+		s'_-	&=-\frac{ t-y }{ -(a-a')+(b-b')w'_1+(c-c')w'_2 }.
+	\end{aligned}
+\end{equation}
+If $w_3=0$, the proposition is true because one can choose $(w'_1,w'_2)=(w_1,w_2)$. If $w_3\neq 0$, the vector $(w_1,w_2)$ does not belong to $S^1$, and we have to find something else.
+
+Let us consider the following two cases.
+\begin{enumerate}
+\item
+there exists a representative \eqref{EqRepresSOiotag} with $a=a'=0$,
+\item
+there exists a representative \eqref{EqRepresSOiotag} with $c=c'=0$.
+\end{enumerate}
+In the first case, we have 
+\begin{equation}		\label{EqDenoAAnnulerspm}
+	s'_{\pm}=-\frac{ t\pm y }{ (b\pm b')w'_1+(c\pm c')w'_2 },
+\end{equation}
+and we can choose $(w'_1,w'_2)=N(w_1,w_2)$ with $N\in\eR$ fixed in such a way that $(w'_1,w'_2)\in S^1$. Thus we have $s'_{\pm}=\frac{1}{ N }s_{\pm}$ and it is sufficient to choose $N>0$ in order to leave the denominators of \eqref{EqDenoAAnnulerspm} of the right sign or zero.
+
+In the second case, we have
+\begin{equation}
+	s'_{\pm}=-\frac{ t\pm y }{ -(a\pm a')+(b\pm b')w'_1 },
+\end{equation}
+thus one has to choose $w'_1=w_1$ and $w'_2=\sqrt{1-w_1^2}$.
+
+Let us now discuss the values of $u$, $t$, $x$ and $y$ for which the first or the second cases are enforced. In order to be in the first case, we need to build a matrix of $\SO(2,2)$ of the form
+\begin{equation}
+	g'=\begin{pmatrix}
+ u	&	\alpha	&	.	&	.	\\ 
+ t	&	0	&	.	&	.	\\ 
+ x	&	\beta	&	.	&	.	\\ 
+ y	&	0	&	.	&	.	 
+ \end{pmatrix}.
+\end{equation}
+That requires $\alpha^2-\beta^2=1$ and $u\alpha-x\beta=0$, while, for the second case, we need to build a matrix of $\SO(2,2)$ of the form
+\begin{equation}
+	g'=\begin{pmatrix}
+ u	&	.	&	\alpha	&	.	\\ 
+ t	&	.	&	0	&	.	\\ 
+ x	&	.	&	\beta	&	.	\\ 
+ y	&	.	&	0	&	.		 
+ \end{pmatrix}.
+\end{equation}
+That requires $\alpha^2-\beta^2=-1$ and $u\alpha-x\beta=0$. 
+
+In both cases, we have $\beta=\frac{ u }{ x }\alpha$ and $\alpha^2-\beta^2=\alpha^2\left( 1-\frac{ u^2 }{ x^2 } \right)$. If $| u |>| x |$, we can solve $\alpha^2-\beta^2=-1$, and if $| u |<| x |$, then we can solve $\alpha^2-\beta^2=1$. 
+
+The last possible situation is $u=\pm x$. A point of $AdS_3$ in that situation belongs to the horizon by equation \eqref{EqHOrAdSTroisVecteur}, while one knows that point of horizon do have some directions which escape the singularity by corollary \ref{PropBHouvertLibreFerme}. Notice that in the latter situation, we do not use the assumption that $\iota(v')$ is free in $AdS_4$.
+\end{proof}
+
+\begin{corollary}		\label{CorBHBHHHHH}
+	We have $\iota(BH_3)\subset BH_4$ and $\iota(\hH_3)\subset \hH_4$.
+\end{corollary}
+
+\begin{proof}
+	If $\iota(v)\notin BH_4$, we have $\iota(v)\in \hF_4\cap\iota(AdS_3)\subset\iota(\hF_3)$, which is not possible if $v\in BH_3$.
+
+	For the second part, we consider $v\in\hH_3\subset\hF_3$ (proposition \ref{PropBHouvertLibreFerme}). There is a direction $\begin{pmatrix}
+		w_1	\\ 
+		w_2	
+	\end{pmatrix}\in S^1$ which escapes the singularity from $v$ in $AdS_3$. Of course, the direction $\begin{pmatrix}
+		w_1	\\ 
+		w_2	\\ 
+		0
+	\end{pmatrix}\in S^2$ escapes the singularity from $\iota(v)$ in $AdS_4$. Thus $\iota(v)\in\hF_4$.
+
+	In every neighborhood of $v$, there exists a $\bar v\in BH_3$, and thus $\iota(\bar v)\in BH_4$. In other words, in every neighborhood of $\iota(v)$, there is that $\iota(\bar v)$ which belongs to $BH_4$. That proves that $\iota(v)$ belongs to $\hH_4$.
+\end{proof}
+
+\begin{lemma}		\label{LemHinteridansH}
+	We have $\hH_4\cap\iota(AdS_3)\subset\iota(\hH_3)$.
+\end{lemma}
+
+\begin{proof}
+	Let $v\in\hH_4\cap\iota(AdS_3)$. Since $\hH_4\subset\hF_4$, we have $v\in\hF_4\cap\iota(AdS_3)\subset\iota(\hF_3)$ (proposition \ref{PropFqTroisFt}), and then there exists a $v'\in\hF_3$ such that $v=\iota(v')$. Now, we have to prove that $v'\in\hH_3$. If $v'$ belongs to the interior of $\hF_3$, lemma \ref{LemIntTroisQueatr} implies that
+	\begin{equation}
+		v=\iota(v')\in\iota\big( \Int(\hF_3) \big)\subset\Int(\hF_4),
+	\end{equation}
+	which disagrees with the fact that $v\in\hH_4$.
+\end{proof}
+
+\begin{proposition}		\label{PropovHhnonXYzero}
+	Let $v'=(u',t',x',y',z')\in\hH_4$ with $u'$ and $x'$ not both vanishing. Then
+	\begin{equation}
+		v'\in G_{X_{0+}}\cdot \iota(\hH_3)\cup G_{X_{0-}}\cdot \iota(\hH_3).
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	As a first step, we want to solve the equation
+	\begin{equation}
+		e^{\alpha X_{0+}}\begin{pmatrix}
+			u	\\ 
+			t	\\ 
+			x	\\ 
+			y	\\ 
+			0	
+		\end{pmatrix}=
+		\begin{pmatrix}
+			\frac{ \alpha^2(u-x) }{2}+u	\\ 
+			t	\\ 
+			\frac{ \alpha^2(u-x) }{2}+x	\\ 
+			y	\\ 
+			-\alpha(x-u)	
+		\end{pmatrix}=\begin{pmatrix}
+			u'	\\ 
+			t'	\\ 
+			x'	\\ 
+			y'	\\ 
+			z'	
+		\end{pmatrix}
+	\end{equation}
+	with respect to $u$, $t$, $x$, $y$ and $\alpha$. The result is $t=t'$, $y=y'$ and
+	\begin{equation}
+		\begin{aligned}[]
+			\alpha&=\frac{ z' }{ u'-x' },&u&=u'-\frac{ z'^2 }{ 2(u'-x') },&x&=\frac{ z'^2 }{ 2(u'-x') }-x'.
+		\end{aligned}
+	\end{equation}
+	We conclude that, as long as $u'-x'\neq 0$, the point $v'$ belongs to $G_{X_{0+}}\cdot\iota(AdS_3)$. The same computation shows that $v'\in G_{X_{0-}}\cdot\iota(AdS_3)$ as long as $x'+u'\neq 0$. Let us observe that the actions of the matrices $ e^{\alpha X_{0+}}$ and $ e^{\beta X_{0-}}$ do not change the $t$ and $y$ component of a vector in $\eR^{2,l-1}$, so that the set of directions for which $v$ falls in the singularity is exactly the same as the set of directions for which $ e^{\alpha X_{0+}}v$ and $ e^{\beta X_{0-}}v$ fall in the singularity.
+	
+	Now, let us suppose that $v= e^{\alpha X_{0+}}\iota(v')\in\hH_4$ with $v'\in AdS_3$. We want to prove that $\iota(v')\in\hH_4$ (i.e. there is an element in the black hole in each neighbourhood of $\iota(v')$) because in that case, lemma \ref{LemHinteridansH} would conclude that $v'\in\hH_3$.
+
+	Let $\mO$ be a neighbourhood of $\iota(v')$. The set $ e^{\alpha X_{0+}}\mO$ is a neighborhood of $v$, and thus there exists an element $\bar v\in e^{\alpha X_{0+}}\mO\cap BH_4$. Now the element $ e^{-\alpha X_{0+}}\bar v$ belongs to $\mO\cap BH_4$, so that $\iota(v')$ belongs to $\hH_4$.
+\end{proof}
+
+\begin{lemma}		\label{LemPasLEsDerniersAQ}\label{Lemuxznonsing}
+The points of $AdS_4$ of the form $v=\begin{pmatrix}
+	0	\\ 
+	t	\\ 
+	0	\\ 
+	y	\\ 
+	z	
+\end{pmatrix}$ do not belong to the horizon.
+\end{lemma}
+
+\begin{proof}
+
+Since the horizon is $A$-invariant, we can reduce the lemma to the case of any element of the form $ e^{\eta J_1}v$. We have
+\begin{equation}
+	 e^{\eta J_1}
+\begin{pmatrix}
+	0	\\ 
+	t	\\ 
+	0	\\ 
+	y	\\ 
+	z	
+\end{pmatrix}=
+\begin{pmatrix}
+ 1	&	0		&	0	&	0		&	0\\ 
+ 0	&	\cosh(\eta)	&	0	&	\sinh(\eta)	&	0\\ 
+ 0	&	0		&	1	&	0		&	0\\ 
+ 0	&	\sinh(\eta)	&	0	&	\cosh(\eta)	&	0\\ 
+ 0	&	0		&	0	&	0		&	1 
+ \end{pmatrix}
+\begin{pmatrix}
+	0	\\ 
+	t	\\ 
+	0	\\ 
+	y	\\ 
+	z	
+\end{pmatrix}=
+\begin{pmatrix}
+	0				\\ 
+	\cosh(\eta)t+\sinh(\eta)y	\\ 
+	0				\\ 
+	\sinh(\eta)t+\cosh(\eta)y	\\ 
+	z
+\end{pmatrix}
+\end{equation}
+We annihilate the $y$ component by choosing $\eta=\ln\left( \frac{ t-y }{ t+y } \right)$. Notice that $t^2-y^2>0$, thus we have $| t |>| y |$ and the expression in the logarithm is always positive.
+
+A representative of $(0,t,0,0,z)$ in $\SO(2,2)$ is easy to find, and the geodesic in the direction $\bar w\in S^2$ is given by
+\begin{equation}
+	\begin{pmatrix}
+ 0	&	1	&	0	&	0	&	0\\ 
+ t	&	0	&	0	&	0	&	-z\\ 
+ 0	&	0	&	1	&	0	&	0\\ 
+ 0	&	0	&	0	&	1	&	0\\ 
+z	&	0	&	0	&	0	&	-t 
+ \end{pmatrix}
+\begin{pmatrix}
+	1	\\ 
+	-s	\\ 
+	sw_1	\\ 
+	sw_2	\\ 
+	sw_3	
+\end{pmatrix}=
+\begin{pmatrix}
+	.	\\ 
+	t-szw_3	\\ 
+	.	\\ 
+	sw_2	\\ 
+	.	
+\end{pmatrix}.
+\end{equation}
+It belongs to the singularity when $s$ takes one of the values
+\begin{equation}
+	s_{\pm}=\frac{ t }{ w_3z\pm w_2 }.
+\end{equation}
+As long as $|w_2|<|w_3z|$, the two values $s_{\pm}$ have the same sign, which can be decided by making $w_3$ positive or negative. That provides an open set in $S^2$ of directions which escape the singularity, so that $v\notin\hH_4$.
+\end{proof}
+
+
+\begin{theorem}			\label{ThoHorQuatreInclusionHorTrois}\label{ThoEqHorQCoore}
+	The horizon of $AdS_4$ is given by
+	\begin{equation}		\label{EqEqHOrGVGXQuatr}
+		\hH_4=G_{X_{0+}}\cdot \iota(\hH_3)\cup G_{X_{0-}}\iota(\hH_3).
+	\end{equation}
+	i.e. an union of lateral classes of the horizon of $AdS_3$ by one dimensional subgroups of $N$ and $\bar N$.
+
+	The equation in the ambient $\eR^5$ is $\hH_4\equiv u^2-x^2-z^2=0$.
+\end{theorem}
+
+\begin{proof}
+	We begin by the direct inclusion. If $v=(u,t,x,y,z)\in\hH_4$ with $u\neq 0$ or $x\neq 0$, we proved in proposition \ref{PropovHhnonXYzero} that $v$ has the form \eqref{EqEqHOrGVGXQuatr}. Now, if $u=x=0$, the lemma \ref{Lemuxznonsing} shows that $v$ does not belongs to the horizon.
+
+	For the reverse inclusion, we know that elements of $\iota(\hH_3)$ belong to $\hH_4$ by corollary \ref{CorBHBHHHHH}. If $v$ belong to $\hH_4$, then $ e^{\alpha X_{0+}}v$ and $ e^{\beta X_{0-}}v$ also belong to the horizon.
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Conclusion}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+The horizon of the BTZ black hole in $AdS_3$ was already expressed in \cite{Keio} as lateral classes of one point under the action of the Iwasawa component of the isometry group of $AdS_3$.
+
+We proved that the simple inclusion map $\iota\colon AdS_3\to AdS_4$ transports the causal structure (free zone, black hole, horizon) from $AdS_3$ to $AdS_4$. We studied in particular the way the horizon changes when ones jumps from dimension $3$ to dimension $4$ and we obtained that the horizon in $AdS_4$ is expressed as lateral classes of the inclusion of the horizon of $AdS_3$ in $AdS_4$. In the same time, we obtained a simple equation for the horizon seen as a subset of $\eR^5$.
+
+Although the results are quite satisfying, the method used here to prove them is quite unsatisfactory because we didn't used all the wealth structure of $\so(2,3)$ and of its reductive decompositions $\sG=\sH\oplus\sQ=\sK\oplus\sK$. We plan, in a future work, to get a much deeper understanding of the structure of $\sG$ and $\sQ$, in such a way to provide simpler proofs, in the same time as a dimensional generalization of the result of theorem \ref{ThoHorQuatreInclusionHorTrois}. We would also like to define a class of homogeneous spaces $G/H$ which accept a BTZ-like black hole.
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{The algebras without matrices}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SecRebuildStructRoot}
+
+We have two decompositions
+\begin{equation}
+	\begin{aligned}[]
+		\sG&=\sK\stackrel{\theta}{=}\sP\\
+		\sG&=\sH\stackrel{\sigma}{=}\sQ
+	\end{aligned}
+\end{equation}
+of $\sG=\so(2,n)$. From there, we will build the basis elements of $\sA$, $\sN$, $\bar\sN$ with all the properties we used so far. The explicit matrices \eqref{EqGeueuleVWXY} and \eqref{EqGeneRedQ} consist in a concrete realisation of what we are about to do.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{The structure theorem by Pyatetskii-Shapiro}
+%---------------------------------------------------------------------------------------------------------------------------
+
+We are going to use the  Pyatetskii-Shapiro's decompositions of normal $j$-algebra \eqref{EqDecNormale} and \eqref{EqDecoEleJal}. 
+
+\begin{lemma}
+	We have
+	\begin{equation}
+		\| (X_{\alpha\beta})_{\sK} \|=\| (X_{\alpha\beta})_{\sP} \|.
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	We use the invariance of the Killing form:
+	\begin{equation}
+		\begin{aligned}[]
+			B\big( (X_{\alpha\beta})_{\sK},(X_{\alpha\beta})_{\sK} \big)&=\frac{1}{ \alpha }B\big( (X_{\alpha\beta})_{\sK},\ad(J_1)(X_{\alpha\beta})_{\sP} \big)\\
+			&=-\frac{1}{ \alpha }B\big( \ad(J_1)(X_{\alpha\beta})_{\sK},(X_{\alpha\beta})_{\sP} \big)\\
+				&=-B\big( (X_{\alpha\beta})_{\sP},(X_{\alpha\beta})_{\sP} \big).
+		\end{aligned}
+	\end{equation}
+\end{proof}
+
+\begin{lemma}
+	we have
+	\begin{equation}
+		\| (X_{\alpha\beta})_{\sK} \|=\| (X_{\alpha,-\beta})_{\sK} \|.
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	First, remark that $X_{\alpha,-\beta}=\sigma X_{\alpha\beta}$. We also know that $[\pr_{\sK},\sigma]=0$ because $[\sigma,\theta]=0$. The conclusion now comes from the fact that $\sigma$ is an isometry.
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Characterisation of the horizon (vanishing norm)}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SecVanNormChar}
+
+In order to get the theorem \ref{ThoEqHorQCoore}, we used the equation of the singularity, $\hS\equiv t^2-y^2=0$, which was proved in proposition \ref{Proptcarrycarr}. But subsection \ref{SubSecTwoCharSing} provides an other characterisation of the singularity, namely the loci of points $[g]$ such that $\| J_1^* \|=0$.
+
+\section{Conclusions and perspectives}		\label{SecConcPerspAd}
+%++++++++++++++++++++++++++++++++++++
+
+Higher-dimensional generalizations of the BTZ construction have been studied in the physics' literature, by classifying the one-parameter subgroups of $\Iso(AdS_l)=\SO(2,l-1)$, see \cite{Figueroa,AdSBH,Madden,Banados:1997df,Aminneborg,HolstPeldan}.  Nevertheless, the approach we adopt here is conceptually different. We first reinterpret the non-rotating BTZ black hole solution using symmetric spaces techniques and present an alternative way to express its singularity.  We saw the latter as the union of the closed orbits of Iwasawa subgroups of the isometry group.  As shown, this construction extends straightforwardly to higher dimensional cases, allowing to build a non trivial black hole on anti de Sitter spaces of arbitrary dimension $l\geq 3$.  From this point of view, all anti de Sitter spaces of dimension $l\geq 3$ appear on an equal footing.
+
+A natural question arising from this analysis is the following: \emph{given a semisimple symmetric space, when does the set of closed orbits of the Iwasawa subgroups of the isometry group, seen as singularity, define a non-trivial causal structure ?} We answered this question in the case of anti de Sitter spaces, using techniques allowing in principle for generalization to any semisimple symmetric space.
+
+We also proved that performing a discrete quotient along the orbits of $J_1$ makes the resulting space causally inextensible (closed space-like curves appear in the singular part of the space), but we did not address  questions like: are there other vector fields defining singularities (in the three dimensional case, we know that the answer is positive) ? Can we identify a mass and an angular momentum from these hypothetic vectors ? Are \emph{all} BTZ black holes obtainable in this way in higher dimensions ?

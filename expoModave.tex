@@ -1,0 +1,146 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%               %
+%   Les choses à vérifier   %
+%    dans verifications.txt
+%               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\input{e_mazhe}
+
+\makeindex
+\makenomenclature
+
+\begin{document}
+
+
+% This is a hack in order to be warned of references to the future.
+% the package hyperref make it fail. 
+
+\ifthenelse{\value{VerifForwardRef}=1}{
+    \let\Oldref\ref
+    \renewcommand{\ref}[1]{%
+    \ifthenelse{\value{page}<\pageref{#1}}{ {\huge ATTENTION} }{}%
+    \Oldref{#1}%
+    }
+    \newcommand{\url}[1]{}
+    \newcommand{\href}[2]{}
+    \renewcommand{\caption}[1]{}
+    \newcommand{\texorpdfstring}[2]{#1}
+}{}
+
+
+
+\thispagestyle{empty}
+%\vfill
+\begin{center}
+  \begin{minipage}{15cm}
+    \hrule\par
+    \vspace{2mm}
+    \begin{center}
+    \Huge \bfseries Field theory from a bundle point of view \par
+    \end{center}
+    \hrule\par
+  \end{minipage}
+\end{center}
+
+\vspace{2cm}
+
+\begin{center}
+    Laurent \textsc{Claessens}\\
+    \today\\
+    \url{http://student.ulb.ac.be/~lclaesse/lectures.pdf}
+\end{center}
+
+\vfill
+
+\begin{center}
+
+        \ifpdf
+            %\includegraphics[width=9cm]{CreativeCommons.png}
+            \includegraphics{CreativeCommons.png}
+        \else
+            \includegraphics{CreativeCommons.eps}
+        \fi
+
+        Field theory from a bundle point of view by \href{http://student.ulb.ac.be/~lclaesse/research_page.html}{Laurent Claessens} is licensed under a \href{http://creativecommons.org/licenses/by-sa/3.0/}{Creative Commons Attribution-ShareAlike 3.0 Unported License}.
+\end{center}
+
+
+    \tableofcontents
+
+    \newpage
+
+%\pagestyle{empty}
+
+\pagestyle{headings}
+
+\input{AvertissementMazhe}
+
+\chapter{General differential geometry} \label{Chapitre_FB}
+\input{var_diff}
+
+\chapter{Lie groups and subgroups}
+\input{Lie_gp_and_subgp}
+
+\chapter{Lie algebras}
+\input{helgaLie}
+
+\chapter{Fibre bundle}
+\input{fibre_bundle}
+
+%\chapter{Examples of groups and representations}        \label{ChapThoComsGroupes}
+%\input{iwasawa}
+
+\chapter{From Clifford algebras to Dirac operator}
+\input{CliffordSpin}
+\input{DiracAdS}
+
+\chapter{Relativistic fields and group theory}
+\input{MQ}
+
+\chapter{Relativistic fields and fibre bundle formalism}
+\input{Fibre_QFT}
+
+
+
+
+\appendix
+\setcounter{chapter}{0}
+\setcounter{section}{0}
+\renewcommand{\theequation}{\Alph{chapter}.\arabic{equation}}
+\renewcommand{\thenumtho}{\Alph{chapter}.\arabic{numtho}}
+\renewcommand{\thechapter}{\Alph{chapter}}
+
+
+
+
+\chapter{Complements}
+\input{app_Wigner}
+\input{app_statement}
+
+\ifthenelse{\value{VerifForwardRef}=0}{
+    \bibliographystyle{unsrt}           % unsrt fait que la biblio arrive dans l'ordre de citation au lieu de l'ordre alphabétique.
+    \bibliography{mazhe}
+}{}
+
+
+\addcontentsline{toc}{chapter}{\nomname}
+        \printnomenclature
+% C'est le paquet tocbibind qui fait que l'index vient tout seul dans la table des matières.
+        \printindex
+
+
+
+
+\ifthenelse{\value{VerifForwardRef}=0}{
+    \bibliographystyle{unsrt}           % unsrt fait que la biblio arrive dans l'ordre de citation au lieu de l'ordre alphabétique.
+    \bibliography{mazhe}
+}{}
+
+
+\addcontentsline{toc}{chapter}{\nomname}
+        \printnomenclature
+% C'est le paquet tocbibind qui fait que l'index vient tout seul dans la table des matières.
+        \printindex
+\end{document}

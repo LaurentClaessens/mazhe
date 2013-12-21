@@ -1,0 +1,275 @@
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+					\section{Chain complexes}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+					\subsection{Homotopy groups}
+%---------------------------------------------------------------------------------------------------------------------------
+
+The reference for (co)chain complexes is \cite{TopoPaulin}. 
+
+Let $\eA$ be a ring and $(M,+)$ be a commutative group. The triple $(M,+,\cdot)$ is a $\eA$-left module if the operation $\cdot\colon \eA\times M\to M$ fulfils
+\begin{enumerate}
+\item $a\cdot (x+y)=a\cdot x+a\cdot y$,
+\item $(a+b)\cdot x=a\cdot x+b\cdot x$,
+\item $(ab)\cdot x=a\cdot(b\cdot x)$,
+\item $1\cdot x=x$
+\end{enumerate}
+for every $a$, $b\in \eA$ and $x$, $y\in M$. When $M$ is a field, then we have the notion of vector space where $\eA$ is the set of scalars. Let now $\eA$ be an unital commutative ring. All modules are now taken over $\eA$.
+
+\begin{proposition}
+Every abelian group is a $\eZ$-module.
+\end{proposition}
+
+\begin{proof}
+Let $(M,+)$ be a commutative group. The structure of $\eZ$-module is given by
+\[ 
+  n\cdot x=
+\begin{cases}
+			0						&\text{if $n=0$}\\
+			\underbrace{x+\ldots+x	}_{\text{$n$ terms}}	&\text{if $n>0$}\\
+			-(\underbrace{x+\ldots+x}_{\text{$n$ terms}})	&\text{if $n<0$.}
+\end{cases}
+\]
+\end{proof}
+This is moreover the only way to turn $(M,+)$ into a $\eZ$-module.
+
+A \defe{chain complex}{chain!complex} $C=C(C_{*},\partial_*)$ is a sequence of modules $(C_n)_{n\in\eN}$ and of morphisms of modules $\partial_{n+1}\colon C_{n+1}\to C_n$ such that $\partial_*^2=0$. By convention, we put $C_{-1}=0$ and $\partial_0=0$. The morphisms $\partial_n$ are the \defe{boundary morphisms}{boundary!morphism} of $C$.
+
+If $C$ and $D$ are chain complexes, a \defe{morphism}{morphism!of chain complexes} $\phi\colon C\to D$ is a sequence of modules morphisms $\phi_n\colon C_n\to D_n$ such that $\phi_n\circ\partial_{n+1}=\partial_{n+1}\circ\phi_{n+1}$. The diagram
+\begin{equation}
+\xymatrix{%
+   C_0 \ar[d]_{\phi_0}	&C_1\ar[d]_{\phi_1}\ar[l]_{\partial_0}	&C_2\ar[l]_{\partial_1}	&\ldots\ar[l]	& C_{n-1}\ar[l]\ar[d]_{\phi_{n-1}}	& C_n\ar[l]_{\partial_n}\ar[d]_{\phi_n}	&\ldots\ar[l]		\\
+   D_0 	&D_1\ar[l]^{\partial_0}	&D_2\ar[l]^{\partial_1}	&\ldots\ar[l]	& D_{n-1}\ar[l]	& D_n\ar[l]^{\partial_n}	&\ldots\ar[l]	
+}
+\end{equation}
+commutes. 
+
+The submodule\nomenclature{$Z_n(C)$}{$n$-cycles of a chain complex}
+\begin{equation}
+	Z_n(C)=\ker(\partial\colon C_n\to C_{n-1})
+\end{equation}
+of $C_n$ is the space of \defe{$n$-cycle}{cycle}. The submodule\nomenclature{$B_n(C)$}{$n$-boundaries of a chain complex}
+\begin{equation}
+	B_n(C)=\Image(\partial\colon C_{n+1}\to C_{n})
+\end{equation}
+of $C_n$ is the space of \defe{$n$-boundary}{boundary!of a chain complex}. The $n$th \defe{homology group}{homology!group} of $C$ is the quotient\nomenclature{$H_n(C)$}{the $n$th homology group of $C$}
+\begin{equation}
+	H_n(C)=Z_n(C)/B_n(C).
+\end{equation}
+The homology group $H_n(C)$ has a $\eA$-module structure. The direct sum $\bigoplus H_n(C)$ is denoted by $H_*(C)$. If $c\in Z_n(C)$, we denote by $[c]$ the image of $c$ in $H_n(C)$:
+\begin{equation}
+	[c]=\{ c+\partial d\tq d\in C_{n+1} \}.
+\end{equation}
+Since a chain morphism preserves the boundary operator $\partial$, it induces a module morphism
+\[ 
+  \phi_*\colon H_n(C)\to H_n(D).
+\]
+If $\phi,\psi\colon C\to D$ are two morphisms of chain complexes, an \defe{homotopy}{homotopy!of morphism of chain complexes} is a sequence of module morphisms $K_n\colon C_n\to D_{n+1}$ such that
+\begin{equation}		\label{EqDefmorch}
+	\phi_n-\psi_n=\partial_{n+1}\circ K_n+K_{n-1}\circ\partial_n.
+\end{equation}
+
+\begin{proposition}
+Let $\phi$ and $\psi$ be two morphisms between the chain $C$ and $D$. Then we have
+\[ 
+  \phi_*=\psi_*\colon H_*(C)\to H_*(D).
+\]
+when they are related by an homotopy.
+\end{proposition}
+
+\begin{proof}
+An element of $H_*(C)$ reads $[c]$ with $c\in Z_*(C)$. From $\partial c=0$ and \eqref{EqDefmorch}, we have $(\phi_n-\psi_n)(c)=\partial_{n+1}\big( K_n(c) \big)$, so that $\phi_n(c)=\psi_n(c)+\partial_{n+1}\big( K_n(c) \big)$, which means that $[\phi_n(c)]=[\psi_n(c)]$.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+					\subsection{Exact sequences}
+%---------------------------------------------------------------------------------------------------------------------------
+
+
+A \defe{short exact sequence}{short exact sequence} of chain complexes is three complexes $C$, $D$ and $E$ with morphisms $g\colon D\to E$ and $f\colon C\to D$ such that for every $n$, the sequence 
+\[ 
+  \xymatrix{%
+   0 \ar[r]	&	C_n\ar[r]^{f_n}	&D_n\ar[r]^{g_n}	&E_n\ar[r]	&0
+}
+\]
+is exact. The short exact sequence is logically denoted by 
+\[ 
+  \xymatrix{%
+   0 \ar[r]	&	C\ar[r]^{f}	&D\ar[r]^{g}	&E\ar[r]	&0.
+}
+\]
+A \defe{morphism of short exact sequences}{morphism!of short exact sequences} of chain complexes is a triple $(\alpha,\beta,\gamma)$ of morphisms of chain complexes such that the following diagram
+\begin{equation}		\label{EqmorexactseqM}
+\xymatrix{%
+   0 \ar[r]	&C\ar[d]_{\alpha}\ar[r]^{f}	&D\ar[d]_{\beta}\ar[r]^g	&E\ar[d]_{\gamma}\ar[r]	& 0		\\
+   0 \ar[r]	&C'\ar[r]_{f'}	&D'\ar[r]_{g'}	&E'\ar[r]	& 0		\\
+}
+\end{equation}
+commutes for each degree.
+
+\begin{theorem}
+If 
+$
+  \xymatrix{%
+   0 \ar[r]	&	C\ar[r]^{f}	&D\ar[r]^{g}	&E\ar[r]	&0.
+}
+$
+is a short exact sequence of chain complexes, there exists a long exact sequence of modules
+\[
+  \xymatrix{%
+ \ldots\ar[r] & H_{n+1}(E)\ar[r]^{\delta}&  H_n(C) \ar[r]^{f_*}	& H_n(D)\ar[r]^{g_*}	&H_n(E)\ar[r]^{\delta}	&H_{n-1}(C)\ar[r]	&\ldots
+}
+\]
+such that if $(\alpha,\beta,\gamma)$ is as in \eqref{EqmorexactseqM}, then the diagram
+\begin{equation}		
+\xymatrix{%
+   \ldots \ar[r]	&H_n(C)\ar[d]_{\alpha_*}\ar[r]^{f_*}	&H_n(D)\ar[d]_{\beta_*}\ar[r]^{g_*}	&H_n(E)\ar[d]_{\gamma_*}\ar[r]^{\delta}	&\ldots	\\
+   \ldots \ar[r]	&H_n(C)\ar[r]^{f_*}			&H_n(D)\ar[r]^{g_*}			&H_n(E)\ar[r]^{\delta}			& \ldots
+}
+\end{equation}
+is commutative.
+\end{theorem}
+\begin{proof}
+No proof.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+					\subsection{Euler-Poincaré}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Let $\eA$ be a field and $C$, a chain complex on $\eA$. We denote by $\beta_k$ the dimension of $H_k(C)$ as vector space on $\eA$. This is the $k$th \defe{Betty number}{betty number} of $C$. If they are all finite and if they vanish for sufficiently large $k$, we pose
+\begin{equation}
+	\chi(C)=\sum_{j\in \eN}(-1)^k\beta_k,
+\end{equation}
+and we name it the \defe{Euler-Poincaré characteristic}{euler-Poincaré characteristic}\index{characteristic!Euler-Poincaré} of $C$.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+					\section{Cochain complexes}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+A \defe{cochain complex}{cochain complex} is $C=(C^*,d^*)$ where $(C^n)_{n\in \eN}$ is a sequence of modules with morphisms $d^n\colon C^n\to C^{n+1}$ such that $d^{n+1}\circ d^n=0$. The latter is regularly written under the more compact form $d^2=0$. The morphisms $d^*$ are the \defe{coboundary morphisms}{coboundary!morphism}. By convention, $C^{-1}=0$ and $d^{-1}=0$.
+
+A \defe{morphism of cochain complex}{morphism!of cochain complex} is a sequence $f\colon C\to D$ of morphisms of modules $f^n\colon C^n\to D^n$. The other concepts are defined as before.
+
+\begin{theorem}
+If 
+\begin{equation}		\label{EqSeqThoq}
+  \xymatrix{%
+   0 \ar[r]	&	C\ar[r]^{f}	&D\ar[r]^{g}	&E\ar[r]	&0.
+}
+\end{equation}
+is a short exact sequence of cochain complexes, there exists a long exact sequence of modules
+\[
+  \xymatrix{%
+ \ldots\ar[r] & H^{n-1}(E)\ar[r]^{\delta}&  H^n(C) \ar[r]^{f^*}	& H^n(D)\ar[r]^{g^*}	&H^n(E)\ar[r]^{\delta}	&H^{n+1}(C)\ar[r]	&\ldots
+}
+\]
+such that if $(\alpha,\beta,\gamma)$ is a morphism of exact sequence of cochain between \eqref{EqSeqThoq} and
+\begin{equation}	
+  \xymatrix{%
+   0 \ar[r]	&	C'\ar[r]^{f'}	&D'\ar[r]^{g'}	&E'\ar[r]	&0,
+}
+\end{equation}
+ then the diagram
+\begin{equation}		
+\xymatrix{%
+\ldots \ar[r]&H^n(C)\ar[d]_{\alpha^*}\ar[r]^{f^*}&H^n(D)\ar[d]_{\beta^*}\ar[r]^{g^*}&H^n(E)\ar[d]_{\gamma^*}\ar[r]^{\delta}&H^{n+1}(C)\ar[d]_{\alpha^*}\ar[r]&\ldots\\
+   \ldots \ar[r]&H^n(C')\ar[r]_{ {f'}^*}			&H^n(D')\ar[r]_{ {g'}^*}&H^n(E')\ar[r]_{\delta}	&H^{n+1}(C')\ar[r]	& \ldots
+}
+\end{equation}
+is commutative.
+\end{theorem}
+\begin{proof}
+No proof.
+\end{proof}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+					\subsection{Singular chains}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Let $p\in\eN$. The ordered \defe{standard $p$-simplex}{standard!$p$-simplex}\index{simplex!standard} $\Delta_p$\nomenclature{$\Delta_p$}{The standard $p$-simplex} is the affine convex envelop in $\eR^{p+1}$ of the canonical basis $\{ e_0,\ldots,e_p \}$:
+\begin{equation}
+	\Delta_p=\{ (t_0,\ldots,t_p)\in\eR^{p+1}\tq t_i\geq 0,\text{ and }\sum_it_i=1 \}.
+\end{equation}
+When $X$ is a topological space, a \defe{singular $p$-simplex}{singular!$p$-simplex}\index{simplex!singular} in $X$ is a continuous map $\sigma\colon \Delta_p\to X$. The $0$-simplexes in $X$ are the points of $X$ while the $1$-simplexes are path in $X$ as can be seen on the simple explicit expression
+\[ 
+  \Delta_1=\{ (\lambda,1-\lambda)\tq\lambda\in[0,1] \}.
+\]
+We denote by $C_p(X,\eA)$\nomenclature{$C_p(X,\eA)$}{Set of singular $p$-chains in $X$ with coefficients in $\eA$} the free module over $\eA$ whose basis is the set of $p$-simplexes in $X$. A general element of this set reads 
+\begin{equation}		\label{EqExpchainesigma}
+  \sum_{i=1}^kn_i\sigma_i
+\end{equation}
+with $n_i\in\eA$ and where $\sigma_i$ is a singular $p$-simplex. These elements are called \defe{singular $p$-chain}{singular!$p$-chain}. The \defe{face}{face!of a singular $p$-simplex} $i$ of the singular $p$-simplex $\sigma$, denoted by $\partial_i\sigma$\nomenclature{$\partial_i\sigma$}{The face $i$ of the singular $p$-simplex $\sigma$} is the $(p-1)$-singular simplex given by
+\[ 
+  (\partial_i\sigma)(t_0,\ldots,t_{p-1})=\sigma(t_0,\ldots,t_{i-1},0,t_i,\ldots,t_{p-1}).
+\]
+The \defe{boundary}{boundary!of a singular $p$-chain} of the singular $p$-chain \ref{EqExpchainesigma} is
+\begin{equation}
+	\partial\sigma=\sum_{i=0}^p(-1)^i\partial_i\sigma\in C_{p-1}(X,\eA).
+\end{equation}
+By linearity, we define the morphism
+\begin{equation}
+\partial\colon C_{p}(X,\eA)\to C_{p-1}(X,\eA),
+\end{equation}
+and by convention we pose $C_{-1}(X)=\{ 0 \}$ and $\partial\colon C_0(X)\to C_{-1}(X)$ to be the zero map.
+
+\begin{lemma}
+The boundary morphism $\partial$ fulfils $\partial\circ\partial =0$.
+\end{lemma}
+
+\begin{proof}
+No proof.
+\end{proof}
+
+Thus we can consider the following chain complex:
+\begin{equation}
+\xymatrix{%
+   C_0(X) &C_1(X)\ar[l]_-{\partial}	&\ldots \ar[l]_-{\partial}	&C_{n-1}(X)\ar[l]_-{\partial}&C_n(X)\ar[l]_-{\partial}&\ldots	\ar[l]_-{\partial}	
+}
+\end{equation}
+which is the \defe{complex of singular chains}{singular!chain!complex} whose $n$-cycles are the \defe{singular $n$-cycles}{singular!$n$-cycles} with coefficients in $\eA$. The definitions of $Z_n(X,\eA)$ and $B_n(X,\eA)$ are as usual and the \defe{singular homology}{singular!homology with coefficients in $\eA$} with coefficients in $\eA$ is\nomenclature{$H_n(X,\eA)$}{The singular homology of $X$ with coefficients in $\eA$}
+\begin{equation}
+		H_n(X,\eA)=Z_n(X,\eA)/B_n(X,\eA).
+\end{equation}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+					\section{Singular homology}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Let $\eA$ be a unitary commutative ring. In this section, all modules are taken over $\eA$. First we fix a module $M$ that we call the \defe{module of coefficients}{module!of coefficients}. When $N$ is a module, we denote by $\Hom_{\eA}(N,M)$ the module of morphisms from $N$ to $M$. In particular, the module $\Hom_{\eA}(N,\eA)$ is the \defe{dual module}{dual!of a module}\index{module!dual} of $N$. When $f\colon N\to N'$ is a morphism of module, we define $f^t\colon \Hom(N',M)\to \Hom(N,M)$, the module morphism defined by
+\begin{equation}
+		f^t(\phi)=\phi\circ f.
+\end{equation}
+It automatically satisfies 
+\begin{align}
+	\id^t&=\id	&\text{and}&	&(f\circ g)^t=g^t\circ f^t.
+\end{align}
+If we denote by $\catC$ the category of modules over $\eA$, what we just did is to define $\Hom_{\eA}(.,M)$, a contravariant functor from $\catC$ to itself. Indeed, let $N\in\catC$, of course we have $\Hom_{\eA}(N,M)\in\catC$. Now if $N$ and $N'$ are objects of $\catC$, then for every $f\in\hom(N,N')$, we have to define the image of the arrow $f$ by the functor $\Hom_{\eA}(.,M)$. This is $f^t$ which has the right properties given on page \pageref{PgPropFnctConvtra}.
+
+Let now take two modules $N$ and $N'$ and a linear map $\phi\colon N\times N'\to M$. It induces a morphism of module from $N$ to $\Hom_{\eA}(N',M)$ by
+\begin{equation}
+	x\mapsto \phi(x,.).
+\end{equation}
+
+\begin{proposition}
+If
+\[ 
+  \xymatrix{%
+   C \ar[r]^{f}	&	C'\ar[r]^{g}	&C''\ar[r]	&0
+}
+\]
+is an exact sequence of modules, then
+\[ 
+  \xymatrix{%
+   \Hom_{\eA}(C,M)	&\Hom_{\eA}(C',M)\ar[l]_-{f^t}	&\Hom_{\eA}(C'',M)\ar[l]_-{g^t}	&0\ar[l]
+}
+\]
+is an exact sequence of modules. If $f$ is injective, and if $C''$ is a free module, then $f^t$ is surjective.
+\end{proposition}
+\begin{proof}
+No proof.
+\end{proof}
+
+
