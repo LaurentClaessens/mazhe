@@ -16,6 +16,7 @@ from phystricksADUGmRR import ADUGmRR_A,ADUGmRR_B,ADUGmRR_C
 from phystricksTGdUoZR import TGdUoZR
 from phystricksTGdUoZR import AIFsOQO
 from phystricksTGdUoZR import GBnUivi
+from phystricksTGdUoZR import IYAvSvI
 from phystricksFGWjJBX import FGWjJBX
 from phystricksMNICGhR import MNICGhR
 from phystricksMNICGhR import LEJNDxI
@@ -29,7 +30,7 @@ from phystricksDTIYKkP import DTIYKkP
 from phystricksSFdgHdO import SFdgHdO
 
 figures_list=[
-        HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRR_A,ADUGmRR_B,ADUGmRR_C,TGdUoZR,GBnUivi,FGWjJBX,RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO
+        HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRR_A,ADUGmRR_B,ADUGmRR_C,TGdUoZR,GBnUivi,FGWjJBX,RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI
         ]
 
 def AllFigures():
