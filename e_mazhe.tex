@@ -1,88 +1,33 @@
-\documentclass[a4paper]{book} 
-%\documentclass[a4paper,draft]{book} 
+% This is part of Mes notes de mathématique
+% Copyright (c) 2011-2013
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
 
-% The following packages do not work with Arxiv.
-% hypernat
-% cases
-% pst-eucl
-% undertilde
+\documentclass[a4paper,oneside,11pt]{book}
+%\documentclass[a4paper,12pt,draft]{book}
 
-\usepackage{pstricks,pst-node,pst-plot}
-\usepackage{pst-abspos}
-\usepackage{pst-eucl}
-\usepackage{subfigure}
-\usepackage{eso-pic}
-\usepackage{pst-math}
-\usepackage{pstricks-add}
-
-\usepackage{calc}
+\usepackage{etex}
 
 \usepackage{ifthen}
-\usepackage{xstring}
-\usepackage{multicol}
-
-
-\usepackage{graphicx}
+%\usepackage{pdfsync}
 
 \usepackage{latexsym}
 \usepackage{amsfonts}
-\usepackage[reqno]{amsmath}%  [1]
+\usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{amssymb}
-\usepackage{amsopn}         % for \mod
+\usepackage{mathrsfs}           
+\usepackage{mathabx}           % Pour \divides
+\usepackage{bbm}
 
-\usepackage{cases}
-\usepackage{bbm}            % Symbols for the number sets N,Z,Q,H,R,C
-\usepackage{mathrsfs}           % Used for Hilbert spaces, \hH etc.
-
-
-\usepackage[normalem]{ulem}		% Pour le barré, commande \sout
-
-\usepackage[all]{xy}            % http://zoonek2.free.fr/UNIX/11_xypic/
-
-\usepackage[thinqspace,amssymb]{SIunits} 
-\let\Oldcdot\cdot
-\let\cdot\undefined
-\let\Olddegree\degree
-\let\degree\undefined
-\let\Oldsecond\second
-\let\second\undefined
-\let\Oldfourth\fourth
-\let\fourth\undefined
-\usepackage{mathabx}    % for \ldbracket the double-bracket which gives the set of formal power series
-\let\degree\Olddegree
-
-\usepackage{makeidx}
-\usepackage[nottoc]{tocbibind}      % Le paquetage qui fait en sorte que la biblio soit inclue correctement dans la table des matières.
-\usepackage[refpage]{nomencl}
-\renewcommand{\nomname}{List of symbols}
-%
-%   Comment introduire des éléments dans l'index des notations.
-%
-% La liste des tags à mettre pour bien classer mes notations est :
-% A     pour l'algèbre (modules et tout ça)
-% C     pour les C*algèbres et algèbres de Banach et de von Neumann (càd algèbres avec de l'analyse)
-% D     pour la géométrie différentielle
-% F     pour l'analyse fonctionnelle
-% G     pour les groupes et algèbres de Lie
-% O     pour les autres
-%
-% La syntaxe est facile, par exemple $\SL(2,\eR)$\nomenclature[G]{$\SL(2,\eR)$}{Le groupe de matrices deux par deux de déterminant 1.}
-\renewcommand{\nomgroup}[1]{%
-    \ifthenelse{\equal{#1}{A}}{\item[\textbf{Algebra}]}{}%
-    \ifthenelse{\equal{#1}{C}}{\item[\textbf{Banach, von~Neumann and $C^*$-algebras}]}{}%
-    \ifthenelse{\equal{#1}{D}}{\item[\textbf{Differential geometry}]}{}%
-    \ifthenelse{\equal{#1}{F}}{\item[\textbf{Functional analysis}]}{}%
-    \ifthenelse{\equal{#1}{G}}{\item[\textbf{Lie groups and algebras}]}{}%
-    \ifthenelse{\equal{#1}{O}}{\item[\textbf{Others}]}{}%
-    \ifthenelse{\equal{#1}{Q}}{\item[\textbf{Quantum groups}]}{}%
-}
-
-%marvosym est pour le petit sourire; il est incompatible avec AMS pour des double flèches d'implication. La solution est
-\let\OldRightarrow\Rightarrow
-% Cette série de \let\...\undefined, c'est pour résoudre un problème entre mathabx et marvosym
-\let\Sun\undefined
-\let\Moon\undefined
+\usepackage{wrapfig}
+\let\Sun\undefined      
+\let\Moon\undefined      
+\let\Venus\undefined
+\let\Mars\undefined
+\let\Jupiter\undefined
+\let\Saturn\undefined
+\let\Uranus\undefined
 \let\Mercury\undefined
 \let\Venus\undefined
 \let\Mars\undefined
@@ -98,275 +43,120 @@
 \let\Leo\undefined
 \let\Libra\undefined
 \let\Scorpio\undefined
-\usepackage{marvosym} 
-\def\Rightarrow{\OldRightarrow}
+\usepackage{marvosym}
 
-\usepackage{esint}
-\usepackage{verbatim}
-\usepackage{nth}
+\usepackage{pstricks,pst-eucl,pstricks-add,calc,pst-math,catchfile}   % Les dépendances de phystricks.
+\usepackage{color}
+\usepackage{graphicx}                   % Pour l'inclusion d'image en pfd.
+
+\newcommand{\EpsOrPdfincludegraphics}[2][]{%
+        \ifpdf
+            \includegraphics[#1]{#2.png}
+        \else
+            \includegraphics[#1]{#2.eps}
+        \fi
+        }
+
+\usepackage{subfigure}
+
+\usepackage{fancyvrb}
+\usepackage{stmaryrd}       % Pour le \obslash
+\usepackage{xstring}        % Utilisé pour les références vers wikipédia
+\usepackage{cases}
+\usepackage{lscape}         % pour l'environnement landscape, utilisé dans la correction corr0076.tex
+\usepackage{multicol}
+%\usepackage{import}         % Pour le hack qui sert à inclure GeomAnal         %Supprimé le 10 juin 2013
+
+\usepackage[normalem]{ulem}		% Pour le barré, commande \sout
+%\usepackage{soul}		% Pour le barré, commande \st           Celui-ci est enlevé parce que l'autre permet de barrer des é
+
+
+\usepackage{undertilde}
+\usepackage[all]{xy}
+
+\let\second\undefined      % le paquet amthabx définit \second
+\let\degree\undefined       % le paquet amthabx définit \degree
+\usepackage[cdot,thinqspace,amssymb]{SIunits} 
+ % L'option amssymb sert à éviter un conflit avec la commande \square de amssymb. Note qu'elle n'est plus accessible. Si tu en as besoin, faudra RTFM
+%ftp://ftp.belnet.be/packages/ctan/macros/latex/contrib/SIunits/SIunits.pdf
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%   Les lignes magiques pour le texte en anglais.
+%   Trucs mathématiques
 %
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-%\usepackage{ucs}           % Enlevé sous conseil du forum
-%\usepackage[utf8x]{inputenc}       % Remplacé par utf8 simple sous conseil du forum
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-
-\usepackage{textcomp}
-%\usepackage{mathpazo}
-\usepackage{lmodern}
-\usepackage[a4paper,margin=2cm]{geometry}   
-
-
-
-\usepackage[linkcolor=blue,urlcolor=cyan]{hyperref}                  %Doit êre appelé en dernier.
-%\usepackage[linkcolor=blue,urlcolor=cyan]{hyperref}                  %Doit êre appelé en dernier.
-\hypersetup{colorlinks=true,linkcolor=blue}         %Pour enlever toutes les couleurs, ajouter draft=true
-\usepackage[numbers,sort&compress]{natbib}
-\usepackage{hypernat}
-
-%-------Numéotations en tout genre...
-
-%       Ceci était pour faire écrire le numéro de la page dans le référencement d'équations.
-%\let\Oldeqref\eqref
-%\renewcommand{\eqref}[1]{\Oldeqref{#1}-\pageref{#1}}
-
-\setcounter{tocdepth}{4}        % Profondeur de la table des matièes
-\setcounter{secnumdepth}{4}     % Profondeur dans le texte
-
-% La numérotation des équations doit se faire dans le fichier principal pcq elle change avec les appendices.
-
-\newcounter{numtho}[chapter]
-\renewcommand{\thenumtho}{\arabic{chapter}.\arabic{numtho}}
-
-% Ceci est un exemple du LaTeX Companion qui m'a servi pour créer mon style.
-%\newtheoremstyle{ducompa}%
-%       {9pt}{9pt}%
-%       {\itshape}%
-%       {-12pt}%
-%       {\sffamily\bfseries}{:}%
-%       {\newline}%
-%       {}%
-
-\newtheoremstyle{mes_tho}%
-        {9pt}{9pt}%
-        {\itshape}%
-        {}%
-        {\bfseries}{.}%
-        {\newline}%
-        {}%
+% ENSEMBLES DE NOMBRES
+\newcommand{\eA}{\mathbbm{A}}
+\newcommand{\eB}{\mathbbm{B}}
+\newcommand{\eC}{\mathbbm{C}}
+\newcommand{\eD}{\mathbbm{D}}
+\newcommand{\eE}{\mathbbm{E}}
+\newcommand{\eF}{\mathbbm{F}}
+\newcommand{\eG}{\mathbbm{G}}
+\newcommand{\eH}{\mathbbm{H}}
+\newcommand{\eK}{\mathbbm{K}}
+\newcommand{\eL}{\mathbbm{L}}
+\newcommand{\eM}{\mathbbm{M}}
+\newcommand{\eN}{\mathbbm{N}}
+\newcommand{\eP}{\mathbbm{P}}
+\newcommand{\eQ}{\mathbbm{Q}}
+\newcommand{\eR}{\mathbbm{R}}
+\newcommand{\eS}{\mathbbm{S}}
+\newcommand{\eT}{\mathbbm{S}}
+\newcommand{\eZ}{\mathbbm{Z}}
 
 
-\renewcommand*{\labelenumi}{\theenumi}
-\renewcommand*{\theenumi}{(\roman{enumi})}
+% ENSEMBLES de fonctions
+\newcommand{\aL}{\mathcal{L}}       % Les applications linéaires
+\newcommand{\aC}{\mathcal{C}}       % Les fonctions C^1, C^2 etc
+\newcommand{\swS}{\mathscr{S}}          % L'ensemble des fonctions Schwartz
+\newcommand{\swD}{\mathscr{D}}          % L'ensemble des fonctions Cinfinie à support compact.
+\newcommand{\swE}{\mathscr{E}}          % L'espace des fonctions qu'on peut déformer (le grand epsilon)
+                                  % Les espaces de distributions correspondants sont les mêmes avec un prime.
+
+% AUTRES
+\newcommand{\sdS}{\mathcal{S}}      % L'ensemble des subdivisions d'un intervalle.
 
 
-\theoremstyle{remark}
-            \newtheorem{erreur}[numtho]{Error}
+%\newcommand{\schwartz}{\mathcal S} % Espace de Schwartz
 
-% Le style mes_tho est titre en gras sur une ligne et le texte en italique.
-\theoremstyle{mes_tho}  \newtheorem{lemma}[numtho]{Lemma}
-            \newtheorem{theorem}[numtho]{Theorem}
-            \newtheorem{remark}[numtho]{Remark}
-            \newtheorem{corollary}[numtho]{Corollary}
-            \newtheorem{proposition}[numtho]{Proposition}
-            \newtheorem{definition}[numtho]{Definition}
+\newcommand{\TF}{\mathcal{F}} %% Transformée de Fourier.
 
 
-            \newenvironment{example}{\par\vspace{9pt}\noindent\refstepcounter{numtho}{\bf Example \thenumtho.}\newline\noindent}{\hfill$\diamondsuit$\par\vspace{9pt}}
-            %\newtheorem{example}[numtho]{Example}
+\newcommand{\mtu}{\mathbbm{1}}              % La matrice unité
+\newcommand{\caract}{\mathbbm{1}}    % Characteristic function of a set
+
+\DeclareMathOperator{\val}{val}     % valuation d'un polynôme
+\DeclareMathOperator{\res}{res}     % Le résultant de deux polynômes
+\DeclareMathOperator{\Inv}{Inv}     % L'application inverse
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%% Deux environements qui servent à faire des remarques dans le texte.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcounter{numprob}
-\newtheorem{probleme}[numprob]{\fbox{\bf Problem and misunderstanding}}
-%\let\probleme\comment
-% Cette deuxième ligne utilise le paquetage verbatim et sert à transformer d'un coup tous les problèmes en choses invisibles.
+%\newcommand{\efrac}[2]{\frac{ \displaystyle #1 }{\displaystyle #2 }}
+\newcommand{\Ieme}{\up{\lowercase{ième}}\xspace}
 
-\newcommand{\quext}[1]{\footnote{\textsf{#1}}}
-%\newcommand{\quext}[1]{}
-%\newcommand{\quexto}[1]{}
-
-%\newcounter{bparite}
-%\setcounter{bparite}{0}
-%\newcommand{\lolorem}[1]{%     Nom, Description, image
-%   \stepcounter{bparite}
-    %\fbox{(\arabic{bparite})}
-    %\ifnum\thebparite=2 
-    %   {%
-    %   \setcounter{bparite}{0}
-    %   \reversemarginpar
-    %   \leavevmode\marginpar{(2) #1}
-    %   }
-    %\else 
-    %   {%
-    %   \normalmarginpar
-    %   \leavevmode\marginpar{(1) #1}\par
-    %   }\fi
- %}
-%\reversemarginpar
+% POUR MAZHE
 
 
-\newenvironment{note}{\bgroup\LARGE}{\egroup}
-
-% Le premier argument est optionel, c'est pour ajouter un [math.QA] par exemple pour la nouvelle numérotation de arXiv. Comme tu le vois, la valeur par défaut est vide.
-\newcommand{\arxiv}[2][]{%
-\newline
-\ifthenelse{\equal{#1}{}}{%                     Tester si un argument optionnel est passé ou non.
-    \href{http://arxiv.org/abs/#2}{{\tt arXiv:#2}}%     Si tu ne mets pas ce %, il y a un problème d'espace.
-            }
-            {%
-    \href{http://arxiv.org/abs/#2}{{\tt arXiv:#2}[#1]}%     Si tu ne mets pas ce %, il y a un problème d'espace.
-}%                                  Ce %-ci aussi est indispensable pour un espace à éviter avant le . ajouté par bibtex.
-}               % Fin de la commande \arxiv
-
-% -- L'environement suivant est taxé de la classe article.cls, sauf que j'ai enlevé la possibilité que ce soit sur une page de titre.
-\newcommand\abstractname{Abstract}
-\makeatletter
-  \newenvironment{abstract}{%
-      \if@twocolumn
-        \section*{\abstractname}%
-      \else
-        \small
-        \begin{center}%
-          {\bfseries \abstractname\vspace{-.5em}\vspace{\z@}}%
-        \end{center}%
-        \quotation
-      \fi}
-      {\if@twocolumn\else\endquotation\fi}
-\makeatother
-
-\newcounter{bidon}
-\newcounter{fin_tho}
-%\Numérotation des théorèmes, remarques --------
-
-%----------Constructions courantes
-\newcommand{\defe}[2]{\textbf{#1}\index{#2}}
+\newcommand{\catC}{\mathscr{C}}     % \catX is for the categories
+\newcommand{\catD}{\mathscr{D}}     
+\newcommand{\catM}{\mathscr{M}}     
+\newcommand{\oB}{\mathfrak{B}}          % The space of bounded operators
+\newcommand{\oK}{\mathcal{K}}           % L'espace des opérateurs compacts
+\newcommand{\oL}{\mathscr{L}}           % Le L pour l'idéal de Schatten-von Neumann. Cela est aussi l'ensemble des opérateurs linéaires sur des espaces vectoriels.
+\newcommand{\oP}{\mathscr{P}}           % Le P est pour l'ensemble des projections dans une algèbre de VN.
+\DeclareMathOperator{\Ob}{Ob}           % The ``set'' of object of a category
 
 
-% The following uses xstring in order to replace specific characters by %xx codes.
-% See the table http://www.utf8-chartable.de/
-\newcommand{\MakeUTFPerCent}[1]{% 
-   \StrSubstitute{#1}({\%28}[\result]% 
-   \expandafter\StrSubstitute\expandafter{\result}){\%29}[\result]% 
-   \expandafter\StrSubstitute\expandafter{\result}{à}{\%C3\%A0}[\result]% 
-   \expandafter\StrSubstitute\expandafter{\result}{â}{\%C3\%A2}[\result]% 
-   \expandafter\StrSubstitute\expandafter{\result}{ç}{\%C3\%A7}[\result]% 
-   \expandafter\StrSubstitute\expandafter{\result}{è}{\%C3\%A8}[\result]% 
-   \expandafter\StrSubstitute\expandafter{\result}{é}{\%C3\%A9}[\result]% 
-   \expandafter\StrSubstitute\expandafter{\result}{ê}{\%C3\%AA}[\result]% 
-   \expandafter\StrSubstitute\expandafter{\result}{ù}{\%C3\%B9}[\result]% 
-   \expandafter\StrSubstitute\expandafter{\result}{û}{\%C3\%BB}[\result]% 
-   %\expandafter\StrSubstitute\expandafter{\result}_{\_}[\result]% 
-} 
-%------------------------
-% Links to wikipedia.
-%------------------------
-% Typical use is
-% \wikipedia{fr}{Norme_(mathématiques)}{Norme}
-% It creates the link \href to the right page on wikipedia, replacing  (,) and é by their respective %xx codes.
-\newcommand{\wikipedia}[3]{% 
-   \saveexpandmode\noexpandarg 
-   \MakeUTFPerCent{#2}% 
-   \restoreexpandmode 
-   \href{http://#1.wikipedia.org/wiki/\result}{#3}% 
-} 
-
-% See https://gitorious.org/exocorr
-
-
-\newcommand{\us}[1]{\frac{1}{#1}}
-\newcommand{\dsd}[2]{\frac{\partial #1}{\partial #2}}
-\newcommand{\me}[1]{(-1)^{#1}}
-\newcommand{\xdp}[2]{#1\to #2}
-\newcommand{\brak}[2]{\langle #1,#2\rangle}
-\newcommand{\dsdd}[3]{\left.\frac{d}{d#2}#1\right|_{#2=#3}}
-\newcommand{\Dsddb}[4]{\frac{d}{d#2}\Big[#1\Big]_{#3=#4}}
-\newcommand{\Dsdd}[3]{ \Dsddb{#1}{#2}{#2}{#3}   }
-\newcommand{\Dsddc}[3]{\frac{d}{d#2}\Big(#1\Big)_{#2=#3}}
-\newcommand{\Dsddp}[3]{\frac{d}{d#2}\Big(#1\Big)_{#2=#3}}
-%\newcommand{DDsdd}[5]{\frac{ d }{ d#2 }\frac{ d }{ d#3 }\left[  #1  \right]_{\substack{#2=#4\\#3=#5}}}
-
-% Pour faire une double dérivation, il faut utiliser
-% \DDsdd{ <expression> }{t}{0}{s}{0}
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%% Quelque intégrales particulières
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%--------------Constructions expérimentales
-
-%\Constructions expérimentales--------------
-
-%Constructions peu courantes-----------
-
-
-
-
-%\newcommand{\dixref}[1]{[Dixmier {\bf (#1)}] \addcontentsline{toc}{subsubsection}{Dixmier #1} }
-%\newcommand{\lref}[1]{[Landsman \underline{#1}] \addcontentsline{toc}{subsubsection}{Landsman #1} }
-
-
-%\newcommand{\suminf}[1]{\sum_{#1=0}^{\infty}}
-
-%\newcommand{\mue}[1]{(-1)^{#1}}
-%\newcommand{\muep}{(-1)^p}
-%\Constructions peu courantes-----------
-
-
-% -------- Les choses qui viennent de phyze
-
-
-% Pour pstProjection
-% 1 et 2 définissent une droite
-% 3 est un point
-% 4 est la projection orthogonale de ce point sur le droite
-\newcommand{\pstProjectionOrth}[4]{%
-\psset{PointSymbol=none, PointName=none}
-\pstRotation[RotAngle=90]{#1}{#2}[PrInter]
-\pstTranslation{#1}{PrInter}{#3}[PrInter2]
-\pstInterLL{#1}{#2}{#3}{PrInter2}{#4}
-}
-
-% La macro \pstMarquePoint prend les arguments suivants :
-% - 1 est optionnel : il donne le style de point qui va arriver
-% - 2 est le point (au sens pstrick) qui doit être marqué
-% - 3 est la position où va se trouver la marque par rapport au point pstrick. Typiquement c'est (0.3;90) en coordonnées polaires
-% - 4 est ce qu'on va y noter
-\newcommand{\pstMarquePoint}[4][PointSymbol=none]{%
-\rput(#2){\rput(#3){#4}}                % Mettre le symbole du point là où il doit être
-\pstGeonode[#1](#2){mpinter}                % Cette ligne fait apparaître un point à l'endroit que l'on marque.
-                        %   étant donné le \psset{PointSymbol=none} dans lequel toutes les figures se trouvent,
-                        %   ceci ne fait pas grand chose si on ne donne pas à \pstMarquePoint l'argument optionnel
-                        %   du type PointSymbol=* par exemple.
-}
-
-%\Constructions d'un besoin passager-----------
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%% Délaration des opéateurs
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% Les groupes et algèbres usuels
+\newcommand{\dpt}[3]{#1\colon #2\to #3}
+\newcommand{\subdem}[1]{\par\noindent {\it #1.} }       % TODO : use subproof instead
 
 \newcommand{\slim}{\mathrm{s\lim}}
 \newcommand{\uwlim}{\mathrm{uw\lim}}
 
 \DeclareMathOperator{\rDi}{Di}
 \DeclareMathOperator{\rRac}{Rac}
-\DeclareMathOperator{\SU}{SU}
-\DeclareMathOperator{\GL}{GL}
+%\DeclareMathOperator{\GL}{GL}
 \newcommand{\sod}{\mathfrak{so}(2)}
 \newcommand{\SOdn}{\SO(2,n)}
 \newcommand{\sodn}{  {\mathfrak{so}}(2,n)   }
@@ -381,13 +171,8 @@
 \newcommand{\Sopq}{\SO(p,q)}
 \newcommand{\sopq}{\mathfrak{so}(p,q)}
 \newcommand{\gl}{\mathfrak{gl}}
-\DeclareMathOperator{\SL}{SL}
-\DeclareMathOperator{\SO}{SO}           
 \DeclareMathOperator{\SP}{SP}           
-\DeclareMathOperator{\gU}{U}            
-\DeclareMathOperator{\gO}{O}            % On mets un g devant les groupes dont le nom est juste une lettre, ou est ambigu.
 \DeclareMathOperator{\Conf}{Conf}   
-\DeclareMathOperator{\diag}{diag}   
 \DeclareMathOperator{\gsl}{\mathfrak{sl}}
 \DeclareMathOperator{\go}{\mathfrak{o}}
 \DeclareMathOperator{\gsu}{\mathfrak{su}}
@@ -407,120 +192,1409 @@
 \DeclareMathOperator{\gpAff}{Aff}
 \DeclareMathOperator{\Vect}{Vect}
 \DeclareMathOperator{\gpSymp}{Symp}
-\DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\horsp}{hor}
-\DeclareMathOperator{\dom}{dom}
 \DeclareMathOperator{\Dim}{Dim}
-\DeclareMathOperator{\Reel}{Re}     
-\DeclareMathOperator{\Imag}{Im}         % Ne pas confondre \Imag qui donne la partie imaginaire  ...
-\DeclareMathOperator{\Image}{Im}        % ... avec \Image qui donne l'image d'une fonction ou d'un opérateur.
-\DeclareMathOperator{\Kernel}{Ker}
-\DeclareMathOperator{\Domain}{Dom}      % Domaine of an operator
 \DeclareMathOperator{\Harm}{Harm}       % The space of harmonic forms
 \DeclareMathOperator{\Sign}{Sign}       % The sign function.
 \DeclareMathOperator{\Rank}{Rank}
 \DeclareMathOperator{\Res}{Res}
 \DeclareMathOperator{\ResW}{\Res_W}
-\DeclareMathOperator{\pr}{\texttt{pr}}
-\DeclareMathOperator{\tr}{Tr}
-\DeclareMathOperator{\Fun}{\texttt{Fun}}
-\DeclareMathOperator{\sgrad}{sgrad}
-\DeclareMathOperator{\Stab}{\texttt{Stab}}
+\DeclareMathOperator{\sgrad}{sgrad}     % symplectic gradient
 \DeclareMathOperator{\stab}{\mathfrak{Stab}}
 \DeclareMathOperator{\ad}{ad}
 \DeclareMathOperator{\Ad}{Ad}
 \DeclareMathOperator{\AD}{\textbf{Ad}}
 \DeclareMathOperator{\Der}{\texttt{Der}}
-\DeclareMathOperator{\Aut}{Aut}
-\DeclareMathOperator{\Spec}{Spec}
 \DeclareMathOperator{\Inn}{Inn}
 \DeclareMathOperator{\Out}{Out}
 \DeclareMathOperator{\Diff}{Diff}
 \DeclareMathOperator{\biDiff}{bi-Diff}
-\DeclareMathOperator{\Span}{Span}
 \DeclareMathOperator{\Hol}{Hol}
-\DeclareMathOperator{\Iso}{\texttt{Iso}}
 \DeclareMathOperator{\Ray}{Ray}
-\DeclareMathOperator{\Int}{Int}
 \DeclareMathOperator{\Adh}{Adh}
 \DeclareMathOperator{\mfsp}{\mathfrak{sp}}
 \DeclareMathOperator{\Fr}{Fr}
 \DeclareMathOperator{\Rad}{Rad}
-\DeclareMathOperator{\End}{End}
-\DeclareMathOperator{\Ind}{Ind}
-\DeclareMathOperator{\id}{id}
 \DeclareMathOperator{\niv}{Level}
 \DeclareMathOperator{\Supp}{Supp}
 \DeclareMathOperator{\sech}{sech}
-\DeclareMathOperator{\arcsinh}{arcsh}
 \DeclareMathOperator{\Pol}{Pol}
 \DeclareMathOperator{\Prim}{Prim}
 \DeclareMathOperator{\Trans}{Trans}
 \DeclareMathOperator{\Verm}{Verm}       % Pour le module de Verma
 \DeclareMathOperator{\Irr}{Irr}
 \DeclareMathOperator{\vol}{Vol}
-\DeclareMathOperator{\Ob}{Ob}           % The ``set'' of object of a category
 \DeclareMathOperator{\Op}{Op}           % Le truc de la quantification de Weyl
 
-%\Déclaration des opérateurs---------------
+\newcommand{\ecarts}{ecarts}
+\newcommand{\angl}{\quext{Anglais ?}}
+\newcommand{\intr}[1]{\mathaccent 23 {#1}}
+\newcommand{\UU}{\intr{U}}
+%TODO : supprimer ces commandes.
+\newcommand{\dref}[1]{}
+\newcommand{\dixref}[1]{}
+\newcommand{\lref}[1]{} 
+\newcommand{\leref}[1]{[Landsman {(#1)}]}
+\newcommand{\lsref}[1]{[Landsman {\bf #1}]}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%% Extension de l'alphabet grec
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\ecart}{ecart} % quand tu trouveras une meilleure traduction...
 
-%\Alphabets math-----------------
+%--------- Alphabets math
 
-%------------Les ensembles
+\newcommand{\mfa}{\mathfrak{a}}
+\newcommand{\mfb}{\mathfrak{b}}
+\newcommand{\mfg}{\mathfrak{g}}
+\newcommand{\mfs}{\mathfrak{s}}
+\newcommand{\mfM}{\mathfrak{M}}
 
-\newcommand{\eA}{\mathbbm{A}}
-\newcommand{\eB}{\mathbbm{B}}
-\newcommand{\eC}{\mathbbm{C}}
-\newcommand{\eE}{\mathbbm{E}}
-\newcommand{\eH}{\mathbbm{H}}
-\newcommand{\eK}{\mathbbm{K}}           % Number sets. It uses the package bbm
-\newcommand{\eM}{\mathbbm{M}}
-\newcommand{\eN}{\mathbbm{N}}
-\newcommand{\eP}{\mathbbm{P}}
-\newcommand{\eQ}{\mathbbm{Q}}
-\newcommand{\eR}{\mathbbm{R}}
-\newcommand{\eT}{\mathbbm{T}}
-\newcommand{\eZ}{\mathbbm{Z}}
+\newcommand{\scrC}{\mathscr{C}}
+\newcommand{\scrD}{\mathscr{D}}         %Demande le paquetage mathrsfs.
+\newcommand{\scrE}{\mathscr{E}}
+\newcommand{\scrM}{\mathscr{M}}
+\newcommand{\scrS}{\mathscr{S}}
+\newcommand{\hS}{\mathscr{S}}           % C'est lui qui donne la singularité
+\newcommand{\hF}{\mathscr{F}}           % \hF donne la partie libre de l'espace
 
+\newcommand{\cA}{\mathfrak{A}}          % Pour les C^* algebres; comme ça je peux choisir.
+\newcommand{\cB}{\mathcal{B}}           % Le mathfrak{B} est pour l'ensemble des operateurs bornés.
+\newcommand{\cun}{\mtu}             % L'unite dans les $C^*$-algèbres.
+\newcommand{\cI}{\mathfrak{I}}
 
-\newcommand{\catC}{\mathscr{C}}     % \catX is for the categories
-\newcommand{\catD}{\mathscr{D}}     
-\newcommand{\catM}{\mathscr{M}}     
-
-
-\newcommand{\mtu}{\mathbbm{1}}              % Unit matrix
-
-%\Les ensembles-----------
-
-% Des commandes définies dans extradef.tex qui est une dépendance du manuel d'utilisation de AmSLaTeX.
-% elles peuvent être trouvées à http://www.uic.edu/depts/accc/software/tex/miscfiles/
-\def\LaTeX{\protect\pLaTeX}
-\def\pLaTeX{{\rm L\kern-.36em\raise.3ex\hbox{\the\scriptfont0 A}\kern-.15em
-    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
-\def\amslatex/{\AmS-\LaTeX{}}
-
-% Pour le d de sigurdur dans le bibtex
-\def\dbar{\leavevmode\hbox to 0pt{\hskip.2ex
-  \accent"16\hss}d}
-
-% The macro \mapdp is no more used
-%\newcommand{\mapdp}[5]{%
-%                       \begin{equation}\begin{aligned}
-%                           #1\,:\,#2&\to #3\\
-%                                  #4&\mapsto #5
-%                        \end{aligned}\end{equation}
-%                        }
+\newcommand{\Cinf}{C^{\infty}}
+\newcommand{\vnM}{\mathfrak{M}}         % Le M des algèbres de von Neumann
 
 
-% The macro \mapdpe is no more used
-%\newcommand{\mapdpe}[5]{%
-%                       \begin{equation}\begin{aligned}
-%                           #1\,:\,#2&\to #3\\
-%                                  #4&= #5
-%                        \end{aligned}\end{equation}
-%                        }
+%\newcommand{\bmodE}{\mathcal{\bar E}}      % Pour le module conjugué
+\newcommand{\modM}{\mathfrak{M}}    
+\newcommand{\modN}{\mathfrak{N}}    
 
+
+\newcommand{\pH}{\mathscr{H}}           % L'espace de Hilbert pour la physique
+\newcommand{\rR}{\mathcal{R}}           % Les \r? sont les lettres pour les rayons de l'espace de Hilbert.
+\newcommand{\rC}{\mathcal{C}}
+
+\newcommand{\cdA}{\mathscr{A}}
+\newcommand{\cdE}{\mathscr{E}}          % Les ensembles de fonctions continuement d\'erivables
+\newcommand{\cdD}{\mathscr{D}}          % L'ensemble des fonctions à support compact.
+
+%-------Overline,underline, hat,tilde
+\newcommand{\uw}{\underline{w}}
+\newcommand{\uv}{\underline{v}}
+\newcommand{\uW}{\underline{W}}
+\newcommand{\uvH}{\underline{H}}
+\newcommand{\ovH}{\overline{H}}
+\newcommand{\ovN}{\overline{N}}
+\newcommand{\ovx}{\overline{x}}
+\newcommand{\ovy}{\overline{y}}
+\newcommand{\ovj}{\overline{j}}
+\newcommand{\ova}{\overline{a}}
+\newcommand{\os}{\overline{s}}
+\newcommand{\oJ}{\overline{J}}
+\newcommand{\oX}{\overline{X}}
+\newcommand{\oY}{\overline{Y}}
+\newcommand{\ovR}{\overline{R}}
+\newcommand{\olG}{\overline{\lG}}
+\newcommand{\olR}{\overline{\lR}}
+\newcommand{\olS}{\overline{\lS}}
+
+\newcommand{\uG}{\underline{G}}
+\newcommand{\uX}{\underline{X}}
+\newcommand{\uAN}{\underline{AN}}
+
+\newcommand{\oui}{\overline{1}_i}
+\newcommand{\oalpha}{\overline{\alpha}}
+\newcommand{\obeta}{\overline{\beta}}
+\newcommand{\oeta}{\overline{\eta}}
+\newcommand{\oxi}{\overline{\xi}}
+\newcommand{\ogamma}{\overline{\gamma}}
+\newcommand{\odelta}{\overline{\delta}}
+\newcommand{\tA}{\widetilde{A}}
+\newcommand{\tK}{\widetilde{K}}
+\newcommand{\tN}{\widetilde{N}}
+\newcommand{\tR}{\widetilde{R}}
+\newcommand{\tilr}{\widetilde{r}}
+\newcommand{\tx}{\tilde{x}}
+\newcommand{\ty}{\tilde{y}}
+\newcommand{\tE}{\tilde{E}}
+\newcommand{\tF}{\tilde{F}}
+\newcommand{\tH}{\tilde{H}}
+\newcommand{\tX}{\tilde{X}}
+\newcommand{\tY}{\tilde{Y}}
+\newcommand{\utX}{\underline{X}}                %Il faut encore trouver comment sousligner avec un tilde.
+\newcommand{\utE}{\underline{E}}
+\newcommand{\utH}{\underline{H}}
+\newcommand{\talpha}{\tilde{\alpha}}
+\newcommand{\tomega}{\tilde{\omega}}
+\newcommand{\tgamma}{\tilde{\gamma}}
+\newcommand{\tnab}{\widetilde{\nabla}}
+\newcommand{\expotilde}{\widetilde{\hphantom{X}}}       % Waiting to know how to create a suitable tilde in twists_general.tex
+
+\newcommand{\hpsi}{\hat{\psi}}
+\newcommand{\ha}{\hat{a}}
+\newcommand{\hg}{\hat{g}}
+%\newcommand{\hs}{\hat{s}}
+\newcommand{\hu}{\hat{u}}
+\newcommand{\hv}{\hat{v}}
+\newcommand{\hw}{\hat{w}}
+\newcommand{\hx}{\hat{x}}
+\newcommand{\hy}{\hat{y}}
+\newcommand{\hB}{\hat{B}}
+\newcommand{\hX}{\hat{X}}
+\newcommand{\hY}{\hat{Y}}
+%\Overline,underline, hat,tilde----------
+
+%------Produits star
+\newcommand{\stG}{\star^{G}}
+\newcommand{\stW}{\star^{W}}
+\newcommand{\stWt}{\star^{W}_{\theta}}
+\newcommand{\stWh}{\star^{W}_{\hbar}}
+\newcommand{\stX}{\star^{X}}
+\newcommand{\stM}{\ast_M}
+\newcommand{\stt}{\star_{\theta}}
+%\newcommand{\st}{\ast}
+%\Produits star-------------
+\newcommand{\us}[1]{\frac{1}{#1}}
+\newcommand{\dsd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\me}[1]{(-1)^{#1}}
+\newcommand{\xdp}[2]{#1\to #2}
+\newcommand{\brak}[2]{\langle #1,#2\rangle}
+\newcommand{\dsdd}[3]{\left.\frac{d}{d#2}#1\right|_{#2=#3}}
+\newcommand{\Dsddb}[4]{\frac{d}{d#2}\Big[#1\Big]_{#3=#4}}
+\newcommand{\Dsdd}[3]{ \Dsddb{#1}{#2}{#2}{#3}   }
+\newcommand{\Dsddc}[3]{\frac{d}{d#2}\Big(#1\Big)_{#2=#3}}
+\newcommand{\Dsddp}[3]{\frac{d}{d#2}\Big(#1\Big)_{#2=#3}}
+
+\newcommand{\DDsdd}[5]{\frac{d}{d#2}\frac{d}{d#4}
+           \Big[#1\Big]_{ \begin{subarray}{l}#4=#5\\#2=#3\end{subarray} }}
+
+\newcommand{\mfo}{\vartheta}
+
+\newcommand{\hbeta}{^{\beta}}
+\newcommand{\hkappa}{^{\kappa}}
+\newcommand{\bgamma}{_{\gamma}}
+\newcommand{\bdelta}{_{\delta}}
+\newcommand{\hmu}{^{\mu}}
+\newcommand{\hnu}{^{\nu}}
+\newcommand{\bab}{_{\alpha\beta}}
+
+\newcommand{\heta}{^{\eta}}
+\newcommand{\bxi}{_{\xi}}
+\newcommand{\hsigma}{^{\sigma}}
+
+%Extension de l'alphabet grec------------
+
+
+\newcommand{\lA}{\mathfrak{a}}
+\newcommand{\lB}{\mathfrak{b}}
+\newcommand{\lF}{\mathfrak{f}}
+\newcommand{\lG}{\mathfrak{g}}      % Pour les algèbes de Lie en geneal; comme ça je peux choisir,  
+\newcommand{\lH}{\mathfrak{h}}      % mais le mal du \mG est déjà loin !
+\newcommand{\lI}{\mathfrak{i}}
+\newcommand{\lJ}{\mathfrak{j}}
+\newcommand{\lK}{\mathfrak{k}}
+\newcommand{\lL}{\mathfrak{L}}
+\newcommand{\lM}{\mathfrak{m}}
+\newcommand{\lN}{\mathfrak{n}}
+\newcommand{\lP}{\mathfrak{p}}
+\newcommand{\lQ}{\mathfrak{q}}
+\newcommand{\lR}{\mathfrak{r}}
+\newcommand{\lS}{\mathfrak{s}}
+\newcommand{\lU}{\mathfrak{u}}
+\newcommand{\lX}{\mathfrak{x}}
+\newcommand{\lZ}{\mathfrak{z}}
+
+\newcommand{\lW}{\mathcal{W}}
+
+\newcommand{\iA}{\mathcal{A}}
+\newcommand{\iK}{\mathcal{K}}
+\newcommand{\iN}{\mathcal{N}}           % Pour les éléments de décomposition d'Iwasawa
+\newcommand{\iP}{\mathcal{P}}
+\newcommand{\iR}{\mathcal{R}}
+\newcommand{\iAH}{\mathcal{A_H}}
+\newcommand{\iKH}{\mathcal{K_H}}
+\newcommand{\iKQ}{\iK_{\sQ}}
+\newcommand{\iNH}{\mathcal{N_H}}
+\newcommand{\iPH}{\mathcal{P_H}}
+\newcommand{\iRH}{\mathcal{R_H}}
+
+\newcommand{\curR}{\mathrm{R}}      % La courbure scalaire d'un triple spectral
+
+\newcommand{\SUR}{\mathrm{R}}
+\newcommand{\SUA}{\mathrm{A}}       % les SUx sont pour les parties de SU(1,n).
+\newcommand{\SUN}{\mathrm{N}}
+
+\newcommand{\suqA}{\mathcal{A}}   % The algebra of SU_q(n)
+
+\newcommand{\sA}{\mathcal{A}}
+\newcommand{\sG}{\mathcal{G}}
+\newcommand{\sH}{\mathcal{H}}           % Pour les morceaux de SO(2,n) et SO(1,n)
+\newcommand{\sK}{\mathcal{K}}           % En fait, les morceaux de AdS_l par Iwasawa vont aussi êres notes avec des \sX
+\newcommand{\sN}{\mathcal{N}}
+\newcommand{\sP}{\mathcal{P}}
+\newcommand{\sQ}{\mathcal{Q}}
+\newcommand{\sR}{\mathcal{R}}
+\newcommand{\sS}{\mathcal{S}}
+\newcommand{\sZ}{\mathcal{Z}}
+
+\newcommand{\etS}{\mathcal{S}}      % L'ensemble des etats sur une $C^*$-algebre. 
+\newcommand{\etP}{\mathcal{P}}      % Les états purs
+
+\newcommand{\tsA}{\widetilde{\mathcal{A}}}
+\newcommand{\tsN}{\widetilde{\mathcal{N}}}
+\newcommand{\tsR}{\widetilde{\mathcal{R}}}
+
+\newcommand{\ovf}{\overline{ f }}
+\newcommand{\cvec}{\mathfrak{X}}
+\newcommand{\Wedge}{\bigwedge}  
+\newcommand{\LogOu}{\vee}
+\newcommand{\LogEt}{\wedge}
+\newcommand{\cuppr}{\sharp}     % En attendant de trouver mieux.
+\newcommand{\svec}{\mathcal{B}}     % Les vecteurs C^{\infty} d'une action
+\newcommand{\Dir}{\mathcal{D}}
+
+\newcommand{\yG}{\mathcal{G}}  % L'algèbre de Lie dans le truc sur YM
+
+%---------Constructions d'un besoin passager
+
+\newcommand{\nomscript}[1]{\emph{#1}}
+\newcommand{\dtau}{\partial_{\tau}}
+\newcommand{\du}{\partial_{u}}
+\newcommand{\dphi}{\partial_{\phi}}
+\newcommand{\frZ}[2]{   \frac{2(#1,#2)}{(#1,#1)}     }
+\newcommand{\heC}{^{\eC}}
+\newcommand{\beC}{_{\eC}}
+\newcommand{\beR}{_{\eR}}
+\newcommand{\heR}{^{\eR}}
+\newcommand{\blF}{_{\lF}}
+\newcommand{\etalH}{\eta_{\lH}}
+\newcommand{\lHeR}{\lH_{\eR}}
+\newcommand{\lGeR}{\lG_{\eR}}
+\newcommand{\lFeC}{\lF^{\eC}}
+\newcommand{\lGeC}{\lG^{\eC}}
+\newcommand{\lHeC}{\lH^{\eC}}
+\newcommand{\lbha}{\beta^{\alpha}}
+\newcommand{\lbba}{\beta_{\alpha}}
+\newcommand{\aba}{a_{\alpha}}
+\newcommand{\abb}{a_{\beta}}
+\newcommand{\abg}{a_{\gamma}}
+\newcommand{\abd}{a_{\delta}}
+\newcommand{\abmb}{a_{-\beta}}
+\newcommand{\abmg}{a_{-\gamma}}
+\newcommand{\abmd}{a_{-\delta}}
+\newcommand{\abab}{a_{\alpha+\beta}}
+\newcommand{\abma}{a_{-\alpha}}
+\newcommand{\abmr}{a_{-\rho}}
+\newcommand{\abr}{a_{\rho}}
+\newcommand{\abbp}{a_{\beta'}}
+\newcommand{\xbg}{x_{\gamma}}
+\newcommand{\xbd}{x_{\delta}}
+\newcommand{\hbb}{h_{\beta}}
+\newcommand{\xbma}{x_{-\alpha}}
+\newcommand{\xbb}{x_{\beta}}
+\newcommand{\xbmb}{x_{-\beta}}
+\newcommand{\xbmab}{x_{\alpha-\beta}}
+\newcommand{\xbmamb}{x_{-\alpha-\beta}}
+\newcommand{\rmg}[1]{ \big( \rho(#1)-\gamma(#1) \big) }
+\newcommand{\lRlR}{[\lR,\lR]}
+\newcommand{\cloi}{\overline{i}}
+\newcommand{\cloj}{\overline{j}}
+\newcommand{\cloip}{\overline{i'}}
+\newcommand{\dD}{\scrD}
+
+\newcommand{\AutA}{\Aut(\lA)}
+\newcommand{\IntA}{\Int(\lA)}
+\newcommand{\AutB}{\Aut(\lB)}
+\newcommand{\IntB}{\Int(\lB)}
+\newcommand{\RM}{\pr_{\sQ}\sR}
+\newcommand{\Oexp}[3]{ \Omega_2\Big(  e^{\ad#1}#2,e^{\ad#1}#3  \Big)  }
+\newcommand{\Xrnz}{X\times(\eR^N\setminus\{o\})}
+\newcommand{\DxaDxb}{D_x^{\alpha} D\bxi\hbeta}
+\newcommand{\abxi}{|\xi|}
+\newcommand{\baz}[2]{\{#1e_i\}_{#2}}
+\newcommand{\decompss}[3]{%
+\begin{equation}
+\begin{split}  
+\mfs_1&=\{#1\}\\
+\mfs_2&=\{#2\}#3
+\end{split}  
+\end{equation}
+}
+\newcommand{\delE}[2]{\delta_{#1}E_{#2}}
+\newcommand{\dcr}[1]{[[#1]]}
+\newcommand{\dga}[2]{\gamma_{#1}\gamma_{#2}}
+\newcommand{\tga}[3]{\gamma_{#1}\gamma_{#2}\gamma_{#3}}
+\newcommand{\qga}[4]{\gamma_{#1}\gamma_{#2}\gamma_{#3}\gamma_{#4}}
+\newcommand{\rhoM}{\rho^M}
+\newcommand{\hperp}{^{\perp}}
+   % Mes produits scalaires                 % Je crois que je vais unifier sous \braket pour le produit < x | y > et sous \scal pour < x , y >.
+\newcommand{\braket}[2]{ \langle #1|#2\rangle }
+\newcommand{\ket}[1]{ | #1\rangle }
+\newcommand{\bra}[1]{ \langle #1| }
+\newcommand{\scalp}[2]{  (#1|#2) }
+\newcommand{\scald}[2]{ \scal{#1}{#2} }
+\newcommand{\scalh}[2]{ \braket{#1}{#2} }
+\newcommand{\ketbra}[2]{|#1\rangle\,\langle #2|}
+
+
+\newcommand{\dptvb}[3]{#1\stackrel{#2}{\longrightarrow}#3}
+\newcommand{\ovv}{\overline{v}}
+\newcommand{\ovX}{\overline{X}}
+\newcommand{\ovS}{\overline{S}}
+
+\newcommand{\bghd}[3]{#1_{#2}^{\phantom{#2}#3}}
+
+% These commands were \mathbf instead of overline but I have the ``Too many math alphabets used in version normal`` error.
+\newcommand{\bE}{\overline{ E }}       
+\newcommand{\bA}{\overline{ A }}
+\newcommand{\bB}{\overline{ B }}
+\newcommand{\BX}{\overline{ X }}
+
+\newcommand{\gab}{g_{\alpha\beta}}
+\newcommand{\sbeta}{\sigma_{\beta}}
+\newcommand{\salpha}{\sigma_{\alpha}}
+
+\newcommand{\quextproj}{\quext{In project\ldots}}
+%\newcommand{\tb}{\tilde{b}}
+\newcommand{\gamsai}{\gamma_{\alpha j}}
+\newcommand{\bsa}{{}_{(\alpha)}{}}
+\newcommand{\gamaj}{\gamma_{\alpha j}}
+\newcommand{\gamai}{\gamma_{\alpha i}}
+\newcommand{\psisa}{\psi\bsa}  
+\newcommand{\opK}{\mathfrak{K}}     % Compact operators
+\newcommand{\opB}{\mathfrak{B}}     % Bounded operators
+\newcommand{\invtible}{^{\times}}   % Cette commande est en attendant de trouver un symbole plus spécifique à mettre sur les ensembles pour désigner leur partir inversible.
+\newcommand{\osint}{\widetilde{\int}}
+\newcommand{\Lie}[1]{\mathfrak{Lie}(#1)}
+\newcommand{\quexto}[1]{ \footnote{\textsf{#1}}  }
+\newcommand{\qvect}[4]{(#1,#2,#3,#4)}
+\newcommand{\osiint}{\widetilde{\iint}}
+\newcommand{\osiiint}{\widetilde{\iiint}}
+% La commande suivante est tirée de symbols-letter.pdf pour écrire une intégrale avec une barre dedans
+\def\Xint#1{\mathchoice
+   {\XXint\displaystyle\textstyle{#1}}%
+   {\XXint\textstyle\scriptstyle{#1}}%
+   {\XXint\scriptstyle\scriptscriptstyle{#1}}%
+   {\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+   \!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$}
+     \vcenter{\hbox{$#2#3$}}\kern-.5\wd0}}
+\newcommand{\ddashint}{\Xint=}
+\newcommand{\dashint}{\Xint-}
+
+
+% Le premier argument est optionel, c'est pour ajouter un [math.QA] par exemple pour la nouvelle numérotation de arXiv. Comme tu le vois, la valeur par défaut est vide.
+\newcommand{\arxiv}[2][]{%
+\newline
+\ifthenelse{\equal{#1}{}}{%                     Tester si un argument optionnel est passé ou non.
+    \href{http://arxiv.org/abs/#2}{{\tt arXiv:#2}}%     Si tu ne mets pas ce %, il y a un problème d'espace.
+            }
+            {%
+    \href{http://arxiv.org/abs/#2}{{\tt arXiv:#2}[#1]}%     Si tu ne mets pas ce %, il y a un problème d'espace.
+}%                                  Ce %-ci aussi est indispensable pour un espace à éviter avant le . ajouté par bibtex.
+}               % Fin de la commande \arxiv
+
+
+% -- L'environement suivant est taxé de la classe article.cls, sauf que j'ai enlevé la possibilité que ce soit sur une page de titre.
+\newcommand\abstractname{Abstract}
+\makeatletter
+  \newenvironment{abstract}{%
+      \if@twocolumn
+        \section*{\abstractname}%
+      \else
+        \small
+        \begin{center}%
+          {\bfseries \abstractname\vspace{-.5em}\vspace{\z@}}%
+        \end{center}%
+        \quotation
+      \fi}
+      {\if@twocolumn\else\endquotation\fi}
+\makeatother
+
+\newcommand{\PB}[2]{\left\{#1,#2\right\}}
+                    % Les opérateurs définis pour Maxima
+\DeclareMathOperator{\Maxpprod}{\texttt{pprod}}
+\DeclareMathOperator{\Maxproj}{\texttt{proj}}
+\DeclareMathOperator{\Maxcom}{\texttt{com}}
+\DeclareMathOperator{\Maxcombis}{\texttt{combi6}}
+\DeclareMathOperator{\Maxtables}{\texttt{table6}}
+\DeclareMathOperator{\Maxtablesc}{\texttt{table6c}}
+\DeclareMathOperator{\Maxdecomps}{\texttt{decomp6}}
+\DeclareMathOperator{\Maxdecompsc}{\texttt{decomp6c}}
+\DeclareMathOperator{\Maxtableqc}{\texttt{table4c}}
+\DeclareMathOperator{\Maxtableq}{\texttt{table4}}
+\DeclareMathOperator{\Maxdecompq}{\texttt{decomp4}}
+\DeclareMathOperator{\Maxdecompqc}{\texttt{decomp4c}}
+
+\DeclareMathOperator{\Maxomega}{\texttt{omega}}
+\DeclareMathOperator{\Maxsymple}{\texttt{symple}}
+\DeclareMathOperator{\Maxcycle}{\texttt{cycle}}
+\DeclareMathOperator{\Maxsolve}{\texttt{solve}}
+\DeclareMathOperator{\Maxdelxistar}{\texttt{delxistar}}
+\DeclareMathOperator{\Maxxistar}{\texttt{xistar}}
+
+\newcommand{\LoL}{\mathscr{L}}      % Lorentz group
+\newcommand{\LoP}{\mathscr{P}}      % Poincaré group
+\newcommand{\f}{\frac}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Numérotations en tout genre
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\setcounter{tocdepth}{2}        % Profondeur de la table des matières
+\setcounter{secnumdepth}{2}     % Profondeur dans le texte
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Les lignes magiques pour le texte en français.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{listingsutf8}
+\lstset{language=python,basicstyle=\footnotesize,tabsize=3,numbers=left,numberstyle=\tiny,frame=single,commentstyle=\ttfamily\color[rgb]{0,0,0.5},stringstyle=\color[rgb]{0,0.5,0},title=\lstname,inputencoding=utf8/latin1}
+% Il y a du code Octave dans le chapitre et les corrections de Matlab.
+
+\usepackage{textcomp}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=2cm]{geometry} 
+\usepackage[english,frenchb]{babel}
+
+
+%\usepackage[ps2pdf]{hyperref}                  %Doit êre appelé en dernier.
+\usepackage{hyperref}                           %Doit êre appelé en dernier.
+    % Le hypersetup doit être dans mes_notes.tex pour pouvoir être changé automatiquement par le script 
+    % pour faire la version agreg.
+
+\usepackage[fr]{exocorr}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Les théorèmes et choses attenantes
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcounter{numtho}
+\newcounter{numprob}
+
+\makeatletter
+\@addtoreset{numtho}{chapter}
+\@addtoreset{CountExercice}{chapter}
+\makeatother
+
+\newlength{\EnvSpace}
+\setlength{\EnvSpace}{9pt}      % C'est la distance que je veux mettre avant et après les théorèmes, remarques, \ldots
+
+\newtheoremstyle{MyTheorems}%
+        {\EnvSpace}{\EnvSpace}%
+        {\itshape}%
+        {}%
+        {\bfseries}{.}%
+        {\newline}%
+        {}%
+\newtheoremstyle{MyExamples}%
+        {\EnvSpace}{\EnvSpace}%
+        {}%
+        {}%
+        {\bfseries}{.}%
+        {\newline}%
+        {}%
+\newtheoremstyle{MyRemarks}%
+        {\EnvSpace}{\EnvSpace}%
+        {}%
+        {}%
+        {\bfseries}{.}%
+        {\newline}%
+        {}%
+
+%\theoremstyle{MyExamples}   %\newtheorem{exemple}[numtho]{Exemple}      % Pour unification, ne plus utiliser
+%                            \newtheorem{example}[numtho]{Exemple}
+\newcounter{CounterExample}
+\renewcommand{\theCounterExample}{\thechapter.\arabic{CounterExample}}
+
+\newenvironment{example}[1][]%
+{\vspace{\EnvSpace}\refstepcounter{numtho}\noindent{\bf Exemple \thenumtho}%
+\ifthenelse{\equal{#1}{}}{}{(#1)}%
+\newline}%
+{\phantom{a}\hfill $\triangle$\vspace{\EnvSpace}}
+%TODO : example est un environnement et non un théorème seulement pour cette histoire de triangle. Il faudrait trouver quelque chose.
+
+\theoremstyle{MyRemarks}    \newtheorem{remark}[numtho]{Remarque}
+
+                \newtheorem{amusement}[numtho]{Amusement}
+                \newtheorem{erreur}[numtho]{Error}
+                \newtheorem{probleme}[numprob]{\fbox{\bf Problèmes et choses à faire}}
+
+\theoremstyle{MyTheorems}
+            \newtheorem{lemma}[numtho]{Lemme}
+            \newtheorem{corollary}[numtho]{Corollaire}
+            \newtheorem{theorem}[numtho]{Théorème}      
+            \newtheorem{definition}[numtho]{Définition}      
+            \newtheorem{proposition}[numtho]{Proposition}      
+
+            \newtheorem{exo}[CountExercice]{Exercice}       % C'est provisoire, pour Chafaï
+
+\renewcommand{\thenumtho}{\thechapter.\arabic{numtho}}
+% La numérotation des équations change dans les corrigés
+\renewcommand{\theequation}{\thechapter.\arabic{equation}}
+\renewcommand{\theCountExercice}{\arabic{CountExercice}}       % Ce compteur est défini dans SystemeCorr.sty
+\newcommand{\defe}[2]{\textbf{#1}\index{#2}}
+
+\renewcommand{\labelenumi}{\theenumi}
+\renewcommand{\theenumi}{(\arabic{enumi})}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Les macros qui font des choses
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\mA}{\mathcal{A}}
+\newcommand{\mB}{\mathcal{B}}
+\newcommand{\mC}{\mathcal{C}}
+\newcommand{\mCC}{\mathcal{CC}}
+\newcommand{\mD}{\mathcal{D}}
+\newcommand{\mE}{\mathcal{E}}
+\newcommand{\mF}{\mathcal{F}}
+\newcommand{\mG}{\mathcal{G}}
+\newcommand{\mH}{\mathcal{H}}
+\newcommand{\mI}{\mathcal{I}}
+\newcommand{\mJ}{\mathcal{J}}
+\newcommand{\mK}{\mathcal{K}}
+\newcommand{\mL}{\mathcal{L}}
+\newcommand{\mM}{\mathcal{M}}
+\newcommand{\mN}{\mathcal{N}}
+\newcommand{\mO}{\mathcal{O}}
+\newcommand{\mP}{\mathcal{P}}
+\newcommand{\mQ}{\mathcal{Q}}
+\newcommand{\mR}{\mathcal{R}}
+\newcommand{\mS}{\mathcal{S}}
+\newcommand{\mT}{\mathcal{T}}
+\newcommand{\mU}{\mathcal{U}}
+\newcommand{\mV}{\mathcal{V}}
+\newcommand{\mZ}{\mathcal{Z}}
+
+
+
+\newcommand{\scal}[2]{ \langle #1,#2\rangle }
+\newcommand{\vect}[1]{\overrightarrow{#1}}
+
+\newcommand{\tq}{\text{ tel que }}          %TODO : il y a un paquet qui doit être changé en \st
+\newcommand{\tqs}{\text{ tels que }}
+\newcommand{\quext}[1]{ \footnote{\textsf{#1}}  }
+\newcommand{\info}[1]{\texttt{#1}}
+
+\newcommand{\normal}{\lhd}  % Cette notation n'est plus censée être utilisée.
+
+\newcommand{\Borelien}{\mathcal{B}\text{or}}       % Les boréliens
+\newcommand{\tribA}{\mathcal{A}}            % Une tribu A
+\newcommand{\tribB}{\mathcal{B}}            
+\newcommand{\tribF}{\mathcal{F}}            % Une tribu F
+
+\newcommand{\affE}{\mathcal{E}}            % Un espace affine E
+\newcommand{\affF}{\mathcal{F}}            
+\newcommand{\affG}{\mathcal{G}}            
+
+\newcommand{\statS}{\mathcal{S}}            % Un modèle statistique
+\newcommand{\partP}{\mathcal{P}}            % L'ensemble des parties d'un ensemble
+\newcommand{\pP}{\mathcal{P}}            % L'ensemble des nombres premiers
+
+\newcommand{\polyP}{\mathcal{P}}            % L'ensemble des polynômes
+
+\newcommand{\dB}{\mathscr{B}}       % la distribution de Bernoulli
+\newcommand{\dE}{\mathscr{E}}       % la distribution exponentielle
+\newcommand{\dirE}{\mathcal{E}}           % Dirichlet form
+\newcommand{\dG}{\mathscr{G}}       % la distribution géométrique.
+\newcommand{\dM}{\mathscr{M}}       % la distribution multinomiale
+\newcommand{\dN}{\mathscr{N}}       % la distribution normale.
+\newcommand{\dP}{\mathscr{P}}       % la distribution de Poisson.
+\newcommand{\dT}{\mathscr{T}}       % la distribution de Student
+\newcommand{\dU}{\mathscr{U}}       % la distribution uniforme
+
+\newcommand{\hL}{\mathscr{L}}       
+\newcommand{\cL}{\hL}           % Pour la partie Chafai
+
+\newcommand{\modE}{\mathcal{E}}         % Le E des modules
+\newcommand{\modF}{\mathcal{F}}         % Le F des modules
+\newcommand{\hH}{\mathscr{H}}           % Le H des espaces de Hilbert
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   Bibliographie, index et liste des notations
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{makeidx}
+\usepackage[nottoc]{tocbibind}      % Le paquetage qui fait en sorte que la biblio soit inclue correctement dans la table des matières.
+%\usepackage[numbers]{natbib}                 % Pour avoir le champ URL dans le fichier bibtex
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[refpage]{nomencl}
+\renewcommand{\nomname}{Liste des notations}
+%
+% La syntaxe est facile, par exemple 
+%       $\SL(2,\eR)$\nomenclature[G]{$\SL(2,\eR)$}{Le groupe de matrices deux par deux de déterminant 1.}
+\renewcommand{\nomgroup}[1]{%
+    \ifthenelse{\equal{#1}{A}}{\item[\textbf{Algèbre}]}{}%
+    \ifthenelse{\equal{#1}{G}}{\item[\textbf{Géométrie}]}{}%
+    \ifthenelse{\equal{#1}{R}}{\item[\textbf{Théorie des groupes}]}{}%
+    \ifthenelse{\equal{#1}{P}}{\item[\textbf{Probabilités et statistique}]}{}%
+    \ifthenelse{\equal{#1}{Y}}{\item[\textbf{Analyse}]}{}%
+    \ifthenelse{\equal{#1}{T}}{\item[\textbf{Topologie et théorie des ensembles}]}{}%
+    \ifthenelse{\equal{#1}{M}}{\item[\textbf{Chaînes de Markov}]}{}%
+}
+% Note pour moi-même : si cette liste est changée, il faut changer mon raccourcis dans Vim.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%   DeclareMathOperator
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\DeclareMathOperator{\signe}{sgn}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\Int}{Int}     % Intérieur d'un ensemble.
+\DeclareMathOperator{\Ind}{Ind}     % l'indice d'un chemin en analyse complexe
+\DeclareMathOperator{\Diam}{Diam}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\Conv}{\mathcal{C}onv}
+\DeclareMathOperator{\pr}{\texttt{proj}}
+\DeclareMathOperator{\dom}{dom}
+
+\DeclareMathOperator{\Graphe}{Gr}
+\DeclareMathOperator{\Spec}{Spec}   % spectre d'un opérateur
+\DeclareMathOperator{\arctg}{arctg}
+\DeclareMathOperator{\cotg}{cotg}
+\DeclareMathOperator{\cosec}{cosec}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\sinc}{sinc}   % Le sinus cardinal
+
+\newcommand*{\Sp}{\textup{Sp}}
+%\newcommand*{\Gl}{\textup{GL}} % Traqué et supprimé le 1 juillet 2013
+\newcommand*{\GL}{\textup{GL}}      % Le groupe linéaire; je crois qu'ontologiquement c'est mieux que le DeclareMathOperator
+\DeclareMathOperator{\PGL}{PGL}   % le groupe projectif
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\PSL}{PSL}   % Le groupe modulaire SL(2,Z)/Z2
+\DeclareMathOperator{\gS}{S}        % le groupe des matrices symétriques et aussi les nombres complexes de norme 1.
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\gU}{U}
+\DeclareMathOperator{\gO}{O}            % On mets un g devant les groupes dont le nom est juste une lettre, ou est ambigu.
+\DeclareMathOperator{\diag}{diag}   
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Domain}{Dom}      % Domaine of an operator
+
+\DeclareMathOperator{\Reel}{Re}        % La partie réelle d'un nombre complexe
+\DeclareMathOperator{\Imag}{Im}        % La partie imaginaire d'un nombre complexe
+
+\DeclareMathOperator{\Image}{Image}        % ... avec \Image qui donne l'image d'une fonction ou d'un opérateur.
+\DeclareMathOperator{\rang}{rg}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Domaine}{Dom}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\End}{End}     % L'ensemble des endomorphismes
+\DeclareMathOperator{\tr}{Tr}       % la trace
+\DeclareMathOperator{\Tr}{Tr}       % la trace
+\DeclareMathOperator{\Majorant}{Maj}
+\DeclareMathOperator{\codim}{codim} % pour la codimension.
+\DeclareMathOperator{\diam}{diam} % le diamètre d'un ensemble.
+
+\DeclareMathOperator{\Var}{Var}     % Variance d'une variable aléatoire.
+\DeclareMathOperator{\Fun}{\texttt{Fun}}     % Ensemble des applications d'un ensemble vers l'autre.
+\DeclareMathOperator{\Cov}{Cov}     % la covariance.
+\DeclareMathOperator{\gr}{gr}     % le groupe engendré
+\DeclareMathOperator{\pgcd}{pgcd}     
+\DeclareMathOperator{\ppcm}{ppcm}     
+\DeclareMathOperator{\Frob}{Frob}     
+\DeclareMathOperator{\Card}{Card}       % Le cardinal d'un ensemble.
+\DeclareMathOperator{\Stab}{Stab}       % Le stabilisateur d'un point sous l'action d'un groupe.
+
+\DeclareMathOperator{\Frac}{Frac}       % le corps des fractions d'un anneau
+\DeclareMathOperator{\Aff}{Aff}         %  l'espace affine engendré
+
+\newenvironment{subproof}{\begin{description}}{\end{description}}
+
+
+%%%%%%%%%%%%% TRUCS DE YVIK POUR FAIRE FONCTIONNER CdI1 %%%%%%%%%%%%%%%%%%%%%%
+%
+
+%\newcommand{\proofend}{\hspace*{\fill} $\Box$\\}
+%\newcommand{\diam}{\hspace*{\fill} $\Diamond$\\}
+%\def\s{\smallskip}
+%\def\m{\medskip}
+%\def\my{\bf}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Ker}{\operatorname{Ker}}
+\newcommand{\IM}{\operatorname {Im}}
+\newcommand{\cat}{\operatorname{cat}}
+\newcommand{\crit}{\operatorname{crit}}
+\newcommand{\Crit}{\operatorname{Crit}}
+\newcommand{\Rest}{\operatorname{Rest}}
+\newcommand{\grad}{\operatorname{grad}}
+\newcommand{\Fix}{\operatorname{Fix}}
+\newcommand{\pt}{\operatorname{pt}}
+\newcommand{\cl}{\operatorname{cl}}
+\newcommand{\B}{\operatorname {B}}
+\newcommand{\C}{\operatorname {C}}
+%\newcommand{\S}{\operatorname {S}}
+\newcommand{\Gr}{\operatorname {Gr\;\!}}
+%\def\dim{\operatorname {dim}}
+\newcommand{\inj}{\operatorname {inj}}
+%\newcommand{\Vol}{\operatorname {Vol}\:\!}
+\newcommand{\dist}{\operatorname {dist}}
+%\def\inter{\operatorname {int}}
+\newcommand{\ext}{\operatorname {ext}}
+%\newcommand{\diameter}{\operatorname {diam}\:\!}
+\newcommand{\Emb}{\operatorname {Emb}}
+\newcommand{\can}{\operatorname {can}}
+\newcommand{\euler}{\mbox{\rm e}}
+\newcommand{\sii}{\mbox{\rm \scriptsize i}}
+\newcommand{\VB}{\mbox{V}_{\!\!B}}   
+\newcommand{\VC}{\mbox{V}_{\!\!C}}   
+\newcommand{\VS}{\mbox{V}_{\!\!S}}   
+
+%\newcommand{\ga}{\alpha}
+%\newcommand{\gb}{\beta}
+%\newcommand{\gg}{\gamma}
+%\newcommand{\gd}{\delta}
+%\newcommand{\gve}{\varepsilon}
+%\newcommand{\gf}{\varphi}
+%\newcommand{\gk}{\kappa}
+%\newcommand{\gkk}{\varkappa}
+%\newcommand{\gl}{\lambda}
+%\newcommand{\go}{\omega}
+%\newcommand{\gs}{\sigma}
+%\newcommand{\gt}{\vartheta}
+%\newcommand{\gy}{\upsilon}
+%\newcommand{\gv}{\varrho}
+%\newcommand{\gz}{\zeta}
+%\newcommand{\gD}{\Delta}
+%\newcommand{\gF}{\Phi}
+%\newcommand{\gG}{\Gamma}
+%\newcommand{\gL}{\Lambda}
+%\newcommand{\gS}{\Sigma}
+
+%\long\def\forget#1\forgotten{} %
+%\def\end{center}{{\mathfrak C}}
+%\def\ea{{\mathfrak A}}
+
+\newcommand{\ca}{{\mathcal A}}
+\newcommand{\cb}{{\mathcal B}}
+\newcommand{\cc}{{\mathcal C}}
+\newcommand{\cd}{{\mathcal D}}
+\newcommand{\ce}{{\mathcal E}}
+\newcommand{\cf}{{\mathcal F}}
+\newcommand{\cg}{{\mathcal G}}
+\newcommand{\ch}{{\mathcal H}}
+\newcommand{\cj}{{\mathcal J}}
+\newcommand{\ck}{{\mathcal K}}
+\newcommand{\cn}{{\mathcal N}}
+\newcommand{\co}{{\mathcal O}}
+\newcommand{\cp}{{\mathcal P}}
+\newcommand{\cq}{{\mathcal Q}}
+\newcommand{\cs}{{\mathcal S}}
+\newcommand{\ct}{{\mathcal T}}
+\newcommand{\cu}{{\mathcal U}}
+\newcommand{\cv}{{\mathcal V}}
+\newcommand{\cw}{{\mathcal W}}
+\newcommand{\eb}{{\mathfrak B}}
+\newcommand{\ed}{{\mathfrak D}}
+\newcommand{\ee}{{\mathfrak E}}
+\newcommand{\ef}{{\mathfrak F}}
+\newcommand{\eg}{{\mathfrak G}}
+\newcommand{\ej}{{\mathfrak J}}
+\newcommand{\eh}{{\mathfrak H}}
+\newcommand{\en}{{\mathfrak N}}
+\newcommand{\eo}{{\mathfrak O}}
+\newcommand{\ep}{{\mathfrak P}}
+\newcommand{\eq}{{\mathfrak Q}}
+\newcommand{\es}{{\mathfrak S}}
+\newcommand{\et}{{\mathfrak T}}
+\newcommand{\eu}{{\mathfrak U}}
+\newcommand{\ev}{{\mathfrak V}}
+\newcommand{\ew}{{\mathfrak W}}
+
+
+
+%\def\NN{\mathbbm{N}}
+%\def\QQ{\mathbbm{Q}}
+%\def\RR{\mathbbm{R}}
+%\def\SS{\mathbbm{S}}
+%\def\11{\mathbbm{1}}
+%\def\ZZ{\mathbbm{Z}}
+%\def\TT{\mathbbm{T}}
+\newcommand{\RR}{\eR}
+\newcommand{\DD}{\mathbbm{D}}
+\newcommand{\HH}{\mathbbm{H}}
+\newcommand{\II}{\mathbbm{I}}
+\newcommand{\N}{\mathbbm{N}}
+\newcommand{\PP}{\mathbbm{P}}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\RRR}{\mathbbm{R}_+}
+\newcommand{\Z}{\mathbbm{Z}}
+\newcommand{\RP}{{\RR\PP}} 
+%\newcommand{\CP}{{\CC\PP}} 
+\newcommand{\pp}{\partial}
+\newcommand{\ww}{\wedge}
+%\newcommand{\dc}{d^\CC}
+\newcommand{\sym}{Sp(n;\RR)}
+%\newcommand{\ha}{\hookrightarrow}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\Lra}{\Leftrightarrow} 
+
+%\def\ni{\noindent}
+%\def\b{\bigskip}
+%\def\m{\medskip}
+%\def\im{\mbox{Im}\,}
+
+\newcommand{\de}{\stackrel{\mbox{\scriptsize{def}}}{=}}
+
+%\def\sq{\square}
+%\def\tr{\triangle}
+%\def\trd{\bigtriangledown}
+%\def\proof{\noindent {\it Proof. \;}}
+
+
+%	La num\'erotation des exercices
+
+
+\newcounter{exoNico}
+\setcounter{exoNico}{1}
+\newcommand{\exerNico}{\stepcounter{exoNico}{\bf Exercice }\arabic{exoNico}. }
+
+
+%++++++++++ACCENTS++++++++++++++++++
+\newcommand{\e}{\'{e}}
+%\newcommand{\esp}{\'{e }}
+%\newcommand{\eg}{\`{e}}
+\newcommand{\ac}{\`{a} }
+%\newcommand{\meme}{m\^{e}me }
+\newcommand{\ou}{o\`{u} }
+
+%+++++++++++NEWCOMMANDS+++++++++++
+\newcommand{\dst}{\displaystyle}
+\newcommand{\ba}{\begin{array}}
+%\newcommand{\ea}{\end{array}}
+%++++++++++FORMULAS+++++++++++++
+\newcommand{\hs}{\hspace{0.3cm}}
+%\newcommand{\eps}{\epsilon}
+%\newcommand{\f}{\frac}
+\newcommand{\arcth}{{\rm arctanh}}
+\newcommand{\arcsh}{{\rm arcsinh}}
+\newcommand{\arcch}{{\rm arccosh}}
+\newcommand{\csec}{{\rm cosec}}
+\newcommand{\cotan}{{\rm cotg}}
+\newcommand{\cis}{(\cos+i\sin)( }
+%\newcommand{\ra}{\rightarrow}
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\ceil}{\rm plafond(}
+\newcommand{\dfdu}{\frac{\partial f}{\partial u}}
+\newcommand{\dfdw}{\frac{\partial f}{\partial w}}
+\newcommand{\dfdx}{\frac{\partial f}{\partial x}}
+\newcommand{\dfdy}{\frac{\partial f}{\partial y}}
+\newcommand{\dudx}{\frac{\partial u}{\partial x}}
+\newcommand{\dvdx}{\frac{\partial v}{\partial x}}
+\newcommand{\dUdx}{\dfrac{\partial U}{\partial x}}
+\newcommand{\dVdx}{\dfrac{\partial V}{\partial x}}
+\newcommand{\dhdx}{\frac{\partial h}{\partial x}}
+\newcommand{\dhdy}{\frac{\partial h}{\partial y}}
+\newcommand{\dgdu}{\frac{\partial g}{\partial u}}
+\newcommand{\dgdv}{\frac{\partial g}{\partial v}}
+\newcommand{\dgudu}{\frac{\partial g_1}{\partial u}}
+\newcommand{\dgudv}{\frac{\partial g_1}{\partial v}}
+\newcommand{\dgddu}{\frac{\partial g_2}{\partial u}}
+\newcommand{\dgddv}{\frac{\partial g_2}{\partial v}}
+\newcommand{\dhdu}{\frac{\partial h}{\partial u}}
+\newcommand{\dhdv}{\frac{\partial h}{\partial v}}
+\newcommand{\dldu}{\frac{\partial l}{\partial u}}
+\newcommand{\dldv}{\frac{\partial l}{\partial v}}
+\newcommand{\dgudr}{\frac{\partial g_1}{\partial r}}
+\newcommand{\dgudth}{\frac{\partial g_1}{\partial \theta}}
+\newcommand{\dgddr}{\frac{\partial g_2}{\partial r}}
+\newcommand{\dgddth}{\frac{\partial g_2}{\partial \theta}}
+\newcommand{\dfdv}{\frac{\partial f}{\partial v}}
+\newcommand{\dfdr}{\frac{\partial f}{\partial r}}
+
+\newcommand{\dfdth}{\frac{\partial f}{\partial \theta}}
+\newcommand{\ddfdx}{\frac{\partial^2 f}{\partial x^2}}
+\newcommand{\ddfdy}{\frac{\partial^2 f}{\partial y^2}}
+\newcommand{\ddfdxy}{\frac{\partial^2 f}{\partial y\partial x}}
+\newcommand{\ddfdt}{\frac{\partial^2 f}{\partial^2 t}}
+
+\newcommand{\ud}{\underline}
+
+% *** Blackboard math symbols ***
+%\newcommand{\N}{\mathbb{N}}
+%\newcommand{\Z}{\mathbb{Z}}
+%\newcommand{\Q}{\mathbb{R}}
+%\newcommand{\K}{\mathbb{K}}
+%\newcommand{\R}{\mathbb{R}}
+%\newcommand{\C}{\mathbb{C}}
+%\newcommand{\F}{\mathbb{F}}
+%\newcommand{\J}{\mathbb{J}}
+%\newcommand{\Qn}{\mathbb{Q}}
+
+\newcommand{\Rn}{\eR} 
+\newcommand{\Nn}{\eN}
+
+
+\newtheorem{theo}{Th{\'e}or{\`e}me}[section]
+\newtheorem{defn}{D{\'e}finition}
+\newtheorem{prop}{Proposition}     % redef encore dans Chafaï
+%\newtheorem{rem}{Remarque}[section]
+\newtheorem{lem}{Lemme}[section]
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\dem}{\textbf{D{\'e}monstration.}}
+\newcommand{\vc}[1]{\boldsymbol{#1}}
+\newcommand{\p}{\textrm{P}}
+%\newcommand{\e}{\textrm{E}}
+\newcommand{\mbt}{arbre binaire markovien}
+\newcommand{\mbts}{arbres binaires markoviens}
+
+\newcommand{\ea}{\end{array}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% les petis yeux 
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\coolexo}{$\circledast\circledast$}
+\newcommand{\boringexo}{$\circleddash\circleddash$}
+\newcommand{\minsyndical}{$\odot\odot$}
+\newcommand{\mortelexo}{$\obslash\oslash$}
+
+
+%%%%%%%%%%%%%% FIN TRUCS DE YVIK %%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%% TRUCS DE PIERRE %%%%%%%%%%%%%%%%%%%%%%
+
+
+% Le paquet array est là pour faire fonctionner l'environement arrowcases dans les trucs de Pierre.
+\usepackage{array}
+
+%\documentclass[11pt,a4paper,openany]{book}
+%\usepackage[ansinew]{inputenc}
+%\usepackage{pstricks, pst-node, array, ifpdf, comment, pst-plot}
+%\usepackage[marginparwidth=2cm]{geometry}
+%\usepackage[dvips,colorlinks]{hyperref}
+%\usepackage[frenchb]{entetes}
+
+%\usepackage{bigcenter}
+%%%% debut macro %%%%
+%%% ----------debut de bigcenter.sty--------------
+
+%%% nouvel environnement bigcenter
+%%% pour centrer sur toute la page (sans overfull)
+%\makeatletter
+%\newskip\@bigflushglue \@bigflushglue = -100pt plus 1fil
+
+%\def\bigcenter{\trivlist \bigcentering\item\relax}
+%\def\bigcentering{\let\\\@centercr\rightskip\@bigflushglue%
+%\def\endbigcenter{\endtrivlist}
+
+%\leftskip\@bigflushglue
+%\parindent\z@\parfillskip\z@skip}
+%\makeatother
+
+%%% ----------fin de bigcenter.sty--------------
+%%%% fin macro %%%%
+
+%\input{mfpic}
+
+% À régler par l'utilisateur
+\newlength{\arrowsep}\setlength{\arrowsep}{3pt}
+\newlength{\arrowlength}\setlength{\arrowlength}{1cm}
+
+% Cet environnement est sympa, mais il dépend trop de ps; en tout cas il ne passe pas dans pdflatex
+% 15 mars 1012
+%\newenvironment{arrowcases}	{%
+%			\pnode(\arrowsep,0.5ex){A}%
+%			\hspace{\arrowlength}%
+%			\begin{array}{>{\displaystyle\pnode(-\arrowsep,0.5ex){B}}l<{\ncline{A}{B}}@{}}
+%				}
+%			{
+%			  \end{array}
+%			}
+
+\newenvironment{arrowcases}%
+{\begin{cases}}
+{\end{cases}}
+
+
+
+\makeatletter %% \limite[condition]x x_0
+\newcommand*{\limite}[3][\@empty]{\lim_{\substack{#2\rightarrow#3\\#1}}}
+\makeatother
+
+% \newenvironment{split+justif}{%
+% \begin{split}%
+% \let\ampori&
+% \def&#1&#2\\{}
+% }{%
+
+% \end{split}}%
+
+%\def\ncov{\tilde\nabla} % Nouvelle dérivée covariante
+\newcommand*\sev{<} % 
+
+%\newcommand{\hgot}{\mathfrak{h}} % h gothique (ss algebre de Lie)
+%\def\var#1{{\mathbf #1}} % \var <-> Une variété
+%\def\pardef{\stackrel{def}{=}} % = par définition.
+%\newcommand{\bbar#1}{\bar{\bar{#1}}}
+%\def\cov{\nabla} % Derivee covariante / connexion
+%\newcommand{\gl}{\mathfrak{gl}} % algèbre linéaire
+%\def\doubleprime{{\prime\prime}} % Isomorphique 
+%\def\scal(#1,#2){\langle #1,#2\rangle}
+%\def\agit(#1,#2){\langle #1,#2^\vee\rangle}
+%\let\phiori\phi
+%\let\phi\varphi
+\let\ssi\iff
+%\def\iddc{\mathcal I}
+\newcommand*{\ideal}[1]{\{#1\}}
+\newcommand*{\fleche}[1]{\stackrel{#1}\longrightarrow}
+
+%\newcounter{exercice}
+%\setcounter{exercice}{0}
+\setcounter{CountExercice}{0}
+
+% \newenvironment{exo}[1][\relax]{%
+% \stepcounter{exercice}%
+% \par\medskip%
+% #1{\textbf{Exercice}~\arabic{exercice}.}\quad}%
+% {\par}
+
+% \newenvironment{rep}{\hspace{1em}\par\textbf{Solution
+%     proposée.\quad}}{\par\noindent\hrulefill\par}
+
+%\date{}
+\newcommand{\Acplx}{A_\cdot}
+\newcommand{\Bcplx}{B_\cdot}
+\newcommand{\toisom}{\fleche\simeq}
+\newcommand{\D}{\partial}
+%\newcommand{\cat}[1]{{\bf #1}}
+%\newcommand{\donc}{\Rightarrow}
+%\newcommand{\im}{\text{im}}
+%\newcommand{\coker}{\text{coker}}
+\newcommand{\lied}{\mathcal L}
+\newcommand*{\nom}[1]{\textsc{#1}}
+\makeatletter
+\newcommand*{\attention}[1]{\@latex@warning{#1}{!\small\bf #1!}\marginpar{Warning}}
+\makeatother
+\newcommand*{\inner}{\imath}
+\newcommand*{\newexo}{}
+\newcommand*{\principe}{}
+\newcommand*{\etape}{}
+\newcommand*{\preuve}{}
+\newcommand*{\exr}{\item}
+%\def\prim#1\expandafter\d#2 {\int #1\d#2}
+
+\newcommand*{\crochets}[1]{\Bigl[ #1 \Bigr]}
+\newcommand*{\llbrack}[1]{\left\lbrack #1 \right\lbrack}
+\newcommand*{\rlbrack}[1]{\left\rbrack #1 \right\lbrack}
+\newcommand*{\lrbrack}[1]{\left\lbrack #1 \right\rbrack}
+\newcommand*{\rrbrack}[1]{\left\rbrack #1 \right\rbrack}
+%\newcommand*{\vecteur}[1]{\mathbf{#1}}   Supprimé le 10 juin 2013
+
+
+%% Maths : Les ensembles
+\newcommand*{\ens}[1]{\mathbb{#1}} % Ensemble de nombres
+%\newcommand*{\var}[1]{\mathbf{#1}} % Variété       supprimé le 10 juin 2013
+\newcommand*{\alg}[1]{\mathcal{#1}} % Algèbre
+%\newcommand*{\RR}{\ens R}%
+\newcommand*{\TT}{\ens T}% Tore !
+%\expandafter\show\csname SS \endcsname
+%\renewcommand*{\SS}{\var S}% 
+%\newcommand*{\CC}{\ens C}%
+\newcommand*{\ZZ}{\ens Z}%
+\newcommand*{\QQ}{\ens Q}%
+\newcommand*{\NN}{\ens N}%
+\newcommand*{\topologie}{\mathscr{T}}
+\newcommand*{\Topologie}{\textcursive{T}}
+\newcommand{\LL}{\text{\textup{L}}} %% Espace de Lebesgue droit
+\newcommand{\Ll}{\mathcal{L}} %% Lebesgue ronde
+\newcommand{\sigmaalgebre}[1]{\mathcal{#1}} %% Une sigma algèbre...
+\DeclareMathOperator{\SymMatrix}{Sym}
+\DeclareMathOperator{\ASymMatrix}{ASym}
+\newcommand{\Sym}{\SymMatrix}
+\newcommand{\ASym}{\ASymMatrix}
+\newcommand{\transpose}[1]{{\vphantom{#1}}^{\mathit t}{\/#1}}
+%\renewcommand*{\sp}{\textup{sp}}
+\newcommand*{\dprime}{{\prime\prime}}
+%\show\span
+
+%% Maths : Symboles divers
+%\newcommand{\pp}{\text{\textup{~p.p.}}} %% Presque partout
+%\PackageWarning{entetes}{Redefining command \d}
+%\renewcommand{\d}{\mbox{$\,$\textrm{d}}}
+\newcommand{\surj}{\vers}
+\newcommand{\isom}{\simeq}
+\newcommand*{\Tau}{\alg T}
+\newcommand{\cdv}{\mathfrak{X}} % Champs de vecteurs
+
+
+%% Maths : Constructions
+
+%\let\Exp\exp
+%\renewcommand{\exp}[1]{e^{#1}} % On préfère e^{} que exp{}
+
+%\renewcommand{\exp}[1]{e^{#1}} % On préfère e^{} que exp{}
+%\renewcommand{\vec}[1]{\mathbf{#1}} % Désigner un vecteur
+%\newcommand{\set}[1]{\left\{#1\right\}} % Un ensemble { }
+\newcommand*{\abs}[1]{\left\vert#1\right\vert} % Valeur absolue.
+\newcommand*{\module}[1]{\left\vert#1\right\vert} % Valeur absolue.
+\newcommand*{\norme}[1]{\left\Vert#1\right\Vert} % norme
+\newcommand*{\ordre}[1]{\left\vert#1\right\vert} % L'ordre d'un élément.
+%\def\scal(#1,#2){% Produit scalaire.
+%  \PackageWarning{entetes}{Obsolete command \string\scal}%
+%  \scalprod{#1}{#2}%
+%}
+\newcommand*{\scalprod}[2]{\left\langle #1,#2\right\rangle}
+\let\dual\ast
+
+\newcommand*{\pardef}{\stackrel{\text{def}}{=}} % Par définition.
+\newcommand*{\iffdefn}{\stackrel{\text{def}}{\iff}} % Par définition.
+%\newcommand*{\telque}{\mbox{~\entetes@name@telque~}} % tel que, dans un ensemble.
+\newcommand*{\Defn}[1]{\emph{#1}} %
+\newcommand*{\tensor}{\otimes}
+\newcommand*{\pder}[2]{\frac{\partial #1}{\partial #2}}
+
+%{{{ Fraction in-line plus jolie
+% \DeclareRobustCommand\sfrac[1]{\@ifnextchar/{\@sfrac{#1}}%
+%                                             {\@sfrac{#1}/}}
+% \def\@sfrac#1/#2{\leavevmode\kern.1em\raise.5ex
+%          \hbox{$\m@th{\fontsize\sf@size\z@
+%                            \selectfont#1}$}\kern-.1em
+%          /\kern-.15em\lower.25ex
+%           \hbox{$\m@th{\fontsize\sf@size\z@
+%                             \selectfont#2}$}}
+%}}} 
+
+\DeclareRobustCommand{\sfrac}[3][\mathrm]{\hspace{0.1em}%
+  \raisebox{0.4ex}{$#1{\scriptstyle
+#2}$}\hspace{-0.1em}/\hspace{-0.07em}%
+  \mbox{$#1{\scriptstyle #3}$}}
+
+
+
+%% Maths : Opérateurs
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\adh}{adh}
+\DeclareMathOperator{\interior}{int}
+\DeclareMathOperator{\im}{Im}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Iso}{Iso}
+\DeclareMathOperator{\Jac}{Jac} % jacobienne
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\interieur}{int}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\divg}{div}
+\DeclareMathOperator{\rot}{rot}
+%\DeclareMathOperator{\cosec}{cosec}
+
+
+%% Pour obtenir le \Sha cyrillique...
+% \RequirePackage[OT2,T1]{fontenc}
+% \DeclareSymbolFont{cyrletters}{OT2}{wncyr}{m}{n}
+% \DeclareMathSymbol{\Sha}{\mathalpha}{cyrletters}{"58}
+
+
+% \newcounter{@institute}
+% \let\authorori\author
+% \def\@institute{}\def\@auteurs{}
+% %\newcommand{\institute}[2]{\refstepcounter{@institute}\label{#1}\def\@institute{\@institute\small
+% %#2}\set@authors}
+% \newcommand{\institute}[2]{\refstepcounter{@institute}\label{#1}%
+%   \let\maketitleori\maketitle%
+%   \renewcommand\maketitle{\footnote{#2}\maketitleori}%
+% }%
+% \renewcommand{\author}[1]{\def\@auteurs{#1}\set@authors}
+% \def\the@institute{${}^{(\roman{@institute})}$}
+% \newcommand{\inst}[1]{\ref{#1}}
+
+% \newcommand{\set@authors}{\authorori{\@auteurs}}% \\ \@institute}}
+
+
+% \newcounter{@institute}
+% \newcommand{\institute}[1]{
+%   \let\labelori\label
+%   \renewcommand{\label}[1]{%
+%     \refstepcounter{@institute}\labelori{##1}
+%     \begin{tabular}{cc}%format ?!
+%     \begin{minipage}[t]
+      
+
+
+%   }
+
+% }%
+
+\newcommand*{\conclusion}{\emph{Conclusion~:~}}
+\newcommand{\hint}{\par\emph{Aide~:~}\hspace{1em}}
+\newcommand{\rappel}{\par\emph{Rappels~:~}\hspace{1em}}
+
+%\newcounter{enumarray} 
+%\newenvironment{enumarray}[1]{% Merci Ulrike Fischer
+% \setcounter{enumarray}{0}%
+% \begin{array}{% motif
+%     >{% Au début de chaque ligne
+%       \stepcounter{enumarray}%
+%       (\alph{enumarray})%
+%       \hspace{2em}
+%     }% 
+%     #1%
+%   }% fin motif
+% }{%
+% \end{array}%
+%}
+\newenvironment{displayinline}{% displaystyle + inline.
+  $\displaystyle%
+}{%
+  $%
+}
+
+\newcommand{\telque}{\vert\,}
+\newcommand{\donc}{\Rightarrow}
+ 
+%\newcounter{coroNico}
+%\newcommand{\corrNico}{\refstepcounter{coroNico}\paragraph{Correction \arabic{coroNico}.}}
+
+
+%
+
+%Ajout à Babel
+
+% Here are two LaTeX macros for the word "C++". They prevent line breaks
+% between the C and "++", and the first packs the two "+"s close to each
+% other but the second does not. Try them both and see which one you
+% like best.
+%\newcommand{\CC}{C\nolinebreak\hspace{-.05em}\raisebox{.4ex}{\tiny\bf +}%
+%\nolinebreak\hspace{-.10em}\raisebox{.4ex}{\tiny\bf +}}
+%\def\CC{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
+% Here are two more LaTeX macros for the word "C++". They allow line
+% breaks between the C and "++", which may not be desirable, but they're
+% included here just in case.
+%\def\CC{C\raise.22ex\hbox{{\footnotesize +}}\raise.22ex\hbox{\footnotesize +}}
+%\def\CC{{C\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
+
+
+%\usepackage{rotating}      % enlevé le 14 juin 2013
+%\usepackage{moreverb}      % enlevé le 14 juin 2013
+
+\usepackage{xspace}
+
+%\usepackage{color}     
+%\usepackage{listingsutf8}% enlevé le 14 juin 2013
+
+%\lstset{extendedchars=true,%
+%       basicstyle=\small,%
+%       commentstyle=\ttfamily\color[rgb]{0,0,0.5},%
+%       stringstyle=\color[rgb]{0,0.5,0},%
+%       frame=tblr,frameround=tttt,%
+%        extendedchars=\true,       %   Ces deux lignes sont les miennes pour faire fonctionner le UTF8
+%       inputencoding=utf8/latin1   %
+       %labelstyle=\tiny, labelstep=1,labelsep=10pt
+%      }
+
+%\ifx\pdfoutput\undefined
+% % no problemo.
+%\else % compatibilité listings/hyperref.
+% \makeatletter
+% \providecommand*{\toclevel@lstlisting}{0}
+% \makeatother
+%\fi
+
+%\input{macros}
+%\THMFR
+%
+%\newcommand{\MFILE}[1]{
+%\begin{lstinputlisting}[language=Matlab]{#1.m}%
+%\label{co:#1}% 
+%\end{lstinputlisting}}
+%
+\newcommand{\OC}{Octave}
+%\newcommand{\MP}{Maple}
+\newcommand{\ML}{Matlab}
+%\newcommand{\MU}{Mupad}
+\newcommand{\SB}{Stixbox}
+%
+\newcommand{\FIG}[4]{%  fname scale floatparams caption
+ \begin{figure}[#3]%
+  \begin{center}%
+  \includegraphics[scale=#2]{#1}%
+  \caption{#4}%
+  \label{fi:#1}%
+  \end{center}%
+ \end{figure}
+}
+%
+%% Parce que j'ai l'impression que ces figures font mourir la conversion en pdf
+%\renewcommand{\FIG}[4]{}
+
+
+% Au moment de mettre l'ISBN, il faut changer la Licence vers une CC.
+\newcommand{\TextePourISBN}{
+    \begin{center}
+ISBN : Y-Y-YYYYYYY-Y-Y
+    \end{center}
+}
+
+% J'ajoute un OLD à la commande suivante parce qu'elle n'est plus censée être utilisée.
+\newcommand{\LicenceCCOLD}{
+
+\begin{center}
+
+        \ifpdf
+            \includegraphics{CreativeCommons.png}
+        \else
+            \includegraphics{CreativeCommons.eps}
+        \fi
+
+        \emph{Mes notes de mathématique} de \href{http://student.ulb.ac.be/~lclaesse/}{Laurent Claessens} est mis à disposition selon les termes de la licence \href{http://creativecommons.org/licenses/by-nc-nd/3.0/fr/}{licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Pas de Modification 3.0 France.}.
+
+        Une version plus à jour de ce texte, publiée sous la \href{http://fr.wikipedia.org/wiki/FDL}{licence GNU-FDL} est disponible sur \href{http://student.ulb.ac.be/~lclaesse/mes_notes.pdf}{le site de l'auteur}.
+
+\end{center}
+
+}
+
+\newcommand{\LicenceFDL}{
+\begin{center}
+
+           \ifpdf
+            \includegraphics[width=1cm]{gfdl-logo-small.png}
+        \else
+            \includegraphics[width=1cm]{gfdl-logo-small.eps}
+        \fi
+
+Copyright (c) 2011-2013  Laurent Claessens, Carlotta Donadello
+
+Permission is granted to copy, distribute and/or modify this document under the terms of the \href{http://www.gnu.org/licenses/fdl-1.3.html}{GNU Free Documentation License}, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is included in the chapter entitled ``GNU Free Documentation~License''.
+
+\vspace{0.5cm}
+
+Vous avez le droit de copier, distribuer et modifier ce document pourvu que vous suiviez les règles de la \href{http://www.gnu.org/licenses/fdl-1.3.html}{GNU Free Documentation License}. Vous trouverez les sources \LaTeX\ à l'adresse\\ \url{https://www.gitorious.org/mes-notes-de-math-matique}
+
+\end{center}
+}
+
+\newcommand{\LogoEtLicence}{
+\ifthenelse{\value{isAgreg}=0}{
+
+\LicenceFDL
+
+} 
+{
+    %\LicenceCC
+    \LicenceFDL
+    \TextePourISBN
+
+}
+}
