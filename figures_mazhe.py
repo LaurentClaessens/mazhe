@@ -4,6 +4,8 @@
 from phystricks import *
 import sys
 
+from phystricksALIzHFm import ALIzHFm
+from phystricksTZCISko import TZCISko
 from phystricksNEtAchr import NEtAchr
 #from phystricksAIFsOQO import AIFsOQO
 from phystricksRQsQKTl import RQsQKTl
@@ -168,8 +170,6 @@ from figure_devoir1 import exercice1A1,exercice1A2,exercice4
 from phystricksTriangleRectangle import TriangleRectangle  # Il faudrait aussi le remettre dans figures_list
 
 
-
-
 figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre, MomentForce,CouroneExam,SurfacePrimiteGeog,
         SurfaceEntreCourbes, DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin, ChampGraviation,FnCosApprox,
         Bateau,FonctionXtrois,FonctionEtDerive, SurfaceDerive,DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim, ExoProjection,
@@ -183,7 +183,8 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         RegioniPrimoeSecondoTipo,ExampleIntegration, ExampleIntegrationdeux, ExampleChangementVariables, ArcLongueurFinesse, TangentSegment,
         BoulePtLoin, UneCellule, SenoTopologo, AdhIntFr, AdhIntFrDeux, AdhIntFrTrois, AdhIntFrSix, DeuxCercles, TraceCycloide, QuelCote, Osculateur,
         examssepti,examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,
-        LesSubFigures,NiveauHyperbole,NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRR_A,ADUGmRR_B,ADUGmRR_C,TGdUoZR,GBnUivi,FGWjJBX,RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI 
+        LesSubFigures,NiveauHyperbole,NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRR_A,ADUGmRR_B,
+        ADUGmRR_C,TGdUoZR,GBnUivi,FGWjJBX,RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm
         ]
 
 
