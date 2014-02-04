@@ -13,5 +13,6 @@ myRequest.original_filename="mazhe.tex"
 
 myRequest.ok_hash=commons.ok_hash
 myRequest.ok_filenames_list.append("e_mazhe.tex")
+myRequest.ok_filenames_list.append("0450_choses_finales")
 
 myRequest.ok_filenames_list.append("0180_suites_series_fonctions")
