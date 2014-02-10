@@ -389,26 +389,6 @@ Le lemme est ce qui permet de définir le \( \lambda\)-système \defe{engendré}
     Donc \( \tribD\) est bel et bien un \( \lambda\)-système contenant \( \tribE'\). Par le lemme \ref{LemLUmopaZ}, le \( \lambda\)-système engendré par \( \tribE'\) est égal à la tribu engendrée par \( \tribE'\), mais par hypothèse la tribu engendrée par \( \tribE\) est \( \tribA\), donc le \( \lambda\)-système engendré par \( \tribE'\) est \( \tribA\). Vu que \( \tribD\) est une \( \lambda\)-système contenant \( \tribE'\), nous avons alors \( \tribA\subset\tribD\) et donc \( \tribA=\tribD\), ce qu'il fallait.
 \end{proof}
 
-\begin{theorem}[Théorème d'approximation\cite{YHRSDGc}]     \label{ThoAFXXcVa}
-    Soit \( (X,\tribB,\mu)\) un espace mesuré où \( \tribB\) sont les boréliens de \( X\). Soit \( A\in \tribB\) tel que \( A\subset W\) où \( W\) est un ouvert avec \( \mu(W)<\infty\). Soit aussi \( \epsilon>0\).
-    \begin{enumerate}
-        \item
-            Il existe un fermé \( F\) et un ouvert \( V\) tels que \( \mu(V)<\infty\) et
-            \begin{equation}
-                F\subset A\subset V
-            \end{equation}
-            et \( \mu(V\setminus F)<\epsilon\).
-        \item
-            Il existe \( f\in C^0(X,\eR)\) nulle hors de \( W\) vérifiant \( 0\leq f\leq 1\) et
-            \begin{equation}
-                \int_X| \mtu_A-f |^pd\mu(x)<\epsilon.
-            \end{equation}
-    \end{enumerate}
-\end{theorem}
-% TODO : la preuve est dans la référence. Il faut replacer ce théorème après la définition de l'intégrale.
-
-% TODO : les mesures à densité doivent être après les intégrales.
-
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Théorème de récurrence}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -467,9 +447,9 @@ Si \( A\subset X\) est un ensemble mesurable, un point \( x\in A\) est dit \defe
 \end{theorem}
 \index{mesure!produit}
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Intégrale par rapport à une mesure}
-%---------------------------------------------------------------------------------------------------------------------------
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Intégrale par rapport à une mesure}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \begin{lemma}[Limite croissante de fonctions étagées mesurables]    \label{LemYFoWqmS}
     Soit \( f\colon (\Omega,\tribA)\to \eR\) une fonction mesurable. Il existe une suite \( f_n\colon \Omega\to \eR\) de fonctions étagées telles que \( f_n\to f\) ponctuellement et \( | f_n |<f\).
@@ -681,22 +661,92 @@ Nous écrivons que \( \mu\perp\nu\)\nomenclature[Y]{\( \mu\perp\nu\)}{mesures pe
     Est-ce que la démonstration de cela ne demande pas la convergence monotone d'une façon ou d'une autre ?
 \end{probleme}
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Changement de variables dans une intégrale}
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Primitive et intégrale}
 %---------------------------------------------------------------------------------------------------------------------------
 
-\begin{theorem} \label{ThomFeRCi}
-    Soit \( \mO\) un ouvert de \( \eR^n\) et \( \mO'\) un ouvert de \( \eR^m\). Soit \( \varphi\colon \mO\to \mO'\) un difféomorphisme \( C^1\). Si \( f\colon \mO\to \eR\) est une fonction mesurable, positive et intégrable, alors
+\begin{definition}
+    Soit \( I\) un intervalle de \( \eR\) et une fonction \( f\colon I\to \eR\). La fonction \( F\colon I\to \eR\) est une \defe{primitive}{primitive!fonction} de \( f\) si \( F\) est dérivable sur \( I\) et si \( F'(x)=f(x)\) pour tout \( x\) dans \( I\).
+\end{definition}
+
+\begin{proposition}[Primitive et intégrale]
+    Soit \( f\) une fonction intégrable sur \( \mathopen[ a , b \mathclose]\) et \( x_0\) un point de continuité de \( f\). Nous considérons la fonction
     \begin{equation}
-        \int_{\mO}f(u)du=\int_{\mO'}f\big( \varphi^{-1}(v) \big)| J_{\varphi^{-1}}(v) |dv.
+        \begin{aligned}
+            F\colon \mathopen[ a , b \mathclose]&\to \eR \\
+            x&\mapsto \int_{\mathopen[ a , x \mathclose]}f(t)dt.
+        \end{aligned}
     \end{equation}
+    Cette fonction est dérivable en \( x_0\) et \( F'(x_0)=f(x_0)\).
+\end{proposition}
+
+\begin{proof}
+    Soit \( \epsilon>0\). Par continuité de \( f\) en \( x_0\), il existe une fonction \( \alpha\) telle que
+    \begin{equation}
+        f(x_0+h)=f(x_0)+\alpha(h)
+    \end{equation}
+    avec \( \lim_{h\to 0} \alpha(h)=0\). De plus il existe un \( \delta>0\) tel que \( \alpha(h)<\epsilon\) pour tout \( h<\delta\). À partir de maintenant nous ne considérons plus que de tels \( h\).
+
+    Nous calculons la dérivée de \( F\) en \( x_0\). Pour cela,
+    \begin{subequations}
+        \begin{align}
+            F(x_0+h)-F(x_0)&=\int_{x_0}^{x_0+h}f(t)dt\\
+        &=\int_0^hf(x_0+t)dt\\
+        &=\int_0^h\big[ f(x_0)+\alpha(t) \big]dt\\
+        &=hf(x_0)+\int_0^{h}\alpha(t)dt.
+        \end{align}
+    \end{subequations}
+    Nous avons donc, pour tout \( h<\delta\),
+    \begin{equation}
+        hf(x_0)-h\epsilon\leq F(x_0+h)-F(x_0)\leq hf(x_0)+h\epsilon.
+    \end{equation}
+    En divisant par \( h\) et en prenant la limite \( h\to 0\),
+    \begin{equation}
+        F'(x_0)\in B\big( f(x_0),\epsilon \big).
+    \end{equation}
+    Cela étant valable pour tout \( \epsilon>0\) nous en déduisons que
+    \begin{equation}
+        F'(x_0)=f(x_0).
+    \end{equation}
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Théorème d'approximation}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}[Théorème d'approximation\cite{YHRSDGc}]     \label{ThoAFXXcVa}
+    Soit \( (X,\tribB,\mu)\) un espace mesuré où \( \tribB\) sont les boréliens de \( X\). Soit \( A\in \tribB\) tel que \( A\subset W\) où \( W\) est un ouvert avec \( \mu(W)<\infty\). Soit aussi \( \epsilon>0\).
+    \begin{enumerate}
+        \item
+            Il existe un fermé \( F\) et un ouvert \( V\) tels que \( \mu(V)<\infty\) et
+            \begin{equation}
+                F\subset A\subset V
+            \end{equation}
+            et \( \mu(V\setminus F)<\epsilon\).
+        \item
+            Il existe \( f\in C^0(X,\eR)\) nulle hors de \( W\) vérifiant \( 0\leq f\leq 1\) et
+            \begin{equation}
+                \int_X| \mtu_A-f |^pd\mu(x)<\epsilon.
+            \end{equation}
+    \end{enumerate}
 \end{theorem}
+% TODO : la preuve est dans la référence. Il faut replacer ce théorème après la définition de l'intégrale.
+
+% TODO : les mesures à densité doivent être après les intégrales.
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Théorème de Fubini-Tonelli et de Fubini}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Il existe trois résultats. Le premier, le théorème de Fubini-Tonelli \ref{ThoWTMSthY} demande que la fonction soit mesurable et positive; le second, le théorème de Fubini \ref{ThoFubinioYLtPI} demande que la fonction soit intégrable (mais pas spécialement positive); et le troisième, le corollaire \ref{CorTKZKwP} demande l'intégrabilité de la valeur absolue des intégrales partielles pour déduire que la fonction elle-même est intégrable.
+Il existe plusieurs résultats similaires. 
+\begin{itemize}
+    \item
+        le théorème de Fubini-Tonelli \ref{ThoWTMSthY} demande que la fonction soit mesurable et positive;
+    \item
+        le théorème de Fubini \ref{ThoFubinioYLtPI} demande que la fonction soit intégrable (mais pas spécialement positive);
+    \item
+        le corollaire \ref{CorTKZKwP} demande l'intégrabilité de la valeur absolue des intégrales partielles pour déduire que la fonction elle-même est intégrable.
+\end{itemize}
 
 %TODO : des démonstrations de ces trois théorèmes seraient les bienvenues.
 
@@ -930,6 +980,17 @@ où $K$ est le carré de demi côté $R$ centré à l'origine et de côtés para
         I=\int_{\eR^d}\left( \int_{\eN}f(n,x)dm(n) \right)dx=\int_{\eR^d}\sum_{n\in \eN}f_n(x)dx.
     \end{equation}
 \end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Changement de variables dans une intégrale}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem} \label{ThomFeRCi}
+    Soit \( \mO\) un ouvert de \( \eR^n\) et \( \mO'\) un ouvert de \( \eR^m\). Soit \( \varphi\colon \mO\to \mO'\) un difféomorphisme \( C^1\). Si \( f\colon \mO\to \eR\) est une fonction mesurable, positive et intégrable, alors
+    \begin{equation}
+        \int_{\mO}f(u)du=\int_{\mO'}f\big( \varphi^{-1}(v) \big)| J_{\varphi^{-1}}(v) |dv.
+    \end{equation}
+\end{theorem}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Forme différentielle et intégrale sur un chemin}
