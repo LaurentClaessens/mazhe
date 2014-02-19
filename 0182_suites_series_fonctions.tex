@@ -955,3 +955,308 @@ Notez que ce champ de vecteurs est le gradient de \( f\). La question initiale a
         b(x,y)    
     \end{pmatrix}.
 \end{equation}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Intégrales de surface}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrale d'une fonction}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{secintsurfaciques}
+Soit $M$ une variété de dimension $n$ dans $\eR^m$. Soit $F : W \subset \eR^n \to M$ une paramétrisation d'un ouvert relatif de $M$.  
+
+Si $f$ est une fonction définie sur un sous-ensemble $A \subset F(W)$ tel que $F^{-1}(A)$ est mesurable, l'\Defn{intégrale de $f$ sur $A$} est définie par
+\begin{equation*}
+  \int_A f = \int_{F^{-1}(A)} f(F(w)) \sqrt{\det(\transpose{J_F(w)} {J_F(w)})} dw
+\end{equation*}
+où l'intégrale est l'intégration usuelle (de Lebesgue) sur $F^{-1}(A) \subset \eR^n$. On écrit parfois cette intégrale $\int_{F^{-1}(A)} f(F(w)) d\sigma$ où
+\begin{equation*}
+  d\sigma = \sqrt{\det(\transpose{J_F(w)} {J_F(w)})} dw
+\end{equation*}
+est l'\Defn{élément infinitésimal de volume} de la variété. 
+
+Si $m = 3$ et $n = 2$, l'élément infinitésimal de volume vaut
+\begin{equation*}
+  d \sigma = \norme{\pder F {w_1} \wedge \pder F {w_2}} dw
+\end{equation*}
+où $\wedge$ représente le produit vectoriel dans $\eR^3$, et $(w_1,w_2)$ sont les coordonnées sur $W \subset \eR^2$. Dans la suite, nous ne regarderons plus que ce cas.
+
+\subsection{Intégrale d'un champ de vecteurs}
+Dans l'intégration curviligne, on a noté que si l'intégrale d'une fonction ne dépendait pas de l'orientation du chemin, l'intégrale d'un champ de vecteurs ou d'une forme différentielle en dépendait. Ce problème d'orientation apparait également dans l'intégration sur des surfaces de l'espace.
+
+%% Page 530, exemple 4
+Une \Defn{orientation} sur une surface $S \subset \eR^3$ est le choix
+d'un champ de vecteurs continu $\nu : S \to \eR^3$ dont la norme en
+tout point de $S$ vaut $1$. On remarque qu'ayant fait un tel choix
+d'orientation $\nu(x)$ en un point $x$, le seul autre choix possible
+en $x$ est $-\nu(x)$.
+%% Page 
+Si $S$ est le bord d'un ouvert $D \subset \eR^3$, l'\Defn{orientation
+  induite par $D$ sur $S$} est, si elle existe, l'orientation qui
+pointe hors de $D$ en tout point de $S$. Plus précisément, il faut que
+pour tout $x \in D$ il existe $\epsilon > 0$ vérifiant, pour tout $0 <
+t < \epsilon$, la relation $t \nu(x) \notin D$. Dans ce cas, le champ
+de vecteurs $\nu$ est appelé le \Defn{vecteur normal unitaire
+  extérieur} à $D$ et il est forcément unique.
+
+Soit $G$ un champ de vecteurs défini sur une surface orientée par un
+champ $\nu$. L'intégrale de $G$ sur $S$, aussi appelée le \Defn{flux
+de $G$ à travers $S$}, est
+\begin{equation}\label{eqflux-star}
+  \iint_S G \cdot d S \pardef \iint_S \scalprod{G}{\nu} d \sigma.
+\end{equation}
+Si on suppose que la surface est paramétrisée par une application
+\begin{equation*}
+  F : W \subset \eR^2 \to \eR^3 : (u,v) \mapsto (F_1(u,v),F_2(u,v),F_3(u,v))
+\end{equation*}
+alors un vecteur unitaire $\nu$ peut s'écrire sous la forme
+\begin{equation*}
+  \nu = \frac{\pder F u \wedge \pder F v}{\norme{\pder F u \wedge \pder F v}}
+\end{equation*}
+et grâce à cette paramétrisation l'intégrale \eqref{eqflux-star}
+devient
+\begin{equation*}
+  \iint_S G \cdot d S = \iint_W \scalprod{G(F(u,v))}{\pder F u \wedge \pder F v} d u
+  d v.
+\end{equation*}
+où on utilise l'expression de $d \sigma$ obtenue précédemment dans le
+cas qui nous intéresse (surface dans l'espace).
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Divergence, Green, Stokes}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Le théorème de Stokes (et ses variations) peut se voir comme une généralisation du théorème fondamental du calcul différentiel et intégral qui stipule que
+\begin{equation*}
+	\int_a^b f^\prime(x) d x = f(b) - f(a)
+\end{equation*}
+c'est-à-dire qui relie l'intégrale de $f^\prime$ sur $I = [a,b]$ aux valeurs de $f$ sur le bord $\partial I = \{a,b\}$. Le signe $-$ qui apparait vient de l'orientation ; celle-ci requiert de la prudence dans l'utilisation des théorèmes.
+
+Voici, pour votre culture générale, un énoncé général :
+\begin{theorem} \label{ThoATsPuzF}
+	Si $M$ est une variété orientable de dimension $n$ avec un bord noté $\partial  M$, alors pour toute forme différentielle $\omega$ de degré $n-1$ on a 
+	\begin{equation*}
+		\int_{ M} d \omega = \int_{\partial  M} \omega.
+	\end{equation*}
+	où $d \omega$ désigne la différentielle extérieure de $\omega$.
+\end{theorem}
+Attention : la différentielle extérieure n'est pas la différentielle usuelle. Certes dans le cas d'une \( 0\)-forme (c'est à dire d'une fonction), les deux notions coïncident, mais ça ne va pas plus loin. La différentielle extérieure vérifie \( d^2\omega=0\) pour tout \( \omega\), y compris pour les fonctions : si \( \omega=df\) alors \( d\omega=0\).
+
+%TODO : donner la définition et quelque exemples de différentielle extérieure.
+
+Nous allons maintenant voir quelque cas particuliers. 
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Intégrales curviligne}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Une des nombreuses formes du théorème de Stokes (théorème \ref{ThoATsPuzF}) est que si la forme différentielle \( \omega\) est exacte alors son intégrale est facile.
+\begin{theorem} \label{ThoUJMhFwU}
+    Si \( \gamma\) est une chemin de classe \( C^1\) dans un ouvert \( \Omega\) et si \( \omega\) est la forme différentielle exacte \( \omega=df\), alors
+    \begin{equation}
+        \int_{\gamma}df=f\big( \gamma(1) \big)-f\big( \gamma(0) \big).
+    \end{equation}
+\end{theorem}
+Cela est également une extension du théorème fondamental du calcul différentiel.
+%TODO : Ce serait vachement mieux de donner une preuve indépendante de cela.
+
+
+\subsection{Théorème de la divergence}
+
+Si nous considérons une surface dans $\eR^n$ et un champ de vecteurs, il est bon de se demander quelle \og quantité de vecteurs\fg{} traverse la surface. Soit $D$, un ouvert borné de $\eR^n$ telle que $\partial D$ soit une variété de dimension $n-1$, et $G$, un champ de vecteurs défini sur $\bar D$. Afin de compter combien de $G$ traverse $\partial D$, il faudra faire en sorte de ne considérer que la composante de $G$ normale à $\partial D$ : pas question d'intégrer par exemple la norme de $G$ sur $\partial D$.
+
+Comme nous le savons, la composante du vecteur $v$ dans la direction $w$ est le produit scalaire $v\cdot 1_w$ où $1_w$ est le vecteur de norme $1$ dans la direction $w$. Nous allons donc introduire le concept de vecteur normal extérieur. Soit $x\in\partial D$ et $\nu\in\eR^n$, nous disons que $\nu$ est un \defe{vecteur normal extérieur}{normal extérieur!vecteur} de $\partial D$ si
+\begin{enumerate}
+
+	\item
+		$\langle \nu, v\rangle =0$ pour tout vecteur tangent $v$ à $\partial D$ au point $x$. Pour rappel, $\partial D$ étant une variété de dimension $n-1$, il y a $n-1$ tels vecteurs $v$ linéairement indépendants.
+	
+	\item
+		Il existe un $\delta>0$ tel que $\forall t\in\mathopen] 0 , \delta \mathclose[$, nous avons $c+t\nu\notin \bar D$ et $x-t\nu\in D$.
+ 
+\end{enumerate}
+
+Nous pouvons maintenant définir le concept de flux. Soit $D\subset \eR^n$ tel que $\partial D$ soit une variété de dimension $n-1$ qui admette un vecteur normal extérieur $\nu(x)$ en chaque point. Soit aussi $G\colon \bar D\to \eR^n$, un champ de vecteur de classe $C^1$. Le \defe{flux}{flux!d'un champ de vecteur} de $G$ au travers de $\partial D$ est le nombre
+\begin{equation}
+	\int_{\partial D}\langle G(x), \nu(x)\rangle d\sigma(x).
+\end{equation}
+
+Cette intégrale est en général très compliquée à calculer parce qu'il faut trouver le champ de vecteur normal, puis une paramétrisation de la surface $\partial D$ et ensuite appliquer la méthode décrite au point \ref{secintsurfaciques}. 
+
+Heureusement, il y a un théorème qui nous permet de calculer plus facilement : sans devoir trouver de vecteurs normaux.
+
+Il n'est pas plus contraignant d'énoncer ce théorème dans le cadre d'une hypersurface de $\eR^n$, ce que nous faisons donc~:
+\begin{theorem}[Formule de la divergence]
+	Soit $D$ un ouvert borné de $\eR^n$ dont le bord est \og assez régulier par morceaux\fg{}, c'est-à-dire~:
+	\begin{equation}
+		\partial D = A_1 \cup \ldots A_p \cup N
+	\end{equation} 
+	où
+	\begin{enumerate}
+		\item $A_1, \ldots, A_p, N$ sont deux à deux disjoints,
+		\item pour tout $i \leq p$, $A_i$ est un ouvert relatif d'une certaine variété $M_i$ de dimension $(n-1)$
+		\item $\bar A_i \subset M_i$
+		\item $N$ est un compact contenu dans une réunion finie de variétés de dimensions $(n-2)$.
+	\end{enumerate}
+	Supposons également qu'en chaque point de $A_1 \cup \ldots \cup A_p$ il existe un vecteur normal extérieur $\nu$.
+	
+	Si $G$ est un champ de vecteurs de classe $C^1$ sur $\bar D$ alors
+	\begin{equation}
+		\int_D \nabla\cdot G = \sum_{i=1}^p \int_{A_i} \scalprod{G}{\nu}.
+	\end{equation}
+	L'intégrale du membre de gauche est l'intégrale sur un ouvert d'une simple fonction.
+\end{theorem}
+
+\subsection{Formule de Green}
+
+Pour rappel, une chemin $\gamma\colon \mathopen[ 0 , 1 \mathclose]\to \eR^n$ est \defe{régulier}{régulier!chemin} si il est $C^1$ et si $\gamma(t)\neq 0$ pour tout $r$. Le chemin est de \defe{Jordan}{Jordan!chemin} si $\gamma(1)=\gamma(0)$ et si $\gamma\colon \mathopen[ a , b [\to \eR^n$ est injective.
+
+La formule de Green est un cas particulier du théorème de la divergence dans
+le cas $n = 2$, légèrement reformulé~:
+\begin{theorem}
+	Soit $D \subset \eR^2$ ouvert borné tel que son bord est est la réunion finie d'un certain nombre de chemins de classe $C^1$ de Jordan réguliers.  Supposons qu'en chaque point de son bord, $D$ possède un vecteur normal unitaire extérieur $\nu$. Soient $P$ et $Q$ deux fonctions réelles de classe $C^1$ sur $\bar D$. Alors
+    \begin{equation}  \label{EqYLblSqV}
+    \iint_D (\partial_xQ - \partial_yP)dx\,dy = \oint_{\partial D}
+    Pd x + Q d y
+  \end{equation}
+  où chaque chemin $\gamma$ formant le bord de $D$ est orienté de
+  sorte que $T \nu = \frac{\dot\gamma}{\norme{\dot\gamma}}$ où $T$
+  représente la rotation d'angle $+\frac\pi2$.
+\end{theorem}
+
+Justifions le fait que cela soit un cas particulier de la formule de Stokes du théorème \ref{ThoATsPuzF}. Nous considérons la forme différentielle
+\begin{equation}
+    \omega=Pdx+Qdy,
+\end{equation}
+et sa différentielle
+\begin{subequations}
+    \begin{align}
+    d\omega&=\sum_id\omega_i\wedge dx_i\\
+    &=\left( \frac{ \partial P }{ \partial x }dx+\frac{ \partial P }{ \partial y }dy \right)\wedge dx+\left( \frac{ \partial Q }{ \partial x }dx+\frac{ \partial Q }{ \partial y }dy \right)\wedge dy\\
+    &=\left( \frac{ \partial Q }{ \partial x }-\frac{ \partial P }{ \partial y } \right)dx\wedge dy.
+    \end{align}
+\end{subequations}
+
+Intégrons cette forme \( d\omega\) sur le domaine ouvert \( D\) que nous paramétrons de façon triviale par
+\begin{equation}
+    \begin{aligned}
+        \varphi\colon D&\to \eR^2 \\
+        (u,v)&\mapsto (u,v).
+    \end{aligned}
+\end{equation}
+Ce que nous avons est
+\begin{equation}\label{EqKYjFEGF}
+    \iint_D d\omega=\iint_D d\omega_{(u,v)}\left( \frac{ \partial \varphi }{ \partial u },\frac{ \partial \varphi }{ \partial v } \right)dudv
+\end{equation}
+Nous avons aussi \( T_u=\frac{ \partial \varphi }{ \partial u }=\begin{pmatrix}
+    1    \\ 
+    0    
+\end{pmatrix}\) et \(T_v= \frac{ \partial \varphi }{ \partial v }=\begin{pmatrix}
+    0    \\ 
+      1  
+\end{pmatrix}\) et donc 
+\begin{equation}
+    (dx\wedge dy)(T_u,T_v)=dx(T_u)dy(T_v)-dx(T_v)dy(T_u)=1-0=1.
+\end{equation}
+L'intégrale \eqref{EqKYjFEGF} se développe donc en
+\begin{equation}
+    \iint_Dd\omega=\iint_D\left( \frac{ \partial Q }{ \partial x }(u,v)-\frac{ \partial P }{ \partial y }(u,v) \right)(dx\wedge dy)(T_u,T_v)dudv=\iint_D\left( \frac{ \partial Q }{ \partial x }-\frac{ \partial P }{ \partial y } \right)dudv.
+\end{equation}
+Par conséquent la formule de Stokes nous donne la formule \eqref{EqYLblSqV}.
+
+La formule de Green nous permet de calculer l'aire de la surface délimitée par une courbe fermée en termes de l'intégrale d'une forme bien choisie le long du contour. Pour cela nous prenons la forme
+\begin{equation}    \label{EqZNXYMQb}
+    \omega=-\frac{ y }{2}dx+\frac{ x }{2}dy,
+\end{equation}
+de telle sorte que \( \partial_xQ-\partial_yQ=1\) et que
+\begin{equation}
+    \iint_Dd\omega=\iint_Dddudv=S,
+\end{equation}
+et au final l'aire est donnée par
+\begin{equation}
+    S=\int_{\partial D}\left( -\frac{ y }{2}dx+\frac{ x }{2}dy \right).
+\end{equation}
+
+Lorsque le bord de \( D\) est paramétré par
+\begin{equation}
+    \begin{aligned}
+        \gamma\colon \mathopen[ a , b \mathclose]&\to \eR^2 \\
+        u&\mapsto \begin{pmatrix}
+            x(u)    \\ 
+            y(u)    
+        \end{pmatrix},
+    \end{aligned}
+\end{equation}
+nous avons
+\begin{equation}
+    (Pdx+Qdy)\gamma'(u)=Px'+Qy',
+\end{equation}
+et alors
+\begin{equation}
+    \int_{\partial D}Pdx+Qdy=\int_a^b P\big( x(u),y(u) \big)x'(u)+Q\big( x(u),y(u) \big)y'(u)du.
+\end{equation}
+En ce qui concerne l'aire de la surface, nous prenons les \( P\) et \( Q\) de la forme \ref{EqZNXYMQb} :
+\begin{equation}    \label{EqAJGrtOk}
+    S=\frac{ 1 }{2}\int_a^b\Big( -y(u)x'(u)+x(u)y'(u) \Big)du.
+\end{equation}
+
+\subsection{Formule de Stokes}
+\label{secstokesusuel}
+
+La formule de Stokes est la version classique, qui permet d'exprimer la circulation d'un champ de vecteur le long d'une courbe de $\eR^3$ comme le flux de son rotationnel à travers n'importe quel surface dont le bord est la courbe. La version présentée ici suppose que la surface peut se paramétrer en un seul morceau~:
+\begin{theorem}
+  Soit $F : W\subset \eR^2 \to \eR^3$ une paramétrisation (carte) d'une surface dans $\eR^3$, supposée de classe $C^2$. Soit $D$ un ouvert de $\eR^2$ vérifiant les hypothèses de la formule de Green, et tel que $\bar D \subset W$. Soit $G$ un champ de vecteurs de classe $C^1$ défini sur $F(\bar D)$, et soit $N$ le champ normal unitaire donné par la paramétrisation
+  \begin{equation}		
+	N = \frac{\pder F u \wedge \pder F v}{\norme{\pder F u \wedge \pder F v}}
+\end{equation}
+  alors
+  \begin{equation}\label{EqStokesTho}
+    \iint_{F(D)} \scalprod{\rot G}{N} d\sigma_F = \int_{F(\partial D)} G
+  \end{equation}
+  où les chemins formant le bord $\partial D$ sont orientés comme dans le théorème de Green.
+\end{theorem}
+Notons, juste pour avoir une bonne nouvelle de temps en temps, que 
+\begin{equation}
+	d\sigma_F=\left\| \frac{ \partial F }{ \partial u }\times\frac{ \partial F }{ \partial v }  \right\|dudv,
+\end{equation}
+mais cette norme apparaît exactement au dénominateur de $N$. Il ne faut donc pas la calculer parce qu'elle se simplifie.
+
+Sous forme un peu plus physicienne\footnote{et surtout plus explicite.}, la formule \eqref{EqStokesTho} s'écrit
+\begin{equation}
+	\int_{F(D)}\langle \nabla\times G, N(x)\rangle\, d\sigma_F(x)=\int_{F(\gamma)}\langle G, T\rangle\, ds
+\end{equation}
+où $T$ est le vecteur unitaire tangent à $F(\gamma)$.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Quelle est la bonne orientation ?}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Le signe du vecteur normal $N$ dépend du choix de l'ordre des coordonnées dans la carte. Supposons que je veuille paramétrer la surface $x^2+y^2=1$, $z=1$. Nous prenons naturellement comme carte le cercle $C$ de rayon $1$ dans $\eR^2$ et la carte
+\begin{equation}
+	F(r,\theta)=\begin{pmatrix}
+		r\cos\theta	\\ 
+		r\sin\theta	\\ 
+		1	
+	\end{pmatrix}.
+\end{equation}
+Mais nous aurions aussi pu mettre les coordonnées $r$ et $\theta$ dans l'autre ordre :
+\begin{equation}
+	\tilde F(\theta,r)=\begin{pmatrix}
+		r\cos\theta	\\ 
+		r\sin\theta	\\ 
+		1	
+	\end{pmatrix}.
+\end{equation}
+Les vecteurs normaux ne sont pas les même : la carte $F$ donnera $\partial_rF\times\partial_{\theta}F$, tandis que l'autre donnera $\partial_{\theta}\tilde F\times\partial_r\tilde F$. Le signe change !
+
+Il faut savoir laquelle choisir. Le cercle $C\subset \eR^2$ a une orientation donnée par le théorème de Green. Nous choisissons l'ordre des coordonnées pour que $1_{\theta}$ et $1_{r}$ soient dans la même orientation que les vecteurs $\nu$ et $T$ tels que donnés par le théorème de Green, et tels que dessinés sur la figure \ref{LabelFigCercleTnu}.
+\newcommand{\CaptionFigCercleTnu}{L'orientation sur le cercle. Si nous les prenons dans l'ordre, les vecteurs $(1_r,1_{\theta})$ ont la même orientation que celle donnée par les vecteurs $(\nu,T)$ donnés par la convention de Green.}
+\input{Fig_CercleTnu.pstricks}
+
+%\ref{LabelFigCercleTnu}.
+%\newcommand{\CaptionFigCercleTnu}{L'orientation sur le cercle. Si nous les prenons dans l'ordre, les vecteurs $(1_r,1_{\theta})$ ont la même orientation que celle donnée par les vecteurs $(\nu,T)$ donnés par la convention de Green.}
+%\input{Fig_CercleTnu.pstricks}
+
+Plus généralement, nous choisissons l'ordre des coordonnées $u$ et $v$ pour que la base $(1_u,1_v)$ ait la même orientation que $(\nu,T)$ où $T$ a le sens convenu dans le théorème de Green.
