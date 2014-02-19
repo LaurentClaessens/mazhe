@@ -49,6 +49,10 @@
 \end{definition}
 Le plus souvent lorsque nous parlerons de fonctions \( f\colon X\to Y\) où \( Y\) est un espace topologique, nous considérons la tribu borélienne sur \( Y\). Ce sera en particulier le cas dans la théorie de l'intégration.
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Fonction mesurable}
+%---------------------------------------------------------------------------------------------------------------------------
+
 \begin{definition}[Fonction mesurable] \label{DefQKjDSeC}
     Soit \( (E,\tribA)\) et \( (F,\tribF)\) deux espaces mesurés. Une fonction \( f\colon E\to F\) est \defe{mesurable}{mesurable!fonction} si pour tout \( \mO\in \tribF\), l'ensemble \( f^{-1}(\mO)\) est dans \( \tribA\).
 
@@ -62,8 +66,40 @@ Si \( \tribA\) est une tribu sur un ensemble \( E\), nous notons \( m(\tribA)\)\
     Pour toute la partie sur l'intégration, une fonction \( f\colon \eR^n\to \eR^m\) sera mesurable si pour tout borélien \( A\) de \( \eR^m\) l'ensemble \( f^{-1}(A)\) est Lebesgue-mesurable dans \( \eR^n\).
 
     Étant donné qu'il est franchement difficile de créer des ensembles non mesurables au sens de Lebesgue, il est franchement difficile de créer des fonction non mesurables à valeurs réelles. L'hypothèse de mesurabilité est donc toujours satisfaite dans les cas pratiques.
-
 \end{remark}
+
+\begin{lemma}[\cite{NBoIEXO}]   \label{LemFOlheqw}
+    Une fonction \( f\colon X\to \eR\) est mesurable si et seulement si \( f^{-1}(I)\) est mesurable pour tout \( I\) de la forme \( \mathopen] a , \infty \mathclose[\).
+\end{lemma}
+
+\begin{proof}
+    Nous devons prouver que \( f^{-1}(A)\) est mesurable dans \( X\) pour tout borélien \( A\) de \( \eR\). Nous posons
+    \begin{equation}
+        S=\{ A\subset \eR\tq f^{-1}(A)\text{ est mesurable dans \( X\)} \}
+    \end{equation}
+    et nous prouvons que cela est une tribu. D'abord \( f^{-1}(\eR)=X\), et \( X\) est mesurable, donc \( \eR\in S\). Ensuite si \( A\in S\) alors \( f^{-1}(A^c)=f^{-1}(A)^c\). En tant que complémentaire d'un mesurable de \( X\), l'ensemble \( f^{-1}(A)^c\) est mesurable dans \( X\). Et enfin si \( A_n\in S \) alors \( f^{-1}(\bigcup_nA_n)=\bigcup_nf^{-1}(A_n)\) qui est encore mesurable dans \( X\) en tant qu'union de mesurables.
+
+    Donc \( S\) est une tribu qui contient tous les ensembles de la forme \( \mathopen] a , \infty \mathclose]\). Ces derniers formant une base de la topologie de \( \eR\), la tribu \( S\) contient tous les ouverts de \( \eR\) et donc tous les boréliens de \( \eR\).
+\end{proof}
+<++>
+
+\begin{lemma}[\cite{NBoIEXO}]
+    Soit \( f_n\colon X\to \eR\) une suite de fonctions mesurables\footnote{Ici \( X\) est un espace mesuré et \( \eR\) est muni des boréliens.}. Alors \( \sup_n f_n\) est mesurable.
+\end{lemma}
+
+\begin{proof}
+    Nous avons
+    \begin{subequations}
+        \begin{align}
+            (\sup f_n)^{-1}\big( \mathopen] a , \infty \mathclose] \big)&=\{ x\in X\tq (\sup f_n)(x)>a \}\\
+            &=\bigcup_n\{ x\in X\tq f_n(x)>a \}\\
+            &=\bigcup_nf_n^{-1}\big( \mathopen] a , \infty \mathclose] \big).
+        \end{align}
+    \end{subequations}
+    Étant donné que \( f_n\) est mesurable et que \( \mathopen] a , \infty \mathclose]\) est mesurable, chacun des \( f_n^{-1}\big( \mathopen] a , \infty \mathclose] \big) \) est mesurable dans \( X\). Nous sommes en présence d'une union dénombrable de mesurables, donc \( (\sup f_n)^{-1}\big( \mathopen] a , \infty \mathclose] \big)\) est mesurable.
+
+    Le lemme \ref{LemFOlheqw} conclu que \( \sup f_n\) est mesurable.
+\end{proof}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Tribu produit}
@@ -693,7 +729,7 @@ Le lemme suivant nous aide à détecter des fonctions presque partout nulles.
     \end{equation}
 \end{proof}
 
-\begin{theorem}[\cite{NBoIEXO}]
+\begin{theorem}[\cite{NBoIEXO}\footnote{Modèle non contractuel : des notations et la définition de \( \lambda\)-système peuvent varier entre la référence et le présent texte.}]
     Soient \( (\Omega_i,\tribA_i,\mu_i)\) (\( i=1,2\)) deux espaces mesurés \( \sigma\)-finie. Soit \( A\in\tribA_1\otimes \tribA_2\). Alors les fonctions\footnote{Voir la notation du lemme \ref{subEqCTtPccK}.}
     \begin{subequations}
         \begin{align}
@@ -702,13 +738,64 @@ Le lemme suivant nous aide à détecter des fonctions presque partout nulles.
         \end{align}
     \end{subequations}
     sont mesurables et
-    \begin{equation}
+    \begin{equation}    \label{EqRKXwsQJ}
         \int_{\Omega_1}\mu_2\big( A_2(x) \big)d\mu_1(x)=\int_{\Omega_2}\mu_2\big( A_1(y) \big)d\mu_2(y).
     \end{equation}
 \end{theorem}
 
 \begin{proof}
+    Nous supposons d'abord que \( \mu_1\) et \( \mu_2\) sont finies et nous notons \( \tribD\) le sous-ensemble de \( \tribA_1\otimes \tribA_2\) sur lequel le théorème est correct. Nous allons commencer par prouver que \( \tribD\) est un \( \lambda\)-système.
+
+    \begin{subproof}
+        \item[\( \lambda\)-système : différence ensembliste]
+            Soient \( A,B\in\tribD\) avec \( A\subset B\). Nous avons
+            \begin{subequations}
+                \begin{align}
+                    (B\setminus A)_1(y)&=\{ x\in \Omega_1\tq(x,y)\in B\setminus A \}\\
+                    &=\{ x\in \Omega_1\tq(x,y)\in B\}\setminus\{ x\in \Omega_1\tq(x,y)\in  A \}\\
+                    &=B_1(y)\setminus A_1(y).
+                \end{align}
+            \end{subequations}
+            Vu que \( A_1(y)\subset B_1(y)\) et que les mesure sont finies le lemme \ref{LemPMprYuC} nous donne
+            \begin{equation}
+                \mu_1\big( (B\setminus A)_1(y) \big)=\mu_1\big( B_1(y) \big)-\mu_1\big( A_1(y) \big),
+            \end{equation}
+            et simulairement pour \( 1\leftrightarrow 2\). Les deux fonctions (de \( y\)) à droite étant mesurables, nous avons la mesurabilité de la fonction \( y\mapsto \mu_1\big( (B\setminus A)_1(y) \big)\).
+
+            Prouvons la formule intégrale en nous rappelant que la formule \eqref{EqRKXwsQJ} est supposée correcte pour \( A\) et \( B\) séparément :
+            \begin{subequations}
+                \begin{align}
+                    \int_{\Omega_2}\mu_1\big( (B\setminus A)_1(y) \big)d\mu_2(y)&=\int_{\Omega_2}\mu_1\big( B_1(y) \big)d\mu_2(y)-\int_{\Omega_2}\mu_1\big( A_1(y) \big)d\mu_2(y)\\
+                    &=\int_{\Omega_1}\mu_2\big( B_2(x) \big)d\mu_1(x)-\int_{\Omega_1}\mu_2\big( A_2(x) \big)d\mu_1(x)\\
+                    &=\int_{\Omega_1}\mu_2\big( (B\setminus A)_2(x) \big)d\mu_1(x).
+                \end{align}
+            \end{subequations}
+            
     
+        \item[\( \lambda\)-système : limite de suite croissante]
+
+            Soit \( (A_n)\) une suite croissante dans \( \tribD\); nous posons \( B_n=A_n\setminus A_{n-1}\) et \( A_0=\emptyset\) de telle sorte à travailler avec une suite d'ensembles disjoints qui satisfait \( \bigcup_nA_n=\bigcup_nB_n\). Vu que la suite est croissante nous avons \( A_{n-1}\subset A_n\) et donc \( B_n\in\tribD\) par le point déjà fait sur la différence ensembliste. Nous avons :
+            \begin{subequations}
+                \begin{align}
+                    \mu_1\big( (\bigcup_nB_n)_1(y) \big)&=\{ x\in \Omega_1\tq (x,y)\in\bigcup_nB_n \}\\
+                    &=\bigcup_n\{ x\in\Omega_1\tq (x,y)\in B_n \}\\
+                    &=\bigcup_n (B_n)_1(y).
+                \end{align}
+            \end{subequations}
+            Par conséquent, par la propriété \ref{ItemQFjtOjXiii} d'une mesure nous avons
+            \begin{equation}
+                \mu_1\big( (\bigcup_nB_n)_1(y) \big)=\sum_n\mu_1\big( (B_n)_1(y) \big).
+            \end{equation}
+            En tant que somme de fonctions positives et mesurables, la fonction
+            \begin{equation}
+                y\mapsto\sum_n\mu_1\big( (B_n)_1(y) \big)
+            \end{equation}
+            est mesurable par la proposition \ref{PropFYPEOIJ}.
+
+    \end{subproof}
+
+    Maintenant que \( \tribD\) est un $\lambda$-système contenant les rectangles, le lemme \ref{LemLUmopaZ} dit que la tribu engendrée par \( \tribD\) (c'est à dire \( \tribA_1\otimes \tribA_2\)) est le $\lambda$-système \( \tribD\) lui-même.
+
 \end{proof}
 <++>
 
