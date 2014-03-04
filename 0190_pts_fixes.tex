@@ -448,12 +448,206 @@ est la \defe{matrice jacobienne}{jacobienne!matrice} de $F$ par rapport à $y$ a
 \subsection{À propos de différentielles dans un Banach}
 %---------------------------------------------------------------------------------------------------------------------------
 
-\begin{definition}
+\begin{definition}  \label{DefKZXtcIT}
     Soit une application \( f\colon E\to F\) entre deux espaces de Banach. Nous disons que \( f\) est \defe{différentiable}{différentiable!dans un Banach} en \( a\in E\) si il existe une application linéaire \( T\colon E\to F\) telle que
     \begin{equation}
     \lim_{h\to 0} \frac{ f(a+h)-f(a)-T(h) }{ \| h \| }=0.
     \end{equation}
 \end{definition}
+
+\begin{proposition} \label{PropDQLhSoy}
+    Soit \( E\) un espace vectoriel normé. Soient \( a<b\) dans \( \eR\) et deux fonctions
+    \begin{subequations}
+        \begin{align}
+            f\colon \mathopen[ a , b \mathclose]\to E\\
+            g\colon \mathopen[ a , b \mathclose]\to \eR
+        \end{align}
+    \end{subequations}
+    continues sur \( \mathopen[ a , b \mathclose]\) et dérivables sur \( \mathopen] a , b \mathclose[\). Si pour tout \( t\in\mathopen] a , b \mathclose[\) nous avons \( \| f'(t) \|\leq g'(t)\) alors
+        \begin{equation}
+            \| f(b)-f(a) \|\leq g(b)-g(a).
+        \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Soit \( \epsilon>0\) et la fonction
+    \begin{equation}
+        \begin{aligned}
+            \varphi_{\epsilon}\colon \mathopen[ a , b \mathclose]&\to \eR \\
+            t&\mapsto \| f(t)-f(a) \|-g(t)-\epsilon t. 
+        \end{aligned}
+    \end{equation}
+    Cela est une fonction continue réelle à variable réelle. En particulier pour tout \( u\in\mathopen] a , b \mathclose[\) la fonction \( \varphi_{\epsilon}\) est continue sur le compact \( \mathopen[ u , b \mathclose]\) et donc y atteint son minimum en un certain point \( c\in\mathopen[ u , b \mathclose]\); c'est le bon vieux théorème de Weierstrass \ref{ThoWeirstrassRn}. Nous commençons par montrer que pour tout \( u\), ledit minimum ne peut être que \( b\). Pour cela nous allons montrer que si \( t\in\mathopen[ u , b [\), alors \( \varphi_{\epsilon}(s)<\varphi_{\epsilon}(t)\) pour un certain \( s>t\). Par continuité si \( s\) est proche de \( t\) nous avons
+        \begin{equation}
+            \left\|  \frac{ f(s)-f(t) }{ s-t }  \right\|-\frac{ \epsilon }{2}<\| f'(t) \|<g'(t)+\frac{ \epsilon }{2}=\frac{ g(s)-g(t) }{ s-t }+\frac{ \epsilon }{2}.
+        \end{equation}
+        Ces inégalités proviennent de la limite
+        \begin{equation}
+            \lim_{s\to t} \frac{ f(s)-f(t) }{ s-t }=f'(t),
+        \end{equation}
+        donc si \( s\) et \( t\) sont proches,
+        \begin{equation}
+            \left\| \frac{ f(s)-f(t) }{ s-t }-f'(t) \right\|
+        \end{equation}
+        est petit. Si \( s>t\) nous pouvons oublier des valeurs absolues et transformer l'inégalité en
+        \begin{equation}
+            \| f(s)-f(t) \|<g(s)-g(t)+\epsilon(s-t).
+        \end{equation}
+        Utilisant cela et l'inégalité triangulaire,
+        \begin{subequations}
+            \begin{align}
+                \varphi_{\epsilon}(s)&\leq\| f(s)-f(t) \|+\| f(t)-f(a) \|-g(s)-\epsilon s\\
+                &\leq g(s)-g(t)+\epsilon s-\epsilon t+\| f(t)-f(a) \|-g(s)-\epsilon s\\
+                &=\varphi_{\epsilon}(t).
+            \end{align}
+        \end{subequations}
+        Donc nous avons bien \( \varphi_{\epsilon}(s)<\varphi_{\epsilon}(t)\) avec l'inégalité stricte. Par conséquent pour tout \( u\in\mathopen] a , b \mathclose[\) nous avons \( \varphi_{\epsilon}(b)<\varphi_{\epsilon}(u)\) et en prenant la limite \( u\to a\) nous avons
+        \begin{equation}
+            \varphi_{\epsilon}(b)\leq \varphi_{\epsilon}(a).
+        \end{equation}
+        Cette inégalité donne immédiatement
+        \begin{equation}
+            \| f(b)-f(a) \|\leq g(b)-g(a)+\epsilon(b-a)
+        \end{equation}
+         pour tout \( \epsilon>0\) et donc
+         \begin{equation}
+            \| f(b)-f(a) \|\leq g(b)-g(a).
+         \end{equation}
+\end{proof}
+
+\begin{proposition}
+    Soient \( E\) et \( F\) des espaces vectoriels normés, \( U \) ouvert dans \( E\) et une application différentiable \( f\colon U\to F\). Pour tout segment \( \mathopen[ a , b \mathclose]\subset U\) nous avons
+    \begin{equation}
+        \| f(b)-f(a) \|\leq\left( \sup_{x\in\mathopen[ a , b \mathclose]}\| df_x \| \right)\| b-a \|.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Nous prenons les applications
+    \begin{equation}
+        \begin{aligned}
+            k\colon \mathopen[ 0 , 1 \mathclose]&\to E \\
+            t&\mapsto f\big( (1-t)a+tb \big) 
+        \end{aligned}
+    \end{equation}
+    et
+    \begin{equation}
+        \begin{aligned}
+            g\colon \mathopen[ 0 , 1 \mathclose]&\to \eR \\
+            t&\mapsto t\sup_{x\in\mathopen[ a , b \mathclose]}\| df_x \|\| b-a \|.
+        \end{aligned}
+    \end{equation}
+    Pour tout \( t\) nous avons \( g'(t)=M\| b-a \|\) où il n'est besoin de dire ce qu'est \( M\). D'un autre côté nous avons aussi
+    \begin{equation}
+        \begin{aligned}[]
+            k'(t)&=\lim_{\epsilon\to 0}\frac{ f\big( (1-t-\epsilon)a+(t+\epsilon)b \big)-f\big( (1-t)a+tb \big) }{ \epsilon }\\
+            &=\Dsdd{ f\big( (1-t)a+tb+\epsilon(b-a) \big)  }{\epsilon}{0}\\
+            &=df_{(1-t)a+tb}(b-a)
+        \end{aligned}
+    \end{equation}
+    où nous avons utilisé l'hypothèse de différentiabilité de \( f\) sur \( \mathopen[ a , b \mathclose]\) et donc en \( (1-t)a+tb\). Nous avons donc
+    \begin{equation}
+        \| k'(t) \|\leq \| b-a \|\| df_{(1-t)a+tb} \|\leq M\| b-a \|=g'(t)
+    \end{equation}
+    La proposition \ref{PropDQLhSoy} est donc utilisable et
+    \begin{equation}
+        \| k(1)-k(0) \|=g(1)-g(0),
+    \end{equation}
+    c'est à dire
+    \begin{equation}
+        \| f(b)-f(a) \|=M\| b-a \|
+    \end{equation}
+    comme il se doit.
+\end{proof}
+
+\begin{proposition} \label{ProFSjmBAt}
+    Soient \( E\) et \( F\) des espaces vectoriels normés, \( U \) ouvert dans \( E\) et une application \( f\colon U\to F\). Soient \( a,b\in U\) tels que \( \mathopen[ a , b \mathclose]\subset U\). Nous posons \( u=(b-a)/\| b-a \|\) et nous supposons que pour tout \( x\in\mathopen[ a , b \mathclose]\), la dérivée directionnelle
+    \begin{equation}
+        \frac{ \partial f }{ \partial u }(x)=\Dsdd{ f(x+tu) }{t}{0}
+    \end{equation}
+    existe. Nous supposons de plus que \( \frac{ \partial f }{ \partial u }(x)\) est continue en \( x=a\). Alors
+    \begin{equation}
+        \| f(b)-f(a) \|\leq\left( \sup_{x\in\mathopen[ a , b \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \| \right)\| b-a \|.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Nous posons évidemment 
+    \begin{equation}
+        M=\sup_{x\in\mathopen[ a , b \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \| 
+    \end{equation}
+    et nous considérons les fonctions
+    \begin{equation}
+        k(t)=f\big( (1-t)a+tb \big)
+    \end{equation}
+    et
+    \begin{equation}
+        g(t)=tM\| b-a \|.
+    \end{equation}
+    Pour alléger les notations nous posons \( x=(1-t)a+tb\) et nous calculons avec un petit changement de variables dans la limite :
+    \begin{equation}
+        k'(t)=\Dsdd{  f\big( x+\epsilon(b-a) \big)  }{\epsilon}{0}=\| b-a \|\Dsdd{ f\big( x+\frac{ \epsilon }{ \| b-a \| }(b-a) \big) }{\epsilon}{0}=\| b-a \|\frac{ \partial f }{ \partial u }(x),
+    \end{equation}
+    et donc encore une fois nous avons
+    \begin{equation}
+        \| k'(t) \|\leq g'(t),
+    \end{equation}
+    ce qui donne
+    \begin{equation}
+        \| k(1)-k(0) \|=g(1)-g(0),
+    \end{equation}
+    c'est à dire
+    \begin{equation}
+        \| f(b)-f(a) \|\leq \sup_{x\in\mathopen[ a , b \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \|\| b-a \|.
+    \end{equation}
+\end{proof}
+
+\begin{theorem}
+    Soient \( E,V\) deux espaces vectoriels normés, une application \( f\colon E\to V\), un point \( a\in E\) tel que pour tout \( u\in E\), la dérivée
+    \begin{equation}
+        \Dsdd{ f(x+tu) }{t}{0}
+    \end{equation}
+    existe pour tout \( x\in B(a,r)\) et est continue (par rapport à \( x\)) en \( x=a\).
+
+    Alors \( f\) est différentiable en \( a\) et
+    \begin{equation}
+        df_a(u)=\Dsdd{ f(a+tu) }{t}{0}.
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Dans un premier temps nous supposons que pour tout \( u\in E\) nous avons \( \frac{ \partial f }{ \partial u }(a)=0\).
+
+    Soit \( \epsilon>0\). Pourvu que \( \| h \|\) soit assez petit pour que \( a+h\in B(a,r)\), la proposition \ref{ProFSjmBAt} nous donne
+    \begin{equation}
+        \| f(a+h)-f(a) \|\leq \sup_{x\in\mathopen[ a , a+h \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \| h |
+    \end{equation}
+    où \( u=h/\| h \|\). Par continuité de \( \partial_uf(x)\) en \( x=a\) et par le fait que cela vaut \( 0\) en \( x=a\), il existe un \( \delta>0\) tel que si \( \| h \|<\delta\) alors
+    \begin{equation}
+        \| \frac{ \partial f }{ \partial u }(a+h) \|\leq \epsilon.
+    \end{equation}
+    Pour de tels \( h\) nous avons
+    \begin{equation}
+        \| f(a+h)-f(a) \|\leq \epsilon\| h \|,
+    \end{equation}
+    ce qui prouve que l'application linéaire \( T(u)=0\) convient parfaitement pour faire fonctionner la définition \ref{DefKZXtcIT}.
+
+    Nous ne supposons plus que les dérivées directionnelles de \( f\) sont nulles en \( x=a\). Alors nous posons, pour \( x\in U\),
+    \begin{equation}
+        g(x)=f(x)-\Dsdd{ f(a+s(x-a)) }{s}{0}.
+    \end{equation}
+    Le fait que cette fonction soit bien définie est encore un coup de hypothèses sur les dérivées directionnelles de \( f\) qui sont bien définies autour de \( a\). Cette nouvelle fonction \( g\) satisfait à \( \frac{ \partial g }{ \partial v }(a)=0\) pour tout \( v\in E\) parce que
+    \begin{subequations}
+        \begin{align}
+            \frac{ \partial g }{ \partial v }(a)&=\Dsdd{ g(a+tv) }{t}{0}\\
+            &=\Dsdd{ f(a+tv)-\Dsdd{ f\big( a+s(tv) \big) }{s}{0} }{t}{0}\\
+            &=\frac{ \partial f }{ \partial v }(a)-\Dsdd{ t\frac{ \partial f }{ \partial v }(a) }{t}{0}\\
+            &=0.
+        \end{align}
+    \end{subequations}
+    Pour la dérivée par rapport à \( s\) nous avons effectué le changement de variables \( s\to ts\), ce qui explique la présence d'un \( t\) en facteur. La fonction \( g\) est donc différentiable en \( a\) et la fonction \( f\) suit.
+\end{proof}
+
 
 Si \( E\) est un espace de Banach, nous sommes intéressé à l'espace \( \GL(E)\) des endomorphismes inversibles de \( E\) sur \( E\). Cet ensemble est métrique par la formule usuelle
 \begin{equation}
