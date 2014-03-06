@@ -1469,6 +1469,591 @@ et que dans le cas où \( E\) est de dimension infinie, elle est réellement dif
 \end{equation}
 est vraie pour la topologie faible, mais pas pour la topologie forte.
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Calcul différentiel dans un espace de Banach}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SecLStKEmc}
+
+Nous développons dans cette section le concept de différentielle de fonction de et vers des espaces de Banach (ou plus généralement des espaces vectoriels normés) au lieu de \( \eR^n\).
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Différentielle}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}  \label{DefKZXtcIT}
+    Soit une application \( f\colon E\to F\) entre deux espaces de Banach. Nous disons que \( f\) est \defe{différentiable}{différentiable!dans un Banach} en \( a\in E\) si il existe une application linéaire continue\footnote{Nous demandons bien que le candidat différentielle soit continue; en dimension infinie ce n'est pas le cas de toutes les fonctions linéaires, comme le montre l'exemple \ref{ExHKsIelG}.} \( T\colon E\to F\) telle que
+    \begin{equation}\label{EqIQuRGmO}
+        \lim_{h\to 0} \frac{ f(a+h)-f(a)-T(h) }{ \| h \| }=0.
+    \end{equation}
+\end{definition}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{(non) différentiabilité des applications linéaires}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si \( E\) et \( F\) sont deux espaces vectoriels nous notons \( \aL(E,F)\)\nomenclature[Y]{\( \aL(E,F)\)}{Les applications linéaires de \( E\) vers \( F\)} l'ensemble des applications linéaires de \( E\) vers \( F\) et \( \cL(E,F)\)\nomenclature[Y]{\( \cL\)}{Les applications linéaires continues de \( E\) vers \( F\)} l'ensemble des applications linéaires continues de \( E\) vers \( F\).
+
+\begin{example}[Une application linéaire non continue]  \label{ExHKsIelG}
+    Si \( \{ e_k \}_{k\in \eN}\) est une base d'un espace vectoriel normé \( V\) alors l'application linéaire \( f\colon V\to V\) donnée par \( f(e_k)=ke_k\) n'est pas continue. En effet soit \( r>0\); dès que \( rk>1\) nous avons \( f(re_k)\notin B(0,1)\) et donc \( B(0,r)\) n'est pas inclue dans \( f^{-1}\big( B(0,1) \big)\). Par conséquent il n'existe pas de voisinages de \( 0\) à être inclu à \( f^{-1}\big( B(0,1) \big)\) ce qui prouve que ce dernier n'est pas ouvert alors qu'il est image d'un ouvert par \( f^{-1}\).
+\end{example}
+
+Il est immédiat de voir que si \( f\) est linéaire et différentiable alors \( df_a(u)=f(u)\). En effet la linéarité de \( f\) donne
+\begin{equation}
+    f(a+h)-f(a)-f(h)=0
+\end{equation}
+pour tout \( h\). Donc la limite \eqref{EqIQuRGmO} est nulle. Les applications linéaires non continues ne sont donc pas différentiables.
+
+\begin{lemma}
+    Une application linéaire continue est de classe \(  C^{\infty}\).
+\end{lemma}
+
+\begin{proof}
+    Soit \( a\in E\). Étant donné que \( f\) est linéaire et continue, elle est différentiable et
+    \begin{equation}
+        \begin{aligned}
+            df\colon E&\to \cL(E,F) \\
+            a&\mapsto f 
+        \end{aligned}
+    \end{equation}
+    est une fonction constante et en particulier continue; nous avons donc \( f\in C^1\). Pour la différentielle seconde nous avons \( d(df)_a=0\) parce que \( df(a+h)-df(a)=f-f=0\). Toutes les différentielles suivantes sont nulles.
+\end{proof}
+
+%TODO : je verrais bien ici le résultat qui dit qu'une appl linéaire est continue si et seulement si elle est bornée.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Dérivation en chaine et formule de Leibnitz}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}[Différentielle de fonctions composées\cite{SNPdukn}]
+    Soient \( E\), \( F\) et \( G\) des espaces vectoriels normés, \( U\) ouvert dans \( E\) et \( V\) ouvert dans \( F\). Soient des applications de classe \( C^r\) (\( r\geq 1\))
+    \begin{subequations}
+        \begin{align}
+            f\colon U\to V\\
+            g\colon V\to G.
+        \end{align}
+    \end{subequations}
+    Alors l'application \( g\circ f\colon V\to G\) est de classe \( C^r\) et
+    \begin{equation}
+        f(g\circ f)(u)=dg_{f(u)}\circ df_u.
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Nous nous fixons \( x\in U\). La fonction \( f\) est différentiable en \( x\in U\) et \( g\) en \( f(x)\), donc nous pouvons écrire
+    \begin{equation}
+        f(x+h)=f(x)+df_x(h)+\alpha(h)
+    \end{equation}
+    et
+    \begin{equation}
+        g\big( f(x)+u \big)=g\big( f(x) \big)+dg_{f(x)}(u)+\beta(u)
+    \end{equation}
+    où la fonction \( \alpha\) a la propriété que
+    \begin{equation}
+        \lim_{h\to 0} \frac{ \| \alpha(h) \| }{ \| h \| }=0;
+    \end{equation}
+    et la même chose pour \( \beta\). La fonction composée en \( x+h\) s'écrit donc
+    \begin{equation}
+        (g\circ f)(x+h)=g\big( f(x)+df_x(h)+\alpha(h) \big)=g\big( f(x) \big)+dg_{f(x)}\big( df_x(h)+\alpha(h) \big)+\beta\big( df_x(h)+\alpha(h) \big).
+    \end{equation}
+    Nous montrons que tous les «petits» termes de cette formule peuvent être groupés. D'abord si \( h\) est proche de \( 0\), nous avons
+    \begin{equation}
+        \frac{ \| df_x(h)+\alpha(h) \| }{ \| h \| }\leq\frac{ \| df_x \|\| h \| }{ \| h \| }+\frac{ \| \alpha(h) \| }{ \| h \| }.
+    \end{equation}
+    Si \( h\) est petit, le second terme est arbitrairement petit, donc en prenant n'importe que \( M>\| df_x \|\) nous avons
+    \begin{equation}
+        \frac{ \| df_x(h)+\alpha(h) \| }{ \| h \| }\leq M.
+    \end{equation}
+    <++>
+\end{proof}
+<++>
+
+\begin{proposition}[Règle de Leibnitz\cite{SNPdukn}]
+    Soient \( E,F_1,F_2\) des espaces vectoriels normés, \( U\) ouvert dans \( E\) et des applications de classe \( C^r\) (\( r\geq 1\))
+    \begin{subequations}
+        \begin{align}
+            f_1\colon U\to F_1\\
+            f_1\colon U\to F_1\\
+        \end{align}
+    \end{subequations}
+    et \( B\in\cL(F_1\times F_2,G)\). Alors l'application
+    \begin{equation}
+        \begin{aligned}
+            \varphi\colon U&\to G \\
+            x&\mapsto B\big( f_1(x),f_2(x) \big) 
+        \end{aligned}
+    \end{equation}
+    est de classe \( C^r\) et
+    \begin{equation}
+        d\varphi_x(u)=\varphi\big( (df_1)_x(u),f_2(x) \big)+\varphi\big( f_1(x),(df_2)_x(u) \big).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    L'application \( \varphi\) est une composée
+    \begin{equation}
+        \varphi=B\circ(f_1\times f_2)\circ \Delta
+    \end{equation}
+    avec \( \Delta\colon U\to U\times U\), \( \Delta(x)=(x,x)\).
+    %AFAIRE : teminer
+\end{proof}
+<++>
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Formule des accroissements finis}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition} \label{PropDQLhSoy}
+    Soit \( E\) un espace vectoriel normé. Soient \( a<b\) dans \( \eR\) et deux fonctions
+    \begin{subequations}
+        \begin{align}
+            f\colon \mathopen[ a , b \mathclose]\to E\\
+            g\colon \mathopen[ a , b \mathclose]\to \eR
+        \end{align}
+    \end{subequations}
+    continues sur \( \mathopen[ a , b \mathclose]\) et dérivables sur \( \mathopen] a , b \mathclose[\). Si pour tout \( t\in\mathopen] a , b \mathclose[\) nous avons \( \| f'(t) \|\leq g'(t)\) alors
+        \begin{equation}
+            \| f(b)-f(a) \|\leq g(b)-g(a).
+        \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Soit \( \epsilon>0\) et la fonction
+    \begin{equation}
+        \begin{aligned}
+            \varphi_{\epsilon}\colon \mathopen[ a , b \mathclose]&\to \eR \\
+            t&\mapsto \| f(t)-f(a) \|-g(t)-\epsilon t. 
+        \end{aligned}
+    \end{equation}
+    Cela est une fonction continue réelle à variable réelle. En particulier pour tout \( u\in\mathopen] a , b \mathclose[\) la fonction \( \varphi_{\epsilon}\) est continue sur le compact \( \mathopen[ u , b \mathclose]\) et donc y atteint son minimum en un certain point \( c\in\mathopen[ u , b \mathclose]\); c'est le bon vieux théorème de Weierstrass \ref{ThoWeirstrassRn}. Nous commençons par montrer que pour tout \( u\), ledit minimum ne peut être que \( b\). Pour cela nous allons montrer que si \( t\in\mathopen[ u , b [\), alors \( \varphi_{\epsilon}(s)<\varphi_{\epsilon}(t)\) pour un certain \( s>t\). Par continuité si \( s\) est proche de \( t\) nous avons
+        \begin{equation}
+            \left\|  \frac{ f(s)-f(t) }{ s-t }  \right\|-\frac{ \epsilon }{2}<\| f'(t) \|<g'(t)+\frac{ \epsilon }{2}=\frac{ g(s)-g(t) }{ s-t }+\frac{ \epsilon }{2}.
+        \end{equation}
+        Ces inégalités proviennent de la limite
+        \begin{equation}
+            \lim_{s\to t} \frac{ f(s)-f(t) }{ s-t }=f'(t),
+        \end{equation}
+        donc si \( s\) et \( t\) sont proches,
+        \begin{equation}
+            \left\| \frac{ f(s)-f(t) }{ s-t }-f'(t) \right\|
+        \end{equation}
+        est petit. Si \( s>t\) nous pouvons oublier des valeurs absolues et transformer l'inégalité en
+        \begin{equation}
+            \| f(s)-f(t) \|<g(s)-g(t)+\epsilon(s-t).
+        \end{equation}
+        Utilisant cela et l'inégalité triangulaire,
+        \begin{subequations}
+            \begin{align}
+                \varphi_{\epsilon}(s)&\leq\| f(s)-f(t) \|+\| f(t)-f(a) \|-g(s)-\epsilon s\\
+                &\leq g(s)-g(t)+\epsilon s-\epsilon t+\| f(t)-f(a) \|-g(s)-\epsilon s\\
+                &=\varphi_{\epsilon}(t).
+            \end{align}
+        \end{subequations}
+        Donc nous avons bien \( \varphi_{\epsilon}(s)<\varphi_{\epsilon}(t)\) avec l'inégalité stricte. Par conséquent pour tout \( u\in\mathopen] a , b \mathclose[\) nous avons \( \varphi_{\epsilon}(b)<\varphi_{\epsilon}(u)\) et en prenant la limite \( u\to a\) nous avons
+        \begin{equation}
+            \varphi_{\epsilon}(b)\leq \varphi_{\epsilon}(a).
+        \end{equation}
+        Cette inégalité donne immédiatement
+        \begin{equation}
+            \| f(b)-f(a) \|\leq g(b)-g(a)+\epsilon(b-a)
+        \end{equation}
+         pour tout \( \epsilon>0\) et donc
+         \begin{equation}
+            \| f(b)-f(a) \|\leq g(b)-g(a).
+         \end{equation}
+\end{proof}
+
+\begin{proposition}
+    Soient \( E\) et \( F\) des espaces vectoriels normés, \( U \) ouvert dans \( E\) et une application différentiable \( f\colon U\to F\). Pour tout segment \( \mathopen[ a , b \mathclose]\subset U\) nous avons
+    \begin{equation}
+        \| f(b)-f(a) \|\leq\left( \sup_{x\in\mathopen[ a , b \mathclose]}\| df_x \| \right)\| b-a \|.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Nous prenons les applications
+    \begin{equation}
+        \begin{aligned}
+            k\colon \mathopen[ 0 , 1 \mathclose]&\to E \\
+            t&\mapsto f\big( (1-t)a+tb \big) 
+        \end{aligned}
+    \end{equation}
+    et
+    \begin{equation}
+        \begin{aligned}
+            g\colon \mathopen[ 0 , 1 \mathclose]&\to \eR \\
+            t&\mapsto t\sup_{x\in\mathopen[ a , b \mathclose]}\| df_x \|\| b-a \|.
+        \end{aligned}
+    \end{equation}
+    Pour tout \( t\) nous avons \( g'(t)=M\| b-a \|\) où il n'est besoin de dire ce qu'est \( M\). D'un autre côté nous avons aussi
+    \begin{equation}
+        \begin{aligned}[]
+            k'(t)&=\lim_{\epsilon\to 0}\frac{ f\big( (1-t-\epsilon)a+(t+\epsilon)b \big)-f\big( (1-t)a+tb \big) }{ \epsilon }\\
+            &=\Dsdd{ f\big( (1-t)a+tb+\epsilon(b-a) \big)  }{\epsilon}{0}\\
+            &=df_{(1-t)a+tb}(b-a)
+        \end{aligned}
+    \end{equation}
+    où nous avons utilisé l'hypothèse de différentiabilité de \( f\) sur \( \mathopen[ a , b \mathclose]\) et donc en \( (1-t)a+tb\). Nous avons donc
+    \begin{equation}
+        \| k'(t) \|\leq \| b-a \|\| df_{(1-t)a+tb} \|\leq M\| b-a \|=g'(t)
+    \end{equation}
+    La proposition \ref{PropDQLhSoy} est donc utilisable et
+    \begin{equation}
+        \| k(1)-k(0) \|=g(1)-g(0),
+    \end{equation}
+    c'est à dire
+    \begin{equation}
+        \| f(b)-f(a) \|=M\| b-a \|
+    \end{equation}
+    comme il se doit.
+\end{proof}
+
+\begin{proposition} \label{ProFSjmBAt}
+    Soient \( E\) et \( F\) des espaces vectoriels normés, \( U \) ouvert dans \( E\) et une application \( f\colon U\to F\). Soient \( a,b\in U\) tels que \( \mathopen[ a , b \mathclose]\subset U\). Nous posons \( u=(b-a)/\| b-a \|\) et nous supposons que pour tout \( x\in\mathopen[ a , b \mathclose]\), la dérivée directionnelle
+    \begin{equation}
+        \frac{ \partial f }{ \partial u }(x)=\Dsdd{ f(x+tu) }{t}{0}
+    \end{equation}
+    existe. Nous supposons de plus que \( \frac{ \partial f }{ \partial u }(x)\) est continue en \( x=a\). Alors
+    \begin{equation}
+        \| f(b)-f(a) \|\leq\left( \sup_{x\in\mathopen[ a , b \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \| \right)\| b-a \|.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Nous posons évidemment 
+    \begin{equation}
+        M=\sup_{x\in\mathopen[ a , b \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \| 
+    \end{equation}
+    et nous considérons les fonctions
+    \begin{equation}
+        k(t)=f\big( (1-t)a+tb \big)
+    \end{equation}
+    et
+    \begin{equation}
+        g(t)=tM\| b-a \|.
+    \end{equation}
+    Pour alléger les notations nous posons \( x=(1-t)a+tb\) et nous calculons avec un petit changement de variables dans la limite :
+    \begin{equation}
+        k'(t)=\Dsdd{  f\big( x+\epsilon(b-a) \big)  }{\epsilon}{0}=\| b-a \|\Dsdd{ f\big( x+\frac{ \epsilon }{ \| b-a \| }(b-a) \big) }{\epsilon}{0}=\| b-a \|\frac{ \partial f }{ \partial u }(x),
+    \end{equation}
+    et donc encore une fois nous avons
+    \begin{equation}
+        \| k'(t) \|\leq g'(t),
+    \end{equation}
+    ce qui donne
+    \begin{equation}
+        \| k(1)-k(0) \|=g(1)-g(0),
+    \end{equation}
+    c'est à dire
+    \begin{equation}
+        \| f(b)-f(a) \|\leq \sup_{x\in\mathopen[ a , b \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \|\| b-a \|.
+    \end{equation}
+\end{proof}
+
+\begin{theorem} \label{ThoOYwdeVt}
+    Soient \( E,V\) deux espaces vectoriels normés, une application \( f\colon E\to V\), un point \( a\in E\) tel que pour tout \( u\in E\), la dérivée
+    \begin{equation}
+        \Dsdd{ f(x+tu) }{t}{0}
+    \end{equation}
+    existe pour tout \( x\in B(a,r)\) et est continue (par rapport à \( x\)) en \( x=a\). Nous supposons de plus que\quext{Je ne suis pas certain que cette hypothèse soit nécessaire, voir la question \ref{ItemLPrIWZhPg} de la page \pageref{ItemLPrIWZhPg}.}
+    \begin{equation}
+        \frac{ \partial f }{ \partial u }(a)=0
+    \end{equation}
+    pour tout \( u\in E\). Alors \( f\) est différentiable en \( a\) et
+    \begin{equation}
+        df_a=0
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Soit \( \epsilon>0\). Pourvu que \( \| h \|\) soit assez petit pour que \( a+h\in B(a,r)\), la proposition \ref{ProFSjmBAt} nous donne
+    \begin{equation}
+        \| f(a+h)-f(a) \|\leq \sup_{x\in\mathopen[ a , a+h \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \|  |h |
+    \end{equation}
+    où \( u=h/\| h \|\). Par continuité de \( \partial_uf(x)\) en \( x=a\) et par le fait que cela vaut \( 0\) en \( x=a\), il existe un \( \delta>0\) tel que si \( \| h \|<\delta\) alors
+    \begin{equation}
+        \| \frac{ \partial f }{ \partial u }(a+h) \|\leq \epsilon.
+    \end{equation}
+    Pour de tels \( h\) nous avons
+    \begin{equation}
+        \| f(a+h)-f(a) \|\leq \epsilon\| h \|,
+    \end{equation}
+    ce qui prouve que l'application linéaire \( T(u)=0\) convient parfaitement pour faire fonctionner la définition \ref{DefKZXtcIT}.
+%
+%    Nous ne supposons plus que les dérivées directionnelles de \( f\) sont nulles en \( x=a\). Alors nous posons, pour \( x\in U\),
+%    \begin{equation}    \label{EqCUgHXHy}
+%        g(x)=f(x)-\Dsdd{ f(a+s(x-a)) }{s}{0}.
+%    \end{equation}
+%    Le fait que cette fonction soit bien définie est encore un coup de hypothèses sur les dérivées directionnelles de \( f\) qui sont bien définies autour de \( a\). Cette nouvelle fonction \( g\) satisfait à \( \frac{ \partial g }{ \partial v }(a)=0\) pour tout \( v\in E\) parce que
+%    \begin{subequations}
+%        \begin{align}
+%            \frac{ \partial g }{ \partial v }(a)&=\Dsdd{ g(a+tv) }{t}{0}\\
+%            &=\Dsdd{ f(a+tv)-\Dsdd{ f\big( a+s(tv) \big) }{s}{0} }{t}{0}\\
+%            &=\frac{ \partial f }{ \partial v }(a)-\Dsdd{ t\frac{ \partial f }{ \partial v }(a) }{t}{0}\\
+%            &=0.
+%        \end{align}
+%    \end{subequations}
+%    Pour la dérivée par rapport à \( s\) nous avons effectué le changement de variables \( s\to ts\), ce qui explique la présence d'un \( t\) en facteur. La fonction \( g\) est donc différentiable en \( a\).
+%
+%
+% Position 229262367
+    % Attention : ce qui suit est faux. Mais il y a peut-être moyen d'adapter.
+%\item[Dérivées non nulles]
+%
+%    Nous allons montrer que la fonction 
+%    \begin{equation}
+%        l(x)=\Dsdd{ f\big( a+s(x-a) \big) }{t}{0}
+%    \end{equation}
+%    est différentiable en \( x=a\), de différentielle \( T(u)=l(u+a)\). Cela fournira la différentiabilité de \( f\) parce que \eqref{EqCUgHXHy} donnerait alors \( f\) comme somme de deux fonctions différentiables.
+%
+%    En premier lieu nous devons montrer que \( T\) ainsi définie est linéaire.
+%    
+%    Notre but est donc de prouver que
+%    \begin{equation}
+%        \lim_{h \to 0}\frac{ \| l(x+h)-l(x)-l(h) \| }{ \| h \| }=0.
+%    \end{equation}
+%    Un premier pas est de calculer
+%    \begin{subequations}
+%        \begin{align}
+%            l(x+h)-l(x)-l(h)&=\lim_{s\to 0}\frac{ f\big( s(x+h) \big)-f(0)-f(sx)+f(0)-f(sh)+f(0) }{ s }\\
+%            &=\lim_{s\to 0}\frac{ f\big( s(x+h) \big)-f(sx)-f(sh)+f(0) }{ s }.
+%        \end{align}
+%    \end{subequations}
+%    Ensuite nous étudions le numérateur en utilisant la proposition \ref{ProFSjmBAt}:
+%    \begin{subequations}
+%        \begin{align}
+%            \| f\big( s(x+h) \big)-f(sx)-f(sh)+f(0) \|&\leq  \| f\big( s(x+h) \big)-f(sx)\| + \|f(sh)-f(0) \|  \\
+%            &\leq \sup_{z\in\mathopen[ sx , sx+sh \mathclose]}\| \frac{ \partial f }{ \partial h }(z) \|\| sh \|\\
+%            &\quad +\sup_{z\in\mathopen[ 0 , sh \mathclose]}\| \frac{ \partial f }{ \partial h }(z) \|\| sh \|.
+%        \end{align}
+%    \end{subequations}
+%    La division par \( s\) se passe bien et nous avons
+%    \begin{subequations}
+%        \begin{align}
+%            \| l(x+h)-l(x)-l(h) \|&\leq \lim_{s\to 0}  \sup_{z\in\mathopen[ sx , sx+sh \mathclose]}\| \frac{ \partial f }{ \partial h }(z) \|\| h \|+ \sup_{z\in\mathopen[ 0 , sh \mathclose]}\| \frac{ \partial f }{ \partial h }(z) \|\| h \|\\
+%            &=2\| h \|\| \frac{ \partial f }{ \partial h }(0) \|        \label{SubeqVMMoSDH}\\
+%            &=2\| h \|^2\| \frac{ \partial f }{ \partial u }(0) \|
+%        \end{align}
+%    \end{subequations}
+%    où nous avons posé \( u=h/\| h \|\). Pour l'égalité \eqref{SubeqVMMoSDH} nous avons utilisé la continuité de \( \frac{ \partial f }{ \partial h }(z)\) en \( z=0\). Du coup
+%    \begin{equation}
+%        \lim_{y\to 0} \frac{ \| f(x+h)-f(x)-f(h) \| }{ \| h \| }=\lim_{h\to 0} 2\| h \|\| \frac{ \partial f }{ \partial u }(0) \|=0.
+%    \end{equation}
+%    Cela prouve que \( l\) est bien différentiable en \( x=0\).
+%
+%    \end{subproof}
+%
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{L'inverse, sa différentielle}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si \( E\) est un espace de Banach, nous sommes intéressé à l'espace \( \GL(E)\) des endomorphismes inversibles de \( E\) sur \( E\). Cet ensemble est métrique par la formule usuelle
+\begin{equation}
+    \| T \|=\sup_{\| x \|=1}\| T(x) \|_E.
+\end{equation}
+
+\begin{lemma}   \label{LemWVNnKNo}
+Si \( \| h \|<1\) alors nous avons la formule
+\begin{equation}
+    (\mtu+h)^{-1}=\sum_{k=0}^{\infty}(-1)^kh^k.
+\end{equation}
+\end{lemma}
+Ce lemme est aussi la proposition \ref{PropQAjqUNp}.
+%TODO : à fusionner.
+
+\begin{proof}
+    D'abord la série converge normalement\footnote{Définition \ref{DefQDrDqek}} parce que \( \| h^k \|\leq \| h \|^k\) et que la série des \( \| h \|^k\) est la série géométrique qui converge.
+
+    Montrons ensuite que la limite est bien un inverse de \( (\mtu+h)\) :
+    \begin{subequations}
+        \begin{align}
+            (\mtu+h)\sum_{k=0}^{\infty}(-1)^kh^k&=\sum_{k=0}^{\infty}(-1)^kh^k+\sum_{k=0}^{\infty}(-1)^kh^{k+1}\\
+            &=\sum_{k=0}^{\infty}(-1)^kh^k+\sum_{k=1}^{\infty}(-1)^{k-1}h^h\\
+            &=\mtu+\sum_{k=1}^{\infty}\Big[ (-1)^kh^k+(-1)^{k-1}h^k \Big]\\
+            &=\mtu.
+        \end{align}
+    \end{subequations}
+    Nous avons utilisé l'associativité de la somme, proposition \ref{propnseries_propdebase}.
+\end{proof}
+
+\begin{lemma}   \label{LemWWXVSae}
+Soit \( F\) un espace de Banach et deux suites \( A_k\to A\) et \( B_k\to B\) dans \( \aL(F,F)\). Alors \( A_k\circ B_k\to A\circ B\) dans \( \aL(F,F)\).
+\end{lemma}
+
+\begin{proof}
+    Il suffit d'écrire
+    \begin{equation}
+        \| A_kB_k-AB \|\leq \| A_kB_k-A_kB \|+\| A_kB-AB \|.
+    \end{equation}
+    Le premier terme tend vers zéro pour \( k\to\infty\) parce que 
+    \begin{subequations}
+        \begin{align}
+            \| A_kB_k-A_kB \|=\| A_k(B_k-B) \|\leq \| A_k \|\| B_k-B \|\to \| A \|\cdot 0=0
+        \end{align}
+    \end{subequations}
+    où nous avons utilisé la propriété fondamentale de la norme opérateur : la proposition \ref{PropEDvSQsA}. Le second terme tend également vers zéro pour la même raison.
+\end{proof}
+
+\begin{proposition}[Inverse dans \( \GL(E)\)\cite{laudenbach2000calcul,SNPdukn}]
+    Soient \( E\) et \( F\) des espaces vectoriels normés.
+    \begin{enumerate}
+        \item
+        L'ensemble \( \GL(E)\) est ouvert dans \( \End(E)\).
+    \item
+        L'application inverse
+    \begin{equation}
+        \begin{aligned}
+        i\colon \GL(E,F)&\to \GL(F,E) \\
+        u&\mapsto u^{-1} 
+        \end{aligned}
+    \end{equation}
+    est de classe \( C^{\infty}\) et
+    \begin{equation}
+        di_{u_0}(h)=-u_0^{-1}\circ h\circ u_0^{-1}
+    \end{equation}
+    pour tout \( h\in\End(E)\)
+    \end{enumerate}
+\end{proposition}
+\index{différentielle!de $u\mapsto u^{-1}$}
+
+\begin{proof}
+Nous supposons que \( \GL(E,F)\) n'est pas vide, sinon ce n'est pas du jeu.
+        \begin{subproof}
+        \item[Ouvert autour de l'identité]
+            
+        Nous commençons par prouver que \( B(\mtu,1)\subset \GL(E)\). Pour cela il suffit de remarquer que si \( \| u \|<1\) alors le lemme \ref{LemWVNnKNo} nous donne un inverse de \( (1+u)\) en la personne de \( \sum_{k=0}^{\infty}(-u)^k\).
+
+    \item[Ouvert en général]
+
+        Soit maintenant \( u_0\in\GL(E)\). Si \( \| u \|<\frac{1}{ \| u_0^{-1} \| }\) alors \( \| u_0^{-1}u \|<1\), ce qui signifie que
+        \begin{equation}
+            \mtu+u_0^{-1}u
+        \end{equation}
+    est inversible. Mais \( u_0+u=u_0(\mtu+u_0^{-1}u)\), donc \( u_0+u\in\GL(E)\) ce qui signifie que
+    \begin{equation}
+    B\left( u_0,\frac{1}{ \| u_0^{-1} \| } \right)\subset \GL(E).
+    \end{equation}
+
+    \item[Différentielle en l'identité]
+
+    Nous commençons par prouver que \( di_{\mtu}(u)=-u\). Pour cela nous posons 
+    \begin{equation}
+        \alpha(h)=\sum_{k=2}^{\infty}(-1)^kh^k
+    \end{equation}
+    et nous calculons
+    \begin{equation}
+    di_{\mtu}(u)=\Dsdd{ i(\mtu+tu) }{t}{0}=\Dsdd{ \mtu-tu+\alpha(tu) }{t}{0}.
+    \end{equation}
+    Il suffit de prouver que \( \Dsdd{ \alpha(tu) }{t}{0}=0\) pour conclure que \( di_{\mtu}(u)=-u\). Pour cela, nous remarquons que \( \alpha(0)=0\) et donc que
+    \begin{subequations}
+        \begin{align}
+        \Dsdd{ \alpha(tu) }{t}{0}&=\lim_{t\to 0} \frac{ \alpha(tu)-\alpha(0) }{ t }\\
+        &=\lim_{t\to 0} \sum_{k=2}^{\infty}(-1)^k\frac{ (tu)^k }{ t }\\
+        &=-\lim_{t\to 0} u\sum_{k=1}^{\infty}(-1)^kt^ku^k.
+        \end{align}
+    \end{subequations}
+    La norme de ce qui est dans la limite est majorée par
+    \begin{equation}
+    \| u \|\sum_{k=1}^{\infty}\| tu \|^k=\| u \|\left( \frac{1}{ 1-\| tu \| }-1 \right),
+    \end{equation}
+    et cela tend vers zéro lorsque \( t\to\infty\). Nous avons utilisé la somme \ref{EqRGkBhrX} de la série géométrique. Nous avons bien prouvé que \( di_{\mtu}(u)=-u\).
+
+    \item[Différentielle en général]
+    Soit maintenant \( u_0\in\GL(E)\) et \( h\in\End(E)\) tel que \( u_0+h\in \GL(E)\); par le premier point, il suffit de prendre \( \| h \|\) suffisamment petit. Vu que \( u_0+h=u_0(\mtu+u_0^{-1}h)\) nous avons
+    \begin{equation}
+        (u_0+h)^{-1}=(\mtu+u_0^{-1}h)^{-1}u_0^{-1}.
+    \end{equation}
+    Nous pouvons donc calculer
+    \begin{equation}
+        (u_0+h)^{-1}=\big( \mtu-u_0^{-1}h+\alpha(u_0^{-1}h) \big)u_0^{-1}=u_0^{-1}-u_0^{-1}hu_0^{-1}+\alpha(u_0^{-1}h)u_0^{-1},
+    \end{equation}
+    et ensuite
+    \begin{equation}
+        di_{u_0}(h)=\Dsdd{ i(u_0+th) }{t}{0}=\Dsdd{ u_0^{-1}-tu_0^{-1}hu_0^{-1}+\alpha(tu_0^{-1}h)u_0^{-1} }{t}{0},
+    \end{equation}
+    mais nous avons déjà vu que
+    \begin{equation}
+        \Dsdd{ \alpha(th) }{t}{0}=0,
+    \end{equation}
+    donc
+    \begin{equation}
+        di_{u_0}(h)=-u_0^{-1}hu_0^{-1}
+    \end{equation}
+    Cela donne la différentielle de l'application inverse.
+
+    \item[Continuité de l'inverse]
+
+        L'application \( i\) est continue parce que différentiable.
+
+%    \item[Continuité de la différentielle de l'inverse]
+
+%
+%    Nous devons montrer que l'application \( di\colon \GL(E)\to \aL\big( \GL(E),\GL(E) \big)\) est continue. Pour cela nous allons l'écrire comme composée de fonctions continues. Si
+%    \begin{equation}
+%        \begin{aligned}
+%        g\colon \GL(E)&\to \aL\big( \GL(E),\GL(E) \big) \\
+%            g(v)h&= -vhv 
+%        \end{aligned}
+%    \end{equation}
+%    alors \( di=g\circ i\). Nous avons déjà mentionné le fait que \( i\) était continue. Il reste à voir \( g\). Nous pouvons écrire
+%    \begin{equation}
+%    g(v)=-L_v\circ R_v
+%    \end{equation}
+%    où \( L_v(h)=vh\) et \( R_v(h)=hv\). Montrons que \( L\colon \GL(E)\to \aL\big( \GL(E),\GL(E) \big)\) est continue en considérant \( v_k\to v\) dans \( \GL(E)\) et la caractérisation séquentielle de la continuité, proposition \ref{PropFnContParSuite}. Alors
+%    \begin{equation}
+%        \| L_{v_k}-L_v \|_{\aL\big( \GL(E),\GL(E) \big)}=\sup_{\| h \|=1}\| (v_k-v)h \|\leq \sup_{\| h \|=1}\| v_k-v \|\| h \|\to 0.
+%    \end{equation}
+%L'application \( R\) est également continue, avec le même calcul. Nous avons donc \( L_{v_k}\to L_v\) et \( R_{v_k}\to R_v\) dans \( \aL\big( \GL(E),\GL(E) \big)\), donc le lemme \ref{LemWWXVSae} avec \( F=\aL\big( \GL(E),\GL(E) \big)\) nous dit que
+%    \begin{equation}
+%    L_{v_k}\circ R_{v_k}\to L_v\circ R_v
+%    \end{equation}
+%    dans \( \aL\big( \GL(E),\GL(E) \big)\), ce qui signifie que \( g\) est continue. 
+%
+%    Par conséquent \( di=i\circ g\) est également continue. 
+%
+    \item[L'inverse est \(  C^{\infty}\)]
+
+        Nous allons écrire la fonction inverse comme une composée. Soient les applications
+        \begin{equation}
+            \begin{aligned}
+                B\colon \cL(F,E)\times \cL(F,E)&\to \cL\big( \cL(E,F),\cL(F,E) \big) \\
+                B(\psi_1,\psi_2)(A)&= -\psi_1\circ A\circ\psi_2
+            \end{aligned}
+        \end{equation}
+        et
+        \begin{equation}
+            \begin{aligned}
+                \Delta\colon \cL(F,E)&\to \cL(F,E)\times \cL(F,E) \\
+                \varphi&\mapsto (\varphi,\varphi) 
+            \end{aligned}
+        \end{equation}
+        Nous avons alors 
+        \begin{equation}
+            di=B\circ\Delta\circ i.
+        \end{equation}
+%
+%        Nous commençons par prouver que \( g\) est de classe \( C^{\infty}\). Pour cela nous commençons par remarquer que
+%        \begin{equation}
+%            \Dsdd{ L_{v+tu}R_{v+tu} }{t}{0}=\lim_{t\to 0} \frac{ L_{v+tu}R_{v+tu}-L_vR_v }{ t }=L_vR_u+L_uR_v.
+%        \end{equation}
+%        En effet, un mini-calcul montre que
+%        \begin{equation}
+%        \sup_{\| h \|=1}\| \frac{ (v+tu)h(v+tu) }{ t }-\frac{ vhv }{ t }-vhu-uhv \|=\sup_{\| h \|=1}\| tuhu \|\to 0.
+%        \end{equation}
+%    Ensuite nous nous attaquons à la différentielle \( k\)\ieme de \( g\) :
+%    \begin{subequations}
+%        \begin{align}
+%        (d^kg)_{v_1,\ldots, v_k}(u)&=\frac{ d }{ dt_1 }\cdots\frac{ d }{ dt_k }\Big( L_{u+t_1v_1+\ldots +t_kv_k}R_{u+tv_1+\ldots +t_kv_k} \Big)\\
+%        &=\frac{ d }{ dt_1 }\cdots\frac{ d }{ dt_{k-1} }\Big( L_{u+t_1v_1+\ldots +t_{k-1}v_{k-1}}R_{v_k}+L_{v_k}R_{u+t_1v_1+\ldots +t_{k-1}v_{k-1}} \Big).
+%        \end{align}
+%    \end{subequations}
+%    En continuant ainsi nous obtenons une belle somme de termes de la forme \( L_uR_{v_i}\), \( L_{v_i}R_u\) et \( L_{v_i}R_{v_j}\) qui sont tous continues en les \( v_i\), donc \( g\) est de classe \( C^k\) et donc de classe \( C^{\infty}\).
+%
+%L'application \( di=g\circ i\) est alors \( C^1\) en tant que composée de fonctions de classes \( C^1\), ce qui entraine que \( i\) est \( C^2\) etc. C'est l'argument en lacet de chaussure qui itère l'égalité \( di=i\circ g\).
+%
+        \end{subproof}
+\end{proof}
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Normes de matrices et d'applications linéaires}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -1523,16 +2108,16 @@ Le nombre \( | T |_{\aL}\) est la \defe{norme}{norme!d'application linéaire} de
 
 \end{proof}
 
-\begin{definition}  \label{DefJWRWQue}
-    Une \defe{norme matricielle}{norme!matricielle} est une norme sur \( \eM(n,\eC)\) telle que pour toute matrice \( A\) et \( B\), 
+\begin{definition}[Norme d'algèbre]  \label{DefJWRWQue}
+    Si \( A\) est une algèbre\footnote{Définition \ref{DefAEbnJqI}.}, une \defe{norme d'algèbre}{norme!d'algèbre} sur \( A\) est une norme telle que pour toute \( u,v\in A\),
     \begin{equation}
-        \| AB \|\leq \| A \|\| B \|.
+        \| uv \|\leq \| u \|\| v \|.
     \end{equation}
 \end{definition}
-L'intérêt d'une norme matricielle est entre autres de mieux se comporter pour les séries, voir par exemple \ref{subsecEVnZXgf}.
+L'intérêt d'une norme d'algèbre est entre autres de mieux se comporter pour les séries, voir par exemple \ref{subsecEVnZXgf}.
 
 \begin{proposition} \label{PropEDvSQsA}
-    Si \( E\) est un espace vectoriel (pas spécialement de dimension finie), alors la norme opérateur est une norme matricielle sur \( \GL(E)\) :
+    Si \( E\) est un espace vectoriel (pas spécialement de dimension finie), alors la norme opérateur est une norme d'algèbre sur \( \GL(E)\) :
     \begin{equation}
         \| AB \|\leq \| A \|\| B \|
     \end{equation}
@@ -1549,7 +2134,7 @@ L'intérêt d'une norme matricielle est entre autres de mieux se comporter pour 
 Notons qu'en réalité nous n'avons utilisé seulement le fait que \( B\) était surjective
 
 \begin{proposition}
-    Pour tout norme matricielle, le rayon spectral d'une matrice sur \( \eC\) est toujours plus petit que sa norme. C'est à dire que nous avons toujours \( \rho(A)\leq \| A \|\) pour toute norme matricielle \( \| . \|\).
+    Pour tout norme algébrique, le rayon spectral d'une matrice sur \( \eC\) est toujours plus petit que sa norme. C'est à dire que nous avons toujours \( \rho(A)\leq \| A \|\) pour toute norme algébrique \( \| . \|\).
 \end{proposition}
 
 
@@ -1594,7 +2179,7 @@ Notons qu'en réalité nous n'avons utilisé seulement le fait que \( B\) était
 \end{definition}
 
 \begin{proposition}     \label{PropQAjqUNp}
-    Nous considérons la norme opérateur\footnote{Ou en fait n'importe quelle norme matricielle.}. Si \( \| A \|<1\), alors
+    Nous considérons la norme opérateur\footnote{Ou en fait n'importe quelle norme d'algèbre.}. Si \( \| A \|<1\), alors
     \begin{equation}
         \lim_{N\to \infty} \sum_{k=0}^{N}A^k=(\mtu-A)^{-1}.
     \end{equation}
@@ -1608,7 +2193,7 @@ Cette proposition est aussi le lemme \ref{LemWVNnKNo}.
     \begin{equation}
         \| s_m-s_n \|=\| \sum_{k=n+1}^mA^k \|\leq\sum_{k=n+1}^m\| A^k \|\leq\sum_{k=n+1}\| A \|^k.
     \end{equation}
-    La dernière inégalité est le fait d'avoir choisit une norme matricielle. La dernière somme est une différence des sommes partielles de la série géométrique de raison \( \| A \|<1\); d'où la convergence. Par conséquence la suite \( s_n\) est de Cauchy dans \( \eM(n,\eC)\) qui est complet. 
+    La dernière inégalité est le fait d'avoir choisit une norme algébrique. La dernière somme est une différence des sommes partielles de la série géométrique de raison \( \| A \|<1\); d'où la convergence. Par conséquence la suite \( s_n\) est de Cauchy dans \( \eM(n,\eC)\) qui est complet. 
 
     Montrons à présent que la somme est l'inverse de \( \mtu-A\) :
     \begin{equation}
