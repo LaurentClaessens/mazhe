@@ -3,8 +3,6 @@
 %   Laurent Claessens, Carlotta Donadello
 % See the file fdl-1.3.txt for copying conditions.
 
-Dans ce chapitre nous allons parler de topologie sur \( \eR\) puis sur \( \eR^n\). Presque tous les résultats se généralisent aux espaces vectoriels normés sur \( \eR\).
-
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Un peu de topologie sur $\eR$}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -485,6 +483,20 @@ Je me permets de faire remarquer la valeur absolue. En effet la fonction \( (x,y
 \end{example}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Espaces métrisables}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Un espace topologique est \defe{métrisable}{espace!topologique!métrisable} si il est homéomorphe à un espace métrique.
+\end{definition}
+
+\begin{proposition}
+    Si \( X\) est un espace topologique dont la topologie est donnée par une famille dénombrable de semi-normes, alors il est métrisable.
+\end{proposition}
+%TODO : une preuve
+
+
+%--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Fonctions continues}
 %---------------------------------------------------------------------------------------------------------------------------
 
@@ -543,6 +555,7 @@ Une fonction continue est séquentiellement continue. Dans les espaces métrique
     Si \( X\) et \( Y\) sont des espaces métriques, alors une fonction \( f\colon X\to Y\) est continue en un point si et seulement si elle est y séquentiellement continue.
     \end{enumerate}
 \end{proposition}
+\index{séquentielle!continuité}
 
 \begin{proof}
     \begin{subproof}
@@ -552,6 +565,42 @@ Une fonction continue est séquentiellement continue. Dans les espaces métrique
 
         Nous supposons maintenant que \( X\) et \( Y\) soient métriques. Si \( f\) n'est pas continue en \( a\), il existe \( \epsilon>0\) tel que pour tout \( \delta>0\), il existe \( x\) tel que \( \| x-a \|\leq\delta\) et \( \| f(x)-f(a) \|>\epsilon\). Nous considérons un tel \( \epsilon\) et pour chaque \( n\geq1\in \eN\) nous considérons un \( x_n\) correspondant à \( \delta=\frac{1}{ n }\). Cela nous donne une suite \( x_n\to a\) dans \( X\) mais \( \| f(x_n) -f(a)\|\) reste plus grand que \( \epsilon\). Cela montre que \( f\) n'est pas non plus séquentiellement continue.
     \end{subproof}
+\end{proof}
+
+
+\begin{proposition} \label{PropXIAQSXr}
+    Soit \( E\) et \( Y\), deux espaces métriques. Soit \( f\colon E\to Y\) une application séquentiellement continue. Alors \( f\) est continue.
+\end{proposition}
+
+\begin{proof}
+    Soit \( \mO\) un ouvert de \( Y\); nous allons voir que le complémentaire de \( f^{-1}(\mO)\) est fermé dans \( E\). Pour cela nous considérons une suite convergente \( x_k\stackrel{E}{\longrightarrow} x\) avec \( x_k\in\complement f^{-1}(\mO)\) pour tout \( k\). Nous allons montrer que \( x\in \complement f^{-1}(\mO)\) et la caractérisation séquentielle\footnote{Proposition \ref{PropLFBXIjt}.} de la fermeture conclura que \( \complement f^{-1}(\mO)\) est fermé.
+
+    Pour tout \( k\), nous avons \( f(x_k)\in\complement \mO\), mais \( \mO\) est ouvert et \( f(x_k)\stackrel{Y}{\longrightarrow}f(x)\) parce que \( f\) est séquentiellement continue. Par conséquent \( f(x)\in\complement \mO\) et \( x\in\complement f^{-1}(\mO)\).
+\end{proof}
+
+%TODO : il y a ici trois théorèmes sur la continuité séquentielle. Il faut sans doute les fusionner.
+
+\begin{proposition}
+    Une fonction séquentiellement continue sur un espace métrisable et à valeurs dans un espace métrique est continue.
+\end{proposition}
+
+\begin{proof}
+    Soit \( E\) un espace métrique et un homéomorphisme \( \phi\colon X\to (E,d)\). Nous supposons que \( f\colon X\to Y\) est séquentiellement continue. Nous considérons l'application \( \tilde f=f\circ\phi^{-1}\), c'est à dire
+    \begin{equation}
+        \begin{aligned}
+            \tilde f\colon E&\to Y \\
+            a&\mapsto f\big( \phi^{-1}(a) \big). 
+        \end{aligned}
+    \end{equation}
+    L'application \( \phi^{-1}\) est continue et donc séquentiellement continue. De plus \( \tilde f\) est séquentiellement continue. En effet si \( a_k\stackrel{E}{\longrightarrow}a\), alors
+    \begin{equation}
+        \tilde f(a_k)=f\big( \phi^{-1}(a_k) \big),
+    \end{equation}
+    mais \( \phi^{-1}\) est séquentiellement continue, donc \( \phi^{-1}(a_k)\stackrel{X}{\longrightarrow}\phi^{-1}(a)\), ce qui signifie que \( \phi^{-1}(a_k)\) est une suite convergente dans \( X\) et donc
+    \begin{equation}
+        \lim_{k\to \infty} \tilde f(a_k)=\lim_{k\to \infty} f\big( \phi^{-1}(a_k) \big)=f\big( \phi^{-1}(a) \big)=\tilde f(a).
+    \end{equation}
+    L'application \( \tilde f\) est donc séquentiellement continue. Mais étant donné que \( \tilde f\) est définie sur un espace métrique (\( E\)) et à valeurs dans un métrique, elle est continue par la proposition \ref{PropXIAQSXr}. L'application \( f=\tilde f\circ\phi\) est donc continue en tant que composée d'applications continues.
 \end{proof}
 
 Les espaces métriques ont une propriété importante que la \wikipedia{fr}{Espace_séquentiel}{fermeture séquentielle} est équivalente à la fermeture.
@@ -952,22 +1001,24 @@ En particulier, un espace métrique compact est connexe si et seulement si il es
 \subsection{Produit dénombrables d'espaces métriques}
 %---------------------------------------------------------------------------------------------------------------------------
 
-\begin{definition}
+\begin{definition}[\cite{OCBrmKo}]
     Soient \( (E_n,d_n)\) des espaces métriques. Sur l'ensemble produit \( E=\prod_{i=1}^{\infty}E_i\) nous définissons la métrique
     \begin{equation}
-        d(x,y)=\sum_{i=1}^{\infty}\frac{1}{ 2^i }d'_n(x_i,y_i)
+        d(x,y)=\sum_{k=1}^{\infty}\frac{1}{ 2^k }d'_k(x_i,y_i)
     \end{equation}
     où \( d'_i=\min(d_i,1)\).
 \end{definition}
 On peut montrer que ce \( d\) est bien une distance et que \( (E,d)\) devient un espace métrique.
 %TODO: le faire.
 
-\begin{theorem}\label{ThoCDhbZbf}
+\begin{theorem}[\cite{OCBrmKo}]\label{ThoCDhbZbf}
     Un produit dénombrable d'espaces métriques non vides est compact si et seulement si chacun de ses facteurs est compact.
 \end{theorem}
 \index{compact!produit dénombrable}
 \index{théorème!Tykhonov}
 Note : ce résultat est encore valable pour un produit quelconque, c'est le théorème de Tykhonov \ref{ThoFWXsQOZ}.
+
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Ensembles nulle part denses}
@@ -1156,32 +1207,6 @@ Autrement dit, quel que soit l'intervalle autour de  $a$ que l'on considère, le
 % TODO: retrouver où je comptais mettre cette référence.
 \cite{GGIibHE}
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Bornés et compacts}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-\begin{definition}
-  Un sous ensemble $A \subset \eR^n$ est \defe{borné}{borné} si il existe une boule de $\eR^n$ contenant $A$.
-\end{definition}
-
-\begin{proposition}
-  Toute réunion finie d'ensembles bornés est un ensemble borné. Toute
-  partie d'un ensemble borné est un ensemble borné.
-\end{proposition}
-
-
-% TODO: regarder ceci à propos des compacts.
-% En particulier, si on recouvre $A$ par l'ensemble des boules
-% $B(x,1)$ où $x$ parcourt $A$ (de sorte que tout point de $A$ est
-% dans \og sa\fg{} boule, et donc la réunion des boules recouvre bien
-% $A$), on doit pouvoir en tirer un recouvrement fini, c'est-à-dire
-% des boules $B(x_1,1), B(x_2,1), \ldots, B(x_k,1)$ (avec $k$ un
-% naturel) dont la réunion contient $A$.
-
-\begin{proposition}
-Une partie de $\eR^n$ est compacte si et seulement si elle est fermée et bornée.
-\end{proposition}
-
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Limites de suites}
@@ -1222,6 +1247,11 @@ Notez aussi la similarité avec la définition \ref{DefLimiteSuiteNum}.
 	Cela prouve que $\| \ell-\ell' \|=0$.
 \end{proof}
 
+\begin{definition}
+    Nous disons qu'un espace topologique est \defe{séquentiellement compact}{compact!séquentielle}\index{séquentielle!compacité} si toute suite admet une sous-suite convergente.
+\end{definition}
+Le théorème de Bolzano-Weierstrass \ref{ThoBWFTXAZNH} dit que dans le cas métrique, la compacité séquentielle est équivalente à la compacité.
+
 \begin{theorem}
 	Toute suite réelle contenue dans un compact admet une sous-suite convergente.
 \end{theorem}
@@ -1242,7 +1272,7 @@ Notez aussi la similarité avec la définition \ref{DefLimiteSuiteNum}.
 \end{theorem}
 \index{compact!Bolzano-Weierstrass dans \( \eR^n\)}
 \index{théorème!Bolzano-Weierstrass dans \( \eR^n\)}
-Ce théorème sera démontré dans un espace topologique général par le théorème \ref{ThoBWFTXAZNH}. Nous donnons ici une preuve plus directe valable dans un espace vectoriel normé.
+Ce théorème est un cas particulier du théorème \ref{ThoBWFTXAZNH} qui donne pour tout espace métrique, l'équivalence entre la compacité et la compacité séquentielle.
 
 \begin{proof}
     Soit $(x_n)$ une suite contenue dans une partie bornée de $\eR^m$. Considérons $(a_n)$, la suite réelle des premières composantes des éléments de $(x_n)$ : pour chaque $n\in\eN$, le nombre $a_n$ est la première composante de $x_n$. Étant donné que la suite $(x_n)$ est bornée, il existe un $M$ tel que $\| x_n \|<M$. La croissance de la fonction racine carré donne
