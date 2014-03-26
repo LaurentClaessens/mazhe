@@ -5,8 +5,19 @@ from __future__ import unicode_literals
 import LaTeXparser
 import LaTeXparser.PytexTools
 
-def accept_input(filename):
-    return True
+
+# Replaced by a lambda, March, 26, 2014
+#def accept_input(filename):
+#    return True
+
+
+script_mark_list=[]
+script_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+script_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
+script_mark_list.append("% SCRIPT MARK -- TOC")
+script_mark_list.append("% SCRIPT MARK -- AGRÉGATION")
+script_mark_list.append("% SCRIPT MARK -- FINAL")
+
 
 def set_isAgreg(A):
     u="\setcounter{isAgreg}{0}"
@@ -19,11 +30,13 @@ def up_to_text(liste,text):
             return i
 
 def accept_all_input(medicament):
-    medicament.accept_input=accept_input
+    medicament.accept_input=lambda x: True
 
 class keep_script_marks(object):
     """
     The file "mazhe.tex" has some "SCRIPT MARK" lines that give the structure of the document.
+
+    Notice that whatever the order of the marks is in the given list, it will respect the order of mazhe.tex
     """
     def __init__(self,keep_mark_list):
         self.keep_mark_list=keep_mark_list
@@ -44,7 +57,10 @@ class keep_script_marks(object):
         script_mark_dict=self.script_mark_dict(C)
         B=[]
         lignes=A.splitlines()
-        for mark in self.keep_mark_list :
+        # Select the usefull marks and sort them
+        marks=[  x for x in script_mark_dict.keys() if x in self.keep_mark_list ]
+        marks.sort(key=lambda a:script_mark_dict[a][0])
+        for mark in marks :
             a=script_mark_dict[mark][0]
             b=script_mark_dict[mark][1]
             B.extend(  lignes[a:b] )

@@ -14,6 +14,8 @@ myRequest.ok_hash=commons.ok_hash
 script_mark_list=[]
 script_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
 script_mark_list.append("% SCRIPT MARK -- GARDE ENSEIGNEMENT")
+script_mark_list.append("% SCRIPT MARK -- TOC")
+script_mark_list.append("% SCRIPT MARK -- INTRO SAGE")
 script_mark_list.append("% SCRIPT MARK -- AGRÉGATION")
 script_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUE")
 script_mark_list.append("% SCRIPT MARK -- MATLAB")
