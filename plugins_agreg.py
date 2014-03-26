@@ -42,14 +42,11 @@ class keep_script_marks(object):
     def __call__(self,A):
         C=LaTeXparser.CodeLaTeX(A.given_text,keep_comments=True)   # I need the comments in order to see "SCRIPT MARK"
         script_mark_dict=self.script_mark_dict(C)
-        print(script_mark_dict)
         B=[]
         lignes=A.splitlines()
         for mark in self.keep_mark_list :
-            print(mark)
             a=script_mark_dict[mark][0]
             b=script_mark_dict[mark][1]
             B.extend(  lignes[a:b] )
         new_texte= "\n".join(B)
-        print(new_texte)
         return LaTeXparser.CodeLaTeX(new_texte,oldLaTeX=A)
