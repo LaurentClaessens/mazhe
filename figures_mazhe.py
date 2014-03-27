@@ -187,8 +187,6 @@ from phystricksTrajs import Trajs
 #Fin des figures de TD_SVT
 
 
-
-
 figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre,MomentForce,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
         DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin,ChampGraviation,FnCosApprox,Bateau,FonctionXtrois,FonctionEtDerive,SurfaceDerive,
         DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim,ExoProjection,ExoPolaire,TriangleRectangle,CercleTnu,QCb,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
@@ -201,10 +199,10 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         TangentSegment,BoulePtLoin,UneCellule,SenoTopologo,AdhIntFr,AdhIntFrDeux,AdhIntFrTrois,AdhIntFrSix,DeuxCercles,TraceCycloide,QuelCote,Osculateur,examssepti,
         examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,LesSubFigures,NiveauHyperbole,
         NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRR_A,ADUGmRR_B,ADUGmRR_C,TGdUoZR,GBnUivi,FGWjJBX,
-        RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm
+        RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm,TracerUn,ExerciceGraphes,
+        ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,DS2010bisExoGraph,SolsEqDiffSin,SolsSinpA,Trajs
         ]
 
-figures_list=[TracerUn,ExerciceGraphes,ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,DS2010bisExoGraph,SolsEqDiffSin,SolsSinpA,Trajs]
 
 # Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
