@@ -167,26 +167,44 @@ from phystricksPHTVjfk import PHTVjfk
 from phystrickssenotopologo import senotopologo
 from phystricksQXyVaKD import QXyVaKD
 from figure_devoir1 import exercice1A1,exercice1A2,exercice4
-from phystricksTriangleRectangle import TriangleRectangle  # Il faudrait aussi le remettre dans figures_list
+from phystricksTriangleRectangle import TriangleRectangle
+
+#Les figures de TD_SVT
+from phystricksTracerUn import TracerUn
+from phystricksExerciceGraphes import ExerciceGraphes
+from phystricksExerciceGraphesbis import ExerciceGraphesbis
+from phystricksGrapheunsurunmoinsx import Grapheunsurunmoinsx
+from phystricksExoCUd import ExoCUd
+from phystricksUnSurxInt import UnSurxInt
+from phystricksAireParabole import AireParabole
+from phystricksPartieEntiere import PartieEntiere
+from phystricksMantisse import Mantisse
+from phystricksDS2010ExoGraph import DS2010ExoGraph
+from phystricksDS2010bisExoGraph import DS2010bisExoGraph
+from phystricksSolsEqDiffSin import SolsEqDiffSin
+from phystricksSolsSinpA import SolsSinpA
+from phystricksTrajs import Trajs
+#Fin des figures de TD_SVT
 
 
-figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre, MomentForce,CouroneExam,SurfacePrimiteGeog,
-        SurfaceEntreCourbes, DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin, ChampGraviation,FnCosApprox,
-        Bateau,FonctionXtrois,FonctionEtDerive, SurfaceDerive,DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim, ExoProjection,
-        ExoPolaire,TriangleRectangle,CercleTnu,QCb, ProjectionScalaire,CercleTrigono,TgCercleTrigono, SurfaceHorizVerti,SurfaceCercle,KScolorD,
-        CheminFresnel, IntRectangle,IntTriangle,CoinPasVar, IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa, ConeRevolution,
-        ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang, ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,
-        MaxVraissLp,BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton, ExoVarj,TriangleUV, DefinitionCartesiennes,CoordPolaires,Parallelogramme,
-        ExoParamCD,CbCartTui,CbCartTuii,CbCartTuiii, exercice1A1,exercice1A2,exercice4,DS2010exo1, SuiteUnSurn, SpiraleLimite, IntTrois, CornetGlace,
-        Differentielle, CSCiv, CSCvi, CSCii, CSCiii, CSCv, Cardioideexo, DistanceEuclide, LesSpheres, IntervalleUn, DistanceEnsemble, AccumulationIsole,
-        MethodeChemin, ExempleArcParam, CourbeRectifiable, SuiteInverseAlterne, CycloideA, Cardioid,  ParamTangente, Polirettangolo,
-        RegioniPrimoeSecondoTipo,ExampleIntegration, ExampleIntegrationdeux, ExampleChangementVariables, ArcLongueurFinesse, TangentSegment,
-        BoulePtLoin, UneCellule, SenoTopologo, AdhIntFr, AdhIntFrDeux, AdhIntFrTrois, AdhIntFrSix, DeuxCercles, TraceCycloide, QuelCote, Osculateur,
-        examssepti,examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,
-        LesSubFigures,NiveauHyperbole,NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRR_A,ADUGmRR_B,
-        ADUGmRR_C,TGdUoZR,GBnUivi,FGWjJBX,RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm
+
+
+figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre,MomentForce,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
+        DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin,ChampGraviation,FnCosApprox,Bateau,FonctionXtrois,FonctionEtDerive,SurfaceDerive,
+        DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim,ExoProjection,ExoPolaire,TriangleRectangle,CercleTnu,QCb,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
+        SurfaceHorizVerti,SurfaceCercle,KScolorD,CheminFresnel,IntRectangle,IntTriangle,CoinPasVar,IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa,
+        ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang,ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,MaxVraissLp,
+        BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,ExoVarj,TriangleUV,DefinitionCartesiennes,CoordPolaires,Parallelogramme,ExoParamCD,CbCartTui,CbCartTuii,
+        CbCartTuiii,exercice1A1,exercice1A2,exercice4,DS2010exo1,SuiteUnSurn,SpiraleLimite,IntTrois,CornetGlace,Differentielle,CSCiv,CSCvi,CSCii,CSCiii,CSCv,Cardioideexo,
+        DistanceEuclide,LesSpheres,IntervalleUn,DistanceEnsemble,AccumulationIsole,MethodeChemin,ExempleArcParam,CourbeRectifiable,SuiteInverseAlterne,CycloideA,Cardioid,
+        ParamTangente,Polirettangolo,TriangleRectangle,RegioniPrimoeSecondoTipo,ExampleIntegration,ExampleIntegrationdeux,ExampleChangementVariables,ArcLongueurFinesse,
+        TangentSegment,BoulePtLoin,UneCellule,SenoTopologo,AdhIntFr,AdhIntFrDeux,AdhIntFrTrois,AdhIntFrSix,DeuxCercles,TraceCycloide,QuelCote,Osculateur,examssepti,
+        examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,LesSubFigures,NiveauHyperbole,
+        NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRR_A,ADUGmRR_B,ADUGmRR_C,TGdUoZR,GBnUivi,FGWjJBX,
+        RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm
         ]
 
+figures_list=[TracerUn,ExerciceGraphes,ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,DS2010bisExoGraph,SolsEqDiffSin,SolsSinpA,Trajs]
 
 # Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
