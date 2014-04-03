@@ -7,6 +7,72 @@
 \section{Théorie de la mesure}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Algèbre de parties}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[Algèbre de parties\cite{MesureLebesgueLi}]
+    Soit \( S\), un ensemble. Une classe \( \tribD\) de parties de \( S\) est une \defe{algèbre de parties}{algèbre!de parties} de \( S\) si
+    \begin{enumerate}
+        \item
+            \( S\in\tribD\) et \( \emptyset\in\tribD\),
+        \item
+            \( A\in\tribD\) implique \( A^c\in\tribD\)
+        \item
+            \( A,B\in\tribD\) implique \( A\cup B\in\tribD\).
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Mesure sur une algèbre de parties]
+    Soit \( S\) un ensemble et \( \tribD\) une algèbre de parties de \( S\). Une \defe{mesure}{mesure!sur algèbre de partie} sur \( (S,\tribD)\) est une application \( \mu\colon \tribD\to \mathopen[ 0 , \infty \mathclose]\) telle que
+    \begin{enumerate}
+        \item
+            \( \mu(\emptyset)=0\),
+        \item
+            Si \( A_n\in\tribD\) sont des ensembles deux à deux disjoints et tels que \( \bigcup_nA_n\in\tribD\) alors
+            \begin{equation}
+                \mu\big( \bigcup_nA_n \big)=\sum_n\mu(A_n).
+            \end{equation}
+    \end{enumerate}
+
+    La mesure est \defe{finie}{mesure!finie!sur algèbre de partie} si \( \mu(S)<\infty\) et \( \sigma\)-finie si il existe une suite \( (S_n)\) dans \( \tribD\) telle que \( S=\bigcup_nS_n\) et \( \mu(S_n)<\infty\).
+\end{definition}
+
+\begin{lemma}
+    Si \( \tribD\) est une algèbre de parties de \( S\) et si \( \mu\) est une mesure sur \( (S,\tribD)\) alors
+    \begin{enumerate}
+        \item
+            si \( A,B\in\tribD\) avec \( A\subset B\) alors \( \mu(A)\leq \mu(B)\)
+        \item   \label{ItemMFUooWCPNnii}
+            si \( A_n\in\tribD\) et \( \bigcup_nA_n\in\tribD\) alors
+            \begin{equation}
+                \mu\big( \bigcup_nA_n \big)\leq\sum_n\mu(A_n).
+            \end{equation}
+    \end{enumerate}
+\end{lemma}
+La propriété \ref{ItemMFUooWCPNnii} est la \( \sigma\)-\defe{sous-additivité}{sous-additivité!sur algèbre de parties}.
+
+\begin{proof}
+    Si \( A\subset B\) alors \( B=A\cup(B\setminus A)\) avec \( A\) et \( B\setminus A\) disjoints donc
+    \begin{equation}
+        \mu(B)=\mu(A)+\mu(B\setminus A)\geq \mu(A).
+    \end{equation}
+    
+    Pour la seconde, on passe par les compléments deux à deux : nous posons
+    \begin{subequations}
+        \begin{numcases}{}
+            B_0=\emptyset\\
+            B_{n}=A_n\setminus \bigcup_{k<n}B_k.
+        \end{numcases}
+    \end{subequations}
+    Ces ensembles sont deux à deux disjoints et \( \bigcup_nB_n=\bigcup_nA_n\in\tribD\), donc
+    \begin{equation}
+        \mu\big( \bigcup_nA_n \big)=\sum_n\mu\big( A_n\setminus\bigcup_{k<n}B_k \big)\leq \sum_n\mu(A_n),
+    \end{equation}
+    où nous avons utilisé la première partie du lemme.
+\end{proof}
+
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Ensembles mesurables}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -48,210 +114,6 @@ La définition de mesure sur un espace mesurable est la définition \ref{DefBTsg
     La seconde assertion est immédiate à partir de la première parce que \( A\setminus B=A\cap \complement B\).
 \end{proof}
 
-\begin{definition}
-    La tribu des \defe{boréliens}{boréliens}, notée \( \Borelien(\eR^d)\) est la tribu engendrée par les ouverts de \( \eR^d\). Plus généralement si \( Y\) est un espace topologique, la tribu des boréliens est la tribu engendrée par les ouverts de \( Y\).
-\end{definition}
-Le plus souvent lorsque nous parlerons de fonctions \( f\colon X\to Y\) où \( Y\) est un espace topologique, nous considérons la tribu borélienne sur \( Y\). Ce sera en particulier le cas dans la théorie de l'intégration.
-
-\begin{proposition} \label{LemYEkvbWBz}
-    La tribu engendrée par une base dénombrable de la topologie est celle des boréliens.
-\end{proposition}
-
-\begin{proof}
-    Si une base de topologie est donnée, tout ouvert peut être écrit comme union d'élément de la base, proposition \ref{PropMMKBjgY}. Dans le cas d'une base dénombrable, cette union sera forcément dénombrable. Une tribu étant stable par union dénombrable, tout ouvert est dans la tribu engendrée par la base de topologie. Les autres boréliens suivent automatiquement.
-\end{proof}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Les boréliens de \texorpdfstring{$ \eR$}{R}}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Nous rappelons que la topologie de \( \eR\) est celle des boules donnée par le théorème \ref{ThoORdLYUu}. Notons que les boules ouvertes de la forme \( B(q,r)\) avec \( q,r\in \eQ\) forment une base dénombrable de la topologique de \( \eR\).
-
-\begin{lemma}   \label{LemZXnAbtl}
-    Soit \( \{ q_i \}\) une énumération des rationnels. La tribu engendrée par les ouverts \( \sigma_i=\mathopen] q_i , \infty \mathclose[\) est la tribu des boréliens.
-\end{lemma}
-
-\begin{proof}
-    Si \( a<b\) dans \( \eQ\) alors \( \sigma_a\setminus\sigma_b=\mathopen] a , b \mathclose]\). Ensuite 
-    \begin{equation}
-        \bigcup_{n\in \eN^*}\sigma_a\setminus\sigma_{b-\frac{1}{ n }}=\bigcup_{n\in \eN^*}\mathopen] a , b-\frac{1}{ n } \mathclose]=\mathopen] a , b \mathclose[.
-    \end{equation}
-    Par union dénombrable, tous les intervalles \( \mathopen] a , b \mathclose[\) avec \( a,b\in \eQ\) sont dans la tribu engendrée par les \( \sigma_i\).
-
-        Ces boules ouvertes forment une base de la topologie de \( \eR\) et le lemme \ref{LemYEkvbWBz} conclu.
-\end{proof}
-
-\begin{proposition}[\cite{OYRmzAa}]
-    Tout ouvert de \( \eR^n\) est une union dénombrable de rectangles presque disjoints\footnote{«presque» au sens où les intersections éventuelles sont de mesure de Lebesgue nulle.}.
-\end{proposition}
-
-\begin{proof}
-    Soit \( G\) un ouvert de \( \eR^n\). Soit \( \{ Q_i^{1} \}_{i\in \eN}\) un découpage de \( \eR^n\) en cubes de côté \( 1\) et dont les sommets sont en les coordonnées entières. Ce sont des cubes presque disjoints. Nous considérons ensuite pour chaque \( k>1\) le découpage \( \{ Q_i^{(k)} \}_{i\in\eN}\) de \( \eR^n\) en cubes de côtés \( 2^{-k}\) qui consiste à découper en \( 2\) les côtés des cubes du découpage \( Q^{(k-1)}\). Ces cubes forment encore un découpage dénombrable de \( \eR^n\) en des cubes presque disjoints. Ensuite nous considérons \( \mE\) l'union de tous les \( Q_i^{(k)}\) contenus dans \( G\).
-
-    Montrons que \( \mE=G\). D'abord \( \mE\subset G\) parce que \( \mE\) est une union d'ensembles contenus dans \( G\). Ensuite si \( x\in G\), il existe une boule de rayon \( r\) autour de \( x\) contenue dans \( G\); alors un des ensembles \( Q_i^{(k)}\) avec \( 2^{-j}<\frac{ r }{2}\) est contenue dans \( B(x,r)\) et donc dans \( \mE\).
-
-    Bien entendu l'union qui donne \( \mE\) n'est pas satisfaisante par ce que les \( Q_i^{(k+1)}\) sont contenus dans les \( Q_i^{(k)}\); les intersections sont donc loin d'être de mesure nulle.
-
-    Nous faisons ceci : 
-    \begin{subequations}
-        \begin{align}
-            R^{(0)}&=\{ Q_i^{(1)} \text{contenu dans \( G\)} \}\\
-            R^{(k+1)}&=\{ Q_i^{(k+1)}\text{contenus dans \( G\) et pas dans \( R^{(k)}\)} \}.
-        \end{align}
-    \end{subequations}
-    En fin de compte l'union de tous les ensembles contenus dans les \( R^{(k)}\) forment encore \( \eR^n\), mais sont d'intersection presque vide.
-\end{proof}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Fonction mesurable}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{definition}[Fonction mesurable] \label{DefQKjDSeC}
-    Soit \( (E,\tribA)\) et \( (F,\tribF)\) deux espaces mesurés. Une fonction \( f\colon E\to F\) est \defe{mesurable}{mesurable!fonction} si pour tout \( \mO\in \tribF\), l'ensemble \( f^{-1}(\mO)\) est dans \( \tribA\).
-
-    Une fonction à valeurs dans \( \eR^d\) est \defe{borélienne}{borélienne!fonction}\index{fonction!borélienne} si elle est mesurable pour la tribu des boréliens sur \( \eR^d\). Plus explicitement, \( f\colon (\Omega,\tribA)\to (\eR^d,\Borelien(\eR^d))\) est borélienne si pour tout \( \mO\in\Borelien\) nous avons \( f^{-1}(\mO)\in\tribA\).
-\end{definition}
-Si \( \tribA\) est une tribu sur un ensemble \( E\), nous notons \( m(\tribA)\)\nomenclature[P]{\( m(\tribA)\)}{Ensemble des fonctions \( \tribA\)-mesurables} l'ensemble des fonctions qui sont \( \tribA\)-mesurables.
-
-\begin{remark}
-    Lorsque nous considérons des fonctions à valeurs réelles \( f\colon X\to \eR\) nous utiliserons toujours la tribu borélienne sur \( \eR\). Pour \( X\), cela peut dépendre des contextes. En théorie de l'intégration, nous mettrons sur \( X\) la tribu des ensembles mesurables au sens de Lebesgue sur \( X\), \emph{tout en gardant celle des boréliens sur l'ensemble d'arrivée}.
-
-    Pour toute la partie sur l'intégration, une fonction \( f\colon \eR^n\to \eR^m\) sera mesurable si pour tout borélien \( A\) de \( \eR^m\) l'ensemble \( f^{-1}(A)\) est Lebesgue-mesurable dans \( \eR^n\).
-
-    Étant donné qu'il est franchement difficile de créer des ensembles non mesurables au sens de Lebesgue, il est franchement difficile de créer des fonction non mesurables à valeurs réelles. L'hypothèse de mesurabilité est donc toujours satisfaite dans les cas pratiques.
-\end{remark}
-
-\begin{lemma}[\cite{NBoIEXO}]   \label{LemFOlheqw}
-    Une fonction \( f\colon X\to \eR\) est mesurable si et seulement si \( f^{-1}(I)\) est mesurable pour tout \( I\) de la forme \( \mathopen] a , \infty \mathclose[\).
-\end{lemma}
-
-\begin{proof}
-    Nous devons prouver que \( f^{-1}(A)\) est mesurable dans \( X\) pour tout borélien \( A\) de \( \eR\). Nous posons
-    \begin{equation}
-        S=\{ A\subset \eR\tq f^{-1}(A)\text{ est mesurable dans \( X\)} \}
-    \end{equation}
-    et nous prouvons que cela est une tribu. D'abord \( f^{-1}(\eR)=X\), et \( X\) est mesurable, donc \( \eR\in S\). Ensuite si \( A\in S\) alors \( f^{-1}(A^c)=f^{-1}(A)^c\). En tant que complémentaire d'un mesurable de \( X\), l'ensemble \( f^{-1}(A)^c\) est mesurable dans \( X\). Et enfin si \( A_n\in S \) alors \( f^{-1}(\bigcup_nA_n)=\bigcup_nf^{-1}(A_n)\) qui est encore mesurable dans \( X\) en tant qu'union de mesurables.
-
-    Donc \( S\) est une tribu qui contient tous les ensembles de la forme \( \mathopen] a , \infty \mathclose]\). Le lemme \ref{LemZXnAbtl} conclu que \( S\) contient tous les boréliens de \( \eR\).
-\end{proof}
-
-\begin{lemma}[\cite{NBoIEXO}]   \label{LemIGKvbNR}
-    Soit \( f_n\colon X\to \eR\) une suite de fonctions mesurables\footnote{Ici \( X\) est un espace mesuré et \( \eR\) est muni des boréliens.}. Alors \( \sup_n f_n\) est mesurable.
-\end{lemma}
-
-\begin{proof}
-    Nous avons
-    \begin{subequations}
-        \begin{align}
-            (\sup f_n)^{-1}\big( \mathopen] a , \infty \mathclose] \big)&=\{ x\in X\tq (\sup f_n)(x)>a \}\\
-            &=\bigcup_n\{ x\in X\tq f_n(x)>a \}\\
-            &=\bigcup_nf_n^{-1}\big( \mathopen] a , \infty \mathclose] \big).
-        \end{align}
-    \end{subequations}
-    Étant donné que \( f_n\) est mesurable et que \( \mathopen] a , \infty \mathclose]\) est mesurable, chacun des \( f_n^{-1}\big( \mathopen] a , \infty \mathclose] \big) \) est mesurable dans \( X\). Nous sommes en présence d'une union dénombrable de mesurables, donc \( (\sup f_n)^{-1}\big( \mathopen] a , \infty \mathclose] \big)\) est mesurable.
-
-    Le lemme \ref{LemFOlheqw} conclu que \( \sup f_n\) est mesurable.
-\end{proof}
-
-\begin{proposition}\label{PropFYPEOIJ}
-    Si \( f_n\) est une suite de fonctions mesurables et positives, alors la fonction \( \sum_nf_n\) est mesurable.
-\end{proposition}
-
-\begin{proof}
-    Nous considérons les fonctions \( s_k(x)=\sum_{n=0}^kf_n(x)\) qui vaut éventuellement \( \infty\) en certains points. Nous avons
-    \begin{equation}
-        \sum_nf_n(x)=\sup_ks_k(x),
-    \end{equation}
-    donc le lemme \ref{LemIGKvbNR} nous donne la mesurabilité de la somme de \( f_n\).
-\end{proof}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Tribu produit}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{definition}      \label{DefTribProfGfYTuR}
-    Si \( \tribA_1\) et \( \tribA_2\) sont deux tribus sur deux ensembles \( \Omega_1\) et \( \Omega_2\), nous définissons la \defe{tribu produit}{tribu!produit} \( \tribA_1\otimes\tribA_2\) comme étant la tribu engendrée par 
-    \begin{equation}
-        \{ X\times Y\tq X\in\tribA_1,Y\in\tribA_2 \}.
-    \end{equation}
-    Ces ensembles sont appelés \defe{rectangles}{rectangle!produit de tribus} de \( (\Omega_1,\tribA_1)\otimes (\Omega_2,\tribA_2)\).
-\end{definition}
-
-\begin{lemma}[Propriété des sections\cite{NBoIEXO}] \label{LemAQmWEmN}
-    Soient \( \tribA_1\) et \( \tribA_2\) des tribus sur les ensembles \( \Omega_1\) et \( \Omega_2\). Si \( A\in\tribA_1\otimes\tribA_2\) alors pour tout \( x\in \Omega_1\) et \( y\in\Omega_2\), les ensembles
-    \begin{subequations}    \label{subEqCTtPccK}
-        \begin{align}
-            A_1(y)=\{ x\in\Omega_1\tq (x,y)\in A \}\\
-            A_2(x)=\{ y\in\Omega_2\tq (x,y)\in A \}
-        \end{align}
-    \end{subequations}
-    sont mesurables.
-\end{lemma}
-\index{section!propriété des}
-
-\begin{proof}
-    Soit \( y\in\Omega_2\); nous allons prouver le résultat pour \( A_1(y)\). Pour cela nous notons 
-    \begin{equation}
-        S=\{ A\in \tribA_1\otimes\tribA_2\tq \forall y\in\Omega_2, A_1(y)\in\tribA_1 \},
-    \end{equation}
-    et nous allons noter que \( S\) est une tribu contenant les rectangles. Par conséquent, \( S\) sera égal à \( \tribA_1\otimes \tribA_2\).
-
-    \begin{subproof}
-        \item[Les rectangles]
-
-            Considérons le rectangle \( A=X\times Y\) et si \( y\in \Omega_2\) alors
-            \begin{equation}
-                A_1(y)=\{ x\in \Omega_1\tq (x,y)\in X\times Y \}.  
-            \end{equation}
-            Donc soit \( y\in Y\) alors \( A_1(y)=X\in\tribA_1\), soit \( y\notin Y\) et alors \( A_1(y)=\emptyset\in\tribA_1\).
-
-        \item[Tribu : ensemble complet]
-
-            Nous avons \( \Omega_1\times \Omega_2\in S\) parce que c'est un rectangle.
-
-        \item[Tribu : complémentaire] Soit \( A\in S\) et montrons que \( A^c\in S\). Nous avons d'abord
-            \begin{equation}
-                (A^c)_1(y)=\{ x\in \Omega_1\tq (x,y)\in A^c \}.
-            \end{equation}
-            D'autre part
-            \begin{equation}
-                A_1(y)^c=\{ x\in\Omega_1\tq (x,y)\notin A \}=\{ x\in \Omega_1\tq (x,y)\in A^c \}=(A^c)_1(y).
-            \end{equation}
-            Vu que \( \tribA_1\) est une tribu et que par hypothèse \( A_1(y)\in\tribA_1\), nous avons aussi \( A_1(y)^c\in S\), et donc \( (A^c)_1(y)\in \tribA_1\), ce qui prouve que \( A^c\in S\).
-
-        \item[Tribu : union dénombrable] Soit une suite \( A_n\in S\). Nous avons
-            \begin{equation}
-                (\bigcup_nA_n)_1(y)=\{ x\in\Omega_1\tq (x,y)\in \bigcup_nA_n \}=\bigcup_n\{ x\in\Omega_1\tq (x,y)\in A_n \}=\bigcup_n(A_n)_1(y),
-            \end{equation}
-            et ce dernier ensemble est dans \( \tribA_1\) parce que c'est une union dénombrable d'éléments de \( \tribA_1\).
-        
-    \end{subproof}
-    Nous avons donc prouvé que \( S\) est une tribu contenant les rectangles, donc \( S\) contient au moins \( \tribA_1\otimes \tribA_2\).
-\end{proof}
-
-\begin{corollary}
-    Si \( f\colon \Omega_1\times \Omega_2\to \eR\) est une fonction mesurable\footnote{Définition \ref{DefQKjDSeC}.} sur \( X\times Y\) alors pour chaque \( y\) dans \( \Omega_2\), la fonction
-    \begin{equation}
-        \begin{aligned}
-            f_y\colon X&\to \eR \\
-            x&\mapsto f(x,y) 
-        \end{aligned}
-    \end{equation}
-    est mesurable.
-\end{corollary}
-
-\begin{proof}
-    Soit \( \mO\) un ensemble mesurable de \( \eR\) (i.e. un borélien), et \( y\in \Omega_2\). Nous avons
-    \begin{equation}
-        f_y^{-1}(\mO)=\{ x\in X\tq f(x,y)\in \mO \}=A_1(y)
-    \end{equation}
-    où
-    \begin{equation}
-        A=\{ (x,y)\in \Omega_1\times \Omega_2\tq f(x,y)\in \mO \}=f^{-1}(\mO).
-    \end{equation}
-    Ce dernier est mesurable parce que \( f\) l'est.
-\end{proof}
-
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Mesure}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -270,6 +132,12 @@ Si \( \tribA\) est une tribu sur un ensemble \( E\), nous notons \( m(\tribA)\)\
 
     La mesure \( \mu\) sur \( \Omega\) est \defe{finie}{mesure!finie} si \( \mu(\Omega)<\infty\).
 \end{definition}
+
+Si \( (\Omega,\tribA,\mu)\) et \( (S,\tribF,\nu)\) sont deux espaces mesurés, alors nous notons
+\begin{equation}
+    (\Omega,\tribA,\mu)\subset (S,\tribF,\nu)
+\end{equation}
+lorsque \( \Omega\subset S\), \( \tribA\subset\tribF\) et pour tout \( A\in\tribA\), \( \mu(A)=\nu(A)\).
 
 \begin{definition}[Ensemble mesurable]\label{DefHGsQxHB}
     Les éléments de \( \tribA\) sont les ensembles \defe{mesurables}{mesurable!ensemble} pour la mesure \( \mu\).
@@ -700,7 +568,7 @@ où \( A_j=f^{-1}(\alpha_j)\). Notons que \( f\) étant mesurable, les ensembles
 \end{definition}
 La différence avec une mesure est que nous ne demandons pas que \eqref{EqZLMooSxvaL} soit une égalité lorsque les \( A_n\) sont disjoints.
 
-\begin{proposition}[\cite{MesureLebesgueLi}]
+\begin{proposition}[\cite{MesureLebesgueLi}]    \label{PropFDUooVxJaJ}
     Soit un espace mesuré \( (S,\tribF,\mu)\) et l'application\nomenclature[Y]{\( \mu^*\)}{La mesure extérieure associée à la mesure \( \mu\)}
     \begin{equation}
         \begin{aligned}
@@ -863,7 +731,7 @@ pour un certain \( Y\) mesurable de mesure nulle contenant \( N\).
             \end{subequations}
             Ici \( A\Delta B\) est la différence symétrique de \( A\) et \( B\), définition \ref{DefBMLooVjlSG}.
         \item
-            L'ensemble \( \tribA=\tribB=\tribC\) est une tribu.
+            L'ensemble \( \hat\tribF=\tribA=\tribB=\tribC\) est une tribu.
         \item
             La définition 
             \begin{equation}
@@ -879,7 +747,7 @@ pour un certain \( Y\) mesurable de mesure nulle contenant \( N\).
             L'espace \( (X,\tribA,\mu')\) est complet.
         \item
             La mesure \( \mu'\) prolonge \( \mu\).
-        \item
+        \item   \label{thoCRMootPojnvii}
             La mesure \( \mu'\) est minimale au sens où toute mesure complète prolongeant \( \mu\) prolonge \( \mu'\).
     \end{enumerate}
 \end{theorem}
@@ -980,19 +848,19 @@ pour un certain \( Y\) mesurable de mesure nulle contenant \( N\).
                 \nu(B)\leq\nu(B\cup N)\leq \nu(B)+\nu(N)=\nu(B),
             \end{equation}
             donc \( \nu(A)=\nu(B\cup N)=\nu(B)=\mu(B)\). La dernière égalité est le fait que \( \nu\) prolonge \( \mu\). Mais par définition de \( \mu'\) nous avons aussi \( \mu'(A)=\mu'(B\cup N)=\mu(B)\). Au final \( \mu'(A)=\nu(A)=\mu(B)\).
-
     \end{subproof}
-
 \end{proof}
 
 \begin{definition}
     L'espace mesuré complet \( (X,\tribA,\mu')\) défini par le théorème \ref{thoCRMootPojn} est l'\defe{espace mesuré complétée}{espace!mesuré!complété} de \( (X,\tribF,\mu)\).
+
+    Nous noterons le complété de \( (S,\tribF,\mu)\) par \( (S,\hat\tribF,\hat \mu)\)\nomenclature[Y]{\( (S,\hat\tribF,\hat\mu)\)}{complété de l'espace mesuré \( (S,\hat\tribF,\hat\mu)\)}
 \end{definition}
 
-\begin{theorem}[Carathéodory\cite{MesureLebesgueLi}]
+\begin{theorem}[Carathéodory\cite{MesureLebesgueLi}] \label{ThoUUIooaNljH}
     Soit \( S\) un ensemble et \( m^*\) une mesure extérieure sur \( S\). Alors
     \begin{enumerate}
-        \item
+        \item   \label{RPPooHSWWsi}
             l'ensemble \( \tribM\) des parties \( m^*\)-mesurables est une tribu,
         \item
             la restriction de \( m^*\) est une mesure sur \( (S,\tribM)\),
@@ -1139,6 +1007,352 @@ pour un certain \( Y\) mesurable de mesure nulle contenant \( N\).
     \end{subproof}
 \end{proof}
 
+\begin{normaltext}
+
+Ce théorème nous pousse à adopter de la notation. Lorsqu'un espace mesuré \( (S,\tribF,\mu)\) est donné, nous noterons 
+\begin{equation}
+    (S,\tribM,\mu^*)   
+\end{equation}
+l'espace mesuré construit de la façon suivante. D'abord \( \mu^*\) est la mesure extérieure associée à \( \mu\) par la proposition \ref{PropFDUooVxJaJ}. Ensuite \( \tribM\) est la tribu des parties \( \mu^*\)-mesurables, qui est bien une tribu parce que \( \mu^*\) est une mesure extérieure (\ref{ThoUUIooaNljH}). La proposition \eqref{PropOJFoozSKAE} dit alors que \( \tribF\subset\tribM\). De plus \ref{ThoUUIooaNljH} nous explique que si \( A\in\tribF\) alors \( \mu(A)=\mu^*(A)\). Tout cela pour dire que
+\begin{equation}    \label{EqXDPooKwWAF}
+    (S,\tribF,\mu)\subset (S,\tribM,\mu^*).
+\end{equation}
+Et enfin, \ref{ThoUUIooaNljH} nous dit que l'espace mesuré \( (S,\tribM,\mu^*)\) est complet.
+\end{normaltext}
+
+\begin{example} \label{ExOIXoosScTC}
+    Montrons un cas dans lequel \( (S,\tribM,\mu^*)\) n'est pas \( \sigma\)-fini. Soit \( S\) un ensemble non dénombrable et \( \tribF\) la tribu des parties de \( S\) qui sont soit fini ou dénombrables soit de complémentaire fini ou dénombrable. Nous y mettons la mesure
+    \begin{equation}
+        \mu(A)=\begin{cases}
+            0    &   \text{si \( A\) est au plus dénombrable}\\
+            \infty    &    \text{sinon}.
+        \end{cases}
+    \end{equation}
+    Cette mesure n'est pas \( \sigma\)-finie parce qu'aucune union de dénombrables est non dénombrable. De plus \( (S,\tribF,\mu)\) est complet parce que toute partie contenue dans un ensemble fini ou dénombrable est fini ou dénombrable (\ref{PropQEPoozLqOQ}).
+
+    \begin{subproof}
+     \item[\( \tribF\) n'est pas \( \partP(S)\)]
+    
+        La tribu \( \tribF\) est différente de \( \partP(S)\). En effet \( S\) étant infini, il existe par \ref{PropVCSooMzmIX} une bijection \( \varphi\colon \{ 1,2 \}\times S\to S\). Alors l'ensemble \( \varphi\big( \{ 1 \}\times S \big)\) est non dénombrable et son complémentaire
+        \begin{equation}
+            \varphi\big( \{ 1 \}\times S \big)^c=\varphi\big( \{ 2 \}\times S \big)
+        \end{equation}
+        n'est as dénombrable non plus. Cet ensemble n'est donc pas de \( \tribF\).
+
+    \item[\( \tribM\) est \( \partP(S)\)]
+
+        En effet, soit \( A\subset S\); il faut prouver que pour tout \( X\subset S\) nous avons
+        \begin{equation}
+            \mu^*(X)=\mu^*(X\cap A)+\mu^*(X\cap A^c).
+        \end{equation}
+        Nous prouvons cela en séparant les cas suivant que \( X\) est dénombrable ou non.
+
+        Si \( X\) est fini ou dénombrable, alors \( X\cap A\) et \( X\cap A^c\) le sont également et nous avons \( \mu^*(X)=\mu(X)=0\) ainsi que \( \mu^*(X\cap A)=\mu^*(X\cap A^c)=0\).
+        
+        Si au contraire \( X\) n'est pas dénombrable,
+        \begin{equation}
+            \mu^*(X)=\inf_{\substack{A\in\tribF\\X\subset A}}\mu(A)=\infty,
+        \end{equation}
+         parce que \( X\) n'étant pas dénombrable, l'ensemble \( A\) ne l'est pas non plus et \( \mu(A)=\infty\). Mais comme \( X\) n'est pas dénombrable, soit \( X\cap A\) soit \( X\cap A^c\) (soit les deux) n'est pas dénombrable non plus; par conséquent
+         \begin{equation}
+             \mu^*(X\cap A)+\mu^*(X\cap A^c)=\infty.
+         \end{equation}
+    \end{subproof}
+
+    Par conséquent \( (S,\tribF,\mu) \neq (S,\tribM,\mu^*)\). Mais vu que \( (S,\tribF,\mu)\) est complété nous devons avoir \( (S,\tribF,\mu)=(S,\hat\tribF,\hat\mu)\). Tout cela pour dire que nous avons un exemple avec
+    \begin{equation}
+        (S,\tribM,\mu^*)\neq (S,\hat\tribF,\hat \mu).
+    \end{equation}
+\end{example}
+
+Nous avons deux façons de créer un espace complet à partir de \( (S,\tribF,\mu)\).
+\begin{enumerate}
+    \item
+        Partir de la mesure extérieure \( \mu^*\) et construire \( (S,\tribM,\mu^*)\).
+    \item
+        Partir des ensembles \( \mu\)-négligeables, construire \( \hat\tribF\) et ensuite \( (S,\hat\tribF,\hat\mu)\).
+\end{enumerate}
+Ces deux façons ne sont pas équivalentes en général comme le montre l'exemple \ref{ExOIXoosScTC}. Mais il sera montré par la proposition \ref{PropIIHooAIbfj} que si \( (S,\tribF,\mu)\) est \( \sigma\)-fini alors les deux sont équivalent.
+
+\begin{lemma}   \label{LemAESoofkMpi}
+    Soit \( (S,\tribF,\mu)\) un espace mesuré. Alors pour tout \( X\subset S\) tel que \( \mu^*(X)<\infty\) il existe \( A\in\tribF\) tel que \( X\subset A\) et \( \mu^*(X)=\mu(A)\).
+\end{lemma}
+C'est à dire que \( \mu^*\) a beau être défini sur toutes les parties de \( S\), ce qu'il faut rajouter pour être \( \mu\)-mesurable, c'est pas grand chose.
+
+\begin{proof}
+    Par définition de la mesure extérieure associée à \( \mu\) en tant qu'infimum, pour tout \( n\geq 1\), il existe \( A_n\in\tribF\) tel que \( X\subset A_n\) et \( \mu(A_n)\leq \mu^*(X)+\frac{1}{ 2^n }\). Nous posons \( A=\bigcap_{n\geq 1}A_n\) et nous vérifions que ce \( A\) fait l'affaire.
+
+    D'abord \( A\in\tribF\) parce qu'une tribu est stable par union dénombrable. Ensuite pour tout \( n\geq 1\) nous avons
+    \begin{equation}
+        \mu(A)\leq \mu(A_n)\leq \mu^*(X)+\frac{1}{ 2^n },
+    \end{equation}
+    et à la limite \( \mu(A)\leq \mu^*(X)\). Mais \( X\subset A\) implique \( \mu^*(X)\leq \mu(A)\) parce que \( \mu^*(X)\) l'infimum d'un ensemble contenant \( \mu(A)\).
+\end{proof}
+
+\begin{lemma}       \label{LemOAEoocBDaO}
+    Si l'espace mesuré \( (S,\tribF,\mu)\) est \( \sigma\)-fini alors l'espace mesuré \( (S,\tribM,\mu^*)\) est également \( \sigma\)-fini.
+\end{lemma}
+
+\begin{proof}
+    Vu que \( (S,\tribF,\mu)\) est \( \sigma\)-fini, nous avons une suite croissante \( A_n\) d'éléments de \( \tribF\) tels que \( \bigcup_nA_n=S\) et telle que \( \mu(A_n)<\infty\) pour tout \( n\). Étant donné que \( \tribF\subset\tribM\), cette suite convient également pour montrer que \( (S,\tribM,\mu^*)\) est \( \sigma\)-fini parce que \( \mu^*(A_n)=\mu(A_n)<\infty\).
+\end{proof}
+
+La proposition suivante montre que si \( (S,\tribF,\mu)\) est \( \sigma\)-finie alors nous avons l'égalité.
+\begin{proposition} \label{PropIIHooAIbfj}
+    Soit \( (S,\tribF,\mu)\) un espace mesuré \( \sigma\)-fini, \( \mu^*\) la mesure extérieure associée et \( \tribM\) la tribu des ensembles \( \mu^*\)-mesurables\footnote{C'est bien une tribu par \ref{ThoUUIooaNljH}\ref{RPPooHSWWsi}.}. Alors 
+    \begin{equation}
+    (S,\tribM,\mu^*) = (S,\hat\tribF,\hat\mu).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    La proposition \ref{PropOJFoozSKAE} indique que tous les éléments de \( \tribF\) sont \( \mu^*\)-mesurables, c'est à dire que \( \tribF\subset \tribM\). Mais l'espace \( (S,\tribM,\mu^*)\) est complet par le théorème de Carathéodory \ref{ThoUUIooaNljH}, donc par minimalité du complété (\ref{thoCRMootPojn}\ref{thoCRMootPojnvii}),
+    \begin{equation}
+        (S,\hat\tribF,\hat\mu)\subset(S,\tribM,\mu^*)
+    \end{equation}
+    au sens où \( \hat\tribF\subset\tribM\) et si \( A\in\hat\tribF\) alors \( \hat\mu(A)=\mu^*(A)\). Notons que cette inclusion est vraie même si la mesure n'est pas \( \sigma\)-finie.
+
+    Nous passons à l'inclusion inverse. Soit \( A\in\tribM\), c'est à dire que pour tout \( Y\subset S\) nous avons
+    \begin{equation}    \label{EqTZAooTCdGg}
+        \mu^*(Y)=\mu^*(Y\cap A)+\mu^*(Y\cap A^c).
+    \end{equation}
+    Nous allons montrer que \( A\in\hat\tribF\) en séparant les cas suivant que \( \mu^*(A)=\infty\) ou non.
+
+    \begin{subproof}
+        \item[Si \( \mu^*(A)<\infty\)] 
+        
+        Par le lemme \ref{LemAESoofkMpi}, il existe \( X\in\tribF\) tel que \( A\subset X\) et \( \mu^*(A)=\mu(X)\). Vu que \( (S,\tribF,\mu)\subset (S,\tribM,\mu^*)\) nous avons alors
+        \begin{equation}    \label{EqKFQooQaont}
+            \mu^*(A)=\mu(X)=\mu^*(X).
+        \end{equation}
+        Nous écrivons la relation \eqref{EqTZAooTCdGg} avec ce \( X\) en guise de \( Y\), et en nous souvenant que \( X\cap A=A\) et \( X\cap A^c=X\setminus A\) :
+        \begin{equation}
+            \mu^*(X)=\mu^*(A)+\mu^*(X\setminus A).
+        \end{equation}
+        En tenant compte de \eqref{EqKFQooQaont} et du fait que \( \mu^*(A)<\infty\), nous pouvons simplifier et trouver \( \mu^*(X\setminus A)=0\). Le lemme \ref{LemAESoofkMpi} nous donne alors \( B\in\tribF\) tel que \( X\setminus A\subset B\) et \( \mu(B)=\mu^*(X\setminus A)=0\), c'est à dire que \( X\setminus A\) est \( \mu\)-négligeable. Par conséquent \( X\setminus A\in\hat\tribF\). En écrivant
+        \begin{equation}
+            A=X\setminus(X\setminus A),
+        \end{equation}
+        nous avons écrit \( A\) comme différence de deux éléments de \( \hat\tribF\) et nous concluons que \( A\in\hat\tribF\).
+        
+        \item[Si \( \mu^*(A)<\infty\)] 
+
+            Le lemme \ref{LemOAEoocBDaO} nous indique que \( (S,\tribM,\mu^*)\) est \( \sigma\)-fini et il existe donc une suite \( (S_n)_{n\geq 1}\) dans \( \tribM\) telle que \( \bigcup_nS_n=S\) et \( \mu^*(S_n)<\infty\). L'ensemble \( A\cap S_n\) est un élément de \( \tribM\) vérifiant
+            \begin{equation}
+                \mu^*(A\cap S_n)\leq \mu^*(A)<\infty,
+            \end{equation}
+            ce qui implique que \( A\cap S_n\in\hat\tribF\) par la première partie. Maintenant \( A=\bigcup_n(A\cap S_n)\in\hat\tribF\) par union dénombrable d'éléments de la tribu \( \hat\tribF\).
+    \end{subproof}
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Tribu borélienne}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    La tribu des \defe{boréliens}{boréliens}, notée \( \Borelien(\eR^d)\) est la tribu engendrée par les ouverts de \( \eR^d\). Plus généralement si \( Y\) est un espace topologique, la tribu des boréliens est la tribu engendrée par les ouverts de \( Y\).
+\end{definition}
+Le plus souvent lorsque nous parlerons de fonctions \( f\colon X\to Y\) où \( Y\) est un espace topologique, nous considérons la tribu borélienne sur \( Y\). Ce sera en particulier le cas dans la théorie de l'intégration.
+
+\begin{proposition} \label{LemYEkvbWBz}
+    La tribu engendrée par une base dénombrable de la topologie est celle des boréliens.
+\end{proposition}
+
+\begin{proof}
+    Si une base de topologie est donnée, tout ouvert peut être écrit comme union d'élément de la base, proposition \ref{PropMMKBjgY}. Dans le cas d'une base dénombrable, cette union sera forcément dénombrable. Une tribu étant stable par union dénombrable, tout ouvert est dans la tribu engendrée par la base de topologie. Les autres boréliens suivent automatiquement.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Les boréliens de \texorpdfstring{$ \eR$}{R}}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous rappelons que la topologie de \( \eR\) est celle des boules donnée par le théorème \ref{ThoORdLYUu}. Notons que les boules ouvertes de la forme \( B(q,r)\) avec \( q,r\in \eQ\) forment une base dénombrable de la topologique de \( \eR\).
+
+\begin{lemma}   \label{LemZXnAbtl}
+    Soit \( \{ q_i \}\) une énumération des rationnels. La tribu engendrée par les ouverts \( \sigma_i=\mathopen] q_i , \infty \mathclose[\) est la tribu des boréliens.
+\end{lemma}
+
+\begin{proof}
+    Si \( a<b\) dans \( \eQ\) alors \( \sigma_a\setminus\sigma_b=\mathopen] a , b \mathclose]\). Ensuite 
+    \begin{equation}
+        \bigcup_{n\in \eN^*}\sigma_a\setminus\sigma_{b-\frac{1}{ n }}=\bigcup_{n\in \eN^*}\mathopen] a , b-\frac{1}{ n } \mathclose]=\mathopen] a , b \mathclose[.
+    \end{equation}
+    Par union dénombrable, tous les intervalles \( \mathopen] a , b \mathclose[\) avec \( a,b\in \eQ\) sont dans la tribu engendrée par les \( \sigma_i\).
+
+        Ces boules ouvertes forment une base de la topologie de \( \eR\) et le lemme \ref{LemYEkvbWBz} conclu.
+\end{proof}
+
+\begin{proposition}[\cite{OYRmzAa}]
+    Tout ouvert de \( \eR^n\) est une union dénombrable de rectangles presque disjoints\footnote{«presque» au sens où les intersections éventuelles sont de mesure de Lebesgue nulle.}.
+\end{proposition}
+
+\begin{proof}
+    Soit \( G\) un ouvert de \( \eR^n\). Soit \( \{ Q_i^{1} \}_{i\in \eN}\) un découpage de \( \eR^n\) en cubes de côté \( 1\) et dont les sommets sont en les coordonnées entières. Ce sont des cubes presque disjoints. Nous considérons ensuite pour chaque \( k>1\) le découpage \( \{ Q_i^{(k)} \}_{i\in\eN}\) de \( \eR^n\) en cubes de côtés \( 2^{-k}\) qui consiste à découper en \( 2\) les côtés des cubes du découpage \( Q^{(k-1)}\). Ces cubes forment encore un découpage dénombrable de \( \eR^n\) en des cubes presque disjoints. Ensuite nous considérons \( \mE\) l'union de tous les \( Q_i^{(k)}\) contenus dans \( G\).
+
+    Montrons que \( \mE=G\). D'abord \( \mE\subset G\) parce que \( \mE\) est une union d'ensembles contenus dans \( G\). Ensuite si \( x\in G\), il existe une boule de rayon \( r\) autour de \( x\) contenue dans \( G\); alors un des ensembles \( Q_i^{(k)}\) avec \( 2^{-j}<\frac{ r }{2}\) est contenue dans \( B(x,r)\) et donc dans \( \mE\).
+
+    Bien entendu l'union qui donne \( \mE\) n'est pas satisfaisante par ce que les \( Q_i^{(k+1)}\) sont contenus dans les \( Q_i^{(k)}\); les intersections sont donc loin d'être de mesure nulle.
+
+    Nous faisons ceci : 
+    \begin{subequations}
+        \begin{align}
+            R^{(0)}&=\{ Q_i^{(1)} \text{contenu dans \( G\)} \}\\
+            R^{(k+1)}&=\{ Q_i^{(k+1)}\text{contenus dans \( G\) et pas dans \( R^{(k)}\)} \}.
+        \end{align}
+    \end{subequations}
+    En fin de compte l'union de tous les ensembles contenus dans les \( R^{(k)}\) forment encore \( \eR^n\), mais sont d'intersection presque vide.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Fonction mesurable}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[Fonction mesurable] \label{DefQKjDSeC}
+    Soit \( (E,\tribA)\) et \( (F,\tribF)\) deux espaces mesurés. Une fonction \( f\colon E\to F\) est \defe{mesurable}{mesurable!fonction} si pour tout \( \mO\in \tribF\), l'ensemble \( f^{-1}(\mO)\) est dans \( \tribA\).
+
+    Une fonction à valeurs dans \( \eR^d\) est \defe{borélienne}{borélienne!fonction}\index{fonction!borélienne} si elle est mesurable pour la tribu des boréliens sur \( \eR^d\). Plus explicitement, \( f\colon (\Omega,\tribA)\to (\eR^d,\Borelien(\eR^d))\) est borélienne si pour tout \( \mO\in\Borelien\) nous avons \( f^{-1}(\mO)\in\tribA\).
+\end{definition}
+Si \( \tribA\) est une tribu sur un ensemble \( E\), nous notons \( m(\tribA)\)\nomenclature[P]{\( m(\tribA)\)}{Ensemble des fonctions \( \tribA\)-mesurables} l'ensemble des fonctions qui sont \( \tribA\)-mesurables.
+
+\begin{remark}
+    Lorsque nous considérons des fonctions à valeurs réelles \( f\colon X\to \eR\) nous utiliserons toujours la tribu borélienne sur \( \eR\). Pour \( X\), cela peut dépendre des contextes. En théorie de l'intégration, nous mettrons sur \( X\) la tribu des ensembles mesurables au sens de Lebesgue sur \( X\), \emph{tout en gardant celle des boréliens sur l'ensemble d'arrivée}.
+
+    Pour toute la partie sur l'intégration, une fonction \( f\colon \eR^n\to \eR^m\) sera mesurable si pour tout borélien \( A\) de \( \eR^m\) l'ensemble \( f^{-1}(A)\) est Lebesgue-mesurable dans \( \eR^n\).
+
+    Étant donné qu'il est franchement difficile de créer des ensembles non mesurables au sens de Lebesgue, il est franchement difficile de créer des fonction non mesurables à valeurs réelles. L'hypothèse de mesurabilité est donc toujours satisfaite dans les cas pratiques.
+\end{remark}
+
+\begin{lemma}[\cite{NBoIEXO}]   \label{LemFOlheqw}
+    Une fonction \( f\colon X\to \eR\) est mesurable si et seulement si \( f^{-1}(I)\) est mesurable pour tout \( I\) de la forme \( \mathopen] a , \infty \mathclose[\).
+\end{lemma}
+
+\begin{proof}
+    Nous devons prouver que \( f^{-1}(A)\) est mesurable dans \( X\) pour tout borélien \( A\) de \( \eR\). Nous posons
+    \begin{equation}
+        S=\{ A\subset \eR\tq f^{-1}(A)\text{ est mesurable dans \( X\)} \}
+    \end{equation}
+    et nous prouvons que cela est une tribu. D'abord \( f^{-1}(\eR)=X\), et \( X\) est mesurable, donc \( \eR\in S\). Ensuite si \( A\in S\) alors \( f^{-1}(A^c)=f^{-1}(A)^c\). En tant que complémentaire d'un mesurable de \( X\), l'ensemble \( f^{-1}(A)^c\) est mesurable dans \( X\). Et enfin si \( A_n\in S \) alors \( f^{-1}(\bigcup_nA_n)=\bigcup_nf^{-1}(A_n)\) qui est encore mesurable dans \( X\) en tant qu'union de mesurables.
+
+    Donc \( S\) est une tribu qui contient tous les ensembles de la forme \( \mathopen] a , \infty \mathclose]\). Le lemme \ref{LemZXnAbtl} conclu que \( S\) contient tous les boréliens de \( \eR\).
+\end{proof}
+
+\begin{lemma}[\cite{NBoIEXO}]   \label{LemIGKvbNR}
+    Soit \( f_n\colon X\to \eR\) une suite de fonctions mesurables\footnote{Ici \( X\) est un espace mesuré et \( \eR\) est muni des boréliens.}. Alors \( \sup_n f_n\) est mesurable.
+\end{lemma}
+
+\begin{proof}
+    Nous avons
+    \begin{subequations}
+        \begin{align}
+            (\sup f_n)^{-1}\big( \mathopen] a , \infty \mathclose] \big)&=\{ x\in X\tq (\sup f_n)(x)>a \}\\
+            &=\bigcup_n\{ x\in X\tq f_n(x)>a \}\\
+            &=\bigcup_nf_n^{-1}\big( \mathopen] a , \infty \mathclose] \big).
+        \end{align}
+    \end{subequations}
+    Étant donné que \( f_n\) est mesurable et que \( \mathopen] a , \infty \mathclose]\) est mesurable, chacun des \( f_n^{-1}\big( \mathopen] a , \infty \mathclose] \big) \) est mesurable dans \( X\). Nous sommes en présence d'une union dénombrable de mesurables, donc \( (\sup f_n)^{-1}\big( \mathopen] a , \infty \mathclose] \big)\) est mesurable.
+
+    Le lemme \ref{LemFOlheqw} conclu que \( \sup f_n\) est mesurable.
+\end{proof}
+
+\begin{proposition}\label{PropFYPEOIJ}
+    Si \( f_n\) est une suite de fonctions mesurables et positives, alors la fonction \( \sum_nf_n\) est mesurable.
+\end{proposition}
+
+\begin{proof}
+    Nous considérons les fonctions \( s_k(x)=\sum_{n=0}^kf_n(x)\) qui vaut éventuellement \( \infty\) en certains points. Nous avons
+    \begin{equation}
+        \sum_nf_n(x)=\sup_ks_k(x),
+    \end{equation}
+    donc le lemme \ref{LemIGKvbNR} nous donne la mesurabilité de la somme de \( f_n\).
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Tribu produit}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}      \label{DefTribProfGfYTuR}
+    Si \( \tribA_1\) et \( \tribA_2\) sont deux tribus sur deux ensembles \( \Omega_1\) et \( \Omega_2\), nous définissons la \defe{tribu produit}{tribu!produit} \( \tribA_1\otimes\tribA_2\) comme étant la tribu engendrée par 
+    \begin{equation}
+        \{ X\times Y\tq X\in\tribA_1,Y\in\tribA_2 \}.
+    \end{equation}
+    Ces ensembles sont appelés \defe{rectangles}{rectangle!produit de tribus} de \( (\Omega_1,\tribA_1)\otimes (\Omega_2,\tribA_2)\).
+\end{definition}
+
+\begin{lemma}[Propriété des sections\cite{NBoIEXO}] \label{LemAQmWEmN}
+    Soient \( \tribA_1\) et \( \tribA_2\) des tribus sur les ensembles \( \Omega_1\) et \( \Omega_2\). Si \( A\in\tribA_1\otimes\tribA_2\) alors pour tout \( x\in \Omega_1\) et \( y\in\Omega_2\), les ensembles
+    \begin{subequations}    \label{subEqCTtPccK}
+        \begin{align}
+            A_1(y)=\{ x\in\Omega_1\tq (x,y)\in A \}\\
+            A_2(x)=\{ y\in\Omega_2\tq (x,y)\in A \}
+        \end{align}
+    \end{subequations}
+    sont mesurables.
+\end{lemma}
+\index{section!propriété des}
+
+\begin{proof}
+    Soit \( y\in\Omega_2\); nous allons prouver le résultat pour \( A_1(y)\). Pour cela nous notons 
+    \begin{equation}
+        S=\{ A\in \tribA_1\otimes\tribA_2\tq \forall y\in\Omega_2, A_1(y)\in\tribA_1 \},
+    \end{equation}
+    et nous allons noter que \( S\) est une tribu contenant les rectangles. Par conséquent, \( S\) sera égal à \( \tribA_1\otimes \tribA_2\).
+
+    \begin{subproof}
+        \item[Les rectangles]
+
+            Considérons le rectangle \( A=X\times Y\) et si \( y\in \Omega_2\) alors
+            \begin{equation}
+                A_1(y)=\{ x\in \Omega_1\tq (x,y)\in X\times Y \}.  
+            \end{equation}
+            Donc soit \( y\in Y\) alors \( A_1(y)=X\in\tribA_1\), soit \( y\notin Y\) et alors \( A_1(y)=\emptyset\in\tribA_1\).
+
+        \item[Tribu : ensemble complet]
+
+            Nous avons \( \Omega_1\times \Omega_2\in S\) parce que c'est un rectangle.
+
+        \item[Tribu : complémentaire] Soit \( A\in S\) et montrons que \( A^c\in S\). Nous avons d'abord
+            \begin{equation}
+                (A^c)_1(y)=\{ x\in \Omega_1\tq (x,y)\in A^c \}.
+            \end{equation}
+            D'autre part
+            \begin{equation}
+                A_1(y)^c=\{ x\in\Omega_1\tq (x,y)\notin A \}=\{ x\in \Omega_1\tq (x,y)\in A^c \}=(A^c)_1(y).
+            \end{equation}
+            Vu que \( \tribA_1\) est une tribu et que par hypothèse \( A_1(y)\in\tribA_1\), nous avons aussi \( A_1(y)^c\in S\), et donc \( (A^c)_1(y)\in \tribA_1\), ce qui prouve que \( A^c\in S\).
+
+        \item[Tribu : union dénombrable] Soit une suite \( A_n\in S\). Nous avons
+            \begin{equation}
+                (\bigcup_nA_n)_1(y)=\{ x\in\Omega_1\tq (x,y)\in \bigcup_nA_n \}=\bigcup_n\{ x\in\Omega_1\tq (x,y)\in A_n \}=\bigcup_n(A_n)_1(y),
+            \end{equation}
+            et ce dernier ensemble est dans \( \tribA_1\) parce que c'est une union dénombrable d'éléments de \( \tribA_1\).
+        
+    \end{subproof}
+    Nous avons donc prouvé que \( S\) est une tribu contenant les rectangles, donc \( S\) contient au moins \( \tribA_1\otimes \tribA_2\).
+\end{proof}
+
+\begin{corollary}
+    Si \( f\colon \Omega_1\times \Omega_2\to \eR\) est une fonction mesurable\footnote{Définition \ref{DefQKjDSeC}.} sur \( X\times Y\) alors pour chaque \( y\) dans \( \Omega_2\), la fonction
+    \begin{equation}
+        \begin{aligned}
+            f_y\colon X&\to \eR \\
+            x&\mapsto f(x,y) 
+        \end{aligned}
+    \end{equation}
+    est mesurable.
+\end{corollary}
+
+\begin{proof}
+    Soit \( \mO\) un ensemble mesurable de \( \eR\) (i.e. un borélien), et \( y\in \Omega_2\). Nous avons
+    \begin{equation}
+        f_y^{-1}(\mO)=\{ x\in X\tq f(x,y)\in \mO \}=A_1(y)
+    \end{equation}
+    où
+    \begin{equation}
+        A=\{ (x,y)\in \Omega_1\times \Omega_2\tq f(x,y)\in \mO \}=f^{-1}(\mO).
+    \end{equation}
+    Ce dernier est mesurable parce que \( f\) l'est.
+\end{proof}
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Mesure de Lebesgue}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1167,7 +1381,6 @@ Dans ce cas nous disons que la mesure de Lebesgue de \( A\) est \( m(A)=m^*(A)\)
 \begin{proof}
     Soient \( f\) et \( g\) deux fonctions continues telles que \( f(x)=g(x)\) pour presque tout \( x\in D\). La fonction \( h=f-g\) est alors presque partout nulle et nous devons prouver qu'elle est nulle sur tout \( D\). La fonction \( h\) est continue; si \( h(a)\neq 0\) pour un certain \( a\in D\) alors \( h\) est non nulle sur un ouvert autour de \( a\) par continuité et donc est non nulle sur un ensemble de mesure non nulle.
 \end{proof}
-
 
 \begin{lemma}\label{LemTHBSEs}
     Si \( f\) est une fonction sur \( \mathopen[ a , \infty [\), alors nous avons la formule
