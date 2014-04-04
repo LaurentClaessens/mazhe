@@ -7,6 +7,22 @@
 \section{Théorie de la mesure}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+\begin{definition}[\cite{MesureLebesgueLi}] \label{DefUMWoolmMaf}
+    Une \defe{mesure extérieure}{mesure!extérieure} sur un ensemble \( S\) est une application \( m^*\colon \partP(S)\to \mathopen[ 0 , \infty \mathclose]\) telle que
+    \begin{enumerate}
+        \item
+            \( m^*(\emptyset)=0\),
+        \item
+            Si \( A\subset B\) dans \( S\) alors \( m^*(A)\leq m^*(B)\)
+        \item
+            Si les \( A_n\) sont des parties de \( S\) alors
+            \begin{equation}    \label{EqZLMooSxvaL}
+                m^*\big( \bigcup_{n\in \eN}A_n \big)\leq \sum_{n\in \eN}m^*(A_n).
+            \end{equation}
+    \end{enumerate}
+\end{definition}
+La différence avec une mesure est que nous ne demandons pas que \eqref{EqZLMooSxvaL} soit une égalité lorsque les \( A_n\) sont disjoints.
+
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Algèbre de parties}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -38,7 +54,7 @@
     La mesure est \defe{finie}{mesure!finie!sur algèbre de partie} si \( \mu(S)<\infty\) et \( \sigma\)-finie si il existe une suite \( (S_n)\) dans \( \tribD\) telle que \( S=\bigcup_nS_n\) et \( \mu(S_n)<\infty\).
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}[\cite{MesureLebesgueLi}]
     Si \( \tribD\) est une algèbre de parties de \( S\) et si \( \mu\) est une mesure sur \( (S,\tribD)\) alors
     \begin{enumerate}
         \item
@@ -72,12 +88,71 @@ La propriété \ref{ItemMFUooWCPNnii} est la \( \sigma\)-\defe{sous-additivité}
     où nous avons utilisé la première partie du lemme.
 \end{proof}
 
+\begin{proposition}[\cite{MesureLebesgueLi}]    \label{PropIUOoobjfIB}
+    Soit \( \tribD\) une algèbre de partie sur l'ensemble \( S\) et \( \mu\) une mesure sur \( (S,\tribD)\). Alors l'application
+    \begin{equation}
+        \begin{aligned}
+            \mu^*\colon \partP(S)&\to \mathopen[ 0 , +\infty \mathclose] \\
+            X&\mapsto \inf\{ \sum_n\mu(A_n)\tq A_n\in\tribD,X\subset\bigcup_nA_n \} 
+        \end{aligned}
+    \end{equation}
+    est une mesure extérieure\footnote{Définition \ref{DefUMWoolmMaf}.} sur \( S\) et pour tout \( A\in\tribD\) nous avons \( \mu^*(A)=\mu(A)\).
+\end{proposition}
+
+\begin{proof}
+    \begin{subproof}
+    \item[La définition est bonne]
+    Notons d'abord que la définition est bonne : l'ensemble sur lequel l'infimum est pris n'est pas vide : il suffit de prendre \( A_1=S\) et \( A_{n\geq 2}=\emptyset\).
+    \item[Le vide]
+        D'abord \( \mu^*(\emptyset)=0\) parce que \( \emptyset\in\tribD\). Prendre \( A_n=\emptyset\).
+    \item[Inégalité d'inclusion]
+
+        Soient \( X\subset Y\) dans \( \partP(S)\). Si \( Y\subset A\) alors \( X\subset A\), donc
+        \begin{equation}
+            \{ \sum_n\mu(A_n)\tq A_n\in\tribD,Y\subset\bigcup_nA_n \} \subset\{ \sum_n\mu(A_n)\tq A_n\in\tribD,X\subset\bigcup_nA_n \} ,
+        \end{equation}
+        ce qui prouve que \( \mu^*(X)\leq \mu^*(Y)\).
+    \item[Intégalité par union dénombrable]
+
+        Soit \( (X_n)_{n\in \eN}\) une suite de parties de \( S\). Si il existe \( n_0\) tel que \( \mu^*(X_{n_0})=\infty\) alors nous avons automatiquement \( \sum_n\mu^*(X_n)=\infty\) et l'inégalité demandée est évidente parce que n'importe quoi est plus petit ou égal à \( \infty\). Nous supposons donc que \( \mu^*(X_n)<\infty\) pour tout \( n\). 
+
+        Soit \( \epsilon>\) et par définition pour chaque \( n\), il existe un \( A_n\in \tribD\) tel que \( X_n\subset A_N\) et \( \mu(A_n)\leq \mu^*(X_n)+\frac{ \epsilon }{ 2^n }\). Bien entendu nous avons
+        \begin{equation}
+            \bigcup_nX_n\subset \bigcup_nA_n\in\tribD.
+        \end{equation}
+        Nous en déduisons que
+        \begin{equation}
+            \mu^*\big( \bigcup_nX_n \big)\leq\mu\big( \bigcup_nA_n \big).
+        \end{equation}
+        Mais \( (S,\tribD,\mu)\) étant un espace mesuré,
+        \begin{equation}
+            \mu\big( \bigcup_nA_n \big)\leq \sum_n\mu(A_n).
+        \end{equation}
+        Au final nous avons les inégalités
+        \begin{equation}
+            \mu^*\big( \bigcup_nX_n \big)\leq \mu\big( \bigcup_nA_n \big)\leq\sum_n\mu(A_n)\leq \sum_n\mu^*(X_n)+\epsilon\sum_n\frac{1}{ 2^n }=\sum_n\mu^*(X_n)+\epsilon.
+        \end{equation}
+        Cela étant vrai pour tout \( \epsilon\),
+        \begin{equation}
+            \mu^*\big( \bigcup_nX_n \big)\leq\sum_n\mu^*(X_n),
+        \end{equation}
+        ce qui prouve que \( \mu^*\) est une mesure extérieure.
+
+    \item[Restriction]
+
+    Supposons que \( X\in\tribD\). Alors si \( X\subset A\) nous avons \( \mu(X)\leq \mu(A)\); mais en même temps, \( \mu(X)\) est dans l'infimum qui définit \( \mu^*(X)\) donc
+    \begin{equation}
+        \mu^*(X)\leq\mu(X)\leq \inf \{ \mu(A)\tq A\in\tribD,X\subset A \}\leq \mu(X)\leq\mu^*(X).
+    \end{equation}
+    Donc nous avons égalité de tous les éléments de cette chaîne d'inégalité.
+    \end{subproof}
+\end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Ensembles mesurables}
+\subsection{Tribus et ensembles mesurables}
 %---------------------------------------------------------------------------------------------------------------------------
 
-\begin{definition}[\cite{ProbaDanielLi}]  \label{DefjRsGSy}
+\begin{definition}[\cite{ProbaDanielLi}]  \label{DefjRsGSy} 
     Si \( \Omega\) est un ensemble, un ensemble \( \tribA\) de sous-ensembles de \( \Omega\) est une \defe{tribu}{tribu} si 
     \begin{enumerate}
         \item
@@ -552,21 +627,26 @@ où \( A_j=f^{-1}(\alpha_j)\). Notons que \( f\) étant mesurable, les ensembles
 \section{Mesure extérieure}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-\begin{definition}[\cite{MesureLebesgueLi}]
-    Une \defe{mesure extérieure}{mesure!extérieure} sur un ensemble \( S\) est une application \( m^*\colon \partP(S)\to \mathopen[ 0 , \infty \mathclose]\) telle que
-    \begin{enumerate}
-        \item
-            \( m^*(\emptyset)=0\),
-        \item
-            Si \( A\subset B\) dans \( S\) alors \( m^*(A)\leq m^*(B)\)
-        \item
-            Si les \( A_n\) sont des parties de \( S\) alors
-            \begin{equation}    \label{EqZLMooSxvaL}
-                m^*\big( \bigcup_{n\in \eN}A_n \big)\leq \sum_{n\in \eN}m^*(A_n).
-            \end{equation}
-    \end{enumerate}
-\end{definition}
-La différence avec une mesure est que nous ne demandons pas que \eqref{EqZLMooSxvaL} soit une égalité lorsque les \( A_n\) sont disjoints.
+\begin{lemma}[\cite{MesureLebesgueLi}]  \label{LemULSooBgZLI}
+    Soit \( (S,\tribF,\mu)\) un espace mesuré et \( X\subset S\). Alors
+    \begin{equation}
+        \inf_{\substack{A\in\tribF\\X\in A}}\mu(A)=\inf\{ \sum_n\mu(A_n)\tq A_n\in\tribF,X\subset\bigcup_kA_k \}.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Pour montrer l'inégalité \( \geq\), nous remarquons qu'il y a plus d'éléments dans l'ensemble du second membre que dans le premier. En effet si \( A\in\tribF\) avec \( X\subset A\) alors dans le membre de gauche nous pouvons prendre \( A_1=A\) et \( A_{n\geq 1}=\emptyset\).
+
+    Pour l'inégalité dans l'autre sens, nous montrons que tout élément de
+    \begin{equation}    \label{EqZRAooBCPFk}
+        \{ \sum_n\mu(A_n)\tq A_n\in\tribF,X\subset\bigcup_kA_k \}
+    \end{equation}
+    est plus grand qu'un élément de
+    \begin{equation}    \label{EqYNMooNvCtS}
+        \{ \mu(A)\tq A\in\tribF,X\subset A \}.
+    \end{equation}
+    En effet si \( A_n\in\tribF\) avec \( X\subset \bigcup_kA_k\) alors en posant \( A=\bigcup_kA_k\) nous avons \( A\in\tribF\) avec \( X\subset A\) ainsi que \( \mu(A)\leq\sum_n\mu(A_n)\). Cela prouve que l'élément \( \sum_n\mu(A_n)\) de \eqref{EqZRAooBCPFk} est plus grand que l'élément \( \mu(A)\) de \eqref{EqYNMooNvCtS}.
+\end{proof}
 
 \begin{proposition}[\cite{MesureLebesgueLi}]    \label{PropFDUooVxJaJ}
     Soit un espace mesuré \( (S,\tribF,\mu)\) et l'application\nomenclature[Y]{\( \mu^*\)}{La mesure extérieure associée à la mesure \( \mu\)}
@@ -579,52 +659,8 @@ La différence avec une mesure est que nous ne demandons pas que \eqref{EqZLMooS
     Alors \( \mu^*\) est une mesure extérieure sur \( S\) et sa restriction à \( \tribF\) est égale à \( \mu\).
 \end{proposition}
 
-\begin{proof}
-    \begin{subproof}
-    \item[Le vide]
-        D'abord \( \mu^*(\emptyset)=O\) parce que \( \emptyset\in\tribF\).
-    \item[Inégalité d'inclusion]
-
-        Soient \( X\subset Y\) dans \( \partP(S)\). Si \( Y\subset A\) alors \( X\subset A\), donc
-        \begin{equation}
-            \inf \{ \mu(A)\tq A\in\tribF,X\subset A \}\leq \inf \{ \mu(A)\tq A\in\tribF,Y\subset A \},
-        \end{equation}
-        ce qui signifie que \( \mu^*(X)\leq \mu^*(Y)\).
-    \item[Intégalité par union dénombrable]
-
-        Soit \( (X_n)_{n\in \eN}\) une suite de parties de \( S\). Si il existe \( n_0\) tel que \( \mu^*(X_{n_0})=\infty\) alors nous avons automatiquement \( \sum_n\mu^*(X_n)=\infty\) et l'inégalité demandée est évidente parce que n'importe quoi est plus petit ou égal à \( \infty\). Nous supposons donc que \( \mu^*(X_n)<\infty\) pour tout \( n\). 
-
-        Soit \( \epsilon>\) et par définition pour chaque \( n\), il existe un \( A_n\in \tribF\) tel que \( X_n\subset A_N\) et \( \mu(A_n)\leq \mu^*(X_n)+\frac{ \epsilon }{ 2^n }\). Bien entendu nous avons
-        \begin{equation}
-            \bigcup_nX_n\subset \bigcup_nA_n\in\tribF.
-        \end{equation}
-        Nous en déduisons que
-        \begin{equation}
-            \mu^*\big( \bigcup_nX_n \big)\leq\mu\big( \bigcup_nA_n \big).
-        \end{equation}
-        Mais \( (S,\tribF,\mu)\) étant un espace mesuré,
-        \begin{equation}
-            \mu\big( \bigcup_nA_n \big)\leq \sum_n\mu(A_n).
-        \end{equation}
-        Au final nous avons les inégalités
-        \begin{equation}
-            \mu^*\big( \bigcup_nX_n \big)\leq \mu\big( \bigcup_nA_n \big)\leq\sum_n\mu(A_n)\leq \sum_n\mu^*(X_n)+\epsilon\sum_n\frac{1}{ 2^n }=\sum_n\mu^*(X_n)+\epsilon.
-        \end{equation}
-        Cela étant vrai pour tout \( \epsilon\),
-        \begin{equation}
-            \mu^*\big( \bigcup_nX_n \big)\leq\sum_n\mu^*(X_n),
-        \end{equation}
-        ce qui prouve que \( \mu^*\) est une mesure extérieure.
-
-    \item[Restriction]
-
-    Supposons que \( X\in\tribF\). Alors si \( X\subset A\) nous avons \( \mu(X)\leq \mu(A)\); mais en même temps, \( \mu(X)\) est dans l'infimum qui définit \( \mu^*(X)\) donc
-    \begin{equation}
-        \mu^*(X)\leq\mu(X)\leq \inf \{ \mu(A)\tq A\in\tribF,X\subset A \}\leq \mu(X)\leq\mu^*(X).
-    \end{equation}
-    Donc nous avons égalité de tous les éléments de cette chaîne d'inégalité.
-    \end{subproof}
-\end{proof}
+Cela est un cas particulier de \ref{PropIUOoobjfIB} en utilisant \ref{LemULSooBgZLI}.
+%AFAIRE : montrer que c'est un cas particulier.
 
 
 \begin{definition}  \label{DefTRBoorvnUY}
