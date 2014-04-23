@@ -27,7 +27,7 @@ La différence avec une mesure est que nous ne demandons pas que \eqref{EqZLMooS
 \subsection{Algèbre de parties}
 %---------------------------------------------------------------------------------------------------------------------------
 
-\begin{definition}[Algèbre de parties\cite{MesureLebesgueLi}]
+\begin{definition}[Algèbre de parties\cite{MesureLebesgueLi}]   \label{DefTCUoogGDud}
     Soit \( S\), un ensemble. Une classe \( \tribD\) de parties de \( S\) est une \defe{algèbre de parties}{algèbre!de parties} de \( S\) si
     \begin{enumerate}
         \item
@@ -1582,6 +1582,233 @@ Si \( A\subset X\) est un ensemble mesurable, un point \( x\in A\) est dit \defe
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Mesure de Lebesgue}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous notons \( \mS\) l'ensemble des intervalles\footnote{Définition \ref{DefEYAooMYYTz}.} de \( \eR\).
+
+\begin{proposition}
+    L'ensemble réunions finies d'éléments de \( \mS\) est une algèbre de parties de \( \eR\).
+\end{proposition}
+Cette algèbre de parties de $\eR$ est notée \( \tribA_{\mS}\).
+
+\begin{proof}
+
+    Nous devons vérifier la définition \ref{DefTCUoogGDud}. Les ensembles \( \eR\) et \( \emptyset\) sont des intervalles et font donc partie de \( \tribA_{\mS}\).
+    
+    Si \( A\in\tribA_{\mS}\) se décompose en union d'intervalles de la forme \( (a_k,b_k)\) avec \( k=1,\ldots, n\) (ici nous mettons des parenthèses au lieu de crochets parce qu'a priori nous ne savons pas). Alors
+    \begin{equation}
+        A^c=\bigcup_{k=0}^{k}(b_k,a_{k+1})
+    \end{equation}
+    où nous avons posé \( b_0=-\infty\) et \( a_{n+1}=+\infty\). Ici encore les parenthèses sont soit fermées soit ouvertes en fonction de ce qu'étaient celles dans la décomposition de \( A\). Quoi qu'il en soit, cette décomposition de \( A^c\) montre que \( A^c\in\tribA_{\mS}\).
+
+    Enfin si \( A,B\in\tribA_{\mS}\) alors \( A\cup B\in\tribA_{\mS}\).
+\end{proof}
+
+\begin{lemma}
+    Tout élément de \( \tribA_{\mS}\) admet une décomposition minimale unique en réunion finie d'intervalles. Cette décomposition est formée d'intervalles deux à deux disjoints.
+\end{lemma}
+
+\begin{proof}
+    Nous allons montrer que si \( A\in\tribA_{\mS}\), alors la décomposition minimale consiste en les composantes connexes de \( A\). Pour cela nous rappelons que la proposition \ref{PropInterssiConn} dit qu'une partie de \( \eR\) est connexe si et seulement si elle est un intervalle. D'abord cela nous dit immédiatement que les composantes connexes de \( A\) forment une décomposition de \( A\) en intervalles. Nous devons prouver qu'elle est minimale.
+
+    Soit \( \{ C_k \}_{k=1,\ldots, n}\) les composantes connexes de \( A\). Aucun connexe de \( \eR\) contenu dans \( A\) ne peut intersecter plus d'un des \( C_k\), et par conséquent nous ne pouvons pas décomposer \( A\) en moins de \( n\) intervalles. 
+    
+    Pour l'unicité, soit \( \{ I_k \}_{k=1,\ldots, n}\) un ensemble de \( n\) intervalles tels que \( \bigcup_{k=1}^nI_k=A\). Chacun des \( I_k\) intersecte un et un seul des \( C_k\). En effet si \( x\in I_k\cap C_i\) et \( y\in I_k\cap C_j\), alors \( \mathopen[ x , y \mathclose]\subset I_k\) parce que \( I_k\) est un intervalle. Mais \( C_i\) étant le plus grand connexe contenant \( x\), \( \mathopen[ x , y \mathclose]\subset C_i\) et de la même façon, \( \mathopen[ x , y \mathclose]\subset C_j\). Par conséquent \( C_i\) et \( C_j\) sont tous deux la composante connexe de \( x\) et \( y\). Nous en déduisons que \( C_i=C_j\), c'est à dire \( i=j\).
+
+    Par ailleurs nous avons \( I_k\cap I_l=\emptyset\) dès que \( k\neq l\) parce que sinon l'ensemble \( I_k\cap I_l\) serait connexe et la décomposition des \( \{ I_k \}_{k=1,\ldots, n} \) ne serait pas minimale : en remplaçant \( I_k\) et \( I_l\) par \( I_k\cup I_l\) on aurait eu une décomposition contenant moins d'éléments. Donc à renumérotation près nous pouvons supposer que \( I_k\) intersecte \( C_l\) si et seulement si \( k=l\).
+
+    Dans ce cas nous devons avoir \( I_k=C_k\), sinon les éléments de \( C_k\setminus I_k\) ne seraient pas dans \( \bigcup_{i=1}^nI_i\).
+\end{proof}
+
+\begin{definition}[longueur d'intervalle\cite{MesureLebesgueLi}]
+    Si \( I\) est un intervalle d'extrémités \( a\) et \( b\) avec \( -\infty\leq a\leq b\leq +\infty\) alors nous définissons la \defe{longueur}{longueur!d'un intervalle}\index{intervalle!longueur} de \( I\) par
+    \begin{equation}
+        \ell(I)=\begin{cases}
+            b-a    &   \text{si \( -\infty<a\leq b< +\infty\)}\\
+            \infty    &    \text{si \( a\) ou \( b\) est infini}
+        \end{cases}
+    \end{equation}
+    Si \( A\in\tribA_{\mS}\) et si sa décomposition minimale est \( A=\bigcup_{k=1}^nI_k\), alors on définit
+    \begin{equation}
+        \ell(A)=\sum_{k=1}^n\ell(I_k).
+    \end{equation}
+\end{definition}
+
+Le lemme suivant nous indique que nous pouvons calculer la longueur d'un élément de \( \tribA_{\mS}\) sans savoir la décomposition minimale, pourvu que l'on connaisse une décomposition disjointe.
+\begin{lemma}[\cite{MesureLebesgueLi}]\label{LemIUQooEzHun}
+    Si
+    \begin{equation}
+        B=\bigcup_{r=1}^pJ_r
+    \end{equation}
+    est une décomposition de \( B\in\tribA_{\mS}\) en intervalles deux à deux disjoints alors
+    \begin{equation}
+        \ell(B)=\sum_{r=1}^p\ell(J_r).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Nous prouvons dans un premier temps le résultat dans le cas où \( B=I\) est un intervalle. Soit \( I\) un intervalle et une décomposition en intervalles disjoints \( I=\bigcup_{r=1}^pJ_r\). Nous montrons qu'alors \( \ell(I)=\sum_{r=1}^p\ell(J_r)\). Nous verrons ensuite comment passer au cas où \( B\) est un élément générique de \( \tribA_{\mS}\).
+    \begin{subproof}
+    \item[Si \( B=I\) est un intervalle infini]
+
+        Si \( I\) est infini alors un des \( J_r\) soit l'être et donc \( \sum_{r=1}^p\ell(J_r)=\infty=\ell(I)\).
+    \item[Si \( B=I\) est un intervalle ininfini]
+
+    Pour chaque \( r=1,\ldots, p\) nous notons \( a_r\) et \( b_r\) les extrémités de \( J_r\). Vu que les \( J_r\) sont connexes et disjoints, si \( a_k\leq a_l\) alors \( b_k\leq a_l\), sinon l'ensemble (non vide) \( \mathopen] a_l , b_k \mathclose[ \) serait dans l'intersection \( I_k\cap I_l\) qui, elle, est vide. Plus généralement, si \( x\in J_k\) et \( y\in J_l\) avec \( x<y\) alors pour tout \( x'\in J_k\) et tout \( y'\in J_l\) nous avons \( x'<y'\). Vu qu'il y a un nombre fini d'ensembles \( J_r\), nous pouvons les classer dans l'ordre croissant :
+        \begin{equation}
+            a_1\leq b_1\leq a_2\leq b_2\leq \ldots\leq b_{p-1}\leq a_p\leq b_p.
+        \end{equation}
+        Vu que les \( J_r\) sont disjoints et que leur union est connexe nous avons en réalité
+        \begin{equation}
+            a=a_1\leq b_1=a_2\leq b_2=a_3\leq\ldots\leq b_{p-1}= a_p\leq b_p,
+        \end{equation}
+        donc une somme télescopique donne
+        \begin{equation}
+            \ell(I)=b-a=\sum_{r=1}^p(b_r-a_r)=\sum_{r=1}^p\ell(J_r).
+        \end{equation}
+
+    \item[Si \( B\) n'est pas un intervalle]
+        Soit \( \{ I_k \}_{k=1,\ldots, n}\) la décomposition minimale de \( B\). Alors
+        \begin{equation}
+            \spadesuit=\ell(B)=\sum_{k=1}^n\ell(I_k)=\sum_{k=1}^n\ell\big( \bigcup_{r=1}^p(I_k\cap J_r) \big).
+        \end{equation}
+        Mais \( I_k\) est un intervalle et s'écrit comme union disjointe \( I_k=\bigcup_{r=1}^p(I_k\cap J_r)\), donc par la première partie
+        \begin{equation}
+            \spadesuit=\sum_{k=1}^n\sum_{r=1}^p\ell(I_k\cap J_r)=\sum_{r=1}^p\sum_{k=1}^n\ell(I_k\cap J_r).
+        \end{equation}
+        Ici \( J_r\) est un intervalle qui se décompose en \( J_r=\bigcup_{k=1}^n(I_k\cap J_r)\), donc nous pouvons encore utiliser la première partie :
+        \begin{equation}
+            \spadesuit=\sum_{r=1}^p\ell(J_r),
+        \end{equation}
+        ce qu'il fallait.
+    \end{subproof}
+\end{proof}
+
+\begin{lemma}   \label{LemPIOooRLkbo}
+    Si \( A,B\in\tribA_{\mS}\) avec \( A\subset B\) alors \( \ell(A)\leq \ell(B)\).
+\end{lemma}
+
+\begin{proof}
+    Nous avons évidemment \( B=A\cup B\setminus A\). Notons que \( B\setminus A\in\tribA_{\mS}\) par le lemme \ref{LemBFKootqXKl}. Si \( \{ I_k \}\) est une décomposition disjointe de \( A\) et \( \{ J_i \}\) une de \( B\setminus A\) alors \( \{ I_k \}\cup\{ J_i \}\) est une décomposition disjointe de \( A\cup B\setminus A\) et le lemme \ref{LemIUQooEzHun} nous dit que
+    \begin{equation}
+        \ell(B)=\ell(A\cup B\setminus A)=\ell(A)+\ell(B\setminus A).
+    \end{equation}
+    Par conséquent \( \ell(B)\geq \ell(A)\).
+\end{proof}
+
+\begin{lemma}   \label{LemUMVooZJgMu}
+    Si \( I\) est un intervalle et si il se décompose en
+    \begin{equation}
+        I=\bigcup_{n\in \eN}I_n
+    \end{equation}
+    où les \( I_n\) sont des intervalles disjoints, alors
+    \begin{equation}
+        \ell(I)=\sum_{n=1}^{\infty}\ell(I_n).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Nous allons encore diviser la preuve en deux parties suivant que \( I\) soit de longueur finie ou pas.   
+    \begin{subproof}
+
+        \item[Si \( I\) est de longueur finie]
+        
+            Soient \( a\) et \( b\) les extrémités de \( I\) : \( -\infty<a\leq b< +\infty\). Pour tout \( N\geq 1\) nous avons
+            \begin{equation}
+                \sum_{n=1}^N\ell(I_n)=\ell\big( \bigcup_{n=1}^nI_n \big)\leq \ell(I).
+            \end{equation}
+            La première égalité est le lemme dans le cas d'une union finie \ref{LemIUQooEzHun}. L'inégalité est le lemme \ref{LemPIOooRLkbo}. Cela étant vrai pour tout $N$, à la limite \( N\to\infty\) nous conservons l'inégalité :
+            \begin{equation}
+                \sum_{n=1}^{\infty}\ell(I_n)\leq \ell(I).
+            \end{equation}
+            Nous devons encore voir l'inégalité inverse. Pour cela nous supposons que \( a<b\). Sinon \( \ell(I)=0\) et tous les \( I_n\) doivent être vide sauf un qui contiendra seulement \( \{ a \}\) (si \( I\) le contient).
+
+            Soit \( \epsilon>0\) avec \( \epsilon<b-a\) et l'intervalle
+            \begin{equation}
+                \mathopen[ a+\frac{ \epsilon }{ 4 } , b-\frac{ \epsilon }{ 4 } \mathclose]=\mathopen[ a' , b' \mathclose]\subset I.
+            \end{equation}
+            Si les \( a_n\) et le \( b_n\) sont le extrémités des \( I_n\) alors
+            \begin{equation}
+                \mathopen[ a' , b' \mathclose]\subset I=\bigcup_{n\geq 1}I_n\subset\bigcup_{n\geq 1}\mathopen] a_n-\frac{ \epsilon }{ 2^{n+2} } , b_n+\frac{ \epsilon }{ 2^{n+2} } \mathclose[=\bigcup_{n\geq 1}\mathopen] a'_n , b'_n \mathclose[
+            \end{equation}
+            où nous avons posé \( a'_n=a_n-\epsilon/2^{n+2}\) et \( b'_n=b_n+\epsilon/2^{n+2}\). Nous avons donc recouvert le compact\footnote{Lemme \ref{LemOACGWxV}.} \( \mathopen[ a' , b' \mathclose]\) par des ouverts. Nous pouvons donc en extraire un sous-recouvrement fini (c'est la définition de la compacité), c'est à dire une partie finie \( F\) de \( \eN\) telle que 
+            \begin{equation}
+                \mathopen[ a' , b' \mathclose]\subset \bigcup_{n\in F}\mathopen] a'_n , b'_n \mathclose[.
+            \end{equation}
+            Le lemme \ref{LemPIOooRLkbo} nous dit alors que
+            \begin{equation}
+                \heartsuit=b'-a'\leq \ell\big( \bigcup_{n\in F}\mathopen] a'_n , b'_n \mathclose[ \big)\leq \sum_{n\in F}(b'_n-a'_n).
+            \end{equation}
+            La seconde inégalité se prouve en recopiant\footnote{Nous ne pouvons pas invoquer directement le lemme \ref{LemZQUooMdCpq} parce que nous n'avons pas encore prouvé que \( \ell\) était une mesure sur \( (\eR,\tribA_{\mS})\).} la preuve de \ref{LemZQUooMdCpq}. Nous continuons le calcul :
+            \begin{equation}
+                \heartsuit\leq\sum_{n\in F}(b_n-a_n)+\sum_{n\in F}\frac{ \epsilon }{ 2^{n+1} }\leq \sum_{n\in F}(b_n-a_n)+\frac{ \epsilon }{2}.
+            \end{equation}
+            Mais \( b'-a'=(b-a)-\frac{ \epsilon }{2}\), donc
+            \begin{equation}
+                b-a-\frac{ \epsilon }{2}\leq \sum_{n\in F}(b_n-a_n)+\frac{ \epsilon }{2}.
+            \end{equation}
+            D'où nous déduisons que
+            \begin{equation}
+                \ell(I)=b-a\leq \sum_{n\in F}(b_n-a_n)+\epsilon\leq \sum_{n\in \eN}(b_n-a_n)+\epsilon=\sum_{n\in \eN}\ell(I_n)+\epsilon.
+            \end{equation}
+            Cela étant valable pour tout \( \epsilon\) nous déduisons que
+            \begin{equation}
+                \ell(I)\leq\sum_{n\in \eN}\ell(I_n).
+            \end{equation}
+
+        \item[Si \( I\) est de longueur infinie]
+
+        Étant donné que \( I\) est un intervalle de longueur infinie, il contient au moins un ensemble du type \( \mathopen] -\infty , a \mathclose]\) ou \( \mathopen[ a , +\infty [\); donc  pour tout \( M>0\), il existe \( N\geq 1\) tel que
+            \begin{equation}
+                \ell\big( I\cap\mathopen[ -N , N \mathclose] \big)\geq M.
+            \end{equation}
+            Mais \( I\ca\mathopen[ -N , N \mathclose]\) est un intervalle et 
+            \begin{equation}
+                I\cap\mathopen[ -N , N \mathclose]=\bigcup_{n\in \eN}I_n\cap\mathopen[ -N , N \mathclose]
+            \end{equation}
+            qui est une union disjointe. Par conséquent,
+            \begin{equation}
+                M\leq \ell\big( I\cap\mathopen[ -N , N \mathclose] \big)=\sum_n\ell\big( I_n\cap\mathopen[ -N , N \mathclose] \big)\leq\sum_n\ell(I_n).
+            \end{equation}
+            Cela étant vrai pour tout \( M>0\), nous concluons que
+            \begin{equation}
+                \sum_{n\in \eN}\ell(I_n)=\infty.
+            \end{equation}
+    \end{subproof}
+\end{proof}
+
+\begin{remark}
+    Pour la preuve de \ref{LemUMVooZJgMu} nous ne pouvons pas classer les \( I_n\) en ordre croissant comme nous l'avons fait dans la preuve de \ref{LemIUQooEzHun}. En effet si \( I=\mathopen[ 0 , 1 \mathclose]\) et que nous recouvrons \( \mathopen[ 0 , \frac{ 1 }{2} [\) et \( \mathopen] \frac{ 1 }{2} , 1 \mathclose]\) par une infinité d'intervalles chacun, nous ne pouvons plus les classer par ordre croissant.
+\end{remark}
+
+\begin{proposition}[\cite{MesureLebesgueLi}]
+    La fonction \( \ell\) ainsi définie est une mesure \( \sigma\)-finie sur l'algèbre de parties \( \tribA_{\mS}\).
+\end{proposition}
+
+\begin{proof}
+    Le fait que \( \ell\) soit \( \sigma\)-finie provient par exemple du fait que \( \ell\big( \mathopen] -n , n \mathclose[ \big)=2n\) tandis que \( \bigcup_n\mathopen] -n , n \mathclose[=\eR\).
+
+        Nous devons à présent prouver que \( \ell\) est additive. Soient \( (A_i)_{i\in \eN}\) des éléments disjoints de \( \tribA_{\mS}\), avec leurs décomposition minimales
+            \begin{equation}
+                A_i=\bigcup_{k=1}^nI^{(i)}_k.
+            \end{equation}
+            Pour chaque \( i\in \eN\), le lemme \ref{LemUMVooZJgMu} nous indique que
+            \begin{equation}
+                \ell(A_i)=\sum_{k\in \eN}\ell(I^{(i)}_k).
+            \end{equation}
+            L'ensemble \( \eN\times \eN\) est dénombrable et nous pouvons considérer la décomposition 
+            \begin{equation}
+                \bigcup_{i\in \eN}A_i=\bigcup_{(i,k)\in \eN\times \eN}I^{(i)}_k.
+            \end{equation}
+            Cette décomposition n'est pas spécialement minimale\footnote{\( A_1\) pourrait contenir \( \mathopen[ 0 , 1 \mathclose]\) et \( A_2\) contenir \( \mathopen] 1 , 2 \mathclose]\).} mais elle est disjointe.
+            Le lemme \ref{LemUMVooZJgMu} donne
+            \begin{equation}
+                \ell(\bigcup_i A_i)=\sum_{(i,k)\in \eN\times \eN}\ell(I_k^{(i)})=\sum_{i\in \eN}\left( \sum_{k\in \eN}\ell(I^{(i)}_k)\right)=\sum_{i\in \eN}\ell(A_i).
+            \end{equation}
+            %position 2370118440
+           
+            
+\end{proof}
+<++>
 
 Nous construisons à présent la mesure de Lebesgue sur \( \eR^n\). Un \defe{pavé}{pavé} dans \( \eR^n\) est un ensemble de la forme 
 \begin{equation}
