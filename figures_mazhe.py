@@ -4,6 +4,7 @@
 from phystricks import *
 import sys
 
+from phystricksEHDooGDwfjC import EHDooGDwfjC
 from phystricksALIzHFm import ALIzHFm
 from phystricksTZCISko import TZCISko
 from phystricksNEtAchr import NEtAchr
