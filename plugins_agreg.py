@@ -11,12 +11,25 @@ import LaTeXparser.PytexTools
 #    return True
 
 
-script_mark_list=[]
-script_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
-script_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
-script_mark_list.append("% SCRIPT MARK -- TOC")
-script_mark_list.append("% SCRIPT MARK -- AGRÉGATION")
-script_mark_list.append("% SCRIPT MARK -- FINAL")
+agreg_script_mark_list=[]
+agreg_script_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+agreg_script_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
+agreg_script_mark_list.append("% SCRIPT MARK -- TOC")
+agreg_script_mark_list.append("% SCRIPT MARK -- AGRÉGATION")
+agreg_script_mark_list.append("% SCRIPT MARK -- FINAL")
+
+mazhe_mark_list=[]
+mazhe_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+mazhe_mark_list.append("% SCRIPT MARK -- GARDE MAZHE")
+mazhe_mark_list.append("% SCRIPT MARK -- TOC")
+mazhe_mark_list.append("% SCRIPT MARK -- ENGLISH INTRODUCTION")
+mazhe_mark_list.append("% SCRIPT MARK -- INTRO SAGE")
+mazhe_mark_list.append("% SCRIPT MARK -- AGRÉGATION")
+mazhe_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUE")
+mazhe_mark_list.append("% SCRIPT MARK -- RESEARCH PART")
+mazhe_mark_list.append("% SCRIPT MARK -- MATLAB")
+mazhe_mark_list.append("% SCRIPT MARK -- EXERCICES")
+mazhe_mark_list.append("% SCRIPT MARK -- FINAL")
 
 
 def set_isAgreg(A):

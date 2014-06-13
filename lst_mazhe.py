@@ -1,75 +1,18 @@
 #! /usr/bin/python
 # -*- coding: utf8 -*-
 
+from __future__ import unicode_literals
+
 import LaTeXparser
 import LaTeXparser.PytexTools
 import commons
+import plugins_agreg
 
 myRequest = LaTeXparser.PytexTools.Request("mesure")
-myRequest.original_filename="mazhe.tex"
-
-myRequest.ok_filenames_list=["e_mazhe"]
-myRequest.ok_filenames_list.append("categories")
-myRequest.ok_filenames_list.append("topo")
-myRequest.ok_filenames_list.append("directedSets")
-myRequest.ok_filenames_list.append("var_diff")
-myRequest.ok_filenames_list.append("Lie_gp_and_subgp")
-myRequest.ok_filenames_list.append("0060_helgaLie")
-myRequest.ok_filenames_list.append("0065_helgaLie")
-myRequest.ok_filenames_list.append("fibre_bundle")
-myRequest.ok_filenames_list.append("0070_iwasawa")
-myRequest.ok_filenames_list.append("0075_iwasawa")
-myRequest.ok_filenames_list.append("helga")
-myRequest.ok_filenames_list.append("homo")
-myRequest.ok_filenames_list.append("Mecanique")
-myRequest.ok_filenames_list.append("algebroid")
-myRequest.ok_filenames_list.append("algebre")
-myRequest.ok_filenames_list.append("Cyclic_homol")
-myRequest.ok_filenames_list.append("compact_quantum_groups")
-myRequest.ok_filenames_list.append("chaines")
-myRequest.ok_filenames_list.append("Hilbert")
-myRequest.ok_filenames_list.append("reprez_Lie_Hilbert")
-myRequest.ok_filenames_list.append("anal_notations")
-myRequest.ok_filenames_list.append("distrib")
-myRequest.ok_filenames_list.append("Sobolev")
-myRequest.ok_filenames_list.append("app_oscilla")
-myRequest.ok_filenames_list.append("garding")
-myRequest.ok_filenames_list.append("frechet")
-myRequest.ok_filenames_list.append("Dixmier_tr")
-myRequest.ok_filenames_list.append("chaleur")
-myRequest.ok_filenames_list.append("CliffordSpin")
-myRequest.ok_filenames_list.append("DiracAdS")
-myRequest.ok_filenames_list.append("MQ")
-myRequest.ok_filenames_list.append("Fibre_QFT")
-myRequest.ok_filenames_list.append("cstar}  ")
-myRequest.ok_filenames_list.append("VN_algebras")
-myRequest.ok_filenames_list.append("Dirichlet")
-myRequest.ok_filenames_list.append("ktheory")
-myRequest.ok_filenames_list.append("bf_theory")
-myRequest.ok_filenames_list.append("oldBTZ")
-myRequest.ok_filenames_list.append("BTZ_3")
-myRequest.ok_filenames_list.append("introdiction")
-myRequest.ok_filenames_list.append("0267_BTZ")
-myRequest.ok_filenames_list.append("0268_BTZ")
-myRequest.ok_filenames_list.append("conclThese")
-myRequest.ok_filenames_list.append("avecOld")
-myRequest.ok_filenames_list.append("PetiteDim")
-myRequest.ok_filenames_list.append("noncommutative_geometry")
-myRequest.ok_filenames_list.append("deformation_formal")
-myRequest.ok_filenames_list.append("twists_general")
-myRequest.ok_filenames_list.append("qansl")
-myRequest.ok_filenames_list.append("KG")
-myRequest.ok_filenames_list.append("universel")
-myRequest.ok_filenames_list.append("deformation_AdS4")
-myRequest.ok_filenames_list.append("axplusb")
-myRequest.ok_filenames_list.append("unif_so2n")
-myRequest.ok_filenames_list.append("NCgrav")
-myRequest.ok_filenames_list.append("LevyProcess")
-myRequest.ok_filenames_list.append("app_Wigner")
-myRequest.ok_filenames_list.append("app_statement")
-myRequest.ok_filenames_list.append("app_Maxima")
-myRequest.ok_filenames_list.append("erreurs")
-myRequest.ok_filenames_list.append("listeProb")
-myRequest.ok_filenames_list.append("faq")
-
 myRequest.ok_hash=commons.ok_hash
+
+myRequest.medicament_plugin=plugins_agreg.accept_all_input
+# L'ordre dans les plugin est important parce que set_isAgreg retourne un code latex sans les commentaires
+# alors que keep_script_marks compte dessus pour faire sa sélection.
+myRequest.plugin_list=[plugins_agreg.keep_script_marks(plugins_agreg.mazhe_mark_list)]
+myRequest.original_filename="mazhe.tex"
