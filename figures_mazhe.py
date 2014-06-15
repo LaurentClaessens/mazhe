@@ -4,6 +4,7 @@
 from phystricks import *
 import sys
 
+from phystricksUYJooCWjLgK import UYJooCWjLgK
 from phystricksEHDooGDwfjC import EHDooGDwfjC
 from phystricksALIzHFm import ALIzHFm
 from phystricksTZCISko import TZCISko
@@ -201,7 +202,7 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,LesSubFigures,NiveauHyperbole,
         NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRR_A,ADUGmRR_B,ADUGmRR_C,TGdUoZR,GBnUivi,FGWjJBX,
         RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm,TracerUn,ExerciceGraphes,
-        ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,DS2010bisExoGraph,SolsEqDiffSin,SolsSinpA,Trajs
+        ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,DS2010bisExoGraph,SolsEqDiffSin,SolsSinpA,Trajs,UYJooCWjLgK
         ]
 
 
