@@ -82,7 +82,6 @@ from phystricksCoordPolaires import CoordPolaires
 from phystricksDefinitionCartesiennes import DefinitionCartesiennes
 from phystricksProjectionScalaire import ProjectionScalaire
 from phystricksCercleTrigono import CercleTrigono
-from phystricksTriangleRectangle import TriangleRectangle
 from phystricksTgCercleTrigono import TgCercleTrigono
 from phystricksExoPolaire import ExoPolaire
 from phystricksExoProjection import ExoProjection
@@ -199,9 +198,9 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,ExoVarj,TriangleUV,DefinitionCartesiennes,CoordPolaires,Parallelogramme,ExoParamCD,CbCartTui,CbCartTuii,
         CbCartTuiii,exercice1A1,exercice1A2,exercice4,DS2010exo1,SuiteUnSurn,SpiraleLimite,IntTrois,CornetGlace,Differentielle,CSCiv,CSCvi,CSCii,CSCiii,CSCv,Cardioideexo,
         DistanceEuclide,LesSpheres,IntervalleUn,DistanceEnsemble,AccumulationIsole,MethodeChemin,ExempleArcParam,CourbeRectifiable,SuiteInverseAlterne,CycloideA,Cardioid,
-        ParamTangente,Polirettangolo,TriangleRectangle,RegioniPrimoeSecondoTipo,ExampleIntegration,ExampleIntegrationdeux,ExampleChangementVariables,ArcLongueurFinesse,
+        ParamTangente,Polirettangolo,RegioniPrimoeSecondoTipo,ExampleIntegration,ExampleIntegrationdeux,ExampleChangementVariables,ArcLongueurFinesse,
         TangentSegment,BoulePtLoin,UneCellule,SenoTopologo,AdhIntFr,AdhIntFrDeux,AdhIntFrTrois,AdhIntFrSix,DeuxCercles,TraceCycloide,QuelCote,Osculateur,examssepti,
-        examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,TriangleRectangle,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,LesSubFigures,NiveauHyperbole,
+        examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,LesSubFigures,NiveauHyperbole,
         NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRR_A,ADUGmRR_B,ADUGmRR_C,TGdUoZR,GBnUivi,FGWjJBX,
         RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm,TracerUn,ExerciceGraphes,
         ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,DS2010bisExoGraph,SolsEqDiffSin,SolsSinpA,Trajs,UYJooCWjLgK,WHCooNZAmYB,
