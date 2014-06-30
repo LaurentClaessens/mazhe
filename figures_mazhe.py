@@ -4,6 +4,7 @@
 from phystricks import *
 import sys
 
+from phystricksFXVooJYAfif import FXVooJYAfif
 from phystricksWHCooNZAmYB import WHCooNZAmYB
 from phystricksQIZooQNQSJj import QIZooQNQSJj
 from phystricksUYJooCWjLgK import UYJooCWjLgK
@@ -204,7 +205,7 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRR_A,ADUGmRR_B,ADUGmRR_C,TGdUoZR,GBnUivi,FGWjJBX,
         RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm,TracerUn,ExerciceGraphes,
         ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,DS2010bisExoGraph,SolsEqDiffSin,SolsSinpA,Trajs,UYJooCWjLgK,WHCooNZAmYB,
-        QIZooQNQSJj
+        QIZooQNQSJj,FXVooJYAfif
         ]
 
 
