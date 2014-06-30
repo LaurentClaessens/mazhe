@@ -1,6 +1,6 @@
 from phystricks import *
 def ExampleChangementVariables():
-    fig = GenericFigure("examplechangementvariables",script_filename="ExampleChangementVariables")
+    fig = GenericFigure("ExampleChangementVariables")
 
     ssfig1=fig.new_subfigure(r'''La r\'egion $V$''', 'vecchiaregione')
     ssfig2=fig.new_subfigure(r'''La r\'egion $U=\phi^{-1}(V)$''', 'nuovaregione')

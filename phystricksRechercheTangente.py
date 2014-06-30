@@ -13,8 +13,6 @@ Q=f.get_point(4)
 P.put_mark(0.3,P.advised_mark_angle,"$P$")
 Q.put_mark(0.3,Q.advised_mark_angle,"$Q$")
 
-
-
 def TangenteQuestion():
     pspictQuestion,figQuestion = SinglePicture("TangenteQuestion",script_filename="RechercheTangente")
 
