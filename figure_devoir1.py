@@ -53,7 +53,7 @@ def exercice1A2():
     x1=1
     #F1=f1.graph(x1,Mx)
     F2=f2.graph(x0,Mx)
-    F2parameters.plotpoints=5000
+    F2.parameters.plotpoints=5000
     #F1.parameters.color="gray"
     #F1.parameters.style="dashed"
     #F2.parameters=F1.parameters

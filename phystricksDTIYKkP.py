@@ -32,7 +32,6 @@ def DTIYKkP():
     pspict.DrawGraph(ptB)
 
     V.parameters.color = "cyan"
-    V.parameters.symbol="none"
     V.put_mark(0.5,-45,"$[ e^{sE(w)} e^{xq_0}]$")
 
     pspict.DrawGraph(V)
