@@ -7,7 +7,7 @@ def TZCISko():
 
     x=var('x')
     f=phyFunction(sin(1/x)).graph(0.01,1)
-    f.plotpoints=2000
+    f.parameters.plotpoints=2000
 
     pspict.DrawGraphs(f)
     pspict.DrawDefaultAxes()

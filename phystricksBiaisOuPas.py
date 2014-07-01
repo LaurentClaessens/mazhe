@@ -10,7 +10,7 @@ def BiaisOuPas():
     f1=normale(0,1)
     f2=normale(-0.2,0.2)
 
-    f2.plotpoints=1000
+    f2.parameters.plotpoints=1000
 
     a=0.5
     I=Segment(Point(-a,0),Point(a,0))

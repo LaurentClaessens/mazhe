@@ -65,7 +65,7 @@ def ExerciceGraphesbis():
     pspict4.DrawDefaultAxes()
     pspict4.dilatation(.7)
 
-    F5.plotpoints=1000
+    F5.parameters.plotpoints=1000
     pspict5.DrawGraph(F5)
     pspict5.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict5.axes.Dx=0.5

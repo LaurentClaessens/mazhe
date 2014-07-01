@@ -19,7 +19,9 @@ from phystricksHasseAGdfdy import HasseAGdfdy
 from phystricksDynkinNUtPJx import DynkinNUtPJx
 from phystricksDynkinrjbHIu import DynkinrjbHIu
 from phystricksDynkinqlgIQl import DynkinqlgIQl
-from phystricksADUGmRR import ADUGmRR_A,ADUGmRR_B,ADUGmRR_C
+from phystricksADUGmRR import ADUGmRR_A
+from phystricksADUGmRR import ADUGmRR_B
+from phystricksADUGmRR import ADUGmRR_C
 from phystricksTGdUoZR import TGdUoZR
 from phystricksTGdUoZR import AIFsOQO
 from phystricksTGdUoZR import GBnUivi
@@ -170,7 +172,9 @@ from phystricksDS2010exo1 import DS2010exo1
 from phystricksPHTVjfk import PHTVjfk
 from phystrickssenotopologo import senotopologo
 from phystricksQXyVaKD import QXyVaKD
-from figure_devoir1 import exercice1A1,exercice1A2,exercice4
+from figure_devoir1 import exercice1A1
+from figure_devoir1 import exercice1A2
+from figure_devoir1 import exercice4
 from phystricksTriangleRectangle import TriangleRectangle
 
 #Les figures de TD_SVT

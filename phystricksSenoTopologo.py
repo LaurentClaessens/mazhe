@@ -7,7 +7,7 @@ def SenoTopologo():
 	x=var('x')
 	f=phyFunction(x*sin(1/x))
 	G=f.graph(a,b)
-	G.plotpoints=2000
+	G.parameters.plotpoints=2000
 	pspict.DrawGraph(G)
 	pspict.axes.Dx=0.3
 	pspict.axes.Dy=0.3

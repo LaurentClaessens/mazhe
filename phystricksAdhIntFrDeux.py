@@ -25,7 +25,7 @@ def AdhIntFrDeux():
     A.f1.parameters.style="solid"
     A.f2.parameters = A.f1.parameters
 
-    A.Fsegment.parameters.style="none"
+    #A.Fsegment.parameters.style="none"
 
     pspict.DrawGraphs(F1,F2,A,P,Cer)
 
