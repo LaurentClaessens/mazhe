@@ -13,7 +13,7 @@ def SolsEqDiffSin():
     f2.parameters.color="blue"
     f3.parameters.color="green"
 
-    pspict.axes.single_axeX.axes_unit=AxesUnit(pi,"\\pi")
+    pspict.axes.single_axeX.axes_unit=AxesUnit(pi,"")
     pspict.axes.single_axeX.Dx=0.5
 
     pspict.DrawGraphs(f1,f2,f3)

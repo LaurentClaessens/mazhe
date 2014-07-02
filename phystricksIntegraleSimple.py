@@ -19,7 +19,8 @@ def IntegraleSimple():
     surface.Fsegment.parameters.style="dashed"
     surface.f1.parameters.style="solid"
     surface.f1.parameters.color="blue"
-    surface.parameters.color="red"
+    surface.parameters.hatched()
+    surface.parameters.hatch.color="red"
 
     pspict.DrawGraphs(A,B,surface)
     pspict.axes.no_graduation()

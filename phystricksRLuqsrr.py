@@ -25,7 +25,7 @@ def RLuqsrr():
     pspict.DrawGraph(F1)
     pspict.DrawGraph(F2)
 
-    pspict.axes.single_axeX.axes_unit=AxesUnit(pi,"\\pi")
+    pspict.axes.single_axeX.axes_unit=AxesUnit(pi,"")
     pspict.axes.single_axeX.Dx=0.5
     pspict.DrawDefaultAxes()
 
