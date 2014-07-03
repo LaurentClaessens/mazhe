@@ -7,8 +7,8 @@ def ExoParamCD():
     f2=sin(3*x)
 
     courbe=ParametricCurve(f1,f2)
-    courbe1=ParametricCurve(courbe,mx=0,Mx=pi)
-    courbe2=ParametricCurve(courbe,mx=pi,Mx=2*pi)
+    courbe1=ParametricCurve(courbe,(0,pi))
+    courbe2=ParametricCurve(courbe,(pi,2*pi))
 
     courbe1.parameters.color="blue"
     courbe2.parameters.color="red"

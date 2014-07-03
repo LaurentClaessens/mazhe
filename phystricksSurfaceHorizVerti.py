@@ -18,9 +18,9 @@ def SurfaceHorizVerti():
     surface.Isegment.parameters.style="dashed"
     surface.Isegment.parameters.color="magenta"
     surface.Fsegment.parameters = surface.Isegment.parameters
-    surface.f1.parameters.style="solid"
-    surface.f1.parameters.color="blue"
-    surface.f2.parameters=surface.f1.parameters
+    surface.curve1.parameters.style="solid"
+    surface.curve1.parameters.color="blue"
+    surface.curve2.parameters=surface.curve1.parameters
 
 
     A.put_mark(0.2,-90,"$a$",automatic_place=(pspict[0],"N"))

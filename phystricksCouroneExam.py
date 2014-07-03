@@ -6,7 +6,10 @@ def CouroneExam():
     C1=Circle(Origin,1)
     C2=Circle(Origin,2)
 
-    surface=SurfaceBetweenParametricCurves((C1,0,pi/2),(C2,0,pi/2))
+    surface=SurfaceBetweenParametricCurves(C1,C2,(0,pi/2))
+    surface.parameters.filled()
+    surface.parameters.fill.color="lightgray"
+
     surface.parameters.color="blue"
 
     pspict.DrawGraphs(surface)

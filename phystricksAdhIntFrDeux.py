@@ -21,9 +21,9 @@ def AdhIntFrDeux():
     A=SurfaceBetweenFunctions(f1,f2,x0,Mx)
     A.parameters.hatched()
     A.parameters.hatch.color="red"
-    A.f1.parameters.color="blue"
-    A.f1.parameters.style="solid"
-    A.f2.parameters = A.f1.parameters
+    A.curve1.parameters.color="blue"
+    A.curve1.parameters.style="solid"
+    A.curve2.parameters = A.curve1.parameters
 
     #A.Fsegment.parameters.style="none"
 

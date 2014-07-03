@@ -28,15 +28,15 @@ def AdhIntFrTrois():
 	Cer=Circle(P,0.1)
 
 	A=SurfaceBetweenFunctions(f1,f2,x0,x1)
-	A.f2.parameters.plotpoints=F2.parameters.plotpoints
+	A.curve2.parameters.plotpoints=F2.parameters.plotpoints
 	A.Isegment.parameters.style="solid"
 	A.Isegment.parameters.color="blue"
 	A.Fsegment.parameters = A.Isegment.parameters
 	A.parameters.hatched()
 	A.parameters.hatch.color="red"
-	A.f1.parameters.color="blue"
-	A.f1.parameters.style="solid"
-	A.f2.parameters = A.f1.parameters
+	A.curve1.parameters.color="blue"
+	A.curve1.parameters.style="solid"
+	A.curve2.parameters = A.curve1.parameters
 
 	pspict.DrawGraphs(F1p,F2p,F1,F2,A,P,Cer)
 	#pspict.DrawGraphs(F1p,F2p,F1,F2,P)

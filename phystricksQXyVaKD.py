@@ -18,7 +18,7 @@ def QXyVaKD():
     segment=s1.dilatation(2)
     segment.parameters.color="red"
 
-    surface=SurfaceBetweenParametricCurves( (s1,0,s1.length()) , (circle,-pi/2,radian(alpha)) )
+    surface=SurfaceBetweenParametricCurves( s1,circle, (0,s1.length()) , (-pi/2,radian(alpha)) )
     surface.parameters.color="cyan"
     surface.curve1.parameters.style="solid"
     surface.curve1.parameters.color="red"

@@ -8,9 +8,9 @@ def IntEcourbe():
 
     surface=SurfaceBetweenFunctions(f1,f2,1,3)
     surface.parameters.color="green"
-    surface.f1.parameters.style="solid"
-    surface.f1.parameters.color="red"
-    surface.f2.parameters=surface.f1.parameters
+    surface.curve1.parameters.style="solid"
+    surface.curve1.parameters.color="red"
+    surface.curve2.parameters=surface.curve1.parameters
 
 
     pspict.DrawGraphs(surface,surface.bounding_box(pspict))

@@ -19,9 +19,9 @@ from phystricksHasseAGdfdy import HasseAGdfdy
 from phystricksDynkinNUtPJx import DynkinNUtPJx
 from phystricksDynkinrjbHIu import DynkinrjbHIu
 from phystricksDynkinqlgIQl import DynkinqlgIQl
-from phystricksADUGmRR import ADUGmRR_A
-from phystricksADUGmRR import ADUGmRR_B
-from phystricksADUGmRR import ADUGmRR_C
+from phystricksADUGmRR import ADUGmRRA
+from phystricksADUGmRR import ADUGmRRB
+from phystricksADUGmRR import ADUGmRRC
 from phystricksTGdUoZR import TGdUoZR
 from phystricksTGdUoZR import AIFsOQO
 from phystricksTGdUoZR import GBnUivi
@@ -206,7 +206,7 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         ParamTangente,Polirettangolo,RegioniPrimoeSecondoTipo,ExampleIntegration,ExampleIntegrationdeux,ExampleChangementVariables,ArcLongueurFinesse,
         TangentSegment,BoulePtLoin,UneCellule,SenoTopologo,AdhIntFr,AdhIntFrDeux,AdhIntFrTrois,AdhIntFrSix,DeuxCercles,TraceCycloide,QuelCote,Osculateur,examssepti,
         examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,LesSubFigures,NiveauHyperbole,
-        NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRR_A,ADUGmRR_B,ADUGmRR_C,TGdUoZR,GBnUivi,FGWjJBX,
+        NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRRA,ADUGmRRB,ADUGmRRC,TGdUoZR,GBnUivi,FGWjJBX,
         RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm,TracerUn,ExerciceGraphes,
         ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,DS2010bisExoGraph,SolsEqDiffSin,SolsSinpA,Trajs,UYJooCWjLgK,WHCooNZAmYB,
         QIZooQNQSJj,FXVooJYAfif

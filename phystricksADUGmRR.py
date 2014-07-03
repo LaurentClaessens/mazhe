@@ -1,8 +1,8 @@
 # -*- coding: utf8 -*-
 from phystricks import *
 
-def ADUGmRR_A():
-    pspict,fig = SinglePicture("ADUGmRR_A")
+def ADUGmRRA():
+    pspict,fig = SinglePicture("ADUGmRRA")
     pspict.dilatation(1)
 
     A=Point(0,0)
@@ -20,8 +20,8 @@ def ADUGmRR_A():
     fig.conclude()
     fig.write_the_file()
 
-def ADUGmRR_B():
-    pspict,fig = SinglePicture("ADUGmRR_B")
+def ADUGmRRB():
+    pspict,fig = SinglePicture("ADUGmRRB")
     pspict.dilatation(1)
 
     A=Point(0,0)
@@ -39,8 +39,8 @@ def ADUGmRR_B():
     fig.conclude()
     fig.write_the_file()
 
-def ADUGmRR_C():
-    pspict,fig = SinglePicture("ADUGmRR_C")
+def ADUGmRRC():
+    pspict,fig = SinglePicture("ADUGmRRC")
     pspict.dilatation(1)
 
     A=Point(0,0)

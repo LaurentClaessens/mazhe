@@ -8,9 +8,9 @@ def ContourSqL():
 
     surface=SurfaceBetweenFunctions(f1,f2,mx=0,Mx=1)
     surface.parameters.color="green"
-    surface.f2.put_arrow(0.5)
-    surface.f1.put_arrow(0.5)
-    surface.f1.record_arrows[0]=-surface.f1.record_arrows[0]
+    surface.curve2.put_arrow(0.5)
+    surface.curve1.put_arrow(0.5)
+    surface.curve1.record_arrows[0]=-surface.curve1.record_arrows[0]
 
     pspict.DrawGraphs(surface)
     pspict.DrawDefaultAxes()

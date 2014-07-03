@@ -20,10 +20,10 @@ def RegioniPrimoeSecondoTipo():
 	reg.parameters.hatch.color="red"
 	reg.Isegment.parameters.style="dashed"
 	reg.Fsegment.parameters.style="dashed"
-	reg.f1.parameters.style="solid"
-	reg.f1.parameters.color="blue"
-	reg.f2.parameters.style="solid"
-	reg.f2.parameters.color="blue"
+	reg.curve1.parameters.style="solid"
+	reg.curve1.parameters.color="blue"
+	reg.curve2.parameters.style="solid"
+	reg.curve2.parameters.color="blue"
 
 	Xa=Point(a,0)
 	Xb=Point(b,0)

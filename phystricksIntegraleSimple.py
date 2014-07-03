@@ -17,8 +17,8 @@ def IntegraleSimple():
     surface=SurfaceUnderFunction(f,a,b)
     surface.Isegment.parameters.style="dashed"
     surface.Fsegment.parameters.style="dashed"
-    surface.f1.parameters.style="solid"
-    surface.f1.parameters.color="blue"
+    surface.curve1.parameters.style="solid"
+    surface.curve1.parameters.color="blue"
     surface.parameters.hatched()
     surface.parameters.hatch.color="red"
 

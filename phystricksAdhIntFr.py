@@ -24,10 +24,10 @@ def AdhIntFr():
 	A=SurfaceBetweenFunctions(fun,horiz,x0,x1)
 	A.parameters.hatched()
 	A.parameters.hatch.color="red"
-	A.f1.parameters.color="blue"
-	A.f1.parameters.style="solid"
-	A.f2.parameters.style="solid"
-	A.f2.parameters.color="blue"
+	A.curve1.parameters.color="blue"
+	A.curve1.parameters.style="solid"
+	A.curve2.parameters.style="solid"
+	A.curve2.parameters.color="blue"
 
 	pspict.DrawGraphs(droite,f,A,P,Cer)
 

@@ -8,8 +8,8 @@ def IntRectangle():
     f=phyFunction(h)
     surface=SurfaceUnderFunction(f,0,l)
     surface.parameters.color="green"
-    surface.f1.parameters.style="solid"
-    surface.f1.parameters.color="red"
+    surface.curve1.parameters.style="solid"
+    surface.curve1.parameters.color="red"
     surface.Fsegment.parameters.style="solid"
     surface.Fsegment.parameters.color="red"
 

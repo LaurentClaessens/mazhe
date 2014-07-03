@@ -10,9 +10,9 @@ def ExSinLarge():
 
     surface=SurfaceBetweenFunctions(f1,f2)
     surface.parameters.color="red"
-    surface.f1.parameters.style="solid"
-    surface.f1.parameters.color="blue"
-    surface.f2.parameters=surface.f1.parameters
+    surface.curve1.parameters.style="solid"
+    surface.curve1.parameters.color="blue"
+    surface.curve2.parameters=surface.curve1.parameters
 
     pspict.DrawGraphs(surface)
     pspict.DrawDefaultAxes()
