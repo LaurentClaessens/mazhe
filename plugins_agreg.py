@@ -42,6 +42,15 @@ def up_to_text(liste,text):
         if l.startswith(text):
             return i
 
+def set_commit_hexsha(A):
+    print("set_commit_hexsha plugin")
+    import git
+    repo=git.Repo("")
+    u="\\newcommand{\GitCommitHexsha}{\info{missing information}}"
+    A = A.replace(u,u.replace("missing information",repo.commit().hexsha))
+    return A
+
+
 def accept_all_input(medicament):
     medicament.accept_input=lambda x: True
 
