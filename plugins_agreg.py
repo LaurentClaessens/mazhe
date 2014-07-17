@@ -46,8 +46,12 @@ def set_commit_hexsha(A):
     print("set_commit_hexsha plugin")
     import git
     repo=git.Repo("")
+    hexsha=repo.commit().hexsha
+    if repo.is_dirty():
+        hexsha=hexsha+" -- and slighty more"
     u="\\newcommand{\GitCommitHexsha}{\info{missing information}}"
-    A = A.replace(u,u.replace("missing information",repo.commit().hexsha))
+    print(hexsha)
+    A = A.replace(u,u.replace("missing information",hexsha))
     return A
 
 

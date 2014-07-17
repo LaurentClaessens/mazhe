@@ -711,8 +711,8 @@ Dans l'étude des fonctions convexes nous allons souvent utiliser la fonction \d
     Soit \( I=\mathopen] a , b \mathclose[\) un intervalle sur lequel \( f\) est convexe et \( \alpha\in I\). Nous allons prouver que \( f\) est continue en \( \alpha\). Nous considérons \( \tau_{\alpha}\) le taux d'accroissement définit par \eqref{EqRYBazWd}; c'est une fonction croissante comme précisé dans l'inégalité des trois pentes \ref{PropMDMGjGO} et de plus \( \tau_{\alpha}(x)\) est bornée supérieurement par \( \tau_{\alpha}(b)\) pour \( x<\alpha\) et inférieurement par \( \tau_{\alpha}(a)\) pour \( x>\alpha\). Les limites existent donc et sont finies par la proposition \ref{PropMTmBYeU}. Autrement dit les limites
         \begin{subequations}
             \begin{align}
-                \lim_{x\to \alpha+} \frac{ f(x)-f(\alpha) }{ x-\alpha }\\
-                \lim_{x\to \alpha^-} \frac{ f(x)-f(\alpha) }{ x-\alpha }
+                \lim_{x\to \alpha+} \frac{ f(x)-f(\alpha) }{ x-\alpha }&=\lim_{x\to \alpha^+} \tau_{\alpha}(x)=\inf_{t>\alpha}\tau_{\alpha}(t)\\
+                \lim_{x\to \alpha^-} \frac{ f(x)-f(\alpha) }{ x-\alpha }&=\lim_{x\to \alpha^-} \tau_{\alpha}(x)=\sup_{t<\alpha}\tau_{\alpha}(t).
             \end{align}
         \end{subequations}
         existent et sont finies, c'est à dire que la fonction \( f\) admet une dérivée à gauche et à droite.
@@ -815,6 +815,61 @@ Ici \( S^{++}\) est l'ensemble des matrices symétriques strictement définies p
     Si \( f\colon \eR^n\to \eR\) est de classe \( C^2\), elle est convexe si et seulement si sa matrice hessienne est définie positive pour tout \( x\).
 \end{proposition}
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Graphe d'une fonction convexe}
+%---------------------------------------------------------------------------------------------------------------------------
+
+L'idée principale du graphe d'une fonction convexe est qu'il est toujours au-dessus du graphe de ses tangentes (lorsqu'elles existent). Lorsqu'elles n'existent pas, le lemme \ref{LemKLTsHIQ} donne des coefficients directeurs de droites qui vont rester en-dessous du graphe de la fonction.
+
+De ce point de vue, la proposition suivante est tellement importante qu'elle est parfois prise comme définition de la convexité.
+
+\begin{proposition}[\cite{MonCerveau}] \label{PropNIBooSbXIKO}
+    Soit \( f\colon \eR\to \eR \) une fonction convexe et \( a\in \eR\). Il existe une constante \( c_a\in \eR\) telle que pour tout \( x\) nous ayons
+    \begin{equation}    \label{EqSKIooSeAekM}
+        f(x)-f(a)\geq c_a(x-a).
+    \end{equation}
+    Autrement dit, le graphe de la fonction \( f\) est toujours au-dessus de la droite d'équation
+    \begin{equation}
+        y=f(a)+c_a(x-a).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Les dérivées à gauche et à droite de \( f\) données par le lemme \ref{LemKLTsHIQ} sont les candidats tout cuits pour être coefficient directeur de la droite que l'on cherche. Nous allons prouver qu'en posant
+    \begin{equation}
+        c_a=\inf_{t>a}\tau_a(t),
+    \end{equation}
+    la droite \( y=f(a)+c_a(x-a)\) répond à la question\footnote{En prenant l'autre, \( c_a'=\sup_{t<a}\tau_a(t)\), ça fonctionne aussi. En pensant à une fonction affine par morceaux, on remarque qu'en choisissant un nombre entre les deux, nous avons plus facilement une inégalité stricte dans \eqref{EqSKIooSeAekM}.}.
+
+    Nous devons prouver que le nombre \( \Delta_x=f(x)-\big( f(a)+c_a(x-a) \big)\) est positif pour tout \( x\).
+    \begin{subproof}
+
+    \item[Si \( x>a\)]
+        
+        Nous divisons par \( x-a\) et nous devons prouver que \( \frac{ \Delta_x }{ x-a }\) est positif :
+        \begin{subequations}
+            \begin{align}
+                \frac{ \Delta_x }{ x-a }&=\frac{ f(x)-f(a) }{ x-a }-c_a\\
+                &=\tau_a(x)-\inf_{t>a}\tau_a(t)\\
+                &\geq 0
+            \end{align}
+        \end{subequations}
+        parce que \( t\to\tau_a(t)\) est croissante et que \( x>a\).
+
+    \item[Si \( x<a\)]
+        
+        Nous divisons par \( x-a\) et nous devons prouver que \( \frac{ \Delta_x }{ x-a }\) est négatif :
+        \begin{subequations}
+            \begin{align}
+                \frac{ \Delta_x }{ x-a }&=\frac{ f(x)-f(a) }{ x-a }-c_a\\
+                &=\tau_a(x)-\inf_{t>a}\tau_a(t)\\
+                &\leq 0
+            \end{align}
+        \end{subequations}
+        parce que \( t\to\tau_a(t)\) est croissante et que \( x<a\).
+    \end{subproof}
+\end{proof}
+
 \begin{proposition}[\cite{MonCerveau}] \label{PropPEJCgCH}
     Si \( g\) est une fonction convexe, il existe deux suites réelles \( (a_n)\) et \( (b_n)\) telles que
     \begin{equation}
@@ -825,7 +880,7 @@ Ici \( S^{++}\) est l'ensemble des matrices symétriques strictement définies p
 \index{densité!de \( \eQ\) dans \( \eR\)!utilisation}
 
 \begin{proof}
-    Pour \( u\in \eR\) nous considérons \( a(u)\) et \( b(u)\) tels que la droite \( y(x)=a(u)x+b(u)\) vérifie \( y(u)=g(u)\) et \( y(x)\leq g(x)\) pour tout \( x\). Il s'agit d'une droite coupant le graphe de \( g\) en \( x=u\) et restant en dessous. Nous considérons alors \( (u_n)\) une suite quelconque dense dans \( \eR\) (disons les rationnels pour fixer les idées) et nous posons
+    Pour \( u\in \eR\) nous considérons \( a(u)\) et \( b(u)\) tels que la droite \( y(x)=a(u)x+b(u)\) vérifie \( y(u)=g(u)\) et \( y(x)\leq g(x)\) pour tout \( x\). Cela est possible par la proposition \ref{PropNIBooSbXIKO}. Il s'agit d'une droite coupant le graphe de \( g\) en \( x=u\) et restant en dessous. Nous considérons alors \( (u_n)\) une suite quelconque dense dans \( \eR\) (disons les rationnels pour fixer les idées) et nous posons
     \begin{subequations}
         \begin{numcases}{}
             a_n=a(u_n)\\
@@ -869,13 +924,25 @@ Ici \( S^{++}\) est l'ensemble des matrices symétriques strictement définies p
 \subsubsection{Inégalité de Jensen}
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+Il existe plusieurs versions de l'inégalité de Jensen.
+\begin{enumerate}
+    \item
+        Une version discrète pour \( f\big( \sum_i\lambda_ix_i \big)\), la proposition \ref{PropXIBooLxTkhU}.
+    \item
+        Une version intégrale pour \( f\big( \int \alpha d\mu \big)\), la proposition \ref{PropXISooBxdaLk}.
+    \item
+        Une version pour l'espérance conditionnelle, la proposition \ref{PropABtKbBo}.
+\end{enumerate}
+\index{inégalité!Jensen}
+\index{fonction!convexe!inégalité de Jensen}
+
 \begin{proposition}[Inégalité de Jensen]    \label{PropXIBooLxTkhU}
     Soit \( f\colon \eR\to \eR\) une fonction convexe et des réels \( x_1\),\ldots,  \( x_n\). Soient des nombres positifs \( \lambda_1\),\ldots,  \( \lambda_n\) formant une combinaison convexe\footnote{Définition \ref{DefIMZooLFdIUB}.}. Alors
     \begin{equation}
         f\big( \sum_i\lambda_ix_i \big)\leq \sum_i\lambda_if(x_i).
     \end{equation}
 \end{proposition}
-\index{inégalité!Jensen}
+\index{inégalité!Jensen!pour une somme}
 
 \begin{proof}
     Nous procédons par récurrence sur \( n\), en sachant que \( n=2\) est la définition de la convexité de \( f\). Vu que
@@ -1150,4 +1217,3 @@ Grosso modo, cela dit que si qu'une suite de Cauchy pour la norme uniforme est u
 \end{theorem}
 \index{permutation!dérivée et limite}
 %TODO : une preuve.
-

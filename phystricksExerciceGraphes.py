@@ -1,14 +1,12 @@
 from phystricks import *
 def ExerciceGraphes():
-    fig = GenericFigure("ExerciceGraphes")
 
-    ssfig=[]
-    pspict=[]
     liste_noms=["logarithme","lnvalabsolue","lnxplusun","valabsolueln","unplusln","sqrtln","lnsqrt"]
-    for i in range(1,8):
-        ssfig.append( fig.new_subfigure("","label"+liste_noms[i-1])) 
-    for i in range(len(liste_noms)):
-        pspict.append( ssfig[i].new_pspicture(liste_noms[i]) )
+    pspicts,fig = MultiplePictures("ACUooQwcDMZ",len(liste_noms))
+
+
+    for i,nom in enumerate(liste_noms):
+        pspicts[i].mother.caption=liste_noms[i]
 
     r=1
     eps=exp(-2)
@@ -28,33 +26,33 @@ def ExerciceGraphes():
 
 
         # Figures
-    for i in range(0,len(pspict)):
-        pspict[i].DrawGraphs(F[i])
-        pspict[i].DrawDefaultAxes()
-        pspict[i].dilatation(1)
+    for i in range(0,len(pspicts)):
+        pspicts[i].DrawGraphs(F[i])
+        pspicts[i].DrawDefaultAxes()
+        pspicts[i].dilatation(1)
 
-        pspict[0].BB.AddX(-0.5)
-        pspict[0].BB.AddY(3.5)
+        pspicts[0].BB.AddX(-0.5)
+        pspicts[0].BB.AddY(3.5)
 
-    pspict[1].BB.AddX(-2)
-    pspict[1].BB.AddY(3)
+    pspicts[1].BB.AddX(-2)
+    pspicts[1].BB.AddY(3)
 
-    pspict[2].BB.AddX(-2)
-    pspict[2].BB.AddY(3)
+    pspicts[2].BB.AddX(-2)
+    pspicts[2].BB.AddY(3)
 
-    pspict[3].BB.AddX(-1)
-    pspict[3].BB.AddY(3)
+    pspicts[3].BB.AddX(-1)
+    pspicts[3].BB.AddY(3)
 
-    pspict[4].BB.AddX(-2)
-    pspict[4].BB.AddY(3)
-    pspict[4].BB.AddY(-3)
+    pspicts[4].BB.AddX(-2)
+    pspicts[4].BB.AddY(3)
+    pspicts[4].BB.AddY(-3)
 
-    pspict[5].BB.AddX(-2)
-    pspict[5].BB.AddY(3)
-    pspict[5].BB.AddY(-3)
+    pspicts[5].BB.AddX(-2)
+    pspicts[5].BB.AddY(3)
+    pspicts[5].BB.AddY(-3)
 
-    pspict[6].BB.AddX(-2)
-    pspict[6].BB.AddY(3)
+    pspicts[6].BB.AddX(-2)
+    pspicts[6].BB.AddY(3)
 
     
     fig.conclude()
