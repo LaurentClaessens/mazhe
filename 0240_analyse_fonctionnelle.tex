@@ -373,11 +373,10 @@ La proposition suivante est une espèce de convergence dominée de Lebesgue pour
 \end{proof}
 
 \begin{proposition}[Inégalité de Hölder]       \label{ProptYqspT}
-    Soit \( \Omega\) un espace mesuré et \( 1\leq p\), \( q\leq\infty\) satisfaisant \( \frac{1}{ p }+\frac{1}{ q }=1\). Si \( f\in L^p(\Omega)\), \( g\in L^q(\Omega)\), alors le produit \( fg\) est dans \( L^1(\Omega)\) et nous avons
+    Soit \(  (\Omega,\tribA,\mu) \) un espace mesuré et \( 1\leq p\), \( q\leq\infty\) satisfaisant \( \frac{1}{ p }+\frac{1}{ q }=1\). Si \( f\in L^p(\Omega)\), \( g\in L^q(\Omega)\), alors le produit \( fg\) est dans \( L^1(\Omega)\) et nous avons
     \begin{equation}    \label{EqLPKooPBCQYN}
         \| fg \|_1\leq \| f \|_p\| g \|_q.
     \end{equation}
-
     Plus généralement si \( \frac{1}{ p }+\frac{1}{ q }=\frac{1}{ r }\) alors
     \begin{equation}    \label{EqAVZooFNyzmT}
         \| fg \|_r\leq \| f \|_p\| g \|_q
@@ -393,12 +392,27 @@ Ce qui est appelé «inégalité de Hölder» est généralement l'inéquation \
     \end{equation}
     Hors de \( A\), les intégrales que nous allons écrire sont nulles. Nous avons
     \begin{equation}
-        \| fg \|_r^p=\Big(  \int_A| f |^r| g |^{r-q}| g |^q  \Big)^{p/q}<++>
+        \| fg \|_r^p=\Big|  \int_A| f |^r| g |^{r-q}| g |^q  \Big|^{p/r},
     \end{equation}
-    
-\end{proof}
-<++>
+    et le coup tordu est de considérer cette intégrale comme étant une intégrale par rapport à la mesure \( \nu=| g |^qd\mu\) qui a la propriété d'être une mesure de probabilité par hypothèse sur \( g\). Nous pouvons alors utiliser l'inégalité de Jensen\footnote{Proposition \ref{PropXISooBxdaLk}.} parce que \( p/r>1\), ce qui fait de \( x\mapsto | x |^{p/r}\) une fonction convexe. Nous avons alors
+    \begin{subequations}
+        \begin{align}
+            \| fg \|_r^p&\leq\int_A\big( | f |^r| g |^{r-q} \big)^{p/r}| g |^qd\mu\\
+            &=\int_A| f |^{p}| g |^{p(r-q)/r}| g |^qd\mu
+        \end{align}
+    \end{subequations}
+    La puissance de \( | g |\) dans cette expression est : \( q+\frac{ p(r-q) }{ r }=0\) parce que \( p(q-r)=rq\). Nous avons alors montré que
+    \begin{equation}
+        \| fg \|_r^p\leq \int_A| f |^pd\mu\leq \| f \|_p^p.
+    \end{equation}
+    La dernière inégalité est le fait que le domaine \( A\) n'est pas tout le domaine \( \Omega\).
 
+    Si maintenant \( \| g \|_q\neq 1\) alors nous calculons
+    \begin{equation}
+        \| fg \|_r=\| g \|_q\| f\frac{ g }{ \| g \|_q } \|_r\leq \| g \|_q\| f \|_p
+    \end{equation}
+    en appliquant la première partie à la fonction \( \frac{ g }{ \| g \|_q }\) qui est de norme \( 1\).
+\end{proof}
 
 
 \begin{remark}      \label{RemNormuptNird}
@@ -895,7 +909,136 @@ Si nous voulons une vraie convergence ponctuelle voir uniforme \( (S_nf)(x)\to f
     Si \( f(2\pi)\neq f(0)\), alors il existe une suite \( (f_n)\) convergente vers \( f\) au sens \( L^2\) telle que \( f_n(0)=f_n(2\pi)\).
 \end{remark}
 
-Le lemme suivant est utile en théorie des distributions.
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Densité des fonctions infiniment dérivables à support compact}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Une fonction est \defe{étagée par rapport à \( L^p\)}{fonction!étagée} si elle est de la forme
+    \begin{equation}
+        f=\sum_{k=1}^Nc_k\mtu_{B_k}
+    \end{equation}
+    où les \( B_k\) sont des mesurables disjoints et \( \mtu_{B_k}\in L^p\) pour tout \( k\).
+\end{definition}
+
+\begin{lemma}   \label{LemWHIRdaX}
+    Si \( f\) est une fonction étagée en même temps qu'être dans \( L^p\), alors elle est étagée par rapport à \( L^p\).
+\end{lemma}
+
+\begin{proof}
+    Nous pouvons écrire
+    \begin{equation}
+        f=\sum_{k=1}^Nc_k\mtu_{B_k}
+    \end{equation}
+    où les \( B_k\) sont disjoints. Par hypothèse \( \| f \|_p\) existe. Donc chacune des intégrales \( \int_{\Omega}| \mtu_{B_k} |^p\) doit exister parce que les \( B_k\) étant disjoints, nous pouvons inverser la norme et la somme ainsi que la somme et l'intégrale :
+    \begin{equation}
+        \int_{\Omega}|f|^p=\int_{\Omega}\sum_{k=1}^N| c_k\mtu_{B_k}(x) |^pdx=\sum_{k=1}^N\int| c_k\mtu_{B_k}(x) |^pdx=\sum_{k=1}^N| c_k |^p\int_{\Omega}| \mtu_{B_k}(x) |^pdx.
+    \end{equation}
+\end{proof}
+Le contraire n'est pas vrai : la fonction étagée sur \( \eR\) qui vaut \( n\) sur \( B(n,\frac{1}{ 4 })\) est étagée par rapport à \( L^p\), mais n'est pas dans \( L^p\).
+
+\begin{theorem}[\cite{TUEWwUN}] \label{ThoILGYXhX}
+    Nous avons des densités emboitées. Ici \( D\) est un borélien borné de \( \eR^d\) contenu dans \( B(0,r)\) et \( K\) est un compact contenant \( B(0,r+2)\).
+    \begin{enumerate}
+        \item
+            Les fonctions étagées par rapport à \( L^p\) sur \( \eR^d\) sont denses dans \( L^p(\eR^d)\). A fortiori les fonctions étagées sont denses dans \( L^p\), mais nous n'en aurons pas besoin ici.
+        \item\label{ItemYVFVrOIii}
+            Il existe une suite \( f_n\) dans \(  C(K,\eC)\) telle que 
+            \begin{equation}
+                f_n\stackrel{L^p}{\to}\mtu_{D}.
+            \end{equation}
+        \item\label{ItemYVFVrOIiii}
+            Si \( A\) est un borélien tel que \( \mtu_A\in L^p(\eR^d)\)\quext{Je pense que cette hypothèse manque dans \cite{TUEWwUN}. En tout cas je vois mal comment je pourrais justifier les différentes étapes de la preuve en prenant par exemple \( A=\eR^d\).} et si \( \epsilon>0\), alors il existe une suite de boréliens bornée \( (D_n)_{n\in \eN}\) tels que
+            \begin{equation}
+                \mtu_{D_n}\stackrel{L^p}{\to}\mtu_A.
+            \end{equation}
+        \item\label{ItemYVFVrOIiv}
+            Il existe une suite \( \varphi_n\) dans \(  C^{\infty}_c(\eR^d)\) telle que 
+            \begin{equation}
+                \varphi_n\stackrel{L^p}{\to}\mtu_{D}.
+            \end{equation}
+
+        \item\label{ItemYVFVrOIv}
+            L'ensemble \( C^{\infty}_c(\eR^d)\) est dense dans \( L^p(\eR^d)\) pour tout \( 1\leq p<\infty\).
+    \end{enumerate}
+\end{theorem}
+\index{densité!de \( C^{\infty}_c(\eR^d)\) dans \( L^p(\eR^d)\)}
+
+\begin{proof}
+   Nous allons montrer les choses point par point.
+   \begin{enumerate}
+       \item
+           Si \( f\in L^1(\eR^d)\), nous savons par la proposition \ref{PropUXjnwLf} qu'il existe une suite \( f_n\) de fonctions étagées convergeant ponctuellement vers \( f\) telle que \( | f_n |\leq | f |\). La proposition \ref{PropBVHXycL} nous dit qu'alors \( f_n\stackrel{L^p}{\to}f\).
+
+           La fonction \( f_n\) étant étagée et dans \( L^p\) en même temps, elle est automatiquement étagée par rapport à \( L^p\) par le lemme \ref{LemWHIRdaX}.
+
+       \item\label{ItemYVFVrOIi}
+
+           C'est le théorème d'approximation \ref{ThoAFXXcVa} appliqué au borélien \( D\) contenu dans l'espace mesuré \( K\).
+
+       \item
+            
+           En vertu du point \ref{ItemYVFVrOIii}, il existe \( f\in C^0(K,\eR)\) telle que 
+           \begin{equation}
+             \| f-\mtu_D \|_p\leq \epsilon. 
+           \end{equation}
+           Ensuite, par le théorème de Weierstrass, il existe \( \varphi\in C^{\infty}(K,\eR)\) telle que \( \| f-\varphi \|_{\infty}\leq \epsilon\). Nous avons aussi
+           \begin{equation}
+               \| \varphi-f \|^p_p=\int_K| \varphi(x)-f(x) |^pdx\leq\mu(X)\| \varphi-f \|_{\infty}^p\leq \epsilon^p\mu(K).
+           \end{equation}
+           Quitte à prendre un \( \varphi\) correspondant à un \( \epsilon\) plus petit, nous avons
+           \begin{equation}
+               \| \varphi-f \|\leq \epsilon.
+           \end{equation}
+           En combinant et en passant à \( \epsilon/2\) nous avons trouvé une fonction \( \varphi\in  C^{\infty}(K,\eR)\) telle que
+           \begin{equation}
+               \| \varphi-\mtu_D \|\leq \epsilon.
+           \end{equation}
+
+       \item
+
+           Nous considérons les boréliens fermés \( D_n=A\cap B(0,n)\). Alors \( \mtu_{D_n}\in L^p\) et nous avons pour \( n\) assez grand :
+           \begin{equation}
+               \int_{\eR^d}| \mtu_{D_n}(x)-\mtu_{A}(x) |^pdx=\int_{\eR^d\setminus B(0,n)}| \mtu_A(x) |^p<\epsilon,
+           \end{equation}
+           c'est à dire que \( \mtu_{D_n}\stackrel{L^p}{\to}\mtu_A\).
+
+       \item
+
+           Il suffit de remettre tout ensemble. Si \( f\in L^p(\eR^d)\), par le point \ref{ItemYVFVrOIi} nous commençons par prendre \( \sigma\) étagée par rapport à \( L^p\) telle que
+           \begin{equation}
+               \| \sigma-f \|_p\leq\epsilon.
+           \end{equation}
+           Ensuite nous écrivons \( \sigma\) sous la forme
+           \begin{equation}
+               \sigma=\sum_{k=1}^Nc_k\mtu_{B_k}
+           \end{equation}
+           et nous appliquons le point \ref{ItemYVFVrOIiii} à chacune des \( \mtu_{B_k}\) pour trouver des boréliens bornés \( D_k\) tels que
+           \begin{equation}
+               \| \mtu_{D_k}-\mtu_{B_k} \|_p\leq \epsilon.
+           \end{equation}
+           Enfin nous appliquons le point \ref{ItemYVFVrOIiv} pour trouver des fonctions \( \varphi_k\in C^{\infty}_c(\eR^d)\) telles que
+           \begin{equation}
+               \| \varphi_k-\mtu_{D_k} \|_p\leq \epsilon.
+           \end{equation}
+           
+           Il n'est pas compliqué de calculer que
+           \begin{equation}
+               \big\| \sum_{k=1}^Nc_k\varphi_k-f \big\|_p\leq 2\epsilon\sum_kc_k+\epsilon.
+           \end{equation}
+        
+   \end{enumerate}
+\end{proof}
+
+\begin{corollary}   \label{CorFZWooYNbtPz}
+    Si \( 1<p<\infty\) alors l'ensemble\footnote{Nous parlons bien ici de l'\emph{ensemble} \( L^2\) parce que nous le considérons sans norme ou topologie particulière. La densité dont nous parlons ici est celle pour la topologique de \( L^p\).} \( L^2\big( \mathopen[ 0 , 1 \mathclose] \big)\cap L^p\big( \mathopen[ 0 , 1 \mathclose] \big)\) est dense dans \( L^p\big( \mathopen[ 0 , 1 \mathclose] \big)\).
+\end{corollary}
+\index{densité!de \( L^2\big( \mathopen[ 0 , 1 \mathclose] \big)\) dans \( L^p\big( \mathopen[ 0 , 1 \mathclose] \big)\)}
+
+\begin{proof}
+    Nous savons du théorème \ref{ThoILGYXhX}\ref{ItemYVFVrOIv} que \(  C^{\infty}_c\big( \mathopen[ 0 , 1 \mathclose] \big)\) est dense dans \( L^p\). Mais nous avons évidemment \(  C^{\infty}_c\subset L^2\cap L^p\), donc \( L^2\cap L^p\) est dense dans \( L^p\).
+\end{proof}
+
 \begin{lemma}       \label{LemDQEKNNf}
     Soit \( f\in L^2(I)\) telle que 
     \begin{equation}
@@ -920,6 +1063,16 @@ Le lemme suivant est utile en théorie des distributions.
 \end{proof}
 Ce résultat est encore valable dans les espaces \( L^p\) (proposition \ref{PropUKLZZZh}), mais il demande le théorème de représentation de Riesz\footnote{Théorème \ref{ThoSCiPRpq}.}.
 
+\begin{lemma}[\cite{TUEWwUN}]   \label{LemCUlJzkA}
+    Soit \( 1\leq p<\infty\) et \( f\in L^p(\Omega)\). Nous notons \( \tau_v\) l'opérateur de translation par \( v\) :
+    \begin{equation}
+        \tau_vf\colon x\mapsto f(x-v).
+    \end{equation}
+    Alors sans surprises,
+    \begin{equation}
+        \lim_{v\to 0}\| \tau_v-f \|_p=0.
+    \end{equation}
+\end{lemma}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Dualité et théorème de représentation de Riesz}
@@ -1114,148 +1267,6 @@ Dans la suite \( E'\) est le dual topologique, c'est à dire l'espace des formes
     \end{equation}
     En passant à la limite, nous voyons que \( \Phi_f\) est la forme nulle. Elle est donc égale à \( \Phi_0\). La partie «unicité» du théorème de représentation de Riesz \ref{ThoSCiPRpq} nous indique alors que \( f=0\) dans \( L^p\) et donc \( f=0\) presque partout.
 \end{proof}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Densité des fonctions infiniment dérivables à support compact}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{definition}
-    Une fonction est \defe{étagée par rapport à \( L^p\)}{fonction!étagée} si elle est de la forme
-    \begin{equation}
-        f=\sum_{k=1}^Nc_k\mtu_{B_k}
-    \end{equation}
-    où les \( B_k\) sont des mesurables disjoints et \( \mtu_{B_k}\in L^p\) pour tout \( k\).
-\end{definition}
-
-\begin{lemma}   \label{LemWHIRdaX}
-    Si \( f\) est une fonction étagée en même temps qu'être dans \( L^p\), alors elle est étagée par rapport à \( L^p\).
-\end{lemma}
-
-\begin{proof}
-    Nous pouvons écrire
-    \begin{equation}
-        f=\sum_{k=1}^Nc_k\mtu_{B_k}
-    \end{equation}
-    où les \( B_k\) sont disjoints. Par hypothèse \( \| f \|_p\) existe. Donc chacune des intégrales \( \int_{\Omega}| \mtu_{B_k} |^p\) doit exister parce que les \( B_k\) étant disjoints, nous pouvons inverser la norme et la somme ainsi que la somme et l'intégrale :
-    \begin{equation}
-        \int_{\Omega}|f|^p=\int_{\Omega}\sum_{k=1}^N| c_k\mtu_{B_k}(x) |^pdx=\sum_{k=1}^N\int| c_k\mtu_{B_k}(x) |^pdx=\sum_{k=1}^N| c_k |^p\int_{\Omega}| \mtu_{B_k}(x) |^pdx.
-    \end{equation}
-\end{proof}
-Le contraire n'est pas vrai : la fonction étagée sur \( \eR\) qui vaut \( n\) sur \( B(n,\frac{1}{ 4 })\) est étagée par rapport à \( L^p\), mais n'est pas dans \( L^p\).
-
-\begin{theorem}[\cite{TUEWwUN}] \label{ThoILGYXhX}
-    Nous avons des densités emboitées. Ici \( D\) est un borélien borné de \( \eR^d\) contenu dans \( B(0,r)\) et \( K\) est un compact contenant \( B(0,r+2)\).
-    \begin{enumerate}
-        \item
-            Les fonctions étagées par rapport à \( L^p\) sur \( \eR^d\) sont denses dans \( L^p(\eR^d)\). A fortiori les fonctions étagées sont denses dans \( L^p\), mais nous n'en aurons pas besoin ici.
-        \item\label{ItemYVFVrOIii}
-            Il existe une suite \( f_n\) dans \(  C(K,\eC)\) telle que 
-            \begin{equation}
-                f_n\stackrel{L^p}{\to}\mtu_{D}.
-            \end{equation}
-        \item\label{ItemYVFVrOIiii}
-            Si \( A\) est un borélien tel que \( \mtu_A\in L^p(\eR^d)\)\quext{Je pense que cette hypothèse manque dans \cite{TUEWwUN}. En tout cas je vois mal comment je pourrais justifier les différentes étapes de la preuve en prenant par exemple \( A=\eR^d\).} et si \( \epsilon>0\), alors il existe une suite de boréliens bornée \( (D_n)_{n\in \eN}\) tels que
-            \begin{equation}
-                \mtu_{D_n}\stackrel{L^p}{\to}\mtu_A.
-            \end{equation}
-        \item\label{ItemYVFVrOIiv}
-            Il existe une suite \( \varphi_n\) dans \(  C^{\infty}_c(\eR^d)\) telle que 
-            \begin{equation}
-                \varphi_n\stackrel{L^p}{\to}\mtu_{D}.
-            \end{equation}
-
-        \item\label{ItemYVFVrOIv}
-            L'ensemble \( C^{\infty}_c(\eR^d)\) est dense dans \( L^p(\eR^d)\) pour tout \( 1\leq p<\infty\).
-    \end{enumerate}
-\end{theorem}
-\index{densité!de \( C^{\infty}_c(\eR^d)\) dans \( L^p(\eR^d)\)}
-
-\begin{proof}
-   Nous allons montrer les choses point par point.
-   \begin{enumerate}
-       \item
-           Si \( f\in L^1(\eR^d)\), nous savons par la proposition \ref{PropUXjnwLf} qu'il existe une suite \( f_n\) de fonctions étagées convergeant ponctuellement vers \( f\) telle que \( | f_n |\leq | f |\). La proposition \ref{PropBVHXycL} nous dit qu'alors \( f_n\stackrel{L^p}{\to}f\).
-
-           La fonction \( f_n\) étant étagée et dans \( L^p\) en même temps, elle est automatiquement étagée par rapport à \( L^p\) par le lemme \ref{LemWHIRdaX}.
-
-       \item\label{ItemYVFVrOIi}
-
-           C'est le théorème d'approximation \ref{ThoAFXXcVa} appliqué au borélien \( D\) contenu dans l'espace mesuré \( K\).
-
-       \item
-            
-           En vertu du point \ref{ItemYVFVrOIii}, il existe \( f\in C^0(K,\eR)\) telle que 
-           \begin{equation}
-             \| f-\mtu_D \|_p\leq \epsilon. 
-           \end{equation}
-           Ensuite, par le théorème de Weierstrass, il existe \( \varphi\in C^{\infty}(K,\eR)\) telle que \( \| f-\varphi \|_{\infty}\leq \epsilon\). Nous avons aussi
-           \begin{equation}
-               \| \varphi-f \|^p_p=\int_K| \varphi(x)-f(x) |^pdx\leq\mu(X)\| \varphi-f \|_{\infty}^p\leq \epsilon^p\mu(K).
-           \end{equation}
-           Quitte à prendre un \( \varphi\) correspondant à un \( \epsilon\) plus petit, nous avons
-           \begin{equation}
-               \| \varphi-f \|\leq \epsilon.
-           \end{equation}
-           En combinant et en passant à \( \epsilon/2\) nous avons trouvé une fonction \( \varphi\in  C^{\infty}(K,\eR)\) telle que
-           \begin{equation}
-               \| \varphi-\mtu_D \|\leq \epsilon.
-           \end{equation}
-
-       \item
-
-           Nous considérons les boréliens fermés \( D_n=A\cap B(0,n)\). Alors \( \mtu_{D_n}\in L^p\) et nous avons pour \( n\) assez grand :
-           \begin{equation}
-               \int_{\eR^d}| \mtu_{D_n}(x)-\mtu_{A}(x) |^pdx=\int_{\eR^d\setminus B(0,n)}| \mtu_A(x) |^p<\epsilon,
-           \end{equation}
-           c'est à dire que \( \mtu_{D_n}\stackrel{L^p}{\to}\mtu_A\).
-
-       \item
-
-           Il suffit de remettre tout ensemble. Si \( f\in L^p(\eR^d)\), par le point \ref{ItemYVFVrOIi} nous commençons par prendre \( \sigma\) étagée par rapport à \( L^p\) telle que
-           \begin{equation}
-               \| \sigma-f \|_p\leq\epsilon.
-           \end{equation}
-           Ensuite nous écrivons \( \sigma\) sous la forme
-           \begin{equation}
-               \sigma=\sum_{k=1}^Nc_k\mtu_{B_k}
-           \end{equation}
-           et nous appliquons le point \ref{ItemYVFVrOIiii} à chacune des \( \mtu_{B_k}\) pour trouver des boréliens bornés \( D_k\) tels que
-           \begin{equation}
-               \| \mtu_{D_k}-\mtu_{B_k} \|_p\leq \epsilon.
-           \end{equation}
-           Enfin nous appliquons le point \ref{ItemYVFVrOIiv} pour trouver des fonctions \( \varphi_k\in C^{\infty}_c(\eR^d)\) telles que
-           \begin{equation}
-               \| \varphi_k-\mtu_{D_k} \|_p\leq \epsilon.
-           \end{equation}
-           
-           Il n'est pas compliqué de calculer que
-           \begin{equation}
-               \big\| \sum_{k=1}^Nc_k\varphi_k-f \big\|_p\leq 2\epsilon\sum_kc_k+\epsilon.
-           \end{equation}
-        
-   \end{enumerate}
-\end{proof}
-
-\begin{corollary}   \label{CorFZWooYNbtPz}
-    Si \( 1<p<\infty\) alors l'ensemble\footnote{Nous parlons bien ici de l'\emph{ensemble} \( L^2\) parce que nous le considérons sans norme ou topologie particulière. La densité dont nous parlons ici est celle pour la topologique de \( L^p\).} \( L^2\big( \mathopen[ 0 , 1 \mathclose] \big)\cap L^p\big( \mathopen[ 0 , 1 \mathclose] \big)\) est dense dans \( L^p\big( \mathopen[ 0 , 1 \mathclose] \big)\).
-\end{corollary}
-\index{densité!de \( L^2\big( \mathopen[ 0 , 1 \mathclose] \big)\) dans \( L^p\big( \mathopen[ 0 , 1 \mathclose] \big)\)}
-
-\begin{proof}
-    Nous savons du théorème \ref{ThoILGYXhX}\ref{ItemYVFVrOIv} que \(  C^{\infty}_c\big( \mathopen[ 0 , 1 \mathclose] \big)\) est dense dans \( L^p\). Mais nous avons évidemment \(  C^{\infty}_c\subset L^2\cap L^p\), donc \( L^2\cap L^p\) est dense dans \( L^p\).
-\end{proof}
-
-
-\begin{lemma}[\cite{TUEWwUN}]   \label{LemCUlJzkA}
-    Soit \( 1\leq p<\infty\) et \( f\in L^p(\Omega)\). Nous notons \( \tau_v\) l'opérateur de translation par \( v\) :
-    \begin{equation}
-        \tau_vf\colon x\mapsto f(x-v).
-    \end{equation}
-    Alors sans surprises,
-    \begin{equation}
-        \lim_{v\to 0}\| \tau_v-f \|_p=0.
-    \end{equation}
-\end{lemma}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Approximation de l'unité}
