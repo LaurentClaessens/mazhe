@@ -4,6 +4,7 @@
 from phystricks import *
 import sys
 
+from phystricksZTTooXtHkci import ZTTooXtHkci
 from phystricksFXVooJYAfif import FXVooJYAfif
 from phystricksWHCooNZAmYB import WHCooNZAmYB
 from phystricksQIZooQNQSJj import QIZooQNQSJj
@@ -200,7 +201,7 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim,ExoProjection,ExoPolaire,TriangleRectangle,CercleTnu,QCb,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
         SurfaceHorizVerti,SurfaceCercle,KScolorD,CheminFresnel,IntRectangle,IntTriangle,CoinPasVar,IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa,
         ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang,ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,MaxVraissLp,
-        BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,ExoVarj,TriangleUV,DefinitionCartesiennes,CoordPolaires,Parallelogramme,ExoParamCD,CbCartTui,CbCartTuii,
+        BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,ExoVarj,TriangleUV,DefinitionCartesiennes,CoordPolaires,Parallelogramme,CbCartTui,CbCartTuii,
         CbCartTuiii,exercice1A1,exercice1A2,exercice4,DS2010exo1,SuiteUnSurn,SpiraleLimite,IntTrois,CornetGlace,Differentielle,CSCiv,CSCvi,CSCii,CSCiii,CSCv,Cardioideexo,
         DistanceEuclide,LesSpheres,IntervalleUn,DistanceEnsemble,AccumulationIsole,MethodeChemin,ExempleArcParam,CourbeRectifiable,SuiteInverseAlterne,CycloideA,Cardioid,
         ParamTangente,Polirettangolo,RegioniPrimoeSecondoTipo,ExampleIntegration,ExampleIntegrationdeux,ExampleChangementVariables,ArcLongueurFinesse,
@@ -209,7 +210,7 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRRA,ADUGmRRB,ADUGmRRC,TGdUoZR,GBnUivi,FGWjJBX,
         RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm,TracerUn,ExerciceGraphes,
         ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,DS2010bisExoGraph,SolsEqDiffSin,SolsSinpA,Trajs,UYJooCWjLgK,WHCooNZAmYB,
-        QIZooQNQSJj,FXVooJYAfif
+        QIZooQNQSJj,FXVooJYAfif,ExoParamCD,ZTTooXtHkci
         ]
 
 
