@@ -7,8 +7,9 @@ def Mantisse():
     f.parameters.plotpoints=1000
     eps=0.01
     surf=SurfaceUnderFunction(f,1,2-eps)
-    surf.parameters.color="green"
-    surf.Fsegment.parameters.style="none"
+    surf.parameters.filled()
+    surf.parameters.fill.color="green"
+    #surf.Fsegment.parameters.style="none"
 
     pspict.DrawGraphs(surf,f)
     pspict.DrawDefaultAxes()
