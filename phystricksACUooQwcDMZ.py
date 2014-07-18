@@ -1,6 +1,6 @@
+# -*- coding: utf8 -*-
 from phystricks import *
-def ExerciceGraphes():
-
+def ACUooQwcDMZ():
     liste_noms=["logarithme","lnvalabsolue","lnxplusun","valabsolueln","unplusln","sqrtln","lnsqrt"]
     pspicts,fig = MultiplePictures("ACUooQwcDMZ",len(liste_noms))
 

@@ -4,6 +4,7 @@
 from phystricks import *
 import sys
 
+from phystricksACUooQwcDMZ import ACUooQwcDMZ
 from phystricksZTTooXtHkci import ZTTooXtHkci
 from phystricksFXVooJYAfif import FXVooJYAfif
 from phystricksWHCooNZAmYB import WHCooNZAmYB
@@ -208,7 +209,7 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         TangentSegment,BoulePtLoin,UneCellule,SenoTopologo,AdhIntFr,AdhIntFrDeux,AdhIntFrTrois,AdhIntFrSix,DeuxCercles,TraceCycloide,QuelCote,Osculateur,examssepti,
         examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,LesSubFigures,NiveauHyperbole,
         NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRRA,ADUGmRRB,ADUGmRRC,TGdUoZR,GBnUivi,FGWjJBX,
-        RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm,TracerUn,ExerciceGraphes,
+        RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm,TracerUn,ACUooQwcDMZ,
         ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,DS2010bisExoGraph,SolsEqDiffSin,SolsSinpA,Trajs,UYJooCWjLgK,WHCooNZAmYB,
         QIZooQNQSJj,FXVooJYAfif,ExoParamCD,ZTTooXtHkci
         ]
