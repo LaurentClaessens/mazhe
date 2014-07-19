@@ -181,7 +181,7 @@ from phystricksTriangleRectangle import TriangleRectangle
 
 #Les figures de TD_SVT
 from phystricksTracerUn import TracerUn
-from phystricksExerciceGraphes import ExerciceGraphes
+#from phystricksExerciceGraphes import ExerciceGraphes
 from phystricksExerciceGraphesbis import ExerciceGraphesbis
 from phystricksGrapheunsurunmoinsx import Grapheunsurunmoinsx
 from phystricksExoCUd import ExoCUd
