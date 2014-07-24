@@ -10,13 +10,12 @@ import LaTeXparser.PytexTools
 #def accept_input(filename):
 #    return True
 
-
-agreg_script_mark_list=[]
-agreg_script_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
-agreg_script_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
-agreg_script_mark_list.append("% SCRIPT MARK -- TOC")
-agreg_script_mark_list.append("% SCRIPT MARK -- AGRÉGATION")
-agreg_script_mark_list.append("% SCRIPT MARK -- FINAL")
+agreg_mark_list=[]
+agreg_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+agreg_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
+agreg_mark_list.append("% SCRIPT MARK -- TOC")
+agreg_mark_list.append("% SCRIPT MARK -- AGRÉGATION")
+agreg_mark_list.append("% SCRIPT MARK -- FINAL")
 
 mazhe_mark_list=[]
 mazhe_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
@@ -83,7 +82,7 @@ class keep_script_marks(object):
         script_mark_dict=self.script_mark_dict(C)
         B=[]
         lignes=A.splitlines()
-        # Select the usefull marks and sort them
+        # Select the usefull marks and sort them.
         marks=[  x for x in script_mark_dict.keys() if x in self.keep_mark_list ]
         marks.sort(key=lambda a:script_mark_dict[a][0])
         for mark in marks :
