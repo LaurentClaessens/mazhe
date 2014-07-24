@@ -91,3 +91,13 @@ class keep_script_marks(object):
             B.extend(  lignes[a:b] )
         new_texte= "\n".join(B)
         return LaTeXparser.CodeLaTeX(new_texte,oldLaTeX=A)
+
+def ultimate_git(a=None):
+    # Attention : les nom de fichiers à giter ici sont aussi donnés dans le README
+    import git
+    repo=git.Repo("")
+    if repo.is_dirty():
+        repo.git.add("agreg-mazhe_pytex.tex")
+        repo.git.add("enseignement-mazhe_pytex.tex")
+        repo.git.add("everything-mazhe_pytex.tex")
+        repo.git.commit(m="automatic")
