@@ -211,7 +211,7 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRRA,ADUGmRRB,ADUGmRRC,TGdUoZR,GBnUivi,FGWjJBX,
         RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm,TracerUn,ACUooQwcDMZ,
         ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,DS2010bisExoGraph,SolsEqDiffSin,SolsSinpA,Trajs,UYJooCWjLgK,WHCooNZAmYB,
-        QIZooQNQSJj,FXVooJYAfif,ExoParamCD,ZTTooXtHkci
+        QIZooQNQSJj,FXVooJYAfif,ExoParamCD,ZTTooXtHkci,EHDooGDwfjC
         ]
 
 
