@@ -14,9 +14,10 @@ myRequest.original_filename="mazhe.tex"
 
 myRequest.ok_hash=commons.ok_hash
 myRequest.ok_filenames_list.append("e_mazhe")
+myRequest.ok_filenames_list.append("part_exercices")
 myRequest.ok_filenames_list.append("<++>")
 myRequest.ok_filenames_list.append("<++>")
-myRequest.ok_filenames_list.append("calcul_differentiel")
+myRequest.ok_filenames_list.append("<++>")
 myRequest.ok_filenames_list.append("<++>")
 myRequest.ok_filenames_list.append("<++>")
 myRequest.ok_filenames_list.append("<++>")
