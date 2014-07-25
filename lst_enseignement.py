@@ -21,8 +21,10 @@ script_mark_list.append("% SCRIPT MARK -- MATLAB")
 script_mark_list.append("% SCRIPT MARK -- EXERCICES")
 script_mark_list.append("% SCRIPT MARK -- FINAL")
 
-myRequest.medicament_plugin=plugins_agreg.accept_all_input
-myRequest.plugin_list=[plugins_agreg.keep_script_marks(script_mark_list)]
+myRequest.add_plugin(plugins_agreg.accept_all_input,"medicament")
+
+myRequest.add_plugin(plugins_agreg.keep_script_marks(script_mark_list),"after_pytex")
+
 
 myRequest.original_filename="mazhe.tex"
 
