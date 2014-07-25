@@ -55,10 +55,6 @@
 
 \usetikzlibrary{external}
 \tikzexternalize
-
-% We do not ask for a separate repertory because we want phystricks to be able to remove the pdf files when changed.
-%\tikzexternalize[prefix=tikz/]
-
 \newcounter{defHatch}
 \newcounter{defPattern}
 \setcounter{defHatch}{0}
@@ -67,16 +63,9 @@
 \usepackage{color}
 \usepackage{graphicx}                   % Pour l'inclusion d'image en pfd.
 
-\newcommand{\EpsOrPdfincludegraphics}[2][]{%
-        \ifpdf
-            \includegraphics[#1]{#2.png}
-        \else
-            \includegraphics[#1]{#2.eps}
-        \fi
-        }
+%\newcommand{\EpsOrPdfincludegraphics}[2][]{ \ifpdf \includegraphics[#1]{#2.png} \else \includegraphics[#1]{#2.eps} \fi }
 
 \usepackage{subfigure}
-
 \usepackage{fancyvrb}
 \usepackage{stmaryrd}       % Pour le \obslash
 \usepackage{xstring}        % Utilisé pour les références vers wikipédia
@@ -99,6 +88,34 @@
 \usepackage[cdot,thinqspace,amssymb]{SIunits} 
  % L'option amssymb sert à éviter un conflit avec la commande \square de amssymb. Note qu'elle n'est plus accessible. Si tu en as besoin, faudra RTFM
 %ftp://ftp.belnet.be/packages/ctan/macros/latex/contrib/SIunits/SIunits.pdf
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{listingsutf8}
+\lstset{language=python,basicstyle=\footnotesize,tabsize=3,numbers=left,numberstyle=\tiny,frame=single,commentstyle=\ttfamily\color[rgb]{0,0,0.5},stringstyle=\color[rgb]{0,0.5,0},title=\lstname,inputencoding=utf8/latin1}
+% Il y a du code Octave dans le chapitre et les corrections de Matlab.
+
+\usepackage{textcomp}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=2cm]{geometry} 
+\usepackage[english,frenchb]{babel}
+
+
+\usepackage{hyperref}                           %Doit êre appelé en dernier.
+    % Le hypersetup doit être dans mes_notes.tex pour pouvoir être changé automatiquement par le script 
+    % pour faire la version agreg.
+\hypersetup{
+colorlinks=true,
+citecolor=blue,
+linkcolor=violet,
+urlcolor=blue,     % couleur des url
+filecolor=Violet   % couleur des textes qui sont des liens
+}
+
+\usepackage[fr]{exocorr}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -125,6 +142,7 @@
 \newcommand{\eS}{\mathbbm{S}}
 \newcommand{\eT}{\mathbbm{S}}
 \newcommand{\eZ}{\mathbbm{Z}}
+%\newcommand{\RR}{\eR}        % TODO : à traquer et enlever.
 
 
 % ENSEMBLES de fonctions
@@ -136,31 +154,11 @@
 \newcommand{\swE}{\mathscr{E}}          % L'espace des fonctions qu'on peut déformer (le grand epsilon)
                                   % Les espaces de distributions correspondants sont les mêmes avec un prime.
 
-% AUTRES
+% LES NEWCOMMAND POUR DES CARACTÈRES «SPÉCIAUX» 
 \newcommand{\sdS}{\mathcal{S}}      % L'ensemble des subdivisions d'un intervalle.
-
-
-%\newcommand{\schwartz}{\mathcal S} % Espace de Schwartz
-
 \newcommand{\TF}{\mathcal{F}} %% Transformée de Fourier.
-
-
 \newcommand{\mtu}{\mathbbm{1}}              % La matrice unité
 \newcommand{\caract}{\mathbbm{1}}    % Characteristic function of a set
-
-\DeclareMathOperator{\val}{val}     % valuation d'un polynôme
-\DeclareMathOperator{\res}{res}     % Le résultant de deux polynômes
-\DeclareMathOperator{\Inv}{Inv}     % L'application inverse
-
-
-%\newcommand{\efrac}[2]{\frac{ \displaystyle #1 }{\displaystyle #2 }}
-
-% Supprimé le 23 décembre 2013 parce que frenchb a mieux en la personne de \ieme
-%\newcommand{\Ieme}{\up{\lowercase{ième}}\xspace}
-
-% POUR MAZHE
-
-
 \newcommand{\catC}{\mathscr{C}}     % \catX is for the categories
 \newcommand{\catD}{\mathscr{D}}     
 \newcommand{\catM}{\mathscr{M}}     
@@ -168,32 +166,18 @@
 \newcommand{\oK}{\mathcal{K}}           % L'espace des opérateurs compacts
 \newcommand{\oL}{\mathscr{L}}           % Le L pour l'idéal de Schatten-von Neumann. Cela est aussi l'ensemble des opérateurs linéaires sur des espaces vectoriels.
 \newcommand{\oP}{\mathscr{P}}           % Le P est pour l'ensemble des projections dans une algèbre de VN.
+
+\newcommand{\euler}{\mbox{\rm e}}
+\newcommand{\dist}{\operatorname {dist}}
+\newcommand{\sii}{\mbox{\rm \scriptsize i}}
+
+% LES NEWCOMMAND UN PEU ACTIFS
+
+% DECLARE MATH OPERATORS
 \DeclareMathOperator{\Ob}{Ob}           % The ``set'' of object of a category
-
-
-\newcommand{\dpt}[3]{#1\colon #2\to #3}
-\newcommand{\subdem}[1]{\par\noindent {\it #1.} }       % TODO : use subproof instead
-
-\newcommand{\slim}{\mathrm{s\lim}}
-\newcommand{\uwlim}{\mathrm{uw\lim}}
-
-\DeclareMathOperator{\rDi}{Di}
-\DeclareMathOperator{\rRac}{Rac}
-%\DeclareMathOperator{\GL}{GL}
-\newcommand{\sod}{\mathfrak{so}(2)}
-\newcommand{\SOdn}{\SO(2,n)}
-\newcommand{\sodn}{  {\mathfrak{so}}(2,n)   }
-\newcommand{\soun}{\mathfrak{so}(1,n)}
-\newcommand{\SLdc}{\SL(2,\eC)}
-\newcommand{\sldr}{\mathfrak{sl}(2,\eR)}
-\newcommand{\SOun}{\SO(1,n)}
-\newcommand{\gud}{\Gamma_{(2)}}
-\newcommand{\Sput}{\Spin(1,3)}
-\newcommand{\Sppq}{\Spin(p,q)}
-\newcommand{\sppq}{\mathfrak{spin}(p,q)}
-\newcommand{\Sopq}{\SO(p,q)}
-\newcommand{\sopq}{\mathfrak{so}(p,q)}
-\newcommand{\gl}{\mathfrak{gl}}
+\DeclareMathOperator{\val}{val}     % valuation d'un polynôme
+\DeclareMathOperator{\res}{res}     % Le résultant de deux polynômes
+\DeclareMathOperator{\Inv}{Inv}     % L'application inverse
 \DeclareMathOperator{\SP}{SP}           
 \DeclareMathOperator{\Conf}{Conf}   
 \DeclareMathOperator{\gsl}{\mathfrak{sl}}
@@ -206,10 +190,7 @@
 \DeclareMathOperator{\spin}{\mathfrak{spin}}
 \DeclareMathOperator{\Cl}{Cl}
 \DeclareMathOperator{\Cliff}{Cl}
-%\DeclareMathOperator{\CCliff}{\eC l}
 \DeclareMathOperator{\CCliff}{\Cliff^{\eC}}     % Changement de notation par rapport à avant.
-% Les autres
-
 \DeclareMathOperator{\volume}{vol}
 \DeclareMathOperator{\esssup}{ess-\sup}
 \DeclareMathOperator{\gpAff}{Aff}
@@ -248,6 +229,110 @@
 \DeclareMathOperator{\Irr}{Irr}
 \DeclareMathOperator{\vol}{Vol}
 \DeclareMathOperator{\Op}{Op}           % Le truc de la quantification de Weyl
+\DeclareMathOperator{\rDi}{Di}
+\DeclareMathOperator{\rRac}{Rac}
+\DeclareMathOperator{\Maxpprod}{\texttt{pprod}}
+\DeclareMathOperator{\Maxproj}{\texttt{proj}}
+\DeclareMathOperator{\Maxcom}{\texttt{com}}
+\DeclareMathOperator{\Maxcombis}{\texttt{combi6}}
+\DeclareMathOperator{\Maxtables}{\texttt{table6}}
+\DeclareMathOperator{\Maxtablesc}{\texttt{table6c}}
+\DeclareMathOperator{\Maxdecomps}{\texttt{decomp6}} % Ces commandes sont pour Maxima.
+\DeclareMathOperator{\Maxdecompsc}{\texttt{decomp6c}}
+\DeclareMathOperator{\Maxtableqc}{\texttt{table4c}}
+\DeclareMathOperator{\Maxtableq}{\texttt{table4}}
+\DeclareMathOperator{\Maxdecompq}{\texttt{decomp4}}
+\DeclareMathOperator{\Maxdecompqc}{\texttt{decomp4c}}
+\DeclareMathOperator{\Maxomega}{\texttt{omega}}
+\DeclareMathOperator{\Maxsymple}{\texttt{symple}}
+\DeclareMathOperator{\Maxcycle}{\texttt{cycle}}
+\DeclareMathOperator{\Maxsolve}{\texttt{solve}}
+\DeclareMathOperator{\Maxdelxistar}{\texttt{delxistar}}
+\DeclareMathOperator{\Maxxistar}{\texttt{xistar}}
+
+
+\DeclareMathOperator{\signe}{sgn}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\Int}{Int}     % Intérieur d'un ensemble.
+\DeclareMathOperator{\Ind}{Ind}     % l'indice d'un chemin en analyse complexe
+\DeclareMathOperator{\Diam}{Diam}
+\DeclareMathOperator{\id}{Id}
+\DeclareMathOperator{\Graph}{Graph}
+\DeclareMathOperator{\Conv}{\mathcal{C}onv}
+\DeclareMathOperator{\pr}{\texttt{proj}}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\Graphe}{Gr}
+\DeclareMathOperator{\Spec}{Spec}   % spectre d'un opérateur
+\DeclareMathOperator{\arctg}{arctg}
+\DeclareMathOperator{\cotg}{cotg}
+\DeclareMathOperator{\cosec}{cosec}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\sinc}{sinc}   % Le sinus cardinal
+\DeclareMathOperator{\PGL}{PGL}   % le groupe projectif
+\DeclareMathOperator{\SO}{SO}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\PSL}{PSL}   % Le groupe modulaire SL(2,Z)/Z2
+\DeclareMathOperator{\gS}{S}        % le groupe des matrices symétriques et aussi les nombres complexes de norme 1.
+\DeclareMathOperator{\SU}{SU}
+\DeclareMathOperator{\gU}{U}
+\DeclareMathOperator{\gO}{O}            % On mets un g devant les groupes dont le nom est juste une lettre, ou est ambigu.
+\DeclareMathOperator{\diag}{diag}   
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Domain}{Dom}      % Domaine of an operator
+\DeclareMathOperator{\Domaine}{Dom}
+\DeclareMathOperator{\Dom}{Domaine}
+\DeclareMathOperator{\Reel}{Re}        % La partie réelle d'un nombre complexe
+\DeclareMathOperator{\Imag}{Im}        % La partie imaginaire d'un nombre complexe
+\DeclareMathOperator{\Image}{Image}        % ... avec \Image qui donne l'image d'une fonction ou d'un opérateur.
+\DeclareMathOperator{\rang}{rg}
+\DeclareMathOperator{\Kernel}{Ker}
+\DeclareMathOperator{\Span}{Span}
+\DeclareMathOperator{\End}{End}     % L'ensemble des endomorphismes
+\DeclareMathOperator{\Cyl}{Cyl}
+\DeclareMathOperator{\tr}{Tr}       % la trace
+\DeclareMathOperator{\Tr}{Tr}       % la trace
+\DeclareMathOperator{\Majorant}{Maj}
+\DeclareMathOperator{\codim}{codim} % pour la codimension.
+\DeclareMathOperator{\diam}{diam} % le diamètre d'un ensemble.
+\DeclareMathOperator{\Var}{Var}     % Variance d'une variable aléatoire.
+\DeclareMathOperator{\Fun}{\texttt{Fun}}     % Ensemble des applications d'un ensemble vers l'autre.
+\DeclareMathOperator{\Cov}{Cov}     % la covariance.
+\DeclareMathOperator{\gr}{gr}     % le groupe engendré
+\DeclareMathOperator{\pgcd}{pgcd}     
+\DeclareMathOperator{\ppcm}{ppcm}     
+\DeclareMathOperator{\Frob}{Frob}     
+\DeclareMathOperator{\Card}{Card}       % Le cardinal d'un ensemble.
+\DeclareMathOperator{\Stab}{Stab}       % Le stabilisateur d'un point sous l'action d'un groupe.
+\DeclareMathOperator{\Frac}{Frac}       % le corps des fractions d'un anneau
+\DeclareMathOperator{\Aff}{Aff}         %  l'espace affine engendré
+
+% Supprimé le 23 décembre 2013 parce que frenchb a mieux en la personne de \ieme
+%\newcommand{\Ieme}{\up{\lowercase{ième}}\xspace}
+
+
+
+\newcommand{\dpt}[3]{#1\colon #2\to #3}
+\newcommand{\subdem}[1]{\par\noindent {\it #1.} }       % TODO : use subproof instead
+
+\newcommand{\slim}{\mathrm{s\lim}}
+\newcommand{\uwlim}{\mathrm{uw\lim}}
+
+\newcommand{\sod}{\mathfrak{so}(2)}
+\newcommand{\SOdn}{\SO(2,n)}
+\newcommand{\sodn}{  {\mathfrak{so}}(2,n)   }
+\newcommand{\soun}{\mathfrak{so}(1,n)}
+\newcommand{\SLdc}{\SL(2,\eC)}
+\newcommand{\sldr}{\mathfrak{sl}(2,\eR)}
+\newcommand{\SOun}{\SO(1,n)}
+\newcommand{\gud}{\Gamma_{(2)}}
+\newcommand{\Sput}{\Spin(1,3)}
+\newcommand{\Sppq}{\Spin(p,q)}
+\newcommand{\sppq}{\mathfrak{spin}(p,q)}
+\newcommand{\Sopq}{\SO(p,q)}
+\newcommand{\sopq}{\mathfrak{so}(p,q)}
+\newcommand{\gl}{\mathfrak{gl}}
+\newcommand{\Fix}{\operatorname{Fix}}
+\newcommand{\cat}{\operatorname{cat}}
 
 \newcommand{\ecarts}{ecarts}
 \newcommand{\angl}{\quext{Anglais ?}}
@@ -637,26 +722,6 @@
 
 \newcommand{\PB}[2]{\left\{#1,#2\right\}}
                     % Les opérateurs définis pour Maxima
-\DeclareMathOperator{\Maxpprod}{\texttt{pprod}}
-\DeclareMathOperator{\Maxproj}{\texttt{proj}}
-\DeclareMathOperator{\Maxcom}{\texttt{com}}
-\DeclareMathOperator{\Maxcombis}{\texttt{combi6}}
-\DeclareMathOperator{\Maxtables}{\texttt{table6}}
-\DeclareMathOperator{\Maxtablesc}{\texttt{table6c}}
-\DeclareMathOperator{\Maxdecomps}{\texttt{decomp6}}
-\DeclareMathOperator{\Maxdecompsc}{\texttt{decomp6c}}
-\DeclareMathOperator{\Maxtableqc}{\texttt{table4c}}
-\DeclareMathOperator{\Maxtableq}{\texttt{table4}}
-\DeclareMathOperator{\Maxdecompq}{\texttt{decomp4}}
-\DeclareMathOperator{\Maxdecompqc}{\texttt{decomp4c}}
-
-\DeclareMathOperator{\Maxomega}{\texttt{omega}}
-\DeclareMathOperator{\Maxsymple}{\texttt{symple}}
-\DeclareMathOperator{\Maxcycle}{\texttt{cycle}}
-\DeclareMathOperator{\Maxsolve}{\texttt{solve}}
-\DeclareMathOperator{\Maxdelxistar}{\texttt{delxistar}}
-\DeclareMathOperator{\Maxxistar}{\texttt{xistar}}
-
 \newcommand{\LoL}{\mathscr{L}}      % Lorentz group
 \newcommand{\LoP}{\mathscr{P}}      % Poincaré group
 \newcommand{\f}{\frac}
@@ -664,54 +729,14 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-%   Numérotations en tout genre
-%
-%%%%%%%%%%%%%%%%%%%%%%%%
-
-\setcounter{tocdepth}{2}        % Profondeur de la table des matières
-\setcounter{secnumdepth}{2}     % Profondeur dans le texte
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%   Les lignes magiques pour le texte en français.
-%
-%%%%%%%%%%%%%%%%%%%%%%%%
-
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-
-\usepackage{listingsutf8}
-\lstset{language=python,basicstyle=\footnotesize,tabsize=3,numbers=left,numberstyle=\tiny,frame=single,commentstyle=\ttfamily\color[rgb]{0,0,0.5},stringstyle=\color[rgb]{0,0.5,0},title=\lstname,inputencoding=utf8/latin1}
-% Il y a du code Octave dans le chapitre et les corrections de Matlab.
-
-\usepackage{textcomp}
-\usepackage{lmodern}
-\usepackage[a4paper,margin=2cm]{geometry} 
-\usepackage[english,frenchb]{babel}
-
-
-%\usepackage[ps2pdf]{hyperref}                  %Doit êre appelé en dernier.
-\usepackage{hyperref}                           %Doit êre appelé en dernier.
-    % Le hypersetup doit être dans mes_notes.tex pour pouvoir être changé automatiquement par le script 
-    % pour faire la version agreg.
-\hypersetup{
-colorlinks=true,
-citecolor=blue,
-linkcolor=violet,
-urlcolor=blue,     % couleur des url
-filecolor=Violet   % couleur des textes qui sont des liens
-}
-
-
-\usepackage[fr]{exocorr}
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
 %   Les théorèmes et choses attenantes
 %
 %%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% J'ai décidé de mettre les théorèmes et les équations dans le même compteur le 12 mars 2014.
+
+\setcounter{tocdepth}{2}        % Profondeur de la table des matières
+\setcounter{secnumdepth}{2}     % Profondeur dans le texte
 
 \newcounter{numtho}
 \newcounter{numprob}
@@ -901,223 +926,79 @@ filecolor=Violet   % couleur des textes qui sont des liens
     \ifthenelse{\equal{#1}{T}}{\item[\textbf{Topologie et théorie des ensembles}]}{}%
 }
 % Note pour moi-même : si cette liste est changée, il faut changer mon raccourcis dans Vim.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
-%   DeclareMathOperator
-%
-%%%%%%%%%%%%%%%%%%%%%%%%
-
-\DeclareMathOperator{\signe}{sgn}
-\DeclareMathOperator{\Vol}{Vol}
-\DeclareMathOperator{\Int}{Int}     % Intérieur d'un ensemble.
-\DeclareMathOperator{\Ind}{Ind}     % l'indice d'un chemin en analyse complexe
-\DeclareMathOperator{\Diam}{Diam}
-\DeclareMathOperator{\id}{Id}
-\DeclareMathOperator{\Graph}{Graph}
-\DeclareMathOperator{\Conv}{\mathcal{C}onv}
-\DeclareMathOperator{\pr}{\texttt{proj}}
-\DeclareMathOperator{\dom}{dom}
-
-\DeclareMathOperator{\Graphe}{Gr}
-\DeclareMathOperator{\Spec}{Spec}   % spectre d'un opérateur
-\DeclareMathOperator{\arctg}{arctg}
-\DeclareMathOperator{\cotg}{cotg}
-\DeclareMathOperator{\cosec}{cosec}
-\DeclareMathOperator{\arcsinh}{arcsinh}
-\DeclareMathOperator{\sinc}{sinc}   % Le sinus cardinal
-
 \newcommand*{\Sp}{\textup{Sp}}
-%\newcommand*{\Gl}{\textup{GL}} % Traqué et supprimé le 1 juillet 2013
 \newcommand*{\GL}{\textup{GL}}      % Le groupe linéaire; je crois qu'ontologiquement c'est mieux que le DeclareMathOperator
-\DeclareMathOperator{\PGL}{PGL}   % le groupe projectif
-\DeclareMathOperator{\SO}{SO}
-\DeclareMathOperator{\SL}{SL}
-\DeclareMathOperator{\PSL}{PSL}   % Le groupe modulaire SL(2,Z)/Z2
-\DeclareMathOperator{\gS}{S}        % le groupe des matrices symétriques et aussi les nombres complexes de norme 1.
-\DeclareMathOperator{\SU}{SU}
-\DeclareMathOperator{\gU}{U}
-\DeclareMathOperator{\gO}{O}            % On mets un g devant les groupes dont le nom est juste une lettre, ou est ambigu.
-\DeclareMathOperator{\diag}{diag}   
-\DeclareMathOperator{\Hom}{Hom}
-\DeclareMathOperator{\Domain}{Dom}      % Domaine of an operator
-\DeclareMathOperator{\Domaine}{Dom}
-\DeclareMathOperator{\Dom}{Domaine}
 
-\DeclareMathOperator{\Reel}{Re}        % La partie réelle d'un nombre complexe
-\DeclareMathOperator{\Imag}{Im}        % La partie imaginaire d'un nombre complexe
-
-\DeclareMathOperator{\Image}{Image}        % ... avec \Image qui donne l'image d'une fonction ou d'un opérateur.
-\DeclareMathOperator{\rang}{rg}
-\DeclareMathOperator{\Kernel}{Ker}
-\DeclareMathOperator{\Span}{Span}
-\DeclareMathOperator{\End}{End}     % L'ensemble des endomorphismes
-\DeclareMathOperator{\Cyl}{Cyl}
-\DeclareMathOperator{\tr}{Tr}       % la trace
-\DeclareMathOperator{\Tr}{Tr}       % la trace
-\DeclareMathOperator{\Majorant}{Maj}
-\DeclareMathOperator{\codim}{codim} % pour la codimension.
-\DeclareMathOperator{\diam}{diam} % le diamètre d'un ensemble.
-
-\DeclareMathOperator{\Var}{Var}     % Variance d'une variable aléatoire.
-\DeclareMathOperator{\Fun}{\texttt{Fun}}     % Ensemble des applications d'un ensemble vers l'autre.
-\DeclareMathOperator{\Cov}{Cov}     % la covariance.
-\DeclareMathOperator{\gr}{gr}     % le groupe engendré
-\DeclareMathOperator{\pgcd}{pgcd}     
-\DeclareMathOperator{\ppcm}{ppcm}     
-\DeclareMathOperator{\Frob}{Frob}     
-\DeclareMathOperator{\Card}{Card}       % Le cardinal d'un ensemble.
-\DeclareMathOperator{\Stab}{Stab}       % Le stabilisateur d'un point sous l'action d'un groupe.
-
-\DeclareMathOperator{\Frac}{Frac}       % le corps des fractions d'un anneau
-\DeclareMathOperator{\Aff}{Aff}         %  l'espace affine engendré
 
 \newcommand{\subprooflabel}[1]{\underline{\bf #1}}
 \newenvironment{subproof}{\let\Olddescriptionlabel\descriptionlabel\let\descriptionlabel\subprooflabel \begin{description}}{\end{description}\let\descriptionlabel\Olddescriptionlabel}
 
 
-%%%%%%%%%%%%% TRUCS DE YVIK POUR FAIRE FONCTIONNER CdI1 %%%%%%%%%%%%%%%%%%%%%%
-%
 
-%\newcommand{\proofend}{\hspace*{\fill} $\Box$\\}
-%\newcommand{\diam}{\hspace*{\fill} $\Diamond$\\}
-%\def\s{\smallskip}
-%\def\m{\medskip}
-%\def\my{\bf}
-\newcommand{\eps}{\varepsilon}
-\newcommand{\Ker}{\operatorname{Ker}}
-\newcommand{\IM}{\operatorname {Im}}
-\newcommand{\cat}{\operatorname{cat}}
-\newcommand{\crit}{\operatorname{crit}}
-\newcommand{\Crit}{\operatorname{Crit}}
-\newcommand{\Rest}{\operatorname{Rest}}
-\newcommand{\grad}{\operatorname{grad}}
-\newcommand{\Fix}{\operatorname{Fix}}
-\newcommand{\pt}{\operatorname{pt}}
-\newcommand{\cl}{\operatorname{cl}}
-\newcommand{\B}{\operatorname {B}}
-\newcommand{\C}{\operatorname {C}}
-%\newcommand{\S}{\operatorname {S}}
-\newcommand{\Gr}{\operatorname {Gr\;\!}}
-%\def\dim{\operatorname {dim}}
-\newcommand{\inj}{\operatorname {inj}}
-%\newcommand{\Vol}{\operatorname {Vol}\:\!}
-\newcommand{\dist}{\operatorname {dist}}
-%\def\inter{\operatorname {int}}
-\newcommand{\ext}{\operatorname {ext}}
-%\newcommand{\diameter}{\operatorname {diam}\:\!}
-\newcommand{\Emb}{\operatorname {Emb}}
-\newcommand{\can}{\operatorname {can}}
-\newcommand{\euler}{\mbox{\rm e}}
-\newcommand{\sii}{\mbox{\rm \scriptsize i}}
-\newcommand{\VB}{\mbox{V}_{\!\!B}}   
-\newcommand{\VC}{\mbox{V}_{\!\!C}}   
-\newcommand{\VS}{\mbox{V}_{\!\!S}}   
+% Au moment de mettre l'ISBN, il faut changer la Licence vers une CC.
+\newcommand{\TextePourISBN}{
+    \begin{center}
+ISBN : Y-Y-YYYYYYY-Y-Y
+    \end{center}
+}
 
-%\newcommand{\ga}{\alpha}
-%\newcommand{\gb}{\beta}
-%\newcommand{\gg}{\gamma}
-%\newcommand{\gd}{\delta}
-%\newcommand{\gve}{\varepsilon}
-%\newcommand{\gf}{\varphi}
-%\newcommand{\gk}{\kappa}
-%\newcommand{\gkk}{\varkappa}
-%\newcommand{\gl}{\lambda}
-%\newcommand{\go}{\omega}
-%\newcommand{\gs}{\sigma}
-%\newcommand{\gt}{\vartheta}
-%\newcommand{\gy}{\upsilon}
-%\newcommand{\gv}{\varrho}
-%\newcommand{\gz}{\zeta}
-%\newcommand{\gD}{\Delta}
-%\newcommand{\gF}{\Phi}
-%\newcommand{\gG}{\Gamma}
-%\newcommand{\gL}{\Lambda}
-%\newcommand{\gS}{\Sigma}
+% J'ajoute un OLD à la commande suivante parce qu'elle n'est plus censée être utilisée.
+\newcommand{\LicenceCCOLD}{
 
-%\long\def\forget#1\forgotten{} %
-%\def\end{center}{{\mathfrak C}}
-%\def\ea{{\mathfrak A}}
+\begin{center}
 
-\newcommand{\ca}{{\mathcal A}}
-\newcommand{\cb}{{\mathcal B}}
-\newcommand{\cc}{{\mathcal C}}
-\newcommand{\cd}{{\mathcal D}}
-\newcommand{\ce}{{\mathcal E}}
-\newcommand{\cf}{{\mathcal F}}
-\newcommand{\cg}{{\mathcal G}}
-\newcommand{\ch}{{\mathcal H}}
-\newcommand{\cj}{{\mathcal J}}
-\newcommand{\ck}{{\mathcal K}}
-\newcommand{\cn}{{\mathcal N}}
-\newcommand{\co}{{\mathcal O}}
-\newcommand{\cp}{{\mathcal P}}
-\newcommand{\cq}{{\mathcal Q}}
-\newcommand{\cs}{{\mathcal S}}
-\newcommand{\ct}{{\mathcal T}}
-\newcommand{\cu}{{\mathcal U}}
-\newcommand{\cv}{{\mathcal V}}
-\newcommand{\cw}{{\mathcal W}}
-\newcommand{\eb}{{\mathfrak B}}
-\newcommand{\ed}{{\mathfrak D}}
-\newcommand{\ee}{{\mathfrak E}}
-\newcommand{\ef}{{\mathfrak F}}
-\newcommand{\eg}{{\mathfrak G}}
-\newcommand{\ej}{{\mathfrak J}}
-\newcommand{\eh}{{\mathfrak H}}
-\newcommand{\en}{{\mathfrak N}}
-\newcommand{\eo}{{\mathfrak O}}
-\newcommand{\ep}{{\mathfrak P}}
-\newcommand{\eq}{{\mathfrak Q}}
-\newcommand{\es}{{\mathfrak S}}
-\newcommand{\et}{{\mathfrak T}}
-\newcommand{\eu}{{\mathfrak U}}
-\newcommand{\ev}{{\mathfrak V}}
-\newcommand{\ew}{{\mathfrak W}}
+        \ifpdf
+            \includegraphics{CreativeCommons.png}
+        \else
+            \includegraphics{CreativeCommons.eps}
+        \fi
+
+        \emph{Mes notes de mathématique} de \href{http://student.ulb.ac.be/~lclaesse/}{Laurent Claessens} est mis à disposition selon les termes de la licence \href{http://creativecommons.org/licenses/by-nc-nd/3.0/fr/}{licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Pas de Modification 3.0 France.}.
+
+        Une version plus à jour de ce texte, publiée sous la \href{http://fr.wikipedia.org/wiki/FDL}{licence GNU-FDL} est disponible sur \href{http://student.ulb.ac.be/~lclaesse/mes_notes.pdf}{le site de l'auteur}.
+
+\end{center}
+
+}
+
+\newcommand{\LicenceFDL}{
+\begin{center}
+
+           \ifpdf
+            \includegraphics[width=1cm]{gfdl-logo-small.png}
+        \else
+            \includegraphics[width=1cm]{gfdl-logo-small.eps}
+        \fi
+
+Copyright (c) 2011-2014  Laurent Claessens, Carlotta Donadello
+
+Permission is granted to copy, distribute and/or modify this document under the terms of the \href{http://www.gnu.org/licenses/fdl-1.3.html}{GNU Free Documentation License}, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is included in the chapter entitled ``GNU Free Documentation~License''.
+
+\LaTeX\ source files are available at\\ \url{https://www.gitorious.org/mes-notes-de-math-matique} 
+
+\vspace{0.5cm}
+
+Vous avez le droit de copier, distribuer et modifier ce document pourvu que vous suiviez les règles de la \href{http://www.gnu.org/licenses/fdl-1.3.html}{GNU Free Documentation License}. Vous trouverez les sources \LaTeX\ à l'adresse\\ \url{https://www.gitorious.org/mes-notes-de-math-matique}
+
+\end{center}
+}
+
+\newcommand{\LogoEtLicence}{
+\ifthenelse{\value{isAgreg}=0}{
+
+\LicenceFDL
+
+} 
+{
+    %\LicenceCC
+    \LicenceFDL
+    \TextePourISBN
+
+}
+}
 
 
-
-%\def\NN{\mathbbm{N}}
-%\def\QQ{\mathbbm{Q}}
-%\def\RR{\mathbbm{R}}
-%\def\SS{\mathbbm{S}}
-%\def\11{\mathbbm{1}}
-%\def\ZZ{\mathbbm{Z}}
-%\def\TT{\mathbbm{T}}
-\newcommand{\RR}{\eR}
-\newcommand{\DD}{\mathbbm{D}}
-\newcommand{\HH}{\mathbbm{H}}
-\newcommand{\II}{\mathbbm{I}}
-\newcommand{\N}{\mathbbm{N}}
-\newcommand{\PP}{\mathbbm{P}}
-\newcommand{\Q}{\mathbbm{Q}}
-\newcommand{\RRR}{\mathbbm{R}_+}
-\newcommand{\Z}{\mathbbm{Z}}
-\newcommand{\RP}{{\RR\PP}} 
-%\newcommand{\CP}{{\CC\PP}} 
-\newcommand{\pp}{\partial}
-\newcommand{\ww}{\wedge}
-%\newcommand{\dc}{d^\CC}
-\newcommand{\sym}{Sp(n;\RR)}
-%\newcommand{\ha}{\hookrightarrow}
-\newcommand{\Ra}{\Rightarrow}
-\newcommand{\Lra}{\Leftrightarrow} 
-
-%\def\ni{\noindent}
-%\def\b{\bigskip}
-%\def\m{\medskip}
-%\def\im{\mbox{Im}\,}
-
-\newcommand{\de}{\stackrel{\mbox{\scriptsize{def}}}{=}}
-
-%\def\sq{\square}
-%\def\tr{\triangle}
-%\def\trd{\bigtriangledown}
-%\def\proof{\noindent {\it Proof. \;}}
-
-
-%	La num\'erotation des exercices
-
+% FIN DE MES CHOSES %%%%%%%
 
 \newcounter{exoNico}
 \setcounter{exoNico}{1}
@@ -1125,19 +1006,19 @@ filecolor=Violet   % couleur des textes qui sont des liens
 
 
 %++++++++++ACCENTS++++++++++++++++++
-\newcommand{\e}{\'{e}}
+%\newcommand{\e}{\'{e}}
 %\newcommand{\esp}{\'{e }}
 %\newcommand{\eg}{\`{e}}
-\newcommand{\ac}{\`{a} }
+%\newcommand{\ac}{\`{a} }
 %\newcommand{\meme}{m\^{e}me }
-\newcommand{\ou}{o\`{u} }
+%\newcommand{\ou}{o\`{u} }
 
 %+++++++++++NEWCOMMANDS+++++++++++
-\newcommand{\dst}{\displaystyle}
-\newcommand{\ba}{\begin{array}}
+%\newcommand{\dst}{\displaystyle}
+%\newcommand{\ba}{\begin{array}}
 %\newcommand{\ea}{\end{array}}
 %++++++++++FORMULAS+++++++++++++
-\newcommand{\hs}{\hspace{0.3cm}}
+%\newcommand{\hs}{\hspace{0.3cm}}
 %\newcommand{\eps}{\epsilon}
 %\newcommand{\f}{\frac}
 \newcommand{\arcth}{{\rm arctanh}}
@@ -1227,7 +1108,6 @@ filecolor=Violet   % couleur des textes qui sont des liens
 \newcommand{\mortelexo}{$\obslash\oslash$}
 
 
-%%%%%%%%%%%%%% FIN TRUCS DE YVIK %%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%% TRUCS DE PIERRE %%%%%%%%%%%%%%%%%%%%%%
 
@@ -1235,49 +1115,9 @@ filecolor=Violet   % couleur des textes qui sont des liens
 % Le paquet array est là pour faire fonctionner l'environement arrowcases dans les trucs de Pierre.
 \usepackage{array}
 
-%\documentclass[11pt,a4paper,openany]{book}
-%\usepackage[ansinew]{inputenc}
-%\usepackage{pstricks, pst-node, array, ifpdf, comment, pst-plot}
-%\usepackage[marginparwidth=2cm]{geometry}
-%\usepackage[dvips,colorlinks]{hyperref}
-%\usepackage[frenchb]{entetes}
-
-%\usepackage{bigcenter}
-%%%% debut macro %%%%
-%%% ----------debut de bigcenter.sty--------------
-
-%%% nouvel environnement bigcenter
-%%% pour centrer sur toute la page (sans overfull)
-%\makeatletter
-%\newskip\@bigflushglue \@bigflushglue = -100pt plus 1fil
-
-%\def\bigcenter{\trivlist \bigcentering\item\relax}
-%\def\bigcentering{\let\\\@centercr\rightskip\@bigflushglue%
-%\def\endbigcenter{\endtrivlist}
-
-%\leftskip\@bigflushglue
-%\parindent\z@\parfillskip\z@skip}
-%\makeatother
-
-%%% ----------fin de bigcenter.sty--------------
-%%%% fin macro %%%%
-
-%\input{mfpic}
-
 % À régler par l'utilisateur
 \newlength{\arrowsep}\setlength{\arrowsep}{3pt}
 \newlength{\arrowlength}\setlength{\arrowlength}{1cm}
-
-% Cet environnement est sympa, mais il dépend trop de ps; en tout cas il ne passe pas dans pdflatex
-% 15 mars 1012
-%\newenvironment{arrowcases}	{%
-%			\pnode(\arrowsep,0.5ex){A}%
-%			\hspace{\arrowlength}%
-%			\begin{array}{>{\displaystyle\pnode(-\arrowsep,0.5ex){B}}l<{\ncline{A}{B}}@{}}
-%				}
-%			{
-%			  \end{array}
-%			}
 
 \newenvironment{arrowcases}%
 {\begin{cases}}
@@ -1289,47 +1129,14 @@ filecolor=Violet   % couleur des textes qui sont des liens
 \newcommand*{\limite}[3][\@empty]{\lim_{\substack{#2\rightarrow#3\\#1}}}
 \makeatother
 
-% \newenvironment{split+justif}{%
-% \begin{split}%
-% \let\ampori&
-% \def&#1&#2\\{}
-% }{%
-
-% \end{split}}%
-
-%\def\ncov{\tilde\nabla} % Nouvelle dérivée covariante
 \newcommand*\sev{<} % 
 
-%\newcommand{\hgot}{\mathfrak{h}} % h gothique (ss algebre de Lie)
-%\def\var#1{{\mathbf #1}} % \var <-> Une variété
-%\def\pardef{\stackrel{def}{=}} % = par définition.
-%\newcommand{\bbar#1}{\bar{\bar{#1}}}
-%\def\cov{\nabla} % Derivee covariante / connexion
-%\newcommand{\gl}{\mathfrak{gl}} % algèbre linéaire
-%\def\doubleprime{{\prime\prime}} % Isomorphique 
-%\def\scal(#1,#2){\langle #1,#2\rangle}
-%\def\agit(#1,#2){\langle #1,#2^\vee\rangle}
-%\let\phiori\phi
-%\let\phi\varphi
 \let\ssi\iff
-%\def\iddc{\mathcal I}
 \newcommand*{\ideal}[1]{\{#1\}}
 \newcommand*{\fleche}[1]{\stackrel{#1}\longrightarrow}
 
-%\newcounter{exercice}
-%\setcounter{exercice}{0}
 \setcounter{CountExercice}{0}
 
-% \newenvironment{exo}[1][\relax]{%
-% \stepcounter{exercice}%
-% \par\medskip%
-% #1{\textbf{Exercice}~\arabic{exercice}.}\quad}%
-% {\par}
-
-% \newenvironment{rep}{\hspace{1em}\par\textbf{Solution
-%     proposée.\quad}}{\par\noindent\hrulefill\par}
-
-%\date{}
 \newcommand{\Acplx}{A_\cdot}
 \newcommand{\Bcplx}{B_\cdot}
 \newcommand{\toisom}{\fleche\simeq}
@@ -1360,7 +1167,10 @@ filecolor=Violet   % couleur des textes qui sont des liens
 
 
 %% Maths : Les ensembles
-\newcommand*{\ens}[1]{\mathbb{#1}} % Ensemble de nombres
+%\newcommand*{\ens}[1]{\mathbb{#1}} % Ensemble de nombres
+%\newcommand*{\ZZ}{\ens Z}%
+%\newcommand*{\QQ}{\ens Q}%
+%\newcommand*{\NN}{\ens N}%
 %\newcommand*{\var}[1]{\mathbf{#1}} % Variété       supprimé le 10 juin 2013
 \newcommand*{\alg}[1]{\mathcal{#1}} % Algèbre
 %\newcommand*{\RR}{\ens R}%
@@ -1368,9 +1178,6 @@ filecolor=Violet   % couleur des textes qui sont des liens
 %\expandafter\show\csname SS \endcsname
 %\renewcommand*{\SS}{\var S}% 
 %\newcommand*{\CC}{\ens C}%
-\newcommand*{\ZZ}{\ens Z}%
-\newcommand*{\QQ}{\ens Q}%
-\newcommand*{\NN}{\ens N}%
 \newcommand*{\topologie}{\mathscr{T}}
 \newcommand*{\Topologie}{\textcursive{T}}
 \newcommand{\LL}{\text{\textup{L}}} %% Espace de Lebesgue droit
@@ -1456,59 +1263,9 @@ filecolor=Violet   % couleur des textes qui sont des liens
 %\DeclareMathOperator{\cosec}{cosec}
 
 
-%% Pour obtenir le \Sha cyrillique...
-% \RequirePackage[OT2,T1]{fontenc}
-% \DeclareSymbolFont{cyrletters}{OT2}{wncyr}{m}{n}
-% \DeclareMathSymbol{\Sha}{\mathalpha}{cyrletters}{"58}
-
-
-% \newcounter{@institute}
-% \let\authorori\author
-% \def\@institute{}\def\@auteurs{}
-% %\newcommand{\institute}[2]{\refstepcounter{@institute}\label{#1}\def\@institute{\@institute\small
-% %#2}\set@authors}
-% \newcommand{\institute}[2]{\refstepcounter{@institute}\label{#1}%
-%   \let\maketitleori\maketitle%
-%   \renewcommand\maketitle{\footnote{#2}\maketitleori}%
-% }%
-% \renewcommand{\author}[1]{\def\@auteurs{#1}\set@authors}
-% \def\the@institute{${}^{(\roman{@institute})}$}
-% \newcommand{\inst}[1]{\ref{#1}}
-
-% \newcommand{\set@authors}{\authorori{\@auteurs}}% \\ \@institute}}
-
-
-% \newcounter{@institute}
-% \newcommand{\institute}[1]{
-%   \let\labelori\label
-%   \renewcommand{\label}[1]{%
-%     \refstepcounter{@institute}\labelori{##1}
-%     \begin{tabular}{cc}%format ?!
-%     \begin{minipage}[t]
-      
-
-
-%   }
-
-% }%
-
 \newcommand*{\conclusion}{\emph{Conclusion~:~}}
 \newcommand{\hint}{\par\emph{Aide~:~}\hspace{1em}}
 \newcommand{\rappel}{\par\emph{Rappels~:~}\hspace{1em}}
-
-%\newcounter{enumarray} 
-%\newenvironment{enumarray}[1]{% Merci Ulrike Fischer
-% \setcounter{enumarray}{0}%
-% \begin{array}{% motif
-%     >{% Au début de chaque ligne
-%       \stepcounter{enumarray}%
-%       (\alph{enumarray})%
-%       \hspace{2em}
-%     }% 
-%     #1%
-%   }% fin motif
-% }{%
-% \end{array}%
 %}
 \newenvironment{displayinline}{% displaystyle + inline.
   $\displaystyle%
@@ -1518,67 +1275,11 @@ filecolor=Violet   % couleur des textes qui sont des liens
 
 \newcommand{\telque}{\vert\,}
 \newcommand{\donc}{\Rightarrow}
- 
-%\newcounter{coroNico}
-%\newcommand{\corrNico}{\refstepcounter{coroNico}\paragraph{Correction \arabic{coroNico}.}}
-
-
-%
-
-%Ajout à Babel
-
-% Here are two LaTeX macros for the word "C++". They prevent line breaks
-% between the C and "++", and the first packs the two "+"s close to each
-% other but the second does not. Try them both and see which one you
-% like best.
-%\newcommand{\CC}{C\nolinebreak\hspace{-.05em}\raisebox{.4ex}{\tiny\bf +}%
-%\nolinebreak\hspace{-.10em}\raisebox{.4ex}{\tiny\bf +}}
-%\def\CC{{C\nolinebreak[4]\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
-% Here are two more LaTeX macros for the word "C++". They allow line
-% breaks between the C and "++", which may not be desirable, but they're
-% included here just in case.
-%\def\CC{C\raise.22ex\hbox{{\footnotesize +}}\raise.22ex\hbox{\footnotesize +}}
-%\def\CC{{C\hspace{-.05em}\raisebox{.4ex}{\tiny\bf ++}}}
-
-
-%\usepackage{rotating}      % enlevé le 14 juin 2013
-%\usepackage{moreverb}      % enlevé le 14 juin 2013
 
 \usepackage{xspace}
-
-%\usepackage{color}     
-%\usepackage{listingsutf8}% enlevé le 14 juin 2013
-
-%\lstset{extendedchars=true,%
-%       basicstyle=\small,%
-%       commentstyle=\ttfamily\color[rgb]{0,0,0.5},%
-%       stringstyle=\color[rgb]{0,0.5,0},%
-%       frame=tblr,frameround=tttt,%
-%        extendedchars=\true,       %   Ces deux lignes sont les miennes pour faire fonctionner le UTF8
-%       inputencoding=utf8/latin1   %
-       %labelstyle=\tiny, labelstep=1,labelsep=10pt
-%      }
-
-%\ifx\pdfoutput\undefined
-% % no problemo.
-%\else % compatibilité listings/hyperref.
-% \makeatletter
-% \providecommand*{\toclevel@lstlisting}{0}
-% \makeatother
-%\fi
-
-%\input{macros}
-%\THMFR
-%
-%\newcommand{\MFILE}[1]{
-%\begin{lstinputlisting}[language=Matlab]{#1.m}%
-%\label{co:#1}% 
-%\end{lstinputlisting}}
 %
 \newcommand{\OC}{Octave}
-%\newcommand{\MP}{Maple}
 \newcommand{\ML}{Matlab}
-%\newcommand{\MU}{Mupad}
 \newcommand{\SB}{Stixbox}
 %
 \newcommand{\FIG}[4]{%  fname scale floatparams caption
@@ -1589,70 +1290,4 @@ filecolor=Violet   % couleur des textes qui sont des liens
   \label{fi:#1}%
   \end{center}%
  \end{figure}
-}
-%
-%% Parce que j'ai l'impression que ces figures font mourir la conversion en pdf
-%\renewcommand{\FIG}[4]{}
-
-
-% Au moment de mettre l'ISBN, il faut changer la Licence vers une CC.
-\newcommand{\TextePourISBN}{
-    \begin{center}
-ISBN : Y-Y-YYYYYYY-Y-Y
-    \end{center}
-}
-
-% J'ajoute un OLD à la commande suivante parce qu'elle n'est plus censée être utilisée.
-\newcommand{\LicenceCCOLD}{
-
-\begin{center}
-
-        \ifpdf
-            \includegraphics{CreativeCommons.png}
-        \else
-            \includegraphics{CreativeCommons.eps}
-        \fi
-
-        \emph{Mes notes de mathématique} de \href{http://student.ulb.ac.be/~lclaesse/}{Laurent Claessens} est mis à disposition selon les termes de la licence \href{http://creativecommons.org/licenses/by-nc-nd/3.0/fr/}{licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Pas de Modification 3.0 France.}.
-
-        Une version plus à jour de ce texte, publiée sous la \href{http://fr.wikipedia.org/wiki/FDL}{licence GNU-FDL} est disponible sur \href{http://student.ulb.ac.be/~lclaesse/mes_notes.pdf}{le site de l'auteur}.
-
-\end{center}
-
-}
-
-\newcommand{\LicenceFDL}{
-\begin{center}
-
-           \ifpdf
-            \includegraphics[width=1cm]{gfdl-logo-small.png}
-        \else
-            \includegraphics[width=1cm]{gfdl-logo-small.eps}
-        \fi
-
-Copyright (c) 2011-2014  Laurent Claessens, Carlotta Donadello
-
-Permission is granted to copy, distribute and/or modify this document under the terms of the \href{http://www.gnu.org/licenses/fdl-1.3.html}{GNU Free Documentation License}, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is included in the chapter entitled ``GNU Free Documentation~License''.
-
-\LaTeX\ source files are available at\\ \url{https://www.gitorious.org/mes-notes-de-math-matique} 
-
-\vspace{0.5cm}
-
-Vous avez le droit de copier, distribuer et modifier ce document pourvu que vous suiviez les règles de la \href{http://www.gnu.org/licenses/fdl-1.3.html}{GNU Free Documentation License}. Vous trouverez les sources \LaTeX\ à l'adresse\\ \url{https://www.gitorious.org/mes-notes-de-math-matique}
-
-\end{center}
-}
-
-\newcommand{\LogoEtLicence}{
-\ifthenelse{\value{isAgreg}=0}{
-
-\LicenceFDL
-
-} 
-{
-    %\LicenceCC
-    \LicenceFDL
-    \TextePourISBN
-
-}
 }

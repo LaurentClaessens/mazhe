@@ -53,7 +53,6 @@ def set_commit_hexsha(A):
     A = A.replace(u,u.replace("missing information",hexsha))
     return A
 
-
 def accept_all_input(medicament):
     medicament.accept_input=lambda x: True
 
@@ -95,11 +94,20 @@ class keep_script_marks(object):
         return LaTeXparser.CodeLaTeX(new_texte,oldLaTeX=A)
 
 def ultimate_git(a=None):
+    """
+    Fait un git commit des fichiers automatiques, uniquement si ils sont les seuls.
+    """
     # Attention : les nom de fichiers à giter ici sont aussi donnés dans le README
     import git
     repo=git.Repo("")
     if repo.is_dirty():
-        repo.git.add("agreg-mazhe_pytex.tex")
-        repo.git.add("enseignement-mazhe_pytex.tex")
-        repo.git.add("everything-mazhe_pytex.tex")
-        repo.git.commit(m="automatic")
+        automated_files=["agreg-mazhe_pytex.tex","enseignement-mazhe_pytex.tex","everything-mazhe_pytex.tex"]
+        mfiles=repo.git.ls_files(m="").split("\n")
+        on=True
+        for f in mfiles:
+            if f not in automated_files:
+                on=False
+        if on :
+            for f in automated_files:
+                repo.git.add(f)
+            repo.git.commit(m="automatic")
