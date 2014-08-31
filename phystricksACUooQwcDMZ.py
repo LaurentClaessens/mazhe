@@ -31,28 +31,28 @@ def ACUooQwcDMZ():
         pspicts[i].DrawDefaultAxes()
         pspicts[i].dilatation(1)
 
-        pspicts[0].BB.AddX(-0.5)
-        pspicts[0].BB.AddY(3.5)
+        pspicts[0].BB.addX(-0.5)
+        pspicts[0].BB.addY(3.5)
 
-    pspicts[1].BB.AddX(-2)
-    pspicts[1].BB.AddY(3)
+    pspicts[1].BB.addX(-2)
+    pspicts[1].BB.addY(3)
 
-    pspicts[2].BB.AddX(-2)
-    pspicts[2].BB.AddY(3)
+    pspicts[2].BB.addX(-2)
+    pspicts[2].BB.addY(3)
 
-    pspicts[3].BB.AddX(-1)
-    pspicts[3].BB.AddY(3)
+    pspicts[3].BB.addX(-1)
+    pspicts[3].BB.addY(3)
 
-    pspicts[4].BB.AddX(-2)
-    pspicts[4].BB.AddY(3)
-    pspicts[4].BB.AddY(-3)
+    pspicts[4].BB.addX(-2)
+    pspicts[4].BB.addY(3)
+    pspicts[4].BB.addY(-3)
 
-    pspicts[5].BB.AddX(-2)
-    pspicts[5].BB.AddY(3)
-    pspicts[5].BB.AddY(-3)
+    pspicts[5].BB.addX(-2)
+    pspicts[5].BB.addY(3)
+    pspicts[5].BB.addY(-3)
 
-    pspicts[6].BB.AddX(-2)
-    pspicts[6].BB.AddY(3)
+    pspicts[6].BB.addX(-2)
+    pspicts[6].BB.addY(3)
 
     
     fig.conclude()

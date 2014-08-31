@@ -18,16 +18,16 @@ def LesSpheres():
 	CD=Segment(C,D)
 	DA=Segment(D,A)
 	pspicts[0].DrawGraphs(AB,BC,CD,DA)
-	pspicts[0].BB.AddX(-r-1)
-	pspicts[0].BB.AddX(r+1)
+	pspicts[0].BB.addX(-r-1)
+	pspicts[0].BB.addX(r+1)
 	pspicts[0].DrawDefaultAxes()
 
 	# La norme |  |_2
 	O=Point(0,0)
 	Cercle = Circle(O,r)
 	pspicts[1].DrawGraph(Cercle)
-	pspicts[1].BB.AddX(-r-1)
-	pspicts[1].BB.AddX(r+1)
+	pspicts[1].BB.addX(-r-1)
+	pspicts[1].BB.addX(r+1)
 	pspicts[1].DrawDefaultAxes()
 
 	# La norme |  |_infini
@@ -43,8 +43,8 @@ def LesSpheres():
 	pspicts[2].DrawGraph(BC)
 	pspicts[2].DrawGraph(CD)
 	pspicts[2].DrawGraph(DA)
-	pspicts[2].BB.AddX(-r-1)
-	pspicts[2].BB.AddX(r+1)
+	pspicts[2].BB.addX(-r-1)
+	pspicts[2].BB.addX(r+1)
 	pspicts[2].DrawDefaultAxes()
 
 	fig.conclude()
