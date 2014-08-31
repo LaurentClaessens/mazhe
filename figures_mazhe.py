@@ -195,8 +195,8 @@ from phystricksTrajs import Trajs
 #from phystricksExerciceGraphes import ExerciceGraphes              # Remplacé par ACUooQwcDMZ
 #from phystricksIntCourbePolaire import IntCourbePolaire
 #from phystricksExoCourone import ExoCourone
-#from phystricksAIFsOQO import AIFsOQO
 #from phystricksExampleChangementVariables import ExampleChangementVariables
+#from phystricksAIFsOQO import AIFsOQO  # Il n'est pas dans le fichier phystricksAIFsOQO.
 
 figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre,MomentForce,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
         DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin,ChampGraviation,FnCosApprox,Bateau,FonctionXtrois,FonctionEtDerive,SurfaceDerive,
@@ -212,7 +212,7 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRRA,ADUGmRRB,ADUGmRRC,TGdUoZR,GBnUivi,FGWjJBX,
         RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm,TracerUn,ACUooQwcDMZ,
         ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,DS2010bisExoGraph,SolsEqDiffSin,SolsSinpA,Trajs,UYJooCWjLgK,WHCooNZAmYB,
-        QIZooQNQSJj,FXVooJYAfif,ExoParamCD,ZTTooXtHkci,EHDooGDwfjC,UZGooBzlYxr
+        QIZooQNQSJj,FXVooJYAfif,ExoParamCD,ZTTooXtHkci,EHDooGDwfjC,UZGooBzlYxr,AIFsOQO
         ]
 
 
