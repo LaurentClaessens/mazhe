@@ -5,6 +5,8 @@ def UZGooBzlYxr():
     pspict.dilatation_X(1)
     pspict.dilatation_Y(1)
 
+    x=var('x')
+
     cercle=Circle(   Point(0,0),3  )
     d1=Segment( Point(-1,1),Point(4,1) )
     d2=phyFunction(3-x).graph(-1,4)
