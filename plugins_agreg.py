@@ -30,6 +30,19 @@ mazhe_mark_list.append("% SCRIPT MARK -- MATLAB")
 mazhe_mark_list.append("% SCRIPT MARK -- EXERCICES")
 mazhe_mark_list.append("% SCRIPT MARK -- FINAL")
 
+nonagreg_mark_list=[]
+nonagreg_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+nonagreg_mark_list.append("% SCRIPT MARK -- GARDE MAZHE")
+nonagreg_mark_list.append("% SCRIPT MARK -- TOC")
+nonagreg_mark_list.append("% SCRIPT MARK -- ENGLISH INTRODUCTION")
+nonagreg_mark_list.append("% SCRIPT MARK -- INTRO SAGE")
+nonagreg_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUE")
+nonagreg_mark_list.append("% SCRIPT MARK -- RESEARCH PART")
+nonagreg_mark_list.append("% SCRIPT MARK -- MATLAB")
+nonagreg_mark_list.append("% SCRIPT MARK -- EXERCICES")
+nonagreg_mark_list.append("% SCRIPT MARK -- FINAL")
+
+
 
 def set_isAgreg(A):
     u="\setcounter{isAgreg}{0}"

@@ -156,7 +156,6 @@ from phystricksSenoTopologo import SenoTopologo
 from phystricksRegioniPrimoeSecondoTipo import RegioniPrimoeSecondoTipo
 from phystricksPolirettangolo import Polirettangolo
 from phystricksParamTangente import ParamTangente
-from phystricksExampleChangementVariables import ExampleChangementVariables
 from phystricksExampleIntegrationdeux import ExampleIntegrationdeux
 from phystricksExampleIntegration import ExampleIntegration
 from phystricksCardioid import Cardioid
@@ -197,6 +196,7 @@ from phystricksTrajs import Trajs
 #from phystricksIntCourbePolaire import IntCourbePolaire
 #from phystricksExoCourone import ExoCourone
 #from phystricksAIFsOQO import AIFsOQO
+#from phystricksExampleChangementVariables import ExampleChangementVariables
 
 figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre,MomentForce,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
         DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin,ChampGraviation,FnCosApprox,Bateau,FonctionXtrois,FonctionEtDerive,SurfaceDerive,
@@ -204,19 +204,18 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         SurfaceHorizVerti,SurfaceCercle,KScolorD,CheminFresnel,IntRectangle,IntTriangle,CoinPasVar,IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa,
         ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang,ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,MaxVraissLp,
         BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,ExoVarj,TriangleUV,DefinitionCartesiennes,CoordPolaires,Parallelogramme,CbCartTui,CbCartTuii,
-        CbCartTuiii,exercice1A1,exercice1A2,exercice4,DS2010exo1,SuiteUnSurn,SpiraleLimite,IntTrois,CornetGlace,Differentielle,CSCiv,CSCvi,CSCii,CSCiii,CSCv,Cardioideexo,
+        CbCartTuiii,DS2010exo1,SuiteUnSurn,SpiraleLimite,IntTrois,CornetGlace,Differentielle,CSCiv,CSCvi,CSCii,CSCiii,CSCv,Cardioideexo,
         DistanceEuclide,LesSpheres,IntervalleUn,DistanceEnsemble,AccumulationIsole,MethodeChemin,ExempleArcParam,CourbeRectifiable,SuiteInverseAlterne,CycloideA,Cardioid,
-        ParamTangente,Polirettangolo,RegioniPrimoeSecondoTipo,ExampleIntegration,ExampleIntegrationdeux,ExampleChangementVariables,ArcLongueurFinesse,
+        ParamTangente,Polirettangolo,RegioniPrimoeSecondoTipo,ExampleIntegration,ExampleIntegrationdeux,ArcLongueurFinesse,
         TangentSegment,BoulePtLoin,UneCellule,SenoTopologo,AdhIntFr,AdhIntFrDeux,AdhIntFrTrois,AdhIntFrSix,DeuxCercles,TraceCycloide,QuelCote,Osculateur,examssepti,
         examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,LesSubFigures,NiveauHyperbole,
         NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRRA,ADUGmRRB,ADUGmRRC,TGdUoZR,GBnUivi,FGWjJBX,
-        RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,AIFsOQO,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm,TracerUn,ACUooQwcDMZ,
+        RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm,TracerUn,ACUooQwcDMZ,
         ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,DS2010bisExoGraph,SolsEqDiffSin,SolsSinpA,Trajs,UYJooCWjLgK,WHCooNZAmYB,
         QIZooQNQSJj,FXVooJYAfif,ExoParamCD,ZTTooXtHkci,EHDooGDwfjC,UZGooBzlYxr
         ]
 
 
-# Il me semble que la figure IntCourbePolaire est inutile
 def AllFigures():
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"(almost) all I know in mathematics and physics")
     tests.generate()
