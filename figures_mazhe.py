@@ -1,6 +1,8 @@
 #! /usr/bin/sage -python
 # -*- coding: utf8 -*-
 
+# Il faut en tout cas refaire la figure PHTVjfk
+
 from phystricks import *
 import sys
 
@@ -15,7 +17,6 @@ from phystricksEHDooGDwfjC import EHDooGDwfjC
 from phystricksALIzHFm import ALIzHFm
 from phystricksTZCISko import TZCISko
 from phystricksNEtAchr import NEtAchr
-#from phystricksAIFsOQO import AIFsOQO
 from phystricksRQsQKTl import RQsQKTl
 from phystricksDynkinpWjUbE import DynkinpWjUbE
 from phystricksHasseAGdfdy import HasseAGdfdy
@@ -60,7 +61,6 @@ from phystricksContourGreen import ContourGreen
 from phystricksExSinLarge import ExSinLarge
 from phystricksToreRevolution import ToreRevolution
 from phystricksConeRevolution import ConeRevolution
-#from phystricksIntCourbePolaire import IntCourbePolaire
 from phystricksExPolygone import ExPolygone
 from phystricksIntegraleSimple import IntegraleSimple
 from phystricksExoMagnetique import ExoMagnetique
@@ -94,7 +94,6 @@ from phystricksExoProjection import ExoProjection
 from phystricksExoUnSurxPolaire import ExoUnSurxPolaire
 from phystricksSurfaceHorizVerti import SurfaceHorizVerti
 from phystricksSurfaceCercle import SurfaceCercle
-#from phystricksExoCourone import ExoCourone
 from phystricksIntRectangle import IntRectangle
 from phystricksIntTriangle import IntTriangle
 from phystricksIntEcourbe import IntEcourbe
@@ -175,14 +174,8 @@ from phystricksDS2010exo1 import DS2010exo1
 from phystricksPHTVjfk import PHTVjfk
 from phystrickssenotopologo import senotopologo
 from phystricksQXyVaKD import QXyVaKD
-from figure_devoir1 import exercice1A1
-from figure_devoir1 import exercice1A2
-from figure_devoir1 import exercice4
 from phystricksTriangleRectangle import TriangleRectangle
-
-#Les figures de TD_SVT
 from phystricksTracerUn import TracerUn
-#from phystricksExerciceGraphes import ExerciceGraphes              # Remplacé par ACUooQwcDMZ
 from phystricksExerciceGraphesbis import ExerciceGraphesbis
 from phystricksGrapheunsurunmoinsx import Grapheunsurunmoinsx
 from phystricksExoCUd import ExoCUd
@@ -195,8 +188,15 @@ from phystricksDS2010bisExoGraph import DS2010bisExoGraph
 from phystricksSolsEqDiffSin import SolsEqDiffSin
 from phystricksSolsSinpA import SolsSinpA
 from phystricksTrajs import Trajs
-#Fin des figures de TD_SVT
 
+# Suppression août 2014
+#from figure_devoir1 import exercice1A1
+#from figure_devoir1 import exercice1A2
+#from figure_devoir1 import exercice4
+#from phystricksExerciceGraphes import ExerciceGraphes              # Remplacé par ACUooQwcDMZ
+#from phystricksIntCourbePolaire import IntCourbePolaire
+#from phystricksExoCourone import ExoCourone
+#from phystricksAIFsOQO import AIFsOQO
 
 figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre,MomentForce,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
         DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin,ChampGraviation,FnCosApprox,Bateau,FonctionXtrois,FonctionEtDerive,SurfaceDerive,
