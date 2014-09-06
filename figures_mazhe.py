@@ -112,7 +112,6 @@ from phystricksExempleNonRang import ExempleNonRang
 from phystricksCercleTnu import CercleTnu
 from phystricksExoXLVL import ExoXLVL
 from phystricksFWJuNhU import FWJuNhU
-from phystricksDessinExp import DessinExp
 from phystricksDessinLim import DessinLim
 from phystricksQQa import QQa
 from phystricksQCb import QCb
@@ -169,7 +168,6 @@ from phystricksExoParamCD import ExoParamCD
 from phystricksCbCartTui import CbCartTui
 from phystricksCbCartTuii import CbCartTuii
 from phystricksCbCartTuiii import CbCartTuiii
-from phystricksDS2010exo1 import DS2010exo1
 from phystricksPHTVjfk import PHTVjfk
 from phystrickssenotopologo import senotopologo
 from phystricksQXyVaKD import QXyVaKD
@@ -197,14 +195,16 @@ from phystricksTrajs import Trajs
 #from phystricksExoCourone import ExoCourone
 #from phystricksExampleChangementVariables import ExampleChangementVariables
 #from phystricksAIFsOQO import AIFsOQO  # Il n'est pas dans le fichier phystricksAIFsOQO.
+#from phystricksDessinExp import DessinExp
+#from phystricksDS2010exo1 import DS2010exo1
 
 figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre,MomentForce,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
         DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin,ChampGraviation,FnCosApprox,Bateau,FonctionXtrois,FonctionEtDerive,SurfaceDerive,
-        DerivTangente,ExoUnSurxPolaire,DessinExp,DessinLim,ExoProjection,ExoPolaire,TriangleRectangle,CercleTnu,QCb,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
+        DerivTangente,ExoUnSurxPolaire,DessinLim,ExoProjection,ExoPolaire,TriangleRectangle,CercleTnu,QCb,ProjectionScalaire,CercleTrigono,TgCercleTrigono,
         SurfaceHorizVerti,SurfaceCercle,KScolorD,CheminFresnel,IntRectangle,IntTriangle,CoinPasVar,IntEcourbe,IntBoutCercle,IntDeuxCarres,ExPolygone,CercleImplicite,QQa,
         ConeRevolution,ChoixInfini,ProjPoly,trigoWedd,DisqueConv,ExempleNonRang,ToreRevolution,ExSinLarge,ContourGreen,ContourSqL,ContourTgNDivergence,ratrap,MaxVraissLp,
         BiaisOuPas,ChiSquared,ChiSquaresQuantile,MethodeNewton,ExoVarj,TriangleUV,DefinitionCartesiennes,CoordPolaires,Parallelogramme,CbCartTui,CbCartTuii,
-        CbCartTuiii,DS2010exo1,SuiteUnSurn,SpiraleLimite,IntTrois,CornetGlace,Differentielle,CSCiv,CSCvi,CSCii,CSCiii,CSCv,Cardioideexo,
+        CbCartTuiii,SuiteUnSurn,SpiraleLimite,IntTrois,CornetGlace,Differentielle,CSCiv,CSCvi,CSCii,CSCiii,CSCv,Cardioideexo,
         DistanceEuclide,LesSpheres,IntervalleUn,DistanceEnsemble,AccumulationIsole,MethodeChemin,ExempleArcParam,CourbeRectifiable,SuiteInverseAlterne,CycloideA,Cardioid,
         ParamTangente,Polirettangolo,RegioniPrimoeSecondoTipo,ExampleIntegration,ExampleIntegrationdeux,ArcLongueurFinesse,
         TangentSegment,BoulePtLoin,UneCellule,SenoTopologo,AdhIntFr,AdhIntFrDeux,AdhIntFrTrois,AdhIntFrSix,DeuxCercles,TraceCycloide,QuelCote,Osculateur,examssepti,
