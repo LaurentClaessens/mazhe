@@ -6,7 +6,7 @@ def DistanceEnsemble():
 	Cercle=Circle(C,1)
 	A=Cercle.get_point(45)
 	A.put_mark(0.3,45,"$A$")
-	A.parameters.symbol="none"
+	A.parameters.symbol=""
 	pspict.DrawGraph(A)
 	P=Cercle.get_point(210)
 	Q=Cercle.get_point(100)

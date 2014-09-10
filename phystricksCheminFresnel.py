@@ -17,9 +17,9 @@ def CheminFresnel():
     P2=gamma2.get_point(pi/8)
     P3=gamma3.get_point(R/2)
 
-    P1.parameters.symbol="none"
-    P2.parameters.symbol="none"
-    P3.parameters.symbol="none"
+    P1.parameters.symbol=""
+    P2.parameters.symbol=""
+    P3.parameters.symbol=""
 
     P1.put_mark(0.1,P1.advised_mark_angle,"\( \gamma_1\)",automatic_place=pspict)
     P2.put_mark(0.1,P2.advised_mark_angle,"\( \gamma_2\)",automatic_place=pspict)

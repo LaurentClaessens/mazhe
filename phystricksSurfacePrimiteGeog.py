@@ -28,10 +28,10 @@ def SurfacePrimiteGeog():
     x.put_mark(0.3,-90,"$x$")
     F.put_mark(0.5,0,"$f(x)$")
     N.put_mark(2,0,"$S=F(x)=\int_a^xf(t)dt$")
-    a.parameters.symbol="none"
-    x.parameters.symbol="none"
-    F.parameters.symbol="none"
-    N.parameters.symbol="none"
+    a.parameters.symbol=""
+    x.parameters.symbol=""
+    F.parameters.symbol=""
+    N.parameters.symbol=""
 
     pspict.axes.no_graduation()
 

@@ -8,8 +8,8 @@ def MethodeChemin():
 	D=Point(1,0.5)
 	A.put_mark(0.3,90,"$y=-x$")
 	D.put_mark(0.3,45,"$y=x/2$")
-	A.parameters.symbol="none"
-	D.parameters.symbol="none"
+	A.parameters.symbol=""
+	D.parameters.symbol=""
 	S1=Segment(A,B)
 	S2=Segment(C,D)
 	S1.parameters.color="red"

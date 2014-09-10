@@ -17,7 +17,7 @@ def IsomCarre():
     S=Segment(Point(0,-1-l),Point(0,1+l))
     E=S.F
     E.put_mark(0.1,45,"\( s\)",automatic_place=pspict)
-    E.parameters.symbol="none"
+    E.parameters.symbol=""
     Carre=Rectangle(A,C)
     Carre.parameters.color="blue"
 

@@ -14,8 +14,8 @@ def CoordPolaires():
 	milieu=vecteur.center()
 	milieu.put_mark(0.2,milieu.advised_mark_angle,"$r$")
 
-	milieu.parameters.symbol="none"
-	M.parameters.symbol="none"
+	milieu.parameters.symbol=""
+	M.parameters.symbol=""
 	M.put_mark(0.1,0,"$(x,y)$",automatic_place=(pspict,"W"))
 
 	pspict.DrawGraphs(M,vecteur,angle,milieu)

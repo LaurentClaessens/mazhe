@@ -7,7 +7,7 @@ def CercleTrigono():
     alpha=30
     P=Cercle.get_point(alpha)
     P.put_mark(0.3,P.advised_mark_angle,"$P$")
-    P.parameters.symbol="none"
+    P.parameters.symbol=""
     vecteur=Vector(P)
     vecteur.parameters.color="blue"
     C=P.projection(pspict.axes.single_axeX)

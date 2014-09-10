@@ -7,11 +7,11 @@ def ExoPolaire():
 
 	P=Point(sqrt(3),1)
 	P.put_mark(0.1,0,"$(\sqrt{3},1)$",automatic_place=(pspict,"W"))
-	P.parameters.symbol="none"
+	P.parameters.symbol=""
 
 	v=Vector(P)
 	m=v.center()
-	m.parameters.symbol="none"
+	m.parameters.symbol=""
 	m.put_mark(0.3,m.advised_mark_angle,"$l$")
 
 	theta=Angle(X,O,P,r=0.5)

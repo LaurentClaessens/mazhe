@@ -34,7 +34,7 @@ def ExoProjection():
 
     Pl=point(-0.5)
     Pl.put_mark(0.1,-90,"$P(\lambda)$",automatic_place=(pspict,"corner"))
-    #Pl.parameters.symbol="none"
+    #Pl.parameters.symbol=""
     Vl=vect(-0.5)
     Vl.parameters.color="cyan"
 

@@ -33,8 +33,8 @@ def RegioniPrimoeSecondoTipo():
 	Mf.put_mark(0.3,Mf.advised_mark_angle,"$g_1$")
 	Mg=g.get_point(m)
 	Mg.put_mark(0.3,Mg.advised_mark_angle,"$g_2$")
-	Mf.parameters.symbol="none"
-	Mg.parameters.symbol="none"
+	Mf.parameters.symbol=""
+	Mg.parameters.symbol=""
 	Sa=Segment(f.get_point(a),Xa)
 	Sa.parameters.style="dotted"
 	Sb=Segment(f.get_point(b),Xb)
@@ -71,8 +71,8 @@ def RegioniPrimoeSecondoTipo():
 	MS.put_mark(0.3,MS.advised_mark_angle.degree+180,"$h_1$")
 	MR=R.get_point(m)
 	MR.put_mark(0.3,0,"$h_2$")
-	MS.parameters.symbol="none"
-	MR.parameters.symbol="none"
+	MS.parameters.symbol=""
+	MR.parameters.symbol=""
 	Sc=Segment(S.get_point(c),Xc)
 	Sc.parameters.style="dotted"
 	Sd=Segment(S.get_point(d),Xd)

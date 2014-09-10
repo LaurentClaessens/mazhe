@@ -16,8 +16,8 @@ def ArcCercleAngle():
     Q=cercle.get_point(sigma)
     P.put_mark(0.3,P.advised_mark_angle,r"$\theta_0$")
     Q.put_mark(0.3,Q.advised_mark_angle,r"$\theta_1$")
-    P.parameters.symbol="none"
-    Q.parameters.symbol="none"
+    P.parameters.symbol=""
+    Q.parameters.symbol=""
     M=cercle.get_point((sigma+theta)/2)
     M.put_mark(0.3,M.advised_mark_angle,"$\sigma(t)$")
 

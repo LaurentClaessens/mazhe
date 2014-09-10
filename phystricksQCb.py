@@ -20,7 +20,7 @@ def QCb():
     d.put_mark(0,0,"\( xy\)")
 
     for el in [a,b,c,d]:
-        el.parameters.symbol="none"
+        el.parameters.symbol=""
 
     OE=Segment(O,E)
     NO=Segment(O,N)

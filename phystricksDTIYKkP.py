@@ -17,11 +17,11 @@ def DTIYKkP():
 
     ptO.parameters.color = "blue"
     ptO.put_mark(0.8,0,"$o=[\mtu]$")
-    ptB.parameters.symbol = "none"
+    ptB.parameters.symbol = ""
     ptB.put_mark(0.7,0,"$[\SO(2)]$")
     #pspict.DrawBoundingBox(B)
     ptP.parameters.color = "blue"
-    ptP.parameters.symbol = "none"
+    ptP.parameters.symbol = ""
     ptP.put_mark(0.7,135,"$[ e^{xq_0}]$")
 
     pspict.DrawGraph(F)
