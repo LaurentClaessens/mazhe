@@ -181,7 +181,6 @@ from phystricksAireParabole import AireParabole
 from phystricksPartieEntiere import PartieEntiere
 from phystricksMantisse import Mantisse
 from phystricksDS2010ExoGraph import DS2010ExoGraph
-from phystricksDS2010bisExoGraph import DS2010bisExoGraph
 from phystricksSolsEqDiffSin import SolsEqDiffSin
 from phystricksSolsSinpA import SolsSinpA
 from phystricksTrajs import Trajs
@@ -197,6 +196,7 @@ from phystricksTrajs import Trajs
 #from phystricksAIFsOQO import AIFsOQO  # Il n'est pas dans le fichier phystricksAIFsOQO.
 #from phystricksDessinExp import DessinExp
 #from phystricksDS2010exo1 import DS2010exo1
+#from phystricksDS2010bisExoGraph import DS2010bisExoGraph
 
 figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refraction,IsomCarre,MomentForce,CouroneExam,SurfacePrimiteGeog,SurfaceEntreCourbes,
         DivergenceTrois,DivergenceDeux,DivergenceUn,ArcCercleAngle,ExoXLVL,Laurin,ChampGraviation,FnCosApprox,Bateau,FonctionXtrois,FonctionEtDerive,SurfaceDerive,
@@ -211,7 +211,7 @@ figures_list=[MoulinEau,IntegraleSimple,ExoMagnetique,CurvilignesPolaires,Refrac
         examsseptii,LAfWmaN,YWxOAkh,MCQueGF,PHTVjfk,IWuPxFc,MCKyvdk,senotopologo,TangenteQuestion,TangenteDetail,LesSubFigures,NiveauHyperbole,
         NiveauHyperboleDeux,JGuKEjH,FWJuNhU,QXyVaKD,HasseAGdfdy,DynkinpWjUbE,DynkinNUtPJx,DynkinrjbHIu,DynkinqlgIQl,ADUGmRRA,ADUGmRRB,ADUGmRRC,TGdUoZR,GBnUivi,FGWjJBX,
         RQsQKTl,MNICGhR,LEJNDxI,RGjjpwF,STdyNTH,QPcdHwP,HNxitLj,NEtAchr,EJRsWXw,RLuqsrr,DTIYKkP,SFdgHdO,IYAvSvI,TZCISko,ALIzHFm,TracerUn,ACUooQwcDMZ,
-        ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,DS2010bisExoGraph,SolsEqDiffSin,SolsSinpA,Trajs,UYJooCWjLgK,WHCooNZAmYB,
+        ExerciceGraphesbis,Grapheunsurunmoinsx,ExoCUd,UnSurxInt,AireParabole,PartieEntiere,Mantisse,SolsEqDiffSin,SolsSinpA,Trajs,UYJooCWjLgK,WHCooNZAmYB,
         QIZooQNQSJj,FXVooJYAfif,ExoParamCD,ZTTooXtHkci,EHDooGDwfjC,UZGooBzlYxr,AIFsOQO
         ]
 
