@@ -12,7 +12,7 @@ def ExPolygone():
     poly.parameters.hatch.color="green"
     poly.edge.parameters.color="blue"
 
-    segments=[s.copy().dilatation(3.3) for s in poly.edges_list]
+    segments=[s.copy().dilatation(3.3) for s in poly.edges]
     for s in segments :
         s.parameters.color="red"
 
