@@ -8,7 +8,7 @@ def SuiteInverseAlterne():
 	n=10
 	for i in range(1,n+1):
 		P=Point(i,suite(i))
-		P.put_mark(0.3,(-1)**i*90,"$%s$"%(repr(suite(i))))
+		P.put_mark(0.3,(-1)**i*90,"$%s$"%(repr(suite(i))),automatic_place=pspict)
 		pspict.DrawGraph(P)
 
 	pspict.axes.no_graduation()

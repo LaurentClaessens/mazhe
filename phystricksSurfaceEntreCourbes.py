@@ -21,8 +21,8 @@ def SurfaceEntreCourbes():
     A=Point(i1,0)
     B=Point(i2,0)
 
-    A.put_mark(0.3,-90,"$a$")
-    B.put_mark(0.3,-90,"$b$")
+    A.put_mark(0.3,-90,"$a$",automatic_place=pspict)
+    B.put_mark(0.3,-90,"$b$",automatic_place=pspict)
 
     grande_surface=SurfaceUnderFunction(f2,i1,i2)
     petite_surface=SurfaceUnderFunction(f1,i1,i2)

@@ -27,12 +27,12 @@ def RegioniPrimoeSecondoTipo():
 
 	Xa=Point(a,0)
 	Xb=Point(b,0)
-	Xa.put_mark(0.3,-90,"$a$")
-	Xb.put_mark(0.3,-90,"$b$")
+	Xa.put_mark(0.3,-90,"$a$",automatic_place=pspict)
+	Xb.put_mark(0.3,-90,"$b$",automatic_place=pspict)
 	Mf=f.get_point(m)
-	Mf.put_mark(0.3,Mf.advised_mark_angle,"$g_1$")
+	Mf.put_mark(0.3,Mf.advised_mark_angle,"$g_1$",automatic_place=pspict)
 	Mg=g.get_point(m)
-	Mg.put_mark(0.3,Mg.advised_mark_angle,"$g_2$")
+	Mg.put_mark(0.3,Mg.advised_mark_angle,"$g_2$",automatic_place=pspict)
 	Mf.parameters.symbol=""
 	Mg.parameters.symbol=""
 	Sa=Segment(f.get_point(a),Xa)
@@ -65,12 +65,12 @@ def RegioniPrimoeSecondoTipo():
 
 	Xc=Point(0,S.get_point(c).y)
 	Xd=Point(0,S.get_point(d).y)
-	Xc.put_mark(0.3,180,"$c$")
-	Xd.put_mark(0.3,180,"$d$")
+	Xc.put_mark(0.3,180,"$c$",automatic_place=pspict)
+	Xd.put_mark(0.3,180,"$d$",automatic_place=pspict)
 	MS=S.get_point(m)
-	MS.put_mark(0.3,MS.advised_mark_angle.degree+180,"$h_1$")
+	MS.put_mark(0.3,MS.advised_mark_angle.degree+180,"$h_1$",automatic_place=pspict)
 	MR=R.get_point(m)
-	MR.put_mark(0.3,0,"$h_2$")
+	MR.put_mark(0.3,0,"$h_2$",automatic_place=pspict)
 	MS.parameters.symbol=""
 	MR.parameters.symbol=""
 	Sc=Segment(S.get_point(c),Xc)

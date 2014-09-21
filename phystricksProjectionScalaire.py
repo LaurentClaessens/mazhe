@@ -16,7 +16,7 @@ def ProjectionScalaire():
 	h=Segment(X.F,P)
 	h.parameters.style="dotted"
 	measure=MeasureLength(Segment(O,P),0.3)
-	measure.put_mark(0.3,-90,"$x$")
+	measure.put_mark(0.3,-90,"$x$",automatic_place=pspict)
 
 	pspict.DrawGraphs(X,Y,P,O,measure,h)
 	pspict.axes.no_graduation()

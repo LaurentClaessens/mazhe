@@ -42,7 +42,6 @@ from phystricksRLuqsrr import RLuqsrr
 from phystricksDTIYKkP import DTIYKkP
 from phystricksSFdgHdO import SFdgHdO
 
-
 from phystricksJGuKEjH import JGuKEjH
 from phystricksMCKyvdk import MCKyvdk
 from phystricksIWuPxFc import IWuPxFc
@@ -317,7 +316,6 @@ figures_list.append(PHTVjfk)
 figures_list.append(IWuPxFc)
 figures_list.append(MCKyvdk)
 figures_list.append(senotopologo)
-figures_list.append(LesSubFigures)
 figures_list.append(NiveauHyperbole)
 figures_list.append(NiveauHyperboleDeux)
 figures_list.append(JGuKEjH)

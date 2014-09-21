@@ -5,7 +5,7 @@ from __future__ import division
 from phystricks import *
 
 c=0.5
-def small_box(X,Y,text=""):
+def small_box(X,Y,pspict,text=""):
     x=c*X
     y=c*Y
     A=Point(x-c/2,y-c/2)
@@ -13,7 +13,7 @@ def small_box(X,Y,text=""):
     C=Point(x+c/2,y+c/2)
     D=Point(x-c/2,y+c/2)
     P=Point(x,y)
-    P.put_mark(0.0,0,text)
+    P.put_mark(0.0,0,text,automatic_place=pspict)
     P.parameters.symbol=""
     return [P,Polygon(A,B,C,D)]
 
@@ -23,17 +23,17 @@ def GBnUivi():
     pspict.dilatation_Y(1)
 
     Q=[]
-    Q.append( small_box(0,2,"1") )
-    Q.append( small_box(1,2,"2") )
-    Q.append( small_box(2,2,"3") )
-    Q.append( small_box(3,2,"4") )
-    Q.append( small_box(4,2,"7") )
-    Q.append( small_box(5,2,"8") )
-    Q.append( small_box(0,1,"3") )
-    Q.append( small_box(1,1,"5") )
-    Q.append( small_box(2,1,"6") )
-    Q.append( small_box(3,1,"9") )
-    Q.append( small_box(0,0,"10") )
+    Q.append( small_box(0,2,pspict,"1") )
+    Q.append( small_box(1,2,pspict,"2") )
+    Q.append( small_box(2,2,pspict,"3") )
+    Q.append( small_box(3,2,pspict,"4") )
+    Q.append( small_box(4,2,pspict,"7") )
+    Q.append( small_box(5,2,pspict,"8") )
+    Q.append( small_box(0,1,pspict,"3") )
+    Q.append( small_box(1,1,pspict,"5") )
+    Q.append( small_box(2,1,pspict,"6") )
+    Q.append( small_box(3,1,pspict,"9") )
+    Q.append( small_box(0,0,pspict,"10") )
 
     for q in Q :
         pspict.DrawGraphs(q[0],q[1])
@@ -47,10 +47,10 @@ def IYAvSvI():
     pspict.dilatation_Y(1)
 
     Q=[]
-    Q.append( small_box(0,1,"1") )
-    Q.append( small_box(1,1,"3") )
-    Q.append( small_box(0,0,"2") )
-    Q.append( small_box(1,0,"4") )
+    Q.append( small_box(0,1,pspict,"1") )
+    Q.append( small_box(1,1,pspict,"3") )
+    Q.append( small_box(0,0,pspict,"2") )
+    Q.append( small_box(1,0,pspict,"4") )
 
     for q in Q :
         pspict.DrawGraphs(q[0],q[1])
@@ -64,14 +64,14 @@ def TGdUoZR():
     pspict.dilatation_Y(1)
 
     Q=[]
-    Q.append( small_box(0,2) )
-    Q.append( small_box(1,2) )
-    Q.append( small_box(2,2) )
-    Q.append( small_box(3,2) )
-    Q.append( small_box(0,1) )
-    Q.append( small_box(1,1) )
-    Q.append( small_box(2,1) )
-    Q.append( small_box(0,0) )
+    Q.append( small_box(0,2,pspict) )
+    Q.append( small_box(1,2,pspict) )
+    Q.append( small_box(2,2,pspict) )
+    Q.append( small_box(3,2,pspict) )
+    Q.append( small_box(0,1,pspict) )
+    Q.append( small_box(1,1,pspict) )
+    Q.append( small_box(2,1,pspict) )
+    Q.append( small_box(0,0,pspict) )
 
     for q in Q :
         pspict.DrawGraphs(q[0],q[1])
@@ -86,15 +86,15 @@ def AIFsOQO():
     pspict.dilatation_Y(1)
 
     Q=[]
-    Q.append( small_box(0,1) )
-    Q.append( small_box(1,1) )
-    Q.append( small_box(2,1) )
-    Q.append( small_box(3,1) )
-    Q.append( small_box(4,1) )
-    Q.append( small_box(5,1) )
-    Q.append( small_box(0,0) )
-    Q.append( small_box(1,0) )
-    Q.append( small_box(2,0) )
+    Q.append( small_box(0,1,pspict) )
+    Q.append( small_box(1,1,pspict) )
+    Q.append( small_box(2,1,pspict) )
+    Q.append( small_box(3,1,pspict) )
+    Q.append( small_box(4,1,pspict) )
+    Q.append( small_box(5,1,pspict) )
+    Q.append( small_box(0,0,pspict) )
+    Q.append( small_box(1,0,pspict) )
+    Q.append( small_box(2,0,pspict) )
 
     for q in Q :
         pspict.DrawGraphs(q[0],q[1])

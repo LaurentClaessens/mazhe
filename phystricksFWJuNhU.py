@@ -25,16 +25,16 @@ def FWJuNhU():
 
     a1=C1.center()
     a1.parameters.symbol=""
-    a1.put_mark(0,0,"\( xy\)")
+    a1.put_mark(0,0,"\( xy\)",automatic_place=pspict)
     a2=C2.center()
     a2.parameters.symbol=""
-    a2.put_mark(0,0,"\( x-y\)")
+    a2.put_mark(0,0,"\( x-y\)",automatic_place=pspict)
     a3=C3.center()
     a3.parameters.symbol=""
-    a3.put_mark(0,0,"\( x^2y\)")
+    a3.put_mark(0,0,"\( x^2y\)",automatic_place=pspict)
     a4=C4.center()
     a4.parameters.symbol=""
-    a4.put_mark(0,0,"\( x+y\)")
+    a4.put_mark(0,0,"\( x+y\)",automatic_place=pspict)
 
 
     pspict.axes.no_graduation()

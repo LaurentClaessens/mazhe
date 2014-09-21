@@ -12,7 +12,7 @@ def QXyVaKD():
     c1.parameters.color="red"
     c2.parameters.color="blue"
     P=circle.get_point(alpha)
-    P.put_mark(0.3,-45,"$P$")
+    P.put_mark(0.3,-45,"$P$",automatic_place=pspict)
 
     s1=Segment(Point(0,0),P)
     segment=s1.dilatation(2)

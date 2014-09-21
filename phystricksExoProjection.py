@@ -13,7 +13,7 @@ def ExoProjection():
     w.put_mark(0.3,130,"$w$",automatic_place=pspict)
 
     A=Point(1.5,3)
-    A.put_mark(0.3,90,"$A$")
+    A.put_mark(0.3,90,"$A$",automatic_place=pspict)
     B=A.projection(w)
     pspict.specific_needs=r"""
     \usepackage{latexsym}

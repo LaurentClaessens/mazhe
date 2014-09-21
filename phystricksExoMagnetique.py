@@ -6,7 +6,7 @@ def ExoMagnetique():
     fil.parameters.style="dashed"
     I=Vector(0,1)
     I.parameters.color="red"
-    I.put_mark(0.3,0,"$I$")
+    I.put_mark(0.3,0,"$I$",automatic_place=pspict)
 
     P=Point(-2,1)
     P.put_mark(0.2,135,r"$(r,\theta,z)$",automatic_place=pspict)

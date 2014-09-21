@@ -14,12 +14,12 @@ def TgCercleTrigono():
 	vQ.parameters.color="cyan"
 
 	theta=Angle(X,O,P)
-	theta.put_mark(0.3,theta.advised_mark_angle,r"$\theta$")
+	theta.put_mark(0.3,theta.advised_mark_angle,r"$\theta$",automatic_place=pspict)
 	theta.parameters.color=vP.parameters.color
 
 	phi=Angle(X,O,Q,theta.r+0.5)
 	phi.set_mark_angle(0.5*(90+phi.angleF.degree))
-	phi.put_mark(0.3,phi.advised_mark_angle,r"$\varphi$")
+	phi.put_mark(0.3,phi.advised_mark_angle,r"$\varphi$",automatic_place=pspict)
 	phi.parameters.color=vQ.parameters.color
 
 	tangente=Cercle.get_tangent_vector(0)

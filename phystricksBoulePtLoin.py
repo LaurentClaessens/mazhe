@@ -4,15 +4,15 @@ def BoulePtLoin():
 
 	r=float(2)
 	a=Point(0,0)
-	a.put_mark(0.3,135,"$a$")
+	a.put_mark(0.3,135,"$a$",automatic_place=pspict)
 	cercle=Circle(a,r)
 	x=cercle.get_point(45)
-	x.put_mark(0.3,150,"$x$")
+	x.put_mark(0.3,150,"$x$",automatic_place=pspict)
 	v=AffineVector(a,x)
 	delta=r/2
 	N=4*(v.length()/delta)/3
 	P=x+v/N
-	P.put_mark(0.3,-90,"$P$")
+	P.put_mark(0.3,-90,"$P$",automatic_place=pspict)
 	B=Circle(x,delta)
 	B.parameters.style="dotted"
 	seg=Segment(x,P)

@@ -14,8 +14,8 @@ def CercleTnu():
         n.parameters.color="green"
         t=C.get_tangent_vector(alpha)
         t.parameters.color="red"
-        n.put_mark(0.3,n.advised_mark_angle,"\( n\)")
-        t.put_mark(0.3,t.advised_mark_angle+180,"\( e_{\\theta}\)")
+        n.put_mark(0.3,n.advised_mark_angle,"\( n\)",automatic_place=pspict)
+        t.put_mark(0.3,t.advised_mark_angle+180,"\( e_{\\theta}\)",automatic_place=pspict)
         pspict.DrawGraphs(n,t)
         
 

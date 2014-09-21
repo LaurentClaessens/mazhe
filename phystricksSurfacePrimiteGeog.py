@@ -24,10 +24,10 @@ def SurfacePrimiteGeog():
     surface.Isegment.parameters.style="dashed"
     surface.Fsegment.parameters.style="dashed"
 
-    a.put_mark(0.3,-90,"$a$")
-    x.put_mark(0.3,-90,"$x$")
-    F.put_mark(0.5,0,"$f(x)$")
-    N.put_mark(2,0,"$S=F(x)=\int_a^xf(t)dt$")
+    a.put_mark(0.3,-90,"$a$",automatic_place=pspict)
+    x.put_mark(0.3,-90,"$x$",automatic_place=pspict)
+    F.put_mark(0.5,0,"$f(x)$",automatic_place=pspict)
+    N.put_mark(2,0,"$S=F(x)=\int_a^xf(t)dt$",automatic_place=pspict)
     a.parameters.symbol=""
     x.parameters.symbol=""
     F.parameters.symbol=""

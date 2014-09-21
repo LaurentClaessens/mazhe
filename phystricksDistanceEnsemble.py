@@ -5,16 +5,16 @@ def DistanceEnsemble():
 	C=Point(0,0)
 	Cercle=Circle(C,1)
 	A=Cercle.get_point(45)
-	A.put_mark(0.3,45,"$A$")
+	A.put_mark(0.3,45,"$A$",automatic_place=pspict)
 	A.parameters.symbol=""
 	pspict.DrawGraph(A)
 	P=Cercle.get_point(210)
 	Q=Cercle.get_point(100)
-	P.put_mark(0.5,-90,"$p$")
+	P.put_mark(0.5,-90,"$p$",automatic_place=pspict)
 	R=Circle(C,0.7).get_point(-90)
 	v=AffineVector(C,P)
 	X=(v*2.3).F
-	X.put_mark(0.3,180,"$x$")
+	X.put_mark(0.3,180,"$x$",automatic_place=pspict)
 
 	xP=Segment(X,P)
 	xQ=Segment(X,Q)

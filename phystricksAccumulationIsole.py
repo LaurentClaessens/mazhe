@@ -9,10 +9,10 @@ def AccumulationIsole():
     Boule.parameters.fill.color="lightgray"
 
     P=Point(1,1)
-    P.put_mark(0.4,0,"$P$")
+    P.put_mark(0.4,0,"$P$",automatic_place=pspict)
     Q=Point(-1,0)
     Q.parameters.color="red"
-    Q.put_mark(0.4,180,"$Q$")
+    Q.put_mark(0.4,180,"$Q$",automatic_place=pspict)
 
     S=Point(0.5,0.5)
     S.put_mark(0.3,-135,"$S$",automatic_place=pspict)
