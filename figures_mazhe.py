@@ -80,9 +80,7 @@ from phystricksBateau import Bateau
 from phystricksFonctionXtrois import FonctionXtrois
 from phystricksFonctionEtDerive import FonctionEtDerive
 from phystricksSurfaceDerive import SurfaceDerive
-from phystricksRechercheTangente import TangenteQuestion
-from phystricksRechercheTangente import TangenteDetail
-from phystricksRechercheTangente import LesSubFigures
+from phystricksRechercheTangente import VGZooJnvvZc
 from phystricksDerivTangente import DerivTangente
 from phystricksCoordPolaires import CoordPolaires
 from phystricksDefinitionCartesiennes import DefinitionCartesiennes
@@ -319,8 +317,6 @@ figures_list.append(PHTVjfk)
 figures_list.append(IWuPxFc)
 figures_list.append(MCKyvdk)
 figures_list.append(senotopologo)
-figures_list.append(TangenteQuestion)
-figures_list.append(TangenteDetail)
 figures_list.append(LesSubFigures)
 figures_list.append(NiveauHyperbole)
 figures_list.append(NiveauHyperboleDeux)
@@ -374,6 +370,17 @@ figures_list.append(ZTTooXtHkci)
 figures_list.append(EHDooGDwfjC)
 figures_list.append(UZGooBzlYxr)
 figures_list.append(AIFsOQO)
+figures_list.append(VGZooJnvvZc)
+"""
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+"""
 
 def AllFigures():
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"(almost) all I know in mathematics and physics")
