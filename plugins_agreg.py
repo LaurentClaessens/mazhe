@@ -96,8 +96,6 @@ class keep_script_marks(object):
         lignes=A.splitlines()
         # Select the usefull marks and sort them.
         marks=[  x for x in script_mark_dict.keys() if x in self.keep_mark_list ]
-        print("XNLooHpkayU",script_mark_dict.keys())
-        print("HWLooTICtAs",marks)
         marks.sort(key=lambda a:script_mark_dict[a][0])
         for mark in marks :
             a=script_mark_dict[mark][0]
