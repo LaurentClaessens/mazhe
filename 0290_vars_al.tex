@@ -486,6 +486,32 @@ La variable aléatoire
 \end{equation}
 est la \defe{variance empirique}{variance!empirique} de l'échantillon \( (X_i)\).
 
+\begin{lemma}       \label{LemEXYEXEYindep}\label{PropVarPropnnlin}
+    Si \( X\) est une variable aléatoire,
+    \begin{enumerate}
+        \item
+            $\Var(ax)=a^2\Var(X)$ pour tout \( a\in\eR\);
+        \item
+            Si de plus \( Y\) est une variable aléatoire indépendante de \( X\), alors $\Var(X+Y)=\Var(X)+\Var(Y)$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Nous avons
+    \begin{subequations}
+        \begin{align}
+            \Var(X+Y)&=E(X^2+Y^2+2XY)-\big( E(X)+E(Y) \big)^2\\
+            &=E(X^2)+E(Y^2)+2E(XY)-E(X)^2-E(Y)^2E(X)E(Y).
+        \end{align}
+    \end{subequations}
+    Étant donné que \( X\) et \( Y\) sont indépendantes nous avons \( E(XY)=E(X)E(Y)\).
+\end{proof}
+
+Si les \( X_1,\ldots,X_n\) sont des variables aléatoires on considère la \defe{moyenne empirique}{moyenne!empirique}
+\begin{equation}
+    \bar X_n=\frac{ X_1+\ldots+X_n }{ n }.
+\end{equation}
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Covariance}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -1035,6 +1061,109 @@ Dans le cas d'une variable aléatoire à valeurs continues, cette définition ne
         E\big( E(\mtu_A|\sigma(A)) \big)=E(\mtu_A)=P(A).
     \end{equation}
 \end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Un petit paradoxe}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{subSecGXVYooTDdZaB}
+
+Attention : ce qui est écrit ici est ma réflexion personnelle sur le sujet. Merci de me dire si je me trompe.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Le cas facile}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Vous frappez à la porte d'une famille dont vous savez seulement qu'il y a deux enfants. Une fille ouvre et vous dit «je suis l'aînée». Quelle est la probabilité que le cadet soit une fille ?
+
+Si nous notons \( X_0\) et \( X_1\) les variables aléatoires donnant le sexe des deux enfants, ce sont des variables aléatoires indépendantes et identiquement distribuées, avec \( P(X_i=f)=\frac{ 1 }{2}\). La formule \eqref{EqProbCond} de la probabilité conditionnelle ainsi que l'indépendance donnent :
+\begin{equation}
+    P(X_1=f|X_2=f)=\frac{ P(X_1=f,X_2=f) }{ P(X_2=f) }.
+\end{equation}
+Le numérateur vaut \( \frac{1}{ 4 }\) et le dénominateur vaut \( \frac{ 1 }{2}\); le résultat vaut \( \frac{ 1 }{2}\). Fin de l'histoire.
+
+Voici maintenant le problème à peine modifié. Vous frappez à la porte d'une famille dont vous savez seulement qu'il y a deux enfants. Une fille ouvre. Quelle est la probabilité que l'autre soit une fille ? Naïvement on croirait que la probabilité est également \( \frac{ 1 }{2}\). Un raisonnement moins naïf montre le contraire. Et nous allons voir qu'un raisonnement encore moins naïf montre que la probabilité est bien \( \frac{ 1 }{2}\).
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Premier raisonnement}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Voici le raisonnement qui est, à mon avis, faux. Vu que l'enfant qui ouvre la porte est une fille, la famille a une des compositions suivantes : \( fg\), \( ff\) ou \( gf\). Le cas où une fille ouvre la porte \emph{et} que l'autre est également une fille est seulement le cas \( ff\) dont la probabilité est \( \frac{1}{ 3 }\). Pour justifier cela nous considérons le couple de variables aléatoires \( \left( X_1,X_2 \right)\) et le conditionnement \( A=\{ X_1=f \}\cup\{ X_2=f \}\) : évidemment \( P(A)=\frac{ 3 }{ 4 }\). Nous calculons facilement la loi du couple \( (X_1,X_2)\) conditionné à \( A\) :
+\begin{equation}
+    P(X_1=f,X_2=f|A)=\frac{ P(  \{ X_1=f,X_2=f \}\cap A  ) }{ P(A) }=\frac{ 1/4 }{ 3/4 }=\frac{1}{ 3 };
+\end{equation}
+de même,
+\begin{subequations}
+    \begin{align}
+        P(X_1=g,X_2=f|A)&=\frac{1}{ 3 }\\
+        P(X_1=f,X_2=g|A)&=\frac{1}{ 3 }\\
+        P(X_1=g,X_2=g|A)&=0
+    \end{align}
+\end{subequations}
+Donc sachant \( A\), la probabilité que la famille soit constituée de deux filles est \( \frac{1}{ 3 }\).
+
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Simulation}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Pour en avoir le cœur net, nous avons écrit ce programme :
+\lstinputlisting{simul_famille.py}
+
+Le faisant tourner, la réponse est sans appel : la fréquence observée est beaucoup plus proche de \( 0.5\) que de \( 0.33\) ou \( 0.66\).
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{La vraie réponse}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Nous considérons les variables aléatoires \( X_0,X_1\colon \Omega_E\to \{ f,g \}\) avec probabilité \( \frac{ 1 }{2}\). De plus nous considérons une nouvelle variable aléatoire qui donne le numéro de l'enfant qui ouvre la porte :
+\begin{equation}
+    \sigma\colon \Omega_C\to \{ 0,1 \}.
+\end{equation}
+Nous devons calculer
+\begin{equation}
+    P\big( X_{1-\sigma}=f|X_{\sigma}=f \big)=\frac{ P\big( X_{1-\sigma}=f,X_{\sigma}=f \big) }{ P(X_{\sigma}=f) }.
+\end{equation}
+L'univers de toute cette expérience est, donnée en triples pour les valeurs \( (X_1,X_2,\sigma)\) :
+\begin{multicols}{4}
+    \begin{enumerate}
+        \item
+            \( g,g,0\)
+        \item
+            \( g,g,1\)
+        \item
+            \( g,f,0\)
+        \item
+            \( g,f,1\)
+        \item
+            \( f,g,0\)
+        \item
+            \( f,g,1\)
+        \item
+            \( f,f,0\)
+        \item
+            \( f,f,1\).
+    \end{enumerate}
+\end{multicols}
+Cela fait \( 8\) cas en tout. Nous avons
+\begin{equation}
+    \{ X_{\sigma}=f \}=\{ (g,f,1),(f,g,0),(f,f,0),(f,f,1) \}.
+\end{equation}
+et
+\begin{equation}
+    \{ X_{1-\sigma}=f \}\cap\{ X_{\sigma}=f \}=\{ (f,f,0),(f,f,1) \}.
+\end{equation}
+Donc
+\begin{equation}
+    P\big( X_{1-\sigma}=f,X_{\sigma}=f \big)=\frac{ 2 }{ 8 }=\frac{1}{ 4 }
+\end{equation}
+et
+\begin{equation}
+    P(X_{\sigma}=f)=\frac{ 4 }{ 8 }=\frac{ 1 }{2}.
+\end{equation}
+Au final,
+\begin{equation}
+    P\big( X_{1-\sigma}=f|X_{\sigma}=f \big)=\frac{ 1/4 }{ 1/2 }=\frac{ 2 }{ 4 }=\frac{ 1 }{2}.
+\end{equation}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Résumé des choses conditionnelles}
