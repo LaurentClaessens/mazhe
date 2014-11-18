@@ -15,7 +15,7 @@ Vérifier les "does not contain"
 Compiler le document sans external
 Copier les fichiers .aux dans un répertoire à part.
 Compiler les figures
-Compiler le document avec external (en cours)
+Compiler le document avec external
 """
 
 from phystricksUZGooBzlYxr import UZGooBzlYxr
