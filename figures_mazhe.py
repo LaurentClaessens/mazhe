@@ -6,6 +6,18 @@
 from phystricks import *
 import sys
 
+"""
+
+Dans un premier temps, je ne fais que la partie sur l'agrégation.
+
+Compiler les figures
+Vérifier les "does not contain"
+Compiler le document sans external
+Copier les fichiers .aux dans un répertoire à part.
+Compiler les figures
+Compiler le document avec external (en cours)
+"""
+
 from phystricksUZGooBzlYxr import UZGooBzlYxr
 from phystricksACUooQwcDMZ import ACUooQwcDMZ
 from phystricksZTTooXtHkci import ZTTooXtHkci

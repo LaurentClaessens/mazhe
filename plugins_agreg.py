@@ -111,9 +111,7 @@ def ultimate_git(a=None):
     # Attention : les nom de fichiers à giter ici sont aussi donnés dans le README
     import git
     repo=git.Repo("")
-    print('ETQooDsKpKY -- je vais tester')
     if repo.is_dirty():
-        print('VCLooHstQAD -- le test est fait et oui')
         automated_files=["agreg-mazhe_pytex.tex","enseignement-mazhe_pytex.tex","everything-mazhe_pytex.tex"]
         mfiles=repo.git.ls_files(m="").split("\n")
         on=True
@@ -124,5 +122,3 @@ def ultimate_git(a=None):
             for f in automated_files:
                 repo.git.add(f)
             repo.git.commit(m="automatic")
-    else :
-        print('VCLooHstQAD -- le test est fait et non')
