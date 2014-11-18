@@ -389,7 +389,6 @@ figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
-figures_list.append(<++>)
 """
 
 def AllFigures():
