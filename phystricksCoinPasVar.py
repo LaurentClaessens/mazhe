@@ -17,8 +17,8 @@ def CoinPasVar():
     T=Segment(B,N)
     T.parameters.color="blue"
 
-    t1=S.proportion(1/2)
-    t2=T.proportion(1/2)
+    t1=S.get_point_proportion(1/2)
+    t2=T.get_point_proportion(1/2)
 
     t1.put_mark(0.1,t1.advised_mark_angle,"\( t_1\)",automatic_place=pspict)
     t2.put_mark(0.1,t2.advised_mark_angle+180,"\( t_2\)",automatic_place=pspict)

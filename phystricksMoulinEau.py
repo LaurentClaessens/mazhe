@@ -16,7 +16,7 @@ def MoulinEau():
     courant.parameters.color="blue"
 
     palle0 = Segment(P,P.get_polar_point(l,-90))
-    Q=palle0.proportion(0.7)
+    Q=palle0.get_point_proportion(0.7)
     #v=AffineVector( Q, Point(Q.x-1,Q.y) )
     #v.parameters.color="blue"
 
@@ -24,7 +24,7 @@ def MoulinEau():
     pspicts[0].DrawGraphs(palle0,courant)
 
     palle1 = Segment(P,P.get_polar_point(l,-130))
-    Q=palle1.proportion(0.5)
+    Q=palle1.get_point_proportion(0.5)
     v=AffineVector( Q, Point(Q.x-1,Q.y) )
     vx,vy = v.decomposition(palle1)
     
