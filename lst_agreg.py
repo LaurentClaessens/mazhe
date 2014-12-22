@@ -16,7 +16,7 @@ myRequest.ok_hash=commons.ok_hash
 myRequest.add_plugin(plugins_agreg.accept_all_input,"medicament")
 myRequest.add_plugin(plugins_agreg.keep_script_marks(plugins_agreg.agreg_mark_list),"after_pytex")
 myRequest.add_plugin(plugins_agreg.set_isAgreg,"after_pytex")
-myRequest.add_plugin(plugins_agreg.set_commit_hexsha,"after_pytex")
-myRequest.add_plugin(plugins_agreg.ultimate_git,"before_compilation")
+#myRequest.add_plugin(plugins_agreg.set_commit_hexsha,"after_pytex")
+#myRequest.add_plugin(plugins_agreg.ultimate_git,"before_compilation")
 
 myRequest.original_filename="mazhe.tex"
