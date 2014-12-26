@@ -880,13 +880,13 @@ Soit \( K\) compact et supposons que que pour tout \( t_0<t_{max}\) il existe \(
 
 \begin{theorem}[Théorème de stabilité de Lyapunov]
     Soit l'équation différentielle
-    \begin{subequations}
+    \begin{subequations}    \label{EqZZLBooKBkZkG}
         \begin{numcases}{}
             y'(t)=f(y)\\
             y(0)=y_0
         \end{numcases}
     \end{subequations}
-    avec une fonction \( f\colon \eR^n\to \eR^n\) de classe \( C^1\) et \( y_0\in \eR^n\). Nous supposons que l'application linéaire \( df_0\) n'a que des valeurs propres dont la partie réelle est strictement négative. Alors
+    avec une fonction \( f\colon \eR^n\to \eR^n\) de classe \( C^1\) vérifiant \( f(0)=0\) et \( y_0\in \eR^n\). Nous supposons que l'application linéaire \( df_0\) n'a que des valeurs propres dont la partie réelle est strictement négative. Alors
     \begin{enumerate}
         \item
             La solution maximale est définie sur \( \eR\).
@@ -900,6 +900,14 @@ Soit \( K\) compact et supposons que que pour tout \( t_0<t_{max}\) il existe \(
 \index{stabilité!Lyapunov}
 
 \begin{proof}
+    Placer ici une phrase intelligente\footnote{Parce que sinon l'environnement \info{description} qui suit donne un mauvais effet.}.
+    \begin{subproof}
+        \item[Prolégomène]
+
+    Le théorème de Cauchy-Lipschitz \ref{ThokUUlgU} nous enseigne que l'équation différentielle considérée possède une unique solution maximale (entre autres parce qu'une fonction de classe \( C^1\) est localement Lipschitz).
+
+\item[Système linéarisé]
+
     Nous posons \( A=df_0\). La fonction \( y_L(t)= e^{tA}y_0\) est solution du système linéarisé
     \begin{subequations}
         \begin{numcases}{}
@@ -907,11 +915,93 @@ Soit \( K\) compact et supposons que que pour tout \( t_0<t_{max}\) il existe \(
             y(0)=y_0.
         \end{numcases}
     \end{subequations}
-    Pour évaluer la norme de \( y_L\) nous utilisons le lemme \ref{LemQEARooLRXEef} :
+    Pour évaluer la norme de \( y_L\) nous utilisons le lemme \ref{LemQEARooLRXEef} : il existe un polynôme \( P\) tel que
     \begin{equation}
-        \| y_L(t) \|\leq P\big( | t | \big)\sum_{i=1}^r e^{\re}<++>
+        \| y_L(t) \|\leq P\big( | t | \big)\sum_{i=1}^r e^{\real{\lambda_i}t}\| y_0 \|.
     \end{equation}
+    Mais par hypothèse, \( \real(\lambda_i)<0\) et si nous posons \( \lambda=\max\{ \real(\lambda_i) \}\) nous avons \( \lambda<0\) et 
+    \begin{equation}
+        \| y_L(t) \|\leq P\big( | t | \big) e^{\lambda t}\| y_0 \|.
+    \end{equation}
+    Donc quel que soit \( y_0\) nous avons \( \lim_{t\to \infty} \| y_L(t) \|=0\) c'est à dire \( \lim_{t\to \infty} y_L(t)=0\).
+
+\item[Une forme linéaire]
+
+    Nous définissons la forme bilinéaire suivante sur \( \eR^n\) :
+    \begin{equation}
+        b(x,y)=\int_0^{\infty}\langle  e^{tA}x,  e^{tA}y\rangle dt.
+    \end{equation}
+    D'abord cela est bien défini pour tout \( x,y\in \eR^n\) parce que
+    \begin{equation}
+        \big| \langle  e^{tA}x,  e^{tA}y\rangle  \big|\leq \|  e^{tA}x \|\|  e^{tA}y \|\leq P_1\big( | t | \big)P_2\big( | t | \big) e^{2\lambda t}\| x \|\| y \|,
+    \end{equation}
+    qui est intégrable entre \( 0\) et \( \infty\) à cause de la décroissance exponentielle\footnote{Proposition \ref{PropBQGBooHxNrrf}.}. Montrons que \( b\) est définie positive. Soit donc \( x\neq 0\) et calculons
+    \begin{equation}
+        b(x,x)=\int_0^{\infty}\|  e^{tA}x \|^2dt.
+    \end{equation}
+    Ce qui est dans l'intégrale est forcément (pas strictement) positif pour tout \( t\). Mais si \( x\neq 0\) alors \( \| x \|^2\) est strictement positif et sur un voisinage de \( t=0\) nous avons aussi \( \|  e^{tA}x \|^2\) qui est strictement positif. Ergo \( b(x,x)>0\) dès que \( x\neq 0\), ce qui signifie que \( b\) est strictement définie positive (lemme \ref{LemWZFSooYvksjw}).
+
+    Nous notons \( q\colon V\to \eR\) la forme quadratique associée à \( b\) et aussi la norme qui va avec : \( \| x \|_q=\sqrt{q(x)}\). En ce qui concerne le gradient \( \nabla q\colon V\to V\), nous avons la formule \( \nabla q(x)\cdot y=2b(x,y)\)\cite{MJEooXxBFFY}. En effet, nous utilisons une des nombreuses formules du lemme \ref{LemdfaSurLesPartielles}\footnote{Le fait que \( q\) soit différentiable est simplement le fait que \( b\) soit bilinéaire.} :
+    \begin{subequations}
+        \begin{align}
+            \nabla q(x)\cdot y&=\Dsdd{ q(x+ty) }{t}{0}\\
+            &=\Dsdd{ q(x)+t^2q(y)+2tb(x,y) }{t}{0}\\
+            &=2b(x,y).
+        \end{align}
+    \end{subequations}
+    Nous avons aussi
+    \begin{subequations}
+        \begin{align}
+            \nabla q(x)\cdot Ax&=2b(x,Ax)\\
+            &=2\int_0^{\infty}\langle  e^{tA}x,  e^{tA}Ax\rangle \\
+            &=\int_0^{\infty}\frac{ \partial  }{ \partial t }\Big( \langle  e^{tA}x,  e^{tA}x\rangle  \Big)(t)dt\\
+            &=\lim_{T\to \infty} \Big[ \langle  e^{tA}x,  e^{tA}x\rangle  \Big]_{t=0}^{t=T}.
+        \end{align}
+    \end{subequations}
+    Mais vu que \( \|  e^{tA}x \|\to 0\), pour \( t\to \infty\) il ne reste que terme \( t=0\) de la différence, c'est à dire
+    \begin{equation}    \label{EqUCOGooEFxZSO}
+        \nabla q(x)\cdot Ax=2b(x,Ax)=-\| x \|^2.
+    \end{equation}
+    Étant donné que \( \nabla q(x)\) est le vecteur dirigé vers l'extérieur de l'ellipsoïde de la courbe de niveau de \( q\) au point \( x\), le vecteur \( Ax\) est dirigé vers l'intérieur.
+
+\item[\( s'(t)\)]
+    Nous posons 
+    \begin{equation}
+        \begin{aligned}
+            r\colon \eR^n&\to \eR^n \\
+            x&\mapsto f(x)-Ax. 
+        \end{aligned}
+    \end{equation}
+
+    Soit \( y\) la solution maximale au problème \eqref{EqZZLBooKBkZkG} que nous pouvons aussi écrire sous la forme
+    \begin{equation}
+        y'(t)=r\big( y(t) \big)+Ay(t).
+    \end{equation}
+    Nous posons \( s(t)=q\big( y(t) \big)\) et nous voulons calculer \( s'(t)\). D'abord
+    \begin{subequations}
+        \begin{align}
+            q\big( y(t) \big)'&=b\big( y(t),y(t) \big)'\\
+            &=2b(y,y')\\
+            &=2b\big( y,Ay \big)+2b\big( y,r(y) \big)\\
+            &=-\| y \|^2+2b\big( y,r(y) \big)       &\text{\eqref{EqUCOGooEFxZSO} avec \( x=y(t)\)}\\
+            &\leq -\| y \|^2+2\| y(t) \|\| r\big( y(t) \big) \|.
+        \end{align}
+    \end{subequations}
+    À la dernière ligne nous avons utilisé Cauchy-Schwarz qui nous enseigne que \( | b(a,b) |\leq \| a \|_q\| b \|_q\).
+
+    Par ailleurs vu que \( df_0=A\) nous avons \( dr_0=df_0-A=0\) et de plus \( r\) est de classe \( C^1\) parce que \( f\) l'est. Toutes les normes étant équivalentes\footnote{Théorème \ref{ThoNormesEquiv}.} sur \( \eR^n\) nous pouvons exprimer la continuité de \( dr\) pour la norme \( \| . \|_q\) : si \( \epsilon>0\) est fixé alors il existe \( \alpha>0\) tel que \( \| x \|<\alpha\) implique \( \| dr_x \|_q<\epsilon\). Nous pouvons écrire les accroissements finis\footnote{Théorème \ref{ThoNAKKght}.} pour la fonction \( r\) :
+    \begin{equation}    \label{EqIDTHooCsMSVs}
+        \| r(x)-r(0) \|_q\leq \sup_{a\in\mathopen[ 0 , x \mathclose]}\| df_a \|\| x \|_q.
+    \end{equation}
+    La chose facile à remarquer est que \( r(0)=f(0)=0\). En ce qui concerne les choses difficiles, vu que \( dr\) est continue (parce que \( r\) est \( C^1\)) il existe un \( \delta>0\) tel que \( \| dr_a \|_q<\epsilon\) dès que \( a\in B_q(0,\delta)\). Si nous prenons \( \| x \|_q<\delta\) alors cette majoration est valable pour tous les éléments sur lequel est pris le supremum dans la formule \eqref{EqIDTHooCsMSVs}. Donc
+    \begin{equation}
+        \| r(x) \|_q\leq \epsilon\| x \|_q
+    \end{equation}
+    tant que \( \| x \|_q\leq \delta\).
+
+    \end{subproof}
     <++>
+    
 \end{proof}
 <++>
 
