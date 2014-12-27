@@ -18,6 +18,7 @@ Compiler les figures
 Compiler le document avec external
 """
 
+from phystricksASHYooUVHkak import ASHYooUVHkak
 from phystricksFNBQooYgkAmS import FNBQooYgkAmS
 from phystricksUZGooBzlYxr import UZGooBzlYxr
 from phystricksACUooQwcDMZ import ACUooQwcDMZ
@@ -383,8 +384,8 @@ figures_list.append(UZGooBzlYxr)
 figures_list.append(AIFsOQO)
 figures_list.append(VGZooJnvvZc)
 figures_list.append(FNBQooYgkAmS)
+figures_list.append(ASHYooUVHkak)
 """
-figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
