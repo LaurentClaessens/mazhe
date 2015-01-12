@@ -66,43 +66,6 @@ def set_commit_hexsha(A):
     A = A.replace(u,u.replace("missing information",hexsha))
     return A
 
-def accept_all_input(medicament):
-    medicament.accept_input=lambda x: True
-
-class keep_script_marks(object):
-    """
-    The file "mazhe.tex" has some "SCRIPT MARK" lines that give the structure of the document.
-
-    Notice that whatever the order of the marks is in the given list, it will respect the order of mazhe.tex
-    """
-    def __init__(self,keep_mark_list):
-        self.keep_mark_list=keep_mark_list
-    def script_mark_dict(self,C):
-        dic={}
-        dic["init"]=0
-        lp="init"
-        lignes=C.splitlines()
-        for i,l in enumerate(lignes) :
-            if l.startswith("% SCRIPT MARK"):
-                dic[l]=i+1
-                dic[lp]=(dic[lp],i+1)
-                lp=l
-        dic[lp]=(dic[lp],len(lignes))
-        return dic
-    def __call__(self,A):
-        C=LaTeXparser.CodeLaTeX(A.given_text,keep_comments=True)   # I need the comments in order to see "SCRIPT MARK"
-        script_mark_dict=self.script_mark_dict(C)
-        B=[]
-        lignes=A.splitlines()
-        # Select the usefull marks and sort them.
-        marks=[  x for x in script_mark_dict.keys() if x in self.keep_mark_list ]
-        marks.sort(key=lambda a:script_mark_dict[a][0])
-        for mark in marks :
-            a=script_mark_dict[mark][0]
-            b=script_mark_dict[mark][1]
-            B.extend(  lignes[a:b] )
-        new_texte= "\n".join(B)
-        return LaTeXparser.CodeLaTeX(new_texte,oldLaTeX=A)
 
 def ultimate_git(a=None):
     """
