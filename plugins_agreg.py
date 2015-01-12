@@ -1,10 +1,15 @@
 # -*- coding: utf8 -*-
 
+# This is part of (almost) Everything I know in mathematics
+# Copyright (c) 2014-2015   (et en fait sûrement plus)
+#   Laurent Claessens
+# See the file fdl-1.3.txt for copying conditions.
+
+
 from __future__ import unicode_literals
 
 import LaTeXparser
 import LaTeXparser.PytexTools
-
 
 # Replaced by a lambda, March, 26, 2014
 #def accept_input(filename):
@@ -42,8 +47,6 @@ nonagreg_mark_list.append("% SCRIPT MARK -- MATLAB")
 nonagreg_mark_list.append("% SCRIPT MARK -- EXERCICES")
 nonagreg_mark_list.append("% SCRIPT MARK -- FINAL")
 
-
-
 def set_isAgreg(A):
     u="\setcounter{isAgreg}{0}"
     A = A.replace(u,u.replace("0","1"))
@@ -65,7 +68,6 @@ def set_commit_hexsha(A):
     print(hexsha)
     A = A.replace(u,u.replace("missing information",hexsha))
     return A
-
 
 def ultimate_git(a=None):
     """
