@@ -8,7 +8,6 @@ def Prerequiste(medicament):
 	medicament.Compil.verif=True
 
 myRequest = LaTeXparser.PytexTools.Request("groupes")
-#myRequest.prerequiste_list.append(Prerequiste)
 myRequest.original_filename="outils.tex"
 
 myRequest.ok_filenames_list=["e_mazhe"]
