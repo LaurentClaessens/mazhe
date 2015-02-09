@@ -5,6 +5,7 @@ def FNBQooYgkAmS():
     pspict.dilatation_X(1)
     pspict.dilatation_Y(1)
 
+    x=var('x')
     ellipse=ParametricCurve( 3*cos(x),1*sin(x)  ).graph(0,2*pi)
 
     theta=pi/4
