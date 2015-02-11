@@ -21,7 +21,7 @@ def ArcCercleAngle():
     M=cercle.get_point((sigma+theta)/2)
     M.put_mark(0.3,M.advised_mark_angle,"$\sigma(t)$",automatic_place=pspict)
 
-    angle=Angle(P,O,Q)
+    angle=Angle(P,O,Q,r=0.5)
     angle.put_mark(0.2,angle.advised_mark_angle,r"$\theta$",automatic_place=pspict)
     seg_theta=Segment(O,P)
     seg_sigma=Segment(O,Q)
