@@ -13,7 +13,7 @@ def MomentForce():
 
     D=O.projection(F)
     d=Segment(O,D)
-    d.put_mark(0.3,d.advised_mark_angle,"$d$",automatic_place=pspict)
+    d.put_mark(0.3,d.advised_mark_angle(pspict),"$d$",automatic_place=pspict)
     d.parameters.style="dotted"
     d.parameters.color="blue"
 

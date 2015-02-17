@@ -21,9 +21,9 @@ def CheminFresnel():
     P2.parameters.symbol=""
     P3.parameters.symbol=""
 
-    P1.put_mark(0.1,P1.advised_mark_angle,"\( \gamma_1\)",automatic_place=pspict)
-    P2.put_mark(0.1,P2.advised_mark_angle,"\( \gamma_2\)",automatic_place=pspict)
-    P3.put_mark(0.1,P3.advised_mark_angle+180,"\( \gamma_3\)",automatic_place=pspict)
+    P1.put_mark(0.1,P1.advised_mark_angle(pspict),"\( \gamma_1\)",automatic_place=pspict)
+    P2.put_mark(0.1,P2.advised_mark_angle(pspict),"\( \gamma_2\)",automatic_place=pspict)
+    P3.put_mark(0.1,P3.advised_mark_angle(pspict)+180,"\( \gamma_3\)",automatic_place=pspict)
 
     gamma1.parameters.color="blue"
     gamma2.parameters.color=gamma1.parameters.color

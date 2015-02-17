@@ -10,11 +10,11 @@ def ToreRevolution():
 
     O = Point(0,0)
     measure = MeasureLength(Segment(O,C),R+0.5)
-    measure.put_mark(0.3,measure.advised_mark_angle,"$a$",automatic_place=pspict)
+    measure.put_mark(0.3,measure.advised_mark_angle(pspict),"$a$",automatic_place=pspict)
 
     rayon = Segment(C,cercle.get_point(30))
     rayon.parameters.color="red"
-    rayon.put_mark(0.3,rayon.advised_mark_angle,"$R$",automatic_place=pspict)
+    rayon.put_mark(0.3,rayon.advised_mark_angle(pspict),"$R$",automatic_place=pspict)
 
     seg = Segment(C,measure.F)
     seg.parameters.color="blue"

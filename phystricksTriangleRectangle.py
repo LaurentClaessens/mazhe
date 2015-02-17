@@ -24,8 +24,8 @@ def TriangleRectangle():
     angleT=Angle(H,A,C)
     angleS.parameters.color="red"
     angleT.parameters.color="cyan"
-    angleS.put_mark(0.3,angleS.advised_mark_angle,"$60$",automatic_place=pspict)
-    angleT.put_mark(0.3,angleT.advised_mark_angle,"$30$",automatic_place=pspict)
+    angleS.put_mark(0.3,None,"$60$",automatic_place=pspict)
+    angleT.put_mark(0.3,None,"$30$",automatic_place=pspict)
 
     pspict.DrawGraphs(AB,AC,BC,hauteur,angleS,angleT,A,B,C,H)
     pspict.dilatation(4)

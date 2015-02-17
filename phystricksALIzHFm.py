@@ -17,8 +17,8 @@ def ALIzHFm():
     l3=l1+AffineVector(P,Point(0,0))
     l3.parameters.style="dotted"
 
-    P.put_mark(0.2,P.advised_mark_angle,"\( z_1\)",automatic_place=(pspict,"corner"))
-    Q.put_mark(0.2,Q.advised_mark_angle,"\( z_2\)",automatic_place=(pspict,"corner"))
+    P.put_mark(0.2,P.advised_mark_angle(pspict),"\( z_1\)",automatic_place=(pspict,"corner"))
+    Q.put_mark(0.2,Q.advised_mark_angle(pspict),"\( z_2\)",automatic_place=(pspict,"corner"))
 
     pspict.DrawGraphs(cercle,P,Q,l1,l2,l3)
     fig.conclude()

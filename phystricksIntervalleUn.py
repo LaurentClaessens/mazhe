@@ -15,9 +15,9 @@ def IntervalleUn():
 	pspict.DrawGraphs(A,O,U)
 
 	measureOA=MeasureLength(Segment(O,A),-0.1)
-	measureOA.put_mark(0.3,measureOA.advised_mark_angle,"$a$",automatic_place=pspict)
+	measureOA.put_mark(0.3,measureOA.advised_mark_angle(pspict),"$a$",automatic_place=pspict)
 	measureAU=MeasureLength(Segment(A,U),-0.1)
-	measureAU.put_mark(0.3,measureAU.advised_mark_angle,"$1-a$",automatic_place=pspict)
+	measureAU.put_mark(0.3,measureAU.advised_mark_angle(pspict),"$1-a$",automatic_place=pspict)
 
 	pspict.DrawGraphs(measureOA,measureAU)
 

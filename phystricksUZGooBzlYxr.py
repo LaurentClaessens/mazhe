@@ -17,7 +17,7 @@ def UZGooBzlYxr():
     A.put_mark(0.2,180+45,"\( A\)",automatic_place=(pspict,"corner"))
     B.put_mark(0.2,-45,"\( B\)",automatic_place=(pspict,"corner"))
 
-    t1=B.polar_coordinates()[1].degree
+    t1=B.polar_coordinates().degree
     arc=cercle.graph(t1,90)
 
     arc.parameters.color="blue"

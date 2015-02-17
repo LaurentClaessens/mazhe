@@ -28,8 +28,8 @@ def TriangleUV():
     t.parameters.color=v.parameters.color
 
     
-    n.put_mark(0.1,n.advised_mark_angle,"\( \\nu\)",automatic_place=pspict)
-    t.put_mark(0.1,n.advised_mark_angle,"\( T\)",automatic_place=pspict)
+    n.put_mark(0.1,n.advised_mark_angle(pspict),"\( \\nu\)",automatic_place=pspict)
+    t.put_mark(0.1,n.advised_mark_angle(pspict),"\( T\)",automatic_place=pspict)
 
     Trig=Polygon(O,A,B)
     Trig.parameters.style="none"

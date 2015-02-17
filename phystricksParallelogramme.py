@@ -24,7 +24,7 @@ def Parallelogramme():
     h.put_mark(0.2,0,"$h$",automatic_place=pspict)
 
     theta=Angle(D,O,b.F)
-    theta.put_mark(0.3,theta.advised_mark_angle,r"$\theta$",automatic_place=pspict)
+    theta.put_mark(0.3,None,r"$\theta$",automatic_place=pspict)
 
     pspict.DrawGraphs(a,b,C,l1,l2,h,theta,D)
     #pspict.DrawDefaultAxes()

@@ -20,8 +20,8 @@ def VGZooJnvvZc():
     P=f.get_point(1.7)
     Q=f.get_point(4)
 
-    P.put_mark(0.3,P.advised_mark_angle,"$P$",automatic_place=pspicts)
-    Q.put_mark(0.3,Q.advised_mark_angle,"$Q$",automatic_place=pspicts)
+    P.put_mark(0.3,P.advised_mark_angle(pspicts),"$P$",automatic_place=pspicts)
+    Q.put_mark(0.3,Q.advised_mark_angle(pspicts),"$Q$",automatic_place=pspicts)
 
 
     Px=Point(P.x,0)
@@ -72,7 +72,7 @@ def VGZooJnvvZc():
     for i,psp in enumerate(pspictsSubFig):
         psp.dilatation(0.7)
         Qi = f.get_point( Q.x-i*(Q.x-P.x)/(n_ssfig) )
-        Qi.put_mark(0.3,Qi.advised_mark_angle+180,"$Q_{%s}$"%str(i),automatic_place=(pspicts,"corner"))
+        Qi.put_mark(0.3,Qi.advised_mark_angle(pspicts)+180,"$Q_{%s}$"%str(i),automatic_place=(pspicts,"corner"))
 
         corde=Segment(P,Qi).fix_size(fixed_size)
         corde.parameters.color="cyan"

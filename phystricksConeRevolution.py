@@ -13,9 +13,9 @@ def ConeRevolution():
     P=Point(R,h)
     P.put_mark(0.1,45,"$(R,h)$",automatic_place=pspict)
 
-    angle = Angle(Point(1,0),Point(0,0),P,r=0.7)
+    angle = Angle(Point(1,0),Point(0,0),P)
     angle.parameters.color="red"
-    angle.put_mark(0.3,angle.advised_mark_angle,"$\\alpha$",automatic_place=pspict)
+    angle.put_mark(0.3,None,"$\\alpha$",automatic_place=pspict)
 
     pspict.DrawGraphs(f,P,angle)
     pspict.DrawDefaultAxes()
