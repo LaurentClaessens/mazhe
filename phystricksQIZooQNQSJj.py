@@ -13,11 +13,11 @@ def QIZooQNQSJj():
     theta=20
     C=cercle.get_point(theta)
     B=cercle.get_point(theta+180)
-    BC=Segment(B,C)
-    H=BC.get_point(1)
+    BC=Segment(C,B)
+    H=BC.get_point_proportion(0.7)
 
     h=BC.orthogonal_trough(H)
-    A=Intersection(h,cercle)[1]
+    A=Intersection(h,cercle)[0]
 
     AH=Segment(A,H)
 
@@ -27,6 +27,8 @@ def QIZooQNQSJj():
     B.put_mark(0.2,theta+180,"\( B\)",automatic_place=(pspict,"corner"))
     H.put_mark(0.2,theta-90,"\( H\)",automatic_place=(pspict,"corner"))
     C.put_mark(0.2,theta,"\( C\)",automatic_place=(pspict,"corner"))
+
+    no_symbol(triangle.vertices,H)
 
     pspict.DrawGraphs(A,B,C,cercle,H,AH,triangle)
     fig.no_figure()
