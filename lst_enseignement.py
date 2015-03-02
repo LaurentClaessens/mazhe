@@ -19,6 +19,7 @@ script_mark_list.append("% SCRIPT MARK -- INTRO SAGE")
 script_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUE")
 script_mark_list.append("% SCRIPT MARK -- MATLAB")
 script_mark_list.append("% SCRIPT MARK -- EXERCICES")
+script_mark_list.append("% SCRIPT MARK -- CdI")
 script_mark_list.append("% SCRIPT MARK -- FINAL")
 
 myRequest.add_plugin(LaTeXparser.PytexTools.accept_all_input,"medicament")
