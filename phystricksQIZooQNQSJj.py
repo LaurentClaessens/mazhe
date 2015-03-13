@@ -19,7 +19,10 @@ def QIZooQNQSJj():
     h=BC.orthogonal_trough(H)
     A=Intersection(h,cercle)[0]
 
+
     AH=Segment(A,H)
+    rh=RightAngle(AH,BC,0.3,0,0)
+
 
     triangle=Polygon(A,B,C)
 
@@ -30,7 +33,7 @@ def QIZooQNQSJj():
 
     no_symbol(triangle.vertices,H)
 
-    pspict.DrawGraphs(A,B,C,cercle,H,AH,triangle)
+    pspict.DrawGraphs(A,B,C,cercle,H,AH,triangle,rh)
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()
