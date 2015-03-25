@@ -25,6 +25,7 @@ script_mark_list.append("% SCRIPT MARK -- FINAL")
 myRequest.add_plugin(LaTeXparser.PytexTools.accept_all_input,"medicament")
 myRequest.add_plugin(LaTeXparser.PytexTools.keep_script_marks(script_mark_list),"before_pytex")
 
+myRequest.add_plugin(plugins_agreg.set_filename("0-enseignement.pdf"),"medicament")
 
 myRequest.original_filename="mazhe.tex"
 
