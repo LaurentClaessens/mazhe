@@ -49,6 +49,12 @@ nonagreg_mark_list.append("% SCRIPT MARK -- EXERCICES")
 nonagreg_mark_list.append("% SCRIPT MARK -- CdI")
 nonagreg_mark_list.append("% SCRIPT MARK -- FINAL")
 
+class set_filename(object):
+    def __init__(self,new_output_filename):
+        self.new_output_filename=new_output_filename
+    def __call__(self,medicament):
+        medicament.new_output_filename=self.new_output_filename
+
 def set_isAgreg(A):
     u="\setcounter{isAgreg}{0}"
     A = A.replace(u,u.replace("0","1"))

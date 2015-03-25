@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2011-2014
+% Copyright (c) 2011-2015
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
@@ -127,9 +127,166 @@ qui est vraie parce que
 par simple mise au même dénominateur.
 \end{proof}
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Fonction indicatrice d'Euler (première partie)}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous introduisons ici la fonction indicatrice d'Euler et ses liens basiques avec les racines de l'unité. Pour les propriétés plus avancées, voir la section \ref{SecKGDFooAbETjs}.
+
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Idéaux dans les anneaux}
+\subsection{Introduction par les nombres}
 %---------------------------------------------------------------------------------------------------------------------------
+
+Pour \( n\in\eN^+\) nous introduisons l'ensemble\nomenclature[R]{\( P_n\)}{les nombres premiers avec \( n\)}
+\begin{equation}    \label{EqDefPnEntierldeost}
+    P_n=\{ x\in\{ 1,\ldots,n \}\tq\pgcd(x,n)=1 \}.
+\end{equation}
+C'est l'ensemble des entiers inférieurs à \( n\), premiers avec \( n\). La fonction \( \varphi\) donnée par
+\begin{equation}    \label{EqEulerGqPsvi}
+    \varphi(n)=\Card(P_n)
+\end{equation}
+est l'\defe{indicatrice d'Euler}{indicatrice d'Euler}\index{Euler!indicatrice}. Nous avons par exemple
+\begin{subequations}
+    \begin{align}
+        P_1&=\{ 1 \}\\
+        P_2&=\{ 1 \}\\
+        P_3&=\{ 1,2 \}\\
+        P_4&=\{ 1,3 \}\\
+        P_7&=\{ 1,2,3,4,5,6 \}\\
+        P_8&=\{ 1,3,5,7 \}\\
+    \end{align}
+\end{subequations}
+Si \( p\) est un nombre premier, alors \( \varphi(p)=p-1\).
+
+\begin{proposition}
+    Pour tout entier \( n\), nous avons la formule
+    \begin{equation}
+        n=\sum_{d\divides n}\varphi(d)
+    \end{equation}
+    où la somme s'étend à tous les diviseurs de \( n\).
+\end{proposition}
+Une autre preuve sera donné à l'occasion du lemme \ref{LemKcpjee}.
+
+\begin{proof}
+    Pour chaque diviseur \( d\) de \( n\) nous considérons l'ensemble
+    \begin{equation}
+        \Phi_n(d)=\{ n\in \eN\tq \pgcd(n,n)=\frac{ n }{ d } \}.
+    \end{equation}
+    Étant donné que tous les entiers entre \( 0\) et \( n\) ont un pgcd avec \( n\) qui est automatiquement un quotient de \( n\) nous avons
+    \begin{equation}
+        \{ 0,\ldots, n \}=\bigcup_{d\divides n}\Phi_n(d)
+    \end{equation}
+    où l'union est disjointe. Par ailleurs nous savons que si \( \pgcd(a,b)=1\), alors \( \pgcd(ka,kb)=k\). Donc si \( n\in \Delta(d)\), alors \( n\cdot \frac{ n }{ d }\) appartient à \( \Phi_n(d)\). En d'autres termes, \( a\mapsto \frac{ n }{ d }a\) est une bijection entre \( \Delta(d)\) et \( \Phi_n(d)\).
+
+    Nous avons donc \( \Card(\Phi_n(d))=\Card(\Delta(d))=\varphi(d)\) et finalement
+    \begin{equation}
+        \Card\{ 1,\ldots, n \}=\sum_{d\divides n}\Card(\Phi_n(d))=\sum_{d\divides n}\varphi(d).
+    \end{equation}
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Introduction par les racines de l'unité}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{SubSechZeTuL}
+
+Une racine \( n\)ième de l'unité est une racine du polynôme \( X^n-1\). Dans \( \eC\) nous avons au maximum \( n\) telles racines, et il est facile de voir qu'il y en a effectivement \( n\) distinctes données par les éléments du groupe multiplicatif
+\begin{equation}
+    \gU_n=\{ \xi^k\tq k=0,\ldots, n-1 \}
+\end{equation}
+avec \( \xi= e^{2i\pi/n}\). Nous voyons que \( \gU_n\) est un groupe cyclique d'ordre \( n\) généré par \( \xi\). Il est en particulier isomorphe à \( \eZ/n\eZ\). Le lemme suivant donne les autres générateurs.
+
+\begin{lemma}   \label{LemcFTNMa}
+    Le nombre \( \xi^a\) est un générateur de \( \gU_n\) si et seulement si \( \pgcd(a,n)=1\).
+\end{lemma}
+
+\begin{proof}
+    Si \( \pgcd(a,n)=1\) alors le théorème de Bézout \ref{ThoBuNjam} nous fournit des entiers \( u\) et \( v\) tels que \( ua+vn=1\). Alors nous avons
+    \begin{equation}
+        e^{2i\pi /n}= e^{2(ua+vn)i\pi/n}=( e^{2ai\pi/n})^u,
+    \end{equation}
+    ce qui signifie que \( \xi\) est dans le groupe engendré par \( \xi^a\), et par conséquent tout \( \gU_n\) est engendré.
+
+    Pour l'implication inverse, nous utilisons Bézout dans le sens inverse. Soit \( \xi^a\) un générateur de \( \gU_n\). Alors il existe \( u\) tel que \( (\xi^a)^u=\xi\), donc \( \xi^{au-1}=1\), c'est à dire qu'il existe \( v\) tel que \( au-1=vn\). Cette dernière égalité implique que \( \pgcd(a,n)=1\).
+\end{proof}
+
+\begin{example}
+Une conséquence tout à fait extraordinaire de ce lemme est que \( 7\) est générateur de \( \eZ/12\eZ\) (parce que \( \pgcd(7,12)=1\)). Or en solfège\index{solfège}, une quinte fait \( 7\) demi-tons, et une gamme en fait 12. Le cycle des quintes est donc générateur de la gamme\cite{YDXsAM}. Cela est un fait connu des pianistes\footnote{Même ceux qui ignorent le théorème de Bézout.} depuis des siècles.
+\end{example}
+
+Les générateurs de \( \gU_n\) sont les \defe{racines primitives}{racine!de l'unité!primitive}\footnote{parce qu'en prenant les puissances successives de l'une d'entre elles, nous retrouvons toutes les racines de l'unité, voir aussi la définition \ref{DefnPNCFO}.} de l'unité dans \( \eC\). Nous nommons \( \Delta_n\) leur ensemble :
+\begin{equation}
+    \Delta_n=\{  e^{2ki\pi/n}\tq 0\leq k\leq n-1,\pgcd(k,n)=1 \}.
+\end{equation}
+Par définition nous avons
+\begin{equation}
+    \Card(\Delta_n)=\varphi(n)
+\end{equation}
+où \( \varphi\) est la fonction d'Euler définie par \eqref{EqEulerGqPsvi}. Nous avons par exemple
+\begin{subequations}
+    \begin{align}
+        \Delta_1&=\{ 1 \}\\
+        \Delta_2&=\{  e^{\pi i} \}\\
+        \Delta_4&=\{  e^{\pi i/2}, e^{3\pi i/2} \}.
+    \end{align}
+\end{subequations}
+Notons que \( 1\in \Delta_d\) seulement avec \( d=1\).
+
+\begin{lemma}       \label{LemKcpjee}
+    Nous avons
+    \begin{equation}        \label{EqpZuIyL}
+        \gU_n=\bigcup_{d\divides n}\Delta_d
+    \end{equation}
+    et l'union est disjointe. Nous avons aussi la formule
+    \begin{equation}        \label{EqTPHqgJ}
+        n=\sum_{d\divides n}\varphi(d).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    À l'application \( x\mapsto  e^{2i\pi x}\) près, nous pouvons considérer
+    \begin{equation}
+        \Delta_d=\{ \frac{ k }{ d }\tq k=0,\ldots, d-1, \pgcd(k,d)=1 \},
+    \end{equation}
+    c'est à dire l'ensemble des fractions irréductibles dont le dénominateur est \( d\). L'union des \( \Delta_d\) sera donc disjointe.
+    
+    Toujours à l'application \( x\mapsto  e^{2i\pi x}\) près, le groupe \( \gU_n\) est donné par
+    \begin{equation}
+        \gU_n=\{ \frac{ k }{ n }\tq k=0,\ldots, n-1 \}.
+    \end{equation}
+    L'égalité \eqref{EqpZuIyL} revient maintenant à dire que toute fraction de la forme \( \frac{ k }{ n }\) s'écrit de façon irréductible avec un dénominateur qui divise \( n\).
+
+    La relation \eqref{EqTPHqgJ} consiste à prendre le cardinal des deux côtés de \eqref{EqpZuIyL}. Nous avons \( \Card(\gU_n)=n\) et l'union étant disjointe, à droite nous avons la somme des cardinaux.
+\end{proof}
+
+\begin{lemma}
+    Si \( p\) est un nombre premier, alors \( \varphi(p^n)=p^n-p^{n-1}\).
+\end{lemma}
+
+\begin{proof}
+    Les éléments de \( \{ 1,\ldots,p^n \}\) qui ont un \( \pgcd\) différent de \( 1\) avec \( p^n\) sont des nombres qui s'écrivent sous la forme \( qp\) avec \( q\leq p^{n-1}\). Il y a évidemment \( p^{n-1}\) tels nombres.
+
+    Par conséquent le cardinal de \( P_{p^n}\) est \( \varphi(p^{n})=p^n-p^{n-1}\).
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Générateurs}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}     \label{PropZnmuphiGensn}
+    Soit \( n\in\eN^*\) et le groupe (additif) \( \eZ/n\eZ\). L'élément \( [x]_n\) est un générateur de \( \eZ/n\eZ\) si et seulement si \( x\in P_n\). En particulier \( \eZ/n\eZ\) est un groupe contenant \( \varphi(n)\) générateurs.
+\end{proposition}
+
+\begin{proof}
+    Nous avons \( \gr\big( [1]_n \big)=\eZ/n\eZ\). L'élément \( [x]_n\) sera générateur si et seulement si il génère \( [1]_n \), c'est à dire si il existe \( p\) tel que \( p[x]_n=[1]_n\). Cette dernière égalité étant une égalité de classes dans \( \eZ/n\eZ\), elle sera vraie si et seulement si il existe \( q\) tel que
+    \begin{equation}
+        px+qn=1.
+    \end{equation}
+    Cela signifie entre autres que \( x\eZ+n\eZ=\eZ\), c'est à dire que \( \pgcd(x,n)=1\) et que \( x\in P_n\).
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Idéaux dans les anneaux}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \begin{definition}  \label{DefAJVTPxb}
     Un sous ensemble \( B\subset A\) d'un anneau est un \defe{sous anneau}{sous anneau} si
@@ -206,10 +363,8 @@ est un anneau appelé \defe{anneau quotient}{anneau!quotient par un idéal}. La 
     Nous avons déjà vu que les seuls idéaux de \( \eZ\) sont les \( n\eZ\).
 \end{proof}
 
-
-
 \begin{proposition}     \label{PropZpintssiprempUzn}
-    Soit \( n\geq 2\) un entier et \( \phi\colon \eZ\to \eZ/n\eZ\), la surjection canonique. Nous noterons \( \tilde a=\phi(a)\). Alors
+    Soit \( n\geq 2\) un entier et \( \phi\colon \eZ\to \eZ/n\eZ\), la surjection canonique. Nous noterons \( \tilde a=\phi(a)\). Alors l'ensemble des inversibles de \( \eZ/n\eZ\) est donné par
     \begin{equation}
         U(\eZ/n\eZ)=\phi(P_n)=\{ \tilde x\tq 0\leq x\leq n\tq\pgcd(x,n)=1 \}.
     \end{equation}
@@ -227,10 +382,9 @@ est un anneau appelé \defe{anneau quotient}{anneau!quotient par un idéal}. La 
     Nous prouvons maintenant l'inclusion inverse. Soit \( \tilde x\) et \( \tilde y\) inverses l'un de l'autre : $\tilde x\tilde y=\tilde 1$. Il existe donc \( q\in\eZ\) tel que \( xy-qn=1\), ce qui prouve que \( \pgcd(x,n)=1\).
 \end{proof}
 
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Caractéristique}
-%---------------------------------------------------------------------------------------------------------------------------
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Caractéristique}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 L'application 
 \begin{equation}
