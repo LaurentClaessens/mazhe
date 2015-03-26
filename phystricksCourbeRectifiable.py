@@ -9,6 +9,8 @@ def CourbeRectifiable():
 	sigma=[float(i)/n  for i in range(n+1)  ]
 	points=[]
 	curve=ParametricCurve(f1,f2).graph(0,1)
+        curve.parameters.force_smoothing=False
+        curve.parameters.plotpoints=100
 	for i in range(len(sigma)) :
 		P = curve.get_point(sigma[i])
 		P.put_mark(0.5,P.advised_mark_angle(pspict),"$\gamma(t_{%s})$"%str(i),automatic_place=pspict)
@@ -24,6 +26,7 @@ def CourbeRectifiable():
 	for P in points :
 		pspict.DrawGraph(P)
 
+        pspict.comment="The blue curve is smoothly drawn"
 	pspict.DrawGraphs(curve)
 
 	pspict.dilatation(0.7)
