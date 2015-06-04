@@ -41,50 +41,51 @@ def ExerciceGraphesbis():
     F9=phyFunction(f9).graph(-pi, 3*pi/2)
 
         # Figures
+    pspict1.dilatation(.7)
     pspict1.DrawGraph(F1)
     pspict1.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict1.axes.Dx=0.5
     pspict1.DrawDefaultAxes()
-    pspict1.dilatation(.7)
 
+    pspict2.dilatation(.7)
     pspict2.DrawGraph(F2)
     pspict2.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict2.axes.Dx=0.5
     pspict2.DrawDefaultAxes()
-    pspict2.dilatation(.7)
 
+    pspict3.dilatation(.5)
     pspict3.DrawGraph(F3)
     pspict3.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict3.axes.Dx=0.5
     pspict3.DrawDefaultAxes()
-    pspict3.dilatation(.5)
 
+    pspict4.dilatation(.7)
     pspict4.DrawGraph(F4)
     pspict4.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict4.axes.Dx=0.5
     pspict4.DrawDefaultAxes()
-    pspict4.dilatation(.7)
 
+    pspict5.dilatation(.7)
     F5.parameters.plotpoints=1000
     pspict5.DrawGraph(F5)
     pspict5.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict5.axes.Dx=0.5
     pspict5.DrawDefaultAxes()
-    pspict5.dilatation(.7)
 
 
+    pspict7.comment="The function is drawn in two parts"
+    pspict7.dilatation(.7)
     pspict7.DrawGraph(F7a)
     pspict7.DrawGraph(F7b)  
     pspict7.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict7.axes.Dx=0.5
     pspict7.DrawDefaultAxes()
-    pspict7.dilatation(.7)
 
+    pspict9.dilatation(.7)
     pspict9.DrawGraph(F9)
     pspict9.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict9.axes.Dx=0.5
     pspict9.DrawDefaultAxes()
-    pspict9.dilatation(.7)
 
 
     fig.conclude()
