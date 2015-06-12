@@ -22,6 +22,15 @@ agreg_mark_list.append("% SCRIPT MARK -- TOC")
 agreg_mark_list.append("% SCRIPT MARK -- AGRÉGATION")
 agreg_mark_list.append("% SCRIPT MARK -- FINAL")
 
+outilsmath_mark_list=[]
+outilsmath_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+outilsmath_mark_list.append("% SCRIPT MARK -- GARDE ENSEIGNEMENT")
+outilsmath_mark_list.append("% SCRIPT MARK -- TOC")
+outilsmath_mark_list.append("% SCRIPT MARK -- INTRO SAGE")
+outilsmath_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUES")
+outilsmath_mark_list.append("% SCRIPT MARK -- FINAL")
+
+
 mazhe_mark_list=[]
 mazhe_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
 mazhe_mark_list.append("% SCRIPT MARK -- GARDE MAZHE")
@@ -29,7 +38,7 @@ mazhe_mark_list.append("% SCRIPT MARK -- TOC")
 mazhe_mark_list.append("% SCRIPT MARK -- ENGLISH INTRODUCTION")
 mazhe_mark_list.append("% SCRIPT MARK -- INTRO SAGE")
 mazhe_mark_list.append("% SCRIPT MARK -- AGRÉGATION")
-mazhe_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUE")
+mazhe_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUES")
 mazhe_mark_list.append("% SCRIPT MARK -- RESEARCH PART")
 mazhe_mark_list.append("% SCRIPT MARK -- MATLAB")
 mazhe_mark_list.append("% SCRIPT MARK -- EXERCICES")

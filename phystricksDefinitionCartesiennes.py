@@ -14,6 +14,7 @@ def DefinitionCartesiennes():
 		seg1.parameters.color=color
 		seg1.parameters.style="dashed"
 		seg2.parameters=seg1.parameters
+                no_symbol(M)
 		pspict.DrawGraphs(seg1,seg2,M,v)
 
 	PlacePoint(3,1,"blue")
