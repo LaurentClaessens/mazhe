@@ -6,6 +6,10 @@
 from phystricks import *
 import sys
 
+from phystricksHCJPooHsaTgI import HCJPooHsaTgI
+from phystricksCURGooXvruWV import CURGooXvruWV
+from phystricksVNBGooSqMsGU import VNBGooSqMsGU
+from phystricksKKLooMbjxdI import KKLooMbjxdI
 from phystricksBEHTooWsdrys import BEHTooWsdrys
 from phystricksHGQPooKrRtAN import HGQPooKrRtAN
 from phystricksZGUDooEsqCWQ import ZGUDooEsqCWQ
@@ -386,7 +390,13 @@ figures_list.append(TKXZooLwXzjS)
 figures_list.append(YQVHooYsGLHQ)
 figures_list.append(ZGUDooEsqCWQ)
 figures_list.append(HGQPooKrRtAN)
+figures_list.append(KKLooMbjxdI)
+figures_list.append(VNBGooSqMsGU)
+figures_list.append(CURGooXvruWV)
+figures_list.append(HCJPooHsaTgI)
 """
+figures_list.append(<++>)
+figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
