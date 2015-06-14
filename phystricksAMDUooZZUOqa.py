@@ -1,6 +1,7 @@
+# -*- coding: utf8 -*-
 from phystricks import *
-def ArcCercleAngle():
-    pspict,fig = SinglePicture("ArcCercleAngleOM")
+def AMDUooZZUOqa():
+    pspict,fig = SinglePicture("AMDUooZZUOqa")
 
     R=2
     theta=-10

@@ -3,7 +3,6 @@ def IntegraleSimple():
     pspict,fig = SinglePicture("IntegraleSimple")
     pspict.dilatation(1)
 
-
     a=-pi/2
     b=2*pi
     x=var('x')
