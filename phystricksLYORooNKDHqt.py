@@ -3,11 +3,11 @@
 from __future__ import unicode_literals
 from phystricks import *
 
-def VGZooJnvvZc():
+def LYORooNKDHqt():
     n_ssfig=6
-    pspictQuestion,figQuestion = SinglePicture("TangenteQuestionOM",script_filename="RechercheTangente")
-    pspictDetail,figDetail = SinglePicture("TangenteDetailOM",script_filename="RechercheTangente")
-    pspictsSubFig,figSubFig = MultiplePictures("LesSubFiguresOM",n_ssfig)
+    pspictQuestion,figQuestion = SinglePicture("TangenteQuestion",script_filename="RechercheTangente")
+    pspictDetail,figDetail = SinglePicture("TangenteDetail",script_filename="RechercheTangente")
+    pspictsSubFig,figSubFig = MultiplePictures("LesSubFigures",n_ssfig)
 
     pspicts=[pspictQuestion,pspictDetail]
     pspicts.extend(pspictsSubFig)

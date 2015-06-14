@@ -698,6 +698,99 @@ On considère dans la suite une fonction $f : A \to \eR$, où $a \in A \subset \
     Cela signifie la continuité de \( f\) en vertu du critère \ref{ThoLimCont}.
 \end{proof}
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Dérivation}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{lemma}           \label{LemDeccCarr}
+    Si $f(x)=x^2$, alors $f'(x)=2x$.
+\end{lemma}
+
+\begin{proof}
+    Utilisons la définition, et remplaçons $f$ par sa valeur :
+    \begin{subequations}
+        \begin{align}
+            f'(x)   &=\lim_{\epsilon\to 0}\frac{ f(x+\epsilon)-f(x) }{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}\frac{ (x+\epsilon)^2-x^2 }{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}\frac{ x^2+2x\epsilon+\epsilon^2-x^2 }{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}\frac{\epsilon(2x+\epsilon)}{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}(2x+\epsilon)\\
+                &=2x,
+        \end{align}
+    \end{subequations}
+    ce qu'il fallait prouver.
+\end{proof}
+
+Une facile, maintenant.
+\begin{proposition}
+    La dérivé de la fonction $x\mapsto x$ vaut $1$, en notations compactes : $(x)'=1$.
+\end{proposition}
+
+\begin{proof}
+D'après la définition de la dérivée, si $f(x)=x$, nous avons
+\begin{equation}
+    f(x)=\lim_{\epsilon\to 0}\frac{ (x+\epsilon) -x }{\epsilon} =\lim_{\epsilon\to 0}\frac{ \epsilon }{\epsilon} =1,
+\end{equation}
+et c'est déjà fini.
+\end{proof}
+
+Pour continuer, nous allons en faire une un peu plus abstraite.
+\begin{proposition}     \label{PropDerrLin}
+    La dérivation est une opération linéaire, c'est à dire que
+    \begin{enumerate}
+        \item $(\lambda f)'=\lambda f'$ pour tout réel $\lambda$ où, pour rappel, la fonction $(\lambda f)$ est définie par $(\lambda f)(x)=\lambda\cdot f(x)$,
+        \item $(f+g)'=f'+g'$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Ces deux propriétés découlent des propriétés correspondantes de la limite. Nous allons faire la première, et laisser la seconde à titre d'exercice. Écrivons la définition de la dérivée avec $(\lambda f)$ au lieu de $f$, et calculons un petit peu :
+\begin{equation}
+    \begin{aligned}[]
+        (\lambda f)'(x) &=\lim_{\epsilon\to 0}\frac{ (\lambda f)(x+\epsilon)-(\lambda f)(x) }{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}\frac{ \lambda \big( f(x+\epsilon) \big)-\lambda f(x) }{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}\lambda \frac{ f(x+\epsilon) -f(x) }{ \epsilon }\\
+                &=\lambda \lim_{\epsilon\to 0}\frac{ f(x+\epsilon) -f(x) }{ \epsilon }\\
+                &=\lambda f'(x).
+    \end{aligned}
+\end{equation}
+\end{proof}
+
+
+\begin{proposition}
+    La dérivée d'un produit obéit à la \defe{règle de Leibnitz}{Règle de Leibnitz}\index{Leibnitz}:
+    \begin{equation}
+        (fg)'(x)=f'(x)g(x)+f(g)g'(x).
+    \end{equation}
+    Cette règle est souvent écrite sous la forme compacte $(fg)'=f'g+g'f$.
+\end{proposition}
+
+\begin{proof}
+La définition de la dérivée dit que
+\begin{equation}        \label{Eqfgrimeepsfgx}
+    (fg)'(x)=\lim_{\epsilon\to 0}\frac{f(x+\epsilon)g(x+\epsilon)-f(x)g(x)}{\epsilon}.
+\end{equation}
+La subtilité est d'ajouter au numérateur la quantité $-f(x)g(x+\epsilon)+f(x)g(x+\epsilon)$, ce qui est permit parce que cette quantité est nulle\footnote{Le coup d'ajouter et enlever la même chose a déjà été fait durant la démonstration du théorème \ref{Tholimfgabab}. C'est une technique assez courante en analyse.}. Le numérateur de \eqref{Eqfgrimeepsfgx} devient donc
+\begin{equation}
+    \begin{aligned}[]
+f(x+\epsilon)g(x+\epsilon)&-f(x)g(x+\epsilon)+f(x)g(x+\epsilon)-f(x)g(x) \\
+            &= g(x+\epsilon)\big( f(x+\epsilon)-f(x) \big)+f(x)\big( g(x+\epsilon)-g(x) \big),
+    \end{aligned}
+\end{equation}
+où nous avons effectué deux mises en évidence. Étant donné que nous avons deux termes, nous pouvons couper la limite en deux :
+\begin{equation}
+    \begin{aligned}[]
+        (fg)'(x)    &=\lim_{\epsilon\to 0}g(x+\epsilon)\frac{ f(x+\epsilon)-f(x) }{\epsilon}            &+\lim_{\epsilon\to 0}f(x)\frac{ g(x+\epsilon)-g(x) }{\epsilon}\\
+                &=\lim_{\epsilon\to 0}g(x+\epsilon)\lim_{\epsilon\to 0}\frac{ f(x+\epsilon)-f(x) }{\epsilon}    &+f(x)\lim_{\epsilon\to 0}\frac{ g(x+\epsilon)-g(x) }{\epsilon},
+    \end{aligned}
+\end{equation}
+où nous avons utilisé le théorème \ref{Tholimfgabab} pour scinder la première limite en deux, ainsi que la propriété \eqref{Eqbutmultlim} pour sortir le $f(x)$ de la limite dans le second terme. Maintenant, dans le premier terme, nous avons évidement\footnote{Pas tout à fait évidemment : selon le théorème \ref{ThoLimCont}, \emph{limite et continuité}, il faut que $g$ soit continue.} $\lim_{\epsilon\to 0}g(x+\epsilon)=g(x)$. Les limites qui restent sont les définitions classiques des dérivées de $f$ et $g$ au point~$x$ :
+\begin{equation}
+    (fg)'(x)=g(x)f'(x)-f(x)g'(x),
+\end{equation}
+ce qu'il fallait démontrer.
+\end{proof}
+
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Développement limité au premier ordre}
 %---------------------------------------------------------------------------------------------------------------------------

@@ -6,18 +6,8 @@
 from phystricks import *
 import sys
 
-"""
 
-Dans un premier temps, je ne fais que la partie sur l'agrégation.
-
-Compiler les figures
-Vérifier les "does not contain"
-Compiler le document sans external
-Copier les fichiers .aux dans un répertoire à part.
-Compiler les figures
-Compiler le document avec external
-"""
-
+from phystricksLYORooNKDHqt import LYORooNKDHqt
 from phystricksASHYooUVHkak import ASHYooUVHkak
 from phystricksFNBQooYgkAmS import FNBQooYgkAmS
 from phystricksUZGooBzlYxr import UZGooBzlYxr
@@ -385,7 +375,15 @@ figures_list.append(VGZooJnvvZc)
 figures_list.append(FNBQooYgkAmS)
 figures_list.append(ASHYooUVHkak)
 figures_list.append(QIZooQNQSJj)
+figures_list.append(LYORooNKDHqt)
 """
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
