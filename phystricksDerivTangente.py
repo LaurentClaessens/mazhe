@@ -1,6 +1,6 @@
 from phystricks import *
 def DerivTangente():
-	pspict,fig = SinglePicture("DerivTangente")
+	pspict,fig = SinglePicture("DerivTangenteOM")
 
 	a=3
 	xb=6.5

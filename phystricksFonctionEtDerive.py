@@ -1,6 +1,6 @@
 from phystricks import *
 def FonctionEtDerive():
-	pspict,fig = SinglePicture("FonctionEtDerive")
+	pspict,fig = SinglePicture("FonctionEtDeriveOM")
 
 	x=var('x')
 	mx=-5
