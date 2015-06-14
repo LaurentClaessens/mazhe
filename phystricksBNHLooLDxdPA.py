@@ -1,7 +1,7 @@
+# -*- coding: utf8 -*-
 from phystricks import *
-def Parallelogramme():
-    pspict,fig = SinglePicture("ParallelogrammeOM")
-
+def BNHLooLDxdPA():
+    pspict,fig = SinglePicture("BNHLooLDxdPA")
     O=Point(0,0)
 
     a=Vector(3,0)

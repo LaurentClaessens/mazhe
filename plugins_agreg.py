@@ -26,7 +26,6 @@ outilsmath_mark_list=[]
 outilsmath_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
 outilsmath_mark_list.append("% SCRIPT MARK -- GARDE ENSEIGNEMENT")
 outilsmath_mark_list.append("% SCRIPT MARK -- TOC")
-outilsmath_mark_list.append("% SCRIPT MARK -- INTRO SAGE")
 outilsmath_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUES")
 outilsmath_mark_list.append("% SCRIPT MARK -- FINAL")
 

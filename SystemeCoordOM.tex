@@ -132,7 +132,7 @@ Cette définition de l'orthogonalité est motivée par la proposition suivante.
 	\end{equation}
 	où $l$ est la longueur du vecteur $Y$. Pour ce faire, il suffit de mettre le premier axe le long de $Y$, le second dans le plan qui contient $X$ et $Y$, et enfin le troisième axe dans le plan perpendiculaire aux deux premiers.
 
-	Un simple calcul montre que $X\cdot Y=xl+y\cdot 0+0\cdot 0=xl$. Par ailleurs, étant donné la figure \ref{LabelFigProjectionScalaireOM}, nous avons $\| \pr_YX \|=x$.
+	Un simple calcul montre que $X\cdot Y=xl+y\cdot 0+0\cdot 0=xl$. Par ailleurs, étant donné la figure \ref{LabelFigProjectionScalaire}, nous avons $\| \pr_YX \|=x$.
 	\newcommand{\CaptionFigProjectionScalaire}{La longueur de la projection de $X=(x,y)$ sur $Y$ est $x$.}
 	\input{Fig_ProjectionScalaire.pstricks}
 	Par conséquent,
@@ -248,6 +248,102 @@ Donc le coefficient directeur de la première est l'inverse et l'opposé du coef
 	\end{subequations}
 	Nous avons utilisé d'abord la majoration $| x |\geq x$ qui est évident pour tout nombre $x$; et ensuite l'inégalité de Cauchy-Schwarz.
 \end{proof}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Angle entre deux vecteurs}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Si $a$ et $b$ sont des réels, l'inégalité $| a |\leq b$ peut se développer en une double inégalité
+\begin{equation}
+	-b\leq a\leq b.
+\end{equation}
+L'inégalité de Cauchy-Schwarz devient alors
+\begin{equation}
+	-\| X \|\| Y \|\leq X\cdot Y\leq\| X \|\| Y \|.
+\end{equation}
+Si $X\neq 0$ et $Y\neq 0$, nous avons alors
+\begin{equation}
+	-1\leq\frac{ X\cdot Y }{ \| X \|\| Y \| }\leq 1.
+\end{equation}
+Il existe donc un angle $\theta\in\mathopen[ 0 , \pi \mathclose]$ tel que
+\begin{equation}		\label{eqDefAngleVectOM}
+	\cos(\theta)=\frac{ X\cdot Y }{ \| X \|\| Y \| }.
+\end{equation}
+L'angle ainsi défini est l'\defe{angle}{angle!entre vecteurs} entre $X$ et $Y$. La définition \eqref{eqDefAngleVectOM} est souvent utilisée sous la forme
+\begin{equation}		\label{eqPropCosThetOM}
+	X\cdot Y=\| X \|\| Y \|\cos(\theta).
+\end{equation}
+
+Notez que les angles sont toujours des angles plus petits ou égaux à \unit{180}{\degree}.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Les coordonnées polaires}
+%---------------------------------------------------------------------------------------------------------------------------
+
+On a vu qu'un point $M$ dans $\eR^2$ peut être représenté par ses abscisses $x$ et ses ordonnées $y$. Nous pouvons également déterminer le même point $M$ en donnant un angle et une distance comme montré sur la figure \ref{LabelFigCoordPolaires}.
+\newcommand{\CaptionFigCoordPolaires}{Un point en coordonnées polaires est donné par sa distance à l'origine et par l'angle qu'il faut avec l'horizontale.}
+\input{Fig_CoordPolaires.pstricks}
+Le même point $M$ peut être décrit indifféremment avec les coordonnées $(x,y)$ ou bien avec $(r,\theta)$.
+
+\begin{remark}
+	L'angle $\theta$ d'un point n'étant a priori défini qu'à un multiple de $2\pi$ près, nous convenons de toujours choisir un angle $0\leq\theta<2\pi$. Par ailleurs l'angle $\theta$ n'est pas défini si $(x,y)=(0,0)$.
+
+	La coordonnée $r$ est toujours positive.
+\end{remark}
+
+En utilisant la trigonométrie, il est facile de trouver le changement de variable qui donne $(x,y)$ en fonction de $(r,\theta)$:
+\begin{subequations}		\label{EqrthetaxyPoalOM}
+	\begin{numcases}{}
+		x=r\cos(\theta)\\
+		y=r\sin(\theta).
+	\end{numcases}
+\end{subequations}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Transformation inverse : théorie}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Voyons la question inverse : comment retrouver $r$ et $\theta$ si on connais $x$ et $y$ ? Tout d'abord,
+\begin{equation}
+	r=\sqrt{x^2+y^2}
+\end{equation}
+parce que la coordonnée $r$ est la distance entre l'origine et $(x,y)$. Comment trouver l'angle ? Nous supposons $(x,y)\neq (0,0)$. Si $x=0$, alors le point est sur l'axe vertical et nous avons
+\begin{equation}
+	\theta=\begin{cases}
+		\pi/2	&	\text{si $y>0$}\\
+		3\pi/2	&	 \text{si $y<0$.}
+	\end{cases}
+\end{equation}
+Notez que si $y<0$, conformément à notre convention $\theta\geq 0$, nous avons noté $\frac{ 3\pi }{2}$ et non $-\frac{ \pi }{ 2 }$.
+
+Supposons maintenant le cas général avec $x\neq 0$. Les équations \eqref{EqrthetaxyPoalOM} montrent que
+\begin{equation}
+	\tan(\theta)=\frac{ y }{ x }.
+\end{equation}
+Nous avons donc
+\begin{equation}
+	\theta=\tan^{-1}\left( \frac{ y }{ x } \right).
+\end{equation}
+La fonction inverse de la fonction tangente est celle définie plus haut.
+
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Transformation inverse : pratique}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Le code suivant utilise \href{http://www.sagemath.org}{Sage}.
+
+\VerbatimInput[tabsize=3]{calculAngle.py}
+
+Son exécution retourne :
+\begin{verbatim}
+(sqrt(2), 1/4*pi)
+(sqrt(5), pi - arctan(1/2))
+(6, 1/6*pi)
+\end{verbatim}
+Notez que ce sont des valeurs \emph{exactes}. Ce ne sont pas des approximations, ce logiciel travaille de façon symbolique ! Merci donc de jeter vos vieilles calculatrices à la poubelle\footnote{Pensez au recyclage : c'est plein de métaux lourds !} : c'est de la technologie qui n'a plus cours en 2011.
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Coordonnées cylindriques et sphériques}
@@ -572,7 +668,7 @@ Le produit mixte s'écrit donc sous forme d'un déterminant. Nous retenons cette
 \end{proof}
 
 \begin{remark}      \label{RemaAireParalProdVectOM}
-    Le nombre $\| a \|\| b \|\sin(\theta)$ est l'aire du parallélogramme formé par les vecteurs $a$ et $b$, comme cela se voit sur la figure \ref{LabelFigParallelogrammeOM}.
+    Le nombre $\| a \|\| b \|\sin(\theta)$ est l'aire du parallélogramme formé par les vecteurs $a$ et $b$, comme cela se voit sur la figure \ref{LabelFigParallelogramme}.
     \newcommand{\CaptionFigParallelogramme}{Calculer l'aire d'un parallélogramme.}
     \input{Fig_Parallelogramme.pstricks}
 \end{remark}

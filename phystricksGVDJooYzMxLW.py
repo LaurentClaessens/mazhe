@@ -2,6 +2,7 @@
 from phystricks import *
 def GVDJooYzMxLW():
     pspict,fig = SinglePicture("GVDJooYzMxLW")
+    pspict.dilatation(4)
     B=Point(0,0)
     C=Point(1,0)
     A=Point(0.5,0.5*sqrt(3))
@@ -28,6 +29,5 @@ def GVDJooYzMxLW():
     angleT.put_mark(0.3,None,"$30$",automatic_place=pspict)
 
     pspict.DrawGraphs(AB,AC,BC,hauteur,angleS,angleT,A,B,C,H)
-    pspict.dilatation(4)
     fig.conclude()
     fig.write_the_file()
