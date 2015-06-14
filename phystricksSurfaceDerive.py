@@ -1,6 +1,6 @@
 from phystricks import *
 def SurfaceDerive():
-	pspict,fig = SinglePicture("SurfaceDerive")
+	pspict,fig = SinglePicture("SurfaceDeriveOM")
 
 	mx = -0.5
 	Mx = 7
