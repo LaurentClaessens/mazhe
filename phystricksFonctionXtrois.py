@@ -1,6 +1,6 @@
 from phystricks import *
 def FonctionXtrois():
-	pspict,fig = SinglePicture("FonctionXtrois")
+	pspict,fig = SinglePicture("FonctionXtroisOM")
 
 	x=var('x')
 	mx=-1.5
