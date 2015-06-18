@@ -27,11 +27,19 @@ def QOBAooZZZOrl():
     petite_surface=SurfaceUnderFunction(f1,i1,i2)
     moyenne_surface=SurfaceBetweenFunctions(f1,f2,i1,i2)
 
-    grande_surface.parameters.color="brown"
-    petite_surface.parameters.color="cyan"
-    moyenne_surface.parameters.color="red"
+    grande_surface.parameters.filled()
+    grande_surface.parameters.fill.color="brown"
+    petite_surface.parameters.filled()
+    petite_surface.parameters.fill.color="cyan"
+    moyenne_surface.parameters.filled()
+    moyenne_surface.parameters.fill.color="red"
 
+    #grande_surface.parameters.color="brown"
+    #petite_surface.parameters.color="cyan"
+    #moyenne_surface.parameters.color="red"
 
+    for psp in pspict:
+        psp.comment="Une surface doit être remplie"
     pspict[0].DrawGraphs(f1,f2,grande_surface)
     pspict[1].DrawGraphs(f1,f2,petite_surface)
     pspict[2].DrawGraphs(f1,f2,moyenne_surface)

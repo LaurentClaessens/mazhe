@@ -8,7 +8,8 @@ def VNBGooSqMsGU():
     h=2
     f=phyFunction(h)
     surface=SurfaceUnderFunction(f,0,l)
-    surface.parameters.color="green"
+    surface.parameters.hatched()
+    surface.parameters.hatch.color="green"
     surface.curve1.parameters.style="solid"
     surface.curve1.parameters.color="red"
     surface.Fsegment.parameters.style="solid"

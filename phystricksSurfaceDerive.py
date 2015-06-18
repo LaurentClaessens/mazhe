@@ -19,7 +19,8 @@ def SurfaceDerive():
 	Q.put_mark(0.2,-90,"$x+\Delta x$",automatic_place=(pspict,"N"))
 
 	surface=SurfaceUnderFunction(f,0,x0)
-	surface.parameters.color="blue"
+        surface.parameters.hatched()
+	surface.parameters.hatch.color="blue"
 	rectangle=Rectangle(P,Q)
 	rectangle.parameters.hatched()
 	rectangle.parameters.hatch.color="red"

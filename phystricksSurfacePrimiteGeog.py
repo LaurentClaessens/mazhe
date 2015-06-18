@@ -20,7 +20,8 @@ def SurfacePrimiteGeog():
 
 
     surface=SurfaceUnderFunction(f,ms,Ms)
-    surface.parameters.color="blue"
+    surface.parameters.hatched()
+    surface.parameters.hatch.color="blue"
     surface.Isegment.parameters.style="dashed"
     surface.Fsegment.parameters.style="dashed"
 

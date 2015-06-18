@@ -11,9 +11,11 @@ def UnSurxInt():
 	F=[f.graph(-l,-epsilon),f.graph(epsilon,l)]
 	surf=[SurfaceUnderFunction(f,-b,-a),SurfaceUnderFunction(f,a,b)]
 	for s in surf:
-		s.Isegment.parameters.style="solid"
-		s.Isegment.parameters.color="brown"
-		s.Fsegment.parameters=s.Isegment.parameters
+            s.parameters.hatched()
+            s.parameters.hatch.color="blue"
+	    s.Isegment.parameters.style="solid"
+	    s.Isegment.parameters.color="brown"
+	    s.Fsegment.parameters=s.Isegment.parameters
 
 	pspict.DrawGraphs(F,surf)
 	pspict.DrawDefaultAxes()
