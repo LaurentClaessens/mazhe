@@ -22,6 +22,9 @@ agreg_mark_list.append("% SCRIPT MARK -- TOC")
 agreg_mark_list.append("% SCRIPT MARK -- AGRÉGATION")
 agreg_mark_list.append("% SCRIPT MARK -- FINAL")
 
+mesnotes_mark_list=agreg_mark_list[:]
+mesnotes_mark_list.append("% SCRIPT MARK -- DÉVELOPPEMENTS POSSIBLES")
+
 outilsmath_mark_list=[]
 outilsmath_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
 outilsmath_mark_list.append("% SCRIPT MARK -- GARDE ENSEIGNEMENT")
