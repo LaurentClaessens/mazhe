@@ -22,7 +22,7 @@ def KKLooMbjxdI():
     surface.parameters.hatched()
     surface.parameters.hatch.color="red"
 
-    pspict.DrawGraphs(A,B,surface)
+    pspict.DrawGraphs(A,B,surface,f)
     pspict.axes.no_graduation()
     pspict.DrawDefaultAxes()
 

@@ -10,7 +10,6 @@ def IntCourbePolaire():
     part1=curve.graph(-pi/4,pi/4)
     part2=curve.graph(-pi/4+pi,pi/4+pi)
 
-
     pspict.DrawGraphs(part1,part2)
     pspict.DrawDefaultAxes()
     pspict.dilatation(1)

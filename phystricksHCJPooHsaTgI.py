@@ -11,11 +11,14 @@ def HCJPooHsaTgI():
     B=Point(b,0)
     
     x=var('x')
-    f1=phyFunction(sin(x)+4)
-    f2=phyFunction(cos(x/2)*cos(2*x)+2)
+    f1=phyFunction(sin(x)+4).graph(a,b)
+    f2=phyFunction(cos(x/2)*cos(2*x)+2).graph(a,b)
+    f1.parameters.color="blue"
+    f2.parameters.color="blue"
 
     surface=SurfaceBetweenFunctions(f1,f2,a,b)
-    surface.parameters.color="red"
+    surface.parameters.hatched()
+    surface.parameters.hatch.color="red"
     surface.Isegment.parameters.style="dashed"
     surface.Isegment.parameters.color="magenta"
     surface.Fsegment.parameters = surface.Isegment.parameters
@@ -30,7 +33,7 @@ def HCJPooHsaTgI():
     lA.parameters.style="dotted"
     lB.parameters=lA.parameters
 
-    pspict[0].DrawGraphs(surface,A,B,lA,lB,surface.bounding_box(pspict[0]))
+    pspict[0].DrawGraphs(surface,A,B,lA,f1,f2,surface.bounding_box(pspict[0]))
     pspict[0].DrawDefaultAxes()
     pspict[0].dilatation(1)
 
@@ -46,7 +49,8 @@ def HCJPooHsaTgI():
     region.Fsegment.parameters.color="magenta"
     region.Fsegment.parameters.style="dashed"
     region.Isegment.parameters=region.Fsegment.parameters
-    region.parameters.color="red"
+    region.parameters.hatched()
+    region.parameters.hatch.color="red"
 
 
     C=Point(0,a)
@@ -58,7 +62,7 @@ def HCJPooHsaTgI():
     lC.parameters=lA.parameters
     lD.parameters=lA.parameters
 
-    pspict[1].DrawGraphs(region,C,D,lC,lD,region.bounding_box(pspict[1]))
+    pspict[1].DrawGraphs(region,C,D,lC,lD,g1,g2,region.bounding_box(pspict[1]))
     for pspicture in pspict:
         pspicture.axes.no_graduation()
     pspict[1].DrawDefaultAxes()
