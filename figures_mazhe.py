@@ -1,10 +1,10 @@
 #! /usr/bin/sage -python
 # -*- coding: utf8 -*-
 
-# Il faut en tout cas refaire la figure PHTVjfk
-
 from phystricks import *
 import sys
+
+print("JEWZooHwxDmp 1")
 
 from phystricksWIRAooTCcpOV import WIRAooTCcpOV
 from phystricksHFAYooOrfMAA import HFAYooOrfMAA
@@ -42,6 +42,9 @@ from phystricksLYORooNKDHqt import LYORooNKDHqt
 from phystricksASHYooUVHkak import ASHYooUVHkak
 from phystricksFNBQooYgkAmS import FNBQooYgkAmS
 from phystricksUZGooBzlYxr import UZGooBzlYxr
+
+print("KIOZooGSAZkG")
+
 from phystricksACUooQwcDMZ import ACUooQwcDMZ
 from phystricksZTTooXtHkci import ZTTooXtHkci
 from phystricksFXVooJYAfif import FXVooJYAfif
@@ -76,6 +79,8 @@ from phystricksEJRsWXw import EJRsWXw
 from phystricksRLuqsrr import RLuqsrr
 from phystricksDTIYKkP import DTIYKkP
 from phystricksSFdgHdO import SFdgHdO
+
+print("DYRSooPqwGCp")
 
 from phystricksJGuKEjH import JGuKEjH
 from phystricksMCKyvdk import MCKyvdk
@@ -114,6 +119,7 @@ from phystricksBateau import Bateau
 from phystricksFonctionXtrois import FonctionXtrois
 from phystricksFonctionEtDerive import FonctionEtDerive
 from phystricksSurfaceDerive import SurfaceDerive
+print("XABLooGvTECO")
 from phystricksRechercheTangente import VGZooJnvvZc
 from phystricksDerivTangente import DerivTangente
 from phystricksCoordPolaires import CoordPolaires
@@ -125,6 +131,7 @@ from phystricksExoPolaire import ExoPolaire
 from phystricksExoProjection import ExoProjection
 from phystricksExoUnSurxPolaire import ExoUnSurxPolaire
 from phystricksSurfaceHorizVerti import SurfaceHorizVerti
+print("DOPQooPcKEGZ")
 from phystricksSurfaceCercle import SurfaceCercle
 from phystricksIntRectangle import IntRectangle
 from phystricksIntTriangle import IntTriangle
@@ -147,6 +154,9 @@ from phystricksFWJuNhU import FWJuNhU
 from phystricksDessinLim import DessinLim
 from phystricksQQa import QQa
 from phystricksQCb import QCb
+
+print("après")
+
 from phystricksLaurin import Laurin
 from phystricksCoinPasVar import CoinPasVar
 from phystricksExoVarj import ExoVarj
@@ -217,6 +227,8 @@ from phystricksSolsEqDiffSin import SolsEqDiffSin
 from phystricksSolsSinpA import SolsSinpA
 from phystricksTrajs import Trajs
 
+print("JEWZooHwxDmp 3")
+
 # Suppression août 2014
 #from figure_devoir1 import exercice1A1
 #from figure_devoir1 import exercice1A2
@@ -232,6 +244,7 @@ from phystricksTrajs import Trajs
 
 figures_list=[]
 figures_list.append(MoulinEau)
+figures_list.append(QOBAooZZZOrl)
 figures_list.append(IntegraleSimple)
 figures_list.append(ExoMagnetique)
 figures_list.append(CurvilignesPolaires)
@@ -340,6 +353,10 @@ figures_list.append(AdhIntFrTrois)
 figures_list.append(AdhIntFrSix)
 figures_list.append(DeuxCercles)
 figures_list.append(TraceCycloide)
+
+
+print("JEWZooHwxDmp 3")
+
 figures_list.append(QuelCote)
 figures_list.append(Osculateur)
 figures_list.append(examssepti)
@@ -426,7 +443,6 @@ figures_list.append(VDFMooHMmFZr)
 figures_list.append(LLVMooWOkvAB)
 figures_list.append(DDCTooYscVzA)
 figures_list.append(VSZRooRWgUGu)
-figures_list.append(QOBAooZZZOrl)
 figures_list.append(GVDJooYzMxLW)
 figures_list.append(SQNPooPTrLRQ)
 figures_list.append(BNHLooLDxdPA)
@@ -439,20 +455,29 @@ figures_list.append(GWOYooRxHKSm)
 figures_list.append(VBOIooRHhKOH)
 figures_list.append(HFAYooOrfMAA)
 figures_list.append(WIRAooTCcpOV)
+print("JEWZooHwxDmp 4")
 """
 figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
 """
+
+print("UEMIooQZVODL 1")
 
 def AllFigures():
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"(almost) all I know in mathematics and physics")
     tests.generate()
     tests.summary()
 
+print("UEMIooQZVODL 2")
+
 if __name__=="__main__":
     if "--all" in sys.argv :
+        print("UEMIooQZVODL 3")
         AllFigures()
+        print("UEMIooQZVODL 4")
     else:
+        print("UEMIooQZVODL 5")
         ProjPoly()
+        print("UEMIooQZVODL 6")
