@@ -4,8 +4,9 @@
 from phystricks import *
 import sys
 
-print("JEWZooHwxDmp 1")
-
+from phystricksUMEBooVTMyfD import UMEBooVTMyfD
+from phystricksUIEHooSlbzIJ import UIEHooSlbzIJ
+from phystricksYYECooQlnKtD import YYECooQlnKtD
 from phystricksWIRAooTCcpOV import WIRAooTCcpOV
 from phystricksHFAYooOrfMAA import HFAYooOrfMAA
 from phystricksVBOIooRHhKOH import VBOIooRHhKOH
@@ -43,8 +44,6 @@ from phystricksASHYooUVHkak import ASHYooUVHkak
 from phystricksFNBQooYgkAmS import FNBQooYgkAmS
 from phystricksUZGooBzlYxr import UZGooBzlYxr
 
-print("KIOZooGSAZkG")
-
 from phystricksACUooQwcDMZ import ACUooQwcDMZ
 from phystricksZTTooXtHkci import ZTTooXtHkci
 from phystricksFXVooJYAfif import FXVooJYAfif
@@ -79,8 +78,6 @@ from phystricksEJRsWXw import EJRsWXw
 from phystricksRLuqsrr import RLuqsrr
 from phystricksDTIYKkP import DTIYKkP
 from phystricksSFdgHdO import SFdgHdO
-
-print("DYRSooPqwGCp")
 
 from phystricksJGuKEjH import JGuKEjH
 from phystricksMCKyvdk import MCKyvdk
@@ -119,7 +116,6 @@ from phystricksBateau import Bateau
 from phystricksFonctionXtrois import FonctionXtrois
 from phystricksFonctionEtDerive import FonctionEtDerive
 from phystricksSurfaceDerive import SurfaceDerive
-print("XABLooGvTECO")
 from phystricksRechercheTangente import VGZooJnvvZc
 from phystricksDerivTangente import DerivTangente
 from phystricksCoordPolaires import CoordPolaires
@@ -131,7 +127,6 @@ from phystricksExoPolaire import ExoPolaire
 from phystricksExoProjection import ExoProjection
 from phystricksExoUnSurxPolaire import ExoUnSurxPolaire
 from phystricksSurfaceHorizVerti import SurfaceHorizVerti
-print("DOPQooPcKEGZ")
 from phystricksSurfaceCercle import SurfaceCercle
 from phystricksIntRectangle import IntRectangle
 from phystricksIntTriangle import IntTriangle
@@ -154,9 +149,6 @@ from phystricksFWJuNhU import FWJuNhU
 from phystricksDessinLim import DessinLim
 from phystricksQQa import QQa
 from phystricksQCb import QCb
-
-print("après")
-
 from phystricksLaurin import Laurin
 from phystricksCoinPasVar import CoinPasVar
 from phystricksExoVarj import ExoVarj
@@ -226,8 +218,6 @@ from phystricksDS2010ExoGraph import DS2010ExoGraph
 from phystricksSolsEqDiffSin import SolsEqDiffSin
 from phystricksSolsSinpA import SolsSinpA
 from phystricksTrajs import Trajs
-
-print("JEWZooHwxDmp 3")
 
 # Suppression août 2014
 #from figure_devoir1 import exercice1A1
@@ -353,10 +343,6 @@ figures_list.append(AdhIntFrTrois)
 figures_list.append(AdhIntFrSix)
 figures_list.append(DeuxCercles)
 figures_list.append(TraceCycloide)
-
-
-print("JEWZooHwxDmp 3")
-
 figures_list.append(QuelCote)
 figures_list.append(Osculateur)
 figures_list.append(examssepti)
@@ -455,15 +441,26 @@ figures_list.append(GWOYooRxHKSm)
 figures_list.append(VBOIooRHhKOH)
 figures_list.append(HFAYooOrfMAA)
 figures_list.append(WIRAooTCcpOV)
-print("JEWZooHwxDmp 4")
+figures_list.append(YYECooQlnKtD)
+figures_list.append(UIEHooSlbzIJ)
+figures_list.append(UMEBooVTMyfD)
 """
 figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
 """
-
-print("UEMIooQZVODL 1")
 
 def AllFigures():
     tests=main.FigureGenerationSuite(figures_list,first=0,title=u"(almost) all I know in mathematics and physics")
