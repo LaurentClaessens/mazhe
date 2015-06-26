@@ -456,6 +456,10 @@ Pour la suite, nous travaillerons avec des estimateurs de carré intégrable, c'
 \end{equation}
 pour tout \( \theta\in\Theta\).
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Qualité des estimateurs}
+%---------------------------------------------------------------------------------------------------------------------------
+
 \begin{definition}
     Une estimateur est \defe{convergent}{convergent!estimateur}\index{estimateur!convergent} ou \defe{consistant}{consistance!estimateur}\index{estimateur!consistant} si pour tout \( \theta\in\Theta\), la suite de variables aléatoires \( \hat\theta_n(X_1,\ldots,X_n)\) converge en probabilité vers \( \theta\).
 \end{definition}
@@ -467,6 +471,60 @@ La probabilité dans le membre de gauche est donnée par
 \begin{equation}
     \mu^{\otimes n}_{\theta}\Big( \big\{ (x_1,\ldots,x_n)\in\eR^n\tq| \hat\theta_n(x_1,\ldots,x_n)-\theta |>\eta \big\} \Big).
 \end{equation}
+
+
+Soit \( \hat\theta_n\) un estimateur pour \( \theta\). Nous cherchons à minimiser l'erreur commise en remplaçant \( \theta\) par \( \hat\theta_n\). Nous introduisons donc le \defe{risque quadratique}{risque!quadratique} de l'estimateur \( \hat\theta_n\) par
+\begin{equation}
+    R(\hat\theta_n,\theta)=E_{\theta}\big( (\hat\theta_n-\theta)^2 \big).
+\end{equation}
+Nous disons qu'un estimateur \( \hat\theta_{n,1}\) est préférable à \( \hat\theta_{n,2}\) si pour tout \( \theta\in\Theta\) nous avons
+\begin{equation}
+    R(\hat\theta_{n,1},\theta)<R(\hat\theta_{n,2},\theta).
+\end{equation}
+
+\begin{lemma}
+    Une formule alternative pour le risque quadratique :
+    \begin{equation}
+        R(\hat\theta_n,\theta)=\Var(\hat\theta_n)+\big( E_{\theta}(\hat\theta_n)-\theta \big)^2
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Nous avons
+    \begin{equation}
+        E_{\theta}\left( (\hat\theta_n-\theta)^2 \right)=\Var(\hat\theta_n-\theta)-E_{\theta}(\hat\theta_n-\theta)^2.
+    \end{equation}
+    D'une part \( \Var(\hat\theta_n-\theta)=\Var(\hat\theta_n)\) et d'autre part \( E_{\theta}(\hat\theta_n-\theta)^2=\big[ E(\hat\theta_n)-\theta \big]^2\). Par conséquent
+    \begin{equation}    \label{EqRisqueetbaisiVar}
+        R(\hat\theta_n,\theta)=\Var(\hat\theta_n)-\Big( E(\hat\theta_n)-\theta \Big)^2.
+    \end{equation}
+\end{proof}
+
+Le \defe{biais}{biais!d'estimateur}\index{estimateur!biais} de l'estimateur \( \hat\theta_n\) est la quantité
+\begin{equation}
+    E_{\theta}(\hat\theta_n)-\theta.
+\end{equation}
+À ce niveau, nous rappelons que nous écrivons \( E_{\theta}\) l'espérance calculée en supposant la valeur \( \theta\) pour le paramètre des différentes variables aléatoires entrant dans le calcul. Voir la discussion autour de la définition \eqref{EqFbKGZD}.
+
+\begin{example}     \label{ExytNlTq}
+    Dans le cadre de la proposition \ref{PropGMntiy}, nous voulons savoir si \( \frac{ N_t }{ t }\) est un estimateur sans biais de \( \lambda\). Pour ce faire nous calculons
+    \begin{equation}
+        E_{\lambda}\left( \frac{ N_t }{ t } \right)=\frac{1}{ t }E_{\lambda}(N_t)=\lambda
+    \end{equation}
+    parce que \( E(N_t)=\lambda t\). Ici nous avons calculé \( E(N_t)\) en prenant \( \lambda\) pour valeur du paramètre du processus de Poisson, alors que en principe c'est justement le paramètre que nous voulons estimer.
+\end{example}
+
+\begin{example}
+    La moyenne empirique \( \bar X_n\) est un estimateur sans billet de la moyenne. L'estimateur
+    \begin{equation}
+        \frac{1}{ n-1 }\sum_{i=1}^n(X_i-\bar X_i)^2
+    \end{equation}
+    est un estimateur sans billet de la variance.
+\end{example}
+
+Un estimateur sans biais n'est pas toujours de meilleur qualité qu'un estimateur avec biais. En effet ce que nous voulons est de se donner un (petit) intervalle  \( I\) autour de la bonne valeur de \( \theta\) et de maximiser \( P(\hat\theta_n\in I)\). Sur la figure \ref{LabelFigBiaisOuPas}, c'est l'estimateur biaisé rouge tombe plus souvent sur le bon intervalle que l'estimateur non biaisé bleu.
+\newcommand{\CaptionFigBiaisOuPas}{Un estimateur sans biais et un avec biais.}
+\input{Fig_BiaisOuPas.pstricks}
 
 Nous allons maintenant étudier quelque manières de construire des estimateurs convergents. Il vont évidemment s'appuyer sur la loi des grands nombres.
 
@@ -599,63 +657,6 @@ Notons que de façon générale lorsqu'on parle d'estimateurs, partout où il y 
         E\big( F_n(x) \big)=\frac{1}{ n }\sum_{i=1}^nE\big( \mtu_{\{ X_i\leq x \}} \big)=\frac{1}{n }\sum_{i=1}^nF(x)=F(x).
     \end{equation}
 \end{proof}
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Qualité des estimateurs}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-Soit \( \hat\theta_n\) un estimateur pour \( \theta\). Nous cherchons à minimiser l'erreur commise en remplaçant \( \theta\) par \( \hat\theta_n\). Nous introduisons donc le \defe{risque quadratique}{risque!quadratique} de l'estimateur \( \hat\theta_n\) par
-\begin{equation}
-    R(\hat\theta_n,\theta)=E_{\theta}\big( (\hat\theta_n-\theta)^2 \big).
-\end{equation}
-Nous disons qu'un estimateur \( \hat\theta_{n,1}\) est préférable à \( \hat\theta_{n,2}\) si pour tout \( \theta\in\Theta\) nous avons
-\begin{equation}
-    R(\hat\theta_{n,1},\theta)<R(\hat\theta_{n,2},\theta).
-\end{equation}
-
-\begin{lemma}
-    Une formule alternative pour le risque quadratique :
-    \begin{equation}
-        R(\hat\theta_n,\theta)=\Var(\hat\theta_n)+\big( E_{\theta}(\hat\theta_n)-\theta \big)^2
-    \end{equation}
-\end{lemma}
-
-\begin{proof}
-    Nous avons
-    \begin{equation}
-        E_{\theta}\left( (\hat\theta_n-\theta)^2 \right)=\Var(\hat\theta_n-\theta)-E_{\theta}(\hat\theta_n-\theta)^2.
-    \end{equation}
-    D'une part \( \Var(\hat\theta_n-\theta)=\Var(\hat\theta_n)\) et d'autre part \( E_{\theta}(\hat\theta_n-\theta)^2=\big[ E(\hat\theta_n)-\theta \big]^2\). Par conséquent
-    \begin{equation}    \label{EqRisqueetbaisiVar}
-        R(\hat\theta_n,\theta)=\Var(\hat\theta_n)-\Big( E(\hat\theta_n)-\theta \Big)^2.
-    \end{equation}
-\end{proof}
-
-Le \defe{biais}{biais!d'estimateur}\index{estimateur!biais} de l'estimateur \( \hat\theta_n\) est la quantité
-\begin{equation}
-    E_{\theta}(\hat\theta_n)-\theta.
-\end{equation}
-À ce niveau, nous rappelons que nous écrivons \( E_{\theta}\) l'espérance calculée en supposant la valeur \( \theta\) pour le paramètre des différentes variables aléatoires entrant dans le calcul. Voir la discussion autour de la définition \eqref{EqFbKGZD}.
-
-\begin{example}     \label{ExytNlTq}
-    Dans le cadre de la proposition \ref{PropGMntiy}, nous voulons savoir si \( \frac{ N_t }{ t }\) est un estimateur sans biais de \( \lambda\). Pour ce faire nous calculons
-    \begin{equation}
-        E_{\lambda}\left( \frac{ N_t }{ t } \right)=\frac{1}{ t }E_{\lambda}(N_t)=\lambda
-    \end{equation}
-    parce que \( E(N_t)=\lambda t\). Ici nous avons calculé \( E(N_t)\) en prenant \( \lambda\) pour valeur du paramètre du processus de Poisson, alors que en principe c'est justement le paramètre que nous voulons estimer.
-\end{example}
-
-\begin{example}
-    La moyenne empirique \( \bar X_n\) est un estimateur sans billet de la moyenne. L'estimateur
-    \begin{equation}
-        \frac{1}{ n-1 }\sum_{i=1}^n(X_i-\bar X_i)^2
-    \end{equation}
-    est un estimateur sans billet de la variance.
-\end{example}
-
-Un estimateur sans biais n'est pas toujours de meilleur qualité qu'un estimateur sans biais. En effet ce que nous voulons est de se donner un (petit) intervalle  \( I\) autour de la bonne valeur de \( \theta\) et de maximiser \( P(\hat\theta_n\in I)\). Sur la figure \ref{LabelFigBiaisOuPas}, c'est l'estimateur biaisé rouge tombe plus souvent sur le bon intervalle que l'estimateur non biaisé bleu.
-\newcommand{\CaptionFigBiaisOuPas}{Un estimateur sans biais et un avec biais.}
-\input{Fig_BiaisOuPas.pstricks}
 
 \Exo{Model-0004}
 \Exo{Model-0005}
