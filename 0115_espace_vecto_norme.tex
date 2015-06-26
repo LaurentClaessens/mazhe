@@ -542,6 +542,140 @@ Soit \( F\) un espace de Banach et deux suites \( A_k\to A\) et \( B_k\to B\) da
     Si \( A\) est nilpotente, la convergence de \( \sum_{k=0}^{\infty}A^k\) ne pose pas de problèmes parce que la somme est finie. Le fait que cette somme soit \( (\mtu-A)^{-1}\) s'obtient de la même façon, mais il ne faut pas faire la dernière majoration : si \( A\) est nilpotente, il tombe sous le sens que \( \| A^{n+1} \|\to 0\), mais il n'est cependant pas vrai que \( \| A \|^{n+1}\) tende vers zéro.
 \end{proof}
 
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Normes de matrices et d'applications linéaires}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{subsecNomrApplLin}
+
+
+\begin{theorem}
+    La norme $2$ d'une matrice peut se calculer de la manière suivante :
+    \begin{equation}
+        \|A\|_2=\sqrt{\rho(A{^t}A)}
+    \end{equation}
+\end{theorem}
+
+\begin{proposition} \label{PropMAQoKAg}
+    La fonction
+    \begin{equation}
+        \begin{aligned}
+            f\colon \eM(n,\eR)\times \eM(n,\eR)&\to \eR \\
+            (X,Y)&\mapsto \tr(X^tY) 
+        \end{aligned}
+    \end{equation}
+    est un produit scalaire sur \( \eM(n,\eR)\).
+\end{proposition}
+\index{trace!produit scalaire sur \( \eM(n,\eR)\)}
+\index{produit!scalaire!sur \( \eM(n,\eR)\)}
+
+\begin{proof}
+    Il faut vérifier la définition \ref{DefVJIeTFj}.
+    \begin{itemize}
+        \item La bilinéairité est la linéarité de la trace.
+        \item La symétrie de \( f\) est le fait que \( \tr(A^t)=\tr(A)\).
+        \item L'application \( f\) est définie positive parce que si \( X\in \eM\), alors \( X^tX\) est symétrique définie positive, donc diagonalisable avec des nombres positifs sur la diagonale. La trace étant un invariant de similitude, nous avons \( f(X,X)=\tr(X^tX)\geq 0\). De plus si \( \tr(X^tX)=0\), alors \( X^tX=0\) (pour la même raison de diagonalisation). Mais alors \( \| Xu \|=0\) pour tout \( u\in E\), ce qui signifie que \( X=0\).
+    \end{itemize}
+\end{proof}
+
+\begin{example}
+	Soit $m=n$, un point $\lambda$ dans $\eR$ et $T_{\lambda}$ l'application linéaire définie par $T_{\lambda}(x)=\lambda x$. La norme de $T_{\lambda}$ est alors
+\[
+\|T_{\lambda}\|_{\mathcal{L}}=\sup_{\|x\|_{\eR^m}\leq 1}\|\lambda x\|_{\eR^n}= |\lambda|.
+\]
+Notez que $T_{\lambda}$ n'est rien d'autre que l'homothétie de rapport $\lambda$ dans $\eR^m$.
+\end{example}
+
+\begin{example}
+	Considérons la rotation $T_{\alpha}$ d'angle $\alpha$ dans $\eR^2$. Elle est donnée par l'équation matricielle
+	\begin{equation}
+		T_{\alpha}\begin{pmatrix}
+			x	\\ 
+			y	
+		\end{pmatrix}=\begin{pmatrix}
+			\cos\alpha	&	\sin\alpha	\\ 
+			-\sin\alpha	&	\cos\alpha	
+		\end{pmatrix}\begin{pmatrix}
+			x	\\ 
+			y	
+		\end{pmatrix}=\begin{pmatrix}
+			\cos(\alpha)x+\sin(\alpha)y	\\ 
+			-\sin(\alpha)x+\cos(\alpha)y	
+		\end{pmatrix}
+	\end{equation}
+	Étant donné que cela est une rotation, c'est une isométrie : $\| T_{\alpha}x \|=\| x \|$. En ce qui concerne la norme de $T_{\alpha}$ nous avons
+	\begin{equation}
+		\| T_{\alpha} \|=\sup_{x\in\eR^2}\frac{ \| T_{\alpha}(x) \| }{ \| x \| }=\sup_{x\in\eR^2}\frac{ \| x \| }{ \| x \| }=1.
+	\end{equation}
+	Toutes les rotations dans le plan ont donc une norme $1$. La même preuve tient pour toutes les rotations en dimension quelconque. 
+\end{example}
+
+%TODO : le théorème de fuite des compacts qui dit qu'une solution de y'=f(y,t) cesse d'exister seulement si elle tend vers +- infini.
+
+\begin{example}
+  Soit $m=n$, un point $b$ dans $\eR^m$ et $T_b$ l'application linéaire définie par $T_b(x)=b\cdot x$ (petit exercice : vérifiez qu'il s'agit vraiment d'une application linéaire).  La norme de $T_b$ satisfait les inégalités suivantes 
+ \[
+\|T_b\|_{\mathcal{L}}=\sup_{\|x\|_{\eR^m}\leq 1}\|b\cdot x\|_{\eR^n}\leq \sup_{\|x\|_{\eR^m}\leq 1}\|b \|_{\eR^n}\|x\cdot x\|_{\eR^n}\leq\|b \|_{\eR^n},
+\]
+\[
+\|T_b\|_{\mathcal{L}}=\sup_{\|x\|_{\eR^m}\leq 1}\|b\cdot x\|_{\eR^n}\geq \left\|b\cdot \frac{b}{\|b \|_{\eR^n}}\right\|_{\eR^n}=\|b \|_{\eR^n},
+\]
+donc $\|T_b\|_{\mathcal{L}}=\|b \|_{\eR^n}$.
+\end{example}
+
+Une inégalité que nous utiliserons quelque fois dans la suite, y compris dans la proposition qui suit.
+\begin{lemma}		\label{LemAvmajAfoisv}
+	Soit $T$ une application linéaire de $\eR^m$ vers $\eR^n$. Alors
+	\begin{equation}
+		\| Av \|_n\leq \| A \|_{\aL}\| v \|_m.
+	\end{equation}
+	pour tout $v\in\eR^m$.
+\end{lemma}
+
+\begin{proof}
+	Étant donné que le supremum d'un ensemble est plus grand ou égal à tous les éléments qui le compose,
+	\begin{equation}
+		\| A \|_{\aL(\eR^m,\eR^n)}=\sup_{x\in\eR^m}\frac{ \| Ax \| }{ \| x \| }\geq\frac{ \| Av \| }{ \| v \| },
+	\end{equation}
+	d'où le résultat.
+\end{proof}
+
+\begin{proposition}
+  Soit $T_1$ dans $\mathcal{L}(\eR^m, \eR^n)$ et $T_2$ dans $\mathcal{L}(\eR^n, \eR^p)$ . Alors l'application composée $T_2\circ T_1 $ est dans $\mathcal{L}(\eR^m, \eR^p)$ et sa norme satisfait
+  \begin{equation}  \label{EqFwTvwI}
+\|T_2\circ T_1 \|_{\mathcal{L}}\leq\|T_1\|_{\mathcal{L}} \|T_2\|_{\mathcal{L}}.
+  \end{equation}
+\end{proposition}
+\begin{proof}
+  \begin{itemize}
+  \item $T_2\circ T_1 $ est dans $\mathcal{L}(\eR^m, \eR^p)$ : soient $x,\, y$ dans $\eR^m$ et $a,\, b$ dans $\eR$ . 
+    \begin{equation}\nonumber
+      \begin{aligned}
+       T_2&\circ T_1 (ax+by)= T_2\left(T_1(ax+by)\right)=T_2(aT_1(x)+bT_1(y))=\\
+&= aT_2\left(T_1(x)\right)+ bT_2\left(T_1(y)\right) = aT_2\circ T_1(x)+ bT_2\circ T_1(y). 
+      \end{aligned}
+    \end{equation}  
+\item
+	On veut une estimation de la norme de $T_2\circ T_1 $ :
+\[
+\|T_2\circ T_1 \|_{\mathcal{L}}= \sup_{x\in\eR^m}\frac{\left\|T_2\left(T_1(x)\right)\right\|_{\eR^p}}{\|x\|_{\eR^m}}\leq  \sup_{x\in\eR^m}\frac{\|T_2\|_{\mathcal{L}}\left\|\left(T_1(x)\right)\right\|_{\eR^p}}{\|x\|_{\eR^m}} =\|T_1\|_{\mathcal{L}} \|T_2\|_{\mathcal{L}}.
+\]
+  \end{itemize}
+\end{proof}
+
+\begin{proposition}
+    Une application linéaire de \( \eR^m\) dans \( \eR^n\) est continue.
+\end{proposition}
+
+\begin{proof}
+      Soit $x$ un point dans $\eR^m$. Nous devons vérifier l'égalité
+      \begin{equation}
+       \lim_{h\to 0_m}T(x+h)=T(x).
+      \end{equation}
+    Cela revient à prouver que $\lim_{h\to 0_m}T(h)=0$, parce que $T(x+h)=T(x)+T(h)$. Nous pouvons toujours majorer $\|T(h)\|_n$ par $\|T\|_{\mathcal{L}(\eR^m,\eR^n)}\| h \|_{\eR^m}$ (lemme \ref{LemAvmajAfoisv}). Quand $h$ s'approche de $ 0_m $ sa norme $\|h\|_m$ tend vers $0$, ce que nous permet de conclure parce que nous savons que de toutes façons, $\| T \|_{\aL}$ est fini.
+\end{proof}
+
+Note : dans un espace de dimension infinie, la linéarité ne suffit pas pour avoir la continuité : il faut de plus être borné (ce que sont toutes les applications linéaires \( \eR^m\to\eR^n\)). Voir la proposition \ref{PropmEJjLE}.
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Applications multilinéaires}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1420,137 +1554,3 @@ Nous supposons que \( \GL(E,F)\) n'est pas vide, sinon ce n'est pas du jeu.
         Donc \( B\) est bien bornée et par conséquent continue. Une application bilinéaire continue est \(  C^{\infty}\) par le lemme \ref{LemFRdNDCd}. La décomposition \( di=B\circ \Delta\circ i\) nous donne donc que \( i\in C^{\infty}\) dès que \( i\) est continue, ce que nous avions déjà montré.
         \end{subproof}
 \end{proof}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Normes de matrices et d'applications linéaires}
-%---------------------------------------------------------------------------------------------------------------------------
-\label{subsecNomrApplLin}
-
-
-\begin{theorem}
-    La norme $2$ d'une matrice peut se calculer de la manière suivante :
-    \begin{equation}
-        \|A\|_2=\sqrt{\rho(A{^t}A)}
-    \end{equation}
-\end{theorem}
-
-\begin{proposition} \label{PropMAQoKAg}
-    La fonction
-    \begin{equation}
-        \begin{aligned}
-            f\colon \eM(n,\eR)\times \eM(n,\eR)&\to \eR \\
-            (X,Y)&\mapsto \tr(X^tY) 
-        \end{aligned}
-    \end{equation}
-    est un produit scalaire sur \( \eM(n,\eR)\).
-\end{proposition}
-\index{trace!produit scalaire sur \( \eM(n,\eR)\)}
-\index{produit!scalaire!sur \( \eM(n,\eR)\)}
-
-\begin{proof}
-    Il faut vérifier la définition \ref{DefVJIeTFj}.
-    \begin{itemize}
-        \item La bilinéairité est la linéarité de la trace.
-        \item La symétrie de \( f\) est le fait que \( \tr(A^t)=\tr(A)\).
-        \item L'application \( f\) est définie positive parce que si \( X\in \eM\), alors \( X^tX\) est symétrique définie positive, donc diagonalisable avec des nombres positifs sur la diagonale. La trace étant un invariant de similitude, nous avons \( f(X,X)=\tr(X^tX)\geq 0\). De plus si \( \tr(X^tX)=0\), alors \( X^tX=0\) (pour la même raison de diagonalisation). Mais alors \( \| Xu \|=0\) pour tout \( u\in E\), ce qui signifie que \( X=0\).
-    \end{itemize}
-\end{proof}
-
-\begin{example}
-	Soit $m=n$, un point $\lambda$ dans $\eR$ et $T_{\lambda}$ l'application linéaire définie par $T_{\lambda}(x)=\lambda x$. La norme de $T_{\lambda}$ est alors
-\[
-\|T_{\lambda}\|_{\mathcal{L}}=\sup_{\|x\|_{\eR^m}\leq 1}\|\lambda x\|_{\eR^n}= |\lambda|.
-\]
-Notez que $T_{\lambda}$ n'est rien d'autre que l'homothétie de rapport $\lambda$ dans $\eR^m$.
-\end{example}
-
-\begin{example}
-	Considérons la rotation $T_{\alpha}$ d'angle $\alpha$ dans $\eR^2$. Elle est donnée par l'équation matricielle
-	\begin{equation}
-		T_{\alpha}\begin{pmatrix}
-			x	\\ 
-			y	
-		\end{pmatrix}=\begin{pmatrix}
-			\cos\alpha	&	\sin\alpha	\\ 
-			-\sin\alpha	&	\cos\alpha	
-		\end{pmatrix}\begin{pmatrix}
-			x	\\ 
-			y	
-		\end{pmatrix}=\begin{pmatrix}
-			\cos(\alpha)x+\sin(\alpha)y	\\ 
-			-\sin(\alpha)x+\cos(\alpha)y	
-		\end{pmatrix}
-	\end{equation}
-	Étant donné que cela est une rotation, c'est une isométrie : $\| T_{\alpha}x \|=\| x \|$. En ce qui concerne la norme de $T_{\alpha}$ nous avons
-	\begin{equation}
-		\| T_{\alpha} \|=\sup_{x\in\eR^2}\frac{ \| T_{\alpha}(x) \| }{ \| x \| }=\sup_{x\in\eR^2}\frac{ \| x \| }{ \| x \| }=1.
-	\end{equation}
-	Toutes les rotations dans le plan ont donc une norme $1$. La même preuve tient pour toutes les rotations en dimension quelconque. 
-\end{example}
-
-%TODO : le théorème de fuite des compacts qui dit qu'une solution de y'=f(y,t) cesse d'exister seulement si elle tend vers +- infini.
-
-\begin{example}
-  Soit $m=n$, un point $b$ dans $\eR^m$ et $T_b$ l'application linéaire définie par $T_b(x)=b\cdot x$ (petit exercice : vérifiez qu'il s'agit vraiment d'une application linéaire).  La norme de $T_b$ satisfait les inégalités suivantes 
- \[
-\|T_b\|_{\mathcal{L}}=\sup_{\|x\|_{\eR^m}\leq 1}\|b\cdot x\|_{\eR^n}\leq \sup_{\|x\|_{\eR^m}\leq 1}\|b \|_{\eR^n}\|x\cdot x\|_{\eR^n}\leq\|b \|_{\eR^n},
-\]
-\[
-\|T_b\|_{\mathcal{L}}=\sup_{\|x\|_{\eR^m}\leq 1}\|b\cdot x\|_{\eR^n}\geq \left\|b\cdot \frac{b}{\|b \|_{\eR^n}}\right\|_{\eR^n}=\|b \|_{\eR^n},
-\]
-donc $\|T_b\|_{\mathcal{L}}=\|b \|_{\eR^n}$.
-\end{example}
-
-Une inégalité que nous utiliserons quelque fois dans la suite, y compris dans la proposition qui suit.
-\begin{lemma}		\label{LemAvmajAfoisv}
-	Soit $T$ une application linéaire de $\eR^m$ vers $\eR^n$. Alors
-	\begin{equation}
-		\| Av \|_n\leq \| A \|_{\aL}\| v \|_m.
-	\end{equation}
-	pour tout $v\in\eR^m$.
-\end{lemma}
-
-\begin{proof}
-	Étant donné que le supremum d'un ensemble est plus grand ou égal à tous les éléments qui le compose,
-	\begin{equation}
-		\| A \|_{\aL(\eR^m,\eR^n)}=\sup_{x\in\eR^m}\frac{ \| Ax \| }{ \| x \| }\geq\frac{ \| Av \| }{ \| v \| },
-	\end{equation}
-	d'où le résultat.
-\end{proof}
-
-\begin{proposition}
-  Soit $T_1$ dans $\mathcal{L}(\eR^m, \eR^n)$ et $T_2$ dans $\mathcal{L}(\eR^n, \eR^p)$ . Alors l'application composée $T_2\circ T_1 $ est dans $\mathcal{L}(\eR^m, \eR^p)$ et sa norme satisfait
-  \begin{equation}  \label{EqFwTvwI}
-\|T_2\circ T_1 \|_{\mathcal{L}}\leq\|T_1\|_{\mathcal{L}} \|T_2\|_{\mathcal{L}}.
-  \end{equation}
-\end{proposition}
-\begin{proof}
-  \begin{itemize}
-  \item $T_2\circ T_1 $ est dans $\mathcal{L}(\eR^m, \eR^p)$ : soient $x,\, y$ dans $\eR^m$ et $a,\, b$ dans $\eR$ . 
-    \begin{equation}\nonumber
-      \begin{aligned}
-       T_2&\circ T_1 (ax+by)= T_2\left(T_1(ax+by)\right)=T_2(aT_1(x)+bT_1(y))=\\
-&= aT_2\left(T_1(x)\right)+ bT_2\left(T_1(y)\right) = aT_2\circ T_1(x)+ bT_2\circ T_1(y). 
-      \end{aligned}
-    \end{equation}  
-\item
-	On veut une estimation de la norme de $T_2\circ T_1 $ :
-\[
-\|T_2\circ T_1 \|_{\mathcal{L}}= \sup_{x\in\eR^m}\frac{\left\|T_2\left(T_1(x)\right)\right\|_{\eR^p}}{\|x\|_{\eR^m}}\leq  \sup_{x\in\eR^m}\frac{\|T_2\|_{\mathcal{L}}\left\|\left(T_1(x)\right)\right\|_{\eR^p}}{\|x\|_{\eR^m}} =\|T_1\|_{\mathcal{L}} \|T_2\|_{\mathcal{L}}.
-\]
-  \end{itemize}
-\end{proof}
-
-\begin{proposition}
-    Une application linéaire de \( \eR^m\) dans \( \eR^n\) est continue.
-\end{proposition}
-
-\begin{proof}
-      Soit $x$ un point dans $\eR^m$. Nous devons vérifier l'égalité
-      \begin{equation}
-       \lim_{h\to 0_m}T(x+h)=T(x).
-      \end{equation}
-    Cela revient à prouver que $\lim_{h\to 0_m}T(h)=0$, parce que $T(x+h)=T(x)+T(h)$. Nous pouvons toujours majorer $\|T(h)\|_n$ par $\|T\|_{\mathcal{L}(\eR^m,\eR^n)}\| h \|_{\eR^m}$ (lemme \ref{LemAvmajAfoisv}). Quand $h$ s'approche de $ 0_m $ sa norme $\|h\|_m$ tend vers $0$, ce que nous permet de conclure parce que nous savons que de toutes façons, $\| T \|_{\aL}$ est fini.
-\end{proof}
-
-Note : dans un espace de dimension infinie, la linéarité ne suffit pas pour avoir la continuité : il faut de plus être borné (ce que sont toutes les applications linéaires \( \eR^m\to\eR^n\)). Voir la proposition \ref{PropmEJjLE}.
