@@ -17,6 +17,8 @@ def RegioniPrimoeSecondoTipo():
     g=phyFunction(-(x-2)**(2)+6)
     F=f.graph(a,b)
     G=g.graph(a,b)
+    F.parameters.color="red"
+    G.parameters.color="red"
     reg=SurfaceBetweenFunctions(f,g,a,b)
     reg.parameters.hatched()
     reg.parameters.hatch.color="red"
@@ -43,7 +45,7 @@ def RegioniPrimoeSecondoTipo():
     Sb.parameters.style="dotted"
 
     pspict1.axes.no_graduation()
-    pspict1.DrawGraphs(reg,Xa,Xb,Mf,Mg,Sa,Sb)
+    pspict1.DrawGraphs(reg,Xa,Xb,Mf,Mg,Sa,Sb,F,G)
     pspict1.DrawDefaultAxes()
     pspict1.dilatation(1)
     
