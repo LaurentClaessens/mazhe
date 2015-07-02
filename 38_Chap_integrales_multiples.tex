@@ -710,6 +710,244 @@ Toute fonction continue admet une primitive.
 \end{remark}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Intégrales le long de chemins}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Circulation d'un champ de vecteur}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Soit $F\colon \eR^3\to \eR^3$ un champ de vecteurs et un chemin $\sigma\colon \mathopen[ a , b \mathclose]\to \eR^3$. On appelle \defe{circulation}{circulation} de $F$ le long du chemin $\sigma$ le scalaire
+    \begin{equation}        \label{EqDeffvkZwh}
+        \int_a^b F\big( \sigma(t) \big)\cdot \sigma'(t)dt.
+    \end{equation}
+    Il existe de nombreuses notations pour cela; entre autres :
+    \begin{equation}
+        \int_{\sigma}F=\int_{\sigma} F\cdot ds.
+    \end{equation}
+\end{definition}
+
+En physique, la circulation de la force le long d'un chemin est la travail de la force.
+
+\begin{example}
+    À la surface de la Terre, le champ de gravitation est donné par
+    \begin{equation}
+        G(x,y,z)=-mg\begin{pmatrix}
+            0    \\ 
+            0    \\ 
+            1    
+        \end{pmatrix}.
+    \end{equation}
+    Si nous considérons un mobile qui monte à vitesse constante jusqu'à la hauteur $h$, c'est à dire le chemin
+    \begin{equation}
+        \sigma(t)=\begin{pmatrix}
+            0    \\ 
+            0    \\ 
+            t    
+        \end{pmatrix}
+    \end{equation}
+    avec $t\in\mathopen[ 0 , h \mathclose]$. Le travail de la gravitation est alors donné par
+    \begin{equation}
+        W=\int_0^hG\big( \sigma(t) \big)\cdot\begin{pmatrix}
+            0    \\ 
+            0    \\ 
+            1    
+        \end{pmatrix}=
+        -mg\int_0^h\begin{pmatrix}
+            0    \\ 
+            0    \\ 
+            1    
+        \end{pmatrix}\cdot\begin{pmatrix}
+            0    \\ 
+            0    \\ 
+            1    
+        \end{pmatrix}=-mgh.
+    \end{equation}
+    Cela est bien le résultat usuel de l'énergie potentielle. Nous allons voir bientôt que nous nommons la fonction $mgh$ énergie \emph{potentielle} précisément parce que la force dérive de ce potentiel.
+\end{example}
+
+\begin{example}
+    Soit le chemin
+    \begin{equation}
+        \begin{aligned}
+            \sigma\colon \mathopen[ 0 , 2\pi \mathclose]&\to \eR^3 \\
+            t&\mapsto \begin{pmatrix}
+                \sin(t)    \\ 
+                \cos(t)    \\ 
+                t    
+            \end{pmatrix}.
+        \end{aligned}
+    \end{equation}
+    et le champ de vecteurs
+    \begin{equation}
+        F\begin{pmatrix}
+            x    \\ 
+            y    \\ 
+            z    
+        \end{pmatrix}=\begin{pmatrix}
+            x    \\ 
+            y    \\ 
+            z    
+        \end{pmatrix}.
+    \end{equation}
+    La circulation de ce champ de vecteur le long de l'hélice $\sigma$ est
+    \begin{equation}
+        \begin{aligned}[]
+            \int_{\sigma}F\cdot ds&=\int_0^{2\pi}(F\circ \sigma)(t)\cdot \sigma'(t)dt\\
+            &=\int_0^{2\pi}\begin{pmatrix}
+                \sin(t)    \\ 
+                \cos(t)    \\ 
+                t    
+            \end{pmatrix}\cdot
+            \begin{pmatrix}
+                \cos(t)    \\ 
+                \sin(t)    \\ 
+                1    
+            \end{pmatrix}dt\\
+            &=\int_0^{2\pi}tdt\\
+            &=\left[ \frac{ t^2 }{2} \right]_0^{2\pi}\\
+            &=2\pi^2.
+        \end{aligned}
+    \end{equation}
+    
+\end{example}
+
+\begin{proposition}
+    La circulation d'un champ de vecteurs le long d'un chemin ne dépend pas de la paramétrisation. En d'autres termes, si $\sigma_1$ et $\sigma_2$ sont deux chemins équivalents, alors
+    \begin{equation}
+        \int_{\sigma_1}F=\int_{\sigma_2}F.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Soient deux chemins $\sigma_1\colon \mathopen[ a , b \mathclose]\to \eR^3$ et $\sigma_2\colon \mathopen[ c , d \mathclose]\to \eR^3$ équivalents, c'est à dire tels que
+    \begin{equation}
+        \sigma_1(t)=\sigma_2\big( \varphi(t) \big)
+    \end{equation}
+    où $\varphi\colon \mathopen[ a , b \mathclose]\to \mathopen[ c , d \mathclose]$ strictement croissante. En utilisant le fait que $\sigma_1(t)=\varphi'(t)\sigma_2'\big( \varphi(t) \big)$, nous avons
+    \begin{equation}
+        \begin{aligned}[]
+            \int_{\sigma_1}F\cdot ds&=\int_a^bF\big( \sigma_1(t) \big)\cdot\sigma_1'(t)dt\\
+            &=\int_a^bF\Big( \sigma_2\big( \varphi(t) \big) \Big)\cdot\sigma_2'\big( \varphi(t) \big)\varphi'(t)dt\\
+            &=\int_{\varphi(a)}^{\varphi(b)}F\big( \sigma_2(s) \big)\cdot\sigma_2(s)ds\\
+            &=\int_c^dF\big( \sigma_2(s) \big)\cdot \sigma_2'(s)ds\\
+            &=\int_{\sigma_2}F\cdot ds.
+        \end{aligned}
+    \end{equation}
+    où nous avons effectué le changement de variables $s=\varphi(t)$, $ds=\varphi'(t)dt$.
+\end{proof}
+
+\begin{remark}
+    Si $\sigma_2$ est le chemin opposé de $\sigma$, alors
+    \begin{equation}
+        \int_{\sigma_2}F=-\int_{\sigma_1}F.
+    \end{equation}
+\end{remark}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Circulation d'un champ conservatif}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Si nous avons une fonction scalaire $V\colon \eR^3\to \eR$, nous pouvons construire un champ de vecteur en prenant le gradient :
+\begin{equation}
+    F(x)=\nabla V(x).
+\end{equation}
+On dit que le champ de vecteur $F$ \defe{dérive}{champ dérivant d'un potentiel} de $V$, et on dit que $V$ est le \defe{potentiel}{potentiel} de $F$. Nous posons la définition suivante :
+\begin{definition}
+    Un champ de vecteurs $F\colon \eR^3\to \eR^3$ est un champ \defe{conservatif}{champ!conservatif} si il existe une fonction $V\colon \eR^3\to \eR$ telle que
+    \begin{equation}
+        F(x)=\nabla V(x).
+    \end{equation}
+    Nous disons aussi parfois que le champ $V$ \emph{dérive d'un potentiel} ou bien qu'il s'agit d'un \emph{champ de gradient}.
+\end{definition}
+
+Les champs de vecteurs conservatifs sont particulièrement importants parce que presque toutes les forces connues en physiques dérivent d'un potentiel. Nous verrons que la terminologie «conservatif» provient du fait que les forces de ce type conservent l'énergie associée.
+
+
+\begin{proposition}
+    Considérons une fonction $V\colon \eR^3\to \eR$ (que nous appellerons \emph{potentiel}) et le champ de vecteur qui en dérive :
+    \begin{equation}
+        F=\nabla V.
+    \end{equation}
+    Alors 
+    \begin{equation}
+        \int_{\sigma}F\cdot ds=V\big( \sigma(b) \big)-V\big( \sigma(a) \big).
+    \end{equation}
+    Autrement dit, le travail nécessaires pour déplacer un objet d'un point à un autre dans un champ de force conservatif vaut la différence de potentiel entre le point de départ et le point d'arrivée.
+\end{proposition}
+
+\begin{proof}
+    Par définition,
+    \begin{equation}        \label{Eqintparddeftrav}
+        \int_{\sigma} F\cdot ds=\int_a^b F\big( \sigma(t) \big)\cdot \sigma'(t)dt.
+    \end{equation}
+    Nous pouvons transformer l'intégrante de la façon suivante :
+    \begin{equation}
+        \begin{aligned}[]
+            F\big( \sigma(t) \big)\cdot\sigma'(t)&=\nabla V\big( \sigma(t) \big)\cdot\sigma'(t)\\
+            &=\frac{ \partial V }{ \partial x }\big( \sigma(t) \big)\sigma_x'(t) +\frac{ \partial V }{ \partial y }\big( \sigma(t) \big)\sigma_y'(t) +\frac{ \partial V }{ \partial z }\big( \sigma(t) \big)\sigma_z'(t)\\
+            &=\frac{ d }{ dt }\Big[ V\big( \sigma(t) \big) \Big]
+        \end{aligned}
+    \end{equation}
+    où nous avons posé
+    \begin{equation}
+        \sigma(t)=\begin{pmatrix}
+            \sigma_x(t)    \\ 
+            \sigma_y(t)    \\ 
+            \sigma_z(t)    
+        \end{pmatrix}
+    \end{equation}
+    et utilisé à l'envers la formule de dérivation de fonction composée pour
+    \begin{equation}
+             \frac{ d }{ dt }\Big[ V\big( \sigma(t) \big) \Big]=\Big( (V\circ\sigma)(t) \Big)'.
+    \end{equation}
+    En remettant ces expressions dans l'intégrale \eqref{Eqintparddeftrav},
+    \begin{equation}
+        \int_{\sigma}F\cdot ds=\int_a^b\frac{ d }{ dt }\Big[ V\big( \sigma(t) \big) \Big]dt=V\big( \sigma(b) \big)-V\big( \sigma(a) \big).
+    \end{equation}
+\end{proof}
+
+\begin{example}
+    Nous savons que le champ de gravitation dérive d'un potentiel. À la surface de la Terre, le potentiel de gravitation vu par une masse $m$ est donné par la fonction $V(x,y,z)=mgz$. Si nous voulons soulever cette masse d'une hauteur $h$, cela demandera toujours une énergie $mgh$, quel que soit le chemin suivit : en ligne droite vertical, en diagonal, en hélice, \ldots
+\end{example}
+
+\begin{example}
+    À plus grande échelle, le champ de gravitation est encore un champ qui dérive d'un potentiel. En coordonnées sphériques,
+    \begin{equation}
+        V(\rho,\theta,\varphi)=k\frac{ m }{ \rho }
+    \end{equation}
+    Lorsqu'un satellite a une orbite de rayon $R$ autour la Terre, il reste sur la sphère $\rho=R$. Donc il reste sur une surface sur laquelle $V$ est constante. Il n'y a donc pas de travail de la force de gravitation ! C'est pour cela qu'un satellite peut tourner pendant des siècles sans apport énergétique.
+\end{example}
+
+\begin{example}
+    Soit le champ de vecteurs
+    \begin{equation}
+        F\begin{pmatrix}
+            x    \\ 
+            y    
+        \end{pmatrix}=\begin{pmatrix}
+            y    \\ 
+            x    
+        \end{pmatrix}
+    \end{equation}
+    et le chemin
+    \begin{equation}
+        \sigma(t)=\begin{pmatrix}
+            t^4/4    \\ 
+            \sin^3(t\frac{ \pi }{2}).    
+        \end{pmatrix}
+    \end{equation}
+    Nous voulons calculer la circulation de $F$ le long du chemin $\sigma$ entre $t=0$ et $t=1$.
+
+    La première chose à voir est que $F=\nabla V$ avec $V(x,y)=xy$. Donc la circulation sera donnée par
+    \begin{equation}
+        \int_{\sigma}F\cdot ds=V\big( \sigma(1) \big)-V\big( \sigma(0) \big)=V\big( \frac{1}{ 4 },1 \big)-V(0,0)=\frac{1}{ 4 }-0=\frac{1}{ 4 }.
+    \end{equation}
+    Nous n'avons pas réellement calculé l'intégrale.
+\end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Intégration de fonction à deux variables}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
