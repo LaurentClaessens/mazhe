@@ -249,33 +249,34 @@ I*pi
     Il existe plusieurs primitives à une fonction donnée. En physique, la constante arbitraire est souvent fixée par une condition initiale, comme nous le verrons dans la section \ref{SecMRUAsecondeGGdQoT}.
 \end{normaltext}
 
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Différentiabilité}
+\section{Dérivée directionnelle}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Note : pour savoir des choses sur la différentielle de \( f\colon E\to F\) avec \( E\) et \( F\) de dimension infinie, il faut aller voir la section \ref{SecLStKEmc}. Ici nous ne parlerons que de dimension finie.
+Nous sommes capables de dériver une fonction de deux variables $f(x,y)$ par rapport à $x$ et par rapport à $y$. C'est à dire que nous sommes capables de donner la variation de la fonction lorsqu'on bouge le long des axes horizontal et vertical. Il est évidemment souhaitable de parler de la variation de la fonction lorsqu'on se déplace le long d'autre droites.
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Le pourquoi et le comment de la dérivée}
-%---------------------------------------------------------------------------------------------------------------------------
-
-La notion de dérivée est associée à la recherche de la droite tangente à une courbe. Reprenons rapidement le cheminement. La dérivée de $f\colon \eR\to \eR$ au point $a$ est un nombre $f'(a)$, qui définit donc une application linéaire dont le coefficients angulaire est $f'(a)$, et que nous notons $df_a$ :
+Soit donc $u=\begin{pmatrix}
+    u_1    \\ 
+    u_2    
+\end{pmatrix}$ un vecteur unitaire (c'est à dire $u_1^2+u_2^2=1$), et considérons la fonction de une variable
 \begin{equation}
     \begin{aligned}
-        df_a\colon \eR&\to \eR \\
-        u&\mapsto f'(a)u. 
+        \varphi\colon \eR&\to \eR \\
+        t&\mapsto f(a+tu_1,b+tu_2). 
     \end{aligned}
 \end{equation}
-La droite donnée par l'équation
+La fonction $\varphi$ n'est rien d'autre que la fonction $f$ vue le long de la droite de direction donnée par le vecteur $u$. Nous pouvons aussi l'écrire $\varphi(t)=f(p+tu)$.
+
+Soit $f\colon \eR^2\to \eR$ une fonction de deux variables et soit $(a,b)\in\eR^2$. La façon la plus naturelle de définir une dérivée à deux variables est de considérer les \defe{dérivées partielles}{dérivée!partielle} définies par
 \begin{equation}
-    y(a+u)=f'(a)u
+    \begin{aligned}[]
+        \frac{ \partial f }{ \partial x }(a,b)&=\lim_{x\to a} \frac{ f(x,b)-f(a,b) }{ x-a }\\
+        \frac{ \partial f }{ \partial y }(a,b)&=\lim_{y\to b} \frac{ f(a,y)-f(a,b) }{y-b}.
+    \end{aligned}
 \end{equation}
-est parallèle à la tangente en $a$. Pour trouver la tangente, il suffit de la décaler de la hauteur qu'il faut. L'équation de la droite tangente au graphe de $f$ au point $\big( a,f(a) \big)$ devient
-\begin{equation}        \label{EqDiffRapTgDer}
-    y(x)=f(a)+f'(a)(x-a)=f(a)+df_a(x-a).
-\end{equation}
-Nous nous proposons de généraliser cette formule au cas de la recherche du plan tangent à une surface.
- 
+Ces nombres représentent la façon dont le nombre $f(x,y)$ varie lorsque soit seul $x$ varie soit seul $y$ varie. Les dérivées partielles se calculent de la même façon que les dérivées normales. Pour calculer $\partial_xf$, on fait «comme si» $y$ était une constante, et pour calculer $\partial_yf$, on fait comme si $x$ était une constante.
+
 %---------------------------------------------------------------------------------------------------------------------------
                     \subsection{Dérivée partielle et directionnelles}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -349,18 +350,467 @@ pour assurer la continuité. C'est pourquoi on introduit le concept
 de \emph{différentiabilité}. 
 \end{enumerate}
 
-%---------------------------------------------------------------------------------------------------------------------------
-                    \subsection{Différentielle}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{definition}      \label{DefDifferentiablFnRn}
-Soit un point $a \in int\,A$. La fonction $f$ est \defe{différentiable}{différentiable} au point $a$ si il existe une application linéaire $df_a\colon \eR^n\to \eR^m$ telle que 
-\begin{equation}        \label{EqDefDiffableT}
-    \lim_{x\to a} \frac{f(x) - f(a) - df_a (x-a)}{\|x-a\|}=0.
-\end{equation}
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Dérivée suivant un vecteur}		\label{SecDerDirect}
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{definition}
+Soit $f$ une application de $U\subset\eR^m$ dans $\eR$, $a$ un point dans $U$ et $v$ un vecteur de $\eR^m$. On dit que $f$ admet une \defe{dérivée suivant le vecteur $v$ au point $a$}{dérivée!directionnelle} si la fonction $t\mapsto f(a+tv)$ admet une dérivée en $t=0$. La  dérivée de $f$ suivant le vecteur $v$ au point $a$ est alors cette dérivée, et $f$ est dite dérivable suivant $v$ en $a$,
+\[
+\partial_v f(a)=\lim_{
+  \begin{subarray}{l}
+    t\to 0\\ t\neq 0 
+  \end{subarray}
+ }\frac{f(a+tv)-f(a)}{t}.
+\] 
 \end{definition}
 
-Si $f$ est différentiable en $a$, l'application $df_a$ est appelée la différentielle de $f$ en $a$. Voyons comment cette application linéaire agit sur les vecteurs de $\mathbb{R}^n$.
+\begin{definition}
+  La fonction $f:U\subset\eR^m\to \eR^n$ de composantes $(f_1,\ldots, f_n)$, est dite \defe{dérivable suivant $v$ au point $a$}{} si toute ses composante $f_i$, $i=1,\ldots, n$ sont dérivables suivant $v$ au point $a$. Dans ce cas, nous écrivons
+  \begin{equation}
+	\partial_v f(a)=\left(\partial_v f_1(a), \ldots, \partial_v f_n(a)\right)^T.
+  \end{equation}
+\end{definition}
+On parle aussi souvent de dérivé \defe{dans la direction}{} du vecteur $v$. Une \defe{direction}{direction} dans $\eR^m$ est un vecteur de norme $1$. Tant que $u$ est un élément non nul de $\eR^m$, nous pouvons parler de la direction de $u$.
+
+\begin{proposition}
+Soit $u$ un vecteur de norme $1$ dans $\eR^m$ et soit $v=\lambda u$, avec $\lambda$ dans $\eR$. La fonction $f$ est dérivable suivant $v$ au point $a$ si et seulement si $f$ est dérivable suivant $u$ au point $a$, en outre  
+\[
+\partial_v f(a)=\lambda\partial_u f(a).
+\]
+\end{proposition}
+\begin{proof}
+  \begin{equation}
+    \begin{aligned}
+  \partial_v f(a)=&\lim_{\begin{subarray}{l}
+     t\to 0\\ t\neq 0 
+    \end{subarray}}\frac{f(a+tv)-f(a)}{t}=\lim_{\begin{subarray}{l}
+     t\to 0\\ t\neq 0 
+    \end{subarray}}\frac{f(a+t\lambda u)-f(a)}{t}=\\
+&=\lambda \lim_{\begin{subarray}{l}
+    t\to 0\\ t\neq 0 
+  \end{subarray}}\frac{f(a+t\lambda u)-f(a)}{\lambda t}=\lambda \partial_u f(a).    
+    \end{aligned}
+  \end{equation}
+\end{proof}
+\begin{definition}
+Soit $f$ une application de $U\subset\eR^m$ dans $\eR$. On appelle \defe{dérivées partielles de $f$ au point $a$}{dérivée!partielle} les dérivées de $f$ suivant les vecteurs de base $e_1,\ldots,e_m $ au point $a$, si elles existent.
+\end{definition}
+Si $m=2,3$ on peut utiliser la notation $f_x$, $\partial_x$  ou $\partial_1$ pour la dérivée partielle suivant $e_1$, $f_y$, $\partial_y$  ou $\partial_2$  pour la dérivée partielle suivant $e_2$ et $f_z$,  $\partial_z$  ou $\partial_3$  pour la dérivée partielle suivant $e_3$. En général, nous écrivons $\partial_i$ pour noter la la dérivée partielle suivant $e_i$.  
+
+\begin{example}
+Les dérivées partielles de la fonction $f(x,y)=xy^3+\sin y$ au point $(0,\pi)$ sont 
+\[
+\partial_xf(0,\pi)=\frac{ \partial f }{ \partial x }(0,\pi)=f_x(0,\pi)=\lim_{\begin{subarray}{l}
+    t\to 0\\ t\neq 0 
+  \end{subarray}} \frac{(t\pi^3+\sin \pi)-(\sin \pi)}{t}= \pi^3,
+\] 
+\[
+\partial_yf(0,\pi)=\frac{ \partial f }{ \partial y }(0,\pi)=f_y(0,\pi)=\lim_{\begin{subarray}{l}
+    t\to 0\\ t\neq 0 
+  \end{subarray}} \frac{0(\pi+t)^3+\sin (t+\pi)-0\cdot \pi^3}{t}= \cos \pi=-1,
+\]   
+\end{example}
+La fonction d'une seule variable qu'on obtient à partir de $f$ en fixant les $p-1$ variables  $x_1,\ldots, x_{i-1}, x_{i+1}, \ldots, x_p$ et qui associe à $x_i$ la valeur $f(x_1,\ldots, x_{i-1}, x_i, x_{i+1}, \ldots, x_p)$, est appelée $x_i$-ème \defe{section}{section} de $f$ en $x_1,\ldots, x_{i-1}, x_{i+1}, \ldots, x_p$. L'$i$-ème dérivée partielle de $f$ au point $a=(x_1,\ldots,x_m)$ est la dérivée de l'$i$-ème section de $f$ au point $x_i$. En pratique, pour calculer les dérivées partielles d'une fonction on fait une dérivation par rapport à la variable choisie en considérant les  autres variables comme des constantes.
+
+\begin{example}
+	Considérons la fonction $f(x,y)=2xy^2$. Lorsque nous calculons $\partial_xf(x,y)$, nous faisons comme si $y$ était constant. Nous avons donc $\partial_xf(x,y)=2y^2$. Par contre lors du calcul de $\partial_yf(x,y)$, nous prenons $x$ comme une constante. La dérivée de $y^2$ par rapport à $y$ est évidement $2y$, et par conséquent, $\partial_yf(x,y)=4xy$.
+\end{example}
+
+\begin{example}
+  La fonction $f(x,y)=x^y$ est dérivable au point $(1,2)$ et on a
+\[
+\partial_x f(1,2)=(yx^{y-1})_{(x,y)=(1,2)}=2,
+\]
+\[
+\partial_y f(1,2)=\partial_y\left(e^{y\ln x}\right)_{(x,y)=(1,2)}=\left(\ln x e^{y\ln x}\right)_{(x,y)=(1,2)}=\ln\big( 1- e^{2\ln(1)} \big)=0.
+\]
+\end{example}
+\begin{definition}
+  Soit $f$ une application de $U\subset\eR^m$ dans $\eR$ et $u$ un vecteur de $\eR^m$. La fonction $f$ est \defe{dérivable sur $U$ suivant le vecteur $u$}{}, si $f$ est dérivable  suivant le vecteur $u$ en tout point de $U$.
+\end{definition} 
+
+Pour les fonctions d'une seule variable la dérivabilité en un point $a$ implique la continuité en $a$. Cela n'est pas vrai pour les fonctions de plusieurs variables : il existe des fonction $f$  qui sont dérivables suivant tout vecteur au point $a$ sans pour autant être continue en $a$. 
+
+  \begin{example}
+    Considérons la fonction $f:\eR^2\to \eR$ 
+    \begin{equation}
+      f(x,y)=\left\{
+      \begin{array}{ll}
+        \frac{x^2y}{x^4+y^2} \qquad&\textrm{si } (x,y)\neq (0,0),\\
+        0     & \textrm{sinon}.
+      \end{array}
+      \right.
+    \end{equation}
+Pour voir que $f$ n'est pas continue en $(0,0)$ il suffit de calculer la limite de $f$ restreinte à la parabole $y=x^2$
+\[
+\lim_{x\to 0} f(x,x^2)=\frac{1}{2} \neq 0.
+\] 
+Pourtant la fonction $f$ est dérivable en $(0,0)$ dans toutes les directions. En effet, soit $v=(v_1,v_2)$. Si $v_2\neq 0$, alors
+\[
+\partial_v f(a)=\lim_{\begin{subarray}{l}
+			t\to 0\\ t\neq 0 
+  		\end{subarray}}
+  		\frac{t^3v_1^2v^2}{t^5 v_1^4+ t^3v_2^2}=\frac{v_1^2}{v_2},
+\] 
+tandis que si $v_2=0$, alors la valeur de $f(tv_1, 0)$  est $0$ pour tout $t$ et $v_1$, donc la dérivée partielle de $f$ par rapport à $x$ en l'origine existe et est nulle. 
+\end{example}
+
+\begin{example}
+    Pour une fonction réelle à variable réelle, la dérivabilité entraine la continuité. Il n'en va pas de même pour les fonctions à plusieurs variables, comme le montre l'exemple suivant :
+    \begin{equation}
+        f(x,y)=\begin{cases}
+            0    &   \text{si \( x=0\)}\\
+            \frac{ y }{ x }\sqrt{x^2+y^2}    &    \text{sinon.}
+        \end{cases}
+    \end{equation}
+    Nous avons tout de suite
+    \begin{equation}
+        \frac{ \partial f }{ \partial y }(0,0)=0.
+    \end{equation}
+    De plus si \( u_x\neq 0\) nous avons
+    \begin{equation}
+            \frac{ \partial f }{ \partial u }(0,0)=\frac{ u_y }{ u_x }\| u \|.
+    \end{equation}
+    Donc toutes les dérivées directionnelles de \( f\) en \( (0,0)\) existent alors que la fonction n'y est manifestement pas continue. En effet sous forme polaire,
+    \begin{equation}
+        f(r,\theta)=\frac{ r\sin(\theta) }{ \cos(\theta) },
+    \end{equation}
+    et quelle que soit la valeur de \( r\), en prenant \( \theta\) suffisamment proche de \( \pi/2\), la fraction peut être arbitrairement grande.
+
+    Nous verrons par la proposition \ref{diff1} que la différentiabilité d'une fonction implique sa continuité.
+\end{example}
+
+\begin{theorem}[Accroissement finis pour les dérivées suivant un vecteur]\label{val_medio_1}		\index{théorème!accroissements finis!dérivée directionnelle}
+    Soit $U$ un ouvert dans $\eR^m$ et soit $f:U\to\eR^n$ une fonction. Soient $a$ et $b$ deux points distincts dans $U$, tels que le segment\footnote{Définition \ref{DefLISOooDHLQrl}.} $[a,b]$ soit contenu dans $U$. Soit $u$ le vecteur 
+	\[
+		u=\frac{b-a}{\|b-a\|_m}.
+	\] 
+	Si $\partial_u f(x)$ existe pour tout $x$ dans $[a,b]$ on a
+	\[
+		\|f(b)-f(a)\|_n\leq \sup_{x\in[a,b]}\|\partial_uf(x)\|_n\|b-a\|_m.
+	\]
+\end{theorem}
+
+\begin{proof}
+	Nous considérons la fonction $g(t)=f\big( (1-t)a-tb \big)$. Elle décrit la droite entre $a$ et $b$ parce que $g(0)=a$ et $g(1)=b$. En ce qui concerne la dérivée,
+	\begin{equation}
+		\begin{aligned}[]
+			g'(t)&=\lim_{h\to 0} \frac{ g(t+h)-g(t) }{ h }\\
+			&=\lim_{h\to 0} \frac{ f\big( (1-t-h)a-(t+h)b \big) }{ h }\\
+			&=\lim_{h\to 0} \frac{ f\big( a+(t+h)(b-a) \big)-f\big( a+t(b-a) \big) }{ h }\\
+			&=\frac{ \partial f }{ \partial u }\big( a+t(b-a) \big)\| b-a \|.
+		\end{aligned}
+	\end{equation}
+	Le dernier facteur $\| b-a \|$ apparaît pour la normalisation du vecteur $u$. En effet dans la limite, il apparaît $h(b-a)$, ce qui donnerait la dérivée le long de $b-a$, tandis que $u$ vaut $(b-a)/\| b-a \|$.
+
+	Par le théorème des accroissements finis pour $g$, il existe $t_0\in\mathopen] 0 , 1 \mathclose[$ tel que
+	\begin{equation}
+		g(1)=g(0)+g'(t_0)(1-0).
+	\end{equation}
+	Donc
+	\begin{equation}
+		\| g(1)-g(0) \|\leq\sup_{t_0}\| g'(t_0) \|=\sum_{t_0\in\mathopen] 0 , 1 \mathclose[}\left\| \frac{ \partial f }{ \partial u }(a+t_0(b-a)) \right\|\| b-a \|.
+	\end{equation}
+	Mais lorsque $t_0$ parcours $\mathopen] 0 , 1 \mathclose[$, le point $a+t_0(b-a)$ parcours le segment $\mathopen] a , b \mathclose[$, d'où le résultat.
+\end{proof}
+
+\begin{corollary}
+	Dans les mêmes hypothèses, si $n=1$, alors il existe $\bar x $ dans $]a,b[$ tel que
+	\[
+		f(b)-f(a)=\partial_uf(\bar x)\|b-a\|_m.
+	\]    
+\end{corollary}
+
+\begin{definition}
+    Le nombre
+    \begin{equation}
+        \lim_{t\to 0} \frac{ f\big( a+tu_1,b+tu_2 \big)-f(a,b) }{ t }
+    \end{equation}
+    est la \defe{dérivée directionnelle}{dérivée!directionnelle} de $f$ dans la direction de $u$ au point $(a,b)$. Il sera noté
+    \begin{equation}
+        \frac{ \partial f }{ \partial u }(a,b),
+    \end{equation}
+    ou plus simplement $\partial_uf(a,b)$.
+\end{definition}
+
+Lorsque $f$ est différentiable, la dérivée directionnelle est donnée par
+\begin{equation}        \label{EqDerDirnablau}
+    \frac{ \partial f }{ \partial u }(p)=\nabla f(p)\cdot u.
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Gradient : direction de plus grande pente}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Étant donné que $u$ est de norme $1$, l'inégalité de Cauchy-Schwartz donne
+\begin{equation}
+    \big| \nabla f(a,b)\cdot \begin{pmatrix}
+        u_1    \\ 
+        u_2    
+    \end{pmatrix}\big|\leq \| \nabla f(a,b) \|.
+\end{equation}
+Donc
+\begin{equation}
+    -\| \nabla f(p) \|\leq \nabla f(p)\cdot u\leq\| \nabla f(p) \|.
+\end{equation}
+La norme de la dérivée directionnelle (qui est la valeur absolue du nombre au centre) est donc «coincée» entre $-\| \nabla f(p) \|$ et $\| \nabla f(p) \|$. Prenons par exemple
+\begin{equation}
+    u=\frac{ \nabla f(p) }{ \| \nabla f(p) \| }.
+\end{equation}
+Dans ce cas, nous avons exactement
+\begin{equation}
+    \nabla f(p)\cdot u=\| \nabla f(p) \|,
+\end{equation}
+qui est la valeur maximale que la dérivée directionnelle peut prendre.
+
+La direction du gradient est donc la direction suivant laquelle la dérivée directionnelle est la plus grande. Pour la même raison, la dérivée directionnelle est la plus petite dans le sens opposé au gradient.
+
+En termes bien clairs : lorsqu'on veut aller le plus vite possible au ski, on prend la direction du gradient de la piste de ski. C'est dans cette direction que ça descend le plus vite. Dans quelle direction vont les débutants ? Ils vont perpendiculairement à la pente (ce qui ennuie tout le monde, mais c'est un autre problème). Les débutants vont donc dans la direction perpendiculaire au gradient. Prenons donc $u\perp \nabla f(p)$ et calculons la dérivée directionnelle de $f$ dans la direction $u$ en utilisant la formule \ref{EqDerDirnablau} :
+\begin{equation}
+    \frac{ \partial f }{ \partial u }(p)=\nabla f(p)\cdot u=0
+\end{equation}
+parce que nous avons choisi $u\perp \nabla f(p)$. Nous voyons donc que les débutants en ski ont eu la bonne intuition que la direction dans laquelle la piste ne descend pas, c'est la direction perpendiculaire au gradient.
+
+C'est aussi pour cela que l'on a tendance à faire du zig-zag à vélo lorsqu'on monte une pente très forte et qu'on est fatigué. C'est toujours pour cela que les routes de montagne font de longs lacets. La montée est moins rude en suivant une direction proche d'être perpendiculaire au gradient !
+
+\begin{theorem}
+    Le gradient des fonction suit à peu près les mêmes règles que les dérivées. Soient $f$ et $g$ deux fonctions différentiables. Nous avons entre autres
+    \begin{enumerate}
+        \item
+            $\nabla(f+g)=\nabla f+\nabla g$;
+        \item
+            $\nabla(fg)(a,b)=g(a,b)\nabla f(a,b)+f(a,b)\nabla g(a,b)$;
+        \item
+            Dès que $g(a,b)\neq 0$, nous avons
+            \begin{equation}
+                \nabla\frac{ f }{ g }=\frac{ g(a,b)\nabla f(a,b)-f(a,b)\nabla g(a,b) }{ g(a,b)^2 }.
+            \end{equation}
+    \end{enumerate}
+\end{theorem}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Différentielle}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Note : pour savoir des choses sur la différentielle de \( f\colon E\to F\) avec \( E\) et \( F\) de dimension infinie, il faut aller voir la section \ref{SecLStKEmc}. Ici nous ne parlerons que de dimension finie.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Exemples introductifs}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La notion de dérivée est associée à la recherche de la droite tangente à une courbe. Reprenons rapidement le cheminement. La dérivée de $f\colon \eR\to \eR$ au point $a$ est un nombre $f'(a)$, qui définit donc une application linéaire dont le coefficients angulaire est $f'(a)$, et que nous notons $df_a$ :
+\begin{equation}
+    \begin{aligned}
+        df_a\colon \eR&\to \eR \\
+        u&\mapsto f'(a)u. 
+    \end{aligned}
+\end{equation}
+La droite donnée par l'équation
+\begin{equation}
+    y(a+u)=f'(a)u
+\end{equation}
+est parallèle à la tangente en $a$. Pour trouver la tangente, il suffit de la décaler de la hauteur qu'il faut. L'équation de la droite tangente au graphe de $f$ au point $\big( a,f(a) \big)$ devient
+\begin{equation}        \label{EqDiffRapTgDer}
+    y(x)=f(a)+f'(a)(x-a)=f(a)+df_a(x-a).
+\end{equation}
+Nous nous proposons de généraliser cette formule au cas de la recherche du plan tangent à une surface.
+
+\begin{example}
+    Considérons $f(x,y)=x^2y+y^2 e^{x}$. Les dérivées partielles sont
+    \begin{equation}
+        \begin{aligned}[]
+            \frac{ \partial f }{ \partial x }&=2xy+y^2e^x\\
+            \frac{ \partial f }{ \partial y }&=x^2+2ye^x.
+        \end{aligned}
+    \end{equation}
+\end{example}
+
+Cet exemple était l'exemple facile où tout se passe bien.
+
+\begin{example}
+    Les choses sont moins simples lorsqu'on considère la fonction suivante :
+    \begin{equation}
+        f(x,y)=\begin{cases}
+            \frac{ xy }{ x^2+y^2 }    &   \text{si $(x,y)\neq(0,0)$}\\
+            0    &    \text{si $(x,y)=(0,0)$}.
+        \end{cases}
+    \end{equation}
+    On voit que pour tout $x$ et tout $y$, nous avons $f(x,0)=f(0,y)=0$. Donc cette fonction est nulle sur les axes horizontaux et verticaux. Nous avons en particulier
+    \begin{equation}
+        \begin{aligned}[]
+            \frac{ \partial f }{ \partial x }(0,0)&=0\\
+            \frac{ \partial f }{ \partial y }(0,0)&=0.
+        \end{aligned}
+    \end{equation}
+    Donc ces dérivées partielles existe.
+
+    Il n'est par contre pas question de dire que cette fonction «va bien» autour du point $(0,0)$. En effet si nous regardons sa valeur sur la droite diagonale $y=x$, nous avons
+    \begin{equation}
+        f(x,x)=\frac{ x^2 }{ 2x^2 }=\frac{ 1 }{2}.
+    \end{equation}
+    Par conséquent si nous suivons la fonction le long de la droite $y=x$, la hauteur vaut $\frac{ 1 }{2}$ en permanence, sauf juste en $(0,0)$ où la fonction fait un grand plongeon !
+    \begin{verbatim}
+    sage: var('x,y')
+    (x, y)
+    sage: f(x,y)=(x*y)/(x**2+y**2)
+    sage: plot3d(f,(x,-2,2),y(-2,2))
+    \end{verbatim}
+
+    D'ailleurs elle fait un plongeon le long de toutes les droites (sauf verticale et horizontale). En effet si nous regardons la fonction le long de la droite $y=mx$, nous avons
+    \begin{equation}
+        f(x,mx)=\frac{ mx^2 }{ x^2+m^2x^2 }=\frac{ m }{ 1+m^2 }.
+    \end{equation}
+    La fonction est donc \emph{constante} sur chacune de ces droites. Il n'est donc pas question de dire que cette fonction est «dérivable» en $(0,0)$, vu qu'elle fait des grands sauts dans presque toutes les directions.
+\end{example}
+
+
+
+Nous devons donc trouver mieux que les dérivées partielles pour étudier le comportement des fonctions un peu problématiques.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Définition de la différentielle}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous nous souvenons de l'équation \eqref{EqCodeDerviffxam} qui nous dit que pour une fonction d'une variable la dérivabilité signifiait qu'il existait un nombre $\ell$ et une fonction $\alpha$ tels
+\begin{equation}
+    f(x)=f(a)+\ell(x-a)+(x-a)\alpha(x-a)
+\end{equation}
+et $\lim_{t\to 0} \alpha(t)=0$. 
+
+En nous inspirant de cela, nous posons la définition suivante.
+\begin{definition}      \label{DefDiffabel}
+    Une fonction $f\colon \eR^2\to \eR$ est \defe{différentiable}{différentiable} au point $(a,b)\in\eR^2$ si il existe deux nombres $\ell_1$, $\ell_2$ ainsi qu'une fonction $\alpha$ tels que
+    \begin{equation}\label{EqCondDiffabel}
+        \begin{aligned}[]
+            f(x,y)=f(a,b)&+\ell_1(x-a)+\ell_2(y-b)\\
+                    &+\sqrt{(x-a)^2+(y-b)^2}\alpha\big( \sqrt{(x-a)^2+(y-b)^2} \big).
+        \end{aligned}
+    \end{equation}
+\end{definition}
+
+En utilisant la notation vectorielle, cela peut être écrite sous forme très compacte. Posons
+\begin{equation}
+    \begin{aligned}[]
+        \ell&=\begin{pmatrix}
+            \ell_1    \\ 
+            \ell_2    
+        \end{pmatrix},&
+        X&=\begin{pmatrix}
+            x    \\ 
+            y    
+        \end{pmatrix},&
+        P&=\begin{pmatrix}
+            a    \\ 
+            b    
+        \end{pmatrix}.
+    \end{aligned}
+\end{equation}
+Alors la condition \eqref{EqCondDiffabel} s'écrit
+\begin{equation}
+    f(X)=f(P)+\ell\cdot(X-P)+\| X-P \|\alpha\big( \| X-P \| \big).
+\end{equation}
+
+\begin{proposition}
+    Si $f$ est différentiable en $(a,b)$, alors les nombres $\partial_xf(a,b)$ et $\partial_yf(a,b)$ existent et valent respectivement $\ell_1$ et $\ell_2$.
+\end{proposition}
+
+\begin{proof}
+    Afin de calculer la dérivée partielle dans la direction de $x$, nous posons $y=b$ dans la condition \eqref{EqCondDiffabel} :
+    \begin{equation}
+        f(x,b)=f(a,b)+\ell_1(x-a)+| x-a |\alpha\big( | x-a | \big),
+    \end{equation}
+    et donc
+    \begin{equation}
+        \frac{ f(x,b)-f(a,b) }{ x-a }=\ell_1\pm\alpha\big( | x-a | \big).
+    \end{equation}
+    Ici le $\pm$ est parce que nous avons divisé $(x-a)$ par $| x-a |$. Quel que soit ce signe, de toutes façons la limite du membre de droite lorsque $x$ tend vers $a$ est $\ell_1$ parce que $\lim_{x\to a} \alpha(| x-a |)=0$.
+
+    Afin de prouver l'existence de la dérivée dans la direction de $y$, nous procédons de la même manière, mais en partant de $f(a,y)$.
+\end{proof}
+
+\begin{proposition}
+    Si $f$ est différentiable au point $(a,b)$, alors elle y est continue, c'est à dire que
+    \begin{equation}
+        \lim_{(x,y)\to(a,b)}f(x,y)=f(a,b).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Si nous considérons la différence entre $f(x,y)$ et $f(a,b)$, nous avons (en notations matricielle) :
+    \begin{equation}
+        | f(X)-f(P) |=| \ell\cdot(X-P)+\| X-P \|\alpha(\| X-P \|) |.
+    \end{equation}
+    Le membre de droite tend évidemment vers zéro lorsque $X$ tend vers $P$.
+\end{proof}
+
+Les propositions \ref{PropExistDiffUn} et \ref{PropExistDiffDeux} vont montrer qu'en étudiant bien les dérivées partielles, nous pouvons conclure à la différentiabilité d'une fonction.
+Attention cependant, nous verrons dans l'exemple \ref{Exemple0046Diff} que l'existence des dérivées directionnelles partielles ne permettait pas de conclure à la différentiabilité. 
+
+\begin{proposition} \label{PropExistDiffUn}
+    Soit $f$ une fonction de $x$ et $y$ et un point $(a,b)\in\eR^2$. Si les nombres $\partial_xf(a,b)$ et $\partial_yf(a,b)$ existent et si il existe une fonction $\alpha\colon \eR\to \eR$ telle que
+    \begin{equation}        \label{eqCritDifffabsrt}
+        \begin{aligned}[]
+            f(x,y)=f(a,b)&+\frac{ \partial f }{ \partial x }(a,b)(x-a)+\frac{ \partial f }{ \partial y }(a,b)(y-b)\\
+            &+\| (x,y)-(a,b) \| \alpha\Big( \| (x,y)-(a,b) \| \Big)
+        \end{aligned}
+    \end{equation}
+    et
+    \begin{equation}
+        \lim_{t\to 0} \alpha(t)=0,
+    \end{equation}
+    alors $f$ est différentiable en $(a,b)$.
+\end{proposition}
+Dans cet énoncé nous avons écrit $d\big( (x,y),(a,b) \big)$ la distance entre $(x,y)$ et $(a,b)$, c'est à dire le nombre $\sqrt{(x-a)^2+(y-b)^2}$. Afin d'écrire l'équation \eqref{eqCritDifffabsrt} sous forme plus compacte, nous introduisons le vecteur
+\begin{equation}
+    \nabla f(a,b)=\begin{pmatrix}
+        \frac{ \partial f }{ \partial x }(a,b)    \\ 
+        \frac{ \partial f }{ \partial y }(a,b).    
+    \end{pmatrix}
+\end{equation}
+L'équation \eqref{eqCritDifffabsrt} devient alors
+\begin{equation}        \label{EqdiffComp}
+    f(X)=f(P)+\nabla f(a,b)\cdot (X-P)+\| X-P \|\alpha\big( \| X-P \| \big).
+\end{equation}
+Le vecteur $\nabla f(a,b)$ est appelé le \defe{gradient}{gradient} de $f$ au point $(a,b)$.
+
+\begin{proposition} \label{PropExistDiffDeux}
+    Soit $f$ une fonction de deux variables admettant des dérivées partielles $\partial_xf(x,y)$ et $\partial_yf(x,y)$ qui sont elles-mêmes des fonctions continues de $x$ et $y$. Alors la fonction $f$ est différentiable partout.
+\end{proposition}
+
+\begin{proposition}
+    Si $f$ est différentiable en $(a,b)$ alors pour tout vecteur \( u\), la fonction
+    \begin{equation}
+        \begin{aligned}
+            \varphi\colon \eR&\to \eR \\
+            t&\mapsto   f(a+tu_1,b+tu_2) 
+        \end{aligned}
+    \end{equation}
+    est dérivable en $0$ et on a
+    \begin{equation}
+        \varphi'(0)=\nabla f(p)\cdot u
+    \end{equation}
+    où nous avons noté $p=(a,b)$.
+\end{proposition}
+
+\begin{proof}
+    Récrivons la formule \eqref{EqdiffComp} sous la forme
+    \begin{equation}
+        f(x)=f(p)+\nabla f(p)\cdot (x-p)+\| x-p \|\alpha(\| x-p \|).
+    \end{equation}
+    Cela étant vrai pour tout $x$, nous l'écrivons en particulier pour $x=p+tu$ où $t$ est un réel et $u$ est le vecteur unitaire choisi. Nous avons donc
+    \begin{equation}
+        f(p+tu)=f(p)+t\nabla f(p)\cdot u+\| tu \|\alpha(\| tu \|).
+    \end{equation}
+    En utilisant le fait que $u$ est unitaire, $\| tu \|=| t |\| u \|=| t |$. La dérivée de $\varphi$ en $0$ est alors donnée par
+    \begin{equation}
+        \lim_{t\to 0} \frac{ f(p+tu)-f(p) }{ t }=\lim_{t\to 0} \nabla f(p)\cdot u+\alpha(| t |).    
+    \end{equation}
+    Lorsque nous prenons la limite, le membre de gauche devient $\varphi'(0)$ tandis que dans le membre de droite, le second terme disparaît. Nous avons finalement
+    \begin{equation}
+        \varphi'(0)=\nabla f(p)\cdot u
+    \end{equation}
+\end{proof}
 
 Le théorème suivant reprend pas principales propriétés d'une fonction différentiable.
 \begin{theorem}     \label{ThoRapPropDiffSi}
@@ -395,157 +845,157 @@ $$\lim_{(v_1,v_2)\rightarrow (0,0)} \frac{f(a_1+v_1, a_2+v_2) - f(a_1,a_2) - [ \
 $$\end{description}\vspace{0.3cm}
 
 
-Parmi les vecteurs $u \in \mathbb{R}^n$, un vecteur d'origine $(a,
-f(a))$ se distingue des autres: le vecteur gradient de $f$ en $a$
-donnant la direction de plus grande pente de $f$ en
-$a$.\vspace{0.3cm}
+Parmi les vecteurs $u \in \mathbb{R}^n$, un vecteur d'origine $(a, f(a))$ se distingue des autres: le vecteur gradient de $f$ en $a$ donnant la direction de plus grande pente de $f$ en $a$.
 
-\begin{definition}
-La courbe de niveau de $f$ associée à a est donnée par
-$$ S_a = f^{-1}\,(f(a)) = \{(x_1, \ldots, x_n)\in \mathbb{R}^n : f(x_1, \ldots,
-x_n)=f(a) \}$$
-\end{definition}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Règles de calcul}
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Calcul de valeurs approchées}
 %---------------------------------------------------------------------------------------------------------------------------
 
-\begin{proposition}[Règles de calculs] Soient $f$ et $g$ des fonctions
-  différentiables en $g(a)$ et $a$ respectivement, alors la composée
-  $f\circ g$ est différentiable en $a$ et
-  \begin{equation*}
-    d (f\circ g)_a = d f_{g(a)} \circ d g_a
-  \end{equation*}
-  et de plus les jacobiennes correspondantes vérifient
-  \begin{equation*}
-      J_{f\circ g}(a) = J_f\big( g(a) \big)J_g(a)
-  \end{equation*}
-  où le membre de droite est le produit (non-commutatif !) des deux matrices.
-\end{proposition}
-
-\begin{corollary}[Chain rule] Si $f : \eR^p \to \eR$ et $g : \eR \to
-  \eR^p$, alors
-  \begin{equation*}
-    (f\circ g)^\prime(t) = \sum_{i=1}^p \pder f {x_i}(g(t)) g_i^\prime(t).
-  \end{equation*}
-\end{corollary}
-
-\begin{remark}
-  \begin{enumerate}
-  \item Si $p = 1$, on retrouve la règle usuelle de dérivation de
-    fonctions composées.
-
-  \item 
-      Si $g$ est à plusieurs variables, cette règle permet de déterminer les dérivées partielles de $f \circ g$, puisqu'une dérivée partielle peut être vue comme dérivée usuelle par rapport à une seule variable (voir remarque page \pageref{deriveepartielles}).
-
-  \item Si $f$ est à valeurs vectorielles, cette formule permet de
-    retrouver la jacobienne de $f \circ g$ puisqu'il suffit de traiter
-    chaque composante de $f$ séparément.
-  \end{enumerate}
-\end{remark}
-
-%---------------------------------------------------------------------------------------------------------------------------
-                    \subsection{Gradient et recherche du plan tangent}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Nous avons maintenant en main les concepts utiles pour trouver l'équation du plan tangent à une surface.
-
-De la même manière que la tangente à une courbe était la droite de coefficient directeur donné par la dérivée, maintenant, le plan tangent à une surface est le plan dont les vecteurs directeurs sont les dérivées partielles :
-
-La généralisation de l'équation \eqref{EqDiffRapTgDer} est 
-\begin{equation}        \label{EqDefPlanTag}
-    T_a(x)=f(a)+\sum_i\frac{ \partial f }{ \partial x_i }(a)(x-a)^i
-\end{equation}
-
-Nous introduisons aussi souvent l'opérateur différentiel abstrait \defe{nabla}{nabla}, noté $\nabla$ et qui est donné par le vecteur
+Si nous remplaçons les accroissements $x-a$ et $y-b$ par $h$ et $k$, le critère de différentiabilité s'écrit
 \begin{equation}
-    \nabla=\left( \frac{ \partial  }{ \partial x_1 },\ldots,\frac{ \partial  }{ \partial x_n } \right).
-\end{equation}
-Les égalités suivantes sont juste des notations, sommes toutes logiques, liées à $\nabla$ :
-\begin{equation}
-    \nabla f=\left( \frac{ \partial f }{ \partial x_1 },\ldots,\frac{ \partial f }{ \partial x_n } \right),
-\end{equation}
-et
-\begin{equation}        \label{EqDefGradient}
-    \nabla f(a) = \left(\frac{\partial f}{\partial x_1}(a), \frac{\partial f}{\partial x_2}(a), \ldots, \frac{\partial f}{\partial x_n}(a)\right).
-\end{equation}
-Ce dernier est un élément de $\eR^n$ : chaque entrée est un nombre réel.
-
-\begin{definition} 
-Le vecteur gradient de $f$ au point $a$ est le vecteur donné par la formule \eqref{EqDefGradient}.
-\end{definition}
-La notation $\nabla$ permet d'écrire la différentielle sous forme un peu plus compacte. En effet, la formule \eqref{EqDiffPartRap} peut être notée
-\begin{equation}
-    df_a(u)=\scal{\nabla f(a)}{u}.
-\end{equation}
-
-En utilisant ce produit scalaire, l'équation \eqref{EqDefPlanTag} peut se récrire
-\begin{equation}
-    T_a(x)=f(a)+\sum_i\frac{ \partial f }{ \partial x_i }(a)(x-a)^i=f(a)+\scal{\nabla f(a)}{x-a}.
-\end{equation}
-
-Afin d'éviter les confusions, il est parfois souhaitable de bien mettre les parenthèses et noter $(\nabla f)(a)$ au lieu de $\nabla f(a)$.
-
-\begin{proposition}
-$\nabla f(a)\,\bot \,S_a$
-\end{proposition}
-
-
-\begin{equation}        \label{EqPlanTgSansNabla}
-    z=f(a)+\sum_i\frac{ \partial f }{ \partial f }(a)(x-a)^i.
-\end{equation}
-
-\subsubsection*{Cas particulier où $n=2$:} 
-Le plan $T_a$ avec $a=(a_1,a_2)$ a pour équation dans $\eR^3$:
-\begin{equation}        \label{EqPlanTgEnDimDeux}
-    z = f(a_1,a_2) + \frac{\partial f}{\partial x}(a_1,a_2)\,(x-a_1)+ \frac{\partial f}{\partial y}(a_1,a_2)\,(y-a_2).
-\end{equation}
-
-\begin{definition}
-  Soit $f : \eR^n \to\eR$ une fonction différentiable en un point
-  $a$. Le \emph{plan tangent} au graphe de $f$ en $(a,f(a))$ est
-  l'ensemble des points
-  \begin{equation*}
-    \begin{split}
-      T_af &= \{ (x,z) \in \eR^n \times \eR \tq z = f(a) + d f_a (x-a)\}\\
-      &= \{ (x,z) \in \eR^n \times \eR \tq z = f(a) + \scalprod{\nabla f(a)}{x-a}\}
-    \end{split}
-  \end{equation*}
-\end{definition}
-
-%---------------------------------------------------------------------------------------------------------------------------
-                    \subsection{Différentielle comme élément de l'espace dual}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Si nous considérons la base canonique $\{ e_i \}_{i=1,\ldots,n}$ de $\eR^n$. À partir d'elle, nous considérons la \defe{base duale}{base!duale}. En termes pratiques, nous définissons $dx_i$ comme la forme sur $\eR^n$ qui à un vecteur $u$ fait correspondre sa composante $i$ :
-\begin{equation}
-    dx_i\begin{pmatrix}
-    u^1 \\ 
-    \vdots  \\ 
-    u^n 
-\end{pmatrix}=u^i.
-\end{equation}
-En termes savants, $dx_i$ est le dual de $e_i$. Si tu ne l'as pas encore compris, Jean Doyen va te le faire comprendre !
-
-
-Maintenant, dans la formule \eqref{EqDiffPartRap}, nous pouvons remplacer $u^i$ par $dx_i(u)$, et écrire
-\begin{equation}
-    df_a(u)=\sum_i\frac{ \partial f }{ \partial x_i }(a)u^i=\sum_i\frac{ \partial f }{ \partial x_i }(a)dx_i(u).
-\end{equation}
-Ce qui arrive tout à droite est explicitement vu comme une forme sur $\eR$, dont les composantes dans la base duale sont les dérivées partielles de $f$ au point $a$, agissant sur $u$. En faisant un pas en arrière, nous omettons le $u$, et nous écrivons
-\begin{equation}
-    df_a=\sum_{i=1}^n\frac{ \partial f }{ \partial x_i }(a)dx^i
-\end{equation}
-
-Cette notation $dx_i$ pour la forme duale de $e_i$ est en réalité parfaitement logique parce que $dx^i$ est la différentielle de la projection
-\begin{equation}
-    \begin{aligned}
-        x^i\colon \eR^n&\to \eR \\
-        (x^1,\ldots,x^n)&\mapsto x^i. 
+    \begin{aligned}[]
+        f(a+h,b+k)=f(a,b)+\frac{ \partial f }{ \partial x }(a,b)h&+\frac{ \partial f }{ \partial y }(a,b)k\\
+        &+\sqrt{h^2+k^2}\alpha\big( \sqrt{h^2+k^2} \big).
     \end{aligned}
 \end{equation}
-Je te laisse un peu méditer sur cette différentielle de la projection. L'important est que tu aies compris cela d'ici la fin de ta deuxième année.
+Le dernier terme du membre de droite tend vers zéro à une vitesse double lorsque $h$ et $k$ tendent vers zéro : d'une part parce que $\sqrt{h^2+k^2}$ tend vers zéro et d'autre part parce que $\alpha\big( \sqrt{h^2+k^2} \big)$ tend vers zéro. Nous avons donc la «bonne» approximation
+\begin{equation}        \label{EqFormApproxfxyab}
+    f(x,y)\simeq f(a,b)+\frac{ \partial f }{ \partial x }(a,b)(x-a)+\frac{ \partial f }{ \partial y }(a,b)(y-b).
+\end{equation}
+lorsque $(x,y)$ n'est pas trop loin de $(a,b)$. Cette expression est évidemment une généralisation immédiate de l'équation \eqref{EqfxdxSimeqfxfpx}. Elle exprime que l'on peut obtenir des information sur la valeur d'une fonction en $(x,y)$ si on peut calculer la fonction et ses dérivées en un point $(a,b)$ non loin de $(x,y)$.
 
+Cette formule peut aussi être vue sous la forme suivante, plus pratique dans certains calculs :
+\begin{equation}        \label{EqFormApproxfxyabDF}
+    f(a+\Delta x,b+\Delta y)\simeq f(a,b)+\Delta x\frac{ \partial f }{ \partial x }(a,b)+\Delta y\frac{ \partial f }{ \partial y }(a,b).
+\end{equation}
+
+\begin{example}
+    Prenons la fonction $f(x,y)=\cos(x)\sin(y)$ et calculons une approximation de
+    \begin{equation}
+        f\big( \frac{ \pi }{ 3 }+0.01,\frac{ \pi }{ 2 }+0.03 \big).
+    \end{equation}
+    D'abord les dérivées partielles sont
+    \begin{equation}
+        \begin{aligned}[]
+            \frac{ \partial f }{ \partial x }(x,y)=-\sin(x)\sin(y)\\
+            \frac{ \partial f }{ \partial y }(x,y)=\cos(x)\cos(y).
+        \end{aligned}
+    \end{equation}
+    Nous allons utiliser l'approximation
+    \begin{equation}
+        f\big( \frac{ \pi }{ 3 }+0.01,\frac{ \pi }{ 2 }+0.03 \big)\simeq f\big( \frac{ \pi }{ 3 },\frac{ \pi }{2} \big)+0.01\frac{ \partial f }{ \partial x }\big( \frac{ \pi }{ 3 },\frac{ \pi }{2} \big)+0.03\frac{ \partial f }{ \partial y }\big( \frac{ \pi }{ 3 },\frac{ \pi }{2} \big).
+    \end{equation}
+    Nous avons
+    \begin{equation}
+        \begin{aligned}[]
+            \frac{ \partial f }{ \partial x }\big( \frac{ \pi }{ 3 },\frac{ \pi }{2} \big)&=-\sin\frac{ \pi }{ 3 }\sin\frac{ \pi }{ 2 }=-\frac{ \sqrt{3} }{2}\\
+            \frac{ \partial f }{ \partial y }\big( \frac{ \pi }{ 3 },\frac{ \pi }{2} \big)&=\cos\frac{ \pi }{ 3 }\cos\frac{ \pi }{ 2 }=0.
+        \end{aligned}
+    \end{equation}
+    Par conséquent
+    \begin{equation}
+        f\big( \frac{ \pi }{ 3 }+0.01,\frac{ \pi }{ 2 }+0.03 \big)\simeq \frac{ 1 }{2}-0.01\frac{ \sqrt{3} }{2}=\frac{ 1 }{2}-\frac{ \sqrt{3} }{ 200 }. 
+    \end{equation}
+    
+    \begin{verbatim}
+sage: var('x,y')
+(x, y)
+sage: f(x,y)=cos(x)*sin(y)
+sage: a=f(pi/3+0.01,pi/2+0.03)
+sage: numerical_approx(a)
+0.491093815387986
+sage: b=1/2-sqrt(3)/200
+sage: numerical_approx(b)
+0.491339745962156
+sage: numerical_approx(a-b)
+-0.000245930574169814
+    \end{verbatim}
+    Cela fait une erreur de l'ordre du dix millième. 
+    
+\end{example}
+
+\begin{remark}
+    Les esprits les plus critiques diront que cette vérification pas Sage n'en est pas une parce que Sage a certainement utilisé un algorithme d'approximation qui se base sur la même idée que ce que nous venons de faire, et que par conséquent le fait qu'il obtienne le même résultat que nous est un peu tautologique. 
+    
+    Ils n'auront pas tord. Cependant, le code source de Sage est disponible publiquement\footnote{Voir \url{http://www.sagemath.org}}; vous pouvez aller le lire et vérifier qu'il y a effectivement une \emph{preuve} que le résultat fourni par Sage possède une bonne dizaine de décimales correctes. 
+    
+    Cette disponibilité publique du code source est une des nombreuses différence fondamentale entre Sage et votre calculatrice\footnote{et les autres logiciels de type fenêtre, pomme ou feuille d'érable.}. Dois-je vous rappeler qu'un des principes fondamentaux de l'éthique scientifique est que les résultats et les méthodes utilisées doivent être absolument ouverts à la vérification et à la critique de tous ?
+\end{remark}
+
+\begin{equation}        \label{Eqdfpunfpdu}
+    df_p(u)=\nabla f(p)\cdot u.
+\end{equation}
+
+
+
+\begin{definition}      \label{DefDifferentiablFnRn}
+Soit un point $a \in int\,A$. La fonction $f$ est \defe{différentiable}{différentiable} au point $a$ si il existe une application linéaire $df_a\colon \eR^n\to \eR^m$ telle que 
+\begin{equation}        \label{EqDefDiffableT}
+    \lim_{x\to a} \frac{f(x) - f(a) - df_a (x-a)}{\|x-a\|}=0.
+\end{equation}
+\end{definition}
+
+Si $f$ est différentiable en $a$, l'application $df_a$ est appelée la différentielle de $f$ en $a$. Voyons comment cette application linéaire agit sur les vecteurs de $\mathbb{R}^n$.
+
+
+La notion de dérivée partielle (ou de dérivée suivant un vecteur) pour une fonction de plusieurs variables n'est pas une  généralisation de la notion de dérivée en une variable d'espace. En fait, du point de vue géométrique, la dérivée de la fonction $g:\eR\to\eR$ au point $a$ est la pente de la ligne droite tangente au graphe de $g$ au point $(a, g(a))$. Cette ligne, d'équation $r(x)=g'(a)x+g(a)$, est la meilleure approximation affine du graphe de $g$ au point $a$, comme à la figure \ref{LabelFigTangentSegment}.
+\newcommand{\CaptionFigTangentSegment}{Tangentes au graphe d'une fonction d'une variable}
+\input{Fig_TangentSegment.pstricks}
+
+Le graphe d'une fonction $f$ de $\eR^2$ dans $\eR$ est une surface de deux paramètres dans $\eR^3$. Si l'approximation affine d'une telle surface au point $(x,y,f(x,y))$ existe, alors elle est un plan tangent. En dimension plus haute, le graphe de la fonction $f:\eR^m\to\eR$ est une surface de $m$ paramètres dans $\eR^{m+1}$ et son approximation affine (si elle existe) est un hyperplan de $\eR^m$. 
+
+Nous allons voir que si $f$ prend ses valeurs dans $\eR^n$ l'approximation affine de $f$ au point $a$ est l'élément de $ f(a)+\mathcal{L}(\eR^m,\eR^n)$ qui ressemble le plus à $f$ au voisinage de $a$. Plus précisément, on utilise les définitions suivantes.         
+\begin{definition}
+  Soient $f$ et $g$ deux applications d'un ouvert $U$ de $\eR^m$ dans $\eR^n$. On dit que $g$ est \defe{tangente}{application!tangente} à $f$ au point $a\in U$ si $f(a)=g(a)$ et 
+\[
+\lim_{\begin{subarray}{l}
+    x\to a\\ x\neq a
+  \end{subarray}}\frac{\|f(x)-g(x)\|_n}{\|x-a\|_m}=0.
+\]
+\end{definition}
+La relation de tangence est une relation d'équivalence. Nous sommes particulièrement intéressés par le cas où $f$ admet une application  affine tangente au point $a$. 
+\begin{definition}      \label{DefDifferentiellePta}
+  Soit $U$ un ouvert dans $\eR^m$ et $a$ un point dans $U$. Soit $f$ une application de $U$ dans $\eR^n$. On dit que $f$ est \defe{différentiable au point $a$}{application!différentiable} s'il existe une application linéaire $T$ de $\eR^m$ dans $\eR^n$ qui satisfait
+  \begin{equation}	\label{EqCritereDefDiff}
+\lim_{h\to 0_m}\frac{\|f(a+h)-f(a)-T(h)\|_n}{\|h\|_m}=0.    
+  \end{equation}
+  Si une telle $T$ existe on l'appelle \defe{différentielle}{différentielle} de $f$ au point $a$, et on la note $df(a)$. 
+\end{definition}
+
+Note : $df_a$ est \emph{en soi} une application $df(a)\colon \eR^m\to \eR^n$. Nous notons $df_a(u)$\nomenclature{$df_a(u)$}{Application de la différentielle de $f$ sur le vecteur $u$} la valeur de $df_a$ sur le vecteur $u\in\eR^m$.
+
+
+\newcommand{\CaptionFigDifferentielle}{Interprétation géométrique de la différentielle.}
+\input{Fig_Differentielle.pstricks}
+En ce qui concerne l'interprétation géométrique, si nous regardons la figure \ref{LabelFigDifferentielle}, et d'ailleurs aussi en voyant la définition \ref{EqCritereDefDiff}, la fonction est différentiable et la différentielle est \( T\) si il existe une fonction \( \alpha\) telle que
+\begin{equation}
+    f(a+u)-f(a)-T(u)=\alpha(u)
+\end{equation}
+où la fonction \( \alpha\) satisfait
+\begin{equation}		\label{EqPresqueTa}
+	\lim_{u\to 0} \frac{ \| \alpha(u)\| }{\| u \|}=0
+\end{equation}
+C'est cela qui fait écrire \( f(a+u)-f(a)-df_a(u)=o(\| u \|)\) à ceux qui n'ont pas peur de la notation \( o\).
+
+La différentielle $df_a$ est donc la partie linéaire de l'application affine qui approxime au mieux la fonction $f$ autour du point $a$. La notion de différentielle est la vraie généralisation du concept de dérivée pour fonctions de plusieurs variables, en outre elle nous permet d'expliciter la relation qui associe au vecteur $u$ la dérivée $\partial_u f(a)$, pour $f$ et $a$ fixés.  
+
+\begin{remark}
+	Si on remplace les normes $\|\cdot\|_m$  et $\|\cdot\|_n$ par d'autres normes, l'existence et la valeur de la différentielle de $f$ au point $a$ ne sont pas remises en cause. En effet, soient  $\|\cdot\|_M$  une norme sur $\eR^m$ et $\|\cdot\|_N$ une norme sur $\eR^n$. Par le théorème \ref{ThoNormesEquiv}, ces normes sont équivalentes à $\| . \|_m$ et $\| . \|_m$ respectivement; il existe donc des constantes $k,\, K,\, l,\,L >0$ telles que  pour tout vecteur $u$ de $\eR^m$ et tout vecteur $v$ de $\eR^n$   
+\[
+k\|u\|_M\leq \|u\|_m\leq K\|u\|_M,
+\]
+\[
+l\|v\|_N\leq \|v\|_n\leq L\|v\|_N.
+\]
+Les éléments de $\mathcal{L}(\eR^m, \eR^n)$ sont les mêmes et on a 
+\begin{equation}
+  \begin{aligned}
+ & \frac{l}{K}  \frac{\|f(a+h)-f(a)-T(h)\|_N}{\|h\|_M}\leq \frac{\|f(a+h)-f(a)-T(h)\|_n}{\|h\|_m}\leq\\
+&\leq\frac{L}{k} \frac{\|f(a+h)-f(a)-T(h)\|_N}{\|h\|_M}.
+  \end{aligned}
+\end{equation}
+Il est donc possible, pour démontrer la différentiabilité ou pour calculer la différentielle, d'utiliser le critère \eqref{EqCritereDefDiff} avec une norme au choix. Parfois c'est utile.
+\end{remark}
 
 %---------------------------------------------------------------------------------------------------------------------------
                     \subsection{Prouver qu'un fonction n'est pas différentiable}
@@ -778,662 +1228,48 @@ Soient $f:A\subset \eR^n \rightarrow \eR^m$, et $a\in int\,A$. Si $f$ est diffé
 
 
 %---------------------------------------------------------------------------------------------------------------------------
-                    \subsection{Calcul de différentielles}
+\subsection{Règles de calcul}
 %---------------------------------------------------------------------------------------------------------------------------
 
-
-\begin{remark}      \label{deriveepartielles}
-  En pratique, ayant une formule pour la fonction $f$, on dérive --grâce aux règles usuelles de dérivation-- par rapport à la variable $x_i$ en considérant que les autres ($x_j$ avec $j \neq i$) sont des constantes.
-\end{remark}
-
-\begin{example}Pour $f(x,y) = xy + x^2$, les dérivées partielles
-  s'écrivent
+\begin{proposition}[Règles de calculs] Soient $f$ et $g$ des fonctions
+  différentiables en $g(a)$ et $a$ respectivement, alors la composée
+  $f\circ g$ est différentiable en $a$ et
   \begin{equation*}
-    \frac{\partial f}{\partial x} = y + 2x \quad\text{et}\quad \frac{\partial f}{\partial y} = x
+    d (f\circ g)_a = d f_{g(a)} \circ d g_a
   \end{equation*}
-\end{example}
-
-
-Des \emph{règles de calcul} sont d'application. En particulier, quand
-ces opérations existent, les sommes, différences, produits, quotients
-et compositions d'applications différentiables sont différentiables.
-
-Toute application linéaire est différentiable, et sa différentielle en
-tout point est égale à l'application elle-même. En particulier, les
-\Defn{projections canoniques}, c'est-à-dire les applications du type
-$(x,y,z) \mapsto y$, sont linéaires donc différentiables.
-
-\begin{example}
-Les cas suivants sont faciles :
-  \begin{enumerate}
-  \item En combinant les projections canoniques avec les règles de
-    calculs, on obtient que toute fonction polynômiale à $n$ variables
-    est différentiable comme application de $\eR^n$ dans $\eR$.
-
-  \item Toute fonction rationnelle, du type $f(x) \pardef
-    \frac{P(x)}{Q(x)}$ où $P$ et $Q$ sont des polynômes, est
-    différentiable en tout point $a$ tel que $Q(a) \neq 0$.
-
-  \item Pour une fonction d'une variable $f : D \subset \eR \to
-    \eR$, le caractère différentiable et le caractère dérivable
-    coïncident. De plus, on a
-    \begin{equation*}
-      d f_a(u) = f'(a) u.
-    \end{equation*}
-  \end{enumerate}
-\end{example}
-
-%---------------------------------------------------------------------------------------------------------------------------
-                    \subsection{Notes idéologiques quant au concept de plan tangent}
-%---------------------------------------------------------------------------------------------------------------------------
-\label{ssecConceptPlanTag}
-
-Notons $G$, le graphe d'une fonction $f$, c'est à dire
-\begin{equation}
-    G=\{ (x,y,z)\in\eR^3\tq z=f(x,y) \}.
-\end{equation}
-Première affirmation : si $\gamma\colon \eR\to G$ est une courbe telle que $\gamma(0)=\big( a,f(a) \big)$, alors $\gamma'(0)\in\eR^n$ est dans le plan tangent à $G$ au point $\big( a,f(a) \big)$.
-
-Plus fort : tous les éléments du plan tangent sont de cette forme.
-
-Le plan tangent à $G$ en un point $x\in G$ est donc constitué des vecteurs vitesse de tous les chemins qui passent par $x$.
-
-Prenons maintenant $S$, une courbe de niveau de $G$, c'est à dire
-\begin{equation}
-    S=\{ (x,y)\in\eR^2\tq f(x,y)=C \}.
-\end{equation}
-Si nous prenons un chemin dans $G$ qui est, de plus, contraint à $S$, c'est à dire tel que $\gamma(t)\in S$, alors $\gamma'(0)$ sera tangent à $G$ (ça, on le savait déjà), mais en plus, $\gamma'(0)$ sera tangent à $S$, ce qui est logique.
-
-La morale est que si vous prenez un chemin qui se ballade dans n'importe quoi, alors la dérivée du chemin sera un vecteur tangent à ce n'importe quoi.
-
-En outre, si $\gamma(t)\in S$ et $\gamma(0)=a$, alors
-\begin{equation}
-    \scal{\nabla f(a)}{\gamma'(0)}=0,
-\end{equation}
-c'est à dire que le vecteur tangent à la courbe de niveau est perpendiculaire au gradient. Cela est intuitivement logique parce que la tangente à la courbe de niveau correspond à la direction de \emph{moins} grande pente.
-
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Jacobienne}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-\subsection{Rappels et définitions}
-
-Dans cette section nous considérons des fonctions $f : D \to \eR^m$
-où $D \subset \eR^n$, et un point $a \in \Int D$ où $f$ est
-différentiable.
-\begin{remark}
-  La définition de continuité (resp. différentiabilité) pour une
-  fonction à valeurs vectorielles est celle introduite précédemment,
-  et on remarque que pour avoir la continuité
-  (resp. différentiabilité) de $f$ en un point, il faut et il suffit
-  de chacune des composantes de $f = (f_1,\ldots, f_m)$, vues
-  séparément comme fonctions à $n$ variables et à valeurs réelles,
-  soit continue (resp. différentiable) en ce point.
-\end{remark}
-
-\begin{definition}
-    La \defe{jacobienne}{matrice!jacobienne} de $f$ en $a$ est la matrice de l'application linéaire donnée par la différentielle. Elle a de nombreuses notations
-  \begin{equation}
-      J_f(a) = \frac{ \partial (f_1,\ldots, f_m) }{ \partial x_1,\ldots, x_m }=
-    \begin{pmatrix}
-      \pder {f_1} {x_1}(a) & \ldots &\pder {f_1} {x_n}(a)\\
-      \vdots& & \vdots\\
-      \pder {f_m} {x_1}(a) & \ldots &\pder {f_m} {x_n}(a)
-    \end{pmatrix}
-  \end{equation}
-  Autrement dit, c'est la matrice composée de l'ensemble des dérivées partielles de $f$. Le \defe{jacobien}{jacobien} de \( f\) au point \( a\) est le déterminant de cette matrice.
-
-  Si $m = 1$, cette matrice ne contient qu'une ligne ; c'est donc un vecteur appelé le \defe{gradient}{gradient} de $f$ au point $a$ et noté $\nabla f(a)$.
-\end{definition}
-
-\begin{remark}
-  \begin{enumerate}
-  \item Si la fonction est supposée différentiable, calculer la
-    jacobienne revient à connaître la différentielle. En effet, par
-    linéarité de la différentielle et par définition des dérivées
-    partielles, nous avons
-    \begin{equation*}
-      d f_a (u) =%
-      \begin{pmatrix}
-        \pder {f_1} {x_1}(a) & \ldots &\pder {f_1} {x_n}(a)\\
-        \vdots& & \vdots\\
-        \pder {f_m} {x_1}(a) & \ldots &\pder {f_m} {x_n}(a)
-      \end{pmatrix}
-      \begin{pmatrix}u_1\\\vdots\\u_n\end{pmatrix}
-    \end{equation*}
-    où $u = (u_1, \ldots, u_n)$ et où le membre de droite est un
-    produit matriciel
-
-  \item Remarquons que la jacobienne peut exister en un point donné
-    sans que la fonction soit différentiable en ce point !
-  \end{enumerate}
-\end{remark}
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Fonctions à valeurs dans $\eR^n$}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-À peu près toutes les notions que vous connaissez à propos de fonctions de $\eR$ dans $\eR$ se généralises immédiatement au cas de fonctions de $\eR$ dans $\eR^n$.
-
-Nous disons que la fonction $f\colon \eR\to \eR^n$ est \defe{de classe $C^1$}{classe $C^1$} si chacune de ses composantes $f_i$ est de classe $C^1$ en tant que fonctions de $\eR$ dans $\eR$.
-
-La dérivée de $f$ est donnée par la dérivée composante par composante. Pour l'intégrale de $f$, il en va de même : composante par composante. 
-\begin{equation}
-	\int f(x)dx=\big(  \int f_1(x)dx,\,\int f_2(x)dx,\ldots,\int f_n(x)dx   \big).
-\end{equation}
-
-Par exemple si nous considérons le mouvent d'une particule sur une hélice, la position est donnée par
-\begin{equation}
-	f(t)=\big( R\sin(t),R\cos(t),t \big).
-\end{equation}
-La vitesse est donnée par
-\begin{equation}
-	f'(t)=\big( R\cos(t),-R\sin(t),1 \big),
-\end{equation}
-et l'intégrale sera donnée par
-\begin{equation}
-	\int f(t)dt=\big( -R\cos(t)+C_1,R\sin(t)+C_2,\frac{ t^2 }{ 2 }+C_3 \big).
-\end{equation}
-
-Si nous considérons une pierre lancée horizontalement du sommet d'une falaise avec une vitesse initiale $v_0$, la vitesse de la pierre sera donnée par
-\begin{equation}
-	v(t)=(v_0,gt).
-\end{equation}
-Pour trouver la position, nous intégrons la vitesse par rapport au temps :
-\begin{equation}
-	f(t)=\int v(t)dt=\big( v_0t+C_1,\frac{ gt^2 }{ 2 }+C_2 \big).
-\end{equation}
-Notez qu'il faut une constante d'intégration différente pour chaque composantes.
-
-\begin{lemma}			\label{LemIneqnormeintintnorm}
-	Pour toute fonction $u\colon \mathopen[ a , b \mathclose]\to \eR^n$, nous avons
-	\begin{equation}
-		\| \int_a^bu(t)dt\|\leq\int_a^b\| u(t) \|dt
-	\end{equation}
-	pourvu que le membre de gauche ait un sens.
-\end{lemma}
-
-\begin{proof}
-	Étant donné que $\int_a^bu(t)dt$ est un élément de $\eR^n$, par la proposition \ref{LemSclNormeXi}, il existe un $\xi\in\eR^n$ de norme $1$ tel que
-	\begin{equation}
-		\| \int_a^bu(t)dt \|=\xi\cdot\int_a^b u(t)dt=\int_a^b u(t)\cdot\xi dt\leq\int_a^b\| u(t) \|   \| \xi \|=\int_a^b\| u(t) \|dt.
-	\end{equation}
-\end{proof}
-% This is part of Géométrie analytique
-% Copyright (c) 2010-2011
-%   Laurent Claessens
-%   Carlotta Donadello
-% See the file fdl-1.3.txt for copying conditions.
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Graphes de fonctions de plusieurs variables}		\label{SecGraphesFonc}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-La plus grande partie de ce cours est consacrée à l'étude des fonction de plusieurs variables. Nous allons maintenant donner quelques indication sur comment <<dessiner>> une telle fonction. Vous connaissez déjà la définition de graphe pour une fonction $f$ d'une seule variable à valeurs dans $\eR$ : c'est l'ensemble des point du plan de la forme $(x, f(x))$. Vous voyez que cet ensemble n'est pas vraiment un gros morceau de $\eR^2$ parce que son intérieur est vide : il y a une seule valeur de $f$ qui correspond au point $x$, donc une boule de $\eR^2$ centrée en $(x, f(x))$ de n'importe quel rayon contient toujours des points qui ne font pas partie du graphe de $f$. 
-
-%La première chose qu'on a envie de dire est que un tel graphe est une courbe dans $\eR^2$ mais cela n'est pas toujours vrai. Le graphe de la fonction cosinus est bien une courbe dans dans le plan, mais le graphe de la fonction tangente est une réunion infinie de courbes. Ce qui est vrai est que le graphe d'une fonction d'une variable est \emph{localement} une courbe si la fonction n'est pas trop mal choisie. % exemple? 
-
-Nous voulons donner une définition assez générale pour le graphe d'une fonction
-\begin{definition}
-  Soit $f$ une fonction de $\eR^m$ dans $\eR^n$. Le \defe{graphe}{graphe!fonction} de $f$ est la partie de $\eR^m\times \eR^n$ de la forme
-  \begin{equation}
-    \Graph f= \{ (x,y)\in \eR^m\times \eR^n \,|\, y=f(x)\}.
-  \end{equation}
-\end{definition}
-Si $f$ est une fonction de deux variables indépendantes $x$ et $y$ à valeurs dans $\eR$, alors un point dans le graphe de $f$ est un point $(x,y,z)\in\eR^3$ tel que
-\begin{equation}
-	z=f(x,y),
-\end{equation}
-ou encore, un point de la forme
-\begin{equation}
-	\big( x,y,f(x,y) \big).
-\end{equation}
-%Si $g$ est une fonction d'une variable $x$ à valeurs dans $\eR^2$, alors un point dans le graphe de $g$ prend la forme $(x,g_1(x), g_2(x))$, où $g_1$ et $g_2$ sont les composantes de $g$.  Dans le deux cas le graphe est un sous-ensemble de $\eR^3$. 
-Ici nous sommes intéressés par les fonctions de plusieurs variables à valeurs dans $\eR$. Donc, notre définition se spécialise 
-\begin{definition}
-  Soit $f$ une fonction de $\eR^m$ dans $\eR$. Le graphe de $f$ est la partie de $\eR^m\times \eR$ donné par
-  \begin{equation}
-    \Graph f= \{ (x,y)\in \eR^m\times \eR \,|\, y=f(x)\}.
-  \end{equation}
-\end{definition}  
-Étant donné que nous ne donneront des exemples que de fonctions de $\eR^2$ dans $\eR$, la définition devient
-\begin{equation}
-	\Graph f= \{ (x,y,z)\in\eR^2\tq z=f(x,y) \}.
-\end{equation}
-C'est cette définition qu'il faut garder à l'esprit lorsqu'on travaille sur des dessins en trois dimensions.
-
-%Nous considérons d'abord le cas d'une fonction $f$  de deux variables $x$ et $y$ à valeurs dans $\eR$. L'espace $\eR^3$ a trois dimensions, cela veut dire que il faut fixer trois paramètres indépendants pour désigner un point de manière unique (voir, au cours d'une deuxième lecture de ces notes, la section sur les coordonnées cylindriques et sphériques, \ref{sec_coord}). Le graphe d'une fonction comme $f$ est un sous-ensemble de $\eR^3$ où l'un des trois paramètres est d'office la valeur de $f$, donc il est décrit par seulement deux paramètres $x$ et $y$. Son intérieur est alors vide et, si $f$ est une fonction <<suffisamment gentille>>, $\Graph f$ est localement une surface dans $\eR^3$.    
-
-Nous avons parfois besoin de donner des représentation graphiques d'une fonction. Nous pouvons, par exemple, penser à la fonction que associe à un point de la Terre son altitude. Lorsqu'on part pour une promenade en montagne on a envie de connaitre le graphe de cette fonction qui correspond en fait à la surface de la montagne. Bien sur nous ne voulons pas amener avec nous un modèle en 3D de la montagne donc il nous faut une méthode efficace pour projeter le graphe de $f$ sur le plan $x$-$y$ tout en gardant les informations fondamentales. Pour cela nous avons besoin de deux définitions (à ne pas confondre !)
-\begin{definition}
-	Soit $f$ une fonction de $\eR^2$ dans $\eR$ et soit $c$ dans $\eR$.  La \defe{$z$-section}{section!de graphe} de $\Graph f$ à la hauteur $c$ est donné par
-\[
-S^z_c=\{ (x,y,c)\in \eR^3\,|\, f(x,y)=c\}.
-\]  
-\end{definition}
-\begin{definition}\label{def_niveau}
-	Soit $f$ une fonction de $\eR^2$ dans $\eR$ et soit $c$ dans $\eR$. La \defe{courbe de niveau}{courbe de niveau} de $f$ à la hauteur $c$ est l'ensemble
-\[
-N_c=\{ (x,y)\in \eR^2\,|\, f(x,y)=c\}.
-\]  
-\end{definition}
-On peut représenter la fonction $f$ d'une façon très précise en traçant quelques unes de ses courbes de niveau.  Dans la suite on pourra considérer aussi les $x$-sections et les $y$-sections du graphe d'une fonction de deux variables. La $x$-section de $\Graph f$ à la hauteur $a$ est     
-\[
-S^x_a=\{(a,y,z)\in\eR^3\,|\, f(a,y)=z\}.
-\]
-Comme vous avez peut être déjà compris, $S^x_a$ est le graphe de la fonction de $y$ qu'on obtient de $f$ en fixant $x=a$. Cette fonction est appelée $x$-section de $f$ pour $x=a$.
-
-Certaines surfaces dans $\eR^3$ sont le graphe d'une fonction. 
-
-\begin{example}
-	Quelque graphes importants.
-  \begin{description}
-    \item[Un plan non vertical] Tout plan dans $\eR^3$ peut être décrit par une équation de la forme 
-\[
-a(x-x_0)+ b(y-y_0) + c(z-z_0) = r,
-\] 
-où, $(x_0, y_0, z_0)$ est vecteur dans $\eR^3$, et $a$, $b$, $c$ et $r$ sont des nombres réels. Si $c\neq 0$ alors le plan n'est pas vertical et on peut dire que il est le graphe de la fonction 
-\[
-P(x,y)= \frac{r+cz_0 -a(x-x_0)-b(y-y_0)}{c},
-\]
-quitte à choisir des nouvelles constantes $s$, $t$, $q$,
-\[
-P(x,y)=sx +ty +q.
-\]
-    \item[Un paraboloïde elliptique] Pour tous $\alpha$ et $\beta$ dans $\eR$ les  graphes des fonctions 
-\[
-PE_1(x,y)=\frac{x^2}{\alpha^2}+\frac{y^2}{\beta^2}
-\]
-ou de la fonction 
-\[
-PE_2(x,y)=-\frac{x^2}{\alpha^2}-\frac{y^2}{\beta^2}
-\]
-sont des paraboloïdes elliptiques. Le premier est contenu dans le demi-espace $z\geq 0$, l'autre dans $z\leq 0$. Le nom de cette surface vient de la forme de ses sections. En fait toutes  sections $S^z_c$ sont des ellipses, alors que les section $S^x_a$ et $S^y_b$ sont des paraboles.   
-    \item[Un paraboloïde hyperbolique (selle)]  Pour tous $\alpha$ et $\beta$ dans $\eR$ les  graphes des fonctions 
-\[
-PH_1(x,y)=\frac{x^2}{\alpha^2}-\frac{y^2}{\beta^2}
-\]
-ou de la fonction 
-\[
-PH_2(x,y)=-\frac{x^2}{\alpha^2}+\frac{y^2}{\beta^2}
-\]
-sont des paraboloïdes hyperboliques. Remarquez que les  sections $S^z_c$ de ce graphe sont des hyperboles, alors que les section $S^x_a$ et $S^y_b$ sont des paraboles.   
-    \item[Une demi-sphère] La fonction $S^+=\sqrt{R^2-x^2-y^2}$ a pour graphe la demi-sphère supérieure centrée en l'origine et de rayon $R$.  
-Le dernier de ces exemples nous signale une chose très importante : une sphère entière n'est pas le graphe d'une fonction de $x$ et $y$. Par contre, une demi-sphère est bien le graphe de la fonction $f(x,y)=\sqrt{1-x^2-y^2}$.
-
-L'équation que nous utilisons  pour d'écrire une sphère de rayon $R$ centrée en l'origine est 
-\[
-x^2+y^2+z^2=R^2
-\] 
-Donc, à  chaque point  $(x,y)$ dans le disque $x^2+y^2\leq R^2$ (notez que ce disque est contenu dans la section $S^z_0$), on peut associer deux valeurs de $z$ : $z_1=\sqrt{R^2-x^2-y^2}$ et  $z_2=-\sqrt{R^2-x^2-y^2}$. Par définition, une fonction n'associe qu'un seul valeur à chaque point de son domaine, d'où l'impossibilité de décrire cette sphère comme le graphe d'une fonction de $x$ et $y$.
-
-  \end{description}
-\end{example}
-
-Considérons la fonction $Sp: \eR^3\to \eR$ qui associe à $(x,y,z)$ la valeur $x^2+y^2+z^2$. La sphère de rayon $R$ centrée en l'origine est l'ensemble de niveau $N_{R^2}$ de $Sp$. L'ensemble de niveau $N_{0}$ de $Sp$ est l'origine, et tous les ensemble de niveau de hauteur négative sont vides. La même chose est vraie pour les ellipsoïdes centrées en l'origine avec les axes $x$, $y$ et $z$ comme axes principaux et comme longueurs de demi-axes $a$, $b$ et $c$. Voici la fonction dont il sont les ensemble de niveau 
-\[
-El(x,y,z)= \frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2}.
-\] 
-\begin{example}
-	Des ensembles de niveau importants.
-  \begin{description}
-    \item[Tout graphe] 
-	    Le graphe de toute fonction $f$  de $\eR^2$ dans $\eR$ peut être considéré comme l'ensemble de niveau zéro de la fonction $F(x,y,z)=z-f(x,y)$.
-
-    \item[Hyperboloïdes]
-	    Les hyperboloïdes, comme les ellipsoïdes, sont une famille d'ensemble de niveau. En particulier, nous considérons des hyperboloïdes dont l'axe de symétrie est l'axe des $z$ et qui sont symétriques par rapport un plan $x$-$y$.  Une fois que les paramètres  $a$, $b$ et $c$ sont fixés la fonction que nous intéresse est 
-\[
-Hyp(x,y,z)= \frac{x^2}{a^2}+\frac{y^2}{b^2}-\frac{z^2}{c^2}.
-\]
-Les ensembles de niveau $N_d$ pour $d>0$ sont connexes, on les appelle \emph{hyperboloïdes à une feuille}. L'ensemble de niveau $N_0$ est \emph{cône (elliptique)}, le deux moitiés du cône se touchent en l'origine. Enfin, les ensembles de niveau $N_d$ pour $d<0$ ne sont  pas connexes et pour cette raison on les appelle \emph{hyperboloïdes à deux feuilles}.
-  \end{description}
-\end{example}
-
-%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Dérivée suivant un vecteur}		\label{SecDerDirect}
-%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\begin{definition}
-Soit $f$ une application de $U\subset\eR^m$ dans $\eR$, $a$ un point dans $U$ et $v$ un vecteur de $\eR^m$. On dit que $f$ admet une \defe{dérivée suivant le vecteur $v$ au point $a$}{dérivée!directionnelle} si la fonction $t\mapsto f(a+tv)$ admet une dérivée en $t=0$. La  dérivée de $f$ suivant le vecteur $v$ au point $a$ est alors cette dérivée, et $f$ est dite dérivable suivant $v$ en $a$,
-\[
-\partial_v f(a)=\lim_{
-  \begin{subarray}{l}
-    t\to 0\\ t\neq 0 
-  \end{subarray}
- }\frac{f(a+tv)-f(a)}{t}.
-\] 
-\end{definition}
-
-\begin{definition}
-  La fonction $f:U\subset\eR^m\to \eR^n$ de composantes $(f_1,\ldots, f_n)$, est dite \defe{dérivable suivant $v$ au point $a$}{} si toute ses composante $f_i$, $i=1,\ldots, n$ sont dérivables suivant $v$ au point $a$. Dans ce cas, nous écrivons
-  \begin{equation}
-	\partial_v f(a)=\left(\partial_v f_1(a), \ldots, \partial_v f_n(a)\right)^T.
-  \end{equation}
-\end{definition}
-On parle aussi souvent de dérivé \defe{dans la direction}{} du vecteur $v$. Une \defe{direction}{direction} dans $\eR^m$ est un vecteur de norme $1$. Tant que $u$ est un élément non nul de $\eR^m$, nous pouvons parler de la direction de $u$.
-
-\begin{proposition}
-Soit $u$ un vecteur de norme $1$ dans $\eR^m$ et soit $v=\lambda u$, avec $\lambda$ dans $\eR$. La fonction $f$ est dérivable suivant $v$ au point $a$ si et seulement si $f$ est dérivable suivant $u$ au point $a$, en outre  
-\[
-\partial_v f(a)=\lambda\partial_u f(a).
-\]
+  et de plus les jacobiennes correspondantes vérifient
+  \begin{equation*}
+      J_{f\circ g}(a) = J_f\big( g(a) \big)J_g(a)
+  \end{equation*}
+  où le membre de droite est le produit (non-commutatif !) des deux matrices.
 \end{proposition}
-\begin{proof}
-  \begin{equation}
-    \begin{aligned}
-  \partial_v f(a)=&\lim_{\begin{subarray}{l}
-     t\to 0\\ t\neq 0 
-    \end{subarray}}\frac{f(a+tv)-f(a)}{t}=\lim_{\begin{subarray}{l}
-     t\to 0\\ t\neq 0 
-    \end{subarray}}\frac{f(a+t\lambda u)-f(a)}{t}=\\
-&=\lambda \lim_{\begin{subarray}{l}
-    t\to 0\\ t\neq 0 
-  \end{subarray}}\frac{f(a+t\lambda u)-f(a)}{\lambda t}=\lambda \partial_u f(a).    
-    \end{aligned}
-  \end{equation}
-\end{proof}
-\begin{definition}
-Soit $f$ une application de $U\subset\eR^m$ dans $\eR$. On appelle \defe{dérivées partielles de $f$ au point $a$}{dérivée!partielle} les dérivées de $f$ suivant les vecteurs de base $e_1,\ldots,e_m $ au point $a$, si elles existent.
-\end{definition}
-Si $m=2,3$ on peut utiliser la notation $f_x$, $\partial_x$  ou $\partial_1$ pour la dérivée partielle suivant $e_1$, $f_y$, $\partial_y$  ou $\partial_2$  pour la dérivée partielle suivant $e_2$ et $f_z$,  $\partial_z$  ou $\partial_3$  pour la dérivée partielle suivant $e_3$. En général, nous écrivons $\partial_i$ pour noter la la dérivée partielle suivant $e_i$.  
 
-\begin{example}
-Les dérivées partielles de la fonction $f(x,y)=xy^3+\sin y$ au point $(0,\pi)$ sont 
-\[
-\partial_xf(0,\pi)=\frac{ \partial f }{ \partial x }(0,\pi)=f_x(0,\pi)=\lim_{\begin{subarray}{l}
-    t\to 0\\ t\neq 0 
-  \end{subarray}} \frac{(t\pi^3+\sin \pi)-(\sin \pi)}{t}= \pi^3,
-\] 
-\[
-\partial_yf(0,\pi)=\frac{ \partial f }{ \partial y }(0,\pi)=f_y(0,\pi)=\lim_{\begin{subarray}{l}
-    t\to 0\\ t\neq 0 
-  \end{subarray}} \frac{0(\pi+t)^3+\sin (t+\pi)-0\cdot \pi^3}{t}= \cos \pi=-1,
-\]   
-\end{example}
-La fonction d'une seule variable qu'on obtient à partir de $f$ en fixant les $p-1$ variables  $x_1,\ldots, x_{i-1}, x_{i+1}, \ldots, x_p$ et qui associe à $x_i$ la valeur $f(x_1,\ldots, x_{i-1}, x_i, x_{i+1}, \ldots, x_p)$, est appelée $x_i$-ème \defe{section}{section} de $f$ en $x_1,\ldots, x_{i-1}, x_{i+1}, \ldots, x_p$. L'$i$-ème dérivée partielle de $f$ au point $a=(x_1,\ldots,x_m)$ est la dérivée de l'$i$-ème section de $f$ au point $x_i$. En pratique, pour calculer les dérivées partielles d'une fonction on fait une dérivation par rapport à la variable choisie en considérant les  autres variables comme des constantes.
-
-\begin{example}
-	Considérons la fonction $f(x,y)=2xy^2$. Lorsque nous calculons $\partial_xf(x,y)$, nous faisons comme si $y$ était constant. Nous avons donc $\partial_xf(x,y)=2y^2$. Par contre lors du calcul de $\partial_yf(x,y)$, nous prenons $x$ comme une constante. La dérivée de $y^2$ par rapport à $y$ est évidement $2y$, et par conséquent, $\partial_yf(x,y)=4xy$.
-\end{example}
-
-\begin{example}
-  La fonction $f(x,y)=x^y$ est dérivable au point $(1,2)$ et on a
-\[
-\partial_x f(1,2)=(yx^{y-1})_{(x,y)=(1,2)}=2,
-\]
-\[
-\partial_y f(1,2)=\partial_y\left(e^{y\ln x}\right)_{(x,y)=(1,2)}=\left(\ln x e^{y\ln x}\right)_{(x,y)=(1,2)}=\ln\big( 1- e^{2\ln(1)} \big)=0.
-\]
-\end{example}
-\begin{definition}
-  Soit $f$ une application de $U\subset\eR^m$ dans $\eR$ et $u$ un vecteur de $\eR^m$. La fonction $f$ est \defe{dérivable sur $U$ suivant le vecteur $u$}{}, si $f$ est dérivable  suivant le vecteur $u$ en tout point de $U$.
-\end{definition} 
-
-Pour les fonctions d'une seule variable la dérivabilité en un point $a$ implique la continuité en $a$. Cela n'est pas vrai pour les fonctions de plusieurs variables : il existe des fonction $f$  qui sont dérivables suivant tout vecteur au point $a$ sans pour autant être continue en $a$. 
-
-  \begin{example}
-    Considérons la fonction $f:\eR^2\to \eR$ 
-    \begin{equation}
-      f(x,y)=\left\{
-      \begin{array}{ll}
-        \frac{x^2y}{x^4+y^2} \qquad&\textrm{si } (x,y)\neq (0,0),\\
-        0     & \textrm{sinon}.
-      \end{array}
-      \right.
-    \end{equation}
-Pour voir que $f$ n'est pas continue en $(0,0)$ il suffit de calculer la limite de $f$ restreinte à la parabole $y=x^2$
-\[
-\lim_{x\to 0} f(x,x^2)=\frac{1}{2} \neq 0.
-\] 
-Pourtant la fonction $f$ est dérivable en $(0,0)$ dans toutes les directions. En effet, soit $v=(v_1,v_2)$. Si $v_2\neq 0$, alors
-\[
-\partial_v f(a)=\lim_{\begin{subarray}{l}
-			t\to 0\\ t\neq 0 
-  		\end{subarray}}
-  		\frac{t^3v_1^2v^2}{t^5 v_1^4+ t^3v_2^2}=\frac{v_1^2}{v_2},
-\] 
-tandis que si $v_2=0$, alors la valeur de $f(tv_1, 0)$  est $0$ pour tout $t$ et $v_1$, donc la dérivée partielle de $f$ par rapport à $x$ en l'origine existe et est nulle. 
-\end{example}
-
-\begin{example}
-    Pour une fonction réelle à variable réelle, la dérivabilité entraine la continuité. Il n'en va pas de même pour les fonctions à plusieurs variables, comme le montre l'exemple suivant :
-    \begin{equation}
-        f(x,y)=\begin{cases}
-            0    &   \text{si \( x=0\)}\\
-            \frac{ y }{ x }\sqrt{x^2+y^2}    &    \text{sinon.}
-        \end{cases}
-    \end{equation}
-    Nous avons tout de suite
-    \begin{equation}
-        \frac{ \partial f }{ \partial y }(0,0)=0.
-    \end{equation}
-    De plus si \( u_x\neq 0\) nous avons
-    \begin{equation}
-            \frac{ \partial f }{ \partial u }(0,0)=\frac{ u_y }{ u_x }\| u \|.
-    \end{equation}
-    Donc toutes les dérivées directionnelles de \( f\) en \( (0,0)\) existent alors que la fonction n'y est manifestement pas continue. En effet sous forme polaire,
-    \begin{equation}
-        f(r,\theta)=\frac{ r\sin(\theta) }{ \cos(\theta) },
-    \end{equation}
-    et quelle que soit la valeur de \( r\), en prenant \( \theta\) suffisamment proche de \( \pi/2\), la fraction peut être arbitrairement grande.
-
-    Nous verrons par la proposition \ref{diff1} que la différentiabilité d'une fonction implique sa continuité.
-\end{example}
-
-\begin{theorem}[Accroissement finis pour les dérivées suivant un vecteur]\label{val_medio_1}		\index{théorème!accroissements finis!dérivée directionnelle}
-    Soit $U$ un ouvert dans $\eR^m$ et soit $f:U\to\eR^n$ une fonction. Soient $a$ et $b$ deux points distincts dans $U$, tels que le segment\footnote{Définition \ref{DefLISOooDHLQrl}.} $[a,b]$ soit contenu dans $U$. Soit $u$ le vecteur 
-	\[
-		u=\frac{b-a}{\|b-a\|_m}.
-	\] 
-	Si $\partial_u f(x)$ existe pour tout $x$ dans $[a,b]$ on a
-	\[
-		\|f(b)-f(a)\|_n\leq \sup_{x\in[a,b]}\|\partial_uf(x)\|_n\|b-a\|_m.
-	\]
-\end{theorem}
-
-\begin{proof}
-	Nous considérons la fonction $g(t)=f\big( (1-t)a-tb \big)$. Elle décrit la droite entre $a$ et $b$ parce que $g(0)=a$ et $g(1)=b$. En ce qui concerne la dérivée,
-	\begin{equation}
-		\begin{aligned}[]
-			g'(t)&=\lim_{h\to 0} \frac{ g(t+h)-g(t) }{ h }\\
-			&=\lim_{h\to 0} \frac{ f\big( (1-t-h)a-(t+h)b \big) }{ h }\\
-			&=\lim_{h\to 0} \frac{ f\big( a+(t+h)(b-a) \big)-f\big( a+t(b-a) \big) }{ h }\\
-			&=\frac{ \partial f }{ \partial u }\big( a+t(b-a) \big)\| b-a \|.
-		\end{aligned}
-	\end{equation}
-	Le dernier facteur $\| b-a \|$ apparaît pour la normalisation du vecteur $u$. En effet dans la limite, il apparaît $h(b-a)$, ce qui donnerait la dérivée le long de $b-a$, tandis que $u$ vaut $(b-a)/\| b-a \|$.
-
-	Par le théorème des accroissements finis pour $g$, il existe $t_0\in\mathopen] 0 , 1 \mathclose[$ tel que
-	\begin{equation}
-		g(1)=g(0)+g'(t_0)(1-0).
-	\end{equation}
-	Donc
-	\begin{equation}
-		\| g(1)-g(0) \|\leq\sup_{t_0}\| g'(t_0) \|=\sum_{t_0\in\mathopen] 0 , 1 \mathclose[}\left\| \frac{ \partial f }{ \partial u }(a+t_0(b-a)) \right\|\| b-a \|.
-	\end{equation}
-	Mais lorsque $t_0$ parcours $\mathopen] 0 , 1 \mathclose[$, le point $a+t_0(b-a)$ parcours le segment $\mathopen] a , b \mathclose[$, d'où le résultat.
-\end{proof}
-
-\begin{corollary}
-	Dans les mêmes hypothèses, si $n=1$, alors il existe $\bar x $ dans $]a,b[$ tel que
-	\[
-		f(b)-f(a)=\partial_uf(\bar x)\|b-a\|_m.
-	\]    
+\begin{corollary}[Chain rule] Si $f : \eR^p \to \eR$ et $g : \eR \to
+  \eR^p$, alors
+  \begin{equation*}
+    (f\circ g)^\prime(t) = \sum_{i=1}^p \pder f {x_i}(g(t)) g_i^\prime(t).
+  \end{equation*}
 \end{corollary}
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Dérivée directionnelle}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-Nous sommes capables de dériver une fonction de deux variables $f(x,y)$ par rapport à $x$ et par rapport à $y$. C'est à dire que nous sommes capables de donner la variation de la fonction lorsqu'on bouge le long des axes horizontal et vertical. Il est évidemment souhaitable de parler de la variation de la fonction lorsqu'on se déplace le long d'autre droites.
-
-Soit donc $u=\begin{pmatrix}
-    u_1    \\ 
-    u_2    
-\end{pmatrix}$ un vecteur unitaire (c'est à dire $u_1^2+u_2^2=1$), et considérons la fonction de une variable
-\begin{equation}
-    \begin{aligned}
-        \varphi\colon \eR&\to \eR \\
-        t&\mapsto f(a+tu_1,b+tu_2). 
-    \end{aligned}
-\end{equation}
-La fonction $\varphi$ n'est rien d'autre que la fonction $f$ vue le long de la droite de direction donnée par le vecteur $u$. Nous pouvons aussi l'écrire $\varphi(t)=f(p+tu)$.
-
-\begin{proposition}
-    Si $f$ est différentiable en $(a,b)$ alors la fonction $\varphi$ est dérivable en $0$ et on a
-    \begin{equation}
-        \varphi'(0)=\nabla f(p)\cdot u
-    \end{equation}
-    où nous avons noté $p=(a,b)$.
-\end{proposition}
-
-\begin{proof}
-    Récrivons la formule \eqref{EqdiffComp} sous la forme
-    \begin{equation}
-        f(x)=f(p)+\nabla f(p)\cdot (x-p)+\| x-p \|\alpha(\| x-p \|).
-    \end{equation}
-    Cela étant vrai pour tout $x$, nous l'écrivons en particulier pour $x=p+tu$ où $t$ est un réel et $u$ est le vecteur unitaire choisi. Nous avons donc
-    \begin{equation}
-        f(p+tu)=f(p)+t\nabla f(p)\cdot u+\| tu \|\alpha(\| tu \|).
-    \end{equation}
-    En utilisant le fait que $u$ est unitaire, $\| tu \|=| t |\| u \|=| t |$. La dérivée de $\varphi$ en $0$ est alors donnée par
-    \begin{equation}
-        \lim_{t\to 0} \frac{ f(p+tu)-f(p) }{ t }=\lim_{t\to 0} \nabla f(p)\cdot u+\alpha(| t |).    
-    \end{equation}
-    Lorsque nous prenons la limite, le membre de gauche devient $\varphi'(0)$ tandis que dans le membre de droite, le second terme disparaît. Nous avons finalement
-    \begin{equation}
-        \varphi'(0)=\nabla f(p)\cdot u
-    \end{equation}
-\end{proof}
-
-\begin{definition}
-    Le nombre
-    \begin{equation}
-        \lim_{t\to 0} \frac{ f\big( a+tu_1,b+tu_2 \big)-f(a,b) }{ t }
-    \end{equation}
-    est la \defe{dérivée directionnelle}{dérivée!directionnelle} de $f$ dans la direction de $u$ au point $(a,b)$. Il sera noté
-    \begin{equation}
-        \frac{ \partial f }{ \partial u }(a,b),
-    \end{equation}
-    ou plus simplement $\partial_uf(a,b)$.
-\end{definition}
-
-Lorsque $f$ est différentiable, la dérivée directionnelle est donnée par
-\begin{equation}        \label{EqDerDirnablau}
-    \frac{ \partial f }{ \partial u }(p)=\nabla f(p)\cdot u.
-\end{equation}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Gradient : direction de plus grande pente}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Étant donné que $u$ est de norme $1$, l'inégalité de Cauchy-Schwartz donne
-\begin{equation}
-    \big| \nabla f(a,b)\cdot \begin{pmatrix}
-        u_1    \\ 
-        u_2    
-    \end{pmatrix}\big|\leq \| \nabla f(a,b) \|.
-\end{equation}
-Donc
-\begin{equation}
-    -\| \nabla f(p) \|\leq \nabla f(p)\cdot u\leq\| \nabla f(p) \|.
-\end{equation}
-La norme de la dérivée directionnelle (qui est la valeur absolue du nombre au centre) est donc «coincée» entre $-\| \nabla f(p) \|$ et $\| \nabla f(p) \|$. Prenons par exemple
-\begin{equation}
-    u=\frac{ \nabla f(p) }{ \| \nabla f(p) \| }.
-\end{equation}
-Dans ce cas, nous avons exactement
-\begin{equation}
-    \nabla f(p)\cdot u=\| \nabla f(p) \|,
-\end{equation}
-qui est la valeur maximale que la dérivée directionnelle peut prendre.
-
-La direction du gradient est donc la direction suivant laquelle la dérivée directionnelle est la plus grande. Pour la même raison, la dérivée directionnelle est la plus petite dans le sens opposé au gradient.
-
-En termes bien clairs : lorsqu'on veut aller le plus vite possible au ski, on prend la direction du gradient de la piste de ski. C'est dans cette direction que ça descend le plus vite. Dans quelle direction vont les débutants ? Ils vont perpendiculairement à la pente (ce qui ennuie tout le monde, mais c'est un autre problème). Les débutants vont donc dans la direction perpendiculaire au gradient. Prenons donc $u\perp \nabla f(p)$ et calculons la dérivée directionnelle de $f$ dans la direction $u$ en utilisant la formule \ref{EqDerDirnablau} :
-\begin{equation}
-    \frac{ \partial f }{ \partial u }(p)=\nabla f(p)\cdot u=0
-\end{equation}
-parce que nous avons choisi $u\perp \nabla f(p)$. Nous voyons donc que les débutants en ski ont eu la bonne intuition que la direction dans laquelle la piste ne descend pas, c'est la direction perpendiculaire au gradient.
-
-C'est aussi pour cela que l'on a tendance à faire du zig-zag à vélo lorsqu'on monte une pente très forte et qu'on est fatigué. C'est toujours pour cela que les routes de montagne font de longs lacets. La montée est moins rude en suivant une direction proche d'être perpendiculaire au gradient !
-
-\begin{theorem}
-    Le gradient des fonction suit à peu près les mêmes règles que les dérivées. Soient $f$ et $g$ deux fonctions différentiables. Nous avons entre autres
-    \begin{enumerate}
-        \item
-            $\nabla(f+g)=\nabla f+\nabla g$;
-        \item
-            $\nabla(fg)(a,b)=g(a,b)\nabla f(a,b)+f(a,b)\nabla g(a,b)$;
-        \item
-            Dès que $g(a,b)\neq 0$, nous avons
-            \begin{equation}
-                \nabla\frac{ f }{ g }=\frac{ g(a,b)\nabla f(a,b)-f(a,b)\nabla g(a,b) }{ g(a,b)^2 }.
-            \end{equation}
-    \end{enumerate}
-\end{theorem}
-
-%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Différentielles}		\label{SecDifferentielle}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-La notion de dérivée partielle (ou de dérivée suivant un vecteur) pour une fonction de plusieurs variables n'est pas une  généralisation de la notion de dérivée en une variable d'espace. En fait, du point de vue géométrique, la dérivée de la fonction $g:\eR\to\eR$ au point $a$ est la pente de la ligne droite tangente au graphe de $g$ au point $(a, g(a))$. Cette ligne, d'équation $r(x)=g'(a)x+g(a)$, est la meilleure approximation affine du graphe de $g$ au point $a$, comme à la figure \ref{LabelFigTangentSegment}.
-\newcommand{\CaptionFigTangentSegment}{Tangentes au graphe d'une fonction d'une variable}
-\input{Fig_TangentSegment.pstricks}
-
-Le graphe d'une fonction $f$ de $\eR^2$ dans $\eR$ est une surface de deux paramètres dans $\eR^3$. Si l'approximation affine d'une telle surface au point $(x,y,f(x,y))$ existe, alors elle est un plan tangent. En dimension plus haute, le graphe de la fonction $f:\eR^m\to\eR$ est une surface de $m$ paramètres dans $\eR^{m+1}$ et son approximation affine (si elle existe) est un hyperplan de $\eR^m$. 
-
-Nous allons voir que si $f$ prend ses valeurs dans $\eR^n$ l'approximation affine de $f$ au point $a$ est l'élément de $ f(a)+\mathcal{L}(\eR^m,\eR^n)$ qui ressemble le plus à $f$ au voisinage de $a$. Plus précisément, on utilise les définitions suivantes.         
-\begin{definition}
-  Soient $f$ et $g$ deux applications d'un ouvert $U$ de $\eR^m$ dans $\eR^n$. On dit que $g$ est \defe{tangente}{application!tangente} à $f$ au point $a\in U$ si $f(a)=g(a)$ et 
-\[
-\lim_{\begin{subarray}{l}
-    x\to a\\ x\neq a
-  \end{subarray}}\frac{\|f(x)-g(x)\|_n}{\|x-a\|_m}=0.
-\]
-\end{definition}
-La relation de tangence est une relation d'équivalence. Nous sommes particulièrement intéressés par le cas où $f$ admet une application  affine tangente au point $a$. 
-\begin{definition}      \label{DefDifferentiellePta}
-  Soit $U$ un ouvert dans $\eR^m$ et $a$ un point dans $U$. Soit $f$ une application de $U$ dans $\eR^n$. On dit que $f$ est \defe{différentiable au point $a$}{application!différentiable} s'il existe une application linéaire $T$ de $\eR^m$ dans $\eR^n$ qui satisfait
-  \begin{equation}	\label{EqCritereDefDiff}
-\lim_{h\to 0_m}\frac{\|f(a+h)-f(a)-T(h)\|_n}{\|h\|_m}=0.    
-  \end{equation}
-  Si une telle $T$ existe on l'appelle \defe{différentielle}{différentielle} de $f$ au point $a$, et on la note $df(a)$. 
-\end{definition}
-
-Note : $df_a$ est \emph{en soi} une application $df(a)\colon \eR^m\to \eR^n$. Nous notons $df_a(u)$\nomenclature{$df_a(u)$}{Application de la différentielle de $f$ sur le vecteur $u$} la valeur de $df_a$ sur le vecteur $u\in\eR^m$.
-
-
-\newcommand{\CaptionFigDifferentielle}{Interprétation géométrique de la différentielle.}
-\input{Fig_Differentielle.pstricks}
-En ce qui concerne l'interprétation géométrique, si nous regardons la figure \ref{LabelFigDifferentielle}, et d'ailleurs aussi en voyant la définition \ref{EqCritereDefDiff}, la fonction est différentiable et la différentielle est \( T\) si il existe une fonction \( \alpha\) telle que
-\begin{equation}
-    f(a+u)-f(a)-T(u)=\alpha(u)
-\end{equation}
-où la fonction \( \alpha\) satisfait
-\begin{equation}		\label{EqPresqueTa}
-	\lim_{u\to 0} \frac{ \| \alpha(u)\| }{\| u \|}=0
-\end{equation}
-C'est cela qui fait écrire \( f(a+u)-f(a)-df_a(u)=o(\| u \|)\) à ceux qui n'ont pas peur de la notation \( o\).
-
-La différentielle $df_a$ est donc la partie linéaire de l'application affine qui approxime au mieux la fonction $f$ autour du point $a$. La notion de différentielle est la vraie généralisation du concept de dérivée pour fonctions de plusieurs variables, en outre elle nous permet d'expliciter la relation qui associe au vecteur $u$ la dérivée $\partial_u f(a)$, pour $f$ et $a$ fixés.  
-
 \begin{remark}
-	Si on remplace les normes $\|\cdot\|_m$  et $\|\cdot\|_n$ par d'autres normes, l'existence et la valeur de la différentielle de $f$ au point $a$ ne sont pas remises en cause. En effet, soient  $\|\cdot\|_M$  une norme sur $\eR^m$ et $\|\cdot\|_N$ une norme sur $\eR^n$. Par le théorème \ref{ThoNormesEquiv}, ces normes sont équivalentes à $\| . \|_m$ et $\| . \|_m$ respectivement; il existe donc des constantes $k,\, K,\, l,\,L >0$ telles que  pour tout vecteur $u$ de $\eR^m$ et tout vecteur $v$ de $\eR^n$   
-\[
-k\|u\|_M\leq \|u\|_m\leq K\|u\|_M,
-\]
-\[
-l\|v\|_N\leq \|v\|_n\leq L\|v\|_N.
-\]
-Les éléments de $\mathcal{L}(\eR^m, \eR^n)$ sont les mêmes et on a 
-\begin{equation}
-  \begin{aligned}
- & \frac{l}{K}  \frac{\|f(a+h)-f(a)-T(h)\|_N}{\|h\|_M}\leq \frac{\|f(a+h)-f(a)-T(h)\|_n}{\|h\|_m}\leq\\
-&\leq\frac{L}{k} \frac{\|f(a+h)-f(a)-T(h)\|_N}{\|h\|_M}.
-  \end{aligned}
-\end{equation}
-Il est donc possible, pour démontrer la différentiabilité ou pour calculer la différentielle, d'utiliser le critère \eqref{EqCritereDefDiff} avec une norme au choix. Parfois c'est utile.
+  \begin{enumerate}
+  \item Si $p = 1$, on retrouve la règle usuelle de dérivation de
+    fonctions composées.
+
+  \item 
+      Si $g$ est à plusieurs variables, cette règle permet de déterminer les dérivées partielles de $f \circ g$, puisqu'une dérivée partielle peut être vue comme dérivée usuelle par rapport à une seule variable (voir remarque page \pageref{deriveepartielles}).
+
+  \item Si $f$ est à valeurs vectorielles, cette formule permet de
+    retrouver la jacobienne de $f \circ g$ puisqu'il suffit de traiter
+    chaque composante de $f$ séparément.
+  \end{enumerate}
 \end{remark}
+
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Principales}
+%---------------------------------------------------------------------------------------------------------------------------
+
 
 \begin{proposition}\label{diff1}
     Si $f$ est différentiable au point $a$ alors
@@ -1552,10 +1388,6 @@ Alors, la linéarité de $df_a$ nous donne
  \end{equation}
 Le lien avec le gradient est la définition du produit scalaire \eqref{DefYNWUFc}.
 \end{proof}
-
-%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Propriétés des différentielles}		\label{SecPropDiffs}
-%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Linéarité}
@@ -1882,9 +1714,9 @@ qui a dérivées partielles nulles au point $a$. La fonction $g$ est donc diffé
    
 La matrice jacobienne calculé au point $a$ est la matrice associée canoniquement à l'application linéaire $df_a:\eR^m\to\eR^n$.
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Plan tangent}		\label{SecPlanTangent}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Plan tangent}
+%---------------------------------------------------------------------------------------------------------------------------
 
 On a dit au début de cette section que si $f$ est une fonction de $\eR^2$ dans $\eR$ alors le graphe de $f$ est une surface à deux paramètres et que l'application affine tangente au graphe de $f$ au point $(a, f(a))$ est un plan. Maintenant on sait que ce plan est celui d'équation 
 \begin{equation}
@@ -1895,6 +1727,413 @@ Le plan tangent au graphe de $f$ au point $a$ est le graphe de cette fonction $T
 \begin{remark}
 	Il existe cependant des fonctions différentiables dont les dérivées partielles ne sont pas continues. La construction d'un tel exemple est cependant délicate, et nous le ferons pas ici. Retenez cependant que si dans un exercice vous obtenez que les dérivées partielles ne sont pas continues, vous ne pouvez pas immédiatement en conclure que la fonction ne sera pas différentiable.	 
 \end{remark}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+                    \subsection{Calcul de différentielles}
+%---------------------------------------------------------------------------------------------------------------------------
+
+
+\begin{remark}      \label{deriveepartielles}
+  En pratique, ayant une formule pour la fonction $f$, on dérive --grâce aux règles usuelles de dérivation-- par rapport à la variable $x_i$ en considérant que les autres ($x_j$ avec $j \neq i$) sont des constantes.
+\end{remark}
+
+\begin{example}Pour $f(x,y) = xy + x^2$, les dérivées partielles
+  s'écrivent
+  \begin{equation*}
+    \frac{\partial f}{\partial x} = y + 2x \quad\text{et}\quad \frac{\partial f}{\partial y} = x
+  \end{equation*}
+\end{example}
+
+
+Des \emph{règles de calcul} sont d'application. En particulier, quand
+ces opérations existent, les sommes, différences, produits, quotients
+et compositions d'applications différentiables sont différentiables.
+
+Toute application linéaire est différentiable, et sa différentielle en
+tout point est égale à l'application elle-même. En particulier, les
+\Defn{projections canoniques}, c'est-à-dire les applications du type
+$(x,y,z) \mapsto y$, sont linéaires donc différentiables.
+
+\begin{example}
+Les cas suivants sont faciles :
+  \begin{enumerate}
+  \item En combinant les projections canoniques avec les règles de
+    calculs, on obtient que toute fonction polynômiale à $n$ variables
+    est différentiable comme application de $\eR^n$ dans $\eR$.
+
+  \item Toute fonction rationnelle, du type $f(x) \pardef
+    \frac{P(x)}{Q(x)}$ où $P$ et $Q$ sont des polynômes, est
+    différentiable en tout point $a$ tel que $Q(a) \neq 0$.
+
+  \item Pour une fonction d'une variable $f : D \subset \eR \to
+    \eR$, le caractère différentiable et le caractère dérivable
+    coïncident. De plus, on a
+    \begin{equation*}
+      d f_a(u) = f'(a) u.
+    \end{equation*}
+  \end{enumerate}
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+                    \subsection{Notes idéologiques quant au concept de plan tangent}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{ssecConceptPlanTag}
+
+Notons $G$, le graphe d'une fonction $f$, c'est à dire
+\begin{equation}
+    G=\{ (x,y,z)\in\eR^3\tq z=f(x,y) \}.
+\end{equation}
+Première affirmation : si $\gamma\colon \eR\to G$ est une courbe telle que $\gamma(0)=\big( a,f(a) \big)$, alors $\gamma'(0)\in\eR^n$ est dans le plan tangent à $G$ au point $\big( a,f(a) \big)$.
+
+Plus fort : tous les éléments du plan tangent sont de cette forme.
+
+Le plan tangent à $G$ en un point $x\in G$ est donc constitué des vecteurs vitesse de tous les chemins qui passent par $x$.
+
+Prenons maintenant $S$, une courbe de niveau de $G$, c'est à dire
+\begin{equation}
+    S=\{ (x,y)\in\eR^2\tq f(x,y)=C \}.
+\end{equation}
+Si nous prenons un chemin dans $G$ qui est, de plus, contraint à $S$, c'est à dire tel que $\gamma(t)\in S$, alors $\gamma'(0)$ sera tangent à $G$ (ça, on le savait déjà), mais en plus, $\gamma'(0)$ sera tangent à $S$, ce qui est logique.
+
+La morale est que si vous prenez un chemin qui se ballade dans n'importe quoi, alors la dérivée du chemin sera un vecteur tangent à ce n'importe quoi.
+
+En outre, si $\gamma(t)\in S$ et $\gamma(0)=a$, alors
+\begin{equation}
+    \scal{\nabla f(a)}{\gamma'(0)}=0,
+\end{equation}
+c'est à dire que le vecteur tangent à la courbe de niveau est perpendiculaire au gradient. Cela est intuitivement logique parce que la tangente à la courbe de niveau correspond à la direction de \emph{moins} grande pente.
+
+%---------------------------------------------------------------------------------------------------------------------------
+                    \subsection{Gradient et recherche du plan tangent}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous avons maintenant en main les concepts utiles pour trouver l'équation du plan tangent à une surface.
+
+De la même manière que la tangente à une courbe était la droite de coefficient directeur donné par la dérivée, maintenant, le plan tangent à une surface est le plan dont les vecteurs directeurs sont les dérivées partielles :
+
+La généralisation de l'équation \eqref{EqDiffRapTgDer} est 
+\begin{equation}        \label{EqDefPlanTag}
+    T_a(x)=f(a)+\sum_i\frac{ \partial f }{ \partial x_i }(a)(x-a)^i
+\end{equation}
+
+Nous introduisons aussi souvent l'opérateur différentiel abstrait \defe{nabla}{nabla}, noté $\nabla$ et qui est donné par le vecteur
+\begin{equation}
+    \nabla=\left( \frac{ \partial  }{ \partial x_1 },\ldots,\frac{ \partial  }{ \partial x_n } \right).
+\end{equation}
+Les égalités suivantes sont juste des notations, sommes toutes logiques, liées à $\nabla$ :
+\begin{equation}
+    \nabla f=\left( \frac{ \partial f }{ \partial x_1 },\ldots,\frac{ \partial f }{ \partial x_n } \right),
+\end{equation}
+et
+\begin{equation}        \label{EqDefGradient}
+    \nabla f(a) = \left(\frac{\partial f}{\partial x_1}(a), \frac{\partial f}{\partial x_2}(a), \ldots, \frac{\partial f}{\partial x_n}(a)\right).
+\end{equation}
+Ce dernier est un élément de $\eR^n$ : chaque entrée est un nombre réel.
+
+\begin{definition} 
+Le vecteur gradient de $f$ au point $a$ est le vecteur donné par la formule \eqref{EqDefGradient}.
+\end{definition}
+La notation $\nabla$ permet d'écrire la différentielle sous forme un peu plus compacte. En effet, la formule \eqref{EqDiffPartRap} peut être notée
+\begin{equation}
+    df_a(u)=\scal{\nabla f(a)}{u}.
+\end{equation}
+
+En utilisant ce produit scalaire, l'équation \eqref{EqDefPlanTag} peut se récrire
+\begin{equation}
+    T_a(x)=f(a)+\sum_i\frac{ \partial f }{ \partial x_i }(a)(x-a)^i=f(a)+\scal{\nabla f(a)}{x-a}.
+\end{equation}
+
+Afin d'éviter les confusions, il est parfois souhaitable de bien mettre les parenthèses et noter $(\nabla f)(a)$ au lieu de $\nabla f(a)$.
+
+\begin{proposition}
+$\nabla f(a)\,\bot \,S_a$
+\end{proposition}
+
+
+\begin{equation}        \label{EqPlanTgSansNabla}
+    z=f(a)+\sum_i\frac{ \partial f }{ \partial f }(a)(x-a)^i.
+\end{equation}
+
+\subsubsection*{Cas particulier où $n=2$:} 
+Le plan $T_a$ avec $a=(a_1,a_2)$ a pour équation dans $\eR^3$:
+\begin{equation}        \label{EqPlanTgEnDimDeux}
+    z = f(a_1,a_2) + \frac{\partial f}{\partial x}(a_1,a_2)\,(x-a_1)+ \frac{\partial f}{\partial y}(a_1,a_2)\,(y-a_2).
+\end{equation}
+
+\begin{definition}
+  Soit $f : \eR^n \to\eR$ une fonction différentiable en un point
+  $a$. Le \emph{plan tangent} au graphe de $f$ en $(a,f(a))$ est
+  l'ensemble des points
+  \begin{equation*}
+    \begin{split}
+      T_af &= \{ (x,z) \in \eR^n \times \eR \tq z = f(a) + d f_a (x-a)\}\\
+      &= \{ (x,z) \in \eR^n \times \eR \tq z = f(a) + \scalprod{\nabla f(a)}{x-a}\}
+    \end{split}
+  \end{equation*}
+\end{definition}
+
+Nous avons vu que, de la même façon qu'en deux dimensions nous avions l'approximation \eqref{Eqfxsimesfa} d'une fonction par sa tangente, en trois dimensions nous avons l'approximation suivante d'une fonction de deux variables :
+\begin{equation}
+    f(x,y)\simeq f(a,b)+\frac{ \partial f }{ \partial x }(a,b)(x-a)+\frac{ \partial f }{ \partial y }(a,b)(y-b)
+\end{equation}
+lorsque $(x,y)$ n'est pas trop loin de $(a,b)$. Cela signifie que le graphe de $f$ ressemble au graphe de la fonction $T_{(a,b)}$ donnée par
+\begin{equation}
+    T_{(a,b)}(x,y)=f(a,b)+\frac{ \partial f }{ \partial x }(a,b)(x-a)+\frac{ \partial f }{ \partial y }(a,b)(x-a).
+\end{equation}
+En notations compactes :
+\begin{equation}
+    T_p(x)=f(p)+\nabla f(p)\cdot (x-p).
+\end{equation}
+Le graphe de la fonction $T_p$ sera le \defe{plan tangent}{plan!tangent} au graphe de $f$ au point $p$. L'équation du plan tangent sera donc
+\begin{equation}
+    z-f(p)=\nabla f(p)\cdot (x-p).
+\end{equation}
+
+\begin{remark}
+    Lorsque nous utilisons la notation vectorielle, la lettre «$x$» désigne le vecteur $(x,y)$. Il faut être attentif. Dans un cas $x$ est un vecteur dans l'autre c'est une composante d'un vecteur.
+\end{remark}
+
+Les champs de vecteurs et tout ce qui s'y rapportent jouent un rôle crucial en électromagnétisme. Voir par exemple \cite{Schomblond_em}.
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Jacobienne}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\subsection{Rappels et définitions}
+
+Dans cette section nous considérons des fonctions $f : D \to \eR^m$
+où $D \subset \eR^n$, et un point $a \in \Int D$ où $f$ est
+différentiable.
+\begin{remark}
+  La définition de continuité (resp. différentiabilité) pour une
+  fonction à valeurs vectorielles est celle introduite précédemment,
+  et on remarque que pour avoir la continuité
+  (resp. différentiabilité) de $f$ en un point, il faut et il suffit
+  de chacune des composantes de $f = (f_1,\ldots, f_m)$, vues
+  séparément comme fonctions à $n$ variables et à valeurs réelles,
+  soit continue (resp. différentiable) en ce point.
+\end{remark}
+
+\begin{definition}
+    La \defe{jacobienne}{matrice!jacobienne} de $f$ en $a$ est la matrice de l'application linéaire donnée par la différentielle. Elle a de nombreuses notations
+  \begin{equation}
+      J_f(a) = \frac{ \partial (f_1,\ldots, f_m) }{ \partial x_1,\ldots, x_m }=
+    \begin{pmatrix}
+      \pder {f_1} {x_1}(a) & \ldots &\pder {f_1} {x_n}(a)\\
+      \vdots& & \vdots\\
+      \pder {f_m} {x_1}(a) & \ldots &\pder {f_m} {x_n}(a)
+    \end{pmatrix}
+  \end{equation}
+  Autrement dit, c'est la matrice composée de l'ensemble des dérivées partielles de $f$. Le \defe{jacobien}{jacobien} de \( f\) au point \( a\) est le déterminant de cette matrice.
+
+  Si $m = 1$, cette matrice ne contient qu'une ligne ; c'est donc un vecteur appelé le \defe{gradient}{gradient} de $f$ au point $a$ et noté $\nabla f(a)$.
+\end{definition}
+
+\begin{remark}
+  \begin{enumerate}
+  \item Si la fonction est supposée différentiable, calculer la
+    jacobienne revient à connaître la différentielle. En effet, par
+    linéarité de la différentielle et par définition des dérivées
+    partielles, nous avons
+    \begin{equation*}
+      d f_a (u) =%
+      \begin{pmatrix}
+        \pder {f_1} {x_1}(a) & \ldots &\pder {f_1} {x_n}(a)\\
+        \vdots& & \vdots\\
+        \pder {f_m} {x_1}(a) & \ldots &\pder {f_m} {x_n}(a)
+      \end{pmatrix}
+      \begin{pmatrix}u_1\\\vdots\\u_n\end{pmatrix}
+    \end{equation*}
+    où $u = (u_1, \ldots, u_n)$ et où le membre de droite est un
+    produit matriciel
+
+  \item Remarquons que la jacobienne peut exister en un point donné
+    sans que la fonction soit différentiable en ce point !
+  \end{enumerate}
+\end{remark}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Fonctions à valeurs dans $\eR^n$}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+À peu près toutes les notions que vous connaissez à propos de fonctions de $\eR$ dans $\eR$ se généralises immédiatement au cas de fonctions de $\eR$ dans $\eR^n$.
+
+Nous disons que la fonction $f\colon \eR\to \eR^n$ est \defe{de classe $C^1$}{classe $C^1$} si chacune de ses composantes $f_i$ est de classe $C^1$ en tant que fonctions de $\eR$ dans $\eR$.
+
+La dérivée de $f$ est donnée par la dérivée composante par composante. Pour l'intégrale de $f$, il en va de même : composante par composante. 
+\begin{equation}
+	\int f(x)dx=\big(  \int f_1(x)dx,\,\int f_2(x)dx,\ldots,\int f_n(x)dx   \big).
+\end{equation}
+
+Par exemple si nous considérons le mouvent d'une particule sur une hélice, la position est donnée par
+\begin{equation}
+	f(t)=\big( R\sin(t),R\cos(t),t \big).
+\end{equation}
+La vitesse est donnée par
+\begin{equation}
+	f'(t)=\big( R\cos(t),-R\sin(t),1 \big),
+\end{equation}
+et l'intégrale sera donnée par
+\begin{equation}
+	\int f(t)dt=\big( -R\cos(t)+C_1,R\sin(t)+C_2,\frac{ t^2 }{ 2 }+C_3 \big).
+\end{equation}
+
+Si nous considérons une pierre lancée horizontalement du sommet d'une falaise avec une vitesse initiale $v_0$, la vitesse de la pierre sera donnée par
+\begin{equation}
+	v(t)=(v_0,gt).
+\end{equation}
+Pour trouver la position, nous intégrons la vitesse par rapport au temps :
+\begin{equation}
+	f(t)=\int v(t)dt=\big( v_0t+C_1,\frac{ gt^2 }{ 2 }+C_2 \big).
+\end{equation}
+Notez qu'il faut une constante d'intégration différente pour chaque composantes.
+
+\begin{lemma}			\label{LemIneqnormeintintnorm}
+	Pour toute fonction $u\colon \mathopen[ a , b \mathclose]\to \eR^n$, nous avons
+	\begin{equation}
+		\| \int_a^bu(t)dt\|\leq\int_a^b\| u(t) \|dt
+	\end{equation}
+	pourvu que le membre de gauche ait un sens.
+\end{lemma}
+
+\begin{proof}
+	Étant donné que $\int_a^bu(t)dt$ est un élément de $\eR^n$, par la proposition \ref{LemSclNormeXi}, il existe un $\xi\in\eR^n$ de norme $1$ tel que
+	\begin{equation}
+		\| \int_a^bu(t)dt \|=\xi\cdot\int_a^b u(t)dt=\int_a^b u(t)\cdot\xi dt\leq\int_a^b\| u(t) \|   \| \xi \|=\int_a^b\| u(t) \|dt.
+	\end{equation}
+\end{proof}
+% This is part of Géométrie analytique
+% Copyright (c) 2010-2011
+%   Laurent Claessens
+%   Carlotta Donadello
+% See the file fdl-1.3.txt for copying conditions.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Graphes de fonctions de plusieurs variables}		\label{SecGraphesFonc}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+La plus grande partie de ce cours est consacrée à l'étude des fonction de plusieurs variables. Nous allons maintenant donner quelques indication sur comment <<dessiner>> une telle fonction. Vous connaissez déjà la définition de graphe pour une fonction $f$ d'une seule variable à valeurs dans $\eR$ : c'est l'ensemble des point du plan de la forme $(x, f(x))$. Vous voyez que cet ensemble n'est pas vraiment un gros morceau de $\eR^2$ parce que son intérieur est vide : il y a une seule valeur de $f$ qui correspond au point $x$, donc une boule de $\eR^2$ centrée en $(x, f(x))$ de n'importe quel rayon contient toujours des points qui ne font pas partie du graphe de $f$. 
+
+%La première chose qu'on a envie de dire est que un tel graphe est une courbe dans $\eR^2$ mais cela n'est pas toujours vrai. Le graphe de la fonction cosinus est bien une courbe dans dans le plan, mais le graphe de la fonction tangente est une réunion infinie de courbes. Ce qui est vrai est que le graphe d'une fonction d'une variable est \emph{localement} une courbe si la fonction n'est pas trop mal choisie. % exemple? 
+
+Nous voulons donner une définition assez générale pour le graphe d'une fonction
+\begin{definition}
+  Soit $f$ une fonction de $\eR^m$ dans $\eR^n$. Le \defe{graphe}{graphe!fonction} de $f$ est la partie de $\eR^m\times \eR^n$ de la forme
+  \begin{equation}
+    \Graph f= \{ (x,y)\in \eR^m\times \eR^n \,|\, y=f(x)\}.
+  \end{equation}
+\end{definition}
+Si $f$ est une fonction de deux variables indépendantes $x$ et $y$ à valeurs dans $\eR$, alors un point dans le graphe de $f$ est un point $(x,y,z)\in\eR^3$ tel que
+\begin{equation}
+	z=f(x,y),
+\end{equation}
+ou encore, un point de la forme
+\begin{equation}
+	\big( x,y,f(x,y) \big).
+\end{equation}
+%Si $g$ est une fonction d'une variable $x$ à valeurs dans $\eR^2$, alors un point dans le graphe de $g$ prend la forme $(x,g_1(x), g_2(x))$, où $g_1$ et $g_2$ sont les composantes de $g$.  Dans le deux cas le graphe est un sous-ensemble de $\eR^3$. 
+Ici nous sommes intéressés par les fonctions de plusieurs variables à valeurs dans $\eR$. Donc, notre définition se spécialise 
+\begin{definition}
+  Soit $f$ une fonction de $\eR^m$ dans $\eR$. Le graphe de $f$ est la partie de $\eR^m\times \eR$ donné par
+  \begin{equation}
+    \Graph f= \{ (x,y)\in \eR^m\times \eR \,|\, y=f(x)\}.
+  \end{equation}
+\end{definition}  
+Étant donné que nous ne donneront des exemples que de fonctions de $\eR^2$ dans $\eR$, la définition devient
+\begin{equation}
+	\Graph f= \{ (x,y,z)\in\eR^2\tq z=f(x,y) \}.
+\end{equation}
+C'est cette définition qu'il faut garder à l'esprit lorsqu'on travaille sur des dessins en trois dimensions.
+
+%Nous considérons d'abord le cas d'une fonction $f$  de deux variables $x$ et $y$ à valeurs dans $\eR$. L'espace $\eR^3$ a trois dimensions, cela veut dire que il faut fixer trois paramètres indépendants pour désigner un point de manière unique (voir, au cours d'une deuxième lecture de ces notes, la section sur les coordonnées cylindriques et sphériques, \ref{sec_coord}). Le graphe d'une fonction comme $f$ est un sous-ensemble de $\eR^3$ où l'un des trois paramètres est d'office la valeur de $f$, donc il est décrit par seulement deux paramètres $x$ et $y$. Son intérieur est alors vide et, si $f$ est une fonction <<suffisamment gentille>>, $\Graph f$ est localement une surface dans $\eR^3$.    
+
+Nous avons parfois besoin de donner des représentation graphiques d'une fonction. Nous pouvons, par exemple, penser à la fonction que associe à un point de la Terre son altitude. Lorsqu'on part pour une promenade en montagne on a envie de connaitre le graphe de cette fonction qui correspond en fait à la surface de la montagne. Bien sur nous ne voulons pas amener avec nous un modèle en 3D de la montagne donc il nous faut une méthode efficace pour projeter le graphe de $f$ sur le plan $x$-$y$ tout en gardant les informations fondamentales. Pour cela nous avons besoin de deux définitions (à ne pas confondre !)
+\begin{definition}
+	Soit $f$ une fonction de $\eR^2$ dans $\eR$ et soit $c$ dans $\eR$.  La \defe{$z$-section}{section!de graphe} de $\Graph f$ à la hauteur $c$ est donné par
+\[
+S^z_c=\{ (x,y,c)\in \eR^3\,|\, f(x,y)=c\}.
+\]  
+\end{definition}
+
+\begin{definition}\label{def_niveau}
+	Soit $f$ une fonction de $\eR^n$ dans $\eR$ et soit $c$ dans $\eR$. La \defe{courbe de niveau}{courbe de niveau} de $f$ à la hauteur $c$ est l'ensemble
+    \begin{equation}
+        N_c=\{ (x1,\ldots, x_n)\in \eR^n\,|\, f(x1,\ldots, x_n)=c\}.
+    \end{equation}
+\end{definition}
+On peut représenter la fonction $f$ d'une façon très précise en traçant quelques unes de ses courbes de niveau.  Dans la suite on pourra considérer aussi les $x$-sections et les $y$-sections du graphe d'une fonction de deux variables. La $x$-section de $\Graph f$ à la hauteur $a$ est     
+\[
+S^x_a=\{(a,y,z)\in\eR^3\,|\, f(a,y)=z\}.
+\]
+Comme vous avez peut être déjà compris, $S^x_a$ est le graphe de la fonction de $y$ qu'on obtient de $f$ en fixant $x=a$. Cette fonction est appelée $x$-section de $f$ pour $x=a$.
+
+Certaines surfaces dans $\eR^3$ sont le graphe d'une fonction. 
+
+\begin{example}
+	Quelque graphes importants.
+  \begin{description}
+    \item[Un plan non vertical] Tout plan dans $\eR^3$ peut être décrit par une équation de la forme 
+\[
+a(x-x_0)+ b(y-y_0) + c(z-z_0) = r,
+\] 
+où, $(x_0, y_0, z_0)$ est vecteur dans $\eR^3$, et $a$, $b$, $c$ et $r$ sont des nombres réels. Si $c\neq 0$ alors le plan n'est pas vertical et on peut dire que il est le graphe de la fonction 
+\[
+P(x,y)= \frac{r+cz_0 -a(x-x_0)-b(y-y_0)}{c},
+\]
+quitte à choisir des nouvelles constantes $s$, $t$, $q$,
+\[
+P(x,y)=sx +ty +q.
+\]
+    \item[Un paraboloïde elliptique] Pour tous $\alpha$ et $\beta$ dans $\eR$ les  graphes des fonctions 
+\[
+PE_1(x,y)=\frac{x^2}{\alpha^2}+\frac{y^2}{\beta^2}
+\]
+ou de la fonction 
+\[
+PE_2(x,y)=-\frac{x^2}{\alpha^2}-\frac{y^2}{\beta^2}
+\]
+sont des paraboloïdes elliptiques. Le premier est contenu dans le demi-espace $z\geq 0$, l'autre dans $z\leq 0$. Le nom de cette surface vient de la forme de ses sections. En fait toutes  sections $S^z_c$ sont des ellipses, alors que les section $S^x_a$ et $S^y_b$ sont des paraboles.   
+    \item[Un paraboloïde hyperbolique (selle)]  Pour tous $\alpha$ et $\beta$ dans $\eR$ les  graphes des fonctions 
+\[
+PH_1(x,y)=\frac{x^2}{\alpha^2}-\frac{y^2}{\beta^2}
+\]
+ou de la fonction 
+\[
+PH_2(x,y)=-\frac{x^2}{\alpha^2}+\frac{y^2}{\beta^2}
+\]
+sont des paraboloïdes hyperboliques. Remarquez que les  sections $S^z_c$ de ce graphe sont des hyperboles, alors que les section $S^x_a$ et $S^y_b$ sont des paraboles.   
+    \item[Une demi-sphère] La fonction $S^+=\sqrt{R^2-x^2-y^2}$ a pour graphe la demi-sphère supérieure centrée en l'origine et de rayon $R$.  
+Le dernier de ces exemples nous signale une chose très importante : une sphère entière n'est pas le graphe d'une fonction de $x$ et $y$. Par contre, une demi-sphère est bien le graphe de la fonction $f(x,y)=\sqrt{1-x^2-y^2}$.
+
+L'équation que nous utilisons  pour d'écrire une sphère de rayon $R$ centrée en l'origine est 
+\[
+x^2+y^2+z^2=R^2
+\] 
+Donc, à  chaque point  $(x,y)$ dans le disque $x^2+y^2\leq R^2$ (notez que ce disque est contenu dans la section $S^z_0$), on peut associer deux valeurs de $z$ : $z_1=\sqrt{R^2-x^2-y^2}$ et  $z_2=-\sqrt{R^2-x^2-y^2}$. Par définition, une fonction n'associe qu'un seul valeur à chaque point de son domaine, d'où l'impossibilité de décrire cette sphère comme le graphe d'une fonction de $x$ et $y$.
+
+  \end{description}
+\end{example}
+
+Considérons la fonction $Sp: \eR^3\to \eR$ qui associe à $(x,y,z)$ la valeur $x^2+y^2+z^2$. La sphère de rayon $R$ centrée en l'origine est l'ensemble de niveau $N_{R^2}$ de $Sp$. L'ensemble de niveau $N_{0}$ de $Sp$ est l'origine, et tous les ensemble de niveau de hauteur négative sont vides. La même chose est vraie pour les ellipsoïdes centrées en l'origine avec les axes $x$, $y$ et $z$ comme axes principaux et comme longueurs de demi-axes $a$, $b$ et $c$. Voici la fonction dont il sont les ensemble de niveau 
+\[
+El(x,y,z)= \frac{x^2}{a^2}+\frac{y^2}{b^2}+\frac{z^2}{c^2}.
+\] 
+\begin{example}
+	Des ensembles de niveau importants.
+  \begin{description}
+    \item[Tout graphe] 
+	    Le graphe de toute fonction $f$  de $\eR^2$ dans $\eR$ peut être considéré comme l'ensemble de niveau zéro de la fonction $F(x,y,z)=z-f(x,y)$.
+
+    \item[Hyperboloïdes]
+	    Les hyperboloïdes, comme les ellipsoïdes, sont une famille d'ensemble de niveau. En particulier, nous considérons des hyperboloïdes dont l'axe de symétrie est l'axe des $z$ et qui sont symétriques par rapport un plan $x$-$y$.  Une fois que les paramètres  $a$, $b$ et $c$ sont fixés la fonction que nous intéresse est 
+\[
+Hyp(x,y,z)= \frac{x^2}{a^2}+\frac{y^2}{b^2}-\frac{z^2}{c^2}.
+\]
+Les ensembles de niveau $N_d$ pour $d>0$ sont connexes, on les appelle \emph{hyperboloïdes à une feuille}. L'ensemble de niveau $N_0$ est \emph{cône (elliptique)}, le deux moitiés du cône se touchent en l'origine. Enfin, les ensembles de niveau $N_d$ pour $d<0$ ne sont  pas connexes et pour cette raison on les appelle \emph{hyperboloïdes à deux feuilles}.
+  \end{description}
+\end{example}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 %\section{Calcul de limites}
