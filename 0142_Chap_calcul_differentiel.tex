@@ -910,6 +910,230 @@ Les ensembles de niveau $N_d$ pour $d>0$ sont connexes, on les appelle \emph{hyp
 \end{example}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Graphes de fonctions à plusieurs variables}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+La physique, et les sciences en général, regorge de fonctions à plusieurs variables.
+\begin{description}
+    \item[Accélération centripète]\footnote{Appelez la «centrifuge» si vous voulez; ça ne me fait ni chaud ni froid.}  Si une masse $m$ tourne sur un cercle, elle subira une accélération dirigée vers l'intérieur égale à
+        \begin{equation}
+            F(v,r)=\frac{ mv^2 }{ r }
+        \end{equation}
+        où $r$ est le rayon du cercle et $v$ est la vitesse.
+    \item[Pression dans un gaz] Si on a $n$ moles de gaz dans un volume $V$ a une température $T$, alors la pression sera donnée par la fonction de trois variables
+        \begin{equation}
+            p=\frac{ nRT }{ V }
+        \end{equation}
+        où $R$ est la constante des gaz parfaits.
+\end{description}
+En mathématique, on peut inventer de nombreuses fonctions de plusieurs variables. La fonction
+\begin{equation}
+    f(x,y)=x^2+xy\cos(x^2+y^3)
+\end{equation}
+est définie sur $\eR^2$. La fonction
+\begin{equation}
+    f(x,y,z)=\frac{ x+y-2z }{ 1-x^2-y^2-z^2 }
+\end{equation}
+est définie sur $\eR^3$ moins la sphère unité $\{ x^2+y^2+z^2=1 \}$.
+
+Le \defe{graphe}{graphe!fonction de deux variables} d'une fonction de deux variables $f\colon D\subset\eR^2\to \eR$ est l'ensemble
+\begin{equation}
+    \Big\{   \big( x,y,f(x,y) \big) \tq (x,y)\in D \Big\}\subset\eR^3.
+\end{equation}
+Ce graphe est une surface dans $\eR^3$.
+
+\begin{example}     \label{ExempleTroisDxxyy}
+
+    Tracer le graphe de la fonction 
+    \begin{equation}
+        (x,y)\mapsto x^2+y^2.
+    \end{equation}
+    Le plus simple est de demander à Sage de nous fournir une représentation 3D
+    \begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.6.1, Release Date: 2011-01-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: f(x,y)=x**2+y**2
+sage: plot3d(f,(x,-3,3),(y,-3,3))
+    \end{verbatim}
+    
+    Voici ce que cela donne\footnote{En vrai, ce que Sage donne est un objet qu'on peut même faire bouger.} : (à regarder avec des lunettes bleues et rouges) :
+    \begin{center}
+        \ifpdf
+            \includegraphics[width=15cm]{coupe.png}
+        \else
+            \includegraphics[width=15cm]{coupe.eps}
+        \fi
+    \end{center}
+    À part que l'ordinateur l'a dit, est-ce qu'on peut comprendre pourquoi le graphe de la fonction $x^2+y^2$ ressemble à un bol ? En coordonnées cylindriques, le graphe s'écrit
+    \begin{equation}
+        z=r^2.
+    \end{equation}
+    Donc il se fait que plus on s'éloigne du point $(0,0)$ dans le plan $XY$, plus le graphe va monter. Et il monte à quelle vitesse ? Il monte à la vitesse $r^2$. Il s'agit donc de dessiner la fonction $z=r^2$ dans le plan et de la «faire tourner».
+
+\end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Courbes de niveau}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Une technique utile pour se faire une idée de la forme d'une fonction en trois dimensions est de tracer les \defe{courbes de niveau}{courbe de niveau}. La courbe de niveau de hauteur $h$ est la courbe dans le plan donnée par l'équation
+\begin{equation}
+    f(x,y)=h.
+\end{equation}
+
+\begin{example}
+
+    Dessinons par exemple les courbes de niveau de la fonction
+    \begin{equation}
+        f(x,y)=x+y+2.
+    \end{equation}
+    La courbe de niveau $h$ est donnée par l'équation $x+y+2=h$, c'est à dire
+    \begin{equation}
+        y(x)=-x+h-2.
+    \end{equation}
+    Par conséquent la courbe de niveau de hauteur $0$ est $y=-x-2$, celle de hauteur $5$ est $y=-x+3$, etc.
+    
+    Nous pouvons également nous aider de Sage pour ce faire :
+    \begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.6.1, Release Date: 2011-01-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: f(x,y)=x+y+2
+sage: var('h')                   
+h
+sage: niveau(h,x)=solve(f(x,y)==h,y)[0].rhs()
+sage: g1(x)=niveau(1,x)
+sage: g1
+x |--> -x - 1
+    \end{verbatim}
+    Ici la fonction \verb+g1+ est la courbe de niveau $1$. 
+
+    Si on veut faire tracer une courbe de niveau, Sage peut le faire :
+    \begin{verbatim}
+        sage: implicit_plot(f(x,y)==1,(x,-3,3),(y,-4,4))
+    \end{verbatim}
+    Cela tracera la courbe de niveau $h=1$ dans la partie du plan $x\in\mathopen[ -3 , 3 \mathclose]$ et $y\in\mathopen[ -4,4 ,  \mathclose]$.
+    
+\end{example}
+
+Il est bien entendu possible de créer automatiquement $50$ courbes de niveau et de demander de les tracer toutes sur le même graphe.
+\VerbatimInput[tabsize=3]{courbeNiveau.py}
+
+Le résultat est :
+
+\begin{center}
+    \ifpdf
+        \includegraphics[width=8cm]{niveauCercles.png}
+    \else
+        \includegraphics[width=8cm]{niveauCercles.eps}
+    \fi
+\end{center}
+Notez que les courbes sont censées être des cercles : les axes $X$ et $Y$ n'ont pas la même échelle. Vous trouverez sur \href{http://uw.sagenb.org/home/pub/23/}{cette page} tout ce qu'il vous faudra pour créer des courbes de niveau avec Sage.
+
+\begin{example}
+    Un exemple plus riche en enseignements est celui de la fonction
+    \begin{equation}
+        f(x,y)=x^2-y^2.
+    \end{equation}
+    La courbe de niveau $h$ est donnée par l'équation $x^2-y^2=h$.
+
+    Commençons par $h=0$. Dans ce cas nous avons $(x+y)(x-y)=0$ et par conséquent les courbes de niveau de hauteur zéro sont les deux droites $x+y=0$ et $x-y=0$.
+
+    Voyons ensuite la courbe de niveau $h=1$. Cela est l'équation $x^2-y^2=1$, c'est à dire
+    \begin{equation}
+        y(x)=\pm\sqrt{x^2-1}.
+    \end{equation}
+    C'est une fonction qui n'est définie que pour $| x |\geq 1$. Avec $x=1$ nous avons $y=1$. Ensuite, lorsque $x$ grandit, $y$ grandit également, mais la courbe ne peut pas croiser la courbe de niveau $h=0$. Donc, suivant les notations de la figure \ref{LabelFigCQIXooBEDnfK}, la courbe de niveau «part» de $P$ et doit monter sans croiser les diagonales.
+
+ % les figures CQIXooBEDnfK et KGQXooZFNVnW sont générées par le script MBFDooRFPyNW
+
+%The result is on figure \ref{LabelFigCQIXooBEDnfK}. % From file CQIXooBEDnfK
+\newcommand{\CaptionFigCQIXooBEDnfK}{La courbe de niveau $h=1$ de $x^2-y^2$. Notez qu'elle est en deux morceaux.}
+\input{Fig_CQIXooBEDnfK.pstricks}
+
+%The result is on figure \ref{LabelFigKGQXooZFNVnW}. % From file KGQXooZFNVnW
+\newcommand{\CaptionFigKGQXooZFNVnW}{La courbe de niveau $x^2-y^2=-1$.}
+\input{Fig_KGQXooZFNVnW.pstricks}
+
+    En ce qui concerne la courbe de niveau $h=-1$, elle correspond à la courbe $y=\pm\sqrt{1+x^2}$ qui est définie pour tous les $x\in\eR$. Le même raisonnement que précédemment nous amène à la figure \ref{LabelFigKGQXooZFNVnW}.
+
+\end{example}
+
+Une autre façon de voir les courbe de niveau est de dire que la courbe de niveau de hauteur $h$ est la projection dans le plan $XY$ de la section du graphe de $f$ par le plan $z=h$.
+
+On peut également définir le graphe de fonctions de trois (ou plus) variables. Le graphe de la fonction $f\colon D\subset\eR^3\to \eR$ est l'ensemble
+\begin{equation}
+    \big\{ \big( x,y,z,f(x,y,z) \big)\tq (x,y,z)\in D \big\}\subset \eR^4.
+\end{equation}
+De tels graphes ne peuvent pas être représentés sur une feuille de papier. Il est toutefois possible de définir les ensembles de niveaux :
+\begin{equation}
+    E_h=\big\{ (x,y,z)\in D\tq  f(x,y,z)=h\big\}.
+\end{equation}
+Ce sont des surfaces dans $\eR^3$ que l'on peut dessiner.
+
+\begin{example}
+    Les surfaces de niveau de la fonction $f(x,y,z)=x^2+y^2+z^2$ sont des sphères. Il n'y a pas de surfaces de niveau pour les «hauteurs» négatives.
+\end{example}
+
+\begin{example}
+    Considérons la fonction $f(x,y,z)=x^2+y^2-z^2$. En coordonnées cylindrique, cette fonction s'écrit
+    \begin{equation}
+        f(r,\theta,z)=r^2-z^2.
+    \end{equation}
+    La surface de niveau $0$ est donnée par l'équation $r=| z |$. Cela fait un cercle à chaque hauteur, dont le rayon grandit linéairement avec la hauteur; le tout est donc un cône. C'est d'ailleurs le cône obtenu par rotation de la courbe de niveau $h=0$ que nous avions obtenue pour la fonction $x^2-y^2$.
+
+    En ce qui concerne les ensembles de niveau positifs, ils sont donnés par
+    \begin{equation}
+        z=\pm\sqrt{x^2+y^2-h}.
+    \end{equation}
+    Notez qu'ils ne sont pas définis pour $r\geq h$. Cela pose un petit problème quand on veut le tracer à l'ordinateur :
+    \begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.6.1, Release Date: 2011-01-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: var('x,y')
+(x, y)
+sage: f(x,y)=sqrt(x**2+y**2-3)
+sage: F=plot3d(f(x,y),(x,-5,5),(y,-5,5)) 
+sage: G=plot3d(-f(x,y),(x,-5,5),(y,-5,5))    
+sage: F+G
+    \end{verbatim}
+Le résultat est\footnote{Encore une fois : ça donne mieux à l'écran, et vous pouvez le faire bouger; je vous encourage à le faire !} :
+    \begin{center}
+        \ifpdf
+            \includegraphics[width=15cm]{AdSmauvais.png}
+        \else
+            \includegraphics[width=15cm]{AdSmauvais.eps}
+        \fi
+    \end{center}
+    On voit qu'il y a un grand trou au centre correspondant aux $z$ proches de zéro. Or d'après l'équation, il n'en est rien : en $z=0$ il y a bel et bien tout un cercle. Afin d'obtenir une meilleur image, il faut demander de tracer avec un maillage plus fin :
+    \begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.6.1, Release Date: 2011-01-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: var('x,y')
+(x, y)
+sage: f(x,y)=sqrt(x**2+y**2-3)
+sage: F=plot3d(f(x,y),(x,-5,5),(y,-5,5),plot_points=300) 
+sage: G=plot3d(-f(x,y),(x,-5,5),(y,-5,5),plot_points=300)
+sage: F+G
+    \end{verbatim}
+    Le temps de calcul est un peu plus long, mais le résultat est meilleur :
+    \begin{center}
+        \ifpdf
+            \includegraphics[width=15cm]{AdSbon.png}
+        \else
+            \includegraphics[width=15cm]{AdSbon.eps}
+        \fi
+    \end{center}
+\end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 %\section{Calcul de limites}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
