@@ -670,62 +670,22 @@ Nous devons donc trouver mieux que les dérivées partielles pour étudier le co
 \subsection{Définition de la différentielle}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Nous nous souvenons de l'équation \eqref{EqCodeDerviffxam} qui nous dit que pour une fonction d'une variable la dérivabilité signifiait qu'il existait un nombre $\ell$ et une fonction $\alpha$ tels
+Nous nous souvenons de l'équation \eqref{EqCodeDerviffxam} qui nous dit que pour une fonction d'une variable la dérivabilité signifiait qu'il existait un nombre $\ell$ et une fonction $\alpha$ tels que
 \begin{equation}
     f(x)=f(a)+\ell(x-a)+(x-a)\alpha(x-a)
 \end{equation}
 et $\lim_{t\to 0} \alpha(t)=0$. 
 
 En nous inspirant de cela, nous posons la définition suivante.
-\begin{definition}      \label{DefDiffabel}
-    Une fonction $f\colon \eR^2\to \eR$ est \defe{différentiable}{différentiable} au point $(a,b)\in\eR^2$ si il existe deux nombres $\ell_1$, $\ell_2$ ainsi qu'une fonction $\alpha$ tels que
-    \begin{equation}\label{EqCondDiffabel}
-        \begin{aligned}[]
-            f(x,y)=f(a,b)&+\ell_1(x-a)+\ell_2(y-b)\\
-                    &+\sqrt{(x-a)^2+(y-b)^2}\alpha\big( \sqrt{(x-a)^2+(y-b)^2} \big).
-        \end{aligned}
-    \end{equation}
+
+\begin{definition}      \label{DefDifferentiellePta}
+  Soit $U$ un ouvert dans $\eR^m$ et $a$ un point dans $U$. Soit $f$ une application de $U$ dans $\eR^n$. On dit que $f$ est \defe{différentiable au point $a$}{application!différentiable} s'il existe une application linéaire $T$ de $\eR^m$ dans $\eR^n$ qui satisfait
+  \begin{equation}	\label{EqCritereDefDiff}
+      \lim_{\substack{h\to 0\\h\in \eR^m}}\frac{f(a+h)-f(a)-T(h)}{\|h\|_m}=0.    
+  \end{equation}
+  Si une telle $T$ existe on l'appelle \defe{différentielle}{différentielle} de $f$ au point $a$, et on la note $df(a)$. 
 \end{definition}
-
-En utilisant la notation vectorielle, cela peut être écrite sous forme très compacte. Posons
-\begin{equation}
-    \begin{aligned}[]
-        \ell&=\begin{pmatrix}
-            \ell_1    \\ 
-            \ell_2    
-        \end{pmatrix},&
-        X&=\begin{pmatrix}
-            x    \\ 
-            y    
-        \end{pmatrix},&
-        P&=\begin{pmatrix}
-            a    \\ 
-            b    
-        \end{pmatrix}.
-    \end{aligned}
-\end{equation}
-Alors la condition \eqref{EqCondDiffabel} s'écrit
-\begin{equation}
-    f(X)=f(P)+\ell\cdot(X-P)+\| X-P \|\alpha\big( \| X-P \| \big).
-\end{equation}
-
-\begin{proposition}
-    Si $f$ est différentiable en $(a,b)$, alors les nombres $\partial_xf(a,b)$ et $\partial_yf(a,b)$ existent et valent respectivement $\ell_1$ et $\ell_2$.
-\end{proposition}
-
-\begin{proof}
-    Afin de calculer la dérivée partielle dans la direction de $x$, nous posons $y=b$ dans la condition \eqref{EqCondDiffabel} :
-    \begin{equation}
-        f(x,b)=f(a,b)+\ell_1(x-a)+| x-a |\alpha\big( | x-a | \big),
-    \end{equation}
-    et donc
-    \begin{equation}
-        \frac{ f(x,b)-f(a,b) }{ x-a }=\ell_1\pm\alpha\big( | x-a | \big).
-    \end{equation}
-    Ici le $\pm$ est parce que nous avons divisé $(x-a)$ par $| x-a |$. Quel que soit ce signe, de toutes façons la limite du membre de droite lorsque $x$ tend vers $a$ est $\ell_1$ parce que $\lim_{x\to a} \alpha(| x-a |)=0$.
-
-    Afin de prouver l'existence de la dérivée dans la direction de $y$, nous procédons de la même manière, mais en partant de $f(a,y)$.
-\end{proof}
+Note : $df_a$ est \emph{en soi} une application $df(a)\colon \eR^m\to \eR^n$. Nous notons $df_a(u)$\nomenclature{$df_a(u)$}{Application de la différentielle de $f$ sur le vecteur $u$} la valeur de $df_a$ sur le vecteur $u\in\eR^m$.
 
 \begin{proposition}
     Si $f$ est différentiable au point $(a,b)$, alors elle y est continue, c'est à dire que
@@ -832,11 +792,107 @@ La différentielle de $f$ en $a$ envoie donc un vecteur $u$ sur la dérivée dir
 \end{theorem}
 Le point \ref{ItemThoDiffSiLin} est évidement contenu dans la définition de la différentielle, mais c'est bien de la remettre en toute lettres. En regard avec la formule \eqref{EqDiffPartRap}, elle dit que $\partial_uf(a)$ est linéaire par rapport à $u$.
 
-\subsubsection*{Cas particuliers} \begin{description} \item $n=1$:
+
+\begin{proposition}\label{diff1}
+    Si $f$ est différentiable au point $a$ alors
+    \begin{enumerate}
+        \item
+            elle est continue en \( a\),
+        \item
+            elle admet une dérivée dans toutes les directions de \( \eR^m\),
+        \item
+            si $T\in\aL(\eR^m,\eR^n)$ est la différentielle de $f$ au point $a$, alors
+            \begin{equation}
+                T(u)=df_a(u)=\partial_u f(a). 
+            \end{equation}
+    \end{enumerate}
+\end{proposition}
+\index{application!différentiable}
+
+La dernière égalité sera de temps en temps utilisée sous la forme
+\begin{equation}    \label{EqOWQSoMA}
+    df_a(u)=\Dsdd{ f(a+tu) }{t}{0}.
+\end{equation}
+
+\begin{proof}
+  La limite
+\[
+\lim_{h\to 0_m}\frac{\|f(a+h)-f(a)-T(h)\|_n}{\|h\|_m}=0,
+\]
+implique que
+ \[
+\lim_{h\to 0_m}\|f(a+h)-f(a)-T(h)\|_n=0.
+\]
+Comme $T$ est dans $\mathcal{L}(\eR^m,\eR^n)$, on a $\lim_{h\to 0}T(h)=0$, d'où la continuité de $f$ au point $a$.
+
+Si $u$ est un vecteur non nul, la différentiabilité de $f$ au point $a$ implique
+\[
+\lim_{t\to 0}\frac{\|f(a+tu)-f(a)-T(tu)\|_n}{\|tu\|_m}=0,
+\]
+par la linéarité de $T$ et par l'égalité $\|tu\|_m=|t|\|u\|_m$ on obtient
+\[
+\lim_{t\to 0}\frac{f(a+tu)-f(a)}{|t|}= T(u).
+\]
+Donc $f$ est dérivable suivant le vecteur $u$ et $\partial_uf(a)=T(u)=df_a(u)$.
+\end{proof}
+
+Cette proposition est à ne pas confondre avec la proposition \ref{Diff_totale} qui dira que si les dérivées partielles \emph{sont continues} sur un voisinage de $a$, alors $f$ est différentiables en $a$.
+
+Le lemme suivant regroupe quelque égalités avec lesquelles nous allons souvent travailler. Il explique comment sont liés les dérivées directionnelles, les dérivées partielles et la différentielle.
+\begin{lemma}		\label{LemdfaSurLesPartielles}
+	Si $f\colon \eR^m\to \eR^n$ est une fonction différentiable, alors
+	\begin{equation}
+        df_a(u)=\frac{ \partial f }{ \partial u }(a)=\Dsdd{ f(a+tu) }{t}{0}=\sum_{i=1}^mu_i\frac{ \partial f }{ \partial x_i }(a)=\nabla f(a)\cdot u
+	\end{equation}
+	pour tout vecteur $u\in\eR^m$
+\end{lemma}
+
+\begin{proof}
+La première égalité est la proposition \ref{diff1}, et la seconde est seulement la définition de la dérivée directionnelle avec des notations un peu plus snob. En particulier nous avons
+\begin{equation}
+    df_a(e_i)=\frac{ \partial f }{ \partial x_i }(a).
+\end{equation}
+Pour le reste c'est la linéarité de la différentielle qui joue : le vecteur $u$ peut être écrit de façon unique comme combinaison linéaire des vecteurs de base 
+\[
+u=\sum_{i=1}^{m}u_i e_i, \qquad  u_i\in\eR,\, \forall i\in\{1,\ldots, m\}.
+\]
+Alors, la linéarité de $df_a$ nous donne
+\begin{equation}
+     df_a(u)= df_a\left(\sum_{i=1}^{m}u_i e_i\right)
+=\sum_{i=1}^{m}u_i \left(df_ae_i\right)
+=\sum_{i=1}^{m}u_i \frac{ \partial f }{ \partial x_i }(a).
+ \end{equation}
+Le lien avec le gradient est la définition du produit scalaire \eqref{DefYNWUFc}.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Unicité de la différentielle}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{corollary}
+	Soit $f$ une application de $U$ dans $\eR^n$ différentiable au point $a$ dans $U$. Alors l'application $df(a)$, différentielle de $f$ au point $a$, est unique, c'est à dire que si $T_1$ et $T_2$ sont deux applications vérifiant la condition \eqref{EqCritereDefDiff}, alors $T_1=T_2$.
+\end{corollary}
+
+\begin{proof}
+    Pour tout vecteur $u$, la proposition \ref{diff1} implique que $T_1(u)=T_2(u)=\partial_uf(a)$.
+\end{proof}
+
+\begin{corollary}
+Soit  $f:\eR^m\to \eR^n$ une fonction.  La dérivabilité de $f$ au point  $a$ suivant tout vecteur de $\eR^m$ est une condition nécessaire pour la différentiabilité de $f$ en $a$.
+\end{corollary}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Cas particuliers}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{description}
+    \item $n=1$:
 $f: \mathbb{R}\rightarrow \mathbb{R}$ est dérivable en $a$ si et
 seulement si $f$ est différentiable en $a$ et
 $$df_a:\mathbb{R}\rightarrow \mathbb{R}: x \mapsto df_a(x) =
-f'(a)\,.\,x$$ \item $n=2$: $f$ est différentiable en $a =(a_1, a_2)$
+f'(a)\,.\,x$$ 
+\item
+    $n=2$: $f$ est différentiable en $a =(a_1, a_2)$
 si et seulement si
 $$\lim_{(v_1,v_2)\rightarrow (0,0)} \frac{f(a_1+v_1, a_2+v_2) - f(a_1,a_2) - [ \frac{\partial f}{\partial x}(a)\,v_1+
 \frac{\partial f}{\partial y}(a)\,v_2]}{\sqrt{v_1^2+v_2^2}} = 0
@@ -924,8 +980,6 @@ sage: numerical_approx(a-b)
     df_p(u)=\nabla f(p)\cdot u.
 \end{equation}
 
-
-
 \begin{definition}      \label{DefDifferentiablFnRn}
 Soit un point $a \in int\,A$. La fonction $f$ est \defe{différentiable}{différentiable} au point $a$ si il existe une application linéaire $df_a\colon \eR^n\to \eR^m$ telle que 
 \begin{equation}        \label{EqDefDiffableT}
@@ -934,7 +988,6 @@ Soit un point $a \in int\,A$. La fonction $f$ est \defe{différentiable}{différ
 \end{definition}
 
 Si $f$ est différentiable en $a$, l'application $df_a$ est appelée la différentielle de $f$ en $a$. Voyons comment cette application linéaire agit sur les vecteurs de $\mathbb{R}^n$.
-
 
 La notion de dérivée partielle (ou de dérivée suivant un vecteur) pour une fonction de plusieurs variables n'est pas une  généralisation de la notion de dérivée en une variable d'espace. En fait, du point de vue géométrique, la dérivée de la fonction $g:\eR\to\eR$ au point $a$ est la pente de la ligne droite tangente au graphe de $g$ au point $(a, g(a))$. Cette ligne, d'équation $r(x)=g'(a)x+g(a)$, est la meilleure approximation affine du graphe de $g$ au point $a$, comme à la figure \ref{LabelFigTangentSegment}.
 \newcommand{\CaptionFigTangentSegment}{Tangentes au graphe d'une fonction d'une variable}
@@ -952,15 +1005,6 @@ Nous allons voir que si $f$ prend ses valeurs dans $\eR^n$ l'approximation affin
 \]
 \end{definition}
 La relation de tangence est une relation d'équivalence. Nous sommes particulièrement intéressés par le cas où $f$ admet une application  affine tangente au point $a$. 
-\begin{definition}      \label{DefDifferentiellePta}
-  Soit $U$ un ouvert dans $\eR^m$ et $a$ un point dans $U$. Soit $f$ une application de $U$ dans $\eR^n$. On dit que $f$ est \defe{différentiable au point $a$}{application!différentiable} s'il existe une application linéaire $T$ de $\eR^m$ dans $\eR^n$ qui satisfait
-  \begin{equation}	\label{EqCritereDefDiff}
-\lim_{h\to 0_m}\frac{\|f(a+h)-f(a)-T(h)\|_n}{\|h\|_m}=0.    
-  \end{equation}
-  Si une telle $T$ existe on l'appelle \defe{différentielle}{différentielle} de $f$ au point $a$, et on la note $df(a)$. 
-\end{definition}
-
-Note : $df_a$ est \emph{en soi} une application $df(a)\colon \eR^m\to \eR^n$. Nous notons $df_a(u)$\nomenclature{$df_a(u)$}{Application de la différentielle de $f$ sur le vecteur $u$} la valeur de $df_a$ sur le vecteur $u\in\eR^m$.
 
 
 \newcommand{\CaptionFigDifferentielle}{Interprétation géométrique de la différentielle.}
