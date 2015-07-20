@@ -1,7 +1,204 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2011-2014
+% Copyright (c) 2011-2015
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Méthode de Gauss pour résoudre des systèmes d'équations linéaires}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Pour résoudre un système d'équations linéaires, on procède comme suit:
+\begin{enumerate}
+\item Écrire le système sous forme matricielle. \[\text{p.ex. } \begin{cases} 2x+3y &= 5 \\ x+2y &= 4 \end{cases} \Leftrightarrow \left(\begin{array}{cc|c} 2 & 3 & 5 \\ 1 & 2 & 4 \end{array}\right) \]
+\item Se ramener à une matrice avec un maximum de $0$ dans la partie de gauche en utilisant les transformations admissibles:
+\begin{enumerate}
+\item Remplacer une ligne par elle-même + un multiple d'une autre;
+\[\text{p.ex. } \left(\begin{array}{cc|c} 2 & 3 & 5 \\ 1 & 2 & 4 \end{array}\right)  \stackrel{L_1  - 2. L_2 \mapsto L_1'}{\Longrightarrow} \left(\begin{array}{cc|c} 0 & -1 & -3 \\ 1 & 2 & 4 \end{array}\right) \]
+\item Remplacer une ligne par un multiple d'elle-même;
+\[\text{p.ex. } \left(\begin{array}{cc|c} 0 & -1 & -3 \\ 1 & 2 & 4 \end{array}\right)  \stackrel{-L_1  \mapsto L_1'}{\Longrightarrow} \left(\begin{array}{cc|c} 0 & 1 & 3 \\ 1 & 2 & 4 \end{array}\right) \]
+\item Permuter des lignes.
+\[\text{p.ex. } \left(\begin{array}{cc|c} 0 & 1 & 3 \\ 1 & 0 & -2 \end{array}\right)  \stackrel{L_1  \mapsto L_2' \text{ et } L_2  \mapsto L_1'}{\Longrightarrow} \left(\begin{array}{cc|c} 1 & 0 & -2 \\ 0 & 1 & 3  \end{array}\right) \]
+\end{enumerate}
+\item Retransformer la matrice obtenue en système d'équations.
+\[\text{p.ex. }  \left(\begin{array}{cc|c} 1 & 0 & -2 \\ 0 & 1 & 3  \end{array}\right) \Leftrightarrow \begin{cases} x &= -2 \\ y &= 3 \end{cases}  \]
+\end{enumerate}
+
+\textbf{Remarques :} 
+\begin{itemize}
+\item Si on obtient une ligne de zéros, on peut l'enlever:
+\[\text{p.ex. }  \left(\begin{array}{ccc|c} 3 & 4 & -2 & 2 \\ 4 & -1 & 3 & 0 \\ 0 & 0 & 0 & 0 \end{array}\right) \Leftrightarrow  \left(\begin{array}{ccc|c} 3 & 4 & -2 & 2 \\ 4 & -1 & 3 & 0 \end{array}\right) \]
+\item Si on obtient une ligne de zéros suivie d'un nombre non-nul, le système d'équations n'a pas de solution:
+\[\text{p.ex. }  \left(\begin{array}{ccc|c} 3 & 4 & -2 & 2 \\ 4 & -1 & 3 & 0 \\ 0 & 0 & 0 & 7 \end{array}\right) \Leftrightarrow  \begin{cases} \cdots \\ \cdots \\ 0x + 0y + 0z = 7 \end{cases} \Rightarrow \textbf{Impossible} \]
+\item Si on moins d'équations que d'inconnues, alors il y a une infinité de solutions qui dépendent d'un ou plusieurs paramètres:
+\[\text{p.ex. }  \left(\begin{array}{ccc|c} 1 & 0 & -2 & 2 \\ 0 & 1 & 3 & 0 \end{array}\right) \Leftrightarrow  \begin{cases} x - 2z = 2 \\ y + 3z = 0 \end{cases} \Leftrightarrow  \begin{cases} x = 2 + 2\lambda \\ y = -3\lambda \\ z = \lambda \end{cases} \]
+\end{itemize}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Orthogonalité}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{proposition}			\label{PropVectsOrthLibres}
+	si $v_1,\cdots,v_k$ sont des vecteurs non nuls, orthogonaux deux à deux, alors ces vecteurs forment une famille libre.
+\end{proposition}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Décomposition de Bruhat}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}[Décomposition de Bruhat]\index{Bruhat (décomposition)}\index{décomposition!Bruhat}    \label{ThoizlYJO}
+    Soit \( \eK\) un corps; un élément \( M\in\GL(n,\eR)\) s'écrit sous la forme
+    \begin{equation}
+        M=T_1P_{\sigma}T_2
+    \end{equation}
+    où \( T_1\) et \( T_2\) sont des matrices triangulaires supérieures inversibles et où \( P_{\sigma}\) est une matrice de permutation \( \sigma\in S_n\). De plus il y a unicité de \( \sigma\).
+\end{theorem}
+\index{groupe!permutation}
+\index{groupe!linéaire}
+\index{matrice}
+
+\begin{proof}
+    Afin de rendre les choses plus visuelles, nous nous permettons de donner des exemples au fur et à mesure de la preuve. Nous prenons l'exemple de la matrice
+    \begin{equation}
+        \begin{pmatrix}
+            1    &   3    &   4    \\
+            2    &   5    &   6    \\
+            0    &   7    &   8
+        \end{pmatrix}.
+    \end{equation}
+    \begin{subproof}
+    \item[Existence]
+        Soit \( M\in \GL(n,\eR)\); vu qu'elle est inversible, on a un indice \( i_1\) maximum tel que \( M_{i_1,1}\neq 0\). Nous changeons toutes les lignes jusque là, c'est à dire que nous faisons, pour \( 1\leq i< i_1\),
+        \begin{equation}        \label{EqGHUbwR}
+            L_i\to L_i-\frac{ M_{i1} }{ M_{i_11} }L_{i_1}.
+        \end{equation}
+
+        Nous avons donc obtenu une matrice dont la première colonne est nulle sauf la case numéro \( i_1\). L'opération \eqref{EqGHUbwR} revient à considérer la multiplication par la matrice de transvection
+        \begin{equation}
+            T_1^{(i)}=T_{ii_1}\left( -\frac{ M_{i1} }{ M_{i_11} } \right)
+        \end{equation}
+        pour tout \( i<i_1\). Pour rappel nous ne changeons que les lignes \emph{au-)dessus} de la \( i_1\). Du coup les matrices \( T^{(i)}_1\) sont triangulaires supérieures. Nous avons donc la nouvelle matrice \( M_1=\left( \prod_{i<i_1}T_1^{(i)} \right)M\) pour laquelle toute la première colonne est nulle sauf un élément.
+
+        Dans le cas de l'exemple, le «pivot» sera la ligne \( (2,5,6)\) et la matrice se transforme à l'aide de la matrice \( T_1=T_{12}(-1/2)\) :
+        \begin{equation}    \label{EqyjXIYf}
+            \begin{pmatrix}
+                1    &   -1/2    &   0    \\
+                0    &   1    &   0    \\
+                0    &   0    &   1
+            \end{pmatrix}
+            \begin{pmatrix}
+                1    &   3    &   4    \\
+                2    &   5    &   6    \\
+                0    &   7    &   8
+            \end{pmatrix}=
+            \begin{pmatrix}
+                0    &   1/2    &   1    \\
+                2    &   5    &   6    \\
+                0    &   7    &   8
+            \end{pmatrix}.
+        \end{equation}
+
+    
+    Maintenant nous faisons de même avec les colonnes (en renommant \( M\) la matrice obtenue à l'étape précédente) :
+    \begin{equation}
+        C_j\to C_j-\frac{ M_{i_1j} }{ M_{i_11} }C_1,
+    \end{equation}
+    qui revient à multiplier à droite par les matrices \( T_{1j}(\frac{ M_{i_1i} }{ M_{i_11} })\) avec \( j>1\). Encore une fois ce sont des matrices triangulaires supérieures.
+
+    Dans l'exemple, pour traiter la seconde colonne, nous multiplions \eqref{EqyjXIYf} à droite par la matrice \( T_{12}(-5/2)\) :
+    \begin{equation}
+            \begin{pmatrix}
+                0    &   1/2    &   1    \\
+                2    &   5    &   6    \\
+                0    &   7    &   8
+            \end{pmatrix}
+            \begin{pmatrix}
+                1    &   -5/2    &   0    \\
+                0    &   1    &   0    \\
+                0    &   0    &   1
+            \end{pmatrix}=
+            \begin{pmatrix}
+                0    &   1/2    &   1    \\
+                2    &   0    &   6    \\
+                0    &   7    &   8
+            \end{pmatrix}.
+    \end{equation}
+    Appliquer encore la matrice \( T_{13}(-6/2)\) apporte la matrice
+    \begin{equation}
+        \begin{pmatrix}
+            0    &   1/2    &   1    \\
+            2    &   0    &   0    \\
+            0    &   7    &   8
+        \end{pmatrix}.
+    \end{equation}
+    Enfin nous multiplions la matrice obtenue par \( \frac{1}{ M_{i_11} }\mtu\) pour normaliser à \( 1\) l'élément «pivot» que nous avions choisit. Dans notre exemple nous multiplions par \( 1/2\) pour trouver
+    \begin{equation}        \label{Eqduglwu}
+        \begin{pmatrix}
+            0    &   1/4    &   1/2    \\
+            1    &   0    &   0    \\
+            0    &   7/2    &   4
+        \end{pmatrix}.
+    \end{equation}
+
+    La matrice obtenue jusqu'ici possède une ligne et une colonne de zéros avec un \( 1\) à leur intersection, et elle est de la forme
+    \begin{equation}
+        M'=T_1MT_2
+    \end{equation}
+    où \( T_1\) et \( T_2\) sont triangulaires supérieures et inversibles, produits de matrices de transvection (et d'une matrice scalaire pour la normalisation).
+
+    Il reste à recommencer l'opération avec la seconde colonne (qui n'est pas toute nulle parce que le déterminant est encore non nul) puis la suivante etc. Dans notre exemple de l'équation \eqref{Eqduglwu}, nous éliminerions le \( 1/4\) et le \( 4\) en utilisant le \( 7/2\).
+
+    Encore une fois tout cela se fait à l'aide de matrice supérieures parce qu'à chaque étape, les colonnes précédent le pivot sont déjà nulles (saut un \( 1\)) et ne doivent donc pas être touchées.
+
+    À la fin de ce processus, ce qui reste est une matrice \( TMT'\) qui ne contient plus que un seul \( 1\) sur chaque ligne et chaque colonne, c'est à dire une matrice de permutation : \( P_{\sigma}=TMT'\) et donc
+    \begin{equation}
+        M=T^{-1}_{\sigma}(T')^{-1}.
+    \end{equation}
+
+        \item[Unicité]
+
+            Soient \( \sigma,\sigma\in S_n'\) tels que \( T_1P_{\sigma}T_2=S_1P_{\tau}S_2\) avec \( T_i\) et \( S_i\) triangulaires supérieures et inversibles. En posant \( T=T_2S_2^{-1}\) et \( S=T_1^{-1}S_1\), nous avons
+            \begin{equation}
+                P_{\sigma}T=SP_{\tau}
+            \end{equation}
+            où \( S\) et \( T\) sont des matrices triangulaires supérieures et inversibles. Par les calculs de la preuve du lemme \ref{LemyrAXQs},
+            \begin{subequations}
+                \begin{numcases}{}
+                    (P_{\sigma}T)_{kl}=T_{\sigma^{-1}(k)l}\\
+                    (SP_{\tau})_{kl}=S_{k\tau(l)},
+                \end{numcases}
+            \end{subequations}
+            et donc
+            \begin{equation}    \label{EqKlmgOT}
+                T_{\sigma^{-1}(k)l}=S_{k\tau(l)}.
+            \end{equation}
+            En écrivant cette équation avec \( k=\sigma(i)\) (nous rappelons que \( \sigma\) est bijective),
+            \begin{equation}
+                T_{il}=S_{\sigma(i)\tau(l)}.
+            \end{equation}
+            Nous savons que les termes diagonaux de \( T\) sont non nuls parce que \( T\) est triangulaire supérieure et inversible (donc pas de colonnes entières nulles). Nous avons donc, en prenant \( i=l=k\),
+            \begin{equation}
+                0\neq T_{kk}=S_{\sigma(k)\tau(k)}.
+            \end{equation}
+            La matrice étant triangulaire supérieure, cela implique 
+            \begin{equation}    \label{EqEmiBTX}
+                \sigma(k)\leq\tau(k).
+            \end{equation}
+            De la même manière en écrivant \eqref{EqKlmgOT} avec \( l=\tau^{-1}(i)\),
+            \begin{equation}
+                S_{ki}=T_{\sigma^{-1}(k)\tau^{-1}(i)}
+            \end{equation}
+            et donc
+            \begin{equation}
+                \sigma^{-1}(k)\leq \tau^{-1}(k).
+            \end{equation}
+            En écrivant cela avec \( k=\sigma(j)\), nous avons \( j\leq \tau^{-1}\sigma(j)\) et en appliquant enfin \( \tau\),
+            \begin{equation}
+                \tau(j)\leq \sigma(j).
+            \end{equation}
+            En comparant avec \eqref{EqEmiBTX}, nous avons \( \sigma=\tau\).
+    \end{subproof}
+\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Polynôme d'endomorphismes}
