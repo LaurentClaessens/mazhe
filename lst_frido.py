@@ -17,7 +17,7 @@ myRequest.add_plugin(LaTeXparser.PytexTools.accept_all_input,"medicament")
 myRequest.add_plugin(LaTeXparser.PytexTools.keep_script_marks(plugins_agreg.agreg_mark_list),"before_pytex")
 myRequest.add_plugin(plugins_agreg.set_isAgreg,"before_pytex")
 
-myRequest.add_plugin(plugins_agreg.set_filename("0-lefrido.pdf"),"medicament")
+myRequest.new_output_filename="0-lefrido.pdf"
 
 
 #myRequest.add_plugin(plugins_agreg.set_commit_hexsha,"after_pytex")

@@ -32,6 +32,16 @@ outilsmath_mark_list.append("% SCRIPT MARK -- TOC")
 outilsmath_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUES")
 outilsmath_mark_list.append("% SCRIPT MARK -- FINAL")
 
+enseignement_mark_list=[]
+enseignement_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+enseignement_mark_list.append("% SCRIPT MARK -- GARDE ENSEIGNEMENT")
+enseignement_mark_list.append("% SCRIPT MARK -- TOC")
+enseignement_mark_list.append("% SCRIPT MARK -- INTRO SAGE")
+enseignement_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUES")
+enseignement_mark_list.append("% SCRIPT MARK -- MATLAB")
+enseignement_mark_list.append("% SCRIPT MARK -- EXERCICES")
+enseignement_mark_list.append("% SCRIPT MARK -- CdI")
+enseignement_mark_list.append("% SCRIPT MARK -- FINAL")
 
 mazhe_mark_list=[]
 mazhe_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
@@ -66,6 +76,7 @@ class set_filename(object):
     def __init__(self,new_output_filename):
         self.new_output_filename=new_output_filename
     def __call__(self,medicament):
+        raise DeprecationWarning
         medicament.new_output_filename=self.new_output_filename
 
 def set_isAgreg(A):
