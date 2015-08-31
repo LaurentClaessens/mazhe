@@ -72,6 +72,11 @@ Une utilisation typique de ce théorème est faite dans le lemme \ref{LemMESSExh
     muni de la topologie suivante. L'ensemble \( U\) est ouvert si et seulement si pour tout \( x\in U\) il existe des ouverts \( A_i\in X_i \) tels que \( x\in A_1\times \cdots\times A_n\subset U\).
 \end{definition}
 
+Dès que nous avons une topologie nous avons une notion de convergence.
+\begin{definition}[Convergence de suite] \label{DefXSnbhZX}
+    Une suite $(x_n)$ d'éléments de $E$ \defe{converge}{convergence!de suite} vers l'élément $y$ de $E$ si pour tout ouvert $\mO$ contenant $y$, il existe un $K$ tel que $k>K$ implique $x_k\in\mO$. 
+\end{definition}
+
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Séparabilité}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -152,7 +157,7 @@ Notons toutefois que nous sommes loin d'avoir une union dénombrable en généra
     \end{enumerate}
     La dernière condition est l'\defe{inégalité triangulaire}{inégalité!triangulaire}. 
 
-    Un couple $(E,d)$ formé d'un ensemble et d'une métrique est un \defe{espace métrique}{espace!métrique}.
+    Un couple $(E,d)$ formé d'un ensemble et d'une distance est un \defe{espace métrique}{espace!métrique}.
 \end{definition}
 
 
@@ -202,32 +207,192 @@ Montrons que cette définition donne bien une topologie.
 \end{remark}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Espace vectoriel normé}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Un espace vectoriel \( E\) sur le corps\footnote{Le corps lui-même doit avoir sa topologie; typiquement c'est \( \eR\) ou \( \eC\) muni de la topologie usuelle.} \( \eK\) muni d'une topologie est un \defe{espace vectoriel topologique}{espace vectoriel!topologique} si
+    \begin{enumerate}
+        \item
+            La somme de deux vecteurs est une application continue \( E\times E\to E\)
+        \item
+            La multiplication par un scalaire est une application continue \( \eK\times E\to E\).
+    \end{enumerate}
+\end{definition}
+Dans un espace vectoriel topologique, nous avons une notion de suite de Cauchy et donc de complétude.
+
+\begin{definition}[Suite de Cauchy\cite{TQSWRiz}]   \label{DefZSnlbPc}
+    Soit \( E\) un espace vectoriel topologique. Une suite \( (x_k)\) dans \( E\) est une \defe{suite de Cauchy}{suite!de Cauchy} si pour tout voisinage \( \mU\) de \( 0\) il existe \( N\in \eN\) tel que \( x_k-x_l\in\mU\) pour tout \( k,l\geq N\).
+\end{definition}
+
+\begin{definition}[Espace complet]
+    Nous disons qu'une partie \( A\) d'un espace topologique est \defe{complet}{complet} si toute suite de Cauchy d'éléments de \( A\) converge vers un élément de \( A\).
+\end{definition}
+
+\begin{definition}		\label{DefNorme}
+	Soit $E$ un espace vectoriel réel. Une \defe{norme}{norme!définition} est une application $N\colon E\to \eR^+$ vérifiant les axiomes 
+	\begin{enumerate}
+
+		\item
+			$N(0_E)=0$, et $N(x)=0$ implique $x=0_E$;
+		\item\label{ItemDefNormeii}
+			$N(\lambda x)=| \lambda |N(x)$ pour tout $\lambda\in\eR$ et $x\in E$;
+		\item\label{ItemDefNormeiii}
+			$N(x+y)\leq N(x)+N(y)$ pour tout $x,y\in E$. Cette propriété est appelée \defe{inégalité triangulaire}{inégalité!triangulaire}.
+	\end{enumerate}
+	Ici et dans la suite, $0_E$ désigne l'élément zéro de l'espace $E$.
+\end{definition}
+En prenant $\lambda=-1$ dans la propriété \ref{ItemDefNormeii}, nous trouvons immédiatement que $N(-x)=N(x)$.
+
+\begin{proposition}		\label{PropNmNNm}
+	Toute norme $N$ sur l'espace vectoriel $E$ vérifie l'inégalité
+	\begin{equation}
+		\big| N(x)-N(y) \big|\leq N(x-y)
+	\end{equation}
+	pour tout $x,y\in E$.
+\end{proposition}
+	
+\begin{proof}
+	Nous avons, en utilisant le point \ref{ItemDefNormeiii} de la définition \ref{DefNorme},
+	\begin{subequations}
+		\begin{align}
+			N(x)&=N(x-y+y)\leq N(x-y)+N(y),	\label{subEqNNNxxyyya}\\
+			N(y)&=N(y-x+x)\leq N(y-x)+N(x).	\label{subEqNNNxxyyyb}
+		\end{align}
+	\end{subequations}
+	Supposons d'abord que $N(x)\geq N(y)$. Dans ce cas, en utilisant \eqref{subEqNNNxxyyya},
+	\begin{equation}
+		\big| N(x)-N(y) \big|=N(x)-N(y)\leq N(x-y)+N(y)-N(y)=N(x-y).
+	\end{equation}
+	Si par contre $N(x)\leq N(y)$, alors nous utilisons \eqref{subEqNNNxxyyyb} et nous trouvons
+	\begin{equation}
+		\big| N(x)-N(y) \big|=N(y)-N(x)\leq N(y-x)+N(x)-N(x)=N(y-x).
+	\end{equation}
+	Dans les deux cas, nous avons retrouvé l'inégalité annoncée.
+\end{proof}
+Cette proposition signifie aussi que
+\begin{equation}	\label{EqNleqNNleqNvqlqbs}
+	-N(x-y)\leq N(x)-N(y)\leq N(x-y).
+\end{equation}
+
+Afin de suivre une notation proche de celle de la valeur absolue, à partir de maintenant, la norme d'un vecteur $v$ sera notée $\| v\|$ au lieu de $N(v)$. La proposition \ref{PropNmNNm} s'énoncera donc
+\begin{equation}
+\big| \| x \|-\| y \| \big|\leq \| x-y \|.
+\end{equation}
+\begin{definition}		\label{DefEVNetDistance}
+	Un espace vectoriel $E$ muni d'une norme est une \defe{espace vectoriel normé}{normé!espace vectoriel}, et on écrit $(E,\| . \|)$. 
+\end{definition}
+
+Si la distance \( d\) est déduite d'une norme, alors elle est invariante par translation :
+\begin{equation}    \label{EqooYMVKooGrudhf}
+    d(a,b)=d(a+u,b+u)
+\end{equation}
+pour tout \( a,b,u\in E\).
+
+\begin{lemmaDef}
+    Si \( \| . \|\) est une norme alors la formule \( d(x,y)=\| x-y \|\) donne une distance. C'est la \defe{distance induite}{distance!associée à une norme} par la norme.
+\end{lemmaDef}
+
+\begin{proof}
+    Le seul point délicat à vérifier de la définition \ref{DefMVNVFsX} est l'inégalité triangulaire. Nous avons \( \| x \|=d(x,0)\), donc nous pouvons écrire
+    \begin{subequations}
+        \begin{align}
+            d(x,y)&=\| x-y \|\\
+            &\leq\| x \|+\| y \|\\
+            &=d(x,0)+d(y,0)\\
+            &=d(x,z)+d(y,z)
+        \end{align}
+    \end{subequations}
+    parce que la distance associée à la norme est invariante par translation (équation \eqref{EqooYMVKooGrudhf}).
+\end{proof}
+
+Un espace vectoriel normé est alors immédiatement un espace vectoriel topologique
+\begin{proposition}     \label{PropooUEEOooLeIImr}
+    Soit \( (E,d)\) un espace vectoriel topologique normé.
+    \begin{enumerate}
+        \item   \label{ItemooROYMooAQCXnj}
+            Une suite \( (x_n)\) dans \( E\) est convergente\footnote{Définition \ref{DefXSnbhZX}.} vers \( x\) si et seulement si pour tout \( \epsilon\in \eR\) il existe \( N_{\epsilon}\) tel que pour tout \( n\geq N_{\epsilon}\) nous avons \( d(x_n,x)\leq \epsilon\).
+        \item
+            Une suite \( (x_n)\) dans \( E\) est de Cauchy\footnote{Définition \ref{DefZSnlbPc}.} si pour tout \( \epsilon\in \eR\), il existe un \( N_{\epsilon}\) tel que si \( p,q\geq N_{\epsilon}\), nous avons \( d(x_p,x_q)\leq \epsilon\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+   En ce qui concerne la convergence :   
+    \begin{subproof}
+        \item[Sens direct]
+
+            Nous supposons que \( x_k\to x\) dans \( E\). Soit \( \epsilon>0\); vu que \( B(x,\epsilon)\) est un ouvert contenant \( x\), il existe un \( N_{\epsilon}>0 \) tel que \( k>N_{\epsilon}\) implique \( x_k\in B(x,\epsilon)\). Cela signifie \( d(x,x_k)\leq \epsilon\).
+
+        \item[Réciproque]
+
+            Nous supposons que pour tout \( \epsilon>0\), il existe \( N_{\epsilon}>0\) tel que si \( k>N_{\epsilon}\) alors \( x_k\in B(x,\epsilon)\). Soit un ouvert \( \mO\) autour de \( x\). Nous sommes dans un espace métrique; ergo la topologie est donné par le théorème \ref{ThoORdLYUu} et en particulier la liste des ouverts est donnée par \eqref{EqGDVVooDZfwSf}. Il existe donc une boule \( B(x,\epsilon)\) inclue à \( \mO\). Pour tout \( k>N_{\epsilon}\) nous avons alors \( x_k\in B(x,\epsilon)\subset\mO\). 
+    \end{subproof}
+    En ce qui concerne les suites de Cauchy :
+    \begin{subproof}
+    \item[Sens direct]
+        Si \( (x_n)\) est une suite de Cauchy et si \( \epsilon>0\) est donné, alors \( B(0,\epsilon)\) est un voisinage de \( 0\) et il existe \( N_{\epsilon}\) tel que si \( p,q\geq N_{\epsilon}\) alors \( x_p-x_q\in B(0,\epsilon)\). Posons \( u=x_p-x_q\); en utilisant l'égalité \eqref{EqooYMVKooGrudhf} nous avons
+        \begin{equation}
+            d(u,0)=d(x_p-x_q,0)=d(x_p,x_q).
+        \end{equation}
+        Par conséquent \( d(x_p,x_q)\leq \epsilon\).
+    \item[Réciproque]
+        Soit \( \mO\) un voisinage de \( 0\). Il existe \( \epsilon\) tel que \( B(0,\epsilon)\subset \mO\). Par hypothèse il existe \( N_{\epsilon}\) tel que \( d(x_p,x_q)\leq \epsilon\) dès que \( p,q\geq N_{\epsilon}\). En utilisant encore \eqref{EqooYMVKooGrudhf} nous avons
+        \begin{equation}
+            d(x_p,x_q)=d(x_p-x_q,0),
+        \end{equation}
+        et comme cela est plus petit que \( \epsilon\), nous avons \( x_p-x_q\in B(0,\epsilon)\subset\mO\).
+    \end{subproof}
+\end{proof}
+
+\begin{proposition}[\cite{IRWFPQB}]
+    Toute suite convergente dans un espace métrique est de Cauchy.
+\end{proposition}
+
+\begin{proof}
+    Nous utilisons les caractérisations de la proposition \ref{PropooUEEOooLeIImr} des suites convergentes et de Cauchy.
+
+    Soit un espace métrique \( (X,d)\) et \( x_n\to\ell\) une suite convergente. Si \( \epsilon>0\), la proposition \ref{PropooUEEOooLeIImr}\ref{ItemooROYMooAQCXnj}, dit qu'il existe \( N\) tel que pour tout \( n>N\) nous ayons \( d(x_n,\ell)<\epsilon\). Par conséquent si \( n,m>N\) alors
+    \begin{equation}
+        d(x_n,x_m)\leq d(x_m,\ell)+d(l,x_m)\leq 2\epsilon.
+    \end{equation}
+    Cela prouve que \( (x_n)\) est de Cauchy.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Topologie sur l'ensemble des réels}
 %---------------------------------------------------------------------------------------------------------------------------
 \label{sebsecooGKHYooMwHQaD}
 
 Nous allons à présent donner la topologie sur \( \eR\) et ainsi résoudre les questions laissées en suspend lors de la construction des réels, voir \ref{NormooHRDZooRGGtCd}.
 
-
 \begin{lemma}
-    L'application \( (x,y)\mapsto | x-y |\) de la définition \ref{DefKCGBooLRNdJf}\ref{ItemooWUGSooRSRvYC} est une distance sur $\eR$.
+    L'application 
+    \begin{equation}
+         x\mapsto | x |
+    \end{equation}
+     est une norme sur $\eR$.
 \end{lemma}
+La valeur absolue est celle de la définition \ref{DefKCGBooLRNdJf}\ref{ItemooWUGSooRSRvYC}.
 
 \begin{proof}
-    Les conditions de la définition \ref{DefMVNVFsX} sont à vérifier.
+    Les conditions de la définition \ref{DefNorme} sont immédiatement vérifiées grâce au lemme \ref{LemooANTJooYxQZDw} et à la remarque \ref{RemooJCAUooKkuglX}.
+\end{proof}
+
+Tant sur \( \eQ\) que sur \( \eR\), nous considérons la topologie métrique correspondant à cette norme (hors cas rarissimes qui seront signalés). Nous utiliserons toujours les caractérisations de la proposition \ref{PropooUEEOooLeIImr} pour parler de suites convergentes et de suites de Cauchy.
+
+
+\begin{theorem}[Complétude de \( \eR\)] \label{ThoTFGioqS}
+    Nous avons :
     \begin{enumerate}
         \item
-            
+            L'espace topologique \( (\eR,d)\) est complet.
+        \item
+            Une suite dans \( \eR\) est convergente si et seulement si elle est de Cauchy.
     \end{enumerate}
-    <++>
-\end{proof}
-<++>
+\end{theorem}
+\index{complet!$\eR$}
 
-D'abord nous munissons \( \eR\) et \( \eQ\) de la topologie métrique donnée par la distance
-\begin{equation}
-    d(x,y)=| x-y |
-\end{equation}
-où la valeur absolue est celle donnée par la définition 
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{À démontrer encore}
@@ -242,7 +407,7 @@ Un des buts de cette section est de prouver le résultat suivant :
 \begin{proposition}     \label{PropooUHNZooOUYIkn}
     Les rationnels sont denses dans les réels.
 \end{proposition}
-<++>
+
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Base de topologie}
@@ -321,11 +486,6 @@ Un des buts de cette section est de prouver le résultat suivant :
     Un \defe{homéomorphisme}{homéomorphisme} est une application bijective continue entre deux espaces topologiques dont la réciproque est continue. Deux espaces topologiques homéomorphes sont dits \defe{isomorphes}{isomorphisme!d'espaces topologiques}.
 \end{definition}
 
-Dès que nous avons une topologie nous avons une notion de convergence.
-\begin{definition}[Convergence de suite] \label{DefXSnbhZX}
-    Une suite $(x_n)$ d'éléments de $E$ \defe{converge}{convergence!de suite} vers l'élément $y$ de $E$ si pour tout ouvert $\mO$ contenant $y$, il existe un $K$ tel que $k>K$ implique $x_k\in\mO$. 
-\end{definition}
-
 \begin{definition}[Limite d'une fonction]\label{DefYNVoWBx}
     Soient \( X\) et \( Y\) des espaces topologiques, \( A\subset X\) et \( a\in\bar A\). L'élément \( y\in Y\) est une \defe{limite}{limite!d'une fonction} de \( f\colon A\to Y\) en \( a\) si pour tout voisinage \( V\) de \( y\), il existe un voisinage \( W\) de \( a\) dans \( X\) tel que 
     \begin{equation}
@@ -342,7 +502,7 @@ La proposition \ref{PropRBCiHbz} nous dira que l'unicité est de mise dans le ca
 \end{remark}
 
 \begin{example}
-    Oui, il y a moyen de converger vers plusieurs points distincts si l'espace n'est pas super cool. Nous pouvons par exemple\footnote{Cet exemple provient de Wikipédia\cite{EJVQuas}. Sa présence ici mot pour mot justifie que, pour des raisons de licence, non, il n'y aura pas de versions non libres de ce livre. Ni aujourd'hui ni jamais.} considérer la droite réelle munie de sa topologie usuelle et y ajouter un point $0'$ (qui clone le réel $0$) dont les voisinages sont les voisinages de $0$ dans lesquels nous remplaçons $0$ par $0'$. Dans cet espace, la suite $(1/n)$ converge à la fois vers $0$ et $0'$.
+    Oui, il y a moyen de converger vers plusieurs points distincts si l'espace n'est pas super cool. Nous pouvons par exemple\cite{EJVQuas} considérer la droite réelle munie de sa topologie usuelle et y ajouter un point $0'$ (qui clone le réel $0$) dont les voisinages sont les voisinages de $0$ dans lesquels nous remplaçons $0$ par $0'$. Dans cet espace, la suite $(1/n)$ converge à la fois vers $0$ et $0'$.
 \end{example}
 
 \begin{proposition}[Unicité de la limite pour un espace séparé]\label{PropFObayrf}
@@ -396,14 +556,6 @@ La proposition \ref{PropQZRNpMn} donnera des détails sur ce qu'il se passe lors
 \begin{remark}
     À cause de l'éventuelle non unicité de la limite, deux fonctions continues et égales sur un sous-ensemble dense ne sont pas spécialement égales. Ce sera vrai sur les espaces métriques et plus généralement pour les espaces séparés. Voir la remarque \ref{RemMPXNooPoWxDD}.
 \end{remark}
-
-\begin{definition}[Suite de Cauchy\cite{TQSWRiz}]   \label{DefZSnlbPc}
-    Soit \( E\) un espace vectoriel topologique. Une suite \( (x_k)\) dans \( E\) est une \defe{suite de Cauchy}{suite!de Cauchy} si pour tout voisinage \( \mU\) de \( 0\) il existe \( N\in \eN\) tel que \( x_k-x_l\in\mU\) pour tout \( k,l\geq N\).
-\end{definition}
-
-\begin{definition}[Espace complet]
-    Nous disons qu'un sous ensemble \( A\) d'un espace topologique est \defe{complet}{complet} si toute suite de Cauchy d'éléments de \( A\) converge vers un élément de \( A\).
-\end{definition}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Compacité}
@@ -792,25 +944,10 @@ Le lemme suivant est souvent utilisé pour prouver qu'une suite est convergente.
 \end{example}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Critère de Cauchy}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{definition}
-    Une suite \( (x_n)\) dans \( \eR\) est \defe{de Cauchy}{suite!de Cauchy}\index{Cauchy!suite} si pour tout \( \epsilon>0\), il existe \( N\in \eN\) tel que \( m,n>N\) implique \( | x_n-x_m |<\epsilon\).
-\end{definition}
-Attention : cette définition demande une norme. Une définition de suite de Cauchy valable dans tout espace vectoriel topologique est donnée à la définition \ref{DefZSnlbPc}.
-
-\begin{theorem} \label{ThoTFGioqS}
-    Une suite dans \( \eR\) est convergente si et seulement si elle est de Cauchy.
-\end{theorem}
-%TODO : la démonstration de la complétude de R.
-Même si l'énoncé semble très raisonnable, la démonstration n'est pas simple parce que c'est la complétude de \( \eR\) qui est en jeu.
-
-%--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Maximum, supremum et compagnie}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Ce n'est un secret pour personne que $\eR$ est un \href{http://fr.wikipedia.org/wiki/Relation_d'ordre}{ensemble ordonné} : il y a des éléments plus grands que d'autres, et mieux : à chaque fois que je prends deux éléments différents dans $\eR$, il y en a un des deux qui est plus grand que l'autre. Il n'y a pas d'\emph{ex æquo} dans $\eR$.
+Ce n'est un secret pour personne que $\eR$ est un \href{http://fr.wikipedia.org/wiki/Relation_d'ordre}{ensemble totalement ordonné}\footnote{Définition \ref{DefooYALBooHSXZqB}.} : il y a des éléments plus grands que d'autres, et mieux : à chaque fois que je prends deux éléments différents dans $\eR$, il y en a un des deux qui est plus grand que l'autre. Il n'y a pas d'\emph{ex æquo} dans $\eR$.
 
   Si je regarde l'intervalle $I=[0,1]$, je peux même dire que $10$ est plus grand que tous les éléments de $I$. Nous disons que $10$ est un \emph{majorant} de $[0,1]$. La définition est la suivante.
 \begin{definition}
