@@ -569,6 +569,10 @@ Notons en particulier que si $f(x,y)=\varphi(x)\phi(y)$, alors $\int_{B_m}\varph
 \section{Interprétation géométrique du déterminant}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Par rapport à la mesure de Lebesgue}
+%---------------------------------------------------------------------------------------------------------------------------
+
 Dans la suite, \( Q_0\) désigne le cube unité : \( Q_0=\big( \mathopen[ 0 , 1 \mathclose[ \big)^N\).
 
 \begin{theorem}[Interprétation géométrique du déterminant\cite{PMTIooJjAmWR}]    \label{ThoBVIJooMkifod}
@@ -990,7 +994,7 @@ Dans ce qui suit, \( U\) et \( V\) sont des ouverts de \( \eR^N\) et \( \phi\col
     pour tout \( B\in\Borelien(U)\). Notons que \( U\) étant ouvert dans \( \eR^N\), les boréliens de \( U\) sont exactement les boréliens de \( \eR^N\) inclus à \( U\) par le corollaire \ref{CorooMJQYooFfwoTd}.
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}[\cite{PMTIooJjAmWR}]      \label{LemooJCEDooBRyjRg}
     Soit une application \( \theta\colon U\to \eR^N\) de classe \( C^1\) où \( U\) est ouvert dans \( \eR^N\). Pour tout \( Q\in\mQ\) nous avons
     \begin{equation}
         \lambda_N\big( \theta(Q) \big)\leq\sup_{s\in Q}\| d\theta_s \|^N\lambda_N(Q).
@@ -998,9 +1002,25 @@ Dans ce qui suit, \( U\) et \( V\) sont des ouverts de \( \eR^N\) et \( \phi\col
 \end{lemma}
 
 \begin{proof}
-    Le théorème des accroissements finis \ref{}<++>
+    Nous notons \( h\) la longueur du côté du cube. Le théorème des accroissements finis \ref{val_medio_2}, pour la composante \( \theta_i\) donne, pour \( u,v\in Q\) :
+    \begin{equation}        \label{EqooFZMAooKWdzxJ}
+        \big|  \theta_i(u)-\theta_i(v) \big|\leq\sup_{s\in Q}\| (d\theta_i)_s \|\| u-v \|\leq \sum_{s\in Q}\| (d\theta_i)_s \|h.
+    \end{equation}
+    D'autre part nous avons (nous écrivons pour \( N=2\) pour être plus court) :
+    \begin{equation}
+        d\theta_s(u)=\Dsdd{ \theta_1(s+tu)e_1+\theta_2(s+tu)e_2 }{t}{0}=(d\theta_1)_s(u)e_1+(d\theta_2)_s(u)e_2.
+    \end{equation}
+    Donc pour chaque \( i\) : \( \| d\theta_s \|\geq \| (d\theta_i)_s \|\), et nous continuons la majoration \eqref{EqooFZMAooKWdzxJ} :
+    \begin{equation}
+        \big|  \theta_i(u)-\theta_i(v) \big|\leq\leq \sum_{s\in Q}\| (d\theta_i)_s \|h\leq \sup_{s\in Q}\| d\theta_s \|h.
+    \end{equation}
+    
+    Les points \( \theta(u)\) et \( \theta(v)\) sont donc dans un cube de côté \( \sup_{s\in Q}\| d\theta_s \|h\), ce qui permet de majorer \( \lambda_N\big( \theta(Q) \big)\) par
+    \begin{equation}
+        \lambda_N\big( \theta(Q) \big)\leq \left( \sup_{s\in Q}\| d\theta_s \|h \right)^N=\left( \sup_{s\in Q}\| d\theta_s \| \right)^N\lambda_N(Q)
+    \end{equation}
+    où le dernier facteur provient de l'égalité \( h^N=\lambda_N(Q)\).
 \end{proof}
-<++>
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Le théorème et sa démonstration}
@@ -1010,7 +1030,7 @@ Dans ce qui suit, \( U\) et \( V\) sont des ouverts de \( \eR^N\) et \( \phi\col
     Soient \( U\) et \( V\) des ouverts de \( \eR^N\) ainsi qu'un \( C^1\)-difféomorphisme \(\phi\colon U\to V\).
     \begin{enumerate}
         \item   \label{ItemVWYDooOzwnyfi}
-            Si \( E\subset U\) est mesurable, alors \( \phi(E)\) est mesurable et
+            Si \( E\subset U\) est borélien, alors \( \phi(E)\) est borélien et
             \begin{equation}
                 \lambda_N\big( \phi(E) \big)=\int_E| J_{\phi} |d\lambda_N.
             \end{equation}
@@ -1037,7 +1057,38 @@ Dans ce qui suit, \( U\) et \( V\) sont des ouverts de \( \eR^N\) et \( \phi\col
     Attention : la preuve va être longue.
     \begin{enumerate}
         \item
-            Le fait que \( \phi(E)\) soit mesurable lorsque \( E\) l'est est la proposition \ref{PropRDRNooFnZSKt}.
+            Le fait que \( \phi(E)\) soit borélien lorsque \( E\) l'est est la proposition \ref{PropRDRNooFnZSKt}. En ce qui concerne la formule annoncée, il faut travailler.
+            \begin{subproof}
+            \item[Inégalité dans un sens]
+                Nous commençons par prouver l'inégalité
+                \begin{equation}
+                    \lambda_N\big( \phi(Q) \big)\leq \int_Q| J_{\phi}(x) |dx
+                \end{equation}
+                pour tout \( Q\in \mQ\). On peut diviser le côté du cube \( Q\) en \( k\) éléments de longueurs égales. Le cube est alors divisé en \( k^N\) petits cubes d'intérieurs disjoints. Nous les nommons \( Q_i\) (\( i=1,\ldots, k^N\)) Nous avons alors
+                \begin{equation}
+                    \sum_i\lambda_N(Q_i)=\sum_i\lambda_N\big( \Int(Q_i) \big)=\lambda_N\big( \bigcup_i\int(Q_i) \big)\leq \lambda_N(Q)\leq \sum_i\lambda_N(Q_i).
+                \end{equation}
+                La dernière inégalité est le fait que les intersections ne sont pas disjointes. Toutes ces inégalités sont en réalité des égalités et en particulier : \( \lambda_N(Q)=\sum_i\lambda_N(Q_i)\).
+
+                Soit \( a\in Q_i\) et posons
+                \begin{equation}
+                    \begin{aligned}
+                        \theta\colon U&\to U \\
+                        \theta=(d\phi_{a})^{-1}\circ\phi 
+                    \end{aligned}
+                \end{equation}
+                Cela appelle deux commentaires. D'abord l'application \( d\phi_{a}\colon U\to V\) est inversible parce que \( \phi\) est un difféomorphisme (lemme \ref{LemooTJSZooWkuSzv}). Ensuite, l'application \( \theta\) est la composée de \( (d\phi_{a})\) (qui est linéaire) et de \( \phi\) qui est de classe \( C^1\); donc \( \theta\) est de classe \( C^1\). Donc le lemme \ref{LemooJCEDooBRyjRg} s'applique. La différentielle de \( \theta\) n'est pas trop compliquée à écrire parce que nous avons la formule de différentielle d'une composée (théorème \ref{ThoAGXGuEt}) et le fait que \( (d\phi_{a})^{-1}\) qui est linéaire et donc sa propre différentielle (lemme \ref{LemooXXUGooUqCjmp}). Nous avons donc \( d\theta=(d\phi_a)^{-1}\circ d\phi\), et le lemme donne
+                \begin{equation}
+                    \lambda_N\left( (d\phi_a)^{-1}\phi(a) \right)\leq \sup_{s\in Q_i}\|    (d\phi_a)^{-1}\circ d\phi_s  \|^N\lambda_N(Q_i)
+                \end{equation}
+                Étant donné que \( (d\phi_a)^{-1}\) est une application linéaire, la proposition \ref{ThoBVIJooMkifod} s'applique, et donc
+                \begin{equation}
+                    \lambda_N\left( (d\phi_a)^{-1}\phi(a) \right)=| \det(d\phi_a)^{-1} |\lambda_N\big( \phi(a) \big).
+                \end{equation}
+                <++>
+
+            \end{subproof}
+            <++>
         \item
             Le fait que la fonction proposée soit mesurable est le fait que la mesurabilité n'est pas affectée par produit et composition. 
             % position 8298-4324
