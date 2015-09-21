@@ -125,6 +125,24 @@ class chapter{
     };
 };
 
+// Create the LaTeX file of the front page from the one of 'filename' and the volume number 'voln'
+// It just change "CHANGE HERE" to the volume number in 'gardeVolume.tex'
+void create_front_page(int voln){
+    ifstream gardeVolume("gardeVolume.tex");
+    string svol=NumberToString(voln);
+    string output_filename="garde"+svol+".tex";
+    ofstream garde(output_filename.c_str());
+    string line;
+
+    while(!gardeVolume.eof()){
+        getline(gardeVolume,line);
+        replace(line,"CHANGE HERE",svol);
+        garde<<line<<endl;
+     };
+    string command="pdflatex "+output_filename;
+    cout<<command<<endl;
+}
+
 // Describe a LaTeX document. One has to provide coherent pdf filename and a tof filename that are produced by LaTeX.
 class latex_document{
     public:
@@ -174,44 +192,26 @@ class latex_document{
         string sIpage=NumberToString(Ipage);
         string sFpage=NumberToString(Fpage);
         string command="pdftk "+pdf_filename+" cat "+sIpage+"-"+sFpage+" output "+output;
-        //external(command)
         cout<<command<<endl;
     };
     void divide(vector<string> sc_list){
+
+        extract_from_to("Table des matières","Introduction","vol-toc.pdf");
     
         for (int i=0;i<sc_list.size()-1;i++){
             try{
-                string mat_filename="mat"+NumberToString(i+1)+".pdf";
+                string mat_filename="vol-mat"+NumberToString(i+1)+".pdf";
                 extract_from_to(sc_list[i],sc_list[i+1],mat_filename);
             }
             catch (string s){
                 cout<<s<<endl;
             }
-            create_front_page(i+1);
+            ::create_front_page(i+1);
         }
 
     }
-}
+};
     
-
-// Create the LaTeX file of the front page from the one of 'filename' and the volume number 'voln'
-// It just change "CHANGE HERE" to the volume number in 'gardeVolume.tex'
-void create_front_page(int voln){
-    ifstream gardeVolume("gardeVolume.tex");
-    string svol=NumberToString(voln);
-    string output_filename="garde"+svol+".tex";
-    ofstream garde(output_filename.c_str());
-    string line;
-
-    while(!gardeVolume.eof()){
-        getline(gardeVolume,line);
-        replace(line,"CHANGE HERE",svol);
-        garde<<line<<endl;
-     };
-    string command="pdflatex "+output_filename;
-    cout<<command<<endl;
-}
-
 int main ()
 {
     vector<string> starting_chapters;
