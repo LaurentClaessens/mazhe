@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <vector>
 #include <cstdlib>
 #include <string>
+#include <sstream>
 using namespace std;
 
 
@@ -35,6 +36,24 @@ void replace( string &str,string s1,string s2 ){
         position=str.find(s1);
     };
 }
+
+template <typename T>
+string NumberToString(T number)
+{
+    ostringstream ss;
+    ss<<number;
+    return ss.str();
+}
+
+
+template <typename T>
+string StringToNumber(const string &text)
+{
+    istringstream ss(text);
+    T result;
+    return ss>>result;
+}
+
 
 // Provide a couple like "\IeC {\^\i }" stands for "î".
 // You only gives what is in the bracket.
@@ -133,7 +152,7 @@ class latex_document{
         bool Ff=false;
         int Ipage=0;
         int Fpage=0;
-        for (int i=0; !If or !Ff ;i++){
+        for (int i=0; (!If or !Ff) and i<chapter_list.size() ;i++){
             chapter chap=chapter_list[i];
             if (chap.name==Ichap){
                 Ipage=chap.page;
@@ -144,15 +163,63 @@ class latex_document{
                 Ff=true;
             }
         }
-        cout<<Ipage<<" "<<Fpage<<endl;
-        string command="";
-        command<<"pdftk "<<pdf_filename<<" cat ";
+        if (!If) { 
+            string s="Woops. Chapter '"+Ichap+"' not found";
+            throw  s;
+        }
+        if (!Ff) { 
+            string s="Woops. Chapter '"+Fchap+"' not found";
+            throw  s;
+        }
+        string sIpage=NumberToString(Ipage);
+        string sFpage=NumberToString(Fpage);
+        string command="pdftk "+pdf_filename+" cat "+sIpage+"-"+sFpage+" output "+output;
+        //external(command)
         cout<<command<<endl;
     };
-};
+    void divide(vector<string> sc_list){
+    
+        for (int i=0;i<sc_list.size()-1;i++){
+            try{
+                string mat_filename="mat"+NumberToString(i+1)+".pdf";
+                extract_from_to(sc_list[i],sc_list[i+1],mat_filename);
+            }
+            catch (string s){
+                cout<<s<<endl;
+            }
+            create_front_page(i+1);
+        }
+
+    }
+}
+    
+
+// Create the LaTeX file of the front page from the one of 'filename' and the volume number 'voln'
+// It just change "CHANGE HERE" to the volume number in 'gardeVolume.tex'
+void create_front_page(int voln){
+    ifstream gardeVolume("gardeVolume.tex");
+    string svol=NumberToString(voln);
+    string output_filename="garde"+svol+".tex";
+    ofstream garde(output_filename.c_str());
+    string line;
+
+    while(!gardeVolume.eof()){
+        getline(gardeVolume,line);
+        replace(line,"CHANGE HERE",svol);
+        garde<<line<<endl;
+     };
+    string command="pdflatex "+output_filename;
+    cout<<command<<endl;
+}
 
 int main ()
 {
+    vector<string> starting_chapters;
+    starting_chapters.push_back("Introduction");
+    starting_chapters.push_back("Analyse réelle");
+    starting_chapters.push_back("Variables aléatoires et théorie des probabilités");
+    starting_chapters.push_back("Liste des notations");
     latex_document frido("0-lefrido.pdf","Inter_frido-mazhe_pytex.toc");
-    frido.extract_from_to("Retour sur les groupes","Chaînes de Markov à temps discret","mat2.pdf");
+
+    frido.divide(starting_chapters);
 }
