@@ -127,10 +127,11 @@ class chapter{
 
 // Create the LaTeX file of the front page from the one of 'filename' and the volume number 'voln'
 // It just change "CHANGE HERE" to the volume number in 'gardeVolume.tex'
-void create_front_page(int voln){
+// return the name of the created file.
+string create_front_page(int voln){
     ifstream gardeVolume("gardeVolume.tex");
     string svol=NumberToString(voln);
-    string output_filename="garde"+svol+".tex";
+    string output_filename="vol-garde"+svol+".tex";
     ofstream garde(output_filename.c_str());
     string line;
 
@@ -141,6 +142,9 @@ void create_front_page(int voln){
      };
     string command="pdflatex "+output_filename;
     cout<<command<<endl;
+    system(command.c_str());
+    replace(output_filename,".tex",".pdf");
+    return output_filename;
 }
 
 // Describe a LaTeX document. One has to provide coherent pdf filename and a tof filename that are produced by LaTeX.
@@ -164,6 +168,20 @@ class latex_document{
         };
         tocfile.close();
     }
+
+    // return the starting page of the chapter 'chap_name'
+    int title_to_page(string chap_name){
+        bool found=false;
+        for (int i=0; !found and i<chapter_list.size() ;i++){
+            chapter chap=chapter_list[i];
+            if (chap.name==chap_name){
+                return chap.page;
+            }
+        }
+        string s="Woops. Chapter '"+chap_name+"' not found";
+        throw  s;
+    }
+
     // create a pdf file 'output' containing the chapters from 'Ichap' to 'Fchap' (the latter is not included).
     void extract_from_to(string Ichap,string Fchap,string output){
         bool If=false;
@@ -193,20 +211,38 @@ class latex_document{
         string sFpage=NumberToString(Fpage);
         string command="pdftk "+pdf_filename+" cat "+sIpage+"-"+sFpage+" output "+output;
         cout<<command<<endl;
+        system(command.c_str());
     };
+    //
+    // create a pdf file from the 'Liste des notations' up to the end
+    void extract_list_of_notations(string filename){
+        int init_page=title_to_page("Liste des notations");
+        string spage=NumberToString(init_page);
+        string command="pdftk "+pdf_filename+" cat "+spage+"-end"+" output "+filename;
+        cout<<command<<endl;
+        system(command.c_str());
+    }
     void divide(vector<string> sc_list){
 
         extract_from_to("Table des matières","Introduction","vol-toc.pdf");
+
+        extract_list_of_notations("vol-ton.pdf");
     
+        // Creating the pdf containing the math and the pdf containing the front page
         for (int i=0;i<sc_list.size()-1;i++){
+            string mat_filename="vol-mat"+NumberToString(i+1)+".pdf";
             try{
-                string mat_filename="vol-mat"+NumberToString(i+1)+".pdf";
                 extract_from_to(sc_list[i],sc_list[i+1],mat_filename);
             }
             catch (string s){
                 cout<<s<<endl;
             }
-            ::create_front_page(i+1);
+            string front_filename=::create_front_page(i+1);
+
+            // merging the whole
+            string command="pdftk "+front_filename+" vol-toc.pdf"+" "+mat_filename+" vol-ton.pdf"+" cat output lefrido-volume"+NumberToString(i+1)+".pdf";
+            cout<<command<<endl;
+            system(command.c_str());
         }
 
     }
