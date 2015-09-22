@@ -1,3 +1,7 @@
+You have to read 
+http://student.ulb.ac.be/~lclaesse/readme.pdf
+
+
 Les fichiers à compiler avec pdflatex sont
 
 POUR L'ENSEIGNEMENT :
