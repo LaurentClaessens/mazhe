@@ -3,6 +3,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+\usepackage{color}
+\usepackage{listingsutf8}
+\lstset{language=python,basicstyle=\footnotesize,tabsize=3,frame=single,commentstyle=\ttfamily\color[rgb]{0,0,0.5},frame=single,stringstyle=\color[rgb]{0,0.5,0},title=\lstname,inputencoding=utf8/latin1}
+
 \usepackage{textcomp}
 \usepackage{lmodern}
 \usepackage[a4paper,margin=2cm]{geometry} 
@@ -92,6 +96,81 @@ La compilation produit deux fichiers \info{pdf}. Le premier est \info{Inter\_fri
 \subsection{Compiler seulement une partie}
 %---------------------------------------------------------------------------------------------------------------------------
 
-<++>
+Lisez le fichier \info{lst\_exemple.py} :
+
+\lstinputlisting{lst_exemple.py}
+
+A priori la seule chose qui vous intéresse est la liste des \texttt{ok\_filename}. Je crois qu'elle est assez auto-explicative. Le fichier principal \info{mazhe.tex} contient une série de \info{input}. Seuls ceux de la liste seront effectués.
+
+La ligne \info{new\_output\_filename} donne le nom du fichier de sortie. En l'omettant, ce sera un nom compliqué du type \info{0-Inter\_\ldots}. Pour compiler :
+\begin{quote}
+    \begin{verbatim}
+    pytex lst_exemple.py --lotex
+    \end{verbatim}
+\end{quote}
+Le \verb+--lotex+ est seulement là pour dire qu'il faut faire tourner la compilation autant de fois qu'il faudra pour que les références soient justes\footnote{Pour que la bibliographie soit correcte, il faut encore compiler une fois ou deux.}. 
+
+Après compilation, une liste des références incorrectes est donnée. Bien entendu si vous ne compilez qu'une partie, il risque d'y avoir beaucoup de références \emph{manquantes}, mais il ne devrait n'y avoir aucune références \emph{duplicate} !
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Les politiques éditoriales}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Certaines parties de ce texte ne respectent pas les politiques éditoriales. Ce sont des erreurs de jeunesse, et j'en suis le premier triste.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Licence libre}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Je crois que c'est clair.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{pdflatex}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Tout est compilable avec pdf\LaTeX. Pas de pstricks, de psfrag ou de ps<quoiquecesoit>.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{utf8}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Je crois que c'est clair.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Notations}
+%---------------------------------------------------------------------------------------------------------------------------
+
+On essaie d'être cohérent dans les notations et les conventions. Pour la transformée de Fourier par exemple, je crois que la définition du produit scalaire dans \( L^2\), des coefficients de Fourier, de la transformation et de la transformation inverse sont cohérents. Cela demande, lorsqu'on suit un livre qui ne suit pas les conventions utilisées ici, de convertir parfois massivement.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{De la bibliographie}
+%---------------------------------------------------------------------------------------------------------------------------
+
+On évite d'écrire en haut de chapitre «les références pour ce chapitre sont \ldots». Il est mieux d'écrire au niveau des théorèmes entre parenthèse, les références. De préférence en ligne.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Faire des références à tout}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Lorsqu'un utilise le théorème des accroissements finis, il ne faut pas écrire «d'après le théorème des accroissements finis, blablabla». Il faut écrire un \verb+\ref{}+ explicite vers le résultat. Cela alourdit un peu le texte, mais lorsqu'on joue avec un texte de plus de 1000 pages, il est parfois vraiment laborieux de trouver le résultat qu'on cherche (surtout si il existe plusieurs version d'un résultat et que l'on veut faire référence à une version particulière).
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Pas de références vers le futur}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Dans le Frido, \emph{aucune} preuve ne peut faire une référence vers un résultat prouvé plus bas. On n'utilise pas le théorème 10 dans la démonstration du théorème 7. Cela est une contrainte forte sur le découpage en chapitre et sur l'ordre de présentation des matières.
+
+Il est bien entendu accepté et même encouragé de mettre des notes du type «Nous verrons plus loin un théorème qui \ldots». Tant que ce théorème n'est pas \emph{utilisé}, ça va. Il y a dans le texte plusieurs listes de résultats «analogues». Par exemple au début du chapitre sur les séries de Fourier, une liste de références vers les différents théorèmes qui disent que la série de Fourier de \( f\) converge vers \( f\).  Je crois que ces listes sont bien et qu'il faut en faire plein.
+
+En faisant
+\begin{quote}
+    \begin{verbatim}
+    pytex lst_frido.py --verif
+    \end{verbatim}
+\end{quote}
+vous aurez une liste des références vers le bas. Cette liste doit être vide ! Ce programme cherche tous les \verb+\ref{}+ et \verb+\eqref{}+ ainsi que les \verb+\label{}+ correspondants et vous prévient lorsque le \verb+\label{}+ est après le \verb+\ref{}+.
+
+Si vous pensez qu'une référence pointée doit être accepté (par exemple parce c'est dans une des listes de résultats), alors vous ajoutez son hash dans la liste du fichier \info{commons.py}. Si il s'agit vraiment d'une référence vers un résultat que vous utilisez, alors vous devez déplacer des choses. Soit votre résultat vers le bas, soit celui que vous utilisez vers le haut. Parfois cela demande de déplacer ou redécouper des chapitres entiers\ldots Si il n'y a vraiment pas moyen, bravo, vous venez de prouver que la mathématique est logiquement inconsistante.
 
 \end{document}

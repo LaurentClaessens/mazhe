@@ -26,4 +26,4 @@ myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["134_choses_finales"])
 
 
-myRequest.new_output_filename="0-actu.pdf"
+myRequest.new_output_filename="0-exemple.pdf"
