@@ -1,3 +1,11 @@
+Two pdf files :
+http://student.ulb.ac.be/%7Elclaesse/lefrido.pdf
+http://student.ulb.ac.be/%7Elclaesse/mazhe.pdf
+
+If you want to compile it by yourself have to read 
+http://student.ulb.ac.be/~lclaesse/readme.pdf
+
+
 Les fichiers à compiler avec pdflatex sont
 
 POUR L'ENSEIGNEMENT :
