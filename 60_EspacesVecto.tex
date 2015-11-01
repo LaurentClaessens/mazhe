@@ -54,7 +54,7 @@ Une matrice est dite compagnon si elle a cette forme.
 \end{remark}
 
 \begin{definition}[Matrices, endomorphismes et vecteurs cycliques]
-    Une matrice est \defe{cyclique}{cyclique!matrice}\index{matrice!cyclique} si elle est semblable à une matrice compagnon. Un endomorphisme \( f\colon E\to E\) est \defe{cyclique}{cyclique!endomorphisme}\index{endomorphisme!cyclique} si il existe un vecteur \( x\in E\) tel que \( \{ f^k(x)\tq k=1,\ldots, n-1 \}\) est une base de \( E\). Un vecteur ayant cette propriété est un \defe{vecteur cyclique}{vecteur!cyclique} pour \( f\).
+    Une matrice est \defe{cyclique}{cyclique!matrice}\index{matrice!cyclique} si elle est semblable à une matrice compagnon. Un endomorphisme \( f\colon E\to E\) est \defe{cyclique}{cyclique!endomorphisme}\index{endomorphisme!cyclique} si il existe un vecteur \( x\in E\) tel que \( \{ f^k(x) \}_{k=0,\ldots, n-1} \) est une base de \( E\). Un vecteur ayant cette propriété est un \defe{vecteur cyclique}{vecteur!cyclique} pour \( f\).
 \end{definition}
 
 \begin{lemma}\label{LemSGmdnE}
@@ -64,8 +64,6 @@ Une matrice est dite compagnon si elle a cette forme.
             La matrice \( A\) est cyclique.
         \item
             L'endomorphisme \( f\) est cyclique.
-        \item
-            Le polynôme caractéristique de \( A\) est égal à son polynôme caractéristique.
     \end{enumerate}
 \end{lemma}
 
@@ -82,13 +80,16 @@ Une matrice est dite compagnon si elle a cette forme.
 \end{proof}
 
 \begin{definition}
-    Soit \( E\) un espace vectoriel de dimension finie et un endomorphisme \( f\colon E\to E\). Le \defe{commutant}{commutant} de \( f\) est l'ensemble des endomorphismes de \( E\) qui commutent avec \( f\) :
+    Soit \( E\) un espace vectoriel de dimension finie sur un corps \( \eK\) et un endomorphisme \( f\colon E\to E\). Le \defe{commutant}{commutant} de \( f\) est l'ensemble des endomorphismes de \( E\) qui commutent avec \( f\) :
     \begin{equation}
         \comC(f)=\{ g\in\aL(E,E)\tq g\circ f=f\circ g \}.
     \end{equation}
 \end{definition}
+Il n'est pas très compliqué de vérifier que \( \comC(f)\) est un sous-espace vectoriel de \( \aL(E,E)\).
 
-\begin{proposition}
+Notons l'inclusion évidente \( \eK[f]\subset \comC(f)\). L'inclusion inverse va un peu nous occuper durant les prochaines pages.
+
+\begin{proposition}[\cite{ooKPTNooMmncYA}]
     Si \( f\) est diagonalisable, alors
     \begin{equation}
         \dim\big( \comC(f) \big)=\sum_{\lambda\in\Spec(f)}\dim(E_{\lambda})^2.
@@ -97,9 +98,80 @@ Une matrice est dite compagnon si elle a cette forme.
 \end{proposition}
 
 \begin{proof}
-    kmlk
+    D'abord su \( g\in\comC(f)\) alors \( E_{\lambda}\) est stable par \( g\). En effet si \( v\in E_{\lambda}\) alors \( f\big( g(v) \big)=g\big( f(v) \big)=g(\lambda v)=\lambda g(v)\), ce qui montre que \( g(v)\) est un vecteur propre de \( f\) pour la valeur propre \( \lambda\), et donc que \( g(v)\in E_{\lambda}\).
+
+    Nous considérons ensuite l'application 
+    \begin{equation}
+        \begin{aligned}
+            \psi\colon \comC(f)&\to \End(E_1)\times \ldots\times \End(E_r) \\
+            g&\mapsto  g|_{E_1}\times \ldots\times g|_{E_r}
+        \end{aligned}
+    \end{equation}
+    qui est bien définie parce que \( g\) se restreint aux espaces propres de \( f\). Nous allons noter \( \psi(g)_{\lambda}\) la restriction de \( g\) à \( E_{\lambda}\).
+    \begin{subproof}
+    \item[\( \psi\) est injective]
+
+        Supposons que \( g,h\in\comC(f)\) tels que \( \psi(g)=\psi(h)\). Vu que \( f\) est diagonalisable nous pouvons décomposer \( x\in  E\) en ses composantes sur les espaces propres :
+        \begin{equation}
+            x=\sum_{\lambda\in\Spec(f)}x_{\lambda}
+        \end{equation}
+        avec \( x_{\lambda}\in E_{\lambda}\).  Nous avons alors
+        \begin{equation}
+            g(x)=\sum_{\lambda}g(x_{\lambda})=\sum_{\lambda}\psi(g)_{\lambda}(x_{\lambda}).
+        \end{equation}
+        Vu que nous avons \( \psi(g)_{\lambda}=\psi(h)_{\lambda}\), nous avons aussi
+        \begin{equation}
+            g(x)=\sum_{\lambda}\psi(g)_{\lambda}(x_{\lambda})=\sum_{\lambda}\psi(h)_{\lambda}(x_{\lambda})=\sum_{\lambda}h(x_{\lambda})=h(x).
+        \end{equation}
+        Cela prouve \( g=h\) et donc que \( \psi\) est injective.
+    \item[\( \psi\) est surjective]
+        Si nous avons pour chaque \( \lambda\in\Spec(f)\) un endomorphisme \( g_{\lambda}\) de \( E_{\lambda}\) alors en posant
+        \begin{equation}
+            g(x)=\sum_{\lambda\in\Spec(f)}g_{\lambda}(x_{\lambda})
+        \end{equation}
+        alors nous avons bien
+        \begin{equation}
+            \psi(g)=\big( g_{\lambda_1},\ldots, g_{\lambda_r} \big).
+        \end{equation}
+    \end{subproof}
+    Nous pouvons donc conclure en écrivant
+    \begin{equation}
+        \dim\big( \comC(f) \big)=\sum_{\lambda\in\Spec(f)}\dim\big( \End(E_{\lambda}) \big)= \sum_{\lambda\in\Spec(f)}\dim(E_{\lambda})^2.
+    \end{equation}
+\end{proof}
+
+\begin{remark}
+    Nous avons alors immédiatement
+    \begin{equation}
+        \dim\big( \comC(f) \big)\geq\dim(E)
+    \end{equation}
+    lorsque \( f\) est diagonalisable.
+\end{remark}
+
+En suivant la notation \eqref{EqooOAYDooEpZELo}, un endomorphisme est cyclique lorsqu'il existe \( x\in E\) tel que \( E_x=E\). 
+
+\begin{lemma}[\cite{ooRJDSooXpVtMD}]
+    Soit un endomorphisme cyclique \( f\colon E\to E\). Alors il existe \( a\in E\) tel que \( \mu_a=\mu\).
+\end{lemma}
+
+\begin{proof}
+    Soit \( v\) un vecteur cyclique : \( \{ f^k(v) \}_{k=0,\ldots, n-1}\) est une base de \( E\).
 \end{proof}
 <++>
+
+\begin{proposition}
+    Si \( f\) est un endomorphisme diagonalisable de \( E\) nous avons équivalence entre les faits suivants.
+    \begin{enumerate}
+        \item
+            \( \comC(f)=\eK[f]\).
+        \item
+            \( \dim\big( \comC(f) \big)=n\)
+        \item
+            \( f\) est cyclique.
+        \item
+            Les degré du polynôme caractéristique de \( f\) est la dimension de \( E\).
+    \end{enumerate}
+\end{proposition}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Frobenius et Jordan}
