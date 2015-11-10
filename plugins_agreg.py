@@ -91,8 +91,8 @@ def up_to_text(liste,text):
 
 def set_commit_hexsha(A):
     print("set_commit_hexsha plugin")
-    import git
-    repo=git.Repo("")
+    import pygit2
+    repo=pygit2.Repository("")
     hexsha=repo.commit().hexsha
     if repo.is_dirty():
         hexsha=hexsha+" -- and slighty more"
