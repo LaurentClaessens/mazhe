@@ -111,7 +111,6 @@ def set_commit_hexsha(A):
         hexsha=hexsha+" -- and slighty more"
     u="\\newcommand{\GitCommitHexsha}{\info{missing information}}"
     print(hexsha)
-    raise
     A = A.replace(u,u.replace("missing information",hexsha))
     return A
 
