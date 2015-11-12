@@ -103,7 +103,6 @@ def get_hexsha(repo):
     return commit.id
 
 def set_commit_hexsha(A):
-    print("set_commit_hexsha plugin")
     import pygit2
     repo=pygit2.Repository(".")
     hexsha=str(get_hexsha(repo))
@@ -113,22 +112,3 @@ def set_commit_hexsha(A):
     print(hexsha)
     A = A.replace(u,u.replace("missing information",hexsha))
     return A
-
-def ultimate_git(a=None):
-    """
-    Fait un git commit des fichiers automatiques, uniquement si ils sont les seuls.
-    """
-    # Attention : les nom de fichiers à giter ici sont aussi donnés dans le README
-    import git
-    repo=git.Repo("")
-    if repo.is_dirty():
-        automated_files=["agreg-mazhe_pytex.tex","enseignement-mazhe_pytex.tex","everything-mazhe_pytex.tex"]
-        mfiles=repo.git.ls_files(m="").split("\n")
-        on=True
-        for f in mfiles:
-            if f not in automated_files:
-                on=False
-        if on :
-            for f in automated_files:
-                repo.git.add(f)
-            repo.git.commit(m="automatic")
