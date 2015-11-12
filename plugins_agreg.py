@@ -89,15 +89,29 @@ def up_to_text(liste,text):
         if l.startswith(text):
             return i
 
+def is_dirty(repo):
+    import pygit2
+    status = repo.status()
+    for filepath, flags in status.items():
+        if flags != pygit2.GIT_STATUS_CURRENT:
+            if flags != 16384:
+                return True
+    return False;
+
+def get_hexsha(repo):
+    commit=repo.revparse_single('HEAD')
+    return commit.id
+
 def set_commit_hexsha(A):
     print("set_commit_hexsha plugin")
     import pygit2
-    repo=pygit2.Repository("")
-    hexsha=repo.commit().hexsha
-    if repo.is_dirty():
+    repo=pygit2.Repository(".")
+    hexsha=str(get_hexsha(repo))
+    if is_dirty(repo):
         hexsha=hexsha+" -- and slighty more"
     u="\\newcommand{\GitCommitHexsha}{\info{missing information}}"
     print(hexsha)
+    raise
     A = A.replace(u,u.replace("missing information",hexsha))
     return A
 
