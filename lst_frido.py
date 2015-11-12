@@ -7,7 +7,6 @@ import LaTeXparser
 import LaTeXparser.PytexTools
 import commons
 import plugins_agreg
-import pygit2
 
 myRequest = LaTeXparser.PytexTools.Request("mesure")
 myRequest.ok_hash=commons.ok_hash
