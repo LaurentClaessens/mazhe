@@ -92,6 +92,7 @@ def up_to_text(liste,text):
 def is_dirty(repo):
     import pygit2
     status = repo.status()
+    print("list done")
     for filepath, flags in status.items():
         if flags != pygit2.GIT_STATUS_CURRENT:
             if flags != 16384:
