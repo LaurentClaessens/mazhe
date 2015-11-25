@@ -836,9 +836,9 @@ Donc deux droites affines ont un unique point d'intersection si et seulement si
 \end{equation}
 Elles seront parallèles ou confondues si et seulement si \( d=0\).
 
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Structure du groupe des applications affines}
-%---------------------------------------------------------------------------------------------------------------------------
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Structure du groupe des applications affines}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Soit \( v\in \eR^n\); nous notons \( \tau_v\colon \eR^n\to \eR^n\) la translation donnée par \( \tau_v(x)=x+v\). Le groupe de toutes les translation de \( \eR^n\) est noté \( T(n)\) et est isomorphe au groupe abélien \( (\eR^n,+)\).
 
@@ -856,11 +856,73 @@ En prenant \( M=0\) dans la définition \ref{DEFooUAWZooXcMKve} et en pensant à
     \end{equation}
     est soit vide soit un sous-espaces affine de \( \eR^n\).
 \end{proposition}
-<++>
 
+\begin{proof}
+    Soit \( f=\tau_v\circ \alpha\); nous avons \( x\in\Fix(f)\) si et seulement si
+    \begin{equation}
+        x=\tau_v\big( \alpha(x) \big)=\alpha(x)+v,
+    \end{equation}
+    autrement dit, en considérant l'application linéaire \( \beta=\id-\alpha\), si et seulement si \( \beta(x)=v\). Nous écrivons \( \Fix(f)=\beta^{-1}(v)\). Supposons que ce soit non vide et considérons \( x_0\in\beta^{-1}(v)\). Nous avons
+    \begin{subequations}
+        \begin{align}
+            \beta^{-1}(v)&=\{ x\in \eR^n\tq \beta(x)=\beta(x_0) \}\\
+            &=\{ x\tq \beta(x-x_0)=0 \}\\
+            &=\{ x\tq x-x_0\in \ker(\beta) \}\\
+            &=\ker(\beta)+x_0\\
+            &=\tau_{x_0}\big( \ker(\beta) \big).
+        \end{align}
+    \end{subequations}
+    Mais comme \( \ker(\beta)\) est un sous-espace vectoriel, \( \beta^{-1}(v)\) est le translaté d'un sous-espace vectoriel, c'est à dire un sous-espace affine.
+\end{proof}
 
+\begin{definition}
+    Le groupe \( \Aff(\eR^n)\)\nomenclature[R]{\( \Aff(\eR^n)\)}{Le groupe des applications affines bijectives de \( \eR^n\).} est le groupe des applications affines bijectives de \( \eR^n\).
+\end{definition}
+
+\begin{remark}
+    Le fait que ce soit un groupe est rapidement vu par le calcul suivant :
+    \begin{equation}
+        (\tau_v\circ\alpha)\circ(\tau_w\circ\beta)(x)=(\alpha\beta)(x)+\alpha(w)+v=\tau_{\alpha(w)+v}\circ(\alpha\beta).
+    \end{equation}
+\end{remark}
 
 \begin{proposition}  \label{PROPooTPFZooKtFxhg}
-    
+    L'ensemble \( \Aff(\eR^n)\) est isomorphe au produit semi-direct\footnote{Définition \ref{DEFooKWEHooISNQzi}.}
+    \begin{equation}
+        \Aff(\eR^n)\simeq  T(n)\times_{\AD}\GL(n,\eR)
+    \end{equation}
+    où \( \AD\) est l'action adjointe, c'est à dire
+    \begin{equation}
+        \begin{aligned}
+            \AD\colon \GL(n,\eR)&\to \Aut\big( T(n) \big) \\
+            \tau_v&\mapsto \alpha\circ\tau_v\circ\alpha^{-1}. 
+        \end{aligned}
+    \end{equation}
 \end{proposition}
-<++>
+
+\begin{proof}
+    L'application que nous allons montrer être un isomorphisme est \( \psi\) qui à \( f=\tau_v\circ\alpha\) fait correspondre le couple \( (\tau_v,\alpha)\in T(n)\times \GL(n,\eR)\).
+    \begin{subproof}
+        \item[Égalité d'ensembles]
+            Il faut que \( \Aff(\eR^n)\) soit en bijection avec \( T(n)\times \GL(n,\eR)\). En effet si \( f\in \Aff(\eR^n)\), la décomposition \(f=\tau_v\circ\alpha \) est unique. D'abord en appliquant à \( 0\), \( f(0)=\tau_v\big( \alpha(v) \big)=v\). Donc \( v\) est fixé par la valeur de \( f(0)\). Ensuite \( \alpha=f\circ\tau_v^{-1}\), donc \( \alpha \) fixé.
+        \item[L'action adjointe fonctionne]
+            Il faut vérifier que \( \alpha\circ\tau_v\circ\alpha^{-1}\) est bien dans \( T(n)\). Pour cela, en agissant sur \( x\in \eR^n\) nous trouvons
+            \begin{equation}
+                \alpha\tau_v\alpha^{-1}(x)=\alpha\big( \alpha^{-1}(x)+v \big)=x+\alpha(v)=\tau_{\alpha(v)}(x).
+            \end{equation}
+            Le fait que \( \AD(\alpha)\) soit un automorphisme est toujours correct.
+        \item[Morphisme]
+            Il faut vérifier que l'application \( \psi\) est un morphisme de groupe. D'abord la loi de groupe sur \( \Aff(\eR^n)\) est donnée par
+            \begin{equation}
+                (\tau_v\circ \alpha)\circ(\tau_w\circ\beta)=\tau_{v+\alpha(w)}\circ(\alpha\circ\beta).
+            \end{equation}
+            Ensuite le loi de groupe de le produit semi-direct est donnée par
+            \begin{equation}
+                (\tau_v,\alpha)\cdot(\tau_w,\beta)=\big( \tau_v\AD(\alpha)\tau_w,\alpha\beta \big)=\big( \tau_v\tau_{\alpha(w)},\alpha\beta \big)=\big( \tau_{\alpha(w)+v},\alpha\beta \big).
+            \end{equation}
+            Nous avons donc bien
+            \begin{equation}
+                \psi\big( (\tau_v,\beta)\cdot(\tau_w,\beta) \big)=\psi(\tau_v,\beta)\circ\psi(\tau_w,\beta).
+            \end{equation}
+    \end{subproof}
+\end{proof}
