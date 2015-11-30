@@ -59,6 +59,15 @@ mazhe_mark_list.append("% SCRIPT MARK -- EXERCICES")
 mazhe_mark_list.append("% SCRIPT MARK -- CdI")
 mazhe_mark_list.append("% SCRIPT MARK -- FINAL")
 
+research_mark_list=[]
+research_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+research_mark_list.append("% SCRIPT MARK -- GARDE MAZHE")
+research_mark_list.append("% SCRIPT MARK -- TOC")
+research_mark_list.append("% SCRIPT MARK -- ENGLISH INTRODUCTION")
+research_mark_list.append("% SCRIPT MARK -- RESEARCH PART")
+research_mark_list.append("% SCRIPT MARK -- FINAL")
+
+
 nonagreg_mark_list=[]
 nonagreg_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
 nonagreg_mark_list.append("% SCRIPT MARK -- GARDE MAZHE")
