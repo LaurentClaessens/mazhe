@@ -16,7 +16,7 @@ myRequest.ok_hash=commons.ok_hash
 myRequest.ok_filenames_list.append("142_CFT")
 myRequest.ok_filenames_list.append("109_helga")
 myRequest.ok_filenames_list.append("143_Lie_gp_and_subgp")
-myRequest.ok_filenames_list.append("<++>")
+myRequest.ok_filenames_list.append("110_algebre")
 myRequest.ok_filenames_list.append("<++>")
 myRequest.ok_filenames_list.append("<++>")
 myRequest.ok_filenames_list.append("<++>")
