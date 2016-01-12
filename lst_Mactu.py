@@ -17,5 +17,9 @@ myRequest.ok_filenames_list.append("142_CFT")
 myRequest.ok_filenames_list.append("109_helga")
 myRequest.ok_filenames_list.append("143_Lie_gp_and_subgp")
 myRequest.ok_filenames_list.append("<++>")
+myRequest.ok_filenames_list.append("<++>")
+myRequest.ok_filenames_list.append("<++>")
+myRequest.ok_filenames_list.append("<++>")
+myRequest.ok_filenames_list.append("106_fibre_bundle")
 
 myRequest.new_output_filename="0-Mactu.pdf"
