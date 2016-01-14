@@ -27,7 +27,7 @@ using namespace std;
 
 
 // replace string 's1' by 's2' in the string 'str'
-// this is in-place replacement. All the occurences of 's1' are replaced by 's2' in 'str'
+// this is in-place replacement. All the occurrences of 's1' are replaced by 's2' in 'str'
 // http://stackoverflow.com/questions/3418231/replace-part-of-a-string-with-another-string
 void replace( string &str,string s1,string s2 ){
     size_t position=str.find(s1);
