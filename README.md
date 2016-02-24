@@ -9,7 +9,94 @@ This is a big course of mathematics declined in two versions.
 ## Le Frido (niveau agrégation)
 
 
-[Le Frido](http://student.ulb.ac.be/%7Elclaesse/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il recouvre à peu près tout le programme. Affin de donner une idée, voici une liste (pas spécialement à jour) des développements que vous pourriez y trouver :
+[Le Frido](http://student.ulb.ac.be/%7Elclaesse/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il recouvre à peu près tout le programme. Affin de donner une idée, une liste (pas spécialement à jour) des développements que vous pourriez y trouver est en annexe.
+
+
+### Quelque éléments en plus que l'agrégation
+
+* construction compète de la mesure de Lebesgue, y compris les notions de complétion de mesure (le chapitre tribu/théorie de la mesure est assez lourd)
+* la topologie exacte des espaces de distribution, y compris la topologie liée à une famille de semi-normes.
+* la notion de produit semi-direct de groupe, et la décomposition du groupe des isométries de `R^n` en translation plus rotation.
+
+### Ce qu'il manque pour l'agrégation
+
+Cette liste est certainement hautement non-exhaustive en ce qui concerne les choses qu'il faudrait savoir pour passer l'agrégation, mais que l'on ne trouve pas dans le Frido.
+
+* le chapitre sur la géométrie projective est pauvre.
+* le chapitre sur les espaces affines est pauvre.
+* très peu de calcul numérique.
+* il manque des exemples de tout, partout.
+
+### Originalité
+
+Ce cours se distingue d'autres cours de mathématique pour l'agrégation de plusieurs manières.
+
+#### En positif
+
+* La licence est libre : vous pouvez le copier, le distribuer, l'imprimer et le modifier sans demander d'autorisation.
+* Le Frido contient de quoi dire sur presque toutes les leçons en un seul volume. Certes c'est épais, mais cela évite de devoir mémoriser une liste associative qui à une leçon fait correspondre une liste de livres. Le Frido est de plus certainement plus léger que l'ensemble des livres dont vous auriez besoin pour couvrir la même matière.
+* Les références sont toutes vers le haut. Les démonstrations ne dépendent que de résultats énoncés et démontrés *plus haut* dans le texte. Vous n'avez pas à vous inquiéter de l'ordre logique de présentation de vos résultats : celui du Frido est bon.
+* Il y a une uniformité des notations à travers toutes les matières.
+* Tout est très explicite. Pas d'abus de notation, citation explicite de tous les résultats utilisés et énormément de détails dans les démonstrations.
+
+#### En négatif
+
+Le Frido se distingue également par certains aspects négatifs.
+* Manque de relecture. Vous croyez que les livres commerciaux sont bien relus et sans erreurs ? Eh bien ce n'est pas le cas pour le Frido. Il n'est pas très relu (si vous trouvez des erreurs, contactez moi!!), et contient sûrement beaucoup d'erreurs. Un certain nombre sont d'ailleurs très clairement indiquées.
+* Le fait que toutes les références soient faites vers le haut engendre de très lourds problèmes de division de la table des matières parce que *a priori*, tout peut dépendre de tout. Il n'y a pas une partie anneaux/corps séparée de la partie algèbre linéaire, séparée de la partie analyse. Certains résultats ne se trouvent pas là où vous croyez qu'ils se trouvent.
+
+### Est-ce je peux utiliser le Frido le jour de l'oral ?
+
+Réponse : je ne sais pas. J'ai demandé au jury (que j'ai déjà relancé quelque fois) qui ne m'a pas répondu. Quelque éléments de réflexion :
+* Plusieurs candidats l'ont déjà utilisé sans être inquiétés.
+* Une version imprimée est [dans la bibliothèque de l'ENS Cachan](https://catalogue.ens-cachan.fr/cgi-bin/koha/opac-detail.pl?biblionumber=59258).
+* Si vous croyez que 3 mois sans réponse équivaut à acceptation, alors le Frido est accepté.
+
+## (almost) Everything I know in math
+
+The document [(almost) Everything I know in mathematics](http://student.ulb.ac.be/%7Elclaesse/mazhe.pdf) contains almost everything I know in mathematics. It includes
+* A part (in French) about general mathematics at master level (le Frido)
+* A part (in French) containing the exercises and many corrections of the courses I gave at university.
+* Higher level mathematics including research stuff -- my thesis is here (in English) 
+
+### General differential geometry
+
+* Fibre bundles : vector, principal and associated bundles. 
+* Connexions on fibre bundle, covariant derivative.
+
+### Lie groups, Lie algebra
+* Lie groups and Lie algebra.
+* Homogeneous and symmetric spaces.
+* Root spaces, Iwasawa decomposition. 
+* Cyclic modules and representations.
+
+### Quantum field theory
+Very few physics. The aim is to understand why are we using groups, representations and principal bundle in quantum field theory.
+
+* Link between fibre bundle and quantum field theory : why are particles irreducible representations of the Poincaré group ?
+* Particles are modeled by sections of associated bundle : product of one representation of the Poincaré group and one representation of the gauge group. The interaction is given by a connexion on that bundle (with values in the Lie algebra of the gauge group).
+* Clifford module and Dirac operator.
+* Yang-Mills action.
+
+### Non commutative geometry
+* Compact quantum group.
+* General non commutative geometry.
+* WKB Deformation and quantization theory. Deformation of a manifold by action of a "deformable" group.
+
+### Black hole in anti-de Sitter space
+This is the argument of my thesis.
+
+* Black hole in anti-de Sitter space. The singular part is defined as the closed orbits of the Iwasawa subgroup of SO(2,l-1) acting on the l-dimensional anti-de Sitter space. 
+* Dirac operator on the anti-de Sitter space.
+* Deformation of the anti-de Sitter space.
+
+### Other
+* Symplectic geometry, Hamiltonian action.
+* Bialgebra and Hopf algebra.
+* Oscillatory integral.
+* von Neumann algebra.
+
+## Annexe : liste de choses que l'on peut trouver dans le Frido
 
 ### Algèbre et géométrie
 
@@ -120,43 +207,4 @@ This is a big course of mathematics declined in two versions.
 * Fonction continue et périodique dont la série de Fourier ne converge pas.
 * Estimation des grands écarts.
 * Théorème de Banach-Steinhaus.
-
-### Quelque éléments en plus que l'agrégation
-
-* construction compète de la mesure de Lebesgue, y compris les notions de complétion de mesure (le chapitre tribu/théorie de la mesure est assez lourd)
-* la topologie exacte des espaces de distribution, y compris la topologie liée à une famille de semi-normes.
-* la notion de produit semi-direct de groupe, et la décomposition du groupe des isométries de `R^n` en translation plus rotation.
-
-### Ce qu'il manque pour l'agrégation
-
-Cette liste est certainement hautement non-exhaustive en ce qui concerne les choses qu'il faudrait savoir pour passer l'agrégation, mais que l'on ne trouve pas dans le Frido.
-
-* le chapitre sur la géométrie projective est pauvre.
-* le chapitre sur les espaces affines est pauvre.
-* très peu de calcul numérique.
-* il manque des exemples de tout, partout.
-
-## Originalité
-
-Ce cours se distingue d'autres cours de mathématique pour l'agrégation de plusieurs manières.
-
-### En positif
-
-* La licence est libre : vous pouvez le copier, le distribuer, l'imprimer et le modifier sans autorisation.
-* Le Frido contient de quoi dire sur presque toutes les leçons en un seul volume. Certes c'est épais, mais cela évite de devoir mémoriser une liste associative qui à une leçon fait correspondre une liste de livres. Le Frido est de plus certainement plus léger que l'ensemble des livres dont vous auriez besoin pour couvrir la même matière.
-* Les références sont toutes vers le haut. Les démonstrations ne dépendent que de résultats énoncés et démontrés *plus haut* dans le texte. Vous n'avez pas à vous inquiéter de l'ordre logique de présentation de vos résultats : celui du Frido est bon.
-* Il y a une uniformité des notations à travers toutes les matières.
-* Tout est très explicite. Pas d'abus de notation, citation explicite de tous les résultats utilisés et énormément de détails dans les démonstrations.
-
-### En négatif
-
-Le Frido se distingue également par certains aspects négatifs.
-* Manque de relecture. Vous croyez que les livres commerciaux sont bien relus et sans erreurs ? Eh bien ce n'est pas le cas pour le Frido. Il n'est pas très relu (si vous trouvez des erreurs, contactez moi!!), et contient sûrement beaucoup d'erreurs. Un certain nombre sont d'ailleurs très clairement indiquées.
-
-## Est-ce je peux utiliser le Frido le jour de l'oral ?
-
-Réponse : je ne sais pas. J'ai demandé au jury (que j'ai déjà relancé quelque fois) qui ne m'a pas répondu. Quelque éléments de réflexion :
-* Plusieurs candidats l'ont déjà utilisé sans être inquiétés.
-* Une version imprimée est [dans la bibliothèque de l'ENS Cachan](https://catalogue.ens-cachan.fr/cgi-bin/koha/opac-detail.pl?biblionumber=59258).
-* Si vous croyez que 3 mois sans réponse équivaut à acceptation, alors le Frido est accepté.
 
