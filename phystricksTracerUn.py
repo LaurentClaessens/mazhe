@@ -3,7 +3,7 @@ from phystricks import *
 
 def TracerUn():
 	x=var('x')
-	fig = GenericFigure("SubfiguresTracerUn")
+	fig = GenericFigure("TracerUn")
 
 	ssfig1 = fig.new_subfigure(u"La fonction $y=ex$","Fnex")
 	pspict1 = ssfig1.new_pspicture("Fnex")

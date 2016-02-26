@@ -467,14 +467,9 @@ def AllFigures():
     tests.generate()
     tests.summary()
 
-print("UEMIooQZVODL 2")
 
 if __name__=="__main__":
     if "--all" in sys.argv :
-        print("UEMIooQZVODL 3")
         AllFigures()
-        print("UEMIooQZVODL 4")
     else:
-        print("UEMIooQZVODL 5")
         ProjPoly()
-        print("UEMIooQZVODL 6")
