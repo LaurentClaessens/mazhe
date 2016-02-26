@@ -1,10 +1,11 @@
 # Mazhe
+(English) This is a big course of mathematics declined in two versions. See below for an English presentation of the English part.
 
-This is a big course of mathematics declined in two versions.
+(Français) Ce dépôt contient les sources d'un livre de mathématique, décliné en deux versions :
 
-* [Le Frido](http://student.ulb.ac.be/%7Elclaesse/lefrido.pdf)  contient des mathématiques du niveau de l'agrégation. Il recouvre à peu près tout le programme.  
-* [(almost) Everything I know in mathematics](http://student.ulb.ac.be/%7Elclaesse/mazhe.pdf) contains more or less everything I know in mathematics, including my research.
-* [readme.pdf](http://student.ulb.ac.be/%7Elclaesse/readme.pdf) contient des instruction pour la compilation du Frido, ainsi que des politiques éditoriales à l'attention de qui voudrait contribuer.
+* [« Le Frido »](http://student.ulb.ac.be/%7Elclaesse/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il recouvre à peu près tout le programme.  
+* [« (almost) Everything I know in mathematics »](http://student.ulb.ac.be/%7Elclaesse/mazhe.pdf) contains more or less everything I know in mathematics, including my research.
+* Et ce fichier [readme.pdf](http://student.ulb.ac.be/%7Elclaesse/readme.pdf) contient des instruction pour la compilation du Frido, ainsi que des politiques éditoriales à l'attention de qui voudrait contribuer.
 
 Les sources sont sur [github](https://github.com/LaurentClaessens/mazhe).
 
@@ -16,18 +17,18 @@ Les sources sont sur [github](https://github.com/LaurentClaessens/mazhe).
 
 ### Quelque éléments en plus que l'agrégation
 
-* construction compète de la mesure de Lebesgue, y compris les notions de complétion de mesure (le chapitre tribu/théorie de la mesure est assez lourd)
-* la topologie exacte des espaces de distribution, y compris la topologie liée à une famille de semi-normes.
-* la notion de produit semi-direct de groupe, et la décomposition du groupe des isométries de `R^n` en translation plus rotation.
+* Construction compète de la mesure de Lebesgue, y compris les notions de complétion de mesure (le chapitre tribu/théorie de la mesure est assez lourd).
+* La topologie exacte des espaces de distribution, y compris la topologie liée à une famille de semi-normes.
+* La notion de produit semi-direct de groupe, et la décomposition du groupe des isométries de `R^n` en translation plus rotation.
 
 ### Ce qu'il manque pour l'agrégation
 
 Cette liste est certainement hautement non-exhaustive en ce qui concerne les choses qu'il faudrait savoir pour passer l'agrégation, mais que l'on ne trouve pas dans le Frido.
 
-* le chapitre sur la géométrie projective est pauvre.
-* le chapitre sur les espaces affines est pauvre.
-* très peu de calcul numérique.
-* il manque des exemples de tout, partout.
+* Le chapitre sur la géométrie projective est pauvre.
+* Le chapitre sur les espaces affines est pauvre.
+* Très peu de calcul numérique.
+* Il manque des exemples de tout, partout.
 
 ### Originalité
 
@@ -46,11 +47,11 @@ Ce cours se distingue d'autres cours de mathématique pour l'agrégation de plus
 Le Frido se distingue également par certains aspects négatifs.
 
 * Manque de relecture. Vous croyez que les livres commerciaux sont bien relus et sans erreurs ? Eh bien ce n'est pas le cas pour le Frido. Il n'est pas très relu (si vous trouvez des erreurs, contactez moi!!), et contient sûrement beaucoup d'erreurs. Un certain nombre sont d'ailleurs très clairement indiquées.
-* Le fait que toutes les références soient faites vers le haut engendre de très lourdes contraintes dans le découpage des chapitres a priori, tout peut dépendre de tout. Il n'y a pas une partie anneaux/corps séparée de la partie algèbre linéaire, séparée de la partie analyse. Certains résultats ne se trouvent pas là où vous croyez qu'ils se trouvent.
 
-### Est-ce je peux utiliser le Frido le jour de l'oral ?
+### « *Est-ce je peux utiliser le Frido le jour de l'oral d'agreg ?* »
 
-Réponse : je ne sais pas. J'ai demandé au jury (que j'ai déjà relancé quelque fois) qui ne m'a pas répondu. Quelque éléments de réflexion :
+Réponse : je ne sais pas. J'ai demandé au jury (que j'ai déjà relancé quelque fois) qui ne m'a pas répondu. 
+Quelque éléments de réflexion :
 
 * Plusieurs candidats l'ont déjà utilisé sans être inquiétés.
 * Une version imprimée est [dans la bibliothèque de l'ENS Cachan](https://catalogue.ens-cachan.fr/cgi-bin/koha/opac-detail.pl?biblionumber=59258).
@@ -104,6 +105,10 @@ This is the argument of my PhD thesis.
 
 ## Annexe : liste de choses que l'on peut trouver dans le Frido
 
+[Le Frido](http://student.ulb.ac.be/%7Elclaesse/lefrido.pdf) contient des mathématiques du niveau de l'agrégation.
+Il recouvre à peu près tout le programme au niveau du cours, en proposant tous les théorèmes et leurs preuves et de nombreux exemples sur (presque) tous les chapitres du programme.
+Afin de donner une idée, voici une liste des développements que vous pourriez y trouver :
+
 ### Algèbre et géométrie
 
 * Endomorphismes cycliques et commutant dans le cas diagonalisable.
@@ -115,15 +120,15 @@ This is the argument of my PhD thesis.
 * Extrema liés.
 * Enveloppe convexe du groupe orthogonal.
 * Une forme canonique pour les transvections et dilatations.
-* Résolution diophantienne de $ax+by=c$ en utilisant Bézout.
-* Résolution de l'équation diophantienne $x^2+2=y^3$ en parlant de l'extension $Z[i\sqrt{2}]$ et de stathme.
-* Le dénombrement des solutions de l'équation diophantienne $\alpha_1 n_1+\ldots \alpha_pn_p=n$ utilise des séries entières et des décomposition de fractions en éléments simples.
+* Résolution diophantienne de ax+by=c en utilisant Bézout.
+* Résolution de l'équation diophantienne x^2+2 = y^3 en parlant de l'extension Z[i sqrt(2)] et de stathme.
+* Le dénombrement des solutions de l'équation diophantienne alpha\_1 n\_1 + ... alpha\_K n\_K = n, utilise des séries entières et des décomposition de fractions en éléments simples.
 * Triplets pythagoriciens.
 * Polynômes semi-symétriques.
 * Lemme de Morse.
 * Générateurs du groupe diédral.
 * Table des caractères du groupe diédral.
-* Sous-groupes compacts de $GL(n,R)$.
+* Sous-groupes compacts de GL(n, R).
 * Théorème de Wedderburn.
 * Suites de décomposition et théorème de Jordan-Hölder.
 * Le groupe alterné est simple.
@@ -131,22 +136,22 @@ This is the argument of my PhD thesis.
 * RSA, plus l'exponentielle rapide, plus la recherche de couples de Bézout.
 * Théorème de Sylow.
 * Coloriage de roulette et composition de colliers.
-* Théorème de Burnside sur les sous groupes d'exposant fini de $GL(n,C)$.
-* $(Z/pZ)^* = Z/(p-1)Z$
+* Théorème de Burnside sur les sous groupes d'exposant fini de GL(n, C).
+* Théorème d'isomorphisme entre (Z/pZ)^* et Z/(p-1)Z.
 * Forme alternées de degré maximum.
 * Décomposition de Bruhat.
-* Table des caractères du groupe symétrique $S_4$
+* Table des caractères du groupe symétrique S\_4.
 * Décomposition polaire d'un endomorphisme.
 * Théorème de Von Neumann.
 * Forme faible du théorème de Dirichlet.
 * Irréductibilité des polynômes cyclotomiques, proposition.
-* Structure des groupes d'ordre $pq$
+* Structure des groupes d'ordre p×q.
 * Divergence de la somme des inverses des nombres premiers.
 * Théorème des deux carrés.
 * Théorème de Chevalley-Warning.
 * Loi de réciprocité quadratique.
-* Polynômes irréductibles sur $F_q$
-* Nombres de Bell, théorème.
+* Polynômes irréductibles sur F\_q.
+* Nombres de Bell, exemples et théorème.
 * Partitions d'un entier en parts fixes, proposition.
 * Théorème de Rothstein-Trager sur l'intégration de fraction rationelles.
 * Théorème de la dimension.
@@ -155,48 +160,43 @@ This is the argument of my PhD thesis.
 * Stabilité du rang par extension des scalaires.
 * Ellipsoïde de John-Loewner, proposition.
 * Décomposition de Dunford.
-* Équation de Hill $y''+qy=0$.
 * Connexité des formes quadratiques de signature donnée.
-* Points extrémaux de la boule unité dans $End(E)$.
+* Points extrémaux de la boule unité dans End(E).
 * Théorème de Kronecker.
 * Polynômes séparables.
-* Lien entre les racines (multiples) de $P$ et $ P'$ .
+* Lien entre les racines (multiples) de P et P'.
 * Théorème de l'élément primitif.
-* À propos d'extensions de $Q$.
+* À propos d'extensions des rationnels
 * Polygones réguliers constructibles, théorème de Gauss-Wantzel.
 
 ### Analyse
 
-* Le dénombrement des solutions de l'équation $ \alpha_1 n_1+\ldots \alpha_pn_p=n$ utilise des séries entières et des décomposition de fractions en éléments simples.
-* Méthode de Newton.
+* Le dénombrement des solutions de l'équation diophantienne alpha1 n1 + ... alphaK nK = n, utilise des séries entières et des décomposition de fractions en éléments simples.
+* Méthode de Newton, exemple, théorème et preuve.
 * Formule sommatoire de Poisson.
 * Inégalité isopérimétrique.
-* Équation de Hill $ y''+qy=0$.
-* Théorème de stabilité de Lyapunov.
-* Le système proie prédateurs, Lokta-Voltera.
-* Méthode du gradient à pas optimal.
-* Équation de Schrödinger.
-* L'équation  $ (x-x_0)^{\alpha}u=0 $ pour $u$ dans les distributions tempérées.
-* Espace de Sobolev $ H^1(I)$.
-* Un résultat sur $ y''+qy=0 $ à partir d'une hypothèse de croissance.
+* Équation de Hill (y'' + qy = 0).
+* L'équation (x - x0)^{\alpha} u = 0, pour u dans les distributions tempérées.
+* Espace de Sobolev H^1(J) (J un intervale).
+* Un résultat sur l'équation de Hill (y'' + qy = 0) à partir d'une hypothèse de croissance.
 * L'inégalité de Jensen.
 * Théorème de Cauchy-Lipschitz.
-* Dual de $ L^p[ 0 , 1 ] \big) $ pour $ p $ strictement entre $ 1$ et $ 2$.
+* Dual de L^p([0, 1]), pour p strictement entre 1 et 2.
 * Prolongement de fonction définie sur une partie dense.
 * Complétion d'un espace métrique.
-* Critère de Weyl.
-* Densité des polynômes dans $C^0[ 0 , 1 ]$, théorème de Bernstein.
-* Suite telle que $\lim_{k\to \infty} d(u_{k+1},u_k)=0$.
+* Critère de Weyl (suites équiréparties).
+* Densité des polynômes dans C0([0, 1])), et théorème de Bernstein.
+* Suite telle que lim d(u\_{k+1}, u\_k) = 0.
 * Théorème de Montel.
 * Théorème de Runge.
-* Théorème de Brouwer en dimension $ 2$ via l'homotopie.
+* Théorème de Brouwer en dimension 2 ,via l'homotopie.
 * Théorème de Lie-Kolchin.
-* La notion de classes dans $L^p$.
+* La notion de classes dans L^p.
 * Théorème de Fischer-Riesz.
 * Processus de Galton-Watson.
 * Théorème d'inversion locale.
 * Théorème de Picard et l'inséparable théorème de Cauchy-Lipschitz.
-* Prolongement méromorphe de la fonction $\Gamma$ d'Euler.
+* Prolongement méromorphe de la fonction Gamma d'Euler.
 * Théorème de Tietze.
 * Extrema liés.
 * Les théorèmes sur les fonctions définies par des intégrales.
@@ -212,4 +212,3 @@ This is the argument of my PhD thesis.
 * Fonction continue et périodique dont la série de Fourier ne converge pas.
 * Estimation des grands écarts.
 * Théorème de Banach-Steinhaus.
-
