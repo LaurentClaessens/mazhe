@@ -1,5 +1,5 @@
 from phystricks import *
-def FonctionXtrois():
+def FonctionXtroisOM():
 	pspict,fig = SinglePicture("FonctionXtroisOM")
 
 	x=var('x')

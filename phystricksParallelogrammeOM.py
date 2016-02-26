@@ -1,5 +1,5 @@
 from phystricks import *
-def Parallelogramme():
+def ParallelogrammeOM():
     pspict,fig = SinglePicture("ParallelogrammeOM")
 
     O=Point(0,0)

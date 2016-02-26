@@ -1,5 +1,5 @@
 from phystricks import *
-def DerivTangente():
+def DerivTangenteOM():
 	pspict,fig = SinglePicture("DerivTangenteOM")
 
 	a=3

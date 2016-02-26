@@ -1,6 +1,6 @@
 from phystricks import *
-def SurfaceDerive():
-	pspict,fig = SinglePicture("SurfaceDeriveOM")
+def BQXKooPqSEMN():                # ex SurfaceDerive
+	pspict,fig = SinglePicture("BQXKooPqSEMN")       # ex SurfaceDeriveOM   (tu notes le clash de noms)
 
 	mx = -0.5
 	Mx = 7

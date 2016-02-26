@@ -1,5 +1,5 @@
 from phystricks import *
-def FonctionEtDerive():
+def FonctionEtDeriveOM():
 	pspict,fig = SinglePicture("FonctionEtDeriveOM")
 
 	x=var('x')

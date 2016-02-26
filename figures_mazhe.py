@@ -103,7 +103,7 @@ from phystricksExoMagnetique import ExoMagnetique
 from phystricksCurvilignesPolaires import CurvilignesPolaires
 from phystricksRefraction import Refraction
 from phystricksMomentForce import MomentForce
-from phystricksParallelogramme import Parallelogramme
+from phystricksParallelogrammeOM import ParallelogrammeOM
 from phystricksDivergenceTrois import DivergenceTrois
 from phystricksDivergenceDeux import DivergenceDeux
 from phystricksDivergenceUn import DivergenceUn
@@ -114,10 +114,9 @@ from phystricksNiveauHyperbole import NiveauHyperbole
 from phystricksNiveauHyperbole import NiveauHyperboleDeux
 from phystricksBateau import Bateau
 from phystricksFonctionXtrois import FonctionXtrois
-from phystricksFonctionEtDerive import FonctionEtDerive
-from phystricksSurfaceDerive import SurfaceDerive
+from phystricksFonctionEtDeriveOM import FonctionEtDeriveOM
 from phystricksRechercheTangente import VGZooJnvvZc
-from phystricksDerivTangente import DerivTangente
+from phystricksDerivTangenteOM import DerivTangenteOM
 from phystricksCoordPolaires import CoordPolaires
 from phystricksDefinitionCartesiennes import DefinitionCartesiennes
 from phystricksProjectionScalaire import ProjectionScalaire
@@ -218,6 +217,12 @@ from phystricksDS2010ExoGraph import DS2010ExoGraph
 from phystricksSolsEqDiffSin import SolsEqDiffSin
 from phystricksSolsSinpA import SolsSinpA
 from phystricksTrajs import Trajs
+from phystrickBQXKooPqSEMN import BQXKooPqSEMN
+from phystricksooIHLPooKLIxcH import ooIHLPooKLIxcH
+
+# Naming inconstancies fixing.   February 26, 2016
+#   SurfaceDerive  replaced by BQXKooPqSEM
+#   ArcCercleAngle replaced by ooIHLPooKLIxcH
 
 # Suppression août 2014
 #from figure_devoir1 import exercice1A1
@@ -253,10 +258,11 @@ figures_list.append(Laurin)
 figures_list.append(ChampGraviation)
 figures_list.append(FnCosApprox)
 figures_list.append(Bateau)
-figures_list.append(FonctionXtrois)
-figures_list.append(FonctionEtDerive)
-figures_list.append(SurfaceDerive)
-figures_list.append(DerivTangente)
+figures_list.append(FonctionXtroisOM)
+figures_list.append(FonctionEtDeriveOM)
+#figures_list.append(SurfaceDerive)         # Suppressed for a name clash February 26, 2016
+figures_list.append(BQXKooPqSEMN)           # This one replaces SurfaceDerive
+figures_list.append(DerivTangenteOM)
 figures_list.append(ExoUnSurxPolaire)
 figures_list.append(DessinLim)
 figures_list.append(ExoProjection)
@@ -301,7 +307,7 @@ figures_list.append(ExoVarj)
 figures_list.append(TriangleUV)
 figures_list.append(DefinitionCartesiennes)
 figures_list.append(CoordPolaires)
-figures_list.append(Parallelogramme)
+figures_list.append(ParallelogrammeOM)
 figures_list.append(CbCartTui)
 figures_list.append(CbCartTuii)
 figures_list.append(CbCartTuiii)
