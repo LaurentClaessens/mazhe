@@ -5,7 +5,7 @@ def DDCTooYscVzA():
     x=var('x')
     contour=PolarCurve(1+cos(x)*sin(x)).graph(0,2*pi)
 
-    pts = contour.getRegularLengthParameter(0,2*pi,1,initial_point=True)
+    pts = contour.getRegularLengthParameters(0,2*pi,1,initial_point=True)
 
     for llam in pts:
         t = contour.get_tangent_vector(llam).fix_size(0.5)

@@ -550,3 +550,104 @@ Donc même en prenant vraiment n'importe quoi pour \( I_N\), nous obtenons de bo
     Nous avons $A=10^{-30}$, mais \( x^2\) donne un \info{underflow} parce que \( 10^{-60}\) ne peut pas être représenté en précision simple. En pratique, beaucoup de logiciels en font \( 0\). Dans ce cas, en réalité \( B\) donne effectivement \( 10^{-30}\) après avoir fait \( x^2+x=0+x=10^{-30}\).
 \end{exercice}
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Équations non linéaire}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Certains équations non linéaires sont résoluble explicitement, par exemples les polynômes de degré jusqu'à \( 4\) ou des choses comme
+\begin{equation}
+    \sin^2(x)+3\sin(x)+5=0.
+\end{equation}
+Mais ces exemples sont très rares.
+
+Nous allons étudier des équations du type \( f(x)=0\), dans \( \eR\). 
+
+\begin{enumerate}
+    \item
+Un problème écrit sous la forme \( x=g(x)\) peut utiliser des théorèmes de points fixes.
+\item
+    Un problème sous la forme \( f(x)=0\) peut utiliser des méthodes de bisection, Newton ou autres.
+\end{enumerate}
+Il y a évidemment beaucoup de façons de transformer un problème pour passer d'une forme à l'autre.
+
+\begin{example}
+    Soit \( f(x)=x^2-a=0\) avec \( a>0\). Nous pouvons l'écrire
+    \begin{equation}
+        x^2+x-a=x
+    \end{equation}
+    qui donne une forme \( g(x)=x\) pour \( g(x)=x^2+x-a\).
+
+    Ou encore \( x=\frac{ a }{ x }\) et donc \( g(x)=a/x\) (si par ailleurs on sait que \( x\neq 0\)). Notons que \( x\neq 0\) n'est pas une hypothèse très forte parce qu'on la vérifie directement sur \( a\).
+\end{example}
+
+\begin{example}
+    Soit l'équation à résoudre
+    \begin{equation}
+        f(x)=x^2-2-\ln(x)=0
+    \end{equation}
+    Les solutions de cette équations peuvent être vues comme les intersections avec l'axe \( X\) du graphe \( y=x^2-2-\ln(x)\). Tracer peut donc aider. Par ailleurs, il faut noter que
+    \begin{equation}
+        \lim_{x\to \pm\infty} f(x)=\infty,
+    \end{equation}
+    donc les solutions sont certainement contenues dans un compact de \( \eR\).
+
+    À part tracer nous pouvons écrire
+    \begin{equation}
+        x^2-2=\ln(x).
+    \end{equation}
+    Et là, ce sont deux fonctions dont nous pouvons tracer le graphe pour trouver graphiquement les points d'intersection. Une étude de fonction montre vite qu'il y a exactement deux solutions, qu'elles sont strictement positives. Pour trouver des bornes, il faut calculer par exemple pour \( x=2\) les valeurs de \( \ln(x)\) et \( x^2-2\) pour voir si le graphe de \( x^2-2\) est déjà plus haut.
+\end{example}
+
+La majorité des méthodes numériques de résolution d'équation du type \( f(x)=0\) ou \( x=g(x)\) seront sous la forme de suites. Avec questions à la clefs :
+\begin{enumerate}
+    \item
+        Quel point de départ choisir ?
+    \item
+        Convergence ?
+    \item
+        Est-ce que la limite est bien une solution ?
+    \item
+        Vu que la limite est unique, comment faire si l'équation a plusieurs solutions ? (souvent c'est le choix du point initial qui va jouer sur ce point)
+\end{enumerate}
+
+\begin{normaltext}
+    Si la fonction est très plate, il est possible d'avoir
+    \begin{equation}
+        | f(\tilde \alpha) |\leq \epsilon
+    \end{equation}
+    sans que \( \tilde \alpha\) ne soit une bonne approximation.
+
+    Lorsqu'on fait tourner une méthode itérative résolvant \( f(x)=0\), il n'est pas suffisant de s'arrêter lorsque
+    \begin{equation}
+        f(x_n)\leq \epsilon_1.
+    \end{equation}
+    Il faut aussi s'assurer que, si \( \bar x\) est la solution exacte, \( | x_n-\bar x |\leq \epsilon_2\). Ici \( \epsilon_1\) et \( \epsilon_2\) sont deux «précisions» que nous nous fixons au départ.
+
+    Évidemment, vérifier la condition \( | x_n-\bar x |\leq \epsilon_2\), il faudrait savoir \( \bar x\). Et savoir \( \bar x\) c'est justement le problème. Nous sommes donc amenés à faire des estimation de \( | x_n-\bar x |\).
+\end{normaltext}
+
+Soit \( p\) l'ordre de convergence de la suite \( (x_n)\) vers \( \bar x\). Si \( p>1\) et \( | x_{n+1}-x_n |\leq \epsilon_2\) alors \( | \bar x-x_n |\leq \epsilon_2\).
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Méthode de bisection}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Il y a ce théorème des valeurs intermédiaires.
+\begin{theorem}
+    Soit \( f\) continue sur \( \mathopen[ a , b \mathclose]\) telle que \( f(a)f(b)<0\). Alors il existe au moins une solution à l'équation \( f(x)=0\) sur l'intervalle \( \mathopen] a , b \mathclose[\).
+\end{theorem}
+
+Pour démarrer une bisection, il est toujours bon de prendre l'intervalle \( \mathopen[ a , b \mathclose]\) de façon à ne contenir qu'une seule solution.
+
+Soit donc un premier intervalle \( \mathopen[ a_0 , b_O \mathclose]\) tel que \( f(a_0)f(b_0)<0\) et ne contenant qu'une seule solution. À chaque itération nous considérons la moitié de l'intervalle précédent, mais la moitié contenant la solution.
+
+Le test d'arrêt de la méthode de bisection se base uniquement sur la taille de l'intervalle qui reste. En effet si nous avons
+\begin{equation}
+    | b_n-a_n |\leq \epsilon
+\end{equation}
+nous avons certainement
+\begin{equation}
+    | \bar x-x_n |\leq \frac{ \epsilon }{2}
+\end{equation}
+où \( x_n\) est le point du milieu de \( \mathopen[ a_n , b_n \mathclose]\).
+
