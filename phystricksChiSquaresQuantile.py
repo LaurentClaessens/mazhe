@@ -7,7 +7,7 @@ def ChiSquaresQuantile():
     mx=0
     Mx=30
     f=phyFunction(RealDistribution("chisquared",10).distribution_function).graph(mx,Mx)
-    f.parameters.plotpoints=200
+    f.linear_plotpoints=200
 
     bb=f.bounding_box(pspict)
 

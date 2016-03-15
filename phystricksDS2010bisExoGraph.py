@@ -91,7 +91,7 @@ def DS2010bisExoGraph():
     pspict[3].DrawDefaultAxes()
     pspict[3].dilatation(.7)
 
-    F5.parameters.plotpoints=1000
+    F5.linear_plotpoints=1000
     pspict[4].DrawGraph(F5)
     pspict[4].axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict[4].axes.Dx=0.5

@@ -38,7 +38,7 @@ def SurfaceHorizVerti():
     g1=ParametricCurve(f1,x).graph(a,b)   
     g2=ParametricCurve(f2,x).graph(a,b)   
 
-    region=SurfaceBetweenParametricCurves(g1,g2)
+    region=SurfaceBetweenParametricCurves(g1,g2,interval=(a,b))
 
     g1.parameters.style="solid"
     g1.parameters.color="blue"
@@ -65,6 +65,7 @@ def SurfaceHorizVerti():
         pspicture.axes.no_graduation()
     pspict[1].DrawDefaultAxes()
     pspict[1].dilatation(1)
+    pspict[0].comment="The bounding box is drawn and correct."
 
     fig.conclude()
     fig.write_the_file()

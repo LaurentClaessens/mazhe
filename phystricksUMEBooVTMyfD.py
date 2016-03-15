@@ -15,7 +15,7 @@ def UMEBooVTMyfD():
     f=phyFunction(expo(l)).graph(0,10)
     pspict.DrawGraphs(f)
 
-    pspict.comment="Une courbe est tracée, prouvant qu'on peut utiliser phyFunction sur une fonction, et non seulement sur une expression."
+    pspict.comment="One curve is drawn"
     pspict.DrawDefaultAxes()
     fig.no_figure()
     fig.conclude()

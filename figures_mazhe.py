@@ -7,6 +7,7 @@ import sys
 from phystricksUMEBooVTMyfD import UMEBooVTMyfD
 from phystricksUIEHooSlbzIJ import UIEHooSlbzIJ
 from phystricksYYECooQlnKtD import YYECooQlnKtD
+from phystricksUGCFooQoCihh import UGCFooQoCihh
 from phystricksWIRAooTCcpOV import WIRAooTCcpOV
 from phystricksHFAYooOrfMAA import HFAYooOrfMAA
 from phystricksVBOIooRHhKOH import VBOIooRHhKOH
@@ -107,13 +108,12 @@ from phystricksParallelogrammeOM import ParallelogrammeOM
 from phystricksDivergenceTrois import DivergenceTrois
 from phystricksDivergenceDeux import DivergenceDeux
 from phystricksDivergenceUn import DivergenceUn
-from phystricksArcCercleAngle import ArcCercleAngle
 from phystricksChampGraviation import ChampGraviation
 from phystricksFnCosApprox import FnCosApprox
 from phystricksNiveauHyperbole import NiveauHyperbole
 from phystricksNiveauHyperbole import NiveauHyperboleDeux
 from phystricksBateau import Bateau
-from phystricksFonctionXtrois import FonctionXtrois
+from phystricksFonctionXtroisOM import FonctionXtroisOM
 from phystricksFonctionEtDeriveOM import FonctionEtDeriveOM
 from phystricksRechercheTangente import VGZooJnvvZc
 from phystricksDerivTangenteOM import DerivTangenteOM
@@ -217,11 +217,11 @@ from phystricksDS2010ExoGraph import DS2010ExoGraph
 from phystricksSolsEqDiffSin import SolsEqDiffSin
 from phystricksSolsSinpA import SolsSinpA
 from phystricksTrajs import Trajs
-from phystrickBQXKooPqSEMN import BQXKooPqSEMN
+from phystricksBQXKooPqSEMN import BQXKooPqSEMN
 from phystricksooIHLPooKLIxcH import ooIHLPooKLIxcH
 
 # Naming inconstancies fixing.   February 26, 2016
-#   SurfaceDerive  replaced by BQXKooPqSEM
+#   SurfaceDerive  replaced by BQXKooPqSEMN
 #   ArcCercleAngle replaced by ooIHLPooKLIxcH
 
 # Suppression août 2014
@@ -238,6 +238,7 @@ from phystricksooIHLPooKLIxcH import ooIHLPooKLIxcH
 #from phystricksDS2010bisExoGraph import DS2010bisExoGraph
 
 figures_list=[]
+figures_list.append(ooIHLPooKLIxcH)
 figures_list.append(MoulinEau)
 figures_list.append(QOBAooZZZOrl)
 figures_list.append(IntegraleSimple)
@@ -252,7 +253,6 @@ figures_list.append(SurfaceEntreCourbes)
 figures_list.append(DivergenceTrois)
 figures_list.append(DivergenceDeux)
 figures_list.append(DivergenceUn)
-figures_list.append(ArcCercleAngle)
 figures_list.append(ExoXLVL)
 figures_list.append(Laurin)
 figures_list.append(ChampGraviation)
@@ -260,8 +260,7 @@ figures_list.append(FnCosApprox)
 figures_list.append(Bateau)
 figures_list.append(FonctionXtroisOM)
 figures_list.append(FonctionEtDeriveOM)
-#figures_list.append(SurfaceDerive)         # Suppressed for a name clash February 26, 2016
-figures_list.append(BQXKooPqSEMN)           # This one replaces SurfaceDerive
+figures_list.append(BQXKooPqSEMN)           # Replaces SurfaceDerive
 figures_list.append(DerivTangenteOM)
 figures_list.append(ExoUnSurxPolaire)
 figures_list.append(DessinLim)
@@ -449,9 +448,9 @@ figures_list.append(HFAYooOrfMAA)
 figures_list.append(WIRAooTCcpOV)
 figures_list.append(YYECooQlnKtD)
 figures_list.append(UIEHooSlbzIJ)
+figures_list.append(UGCFooQoCihh)
 figures_list.append(UMEBooVTMyfD)
 """
-figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)

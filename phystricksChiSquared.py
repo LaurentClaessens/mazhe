@@ -5,7 +5,7 @@ def ChiSquared():
     pspict.dilatation_Y(50)
 
     f=phyFunction(RealDistribution("chisquared",10).distribution_function).graph(0,30)
-    f.parameters.plotpoints=1000
+    f.linearr_plotpoints=1000
 
     pspict.DrawGraphs(f)
     pspict.axes.single_axeX.Dx=5

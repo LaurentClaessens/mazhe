@@ -4,7 +4,7 @@ def PartieEntiere():
 
 	x=var('x')
 	f=phyFunction(floor(x)).graph(-2,3)
-        f.parameters.plotpoints=1000
+        f.linear_plotpoints=1000
 
 	pspict.DrawGraphs(f)
 	pspict.DrawDefaultAxes()

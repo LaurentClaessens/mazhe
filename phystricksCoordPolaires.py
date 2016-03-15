@@ -9,10 +9,10 @@ def CoordPolaires():
 
 	angle=Angle(X,O,M)
 
-	angle.put_mark(0.3,None,r"$\theta$",automatic_place=pspict)
+	angle.put_mark(0.3,None,r"$\theta$",automatic_place=(pspict,""))
 
 	milieu=vecteur.center()
-	milieu.put_mark(0.2,milieu.advised_mark_angle(pspict),"$r$",automatic_place=pspict)
+	milieu.put_mark(0.2,milieu.advised_mark_angle(pspict),"$r$",automatic_place=(pspict,""))
 
 	milieu.parameters.symbol=""
 	M.parameters.symbol=""

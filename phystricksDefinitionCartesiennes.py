@@ -4,7 +4,7 @@ def DefinitionCartesiennes():
 
 	def PlacePoint(x,y,color):
 		M=Point(x,y)
-		M.put_mark(0.1,M.angle(),"$(%s,%s)$"%(str(x),str(y)),automatic_place=pspict)
+		M.put_mark(0.1,M.angle(),"$(%s,%s)$"%(str(x),str(y)),automatic_place=(pspict,""))
 		v=Vector(M)
 		v.parameters.color=color
 		Px=M.projection(pspict.single_axeX)

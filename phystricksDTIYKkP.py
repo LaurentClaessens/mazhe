@@ -15,24 +15,24 @@ def DTIYKkP():
     ptP = f.get_point(-4.5)
     V = AffineVector(ptP,Point(ptP.x+2,ptP.y+0.25))
 
-    ptO.parameters.color = "blue"
-    ptO.put_mark(0.8,0,"$o=[\mtu]$",automatic_place=pspict)
+    ptO.parameters.color = "brown"
+    ptO.put_mark(0.2,None,"$o=[\mtu]$",automatic_place=pspict)
     ptB.parameters.symbol = ""
-    ptB.put_mark(0.7,0,"$[\SO(2)]$",automatic_place=pspict)
+    ptB.put_mark(0.2,0,"$[\SO(2)]$",automatic_place=pspict)
     #pspict.DrawBoundingBox(B)
     ptP.parameters.color = "blue"
     ptP.parameters.symbol = ""
-    ptP.put_mark(0.7,135,"$[ e^{xq_0}]$",automatic_place=pspict)
+    ptP.put_mark(0.2,None,"$[ e^{xq_0}]$",automatic_place=pspict)
 
     pspict.DrawGraph(F)
     # See phystricks.PspictureToOtherOutputs.specific_needs
-    pspict.specific_needs="\usepackage{bbm}\n  \usepackage{latexsym}\n\usepackage{amsfonts}\n\usepackage[reqno]{amsmath}\n\usepackage{amsthm}\n\usepackage{amssymb}\n\usepackage{amssymb}\n  \\newcommand{\mtu}{\mathbbm{1}}\n \DeclareMathOperator{\SO}{SO}"
+    #pspict.specific_needs="\usepackage{bbm}\n  \usepackage{latexsym}\n\usepackage{amsfonts}\n\usepackage[reqno]{amsmath}\n\usepackage{amsthm}\n\usepackage{amssymb}\n\usepackage{amssymb}\n  \\newcommand{\mtu}{\mathbbm{1}}\n \DeclareMathOperator{\SO}{SO}"
 
     pspict.DrawGraph(ptO)
     pspict.DrawGraph(ptB)
 
     V.parameters.color = "cyan"
-    V.put_mark(0.5,-45,"$[ e^{sE(w)} e^{xq_0}]$",automatic_place=pspict)
+    V.put_mark(0.2,-45,"$[ e^{sE(w)} e^{xq_0}]$",automatic_place=pspict)
 
     pspict.DrawGraph(V)
     pspict.DrawGraph(ptP)           # Drawn after by purpose.
@@ -40,3 +40,4 @@ def DTIYKkP():
 
     fig.conclude()
     fig.write_the_file()
+

@@ -39,7 +39,7 @@ def QOBAooZZZOrl():
     #moyenne_surface.parameters.color="red"
 
     for psp in pspict:
-        psp.comment="Une surface doit être remplie"
+        psp.comment="Filled area in brown, cyan and red"
     pspict[0].DrawGraphs(f1,f2,grande_surface)
     pspict[1].DrawGraphs(f1,f2,petite_surface)
     pspict[2].DrawGraphs(f1,f2,moyenne_surface)

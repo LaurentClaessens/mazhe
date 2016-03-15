@@ -10,7 +10,7 @@ def DynkinrjbHIu():
     B.parameters.symbol="o"
     seg=Segment(A,B)
 
-    A.put_mark(0.2,90,"\( 1\)",automatic_place=pspict)
+    A.put_mark(0.2,90,"\( 1\)",automatic_place=(pspict,""))
 
     pspict.DrawGraphs(seg,A,B)
     fig.no_figure()

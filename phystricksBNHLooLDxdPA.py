@@ -6,8 +6,8 @@ def BNHLooLDxdPA():
 
     a=Vector(3,0)
     b=Vector(2,2)
-    a.put_mark(0.3,-45,"$a$",automatic_place=pspict)
-    b.put_mark(0.3,90,"$b$",automatic_place=pspict)
+    a.put_mark(0.3,-45,"$a$",automatic_place=(pspict,""))
+    b.put_mark(0.3,90,"$b$",automatic_place=(pspict,""))
 
     C=(a+b).F
 
@@ -21,10 +21,10 @@ def BNHLooLDxdPA():
 
     h=Segment(b.F,D)
     h.parameters.style="dashed"
-    h.put_mark(0.2,0,"$h$",automatic_place=pspict)
+    h.put_mark(0.2,0,"$h$",automatic_place=(pspict,""))
 
     theta=Angle(D,O,b.F)
-    theta.put_mark(0.3,None,r"$\theta$",automatic_place=pspict)
+    theta.put_mark(0.3,None,r"$\theta$",automatic_place=(pspict,""))
 
     pspict.DrawGraphs(a,b,C,l1,l2,h,theta,D)
     #pspict.DrawDefaultAxes()

@@ -19,6 +19,7 @@ def examssepti():
     vert.parameters.style="dotted"
 
     surface=SurfaceBetweenFunctions(f1,f2,mx=-x0,Mx=b)
+    surface.parameters.hatched()
     surface.Fsegment.parameters.style="dotted"
     surface.parameters.color="green"
 

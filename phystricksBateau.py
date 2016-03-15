@@ -12,9 +12,9 @@ def Bateau():
 	J=Point(4,0)
 	K=Point(B.x,A.y)
 
-	A.put_mark(0.3,90,"$A$",automatic_place=pspict)
-	B.put_mark(0.3,90,"$B$",automatic_place=pspict)
-	Bp.put_mark(0.3,-90,"$B'$",automatic_place=pspict)
+	A.put_mark(0.3,90,"$A$",automatic_place=(pspict,""))
+	B.put_mark(0.3,90,"$B$",automatic_place=(pspict,""))
+	Bp.put_mark(0.3,-90,"$B'$",automatic_place=(pspict,""))
 
 	plage=Segment(O,J).dilatation(1.5)
 
@@ -28,9 +28,9 @@ def Bateau():
 	trois.put_mark(0.1,180,"$\unit{3}{\kilo\meter}$",automatic_place=(pspict,"E"))
 
 	I=Intersection( Segment(A,Bp),plage )[0]
-	I.put_mark(0.3,45,"$I$",automatic_place=pspict)
+	I.put_mark(0.3,45,"$I$",automatic_place=(pspict,""))
 	ixe=MeasureLength(Segment(O,I),0.2)
-	ixe.put_mark(0.1,-90,"$x\kilo\meter$",automatic_place=(pspict,"N"))
+	ixe.put_mark(0.1,-90,"$x\si{\kilo\meter}$",automatic_place=(pspict,"N"))
 
 
 	proj=Segment(B,Bp)

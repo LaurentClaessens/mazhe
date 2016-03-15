@@ -40,7 +40,7 @@ def HCJPooHsaTgI():
     g1=ParametricCurve(f1,x).graph(a,b)   
     g2=ParametricCurve(f2,x).graph(a,b)   
 
-    region=SurfaceBetweenParametricCurves(g1,g2)
+    region=SurfaceBetweenParametricCurves(g1,g2,inverval=(a,b))
 
     g1.parameters.style="solid"
     g1.parameters.color="blue"

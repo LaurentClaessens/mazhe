@@ -9,7 +9,7 @@ def senotopologo():
 
     x=var('x')
     f=phyFunction(x*sin(1/x**2)).graph(-4,4)
-    f.parameters.plotpoints=2000
+    f.linear_plotpoints=2000
 
     pspict.DrawGraphs(f)
     pspict.DrawDefaultAxes()

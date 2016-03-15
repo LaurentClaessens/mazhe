@@ -12,10 +12,10 @@ def ExoCourone():
     B.put_mark(0.2,45,"$R_2$",automatic_place=pspict)
 
     x=var('x')
-    curve1=ParametricCurve(Ra*cos(x),Ra*sin(x)).graph(0,2*pi)
-    curve2=ParametricCurve(Rb*cos(x),Rb*sin(x)).graph(0,2*pi)
+    curve1=ParametricCurve(Ra*cos(x),Ra*sin(x))
+    curve2=ParametricCurve(Rb*cos(x),Rb*sin(x))
 
-    surface=SurfaceBetweenParametricCurves(curve1,curve2)
+    surface=SurfaceBetweenParametricCurves(curve1,curve2,interval=(0,2*pi))
     surface.parameters.filled()
     surface.parameters.fill.color="cyan"
     surface.Fsegment.parameters.style="none"
@@ -28,6 +28,7 @@ def ExoCourone():
     pspict.axes.no_graduation()
     pspict.DrawDefaultAxes()
     pspict.dilatation(1)
+    pspict.comment="Une couronne"
 
     fig.conclude()
     fig.write_the_file()

@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 from phystricks import *
 def TKXZooLwXzjS():
-    pspict,fig = SinglePicture("DivergenceUn")
+    pspict,fig = SinglePicture("TKXZooLwXzjS")
 
     x,y=var('x,y')
     Fx=phyFunction(1/x)

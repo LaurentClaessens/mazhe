@@ -1,6 +1,7 @@
 from phystricks import *
 def BiaisOuPas():
     pspict,fig = SinglePicture("BiaisOuPas")
+    pspict.dilatation(2.5)
 
     
     x=var('x')
@@ -10,18 +11,17 @@ def BiaisOuPas():
     f1=normale(0,1)
     f2=normale(-0.2,0.2)
 
-    f2.parameters.plotpoints=1000
+    f2.linea_plotpoints=1000
 
     a=0.5
     I=Segment(Point(-a,0),Point(a,0))
     measure=MeasureLength(I,0.2)
-    measure.put_mark(0.3,measure.advised_mark_angle(pspict),"\( I\)",automatic_place=pspict)
+    measure.put_mark(0.3,measure.advised_mark_angle(pspict),"\( I\)",automatic_place=(pspict,""))
     measure.parameters.color="cyan"
 
     f2.parameters.color="red"
 
     pspict.DrawGraphs(f1,f2,measure)
     pspict.DrawDefaultAxes()
-    pspict.dilatation(2.5)
     fig.conclude()
     fig.write_the_file()

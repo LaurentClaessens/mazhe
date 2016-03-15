@@ -18,7 +18,9 @@ def QXyVaKD():
     segment=s1.dilatation(2)
     segment.parameters.color="red"
 
-    surface=SurfaceBetweenParametricCurves( s1,circle, (0,s1.length()) , (-pi/2,radian(alpha)) )
+    surface=SurfaceBetweenParametricCurves( s1,circle, interval1=(0,s1.length()) , interval2=(-pi/2,radian(alpha)) )
+    surface.parameters.filled()
+    surface.parameters.fill.color="cyan"
     surface.parameters.color="cyan"
     surface.curve1.parameters.style="solid"
     surface.curve1.parameters.color="red"
@@ -29,5 +31,6 @@ def QXyVaKD():
     pspict.axes.no_graduation()
     pspict.DrawDefaultAxes()
     pspict.dilatation(2)
+    pspict.comment="Area filled in cyan"
     fig.conclude()
     fig.write_the_file()

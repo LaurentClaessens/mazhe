@@ -17,7 +17,7 @@ def HFAYooOrfMAA():
     segment=s1.dilatation(2)
     segment.parameters.color="red"
 
-    surface=SurfaceBetweenParametricCurves(  s1,circle,(0,s1.length()) , (-pi/2,radian(alpha)) )
+    surface=SurfaceBetweenParametricCurves(  s1,circle,interval1=(0,s1.length()) , interval2=(-pi/2,radian(alpha)) )
     surface.parameters.filled()
     surface.parameters.fill.color="cyan"
     surface.curve1.parameters.style="solid"

@@ -16,12 +16,12 @@ def DessinLim():
     c=P.projection(pspict.axes.single_axeX)
 
 
-    P.put_mark(0.3,0,"\( P\)",automatic_place=pspict)
-    T.put_mark(0.1,0,"\( T\)",automatic_place=pspict)
-    O.put_mark(0.1,135,"\( O\)",automatic_place=pspict)
+    P.put_mark(0.3,0,"\( P\)",automatic_place=(pspict,""))
+    T.put_mark(0.1,0,"\( T\)",automatic_place=(pspict,""))
+    O.put_mark(0.1,135,"\( O\)",automatic_place=(pspict,""))
     s.put_mark(0.1,180,"\( \sin(x)\)",automatic_place=(pspict,"E"))
     c.put_mark(0.1,-90,"\( \cos(x)\)",automatic_place=(pspict,"N"))
-    A.put_mark(0.1,-60,"\( A\)",automatic_place=pspict)
+    A.put_mark(0.1,-60,"\( A\)",automatic_place=(pspict,""))
 
     sP=Segment(s,P)
     sP.parameters.style="dashed"
