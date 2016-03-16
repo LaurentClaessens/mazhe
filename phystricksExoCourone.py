@@ -1,6 +1,7 @@
 from phystricks import *
 def ExoCourone():
     pspict,fig = SinglePicture("ExoCourone")
+    pspict.dilatation(1)
 
     Ra=1
     Rb=2
@@ -27,7 +28,6 @@ def ExoCourone():
     pspict.DrawGraphs(surface,A,B)
     pspict.axes.no_graduation()
     pspict.DrawDefaultAxes()
-    pspict.dilatation(1)
     pspict.comment="Une couronne"
 
     fig.conclude()
