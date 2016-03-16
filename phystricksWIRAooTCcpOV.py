@@ -2,6 +2,7 @@
 from phystricks import *
 def WIRAooTCcpOV():
         pspict,fig = SinglePicture("WIRAooTCcpOV")
+	pspict.dilatation(0.7)
 	x=var('x')
 	mx=-5
 	Mx=5
@@ -15,6 +16,5 @@ def WIRAooTCcpOV():
 
 	pspict.DrawGraphs(f,g)
 	pspict.DrawDefaultAxes()
-	pspict.dilatation(0.7)
 	fig.conclude()
 	fig.write_the_file()
