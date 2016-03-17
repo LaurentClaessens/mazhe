@@ -626,7 +626,19 @@ La majorité des méthodes numériques de résolution d'équation du type \( f(x
 	Évidemment, vérifier la condition \( | x_n-\bar x |\leq \epsilon_2\), il faudrait savoir \( \bar x\). Et savoir \( \bar x\) c'est justement le problème. Nous sommes donc amenés à faire des estimation de \( | x_n-\bar x |\).
 \end{normaltext}
 
+\begin{normaltext}
+    Lorsque nous effectuons une méthode itérative, il faut donc contrôler deux grandeurs :
+    \begin{subequations}
+        \begin{align}
+            | \bar x-x_n |\leq \epsilon_1\\
+            | x_{n+1}-x_n |\leq \epsilon_2.
+        \end{align}
+    \end{subequations}
+\end{normaltext}
+
+\begin{proposition}
 Soit \( p\) l'ordre de convergence de la suite \( (x_n)\) vers \( \bar x\). Si \( p>1\) et \( | x_{n+1}-x_n |\leq \epsilon_2\) alors \( | \bar x-x_n |\leq \epsilon_2\).
+\end{proposition}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Méthode de bisection}
@@ -650,4 +662,118 @@ nous avons certainement
 	| \bar x-x_n |\leq \frac{ \epsilon }{2}
 \end{equation}
 où \( x_n\) est le point du milieu de \( \mathopen[ a_n , b_n \mathclose]\).
+
+\begin{normaltext}
+    La fonction \( f\) n'intervient dans la méthode que via son signe, pas via ses valeurs exactes.
+\end{normaltext}
+
+\begin{normaltext}
+    Notons que le théorème des valeurs intermédiaires n'est pas très puissant pour choisir l'intervalle de départ; penser à la fonction
+    \begin{equation}
+        f(x)=x^2-5
+    \end{equation}
+    sur l'intervalle \( \mathopen[ -10 , 10 \mathclose]\). Il y a bien deux solutions dans l'intervalle, mais elles sont invisibles du théorème des valeurs intermédiaires. La fonction \( x\mapsto x^2\) a sa solution en \( x=0\), mais elle aussi n'est pas visible.
+\end{normaltext}
+
+\begin{normaltext}
+    Certes la méthodes de bisection assure la convergence vers une solution, mais elle n'assure pas la convergence monotone. Il peut arriver que \( | \bar x-x_n |<| \bar x-x_{n+1} |\). C'est le cas lorsque la solution est très proche du milieu de l'intervalle choisit. Le \( x_0\) est alors proche de \( \bar x\) alors que \( x_1\) sera à une distance de \( \bar x\) d'environ un quart de l'intervalle de départ.
+\end{normaltext}
+
+Supposons déjà avoir trouvé un intervalle \( \mathopen[ a , b \mathclose]\) dans lequel se trouve une unique solution à \( f(x)=0\). Voici un algorithme possible.
+
+
+\lstinputlisting{codeSnip_1.py}
+
+Plusieurs remarques :
+\begin{enumerate}
+    \item
+Le fait de retourner le nombre d'itérations effectuées permet à l'utilisateur de savoir la précision et si le nombre maximum d'itérations est dépassé. Si ce \info{n} retourné est égal à \info{nmax}, l'utilisateur sait que le \info{x} retourné n'est pas fiable.
+\item
+    La ligne \info{from \_\_future\_\_ import division} fait en sorte que l'opération \info{/} est bien la division usuelle. Sinon, le défaut en python 2 est que \info{/} soit la division \emph{entière}, c'est à dire que \( 1/2=0\) en python 2.o
+    En python 3, le symbole \info{/} désigne bien la division usuelle, mais Sage utilise Python 2.
+\item
+    Même si l'intervalle \( \mathopen[ a , b \mathclose]\) contient plus d'une solution, la méthode fonctionne et donne une solution. Il est simplement éventuellement très compliqué de savoir laquelle.
+\item
+    Nous faisons \info{amp=toll+1} parce que nous voulons absolument lancer le cycle au moins une fois. Sinon, le \info{x} à retourner ne serait pas définit au moment de sortir du cycle (si le cycle n'est pas exécuté).
+\item
+    Calculer le point milieu d'un intervalle \( \mathopen[ a , b \mathclose]\) est par la formule \( (a+b)/2\) sauf que cette opération est numériquement dangereuse parce qu'à cause de l'arithmétique en précision finie, il est possible que cela tombe \emph{exactement} sur \( a\) ou \( b\). D'où le fait de calculer le point milieu par
+    \begin{equation}
+        x=a+\frac{ amp }{2}.
+    \end{equation}
+\item
+    Dans le cas \info{Problème ZERO} nous déduisons \( f(x)=0\). Attention que c'est pas que \( f(x)=0\) mais simplement que en mettant \( x\) dans \( f\), la \emph{machine} retourne son zéro.
+
+    Il peut cependant avoir une fonction telle que \( f(1)=10^{-50}\) et \( f(2)=0\). L'algorithme de bisection risque de s'arrêter si \( x_n=1\). Parce que la machine risque de calculer \( f(x_n)=0\).
+
+    Quoi qu'il en soit, nous y mettons \info{amp=0} pour être sûr de sortir de la boucle dès la prochaine vérification.
+\item
+    Il y a moyen de sauver les valeurs de \( f(a)\) et \( f(x)\) pour ne pas les recalculer, et en particulier au moment de faire \info{b=x} nous pouvons poser \(\info{fa=fx}\).
+\end{enumerate}
+
+Si \( \tau\) est la précision de la solution voulue, nous pouvons fixer a priori le nombre d'itérations à faire grâce à la formule
+\begin{equation}
+    n\geq\left\lceil  \log_2\big( \frac{ b-a }{ \tau } \big)  \right\rceil.
+\end{equation}
+Il y a un ``\( \geq\)'' et non une égalité parce qu'en arithmétique numérique, le nombre obtenu à droite pourrait ne pas être le bon à \( 1\) près.
+
+Ici pour \( \nu\in \eR\) le nombre \( \lceil\nu\rceil\) est le plus petit entier à être plus grand ou égal à \( \nu\).
+
+\begin{normaltext}
+    Notons l'importance de la continuité de \( f\). Par exemple que ferait la bisection sur la fonction \( f(x)=1/x\) pour l'intervalle $\mathopen[ -3 , 1 \mathclose]$ ? 
+
+    Il y a changement de signe sans avoir de racine.
+\end{normaltext} 
+
+Vu que \( 2^{10}\) est déjà \( 1024\). Donc si on veut de la précision de l'ordre de \( 1/1000\), dix itération suffisent. Si donc nous avons besoin de \( 200\) itérations pour atteindre la précision voulue, c'est l'occasion de trouver un intervalle plus petit. Par exemple en traçant la fonction, en faisant un zoom et en trouvant des valeurs de \( a\) et \( b\) qui sont déjà proches.
+
+
+\begin{normaltext}
+    Dans le monde réel, il arrive souvent d'utiliser une méthode de bisection pour se donner un point de départ pour une autre méthode.
+\end{normaltext}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Un peu de points fixes}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Pour l'équation \( f(x)=0\), il existe une infinité de fonctions \( g\) pour lesquelles l'équation est équivalente à \( x=g(x)\).
+
+Exemple : \( f(x)=x^2-2-\ln(x)\), nous pouvons faire
+\begin{enumerate}
+    \item
+        \( x=x^2-2-\ln(x)+x\)
+    \item
+        Poser \( x^2=2+\ln(x)\) et donc
+        \begin{subequations}
+            \begin{align}
+                x=-\sqrt{2+\ln(x)}\\
+                x=\sqrt{2+\ln(x)}.
+            \end{align}
+        \end{subequations}
+    \item
+        Ou encore 
+        \begin{equation}
+            x=\frac{ 2+\ln(x) }{ x }
+        \end{equation}
+        où nous savons déjà que \( x\neq 0\) parce que \( x=0\) n'est pas dans le domaine de \( f\).
+    \item
+        Ou par l'exponentielle :
+        \begin{equation}
+            x= e^{x^2-2}.
+        \end{equation}
+\end{enumerate}
+Dans tous ces cas nous pouvons construire une suite \( (x_n)\) en posant un nombre arbitraire pour \( x_0\) et ensuite la récurrence 
+\begin{equation}
+    x_{n+1}=g(x_n).
+\end{equation}
+
+Graphiquement, la solution de l'équation est l'intersection entre les courbes \( y=x\) et \( y=g(x)\). Il est intéressant de faire le dessin.
+
+
+\begin{center}
+   \input{Fig_UEGEooHEDIJVPn.pstricks}
+\end{center}
+
+
+Attention : cette méthode ne converge pas toujours. Parfois elle converge de façon monotone, et parfois pas. Le choix de la fonction \( g\) qui fait \( x=g(x)\) peut énormément changer la vitesse de convergence.
+
 
