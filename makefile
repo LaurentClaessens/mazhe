@@ -7,7 +7,6 @@ clean:
 	-$(DEL_FILE) *.comment
 	-$(DEL_FILE) *.pdf
 	-$(DEL_FILE) *.pyc
-	-$(DEL_FILE) phystricks*.py
 	-$(DEL_FILE) *.dpth
 	-$(DEL_FILE) *.aux
 	-$(DEL_FILE) *.out

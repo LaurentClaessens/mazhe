@@ -1,6 +1,7 @@
 from phystricks import *
 def AdhIntFrTrois():
 	pspict,fig = SinglePicture("AdhIntFrTrois")
+	pspict.dilatation_X(4)
 
 	x=var('x')
 	epsilon=0.005
@@ -14,7 +15,7 @@ def AdhIntFrTrois():
 	x1=1
 	F1=f1.graph(x1,Mx)
 	F2=f2.graph(x1,Mx)
-	F2.linear_plotpoints=200
+	F2.linear_plotpoints=5000
 	F1.parameters.color="gray"
 	F1.parameters.style="dashed"
 	F2.parameters=F1.parameters
@@ -43,8 +44,7 @@ def AdhIntFrTrois():
 
 	pspict.axes.Dx=0.5
 	pspict.DrawDefaultAxes()
-	pspict.dilatation_X(4)
-        pspict.comment="Do I have enough plotpoints ? Before there were 5000"
+        pspict.comment="Do I have enough plotpoints ?"
 
 	fig.conclude()
 	fig.write_the_file()

@@ -219,6 +219,7 @@ from phystricksSolsSinpA import SolsSinpA
 from phystricksTrajs import Trajs
 from phystricksBQXKooPqSEMN import BQXKooPqSEMN
 from phystricksooIHLPooKLIxcH import ooIHLPooKLIxcH
+from phystricksUEGEooHEDIJVPn import UEGEooHEDIJVPn
 
 # Naming inconstancies fixing.   February 26, 2016
 #   SurfaceDerive  replaced by BQXKooPqSEMN
@@ -450,8 +451,8 @@ figures_list.append(YYECooQlnKtD)
 figures_list.append(UIEHooSlbzIJ)
 figures_list.append(UGCFooQoCihh)
 figures_list.append(UMEBooVTMyfD)
+figures_list.append(UEGEooHEDIJVPn)
 """
-figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)

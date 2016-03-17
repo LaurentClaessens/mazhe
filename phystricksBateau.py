@@ -30,7 +30,7 @@ def Bateau():
 	I=Intersection( Segment(A,Bp),plage )[0]
 	I.put_mark(0.3,45,"$I$",automatic_place=(pspict,""))
 	ixe=MeasureLength(Segment(O,I),0.2)
-	ixe.put_mark(0.1,-90,"$x\si{\kilo\meter}$",automatic_place=(pspict,"N"))
+	ixe.put_mark(0.1,-90,"$x\kilo\meter$",automatic_place=(pspict,"N"))
 
 
 	proj=Segment(B,Bp)

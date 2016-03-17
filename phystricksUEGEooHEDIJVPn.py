@@ -2,51 +2,34 @@
 from phystricks import *
 def UEGEooHEDIJVPn():
     pspict,fig = SinglePicture("UEGEooHEDIJVPn")
-    #pspict.dilatation_X(1)
-    #pspict.dilatation_Y(1)
     pspict.dilatation(1)
 
-    x=var('x')
-    P=Point(0,0)
+    xmax=5
+    dig=Segment(  Point(0,0), Point(xmax,xmax)  )
+    g=phyFunction( -ln(x/2)+2  ).graph(0.1,xmax)
 
-    pspict.DrawGraphs(P)
+    pspict.DrawGraphs(dig,g)
+
+    X=5
+    for i in range(0,6):
+        S=Point(X,0)
+        S.put_mark(0.2,angle=-90,added_angle=0,text="\( x_{{ {}  }}\)".format(i),automatic_place=(pspict,""))
+        h=g(X)
+        P=Point( X,h  )
+        Q=Point( h,h  )
+        X=h
+        P.put_mark(0.2,angle=None,added_angle=0,text="\( P_{{ {}  }}\)".format(i),automatic_place=(pspict,""))
+        Q.put_mark(0.2,angle=135,added_angle=0,text="\( Q_{{{}}}\)".format(i),automatic_place=(pspict,""))
+        segH=Segment(P,Q)
+        segH.parameters.color="cyan"
+        segH.parameters.style="dashed"
+        segV=Segment(P,S)
+        segV.parameters.color="red"
+        segV.parameters.style="dashed"
+        pspict.DrawGraphs(P,Q,S,segH,segV)
+
+    pspict.axes.no_numbering()
     pspict.DrawDefaultAxes()
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()
-
-----------------
-    pspicts,fig = MultiplePictures("UEGEooHEDIJVPn",3)
-    pspicts[0].mother.caption="<+caption1+>"
-    pspicts[1].mother.caption="<+caption2+>"
-    pspicts[2].mother.caption="<+caption3+>"
-
-    for psp in pspicts:
-        psp.dilatation_X(1)
-        psp.dilatation_Y(1)
-
-    <+Définition des objets+>
-
-    for psp in pspicts:
-        psp.DrawDefaultAxes()
-
-    fig.conclude()
-    fig.write_the_file()
-
-------------------------------
-
-    pspicts,figs = IndependentPictures("UEGEooHEDIJVPn",3)
-
-    for psp in pspicts:
-        psp.dilatation(1)
-
-    <+Définition des objets+>
-
-    for psp in pspicts:
-        psp.DrawDefaultAxes()
-
-    for fig in figs:
-        fig.no_figure()
-        fig.conclude()
-        fig.write_the_file()
-

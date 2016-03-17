@@ -16,7 +16,7 @@ def ExoCourone():
     curve1=ParametricCurve(Ra*cos(x),Ra*sin(x))
     curve2=ParametricCurve(Rb*cos(x),Rb*sin(x))
 
-    surface=SurfaceBetweenParametricCurves(curve1,curve2,interval=(0,2*pi))
+    surface=SurfaceBetweenParametricCurves(curve1,curve2,interval=(0,2*pi-0.0001))
     surface.parameters.filled()
     surface.parameters.fill.color="cyan"
     surface.Fsegment.parameters.style="none"
