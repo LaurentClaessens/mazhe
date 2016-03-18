@@ -19,22 +19,58 @@ D'autres lectures agréables dans \cite{GianlucaB}
 		\item
 			la solution $x=x(d)$ existe et est unique pour tout $d$;
 		\item \label{ItemProbStableB}
-			Pour tout $\eta>0$, et pour tout $d_0$, il existe un nombre $K>0$ tel que $|d-d_0|<\eta$ entraine $|x(d)-x(d_0)|\;\leq\;K\;|d-d_0|$.
+			Pour tout $\eta>0$, et pour tout $d_0$, il existe un nombre $K>0$ tel que $\| d-d_0\|<\eta$ entraine $\|x(d)-x(d_0)\|\;\leq\;K\;\|d-d_0\|$.
 	\end{enumerate}
 \end{definition}
-Le nombre
-\begin{equation}        \label{EqDefAABSOLU}
-	K_{abs}(d_0,\eta):=\sup_{d\text{ tel que $|d_0-d|<\eta$}}\frac{|x(d)-x(d_0)|}{|d-d_0|}
-\end{equation}
-est appelé le \defe{conditionnement absolu}{conditionnement!absolu} du problème autour de $d_0$.
+
+\begin{example}     \label{ExooXJONooTAYZVc}
+    Prenons le problème qui consiste à calculer la différence entre deux nombres : \( x=a-b\). Cela se traduit par
+    \begin{equation}
+        \begin{aligned}
+            F\colon \eR\times \eR^2&\to \eR \\
+            x&\mapsto x-a+b. 
+        \end{aligned}
+    \end{equation}
+    Nous avons : 
+    \begin{subequations}
+        \begin{align}
+            \big| x(a,b)-x(a',b') \big|&=| a-b-a'+b' |\\
+            \leq| a-a' |+| b-b' |\\
+            &=\|  (a,b)-(a',b')  \|_1
+        \end{align}
+    \end{subequations}
+    où nous avons utilisé la norme \( \|  \|_1\) sur \( \eR^2\). Par la proposition \ref{PropLJEJooMOWPNi} sur les équivalences de normes, le nombre \( K=\sqrt{2}\) fonctionne pour toute valeurs de \( \eta\).
+
+    La problème de la différence est donc un problème stable.
+\end{example}
 
 \begin{definition}
+    Le nombre
+    \begin{equation}        \label{EqDefAABSOLU}
+	    K_{abs}(d_0,\eta):=\sup_{d\text{ tel que $|d_0-d|<\eta$}}\frac{\| x(d)-x(d_0)\|_X}{\|d-d_0\|_D}
+    \end{equation}
+    est appelé le \defe{conditionnement absolu}{conditionnement!absolu} du problème autour de $d_0$.
+
 	Soit $F(x,d)=0$ un problème stable de conditionnement absolu $K_{\text{abs}}(d,\eta)$.  Le conditionnement relatif est défini par
 	\begin{equation}
 		K_{\text{rel}}(d,\eta):=K_{\text{abs}}(d,\eta)\frac{|d|}{|x(d)|}.
 	\end{equation}
 	Le problème est dit \defe{bien conditionné}{bien!conditionné} près de $d$ si $K_{\text{rel}}(d,\eta)$ est petit.
 \end{definition}
+
+\begin{example}
+    Reprenons le problème de la différence, mais en fixant \( a\). Nous avons donc \( x(b)=a-b\) et le conditionnement absolu est
+    \begin{equation}
+        \sup\frac{ | x(b)-x(b_0) | }{ | b-b_0 | }=1
+    \end{equation}
+    Le conditionnement relatif est : 
+    \begin{equation}
+        K_{rel}(b_0,\eta)=\frac{ | b | }{ | a-b | }.
+    \end{equation}
+    Et donc le problème est mal conditionné autour de \( a\).
+
+    Autrement dit, si \( a'\) est un nombre proche de \( a\), calculer la différence \( a-a'\) est un problème mal conditionné.
+\end{example}
 
 Un résultat pratique pour étudier le conditionnement d'un problème est le suivant.
 \begin{corollary}       \label{CorConditionnementNormeNabla}
@@ -335,6 +371,10 @@ Le nombre de chiffres significatifs correct dans l'approximation est donné par 
 	\end{enumerate}
 \end{remark}
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Troncature : la base}
+%---------------------------------------------------------------------------------------------------------------------------
+
 Supposons que nous voulions écrire le nombre (écrit ici en base \( 10\))
 \begin{equation}
 	0.4567894251
@@ -344,17 +384,57 @@ de façon plus facile à lire, on peut demander de ne laisser que \( t\) chiffre
 \begin{description}
 	\item[Technique de troncature] On garde \( 3\) chiffres significatifs : \( 0.456\). Facile.
 	\item[Technique d'arrondi] Vu que le premier qu'on supprime est un \( 7\), le dernier qu'on garde est majoré de \( 1\) : on écrit \( 0.457\).
-
-
 \end{description}
 
-Si le premier chiffre rejeté est un \( 5\), il faut augmenter de \( 1\) de dernier chiffre gardé parce qu'il y a presque certainement encore un chiffre non nul derrière.
+Que faire si le premier chiffre rejeté est un \( 5\) ? En première approximation, nous pouvons prendre la règle suivante : si le premier chiffre rejeté est un \( 5\), il faut augmenter de \( 1\) de dernier chiffre gardé parce qu'il y a presque certainement encore un chiffre non nul derrière.
 
 \begin{remark}
 	Les ordinateurs travaillent tous en mode d'arrondi.
 \end{remark}
 
-Si on doit entrer le nombre \( 0.38358546\) dans un ordinateur qui ne garde que \( 3\) chiffres significatifs, il faut entrer \( 0.384\) (erreur classique dans les exercices).
+\begin{example}
+    Si on doit entrer le nombre \( 0.38358546\) dans un ordinateur qui ne garde que \( 3\) chiffres significatifs, il faut taper \( 0.384\) au clavier (erreur classique dans les exercices).
+\end{example}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Troncature : le drift}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit une machine ne pouvant retenir que \( 3\) chiffres significatifs et effectuant les arrondis vers le haut lorsque le chiffre à éliminer est un \( 5\). Nous notons \( \oplus\) et \( \ominus\) les opérations d'addition et soustraction avec arrondis\cite{ooAGVZooTIcZZb}. Les égalités comprenant plus de trois chiffres significatifs sont des égalités au sens de la machine. Nous écrirons donc sans états d'âme :
+\begin{equation}
+    1\oplus0.555=1.555=1.56.
+\end{equation}
+
+Considérons la suite numérique
+\begin{subequations}
+    \begin{numcases}{}
+        x_0=1.00\\
+        x_n=(x_{n-1}\ominus y)\oplus y
+    \end{numcases}
+\end{subequations}
+avec \( y=-0.555\).
+
+Nous avons
+\begin{equation}
+    x_1=(1\oplus 0.555)\ominus 0.555=1.56\ominus 0.555=1.005=1.01
+\end{equation}
+et ensuite
+\begin{equation}
+    x_2=(1.01\oplus 0.555)\ominus 0.555=1.565\ominus 0.555=1.57\ominus 0.555=1.015=1.02.
+\end{equation}
+Et ainsi de suite. La suite est donc croissante alors que la définition nous donnerait envie d'avoir \( x_n=x_0\) pour tout \( n\).
+
+\begin{remark}
+    En réalité, cette suite se stabilise à \( x_n=10\) pour tout \( n\) à partir de \( n=845\). En effet,
+    \begin{equation}
+        (10\oplus 0.555)\ominus 0.555=10.555\ominus 0.555=10.6\ominus 0.555=10.045=10.
+    \end{equation}
+    Le fait est qu'à ce moment, l'erreur de troncature est assez loin dans les décimales pour que le premier chiffre négligé soit un ``0'' au lieu d'un ``5''.
+    
+    Notons toutefois que cette stabilité n'est pas là pour nous rassurer parce qu'elle n'en est pas moins complètement fausse.
+\end{remark}
+
+La règle de troncature adoptée dans Sage est d'arrondir au nombre pair le plus proche lorsque le premier nombre à négliger est un \( 5\). Donc \( 12.5\) s'arrondit à \( 12\) plutôt que \( 13\).
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Quelque bonnes règles}
@@ -366,8 +446,6 @@ Si on doit entrer le nombre \( 0.38358546\) dans un ordinateur qui ne garde que 
 	\item
 		Les opérations délicates sont l'addition et la soustraction. La multiplication et la division sont sans dangers, à part l'erreur de dépassement du maximum. Dans une multiplication, on perd au pire quelque chiffres significatifs, mais certainement les derniers, pas les premiers.
 \end{enumerate}
-
-Soient deux nombres dont la différence d'ordre de grandeurs est plus grande que la précision de la machine. Alors de facto un des deux disparaît.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Erreur de ``cancellation''}
@@ -766,13 +844,11 @@ Dans tous ces cas nous pouvons construire une suite \( (x_n)\) en posant un nomb
     x_{n+1}=g(x_n).
 \end{equation}
 
-Graphiquement, la solution de l'équation est l'intersection entre les courbes \( y=x\) et \( y=g(x)\). Il est intéressant de faire le dessin.
-
+Graphiquement, la solution de l'équation est l'intersection entre les courbes \( y=x\) et \( y=g(x)\). Un petit dessin pour montrer la convergence :
 
 \begin{center}
    \input{Fig_UEGEooHEDIJVPn.pstricks}
 \end{center}
-
 
 Attention : cette méthode ne converge pas toujours. Parfois elle converge de façon monotone, et parfois pas. Le choix de la fonction \( g\) qui fait \( x=g(x)\) peut énormément changer la vitesse de convergence.
 

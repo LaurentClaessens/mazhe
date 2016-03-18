@@ -11,7 +11,7 @@ def UEGEooHEDIJVPn():
     pspict.DrawGraphs(dig,g)
 
     X=5
-    for i in range(0,6):
+    for i in range(0,3):
         S=Point(X,0)
         S.put_mark(0.2,angle=-90,added_angle=0,text="\( x_{{ {}  }}\)".format(i),automatic_place=(pspict,""))
         h=g(X)
