@@ -9,21 +9,22 @@ D'autres lectures agréables dans \cite{GianlucaB}
 \section{Conditionnement et stabilité}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-\begin{definition}
+\begin{definition}      \label{DEFooYIFAooSJbMkC}
 	Soit $F$ une fonction à valeurs réelles définie sur $X\times D$ où $X$ et $D$ sont des espaces vectoriels réels normés. Le problème de la recherche des solutions de
 	\begin{equation}
 		F(x,d)=0
 	\end{equation}
-	est dit \defe{stable}{stable} si
+	est dit \defe{stable}{stable} autour de \( d_0\in D\) si
 	\begin{enumerate}
 		\item
 			la solution $x=x(d)$ existe et est unique pour tout $d$;
 		\item \label{ItemProbStableB}
 			Pour tout $\eta>0$, et pour tout $d_0$, il existe un nombre $K>0$ tel que $\| d-d_0\|<\eta$ entraine $\|x(d)-x(d_0)\|\;\leq\;K\;\|d-d_0\|$.
 	\end{enumerate}
+    La seconde condition est le fait que \( x\) soit Lipschitz\footnote{Définition \ref{DEFooQHVEooDbYKmz}.} sur un voisinage de \( d_0\).
 \end{definition}
 
-\begin{example}     \label{ExooXJONooTAYZVc}
+\begin{example}[Stabilité de la différence]    \label{ExooXJONooTAYZVc}
     Prenons le problème qui consiste à calculer la différence entre deux nombres : \( x=a-b\). Cela se traduit par
     \begin{equation}
         \begin{aligned}
@@ -35,13 +36,21 @@ D'autres lectures agréables dans \cite{GianlucaB}
     \begin{subequations}
         \begin{align}
             \big| x(a,b)-x(a',b') \big|&=| a-b-a'+b' |\\
-            \leq| a-a' |+| b-b' |\\
+            &\leq| a-a' |+| b-b' |\\
             &=\|  (a,b)-(a',b')  \|_1
         \end{align}
     \end{subequations}
-    où nous avons utilisé la norme \( \|  \|_1\) sur \( \eR^2\). Par la proposition \ref{PropLJEJooMOWPNi} sur les équivalences de normes, le nombre \( K=\sqrt{2}\) fonctionne pour toute valeurs de \( \eta\).
+    où nous avons utilisé la norme \( \| . \|_1\) sur \( \eR^2\). Par la proposition \ref{PropLJEJooMOWPNi} sur les équivalences de normes, le nombre \( K=\sqrt{2}\) fonctionne pour toute valeurs de \( \eta\).
 
     La problème de la différence est donc un problème stable.
+\end{example}
+
+\begin{example}[Stabilité de la multiplication]
+    Si \( a\) est fixé, le problème de calculer \( ab\) (\( b\) est la donnée) est stable. En effet ce problème est donné par la fonction \( F(x,b)=x-ab\), dont la solution est \( x(b)=ab\). Nous avons donc
+    \begin{equation}
+        \big| x(b)-x(b') \big|=| ab-ab' |=| a | |b-b' |.
+    \end{equation}
+    La constante de Lipschitz de ce problème est donc \( | a |\).
 \end{example}
 
 \begin{definition}
@@ -58,7 +67,7 @@ D'autres lectures agréables dans \cite{GianlucaB}
 	Le problème est dit \defe{bien conditionné}{bien!conditionné} près de $d$ si $K_{\text{rel}}(d,\eta)$ est petit.
 \end{definition}
 
-\begin{example}
+\begin{example}[Mauvais conditionnement de la différence]
     Reprenons le problème de la différence, mais en fixant \( a\). Nous avons donc \( x(b)=a-b\) et le conditionnement absolu est
     \begin{equation}
         \sup\frac{ | x(b)-x(b_0) | }{ | b-b_0 | }=1
@@ -70,6 +79,45 @@ D'autres lectures agréables dans \cite{GianlucaB}
     Et donc le problème est mal conditionné autour de \( a\).
 
     Autrement dit, si \( a'\) est un nombre proche de \( a\), calculer la différence \( a-a'\) est un problème mal conditionné.
+\end{example}
+
+\begin{example}[Bon conditionnement de la multiplication]
+    Pour le problème \( F(x,b)=x-ab\) nous avons
+    \begin{equation}
+        K_{abs}=\sup_{b'}\frac{ | ab-ab' | }{ | b-b' | }=| a |.
+    \end{equation}
+    Et aussi
+    \begin{equation}
+        K_{rel}=a\frac{ | b | }{ | ab | }=1.
+    \end{equation}
+    Le conditionnement relatif du problème de la multiplication est donc toujours \( 1\). Il est donc un toujours un problème bien conditionné.
+\end{example}
+
+Ne pas confondre :
+\begin{description}
+	\item[Le conditionnement] provient du problème lui-même.
+	\item[La stabilité] provient de l'algorithme de résolution.
+\end{description}
+
+\begin{example}[Un problème mal conditionné]
+	Le système
+	\begin{subequations}
+		\begin{numcases}{}
+			2.1x +  3.5y = 8 \\
+			4.19x + 7.0y = 15
+		\end{numcases}
+	\end{subequations}
+	Solution : \( x=100\), \( y=  -57.714285\ldots \) (périodique)
+
+	Perturbons : nous remplaçons \( 4.19\) par \( 4.192\). L'erreur relative est : \( 4.77\times 10^{-4}\).
+
+	Solution : \( \bar x=125\), \( \bar y=-72.714285\ldots\), avec donc erreur relative de \( 0.26\). Autrement dit : l'erreur relative sur la solution est grande même avec une petite erreur relative sur la donnée.
+
+	C'est un problème mal conditionné.
+
+	Le fait est que c'est une intersection de deux droites presque parallèles. Donc effectivement une petite perturbation d'une des deux droites donne une grande perturbation du point d'intersection.
+
+	Le fait est qu'un ordinateur effectue \emph{toujours} une perturbation, au moins de l'ordre \( 10^{-16}\) pour ne fut-ce que représenter les nombres. C'est à dire une perturbation sur les six nombres définissant le système. Il n'y a donc pas d'espoir d'obtenir un algorithme donnant une bonne réponse.
 \end{example}
 
 Un résultat pratique pour étudier le conditionnement d'un problème est le suivant.
@@ -451,14 +499,23 @@ La règle de troncature adoptée dans Sage est d'arrondir au nombre pair le plus
 \section{Erreur de ``cancellation''}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Lorsque deux nombres sont de même ordre de grandeur, avec plusieurs nombres significatifs identiques.
+Lorsque deux nombres sont de même ordre de grandeur, avec plusieurs nombres significatifs identiques. La cancellation est le fait que, suite à la soustraction, tous les chiffres significatifs ou presque se sont simplifiés et qu'il ne reste plus que des chiffres non significatifs. 
+
+\begin{example}[\cite{ooIZQWooYJmQmW}]
+    Sur une machine ne gardant que \( 4\) chiffres significatifs, faire
+    \begin{equation}
+        0.5678\times 10^6-0.5677\times 10^6 = 0.0001\times 10^6=0.1000\times 10^3.
+    \end{equation}
+    Le fait est que les trois derniers zéros ne sont pas significatifs, mais maintenant la machine nous fait croire qu'ils le sont.
+
+    Une autre façon de voir ce problème est d'imaginer qu'il faille faire la différence entre \( 0.5678\,289798\times 10^6\) et \( 0.5677\,3136907\) sur cette machine. Certes la machine nous autorise à avoir \( 4\) chiffres significatifs, donc au moment d'entrer les nombres nous perdons un beau paquet de chiffres. Mais au moment de faire la différence, nous perdons (presque) tout le reste. Donc là où nous pouvions espérer avoir \( 4\) chiffres significatifs de la différence, nous n'en avons que \( 1\). Les trois derniers zéros de la réponse (\( 0.1000\times 10^3\)) sont faux.
+\end{example}
 
 \begin{example}
 	Soit à résoudre l'équation \( ax^2+bx+c=0\) avec \( a,b,c\neq 0\) et \( b^2-4ac>0\). Solution :
 	\begin{equation}
-		x_{1,2}=\frac{ -b\mp\sqrt{b^2-4ac} }{ 2a }.
+		x_{1,2}=\frac{ -b\pm\sqrt{b^2-4ac} }{ 2a }.
 	\end{equation}
-	Note : on écrit \( \mp\) au lieu de \( \mp\) pour les classer dans l'ordre croissant, mais ce n'est pas crucial.
 
 	Supposons que \( | 4ac |\ll b^2\) avec tout de même pas tellement petit qu'on se perd dans la précision. Bref, on suppose que seules quelque dernières décimales de \( b^2-4ac\) sont différentes de zéro.
 
@@ -533,36 +590,43 @@ Quitte à redéfinir \( x_1\) et \( x_2\), la solution bien calculée est :
 
 Les erreurs de cancellation ne se résolvent pas en augmentant la précision des nombres donnés.
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Erreur d'absorption}
+%---------------------------------------------------------------------------------------------------------------------------
+
+L'addition d'un nombre avec un nombre très différent peut faire perdre de l'information sur le plus petit. Par exemple avec \( 4\) chiffres significatifs,
+\begin{equation}
+    0.5678\oplus 0.0001237=0.5679
+\end{equation}
+où nous avons perdu presque toute l'information du petit nombre.
+
+Une situation particulièrement ennuyeuse est celle où justement c'est le petit nombre qui nous intéresse parce que le grand est censé se simplifier : 
+\begin{equation}
+    (0.0001327\oplus 0.5678)\ominus 0.5678=0.5679\ominus 0.5678=0.0001
+\end{equation}
+qui ne possède qu'un seul chiffre significatif correct alors que voyant le calcul, la réponse aurait pu être trouvée.
+
+Moralité : si certains manipulations algébrique peuvent faire apparaître des simplifications avant de passer le calcul à la machine, il est bon de les effectuer.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Calcul d'une dérivée}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Pour calculer la dérivée de \( f\) en \( a\), il est loisible d'utiliser la formule
+\begin{equation}
+    f'(a)=\lim_{h\to 0} \frac{ f(a+h)-f(a) }{ h }.
+\end{equation}
+Le numérateur est alors sujet à une erreur d'absorption dans le calcul de \( a+h\) et ensuite une erreur de cancellation dans le calcul de la différence.
+
+En utilisant la formule
+\begin{equation}
+    f'(a)=\lim_{h\to 0} \frac{ f(a+h)-f(a-h) }{ 2h }
+\end{equation}
+nous pouvons espérer avoir une erreur de cancellation plus petite.
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Conditionnement et stabilité}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-Ne pas confondre :
-\begin{description}
-	\item[Le conditionnement] provient du problème lui-même.
-	\item[La stabilité] provient de l'algorithme de résolution.
-\end{description}
-
-\begin{example}[Un problème mal conditionné]
-	Le système
-	\begin{subequations}
-		\begin{numcases}{}
-			2.1x +  3.5y = 8 \\
-			4.19x + 7.0y = 15
-		\end{numcases}
-	\end{subequations}
-	Solution : \( x=100\), \( y=  -57.714285\cdots \) (périodique)
-
-	Perturbons : nous remplaçons \( 4.19\) par \( 4.192\). L'erreur relative est : \( 4.77\times 10^{-4}\).
-
-	Solution : \( \bar x=125\), \( \bar y=-72.714285\cdots\), avec donc erreur relative de \( 0.26\). Autrement dit : l'erreur relative sur la solution est grande même avec une petite erreur relative sur la donnée.
-
-	C'est un problème mal conditionné.
-
-	Le fait est que c'est une intersection de deux droites presque parallèles. Donc effectivement une petite perturbation d'une des deux droites donne une grande perturbation du point d'intersection.
-
-	Le fait est qu'un ordinateur effectue \emph{toujours} une perturbation, au moins de l'ordre \( 10^{-16}\) pour ne fut-ce que représenter les nombres. C'est à dire une perturbation sur les six nombres. Il n'y a donc pas d'espoir d'obtenir un algorithme donnant une bonne réponse.
-\end{example}
 
 Solution, très approximativement : le problème est fondamentalement le fait que la matrice du système est de petit déterminant. Donc on peut tout multiplier par une matrice à gros déterminant, résoudre puis appliquer la matrice inverse.
 
