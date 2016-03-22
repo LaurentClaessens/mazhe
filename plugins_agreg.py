@@ -117,7 +117,7 @@ def set_commit_hexsha(A):
     repo=pygit2.Repository(".")
     hexsha=str(get_hexsha(repo))
     if is_dirty(repo):
-        hexsha=hexsha+" -- and slighty more"
+        hexsha=hexsha+" -- and slightly more"
     u="\\newcommand{\GitCommitHexsha}{\info{missing information}}"
     print(hexsha)
     A = A.replace(u,u.replace("missing information",hexsha))
