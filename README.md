@@ -3,16 +3,17 @@
 
 (Français) Ce dépôt contient les sources d'un livre de mathématique, décliné en deux versions :
 
-* [« Le Frido »](http://student.ulb.ac.be/%7Elclaesse/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il recouvre à peu près tout le programme.  
-* [« (almost) Everything I know in mathematics »](http://student.ulb.ac.be/%7Elclaesse/mazhe.pdf) contains more or less everything I know in mathematics, including my research.
-* Et ce fichier [readme.pdf](http://student.ulb.ac.be/%7Elclaesse/readme.pdf) contient des instruction pour la compilation du Frido, ainsi que des politiques éditoriales à l'attention de qui voudrait contribuer.
+
+* [« Le Frido »](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il recouvre à peu près tout le programme.  
+* [« (almost) Everything I know in mathematics »](http://laurent.claessens-donadello.eu/pdf/mazhe.pdf) contains more or less everything I know in mathematics, including my research.
+* Et ce fichier [readme.pdf](http://laurent.claessens-donadello.eu/pdf/readme.pdf) contient des instruction pour la compilation du Frido, ainsi que des politiques éditoriales à l'attention de qui voudrait contribuer.
 
 Les sources sont sur [github](https://github.com/LaurentClaessens/mazhe).
 
 ## Le Frido (niveau agrégation)
 
 
-[Le Frido](http://student.ulb.ac.be/%7Elclaesse/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il recouvre à peu près tout le programme. Affin de donner une idée, une liste (pas spécialement à jour) des développements que vous pourriez y trouver est en annexe.
+[Le Frido](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il recouvre à peu près tout le programme. Affin de donner une idée, une liste (pas spécialement à jour) des développements que vous pourriez y trouver est en annexe.
 
 
 ### Quelque éléments en plus que l'agrégation
@@ -61,7 +62,7 @@ Posez donc la question vous-même (ou mieux : faites la poser par un préparateu
 
 ## (almost) Everything I know in math
 
-The document [(almost) Everything I know in mathematics](http://student.ulb.ac.be/%7Elclaesse/mazhe.pdf) contains almost everything I know in mathematics. It includes
+The document [(almost) Everything I know in mathematics](http://laurent.claessens-donadello.eu/pdf/mazhe.pdf) contains almost everything I know in mathematics. It includes
 * A part (in French) about general mathematics at master level (le Frido)
 * A part (in French) containing the exercises and many corrections of the courses I gave at university.
 * Higher level mathematics including research stuff -- my PhD thesis is here (in English) 
@@ -105,7 +106,7 @@ This is the argument of my PhD thesis.
 
 ## Annexe : liste de choses que l'on peut trouver dans le Frido
 
-[Le Frido](http://student.ulb.ac.be/%7Elclaesse/lefrido.pdf) contient des mathématiques du niveau de l'agrégation.
+[Le Frido](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation.
 Il recouvre à peu près tout le programme au niveau du cours, en proposant tous les théorèmes et leurs preuves et de nombreux exemples sur (presque) tous les chapitres du programme.
 Afin de donner une idée, voici une liste des développements que vous pourriez y trouver :
 
