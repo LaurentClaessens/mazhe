@@ -3,7 +3,6 @@
 
 (Français) Ce dépôt contient les sources d'un livre de mathématique, décliné en deux versions :
 
-
 * [« Le Frido »](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il recouvre à peu près tout le programme.  
 * [« (almost) Everything I know in mathematics »](http://laurent.claessens-donadello.eu/pdf/mazhe.pdf) contains more or less everything I know in mathematics, including my research.
 * Et ce fichier [readme.pdf](http://laurent.claessens-donadello.eu/pdf/readme.pdf) contient des instruction pour la compilation du Frido, ainsi que des politiques éditoriales à l'attention de qui voudrait contribuer.
@@ -103,6 +102,7 @@ This is the argument of my PhD thesis.
 * Bialgebra and Hopf algebra.
 * Oscillatory integral.
 * von Neumann algebra.
+* C* algebra and GNS construction.
 
 ## Annexe : liste de choses que l'on peut trouver dans le Frido
 
