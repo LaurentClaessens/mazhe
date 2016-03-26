@@ -186,6 +186,45 @@ Un résultat pratique pour étudier le conditionnement d'un problème est le sui
 	Attention : dans ce calcul nous avons supposé $d>0$. Pensez à adapter au cas $d<0$.
 \end{example}
 
+\begin{example}[Problème bien conditionné avec algorithme instable]
+	Soit à calculer
+	\begin{equation}
+		I_n=\frac{1}{ e }\int_0^1x^ne^xdx
+	\end{equation}
+	avec \( n\geq 0\). Par partie, nous obtenons :
+	\begin{equation}
+		I_n=1-nI_{n-1}.
+	\end{equation}
+	D'autre part, \( I_0=\frac{ e-1 }{ e }\), \( I_1=\frac{1}{ e }\). Puis par récurrence, c'est tout en main.
+
+	Du côté de l'ordinateur, nous lui donnons forcément une approximation de \( I_1\), parce que nous lui donnons une approximation de \( e\). Soit l'erreur \( \epsilon_1\) sur \( I_1\).
+
+	Sans démonstration :
+	\begin{lemma}
+		Nous avons \( \lim_{n\to \infty} I_n=0\).
+	\end{lemma}
+	Mais numériquement, il n'est pas possible de rester longtemps sous \( \epsilon_1\) parce que nous n'espérons pas avoir une erreur plus petite que ça. Donc à partir du moment où \( I_n<\epsilon_1\), les valeurs sont toutes complètement fausses. Cela est le mieux que l'on puisse espérer. Mais la réalité est pire.
+
+	En réalité, en lançant le calcul sur un ordinateur, les valeurs sont même croissantes avec \( n\) à partir d'un certain moment.
+
+	On peut étudier l'erreur et montrer que l'erreur est donnée par :
+	\begin{equation}
+		\epsilon_n=(-1)^{n-1}n!\epsilon_1.
+	\end{equation}
+	Mais comme la factorielle est tellement forte que c'est sans espoir d'aller loin en essayant très fort de donner une petite erreur sur \( \epsilon_1\).
+
+\end{example}
+
+Il existe heureusement un algorithme stable pour cette intégrale. La formule est :
+\begin{equation}
+	I_{n-1}=\frac{1}{ n }(1-I_n).
+\end{equation}
+Si nous savons un \( I_N\) avec \( N\) grand, cette formule donne les \( I_i\) avec \( i=N,N-1,\ldots, 2\). Posons donc \( I_N=a\in \eR\) n'importe comment. Donc \( \epsilon_N\) est grand. Mais il se trouve que l'erreur sur \( \epsilon_1\) est donnée par
+\begin{equation}
+	\epsilon_1=\frac{ (-1)^{N-1} }{ N! }\epsilon_N.
+\end{equation}
+Donc même en prenant vraiment n'importe quoi pour \( I_N\), nous obtenons de bonnes approximations pour \( I_i\) avec les petits \( i\). Même avec \( I_{20}=1000\) (qui est complètement faux), nous trouvons énormément de chiffres significatifs corrects pour \( I_1\).
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Comment choisir et penser le $K$?}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -348,6 +387,102 @@ Soit une matrice inversible \( A\in \GL(n,\eC)\). La matrice \( A^*A\) est hermi
     \end{equation}
 \end{proof}
 
+\begin{proposition}[Système linéaire : perturbation du vecteur\cite{ooLMMRooUXhOdx}]
+    Soit une matrice inversible \( A\) et les systèmes d'équations linéaires
+    \begin{subequations}        \label{EQooYQIGooPXqWoX}
+        \begin{align}
+            Au=b\\
+            Au'=b'.
+        \end{align}
+    \end{subequations}
+    En notant \( \Delta u=u'-u\) et \( \Delta b=b'-b\) nous avons
+    \begin{equation}
+        \frac{ \| \Delta u \| }{ \| u \| }\leq \Cond(A)\frac{ \| \Delta b \| }{ \| b \| }.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    En soustrayant les équations \eqref{EQooYQIGooPXqWoX} nous avons \( \Delta b=A\Delta u\), et donc \( \Delta u=A^{-1} \Delta b\). D'une part nous avons alors
+    \begin{equation}
+        \| \Delta u \|\leq \| A^{-1} \|\| \Delta b \|.
+    \end{equation}
+    Et d'autre part, \( \| b \|\leq \| A \|\| u \|\), ce qui donne
+    \begin{equation}
+        \frac{ \| b \| }{ \| A \| }\leq \| u \|.
+    \end{equation}
+    En mettant les deux ensemble,
+    \begin{equation}
+        \frac{ \| \Delta u \| }{ \| u \| }\leq \frac{ \| A^{-1} \|\| \Delta b \| }{ \| b \| }\| A \|\Cond(A)\frac{ \| \Delta b \| }{ \| b \| }.
+    \end{equation}
+\end{proof}
+
+\begin{proposition}[Système linéaire : perturbation de la matrice\cite{ooLMMRooUXhOdx}]
+    Soient les systèmes linéaires
+    \begin{subequations}
+        \begin{align}
+            Au=b\\
+            A'u'=b
+        \end{align}
+    \end{subequations}
+    avec \( A\) et \( A'\) inversibles. Nous notons \( \Delta A=A'-A\). Alors
+    \begin{enumerate}
+        \item       \label{ITEMooJMTKooSEBavB}
+            \begin{equation}
+                \frac{ \| \Delta u \| }{ \| u' \| }\leq \Cond(A)\frac{ \| \Delta A \| }{ \| A \| }
+            \end{equation}
+        \item
+            \begin{equation}
+                \frac{ \| \Delta u \| }{ \| u \| }\leq \Cond(A)\frac{ \| \Delta A \| }{ \| A \| }\big( 1+\alpha(\| \Delta A \|) \big)
+            \end{equation}
+            où \( \lim_{x\to 0} \alpha(x)=0\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    D'abord nous avons
+    \begin{subequations}
+        \begin{align}
+            0&=Au'-Au\\
+            &=(A'-A)u'-Au'-Au\\
+            &=\Delta Au'+A\Delta u.
+        \end{align}
+    \end{subequations}
+    Par conséquent, \( \Delta u=-A^{-1}(\Delta A)u'\) et
+    \begin{equation}        \label{EQooYYITooSSczEj}
+        \| \Delta u \|\leq \| A^{-1} \|\| \Delta A \|\| u' \|.
+    \end{equation}
+    Donc
+    \begin{equation}
+        \frac{ \| \Delta u \| }{ \| u' \| }\leq   \| A^{-1} \|\| A \|\frac{ \| \Delta A \| }{ \| A \| }   =\Cond(A)\frac{ \| \Delta A \| }{ \| A \| }.
+    \end{equation}
+    Cela est \ref{ITEMooJMTKooSEBavB}.
+
+    Pour l'autre inégalité, nous avons \( A'=A+\Delta A\) et donc
+    \begin{equation}
+        \| A'^{-1} \|=\| (A+\Delta A)^{-1} \|
+    \end{equation}
+    Nous repartons alors de \eqref{EQooYYITooSSczEj} en changeant le rôle de \( A\) et \( A'\) (et donc aussi de \( u\) et \( u'\)). Ce changement étant, \( \| \Delta u \|\) et \( \| \Delta A \|\) ne changent pas. Nous avons :
+    \begin{subequations}
+        \begin{align}
+            \frac{ \| \Delta u \| }{ \| u \| }&\leq \| A'^{-1} \|\| \Delta A \|\\
+            &=\| (A+\Delta A)^{-1} \|\| \Delta A \|\frac{ \Cond(A) }{ \| A \|\| A^{-1} \| }\\
+            &=\frac{ \| (A+\Delta A)^{-1} \| }{ \| A^{-1} \| }\frac{ \| \Delta A \| }{ \| A \| }\Cond(A).
+        \end{align}
+    \end{subequations}
+    Il reste à voir que
+    \begin{equation}
+        \lim_{\| \Delta A \|\to 0} \frac{ \| (A+\Delta A)^{-1} \| }{ \| A^{-1} \| }=1,
+    \end{equation}
+    ou autrement dit que
+    \begin{equation}        \label{EQooJURGooFvYiAs}
+        \lim_{A\to A'} \frac{ \| A'^{-1} \| }{ \| A^{-1} \| }=1
+    \end{equation}
+    où la limite est celle dans \( \GL(n,\eC)\). Par définition de la topologie, la norme est continue (quelle qu'elle soit par l'équivalence de norme \ref{ThoNormesEquiv}). Par le théorème \ref{ThoCINVBTJ}, l'application \( A\mapsto A^{-1}\) est également continue et commute donc avec la limite. Nous avons donc
+    \begin{equation}
+        \lim_{A'\to A}\| A'^{-1} \|=\| (\lim_{A'\to A} A')^{-1} \|=\| A^{-1} \|.
+    \end{equation}
+    Donc la limite du quotient \eqref{EQooJURGooFvYiAs} est bien \( 1\).
+\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Algorithmes, stabilité, convergence et conditionnement}
@@ -627,6 +762,29 @@ Et ainsi de suite. La suite est donc croissante alors que la définition nous do
 
 La règle de troncature adoptée dans Sage est d'arrondir au nombre pair le plus proche lorsque le premier nombre à négliger est un \( 5\). Donc \( 12.5\) s'arrondit à \( 12\) plutôt que \( 13\).
 
+\begin{example}
+	Soient les expressions (algébriquement égales) :
+	\begin{enumerate}
+		\item
+			\(A= x(x+1)\)
+		\item
+			\(B= x^2+x\)
+	\end{enumerate}
+	Nous savons que
+	\begin{equation}
+		x=\fl(x)=10^{-30}
+	\end{equation}
+	et
+	\begin{equation}
+		1=\fl(1)
+	\end{equation}
+	parce que pour \( 1\) et \( 10^{-30}\), il n'y a pas d'erreurs d'assignation.
+
+	En précision simple, \( 10^{-30}+1=1\) parce qu'en précision simple, il n'y a que \( 7\) ou \( 8\) chiffres significatifs\footnote{Erreur de « relation normale».}.
+
+	Nous avons $A=10^{-30}$, mais \( x^2\) donne un \info{underflow} parce que \( 10^{-60}\) ne peut pas être représenté en précision simple. En pratique, beaucoup de logiciels en font \( 0\). Dans ce cas, en réalité \( B\) donne effectivement \( 10^{-30}\) après avoir fait \( x^2+x=0+x=10^{-30}\).
+\end{example}
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Quelque bonnes règles}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -766,74 +924,6 @@ En utilisant la formule
     f'(a)=\lim_{h\to 0} \frac{ f(a+h)-f(a-h) }{ 2h }
 \end{equation}
 nous pouvons espérer avoir une erreur de cancellation plus petite.
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Conditionnement et stabilité}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-Solution, très approximativement : le problème est fondamentalement le fait que la matrice du système est de petit déterminant. Donc on peut tout multiplier par une matrice à gros déterminant, résoudre puis appliquer la matrice inverse.
-
-\begin{example}[Problème bien conditionné avec algorithme instable]
-	Soit à calculer
-	\begin{equation}
-		I_n=\frac{1}{ e }\int_0^1x^ne^xdx
-	\end{equation}
-	avec \( n\geq 0\). Par partie, nous obtenons :
-	\begin{equation}
-		I_n=1-nI_{n-1}.
-	\end{equation}
-	D'autre part, \( I_0=\frac{ e-1 }{ e }\), \( I_1=\frac{1}{ e }\). Puis par récurrence, c'est tout en main.
-
-	Du côté de l'ordinateur, nous lui donnons forcément une approximation de \( I_1\), parce que nous lui donnons une approximation de \( e\). Soit l'erreur \( \epsilon_1\) sur \( I_1\).
-
-	Sans démonstration :
-	\begin{lemma}
-		Nous avons \( \lim_{n\to \infty} I_n=0\).
-	\end{lemma}
-	Mais numériquement, il n'est pas possible de rester longtemps sous \( \epsilon_1\) parce que nous n'espérons pas avoir une erreur plus petite que ça. Donc à partir du moment où \( I_n<\epsilon_1\), les valeurs sont toutes complètement fausses. Cela est le mieux que l'on puisse espérer. Mais la réalité est pire.
-
-	En réalité, en lançant le calcul sur un ordinateur, les valeurs sont même croissantes avec \( n\) à partir d'un certain moment.
-
-	On peut étudier l'erreur et montrer que l'erreur est donnée par :
-	\begin{equation}
-		\epsilon_n=(-1)^{n-1}n!\epsilon_1.
-	\end{equation}
-	Mais comme la factorielle est tellement forte que c'est sans espoir d'aller loin en essayant très fort de donner une petite erreur sur \( \epsilon_1\).
-
-\end{example}
-
-Il existe heureusement un algorithme stable pour cette intégrale. La formule est :
-\begin{equation}
-	I_{n-1}=\frac{1}{ n }(1-I_n).
-\end{equation}
-Si nous savons un \( I_N\) avec \( N\) grand, cette formule donne les \( I_i\) avec \( i=N,N-1,\ldots, 2\). Posons donc \( I_N=a\in \eR\) n'importe comment. Donc \( \epsilon_N\) est grand. Mais il se trouve que l'erreur sur \( \epsilon_1\) est donnée par
-\begin{equation}
-	\epsilon_1=\frac{ (-1)^{N-1} }{ N! }\epsilon_N.
-\end{equation}
-Donc même en prenant vraiment n'importe quoi pour \( I_N\), nous obtenons de bonnes approximations pour \( I_i\) avec les petits \( i\). Même avec \( I_{20}=1000\) (qui est complètement faux), nous trouvons énormément de chiffres significatifs corrects pour \( I_1\).
-
-\begin{exercice}
-	Soient les expressions (algébriquement égales) :
-	\begin{enumerate}
-		\item
-			\(A= x(x+1)\)
-		\item
-			\(B= x^2+x\)
-	\end{enumerate}
-	Nous savons que
-	\begin{equation}
-		x=\fl(x)=10^{-30}
-	\end{equation}
-	et
-	\begin{equation}
-		1=\fl(1)
-	\end{equation}
-	parce que pour \( 1\) et \( 10^{-30}\), il n'y a pas d'erreurs d'assignation.
-
-	En précision simple, \( 10^{-30}+1=1\) parce qu'en précision simple, il n'y a que \( 7\) ou \( 8\) chiffres significatifs\footnote{Erreur de « relation normale».}.
-
-	Nous avons $A=10^{-30}$, mais \( x^2\) donne un \info{underflow} parce que \( 10^{-60}\) ne peut pas être représenté en précision simple. En pratique, beaucoup de logiciels en font \( 0\). Dans ce cas, en réalité \( B\) donne effectivement \( 10^{-30}\) après avoir fait \( x^2+x=0+x=10^{-30}\).
-\end{exercice}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Équations non linéaire}
