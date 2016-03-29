@@ -4,13 +4,11 @@
 % See the file fdl-1.3.txt for copying conditions.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Forme différentielle et intégrale sur un chemin}
+\section{Forme différentielle}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \label{SecFormDiffRappel}
 
 Nous parlerons de formes différentielles exactes et fermées dans la section \ref{DefEFKQmPs}.
-
-Une \defe{forme}{forme} sur un espace vectoriel $V$ est une application linéaire $\omega\colon V\to \eR$.
 
 \begin{definition}
 	Soit $D$, un ouvert dans $\eR^n$. Une $1$-\defe{forme différentielle}{forme!différentielle} $\omega$ sur $D$ est une application
@@ -25,7 +23,10 @@ Une \defe{forme}{forme} sur un espace vectoriel $V$ est une application linéair
 \begin{equation}
 	\omega_x=a_1(x)dx_1+\ldots+a_n(x)dx_n.
 \end{equation}
-Nous disons qu'une $1$-forme différentielle est \defe{continue}{continue!forme différentielle} si les fonctions $a_i$ sont continues. La forme sera $C^k$ quand les $a_i$ seront $C^k$.
+
+\begin{lemma}
+    Une $1$-forme différentielle est \defe{continue}{continue!forme différentielle} si les fonctions $a_i$ sont continues. La forme sera $C^k$ quand les $a_i$ seront $C^k$.
+\end{lemma}
 
 \begin{remark}
 	L'ensemble des $1$-formes différentielles forment un espace vectoriel avec les définitions
@@ -37,15 +38,37 @@ Nous disons qu'une $1$-forme différentielle est \defe{continue}{continue!forme 
 	\end{equation}
 \end{remark}
 
-Une $1$-forme différentielle s'écrit toujours sous la forme
+Nous connaissons la \defe{base duale}{base!duale} de $(\eR^n)^*$, ce sont les formes $e^*_i$ définies par $e^*_i(e_j)=\delta_{ij}$. Dans le cadre du cours d'analyse, nous allons noter ces formes\footnote{Parce que ce sont les différentielles des fonctions de projection
 \begin{equation}
-	\omega=\sum_i a_idx_i
+	\begin{aligned}
+			x_i\colon \eR^n&\to \eR \\
+			x&\mapsto x_i 
+		\end{aligned}
+	\end{equation}
+}
+par $dx_i$ :
+\begin{equation}
+	\begin{aligned}[]
+		e^*_1&=dx_1\colon v\mapsto v_1	\\
+			&\vdots			\\
+		e^*_n&=dx_n\colon v\mapsto v_n
+	\end{aligned}
 \end{equation}
-pour certaines fonctions $a_i$. Évidemment, ces fonctions $a_i$ peuvent être trouvées en appliquant $\omega$ aux éléments de la base canonique de $\eR^n$ :
+Toute forme différentielle s'écrit
+\begin{equation}
+  \omega_x = \sum_{i=0}^n a_i(x) d x_i
+\end{equation}
+où $a_1,\ldots,a_n$ sont les composantes de $\omega$ dans la base usuelle, et sont des fonctions à valeurs réelles. Pour un vecteur $v = (v_1,\ldots,v_n)$ on a donc par définition de $d x_i$
+\begin{equation}
+  \omega_x v = \sum_{i=0}^n a_i(x) v_i.
+\end{equation}
+Ces fonctions $a_i$ peuvent être trouvées en appliquant $\omega$ aux éléments de la base canonique de $\eR^n$ :
 \begin{equation}
 	a_j(x)=\omega_x(e_j)
 \end{equation}
 parce que $\omega_x(e_j)=\sum_ia_i(x)dx_i(e_i)=\sum_ia_i(x)\delta_{ij}=a_j(x)$.
+
+
 
 
 \begin{example}
@@ -84,62 +107,22 @@ parce que $\frac{ \partial f }{ \partial y }=\frac{ \partial^2F  }{ \partial x\p
 Si $fdx+gdy$ est la différentielle d'une fonction de classe $C^2$, alors $\partial_yf=\partial_xg$.
 \end{lemma}
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Forme différentielle}
-%---------------------------------------------------------------------------------------------------------------------------
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{L'isomorphisme musical}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-La formule d'intégration d'un champ de vecteur,
-\begin{equation}
-	\int_{\gamma}G=\int_{[a,b]}\langle G (\gamma(t)), \gamma'(t)\rangle dt,
-\end{equation}
-contient quelque chose d'intéressant : la combinaison $\langle G( \gamma(t) ), \gamma'(t)\rangle$. Cette combinaison sert à transformer le vecteur tangent $\gamma'(t)$ en un nombre en utilisant le produit scalaire avec le vecteur $G( \gamma(t) )$.
-
-Si $G$ est un champ de vecteur sur $\eR^n$, et si $x\in\eR^n$, nous pouvons considérer, de façon un peu plus abstraite, l'application
+Si $G$ est un champ de vecteur sur $\eR^n$, et si $x\in\eR^n$, nous pouvons définissons 
 \begin{equation}		\label{EqDefBemol}
 	\begin{aligned}[]
 		G^{\flat}_x\colon \eR^n&\to \eR \\
-			v&\mapsto \langle G(x), v\rangle . 
+			v&\mapsto \langle G(x), v\rangle 
 	\end{aligned}
 \end{equation}
-Cela permet de compactifier la notation et écrire
-\begin{equation}
-	\int_{\gamma}G=\int_{[a,b]} G^{\flat}_{\gamma(t)}\big( \gamma'(t)\big) dt.
-\end{equation}
 
-Nous nous proposons maintenant d'étudier plus en détail ce qu'est l'objet $G^{\flat}$. La règle \eqref{EqDefBemol} dit que pour chaque $x$, l'application $G_x^{\flat}$ est une forme sur $\eR^n$, c'est à dire une application linéaire de $\eR^n$ vers $\eR$. Nous écrivons que
+Pour chaque $x$, l'application $G_x^{\flat}$ est une forme sur $\eR^n$, c'est à dire une application linéaire de $\eR^n$ vers $\eR$. Nous écrivons que
 \begin{equation}
 	G_x^{\flat}\in\big( \eR^n \big)^*.
 \end{equation}
-Nous connaissons la \defe{base duale}{base!duale} de $(\eR^n)^*$, ce sont les formes $e^*_i$ définies par $e^*_i(e_j)=\delta_{ij}$. Dans le cadre du cours d'analyse, nous allons noter ces formes\footnote{Parce que ce sont les différentielles des fonctions de projection
-\begin{equation}
-	\begin{aligned}
-			x_i\colon \eR^n&\to \eR \\
-			x&\mapsto x_i 
-		\end{aligned}
-	\end{equation}
-}
-par $dx_i$ :
-\begin{equation}
-	\begin{aligned}[]
-		e^*_1&=dx_1\colon v\mapsto v_1	\\
-			&\vdots			\\
-		e^*_n&=dx_n\colon v\mapsto v_n
-	\end{aligned}
-\end{equation}
-Étant donné que ces $dx_i$ forment une base de l'espace vectoriel $(\eR^n)^*$, toute application linéaire $L\colon \eR^n\to \eR$ s'écrit
-\begin{equation}
-		Lv=a_1v_1+\ldots+a_nv_n =a_1dx_1(v)+\ldots+a_ndx_n(v).
-\end{equation}
-Plus abstraitement, nous notons
-\begin{equation}
-	\begin{aligned}[]
-		L&=a_1dx_1+\ldots+a_ndx_n\\
-		&=\sum_{i=1}^na_idx_i.
-	\end{aligned}
-\end{equation}
-L'application $L$ est une combinaison linéaire des $dx_i$ au sens de l'espace vectoriel $(\eR^n)^*$.
-
-L'objet $G^{\flat}$ est la donnée, en chaque point de $D$, d'une telle forme sur $\eR^n$. 
 
 Nous pouvons ainsi déterminer le développement de $G^{\flat}$ dans la base des $dx_i$ en faisant le calcul
 \begin{equation}
@@ -150,11 +133,8 @@ donc les composantes de $G^{\flat}$ dans la base $dx_i$ sont exactement les comp
 	G^{\flat}_x=G_1(x)dx_1+\ldots+G_n(x)dx_n.
 \end{equation}
 
-%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-\subsubsection{L'isomorphisme musical}
-%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Nous savons qu'un champ de vecteur $G$ produit la forme différentielle $G^{\flat}$. La construction inverse existe également. Si $\omega$ est une $1$-forme différentielle, nous pouvons définir le champ de vecteur $\omega^{\sharp}$ par la formule (implicite)
+La construction inverse existe également. Si $\omega$ est une $1$-forme différentielle, nous pouvons définir le champ de vecteur $\omega^{\sharp}$ par la formule (implicite)
 \begin{equation}
 	\omega_x(v)=\langle \omega^{\sharp}(x), v\rangle 
 \end{equation}
@@ -167,144 +147,6 @@ pour tout $v\in\eR^n$. Par définition, $(\omega^{\sharp})^{\flat}=\omega$.
 	\end{equation}
 	Si $G$ est un champ de vecteurs, alors $(G^{\flat})^{\sharp}=G$.
 \end{lemma}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Intégration d'une forme différentielle sur un chemin}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Les formes intégrales que nous avons déjà vues sont celles de fonctions et de champs de vecteur sur des chemins. Si $\gamma\colon [a,b]\to \eR^n$ est le chemin, les formules sont
-\begin{equation}
-	\begin{aligned}[]
-		\int_{\gamma}f&=\int_{[a,b]}f\big( \gamma(t) \big)\| \gamma'(t) \|dt\\
-		\int_{\gamma}G&=\int_{[a,b]}\langle G\big( \gamma(t) \big), \gamma'(t)\rangle dt.
-	\end{aligned}
-\end{equation}
-Dans les deux cas, le principe est que nous disposons de quelque chose (la fonction $f$ ou le vecteur $G$), et du vecteur tangent $\gamma'(t)$, et nous essayons d'en tirer un nombre que nous intégrons. Lorsque nous avons une $1$-forme, la façon de l'utiliser pour produire un nombre avec le vecteur tangent est évidement d'appliquer la $1$-forme au vecteur tangent. La définition suivante est donc naturelle.
-
-\begin{definition}
-	Soit $\gamma\colon [a,b]\to \eR^n$, un chemin de classe $C^1$ tel que son image est contenue dans le domaine $D$. Si $\omega$ es une $1$-forme différentielle sur $D$, nous définissons l'\defe{intégrale de $\omega$ le long de $\gamma$}{intégrale!d'une forme différentielle} le nombre
-	\begin{equation}
-		\begin{aligned}[]
-			\int_{\gamma}\omega&=\int_a^b\omega_{\gamma(t)}\big( \gamma'(t) \big)dt\\
-				&=\int_a^b\Big[ a_1\big( \gamma(t) \big)\gamma'_1(t)+\ldots +  a_n\big( \gamma(t) \big)\gamma'_n(t) \Big]dt.
-		\end{aligned}
-	\end{equation}
-\end{definition}
-
-Cette définition est une bonne définition parce que si on change la paramétrisation du chemin, on ne change pas la valeur de l'intégrale, c'est la proposition suivante.
-\begin{proposition}
-	Si $\gamma$ et $\beta$ sont des chemins équivalents, alors
-	\begin{equation}
-		\int_{\gamma}\omega=\int_{\beta}\omega,
-	\end{equation}
-	c'est à dire que l'intégrale est invariante sous les reparamétrisation du chemin.
-\end{proposition}
-\begin{proof}
-	Deux chemins sont équivalents quand il existe un difféomorphisme $C^1$ $h\colon [a,b]\to [c,d]$ tel que $\gamma(t)=(\beta\circ h)(t)$. En remplaçant $\gamma$ par $(\beta\circ h)$ dans la définition de $\int_{\gamma}\omega$, nous trouvons
-	\begin{equation}
-		\int_a^b\omega_{\gamma(t)}\big( \gamma'(t) \big)dt=\int_a^b\omega_{(\beta\circ h)(t)}\big( (\beta\circ h)'(t) \big)dt.
-	\end{equation}
-	Un changement de variable $u=h(t)$ transforme cette dernière intégrale en $\int_{\beta}\omega$, ce qui prouve la proposition.
-\end{proof}
-
-\begin{remark}
-	Si $\gamma$ est une somme de chemins, $\gamma=\gamma^{(1)}+\ldots+\gamma^{(n)}$, où chacun des $\gamma^{(i)}$ est un chemin, alors
-	\begin{equation}
-		\int_{\gamma}\omega=\sum_{i=1}^n\int_{\gamma_i}\omega
-	\end{equation}
-	parce que $\omega$ est linéaire.
-\end{remark}
-
-\begin{remark}
-	Si $-\gamma$ est le chemin
-	\begin{equation}
-		\begin{aligned}
-			- \gamma\colon [a,b]&\to \eR^n \\
-			t&\mapsto \gamma\big( b-(t-a) \big),
-		\end{aligned}
-	\end{equation}
-	alors
-	\begin{equation}
-		\int_{-\gamma}\omega=-\int_{\gamma}\omega,
-	\end{equation}
-	c'est à dire que si l'on parcours le chemin en sens inverse, alors on change le signe de l'intégrale.
-\end{remark}
-
-L'intégrale d'une forme différentielle sur un chemin est compatible avec l'intégrale déjà connue d'un champ de vecteur sur le chemin parce que si $G$ est un champ de vecteurs,
-\begin{equation}
-	\int_{\gamma}G^{\flat}=\int_{\gamma}G.
-\end{equation}
-En effet,
-\begin{equation}
-	\begin{aligned}[]
-		\int_{\gamma G^{\flat}}	&=\int_a^b G_{\gamma(t)}^{\flat}(\gamma'(t))\\
-					&=\int_a^b\big[ G_1( \gamma(t) )dx_1+\ldots G_n(\gamma(t))dx_n \big]\big( \gamma'_1(t),\ldots,\gamma'_n(t) \big)\\
-					&=\int_{a}^b\langle G(\gamma(t)), \gamma'(t)\rangle \\
-					&=\int_{\gamma}G.
-	\end{aligned}
-\end{equation}
-
-
-\begin{proposition}
-	Soit $\omega=df$, une $1$-forme exacte et continue sur le domaine $D$. Alors la valeur de $\int_{\gamma}df$ ne dépend que des valeurs de $f$ aux extrémités de $\gamma$.
-\end{proposition}
-
-\begin{proof}
-	Nous avons
-	\begin{equation}
-		\begin{aligned}[]
-			\int_{\gamma}\omega=\int_{\gamma}df&=\int_{a}^b\sum_{i=1}n\frac{ \partial f }{ \partial x_i }\big( \gamma(t) \big)\gamma'_i(t)dt\\
-				&=\int_a^b\frac{ d }{ dt }\Big( (f\circ\gamma)(t) \Big)dt\\
-				&=(f\circ\gamma)(b)-(f\circ\gamma(a)).
-		\end{aligned}
-	\end{equation}
-\end{proof}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Interprétation physique : travail}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{definition}
-	Une force $F\colon D\subset\eR^n\to \eR^n$ est \defe{\href{http://fr.wikipedia.org/wiki/Force_conservative}{conservative}}{Conservative} si elle dérive d'un potentiel, c'est à dire si il existe une fonction $V\in C^1(D,\eR)$ telle que 
-	\begin{equation}
-		F(x)=(\nabla V)(x).
-	\end{equation}
-\end{definition}
-Étant donné que $F$ est un champ de vecteurs, nous avons une forme différentielle associée $F^{\flat}$,
-\begin{equation}
-	F^{\flat}_x\colon x\mapsto \langle F(x), v\rangle .
-\end{equation}
-
-\begin{lemma}
-	Le champ $F$ est conservatif si et seulement si la $1$-forme différentielle $F^{\flat}$ est exacte.
-\end{lemma}
-
-\begin{proof}
-	Supposons que la force $F$ soit conservative, c'est à dire qu'il existe une fonction $V$ telle que $F=\nabla V$. Dans ce cas, il est facile de prouver que $F^{\flat}$ est exacte et est donnée par $F_x^{\flat}=dV(x)$. En effet,
-	\begin{equation}
-		\begin{aligned}[]
-			F_x^{\flat}(v)	&=\langle F(x), v\rangle \\
-					&=F_1(x)v_1+\ldots+F_n(x)v_n\\
-					&=\frac{ \partial V }{ \partial x_1 }(x)v_1+\ldots\frac{ \partial V }{ \partial x_n }(x)v_n\\
-					&=dV(x)v.
-		\end{aligned}
-	\end{equation}
-	
-	Pour le sens inverse, supposons que $F^{\flat}$ soit exacte. Dans ce cas, nous avons une fonction $V$ telle que $F^{\flat}=dV$. Il est facile de prouver qu'alors, $F=\nabla V$.
-\end{proof}
-En résumé, nous avons deux façons équivalentes d'exprimer que la force $F$ dérive du potentiel $V$ :  soit nous disons $F=\nabla V$, soit nous disons $F^{\flat}=dV$.
-
-\begin{proposition}
-	Si $F$ est une force conservative, alors le \href{http://fr.wikipedia.org/wiki/Travail_d'une_force}{travail} de $F$ lors d'un déplacement ne dépend pas du chemin suivit.
-\end{proposition}
-
-\begin{proof}
-	Le travail d'une force le long d'un chemin n'est autre que l'intégrale de la force le long du chemin, et le calcul est facile :
-	\begin{equation}
-		W_{\gamma}(F)=\int_{\gamma}F=\int_{\gamma}dV=V\big( \gamma(b) \big)-V\big( \gamma(a) \big).
-	\end{equation}
-	Donc si $\beta$ est un autre chemin tel que $\beta(a)=\gamma(a)$ et $\beta(b)=\gamma(b)$, nous avons $W_{\beta}(F)=W_{\gamma}(F)$.
-\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Intégrale sur une variété}
@@ -673,43 +515,90 @@ Il est possible de prouver que dans ce cas, la définition suivante a un sens et
 
 \subsection{Chemins de classe \texorpdfstring{$C^1$}{C1}}
 
-Soit $p, q\in \eR^n$. Un \defe{chemin}{chemin} $C^1$ par morceaux joignant $p$ à $q$ est une application continue
-\begin{equation}
-  \gamma : [a,b] \to \eR^n \qquad \gamma(a) = p, \gamma(b) = q
-\end{equation}
-pour laquelle il existe une subdivision $a = t_0 < t_1 < \ldots < t_{r-1} < t_r = b$ telle que :
-\begin{enumerate}
-\item la restriction de $\gamma$ sur chaque ouvert $\mathopen]t_i,
-  t_{i+1}\mathclose[$ est de classe $C^1$~;
-\item pour tout $0 \leq i \leq r$, $\gamma^\prime$ possède une limite
-  à gauche (sauf pour $i = 0$) et une limite à droite (sauf pour $i =
-  r$) en $t_i$.
-\end{enumerate}
-Le \defe{chemin $\gamma$ est (globalement) de classe $C^1$}{Chemin!classe $C^2$} si la
-subdivision peut être choisie de \og longueur\fg{} $r = 1$.
+\begin{definition}
+    Soit $p, q\in \eR^n$. Un \defe{chemin}{chemin} $C^1$ par morceaux joignant $p$ à $q$ est une application continue
+    \begin{equation}
+      \gamma : [a,b] \to \eR^n \qquad \gamma(a) = p, \gamma(b) = q
+    \end{equation}
+    pour laquelle il existe une subdivision $a = t_0 < t_1 < \ldots < t_{r-1} < t_r = b$ telle que :
+    \begin{enumerate}
+    \item la restriction de $\gamma$ sur chaque ouvert $\mathopen]t_i, t_{i+1}\mathclose[$ est de classe $C^1$~;
+    \item pour tout $0 \leq i \leq r$, $\gamma^\prime$ possède une limite à gauche (sauf pour $i = 0$) et une limite à droite (sauf pour $i = r$) en $t_i$.
+    \end{enumerate}
+    Le \defe{chemin $\gamma$ est (globalement) de classe $C^1$}{Chemin!classe $C^2$} si la subdivision peut être choisie de \og longueur\fg{} $r = 1$.
+\end{definition}
 
 \begin{remark}
-	Si $a$ et $b$ sont des points de
-  $\eR^n$, on peut créer le chemin particulier
-  \begin{equation*}
+	Si $a$ et $b$ sont des points de $\eR^n$, on peut créer le chemin particulier
+  \begin{equation}
     \gamma : [0,1] \to \eR^n : t \mapsto (1-t)a + tb
-  \end{equation*}
+  \end{equation}
   qui relie ces points par un segment de droite.
 \end{remark}
 
 \subsection{Intégrer une fonction}
 
-Soit $f : D \subset \eR^n \to \eR$ une fonction continue, et $\gamma
-: [a,b] \to D$ un chemin $C^1$. On définit \Defn{l'intégrale de $f$
-  sur $\gamma$} par
-  \begin{equation}    \label{EqhJGRcb}
-  \int_\gamma f d s = \int_\gamma f = \int_a^b f(\gamma(t)) \norme{\gamma^\prime(t)} d t.
-\end{equation}
+\begin{definition}
+    Soit $f : D \subset \eR^n \to \eR$ une fonction continue, et $\gamma : [a,b] \to D$ un chemin $C^1$. On définit \defe{l'intégrale de $f$ sur $\gamma$}{intégrale!sur un chemin} par
+      \begin{equation}    \label{EqhJGRcb}
+      \int_\gamma f d s = \int_\gamma f = \int_a^b f(\gamma(t)) \norme{\gamma^\prime(t)} d t.
+    \end{equation}
+\end{definition}
+
+\begin{example}
+    Soit l'hélice
+    \begin{equation}
+        \begin{aligned}
+            \sigma\colon \mathopen[ 0 , 2\pi \mathclose]&\to \eR^3 \\
+            t&\mapsto \begin{pmatrix}
+                \cos(t)    \\ 
+                \sin(t)    \\ 
+                t    
+            \end{pmatrix},
+        \end{aligned}
+    \end{equation}
+    et la fonction $f(x,y,z)=x^2+y^2+z^2$. L'intégrale de $f$ sur $\sigma$ est
+    \begin{equation}
+        \begin{aligned}[]
+            \int_{\sigma}f&=\int_0^{2\pi}(\cos^2t+\sin^2t+t^2)\| \sigma'(t) \|dt\\
+            &=\int_0^{2\pi}(1+t^2)\sqrt{2}dt\\
+            &=\sqrt{2}\left[ t+\frac{ t^3 }{ 3 } \right]_0^{2\pi}\\
+            &=\sqrt{2}\left( 2\pi+\frac{ 8\pi^3 }{ 8 } \right).
+        \end{aligned}
+    \end{equation}
+\end{example}
 
 \begin{remark}
-  Cette définition ne dépend pas de la paramétrisation choisie, ni du
-  sens du chemin (échange entre point de départ et point d'arrivée).
+    Si $f=1$, alors nous tombons sur
+    \begin{equation}
+        \int_{\gamma}ds=\int_a^b\| \gamma'(t) \|dt,
+    \end{equation}
+    qui n'est autre que la longueur de la courbe\footnote{Comme expliqué par le théorème \ref{ThoLongueurIntegrale}.}. Encore une fois, l'intégrale de la fonction $1$ donne la «mesure» de l'ensemble.
 \end{remark}
+
+\begin{proposition}[Indépendence en la paramétrisation]
+    La valeur de l'intégrale de $f$ sur $\gamma$ ne dépend pas du paramétrage (équivalent ou pas) choisi.
+\end{proposition}
+
+\begin{proof}
+    Soit donc un chemin \( \gamma\colon \mathopen[ c , d \mathclose]\to \eR^3\) ainsi que $\varphi\colon \mathopen[ c , d \mathclose]\to \mathopen[ a , b \mathclose]$, une reparamétrisation de classe $C^1$, strictement monotone et le chemin \( \sigma\) définit par $\gamma(s)=\sigma\big( \varphi(s) \big)$ avec $s\in\mathopen[ c , d \mathclose]$. En supposant que $\varphi'(s)\geq 0$, nous avons
+    \begin{equation}
+        \begin{aligned}[]
+            I=\int_{\gamma}f&=\int_c^df\big( \gamma(s) \big)\| \gamma'(s) \|ds\\
+            &=\int_c^df\Big( \sigma\big( \varphi(s) \big) \Big)\| \sigma'\big( \varphi(s) \big) \| |\varphi'(s) |ds.
+        \end{aligned}
+    \end{equation}
+    Pour cette intégrale, nous posons $t=\varphi(s)$, et par conséquent $dt=\varphi'(s)ds$. Étant donné que $\varphi'(s)\geq 0$, nous pouvons supprimer les valeurs absolues, et obtenir
+    \begin{equation}
+        \begin{aligned}[]
+            I&=\int_{\varphi(c)}^{\varphi(d)}f\big( \sigma(t) \big)\| \sigma'(t) \|dt\\
+            &=\int_a^bf\big( \sigma(t) \big)\| \sigma'(t) \|dt\\
+            &=\int_{\sigma}f.
+        \end{aligned}
+    \end{equation}
+
+    Essayez de faire le cas $\varphi'(s)\leq 0$. 
+\end{proof}
 
 \begin{remark}      \label{RemiqswPd}
     Attention : les intégrales sur des chemins dans \( \eC\) ne sont la même chose. En effet \( \eC\) doit être souvent plutôt traité comme \( \eR\) que comme \( \eR^2\). Si \( \gamma\) est un chemin dans \( \eC\), l'intégrale
@@ -723,10 +612,6 @@ Soit $f : D \subset \eR^n \to \eR$ une fonction continue, et $\gamma
 \end{remark}
 
 
-La formule qui donne la longueur d'un chemin est évidement l'intégrale de la fonction $1$ sur le chemin, c'est à dire
-\begin{equation}
-	L=\int_a^b\| \gamma'(t) \|dt.
-\end{equation}
 Si on veut savoir la longueur d'une courbe donnée sous la forme d'une fonction $y=y(x)$, un chemin qui trace la courbe est évidement donné par
 \begin{equation}
 	\gamma(t)=(t,y(t)),
@@ -742,42 +627,52 @@ et
 
 
 \subsection{Intégrer un champ de vecteurs}
-Un \Defn{champ de vecteur} est une application $G : \eR^n \to
-\eR^n$. On définit l'intégrale de $G$ sur un chemin $\gamma : [a,b]
-\to \eR^n$ par
-\begin{equation*}
-  \int_\gamma G \pardef \int_a^b \scalprod {G(\gamma(t))}{\gamma^\prime(t)} d t.
-\end{equation*}
+
+\begin{definition}      \label{DEFooSHHFooVdsxMf}
+    Un \defe{champ de vecteur}{champ!de vecteurs} est une application $G : \eR^n \to \eR^n$. On définit l'intégrale de $G$ sur un chemin $\gamma : [a,b] \to \eR^n$ par
+    \begin{equation*}
+      \int_\gamma G \pardef \int_a^b \scalprod {G(\gamma(t))}{\gamma^\prime(t)} d t.
+    \end{equation*}
+\end{definition}
 
 \begin{remark}
-  Cette définition ne dépend pas de la paramétrisation choisie, mais
-  le signe change selon le sens du chemin.
+  Cette définition ne dépend pas de la paramétrisation choisie, mais le signe change selon le sens du chemin.
 \end{remark}
+
+
+
+    Si $\sigma'(t)\neq 0$, nous pouvons considérer le vecteur unitaire tangent à la courbe :
+    \begin{equation}
+        T(t)=\frac{ \sigma'(t) }{ \| \sigma'(t) \| }.
+    \end{equation}
+    Si $F$ est un champ de vecteurs sur $\eR^3$, la circulation de $F$ le long de $\sigma$ sera donnée par 
+    \begin{equation}
+        \int_{\sigma}F\cdot ds=\int_a^b F\big( \sigma(t) \big)\cdot \sigma'(t)dt=\int_{a}^bF\big( \sigma(t) \big)\cdot\frac{ \sigma'(t) }{ \| \sigma'(t) \| }dt=\int_{\sigma} F\cdot T ds
+    \end{equation}
+    où dans la dernière expression, $F\cdot T$ est vu comme fonction $(x,y,z)\mapsto F(x,y,z)\cdot T(x,y,z)$. L'intégrale d'un champ de vecteurs sur une courbe n'est donc rien d'autre que l'intégrale de la composante tangentielle du champ de vecteurs.
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Intégrer une forme différentielle sur un chemin}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Une \defe{forme différentielle}{forme!différentielle} sur $\eR^n$ est une application
+La formule d'intégration d'un champ de vecteur\footnote{Définition \ref{DEFooSHHFooVdsxMf}.},
 \begin{equation}
-	\begin{aligned}
-		\omega\colon \eR^n&\to (\eR^n)^* \\
-		x&\mapsto \omega_x 
+	\int_{\gamma}G=\int_{[a,b]}\langle G (\gamma(t)), \gamma'(t)\rangle dt,
+\end{equation}
+contient quelque chose d'intéressant : la combinaison $\langle G( \gamma(t) ), \gamma'(t)\rangle$. Cette combinaison sert à transformer le vecteur tangent $\gamma'(t)$ en un nombre en utilisant le produit scalaire avec le vecteur $G( \gamma(t) )$.
+
+Si $G$ est un champ de vecteur sur $\eR^n$, et si $x\in\eR^n$, nous pouvons utiliser l'isomorphisme musical (définition \ref{EqDefBemol}) 
+\begin{equation}		
+	\begin{aligned}[]
+		G^{\flat}_x\colon \eR^n&\to \eR \\
+			v&\mapsto \langle G(x), v\rangle 
 	\end{aligned}
 \end{equation}
-qui à chaque point $x$ de $\eR^n$ associe une forme linéaire $\omega_x: \eR^n \to \eR$.
+pour écrire de façon plus compacte :
+\begin{equation}
+	\int_{\gamma}G=\int_{[a,b]} G^{\flat}_{\gamma(t)}\big( \gamma'(t)\big) dt.
+\end{equation}
 
-On sait que $\{ d x_i \}_{1\leq i\leq n}$ est une base de
-${(\eR^{n})}^{*}$, donc toute forme différentielle s'écrit
-\begin{equation*}
-  \omega_x = \sum_{i=0}^n a_i(x) d x_i
-\end{equation*}
-où $a_1,\ldots,a_n$ sont les \Defn{composantes de $\omega$} dans la
-base usuelle, et sont des fonctions à valeurs réelles. Pour un vecteur
-$v = (v_1,\ldots,v_n)$ on a donc par définition de $d x_i$
-\begin{equation*}
-  \omega_x v = \sum_{i=0}^n a_i(x) v_i.
-\end{equation*}
 
 L'intégrale d'une forme différentielle sur un chemin est définie par
 \begin{equation}    \label{EqEFIZyEe}
@@ -789,23 +684,143 @@ L'intégrale d'une forme différentielle sur un chemin est définie par
   le signe change selon le sens du chemin.
 \end{remark}
 
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégration d'une forme différentielle sur un chemin}
+%---------------------------------------------------------------------------------------------------------------------------
 
-\subsection{Lien entre forme différentielle et champ vectoriel}
-Si $G$ est un champ de vecteurs, on peut définir la forme différentielle
-\begin{equation*}
-  \omega^G : \eR^n \to {(\eR^n)}^\ast : x \mapsto \left\lbrack \omega^G_x :
-  \eR^n \to \eR : v \mapsto \omega^G_x v = \scalprod {G(x)}v \right\rbrack
-\end{equation*}
-et réciproquement, si $\omega_x = \sum_i a_i(x)d x_i$ est une forme
-différentielle on définit le champ de vecteurs
-\begin{equation*}
-  G^\omega(x) = (a_1(x),\ldots,a_n(x)).
-\end{equation*}
+Les formes intégrales que nous avons déjà vues sont celles de fonctions et de champs de vecteur sur des chemins. Si $\gamma\colon [a,b]\to \eR^n$ est le chemin, les formules sont
+\begin{equation}
+	\begin{aligned}[]
+		\int_{\gamma}f&=\int_{[a,b]}f\big( \gamma(t) \big)\| \gamma'(t) \|dt\\
+		\int_{\gamma}G&=\int_{[a,b]}\langle G\big( \gamma(t) \big), \gamma'(t)\rangle dt.
+	\end{aligned}
+\end{equation}
+Dans les deux cas, le principe est que nous disposons de quelque chose (la fonction $f$ ou le vecteur $G$), et du vecteur tangent $\gamma'(t)$, et nous essayons d'en tirer un nombre que nous intégrons. Lorsque nous avons une $1$-forme, la façon de l'utiliser pour produire un nombre avec le vecteur tangent est évidement d'appliquer la $1$-forme au vecteur tangent. La définition suivante est donc naturelle.
 
-Avec ces définitions, pour un chemin $\gamma$ donné on a
-\begin{equation*}
-  \int_\gamma \omega^G = \int_\gamma G^\omega
-\end{equation*}
+\begin{definition}
+	Soit $\gamma\colon [a,b]\to \eR^n$, un chemin de classe $C^1$ tel que son image est contenue dans le domaine $D$. Si $\omega$ es une $1$-forme différentielle sur $D$, nous définissons l'\defe{intégrale de $\omega$ le long de $\gamma$}{intégrale!d'une forme différentielle} le nombre
+	\begin{equation}
+		\begin{aligned}[]
+			\int_{\gamma}\omega&=\int_a^b\omega_{\gamma(t)}\big( \gamma'(t) \big)dt\\
+				&=\int_a^b\Big[ a_1\big( \gamma(t) \big)\gamma'_1(t)+\ldots +  a_n\big( \gamma(t) \big)\gamma'_n(t) \Big]dt.
+		\end{aligned}
+	\end{equation}
+\end{definition}
+
+Cette définition est une bonne définition parce que si on change la paramétrisation du chemin, on ne change pas la valeur de l'intégrale, c'est la proposition suivante.
+\begin{proposition}
+	Si $\gamma$ et $\beta$ sont des chemins équivalents, alors
+	\begin{equation}
+		\int_{\gamma}\omega=\int_{\beta}\omega,
+	\end{equation}
+	c'est à dire que l'intégrale est invariante sous les reparamétrisation du chemin.
+\end{proposition}
+\begin{proof}
+	Deux chemins sont équivalents quand il existe un difféomorphisme $C^1$ $h\colon [a,b]\to [c,d]$ tel que $\gamma(t)=(\beta\circ h)(t)$. En remplaçant $\gamma$ par $(\beta\circ h)$ dans la définition de $\int_{\gamma}\omega$, nous trouvons
+	\begin{equation}
+		\int_a^b\omega_{\gamma(t)}\big( \gamma'(t) \big)dt=\int_a^b\omega_{(\beta\circ h)(t)}\big( (\beta\circ h)'(t) \big)dt.
+	\end{equation}
+	Un changement de variable $u=h(t)$ transforme cette dernière intégrale en $\int_{\beta}\omega$, ce qui prouve la proposition.
+\end{proof}
+
+\begin{remark}
+	Si $\gamma$ est une somme de chemins, $\gamma=\gamma^{(1)}+\ldots+\gamma^{(n)}$, où chacun des $\gamma^{(i)}$ est un chemin, alors
+	\begin{equation}
+		\int_{\gamma}\omega=\sum_{i=1}^n\int_{\gamma_i}\omega
+	\end{equation}
+	parce que $\omega$ est linéaire.
+\end{remark}
+
+\begin{remark}
+	Si $-\gamma$ est le chemin
+	\begin{equation}
+		\begin{aligned}
+			- \gamma\colon [a,b]&\to \eR^n \\
+			t&\mapsto \gamma\big( b-(t-a) \big),
+		\end{aligned}
+	\end{equation}
+	alors
+	\begin{equation}
+		\int_{-\gamma}\omega=-\int_{\gamma}\omega,
+	\end{equation}
+	c'est à dire que si l'on parcours le chemin en sens inverse, alors on change le signe de l'intégrale.
+\end{remark}
+
+L'intégrale d'une forme différentielle sur un chemin est compatible avec l'intégrale déjà connue d'un champ de vecteur sur le chemin parce que si $G$ est un champ de vecteurs,
+\begin{equation}
+	\int_{\gamma}G^{\flat}=\int_{\gamma}G.
+\end{equation}
+En effet,
+\begin{equation}
+	\begin{aligned}[]
+		\int_{\gamma G^{\flat}}	&=\int_a^b G_{\gamma(t)}^{\flat}(\gamma'(t))\\
+					&=\int_a^b\big[ G_1( \gamma(t) )dx_1+\ldots G_n(\gamma(t))dx_n \big]\big( \gamma'_1(t),\ldots,\gamma'_n(t) \big)\\
+					&=\int_{a}^b\langle G(\gamma(t)), \gamma'(t)\rangle \\
+					&=\int_{\gamma}G.
+	\end{aligned}
+\end{equation}
+
+
+\begin{proposition}
+	Soit $\omega=df$, une $1$-forme exacte et continue sur le domaine $D$. Alors la valeur de $\int_{\gamma}df$ ne dépend que des valeurs de $f$ aux extrémités de $\gamma$.
+\end{proposition}
+
+\begin{proof}
+	Nous avons
+	\begin{equation}
+		\begin{aligned}[]
+			\int_{\gamma}\omega=\int_{\gamma}df&=\int_{a}^b\sum_{i=1}n\frac{ \partial f }{ \partial x_i }\big( \gamma(t) \big)\gamma'_i(t)dt\\
+				&=\int_a^b\frac{ d }{ dt }\Big( (f\circ\gamma)(t) \Big)dt\\
+				&=(f\circ\gamma)(b)-(f\circ\gamma(a)).
+		\end{aligned}
+	\end{equation}
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Interprétation physique : travail}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+	Une force $F\colon D\subset\eR^n\to \eR^n$ est \defe{\href{http://fr.wikipedia.org/wiki/Force_conservative}{conservative}}{Conservative} si elle dérive d'un potentiel, c'est à dire si il existe une fonction $V\in C^1(D,\eR)$ telle que 
+	\begin{equation}
+		F(x)=(\nabla V)(x).
+	\end{equation}
+\end{definition}
+Étant donné que $F$ est un champ de vecteurs, nous avons une forme différentielle associée $F^{\flat}$,
+\begin{equation}
+	F^{\flat}_x\colon x\mapsto \langle F(x), v\rangle .
+\end{equation}
+
+\begin{lemma}
+	Le champ $F$ est conservatif si et seulement si la $1$-forme différentielle $F^{\flat}$ est exacte.
+\end{lemma}
+
+\begin{proof}
+	Supposons que la force $F$ soit conservative, c'est à dire qu'il existe une fonction $V$ telle que $F=\nabla V$. Dans ce cas, il est facile de prouver que $F^{\flat}$ est exacte et est donnée par $F_x^{\flat}=dV(x)$. En effet,
+	\begin{equation}
+		\begin{aligned}[]
+			F_x^{\flat}(v)	&=\langle F(x), v\rangle \\
+					&=F_1(x)v_1+\ldots+F_n(x)v_n\\
+					&=\frac{ \partial V }{ \partial x_1 }(x)v_1+\ldots\frac{ \partial V }{ \partial x_n }(x)v_n\\
+					&=dV(x)v.
+		\end{aligned}
+	\end{equation}
+	
+	Pour le sens inverse, supposons que $F^{\flat}$ soit exacte. Dans ce cas, nous avons une fonction $V$ telle que $F^{\flat}=dV$. Il est facile de prouver qu'alors, $F=\nabla V$.
+\end{proof}
+En résumé, nous avons deux façons équivalentes d'exprimer que la force $F$ dérive du potentiel $V$ :  soit nous disons $F=\nabla V$, soit nous disons $F^{\flat}=dV$.
+
+\begin{proposition}
+	Si $F$ est une force conservative, alors le \href{http://fr.wikipedia.org/wiki/Travail_d'une_force}{travail} de $F$ lors d'un déplacement ne dépend pas du chemin suivit.
+\end{proposition}
+
+\begin{proof}
+	Le travail d'une force le long d'un chemin n'est autre que l'intégrale de la force le long du chemin, et le calcul est facile :
+	\begin{equation}
+		W_{\gamma}(F)=\int_{\gamma}F=\int_{\gamma}dV=V\big( \gamma(b) \big)-V\big( \gamma(a) \big).
+	\end{equation}
+	Donc si $\beta$ est un autre chemin tel que $\beta(a)=\gamma(a)$ et $\beta(b)=\gamma(b)$, nous avons $W_{\beta}(F)=W_{\gamma}(F)$.
+\end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Intégrer un champs de vecteurs sur un bord en $2D$}
