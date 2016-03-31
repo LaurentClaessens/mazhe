@@ -61,8 +61,8 @@ D'autres lectures agréables dans \cite{GianlucaB}
     est appelé le \defe{conditionnement absolu}{conditionnement!absolu} du problème autour de $d_0$.
 
 	Soit $F(x,d)=0$ un problème stable de conditionnement absolu $K_{\text{abs}}(d,\eta)$.  Le conditionnement relatif est défini par
-	\begin{equation}
-		K_{\text{rel}}(d,\eta):=K_{\text{abs}}(d,\eta)\frac{|d|}{|x(d)|}.
+    \begin{equation}        \label{DEFEQooSXDBooYbvGrC}
+		K_{\text{rel}}(d,\eta):=K_{\text{abs}}(d,\eta)\frac{\| d \|_D}{\|x(d)\|_X}.
 	\end{equation}
 	Le problème est dit \defe{bien conditionné}{bien!conditionné} près de $d$ si $K_{\text{rel}}(d,\eta)$ est petit.
 \end{definition}
@@ -291,6 +291,8 @@ Soit le système d'équations linéaires \( Au=b\) avec la matrice inversible \(
     \end{equation}
 \end{definition}
 
+Cette dénomination sera justifié par le corollaire \ref{CORooXKPWooJVHVvh} parce qu'il est évident que le conditionnement d'une matrice est lié au conditionnement du problème de résolution d'un système linéaire.
+
 \begin{remark}
     Le conditionnement dépend de la norme choisie, mais cette dependence est contrôlée par la proposition \ref{PropLJEJooMOWPNi} qui nous indique que si le conditionnement d'une matrice est grand dans une norme, il sera grand dans une autre norme.
 
@@ -387,7 +389,11 @@ Soit une matrice inversible \( A\in \GL(n,\eC)\). La matrice \( A^*A\) est hermi
     \end{equation}
 \end{proof}
 
-\begin{proposition}[Système linéaire : perturbation du vecteur\cite{ooLMMRooUXhOdx}]
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Perturbation du vecteur}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}[Système linéaire : perturbation du vecteur\cite{ooLMMRooUXhOdx}]        \label{PROPooGIXFooAhJkIs}
     Soit une matrice inversible \( A\) et les systèmes d'équations linéaires
     \begin{subequations}        \label{EQooYQIGooPXqWoX}
         \begin{align}
@@ -396,7 +402,7 @@ Soit une matrice inversible \( A\in \GL(n,\eC)\). La matrice \( A^*A\) est hermi
         \end{align}
     \end{subequations}
     En notant \( \Delta u=u'-u\) et \( \Delta b=b'-b\) nous avons
-    \begin{equation}
+    \begin{equation}        \label{EQooESXRooMYuvRa}
         \frac{ \| \Delta u \| }{ \| u \| }\leq \Cond(A)\frac{ \| \Delta b \| }{ \| b \| }.
     \end{equation}
 \end{proposition}
@@ -412,9 +418,60 @@ Soit une matrice inversible \( A\in \GL(n,\eC)\). La matrice \( A^*A\) est hermi
     \end{equation}
     En mettant les deux ensemble,
     \begin{equation}
-        \frac{ \| \Delta u \| }{ \| u \| }\leq \frac{ \| A^{-1} \|\| \Delta b \| }{ \| b \| }\| A \|\Cond(A)\frac{ \| \Delta b \| }{ \| b \| }.
+        \frac{ \| \Delta u \| }{ \| u \| }\leq \frac{ \| A^{-1} \|\| \Delta b \| }{ \| b \| }\| A \|=\Cond(A)\frac{ \| \Delta b \| }{ \| b \| }.
     \end{equation}
 \end{proof}
+
+Le corollaire suivant justifie le nom «conditionnement» au conditionnement d'une matrice.
+\begin{corollary}       \label{CORooXKPWooJVHVvh}
+    Soit \( A\in \GL(n,\eC)\) fixée et le problème de résoudre \( Au=b\), c'est à dire la fonction
+    \begin{equation}
+        F(u,b)=Au-b.
+    \end{equation}
+    \begin{enumerate}
+        \item
+            Ce problème est stable pour toute valeur de \( b\).
+        \item
+            Nous avons une majoration pour le conditionnement relatif\footnote{Si vous doutez de la norme à prendre, lisez la remarque \ref{REMooAIKIooJEBEqi}} :
+            \begin{equation}        \label{EQooZHQJooTMKYfr}
+                K_{rel}(\eta,b_0)\leq \Cond(A).
+            \end{equation}
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    \begin{subproof}
+    \item[Stabilité]
+        Vu que \( A\) est inversible, il existe une solution unique à tout système de la forme \( Au=b'\). De plus \( u(b)=A^{-1} b\), donc
+        \begin{equation}
+            \| u(b)-u(b_0) \|= \| A^{-1}(b-b_0) \|\leq \| A^{-1} \|\| b-b_0 \|,
+        \end{equation}
+        de telle sorte que la condition \ref{DEFooYIFAooSJbMkC}\ref{ItemProbStableB} fonctionne avec \( K=\| A^{-1} \|\).
+    \item[Conditionnement]
+        En partant de la définition \ref{DEFEQooSXDBooYbvGrC}, et en utilisant la majoration de la proposition \ref{PROPooGIXFooAhJkIs} sous la forme
+        \begin{equation}
+            \| u(b)-u(b_0) \|\leq \Cond(A)\| u(b_0) \|\frac{ \| \Delta b \| }{ \| b_0 \| },
+        \end{equation}
+        nous obtenons :
+        \begin{subequations}
+            \begin{align}
+                K_{rel}(b_0,\eta)&=K_{abs}(b_0,\eta)\frac{ \| b_0 \| }{ \| u(b_0) \| }\\
+                &=\sup_{\| b-b_0 \|\leq \eta}\frac{ \| u(b)-u(b_0) \| }{ \| b-b_0 \| }\frac{ \| b_0 \| }{ \| u(b_0) \| }
+                &\leq \sup_b\Cond(A)\frac{ \| u(b_0) \| }{ \| b_0 \| }\| \Delta b \|\frac{1}{ \| b-b_0 \| }\frac{ \| b_0 \| }{ \| u(b_0) \| }\\
+                &=\Cond(A).
+            \end{align}
+        \end{subequations}
+    \end{subproof}
+\end{proof}
+<++>
+
+\begin{remark}      \label{REMooAIKIooJEBEqi}
+    La notion de conditionnement relatif dépend aussi de la norme choisie. Dans la formule \eqref{EQooZHQJooTMKYfr} il faut prendre le conditionnement \( \Cond(A)\) pour la norme dans laquelle le \( K_{rel}\) est écrit. Encore une fois, toutes les normes étant équivalentes,  cette majoration est à constante près bonne pour toutes les normes. Si la dimension est très grande, cette constante peut par contre être grande.
+\end{remark}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Perturbation de la matrice}
+%---------------------------------------------------------------------------------------------------------------------------
 
 \begin{proposition}[Système linéaire : perturbation de la matrice\cite{ooLMMRooUXhOdx}]
     Soient les systèmes linéaires
@@ -484,9 +541,50 @@ Soit une matrice inversible \( A\in \GL(n,\eC)\). La matrice \( A^*A\) est hermi
     Donc la limite du quotient \eqref{EQooJURGooFvYiAs} est bien \( 1\).
 \end{proof}
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Méthode de Newton}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Algorithmes, stabilité, convergence et conditionnement}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SECooIKXNooACLljs}
+
+\begin{definition}
+    Le nombre \( \alpha\) est une \defe{racine simple}{racine!simple} de \( f(x)=0\) si \( f(\alpha)=0\) et \( f'(\alpha)\neq 0\). Le nombre \( \alpha\) est une \defe{racine multiple}{racine!multiple} d'ordre \( r\) de \( f(x)=0\) si
+    \begin{equation}
+        f(\alpha)=f'(\alpha)=\ldots=f^{(r-1)(\alpha)}=0
+    \end{equation}
+    et \( f^{(r)}(\alpha)\neq 0\).
+\end{definition}
+
+\begin{example}
+    La fonction \( x\mapsto x^3\) en \( x=0\) est un racine d'ordre \( 3\).
+\end{example}
+
+Il se fait que si une racine est multiple, alors l'ordre de convergence de la méthode de Newton est \( 1\).
+
+\begin{normaltext}
+    Soit une fonction \( f\) continue et dérivable sur \( \mathopen[ a , b \mathclose]\). Soit \( \alpha\) une racine de \( f\) et \( x_n\) une de ses approximation.  Nous notons l'erreur \( \theta\) et nous avons \( \alpha=x_n+\theta\). Du coup nous avons \( f(x_n+\theta)=f(\alpha)=0\). 
+
+    Écrivons la série de Taylor autour de \( x_n\) :
+    \begin{equation}
+        f(\alpha)=f(x_n+\theta)=f(x_n)+\alpha f'(x_n)+\frac{ \theta^2 }{ 2 }f''(\xi)
+    \end{equation}
+    où \( \xi\in\mathopen[ \alpha , x_n \mathclose]\). En oubliant un peu le reste nous avons
+    \begin{equation}
+        f(x_n+\theta)\simeq f(x_n)+\theta f'(x_n).
+    \end{equation}
+    Mais le terme de gauche est nul, donc
+    \begin{equation}
+        \theta\simeq -\frac{ f(x_n) }{ f'(x_n) }.
+    \end{equation}
+    Cela n'est pas l'erreur que nous avons, mais une approximation de l'erreur. Mais \( \alpha=x_n+\theta\), donc en prenant une approximation de \( \theta\) nous avons une approximation de \( \alpha\) :
+    \begin{equation}
+        x_{n+1}=x_n-\frac{ f(x_n) }{ f'(x_n) }.
+    \end{equation}
+    Cette dernière formule est la méthode de Newton.
+\end{normaltext}
+
+Cette méthode de Newton ne converge pas toujours. Le pire est lorsque par malheur il y a une bosse pas loin de la racine. Alors il y a un risque de tomber sur \( f'(x_{n+1})=0\) ou en tout cas très proche de zéro. Dans ce cas le point \( x_{n+2}\) est envoyé très loin.
+
+
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Méthode de Newton pour trouver une racine d'une fonction}
@@ -1253,47 +1351,3 @@ Dans le cas de la bisection, nous obtenons toujours \( p_i=1\).
     Dans le cas de la méthode de Newton nous avons \( p=2\). Mais les premières valeurs de \( p_i\) peuvent être aussi bien \( 0\) que \( 7\). Après quelque itérations pourtant les \( p_i\) se regroupent autour de \( 2\).
 \end{enumerate}
 En tout cas, le plus important est de savoir si \( p>1\) ou non. Rappel : nous voulons la superlinéarité parce que nous voulons utiliser le test d'arrêt de la différence entre deux termes.
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Méthode de Newton}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-\begin{definition}
-    Le nombre \( \alpha\) est une \defe{racine simple}{racine!simple} de \( f(x)=0\) si \( f(\alpha)=0\) et \( f'(\alpha)\neq 0\). Le nombre \( \alpha\) est une \defe{racine multiple}{racine!multiple} d'ordre \( r\) de \( f(x)=0\) si
-    \begin{equation}
-        f(\alpha)=f'(\alpha)=\ldots=f^{(r-1)(\alpha)}=0
-    \end{equation}
-    et \( f^{(r)}(\alpha)\neq 0\).
-\end{definition}
-
-\begin{example}
-    La fonction \( x\mapsto x^3\) en \( x=0\) est un racine d'ordre \( 3\).
-\end{example}
-
-Il se fait que si une racine est multiple, alors l'ordre de convergence de la méthode de Newton est \( 1\).
-
-\begin{normaltext}
-    Soit une fonction \( f\) continue et dérivable sur \( \mathopen[ a , b \mathclose]\). Soit \( \alpha\) une racine de \( f\) et \( x_n\) une de ses approximation.  Nous notons l'erreur \( \theta\) et nous avons \( \alpha=x_n+\theta\). Du coup nous avons \( f(x_n+\theta)=f(\alpha)=0\). 
-
-    Écrivons la série de Taylor autour de \( x_n\) :
-    \begin{equation}
-        f(\alpha)=f(x_n+\theta)=f(x_n)+\alpha f'(x_n)+\frac{ \theta^2 }{ 2 }f''(\xi)
-    \end{equation}
-    où \( \xi\in\mathopen[ \alpha , x_n \mathclose]\). En oubliant un peu le reste nous avons
-    \begin{equation}
-        f(x_n+\theta)\simeq f(x_n)+\theta f'(x_n).
-    \end{equation}
-    Mais le terme de gauche est nul, donc
-    \begin{equation}
-        \theta\simeq -\frac{ f(x_n) }{ f'(x_n) }.
-    \end{equation}
-    Cela n'est pas l'erreur que nous avons, mais une approximation de l'erreur. Mais \( \alpha=x_n+\theta\), donc en prenant une approximation de \( \theta\) nous avons une approximation de \( \alpha\) :
-    \begin{equation}
-        x_{n+1}=x_n-\frac{ f(x_n) }{ f'(x_n) }.
-    \end{equation}
-    Cette dernière formule est la méthode de Newton.
-\end{normaltext}
-
-Cette méthode de Newton ne converge pas toujours. Le pire est lorsque par malheur il y a une bosse pas loin de la racine. Alors il y a un risque de tomber sur \( f'(x_{n+1})=0\) ou en tout cas très proche de zéro. Dans ce cas le point \( x_{n+2}\) est envoyé très loin.
-
-
