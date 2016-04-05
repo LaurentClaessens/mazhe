@@ -11,6 +11,7 @@ def AMDUooZZUOqa():
     cercle.parameters.style="dashed"
     
     arc=cercle.graph(theta,sigma)
+    arc.parameters.style=""
     arc.parameters.color="blue"
 
     P=cercle.get_point(theta)
@@ -22,7 +23,7 @@ def AMDUooZZUOqa():
     M=cercle.get_point((sigma+theta)/2)
     M.put_mark(0.3,M.advised_mark_angle(pspict),"$\sigma(t)$",automatic_place=(pspict,""))
 
-    angle=Angle(P,O,Q,r=0.5)
+    angle=AngleAOB(P,O,Q,r=0.5)
     angle.put_mark(0.2,None,r"$\theta$",automatic_place=(pspict,""))
     seg_theta=Segment(O,P)
     seg_sigma=Segment(O,Q)
