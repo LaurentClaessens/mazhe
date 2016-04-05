@@ -4,6 +4,7 @@
 from phystricks import *
 import sys
 
+from phystricksQMWKooRRulrgcH import QMWKooRRulrgcH
 from phystricksKKJAooubQzgBgP import KKJAooubQzgBgP
 from phystricksSYNKooZBuEWsWw import SYNKooZBuEWsWw
 from phystricksUMEBooVTMyfD import UMEBooVTMyfD
@@ -456,8 +457,8 @@ figures_list.append(UMEBooVTMyfD)
 figures_list.append(UEGEooHEDIJVPn)
 figures_list.append(SYNKooZBuEWsWw)
 figures_list.append(KKJAooubQzgBgP)
+figures_list.append(QMWKooRRulrgcH)
 """
-figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
