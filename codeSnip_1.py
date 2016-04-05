@@ -9,7 +9,7 @@ def bissection(f, a, b, toll, mmax):
 
     Nous supposons que \( b>a\).
 
-    Retourne un tuple (x,n) où 'x' est la solution approchée et 'n' est le nombre d'itérations effefctuées
+    Retourne un tuple (x,n) où 'x' est la solution approchée et 'n' est le nombre d'itérations effectuées
     """
     n = -1
     amp = toll + 1 # Pour s'assurer que l'on entre dans le cycle
