@@ -1469,10 +1469,103 @@ Dans le cas des matrices par contre, les données sont très différentes les un
 \end{remark}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Représentations numériques, erreurs}
+\section{Représentations numériques}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-\begin{definition}
+Dans cette section les séquences de chiffres écrites entre crochet sont à comprendre comme des séquences de chiffres qui représentent une quantité suivant un codage donné.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Entier relatif en complément à deux (binaire)}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si nous avons \( m\) bits pour coder un entier relatif, une idée serait de prendre le premier bit pour le signe (\( 0\) pour positif et \( 1\) pour négatif) et les autres pour la valeur absolue. Deux inconvénients :
+\begin{enumerate}
+    \item
+        Il y a deux codages pour le zéro, donc gaspillage.
+    \item
+        L'algorithme pour faire la somme passe mal. Par exemple pour faire \( 1+(-1)\), le \( 1\) est codé comme \( [001]\) et le \( -1\) par \( [101]\) et la somme se ferait naïvement comme
+        \begin{equation*}
+            \begin{array}[]{ccc}
+                0&0&1\\
+                1&0&1\\
+                \hline
+                1&1&0\\
+            \end{array}
+        \end{equation*}
+        Donc le résultat est \( [110]\) qui s'interprète comme \( -2\). Complètement faux.
+\end{enumerate}
+Une solution est d'utiliser le \defe{complément à deux}{complément!à deux}, qui est la façon usuelle de représenter des entiers signés. 
+\begin{description}
+    \item[Les entiers positifs] se codent normalement, en laissant à zéro le premier bit (donc si nous disposons de \( m\) bits, nous codons sur \( m-1\) bits).
+    \item[Les entiers négatifs] se codent en trois étapes.
+        \begin{itemize}
+            \item coder la valeur absolue
+            \item inverser tous les bits (d'où le nom de «complément à deux» )
+            \item soustraire \( 1\).
+        \end{itemize}
+\end{description}
+
+\begin{example}
+    Pour coder \( -1\) nous faisons
+    \begin{itemize}
+        \item Nous codons \( 1\) : \( [001]\)
+        \item Nous inversons tous les bits : \( [110]\)
+        \item Nous faisons \( -1\) : \( [101]\).
+    \end{itemize}
+\end{example}
+
+Avec ce système, la somme passe bien : calculer \( 1+(-1)\) donne
+    \begin{equation*}
+        \begin{array}[]{ccc}
+            0&0&1\\
+            1&0&1\\
+            \hline
+            1&1&0\\
+            \hline
+        \end{array}
+    \end{equation*}
+La réponse est donc \( [110]\) qu'il faut interpréter via le complément à deux. 
+\begin{equation}
+    110\stackrel{+1}{\longrightarrow}111\stackrel{\text{complément}}{\longrightarrow}000.
+\end{equation}
+Et ce dernier \( [000]\) s'interprète comme zéro.
+
+\begin{definition}[Entier signé en complément à deux\cite{ooAPFIooUfhqqG}]
+    La suite de bits \( [a_{m-1}\ldots a_0]\) s'interprète via la formule
+    \begin{equation}        \label{EQooXFHKooHRXDmZ}
+        -a_{m-1}2^{m-1}+\sum_{i=0}^{m-2}a_i2^i.
+    \end{equation}
+\end{definition}
+
+Le premier bit donne effectivement le signe du nombre, mais l'interprétation d'un nombre n'est pas aussi simple que ce que l'on pourrait croire de prime abord.
+
+\begin{example}[Entier signé en \( 8\) bits]
+    Que pouvons nous faire avec \( 8\) bits ? Le plus grand nombre est codé par \( [01111111]\) qui vaut \( \sum_{k=0}^62^k=2^7-1=127\). (avez-vous utilisé la somme \eqref{EqASYTiCK} ?)
+
+    Le plus petit nombre codable en \( 8\) bits n'est pas \( [11111111]\) mais bien \( [10000000]\) (cela est plus clair en regardant la formule \eqref{EQooXFHKooHRXDmZ} qu'en tentant de suivre la construction du complément à deux) qui signifie \( -2^7=-128\).
+
+    Nous pouvons donc coder tous les nombres de \( -128\) à \( 127\).
+\end{example}
+
+Plus généralement un système qui codes des entiers signés en \( N\) bits utilisant le complément à deux peut coder de \( -(2^{N-1})\) à \( 2^{N-1}-1\).
+
+\begin{normaltext}[Le dépassement]
+    Que se passe-t-il lorsque nous commettons un dépassement ? Calculons sur \( 3\) bits la somme \( [011]+[001]\) qui revient à ajouter \( 1\) au nombre le plus grand :
+    \begin{equation*}
+        \begin{array}[]{ccc}
+            0&1&1\\
+            0&0&1\\
+            \hline
+            1&0&0\\
+        \end{array}
+    \end{equation*}
+    qui signifie \( -2^2=-4\). Lors d'un dépassement, nous retombons automatiquement sur le plus petit. 
+    
+    Ce phénomène est bien connu des personnes qui programment sans faire attention dans certains languages de programmation qui ne font pas attention à votre place.
+\end{normaltext}
+
+
+\begin{definition}[Représentation en virgule fixe]
 	Soit $x$ un réel. On définit sa \defe{représentation en virgule fixe}{représentation!virgule fixe} par
 	\begin{equation}
 		x=\{[x_nx_{n-1}...x_0,x_{-1}...x_{-m}], b, s\}
@@ -1481,15 +1574,29 @@ Dans le cas des matrices par contre, les données sont très différentes les un
 	\begin{equation}
 		x=(-1)^{s}\sum_{j=-m}^nx_j.b^j.
 	\end{equation}
-	On définit sa \defe{représentation en \href{https://docs.python.org/tutorial/floatingpoint.html}{virgule flottante} normalisée}{Représentation!virgule flottante normalisée} par
-	\begin{equation}
-		\{[a_1...a_t],b,e,s\}
-	\end{equation}
-	où $e\in\eZ,e\in[L,U]$ et $a_j\in\eN;0\leq a_j<b; a_1\geq1$ suivant la formule
-	\begin{equation}        \label{EqRepreFlotNOrm}
-		x=(-1)^sb^e\sum_{j=1}^ta_jb^{-j}.
-	\end{equation}
 \end{definition}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Représentation en virgule flottante}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[Représentation en virgule flottante]     \label{DEFooLYONooBNskty}
+    La \defe{représentation en \href{https://docs.python.org/tutorial/floatingpoint.html}{virgule flottante} normalisée}{Représentation!virgule flottante normalisée} en base \( b\) d'un nombre est la donnée de 
+    \begin{enumerate}
+        \item
+            Un bit \( s\) pour le signe
+        \item
+            Un entier \emph{non signé} \( q\) de \( e\) chiffres pour l'exposant
+        \item
+            Une suite de chiffres \( [a_1\ldots a_m]\) pour la mantisse.
+    \end{enumerate}
+    Ces données s'interprètent via la formule
+    \begin{equation}        \label{EQooAGWJooRuBbBn}
+        \fl( s,q,[a_1,\ldots, a_m]  )=(-1)^s\sum_{j=1}^mb^ja_j\times b^{q-d}
+    \end{equation}
+    où \( d=b^{e-1}\) est le \defe{décalage}{décalage}.
+\end{definition}
+Une idée à retenir est que l'exposant est un entier non signé parce qu'il est plus simple d'introduire un décalage dans la formule \eqref{EQooAGWJooRuBbBn} que de compliquer l'écriture de l'exposant.
 
 \begin{definition}
 	L'\defe{erreur relative}{erreur relative} commise en remplaçant un nombre réel $x$ par une valeur approchée $\hat{x}$ est définie par
