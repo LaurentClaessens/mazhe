@@ -6,6 +6,428 @@
 D'autres lectures agréables dans \cite{GianlucaB}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Représentations numériques}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Dans cette section les séquences de chiffres écrites entre crochet sont à comprendre comme des séquences de chiffres qui représentent une quantité suivant un codage donné.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Entier relatif en complément à deux (binaire)}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si nous avons \( m\) bits pour coder un entier relatif, une idée serait de prendre le premier bit pour le signe (\( 0\) pour positif et \( 1\) pour négatif) et les autres pour la valeur absolue. Deux inconvénients :
+\begin{enumerate}
+    \item
+        Il y a deux codages pour le zéro, donc gaspillage.
+    \item
+        L'algorithme pour faire la somme passe mal. Par exemple pour faire \( 1+(-1)\), le \( 1\) est codé comme \( [001]\) et le \( -1\) par \( [101]\) et la somme se ferait naïvement comme
+        \begin{equation*}
+            \begin{array}[]{ccc}
+                0&0&1\\
+                1&0&1\\
+                \hline
+                1&1&0\\
+            \end{array}
+        \end{equation*}
+        Donc le résultat est \( [110]\) qui s'interprète comme \( -2\). Complètement faux.
+\end{enumerate}
+Une solution est d'utiliser le \defe{complément à deux}{complément!à deux}, qui est la façon usuelle de représenter des entiers signés. 
+\begin{description}
+    \item[Les entiers positifs] se codent normalement, en laissant à zéro le premier bit (donc si nous disposons de \( m\) bits, nous codons sur \( m-1\) bits).
+    \item[Les entiers négatifs] se codent en trois étapes.
+        \begin{itemize}
+            \item coder la valeur absolue
+            \item inverser tous les bits (d'où le nom de «complément à deux» )
+            \item soustraire \( 1\).
+        \end{itemize}
+\end{description}
+
+\begin{example}
+    Pour coder \( -1\) nous faisons
+    \begin{itemize}
+        \item Nous codons \( 1\) : \( [001]\)
+        \item Nous inversons tous les bits : \( [110]\)
+        \item Nous faisons \( -1\) : \( [101]\).
+    \end{itemize}
+\end{example}
+
+Avec ce système, la somme passe bien : calculer \( 1+(-1)\) donne
+    \begin{equation*}
+        \begin{array}[]{ccc}
+            0&0&1\\
+            1&0&1\\
+            \hline
+            1&1&0\\
+            \hline
+        \end{array}
+    \end{equation*}
+La réponse est donc \( [110]\) qu'il faut interpréter via le complément à deux. 
+\begin{equation}
+    110\stackrel{+1}{\longrightarrow}111\stackrel{\text{complément}}{\longrightarrow}000.
+\end{equation}
+Et ce dernier \( [000]\) s'interprète comme zéro.
+
+\begin{definition}[Entier signé en complément à deux\cite{ooAPFIooUfhqqG}]
+    La suite de bits \( [a_{m-1}\ldots a_0]\) s'interprète via la formule
+    \begin{equation}        \label{EQooXFHKooHRXDmZ}
+        -a_{m-1}2^{m-1}+\sum_{i=0}^{m-2}a_i2^i.
+    \end{equation}
+\end{definition}
+
+Le premier bit donne effectivement le signe du nombre, mais l'interprétation d'un nombre n'est pas aussi simple que ce que l'on pourrait croire de prime abord.
+
+\begin{example}[Entier signé en \( 8\) bits]
+    Que pouvons nous faire avec \( 8\) bits ? Le plus grand nombre est codé par \( [01111111]\) qui vaut \( \sum_{k=0}^62^k=2^7-1=127\). (avez-vous utilisé la somme \eqref{EqASYTiCK} ?)
+
+    Le plus petit nombre codable en \( 8\) bits n'est pas \( [11111111]\) mais bien \( [10000000]\) (cela est plus clair en regardant la formule \eqref{EQooXFHKooHRXDmZ} qu'en tentant de suivre la construction du complément à deux) qui signifie \( -2^7=-128\).
+
+    Nous pouvons donc coder tous les nombres de \( -128\) à \( 127\).
+\end{example}
+
+Plus généralement un système qui codes des entiers signés en \( N\) bits utilisant le complément à deux peut coder de \( -(2^{N-1})\) à \( 2^{N-1}-1\).
+
+\begin{normaltext}[Le dépassement]
+    Que se passe-t-il lorsque nous commettons un dépassement ? Calculons sur \( 3\) bits la somme \( [011]+[001]\) qui revient à ajouter \( 1\) au nombre le plus grand :
+    \begin{equation*}
+        \begin{array}[]{ccc}
+            0&1&1\\
+            0&0&1\\
+            \hline
+            1&0&0\\
+        \end{array}
+    \end{equation*}
+    qui signifie \( -2^2=-4\). Lors d'un dépassement, nous retombons automatiquement sur le plus petit. 
+    
+    Ce phénomène est bien connu des personnes qui programment sans faire attention dans certains languages de programmation qui ne font pas attention à votre place.
+\end{normaltext}
+
+
+\begin{definition}[Représentation en virgule fixe]
+	Soit $x$ un réel. On définit sa \defe{représentation en virgule fixe}{représentation!virgule fixe} par
+	\begin{equation}
+		x=\{[x_nx_{n-1}...x_0,x_{-1}...x_{-m}], b, s\}
+	\end{equation}
+	avec  $b\in\eN, b\geq2$, $s\in\{0,1\}$ et $x_j\in\eN,x_j<b$ suivant la formule
+	\begin{equation}
+		x=(-1)^{s}\sum_{j=-m}^nx_j.b^j.
+	\end{equation}
+\end{definition}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Représentation en virgule flottante}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[Représentation en virgule flottante]     \label{DEFooLYONooBNskty}
+    La \defe{représentation en \href{https://docs.python.org/tutorial/floatingpoint.html}{virgule flottante} normalisée}{Représentation!virgule flottante normalisée} en base \( b\) d'un nombre est la donnée de 
+    \begin{enumerate}
+        \item
+            Un bit \( s\) pour le signe
+        \item
+            Un entier \emph{non signé} \( q\) de \( e\) chiffres pour l'exposant
+        \item
+            Une suite de chiffres \( [a_1\ldots a_m]\) pour la mantisse.
+    \end{enumerate}
+    Ces données s'interprètent via la formule
+    \begin{equation}        \label{EQooAGWJooRuBbBn}
+        \fl( s,q,[a_1,\ldots, a_m]  )=(-1)^s\sum_{j=1}^mb^ja_j\times b^{q-d}
+    \end{equation}
+    où \( d=b^{e-1}\) est le \defe{décalage}{décalage}.
+\end{definition}
+Une idée à retenir est que l'exposant est un entier non signé parce qu'il est plus simple d'introduire un décalage dans la formule \eqref{EQooAGWJooRuBbBn} que de compliquer l'écriture de l'exposant.
+
+En écriture binaire, la représentation en virgule flottante est un peu différente parce qu'il y a une idée supplémentaire; donc la définition suivante n'est pas un cas particulier de \ref{DEFooLYONooBNskty} avec \( b=2\). Nous allons voir la simple précision.
+\begin{definition}[Représentation en simple précision (binaire)]
+    La représentation en \defe{précision simple}{précision!simple} d'un nombre se fait sur \( 32\) bits répartis comme suit :
+    \begin{enumerate}
+        \item
+            \( 1\) bit pour le signe,
+        \item
+            \( 8\) bits pour l'exposant interprété comme nombre entier non signé
+        \item
+            \( 23\) bits pour la mantisse
+    \end{enumerate}
+    Nous définissons le décalage comme \( d=2^{8-1}-1=127\).
+
+    Soit le triple 
+    \begin{equation}
+        \big( s,q,[a_1,\ldots, a_{32}] \big)
+    \end{equation}
+
+    Selon que l'exposant réel \( q-d\) soit égal à \( 0\), \( 2^8-1=127\) ou autre chose, les règles d'interprétation sont différentes. Il y a donc trois cas.
+    \begin{description}
+        \item[Exposant réel générique\cite{ooMPTNooYbSwJS}] Si \( q-d\) n'est ni \( 0\) ni \( 127\) alors la représentation est dite \defe{normalisée}{représentation!normalisée}. Dans ce cas se trouve l'idée de génie qui rend tout compliqué : il y a un \( 1\) sous-entendu en première position de la mantisse. Donc la mantisse \( [a_1,\ldots, a_{32}]\) est à lire comme le nombre
+            \begin{equation}
+                1,a_1\ldots a_{32}=1+\sum_{j=1}^{32}a_j2^{-j}.
+            \end{equation}
+            \begin{example}
+                La mantisse \( [011100\ldots 0]\) signifie \(1,0111=1+2^{-2}+2^{-3}+2^{-4}=1+\frac{1}{ 4 }+\frac{1}{ 8 }+\frac{1}{ 16 } \).
+            \end{example}
+            Avec cette règle, nous avons
+            \begin{equation}
+                \SimplePrec\big( s,q,[a_1,\ldots, a_{32}] \big)=(-1)^s\big( 1+\sum_{j=1}^{32}a_j2^{-j} \big)2^{q-127}.
+            \end{equation}
+            <++>
+        \item[Exposant réel égal à \( 0\)] Si \( q-d\) est égal à zéro, alors l'idée est de pas mettre de \( 1\) au début de la mantisse, mais de le mettre au bout de la mantisse; le but est d'être capable de coder des nombres plus petits.
+
+    \end{description}
+    <++>
+
+\end{definition}
+
+\begin{definition}
+	L'\defe{erreur relative}{erreur relative} commise en remplaçant un nombre réel $x$ par une valeur approchée $\hat{x}$ est définie par
+	\begin{equation}
+		\epsilon_x:=\left|\frac{x-\hat{x}}{x}\right|.
+	\end{equation}
+\end{definition}
+
+L'erreur relative n'est pas influencée par l'ordre de grandeur de \( x\). En effet, l'ordre de grandeur de \( \hat x\) est certainement la même que celle de \( x\), dans la majorité des cas sans problèmes. Du coup si \( x'=200x\) alors \( \hat{x'}\simeq 200\hat{x}\) et le \( 200\) se simplifie.
+
+Le nombre de chiffres significatifs correct dans l'approximation est donné par \( -\log_{10}(\epsilon_x)\). La partie entière de ce nombre est le nombre de chiffres tout à fait exacts et la partie décimale donne une idée sur le fait que le chiffre suivant est plus ou moins bien.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Problèmes pour écrire des nombres}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{remark}
+	Si nous voulons donner \( x\in \eR\) à un ordinateur, nous sommes soumis à deux erreurs :
+	\begin{enumerate}
+		\item
+			D'abord, vu que nous ne pouvons pas taper sur le clavier toutes les décimales de \( x\), nous faisons une \defe{erreur de troncature}{erreur!troncature}.
+		\item
+			L'ordinateur devant convertir cela en base deux, il commet une seconde erreur, dite \defe{erreur d'assignation}{erreur!assignation}.
+	\end{enumerate}
+\end{remark}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Troncature : la base}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Supposons que nous voulions écrire le nombre (écrit ici en base \( 10\))
+\begin{equation}
+	0.4567894251
+\end{equation}
+de façon plus facile à lire, on peut demander de ne laisser que \( t\) chiffres significatifs. Disons \( t=3\).
+
+\begin{description}
+	\item[Technique de troncature] On garde \( 3\) chiffres significatifs : \( 0.456\). Facile.
+	\item[Technique d'arrondi] Vu que le premier qu'on supprime est un \( 7\), le dernier qu'on garde est majoré de \( 1\) : on écrit \( 0.457\).
+\end{description}
+
+Que faire si le premier chiffre rejeté est un \( 5\) ? En première approximation, nous pouvons prendre la règle suivante : si le premier chiffre rejeté est un \( 5\), il faut augmenter de \( 1\) de dernier chiffre gardé parce qu'il y a presque certainement encore un chiffre non nul derrière.
+
+\begin{remark}
+	Les ordinateurs travaillent tous en mode d'arrondi.
+\end{remark}
+
+\begin{example}
+    Si on doit entrer le nombre \( 0.38358546\) dans un ordinateur qui ne garde que \( 3\) chiffres significatifs, il faut taper \( 0.384\) au clavier (erreur classique dans les exercices).
+\end{example}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Troncature : le drift}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit une machine ne pouvant retenir que \( 3\) chiffres significatifs et effectuant les arrondis vers le haut lorsque le chiffre à éliminer est un \( 5\). Nous notons \( \oplus\) et \( \ominus\) les opérations d'addition et soustraction avec arrondis\cite{ooAGVZooTIcZZb}. Les égalités comprenant plus de trois chiffres significatifs sont des égalités au sens de la machine. Nous écrirons donc sans états d'âme :
+\begin{equation}
+    1\oplus0.555=1.555=1.56.
+\end{equation}
+
+Considérons la suite numérique
+\begin{subequations}
+    \begin{numcases}{}
+        x_0=1.00\\
+        x_n=(x_{n-1}\ominus y)\oplus y
+    \end{numcases}
+\end{subequations}
+avec \( y=-0.555\).
+
+Nous avons
+\begin{equation}
+    x_1=(1\oplus 0.555)\ominus 0.555=1.56\ominus 0.555=1.005=1.01
+\end{equation}
+et ensuite
+\begin{equation}
+    x_2=(1.01\oplus 0.555)\ominus 0.555=1.565\ominus 0.555=1.57\ominus 0.555=1.015=1.02.
+\end{equation}
+Et ainsi de suite. La suite est donc croissante alors que la définition nous donnerait envie d'avoir \( x_n=x_0\) pour tout \( n\).
+
+\begin{remark}
+    En réalité, cette suite se stabilise à \( x_n=10\) pour tout \( n\) à partir de \( n=845\). En effet,
+    \begin{equation}
+        (10\oplus 0.555)\ominus 0.555=10.555\ominus 0.555=10.6\ominus 0.555=10.045=10.
+    \end{equation}
+    Le fait est qu'à ce moment, l'erreur de troncature est assez loin dans les décimales pour que le premier chiffre négligé soit un ``0'' au lieu d'un ``5''.
+    
+    Notons toutefois que cette stabilité n'est pas là pour nous rassurer parce qu'elle n'en est pas moins complètement fausse.
+\end{remark}
+
+La règle de troncature adoptée dans Sage est d'arrondir au nombre pair le plus proche lorsque le premier nombre à négliger est un \( 5\). Donc \( 12.5\) s'arrondit à \( 12\) plutôt que \( 13\).
+
+\begin{example}
+	Soient les expressions (algébriquement égales) :
+	\begin{enumerate}
+		\item
+			\(A= x(x+1)\)
+		\item
+			\(B= x^2+x\)
+	\end{enumerate}
+	Nous savons que
+	\begin{equation}
+		x=\fl(x)=10^{-30}
+	\end{equation}
+	et
+	\begin{equation}
+		1=\fl(1)
+	\end{equation}
+	parce que pour \( 1\) et \( 10^{-30}\), il n'y a pas d'erreurs d'assignation.
+
+	En précision simple, \( 10^{-30}+1=1\) parce qu'en précision simple, il n'y a que \( 7\) ou \( 8\) chiffres significatifs\footnote{Erreur de « relation normale».}.
+
+	Nous avons $A=10^{-30}$, mais \( x^2\) donne un \info{underflow} parce que \( 10^{-60}\) ne peut pas être représenté en précision simple. En pratique, beaucoup de logiciels en font \( 0\). Dans ce cas, en réalité \( B\) donne effectivement \( 10^{-30}\) après avoir fait \( x^2+x=0+x=10^{-30}\).
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Quelque bonnes règles}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{enumerate}
+	\item
+		Si on a plusieurs nombres à additionner ou soustraire, il vaut mieux commencer par sommer ou soustraire ceux dont on sait qu'ils ont le même ordre de grandeur. Il n'y a donc pas tout à fait «associativité» des erreurs.
+	\item
+		Les opérations délicates sont l'addition et la soustraction. La multiplication et la division sont sans dangers, à part l'erreur de dépassement du maximum. Dans une multiplication, on perd au pire quelque chiffres significatifs, mais certainement les derniers, pas les premiers.
+\end{enumerate}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Erreur de ``cancellation''}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Lorsque deux nombres sont de même ordre de grandeur, avec plusieurs nombres significatifs identiques. La cancellation est le fait que, suite à la soustraction, tous les chiffres significatifs ou presque se sont simplifiés et qu'il ne reste plus que des chiffres non significatifs. 
+
+\begin{example}[\cite{ooIZQWooYJmQmW}]
+    Sur une machine ne gardant que \( 4\) chiffres significatifs, faire
+    \begin{equation}
+        0.5678\times 10^6-0.5677\times 10^6 = 0.0001\times 10^6=0.1000\times 10^3.
+    \end{equation}
+    Le fait est que les trois derniers zéros ne sont pas significatifs, mais maintenant la machine nous fait croire qu'ils le sont.
+
+    Une autre façon de voir ce problème est d'imaginer qu'il faille faire la différence entre \( 0.5678\,289798\times 10^6\) et \( 0.5677\,3136907\) sur cette machine. Certes la machine nous autorise à avoir \( 4\) chiffres significatifs, donc au moment d'entrer les nombres nous perdons un beau paquet de chiffres. Mais au moment de faire la différence, nous perdons (presque) tout le reste. Donc là où nous pouvions espérer avoir \( 4\) chiffres significatifs de la différence, nous n'en avons que \( 1\). Les trois derniers zéros de la réponse (\( 0.1000\times 10^3\)) sont faux.
+\end{example}
+
+\begin{example}
+	Soit à résoudre l'équation \( ax^2+bx+c=0\) avec \( a,b,c\neq 0\) et \( b^2-4ac>0\). Solution :
+	\begin{equation}
+		x_{1,2}=\frac{ -b\pm\sqrt{b^2-4ac} }{ 2a }.
+	\end{equation}
+
+	Supposons que \( | 4ac |\ll b^2\) avec tout de même pas tellement petit qu'on se perd dans la précision. Bref, on suppose que seules quelque dernières décimales de \( b^2-4ac\) sont différentes de zéro.
+
+	On a :
+	\begin{subequations}
+		\begin{align}
+			\sqrt{b^2-4ac}&=\sqrt{\tilde b}= | \tilde b | \\
+			x_1&=\frac{ -b-\sqrt{b^2-4ac} }{ 2a }\\
+			x_2&=\frac{ -b+\sqrt{b^2-4ac} }{ 2a }
+		\end{align}
+	\end{subequations}
+	Si \( b>0\), nous avons une erreur de cancellation dans \( x_2\) parce qu'on fait la différence entre deux nombres presque égaux. Donc \( x_2\) mal calculé. Par contre \( x_1\) est bien calculé.
+
+
+	Si par contre \( b<0\), c'est le contraire.
+
+
+	Avec \( a=10^{-3}\), \( b=0.8\), \( c=-1.2\times 10^{-5}\). À la main nous obtenons : \( x_1=-800\), \( x_2=1.5\times 10^{-5}\), et un ordinateur se tromperait \ldots
+
+
+\lstinputlisting{sageSnip001.sage}
+
+	Donc Sage ne tombe pas dans le piège.
+\end{example}
+
+Comment résoudre ce problème ? Ou, autre façon de poser la question : comment Sage a fait pour résoudre le problème ?
+
+Utilisons les relations coefficients-racines :
+\begin{subequations}
+	\begin{align}
+		x_1+x_2&=-b/a\\
+		x_1x_2&=c/a
+	\end{align}
+\end{subequations}
+La première lie les deux racines par des opérations de addition et soustractions, et donc n'est pas intéressantes. La seconde est bien. Si nous connaissons \( x_1\), nous calculons
+\begin{equation}
+	x_2=\frac{ c }{ ax_1 }.
+\end{equation}
+
+Quitte à redéfinir \( x_1\) et \( x_2\), la solution bien calculée est :
+\begin{equation}
+	x_1=\frac{ -b-\signe(b)\sqrt{b^2-4ac} }{ 2a }.
+\end{equation}
+
+\begin{example}
+	Nous considérons :
+	\begin{equation}
+		f(x)=cos(x+\delta)-\cos(x).
+	\end{equation}
+	Cela a une erreur de cancellation lorsque \( | \delta |\ll | x |\). On élimine l'erreur de cancellation par
+	\begin{equation}
+		f(x)=-2\sin(\delta/2)\sin\left( x+\frac{ \delta }{ 2 } \right).
+	\end{equation}
+
+	\begin{probleme}
+		Pourquoi la condition pour avoir l'erreur est \( \delta\ll x\) et non simplement \( \delta\ll 1\) ?
+	\end{probleme}
+
+\end{example}
+
+\begin{example}
+	Pour
+	\begin{equation}
+		f(x)=\sqrt{x+\delta}-\sqrt{x}.
+	\end{equation}
+	On fait la coup du binôme conjugué :
+	\begin{equation}
+		f(x)=\frac{ \delta }{ \sqrt{x+\delta}+\sqrt{x} }.
+	\end{equation}
+	Plus d'erreur de cancellation, vu qu'au dénominateur nous avons une somme de deux positifs.
+\end{example}
+
+Les erreurs de cancellation ne se résolvent pas en augmentant la précision des nombres donnés.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Erreur d'absorption}
+%---------------------------------------------------------------------------------------------------------------------------
+
+L'addition d'un nombre avec un nombre très différent peut faire perdre de l'information sur le plus petit. Par exemple avec \( 4\) chiffres significatifs,
+\begin{equation}
+    0.5678\oplus 0.0001237=0.5679
+\end{equation}
+où nous avons perdu presque toute l'information du petit nombre.
+
+Une situation particulièrement ennuyeuse est celle où justement c'est le petit nombre qui nous intéresse parce que le grand est censé se simplifier : 
+\begin{equation}
+    (0.0001327\oplus 0.5678)\ominus 0.5678=0.5679\ominus 0.5678=0.0001
+\end{equation}
+qui ne possède qu'un seul chiffre significatif correct alors que voyant le calcul, la réponse aurait pu être trouvée.
+
+Moralité : si certains manipulations algébrique peuvent faire apparaître des simplifications avant de passer le calcul à la machine, il est bon de les effectuer.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Calcul d'une dérivée}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Pour calculer la dérivée de \( f\) en \( a\), il est loisible d'utiliser la formule
+\begin{equation}
+    f'(a)=\lim_{h\to 0} \frac{ f(a+h)-f(a) }{ h }.
+\end{equation}
+Le numérateur est alors sujet à une erreur d'absorption dans le calcul de \( a+h\) et ensuite une erreur de cancellation dans le calcul de la différence.
+
+En utilisant la formule
+\begin{equation}
+    f'(a)=\lim_{h\to 0} \frac{ f(a+h)-f(a-h) }{ 2h }
+\end{equation}
+nous pouvons espérer avoir une erreur de cancellation plus petite.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Conditionnement et stabilité}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
