@@ -68,19 +68,6 @@ research_mark_list.append("% SCRIPT MARK -- RESEARCH PART")
 research_mark_list.append("% SCRIPT MARK -- FINAL")
 
 
-nonagreg_mark_list=[]
-nonagreg_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
-nonagreg_mark_list.append("% SCRIPT MARK -- GARDE MAZHE")
-nonagreg_mark_list.append("% SCRIPT MARK -- TOC")
-nonagreg_mark_list.append("% SCRIPT MARK -- ENGLISH INTRODUCTION")
-nonagreg_mark_list.append("% SCRIPT MARK -- INTRO SAGE")
-nonagreg_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUE")
-nonagreg_mark_list.append("% SCRIPT MARK -- RESEARCH PART")
-nonagreg_mark_list.append("% SCRIPT MARK -- MATLAB")
-nonagreg_mark_list.append("% SCRIPT MARK -- EXERCICES")
-nonagreg_mark_list.append("% SCRIPT MARK -- CdI")
-nonagreg_mark_list.append("% SCRIPT MARK -- FINAL")
-
 class set_filename(object):
     def __init__(self,new_output_filename):
         self.new_output_filename=new_output_filename
