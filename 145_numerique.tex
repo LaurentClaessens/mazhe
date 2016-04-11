@@ -827,11 +827,17 @@ Soient \( I_n\) les intervalles solutions de l'inéquation.  Si \( \alpha\in I_n
         \item
             Nous parlons un petit peu de méthode de Newton en dimension \( 1\) dans \ref{SECooIKXNooACLljs}.
         \item
-           La méthode de Newton en dimension $n$ est le théorème \ref{ThoHGpGwXk}.
+            La méthode de Newton fonctionne bien avec les fonction convexes par la proposition \ref{PROPooVTSAooAtSLeI}.
+        \item
+            La méthode de Newton en dimension $n$ est le théorème \ref{ThoHGpGwXk}.
+       \item
+            Un intervalle de convergence autour de \( \alpha\) s'obtient par majoration de \( | g' |\), proposition \ref{PROPooRPHKooLnPCVJ}.
+       \item
+           Un intervalle de convergence quadratique s'obtient par majoration de \( | g'' |\), théorème \ref{THOooDOVSooWsAFkx}.
     \end{enumerate}
 \end{InternalLinks}
 
-L'objectif de la méthode de Newton est d'évaluer une racine \( a\) de l'équation \( f(x)=0\) lorsque nous avons déjà une approximation \( x_0\) de \( a\).
+L'objectif de la méthode de Newton est d'évaluer une racine \( a\) de l'équation \( f(x)=0\) lorsque nous avons déjà une approximation \( x_0\) de la racine \( \alpha\).
 
 \begin{definition}      \label{DEFooXSOQooAnWqKM}
     Le nombre \( \alpha\) est une \defe{racine simple}{racine!simple} de l'équation \( f(x)=0\) si \( f(\alpha)=0\) et \( f'(\alpha)\neq 0\). Le nombre \( \alpha\) est une \defe{racine multiple}{racine!multiple} d'ordre \( r\) de \( f(x)=0\) si\index{multiplicité!racine de \( f(x)=0\)}
@@ -901,6 +907,18 @@ Dès que \( x_n\) est proche de \( \alpha\), sous l'hypothèse (raisonnable par 
     Cette justification par points fixes n'est pas vraiment différente de celle par Taylor parce que Taylor est utlilisé dans la preuve de la proposition \ref{PROPooRPHKooLnPCVJ}.
 \end{remark}
 
+\begin{definition}[Méthode de Newton]
+    La \defe{méthode de Newton}{Méthode!de Newton} pour la fonction \( f\) est la suite définie par récurrence
+    \begin{equation}
+        x_{n+1}=x_n-\frac{ f(x_n)  }{ f'(x_n) }.
+    \end{equation}
+    Cette définition ne précise pas la valeur de \( x_0\), ni de condition d'arrêt.
+\end{definition}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Convergence de la méthode de Newton}
+%---------------------------------------------------------------------------------------------------------------------------
+
 \begin{theorem}[Convergence quadratique de la méthode de Newton\cite{ooGYJXooIWExXK}]       \label{THOooDOVSooWsAFkx}
     Soit \( f\) une fonction continue vérifiant \( f(\alpha)=0\) et \( f'(\alpha)\neq 0\). Nous considérons la fonction
     \begin{equation}
@@ -966,12 +984,46 @@ Dès que \( x_n\) est proche de \( \alpha\), sous l'hypothèse (raisonnable par 
     \end{equation}
 \end{proof}
 
-Pour utiliser la méthode de Newton, il faut trouver un intervalle sur lequel il y a convergence. Le rayon d'un tel intervalle autour de \( \alpha\) se trouve en majorant la dérivée première de \( g\) par la proposition \ref{PROPooRPHKooLnPCVJ}. Le théorème \ref{THOooDOVSooWsAFkx} nous donne, par majoration de \( g''\) un intervalle sur lequel la méthode de Newton a une convergence quadratique.
+La proposition suivante nous indique que dans le cas d'une fonction convexe, le choix de point de départ de la méthode de Newton n'est pas tellement crucial parce que il sont tous bons. De plus la convergence se faisant de façon décroissante (si on part de la droite), nous savons que le résultat sera une approximation par excès de \( \alpha\).
+\begin{proposition}[Newton dans le cas convexe]     \label{PROPooVTSAooAtSLeI}
+    Soit \( f\) de classe \( C^2\) et une racine \( \alpha\) telle que \( f'(\alpha)>0\). Soit \( b>\alpha \) tel que \( f\) soit convexe sur \( \mathopen[ \alpha , b \mathclose]\).
+
+    Alors pour tout \( x_0\in\mathopen[ \alpha , b \mathclose]\) la suite de la méthode de Newton est
+    \begin{enumerate}
+        \item
+            décroissante
+        \item
+            reste dans \( \mathopen[ \alpha , b \mathclose]\)
+        \item
+            converge vers \( \alpha\).
+    \end{enumerate}
+\end{proposition}
+\index{méthode!Newton!cas convexe}
+\index{convexité!méthode de Newton}
+
+\begin{proof}
+    Nous savons par la proposition \ref{PropYKwTDPX}\ref{ITEMooLLSIooFwkxtV} que la fonction \( f'\) est croissante, et par hypothèse \( f'(\alpha)>0\), donc sur \( \mathopen[ \alpha , b \mathclose]\) nous avons \( f'>0\). Par conséquent, nous avons aussi \( f>0\) sur \( \mathopen[ \alpha , b \mathclose]\).   
+
+    Le graphe de \( f\) est au dessus de la tangente de \( f\) en \( x=x_n\) (proposition \ref{PropYKwTDPX}\ref{ITEMooBOCZooSTaXDB}). Si nous nommons \( t_x\) la fonction qui donne la tangente en \( x\) nous avons \( t_{x_n}(\alpha)<0\) parce que \( f(\alpha)=0\). Par conséquent
+    \begin{equation}
+        t_{x_n}(x)=0
+    \end{equation}
+    pour \( \alpha<x<x_n\). Cela prouve que \( x_{n+1}\in\mathopen[ \alpha , b \mathclose]\), et que \( (x_n)\) est une suite décroissante
+    
+    Étant donné que \( (x_n)\) est une suite décroissante dans le compact \( \mathopen[ \alpha , b \mathclose]\), elle est convergente. Notons \( \beta\) sa limite. Nous avons la relation de récurrence
+    \begin{equation}
+        x_{n+1}=x_n-\frac{ f(x_n) }{ f'(x_n) }.
+    \end{equation}
+    En passant à la limite \( n\to \infty\) nous avons l'équation
+    \begin{equation}
+        \beta=\beta-\frac{ f(\beta) }{ f'(\beta) }.
+    \end{equation}
+    Vu que \( f(x)>0\) sur \( \mathopen] \alpha , b \mathclose]\) nous avons automatiquement \( \beta=\alpha\).
+\end{proof}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Formalisation de l'algorithme}
 %---------------------------------------------------------------------------------------------------------------------------
-
 
 La méthode de Newton consiste a exprimer la solution $x$ de $f(x)=0$ avec $f\in C^1(\eR)$ comme limite d'une suite $\{x_n\}_{n\in\eN}$ définie par récurrence par la formule
 \begin{equation}
@@ -1040,6 +1092,44 @@ L'algorithme de Newton a les caractéristiques suivantes :
 Donc dès qu'on a continuité autour de la solution recherchée, il suffit de prendre \( x_0\) assez proche pour que tout se passe bien. Cela se fait par localisation des racines, par exemples en traçant la fonction avec un bon niveau de zoom. Le fait est qu'on cherche disons \( 3\) décimales à la main (travail sur ordinateur et graphique) et Newton donne les \( 20\) décimales suivantes à la vitesse de la lumière.
 
 %--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Exemple de la racine carré}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous allons nous lancer dans un exemple : le cas de la racine carré. Soit à calculer une approximation numérique de \( \sqrt{ 2 }\). Il s'agit d'une racine de la fonction \( f(x)=x^2+2\). La fonction de la méthode de Newton associée est :
+\begin{equation}
+    g(x)=x-\frac{ f(x) }{ f'(x) }=\frac{ x^2-2 }{ 2x }.
+\end{equation}
+Cherchons un intervalle autour de \( \sqrt{ 2 }\) sur lequel nous avons convergence de la méthode de Newton. Cela s'obtient grace à la proposition \ref{PROPooRPHKooLnPCVJ} qui nous informe qu'il suffit de trouver un intervalle autour de \( \sqrt{ 2 }\) sur lequel \( | g'(x) |\leq 1\).
+
+Nous avons 
+\begin{equation}
+    g'(x)=\frac{ x^2-2 }{ 2x^2 },
+\end{equation}
+et nous cherchons à résoudre \( | g'(x) |\leq 1\). D'abord \( g'(x)=1\) n'a aucune solutions alors que \( g'(\sqrt{ 2 })=0\). Donc nous avons \(  g'(x) \leq 1\) pour tout \( x\in \eR^+\). Par contre l'équation \( g'(x)=-1\) a des solutions : \( x=\pm\sqrt{ 2/3 }\).
+
+Nous avons donc convergence de la méthode de Newton pour \( x_0\) dans un intervalle de la forme
+\begin{equation}
+    \mathopen[ \sqrt{ 2/3 } , \sqrt{ 2 }+\ldots \mathclose]
+\end{equation}
+où les les trois points représentent l'expression qu'il faut pour que ce soit symétrique autour de \( \sqrt{ 2 }\). La valeur précise n'a pas tellement d'importance parce, vu que nous sommes en train de chercher \( \sqrt{ 2 }\), il est peu probable que nous ayons déjà en main une bonne approximation de nombres du type \( \sqrt{ 2/3 }\).
+
+\begin{proposition}
+La méthode de Newton pour la fonction \( f(x)=x^2-2\) converge vers \( \sqrt{ 2 }\) pour toute valeur de départ dans \( \mathopen] 0 , +\infty \mathclose[\).
+\end{proposition}
+
+\begin{proof}
+    La fonction \( f(x)=x^2-2\) est convexe et \( f'(\sqrt{ 2 })=2\sqrt{ 2 }>0\). Donc la méthode converge vers \( \sqrt{ 2 }\) pour tout \( x_0\geq \sqrt{ 2 }\) par la proposition \ref{PROPooVTSAooAtSLeI}.
+
+    Si par contre \( x_0\in\mathopen] 0 , \sqrt{ 2 } \mathclose[\) nous avons
+        \begin{equation}
+            x_1=\frac{ x_0^2+2 }{ 2x_0 }.
+        \end{equation}
+    En posant \( h(x)=(x^2+2)/2x\) et en résolvant \( h'(x)=0\) nous trouvons \( x=\sqrt{ 2 }\). Et là, \( h(\sqrt{ 2 })=\sqrt{ 2 }\). Donc \( h(x)\) est toujours plus grand que \( \sqrt{ 2 }\) pour tout \( x\in\mathopen] 0 , \sqrt{ 2 } \mathclose[\).
+
+    En d'autres termes, si \( x_0\in\mathopen] 0 , \sqrt{ 2 } \mathclose[\) alors \( x_1\geq \sqrt{ 2 }\) et nous retombons dans le premier cas.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Si multiplicité}
 %---------------------------------------------------------------------------------------------------------------------------
 
@@ -1051,7 +1141,7 @@ Nous pouvons modifier la formule avec
 \begin{equation}
     x_{n+1}=x_n-r\frac{ f(x_n) }{ f'(x_n) }.
 \end{equation}
-Il est possible de prouver que cette suite est à nouveau quadratique.
+Il est possible de prouver que cette suite est à nouveau à convergence quadratique.
 
 Ou alors on pose \( F(x)=f^{(r-1)}(x)\) et \( \alpha\) est une racine simple pour \( F\). Donc faire Newton pour \( F\) est à nouveau quadratique, tout en donnant la même solution parce que \( F(\alpha)=0\) et \( F'(\alpha)\neq 0\).
 

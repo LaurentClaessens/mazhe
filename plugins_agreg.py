@@ -67,7 +67,6 @@ research_mark_list.append("% SCRIPT MARK -- ENGLISH INTRODUCTION")
 research_mark_list.append("% SCRIPT MARK -- RESEARCH PART")
 research_mark_list.append("% SCRIPT MARK -- FINAL")
 
-
 class set_filename(object):
     def __init__(self,new_output_filename):
         self.new_output_filename=new_output_filename
