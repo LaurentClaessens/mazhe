@@ -568,6 +568,35 @@ pour tout $\epsilon$. Cela implique que $f(a)=b$.
 \end{proof}
 Notons toutefois que l'inverse de cette proposition n'est pas vraie : la fonction \eqref{EqnCtOEL} donne justement une fonction qui prend la valeur $1$ en $2$ sans que la limite en $2$ soit $1$. Quoi qu'il en soit, cette proposition achève de nous convaincre de l'inutilité d'étudier d'étudier les limites sans infinis : dès qu'on a une limite, à tous les coups c'est la valeur de la fonction \ldots heu \ldots en es-tu bien sûr ?
 
+\begin{proposition}[\cite{MonCerveau}]      \label{PROPooWXBAooAEweSF}
+    Soit \( f\colon \eR^2\to \eR\) une application continue dont la variable \( y\) varie dans un compact \( I\) de \( \eR\). Alors la fonction
+    \begin{equation}
+        \begin{aligned}
+            d\colon \eR&\to \eR \\
+            x&\mapsto \sup_{y\in I} f(x,y) 
+        \end{aligned}
+    \end{equation}
+    est continue.
+\end{proposition}
+
+\begin{proof}
+    Soit \( x_0\) fixé et prouvons que \( d\) est continue en \( x_0\). Nous notons \( y_0\) la valeur de \( y\) qui réalise le maximum (par le théorème \ref{ThoMKKooAbHaro} et le fait que les fonctions projection soient continues, lemme \ref{LEMooHAODooYSPmvH}). Soit aussi \( \epsilon>0\) tellement fixé que même avec un tourne vis hydraulique, il ne bougerait pas. Nous considérons \( \delta\) tel que si \( \| (x,y)-(x_0,y_0) \|\leq \delta\) alors \( \| f(x,y)-f(x_0,y_0) \|<\epsilon\).
+
+    Si \( | x-x_0 |<\delta\) alors pour \( y\) assez proche de \( y_0\) nous avons \( \| (x,y)-(x_0,y_0) \|\leq \delta\), et donc \( \| f(x,y)-f(x_0,y_0) \|\leq \epsilon \). Cela montre qu'il existe \( \delta\) tel que \( | x-x_0 |\leq \delta\) implique \( d(x)\geq d(x_0)-\epsilon\).
+
+    Nous devons encore trouver un \( \delta\) tel que si \( | x-x_0 |\leq \delta\) alors \( d(x)\leq d(x_0)+\epsilon\). Supposons que non. Alors pour tout \( \delta\) il existe un \( x\) tel que \( | x-x_0 |\leq \delta\) et \( d(x)> d(x_0)+\epsilon\). Cela nous donne une suite \( x_i\to x_0\).
+
+    Pour chaque \( x_i\) nous notons \( y_i\) la valeur de \( y\) qui réalise le supremum correspondant. La suite \( (y_i)\) étant contenue dans un compact nous supposons prendre une sous-suite de \( (x_i)\) telle que la suite \( (y_i)\) converge. Nous nommons \( a\) la limite (et non \( y_0\) parce que nous ne savons pas si \( y_i\to y_0\)). Pour chaque \( i\) nous avons
+    \begin{equation}
+        f(x_i,y_i)>\sup_{y\in I}f(x_0,y)+\epsilon.
+    \end{equation}
+    En prenant la limite et en utilisant la continuité de \( f\),
+    \begin{equation}
+        f(x_0,a)>\sup_{y\in I} f(x_0,y)+\epsilon,
+    \end{equation}
+    ce qui est impossible.
+\end{proof}
+
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Discussion avec mon ordinateur}
@@ -656,7 +685,123 @@ le prolongement par continuité est donné par
 \end{equation}
 Remarque que cette fonction n'est toujours pas définie en $x=2/3$. 
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Dérivée : exemples introductifs}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{La vitesse}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Lorsqu'un mobile se déplace à une vitesse variable, nous obtenons la \emph{vitesse instantanée} en calculant une vitesse moyenne sur des intervalles de plus en plus petits. Si le mobile a un mouvement donné par $x(t)$, la vitesse moyenne entre $t=2$ et $t=5$ sera
+\[ 
+  v_{\text{moy}}(2\to 5)=\frac{ x(5)-x(2) }{ 5-2 }.
+\]
+Plus généralement, la vitesse moyenne entre $2$ et $2+\Delta t$ est donnée par
+\[ 
+  v_{\text{moy}}(2\to 2+\Delta t)=\frac{ x(2+\Delta t)-x(2) }{ \Delta t }.
+\]
+Cela est une fonction de $\Delta t$. Oui, mais je te rappelle qu'on a dans l'idée de calculer une vitesse instantanée, c'est à dire de voir ce que vaut la vitesse moyenne sur un intervalle très {\small très} {\footnotesize très} {\scriptsize très} {\tiny petit}. La notion de limite semble toute indiquée pour décrire mathématiquement l'idée physique de vitesse instantanée.
+
+Nous allons dire que la vitesse instantanée d'un mobile est la limite quand $\Delta t$ tends vers zéro de sa vitesse moyenne sur l'intervalle de temps $\Delta t$, ou en formule :
+\begin{equation}		\label{Eqvinstlimite}
+	v(t_0)=\lim_{\Delta t\to 0}\frac{ x(t_0)-x(t_0+\Delta t) }{ \Delta t }.
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{La tangente à une courbe}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Passons maintenant à tout autre chose, mais toujours dans l'utilisation de la notion de limite pour résoudre des problèmes intéressants. Comment trouver l'équation de la tangente à la courbe $y=f(x)$ au point $(x_0,f(x_0))$ ?
+
+Essayons de trouver la tangente au point $P$ donné de la courbe donnée à la figure \ref{LabelFigTangenteQuestion}.
+
+\newcommand{\CaptionFigTangenteQuestion}{Comment trouver la tangente à la courbe au point $P$ ?}
+\input{Fig_TangenteQuestion.pstricks}
+
+La tangente est la droite qui touche la courbe en un seul point sans la traverser. Afin de la construire, nous allons dessiner des droites qui touchent la courbe en $P$ et un autre point $Q$, et nous allons voir ce qu'il se passe quand $Q$ est très proche de $P$. Cela donnera une droite qui, certes, touchera la courbe en deux points, mais en deux point \emph{tellement proche que c'est comme si c'étaient les mêmes}. Tu sens que la notion de limite va encore venir.
+
+
+%Pour rappel cette figure TangenteDetail est générée par phystricksRechercheTangente.py
+\newcommand{\CaptionFigTangenteDetail}{Traçons d'abord une corde entre le point $P$ et un point $Q$ un peu plus loin.}
+\input{Fig_TangenteDetail.pstricks}
+
+Nous avons placé le point, sur la figure \ref{LabelFigTangenteDetail}, le point $P$ en $a$ et le point $Q$ un peu plus loin $x$. En d'autres termes leurs coordonnées sont
+\begin{align}
+	P=\big(a,f(a)\big)&& Q=\big(x,f(x)\big).
+\end{align}
+Comme tu devrais le savoir sans même regarder la figure \ref{LabelFigTangenteDetail}, le coefficient directeur de la droite qui passe par ces deux points est donné par
+\begin{equation}
+	\frac{ f(x)-f(a) }{ x-a },
+\end{equation}
+et bang ! Encore le même rapport que celui qu'on avait trouvé à l'équation \eqref{Eqvinstlimite} en parlant de vitesses. Si tu regardes la figure \ref{LabelFigLesSubFigures}, tu verras que réellement en faisant tendre $x$ vers $a$ on obtient la tangente.
+
+\newcommand{\CaptionFigLesSubFigures}{Recherche de la tangente par approximations successives.}
+\input{Fig_LesSubFigures.pstricks}
+%See also the subfigure \ref{LabelFigLesSubFiguressssubZ}
+%See also the subfigure \ref{LabelFigLesSubFiguressssubO}
+%See also the subfigure \ref{LabelFigLesSubFiguressssubT}
+%See also the subfigure \ref{LabelFigLesSubFiguressssubTh}
+%See also the subfigure \ref{LabelFigLesSubFiguressssubF}
+%See also the subfigure \ref{LabelFigLesSubFiguressssubFi}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{L'aire en dessous d'une courbe}		\label{SubSecAirePrimInto}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Encore un exemple. Nous voudrions bien pouvoir calculer l'aire en dessous d'une courbe. Nous notons $S_f(x)$ l'aire en dessous de la fonction $f$ entre l'abscisse $0$ et $x$, c'est à dire l'aire bleue de la figure \ref{LabelFigNOCGooYRHLCn}. % From file NOCGooYRHLCn
+\newcommand{\CaptionFigNOCGooYRHLCn}{L'aire en dessous d'une courbe. Le rectangle rouge d'aire $f(x)\Delta x$ approxime de combien la surface augmente lorsqu'on passe de $x$ à $x+\Delta x$.}
+\input{Fig_NOCGooYRHLCn.pstricks}
+
+Si la fonction $f$ est continue et que $\Delta x$ est assez petit, la fonction ne varie pas beaucoup entre $x$ et $x+\Delta x$. L'augmentation de surface entre $x$ et $x+\Delta x$ peut donc être approximée par le rectangle de surface $f(x)\Delta x$. Ce que nous avons donc, c'est que quand $\Delta x$ est très petit,
+\begin{equation}
+	S_f(x+\Delta x)-S_f(x)=f(x)\Delta x,
+\end{equation}
+c'est à dire
+\begin{equation}
+	f(x)=\lim_{\Delta x\to 0}\frac{  S_f(x+\Delta x)-S_f(x)}{ \Delta x }.
+\end{equation}
+Donc, la fonction $f$ est la dérivée de la fonction qui représente l'aire en dessous de $f$. Calculer des surfaces revient donc au travail inverse de calculer des dérivées.
+
+Nous avons déjà vu que calculer la dérivée d'une fonction n'est pas très compliqué. Aussi étonnant que cela puisse paraître, il se fait que le processus inverse est très compliqué : il est en général extrêmement difficile (et même souvent impossible) de trouver une fonction dont la dérivée est une fonction donnée.
+
+Une fonction dont la dérivée est la fonction $f$ s'appelle une \defe{primitive}{primitive} de $f$, et la fonction qui donne l'aire en dessous de la fonction $f$ entre l'abscisse $0$ et $x$ est notée
+\begin{equation}
+	S_f(x)=\int_0^xf(t)dt.
+\end{equation}
+Nous pouvons nous demander si, pour une fonction $f$ donnée, il existe une ou plusieurs primitives, c'est à dire si il existe une ou plusieurs fonctions $F$ telles que $F'=f$. La réponse viendra\ldots
+%TODO : faire la référence
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Définition de la dérivée}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soit $I\subset\eR$ un intervalle et une fonction
+\begin{equation}
+	\begin{aligned}
+		f\colon I&\to \eR \\
+		x&\mapsto f(x). 
+	\end{aligned}
+\end{equation}
+On dit que $f$ est \defe{dérivable}{dérivable!fonction} en $a\in I$ si la limite
+\begin{equation}	\label{EqLimDeirve}
+	\lim_{x\to a} \frac{ f(x)-f(a) }{ x-a }
+\end{equation}
+existe. Formellement nous disons que cette limite existe et vaut $\ell$ lorsque pour tout $\epsilon>0$, il existe un $\delta>0$ tel que dès que $| x-a |<\delta$ on ait
+\begin{equation}
+	\left| \frac{ f(x)-f(a) }{ x-a } -\ell \right| <\epsilon.
+\end{equation}
+
+Lorsque la limite \eqref{EqLimDeirve} existe nous l'appelons $f'(a)$ et nous disons que la fonction $f$ est dérivable en $a$. Si la fonction est dérivable en tout point de $I$, nous disons qu'elle est dérivable sur $I$. Cela fournit un nombre $f'(x)$ en chaque point $x\in I$, c'est à dire une nouvelle fonction
+\begin{equation}
+	\begin{aligned}
+		f'\colon I&\to \eR \\
+		x&\mapsto f'(x)
+	\end{aligned}
+\end{equation}
+qui sera nommée \defe{fonction dérivée}{dérivée} de $f$.
+
+Il arrive que la fonction $f'$ soit elle-même dérivable. Dans ce cas nous nommons $f''$ la dérivée de $f$; cela est la \defe{dérivée seconde}{dérivée!seconde} de $f$.
 
 \section{Continuité et dérivabilité}
 \label{seccontetderiv}
@@ -721,131 +866,9 @@ On considère dans la suite une fonction $f : A \to \eR$, où $a \in A \subset \
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Exemples introductifs}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{La vitesse}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Lorsqu'un mobile se déplace à une vitesse variable, nous obtenons la \emph{vitesse instantanée} en calculant une vitesse moyenne sur des intervalles de plus en plus petits. Si le mobile a un mouvement donné par $x(t)$, la vitesse moyenne entre $t=2$ et $t=5$ sera
-\[ 
-  v_{\text{moy}}(2\to 5)=\frac{ x(5)-x(2) }{ 5-2 }.
-\]
-Plus généralement, la vitesse moyenne entre $2$ et $2+\Delta t$ est donnée par
-\[ 
-  v_{\text{moy}}(2\to 2+\Delta t)=\frac{ x(2+\Delta t)-x(2) }{ \Delta t }.
-\]
-Cela est une fonction de $\Delta t$. Oui, mais je te rappelle qu'on a dans l'idée de calculer une vitesse instantanée, c'est à dire de voir ce que vaut la vitesse moyenne sur un intervalle très {\small très} {\footnotesize très} {\scriptsize très} {\tiny petit}. La notion de limite semble toute indiquée pour décrire mathématiquement l'idée physique de vitesse instantanée.
-
-Nous allons dire que la vitesse instantanée d'un mobile est la limite quand $\Delta t$ tends vers zéro de sa vitesse moyenne sur l'intervalle de temps $\Delta t$, ou en formule :
-\begin{equation}		\label{Eqvinstlimite}
-	v(t_0)=\lim_{\Delta t\to 0}\frac{ x(t_0)-x(t_0+\Delta t) }{ \Delta t }.
-\end{equation}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{La tangente à une courbe}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Passons maintenant à tout autre chose, mais toujours dans l'utilisation de la notion de limite pour résoudre des problèmes intéressants. Comment trouver l'équation de la tangente à la courbe $y=f(x)$ au point $(x_0,f(x_0))$ ?
-
-Essayons de trouver la tangente au point $P$ donné de la courbe donnée à la figure \ref{LabelFigTangenteQuestion}.
-
-\newcommand{\CaptionFigTangenteQuestion}{Comment trouver la tangente à la courbe au point $P$ ?}
-\input{Fig_TangenteQuestion.pstricks}
-
-La tangente est la droite qui touche la courbe en un seul point sans la traverser. Afin de la construire, nous allons dessiner des droites qui touchent la courbe en $P$ et un autre point $Q$, et nous allons voir ce qu'il se passe quand $Q$ est très proche de $P$. Cela donnera une droite qui, certes, touchera la courbe en deux points, mais en deux point \emph{tellement proche que c'est comme si c'étaient les mêmes}. Tu sens que la notion de limite va encore venir.
-
-
-%Pour rappel cette figure TangenteDetail est générée par phystricksRechercheTangente.py
-\newcommand{\CaptionFigTangenteDetail}{Traçons d'abord une corde entre le point $P$ et un point $Q$ un peu plus loin.}
-\input{Fig_TangenteDetail.pstricks}
-
-
-LYORooNKDHqt
-
-
-Nous avons placé le point, sur la figure \ref{LabelFigTangenteDetail}, le point $P$ en $a$ et le point $Q$ un peu plus loin $x$. En d'autres termes leurs coordonnées sont
-\begin{align}
-	P=\big(a,f(a)\big)&& Q=\big(x,f(x)\big).
-\end{align}
-Comme tu devrais le savoir sans même regarder la figure \ref{LabelFigTangenteDetail}, le coefficient directeur de la droite qui passe par ces deux points est donné par
-\begin{equation}
-	\frac{ f(x)-f(a) }{ x-a },
-\end{equation}
-et bang ! Encore le même rapport que celui qu'on avait trouvé à l'équation \eqref{Eqvinstlimite} en parlant de vitesses. Si tu regardes la figure \ref{LabelFigLesSubFigures}, tu verras que réellement en faisant tendre $x$ vers $a$ on obtient la tangente.
-
-\newcommand{\CaptionFigLesSubFigures}{Recherche de la tangente par approximations successives.}
-\input{Fig_LesSubFigures.pstricks}
-%See also the subfigure \ref{LabelFigLesSubFiguressssubZ}
-%See also the subfigure \ref{LabelFigLesSubFiguressssubO}
-%See also the subfigure \ref{LabelFigLesSubFiguressssubT}
-%See also the subfigure \ref{LabelFigLesSubFiguressssubTh}
-%See also the subfigure \ref{LabelFigLesSubFiguressssubF}
-%See also the subfigure \ref{LabelFigLesSubFiguressssubFi}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Définition de la dérivée}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Soit $I\subset\eR$ un intervalle et une fonction
-\begin{equation}
-	\begin{aligned}
-		f\colon I&\to \eR \\
-		x&\mapsto f(x). 
-	\end{aligned}
-\end{equation}
-On dit que $f$ est \defe{dérivable}{dérivable!fonction} en $a\in I$ si la limite
-\begin{equation}	\label{EqLimDeirve}
-	\lim_{x\to a} \frac{ f(x)-f(a) }{ x-a }
-\end{equation}
-existe. Formellement nous disons que cette limite existe et vaut $\ell$ lorsque pour tout $\epsilon>0$, il existe un $\delta>0$ tel que dès que $| x-a |<\delta$ on ait
-\begin{equation}
-	\left| \frac{ f(x)-f(a) }{ x-a } -\ell \right| <\epsilon.
-\end{equation}
-
-Lorsque la limite \eqref{EqLimDeirve} existe nous l'appelons $f'(a)$ et nous disons que la fonction $f$ est dérivable en $a$. Si la fonction est dérivable en tout point de $I$, nous disons qu'elle est dérivable sur $I$. Cela fournit un nombre $f'(x)$ en chaque point $x\in I$, c'est à dire une nouvelle fonction
-\begin{equation}
-	\begin{aligned}
-		f'\colon I&\to \eR \\
-		x&\mapsto f'(x)
-	\end{aligned}
-\end{equation}
-qui sera nommée \defe{fonction dérivée}{dérivée} de $f$.
-
-Il arrive que la fonction $f'$ soit elle-même dérivable. Dans ce cas nous nommons $f''$ la dérivée de $f$; cela est la \defe{dérivée seconde}{dérivée!seconde} de $f$.
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{L'aire en dessous d'une courbe}		\label{SubSecAirePrimInto}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Encore un exemple. Nous voudrions bien pouvoir calculer l'aire en dessous d'une courbe. Nous notons $S_f(x)$ l'aire en dessous de la fonction $f$ entre l'abscisse $0$ et $x$, c'est à dire l'aire bleue de la figure \ref{LabelFigNOCGooYRHLCn}. % From file NOCGooYRHLCn
-\newcommand{\CaptionFigNOCGooYRHLCn}{L'aire en dessous d'une courbe. Le rectangle rouge d'aire $f(x)\Delta x$ approxime de combien la surface augmente lorsqu'on passe de $x$ à $x+\Delta x$.}
-\input{Fig_NOCGooYRHLCn.pstricks}
-
-Si la fonction $f$ est continue et que $\Delta x$ est assez petit, la fonction ne varie pas beaucoup entre $x$ et $x+\Delta x$. L'augmentation de surface entre $x$ et $x+\Delta x$ peut donc être approximée par le rectangle de surface $f(x)\Delta x$. Ce que nous avons donc, c'est que quand $\Delta x$ est très petit,
-\begin{equation}
-	S_f(x+\Delta x)-S_f(x)=f(x)\Delta x,
-\end{equation}
-c'est à dire
-\begin{equation}
-	f(x)=\lim_{\Delta x\to 0}\frac{  S_f(x+\Delta x)-S_f(x)}{ \Delta x }.
-\end{equation}
-Donc, la fonction $f$ est la dérivée de la fonction qui représente l'aire en dessous de $f$. Calculer des surfaces revient donc au travail inverse de calculer des dérivées.
-
-Nous avons déjà vu que calculer la dérivée d'une fonction n'est pas très compliqué. Aussi étonnant que cela puisse paraître, il se fait que le processus inverse est très compliqué : il est en général extrêmement difficile (et même souvent impossible) de trouver une fonction dont la dérivée est une fonction donnée.
-
-Une fonction dont la dérivée est la fonction $f$ s'appelle une \defe{primitive}{primitive} de $f$, et la fonction qui donne l'aire en dessous de la fonction $f$ entre l'abscisse $0$ et $x$ est notée
-\begin{equation}
-	S_f(x)=\int_0^xf(t)dt.
-\end{equation}
-Nous pouvons nous demander si, pour une fonction $f$ donnée, il existe une ou plusieurs primitives, c'est à dire si il existe une ou plusieurs fonctions $F$ telles que $F'=f$. La réponse viendra\ldots
-%TODO : faire la référence
-
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Dérivation de fonctions d'une variable réelle}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Exemples}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -860,6 +883,17 @@ Commençons par la fonction $f(x)=x$. Dans ce cas nous avons
 \end{equation}
 La dérivée est donc $1$.
 
+\begin{proposition}
+    La dérivé de la fonction $x\mapsto x$ vaut $1$, en notations compactes : $(x)'=1$.
+\end{proposition}
+
+\begin{proof}
+D'après la définition de la dérivée, si $f(x)=x$, nous avons
+\begin{equation}
+    f(x)=\lim_{\epsilon\to 0}\frac{ (x+\epsilon) -x }{\epsilon} =\lim_{\epsilon\to 0}\frac{ \epsilon }{\epsilon} =1,
+\end{equation}
+et c'est déjà fini.
+\end{proof}
 
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 \subsubsection{La fonction $f(x)=x^2$}
@@ -873,6 +907,26 @@ Lorsque $x\to a$, cela devient $2a$. Nous avons par conséquent
 \begin{equation}
 	f'(x)=2x.
 \end{equation}
+
+\begin{lemma}           \label{LemDeccCarr}
+    Si $f(x)=x^2$, alors $f'(x)=2x$.
+\end{lemma}
+
+\begin{proof}
+    Utilisons la définition, et remplaçons $f$ par sa valeur :
+    \begin{subequations}
+        \begin{align}
+            f'(x)   &=\lim_{\epsilon\to 0}\frac{ f(x+\epsilon)-f(x) }{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}\frac{ (x+\epsilon)^2-x^2 }{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}\frac{ x^2+2x\epsilon+\epsilon^2-x^2 }{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}\frac{\epsilon(2x+\epsilon)}{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}(2x+\epsilon)\\
+                &=2x,
+        \end{align}
+    \end{subequations}
+    ce qu'il fallait prouver.
+\end{proof}
+
 
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 \subsubsection{La fonction $f(x)=\sqrt{x}$}
@@ -1008,41 +1062,25 @@ L'équation \eqref{Eqfxsimesfa} peut être aussi écrite sous la forme
 \end{equation}
 qui est une approximation d'autant meilleure que $\Delta x$ est petit.
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Dérivation}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-\begin{lemma}           \label{LemDeccCarr}
-    Si $f(x)=x^2$, alors $f'(x)=2x$.
-\end{lemma}
-
-\begin{proof}
-    Utilisons la définition, et remplaçons $f$ par sa valeur :
-    \begin{subequations}
-        \begin{align}
-            f'(x)   &=\lim_{\epsilon\to 0}\frac{ f(x+\epsilon)-f(x) }{ \epsilon }\\
-                &=\lim_{\epsilon\to 0}\frac{ (x+\epsilon)^2-x^2 }{ \epsilon }\\
-                &=\lim_{\epsilon\to 0}\frac{ x^2+2x\epsilon+\epsilon^2-x^2 }{ \epsilon }\\
-                &=\lim_{\epsilon\to 0}\frac{\epsilon(2x+\epsilon)}{ \epsilon }\\
-                &=\lim_{\epsilon\to 0}(2x+\epsilon)\\
-                &=2x,
-        \end{align}
-    \end{subequations}
-    ce qu'il fallait prouver.
-\end{proof}
-
-Une facile, maintenant.
-\begin{proposition}
-    La dérivé de la fonction $x\mapsto x$ vaut $1$, en notations compactes : $(x)'=1$.
+\begin{proposition}[\cite{ooAAFGooXRSaWs}]      \label{PROPooSGTBooFxUuXK}
+    Soit \(f \) une fonction dérivable et strictement monotone de l'intervalle \( I\) sur l'intervalle \( J\)  (f est alors une bijection de $I$ vers $J$). Si  ne s'annule par sur  alors 
+    \begin{enumerate}
+        \item
+            la fonction \( f\) est une bijection de \( I\) vers \( J\),
+        \item
+            la fonction \( f^{-1}\) est dérivable sur \( J\),
+        \item
+            et nous avons la formule
+            \begin{equation}        \label{EQooELIHooDxUFxH}
+                (f^{-1})'=\frac{1}{ f'\circ f^{-1} }.               
+            \end{equation}
+    \end{enumerate}
 \end{proposition}
+\index{réciproque!dérivabilité}
 
-\begin{proof}
-D'après la définition de la dérivée, si $f(x)=x$, nous avons
-\begin{equation}
-    f(x)=\lim_{\epsilon\to 0}\frac{ (x+\epsilon) -x }{\epsilon} =\lim_{\epsilon\to 0}\frac{ \epsilon }{\epsilon} =1,
-\end{equation}
-et c'est déjà fini.
-\end{proof}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Opérations sur les dérivées}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Pour continuer, nous allons en faire une un peu plus abstraite.
 \begin{proposition}     \label{PropDerrLin}
