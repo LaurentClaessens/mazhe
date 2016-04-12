@@ -207,7 +207,7 @@ Enfin, nous avons des cas particuliers lorsque l'exposant est maximum, c'est à 
                 \SimplePrec\big( s,q,[a_1,\ldots, a_{23}] \big)=(-1)^s\big( 1+\sum_{j=1}^{23}a_j2^{-j} \big)2^{q-127}.
             \end{equation}
         \item[Exposant \( q\) égal à \( 0\)] Le nombre est dit \defe{dénormalisé}{nombre!dénormalisé} et la règle de lecture est
-            \begin{equation}
+            \begin{equation}        \label{EQooRTBFooIplydi}
                 \SimplePrec\big( s,q,[a_1,\ldots, a_{23}] \big)=(-1)^s2^{-126}\sum_{j=1}^{23}a_j2^{-j}.
             \end{equation}
         \item[Exposant \( q\) égal à \( 255\)]
@@ -246,10 +246,24 @@ Notons ceci avec Sage :
 
 La précisions du nombre donné en \eqref{EQooFRPYooRnxiFP} aurait été embarrassante si le type avait été un nombre en simple précision. Précision technique : en Python, le type \info{int} n'a pas de limite supérieure à part la mémoire.
 
-\begin{example}[Plus grand dénormalisé]      \label{EXEMooRHENooGwumoA}
-    
+\begin{example}[Plus petit non nul dénormalisé]
+    Pour être dénormalisé il faut \( q=0\) (ce qui est toutefois assez logique si nous voulons un petit nombre), et pour ne pas être nul, il faut une mantisse non nulle. Donc \( a=[0\ldots 01]\). La formule \eqref{EQooRTBFooIplydi} donne alors
+    \begin{equation}
+        \SimplePrec(s=0,q=0,a=[0\ldots 01])=2^{-126}2^{-23}=2^{-149}\simeq 1.40129846432482\times 10^{-45}.
+    \end{equation}
 \end{example}
-<++>
+
+\begin{example}[Plus grand dénormalisé]      \label{EXEMooRHENooGwumoA}
+    Pour être dénormalisé il faut toujours \( q=0\), mais cette fois nous prenons la plus grande mantisse possible :
+    \begin{equation}
+        \SimplePrec(s=0,q=0,a=[1\ldots 1])=2^{-126}\sum_{j=1}^{23}2^{-j}=2^{-216}(1-2^{-23})= 1.17549421069244\times 10^{-38}
+    \end{equation}
+\end{example}
+
+Notons ceci avec Sage :
+\lstinputlisting{sageSnip004.sage}
+
+Vu que \( 2^{-23}\simeq 1.2\times 10^{-7}\), approximer la parenthèse par \( 1\) donne une faute sur la septième décimale, ce qui est visible en simple précision.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Problèmes pour écrire des nombres}
