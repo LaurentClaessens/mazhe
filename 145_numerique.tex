@@ -135,7 +135,54 @@ Plus généralement un système qui codes des entiers signés en \( N\) bits uti
 \end{definition}
 Une idée à retenir est que l'exposant est un entier non signé parce qu'il est plus simple d'introduire un décalage dans la formule \eqref{EQooAGWJooRuBbBn} que de compliquer l'écriture de l'exposant.
 
-En écriture binaire, la représentation en virgule flottante est un peu différente parce qu'il y a une idée supplémentaire; donc la définition suivante n'est pas un cas particulier de \ref{DEFooLYONooBNskty} avec \( b=2\). Nous allons voir la simple précision.
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Simple précision, IEEE-754}
+%---------------------------------------------------------------------------------------------------------------------------
+
+En écriture binaire, la représentation en virgule flottante est un peu différente parce qu'il y a une idée supplémentaire; la simple précision que nous allons voir maintenant n'est donc pas un cas particulier de \ref{DEFooLYONooBNskty} avec \( b=2\).
+
+Nous commençons par une description informelle de la précision simple avant de donner la définition. La représentation en \defe{précision simple}{précision!simple} d'un nombre se fait sur \( 32\) bits répartis comme suit :
+\begin{enumerate}
+    \item
+        \( 1\) bit pour le signe,
+    \item
+        \( 8\) bits pour l'exposant interprété comme nombre entier non signé
+    \item
+        \( 23\) bits pour la mantisse
+\end{enumerate}
+Soit le triple 
+\begin{equation}
+    \big( s,q,[a_1,\ldots, a_{23}] \big)
+\end{equation}
+Dans le cas générique, l'idée est de donner \( 24\) bits pour la mantisse, mais en gardant en tête le fait que de toutes façons, le premier bit doit être \( 1\), sinon il suffirait de décaler, c'est à dire changer l'exposant. Par conséquent la mantisse ne reçoit que \( 23\) bits; il y a un «\( 1\)» sous-entendu en première position. Donc la mantisse \( [a_1,\ldots, a_{23}]\) est à lire comme le nombre
+\begin{equation}
+    1,a_1\ldots a_{23}=1+\sum_{j=1}^{23}a_j2^{-j}.
+\end{equation}
+\begin{example}
+    La mantisse \( [011100\ldots 0]\) signifie \(1,0111=1+2^{-2}+2^{-3}+2^{-4}=1+\frac{1}{ 4 }+\frac{1}{ 8 }+\frac{1}{ 16 } \).
+\end{example}
+Cela pour justifier la formule
+\begin{equation}
+    \SimplePrec\big( s,q,[a_1,\ldots, a_{23}] \big)=(-1)^s\big( 1+\sum_{j=1}^{23}a_j2^{-j} \big)2^{q-127}.
+\end{equation}
+Notons :
+\begin{enumerate}
+    \item
+        Le «\( 1+\)» dans la parenthèse correspond au \( 1\) implicite en première position de la mantisse.
+    \item
+        Il y a un décalage de \( 127\) dans l'exposant, parce que \( q\) est un entier non signé.
+\end{enumerate}
+
+Notons que cette règle du \( 1\) implicite dans la mantisse empêche d'écrire le nombre \( 0\), et ne permet pas d'écrire des nombres franchement petits parce que le \( 1\) implicite est en \emph{première} position dans la mantisse.
+
+D'où l'idée de donner une règle particulière lorsque l'exposant vaut \( 0\). Lorsque l'exposant est \( q=0\), alors nous ne considérons pas de \( 1\) implicite dans la mantisse, et le décalage de l'exposant est \( -126\) au lieu de \( -127\). D'où la formule
+\begin{equation}
+    \SimplePrec(s,q=0,[a_1\ldots a_{23}])=(-1)^s2^{-216}\sum_{j=1}^{23}a_j2^{-j}.
+\end{equation}
+En particulier, si \( q=0\) et \( a=[0\ldots 0]\), nous avons le nombre zéro exact (il y a deux possibilités pour le code).
+
+Enfin, nous avons des cas particuliers lorsque l'exposant est maximum, c'est à dire \( q=[1111\,1111]=2^8-1=255\). Dans ce cas, le nombre codé est soit \( +\infty\) soit \( \NaN\). Nous posons \( \SimplePrec(s,q=255,a=0)=+\infty\) et \( \SimplePrec(s,q=255,a\neq 0)=NaN\). Il y a en réalité plusieurs valeurs différentes de \( \NaN\), mais nous n'entrons pas dans ces détails\cite{ooPOZNooQlGiUN}.
+
 \begin{definition}[Représentation en simple précision (binaire)]
     La représentation en \defe{précision simple}{précision!simple} d'un nombre se fait sur \( 32\) bits répartis comme suit :
     \begin{enumerate}
@@ -146,33 +193,67 @@ En écriture binaire, la représentation en virgule flottante est un peu différ
         \item
             \( 23\) bits pour la mantisse
     \end{enumerate}
-    Nous définissons le décalage comme \( d=2^{8-1}-1=127\).
 
-    Soit le triple 
+    Un nombre est représenté par un triple
     \begin{equation}
-        \big( s,q,[a_1,\ldots, a_{32}] \big)
+        \big( s,q,[a_1,\ldots, a_{23}] \big)
     \end{equation}
 
-    Selon que l'exposant réel \( q-d\) soit égal à \( 0\), \( 2^8-1=127\) ou autre chose, les règles d'interprétation sont différentes. Il y a donc trois cas.
+    Selon que l'exposant \( q-d\) soit égal à \( 0\), \( 2^8-1=255\) ou autre chose, les règles d'interprétation sont différentes. Il y a donc trois cas.
     \begin{description}
-        \item[Exposant réel générique\cite{ooMPTNooYbSwJS}] Si \( q-d\) n'est ni \( 0\) ni \( 127\) alors la représentation est dite \defe{normalisée}{représentation!normalisée}. Dans ce cas se trouve l'idée de génie qui rend tout compliqué : il y a un \( 1\) sous-entendu en première position de la mantisse. Donc la mantisse \( [a_1,\ldots, a_{32}]\) est à lire comme le nombre
-            \begin{equation}
-                1,a_1\ldots a_{32}=1+\sum_{j=1}^{32}a_j2^{-j}.
+        \item[Exposant \( q\) générique\cite{ooMPTNooYbSwJS}] 
+           Si \( q\neq 0\) et \( q\neq 255\) alors le nombre est \defe{normalisée}{nombre!normalisée}. La règle de lecture est alors
+           \begin{equation}        \label{EQooEFEKooIrUaKj}
+                \SimplePrec\big( s,q,[a_1,\ldots, a_{23}] \big)=(-1)^s\big( 1+\sum_{j=1}^{23}a_j2^{-j} \big)2^{q-127}.
             \end{equation}
-            \begin{example}
-                La mantisse \( [011100\ldots 0]\) signifie \(1,0111=1+2^{-2}+2^{-3}+2^{-4}=1+\frac{1}{ 4 }+\frac{1}{ 8 }+\frac{1}{ 16 } \).
-            \end{example}
-            Avec cette règle, nous avons
+        \item[Exposant \( q\) égal à \( 0\)] Le nombre est dit \defe{dénormalisé}{nombre!dénormalisé} et la règle de lecture est
             \begin{equation}
-                \SimplePrec\big( s,q,[a_1,\ldots, a_{32}] \big)=(-1)^s\big( 1+\sum_{j=1}^{32}a_j2^{-j} \big)2^{q-127}.
+                \SimplePrec\big( s,q,[a_1,\ldots, a_{23}] \big)=(-1)^s2^{-126}\sum_{j=1}^{23}a_j2^{-j}.
             \end{equation}
-            <++>
-        \item[Exposant réel égal à \( 0\)] Si \( q-d\) est égal à zéro, alors l'idée est de pas mettre de \( 1\) au début de la mantisse, mais de le mettre au bout de la mantisse; le but est d'être capable de coder des nombres plus petits.
-
+        \item[Exposant \( q\) égal à \( 255\)]
+            La règle de lecture est alors au cas pas cas ou à peu près.
+            \begin{enumerate}
+                \item
+                    \( \SimplePrec(s,q=255,a=0)=+\infty\).
+                \item
+                    \( \SimplePrec(s,q=255,a\neq 0)=\NaN\).
+            \end{enumerate}
     \end{description}
-    <++>
-
 \end{definition}
+
+Vous pouvez jouer avec la simple précision dans \cite{ooOSFYooHCgMRL}.
+
+\begin{example}[Plus petit normalisé]
+    Pour faire un nombre normalisé, il faut au minimum \( q=1\). En prenant \( a_j=0\) nous obtenons le plus petit nombre normalisé possible en simple précision. La formule \eqref{EQooEFEKooIrUaKj} donne
+    \begin{equation}
+        \SimplePrec(1,q=1,a=0)=2^{1-127}=2^{-126}\simeq 1.17549435082229\times 10^{-38}.
+    \end{equation}
+\end{example}
+
+\begin{example}[Plus grand normalisé]  
+    L'exposant \( q\) ne peut pas être maximum, sous peine de tomber dans les règles spéciales de \( +\infty\) ou \( \NaN\). Donc \( q=[1111\,1110]=2^{8}-2=254\). En ce qui concerne la mantisse, il faut la prendre maximale, c'est à dire \( a_j=1\) pour tout \( j\). Nous avons alors le nombre
+        \begin{subequations}     
+            \begin{align}
+                \SimplePrec(1,q=254,a=[1\ldots 1])&=\big( 1+\sum_{j=1}^{23}2^{-j} \big)2^{254-127}=(1-\frac{1}{ 2^{24} })2^{128}\\
+                &=3.40282346638528859811704183484516925440\times 10^{38}  \label{EQooFRPYooRnxiFP}
+            \end{align}
+        \end{subequations}
+    où nous avons utilisé la somme \eqref{EqASYTiCK} (et Sage pour le dernier calcul).
+\end{example}
+
+Notons ceci avec Sage :
+\lstinputlisting{sageSnip003.sage}
+
+La précisions du nombre donné en \eqref{EQooFRPYooRnxiFP} aurait été embarrassante si le type avait été un nombre en simple précision. Précision technique : en Python, le type \info{int} n'a pas de limite supérieure à part la mémoire.
+
+\begin{example}[Plus grand dénormalisé]      \label{EXEMooRHENooGwumoA}
+    
+\end{example}
+<++>
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Problèmes pour écrire des nombres}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \begin{definition}
 	L'\defe{erreur relative}{erreur relative} commise en remplaçant un nombre réel $x$ par une valeur approchée $\hat{x}$ est définie par
@@ -185,9 +266,6 @@ L'erreur relative n'est pas influencée par l'ordre de grandeur de \( x\). En ef
 
 Le nombre de chiffres significatifs correct dans l'approximation est donné par \( -\log_{10}(\epsilon_x)\). La partie entière de ce nombre est le nombre de chiffres tout à fait exacts et la partie décimale donne une idée sur le fait que le chiffre suivant est plus ou moins bien.
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Problèmes pour écrire des nombres}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \begin{remark}
 	Si nous voulons donner \( x\in \eR\) à un ordinateur, nous sommes soumis à deux erreurs :
