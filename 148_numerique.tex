@@ -488,3 +488,146 @@ Que le nombre de d'évaluations de \( f\) intervienne est logique parce que chaq
 \Exo{mazhe-0003}
 \Exo{mazhe-0004}
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Approximations de fonctions}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{enumerate}
+    \item
+        D'habitude on n'approxime pas une fonction sur tout son domaine, mais seulement sur une partie.
+    \item
+        Il y a le problème du choix de la classe des fonctions qui vont approximer. Nous allons travailler avec des polynômes.
+    \item
+        Il nous faut un critère disant si une approximation est bonne ou non.
+\end{enumerate}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Critère d'interpolation}
+%---------------------------------------------------------------------------------------------------------------------------
+
+À partir de \( n+1\) abscisses points distinctes \( x_i\), nous calculons \( y_i=f(x_i)\). Il y a ce théorème qui dit qu'il existe un unique polynôme de degré (au plus) \( n+1\) passant par les points \( (x_i,y_i)\).
+
+\begin{propositionDef}[Base de Lagrange]
+    Étant donnés \( n+1\) valeurs distinctes \( x_i\), l'espace des polynômes de degré \( n\) admet la base
+    \begin{equation}
+        L_i^{(n)}(x)=\prod_{\substack{j=0\\j\neq i}}^n\frac{ x-x_j }{ x_i-x_j }
+    \end{equation}
+    pour \( i=0,\ldots, n\).
+\end{propositionDef}
+
+Soit par exemple les valeurs de \( f\) données dans
+\begin{equation*}
+    \begin{array}[]{c|c}
+        x_i&y_i=f(x_i)\\
+        \hline
+        x_0=5&1\\
+        x_1=-7&-23\\
+        x_2=6&-54\\
+        x_3=0&-954\\
+    \end{array}
+\end{equation*}
+
+Les polynômes de Lagrange pour ces données dépendent seulement des \( x_i\), pas des \( y_i\). En particulier,
+\begin{equation}
+    L_0^{(3)}(x)=\frac{ (x-x_1)(x-x_2)(x-x_3) }{ (x_0-x_1)(x_0-x_2)(x_0-x_3) },
+\end{equation}
+etc.
+
+La réponse est que
+\begin{subequations}
+    \begin{align}
+        L_0^{(3)}(x)&=\frac{ x^3+13x^2+42x }{ 660 }\\
+        L_1^{(3)}(x)&=\frac{ -x^3-x^2+30x  }{ 84 }\\
+        etc.
+    \end{align}
+\end{subequations}
+
+Ce qu'il y a de bien avec cette base est que en posant \( a_i=f(x_i)\) alors le polynôme
+\begin{equation}
+    \sum_{i=0}^na_iL_i^{(n)}(x)
+\end{equation}
+passe par les points \( (x_i,f(x_i))\). Du coup il suffit d'écrire
+\begin{equation}
+    P_3(x)=L_0^{(3)}(x)-23L_1^{(n)}(x)-54L_2^{(n)}(x)-954 L_3^{(n)}(x)=4x^3+35x^2-84x-954.
+\end{equation}
+
+Un inconvénient de cette base est qu'elle est complètement dépendante des points choisis. Si on ajoute un point ou qu'on en prend un à peine différent, tous les coefficients changent. Mais en pratique, ajouter des points est quelque chose qui arrive souvent parce que souvent, après avoir vu le résultat d'un polynôme d'interpolation, on veut ajouter un point pour avoir un meilleur résultat.
+
+\begin{normaltext}
+    Une habitude : le premier et le dernier nœud se choisissent aux extrémités de l'intervalle sur lequel nous voulons une approximation.
+
+    Le but d'une approximation est d'avoir des approximations de \( f(x^*)\) pour des valeurs de \( x^*\) qui ne soit pas une des abscisses données (parce que sur ces points, le polynôme et la fonction sont égaux). Nous considérons donc
+    \begin{equation}
+        f(x^*)\simeq P_n(x^*).
+    \end{equation}
+    Si \( x^*\) est dans l'intervalle \( I= \mathopen[ x_{min} , x_{max} \mathclose]\) alors nous disons que nous calculons \( f\) par \defe{interpolation}{interpolation}. Si au contraire \( x^*\) est en dehors de cet intervalle nous parlons d'\defe{extrapolation}{extrapolation}.
+
+    Si \( x^*\) est pris à l'extérieur de \( I\), alors l'erreur risque d'être très grande, surtout parce que les polynômes tendent tous vers \( \pm\infty\) lorsque \( x\to \pm\infty\).
+
+    Autant l'interpolation via polynômes est le plus souvent valable, il faut garder à l'esprit que les extrapolation sont souvent mauvaises si \( x^*\) est trop loin des extrémités de \( I\).
+\end{normaltext}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Base de Newton}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Après la base canonique et la base de Lagrange, nous voyons la base de Newton. Soient encore \( n+1\) points donnés du graphe de \( f\). 
+
+\begin{definition}
+    La \defe{base de Newton}{base!de Newton} pour les abscisses \( x_i\) est l'ensemble des polynômes suivants :
+    \begin{equation}
+        1,(x-x_0),(x-x_0)(x-x_1),\ldots,(x-x_0)(x-x_1)\ldots (x-x_{n-1})
+    \end{equation}
+\end{definition}
+Notons que ces polynômes n'utilisent pas le dernier point des \( x_i\). Le polynôme passant par les points est 
+\begin{equation}
+    P_n(x)=x_0+\sum_{i=1}^nc_i\prod_{j=0}^{n-1}(x-x_j).
+\end{equation}
+Le calcul des \( c_i\) n'est pas absolument évident. Mais si nous ajoutons un point d'interpolation, les polynômes déjà calculés sont encore bons; en particulier
+\begin{equation}
+    P_{n+1}(x)=P_n(x)+c_{n+1}\prod_{j=0}^{n}(x-x_j).
+\end{equation}
+Et cela est bien, parce que ça donne une façon de les calculer par récurrence.
+
+Il y a plusieurs façons de calculer les \( c_i\).
+
+Les différences divisées sont des façons d'approximer les dérivées.
+\begin{definition}
+    Soient \( n+1\) nœuds \( x_i\) pour la fonction \( f\). La \defe{différence divisée}{différence!divisée} sont :
+    \begin{description}
+        \item[Ordre \( 0\)]  
+            \begin{equation}
+                f[x_i]=f(x_i)
+            \end{equation}
+        \item[Ordre \( 1\)]
+            \begin{equation}
+                f[x_i,x_j]=\frac{ f[x_i]-f[x_j] }{ x_i-x_j }.
+            \end{equation}
+        \item[Ordre \( 2\)]
+            \begin{equation}
+                f[x_i,x_j,x_k]=\frac{ f[x_i,x_j]-f[x_j,x_k] }{ x_i-x_k }.
+            \end{equation}
+        \item[Ordre \( n\)]
+            \begin{equation}
+                f[x_0,\ldots, x_n]=\frac{ f[x_0,\ldots, x_{n-1}]-f[x_1,\ldots, x_n] }{ x_0-x_n }.
+            \end{equation}
+    \end{description}
+\end{definition}
+Les ordres font référence à l'ordre de dérivation qui est approximé.
+
+Nous avons alors
+\begin{equation}
+    c_i=f[x_0,\ldots, x_i].
+\end{equation}
+Cela donne effectivement une méthode de récurrence pour trouver les coefficients \( c_i\).
+
+\begin{remark}
+    Pour calculer \( c_0\), il faut seulement calculer \( f[x_0]=f(x_0)\). Mais pour calculer \( c_1\) il faut \( f[x_0] \) et \( f[x_1]\). Et pour \( c_2\) il faut \( f[x_0,x_1,x_2]\) qui demande \( f[x_0,x_1]\) et \( f[x_0,x_1]\), qui demande etc.
+
+    Il faut donc calculer en réalité tous les \( f[x_i]\) pour terminer le calcul. Par contre, pour ajouter un point, il ne faut pas tout recalculer, et même pas tout conserver en mémoire. Il faut seulement garder en mémoire la dernière diagonale.
+\end{remark}
+
+\Exo{mazhe-0005}
+
+Un exercice typique serait de donner tout pour \( 3\) points puis de demander le polynôme qui aurait un quatrième point.
+
