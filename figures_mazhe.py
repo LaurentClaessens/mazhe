@@ -225,6 +225,35 @@ from phystricksBQXKooPqSEMN import BQXKooPqSEMN
 from phystricksooIHLPooKLIxcH import ooIHLPooKLIxcH
 from phystricksUEGEooHEDIJVPn import UEGEooHEDIJVPn
 
+
+# De analyseCTU
+from phystricksCFMooGzvfRP import CFMooGzvfRP
+from phystricksHLJooGDZnqF import HLJooGDZnqF
+from phystricksGCNooKEbjWB import GCNooKEbjWB
+from phystricksLBGooAdteCt import LBGooAdteCt
+from phystricksDZVooQZLUtf import DZVooQZLUtf
+from phystricksWJBooMTAhtl import WJBooMTAhtl
+from phystricksWUYooCISzeB import WUYooCISzeB
+from phystricksRPNooQXxpZZ import RPNooQXxpZZ
+from phystricksXJMooCQTlNL import XJMooCQTlNL
+from phystricksNWDooOObSHB import NWDooOObSHB
+from phystricksJSLooFJWXtB import JSLooFJWXtB
+from phystricksUQZooGFLNEq import UQZooGFLNEq
+from phystricksKKRooHseDzC import KKRooHseDzC
+from phystricksUNVooMsXxHa import UNVooMsXxHa
+from phystricksGMIooJvcCXg import GMIooJvcCXg
+from phystricksJJAooWpimYW import JJAooWpimYW
+from phystricksFGRooDhFkch import FGRooDhFkch
+from phystricksTWHooJjXEtS import TWHooJjXEtS
+from phystricksTVXooWoKkqV import TVXooWoKkqV
+from phystricksSBTooEasQsT import SBTooEasQsT
+from phystricksBIFooDsvVHb import BIFooDsvVHb
+from phystricksCELooGVvzMc import CELooGVvzMc
+from phystricksPVJooJDyNAg import PVJooJDyNAg
+from phystricksVANooZowSyO import VANooZowSyO
+from phystricksXTGooSFFtPu import XTGooSFFtPu
+
+
 # Naming inconstancies fixing.   February 26, 2016
 #   SurfaceDerive  replaced by BQXKooPqSEMN
 #   ArcCercleAngle replaced by ooIHLPooKLIxcH
@@ -460,6 +489,34 @@ figures_list.append(SYNKooZBuEWsWw)
 figures_list.append(KKJAooubQzgBgP)
 figures_list.append(QMWKooRRulrgcH)
 figures_list.append(OQTEoodIwAPfZE)
+
+figures_list=[]
+figures_list.append(TVXooWoKkqV)
+figures_list.append(SBTooEasQsT)
+figures_list.append(TWHooJjXEtS)
+figures_list.append(FGRooDhFkch)
+figures_list.append(BIFooDsvVHb)
+figures_list.append(CELooGVvzMc)
+figures_list.append(JJAooWpimYW)
+figures_list.append(GMIooJvcCXg)
+figures_list.append(PVJooJDyNAg)
+figures_list.append(UQZooGFLNEq)
+figures_list.append( UNVooMsXxHa)
+figures_list.append(KKRooHseDzC)
+figures_list.append(JSLooFJWXtB)
+figures_list.append(NWDooOObSHB)
+figures_list.append(XJMooCQTlNL)
+figures_list.append(RPNooQXxpZZ)
+figures_list.append(WUYooCISzeB)
+figures_list.append(WJBooMTAhtl)
+figures_list.append(DZVooQZLUtf)
+figures_list.append(VANooZowSyO)
+figures_list.append( LBGooAdteCt)
+figures_list.append(XTGooSFFtPu)
+figures_list.append(GCNooKEbjWB)
+figures_list.append(HLJooGDZnqF)
+figures_list.append(CFMooGzvfRP)
+
 """
 figures_list.append(<++>)
 figures_list.append(<++>)
