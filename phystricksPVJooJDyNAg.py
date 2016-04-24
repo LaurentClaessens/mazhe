@@ -23,6 +23,6 @@ def PVJooJDyNAg():
         pspict.DrawGraphs(seg)
 
     pspict.DrawDefaultAxes()
-    fig.no_figure()
+    #fig.no_figure()
     fig.conclude()
     fig.write_the_file()
