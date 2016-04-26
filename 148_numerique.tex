@@ -631,3 +631,169 @@ Cela donne effectivement une méthode de récurrence pour trouver les coefficien
 
 Un exercice typique serait de donner tout pour \( 3\) points puis de demander le polynôme qui aurait un quatrième point.
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Méthode des minima quadratiques}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soient \( m+1\) points connus sur le graphe de la fonction \( f\) que nous devons approximer. Au lieu d'exiger que notre approximation ne passe par tous les points, nous allons chercher une approximation qui minimise la somme des carrés des erreurs sur ces points.
+
+Soit \( \mF\) une classe de fonctions dans laquelle nous allons chercher l'approximation. Nous cherchons \( g\in \mF\) qui minimise
+\begin{equation}    \label{EQooJGQVooKwZZVJ}
+    \sum_{i=0}^m \big( f(x_i)-g(x_i) \big)^2\omega_i
+\end{equation}
+où \( \omega_i>0\) est une pondération. Souvent on prend \( \omega_i=1\), mais pas toujours.
+
+À part dans les exercices à la main, le nombre de points est grand, du type du milliard. Alors imagine de faire passer \emph{exactement} un polynôme à travers ces points; il faudrait que le degré soit de l'ordre du milliard. ah aha ha. Ça ne se fait pas. Surtout que d'un point de vue scientifique, avoir \( n\) paramètres libres pour \( n\) données expérimentales, ça ne passe pas Popper.
+
+\begin{example}
+    La qualité d'une expérience peut être influencée par des paramètres extérieurs comme l'humidité, le vent, etc. Donc il est normal d'avoir des expériences moins précises que d'autres. On le pèse moins.
+\end{example}
+
+\begin{example}
+    Dans un questionnaire, il se met des questions volontairement contradictoires. Si quelqu'un répond «oui» aux deux questions, il y a une indication que la personne a répondu un peu n'importe comment, et il faut moins peser ses réponses.
+\end{example}
+
+Afin de faire de la science qui passe Popper nous nous restreignons à une classe de fonction \( \mF\) dont la dimension n'est pas grande : \( \dim( \mF)\ll m\). Et nous notons \( \dim(\mF)=n+1\).
+
+Le nombre \( m\) est la quantité de données, et \( n\) le nombre de paramètres dont nous disposons.
+
+Soit \( g\in \mF\), et une base \( \{ g_i \}_{i=0,\ldots, n}\) de \( \mF\). Nous écrivons
+\begin{equation}
+    g=a_0g_0+a_1g_1+\ldots +a_ng_n
+\end{equation}
+La fonction donnée en \eqref{EQooJGQVooKwZZVJ}, est une fonction des paramètres \( a_i\) que nous nommons \( F(a_0,\ldots, a_i)\). Il faut minimiser \( F\), c'est à dire poser
+\begin{equation}
+    0=\frac{ \partial F }{ \partial a_j }
+\end{equation}
+pour \( j=0,\ldots, n\). Cela sont \( n+1\) équations pour \( n+1\) inconnues. Notons que ces équations sont linéaires parce que chacun des termes est du type
+\begin{equation}
+    \left( f(x_i)-\sum_{j=0}^ma_jg_j(x_i) \right)^2,
+\end{equation}
+et lors de la dérivation par rapport à \( a_j\), nous obtenons du degré \( 1\). Calculons un peu :
+\begin{equation}
+    0=\frac{ \partial F }{ \partial a_j }=\sum_{i=0}^m2\big( f(x)-g(x_i)\big)g_j(x_i)\omega_i=\heartsuit.
+\end{equation}
+Dans cette expression, les coefficients \( a_i\) sont cachés dans \( g(x_i)\) :
+\begin{subequations}
+    \begin{align}
+        \heartsuit&=2\sum_{i=0}^m\left[        f(x_i)-\sum_{k=0}^n a_kg_k(x_i)  \right]g_j(x_i)\omega_i\\
+        &=\sum_{i=0}^mf(x_i)g_j(x_i)\omega_i-\sum_{i=0}^m\sum_{k=0}^na_kg_k(x_i)g_j(x_i)\omega_i
+    \end{align}
+\end{subequations}
+et donc
+\begin{equation}        \label{EQooXXPIooYLvOHh}
+    \sum_{k=0}^na_k\sum_{i=0}^mg_k(x_i)g_j(x_i)\omega_i=\sum_{i=0}^m f(x_i)g_j(x_i)\omega_i.
+\end{equation}
+Écrit comme cela, nous avons un système linéaire bien écrit.
+
+Soit la matrice \( A\) de \( m+1\) lignes et \( n+1\) colonnes donnée par
+\begin{equation}
+    A=
+    \begin{pmatrix}
+    \sqrt{ \omega_0 }g_0(x_0)&\sqrt{ \omega_0 }g_1(x_0) & \ldots & \sqrt{ \omega_0 }g_n(x_0)\\
+    \sqrt{ \omega_1 }g_0(x_1)&\sqrt{ \omega_1 }g_1(x_2) &\ldots & \sqrt{ \omega_1 }g_n(x_1)\\
+    \vdots\\
+    \sqrt{ \omega_n }g_0(x_n)&\sqrt{ \omega_n }g_1(x_m)&\ldots &\sqrt{ \omega_m }g_m(x_m).
+     \end{pmatrix}
+\end{equation}
+et le vecteur
+\begin{equation}
+    b=\begin{pmatrix}
+        \sqrt{ \omega_0 }f(x_0)    \\ 
+        \sqrt{ \omega_1 }f(x_1)    \\ 
+        \vdots    \\ 
+        \sqrt{ \omega_m }f(x_m).    
+    \end{pmatrix}
+\end{equation}
+puis le vecteur \( a=(a_0,\ldots, a_n)\).
+
+
+Le système à voir est \( Aa=b\), mais il est sur-déterminé. Donc à moins d'un coup de chance de probabilité \( 0\), il n'est pas soluble. Nous considérons alors d'abord le système
+\begin{equation}
+    A^tAa=A^tb.
+\end{equation}
+La matrice \( A^tA\) est de dimension \( (n+1)\times (n+1)\) et est symétrique et définie positive. Donc le système a une unique solution. 
+
+Le fait est que la matrice \( A^tA\) est exactement la matrice du système \eqref{EQooXXPIooYLvOHh}. Cela donne la preuve que notre système possède une unique solution. Notons que la symétrie en \( k,j\) du coefficient était déjà visible dans l'expression \eqref{EQooXXPIooYLvOHh}.
+
+\begin{example}
+    Si notre base sont les polynôme trigonométriques, ce que nous obtenons est la série de Fourier.
+\end{example}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Droite de régression}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La droite de régression est la cas particulier \( n=1\), c'est à dire un système \( 2\times 2\). Nous cherchons \( P=a_0+a_1x\). Et la base choisie est \( g_0(x)=1\), \( g_1(x)=x\). Nous avons
+\begin{equation}
+    A=\begin{pmatrix}
+        \sqrt{ \omega_0 }&\sqrt{ \omega_0 }x_0\\  
+        \sqrt{ \omega_1 }&\sqrt{ \omega_1 }x_1\\  
+        \vdots&\vdots\\  
+        \sqrt{ \omega_m }&\sqrt{ \omega_m }x_m  
+    \end{pmatrix}.
+\end{equation}
+et
+\begin{equation}
+    A^tA=
+    \begin{pmatrix}
+    \sum_{i=0}^m\omega_i & \sum_{i=0}^m\omega_ix_i \\
+    \sum_{i=0}^m\omega_ix_i & \sum_{i=0}^m\omega_ix_i^2
+    \end{pmatrix}
+\end{equation}
+où nous avons utilisé le fait que \( \omega_i>0\). En ce qui concerne \( A^tb\) nous avons
+\begin{equation}
+    A^tb=\begin{pmatrix}
+        \sum_{i=0}^m\omega_if(x_i)    \\ 
+        \sum_{i=0}^mx_if(x_i)    
+    \end{pmatrix}
+\end{equation}
+
+\begin{example}
+    Faisons la droite de régression pour les données avec tous les poids \( \omega_i=1\).
+    \begin{equation*}
+        \begin{array}[]{c|c}
+            x_i&f(x_i)\\
+            \hline\hline
+            -5&18\\
+            -3&7\\
+            1&0\\
+            3&7\\
+            4&16\\
+            6&50\\
+            8&67\\
+        \end{array}
+    \end{equation*}
+    Nous avons le système
+    \begin{equation}
+        \begin{pmatrix}
+            7    &   14    \\ 
+            14    &   160    
+        \end{pmatrix}
+        \begin{pmatrix}
+            a_0    \\ 
+            a_1    
+        \end{pmatrix}=\begin{pmatrix}
+            165    \\ 
+            810    
+        \end{pmatrix}.
+    \end{equation}
+    La résolution donne la droite de régression.
+\end{example}
+
+\begin{proposition}
+    Si tous les poids sont identiques, alors la droite de régression passe par le barycentre des points donnés :
+    \begin{subequations}
+        \begin{numcases}{}
+            x_M=\frac{1}{ m+1 }\sum_{i=0}^mx_i\\
+            y_M=\frac{1}{ m+1 }\sum_{i=0}^my_i.
+        \end{numcases}
+    \end{subequations}
+\end{proposition}
+Cela donne une vérification possible de la réponse trouvée.
+
+\begin{definition}
+    L'\defe{erreur quadratique}{erreur!quadratique} est la fonction \( F(a_0,\ldots, a_n)\) dont il est question plus haut. Et si une solution est connue, son erreur quadratique est la valeur de $F$ pour cette solution.
+\end{definition}
+
+
