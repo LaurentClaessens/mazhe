@@ -746,29 +746,29 @@ Sur l'ensemble des fonctions \( \eR\to\eR\) nous considérons la relation d'équ
 %---------------------------------------------------------------------------------------------------------------------------
 
 La droite de régression est la cas particulier \( n=1\), c'est à dire un système \( 2\times 2\). Nous cherchons \( P=a_0+a_1x\). Et la base choisie est \( g_0(x)=1\), \( g_1(x)=x\). Nous avons
+\begin{subequations}
+    \begin{align}
+        \langle g_0, g_0\rangle =\sum_i\omega_ig_0(x_i)g_0(x_i)=\sum_i\omega_i\\
+        \langle g_0, g_1\rangle =\sum_i\omega_ix_i\\
+        \langle g_1, g_1\rangle =\sum_i\omega_ix_i^2.
+    \end{align}
+\end{subequations}
+Donc pour approximer une fonction \( f\) il faut résoudre le système
 \begin{equation}
-    A=\begin{pmatrix}
-        \sqrt{ \omega_0 }&\sqrt{ \omega_0 }x_0\\  
-        \sqrt{ \omega_1 }&\sqrt{ \omega_1 }x_1\\  
-        \vdots&\vdots\\  
-        \sqrt{ \omega_m }&\sqrt{ \omega_m }x_m  
+    \begin{pmatrix}
+        \sum_i\omega_i    &   \sum_i\omega_ix_i    \\ 
+        \sum_i\omega_ix_i    &   \sum_i\omega_ix_i^2    
+    \end{pmatrix}\begin{pmatrix}
+        a_0    \\ 
+        a_1    
+    \end{pmatrix}=
+    \begin{pmatrix}
+        \langle f, g_0\rangle     \\ 
+        \langle f, g_1\rangle     
     \end{pmatrix}.
 \end{equation}
-et
-\begin{equation}
-    A^tA=
-    \begin{pmatrix}
-    \sum_{i=0}^m\omega_i & \sum_{i=0}^m\omega_ix_i \\
-    \sum_{i=0}^m\omega_ix_i & \sum_{i=0}^m\omega_ix_i^2
-    \end{pmatrix}
-\end{equation}
-où nous avons utilisé le fait que \( \omega_i>0\). En ce qui concerne \( A^tb\) nous avons
-\begin{equation}
-    A^tb=\begin{pmatrix}
-        \sum_{i=0}^m\omega_if(x_i)    \\ 
-        \sum_{i=0}^mx_if(x_i)    
-    \end{pmatrix}
-\end{equation}
+ 
+Pour calculer les produits \( \langle f, g_{\alpha}\rangle \) il suffit de savoir \( f\) sur les points \( x_i\). Et encore heureux, parce que toute la méthode est basée sur le fait que nous ne connaissons pas \( f\) ailleurs. C'est pour cela que nous avons défini \( L^2_{\omega}\) comme un ensemble quotient.
 
 \begin{example}
     Faisons la droite de régression pour les données avec tous les poids \( \omega_i=1\).
@@ -785,6 +785,15 @@ où nous avons utilisé le fait que \( \omega_i>0\). En ce qui concerne \( A^tb\
             8&67\\
         \end{array}
     \end{equation*}
+    Nous avons
+    \begin{subequations}
+        \begin{align}
+            \langle g, g_0\rangle =\sum_if(x_i)=165\\
+            \langle f, f_1\rangle =\sum_if(x_i)x_i=810.
+        \end{align}
+    \end{subequations}
+    et  
+
     Nous avons le système
     \begin{equation}
         \begin{pmatrix}
@@ -816,3 +825,112 @@ Cela donne une vérification possible de la réponse trouvée.
 \begin{definition}
     L'\defe{erreur quadratique}{erreur!quadratique} est la fonction \( F(a_0,\ldots, a_n)\) dont il est question plus haut. Et si une solution est connue, son erreur quadratique est la valeur de $F$ pour cette solution.
 \end{definition}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Système linéaires}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soit un système d'équations linéaires \( Ax=b\) avec \( A\in \eM(n,\eR)\). Le problème est évidemment de savoir si il existe une unique solution \( x\) et de la déterminer. Nous supposons l'existence et l'unicité. C'est à dire que les conditions équivalentes sont vérifiées :
+\begin{enumerate}
+    \item
+        \( A\) est inversible, c'est à dire qu'il existe une matrice notée \( A^{-1}\) telle que \( AA^{-1}=A^{-1}A=\mtu\).
+    \item
+        \( \det(A)\neq 0\).
+\end{enumerate}
+Note : si  nous avons un système pas carré du type \( Bx=v\) avec \( B\in \eM(n\times m)\) alors nous pouvons nous ramener à un système carré en écrivant
+\begin{equation}
+    B^tBx=B^tv.
+\end{equation}
+Mais attention : bien que \( B^tB\) soit symétrique et semi-définie positive, certaines valeurs propres peuvent être nulles.
+
+\begin{normaltext}
+    Deux choses générales en calcul numérique :
+    \begin{enumerate}
+        \item
+            On ne calcule pas l'inverse d'une matrice.
+        \item
+            On ne calcule même pas son déterminant.
+    \end{enumerate}
+    Par conséquent nous ne faisons pas \( x=A^{-1}v\).
+
+    Il faut garder en tête le fait que dans la pratique, la matrice \( A\) possède des millions de lignes et colonnes, si pas pire.
+\end{normaltext}
+
+\begin{definition}
+    Une matrice est \defe{creuse}{matrice!creuse} si elle possède beaucoup de zéros. Une matrice non creuse est dite \defe{dense}{matrice!dense}.
+\end{definition}
+
+\begin{probleme}
+    Il faut vérifier si «creuse» est le bon mot en français, et donner une définition correcte.
+\end{probleme}
+
+Notons que lorsqu'on parle de matrice comprenant beaucoup de «zéros», nous pensons à des éléments très petits, et non de vrai zéros. 
+
+\begin{remark}
+    Pour une matrice de taille \( 10^{6}\), il y a \( 1000\) milliards d'entrées. Même pour la mémoire actuellement disponible, mémoriser \( 1000\) milliards de nombres, ce n'est pas rien.
+\end{remark}
+
+Les matrices creuses ne sont pas mémorisées entièrement, mais plutôt comme un dictionnaire \( (i,j,v)\) qui donne la valeur \( v\) de \( A_{ij}\).
+
+\begin{definition}
+    Une matrice est de «grande dimension» si elle ne peut pas être mise en mémoire sur un ordinateur donné. Sur certains ordinateurs, ça commence à \( 5000\) inconnues. Mais sur des plus forts, on peut aller jusqu'au million ou le milliard.
+\end{definition}
+
+Si la matrice est de petite dimension, il est possible d'utiliser des méthodes dites «directes». Sinon, il faudra utiliser des méthodes itératives.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Les méthodes directes}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Une méthode directe consiste à transformer le système en un système équivalent, et encore et encore. Ce sont typiquement les méthodes du type pivot de Gauss et manipulations de lignes et colonnes. 
+
+Ce type de méthodes transforme \( A^{(0)}x=b^{(0)}\) en \( A^{(1)}x=b^{(1)}\) dont la solution est identique. Et encore jusqu'à \( A^{(n-1)}x=b^{(n-1)}\) qui serait un système qui peut être immédiatement résolu, comme par exemple \( A^{(n-1)}\) serait diagonale.
+
+Le problème de ce genre de choses est que si la taille de \( A\) est \( 10^6\), il faut faire de l'ordre de \( 10^6\) pas, chacun devant modifier de l'ordre de \( (10^6)^2\) éléments de matrice, plus les composantes de \( b\). Autant dire que ce n'est pas faisable.
+
+Une méthode directe fonctionne en général avec un nombre de pas fixés par la taille du système. Par exemple pour un système \( n\times n\), la méthode de Gauss demande exactement \( n\) pas, et il n'y a pas moyen de faire mieux.
+
+L'avantage d'une méthode directe est qu'elle fournit une réponse exacte, pour autant que les calculs intermédiaires soient bien faits (ce qui n'est pas le cas sur un ordinateur).
+
+Souvent une méthode directe passe par une factorisation \( A=BC\) avec \( B,C\in \eM(n\times n)\).
+
+Une décomposition classique est la décomposition \( QR\) avec \( Q\) orthogonale.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Méthodes itératives}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si la matrice est trop grande, il n'est pas possible de faire des manipulations de matrices à chaque itération.
+
+En général, les méthodes itératives ne convergent pas toujours. Mais lorsqu'une méthode converge, c'est une propriété de la matrice, et donc la convergence aura lieu pour tout vecteur de départ \( x_0\). Cela est très différent du cas des équations non linéaires type Newton pour lesquelles la convergence peut fortement dépendre du point de départ.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Système d'immédiate résolution}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Dans le cas des méthodes directes, nous nous arrêtons de changer le système lorsque la matrice est de résolution immédiate, c'est à dire lorsque la matrice est telle que la solution peut être immédiatement calculée.
+
+\begin{itemize}
+    \item Matrice diagonale.
+    \item Matrice orthogonale parce que si \( A\) est orthogonale alors \( Ax=v\) se résout par \( x=A^tv\) qui n'est pas particulièrement lourd à faire numériquement.
+    \item Matrice triangulaire.
+\end{itemize}
+
+\begin{remark}
+    Pour une matrice diagonale, le déterminant et l'inverse sont faciles. Mais également pour la triangulaire. Pour une matrice triangulaire, le déterminant est le produit des éléments diagonaux, et il se fait qu'il y a une algorithme facile pour calculer l'inverse.
+
+    Donc en fait les matrices à résolution immédiates sont des matrices pour lesquelles l'inverse et le déterminant sont facile à calculer.
+\end{remark}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Méthode de Gauss}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La méthode de Gauss est souvent aussi appelée méthode «LU» qui va décomposer \( A=LU\) où \( L\) est triangulaire inférieure et \( U\) est triangulaire supérieure.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Cholskey}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\( A=LL^t\).
+
