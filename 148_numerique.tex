@@ -639,11 +639,17 @@ Soient \( m+1\) points connus sur le graphe de la fonction \( f\) que nous devon
 
 Soit \( \mF\) une classe de fonctions dans laquelle nous allons chercher l'approximation. Nous cherchons \( g\in \mF\) qui minimise
 \begin{equation}    \label{EQooJGQVooKwZZVJ}
-    \sum_{i=0}^m \big( f(x_i)-g(x_i) \big)^2\omega_i
+   E(g)= \sum_{i=0}^m \big( f(x_i)-g(x_i) \big)^2\omega_i
 \end{equation}
-où \( \omega_i>0\) est une pondération. Souvent on prend \( \omega_i=1\), mais pas toujours.
+où \( \omega_i>0\) est une pondération. Souvent on prend \( \omega_i=1\), mais pas toujours. La fonction \( E\) sur \( \mF\) est la \defe{fonction d'erreur}{erreur}.
 
-À part dans les exercices à la main, le nombre de points est grand, du type du milliard. Alors imagine de faire passer \emph{exactement} un polynôme à travers ces points; il faudrait que le degré soit de l'ordre du milliard. ah aha ha. Ça ne se fait pas. Surtout que d'un point de vue scientifique, avoir \( n\) paramètres libres pour \( n\) données expérimentales, ça ne passe pas Popper.
+\begin{normaltext}
+    À part dans les exercices à la main, le nombre de points est grand, du type du milliard. Il est bien entendu pas envisageable de faire passer un polynôme \emph{exactement} par un milliard de points, parce que cela demanderait un polynôme de degré un milliard. 
+
+    Plus généralement, d'un point de vue scientifique, avoir \( n\) paramètres libres pour \( n\) données expérimentales, ça ne passe pas Popper.
+
+    Afin de faire de la science qui passe Popper nous nous restreignons à une classe de fonction \( \mF\) dont la dimension n'est pas grande : \( \dim( \mF)\ll m\). Et nous notons \( \dim(\mF)=n+1\).
+\end{normaltext}
 
 \begin{example}
     La qualité d'une expérience peut être influencée par des paramètres extérieurs comme l'humidité, le vent, etc. Donc il est normal d'avoir des expériences moins précises que d'autres. On le pèse moins.
@@ -653,72 +659,87 @@ où \( \omega_i>0\) est une pondération. Souvent on prend \( \omega_i=1\), mais
     Dans un questionnaire, il se met des questions volontairement contradictoires. Si quelqu'un répond «oui» aux deux questions, il y a une indication que la personne a répondu un peu n'importe comment, et il faut moins peser ses réponses.
 \end{example}
 
-Afin de faire de la science qui passe Popper nous nous restreignons à une classe de fonction \( \mF\) dont la dimension n'est pas grande : \( \dim( \mF)\ll m\). Et nous notons \( \dim(\mF)=n+1\).
-
-Le nombre \( m\) est la quantité de données, et \( n\) le nombre de paramètres dont nous disposons.
-
 Soit \( g\in \mF\), et une base \( \{ g_i \}_{i=0,\ldots, n}\) de \( \mF\). Nous écrivons
 \begin{equation}
     g=a_0g_0+a_1g_1+\ldots +a_ng_n
 \end{equation}
-La fonction donnée en \eqref{EQooJGQVooKwZZVJ}, est une fonction des paramètres \( a_i\) que nous nommons \( F(a_0,\ldots, a_i)\). Il faut minimiser \( F\), c'est à dire poser
+La fonction donnée \( E\) donnée en \eqref{EQooJGQVooKwZZVJ}, est, à partir du moment où \( \mF\) et une base sont choisis, une fonction des paramètres \( a_i\) que nous nommons \( F(a_0,\ldots, a_i)\). Il faut minimiser \( F\), c'est à dire poser
 \begin{equation}
-    0=\frac{ \partial F }{ \partial a_j }
+    \frac{ \partial F }{ \partial a_j }=0
 \end{equation}
 pour \( j=0,\ldots, n\). Cela sont \( n+1\) équations pour \( n+1\) inconnues. Notons que ces équations sont linéaires parce que chacun des termes est du type
 \begin{equation}
     \left( f(x_i)-\sum_{j=0}^ma_jg_j(x_i) \right)^2,
 \end{equation}
-et lors de la dérivation par rapport à \( a_j\), nous obtenons du degré \( 1\). Calculons un peu :
+et lors de la dérivation par rapport à \( a_j\), nous obtenons du degré \( 1\). 
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Notre espace de Hilbert}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous allons maintenant formaliser un peu tout cela. Dans \cite{ooPTFGooScbUWC} il est expliqué que si \( \omega\) est une fonction strictement positive, alors l'espace \( L^2_{\omega}\big( \mathopen[ a , b \mathclose] \big)\) dérivé de la norme
 \begin{equation}
-    0=\frac{ \partial F }{ \partial a_j }=\sum_{i=0}^m2\big( f(x)-g(x_i)\big)g_j(x_i)\omega_i=\heartsuit.
+    \| f \|_{L^2_{\omega}}^2=\int_a^b| f(x) |^2\omega(x)dx
 \end{equation}
-Dans cette expression, les coefficients \( a_i\) sont cachés dans \( g(x_i)\) :
-\begin{subequations}
-    \begin{align}
-        \heartsuit&=2\sum_{i=0}^m\left[        f(x_i)-\sum_{k=0}^n a_kg_k(x_i)  \right]g_j(x_i)\omega_i\\
-        &=\sum_{i=0}^mf(x_i)g_j(x_i)\omega_i-\sum_{i=0}^m\sum_{k=0}^na_kg_k(x_i)g_j(x_i)\omega_i
-    \end{align}
-\end{subequations}
-et donc
-\begin{equation}        \label{EQooXXPIooYLvOHh}
-    \sum_{k=0}^na_k\sum_{i=0}^mg_k(x_i)g_j(x_i)\omega_i=\sum_{i=0}^m f(x_i)g_j(x_i)\omega_i.
-\end{equation}
-Écrit comme cela, nous avons un système linéaire bien écrit.
+est un espace de Hilbert. Nous allons tenter le coup avec \( \omega=\sum_{i=0}^m\omega_i\delta_{x_i}\) où \( \delta_a\) est la distribution de Dirac\footnote{Définition dans l'exemple \ref{EXooUGOTooMDCFwD}.} centrée en \( a\).
 
-Soit la matrice \( A\) de \( m+1\) lignes et \( n+1\) colonnes donnée par
-\begin{equation}
-    A=
-    \begin{pmatrix}
-    \sqrt{ \omega_0 }g_0(x_0)&\sqrt{ \omega_0 }g_1(x_0) & \ldots & \sqrt{ \omega_0 }g_n(x_0)\\
-    \sqrt{ \omega_1 }g_0(x_1)&\sqrt{ \omega_1 }g_1(x_2) &\ldots & \sqrt{ \omega_1 }g_n(x_1)\\
-    \vdots\\
-    \sqrt{ \omega_n }g_0(x_n)&\sqrt{ \omega_n }g_1(x_m)&\ldots &\sqrt{ \omega_m }g_m(x_m).
-     \end{pmatrix}
-\end{equation}
-et le vecteur
-\begin{equation}
-    b=\begin{pmatrix}
-        \sqrt{ \omega_0 }f(x_0)    \\ 
-        \sqrt{ \omega_1 }f(x_1)    \\ 
-        \vdots    \\ 
-        \sqrt{ \omega_m }f(x_m).    
-    \end{pmatrix}
-\end{equation}
-puis le vecteur \( a=(a_0,\ldots, a_n)\).
+Sur l'ensemble des fonctions \( \eR\to\eR\) nous considérons la relation d'équivalence \( f\sim g\) si \( f(x_i)=g(x_i)\) pour tout \( i=0,\ldots, m\). Nous notons \(  L^2_{\omega}  \) cet ensemble.
 
+\begin{proposition}
+    La formule 
+    \begin{equation}        \label{EQooVUKMooIjpkXO}
+        \langle f, g\rangle =\sum_{i=0}^mf(x_i)g(x_i)\omega_i
+    \end{equation}
+    définit un produit scalaire sur \( L^2_{\omega}\). Ce dernier devient un espace de Hilbert.
+\end{proposition}
 
-Le système à voir est \( Aa=b\), mais il est sur-déterminé. Donc à moins d'un coup de chance de probabilité \( 0\), il n'est pas soluble. Nous considérons alors d'abord le système
-\begin{equation}
-    A^tAa=A^tb.
-\end{equation}
-La matrice \( A^tA\) est de dimension \( (n+1)\times (n+1)\) et est symétrique et définie positive. Donc le système a une unique solution. 
+\begin{proof}
+    Pour être un produit scalaire (définition \ref{DefVJIeTFj}), la forme considérée doit être symétrique et strictement définie positive. La symétrie de la formule \eqref{EQooVUKMooIjpkXO} ne fait pas de doute. Le fait que ce soit semi-défini positif non plus. Pour le strict,
+    \begin{equation}
+        \langle f, f\rangle =\sum_{i=0}^m| f(x_i) |^2\omega_i.
+    \end{equation}
+    Étant donné que \( \omega_i>0\) pour tout \( i\), l'annulation de \( \langle f, f\rangle \) implique l'annulation de \( f(x_i)\) pour tout \( i\). Cela signifie que \( f\) est dans la classe de \( 0\) et donc est nul dans \( L^2_{\omega}\).
 
-Le fait est que la matrice \( A^tA\) est exactement la matrice du système \eqref{EQooXXPIooYLvOHh}. Cela donne la preuve que notre système possède une unique solution. Notons que la symétrie en \( k,j\) du coefficient était déjà visible dans l'expression \eqref{EQooXXPIooYLvOHh}.
+    En ce qui concerne la complétude, la proposition \ref{PROPooGJDTooXOoYfw} répond à notre place, étant donné que \( L^2_{\omega}\) est de dimension finie. Une base est donnée par exemple par \( e_i(x)=\delta_{x,x_{i}}\). Ici le \( \delta\) est celui de Kronecker, et non celui de Dirac.
+\end{proof}
 
-\begin{example}
-    Si notre base sont les polynôme trigonométriques, ce que nous obtenons est la série de Fourier.
-\end{example}
+\begin{lemma}
+    Si la classe de fonctions \( \mF\) est un sous-espace vectoriel de \( L^2_{\omega}\) et si \( f\in L^2_{\omega}\) il existe un unique élément \( g\) de \( \mF\) minimisant la distance à \( f\).
+\end{lemma}
+
+\begin{proof}
+    Le théorème de projection (au choix \ref{ThoWKwosrH} ou \ref{ThoProjOrthuzcYkz}) nous assure l'existence et l'unicité d'un élément de \( \mF\) minimisant la distance à \( f\in L^2_{\omega}\).
+\end{proof}
+
+\begin{normaltext}
+    Ce lemme est gentil, mais ne nous donne pas de méthodes pour trouver ce minimum. Nous allons donc écrire explicitement un système d'équations permettant de le trouver. Si \( \{ g_{\alpha} \} \) est une base (finie) de \( \mF\) alors nous cherchons le minimisant sous la forme \( f=\sum_{\alpha}a_{\alpha}g_{\alpha}\). 
+
+    Nous devons minimiser
+    \begin{equation}
+        E(g)=\sum_{i=0}^m\big( f(x_i)-g(x_i) \big)^2\omega_i=\sum_{i=0}^m\big( f(x_i)-\sum_{\alpha}a_{\alpha}g_{\alpha}(x_i) \big)^2\omega_i.
+    \end{equation}
+    Vu que cela est maintenant plutôt une fonction des coefficients \( a_{\alpha}\) que de la fonction \( g\) nous la notons \( F(a_0,\ldots, a_n)\). Il s'agit d'étudier le système d'équations
+    \begin{equation}
+        \frac{ \partial F }{ \partial a_{\alpha} }=0.
+    \end{equation}
+    Un tout petit peu de calcul mène au système
+    \begin{equation}       
+        \sum_i\sum_{\beta}a_{\beta}\omega_ig_{\alpha}(x_i)g_{\beta}(x_i)=\sum_{i}\omega_ig_{\alpha}(x_i)f(x_i).
+    \end{equation}
+    À droite nous reconnaissons \( \langle f, g_{\alpha}\rangle \). et à gauche, \( \sum_{\beta}a_{\beta}\langle g_{\alpha}, g_{\beta}\rangle \). Donc le système s'écrit
+    \begin{equation}
+        \sum_{\beta}a_{\beta}\langle g_{\alpha}, g_{\beta}\rangle =\langle f, g_{\alpha}\rangle .
+    \end{equation}
+    Il y a une équation pour chaque valeur de \( \alpha\).
+
+    La matrice \( A\in\eM(n+1),\eR\) donnée par  \( \langle g_{\alpha}, g_{\beta}\rangle \) étant strictement définie positive (c'est un produit scalaire), le système a une unique solution. Et comme cette matrice est de plus symétrique, elle est diagonalisable par le théorème spectral \ref{ThoeTMXla}. Toutes ses valeurs propres sont strictement positives.
+
+    Notons pour la curiosité que si l'on considère la matrice \( B\in\eM(m\times n)\) donnée par
+    \begin{equation}
+        B_{ij}=\sqrt{ \omega_i }g_j(x_l),
+    \end{equation}
+    alors nous avons \( A=B^tB\).
+\end{normaltext}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Droite de régression}
@@ -795,5 +816,3 @@ Cela donne une vérification possible de la réponse trouvée.
 \begin{definition}
     L'\defe{erreur quadratique}{erreur!quadratique} est la fonction \( F(a_0,\ldots, a_n)\) dont il est question plus haut. Et si une solution est connue, son erreur quadratique est la valeur de $F$ pour cette solution.
 \end{definition}
-
-
