@@ -830,7 +830,7 @@ Cela donne une vérification possible de la réponse trouvée.
 \section{Système linéaires}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Soit un système d'équations linéaires \( Ax=b\) avec \( A\in \eM(n,\eR)\). Le problème est évidemment de savoir si il existe une unique solution \( x\) et de la déterminer. Nous supposons l'existence et l'unicité. C'est à dire que les conditions équivalentes sont vérifiées :
+Soit un système d'équations linéaires \( Ax=b\) avec \( A\in \eM(n,\eR)\). Le problème est évidemment de savoir si il existe une unique solution \( x\) et de la déterminer. Nous supposons l'existence et l'unicité. C'est à dire que les conditions équivalentes\footnote{L'équivalence est la proposition \ref{PropYQNMooZjlYlA}\ref{ITEMooNZNLooODdXeH}.} sont vérifiées :
 \begin{enumerate}
     \item
         \( A\) est inversible, c'est à dire qu'il existe une matrice notée \( A^{-1}\) telle que \( AA^{-1}=A^{-1}A=\mtu\).
@@ -853,24 +853,16 @@ Mais attention : bien que \( B^tB\) soit symétrique et semi-définie positive, 
     \end{enumerate}
     Par conséquent nous ne faisons pas \( x=A^{-1}v\).
 
-    Il faut garder en tête le fait que dans la pratique, la matrice \( A\) possède des millions de lignes et colonnes, si pas pire.
+    Il faut garder en tête le fait que dans la pratique, la matrice \( A\) possède des millions de lignes et colonnes, si pas pire. Pour une matrice de taille de l'ordre du million, il y a \( 1000\) milliards d'entrées. Même pour la mémoire actuellement disponible, mémoriser \( 1000\) milliards de nombres, ce n'est pas rien. Heureusement, dans la majorité des cas pratiques, les matrices géantes qui apparaissent sont pleines de zéros.
+
 \end{normaltext}
 
 \begin{definition}
-    Une matrice est \defe{creuse}{matrice!creuse} si elle possède beaucoup de zéros. Une matrice non creuse est dite \defe{dense}{matrice!dense}.
+    Une matrice est \defe{creuse}{matrice!creuse} si elle possède beaucoup de zéros. Une matrice non creuse est dite \defe{dense}{matrice!dense}.  
+    
+    Notons que lorsqu'on parle de matrice comprenant beaucoup de «zéros», nous pensons à des éléments très petits, et non de vrai zéros. 
 \end{definition}
-
-\begin{probleme}
-    Il faut vérifier si «creuse» est le bon mot en français, et donner une définition correcte.
-\end{probleme}
-
-Notons que lorsqu'on parle de matrice comprenant beaucoup de «zéros», nous pensons à des éléments très petits, et non de vrai zéros. 
-
-\begin{remark}
-    Pour une matrice de taille \( 10^{6}\), il y a \( 1000\) milliards d'entrées. Même pour la mémoire actuellement disponible, mémoriser \( 1000\) milliards de nombres, ce n'est pas rien.
-\end{remark}
-
-Les matrices creuses ne sont pas mémorisées entièrement, mais plutôt comme un dictionnaire \( (i,j,v)\) qui donne la valeur \( v\) de \( A_{ij}\).
+    Les matrices creuses ne sont pas mémorisées entièrement, mais plutôt comme un dictionnaire \( (i,j,v)\) qui donne la valeur \( v\) de \( A_{ij}\).
 
 \begin{definition}
     Une matrice est de «grande dimension» si elle ne peut pas être mise en mémoire sur un ordinateur donné. Sur certains ordinateurs, ça commence à \( 5000\) inconnues. Mais sur des plus forts, on peut aller jusqu'au million ou le milliard.
@@ -882,34 +874,16 @@ Si la matrice est de petite dimension, il est possible d'utiliser des méthodes 
 \subsection{Les méthodes directes}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Une méthode directe consiste à transformer le système en un système équivalent, et encore et encore. Ce sont typiquement les méthodes du type pivot de Gauss et manipulations de lignes et colonnes. 
-
-Ce type de méthodes transforme \( A^{(0)}x=b^{(0)}\) en \( A^{(1)}x=b^{(1)}\) dont la solution est identique. Et encore jusqu'à \( A^{(n-1)}x=b^{(n-1)}\) qui serait un système qui peut être immédiatement résolu, comme par exemple \( A^{(n-1)}\) serait diagonale.
-
-Le problème de ce genre de choses est que si la taille de \( A\) est \( 10^6\), il faut faire de l'ordre de \( 10^6\) pas, chacun devant modifier de l'ordre de \( (10^6)^2\) éléments de matrice, plus les composantes de \( b\). Autant dire que ce n'est pas faisable.
-
-Une méthode directe fonctionne en général avec un nombre de pas fixés par la taille du système. Par exemple pour un système \( n\times n\), la méthode de Gauss demande exactement \( n\) pas, et il n'y a pas moyen de faire mieux.
+Une méthode directe consiste à successivement transformer un système \( A^{(0)}x=b^{(0)}\) en de nouveaux systèmes \( A^{(i)}x=b^{(i)}\) dont la solution est identique jusqu'à obtenir un système \( A^{(n-1)}x=b^{(n-1)}\) qui est à résolution immédiate.
 
 L'avantage d'une méthode directe est qu'elle fournit une réponse exacte, pour autant que les calculs intermédiaires soient bien faits (ce qui n'est pas le cas sur un ordinateur).
 
+Une méthode directe fonctionne en général avec un nombre de pas fixés par la taille du système. Par exemple pour un système \( n\times n\), la méthode de Gauss demande exactement \( n\) pas, et il n'y a pas moyen de faire mieux. Or chaque pas demande de recalculer tous les éléments de la matrice. Encore une fois, si la matrice a une taille de l'ordre du milliard, cela fait \( 10^{18}\) éléments à recalculer un milliard de fois (sans compter les éléments du vecteur \( b\)). Infaisable.
+
+
 Souvent une méthode directe passe par une factorisation \( A=BC\) avec \( B,C\in \eM(n\times n)\).
 
-Une décomposition classique est la décomposition \( QR\) avec \( Q\) orthogonale.
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Méthodes itératives}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Si la matrice est trop grande, il n'est pas possible de faire des manipulations de matrices à chaque itération.
-
-En général, les méthodes itératives ne convergent pas toujours. Mais lorsqu'une méthode converge, c'est une propriété de la matrice, et donc la convergence aura lieu pour tout vecteur de départ \( x_0\). Cela est très différent du cas des équations non linéaires type Newton pour lesquelles la convergence peut fortement dépendre du point de départ.
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Système d'immédiate résolution}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Dans le cas des méthodes directes, nous nous arrêtons de changer le système lorsque la matrice est de résolution immédiate, c'est à dire lorsque la matrice est telle que la solution peut être immédiatement calculée.
-
+Quelque types de matrices dont la résolution est immédiate :
 \begin{itemize}
     \item Matrice diagonale.
     \item Matrice orthogonale parce que si \( A\) est orthogonale alors \( Ax=v\) se résout par \( x=A^tv\) qui n'est pas particulièrement lourd à faire numériquement.
@@ -921,6 +895,14 @@ Dans le cas des méthodes directes, nous nous arrêtons de changer le système l
 
     Donc en fait les matrices à résolution immédiates sont des matrices pour lesquelles l'inverse et le déterminant sont facile à calculer.
 \end{remark}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Méthodes itératives}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si la matrice est trop grande, il n'est pas possible de faire des manipulations de matrices à chaque itération.
+
+En général, les méthodes itératives ne convergent pas toujours. Mais lorsqu'une méthode converge, c'est une propriété de la matrice, et donc la convergence aura lieu pour tout vecteur de départ \( x_0\). Cela est très différent du cas des équations non linéaires type Newton pour lesquelles la convergence peut fortement dépendre du point de départ.
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Méthode de Gauss}
