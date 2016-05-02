@@ -1,0 +1,757 @@
+% This is part of (almost) Everything I know in mathematics
+% Copyright (c) 2010-2016
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+\section{Differentiable manifolds}
+%+++++++++++++++++++++++++++++++++
+
+More precisions in \cite{kobayashi}, chapter II (\S 1 and 2) and III. (\S 1, 2, 3 and 7); \cite{madore,Helgason} can also be useful. An other source for this chapter is \cite{ms_book}. A systematic exposition of manifolds and such can be found in \cite{dgbook}.
+
+\subsection{Definition and examples}
+%-----------------------------------
+
+A $n$-dimensional \defe{differentiable manifold}{differentiable!manifold}\index{manifold} is a set $M$ and a system of charts $\{(\mU_{\alpha},\varphi_{\alpha})\}_{\alpha\in I}$ where each set $\mU_{\alpha}$ is open in $\eR^n$ and the maps $\dpt{\varphi_{\alpha}}{\mU_{\alpha}}{M}$ are injective and satisfy the three following conditions:
+
+\begin{itemize}
+\item every $x\in M$ is contained in at least one set $\varphi_{\alpha}(\mU_{\alpha})$,
+\item for any two charts $\dpt{\varphi_{\alpha}}{\mU_{\alpha}}{M}$ and $\dpt{\varphi_{\beta}}{\mU_{\beta}}{M}$, the set
+\[
+   \varphi_{\alpha}^{-1}( \varphi_{\alpha}(\mU_{\alpha})\cap\varphi_{\beta}(\mU_{\beta}) )
+\]
+is an open subset of $\mU_{\alpha}$, 
+\item the map
+\[
+  \dpt{  (\varphi_{\beta}^{-1}\circ\varphi_{\alpha})  }{   \varphi_{\alpha}^{-1}( \varphi_{\alpha}(\mU_{\alpha})\cap\varphi_{\beta}(\mU_{\beta})  )   }{\mU_{\beta}}
+\]
+is differentiable\footnote{In the sequel, by ``differentiable'' we always mean smooth. If this map is differentiable, $C^k$, analytic,\ldots then the manifold is said to be differentiable, $C^k$, analytic,\ldots} as map from $\eR^n$ to $\eR^n$.
+
+\end{itemize}
+
+Each time we say ``manifold``, we mean ``differentiable manifold``. We will only consider manifolds with Hausdorff topology (see later for the definition of a topology on a manifold). Any open set of $\eR^n$ is a differentiable manifold if we choose the identity map as chart system. Most of surfaces $z=f(x,y)$ in $\eR^3$ are manifolds, depending on certain regularity conditions on~$f$. 
+
+If $M_1$ and $M_2$ are two differentiable manifolds, a map $\dpt{f}{M_1}{M_2}$ is \defe{differentiable}{differentiable!map} if $f$ is continuous and for each two coordinate systems $\dpt{\varphi_1}{\mU_1}{M_1}$ and $\dpt{\varphi_2}{\mU_2}{M_2}$, the map $\varphi_2^{-1}\circ f\circ\varphi_1$ is differentiable on its domain. One can show that if $\dpt{f}{M_1}{M_2}$ and $\dpt{g}{M_2}{M_3}$ are differentiable, then $\dpt{g\circ f}{M_1}{M_3}$ is differentiable.
+
+\subsubsection{Example: the sphere}\index{sphere}
+
+The sphere $S^n$ is the set
+\[
+  S^n=\{  (x_1,\ldots, x_{n+1})\in\eR^{n+1}\tq \|x\|=1  \}
+\]
+for which we consider the following open set in $\eR^n$:
+\[
+   \mU=\{  (u_1,\ldots,u_n)\in\eR^n\tq\|u\|<1  \}
+\]
+and the charts $\dpt{\varphi_i}{\mU}{S}$, and $\dpt{\tilde{\varphi}_i}{\mU}{S}$
+\begin{subequations}
+\begin{align}
+   \varphi_i(u_1,\ldots,u_n)&=(u_1,\ldots,u_{i-1}, \sqrt{  1-\|u\|^2  },u_i,\ldots,u_n )\\
+   \tilde{\varphi}_i(u_1,\ldots,u_n)&=(u_1,\ldots,u_{i-1}, -\sqrt{  1-\|u\|^2  },u_i,\ldots,u_n ).
+\end{align}
+\end{subequations}
+These map are clearly injective. To see that $\varphi(\mU)\cup\tilde{\varphi}(\mU)=S$, consider $(x_1,\ldots,x_{n+1})\in S$. Then at least one of the $x_i$ is non zero. Let us suppose $x_1\neq 0$, thus $x_1^2=1-(x_2^2+\ldots+x_{n+1}^2)$ and
+\begin{equation}\label{eq:xupm}
+   x_1=\pm\sqrt{1-(\ldots)}.
+\end{equation}
+If we put $u_i=x_{i+1}$, we have $x=\varphi(u)$ or $x=\tilde{\varphi}(u)$ following the sign in relation \eqref{eq:xupm}. The fact that $\varphi^{-1}\circ\tilde{\varphi}$ and $\tilde{\varphi}^{-1}\circ\varphi$ are differentiable is a ``first year in analysis exercise``.
+
+\subsubsection{Example: projective space}
+
+On $\eR^{n+1}\setminus\{o\}$, we consider the equivalence relation $v\sim\lambda w$ for all non zero $\lambda\in\eR$, and we put
+\[
+  \eR P^n=\left(\eR^{n+1}\setminus\{o\}\right)/\sim.
+\]
+This is the set of all the one dimensional subspaces of $\eR^{n+1}$. This is the real \defe{projective space}{projective!real space} of dimension $n$. We set $\mU=\eR^n$ and
+\[
+  \varphi_i(u_1,\ldots,u_n)=\Span\{ (u_1,\ldots,u_{i-1},1,u_i,\ldots,u_n) \}.
+\]
+One can see that this gives a manifold structure to $\eR P^n$. Moreover, the map
+		\begin{equation}
+		\begin{aligned}
+			A \colon S^n &\to \eR P^n\
+			v&\mapsto \Span v
+		\end{aligned}
+	\end{equation}	
+is differentiable.
+
+Let us show how to identify $\eR\cup\{ \infty \}$ to $\eR P^1$, the set of directions in the plane $\eR^2$. Indeed consider any vertical line $l$ (which does contain the origin). A non vertical vector subspace of $\eR^2$ intersects $l$ in one and only one point, while the vertical vector subspace is associated with the infinite point.
+
+
+\subsection{Topology on manifold and submanifold}
+%------------------------------------------------
+
+A subset $V\subset M$ is \defe{open}{topology!on manifold} if for every chart $\dpt{\varphi}{\mU}{M}$, the set $\varphi^{-1}(V\cap\varphi(\mU))$ is open in $\mU$.
+
+\begin{theorem}
+This definition gives a topology on $M$ which has the following properties:
+
+\begin{enumerate}
+\item the charts maps are continuous,
+\item the sets $\varphi_{\alpha}(\mU_{\alpha})$ are open.
+\end{enumerate}
+
+\end{theorem}
+
+\begin{proof}
+First we prove that the open system defines a topology. For this, remark that $\varphi_{\alpha}^{-1}$ is injective (if not, there should be some multivalued points). Then $\varphi^{-1}(A\cap B)=\varphi^{-1}(A)\cap\varphi^{-1}(B)$. If $V_1$ and $V_2$ are open in $M$, then
+\[
+  \varphi^{-1}(V_1\cap V_2\cap\varphi(\mU))=\varphi^{-1}(V_1\cap\varphi(\mU))\cap\varphi^{-1}(V_2\cap\varphi(\mU))
+\]
+which is open in $\eR^n$. The same property works for the unions.
+
+Now we turn our attention to the continuity of $\dpt{\varphi}{\mU}{M}$; for an open set $V$ in $M$, we have to show that $\varphi^{-1}(V)$ is open in $\mU\subset\eR^n$. But the definition of the topology on $M$, is precisely the fact that $\varphi^{-1}(V\cap\varphi(\mU))$ is open.
+\end{proof}
+
+If $M$ is a differentiable manifold and $N$, a subset of $M$, we say that $N$ is a \defe{submanifold}{submanifold} of dimension $k$ if $\forall\,p\in N$, there exists a chart $\dpt{\varphi}{\mU}{M}$ around $p$ such that
+\[
+   \varphi^{-1}(\varphi(\mU)\cap N)=\eR^k\cap\mU:=\{(x_1,\ldots,x_k,0\ldots,0)\in\mU\}.
+\]
+
+In this case, $N$ is itself a manifold of dimension $k$ for which one can choose the $\varphi$ of the definition as charts.
+
+Let us consider $M$ and $N$, two differentiable manifolds, $\dpt{f}{M}{N}$ a $\Cinf$ map and $x\in M$. We say that $f$ is an \defe{immersion}{immersion} at $x$ if $\dpt{df_x}{T_xM}{T_{f(x)}N}$ is injective and that $f$ is a \defe{submersion}{submersion} if $df_x$ is surjective.
+
+If $M$ and $M$ are two analytic manifolds, a map $\dpt{\phi}{M}{N}$ is \defe{regular}{regular}\label{PgDefRegular} at $p\in M$ if it is analytic at $p$ and $\dpt{d\phi_p}{T_pM}{T_{\phi(p)}N}$ is injective.
+
+\begin{proposition}
+Let $M$ be a submanifold of the manifold $N$. If $p\in M$, then there  exists a coordinate system $\{x_1,\ldots,x_n\}$ on a neighbourhood of $p$ in $N$ such that $x_1(p)=\ldots=x_n(p)=0$ and such that the set
+\[
+   U=\{q\in V\tq x_j(q)=0\,\forall\, m+1\leq j\leq n\}
+\]
+gives a local chart of $M$ containing $p$.
+\label{prop:var_coord}
+\end{proposition}
+
+\begin{proof}
+No proof.
+\end{proof}
+
+The sense of this proposition is that one can put $p$ at the center of a coordinate system on $N$ such that $M$ is just a submanifold of $N$ parametrised by the fact that its last $m-n$ components are zero.
+
+Now we can give a characterization for a submanifold: $N$ is a submanifold of $M$ when $N\subset M$ (as set) and the identity $\dpt{\iota}{N}{M}$ is regular.\label{pg:caract_subvar}
+
+\begin{proposition}
+The own topology of a submanifold is finer than the induced one from the manifold.
+\label{prop:topo_sub_manif}
+\index{topology!on submanifold}
+\end{proposition}
+
+\begin{proof}
+Let $M$ be a manifold of dimension $n$ and $N$ a submanifold\footnote{In the whole proof, we should say ``there exists a sub-neighbourhood such that\ldots``} of dimension $k<n$. We consider $V$, an open subset of $N$ for the induced topology, so $V=N\cap\mO$ for a certain open subset $\mO$ of $M$. The aim is to show that $V$ is an open subset in the topology of $N$. 
+
+Let us define $\mP=\varphi^{-1}(\mO)$.  The charts of $N$ are the projection to $\eR^k$ of the ones of $M$. We have to consider $W=\varphi^{-1}(V)$, since $N$ is a submanifold, $\varphi^{-1}(\mO\cap N)=\eR^k\cap\mP$. It is clear that $W=\eR^k\cap\mP$ is an open subset of $\eR^k$ because it is the projection on the $k$ first coordinates of an open subset of $\eR^n$.
+
+The subset $V$ of $N$ will be open in the sense of the own topology of $N$ if $\varphi'{}^{-1}(V\cap\varphi'(\mU'))$ is open in $\eR^k$ where $\varphi'$ is the restriction of $\varphi$ to his $k$ first coordinates: $\varphi'(a)=\varphi(a,0)$ and $\mU'$ is the projection of $\mU$.
+\end{proof}
+
+
+\begin{lemma}
+Let $V,M$ be two manifolds and $\varphi\colon V\to M$, a differentiable map. We suppose that $\varphi(V)$ is contained in a submanifold $S$ of $M$. If $\dpt{\varphi}{V}{S}$ is continuous, then it is differentiable.
+\label{lem:var_cont_diff}
+\end{lemma}
+
+\begin{remark}
+The map $\varphi$ is certainly continuous as map from $V$ to $M$ (this is in the assumptions). But this don't imply that it is continuous for the topology on $S$ (which is the induced one from $M$). So the continuity of $\dpt{\varphi}{V}{S}$ is a true assumption.
+\end{remark}
+
+\begin{proof}
+Let $p\in V$. By proposition \ref{prop:var_coord}, we have  a coordinate system $\{x_1,\ldots,x_m\}$ valid on a neighbourhood $N$ of $\varphi(p)$ in $M$ such that the set 
+\[
+  \{r\in N\tq x_j(r)=0\, \forall s<j\leq m  \}
+\]
+with the restriction of $(x_1,\ldots x_s)\in N_S$ form a local chart which contains $\varphi(p)$. From the continuity of $\varphi$, there exists a chart $(W,\psi)$ around $p$ such that $\varphi(W)\subset N_S$. The coordinates $x_j(\varphi(q))$ are differentiable functions of  the coordinates of $q$ in $W$. In particular, the coordinates $x_j(\varphi(q))$ for $1\leq j\leq s$ are differentiable and $\dpt{\varphi}{V}{S}$ is differentiable because its expression in a chart is differentiable.
+\end{proof}
+
+A consequence of this lemma: if $V$ and $S$ are submanifolds of $M$ with $V\subset S$, and if $S$ has the induced topology from $M$, then $V$ is a submanifold of $S$. Indeed, we can consider the inclusion $\dpt{\iota}{V}{S}$: it is differentiable from $V$ to $M$ and continuous from $V$ to $S$ then it is differentiable from $V$ to $S$ by the lemma. Thus $V=\iota^{-1}(S)$ is a submanifold of $S$ (this is a classical result of differential geometry).
+
+\begin{proposition}
+A submanifold is open if and only if it has the same dimension as the main manifold.
+\label{prop:subvar_ouvert}
+\end{proposition}
+
+\begin{proof}
+\subdem{Necessary condition}
+We consider some charts $\dpt{\varphi_i}{U_i}{M}$ on some open subsets $U_i$ of $\eR^n$. If $N$ is open in $M$, then this can be written as 
+\[
+  N=\bigcup_iU_i.
+\]
+If we choose the charts on $M$ in such a manner that $\dpt{\varphi_i}{U_i\cap \eR^k}{N}$ are charts of $N$, we must have $\varphi_i(U_i\cap\eR^k)=\varphi_i(U_i)$. Then it is clear that $k=n$ is necessary.
+\subdem{Sufficient condition}
+If $N$ has same dimension as $M$, the charts $\dpt{\varphi_i}{U_i}{M}$ are trivially restricted to $N$.
+\end{proof}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Tangent and cotangent bundle}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\subsection{Tangent vector}
+%--------------------------
+
+As first attempt, we define a tangent vector of $M$ at the point $x\in M$ as the ``derivative'' of a path $\dpt{\gamma}{(-\epsilon,\epsilon)}{M}$ such that $\gamma(0)=x$. It is denoted by
+\[
+\gamma'(0)= \dsdd{\gamma(t)}{t}{0}.
+\]
+The question is to correctly define de derivative in the right hand side. Such a definition is achieved as follows. A \defe{tangent vector}{} to the manifold $M$ is a linear map $X\colon  C^{\infty}(M)\to \eR$ which can be written under the form
+\begin{equation}  \label{eq_deftgpath}
+   Xf=(f\circ X)'(0)=\Dsdd{f(X(t))}{t}{0}
+\end{equation}
+for a certain path $X\colon \eR\to M$. Notice the abuse of notation between the tangent vector and the path which defines it.
+
+A more formal way to define a tangent vector is to say that it is an equivalent class of path in the sense that two path are equivalent if and only if they induced maps by \eqref{eq_deftgpath} are equals. 
+
+Using the chain rule $d(g\circ f)(a)=dg(f(a))\circ df(a)$ for the differentiation in $\eR^n$, one sees that this equivalence notion doesn't depend on the choice of $\varphi$. In other words, if $\varphi$ and $\tilde{\varphi}$ are two charts for a neighbourhood of $x$, then $(\varphi^{-1} \circ\gamma)'(0)=(\varphi^{-1} \circ\sigma)'(0)$ if and only if $(\tilde{\varphi}^{-1} \circ\gamma)'(0)=(\tilde{\varphi}^{-1} \circ\sigma)'(0)$. The space of all tangent vectors at $x$ is denoted by $T_xM$. There exists a bijection $[\gamma]\leftrightarrow (\varphi^{-1}\circ\gamma)'(0)$ between $T_xM$ and $\eR^n$, so $T_xM$ is endowed with a vector space structure.
+
+If $(\mU,\varphi)$ is a chart around $X(0)$, we can express $Xf$ using only well know objects by defining the function $\tilde f =f\circ\varphi$ and $\tX=\varphi^{-1}\circ X$
+\[
+  Xf=\Dsdd{ (\tilde f \circ\tX)(t) }{t}{0}=\left.\dsd{\tilde f }{x^{\alpha}}\right|_{x=\tX(0)}\left.\frac{d\tX^{\alpha}}{dt}\right|_{t=0}.
+\]
+In this sense, we write
+\begin{equation}
+  X=\frac{d\tX^{\alpha}}{dt} \dsd{}{x^{\alpha}}
+\end{equation}
+and we say that $\{\partial_1,\ldots,\partial_n\}$ is a basis of $T_xM$. As far as notations are concerned, from now a tangent vector is written as $X=X^{\alpha}\partial_{\alpha}$ where $X^{\alpha}$ is related to the path $\dpt{X}{\eR}{M}$ by $X^{\alpha}=d\tX^{\alpha}/dt$. We will no more mention the chart $\varphi$ and write
+\[
+  Xf=\Dsdd{f(X(t))}{t}{0}.
+\]
+Correctness of this short notation is because the equivalence relation is independent of the choice of chart. When we speak about a tangent vector to a given path $X(t)$ without specification, we think about $X'(0)$.
+
+All this construction gives back the notion of tangent vector when $M\subset \eR^m$. In order to see it, think to a surface in $\eR^3$. A tangent vector is precisely given by a derivative of a path: if $\dpt{c}{\eR}{\eR^n}$ is a path in the surface, a tangent vector to this curve is given by
+\[
+   \lim_{t\to 0}\frac{c(t_0)-c(t_0+t)}{t}
+\]
+which is a well know limit of a difference in $\eR^n$.
+
+\label{pg:vecto_vecto}Let us precise how does a tangent vector acts on maps others than $\eR$-valued functions. If $V$ is a vector space and $\dpt{f}{M}{V}$, we define
+\[
+   Xf=(Xf^i)e_i
+\]
+where $\{e_i\}$ is a basis of $V$ and the functions $\dpt{f^i}{M}{\eR}$, the decomposition of $f$ with respect to this basis. If we consider a map $\dpt{\varphi}{M}{N}$ between two manifolds, the natural definition is $Xf:=dfX$. More precisely, if we consider local coordinates $x^{\alpha}$ and a function $\dpt{f}{M}{\eR}$,
+\begin{equation}\label{eq:dvp_phi}
+   (d\varphi X)f=\Dsdd{  (f\circ\varphi\circ X)(t) }{t}{0}=\dsd{f}{x^{\alpha}}\dsd{\varphi^{\alpha}}{x\hbeta}\frac{dX\hbeta}{dt}.
+\end{equation}
+Now we are in a notational trouble: when we write $X=X^{\alpha}\partial_{\alpha}$, the ``$X^{\alpha}$``{} is the derivative of the ``$X^{\alpha}$``{} which appears in the path $X(t)=(X^1(t),\ldots,X^n(t))$ which gives $X$ by $X=X'(0)$. So equation \eqref{eq:dvp_phi} gives
+\begin{equation}
+   X(\varphi):=d\varphi X=X\hbeta(\partial_{\beta}\varphi^{\alpha})\partial_{\alpha}.
+\end{equation}
+
+\subsection{Differential of a map}
+%------------------------------------------
+
+Let $\dpt{f}{M_1}{M_2}$ be a differentiable map, $x\in M_1$ and $X\in T_xM_1$, i.e. $\dpt{X}{\eR}{M_1}$ with $X(0)=x$ and $X'(0)=X$. We can consider the path $Y=f\circ X$ in $M_2$. The tangent vector to this path is written $df_x X$.
+
+\begin{proposition}
+If $\dpt{f}{M_1}{M_2}$ is a differentiable map between two differentiable manifolds, the map
+		\begin{equation}
+		\begin{aligned}
+			df_x \colon T_xM_1 &\to T_{f(x)}M_2\
+			X'(0)&\mapsto (f\circ X)'(0)
+		\end{aligned}
+	\end{equation}	
+is linear.
+\end{proposition}
+
+\begin{proof}
+We consider local coordinates $\dpt{x}{\eR^n}{M_1}$ and $\dpt{y}{\eR^m}{M_2}$. The maps $\dpt{f}{M_1}{M_2}$ and $\dpt{y^{-1}\circ f\circ x}{\eR^n}{\eR^m}$ will sometimes be denoted by the same symbol $f$. We have $(x^{-1}\circ X)(t)=(x_1(t),\ldots,x_n(t))$ and $(y^{-1}\circ Y)(t)=\big( y_1(x_1(t),\ldots,x_n(t),\ldots, y_m(x_1(t),\ldots,x_n(t)  \big)$, so that
+\[
+  Y'(0)=\left(   \sum_{i=1}^n \dsd{y_1}{x_i}x_i'(0),\ldots,\sum_{i=1}^n \dsd{y_m}{x_i}x_i'(0)   \right)\in\eR^m
+\]
+which can be written in a more matricial way under the form
+\[
+   Y'(0)=\left( \dsd{y_i}{x_j}x'_j(0) \right).
+\]
+So in the parametrisations $x$ and $y$, the map $df_x$ is given by the matrix $\partial y^i/\partial x_j$ which is well defined from the only given of $f$.
+\end{proof}
+
+
+Let $\dpt{x}{\mU}{M}$ and $\dpt{y}{\mV}{M}$ be two charts systems around $p\in M$. Consider the path $c(t)=x(0,\ldots,t,\ldots 0)$ where the $t$ is at the position $k$. Then, with respect to these coordinates,
+\[
+  c'(0)f=\Dsdd{ f(c(t))  }{t}{0}=\dsd{f}{x^i}\frac{dc^i}{dt}=\dsd{f}{x^k},
+\]
+so $c'(0)=\partial/\partial x^k$. Here, implicitly, we wrote $c^i=(x^i)^{-1}\circ c$ where $(x^i)^{-1}$ is the $i$th component of $x^{-1}$ seen as element of $\eR^n$. We can make the same computation with the system $y$. With these abuse of notation,
+\begin{equation}
+   \dsd{}{x^i}=\sum_j\dsd{y^j}{x^i}\dsd{}{y^j}
+\end{equation}
+as it can be seen by applying it on any function $\dpt{f}{M}{\eR}$. More precisely if $\dpt{x}{\mU}{M}$ and $\dpt{y}{\mU}{M}$ are two charts (let $\mU$ be the intersection of the domains of $x$ and $y$), let $\dpt{f}{M}{\eR}$ and $\ovf=f\circ x$, $\tilde f =f\circ y$. The action of the vector $\partial_{x^i}$ of the function $f$ is given by
+\[
+  \partial_{x^i}f=\dsd{\ovf}{x^i}
+\]
+where the right hand side is a real number that can be computed with usual analysis on $\eR^n$. This real \emph{defines} the left hand side. Now, $\ovf=\tilde f \circ y^{-1}\circ x$, so that
+\[
+   \dsd{\ovf}{x^i}=\dsd{ (\tilde f \circ y^{-1}\circ x) }{x^i}=\dsd{\tilde f }{y^j}\dsd{y^j}{x^i}
+\]
+where $\dsd{\tilde f }{y^j}$ is precisely what we write now by $\partial_{y^j}f$ and $\dsd{y^j}{x^i}$ must be understood as the derivative with respect to $x^i$ of the function $\dpt{(y^{-1}\circ x)}{\eR^n}{\eR^n}$.
+
+Let $\dpt{f}{M}{N}$ and $\dpt{g}{N}{\eR}$; the definitions gives
+\[
+  (df_xX)g=\Dsdd{(g\circ f)(X(t))}{t}{0}
+          =\dsd{g}{y^i}\dsd{f^i}{x^{\alpha}}\frac{dX^{\alpha}}{dt}.
+\]
+This shows that $\dsd{f^i}{x^{\alpha}}\frac{dX^{\alpha}}{dt}$ is $(df_xX)^i$.  But $dX^{\alpha}/dt$ is what we should call $X^{\alpha}$ in the decomposition $X=X^{\alpha}\partial_{\alpha}$ then the matrix of $df$ is given by $\dsd{f^i}{x^{\alpha}}$. So we find back the old notion of differential.
+
+\begin{remark}
+If $X\in T_xM$ and $f$ is a \emph{vector valued} function on $M$, then one can define $Xf$ by exactly the same expression. In this case,
+\[
+  df X=\Dsdd{f(v(t))}{t}{0}=Xf.
+\]
+\end{remark}
+
+A map $\dpt{f}{M_1}{M_2}$ is an \defe{immersion}{immersion} at $p\in M_1$ if $\dpt{df_p}{T_pM_1}{T_{f(p)}M_2}$ is injective. It is a \defe{submersion}{submersion} if $df_p$ is surjective.
+
+\subsection{Tangent and cotangent bundle}
+%--------------------------------------
+
+If $M$ is a $n$ dimensional manifold, as set the tangent bundle\index{tangent!space} is the \emph{disjoint} union of tangent spaces
+\[
+  TM=\bigcup_{x\in M}T_xM.
+\]
+
+\begin{theorem}
+	The tangent bundle admits a $2n$ dimensional manifold structure for which the projection 
+	\begin{equation}
+		\begin{aligned}
+			\pi \colon TM &\to M\
+			T_pM&\mapsto p
+		\end{aligned}
+	\end{equation}	
+	is a submersion.
+\end{theorem}
+
+The structure is easy to guess. If $\dpt{\varphi_{\alpha}}{\mU_{\alpha}}{M}$ is a coordinate system on $M$ (with $\mU_{\alpha}\subset\eR^n$), we define $\dpt{\psi_{\alpha}}{\mU_{\alpha}\times \eR^n}{TM}$ by
+\[
+  \psi( \underbrace{x_1,\ldots x_n}_{\in\mU_{\alpha}},\underbrace{a_1,\ldots a_n}_{\in\eR^n}  )
+          =\sum_i a_i\left.\dsd{}{x_i}\right|_{\varphi(x_1,\ldots,x_n)}.
+\]
+The map $\psi_{\beta}^{-1}\circ\psi_{\beta}$ is differentiable because
+\[
+(\psi_{\beta}^{-1}\circ\psi_{\beta})(x,a)=( y(x),\sum_i a_i\left.\dsd{y_j}{x_i}\right|_{y(x)}  )
+\]
+which is a composition of differentiable maps. The set $TM$ endowed with this structure is called the \defe{tangent bundle}{tangent!bundle}.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Vector space structure on the tangent space}
+%---------------------------------------------------------------------------------------------------------------------------
+
+If \( X,Y\in T_pM\) are tangent vectors, one can define \( X+Y\) and \( \lambda X\) for every \( \lambda\in\eR\). The second one is easy:
+\begin{equation}
+    \lambda X=\Dsdd{ X(\lambda t) }{t}{0}.
+\end{equation}
+In order to define the sum of two vectors one has to consider a neighbourhood \( \mU\) of \( p\) in \( M\) and a chart \( \varphi\colon \mU\to \mO\) where \( \mO\) is an open set in \( \eR^n\). Then one consider a basis \( \{ e_i \}_{1\leq i\leq n}\) of \( \eR^n\) at the point \( \varphi(p)\). With these choices we define the ``basis'' path
+\begin{equation}
+    \gamma_i(t)=\varphi^{-1}(te_i)
+\end{equation}
+and we write
+\begin{equation}
+    \partial_i=\frac{ \partial  }{ \partial x_i }=\Dsdd{ \varphi^{-1}(te_i) }{t}{0}.
+\end{equation}
+The vectors \( \partial_i\) form a basis of \( T_pM\) in the sense of the following lemma.
+
+\begin{lemma}
+    The action of a vector \( X\in T_pM\) on a function \( f\colon M\to \eR\) can be decomposed into
+    \begin{equation}
+        Xf=\sum_{i=1}^n X_i(\partial_if)
+    \end{equation}
+    with \( X_i\in\eR\)
+\end{lemma}
+
+\begin{proof}
+    Let \( \varphi\colon M\to \eR^n\) be a chart of a neighbourhood of \( p\) with \( \varphi(p)=0\). We determine the value of \( X_i\) using the function
+    \begin{equation}
+        f_i(x)=\varphi(x)_i,
+    \end{equation}
+    that is the \( i\)th component of the point \( \varphi(x)\in\eR^n\). Then if we write \( \varphi\big( X(t) \big)=\sum_j a_j(t)e_j\) we have
+    \begin{subequations}
+        \begin{align}
+            X(f_i)=\Dsdd{ f_i\big( X(t) \big) }{t}{0}=\Dsdd{ \big[ \sum_ja_j(t)e_j \big]_i }{t}{0}=\Dsdd{ ai_(t) }{t}{0}=a_i'(0).
+        \end{align}
+    \end{subequations}
+    Notice that \( a_i(0)=0\) since \( X(0)=p\) and \( \varphi(p)=0\). The combination \( f\circ\varphi^{-1}\) is an usual function from \( \eR^n\) to \( \eR\), so that we can use the chain rule on it. The following computation thus make sense:
+    \begin{subequations}
+        \begin{align}
+            Xf&=\Dsdd{ f\big( X(t) \big) }{t}{0}\\
+            &=\Dsdd{ f\Big( \varphi^{-1}\varphi\big( X(t) \big) \Big) }{t}{0}\\
+            &=\Dsdd{ (f\circ\varphi^{-1})\big( \sum_ja_j(t)e_j \big) }{t}{0}\\
+            &=\sum_k \frac{ \partial (f\circ\varphi^{-1}) }{ \partial x_k }\big( \underbrace{\sum_ja_j(0)e_j}_{=\varphi(p)=0} \big)\underbrace{\frac{ d\big[ \sum_ja_j(t)e_j \big]_k  }{ dt }}_{=a'_k(0)}\\
+            &=\sum_k a'_k(0)\frac{ \partial (f\circ\varphi^{-1}) }{ \partial x_k }(0).
+        \end{align}
+    \end{subequations}
+    Now using the definition of a derivative of a function \( \eR^n\to \eR\) and of the ``basis'' tangent vector \( \partial_k\),
+    \begin{subequations}
+        \begin{align}
+            \frac{ \partial (f\circ\varphi^{-1}) }{ \partial x_k }(0)&=\Dsdd{ (f\circ\varphi^{-1})(te_k) }{t}{0}\\
+            &=\partial_k f
+        \end{align}
+    \end{subequations}
+   At the end of the day we have
+   \begin{equation}
+       Xf=\sum_k a'_k(0)\partial_kf.
+   \end{equation}
+\end{proof}
+
+This lemma allows us to define the sum in \( T_pM\) as
+\begin{equation}
+    \left( \sum_kX_k\partial_k \right)+\left( \sum_kY_k\partial_k \right)=\sum_k (X_k+Y_k)\partial_k
+\end{equation}
+when \( X_k\) and \( Y_k\) are reals.
+
+The tangent space \( T_pM\) is thus a vector space.
+
+
+\subsection{Commutator of vector fields}
+
+If $X$, $Y\in\cvec(M)$, one can define the \defe{commutator}{commutator of vector fields} $[X,Y]$ in the following way. First remark that, if $\dpt{f}{M}{\eR}$, the object $X(f)$ is also a function from $M$ to $\eR$ by $X(f)(x)=X_x(f)$, so we can apply $Y$ on $X(f)$. The definition of $[X,Y]_x$ is
+\begin{equation}
+  [X,Y]_xf=X_x(Yf)-Y_x(Xf).
+\end{equation}
+If $X=X^i\partial_i$ and $Y=Y^j\partial_j$, then 
+$XY(f)=X^i\partial_i(Y^j\partial_jf)
+     =X^i\partial_i Y^j\partial_j f+X^iY^j\partial^2_{ij}f$.
+From symmetry $\partial^2_{ij}f=\partial^2_{ji}f$, the difference $XYf-YXf$ is only $X^i\partial_iY^j-Y^i\partial_iX^j$, so that
+\begin{equation}
+  [X,Y]^i=XY^i-YX^i
+\end{equation}
+where $X^i$ and $Y^i$ are seen as functions from $M$ to $\eR$.
+
+
+\subsection{Some Leibnitz formulas}
+
+See \cite{kobayashi}, chapter I, proposition 1.4.
+
+\begin{lemma}
+If $M$ and $N$ are two manifolds, we have a canonical isomorphism
+\[
+     T_{(p,q)}(M\times N)\simeq T_pM+T_qN.
+\]
+\label{lemLeibnitz}
+\end{lemma}
+
+\begin{proof}
+A $Z\in T_{(p,q)}(M\times N)$ is the tangent vector to a curve $(x(t),y(y))$ in $M\times N$. We can consider $X\in T_pM$ given by $X=x'(0)$ and $Y\in T_qN$ given by $Y=y'(0)$. The isomorphism is the identification $(X,Y)\simeq Z$. Indeed, let us define $\oX\in T_{(p,q)}(M\times N)$, the tangent vector to the curve $(x(t),q)$, and $\oY\in T_{(p,q)}(M\times N)$, the tangent vector to the curve $(p,y(t))$. Then $Z=\oX+\oY$ because for any $\dpt{f}{M\times N}{\eR}$,
+\begin{equation}
+ Zf=\dsdd{f(x(t),y(t))}{t}{0}
+   =\dsdd{f(x(t),y(0))}{t}{0}+\dsdd{f(x(0),y(t))}{t}{0}
+   =\oX f+\oY f.
+\end{equation}
+\end{proof}
+
+\begin{proposition}[Leibnitz formula] \label{Leibnitz}
+Let us consider $M,N,V$, three manifold; a map $\dpt{\varphi}{M\times N}{V}$ and a vector $Z\in T_{(p,q)}(M\times N)$ which corresponds (lemma \ref{lemLeibnitz}) to $(X,Y)\in T_pM+T_qN$.
+
+If we define $\dpt{\varphi_1}{M}{V}$ and  $\dpt{\varphi_2}{N}{V}$ by $\varphi_1(p')=\varphi(p',q)$ and $\varphi_2(q')=\varphi(p,q')$, we have the \defe{Leibnitz formula}{Leibnitz formula}:
+\begin{equation}
+    d\varphi(Z)=d\varphi_1(X)+d\varphi_2(Y).
+\end{equation}
+\end{proposition}
+\begin{proof}
+ Since $Z=\oX+\oY$, we just have to remark that
+\[
+                  d\varphi(\oX)=\dsdd{\varphi(x(t),q)}{t}{0}=d\varphi_1(X),
+\]
+so $d\varphi(Z)=d\varphi(\oX+\oY)=d\varphi_1(X)+d\varphi_2(Y)$.
+\end{proof}
+One of the most important application of the Leibnitz rule is the corollary \ref{cor_PrincLeib} on principal bundles. 
+
+\subsection{Cotangent bundle}
+
+A form on a vector space $V$ is a linear map $\dpt{\alpha}{V}{\eR}$. The set of all forms on $V$ is denoted by $V^*$ and is called the \defe{dual space}{dual!of a vector space} of $V$. On each point of a manifold, one can consider the tangent bundle which is a vector space. Then one can consider, for each $x\in M$ the dual space $T^*_xM:=(T_xM)^*$ which is called the \defe{cotangent bundle}{cotangent bundle}. A $1$-\defe{differential form}{differential!form} on $M$ is a smooth map $\dpt{\omega}{M}{T^*M}$ such that $\omega_x:=\omega(x)\in T^*_xM$. So, for each $x\in M$, we have a $1$-form $\dpt{\omega_x}{T_xM}{\eR}$.
+
+Here, the smoothness is the fact that for any smooth vector field $X\in\cvec(M)$, the map $x\to\omega_x(X_x)$ is smooth as function on $M$. One often considers vector-valued forms. This is exactly the same, but $\omega_xX_x$ belongs to a certain vector space instead of $\eR$. The set of $V$-valued $1$-forms on $M$ is denoted by $\Omega(M,V)$ \nomenclature{$\Omega(M,V)$}{$V$ valued $1$-forms} and simply $\Omega(M)$ if $V=\eR$
+The cotangent space $T^*_pM$ of $M$ at $p$ is the dual space of $T_pM$, i.e. the vector space of all the (real valued) linear\footnote{When we say \emph{a form}, we will always mean \emph{a linear form}.} $1$-forms on $T_pM$. In the coordinate system $\dpt{x}{\mU}{M}$, we naturally use, on $T^*_pM$, the dual basis of the basis $\{\partial/\partial_{x^i},\ldots\partial/\partial_{x^i}\}$ of $T_pM$. This dual basis is denoted by $\{dx_1,\ldots,dx_n\}$, the definition being as usual:
+\begin{equation}\label{eq:dx_v}
+  dx_i(\partial^j)=\delta^j_i.
+\end{equation}
+The notation comes from the fact that equation \eqref{eq:dx_v} describes the action of the differential of the projection $\dpt{x_i}{\mU}{\eR}$ on the vector $\partial^j$.
+
+If $(\mU_{\alpha},\varphi_{\alpha})$ is a chart of $M$, then the maps
+		\begin{equation}
+		\begin{aligned}
+			\phi_{\alpha} \colon \mU_{\alpha}\times\eR^n &\to T^*M\
+			(x,a)&\mapsto a^idx_i|_x
+		\end{aligned}
+	\end{equation}	
+give to $T^*M$ a $2n$ dimensional manifold structure such that the canonical projection $\dpt{\pi}{T^*M}{M}$ is an immersion.
+
+When $V$ is a finite-dimensional vector space, we denote by $V^*$ its dual\footnote{The vector space of all the linear map $V\to \eR$.} and we often use the identifications $V\simeq V^*\simeq T_vV\simeq T_wV\simeq T^*_vV$ where $v$ and $w$ are any elements of $V$. Note however that there are no \emph{canonical} isomorphism between these spaces, unless we consider some basis.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Exterior calculus}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{The exterior algebra}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Here are some recall without proof about forms on vector space. If $V$ is a vector space, we denote by $\Lambda^kV^*$ the space of all the $k$-form on $V$. We define $\dpt{\wedge}{\Lambda^kV^*\times\Lambda^lV^*}{\Lambda^{k+l}V^*}$ by
+\begin{equation}
+  (\omega^k\wedge\eta^l)(v_1,\ldots,v_{k+l})
+ =\us{k!l!}\sum_{\sigma\in S_{k+l}}sgn(\sigma)\omega(v_{\sigma(1)},\ldots,v_{\sigma(k)})\eta(v_{\sigma(k+1)},v_{\sigma(k+1)})
+\end{equation}
+If $\{e_1,\ldots,e_n\}$ is a basis of $V$, the dual basis $\{\sigma^1,\ldots,\sigma^n\}$ of $V^*$ is defined by $\sigma^i(e_j)=\delta^i_j$.
+
+If $I=\{1\leq i_1\leq\ldots i_k\leq n\}$, we write $\sigma^I=\sigma^{i_1}\wedge\ldots\sigma^{i_k}$ any $k$-form can be decomposed as
+\[
+  \omega=\sum_{I}\omega_I\sigma^I.
+\]
+The exterior algebra is provided with the \defe{interior product}{interior!product} denoted by $\iota$. It is defined by\label{pg_DefProdExt}
+\begin{equation}
+\begin{aligned}
+ \iota(v_0)\colon\Lambda^kW&\to \Lambda^{k-1}W \\ 
+(\iota(v_0)\omega)(v_1,\ldots,v_{k-1})& =\omega(v_0,v_1,\ldots,v_{k-1}).
+\end{aligned}
+\end{equation}
+
+
+\subsection{Differential of \texorpdfstring{$k$}{k}-forms}
+
+The differential of a $k$-form is defined by the following theorem.
+
+\begin{theorem}
+Let $M$ be a differentiable manifold. Then for each $k\in \eN$, there exists an unique map
+\[
+  \dpt{d}{\Omega^k(M)}{\Omega^{k+1}(M)}
+\]
+such that
+
+\begin{enumerate}
+\item $d$ is linear,
+\item for $k=0$, we find back the $\dpt{d}{\Cinf(M)}{\Omega^(M)}$ previously defined,
+\item if $f$ is a function and $\omega^k$ a $k$-form, then 
+\begin{equation}
+d(f\omega^k)=df\wedge\omega^k+fd\omega^k,
+\end{equation}
+
+
+\item $d(\omega^k\wedge\eta^l)=d\omega^k\wedge\eta^l+(-1)^k\omega^k\wedge d\eta^l$,
+\item $d\circ d=0$.
+\end{enumerate}
+\end{theorem}
+
+An explicit expression for $d\omega^k$ is actually given by
+\begin{equation}
+   d\omega^k=\sum d\omega_I\wedge dx^I
+\end{equation}
+if $\omega^k=\sum\omega_I dx^I$.
+An useful other way to write it is the following. If $\omega$ is a $k$-form and $X_1,\ldots,X_{p+1}$ some vector fields,
+\begin{equation}\label{eq:formule_domega}
+\begin{split}
+  (k+1)d\omega(X_1,\ldots,X_{p+1})&=\sum_{i=1}^{p+1}(-1)^{i+1}X_i\omega(X_1,\ldots\hat{X}_i,\ldots,X_{p+1})\\
+                                  &\quad+\sum_{i<j}(-1)^{i+j}\omega([X_i,X_j],X_1,\ldots,\hX_i,\hX_j,\ldots,X_{p+1}).
+\end{split}
+\end{equation}
+Let us show it with $p=1$. Let $\omega=\omega_i dx^i$ and compute $d\omega(X,Y)=\partial_i\omega_j(dx^i\wedge dx^j)(X,Y)$. For this, we have to keep in mind that the $\partial_i$ acts only on $\omega_j$ while, in equation \eqref{eq:formule_domega}, a term $X\omega(Y)$ means --pointwise-- the action of $X$ on the function $\dpt{\omega(Y)}{M}{\eR}$. So we have to use Leibnitz formula:
+\[
+  (\partial_i\omega_j)X^iY^j=(X\omega_j)Y^j
+                            =X(\omega_j Y^j)-\omega_j XY^j.
+\]
+On the other hand, we know that $[X,Y]^i=XY^i-YX^i$, so
+\begin{equation}
+   d\omega(X,Y)=X\omega(Y)-Y\omega(X)-\omega([X,Y]).
+\end{equation}
+
+\subsubsection{Hodge dual operator}
+%/////////////////////////////
+Let us take a manifold $M$ endowed with a metric $g$.  We can define a map $\dpt{r}{T^*_xM}{T_xM}$ by, for $\alpha\in T^*_xM$,
+\[
+   \scal{r(\alpha)}{v}=\alpha(v).
+\]
+for all $v\in T_xM$, where $\scal{\cdot}{\cdot}$ stands for the product given by the metric $g$. If we have $\alpha,\beta\in T^*_xM$, we can define
+\[
+   \scal{\alpha}{\beta}=\scal{r(\alpha)}{r(\beta)}.
+\]
+With this, we define an inner product on $\Lambda^p(T^*_xM)$:
+\[
+   \scal{\alpha_1\wedge\ldots\alpha_p}{\beta_1\wedge\ldots\beta_p}=\det_{ij}\scal{\alpha_i}{\beta_j}.
+\]
+
+The \defe{Hodge operator}{Hodge operator} is $\dpt{\star}{\Lambda^p(T^*_xM)}{\Lambda^{n-p}(T^*_xM)}$ such that for any $\phi\in\Lambda^p(T^*_xM)$,
+\begin{equation}
+   \phi\wedge(\star\psi)=\scal{\phi}{\psi}\Omega=\langle \phi, \rangle \psi\sqrt{|\det(g)|}dx^1\wedge\ldots\wedge dx^n.
+\end{equation}
+
+\subsubsection{Volume form and orientation}
+%//////////////////////////////////////////
+
+Let $M$ be a $n$ dimensional smooth manifold. A \defe{volume form}{volume!form} on $M$ is a nowhere vanishing $n$-form and the manifold itself is said to be \defe{orientable}{orientable manifold} if such a volume form exists. Two volume forms $\mu_1$ and $\mu_2$ are describe the same orientation if there exists a function $f>0$ such that\footnote{Recall that the space of $n$-forms is one-dimensional.} $\mu_1=f\mu_2$. 
+
+\begin{proposition}
+There exists only two orientations on a connected orientable manifold.
+\end{proposition}
+\begin{probleme}
+    Check if the statement of that proposition is correct. Find a reference.
+\end{probleme}
+
+One says that the \emph{ordered} basis $(v_1,\cdots,v_n)$ of $T_xM$ is \defe{positively oriented}{positive!orientation} with respect to the volume form $\mu$ is $\mu_x(v_1,\cdots,v_n)>0$.
+
+\subsection{Musical isomorphism}\label{subsec_musique}\index{musical isomorphism}
+%---------------------------------
+
+In some literature, we find the symbols $v^{\flat}$ and $\alpha^{\sharp}$. What does it mean ? For $X\in\cvec(M)$ and $\omega\in\Omega^2(M)$, the \defe{flat}{flat} operation $v^{\flat}\in\Omega^1(M)$ is simply defined by the inner product:
+\begin{equation}
+  v^{\flat}=i(v)\omega
+\end{equation}
+ In the same way, we define the \defe{sharp}{sharp} operation by taking a $1$-form $\alpha$ and defining $\alpha^{\sharp}$ by
+\begin{equation}
+   i(\alpha^{\sharp})\omega=\alpha.
+\end{equation}
+An immediate property is, for all $v\in\cvec(M)$, $v^{\flat\sharp}=v$, and for all $\alpha\in\Omega^1(M)$, $\alpha^{\sharp\flat}=\omega$.
+
+\subsection{Pull-back and push-forward}
+
+Let $\dpt{\varphi}{M}{N}$ be a smooth map, $\alpha$ a $k$-form on $N$,
+and $Y$ a vector field on $N$. Consider the map $\dpt{d\varphi}{T_xM}{T_{\varphi(x)}M}$. The aim is to extend it to a map from the tensor algebra of ${T_xM}$ to the one of $T_{\varphi(x)}M$. See \cite{kobayashi} for precise definition of the tensor algebra.
+
+The \defe{pull-back}{pull-back!of a $k$-form} of $\varphi$ on a $k$-form $\alpha$ is the map
+\[
+ \dpt{\varphi^*}{\Omega^k(N)}{\Omega^k(M)}
+\]
+ defined by
+\begin{equation}\label{306e1}
+ (\varphi^*\alpha)_m(v_1,\ldots,v_k)
+ =\alpha_{\varphi(m)}(d\varphi_mv_1,\ldots,d\varphi_mv_k)
+\end{equation}
+for all $m\in M$ and $v_i\in\cvec(M)$.
+
+Note the particular case $k=0$. In this case, we take --instead of $\alpha$-- a function $\dpt{f}{N}{\eR}$ and the definition \eqref{306e1} gives $\dpt{\varphi^*f}{M}{\eR}$ by
+\[
+     \varphi^*f=f\circ\varphi.
+\]
+
+The \defe{push-forward}{push-forward!of a $k$-form} of $\varphi$ on a $k$-form is the map
+\[
+ \dpt{\varphi_*}{\Omega^k(M)}{\Omega^k(N)}
+\]
+defined by $\varphi_*=(\varphi^{-1})^*$. For $v\in T_nN$, we explicitly have:
+\[
+                   (\varphi_*\alpha)_n(v)=\alpha_{\varphi^{-1}(n)}(d\varphi_n^{-1} v).
+\]
+
+Let now $\dpt{\varphi}{M}{N}$ be a diffeomorphism. The \defe{pull-back}{pull-back!of a vector field} of $\varphi$ on a vector field is the map
+\[
+           \dpt{\varphi^*}{\cvec(N)}{\cvec(M)}
+\]
+defined by
+\[
+              (\varphi^*Y)(m)=[(d\varphi^{-1})_m\circ Y\circ\varphi](m),
+\]
+or
+\[
+ (\varphi^*Y)_{\varphi^{-1}(n)}=(d\varphi^{-1})_nY_n,
+\]
+for all $n\in N$ and $m\in M$. Notice that \[\dpt{(d\varphi^{-1})_n}{T_nN}{T_{\varphi^{-1}(n)}M},\] and that  $\varphi^{-1}(n)$ is well defined because $\varphi$ is an homeomorphism.
+
+The \defe{push-forward}{push-forward!of a vector field} is, as before, defined by $\varphi_*=(\varphi^{-1})^*$. In order to show how to manipulate these notations, let us prove the following equation:
+\[ 
+   f_{*\xi}=(df)_{\xi}.
+\]
+For $\dpt{\varphi}{M}{N}$ and $Y$ in $\cvec(N)$, we just defined $\dpt{\varphi^*}{\cvec(N)}{\cvec(M)}$, by
+\begin{eqnarray}
+ \label{2112r1}(\varphi^*Y)_{\varphi^{-1}(n)}=(d\varphi^{-1})_nY_n.
+\end{eqnarray}
+Take $\dpt{f}{M}{N}$; we want to compute $f_*=(f^{-1})^*$ with $\dpt{(f^{-1})^*}{\cvec(M)}{\cvec(N)}$. Replacing the ``$^{-1}$``\ on the right places, the definition \eqref{2112r1} gives us
+\[
+ \Big[(f^{-1})^*X\Big]_{f(m)}=(df)_mX_m,
+\]
+if $X\in\cvec(M)$, and $m\in M$.
+
+We can rewrite it without  any indices: the coherence of the spaces automatically impose the indices: $(f^{-1})^*X=(df)X$. It can also be rewritten as $(f^{-1})^*=df$, and thus $f_*=df$. From there to $f_{* \xi}=(df)_{\xi}$, it is straightforward.
+
+\subsection{Lie derivative}
+%------------------------
+
+Consider $X\in\cvec(M)$ and $\alpha\in\Omega^p(M)$. Let $\dpt{\varphi_t}{M}{M}$ be the flow of $X$. The \defe{Lie derivative}{Lie!derivative!of a $p$-form} of $\alpha$ is
+\begin{equation}\label{liesurforme}
+         \mL_X\alpha=\lim_{t\to 0}\us{t}[(\varphi^*_t\alpha)-\alpha]=\dsdd{\varphi^*_t\alpha}{t}{0}.
+\end{equation}
+More explicitly, for $x\in M$ and $v\in T_xM$,
+\[
+             (\mL_X\alpha)_x(v)=\lim_{t\to 0}\us{t}\left[(\varphi_t^*\alpha)_x(v)-\alpha_x(v)\right]
+\]
+In the definition of the \defe{Lie derivative}{Lie!derivative!of a vector field} for a vector field, we need an extra minus sign:
+\begin{equation}		\label{EqDefLieDerivativeVect}
+            (\mL_XY)_x=\dsdd{\varphi_{-t*}Y_{\varphi_t(x)}}{t}{0}.
+\end{equation}
+Why a minus sign ? Because $Y_{\varphi_t(x)}\in T_{\varphi_t(x)}M$, but $\dpt{(d\varphi_{-t})_a}{T_aM}{T_{\varphi_{-t}(a)}M}$ so that, if we want, $\varphi_{-t*}Y_{\varphi_t(x)}$ to be a vector at $x$, we can't use $\varphi_{t*}$.
+
+These two definitions can be embedded in only one. Let $X\in\cvec(M)$ and $\varphi_t$ its integral curve\footnote{\textit{i.e.} for all $x\in M$, $\varphi_0(x)=x$ and $\dsdd{\varphi_{u+t}(x)}{t}{0}=X_{\varphi_u(x)}$.}\index{integral!curve}. We know that $\varphi_{t*}$ is an isomorphism $\dpt{\varphi_{t*}}{T_{\varphi^{-1}(x)}M}{T_xM}$. It can be extended to an isomorphism of the tensor algebras at $\varphi^{-1}(x)$ and $x$. We note it $\tilde{\varphi}_t$. For all tensor field $K$ on $M$, we define
+\[
+            (\mL_XK)_x=\lim_{t\to 0}[K_x-(\tilde{\varphi_t}K)_x].
+\]
+
+On a Riemannian manifold $(M,g)$, a vector field $X$ is a \defe{\href{http://en.wikipedia.org/wiki/Killing_vector_fields}{Killing vector field}}{killing!vector field} if $\mL_Xg=0$.
+
+
+
+\begin{lemma}
+Let $\dpt{f}{(-\epsilon,\epsilon)\times M}{\eR}$ be a differentiable map with $f(0,p)=0$ for all $p\in U$. Then there exists $\dpt{g}{(-\epsilon,\epsilon)\times M}{\eR}$, a differentiable map such that $f(t,p)=tg(t,p)$ and
+\[
+                g(0,q)=\left.\dsd{f(t,q)}{t}\right|_{t=0}.
+\]
+\end{lemma}
+\begin{proof}
+Take
+\[
+                g(t,q)=\int_0^1\dsd{f(ts,p)}{(ts)}ds,
+\]
+and use the change of variable $s\to ts$.
+\end{proof}
+
+\begin{lemma}
+If $\varphi_t$ is the integral curve of $X$, for all function $\dpt{f}{M}{\eR}$, there exists a map $g$, $g_t(p)=g(t,p)$ such that
+$f\circ\varphi_t=f+tg_t$ and $g_0=Xf$.
+\end{lemma}
+
+\begin{proof}
+Consider $\overline{f}(t,p)=f(\varphi_t(p))-f(p)$, and apply the lemma:
+\[
+          f\circ\varphi_t=tg_t(p)+f(p).
+\]
+Thus we have
+\[
+      Xf=\lim_{t\to 0}\us{t}[f(\varphi_t(p))-f(p)]=\lim_{t\to 0}g_t(p)=g_0(p).
+\]
+\end{proof}
+
+One of the main properties of the Lie derivative is the following:
+\begin{theorem}		\label{ThoLieDerrComm}
+Let $X$, $Y\in\cvec(M)$ and $\varphi_t$ be the integral curve of $X$. Then
+\[
+         [X,Y]_p=\lim_{t\to 0}\us{t}[Y-d\varphi_tY](\varphi_t(p)),
+\]
+or
+\[
+          \mL_XY=[X,Y].
+\]
+
+\end{theorem}
+\begin{proof}
+Take $\dpt{f}{M}{\eR}$ and the function given by the lemma: $\dpt{g_t}{M}{\eR}$ such that $f\circ \varphi_t=f+tg_t$ and $g_0=Xf$. Then put $p(t)=\varphi_t^{-1}(p)$. The rest of the proof is a computation:
+\[
+            (\varphi_{t*}Y)_pf=Y(f\circ\varphi_t)_{p(t)}=(Yf)_{p(t)}+t(Yg_t)_{p(t)},
+\]
+so
+\begin{equation}
+\begin{split}
+  \lim_{t\to 0}\us{t}[Y_p-(\varphi_{t*}Y)_p]f&=\lim_{t\to 0}\us{t}[(Yf)_p-(Yf)_{p(t)}]-\lim_{t\to 0}(Yg_t)_{p(t)}\\
+                                         &=X_p(Yf)-Y_pg_0\\
+                                         &=[X,Y]_pf.
+\end{split}
+\end{equation}
+
+\end{proof}
+
+A second important property is
+\begin{theorem}
+For any function $f\colon M\to V$,
+\[
+           \mL_Xf=Xf.
+\]
+\end{theorem}
+
+\begin{proof}
+If $X(t)$ is the path which defines the vector $X$, it is obvious that at $t=0$, $X(t)$ is an integral curve to $X$, so that we can take $X(t)$ instead of $\varphi_t$ in \eqref{liesurforme}. Therefore we have:
+\begin{equation}
+    \mL_Xf=\dsdd{\varphi_t^*f}{t}{0}
+          =Xf
+\end{equation}
+by definition of the action of a vector on a function.
+\end{proof}
