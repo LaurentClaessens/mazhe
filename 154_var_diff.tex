@@ -481,11 +481,13 @@ When $V$ is a finite-dimensional vector space, we denote by $V^*$ its dual\footn
 \subsection{The exterior algebra}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Here are some recall without proof about forms on vector space. If $V$ is a vector space, we denote by $\Lambda^kV^*$ the space of all the $k$-form on $V$. We define $\dpt{\wedge}{\Lambda^kV^*\times\Lambda^lV^*}{\Lambda^{k+l}V^*}$ by
-\begin{equation}
-  (\omega^k\wedge\eta^l)(v_1,\ldots,v_{k+l})
- =\us{k!l!}\sum_{\sigma\in S_{k+l}}sgn(\sigma)\omega(v_{\sigma(1)},\ldots,v_{\sigma(k)})\eta(v_{\sigma(k+1)},v_{\sigma(k+1)})
-\end{equation}
+\begin{definition}[Exterior product]
+    If $V$ is a vector space, we denote by $\Lambda^kV^*$ the space of all the $k$-form on $V$. We define the \defe{exterior product}{product!exterior} $\dpt{\wedge}{\Lambda^kV^*\times\Lambda^lV^*}{\Lambda^{k+l}V^*}$ by
+    \begin{equation}
+      (\omega^k\wedge\eta^l)(v_1,\ldots,v_{k+l})
+      =\us{k!l!}\sum_{\sigma\in S_{k+l}} (-1)^{\sigma}   \omega(v_{\sigma(1)},\ldots,v_{\sigma(k)})\eta(v_{\sigma(k+1)},v_{\sigma(k+1)})
+    \end{equation}
+\end{definition}
 If $\{e_1,\ldots,e_n\}$ is a basis of $V$, the dual basis $\{\sigma^1,\ldots,\sigma^n\}$ of $V^*$ is defined by $\sigma^i(e_j)=\delta^i_j$.
 
 If $I=\{1\leq i_1\leq\ldots i_k\leq n\}$, we write $\sigma^I=\sigma^{i_1}\wedge\ldots\sigma^{i_k}$ any $k$-form can be decomposed as
@@ -500,8 +502,81 @@ The exterior algebra is provided with the \defe{interior product}{interior!produ
 \end{aligned}
 \end{equation}
 
+\begin{lemma}
+    Let \( \sigma\) be an element of the symmetric group\footnote{Definition \ref{DEFooJNPIooMuzIXd}.} of the set \( \{ a_1,\ldots, a_n \}\) where the \( a_i\) are integers. Then
+    \begin{equation}
+        (dx_{a_1}\wedge\ldots \wedge dx_{a_n})(e_{\sigma(a_1)},\ldots, e_{\sigma(a_n)})=(-1)^{\sigma}.
+    \end{equation}
+\end{lemma}
 
+\begin{proof}
+    We make it by induction over \( n\). With \( n=1\) the only permutation is the identity; the claim reduces to \( dx_{a_1}(e_{a_1})=1\). Let us try with \( n=2\). Up to renumbering we have
+    \begin{equation}
+        (dx_1\wedge dx_2)(e_1,e_2)=1
+    \end{equation}
+    and
+    \begin{equation}
+        (dx_1\wedge dx_2)(e_2,e_1)=-1.
+    \end{equation}
+    We pass to the induction. Let \( \sigma\in S_n\). We have
+    \begin{subequations}
+        \begin{align}
+            (dx_{a_1}\wedge dx_{a_n})(&e_{\sigma(a_1)},\ldots, e_{\sigma(a_n)})=dx_{a_1}\wedge (dx_{a_n})(e_{\sigma(a_1)},\ldots, e_{\sigma(a_n)})\\
+            &=\sum_{\phi\in S_n}(-1)^{\phi}\frac{1}{ (n-1)! }dx_{a_1}\big( e_{\phi\sigma(a_1)} \big)(dx_{a_2}\wedge\ldots\wedge dx_{a_n})(e_{\phi\sigma(a_2)},\ldots, e_{\phi\sigma(a_n)})\\
+            &=\sum_{\phi\in S_n}(-1)^{\phi}\frac{1}{ (n-1)! }\delta_{a_1,\phi\sigma(a_1)}(-1)^{\phi\sigma}\\
+            &=\sum_{\phi\in S_n}\delta_{a_1,\phi\sigma(a_1)}(-1)^{\sigma}\frac{1}{ (n-1)! }
+        \end{align}
+    \end{subequations}
+    where we used the fact that the sign of a permutation provides a morphism between \( S_n\) and \( \{ -1,1 \}\) (proposition \ref{ProphIuJrC}\ref{ITEMooBQKUooFTkvSu}). In the sum over \( S_n\), only the \( \phi\) that make \( \sigma(a_1)\to a_1\) remain; there are \( | S_{n-1} |=(n-1)!\) such elements. Thus the whole evaluates to \( (-1)^{\sigma}\).
+\end{proof}
+
+\begin{lemma}[\cite{MonCerveau}]    \label{LEMooICRXooFKPCRd}
+    Let \( \tau_i\colon \eR^n\to \eR^{n-1}\) defined by
+    \begin{equation}
+        \tau_i(v)_k=\begin{cases}
+            v_k    &   \text{if \( k<i\)}\\
+            v_{k+1}    &    \text{if \( k\geq i\).}
+        \end{cases}
+    \end{equation}
+    Then we have
+    \begin{equation}
+        (dx_1\wedge\ldots\wedge\widehat{dx_i}\wedge\ldots\wedge dx_n)(v_1,\ldots, \widehat{v_i},\ldots, v_n)=
+        \det\Big(  \tau_i(v_1),\ldots, \widehat{\tau_i(v_i)},\ldots, \tau_i(v_n)  \Big)
+    \end{equation}
+    where the hat denotes a non present term.
+\end{lemma}
+
+\begin{proof}
+    We extend \( \tau_i\) to the dual : \( \tau_i\colon(\eR^n)^*  \to (\eR^{n-1})^*\) is defined by
+    \begin{equation}
+        \tau_i(dx_k)=\begin{cases}
+            dy_k    &   \text{if \( k<i\)}\\
+            dy_{k-1}    &    \text{if \( k>i\)}
+        \end{cases}
+    \end{equation}
+    (not defined on \( dx_i\)). It is easy to check that, if \( k\neq i\),
+    \begin{equation}
+        \tau_i(dx_k)\tau_i(v)=dx_k(v).
+    \end{equation}
+    The value of  $(dx_1\wedge\ldots\wedge\widehat{dx_i}\wedge\ldots\wedge dx_n)(v_1,\ldots, \widehat{v_i},\ldots, v_n)$ is a polynomial in the variables \( dx_k(v_l)\) (with \( k\neq l\)). Since \( dx_k(v_l)=\tau\i(dx_k)\big( \tau_iv_l \big)\), the same polynomial will give the value of
+    \begin{equation}
+        (\tau_idx_1\wedge\ldots\wedge \widehat{\tau_idx_i}\wedge\ldots\wedge \tau_idx_n  )(\tau_i v_1,\ldots, \widehat{\tau_iv_i},\ldots, \tau_iv_n).
+    \end{equation}
+    Thus we have
+    \begin{subequations}
+        \begin{align}
+            (dx_1\wedge\ldots\wedge\widehat{dx_i}&\wedge\ldots\wedge dx_n)(v_1,\ldots, \widehat{v_i},\ldots, v_n)\\
+            &=(\tau_idx_1\wedge\ldots\wedge \widehat{\tau_idx_i}\wedge\ldots\wedge \tau_idx_n  )(\tau_i v_1,\ldots, \widehat{\tau_iv_i},\ldots, \tau_iv_n)\\
+            &=(dy_1\wedge\ldots\wedge dy_{n-1})(\tau_iv_1,\ldots,\widehat{\tau_iv_i},\ldots, \tau_iv_n) \label{SUBEQooQGSKooSgfxJh}\\
+            &=\det\big( \tau_iv_1,\ldots, \widehat{\tau_i v_i},\ldots, \tau_iv_n \big)
+        \end{align}
+    \end{subequations}
+    The last equality is because \eqref{SUBEQooQGSKooSgfxJh} is is a \( (n-1)\)-form applied to \( n-1\) vectors in \( \eR^{n-1}\) and so is the determinant. 
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Differential of \texorpdfstring{$k$}{k}-forms}
+%---------------------------------------------------------------------------------------------------------------------------
 
 The differential of a $k$-form is defined by the following theorem.
 
@@ -563,10 +638,12 @@ With this, we define an inner product on $\Lambda^p(T^*_xM)$:
    \scal{\alpha_1\wedge\ldots\alpha_p}{\beta_1\wedge\ldots\beta_p}=\det_{ij}\scal{\alpha_i}{\beta_j}.
 \]
 
-The \defe{Hodge operator}{Hodge operator} is $\dpt{\star}{\Lambda^p(T^*_xM)}{\Lambda^{n-p}(T^*_xM)}$ such that for any $\phi\in\Lambda^p(T^*_xM)$,
-\begin{equation}
-   \phi\wedge(\star\psi)=\scal{\phi}{\psi}\Omega=\langle \phi, \rangle \psi\sqrt{|\det(g)|}dx^1\wedge\ldots\wedge dx^n.
-\end{equation}
+\begin{definition}      \label{DEFooUOJQooSzKjNR}
+    The \defe{Hodge operator}{Hodge operator} is $\dpt{\star}{\Lambda^p(T^*_xM)}{\Lambda^{n-p}(T^*_xM)}$ such that for any $\phi\in\Lambda^p(T^*_xM)$,
+    \begin{equation}
+       \phi\wedge(\star\psi)=\scal{\phi}{\psi}\Omega=\langle \phi, \rangle \psi\sqrt{|\det(g)|}dx^1\wedge\ldots\wedge dx^n.
+    \end{equation}
+\end{definition}
 
 \subsubsection{Volume form and orientation}
 %//////////////////////////////////////////
@@ -586,7 +663,7 @@ One says that the \emph{ordered} basis $(v_1,\cdots,v_n)$ of $T_xM$ is \defe{pos
 %---------------------------------
 
 In some literature, we find the symbols $v^{\flat}$ and $\alpha^{\sharp}$. What does it mean ? For $X\in\cvec(M)$ and $\omega\in\Omega^2(M)$, the \defe{flat}{flat} operation $v^{\flat}\in\Omega^1(M)$ is simply defined by the inner product:
-\begin{equation}
+\begin{equation}        \label{EQooBTWXooTqoNxa}
   v^{\flat}=i(v)\omega
 \end{equation}
  In the same way, we define the \defe{sharp}{sharp} operation by taking a $1$-form $\alpha$ and defining $\alpha^{\sharp}$ by
@@ -655,8 +732,134 @@ if $X\in\cvec(M)$, and $m\in M$.
 
 We can rewrite it without  any indices: the coherence of the spaces automatically impose the indices: $(f^{-1})^*X=(df)X$. It can also be rewritten as $(f^{-1})^*=df$, and thus $f_*=df$. From there to $f_{* \xi}=(df)_{\xi}$, it is straightforward.
 
-\subsection{Lie derivative}
-%------------------------
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Integration of a differential form}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+We suppose \( (M,g)\) to be a \( n\)-dimensional Riemannian manifold and \( S\) to be a \( (n-1)\)-dimensional submanifold. We suppose that both are inside only one chart\footnote{This is an important restriction. If there are several charts, one has to play with partition of the unity as explained in definition \ref{DEFooOMQLooGiJWZS}.} :
+\begin{equation}
+    \phi\colon D\subset \eR^n\to M
+\end{equation}
+and
+\begin{equation}
+    \varphi\colon A\subset \eR^{n-1}\to S.
+\end{equation}
+We also consider a differential form \( \omega\in \Wedge^n(T^*M)\) and \( \sigma\in\Wedge^{n-1}(T^*M)\). These are respectively \( n\) and \( n-1\) differential forms on \( M\).  We also consider \( v\), a vector field on \( M\) and \( \tau\), a \( 1\)-form on \(M\)<++>
+
+Let us see what is possible to integrate.
+
+\begin{definition}[\cite{ooMLEZooCKxedX}]       \label{DEFooPDRCooPiBklC}
+    The integral of a \( n\)-form on \( M\) is
+    \begin{equation}
+        \int_M\omega=\int_D\phi^*\omega.
+    \end{equation}
+\end{definition}
+The last integral is an integral of type \( \int_{D}F(x_1,\ldots, x_n)dx_1\wedge\ldots \wedge dx_n\) on an open set in \( \eR^n\).
+
+The following is not really a definition, but a particular case of \ref{DEFooPDRCooPiBklC}. The integral of a \( n-1\)-form on a \( (n-1)\)-submanifold is
+\begin{equation}        \label{EQooYPOGooRYOXQe}
+    \int_S\sigma=\int_A\varphi^*\sigma.
+\end{equation}
+Once again the last integral is an integral of a \( n-1\)-form on an open set in \( \eR^{n-1}\).
+
+\begin{definition}[\cite{ooMLEZooCKxedX}]       \label{DEFooAXFXooWiMLKP}
+    The integral of a \( 1\)-form on a \( n-1\) dimensional submanifold is :
+    \begin{equation}
+        \int_S\tau=\int_S\hodge\tau
+    \end{equation}
+    where \( \hodge\) is the Hodge dual defined by \ref{DEFooUOJQooSzKjNR}. 
+\end{definition}
+he last integral is the integral of a \( (n-1)\)-form on a \( (n-1)\)-submanifold, given by \eqref{EQooYPOGooRYOXQe}.
+
+\begin{definition}      \label{DEFooAXZGooJairMQ}
+    The integral of a vector field on a \( (n-1)\)-submanifold is :
+    \begin{equation}
+        \int_Sv=\int_Sv^{\flat}
+    \end{equation}
+    where \( v^{\flat}\) is the \( 1\)-form defined by the musical isomorphism \eqref{EQooBTWXooTqoNxa}.
+\end{definition}
+
+The following proposition provides a much more explicit formula for the integral of a vector field. 
+
+\begin{proposition}
+    Let \( \varphi\colon A\subset \eR^{n-1}\to \eR^n\) be an hypersurface and \( X\) be a vector field in \( \eR^n\). Then
+    \begin{subequations}
+        \begin{align}
+            \int_SX&=\int_A\det\big( X,\frac{ \partial \varphi }{ \partial y_1 },\ldots, \frac{ \partial \varphi }{ \partial y_{n-1} } \big)\\
+            &=\int_A X\cdot\det\begin{pmatrix}
+                e_1    &   \ldots    &   e_n    \\
+                &   \partial_{y_1}\varphi    &       \\
+                &    \vdots   &       \\
+                &   \partial_{y_{n-1}}\varphi    &   
+            \end{pmatrix}\\
+            &=\int_A X\cdot n
+        \end{align}
+    \end{subequations}
+    where \( \{ y_1,\ldots, y_{n-1} \}\) are the coordinates on \( A\) and \( n\) is the normal vector to the parametrization.
+\end{proposition}
+
+\begin{proof}
+    If \( X=\sum_{i=1}^nX_i\partial_i\), then \( X^{\flat}=\sum_{i}X_idx_i\) and its Hodge dual is
+    \begin{equation}
+        \sum_{i}(-1)^i dx_1\wedge\ldots\wedge\widehat{dx_i}\wedge\ldots\wedge dx_n
+    \end{equation}
+    where the hat denotes a factor that is not present. Using the definitions \ref{DEFooAXZGooJairMQ}, \ref{DEFooAXFXooWiMLKP} and \ref{DEFooPDRCooPiBklC} it remains to integrate
+    \begin{equation}
+        \int_A\sum_i(-1)^iX_i\varphi^*\big( dx_1\wedge\ldots\wedge\widehat{dx_i}\wedge\ldots\wedge dx_n \big).
+    \end{equation}
+    If \( u_1,\ldots, u_{n-1}\) are vectors on \( A\) (that is on \( T_xA\) where \( x\) is the integration variable) we have
+    \begin{subequations}
+        \begin{align}
+            \varphi^*(dx_1\wedge\wedge \widehat{dx_i}\wedge\ldots\wedge dx_n)(u_1,\ldots, u_{n-1})&= (dx_1\wedge\wedge \widehat{dx_i}\wedge\ldots\wedge dx_n)(d\varphi u_1,\ldots, d\varphi u_{n-1})\\
+            &=\det\big( \tau_id\varphi u_1,\ldots, \tau_id\varphi u_{n-1} \big)
+        \end{align}
+    \end{subequations}
+    where we used the lemma \ref{LEMooICRXooFKPCRd}. 
+
+    What lies in the integral is the \( (n-1)\) differential form 
+    \begin{subequations}        \label{EQooEVAPooSbRfaj}
+        \begin{align}
+           (u_1,\ldots, u_{n-1})\mapsto \sum_{i}(-1)^iX_i&\det\big(    \tau_id\varphi u_1,\ldots, \tau_id\varphi u_{n-1}  \big)\\
+            &=\det\big( X,d\varphi u_1,\ldots, d\varphi u_{n-1} \big).
+        \end{align}
+    \end{subequations}
+    Since this is a \( (n-1)\) differential form over \( \eR^{n-1}\), this has to be proportional to \( dy_1\wedge\ldots dy_{n-1}\). The proportionality factor is found by applying \eqref{EQooEVAPooSbRfaj} to the basis \( \{ e_1,\ldots, e_n \}\). Since \( d\varphi(e_i)=\frac{ \partial \varphi }{ \partial y_i }\) we have the proportionality factor
+    \begin{equation}
+        \det\left( X,\frac{ \partial \varphi }{ \partial y_1 },\ldots, \frac{ \partial \varphi }{ \partial y_n } \right)
+    \end{equation}
+    and the integral to be computed is
+    \begin{equation}
+        \int_A\det\left( X,\frac{ \partial \varphi }{ \partial y_1 },\ldots, \frac{ \partial \varphi }{ \partial y_n } \right)dy_1\wedge\ldots\wedge dy_{n-1}=\int_A\det\left( X,\frac{ \partial \varphi }{ \partial y_1 },\ldots, \frac{ \partial \varphi }{ \partial y_n } \right).
+    \end{equation}
+\end{proof}
+
+\begin{example}
+    Let us make the example with \( n=3\). We have
+    \begin{equation}
+        \varphi^*(dx\wedge dy)(v_1,v_2)=(dx\wedge dy)(d\varphi v_1 , d\varphi v_2)=\det
+        \begin{pmatrix}
+            d\varphi(v_1)_x    &   d\varphi(v_2)_x    \\ 
+            d\varphi(v_1)_y    &   d\varphi(v_2)_y    
+        \end{pmatrix},
+    \end{equation}
+    and then
+    \begin{equation}
+        \sum_i(-1)^iX_i \varphi^*(   \Wedge_{k\neq i}dx_k    )(v_1,v_2)=\sum_i(-1)^iX_i
+        \begin{pmatrix}
+            d\varphi(v_1)_x    &   d\varphi(v_2)_x    \\ 
+            d\varphi(v_1)_y    &   d\varphi(v_2)_y    
+        \end{pmatrix}=
+        \det\begin{pmatrix}
+             X_1  &   d\varphi (v_1)_x    &   d\varphi(v_2)_x    \\
+             X_2  &   d\varphi (v_1)_y    &   d\varphi(v_2)_y    \\
+             X_3  &   d\varphi (v_1)_z    &   d\varphi(v_2)_z   
+        \end{pmatrix}
+    \end{equation}
+\end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Lie derivative}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Consider $X\in\cvec(M)$ and $\alpha\in\Omega^p(M)$. Let $\dpt{\varphi_t}{M}{M}$ be the flow of $X$. The \defe{Lie derivative}{Lie!derivative!of a $p$-form} of $\alpha$ is
 \begin{equation}\label{liesurforme}
