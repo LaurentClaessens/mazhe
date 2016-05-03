@@ -907,10 +907,213 @@ Si la matrice est trop grande, il n'est pas possible de faire des manipulations 
 En général, les méthodes itératives ne convergent pas toujours. Mais lorsqu'une méthode converge, c'est une propriété de la matrice, et donc la convergence aura lieu pour tout vecteur de départ \( x_0\). Cela est très différent du cas des équations non linéaires type Newton pour lesquelles la convergence peut fortement dépendre du point de départ.
 
 %--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Méthode de Gauss}
+\subsection{Méthode de Gauss sans pivot}
 %---------------------------------------------------------------------------------------------------------------------------
 
-La méthode de Gauss est souvent aussi appelée méthode «LU» qui va décomposer \( A=LU\) où \( L\) est triangulaire inférieure et \( U\) est triangulaire supérieure.
+La méthode de Gauss est souvent aussi appelée méthode «LU» qui va décomposer \( A=LU\) où \( L\) est triangulaire inférieure et \( U\) est triangulaire supérieure. La décomposition est même plus précise que cela : on demande que \( L\) ait seulement des \( 1\) sur la diagonale.
+
+\begin{lemma}
+    Si \( A\) est inversible, il existe une unique décomposition \( A=LU\) où \( L\) est triangulaire inférieure dont la diagonale contient seulement des \( 1\), et \( U\) est triangulaire supérieure.
+\end{lemma}
+
+Pour travailler la méthode de Gauss pour le système \( Ax=b\), nous introduisons la matrice un peu augmentée \( (A|b)\). Nous faisons un exemple.
+
+\begin{equation}
+    (A|b)^{(0)}=\begin{pmatrix}
+         2   &   1    &   3    &   11    \\
+         4   &   3    &   10    &   28    \\ 
+         -2   &   1    &   7    &   3
+     \end{pmatrix}.
+\end{equation}
+Le premier pas consiste à annuler tous les éléments sous la diagonale de la première colonne. Autrement dit, nous prenons le \( 2\) comme pivot. Nous introduisons les multiplicateurs \( l_{ij}= \frac{ A_{ij} }{ A_{i1} }\). La nouvelle matrice est :
+\begin{equation}
+    (A|b)^{(1)}=\begin{pmatrix}
+         2   &   1    &   3    &   11    \\
+         0   &   1    &   4    &   6    \\ 
+         0   &   2    &   10    &   14
+     \end{pmatrix}
+\end{equation}
+où nous avons utilisé les multiplicateurs \( l_{21}=2\), \( l_{31}=-1\).
+
+Et la matrice suivante est :
+\begin{equation}
+    (A|b)^{(2)}=\begin{pmatrix}
+         2   &   1    &   3    &   11    \\
+         0   &   1    &   4    &   6    \\ 
+         0   &   0    &   2    &   2
+     \end{pmatrix}
+\end{equation}
+où nous avons utilisé le multiplicateur \( l_{32}=2\).
+
+
+Cela est un système de résolution immédiate :
+    \begin{subequations}
+        \begin{numcases}{}
+            2x+y+3z=11\\
+            y+4z=6\\
+            2z=2.
+        \end{numcases}
+    \end{subequations}
+La troisième donne \( z=1\). Ensuite \( y+4=6\), donc \( y=2\). Et la première donne : \( 2x+2+3=11\), c'est à dire \( 2x=6\), enfin : \( x=3\).
+
+Solution : \( (x,y,z)=(3,2,1)\).
+
+Nous notons surtout que dans \( (A|b)^{(2)}\) nous avons une matrice triangulaire supérieure. Où est la matrice triangulaire inférieure ? En réalité la matrice \( L\) est la matrice des multiplicateurs :
+\begin{equation}
+    L=\begin{pmatrix}
+        1    &   0    &   0    \\
+        2    &   1    &   0    \\
+        -1    &   2    &   1
+    \end{pmatrix}.
+\end{equation}
+
+Le problème de cette méthode est que faisant ainsi nous risquons d'avoir un zéro sur un des pivots. Par exemple tomber sur
+\begin{equation}
+    (A|b)=\begin{pmatrix}
+         2   &   1    &   3    &   11    \\
+         0   &   0    &   4    &   6    \\ 
+         0   &   2    &   10    &   14
+     \end{pmatrix}.
+\end{equation}
+Le zéro sur la deuxième ligne nous ennuie si nous voulons tout faire dans l'ordre. Mais notons qu'en échangeant les deux dernière lignes, tout va bien : le système donné par
+\begin{equation}
+    (A|b)=\begin{pmatrix}
+         2   &   1    &   3    &   11    \\
+         0   &   2    &   10    &   14\\
+         0   &   0    &   4    &   6   
+     \end{pmatrix}
+\end{equation}
+fonctionne très bien. Et même tellement bien qu'il est de résolution immédiate, dans ce cas.
+
+Un autre problème est que si un des pivots est \( 10^{-14}\), le multiplicateur sera de l'ordre \( 10^{14}\), qui est mal représenté en mémoire. Entre autres parce que si \( a=4.2345322124510789\), en faisant \( a/10^{14}\), nous perdons certaines décimales.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Méthode de Gauss avec pivot}
+%---------------------------------------------------------------------------------------------------------------------------
+
+À chaque pas, nous faisons une permutation de ligne. Nous permutons à chaque pas la première ligne avec celle qui a le pivot le plus grand (en valeur absolue). Donc :
+\begin{equation}
+    (A|b)^{(0)}=\begin{pmatrix}
+         2   &   1    &   3    &   11    \\
+         4   &   3    &   10    &   28    \\ 
+         -2   &   1    &   7    &   3
+     \end{pmatrix}
+\end{equation}
+Nous commençons par déplacer des lignes :
+\begin{equation}
+    (A|b)^{(0')}=\begin{pmatrix}
+         4   &   3    &   10    &   28    \\ 
+         2   &   1    &   3    &   11    \\
+         -2   &   1    &   7    &   3
+     \end{pmatrix}.
+\end{equation}
+Les multiplicateurs sont \( l_{21}=1/2\) et \( l_{31}=-1/2\). Le fait est que les multiplicateurs ont toujours le plus grand dénominateur possible et nous avons alors toujours \( 0\leq | l_{ij} |\leq 1\), qui sont des nombres relativement petits, et bien représentés en mémoire.
+
+Nous avons la nouvelle matrice
+\begin{equation}
+    (A|b)^{(1)}=\begin{pmatrix}
+         4   &   3    &   10    &   28    \\ 
+         0   &   -1/2    &   -2    &   -3    \\
+         0   &   5/2    &   12    &   17
+     \end{pmatrix}.
+\end{equation}
+Le pivot serait \( -1/2\). Nous cherchons un pivot plus grand en dessous de ce \( -1/2\) (et pas au dessus, sinon on casserait les zéros déjà trouvés). 
+Nous trouvons le \( 5/2\) qui est plus grand. Nous permutons donc les deux dernières lignes :
+\begin{equation}
+    (A|b)^{(1')}=\begin{pmatrix}
+         4   &   3    &   10    &   28    \\ 
+         0   &   5/2    &   12    &   17\\
+         0   &   -1/2    &   -2    &   -3   
+     \end{pmatrix}
+\end{equation}
+où le pivot est maintenant \( l_{32}=-1/5\). La matrice suivante :
+\begin{equation}
+    (A|b)^{(1)}=\begin{pmatrix}
+         4   &   3    &   10    &   28    \\ 
+         0   &   5/2    &   12    &   17\\
+         0   &   0   &   2/5    &   2/5   
+     \end{pmatrix}
+\end{equation}
+
+Dans ce cas, la matrice \( L\) n'est pas aussi simple à construire parce que nous avons permuté des choses. Dans ce cas, la matrice \( L\) est encore de la forme
+\begin{equation}
+    L=\begin{pmatrix}
+        1    &   0    &   0    \\
+        .    &   1    &   0    \\
+        .    &   .    &   1
+    \end{pmatrix}.
+\end{equation}
+Mais vu  que nous avons permuté les lignes \( 2\) et \( 3\) au deuxième pas, nous devons permuter \( l_{21}\) et \( l_{31}\) avant de remplir la matrice \( L\) avec les multiplicateurs :
+\begin{equation}
+    L=\begin{pmatrix}
+        1    &   0    &   0    \\
+        -1/2    &   1    &   0    \\
+        1/2    &  -1/5    &   1
+    \end{pmatrix}.
+\end{equation}
+
+Notons que ces \( L\) et \( U\) ne sont pas les mêmes que le \( L U\) obtenu sans pivot. Où est l'unicité ? Elle est que en fait maintenant nous n'avons pas \( A=LU\), mais
+\begin{equation}
+    PA=LU
+\end{equation}
+où \( P\) est une matrice de permutation. Pour élucider ce point, il nous faut introduire les matrices de permutation élémentaires, ce qui sera encore un bon moment pour l'agrégation.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Matrice de permutation élémentaires}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La matrice obtenue à partir de la matrice identité en échangeant deux lignes est une matrice de permutation élémentaire. Par exemple
+\begin{equation}
+    \begin{pmatrix}
+        1    &   0    &   0    \\
+        0    &   1    &   0    \\
+        0    &   0    &   1
+    \end{pmatrix}\to
+    \begin{pmatrix}
+        0    &   1    &   0    \\
+        1    &   0    &   0    \\
+        0    &   0    &   1
+    \end{pmatrix}=P_{12}.
+\end{equation}
+Le point est que la matrice \( P_{12}A\) est la matrice \( A\) avec ses deux premières lignes inversées.
+
+Et la matrice \( AP_{12}\) est la \( A\) avec ses deux premières \emph{colonnes} échangées.
+
+Avec ces notations, notre matrice \( (A|b)^{0'}\) est 
+\begin{equation}
+    P_{12}(A|b)^{(0)}.
+\end{equation}
+Puis la matrice \( (A|b)^{(1')}\) est
+\begin{equation}
+    P_{23}(A|b)^{(1)}.
+\end{equation}
+Et la matrice \( P\) qui arrive dans \( PA=LU\) est la matrice \(P= P_{23}P_{21}\), qui est une matrice de permutation non élémentaire. Elle vaut :
+\begin{equation}
+    P=\begin{pmatrix}
+        0    &   1    &   0    \\
+        0    &   0    &   1    \\
+        1    &   0    &   0
+    \end{pmatrix}.
+\end{equation}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Déterminant}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Pour calculer un déterminant lorsque nous avons la décomposition \( A=LU\) nous pouvons faire
+\begin{equation}
+    \det(A)=\det(LU)=\det(L)\det(U)=\det(U)
+\end{equation}
+parce que \( L\) est triangulaire avec des \( 1\) sur la diagonale.
+
+Si par contre nous avons fait des pivots, nous avons \( PA=LU\). Il nous faut le déterminant de \( P\), qui n'est autre que \( \pm 1\). Nous avons
+\begin{equation}
+    \det(P)=(-1)^s
+\end{equation}
+où \( s\) est le nombre de permutations effectives effectuées. Nous précisons «effectives» parce qu'il ne faut pas compter le pas où nous n'avons pas permuter (les cas où le bon pivot était présent du premier coup). Nous avons alors
+\begin{equation}
+    \det(A)=(-1)^s\det(U).
+\end{equation}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Cholskey}
