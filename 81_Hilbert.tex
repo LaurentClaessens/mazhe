@@ -1258,7 +1258,7 @@ $\begin{matrix}
     Une forme bilinéaire \( a\colon V\times V\to \eR\) sur un espace vectoriel normé \( V\) est \defe{coercitive}{coercion} si il existe \( \alpha>0\) tel que \(  a(u,v)\geq \alpha\| u \|^2 \) pour tout \( u\in V\).
 \end{definition}
 
-\begin{theorem}[Lax-Milgram\cite{ooRIEKooXIQYhE}]
+\begin{theorem}[Lax-Milgram\cite{ooRIEKooXIQYhE}]       \label{THOooLLUXooHyqmVL}
     Soit un espace de Hilbert réel \( V\) muni de différentes choses.
     \begin{enumerate}
         \item
@@ -1305,7 +1305,7 @@ $\begin{matrix}
             pour tout \( v\in V\). 
 
             Le problème variationnel \( a(u,v)=L(v)\) est équivalent à \( \langle A(u), v\rangle =\langle f, v\rangle \). L'ensemble des solution de cette dernière est égal à l'ensemble des solution de l'équation
-            \begin{equation}
+            \begin{equation}        \label{EQooLPMPooMVuYUX}
                 A(u)=f.
             \end{equation}
         \item[\( A\) est linéaire]
@@ -1320,18 +1320,57 @@ $\begin{matrix}
                     \end{align}
                 \end{subequations}
                 Étant donné que nous avons égalité pour tout \( v\in V\) nous en déduisons que \( A(\alpha w+\beta z)=\alpha A(w)+\beta A(z)\), ce qui signifie que \( A \) est linéaire.
+            \item[Une autre propriété de \( A\) ]
+                Nous déduisons une majoration de \( \| A(v) \|^2\) lorsque ce n'est pas nul. Pour ce faire,
+                \begin{subequations}
+                    \begin{align}
+                        \| A(v) \|^2a&=\langle A(v), A(v)\rangle \\
+                        &=a(v,A(v))\\
+                        &\leq M\| v \|\| A(v) \|.
+                    \end{align}
+                \end{subequations}
+                En simplifiant, \( \| A(v) \|\leq M\| v \|\). Et donc
+                \begin{equation}        \label{EQooBQAHooAZRdAW}
+                    \| A(v) \|^2\leq M^2\| v \|^2.
+                \end{equation}
             \item[Une contraction]
 
-                Nous allons choisir une valeur de \( \rho\) telle que l'application
+                Nous allons choisir une valeur de \( \rho>0\) telle que l'application
                 \begin{equation}
                     T\colon w\mapsto w-\rho\big( A(w)-f \big)
                 \end{equation}
-                soit une contraction\footnote{Définition \ref{DEFooRSLCooAsWisu}.}.
-        
+                soit une contraction\footnote{Définition \ref{DEFooRSLCooAsWisu}.}. Nous avons \( T(w)-T(w')=w-w'-\rho\big( A(w-w') \big)\) et donc
+                \begin{subequations}
+                    \begin{align}
+                        \| T(w)-T(w') \|^2&=\| w-w' \|^2+\rho^2\| A(w-w') \|^2-2\rho\langle A(w-w'), w-w'\rangle \\
+                        &=\| w-w' \|^2+\rho^2\| A(w-w') \|^2-2\rho a(w-w',w-w').
+                    \end{align}
+                \end{subequations}
+                Vu que le dernier terme arrive avec un signe moins, pour majorer l'expression, il faut minorer ce terme, c'est à dire utiliser \( a(w-w',w-w")\geq \alpha\| w-w-w' \|\). Et en même temps nous utilisons \eqref{EQooBQAHooAZRdAW} pour le second terme. Au final pour pouvons factoriser \( \| w-w' \|\) et 
+                \begin{equation}
+                    \| T(w)-T(w') \|\leq \| w-w' \|\big( 1+\rho^2M^2-2\rho\alpha \big).
+                \end{equation}
+                Pout que \( T\) soit contractante, il faut \( 0<P(x)<1\) avec \( P(x)=M^2x^2-2\alpha x+1\). Le minimum de ce polynôme est obtenu en \( x=\frac{ \alpha }{ M^2 }\) (la formule du \( x_{min}=-b/2a\)) et vaut \( 1-\frac{ \alpha^2 }{ M^2 }<1\). Vu que par ailleurs \( \lim_{x\to \infty} P(x)=+\infty\), et que ce polynôme passe par au moins une valeur strictement inférieure à \( 1\), nous savons qu'il existe u \( x\) tel que \( 0<P(x)<1\). En donnant à \( \rho\) cette valeur, l'application \( T\) est une contraction.
 
+            \item[Point fixe et conclusion]
+                L'ensemble des solutions du problème \eqref{EQooLPMPooMVuYUX} est égal à l'ensemble des points fixes de \( T(v)=v-\rho\big( A(v)-f \big)\).
+
+                L'application \( T\colon V\to V\) est contractante et \( V\) est métrique et complet. Ergo le théorème de point fixe de Picard \ref{ThoEPVkCL} s'applique et il existe un unique point fixe \( u\in V\) pour l'application \( T\). Ce point fixe est l'unique solution de notre problème initial.
+
+            \item[La majoration]
+
+                Nous savons que pour tout \( v\in V\), la relation \( a(u,v)=L(v)\) est vérifiée. En particulier pour \( v=u\) nous avons
+                \begin{equation}
+                    a(u,u)=L(u).
+                \end{equation}
+                D'un côté nous utilisons \( a(u,u)\geq \alpha\| u \|^2\) et de l'autre, \( L(u)\leq C\| u \|\) :
+                \begin{equation}
+                    \alpha\| u \|^2\leq C\| u \|
+                \end{equation}
+                et donc
+                \begin{equation}
+                    \| u \|\leq \frac{ C }{ \alpha }.
+                \end{equation}
+                Notons que \( L(u)\) et \( a(u,u)\) sont positifs.
     \end{subproof}
-    <++>
-
 \end{proof}
-<++>
-
