@@ -910,6 +910,8 @@ En général, les méthodes itératives ne convergent pas toujours. Mais lorsqu'
 \subsection{Méthode de Gauss sans pivot}
 %---------------------------------------------------------------------------------------------------------------------------
 
+La méthode de Gauss est encore utilisée aujourd'hui dans les vrais problèmes.
+
 La méthode de Gauss est souvent aussi appelée méthode «LU» qui va décomposer \( A=LU\) où \( L\) est triangulaire inférieure et \( U\) est triangulaire supérieure. La décomposition est même plus précise que cela : on demande que \( L\) ait seulement des \( 1\) sur la diagonale.
 
 \begin{lemma}
@@ -1116,8 +1118,101 @@ où \( s\) est le nombre de permutations effectives effectuées. Nous précisons
 \end{equation}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Cholskey}
+\subsection{Plusieurs termes indépendants}
 %---------------------------------------------------------------------------------------------------------------------------
 
-\( A=LL^t\).
+Mettons un système \( Ax=b\) qu'il faut résoudre pour plusieurs \( b\) différents. C'est typiquement le cas où l'on voudrait calculer l'inverse de \( A\). Mais on va directement se calmer. Soient donc à résoudre \( Ax_1=b_1\), \ldots, \( Ax_n=b_n\).
 
+Les opérations (avec ou sans pivot) que nous faisons ne dépendent que de la matrice \( A\), mais aucune décisions concernant les pivots ou la matrice des multiplicateurs ne dépend de \( b\). Autre façon de dire : si le système \(  (A|b_1)  \) devient \( (U|y_1)\), le système \( (A|b_i)\) devient \( (U|y_i)\) avec le même \( U\).
+
+Nous ne sommes donc pas obligés de faire tout le travail autant de fois qu'il n'y a de systèmes à résoudre. Donc si on a plusieurs systèmes à résoudre avec la même matrice, on fait mieux de retenir une fois pour toute la décomposition \( LU\) (avec ou sans pivots), avant de vraiment résoudre.
+
+Ou alors on peut aussi faire que, au lieu de faire \( (A|b_i)\) plein de fois, faire une seule fois
+\begin{equation}
+    (A|b_1\ldots b_n).
+\end{equation}
+Et on fait tout le travail sur tous les vecteurs d'un en même temps.
+
+Soit \( {e_i}\) la base canonique. Si nous notons \( x_n\) les solutions des problèmes \( Ax_i=e_i\), tous les problèmes \( Ax_i=e_i\) s'écrivent d'un seul coup 
+\begin{equation}
+    AX=Y
+\end{equation}
+où \( X\) est la matrice des \( x_i\) en colonnes, et \( Y\) est celle des \( e_i\) en colonnes. Oh, mais \( Y=\mtu\) évidemment. Donc
+\begin{equation}
+    AX=\mtu.
+\end{equation}
+Si nous supposons que \( A\) est inversible, alors ce \( X\) est l'inverse.
+
+Donc pour calculer l'inverse d'une matrice de dimension non trop grande, il suffit d'utiliser la méthode de Gauss sur les vecteurs de la base canonique. Cette idée est la base du calcul de l'inverse par matrice companion. En effet, si nous partons du problème
+\begin{equation}
+    (A|\mtu)
+\end{equation}
+et nous appliquons la méthode de Gauss avec pivot, nous arrivons à
+\begin{equation}
+    (U|L^{-1} P).
+\end{equation}
+Attention : le produit \( L^{-1}P\) est une permutation des \emph{colonnes} de \( L^{-1}\). Vu que \( L\) est triangulaire inférieure avec des \( 1\) sur la diagonale, \( L^{-1}\) est triangulaire inférieure avec des \( 1\) sur la diagonale. Donc si la matrice n'est pas trop grande, on peut assez facilement remettre les colonnes de \( L^{-1}P\) dans l'ordre pour recomposer une matrice triangulaire inférieure avec \( 1\) sur la diagonale.
+
+Une autre façon de calculer l'inverse, si \( A=LU\) est connue, il suffit de faire 
+\begin{equation}
+    A^{-1}=U^{-1}L^{-1}.
+\end{equation}
+Et il existe un algorithme facile pour l'inverse d'une matrice triangulaire.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Cholesky}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Le commandant Cholesky travaillait sur le tir de canon (chose éminemment liée à de nombreuses mathématiques ingénieuses). La méthode de Cholesky est encore utilisée aujourd'hui dans les vrais problèmes.
+
+La méthode de Gauss s'applique sans hypothèses sur la matrice \( A\), à part qu'elle doit être de petite dimension, comme pour toute méthode directe. Souvent nous savons des choses sur la matrice. Ici nous allons supposer que \( A\) soit symétrique et définie positive\footnote{Nous allons surtout utiliser le fait que \( x^tAx\geq 0\).} :
+\begin{equation}
+    A^t=A.
+\end{equation}
+La vérification de cela coûte au maximum \( n^2\) comparaisons. Nous allons chercher la décomposition \( LU\) sous la forme \( A=LL^t\), c'est à dire \( U=L^t\). Attention : maintenant nous n'avons plus des \( 1\) sur la diagonale.
+
+Le fait que \( A\) soit définie positive est facile à vérifier pour utiliser Cholesky parce que il suffit de le faire, et si il n'y a pas de nombres complexes qui arrivent, c'est que la matrice est définie positive.
+
+\begin{lemma}
+    Une matrice symétrique possédant un élément négatif sur la diagonale n'est pas définie positive.
+\end{lemma}
+Ce lemme est un moyen déjà de faire quelque vérifications. Et si les éléments diagonaux de \( A\) sont tous négatifs, on peut prendre \( -A\).
+
+Prenons la matrice
+\begin{equation}
+    A=\begin{pmatrix}
+        4    &   2    &   -2    \\
+        2    &   10    &   -7    \\
+        -2    &   -7    &   9
+    \end{pmatrix}
+\end{equation}
+Elle est symétrique et définie positive. Nous posons
+\begin{subequations}        \label{EQooFMWUooFdTgiF}
+    \begin{numcases}{}
+    l_{11}=\sqrt{ a_{11} }
+    l_{i1}=a_{i1}/l_{11}
+    \end{numcases}
+\end{subequations}
+pour \( i=2,\ldots, n\). Et aussi
+\begin{subequations}        \label{EQooJTVGooEkynpH}
+    \begin{numcases}{}
+        l_{jj}=(a_{jj}-\sum_{k=1}^{j-1}l_{jk}^2)^{1/2}
+        l_{ij}=(a_{ij}-\sum_{k=1}^{j-1}l_{ik}l_{jk})/a_{jj}
+    \end{numcases}
+\end{subequations}
+pour \( i=j+1,\ldots, n\).
+
+Les formules \eqref{EQooFMWUooFdTgiF} nous disent comment remplir la première colonne. Cela donne la matrice
+\begin{equation}
+    L=\begin{pmatrix}
+        \sqrt{ 4 }=2    &  .     &  .     \\
+        2/2=1    &    .   &  .     \\
+        -2/2=-1    &   .    &   .
+    \end{pmatrix}
+\end{equation}
+Les formules \eqref{EQooJTVGooEkynpH} donnent les autres colonnes en fonction des précédentes.
+
+
+Dans Sage :
+
+\lstinputlisting{sageSnip005.sage}
