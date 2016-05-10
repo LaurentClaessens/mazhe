@@ -13,9 +13,9 @@ Ici nous utilisons la convention de la transformée de Fourier de \wikipedia{fr}
 \end{subequations}
 Nous allons par ailleurs utiliser indifféremment les notations \( \TF(f)\) ou \( \hat f\) pour la transformée de Fourier de \( f\). La notation \( \TF\) est pratique pour les transformées de loooooongues expressions ainsi que pour parler de l'application «transformée de Fourier» d'un espace de fonction vers un autre.
 
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Transformée de Fourier dans \( L^1(\eR^d)\)}
-%---------------------------------------------------------------------------------------------------------------------------
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Transformée de Fourier dans \( L^1(\eR^d)\)}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \begin{definition}      \label{DEFooJAIUooFbaRkR}
     Si \( f\in L^1(\eR^d)\) alors nous définissons sa \defe{transformée de Fourier}{transformée!de Fourier} est la fonction donnée par
@@ -543,13 +543,76 @@ Si \( \alpha\) est un multiindice de taille \( m\), nous notons
     En reformant le produit \eqref{EQooXRLIooRCfIOd} nous concluons.
 \end{proof}
 
-\begin{theorem}
-    Nous avons la formule d'inversion
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Suite régularisante}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Une \defe{suite régularisante}{suite!régularisante} est une suite \( (\rho_n)\) dans \( L^1(\eR^d)\) telle que
+    \begin{enumerate}
+        \item       \label{ITEMooEYXYooAkKeXX}
+            pour tout \( n\), \( \rho_n\geq 0\) et \( \int_{\eR^d}\rho_n=1\);
+        \item
+            pour tout \( \alpha>0\),
+            \begin{equation}
+                \lim_{n\to \infty} \int_{| t |>\alpha}\rho_n=0.
+            \end{equation}
+    \end{enumerate}
+\end{definition}
+Une telle suite est régularisante parce que souvent \( \rho_n\in\swD(\eR^d)\), ce qui donne \( f*\rho_n\in C^{\infty}\) par le corollaire \ref{CORooBSPNooFwYQrc}.
+
+\begin{proposition}[\cite{ooYTNMooJsvznx,ooINHXooZWALhj}]       \label{PROPooYUVUooMiOktf}
+    Soit une suite régularisante \( \rho_n\in L^1(\eR^d)\). Alors :
+    \begin{enumerate}
+        \item       \label{ITEMooLWMIooFFamdf}
+            Si \( f\) est continue à support compact, nous avons la convergence uniforme sur \( \eR^d\) :
+            \begin{equation}
+                f*\rho_n\stackrel{unif}{\longrightarrow} f.
+            \end{equation}
+        \item       \label{ITEMooEJKKooChcgyM}
+            Si \( g\in L^p\) (\( 1\leq p<\infty\)) alors 
+            \begin{equation}
+                g*\rho_n\stackrel{L^p}{\longrightarrow}g.
+            \end{equation}
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Si \( f\) est continue à support compact, elle est uniformément continue\footnote{Théorème de Heine \ref{ThoHeineContinueCompact}.}, et elle est bornée. Soit \( \epsilon>0\) et \( \alpha>0\) tel que pour tout \( x,y\) tels que \( \| x-y \|<\alpha\) nous ayons \( | f(x)-f(y) |<\epsilon\). Nous prenons de plus \(n\) suffisamment grand pour avoir \( \int_{B(0,\alpha)^c}\rho_n<\epsilon\). Nous avons alors
+    \begin{subequations}
+        \begin{align}
+            | f(x)-(f*\rho_n)(x) |&=| \int_{\eR^d}\big( f(x)-f(y) \big)\rho_n(x-y)dy |\\
+            &\leq \int_{B(x,\alpha)}\underbrace{| f(x)-f(y) |}_{\leq \epsilon}\rho_n(x-y)dy+\int_{B(x,\alpha)^c}\underbrace{| f(x)-f(y) |}_{\leq 2\| f \|_{\infty}}\rho_n(x-y)dy\\
+            &\leq \epsilon(1+2\| f \|_{\infty}).
+        \end{align}
+    \end{subequations}
+    Nous avons prouvé que pour tout \( \epsilon>0\), il existe \( N\) tel que \( n>N\) implique \( \big| f(x)-(f*\rho_n)(x) \big|\leq \epsilon\). Cela prouve l'uniforme convergence sur \( \eR^d\) de \( f*\rho_n\) vers \( f\).
+
+    Pour le point \ref{ITEMooEJKKooChcgyM} nous considérons \( g\in L^1(\eR^d)\) et \( \phi\in \swD(\eR^d)\). Nous avons la majoration
     \begin{equation}
-        f(x)=\frac{1}{ (2\pi)^n }\int_{\eR^n}\hat f(\xi) e^{ix\cdot \xi}d\xi.
+        \| g*\rho_n-g \|_p\leq \| g*\rho_n-\phi*\rho_n \|_p+\| \phi*\rho_n-\phi \|_p+\| \phi-g \|_p
     \end{equation}
-\end{theorem}
-%TODO : à préciser
+    En ce qui concerne le premier terme;
+    \begin{equation}
+        \| (g-\phi)*\rho_n \|_p\leq \| g-\phi \|_p
+    \end{equation}
+    par la proposition \ref{PROPooDMMCooPTuQuS}. Donc
+    \begin{equation}
+        \| g*\rho_n-g \|_p\leq 2\| g-\phi \|_p+\| \phi*\rho_n-\phi \|_p.
+    \end{equation}
+    Par la densité de \( \swD\) dans \( L^p\) (théorème \ref{ThoILGYXhX}\ref{ItemYVFVrOIv}) nous pouvons considérer une suite \( \phi_i\stackrel{L^p}{\longrightarrow}g\) dans \( \swD(\eR^d)\). Pour tout \( i\) nous avons
+    \begin{equation}
+        \| g*\rho_n-g \|_p\leq 2\| g-\phi_i \|_p+\| \phi_i*\rho_n-\phi \|_p.
+    \end{equation}
+    Nous effectuons la limite sur \( n\to \infty\) :
+    \begin{equation}
+        \lim_{n\to \infty} \| g*\rho_n-g \|_p\leq 2\| g-\phi_i \|+\underbrace{\lim_{n\to \infty} \| \phi_i*\rho_n-\phi_i \|_p}_{=0}
+    \end{equation}
+    parce que le point \ref{ITEMooLWMIooFFamdf} s'applique à \( \phi_i\). Nous effectuons ensuite la limite sur \( i\to \infty\) dans
+    \begin{equation}
+        \lim_{n\to \infty} \| g*\rho_n-g \|\leq 2\| g-\phi_i \|\to 0.
+    \end{equation}
+\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Transformée de Fourier sur \( L^2(\eR^d)\)}
