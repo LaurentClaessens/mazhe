@@ -827,7 +827,7 @@ Cela donne une vérification possible de la réponse trouvée.
 \end{definition}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Système linéaires}
+\section{Système linéaires (méthodes directes)}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Soit un système d'équations linéaires \( Ax=b\) avec \( A\in \eM(n,\eR)\). Le problème est évidemment de savoir si il existe une unique solution \( x\) et de la déterminer. Nous supposons l'existence et l'unicité. C'est à dire que les conditions équivalentes\footnote{L'équivalence est la proposition \ref{PropYQNMooZjlYlA}\ref{ITEMooNZNLooODdXeH}.} sont vérifiées :
@@ -1216,3 +1216,108 @@ Les formules \eqref{EQooJTVGooEkynpH} donnent les autres colonnes en fonction de
 Dans Sage :
 
 \lstinputlisting{sageSnip005.sage}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Système linéaire (méthodes itératives)}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous trouvons des méthodes itératives lorsque les matrices sont grandes, ce qui arrive lorsque l'on discrétise une équation différentielle.
+
+Nous allons chercher des méthodes de la forme \( x_{n+1}=Bx_n+q\); ce sont des méthodes stationnaires. La convergence d'une méthode est toujours liée à la matrice \( B\) et en général, la convergence ne dépend pas du choix du vecteur initial. Nous faisons donc souvent \( x_0=0\) et donc \( x_1=q\). Voila donc une itération de faire gratuitement.
+
+Nous notons \( e_k\) le \defe{vecteur d'erreur}{erreur} qui est définit par \( e_k=x-x_k\). Et le \defe{vecteur résidu}{résidu!méthode itérative} \( r_k=b-Ax_k\). Attention : ici \( k\) n'est pas un indice mais un numéro de vecteur.
+
+Notons que si \( x\) est solution, alors \( b-Ax=0\), ce qui motive le vecteur résidu.
+
+Les conditions d'arrêt d'un algorithme seraient
+\begin{subequations}
+    \begin{numcases}{}
+        \| e_k \|_{\infty}\ll \epsilon_1\\
+        \| r_k \|_{\infty}<\epsilon_2
+    \end{numcases}
+\end{subequations}
+où \( \epsilon_1\) et \( \epsilon_2\) sont des précisions décidées à l'avance par l'utilisateur.
+
+\begin{proposition}
+    Si \( A\) est une matrice inversible, alors
+    \begin{equation}
+        \lim_{k\to \infty} e_k=\lim_{k\to \infty} r_k=0.
+    \end{equation}
+\end{proposition}
+
+Vu que \( r_k=Ae_k\), si la matrice \( A\) est mal conditionnée, il peut arriver que \( r_k\) reste grand alors que \( e_k\) est déjà petit.
+
+\begin{remark}
+    Dans les méthode stationnaires, nous avons \( x_{n+1}=Bx_n+q\) avec \( B\) et \( q\) fixés au départ de l'algorithme. Il existe des méthodes non stationnaires pour lesquelles l'itération prend la forme \( x_{n+1}=B_nx_n+q_n\) avec \( B_n\) et \( q_n\) qui changement avec les étapes.
+\end{remark}
+
+\begin{proposition}
+    Pour la méthode \( x_{n+1}=Bx_n+q\) nous avons équivalence de
+    \begin{enumerate}
+        \item
+            La méthode converge pour tout \( x_0\)
+        \item
+            \( B\) est une matrice convergente\footnote{C'est à dire \( \lim_{k\to \infty} B^k=0\).}
+        \item
+            \( \rho(B)<1\) (rayon spectral).
+    \end{enumerate}
+    De plus si \( \| B \|<1\) alors la méthode converge (quelle que soit la norme algébrique). 
+\end{proposition}
+
+La norme d'une matrice (en tout cas, certaines normes) est quelque chose de facile à calculer à l'ordinateur. Typiquement \( \| . \|_{\infty}\) est un simple maximum. Cependant si après avoir calculer \( \| B \|_i\) pour des dizaines de normes \( i\) différentes, nous avons toujours \( \| B\|_i\geq 1\), alors nous ne pouvons rien conclure.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{La méthode générale}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous décomposons la matrice \( A\) sous la forme \( A=M-N\) avec \( M\) inversible. Le système \( Ax=b\) devient
+\begin{equation}
+    Mx-Nx=b
+\end{equation}
+puis \( Mx=Nx+b\) et finalement 
+\begin{equation}
+    x=M^{-1}Nx+M^{-1}b,
+\end{equation}
+et voila une méthode stationnaire avec \( B=M^{-1}N\) et \( q=M^{-1}b\).
+
+Mais ici nous voyons que \( M\) doit être non seulement inversible, mais en plus doit être facilement calculable. En sachant que nous travaillons avec des grandes matrices, il n'est pas question d'inverser \( M\) avec une méthode de Gauss.
+
+En bref, il faut choisir \( M\) triangulaire parce que c'est en gros la seule que nous pouvons inverser facilement\footnote{Les matrices orthogonales sont aussi facilement inversibles, mais ne se prêtent pas bien à une décomposition de type somme.}.
+
+\begin{remark}
+    La matrice \( B\) ne doit pas spécialement être inversible. Si elle ne l'est pas, ce n'est pas un problème.
+\end{remark}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Jacobi}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous décomposons  
+\begin{equation}        \label{EQooOCJYooCqsfQM}
+    A=D-E-F
+\end{equation}
+où \( D\) est la diagonale de \( A\), \( -F\) est la partie triangulaire supérieure (sans la diagonale) et \( -E\) la triangulaire inférieure (sans la diagonale). Donc \( D\), \( E\) et \( F\) sont simplement des extraction de parties de la matrice \( A\) (et quelque changements de signes).
+
+La méthode de Jacobi prend \( M=D\) et \( N=(E+F)\). L'inverse de \( M\) est facile à calculer parce que \( M\) est diagonale. Nous notons \( B_J\) la matrice \( B\) de la méthode de Jacobi.
+
+\begin{remark}
+    Il se peut que la matrice \( A\) ait des zéros sur la diagonale, même si elle est inversible. Et cela est un problème parce qu'alors la matrice \( D\) ici construite n'est pas inversible. Dans ce cas, avant de nous lancer dans la méthode de Jacobi, il faut permuter deux lignes de \( A\) et donc de \( b\).
+
+    Attention cependant que l'on pourrait vouloir effectuer ces permutations en mettant sur la diagonale des nombres les plus grands possibles (parce qu'ensuite, ce qui rentre dans les calculs, c'est \( D^{-1}\) qui aura alors des petits nombres). Mais il faut toutefois faire en sorte que le rayon spectral de la matrice \(B \) résultante reste plus petit que \( 1\).
+
+    Chaque changement dans \( A\) induit des changements dans \( B\) et donc sur la convergence de la méthode.
+\end{remark}
+
+:w
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Gauss-Seidel}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous partons de la même décomposition \( A=D-E-F\) que dans \eqref{EQooOCJYooCqsfQM}. La méthode de Gauss-Seidel prend \( M=(D-E)\) et \( N=F\).
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Autres}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Voir la méthode des gradients, et des gradients conjugués.
+
