@@ -1110,7 +1110,15 @@ la matrice tronquée dont nous ne gardons que le carré \( k\times k\) en haut �
     \end{equation}
     est triangulaire supérieure. 
 
-    Nous posons alors \(   L=(E_{n-1}\ldots E_n)^{-1}  \) et \( U=A_{n-1}\).
+    Nous posons alors \(   L=(E_{n-1}\ldots E_n)^{-1}  \) et \( U=A_{n-1}\). Cela prouve l'existence parce que
+    \begin{equation}
+        A=(E_{n-1}\ldots E_1)^{-1}A_{n_1}.
+    \end{equation}
+    Encore une fois, le lemme \ref{LEMooXEJFooGiYoyb} nous donne
+    \begin{equation}
+        \Delta_k(A)=\Delta_k\Big( (E_{n_1}\ldots E_1)^{-1} \Big)\Delta_k(A_{n-1}),
+    \end{equation}
+    ou encore \( \Delta_k(A)=\Delta_k(L)\Delta_k(U)\).
     
     En ce qui concerne l'unicité, si \( A=L_1U_1=L_2U_2\) alors \( L_2^{-1}L_1=U_2U_1^{-1} \). Vu qu'à gauche nous avons une matrice triangulaire inférieure et que à droite nous avons une triangulaire inférieure, nous savons que les deux membres représentent une matrice diagonale. Mais à gauche, la diagonale est unitaire. Donc les deux membres représentent la matrice unité.
 \end{proof}
@@ -1127,59 +1135,83 @@ la matrice tronquée dont nous ne gardons que le carré \( k\times k\) en haut �
     Si par contre nous ne connaissons pas à l'avance l'ensemble des vecteurs \( b\) avec lesquels il faudra résoudre le système, il est bon de calculer la décomposition \( A=LU \) in extenso, c'est à dire de garder une trace des matrices \( L\) et \( U\) séparément. Dans ce cas, résoudre \( Ax=b\) revient à résoudre \( Ly=b\), et ensuite \( Ux=y\). Ce sont deux systèmes de résolution directe parce que les matrices sont triangulaires.
 \end{normaltext}
 
+\begin{normaltext}
+    Le fait que
+    \begin{equation}
+        \Delta_k(A)=\Delta_k(L)\Delta_k(U)
+    \end{equation}
+    nous dit que si après avoir calculer \( L\) et \( U \) nous remarquons que le système est un peu plus petit ou un peu plus grand que prévu, tout le travail n'est pas perdu. En particulier si le système est plus petit que prévu, l'adaptation de \( L\) et \( U\) est immédiate.
+\end{normaltext}
 
 Notons que \( U\) et \( L\) sont inversibles, et que \( \det(L)=1\). Donc \( \det(U)=\det(A)\). 
 
-Pour travailler la méthode de Gauss pour le système \( Ax=b\), nous introduisons la matrice un peu augmentée \( (A|b)\). Nous faisons un exemple.
+\begin{example}
+    Pour travailler la méthode de Gauss pour le système \( Ax=b\), nous introduisons la matrice un peu augmentée \( (A|b)\). Nous faisons un exemple. Soit à résoudre
+    \begin{equation}
+        \begin{pmatrix}
+             2   &   1    &   3       \\
+             4   &   3    &   10     \\ 
+             -2   &   1    &   7  3
+         \end{pmatrix}
+         \begin{pmatrix}
+             x   \\ 
+             y   \\ 
+             z   
+         \end{pmatrix}=\begin{pmatrix}
+             11   \\ 
+             28   \\ 
+             3   
+         \end{pmatrix}.
+    \end{equation}
+    Nous introduisons la matrice augmentée
+    \begin{equation}
+        (A|b)^{(0)}=\begin{pmatrix}
+             2   &   1    &   3    &   11    \\
+             4   &   3    &   10    &   28    \\ 
+             -2   &   1    &   7    &   3
+         \end{pmatrix}.
+    \end{equation}
+    Le premier pas consiste à annuler tous les éléments sous la diagonale de la première colonne. Autrement dit, nous prenons le \( 2\) comme pivot. Nous introduisons les multiplicateurs \( l_{ij}= \frac{ A_{ij} }{ A_{i1} }\). La nouvelle matrice est :
+    \begin{equation}
+        (A|b)^{(1)}=\begin{pmatrix}
+             2   &   1    &   3    &   11    \\
+             0   &   1    &   4    &   6    \\ 
+             0   &   2    &   10    &   14
+         \end{pmatrix}
+    \end{equation}
+    où nous avons utilisé les multiplicateurs \( l_{21}=2\), \( l_{31}=-1\).
 
-\begin{equation}
-    (A|b)^{(0)}=\begin{pmatrix}
-         2   &   1    &   3    &   11    \\
-         4   &   3    &   10    &   28    \\ 
-         -2   &   1    &   7    &   3
-     \end{pmatrix}.
-\end{equation}
-Le premier pas consiste à annuler tous les éléments sous la diagonale de la première colonne. Autrement dit, nous prenons le \( 2\) comme pivot. Nous introduisons les multiplicateurs \( l_{ij}= \frac{ A_{ij} }{ A_{i1} }\). La nouvelle matrice est :
-\begin{equation}
-    (A|b)^{(1)}=\begin{pmatrix}
-         2   &   1    &   3    &   11    \\
-         0   &   1    &   4    &   6    \\ 
-         0   &   2    &   10    &   14
-     \end{pmatrix}
-\end{equation}
-où nous avons utilisé les multiplicateurs \( l_{21}=2\), \( l_{31}=-1\).
+    Et la matrice suivante est :
+    \begin{equation}
+        (A|b)^{(2)}=\begin{pmatrix}
+             2   &   1    &   3    &   11    \\
+             0   &   1    &   4    &   6    \\ 
+             0   &   0    &   2    &   2
+         \end{pmatrix}
+    \end{equation}
+    où nous avons utilisé le multiplicateur \( l_{32}=2\).
 
-Et la matrice suivante est :
-\begin{equation}
-    (A|b)^{(2)}=\begin{pmatrix}
-         2   &   1    &   3    &   11    \\
-         0   &   1    &   4    &   6    \\ 
-         0   &   0    &   2    &   2
-     \end{pmatrix}
-\end{equation}
-où nous avons utilisé le multiplicateur \( l_{32}=2\).
+    Cela est un système de résolution immédiate :
+        \begin{subequations}
+            \begin{numcases}{}
+                2x+y+3z=11\\
+                y+4z=6\\
+                2z=2.
+            \end{numcases}
+        \end{subequations}
+    La troisième donne \( z=1\). Ensuite \( y+4=6\), donc \( y=2\). Et la première donne : \( 2x+2+3=11\), c'est à dire \( 2x=6\), enfin : \( x=3\).
 
+    Solution : \( (x,y,z)=(3,2,1)\).
 
-Cela est un système de résolution immédiate :
-    \begin{subequations}
-        \begin{numcases}{}
-            2x+y+3z=11\\
-            y+4z=6\\
-            2z=2.
-        \end{numcases}
-    \end{subequations}
-La troisième donne \( z=1\). Ensuite \( y+4=6\), donc \( y=2\). Et la première donne : \( 2x+2+3=11\), c'est à dire \( 2x=6\), enfin : \( x=3\).
-
-Solution : \( (x,y,z)=(3,2,1)\).
-
-Nous notons surtout que dans \( (A|b)^{(2)}\) nous avons une matrice triangulaire supérieure. Où est la matrice triangulaire inférieure ? En réalité la matrice \( L\) est la matrice des multiplicateurs :
-\begin{equation}
-    L=\begin{pmatrix}
-        1    &   0    &   0    \\
-        2    &   1    &   0    \\
-        -1    &   2    &   1
-    \end{pmatrix}.
-\end{equation}
+    Nous notons surtout que dans \( (A|b)^{(2)}\) nous avons une matrice triangulaire supérieure. Où est la matrice triangulaire inférieure ? En réalité la matrice \( L\) est la matrice des multiplicateurs :
+    \begin{equation}
+        L=\begin{pmatrix}
+            1    &   0    &   0    \\
+            2    &   1    &   0    \\
+            -1    &   2    &   1
+        \end{pmatrix}.
+    \end{equation}
+\end{example}
 
 Le problème de cette méthode est que faisant ainsi nous risquons d'avoir un zéro sur un des pivots. Par exemple tomber sur
 \begin{equation}
@@ -1199,7 +1231,63 @@ Le zéro sur la deuxième ligne nous ennuie si nous voulons tout faire dans l'or
 \end{equation}
 fonctionne très bien. Et même tellement bien qu'il est de résolution immédiate, dans ce cas.
 
-Un autre problème est que si un des pivots est \( 10^{-14}\), le multiplicateur sera de l'ordre \( 10^{14}\), qui est mal représenté en mémoire. Entre autres parce que si \( a=4.2345322124510789\), en faisant \( a/10^{14}\), nous perdons certaines décimales.
+Un autre problème est que si un des pivots est \( 10^{-14}\), le multiplicateur sera de l'ordre \( 10^{14}\), qui est mal représenté en mémoire. Il est donc bon de prendre les pivots le plus grand possible. Si le pivot est le plus grand nombre en valeur absolue d'une colonne, alors les nombres \( x_{k+i}/x_k\) qui entrent dans la matrice de transformation gaussienne sont des nombres dans \( \mathopen[ -1 , 1 \mathclose]\) qui sont bien représentés en mémoire.
+
+Tout cela nous incite à développer une méthode de Gauss qui permet de tenir une trace des permutations.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Matrice de permutation élémentaires}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Une \defe{matrice de permutation élémentaire}{matrice!permutation!élémentaire} est une matrice obtenue en permutant deux lignes de la matrice identité. Nous notons \( P_{ij}\) la matrice obtenue en inversant les lignes \( i\) et \( j\) de la matrice identité.
+\end{definition}
+
+\begin{example}
+    \begin{equation}
+        \begin{pmatrix}
+            1    &   0    &   0    \\
+            0    &   1    &   0    \\
+            0    &   0    &   1
+        \end{pmatrix}\to
+        \begin{pmatrix}
+            0    &   1    &   0    \\
+            1    &   0    &   0    \\
+            0    &   0    &   1
+        \end{pmatrix}=P_{12}.
+    \end{equation}
+\end{example}
+
+\begin{lemma}
+    La matrice \( P_{ij}A\) est la matrice \( A\) avec ses lignes \( i\) et \( j\) inversées.
+\end{lemma}
+
+\begin{proof}
+    Il suffit d'écrire
+    \begin{equation}
+        (P_{ij}A)_{kl}=\sum_m(P_{ij})_{km}A_{ml}
+    \end{equation}
+    et de faire trois cas selon que \( k=i\), \( k=j\) ou \( k\) différent de \( i\) et \( j\). Si \( k=i\) alors \( (P_{ij})_{im}=\delta_{mj}\) et si \( k\) est différent de \( i\) et \( j\) alors \( (P_{ij})_{mk}=\delta_{km}\) (troisième cas similaire au premier).
+\end{proof}
+
+Et la matrice \( AP_{12}\) est la \( A\) avec ses deux premières \emph{colonnes} échangées.
+
+Avec ces notations, notre matrice \( (A|b)^{0'}\) est 
+\begin{equation}
+    P_{12}(A|b)^{(0)}.
+\end{equation}
+Puis la matrice \( (A|b)^{(1')}\) est
+\begin{equation}
+    P_{23}(A|b)^{(1)}.
+\end{equation}
+Et la matrice \( P\) qui arrive dans \( PA=LU\) est la matrice \(P= P_{23}P_{21}\), qui est une matrice de permutation non élémentaire. Elle vaut :
+\begin{equation}
+    P=\begin{pmatrix}
+        0    &   1    &   0    \\
+        0    &   0    &   1    \\
+        1    &   0    &   0
+    \end{pmatrix}.
+\end{equation}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Méthode de Gauss avec pivot}
@@ -1272,43 +1360,8 @@ Notons que ces \( L\) et \( U\) ne sont pas les mêmes que le \( L U\) obtenu sa
 \end{equation}
 où \( P\) est une matrice de permutation. Pour élucider ce point, il nous faut introduire les matrices de permutation élémentaires, ce qui sera encore un bon moment pour l'agrégation.
 
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Matrice de permutation élémentaires}
-%---------------------------------------------------------------------------------------------------------------------------
-
-La matrice obtenue à partir de la matrice identité en échangeant deux lignes est une matrice de permutation élémentaire. Par exemple
-\begin{equation}
-    \begin{pmatrix}
-        1    &   0    &   0    \\
-        0    &   1    &   0    \\
-        0    &   0    &   1
-    \end{pmatrix}\to
-    \begin{pmatrix}
-        0    &   1    &   0    \\
-        1    &   0    &   0    \\
-        0    &   0    &   1
-    \end{pmatrix}=P_{12}.
-\end{equation}
-Le point est que la matrice \( P_{12}A\) est la matrice \( A\) avec ses deux premières lignes inversées.
-
-Et la matrice \( AP_{12}\) est la \( A\) avec ses deux premières \emph{colonnes} échangées.
-
-Avec ces notations, notre matrice \( (A|b)^{0'}\) est 
-\begin{equation}
-    P_{12}(A|b)^{(0)}.
-\end{equation}
-Puis la matrice \( (A|b)^{(1')}\) est
-\begin{equation}
-    P_{23}(A|b)^{(1)}.
-\end{equation}
-Et la matrice \( P\) qui arrive dans \( PA=LU\) est la matrice \(P= P_{23}P_{21}\), qui est une matrice de permutation non élémentaire. Elle vaut :
-\begin{equation}
-    P=\begin{pmatrix}
-        0    &   1    &   0    \\
-        0    &   0    &   1    \\
-        1    &   0    &   0
-    \end{pmatrix}.
-\end{equation}
+Notons que Sage fait la méthode de Gauss avec pivots :
+\lstinputlisting{sageSnip006.sage}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Déterminant}
@@ -1397,8 +1450,7 @@ Un lemme très simple à mettre en oeuvre numériquement nous permet de traiter 
 \end{proof}
 Ce lemme est un moyen déjà de faire quelque vérifications. Et si les éléments diagonaux de \( A\) sont tous négatifs, on peut prendre \( -A\).
 
-
-\begin{lemma}
+\begin{lemma}       \label{LEMooVEIYooZbShQb}
     Si \( A\) est une matrice symétrique strictement définie positive, alors pour tout \( k\), la matrice tronquée \( \Delta_k(A)\) l'est également.    
 \end{lemma}
 
@@ -1410,17 +1462,27 @@ Ce lemme est un moyen déjà de faire quelque vérifications. Et si les élémen
         \langle \Delta_k(A)y, y\rangle =\sum_{i=1}^k\sum_{l=1}^kA_{il}y_ly_i.
     \end{equation}
     Et à droite :
-    \begin{subequations}
-        \begin{align}
-            \langle A\tau y, \tau y\rangle &=\sum_{i=1}^n(A\tau y)_i(\tau y)_i\\
-            &=\sum_{i=1}^k(A\tau y)_i y_i\\
-            &=\sum_{i=1}^k\sum_{l=1}^n A_{il}(\tau y)_ly_i\\
-            &=\sum_{i=1}^k\sum_{l=1}^k A_{il}y_ly_i
-        \end{align}
-    \end{subequations}
+    \begin{equation}
+            \langle A\tau y, \tau y\rangle =\sum_{i=1}^n(A\tau y)_i(\tau y)_i
+            =\sum_{i=1}^k(A\tau y)_i y_i
+            =\sum_{i=1}^k\sum_{l=1}^n A_{il}(\tau y)_ly_i
+            =\sum_{i=1}^k\sum_{l=1}^k A_{il}y_ly_i
+    \end{equation}
     où nous avons utilisé le fait que \( (\tau y)_i=0\) dès que \( i>k\) et que \( (\tau y)_i=y_i\) sinon.
 
     En conséquence de quoi \( \langle \Delta_k(A)y, u\rangle >0\) pour tout \( y\in \eR^k\) et la matrice \( \Delta_k(A)\) est strictement définie positive.
+\end{proof}
+
+\begin{lemma}       \label{LEMooLBQLooIYvacH}
+    Si \( T\) est une matrice triangulaire, alors \( (T_{ii})^{-1}=(T^{-1})_{ii}\).
+\end{lemma}
+
+\begin{proof}
+    Il suffit de se rendre compte que le coefficient \( ii\) de l'égalité \( \mtu=TT^{-1}\) donne
+    \begin{equation}
+        1=\sum_lT_{il}(T^{-1})li.
+    \end{equation}
+    Dans la somme il ne reste que le terme \( l=i\).
 \end{proof}
 
 Nous allons chercher une décomposition de type \( LU\) sous la forme \( A=LL^t\), c'est à dire \( U=L^t\). Attention : maintenant nous n'avons plus des \( 1\) sur la diagonale. Ce n'est donc pas exactement la décomposition \( LU\) dont nous parlions plus haut. C'est pour cela que nous n'allons pas la noter \( LL^t\) mais \( BB^t\).
@@ -1439,6 +1501,70 @@ Nous allons chercher une décomposition de type \( LU\) sous la forme \( A=LL^t\
     \begin{equation}
         D_{ii}=\sqrt{ U_{ii} }.
     \end{equation}
+    Cette définition fonctionne parce que \( U_{ii}>0\). En effet nous savons que \( \Delta_k(A)=\Delta_k(L)\Delta_k(U)\), et en passant au déterminant, 
+    \begin{equation}
+        \det\big( \Delta_k(A) \big)=\det\big( \Delta_k(U) \big).
+    \end{equation}
+    Vu que \( \Delta_k(A)\) est strictement définie positive par le lemme \ref{LEMooVEIYooZbShQb}, son determinant est strictement positif\footnote{Le théorème \ref{ThoeTMXla} donne une diagonalisation par des matrices de déterminant \( 1\). Vu que les valeurs propres forment sur la diagonale, et qu'elles sont toutes positives, el déterminant est positif.} et nous avons
+    \begin{equation}
+        \det\big( \Delta_k(U) \big)>0.
+    \end{equation}
+    En appliquant cela à \( k=1\) nous avons \( U_{11}>0\) puis de proche en proche, \( U_ii>0\) pour tout \( i\).
+
+    Nous posons :
+    \begin{subequations}
+        \begin{align}
+            B&=LD&\text{qui est triangulaire inférieure}\\
+            C&=D^{-1} U&\text{qui est triangulaire supérieure.}
+        \end{align}
+    \end{subequations}
+    Nous avons bien entendu \( A=BC\) et nous allons prouver que \( C=B^t\). Vu que \( A=A^t\) nous pouvons identifier \( BC\) et \( C^tB^t\) :
+    \begin{equation}
+        BC=C^tB^t.
+    \end{equation}
+    En mettant les matrices triangulaires supérieures à gauche et inférieures à droite :
+    \begin{equation}
+        C(B^t)^{-1}=B^{-1}C^t,
+    \end{equation}
+    qui sont donc deux matrices diagonales. Nous montrons que cette diagonale est en réalité l'identité.
+
+    D'abord
+    \begin{equation}
+        B_{ii}=\sum_{l=1}^nL_{il}D_{li}=L_{ii}\sqrt{ U_{ii} }=\sqrt{ U_{ii} }
+    \end{equation}
+    parce que \( L_{ii}=1\). Notons en passant que la diagonale de \( B\) est positive.  Ensuite 
+    \begin{equation}
+        C_{ii}=\sum_{l=1}^n(D^{-1})_{il}U_{li}=(D^{-1})_{ii}U_{ii}=\frac{1}{ \sqrt{ U_ii } }U_{ii}=\sqrt{ U_{ii} }.
+    \end{equation}
+    Donc \( B\) et $C$ ont des diagonales égales. Calculons alors la diagonale de \( B^{-1}C^t\) :
+    \begin{equation}
+        \big( B^{-1}C^t \big)_{ii}=\sum_l(B^{-1})_{il}(C^t)_{li}=(B^{-1})_{ii}C_{ii}
+    \end{equation}
+    parce que encore une fois, de la somme il ne reste que le terme \( l=i\).
+
+    Mais \( B\) est une matrice triangulaire qui tombe sous le coup du lemme \ref{LEMooLBQLooIYvacH}. Donc \( (B^{-1})_{ii}=(B_{ii})^{-1}=(C_{ii})^{-1}\). Nous avons alors
+    \begin{equation}
+        (B^{-1}C^t)_{ii}=1.
+    \end{equation}
+    Cela conclu l'existence de la décomposition de Cholesky.
+
+    En ce qui concerne l'unicité, soient \( A=BB^t=CC^t\). Nous regroupons les supérieures et les inférieures :
+    \begin{equation}        \label{EQooRRJHooJrFBLn}
+        B^t(C^t)^{-1}=B^{-1}C.
+    \end{equation}
+    Ces deux matrices sont donc diagonales et nous posons \( D=B^{-1} C\), c'est à dire \( C=BD\). Nous remplaçons donc \( C\) par \( BD\) dans \eqref{EQooRRJHooJrFBLn} :
+    \begin{equation}
+        A=BB^t=BD(BD)^t=BDD^tB^t.
+    \end{equation}
+    Donc \( DD^t=\mtu\), ce qui signifie que les éléments diagonaux de \( D\) sont \( \pm 1\). Nous montrons qu'ils sont positifs : à partir de \( C=BD\) nous déballons 
+    \begin{equation}
+        C_{ii}=\sum_lB_{il}D_{li},
+    \end{equation}
+    et donc
+    \begin{equation}
+        B_{ii}D_{ii}=C_{ii}.
+    \end{equation}
+    En sachant que les conditions de la décomposition de Cholesky demandent les éléments diagonaux positifs nous en déduisons que \( D_{ii}\) est positif et donc égal à \( 1\). Finalement \( D=\mtu\) et \( B=C\).
 \end{proof}
 
 Prenons la matrice
@@ -1459,7 +1585,7 @@ Elle est symétrique et définie positive. Nous posons
 pour \( i=2,\ldots, n\). Et aussi
 \begin{subequations}        \label{EQooJTVGooEkynpH}
     \begin{numcases}{}
-        l_{jj}=(a_{jj}-\sum_{k=1}^{j-1}l_{jk}^2)^{1/2}
+        l_{jj}=(a_{jj}-\sum_{k=1}^{j-1}l_{jk}^2)^{1/2}\\
         l_{ij}=(a_{ij}-\sum_{k=1}^{j-1}l_{ik}l_{jk})/a_{jj}
     \end{numcases}
 \end{subequations}
