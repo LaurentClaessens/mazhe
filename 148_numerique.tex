@@ -827,7 +827,7 @@ Cela donne une vérification possible de la réponse trouvée.
 \end{definition}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Système linéaires (méthodes directes)}
+\section{Système linéaires (généralités)}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Soit un système d'équations linéaires \( Ax=b\) avec \( A\in \eM(n,\eR)\). Le problème est évidemment de savoir si il existe une unique solution \( x\) et de la déterminer. Nous supposons l'existence et l'unicité. C'est à dire que les conditions équivalentes\footnote{L'équivalence est la proposition \ref{PropYQNMooZjlYlA}\ref{ITEMooNZNLooODdXeH}.} sont vérifiées :
@@ -906,6 +906,31 @@ Si la matrice est trop grande, il n'est pas possible de faire des manipulations 
 
 En général, les méthodes itératives ne convergent pas toujours. Mais lorsqu'une méthode converge, c'est une propriété de la matrice, et donc la convergence aura lieu pour tout vecteur de départ \( x_0\). Cela est très différent du cas des équations non linéaires type Newton pour lesquelles la convergence peut fortement dépendre du point de départ.
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Système linéaires (méthodes directes)}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Les matrices que nous sommes autorisés à inverser sont les matrices
+\begin{itemize}
+    \item orthogonales : l'inverse est la transposée
+    \item diagonales : l'inverse est diagonale avec les inverses sur la diagonale
+    \item triangulaires : nous en parlons maintenant.
+\end{itemize}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Inversion de matrice triangulaire}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si \( T\) est une matrice triangulaire (mettons supérieure pour fixer les idées), il est possible d'en calculer l'inverse sans trop d'efforts. Notons \( B\) la matrice inverse que nous allons construire ligne par ligne. Vu que \( BT=\mtu\) nous avons
+\begin{equation}
+    \delta_{1j}=\sum_{k=1}^nB_{1k}T_{kj}=\sum_{k=1}^jB_{1k}T_{kl}
+\end{equation}
+parce que \( T_{kj}=0\) pour \( k>j\). Donc nous pouvons calculer les éléments \( B_{1j} \) un par un parce que chacun ne dépend que des précédents. Le même procédé fonctionne pour les autres lignes :
+\begin{equation}
+    \delta_{ij}=\sum_{k=1}^jB_{ij}T_{kj}.
+\end{equation}
+Et tu notes que le calcul peut être parallélisé : le calcul de la ligne numéro \( j\) ne dépend pas du résultat des autres lignes.
+
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Transformation gaussienne}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -930,7 +955,7 @@ En général, les méthodes itératives ne convergent pas toujours. Mais lorsqu'
     à la \( k\)\ieme colonne. 
 \end{definition}
 Autrement dit, la matrice \( M_k(x)\) est la matrice 
-\begin{equation}
+\begin{equation}        \label{EQooMWXLooBDtsKS}
     M_k(x)=\begin{pmatrix}
         1    &       &       &       &       &   \\  
         0    &    \ddots    &                 &       &       &   \\
@@ -971,7 +996,7 @@ En coordonnées nous avons
     Si \( i\leq k\) nous avons \( \tau_k(x)_i=0\) et donc \(  \big( M_k(x)x \big)_i=x_i   \). Si par contre \( i\geq k+1\) alors \( \tau_k(x)_i=\frac{ x_i }{ x_k }\) et alors \( \big( M_k(x)x \big)_i=0\).
 \end{proof}
 
-\begin{lemma}
+\begin{lemma}       \label{LEMooPFWWooUmMsVH}
     Si \( y\in \eR^n\) vérifie \( y_i=0\) pour \( i>k\) alors \( M_{k+1}(x)y=y\).
 \end{lemma}
 
@@ -998,7 +1023,7 @@ Si \( A\) est une matrice nous notons
 \end{equation}
 la matrice tronquée dont nous ne gardons que le carré \( k\times k\) en haut à gauche.
 
-\begin{lemma}
+\begin{lemma}       \label{LEMooXEJFooGiYoyb}
     Soit \( S\) une matrice triangulaire inférieure. Soient également \( A\) et \( B\) telles que \( B=SA\). Alors
     \begin{equation}
         \Delta_k(B)=\Delta_k(S)\Delta_k(A).
@@ -1017,7 +1042,7 @@ la matrice tronquée dont nous ne gardons que le carré \( k\times k\) en haut �
      Même chose en ce qui concerne \( S\). À partir du moment où \( l\) est limité à \( k\), les éléments \( S_{il}\) et \( \Delta_k(S)_{il}\) sont les mêmes.
 \end{proof}
 
-\begin{theorem}[Décomposition LU\cite{ooDANFooPSmBfd}]       \label{THOooUXKJooYaPhiu}
+\begin{theorem}[Décomposition \( LU\)\cite{ooDANFooPSmBfd,MonCerveau}]       \label{THOooUXKJooYaPhiu}
     Soit une matrice \( A\) inversible telles que \( \det(\Delta_k(A))\neq 0\) pour tout \( k\). Alors il existe un unique couple de matrices \( (L,U)\) telles que
     \begin{itemize}
         \item \( U\) soit triangulaire supérieure
@@ -1031,32 +1056,77 @@ la matrice tronquée dont nous ne gardons que le carré \( k\times k\) en haut �
 \end{theorem}
 
 \begin{proof}
-    Nous allons prouver par récurrence le fait suivant : pour tout \( 2\leq k\leq n\) il existe des matrices  \( E_i\) ($i=1,\ldots, k-1$) telles que en posant
+    Nous allons prouver par récurrence le fait suivant : pour tout \( 1\leq k\leq n-1\) il existe des matrices  \( E_i\) ($i=1,\ldots, k$) telles que en posant
     \begin{equation}
-        A_k=E_{k-1}\ldots E_1A,
+        A_k=E_{k}\ldots E_1A,
     \end{equation}
     \begin{itemize}
-        \item \( E_i\) est une transformation gaussienne pour la \( i\)\ieme colonne,
-        \item \( \Delta_k(A_k)\) est une matrice triangulaire supérieure.
-        \item l'élément de matrice \( (A_k)_{kk}  \) est non nul.
+        \item \( E_j\) est une transformation gaussienne pour la \( j\)\ieme colonne,
+        \item pour tout \( j\leq k\), \( A_{ij}=0\) dès que \( i>j\). Autrement dit la matrice \( A_k\) est triangulaire supérieure jusqu'à y compris la \( (k+1)\)\ieme colonne (laquelle est quelconque). Exemple pour fixer les idées : pour une matrice \( A\in \eM(4\times 4) \), la matrice \( A_2\) doit avoir la forme
+            \begin{equation}
+                A_2=E_2E_1A=\begin{pmatrix}
+                     *   &   *    &   *    &   *    \\
+                     0   &   *    &   *    &   *    \\
+                     0   &   0    &   \oasterisk    &   *    \\ 
+                     0   &   0    &   *    &   *     
+                 \end{pmatrix}
+            \end{equation}
+            où les éléments notés \(*\) sont a priori non nuls,
+        \item l'élément de matrice \( (A_k)_{ k+1,k+1  }  \) est non nul (celui entouré dans l'exemple).
     \end{itemize}
     
-    La chose un peu dommage dans cette démonstration est que l'initialisation va être très ressemblante au pas de récurrence.
+    La chose un peu triste dans cette démonstration est que l'initialisation va être très ressemblante au pas de récurrence.
     \begin{subproof}
-        \item[Initialisation : \( k=2\)]
+        \item[Initialisation : \( k=1\)]
 
-            Vu que \( \Delta_1(A)\) est inversible, l'élément \( A_{11}\) est non nul. Il existe donc une transformation gaussienne \( E_1\) telle que la première colonne de la matrice \( A_2=E_1A\) soit nul sauf la première composante. En particulier \( \Delta_2(A_2)\) est triangulaire supérieure parce que \( (A_2)_{21}=0\).
+            Vu que \( \Delta_1(A)\) est inversible, l'élément \( A_{11}\) est non nul. Il existe donc une transformation gaussienne \( E_1\) telle que la première colonne de la matrice \( A_1=E_1A\) soit nul sauf la première composante. En particulier \( (A_1)_{21}=0\).
 
+            Par le lemme \ref{LEMooXEJFooGiYoyb}, nous avons \( \Delta_2(A_1)=\Delta_2(E_1)\Delta_2(A)\), donc\footnote{Le déterminant est multiplicatif, proposition \ref{PropYQNMooZjlYlA}\ref{ItemUPLNooYZMRJy}.}
+            \begin{equation}
+                \det\big( \Delta_2(A_1) \big)=\det\big( \Delta_2(E_1) \big)\det\big( \Delta_2(A) \big).
+            \end{equation}
+            Étant donnée la forme \eqref{EQooMWXLooBDtsKS}, toutes les matrices du type \( \Delta_k(E_i)\) ont un déterminant unité, et par hypothèse \( \Delta_2(A)\) est inversible, donc de déterminant non nul. Par conséquent \( \det\big( \Delta_2(A_1) \big)\neq 0\). Mais comme ce déterminant est le produit des éléments diagonaux (c'est une matrice triangulaire), ces derniers ne sont pas nuls. Finalement, \( (A_1)_22\neq 0\).
+
+        \item[Le pas de récurrence]
+
+            Nous supposons avoir \( A_k=E_k\ldots E_1A\) avec \( (A_k)_{k+1,k+1}\neq 0\). Alors il existe une transformation gaussienne \( E_{k+1}\) de la \( (k+1)\)\ieme colonne telle que \( A_{k+1}=E_{k+1}A_k\) soit une matrice dont la \( (k+1)\)\ieme colonne n'ait que des zéros en dessous de la \( (k+1)\)\ieme position. Vu le lemme \ref{LEMooPFWWooUmMsVH}, cette transformation n'affecte pas les colonnes précédentes. 
+
+            La matrice \( A_{k+1}\) est donc triangulaire supérieure jusqu'à la \( (k+2)\)\ieme colonne.
+
+            Vu que le produit \( E_k\ldots E_1\) est une matrice triangulaire inférieure, le lemme \ref{LEMooXEJFooGiYoyb} fonctionne encore et nous avons
+            \begin{equation}
+                \Delta_{k+1}(A_k)=\Delta_{k+1}(E_k\ldots E_1)\Delta_{k+1}(A).
+            \end{equation}
+            Au niveau des déterminants par hypothèse nous avons \( \det\big( \Delta_{k+1}(A) \big)\neq 0\) et \( \det\big( \Delta_{k+1}(E_k\ldots E_1) \big)=1\). Donc
+            \begin{equation}
+                \det\big( \Delta_{k+1}(A_k) \big)\neq 0.
+            \end{equation}
+            Cette matrice état triangulaire, ses éléments diagonaux sont non nuls et nous avons \( (A_k)_{k+1,k+1}\neq 0\).
     \end{subproof}
-    <++>
+
+    En poussant la récurrence jusqu'au bout, la matrice
+    \begin{equation}
+        A_{n-1}=E_{n-1}\ldots E_nA
+    \end{equation}
+    est triangulaire supérieure. 
+
+    Nous posons alors \(   L=(E_{n-1}\ldots E_n)^{-1}  \) et \( U=A_{n-1}\).
     
-
-
-
-
-    En ce qui concerne l'unicité, si \( A=L_1U_1=L_2U_2\) alors \( L_2^{-1}L_1=U_2U_1^{-1} \). VU qu'à gauche nous avons une matrice triangulaire inférieure et que à droite nous avons une triangulaire inférieure, nous savons que les deux membres représentent une matrice diagonale. Mais à gauche, la diagonale est unitaire. Donc les deux membres représentent la matrice unité.
+    En ce qui concerne l'unicité, si \( A=L_1U_1=L_2U_2\) alors \( L_2^{-1}L_1=U_2U_1^{-1} \). Vu qu'à gauche nous avons une matrice triangulaire inférieure et que à droite nous avons une triangulaire inférieure, nous savons que les deux membres représentent une matrice diagonale. Mais à gauche, la diagonale est unitaire. Donc les deux membres représentent la matrice unité.
 \end{proof}
-<++>
+
+\begin{normaltext}
+    En pratique, pour résoudre \( Ax=b\), il faut seulement appliquer les transformations gaussiennes à la matrice élargie \( (A|b)\) pour finir sur un système du type
+    \begin{equation}
+        Ux=b'
+    \end{equation}
+    qui est immédiatement soluble. Autrement dit, en effectuant les annulations de colonnes, la matrice \( U\) est «gratuite».
+    
+    Il n'est pas indispensable de calculer la matrice \( L\) qui, elle, demande à chaque étape de se souvenir de la matrice \( E_i\) utilisée. Si il faut résoudre plusieurs systèmes \( Ax_i=b_i\), nous pouvons encore travailler avec la matrice encore plus élargie \( (A|b_1\ldots b_m)\).
+
+    Si par contre nous ne connaissons pas à l'avance l'ensemble des vecteurs \( b\) avec lesquels il faudra résoudre le système, il est bon de calculer la décomposition \( A=LU \) in extenso, c'est à dire de garder une trace des matrices \( L\) et \( U\) séparément. Dans ce cas, résoudre \( Ax=b\) revient à résoudre \( Ly=b\), et ensuite \( Ux=y\). Ce sont deux systèmes de résolution directe parce que les matrices sont triangulaires.
+\end{normaltext}
+
 
 Notons que \( U\) et \( L\) sont inversibles, et que \( \det(L)=1\). Donc \( \det(U)=\det(A)\). 
 
@@ -1501,7 +1571,6 @@ La méthode de Jacobi prend \( M=D\) et \( N=(E+F)\). L'inverse de \( M\) est fa
     Chaque changement dans \( A\) induit des changements dans \( B\) et donc sur la convergence de la méthode.
 \end{remark}
 
-:w
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Gauss-Seidel}
 %---------------------------------------------------------------------------------------------------------------------------
