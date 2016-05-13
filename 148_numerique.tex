@@ -907,16 +907,158 @@ Si la matrice est trop grande, il n'est pas possible de faire des manipulations 
 En général, les méthodes itératives ne convergent pas toujours. Mais lorsqu'une méthode converge, c'est une propriété de la matrice, et donc la convergence aura lieu pour tout vecteur de départ \( x_0\). Cela est très différent du cas des équations non linéaires type Newton pour lesquelles la convergence peut fortement dépendre du point de départ.
 
 %--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Méthode de Gauss sans pivot}
+\subsection{Transformation gaussienne}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[Transformation gaussienne\cite{ooPFJDooUQIwHZ}]
+    Soit \( x\in \eR^n\) avec \( x_k\neq 0\). La \( k\)\ieme \defe{transformation gaussienne}{transformation!gaussienne} pour \( x\) est la matrice
+    \begin{equation}
+        M_k(x)=\mtu-T_k(x)
+    \end{equation}
+    où \( T_k(x)\) est la matrice unité à qui on a ajouté le vecteur
+    \begin{equation}
+        \tau_k(x)=
+        \begin{pmatrix}
+            0    \\ 
+            \vdots    \\ 
+            0    \\ 
+            x_{k+1}/x_k    \\ 
+            \vdots    \\ 
+            x_n/x_k    
+        \end{pmatrix}
+    \end{equation}
+    à la \( k\)\ieme colonne. 
+\end{definition}
+Autrement dit, la matrice \( M_k(x)\) est la matrice 
+\begin{equation}
+    M_k(x)=\begin{pmatrix}
+        1    &       &       &       &       &   \\  
+        0    &    \ddots    &                 &       &       &   \\
+        \vdots    &   0    &   1               &         &       &   \\
+        \vdots    & \vdots      &   -x_{k+1}/x_k    &   1    &       &   \\
+        \vdots    &   \vdots    &   \vdots    &   0    &   \ddots    &   \\
+        0    &   0    &           -x_n/x_k   &  0   &      &   1
+    \end{pmatrix}
+\end{equation}
+En coordonnées nous avons
+\begin{equation}
+    \big( M_k(x)\big)_{ij}=\delta_{ij}-\tau_k(x)_i\delta_{kj}.
+\end{equation}
+
+\begin{normaltext}
+    Les matrices de transformation gaussienne sont des matrice triangulaires de diagonale unitaire (c'est à dire avec des \( 1\) sur la diagonale).
+\end{normaltext}
+
+\begin{lemma}
+    Si \( x\in \eR^n\) alors nous avons 
+    \begin{equation}
+        M_k(x)x=\begin{pmatrix}
+            x_1    \\ 
+            \vdots    \\ 
+            x_k    \\ 
+            0    \\ 
+            \vdots    \\ 
+            0    
+        \end{pmatrix}.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Nous avons
+    \begin{equation}
+        \big( M_k(x)x \big)_i=\sum_lM_k(x)_{il}x_l=\sum_l\big( \delta_{il}-\tau_k(x)_i\delta_{kl} \big)x_l=x_i-\tau_k(x)_ix_k. 
+    \end{equation}
+    Si \( i\leq k\) nous avons \( \tau_k(x)_i=0\) et donc \(  \big( M_k(x)x \big)_i=x_i   \). Si par contre \( i\geq k+1\) alors \( \tau_k(x)_i=\frac{ x_i }{ x_k }\) et alors \( \big( M_k(x)x \big)_i=0\).
+\end{proof}
+
+\begin{lemma}
+    Si \( y\in \eR^n\) vérifie \( y_i=0\) pour \( i>k\) alors \( M_{k+1}(x)y=y\).
+\end{lemma}
+
+\begin{proof}
+    C'est une simple vérification :
+    \begin{equation}
+        \big( M_{k+1}(x)y \big)_i=\sum_l\big( \delta_{il}-\tau_{k+1}(x)_i\delta_{k+1,l} \big)y_l=y_i-\tau_{k+1}(x)_iy_{k+1}.
+    \end{equation}
+    Mais comme \( y_{k+1}=0\) il nous reste automatiquement \( y_i\).
+\end{proof}
+Le sens de ce lemme est si un vecteur est déjà «gaussiannisé» au niveau \( k\), alors en lui appliquant une transformation gaussienne de niveau plus élevé que \( k\), il ne change pas. Ce fait est important parce qu'il assure que lorsque l'on avance dans le processus de Gauss, chaque étape ne détruit pas les précédentes.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Méthode de Gauss sans pivot (décomposition LU)}
 %---------------------------------------------------------------------------------------------------------------------------
 
 La méthode de Gauss est encore utilisée aujourd'hui dans les vrais problèmes.
 
 La méthode de Gauss est souvent aussi appelée méthode «LU» qui va décomposer \( A=LU\) où \( L\) est triangulaire inférieure et \( U\) est triangulaire supérieure. La décomposition est même plus précise que cela : on demande que \( L\) ait seulement des \( 1\) sur la diagonale.
 
+Si \( A\) est une matrice nous notons 
+\begin{equation}
+    \Delta_k(A)= (A_{ij})_{1\leq i,j\leq k}
+\end{equation}
+la matrice tronquée dont nous ne gardons que le carré \( k\times k\) en haut à gauche.
+
 \begin{lemma}
-    Si \( A\) est inversible, il existe une unique décomposition \( A=LU\) où \( L\) est triangulaire inférieure dont la diagonale contient seulement des \( 1\), et \( U\) est triangulaire supérieure.
+    Soit \( S\) une matrice triangulaire inférieure. Soient également \( A\) et \( B\) telles que \( B=SA\). Alors
+    \begin{equation}
+        \Delta_k(B)=\Delta_k(S)\Delta_k(A).
+    \end{equation}
 \end{lemma}
+
+\begin{proof}
+     En effet nous avons
+     \begin{equation}       \label{EQooHBZZooHtjjsE}
+         \Delta_k(B)_{ij}=\sum_{l=1}^nS_{il}A_{lj}.
+     \end{equation}
+     Dans la somme sur \( l\) il ne reste que les termes \( l\leq i\). Mais dans le calcul des éléments de matrice \( \Delta_k(B)_{ij}\), nous avons évidemment \( i,j\leq k\). Donc \( l\leq i\leq k\). Les seuls éléments de matrice de \( A\) qui sont utilisés dans la somme \eqref{EQooHBZZooHtjjsE} sont les éléments \( A_{lj}\) avec \( l,j\leq k\). 
+     
+     Nous pouvons donc limiter la somme à \( l=k\) au lieu de \( l=n\) et écrire \( \Delta_k(A)_{lj}\) au lieu de \( A_{lj}\).
+
+     Même chose en ce qui concerne \( S\). À partir du moment où \( l\) est limité à \( k\), les éléments \( S_{il}\) et \( \Delta_k(S)_{il}\) sont les mêmes.
+\end{proof}
+
+\begin{theorem}[Décomposition LU\cite{ooDANFooPSmBfd}]       \label{THOooUXKJooYaPhiu}
+    Soit une matrice \( A\) inversible telles que \( \det(\Delta_k(A))\neq 0\) pour tout \( k\). Alors il existe un unique couple de matrices \( (L,U)\) telles que
+    \begin{itemize}
+        \item \( U\) soit triangulaire supérieure
+        \item \( L\) soit triangulaire inférieure, de diagonale unité
+        \item \( A=LU\).
+    \end{itemize}
+    De plus pour tout \( k\leq n\) nous avons
+    \begin{equation}
+        \Delta_k(A)=\Delta_k(L)\Delta_k(U).
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Nous allons prouver par récurrence le fait suivant : pour tout \( 2\leq k\leq n\) il existe des matrices  \( E_i\) ($i=1,\ldots, k-1$) telles que en posant
+    \begin{equation}
+        A_k=E_{k-1}\ldots E_1A,
+    \end{equation}
+    \begin{itemize}
+        \item \( E_i\) est une transformation gaussienne pour la \( i\)\ieme colonne,
+        \item \( \Delta_k(A_k)\) est une matrice triangulaire supérieure.
+        \item l'élément de matrice \( (A_k)_{kk}  \) est non nul.
+    \end{itemize}
+    
+    La chose un peu dommage dans cette démonstration est que l'initialisation va être très ressemblante au pas de récurrence.
+    \begin{subproof}
+        \item[Initialisation : \( k=2\)]
+
+            Vu que \( \Delta_1(A)\) est inversible, l'élément \( A_{11}\) est non nul. Il existe donc une transformation gaussienne \( E_1\) telle que la première colonne de la matrice \( A_2=E_1A\) soit nul sauf la première composante. En particulier \( \Delta_2(A_2)\) est triangulaire supérieure parce que \( (A_2)_{21}=0\).
+
+    \end{subproof}
+    <++>
+    
+
+
+
+
+    En ce qui concerne l'unicité, si \( A=L_1U_1=L_2U_2\) alors \( L_2^{-1}L_1=U_2U_1^{-1} \). VU qu'à gauche nous avons une matrice triangulaire inférieure et que à droite nous avons une triangulaire inférieure, nous savons que les deux membres représentent une matrice diagonale. Mais à gauche, la diagonale est unitaire. Donc les deux membres représentent la matrice unité.
+\end{proof}
+<++>
+
+Notons que \( U\) et \( L\) sont inversibles, et que \( \det(L)=1\). Donc \( \det(U)=\det(A)\). 
 
 Pour travailler la méthode de Gauss pour le système \( Ax=b\), nous introduisons la matrice un peu augmentée \( (A|b)\). Nous faisons un exemple.
 
@@ -1165,18 +1307,69 @@ Et il existe un algorithme facile pour l'inverse d'une matrice triangulaire.
 
 Le commandant Cholesky travaillait sur le tir de canon (chose éminemment liée à de nombreuses mathématiques ingénieuses). La méthode de Cholesky est encore utilisée aujourd'hui dans les vrais problèmes.
 
-La méthode de Gauss s'applique sans hypothèses sur la matrice \( A\), à part qu'elle doit être de petite dimension, comme pour toute méthode directe. Souvent nous savons des choses sur la matrice. Ici nous allons supposer que \( A\) soit symétrique et définie positive\footnote{Nous allons surtout utiliser le fait que \( x^tAx\geq 0\).} :
+La méthode de Gauss s'applique sans hypothèses sur la matrice \( A\), à part qu'elle doit être de petite dimension, comme pour toute méthode directe. Souvent nous savons des choses sur la matrice. Ici nous allons supposer que \( A\) est symétrique et définie positive.
+
+Comment numériquement vérifier ces hypothèses ? En ce qui concerne la symétrique, il suffit de faire le test complet :
 \begin{equation}
     A^t=A.
 \end{equation}
-La vérification de cela coûte au maximum \( n^2\) comparaisons. Nous allons chercher la décomposition \( LU\) sous la forme \( A=LL^t\), c'est à dire \( U=L^t\). Attention : maintenant nous n'avons plus des \( 1\) sur la diagonale.
+La vérification de cela coûte au maximum \( n^2\) comparaisons (et en fait la moitié de ça moins la diagonale). 
 
-Le fait que \( A\) soit définie positive est facile à vérifier pour utiliser Cholesky parce que il suffit de le faire, et si il n'y a pas de nombres complexes qui arrivent, c'est que la matrice est définie positive.
+Le fait que \( A\) soit définie positive est facile à vérifier pour utiliser Cholesky parce que il suffit de le faire, et si il n'y a pas de nombres complexes qui arrivent, c'est que la matrice était définie positive.
 
+Un lemme très simple à mettre en oeuvre numériquement nous permet de traiter certains cas.
 \begin{lemma}
     Une matrice symétrique possédant un élément négatif sur la diagonale n'est pas définie positive.
 \end{lemma}
+
+\begin{proof}
+    Un simple calcul ou effort d'imagination montre que \( \langle Me_k, e_k\rangle =M_{kk}\). Donc si \( M\) doit être définie positive, \( M_{kk}\) doit être positive par le lemme \ref{LemWZFSooYvksjw}.
+\end{proof}
 Ce lemme est un moyen déjà de faire quelque vérifications. Et si les éléments diagonaux de \( A\) sont tous négatifs, on peut prendre \( -A\).
+
+
+\begin{lemma}
+    Si \( A\) est une matrice symétrique strictement définie positive, alors pour tout \( k\), la matrice tronquée \( \Delta_k(A)\) l'est également.    
+\end{lemma}
+
+\begin{proof}
+    Le fait que \( \Delta_k(A)\) soit symétrique est évidement. Le fait qu'elle soit définie positive l'est moins. Soit \( y\in \eR^k\) et le vecteur \( \tau y\in \eR^n\), qui est «complété» avec des zéros.
+
+    Nous avons \( \langle \Delta_k(A)y, y\rangle_k=\langle A\tau y, \tau \rangle_n\). En effet
+    \begin{equation}
+        \langle \Delta_k(A)y, y\rangle =\sum_{i=1}^k\sum_{l=1}^kA_{il}y_ly_i.
+    \end{equation}
+    Et à droite :
+    \begin{subequations}
+        \begin{align}
+            \langle A\tau y, \tau y\rangle &=\sum_{i=1}^n(A\tau y)_i(\tau y)_i\\
+            &=\sum_{i=1}^k(A\tau y)_i y_i\\
+            &=\sum_{i=1}^k\sum_{l=1}^n A_{il}(\tau y)_ly_i\\
+            &=\sum_{i=1}^k\sum_{l=1}^k A_{il}y_ly_i
+        \end{align}
+    \end{subequations}
+    où nous avons utilisé le fait que \( (\tau y)_i=0\) dès que \( i>k\) et que \( (\tau y)_i=y_i\) sinon.
+
+    En conséquence de quoi \( \langle \Delta_k(A)y, u\rangle >0\) pour tout \( y\in \eR^k\) et la matrice \( \Delta_k(A)\) est strictement définie positive.
+\end{proof}
+
+Nous allons chercher une décomposition de type \( LU\) sous la forme \( A=LL^t\), c'est à dire \( U=L^t\). Attention : maintenant nous n'avons plus des \( 1\) sur la diagonale. Ce n'est donc pas exactement la décomposition \( LU\) dont nous parlions plus haut. C'est pour cela que nous n'allons pas la noter \( LL^t\) mais \( BB^t\).
+
+\begin{theorem}[Cholesky\cite{ooDANFooPSmBfd}]
+    Soit une matrice réelle symétrique strictement définie positive. Il existe une unique matrice réelle \( B\) telle que
+    \begin{itemize}
+        \item \( B\) est triangulaire inférieure,
+        \item la diagonale de \( B\) est positive,
+        \item \( A=BB^t\).
+    \end{itemize}
+\end{theorem}
+
+\begin{proof}
+    Par la décomposition \( LU\) du théorème \ref{THOooUXKJooYaPhiu} nous avons des matrices \( L\) et \( U\) telles que \( A=LU\). Soit \( D\) la matrice diagonale donnée par 
+    \begin{equation}
+        D_{ii}=\sqrt{ U_{ii} }.
+    \end{equation}
+\end{proof}
 
 Prenons la matrice
 \begin{equation}
