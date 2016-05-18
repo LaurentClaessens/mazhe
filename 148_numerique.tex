@@ -1290,7 +1290,7 @@ Et la matrice \( P\) qui arrive dans \( PA=LU\) est la matrice \(P= P_{23}P_{21}
 \end{equation}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Méthode de Gauss avec pivot}
+\subsection{Méthode de Gauss avec pivot partiel}
 %---------------------------------------------------------------------------------------------------------------------------
 
 À chaque pas, nous faisons une permutation de ligne. Nous permutons à chaque pas la première ligne avec celle qui a le pivot le plus grand (en valeur absolue). Donc :
@@ -1359,6 +1359,72 @@ Notons que ces \( L\) et \( U\) ne sont pas les mêmes que le \( L U\) obtenu sa
     PA=LU
 \end{equation}
 où \( P\) est une matrice de permutation. Pour élucider ce point, il nous faut introduire les matrices de permutation élémentaires, ce qui sera encore un bon moment pour l'agrégation.
+
+\begin{proposition}[Méthode de Gauss avec pivot partiel\cite{ooJZHZooLRqIsV}]
+    Soit une matrice inversible \( A\in\eM(n,\eC)\). Il existe
+    \begin{itemize}
+        \item une matrice de permutation \( P\)
+        \item une matrice triangulaire inférieure de diagonale unitaire \( L\),
+        \item une matrice triangulaire supérieure inversible \( U\)
+    \end{itemize}
+    telles que
+    \begin{equation}
+        PA=LU.
+    \end{equation}
+\end{proposition}
+Notons que cette proposition ne demande que l'hypothèse d'inversibilité pour \( A\). Il n'y a pas d'hypothèses sur tous les mineurs comme c'était le cas avec Gauss sans pivot.
+
+\begin{proof}
+    Nous prouvons par récurrence qu'il existe des matrices \( Q_k\), \( E_1\), \ldots, \( E_k\) et \( A_k\) telles que
+    \begin{equation}        \label{EQooOBXWooXxwXSe}
+        Q_kA=E_1\ldots E_kA_k
+    \end{equation}
+    avec
+    \begin{enumerate}
+        \item
+            \( Q_k\) est une matrice de permutation
+        \item
+            \( E_i\) est une transformation gaussienne sur la \( i\)\ieme colonne
+        \item
+            \( A_k\) est triangulaire supérieure jusqu'à la \( k\)\ieme colonne.
+    \end{enumerate}
+
+    Sachant que \( \det(Q_k)=\pm 1\), et que \( \det(E_i)=1\), le passage au déterminant dans \eqref{EQooOBXWooXxwXSe} nous donne \( \det(A_k)\neq 0\) et si nous notons \( \Omega_k(A)\) la matrice tronquée de \( A\), ne gardant que les entrées plus grandes que \( k\), nous avons
+    \begin{equation}
+        \det(A_k)=\prod_{i=1}^k(A_k)_ii\det\big( \Omega_{k+1}(A_k) \big).
+    \end{equation}
+    Donc  : \( (A_k)_{ii}\neq 0\) pour \( i\leq k\) et \( \det\big( \Omega_{k+1}(A_k) \big)\neq 0\).
+
+    Pour fixer les idées, voici une image de \( k=2\) :
+    \begin{equation}
+        A_k=\begin{pmatrix}
+            *    &   *    &   *    &   *    &   *\\  
+            0    &   *    &   *    &   *    &   *\\  
+            0    &   0    &   *    &   *    &   *\\  
+            0    &   0    &   *    &   *    &   *\\  
+            0    &   0    &   *    &   *    &   *
+        \end{pmatrix}
+    \end{equation}
+
+    et
+    \begin{equation}
+        \begin{pmatrix}
+            1    &   2    \\ 
+            3    &   4    
+        \end{pmatrix}
+    \end{equation}
+    
+    et une autre :
+    \begin{equation}
+        \input{Fig_FCUEooTpEPFoeQ.pstricks}
+    \end{equation}
+
+    et fini
+
+\end{proof}
+<++>
+
+
 
 Notons que Sage fait la méthode de Gauss avec pivots :
 \lstinputlisting{sageSnip006.sage}
