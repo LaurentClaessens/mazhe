@@ -8,7 +8,7 @@ def CycloideA():
 	f2=a*(1-cos(x))
 	curve=ParametricCurve(f1,f2).graph(0,4*pi)
 
-	pspict.DrawGraph(curve)
+	pspictrawGraph(curve)
 	pspict.DrawDefaultAxes()
 
 	pspict.dilatation(1)

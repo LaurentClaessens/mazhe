@@ -22,8 +22,8 @@ def RLuqsrr():
     F2 = f2.graph(mx,Mx)
     F1.parameters.color="red"
     F2.parameters.color="blue"
-    pspict.DrawGraph(F1)
-    pspict.DrawGraph(F2)
+    pspict.DrawGraphs(F1)
+    pspict.DrawGraphs(F2)
 
     from phystricks.MathStructures import AxesUnit
     pspict.axes.single_axeX.axes_unit=AxesUnit(pi,"")

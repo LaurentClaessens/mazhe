@@ -12,7 +12,7 @@ def SuiteUnSurn():
         y=suite(i)
         P=Point(i,float(y))
         P.put_mark(0.3,90,"$%s$"%(repr(y)),automatic_place=pspict)
-        pspict.DrawGraph(P)
+        pspicts.DrawGraphs(P)
 
     pspict.axes.no_graduation()
     pspict.DrawDefaultAxes()

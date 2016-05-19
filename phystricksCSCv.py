@@ -10,7 +10,7 @@ def CSCv():
 
     x=var('x')
     r=phyFunction(cos(x)-cos(2*x)).graph(0,2*pi)
-    pspicts[0].DrawGraph(r)
+    pspicts[0].DrawGraphs(r)
 
     pspicts[0].DrawDefaultAxes()
     pspicts[0].dilatation(1)

@@ -56,9 +56,9 @@ def DS2010bisExoGraph():
     F10=phyFunction(f10).graph(-pi, 3*pi/2)
 
         # Figures
-        # pspict1.DrawGraph(F0)
+        # pspict1ss.DrawGraphs(F0)
     
-    pspict[0].DrawGraph(F1)
+    pspict[0].DrawGraphs(F1)
     pspict[0].axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict[0].axes.Dx=0.5
     #pspict[0].BB.addX(-0.5)
@@ -66,16 +66,16 @@ def DS2010bisExoGraph():
     pspict[0].DrawDefaultAxes()
     pspict[0].dilatation(.7)
 
-    pspict[1].DrawGraph(F2)
+    pspict[1].DrawGraphs(F2)
     pspict[1].axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict[1].axes.Dx=0.5
-    #pspict[1].DrawGraph(F2b)
+    #pspics[1].DrawGraphs(F2b)
     #pspict[1].BB.addX(-2)
     #pspict[1].BB.addY(3)
     pspict[1].DrawDefaultAxes()
     pspict[1].dilatation(.7)
 
-    pspict[2].DrawGraph(F3)
+    pspict[2].DrawGraphs(F3)
     pspict[2].axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict[2].axes.Dx=0.5
     #pspict[2].BB.addX(-2)
@@ -83,7 +83,7 @@ def DS2010bisExoGraph():
     pspict[2].DrawDefaultAxes()
     pspict[2].dilatation(.5)
 
-    pspict[3].DrawGraph(F4)
+    pspict[3].DrawGraphs(F4)
     pspict[3].axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict[3].axes.Dx=0.5
     #pspict[3].BB.addX(-1)
@@ -92,7 +92,7 @@ def DS2010bisExoGraph():
     pspict[3].dilatation(.7)
 
     F5.linear_plotpoints=1000
-    pspict[4].DrawGraph(F5)
+    pspict[4].DrawGraphs(F5)
     pspict[4].axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict[4].axes.Dx=0.5
     #pspict[4].BB.addX(-2)
@@ -102,15 +102,15 @@ def DS2010bisExoGraph():
     pspict[4].dilatation(.7)
     
     #Celle-ci est à enlever
-    pspict[5].DrawGraph(F6)
+    pspict[5].DrawGraphs(F6)
     pspict[5].BB.addX(-2)
     pspict[5].BB.addY(3)
     pspict[5].BB.addY(-3)
     pspict[5].DrawDefaultAxes()
     pspict[5].dilatation(.5)
 
-    pspict[6].DrawGraph(F7a)
-    pspict[6].DrawGraph(F7b)  
+    pspict[6].DrawGraphs(F7a)
+    pspict[6].DrawGraphs(F7b)  
     pspict[6].axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict[6].axes.Dx=0.5
     #pspict[6].BB.addX(-2)
@@ -119,13 +119,13 @@ def DS2010bisExoGraph():
     pspict[6].dilatation(.7)
 
     # Celle-ci est à enlever
-    pspict[7].DrawGraph(F8)
+    pspict[7].DrawGraphs(F8)
     pspict[7].BB.addX(-3)
     pspict[7].BB.addY(3.5)
     pspict[7].DrawDefaultAxes()
     pspict[7].dilatation(.5)
 
-    pspict[8].DrawGraph(F9)
+    pspict[8].DrawGraphs(F9)
     pspict[8].axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict[8].axes.Dx=0.5
     #pspict[8].BB.addX(-2)
@@ -133,7 +133,7 @@ def DS2010bisExoGraph():
     pspict[8].DrawDefaultAxes()
     pspict[8].dilatation(.7)
 
-    pspict[9].DrawGraph(F10)
+    pspict[9].DrawGraphs(F10)
     pspict[9].BB.addX(-2)
     pspict[9].BB.addY(3)
     pspict[9].DrawDefaultAxes()

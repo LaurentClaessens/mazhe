@@ -20,10 +20,10 @@ def CourbeRectifiable():
 		B=points[i+1]
 		seg=Segment(A,B)
 		seg.parameters.color="red"
-		pspict.DrawGraph(seg)
+		pspict.DrawGraphs(seg)
 
 	for P in points :
-		pspict.DrawGraph(P)
+		pspict.DrawGraphs(P)
 
         pspict.comment="The blue curve is smoothly drawn"
 	pspict.DrawGraphs(curve)

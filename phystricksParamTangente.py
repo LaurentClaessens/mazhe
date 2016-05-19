@@ -7,7 +7,7 @@ def ParamTangente():
 	mx=-1.5
 	Mx=-mx
 	curve=ParametricCurve(f1,f2).graph(mx,Mx)
-	pspict.DrawGraph(curve)
+	pspict.DrawGraphs(curve)
 	lls=curve.getRegularLengthParameters(mx,Mx,1.5)
 	for ll in lls :
 		Q=curve.get_point(ll)

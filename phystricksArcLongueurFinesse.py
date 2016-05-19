@@ -11,7 +11,7 @@ def ArcLongueurFinesse():
             B=points[i+1]
             seg=Segment(A,B)
             seg.parameters.color=color
-            pspict.DrawGraph(seg)
+            pspict.DrawGraphs(seg)
 
     x=var('x')
     #f1=-20*cos(x)

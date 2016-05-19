@@ -13,7 +13,7 @@ def MethodeNewton():
     mx = -0.5
     Mx = 2
     F=f.graph(mx,Mx)
-    pspict.DrawGraph(F)
+    pspict.DrawGraphs(F)
 
     newton = phystricks.MathConstructions.NewtonMethod(f)
     elements = newton.step_from_point(xn)
@@ -33,11 +33,11 @@ def MethodeNewton():
     for i in range(len(roots)):
         P = roots[i]
         P.put_mark(0.3,90,"$r_%s$"%str(i),automatic_place=pspict)
-        pspict.DrawGraph(P)
+        pspict.DrawGraphs(P)
     sommet=f.get_point( (roots[0].x+roots[1].x)/2 )
     C=sommet
     C.put_mark(0.3,-90,"$S$",automatic_place=pspict)
-    pspict.DrawGraph(C)
+    pspict.DrawGraphs(C)
 
 
     pspict.DrawDefaultAxes()

@@ -26,10 +26,10 @@ def SFdgHdO():
     G1.wave(dx,dy)
     G2.wave(dx,dy)
 
-    pspict.DrawGraph(F1)
-    pspict.DrawGraph(F2)
-    pspict.DrawGraph(G1)
-    pspict.DrawGraph(G2)
+    pspict.DrawGraphs(F1)
+    pspict.DrawGraphs(F2)
+    pspict.DrawGraphs(G1)
+    pspict.DrawGraphs(G2)
 
     A = Point(1,0)
     B = Point(-1,0)
@@ -45,10 +45,10 @@ def SFdgHdO():
     C.add_option("dotscale=1.3")
     D.add_option("dotscale=1.3")
 
-    pspict.DrawGraph(A)
-    pspict.DrawGraph(B)
-    pspict.DrawGraph(C)
-    pspict.DrawGraph(D)
+    pspict.DrawGraphs(A)
+    pspict.DrawGraphs(B)
+    pspict.DrawGraphs(C)
+    pspict.DrawGraphs(D)
 
     pspict.axes.no_graduation()
     pspict.axes.single_axeX.put_mark(0.3,-45,"$K_H$",automatic_place=pspict)

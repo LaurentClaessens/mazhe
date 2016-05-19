@@ -8,7 +8,7 @@ def SenoTopologo():
 	f=phyFunction(x*sin(1/x))
 	G=f.graph(a,b)
 	G.linear_plotpoints=2000
-	pspict.DrawGraph(G)
+	pspict.DrawGraphs(G)
 	pspict.axes.Dx=0.3
 	pspict.axes.Dy=0.3
 	pspict.DrawDefaultAxes()

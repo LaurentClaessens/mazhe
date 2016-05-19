@@ -42,32 +42,32 @@ def ExerciceGraphesbis():
 
         # Figures
     pspict1.dilatation(.7)
-    pspict1.DrawGraph(F1)
+    pspict1ss.DrawGraphs(F1)
     pspict1.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict1.axes.Dx=0.5
     pspict1.DrawDefaultAxes()
 
     pspict2.dilatation(.7)
-    pspict2.DrawGraph(F2)
+    pspict2ss.DrawGraphs(F2)
     pspict2.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict2.axes.Dx=0.5
     pspict2.DrawDefaultAxes()
 
     pspict3.dilatation(.5)
-    pspict3.DrawGraph(F3)
+    pspict3ss.DrawGraphs(F3)
     pspict3.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict3.axes.Dx=0.5
     pspict3.DrawDefaultAxes()
 
     pspict4.dilatation(.7)
-    pspict4.DrawGraph(F4)
+    pspict4ss.DrawGraphs(F4)
     pspict4.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict4.axes.Dx=0.5
     pspict4.DrawDefaultAxes()
 
     pspict5.dilatation(.7)
     F5.linear_plotpoints=1000
-    pspict5.DrawGraph(F5)
+    pspict5ss.DrawGraphs(F5)
     pspict5.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict5.axes.Dx=0.5
     pspict5.DrawDefaultAxes()
@@ -75,14 +75,14 @@ def ExerciceGraphesbis():
 
     pspict7.comment="The function is drawn in two parts"
     pspict7.dilatation(.7)
-    pspict7.DrawGraph(F7a)
-    pspict7.DrawGraph(F7b)  
+    pspict7ss.DrawGraphs(F7a)
+    pspict7ss.DrawGraphs(F7b)  
     pspict7.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict7.axes.Dx=0.5
     pspict7.DrawDefaultAxes()
 
     pspict9.dilatation(.7)
-    pspict9.DrawGraph(F9)
+    pspict9ss.DrawGraphs(F9)
     pspict9.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict9.axes.Dx=0.5
     pspict9.DrawDefaultAxes()

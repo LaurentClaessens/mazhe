@@ -8,7 +8,7 @@ def Cardioid():
 	cardioid=PolarCurve(f).graph(0,2*pi)
 	cardioid.parameters.color="red"
 
-	pspict.DrawGraph(cardioid)
+	pspict.DrawGraphs(cardioid)
 
 	fig.conclude()
 	fig.write_the_file()

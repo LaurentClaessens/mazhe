@@ -11,7 +11,7 @@ def IntervalleUn():
 	A.put_mark(0.3,-90,"$a$",automatic_place=pspict)
 	O.put_mark(0.3,-90,"$0$",automatic_place=pspict)
 	U.put_mark(0.3,-90,"$1$",automatic_place=pspict)
-	pspict.DrawGraph(Segment(I,F))
+	pspict.DrawGraphs(Segment(I,F))
 	pspict.DrawGraphs(A,O,U)
 
 	measureOA=MeasureLength(Segment(O,A),-0.1)

@@ -24,18 +24,18 @@ def DTIYKkP():
     ptP.parameters.symbol = ""
     ptP.put_mark(0.2,None,"$[ e^{xq_0}]$",automatic_place=pspict)
 
-    pspict.DrawGraph(F)
+    pspict.DrawGraphs(F)
     # See phystricks.PspictureToOtherOutputs.specific_needs
     #pspict.specific_needs="\usepackage{bbm}\n  \usepackage{latexsym}\n\usepackage{amsfonts}\n\usepackage[reqno]{amsmath}\n\usepackage{amsthm}\n\usepackage{amssymb}\n\usepackage{amssymb}\n  \\newcommand{\mtu}{\mathbbm{1}}\n \DeclareMathOperator{\SO}{SO}"
 
-    pspict.DrawGraph(ptO)
-    pspict.DrawGraph(ptB)
+    pspict.DrawGraphs(ptO)
+    pspict.DrawGraphs(ptB)
 
     V.parameters.color = "cyan"
     V.put_mark(0.2,-45,"$[ e^{sE(w)} e^{xq_0}]$",automatic_place=pspict)
 
-    pspict.DrawGraph(V)
-    pspict.DrawGraph(ptP)           # Drawn after by purpose.
+    pspict.DrawGraphs(V)
+    pspict.DrawGraphs(ptP)           # Drawn after by purpose.
     #pspict.TraceBB()
 
     fig.conclude()

@@ -7,7 +7,7 @@ def DistanceEnsemble():
 	A=Cercle.get_point(45)
 	A.put_mark(0.3,45,"$A$",automatic_place=(pspict,""))
 	A.parameters.symbol=""
-	pspict.DrawGraph(A)
+	pspict.DrawGraphs(A)
 	P=Cercle.get_point(210)
 	Q=Cercle.get_point(100)
 	P.put_mark(0.5,-90,"$p$",automatic_place=(pspict,""))
@@ -21,15 +21,15 @@ def DistanceEnsemble():
 	xR=Segment(X,R)
 	xQ.parameters.style="dotted"
 	xR.parameters.style="dotted"
-	pspict.DrawGraph(xP)
-	pspict.DrawGraph(xQ)
-	pspict.DrawGraph(xR)
+	pspict.DrawGraphs(xP)
+	pspict.DrawGraphs(xQ)
+	pspict.DrawGraphs(xR)
 
-	pspict.DrawGraph(Cercle)
-	pspict.DrawGraph(P)
-	pspict.DrawGraph(R)
-	pspict.DrawGraph(Q)
-	pspict.DrawGraph(X)
+	pspict.DrawGraphs(Cercle)
+	pspict.DrawGraphs(P)
+	pspict.DrawGraphs(R)
+	pspict.DrawGraphs(Q)
+	pspict.DrawGraphs(X)
 
 	pspict.dilatation(2)
 	fig.conclude()
