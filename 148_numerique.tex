@@ -1360,6 +1360,13 @@ Notons que ces \( L\) et \( U\) ne sont pas les mêmes que le \( L U\) obtenu sa
 \end{equation}
 où \( P\) est une matrice de permutation. Pour élucider ce point, il nous faut introduire les matrices de permutation élémentaires, ce qui sera encore un bon moment pour l'agrégation.
 
+\begin{lemma}[\cite{ooJZHZooLRqIsV}]        \label{LEMooYIYIooYhnaOt}
+    Les matrices de permutation élémentaires ont la relation de «commutation» suivante avec les transformations gaussiennes :
+    \begin{equation}
+        M_k(x)P_{ij}=P_{ij}M_k\big(  P_{ij}(x) \big).
+    \end{equation}
+\end{lemma}
+
 \begin{proposition}[Méthode de Gauss avec pivot partiel\cite{ooJZHZooLRqIsV}]
     Soit une matrice inversible \( A\in\eM(n,\eC)\). Il existe
     \begin{itemize}
@@ -1396,37 +1403,77 @@ Notons que cette proposition ne demande que l'hypothèse d'inversibilité pour \
     Donc  : \( (A_k)_{ii}\neq 0\) pour \( i\leq k\) et \( \det\big( \Omega_{k+1}(A_k) \big)\neq 0\).
 
     Pour fixer les idées, voici une image de \( k=2\) :
-    \begin{equation}
-        A_k=\begin{pmatrix}
-            *    &   *    &   *    &   *    &   *\\  
-            0    &   *    &   *    &   *    &   *\\  
-            0    &   0    &   *    &   *    &   *\\  
-            0    &   0    &   *    &   *    &   *\\  
-            0    &   0    &   *    &   *    &   *
-        \end{pmatrix}
-    \end{equation}
+    \[
+    \input{Fig_FCUEooTpEPFoeQ.pstricks}
+    \]
+    
+    Étant donné que \( \det\big( \Omega_{k+1}(A_k) \big)\neq 0\), parmi les nombres \( (A_k)_{i,k+1}\) (\( i\geq k+1\)), au moins un est non nul et nous posons \( r_{k+1}\) tel que \( | (A_k)_{r_{k+1},k+1} | \) soit maximum parmi ces éléments.
 
-    et
+    Le nombre \( r_{k+1}\) est enregistré parce qu'il servira à écrire la matrice \( P\) plus tard. Les matrices \( E_i\) ne sont pas enregistrées, parce que nous verrons qu'elles vont encore changer. Seule la dernière sera enregistrée.
+
+    La composante \( (k+1,k+1)\) de la matrice
+    \begin{equation}
+        P_{r_{k+1},k+1}A_k
+    \end{equation}
+    est non nulle et peut donc servir de pivot. Soit \( M_{k+1}\) la transformation gaussienne pour la \( (k+1)\)\ieme colonne de la matrice \( P_{r_{k+1},k+1}A_k\). La matrice
+    \begin{equation}
+        A_{k+1}=M_{k+1}P_{r_{k+1},k+1}A_k
+    \end{equation}
+    est alors une matrice triangulaire supérieure jusqu'à la \( (k+1)\)\ieme colonne. En posant \( E_{k+1}=M_{k+1}^{-1}\) nous avons
+    \begin{equation}
+        P_{r_{k+1},k+1}E_{k+1}A_{k+1}=A_k,
+    \end{equation}
+    et nous nous sentons en droit de récrire l'équation de départ \eqref{EQooOBXWooXxwXSe} :
+    \begin{equation}
+        Q_kA=E_1\ldots E_kA_k=E_1\ldots E_kP_{r_{k+1},k+1}E_{k+1}A_{k+1}.
+    \end{equation}
+    Le lemme \ref{LEMooYIYIooYhnaOt} nous permet de ramener la matrice \( P_{r_{k+1},k+1}\) en première position, quitte à modifier un peu (pas beaucoup) chacune des matrices \( E_i\) (\( i=1,\ldots, k\)). C'est pour cela que nous n'enregistrons pas les matrices \( E_i\). Nous avons donc
+    \begin{equation}
+        P_{r_{k+1},k+1}Q_kA=E'_1\ldots E'_kE_{k+1}A_{k+1}
+    \end{equation}
+    où
+    \begin{itemize}
+        \item Le produit \( P_{r_{k+1},k+1}Q_k\) est encore une matrice de permutation, et mieux : elle vaut
+            \begin{equation}
+                \prod_{i=1}^{k+1}P_{r_i,i}.
+            \end{equation}
+            Cela montre qu'il est suffisant d'enregistrer les nombres \( r_i\) pour reconstituer cette partie.
+        \item
+            La matrice \( E'_i\) est une transformation gaussienne pour la \( i\)\ieme colonne.
+        \item
+            La matrice $A_{k+1}$ est triangulaire supérieure jusqu'à la \( k+1\)\ieme colonne.
+    \end{itemize}
+    
+    La récurrence est maintenant finie et nous pouvons écrire avec \( k=n\) :
+    \begin{equation}        \label{EQooFUEUooHVPFwn}
+        Q_nA=E_1\ldots E_nA_n
+    \end{equation}
+    où le produit \( E_1\ldots E_n\) est triangulaire inférieure et \( A_n\) est triangulaire supérieur.
+
+    Maintenant nous enregistrons la matrice \( A_n\), le produit \( \prod_{i=1}^nE_n\) et les nombres \( r_i\).
+\end{proof}
+
+Note : dans l'équation \eqref{EQooFUEUooHVPFwn} nous avons bien entendu massivement renommé les $E_i'$ en \( E_i\). En réalité la matrice \( E_1\) vient avec \( n\) primes sur la tête.
+
+\begin{example}
+    Résolvons le système
     \begin{equation}
         \begin{pmatrix}
-            1    &   2    \\ 
-            3    &   4    
+            10^{-9}    &   1    \\ 
+            1    &   1    
+        \end{pmatrix}\begin{pmatrix}
+            x    \\ 
+            y    
+        \end{pmatrix}=\begin{pmatrix}
+            1    \\ 
+            2    
         \end{pmatrix}
     \end{equation}
     
-    et une autre :
-    \begin{equation}
-        \input{Fig_FCUEooTpEPFoeQ.pstricks}
-    \end{equation}
-
-    et fini
-
-\end{proof}
+\end{example}
 <++>
 
-
-
-Notons que Sage fait la méthode de Gauss avec pivots :
+Notons que Sage utilise la méthode de Gauss avec pivots :
 \lstinputlisting{sageSnip006.sage}
 
 Et il fait de façon exacte :
