@@ -15,11 +15,11 @@ def TracerUn():
     x=var('x')
     pspicts[0].dilatation(0.7)
     f1=phyFunction(2.718281*x).graph(-2,2)
-    pspict[0].sDrawGraphs(f1)
+    pspicts[0].DrawGraphs(f1)
 
     pspicts[1].dilatation(1)
     f2=phyFunction(abs(x)).graph(-2,2)
-    pspict[1].DrawGraphs(f2)
+    pspicts[1].DrawGraphs(f2)
 
     pspicts[2].dilatation(0.7)
     f3a=phyFunction(x**2+1).graph(-2,0)
@@ -28,7 +28,7 @@ def TracerUn():
 
     pspicts[3].dilatation(0.7)
     f4=phyFunction(x-1).graph(-2,2)
-    pspict[s3].DrawGraphs(f4)
+    pspicts[3].DrawGraphs(f4)
 
     for psp in pspicts:
         psp.DrawDefaultAxes()

@@ -5,6 +5,7 @@ def UEGEooHEDIJVPn():
     pspict.dilatation(1)
 
     xmax=5
+    x=var('x')
     dig=Segment(  Point(0,0), Point(xmax,xmax)  )
     g=phyFunction( -ln(x/2)+2  ).graph(0.1,xmax)
 
