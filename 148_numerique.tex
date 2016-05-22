@@ -1450,35 +1450,231 @@ Notons que cette proposition ne demande que l'hypothèse d'inversibilité pour \
     \end{equation}
     où le produit \( E_1\ldots E_n\) est triangulaire inférieure et \( A_n\) est triangulaire supérieur.
 
-    Maintenant nous enregistrons la matrice \( A_n\), le produit \( \prod_{i=1}^nE_n\) et les nombres \( r_i\).
+    Maintenant nous enregistrons la matrice \( U=A_n\), le produit \( L=\prod_{i=1}^nE_n\) et les nombres \( r_i\) qui permettent de retrouver \( P\).
 \end{proof}
 
 Note : dans l'équation \eqref{EQooFUEUooHVPFwn} nous avons bien entendu massivement renommé les $E_i'$ en \( E_i\). En réalité la matrice \( E_1\) vient avec \( n\) primes sur la tête.
 
+Dans les exemples \ref{ExooNTECooXvTcoh}, \ref{EXooNVRNooJgQmQc} et \ref{EXooNCRSooTfmPFr}, nous allons résoudre le système
+\begin{equation}
+    \begin{pmatrix}
+        10^{-9}    &   1    \\ 
+        1    &   1    
+    \end{pmatrix}\begin{pmatrix}
+        x_1    \\ 
+        x_2    
+    \end{pmatrix}=\begin{pmatrix}
+        1    \\ 
+        2    
+    \end{pmatrix}
+\end{equation}
+d'abord de façon exacte, et ensuite en supposant une machin ne tenant que \( 8\) chiffres significatifs en utilisant la méthode de Gauss avec ou sans pivot.
+
+Commençons par voir comment se passe en pratique la décomposition \( PA=LU\) de Gauss avec pivot partiel.
+
 \begin{example}
-    Résolvons le système
+    Décomposons la matrice
     \begin{equation}
-        \begin{pmatrix}
+        A=\begin{pmatrix}
+            1    &   2    &   3    \\
+            2    &   5    &   0    \\
+            3    &   8    &   0
+        \end{pmatrix}.
+    \end{equation}
+    
+\end{example}
+<++>
+
+\begin{example}     \label{ExooNTECooXvTcoh}
+    Nous commençons de façon exacte, par la méthode de Gauss sans pivot. La première transformation gaussienne est
+    \begin{equation}
+        E_1=\begin{pmatrix}
+            1    &   0    \\ 
+            -10^9    &   1    
+        \end{pmatrix}
+    \end{equation}
+    et nous calculons
+    \begin{equation}
+        E_1A=\begin{pmatrix}
+            1    &   0    \\ 
+            -10^9    &   1    
+        \end{pmatrix}\begin{pmatrix}
             10^{-9}    &   1    \\ 
             1    &   1    
+        \end{pmatrix}=
+        \begin{pmatrix}
+            10^{-9}    &   1    \\ 
+            0    &   1-10^{-9}    
+        \end{pmatrix}.
+    \end{equation}
+    Vu que cette dernière est triangulaire supérieure, nous avons fini la méthode de Gauss et \( U=E_1A\). En ce qui concerne la matrice \( L\), elle est donnée par \( L=E_1^{-1}\), c'est à dire
+    \begin{equation}
+        L=\begin{pmatrix}
+            1    &   0    \\ 
+            -10^9    &   1    
+        \end{pmatrix}^{-1}=
+        \begin{pmatrix}
+            1    &   0    \\ 
+            10^9    &   1    
+        \end{pmatrix}.
+    \end{equation}
+    Au final nous avons la décomposition \( A=LU\) exacte suivante :
+    \begin{equation}
+        \begin{aligned}[]
+            L&=\begin{pmatrix}
+                1    &   0    \\ 
+                10^9    &   1    
+            \end{pmatrix}&U&=\begin{pmatrix}
+                10^{-9}    &   1    \\ 
+                0    &   1-10^9    
+            \end{pmatrix}.
+        \end{aligned}
+    \end{equation}
+    Résoudre le système \( Ax=b\) revient à résoudre \( LUx=b\) et donc résoudre successivement les systèmes
+    \begin{subequations}
+        \begin{numcases}{}
+            Ly=b\\
+            Ux=y.
+        \end{numcases}
+    \end{subequations}
+    D'abord le système
+    \begin{equation}
+        \begin{pmatrix}
+            1    &   0    \\ 
+            10^9    &   1    
         \end{pmatrix}\begin{pmatrix}
-            x    \\ 
-            y    
+            y_1    \\ 
+            y_2    
         \end{pmatrix}=\begin{pmatrix}
             1    \\ 
             2    
         \end{pmatrix}
     \end{equation}
-    
+    donne \( y_1=1\) et \( y_2=2-10^9\). 
+
+    Ensuite nous résolvons
+    \begin{equation}
+        \begin{pmatrix}
+            10^{-9}    &   1    \\ 
+            0    &   1-10^9    
+        \end{pmatrix}\begin{pmatrix}
+            x_1    \\ 
+            x_2    
+        \end{pmatrix}=\begin{pmatrix}
+            1    \\ 
+            2-10^9    
+        \end{pmatrix}.
+    \end{equation}
+    Cela donne
+    \begin{equation}
+        \begin{pmatrix}
+            x_1    \\ 
+            x_2    
+        \end{pmatrix}=\begin{pmatrix}
+            -\frac{ 10^9 }{ 1-10^9 }    \\ 
+            \frac{ 2-10^9 }{ 1-10^9 }    
+        \end{pmatrix}\simeq\begin{pmatrix}
+            1    \\ 
+            1    
+        \end{pmatrix}.
+    \end{equation}
+
+    C'est également le résultat que trouve Sage :
+    \lstinputlisting{sageSnip007.sage}
+\end{example}
+
+\begin{example}     \label{EXooNVRNooJgQmQc}
+    Nous recommençons tout le calcul avec une précision limitée à \( 8\) chiffres significatifs, sans pivot.
+
+    Nous avons à nouveau la transformation gaussienne
+    \begin{equation}
+        E_1=\begin{pmatrix}
+            1    &   0    \\ 
+            -10^9    &   1    
+        \end{pmatrix},
+    \end{equation}
+    mais pour calculer \( U\) nous effectuons le produit matriciel
+    \begin{equation}
+        U=E_1A=\begin{pmatrix}
+            1    &   0    \\ 
+            -10^9    &   1    
+        \end{pmatrix}\begin{pmatrix}
+            10^{-9}   &   1    \\ 
+            1    &   1    
+        \end{pmatrix}=\begin{pmatrix}
+            10^{-9}    &   1    \\ 
+            0    &   *    
+        \end{pmatrix}.
+    \end{equation}
+    Nous détaillons à présent le calcul de l'élément noté \( *\). Le calcul de \( 10^9\ominus 1)\) donne
+    \begin{equation}
+        999999999=9.99999999\times 10^{8},
+    \end{equation}
+    mais la précision étant limitée à \( 8\) chiffres, un arrondit arrive. Étant donné que le premier chiffres supprimé est un \( 9\) nous retombons sur \( 10^9\), et donc notre machine à précision limitée donnera
+    \begin{equation}
+        U=\begin{pmatrix}
+            10^{-9}    &   1    \\ 
+            0    &   -10^{9}    
+        \end{pmatrix}.
+    \end{equation}
+    Ensuite le calcul de \( L=E_1^{-1}\) ne cause pas de problèmes :
+    \begin{equation}
+        L=\begin{pmatrix}
+            1    &   0    \\ 
+            -10^9    &   1    
+        \end{pmatrix}.
+    \end{equation}
+    Maintenant il s'agit de résoudre les systèmes \( Ly=b\) et \( Ux=y\). Du système
+    \begin{equation}
+        \begin{pmatrix}
+            1    &   0    \\ 
+            10^9    &   1    
+        \end{pmatrix}\begin{pmatrix}
+            y_1    \\ 
+            y_2    
+        \end{pmatrix}=\begin{pmatrix}
+            1    \\ 
+            2    
+        \end{pmatrix}
+    \end{equation}
+    nous tirons tout de suite \( y_1=1\) et ensuite \( 10^9+y_2=2\), c'est à dire \( y_2=2-10^9\), qui en précision limitée donne encore \( y_2=-10^9\). À résoudre maintenant :
+    \begin{equation}
+        \begin{pmatrix}
+            10^{-9}    &   1    \\ 
+            0    &   -10^9    
+        \end{pmatrix}\begin{pmatrix}
+            x_1    \\ 
+            x_2    
+        \end{pmatrix}=\begin{pmatrix}
+            1    \\ 
+            -10^9    
+        \end{pmatrix}.
+    \end{equation}
+    Cela donne immédiatement \( x_2=1\) et ensuite
+    \begin{equation}
+        10^{-9}x_1+1=1, 
+    \end{equation}
+    donc \( x_1=0\). La solution trouvée est
+    \begin{equation}
+        \begin{pmatrix}
+            x_1    \\ 
+            x_2    
+        \end{pmatrix}=\begin{pmatrix}
+            0    \\ 
+            1    
+        \end{pmatrix},
+    \end{equation}
+    qui est complètement faux au niveau de la première variable.
+\end{example}
+
+\begin{example}     \label{EXooNCRSooTfmPFr}
+    Nous résolvons encore le même système en précision limitée, mais en utilisant cette fois la méthode de Gauss avec pivot partiel.    
 \end{example}
 <++>
 
 Notons que Sage utilise la méthode de Gauss avec pivots :
 \lstinputlisting{sageSnip006.sage}
 
-Et il fait de façon exacte :
-\lstinputlisting{sageSnip007.sage}
-%position 7330-27025
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Déterminant}
