@@ -187,6 +187,24 @@ En coordonnées nous avons
 \end{proof}
 Le sens de ce lemme est si un vecteur est déjà «gaussiannisé» au niveau \( k\), alors en lui appliquant une transformation gaussienne de niveau plus élevé que \( k\), il ne change pas. Ce fait est important parce qu'il assure que lorsque l'on avance dans le processus de Gauss, chaque étape ne détruit pas les précédentes.
 
+Le lemme suivant nous indique que l'inverse d'une matrice de transformation gaussienne est facile à calculer\footnote{Elle rentre d'ailleurs dans la catégorie des matrices triangulaires dont nous avons déjà discuté l'inverse.}.
+
+\begin{lemma}       \label{LEMooFHZDooZiKdbr}
+    L'inverse de la transformation gaussienne 
+    \begin{equation}
+        M_k(x)_{ij}=\delta_{ij}-\tau_k(x)_i\delta_{kj}.
+    \end{equation}
+    est la matrice donnée par
+    \begin{equation}
+        M_k(x)^{-1}_{ij}=\delta_{ij}+\tau_k(x)_i\delta_{kj}.
+    \end{equation}
+    Autrement dit, il suffit de changer le signe de la partie non diagonale.
+\end{lemma}
+
+\begin{proof}
+    Il s'agit d'une simple vérification, utilisant le produit matriciel explicite, et en remarquant que \( \tau_k(x)_k=0\) pour tout \( k\).
+\end{proof}
+
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Méthode de Gauss sans pivot (décomposition LU)}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -467,6 +485,37 @@ Et la matrice \( P\) qui arrive dans \( PA=LU\) est la matrice \(P= P_{23}P_{21}
     \end{pmatrix}.
 \end{equation}
 
+\begin{lemma}[\cite{ooJZHZooLRqIsV}]        \label{LEMooYIYIooYhnaOt}
+    Si \( i,j>k\) alors les matrices de permutation élémentaires ont la relation de «commutation» suivante avec les transformations gaussiennes :
+    \begin{equation}
+        M_k(x)P_{ij}=P_{ij}M_k\big(  P_{ij}(x) \big).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Il suffit de calculer les éléments de matrice :
+    \begin{equation}
+        \big( P_{ij}M_k(x) \big)_{st}=(P_{ij})_{st}-\sum_m(P_{ij})_{sm}\tau_k(x)_{m}\delta_{kt},
+    \end{equation}
+    mais 
+    \begin{equation}
+        \sum_m(P_{ij})_{sm}\tau_k(x)_{m}=\big( P_{ij}\tau_k(x) \big)_s=\tau_k\big( P_{ij}(x) \big)_s
+    \end{equation}
+    parce que \( i,j>k\) implique que dans \( P_{ij}\tau_k(x)\) nous inversons deux élément non nuls de \( \tau_k(x)\), tout en laissant le \( k\)\ieme élément. Le dénominateur ne change pas et il s'agit réellement d'une inversion de ligne. Donc
+    \begin{equation}        \label{EQooIBVJooTOWCGT}
+        \big( P_{ij}M_k(x) \big)_{st}=(P_{ij})_{st}-\tau_k\big( P_{ij}x \big)_s\delta_{kt}.
+    \end{equation}
+    De l'autre côté,
+    \begin{equation}
+        \big( M_k(y)P_{ij} \big)_{st}=(P_{ij})_{st}-\tau_k(y)_s(P_{ij})_{kt}.
+    \end{equation}
+    Mais comme \( i,j>k\) la \( k\)\ieme ligne de \( P_{ij}\) est la même que celle de la matrice unité, donc \( (P_{ij})_{kt}=\delta_{kt}\).
+    \begin{equation}
+        \big( M_k(y)P_{ij} \big)_{st}=(P_{ij})_{st}-\tau_k(y)_s\delta_{kt}.
+    \end{equation}
+    Cela correspond bien à \eqref{EQooIBVJooTOWCGT}.
+\end{proof}
+
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Méthode de Gauss avec pivot partiel}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -536,14 +585,7 @@ Notons que ces \( L\) et \( U\) ne sont pas les mêmes que le \( L U\) obtenu sa
 \begin{equation}
     PA=LU
 \end{equation}
-où \( P\) est une matrice de permutation. Pour élucider ce point, il nous faut introduire les matrices de permutation élémentaires, ce qui sera encore un bon moment pour l'agrégation.
-
-\begin{lemma}[\cite{ooJZHZooLRqIsV}]        \label{LEMooYIYIooYhnaOt}
-    Les matrices de permutation élémentaires ont la relation de «commutation» suivante avec les transformations gaussiennes :
-    \begin{equation}
-        M_k(x)P_{ij}=P_{ij}M_k\big(  P_{ij}(x) \big).
-    \end{equation}
-\end{lemma}
+où \( P\) est une matrice de permutation. 
 
 \begin{proposition}[Méthode de Gauss avec pivot partiel\cite{ooJZHZooLRqIsV}]
     Soit une matrice inversible \( A\in\eM(n,\eC)\). Il existe
@@ -594,7 +636,7 @@ Notons que cette proposition ne demande que l'hypothèse d'inversibilité pour \
         P_{r_{k+1},k+1}A_k
     \end{equation}
     est non nulle et peut donc servir de pivot. Soit \( M_{k+1}\) la transformation gaussienne pour la \( (k+1)\)\ieme colonne de la matrice \( P_{r_{k+1},k+1}A_k\). La matrice
-    \begin{equation}
+    \begin{equation}        \label{EQooCFIFooNDvPFE}
         A_{k+1}=M_{k+1}P_{r_{k+1},k+1}A_k
     \end{equation}
     est alors une matrice triangulaire supérieure jusqu'à la \( (k+1)\)\ieme colonne. En posant \( E_{k+1}=M_{k+1}^{-1}\) nous avons
@@ -659,9 +701,152 @@ Commençons par voir comment se passe en pratique la décomposition \( PA=LU\) d
             3    &   8    &   0
         \end{pmatrix}.
     \end{equation}
-    
+    Sur la première colonne, le plus grand nombre est \( 3\). Nous commençons par permuter la première et la troisième ligne en utilisant la matrice de permutation \( P_1=P_{3,1}\) et nous enregistrons \( r_1=3\). Nous avons alors la matrice
+    \begin{equation}
+        A_0'=\begin{pmatrix}
+            3    &   8    &   0    \\
+            2    &   5    &   0    \\
+            1    &   3    &   3
+        \end{pmatrix}.
+    \end{equation}
+    La matrice de transformation gaussienne pour la première colonne est alors
+    \begin{equation}
+        M_1=\begin{pmatrix}
+            1    &   0    &   0    \\
+            -2/3    &   1    &   0    \\
+            -1/3    &   0    &   1
+        \end{pmatrix}
+    \end{equation}
+    et \( L_1=M_1^{-1}\). Le lemme \ref{LEMooFHZDooZiKdbr} nous dit comment calculer facilement cet inverse :
+    \begin{equation}
+        L_1=\begin{pmatrix}
+            1    &   0    &   0    \\
+            2/3    &   1    &   0    \\
+            1/3    &   0    &   1
+        \end{pmatrix}
+    \end{equation}
+    En suivant l'équation \eqref{EQooCFIFooNDvPFE} nous posons \( A_1=M_1A'_0\) :
+    \begin{equation}
+        A_1=
+        \begin{pmatrix}
+            1    &   0    &   0    \\
+            -2/3    &   1    &   0    \\
+            -1/3    &   0    &   1
+        \end{pmatrix}
+        \begin{pmatrix}
+            3    &   8    &   0    \\
+            2    &   5    &   0    \\
+            1    &   3    &   3
+        \end{pmatrix}=
+        \begin{pmatrix}
+            3    &   8    &   0    \\
+            0    &   -1/3    &   0    \\
+            0    &   -2/3    &   3
+        \end{pmatrix}
+    \end{equation}
+    et nous avons 
+    \begin{equation}
+        Q_1A=L_1A_1
+    \end{equation}
+    où \( L_1\), \( A_1\) et \( r_1=3\) sont enregistrés. La matrice \( Q_1\) peut être retrouvée en sachant \( r_1\) parce que \( P\) est la matrice de permutation \( P_{r_1,1}\).
+
+    Nous travaillons maintenant sur la deuxième colonne de \( A_1\). Le plus grand élément en valeur absolue (sous la diagonale) est \( -2/3\). Nous posons \( r_2=3\) et
+    \begin{equation}
+        A'_1=\begin{pmatrix}
+            3    &   8    &   0    \\
+            0    &   -2/3    &   3    \\
+            0    &   -1/3    &   0
+        \end{pmatrix}
+    \end{equation}
+    et la matrice gaussienne pour la deuxième colonne est
+    \begin{equation}
+        M_2=\begin{pmatrix}
+            1    &   0    &   0    \\
+            0    &   1    &   0    \\
+            0    &   -1/2    &   1
+        \end{pmatrix}
+    \end{equation}
+    Le \( -1/2\) provient du calcul \( -\big( (-1/3)/(-2/3) \big)\). L'inverse de cette matrice est facile :
+    \begin{equation}
+        L_2=\begin{pmatrix}
+            1    &   0    &   0    \\
+            0    &   1    &   0    \\
+            0    &   1/2    &   1
+        \end{pmatrix}
+    \end{equation}
+    et la matrice suivante à enregistrer est 
+    \begin{equation}
+        A_2=M_2P_{3,2}A_1=M_2A'_1=\begin{pmatrix}
+            3    &   8    &   0    \\
+            0    &   -2/3    &   3    \\
+            0    &   0    &   -3/2
+        \end{pmatrix}.
+    \end{equation}
+    Notons toutefois que pour calculer cette matrice, seul le dernier élément demande un calcul. La première colonne ne change pas (par construction), la seconde gagne un zéro en dernière ligne (la matrice \( M_2\) sert à ça) et sur la dernière colonne, seule la dernière ligne est sujette à changement.
+
+    Avec la matrice \( A_2\), la trigonalisation supérieure est faite. La décomposition n'est cependant pas terminée. Nous devons encore trouver la partie triangulaire inférieure. Nous en sommes à
+    \begin{equation}
+        Q_1A=L_1A_1=L_1P_{3,2}L_2A
+    \end{equation}
+    où \( Q_1\) est la première matrice de permutation.
+
+    Utilisant le lemme \ref{LEMooYIYIooYhnaOt}, il est facile de permuter \( L_{1}\) avec \( P_{3,2}\) :
+    \begin{equation}
+        L_1P_{3,2}=P_{3,2}
+        \underbrace{
+        \begin{pmatrix}
+            1    &   0    &   0    \\
+            1/3    &   1    &   0    \\
+            2/3    &   0    &   1
+        \end{pmatrix}}_{L'_1}
+    \end{equation}
+    Nous avons donc
+    \begin{equation}
+        P_{3,2}P_{3,1}A=L'_1L_2A
+    \end{equation}
+    Deux multiplications matricielles plus tard nous terminons :
+    \begin{equation}
+        PA=LU
+    \end{equation}
+    avec
+    \begin{equation}
+        \begin{aligned}[]
+        P&=\begin{pmatrix}
+            0    &   0    &   1    \\
+            1    &   0    &   0    \\
+            0    &   1    &   0
+        \end{pmatrix},&
+        L&=\begin{pmatrix}
+            1    &   0    &   0    \\
+            1/3    &   1    &   0    \\
+            2/3    &   1/2    &   1
+        \end{pmatrix},&
+        U&=A_2=\begin{pmatrix}
+            3    &   8    &   0    \\
+            0    &   -2/3    &   3    \\
+            0    &   0    &   -3/2
+        \end{pmatrix}.
+        \end{aligned}
+    \end{equation}
 \end{example}
-<++>
+
+Notons que Sage utilise la méthode de Gauss avec pivots :
+\lstinputlisting{sageSnip006.sage}
+Mais attention : Sage crée une décomposition \( A=PLU\) et non \( PA=LU\). D'où le fait que la matrice de permutation de Sage est l'inverse de celle donnée ici.
+
+Nous nous lançons dans la résolution du système
+\begin{equation}
+    \begin{pmatrix}
+        10^{-9}    &   1    \\ 
+        1    &   1    
+    \end{pmatrix}\begin{pmatrix}
+        x_1    \\ 
+        x_2    
+    \end{pmatrix}=\begin{pmatrix}
+        1    \\ 
+        2    
+    \end{pmatrix}.
+\end{equation}
 
 \begin{example}     \label{ExooNTECooXvTcoh}
     Nous commençons de façon exacte, par la méthode de Gauss sans pivot. La première transformation gaussienne est
@@ -761,7 +946,7 @@ Commençons par voir comment se passe en pratique la décomposition \( PA=LU\) d
     \lstinputlisting{sageSnip007.sage}
 \end{example}
 
-\begin{example}     \label{EXooNVRNooJgQmQc}
+\begin{example}[\cite{ooJZHZooLRqIsV}]     \label{EXooNVRNooJgQmQc}
     Nous recommençons tout le calcul avec une précision limitée à \( 8\) chiffres significatifs, sans pivot.
 
     Nous avons à nouveau la transformation gaussienne
@@ -833,7 +1018,7 @@ Commençons par voir comment se passe en pratique la décomposition \( PA=LU\) d
         10^{-9}x_1+1=1, 
     \end{equation}
     donc \( x_1=0\). La solution trouvée est
-    \begin{equation}
+    \begin{equation}        \label{EQooBGWEooVGSVoe}
         \begin{pmatrix}
             x_1    \\ 
             x_2    
@@ -845,14 +1030,129 @@ Commençons par voir comment se passe en pratique la décomposition \( PA=LU\) d
     qui est complètement faux au niveau de la première variable.
 \end{example}
 
-\begin{example}     \label{EXooNCRSooTfmPFr}
+\begin{example}[\cite{ooJZHZooLRqIsV}]     \label{EXooNCRSooTfmPFr}
     Nous résolvons encore le même système en précision limitée, mais en utilisant cette fois la méthode de Gauss avec pivot partiel.    
+
+    Le plus grand élément de la première colonne est \( 1\); nous utilisons donc la permutation \( P_{1,2}\) :
+    \begin{equation}
+        P_{1,2}A=\begin{pmatrix}
+            1    &   1    \\ 
+            10^{-9}    &       1
+        \end{pmatrix}.
+    \end{equation}
+    La matrice de transformation gaussienne pour la première colonne de cette matrice est
+    \begin{equation}
+        M_1=\begin{pmatrix}
+            1    &   0    \\ 
+            -10^{-9}    &  1  
+        \end{pmatrix}
+    \end{equation}
+    et nous posons
+    \begin{equation}
+        A_1=M_1P_{1,2}A=
+        \begin{pmatrix}
+            1    &   0    \\ 
+            -10^{-9}    &   1    
+        \end{pmatrix}
+        \begin{pmatrix}
+            1    &   1    \\ 
+            10^{-9}    &   1    
+        \end{pmatrix}
+        =\begin{pmatrix}
+            1    &   1    \\ 
+            0    &   -10^{-9}+1    
+        \end{pmatrix}=
+        \begin{pmatrix}
+            1    &   1    \\ 
+            0    &   1    
+        \end{pmatrix}=U
+    \end{equation}
+    où un arrondi a eu lieu pour \( -10^{-9}+1=1\). En inversant \( M_1\) nous avons
+    \begin{equation}
+        L_1=M_1^{-1}=\begin{pmatrix}
+            1    &   0    \\ 
+            10^{-9}    &   1    
+        \end{pmatrix}.
+    \end{equation}
+    La décomposition est 
+    \begin{equation}
+        A=\underbrace{\begin{pmatrix}
+            0    &   1    \\ 
+            1    &   0    
+        \end{pmatrix}
+    }_{P}
+    \underbrace{
+        \begin{pmatrix}
+            1    &   0    \\ 
+            10^{-9}    &   1    
+        \end{pmatrix}}_{L}
+        \underbrace{
+        \begin{pmatrix}
+            1    &   1    \\ 
+            0    &   1    
+        \end{pmatrix}}_{U}
+    \end{equation}
+    Le moment de résoudre est venu. Vu que \( PLUx=b\) nous devons résoudre les systèmes
+    \begin{subequations}
+        \begin{numcases}{}
+            Pz=b\\
+            Ly=z\\
+            Ux=y.
+        \end{numcases}
+    \end{subequations}
+    Pour \( z\) c'est facile :
+    \begin{equation}
+        z=\begin{pmatrix}
+            2    \\ 
+            1    
+        \end{pmatrix}.
+    \end{equation}
+    Pour $y$ il y a un arrondi :
+    \begin{equation}
+        \begin{pmatrix}
+            1    &   0    \\ 
+            10^{-9}    &   1    
+        \end{pmatrix}\begin{pmatrix}
+            y_1    \\ 
+            y_2    
+        \end{pmatrix}=\begin{pmatrix}
+            2    \\ 
+            1    
+        \end{pmatrix}.
+    \end{equation}
+    Tout de suite : \( y_1=2\) et ensuite \( 2\times 10^{-9}+y_2=1\), ce qui donne \( y_2=1\ominus 2\times 10^{-9}=1\). Donc
+    \begin{equation}
+        y=\begin{pmatrix}
+            2    \\ 
+            1    
+        \end{pmatrix}.
+    \end{equation}
+    Et enfin pour \( x\) c'est le système
+    \begin{equation}
+        \begin{pmatrix}
+            1    &   1    \\ 
+            0    &   1    
+        \end{pmatrix}\begin{pmatrix}
+            x_1    \\ 
+            x_2    
+        \end{pmatrix}=\begin{pmatrix}
+            2    \\ 
+            1    
+        \end{pmatrix}.
+    \end{equation}
+    Nous avons \( x_2=1\) et ensuite \( x_1+1=2\) c'est à dire \( x_1=1\). Au final la solution trouvée est
+    \begin{equation}
+        x=\begin{pmatrix}
+            1    \\ 
+            1    
+        \end{pmatrix}.
+    \end{equation}
+    Cette solution est considérablement meilleure que \eqref{EQooBGWEooVGSVoe}.
 \end{example}
-<++>
 
-Notons que Sage utilise la méthode de Gauss avec pivots :
-\lstinputlisting{sageSnip006.sage}
-
+\begin{normaltext}
+    L'utilisation du pivot non seulement assure le fait que la trigonalisation va bien se passer (on évite les zéros en pivot), mais aussi et surtout, en choisissant de prendre le plus grand pivot possible, nous obtenons une meilleur stabilité numérique.
+\end{normaltext}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Déterminant}
