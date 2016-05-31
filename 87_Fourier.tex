@@ -466,20 +466,106 @@ Si \( \alpha\) est un multiindice de taille \( m\), nous notons
     % TODO : Faire le dernier morceau de cette preuve.
 \end{proof}
 
-\begin{proposition}[Formule d'inversion de Fourier\cite{KXjFWKA}]
-    Si \( f\in\swS(\eR^d)\), alors nous avons la composition
-    \begin{equation}
-        \TF\big( \TF(f) \big)(x)=2\pi f(-x).
+\begin{proposition}[Formule d'inversion de Fourier\cite{KXjFWKA}]       \label{PROPooLWTJooReGlaN}
+    Si \( f\in\swS(\eR)\), alors nous avons  la formule d'inversion
+    \begin{equation}        \label{EQooHIDAooHARdNZ}
+        f(x)=\frac{1}{ 2\pi }\int_{\eR} e^{ikx}\hat f(k)dk.
     \end{equation}
-    Et les formules
-    \begin{equation}
-        \TF^{-1}(f)(x)=\frac{1}{ 2\pi }\hat f(-x),
-    \end{equation}
-    et
-    \begin{equation}        \label{EQooWBZTooPeBNeh}
-        f(x)=\frac{1}{ 2\pi }\TF(\hat f)(-x).
-    \end{equation}
+    Cette formule peut d'écrire de plusieurs autres façons :
+    \begin{subequations}
+        \begin{align}
+        \TF\big( \TF(f) \big)(x)=2\pi f(-x),\\
+        \TF^{-1}(f)(x)=\frac{1}{ 2\pi }\hat f(-x),\\
+        f(x)=\frac{1}{ 2\pi }\TF(\hat f)(-x).     \label{EQooWBZTooPeBNeh}
+        \end{align}
+    \end{subequations}
 \end{proposition}
+
+\begin{proof}
+    Pour \( \epsilon>0\) nous posons
+    \begin{equation}
+        f_{\epsilon}(k)= e^{-\epsilon k^2} e^{ikx}\hat f(k).
+    \end{equation}
+    Nous allons calculer
+    \begin{equation}
+        \lim_{\epsilon\to 0}\int_{\eR} e^{-\epsilon k^2} e^{ikx}\hat f(k)dk
+    \end{equation}
+    de deux façons.
+
+    D'abord en utilisant directement le théorème de la convergence dominée \ref{ThoConvDomLebVdhsTf}. La fonction \( \hat f\) est dans \( \swS(\eR)\) (théorème \ref{PropKPsjyzT}) et par conséquent \( f_{\epsilon}\in L^1(\eR)\) parce que le facteur \(  e^{-\epsilon k^2}\) ne va certainement pas empêcher de converger. De plus \( | f_{\epsilon} |\leq | \hat f |\) et \( \hat f\in L^1\). Le théorème est de la convergence dominée est applicable et
+    \begin{equation}        \label{EQooYIYGooXYubbW}
+        \lim_{\epsilon\to 0}\int_{\eR} e^{-\epsilon k^2} e^{ikx}\hat f(k)dk=\int_{\eR} e^{ikx}\hat f(k)dk.
+    \end{equation}
+    
+    Pour le deuxième calcul nous allons faire appel à Fubini\footnote{Parce qu'il est toujours plus simple de refiler le boulot aux autres que de le faire soi-même\ldots pauvre Fubini !} pour la fonction 
+    \begin{equation}
+        \begin{aligned}
+            u\colon \eR\times \eR&\to \eR \\
+            (k,y)&\mapsto  e^{ik(x-y)} e^{-\epsilon k^2}f(y). 
+        \end{aligned}
+    \end{equation}
+    D'abord nous nous assurons que \( u\in L^1(\eR\times \eR)\) par le corollaire \ref{CorTKZKwP}, et ensuite nous utilisons le théorème de Fubini \ref{ThoFubinioYLtPI} pour manipuler les intégrales (et en particulier les inverser). Dans un premier temps nous avons :
+    \begin{equation}
+        \int_{\eR}\int_{\eR}|  e^{ik(x-y)} e^{-\epsilon k^2} f(y) |dy\,dk\leq \int_{\eR} e^{-\epsilon k^2} \big[  \int_{\eR}| f(y) |   dy \big] dk<\infty
+    \end{equation}
+    parce que $f$ étant dans \( \swS(\eR)\), l'intégrale intérieure se réduit à un nombre. Nous savons maintenant que \( u\in L^1(\eR\times \eR)\). Nous pouvons alors calculer un peu \ldots
+    \begin{subequations}
+        \begin{align}
+            \int_{\eR} e^{ikx} e^{-\epsilon k^2}\hat f(k)dk&=\int_{\eR}\int_{\eR} e^{ikx} e^{-\epsilon k^2} e^{-iky}f(y)dy\,dk\\
+            &=\int_{\eR}\big[ \int_{\eR} e^{ik(x-y)} e^{-\epsilon k^2}f(y)dk \big]dy\\
+            &=\int_{\eR}f(y)\big[   \int_{\eR} e^{ik(x-y)} e^{-\epsilon k^2}dk  \big]dy\\
+            &=\int_{\eR} f(y)\hat g_{\epsilon}(y-x)dy\\
+            &=\sqrt{ \frac{ \pi }{ \epsilon } }\int_{\eR}f(y) e^{-(y-x)^2/4\epsilon}dy\\
+            &=2\sqrt{ \epsilon }\sqrt{ \frac{ \pi }{ \epsilon } }\int_{\eR}f(x+2\sqrt{ \epsilon }t) e^{-t^2}dt\\
+            &=2\sqrt{ \pi }\int_{\eR}f(x+2\sqrt{ \epsilon }t) e^{-t^2}dt\\
+        \end{align}
+    \end{subequations}
+    Justifications  :
+    \begin{itemize}
+        \item 
+           La fonction \( g_{\epsilon}\) est la gaussienne dont la transformée de Fourier est calculée dans le lemme \ref{LEMooPAAJooCsoyAJ}.
+       \item
+           Nous avons effectué le changement de variables \( t=(y-x)/(2\sqrt{ \epsilon })\) qui donne \( dt=dy/2\sqrt{ \epsilon }\).
+    \end{itemize}
+    La fonction \( f\) étant Schwartz (en particulier bornée), dans la dernière intégrale, nous pouvons effectuer la majoration
+    \begin{equation}
+        f(x+2\sqrt{ \epsilon }t) e^{-t^2}\leq \| f \|_{\infty} e^{-t^2},
+    \end{equation}
+    qui est une fonction intégrable. Nous pouvons donc permuter la limite et l'intégrale. Dans l'égalité
+    \begin{equation}
+        \lim_{\epsilon\to 0}\int_{\eR} e^{ikx} e^{-\epsilon k^2}\hat f(k)dk =\lim_{\epsilon\to 0} 2\sqrt{ \pi }\int_{\eR}f(x+2\sqrt{ \epsilon }t) e^{-t^2}dt
+    \end{equation}
+    À gauche nous avons déjà la limite depuis \eqref{EQooYIYGooXYubbW}, et à droite nous obtenons
+    \begin{equation}
+        \lim_{\epsilon\to 0} 2\sqrt{ \pi }\int_{\eR}f(x+2\sqrt{ \epsilon }t) e^{-t^2}dt=\int_{\eR}f(x) e^{-t^2}dt=2\sqrt{ \pi }f(x)\sqrt{ \pi }=2\pi f(x)
+    \end{equation}
+    où nous avons utilisé l'intégrale gaussienne \ref{ExrgMIni}. 
+    
+    En remettant tout ensemble,
+    \begin{equation}
+        2\pi f(x)=\lim_{\epsilon\to 0}\int_{\eR} e^{-\epsilon k^2} e^{ikx}\hat f(k)dk=\int_{\eR} e^{ikx}\hat f(k)dk,
+    \end{equation}
+    ce qu'il fallait prouver.
+\end{proof}
+
+\begin{corollary}
+    Nous avons la formule
+    \begin{equation}        \label{EQooRJXRooElEMAa}
+        \int_{\eR}\int_{\eR} e^{-ikx}f(x)dx\,dk=2\pi f(0).
+    \end{equation}
+\end{corollary}
+
+\begin{proof}
+    Poser \( x=0\) dans l'équation \eqref{EQooHIDAooHARdNZ}.
+\end{proof}
+
+\begin{normaltext}
+    Les physiciens qui n'ont que rarement peur écrivent souvent la formule \eqref{EQooRJXRooElEMAa} sous la forme
+    \begin{equation}
+        \int_{\eR} e^{-ikx}dl=\delta(x)
+    \end{equation}
+    où \( \delta\) serait la fonction de Dirac qui vaut zéro partout sauf en \( x=0\) où elle vaudrait l'infini, mais pas n'importe quel infini; juste celui qu'il faut pour que sont intégrale valle \( 1\).
+\end{normaltext}
 
 \begin{lemma}   \label{LemYYjFZSa}
     Si \( \phi\in\swS(\eR\times \eR^n)\), alors
@@ -509,57 +595,106 @@ Si \( \alpha\) est un multiindice de taille \( m\), nous notons
     Grâce à la proposition \ref{PropCSmzwGv}, cela signifie que \( \varphi\) décroît plus vite que n'importe quel polynôme; \( G\) est donc intégrable sur \( \eR^n\).
 \end{proof}
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Quelque transformées de Fourier}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{example}[\cite{KXjFWKA}] \label{EXooLMXKooFcAZGR}
+    Soit la fonction \( g_{\epsilon}(x)= e^{-\epsilon x^2}\). Sa transformée de Fourier sera déduite dans le lemma \ref{LEMooPAAJooCsoyAJ} en utilisant le lemme de transfert \ref{LemQPVQjCx}. Nous nous proposons ici de déduire de façon directe l'équation différentielle vérifiée par la transformée de Fourier de \( g_{\epsilon}\).
+
+    Nous posons
+    \begin{equation}
+        I(k)=\int_{\eR} e^{-ikx} e^{-\epsilon x^2}dx.
+    \end{equation}
+    et nous considérons la fonction
+    \begin{equation}
+        f(k,x)= e^{-ikx} e^{-\epsilon x^2}.
+    \end{equation}
+    Elle est de classe \( C^1\) par rapport à \( k\), et intégrable en \( x\) pour chaque \( k\). De plus sa dérivée
+    \begin{equation}
+        (\partial_k f)(k,x)=-ix e^{-ikx} e^{-\epsilon x^2}
+    \end{equation}
+    vérifie \( | \partial_kf |\leq x e^{-\epsilon x^2}\). La dérivée est donc majorée (uniformément en \( k\)) par une fonction intégrable. Le théorème \ref{ThoMWpRKYp} permet de permuter la dérivée et l'intégrale :
+    \begin{subequations}
+        \begin{align}
+            I'(k)&=\int_{\eR}-ix e^{-ikx} e^{-\epsilon x^2}dx\\
+            &=i\int_{\eR} e^{-ikx}\frac{1}{ 2\epsilon } \frac{ d  }{ dx }\left(  e^{-\epsilon x^2} \right)dx\\
+            &=\frac{ -i }{ 2\epsilon }\int_{\eR}\frac{ d }{ dx }\left(  e^{-ikx} \right) e^{-\epsilon x^2}dx     &\text{par partie}\\
+            &=\frac{ -k }{ 2\epsilon }\int_{\eR} e^{-ikx} e^{-\epsilon x^2}dx\\
+            &=\frac{ -k }{ 2\epsilon }I(k).
+        \end{align}
+    \end{subequations}
+    D'où l'équation différentielle \( I'(k)=-\frac{ k }{ 2\epsilon }I(k)\).
+\end{example}
+
+
 \begin{lemma}[Transformée de Fourier de la Gausienne \cite{ooKDRBooDFsyfV}]       \label{LEMooPAAJooCsoyAJ}
-    Soit la fonction
+    La transformée de Fourier de
     \begin{equation}
         \begin{aligned}
-            g\colon \eR^d&\to \eR \\
-            x&\mapsto  e^{-| x |^2/2} .
+            g_{\epsilon}\colon \eR^d&\to \eR \\
+            x&\mapsto  e^{-\epsilon\| x \|^2}
         \end{aligned}
     \end{equation}
-    La transformée de Fourier de \( g\) est
+    est donnée par
     \begin{equation}
-        \hat g(\xi)=(2\pi)^{d/2}g(\xi).
+        \hat g_{\epsilon}(\xi)=\left( \frac{ \pi }{ \epsilon } \right)^{d/2} e^{-\| \xi \|^2/4\epsilon}
     \end{equation}
 \end{lemma}
 
 \begin{proof}
-    La fonction \( g\) est dans l'espace de Schwartz. Par le théorème de Fubini,
-    \begin{subequations}
-        \begin{align}
-            \hat g(\xi)&=\int_{\eR^d}\prod_{k=1}^d e^{-x_k^2} e^{-i\xi_kx_k}dx\\
-            &=\prod_{k=1}^d\int_{\eR} e^{-t^2/2} e^{-\xi_kx}dt\\
-            &=\prod_{k=1}^d\hat f(\xi_k) \label{EQooXRLIooRCfIOd}
-        \end{align}
-    \end{subequations}
-    où \( f\) est la fonction d'une variable
-    \begin{equation}        \label{EQooFKSPooRBdgnk}
-        f(x)= e^{-x^2/2}.
-    \end{equation}
-    Notons que \( f\in\swD(\eR)\).
+    Nous commençons par la fonction $ g(x) = e^{-\| x \|^2/2}$ et nous prouvons que sa transformée de Fourier est $\hat g(\xi)=(2\pi)^{d/2}g(\xi)$. 
+    \begin{subproof}
+        \item[Réduction à la dimension \( 1\)]
+        La fonction \( g\) est dans l'espace de Schwartz. Par le théorème de Fubini,
+        \begin{equation}
+                \hat g(\xi)=\int_{\eR^d}\prod_{k=1}^d e^{-x_k^2} e^{-i\xi_kx_k}dx
+                =\prod_{k=1}^d\int_{\eR} e^{-t^2/2} e^{-\xi_kx}dt
+                =\prod_{k=1}^d\hat f(\xi_k) \label{EQooXRLIooRCfIOd}
+        \end{equation}
+        où \( f\) est la fonction d'une variable
+        \begin{equation}        \label{EQooFKSPooRBdgnk}
+            f(x)= e^{-x^2/2}.
+        \end{equation}
+        Notons que \( f\in\swD(\eR)\).
 
-    Par le théorème de Cauchy-Lipschitz \eqref{ThokUUlgU}, appliqué à la fonction \( f(t,y)=-ty\) qui est Lipschitz et continue le problème 
-    \begin{subequations}        \label{SUBEQSooWZZKooNEKnME}
-        \begin{numcases}{}
-            y'+ty=0\\
-            y(0)=c
-        \end{numcases}
-    \end{subequations}
-    possède une unique solution maximale, en l'occurrence \( y(t)= c e^{-x^2/2}  \).
+    \item[Une équation différentielle]
 
-    Voyons l'équation différentielle satisfaite par la transformée de Fourier \( \hat f\) de la fonction \eqref{EQooFKSPooRBdgnk}. Grâce au lemme \ref{LemQPVQjCx} nous trouvons l'équation différentielle
+        Voyons l'équation différentielle satisfaite par la transformée de Fourier \( \hat f\) de la fonction \eqref{EQooFKSPooRBdgnk}. Grâce au lemme \ref{LemQPVQjCx} nous trouvons l'équation différentielle\footnote{Une façon directe de déduire cette équation différentielle est donnée dans l'exemple \ref{EXooLMXKooFcAZGR}.}
+        \begin{equation}
+            \xi \hat f(\xi)+(\hat f)'(\xi)=0.
+        \end{equation}
+        C'est le moment d'utiliser le théorème de Cauchy-Lipschitz \eqref{ThokUUlgU}, appliqué à la fonction \( f(t,y)=-ty\) qui est Lipschitz et continue au au problème 
+        \begin{subequations}        \label{SUBEQSooWZZKooNEKnME}
+            \begin{numcases}{}
+                y'+ty=0\\
+                y(0)=y_0
+            \end{numcases}
+        \end{subequations}
+        possède une unique solution maximale, en l'occurrence \( y(x)= y_0  e^{-x^2/2}  \). En ce qui concerne la condition initiale nous avons
+        \begin{equation}
+            \hat f(0)=\int_{\eR} e^{-x^2/2}dx=\sqrt{ 2\pi }.
+        \end{equation}
+        par l'exemple \ref{ExrgMIni}. Donc
+        \begin{equation}
+            \hat f(\xi)=\sqrt{ 2\pi } e^{-\xi^2/2}.
+        \end{equation}
+        En reformant le produit \eqref{EQooXRLIooRCfIOd} nous concluons.
+   \end{subproof}
+
+    Nous passons maintenant à la fonction \( g_{\epsilon}\). Nous pouvons écrire \( g_{\epsilon}\) sous la forme
     \begin{equation}
-        \xi \hat f(\xi)+(\hat f)'(\xi)=0,
+        g_{\epsilon}(x)=g(\sqrt{ 2\epsilon }x).
     \end{equation}
-    c'est à dire l'équation \eqref{SUBEQSooWZZKooNEKnME} dont nous devons encore savoir la condition initiale. Pour cette dernière nous avons
-    \begin{equation}
-        \hat f(0)=\int_{\eR} e^{-x^2/2}dx=\sqrt{ 2\pi }.
-    \end{equation}
-    par l'exemple \ref{ExrgMIni}. Donc
-    \begin{equation}
-        \hat f(\xi)=\sqrt{ 2\pi } e^{-\xi^2/2}.
-    \end{equation}
-    En reformant le produit \eqref{EQooXRLIooRCfIOd} nous concluons.
+        Utilisant successivement la transformée de Fourier de \( g\) que nous venons de calculer et \ref{LEMooKGDKooVXSMCn} (facteur d'échelle) nous trouvons
+        \begin{subequations}
+            \begin{align}
+                \hat g(\xi)&=(2\pi)^{d/2}g(\xi)\\
+                \hat g_{\epsilon}(\xi)&=(2\epsilon)^{-d/2}\hat g\big( \xi/\sqrt{ 2\epsilon } \big)\\
+                &=\left( \frac{ \pi }{ \epsilon } \right)^{d/2} e^{-| \xi |^2/4\epsilon} \label{SUBEQooFWIKooGMpFbo}..
+            \end{align}
+        \end{subequations}
+        Nous voyons que \( \hat g_{\epsilon}\in\swS(\eR^d)\)  (c'était gagné d'avance par la proposition \ref{PropKPsjyzT}).
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
@@ -634,11 +769,7 @@ Une telle suite est régularisante parce que souvent \( \rho_n\in\swD(\eR^d)\), 
 \end{proof}
 
 \begin{lemma}       \label{LEMooTDWSooSBJXdv}
-    Si \( g_{\epsilon}(x)= e^{-\epsilon| x |^2}\) alors
-    \begin{equation}
-        \hat g_{\epsilon}(\xi)=\left( \frac{ \pi }{ \epsilon } \right)^{d/2} e^{-| \xi |^2/4\epsilon}
-    \end{equation}
-    et 
+    Si \( g_{\epsilon}(x)= e^{-\epsilon\| x \|^2}\) alors la suite
     \begin{equation}        \label{EQooWQWZooZIYGpq}
         \rho_n=\frac{1}{ (2\pi)^d }\hat g_{1/n}
     \end{equation}
@@ -646,21 +777,7 @@ Une telle suite est régularisante parce que souvent \( \rho_n\in\swD(\eR^d)\), 
 \end{lemma}
 
 \begin{proof}
-    En posant $g(x)= e^{-| x |^2/2}$ nous pouvons écrire \( g_{\epsilon}\) sous la forme
-    \begin{equation}
-        g_{\epsilon}(x)=g(\sqrt{ 2\epsilon }x).
-    \end{equation}
-        Utilisant successivement les lemmes \ref{LEMooPAAJooCsoyAJ} (transformée de Fourier de \( g\)) et \ref{LEMooKGDKooVXSMCn} (facteur d'échelle) nous trouvons
-        \begin{subequations}
-            \begin{align}
-                \hat g(\xi)&=(2\pi)^{d/2}g(\xi)\\
-                \hat g_{\epsilon}(\xi)&=(2\epsilon)^{-d/2}\hat g\big( \xi/\sqrt{ 2\epsilon } \big)\\
-                &=\left( \frac{ \pi }{ \epsilon } \right)^{d/2} e^{-| \xi |^2/4\epsilon} \label{SUBEQooFWIKooGMpFbo}..
-            \end{align}
-        \end{subequations}
-        Nous voyons que \( \hat g_{\epsilon}\in\swS(\eR^d)\)  (c'était gagné d'avance par la proposition \ref{PropKPsjyzT}).
-
-        Nous montrons à présent que la suite \( \rho_n\) est régularisante. Nous avons \( \hat g_{\epsilon}\in L^1(\eR^d)\) et \( \hat g_{\epsilon}\geq 0\) ainsi que \( \lim_{\epsilon\to 0}\int_{B(0,\alpha)}\hat  g_{\epsilon}=0\) pour tout \( \alpha\). Il y a seulement un couac avec la norme. Nous calculons \( \int_{\eR^d}\hat g_{\epsilon}(\xi)d\xi\) avec la forme \eqref{SUBEQooFWIKooGMpFbo}. En utilisant sauvagement Fubini\footnote{Le pauvre !} pour séparer les intégrales et en effectuant le changement de variable \( u=t/(2\sqrt{ \epsilon })\) nous calculons :
+    Nous savons déjà la transformée de Fourier de \( g_{\epsilon}\) par le lemme \ref{LEMooPAAJooCsoyAJ}. Nous montrons que la suite \( \rho_n\) est régularisante. Nous avons \( \hat g_{\epsilon}\in L^1(\eR^d)\) et \( \hat g_{\epsilon}\geq 0\) ainsi que \( \lim_{\epsilon\to 0}\int_{B(0,\alpha)}\hat  g_{\epsilon}=0\) pour tout \( \alpha\). Il y a seulement un couac avec la norme. Nous calculons \( \int_{\eR^d}\hat g_{\epsilon}(\xi)d\xi\) avec la forme \eqref{SUBEQooFWIKooGMpFbo}. En utilisant sauvagement Fubini\footnote{Le pauvre !} pour séparer les intégrales et en effectuant le changement de variable \( u=t/(2\sqrt{ \epsilon })\) nous calculons :
         \begin{subequations}
             \begin{align}
                 \int_{\eR^d} e^{-| \xi |^2/4\epsilon}d\xi&=\prod_{k=1}^d\int_{\eR} e^{-t^2/4\epsilon}dt\\
