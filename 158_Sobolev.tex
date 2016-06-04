@@ -518,15 +518,19 @@ Le lemme suivant montre que la proposition \ref{LemQPVQjCx} fonctionne encore av
 \end{proof}
 
 \begin{definition}[Espace de Sobolev \( H^s\)\cite{ooCVEMooUxVWwU}]
-    Pour \( s>0\) nous définissons l'espace de Sobolev \( H^2(\eR^d)\) par
+    Pour \( s>0\) nous définissons l'espace de Sobolev \( H^s(\eR^d)\) par
     \begin{equation}
-        H^s(\eR^d)=\{ u\in L^2(\eR^d)\tq  \big( 1+\| \xi \|^2 \big)^{s/2}\hat v\in L^2(\eR^d)  \}.
+        H^s(\eR^d)=\{ u\in L^2(\eR^d)\tq  \big( 1+\| \xi \|^2 \big)^{s/2}\hat u\in L^2(\eR^d)  \}.
     \end{equation}
     Nous y mettons le produit scalaire
     \begin{equation}
         (u,v)_{H^s}=\int_{\eR^d}\hat u(\xi)\overline{ \hat v(\xi) }(1+\| \xi \|^2)^sd\xi.
     \end{equation}
 \end{definition}
+
+\begin{normaltext}
+    Vu que \( \swD(\eR^d)\) est dense dans \( L^2(\eR^d)\) (théorème \ref{ThoILGYXhX}), on pourrait croire à la densité a fortiori dans \( H^s(\eR^d)\). Mais attention : \( \swD(\eR^d)\) est dense dans \( L^2\) pour la norme \( L^2\). Nous n'avons encore rien dit pour la norme \( H^s(\eR^d)\).
+\end{normaltext}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Trace}
@@ -550,19 +554,55 @@ Le lemme suivant montre que la proposition \ref{LemQPVQjCx} fonctionne encore av
 \end{theorem}
 
 \begin{proof}
-    Nous commençons par considérer \( v\in \swD(\eR^d)\) (fonction \(  C^{\infty}\) à support compact). En utilisant la formule d'inversion de Fourier \eqref{EQooWBZTooPeBNeh}
-    \begin{subequations}
-        \begin{align}
-            (\gamma_0 v)(x')&=v(x',0)=\frac{1}{ 2\pi }\int_{\eR^d}\hat v(\xi) e^{i\xi\cdot(x',0)}d\xi\\
-            &=\frac{1}{ 2\pi }\int_{\eR^{d-1}}\left( \int_{\eR}\hat v(\xi_1,\ldots, \xi_d) e^{i\xi'\cdot x'}d\xi_d \right)d\xi_1\ldots d\xi_{d-1}   \label{SUBEQooWQQIooWIJfsV} \\
-            &=\frac{1}{ 2\pi }\int_{\eR^{d-1}}\left( \int_{\eR}\hat v(\xi',\xi_d)d\xi_d \right) e^{i\xi'\cdot x'}d\xi'       \label{SUBEQooEQYBooHwfUxb}
-        \end{align}
-    \end{subequations}
-    Justifications :
-    \begin{itemize}
-        \item Pour \eqref{SUBEQooWQQIooWIJfsV} : séparation par Fubini de l'intégrale par rapport à \( \xi_d\). Ici \( \xi'\) est bien la restriction de \( \xi\) aux \( d-1\) premières composantes.
-        \item Pour \eqref{SUBEQooEQYBooHwfUxb} : permutation des intégrales en utilisant le théorème de Fubini, et regrouper les \( d-1\) intégrales en une intégrale sur \( \xi'\in \eR^{d-1}\).
-    \end{itemize}
-    <++>
+    Nous subdivisons la preuve en plusieurs pas.
+    \begin{subproof}
+        \item[Une inégalité pour \( \varphi\in\swD(\eR^d)\)]
+            Nous commençons par considérer \( v\in \swD(\eR^d)\) (fonction \(  C^{\infty}\) à support compact). Nous allons alors prouver que
+            \begin{equation}
+                \| \gamma_0\varphi \|_{H^{s-\frac{ 1 }{2}}(\eR^{d-1})}\leq K\| \varphi \|_{H^s(\eR^d)}
+            \end{equation}
+            pour une certaine constante \( K\) (qui ne dépend en particulier pas de \( \varphi\)).
+
+            Nous avons
+            \begin{subequations}
+                \begin{align}
+                    \| \gamma_0\varphi \|^2_{H^{s-\frac{ 1 }{2}}(\eR^{d-1})}&=(  \gamma_0\varphi,\gamma_0\varphi  )_{H^{s-\frac{ 1 }{2}}}\\
+                    &=\int_{\eR^{d-1}}| \widehat{\gamma_0\varphi(\xi)} |^2(1+\| \xi \|^2)^{s-\frac{ 1 }{2}}d\xi\\
+                    &=\int_{\eR^{d-1}}\Big| \int_{\eR^{d-1}}(\gamma_0\varphi)(x) e^{-i\xi x}dx \Big|^2(1+\| \xi \|^2)^{s-\frac{ 1 }{2}}d\xi \label{SUBEQooKLLYooNRjPwn} \\
+                \end{align}
+            \end{subequations}
+            Nous appliquons la trace. en appliquant la formule du corollaire \ref{CORooAZLZooSviTej},
+            \begin{equation}
+                (\gamma_0\varphi)(x)= \varphi(x,0) =\frac{1}{ 2\pi }\int_{\eR}\int_{\eR} e^{-iky}\varphi(x,y)dy\,dk
+            \end{equation}
+            En remplaçant dans \eqref{SUBEQooKLLYooNRjPwn} nous avons
+            \begin{equation}
+                \| \gamma_0\varphi \|^2_{H^{s-\frac{ 1 }{2}}(\eR^{d-1})}=\frac{1}{ 2\pi }\int_{\eR^{d-1}}\big| \int_{\eR^{d-1}}\int_{\eR}\int_{\eR} e^{-iky} e^{-i\xi x}\varphi(x,y)dy\,dk\,dx \big|^2(1+\| \xi \|^2)^{s-\frac{ 1 }{2}}d\xi.
+            \end{equation}
+            Nous voudrions permuter les intégrales en \( k\) et en \( x\). Pour cela nous étudions la fonction \( u\colon \eR\times \eR^{d-1}\to \eC\) donnée par
+            \begin{equation}
+                u(k,x)= e^{-ikx}\int_{\eR} e^{-i\xi x}\varphi(x,y)dy
+            \end{equation}
+            Effectuer l'intégrale par rapport à $y$ revient à calculer la transformée de Fourier partielle dont nous parlons dans la proposition \ref{PROPooMVQMooGYAzSX}\quext{Dont une relecture de la preuve ne serait vraiment pas de trop, ainsi que la preuve de \ref{CORooZFPSooHCFUSH}.}. Elle est donc une fonction Schwartz de \( k\) et de \( x\) (conjointement et non seulement séparément) et est donc dans \( L^1(\eR\times \eR^{d-1})\). Les intégrales sut \( k \) et sur \( x\) peuvent donc être réunies et permutées par le théorème de Fubini \ref{ThoFubinioYLtPI} (n'oubliez tout de même pas de vous convaincre que la condition \ref{ITEMooCYMKooUdizni} est remplie).
+
+            Nous avons donc
+            \begin{equation}
+                \| \gamma_0\varphi \|^2_{H^{s-\frac{ 1 }{2}}(\eR^{d-1})}=\frac{1}{ 2\pi }\int_{\eR^{d-1}}|\int_{\eR}\int_{\eR^{d-1}}\int_{\eR} e^{-iky} e^{-i\xi x}\varphi(x,y)dy\,dx\,dk|^2(1+\| \xi \|^2)^{s-\frac{ 1 }{2}}d\xi.
+            \end{equation}
+            Étant donné que \( \varphi\) est à support compact, les intégrales sur \( x\) et sur \( y\) peuvent se réunir en utilisant encore le théorème de Fubini; ces intégrales donnent :
+            \begin{equation}
+                \int_{\eR^{d-1}\times \eR} e^{-iky} e^{-i\xi x}\varphi(x,y)dx\otimes dy=\int_{\eR^{d-1}\times \eR} e^{  -i(\xi,k)\cdot(x,y)  }\varphi(x,y)dx\otimes dy=\hat \varphi(\xi,k).
+            \end{equation}
+            Nous restons avec
+            \begin{equation}
+                \| \gamma_0\varphi \|^2_{H^{s-\frac{ 1 }{2}}(\eR^{d-1})}=\frac{1}{ 2\pi }\int_{\eR^{d-1}}|   \int_{\eR}\hat \varphi(\xi,k)dk    |^2(1+\| \xi \|^2)^{s-\frac{ 1 }{2}}d\xi.
+            \end{equation}
+            Nous allons maintenant traiter la partie du milieu :
+            \begin{equation}
+                \clubsuit=|\int_{\eR}\hat \varphi(\xi,k)dk|=
+            \end{equation}
+            <++>
+    \end{subproof}
+    
 \end{proof}
 <++>
