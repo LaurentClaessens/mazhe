@@ -427,6 +427,7 @@ figures_list.append(TZCISko)
 figures_list.append(ALIzHFm)
 figures_list.append(TracerUn)
 figures_list.append(ACUooQwcDMZ)
+figures_list=[]
 figures_list.append(ExerciceGraphesbis)
 figures_list.append(Grapheunsurunmoinsx)
 figures_list.append(ExoCUd)
