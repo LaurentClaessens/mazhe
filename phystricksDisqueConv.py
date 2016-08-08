@@ -12,7 +12,7 @@ def DisqueConv():
     C.parameters.hatch.color="green"
 
     pspict.axes.no_graduation()
-    pspict.DrawGraphs(Z,C,Z)
+    pspict.DrawGraphs(Z,C)
     pspict.DrawDefaultAxes()
     pspict.dilatation(1)
     fig.conclude()
