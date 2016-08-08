@@ -41,7 +41,7 @@ def Bateau():
 	trajet.parameters.color="blue"
 	trajet.parameters.style="dashed"
 
-	pspict.DrawGraphs(plage,A,quatre,neuf,trois,I,proj,trajet,B,Bp,ixe,I)
+	pspict.DrawGraphs(plage,A,quatre,neuf,trois,I,proj,trajet,B,Bp,ixe)
 	#pspict.DrawDefaultAxes()
 	pspict.dilatation(1)
 	fig.conclude()
