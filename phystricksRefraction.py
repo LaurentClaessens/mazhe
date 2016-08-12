@@ -5,7 +5,7 @@ def Refraction():
     O=Point(0,0)
     plan=Segment(Point(-3,0),Point(3,0))
     N=AffineVector(Point(0,-2),Point(0,2))
-    N.put_mark(0.3,0,"$\overline{ N }$",automatic_place=pspict)
+    N.put_mark(0.3,0,"$\overline{ N }$",pspict=pspict)
 
     A=Point(1,1)    
     B=Point(-2,-1)    
@@ -16,8 +16,8 @@ def Refraction():
 
     theta1=Angle(A,O,N.F)
     theta2=Angle(B,O,N.I)
-    theta1.put_mark(0.3,None,r"$\theta_1$",automatic_place=pspict)
-    theta2.put_mark(0.3,None,r"$\theta_2$",automatic_place=pspict)
+    theta1.put_mark(0.3,None,r"$\theta_1$",pspict=pspict)
+    theta2.put_mark(0.3,None,r"$\theta_2$",pspict=pspict)
 
     pspict.DrawGraphs(plan,N,theta1,theta2,a,b)
     pspict.dilatation(1)

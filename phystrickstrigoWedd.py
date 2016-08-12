@@ -9,7 +9,7 @@ def trigoWedd():
     q=2
     Q=Point(q,0)
 
-    Z.put_mark(0.3,Z.advised_mark_angle(pspict),"$z_0$",automatic_place=pspict)
+    Z.put_mark(0.3,Z.advised_mark_angle(pspict),"$z_0$",pspict=pspict)
     Q.put_mark(0.1,-90,"$q$",automatic_place=(pspict,"N"))
     U.put_mark(0.2,-45,"$1$",automatic_place=(pspict,"N"))
 

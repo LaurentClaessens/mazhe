@@ -25,9 +25,9 @@ def EHDooGDwfjC():
     KL.parameters.style="dashed"
 
     A.put_mark(0.2,90,"\( A\)",automatic_place=(pspict,"S"))
-    B.put_mark(0.2,45,"\( B\)",automatic_place=(pspict,"corner"))
-    C.put_mark(0.2,-45,"\( C\)",automatic_place=(pspict,"corner"))
-    K.put_mark(0.2,180+45,"\( K\)",automatic_place=(pspict,"corner"))
+    B.put_mark(0.2,45,"\( B\)",pspict=pspict,position="corner")
+    C.put_mark(0.2,-45,"\( C\)",pspict=pspict,position="corner")
+    K.put_mark(0.2,180+45,"\( K\)",pspict=pspict,position="corner")
     L.put_mark(0.2,90,"\( L\)",automatic_place=(pspict,"S"))
 
     pspict.DrawGraphs(A,B,C,K,L,AB,AC,d,KL)

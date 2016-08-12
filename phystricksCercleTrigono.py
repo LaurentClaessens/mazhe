@@ -7,7 +7,7 @@ def CercleTrigono():
     Cercle=Circle(O,2)
     alpha=30
     P=Cercle.get_point(alpha)
-    P.put_mark(0.3,P.advised_mark_angle(pspict),"$P$",automatic_place=(pspict,""))
+    P.put_mark(0.3,P.advised_mark_angle(pspict),"$P$",pspict=pspict)
     P.parameters.symbol=""
     vecteur=Vector(P)
     vecteur.parameters.color="blue"
@@ -24,7 +24,7 @@ def CercleTrigono():
     measureSin.put_mark(-0.1,0,r"$\sin(\theta)$",automatic_place=(pspict,"E"))
 
     angle=Angle(C,O,P,0.4)
-    angle.put_mark(0.3,None,r"$\theta$",automatic_place=(pspict,""))
+    angle.put_mark(0.3,None,r"$\theta$",pspict=pspict)
 
     pspict.DrawGraphs(Cercle,pc,ps,S,C,measureSin,measureCos,vecteur,angle,P)
     pspict.axes.no_graduation()

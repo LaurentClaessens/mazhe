@@ -12,8 +12,8 @@ def TriangleUV():
     v=Vector(Point(0,1))
     u.parameters.color="green"
     v.parameters.color="red"
-    u.put_mark(0.1,-90,"\( e_u\)",automatic_place=pspict)
-    v.put_mark(0.1,180,"\( e_v\)",automatic_place=pspict)
+    u.put_mark(0.1,-90,"\( e_u\)",pspict=pspict)
+    v.put_mark(0.1,180,"\( e_v\)",pspict=pspict)
 
     #P=Segment(A,B).center()
     #Q=P.translate( Segment(O,A).fix_length(0.2) )
@@ -28,8 +28,8 @@ def TriangleUV():
     t.parameters.color=v.parameters.color
 
     
-    n.put_mark(0.1,n.advised_mark_angle(pspict),"\( \\nu\)",automatic_place=pspict)
-    t.put_mark(0.1,n.advised_mark_angle(pspict),"\( T\)",automatic_place=pspict)
+    n.put_mark(0.1,n.advised_mark_angle(pspict),"\( \\nu\)",pspict=pspict)
+    t.put_mark(0.1,n.advised_mark_angle(pspict),"\( T\)",pspict=pspict)
 
     Trig=Polygon(O,A,B)
     Trig.parameters.style="none"

@@ -25,8 +25,8 @@ def XTGooSFFtPu():
     Z1=g.get_point(x1)
     Z2=h.get_point(x2)
 
-    Z1.put_mark(0.2,-45,"\( Z_1\)",automatic_place=(pspict,"corner"))
-    Z2.put_mark(0.2,45,"\( Z_2\)",automatic_place=(pspict,"corner"))
+    Z1.put_mark(0.2,-45,"\( Z_1\)",pspict=pspict,position="corner")
+    Z2.put_mark(0.2,45,"\( Z_2\)",pspict=pspict,position="corner")
 
     pspict.DrawGraphs(f,g,h,P,Q,Z1,Z2)
     pspict.DrawDefaultAxes()

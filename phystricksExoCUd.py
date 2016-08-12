@@ -21,14 +21,14 @@ def ExoCUd():
 	xx=[a+s,a-s]
 	yy=f(xx[0])
 	A=Point(0,yy)
-	A.put_mark(0.3,45,"$y$",automatic_place=pspict)
+	A.put_mark(0.3,45,"$y$",pspict=pspict)
 	r=[f.get_point(k) for k in xx]
 	p=[Point(p.x,0) for p in r]
 	seg=[ Segment(r[i],p[i]) for i in [0,1] ]
 	for s in seg:
 		s.parameters.style="dashed"
-	p[0].put_mark(0.3,-90,r"$x_+$",automatic_place=pspict)
-	p[1].put_mark(0.3,-90,r"$x_-$",automatic_place=pspict)
+	p[0].put_mark(0.3,-90,r"$x_+$",pspict=pspict)
+	p[1].put_mark(0.3,-90,r"$x_-$",pspict=pspict)
 	horizontal=Segment(r[0],r[1])
 	horizontal.parameters.style="dotted"
 

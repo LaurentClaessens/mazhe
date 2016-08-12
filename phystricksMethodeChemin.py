@@ -6,8 +6,8 @@ def MethodeChemin():
 	B=Point(1,-1)
 	C=Point(-1,-0.5)
 	D=Point(1,0.5)
-	A.put_mark(0.3,90,"$y=-x$",automatic_place=pspict)
-	D.put_mark(0.3,45,"$y=x/2$",automatic_place=pspict)
+	A.put_mark(0.3,90,"$y=-x$",pspict=pspict)
+	D.put_mark(0.3,45,"$y=x/2$",pspict=pspict)
 	A.parameters.symbol=""
 	D.parameters.symbol=""
 	S1=Segment(A,B)

@@ -6,7 +6,7 @@ def DisqueConv():
     Z=Point(2,2)
     C=Circle(Z,1)
 
-    Z.put_mark(0.1,225,"$z_0$",automatic_place=pspict)
+    Z.put_mark(0.1,225,"$z_0$",pspict=pspict)
     C.parameters.color="red"
     C.parameters.hatched()
     C.parameters.hatch.color="green"

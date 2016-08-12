@@ -10,10 +10,10 @@ def ExoProjection():
 
     w=Vector(point(0.7))
     w.parameters.color="blue"
-    w.put_mark(0.3,130,"$w$",automatic_place=pspict)
+    w.put_mark(0.3,130,"$w$",pspict=pspict)
 
     A=Point(1.5,3)
-    A.put_mark(0.3,90,"$A$",automatic_place=pspict)
+    A.put_mark(0.3,90,"$A$",pspict=pspict)
     B=A.projection(w)
     pspict.specific_needs=r"""
     \usepackage{latexsym}
@@ -24,7 +24,7 @@ def ExoProjection():
     \usepackage{bbm}
     \usepackage{mathrsfs}           
     \DeclareMathOperator{\pr}{\texttt{proj}}"""       # Un de ces paquets est demandé par \DeclareMathOperator
-    B.put_mark(0.1,-45,"$\pr_w(A)$",automatic_place=pspict)
+    B.put_mark(0.1,-45,"$\pr_w(A)$",pspict=pspict)
 
     v1=AffineVector(A,B)
     v1.parameters.color="red"
@@ -33,7 +33,7 @@ def ExoProjection():
     droite.parameters.style="dashed"
 
     Pl=point(-0.5)
-    Pl.put_mark(0.1,-90,"$P(\lambda)$",automatic_place=(pspict,"corner"))
+    Pl.put_mark(0.1,-90,"$P(\lambda)$",pspict=pspict,position="corner")
     #Pl.parameters.symbol=""
     Vl=vect(-0.5)
     Vl.parameters.color="cyan"

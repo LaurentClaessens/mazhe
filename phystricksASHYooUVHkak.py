@@ -11,7 +11,7 @@ def ASHYooUVHkak():
     s1=Segment( Point(t2-0.4,delta),Point(t1+1,delta)  )
     s1.parameters.style="dashed"
     P=Point(0,delta)
-    P.put_mark(0.2,45,"\( \delta\)",automatic_place=(pspict,"corner"))
+    P.put_mark(0.2,45,"\( \delta\)",pspict=pspict,position="corner")
 
     v=Vector(0.3,-0.2)
 

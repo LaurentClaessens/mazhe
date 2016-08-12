@@ -21,8 +21,8 @@ def DS2010exo1():
 
     I1=Intersection(droite,horiz)[0]
     I2=Intersection(cercle,horiz)[1]
-    I1.put_mark(0.3,220,"$A$",automatic_place=pspict)
-    I2.put_mark(0.3,45,"$B$",automatic_place=pspict)
+    I1.put_mark(0.3,220,"$A$",pspict=pspict)
+    I2.put_mark(0.3,45,"$B$",pspict=pspict)
 
     surface.parameters.color="lightgray"
     surface.parameters.filled()

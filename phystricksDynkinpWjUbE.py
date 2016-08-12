@@ -8,7 +8,7 @@ def DynkinpWjUbE():
     B=Point(1,0)
     A.parameters.symbol="o"
     B.parameters.symbol="o"
-    B.put_mark(0.2,90,"\( 1\)",automatic_place=pspict)
+    B.put_mark(0.2,90,"\( 1\)",pspict=pspict)
     seg=Segment(A,B)
 
     pspict.DrawGraphs(seg,A,B)

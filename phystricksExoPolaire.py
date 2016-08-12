@@ -13,10 +13,10 @@ def ExoPolaire():
 	m=v.center()
 	m.parameters.symbol=""
         print(type(m))
-	m.put_mark(0.3,m.advised_mark_angle(pspict),"$l$",automatic_place=pspict)
+	m.put_mark(0.3,m.advised_mark_angle(pspict),"$l$",pspict=pspict)
 
 	theta=Angle(X,O,P,r=0.5)
-	theta.put_mark(0.3,None,r"$\theta$",automatic_place=pspict)
+	theta.put_mark(0.3,None,r"$\theta$",pspict=pspict)
 
 	pspict.axes.no_numbering()
 

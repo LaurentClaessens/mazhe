@@ -15,7 +15,7 @@ def BIFooDsvVHb():
     Y.put_mark(0.2,180,"\( y\)",automatic_place=(pspict,"E"))
 
     angle=Angle(X,O,P)
-    angle.put_mark(0.2,angle.advised_mark_angle(pspict),"\( \\theta\)",automatic_place=(pspict,"corner"))
+    angle.put_mark(0.2,angle.advised_mark_angle(pspict),"\( \\theta\)",pspict=pspict,position="corner")
 
     seg=Segment(O,P)
     l1=Segment(P,X)

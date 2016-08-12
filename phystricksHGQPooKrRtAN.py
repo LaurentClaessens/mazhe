@@ -21,8 +21,8 @@ def HGQPooKrRtAN():
         vr.parameters.color="red"
         vtheta.parameters.color="red"
 
-        vr.put_mark(0.3,vr.advised_mark_angle(pspict),r"$e_{r}$",automatic_place=pspict)
-        vtheta.put_mark(0.3,45,r"$e_{\theta}$",automatic_place=pspict)
+        vr.put_mark(0.3,vr.advised_mark_angle(pspict),r"$e_{r}$",pspict=pspict)
+        vtheta.put_mark(0.3,45,r"$e_{\theta}$",pspict=pspict)
 
         pspict.DrawGraphs(C,l,vr,vtheta)
 

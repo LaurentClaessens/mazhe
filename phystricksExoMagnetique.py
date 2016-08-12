@@ -6,12 +6,12 @@ def ExoMagnetique():
     fil.parameters.style="dashed"
     I=Vector(0,1)
     I.parameters.color="red"
-    I.put_mark(0.3,0,"$I$",automatic_place=pspict)
+    I.put_mark(0.3,0,"$I$",pspict=pspict)
 
     P=Point(-2,1)
-    P.put_mark(0.2,135,r"$(r,\theta,z)$",automatic_place=pspict)
+    P.put_mark(0.2,135,r"$(r,\theta,z)$",pspict=pspict)
     d=AffineVector(P.projection(I),P)
-    d.put_mark(0.2,-45,"$d$",automatic_place=pspict)
+    d.put_mark(0.2,-45,"$d$",pspict=pspict)
     d.parameters.color="blue"
 
     pspict.DrawGraphs(fil,I,d,P)

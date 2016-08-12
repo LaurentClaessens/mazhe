@@ -11,11 +11,11 @@ def FNBQooYgkAmS():
     theta=pi/4
     X=ellipse.get_point(theta)
     n=ellipse.get_normal_vector(theta)
-    n.put_mark(0.2,n.advised_mark_angle(pspict),"\( \\nabla q(x)\)",automatic_place=(pspict,"corner"))
+    n.put_mark(0.2,n.advised_mark_angle(pspict),"\( \\nabla q(x)\)",pspict=pspict,position="corner")
     X.put_mark(0.2,90,"\( x\)",automatic_place=(pspict,"S"))
 
     Ax=n.rotation(200)
-    Ax.put_mark(0.2,Ax.advised_mark_angle(pspict),"\( Ax\)",automatic_place=(pspict,"corner"))
+    Ax.put_mark(0.2,Ax.advised_mark_angle(pspict),"\( Ax\)",pspict=pspict,position="corner")
 
     pspict.DrawGraphs(ellipse,X,n,Ax)
     fig.no_figure()

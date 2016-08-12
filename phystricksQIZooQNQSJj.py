@@ -26,10 +26,10 @@ def QIZooQNQSJj():
 
     triangle=Polygon(A,B,C)
 
-    A.put_mark(0.2,theta+90,"\( A\)",automatic_place=(pspict,"corner"))
-    B.put_mark(0.2,theta+180,"\( B\)",automatic_place=(pspict,"corner"))
-    H.put_mark(0.2,theta-90,"\( H\)",automatic_place=(pspict,"corner"))
-    C.put_mark(0.2,theta,"\( C\)",automatic_place=(pspict,"corner"))
+    A.put_mark(0.2,theta+90,"\( A\)",pspict=pspict,position="corner")
+    B.put_mark(0.2,theta+180,"\( B\)",pspict=pspict,position="corner")
+    H.put_mark(0.2,theta-90,"\( H\)",pspict=pspict,position="corner")
+    C.put_mark(0.2,theta,"\( C\)",pspict=pspict,position="corner")
 
     no_symbol(triangle.vertices,H)
 

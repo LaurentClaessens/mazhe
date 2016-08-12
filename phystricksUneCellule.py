@@ -24,11 +24,11 @@ def UneCellule():
 		x=sigma1[i]
 		P=Point(x,0)
 		if i == 0 :
-			P.put_mark(dist,-90,"$a_1=y_{10}$",automatic_place=pspict)
+			P.put_mark(dist,-90,"$a_1=y_{10}$",pspict=pspict)
 		elif i == len(sigma1)-1:
-			P.put_mark(dist,-90,"$b_1=y_{1%s}$"%str(i),automatic_place=pspict)
+			P.put_mark(dist,-90,"$b_1=y_{1%s}$"%str(i),pspict=pspict)
 		else:
-			P.put_mark(dist,-90,"$y_{1%s}$"%str(i),automatic_place=pspict)
+			P.put_mark(dist,-90,"$y_{1%s}$"%str(i),pspict=pspict)
 		seg1=Segment(P,Point(x,a2))
 		seg1.parameters.style="dotted"
 		seg2=Segment(Point(x,a2),Point(x,b2))
@@ -38,11 +38,11 @@ def UneCellule():
 		y=sigma2[i]
 		P=Point(0,y)
 		if i == 0 :
-			P.put_mark(0.9,180,"$a_2=y_{20}$",automatic_place=pspict)
+			P.put_mark(0.9,180,"$a_2=y_{20}$",pspict=pspict)
 		elif i == len(sigma2)-1:
-			P.put_mark(0.9,180,"$b_2=y_{2%s}$"%str(i),automatic_place=pspict)
+			P.put_mark(0.9,180,"$b_2=y_{2%s}$"%str(i),pspict=pspict)
 		else:
-			P.put_mark(0.4,180,"$y_{2%s}$"%str(i),automatic_place=pspict)
+			P.put_mark(0.4,180,"$y_{2%s}$"%str(i),pspict=pspict)
 		seg1=Segment(P,Point(a1,y))
 		seg1.parameters.style="dotted"
 		seg2=Segment(Point(a1,y),Point(b1,y))

@@ -15,13 +15,13 @@ def HasseAGdfdy():
     Bp=Point(l,h)
     Cp=Point(2*l,h)
 
-    A.put_mark(0.2,-90,"\( \\alpha\)",automatic_place=pspict)
-    B.put_mark(0.2,-90,"\( \\beta\)",automatic_place=pspict)
-    C.put_mark(0.2,-90,"\( \\gamma\)",automatic_place=pspict)
+    A.put_mark(0.2,-90,"\( \\alpha\)",pspict=pspict)
+    B.put_mark(0.2,-90,"\( \\beta\)",pspict=pspict)
+    C.put_mark(0.2,-90,"\( \\gamma\)",pspict=pspict)
 
-    Ap.put_mark(0.2,90,"\( a\)",automatic_place=pspict)
-    Bp.put_mark(0.2,90,"\( b\)",automatic_place=pspict)
-    Cp.put_mark(0.2,90,"\( c\)",automatic_place=pspict)
+    Ap.put_mark(0.2,90,"\( a\)",pspict=pspict)
+    Bp.put_mark(0.2,90,"\( b\)",pspict=pspict)
+    Cp.put_mark(0.2,90,"\( c\)",pspict=pspict)
 
     v1=Segment(A,Ap)
     v2=Segment(B,Bp)

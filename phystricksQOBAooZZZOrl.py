@@ -20,8 +20,8 @@ def QOBAooZZZOrl():
     A=Point(i1,0)
     B=Point(i2,0)
 
-    A.put_mark(0.3,-90,"$a$",automatic_place=pspict)
-    B.put_mark(0.3,-90,"$b$",automatic_place=pspict)
+    A.put_mark(0.3,-90,"$a$",pspict=pspict)
+    B.put_mark(0.3,-90,"$b$",pspict=pspict)
 
     grande_surface=SurfaceUnderFunction(f2,i1,i2)
     petite_surface=SurfaceUnderFunction(f1,i1,i2)

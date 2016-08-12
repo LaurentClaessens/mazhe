@@ -16,13 +16,13 @@ def DTIYKkP():
     V = AffineVector(ptP,Point(ptP.x+2,ptP.y+0.25))
 
     ptO.parameters.color = "brown"
-    ptO.put_mark(0.2,None,"$o=[\mtu]$",automatic_place=pspict)
+    ptO.put_mark(0.2,None,"$o=[\mtu]$",pspict=pspict)
     ptB.parameters.symbol = ""
-    ptB.put_mark(0.2,0,"$[\SO(2)]$",automatic_place=pspict)
+    ptB.put_mark(0.2,0,"$[\SO(2)]$",pspict=pspict)
     #pspict.DrawBoundingBox(B)
     ptP.parameters.color = "blue"
     ptP.parameters.symbol = ""
-    ptP.put_mark(0.2,None,"$[ e^{xq_0}]$",automatic_place=pspict)
+    ptP.put_mark(0.2,None,"$[ e^{xq_0}]$",pspict=pspict)
 
     pspict.DrawGraphs(F)
     # See phystricks.PspictureToOtherOutputs.specific_needs
@@ -32,7 +32,7 @@ def DTIYKkP():
     pspict.DrawGraphs(ptB)
 
     V.parameters.color = "cyan"
-    V.put_mark(0.2,-45,"$[ e^{sE(w)} e^{xq_0}]$",automatic_place=pspict)
+    V.put_mark(0.2,-45,"$[ e^{sE(w)} e^{xq_0}]$",pspict=pspict)
 
     pspict.DrawGraphs(V)
     pspict.DrawGraphs(ptP)           # Drawn after by purpose.

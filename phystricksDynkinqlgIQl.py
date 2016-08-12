@@ -10,7 +10,7 @@ def DynkinqlgIQl():
     B.parameters.symbol="o"
     seg=Segment(A,B)
 
-    B.put_mark(0.2,90,"\( 2\)",automatic_place=pspict)
+    B.put_mark(0.2,90,"\( 2\)",pspict=pspict)
 
     pspict.DrawGraphs(seg,A,B)
     fig.no_figure()

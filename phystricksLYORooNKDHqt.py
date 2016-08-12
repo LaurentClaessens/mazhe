@@ -19,8 +19,8 @@ def LYORooNKDHqt():
     P=f.get_point(1.7)
     Q=f.get_point(4)
 
-    P.put_mark(0.3,P.advised_mark_angle(pspicts),"$P$",automatic_place=pspicts)
-    Q.put_mark(0.3,Q.advised_mark_angle(pspicts),"$Q$",automatic_place=pspicts)
+    P.put_mark(0.3,P.advised_mark_angle(pspicts),"$P$",pspict=pspicts)
+    Q.put_mark(0.3,Q.advised_mark_angle(pspicts),"$Q$",pspict=pspicts)
 
 
     Px=Point(P.x,0)

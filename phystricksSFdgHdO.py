@@ -51,7 +51,7 @@ def SFdgHdO():
     pspict.DrawGraphs(D)
 
     pspict.axes.no_graduation()
-    pspict.axes.single_axeX.put_mark(0.3,-45,"$K_H$",automatic_place=pspict)
+    pspict.axes.single_axeX.put_mark(0.3,-45,"$K_H$",pspict=pspict)
     pspict.DrawDefaultAxes()
 
 

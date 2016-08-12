@@ -13,7 +13,7 @@ def small_box(X,Y,pspict,text=""):
     C=Point(x+c/2,y+c/2)
     D=Point(x-c/2,y+c/2)
     P=Point(x,y)
-    P.put_mark(0.0,0,text,automatic_place=pspict)
+    P.put_mark(0.0,0,text,pspict=pspict)
     P.parameters.symbol=""
     return [P,Polygon(A,B,C,D)]
 

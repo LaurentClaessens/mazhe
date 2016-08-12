@@ -20,9 +20,9 @@ def MethodeNewton():
     A=elements.A
     B=elements.B
     P=elements.P
-    A.put_mark(0.3,-90,"$x_n$",automatic_place=pspict)
-    B.put_mark(0.3,-90,"$x_{n+1}$",automatic_place=pspict)
-    P.put_mark(0.3,45,"$y_n$",automatic_place=pspict)
+    A.put_mark(0.3,-90,"$x_n$",pspict=pspict)
+    B.put_mark(0.3,-90,"$x_{n+1}$",pspict=pspict)
+    P.put_mark(0.3,45,"$y_n$",pspict=pspict)
     elements.vertical_segment.parameters.style="dotted"
     elements.vertical_segment.parameters.color="red"
     elements.diagonal_segment.parameters.style="dashed"
@@ -32,11 +32,11 @@ def MethodeNewton():
     roots = f.roots()
     for i in range(len(roots)):
         P = roots[i]
-        P.put_mark(0.3,90,"$r_%s$"%str(i),automatic_place=pspict)
+        P.put_mark(0.3,90,"$r_%s$"%str(i),pspict=pspict)
         pspict.DrawGraphs(P)
     sommet=f.get_point( (roots[0].x+roots[1].x)/2 )
     C=sommet
-    C.put_mark(0.3,-90,"$S$",automatic_place=pspict)
+    C.put_mark(0.3,-90,"$S$",pspict=pspict)
     pspict.DrawGraphs(C)
 
 

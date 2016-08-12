@@ -3,17 +3,17 @@ def MomentForce():
     pspict,fig = SinglePicture("MomentForce")
 
     O=Point(0,0)
-    O.put_mark(0.3,90,"$O$",automatic_place=pspict)
+    O.put_mark(0.3,90,"$O$",pspict=pspict)
     origineF=Point(-1,-1)
     F=Vector(-2,-0.5).origin(origineF)
     R=AffineVector(O,origineF)
 
-    F.put_mark(0.3,90,"$\overline{ F }$",automatic_place=pspict)
-    R.put_mark(0.4,90,"$\overline{ R }$",automatic_place=pspict)
+    F.put_mark(0.3,90,"$\overline{ F }$",pspict=pspict)
+    R.put_mark(0.4,90,"$\overline{ R }$",pspict=pspict)
 
     D=O.projection(F)
     d=Segment(O,D)
-    d.put_mark(0.3,d.advised_mark_angle(pspict),"$d$",automatic_place=pspict)
+    d.put_mark(0.3,d.advised_mark_angle(pspict),"$d$",pspict=pspict)
     d.parameters.style="dotted"
     d.parameters.color="blue"
 

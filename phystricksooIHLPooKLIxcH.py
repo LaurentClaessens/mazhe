@@ -14,19 +14,19 @@ def ooIHLPooKLIxcH():
 
     P=cercle.get_point(theta)
     Q=cercle.get_point(sigma)
-    P.put_mark(0.3,P.advised_mark_angle(pspict),r"$\theta_0$",automatic_place=pspict)
-    Q.put_mark(0.3,Q.advised_mark_angle(pspict),r"$\theta_1$",automatic_place=pspict)
+    P.put_mark(0.3,P.advised_mark_angle(pspict),r"$\theta_0$",pspict=pspict)
+    Q.put_mark(0.3,Q.advised_mark_angle(pspict),r"$\theta_1$",pspict=pspict)
     P.parameters.symbol=""
     Q.parameters.symbol=""
     M=cercle.get_point((sigma+theta)/2)
-    M.put_mark(0.3,M.advised_mark_angle(pspict),"$\sigma(t)$",automatic_place=pspict)
+    M.put_mark(0.3,M.advised_mark_angle(pspict),"$\sigma(t)$",pspict=pspict)
 
     angle=Angle(P,O,Q,r=0.5)
-    angle.put_mark(0.2,None,r"$\theta$",automatic_place=pspict)
+    angle.put_mark(0.2,None,r"$\theta$",pspict=pspict)
     seg_theta=Segment(O,P)
     seg_sigma=Segment(O,Q)
     
-    seg_sigma.put_mark(0.3,seg_sigma.advised_mark_angle(pspict),r"$R$",automatic_place=pspict)
+    seg_sigma.put_mark(0.3,seg_sigma.advised_mark_angle(pspict),r"$R$",pspict=pspict)
 
     pspict.DrawGraphs(cercle,arc,angle,seg_theta,seg_sigma,P,Q)
     pspict.dilatation(1)

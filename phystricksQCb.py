@@ -14,10 +14,10 @@ def QCb():
     c=Point(l/2,-l/2)
     d=Point(-l/2,-l/2)
 
-    a.put_mark(0,0,"\( xy\)",automatic_place=pspict)
-    b.put_mark(0,0,"\( \sin(xy)\)",automatic_place=pspict)
-    c.put_mark(0,0,"\( xy\)",automatic_place=pspict)
-    d.put_mark(0,0,"\( xy\)",automatic_place=pspict)
+    a.put_mark(0,0,"\( xy\)",pspict=pspict)
+    b.put_mark(0,0,"\( \sin(xy)\)",pspict=pspict)
+    c.put_mark(0,0,"\( xy\)",pspict=pspict)
+    d.put_mark(0,0,"\( xy\)",pspict=pspict)
 
     for el in [a,b,c,d]:
         el.parameters.symbol=""

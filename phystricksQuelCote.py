@@ -22,11 +22,11 @@ def QuelCote():
 	tangent_segment.parameters.color="brown"
 	tangent_vector.parameters.color="brown"
 	tangent_segment.parameters.style="dashed"
-	tangent_vector.put_mark(0.5,0,"$\gamma'(t)$",automatic_place=pspict)
-	normal.put_mark(0.3,90,"$n(t)$",automatic_place=pspict)
-	Mnormal.put_mark(0.3,90,"$-n(t)$",automatic_place=pspict)
-	second.put_mark(0.3,45,"$\gamma''(t)$",automatic_place=pspict)
-	P.put_mark(0.3,-45,"$P$",automatic_place=pspict)
+	tangent_vector.put_mark(0.5,0,"$\gamma'(t)$",pspict=pspict)
+	normal.put_mark(0.3,90,"$n(t)$",pspict=pspict)
+	Mnormal.put_mark(0.3,90,"$-n(t)$",pspict=pspict)
+	second.put_mark(0.3,45,"$\gamma''(t)$",pspict=pspict)
+	P.put_mark(0.3,-45,"$P$",pspict=pspict)
 
 	pspict.DrawGraphs(curve,tangent_segment,tangent_vector,second,normal,Mnormal,P)
 	pspict.dilatation(2)

@@ -16,7 +16,7 @@ def BiaisOuPas():
     a=0.5
     I=Segment(Point(-a,0),Point(a,0))
     measure=MeasureLength(I,0.2)
-    measure.put_mark(0.3,measure.advised_mark_angle(pspict),"\( I\)",automatic_place=(pspict,""))
+    measure.put_mark(0.3,measure.advised_mark_angle(pspict),"\( I\)",pspict=pspict)
     measure.parameters.color="cyan"
 
     f2.parameters.color="red"

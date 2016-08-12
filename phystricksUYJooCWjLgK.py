@@ -28,9 +28,9 @@ def UYJooCWjLgK():
     PX.parameters.style="dashed"
     YB.parameters.style="dashed"
 
-    A.put_mark(0.2,90+theta,"\( 0\)",automatic_place=(pspict,"corner"))
-    Y.put_mark(0.2,90+theta,"\( y\)",automatic_place=(pspict,"corner"))
-    P.put_mark(0.2,90+theta,"\( 1\)",automatic_place=(pspict,"corner"))
+    A.put_mark(0.2,90+theta,"\( 0\)",pspict=pspict,position="corner")
+    Y.put_mark(0.2,90+theta,"\( y\)",pspict=pspict,position="corner")
+    P.put_mark(0.2,90+theta,"\( 1\)",pspict=pspict,position="corner")
     X.put_mark(0.2,-90,"\( x\)",automatic_place=(pspict,"N"))
     B.put_mark(0.2,-90,"\( xy\)",automatic_place=(pspict,"N"))
 

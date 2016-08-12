@@ -11,7 +11,7 @@ def BQXKooPqSEMN():                # ex SurfaceDerive  (February 2016)
 	f.parameters.color="brown"
 
 	P=f.get_point(x0)
-	P.put_mark(0.4,P.advised_mark_angle(pspict),"$f(x)$",automatic_place=(pspict,""))
+	P.put_mark(0.4,P.advised_mark_angle(pspict),"$f(x)$",pspict=pspict)
 	Px=Point(P.x,0)
 	Px.put_mark(0.2,-90,"$x$",automatic_place=(pspict,"N"))
 

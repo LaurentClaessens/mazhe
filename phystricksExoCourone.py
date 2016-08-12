@@ -9,8 +9,8 @@ def ExoCourone():
     A=Point(Ra,0)
     B=Point(Rb,0)
 
-    A.put_mark(0.2,45,"$R_1$",automatic_place=pspict)
-    B.put_mark(0.2,45,"$R_2$",automatic_place=pspict)
+    A.put_mark(0.2,45,"$R_1$",pspict=pspict)
+    B.put_mark(0.2,45,"$R_2$",pspict=pspict)
 
     x=var('x')
     curve1=ParametricCurve(Ra*cos(x),Ra*sin(x))
