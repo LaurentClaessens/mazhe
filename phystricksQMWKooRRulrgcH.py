@@ -19,11 +19,11 @@ def QMWKooRRulrgcH():
 
     Q=Point(-0.7,1)
 
-    I.put_mark(0.2,angle=45,added_angle=0,text="\( I\)",automatic_place=(pspict,""))
-    A.put_mark(0.2,angle=-90,added_angle=0,text="\( A\)",automatic_place=(pspict,""))
-    B.put_mark(0.2,angle=-90,added_angle=0,text="\( B\)",automatic_place=(pspict,""))
-    Q.put_mark(0.2,angle=90+45,added_angle=0,text="\( Q\)",automatic_place=(pspict,""))
-    O.put_mark(0.2,angle=-45,added_angle=0,text="\( O\)",automatic_place=(pspict,""))
+    I.put_mark(0.2,angle=45,added_angle=0,text="\( I\)",pspict=pspict)
+    A.put_mark(0.2,angle=-90,added_angle=0,text="\( A\)",pspict=pspict)
+    B.put_mark(0.2,angle=-90,added_angle=0,text="\( B\)",pspict=pspict)
+    Q.put_mark(0.2,angle=90+45,added_angle=0,text="\( Q\)",pspict=pspict)
+    O.put_mark(0.2,angle=-45,added_angle=0,text="\( O\)",pspict=pspict)
 
 
     pspict.DrawGraphs(A,B,O,I,C1,C2,Q)

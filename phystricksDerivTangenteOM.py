@@ -15,10 +15,10 @@ def DerivTangenteOM():
 	Xx=Point(X.x,0)
 	Xy=Point(0,X.y)
 	
-	Ay.put_mark(0.1,180,"$f(a)$",automatic_place=(pspict,"E"))
-	Xy.put_mark(0.1,180,"$f(x)$",automatic_place=(pspict,"E"))
-	Ax.put_mark(0.2,-90,"$a$",automatic_place=(pspict,"N"))
-	Xx.put_mark(0.2,-90,"$x$",automatic_place=(pspict,"N"))
+	Ay.put_mark(0.1,180,"$f(a)$",pspict=pspict,position="E")
+	Xy.put_mark(0.1,180,"$f(x)$",pspict=pspict,position="E")
+	Ax.put_mark(0.2,-90,"$a$",pspict=pspict,position="N")
+	Xx.put_mark(0.2,-90,"$x$",pspict=pspict,position="N")
 
 	v1=Segment(X,Xx)
 	v2=Segment(A,Ax)
@@ -37,11 +37,11 @@ def DerivTangenteOM():
 	corde.parameters.color="cyan"
 
 	Dx=MeasureLength(h3,0.2)
-	#Dx.put_mark(0.2,-90,"$\Delta x$",automatic_place=(pspict,"N"))
-	Dx.put_mark(0.2,-90,"$x-a$",automatic_place=(pspict,"N"))
+	#Dx.put_mark(0.2,-90,"$\Delta x$",pspict=pspict,position="N")
+	Dx.put_mark(0.2,-90,"$x-a$",pspict=pspict,position="N")
 	Dy=MeasureLength(Segment(X,I),-0.2)
-	#Dy.put_mark(0.2,0,"$\Delta y$",automatic_place=(pspict,"W"))
-	Dy.put_mark(0.2,0,"$f(x)-f(a)$",automatic_place=(pspict,"W"))
+	#Dy.put_mark(0.2,0,"$\Delta y$",pspict=pspict,position="W")
+	Dy.put_mark(0.2,0,"$f(x)-f(a)$",pspict=pspict,position="W")
 
 	pspict.DrawGraphs(corde,v1,v2,h1,h2,h3,f,A,Ax,Ay,X,Xx,Xy,Dx,Dy)
 

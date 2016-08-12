@@ -18,19 +18,19 @@ def Differentielle():
 	AB=Segment(A,B)
 	BD=Segment(B,D)
 	measureEps=MeasureLength(Segment(C,D),0.3)
-	measureEps.put_mark(0.5,measureEps.advised_mark_angle(pspict),"$\epsilon(h)$",automatic_place=(pspict,""))
+	measureEps.put_mark(0.5,measureEps.advised_mark_angle(pspict),"$\epsilon(h)$",pspict=pspict)
 	measureT=MeasureLength(Segment(B,D),1.5)
-	measureT.put_mark(0.5,measureT.advised_mark_angle(pspict),"$T(h)$",automatic_place=(pspict,""))
+	measureT.put_mark(0.5,measureT.advised_mark_angle(pspict),"$T(h)$",pspict=pspict)
 
 	AAb=Segment(A,Ab)
 	ABb=Segment(B,Bb)
 	measureAX=MeasureLength( Segment(A,B),0.5 )
-	measureAX.put_mark(0.3,measureAX.advised_mark_angle(pspict),"$h$",automatic_place=(pspict,""))
+	measureAX.put_mark(0.3,measureAX.advised_mark_angle(pspict),"$h$",pspict=pspict)
 
-	Ab.put_mark(0.3,-90,"$a$",automatic_place=(pspict,""))
-	Bb.put_mark(0.3,-90,"$x$",automatic_place=(pspict,""))
-	A.put_mark(0.5,A.advised_mark_angle(pspict),"$f(a)$",automatic_place=(pspict,""))
-	C.put_mark(0.7,-45,"$f(x)$",automatic_place=(pspict,""))
+	Ab.put_mark(0.3,-90,"$a$",pspict=pspict)
+	Bb.put_mark(0.3,-90,"$x$",pspict=pspict)
+	A.put_mark(0.5,A.advised_mark_angle(pspict),"$f(a)$",pspict=pspict)
+	C.put_mark(0.7,-45,"$f(x)$",pspict=pspict)
 	tangente.parameters.color="red"
 	AB.parameters.style="dotted"
 	BD.parameters.style=AB.parameters.style

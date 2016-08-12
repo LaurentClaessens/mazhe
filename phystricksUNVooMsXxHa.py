@@ -12,8 +12,8 @@ def UNVooMsXxHa():
     f.cut_y(-5,5)
     g.cut_y(-5,5)
 
-    f.put_mark(0.2,180,"\( y=cosh(x)\)",automatic_place=(pspict,"E"),mark_point=f.I)
-    g.put_mark(0.2,180,"\( y=sinh(x)\)",automatic_place=(pspict,"E"),mark_point=g.I)
+    f.put_mark(0.2,180,"\( y=cosh(x)\)",pspict=pspict,position="E",mark_point=f.I)
+    g.put_mark(0.2,180,"\( y=sinh(x)\)",pspict=pspict,position="E",mark_point=g.I)
 
     pspict.DrawGraphs(f,g)
     pspict.DrawDefaultAxes()

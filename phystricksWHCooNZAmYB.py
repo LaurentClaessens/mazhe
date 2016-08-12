@@ -26,7 +26,7 @@ def WHCooNZAmYB():
     A.put_mark(0.2,theta,"\( A\)",pspict=pspict,position="corner")
     B.put_mark(0.2,2*theta,"\( B\)",pspict=pspict,position="corner")
     I.put_mark(0.2,-45,"\( I\)",pspict=pspict,position="corner")
-    O.put_mark(0.2,-90,"\( O\)",automatic_place=(pspict,"N"))
+    O.put_mark(0.2,-90,"\( O\)",pspict=pspict,position="N")
 
     pspict.DrawGraphs(O,B,A,I,cercle,const,r1,r2,r3,l1)
     fig.no_figure()

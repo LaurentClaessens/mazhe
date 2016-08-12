@@ -9,14 +9,14 @@ def CoordPolaires():
 
 	angle=Angle(X,O,M)
 
-	angle.put_mark(0.3,None,r"$\theta$",automatic_place=(pspict,""))
+	angle.put_mark(0.3,None,r"$\theta$",pspict=pspict)
 
 	milieu=vecteur.center()
-	milieu.put_mark(0.2,milieu.advised_mark_angle(pspict),"$r$",automatic_place=(pspict,""))
+	milieu.put_mark(0.2,milieu.advised_mark_angle(pspict),"$r$",pspict=pspict)
 
 	milieu.parameters.symbol=""
 	M.parameters.symbol=""
-	M.put_mark(0.1,0,"$(x,y)$",automatic_place=(pspict,"W"))
+	M.put_mark(0.1,0,"$(x,y)$",pspict=pspict,position="W")
 
 	pspict.DrawGraphs(M,vecteur,angle,milieu)
 	pspict.DrawDefaultAxes()

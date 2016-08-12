@@ -31,7 +31,7 @@ def DynkinNUtPJx():
         psp.DrawGraphs(segs)
         psp.DrawGraphs(pts)
         P=pts[i].copy()
-        P.put_mark(0.2,angle[i],"\(1\)",automatic_place=psp)
+        P.put_mark(0.2,angle[i],"\(1\)",pspict=psp)
         P.parameters.symbol="o"
         psp.DrawGraphs(P)
 

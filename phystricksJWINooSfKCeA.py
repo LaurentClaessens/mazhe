@@ -16,7 +16,7 @@ def JWINooSfKCeA():
 
 	milieu.parameters.symbol=""
 	M.parameters.symbol=""
-	M.put_mark(0.1,0,"$(x,y)$",automatic_place=(pspict,"W"))
+	M.put_mark(0.1,0,"$(x,y)$",pspict=pspict,position="W")
 
 	pspict.DrawGraphs(M,vecteur,angle,milieu)
 	pspict.DrawDefaultAxes()

@@ -26,8 +26,8 @@ def HCJPooHsaTgI():
     surface.curve1.parameters.color="blue"
     surface.curve2.parameters=surface.curve1.parameters
 
-    A.put_mark(0.2,-90,"$a$",automatic_place=(pspict[0],"N"))
-    B.put_mark(0.2,-90,"$b$",automatic_place=(pspict[0],"N"))
+    A.put_mark(0.2,-90,"$a$",pspict=pspict[0],position="N")
+    B.put_mark(0.2,-90,"$b$",pspict=pspict[0],position="N")
     lA=Segment(A,f1.get_point(a))
     lB=Segment(B,f1.get_point(b))
     lA.parameters.style="dotted"
@@ -55,8 +55,8 @@ def HCJPooHsaTgI():
 
     C=Point(0,a)
     D=Point(0,b)
-    C.put_mark(0.2,180,"$c$",automatic_place=(pspict[1],"E"))
-    D.put_mark(0.2,180,"$d$",automatic_place=(pspict[1],"E"))
+    C.put_mark(0.2,180,"$c$",pspict=pspict[1],position="E")
+    D.put_mark(0.2,180,"$d$",pspict=pspict[1],position="E")
     lC=Segment(C,g1.get_point(a))
     lD=Segment(D,g2.get_point(b))
     lC.parameters=lA.parameters

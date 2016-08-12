@@ -8,8 +8,8 @@ def ADUGmRRA():
     A=Point(0,0)
     B=Point(1,0)
 
-    A.put_mark(0.1,90,r"\( \alpha_i\)",automatic_place=(pspict,"S"))
-    B.put_mark(0.1,90,r"\( \alpha_{i+1}\)",automatic_place=(pspict,"S"))
+    A.put_mark(0.1,90,r"\( \alpha_i\)",pspict=pspict,position="S")
+    B.put_mark(0.1,90,r"\( \alpha_{i+1}\)",pspict=pspict,position="S")
     A.parameters.symbol="o"
     B.parameters.symbol="o"
 
@@ -27,8 +27,8 @@ def ADUGmRRB():
     A=Point(0,0)
     B=Point(1,0)
 
-    A.put_mark(0.1,90,r"\( \alpha_i\)",automatic_place=(pspict,"S"))
-    B.put_mark(0.1,90,r"\( \alpha_{i+1}\)",automatic_place=(pspict,"S"))
+    A.put_mark(0.1,90,r"\( \alpha_i\)",pspict=pspict,position="S")
+    B.put_mark(0.1,90,r"\( \alpha_{i+1}\)",pspict=pspict,position="S")
     #A.parameters.symbol="o"
     #B.parameters.symbol="o"
 
@@ -46,8 +46,8 @@ def ADUGmRRC():
     A=Point(0,0)
     B=Point(1,0)
 
-    A.put_mark(0.1,90,r"\( \alpha_i\)",automatic_place=(pspict,"S"))
-    B.put_mark(0.1,90,r"\( \alpha_{i+1}\)",automatic_place=(pspict,"S"))
+    A.put_mark(0.1,90,r"\( \alpha_i\)",pspict=pspict,position="S")
+    B.put_mark(0.1,90,r"\( \alpha_{i+1}\)",pspict=pspict,position="S")
     #A.parameters.symbol="o"
     B.parameters.symbol="o"
 

@@ -6,7 +6,7 @@ def ExoPolaire():
 	X=Point(1,0)
 
 	P=Point(sqrt(3),1)
-	P.put_mark(0.1,0,"$(\sqrt{3},1)$",automatic_place=(pspict,"W"))
+	P.put_mark(0.1,0,"$(\sqrt{3},1)$",pspict=pspict,position="W")
 	P.parameters.symbol=""
 
 	v=Vector(P)

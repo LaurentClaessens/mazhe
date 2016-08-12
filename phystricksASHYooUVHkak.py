@@ -23,9 +23,9 @@ def ASHYooUVHkak():
     m3=Segment(  R-v,R+v  )
 
     T=Point(t1,0)
-    T.put_mark(0.2,-90,"\( t_1\)",automatic_place=(pspict,"N"))
+    T.put_mark(0.2,-90,"\( t_1\)",pspict=pspict,position="N")
     U=Point(t2,0)
-    U.put_mark(0.2,-90,"\( t_2\)",automatic_place=(pspict,"N"))
+    U.put_mark(0.2,-90,"\( t_2\)",pspict=pspict,position="N")
 
     vert1=Segment(T,Q)
     vert1.parameters.style="dotted"

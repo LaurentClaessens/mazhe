@@ -7,7 +7,7 @@ def NEtAchr():
 
     pts=[Point(  c[0],c[1]  ) for c in[ (-1.5,-0.5),(0.5,-0.3),(2,1),(3.5,1.5),(5,2.7),(5.8,2.7)]]
     for P in pts:
-        P.put_mark(0.2,90,"\( +\)",automatic_place=(pspict,"S"))
+        P.put_mark(0.2,90,"\( +\)",pspict=pspict,position="S")
 
     curve=InterpolationCurve(pts)
 

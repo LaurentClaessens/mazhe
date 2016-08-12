@@ -16,11 +16,11 @@ def ERPMooZibfNOiU():
     lp=Segment( O,Circle(O,5).getPoint(t0)    )
     plp=lp.F
     plp.parameters.symbol=""
-    plp.put_mark(0.2,angle=None,added_angle=0,text="\( \ell_p\)",automatic_place=(pspict,""))
+    plp.put_mark(0.2,angle=None,added_angle=0,text="\( \ell_p\)",pspict=pspict)
     angle_t0=AngleAOB(axeX.F,O,lp.F)
-    angle_t0.put_mark(0.3,angle=None,added_angle=0,text="\( \\alpha\)",automatic_place=(pspict,""))
+    angle_t0.put_mark(0.3,angle=None,added_angle=0,text="\( \\alpha\)",pspict=pspict)
     P=lp.midpoint()
-    P.put_mark(0.2,angle=None,added_angle=180,text="\( P\)",automatic_place=(pspict,""))
+    P.put_mark(0.2,angle=None,added_angle=180,text="\( P\)",pspict=pspict)
 
     fun = lambda t:Point(a*cos(t),b*sin(t)).rotation(t0)+P 
     decal=fun(pi/2)-P

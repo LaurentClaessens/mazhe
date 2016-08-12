@@ -19,13 +19,13 @@ def FCUEooTpEPFoeQ():
     squareDelta.parameters.color="red"
     hD=squareDelta.edges[0].midpoint()
     hD.parameters.symbol=""
-    hD.put_mark(0.1,angle=70,text="\( \Delta_k(A_2)\)",automatic_place=(pspict,""))
+    hD.put_mark(0.1,angle=70,text="\( \Delta_k(A_2)\)",pspict=pspict)
 
     squareOmega=matrix.square(   (3,3) , (5,5),pspict )
     squareOmega.parameters.color="blue"
     hO=squareOmega.edges[2].midpoint()
     hO.parameters.symbol=""
-    hO.put_mark(0.1,angle=-90,text="\( \Omega_{k+1}(A_2)\)",automatic_place=(pspict,""))
+    hO.put_mark(0.1,angle=-90,text="\( \Omega_{k+1}(A_2)\)",pspict=pspict)
 
     pspict.DrawGraphs(matrix,squareDelta,squareOmega,hD,hO)
     

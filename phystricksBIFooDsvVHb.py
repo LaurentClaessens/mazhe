@@ -11,8 +11,8 @@ def BIFooDsvVHb():
     Y=Point(0,P.y)
     X=Point(P.x,0)
 
-    X.put_mark(0.2,-90,"\( x\)",automatic_place=(pspict,"N"))
-    Y.put_mark(0.2,180,"\( y\)",automatic_place=(pspict,"E"))
+    X.put_mark(0.2,-90,"\( x\)",pspict=pspict,position="N")
+    Y.put_mark(0.2,180,"\( y\)",pspict=pspict,position="E")
 
     angle=Angle(X,O,P)
     angle.put_mark(0.2,angle.advised_mark_angle(pspict),"\( \\theta\)",pspict=pspict,position="corner")

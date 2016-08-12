@@ -24,11 +24,11 @@ def EHDooGDwfjC():
     d.parameters.style="dashed"
     KL.parameters.style="dashed"
 
-    A.put_mark(0.2,90,"\( A\)",automatic_place=(pspict,"S"))
+    A.put_mark(0.2,90,"\( A\)",pspict=pspict,position="S")
     B.put_mark(0.2,45,"\( B\)",pspict=pspict,position="corner")
     C.put_mark(0.2,-45,"\( C\)",pspict=pspict,position="corner")
     K.put_mark(0.2,180+45,"\( K\)",pspict=pspict,position="corner")
-    L.put_mark(0.2,90,"\( L\)",automatic_place=(pspict,"S"))
+    L.put_mark(0.2,90,"\( L\)",pspict=pspict,position="S")
 
     pspict.DrawGraphs(A,B,C,K,L,AB,AC,d,KL)
     fig.no_figure()

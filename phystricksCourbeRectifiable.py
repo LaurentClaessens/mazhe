@@ -12,7 +12,7 @@ def CourbeRectifiable():
         curve.parameters.force_smoothing=False
 	for i in range(len(sigma)) :
 		P = curve.get_point(sigma[i])
-		P.put_mark(0.5,P.advised_mark_angle(pspict),"$\gamma(t_{%s})$"%str(i),automatic_place=(pspict,""))
+		P.put_mark(0.5,P.advised_mark_angle(pspict),"$\gamma(t_{%s})$"%str(i),pspict=pspict)
 		points.append(P)
 
 	for i in range(len(points)-1):
