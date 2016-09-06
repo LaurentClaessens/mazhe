@@ -10,12 +10,12 @@ def Refraction():
     A=Point(1,1)    
     B=Point(-2,-1)    
     a=AffineVector(A,O)
-    b=AffineVector(O,B).normalize(a.length())
+    b=AffineVector(O,B).normalize(a.length)
     a.parameters.color="red"
     b.parameters.color="blue"
 
-    theta1=Angle(A,O,N.F)
-    theta2=Angle(B,O,N.I)
+    theta1=AngleAOB(A,O,N.F)
+    theta2=AngleAOB(B,O,N.I)
     theta1.put_mark(0.3,None,r"$\theta_1$",pspict=pspict)
     theta2.put_mark(0.3,None,r"$\theta_2$",pspict=pspict)
 

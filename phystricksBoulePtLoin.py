@@ -10,7 +10,7 @@ def BoulePtLoin():
 	x.put_mark(0.3,150,"$x$",pspict=pspict)
 	v=AffineVector(a,x)
 	delta=r/2
-	N=4*(v.length()/delta)/3
+	N=4*(v.length/delta)/3
 	P=x+v/N
 	P.put_mark(0.3,-90,"$P$",pspict=pspict)
 	B=Circle(x,delta)

@@ -1,6 +1,7 @@
 from phystricks import *
 def ContourTgNDivergence():
     pspict,fig = SinglePicture("ContourTgNDivergence")
+    pspict.dilatation(2)
 
     x=var('x')
     contour=PolarCurve(1+cos(x)*sin(x)).graph(0,2*pi)
@@ -19,6 +20,6 @@ def ContourTgNDivergence():
     contour.put_arrow(pts)
 
     pspict.DrawGraphs(contour)
-    pspict.dilatation(2)
+    pspict.comment="Regular length points"
     fig.conclude()
     fig.write_the_file()

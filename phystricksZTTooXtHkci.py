@@ -30,11 +30,11 @@ def ZTTooXtHkci():
     regU.parameters.hatched()
     regU.parameters.hatch.color="blue"
 
-    for psp in pspicts:
-        psp.DrawDefaultAxes()
-
     pspicts[0].DrawGraphs(regV)
     pspicts[1].DrawGraphs(regU)
+
+    for psp in pspicts:
+        psp.DrawDefaultAxes()
 
     fig.conclude()
     fig.write_the_file()

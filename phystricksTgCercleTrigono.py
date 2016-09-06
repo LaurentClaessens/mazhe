@@ -13,12 +13,12 @@ def TgCercleTrigono():
 	vP.parameters.color="red"
 	vQ.parameters.color="cyan"
 
-	theta=Angle(X,O,P)
+	theta=AngleAOB(X,O,P)
 	theta.put_mark(0.3,None,r"$\theta$",pspict=pspict)
 	theta.parameters.color=vP.parameters.color
 
 	#phi=Angle(X,O,Q,theta.r+0.5)
-	phi=Angle(X,O,Q)
+	phi=AngleAOB(X,O,Q)
 	phi.set_mark_angle(0.5*(90+phi.angleF.degree))
 	phi.put_mark(0.3,None,r"$\varphi$",pspict=pspict)
 	phi.parameters.color=vQ.parameters.color

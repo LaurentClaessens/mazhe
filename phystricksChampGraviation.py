@@ -18,8 +18,8 @@ def ChampGraviation():
     for x in pos_x:
         for y in pos_y:
                 P=Point(x,y)
-                if P.norm()>R:
-                    d=P.norm()
+                if P.norm>R:
+                    d=P.norm
                     F=2*Vector(P).fix_origin(P).normalize(1/d**2)
                     pspict.DrawGraphs(F)
 

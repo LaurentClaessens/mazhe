@@ -9,6 +9,9 @@ def VGZooJnvvZc():
     pspictDetail,figDetail = SinglePicture("TangenteDetailOM",script_filename="RechercheTangente")
     pspictsSubFig,figSubFig = MultiplePictures("LesSubFiguresOM",n_ssfig)
 
+    for i,psp in enumerate(pspictsSubFig):
+        psp.dilatation(0.7)
+
     pspicts=[pspictQuestion,pspictDetail]
     pspicts.extend(pspictsSubFig)
 
@@ -58,9 +61,6 @@ def VGZooJnvvZc():
 
     for psp in pspictsSubFig :
         psp.mother.caption="\ldots de mieux en mieux \ldots"
-        psp.dilatation_X(1)
-        psp.dilatation_Y(1)
-        psp.DrawDefaultAxes()
     pspictsSubFig[0].mother.caption="Pas très non \ldots"
     pspictsSubFig[-1].mother.caption="\ldots presque parfait"
 
@@ -69,7 +69,6 @@ def VGZooJnvvZc():
     tangente.parameters.color="red"
 
     for i,psp in enumerate(pspictsSubFig):
-        psp.dilatation(0.7)
         Qi = f.get_point( Q.x-i*(Q.x-P.x)/(n_ssfig) )
         Qi.put_mark(0.3,Qi.advised_mark_angle(pspicts)+180,"$Q_{%s}$"%str(i),pspict=pspicts,position="corner")
 
@@ -78,6 +77,7 @@ def VGZooJnvvZc():
 
         psp.DrawGraphs(corde,tangente,f,Qi,P)
 
+    for psp in pspictsSubFig :
         psp.axes.no_graduation()
         psp.DrawDefaultAxes()
 

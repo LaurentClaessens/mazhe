@@ -58,9 +58,7 @@ def LYORooNKDHqt():
 
     for psp in pspictsSubFig :
         psp.mother.caption="\ldots de mieux en mieux \ldots"
-        psp.dilatation_X(1)
-        psp.dilatation_Y(1)
-        psp.DrawDefaultAxes()
+
     pspictsSubFig[0].mother.caption="Pas très non \ldots"
     pspictsSubFig[-1].mother.caption="\ldots presque parfait"
 
@@ -78,6 +76,7 @@ def LYORooNKDHqt():
 
         psp.DrawGraphs(corde,tangente,f,Qi,P)
 
+    for psp in pspictsSubFig :
         psp.axes.no_graduation()
         psp.DrawDefaultAxes()
 
