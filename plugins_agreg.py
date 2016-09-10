@@ -74,10 +74,25 @@ class set_filename(object):
         raise DeprecationWarning
         medicament.new_output_filename=self.new_output_filename
 
-def set_isAgreg(A):
-    u="\setcounter{isAgreg}{0}"
-    A = A.replace(u,u.replace("0","1"))
-    return A
+# TODO : use a partial object from the module 'functools'
+# https://pymotw.com/3/functools/
+class set_counter(object):
+    def __init__(self,counter_name,init_value,final_value):
+        self.counter_name=counter_name
+        self.init_value=init_value
+        self.final_value=final_value
+    def __call__(self,A):
+        """
+        Changes the line
+        \setcounter{<counter_name>}{<init_value>}
+        into
+        \setcounter{<counter_name>}{<final_value>}
+        """
+        u="\setcounter{{{}}}{{{}}}".format(self.counter_name,self.init_value)
+        S = A.replace(u,u.replace(str(self.init_value),str(self.final_value)))
+        return S
+
+set_isAgreg = set_counter("isAgreg",0,1)
 
 def up_to_text(liste,text):
     for i,l in enumerate(liste):
