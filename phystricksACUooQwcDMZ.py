@@ -29,7 +29,6 @@ def ACUooQwcDMZ():
     for i in range(0,len(pspicts)):
         pspicts[i].DrawGraphs(F[i])
         pspicts[i].DrawDefaultAxes()
-        pspicts[i].dilatation(1)
 
         pspicts[0].BB.addX(-0.5)
         pspicts[0].BB.addY(3.5)

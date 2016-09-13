@@ -32,7 +32,6 @@ def AdhIntFr():
 	pspict.DrawGraphs(droite,f,A,P,Cer)
 
 	pspict.DrawDefaultAxes()
-	pspict.dilatation(1)
 
 	fig.conclude()
 	fig.write_the_file()

@@ -15,7 +15,7 @@ def GVDJooYzMxLW():
     AC=Segment(A,C)
     BC=Segment(C,B)
 
-    H=BC.center()
+    H=BC.midpoint()
     hauteur=Segment(A,H)
     hauteur.parameters.style="dotted"
     hauteur.parameters.color="blue"

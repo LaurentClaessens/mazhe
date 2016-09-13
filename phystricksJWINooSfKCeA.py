@@ -7,16 +7,16 @@ def JWINooSfKCeA():
 	O=Point(0,0)
 	vecteur=Vector(M)
 
-	angle=Angle(X,O,M)
+	angle=AngleAOB(X,O,M)
 
 	angle.put_mark(0.3,None,r"$\theta$",pspict=pspict)
 
-	milieu=vecteur.center()
+	milieu=vecteur.midpoint()
 	milieu.put_mark(0.2,milieu.advised_mark_angle(pspict),"$r$",pspict=pspict)
 
 	milieu.parameters.symbol=""
 	M.parameters.symbol=""
-	M.put_mark(0.1,0,"$(x,y)$",pspict=pspict,position="W")
+	M.put_mark(0.1,text="$(x,y)$",pspict=pspict,position="W")
 
 	pspict.DrawGraphs(M,vecteur,angle,milieu)
 	pspict.DrawDefaultAxes()

@@ -23,8 +23,8 @@ def HLJooGDZnqF():
     D.parameters.symbol='o'
 
     pspict.DrawGraphs(f1,f2,f3,A,B,C,D)
-    pspict.DrawDefaultAxes()
     pspict.DrawDefaultGrid()
+    pspict.DrawDefaultAxes()
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()

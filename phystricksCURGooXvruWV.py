@@ -17,6 +17,5 @@ def CURGooXvruWV():
 
     pspict.DrawGraphs(surface,f1,f2)
     pspict.DrawDefaultAxes()
-    pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()

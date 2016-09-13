@@ -3,6 +3,7 @@ from phystricks import *
 
 def SuiteUnSurn():
     pspict,fig = SinglePicture("SuiteUnSurn")
+    pspict.dilatation_Y(3)
 
     def suite(i):
         return SR(1)/i
@@ -16,8 +17,6 @@ def SuiteUnSurn():
 
     pspict.axes.no_graduation()
     pspict.DrawDefaultAxes()
-
-    pspict.dilatation_Y(3)
 
     fig.conclude()
     fig.write_the_file()

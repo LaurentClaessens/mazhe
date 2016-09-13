@@ -3,6 +3,8 @@ def SurfaceHorizVerti():
     pspict,fig = MultiplePictures("SurfaceHorizVerti",2)
     pspict[0].mother.caption="Un domaine horizontal."
     pspict[1].mother.caption="Un domaine vertical."
+    pspict[0].dilatation(1)
+    pspict[1].dilatation(1)
 
     a=1
     b=6
@@ -24,16 +26,14 @@ def SurfaceHorizVerti():
     surface.curve2.parameters=surface.curve1.parameters
 
 
-    A.put_mark(0.2,-90,"$a$",pspict=pspict[0],position="N")
-    B.put_mark(0.2,-90,"$b$",pspict=pspict[0],position="N")
+    A.put_mark(0.2,text="$a$",pspict=pspict[0],position="N")
+    B.put_mark(0.2,text="$b$",pspict=pspict[0],position="N")
     lA=Segment(A,f1.get_point(a))
     lB=Segment(B,f1.get_point(b))
     lA.parameters.style="dotted"
     lB.parameters=lA.parameters
 
     pspict[0].DrawGraphs(surface,A,B,lA,lB,f1,f2,surface.bounding_box(pspict[0]))
-    pspict[0].DrawDefaultAxes()
-    pspict[0].dilatation(1)
 
     g1=ParametricCurve(f1,x).graph(a,b)   
     g2=ParametricCurve(f2,x).graph(a,b)   
@@ -53,8 +53,8 @@ def SurfaceHorizVerti():
 
     C=Point(0,a)
     D=Point(0,b)
-    C.put_mark(0.2,180,"$c$",pspict=pspict[1],position="E")
-    D.put_mark(0.2,180,"$d$",pspict=pspict[1],position="E")
+    C.put_mark(0.2,text="$c$",pspict=pspict[1],position="E")
+    D.put_mark(0.2,text="$d$",pspict=pspict[1],position="E")
     lC=Segment(C,g1.get_point(a))
     lD=Segment(D,g2.get_point(b))
     lC.parameters=lA.parameters
@@ -63,8 +63,7 @@ def SurfaceHorizVerti():
     pspict[1].DrawGraphs(region,C,D,lC,lD,g1,g2,region.bounding_box(pspict[1]))
     for pspicture in pspict:
         pspicture.axes.no_graduation()
-    pspict[1].DrawDefaultAxes()
-    pspict[1].dilatation(1)
+        pspicture.DrawDefaultAxes()
     pspict[0].comment="The bounding box is drawn and correct."
 
     fig.conclude()

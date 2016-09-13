@@ -1,6 +1,7 @@
 from phystricks import *
 def ExoVarj():
     pspict,fig = SinglePicture("ExoVarj")
+    pspict.dilatation(3)
 
     x=var('x')
     g=sqrt(  sqrt(4*x**2+1)-x**2-1 )
@@ -13,6 +14,5 @@ def ExoVarj():
 
     pspict.DrawGraphs(f1,f2)
     pspict.DrawDefaultAxes()
-    pspict.dilatation(3)
     fig.conclude()
     fig.write_the_file()

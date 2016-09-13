@@ -14,8 +14,8 @@ def GMIooJvcCXg():
     pspict.grid.Dy=pi/2
     f.parameters.color="purple"
 
-    pspict.DrawDefaultAxes()
     pspict.DrawDefaultGrid()
+    pspict.DrawDefaultAxes()
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()

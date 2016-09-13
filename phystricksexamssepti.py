@@ -1,6 +1,7 @@
 from phystricks import *
 def examssepti():
     pspict,fig = SinglePicture("examssepti")
+    pspict.dilatation(3)
 
     a=-1
     b=0.5
@@ -13,7 +14,7 @@ def examssepti():
     x0=sqrt(sqrt(5)-1)/2*sqrt(2)
     I=f1.get_point(-x0)
     J=Point(-x0,0)
-    J.put_mark(0.1,-90,"\( -x_0\)",pspict=pspict,position="N")
+    J.put_mark(0.1,text="\( -x_0\)",pspict=pspict,position="N")
 
     vert=Segment(I,J)
     vert.parameters.style="dotted"
@@ -25,6 +26,5 @@ def examssepti():
 
     pspict.DrawGraphs(vert,surface,f1,f2,I,J)
     pspict.DrawDefaultAxes()
-    pspict.dilatation(3)
     fig.conclude()
     fig.write_the_file()

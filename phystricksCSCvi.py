@@ -26,7 +26,6 @@ def CSCvi():
     pspicts[0].DrawGraphs(graphe,assymp)
 
     pspicts[0].DrawDefaultAxes()
-    pspicts[0].dilatation(1)
 
     #ssfig2 = fig.new_subfigure("","CSCviCourbe")
     #pspict2 = ssfig2.new_pspicture("CSCviCourbe")
@@ -35,7 +34,6 @@ def CSCvi():
     pspicts[1].DrawGraphs(curve)
 
     pspicts[1].DrawDefaultAxes()
-    pspicts[1].dilatation(1)
 
     fig.conclude()
     fig.write_the_file()

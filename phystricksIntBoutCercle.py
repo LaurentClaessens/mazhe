@@ -1,6 +1,7 @@
 from phystricks import *
 def IntBoutCercle():
     pspict,fig = SinglePicture("IntBoutCercle")
+    pspict.dilatation(2)
 
     C=Point(0,0.5)
     alpha=0
@@ -28,6 +29,5 @@ def IntBoutCercle():
 
     pspict.axes.no_graduation()
     pspict.DrawDefaultAxes()
-    pspict.dilatation(2)
     fig.conclude()
     fig.write_the_file()

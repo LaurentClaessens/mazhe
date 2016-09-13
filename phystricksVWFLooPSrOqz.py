@@ -10,7 +10,7 @@ def VWFLooPSrOqz():
     poly=Polygon( A,B,C,D )
     poly.parameters.hatched()
     poly.parameters.hatch.color="green"
-    poly.edge.parameters.color="blue"
+    poly.edge_model.parameters.color="blue"
 
     segments=[s.copy().dilatation(3.3) for s in poly.edges]
     for s in segments :

@@ -14,11 +14,11 @@ def unDynkin(name,sym):
     B.parameters.symbol="o"
     C.parameters.symbol="o"
     D.parameters.symbol="o"
-    A.put_mark(0.2,90,sym[0],pspict=pspict,position="S")
-    B.put_mark(0.2,90,sym[1],pspict=pspict,position="S")
-    C.put_mark(0.2,90,sym[2],pspict=pspict,position="S")
-    D.put_mark(0.2,90,sym[3],pspict=pspict,position="S")
-    E.put_mark(0.2,90,sym[4],pspict=pspict,position="S")
+    A.put_mark(0.2,text=sym[0],pspict=pspict,position="S")
+    B.put_mark(0.2,text=sym[1],pspict=pspict,position="S")
+    C.put_mark(0.2,text=sym[2],pspict=pspict,position="S")
+    D.put_mark(0.2,text=sym[3],pspict=pspict,position="S")
+    E.put_mark(0.2,text=sym[4],pspict=pspict,position="S")
 
     AB=Segment(A,B)
     BC=Segment(B,C)

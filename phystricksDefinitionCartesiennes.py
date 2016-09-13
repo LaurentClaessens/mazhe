@@ -1,6 +1,7 @@
 from phystricks import *
 def DefinitionCartesiennes():
 	pspict,fig = SinglePicture("DefinitionCartesiennes")
+	pspict.dilatation(1)
 
 	def PlacePoint(x,y,color):
 		M=Point(x,y)
@@ -21,8 +22,6 @@ def DefinitionCartesiennes():
 	PlacePoint(-1.5,-2.5,"green")
 	PlacePoint(-1,2.5,"brown")
 	PlacePoint(1.5,-1,"cyan")
-	#PlacePoint(2,2,"gray")
 	pspict.DrawDefaultAxes()
-	pspict.dilatation(1)
 	fig.conclude()
 	fig.write_the_file()

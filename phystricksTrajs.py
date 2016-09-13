@@ -1,6 +1,7 @@
 from phystricks import *
 def Trajs():
     pspict,fig = SinglePicture("Trajs")
+    pspict.dilatation(1)
 
     x=var('x')
     colors=['red','green','blue','cyan','brown']
@@ -15,6 +16,5 @@ def Trajs():
 
 
     pspict.DrawDefaultAxes()
-    pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()

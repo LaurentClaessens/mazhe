@@ -18,9 +18,8 @@ def HNxitLj():
         P.options.DicoOptions["dotscale"]="2"
         pspict.DrawGraphs(P)
 
-    pspict.axes.single_axeX.put_mark(0.2,-90,"\( \sA^*_{\sH}\)",pspict=pspict,position="N")
+    pspict.axes.single_axeX.put_mark(0.2,text="\( \sA^*_{\sH}\)",pspict=pspict,position="N")
 
-    #pspict.axes.no_numbering()
     pspict.DrawDefaultAxes()
     fig.conclude()
     fig.write_the_file()

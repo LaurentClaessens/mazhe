@@ -1,6 +1,7 @@
 from phystricks import *
 def ContourSqL():
     pspict,fig = SinglePicture("ContourSqL")
+    pspict.dilatation(3)
 
     x=var('x')
     f1=phyFunction(x)
@@ -15,6 +16,5 @@ def ContourSqL():
 
     pspict.DrawGraphs(surface)
     pspict.DrawDefaultAxes()
-    pspict.dilatation(3)
     fig.conclude()
     fig.write_the_file()

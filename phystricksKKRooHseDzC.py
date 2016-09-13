@@ -16,10 +16,10 @@ def KKRooHseDzC():
     P=f.get_point(x0)
     P.put_mark(0.4,P.advised_mark_angle(pspict),"$f(x)$",pspict=pspict)
     Px=Point(P.x,0)
-    Px.put_mark(0.2,-90,"$x$",pspict=pspict,position="N")
+    Px.put_mark(0.2,text="$x$",pspict=pspict,position="N")
 
     Q=Point(P.x+dx,0)
-    Q.put_mark(0.2,-90,"$x+\Delta x$",pspict=pspict,position="N")
+    Q.put_mark(0.2,text="$x+\Delta x$",pspict=pspict,position="N")
 
     surface=SurfaceUnderFunction(f,0,x0)
     surface.parameters.hatched()

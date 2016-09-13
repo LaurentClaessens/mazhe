@@ -1,7 +1,6 @@
 from phystricks import *
 def CercleTrigono():
     pspict,fig = SinglePicture("CercleTrigono")
-    pspict.dilatation(1)
     
     O=Point(0,0)
     Cercle=Circle(O,2)
@@ -20,8 +19,8 @@ def CercleTrigono():
     ps.parameters=pc.parameters
     measureCos=MeasureLength(Segment(O,C),0.2)
     measureSin=MeasureLength(Segment(O,S),-0.2)
-    measureCos.put_mark(0.1,-90,r"$\cos(\theta)$",pspict=pspict,position="N")
-    measureSin.put_mark(-0.1,0,r"$\sin(\theta)$",pspict=pspict,position="E")
+    measureCos.put_mark(0.1,text=r"$\cos(\theta)$",pspict=pspict,position="N")
+    measureSin.put_mark(-0.1,text=r"$\sin(\theta)$",pspict=pspict,position="E")
 
     angle=Angle(C,O,P,0.4)
     angle.put_mark(0.3,None,r"$\theta$",pspict=pspict)

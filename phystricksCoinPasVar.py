@@ -27,6 +27,5 @@ def CoinPasVar():
 
     pspict.DrawGraphs(S,T,N,t1,t2)
     pspict.DrawDefaultAxes()
-    pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()

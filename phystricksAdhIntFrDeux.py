@@ -30,7 +30,6 @@ def AdhIntFrDeux():
     pspict.DrawGraphs(F1,F2,A,P,Cer)
 
     pspict.DrawDefaultAxes()
-    pspict.dilatation(1)
 
     fig.conclude()
     fig.write_the_file()

@@ -22,6 +22,5 @@ def CercleImplicite():
     pspict.axes.no_graduation()
     pspict.DrawGraphs(C,P,Pp,Q,X,vert)
     pspict.DrawDefaultAxes()
-    pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()

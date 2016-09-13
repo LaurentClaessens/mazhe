@@ -22,6 +22,5 @@ def BEHTooWsdrys():
     rect.parameters.style="none"
 
     pspict.DrawGraphs(rect,F)
-    pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()

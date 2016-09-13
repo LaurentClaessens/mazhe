@@ -17,7 +17,7 @@ def CELooGVvzMc():
 
     F=Point(  f.Mx,f(f.Mx)  )
     G=Point(  g.Mx,g(g.Mx)  )
-    seg=Segment(  O,Segment(F,G).center()  )
+    seg=Segment(  O,Segment(F,G).midpoint()  )
     seg.parameters.style="dashed"
 
     pspict.DrawGraphs(f,g,seg)

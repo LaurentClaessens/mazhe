@@ -1,6 +1,7 @@
 from phystricks import *
 def IntRectangle():
     pspict,fig = SinglePicture("IntRectangle")
+    pspict.dilatation(1)
 
     x=var('x')
     l=1
@@ -17,6 +18,5 @@ def IntRectangle():
 
     pspict.DrawGraphs(surface,f)
     pspict.DrawDefaultAxes()
-    pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()

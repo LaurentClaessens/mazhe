@@ -31,6 +31,5 @@ def AMDUooZZUOqa():
     seg_sigma.put_mark(0.3,seg_sigma.advised_mark_angle(pspict),r"$R$",pspict=pspict)
 
     pspict.DrawGraphs(cercle,arc,angle,seg_theta,seg_sigma,P,Q)
-    pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()

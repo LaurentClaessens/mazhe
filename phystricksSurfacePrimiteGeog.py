@@ -1,6 +1,7 @@
 from phystricks import *
 def SurfacePrimiteGeog():
     pspict,fig = SinglePicture("SurfacePrimiteGeog")
+    pspict.dilatation(1.5)
 
     x=var('x')
     
@@ -16,7 +17,7 @@ def SurfacePrimiteGeog():
     F = f.get_point(Mx)
     a = Point(ms,0)
     x = Point(Ms,0)
-    N = Segment(X,x).center()
+    N = Segment(X,x).midpoint()
 
 
     surface=SurfaceUnderFunction(f,ms,Ms)
@@ -39,6 +40,5 @@ def SurfacePrimiteGeog():
     pspict.DrawGraphs(f,surface,a,x,F,N,surface)
 
     pspict.DrawDefaultAxes()
-    pspict.dilatation(1.5)
     fig.conclude()
     fig.write_the_file()

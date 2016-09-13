@@ -11,8 +11,6 @@ def CycloideA():
 	pspict.DrawGraphs(curve)
 	pspict.DrawDefaultAxes()
 
-	pspict.dilatation(1)
-
 	fig.conclude()
 	fig.write_the_file()
 	

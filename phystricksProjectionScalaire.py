@@ -1,6 +1,7 @@
 from phystricks import *
 def ProjectionScalaire():
 	pspict,fig = SinglePicture("ProjectionScalaire")
+	pspict.dilatation(1)
 
 	x=1.5
 	y=2
@@ -21,6 +22,5 @@ def ProjectionScalaire():
 	pspict.DrawGraphs(X,Y,P,O,measure,h)
 	pspict.axes.no_graduation()
 	pspict.DrawDefaultAxes()
-	pspict.dilatation(1)
 	fig.conclude()
 	fig.write_the_file()

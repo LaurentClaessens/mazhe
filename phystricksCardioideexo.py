@@ -23,6 +23,5 @@ def Cardioideexo():
 
 	pspict.DrawGraphs(C1,C2,curve,rect,seg,P,Q)
 	pspict.DrawDefaultAxes()
-	pspict.dilatation(1)
 	fig.conclude()
 	fig.write_the_file()

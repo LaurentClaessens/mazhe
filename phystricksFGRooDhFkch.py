@@ -12,8 +12,8 @@ def FGRooDhFkch():
     pspict.axes.single_axeY.axes_unit=AxesUnit(pi/2,'')
     pspict.grid.Dy=pi/2
 
-    pspict.DrawDefaultAxes()
     pspict.DrawDefaultGrid()
+    pspict.DrawDefaultAxes()
     #fig.no_figure()
     fig.conclude()
     fig.write_the_file()

@@ -7,6 +7,5 @@ def ContourGreen():
     contour.put_arrow([i*pi/4+0.5 for i in range(0,8)])
 
     pspict.DrawGraphs(contour)
-    pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()

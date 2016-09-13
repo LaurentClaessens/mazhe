@@ -5,7 +5,7 @@ def MomentForce():
     O=Point(0,0)
     O.put_mark(0.3,90,"$O$",pspict=pspict)
     origineF=Point(-1,-1)
-    F=Vector(-2,-0.5).origin(origineF)
+    F=Vector(-2,-0.5).fix_origin(origineF)
     R=AffineVector(O,origineF)
 
     F.put_mark(0.3,90,"$\overline{ F }$",pspict=pspict)

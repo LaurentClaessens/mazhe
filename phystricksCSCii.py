@@ -18,6 +18,5 @@ def CSCii():
 
     pspict.DrawGraphs(c1,c2,l1,l2,P)
     pspict.DrawDefaultAxes()
-    pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()

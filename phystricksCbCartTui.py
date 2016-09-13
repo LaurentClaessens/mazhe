@@ -1,6 +1,7 @@
 from phystricks import *
 def CbCartTui():
     pspict,fig = SinglePicture("CbCartTui")
+    pspict.dilatation(0.7)
 
     x=var('x')
     f1=phyFunction(x+1/x)
@@ -17,6 +18,5 @@ def CbCartTui():
 
     pspict.DrawGraphs(c1,c2,c3)
     pspict.DrawDefaultAxes()
-    pspict.dilatation(0.7)
     fig.conclude()
     fig.write_the_file()

@@ -19,18 +19,18 @@ def Bateau():
 	plage=Segment(O,J).dilatation(1.5)
 
 	quatre=MeasureLength(Segment(A,K),0)
-	quatre.put_mark(0.1,90,"$\unit{4}{\kilo\meter}$",pspict=pspict,position="S")
+	quatre.put_mark(0.1,text="$\unit{4}{\kilo\meter}$",pspict=pspict,position="S")
 
 	neuf=MeasureLength(Segment(B,J),-0.2)
-	neuf.put_mark(0.1,0,"$\unit{9}{\kilo\meter}$",pspict=pspict,position="W")
+	neuf.put_mark(0.1,text="$\unit{9}{\kilo\meter}$",pspict=pspict,position="W")
 
 	trois=MeasureLength(Segment(A,O),0)
-	trois.put_mark(0.1,180,"$\unit{3}{\kilo\meter}$",pspict=pspict,position="E")
+	trois.put_mark(0.1,text="$\unit{3}{\kilo\meter}$",pspict=pspict,position="E")
 
 	I=Intersection( Segment(A,Bp),plage )[0]
 	I.put_mark(0.3,45,"$I$",pspict=pspict)
 	ixe=MeasureLength(Segment(O,I),0.2)
-	ixe.put_mark(0.1,-90,"$x\kilo\meter$",pspict=pspict,position="N")
+	ixe.put_mark(0.1,text="$x\kilo\meter$",pspict=pspict,position="N")
 
 
 	proj=Segment(B,Bp)
@@ -43,6 +43,5 @@ def Bateau():
 
 	pspict.DrawGraphs(plage,A,quatre,neuf,trois,I,proj,trajet,B,Bp,ixe)
 	#pspict.DrawDefaultAxes()
-	pspict.dilatation(1)
 	fig.conclude()
 	fig.write_the_file()

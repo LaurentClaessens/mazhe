@@ -2,6 +2,8 @@
 from phystricks import *
 def HFAYooOrfMAA():
     pspict,fig = SinglePicture("HFAYooOrfMAA")
+    pspict.dilatation(2)
+
     C=Point(0,0.5)
     alpha=0
     circle = Circle(C,0.5)
@@ -28,6 +30,5 @@ def HFAYooOrfMAA():
 
     pspict.axes.no_graduation()
     pspict.DrawDefaultAxes()
-    pspict.dilatation(2)
     fig.conclude()
     fig.write_the_file()

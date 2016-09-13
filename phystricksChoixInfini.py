@@ -22,11 +22,9 @@ def ChoixInfini():
 
     pspict[0].DrawGraphs(d1,P1)
     pspict[0].DrawDefaultAxes()
-    pspict[0].dilatation(1)
 
     pspict[1].DrawGraphs(d2,P2)
     pspict[1].DrawDefaultAxes()
-    pspict[1].dilatation(1)
 
     fig.conclude()
     fig.write_the_file()

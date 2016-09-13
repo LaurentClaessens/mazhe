@@ -2,6 +2,7 @@
 from phystricks import *
 def TKXZooLwXzjS():
     pspict,fig = SinglePicture("TKXZooLwXzjS")
+    pspict.dilatation(1)
 
     x,y=var('x,y')
     Fx=phyFunction(1/x)
@@ -22,6 +23,5 @@ def TKXZooLwXzjS():
     rect.parameters.style="none"
 
     pspict.DrawGraphs(rect,F)
-    pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()

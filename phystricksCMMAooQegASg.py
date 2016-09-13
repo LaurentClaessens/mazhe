@@ -11,6 +11,5 @@ def CMMAooQegASg():
     pspict.DrawGraphs(f1,f2)
     pspict.axes.no_graduation()
     pspict.DrawDefaultAxes()
-    pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()

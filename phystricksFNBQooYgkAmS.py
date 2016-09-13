@@ -12,7 +12,7 @@ def FNBQooYgkAmS():
     X=ellipse.get_point(theta)
     n=ellipse.get_normal_vector(theta)
     n.put_mark(0.2,n.advised_mark_angle(pspict),"\( \\nabla q(x)\)",pspict=pspict,position="corner")
-    X.put_mark(0.2,90,"\( x\)",pspict=pspict,position="S")
+    X.put_mark(0.2,text="\( x\)",pspict=pspict,position="S")
 
     Ax=n.rotation(200)
     Ax.put_mark(0.2,Ax.advised_mark_angle(pspict),"\( Ax\)",pspict=pspict,position="corner")

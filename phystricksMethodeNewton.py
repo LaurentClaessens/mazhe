@@ -3,6 +3,7 @@ import phystricks.MathConstructions
 
 def MethodeNewton():
     pspict,fig = SinglePicture("MethodeNewton")
+    pspict.dilatation(3)
 
     x=var('x')
     a = -1.5
@@ -39,10 +40,8 @@ def MethodeNewton():
     C.put_mark(0.3,-90,"$S$",pspict=pspict)
     pspict.DrawGraphs(C)
 
-
     pspict.DrawDefaultAxes()
 
-    pspict.dilatation(3)
     fig.conclude()
     fig.write_the_file()
 

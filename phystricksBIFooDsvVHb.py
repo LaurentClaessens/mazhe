@@ -2,8 +2,8 @@
 from phystricks import *
 def BIFooDsvVHb():
     pspict,fig = SinglePicture("BIFooDsvVHb")
-    pspict.dilatation_X(2)
-    pspict.dilatation_Y(2)
+    pspict.dilatation_X(1.5)
+    pspict.dilatation_Y(1.5)
 
     O=Point(0,0)
     cercle=Circle(  O,1 )
@@ -11,11 +11,11 @@ def BIFooDsvVHb():
     Y=Point(0,P.y)
     X=Point(P.x,0)
 
-    X.put_mark(0.2,-90,"\( x\)",pspict=pspict,position="N")
-    Y.put_mark(0.2,180,"\( y\)",pspict=pspict,position="E")
+    X.put_mark(0.2,text="\( x\)",pspict=pspict,position="N")
+    Y.put_mark(0.2,text="\( y\)",pspict=pspict,position="E")
 
-    angle=Angle(X,O,P)
-    angle.put_mark(0.2,angle.advised_mark_angle(pspict),"\( \\theta\)",pspict=pspict)
+    angle=AngleAOB(X,O,P)
+    angle.put_mark(dist=0.1,text="\( \\theta\)",pspict=pspict)
 
     seg=Segment(O,P)
     l1=Segment(P,X)

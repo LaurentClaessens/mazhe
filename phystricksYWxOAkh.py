@@ -3,6 +3,7 @@ from phystricks import *
 
 def YWxOAkh():
     pspict,fig = SinglePicture("YWxOAkh")
+    pspict.dilatation_X(4)
 
     x=var('x')
     epsilon=0.005
@@ -20,7 +21,6 @@ def YWxOAkh():
     
     pspict.axes.Dx=0.5
     pspict.DrawDefaultAxes()
-    pspict.dilatation_X(4)
     pspict.comment="Enough plotpoints ? There were 5000."
     
     fig.conclude()

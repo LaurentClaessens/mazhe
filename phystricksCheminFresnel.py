@@ -1,7 +1,6 @@
 from phystricks import *
 def CheminFresnel():
     pspict,fig = SinglePicture("CheminFresnel")
-    pspict.dilatation(1)
 
     x=var('x')
     R=2

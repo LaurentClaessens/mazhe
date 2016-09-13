@@ -13,7 +13,6 @@ def CSCv():
     pspicts[0].DrawGraphs(r)
 
     pspicts[0].DrawDefaultAxes()
-    pspicts[0].dilatation(1)
 
     #ssfig2 = fig.new_subfigure("","CSCvCourbe")
     #pspict2 = ssfig2.new_pspicture("CSCvCourbe")
@@ -23,7 +22,6 @@ def CSCv():
     pspicts[1].DrawGraphs(curve1,curve2)
 
     pspicts[1].DrawDefaultAxes()
-    pspicts[1].dilatation(1)
 
     fig.conclude()
     fig.write_the_file()

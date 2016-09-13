@@ -8,6 +8,5 @@ def AireParabole():
 
 	pspict.DrawGraphs(f,seg)
 	pspict.DrawDefaultAxes()
-	pspict.dilatation(1)
 	fig.conclude()
 	fig.write_the_file()

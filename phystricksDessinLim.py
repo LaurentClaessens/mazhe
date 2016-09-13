@@ -19,8 +19,8 @@ def DessinLim():
     P.put_mark(0.3,0,"\( P\)",pspict=pspict)
     T.put_mark(0.1,0,"\( T\)",pspict=pspict)
     O.put_mark(0.1,135,"\( O\)",pspict=pspict)
-    s.put_mark(0.1,180,"\( \sin(x)\)",pspict=pspict,position="E")
-    c.put_mark(0.1,-90,"\( \cos(x)\)",pspict=pspict,position="N")
+    s.put_mark(0.1,text="\( \sin(x)\)",pspict=pspict,position="E")
+    c.put_mark(0.1,text="\( \cos(x)\)",pspict=pspict,position="N")
     A.put_mark(0.1,-60,"\( A\)",pspict=pspict)
 
     sP=Segment(s,P)

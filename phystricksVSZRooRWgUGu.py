@@ -2,6 +2,8 @@
 from phystricks import *
 def VSZRooRWgUGu():
     pspict,fig = SinglePicture("VSZRooRWgUGu")
+    pspict.dilatation(1.5)
+
     x=var('x')
     
     O = Point(0,0)
@@ -16,8 +18,7 @@ def VSZRooRWgUGu():
     F = f.get_point(Mx)
     a = Point(ms,0)
     x = Point(Ms,0)
-    N = Segment(X,x).center()
-
+    N = Segment(X,x).midpoint()
 
     surface=SurfaceUnderFunction(f,ms,Ms)
     surface.parameters.hatched()
@@ -39,6 +40,5 @@ def VSZRooRWgUGu():
     pspict.DrawGraphs(f,surface,a,x,F,N,surface)
 
     pspict.DrawDefaultAxes()
-    pspict.dilatation(1.5)
     fig.conclude()
     fig.write_the_file()

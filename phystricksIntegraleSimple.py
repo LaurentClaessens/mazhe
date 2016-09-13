@@ -10,8 +10,8 @@ def IntegraleSimple():
     A=Point(a,0)
     B=Point(b,0)
 
-    A.put_mark(0.2,-90,"$a$",pspict=pspict,position="N")
-    B.put_mark(0.2,-90,"$b$",pspict=pspict,position="N")
+    A.put_mark(0.2,text="$a$",pspict=pspict,position="N")
+    B.put_mark(0.2,text="$b$",pspict=pspict,position="N")
 
     surface=SurfaceUnderFunction(f,a,b)
     surface.Isegment.parameters.style="dashed"

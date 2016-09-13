@@ -1,6 +1,7 @@
 from phystricks import *
 def ExoParamCD():
     pspict,fig = SinglePicture("ExoParamCD")
+    pspict.dilatation(3)
     
     x=var('x')
     f1=sin(2*x)
@@ -21,6 +22,5 @@ def ExoParamCD():
 
     pspict.DrawGraphs(courbe1,courbe2)
     pspict.DrawDefaultAxes()
-    pspict.dilatation(3)
     fig.conclude()
     fig.write_the_file()

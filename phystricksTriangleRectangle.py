@@ -1,6 +1,7 @@
 from phystricks import *
 def TriangleRectangle():
     pspict,fig = SinglePicture("TriangleRectangle")
+    pspict.dilatation(4)
 
     B=Point(0,0)
     C=Point(1,0)
@@ -14,20 +15,19 @@ def TriangleRectangle():
     AC=Segment(A,C)
     BC=Segment(C,B)
 
-    H=BC.center()
+    H=BC.midpoint()
     hauteur=Segment(A,H)
     hauteur.parameters.style="dotted"
     hauteur.parameters.color="blue"
     H.put_mark(0.3,-90,"$H$",pspict=pspict)
 
-    angleS=Angle(A,C,H)
-    angleT=Angle(H,A,C)
+    angleS=AngleAOB(A,C,H)
+    angleT=AngleAOB(H,A,C)
     angleS.parameters.color="red"
     angleT.parameters.color="cyan"
     angleS.put_mark(0.3,None,"$60$",pspict=pspict)
     angleT.put_mark(0.3,None,"$30$",pspict=pspict)
 
     pspict.DrawGraphs(AB,AC,BC,hauteur,angleS,angleT,A,B,C,H)
-    pspict.dilatation(4)
     fig.conclude()
     fig.write_the_file()

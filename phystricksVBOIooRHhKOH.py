@@ -2,6 +2,8 @@
 from phystricks import *
 def VBOIooRHhKOH():
         pspict,fig = SinglePicture("VBOIooRHhKOH")
+	pspict.dilatation(0.6)
+
 	x=var('x')
 	mx=-1.5
 	Mx=1.5
@@ -14,6 +16,5 @@ def VBOIooRHhKOH():
 	pspict.axes.single_axeY.Dx=2
 
 	pspict.DrawDefaultAxes()
-	pspict.dilatation(0.6)
 	fig.conclude()
 	fig.write_the_file()

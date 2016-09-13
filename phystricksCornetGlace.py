@@ -18,6 +18,5 @@ def CornetGlace():
 
 	pspict.DrawGraphs(surf,f1,f2a,f2b)
 	pspict.DrawDefaultAxes()
-	pspict.dilatation(1)
 	fig.conclude()
 	fig.write_the_file()

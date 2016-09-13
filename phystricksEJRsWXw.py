@@ -23,8 +23,8 @@ def EJRsWXw():
 
     pspict.DrawGraphs(trig,t1,t2,s1)
     pspict.axes.no_graduation()
-    pspict.axes.single_axeX.put_mark(0.2,-90,"\( x\)",pspict=pspict,position="N")
-    pspict.axes.single_axeY.put_mark(0.2,0,"\( t\)",pspict=pspict,position="W")
+    pspict.axes.single_axeX.put_mark(0.2,text="\( x\)",pspict=pspict,position="N")
+    pspict.axes.single_axeY.put_mark(0.2,text="\( t\)",pspict=pspict,position="W")
     pspict.DrawDefaultAxes()
     fig.conclude()
     fig.write_the_file()

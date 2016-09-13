@@ -8,8 +8,8 @@ def QPcdHwP():
     A=Point(0,0)
     B=Point(1,0)
     B.parameters.symbol="o"
-    A.put_mark(0.2,-90,"\( \\alpha_2\)",pspict=pspict,position="N")
-    B.put_mark(0.2,-90,"\( \\alpha_4\)",pspict=pspict,position="N")
+    A.put_mark(0.2,text="\( \\alpha_2\)",pspict=pspict,position="N")
+    B.put_mark(0.2,text="\( \\alpha_4\)",pspict=pspict,position="N")
 
     AB=Segment(A,B)
 

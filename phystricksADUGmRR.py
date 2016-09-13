@@ -3,13 +3,12 @@ from phystricks import *
 
 def ADUGmRRA():
     pspict,fig = SinglePicture("ADUGmRRA")
-    pspict.dilatation(1)
 
     A=Point(0,0)
     B=Point(1,0)
 
-    A.put_mark(0.1,90,r"\( \alpha_i\)",pspict=pspict,position="S")
-    B.put_mark(0.1,90,r"\( \alpha_{i+1}\)",pspict=pspict,position="S")
+    A.put_mark(0.1,text=r"\( \alpha_i\)",pspict=pspict,position="S")
+    B.put_mark(0.1,text=r"\( \alpha_{i+1}\)",pspict=pspict,position="S")
     A.parameters.symbol="o"
     B.parameters.symbol="o"
 
@@ -22,13 +21,12 @@ def ADUGmRRA():
 
 def ADUGmRRB():
     pspict,fig = SinglePicture("ADUGmRRB")
-    pspict.dilatation(1)
 
     A=Point(0,0)
     B=Point(1,0)
 
-    A.put_mark(0.1,90,r"\( \alpha_i\)",pspict=pspict,position="S")
-    B.put_mark(0.1,90,r"\( \alpha_{i+1}\)",pspict=pspict,position="S")
+    A.put_mark(0.1,text=r"\( \alpha_i\)",pspict=pspict,position="S")
+    B.put_mark(0.1,text=r"\( \alpha_{i+1}\)",pspict=pspict,position="S")
     #A.parameters.symbol="o"
     #B.parameters.symbol="o"
 
@@ -41,13 +39,12 @@ def ADUGmRRB():
 
 def ADUGmRRC():
     pspict,fig = SinglePicture("ADUGmRRC")
-    pspict.dilatation(1)
 
     A=Point(0,0)
     B=Point(1,0)
 
-    A.put_mark(0.1,90,r"\( \alpha_i\)",pspict=pspict,position="S")
-    B.put_mark(0.1,90,r"\( \alpha_{i+1}\)",pspict=pspict,position="S")
+    A.put_mark(0.1,text=r"\( \alpha_i\)",pspict=pspict,position="S")
+    B.put_mark(0.1,text=r"\( \alpha_{i+1}\)",pspict=pspict,position="S")
     #A.parameters.symbol="o"
     B.parameters.symbol="o"
 

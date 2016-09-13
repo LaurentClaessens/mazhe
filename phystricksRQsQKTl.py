@@ -9,7 +9,7 @@ def RQsQKTl():
     B=Point(1,0)
     A.parameters.symbol="o"
     B.parameters.symbol="o"
-    A.put_mark(0.2,90,"\( 1\)",pspict=pspict,position="S")
+    A.put_mark(0.2,text="\( 1\)",pspict=pspict,position="S")
 
     l=Segment(A,B)
 

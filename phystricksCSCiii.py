@@ -7,14 +7,22 @@ def CSCiii():
     pspict[1].mother.caption=u"Quelque autres branches pour les angles positifs."
     pspict[2].mother.caption=u"Le dessin au complet"
 
+    pspict[0].dilatation(3)
+    pspict[1].dilatation(30)
+    pspict[2].dilatation(3)
+
     nBranches=5
 
     x=var('x')
     f=sin(x)/x
     curve=PolarCurve(f)
     branch=[curve.graph(0.01,pi)]
-    for i in range(1,nBranches):
-        branch.append(curve.graph(2*i*pi,(2*i+1)*pi))
+    colors=["brown","cyan","green","magenta","gray"]
+    for k in range(1,nBranches):
+        c=curve.graph(2*k*pi,(2*k+1)*pi)
+        #c.linear_plotpoints=
+        c.parameters.color=colors[k]
+        branch.append(c)
 
     pspict[0].DrawGraphs(branch[0])
     for i in range(1,nBranches):
@@ -22,7 +30,6 @@ def CSCiii():
 
     pspict[0].axes.single_axeX.Dx=0.5
     pspict[0].axes.single_axeY.Dx=0.5
-
 
     pspict[1].axes.single_axeX.Dx=0.05
     pspict[1].axes.single_axeY.Dx=0.1
@@ -38,10 +45,6 @@ def CSCiii():
 
     for psp in pspict:
         psp.DrawDefaultAxes()
-
-    pspict[0].dilatation(3)
-    pspict[1].dilatation(30)
-    pspict[2].dilatation(3)
 
     fig.conclude()
     fig.write_the_file()

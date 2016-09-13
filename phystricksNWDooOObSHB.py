@@ -27,9 +27,9 @@ def NWDooOObSHB():
     b=Point(k,0)
     c=Point(Mx,0)
 
-    a.put_mark(0.2,-90,"\( a\)",pspict=pspict,position="N")
-    b.put_mark(0.2,-90,"\( b\)",pspict=pspict,position="N")
-    c.put_mark(0.2,-90,"\( c\)",pspict=pspict,position="N")
+    a.put_mark(0.2,text="\( a\)",pspict=pspict,position="N")
+    b.put_mark(0.2,text="\( b\)",pspict=pspict,position="N")
+    c.put_mark(0.2,text="\( c\)",pspict=pspict,position="N")
 
     pspict.DrawGraphs(surf1,surf2,a,b,c)
     pspict.axes.no_graduation()

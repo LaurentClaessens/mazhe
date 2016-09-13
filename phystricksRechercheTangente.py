@@ -9,6 +9,8 @@ def VGZooJnvvZc():
     pspictDetail,figDetail = SinglePicture("TangenteDetailOM",script_filename="RechercheTangente")
     pspictsSubFig,figSubFig = MultiplePictures("LesSubFiguresOM",n_ssfig)
 
+    pspictDetail.dilatation(1)
+    pspictQuestion.dilatation(0.7)
     for i,psp in enumerate(pspictsSubFig):
         psp.dilatation(0.7)
 
@@ -22,8 +24,8 @@ def VGZooJnvvZc():
     P=f.get_point(1.7)
     Q=f.get_point(4)
 
-    P.put_mark(0.3,P.advised_mark_angle(pspicts),"$P$",pspict=pspicts)
-    Q.put_mark(0.3,Q.advised_mark_angle(pspicts),"$Q$",pspict=pspicts)
+    P.put_mark(0.3,P.advised_mark_angle(pspicts),"$P$",pspicts=pspicts)
+    Q.put_mark(0.3,Q.advised_mark_angle(pspicts),"$Q$",pspicts=pspicts)
 
 
     Px=Point(P.x,0)
@@ -31,10 +33,10 @@ def VGZooJnvvZc():
     Qx=Point(Q.x,0)
     Qy=Point(0,Q.y)
     
-    Py.put_mark(0.1,180,"$f(a)$",pspict=pspicts,position="E")
-    Qy.put_mark(0.1,180,"$f(x)$",pspict=pspicts,position="E")
-    Px.put_mark(0.2,-90,"$a$",pspict=pspicts,position="N")
-    Qx.put_mark(0.2,-90,"$x$",pspict=pspicts,position="N")
+    Py.put_mark(0.1,text="$f(a)$",pspicts=pspicts,position="E")
+    Qy.put_mark(0.1,text="$f(x)$",pspicts=pspicts,position="E")
+    Px.put_mark(0.2,text="$a$",pspicts=pspicts,position="N")
+    Qx.put_mark(0.2,text="$x$",pspicts=pspicts,position="N")
 
     v1=Segment(Q,Qx)
     v2=Segment(P,Px)
@@ -53,9 +55,9 @@ def VGZooJnvvZc():
     corde.parameters.color="cyan"
 
     Dx=MeasureLength(h3,0.2)
-    Dx.put_mark(0.2,-90,"$x-a$",pspict=pspicts,position="N")
+    Dx.put_mark(0.2,text="$x-a$",pspicts=pspicts,position="N")
     Dy=MeasureLength(Segment(Q,I),-0.2)
-    Dy.put_mark(0.2,0,"$f(x)-f(a)$",pspict=pspicts,position="W")
+    Dy.put_mark(0.2,text="$f(x)-f(a)$",pspicts=pspicts,position="W")
 
     pspictDetail.DrawGraphs(corde,v1,v2,h1,h2,h3,f,P,Px,Py,Q,Qx,Qy,Dx,Dy)
 
@@ -65,14 +67,14 @@ def VGZooJnvvZc():
     pspictsSubFig[-1].mother.caption="\ldots presque parfait"
 
     fixed_size=4
-    tangente=f.get_tangent_segment(P.x).fix_size(fixed_size)
+    tangente=f.get_tangent_segment(P.x).normalize(fixed_size)
     tangente.parameters.color="red"
 
     for i,psp in enumerate(pspictsSubFig):
         Qi = f.get_point( Q.x-i*(Q.x-P.x)/(n_ssfig) )
-        Qi.put_mark(0.3,Qi.advised_mark_angle(pspicts)+180,"$Q_{%s}$"%str(i),pspict=pspicts,position="corner")
+        Qi.put_mark(0.3,Qi.advised_mark_angle(pspicts)+180,"$Q_{%s}$"%str(i),pspicts=pspicts,position="corner")
 
-        corde=Segment(P,Qi).fix_size(fixed_size)
+        corde=Segment(P,Qi).normalize(fixed_size)
         corde.parameters.color="cyan"
 
         psp.DrawGraphs(corde,tangente,f,Qi,P)
@@ -86,13 +88,11 @@ def VGZooJnvvZc():
 
     pspictDetail.axes.no_graduation()
     pspictDetail.DrawDefaultAxes()
-    pspictDetail.dilatation(1)
     figDetail.conclude()
     figDetail.write_the_file()
 
     pspictQuestion.DrawGraphs(f,P)
     pspictQuestion.axes.no_graduation()
     pspictQuestion.DrawDefaultAxes()
-    pspictQuestion.dilatation(0.7)
     figQuestion.conclude()
     figQuestion.write_the_file()

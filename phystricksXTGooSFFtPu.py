@@ -29,8 +29,8 @@ def XTGooSFFtPu():
     Z2.put_mark(0.2,45,"\( Z_2\)",pspict=pspict,position="corner")
 
     pspict.DrawGraphs(f,g,h,P,Q,Z1,Z2)
-    pspict.DrawDefaultAxes()
     pspict.DrawDefaultGrid()
+    pspict.DrawDefaultAxes()
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()

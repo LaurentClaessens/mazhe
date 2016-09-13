@@ -1,6 +1,7 @@
 from phystricks import *
 def FnCosApprox():
     pspict,fig = SinglePicture("FnCosApprox")
+    pspict.dilatation(2)
 
     x=var('x')
     f=phyFunction(cos(x)).graph(0,pi)
@@ -11,6 +12,5 @@ def FnCosApprox():
 
     pspict.DrawGraphs(f,P)
     pspict.DrawDefaultAxes()
-    pspict.dilatation(2)
     fig.conclude()
     fig.write_the_file()

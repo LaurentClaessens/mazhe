@@ -527,10 +527,9 @@ figures_list.append(<++>)
 """
 
 def AllFigures():
-    tests=main.FigureGenerationSuite(figures_list,first=0,title=u"(almost) all I know in mathematics and physics")
+    tests=main.FigureGenerationSuite(figures_list,first=0,title=u"(almost) everything I know in mathematics and physics")
     tests.generate()
     tests.summary()
-
 
 if __name__=="__main__":
     if "--all" in sys.argv :

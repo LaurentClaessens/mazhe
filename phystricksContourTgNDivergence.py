@@ -9,10 +9,10 @@ def ContourTgNDivergence():
     pts = contour.getRegularLengthParameters(0,2*pi,1,initial_point=True)
 
     for llam in pts:
-        t = contour.get_tangent_vector(llam).fix_size(0.5)
+        t = contour.get_tangent_vector(llam).normalize(0.5)
 
         # In this particular case, I need to change the sign of the produced normal vector :
-        n = -contour.get_normal_vector(llam,Green_convention=True).fix_size(0.5)
+        n = -contour.get_normal_vector(llam,Green_convention=True).normalize(0.5)
         n.parameters.color="green"
         t.parameters.color="red"
         pspict.DrawGraphs(t,n)

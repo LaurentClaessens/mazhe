@@ -13,8 +13,8 @@ def SBTooEasQsT():
 
     pspict.axes.single_axeY.Dx=10
     pspict.grid.Dy=5
-    pspict.DrawDefaultAxes()
     pspict.DrawDefaultGrid()
+    pspict.DrawDefaultAxes()
     #fig.no_figure()
     fig.conclude()
     fig.write_the_file()

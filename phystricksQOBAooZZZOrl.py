@@ -1,11 +1,15 @@
 # -*- coding: utf8 -*-
 from phystricks import *
 def QOBAooZZZOrl():
-    pspict,fig = MultiplePictures("QOBAooZZZOrl",3)
+    pspicts,fig = MultiplePictures("QOBAooZZZOrl",3)
 
-    pspict[0].mother.caption=u"La grande surface."
-    pspict[1].mother.caption=u"La surface à soustraire."
-    pspict[2].mother.caption=u"La surface entre les deux fonctions."
+    pspicts[0].mother.caption=u"La grande surface."
+    pspicts[1].mother.caption=u"La surface à soustraire."
+    pspicts[2].mother.caption=u"La surface entre les deux fonctions."
+    for psp in pspicts :
+        psp.dilatation_X(2)
+        psp.dilatation_Y(0.3)
+
 
     x=var('x')
     mx=0.5
@@ -20,8 +24,8 @@ def QOBAooZZZOrl():
     A=Point(i1,0)
     B=Point(i2,0)
 
-    A.put_mark(0.3,-90,"$a$",pspict=pspict)
-    B.put_mark(0.3,-90,"$b$",pspict=pspict)
+    A.put_mark(0.3,-90,"$a$",pspicts=pspicts)
+    B.put_mark(0.3,-90,"$b$",pspicts=pspicts)
 
     grande_surface=SurfaceUnderFunction(f2,i1,i2)
     petite_surface=SurfaceUnderFunction(f1,i1,i2)
@@ -38,18 +42,16 @@ def QOBAooZZZOrl():
     #petite_surface.parameters.color="cyan"
     #moyenne_surface.parameters.color="red"
 
-    for psp in pspict:
+    for psp in pspicts:
         psp.comment="Filled area in brown, cyan and red"
-    pspict[0].DrawGraphs(f1,f2,grande_surface)
-    pspict[1].DrawGraphs(f1,f2,petite_surface)
-    pspict[2].DrawGraphs(f1,f2,moyenne_surface)
+    pspicts[0].DrawGraphs(f1,f2,grande_surface)
+    pspicts[1].DrawGraphs(f1,f2,petite_surface)
+    pspicts[2].DrawGraphs(f1,f2,moyenne_surface)
 
-    for psp in pspict :
+    for psp in pspicts :
         psp.DrawGraphs(A,B)
         psp.axes.no_graduation()
         psp.DrawDefaultAxes()
-        psp.dilatation_X(2)
-        psp.dilatation_Y(0.3)
 
     fig.conclude()
     fig.write_the_file()

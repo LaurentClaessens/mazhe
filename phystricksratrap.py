@@ -22,10 +22,10 @@ def ratrap():
     Ay = Point(0,a)
     By = Point(0,b)
 
-    Ax.put_mark(0.1,-90,"$a$",pspict=pspict,position="N")
-    Bx.put_mark(0.1,-90,"$b$",pspict=pspict,position="N")
-    Ay.put_mark(0.1,180,"$a$",pspict=pspict,position="E")
-    By.put_mark(0.1,180,"$b$",pspict=pspict,position="E")
+    Ax.put_mark(0.1,text="$a$",pspict=pspict,position="N")
+    Bx.put_mark(0.1,text="$b$",pspict=pspict,position="N")
+    Ay.put_mark(0.1,text="$a$",pspict=pspict,position="E")
+    By.put_mark(0.1,text="$b$",pspict=pspict,position="E")
 
     pspict.DrawGraphs(surface,Ax,Ay,Bx,By)
     pspict.axes.no_graduation()

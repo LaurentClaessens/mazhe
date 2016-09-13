@@ -2,6 +2,7 @@ from phystricks import *
 
 def ArcLongueurFinesse():
     pspict,fig = SinglePicture("ArcLongueurFinesse")
+    pspict.dilatation(0.7)
 
     def TraceDivision(n,curve,pspict,color):
         sigma=[(Mx-mx)*float(i)/n  for i in range(n+1)  ]
@@ -28,6 +29,5 @@ def ArcLongueurFinesse():
     TraceDivision(5,curve,pspict,"red")
     TraceDivision(11,curve,pspict,"green")
 
-    pspict.dilatation(0.7)
     fig.conclude()
     fig.write_the_file()

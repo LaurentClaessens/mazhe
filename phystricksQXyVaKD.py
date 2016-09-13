@@ -2,6 +2,7 @@
 from phystricks import *
 def QXyVaKD():
     pspict,fig = SinglePicture("QXyVaKD")
+    pspict.dilatation(2)
 
     C=Point(0,0.5)
     alpha=0
@@ -30,7 +31,6 @@ def QXyVaKD():
 
     pspict.axes.no_graduation()
     pspict.DrawDefaultAxes()
-    pspict.dilatation(2)
     pspict.comment="Area filled in cyan"
     fig.conclude()
     fig.write_the_file()

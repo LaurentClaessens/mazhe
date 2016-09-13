@@ -1,7 +1,6 @@
 from phystricks import *
 def CouroneExam():
     pspict,fig = SinglePicture("CouroneExam")
-    pspict.dilatation(1)
 
     Origin=Point(0,0)
     C1=Circle(Origin,1)

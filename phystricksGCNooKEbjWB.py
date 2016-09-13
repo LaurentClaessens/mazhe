@@ -24,8 +24,8 @@ def GCNooKEbjWB():
     B.parameters.symbol='o'
 
     pspict.DrawGraphs(f,g,A,B,C,D,lin)
-    pspict.DrawDefaultAxes()
     pspict.DrawDefaultGrid()
+    pspict.DrawDefaultAxes()
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()
