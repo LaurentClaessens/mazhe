@@ -69,31 +69,30 @@ Tout commence par télécharger les sources à l'adresse
     \url{https://github.com/LaurentClaessens/mazhe}
 \end{center}
 
-Pour information le numéro du commit qui correspond à ce qui a été soumis au jury pour approbation en septembre 2015 est \info{c038d9eee475b3a1d6e5414a698d50007dc69af0}.
-
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Pour l'agrégation}
+\section{Structure \LaTeX ienne du document}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Le plus facile est de télécharger la paquet \info{exocorr.sty} (voir plus bas) puis de compiler avec :
-\begin{quote}
-    \info{pdflatex -synctex=1 -shell-escape Inter\_frido-mazhe\_pytex.tex  }
-\end{quote}
-et quelques fois \info{bibtex} et \info{makeindex}.
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Pourquoi ça va être compliqué}
+%---------------------------------------------------------------------------------------------------------------------------
 
-Ce faisant vous n'aurez cependant pas les moyens de changer l'ordre des chapitres\footnote{Ou en tout cas pas de me soumettre vos changements parce que c'est dans \info{mazhe.tex} que je travaille.} parce que ce fichier est créé automatiquement par quelques scripts de précompilation. En travaillant de la sorte vous aurez la possibilité d'effectuer des modifications dans les fichiers inclus.
+Le fichier principal est \info{mazhe.tex} et les entêtes sont dans \info{e\_mazhe.tex}. Le fichier principal contient la structures des chapitres et les \info{input} des fichiers correspondants.
 
-Vu que de mon côté ce fichier est recréé automatiquement à chaque compilation, un \info{git pull} écrasera les modifications que vous y auriez apporté. Si vous voulez savoir la raison de ce fait, faites
-\begin{quote}
-    \info{pdflatex mazhe.tex}
-\end{quote}
-Voyant le résultat vous comprendrez pourquoi compiler le document destiné à l'agrégation demande un peu de travail.
+Le document complet contient plusieurs parties :
+\begin{itemize}
+    \item Le Frido (partie pour l'agrégation)
+    \item Des chapitres de niveau recherche (ce que j'ai étudié et fait pour ma thèse)
+    \item Des exercices et des corrigés
+    \item Un cours d'«outils mathématique» que j'ai donné.
+\end{itemize}
+Afin de compiler seulement la partie «Frido» (le plus souvent les gens qui lisent ces lignes s'intéressent à cette partie), j'ai écrit quelque scripts de précompilation qui servent à extraire les bons \info{input}, à mettre la bonne couverture et effectuer quelque autres aménagements. C'est cela que nous allons voir à présent.
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Ce qu'il faut télécharger}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Pour avoir une maîtrise plus fine de la compilation, vous devrez télécharger un certain nombre de choses. 
+Vous devrez télécharger un certain nombre de choses. 
 
 Les choses standards :
 \begin{enumerate}
@@ -135,7 +134,7 @@ Note. Il est conseillé de mettre tous ces fichiers dans des répertoires sépar
 Lorsque tout est téléchargé et correctement configuré (\info{LaTeXparser} doit être trouvable par python et \info{pytex} trouvable par votre terminal), vous compilez le Frido avec
 \begin{quote}
     \begin{verbatim}
-    pytex lst_frido.py --lotex
+    pytex lst_frido.py
     \end{verbatim}
 \end{quote}
 Le script s'occupe d'extraire de \info{mazhe.tex} les choses nécessaires au Frido, crée un fichier intermédiaire et le compile. Des passes de \info{bibtex} et \info{makeindex} sont également automatiquement effectuées.
@@ -157,10 +156,10 @@ A priori la seule chose qui vous intéresse est la liste des \texttt{ok\_filenam
 La ligne \info{new\_output\_filename} donne le nom du fichier de sortie. En l'omettant, ce sera un nom compliqué du type \info{0-Inter\_\ldots}. Pour compiler :
 \begin{quote}
     \begin{verbatim}
-    pytex lst_exemple.py --lotex
+    pytex lst_exemple.py 
     \end{verbatim}
 \end{quote}
-Le \verb+--lotex+ est seulement là pour dire qu'il faut faire tourner la compilation autant de fois qu'il faudra pour que les références soient justes\footnote{Pour que la bibliographie soit correcte, il faut encore compiler une fois ou deux.}. 
+Il fera automatiquement autant de tours de \info{pdflatex}, \info{makeindex} et \info{bibtex} que nécessaire pour que toutes les références soient bien faites\footnote{Bug connu : pour que la bibliographie soit correcte, il faut lancer deux fois \info{pytex}.}.
 
 Après compilation, une liste des références incorrectes est donnée. Bien entendu si vous ne compilez qu'une partie, il risque d'y avoir beaucoup de références \emph{manquantes}, mais il ne devrait n'y avoir aucune références \emph{duplicate} !
 
@@ -199,21 +198,21 @@ On essaie d'être cohérent dans les notations et les conventions. Pour la trans
 \subsection{De la bibliographie}
 %---------------------------------------------------------------------------------------------------------------------------
 
-On évite d'écrire en haut de chapitre «les références pour ce chapitre sont \ldots». Il est mieux d'écrire au niveau des théorèmes entre parenthèse, les références. De préférence en ligne.
+On évite d'écrire en haut de chapitre «les références pour ce chapitre sont \ldots». Il est mieux d'écrire au niveau des théorèmes entre parenthèse, les références.
+
+Lorsqu'on écrit l'énoncé d'un théorème sans retranscrire la démonstration, il faut mettre une référence vers un document \emph{en ligne} qui en contient la preuve. Il est vraiment fastidieux de chercher une preuve sur internet et de tomber sur des dizaines de documents qui donnent l'énoncé mais pas la preuve.
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Faire des références à tout}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Lorsqu'un utilise le théorème des accroissements finis, il ne faut pas écrire «d'après le théorème des accroissements finis, blablabla». Il faut écrire un \verb+\ref{}+ explicite vers le résultat. Cela alourdit un peu le texte, mais lorsqu'on joue avec un texte de plus de 1000 pages, il est parfois vraiment laborieux de trouver le résultat qu'on cherche (surtout si il existe plusieurs version d'un résultat et que l'on veut faire référence à une version particulière).
+Lorsqu'un utilise le théorème des accroissements finis, il ne faut pas écrire «d'après le théorème des accroissements finis, blablabla». Il faut écrire un \verb+\ref{}+ explicite vers le résultat. Cela alourdit un peu le texte, mais lorsqu'on joue avec un texte de plus de 1500 pages, il est parfois laborieux de trouver le résultat qu'on cherche (surtout si il existe plusieurs version d'un résultat et que l'on veut faire référence à une version particulière).
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Des listes de liens internes}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Il y a dans le texte plusieurs listes de résultats «analogues». Par exemple au début du chapitre sur les séries de Fourier, une liste de références vers les différents théorèmes qui disent que la série de Fourier de \( f\) converge vers \( f\).  Je crois que ces listes sont bien et qu'il faut en faire plein.
-
-Il y a l'environnement \verb+InternalLinks+ qui sert à ça \ldots et qui devrait être plus beau, genre avec une petite ligne verticale et un retrait.
+Le début du Frido contient un espèce d'index thématique. Il serait bon de l'étoffer.
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Pas de références vers le futur}
