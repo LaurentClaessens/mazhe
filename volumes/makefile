@@ -12,5 +12,7 @@ clean:
 
 ####### Compile
 all:  volumes
-volumes: volumes.h
-	$(CXX) -o volumes volumes.cpp
+Utilities : Utilities.h Utilities.cpp
+	$(CXX) -c  -o Utilities.o Utilities.cpp
+volumes: Utilities volumes.h volumes.cpp
+	$(CXX) -o volumes Utilities.o   volumes.cpp
