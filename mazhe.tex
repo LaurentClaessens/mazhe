@@ -48,30 +48,28 @@
 \bibliographystyle{unsrtnat} 
 \corrPosition{1}
 
-\newcounter{isAgreg}
-\setcounter{isAgreg}{0}   % Changé en 1 par un plugin de lst_frido.py
-\newcounter{isBook}
-\setcounter{isBook}{0}      
 
-% Le compteur envolume sert à mettre une ancre pour la publication en volumes. 0 signifie qu'il n'est pas divisé en volume.
-% En pratique c'est le script 'volume' qui s'en occupe.
-\newcounter{envolume}
-\setcounter{envolume}{0}            % Laisser à zéro.
+% The following booleans serve to know in what type of compilation we are.
+% They are set to 'true' by the pre-compilation scripts.
+% http://ftp.oleane.net/pub/CTAN/macros/latex/contrib/etoolbox/etoolbox.pdf
+\newbool{isAgreg}
+\newbool{isMazhe}
+\newbool{isEnVolume}
+\newbool{isBook}
+\boolfalse{isAgreg}
+\boolfalse{isMazhe}
+\boolfalse{isEnVolume}
+\boolfalse{isBook}
 
-
-\ifthenelse{\value{isAgreg}=1}{\corrPosition{1}}{}
+\ifbool{isAgreg}{\corrPosition{1}}{}
 \newcommand{\GitCommitHexsha}{\info{missing information}}       % Ceci est modifié par un plugin de lst_agreg.py
 
 % SCRIPT MARK -- GARDE MES NOTES
 \selectlanguage{frenchb}
 \input{gardeFrido}
-\ifnumequal{\value{isBook}}{0}
-{
-    \input{EtAgreg}
-}
-{
-    \input{162_donation}
-}
+
+\ifbool{isAgreg}{\input{EtAgreg}}{}
+\ifbool{isBook}{\input{162_donation}}{}
 
 \newpage
 
@@ -112,7 +110,7 @@
 
 \selectlanguage{frenchb}
 
-\ifthenelse{\value{isAgreg}=1}{
+\ifbool{isAgreg}{
 \setcounter{chapter}{0}
 \chapter{Introduction}
 \input{remerciements}
