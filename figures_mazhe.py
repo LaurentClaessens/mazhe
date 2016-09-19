@@ -4,6 +4,8 @@
 from phystricks import *
 import sys
 
+
+from phystricksFCUEooTpEPFoeQ import FCUEooTpEPFoeQ
 from phystricksERPMooZibfNOiU import ERPMooZibfNOiU
 from phystricksOQTEoodIwAPfZE import OQTEoodIwAPfZE
 from phystricksQMWKooRRulrgcH import QMWKooRRulrgcH
@@ -516,8 +518,8 @@ figures_list.append(PartieEntiere)
 figures_list.append(Mantisse)
 figures_list.append(SolsEqDiffSin)
 figures_list.append(SolsSinpA)
+figures_list.append(FCUEooTpEPFoeQ)
 """
-figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)

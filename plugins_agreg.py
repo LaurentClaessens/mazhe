@@ -11,10 +11,6 @@ from __future__ import unicode_literals
 import LaTeXparser
 import LaTeXparser.PytexTools
 
-# Replaced by a lambda, March, 26, 2014
-#def accept_input(filename):
-#    return True
-
 agreg_mark_list=[]
 agreg_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
 agreg_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
