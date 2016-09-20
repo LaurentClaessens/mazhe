@@ -28,6 +28,11 @@ using std::string;
 using std::ifstream;
 using std::ofstream;
 
+// The pdf filename of what will contain
+// - toc
+// - thèmes
+// - index
+string VOL_TTI_FILENAME="vol-toc_index.pdf";
 
 UnicodeCouple::UnicodeCouple( string c,string r )
 {
@@ -100,7 +105,7 @@ string createFrontPage(int voln){
      };
     string command="pdflatex "+output_filename;
     std::cout<<command<<std::endl;
-    //system(command.c_str());
+    system(command.c_str());
     replace(output_filename,".tex",".pdf");
     return output_filename;
 }
@@ -163,7 +168,7 @@ void LatexDocument::extractFromTo(string Ichap,string Fchap,string output) const
     string sFpage=NumberToString(Fpage);
     string command="pdftk "+pdf_filename+" cat "+sIpage+"-"+sFpage+" output "+output;
     std::cout<<command<<std::endl;
-    //system(command.c_str());
+    system(command.c_str());
 };
 
 void LatexDocument::extractListOfNotations(string filename) const
@@ -172,12 +177,12 @@ void LatexDocument::extractListOfNotations(string filename) const
     string spage=NumberToString(init_page);
     string command="pdftk "+pdf_filename+" cat "+spage+"-end"+" output "+filename;
     std::cout<<command<<std::endl;
-    //system(command.c_str());
+    system(command.c_str());
 }
 
 void LatexDocument::divide(std::vector<string> sc_list) const
 {
-    extractFromTo("Table des matières","Questions","vol-toc_index.pdf");
+    extractFromTo("Thématique","Introduction",VOL_TTI_FILENAME);
     extractListOfNotations("vol-ton.pdf");
     
     // Creating the pdf containing the math and the pdf containing the front page
@@ -192,16 +197,16 @@ void LatexDocument::divide(std::vector<string> sc_list) const
         string front_filename=createFrontPage(i+1);
 
         // merging the whole
-        string command="pdftk "+front_filename+" vol-toc.pdf"+" "+mat_filename+" vol-ton.pdf"+" cat output lefrido-volume"+NumberToString(i+1)+".pdf";
+        string command="pdftk "+front_filename+" "+VOL_TTI_FILENAME+" "+mat_filename+" vol-ton.pdf"+" cat output lefrido-volume"+NumberToString(i+1)+".pdf";
         std::cout<<command<<std::endl;
-        //system(command.c_str());
+        system(command.c_str());
     }
 }
     
 int main ()
 {
     std::vector<string> starting_chapters;
-    starting_chapters.push_back("Questions");
+    starting_chapters.push_back("Introduction");
     starting_chapters.push_back("Analyse réelle");
     starting_chapters.push_back("Espaces de Hilbert");
     starting_chapters.push_back("Liste des notations");
