@@ -15,4 +15,4 @@ all:  volumes
 Utilities : Utilities.h Utilities.cpp
 	$(CXX) -c  -o Utilities.o Utilities.cpp
 volumes: Utilities volumes.h volumes.cpp
-	$(CXX) -o volumes Utilities.o   volumes.cpp
+	$(CXX) -g  -o volumes Utilities.o   volumes.cpp

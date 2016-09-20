@@ -69,7 +69,7 @@ class Chapter{
 // and the volume number 'voln' 
 // It just change "CHANGE HERE" to the volume number in 'gardeVolume.tex'
 // return the name of the created file.
-string create_front_page(int voln);
+string createFrontPage(int voln);
 
 class LatexDocument{
     // Describe a LaTeX document. One has to provide coherent pdf filename
@@ -95,5 +95,4 @@ class LatexDocument{
         void divide(std::vector<string> sc_list) const;
 };
    
-
 #endif // __VOLUMES_H_9066__
