@@ -15,8 +15,16 @@ agreg_mark_list=[]
 agreg_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
 agreg_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
 agreg_mark_list.append("% SCRIPT MARK -- TOC")
-agreg_mark_list.append("% SCRIPT MARK -- AGRÉGATION")
+agreg_mark_list.append("% SCRIPT MARK -- FRIDO")
 agreg_mark_list.append("% SCRIPT MARK -- FINAL")
+
+book_mark_list=[]
+book_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+book_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
+book_mark_list.append("% SCRIPT MARK -- TOC")
+book_mark_list.append("% SCRIPT MARK -- FRIDO")
+book_mark_list.append("% SCRIPT MARK -- FINAL")
+
 
 mesnotes_mark_list=agreg_mark_list[:]
 mesnotes_mark_list.append("% SCRIPT MARK -- DÉVELOPPEMENTS POSSIBLES")
@@ -46,7 +54,7 @@ mazhe_mark_list.append("% SCRIPT MARK -- TOC")
 mazhe_mark_list.append("% SCRIPT MARK -- ENGLISH INTRODUCTION")
 mazhe_mark_list.append("% SCRIPT MARK -- MOODLE")
 mazhe_mark_list.append("% SCRIPT MARK -- INTRO SAGE")
-mazhe_mark_list.append("% SCRIPT MARK -- AGRÉGATION")
+mazhe_mark_list.append("% SCRIPT MARK -- FRIDO")
 mazhe_mark_list.append("% SCRIPT MARK -- DÉVELOPPEMENTS POSSIBLES")
 mazhe_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUES")
 mazhe_mark_list.append("% SCRIPT MARK -- RESEARCH PART")
@@ -86,6 +94,30 @@ class set_counter(object):
         """
         u="\setcounter{{{}}}{{{}}}".format(self.counter_name,self.init_value)
         S = A.replace(u,u.replace(str(self.init_value),str(self.final_value)))
+        return S
+
+class set_boolean(object):
+    def __init__(self,name,value):
+        self.name=name
+        self.value=value
+    def __call__(self,A):
+        r"""
+        Changes the line
+        \boolfalse{<name>}
+        into
+        \booltrue{<name>}
+        or the contrary
+        """
+        true_line=r"\booltrue{{{}}}".format(self.name)
+        false_line=r"\boolfalse{{{}}}".format(self.name)
+        print(true_line)
+        print(false_line)
+        if self.value=="true":
+            S=A.replace(false_line,true_line)
+        elif self.value=="false":
+            S=A.replace(true_line,false_line)
+        else :
+            raise ValueError("You have to choose between 'true' of 'false'")
         return S
 
 set_isAgreg = set_counter("isAgreg",0,1)

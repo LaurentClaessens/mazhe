@@ -4,6 +4,12 @@
 % See the file fdl-1.3.txt for copying conditions.
 
 
+% Ce fichier est inclu à 'gardeVolume' pour être compilé séparément pour la division en volumes.
+% Il est donc inutile de faire des choses ici lorsque 'isBook' est true. En effet 'isBook' sert
+% à créer la version qui va être divisée en volumes, et pour cette division, une recompilation 
+% spéciale de ce fichier sera faite avec 'isEnVolume' mis à 'true'.
+
+
 \thispagestyle{empty}
 \begin{center}
   \begin{minipage}{15cm}
@@ -12,7 +18,14 @@
     \begin{center}
         \Huge \bfseries Le Frido \\  {\small Les quelques premières années de mathématiques}
     \normalsize
-    \url{http://laurent.claessens-donadello.eu/pdf/lefrido.pdf}
+    \ifbool{isAgreg}{%
+        \url{http://laurent.claessens-donadello.eu/pdf/lefrido.pdf}
+    }{}%
+    \ifbool{isEnVolume}{%
+        \url{http://laurent.claessens-donadello.eu/pdf/préliminaire-thebookedition_vol1.pdf}\\
+        \url{http://laurent.claessens-donadello.eu/pdf/préliminaire-thebookedition_vol2.pdf}
+        Version préliminaire.
+    }{}%
     \end{center}
     \hrule\par
   \end{minipage}\\
@@ -25,7 +38,7 @@
 \begin{center}
     Laurent \textsc{Claessens}\\
     \today\\
-    \texttt{\GitCommitHexsha}
+    \notbool{isBook}{ \texttt{\GitCommitHexsha} }{}
 
     \vspace{1cm}
 
@@ -33,7 +46,7 @@
 
 \vfill
 
-  \ifbool{isEnVolume}{\LicenceFDL}{\LogoEtLicence}
+ \LogoEtLicence
 
 
 % Créer une nouvelle branche git
