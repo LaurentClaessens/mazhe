@@ -50,14 +50,9 @@ Le Frido se distingue également par certains aspects négatifs.
 
 ### « *Est-ce je peux utiliser le Frido le jour de l'oral d'agreg ?* »
 
-Réponse : je ne sais pas. J'ai demandé au jury (que j'ai déjà relancé quelque fois) qui ne m'a pas répondu. 
-Quelque éléments de réflexion :
+Tel quel : non parce que le règlement demande de n'utiliser que des documents commercialisés et interdit d'apporter des choses imprimées chez soi. Dans peu de temps je vais mettre une version du Frido en vente sur [thebookedition.com](http://www.thebookedition.com/fr/). Elle sera également sous licence libre, mais utilisable à l'agrégation. Il sera divisé en trois volumes entre 500 et 600 pages dont vous pouvez télécharger les versions préliminaires : [vol1](http://laurent.claessens-donadello.eu/pdf/pr%C3%A9milimaire-vol1.pdf), [vol2](http://laurent.claessens-donadello.eu/pdf/pr%C3%A9milimaire-vol2.pdf), [vol3](http://laurent.claessens-donadello.eu/pdf/pr%C3%A9milimaire-vol3.pdf).
 
-* Plusieurs candidats l'ont déjà utilisé sans être inquiétés.
-* Une version imprimée est [dans la bibliothèque de l'ENS Cachan](https://catalogue.ens-cachan.fr/cgi-bin/koha/opac-detail.pl?biblionumber=59258).
-* Si vous croyez que 3 mois sans réponse équivaut à acceptation, alors le Frido est accepté.
-
-Posez donc la question vous-même (ou mieux : faites la poser par un préparateur agreg de votre université) et transmettez moi la réponse.
+Le prix unitaire sera entre 20 et 25 euros plus les frais d'envoi. C'est environ ce que vous auriez payé pour l'imprimer dans votre imprimerie préférée de votre quartier.
 
 ## (almost) Everything I know in math
 
