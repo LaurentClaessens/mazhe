@@ -1,0 +1,836 @@
+% This is part of (almost) Everything I know in mathematics
+% Copyright (c) 2016
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+\section*{Notations}
+%+++++++++++++++++++
+
+Some notations about functional spaces:
+
+\begin{enumerate}
+\item $\cdE(X)$ is the set of smooth functions on $X$ also denoted by $ C^{\infty}(X)$,
+\item $\cdD(X;K)$ is the subspace of $\cdE(X)$ of functions with support in $K$,
+\item $\cdD(X)$ is the union of all $\cdD(X;K)$ when $K$ runs over the compact subsets of $X$,
+\item $C_{c}(X)$ compactly supported functions on $X$.
+\item $ C^{\infty}_{c}(X)$ smooth compactly supported functions on $X$.
+\item $\scrC_F(E)$ is the set of continuous maps from $E$ to $F$. 
+\item $\cdD^{(0)}_{\eR}(X)$ is the set of continuous real functions with compact support in $X$,
+\item $\scrD^{(r)}_p(X;K)$ is the set of the differential $p$-forms of class $C^r$ on $K$ when $K$ is a compact subset of the manifold $X$,
+\item $\cdE^{(p)}_F(A)$ is the set of $p$ times continuously differentiable functions $A\to F$; if $p$ is not mentioned it means $\infty$,
+\item $\swS$, the space of smooth rapidly decreasing Schwartz functions, page \pageref{not_swS}.
+\end{enumerate}
+
+Some distribution spaces:
+
+\begin{enumerate}
+\item $M(X)$ is the space of complex Borel measures on $X$, page \pageref{defMX}
+\item $M_0(X)$ is the subspace of $M(X)$ of compact supported measures, page \pageref{defMzX}.
+\item $R(G)$ is the dual of $ C^{\infty}(G)$. All element of this space are not measures.
+\end{enumerate}
+
+When $f$ and $g$ are real function, we write $f=O(g)$ if there exists $C\leq\infty$ such that $f(x)\leq Cg(x)$ for all $x$.
+
+\section{Distributions}\label{sec:Distrib}
+%++++++++++++++++++++++
+
+Matter of this section is taken from \cite{Treves,Dieu3}
+
+Let $X$ be an open set in $\eR^n$. A \defe{distribution}{distribution} on $X$ is a linear form on $\cdD(X)$ whose restriction to $\cdD(X;K)$ is continuous for each compact set $K\subset X$. We denote it by $\cdD'(X)$\nomenclature{$\cdD'$}{distribution space}. More generally, if $\cdA$ is a space of function, we denote by $\cdA'$ the set of linear form on $\cdA$ whose are continuous on each compact.
+
+If $T$ is a linear form on $\cdD(X)$. For $T$ to be a distribution, it is necessary and sufficient that for all sequence $(f_k)\in C^{\infty}(X)$  with $f_k\in\cdD(X,K)$ such that $f_k\to 0$ in $\cdE(X)$, the sequence $(Tf_k)$ converges to $0$ in $\eC$.
+
+Let $T$ be a distribution for which all the restrictions to $\cdD(X;K)$ are continuous for the induced topology from $\cdD^{(r)}(X;K)$. In this case, we say that $T$ has \defe{order}{order!of a distribution}\label{pg:reforder} lesser than $r$. The \emph{order} of $T$ is the smaller such $r$. If it doesn't exist, then we say that $T$ has order infinite.
+
+\begin{proposition}
+Let $T$ be of order $\leq r$. Then $T$ is the restriction to $\cdD(X)$ of a linear form $T'$ on $\cdD^{(r)}(X)$ whose restriction to each $\cdD^{(r)}(X;K)$ is continuous. This $T'$ is unique.
+\end{proposition}
+
+I only gives the beginning of the proof\quext{Il faudra la completer}.
+
+\begin{proof}
+Let $K$ be a compact in  $X$ and $K'$ a compact neighbourhood of $K$ in $X$. There exists a function $h\in C^{\infty}(X)$ such that $h=1$ in a compact neighbourhood of $K$ and $h=0$ outside $K'$. Consider a function $g\in\cdD^{(r)}(X;K)$; there exists a sequence $(f_k\in\cdD(X))\to g$ for the topology of $\cdE^{(r)}$. This is the $ C^{\infty}$ approximation of $C^{(r)}$ functions. Note that in general, $g$ don't belong to $\cdD(X;K)$.
+
+Now, the sequence $(hf_k)$ which is contained in $\cdD(X;k')$ converges to $g$ in $\cdD^{(r)}(X;k')$. Then the closure of $\cdD(X;K')$ in $\cdE^{(r)}$ contains $\cdD^{(r)}(X;K)$ and is contained in $\cdD^{(r)}(X;K')$.
+\end{proof}
+
+The distribution $\dpt{\delta_x}{C(X)}{\eC}$ given by $f\to f(x)$ is the \defe{Dirac distribution}{Dirac!distribution} at $x$.
+
+\subsection{Distribution defined from functions}
+%-----------------------------------------------
+
+If $\dpt{f}{X}{\eR}$ is an integrable function, we define the distribution $T_f$ by \nomenclature{$T_f$}{Distribution defined by a function}
+\[ 
+  T_j(g)=\int_Xfg.
+\]
+If $\mU\subset\eR^N$, is open and $K\subset\mU$ is compact, for all multi-index $\nu$, the map $f\to D^{\nu}f$ is continuous from $\cdD(\mU;K)$ to $\cdD(\mU;K)$. This leads us to define the \defe{derivative}{derivation!of a distribution} of the distribution $T\in\cdD'(\mU)$ by
+\begin{equation} \label{eq:defpartialT}
+  (D^{\nu}T)f=(-1)^{| \nu |}T(D^{\nu}f).
+\end{equation}
+In particular, if $T=T_f$, then
+\begin{equation} \label{eq:defTpri}
+(\partial_iT_g)f=-\int g\partial_if
+                =\int(\partial_ig)f
+                =T_{\partial_ig}f.
+\end{equation}
+This relation explains the sign in definition \eqref{eq:defpartialT}. The boundary term which should appears in the integral by part is zero because $f\in\cdD(\mU;K)$ has compact support.
+
+\subsection{Fourier transform and Schwartz functions}
+%----------------------------------------------------
+
+We consider $\{ e_1,\ldots,e_n \}$, a basis of $\eR^N$ and $\{ e'_1,\ldots,e'_n \}$ the dual basis defined by $\scal{e'_i}{e_j}=\delta_{ij}$. If $x=\sum_ix_ie_i$ and $\xi=\sum_j\xi_je'_j$, we write $\scal{x}{\xi}=\scal{\xi}{x}=\sum_i\xi_ix_i$.
+
+The space $\swS(\eR^N)$\nomenclature{$\swS$}{Schwartz space}\label{not_swS} of \defe{Schwartz functions}{Schwartz functions} is the space of $ C^{\infty}$ functions $\varphi$ such that for all polynomials $P$ on $\eR^N$ and all multi-index $\nu$, the quantity
+\begin{equation}
+  | P(x)D_x^{\nu}\varphi(x) |
+\end{equation}
+is bounded.  The topology is given by seminorms
+\begin{equation}
+  \| \varphi \|_{P,\nu}=\sup_{x\in\eR^N}| P(x)D_x^{\nu}\varphi(x) |.
+\end{equation}
+It is possible to prove that it is a Fréchet space in which all bounded and closed sets are compact; the topology is independent of the basis. A function in this space has special property that its integral is absolutely convergent :
+\[ 
+  \int_{\eR^N}| \varphi(x) |\leq \infty.
+\]
+It is proved in \cite{Kirillov} that on $\swS(\eR^n)$, the following families of seminorms are equivalent :
+\begin{subequations}
+\begin{align}
+  p_{\alpha\beta}(f)&=\sup_{x\in\eR^n}| x^{\alpha}\partial^{\beta}f(x) |\\
+ p'_{\alpha\beta}(f)&=\int_{\eR^n}| x^{\alpha}\partial^{\beta}f(s) |\,ds\\
+p''_{\alpha\beta}(f)&=\left( \int_{\eR^n}| x^{\alpha}\partial^{\beta}(s) |^2\,ds \right)^{1/2}.
+\end{align}
+\end{subequations}
+
+Let $\xi\in(\eR^N)^*$ and consider the function  $x\to e^{-2\pi i\scal{x}{\xi}}\varphi(x)$
+which belongs to $\swS(\eR^N)$ as long as $\varphi\in\swS(\eR^N)$. The \defe{Fourier transform}{Fourier transform} of $\varphi\in\swS(\eR^N)$ is the function $\dpt{\hat\varphi}{(\eR^N)^*}{\eC}$ given by
+\begin{equation}
+\hat\varphi(\xi)=\int \varphi(x)e^{-2\pi i\scal{x}{\xi}}dx.
+\end{equation}
+
+Classical results are summarized in the following theorem (proof in the case of space $\swS$ is given in \cite{Treves}) :
+
+\begin{theorem}
+The Fourier transform is a topological vector space isomorphism from $\swS(\eR^N)$ into $\swS(\eR^N)$ and the inverse is given by formula
+\[ 
+  \varphi(x)=\int \hat\varphi(\xi)e^{2\pi i\scal{x}{\xi}}d\xi.
+\]
+Equalities of Parseval and Plancherel\index{Perceval}\index{Plancherel} holds :
+\begin{align}
+  \int \phi\overline{\psi}=\int \hat\phi\overline{\hat\psi}\textrm{ and }
+\int| \phi |^2=\int| \hat\phi |^2
+\end{align}
+where the bar denotes the usual complex conjugation. Left hand side integrals are taken on $\eR^N$ and right integrals over $(\eR^N)^*$.
+\end{theorem}
+
+\begin{corollary}
+Fourier transform can be extended to an isometry $L^2(\eR^N)\to L^2\big( (\eR^N)^* \big)$.
+\end{corollary}
+
+\subsection{Support of a distribution}
+%-------------------------------------
+
+Let $\mU$ be an open set in $X$ and $K$, a compact in $\mU$. The map $\cdD(X;K)\to\cdD(\mU;K)$ given by $f\to f_{\mU}$ is an isomorphism whose inverse is $f\to f^{\mU}$ where $f^{\mU}$ is just the prolongation of $f$ with zero outside $\mU$. For a distribution $T$ on $X$, we consider $\dpt{T|_{\mU}}{\cdD(\mU;K)}{\eC}$,
+\[ 
+         T|_{\mU}(f)=T(f^{\mU}).
+\]
+This is a distribution on $\mU$ called the \defe{induced}{induced!distribution} from $T$ on $\mU$. A distribution on $\mU$ is not always the restriction of a distribution on $X$ and when it is, the prolongation is not unique in general. There exists a prolongation theorem in certain cases :
+
+\begin{theorem}
+Let $(\mU_{\lambda})_{\lambda\in L}$ be an open covering of $X$ and for each $\lambda\in L$, a distribution $T_{\lambda}$ on $\mU_{\lambda}$. We suppose that for all $\lambda,\mu\in L$, $T_{\lambda}|_{\mU_{\lambda}\cap\mU_{\mu}}=T_{\mu}|_{\mU_{\lambda}\cap\mU_{\mu}}$. Then there exists an unique distribution $T$ on $X$ such that for all $\lambda\in L$, $T|_{\mU_{\lambda}}=T_{\lambda}$.
+\end{theorem}
+
+Now if the restriction  of $T$ to each $\mU_{\lambda}$ is zero, then the restriction to the union is zero too because the null distribution answers the theorem. So the union of all the open set on which $T$ is zero is an open on which $T$ is zero. It is the largest open $V\subset X$ on which $T$ is zero. The complementary $S=\complement V$ is the \defe{support}{support of a distribution} of the distribution $T$. We note it $\Supp(T)$.
+
+Let $x\in\Supp T$ : there exists no open containing $x$ on which $T$ is zero. With other words, for all  neighbourhood $V$ of $x$, there exists a function $f\in\cdD(X)$ with support contained in $V$ with $T(f)\neq 0$. 
+
+\subsection{Duality}
+%-------------------
+
+If $L$ and $M$ are algebras, the set $\Hom(L,M)$\nomenclature{$\Hom(L,M)$}{Space of linear maps from $L$ to $M$} contains all the maps $\dpt{f}{L}{M}$ such that $f(xy)=f(x)f(y)$. We are mainly interested in $\eC$-algebras: algebras $L$ endowed with a product $\eC\times L\to L$. Then we are leads to look at $\Hom_{\eC}(L,\eC)$, the subset of $\Hom(L,\eC)$ of maps which commutes with the latter product: $A\in\Hom_{\eC}(L,\eC)$ when $A\in\Hom(L,\eC)$ and $A(zl)=zA(l)$. We denote\nomenclature{$L^*$}{Linear maps from $L$ to $\eC$}.
+\begin{equation}
+  L^*=\Hom_{\eC}(L,\eC).
+\end{equation}
+This is defined when $L$ is a $\eC$-module.
+
+We consider now a \emph{topological} vector space: $L$ is a topological group for addition and the map $\eC\times L\to L$, $(\lambda,x)\to \lambda x$ is continuous with respect to the two variables. We denote by $L'$\nomenclature{$L'$}{Topological dual of $L$} the space of linear \emph{and continuous} maps $L\to \eC$; this is the \defe{topological dual}{dual!topological}\index{topological!dual} of $L$.
+
+Elements of $L^*$ have no continuity condition. In the general case, $L'\subset L^*$, and in the finite dimensional case, $L'=L^*$. The space $L^*$ is the \defe{dual module}{dual!module} of $L$ while $L'$ is the \defe{topological conjugate}{topological!conjugate} space of $L$. In both cases, we speak about \defe{dual space}{dual!space} of $L$.
+
+
+\begin{proposition} 
+Dual space $\cdE'(X)$ is the space of distribution with compact support.
+\label{prop:dualCinfcompact}
+\end{proposition}
+
+We can consider the sequence $ C^{\infty}_c\subset\swS\subset C^{\infty}$ of inclusion with dense images. The transposition of this gives the continuous inclusion sequence
+\[ 
+  \cdE'\subset\swS'\subset\cdD'.
+\]
+We say that an element of $\swS'(\eR^N)$ is a \defe{tempered distribution}{tempered!distribution}\nomenclature{$\swS'$}{Tempered distributions}.
+
+\begin{proposition} 
+A distribution on $\eR^N$ is tempered if and only if it is a finite sum of derivatives of continuous functions which are bounded at infinity by a polynomial.
+ \label{prop_distr_temp_sum}
+\end{proposition}
+
+A continuous function is not necessarily derivable. By ``derivative of a continuous function'' we mean a distribution of the form $(T_f)'$ (derivative in the sense of distributions) which we write $T_{f'}$ by abuse of notation. This notation is motivated by equation \eqref{eq:defTpri}. 
+
+\begin{proof}[Proof of proposition \ref{prop_distr_temp_sum} ]
+Let us first proof that a distribution $T$ is tempered if and only if the map $\varphi\to T\varphi$ is continuous on $ C^{\infty}_c$ for the topology induced from $\swS$. Let $\dpt{\tilde T}{ C^{\infty}_c}{\eC}$ be the map equals to $T$ on $ C^{\infty}_c$ and not defined anywhere else. If $\mO$ is open in $\eC$, then $\tilde T^{-1}(\mO)= C^{\infty}_c\cap T^{-1}(\mO)$. This is open in $ C^{\infty}_c$ (for the induced topology from $\swS$) if and only $T^{-1}(\mO)$ is open in $\swS$.
+
+
+Let $f$ be continuous and $T=T_{f'}$. We want $\varphi\to(T_f\varphi)'$ to be continuous on $\swS$. We can write it as
+\[ 
+  (T_f)'\varphi=-T_f(\varphi')=\int_{\eR^N}f\varphi'.
+\]
+The integral exists because $\varphi\in\swS$, so $\varphi'$ is decreasing at infinity more rapidly than the inverse of any polynomials, while $f$ is bounded by a polynomial.
+
+Let us now consider, a tempered distribution $T$. We have to prove that $T=T_{f'}$ for a certain continuous function $f$ bounded by a polynomial. Since $T$ is linear, its continuity is assured by the only continuity at zero. A neighbourhood of zero in $\swS$ reads under the form
+\[ 
+  A_{P,Q,\varepsilon}=\{ \varphi\in\swS\tq \sup_{x\in\eR^N}| P(X)Q(\partial_x)\varphi(x) |<\varepsilon \}
+\]
+for a choice of polynomials $P,Q$ and a $\varepsilon>0$. Let $\mO$ be a neighbourhood of rayon $\varepsilon$ around $0$ in $\eC$; we have
+\[ 
+  T^{-1}(\mO)=\{ \varphi\in\swS\tq | T\varphi |\leq \varepsilon \}.
+\]
+In order to be an open set, we have to find two polynomials $P$ and $Q$ (depending on $\varepsilon$ but not on $\varphi$) such that 
+\[ 
+  | T\varphi |\leq \sup_{x\in\eR^N}| P(x)Q(\partial_x)\varphi(x) |.
+\]
+The continuity of $T$ gives the existence of reals $m,h\geq 0$ and $C>0$ such that
+\[ 
+  | T\varphi |\leq \sup_{| p |\leq m}\sup_{x\in\eR^N}| (1+| x |^2)^h(\partial_x)^p\varphi(x) |.
+\]
+Let us pose $\varphi_h(x)=(1+| x |^2)^h\varphi(x)$. It still belongs to $   C^{\infty}_c$ and moreover, the map $\varphi\to\varphi_g$ is a bijection on $ C^{\infty}_c$. By induction on $h$, we see that
+\begin{equation}
+  | (\partial_x)^p\varphi(x) |\leq C_{p,h}(1+| x |^2)^{-h}\sum_{q\leq p}| (\partial_x)^q\varphi_h(x) |
+\end{equation}
+where $q\leq p$ means $q_1\leq p_1,\ldots, q_n\leq p_n$.
+ \quext{je ne fais pas le reste de la démonstration}.
+
+\end{proof}
+
+The space of \defe{currents}{current} is the dual (with respect to $\eR$) space of the space of differential forms. Current is the generalization of differential forms in the same sense that distributions are a generalization of functions. An example of $k$-current is given by a $(n-k)$-form $\sigma$ by setting
+\[ 
+  C_{\sigma}(\omega)=\int_M \sigma\wedge\omega.
+\]
+
+\section{Measure, distribution and integral} \label{sec_distrib_mesure}
+%----------------------------------------------
+
+Do you know what is yellow and equivalent to the existence of non measurable functions ? Answer in the footnote\footnote{The Zorn lemon !}.
+
+Most of links between measure theory and distribution are given in \cite{Dieu2}. We will state a lot of results without proof; they can be found in this reference. We always suppose that $X$ is locally compact. 
+
+Let $\cdD^{(0)}(X;K)$ be the set of continuous functions on $X$ whose support is contained in a compact $K\subset X$. A \defe{measure}{measure} on $X$ is a linear form $\dpt{\mu}{\cdD^{(0)}(X)}{\eC}$ such that for all compact $K\subset X$, there exist a real $a_K\geq 0$ for which for all $f\in\cdD^{(0)}(X;K)$
+\begin{equation}
+  | \mu(f) |\leq a_K\| f \|.
+\end{equation}
+In this case, the restriction $\mu|_{\cdD^{\infty}}(X;K)$ is continuous for the induced topology from $\cdD^{(0)}(X;K)$. Indeed if $\mO$ is open in $\eC$, then
+\begin{equation}  \label{eq:18105r1}
+  \mu|_{\cdD(X;K)}^{-1}(\mO)=\cdD(X,K)\cap\mu^{-1}(\mO)
+\end{equation}
+but the continuity condition on $\dpt{\mu}{\cdD^{(0)}}{\eC}$ makes $\mu^{-1}(\mO)$ open in $\cdD^{(0)}$. Then expression \eqref{eq:18105r1} describes an open set in $\cdD(X;K)$ for the induced topology of $\cdD^{(0)}(X;K)$. 
+
+The measures are exactly the distribution of order zero, \emph{confer} page \pageref{pg:reforder}.
+
+\subsection{Example: the Lebesgue measure}
+
+Let $f\in\cdD^{(0)}(\eR)$. For all $a$, $b\in\eR$ such that $\Supp f\subset [a,b]$, the value of $\int_a^b f$ is the same and is denoted by $\int_{\eR}f$. The map $f\to\int_{\eR}f$ is a linear continuous function on $\cdD(\eR)$. This is a measure because if $f\in\cdD^{(0)}(\eR,K)$ with $K=[a,b]$, then
+\[ 
+  | \int_{\eR}f |\leq (b-a)\| f \|
+\]
+from the mean value theorem. We recognize the usual \defe{Lebesgue measure}{Lebesgue measure}\index{measure!Lebesgue} on~$\eR$.
+
+The measure $\mu$ is \defe{positive}{positive!measure}\index{measure!positive} when for all $f\geq0\in\cdD^{(0)}_{\eR}$, we have $\mu(f)\geq0$. It is \defe{real}{measure!real} if $\mu(f)\in\eR$ whenever $f\in\cdD^{(0)}_{\eR}(X)$. Since any function can be decomposed into $f=f^+-f^-$, a positive measure is always real.
+
+From now we only consider positive measures on a locally compact set.
+
+\begin{proposition}
+If $\mu$ is a linear form on $\cdD^{(0)}_{\eR}(X)$ with $\mu(f)\geq0$ when $f\geq0$, then $\mu$ is a measure.
+\end{proposition}
+
+A function $\dpt{f}{X}{\overline{ \eR }}$ is \defe{lower semicontinuous}{semicontinuous!lower} at $x_0\in X$ when for all $\alpha\in\overline{ \eR }$ such that $\alpha<f(x_0)$, there exists a neighbourhood of $x_0$ in which $\alpha< f$. It is \defe{upper semicontinuous}{semicontinuous!upper} when for all $\alpha'>f(x_0)$, we have $\alpha'>f$ on a neighbourhood.
+
+We consider the set $\mS(X)$ of lower semi continuous functions from $X$ to $\overline{ \eR }$ which are minored by a function of $\cdD^{(0)}_{\eR}(X)$. In particular, if $f\in\mS(X)$, one can define
+\begin{equation}
+   \mu^*(f)=\sup_{%
+\begin{subarray}{l}
+g\in\cdD^{(0)}_{\eR}(X)\\
+g\leq f
+\end{subarray}
+}\mu(g)
+\end{equation}
+which is  a well defined number in $\eR\cup\{ +\infty \}$
+
+
+\begin{proposition}
+Let $(f_n\in\mS)$ an increasing sequence and $f=\sup_nf_n$. Then
+
+\begin{enumerate}
+\item $f$ exists and $f\in\mS$
+\item $\mu^*(f)=\sup_n\mu^*(f_n)=\lim_{n\to\infty}\mu^*(f_n)$
+\end{enumerate}
+
+\end{proposition}
+
+If $\dpt{f}{X}{\overline{ \eR }}$ is \emph{any} function, a function $h\in\mS(X)$ with $h\geq f$ always exists, so we can define
+\begin{equation}
+  \mu^*(f)=\inf_{%
+\begin{subarray}{l}
+h\geq f\\
+h\in\mS(X)
+\end{subarray}
+} \mu^*(h).
+\end{equation}
+This number $\mu^*(f)\in\overline{ \eR }$ is the \defe{upper integral}{integral!upper} of $f$.
+
+
+\begin{proposition}
+If $(\dpt{f_n}{X}{\overline{ \eR }})$ is an increasing sequence with $\mu^*(f_n)>-\infty$, then
+\[ 
+  \mu^*(\sup_nf_n)=\sup_n\mu^*(f_n)=\lim_{n\to\infty}\mu^*(f_n).
+\]
+
+\end{proposition}
+
+\begin{proposition}
+For all sequence of function $(f_n\geq 0)$, we have
+\[ 
+  \mu^*\left( \sum_{n=1}^{\infty}f_n\right)\leq\left(\sum_{n=1}^{\infty}\mu^*(f_n) \right).
+\]
+
+\end{proposition}
+
+Now, for a function $\dpt{f}{X}{\overline{ \eR }}$, we put
+\begin{equation}
+  \mu_*(f)=-\mu^*(-f)
+\end{equation}
+and we call it the \defe{lower integral}{integral!lower} of $f$ for the measure $\mu$. It fulfils
+\[ 
+  \mu_*(f)\leq\mu^*(f).
+\]
+When the equality are true, we define $\mu(A)$ for a subset $A\subset X$ by
+\begin{equation}
+   \mu(A)=\mu_*(1_A)=\mu_*(1_A).
+\end{equation}
+
+We consider $M(X)$\nomenclature{$M(X)$}{Set of Borel measures on $X$}\label{defMX}, the set of all the \defe{Borel measures}{Borel measures} on $X$ : these are measure for which all Borel sets are measurable. When a measure $\mu$ is countably additive, we define
+\begin{equation}
+   | \mu |(E)=\sup \sum_{k=1}^{\infty}| \mu(E_k) |
+\end{equation}
+where the supremum is taken over all decomposition of $E$ in disjoints sets $E_k$. It induces a norm on $M(G)$ by
+\[ 
+  \| \mu \|=| \mu |(X).
+\]
+The subset  $M_0(X)$\nomenclature{$M_0(X)$}{Set of compact supported Borel measures}\label{defMzX} contains the Borel regular measures with compact support. A measure is \defe{regular}{regular!measure} when for all $B\subset X$ such that $\mu(B)$ exists, we have
+\begin{equation}
+\begin{split}
+    \mu(B)&=\sup\{ \mu(K)\tq K\subseteq B \textrm{ is compact} \}\\
+		&=\inf\{ \mu(A)\tq B\subseteq A, \textrm{ $A$ is open} \}
+\end{split}
+\end{equation}
+
+\subsection{Integration on more general spaces}
+%----------------------------------------------
+
+Let $X$ be locally compact and $\mu$, a measure on $X$. We define\nomenclature{$\| \mu \|$}{Norm of a measure}
+\begin{equation}
+  \| \mu \|=\sup_{%
+\begin{subarray}{l}
+\| f \|\leq 1\\
+f\in\cdD^{(0)}(X)
+\end{subarray}
+}
+| \mu(f) |\in\eR\cup\{ +\infty \}
+\end{equation}
+We say that the \emph{positive measure} $\mu$ is \defe{bounded}{bounded!positive measure} when $\mu^*(X)=\mu^*(1_X)$ is a finite real.  Properties of $\| \mu \|$ are that
+\begin{equation}
+\| \mu \|=| \mu |^*(1_X)
+\end{equation}
+and that $\| \mu \|$ is finite if and only if $| \mu |$ is bounded.
+
+
+\begin{proposition}
+If $\mu$ is bounded, any bounded and measurable function $\dpt{f}{X}{\eR}$ is integrable and
+\begin{equation} \label{eq:bornintfmu}
+\Big| \int_Xf\,d\mu \Big|\leq \| f \|\mu(X)
+\end{equation}
+
+\end{proposition}
+When $\mu$ is not positive, we say that it is \defe{bounded}{bounded!measure} if $\| \mu \|$ is finite. Equation \eqref{eq:bornintfmu} shows that $f\to\int_Xf\,d\mu$ is a continuous linear form on $ C^{\infty}(X)$. All continuous linear form on this space are however not of the form \eqref{eq:bornintfmu}.  
+
+
+\subsection{Integration of vector valued functions}
+%----------------------------------------------
+
+Let us consider $E$, a vector space of \emph{finite} dimension and a function $\dpt{f}{X}{E}$. The functions $f_i$ are defined by
+\[ 
+  f(x)=\sum_{i=1}^{\infty}f_i(x)e_i
+\]
+where $\{ e_i \}$ is a basis of $E$. We define
+\begin{equation}
+  \int f\,d\mu=\sum [\int f_i]e_i
+\end{equation}
+when all the integrals of the right hand side make sense. The fact for $f$ to be integrable is equivalent to the fact that $x\to\xi(f(x))$ is integrable for all $\xi\in E'$ because $\xi\circ f$ is a linear combination of all the $f_i$.
+
+Let $I$ be a set and consider a map $x\to\Fun(I,\eC)$, $x\to f_x$. We say that this is \defe{scalar integrable}{integrable scalar} if for all $\alpha\in I$, the map $x\to f_x(\alpha)$ is integrable.
+
+The theorem which treat with infinite dimension is the following :
+
+\begin{theorem}
+   Let $\mF$ be a Fréchet space and $\mF'$ his dual. Let $x\to f_x$ be a map $X\to\mF'$ such that for all converging sequence $(a_n\in\mF)$, there exists a function  $\dpt{g}{X}{\eR}$, $g\geq0$ such that $\mu^*(g)\leq\infty$ and $| f_x(a_n) |\leq g(x)$ for all $n$. Then there exists one and only one $\xi\in\mF'$ such that
+\begin{equation}
+  \xi(z)=\int_Xf_x(z)\,d\mu(x).
+\end{equation}
+
+\end{theorem}
+
+\subsection{Weak integral}
+%------------------------
+
+Let $(X,\mu)$ be a measured space and $\dpt{f}{X}{L}$ a map from $X$ to a locally convex space $L$. We say that $f$ is \emph{weakly integrable} if for all $\chi\in L'$, the map $x\to \chi(f(x))$ is integrable for the measure $\mu$, i.e. if $\mu(\chi\circ f)$ makes sense. The \defe{weak integral}{weak integral} of $f$ for with respect to the measure $\mu$ is defined by the requirement
+\begin{equation} \label{eq:chbilemirhi}
+  \chi\left( \int_Xf\,d\mu \right)=\int_X(\chi\circ f)\,d\mu
+\end{equation}
+for all $\chi\in L'$. The weak integral $\int_Xf$ is an element of $(L')^*$. In fact the left hand side of equation \eqref{eq:chbilemirhi} should better be noted
+\[ 
+  \left( \int_Xf\,d\mu \right)(\chi)
+\]
+We know that $(L')^*$ can be seen as a subset of $L$. It can be shown that if $f$ is continuous and $X$ compact, then $\int_Xf\in L$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+   \section{Distribution on groups}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+Most of this section comes from \cite{Kirillov}.
+
+We immediately put the attention to the reader on the fact that $(\eR^N,+)$ is a Lie group. Let $G$ be a Lie group, we define $R(G)$\nomenclature{$R(G)$}{Dual of $ C^{\infty}(G)$} as the dual of $ C^{\infty}(G)$. This is the space of compact supported distributions on $G$. The support of $T\in R(G)$ is the smallest compact $K$ for which $T(\phi)=0$ whenever $\phi|_K^{(r)}=0$ for all $r$. When $K$ is compact in $G$, we consider $R(G,K)$, the subspace of $R(G)$ of distributions with support contained in $K$. 
+
+We focus on $R(G,\{ e \})$ : distributions in this space only depends on values of test functions (and derivatives) at $e$. It should be possible to reconstruct this space from the only data of the Lie algebra $\lG$ instead of then whole group. We'll see later that it is indeed possible.
+
+\subsection{Convolution product}
+%--------------------------------
+
+The \defe{convolution}{convolution!product of distribution} of two distributions $T_1$ and $T_2$ in $R(G)$ is given by
+\begin{equation}
+  (T_1\star T_2)(\phi)=T_1(\phi_{T_2})
+\end{equation}
+where $\dpt{\phi_{T_2}}{G}{\eC}$ is given by
+\begin{equation}
+   \phi_{T_2}(g)=T_2(L_g^{-1}\phi)
+\end{equation}
+and $(L_g\phi)(g')=\phi(g^{-1}g')$ or in a more convenient way, $\phi_{\nu}(g)=\nu(\phi(g\cdot))$.
+
+Let us show that one retrieve the well know distribution convolution in the case of $G=(\eR^N,+)$. We consider $T_f$ and $T_g$, the distributions defined from functions $f$ and $g$ on $\eR^N$. We have $\phi_{T_g}(t)=T_g(L_t^{-1}\phi)$ where $(L_t^{-1}\phi)(x)=\phi(x+t)$. Then
+\begin{equation}
+  \phi_{T_g}(t)=\int g(x)(L_t^{-1}\phi)(x)\,dx
+		=\int g(x)\phi(x+t)\,dx.
+\end{equation}
+A change of variable gives
+\begin{equation}
+  (T_g\star T_g)(\phi)=\int f(t)\phi_{t_g}(t)\,dt
+		=\int (f\star g)(u)\phi(u)\,du
+		= T_{f\star g}\phi
+\end{equation}
+with the usual convolution product between function.
+
+\begin{remark}
+We see that the convolution operation of functions on $\eR^N$, which has remarkable properties in experimental physics, naturally generalises to a convolution product on distribution which will give a homomorphism between these distributions and the enveloping algebra of the group. Wonderful isn't~?
+\end{remark}
+
+\begin{lemma}
+The map $\dpt{\psi}{\mG}{R(G,\{ e \})}$ given by $\psi(\tilde X)f=Xf$ is a homomorphism.
+\end{lemma}
+
+\begin{proof}
+Let us prove that $[\psi(\tilde X)\star\psi(\tilde Y)]f=(\tilde X\tilde Yf)_e$. We have
+\begin{equation}
+\begin{split}
+   [\psi(\tilde X)\star\psi(\tilde Y)]&=\psi(\tilde X)\big( c(\psi(\tilde Y),\phi) \big)\\
+		&=\Dsdd{ c(\psi(\tilde Y),\phi)\tilde X_e(t) }{t}{0}\\
+		&=\DDsdd{ (L^{-1}_{X(t)}\phi)(Y(s)) }{t}{0}{s}{0}\\
+		&=\DDsdd{ \phi(X(t)Y(s))) }{t}{0}{s}{0}.
+\end{split}
+\end{equation}
+
+Now, $\tilde Y\phi$ is a function from $G$ to $\eC$ on which we can apply the vector $\tilde X_e=X$. We have :
+\begin{equation}
+\begin{split}
+(\tilde X\tilde Y)_e\phi&=\tilde X_e(\tilde Y\phi)\\
+		&=\Dsdd{ (\tilde Y\phi)(\tilde X_e(t)) }{t}{0}\\
+		&=\Dsdd{ \tilde Y_{X(t)}\phi }{t}{0}\\
+		&=\DDsdd{ \phi\big( \tilde Y_{X(t)}(s) \big) }{t}{0}{s}{0}\\
+		&=\DDsdd{ \phi\big( X(t)Y(t) \big) }{t}{0}{s}{0}.
+\end{split}
+\end{equation}
+
+\end{proof}
+
+\subsection{Representations}
+%--------------------------
+
+Let $G$ be a locally compact metrisable Lie group and $V$, an Hausdorff topological vector space on $\eC$. We say that $\dpt{U}{G}{\End V}$ is a \defe{linear continuous representation}{representation!linear continuous} of $G$ on $V$ when
+\begin{enumerate}
+\item $U(gh)=U(g)\circ U(h)$ for all $g$, $h\in G$,
+\item for each $v\in V$, then map $g\to U(g)v$ is continuous from $G$ into $V$.
+\end{enumerate}
+In most of cases, we want the representation to be \defe{unitary}{unitary!representation}\index{representation!unitary} : for all $g\in G$ and for all $v$, $w\in V$,
+\begin{equation}
+  \scal{U(g)v}{U(g)w}=\scal{v}{w}.
+\end{equation}
+In particular, $U(g)^*=U(g)^{-1}$. Let $v$, $w\in V$. The function $G\to\eC$ given by
+\[ 
+  g\to \scal{U(g)v}{w}
+\]
+is continuous and bounded. The boundary comes from Schwartz and the fact that $U(g)$ is an isometry :
+\begin{equation}
+  \scal{U(g)v}{w}\leq \| U(g)v \|\| w \|
+		=\| v \|\| w \|.
+\end{equation}
+Equation \eqref{eq:chbilemirhi} then shows that it is an integrable function and that
+\begin{equation} \label{eq:Tmuvborn}
+\left|    \int_G\scald{U(g)v}{w}\,d\mu(g)   \right|\leq\| \mu \|\| \scal{U(\cdot)v}{w} \|
+						\leq \| \mu \|\| v \|\| w \|.
+\end{equation}
+
+\subsection{Representation on a Hilbert space}\index{Hilbert space}
+%----------------------------------------------
+
+Let $H$ be a Hilbert space and $v\in H$. The map $\dpt{\phi_v}{H}{\eC}$,
+\[ 
+  \phi_v(w)=\scal{v}{w}
+\]
+is linear of norm $\| w \|$ and then is bounded. This is an element of $H'$. A great theorem allows us to identify $H$ and $H'$ by $v\to\phi_v$.
+
+\begin{theorem}[Riesz-Fisher]\index{Riesz-Fisher theorem}
+   Let $H$ be a Hilbert space and $\xi\in H'$. Then there exists one and only one $v\in H$ such that 
+\[ 
+  \xi(w)=\scal{v}{w}
+\]
+for all $w\in H$. In particular, $H'\simeq H$.
+\end{theorem}
+
+Let us now consider a continuous, linear and unitary representation $\dpt{U}{G}{\End H}$. For given measure $\mu$ and vector $v$, we consider $\dpt{T_{\mu,v}}{H}{\eC}$,
+\[ 
+  T_{\mu,v}(w)=\int_G\scal{U(g)v}{w}.
+\]
+Equation \eqref{eq:Tmuvborn} shows that it is continuous and Riesz-Fischer gives us a vector $u$ such that $T_{\mu,v}(w)=\scal{u}{w}$. The so defined vector $u$ is written $U(\mu)v$ :
+\begin{equation}
+   \int_G \scal{U(g)v}{w}\,d\mu(g)=\scal{U(\mu)v}{w}
+\end{equation}
+is the definition of $U(\mu)\in\End H$. As notation principle, we write
+\[ 
+  U(\mu)=\int_GU(g)\,d\mu(g).
+\]
+
+\begin{proposition}
+
+This constructions gives a morphism between algebra of bounded measures (the algebra product is the convolution) and $\End H$ :
+\begin{equation}
+  U( \mu\star\nu)=U(\mu)\circ U(\nu)
+\end{equation}
+
+\end{proposition}
+
+
+\begin{proof}
+We have
+\begin{equation}
+\scal{U(\mu\star\nu)v}{w}=\int_G \scal{U(g)v}{w}d(\mu\star\nu)(g)
+		=(\mu\star\nu)\scal{U(\cdot)v}{w}
+		=\mu(f_{\nu})
+\end{equation}
+where $f_{\nu}(g)=\int_G\scal{U(gh)v}{w}d\nu(h)$. Then
+\begin{equation}
+\begin{split}
+\scal{U(\mu\star\nu)v}{w}&=\int_G\int_G \scal{U(h)v}{U(g)^*w}\,d\nu(h)d\mu(g)\\
+		&=\int_G\scal{U(\nu)v}{U(g)^*w}\,d\mu(g)\\
+		&=\scal{U(g)\circ U(\nu)v}{w}.
+\end{split}
+\end{equation}
+\end{proof}
+
+\subsection{Slightly more general}\quext{Tout ceci est \'a pr\'eciser.}
+%--------------------------------
+
+Let $\mu\in M_0(G)$ and a continuous representation $\dpt{T}{G}{\End V}$ where $V$ is locally convex\quext{Ce qui implique que $\End(V)$ est locallement convexe pour la topologie forte, il semble que cela joue un r\^ole.}. We can weakly integrate $T$ on $G$ for the measure $\mu$ by setting that 
+\[ 
+  \int_G T(g)\,d\mu(g)\in\left( \End(V)' \right)^*
+\]
+such that for all $\chi\in\End(v)'$,
+\begin{equation}
+\scal{\int_G T(g)\,d\mu(g)}{\chi}=\int_G\scal{\chi}{T(g)}\,d\mu(g).
+\end{equation}
+Since $T$ is continuous and $\mu$ has compact support, one can see that
+\[ 
+  \int_GT(g)\,d\mu(g)\in\End(V)
+\]
+in the sense of the usual embedding $\left( \End(v)' \right)^*\subset\End(V)$. This element is denoted by $T(\mu)$.
+
+\subsection{Representation of \texorpdfstring{$M_0(G)$}{M0G}}
+%--------------------------------------
+\quext{Ceci n'est pas complètement compris non plus}
+
+Let $\dpt{T}{G}{\End(V)}$, a representation, $\mu$ a compact supported measure on $G$. Then there exists one and only one $A\in\End(V)$ such that for all $\chi\in\End(V)'$, we have
+\begin{equation}
+  \chi(A)=\int_G\chi(T(g))\,d\mu(g),
+\end{equation}
+this $A$ is denoted by $T(\mu)$. It fulfils
+\begin{equation}
+  \chi(T(\mu))=\int_g\chi(T(g))\,d\mu(g).
+\end{equation}
+This way to define $\dpt{T}{M_0(G)}{\End(V)}$ is a representation. Indeed, $T(\mu\star\nu)$ is defined by
+\begin{equation}
+\chi(T(\mu\star\nu))	=(\mu\star\nu)\scal{\chi}{T(.)}
+			=\int_G\int_G\scal{\chi}{T(gh)}\,d\nu(h)\,d\mu(g).
+\end{equation}
+Let us suppose $\chi(T(g)\circ T(h))=\chi(T(g))\chi(T(h))$; in this case Fubini theorem gives
+\begin{equation}
+\begin{split}
+  (\mu\star\nu)\scal{\chi}{T(.)}&=\int_G\int_G\scal{\chi}{T(g)}d\mu(g)\scal{\chi}{T(h)}d\nu(h)\\
+			&=\chi(T(\mu))\chi(T(\nu)).
+\end{split}
+\end{equation}
+So for all such $\chi$, we have
+\[ 
+  \chi\big(T(\mu\star\nu)\big)=\chi\big(T(\mu)\circ T(\nu)\big).
+\]
+It is not sufficient to conclude that $T(\mu\star\nu)=T(\mu)\circ T(\nu)$ because $G$ is not abelian\quext{D'où le fait que je ne considère pas ceci comme bien compris.}.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Sobolev spaces}    \label{SECooXIVNooJhuqPC}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+We already defined the Sobolev spaces \( H^s(\eR^d)\) in definition \ref{DEFooWEAQooAIWBwx}. Let \( U\) and \( V\) be open parts of \( \eR^d\) and consider a \(  C^{\infty}\) diffeomorphism \( \psi\colon U\to V\) whose derivatives are bounded.
+
+For \( u\in  C^{\infty}(U)\) we write
+\begin{equation}        \label{EQooHSVBooIZRxzh}
+    \begin{aligned}
+        Tu\colon V&\to \eR \\
+        x&\mapsto (u\circ \psi^{-1})(x). 
+    \end{aligned}
+\end{equation}
+
+\begin{propositionDef}
+If \( T\in \swD'(U)\) we define \( \psi T\) by
+\begin{equation}
+    \langle \psi T, \varphi\rangle_V=\langle T, J\cdot(\varphi\circ \psi)\rangle_U
+\end{equation}
+for every \( \varphi\in\swD'(V)\). This defines a distribution \( \psi T\in \swD'(V)\).
+\end{propositionDef}
+
+\begin{proof}
+    We have to show that the map \( \psi T\colon \swD(V)\to \eC\) is continuous or, in other words, if \( \varphi_n\stackrel{\swD(V)}{\longrightarrow}0\) we have to show that \( \langle \psi T, \varphi_n\rangle_V\to 0\) in \( \eC\).
+
+    In terms of the seminorms we have to prove that for every \( m\in \eN\) and every compact \( K\subset V\) we have
+    \begin{equation}
+        p_{K,m}\big( J\cdot(\varphi_n\circ \psi) \big)\to 0
+    \end{equation}
+    where \( J\) is the Jacobian of \( \psi\) and 
+    \begin{equation}
+        p_{K,m}(f)=\sum_{| \alpha |\leq m}\| \partial^{\alpha}f \|_{K,\infty}.
+    \end{equation}
+    By definition of \( \psi T\) and the fact that \( T\) is continuous we have equivalence of these three facts :
+    \begin{subequations}
+        \begin{align}
+            \langle \psi T, \varphi_n\rangle_V\stackrel{\eC}{\longrightarrow}0\\
+            \langle  T, J\cdot (\varphi_n\circ \psi)  \rangle_U\stackrel{\eC}{\longrightarrow}0\\
+            J\cdot(\varphi_n\circ\psi)\stackrel{\swD(U)}{\longrightarrow}0.
+        \end{align}
+    \end{subequations}
+    We are going to prove the last one. The first step is to use Leibnitz formula and some obvious notations like \( \alpha-\beta\) where \( \alpha\) and \( \beta\) are multiindices :
+    \begin{equation}
+        \sum_{| \alpha |\leq m}\| \partial^{\alpha}J\cdot(\varphi_n\circ\psi) \|_{K}=\sum_{| \alpha |\leq m}\| \sum_{\beta\leq \alpha}(\partial^{\beta}J)\cdot \partial^{\alpha-\beta}(\varphi_n\circ\psi) \|_K
+    \end{equation}
+    Since \( \psi\) is a diffeomorphism, \( J\) is bounded and from the fact that \( K\) is compact, each of the \( \partial^{\gamma}J\) is bounded. Thus we have
+    \begin{equation}
+        p_{m,K}(J\cdot (\varphi_n\circ \psi))\leq \sum_{| \alpha |\leq m}\|c \sum_{\beta\leq \alpha} \partial^{\beta}(\varphi_n\circ\psi) \|_{K}
+    \end{equation}
+    where the constant \( c\) depends on \( K\) and \( m\).
+
+    We show by induction on \( | \beta |\) that for every sequence \( ( \varphi_n)\) in \( \swD(V)\) with \( \varphi_n \stackrel{\swD(V)}{\longrightarrow}0\) we have \(  \| \partial^{\beta}(\varphi_n\circ\psi) \|_{K,\infty}\to 0\). Starting with \( | \beta |=0\) we have
+    \begin{equation}
+        \| | \varphi_n\circ\psi | \|_K=\| \varphi_n \|_{\psi(K)}.
+    \end{equation}
+    Since \( \psi(K)\) is compact (proposition \ref{ThoImCompCotComp}), the latter is one of the seminorms on \( V\), so that \( \| \varphi_n \|_\psi(K)\to 0\).
+
+    For the induction we compute
+    \begin{subequations}
+        \begin{align}
+            \partial_i\big( \partial^{\beta}(\varphi_n\circ\psi) \big)&=\partial^{\beta}\big( \partial_i(\varphi_n\circ\psi) \big)\\
+            &=
+        \end{align}
+    \end{subequations}
+    <++>
+\end{proof}
+<++>
+
+\begin{proposition}
+    Let \( m\in \eN\) and a diffeomorphism \( \psi\colon U\to V\) such that \( d\psi\) and \( d\psi^{-1}\) are bounded. The map \eqref{EQooHSVBooIZRxzh} defines diffeomorphisms
+    \begin{subequations}
+        \begin{align}
+            T\colon H^m(U)\to H^m(V)\\
+            T\colon  C^{\infty}_0(U)\to  C^{\infty}_0(V)\\
+            T\colon \swD'(U)\to \swD'(V).
+        \end{align}
+    \end{subequations}
+\end{proposition}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Older work}\label{subsec_Sobolev}
+%--------------------------------------------------------------------------------------------------------------------------- 
+
+A lot of theory about Sobolev spaces can be found in \cite{Maslov,Taylor_PDO}. The \defe{Fourier transform}{Fourier transform} of a function $\varphi$ on $\eR^n$ is defined by formulas
+\begin{subequations}
+\begin{align}
+  (F\varphi)(p)=\hat\varphi(p)&=\int_{\eR^N} e^{-2i\pi p\cdot x}\varphi(x)\,dx\\
+	\varphi(x)&=\int_{\eR^{N}} e^{2i\pi}x\cdot p\hat\varphi(p)\,dp
+\end{align}
+\end{subequations}
+Main properties of Fourier transform are
+\begin{subequations} \label{subeq_prop_Four}
+\begin{align}
+(\partial_jF\varphi)(p)&=-2i\pi F(x_j\varphi)\\
+	(F\partial_j\varphi)&=2i\pi p_j(F\varphi)(p)
+\end{align}
+\end{subequations}
+
+The associated formula for the delta Dirac ``function'' is 
+\begin{equation}
+  \int e^{2i\pi k\cdot x}\,dx=\delta(x).
+\end{equation}
+
+\begin{proposition}
+If $\hat\swS$ denote the set of functions $\hat\varphi$ with $\varphi\in\swS$, then $\hat\swS=\swS$. 
+\end{proposition}
+
+\begin{proof}
+No proof
+\end{proof}
+
+We consider the \defe{Laplace operator}{Laplace operator}\nomenclature{$\Delta f$}{Laplace operator}, or Laplacian,
+\begin{equation}
+\Delta=\sum_{j=1}^{N}\partial_j^2
+\end{equation}
+When $k\in\eN$, we consider the following norm on $\swS(\eR^N)$:
+\begin{equation} \label{eq_def_norm_Sob}
+  \| \varphi \|_{H^k}^2=\int_{\eR^N}\overline{\varphi}(x)[1-(2\pi)^{-2}\Delta]^k\varphi(x)\,dx
+\end{equation}
+The \defe{Sobolev space}{Sobolev space} $H^k_2(\eR^N)$\nomenclature{$H^k_2(\eR^N)$}{Sobolev space} is the completed of $\swS$ for this norm.
+
+\begin{proposition}
+These Sobolev spaces are Hilbert spaces
+\end{proposition}
+
+\begin{proof}
+No proof
+\end{proof}
+
+In order to define Sobolev spaces $H^k$ with $k<0$, we have to find a definition for $[-\Delta+1]^{-l}$. We define
+\[ 
+  \swS^{(l)}=\{ [1-(2\pi)^{-2}\Delta]^l\varphi\tq \varphi\in\swS \}
+\]
+
+\begin{lemma}
+For each $\psi\in\swS^{(l)}$, there exists one and only one $\varphi\in\swS$ such that $(-\Delta+1)^l\varphi=\psi$.
+\end{lemma}
+
+This unique function $\varphi$ is naturally denoted by $(-\Delta+1)^{-l}$
+
+\begin{proof}
+We give the proof with $l=1$, the other are induction. When $\psi\in\swS^{(l)}$, existence is by definition true and only unicity is non trivial. Let $\varphi_1$ and $\varphi_2$ in $\swS$ such that 
+\[ 
+  [1-(2\pi)^{-2}\Delta]\varphi_1=[1-(2\pi)^{-2}\Delta]\varphi_2,
+\]
+the function $f=\varphi_1-\varphi_2$ fulfils $(-\Delta+1)f=0$ and thus
+\[ 
+  \int_{\eR^N}\overline{ f }(x)[1-(2\pi)^{-2}\Delta]f(x)\,dx=0.
+\]
+Since $f\to 0$ at infinity rapidly, an integration by part of the term containing $\Delta$ leads, up to some constants, to
+\[ 
+  \int \overline{ f }f-\int \overline{ f }\Delta f=\int | f |^2+\int | \nabla f |^2=0.
+\]
+This proves that $f=0$.
+\end{proof}
+
+Now, the norm \eqref{eq_def_norm_Sob} can be used to define the Sobolev space $H^{-l}$. Elements of $H^k$ ($k<0$) which are not functions are distributions. When $m\ge0$, formulas  \eqref{subeq_prop_Four} give
+\begin{equation}  \label{eq_umdpi_spi}
+\left( F[1-(2\pi)^{-2}\Delta]^m\psi \right)(p)=\left( (1+p^2)^m\hat\psi \right)(p).
+\end{equation}
+
+\begin{proposition}
+When $\psi\in\swS^{(m)}$, equality  \eqref{eq_umdpi_spi} holds even for $m<0$. 
+\end{proposition}
+
+
+Let us point out that $m$ keep integer; the general real case will be treated later.
+
+\begin{proof}
+Let $m=-k<0$; from definition of the space $\swS^{(m)}$, the function $\varphi=[1-(2\pi)^{-2}\Delta]^{-k}\psi$ exists; we have
+\begin{equation}
+\hat\psi=\left( F[1-(2\pi)^{-2}\Delta]^k\varphi \right)(p)
+	=(p^2+1)^k\hat\varphi(p),
+\end{equation}
+therefore $\hat\varphi(p)=(p^2+1)^{-k}\hat\psi(p)$. Replacing $\varphi$ by its definition,
+\begin{equation}
+\left( F[1-(2\pi)^{-2}\Delta]^{-k}\psi \right)(p)=(p^2+1)^{-k}\hat\psi(p).
+\end{equation}
+
+
+\end{proof}
+
+\begin{proposition}
+Let $\varphi\in\swS$. There exists a $\psi\in\swS$ such that 
+\[ 
+  \varphi=[1-(2\pi)^{-2}\Delta]^l\psi
+\]
+
+\end{proposition}
+
+\begin{proof}
+Let us prove it with $l=1$; other cases are obtained by iteration. We consider the function $\psi$ defined by the condition
+\[ 
+  \hat\psi(p)=(p^2+1)^{-1}(F\varphi)(p).
+\]
+For this function we have $[1-(2\pi)^{-2}\Delta]\psi=\varphi$
+\end{proof}
+
+The space $\hat H^s(\eR^N)$ is the completed of $\swS$ for the norm
+\begin{equation}
+\| \varphi \|^2_{\hat H^s}=\int_{\eR^N}(p^2+1)^2| \varphi(p) |^2\,dx
+\end{equation}
+where $s$ is any positive real.
+
+
+\begin{theorem}
+For each $\varphi\in\swS$ and $k\in\eN$, we have
+\[ 
+  \| F\varphi \|_{\hat H^k}=\| \varphi \|_{H^k},
+\]
+in other words, the Fourier transform in $\swS$ is an isometry $\dpt{F}{ H^k }{ \hat H^k }$.
+
+\end{theorem}
+
+
+\begin{proof}
+Using Parseval and equality \eqref{eq_umdpi_spi},
+\begin{equation}
+\| \varphi \|_{H^k}^2=\int_{\eR^N}\overline{ \varphi }(x)[1-(2\pi)^{-2}\Delta]^k\varphi(x)\,dx
+		=\int \overline{ F\varphi(p) }(p^2+1)^k(F\varphi)(p)\,dp\\
+		=\| \varphi \|_{\hat H^k}^2.
+\end{equation}
+\end{proof}
+The space $\swS$ is dense in $H^k$ and $F$ is a bounded operator on $\swS$ (because it is isometric). Therefore it can be extended to an unique isometric homomorphism $\dpt{ F }{ H^k }{ \hat H^k }$ which is evidently called \defe{Fourier transform}{Fourier transform}.
+
+
+In the same way, $F^{-1}$ is extended to an inverse of $F$ and finally,
+\[ 
+  \dpt{ F }{ H^k(\eR^N) }{ \hat H^k(\eR^N) }
+\]
+is  an isometric isomorphism. For each $s\in\eR$, we define
+\begin{equation}
+  \| \varphi \|_{H^s}:=\| F\varphi \|_{\hat H^s},
+\end{equation}
+and the completed of $\swS$ for this norm is the \emph{Sobolev space} $H^s(\eR^N)$.
