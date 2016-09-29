@@ -97,7 +97,7 @@ This is the argument of my PhD thesis.
 * Bialgebra and Hopf algebra.
 * Oscillatory integral.
 * von Neumann algebra.
-* C* algebra and GNS construction.
+* C\* algebra and GNS construction.
 
 ## Annexe : liste de choses que l'on peut trouver dans le Frido
 
@@ -133,7 +133,7 @@ Afin de donner une idée, voici une liste des développements que vous pourriez 
 * Théorème de Sylow.
 * Coloriage de roulette et composition de colliers.
 * Théorème de Burnside sur les sous groupes d'exposant fini de GL(n, C).
-* Théorème d'isomorphisme entre (Z/pZ)^* et Z/(p-1)Z.
+* Théorème d'isomorphisme entre (Z/pZ)^\* et Z/(p-1)Z.
 * Forme alternées de degré maximum.
 * Décomposition de Bruhat.
 * Table des caractères du groupe symétrique S\_4.
