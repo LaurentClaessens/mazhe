@@ -63,7 +63,7 @@ The document [(almost) Everything I know in mathematics](http://laurent.claessen
 
 ### General differential geometry
 
-* Fibre bundles : vector, principal and associated bundles. 
+* Fibre bundles: vector, principal and associated bundles. 
 * Connexions on fibre bundle, covariant derivative.
 
 ### Lie groups, Lie algebra
@@ -75,8 +75,8 @@ The document [(almost) Everything I know in mathematics](http://laurent.claessen
 ### Quantum field theory
 Very few physics. The aim is to understand why are we using groups, representations and principal bundle in quantum field theory.
 
-* Link between fibre bundle and quantum field theory : why are particles irreducible representations of the Poincaré group ?
-* Particles are modeled by sections of associated bundle : product of one representation of the Poincaré group and one representation of the gauge group. The interaction is given by a connexion on that bundle (with values in the Lie algebra of the gauge group).
+* Link between fibre bundle and quantum field theory: why are particles irreducible representations of the Poincaré group?
+* Particles are modeled by sections of associated bundle: product of one representation of the Poincaré group and one representation of the gauge group. The interaction is given by a connection on that bundle (with values in the Lie algebra of the gauge group).
 * Clifford module and Dirac operator.
 * Yang-Mills action.
 
