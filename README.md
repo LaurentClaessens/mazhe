@@ -3,7 +3,7 @@
 
 (Français) Ce dépôt contient les sources d'un livre de mathématique, décliné en deux versions :
 
-* [« Le Frido »](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il recouvre à peu près tout le programme.  
+* [« Le Frido »](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il couvre à peu près tout le programme.  
 * [« (almost) Everything I know in mathematics »](http://laurent.claessens-donadello.eu/pdf/mazhe.pdf) contains more or less everything I know in mathematics, including my research.
 * Et ce fichier [readme.pdf](http://laurent.claessens-donadello.eu/pdf/readme.pdf) contient des instruction pour la compilation du Frido, ainsi que des politiques éditoriales à l'attention de qui voudrait contribuer.
 
@@ -23,12 +23,12 @@ to be done more or less three times to get all the cross-references correct. Mor
 ## Le Frido (niveau agrégation)
 
 
-[Le Frido](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il recouvre à peu près tout le programme. Affin de donner une idée, une liste (pas spécialement à jour) des développements que vous pourriez y trouver est en annexe.
+[Le Frido](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il couvre à peu près tout le programme. Afin de donner une idée, une liste (pas spécialement à jour) des développements que vous pourriez y trouver est en annexe.
 
 
 ### Quelque éléments en plus que l'agrégation
 
-* Construction compète de la mesure de Lebesgue, y compris les notions de complétion de mesure (le chapitre tribu/théorie de la mesure est assez lourd).
+* Construction complète de la mesure de Lebesgue, y compris les notions de complétion de mesure (le chapitre tribu/théorie de la mesure est assez lourd).
 * La topologie exacte des espaces de distribution, y compris la topologie liée à une famille de semi-normes.
 * La notion de produit semi-direct de groupe, et la décomposition du groupe des isométries de `R^n` en translation plus rotation.
 
@@ -81,7 +81,7 @@ The document [(almost) Everything I know in mathematics](http://laurent.claessen
 
 ### General differential geometry
 
-* Fibre bundles : vector, principal and associated bundles. 
+* Fibre bundles: vector, principal and associated bundles. 
 * Connexions on fibre bundle, covariant derivative.
 
 ### Lie groups, Lie algebra
@@ -93,8 +93,8 @@ The document [(almost) Everything I know in mathematics](http://laurent.claessen
 ### Quantum field theory
 Very few physics. The aim is to understand why are we using groups, representations and principal bundle in quantum field theory.
 
-* Link between fibre bundle and quantum field theory : why are particles irreducible representations of the Poincaré group ?
-* Particles are modeled by sections of associated bundle : product of one representation of the Poincaré group and one representation of the gauge group. The interaction is given by a connexion on that bundle (with values in the Lie algebra of the gauge group).
+* Link between fibre bundle and quantum field theory: why are particles irreducible representations of the Poincaré group?
+* Particles are modeled by sections of associated bundle: product of one representation of the Poincaré group and one representation of the gauge group. The interaction is given by a connection on that bundle (with values in the Lie algebra of the gauge group).
 * Clifford module and Dirac operator.
 * Yang-Mills action.
 
@@ -115,7 +115,7 @@ This is the argument of my PhD thesis.
 * Bialgebra and Hopf algebra.
 * Oscillatory integral.
 * von Neumann algebra.
-* C* algebra and GNS construction.
+* C\* algebra and GNS construction.
 
 ## Annexe : liste de choses que l'on peut trouver dans le Frido
 
@@ -136,7 +136,7 @@ Afin de donner une idée, voici une liste des développements que vous pourriez 
 * Une forme canonique pour les transvections et dilatations.
 * Résolution diophantienne de ax+by=c en utilisant Bézout.
 * Résolution de l'équation diophantienne x^2+2 = y^3 en parlant de l'extension Z[i sqrt(2)] et de stathme.
-* Le dénombrement des solutions de l'équation diophantienne alpha\_1 n\_1 + ... alpha\_K n\_K = n, utilise des séries entières et des décomposition de fractions en éléments simples.
+* Le dénombrement des solutions de l'équation diophantienne alpha\_1 n\_1 + ... alpha\_K n\_K = n, utilise des séries entières et des décompositions de fractions en éléments simples.
 * Triplets pythagoriciens.
 * Polynômes semi-symétriques.
 * Lemme de Morse.
@@ -151,7 +151,7 @@ Afin de donner une idée, voici une liste des développements que vous pourriez 
 * Théorème de Sylow.
 * Coloriage de roulette et composition de colliers.
 * Théorème de Burnside sur les sous groupes d'exposant fini de GL(n, C).
-* Théorème d'isomorphisme entre (Z/pZ)^* et Z/(p-1)Z.
+* Théorème d'isomorphisme entre (Z/pZ)^\* et Z/(p-1)Z.
 * Forme alternées de degré maximum.
 * Décomposition de Bruhat.
 * Table des caractères du groupe symétrique S\_4.
@@ -185,7 +185,7 @@ Afin de donner une idée, voici une liste des développements que vous pourriez 
 
 ### Analyse
 
-* Le dénombrement des solutions de l'équation diophantienne alpha1 n1 + ... alphaK nK = n, utilise des séries entières et des décomposition de fractions en éléments simples.
+* Le dénombrement des solutions de l'équation diophantienne alpha1 n1 + ... alphaK nK = n, utilise des séries entières et des décompositions de fractions en éléments simples.
 * Méthode de Newton, exemple, théorème et preuve.
 * Formule sommatoire de Poisson.
 * Inégalité isopérimétrique.
@@ -203,7 +203,7 @@ Afin de donner une idée, voici une liste des développements que vous pourriez 
 * Suite telle que lim d(u\_{k+1}, u\_k) = 0.
 * Théorème de Montel.
 * Théorème de Runge.
-* Théorème de Brouwer en dimension 2 ,via l'homotopie.
+* Théorème de Brouwer en dimension 2, via l'homotopie.
 * Théorème de Lie-Kolchin.
 * La notion de classes dans L^p.
 * Théorème de Fischer-Riesz.
