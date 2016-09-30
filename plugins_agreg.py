@@ -75,7 +75,7 @@ class set_filename(object):
     def __init__(self,new_output_filename):
         self.new_output_filename=new_output_filename
     def __call__(self,medicament):
-        raise DeprecationWarning
+        raise DeprecationWarning("Use myRequest.new_output_filename='foo.pdf' instead")
         medicament.new_output_filename=self.new_output_filename
 
 # TODO : use a partial object from the module 'functools'
