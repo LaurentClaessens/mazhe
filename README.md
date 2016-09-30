@@ -7,7 +7,16 @@
 * [« (almost) Everything I know in mathematics »](http://laurent.claessens-donadello.eu/pdf/mazhe.pdf) contains more or less everything I know in mathematics, including my research.
 * Et ce fichier [readme.pdf](http://laurent.claessens-donadello.eu/pdf/readme.pdf) contient des instruction pour la compilation du Frido, ainsi que des politiques éditoriales à l'attention de qui voudrait contribuer.
 
-Les sources sont sur [github](https://github.com/LaurentClaessens/mazhe).
+## Download and compilation
+
+Source are on [github](https://github.com/LaurentClaessens/mazhe). The main file is : ```mazhe.tex``` and a basic compilation is :
+```bash
+pdflatex mazhe.tex
+bibtex mazhe
+makeindex mazhe
+```
+to be done more or less three times to get all the cross-references correct. More precice informations [here](http://laurent.claessens-donadello.eu/pdf/readme.pdf).
+
 
 ## Le Frido (niveau agrégation)
 
@@ -50,9 +59,16 @@ Le Frido se distingue également par certains aspects négatifs.
 
 ### « *Est-ce je peux utiliser le Frido le jour de l'oral d'agreg ?* »
 
-Tel quel : non parce que le règlement demande de n'utiliser que des documents commercialisés et interdit d'apporter des choses imprimées chez soi. Dans peu de temps je vais mettre une version du Frido en vente sur [thebookedition.com](http://www.thebookedition.com/fr/). Elle sera également sous licence libre, mais utilisable à l'agrégation. Il sera divisé en trois volumes entre 500 et 600 pages dont vous pouvez télécharger les versions préliminaires : [vol1](http://laurent.claessens-donadello.eu/pdf/pr%C3%A9milimaire-vol1.pdf), [vol2](http://laurent.claessens-donadello.eu/pdf/pr%C3%A9milimaire-vol2.pdf), [vol3](http://laurent.claessens-donadello.eu/pdf/pr%C3%A9milimaire-vol3.pdf).
+Tel quel : non parce que le règlement demande de n'utiliser que des documents commercialisés et interdit d'apporter des choses imprimées chez soi. 
 
-Le prix unitaire sera entre 20 et 25 euros plus les frais d'envoi. C'est environ ce que vous auriez payé pour l'imprimer dans votre imprimerie préférée de votre quartier.
+Pour utiliser le Frido à l'agrégation, il faudra passer à la caisse et acheter une version papier chez [thebookedition.com](http://www.thebookedition.com/fr/).
+
+
+* [volume1](http://www.thebookedition.com/fr/le-frido-volume-1-p-344540.html) 558 pages, 22.01 euros. Téléchargez le pdf [lefrido-vol1.pdf]( http://laurent.claessens-donadello.eu/pdf/lefrido-vol1.pdf") (indisponible pour l'instant suite à une erreur de manipulation. Ça reviendra dans quelque jours)
+
+* [volume2](http://www.thebookedition.com/fr/le-frido-volume-2-p-344541.html) 616 pages, 23.96 euros. Téléchargez le pdf [lefrido-vol2.pdf]( http://laurent.claessens-donadello.eu/pdf/lefrido-vol2.pdf")
+
+* [volume3](http://www.thebookedition.com/fr/le-frido-volume-3-p-344542.html) 576 pages, 22.61 euros. Téléchargez le pdf [lefrido-vol3.pdf]( http://laurent.claessens-donadello.eu/pdf/lefrido-vol3.pdf")
 
 ## (almost) Everything I know in math
 
