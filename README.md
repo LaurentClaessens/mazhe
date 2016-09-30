@@ -9,6 +9,8 @@
 
 ## Download and compilation
 
+First you need the package [exocorr](https://github.com/LaurentClaessens/exocorr) to be somewhere in your LaTeX path.
+
 Source are on [github](https://github.com/LaurentClaessens/mazhe). The main file is : ```mazhe.tex``` and a basic compilation is :
 ```bash
 pdflatex mazhe.tex
