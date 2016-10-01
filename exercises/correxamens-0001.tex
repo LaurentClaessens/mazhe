@@ -1,0 +1,71 @@
+% This is part of Exercices et corrections de MAT1151
+% Copyright (C) 2010
+%   Laurent Claessens
+% See the file LICENCE.txt for copying conditions.
+
+\begin{corrige}{examens-0001}
+
+	En utilisant l'aide, nous avons
+	\begin{equation}
+		I_n=\int_0^1\frac{1}{ (1+x^2)^n }dx=\int_0^1\frac{1}{ (1+x^2)^{n-1} }dx-\int_0^1\frac{ x^2 }{ (1+x^2)^n }dx.
+	\end{equation}
+	Dans le premier terme, nous reconnaissons $I_{n-1}$; c'est donc bien parti pour la récurrence. Le second terme est plus compliqué à traiter. L'aide propose de faire une intégrale par partie. Il y a beaucoup de façons de diviser $\frac{ x^2 }{ (1+x^2)^n }$ en produit de deux facteurs. Presque toutes se heurtent à une primitive très difficile à calculer. Il se fait que la bonne façon de couper la fonction en deux est de poser
+	\begin{equation}
+		\begin{aligned}[]
+			u&=x\\
+			v'&=\frac{ x }{ (1+x^2)^n }.
+		\end{aligned}
+	\end{equation}
+	La raison est que dans $v'$, nous voyons la dérivée du dénominateur apparaître au dénominateur. En intégrant nous trouvons
+	\begin{equation}
+		v=\frac{1}{ 2(1-n)(1+x^2)^{n-1} }.
+	\end{equation}
+	L'intégration par partie donne
+	\begin{equation}
+		\begin{aligned}[]
+			\int_0^1\frac{ x^2 }{ (1+x^2)^n }&=\left[ \frac{ x }{ 2(1-n)(1+x^2)^{n-1} } \right]_0^1-\int_0^1\frac{1}{ 2(1-n)(1+x^2)^{n-1} }dx\\
+			&=\frac{1}{ 2(1-n)2^{n-1} }-\frac{1}{ 2(1-n) }I_{n-1}.
+		\end{aligned}
+	\end{equation}
+	La formule de récurrence devient donc
+	\begin{equation}
+		I_n=I_{n-1}-\frac{1}{ 2^n(1-n) }+\frac{1}{ 2(1-n) }I_{n-1},
+	\end{equation}
+	c'est à dire
+	\begin{equation}
+		I_n=\frac{ 3-2n }{ 2(1-n) }I_{n-1}-\frac{1}{ 2^n(1-n) }.
+	\end{equation}
+	En ce qui concerne les conditionnements, le conditionnement du pas numéro $n$ est donné par la dérivée de $I_n$ par rapport à $I_{n-1}$ :
+	\begin{equation}
+		K_{\text{abs}}^{(n)}=|\frac{ 3-2n }{ 2(1-n) }|,
+	\end{equation}
+	et donc
+	\begin{equation}
+		K_{\text{rel}}^{(n)}=|\frac{ 3-2n }{ 2(1-n) }\frac{ I_{n-1} }{ I_n }|.
+	\end{equation}
+	En prenant le produit des conditionnements pour tous les pas, nous avons
+	\begin{equation}		\label{EqExpKrePart}
+		K_{\text{rel}}=|\prod_{k=1}^n\left( \frac{ 3-k }{ 2(1-k) } \right)\frac{ I_0 }{ I_n }|
+	\end{equation}
+	où il n'est pas compliqué de voir que $I_0=1$ en partant directement de la définition. Il est facile de voir que le produit est plus petit que $1$; hélas il est également facile de voir que $I_n$ est également plus petit que $1$ directement par la définition (la fonction qu'on intègre est plus petite que $1$).
+
+	Nous ne pouvons donc rien conclure de l'expression \eqref{EqExpKrePart}. Cela est différent de ce qu'il se passait dans l'exercice \ref{exoSerieCinq0001}, dans lequel la formule analogue avait permis de conclure.
+
+	Pour conclure, il faut donc un peu repartir en arrière, et écrire le problème du pas numéro $n$ en détail :
+	\begin{equation}
+		I_n(d)=\frac{ 3-2n }{ 2(1-n) }d-\frac{1}{ 2^n(1-n) }
+	\end{equation}
+	en gardant à l'esprit que $n$ est grand et que $d\leq 1$. Nous trouvons
+	\begin{equation}
+		K_{\text{abs}}^{(n)}(d)=\left| \frac{ 3-2n }{ 2(1-n) } \right|,
+	\end{equation}
+	et, après mise au même dénominateur et simplifications, 
+	\begin{equation}
+		\begin{aligned}[]
+			K_{\text{rel}}^{(n)}(d)&=\frac{ 3-2n }{ 2(1-n) }\cdot \frac{ d }{ \frac{ (3-2n)d }{ 2(1-n) }-\frac{1}{ 2^n(1-n) } }\\
+			&=\left| \frac{ (3-2n)d }{ (3-2n)d-1 } \right|.
+		\end{aligned}
+	\end{equation}
+	N'oublions pas que $n$ est grand, donc en réalité $3-2n$ est négatif et cette fraction est plus petite que $1$. Nous avons donc prouvé que pour tout $n$ (plus grand que $3$), le conditionnement relatif est plus petit que $1$. Notons aussi que pour aucun $n$ ce conditionnement n'est nul.
+
+\end{corrige}

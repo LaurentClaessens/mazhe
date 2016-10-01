@@ -1,0 +1,409 @@
+% This is part of Exercices et corrigés de CdI-1
+% Copyright (c) 2011,2014
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+\begin{corrige}{TP20090003}
+
+
+
+
+\paragraph{Équations paramétriques}
+Soit $C$ le cercle d'équation $(x-R)^2 + z^2 = r^2$, avec $r < R$. Il
+s'écrit sous forme paramétrique (avec $\varphi \in \eR$)~:
+\begin{equation*}
+  \begin{cases}
+    x = R + r\cos \varphi\\
+    y = 0\\
+    z = r \sin \varphi
+  \end{cases}
+\end{equation*}
+Considérons la rotation de $\eR^3$ d'angle $\theta$ autour de l'axe
+$0z$ (qui est bien disjoint et coplanaire à $C$) : c'est une
+transformation linéaire dont la matrice est
+\begin{equation*}
+  R_\theta =
+  \begin{pmatrix}
+    \cos \theta & -\sin \theta & 0\\
+    \sin \theta & \cos \theta & 0\\
+    0 & 0 & 1
+  \end{pmatrix}.
+\end{equation*}
+Le tore $T$ peut alors s'obtenir par rotation des points du cercle $C$ sous
+l'action de $R_\theta$ ($\theta \in \eR$)~:
+\begin{equation*}
+%   \begin{pmatrix}
+%     x\\y\\z
+%   \end{pmatrix}
+%   =
+  R_\theta%
+  \begin{pmatrix}
+    R + r\cos \varphi\\
+    0\\
+    r \sin \varphi
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    \cos \theta & -\sin \theta & 0\\
+    \sin \theta & \cos \theta & 0\\
+    0 & 0 & 1
+  \end{pmatrix}
+  \begin{pmatrix}
+    R + r\cos \varphi\\
+    0\\
+    r \sin \varphi
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+   (R + r\cos \varphi) \cos \theta\\
+   (R + r\cos \varphi) \sin \theta\\
+   r \sin \varphi
+  \end{pmatrix}
+\end{equation*}
+d'où les équations paramétriques
+\begin{equation}\label{torus_parameq}
+  T \equiv
+  \begin{cases}
+    x = (R + r\cos \varphi) \cos \theta\\
+    y = (R + r\cos \varphi) \sin \theta\\
+    z = r \sin \varphi
+  \end{cases} \qquad \text{où $\varphi,\theta \in \eR$}
+\end{equation}
+Ces équations ne fournissent évidemment pas une bijection entre
+l'ensemble des paramètres $\varphi,\theta$ et les points du tore. C'est
+un revêtement.
+
+\begin{quote}
+  Mentionnons au passage l'existence d'une équation sous forme
+  implicite~: le système ci-dessus est équivalent à
+  \begin{equation*}
+    \begin{cases}
+      \sqrt{x^2+y^2} - R = r \cos \varphi\\
+      z = r \sin \varphi
+    \end{cases}
+  \end{equation*}
+  et donc équivalent à $(\sqrt{x^2+y^2} - R)^2 + z^2 = r^2$. Le tore a
+  donc pour équation, en éliminant la racine,
+  \begin{equation*}
+    (x^2 + y^2 + z^2 + R^2 - r^2)^2 = 4 R^2 (x^2+y^2).
+  \end{equation*}
+\end{quote}
+
+\paragraph{Cartes et atlas}
+Il y a bien entendu une infinité d'atlas faisant du tore une variété,
+et un seul suffit à notre bonheur. Nous allons néanmoins donner
+plusieurs possibilités, pour montrer plusieurs approches du
+problème.
+
+\subparagraph{Version 1} Étant donné le point $p_0 = (x_0,y_0,z_0)$,
+nous allons définir une carte $(U,F_{p_0})$, où $U$ sera un ouvert
+(relativement au tore) bien choisi autour de $p_0$, et $F_{p_0}$ une
+restriction de la paramétrisation ci-dessus.
+
+\begin{quote}
+  L'idée est que la formule qui donne la paramétrisation du tore,
+  ci-dessus, est un bon candidat ``carte'', mais trois problèmes
+  s'enchainent alors~:
+
+  D'abord, ce n'est pas une bijection. Pour pallier à ce problème,
+  nous allons restreindre l'espace des paramètres $\varphi,\theta$
+  jusqu'à ce qu'on puisse ``inverser'' la formule.
+
+  Deuxième problème, c'est qu'il est difficile d'inverser
+  explicitement des formules contenant des sinus et cosinus. Nous
+  allons donc appliquer le théorème de la fonction réciproque pour
+  nous ``simplifier la vie'' (tout est question de point de vue).
+
+  Troisième problème~: le théorème de la fonction réciproque ne
+  fonctionne que d'un ouvert de $\eR^n$ dans un ouvert de $\eR^n$,
+  avec le même ``$n$''. Le tore ``vit'' dans $\eR^3$ mais n'en est pas un
+  ouvert, nous allons donc l'épaissir (en laissant varier le petit
+  rayon $r$) pour obtenir des ``coordonnées toriques'' valables dans
+  un voisinage du tore. Ces coordonnées toriques seront inversibles,
+  et nous permettrons de nous en sortir.
+\end{quote}
+
+Soit $F$ l'application ``coordonnées toriques'' définie par
+\begin{equation}
+	\begin{aligned}
+		F\colon \eR_0^+\times\eR\times\eR&\to \eR^3 \\
+		(\rho,\varphi,\theta)&\mapsto \begin{pmatrix}
+			(R+r\cos\varphi)\cos\theta	\\ 
+			(R+\rho\cos\varphi)\sin\theta	\\ 
+			\rho\sin\varphi	
+		\end{pmatrix}
+	\end{aligned}
+\end{equation}
+(de sorte que le tore $T$ est obtenu en fixant $\rho = r$ et en
+laissant varier $\varphi,\theta$).  Le déterminant de la matrice
+jacobienne de $F$, donné par $J = -\rho (R+\rho \cos \varphi)$, est
+non nul sur le tore $T$ puisqu'alors $\rho = r > 0$ et $R - \rho
+\cos\varphi \geq R - \rho = R - r > 0$.
+
+Soit $p_0 = (x_0,y_0,z_0)$ un point du tore, et soit $(\varphi_0,
+\theta_0)$ un couple de réels tels que $F(r, \varphi_0, \theta_0) =
+p_0$. Alors la différentielle de $F$ en $(r, \varphi_0, \theta_0)$ est un
+isomorphisme linéaire (car le déterminant de la jacobienne est
+non-nul), et le théorème de la fonction réciproque nous fournit alors
+un ouvert $\tilde W \subset \eR^+_0 \times \eR \times \eR$ autour de
+$(r, \varphi_0, \theta_0)$ et un ouvert $\tilde U \subset \eR^3$ autour
+de $p_0$ tels que $F_{| \tilde W} : \tilde W \to \tilde U$ est un
+difféomorphisme. Notons $G : \tilde U \to \tilde W$ sa réciproque.
+
+Soit $F_{p_0}$ la restriction de $F_{| \tilde W}$ à $\rho = r$, c'est-à-dire
+\begin{equation*}
+  F_{p_0} : W \subset \eR^2 \to \eR^3 : (\varphi,\theta) \mapsto F(r,\varphi,\theta)
+\end{equation*}
+où $W = \{ (\varphi,\theta) \in \eR^2 \telque (r,\varphi,\theta) \in \tilde
+W\}$, et soit $U = F(W) = \tilde U \cap T$. Alors $(U, F_{p_0})$ est
+une carte autour de $p_0$~:
+\begin{enumerate}
+\item $F_{p_0}$ est continue, car c'est une restriction de $F$ (qui est
+  continue).
+\item $F_{p_0}$ est une injection de $W$ dans $U$, car c'est une
+  restriction de $F_{| \tilde W}$ (qui est un difféomorphisme,
+  donc en particulier injective).
+\item $F_{p_0}$ est une surjection, par définition de $U$.
+\item Par les deux derniers points, $F_{p_0}$ est une bijection ; de
+  plus sa réciproque est continue car c'est la restriction de $G$ à
+  $U$ (et $G$ est différentiable donc en particulier continue).
+\item $F_{p_0}$ est de classe $C^1$ (comme application d'un ouvert de
+  $\eR^2$ dans $\eR^3$) car est composée d'applications
+  différentiables (sinus, cosinus, produits d'applications
+  différentiables,\dots).
+\item Le rang de la différentielle de $F_{p_0}$ est maximal, car sa
+  matrice jacobienne (en $(\varphi_0,\theta_0)$) est la matrice jacobienne de $F$
+  (en $(r,\varphi_0,\theta_0)$) dont on a enlevé la première colonne
+  (correspondant aux dérivées par rapport à $\rho$). Or cette dernière
+  était de rang trois, il reste donc une matrice de rang deux.
+\end{enumerate}
+
+Ceci prouve qu'on a bien une carte autour de $p_0$, et comme on l'a
+fait en un point arbitraire du tore, on a bien une variété de
+dimension $2$ dans $\eR^3$.
+
+\subparagraph{Version 2} L'atlas ci-dessus est composé de cartes
+données par le théorème de la fonction implicite. On peut bien sûr
+choisir nous même la carte qu'on veut autour d'un point $p_0$ fixé sur
+le tore.
+
+Notons $f$ la paramétrisation du tore~:
+\begin{equation}
+	\begin{aligned}
+		f\colon \eR\times\eR&\to \eR^3 \\
+		(\varphi,\theta)&\mapsto \begin{pmatrix}
+			(R+r\cos\varphi)\cos\theta	\\ 
+			(R+r\cos\varphi)\sin\theta	\\ 
+			r\sin\varphi	
+		\end{pmatrix}
+	\end{aligned}
+\end{equation}
+et donnons nous $(\varphi_0,\theta_0)$ tels que $p_0 =
+f(\varphi_0,\theta_0)$.
+
+On définit
+\begin{equation*}
+  W = \mathopen]\varphi_0 - \pi; \varphi_0 + \pi\mathclose[
+  \times \mathopen]\theta_0 - \pi; \theta_0 + \pi\mathclose[
+\end{equation*}
+et on pose $U = f(W)$.
+
+Montrons que $f_W : W \to U$ est une bijection~: c'est évidemment
+une surjection par définition de $U$, et il reste à montrer qu'elle
+est injective. Supposons avoir $(u,v)$ et $(x,y)$ dans $W$ tels que
+$f(u,v) = f(x,y)$. C'est-à-dire~:
+\begin{equation}
+	\begin{aligned}[]
+  (R + r\cos u) \cos v 	&= (R + r\cos x) \cos y\\
+  (R + r\cos u) \sin v 	&= (R + r\cos x) \sin y \\
+  r \sin u		& = r \sin x\\
+	\end{aligned}
+\end{equation}
+En sommant les carrés des deux premières équations on obtient
+\begin{equation*}
+  (R + r\cos u)^2 = (R + r\cos x)^2
+\end{equation*}
+ce qui montre que $\cos u = \cos x$ (car $r < R \Rightarrow R + r\cos
+x > 0$). D'autre part, on sait que $\sin u = \sin x$. Deux angles dans
+un intervalle de longueur $2 \pi$ n'ont même sinus et même cosinus que
+s'ils sont égaux, ce qui prouve que $u = x$. Avec cette information,
+les deux premières équations donnent alors $v$ et $y$ ont également
+même sinus et même cosinus, donc $v = y$. On en déduit $(u,v) =
+(x,y)$, et l'injectivité.
+
+Les autres points à montrer pour avoir une carte (continûment
+différentiable, inverse continue, de rang maximal) s'obtiennent de la
+même manière que dans la première version.
+
+\subparagraph{Version 2 bis}Plutôt que de construire une carte autour
+d'un point donné du tore, on peut définir un atlas de quelques cartes
+bien choisies recouvrant la totalité du tore. C'est par exemple le cas
+si on définit les ouverts ($f$ désigne la paramétrisation, comme ci-dessus)
+\begin{equation*}
+  \begin{split}
+    W_1 &= \mathopen]0; 2 \pi\mathclose[ \times \mathopen]0; 2
+    \pi\mathclose[ \qquad U_1 = f(W_1)\\
+    W_2 &= \mathopen]-\pi; \pi\mathclose[ \times \mathopen]-\pi;
+    \pi\mathclose[ \qquad U_2 = f(W_2)\\
+    W_3 &= \mathopen]-\frac\pi2; \frac{3\pi}2\mathclose[ \times \mathopen]-\frac\pi2;
+    \frac{3\pi}2\mathclose[ \qquad U_3 = f(W_3)\\
+  \end{split}
+\end{equation*}
+
+Dans cette situation, $U_1$, $U_2$ et $U_3$ recouvrent bien le
+tore. L'application de carte est dans chaque cas la restriction de $f$
+à $W_i$, c'est-à-dire $f_i : W_i \to
+U_i$. Pour vérifier que chaque $(U_i,f_i)$ définit une carte, on peut
+procéder comme ci-dessus.
+
+\subparagraph{Version 3}
+Une autre manière de construire des cartes se base sur l'idée qu'un
+tore dont on enlève un cercle bien choisi est un cylindre. Et un
+cylindre est homéomorphe à un anneau~: si on se donne le cylindre
+\begin{equation*}
+  C \equiv \{ (x,y,z) \telque x^2 + y^2 = 1, 1 < z < 2 \}
+\end{equation*}
+et l'anneau
+\begin{equation*}
+  A \equiv \{ (x,y) \telque 1 < x^2 + y^2 < 4 \}
+\end{equation*}
+on a l'homéomorphisme~:
+\begin{equation*}
+  C \to A : (x,y,z) \mapsto (x z, y z)
+\end{equation*}
+Il n'est alors pas très dur de construire des cartes basées sur ce
+principe.
+
+\subparagraph{Version 4 [Idée de Patrick Weber]}
+Toujours sur l'idée que construire une carte revient à enlever des
+points au tore et obtenir une surface qu'on sait déplier, on peut se
+baser sur la paramétrisation 
+\begin{equation}
+	\begin{aligned}
+		f\colon \eR\times\eR&\to \eR^3 \\
+		(\varphi,\theta)&\mapsto \begin{pmatrix}
+			(R+r\cos\varphi)\cos\theta	\\ 
+			(R+r\cos\varphi)\sin\theta	\\ 
+			r\sin\varphi	
+		\end{pmatrix}
+	\end{aligned}
+\end{equation}
+et enlever le cercle $\varphi=\theta$. Posons
+\begin{equation*}
+  \begin{split}
+    W_1 = \{ (\varphi,\theta) \telque 0 < \varphi < 2\pi \text{et}
+    \varphi
+    < \theta < \varphi + 2\pi \}\\
+    W_2 = \{ (\varphi,\theta) \telque 0 < \varphi < 2\pi \text{et}
+    \varphi - \pi < \theta < \varphi + \pi \}
+  \end{split}
+\end{equation*}
+et $U_i = f(W_i)$. Alors pour $i = 1, 2$, $f$ est un homéomorphisme entre $W_i$ et
+$U_i$, et on obtient un atlas à deux cartes.
+
+\paragraph{Plan tangent}
+\subparagraph{Version 1}
+Ayant l'équation du tore sous forme implicite, on peut l'utiliser pour
+déterminer le plan tangent au tore en un point $p_0 = (x_0,y_0,z_0)$~:
+il est donné par l'équation
+\begin{equation}
+	\begin{aligned}[]
+  &4 (x_02 + y_02 + z_02 - R2 - r2) x_0 (x - x_0)\\ 
+  &+ 4 (x_02 +y_02 + z_02 - R2 - r2) y_0 (y - y_0)\\
+  &+ 4 (x_02 + y_02 + z_02 + R2 - r2) z_0 (z - z_0) = 0.
+	\end{aligned}
+\end{equation}
+Ceci n'est valable que si la forme implicite est ``la bonne'' (il faut
+que le gradient soit non-nul en chaque point du tore), ce qui est vrai
+mais est à démontrer.
+
+\subparagraph{Version 2}
+On sait que le plan tangent sera le plan perpendiculaire au ``petit
+rayon'' du tore. Ce dernier est le vecteur qui relie (en notant encore
+$F$ les ``coordonnées toriques'' définites ci-dessus) le point
+$F(0,\varphi_0,\theta_0)$ et le point $F(r,\varphi_0,\theta_0)$. Ce
+vecteur a pour composantes
+\begin{equation*}
+  F(r,\varphi_0,\theta_0) - F(0,\varphi_0,\theta_0) = 
+  \begin{pmatrix}
+    r \cos \varphi \cos \theta,r \cos \varphi \sin \theta,r \sin
+    \varphi
+  \end{pmatrix}
+\end{equation*}
+et donc le plan tangent a pour équation
+\begin{equation*}
+  \cos \varphi \cos \theta (x - (R + r \cos \varphi)\sin\theta) + \cos
+  \varphi \sin \theta (y - (R + r \cos \varphi)\cos\theta) + \sin
+  \varphi (z - r \sin \varphi) = 0
+\end{equation*}
+
+\paragraph{Volume du tore}
+
+\subparagraph{Version 1}
+Utilisons les ``coordonnées toriques'' définies ci-dessus pour écrire
+le changement de coordonnées
+\begin{equation*}
+  \begin{cases}
+    x = (R + \rho\cos \varphi) \cos \theta\\
+    y = (R + \rho\cos \varphi) \sin \theta\\
+    z = \rho \sin \varphi%
+  \end{cases}
+\end{equation*}
+pour $0 < \rho < r$, $0 < \varphi < 2\pi$ et $0 < \theta < 2\pi$. Ceci
+paramétrise l'intérieur du tore (à un ensemble de mesure nulle près),
+et la valeur absolue du jacobien de cette transformation est $\rho (R
++ \rho \cos \varphi)$. Le volume du tore est donc l'intégrale
+\begin{equation*}
+  \begin{split}
+    &\int_0^{2\pi} \int_0^{2\pi} \int_0^r \rho (R + \rho \cos \varphi) d\rho d\varphi  d\theta\\
+    = &\int_0^{2\pi} \int_0^{2\pi} \left(\frac12 R r^2 +
+      \frac 13 r^3 \cos \varphi\right)  d\varphi  d\theta\\
+    = &\int_0^{2\pi}  \pi R r^2  d\theta\\
+    = &2 \pi^2 R r^2
+  \end{split}
+\end{equation*}
+avec la remarque que c'est exactement le volume d'un cylindre de
+hauteur $2\pi R$ et de rayon $r$, correspondant au tore qu'on aurait
+tranché comme un saucisson pour le redresser.
+
+
+\subparagraph{Version 2}
+Une autre approche consiste à coup le tore ``horizontalement''. La
+mesure d'une tranche horizontale est l'aire d'un anneau dont le grand
+rayon est $R + \sqrt{r^2 - z^2}$ et le rayon intérieur est $R - \sqrt{r^2 - z^2}$
+annulaires, et à intégrer pour $z$ entre $-r$ et $r$. C'est-à-dire
+\begin{equation}
+	\begin{aligned}[]
+  		\int_{-r}^r \left(\pi (R+\sqrt{r^2-z^2})^2 - \pi (R-\sqrt{r^2-z^2})^2\right)  d z 	&= \pi \int_{-r}^r 4 R \sqrt{r^2 - z^2}  d z\\
+													&= 4 \pi R \int_{-r}^r \sqrt{r^2-z^2}  d z
+	\end{aligned}
+\end{equation}
+où l'intégrale qui reste à calculer est exactement l'aire d'un demi disque de rayon $r$, c'est-à-dire $\frac{ 1 }{2} \pi r^2$. On en déduit que le
+volume du tore est $2 \pi^2 r^2 R$.
+
+
+% La matrice jacobienne de $F_{\varphi_0,\theta_0}$ est
+% \begin{equation*}
+%   \begin{pmatrix}
+%     - r \cos(\theta) \sin(\varphi) & - r \sin(\theta) \sin(\varphi) & r \cos
+%     (\varphi)\\
+%     - (R+r\cos(\varphi)) \sin(\theta) & (R + r \cos (\varphi)) \cos(\theta)
+%     & 0
+%   \end{pmatrix}
+% \end{equation*}
+% et le déterminant ``des deux premières colonnes'' vaut $-
+% (R+r\cos(\varphi)) r \sin(\varphi)$, dans lequel seul le facteur
+% $\sin(\varphi)$ peut s'annuler (car $0 \neq r < R$). Lorsque $\sin(\varphi)$
+% s'annule, la matrice jacobienne devient (puisqu'alors $\cos(\varphi) = \pm 1$)
+% \begin{equation*}
+%   \begin{pmatrix}
+%     0 & 0 & \pm r\\
+%     - (R \pm r ) \sin(\theta) & (R \pm r) \cos(\theta) & 0
+%   \end{pmatrix}
+% \end{equation*}
+% et, comme $\sin(\theta)$ et $\cos(\theta)$ ne sont
+% pas nuls en même temps, les deux lignes de cette matrice forment des
+% vecteurs indépendants, ce qui prouve que la matrice est de rang maximal pour tout $\theta$.
+
+
+\end{corrige}

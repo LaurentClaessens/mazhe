@@ -1,0 +1,78 @@
+% This is part of Exercices et corrections de MAT1151
+% Copyright (C) 2010
+%   Laurent Claessens
+% See the file LICENCE.txt for copying conditions.
+
+\begin{corrige}{SerieCinq0005}
+
+	Lorsqu'on applique la méthode de Gauss, ne pas vouloir faire de permutations de lignes revient à demander qu'à chaque étape, l'élément en haut à gauche puisse servir de pivot, c'est à dire qu'il soit non nul.
+
+	La matrice étant symétrique, elle est diagonalisable par une matrice orthogonale et toutes ses valeurs propres sont strictement positives parce qu'on suppose que $A$ est définie positive. Par conséquent nous avons
+	\begin{equation}
+		A=B^tDB
+	\end{equation}
+	où $B$ est orthogonale et $D$ est la matrice diagonale qui contient les valeurs propres sur sa diagonale. Nous en déduisons que les éléments diagonaux de $A$ sont positifs :
+	\begin{equation}
+		A_{ii}=B^t_{ik}\underbrace{D_{kl}}_{\delta_{kl\lambda_l}}B_{li}=B^t_{il}\lambda_lB_{li}=\sum_l(B_{il})^2\lambda_l>0.
+	\end{equation}
+	
+	En ce qui concerne le premier pas de la méthode de Gauss, c'est donc facile : nous venons de prouver que les éléments diagonaux sont non nuls, en particulier $A_{11}$ est non nul et peut servir de pivot. 
+	
+	En ce qui concerne la seconde étape, l'élément $A_{22}$ a changé, il est devenu
+	\begin{equation}	\label{EqCCnouvelhg}
+		A_{22}-A_{12}\frac{ A_{21} }{ A_{11} }
+	\end{equation}
+	qu'il convient de prouver être non nul. Pour cela nous allons utiliser une récurrence pour prouver que, après chaque pas de Gauss, la matrice «cofacteur» qui reste est encore symétrique et sans valeurs propres nulles.
+
+	En effet, si nous nommons $B$ la matrice obtenue après une étape de Gauss, les éléments qui ont changés ont changé de la façon suivante :
+	\begin{equation}
+		B_{ij}=A_{ij}-A_{1j}\frac{ A_{1i} }{ A_{11} }=A_{ij}-\frac{ A_{1j}A_{1i} }{ A_{11} }.
+	\end{equation}
+	En utilisant le fait que $A$ est symétrique, nous avons alors que
+	\begin{equation}
+		B_{ji}=A_{ji}-\frac{ A_{1i}A_{1j} }{ A_{11} }=B_{ij}.
+	\end{equation}
+	Donc la matrice qui reste est encore symétrique. Attention : \emph{toute} la matrice n'est pas symétrique :
+	\begin{equation}
+		\begin{pmatrix}
+			1	&	2	&	3	\\
+			2	&	5	&	4	\\
+			3	&	4	&	6
+		\end{pmatrix}
+		\to
+		\begin{pmatrix}
+			1	&	2	&	3	\\
+			0	&	1	&	-2	\\
+			0	&	-2	&	-3
+		\end{pmatrix}.
+	\end{equation}
+	La matrice symétrique dont nous parlons est la petite $\begin{pmatrix}
+		1	&	-2	\\ 
+		-2	&	-3	
+	\end{pmatrix}$.
+
+	Étant donné que le méthode de Gauss ne change pas le rang d'une matrice (mais elle change ses valeurs propres !), la nouvelle matrice ne peut pas avoir de valeurs propres nulles, et donc rentre dans les hypothèse qui font en sorte que tous ses éléments diagonaux sont non nuls.
+
+	Par récurrence, nous avons prouvé qu'à chaque étape de l'algorithme de Gausse, tous les éléments diagonaux sont non nuls pourvu que la matrice de départ était symétrique et définie positive.
+
+\end{corrige}
+
+\begin{remark}
+	
+	Nous pouvons prouver que le second pas de Gauss fonctionne bien de façon directe en utilisant le résultat de l'exercice \ref{exoSerieCinq0006} de la façon suivante. Exprimons l'élément \eqref{EqCCnouvelhg} en termes de la matrice triangulaire $T$. Nous avons toujours
+	\begin{equation}		\label{EqCCsumkTTA}
+		A_{ij}=(T^tT)_{ij}=T^t_{ik}T_{kj}=\sum_kT_{ki}T_{kj}.
+	\end{equation}
+	Notez que, la matrice $T$ étant triangulaire, la somme sur les $k$ dans l'équation \eqref{EqCCsumkTTA} est souvent assez courte. Par exemple parmi les $T_{1k}$, seul $T_{11}$ est non nul, et $\sum_kT_{k2}=T_{12}+T_{22}$.
+
+	Le nombre \eqref{EqCCnouvelhg} devient alors, avec les sommes sous-entendues
+	\begin{equation}
+		\begin{aligned}[]
+			T_{k2}T_{k2}-T_{i1}T_{i2}\frac{ T_{j2}T_{j1} }{ T_{l1}T_{l1} }&=T_{k2}T_{k2}-\frac{ T_{11}T_{21}\cdot T_{12}T_{11} }{ T_{11}T_{11} }\\
+				&=T_{12}T_{12}+T_{22}T_{22}-T_{12}T_{12}\\
+				&=T_{22}T_{22}\neq0.
+		\end{aligned}
+	\end{equation}
+	La diagonale de $T$ ne peut pas contenir d'éléments nuls, sinon son déterminant serait nul, alors que $0\neq\det A=(\det T)^2$. Cela n'est hélas pas suffisant pour conclure l'exercice parce que nous manquons encore de vision sur ce qu'il se passe au pas suivant (que devient l'élément $A_{33}$ ?). 
+
+\end{remark}

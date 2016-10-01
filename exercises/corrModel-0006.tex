@@ -1,0 +1,97 @@
+% This is part of Agregation : modélisation
+% Copyright (c) 2011
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+\begin{corrige}{Model-0006}
+
+    Nous savons que la moyenne empirique est un estimateur de la moyenne :
+    \begin{equation}
+        \bar X_n=\frac{1}{ n }\sum_{i=1}^nX_i.
+    \end{equation}
+    Nous cherchons un intervalle du type \( I=\mathopen[ \bar X_n-\epsilon , \bar X_n+\epsilon \mathclose]\) pour lequel \( P(m\in I)=1-\alpha\). Nous savons que la variable aléatoire
+    \begin{equation}
+        \frac{ \bar X_n-m }{ \alpha/\sqrt{n} }
+    \end{equation}
+    suit une loi \( \dN(0,1)\), mais la variance est inconnue. La subtilité à savoir est que la variable aléatoire
+    \begin{equation}
+        Z=\frac{ \bar X_n-m }{ S_n/\sqrt{\sigma} }
+    \end{equation}
+    où \( S_n^2=\sum_i(X_i-\bar X_n)^2/(n-1)\) suit une loi de Student\index{Student} à \( n\) degrés de liberté \( \dT(n-1)\) en vertu du théorème de Cochran \ref{ThoCochraneChiStudent}. Comme il est usuel de le faire, nous inversons l'intervalle :
+    \begin{subequations}
+        \begin{align}
+            1-\alpha&=P\left( -\epsilon\leq \bar X_n-m\leq \epsilon \right)\\
+            &=P\left( -\frac{ \epsilon\sqrt{n} }{ S_n }\leq Z\leq \frac{ \epsilon\sqrt{n} }{ S_n } \right).
+        \end{align}
+    \end{subequations}
+    Les valeurs se trouvent dans des tables; par exemple pour \( n=10\) et \( \alpha=5\%\) nous trouvons
+    \begin{equation}
+        \frac{ \epsilon\sqrt{n} }{ S_n }=2.262.
+    \end{equation}
+    Plus généralement nous notons \( t_{n-1,1-\frac{ \alpha }{2}}\) le quantile d'ordre \( 1-\frac{ \alpha }{2}\) de la loi \( \dT(n-1)\), c'est à dire le nombre tel que
+    \begin{equation}
+        P(Z\leq t_{n-1,1-\frac{ \alpha }{2}})=1-\frac{ \alpha }{2}
+    \end{equation}
+    si \( Z\sim\dT(n-1)\). L'intervalle de confiance est alors donné par
+    \begin{equation}
+        I=\left[ \bar X_n-\frac{ t_{n-1,1-\frac{ \alpha }{2}}S_n }{ \sqrt{n} },\bar X_n+\frac{ t_{n-1,1-\frac{ \alpha }{2}}S_n }{ \sqrt{n} } \right].
+    \end{equation}
+    Cela est un intervalle exact pour \( m\) au niveau de confiance \( 1-\alpha\).
+
+    Nous pouvons aussi trouver un intervalle asymptotique en utilisant le théorème central limite :
+    \begin{equation}
+        \frac{ \bar X_n-m }{ S_n/\sqrt{n} }\stackrel{\hL}{\longrightarrow} T
+    \end{equation}
+    avec \( T\sim\dN(0,1)\). 
+
+    Rappel : dire que \( I_n\) est un \defe{intervalle de confiance asymptotique}{intervalle de confiance!asymptotique} signifie que
+    \begin{equation}
+        \lim_{n\to \infty} P(m\in I_n)= 1-\alpha.
+    \end{equation}
+
+    En ce qui concerne la variance \( \sigma^2\), l'intervalle de confiance se construit en utilisant la partie \ref{ItemThoCochraneChiStudentii} du théorème de Cochran \ref{ThoCochraneChiStudent}. Nous introduisons la variable aléatoire pivot
+    \begin{equation}
+        Z=(n-1)\frac{ S_n^2 }{ \sigma^2 }
+    \end{equation}
+    qui suit une loi \( \chi^2(n-1)\). Cette loi n'étant pas symétrique (voir figure \ref{LabelFigChiSquared}), nous n'allons pas chercher un intervalle de confiance symétrique. Nous cherchons \( c_1\) et \( c_2\) tels que
+    \begin{subequations}
+        \begin{numcases}{}
+            P\big( \sigma^2\in\mathopen[ c_1 , c_2 \mathclose] \big)=1-\alpha\\
+            P\big( \sigma^2\in\mathopen[ 0 , c_1 \mathclose] \big)=\frac{ \alpha }{2}\\
+            P\big( \sigma^2\in\mathopen[ c_2 , \infty \mathclose[ \big)=\frac{ \alpha }{2}
+        \end{numcases}
+    \end{subequations}
+    
+    La situation est représentée à la figure \ref{LabelFigChiSquaresQuantile}.
+    \newcommand{\CaptionFigChiSquaresQuantile}{L'intervalle de confiance pour une $\chi^2$.}
+    \input{Fig_ChiSquaresQuantile.pstricks}
+
+    Le construction des nombres \( c_1\) et \( c_2\) passe par la relation
+    \begin{equation}
+        P(c_1\leq \sigma^2\leq c_2)=P\left( \frac{ (n-1)S_n^2 }{ c_2 }\leq Z\leq\frac{ (n-1)S_n^2 }{ c_1 } \right).
+    \end{equation}
+    Nous notons \( t_{n-1,\frac{ \alpha }{2}}\) et \( t_{n-1,1-\frac{ \alpha }{2}}\) les quantiles donnés sur la figure \ref{LabelFigChiSquaresQuantile}, c'est à dire
+    \begin{subequations}
+        \begin{align}
+            P(Z\leq t_{n-1,\frac{ \alpha }{2}})=\frac{ \alpha }{2}
+            P(Z\geq t_{n-1,1-\frac{ \alpha }{2}})=1-\frac{ \alpha }{2}.
+        \end{align}
+    \end{subequations}
+    Ce que nous obtenons est
+    \begin{subequations}
+        \begin{align}
+            \frac{ (n-1)S_n^2 }{ c_2 }=t_{n-1,\frac{ \alpha }{2}}\\
+            \frac{ (n-1)S_n^2 }{ c_1 }=t_{n-1,1-\frac{ \alpha }{2}},
+        \end{align}
+    \end{subequations}
+    et par conséquent l'intervalle de confiance pour \( \sigma^2\) est
+    \begin{equation}
+        I=\left[ \frac{ (n-1)S_n^2 }{ t_{n-1,1-\frac{ \alpha }{2}} },\frac{ (n-1)S_n^2 }{ t_{n-1,1-\frac{ \alpha }{2}} } \right]
+    \end{equation}
+    avec \( P(\sigma^2\in I)=95\%\).
+    
+    \begin{remark}
+        Il n'est pas clair a priori que la longueur de l'intervalle \( I\) décroisse avec \( n\) parce qu'il y a \( n\) dans les \( t\) au numérateur.
+    \end{remark}
+
+\end{corrige}

@@ -1,0 +1,44 @@
+% This is part of Exercices et corrections de MAT1151
+% Copyright (C) 2010,2015
+%   Laurent Claessens
+% See the file LICENCE.txt for copying conditions.
+
+\begin{corrige}{SerieCinq0001}
+
+
+	\begin{enumerate}
+
+		\item
+			Nous pouvons calculer $I_0$ directement en effectuant l'intégrale :
+			\begin{equation}
+				I_0=\int_0^1\frac{1}{ x+10 }dx=\ln(11)-\ln(10).
+			\end{equation}
+			Nous devons maintenant chercher à exprimer $I_n$ en fonction de $I_{n-1}$.
+
+			Par division euclidienne, on obtient
+			\[
+				\frac{x^n}{x+10} = x^{n-1} - 10 \frac{x^{n-1}}{x+10}.
+			\]
+			D\`es lors,
+			\[
+				I_n = \int_0^1 x^{n-1} \: dx - 10 I_{n-1} = \left[ \frac{x^n}{n} \right]_0^1 - 10 I_{n-1} = \frac{1}{n} - 10 I_{n-1}.
+			\]
+		 \item
+			 Le conditionnement relatif $\kappa_n$ de l'application $I_{n-1} \mapsto I_n = \frac{1}{n} - 10 I_{n-1}$ vaut environ
+			\[
+				\kappa_n \sim 10 \frac{I_{n-1}}{I_n}.
+			\]
+			L'erreur de propagation à l'étape $n$ est donnée par 
+			\begin{equation}	\label{EqCUkkkrho}
+				\kappa_1 \kappa_2 \dots \kappa_n \rho_0 \sim  10^n\frac{ I_0 }{ I_1 }\frac{ I_1 }{ I_2 }\cdots\frac{ I_{n-1} }{ I_n }\rho_0=10^n \frac{I_0}{I_n} \rho_0,
+			\end{equation}
+			où $\rho_0$ est l'erreur relative sur $I_0$. En effet, afin de lancer l'algorithme, nous devons mettre la valeurs de $I_0$ «à la main», et cette erreur se propage à cause des conditionnements des différents problèmes de l'algorithme.
+
+			Comment se comporte l'équation \eqref{EqCUkkkrho} lorsque $n\to\infty$ ? À cause du $10^n$, la seule chance que la propagation de l'erreur ne tende pas vers l'infini est que $I_n\to\infty$. Nous allons voir que ce n'est pas le cas.
+
+			Sur l'intervalle $\mathopen[ 0 , 1 \mathclose]$, nous avons $x^n\leq x^{n-1}$, donc $I_{n}\leq I_{n-1}$; la suite des \( I_n\) est donc une suite décroissante. Étant bornée vers le bas par $0$, nous savons que c'est une suite convergente.
+
+			Donc la propagation d'erreur tend bien vers l'infini lorsque $n$ est grand, ce qui montre que l'algorithme par récurrence est très mauvais pour évaluer l'intégrale pour des grands $n$.
+
+	\end{enumerate}
+\end{corrige}

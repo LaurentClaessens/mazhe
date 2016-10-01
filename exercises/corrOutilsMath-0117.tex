@@ -1,0 +1,57 @@
+% This is part of Outils mathématiques
+% Copyright (c) 2012
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+\begin{corrige}{OutilsMath-0117}
+
+    Nous utilisons la paramétrisation avec \( \rho=3\), c'est à dire
+    \begin{equation}
+        \phi(\theta,\varphi)=\begin{pmatrix}
+            6\sin(\theta)\cos(\varphi)    \\ 
+            12\sin(\theta)\sin(\varphi)    \\ 
+            18\cos(\theta)    
+        \end{pmatrix}
+    \end{equation}
+    avec \( \theta\in\mathopen[ 0 , \pi \mathclose]\) et \( \varphi\in\mathopen[ 0 , 2\pi \mathclose]\). La fonction à intégrer est \( f\big( \phi(\theta,\varphi) \big)=18| \cos(\theta) |\). Nous écrivons donc
+    \begin{equation}
+        \int_{\phi}f=18\int_0^{\pi}\int_0^{2\pi}| \cos(\theta) | |J_{\phi} |d\varphi d\theta.
+    \end{equation}
+    Pour déterminer \( J_{\phi}\) nous calculons le produit vectoriel
+    \begin{equation}
+        T_{\theta}\times T_{\varphi}=\begin{vmatrix}
+            e_x    &   e_y    &   e_z    \\
+            6\cos(\theta)\cos(\varphi)    &  12\cos(\theta)\sin(\varphi)     &   -18\sin(\theta)    \\
+            -6\sin(\theta)\sin(\varphi)    &   12\sin(\theta)\cos(\varphi)    &   0
+        \end{vmatrix}=216\sin(\theta)\begin{pmatrix}
+            \sin(\theta)\cos(\varphi)    \\ 
+            \sin(\theta)\sin(\varphi)    \\ 
+            \cos(\theta)    
+        \end{pmatrix}.
+    \end{equation}
+    Le jacobien est la norme de cela :
+    \begin{subequations}
+        \begin{align}
+            \| T_{\theta}\times T_{\varphi} \|&=216\sin(\theta)\sqrt{\sin^2(\theta)\cos^2(\varphi)+\sin^2(\varphi)\sin^2(\theta)+\cos^2(\theta)}\\
+            &=216|\sin(\theta)|\\
+            &=216\sin(\theta).
+        \end{align}
+    \end{subequations}
+    Notons que nous avons enlevé la valeur absolue parce que \( \theta\in\mathopen[ 0 , 2\pi \mathclose]\). L'intégrale à calculer est 
+    \begin{equation}
+        I=18\cdot 216\int_0^{\pi}\int_0^{2\pi}|\cos(\theta)|\sin(\theta)d\varphi d\theta.
+    \end{equation}
+    Nous n'enlevons pas la valeur absolue sur le cosinus parce que \( \cos(\theta)\) n'est pas de signe constant sur \( \theta\in \mathopen[ 0 , \pi \mathclose]\). Nous devons donc couper l'intégrale en deux parties avant d'intégrer. Le gros de l'intégrale se calcule comme suit :
+    \begin{verbatim}
+sage: f(x)=sin(x)*cos(x)                                                                                                                   
+sage: f.integrate(x)
+x |--> -1/2*cos(x)^2
+sage: f.integrate(x,0,pi/2)-f.integrate(x,pi/2,pi)
+x |--> 1
+    \end{verbatim}
+    Si vous vous demandez comment on trouve une primitive de \( \sin(\theta)\cos(\theta)\), pensez à faire par partie. En collant les bouts,
+    \begin{equation}
+        I=3888\cdot 2\pi=7776\pi.
+    \end{equation}
+
+\end{corrige}
