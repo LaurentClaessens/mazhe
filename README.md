@@ -9,6 +9,8 @@
 
 ## Download and compilation
 
+### Download and compilation : the whole book
+
 First you need the package [exocorr](https://github.com/LaurentClaessens/exocorr) to be somewhere in your LaTeX path.
 
 Source are on [github](https://github.com/LaurentClaessens/mazhe). The main file is : ```mazhe.tex``` and a basic compilation is :
@@ -19,6 +21,15 @@ makeindex mazhe
 ```
 to be done more or less three times to get all the cross-references correct. More precice informations [here](http://laurent.claessens-donadello.eu/pdf/readme.pdf).
 
+### Download and compilation : le Frido (in French)
+
+If you want to compile [Le Frido](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf), it is more complicated because the point is to extract the "agrégation" part from the whole source. I developped some pre-compilation scripts that make the work, but you'll need to install some depedencies.
+
+It is explaned here : [readme.pdf](http://laurent.claessens-donadello.eu/pdf/readme.pdf).
+
+### Download and compilation : the pictures
+
+If you want to recreate the pictures from their sources (the mysterious ```phystricks*.py``` files), there are [still more dependencies](https://github.com/LaurentClaessens/phystricks). I'll explain them an other day.
 
 ## Le Frido (niveau agrégation)
 
