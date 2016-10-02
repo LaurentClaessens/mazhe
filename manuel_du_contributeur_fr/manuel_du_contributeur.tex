@@ -1,68 +1,12 @@
-\documentclass[a4paper,12pt]{article}
+\input{e_manuel}
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-
-\usepackage{color}
-\usepackage{listingsutf8}
-
-
-\definecolor{dkgreen}{rgb}{0,0.4,0}
-\definecolor{gray}{rgb}{0.5,0.5,0.5}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
-
-% Thi 'lstset' is from Lilian Besson 
-\lstset{ %
-  inputencoding=utf8/latin1,
-  backgroundcolor=\color{white},  % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
-  basicstyle=\ttfamily, % \texttt\small,              % the size of the fonts that are used for the code, FIXME \ttfamily
-  breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
-  breaklines=true,                % sets automatic line breaking
-  captionpos=b,                   % sets the caption-position to bottom
-  commentstyle=\small\color{dkgreen},   % comment style
-%  deletekeywords={...},          % if you want to delete keywords from the given language
-%  escapeinside={\%*}{*)},        % if you want to add LaTeX within your code
-  frame=single,                   % adds a frame around the code
-  keywordstyle=\small\color{blue},      % keyword style
-  language=python,                % the language of the code
-  fontadjust=false,
-  % if you want to add more keywords to the set
-%  morekeywords={define,domain,objects,init,goal,problem,action,parameters,precondition,effect,types,requirements,strips,typing},
-  numbers=left,                   % where to put the line-numbers; possible values are (none, left, right)
-  numbersep=5pt,                  % how far the line-numbers are from the code
-  numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
-  rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
-  showspaces=false,               % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
-  showstringspaces=false,         % underline spaces within strings only
-  showtabs=false,                 % show tabs within strings adding particular underscores
-  stepnumber=1,                   % the step between two line-numbers. If it's 1, each line will be numbered
-  stringstyle=\small\color{mauve},      % string literal style
-  tabsize=2,                      % sets default tabsize to 2 spaces
-  prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}}, % pour la fin des lignes.
-  aboveskip={1.5\baselineskip},
-  %title=\lstname                  % show the filename of files included with \lstinputlisting; also try caption instead of title
-%  title=\tiny{File \textcolor{blue}{\url{\lstname}}}          % show the filename of files included with \lstinputlisting; also try caption instead of title
-  %% FIXME title !
-}
-
-\usepackage{textcomp}
-\usepackage{lmodern}
-\usepackage[a4paper,margin=2cm]{geometry} 
-\usepackage{hyperref}                      
-\usepackage[english,frenchb]{babel}
-
-\newcommand{\info}[1]{\texttt{#1}}
 
 \begin{document}
 
-\selectlanguage{english}
-\title{How to compile and work with \info{mazhe.tex} ?}
-\author{Laurent Claessens}
+\title{Comment contribuer au Frido}
 \maketitle
 
 \tableofcontents
-
-\selectlanguage{frenchb}
 
 Tout commence par télécharger les sources à l'adresse
 \begin{center}
@@ -87,6 +31,47 @@ Le document complet contient plusieurs parties :
     \item Un cours d'«outils mathématique» que j'ai donné.
 \end{itemize}
 Afin de compiler seulement la partie «Frido» (le plus souvent les gens qui lisent ces lignes s'intéressent à cette partie), j'ai écrit quelque scripts de précompilation qui servent à extraire les bons \info{input}, à mettre la bonne couverture et effectuer quelque autres aménagements. C'est cela que nous allons voir à présent.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Les types de fichiers}
+%---------------------------------------------------------------------------------------------------------------------------
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Les exercice}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Les énoncés sont les fichiers {\bf  ./exercises/exo*.tex}. Chacun est associé à une correction {\bf ./exercises/corr*.tex}.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Les figures}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les figures sont toutes créés par \href{https://github.com/LaurentClaessens/phystricks}{phystricks} qui sert à générer le codes tikz.
+
+Les fichiers {\bf phystricks*.py} sont les «sources» de ces figures. C'est avec eux qu'il faut travailler. Le script {\bf figures\_mazhe.py} crée les fichiers {\bf Fig\_*.pstricks} qui contiennent le code tikz des figures et un peu plus\footnote{La génération des figures est un sujet assez complexe en soi, et comme d'habitude j'ai la vanité de prétendre que mon script est plus fort que tout ce qui existe.}.
+
+Tikz est gourmand en ressources et compiler (pdflatex) un fichier contenant beaucoup de figures tikz peut vraiment prendre du temps. Les créateurs de Tikz ont alors eu l'idée d'un mécanisme intéressant. 
+
+Ajoutons ceci au fichier principal :
+\lstinputlisting{latex_snip1.tex}
+
+Maintenant au moment d'arriver à une figure tikz, il va vérifier dans un fichier intermédiaire \info{.md5} si le code tikz a déjà été rencontré. Si oui, il inclus directement le fichier \info{.pdf} correspondant. Si non, il génère les fichiers \info{.pdf} et \info{.md5}.
+
+Si les fichiers \info{.md5} et \info{.pdf} sont présents, cela accélère énormément la compilation. Sinon\ldots\ Sinon \ldots
+
+Sinon, il génère le pdf et pour ce faire, il semble qu'il doive recompiler en interne l'entièreté du document pour chaque figure. Autant dire qu'avec \( n\) figures en tikz, vous multipliez le temps de compilation par \( n\).
+
+Le principe est alors :
+\begin{itemize}
+    \item Compiler sans \info{external} complètement le document pour que toutes les références et compteurs soient justes.
+    \item Compiler avec \info{external} le document. Prévoyez une longue balade en forêt.
+    \item Maintenant vous pouvez toujours compiler avec \info{external}. Les pdf générés sont utilisés automatiquement et ça va assez vite.
+\end{itemize}
+
+Pour compiler le Frido sans \info{external} :
+\lstinputlisting{bash_snip1.sh}
+
+En bref : les fichiers {\bf tikzFIG*.pdf} et {\bf tikzFIG*.md5} sont des sous-produits de la compilation des figures tikz. Elles sont fournies avec le dépot git pour éviter une énorme compilation et un jeu de \info{external}.
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Ce qu'il faut télécharger}
@@ -163,6 +148,13 @@ Il fera automatiquement autant de tours de \info{pdflatex}, \info{makeindex} et 
 
 Après compilation, une liste des références incorrectes est donnée. Bien entendu si vous ne compilez qu'une partie, il risque d'y avoir beaucoup de références \emph{manquantes}, mais il ne devrait n'y avoir aucune références \emph{duplicate} !
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Convention de nommage}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Déjà il semble que «nommage» soit un anglicisme.
+
+Passons sur les figures. Si vous devez en inclure une, faites un \info{png} ou du \info{tizk}, n'importe quoi, mais qui fonctionne avec \info{pdflatex}.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Les politiques éditoriales}
@@ -238,13 +230,13 @@ Si vous pensez qu'une référence pointée doit être acceptée (par exemple par
 
 Lorsqu'on fait de lourdes modifications (déplacement de parties, fusion de théorèmes, etc) il est toujours possible de faire des bêtises d'au moins deux types : créer des références vers le futur et supprimer des parties (genre couper-coller en oubliant le coller). Pour s'en prémunir, il est bon de lancer les compilations suivantes :
 \begin{verbatim}
-pytex lst_frido.py --lotex
-pytex lst_everything.py --lotex
+pytex lst_frido.py
+pytex lst_everything.py 
 pytex lst_everything.py --verif
-pytex lst_mesnotes.py --lotex
+pytex lst_mesnotes.py 
 \end{verbatim}
 Aucun ne devrait provoquer d'erreurs.
 
-Les \verb+--lotex+ font une compilation complète et servent donc à vérifier si tous les \info{label} sont corrects. En particulier \info{lst\_mesnotes.py} est une version du Frido contenant une liste de développements. Si il passe sans erreurs, c'est que vous n'avez certainement pas supprimé de parties importantes.
+Le test \info{lst\_mesnotes.py} est une version du Frido contenant une liste de développements. Si il passe sans erreurs, c'est que vous n'avez certainement pas supprimé de parties importantes.
 
 \end{document}
