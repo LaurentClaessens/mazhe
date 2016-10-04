@@ -5,7 +5,7 @@
 
 * [« Le Frido »](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il couvre à peu près tout le programme.  
 * [« (almost) Everything I know in mathematics »](http://laurent.claessens-donadello.eu/pdf/mazhe.pdf) contains more or less everything I know in mathematics, including my research.
-* Et ce fichier [readme.pdf](http://laurent.claessens-donadello.eu/pdf/readme.pdf) contient des instruction pour la compilation du Frido, ainsi que des politiques éditoriales à l'attention de qui voudrait contribuer.
+* Et ce fichier [manuel_du_contributeur.pdf](http://laurent.claessens-donadello.eu/pdf/manuel_du_contributeur.pdf) contient des instruction pour la compilation du Frido, ainsi que des politiques éditoriales à l'attention de qui voudrait contribuer.
 
 ## Download and compilation
 
@@ -19,13 +19,13 @@ pdflatex mazhe.tex
 bibtex mazhe
 makeindex mazhe
 ```
-to be done more or less three times to get all the cross-references correct. More precice informations [here](http://laurent.claessens-donadello.eu/pdf/readme.pdf).
+to be done more or less three times to get all the cross-references correct. More precice informations [here](http://laurent.claessens-donadello.eu/pdf/manuel_du_contributeur.pdf).
 
 ### Download and compilation : le Frido (in French)
 
 If you want to compile [Le Frido](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf), it is more complicated because the point is to extract the "agrégation" part from the whole source. I developped some pre-compilation scripts that make the work, but you'll need to install some depedencies.
 
-It is explaned here : [readme.pdf](http://laurent.claessens-donadello.eu/pdf/readme.pdf).
+It is explaned here : [manuel_du_contributeur](http://laurent.claessens-donadello.eu/pdf/manuel_du_contributeur.pdf).
 
 ### Download and compilation : the pictures
 
