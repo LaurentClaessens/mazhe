@@ -1,0 +1,1305 @@
+% This is part of (almost) Everything I know in mathematics
+% Copyright (c) 2013-2014
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+Most of the material of this section can be found in a more general framework in the references \cite{Helgason, Loos, kobayashi, kobayashi2}. 
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Action of groups on sets}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Recall that the action of a group is \defe{transitive}{transitive} when it has only one orbit (i.e. each point can reach anyone other point). An action is \defe{free}{free!action}  if the fact that $g\cdot x=x$ for all $x\in M$ implies $g=e$. In other words, the action is free when $e$ is the only element to be represented by the identity. The action is \defe{simply transitive}{simply transitive action} when it has only one orbit and the stabilizer of one point is reduced to identity, in other words when $\forall\,(x,y)\in M^{2}$, $\exists!\,g\in G$ such that $x\cdot g=y$.
+
+\begin{lemma}		\label{LemCompactSurFermeFerme}
+	Let $G$ be a Lie group acting on a manifold $M$. Consider $K$, a compact subgroup of $G$ and $F$, a closed set in $M$. The set $K\cdot F$ is closed in $M$.
+\end{lemma}
+
+\begin{proof}
+	We will prove that any sequence in $K\cdot F$ which converges in $M$ converges in $K\cdot F$. Let $\{ k_n\}\in K$ and $\{ \xi_n\}\in F$ and suppose that the sequence $\phi_n=k_n\cdot \xi_n$ converges to $\phi\in M$.
+
+	Since $K$ is compact, the sequence $\{ k_n \}$ has a converging subsequence. Thus, without loss of generality, we can suppose that $k_n\to k\in K$ and $k_n\cdot \xi_n\to\phi\in M$. Since we are considering the action of a group, and since $K$ is a subgroup, we also have $k^{-1}_n\cdot \phi_n=\xi_n$. The action being continuous on $M$, we have
+	\begin{equation}
+		k_n^{-1}\cdot \phi_n\to k^{-1}\cdot \phi,
+	\end{equation}
+	so that $\xi_n\to k^{-1}\cdot\phi$. But $\{ \xi_n \}$ is a sequence in the closed space $F$. Thus its limit must belong to $F$: we have $\phi\in F$. Thus $k^{-1}\cdot\phi\in F$ and finally $\phi\in K\cdot F$.
+\end{proof}
+
+\subsection{Fundamental and invariant fields}
+%--------------------------------------------
+\label{Subsec_Funda_conv}
+
+Let $G$ be a Lie group with Lie algebra $\lG$. For each element of $\lG$, there are two distinguished vector fields on $G$, the \defe{left invariant}{left invariant!vector field} and the \defe{right invariant}{right!invariant!vector field} one:
+\begin{align}
+\tilde X_g&=\Dsdd{  ge^{tX} }{t}{0}	&\utilde X_g&=\Dsdd{ e^{tX}g }{t}{0}\\
+dL_h\tilde X_g&=\tilde X_{hg}		&dR_h\utilde X_g&=\utilde X_{gh}.
+\end{align}
+
+When $G$ is a Lie group with an action on the manifold $M$ denoted by
+\begin{equation}
+\begin{aligned}
+ \tau\colon G\times M&\to M \\ 
+(g,x)&\mapsto \tau_g(x),
+\end{aligned}
+\end{equation}
+we define the \defe{fundamental vector field}{fundamental!vector field} associated with $X\in\lG$ on the point $x\in M$ by
+\begin{equation}			\label{EqDefChmpFonfOff}
+X^*_x=\Dsdd{ \tau_{ e^{-tX}}(x) }{t}{0}.
+\end{equation}
+An usual case is the one of a Lie group acting on itself for which we have
+\begin{equation}		\label{EqChmpFondGp}
+  X^*_g=\Dsdd{ e^{-tX}g }{t}{0}.
+\end{equation}
+
+\section{Rough introduction to homogeneous spaces}
+%--------------------------------------------------
+\label{SubSechoappahomsp}\label{SecRoughomo}
+
+An \defe{homogeneous space}{homogeneous!space}\label{pg:esp_homo} is a differentiable manifold with a transitive diffeomorphism group. 
+
+An important class of homogeneous space is given by the coset spaces. When we have a topological group $G$ and a closed subgroup $H$, the coset space $G/H$ has a structure of homogeneous space. Theorem \ref{tho:homeo_action} shows that almost every homogeneous space is of this class. For this, we use classes on right:
+\[
+  [g]=\{gh:h\in H\}.
+\]
+The canonic projection is $\pi\colon G\to M$ and we denote $\mfo=[e]$. The following construction shows that (almost\footnote{Problems are possible with topology choices and differentiability of certain maps.}) every homogeneous space are of this kind.
+
+ Let $M$ be a homogeneous space; $\mfo\in M$, a point; $G$, a group which acts transitively on $M$ (in particular, $G\mfo=M$); and $H$, the stabilizer of $\mfo$ in $G$. Then, the map $[g]\mapsto g\mfo$ is a homogeneous space isomorphism between $M$ and $G/H$. This thesis only deals with this kind of homogeneous spaces. The Lie algebras of $G$ and $H$ are denoted by $\lG$ and $\lH$ respectively.
+
+
+Let $\dpt{\pi}{G}{M=G/H}$ be the canonical projection. We denote $\mfo:=[e]$. It is clear that $\dpt{d\pi_e}{\lG}{T_{\mfo}M}$ is surjective.
+\begin{proposition}
+	The kernel of the differential of the projection is given by
+	\begin{equation}
+ 		\ker(d\pi_e)=\lH.
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+It is easy to see that $\lH\subset \ker(d\pi_e)$ but it turns out to be non trivial to prove the inverse. Our demonstration follows a part of the one of the proposition 4.3 of \cite{Helgason} (cf proposition \ref{propHelgason4.3}).
+
+Let $X$ be in $\ker(d\pi_e)$. Since $d\pi_eX\in T_{\mfo}M$, it can be applied on a function $\dpt{f}{M}{\eR}$. As $d\pi_eX=0$ on any function and $X=\dsdd{\exp tX}{t}{0}$, we have
+\begin{equation}
+   0=(d\pi_eX)f=\dsdd{f(\pi\circ X)(t)}{t}{0}
+               =\dsdd{f([\exp tX])}{t}{0}                      \label{r2904e1}
+\end{equation}
+
+But proposition \ref{Helgason4.2} makes $\exp sX\in G$ acting on $M$. As a $f$, we can consider $g(q)=f(\exp sX\cdot q)$. Replacing $f$  by $g$ in \eqref{r2904e1}, we get:
+\begin{equation}
+   0=(d\pi_eX)g=\dsdd{g([\exp tX])}{t}{0}
+               =\dsdd{f([\exp(s+t)X])}{t}{0}
+\end{equation}
+
+Then for any function $f$, the number $f([\exp tX])\in\eR$ doesn't depend on $t$, but for $t=0$, $[\exp tX]=\mfo$. Then $\forall t\in\eR$, $\exp tX\in H$, and therefore, $X\in \lH$.
+\end{proof}
+
+\begin{lemma}
+	We have
+	\begin{equation}  \label{Eqdpigdtaudpi}
+		d\pi_g\circ dL_g=d\tau_g\circ d\pi_e.
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	Let $X\in \lG$ be the tangent vector to the curve $X(t)$ in $G$. We have
+	\begin{equation}
+		(d\pi_g\circ dL_g)(X)=\Dsdd{ \pi\big( gX(t) \big) }{t}{0}=\Dsdd{ \tau_g\pi\big( X(t) \big) }{t}{0}=(d\tau_g\circ d\pi_e)(X)
+	\end{equation}
+	where we used the fact that, by definition, the action is given by $\tau_g\pi(g')=\pi(gg')$.
+\end{proof}
+
+\begin{definition}
+	The homogeneous space $M=G/H$ is said to be \defe{reductive}{reductive!homogeneous space} if there exists a subspace $\lM$ of $\lG$ such that
+		\begin{itemize}
+		\item $\lM\oplus\lH=\lG$,
+		\item $[\lH,\lM]\subset\lM$.
+	\end{itemize}
+\end{definition}
+Because of the second condition, such a $\lM$ is said to be \defe{$H$-invariant}{h@$H$-invariant subspace}.
+
+\begin{lemma}		\label{LemdpiisomMTM}
+If $\lM$ is reductive, the restriction $\dpt{d\pi_e}{\lM}{T_{\mfo}M}$ is an isomorphism between $\lM$ and $T_{\mfo}M$.
+\end{lemma}
+\begin{proof}
+As $\dpt{d\pi_e}{\lG}{T_{\mfo}M}$ is surjective, $\lG=\lH\oplus\lM$ and $\lH$ is the kernel, $\dpt{d\pi_e}{\lM}{T_{\mfo}M}$ must be surjective. On the other hand, if we have $d\pi_em=d\pi_en$ for $n$, $m\in\lM$, $(m-n)\in Ker(d\pi_e)=\lH$ which is impossible because $\lG=\lH\oplus\lM$ is a direct sum.
+\end{proof}
+
+We can generalize this proposition by considering the space $\lQ_g=dL_g\lQ$. 
+\begin{proposition} 		\label{PropDiffPiBijTgGH}\label{Cordpiietwii}
+The differential $\dpt{d\pi}{\lM_g}{T_{[g]}M}$ of the canonical projection provides an isomorphism between $\lM_g$ and $T_{[g]}M$.
+\end{proposition}
+
+\begin{proof}
+In order to prove injectivity, take a $X\in \lM_g$ (i.e. $X=dL_gX'$ for a certain $X'\in\lM$) such that $d\pi X=0$. If $X'=X'_h+X'_m$, we have
+\[ 
+0=\Dsdd{ \pi\big( g e^{tX'_h+tX'_m} \big) }{t}{0}
+		=\Dsdd{ \pi\big( g e^{tX'_m} e^{tX'_h} \big) }{t}{0}
+		=\Dsdd{ \pi\big( g e^{tX'_m} \big) }{t}{0}
+		=d\tau_g d\pi X'_m
+\]
+where $d\pi X'_m\neq 0$ by definition of the quotient. Now, $d\tau_g\colon T_{[e]}M\to T_{[g]}M$ is a surjective linear map between two vector spaces of same dimension. Thus $d\tau_g$ is bijective and $d\pi X'_m=0$, which proves that $X'_m=0$ by lemma \ref{LemdpiisomMTM}.
+\end{proof}
+
+The homogeneous space $G/H$ is endowed with its \defe{natural topology}{natural topology} which is defined by the requirement that the projection $\pi$ is continuous and open. We refer to \cite{Helgason} for the properties of that topology.
+
+\subsection{Killing induced product}		\label{SubsecKillHomo}
+%----------------------------------
+
+The product will be described with more details in point \ref{SubSubSecTheKillingHomo}.
+
+Since the Killing form $B$ is an $\Ad_H$-invariant product on $\lQ$, we can define
+\begin{equation}
+B_g(X,Y)=B_e(dL_{g^{-1}}X,dL_{g^{-1}}Y)
+\end{equation}
+which descent (see \cite{Kerin} for properties) to a homogeneous metric on $T_{[g]}M$:
+\begin{equation}  \label{EqDefMetrHomo}
+B_{[g]}(d\pi X,d\pi Y)=B_g(\pr X,\pr Y)
+\end{equation}
+where $\dpt{\pr}{T_gG}{dL_g\lQ}$ is the canonical projection. An useful property of that projection is $\pr(dL_gX)=dL_gX_Q$ when $X=X_Q+X_H$. Using that property, we can write the product under the more manageable form
+\[ 
+  B_{[g]}(d\mu_gX,d\mu_gY)=B_e(\pr X,\pr Y)
+\]
+for all $X$, $Y\in\lG$ where we wrote $\mu_g=\tau_g\circ \pi$.
+
+Although equation \eqref{EqChmpFondGp} looks like \eqref{EqDefChmpFonfOff}, we find a major difference here: the norm of $q_i^*[g]$ is not a constant. One should expect that it was a constant because \eqref{EqDefChmpFonfOff} expresses a left translation while the Killing form is invariant under left translations. But the metric \eqref{EqDefMetrHomo} is a composition of the Killing form with a projection. Let us study this case in details in computing the product of two vectors of the form
+\[ 
+  X^*_{[g]}=d\pi\Dsdd{  e^{-tX}g }{t}{0},
+\]
+with $X\in\lQ$:
+\[ 
+\begin{split}
+  B_{[g]}(X^*,Y^*)&=B_g\big( \pr\Dsdd{  e^{-tX}g }{t}{0},\pr\Dsdd{  e^{-tY}g }{t}{0} \big)\\
+		&=B_g\big( dL_g\pr\Ad(g^{-1})X,dL_g\pr\Ad(g^{-1})Y \big)\\
+		&=B_e\Big(   \big( \Ad(g^{-1})X \big)_{\lQ},\big( \Ad(g^{-1})Y \big)_{\lQ}  \Big)\\
+		&\neq B_e\Big(   \Ad(g^{-1})X_{\lQ},\Ad(g^{-1})Y_{\lQ}  \Big)\\
+		&=B_e(X,Y)
+\end{split}
+\]
+where the symbol $\neq$ has to be understood as ``not equal in general'' because equality holds of course for certain particular vectors such as zero.
+
+
+\subsection{Homogeneous space}
+%-----------------------------
+
+
+\begin{proposition}
+Let $M=G/K$ be a homogeneous space where the Lie algebra $\lG$ has the Cartan decomposition $\lG=\lK\oplus\lP$. Then
+\begin{enumerate}
+\item $T_{[\mtu]}M=\lP$
+\item $TM=G\times_{\Ad(K)}\lP$
+\end{enumerate}
+
+\end{proposition}
+
+\begin{proof}
+The first part is already know. For the second, an element of $G\times_{\Ad(K)}\lP$ is of the form $[g,X]$ where $g\in G$, $X\in\lP$ and the equivalence relation $(g,X)\sim(gk,\Ad(k)X)$ for all $k\in K$.
+
+Let us define $\psi\colon G\times_{\Ad(K)}\lP\to TM$ by
+\[ 
+  \psi[g,X]=[dL_gX]
+\]
+where $[Y]=d\pi_gY$ when $Y\in T_gG$. We are going to prove that $\psi$ is injective and surjective. Suppose $\psi[g,X]=\psi[h,Y]$. Since $[dL_gX]=[dL_hY]$, we have $T_{[g]}M=T_{[h]}M$ and there exists a $k\in K$ such that $h=gk$. We have to prove that $\Ad(k)X=Y$. We have
+\[ 
+  d\pi_g(dL_gX)=d\pi_{gk}(dL_{gk}Y),
+\]
+but
+\[ 
+  d\pi_{gk}(dL_{gk}Y)=\Dsdd{ \pi(gkY(t)) }{t}{0}
+		=\Dsdd{ \pi(gkY(t)k^{-1}) }{t}{0}
+		=d\pi_gdL_g\Ad(k)Y.
+\]
+This proves injectivity of $\psi$. For surjectivity, take $X_{[g]}\in T_{[g]}M$: there exists a $\tilde X_g\in t_gG$ such that $X_{[g]}=d\pi_g\tilde X_g$. So, for a certain $X\in\lG$, 
+\[ 
+  X_{[g]}=d\pi_gdL_gX
+		=[dL_gX]
+\]
+It remains to be proved that one can choose $X\in\lP$. Let us decompose $X=X_p+X_k$; it gives
+\[ 
+  [dL_g(X_p+X_k)]=[dL_gX_p]+[dL_gX_k],
+\]
+but the latter is
+\[ 
+  \Dsdd{ \pi(gX_k(t)) }{t}{0}=\Dsdd{ \pi(g) }{t}{0}=0
+\]
+because $X_k(t)\in K$ by definition.
+\end{proof}
+
+
+
+Let us consider $G/H$, a homogeneous space. If the Lie algebra $\lH$ is moreover the set of points fixed by an involution $\dpt{\theta}{\lG}{\lG}$, the quotient $G/H$ is said to be a \defe{symmetric space}{symmetric!space}.
+
+Let us point out that the Iwasawa decomposition naturally gives rise to a symmetric space: $AN=G/K$.
+
+\begin{remark}
+This is not our final definition of a symmetric space. A more precise definition will be given later, see section \ref{sec:symm}.
+\end{remark}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+					\subsubsection{Frame bundle over reductive homogeneous spaces}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\label{PgFrameHomo}
+
+Let us consider an homogeneous space of the for $M=G/H$ with $G=\SO_0(p,q)$, and $\mG=\lH\oplus\lQ$. We have $T_{\mfo}(G/H)=\lQ$ and $T_{[g]}(G/H)=dL_g\lQ=\lQ_g$. Let $V=\eR^{p,q}$ on which $G$ acts by definition. Let $B(\mfo)$ the set of orthonormal frames of $\lQ$: the linear isometries $b\colon V\to \lQ$. The we consider
+\begin{equation}
+	B\big( [G] \big)=\{ [v\mapsto dL_gb(v)]\tq b\in B(\mfo) \}.
+\end{equation}
+The frame bundle of $G/H$ is
+	\begin{equation}
+\xymatrix{%
+   \SO(p,q) \ar@{~>}[r]		&	B\big( [G] \big)\ar[d]^{\pi}\\
+   				&	G/H,
+ }
+\end{equation}
+where the action of $\SO(p,q)$ is given by
+\begin{equation}
+	(b\cdot g)(v)=b(gv).
+\end{equation}
+
+\subsection{Invariant metric on homogeneous space (first)}
+%---------------------------------------------------------
+
+Let $G/H$ be a reductive homogeneous space, i.e. $\lG=\lH\oplus\lM$ with $[\lH,\lM]\subseteq\lM$. We denote by $T_A,T_B,\ldots$ the generators of $\lG$ while $T_i,T_j,\ldots$ particularise the generators of $\lH$ and $T_a,T_b,\ldots$ the ones of $\lM$. The reducibility condition reads
+\begin{equation}
+  [T_i,T_a]=C_{ia}^AT_A=C_{ia}^bT_b.
+\end{equation}
+
+\begin{probleme}        \label{ProbAvecCorwell}
+Vas voir dans Cornwell (que tu dois ajouter \`a la biblio) comment on fait pour montrer que $C_{AB}^C$ est compl\`etement antisym dans tout les sens. Avec \c ca, je devrais pouvoir dire que $C_{ij}^A$ sont nuls.
+\end{probleme}
+
+An element of $G$ can be locally parametrized with $\dim G$ real numbers; for example
+\[
+   g(y^a,x^i)=e^{y^aT_a}e^{x^iT_i}
+\]
+in a neighbourhood of identity. The classes $[g]\in G/H$ are given by only $\dim G-\dim H=\dim\lM=m$ real numbers and we can consider a choice of a representative of each class, i.e. a map $\dpt{L}{\eR^m}{G}$ with $L(y)\in[g]$ if $g=e^{y^aT_a}h$. For example, a possible choice is
+\[
+  L(y)=e^{y^aT_a}.
+\]
+If we multiply at left $L(y)$ by $g\in G$, we obtain an element of another class whose representative is $L(y')$. Then
+\begin{equation}\label{eq:gLyL}
+  gL(y)=L(y')h
+\end{equation}
+where $y'\in\eR^m$ and $h\in H$ both depend on $g$ and $y$ (and the choice of the representative $L$). We consider the $\lG$-valued $1$-form on $\eR^m$ defined at $y\in\eR^m$ by
+\begin{equation}
+    V(y)=L(y)^{-1} dL_y.
+\end{equation}
+If $v(t)$ is a path in $\eR^m$ with $v(0)=y$, it defines a vector $v\in T_y\eR^m$ and
+\[
+  V(y)v=\Dsdd{ L(y)^{-1} L(v(t)) }{t}{0}\in\lG.
+\]
+So we can develop it with respect to a basis of $\lG$:
+\[
+   V(y)=T_aV^a(y)+T_i\Omega^i(y).
+\]
+Now we are going to write $V(y')$ when $y'$ is given by relation \eqref{eq:gLyL}. First, it is clear that $L(y')^{-1}=hL(y)^{-1} g^{-1}$. Now if $y'=f(y)$, we have
+\[
+   d(l\circ f)_y=dL_{y'}\circ df_y,
+\]
+then
+\begin{equation}\label{eq:VyphL}
+V(y')=hL(y)^{-1} g^{-1} d(L\circ f)_y\circ(df^{-1})_{y'}.
+\end{equation}
+We will forget the $(df^{-1})_{y'}$, keeping in mind that if $V(y')$ is applied to a vector of $T_y\eR^m$, we have to transport the vector with $f$. Now let us explicit the expression \eqref{eq:VyphL}. For this, remark that $L\circ f=gL(\cdot)h^{-1}$ where $h$ is a map from $\eR^m$ to $H$. Then we have tu use the Leibnitz formula; let $v\in T_y\eR^m$,
+\begin{equation}
+  d(L\circ f)_yv=\Dsdd{ gL(v(t))h^{-1}(v(t)) }{t}{0}
+                =g(dLv)h^{-1}(y)+gL(y)(dh^{-1} v).
+\end{equation}
+So,
+\begin{equation}
+\begin{split}
+   V(y')&=hL(y)^{-1} g^{-1}\big(  g(dL_y) h^{-1}+gL(y)dh^{-1}_y   \big)\\
+        &=h V(y)h^{-1}+hdh^{-1}_y.
+\end{split}
+\end{equation}
+Then the transformation rule of $V$ under an action of $G$ is given by
+\begin{equation}
+    V(y')=hV(y)h^{-1}+hdh^{-1}_y.
+\end{equation}
+In particular this induces a transformation rule for $V^a$ by 
+\begin{equation}\label{eq:trans_V}
+V^a(y')=\big(  hV(y)h^{-1}  \big)^a=\big(\Ad(h)V(y)\big)^a=V^A(y)\bghd{D(h^{-1})}{A}{a}
+\end{equation}
+where $D$ is defined by $\Ad(g^{-1})T_A=\bghd{D(g)}{A}{B}T_B$.
+
+\subsubsection{Infinitesimal expressions}
+%////////////////////////////////////////
+
+Now we want to write the equation \eqref{eq:gLyL} in the case where $g$ is close to the identity. We start by considering $g$ under the form $g=e^{\epsilon^AT_A}$ with small $\epsilon$. If we write $h$ under the form $h=e^{R^iT_i}$, $R^i$ is a function of $y$ and $\epsilon$. If we suppose that $\epsilon$ is very small (our intention is to make a derivation with respect to epsilon at $\epsilon=0$), we can suppose that $R$ is linear with respect to epsilon. Then $h=e^{\epsilon^AW_A^i(y)T_i}$. For the same reason, $y'$ is linear with respect to epsilon: ${y'}^{\alpha}=y^{\alpha}+\epsilon^AK_A^{\alpha}(y)$. So we write
+\[
+   e^{\epsilon^AT_A}L(y)=L(  y^{\alpha}+\epsilon^AK_A^{\alpha}(y)  )e^{\epsilon^AW_A^i(y)T_i}
+\]
+which an equality in $G$. Let us derive it with respect to $\epsilon^A$ at $\epsilon=0$. Note that by $L(y^{\alpha})$, we mean $L(y^{\alpha} e_{\alpha})$ where $\{e_{\alpha}\}$ is the canonical basis of $\eR^m$. Then we find
+\[
+   T_AL(y)=dL_y (  K^{\alpha}_A(y)\partial_{\alpha})+L(y)W_A^i(y)T_i.
+\]
+If one multiply it at left by $L(y)^{-1}$,
+\begin{equation}\label{eq:DLAB}
+    \bghd{D(L(y))}{A}{B}T_B=V(y)\big(  K_A^{\alpha}(y)\partial_{\alpha}  \big)+W_A^i(y)T_i.
+\end{equation}
+Remark that $K_A^{\alpha}(y)$ is just a real number, then it can get out the form $V(y)$. From notational convenience, we write $V(y)\partial_{\alpha}=V_{\alpha}(y)$. We write separately the $\lH$ and $\lM$ components in equation \eqref{eq:DLAB}:
+\begin{subequations}\label{eq:DlyA}
+\begin{align}
+ \bghd{D(L(y))}{A}{i}T_i&=K_A^{\alpha}(y)(\Omega^i(y)T_i)(\partial_{\alpha})+W_A^i(y)T_i \\
+ \bghd{D(L(y))}{A}{b}T_b&=K_A^{\alpha}(y)(V^b(y)T_b)(\partial_{\alpha}).
+\end{align}
+\end{subequations}
+Be careful on one fact: the expression $V^b(y)T_b(\partial_{\alpha})$ means $V^b(y)(\partial_{\alpha})T_b$ where which is the product of the vector $T_b\in\lG$ by the real $V^b(y)T_b(\partial_{\alpha})$. So we can ``simplify''{} the $T_A$'s in equations \eqref{eq:DlyA} to find
+\begin{subequations}
+\begin{align}
+  W_A^i(y)            &= \bghd{D(l(y)}{A}{i}-K_A^{\alpha}(y)\Omega^i_{\alpha}(y)\\
+  \bghd{D(l(y)}{A}{b} &= K_A^{\alpha}(y)V_{\alpha}^b(y)
+\end{align}
+\end{subequations}
+whose are equalities in $\eR$.
+
+Let us find a form for $\bghd{D(h^{-1})}{A}{b}$ when $h$ is given by equation \eqref{eq:gLyL} with ${y'}^{\alpha}=y^{\alpha}+\epsilon^A K_A^{\alpha}(y)$ and for small $\epsilon$. The matrix $D(g)$ is given by
+\[
+   \bghd{D(g)}{A}{B}T_B=g^{-1} T_A g=\Dsdd{\AD_{g^{-1}} e^{tT_A}}{t}{0}=\Ad(g^{-1})T_A.
+\]
+So in our case,
+\begin{equation}
+  \bghd{ D(e^{\epsilon^BW_B^i(y)T_i}) }{A}{C}T_C=\Ad\big(\exp(\epsilon^BW_B^i(y)T_i)\big)T_A.
+\end{equation}
+If we derive it with respect to $\epsilon^B$ at $\epsilon=0$, we find
+\begin{equation}
+\begin{split}  
+    \Dsddb{  \bghd{D( \exp(\epsilon^BW_B^i(y)T_i)  )}{A}{C}T_C  }{\epsilon^B}{\epsilon}{0}
+              &=\ad(W_B^i(y)T_i)T_A\\
+              &=W_B^i(y)\bghd{C}{iA}{D}T_D,
+\end{split}
+\end{equation}
+so that we can power expand $\bghd{D(h^{-1})}{A}{a}$ with respect to $\epsilon$ around $\epsilon=0$:
+\begin{equation}\label{eq:Dinfin}
+  \bghd{D(h^{-1})}{A}{a}=\delta^a_A+\epsilon^BW_B^i(y)\bghd{C}{iA}{a}+\ldots
+\end{equation}
+Then equation \eqref{eq:trans_V} reads $V^a(y')-V^a(y)=V^a(y)\epsilon^BW_B^i(y)\bghd{C}{iA}{a}$, but remarking that the reducibility makes $C_{ij}^a=0$,
+\begin{equation}
+ V^a(y+\delta y)-V^a(y)=\epsilon^BW_B^i(y)\bghd{C}{ib}{a}V^b(y).
+\end{equation}
+The fact that $\bghd{C}{ib}{a}$ can be made skews-symmetric shows that this equation describe the infinitesimal action of $G$ on $V(y)$ by the action of $so(n)$. It allows us to state the following theorem.
+
+
+\subsubsection{Invariant metric}
+%///////////////////////////////
+
+
+\begin{theorem}
+The metric
+\begin{equation}\label{eq:metric_GH}
+   g\bab=g(\partial_{\alpha},\partial_{\beta})=\delta_{ab}V_{\alpha}^aV_{\beta}^b
+\end{equation}
+is invariant with respect to the left action of $G$. 
+\end{theorem}
+
+\begin{probleme}
+Regardes si il faut semisimple pour obtenir l'antisymétrie des constantes de structure.
+\end{probleme}
+
+An other way to write this metric is 
+\[
+  g=\delta_{ab}(V^a\otimes V^b).
+\]
+
+\begin{proof}
+We have to show that $g_{y'}(\partial_{\alpha},\partial_{\beta})=g_y(\partial_{\alpha},\partial_{\beta})$. For this we will show that the derivative of $g\bab(y)$ with respect to $y$ is zero. So we write ${y'}^{\alpha}+\epsilon^AK_A^{\alpha}(y)$ and 
+\[
+   g\bab(y')=\delta_{ab}V^a_{\alpha}(y)V^b_{\beta}(y)\bghd{D(h^{-1})}{A}{a}\bghd{D(h^{-1})}{B}{b}.
+\]
+The computation is performed using \eqref{eq:Dinfin} which gives $\left.\bghd{ D(h^{-1}) }{A}{a}\right|_{\epsilon=0}=\delta^a_A$ and 
+\begin{equation}
+\begin{split}
+  \Dsddb{  g\bab(y')  }{\epsilon^C}{\epsilon}{0}&=\delta_{ab}V_{\alpha}^A(y)V_{\beta}^B
+                                       \left\{  
+     \Dsddb{  \bghd{D(h^{-1})}{A}{a}  }{\epsilon^C}{\epsilon}{0}\left.\bghd{D(h^{-1})}{B}{b}\right|_{\epsilon=0}.
+                                       \right.\\
+ &\phantom{ =\delta_{ab}V_{\alpha}^A(y)V_{\beta}^B  }\quad  \left. \left.\bghd{D(h^{-1})}{A}{^a}\right|_{\epsilon=0}\Dsddb{ \bghd{D(h^{-1})}{B}{b} }{\epsilon^C}{\epsilon}{0}\right\}\\
+&=\delta_{ab}V^a_{\alpha}(y)V_{\beta}^B(y)\left[  \delta_B^bW^i_C(y)\bghd{C}{iA}{a}+\delta_A^a W^i_C(y)\bghd{C}{iB}{b}  \right]\\
+&=\sum_a V^A_{\alpha}(y)V_{\beta}^a(y)W^i_C(y)\bghd{C}{iA}{a}+\sum_b V^B_{\alpha}(y)V_{\beta}^B(y)W^i_C(y)\bghd{C}{iB}{b}
+\end{split}
+\end{equation}
+Taking into account the fact that $\bghd{C}{ij}{a}=0$, one can reduce some summations like $V_{\alpha}^A(y)\bghd{C}{iA}{a}=V_{\alpha}^b(y)\bghd{C}{ib}{a}$. Using the antisymmetry of $\bghd{C}{ib}{a}$ with respect to $a,b$, we find that the sum is zero.
+
+\end{proof}
+
+There is an other invariant metric:
+\begin{equation}
+   g\bab=B_{ab}V_{\alpha}^aV_{\beta}^b
+\end{equation}
+where $B$ is the matrix of the Killing form. Following the same proof of the invariance than the previous one, one finds
+\[
+  \Dsddb{ g\bab(y') }{\epsilon^C}{\epsilon}{0}=V^a_{\alpha}(y)V^b_{\beta}(y)W_C^i( B_{cb}\bghd{C}{ia}{c}+
+                               B_{ac}\bghd{C}{ib}{c} ).
+\]
+This is zero because of the formula $B((\ad X) Y,Z)=-B(Y,(\ad X) Z)$. 
+
+\begin{probleme}
+Apparement cette métrique est invariante indépendament d'hypothèse de semi simplicité.
+\end{probleme}
+
+\subsubsection{The choice of \texorpdfstring{$L(y)$}{L(y)}}
+%///////////////////////////////////
+
+Let us see what happens if we had done the work with $L'(y)=L(y)h(y)$ instead of $L(y)$. In this case, 
+\[
+   V'(y)=L'(y)^{-1} dL'_y=h(y)^{-1} L(y)^{-1} dL'_y,
+\]
+but using Leibnitz formula, we find
+\begin{equation}
+   dL'_yv=\Dsdd{L(v(t))h(v(t))}{t}{0}
+         =(dL_yv)h(y)+L(y)dh_yv,
+\end{equation}
+so that $V'(y)=V(y)$ up to a renaming $h\leftrightarrow h^{-1}$. The conclusion is that $\delta_{ab}V_{\alpha}^a V_{\beta}^b$ and $B_{ab}V_{\alpha}^aV_{\beta}^b$ are independent of the choice of $L$.
+
+\subsection{Homogeneous metric on homogeneous spaces}
+%----------------------------------------------------------
+
+\subsubsection{One way to obtain it}
+%////////////////////////////////////
+
+Let $M=G/H$ be a homogeneous space. A Riemannian metric $\scald{\cdot}{\cdot}$ on $M$ is \defe{homogeneous}{homogeneous!Riemannian metric} when
+\begin{equation}\label{eq:def:homo_metric}
+\scald{dL_gv}{dL_gw}_{g[x]}=\scald{v}{w}_{[x]}
+\end{equation}
+for all $g\in G$, $[x]\in M$. Note that this formula cannot define an inner product on each $T_{[x]}M$ from the data of an inner product on $T_{\mfo}M$ because --unless certain conditions-- it is not well-defined.
+
+From the definition of the homogeneous structure of $G/H$, all element of $H$ fixes $\mfo=[e]$ (by the left action).Then $dL_h$ is an automorphism of $T_{\mfo}M$ and we can define the \defe{isotropic representation}{isotropic!representation}\index{representation!isotropic} $\dpt{\rho}{H}{\Aut(T_{\mfo})M}$ by
+\[
+   \rho(h)X=dL_hX
+\]
+with $X\in T_{\mfo}M$.
+
+Now let $\scald{\cdot}{\cdot}$ be an inner product on $T_{\mfo}M$ (for example the Killing form on the $\lM$ part of $\lG=\lM\oplus\lH$ in the reductive case). We can try to export this product at $[g]$ by the formula 
+\begin{equation}\label{eq:scal_gdee}
+  \scald{v}{w}_{[g]}=\scal{dL_{g^{-1}}v}{dL_{g^{-1}}w}_{\mfo}.
+\end{equation}
+
+\begin{proposition}
+The product $\scald{\cdot}{\cdot}_{[g]}$ defined by formula \eqref{eq:scal_gdee} is well defined if and only if $\scald{\cdot}{\cdot}_{\mfo}$ is invariant under the isotropic representation.
+\end{proposition}
+
+\begin{proof}
+Let us proof the necessary condition; the sufficient one is just the same written backward. The assumption makes 
+\begin{equation}
+\begin{split}
+  \scald{v}{w}_{[gh]}&=\scald{dL_{h^{-1} g^{-1}}v,}{dL_{h^{-1} g^{-1}}w}_{\mfo}\\
+                     &\stackrel{!}{=}\scald{dL_{g^{-1}}v}{dL_{g^{-1}}w}_{\mfo}
+\end{split}
+\end{equation}
+for every $v$, $w\in T_{[g]}M$, $g\in G$, $h\in H$. In particular,
+\[
+   \scald{dL_h X}{dL_hY}_{\mfo}=\scald{X}{Y}_{\mfo}
+\]
+for all $X$, $Y\in T_{\mfo}M$.
+\end{proof}
+
+Two remarkable properties of this inner product are the fact that it is a homogeneous Riemannian structure and that \emph{all} the homogeneous metric are such. In order to see the first claim, just remark that if $[x]\in M$,
+\begin{equation}
+\begin{split}
+\scald{dL_gv}{dL_gw}_{g[x]}&=\scald{dL_{x^{-1} g^{-1}}dL_gv}{dL_{x^{-1} g^{-1}}dL_gw}_{\mfo}\\
+                           &=\scald{dL_{x^{-1}}v}{dL_{x^{-1}}w}_{\mfo}\\
+                           &=\scald{v}{w}_{\mfo}.
+\end{split}
+\end{equation}
+The second claim comes from the choice $g=x^{-1}$ in the definition \eqref{eq:def:homo_metric}.
+
+\subsubsection{One other way to obtain it}
+%//////////////////////////////////////////
+\label{SubSubSecTheKillingHomo}
+
+Let us consider a metric on $\lG$ and see in which case it can be extended to gives rise to a well defined homogeneous metric on the quotient $M=G/H$. Let $\lG=T_eG$, $\lH=T_eH$ and $\lG=\lM\oplus\lH$. Using $dL$, we can propagate the space $\lM$ to the point $g\in G$ by defining
+\[
+  \lM_g=dL_g\lM.\label{pg:M_g}
+\]
+We saw in proposition \ref{PropDiffPiBijTgGH} that $\lM_g$ was isomorphic to $T_{[g]}M$.
+
+
+Let $\scald{.}{.}$ be a product on $\lG$ which is $\Ad_H$-invariant on $\lM$. We claim that the following construction gives a well defined and homogeneous product on $\lG$. First, the product on $\lG$ extends to a product on $T_gG$ for every $g$ by
+\[
+  \scald{X}{Y}_g=\scald{dL_{g^{-1}}X}{dL_{g^{-1}}Y};
+\]
+this induces the following inner product on $T_{[g]}(G/H)$ that will reveal to be well defined under the current assumptions:
+\begin{equation}\label{eq:scal_TgM}
+	\scald{d\pi_g X}{d\pi_g Y}_{[g]}=\scald{X}{Y}_g
+\end{equation}
+where $X,Y\in \lM_g=dL_g\lM$. Indeed, the map $\dpt{d\pi}{\lM_g}{T_{[g]}M}$ is an isomorphism, hence for all $v\in T_{[g]}M$, there exists one and only one $X\in\lM_g$ such that $d\pi X=v$. Since $\dpt{d\pi}{\lM_{gh}}{T_{[g]}M}$ is also an isomorphism, the condition for \eqref{eq:scal_TgM} to be a good definition, we must have 
+\begin{equation}
+\scald{X}{Y}_g=\scald{dL_{g^{-1}} X}{dL_{g^{-1}} Y}_e
+              =\scald{X'}{Y'}_{gh}
+      \end{equation}
+where $X'=dR_hX$. It is easy to remark that this condition is the $\Ad_H$-invariance of the inner product $\scald{\cdot}{\cdot}_e$ defined on $\lG$.
+
+The reader should remark that all the conditions are satisfied by the Killing inner product.
+
+Now, if $X$ is any element of $\lG$, we define successively
+\begin{equation}		\label{EqDefProdGsurH}
+	\begin{aligned}[]
+		\scald{d\pi_gdL_gX}{d\pi_gdL_gY }_{[g]}&=\scald{d\pi_gdL_gX_{\lM}}{d\pi_gdL_gY_{\lM}}_{[g]}\\
+		&=\scald{dL_gX_{\lM}}{dL_gY_{\lM}}_g\\
+		&=\scald{\pr_{\lM}X}{\pr_{\lM}Y}_e.
+	\end{aligned}
+\end{equation}
+The last line is the usual Killing form on $\lG$, or any other inner product which has the right properties.
+
+Let us prove that the first line is well defined. First, notice that $d\pi_g\colon \lM_g\to T_{[g]}M$ is an isomorphism, thus there exists one and only one $\tilde X\in dL_g\lM$ such that $d\pi_g \tilde X=d\pi_gdL_g X$. Since
+\begin{equation}
+	d\pi_g\big( dL_g X_{\lM} \big)=\Dsdd{ \pi\big( g e^{tX_{\lM}} \big) }{t}{0}=0,
+\end{equation}
+we know that
+\begin{equation}
+	d\pi_gdL_g X_{\lQ}=d\pi_gdL_g X
+\end{equation}
+for every $X\in \lG$.
+
+\section{Symmetric spaces}\label{sec:symm}
+%++++++++++++++++++++++++
+This section is mainly taken from \cite{Loos,Dixmier,SSSSS,Dieu2}.
+
+\subsection{Basic facts}
+%-----------------------
+
+\begin{definition} 
+A \defe{symmetric space}{symmetric!space} is a manifold $M$ and an analytic ``multiplication``\ $\dpt{\mu}{M\times M}{M}$ --written $s_x(y)$ as $\mu(x,y)$-- such that
+
+\begin{enumerate}
+\item $\forall x\in M$, $s_x$ is an involutive diffeomorphism of $M$ called ``the symmetry at $x$ ``,
+
+\item $\forall x\in M$, $x$ is an isolated fixed point of $s_x$,
+\item $\forall x,y\in M$ , $s_x\circ s_y\circ s_x=s_{s_x(y)}$.
+\end{enumerate}
+\label{def:esp_sym}
+\end{definition}
+\begin{definition}
+An \defe{homomorphism}{homomorphism!of symmetric space} of symmetric space $(M,s)$ and $(M',S)$ is an analytic map $\dpt{\varphi}{M}{M'}$ which satisfies
+\[
+    \varphi( s_x(y) )=S_{\varphi(x)}\varphi(y).
+\]
+\end{definition}
+
+Immediately, for any $z$ in $M$, the symmetry $s_z$ is an automorphism of $M$ (as symmetric space). Indeed,
+\begin{equation}
+  s_{s_z(x)}(s_z(y))=s_z\circ s_x\circ s_z\circ s_z(y)
+                    =(s_z\circ s_x)(y)
+\end{equation}
+The group generated by all the $s_x\circ s_y$ ($x$, $y\in M$) is the \defe{displacement group}{displacement group} and is denoted by $G(M)$.
+
+\begin{lemma}
+The displacement group is a normal subgroup of $\Aut(M)$.
+\end{lemma}
+
+\begin{proof}
+If $\varphi$ is an automorphism of $M$, we have
+\begin{equation}
+  \varphi\circ s_x\circ s_y\circ\varphi^{-1}=s_{\varphi(x)}\circ\varphi\circ s_y\circ\varphi^{-1}
+                                   =s_{\varphi(x)}\circ s_{\varphi(y)}
+\end{equation}
+  because $\varphi\circ s_{x}=s_{\varphi(x)}\circ\varphi$.
+\end{proof}
+
+
+We define $\dpt{Q}{M}{G(M)}$ by $Q(x)=s_xs_e$. This is the \defe{quadratic representation}{quadratic representation}\index{representation!quadratic} of $M$. Since $Q(x)Q(y)^{-1}=s_xs_y$, $Q(M)$ generate $G(M)$.
+
+\begin{theorem}		\label{ThoStructSymGH}\label{tho:sym_homo}
+	The space $M$ is symmetric for the structure
+	\begin{equation}\label{eq:sym_M}
+		s_{[x]}[y]=[x\sigma(x)^{-1}\sigma(y)],
+	\end{equation}
+	while $L_{\sigma}$ is a symmetric space for
+	\begin{equation}
+		s_x(y)=xy^{-1} x.
+	\end{equation}
+	The map $\dpt{q}{M}{L}$, $q([x])=x\sigma(x^{-1})$ is a homomorphism from $M$ to $L_{\sigma}$ and $L/L\hsigma$ is isomorphic to $L_{\sigma}$ by $q$.
+
+	Moreover $\dpt{\tau}{L}{\Aut(M)}$ is a homomorphism and the displacement group $G(M)$ is the subgroup of $\tau(L)$ generated by $\tau(L_{\sigma})$.
+
+\end{theorem}
+
+\begin{proof}
+\subdem{Symmetric structure on $M$}
+  First we prove that $M$ is symmetric. The symmetry \eqref{eq:sym_M} is well defined: if $k,k'\in K$,
+  \begin{equation}
+  s_{[xk]}[yk']=[xk\sigma(xk)^{-1}\sigma(yk')]
+               =[x\sigma(x)^{-1}\sigma(y)].
+\end{equation}
+ It is clear that $s_{[x]}\circ s_{[x]}=id$ because
+\begin{equation}
+\begin{split}
+  s_{[x]}\circ s_{[x]}[y]&=s_{[x]}([ x\sigma(x)^{-1}\sigma(y) ])
+                         =[x\sigma(x)^{-1}\sigma(x)\sigma(\sigma(x)^{-1})(\sigma\circ\sigma)(y)]\\
+			 &=[xx^{-1} y]
+			 =[y].
+\end{split}
+\end{equation}
+
+Since $L$ acts transitively by automorphism on $M$ (this is: $\tau(x)$ is an automorphism of $M$ and we can always find a $x\in L$ such that $\tau(x)[y]=[z]$ for given $y$, $z\in M$), we just have to prove the property of isolated fixed point for $[e]\in M=L/K$. So we consider $s_{\mfo}$ ($\mfo=[e]$) on a neighbourhood of $\mfo$ in $M$.
+\subdem{Identification $T_{\mfo}M=\lL_-$}
+
+Now we show how to identify (as vector spaces) $T_{\mfo}M$ with
+\[
+   \lL_-=\{X\in\lL\tq \sigma(X)=-X\}.
+\]
+where $\lL$ is the Lie algebra of $L$. For this, we will show that $\dpt{\psi}{\lL_-}{T_{\mfo}M}$,
+\begin{equation}
+  \psi(X)=\Dsdd{[X(t)]}{t}{0}
+\end{equation}
+if $X(t)$ is a path in $L$ whose derivative is $X$. Any vector in $T_{\mfo}M$ comes from a path $[Y(t)]$ where $Y(t)\in L$ can be written as $Y(t)=c(t)k(t)$ where $k(t)\in K$ has no continuity property, and $c$ is the ``main``\ part of the path. Then
+\[
+  \psi(c'(0))=\Dsdd{ [Y(t)] }{t}{0}
+\]
+and $\psi$ is surjective. In order to see the injectivity, remark that in a neighbourhood of $e$,
+\[
+   \sigma(e^{tX})=e^{td\sigma X}=e^{-tX}
+\]
+because $X\in\lL_-$. With other words, if $X\in\lL_-$,
+
+ \[
+    \sigma(X(t))=X(t)^{-1}
+ \]
+when $t$ is small. But $e$ is an isolated fixed point of the inversion. Then $\psi(X)=0$ let only one possibility: $[X(t)]=cst$. Thus (for small $t$) $X(t)$ can be written as $X(t)=gk(t)$ with $\sigma(k(t))=k(t)\in L$. Since $X(0)=e$, $k(0)=g^{-1}$ and $\sigma(g)=k(0)^{-1}=g$. Then
+ \[
+   \sigma(X(t))=X(t).
+ \]
+But on the other hand, $X\in\lL_-$ implies $\sigma(X(t))=X(t)^{-1}$ and finally $X(t)=X(t)^{-1}$, so that $X(t)=e$. See eventually the error \ref{err:decomp}\label{pg:X_t}.
+
+Now we can see that $0$ is an isolated fixed point of $s_{\mfo}$. We looks at $(ds_{\mfo})_{\mfo}X$ with $X\in\lL_-\equiv T_{\mfo}M$.
+\begin{equation}
+\begin{split}
+  (ds_{\mfo})X&=(ds_{\mfo}\circ\psi)(X)
+		=ds_{\mfo}\Dsdd{[X(t)]}{t}{0}
+                =\Dsdd{ [\sigma(X(t))] }{t}{0}\\
+		&=d\sigma\Dsdd{[X(t)]}{t}{0}
+		=\sigma(X)
+		=-X.
+\end{split}
+\end{equation}
+
+With the notation $X^*=\sigma(x)^{-1}$,
+\begin{equation}
+\begin{split}
+  q\left( s_{[x]}[y]  \right)&=q( [xx^*\sigma(y)] )\\
+                             &=xx^*\sigma(y)\sigma^2(y)^{-1}\sigma(x^*)^{-1}\sigma(x)^{-1}\\
+			     &=(xx^*)(\sigma(y)y^{-1})(xx^*)\\
+			     &=q(x)q(y)^{-1} q(y),
+\end{split}
+\end{equation}
+then
+\[
+   q(s_{[x]}[y])=s_{q(x)}q(y)
+\]
+and $q$ is a homomorphism between $M$ and $L$ for they respective symmetric spaces structure. It is contained in the definition of $q$ that
+\[
+   q(M)=L_{\sigma}=\{x\sigma(x)^{-1}\tq x\in L\}
+\]
+
+On the other hand, $q([x])=q([y])$ if and only if $xx^*=yy^*$ which is equivalent to  $x^{-1} y\in L\hsigma$. But $x^{-1} y\in L\hsigma$ implies $\ovx=\ovy$ where the bar stands for the classes with respect to $L_{\sigma}$. In definitive, $q([x])=q([y])$ if and only if $\ovx=\ovy$. Hence, $q$ is an isomorphism of symmetric spaces between $L_{\sigma}$ and $L/L\hsigma$.
+
+We recall the definition $\dpt{\tau(x)}{M}{M}$, $\tau(x)[y]=[xy]$, and we use the quadratic representation of $M$:
+\begin{equation}
+ Q([x])[y]=s_{[x]}s_{\mfo}[y]
+          =s_{[x]}([\sigma(y)])
+	  =\tau(xx^*)[y].
+\end{equation}
+Then $G(M)$ is generated by $Q(M)=\tau(q(M))=\tau(L_{\sigma})$.
+\end{proof}
+
+\subsection{Choice of a Cartan involution}
+%----------------------------------------
+
+Let $\lG=\lK\oplus\lP$ be the Cartan decomposition of $\lG$ and $B$, the Killing form on $\lG$. We know that the linear transformation of $\lG$ defined by
+ 
+\[ 
+ \theta(X)=\begin{cases}
+             X & \text{if $X\in\lK$}\\
+	     -X& \text{if $X\in\lP$}
+           \end{cases}
+\] 
+ is an involutive automorphism of $\lG$; and the bilinear form
+\[
+  (X,Y)\to\scal{X}{Y}:=-B(X,\theta Y)
+\]
+is positive definite on $\lG$.
+
+\begin{theorem}
+Let $\lG$ be a real semisimple Lie algebra, $\sigma$ an involutive automorphism and $\theta$ a Cartan involution.\index{Cartan!involution}\index{involutive!automorphism}\index{involution!Cartan} Then
+
+\begin{enumerate}
+\item there exists a Cartan involution $\theta_1$ such that $[\sigma,\theta_1]=0$,
+\item if $\theta_1$ and $\theta_2$ are two such involutions then they are conjugated by an automorphism of $\lG$ of the form $e^{\ad X}$ with $\sigma(X)=X$.
+\end{enumerate}
+\label{tho:sigma_theta}
+\end{theorem}
+
+%L'ancienne version de la première preuve est donnée en commentaire plus bas, si ça t'intéresse.
+The first point is contained in theorem \ref{tho:sigma_theta_un} and the second one is exactly the corollary \ref{cor:Cartan_conj_inner}
+
+
+
+% \subdem{First item}
+% We consider $\nu=\sigma\theta$, this fulfils $\scal{\nu X}{Y}=\scal{X}{\nu Y}$ because $\sigma$ and $\theta$ are automorphism of $\lG$ and the Killing form is invariant under the automorphism (cf. proposition \ref{prop:auto_2}). Then the matrix of $\nu^2$ as linear operator on $\lG$ is positive definite and can be diagonalised with positive eigenvalues. Then there exists an unique symmetric linear transformation $A$ of $\lG$ such that $\nu^2=e^A$.
+% 
+% Now we prove that for any $t\in\eR$, $e^{tA}$ is an automorphism of $\lG$. Consider $\{X_1,\ldots,X_n\}$ an orthonormal (with respect to $\scal{.}{.}$) basis of $\lG$ in which $\nu$ is diagonal:
+% \begin{subequations}
+% \begin{align}
+%   \nu(X_i)&=\lambda_iX_i\\
+%   \nu^2(X_i)&=e^{a_i}X_i,
+% \end{align}  
+% \end{subequations}
+% (no sum at all) where the $a_i$ are the diagonals elements of $A$. The structure constants are as usual defined by
+% \begin{equation}
+%    [X_i,X_j]=c_{ij}^kX_k.  
+% \end{equation}
+% Since $\sigma$ and $\theta$ are automorphisms, $\nu^2$ is also one. Then 
+% \[
+% \nu^2[X_i,X_j]=c_{ij}^k\nu^2(X_k)=c_{ij}^ke^{a_k}X_k
+% \]
+% can also be computed as
+% \[
+%    \nu^2[X_i,X_j]=[\nu^2X_i,\nu^2X_j]=e^{a_i}e^{a_j}c_{ij}^kX_k,
+% \]
+% so that $c_{ij}^ke^{a_k}=c_{ij}^ke^{a_i}e^{a_j}$, and then $\forall t\in\eR$,
+% \[
+%    c_{ij}^ke^{ta_k}=c_{ij}^ke^{ta_i}e^{ta_j},
+% \]
+% which prove that $e^{tA}$ is an automorphism of $\lG$. Consequently, $A$ is a derivation of $\lG$ from lemma \ref{lem:autom_derr}.
+% 
+% By the way remark that $\nu=e^{A/2}$ and $[e^{tA},\nu]=0$ because this can be view as a common matricial commutator. Other thinks to be remarked are $\nu^{-1}=\theta\sigma$, $\theta\nu^{-1}\theta=\theta\sigma\theta\sigma$ and finally, 
+% \[
+%   \theta e^{tA}=e^{-tA}\theta.
+% \]
+% 
+% Now we pose $\theta_1=e^{tA}\theta e^{-tA}$. With it and $t=1/4$, 
+% $\sigma\theta_1= \sigma\theta e^{-A/2}$ and $\theta_1\sigma=\theta\sigma e^{A/2}$. Then 
+% \begin{equation}
+%   \sigma\theta_1=\theta_1\sigma=id
+% \end{equation}
+% when $\theta_1=e^{A/4}\theta e^{-A/4}$ with a suitable $A$.
+% \quext{\c{C}a me semble quand m\^eme un peu fort que ce soit carrément l'identité.}
+
+% Let us consider now an other Cartan involution $\theta_2$ such that $\sigma\theta_2= \theta_2\sigma$. Remark that $\theta_2$ is a particular case of a $\sigma$ (an involutive automorphism), then we can apply the first case with $\theta_2$ instead of $\sigma$: we build 
+% \[
+%   \theta_3= e^{B/4}\theta_1 e^{-B/4}
+% \]
+% with a suitable $B$ such that $\theta_3\theta_2=\theta_2\theta_3$. Here, 
+% $e^{B}=\theta_2\theta_1\theta_2\theta_1$ commute with $\sigma$ because $\theta_1$ and $\theta_2$ does.
+% 
+% Since $B$ is a derivation, by proposition \ref{prop:ss_derr_int} which make $\ad\lG=\partial\lG$ from the fact that $\lG$ is semisimple, it can be written as $B=\ad X$ for a certain $X\in\lG$. We naturally rescale the $X$ to get $\ad X=B/4$. In order for $e^{tB}$ to commute with $\sigma$, we need $\sigma(X)=X$.
+% 
+% Now we consider the Cartan decomposition of $\lG$ with respect to $\theta_2$ and $\theta_3$:
+% \begin{equation}
+% \lG=\lK_2\oplus\lP_2,\qquad \lG=\lK_3\oplus\lP_3.
+% \end{equation}
+% 
+% Naturally, $\lK_2=(\lK_2\cap\lK_3)\cup(\lK_2\cap\lP_3)$. But on $\lK_2$, the Killing form is negative definite, then $\lK_2\cap\lP_3=0$. In the same\quext{Ici, j'ai l'impression qu'on ne fait aps moins que démontrer qu'il n'existe qu'une seule forme de Cartan sur $\lG$} way, $\lK_3\cap\lP_2=0$ and then $\theta_2=\theta_3$, so that 
+% \[
+%    \theta_2=e^{B/4}\theta_1 e^{-B/4}
+% \]
+% with $B/4=\ad X$ as we wanted.
+
+
+\subsection{Affine Symmetric spaces}
+%-----------------------------------
+
+The matter may be found in chapter XI of \cite{kobayashi2}
+
+Let $M$ be a $n$-dimensional manifold endowed with a connection $\nabla$. The \defe{symmetry}{symmetry!in an affine space} at $x\in M$, denoted by $s_x$, is defined on a normal neighbourhood of $x$ by $\exp_x X\to\exp_x(-X)$. Properties of the exponential and normal neighbourhood make it a well defined diffeomorphism because it doesn't depends on the choice of the normal neighbourhood.
+
+It clearly fulfils $s_x^2=id$ and $x$ is an isolated fixed point of $s_x$.
+
+\begin{probleme}
+je ne vois pas comment démontrer que $s_{s_xy}=s_x\circ s_y\circ s_x$.
+\end{probleme}
+
+If we consider the normal coordinates in a neighbourhood around $x$, it is clear that 
+\[
+s_x(x_1,\ldots,x_n)=(-x_1,\ldots,-x_n).
+\]
+ Then $(ds_x)_x=-I_x$ where $\dpt{I_x}{T_xM}{T_xM}$ is the identity.
+
+If for all $x\in M$, the map $s_x$ is an affine transformation, we say that $M$ is a locally affine symmetric space\footnote{A differentiable map $\dpt{f}{M}{M'}$ is an \defe{affine}{affine!map} if $\dpt{df}{TM}{TM'}$ transforms all horizontal curves to an horizontal curve. An affine transformation automatically fulfils
+\[
+  f(\exp X)=\exp(df X)
+\]
+for all $X\in T_xM$.}.
+
+
+\begin{lemma}
+On an affine locally symmetric space, an odd tensor invariant under $s_x$ is zero at $x$.
+\end{lemma}
+
+\begin{proof}
+From $(ds_x)_x=-I_x$, the transformation $s_x$ transforms a tensor $K$ of degree $p$ into $(-1)^p K$.
+\end{proof}
+
+
+\begin{theorem}
+Let $M$ and $M'$ be two manifolds with $\nabla T=\nabla R=\nabla T'=\nabla R'=0$ and a linear endomorphism $\dpt{F}{T_{x_0}M}{T_{y_0}M}$  such that $FT_{x_0}=T'_{y_0}$ and $FR_{x_0}=R'_{y_0}$.
+
+Then there locally exists an isometry\quext{relis pour voir si c'est bien \c ca.} $\dpt{f}{M}{M'}$ such that $f(x_0)=y_0$ and $(df)_{x_0}=F$.
+\end{theorem}
+
+\begin{proposition}
+A manifold $M$ with an affine connection is affine locally symmetric if and only if
+\[
+  T=0\text{ and }\nabla R=0.
+\]
+\end{proposition}
+
+
+\begin{proof}
+Since $s_x$ is affine, it preserves $T$ and $\nabla R$ whose are tensor of degree $3$ and $5$. From lemma, they are zero.
+
+For the converse, $-I_x$ preserves $R_x$ because $R$ is a tensor of degree $4$. In this context, the theorem gives a $\dpt{f}{M}{M}$ such that $f(x)=x$ and $df_x=-I_x$. But $f$ is also an affine transformation, then
+\begin{equation}
+  f(\exp X)=\exp(df X)
+           =\exp(-I_x X)
+           =\exp(-X).
+\end{equation}
+This gives $f=s_x$.
+\end{proof}
+
+Two results without proof.
+
+\begin{theorem}
+If $M$ is a differentiable manifold with a linear connection such that $\nabla T=0$ and $\nabla R=0$, then the atlas of normal coordinates gives to $M$ a structure of analytic manifold and the connection is analytic.
+\end{theorem}
+It comes from the page 223 of \cite{kobayashi}.
+
+\begin{proposition}
+Let $M$ be a connected, simply connected and complete manifold with a linear connection such that $\nabla T=0=\nabla R$. Let $\dpt{F}{T_xM}{T_yM}$ a linear isomorphism such that $T_x\to T_y$ and $R_x\to R_y$.
+
+Then there exist one and only one affine transformation $f$ of $M$ such that $f(x)=y$ and $df_x=F$.
+\end{proposition}
+In particular the group $\mA(M)$ of the affine transformations of $M$ is transitive on $M$. This comes from page 265 of \cite{kobayashi}.
+
+A manifold $M$ with an affine connection is an \defe{affine symmetric space}{affine!symmetric space} if for all $x\in M$, the symmetry $s_x$ can be globally extended to an affine transformation of $M$. Thanks to the latter proposition, an affine locally symmetric complete and simply connected space is affine.
+
+ 
+\begin{proposition}
+An affine symmetric space is complete.
+\end{proposition}
+
+\begin{proof}
+Let $\gamma$ be a geodesic from $x$ to $y$, i.e. $\gamma(0)=x$ and $\gamma(1)=y$. Let us pose $\gamma(1+t)=s_y(\gamma(1-t-)$ for $0\leq t\leq a$. It extends $\gamma$ beyond $y$. Let us prove that the extension still is a geodesic. For a certain $Y\in T_xM$, we have $y=\exp_xY$, so for $t$ between $0$ and $1$, $\gamma(t)=\exp_x(tY)$. Let $Y_t$ be the parallel vector field along $\gamma$ with $Y_0=Y$; for example, $x=\exp_y(-Y_1)$ and $\exp_x(tY)=\exp_y(t-1)Y_1$.
+\begin{equation}
+   \gamma(1+t)=s_y(\exp_y(-tY_1))
+              =\exp_y(tY_1).
+\end{equation}
+\end{proof}
+
+\begin{proposition}
+The group of affine transformations of an affine symmetric space is transitive.
+\end{proposition}
+
+\begin{proof}
+Let $x$ and $y$ be two points in $M$. There exists a sequence of convex normal neighbourhood $\mU_1,\ldots,\mU_k$ such that $x\in\mU_1$, $y\in\mU_k$, $\mU_i\cap\mU_{i+1}\neq\emptyset$. So one can reach $y$ from $x$ with geodesic segments. This construction is just the fact that, if $\dpt{c}{[a,b]}{M}$, is a path from $x$ to $y$, the set $c([a,b])$ is compact in $M$. On each point of $c([a,b])$ we consider a convex neighbourhood which gives an open covering of a compact set.
+
+It remains to be proved that if $x$ and $y$ are reachable by a geodesic curve, then they can be reached by an affine transformation. If $y=\exp_x Y$ and $z=\exp_x(\frac{1}{2} Y)$, then  $s_z(x)=y$.
+
+\end{proof}
+
+One can prove that the group $\mA(M)$ is a Lie group. We denote by $G$ its identity component. It is clear that is a group acts transitively on a manifold, then its identity component also acts transitively. Then $G$ acts transitively on $M$ and one has a homogeneous space structure which allows us to write $M=G/H$.
+
+More precisely, we have the
+
+\begin{theorem}		\label{ThoGplugdSymssgpAff}
+Let $G$ be the largest connected group of affine transformation of an affine symmetric space $M$ and $H$, the isotropy group of a fixed point $o\in M$, so that $M=G/H$.
+
+Let $s_o$ the symmetry of $M$ at $o$ and $\sigma$ the automorphism of $G$ defined by
+\[
+   \sigma(g)=s_o\circ g\circ s_o^{-1}.
+\]
+Let $G_{\sigma}$ the closed subgroup of $G$ which fixes $\sigma$. Then $G^o_{\sigma}\subset H\subset G_{\sigma}$.
+\end{theorem}
+
+\begin{proof}
+Let $h\in H$ and $\sigma(h)=s_o\circ h\circ s_o^{-1}$. We know that $(ds_o)_o=-I_o$, then $(d\sigma(h))_o=dh_o$. But general theory about affine transformations says that if two affine transformations has same differential at one point then they are equals. In our case, it gives $\sigma(h)=h$; therefore $H\subset G_{\sigma}$.
+
+Let now $g_t$ be a one parameter subgroup of $G_{\sigma}$. From the definition of $\sigma$, $s_o\circ g_t=\sigma(g_t)\circ s_o$, then $s_o\circ g_t(o)=g_t\circ s_o(o)=g_t(o)$. Then the orbit $g_t(o)$ is fixed by $s_o$. But $o$ is an isolated fixed point of $s_o$, then $g_t(o)=o$ for all $t$ and $g_y\in H$.
+
+From general theory of Lie groups, a connected Lie group is generated by its one parameter subgroups. Then $G_{\sigma}^o$ is generated by elements which fix $\sigma$. So $G_{\sigma}^o\subset H$.
+\end{proof}
+
+\subsection{Symmetric pair}
+%--------------------------
+
+Let $G$ be a connected Lie group and $H$, a closed subgroup.
+\begin{definition}
+We say that $(G,H)$ is a \defe{symmetric pair}{symmetric!pair} if there exists an analytic involutive automorphism\index{involutive!automorphism} $\dpt{\sigma}{\lG}{\lG}$ such that $(H_{\sigma})\subset H\subset H_{\sigma}$
+where $H_{\sigma}$ is the set of fixed points by $\sigma$. If the group $\Ad_G(H)$ is compact, the pair is \defe{Riemannian}{Riemannian symmetric pair}.
+\end{definition}
+Note: by $\Ad_G(H)$ we mean the Lie subgroup of $\Ad_G(G)$ which is the image of $H$ by $\Ad_G$.
+
+
+\begin{proposition}
+Let $(G,K)$ be a Riemannian symmetric pair and $\lK$ the Lie algebra of $K$. We denote by $\mZ$ the center of the Lie algebra $\lG$. If $\lK\cap\mZ=\{0\}$, then there exists one and only one analytic involutive automorphism $\sigma$ of $G$ such that $(K_{\sigma})_0\subset K\subset K_{\sigma}$.
+\end{proposition}
+
+\begin{proof}
+The point is the unicity: the existence is contained in the definition of a symmetric pair. Let us consider two such automorphism $\sigma_1$ and $\sigma_2$. As far as the Lie algebras are concerned, the identity component only is relevant. Since $(K_{\sigma_1})_0=(K_{\sigma_1})_0$; thus $\lK_1=\lK_2$. We consider the respective decompositions of $\lG$ for $\sigma_1$ and $\sigma_2$:
+\begin{subequations}
+\begin{align}
+  \lG&=\lK\oplus\lP_1\\
+  \lG&=\lK\oplus\lP_2.
+\end{align}
+\end{subequations}
+where $\lP_i$ is the eigenspace with eigenvalue $-1$ for the automorphism $d\sigma_i$ of $\lG$. Since the Killing form $B$ of $\lG$ is invariant under $\sigma_i$, $\lK$ is $B$-orthogonal to $\lP_i$. Indeed $B(k,p)=B(d\sigma_i k,d\sigma_ip)=-B(k,p)$; then $B(k,p)=0$. Consider $X_1\in\lP_1$ and $T\in\lK$. We have a $X_2\in\lP_2$ such that $X_1=T+X_2$. Since $\lP_i\perp\lK$,
+\[
+  0=B(k,X_1)=B(k,T)+B(k,X_2),
+\]
+then $B(k,T)=0$ and $T\perp\lK$. In particular, $B(T,T)=0$. From proposition \ref{prop:K_Z_Killing}, $B$ is strictly negative definite on $\lK$; then $T=0$ so that $\lP_1=\lP_2$ and $\sigma_1=\sigma_2$.
+
+Now we have to see that the $\lK$ here is actually the $\lK$ of the proposition \ref{prop:K_Z_Killing} in order to see that it is applicable. Since the pair is Riemannian, $\Ad(K)$ --which is the analytic Lie subgroup of $\Int(\lG)$ image of $K$ by $\Ad$-- is compact. The Lie algebra of $\Ad(K)$ is given by thinks of the form
+\begin{equation}
+  \Dsdd{ \Ad(k(t)) }{t}{0}=d\Ad_e(k'(0))
+                          =\ad k'(0) 
+\end{equation}
+then the Lie algebra of $\Ad(\lK)$ is $\ad(\lK)$. Thus the fact that $\Ad(K)$ is compact is equivalent than the fact that $\lK$ is compactly embedded in $\lG$.
+
+\end{proof}
+
+We can build a symmetric pair from an involutive automorphism\index{involutive!automorphism} $\sigma$ of $G$. Take $H=(G_{\sigma})_0$ and the pair $(G,H)$; it is clear that it is a symmetric pair. However it is not automatically a Riemannian one.
+
+\begin{proposition}
+Consider a Lie algebra $\lG$ and a direct decomposition $\lG=\lH\oplus\lM$. Then the map $\sigma=id_{\lH}\oplus(-id)_{\lM}$ is an automorphism of $\lG$ if and only if
+\begin{subequations}
+\begin{align}
+  [\lM,\lM]&\subset\lH\\
+  [\lH,\lM]&\subset\lM
+\end{align}   
+\end{subequations}
+\label{prop:invol_ssi_comm}
+\end{proposition}
+
+\begin{proof}
+We just have to compute $\sigma[h+m,h'+m']$ and $[\sigma(h+m),\sigma(h'+m')]$ and see under which conditions it is equal.
+\end{proof}
+
+\subsubsection{Example: Lie group}
+%-------------------------------
+
+Let $L$ be a Lie group endowed with the structure\index{symmetric!space!Lie group}
+\begin{equation}
+  s_xy=xy^{-1} x.
+\end{equation}
+It is immediate to check that $\forall x,y\in L$,  $(s_x\circ s_x)(y)=y$ and $s_x\circ s_y\circ s_x=s_{s_x(y)}$. In order to see that $x$ is an isolated fixed point of $s$, first remark that 
+\[
+    x(s_y(z))=(xy)(xz)^{-1}(xy)=s_{xy}(xz),
+\]
+so that one just needs to check the property on $s_e$ because the left translation is analytic. Since $s_e(y)=y^{-1}$, the property follows from the fact that $e$ is an isolated fixed point for the inversion in a topological group.
+
+\subsubsection{Example: homogeneous spaces}\index{homogeneous!space}
+%---------------------------------------
+
+Let $L$ be a connected Lie group with an involutive automorphism\index{involution!automorphism}, and $L\hsigma$ the set of fixed points by $\sigma$. We consider a subgroup $K$ such that $L_0\hsigma\subset K\subset L\hsigma$. The space $L\hsigma$ is closed because it is defined by some equalities. The theorem \ref{tho:H_ferme} assure us that as topological Lie subgroup of $L$, $K$ is also closed.
+ 
+Now we consider $M=L/K$ and for $x\in L$, we define the translations $\dpt{\tau(x)}{M}{M}$, $\tau(x)[y]=[xy]$ where the classes are defined with respect to $K$: $[x]=[xk]$ for any $k\in K$. We also define
+\begin{equation}
+   L_{\sigma}=\{ x\sigma(x)^{-1}:x\in L \};
+\end{equation}
+this is the space of the \defe{symmetric elements}{symmetric!elements} of $L$.
+
+
+
+\subsection{Symmetric spaces as quotient}
+%----------------------------------------
+
+We saw in the previous subsection that an affine symmetric space gives rise to a homogeneous space $G/H$ and an involutive automorphism $\sigma$ of $G$. From now we define a \defe{symmetric space}{symmetric!space} as a triple $(G,H,\sigma)$ where
+
+\begin{itemize}
+\item $G$ is a Lie group,
+\item $H$ is a closed subgroup of $G$,
+\item $\sigma$ is an involutive automorphism of $G$ such that $G_{\sigma}^0\subset H\subset G_{\sigma}$
+\end{itemize}
+where $G_{\sigma}=\{g\in G\tq \sigma(g)=g\}$. The space is \defe{effective}{effective!symmetric space} if the largest normal subgroup $N$ of $G$ contained in $H$ reduces to the identity. As $N$ is normal in $G$ and contained in $H$, the quotients $G/N$ and $H/N$ admits a canonical group structure. 
+
+Here, we will suppose that $G$ is connected, but it is not an important issue.
+
+\begin{proposition}
+If $\sigma'$ is the involutive automorphism on $G/N$ induced from $\sigma$ and $(G,H,\sigma)$ is a symmetric space, then $(G/N,H/N,\sigma')$ is an effective symmetric space.
+\end{proposition}
+
+Remark that $\sigma'$ is well defined because, from definition, $\sigma'([g])=[\sigma(g)]$, then for $h\in H$
+\begin{equation}
+\sigma'[gh]=[\sigma(g)\sigma(h)]
+           =[\sigma(g)h]
+           =[\sigma(g)]
+\end{equation}
+because $H\subset G_{\sigma}$ implies $\sigma(h)=h$.
+
+\begin{proof}
+Let $S$ be a normal subgroup of $G/N$ contained in $G/H$. From the definitions, $S=\{id\}$. Indeed $S\subset H/N$; let $[a]\in S$ and $[g]\in G/N$. The first point is that $[gag^{-1}]\in S$. On the other hand if $[a]\in S$, then $a\in H$ because $S\subset H/N$ and $N\subset H$. Then for all representative $g$ of $[g]$, $gag^{-1}\in H$. In particular for all $g\in G$, $gag^{-1}\in H$ and $a\in H$. From this, the thesis is immediate.
+\end{proof}
+
+Following definition \ref{def:esp_sym} of a symmetric space, we should define good symmetries on $G/H$ from the data of $(G,H,\sigma)$. At $\mfo\in G/H$, we define $s_{\mfo}=\sigma'$. Let $g\cdot\mfo=[g]$ be a fixed point of $s_{\mfo}$ for a certain $g\in G$. Hence $\sigma'([g])=[g]$, but from the definition of $\sigma'$, we also have $\sigma'(g\cdot \mfo)=[\sigma(g)]$. Then $\sigma(g)\in[g]$. Let $h=g^{-1}\sigma(g)\in H$. Since $\sigma(h)=h$, $h^2=h\sigma(h)$, but $\sigma(h)=\sigma(g^{-1}\sigma(g))$, then $h^2=e$.
+Since $\sigma$ is an automorphism, if $g$ is near the identity, then $h$ will be too and $h^2=e$. So $g$ is near the identity and invariant under $\sigma$, then $g\in G_{\sigma}^0\subset H$ and $g\cdot\mfo=\mfo$.
+
+Let $x=g\cdot\mfo$. We set
+\[
+   s_x=g\circ s_{\mfo}\circ g^{-1}.
+\]
+As a first remark, the choice of $g\in G$ such that $x=g\cdot\mfo$. Indeed consider a $k\in G$ such that $gk\cdot\mfo=x=g\cdot\mfo$; we must show that $s_x=gks_{\mfo}k^{-1} g^{-1}$. Since $k\in H$, it is sufficient to prove that for all $h\in H$, $h\circ s_{\mfo}=s_{\mfo}$. For this, let $[g]\in G/H$.
+\begin{equation}
+s_{\mfo}[h^{-1} g]=[\sigma(h^{-1})\sigma(g)]
+    =[h^{-1} \sigma(g)]
+    =h^{-1} s_{\mfo}[g],
+\end{equation}
+so that $(hs_{\mfo}h^{-1})=s_{\mfo}[g]$.
+
+The \defe{transvection group}{transvection group} is the subgroup of $\Aut(M,\omega,s)$ spanned by 
+\[ 
+  \{ s_x\circ s_y\tq x,y\in M \}.
+\]
+
+The definition of $s_x$ also fulfils $s_x\circ s_y\circ s_x^{-1}=s_{  s_x(y)  }$. In order to see it, let us consider $x=g\cdot\mfo$ and $y=k\cdot\mfo$.
+\begin{equation}
+s_x\circ s_y\circ s_x^{-1}=g s_{\mfo}g^{-1} ks_{\mfo}k^{-1} gs_{\mfo}^{-1} g^{-1}
+                 =s_{ (gs_{\mfo}g^{-1} k)\cdot\mfo }
+                 =s_{s_xy}y.
+\end{equation}
+  
+
+\subsection{Symmetric Lie algebras}
+%-----------------------------------
+
+A \defe{symmetric Lie algebra}{symmetric!Lie algebra} is a triple $(\lG,\lH,\sigma)$ with
+
+\begin{itemize}
+\item $\lG$: a Lie algebra,
+\item $\lH$: a Lie subalgebra of $\lG$,
+\item $\sigma$: an involutive automorphism of $\lG$ whose $\lH$ is the set of fixed points.
+\end{itemize}
+
+\begin{proposition}
+Every symmetric space $(G,H,\sigma)$ gives rise to a symmetric Lie algebra $(\lG,\lH,\sigma')$ with $\lG$ and $\lH$ being the Lie algebras of $G$ and $H$ while $\sigma'=d\sigma_e$.
+\end{proposition}
+
+\begin{proof}
+If $X\in \lH$, one has $d\sigma_eX=\Dsdd{\sigma e^{tX}}{t}{0}$. Since $\lH$ is the Lie algebra of a Lie subgroup of $G$, equation \eqref{eq:path_alg} makes
+\[
+  \lH=\{X\in\lG\tq t\to e^{tX}\,\text{is a path in $H$}\}.
+\]
+Then $e^{tX}\in H$ for all $t$ and $\sigma(e^{tX})=e^{tX}\in H$ because $H\subset G_{\sigma}$. This proves that the elements of $\lH$ are fixed by $\sigma'$.
+
+Let us see the converse. If $X$ is fixed by $\sigma'$
+\[
+  d\sigma_eX=\Dsdd{\sigma(e^{tX})}{t}{0}\stackrel{!}{=}X=\Dsdd{e^{tX}}{t}{0}.
+\]
+This equation shows that $e^{tX}$ and $\sigma e^{tX}=e^{t\sigma' X}$ are two exponential path whose start at the same point with the same tangent vector. They are equals on a neighbourhood of $e$. In this case, $\sigma(e^{tX})=e^{tX}$ and $e^{tX}\in H$. This gives $X\in \lH$.
+
+\end{proof}
+
+The association of a symmetric space to a symmetric Lie algebra is less automatic. Let $(\lG,\lH,\sigma')$ be a symmetric Lie algebra. We first have to find a connected, simply connected Lie group $G$ whose Lie algebra is $\lG$. From this we define $\dpt{\sigma}{G}{G}$ by
+\[
+  \sigma(e^X)=e^{\sigma'X}.
+\]
+This is a local definition. Under analyticity hypothesis, one can extend $\sigma$ into the whole $G$. Now one can take any subgroup $H$ of $G$ such that $G_{\sigma}^0\subset H\subset G_{\sigma}$ to complete the symmetric space $(G,H,\sigma)$.
+
+\begin{probleme}
+Il est dit que $H$ est ferm\'e parce qu'il est inclu \`a $G_{\sigma}$ qui l'est.
+\end{probleme}
+
+\subsubsection{Symmetric and reductive Lie algebras}
+%////////////////////////////////////////////////////
+
+Let $(\lG,\lH,\sigma)$ be a symmetric Lie algebra. As linear transformation of the vector space, $\sigma$ has eigenvalues $1$ and $-1$ (because it is involutive) and then induces a decomposition
+\begin{equation}
+\lG=\lH\oplus\lM
+\end{equation}
+where $\lH$ is the $+1$ eigenspace and $\lM$ the $-1$ eigenspace. This is the \defe{canonical decomposition}{canonic!decomposition!of a symmetric Lie algebra}. It is easy to see that this decomposition fulfils
+\begin{equation}  \label{eq:propreduc}
+[\lH,\lH]\subset\lH,\quad[\lH,\lM]\subset\lM,\quad[\lM,\lM]\subset\lH.
+\end{equation}
+On the one hand, if it exists, the homogeneous space $G/H$ is automatically reductive. On the other hand if we have a Lie algebra $\lG$ and a decomposition $\lG=\lH\oplus\lM$ which fulfils \eqref{eq:propreduc}, then definition $\sigma=\id_{\lH}\oplus(-\id)_{\lM}$ gives a symmetric Lie algebra $(\lG,\lH,\sigma)$.
+
+A homogeneous space is symmetric if and only if it is reductive.
+
+\begin{proposition}
+Let $(G,H,\sigma)$ a symmetric space, $(\lG,\lH,\sigma')$ the corresponding symmetric Lie algebra and $\lG=\lH\oplus\lM$ its canonical decomposition. Then
+\[
+   \Ad(H)\lM\subset\lM.
+\]
+\end{proposition}
+
+\begin{proof}
+If $X\in\lM$ and $h=e^Y\in H$, then
+\begin{align*}
+\sigma'(\Ad(e^Y)X)=\Ad(e^{\sigma'Y})(\sigma'X)
+                  =\Ad(\sigma h)(\sigma'X)
+                  =\Ad(h)(-X)
+                  =-\Ad(h)X
+\end{align*}
+because $\sigma h=h$ and $\sigma'X=-X$. So $\Ad(h)X\in\lM$ because it has eigenvalue $-1$ for $\sigma$.
+\end{proof}
+
+\subsubsection{An affine example}
+%////////////////////////////////
+
+Let $M$ be an affine locally symmetric $n$-dimensional space. We consider $x\in M$, $\lM=T_xM$ and the curvature tensor $R_x$. Let $\lH$ be the set of linear endomorphism $\dpt{U}{T_xM}{T_xM}$ which sends $R_x$ on zero. More precisely an endomorphism of $T_xM$ extends to a derivation of the tensor algebra with the definition
+\begin{equation} \label{eq:defHa}
+(U\cdot R_x)(X,Y)=U\big( R_x(X,Y) \big)-R_x(UX,Y)-R_x(X,UY)-R_x(X,Y)\circ U.
+\end{equation}
+In order to understand the last term, let us recall ourself that the curvature is given, from the connection $\dpt{\nabla}{\cvec(M)\times\cvec(M)}{\cvec(M)}$ by formula
+\[
+  R(X,U)Z=\nabla_X\nabla_Y Z-\nabla_Y\nabla_XZ-\nabla_{[X,Y]}Z.
+\]
+So one can see pointwise $\dpt{R_x}{T_xM\times T_xM}{\End(T_xM)}$. Now we define $\lH$ by the condition $(U\cdot R_x)(X,Y)=0$ for all $X$, $Y\in\lM$. One can prove that $\lH$ is a Lie algebra for the usual bracket.
+
+Remark that for all $X$, $Y\in\lM$, the endomorphism $R_x(X,Y)$ belongs to $\lH$ because $R(X,Y)=[\nabla_X,\nabla_Y]-\nabla_{[X,Y]}$ and $\nabla R=0$. We consider the direct sum $\lG=\lM\oplus\lH$ on which we put a Lie algebra structure by defining
+\begin{subequations}
+\begin{align}
+[X,Y]&=-R(X,Y)&X,Y\in\lM\\
+[U,X]&=UX&U\in\lH,X\in\lM\\
+[U,V]&=[U,V]&U,V\in\lH.
+\end{align}
+\end{subequations}
+We have to check the Jacobi identities. The first case is $X,Y$, $Z\in\lM$. It gives $[X,Y]=-R(X,Y)\in\lH$, then $[[X,Y],Z]=-R(X,Y)Z$ and the cyclic sum is zero from Bianchi. If $X$, $Y\in\lM$ and $U\in\lH$, then
+\begin{subequations}
+\begin{align}
+[[X,Y],U]&=-[R(X,Y),U]=-R(X,Y)\circ U+U\circ R(X,Y)\\
+[[Y,U],X]&=[-UY,X]=R(UY,X)\\
+[[U,X]Y]&=[UX,Y]=R(UX,Y).
+\end{align}
+\end{subequations}
+From definition \eqref{eq:defHa}, the sum of these three terms is zero. The last case, $U$, $V\in\lH$, $X\in\lM$, is easy.
+
+With all that, the algebra $\lG=\lM\oplus\lH$ becomes a Lie algebra satisfying \eqref{eq:propreduc}. Then it gives rise to a symmetric Lie algebra with $\sigma=\id_{\lM}\oplus(-\id)_{\lH}$
+
+
+\subsection{Connection on symmetric spaces} \index{connection!on symmetric spaces}
+%------------------------------------------
+
+We use theory from \cite{Loos}. First, we extend the notion of tangent bundle. Consider a smooth curve $\dpt{c}{\eR}{M}$. Its \defe{acceleration}{acceleration} $\ddot c(0)$ at the point $c(0)$ is defined by its action on a function $\dpt{f}{M}{\eR}$:
+\begin{equation}
+  \ddot c(0)j=\frac{d^2}{dt^2}\big( f(c(t))\big)
+\end{equation}
+with usual abuse of notation. The set of such accelerations at $x$ is denoted by $T^2_xM$, and we naturally define the bundle $T^2M$ with a suitable manifold structure. The set of sections of $T^2M$ is logically denoted by $\cvec^2(M)$. If $X$, $Y\in\cvec(M)$, we define the \defe{symmetric product}{symmetric!product} by
+\begin{equation}
+X\ltimes Y=\frac{1}{2}(X\otimes Y+Y\otimes X),
+\end{equation}
+and the ``composition product''
+\begin{equation}
+  X\bullet Y=\pr_{T^2M} XY,
+\end{equation}
+or in local coordinates
+\[ 
+  (X\bullet Y)_x f= X^i(x)Y^j(x)\left.\frac{\partial^2f}{\partial x_i\partial x_j}\right|_x.
+\]
+We finally define, for $X$, $Y\in\cvec(M)$
+\begin{equation}
+\left\{
+\begin{aligned}
+  P_2(X,Y)&=\frac{1}{2}(X\otimes Y+Y\otimes X)\\
+  P_2(X)&=0.
+\end{aligned}
+\right. 
+\end{equation}
+
+\begin{lemma}
+For each connection on $TM$, there exists one and only one connection form $\dpt{\Gamma}{\cvec(M)\times\cvec(M)}{T^2M}$ such that
+\begin{equation} \label{eq:PdGamlt}
+  P_2(\Gamma(X,Y))+X\ltimes Y=0.
+\end{equation}
+The correspondence is given by
+\begin{equation}
+  \nabla_XY=XY+\Gamma(X,Y)
+\end{equation}
+
+
+\begin{proof}[Sketch of proof]
+Let us just give the link between equation \eqref{eq:PdGamlt} and our general culture about Christoffel symbols\index{Christoffel symbol}. The general form of a $\Gamma(X,Y)\in T^2M$ which is bilinear with respect to $X$ and $T$ is
+\[ 
+  \Gamma(X,Y)=X^kY^l\Gamma_{kl}^{ij}\partial^2_{ij}+X^kY^l\Gamma_{kl}^i\partial_i.
+\]
+If we look at the coefficient of $\partial_i\otimes\partial_j$ when we impose the condition
+\[ 
+  X^kY^l\Gamma_{kl}^{ij}\frac{1}{2}(\partial_i\otimes\partial_j+\partial_j\otimes\partial_i)+\frac{1}{2}(X^iY^j\partial_i\otimes\partial_j+X^iY^j\partial_j\otimes\partial_i)=0,
+\]
+we find
+\[ 
+  X^kY^l(\Gamma_{kl}^{ij}+\Gamma_{kl}^{ji})=-X^iY^j.
+\]
+If we suppose that $\Gamma_{kl}^{ij}$ is symmetric with respect to $ij$, we find $\Gamma_{kl}^{ij}=-\frac{1}{2}\delta_j^i\delta_l^j$, so
+\begin{equation}
+ \Gamma(X,Y)=-\frac{1}{2}X^iY^j\partial^2_{ij}+X^kY^l\Gamma_{kl}^i\partial_i.
+\end{equation}
+
+
+\end{proof}
+
+
+\end{lemma}
+
+Let us now consider a manifold $M$ with a product $\mu(x,y)=x\cdot y$ which is $s_xy$ in the case of a symmetric space. It induces a product on $TM$ by the following formula:
+\begin{equation}  \label{eq:defcdotXY}
+(X\cdot Y)f=(X\otimes Y)(f\circ \mu).
+\end{equation}
+More explicitly, the function $\dpt{f\circ\mu}{M\times M}{\eR}$ has two entries; the product $X\otimes Y$ apply with $X$ on the first entry and $Y$ on the second one:
+\[ 
+  (X\cdot Y)_xf=\DDsdd{ (f\circ\mu)(X_x(t),Y_x(s)) }{t}{0}{s}{0}
+\]
+where $\dpt{X_x,Y_x}{\eR}{M}$ are path defining $X_x$ and $Y_x\in T_xM$. We can extend pointwise this product to a product between vector fields: $(X\cdot Y)_x=X_x\cdot Y_x$ when $X$, $Y\in\cvec(M)$.
+
+An easy adaptation of equation \eqref{eq:defcdotXY} defines $X\cdot x$ when $X\in T_pM$ and $x\in M$:
+\begin{equation}
+(X\cdot p)f=(u\otimes p)(f\circ\mu)=\Dsdd{ f\big( u(t)\cdot p \big) }{t}{0}
+\end{equation}
+because the expression $(u\otimes\mu)(f\circ \mu)$ suggests to put $u$ in the first entry of $\mu$ and $p$ in the second one.
+It defines a $X\cdot p\in T_pM$. From $v\in T_oM$, we can build $\tilde v\in\cvec(M)$ by
+\begin{equation}
+  \tilde v_p=\frac{1}{2}v\cdot(o\cdot p),
+\end{equation}
+explicitly:
+\[ 
+  \tilde v_pf=\frac{1}{2}\Dsdd{ f\big( v(t)\cdot(o\cdot p) \big) }{t}{0}
+\]
+
+\begin{theorem}
+  When $X$, $Y\in\cvec(M)$, formula
+\begin{equation}
+   \Gamma(X,Y)=\frac{1}{2}X\cdot Y
+\end{equation}
+defines a connection on $M$.
+
+\end{theorem}
+
+\begin{proof}
+ Since $XY=X(Y^i\partial_i+X^iY^j\partial_{ij}$, we immediately see that  $P_2(XY)=X\ltimes T$;
+it remains to be proved that $-v\tilde u=\frac{1}{2}u\cdot v$ for all $u$, $v\in T_oM$. This is a computation using the definitions:
+\begin{equation}
+\begin{split}
+   (v\tilde u)f=v(\tilde u f)&=\Dsdd{ (\tilde u f)_{v(s)} }{s}{0}\\
+		&=\Dsdd{     \frac{1}{2}\Dsdd{ f\big( u(t)\cdot (o\cdot v(s)) \big) }{t}{0}       }{s}{0}\\
+		&=\frac{1}{2}\Dsdd{   (df\circ d\mu_{u(t)}\circ \underbrace{d\mu_o}_{=-\mtu})v   }{t}{0}\\
+		&=-\frac{1}{2}\Dsdd{ df\circ d\mu_{u(t)}v }{t}{0}\\
+		&=-\frac{1}{2} \DDsdd{ f\big( u(t)\cdot v(s) \big) }{t}{0}{s}{0}\\
+		&=-\frac{1}{2}(u\cdot v)f.
+\end{split}
+\end{equation}
+\end{proof}
+
+\subsection{Canonical connection and covariant derivative}  \label{subsecCanConCovDer}
+%----------------------------------------------------------
+
+Let $G$ be a Lie group, $H$ a closed Lie subgroup and let us consider the principal bundle
+\begin{equation}
+\xymatrix{%
+   H \ar@{~>}[r]		&	G\ar[d]^{\pi}\\
+   				&	G/H
+ }
+\end{equation}
+with the action of $H$ on $G$ being defined by $g\cdot h=gh$ and $\pi$ being the canonical projection. We have a canonical identification $T_{[e]}(G/H)=\mG/\mH$. We suppose that $G$ is connected and that $(G,H)$ is a symmetric pair: we have an involutive automorphism $\sigma\colon G\to G$ for which $H$ is the set of fixed points. We suppose moreover that $H$ does not contain non trivial normal subgroups. Let $\mQ$ be the space of vector such that $d\sigma(X)=-X$. By the canonical projection parallel to $\mH$, we have an identification $\mQ=\mG/\mH$.
+
+When $g\in G$, we define
+\begin{equation}
+\begin{aligned}
+ r(g)\colon \mQ&\to T_{[g]}(G/H) \\ 
+  X&\mapsto d\pi dL_gX.
+\end{aligned}
+\end{equation}
+We have $r(g)=r(g')$ when there exists a $h\in H$ such that $g'=gh$ and $\rho(h)=\id$ where $\rho$ is defined by
+\begin{equation}
+\begin{aligned}
+ \rho(t)\colon \mQ&\to \mQ \\ 
+  X&\mapsto dL_t(X) 
+\end{aligned}
+\end{equation}
+for all $t\in H$. This definition works because of the identification $\mQ=\mG/\mH$.
+

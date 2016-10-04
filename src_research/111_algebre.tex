@@ -1,0 +1,1087 @@
+% This is part of (almost) Everything I know in mathematics and physics
+% Copyright (c) 2013-2014
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Hopf algebras}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Convolution product}
+%---------------------------------------------------------------------------------------------------------------------------
+
+We define the \defe{convolution product}{convolution!over a bialgebra} between two linear maps $f,g\colon \cA\to \cA$ by
+\begin{equation}
+f\star g=\mu(f\otimes g)\Delta
+\end{equation}
+
+\begin{lemma}
+The map $\eta\circ\epsilon$ is a neutral for the convolution product.
+\end{lemma}
+
+ \begin{proof}
+First, notice that in general, $(\eta\circ\epsilon)(a)=\epsilon(a)1$. Let now consider $a\in\cA$ and $a_1$, $a_2\in\cA$ such that $\Delta(a)=a_1\otimes a_2$. We look at
+\begin{equation} 
+  \mu(f\otimes g)\Delta(a)=f(a_1)g(a_2)
+\end{equation}
+which, using linearity of $g$, becomes $\mu(\eta\circ\epsilon\otimes g)\Delta(a)=\epsilon(a_1)1g(a_2)=\epsilon(a_1)g(a_2)=g\big( \epsilon(a_1)a_2 \big)$. Now if we see $\epsilon(a_1)a_2\in \eK\otimes\cA$, using the commutativity of the second diagram in \eqref{EsDigcococo}, we deduce $\Delta\big( \epsilon(a_1)a_2 \big)=a_1\otimes a_2=\Delta(a)$, so that $\epsilon(a_1)a_2=a$ by injectivity of $\Delta$.
+
+In the same way, we prove that $a_1\epsilon(a_2)=a$ and that, consequently, 
+\[ 
+  \mu(f\otimes\eta\circ\epsilon)\Delta(a)=f\big( a_1\epsilon(a_2) \big)=f(a).
+\]
+\end{proof}
+
+A bialgebra is a Hopf algebra if the identity map $\id\colon \cA\to \cA$ is invertible for the convolution product. In that case the inverse is denoted by $S$ and is called \defe{antipode}{antipode}. The defining property of $S$ is
+\[ 
+  S\star \id=\id\star S=\eta\circ\epsilon.
+\]
+That can equivalently be expressed by the commutativity of the diagram
+\begin{equation}
+    \xymatrix{%
+    A\otimes A\ar[d]_{\id\otimes S}         &   A\ar[l]_-{\Delta}\ar[r]^-{\Delta}\ar[d]_{\eta\circ\epsilon}           &       A\otimes A\ar[d]^{S\otimes \id}\\
+    A\otimes A\ar[r]_-{\mu}                  &   A                                                                   &       A\otimes A\ar[l]^-{\mu}.
+       }
+\end{equation}
+
+\begin{definition}      \label{DefHopfAlgebra}
+    A tuple \( (A,\mu,\eta,\Delta,\epsilon,S )\) is a \defe{Hopf algebra}{Hopf algebra} if the maps
+    \begin{equation}
+        \begin{aligned}[]
+            \mu&\colon A\otimes A\to A   &   \Delta&\colon A\to A\otimes A    &   S&\colon A\to A\\
+            \eta&\colon \eK\to A         &  \epsilon&\colon A\to A
+        \end{aligned}
+    \end{equation}
+    satisfy
+    \begin{enumerate}
+        \item
+            \( (A,\mu,\eta)\) is an associative algebra:       
+            \begin{subequations}
+                \begin{align}
+                    \mu(\mu\otimes\id)=\mu(\id\otimes\mu)\\
+                    \mu(\eta\otimes\id)=\mu(\id\otimes\eta),
+                \end{align}
+            \end{subequations}
+        \item
+            \( (A,\Delta,\epsilon)\) is a coassociative coalgebra:
+            \begin{subequations}
+                \begin{align}
+                    (\id\otimes\Delta)\Delta=(\Delta\otimes\id)\Delta\\
+                    (\id\otimes\epsilon)\Delta=(\epsilon\otimes\id)\Delta=\id,      \label{EqformCounitDef}
+                \end{align}
+            \end{subequations}
+        \item
+            the compatibility relations \eqref{EqSixBialgebraformdef} which turn \( (A,\mu,\eta,\Delta,\epsilon)\) into a bialgebra:
+            \begin{subequations}
+                \begin{align}
+                    \Delta\mu&=\mu(\Delta\otimes\Delta)&\epsilon\mu&=\mu(\epsilon\otimes\epsilon)\\
+                    \Delta(1)&=1\otimes 1   &\epsilon(1)&=1,
+                \end{align}
+            \end{subequations}
+        \item
+            \( S\) is an antipode:
+            \begin{equation}        \label{EqDefPorpAntipode}
+                \mu(\id\otimes S)\Delta=\mu(S\otimes\id)\Delta=\eta\epsilon.
+            \end{equation}
+    \end{enumerate}
+    In all these conditions, we identify \( A=A\otimes \eK=\eK\otimes A\).
+\end{definition}
+
+\begin{lemma}       \label{LemSuuSetaeta}
+    We have 
+    \begin{enumerate}
+        \item       \label{ItemLemSuuSetaetai}
+            \( S(1)=1\) and \( S\circ\eta=\eta\);
+        \item       \label{ItemLemSuuSetaetaii}
+            \( S\mu=\mu(S\otimes S)\sigma\) where \( \mu\) is the multiplication on \( A\) and \( \sigma\) is the flip operator on \( A\otimes A\).
+    \end{enumerate}
+    
+\end{lemma}
+
+\begin{proof}
+    On the one hand we have \( 1=(\eta\circ\epsilon)(1)\) and on the other hand, by the property \eqref{EqDefPorpAntipode} of the antipode,
+    \begin{equation}
+        (\eta\circ\epsilon)(1)=\mu(S\otimes \id)\Delta(1)=S(1)
+    \end{equation}
+    because \( \Delta(1)=1\otimes 1\). Thus \( S(1)=1\). Now if \( z\in\eK\), we have \( \eta(z)=z\cdot 1 \) and \( S(z\cdot 1)=zS(1)=z\cdot 1\). This proves \ref{ItemLemSuuSetaetai}.
+
+    The statement \ref{ItemLemSuuSetaetaii} is a reformulation of the identity \( S(ab)=S(b)S(a)\).
+\end{proof}
+
+\begin{proposition}
+    The antipode satisfies
+    \begin{equation}
+        \Delta\circ S=\sigma(S\otimes S)\Delta=(S\otimes S)\sigma\Delta.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    We will prove that \( \Delta S\) and \( \sigma(S\otimes S)\Delta\) are both inverses of \( \Delta\) in a well chosen algebra. We consider $F=L(A,A\otimes A)$ with the product 
+    \begin{equation}
+        f\star g=m_2(f\otimes g)\Delta
+    \end{equation}
+    where
+    \begin{equation}
+        m_2=(\mu\otimes\mu)(\id\otimes \sigma\otimes\id).
+    \end{equation}
+    The product \( m_2\) is the one introduced in equation \eqref{EqDefmdeuxAAotAAmtAA}. Note that \( f\star g\colon A\to A\otimes A\). The unit of that algebra is \( \eta_2\epsilon\) where \( \eta_2=\eta\otimes \eta\). That function \( A\to A\otimes A\) has to be understood as identifying \( \eK=\eK\otimes\eK\) and then
+    \begin{equation}
+        \eta_2\epsilon(a)=(\eta\otimes\eta)\epsilon(a)(1\otimes 1)=\epsilon(a)1\otimes 1.
+    \end{equation}
+    In the latter formula the ``\( 1\)'' is the unit in \( A\). Let us show that this is the unit of the algebra \( F\). As far as the notations are concerned, we write \( \Delta(a)=\sum_ia_i\otimes b_i\) and  \( f(b_i)=\sum_k f_k(b_i)\otimes g_k(b_i)\), so
+    \begin{equation}
+        \begin{aligned}[]
+            (\eta_2\epsilon\star f)(a)&=m_2(\eta_2\epsilon\otimes f)\Delta(a)\\
+            &=\sum_i(\mu\otimes\mu)(\id\otimes\sigma\otimes\id)(\eta_2\epsilon\otimes f)(a_i\otimes b_i)\\
+            &=\sum_i(\mu\otimes\mu)(\id\otimes\sigma\otimes\id)\big( \epsilon(a_i)1\otimes 1\otimes f(b_i) \big)\\
+            &=\sum_{ik}\epsilon(a_i)(\mu\otimes\mu)(\id\otimes\sigma\otimes\id)\big( 1\otimes 1\otimes f_k(b_i)\otimes g_k(b_i) \big)\\
+            &=\sum_{ik}\epsilon(a_i)(\mu\otimes\mu)\big( 1\otimes f_k(b_i)\otimes 1\otimes g_k(b_i) \big)\\
+            &=\sum_{ik}\epsilon(a_i)f_k(b_i)\otimes g_k(b_i)\\
+            &=\sum_i\epsilon(a_i)f(b_i)\\
+            &=\sum_if\big( \epsilon(a_i)b_i\big)\\
+            &=f(a).
+        \end{aligned}
+    \end{equation}
+    Thus \( \eta_2\epsilon\star f=f\).
+
+    Now in order to check that \( \Delta\circ S\) is an inverse of \( \Delta\), we have to check that
+    \begin{equation}
+        m_2(\Delta\otimes \Delta S)\Delta=\eta_2\epsilon.
+    \end{equation}
+
+    Notice that \( \eta_2\) satisfies \( \Delta\eta\epsilon=\eta_2\epsilon\). Indeed \( \Delta(1)=1\otimes 1\) and \( \eta\epsilon(a)=\epsilon(a)1\), so
+    \begin{equation}
+        \Delta\eta\epsilon(a)=\epsilon(a)1\otimes\epsilon(a)1=(\eta\otimes \eta)(a).
+    \end{equation}
+    Using the formula \eqref{EqDelMumdex} we have
+    \begin{equation}
+        \begin{aligned}[]
+            m_2(\Delta\otimes\Delta S)\Delta&=m_2(\Delta\otimes\Delta)(\id\otimes S)\Delta\\
+            &=\Delta\mu(\id\otimes S)\Delta\\
+            &=\Delta\eta\epsilon\\
+            &=\eta_2\epsilon.
+        \end{aligned}
+    \end{equation}
+    Thus \( \Delta\circ S\) is an inverse of \( \Delta\) in the algebra \( F\). Let us now check that \( \sigma(S\otimes S)\Delta\) is also an inverse of \( \Delta\). We introduce the short hand notation \( \Delta^3=(\Delta\otimes \Delta)\Delta\). Let us show that this operator satisfies
+    \begin{equation}        \label{EqDDDrelDifetc}
+        (\Delta\otimes\Delta)\Delta=(\id\otimes\Delta\otimes\id)(\id\otimes\Delta)\Delta.
+    \end{equation}
+    Using the relation \( (\id\otimes\Delta)\Delta=(\Delta\otimes\id)\Delta\) we have
+    \begin{equation}
+        \begin{aligned}[]
+            (\Delta\otimes\Delta)\Delta&=(\Delta\otimes\id\otimes\id)(\id\otimes\Delta)\Delta\\
+            &=(\Delta\otimes\id\otimes\id)(\Delta\otimes\id)\Delta\\
+            &=\big( (\Delta\otimes\id)\Delta\otimes\id \big)\Delta\\
+            &=\big( (\id\otimes\Delta)\Delta\otimes\id \big)\Delta\\
+            &=(\id\otimes\Delta\otimes\id)(\Delta\otimes\id)\Delta\\
+            &=(\id\otimes\Delta\otimes\id)(\id\otimes\Delta)\Delta.
+        \end{aligned}
+    \end{equation}
+    
+    We have
+    \begin{equation}
+        \begin{aligned}[]
+            \diamondsuit&=m_2(\Delta\otimes\sigma(S\otimes S)\Delta)\Delta\\
+            &=m_2\Big[ (\id\otimes\id)\otimes\big( \sigma(S\otimes S) \big) \Big](\Delta\otimes \Delta)\Delta\\
+            &=m_2\sigma_{34}(\id\otimes\id\otimes S\otimes S)\Delta^3\\
+            &=(\mu\otimes\mu)(\id\otimes\sigma\otimes\id)\sigma_{34}(\id\otimes\id\otimes S\otimes S)\Delta^3
+        \end{aligned}
+    \end{equation}
+    where \( \sigma_{34}\) is the flip of the third and fourth component in \( A\otimes A\otimes A\otimes A\). Now we have
+    \begin{equation}
+        (\id\otimes\sigma\otimes \id)\sigma_{34}(a\otimes b\otimes c\otimes d)=(\id\otimes\sigma\otimes\id)(a\otimes b\otimes d\otimes c)=a\otimes d\otimes b\otimes c,
+    \end{equation}
+    thus \( (\id\sigma\otimes \id)\sigma_{34}=\sigma_{234}\) where \( \sigma_{234}\) is the cyclic permutation \( a\otimes b\otimes c\otimes d\mapsto a\otimes d\otimes b\otimes c\). Using that and the relation \eqref{EqDDDrelDifetc} we continue the computation:
+    \begin{subequations}
+        \begin{align}
+            \diamondsuit&=(\mu\otimes\mu)\sigma_{234}(\id\otimes\id\otimes S\otimes S)\Delta^3\\
+            &=\Big[ \mu(\id\otimes S)\otimes\mu(\id\otimes S) \Big]\sigma_{234}(\Delta\otimes \Delta)\Delta\\
+            &=\Big[ \mu(\id\otimes S)\otimes\mu(\id\otimes S) \Big]\sigma_{234}(\id\otimes\Delta\otimes\id)(\id\otimes\Delta)\Delta\\
+            &=\Big[ \mu(\id\otimes S)\otimes\mu(\id\otimes S) \Big](\id\otimes\id\otimes\Delta)(\id\otimes\sigma)   (\id\otimes\Delta)\Delta.
+        \end{align}
+    \end{subequations}
+    On the last line we did \( \sigma_{234}(\id\otimes\Delta\otimes\id)=(\id\otimes\id\otimes\Delta)(\id\otimes\sigma)\); one checks that equality by applying both sides to \( a\otimes b\otimes c\). In the following lines we use \( (\id\otimes\epsilon)\sigma=\sigma(\epsilon\otimes\id)\):
+    \begin{subequations}
+        \begin{align}
+            \diamondsuit&=\Big[ \mu(\id\otimes S)\otimes \underbrace{\mu(\id\otimes S)\Delta}_{\eta\circ\epsilon} \Big](\id\otimes\sigma)(\id\otimes\Delta)\Delta\\
+            &=\Big[ \mu(\id\otimes S)\otimes\eta \Big](\id\otimes\id\otimes\epsilon)(\id\otimes\sigma)(\id\otimes\Delta)\Delta\\
+            &=\Big[ \mu(\id\otimes S)\otimes\eta \Big](\id\otimes \sigma\underbrace{(\epsilon\otimes\id)\Delta}_{1\otimes\id} )\Delta\\
+            &=\Big[ \mu(\id\otimes S)\otimes\eta \Big](\id\otimes\id\otimes 1)\Delta\\
+            &=\mu(\id\otimes S)\Delta\otimes 1\\
+            &=\eta\epsilon\otimes 1.
+        \end{align}
+    \end{subequations}
+    The last line is the map \( a\mapsto \epsilon(a)1\otimes 1\) and then is the unit for \( L(A,A\otimes A)\).   
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Opposite algebra}
+%---------------------------------------------------------------------------------------------------------------------------
+
+From a Hopf algebra \( (A,\Delta)\) we define the \defe{opposite algebra}{opposite algebra} \( (A,\Delta)^{op}=(A^{op},\Delta)\)\nomenclature[A]{$(A,\Delta)^{op}$}{opposite algebra} and the coopposite coalgebra \( (A,\Delta)^{cop}=(A,\sigma\circ\Delta)\)\nomenclature[A]{$(A,\Delta)^{cop}$}{coopposite algebra}. The opposite and coopposite algebras are not always Hopf algebras.
+
+\begin{lemma}       \label{LemATSopHofounon}
+    Let \( (A,\Delta)\) be a Hopf algebra and a linear map \( T\colon A\to A\). The following statements are equivalent:
+    \begin{enumerate}
+        \item\label{ItemLemATSopHofounoni}
+            the bialgebra \( (A,\Delta)^{op}\) is Hopf with \( T\) as antipode;
+        \item\label{ItemLemATSopHofounonii}
+            \( \mu\circ\sigma\circ(T\otimes\id)\circ\Delta=\mu\circ\sigma\circ(\id\otimes T)\circ\Delta=\eta\circ\epsilon\);
+        \item\label{ItemLemATSopHofounoniii}
+            \( \sum_i b_iT(a_i)=\sum_i T(b_i)a_i=\eta\circ\epsilon(a)\) where \( \Delta a=\sum_i a_i\otimes b_i\);
+        \item\label{ItemLemATSopHofounoniv}
+            \( \mu\circ(\id\otimes T)\circ\sigma\circ\Delta=\mu\circ(T\otimes\id)\circ\sigma\circ\Delta=\eta\circ\epsilon\);
+        \item\label{ItemLemATSopHofounonv}
+            the bialgebra \( (A,\Delta)^{cop}\) is Hopf with \( T\) as antipode.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    The equivalence \ref{ItemLemATSopHofounoni} \( \Leftrightarrow\) \ref{ItemLemATSopHofounonii} is the definition of an antipode. For the equivalence \ref{ItemLemATSopHofounoni} \( \Leftrightarrow\) \ref{ItemLemATSopHofounoniii}, following the definition of an antipode on \( (A,\Delta)^{op}\), the two following lines are equal to \( \eta\epsilon(a)\):
+    \begin{equation}
+        \mu\sigma(T\otimes \id)\Delta a=\sum_i\mu\sigma T(a_i)\otimes b_i=\sum_i b_i T(a_i)
+    \end{equation}
+    while on the other hand
+    \begin{equation}
+        \mu\sigma(\id\otimes T)\Delta a=\mu\sigma a_i\otimes T(b_i)=\sum_i T(b_i)a_i.
+    \end{equation}
+    
+    The equivalence \ref{ItemLemATSopHofounonii} \( \Leftrightarrow\) \ref{ItemLemATSopHofounoniv} is the fact that \( \sigma(\alpha\otimes\beta)=(\beta\otimes \alpha)\sigma\) whenever \( \alpha,\beta\colon A\to A\).
+
+    The equivalence \ref{ItemLemATSopHofounoniv} \( \Leftrightarrow\) \ref{ItemLemATSopHofounonv} is the definition of the antipode on \( (A,\Delta)^{cop}\) since in the latter algebra the comultiplication is given by \( \sigma\circ\Delta\) instead of \( \Delta\).
+
+    The proof is finished.
+\end{proof}
+
+\begin{proposition}     \label{PropAAopAcopHopfSSemu}
+    Let \( (A,\Delta)\) be a Hopf algebra. The following statements are equivalent:
+    \begin{enumerate}
+        \item   \label{ItemPropAAopAcopHopfSSemui}
+            \( S\) is bijective;
+        \item\label{ItemPropAAopAcopHopfSSemuii}
+            \( (A,\Delta)^{op}\) is a Hopf algebra with antipode \( S^{-1}\);
+        \item\label{ItemPropAAopAcopHopfSSemuiii}
+            \( (A,\Delta)^{cop}\) is a Hopf algebra with antipode \( S^{-1}\).
+    \end{enumerate}
+    In this case the antipode of \( (A,\Delta)^{op}\) and \( (A,\Delta)^{cop}\) is given by \( S^{-1}\).
+\end{proposition}
+
+\begin{proof}
+    First we suppose that \( S\) is invertible and we prove that $S^{-1}$ is an antipode for \( (A,\Delta)^{op}\); in this case it will be an antipode for \( (A,\Delta)^{cop}\) by the points \ref{ItemLemATSopHofounoni} and \ref{ItemLemATSopHofounonv} of lemma \ref{LemATSopHofounon}. We have to check that
+    \begin{equation}
+        \mu^{op}(\id\otimes S^{-1})\Delta=\eta\circ\epsilon.
+    \end{equation}
+    First we have
+    \begin{equation}
+        \mu^{op}(\id\otimes S^{-1})\sum_ia_i\otimes b_i=S^{-1}(b_i)a_i.
+    \end{equation}
+    Let us take the antipode on both sides and use the fact that \( S\) is an antipode for \( (A,\Delta,\mu)\):
+    \begin{equation}
+        S\mu^{op}(\id\otimes S^{-1})\Delta (a)=\sum_iS(a_i)b_i=\mu(S\otimes \id)\Delta a=\eta\big( \epsilon(a) \big).
+    \end{equation}
+    Thus 
+    \begin{equation}
+        \mu^{op}(\id\otimes S^{-1})\Delta=S^{-1}\circ\eta\circ\epsilon,
+    \end{equation}
+    but \( S^{-1}\circ\eta=\eta\) by lemma \ref{LemSuuSetaeta}, so we have proved \ref{ItemPropAAopAcopHopfSSemui} \( \Rightarrow\) \ref{ItemPropAAopAcopHopfSSemuii},\ref{ItemPropAAopAcopHopfSSemuiii}.
+
+    Let us now prove that \ref{ItemPropAAopAcopHopfSSemuii} \( \Rightarrow\) \ref{ItemPropAAopAcopHopfSSemui}. For this part of the proof we follow\cite{RolandVertignioux}. Let \( (A,\Delta)^{op}\) be a Hopf algebra with antipode \( T\). We are going to prove that \( ST\) is an inverse of \( S\) for the convolution product, so that \( ST=\id\) and \( T=S^{-1}\) and \( S\) is bijective. What we have to check is
+    \begin{equation}
+        \mu(ST\otimes S)\Delta=\eta\epsilon.
+    \end{equation}
+    Using \( \mu(S\otimes S)\sigma=S\mu\) we have
+    \begin{equation}
+        \begin{aligned}[]
+            \mu(ST\otimes S)\Delta&=\mu(S\otimes S)(T\otimes \id)\Delta\\
+            &=S\mu\sigma(T\otimes \id)\Delta\\
+            &=S\mu(\id\otimes T)\sigma\Delta\\
+            &=S\circ\eta\circ\epsilon
+        \end{aligned}
+    \end{equation}
+    because \( \mu(\id\otimes T)\sigma\Delta=\eta\circ\epsilon\) from the fact that \( T\) is an antipode for \( (A,\Delta)^{cop}\). Now we conclude because \( S\eta=\eta\).
+\end{proof}
+
+\subsection{Dual of a Hopf algebra}\index{dual!of Hopf algebra}
+%---------------------------------------------
+
+Let $(\cA,\mu,\Delta,\eta,\epsilon,S)$ be a Hopf algebra and $\cA^*$ the dual as vector space. We can create a Hopf algebra structure $(m^*,\mu^*,\Delta^*,\epsilon^*,S^*)$ on $\cA^*$ in the following way. First we extend the duality by $\langle f\otimes g,x\otimes y, \rangle =\langle f, x\rangle \langle g, y\rangle $ and then we define the following
+\begin{subequations}
+	\begin{align}
+        \langle m^*(f\otimes g), x\rangle &=\langle f\otimes g, \Delta(x)\rangle    \label{subeqDualHopfmult} \\
+		\langle \Delta^*(f), x\otimes y\rangle &=\langle f, xy\rangle \\
+		\langle \eta^*(\alpha), x\rangle &=\alpha\epsilon(x)\\
+		\epsilon^*(f)&=\langle f, 1\rangle \\
+		\langle S^*(f), x\rangle &=\langle f, S(x)\rangle 
+	\end{align}
+\end{subequations}
+for every $f$, $g\in\cA^*$ and $x$, $y\in\cA$. One can show that these definitions fulfill all the condition of a Hopf algebra.
+
+We say that a pair $(\cA,\cB)$ is a \defe{dual pair}{dual!pair of Hopf algebra} of $*$-Hopf algebra is there exists a map $\langle ., .\rangle \colon \cA\otimes\cB\to \eC$ which fulfils the conditions
+\begin{enumerate}
+
+	\item
+		$\langle x\otimes y, \Delta(f)\rangle =\langle ab, f\rangle $,
+	\item
+		$\epsilon(f)=\langle 1, f\rangle $,
+	\item
+		$\langle \Delta(x), f\otimes g\rangle =\langle x, fg\rangle $,
+	\item
+		$\langle x, S(f)\rangle =\langle S(x), f\rangle $,
+	\item
+		$\langle x, f^*\rangle =\overline{ \langle S(x)^*, f\rangle  }$
+
+\end{enumerate}
+for every $x,y\in\cA$ and $f,g\in\cB$
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Involution, $*$-Hopf algebra}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{subsecHopfInvolution}
+
+We follow \cite{TimmernannInvitation}. Let \( \eK\) be a commutative ring with unity.
+
+\begin{definition}
+    An \defe{involution}{involution}\index{involution!on complex vector space} on a complex vector space \( V\) is a map \( a\mapsto a^*\) such that
+    
+    \begin{enumerate}
+        \item
+            \( (a+b)^*=a^*+b^*\) for \( a,b\in V\);
+        \item
+            \( (\lambda a)^*=\overline{ \lambda }a^*\) for every \( \lambda\in\eK\) and \( a\in A\);
+        \item
+            \( (a^*)^*=a\).
+    \end{enumerate}
+    An involution\index{involution!on a $\eK$-algebra} on a \( \eK\)-algebra \( A\) is an involution \( a\mapsto a^*\) on \( A\) (as vector space) which satisfies \( (ab)^*=b^*a^*\) for every \( a,b\in A\). An algebra equipped with an involution is a \( *\)-algebra.
+\end{definition}
+
+\begin{probleme}
+    In \cite{SoibelmanI}, one does not require \( a^{**}=a\) while it required in \cite{TimmernannInvitation}. In \cite{Kassel} they include \( S\big( S(x)^* \big)^*=x\) in the definition of a Hopf\( *\)-algebra.
+\end{probleme}
+
+\begin{definition}
+    A \defe{\( *\)-coalgebra}{coalgebra!$*$-coalgebra} \( (A,\Delta,*)\) is a coalgebra equipped with an involution such that
+    \begin{equation}
+        \Delta(a^*)=\Delta(a)^*
+    \end{equation}
+    where \( (a\otimes b)^*=a^*\otimes b^*\).
+\end{definition}
+
+\begin{definition}
+    A Hopf algebra \( (A,\Delta)\) equipped with an involution\index{involution!on Hopf algebra} \( *\) such that \( (A,*)\) is a \( *\)-algebra and \( (A,\Delta,*)\) is a \( *\)-coalgebra is a \defe{\( *\)-Hopf algebra}{Hopf algebra!$*$-Hopf algebra}.
+\end{definition}
+
+
+\begin{lemma}       \label{LemcounitstarHopfalg}
+    The counit of a counital \( *\)-coalgebra is \( *\)-linear, namely we have \( \epsilon(a^*)=\overline{ \epsilon(a) }\) where the bar stands for the involution in \( \eK\).
+\end{lemma}
+
+\begin{proof}
+    Let \( (A,\Delta,*)\) be a \( *\)-coalgebra with counit \( \epsilon\). We consider the map
+    \begin{equation}
+        \begin{aligned}
+            \epsilon^*\colon A&\to \eK \\
+            a&\mapsto \overline{ \epsilon(a^*) }. 
+        \end{aligned}
+    \end{equation}
+    We prove that $\epsilon^*$ is a counit for \( A\). We have to check the property \eqref{EqformCounitDef} for \( \epsilon^*\). If \( \Delta a=\sum_ia_i\otimes b_i\),
+    \begin{equation}
+        \begin{aligned}[]
+            (\id\otimes\epsilon^*)\Delta(a)&=\sum_ia_i\otimes\overline{ \epsilon(b_i^*) }\\
+            &=\sum_ia_i\overline{ \epsilon(b_i^*) }     &&\text{$A\otimes\eK=A$}\\
+            &=\sum_i\Big( \epsilon(b_i^*)a_i^* \Big)^*\\
+            &=(a^*)^*       &&\text{by formula \eqref{EqInterAmongOtheaaepsb}}\\
+            &=a.
+        \end{aligned}
+    \end{equation}
+    By unicity of the counit (lemma \ref{LemUnicityCounit}) we have \( \epsilon^*=\epsilon\) and then \( \overline{ \epsilon(a^*) }=\epsilon(a)\).
+\end{proof}
+
+\begin{theorem}
+    The antipode of a $*$-Hopf algebra is a bijection and \( S\circ *\circ S\circ *=\id\).
+\end{theorem}
+
+\begin{proof}
+    We consider the map
+    \begin{equation}
+        \begin{aligned}
+            S^*\colon A&\to A \\
+            a&\mapsto S(a^*)^* 
+        \end{aligned}
+    \end{equation}
+    and we show that \( S^*\) is an antipode for the opposite Hopf algebra \( (A,\Delta)^{op}\). We have to check the definition property \eqref{EqDefPorpAntipode} in \( A^{op}\). The multiplication in \( A^{op}\) being
+    \begin{equation}
+        \mu^{op}(a\otimes b)=ba
+    \end{equation}
+    we have
+    \begin{equation}
+        \begin{aligned}[]
+            \mu^{op}(S^*\otimes \id)\Delta(a)&=\sum_ib_iS^*(a_i)\\
+            &=\sum_ib_iS(a^*)^*\\
+            &=\sum_i\Big( S(a^*)b_i^* \Big)^*.
+        \end{aligned}
+    \end{equation}
+    Since \( S\) is an antipode for \( (A,\Delta)\) the property \eqref{EqDefPorpAntipode} provides
+    \begin{equation}
+        \sum_iS(a_i^*)b_i^*=\eta\epsilon(a^*),
+    \end{equation}
+    thus we have
+    \begin{equation}
+        \mu^{op}(S^*\otimes \id)\Delta(a)=\big( \eta\epsilon(a^*) \big)^*=\eta\epsilon(a).
+    \end{equation}
+    So \( S^*\) is an antipode for \( (A,\Delta)^{op}\) which becomes a Hopf algebra. Using the proposition \ref{PropAAopAcopHopfSSemu} it proves that \( S\) is bijective and that \( S^*\) is the inverse of \( S\).
+\end{proof}
+
+\begin{definition}
+    Let \( A\) be a Hopf algebra. The action of \( A\) on itself defined by
+    \begin{equation}
+        \begin{aligned}
+            \ad(a)\colon A&\to A \\
+            b&\mapsto \sum_i a_i bS(b_i) 
+        \end{aligned}
+    \end{equation}
+    where \( a\in A\) and \( \Delta(a)=\sum_i a_i\otimes b_i\) is the \defe{adjoint action}{adjoint!action!Hopf algebra}\nomenclature[A]{\( \ad\)}{adjoint action on Hopf algebra}.
+\end{definition}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Example: universal enveloping algebra}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{SUBSECooTKZAooWVXXug}
+The set of function on a Lie group and the universal enveloping algebra of a Lie algebra are the two classical examples of Hopf algebras.  The important example of Hopf algebra of continuous functions needs some more analysis and is the reported to definition \ref{DefHopfsurCG}.
+
+The following puts a structure of Hopf algebra on the universal enveloping algebra $\mU(\lG)$ when $G$ is a Lie group:
+\begin{enumerate}
+
+	\item
+		$X\cdot Y=X\otimes Y$, the ordinary multiplication in $\mU(\lG)$,
+	\item
+		$\Delta X=X\otimes 1+1\otimes X$,
+	\item
+		$\eta(\lambda)=\lambda 1$,
+	\item	\label{ItemCounitUg}
+		$\epsilon(1)=1$ and $\epsilon(X)=0$ otherwise
+	\item
+		$S(X)=-X$.
+\end{enumerate}
+
+It is proven in \cite{Tjin} that the two latter constructions are dual.  See also the remark \ref{REMooGIFYooTphiex} for an example.
+
+
+\begin{proposition}     \label{PropHopfSurDual}
+    Let \( A\) be a finite dimensional Hopf algebra on a field of characteristic zero. The following structure defines a canonical Hopf algebra structure on the dual \( A^*\)
+    \begin{subequations}
+        \begin{align}
+            (f_1f_2)(a)&=(f_1\otimes f_2)\Delta a\\
+            (\Delta f)(a\otimes b)&=f(ab)       \label{DefHopfSurAstar}\\
+            S(f)a&=f\big( S(a) \big)\\
+            \epsilon(f)&=f(1)
+        \end{align}
+    \end{subequations}
+    where \( (f_1\otimes f_2)(a\otimes b)=f_1(a)f_2(b)\) 
+\end{proposition}
+
+\begin{proof}
+    We check the property \( \Delta\big( S(f) \big)=(S\otimes S)\Delta'(f)\) where \( \Delta'=\sigma\Delta\) and \( \sigma(a\otimes b)=b\otimes a\). On the one hand we have
+    \begin{equation}
+        \Delta\big( S(f) \big)(a\otimes b)=S(f)(ab)=f\big( S(ab) \big)=f\big( S(b)S(a) \big).
+    \end{equation}
+    On the other hand, if
+    \begin{equation}
+        \Delta(f)=\sum_i f_i\otimes g_i
+    \end{equation}
+    we have
+    \begin{equation}
+        \begin{aligned}[]
+            \clubsuit=(S\otimes S)(\Delta'f)(a\otimes b)&=(S\otimes S)\sum_i\sigma(f_i\otimes g_i)(a\otimes b)\\
+            &=\sum_iS(g_i)\otimes S(f_i)(a\otimes b)\\
+            &=\sum_i g_i\big( S(a) \big)f_i\big( S(b) \big).
+        \end{aligned}
+    \end{equation}
+    Using the fact that \( \eK\) is commutative (it is a \wikipedia{en}{Field_(mathematics)}{field}), we continue
+    \begin{equation}
+        \begin{aligned}[]
+            \clubsuit&=\sum_i f_i\big( S(b) \big)g_i\big( S(a) \big)\\
+            &=\sum_i(f_i\otimes g_i)\big( S(b)\otimes S(a) \big)\\
+            &=(\Delta f)\big( S(b)\otimes S(a) \big)\\
+            &=f\big( S(b)S(a) \big).
+        \end{aligned}
+    \end{equation}
+\end{proof}
+
+\begin{definition}      \label{DefInvolutionHopf}
+    Let \( A\) be a \( \eK\)-algebra with involution. A \( A\)-module \( V\) is \defe{unitarizable}{unitarizable} if there exists an Hermitian scalar product \( V\otimes V\to\eK\) such that
+    \begin{equation}
+        \langle av_1, v_2\rangle =\langle v_1, a^*v_2\rangle 
+    \end{equation}
+    for every \( a\in A\), \( v_1,v_2\in V\).
+\end{definition}
+
+\begin{proposition}     \label{PropAstarstaralg}
+    Let \( A\) be a \( *\)-Hopf algebra. The dual \( A^*\) becomes a \( *\)-Hopf algebra with the involution \( l\mapsto l^*\) defined by
+    \begin{equation}
+        l^*(a)=\overline{ l\big( S(a)^* \big) }
+    \end{equation}
+    with \( l\in A^*\) and \( a\in A\).
+\end{proposition}
+
+\begin{proof}
+    We check the condition \( \Delta(l^*)=\Delta(l)^*\). We recall the definition \eqref{DefHopfSurAstar}: \( \Delta(l)(a\otimes b)=l(ab)\). On the one hand we have
+    \begin{equation}        \label{EqCalculDellstraotb}
+        \begin{aligned}[]
+            \Delta(l^*)(a\otimes b)&=l^*(ab)\\
+            &=\overline{ l\big( S(ab)^* \big) }\\
+            &=\overline{ l\Big(   \big( S(b)S(a) \big)^* \Big) }\\
+            &=\overline{ l\big( S(a)^*S(b)^* \big) }
+        \end{aligned}
+    \end{equation}
+    On the other hand if we write \( \Delta(l)=\sum_if_i\otimes g_i\) we have
+    \begin{equation}
+        \begin{aligned}[]
+            \Delta(l)^*(a\otimes b)&=\sum_i(f_i^*\otimes g_i^*)(a\otimes b)\\
+            &=\sum_i\overline{ f_i\big( S(a)^* \big) }\overline{ g_i\big( S(b)^* \big)}\\
+            &=\sum_i\overline{ (f_i\otimes g_i)\big( S(a)^*\otimes S(b)^* \big) }\\
+            &=\overline{ \Delta(l)\big( S(a)^*\otimes S(b)^* \big) }\\
+            &=\overline{ l\big( S(a)^*S(b)^* \big) },
+        \end{aligned}
+    \end{equation}
+    which is the same as the last line of \eqref{EqCalculDellstraotb}.
+\end{proof}
+
+Let \( A\) be a Hopf algebra. A linear form \( \alpha\in A^*\) is \defe{left invariant}{left invariant!linear form on a Hopf algebra} if
+\begin{equation}
+    (\id\otimes\alpha)\circ\Delta=\eta\circ\alpha.
+\end{equation}
+The linear form \( \alpha\) is \defe{right invariant}{right invariant!linear form on a Hopf algebra} if
+\begin{equation}
+    (\alpha\otimes\id)\circ\Delta=\eta\circ\alpha.
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Modules and representations}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{SubSecMOdulREepe}
+
+\begin{definition}
+    Let \( A\) be a Hopf algebra. A \( A\)-\defe{module}{module!over Hopf algebra} is a module for the \emph{algebra} structure.
+\end{definition}
+
+Let \( V_1\) and \( V_2\) be two \( A\)-modules. The \defe{tensor product}{tensor product!of modules over Hopf algebra} is the \( \eK\)-module \( V_1\otimes V_2\) with the action of \( A\) given by
+\begin{equation}
+    a\cdot(v_1\otimes v_2)=\Delta(a)(v_1\otimes v_2).
+\end{equation}
+
+If \( A\) is a Hopf algebra on \( \eK\), we say that a \( A\)-module is \defe{finite dimensional}{finite dimensional!module over Hopf algebra} if it is a free \( \eK\)-module of finite type. The homomorphism \( \pi\colon A\to \End V\) corresponding to the module structure is a \defe{finite dimensional representation}{representation!of Hopf algebra}\index{Hopf algebra!representation}.
+
+The following definitions are from \cite{RolandVertignioux}.
+
+If \( V\) is a left \( A\)-module, the dual \( V^*\) becomes a right \( A\)-module by the definition
+\begin{equation}
+    (\alpha\cdot a)(v)=\alpha(a\cdot v)
+\end{equation}
+for every \( a\in A\), \( \alpha\in V^*\) and \( v\in V\). If \( V\) is a right module, we turn it into a left module using the antipode:
+\begin{equation}
+    a\cdot v=v\cdot S(a).
+\end{equation}
+In such a way, \( V^*\) is a left \( A\)-module by \( a\cdot\alpha=\alpha\cdot S(a)\), that is
+\begin{equation}        \label{EqDefacctrleftUqGLstat}
+    (a\cdot \alpha)(v)=\alpha\big( S(a)\cdot v \big).
+\end{equation}
+
+Yet another way to make \( V^*\) a left \( A\)-module is to use \( S^{-1}\) instead of \( S\). This will also produce a left module structure since \( S^{-1}(b)S^{-1}(a)=S^{-1}(ab)\). This representation of \( A\) will be denoted by \( \mL\):
+\begin{equation}        \label{EqDefTroisleftmodAstar}
+    \begin{aligned}
+        \mL\colon A&\to \End(V^*) \\
+        \big( \mL(a)f \big)(v)&=f\big( S^{-1}(a)v \big). 
+    \end{aligned}
+\end{equation}
+
+\begin{remark}
+    This is not the regular left representation of definition \ref{DefUMXgVdT}. One difference is that the regular left representation is well defined by itself while the action \( \mL(a)\colon V^*\to V^*\) is only defined when a representation of \( A\) is given on \( V\).    
+\end{remark}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Matrix elements of modules}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Let \( \eK\) be a commutative ring with unit and \( A\), an unital \( \eK\)-algebra. Let \( V\) be a \( A\)-module. A pair \( (l,v)\in V^*\times V\) defines a linear functional on \( A\) by
+\begin{equation}
+    a\mapsto l(av).
+\end{equation}
+This functional is the \defe{matrix element}{matrix!element of a module} of the representation \( \pi\colon A\to \End_{\eK}(V)\) corresponding to the pair \( (l,v)\). It is denoted by \( c^{\pi}_{l,v}\) or \( c^V_{l,v}\)\nomenclature[A]{\( c^{\pi}_{l,v}\)}{matrix element of a module}  \nomenclature[A]{\( c^{V}_{l,v}\)}{matrix element of a module}.
+
+In this section we suppose that the \( A\)-modules are projective as \( \eK\)-modules.
+
+\begin{proposition}     \label{PropHopfDual}
+    Let \( A\) be a Hopf algebra on \( \eK\). The matrix elements of the finite dimensional \( A\)-modules form a Hopf subalgebra of the dual \( A^{\star}=\Hom_{\eK}(A,\eK)\).
+\end{proposition}
+
+The Hopf algebra defined in proposition \ref{PropHopfDual} is denoted by \( A^*\) and is the \defe{dual Hopf algebra}{dual!Hopf algebra}\index{Hopf algebra!dual} of \( A\).
+
+\begin{definition}  \label{DefUMXgVdT}
+    Let \( A\) be a Hopf algebra. The \defe{regular left representation}{regular!left representation of a Hopf algebra}\index{representation!regular!left on Hopf algebra} of \( A\) on \( A^*\) is given by
+    \begin{equation}        
+        \mR(a)f=\langle \id\otimes a, \Delta(f)\rangle .
+    \end{equation}
+    The \defe{regular right}{representation!regular right} is 
+    \begin{equation}
+        \mL(a)f=\langle S^{-1}(a)\otimes \id, \Delta(f)\rangle 
+    \end{equation}
+    where \( \Delta\) is the antipode of \( A^*\).
+\end{definition}
+More explicitly, for every \( a,x\in U_q\lG\),
+\begin{equation}
+    \big( \mR(a)f \big)(x)=(\Delta f)(x\otimes a)
+\end{equation}
+and
+\begin{equation}
+    \big( \mL(a)f \big)(x)=(\Delta f)\big( S^{-1}(a)\otimes x \big).
+\end{equation}
+
+One common idea is to see \( A^*\) as a \( U_q\lG\otimes U_q\lG\)-modules by the representation \( \mL\otimes\mR\). With that structure we have
+\begin{equation}        \label{EqmRmLAAsurAstar}
+    \big( (a\otimes b)f \big)(x)=\big( \mL(a)\mR(b)f \big)(x).
+\end{equation}
+Using the definition of the coproduct given in proposition \ref{PropHopfSurDual},
+\begin{equation}        \label{EqmRmLabf}
+    \begin{aligned}[]
+        \big( \mL(a)\mR(b)f \big)(x)&=\Delta(\mR(b)f)\big( S^{-1}(a)\otimes x \big)\\
+        &=\big( \mR(b)f \big)\big( S^{-1}(a)x \big)\\
+        &=\Delta(f)\big( S^{-1}(a)x\otimes b \big)\\
+        &=f\big( S^{-1}(a)xb \big).
+    \end{aligned}
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Quasitriangular Hopf algebra}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    A \defe{quasitriangular}{quasitriangular Hopf algebra}\index{Hopf algebra!quasitriangular} Hopf algebra (or a \defe{braid}{braid Hopf algebra}) is a Hopf algebra $(\cA,\mu,\eta,\Delta,\epsilon,S)$ together with an invertible element $R\in\cA\otimes\cA$ such that 
+\begin{enumerate}
+\item $R\Delta(x)R^{-1}=\tau\circ\Delta(x)$,\label{ItemCondUnifRi}
+\item
+\begin{enumerate}
+\item $(\Delta\otimes\id)(R)=R_{13}R_{23}$,
+\item $(\id\otimes\Delta)(R)=R_{13}R_{12}$\label{ItemCondUnifRiib}
+\end{enumerate}
+
+\end{enumerate}
+In that situation, the element $R$ is said to be an \defe{universal $R$-matrix}{universal!$R$-matrix}.
+\end{definition}
+
+
+\begin{theorem}[Yang-Baxter equation]\index{Yang-Baxter equation}\index{equation!Yang-Baxter}
+An universal $R$-matrix satisfies
+\begin{equation}
+R_{12}R_{13}R_{23}=R_{23}R_{13}R_{12}.
+\end{equation}
+
+\end{theorem}
+
+\begin{proof}
+We compute the quantity $(\id\otimes\tau\circ\Delta)R$ in two different ways. First we compute it using \ref{ItemCondUnifRiib}, and then we first use \ref{ItemCondUnifRi} before \ref{ItemCondUnifRiib}. In the first case we have (a sum is implied over repeated indices)
+\begin{align*}
+  (\id\otimes\tau\circ\Delta)R&=(\id\tau)\circ(\id\otimes\Delta)R\\
+		&=(\id\otimes\tau)(R_{13}R_{12})\\
+		&=(\id\otimes\tau)(a_i\otimes 1\otimes b_i)(a_k\otimes b_k\otimes 1)\\
+		&=(\id\otimes\tau)(a_ia_k\otimes b_k\otimes b_i)\\
+		&=a_ia_k\otimes b_i\otimes b_k\\
+		&=(a_i\otimes b_i\otimes 1)(a_k\otimes 1\otimes b_k)\\
+		&=R_{12}R_{13}.
+\end{align*}
+Now if we denote $\Delta(b_i)=b_{i1}\otimes b_{i2}$ and $R^{-1}=\alpha_k\otimes\beta_k$, remark that we have $R_{ij}^{-1}=(R^{-1})_{ij}$, so that
+\begin{align*}
+(\id\otimes\tau\circ\Delta)(a_i\otimes b_i)&=a_i\otimes\Big( (a_j\otimes b_j)(b_{i1}\otimes b_{i2}(\alpha_k\otimes\beta_k))   \Big)\\
+		&=\Big( a_i\otimes\big( (a_i\otimes b_j)(b_{i1}\otimes b_{i2}) \big) \Big)(1\otimes\alpha_k\otimes\beta_k)
+\end{align*}
+The first factor of the last line can be written as
+\[ 
+  a_i\otimes a_jb_{i1}\otimes b_jb_{i2}=(1\otimes a_j\otimes b_j)(a_i\otimes b_{i1}\otimes b_{i2})=R_{23}\big( (\id\otimes\Delta)R \big)=R_{23}R_{13}R_{12},
+\]
+while the second factor is $(R^{-1})_{23}$. Finally we find $(\id\otimes\tau\circ\Delta)(a_i\otimes b_i)=R_{23}R_{13}R_{12}R_{23}^{-1}$. Equating with the first value obtained, we find the claim.
+\end{proof}
+
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Convolution semigroup}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+	A \defe{convolution semigroup}{convolution!semigroup} of linear functionals on $B$ is a set of functionals $\varphi_t$ such that
+	\begin{enumerate}
+		\item
+			$\varphi_0=\epsilon$,
+		\item
+			$\lim_{t\searrow 0}\varphi_t(b)=\epsilon(b) $
+		\item
+			$\varphi_s*\varphi_t=\varphi_{s+t}$
+	\end{enumerate}
+	for every $b\in B$.
+\end{definition}
+
+\begin{definition}
+	If $j_1$ and $j_2$ are linear functionals on a coalgebra $C$ taking values in an algebra $A$, we define the \defe{convolution}{convolution!on coalgebra} by
+	\begin{equation}
+		j_1*j_2=m_A\circ(j_1\otimes j_2)\circ\Delta.
+	\end{equation}
+\end{definition}
+
+\begin{lemma}
+	Let $C$ be a coalgebra. We have
+	\begin{enumerate}
+		\item
+			If $\psi\colon C\to \eC$ is a linear functional on $C$, then the series
+			\begin{equation}
+				\exp(\psi)a=\sum_{n=0}^{\infty}\frac{ \psi^{*n} }{ n! }(a)=\epsilon(a)+\psi(a)+\frac{ 1 }{2}(\psi *\psi)(a)+\ldots
+			\end{equation}
+			converges for every $a\in C$. This defines the map $\exp(\psi)\colon C\to \eC$.
+		\item
+			Let $(\varphi_t)_{t\geq 0}$ be a convolution semigroup on $C$. Then the limit
+			\begin{equation}
+				L(a)=\lim_{t\searrow 0} \frac{1}{ t }\big( \varphi_t(a)-\epsilon(a) \big)
+			\end{equation}
+			exists for every $a\in C$. Moreover we have
+			\begin{equation}
+				\varphi_t=\exp(tL)
+			\end{equation}
+			for $t\geq 0$.
+	\end{enumerate}
+\end{lemma}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Modules bialgebras}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Module (bi)algebras}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{subSecModulebialgebra}
+
+This subsection comes from \cite{GiaquintoZhangTwist} and we follow the notations of \cite{QuantifKhalerian}. The notions of module algebra and module coalgebra will be used when we will study twists in section \ref{SecTheoryTwist}.
+
+Let $B$ be a bialgebra and $\modE$, a left $B$-module. For each $b\in B$, we have the map
+\begin{equation}
+	\begin{aligned}
+		b_l\colon \modE&\to \modE \\
+		b_l(m)&=b\cdot m.
+	\end{aligned}
+\end{equation}
+In the same way, if $\modF$ is a right $B$-module, we have the map
+\begin{equation}
+	\begin{aligned}
+		b_r\colon \modF&\to \modF \\
+		b_r(m)&=m\cdot b.
+	\end{aligned}
+\end{equation}
+In that case, $\modE\otimes\modE$ becomes a right $B\otimes B$-module by
+\begin{equation}
+	\begin{aligned}
+		(b\otimes b')_l\colon \modE\otimes\modE&\to \modE\otimes\modE \\
+		(b\otimes b')_l(m\otimes m')&=(b\cdot m)\otimes(b'\cdot m').
+	\end{aligned}
+\end{equation}
+
+\begin{definition}		\label{DefBModuleAlgebra}
+	A left $B$-module $\eA$ is a \defe{algebra $B$-module}{algebra!$B$-module} if for every $b\in B$ and $a,a'\in\eA$,
+	\begin{enumerate}
+	
+		\item
+			$b\cdot 1_{\eA}=\epsilon(b)\cdot 1_{\eA}$. This equality has to be seen in $\eK\subset B$
+		\item
+			$b\cdot(aa')=\sum(b_{(1)}\cdot a)(b_{(2)}\cdot a')$ where $\Delta_B(b)=\sum b_{(1)}\otimes b_{(2)}$.
+	
+	\end{enumerate}
+	The second condition is the commutativity of the diagram
+	\begin{equation}	\label{EqDiagModAlg}
+		\xymatrix{%
+		\eA\otimes\eA \ar[r]^{\mu_{\eA}}\ar[d]_{\big( \Delta_B(b) \big)_l}	&	\eA\ar[d]^{b_l}\\
+		\eA\otimes\eA \ar[r]_{\mu_{\eA}}	&	\eA
+		   }
+	\end{equation}
+	for every $b\in B$.
+\end{definition}
+
+\begin{definition}
+	We say that $C$ is a coalgebra and $B$ is a bialgebra, we say that $C$ is a $B$-module coalgebra if it is a $B$-module satisfying
+	\begin{enumerate}
+
+		\item\label{ItemDefCoalgModuleUn}
+			$\Delta(a\cdot b)=\sum (a_{(1)}\cdot b_{(1)})\otimes (a_{(2)}\otimes b_{(2)})$,
+		\item
+			$\epsilon(a\cdot b)=\epsilon(a)\epsilon(b)$
+
+	\end{enumerate}
+	for any $a\in C$ and $b\in B$.
+\end{definition}
+From a notational point of view, notice that
+\begin{equation}
+	\begin{aligned}[]
+		\Delta_C(a)&=\sum_ia_{(1)}^i\otimes a_{(2)}^i\\
+		\Delta_B(b)&=\sum_jb_{(1)}^j\otimes b_{(2)}^j
+	\end{aligned}
+\end{equation}
+and the sum in the point \ref{ItemDefCoalgModuleUn} is a double sum. The formula is equivalent to commutativity of the diagram
+\begin{equation}	\label{EqDiagModCoAlg}
+	\xymatrix{%
+	C\otimes C 		&	C\ar[l]_{\Delta}\\
+	C\otimes C \ar[u]^{\Delta(b)_r}	&	C\ar[l]_{\Delta}\ar[u]_{b_r}
+	   }
+\end{equation}
+for every $b\in B$, which is the dual diagram of \eqref{EqDiagModAlg}.
+
+\subsection{Tensor product of representations}\index{tensor product!of algebra representations}
+%---------------------------------------------
+
+Let $(\psi_1,V_1)$ and $(\psi_2,V_2)$ be two representations of the algebra $\cA$. We want to define the tensor product $(\psi_1,V_)\otimes(\psi_2,V_2)$. The two first ideas are
+\begin{subequations}
+\begin{align}
+a(v_1\otimes v_2)&=\big( \psi_1(a)v_1 \big)\otimes\big( \psi_2(a)v_2 \big)\\
+a(v_1\otimes v_2)&=\psi_1(a)v_1\otimes v_2+v_1\otimes \psi_2(a)v_2.
+\end{align}
+\end{subequations}
+The bad news is that the first possibility cannot be linear while the second one fails in genera to complete the homomorphism condition. Notice however that, on a Lie algebra, the second possibility works because the product is skew-symmetric. 
+
+The trick in order to construct a tensor product of two representations is to take a map $\Delta\colon \cA\to \cA\otimes\cA$ and to define the tensor representation by
+\begin{equation}
+\Psi=(\psi_1\otimes\psi_2)\Delta,
+\end{equation}
+in other words if $a\in\cA$ and $\Delta(a)=a_1\otimes a_2$, we define
+\begin{equation}
+\Psi(a)(v_1\otimes v_2)=(\psi_1\otimes\psi_2)\Delta(a)(v_1\otimes v_2)=\psi_1(a_1)v_1\otimes\psi_2(a_2)v_2.
+\end{equation}
+
+\begin{proposition}
+If we impose $\Psi$ to be 
+\begin{itemize}
+\item linear,
+\item homomorphic,
+\item associative, i.e. $\big((\psi_1,V_1)\otimes(\psi_2,V_2)\big)\otimes(\psi_3,V_3)=(\psi_1,V_1)\otimes\big( (\psi_2,V_2)\otimes(\psi_3,V_3)\big)$,
+\end{itemize}
+then $\Delta$ must be a comultiplication. 
+\end{proposition}
+\begin{proof}
+No proof.
+\end{proof}
+
+\section{Poisson structure}
+%++++++++++++++++++++++++++
+
+A \defe{Poisson algebra}{Poisson structure! on an algebra} is a commutative algebra $(\cA,m,\eta)$ endowed with a map $\{ .,. \}\colon \cA\times\cA\to \cA$ called the \emph{Poisson bracket} such that
+\begin{enumerate}
+\item $\big( \cA,\{ .,. \} \big)$ is a Lie algebra,
+\item $\{ ab,c \}=a\{ b,c \}+\{ a,c \}b$
+\end{enumerate}
+for all $a$, $b$, $c\in\cA$. The second condition shows that $\{ a,. \}$ is a derivation of $\cA$. Since the bracket is bilinear, it defined and is defined by a map $\gamma\colon \cA\otimes\cA\to \cA$ and the properties of the Poisson bracket are translated in terms of algebra structure in the following way.
+
+First the antisymmetry is encoded by the requirement 
+\begin{equation}
+\gamma\circ\tau=\gamma.
+\end{equation}
+The Jacobi identities $\{ a,\{ b,c \} \}+\{ b,\{ c,a \} \}+\{ c,\{ a,b \} \}=0 $ becomes
+\[ 
+  \gamma\big( a\otimes \gamma(b\otimes c) \big)+\gamma\big( b\otimes\gamma(c\otimes a) \big)+\gamma\big( c\otimes\gamma(a\otimes b) \big)=0,
+\]
+or after rearrangements, 
+\begin{equation}
+\gamma(1\otimes\gamma)\big( 1\otimes 1\otimes 1+(1\otimes\tau)(\tau\otimes 1)+(\tau\otimes 1)(1\otimes\tau) \big)=0
+\end{equation}
+and the last condition reads
+\begin{equation}
+\gamma(m\otimes 1)=m(1\otimes\gamma)\big( 1\otimes 1\otimes 1+(1\otimes\tau) \big).
+\end{equation}
+
+\subsection{Homomorphism}
+%-----------------------
+
+Let $\big( \cA,m_{\cA},\{.,.\}_{\cA} \big)$ and $\big( \cA,m_{\cB},\{.,.\}_{\cB} \big)$ two Poisson algebras. An \defe{homomorphism}{homomorphism!of Poisson algebra} is a map $f\colon \cA\to \cB$ such that
+\begin{enumerate}
+\item $f(ab)=f(a)f(b)$,
+\item $f\big( \{a,b\}_{\cA} \big)=\{f(a),f(b)\}_{\cB}$
+\end{enumerate}
+for every $a$, $b\in\cA$. These conditions can be written in terms of $m_{\cA}$, $m_{\cB}$, $\gamma_{\cA}$ and $\gamma_{\cB}$ :
+\begin{itemize}
+\item $f\circ \gamma_{\cA}=m_{\cB}\circ(f\otimes f)$,
+\item $f\circ \gamma_{\cA}=\gamma_{\cB}\circ(f\otimes f)$.
+\end{itemize}
+
+\subsection{Tensor product}
+%--------------------------
+
+We can build the tensor product $\cA\otimes\cB$ and define the product $m_{\cA\otimes\cB}$ by
+\[
+(a_1\otimes b_1)\cdot(a_2\otimes b_2)=a_1a_2\otimes b_1b_2
+\]
+which can immediately be rewritten under the form
+\begin{equation}
+m_{\cA\otimes\cB}=(m_{\cA}\otimes m_{\cB})(1\otimes\tau \otimes 1).
+\end{equation}
+We define the Poisson bracket over the tensor product by
+\[ 
+  \{ a_1\otimes b_1,a_2\otimes b_2 \}=\{ a_1,a_2 \}\otimes b_1b_2+a_1a_2\otimes\{ b_1,b_2 \}
+\]
+which is nothing else that
+\begin{equation}
+\gamma_{\cA\otimes \cB}=(\gamma_{\cA}\otimes m_{\cB}+m_{\cA}\otimes \gamma_{\cB})(1\otimes \tau\otimes 1).
+\end{equation}
+
+\begin{definition}
+A \defe{co-Poisson bialgebra}{co-Poisson bialgebra}\index{bialgebra!Poisson} is a co-commutative bialgebra $(\cA,m,\Delta,\eta,\epsilon)$ with a map $\delta\colon \cA\to \cA\otimes\cA$ such that
+\begin{enumerate}
+\item $\tau\circ\delta=-\delta$,
+\item $\big( 1\otimes 1\otimes 1+(1\otimes\tau)(\tau\otimes 1)+(\tau\otimes 1)(1\otimes\tau) \big)(1\otimes\gamma)\delta=0$,
+\item $(\Delta\otimes 1)\delta=(1\otimes 1\otimes 1+\tau\otimes 1)(1\otimes\delta)\Delta$,
+\item $(m\otimes m)\circ\delta_{\cA\otimes\cA}=\delta\circ m$
+\end{enumerate}
+where $\delta_{\cA\otimes\cA}=(1\otimes\tau\otimes 1)(\delta\otimes\Delta+\Delta\otimes \delta)$ is the co-Poisson structure associated with the tensor product space.
+\end{definition}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Lie bialgebra}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    A vector space \( \lG\) equipped with a map \( \phi\colon \lG\to \lG\otimes\lG\) is a \defe{Lie coalgebra}{Lie!coalgebra}\cite{Farnsteiner} if the map \( \phi\) satisfies the co-skew symmetry and co-Jacobi properties, that is if 
+    \begin{enumerate}
+        \item
+            $(\sigma+\id)\circ\phi=0$;
+        \item
+            $(\id+\xi+\xi^2)\circ(\id\otimes\phi)\circ\phi=0$
+    \end{enumerate}
+    where \( \sigma\) is the flip operator in \( \lG\otimes\lG\), \( \sigma(u\otimes v)=v\otimes u\) and \( \xi\) is the cyclic permutation operator on \( \lG\otimes\lG\otimes\lG\), \( \xi(u\otimes v\otimes w)=v\otimes w\otimes u\). See subsection \ref{subSecOtherCoPropoerties} for a justification of these expressions.
+\end{definition}
+
+\begin{definition}
+    A pair \( (\lG,\phi)\) in which \( \lG\) is a Lie algebra and \( \phi\) is a Lie coalgebra structure on \( \lG\) is a \defe{Lie bialgebra}{Lie!bialgebra}\index{bialgebra!Lie} if the commutator and \( \phi\) satisfy the following compatibility property:
+    \begin{equation}
+        \phi\big( [X,Y] \big)=X\cdot\phi(Y)-Y\cdot\phi(X)
+    \end{equation}
+    where $X\cdot(Y\otimes Z)=[X,Y]\otimes Z+Y\otimes[X,Z]$.
+\end{definition}
+
+\begin{proposition}     \label{PropStandardBialgStruct} 
+    Let \( \lG\) be a complex simple Lie algebra with its Killing form \( B\) and a Cartan subalgebra \( \lH\). Let \( n=\dim\lH\) be the rank of \( \lG\). Let \( X_i^{\pm}\) and \( H_i\) (\( i=1,\ldots,n\)) be the Chevalley generators and \( d_i\) be the numbers such that \( d_iA_{ij}=d_jA_{ji}\) given by the lemma \ref{LemRatdjaijdjaji}. Then the cobracket \( \phi\colon \lG\to \lG\otimes\lG\)
+    \begin{equation}        \label{EqDefCobrackStandard}
+        \begin{aligned}[]
+            \phi(H_i)&=0\\
+            \phi(X_i^{\pm})&=d_iX_i^{\pm}\wedge H_i
+        \end{aligned}
+    \end{equation}
+    is a Lie bialgebra structure on \( \lG\).
+\end{proposition}
+This structure is the \defe{standard bialgebra structure}{standard!bialgebra structure} on \( \lG\). The definition \eqref{EqDefCobrackStandard} is given in the spirit of the remark \ref{RemChevDefmapCommXH}.
+
+\begin{proof}
+    There are three conditions to be satisfied.
+    \begin{enumerate}
+        \item
+            If one apply \( (\sigma+\id)\circ\phi\) to \( H_i\), we get zero. If one apply this to \( X^{\pm}_i\), one gets
+            \begin{equation}
+                \begin{aligned}[]
+                    (\sigma+\id)\circ\phi(X^{\pm}_i)&=d_i(\sigma+\id)(X_i^{\pm}\otimes H_i-H_i\otimes X^{\pm}_i)\\
+                    &=d_i( H_i\otimes X_i^{\pm}-X^{\pm}\otimes H_i + X_i^{\pm}\otimes H_i-H_i\otimes X^{\pm}_i  )\\
+                    &=0.
+                \end{aligned}
+            \end{equation}
+        \item
+            The co-Jacobi identity is easy to check on \( H_i\). For \( X^{\pm}_i\) we have
+            \begin{equation}
+                \begin{aligned}[]
+                    (\id+\xi+\xi^2)\circ(\id\otimes\phi)\circ\phi(X^{\pm}_i)&=d_i(\id+\xi+\xi^2)\circ(\id\otimes\phi)(X^{\pm}_i\otimes H_i-H_i\otimes X_i^{\pm})\\
+                    &=-d_i^2(\id+\xi+\xi^2)(H_i\otimes X^{\pm}_i\otimes H_i-H_i\otimes H_i\otimes X^{\pm}_i)\\
+                    &=-d_i^2(H_i\otimes X^{\pm}_i\otimes H_i-H_i\otimes H_i\otimes X^{\pm}_i)\\
+                    &\quad+d_i^2(X^{\pm}_i\otimes H_i\otimes H_i-H_i\otimes X^{\pm}_i\otimes H_i)\\
+                    &\quad +d_i^2(H_i\otimes H_i\otimes X^{\pm}_i-X^{\pm}_i\otimes H_i\otimes H_i)\\
+                    &=0.
+                \end{aligned}
+            \end{equation}
+        \item
+            We have to check the value of \( \phi\big( [H_i,X_{j}^{\pm}] \big)\) and \( \phi\big( [X_i^+,X_j^-] \big)\). For the first one we know that \( [H_i,X_j^{\pm}]=\alpha_j(H_i)X_j^{\pm}\), so that
+            \begin{equation}        \label{EqphiHXcobrack}
+                \phi\big( [H_i,X_j^{\pm}] \big)=\pm\alpha_j(H_i)\phi(X_j^{\pm})=\pm d_i\alpha_j(H_i) X_j^{\pm}\wedge H_i.
+            \end{equation}
+            On the other hand
+            \begin{equation}
+                \begin{aligned}[]
+                    H_i\cdot \phi(X_j^{\pm})-X_j^{\pm}\cdot\phi(H_i)&=d_j H_i\cdot(X_j^{\pm}\otimes H_j-H_j\otimes X_j^{\pm})\\
+                    &=d_j[H_i,X_j^{\pm}]\otimes H_j-d_j H_j\otimes[H_i,X_j^{\pm}]\\
+                    &=d_j[H_i,X_j^{\pm}]\wedge H_j,
+                \end{aligned}
+            \end{equation}
+            which is the same as what we found in \eqref{EqphiHXcobrack}.
+
+            We check the property for \( \phi\big( [X_i^+,X_j^-] \big)=\phi(\delta_{ij}H_i)=0\) in the same way (but there are more terms).
+    \end{enumerate}
+    
+\end{proof}
+
+
+\section{Poisson-Lie group}
+%++++++++++++++++++++++++++
+
+\begin{definition}
+    A Lie group is a \defe{Poisson-Lie group}{Poisson-Lie group} if the space of smooth functions is Poisson Hopf algebra.
+\end{definition}
+Notice that the Hopf structure on $ C^{\infty}(G)$ is defined by the group structure of $G$, so that the fact to be a Lie-Poisson group only imposes conditions on the Poisson structure. The condition to be fulfilled is
+\begin{equation}	\label{EqCondcmpDelPoiss}
+\{ \Delta(a),\Delta(b) \}_{\cA\otimes\cA}=\Delta\big( \{ a,b \}_{\cA} \big).
+\end{equation}
+
+We know on the other hand that every Poisson structure on $ C^{\infty}(G)$ reads
+\begin{equation}	\label{Poissgeneetafo}
+\{ f,h \}(g)=\sum_{ij}\eta^{ij}(g)X_i(g)(f)X_j(g)(h)
+\end{equation}
+for a certain $\eta$. That Poisson bracket can be rewritten as
+\begin{equation}
+\{ f,h \}(g)=\eta(g)(df_g\otimes dh_g)
+\end{equation}
+where we defined
+\begin{equation}
+\begin{aligned}
+ \eta\colon G&\to \mG\otimes\mG \\ 
+   \eta(g)&=\eta^{ij}(g)(X_i\otimes X_j).
+\end{aligned}
+\end{equation}
+Let $C^n(G,\mG)$\nomenclature[F]{$C^n(G,\mG)$}{Space of functions from $G\times\cdots\times G$ into $\mG\otimes\mG$} be the set of maps $\lambda\colon G\times\cdots\times G\to \mG\otimes\mG$. The union of that spaces can be turned into a complex taking the coboundary
+\begin{equation}
+\begin{aligned}
+ \delta_G\colon C^n(G,\mG)&\to C^{n+1}(G,\mG) \\ 
+   (\delta_G\lambda)(g_1,\cdots,g_{n+1})&=g\cdot \lambda(g_2,\cdots,g_{n+1})\\
+					&\quad+\sum_{i=1}^n (-1)^i\lambda(g_1,\cdots,g_ig_{i+1},\cdots,g_{n+1})\\
+					&\quad+(-1)^{n+1}\lambda(g_1,\cdots,g_n).
+\end{aligned}
+\end{equation}
+For that, we defined the action of $G$ on $\mG\otimes \mG$ by
+\[ 
+  g\cdot(X\otimes Y)=\Ad(g)X\otimes\Ad(g)Y=\big( \Ad(g)\otimes\Ad(g) \big)(X\otimes Y),
+\]
+and we can prove that $\delta_G^2=0$. The interest of that complex is that the compatibility condition \eqref{EqCondcmpDelPoiss} reads $\delta_G\eta=0$, or more specifically
+\[ 
+  (\delta_G\eta)(g_1,g_2)=g_1\cdot\eta(g_2)-\eta(g_1,g_2)+\eta(g_1)=0.
+\]
+The claim is that for the Poisson structure \eqref{Poissgeneetafo} to be compatible with the natural Hopf algebra structure, one needs 
+\begin{equation}
+\delta_G\eta=0.
+\end{equation}
+That is only compatibility. Every such $\eta$ does not define a Poisson-Lie group. Let us introduce the function $d\eta_e$, that we denote by $\phi_{\eta}$:
+\begin{equation}
+\begin{aligned}
+ \phi_{\eta}\colon \mG&\to \mG\otimes\mG \\ 
+   X&\mapsto \Dsdd{ \eta( e^{tX}) }{t}{0}. 
+\end{aligned}
+\end{equation}
+
+\begin{theorem}
+    In order to define a Poisson-Lie group $G$, the map $\phi_{\eta}$ must define a Lie bialgebra structure on \( \lG\).
+\end{theorem}
+
+
+One way to find such a $\eta$ is to take a $r\in\mG\otimes\mG$ and to define $\eta=\delta_Gr$. By the definitions, we have $\delta_Gr(g)=r-g\cdot r$ and thus
+\[ 
+  \phi_{\eta}(X)=\Dsdd{ \eta( e^{tX}) }{t}{0}=\Dsdd{ r- e^{tX}r }{t}{0}=-X\cdot r.
+\]
+A generic $r$ reads $r=r^{ij}(X_i\otimes X_j)$ and then we have
+\begin{equation}
+\phi_{\eta}(X)=[r,1\otimes X+X\otimes 1].
+\end{equation}

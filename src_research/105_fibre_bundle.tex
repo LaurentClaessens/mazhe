@@ -1,0 +1,1139 @@
+% This is part of (almost) Everything I know in mathematics
+% Copyright (c) 2013-2014
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+\section{Vector bundle}
+%++++++++++++++++++++++
+
+Let $M$ be a smooth manifold. A \defe{$V$-vector bundle}{vector!bundle}\index{bundle!vector} of rank $r$ on $M$ is a smooth manifold $F$ and a smooth projection $\dpt{p}{F}{M}$ such that
+
+\begin{itemize}
+\item for any $x\in M$, the fiber $F_x:=p^{-1}(x)$ is a vector space of dimension $r$ on the same field that $V$ (let's say $\eK=\eR$ or $\eC$).
+\item for any $x\in M$, there exists an open neighbourhood $\mU$ of $x$ and a ``chart diffeomorphism``{} $\dpt{\phi}{p^{-1}(\mU)}{\mU\times V}$ such that for any $l\in p^{-1}(y)$,
+   \begin{itemize}
+      \item $\phi(l)=(y,\phi_y(l))$
+      \item $\dpt{\phi_y}{E_y}{V}$ is a vector space isomorphism.
+   \end{itemize}
+\end{itemize}
+
+The pair $(\mU,\phi)$ is a \emph{local trivialization}; $M$ is the \emph{base space}; $F$, the \emph{total space}, $p$ the \emph{projection} and $r$, the \emph{rank} of the bundle. The denominations of total and base spaces will also be used in the same way for principal bundles.
+
+We will sometimes use charts diffeomorphism $\dpt{\phi}{\mU\times V}{p^{-1}(\mU)}$ instead of $\dpt{\phi}{p^{-1}(\mU)}{\mU\times V}$. Since they are diffeomorphism, this difference don't affect anything.
+
+\subsection{Transition functions}
+%--------------------------------
+
+The trivializations will be denoted by Greek indices: $\mU_{\alpha}$, $\phi_{\alpha}$,\ldots The symbol $\mU_{\alpha}{}_{\beta}$ naturally denotes $\mU_{\alpha}\cap\mU_{\beta}$. If we consider two local trivializations $(\mU_{\alpha},\phi_{\alpha})$ and $(\mU_{\beta},\phi_{\beta})$, we have to look at $\dpt{\phi_{\alpha}\circ\phi_{\beta}^{-1}}{\mU_{\alpha}{}_{\beta}\times\eK^r}{\mU_{\alpha}{}_{\beta}\times\eK^r}$. We define the \defe{transition functions}{transition function} $\dpt{g_{\alpha}{}_{\beta}}{\mU_{\alpha}{}_{\beta}}{GL(r,\eK)}$ by
+\begin{equation}
+\phi_{\alpha}\circ\phi_{\beta}^{-1}(x,v)=(x,g\bab(x)v). 
+\end{equation}
+These functions take their values in $GL(r,\eK)$ because $\dpt{\phi_y}{E_y}{V}$ is a vector space isomorphism. Since $(\phi_{\alpha}\circ\phi_{\beta})^{-1}=\phi_{\beta}\circ\phi_{\alpha}^{-1}$, it is clear that $g\bab(x)=g_{\alpha\beta}(x)^{-1}$.
+
+If $x\in\mU_{\alpha\beta\gamma}=\mU_{\alpha}\cap\mU_{\beta}\cap\mU\bgamma$, we have $\phi_{\alpha}\circ\phi\bgamma^{-1}(x,v)=(x,g_{\alpha\gamma}(x)v)$, but also $\phi_{\alpha}\circ\phi\bgamma^{-1}=\phi_{\alpha}\circ\phi_{\beta}^{-1}\phi_{\beta}\circ\phi\bgamma^{-1}$, then
+\begin{equation}
+  (x,g_{\alpha\gamma}(x)v)=(\phi_{\alpha}\circ\phi_{\beta}^{-1})(x,g_{\beta\gamma}(x)v)
+               =(x,g\bab(x)_{\beta\gamma}(x)v).
+\end{equation}
+Thus $g_{\alpha\gamma}(x)=g\bab(x)g_{\beta\gamma}(x)$. So, as linear maps, we have
+\begin{equation}\label{eq:g_compat}
+  g\bab\circ g_{\alpha\gamma}\circ g_{\gamma\alpha}=\mtu.
+\end{equation}
+
+\subsection{Inverse construction}\label{subsec:inv_g}
+%-------------------------------------------
+
+Let us consider a manifold $M$, an open covering $\{\mU_{\alpha}:\alpha\in I\}$ and some functions $\dpt{g\bab}{\mU\bab}{GL(r,\eK)}$ which fulfill relations \eqref{eq:g_compat}. We will build a vector bundle $E\stackrel{p}{\longrightarrow}M$ whose transition functions are the $g_{\alpha\beta}$'s. Let $\tilde{E}$ be the disjoint union
+\[
+  \tilde{E}=\bigsqcup_{\alpha\in I}\mU_{\alpha}\times\eK^r,
+\]
+i.e. triples of the form $(x,v,\alpha)\in M\times\eK^r\times I$ with the condition that $x\in\mU_{\alpha}$. We define an equivalence relation on $\tilde{E}$ by $(x,v,\alpha)\sim(y,w,\beta)$ if and only if $x=y$ and $w=g\bab(x)v$. Next, we define $E=\tilde{E}/\sim$ and $\dpt{\omega}{\tilde{E}}{E}$, the canonical projection. The projection $\dpt{p}{E}{M}$ is naturally defined by $p([x,v,\alpha])=x$. The chart diffeomorphism is $\dpt{\varphi_{\alpha}}{\mU_{\alpha}\times\eK^r}{p^{-1}(\mU_{\alpha})}$, 
+\[
+  \varphi_{\alpha}(x,v)=\omega(x,v,\alpha).
+\]
+Now we have to prove that $E$ endowed with the $\varphi_{\alpha}$'s is a vector bundle.
+
+First we prove that $\varphi_{\alpha}$ is surjective. For this we remark that a general element in $p^{-1}(\mU_{\alpha})$ can be written under the form $\omega(x,v,\alpha)$ with $x\in\mU\bab$. But
+\begin{equation}
+\begin{split}
+  \varphi_{\alpha}(x,g\bab(x)w)&=\omega(x,g\bab(x)w,\alpha)\\
+                         &=\omega(x,g_{\alpha\beta}(x)g\bab(x)w,\beta)\\
+			 &=\omega(x,w\beta),
+\end{split}
+\end{equation}
+then $\varphi_{\alpha}$ is surjective. Now we suppose $\varphi_{\alpha}(x,v)=\varphi_{\alpha}(y,w)$. Then $\omega(x,v,\alpha)=\omega(y,w,\alpha)$ and $x=y$, $w=g_{\alpha\alpha}v$ which immediately gives $v=w$. Then $\varphi_{\alpha}$ is injective.
+
+Finally, we have 
+\begin{equation}
+  (\varphi\alpha\circ\varphi_{\beta}^{-1})(\omega(x,v,\alpha))=\varphi_{\alpha}(x,g_{\alpha\beta}(x)v)
+                                                   =\omega(x,g_{\alpha\beta}(x)v,\alpha),
+\end{equation}
+which proves that the maps $g$ are the transition functions of the vector bundle $E$.
+
+\subsection{Equivalence of vector bundle}
+%----------------------------------------
+
+Let $E\stackrel{p}{\longrightarrow}M$ and $F\stackrel{p'}{\longrightarrow}M$ be two vector bundles on $M$. They are \defe{equivalent}{equivalence!of vector bundle} if there exists a smooth diffeomorphism $\dpt{f}{E}{F}$ such that 
+
+\begin{itemize}
+\item $p'\circ f=p$,
+\item $\dpt{f|_{E_x}}{E_x}{F_x}$ is a vector space isomorphism.
+\end{itemize}
+
+Let $E$ and $F$ be two equivalent vector bundles, $\{\mU_{\alpha}\tq \alpha\in I\}$, an open covering which trivialize $E$ and $F$ in the same time and $\phi^E_{\alpha}$, $\phi^F_{\alpha}$ the corresponding trivializations. A map $\dpt{f}{E}{F}$ reads ``in the trivialization''\ as $\dpt{\phi^F_{\alpha}\circ f|_{p^{-1}(\mu_{\alpha})}\circ\phi^E{}^{-1}_{\alpha}}{\mU_{\alpha}\times\eK^r}{\mU_{\alpha}\times\eK^r}$ and defines a map $\dpt{\lambda_{\alpha}}{\mU_{\alpha}}{GL(r,\eK)}$ by
+\begin{equation}
+(\phi^F_{\alpha}\circ f|_{p^{-1}(\mu_{\alpha})}\circ\phi^E{}^{-1}_{\alpha})(x,v)=(x,\lambda_{\alpha}(x)v).
+\end{equation}
+If we denote by $g^E$ the transition functions for $E$ (and $g^F$ for $F$),
+\[
+ \phi^F_{\alpha}\circ\phi^F_{\beta}{}^{-1}= (\phi^F_{\alpha}\circ f\circ\phi_{\alpha}^E{}^{-1})\circ
+                                        (\phi^E_{\alpha}\circ\phi^E_{\beta}{}^{-1})\circ
+					(\phi^E_{\beta}\circ f^{-1}\circ\phi_{\beta}^E{}^{-1}),
+\]
+so that 
+\begin{equation}\label{eq:g_l_g_l}
+  g\bab^F(x)=\lambda_{\alpha}(x) g^E\bab(x)\lambda(x)^{-1}.
+\end{equation}
+
+Once again we have an inverse construction. We consider a vector bundle $E$ on $M$ with transition functions $g^E$ and some maps $\dpt{\lambda_{\alpha}}{\mU_{\alpha}}{GL(r,\eK)}$; then we define $g^F\bab(x)$ by equation \eqref{eq:g_l_g_l}. 
+
+From subsection \ref{subsec:inv_g}, one can construct a vector bundle $F$ on $M$ whose transition functions are these $g^F$. With the trivializations $\phi^F$ of $F$, one can define $\dpt{f}{E}{F}$ by
+\[
+(\phi^F_{\alpha}\circ f\circ\phi^E_{\alpha}{}^{-1})(x,v)=(x,\lambda_{\alpha}(x)v).
+\]
+
+When a basis space $B$ is given, we denote by $\Vect(B)$ the set of isomorphism classes of vector bundles over $B$. In the complex case, we denote it by $\Vect_{\eC}(B)$.
+
+\begin{proposition}
+Any vector bundle over $\eR^n$ is trivial.
+\end{proposition}
+
+\begin{proof}
+Let $\dpt{p}{F}{M}$ be a vector bundle on $M=\eR^n$ and $\{\mU_{\alpha}\}$ be covering of $\eR^n$ by local trivializations. Now consider a partition of unity\index{partition of unity} related to the covering $\mU_{\alpha}$: a set of functions $\dpt{f_{\alpha}}{M}{\eR}$ such that
+\begin{itemize}
+\item $f_{\alpha}>0$,
+\item $\forall x\in M$, one can find a neighbourhood of $x$ in which only a \emph{finite} number of $f_{\alpha}$ is non zero,
+\item $\forall x\in M$, $\sum_{\alpha} f_{\alpha}(x)=1$.
+\item $f_{\alpha}=0$ outside of $\mU_{\alpha}$.
+\end{itemize}
+Using that partition of unity, we build the trivialization function $\dpt{f}{F}{\eR^n\times V}$ by $f(l)=(x,\sum_{\alpha} f_{\alpha}(x)\phi_{\alpha x}(l))$.
+\end{proof}
+
+The following two propositions have some importance in K-theory.
+\begin{proposition}		\label{PropEoplusEprimetriv}
+Let $\pi\colon E\to B$ be a complex vector bundle over a basis compact, Hausdorff, connected basis $B$. Then there exists a vector bundle $E'$ such that $E\oplus E'$ is trivial.
+\end{proposition}
+
+\begin{proposition}		\label{PropmapfEEsun}
+Let $f\colon A\to B$ be a map between the topological spaces $A$ and $B$, and consider a vector bundle $\pi\colon E\to B$. Then there exists one and only one vector bundle $\pi'\colon E'\to A$ and a map $f'\colon E'\to E$ such that $f'|_{E'_x}\colon E'_x\to E_{f(x)}$ is an isomorphism. The vector bundle $E'$ is unique up to isomorphism.
+\end{proposition}
+Proofs can be found in \cite{VB_and_K}. Let us denote by $f^*(E)$ the function given by proposition \ref{PropmapfEEsun}. It satisfies the following properties
+\begin{equation}		\label{EqPropfstarEVect}
+\begin{split}
+	(fg)^*(E)		&=g^*\big( f^*(E) \big)\\
+	\id^*(E)		&=E\\
+	f^*(E_1\oplus E_2)	&=f^*(E_1)\oplus f^*(E_2)\\
+	f^*(E_1\otimes E_2)	&=f^*(E_1)\otimes f^*(E_2).
+\end{split}
+\end{equation}
+
+
+
+\subsection{Sections of vector bundle}
+%-------------------------------------
+
+A \defe{section}{section!of vector bundle} of the vector bundle $p\colon E\to M$ is a smooth map $\dpt{s}{M}{E}$ such that $p\circ s=\id|_M$. The set of all the sections is denoted by $\Gamma^{\infty}(M)$ or simply $\Gamma(E)$.\nomenclature{$\Gamma(E)$}{Space of sections of the vector bundle $E$}
+
+If $(\mU_{\alpha},\phi_{\alpha})$ is a local trivialization, one can describe the section $s$ by a function $\dpt{s_{\alpha}}{\mU_{\alpha}}{V}$ defined by $\phi_{\alpha}(s(x))=(x,s_{\alpha}(x))$, or equivalently by
+\[
+s(x)=\phi_{\alpha}^{-1}(x,s_{\alpha}(x)).
+\]
+As usual when we define such a local quantity, we have to ask ourself how are related $s_{\alpha}$ and $s_{\beta}$ on $\mU_{\alpha}\cap\mU_{\beta}$. The best is $s_{\alpha}=s_{\beta}$, but most of the time it is not. Here, we compute
+\[
+  \phi_{\beta}\circ\phi_{\alpha}^{-1}\circ\phi_{\alpha}(s(s))=(x,g_{\alpha\beta}(x)s_{\alpha}(x)),
+\]
+which is obviously also equal to $(x,s_{\beta}(x))$. Then
+\begin{equation}\label{eq:tr_sec}
+s_{\beta}(x)=g_{\alpha\beta}(x)s_{\alpha}(x)
+\end{equation}
+without summation.
+
+\section{Vector valued differential forms}	\label{SecVectValFiffFor}
+%+++++++++++++++++++++++++++++++++++++++++++
+
+Let $E$ be a vector bundle over $M$. A \defe{$E$-valued $p$-form}{vector-valued differential form}\index{differential!form!vector-valued} is a section
+\[ 
+  e\in\Gamma\big( E\otimes\Wedge^pT^*M \big).
+\]
+We denote by $\Omega(M,E)=\Gamma\big( E\otimes\Wedge^pT^*M \big)$\nomenclature[D]{$\Omega(M,E)$}{the set of $E$-valued differential forms} the set of $E$-valued differential forms. An element of $\Omega^1(M,E)=\Gamma\big( E\otimes\Wedge T^*M\big)$ always reads  $\sum_is_i\otimes\omega_i$ for some sections $s_i$ and usual differential forms $\omega_i$.
+
+A form of $\Omega^p(M,E)$ can be seen as a fiber morphism $\underbrace{TM\otimes\cdots\otimes TM}_{\text{$p$ times}}\to E$ by associating 
+\[ 
+  s\otimes\omega(X_1,\cdots,X_p)=s(x)\omega(X_1,\cdots,X_p)\in E_x
+\]
+to the element $(s\otimes \omega)\in\Omega^p(M,E)$. There exists a wedge product between vector-valued forms. If $e\in\Omega^p(M,E_1)$ and $f\in\Omega^q(M,E_2)$, then we define $e\wedge f\in\Omega^{p+q}(M,E_1\otimes E_2)$ by
+\begin{equation}	\label{EqDefwedgevecor}
+(e\wedge f)(v_1,\cdots,v_{p+q})=\frac{1}{ p!q! }\sum_{\pi\in S_{p+q}}(-1)^{\pi} e(v_{\pi(1)},\cdots v_{\pi(p)})\otimes f(v_{\pi(p+1)},\cdots,v_{\pi(p+q)})\in E_1\otimes E_2.
+\end{equation}
+where $(-1)^{\pi}$ stands for the sign of the permutation $\pi$. For example when $e$, $f\in \Omega^1(M,E)$, we have
+\[ 
+  (e\wedge f)(X,Y)=e(X)\otimes f(Y)-e(Y)\otimes f(X)\in E\otimes E.
+\]
+
+When $M$ is a differentiable manifold, the \defe{fundamental $1$-form}{fundamental!$1$-form} is the element $\theta\in\Omega(M,TM)$ such that
+\[ 
+  \iota(X)\theta=X
+\]
+for every $X\in \Gamma(TM)$. 
+
+\subsection{A digression:  \texorpdfstring{$T_Y\yG$}{TYG} and \texorpdfstring{$\yG$}{G}}\label{subsec:digress}
+%+++++++++++++++++++++++++++++++++++++++++++
+
+We define two product: $G\times\yG\to TG$ and $\yG\times\yG\to\yG$. If $g\in G$ and $X\in\yG$, we put
+\begin{subequations}
+\begin{equation} \label{eq_gXdefa}
+   gX=\dsdd{ge^{tX}}{t}{0},
+\end{equation}
+and if $X$, $Y\in\yG$,
+\begin{equation}\label{eq:yGyGb}
+   XY=\DDsdd{e^{tX}e^{uY}}{t}{0}{u}{0}.
+\end{equation}
+\end{subequations}
+We naturally define the product of a $\yG$-valued $1$-form $A$ by an element $g\in G$ by $(gA)v=gA(v)$.
+
+ Note that $gX$ does not belong to $\yG$ but to $T_{g}G$. Fortunately, in the expressions which we will meet, there will  always be a $g^{-1}$ to save the situation.
+
+Let us give some precisions about derivatives as \eqref{eq:yGyGb}. We consider the expression
+\[
+  \frac{d}{du}\left( \left.\frac{d}{dt} c_u(t)\right|_{t=0}\right)_{u=0},
+\]
+which will be more simply written as :
+\begin{equation}\label{eq:2307e1}
+\DDsdd{ c_u(t) }{u}{0}{t}{0}
+\end{equation}
+with $c_u(t)\in G$ for all $u,t$; $c_u(0)=e$ for all $u$ and $c_0'(0)=Y\in\yG$ where the prime stands for the derivative with respect of $t$. So $\dsdd{c_u(t)}{t}{0}\in\yG$ for each $u$ and \eqref{eq:2307e1} belongs to $T_Y\yG$. But we know that $\yG$ is a vector space, then $T_Y\yG\simeq\yG$, the isomorphism being given by the following idea: if $\{\partial_i\}$ is a basis of $\yG$ and $\{e_i\}$ the corresponding basis of $T_Y\yG$, we define the action of $A^ie_i\in T_Y\yG$ on $\dpt{f}{G}{\eR}$ by $(A^ie_i)f:=A^i\partial_if$.
+
+\begin{lemma}
+Seen as an equality in $\yG$, for $\dpt{f}{G}{\eR}$ we have :
+\begin{equation}
+   \DDsdd{c_u(t)}{u}{0}{t}{0}f=\DDsdd{f(c_u(t))}{u}{0}{t}{0}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+Let us consider $X_u=X_u^i\partial_i=c_u'(0)$ and $X_0=Y$. We naturally have
+\begin{align}
+   X_uf&=\dsdd{f(c_u(t))}{t}{0},&\text{ and } &&\dsdd{X_u}{u}{0}\in T_Y\yG.
+\end{align}
+Now, we consider a function $\dpt{h}{\yG}{\eR}$ and compute :
+\[
+  \Dsdd{X_u}{u}{0}h=\Dsdd{h(X_u)}{u}{0}
+                   =\dsdd{ h(\Dsdd{c_u(t)}{t}{0}) }{u}{0}.
+\]		   
+If $\{\partial_i\}$ is a basis of $\yG$ and $\{e_i\}$, the corresponding one of $T_Y\yG$, thus
+\begin{equation}
+                   \Dsdd{X_u}{u}{0}h=\left.\dsd{h}{e_i}\right|_Y\DDsdd{c^i_u(t)}{u}{0}{t}{0}.
+\end{equation}
+So, we can write
+\[
+   \Dsdd{X_u}{u}{0}=\DDsdd{c^i_u(t)}{u}{0}{t}{0}\left.\dsd{}{e_i}\right|_Y,
+\]
+and, as element of $\yG$, we consider
+\[
+  \Dsdd{X_u}{u}{0}=\DDsdd{ c^i_u(t) }{u}{0}{t}{0}\partial_i|_e.
+\]
+Now, we can compute the action of $\dsdd{X_u}{u}{0}$ on a function $\dpt{f}{G}{\eR}$ as
+\begin{equation}
+\begin{split}
+\Dsdd{X_u}{u}{0}f&=\DDsdd{c^i_u(t)}{u}{0}{t}{0}\left.\dsd{f}{x^i}\right|_e\\
+                 &=\Dsdd{ \left.\dsd{f}{x^i}\right|_e\dsdd{c^i_u(t)}{t}{0}  }{u}{0}\\
+		 &=\Dsdd{ \dsdd{f(c_u(t))}{t}{0} }{u}{0}.
+\end{split}
+\end{equation}
+\begin{probleme}
+Je ne sais pas pourquoi tout d'un coup la dernière équation était commentée, et donc la phrase n'était pas finie.
+\end{probleme}
+
+\end{proof}
+
+Let us now see a great consequence of the definition \eqref{eq:yGyGb}
+\begin{proposition} \label{prop:XY_YX}
+The formula
+\begin{equation}
+   XY-YX=[X,Y].
+\end{equation}
+links the formal product inside the Lie algebra and the Lie bracket.
+\end{proposition}
+
+\begin{proof}
+From this, we can precise our definition of $XY$ when $X$, $Y\in\yG$. The product $XY$ acts on $\dpt{f}{G}{\eR}$ by
+\[
+  (XY)f=\DDsdd{f(e^{tX}e^{uY})}{t}{0}{u}{0}.
+\]
+We can get a more geometric interpretation of this. We know how to build a left invariant vector field $\tilde Y$ from any $Y\in\yG$ : for each $g\in G$ we just have to define
+\[
+  \tY_g(f)=\Dsdd{f(gY(s))}{s}{0}.
+\]
+%
+First remark: $\tY_g$ is precisely the object that previously named ``$gY$''. In order to construct the basis blocks of the formula $XY-YX=[X,Y]$, we turn our attention to $\tX_e\tY$. It is clear that $\tY(f)$ is a function from $G$ to $\eR$, so we can apply $\tX_e$ on it. If $X_t$ is a path which gives the vector $\tX_e$ (for example: $X_t=e^{tX}$), we have
+\begin{equation}
+  \tX_e(\tY(f))=\Dsdd{\tY(f)_{X_t}}{t}{0}\\
+               =\DDsdd{f(X_tY(u))}{u}{0}{t}{0}\\
+	       =\DDsdd{f(e^{tX}e^{uY})}{u}{0}{t}{0}.
+\end{equation}
+Thus we have: $XY=\tX_e\tY$, but it is clear that $[\tX,\tY]_e=\tX_e\tY-\tY_e\tX$. The claim reads now: $[\tX,\tY]_e=[X,Y]$. We can actually take it as de \emph{definition} of $[X,Y]$. It is done in \cite{Helgason}. The link with the definition in terms of successive derivations of $\AD_g(x)=gxg^{-1}$ is not trivial but it can be done. 
+\end{proof}
+
+
+
+Now, we can give a powerful definition of the wedge for two $\yG$-valued $1$-forms. If $A$, $B\in\Omega^1(M,\yG)$ and $v$, $w\in\cvec(M)$, we define
+\begin{equation}
+  (A\wedge B)(v,w)=A(v)B(w)-A(w)B(v).
+\end{equation}
+For $A^2$, we find back the usual definition :
+\[
+  (A\wedge A)(v,w)=A(v)A(w)-A(w)A(v)=[A(v),A(w)].
+\]
+%
+One can see that for any section $\dpt{\salpha}{\mU_{\alpha}}{P}$, we have
+\begin{equation}\label{eq:1907r2}
+   \salpha^*(A\wedge A)=(\salpha^*A)\wedge(\salpha^*A).
+\end{equation}
+
+
+\begin{lemma}
+If $A$ and $B$ are two $\yG$-valued $1$-forms, one can make  ``simplifications'' as
+\begin{equation}
+ (Ag)\wedge(g^{-1} B)=A\wedge B.
+\end{equation}
+\label{lem:simplif}
+\end{lemma}
+
+\begin{proof}
+We just have to prove that for $A$, $B\in\yG$, $(Ag)(g^{-1} B)=AB$ with definitions \eqref{eq_gXdefa} and \eqref{eq:yGyGb}. Remark that $Ag=\Dsdd{e^{sA}g}{s}{0}$, so
+\[
+  e^{tAg}=\exp(t\dsdd{e^{sA}g}{s}{0})=\exp(\dsdd{e^{stA}g}{s}{0})=e^{tA}g.
+\]
+Therefore
+\[
+  (Ag)(g^{-1} B)=\DDsdd{  e^{tAg}e^{ug^{-1} B}  }{t}{0}{u}{0}=\DDsdd{  e^{tA}gg^{-1} e^{uB}  }{t}{0}{u}{0}=AB.
+\]
+\end{proof}
+
+\begin{lemma}
+\begin{equation}
+    F_{\beta}=dA_{\beta}+A_{\beta}^2.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+This is  a direct consequence of \eqref{eq:1907r2} and $[\sbeta^*,d]=0$.
+\end{proof}
+
+\section{Lie algebra valued differential forms}	\label{SecLiaAlgformval}
+%+++++++++++++++++++++++++++++++++++++++++++++++++
+
+An important particular case of vector valued forms is given by Lie algebra valued forms. That case appears for example in the connection theory over principal bundle\footnote{So in Maxwell and other gauge field theories.}. If $\omega$ and $\eta$ are elements of $\Omega^1(M,\mG)$ for some Lie algebra $\mG$, we define
+\[ 
+		(\omega\wedge\eta)(X,Y)=\omega(X)\otimes\eta(Y)-\omega(Y)\otimes\eta(X).
+\]
+Combining with the Lie bracket, we define\nomenclature[D]{$[\omega\wedge\eta]$}{Combination of the wedge and the bracket in the case of Lie algebra-valued forms}
+\begin{equation}	\label{EqDefomegawedgebeta}
+[\omega\wedge\eta](X,Y):=[\omega(X),\eta(Y)]-[\omega(Y),\eta(X)].
+\end{equation}
+Using the proposition \ref{prop:XY_YX}, we often implicitly transforms the tensor product into a product \eqref{eq:yGyGb} and put
+\begin{equation}	\label{EqAbuswesgeomom}
+  (\omega\wedge\omega)(X,Y)=[\omega(X),\omega(Y)].
+\end{equation}
+Let us point out the fact that that kind of formula only holds for a ``wedge square'', but not for a general product $\omega\wedge\eta$. Remark that for $\omega\in\Omega^1(M,\mG)$ and $\beta\in\Omega^2(M,\mG)$, a simple computation of definition \eqref{EqDefwedgevecor} yields
+\begin{equation}	\label{EqomwedgebetaXYZ}
+(\omega\wedge\beta)(X,Y,Z)=\omega(X)\otimes\beta(Y,Z)-\omega(Y)\otimes\beta(X,Z)+\omega(Z)\otimes\beta(X,Y),
+\end{equation}
+so that, using the same trick as for equation \eqref{EqAbuswesgeomom}, we find
+\[ 
+  (\omega\wedge\beta-\beta\wedge\omega)(X,Y,Z)=[\omega(X),\beta(Y,Z)]-[\omega(Y),\beta(X,Z)]+[\omega(Z),\beta(X,Y)].
+\]
+But that expression is exactly what we find by exchanging the tensor product by Lie bracket in expression \eqref{EqomwedgebetaXYZ}. So we define
+\begin{equation}	\label{EqDefCrochwedgedeux}
+[\omega\wedge\beta]=\omega\wedge\beta-\beta\wedge\omega
+\end{equation}
+when $\omega\in\Omega^1(M,\mG)$ and $\beta\in\Omega^2(M,\mG)$. The reader should remark that this is what one would expect from generalisation of definition \eqref{EqDefomegawedgebeta}. 
+\section{Principal bundle}
+%+++++++++++++++++++++++++
+
+Let $M$ be a manifold and $G$, a Lie group whose unit is denoted by $e$. A $G$-\defe{principal bundle}{principal!bundle}\index{bundle!principal} on $M$ is a smooth manifold $P$, a smooth map $\dpt{\pi}{P}{M}$ and a right action of $G$ on $P$ denoted by $\xi\cdot g$ with $g\in G$ and $\xi\in P$ such that
+
+\begin{itemize}
+\item $\pi(\xi\cdot g)=\pi(\xi)$,
+\item $\forall \xi\in\pi^{-1}(x)$, $\pi^{-1}(x)=\{\xi\cdot g\tq g\in G\}\simeq G$,
+\item $\forall x\in M$, there exists a neighbourhood $\mU_{\alpha}$ of $x$ in $M$, a diffeomorphism $\dpt{\phi_{\alpha}}{\pi^{-1}(\mU_{\alpha})}{\mU_{\alpha}\times G}$ and a diffeomorphism $\dpt{\phi_{\alpha x}}{P}{G}$ such that
+
+\begin{itemize}
+\item $\phi_{\alpha}(\xi)=(x,\phi_{\alpha x}(\xi))$,
+\item $\phi_{\alpha x}(\xi\cdot g)=\phi_{\alpha x}(\xi)\cdot g$.
+\end{itemize}
+\end{itemize}
+The group $G$ is often called the \defe{structure group}{structure!group}. We suppose that the action is effective. We will sometimes use the notation $P(G,M)$ to precise that $P$ is a principal bundle over $M$ with structure group $G$.
+
+\begin{lemma}\label{lem:phixh}
+The map $\phi_{\alpha}^{-1}$ fulfills
+\[
+  \phi\alpha^{-1}(x,h)\cdot g=\phi_{\alpha}^{-1}(x,hg).
+\]
+\end{lemma}
+
+\begin{proof}
+
+From the definition of a principal bundle, any $\xi\in P$ can be written under the form $\xi=\phi_{\alpha}^{-1}(x,\phi_{\alpha x}(\xi))$ with $\phi_x$ satisfying $\phi_x(\xi\cdot h)=\phi_x(\xi)h$ for a certain function $\dpt{\phi_x}{P}{G}$.  We consider in particular $\xi=\phi_{\alpha}^{-1}(x,h)\cdot g$. Then $\xi\cdot g^{-1}=\phi_{\alpha}^{-1}(x,h)$. But $\xi\cdot g^{-1}=\phi_{\alpha}^{-1}(x,\phi_{\alpha x}(\xi)g^{-1})$, then $h=\phi{\alpha_x}(\xi)g^{-1}$ and $\phi_{\alpha x}(\xi)=hg$. So we have
+\[
+\xi=\phi_{\alpha}^{-1}(x,h)\cdot g=\phi_{\alpha}^{-1}(x,\phi_{\alpha x}(\xi))=\phi_{\alpha}^{-1}(x,hg).
+\]
+
+\end{proof}
+
+Let 
+\[
+   R=\{ (x,y)\in P\times P\tq x=y\cdot g\,\textrm{ for a certain $g\in G$}  \}.
+\]
+
+\begin{proposition}
+The function $\dpt{u}{R}{G}$ defined by the condition
+\[
+  p\cdot u(p,q)=q.
+\]
+is differentiable.
+\end{proposition}
+
+\begin{proof}
+Let $\mU$ be an open subset of $M$ and $\dpt{\sigma}{\mU}{P}$, a section. We consider a differentiable map $\dpt{\rho}{\pi^{-1}(\mU)}{G}$ such that $\rho(\xi\cdot g)=\rho(\xi)\cdot g$ and $\rho(\sigma(x))=e$. Such a map is given by
+\[
+   \rho(\xi)=\phi_x(\sigma(x))^{-1}\phi_x(\xi)
+\]
+where $x=\pi(\xi)$. We naturally define $R_{\mU}=R\cap( \pi^{-1}(\mU)\times\pi^{-1}(\mU) )$ and we pick $(\xi,\eta)\in R_{\mU}$. Let $s\in G$ be the one such that $\xi\cdot s=\eta$, so that $\rho(\xi)\cdot s=\rho(\eta)$. Then the restriction of $u$ to $R_{\mU}$ is given by $u(\xi,\eta)=\rho(\xi)^{-1}\rho(\eta)$ which makes $u|_{\mU}$ differentiable. Since this reasoning can be made on every chart open $\mU$, $u$ is differentiable everywhere on $P$.
+\end{proof}
+
+The following is a corollary of Leibnitz rule, proposition \ref{Leibnitz}.
+\begin{corollary}  \label{cor_PrincLeib}
+If $P$ is a $G$-principal bundle and $v$, $a$ are curves in $P$ and $G$ respectively, we can consider the curve $u(t)=v(t)a(t)$. We have:
+\[
+         \dsdd{u(t)}{t}{0}=\dsdd{v(t)a(0)}{t}{0}+\dsdd{v(0)a(t)}{t}{0}.
+\]
+\end{corollary}
+ The proof is direct. This result is often written as
+\begin{equation}
+               \dot{u}_t=\dot{v}_ta_t+v_t\dot{a}_t.
+\end{equation}
+A main application is 
+\begin{equation}\label{eq:rdotht}
+  \Dsdd{ r\cdot h(t) }{t}{0}=\Dsdd{r\cdot e^{th'(0)}}{t}{0}.
+\end{equation}
+
+\subsection{Transition functions}
+%--------------------------------
+
+
+Let $(\mU_{\alpha},\phi_{\alpha})$ be a local trivialization of $P$. This induces transition functions $\dpt{g\bab}{\mU_{\alpha}\cap\mU_{\beta}}{G}$ defined by
+\begin{equation}
+	\begin{aligned}
+		\phi_{\alpha}\circ\phi_{\beta}^{-1}\colon \mU_{\alpha}\cap\mU_{\beta}\times G&\to \mU_{\alpha}\cap\mU_{\beta}\times G \\
+		(x,a)&\mapsto (x,g\bab(x)a).\label{eq:transi_princ} 
+	\end{aligned}
+\end{equation}
+Clearly, $g_{\alpha\alpha}=e$ and $g\bab g_{\alpha\beta}=e$ on $\mU_{\alpha}\cap\mU_{\beta}$. Then the triviality
+\[
+  \phi_{\alpha}\circ\phi_{\beta}^{-1}\circ\phi_{\beta}\circ\phi\bgamma^{-1}\circ\phi\bgamma\circ\phi_{\alpha}^{-1}=\id
+\]
+implies the compatibility conditions
+\begin{equation}
+g\bab g_{\beta\gamma} g_{\gamma\alpha}=e
+\end{equation}
+on $\mU_{\alpha}\cap\mU_{\beta}\cap\mU\bgamma$.
+
+There is an inverse construction. Let $\{\mU_{\alpha}\tq\alpha\in I\}$ be an open covering of $M$ and $\dpt{g\bab}{\mU_{\alpha}\cap\mU_{\beta}}{G}$ a family of functions such that $g_{\alpha\alpha}=e$, $g\bab g_{\alpha\beta}=e$ on $\mU_{\alpha}\cap\mU_{\beta}$ and $g\bab g_{\beta\gamma}g_{\gamma\alpha}=e$ on $\mU_{\alpha}\cap\mU_{\beta}\cap\mU\bgamma$. Then the following construction gives a $G$-principal bundle whose transition functions are the $g\bab$'s.
+
+\begin{itemize}
+\item $\tilde{P}=\bigsqcup_{\alpha\in I}\mU_{\alpha}\times G$  (disjoint union),
+\item if $(x,a)\in\mU_{\alpha}\times G$ and $(y,b)\in\mU_{\beta}\times G$, then $(x,a)\sim(y,b)$ if and only if $x=y$ and $b=g\bab(x)a$, 
+\item $\dpt{\pi}{\tilde{P}}{M}$ is defined by $\pi[(x,a)]=x$ where $[(x,a)]$ is the class of $(x,a)$ for~$\sim$,
+\item the action is defined by $[(x,a)]\cdot g=[(x,ag)]$.
+\end{itemize}
+
+\begin{theorem}
+Let $G$ be a Lie group; $M$, a differentiable manifold; $\{\mU_{\alpha}\}_{\alpha\in I}$, an open covering of $M$ and some functions $\dpt{\varphi\bab}{\mU_{\alpha}\cap\mU_{\beta}}{G}$ such that $\varphi\bab(x)=\varphi_{\alpha\gamma}(x)\varphi_{\gamma\beta}(x)$. Then there exists a principal bundle $P$ whose transition functions are the $\varphi_{\alpha}$'s for the covering $\{\mU_{\alpha}\}_{\alpha\in I}$.
+\end{theorem}
+
+\begin{proof}
+We consider the topological space 
+\begin{equation}
+    E=\bigcup_{\alpha\in I}(G\times\mU_{\alpha}\times I)
+\end{equation}
+where we put the discrete topology on $I$. Each $G\times\mU_{\alpha}\times\{\alpha\}$ is a manifold. Thus $E$ has a structure of differentiable manifold induced from the one of $G\times M$. We consider on $E$ the equivalence relation given by the following subset of $E\times E$:
+\[
+   R=\left\{\big(  (g,x,\alpha),(h,y,\beta)\big)\in E\times E\tq y=x\text{ and }  h=\varphi_{\alpha\beta}(x)g \right\}.
+\]
+We will show that $P=E/R$ has a structure of principal bundle. We begin by defining an action of $G$ on $P$ by
+\[
+  [ (g,x,\alpha)\cdot h ]=[ (gh,x,\alpha) ].
+\]
+In order to see that this definition is correct, let us consider $[g',x,\beta]=[g,x,\alpha]$. From the definition of the equivalence class, $g'=\varphi_{\alpha\beta}(x)g$. Then $[(g',x,\beta)]\cdot h=[(\varphi_{\alpha\beta}(g)gh,x,\beta)]$, and the form of $R$ shows that this is well $[(gh,x,\alpha)]$. Since the map $(g,h)\to gh$ is differentiable on $G$, the so defined action is a differentiable action of $G$ on $P$ and $G$ is a transformation group on $P$\quext{Faut voir comment ça correspond à la définition de l'autre texte.}.
+
+If $[(g,x,\alpha)]=[(gh,x,\alpha)]$, then $gh=\varphi_{\alpha\alpha}g=g$ and $h=e$. So the action is effective. 
+
+Now we consider the quotient $P/G$. A typical element is
+\[
+   \overline{ (s,x,i) }=\{ [s,x,i]\cdot g\tq g\in G \}.
+\]
+The projection $\dpt{\pi}{P}{M}$, $[(s,x,\alpha)]\to x$ is well defined and we can consider $\dpt{\varphi}{P/G}{M}$, $\varphi\overline{(s,x,\alpha)}=x$. It provides a bijection between $P/G$ and $M$. So we can identify $P/G$ and $M$. Now we are going to show that $P$ endowed with the projection $\dpt{\pi}{P}{X}$ is a principal bundle. 
+
+We consider the map 
+		\begin{equation}
+		\begin{aligned}
+			h_{\alpha} \colon G\times\mU_{\alpha} &\to P\
+			(g,x)&\mapsto \omega(g,x,\alpha)
+		\end{aligned}
+	\end{equation}	
+%
+where $\dpt{\omega}{E}{P=E/R}$ is the canonical projection. Since 
+\[
+  (\pi\circ h_{\alpha})(g,x)=(\pi\circ\omega)(g,x,\alpha)=\pi[(g,x,\alpha)]=x,
+\]
+the map $h_{\alpha}$ actually is $\dpt{h_{\alpha}}{G\times\mU_{\alpha}}{\pi^{-1}(\mU_{\alpha})}$. In order to see that $h_{\alpha}$ is surjective on $\pi^{-1}(\mU_{\alpha})$, let us take a general element of $\pi^{-1}(\mU_{\alpha})$ under the form $\omega(g,x,\beta)$ with $x\in\mU_{\alpha}\cap\mU_{\beta}$. Then $(g,x,\beta)\in[ (\varphi\bab(x)g,x,\alpha) ]$ and therefore $\omega(g,x,\beta)=h_{\alpha}(\varphi\bab(x)g,x)$. For the injectivity, remark that $\omega(g,x,\beta)=\omega(h,y,\alpha)$ implies $x=y$ and $h=\varphi_{\beta\beta}(x)g=g$. In particular, $h_{\alpha}(g,x)=h_{\alpha}(h,y)$ implies $x=y$ and $g=h$.
+
+Now we will prove that the inverse of $h_{\alpha}$ is continuous. For this we consider an open set $\Omega\subset G\times\mU_{\alpha}$ and we have to show that $h_{\alpha}(\Omega)$ is open in $\pi^{-1}(\mU_{\alpha})$. 
+
+We recall the \defe{quotient topology}{topology!quotient}: if $A$ is a topological space with an equivalence relation $\sim$ and the canonical projection $\dpt{\varphi}{A}{A/\sim}$, then $V\subset A/\sim$ is open if and only if $\varphi^{-1}(V)\subset A$ is open. So in our case, we have to check the openness of $V=\omega^{-1}( h_{\alpha}(\Omega) )$ in $E$. We consider the open covering 
+\[
+  \{ G\times\mU_{\alpha}\times\{\alpha\} \}_{\alpha\in I}
+\]
+of $E$ and we will show that the intersection of $V$ with any of these open set is open. We have to show that 
+$\omega^{-1}\big(  h_{\alpha}(\Omega)\cap (G\times\mU_{\alpha}\times\{\beta\})  \big)$ is open for any $\beta\in I$. For this, we define a map $\dpt{\alpha}{G\times(\mU_{\alpha}\cap\mU_{\beta})\times\{\beta\}}{G\times\mU_{\alpha}}$ by
+\begin{equation}
+  \alpha_{\beta}(g,x,\beta)=(\varphi\bab(x)g,x)
+\end{equation}
+which is continuous. The set $(h_{\alpha}\circ\alpha_{\beta})^{-1}(h_{\alpha}(\Omega))=\alpha^{-1}_{\beta}(\Omega)$ is open because $h_{\alpha}\circ\alpha_{\beta}$ is the restriction of $\omega$ to $G\times (\mU_{\alpha}\cap\mU_{\beta})\times\{\beta\}$. Then $h_{\alpha}$ is an homeomorphism from $G\times\mU_{\alpha}$ tp $\pi^{-1}(\mU_{\alpha})$. Since it is build from differentiable functions, it is moreover a diffeomorphism.
+
+So we have a chart system $\{ (h_{\alpha},\mU_{\alpha}) \}_{\alpha\in I}$ where $h_{\alpha}$ fulfils the ``good'' properties with respect to $\pi$. It remains to be proved that the $\varphi\bab$'s are the transition functions and that $\pi^{-1}(\pi(\xi))=\xi\cdot G$ for every $\xi\in P$. We begin by the latter. For $\xi=[(g,x,\alpha)]$, $\pi(\xi)=x$ and we have to study the set
+\[
+  \pi^{-1}(x)=\{ [(h,x,\beta)]\tq h\in G,\beta\in I \}.
+\]
+Clearly, $[(h,x,\beta)]\cdot G\subset\pi^{-1}(x)$. The fact that there is nothing else than $[(h,x,\beta)]\cdot G$ in $\pi^{-1}(x)$ is seen by
+\[
+  [h,x,\beta]=[\varphi\bab(x)g,x,\alpha]\in[(h,x,\alpha)]\cdot G.
+\]
+
+In order to check the change of charts, let us consider $g'=h_{\beta,x}^{-1}\circ h_{\alpha,x}(g)$ where
+\begin{equation}
+  h_{\alpha,x}(g)=h_{\alpha}(g,x)=\omega(g,x,\alpha).
+\end{equation}
+The fact that $h_{\beta}(g',x)=g_{\alpha}(g,x)$ concludes the proof. To see this fact, remark that $h_{\beta,x}(h^{-1}_{\beta,x}\circ h_{\alpha,x}(g))=h_{\alpha,x}(g)$, so that $h_{\alpha}(g',x)=h_{\alpha}(g,x)$ implies $\omega(g',x,\beta)=\omega(g,x,\alpha)$ which proves that $g'=\varphi\bab(g)$.
+\end{proof}
+
+The \defe{trivial bundle}{trivial!principal bundle} is simply $P=M\times G$ and $\pi(x,g)=x$ with the action $(x,a)\cdot g=(x,ag)$.
+
+\subsection{Morphisms and such\texorpdfstring{\ldots}{...}}
+%----------------------------------
+
+An \defe{homomorphism}{homomorphism!of principal bundle} between $P(G,M)$ and $P'(G',M')$ is a differentiable map $\dpt{h}{P}{P'}$ such that $\forall \xi\in P,g\in G$, 
+\begin{equation}\label{eq:def_princ_homo}
+   h(\xi\cdot g)=h(\xi)\cdot h_G(g)
+\end{equation}
+where $\dpt{h_G}{G}{G'}$ is a Lie group homomorphism. From the definition, $h$ maps a fiber to only one fiber, but it is not specially surjective on any fiber. So $h$ induces a homomorphism $\dpt{h_M}{M}{M'}$ such that $\pi'\circ h=h_M\circ\pi$.
+
+An \defe{isomorphism}{isomorphism!of principal bundle} is a homomorphism $\dpt{g}{P(G,M)}{P'(G',M')}$ such that 
+
+\begin{itemize}
+\item $h_P$ is a diffeomorphism $P\to P'$,
+\item $h_G$ is a Lie group homomorphism $G\to G'$, and
+\item $h_M$ is a diffeomorphism $M\to M'$.
+\end{itemize}
+
+A principal bundle is \defe{trivial}{trivial!principal bundle} if one can find an isomorphism $\dpt{h}{G\times M}{P}$ such that $\pi\circ h=\id\circ\pr_2$, i.e. the following diagram commutes:
+\begin{equation}\label{diag:princ_triv}
+\xymatrix{ G\times M \ar[d]_{\pr_2} \ar[r]^h & P\ar[d]^{\pi} \\M \ar[r] _{\id}&M}
+\end{equation}
+We say that $P$ is \defe{locally trivial}{locally!trivial!principal bundle} if for every $x\in M$, there exists an open neighbourhood $\mU$ in $M$ such that $\pi^{-1}(\mU)$ endowed with the induced structure of principal bundle is trivial.
+
+\subsection{Frame bundle: first}\label{pg:frame_bundle}
+%--------------------------------
+
+In the ideas, the building of a vector bundle is just to put a vector space on each point of the base manifold. A principal bundle is to put something on which a group acts on each point. If you have a vector bundle on a manifold, you can consider, on each point $x\in M$, the set of all the basis of the fiber $E_x$ over $x$. The group $GL(r,\eK)$ naturally acts on this set which becomes a candidate to be a $GL(r,\eK)$-principal bundle.
+
+More formally, we consider a vector bundle $\dptvb{F}{p}{M}$, and for each $x$, the set of the basis of the vector space $F_x=p^{-1}(x)$. We define
+\[
+  P=\bigcup_{x\in M}(\textrm{basis of $F_x$}).
+\]
+We naturally consider the projection $\dpt{\pi}{P}{M}$, $\pi(b_x)=x$ if $b_x$ is a basis of $F_x$.
+
+Let $\dpt{\phi^F_{\alpha}}{p^{-1}(\mU_{\alpha})}{\mU_{\alpha}\times\eK^r}$ be a local trivialization of $F$, and $\{\overline{e}_1,\ldots,\overline{e}_r\}$, the canonical basis of $\eK^r$. We naturally define
+\[
+  \ovS_{\alpha i}(x)=\phi^F_{\alpha}{}^{-1}(x,\overline{e}_i).
+\]
+The set $\{\ovS_{\alpha 1}(x),\ldots,\ovS_{\alpha r}(x)\}$ is a ``reference''{} basis of $F_x$ with respect to the trivialization $\phi_{\alpha}$. If we choose another basis $\{\ovv_1,\ldots\ovv_r\}$ of $F_x$, we can find a matrix $A\in GL(r,\eK)$ such that $\ovv_k=A^l_k\ovS_{\alpha l}(x)$. This gives a bijection
+\begin{equation}
+	\begin{aligned}
+		\phi_{\alpha}^P\colon \pi^{-1}(\mU_{\alpha})&\to \mU_{\alpha}\times GL(r,\eK) \\
+		(\ovv_1,\ldots,\ovv_r)&\mapsto (x,A). 
+	\end{aligned}
+\end{equation}
+One can give to $P$ a $GL(r,\eK)$-principal bundle structure such that the $\phi_{\alpha}^P$ are diffeomorphism.
+
+Let $(\mU_{\alpha},\phi_{\alpha}^F)$ be a local trivialization of  $F$ and $\dpt{g\bab^F}{\mU_{\alpha} \cap\mU_{\beta}}{GL(r,\eK)}$. In this case, $(\mU_{\alpha},\phi_{\alpha}^P)$ is a trivialization of $P$ whose transition function is $g\bab^P=g\bab^F$. Indeed
+\[
+  \phi_{\alpha}^P\circ\phi_{\beta}^P{}^{-1}(x,A)=\phi_{\alpha}^P(\{\ovv_1,\ldots,\ovv_r\})
+\]
+where $\ovv_s=(\phi^F_{\beta})^{-1}(x,A^l_s\overline{e}_l)$. In order to see it, recall that $\ovv_s=A^l_s\ovS_{\alpha l}(x)$ and that $\phi_{\alpha}^F{}^{-1}(x,\overline{e}_s)=\ovS_{\alpha s}(x)$. Then
+\[
+   \ovv_s=(\phi_{\beta}^F)^{-1}(x,A^l_s\overline{e}_l)=A^l_s\ovS_{\alpha s}(x).
+\]
+On the other hand, from the definition of $\phi_{\beta}^P$, the basis $(\phi_{\beta}^P)^{-1}(x,A)$ is the one obtained by applying $A$ on $S$. With all this,
+\begin{equation}
+\begin{split}
+  \phi_{\alpha}^P\circ(\phi_{\beta}^P)^{-1}(x,A)&=\phi_{\alpha}^P\{  (\phi_{\beta}^F)^{-1}(x,A^l_s\overline{e}_l)\}_{s=1,\ldots r}\\
+                 &=\phi_{\alpha}^P\{(\phi_{\alpha}^F)^{-1}\circ(\phi_{\alpha}^E\circ\phi_{\beta}^F{}^{-1})(x,A^l_s\overline{e}_l)  \}_{s=1,\ldots r}\\
+		 &=\phi_{\alpha}^P\{  (\phi^E_{\alpha})^{-1}(x,g\bab^F(x)^s_iA^l_s\overline{e}_l   ) \}_{i=1,\ldots r}\\
+		 &=(x,g^F\bab(x)A).
+\end{split}
+\end{equation}
+The last product $g^F\bab(x)A$ is a matricial product.
+
+\subsection{Frame bundle: second} \label{subsec_frbundle}
+%------------------------------
+
+\subsubsection{Basis}\label{subsubsecframebundle}
+%////////////////////////////////////////////////
+
+If $M$ is a $m$-dimensional manifold, a \defe{frame}{basis!of $T_xM$} of $T_xM$ is an isomorphism $\dpt{b}{\eR^m}{T_xM}$. In our purpose, we will always deal with (pseudo)Riemannian manifold. So, the tangents spaces $T_xM$ comes with a metric, and we ask a frame to be isometric. In other words, we ask $b$ to be an isometry from $(\eR^m,\cdot)$ to $(T_xM,g_x)$, where the dot denotes the (pseudo)euclidian product on $\eR^m$. Such a frame is given by a base point $x$ of $M$ and a matrix $S$ in $\SO(g_x)$:
+\begin{equation}
+                 \label{r1504e1}b(v)=(Sv)^i(\partial_i)_x,
+\end{equation}
+if the vector $v$ is written as $v=v^i\oui$ in the canonical orthogonal frame $\{\oui\}$ of $\eR^m$ and $\SO(g_x)$ is the set of the $m\times m$ matrix $A$ such that $A^tg_xA=g_x$.
+
+This frame intuitively corresponds to the basis of $T_xM$ (see as a ``true''\ vector space) that we would have written by $\{Se_i\}_x$ if $e_i=\dsd{}{x^i}$. In order to follow this idea, we will effectively denote by $\baz{S}{x}$ the map $\dpt{b}{\eR^m}{T_xM}$ given by \eqref{r1504e1}.
+
+We will often write the frame $b$ as $\baz{b}{x}$, making no differences in notation between the $b$ of $\SO(M)$ and the $b$ of $\SO(g_x)$ which implement it.
+
+\begin{remark}
+One has to distinguish a \emph{frame} and a \emph{basis}: a basis is only a free and generating set while a frame can be interpreted as an ordered basis.
+\end{remark}
+
+
+\subsubsection{Construction}
+%////////////////////////////
+
+We just saw how to build a frame bundle over a manifold. One can get another expression of the frame bundle when we express a basis of $T_xM$ by means of an isomorphism between $\eR^n$ and $T_xM$. If $M$ is a $n$-dimensional manifold, a \defe{frame}{frame} at $x$ is an ordered basis  
+\[
+   b=(\overline{ b }_1,\ldots,\overline{ b }_n)
+\]
+of $T_xM$. It is clear that any frame defines an isomorphism (linear bijective map)
+\begin{equation}
+\begin{aligned}
+	\tilde{b}\colon\eR^n&\to T_xM \\ 
+    e_i&\mapsto \overline{ e_i }
+\end{aligned}
+\end{equation}
+where $\{e_i\}$ is the canonical basis of $\eR^n$. It is also clear that any isomorphism gives rise to a frame. Then we see a frame of $M$ at $x$ as an isomorphism $\dpt{\tilde{b}}{\eR^n}{T_xM}$. Let $B(M)_x$ be the of all the frames of $M$ at $x$; we define
+\[
+   B(M)=\bigcup_{x\in M}B(M)_x.
+\]
+For all $b\in B(M)_x$, we define $p_B(b)=x$ and the action $B(M)\times GL(n,\eR)\to B(M)$ by $b\cdot g=(\overline{ b }'_1,\ldots,\overline{ b }'_n)$ where
+\begin{equation}
+  \overline{ b }'_j=\overline{ b }_i\bghd{g}{i}{j}.
+\end{equation}
+It is easy to see that $\dpt{\widetilde{b\cdot g}=\tilde{b}\circ g}{\eR^n}{T_xM}$. So we can give to
+\begin{equation}
+\xymatrix{
+    GL(n,\eR)  \ar@{~>}[r] & B(M) \ar[d]^{p_B}\\& M
+  }
+\end{equation}
+a structure of principal bundle\footnote{Much more details and proofs are given in \cite{Naber}.}. If $(\mU_{\alpha},\varphi_{\alpha})$ is a local coordinate chart on $M$, we define
+		\begin{equation}
+		\begin{aligned}
+			\tilde{\varphi} \colon p_B^{-1}(\mU_{\alpha}) &\to \varphi_{\alpha}(\mU_{\alpha})\times GL(n,\eR)\
+			b&\mapsto (\varphi_{\alpha}(x),A(b))
+		\end{aligned}
+	\end{equation}	
+where $A(b)\in GL(n,\eR)$ is defined by the condition $\overline{ b }_j=\bghd{A}{j}{i}\partial_i|_x$. The matrix $A(b)$ is the one which transforms the canonical basis (in the trivialization $\varphi_{\alpha}$) into $b\in B(M)_x$. That's for the principal bundle structure. 
+
+The manifold structure of $B(M)$ is given by $\dpt{\Phi_{\alpha}}{p_B^{-1}(\mU_{\alpha})}{\mU_{\alpha}\times GL(\eR)}$,
+\begin{equation}
+\begin{split}
+  \Phi(b)&=(\varphi_{\alpha}^{-1}\times \id|_{GL(n,\eR)})\circ\tilde{\varphi}(b)\\
+         &=(x,A(b))\\
+         &=(p_B(b),A(b)).
+\end{split}
+\end{equation}
+It fulfils $A(b\cdot g)=A(b)\cdot g$. A section $\dpt{s}{\mU_{\alpha}}{B(M)}$ is sometimes called a \defe{moving frame}{moving frame}\index{frame!moving} over $\mU_{\alpha}$.
+
+Frame bundle over $\eR^2$ is given as example in page \pageref{Pg_exempleRdeux}
+% 
+% \subsection{Space-time}\label{subsec:space_time}
+% %----------------------
+% 
+% 
+% We say that the basis $\{\gb_0,\ldots,\gb_3\}$ of $T_xM$ is oriented, time oriented and orthonormal if $g(\gb_i,\gb_j)=\eta_{ij}$ (pointwise) and if $\gb_0$ is time-like and future directed. All this is devoted to build the frame bundle
+% 
+% 
+% \[
+% \xymatrix{
+%     \Lpf  \ar@{~>}[r] & L(M) \ar[d]^{p_L} \\
+%     &M.
+%   }
+% \]
+% 
+% From discussion in \autoref{subsec:sym_nature}, we know that, in physics, the relevant group is \emph{not} the Lorentz group $\Lpf$, but $\SLdc$ . So we want to build a $\SLdc$-principal bundle which ``fit''{} as deeply as possible the bundle $L(M)$. It is done with a \defe{spin structure}{spin!structure} which is a principal bundle
+% 
+% \[
+% \xymatrix{
+%     \SLdc  \ar@{~>}[r] & S(M) \ar[d]^{p_S} \\
+%     &M.
+%   }
+% \]
+% with a map $\dpt{\lambda}{S(M)}{L(M)}$ such that $p_L\circ\lambda=p_S$ and $\lambda(\xi\cdot g)=\lambda(\xi)\cdot\mSpin(g)$. See \autoref{sec:spin_str} and \autoref{sec:incl_Lorentz}.
+
+\subsection{Sections of principal bundle}
+%----------------------------------------
+
+A \defe{section}{section!of principal bundle} of a $G$-principal bundle is a smooth map $\dpt{s}{M}{P}$ such that $s(x)\in\pi^{-1}(x)$ for any $x\in M$. A trivialization $\phi_{\alpha}^P$ $P$ on $\mU_{\alpha}$ defines a section of $P$ over $\mU_{\alpha}$ by
+\[
+   \sigma_{\alpha}(x)=(\phi_{\alpha}^P)^{-1}(x,e)
+\]
+where $e$ is the neutral of the group. In the inverse sense, we have the following:
+
+\begin{proposition}
+If $\dpt{\sigma_{\alpha}}{\mU_{\alpha}}{P}$ is local section of $P$ over $\mU_{\alpha}\subset M$, then the definition $\phi_{\alpha}^P(\xi)=(x,a)$ if $\xi=\sigma_{\alpha}(x)\cdot a$ is a local trivialization.
+\end{proposition}
+
+\begin{proof}
+The function $\phi_{\alpha}^P$ is well defined because $\xi\in\pi^{-1}(\mU_{\alpha})$ implies the existence of a $x\in\mU_{\alpha}$ such that $\xi\in\pi^{-1}(x)=\{\xi\cdot g\}\simeq G$. For this $x$, there exists a $g\in G$ such that $\xi=\sigma_{\alpha}(x)\cdot g$. 
+
+Now we prove that the couple $(x,a)$ is unique in the sense that $s_{\alpha}(x)\cdot a=\sigma_{\alpha}(y)\cdot b$ implies $(x,a)=(y,b)$. The left hand side belongs to $\pi^{-1}(x)$ while the right one belongs to $\pi^{-1}(y)$. Then $x=y$. The condition $\pi^{-1}(x)\simeq G$ imposes the unicity of the $g$ making $\xi=\eta\cdot g$ for each couple, $\xi,\eta\in\pi^{-1}(x)$.
+\end{proof}
+
+If $\sigma$ and $\sigma'$ are two sections of the same principal bundle $P$, then there exists a differentiable map $\dpt{f}{M}{G}$ such that $\sigma'(x)=\sigma(x)\cdot f(x)$. So all the sections can be deduced from only one and multiplication by such a $f$.
+
+\begin{theorem}
+If $\dpt{\pi}{P(G,M)}{M}$ is a principal bundle, then the four following propositions are equivalent:
+\begin{enumerate}
+\item\label{enuymai} $P$ is trivial,
+\item\label{enuymaii} $P$ has a global section,
+\item\label{enuymaiii} there exists a differentiable map $\dpt{\gamma}{P}{G}$ such that $\gamma(\xi\cdot g)=g^{-1}\gamma(\xi)$ for all $\xi\in P$ and $g\in G$,
+\item\label{enuymaiv} there exists a differentiable map $\dpt{\rho}{P}{G}$ such that $\rho(\xi\cdot g)=\rho(\xi)g$.
+\end{enumerate}
+\label{ThoYPrincBTrivSect}
+\end{theorem}
+
+\begin{proof}
+\subdem{\ref{enuymai}$\Rightarrow$ \ref{enuymaii}} 
+The diagram \eqref{diag:princ_triv} commutes and 
+		\begin{equation}
+		\begin{aligned}
+			\tau \colon M &\to G\times M\
+			x&\mapsto (e,x)
+		\end{aligned}
+	\end{equation}	
+is a local section of $G\times M$. From it we build the following global section of $P$:
+		\begin{equation}
+		\begin{aligned}
+			\sigma \colon M &\to P\
+			x&\mapsto h(e,x).
+		\end{aligned}
+	\end{equation}	
+ This is injective because $\pi\circ h=\pr_2$ and differentiable because this is a composition of $\xdp{x}{(e,x)}$ and $\xdp{(g,x)}{h(g,x)}$.
+\subdem{\ref{enuymaii}$\Rightarrow$ \ref{enuymai}}
+The principal bundle $P$ admits a global section $\dpt{\sigma}{M}{P}$. From it, we can build the differentiable map
+		\begin{equation}
+		\begin{aligned}
+			h \colon G\times M &\to P\
+			(g,x)&\mapsto \sigma(x)\cdot g
+		\end{aligned}
+	\end{equation}	
+which satisfies $h(gh,x)=h(g,x)\cdot h$ and $\pi\circ(g,x)=x$. First we show that $h$ is a fiber homomorphism and an isomorphism between $P$ and $G\times M$ so that $P$ is trivial. For this remark that
+\[
+  g(gh,x)=g(g,x)\cdot h=\sigma(x)\cdot gh,
+\]
+hence equation \eqref{eq:def_princ_homo} reduces to $h( (g,x)\cdot h )=h(g,x)\cdot h_G(h)$ which is true with $h_G=\id$. Moreover $\dpt{h}{G\times M}{P}$ is bijective because $\sigma(\pi(\xi))$ belongs to the fiber of $\xi\in P$, therefore there is one and only one $\gamma(\xi)=u(\xi,\sigma(\pi(\xi)))$ such that $\xi\cdot\gamma(\xi)=(\sigma\circ\pi)\xi$. The inverse map is 
+		\begin{equation}
+		\begin{aligned}
+			\theta \colon P &\to G\times M\
+			\xi&\mapsto (\gamma(\xi),\pi(\xi))
+		\end{aligned}
+	\end{equation}	
+which is differentiable because $\gamma$ and $\pi$ are. So far we see that $h$ and $h^{-1}$ are differentiable. Then $h$ is an isomorphism between $P$ and $G\times M$.
+
+\subdem{\ref{enuymaii}$\Rightarrow$ \ref{enuymaiii}}
+Let $\sigma$ be the global section and define
+		\begin{equation}
+		\begin{aligned}
+			\gamma \colon P &\to G\
+			\xi&\mapsto u(\xi,(\sigma\circ\pi)\xi)
+		\end{aligned}
+	\end{equation}	
+where $\dpt{u}{R}{G}$ is the map defined by the condition $\xi\cdot(\xi,\eta)=\eta$. The map $\gamma$ is differentiable and we have to prove that $\gamma(\xi\cdot g)=g^{-1}\gamma(\xi)$. Since $\xi\cdot \gamma(\xi)=\sigma\circ\pi(\xi)$,
+\[
+  \gamma(\xi\cdot g)=u(\xi\cdot g,(\sigma\circ\pi)(\xi\cdot g))=u(\xi\cdot g,(\sigma\circ\pi)(\xi)).
+\]
+But $(\xi\cdot g)(g^{-1}\gamma(\xi))=\xi\cdot\gamma(\xi)=x$. So $\gamma(\xi\cdot g)=u(\xi\cdot g,x)$. Thus $\gamma(\xi\cdot g)=g^{-1}\gamma(\xi)$.
+
+\subdem{\ref{enuymaiii}$\Rightarrow$ \ref{enuymaii}}
+The given map $\gamma$ fulfils $\xi\cdot g\gamma(\xi\cdot g)=\xi\cdot(\xi)$, so 
+		\begin{equation}
+		\begin{aligned}
+			\varphi \colon P &\to P\
+			\xi&\mapsto \xi\cdot(\xi)
+		\end{aligned}
+	\end{equation}	
+is just function of the class of $\xi$, thus we have a section $\dpt{\sigma'}{P/G}{P}$, but we know that $P/G$ and $M$ are isomorphic.
+
+\subdem{\ref{enuymaiii}$\Rightarrow$ \ref{enuymaiv}}
+Let us define $\dpt{\rho}{P}{G}$ by $\rho=J\circ\gamma$ with $J(g)=g^{-1}$, thus $\rho(\xi)=\gamma(\xi)^{-1}$ and
+\[
+  \rho(\xi\cdot g)=\gamma(\xi\cdot g)^{-1}=(g^{-1}\gamma(\xi))^{-1}=\gamma(\xi)^{-1} g=\rho(\xi)g.
+\]
+\subdem{\ref{enuymaiv}$\Rightarrow$ \ref{enuymaiii}} The proof is just the same with $\rho=J\circ\rho$.
+\end{proof}
+
+\begin{definition}  
+A section $\psi\in\Gamma(P,TP)$ is \defe{$G$-equivariant}{equivariant!vector field on principal bundle} when
+\[ 
+  d\tau_{g}\psi(\xi)=\psi(\xi\cdot g).
+\]
+\label{DefEqVectPrinc}
+\end{definition}
+Be careful: this \emph{does not} define equivariant sections of the principal bundle.
+\subsection{Equivalence of principal bundle}
+%-------------------------------------------
+
+Two principal bundles $\dpt{\pi}{P}{M}$ and $\dpt{\pi'}{P'}{M}$ are \defe{equivalent}{equivalence!of principal bundle} if there exists a diffeomorphism $\dpt{\varphi}{P}{P'}$ such that 
+
+\begin{itemize}
+\item  $\pi'\circ\varphi=\pi$
+\item $\varphi(\xi\cdot g)=\varphi(\xi)\cdot g$.
+\end{itemize}
+
+If $\{\mU_{\alpha}\}_{\alpha\in I}$ is an open covering of $M$ on which we have trivializations $\phi_{\alpha}$ of $P$ and $\psi_{\alpha}$ of $P'$, the diffeomorphism $\varphi$ induces some functions $\dpt{\lambda}{\mU_{\alpha}}{G}$ by setting
+\[
+   (\phi_{\alpha}\circ\varphi^{-1}\circ\psi_{\alpha}^{-1})(x,a)=(x,\lambda_{\alpha}(x)a).
+\]
+This definition works because from the definitions of principal bundle and equivalence, one sees that $(\phi_{\alpha}\circ\varphi^{-1}\circ\psi_{\alpha}^{-1})(x,\cdot)=(x,\cdot)$.
+
+\subsubsection{Transition functions}
+%///////////////////////////////////
+
+We have some transition functions for $P$ and $P'$ given by equations
+\[
+ \begin{aligned}
+   (\phi_{\alpha}\circ\phi_{\beta}^{-1})(x,g)&=(x,g\bab(x)g)\\
+   (\psi_{\alpha}\circ\psi_{\beta}^{-1})(x,g)&=(x,g'\bab(x)g).
+ \end{aligned}
+\]
+Now, we want to know what is $g'\bab$ in function of $g\bab$. First remark that $(\psi_{\alpha}\circ\varphi\circ\phi_{\alpha}^{-1})(x,a)=(x,\lambda_{\alpha}(x)^{-1})a$, and next, compute
+\begin{equation}
+\begin{split}
+  (x,g\bab(x)a)a&=(\psi_{\alpha}\circ\varphi\circ\phi_{\beta}^{-1}\circ\phi_{\beta}\circ\varphi^{-1}\circ\psi_{\beta}^{-1})(x,a)\\
+                &=(\psi_{\alpha}\circ\varphi\circ\phi_{\beta}^{-1})(x,\lambda_{\beta}(x)a)\\
+		&=(\psi_{\alpha}\circ\varphi\circ\phi_{\alpha}^{-1}\circ\phi_{\alpha}\circ\phi_{\beta}^{-1})(x,\lambda_{\beta}(x)a)\\
+		&=(x,\lambda_{\alpha}(x)^{-1} g\bab(x)\lambda_{\beta}(x)a).
+\end{split}
+\end{equation}
+Then 
+\begin{equation}
+    g\bab(x)=\lambda_{\alpha}(x)^{-1} g\bab(x)\lambda_{\beta}.
+\end{equation}
+One can show that if two principal bundle have transition functions whose fulfill this condition, they are equivalent. A $G$-principal bundle is \defe{trivial}{trivial!principal bundle} if it is equivalent to the one given by $\dpt{\pi_1}{M\times G}{M}$.
+
+\subsection{Reduction of the structural group}
+%---------------------------------------------
+
+We say that a principal bundle $P(G,M)$ is \defe{reducible}{reducible!principal bundle} when there exists a principal bundle $P'(H,M)$ such that 
+
+\begin{itemize}
+\item $H$ is a subgroup of $G$,
+\item there exists an homeomorphism $\dpt{h}{P'}{P}$ such that $\dpt{h_G}{H}{G}$ is an injective homomorphism.
+\end{itemize}
+
+In this case we say that $G$ is reducible to $H$ and that $P'$ is a reduced principal bundle.
+
+\begin{theorem}
+If $P$ is a principal bundle over $M$, the structural group $G$ is reducible to the Lie subgroup $H$ if and only if there exists an open covering $\{ \mU_i \}_{i\in I}$ of $M$ and transition functions $\varphi_{ij}$ taking their values in $H$.
+\end{theorem}
+\begin{proof}
+No proof.
+\end{proof}
+The following comes from \cite{Dieu4}. Let us consider the principal bundle
+\begin{equation}
+\xymatrix{%
+   G \ar@{~>}[r]		&	P\ar[d]^{\pi_P}\\
+   				&	M
+ }
+\end{equation}
+and $H$, a closed subgroup of $G$. We denote by $j\colon H\to G$ the inclusion map. The principal bundle
+\begin{equation}
+\xymatrix{%
+   H \ar@{~>}[r]		&	Q\ar[d]^{\pi_Q}\\
+   				&	M
+ }
+\end{equation}
+is a \defe{reduction}{reduction of a principal bundle} of $P$ to the group $H$ if there exists a map $u\colon Q\to P$ such that $\pi_P\circ u=\pi_Q$ and $u(\xi\cdot h)=u(\xi)\cdot j(h)$. In this case, $u$ is an embedding\quext{plongement} of $Q$ in $P$ and the image is a closed submanifold of $P$.   
+
+Let $M$ be a $n$-dimensional manifold and $B(M)$ be its frame bundle. This is a $\GL(n,\eR)$-principal bundle. If $G$ is a closed subgroup\footnote{Typically $\SO(p,q)$ or $\SO_0(p,q)$.} of $\GL(n,\eR)$, a \defe{$G$-structure}{$G$-structure} is a reduction of $B(M)$ to $G$.
+
+%---------------------------------------------------------------------------------------------------------------------------
+					\subsection{Density}
+%---------------------------------------------------------------------------------------------------------------------------
+
+A \defe{density}{density} on a $d$-dimensional manifold $M$ is a section of the principal bundle whose fiber $P_x$ over $x\in M$ is the space of homogeneous non vanishing maps
+\begin{equation}
+\rho\colon \Wedge^dT_xM\to \eR^*_+
+\end{equation}
+such that $\rho(\lambda v)=| \lambda |\rho(v)$ for every $\lambda\in\eR$ and $v\in\Wedge^d T_xM$.
+
+
+\section{Associated bundle}  \index{bundle!associated}
+%++++++++++++++++++++++++++
+
+Let $\dpt{\pi}{P}{M}$ be a $G$-principal bundle and $\dpt{\rho}{G}{GL(V)}$, a representation of $G$ on a vector space $V$ (on $\eK=\eR$ or $\eC$) of dimension $r$.
+
+The associated bundle $\dptvb{E=P\times_{\rho} V}{p}{M}$ is defined as following. On $P\times V$, we consider the equivalence relation 
+\[
+   (\xi,v)\sim(\xi\cdot g,\rho(g^{-1})v)
+\]
+for $g\in G$, $\xi\in P$ and $v\in V$. Then we define
+
+\begin{itemize}
+\item $E=P\times_{\rho} V:=P\times V/\sim$,
+\item $p[(\xi,v)]=\pi(\xi)$
+\end{itemize}
+where $[(\xi,v)]$ is the class of $(\xi,v)$ in $P\times V$.
+
+If $\phi^P_{\alpha}(\xi)=(\pi(\xi),a(\xi))$ is a  trivialization of $P$ on $\mU_{\alpha}$, then
+\begin{equation}\label{eq:triv_P_E}
+\phi^E[(\xi,v)]=(\pi(\xi),\rho(a)v) 
+\end{equation}
+is a trivialization of $E$.
+
+In order to see that it is a good definition, let us consider $(\eta,w)\sim(\xi,v)$. It immediately gives the existence of a $g\in G$ such that $\eta=\xi\cdot g$ and $w=\rho(g^{-1})v$. Then $\phi^E[ (\xi\cdot g,\rho(g^{-1})v) ]=( \pi(\xi\cdot g),\rho(b)\rho(g^{-1})v )$.  From the definition of $\phi^E$, the vector $b$ is given by $\phi^P(\xi\cdot g)=( \pi(\xi\cdot g),b )$, and the definition of a principal bundle gives $b=\phi_{\pi(\xi)}(\xi\cdot g)=\phi_{\pi(\xi)}(\xi)\cdot g=ag$. The fact that $\rho$ is a homomorphism makes $\rho(ag)\rho(g^{-1})=\rho(a)v$ and $\phi^E$ is well defined.
+
+Let $G$ be a Lie group, $\rho$ a representation of $G$ on $V$ and $M$, a manifold. We consider $\dptvb{P=M\times G}{\pr_1}{M}$, the trivial $G$-principal bundle on $M$. Then $\dptvb{E=P\times_{\rho}V}{p}{M}$ is \defe{trivial}{trivial!principal bundle}, i.e. we can build a $\dpt{\varphi}{P\times_{\rho} V}{M\times V}$ such that $\pr_1\circ\varphi=p$. It is rather easy: we define
+\[
+  \varphi\big[ \big((x,g),v\big) \big]=(x,\rho(g)v).
+\]
+It is easy to see that $(\pr_1\circ\varphi)[ (x,g),v ]=x$ and $p[(x,g),v]=\pr_1(x,g)=x$.
+
+\subsection{Transition functions}
+%--------------------------------
+
+\begin{proposition}
+Let $(\mU_{\alpha},\phi_{\alpha}^P)$ be a trivialization of $\dptvb{P}{\pi}{M}$ whose transition functions are $\dpt{g\bab}{\mU_{\alpha}\cap\mU_{\beta}}{G}$. Then $(\mU_{\alpha},\phi^E_{\alpha})$ given by \eqref{eq:triv_P_E} is a local trivialization of $\dptvb{E}{p}{M}$ whose transition functions $\dpt{g\bab^E}{\mU_{\alpha}\cap\mU_{\beta}}{GL(\dim V,\eK)}$ are given by
+\[
+   g\bab^E(x)=\rho(g\bab^P(x)).
+\]
+
+\end{proposition}
+
+\begin{proof}
+If we write $a:=\phi^E_{_{\beta} x}(\pi^{-1}(x))$, we have $\phi_{\beta}^P(\pi^{-1}(x))=(x,a)$ and $\phi_{\alpha}^E\circ(\phi_{\beta}^E)^{-1}(x,v)=\phi^E_{\alpha}[ (\pi^{-1}(x),\rho(a)^{-1} v) ]$. So,
+\begin{equation}
+\begin{split}
+\phi_{\alpha}^E[ (\pi^{-1}(x),\rho(a)^{-1} v) ]&=\Big(x, 
+                            \rho\big(\phi_{\alpha x}(\pi^{-1}(x))\big)\rho\big(\phi_{\beta x}(\pi^{-1}(x))\big)^{-1} v   \Big)\\
+			&=\Big(   x,\rho\big(\phi_{\alpha x}( \pi^{-1}(x) )\phi_{\beta x}( \pi^{-1}(x) )        \big)    \Big).
+\end{split}
+\end{equation}
+Then 
+\begin{equation}
+  g\bab^E=\rho\Big(  \phi_{\alpha x}( \pi^{-1}(x) )\phi_{\beta x}\big( \pi^{-1}(x) \big)  \Big)\\
+         =\rho(g^P\bab(x)).
+\end{equation}
+
+\end{proof}
+
+\subsection{Sections on associated bundle}  \label{sec_fnequiv}
+%-----------------------------------------
+
+\subsubsection{Equivariant functions}
+
+We consider a bundle $\dptvb{E=P\times_{\rho} V}{p}{M}$ associated with the principal bundle $\dptvb{P}{\pi}{M}$ and a section $\dpt{\psi}{M}{E}$. 
+\[
+ \xymatrix{ P \ar[rd]_{\displaystyle\pi^P} &&
+ E=P\times_{\rho} V \ar[ld]^{\displaystyle\pi^E} \\ & M }
+\]
+A \defe{section}{section!of an associated bundle} of $E$ is a map $\dpt{\psi}{M}{E}$ such that $\pi^E\circ\psi=id_M$. We define the function $\dpt{\hpsi}{P}{V}$ by
+\begin{equation}\label{eq:equiv_psi}
+   \psi(\pi(\xi))=[\xi,\hpsi(\xi)].
+\end{equation}
+Let us see the condition under which this equation well defines $\hpsi$. First, remark that a $\psi$ defined by this equation is a section because $p[\xi,v]=\pi(\xi)$, so that $(p\circ\psi)(\pi(\xi))=\pi(\xi)$. Now, consider a $\eta$ such that $\pi(\eta)=\pi(\xi)$. Then there exists a $g\in G$ for which $\eta\cdot g=\xi$. For any $g$ and for this one in particular,
+\[
+  \psi(\pi(\eta))=[\eta,\hpsi(\eta)]=[\eta\cdot g,\rho(g^{-1})\hpsi(\eta)].
+\]
+Then equation \eqref{eq:equiv_psi} defines $\hpsi$ from $\psi$ if and only if 
+\begin{equation}\label{eq:equiv_psi_b}
+  \hpsi(\xi\cdot g)=\rho(g^{-1})\hpsi(\xi).
+\end{equation}
+This condition is called the \defe{equivariance}{equivariant} of $\hpsi$. Reciprocally, any equivariant function $\hpsi$ defines a section of $E=P\times_{\rho} V$.
+
+If $\eta=\xi\cdot g=\chi\cdot k$, one define a sum
+\begin{equation}\label{eq:def:som_E}
+  [\xi,v]+[\chi,w]=[\eta,\rho(g)v+\rho(k)w].
+\end{equation}
+If $\dpt{\psi,\eta}{M}{E}$ are two sections defined by the equivariant functions $\dpt{\hpsi,\hat\eta}{P}{V}$, then the section $\psi+\eta$ is defined by the equivariant function $\hat\psi+\hat \eta$.
+
+\subsubsection{For the endomorphism of sections of \texorpdfstring{$E$}{E}}\label{equivendo}
+%////////////////////////////////////////////////////
+
+Let us now make a step backward, and take $A$ in $\End{\Gamma(E)}$. We will now see that $A$ defines (and is defined by) an equivariant function $\dpt{\hat A}{P}{\End{V}}$. Let $\dpt{\psi}{M}{E}$ be in $\Gamma(E)$. If $\psi(x)=[\xi,v]$, we define the new section $A\psi$ by
+\[
+         (A\psi)(x)=[\xi,\hat A(\xi)v]=[\xi,\hat A(\xi)\hat\psi(\xi)].
+\]
+In order for $A\psi$ to be well defined, the function $\hat A$ must satisfy
+\begin{equation}
+     \hat A(\xi\cdot g)=\rho(g^{-1})\hat A(\xi)\rho(g)                 \label{equivA}
+\end{equation}
+for all $g$ in $G$.
+
+\subsubsection{Local expressions}
+%////////////////////////////////
+
+We consider a local trivialization $\dpt{\phi^P_{\alpha}}{\pi^{-1}(\mU_{\alpha})}{\mU_{\alpha}\times G}$ of $P$ on $\mU_{\alpha}$ and the corresponding section $\dpt{\sigma_{\alpha}}{\mU_{\alpha}}{P}$ given by 
+\[
+\sigma_{\alpha}(x)=(\phi^P_{\alpha})^{-1}(x,e).
+\]
+We saw at page \pageref{eq:triv_P_E} that a trivialization of $P$ gives a trivialization of the associated bundle $E=P\times_{\rho} V$; the definition is
+\begin{equation}
+  \phi^E_{\alpha}[(\xi,v)]=( \pi(\xi),\rho(a)v )
+\end{equation}
+if $\phi_{\alpha}^P(\xi)=(\pi(\xi),a)$. With $\xi=\sigma_{\alpha}(x)$, we find
+\begin{equation}
+   \phi^E_{\alpha}[(\sigma_{\alpha}(x),v)]=(  \pi(\sigma_{\alpha}(x)),\rho(a)v  )
+                                 =(x,v).
+\end{equation}
+
+The section $\psi$ can also be seen with respect to the ``reference''{} sections $\sigma_{\alpha}$ by means of the definition
+\begin{equation}\label{eq:def:psisa}
+  \psi(x)=[\sigma_{\alpha}(x),\psisa(x)]
+\end{equation}
+for a function $\dpt{\psisa}{M}{V}$.
+
+\begin{lemma}
+Let $\dpt{\psi}{M}{E}$ be a section and $\dpt{\hpsi}{P}{V}$, the corresponding equivariant function. Then
+\[
+   \psisa(x)=\hpsi(\sigma_{\alpha}(x)).
+\]
+\end{lemma}
+
+\begin{proof}
+By definition, $\psi(x)=\psi(\pi(\xi))=[\xi,\hpsi(\xi)]$.  Thus if we consider in particular $\xi=\sigma_{\alpha}(x)$,
+\begin{equation}
+  \phi^E_{\alpha}(\psi(x))=\phi^E_{\alpha}[\xi,\hpsi(\xi)]
+                        =\phi^E_{\alpha}[s_{\alpha}(x),\hpsi(\sigma_{\alpha}(x))]
+                        =(x,\hpsi(\sigma_{\alpha}(x))).
+\end{equation}
+
+\end{proof}
+
+Let us anticipate. A \defe{spinor}{spinor} is a section of an associated bundle $E=P\times_{\rho} V$ where $P$ is a Lorentz-principal bundle, $V=\eC^2$ and $\rho$ is the spinor representation of Lorentz on $\eC^2$. So a spinor $\dpt{\psi}{M}{E}$ is \emph{locally} described by a function $\dpt{\psi\bsa}{M}{\eC^2}$. The latter is the one that we are used to handle in physics. In this picture, the transformation law of $\psi$ under a Lorentz transformation comes naturally.
+
+Let $\{e_i\}$ be a basis of V; we consider some ``reference'' sections $\gamai$ of the associated bundle $E=P\times_{\rho} V$ defined by
+\begin{equation}\label{eq:def:gamai}
+\gamai(x)=[\phi_{\alpha}^{-1}(x,e),e_i].
+\end{equation}
+A general section $\dpt{\psi}{M}{E}$ is defined by an equivariant function $\dpt{\hpsi}{P}{V}$ which can be written as $\hpsi(\xi)=a^i(\xi)e_i$. If $\eta=\phi_{\alpha}^{-1}(x,e)$ and $\xi=\eta\cdot g(\xi)$,
+\begin{equation}
+  \psi(x)=[\xi,a^ie_i]
+         =a^i[\eta,\rho(g)e_i]
+	 =a^i(\xi)\bghd{\rho(g(\xi))}{i}{j}[\eta,e_j]
+	 =c^j(\xi)\gamaj(x).
+\end{equation}
+Since the left hand side of this equation just depends on $x$, the functions $c^j$ must actually not depend on the choice of $\xi\in\pi^{-1}(x)$. So we have $\dpt{c^j}{M}{\eR}$. Indeed, if we choose $\chi\in\pi^{-1}(x)$, 
+\[
+  \psi(x)=c^j(\xi)\gamaj(x)
+         \stackrel{!}{=}[\xi,a^{i}(\chi)e_i]
+	 =\ldots
+	 =c^j(\chi)\gamaj(x),
+\]
+so that $c^j(\xi)=c^j(\chi)$. So any section $\dpt{\psi}{M}{E}$ can be decomposed (over the open set $\mU_{\alpha}$) as 
+\begin{equation}
+  \psi(x)=s_{\alpha}^i(x)\gamai(x).
+\end{equation}
+
+
+\subsection{Associated and vector bundle}
+%----------------------------------------
+
+\subsubsection{General construction}
+%///////////////////////////////////
+
+We are going to see that a vector bundle is an associated bundle. For this, we consider a vector bundle $\dpt{p}{F}{M}$ with a fiber $F_x=V$ of dimension $m$. Let $G=GL(V)$, $P$ be the trivial principal bundle $P=M\times G$ and $\rho$ be the definition representation of $G$ on $V$. We set $E=P\times_{\rho} V$. Our aim is to put a vector bundle structure on $E$ which is equivalent to the one of $F$. The bijection $\dpt{b}{F}{E}$ will clearly be 
+\begin{equation}
+   b(\phi^{-1}(x,v))=[(x,e),v].
+\end{equation}
+We define the projection $\dpt{q}{E}{M}$ by
+\[
+   q[(x,g),w]=x
+\]
+and we have to show that  $q^{-1}(x)=\{  [(x,g),w]\tq g\in G \textrm{ and } w\in V  \}$ is a vector space isomorphic to $V$. The following definitions define a vector space structure:
+\begin{itemize}
+\item multiplication by a scalar: $\lambda[(x,g),v]=[(x,g),\lambda v]$,
+\item addition: $[(x,g),v]+[(x,h),w]=[(x,e),\rho(g)v+\rho(h)w]$.
+\end{itemize}
+As local trivialization map, we consider 
+\begin{equation}
+\begin{aligned}
+ \chi\colon q^{-1}(\mU)&\to \mU\times V \\ 
+    [(x,g),v]  &\mapsto(x,\rho(g)v).
+\end{aligned}
+\end{equation}
+With this structure, the bijection $b$ is an equivalence because $b|_{F_x}$ is a vector space isomorphism and $q\circ b=p$.
+
+\subsection{Equivariant functions for a vector field}	\label{equivvec}
+%----------------------------------------------------
+
+In order to define in the same way an equivariant function for a vector field $X\in\cvec(M)$, we need to see $TM$ as an associated bundle.
+
+\begin{proposition}
+If $M$ is a $n$ dimensional manifold, we have the following isomorphism:
+\[
+     \SO(M)\times_{\rhoM}\eR^m\simeq TM
+\]
+where $\dpt{\rhoM}{\SO(m)\times\eR^m}{\eR^m}$ is defined by $\rhoM(A)v=Av$.
+\end{proposition}
+\begin{proof}
+Recall that an element $b\in \SO(M)_x$ is a map $\dpt{b}{\eR^m}{T_xM}$. The isomorphism is no difficult. It is $\dpt{\psi}{\SO(M)\times_{\rhoM}\eR^m}{TM}$ defined by
+\[\psi[b,v]=b(v).\]
+It prove no difficult to see that $\psi$ is well defined, injective and surjective.
+\end{proof}
+
+Now, let us consider $X\in\cvec(M)$. We can see it as an element of $\Gamma(\SO(M)\times_{\rhoM}\eR^m)$, and define an equivariant function $\dpt{\hX}{\SO(M)}{\eR^m}$.
+
+Let us make it more explicit. A vector field $Y\in\cvec(M)$ is, for each $x$ in $M$, the data of a tangent vector $Y_x\in T_xM$. Hence the formula $b(v)=Y_x$ defines an element $[b,v]$ in $\SO(M)\times_{\rhoM}\eR^m$, and $Y$ defines a section $\tilde{Y}(x)=[b(x),v(x)]$ of $\SO(M)\times_{\rhoM}\eR^m$. The associated equivariant function is given by $\hY(b)=v$ if $b(v)=Y_x$. In other words, the equivariant function $\dpt{\hY}{\SO(M)}{\eR^m}$ associated with the vector field $Y\in\cvec(M)$ is given by
+\begin{equation}\label{r1404e1}
+  \hY(b)=b^{-1}(Y_x),
+\end{equation}
+ where $x=\pi(b)$.
+
+
+\subsection{Gauge transformations}
+%---------------------------------
+
+A \defe{gauge transformation}{gauge!transformation!of principal bundle} of the $G$-principal bundle $\dpt{\pi}{P}{M}$ is a diffeomorphism $\dpt{\varphi}{P}{P}$ such that
+
+\begin{itemize}
+\item $\pi\circ\varphi=\pi$,
+\item  $\varphi(\xi\cdot g)=\varphi(\xi)\cdot g$.
+\end{itemize}
+
+When we consider some local sections on $\dpt{\sigma_{\alpha}}{\mU_{\alpha}}{P}$, we can describe a gauge transformation with a function $\dpt{\tilde{\varphi}_{\alpha}}{M}{G}$ by requiring
+\[
+   \varphi(\sigma_{\alpha}(x))=\sigma_{\alpha}(x)\cdot\tilde{\varphi}_{\alpha}(x).
+\]
+This formula defines $\varphi$ from $\tilde{\varphi}$ as well as $\tilde{\varphi}$ from $\varphi$.
+
+The group of gauge transformations\index{gauge!transformation!of section of associated bundle} has a natural action on the space of sections given by
+\begin{subequations}
+   \begin{align}
+   (\varphi\cdot\psi)(x)&=[\varphi(\xi),v].
+\intertext{if $\psi(x)=[\xi,v]=[\xi,\hat{\psi}(\xi)]$. This law can also be seen on the equivariant function $\hpsi$ which defines $\psi$. The rule is}
+   \widehat{\varphi\cdot\psi}(\xi)&=\hpsi(\varphi^{-1}(\xi)).
+   \end{align}
+\end{subequations}
+Indeed, in the same way as before we find $(\varphi\cdot\psi)(x)=[\xi,\widehat{\varphi\cdot\psi}(x)]\stackrel{!}{=}[\varphi(\xi),v]=[\varphi(\xi),\hpsi(\xi)]$. Taking $\xi\to\varphi^{-1}(\xi)$ as representative, $(\varphi\cdot\psi)(x)=[\xi,\hpsi\circ\varphi^{-1}(\xi)]$.
+

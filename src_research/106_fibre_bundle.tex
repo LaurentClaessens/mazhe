@@ -1,0 +1,1794 @@
+% This is part of (almost) Everything I know in mathematics
+% Copyright (c) 2013-2016
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+
+\section{Adjoint bundle}
+%+++++++++++++++++++++++
+
+Let $\pi\colon P\to M$ be a $G$-principal bundle. The \defe{adjoint bundle}{adjoint!bundle} is the associated bundle $\Ad(P)=P\times_{\Ad}\mG$. An element of that bundle is an equivalent class given by\nomenclature[D]{$\Ad(P)$}{Adjoint bundle of the principal bundle $P$}
+\[ 
+  [\xi,X]=[\xi\cdot g,\Ad(g^{-1})X]
+\]
+for every $g\in G$. Here $\xi\in P$ and $X\in\mG$.
+
+\section{Connection on vector bundle: local description}\label{sec:conn_vect}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}      \label{DEFooIESVooGNQHzl}
+    A \defe{connection}{connection!on vector bundle} on the vector bundle $p\colon E\to M$ is a bilinear map
+    \begin{equation}
+        \begin{aligned}
+                \nabla \colon \cvec(M)\times\Gamma(E) &\to \Gamma(E)\\
+                (X,s)&\mapsto \nabla_Xs
+        \end{aligned}
+    \end{equation}
+     such that 
+     \begin{itemize}
+     \item $\nabla_{fX}s=f\nabla_Xs$,
+     \item $\nabla_X(fs)=(X\cdot f)s+f\nabla_Xs$
+     \end{itemize}
+    for all $X\in\cvec(M)$, $f\in\Cinf(M)$ and $s\in\Gamma(E)$. The operation $\nabla$ is often called a \defe{covariant derivative}{covariant!derivative!on vector bundle}.
+\end{definition}
+
+An easy example is given on the trivial bundle $E=\pr_1\colon M\times\eC\to M$. For this bundle, $\Gamma(E)=\Cinf(M,\eC)$ and the common derivation is a covariant derivation: $\nabla_Xs=(ds)X$.
+
+\begin{proposition}     \label{PROPooWZYOooEVhgFt}
+The value of $(\nabla_Xs)(x)$ depends only on $X_x$ and $s$ on a neighbourhood of $x\in M$.
+\end{proposition}
+
+\begin{proof}
+Let $X$, $Y\in\cvec(M)$ such that $Y_z=f(z)X_z$  with $f(x)=1$ and $f(z)\neq 1$ everywhere else. Then
+\[
+  (\nabla_Ys)(x)-(\nabla_Xs)(x)=(f(x)-1)(\nabla_Xs)(x)=0.
+\]
+Since it is true for any function, the linearity makes that it cannot depend on $X_z$ with $z\neq x$. If we consider now two sections $s$ and $s'$ which are equals on a neighbourhood of $x$, we can write $s'=fs$ for a certain function $f$ which is $1$ on the neighbourhood. Then
+\[
+  (\nabla_Xs')(x)-(\nabla_Xs)(x)=(f(x)-1)(\nabla_Xs)(x)+(Xf)s(x)
+\]
+which zero because on a neighbourhood of $x$, $f$ is the constant $1$.
+\end{proof}
+
+This proposition shows that it makes sense to consider only local descriptions of connections.  Let $\{e_1,\ldots,e_r\}$ be a basis of $V$ and consider the local sections $\dpt{\ovS_{\alpha i}}{\mU_{\alpha}}{E}$,
+\[
+  \ovS_{\alpha i}(x)=\phi_{\alpha}^{-1}(x,e_i).
+\]
+A local section $\dpt{s_{\alpha}}{\mU_{\alpha}}{V}$ can be decomposed as $s_{\alpha}(x)=s_{\alpha}^i(x)e_i$ with respect to this basis (up to an isomorphism between the different $V$ at each point). Then on $\mU_{\alpha}$,
+\begin{equation}
+  s_{\alpha}^i\ovS_{\alpha i}(x)=s_{\alpha}^i(x)\phi_{\alpha}^{-1}(x,e_i)
+                              =\phi_{\alpha}^{-1}(x,s_{\alpha}^ie_i)
+			      =\phi_{\alpha}^{-1}(x,s_{\alpha}(x))
+			      =s(x).
+\end{equation}
+The first equality is the definition of the product $\eR\times F\to F$.
+
+So any $s\in\Gamma(E)$ can be (locally !) written under the form\footnote{be careful on the fact that the ``coefficient'' $s_{\alpha}^i$ depends on $x$ : the right way to express this equation is $s(x)=s^i_{\alpha}(x)\ovS_{\alpha i}(x)$.} $s=s_{\alpha}^i\ovS_{\alpha i}$; in particular $\nabla_X(\ovS_{\alpha i})$ can. We define the coefficients $\theta$ by\nomenclature[D]{$(\theta_{\alpha})_i^j$}{Matrix associated with a connection}
+\begin{equation}
+ \nabla_X(\ovS_{\alpha i})=(\theta_{\alpha})^j_i(X)\ovS_{\alpha j}.
+\end{equation}
+where, for each $i$ and $j$, $(\theta_{\alpha})^j_i$ is a $1$-form on $\mU_{\alpha}$. We can consider $\theta_{\alpha}$ as a matrix-valued $1$-form on $\mU_{\alpha}$.
+
+\begin{proposition}	\label{PropFormnabXthe}
+The formula
+\begin{equation}\label{eq:nab_theta}
+   (\nabla_Xs)_{\alpha}=Xs_{\alpha}+\theta_{\alpha}(X)s_{\alpha}
+\end{equation}
+gives a local description of the connection. 
+\label{prop:namba_theta_u}
+\end{proposition}
+
+\begin{proof}
+For any $s\in\Gamma(E)$, we have
+\begin{equation}
+\nabla_Xs=\nabla_X\big(  \sum_j s^j_{\alpha}\ovS_{\alpha j}  \big)
+         =\sum_j\Big(  (Xs_{\alpha}^j)\ovS_{\alpha j} + s^j_{\alpha}\nabla_X\ovS_{\alpha j}     \Big)
+	 =\sum_i\Big[   (Xs_{\alpha}^i)+s_{\alpha}^j(\theta_{\alpha})_j^i(X)  \Big]\ovS_{\alpha i}.
+\end{equation}
+\end{proof}
+
+\subsection{Connection and transition functions}
+%//////////////////////////////////////////////////
+
+A connection determines some local matrix-valued $1$-forms $\theta_{\alpha}$ on the trivialization $\mU_{\alpha}$. Two natural questions raise. The first is the converse: does a matrix-valued $1$-form defines a connection~? The second is to know  what is $\theta_{\alpha}$ in function of $\theta_{\beta}$ on $\mU_{\alpha}\cap\mU_{\beta}$ ? The answer to the latter is  given by the following proposition :
+
+\begin{proposition}
+The $1$-form $\theta_{\alpha}$ relative to the trivialization $(\mU_{\alpha},\phi_{\alpha})$ is related to the $1$-form $\theta_{\beta}$ relative to the trivialization $(\mU_{\beta},\phi_{\beta})$ by
+\begin{equation}\label{eq:theta_g}
+  \theta_{\beta}=g\bab^{-1} dg\bab+g\bab^{-1}\theta_{\alpha} g\bab.
+\end{equation}
+\end{proposition}
+
+This equation looks like something you know ? If you think to equation \eqref{trans_A} or \eqref{tr_de_A} or any physical equation of gauge transformation for the bosons, then you are almost right.
+ 
+\begin{proof}
+We can use equation \eqref{eq:tr_sec} pointwise on $(\nabla_X s)_{\alpha}$ :
+\begin{equation}
+\begin{split}
+(\nabla_X s)_{\alpha}&=g\bab(\nabla_Xs)_{\beta}\\
+                  &=g\bab\big(   Xs_{\beta}+\theta_{\beta}(X)s_{\beta}   \big) \\
+                  &=g\bab\big(   X(g_{\alpha\beta} s_{\alpha})+\theta_{\beta}(X)g_{\alpha\beta} s_{\alpha}   \big).
+\end{split}
+\end{equation} 
+We have to compare it with equation \eqref{eq:nab_theta}. Note that $g\bab$ and $\theta_{\alpha}(X)$ are matrices, then one cannot do
+\[
+   g\bab\theta_{\beta}(X)g_{\alpha\beta} =g\bab g_{\alpha\beta}\theta_{\beta}(X)=\theta_{\beta}(X)
+\]
+by using $g\bab g_{\alpha\beta}=\mtu$.  Taking carefully subscripts into account, one sees that the correct form is $(g\bab)^i_j\theta_{\beta}(X)^j_k(g_{\alpha\beta})^k_l$. Applying Leibnitz formula ($X(fg)=f(Xg)+(Xf)g$), and making the simplification $g\bab g_{\alpha\beta}=\mtu$ in the first term, we find
+\[
+  \theta_{\alpha}(X)s_{\alpha}=g\bab(Xg_{\alpha\beta})s_{\alpha}+g_{\alpha\beta}^{-1}\theta_{\beta}(X)g_{\alpha\beta} s_{\alpha}.
+\]
+The claim follows from the fact that $Xg_{\alpha\beta}=dg_{\alpha\beta}(X)$.
+\end{proof}
+
+Notice that formula \eqref{eq:theta_g} shows in particular that $\theta_{\alpha}$ takes its values in the Lie algebra $\gl(V)$, see for example subsection \ref{SubSecgmudg}.
+
+The inverse is given in the
+\begin{proposition}	\label{Propformconnve}
+If we choose a family of $\gl(V)$-valued $1$-forms $\theta_{\alpha}$ on $\mU_{\alpha}$ satisfying \eqref{eq:theta_g},then the formula
+\[
+  (\nabla_Xs)_{\alpha}=Xs_{\alpha}+\theta_{\alpha}(X)s_{\alpha}
+\]
+defines a connection on $E$.\label{prop:thet_conn_F}
+\end{proposition}
+
+\begin{proof}
+Note that $\theta$ is $\Cinf(M)$-linear, thus
+\begin{equation}
+  (\nabla_{fX}s)_{\alpha}=(fX)s_{\alpha}+\theta_{\alpha}(fX)s_{\alpha}
+                        =f[ Xs_{\alpha}+\theta_{\alpha}(X)s_{\alpha} ]
+			=f(\nabla_Xs)_{\alpha}.
+\end{equation}
+In expressions such that $\theta_{\alpha}(X)(fs_{\alpha})$, the product is a matrix times vector product between $\theta_{\alpha}(X)$ and $s_{\alpha}$; the position of the $f$ is not important. So we can check the second condition :
+\begin{equation}
+\begin{split}
+(\nabla_X(fs))_{\alpha}&=X(fs_{\alpha})+\theta_{\alpha}(X)(fs_{\alpha}) \\
+                     &=X(f)s_{\alpha}+f(Xs_{\alpha})+f\theta_{\alpha}(X)s_{\alpha}\\
+		     &=df(X)s_{\alpha}+f(\nabla_Xs)_{\alpha}.
+\end{split}
+\end{equation}
+This concludes the proof.
+\end{proof}
+
+
+\subsection{Torsion and curvature}
+%----------------------------------
+
+The map $\dpt{T^{\nabla}}{\cvec(X)\times\cvec(X)}{\cvec(X)}$ defined by
+\begin{equation}
+     T^{\nabla}(X,Y)=\nabla_XY-\nabla_YX-[X,Y]\label{deftorsion}
+\end{equation}
+is the \defe{torsion}{torsion!of a connection} of the connection $\nabla$. When $T^{\nabla}(X,Y)=0$ for every $X$ and $Y$ in $\cvec(X)$, we say that $\nabla$ is a \defe{torsion free}{torsion!free, connection} connection. Let $X$, $Y$ be in $\cvec(M)$, and consider the map $\dpt{R(X,Y)}{\Gamma(E)}{\Gamma(E)}$ defined by
+		\begin{equation}
+		\begin{aligned}
+			R(X,Y) \colon \Gamma(E) &\to \Gamma(E)\
+			s&\mapsto \nabla_X\nabla_Ys-\nabla_Y\nabla_Xs-\nabla_{[X,Y]}s.
+		\end{aligned}
+	\end{equation}	
+
+For each $x\in M$, $R$ can be seen as a bilinear map $\dpt{R}{T_xM\times T_xM}{\End(E_x)}$. It is called the \defe{curvature}{curvature} of the connection $\nabla$. For every $f\in C^{\infty}(M)$, it satisfies
+\[
+ R(fX,Y)s=fR(X,Y)s=R(X,Y)fs.
+\]
+    
+
+In a trivialization $(\mU_{\alpha},\phi_{\alpha})$, we have $(\nabla_Xs)_{\alpha}=Xs_{\alpha}+\theta_{\alpha}(X)s_{\alpha}$. In the expression of $(R(X,Y)s)_{\alpha}$, the terms coming from the $Xs_{\alpha}$ part of covariant derivative make
+\[
+  XYs_{\alpha}-YXs_{\alpha}-[X,Y]s_{\alpha}=0.
+\]
+The other terms are no more than matricial product, hence the formula
+\begin{equation}
+  (R(X,Y)s)_{\alpha}=\Omega_{\alpha}(X,Y)s_{\alpha}
+\end{equation}
+ defines a $2$-form $\Omega_{\alpha}$ which takes values in $GL(r,\eK)$. We can find an expression for $\Omega$ in terms of $\theta$ :
+\[
+  \Omega_{\alpha}(X,Y)=X\theta_{\alpha}(Y)-Y\theta_{\alpha}(X)-\theta_{\alpha}([X,Y])+\theta_{\alpha}(X)\theta_{\alpha}(Y)-\theta_{\alpha}(Y)\theta_{\alpha}(X);
+\]
+it is written as
+\begin{equation}\label{eq:Omega_ttheta}
+\Omega_{\alpha}=d\theta_{\alpha}+\theta_{\alpha}\wedge\theta_{\alpha}=d\theta_{\alpha}+\frac{1}{2}[\theta_{\alpha},\theta_{\alpha}]
+\end{equation}
+which is a notational shortcut for
+\begin{equation}		\label{EaCurvdVVsq}
+  \Omega_{\alpha}(X,Y)=d\theta_{\alpha}(X,Y)+[\theta_{\alpha}(X),\theta_{\alpha}(Y)].
+\end{equation}
+These equations are called \defe{structure equations}{structure!equations}. Pointwise, the second term is a matrix commutator; be careful on the fact that, when we will speak about principal bundle, the forms $\theta$'s will take their values in a Lie algebra. On $\mU_{\alpha}\cap\mU_{\beta}$, we have
+\[
+  \Omega_{\beta}(X,Y)=g\bab^{-1}\Omega_{\alpha}(X,Y)g\bab.
+\]
+The curvature and the connection fulfill the \defe{Bianchi identities}{Bianchi identities} :
+
+\begin{lemma}
+  \[
+     d\Omega_{\alpha}+[\theta_{\alpha}\wedge\Omega_{\alpha}]=0.
+  \]
+\end{lemma}
+
+\begin{proof}
+For each matricial entry, $\theta_{\alpha}$ is a $1$-form on $\mU_{\alpha}$, then $\theta_{\alpha}(X)$ is a function which to $x\in M$ assign $\theta_{\alpha}(x)(X_x)\in\eR$. So we can apply $d$ and Leibnitz on the product $\theta_{\alpha}(X)\theta_{\alpha}(Y)$.
+\[
+ d\big(  \theta_{\alpha}(X)\theta_{\alpha}(Y)  \big)=\theta_{\alpha}(X)d\theta_{\alpha}(Y)+d\theta_{\alpha}(X)\theta_{\alpha}(Y).
+\]
+Differentiating equation \eqref{eq:Omega_ttheta}, $d\Omega_{\alpha}=d\theta_{\alpha}\wedge\theta_{\alpha}-\theta_{\alpha}\wedge d\theta_{\alpha}$. 
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Connexion on vector bundle: algebraic view}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+We already defined a connection of the vector bundle \( \pi\colon E\to M\) in definition \ref{DEFooIESVooGNQHzl}. As we know from section \ref{SUBSECooAASYooVHZEhz}, this induces a map
+\begin{equation}        \label{EQooBRLHooJgzIyT}
+    \nabla\colon \Gamma(E)\to \Gamma(E)\otimes \Omega^1(M)
+\end{equation}
+Note : there is a non trivial identification \( \Gamma(TM)^*=\Gamma(T^*M)\). This \( \nabla\) is bilinear and satisfy the Leibnitz rule
+\begin{equation}
+\nabla(\sigma f)=(\nabla\sigma)f+\sigma\otimes df
+\end{equation}
+for any section $\sigma\colon M\to E$ and function $f\colon M\to \eC$. If $\{ \sigma_i \}$ is a local basis of $E$, one can write $\sigma=\sigma_if^i$ and one defines the \defe{Christoffel symbols}{Christoffel symbol} $\Gamma_{i\mu}^{j}$ in this basis by
+\begin{equation}
+\nabla \sigma=\nabla (\sigma_if^i)
+		=(\nabla \sigma_i)f^i+\sigma_i\otimes f(f^i)
+		=f^i\Gamma_{i\mu}^{j}\sigma_j\otimes dx^{\mu}+\sigma_i\otimes d(f^i).
+\end{equation}
+The notations $d\sigma=\sigma_i\otimes d(f^i)$ and $\Gamma\sigma=f^i\Gamma_{i\mu}^{j}\sigma_j\otimes dx^{\mu}$ lead us to the compact usual form
+\[ 
+  \nabla\sigma=(d+\Gamma)\sigma.
+\]
+
+When $E=TM$ over a (pseudo)Riemannian manifold $M$, we know the Levi-Civita\index{connection!Levi-Civita} connection which is compatible with the metric:
+\begin{equation}\label{eq_230605r1}
+  g(\nabla X,Y)+g(X,\nabla Y)=d\big( g(X,Y) \big).
+\end{equation}
+One can see $g$ as acting on $\big( \cvec(M)\otimes\Omega^1(M) \big)\times\cvec(M)$ with
+\[ 
+ g\big( r^i_{\nu}\partial_i\otimes dx^{\nu},t^j\partial_j \big):=r^i_{\nu}j^jg(\partial_i,\partial_j)dx^{\nu}, 
+\]
+which at each point is a form. From condition \eqref{eq_230605r1}, we see $\nabla$ as a Levi-Civita connection on the bundle $E=T^*M$ which values in 
+\[ 
+ \Gamma^{\infty}(T^*M)\otimes\Omega^1(M)\simeq\Omega^1(M)\otimes\Omega^1(M).
+\]
+This is defined as follows. A $1$-form $\omega$ can always be written under the for $\omega=X^{\flat}:=g(X,.)$ for a certain $X\in\cvec(M)$. Then  \eqref{eq_230605r1} gives
+\[ 
+  (\nabla X)^{\flat}Y+\omega(\nabla Y)=d(\omega Y),
+\]
+and we put $\nabla\omega=(\nabla X)^{\flat}$, i.e
+\begin{equation}
+  (\nabla\omega)Y=d(\omega Y)-\omega(\nabla Y)
+\end{equation}
+for all $Y\in\cvec(M)$. When $\omega=dx^i$ and $Y=\partial_j$, we find
+\begin{equation}
+(\nabla dx^i)\partial_j=d(dx^i\partial_j)-dx^i(\nabla\partial_j)
+		=d(\delta^i_j)-\Gamma_{jk}^{l}\partial_l\otimes dx^k
+		=-\Gamma_{jk}^{l}\delta_l^i\otimes dx^k
+		=-\Gamma_{jk}^{i}\,dx^k.
+\end{equation}
+So we get the local formula
+\begin{equation}
+\nabla dx^i=-\Gamma_{jk}^{i}\,dx^j\otimes dx^k.
+\end{equation}
+If the form writes locally $\omega=dx^if_i$,
+\begin{equation}
+  \nabla\omega=\nabla(dx^i)f_i+dx^i\otimes df_i
+		=-f_i\Gamma_{jk}^{i}\,dx^j\otimes dx^k+d\omega
+		=(d-\tilde\Gamma)\omega
+\end{equation}
+where we taken the notations $d\omega=dx^i\otimes df_i$ and $\tilde\Gamma\omega=f_i\Gamma_{jk}^{i}dx^j\otimes dx^k$.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Exterior derivative}
+
+If $E$ is a $m$-dimensional vector bundle over $M$ and $s\colon M\to E$ is a section, we say that a \defe{exterior derivative}{exterior!derivative} is a map $D\colon \Gamma(E)\to \Gamma(E\otimes \Omega^1M)$ such that for every $f\in C^{\infty}(M)$ we have
+\[ 
+  D(fs)=s\otimes df+f(Ds).
+\]
+An exterior derivative can be extended to $D\colon \Gamma(E\otimes\Omega^kM)\to \Gamma(E\otimes\Omega^{k+1}M)$ imposing the condition
+\begin{equation}		\label{EqExtExtDerrk}
+D(\omega\wedge\alpha)=(D\omega)\wedge\alpha+(-1)^k\omega\wedge d\alpha
+\end{equation}
+for every $\omega\in\Gamma(E\otimes\Omega^kM)$ and $\alpha\in\Gamma(E\otimes\Omega^lM)$ . The result is an element of $\Gamma(E\otimes\Omega^{k+l+1}M)$.
+
+Coordinatewise expressions are obtained when one choose a specific section $(e_i)$ of the frame bundle of $E$. In that case for each $i$, the derivative $e_i$ is an element of $\Gamma(E\otimes\Omega^1M)$ and we define $\omega_i^j\in\Omega^1(M)$\nomenclature{$\omega_i^j$}{Connection form} by
+\begin{equation}
+De_i=\sum_{j=1}^ke_j\otimes \omega_i^j.
+\end{equation}
+For each $i$ and $j$, we have an element $\omega_i^j\in\Omega^1(M)$, so that we say that $\omega\in\Omega^1(M,\gl(m))$. Now a section can be expressed as $s=s^ie_i$ where $s^i$ are functions, so we have
+\begin{align}
+  D(s)=D(s^ie_i)	&=e_i\otimes ds^i+s^iD(e_i)=e_i\otimes ds^i+s^ie_j\otimes \omega_i^j=e_i\otimes ds^i+e_i\otimes s^j\omega_j^i.
+\end{align}
+Expressed in component, we find $D(s)^i=ds^i+s^j\omega_j^i$, so that we often write
+\begin{equation}
+D=d+\omega.
+\end{equation}
+When a section $e$ is given, we write $s=s^i(e)e_i$, indicating the dependence of the functions $s^i$ in the choice of the frame $e$ :
+\[ 
+  D(s)=e_i\otimes ds^i(e)+e_i\otimes s^j(e)\omega(e)_j^i.
+\]
+When we apply both sides to a vector $X\in\Gamma(TM)$, we find
+\begin{equation}
+D_X(s)=e_i\otimes\Big( X(s^i)+s^j\omega^i_j(X) \Big).
+\end{equation}
+
+By convention we say that, when $f\in C^{\infty}(M)$, is a function, $D_X$ reduces to the action of the vector field $X$:
+\begin{equation}
+  D_X(f)=X(f).
+\end{equation}
+
+
+%----------------------------------------------------------------------------------------------------------------------------
+\subsubsection{Covariant exterior derivative}
+
+An important exterior derivative is the covariant exterior derivative. If the vector bundle $E$ is endowed by a covariant derivative $\nabla$, we define the corresponding \defe{covariant exterior derivative}{covariant!derivative!exterior } by the following :
+{
+\renewcommand{\theenumi}{\arabic{enumi}.}
+\begin{enumerate}
+\item for a section $s\colon M\to E$ (i.e. a $0$-form) we define
+\begin{equation}
+   (d_{\nabla}s)(X)=\nabla_Xs,
+\end{equation}
+\item and on the $1$-form $\sum_i(s_i\otimes\omega_i \big)\in\Gamma(E\otimes T^*M)$,
+\begin{equation}
+d_{\nabla}\big( \sum_is_i\otimes\omega_i \big)=\sum_i(d_{\nabla}s_i)\wedge\omega_i+\sum_is_i\otimes d\omega_i.
+\end{equation}
+\end{enumerate}
+}		% Fin de la mise en nombre arabes pour la liste énumérée
+The latter relation is the condition \eqref{EqExtExtDerrk} with $k=0$.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Divergence, gradient and Laplacian (general)}
+%---------------------------------------------------------------------------------------------------------------------------
+
+When we have a connection (definition \ref{DEFooIESVooGNQHzl}) we define the divergence of a vector field. Recall from equation \eqref{EQooBRLHooJgzIyT} that when \( x\in\Gamma(TM)\) we can see \( \nabla X\) as an element of \( \Gamma(TM)\otimes \Omega^1(M)\).
+\begin{definition}      \label{DEFooTTSFooDdgiKg}
+    The \defe{divergence}{divergence} of a vector field $X\in \Gamma(TM)$, is the function $\nabla\cdot X\in C^{\infty}(M)$\nomenclature[F]{$\nabla\cdot X$}{divergence of the vector field $X$} defined by
+    \begin{equation}
+      (\nabla\cdot X)(x)=\tr(\nabla X)
+    \end{equation}
+    where the trace stands for the contraction of the tensor \( \nabla X\) with itself.
+\end{definition}
+
+On an euclidian space, we can describe the divergence in an other way : by proposition \ref{PROPooWZYOooEVhgFt}, the vector \( (\nabla_XY)_x\in T_xM \) does depend only on \( X_x\). Thus in fact, when \( v\in T_xM\), the value of \( \nabla_vX\) is the value of \( (\nabla_VX)_{x}\) where \( V\) is any vector field such that \( V_x=v\). Thus we are okay speaking about the map
+\begin{equation}
+    \begin{aligned}
+         T_xM&\to T_xM \\
+        v&\mapsto \nabla_vX. 
+    \end{aligned}
+\end{equation}
+This operation being linear, we can take the trace. Thus the definition could be 
+\begin{equation}    \label{EQooEGYQooJAvdTO}
+    \nabla\cdot X=\tr(v\mapsto \nabla_vX).
+\end{equation}
+The point using the contraction notion is that the operation of tracing is more clear : from equation \eqref{EQooEGYQooJAvdTO} one does not see why the result should depend on the metric (and in particular why does it depend on the \emph{inverse} of the metric tensor in a matricial form.).
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Divergence, gradient and Laplacian (Riemannian case)}
+%---------------------------------------------------------------------------------------------------------------------------
+
+If we have a (pseudo)Riemannian manifold,we define the gradient of a function.
+\begin{definition}
+    We define the \defe{gradient}{gradient} of a function $f\in C^{\infty}(M)$, denoted by $\nabla f$\nomenclature[F]{$\nabla f$}{Gradient of the function $f$} as the vector field such that
+    \begin{equation}        \label{EQooECZSooYfQFYm}
+        g(\nabla f,X)=X(f).
+    \end{equation}
+\end{definition}
+
+Moreover on a Riemannian manifold, we have the Levi-Civita connection (see \ref{subsection_levi}), and then it is possible to particularize the definition \ref{DEFooTTSFooDdgiKg} to a well defined connection.
+
+The \defe{Laplacian}{laplace operator} of the function $f$ is the function $\Delta f$\nomenclature[F]{$\Delta f$}{Laplace operator} given by
+\begin{equation}
+\Delta f=\nabla\cdot(\nabla f).
+\end{equation}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Divergence, gradient and Laplacian (coordinatewise)}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}
+    Let \( \{ e_i \}\) be a field of base for the riemannian manifold \( (M,g)\), and a function \( f\in C^{\infty}(M)\). Then the gradient of \( f\) is given by the formula
+    \begin{equation}
+        \nabla f=\sum_{im}(g^{-1})_{im}\partial_ife_m.
+    \end{equation}
+    The important point is that \( g^{-1}\) appears instead of \( g\).
+\end{proposition}
+
+\begin{proof}
+    In coordinates, this is given by the \emph{inverse} of the metric tensor. Indeed equation \eqref{EQooECZSooYfQFYm} expands to (unwritten dependence to \( x\))
+    \begin{equation}
+        \sum_{kl}g_{kl}(\nabla f)_kX_l=X(f)=\sum_lX_l\partial_lf.
+    \end{equation}
+    Since that has to be true for every vector field \( X\), we can ``simplify'' \( X_l\) :
+    \begin{equation}
+        \sum_kg_{kl}(\nabla f)_k=\partial_lf.
+    \end{equation}
+    Multiplying by \( (g^{-1})_{lj}\) and making the sum over \( l\) :
+    \begin{equation}
+        \sum_{kl}g_{kl}(g^{-1})_{lj}(\nabla f)_k=\sum_l(g^{-1})_{lj}\partial_lf,
+    \end{equation}
+    and then
+    \begin{equation}
+        (\nabla f)_j=\sum_l(g^{-1})_{lj}\partial_lf.
+    \end{equation}
+\end{proof}
+
+\begin{proposition} \label{PROPooLIJTooKFTwPY}
+    Let \( (M,g)\) be a (pseudo)Riemannian manifold with constant \( g\). Then
+    \begin{equation}
+        \nabla\cdot Y=\sum_{ij}(g^{-1})_{ij}\partial_iY_j.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    The fact that \( g\) is constant implies that the Christoffel symbols are vanishing and the Levi-Civita connection is given by 
+    \begin{equation}
+        \nabla_XY=X(Y)=\sum_{kl}X_l\partial(Y_k)\partial_k.
+    \end{equation}
+    As explained around equation \ref{EQooBRLHooJgzIyT} we see \( \nabla Y\in\Gamma(TM)\otimes \Omega^1(M)\) as
+    \begin{equation}
+        \nabla Y=\sum_{kl}(\partial_l)(Y_k)\partial_k\otimes dx_l.
+    \end{equation}
+    Using formula \eqref{EQooDODKooOxCzZP} for the contraction,
+    \begin{equation}
+        \tr(\nabla Y)=\sum_{kl}(g^{-1})_{kl}\partial_l(Y_k).
+    \end{equation}
+    This is the divergence of \( Y\).
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Soldering form and torsion}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Let us particularize to the case where $E$ has the same dimension as the manifold. In that case, we can introduce a \defe{soldering form}{soldering form}, that is an element $\theta\in \Omega^1(M,E)$ such that for every $x\in M$ the map $\theta_x\colon T_xM\to E_x$ is a vector space isomorphism.
+When a soldering form $\theta$ is given, the \defe{torsion}{torsion!of exterior derivative} is the exterior derivative $D$ is
+\begin{equation}
+	T=D\theta.
+\end{equation}
+Using a local frame $e$, we have forms $\theta^i(e)\in\Omega^1(M)$ such that
+\[ 
+  \theta(X)=\theta^i(X)e_i.
+\]
+We see $\theta$ as an element of $\Gamma(E\otimes \Omega^1(M))$ by identifying $\theta=e_i\otimes\theta^i$. Thus we have
+\[ 
+D\theta=D(e_i\otimes\theta^i)	=De_i\wedge\theta^i(e)+e_i\wedge d\theta^i(e)
+				=(e_j\otimes^j_i)\wedge\theta^i(e)+e_i\wedge d\theta^i(e),
+\]
+or in coordinates :
+\begin{equation}
+  (D\theta)^i=\omega_j^i\wedge \theta^j(e)+d\theta^i(e).
+\end{equation}
+Notice that it provides the formula
+\begin{equation}
+T=d_{\omega}\theta
+\end{equation}
+for the torsion as exterior covariant derivative of the connection form.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Example : Levi-Civita}
+%---------------------------------------------------------------------------------------------------------------------------
+
+We consider the vector bundle $E=TM$ and the local basis $e_i=\partial_i$. An exterior derivative in this case is a map $D\colon \Gamma(TM)\to \Gamma\Big( TM\otimes\Omega^1M \Big)$. In that particular case, we denote by $\nabla_XY$ the vector field $D(Y)X$, and it is computed by first writing $D(X)_x=\sum_iZ_x^i\otimes\omega_x^i$ with $Z^i\in\Gamma(TM)$ and $\omega^i\in\Omega^1(M)$. The we have
+\begin{equation}
+D(X)_xY_x=\omega+x^i(Y_x)Z_x^i.
+\end{equation}
+A good choice of soldering form is $\theta_x=\id$ for every $x\in M$, or $\theta(X)=X$. In coordinates, that soldering form is given by $\theta^i(\partial_j)=\delta^i_j$. The \defe{Christoffel symbols}{Christoffel symbol} are defined by
+\begin{equation}
+\nabla_{\partial_i}\partial_j=\Gamma_{ij}^k\partial_k,
+\end{equation}
+and the covariant derivative reads
+\begin{equation}		\label{EqCovDerGamChr}
+\nabla_XY	= \nabla_{X^i\partial_i}(Y^j\partial_j)
+		= X^i\Big( (\partial_iY^j)\partial_j+Y^j\nabla_{\partial_i}\partial_j \Big)
+		= \Big( X(Y^k)+X^iY^j\Gamma_{ij}^k \Big) \partial_k.
+\end{equation}
+
+We can determine the Christoffel symbols in function of the connection form using the fact that on the one hand, $\nabla_{\partial_i}\partial_j=\Gamma_{ij}^k\partial_k$, and on the other hand,
+\[ 
+  \nabla_{\partial_i}\partial_j=D(\partial_j)(\partial_i)=\partial_k\otimes\omega_j^k(\omega_i), 
+\]
+so that
+\begin{equation}
+	\Gamma_{ij}^k=\omega_j^k(\partial_i)
+\end{equation}
+Now we can get the same result as equation \eqref{EqCovDerGamChr} using the exterior derivative formalism. First we have $DY=\partial_i\otimes dY^i+\partial_i\otimes X^j\omega_j^i$, so that
+\[ 
+  (DY)X=\partial_i\otimes dY^i(X)=\partial_i\otimes X^j\omega_j^i(X^k\partial_k),
+\]
+in which we use the relation $\omega_j^i(X^k\partial_k)=X^k\omega_j^i(\partial_k)=X^k\Gamma_{jk}^i$ to get
+\[ 
+  (DY)X=\big( X(Y^i)+X^jX^k\Gamma^i_{jk} \big)\partial_i.
+\]
+Notice that the anti-symmetric part of $\Gamma$ with respect to its two lower indices does not influence the covariant derivative. Let us compute the torsion in terms of $\Gamma$. For that remark that $d\theta^i=0$ because 
+\[ 
+  (d\theta^i)(X,Y)=X\theta^i(Y)-Y\theta^i(X)-\theta^i\big( [X,Y] \big)=X(Y^i)-Y(X^i)-[X,Y]^i=0.
+\]
+Thus we have
+\begin{align*}
+(D\theta)(\partial_k\otimes\partial_l)	&=\big( (D\partial_i)\partial_k \big)\theta^i(\partial_l)-\big( (D\partial_i)\partial_l \big)\theta^i(\partial_k)\\
+					&=\delta_l^i\Gamma_{ik}^j\partial_j-\delta_k^i\Gamma_{il}^j\partial_j\\
+					&=(\Gamma_{lk}^j-\Gamma^j_{kl})\partial_j.
+\end{align*}
+The connection $\nabla$ is moreover compatible with the metric because
+\[ 
+  \nabla_Z\big( g(X,Y) \big)=Z\big( \eta(eX,eY) \big)=\eta\big( \underbrace{D_Z(eX)}_{=e(\nabla_ZX)},eY \big)+\eta\big( eX,D_Z(eY) \big)=g(\nabla_ZX,Y)+g(X,\nabla_ZY).
+\]
+
+
+
+
+\section{Connection on principal bundle}  %\label{subsec_defconnprinc}
+%------------------------------------------
+
+\subsection{First definition:  \texorpdfstring{$1$}{1}-form}
+%------------------------------
+
+\label{pg_connpriic}
+We consider a $G$-principal bundle 
+\[
+\xymatrix{%
+   G \ar@{~>}[r]		&	P\ar[d]^{\pi}\\
+   				&	  M
+}
+\]
+and $\yG$, the Lie algebra of $G$. 
+
+\begin{definition}
+A \defe{connection}{connection!on principal bundle} on $P$  is a $1$-form $\omega\in\Omega(P,\yG)$ which fulfills
+
+\begin{itemize}\label{pg:def:conne}
+\item $\omega_{\xi}(A^*_{\xi})=A$,
+\item $(R_g^*\omega)_{\xi}(\Sigma)=\Ad(g^{-1})(\omega_{\xi}(\Sigma))$,
+\end{itemize}
+for all $A\in\yG$, $g\in G$, $\xi\in P$ and $\Sigma\in T_{\xi} P$
+\label{defconnform}
+\end{definition}
+Here, $R_g$ is the right action: $R_g\xi=\xi\cdot g$ and $A^*$ stands for the \defe{fundamental field}{fundamental!vector field} associated with $A$ for the action of $G$ on $P$:
+\begin{equation} \label{defastar}
+   A^*_{\xi}=\Dsdd{ \xi\cdot e^{-tA} }{t}{0},
+\end{equation}
+For each $\xi\in P$, we have $\dpt{\omega_{\xi}}{T_{\xi} P}{\yG}$. See section \ref{sec:fond_vec}.
+
+If $\alpha$ is a connection $1$-form on $P$, we say that $\Sigma$ is an \defe{horizontal}{horizontal} vector field if $\alpha_{\xi}(\Sigma)=0$ for all $\xi\in P$. If $X_x\in T_xM$ and $\xi\in\pi^{-1}(x)$, there exists an unique\footnote{See \cite{kobayashi}, chapter II, proposition 1.2.} $\Sigma$ in $T_{\xi} P$ which is horizontal and such that $\pi_*(\Sigma)=X_x$. This $\Sigma$ is called the \defe{horizontal lift}{horizontal!lift} of $X_x$. We can also pointwise construct the horizontal lift of a vector field. The one of $X$ is often denoted by $\overline{X}$; it is an element of $\cvec(P)$.
+
+\subsection[Horizontal space]{Second definition: horizontal space}
+%-------------------------------------------------------------------
+
+For each $\xi\in P$, we define the \defe{vertical space}{vertical space} $V_{\xi} P$ as the subspace of $T_{\xi} P$ whose vectors are tangent to the fibers: each $v\in V_{\xi} P$ fulfills $d\pi v=0$. Any such vector is given by a path contained in the fiber of $\xi$. So, $v\in V_{\xi} P$ if and only if there exists a path $g(t)\in G$ such that $v=\Dsdd{\xi\cdot g(t)}{t}{0}$.
+
+A \defe{connection}{connection!on principal bundle} $\Gamma$ is a choice, for each $\xi\in P$, of an \defe{horizontal space}{horizontal!space} $H_{\xi} P$ such that
+
+\begin{itemize}
+\item $T_{\xi} P=V_{\xi} P\oplus H_{\xi} P$,
+\item $H_{\xi\cdot g}=(dR_g)_{\xi} H_{\xi}$,
+\item $H_{\xi} P$ depends on $\xi$ under a differentiable way.
+\end{itemize}
+The second condition means that the distribution $\xi\to H_{\xi}$ is invariant under $G$. Thanks to the first one, for each $X\in T_{\xi} P$, there exists only one choice of $Y\in H_{\xi} P$ and $Z\in V_{\xi} P$ such that $X=Y+Z$. These are denoted by $vX$ and $hX$ and are naturally named \emph{horizontal} and \emph{vertical components} of $X$. The third condition means that if $X$ is a differentiable vector field on $P$, then $vX$ and $hX$ are also differentiable vector fields. We will often write $V_{\xi}$ and $H_{\xi}$ instead of $V_{\xi} P$ and $V_{\xi} P$.
+
+The word \emph{connection} probably comes from the fact that the horizontal space gives a way to jump from a fiber to the next one. 
+When we consider a connection $\Gamma$, we can define a $\yG$-valued connection $1$-form by 
+\[
+   \omega(X)^*_{\xi}=vX_{\xi}.
+\]
+The existence is explained in section \ref{sec:fond_vec}. It is clear that $\omega(X)=0$ if and only if $X$ is horizontal. The theorem which connects the two definitions is the following.
+
+\begin{theorem}
+If $\Gamma$ is a connection on a $G$-principal bundle, and $\omega$ is its $1$-form, then
+
+\begin{enumerate}
+\item\label{enuyai} for any $A\in\yG$, we have $\omega(A^*)=A$,
+\item\label{enuyaii} $(R_g)^*\omega=\Ad(g^{-1})\omega$, i.e. for any $X\in T_{\xi} P$, $g\in G$ and $\xi\in M$,
+\[
+    \omega((dR_g)_{\xi} X)=\Ad(g^{-1})\omega_{\xi}(X)
+\]
+\end{enumerate}
+Conversely, if one has a $\yG$-valued $1$-form on $P$ which fulfills these two requirement, then one has one and only one connection on $P$ whose associated $1$-form is $\omega$.
+
+\end{theorem}
+
+\begin{proof}
+\ref{enuyai} The definition of $\omega$ is $\omega(X)^*_{\xi}=vX$. Then $\omega(A^*)^*_{\xi}=vA^*_{\xi}=A^*_{\xi}$ because $A^*$ is vertical. From lemma \ref{lem:As_Bs_A_B}, $\omega(A^*)=A$.
+
+\ref{enuyaii} Let $X\in\cvec(P)$. If $X$ is horizontal, the definition of a connection makes $dR_d X$ also horizontal, then the claim becomes $0=0$ which is true. If $X$ is vertical, there exists a $A\in\yG$ such that $X=A^*$ and a lemma shows that $dR_gX$ is then the fundamental field of $\Ad(g^{-1})A$. Using the properties of a connection,
+\begin{equation}
+  (R^*_g\omega)_{\xi}(X)=\omega_{\xi\cdot g}(dR_g X)=\Ad(g^{-1})A=\Ad(g^{-1})\omega_{\xi}(X).
+\end{equation}
+
+Now we turn our attention to the inverse sense: we consider a $1$-form which fulfills the two conditions and we define
+\begin{equation}
+   H_{\xi}=\{X\in T_{\xi} P\tq \omega(X)=0\}.
+\end{equation}
+We are going to show that this prescription is a connection. First consider a $X\in V_{\xi}$, then $X=A^*$ and $\omega(X)=A$. So $H_{\xi}\cap V_{\xi}=0$. Now we consider $X\in T_{\xi} P$ and we decompose it as
+\[
+   X=A^*+(X-A^*)
+\]
+where $A^*$ is the vertical component of $X$. If $\omega(dR_g X)=0$ for all $g\in G$, then $\omega(X)=0$, then a vector $X\in H_{\xi}$ fulfills at most $\dim G$ independent constraints $\omega(dR_g X)=0$ and $\dim H_{\xi}$ is at least $\dim P-\dim G$. On the other hand, $\dim V_{\xi}=\dim G$; then
+\[
+  \dim V_{\xi}+\dim H_{\xi}\geq\dim G+\dim P-\dim G.
+\]
+Then the equality must holds and $V_{\xi}\oplus H_{\xi}=T_{\xi} P$.
+
+We have now to prove that $\omega$ is the connection form of $H_{\xi}$, i.e. that $\omega(X)$ is the unique $A\in\yG$ such that $A^*_{\xi}$ is the vertical component of $X$. Indeed if $X\in T_{\xi} P$, it can be decomposed as into $A^*\in V_{\xi}$ and $Y\in H_{\xi}$ and
+\[
+   \omega(X)=\omega(A^*+Y)=\omega(A^*)=A.   
+\]
+
+It remains to be proved that the horizontal space $H_{\xi}$ of any connection $\Gamma$ is related to the corresponding $1$-form $\omega$ by $H_{\xi}=\{X\in T_{\xi} P\tq\omega_{\xi}(X)=0\}$. From the connection $\Gamma$, the $1$-form is defined by the requirement that $\omega(X)^*_{\xi}=vX_{\xi}$. For $X\in H_{\xi}$, it is clear that $vX=0$, so that $\omega(X)^*=0$. This implies $\omega(X)=0$ because we suppose that the action of $G$ is effective.
+
+\end{proof}
+
+The projection $\dpt{\pi}{P}{M}$ induces a linear map $\dpt{d\pi}{T_{\xi} P}{T_xM}$. We will see that, when a connection is given, it is an isomorphism between $H_{\xi}$ and $T_xM$ (if $x=\pi(\xi)$). The \defe{horizontal lift}{horizontal!lift}\index{lift!horizontal} of $X\in\cvec(M)$ is the unique horizontal vector field (i.e. it is pointwise horizontal) such that $d\pi(\ovX_{\xi})=X_{\pi(\xi)}$. The proposition which allows this definition is the following.
+
+\begin{proposition}
+For a given connection on the $G$-principal bundle $P$ and a vector field $X$ on $M$, there exists an unique horizontal lift of $X$. Moreover, for any $g\in G$, the horizontal lift is invariant under $dR_g$.
+
+The inverse implication is also true: any horizontal field on $P$ which is invariant under $dR_g$ for all $g$ is the horizontal lift of a vector field on $M$. 
+\end{proposition}
+
+This proposition comes from \cite{kobayashi}, chapter II, proposition 1.2.
+
+\begin{proof}
+We consider the restriction $\dpt{d\pi}{H_{\xi}}{T_{\pi(\xi)}M}$. It is injective because $d\pi(X-Y)$ vanishes only when $X-Y$ is vertical or zero. Then it is zero. It is cleat that $\dpt{d\pi}{T_{\xi} P}{T_{\pi(\xi)}M}$ is surjective. But $d\pi X=0$ if $X$ is vertical, then $d\pi$ is surjective from only $H_{\xi}$.
+
+So we have existence and unicity of an horizontal lift. Now we turn our attention to the invariance. The vector $dR_g\ovX_{\xi}$ is a vector at $\xi\cdot g$. From the definition of a connection, $dR_g H_{\xi}=H_{\xi\cdot g}$, then $dR_g\ovX_{\xi}$ is the unique horizontal vector at $\xi\cdot g$ which is sent to $X_x$ by $d\pi$. Thus it is $\ovX_{\xi\cdot g}$.
+
+For the inverse sense, we consider $\ovX$, an horizontal invariant vector field on $P$. If $x\in M$, we choose $\xi\in\pi^{-1}(x)$ and we define $X_x=d\pi(\ovX_{\xi})$. This construction is independent of the choice of $\xi$ because for $\xi'=\xi\cdot g$, we have
+\[
+   d\pi(\ovX_{\xi'})=\pi(dR_g\ovX_{\xi})=\pi(\ovX_{\xi}).
+\]
+\end{proof}
+
+An other way to see the invariance is the following formula:
+\[
+   \ovX_{\xi\cdot g}=(dR_g)_{\xi} \ovX_{\xi}.
+\]
+By definition, $\ovX_{\xi\cdot g}$ is the unique vector of $T_{\xi\cdot g}P$ which fulfils $d\pi\ovX_{\xi\cdot g}=X_x$ if $\xi\pi^{-1}(x)$, so the following computation proves the formula:
+\begin{equation}
+  (d\pi)_{\xi\cdot g}((dR_g)_{\xi}\ovX_{\xi})=d(\pi\circ R_g)_{\xi}\ovX_{\xi}
+                                         =d\pi_{\xi}\ovX_{\xi}
+					 =X_x.
+\end{equation}
+
+\subsection{Curvature}
+%////////////////////////
+
+The curvature of a vector or associated bundle satisfies $\Omega_{\alpha}=d\theta_{\alpha}+\theta_{\alpha}\wedge\theta_{\alpha}$. So we naturally define the \defe{curvature}{curvature!on principal bundle} of the connection $\omega$ on a principal bundle as the $\yG$-valued $2$-form
+\begin{equation} 
+  \Omega=d\omega+\omega\wedge\omega.
+\end{equation}
+When we consider a local section\label{PgLocSecCurv} $\dpt{\sigma_{\alpha}}{\mU_{\alpha}}{P}$ on $\mU_{\alpha}\subset M$, we can express the curvature with a $2$-form on $M$ instead of $P$ by the formula \label{pg:curv_princ}
+\[ 
+ F\bsa=\sigma_{\alpha}^*\Omega,
+\]
+or, more explicitly, by $F\bsa_x(X,Y)=\Omega_{\sigma_{\alpha}(x)}(d\sigma_{\alpha} X,d\sigma_{\alpha} Y))$. Note that if $\yG$ is abelian, $\Omega=d\omega$ and $d\Omega=0$.
+
+\section{Exterior covariant derivative and Bianchi identity} 
+%--------------------------------------------------------------
+
+Let $\omega\in\Omega^1(P,\mG)$ be a connection $1$-form on the $G$-principal bundle $P$. Using the operation $[.\wedge .]$ defined in section \ref{SecLiaAlgformval}, we define the \defe{exterior covariant derivative}{exterior!covariant derivative} by\nomenclature{$d_{\omega}$}{Exterior covariant derivative associated with the connection form $\omega$}  %\index{exterior covariant derivative}
+\begin{align}
+d_{\omega}\alpha&=d\alpha+\frac{ 1 }{2}[\omega\wedge\alpha]&\text{when $\alpha\in\Omega^1(P,\mG)$},\\
+d_{\omega}\beta&=d\beta+[\omega\wedge\beta]&\text{when $\beta\in\Omega^2(P,\mG)$},
+\end{align}
+
+The \defe{curvature}{curvature!form} is the $2$-form defined by
+\begin{equation}
+\Omega=d_{\omega}\omega=d\omega+\omega\wedge\omega
+\end{equation}
+where $d_{\omega}$ is the exterior covariant derivative associated with the connection form $\omega$, and the wedge has to be understood as in equation \eqref{EqAbuswesgeomom}.
+
+\begin{proposition}
+The curvature form satisfies the identity
+\begin{equation}
+d_{\omega}\Omega=0
+\end{equation}
+which is the Bianchi identity\index{Bianchi identities}
+\end{proposition}
+
+\begin{proof}
+taking the differential of $\Omega=d\omega+\omega\wedge\omega$, we find
+\[ 
+  d\Omega=d^2\omega+d\omega\wedge\omega-\omega\wedge d\omega
+\]
+in which $d^2\omega=0$ and we replace $d\omega$ by $\Omega-\omega\wedge\omega$, so that
+\[ 
+  d\Omega=\Omega\wedge\omega-\omega\wedge\Omega,
+\]
+which becomes the Bianchi identity using the definition of $d_{\omega}$ and the notation \eqref{EqDefCrochwedgedeux}.
+\end{proof}
+Remark that the Bianchi identity reads $d_{\omega}^2\omega=0$, but that in general $d_{\omega}$ does not square to zero. 
+
+\section{Covariant derivative on associated bundle}
+%-----------------------------------------------------
+
+Now we consider a general $G$-principal bundle $\dpt{\pi}{P}{M}$ and an associated bundle $E=P\times_{\rho} V$. We define a product $\eR\times E\to E$ by
+\begin{equation}\label{eq:def:REE}
+  \lambda[\xi,v]=[\xi,\lambda v].
+\end{equation}
+It is clear that the equivariant function $\widehat{\lambda \psi}$ defines the section $\lambda\psi$. A \defe{covariant derivative}{covariant!derivative!on associated bundle} is a map 
+		\begin{equation}
+		\begin{aligned}
+			\nabla \colon \cvec(M)\times \Gamma(M,E) &\to \Gamma(M,E)\\
+			(X,\psi)&\mapsto \nabla_X\psi
+		\end{aligned}
+	\end{equation}	
+such that 
+\begin{subequations}
+\begin{align}
+\nabla_{fX}\psi&=f\nabla_X\psi,   \\
+\nabla_X(f\psi)&=(X\cdot f)\psi+f\nabla_X\psi                                      \label{eq:def:der_covii}
+\end{align}
+\end{subequations}
+where products have to be understood by formula \eqref{eq:def:REE}.
+
+\begin{theorem}  
+A connection on a principal bundle gives rise to a covariant derivative on any associated bundle by the formula
+\begin{equation}
+  \widehat{\nabla^E_X\psi}(\xi)=\ovX_{\xi}(\hpsi)
+\end{equation}
+where $\dpt{\hpsi}{P}{V}$ is the function associated with the section $\dpt{\psi}{M}{E}$. 
+\label{tho_dercovassoequiv}
+\end{theorem}
+We have to prove that it is a good definition: the function $\widehat{\nabla^E_X\psi}$ must define a section $\dpt{\nabla_X^R\psi}{M}{E}$ and the association $\psi\to\nabla^E_X\psi$ must be a covariant derivative.
+
+With the discussion of page \pageref{pg:vecto_vecto} about the application of a tangent vector on a map between manifolds, we have $(d\varphi X)f=X(f\circ\varphi)$. By using this equality in the case of $\ovX$ with $\hpsi$ and $R_g$, we find $(dR_g\ovX)(\hpsi)=\ovX(\hpsi\circ R_g)$ and thus
+\[
+   \ovX_{\xi\cdot g}(\hpsi)=\ovX_{\xi}(dR_g\hpsi).
+\]
+We prove the theorem step by step.
+
+\begin{proposition}
+The function $\widehat{\nabla_X^E\psi}$ defines a section of $P$.
+\end{proposition}
+
+\begin{proof}
+We have to see that $\widehat{\nabla_X^E\psi}$ is an equivariant function. The equivariance of $\hpsi$ gives $\hpsi\circ R_g=\rho(g^{-1})\hpsi$, thus
+\begin{equation}
+\widehat{ \nabla_X^E\psi }(\xi\cdot g)=\ovX_{\xi\cdot g}(\hpsi)\\
+                                      =\big( (dR_g)_{\xi}\ovX_{\xi}\big)(\hpsi)\\
+				      =\ovX_{\xi}(\hpsi\circ R_g)\\
+				      =\ovX_{\xi}( \rho(g^{-1})\hpsi )\\
+				      =\rho(g^{-1})\ovX_{\xi}(\hpsi).
+\end{equation}
+The last equality comes from the fact that the product $\rho(g^{-1})\hpsi$ is a linear product ``matrix times vector''{} and that $\ovX_{\xi}$ is linear.
+\end{proof}
+
+\begin{theorem}  
+The definition
+\[
+   \widehat{\nabla^E_X\psi}(\xi)=\ovX_{\xi}(\hpsi)
+\]
+defines a covariant derivative.
+\label{tho_nablaE}
+\end{theorem}
+
+\begin{proof}
+We have to check the two conditions given on page \pageref{sec:conn_vect}.
+
+\subdem{First condition}
+By definition, $\widehat{\nabla_{fX}^E\psi}(\xi)=\overline{fX_{\xi}}(\hpsi)$. Now we prove that 
+\begin{equation}\label{eq:fXhpsi}
+  \overline{fX_{\xi}}(\hpsi)=(f\circ\pi)(\xi)\ovX_{\xi}(\hpsi).
+\end{equation}
+ This formula is coherent because $\ovX_{\xi}(\hpsi)\in V$ and $(f\circ\pi)(\xi)\in\eR$. By definition of the horizontal lift, $\overline{fX}_{\xi}$ is the unique vector such that
+
+ \begin{itemize}
+ \item $d\pi_{\xi}(\overline{fX}_{\xi})=(fX)_x=f(x)d\pi\ovX_{\xi}=(f\circ\pi)(\xi)d\pi\ovX_{\xi}$,
+ \item $\omega_{\xi}(\overline{fX}_{\xi})=0$.
+ \end{itemize}
+We check that $(f\circ\pi)(\xi)\ovX_{\xi}$ also fulfills these two conditions because $d\pi$ and $\omega$ are $\Cinf(P)$-linear. Equation \eqref{eq:fXhpsi} immediately gives 
+\begin{equation}
+\widehat{\nabla_{fX}^E\psi}(\xi)=(f\circ\pi)(\xi)\widehat{\nabla_X^E\psi}(\xi).
+\end{equation}
+Now we show that $\widehat{ f\nabla_X^E\psi }$ is the same. The section $\dpt{f\nabla_X^E\psi}{M}{E}$ is given by  $(f\nabla_X^E\psi)(x)=f(x)(\nabla_X^E\psi)(x)$, and by definition of the associated equivariant function,
+\[
+  f(x)(\nabla_X^E\psi)(x)=[ \xi,f(x)\widehat{\nabla_X^E\psi}(\xi) ].
+\]
+Then
+\begin{equation}
+  \widehat{f\nabla_X^E\psi}(\xi)=f(x)\widehat{\nabla_X^E\psi}(\xi)=(f\circ\pi)(\xi)\widehat{\nabla_X^E\psi}(\xi).
+\end{equation}
+All this shows that
+$  \nabla_{fX}^E\psi=f\nabla_X^E\psi$.
+\subdem{Second condition}
+This is a computation using the Leibnitz rule:
+\begin{equation}
+\begin{split}
+  \widehat{\nabla_X^E(f\psi)}(\xi)&=\ovX_{\xi}( \widehat{f\psi} )
+                                  	\stackrel{(a)}{=}\ovX_{\xi}((\pi\circ f)\hpsi)\\
+				  &\stackrel{(b)}{=}\ovX_{\xi}(\pi^*f)\hpsi(\xi)+(\pi^*f)(\xi)\ovX_{\xi}\hpsi
+				  =d(f\circ\pi)_{\xi}\ovX_{\xi}\hpsi(\xi)+f\widehat{\nabla_X^E\psi}(x)\\
+				  &=df_{\pi(\xi)}d\pi_{\xi}\ovX_{\xi}\hpsi(\xi)+f\widehat{\nabla_X^E\psi}(x)
+				  =X_x(f)\hpsi(\xi)+f\widehat{\nabla_X^E\psi}(x)\\
+				  &=\widehat{(Xf)\psi}(\xi)+\widehat{f\nabla_X^E\psi}(\xi)
+\end{split}
+\end{equation}
+where (a) is because $\widehat{f\psi}=\pi^*f\hat{\psi}$, and (b) is an application of the Leibnitz rule.
+\end{proof}
+
+
+
+
+\begin{theorem}
+Using the local coordinates related to the sections $\dpt{\sigma_{\alpha}}{\mU_{\alpha}}{P}$, the covariant derivatives reads:
+\begin{equation}\label{eq:nabla_coord}
+(\nabla_X\psi)\bsa(x)=X_x\psi\bsa-\rho_*(\sigma_{\alpha}^*\omega_x(X))\psi\bsa(x)
+\end{equation}
+where $\dpt{\rho_*}{\yG}{\End(V)}$ is defined by
+\begin{equation}  \label{eq:def_rho_s}
+  \rho_*(A)=\Dsdd{\rho(e^{tA})}{t}{0}
+\end{equation}
+
+\end{theorem}
+
+\begin{proof}
+The problem reduces to the search of $\ovX$ because
+\[
+   (\nabla_X\psi)\bsa(x)=\widehat{\nabla_X\psi}(\sigma_{\alpha}(x))=\ovX_{\sigma_{\alpha}(x)}(\hpsi).
+\]
+We claim that $\ovX_{\sigma_{\alpha}(x)}=d\sigma_{\alpha} X_x-\omega(d\sigma_{\alpha} X_x)^*$. We have to check that $d\pi\ovX=X$ and $\omega(\ovX)=0$. The latter comes easily from the fact that $\omega(A^*)=A$. For the first one, remark that $s_{\alpha}$ is a section, then $d(\pi\circ s_{\alpha})=\id$, and $d\pi(ds_{\alpha} X_x)=X_x$, while
+\begin{equation}
+  d\pi(A^*\bxi)=d\pi\Dsdd{\xi\cdot e^{-tA}}{t}{0}
+               =\Dsdd{\pi(\xi)}{t}{0}
+               =0.
+\end{equation}
+Since the horizontal lift is unique, we deduce
+\begin{equation}
+  (\nabla_X\psi)\bsa(x)=\big(  d\sigma_{\alpha} X_x-\omega(d\sigma_{\alpha} X_x)^*  \big)\hpsi.
+\end{equation}
+From the definition of a fundamental vector field,
+\begin{equation}
+\begin{aligned}
+    \omega(d\sigma_{\alpha} X_x)^*_{\sigma_{\alpha}(x)}\hpsi
+           &=\Dsdd{\hpsi\big(\sigma_{\alpha}(x)\cdot e^{-t\omega(d\sigma_{\alpha} X_x)}  \big) }{t}{0}\\
+           &=\Dsdd{\rho(e^{t\omega(d\sigma_{\alpha} X_x)})\hpsi(\sigma_{\alpha}(x))}{t}{0}&&\text{from \eqref{eq:equiv_psi_b}}\\
+           &=(d\rho)_e(\omega\circ d\sigma_{\alpha})X_x(\hpsi\circ\sigma_{\alpha})(x)\\
+           &=\rho_*\big( (\sigma_{\alpha}^*\omega)(X_x) \big)\psi\bsa(x)    &&\text{by \eqref{eq:def_rho_s}}
+\end{aligned}
+\end{equation}
+
+\end{proof}
+ 
+We can express the covariant derivative by means of some maps $\dpt{\theta_{\alpha}}{\cvec(M)\times M}{\End(V)}$ given by
+ \begin{equation}
+\nabla_X\gamai=\bghd{\theta_{\alpha}(X)}{i}{j}\gamaj.
+ \end{equation}
+where the $\gamai$'s were given in equation \eqref{eq:def:gamai}. By the definition \eqref{eq:def:der_covii},
+\[
+\begin{split}
+  (\nabla_X\psi)(x)&=(X\cdot s^i_{\alpha})_x\gamai(x)+s^i_{\alpha}(x)(\nabla_X\gamai)(x)\\
+                   &=(X\cdot s^i_{\alpha})_x\gamai(x)+s^i_{\alpha}(x)\bghd{\theta_{\alpha}(X)}{i}{j}\gamaj(x).
+\end{split}
+\]
+On the othre hand with the notations of equation \eqref{eq:def:psisa}, $\gamsai=e_i$ and $X_x\gamsai=0$. Then equation \eqref{eq:nabla_coord} gives $\theta_{\alpha}(X)=\rho_*(\sigma_{\alpha}^*\omega_x(X))$, or
+\begin{equation}
+\theta_{\alpha}=\rho_*(\sigma^*_{\alpha}\omega_x).
+\end{equation}
+
+\subsection{Curvature on associated bundle}
+
+From the definition \eqref{eq:def:som_E}, it makes sense to define the curvature $2$-form by
+\[
+  R(X,Y)\psi=\nabla_X\nabla_Y\psi-\nabla_Y\nabla_X\psi-\nabla_{[X,Y]}\psi.
+\]
+It is also clear that $\psisa$ defines a section of the trivial vector bundle $F=M\times V$ by $x\to (x,\psisa(x))$, so one can define  $\dpt{\Omega_{\alpha}(X,Y)}{\Gamma(M,E)}{\Gamma(M,E)}$ by
+\[
+  \big(  R(X,Y)\psi  \big)\bsa=\Omega_{\alpha}(X,Y)\psisa
+\]
+and take back all the work around Bianchi because of the relation \eqref{eq:nabla_coord} which can be written as $(\nabla_X\psi)\bsa(x)=X_x\psisa+\theta_{\alpha}(X)\psisa(x)$ and which is the same as in proposition \ref{prop:thet_conn_F}.
+
+\subsection{Connection on frame bundle}\index{frame!bundle}
+%//////////////////////////////////////
+
+The frame bundle was defined at page \pageref{pg:frame_bundle}. Let $\dptvb{F}{p}{M}$ be a $\eK$-vector bundle with some local trivialization $(\mU_{\alpha},\phi^E_{\alpha})$ and the corresponding transition functions $\dpt{g\bab}{\mU_{\alpha}\cap\mU_{\beta}}{GL(r,\eK)}$. We consider $\dpt{\pi}{P}{M}$, the frame bundle of $F$; it is a $GL(r,\eK)$-principal bundle. Let $\nabla$ be a covariant derivative on $F$ and $\theta_{\alpha}$, the associated matrices $1$-form. The frame bundle is
+\[
+  P=\bigcup_{x\in M}(\text{frame of $F_x$}).
+\]
+A connection is a $\yG$-valued $1$-form; in our case it is a map
+\[
+  \dpt{\omega^{\alpha}\bxi}{T\bxi\big(\pi^{-1}(\mU_{\alpha})\big)}{\gl(r,\eK)}.
+\]
+We define our connection by, for $g\in GL(r,\eK)$, $x\in \mU_{\alpha}$, $X_x\in T_xM$ and $A\in \gl(r,\eK)$,
+\begin{equation}\label{eq:def_omega_frame}
+  \omega_{S_{\alpha}(x)\cdot g}^{\alpha}
+         \big(   {R_g}_*s_{\alpha}(x)_* X_x + A^*_{S_{\alpha}(x)\cdot g}  \big):=A+\Ad(g^{-1})\theta_{\alpha}(X_x).
+\end{equation}
+where $\dpt{S_{\alpha}}{\mU_{\alpha}}{P}$ is the section defined by the trivialization $\phi^P_{\alpha}$:
+\[
+   S_{\alpha}(x)=\{ \ovv_{\alpha}={\phi^E_{\alpha}}^{-1}(x,e_i) \}_{i=1,\ldots,r}.
+\]
+Since $\theta_{\alpha}(X_x)\in\End(\eK^r)\subset\gl(r,\eK)$, the second term of \eqref{eq:def_omega_frame} makes sense. This formula is a good definition of $\omega$ because of the following lemma:
+
+\begin{lemma}
+If $\xi=S_{\alpha}(x)\cdot g$ and $\Sigma\in T\bxi P$, there exists a choice of $A\in\yG$, and $X_x\in T_xM$ such that
+\begin{equation}\label{eq:geneSigma}
+  \Sigma={R_g}_*{s_{\alpha}(X)}_* X_x+A^*_{S_{\alpha}(x)\cdot g}.
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+If $\xi\in P$ is a basis of $E$ at $y$, there exists only one choice of $x\in M$ and $g\in G$ such that $\xi=S_{\alpha}(x)\cdot g$.
+
+Let us consider a general path $\dpt{c}{\eR}{P}$ under the form $c(t)=s_{\alpha}(x(t))\cdot g(t)$ where $x$ and $g$ are path in $M$ and $GL(r,\eK)$. The frame $c(t)$ is the one of $F_{x(t)}$ obtained by the transformation $g(t)$ from $s_{\alpha}(x(t))$. It is a set of $r$ vectors, and each of them can be written as a combination of the vectors of $s_{\alpha}(x(t))$, so we write
+\begin{equation}
+  c^i(t)=s_{\alpha}^j(x(t))g_j^i(t)
+\end{equation}
+where $s_{\alpha}^j(x(t))\in F_{x(t)}$ and $g_j^i(t)\in\eK$. We compute $\Sigma=c'(0)$ by using the Leibnitz rule and we denote $x'(0)=X_x$, $x(0)=x$ and $g^i_j(0)=g^i_j$ (the matrix of $g$):
+\begin{equation}
+\begin{split}
+  \Sigma^i&=\Dsdd{  s^j_{\alpha}(x(t))  }{t}{0}g^i_j+s^j_{\alpha}(x)\Dsdd{g^i_j(t)}{t}{0}\\
+          &=(ds_{\alpha}^j)_xX_xg^i_j+{g^i_j}'(0)s^j_{\alpha}(x).
+\end{split}
+\end{equation}
+Going to more compact matrix form, it gives
+\[
+  \Sigma=(ds_{\alpha})_xX_x\cdot g+s_{\alpha}(x)g'(0).
+\]
+The second term, $s_{\alpha}^j(x)g'^i_j(0)$, is a general vector tangent to a fiber. So it can be written as a fundamental field $A^*\bxi$.
+
+\end{proof}
+
+\begin{lemma}
+On $\mU_{\alpha}\cap\mU_{\beta}$, the form fulfills $\omega^{\alpha}=\omega\hbeta$.
+\end{lemma}
+
+\begin{proof}
+Let $\dpt{\gamma}{\eR}{M}$ be a path whose derivative is $X_x$. Then
+\begin{equation}
+\begin{split}
+   (R_g)_*s_{\alpha}(x)_*X_x&=\Dsdd{s_{\alpha}(\gamma_t)\cdot g}{t}{0}
+                          =\Dsdd{  s_{\beta}(\gamma_t)g_{\alpha\beta}(\gamma_t)\cdot g  }{t}{0}\\
+                          &=\Dsdd{ s_{\alpha}(\gamma_t)g_{\alpha\beta}(x)\cdot g }{t}{0}
+                          +\Dsdd{ s_{\beta}(x)\cdot g_{\alpha\beta}(\gamma_t)\cdot g }{t}{0}.
+\end{split}
+\end{equation}
+What is in the derivative of the first term is $R_{g_{\alpha\beta}(x)g}(s_{\beta}(\gamma_t))$. Taking the derivative, we find the expected ${R_{g_{\alpha\beta}(x)g}}_*{s_{\beta}}_*X_x$.
+
+For the second term, we note $r:=s_{\beta}(x)\cdot g_{\alpha\beta}(g)g$, and we have to compute the following, using equation \eqref{eq:rdotht},
+\begin{equation}
+\begin{aligned}
+ \Dsdd{  r\cdot\Ad_{g^{-1}}( g_{\alpha\beta}^{-1}(x)&g_{\alpha\beta}(\gamma_t) ) }{t}{0}\\
+                  &=\Dsdd{ r\cdot\exp t\big(    (d\AD_{g^{-1}})_e( g_{\alpha\beta}^{-1}(x)(dg_{\alpha\beta})_xX_x )   \big)}{t}{0}\\
+                  &=\Dsdd{r\cdot\exp t\big( \Ad_{g^{-1}}g_{\alpha\beta}^{-1}(x)dg_{\alpha\beta}}{t}{0}\\
+                  &=\left(  \Ad_{g^{-1}}g^{-1}_{\alpha\beta}(x)dg_{\alpha\beta} X_x    \right)^*_r.
+\end{aligned}
+\end{equation}
+Using this, we can perform the computation:
+\begin{equation}
+\begin{aligned}
+\omega\hbeta_{S_{\alpha}(x)\cdot g}\big(  {R_g}_*{s_{\alpha}(x)}_*X_x+A^*_{S_{\alpha}(x)\cdot g}  \big)
+                          &=\omega\hbeta_{S_{\beta}(x)\cdot g_{\alpha\beta}(x)g}\Big(  {R_{g_{\alpha\beta}}(x)g}_*{s_{\beta}(x)}_*X_x \\
+                              &\qquad + (  \Ad_{g^{-1}}g^{-1}_{\alpha\beta}(x)dg_{\alpha\beta} X_x  )^*_r +A^* \Big)\\
+                          &=\Ad_{(g_{\alpha\beta}(x)g)^{-1}}\theta_{\beta}(X_x)\\
+			&\quad+\Ad_{g^{-1}}g_{\alpha\beta}^{-1}(x)dg_{\alpha\beta}(X_x)+A\\
+                          &=\Ad_{g^{-1}}\big(  (g_{\alpha\beta}^{-1}\theta_{\beta} g_{\alpha\beta}+g_{\alpha\beta}^{-1} dg_{\alpha\beta})(X_x)  \big)+A\\
+                          &=\omega^{\alpha}_{S_{\alpha}(x)g}\big( {R_g}_*{s_{\alpha}(x)}_*X_x+A^A_{S_{\alpha}(x)\cdot g} \big).
+\end{aligned}
+\end{equation}
+
+\end{proof}
+
+\begin{proposition}
+The $\omega$ defined by formula \eqref{eq:def_omega_frame} is a connection $1$-form.
+\label{prop_omconfrom}
+\end{proposition}
+
+\begin{proof}
+The first condition, $\omega(A^*\bxi)=A$, is immediate from the definition. The lemma \ref{lem:dRgAstar} gives the second condition in the case $\Sigma=A^*\bxi$. It remains to be checked that $\omega(dR_g\Sigma)=\Ad(g^{-1})\omega(\Sigma)$ in the case $\Sigma=dR_hds_{\alpha} X_x$. This is obtained using the fact that $\Ad$ is a homomorphism.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+subsection{Levi-Civita connection}\label{subsection_levi}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Let $(M,g)$ be a Riemannian manifold. We look at a connection $1$-form $\alpha\in\Omega^1(\SO(M),so(\eR^m))$ on $\SO(M)$, and we define a covariant derivative $\dpt{\nabla^{\alpha}}{\cvec(M)\times T(M)}{T(M)}$, where $T(M)$ is the tensor bundle on $M$ by (cf. theorem \eqref{tho_nablaE})
+\begin{eqnarray}\label{r2804e1}
+ \widehat{\nabla^{\alpha}_X s}=\overline{X}\hat{s},
+\end{eqnarray}
+for any $s\in T(M)$.  Our purpose now is to prove that an automatic property of this connection is $\nabla^{\alpha} g=0$. The unique such connection which is torsion-free is the \defe{Levi-Civita}{Levi-Civita connection} one.
+
+The metric $g$ is a section of the tensor bundle $T^*M\otimes T^*M$. So we have, in order to find $\hg$ and to use equation \eqref{r2804e1}, to see $T^*M\otimes T^*M$ as an associated bundle. As done in \ref{equivvec}, we see that
+\[
+ T^*M\otimes T^*M\simeq \SO(M)\times_{\rho}(V^*\otimes V^*),
+\]
+with the following definitions:
+\begin{itemize}
+\item The isomorphism is given by $\psi[b,\alpha\otimes\beta](X\otimes Y)=\alpha(b^{-1} X)\beta(b^{-1} Y)$,
+\item $\rho(A)\alpha=\alpha\circ A$,
+\item $b\cdot A=b\circ A$.
+\end{itemize}
+Here, $V=\eR^m$; $\dpt{b}{V}{T_xM}$; $\alpha,\beta\in V^*$; $X$, $Y\in T_xM$ and $A\in \SO(m)$ is seen as $\dpt{A}{V}{V}$.
+
+The following shows that $\psi$ is well defined:
+\begin{equation}
+\begin{split}
+ \psi[b\cdot A,\rho(A^{-1})\alpha\otimes\beta](X\otimes Y)&=(\alpha\circ A)
+                            (A^{-1}\circ b^{-1} X)(\beta\circ A)(A^{-1}\circ b^{-1} Y)\\
+                                           &=\psi[b,\alpha\otimes\beta](X\otimes Y)
+\end{split}
+\end{equation}
+
+\begin{proposition}
+The function $\hg$ is given by
+\[
+ \hg(b)(v\otimes w)=g_x(b(v)\otimes b(w))=v\cdot w.
+\]
+\end{proposition}
+
+\begin{proof}
+The second equality is just the fact that $\dpt{b}{(\eR^m,\cdot)}{(T_xM,g_x)}$ is isometric. On the other hand, if $\hg(b)=\alpha\otimes\beta$, we have:
+\begin{equation}
+\begin{split}
+ g_x(X\otimes Y)&=\psi[b,\alpha\otimes\beta](X\otimes Y)
+                =\alpha(b^{-1} X)\beta(b^{-1} Y)\\
+                &=\alpha\otimes\beta(b^{-1} X\otimes b^{-1} Y)
+                =\hg(b)(b^{-1} X\otimes b^{-1} Y).
+\end{split}
+\end{equation}
+
+Since $b$ is bijective, $X$ and $Y$ can be written as $bv$ and $bw$ respectively for some $v$, $w\in V$, so that
+\[g_x(bv\otimes bw)=\hg(b)v\otimes w.\]
+\end{proof}
+
+It is now easy to see that $\oX\hg=0$. As $\hg$ takes its values in $V^*\otimes V^*$, $\oX\hg$ belongs to this space and can be applied on $v\otimes w\in V\otimes V$. Let $\oX(t)$ be a path in $\SO(M)$ which defines $\oX$; if $\oX\in T_b\SO(M)$, $\oX(0)=b$. We have
+\begin{equation}
+ \oX\hg(v\otimes w)	=\dsdd{\hg(\oX(t))v\otimes w}{t}{0}
+			=\dsdd{v\cdot w}{t}{0},
+\end{equation}
+which is obviously zero.
+
+\subsection{Holonomy}
+%--------------------
+
+Let the principal bundle 
+\begin{equation}
+\xymatrix{%
+   G \ar@{~>}[r]		&	P\ar[d]^{\pi}\\
+   				&	M
+ }
+\end{equation}
+  and $\omega$ a connection on $G$. Let $\gamma\colon [0,1]\to M$, a closed curve piecewise smooth; $\gamma(0)=\gamma(1)=x$. For each $p\in\pi^{-1}(x)$, there exists one and only one horizontal lift $\tilde\gamma\colon [0,1]\to P$ such that $\tilde\gamma(0)=p$. There exists of course an element $g\in G$ such that $\tilde\gamma(1)=p\cdot g$.
+
+We define the following equivariance relation on $P$: we say that $p\sim q$ if and only if $p$ and $q$ can be joined by a piecewise smooth path. The \defe{holonomy group}{holonomy group} at the point $p$ is 
+\[ 
+  \Hol_p(\omega)=\{ g\in G\tq p\sim p\cdot g \}.
+\]
+\subsection{Connection and gauge transformation}
+%-----------------------------------------------
+
+
+\begin{proposition}
+If $\omega$ is a connection on a $G$-principal bundle and $\varphi$, a gauge transformation, the form $\beta=\varphi^*\omega$ is a connection $1$-form too.
+\label{prop:vp_conn}
+\end{proposition}
+
+\begin{proof}
+It is rather easy to see that $\varphi_*A^*\bxi=A^*_{\varphi(x)}$:
+\[
+  \varphi_*A^*\bxi=\Dsdd{ \varphi(\xi e^{-tA})  }{t}{0}=\Dsdd{ \varphi(\xi)e^{-tA}  }{t}{0}=A^*_{\varphi(x)}.
+\]
+The same kind of reasoning leads to $\varphi_*{R_g}_*={R_g}_*\varphi_*$. From here, it is easy to see that
+\[
+  (\varphi^*\omega)\bxi(A^*\bxi)=\omega_{\varphi(\xi)}(\varphi_*A^*\bxi)=A,
+\]
+and
+\[
+\big( R^*_g(\varphi^*\omega)\bxi \big)(\Sigma)
+                =(R_g^*\omega)_{\varphi(\xi)}(\varphi_*\Omega)=\Ad(g^{-1})\big( (\varphi^*\omega)\bxi(\Sigma) \big).
+\]
+\end{proof}
+So, the ``gauge transformed'' of a connection is still a connection. It is hopeful in order to define gauge invariants objects (Lagrangian) from connections (electromagnetic fields).
+
+\subsubsection{Local description}
+
+Let $\dpt{\pi}{P}{M}$ be a $G$-principal bundle given with some trivializations $\dpt{\phi^P_{\alpha}}{\pi^{-1}(\mU_{\alpha})}{\mU_{\alpha}\times G}$ over $\mU_{\alpha}\subset M$ and $\dpt{s_{\alpha}}{\mU_{\alpha}}{\pi^{-1}(\mU_{\alpha})}$, a section. In front of that, we consider an associated bundle $\dpt{p}{E=P\times_{\rho} V}{M}$ with a trivialization $\dpt{\phi^E_{\alpha}}{E}{\mU_{\alpha}\times V}$. One can choose a section $s_{\alpha}$ compatible with the trivialization in the sense that $\phi^P_{\alpha}(s_{\alpha}(x)\cdot g)=(x,g)$; the same can be done with $E$ by choosing $\phi^E_{\alpha}([s_{\alpha}(x),v])=(x,v)$.
+
+A section\index{section!local description} $\dpt{\psi}{M}{E}$ is described by a function $\dpt{\psi_{\alpha}}{\mU_{\alpha}}{V}$ defined by $\phi^E_{\alpha}(\psi(x))=(x,\psi_{\alpha}(x))$.  In the inverse sense, $\psi$ is defined (on $\mU_{\alpha}$) from $\psi_{\alpha}$ by
+$\psi(x)=[s_{\alpha}(x),\psi_{\alpha}(x)]$.
+In the same way, a gauge transformation\index{gauge!transformation!local description} $\dpt{\varphi}{P}{P}$ is described by functions $\dpt{\tilde{\varphi}_{\alpha}}{\mU_{\alpha}}{G}$,
+\begin{equation}
+  \varphi(s_{\alpha}(x))=s_{\alpha}(x)\cdot\tilde{\varphi}_{\alpha}(x).
+\end{equation}
+The function $\tilde{\varphi}_{\alpha}$ also fulfils
+\begin{equation}
+  (\phi_{\alpha}^P\circ\varphi\circ{\phi_{\alpha}^P}^{-1})(x,g)=(x,\tilde{\varphi}(x)\cdot g) 
+\end{equation}
+because
+\begin{equation}
+\begin{split}
+  (\phi_{\alpha}^P\circ\varphi\circ{\phi_{\alpha}^P}^{-1})(x,g)&=(\phi_{\alpha}^P\circ\varphi)(s_{\alpha}(x)\cdot g)\\
+                                                      &=\phi_{\alpha}^P( \varphi(s_{\alpha}(x))\cdot g )\\
+                                                      &=\phi_{\alpha}^P( s_{\alpha}(c)\cdot\tilde{\varphi}_{\alpha}(x)g)\\
+                                                      &=(x,\tilde{\varphi}_{\alpha}(x)g).
+\end{split}
+\end{equation}
+
+We know that a connection on $P$ is given by its $1$-form $\omega$. Moreover we have the following:
+\begin{proposition}
+A connection on $P$ is completely determined on $\pi^{-1}(\mU_{\alpha})$ from the data of the $\yG$-valued $1$-form $\sigma_{\alpha}^*\omega$ on $\mU_{\alpha}$.
+\end{proposition}
+
+\begin{proof}
+We consider a $1$-form $\omega$ which fulfils the two conditions of page \pageref{pg:def:conne}. Our purpose is to find back $\omega\bxi(\Sigma)$, $\forall\xi\in P,\Sigma\in T\bxi P$ from the data of $\sigma_{\alpha}^*\omega$ alone. For any $\xi$, there exists a $g$ such that $\xi=\sigma_{\alpha}(x)\cdot g$. We have
+\begin{equation}
+  \Ad_{g^{-1}}(\omega_{\sigma_{\alpha}(x)\Sigma})=(R^*_g\omega)_{\sigma_{\alpha}(x)}(\Sigma)
+             =\omega_{\sigma_{\alpha}(x)\cdot g}\big( (dR_g)_{\sigma_{\alpha}(x)}\Sigma \big).
+\end{equation}
+If we know $s_{\alpha}^*\omega$, then we know $\omega\big(  (ds_{\alpha})_xv  \big)$ for any $v\in T_xM$. So 
+\[
+   \omega_{\sigma_{\alpha}(x)\cdot g}\big( (dR_g)_{\sigma_{\alpha}(x)}\Sigma\big)
+\]
+is given from $\sigma_{\alpha}^*\omega$ for every $\Sigma$ of the form $\Sigma=(d\sigma_{\alpha})_xv$. From the form \eqref{eq:geneSigma} of a vector in $T\bxi P$, it just remains to express $\omega_{\sigma_{\alpha}(x)\cdot g}(A^*_{\sigma_{\alpha}(x)\cdot g})$ in terms of $s_{\alpha}^*$. The definition of a connection makes that it is simply $A$.
+
+\end{proof}
+
+\subsubsection{Covariant derivative}
+
+If we have a connection on $P$, we can define a covariant derivative on the associated bundle $E$ by 
+\[
+  (\nabla_X\psi)\bsa(x)=X_x(\psi_{\alpha})+\rho_*( s_{\alpha}^*\omega_x(X) )\psi\bsa(x),
+\]
+the matricial $1$-form being given by $\theta_{\alpha}=\rho_*\sigma^*_{\alpha}\omega$. The gauge transformation $\varphi$ acts on the connection $\omega$ by defining $\omega^{\varphi}:=\varphi^*\omega$.
+
+\begin{proposition}
+If $\beta=\varphi^*\omega$, then
+\[
+   s^*_{\alpha}(\beta)=\Ad_{\tilde{\varphi}_{\alpha}(x)^{-1}}s^*_{\alpha}(\omega)+\tilde{\varphi}_{\alpha}(x)^{-1} d\tilde{\varphi}_{\alpha}.
+\]
+\end{proposition}
+
+\begin{proof}
+Let $\dpt{\gamma}{\eR}{M}$ be a path such that $\gamma(0)=x$ and $\gamma'(0)=X_x$. We have to compute the following:
+\begin{equation}\label{eq:ppu}
+  (s_{\alpha}^*\beta)(X_x)=(s_{\alpha}^*\varphi^*\omega)(X_x)=\omega_{(\varphi\circ s_{\alpha})(x)}\big(  (\varphi\circ s_{\alpha})_*X_x  \big).
+\end{equation}
+What lies in the derivative is:
+\begin{equation}
+\begin{split}
+  (\varphi\circ s_{\alpha})_*(X_x)&=\Dsdd{ (\varphi\circ s_{\alpha}\circ\gamma)(t) }{t}{0}\\
+                            &=\Dsdd{  s_{\alpha}(\gamma(t))\cdot\tilde{\varphi}_{\alpha}(\gamma(t))  }{t}{0}\\
+                            &=\Dsdd{ s_{\alpha}(\gamma(t))\cdot\tilde{\varphi}_{\alpha}(\gamma(0)) }{t}{0}
+                             +\Dsdd{ s_{\alpha}(\gamma(0))\cdot\tilde{\varphi}_{\alpha}(\gamma(t)) }{t}{0}\\
+                            &={R_{\tilde{\varphi}_{\alpha}(x)}}_*{s_{\alpha}}_*X_x
+                             +\Dsdd{  s_{\alpha}(x)\cdot\tilde{\varphi}_{\alpha}(x)e^{ t\tilde{\varphi}_{\alpha}(x)^{-1}(d\tilde{\varphi}_{\alpha})_x\gamma'(0)}}{t}{0}.
+\end{split}
+\end{equation}
+A justification of the remplacement $\tilde{\varphi}_{\alpha}(\gamma(t))\to \tilde{\varphi}_{\alpha}(x)e^{t\tilde{\varphi}_{\alpha}(x)^{-1}(d\tilde{\varphi}_{\alpha})_x\gamma'(0)}$ is given in the corresponding proof at page \pageref{pg:justif_s}.
+If we put this expression into equation \eqref{eq:ppu}, the first term becomes
+\[
+\begin{split}
+   \omega_{(\varphi\circ s_{\alpha})(x)}\big(  {{R_{\tilde{\varphi}_{\alpha}(x)}}_*{s_{\alpha}}_*X_x}   \big)
+           &=(R^*_{\tilde{\varphi}_{\alpha}(x)}\omega)_{s_{\alpha}(x)}({s_{\alpha}}_*X_x)\\
+           &=\Ad_{\tilde{\varphi}_{\alpha}(x)^{-1}} \big(\omega_{s_{\alpha}(x)} ( {s_{\alpha}}_*X_x ) \big)\\
+           &=\Ad_{\tilde{\varphi}_{\alpha}(x)^{-1}}  (s_{\alpha}^*\omega)(X_x).
+\end{split}
+\]
+The second term is the case of a connection applied to a fundamental vector field.
+
+\end{proof}
+
+\section{Product of principal bundle}\label{sec:produit_bundle}
+%++++++++++++++++++++++++++++++++++++
+
+In this section, we build a $G_1\times G_2$-principal bundle from the data of a $G_1$ and a $G_2$-principal bundle. The physical motivation is clear: as far as electromagnetism is concerned, particles are sections of $U(1)$-principal bundle while the relativistic invariance must be expressed by means of a $\SLdc$-associated bundle. So the physical fields must be sections of something as the product of the two bundles. See subsection \ref{subsec:incl_Lorentz}.
+
+\subsection{Putting together principal bundle}
+%------------------------------------
+
+Let us consider two principal bundle over the same base space
+\[
+\xymatrix{
+    G_1  \ar@{~>}[r] & P_1 \ar[r]^{p_1}& M,}
+\]
+and
+\[
+\xymatrix{
+    G_2  \ar@{~>}[r] & P_2 \ar[r]^{p_2}& M.
+  }
+\]
+First we define the set
+\begin{equation}
+  P_1\circ P_2=\{   (\xi_1,\xi_2)\in P_1\times P_2\tq p_1(\xi_1)=p_2(\xi_2)    \}
+\end{equation}
+which will be the total space of our new bundle. The projection $\dpt{p}{P_1\circ P_2}{M}$ is naturally defined by
+\[
+  p(\xi_1,\xi_2)=p_1(\xi_1)=p_2(\xi_2),
+\]
+while the right action of $G_1\times G_2$ on $P_1\circ P_2$ is given by
+\[
+  (\xi_1,\xi_2)\cdot(g_1,g_2)=(\xi_1\cdot g_1,\xi_2\cdot g_2)
+\]
+With all these definitions,
+\[
+\xymatrix{
+    G_1\times G_2  \ar@{~>}[r] & P_1\circ P_2 \ar[d]^{p}\\& M\\
+  }
+\]
+is a $G_1\times G_2$-principal bundle over $M$. We define the natural projections 
+		\begin{equation}
+		\begin{aligned}
+			\pi_i \colon P_1\times P_2 &\to P_i\
+			(\xi_1, \xi_2)&\mapsto \xi_i,
+		\end{aligned}
+	\end{equation}	
+%
+and if $e_i$ denotes the identity element of $G_i$, we can identify $G_1$ to $G_1\times \{e_2\}$ and $G_2$ to $G_2\times \{e_1\}$; in the same way, $\yG_1=\yG_1\times\{0\}\subset\yG_1\times\yG_2$. So we get the following principal bundles:
+\[
+\xymatrix{
+    G_2  \ar@{~>}[r] & P_1\circ P_2 \ar[r]^{\pi_1}& P_1\\
+    G_1  \ar@{~>}[r] & P_1\circ P_2 \ar[r]^{\pi_2}& P_2.
+  }
+\]
+It is clear that the following diagram commutes:
+\[
+\xymatrix{
+    P_1  \ar[rd]_{P_1} & P_1\circ P_2\ar[r]^{\pi_2} \ar[l]_{\pi_1}\ar[d]_p& P_2 \ar[ld]^{p_2}\\
+    &M
+  }
+\]
+
+\subsection{Connections}
+%-----------------------
+
+Let $\omega_i$ be a connection on the bundle $\dpt{p_i}{P_i}{M}$. Using the identifications, $\pi_1^*\omega_1$ is a connection on $\dpt{\pi_2}{P_1\circ P_2}{P_2}$ (the same is true for $1\leftrightarrow 2$), and $\pi_1^*\omega_1\oplus\pi_2^*\omega_2$ is a connection on $\dpt{p}{P_1\circ P_2}{M}$. Let us prove the first claim.
+
+Let $A\in\yG_1$. We first have to prove that $\pi_1^*\omega_1(A^*)=A$. For this, remark that $A=(A,0)\in\yG_1\oplus\yG_2$ and
+\begin{equation}
+   A^*\bxi=\Dsdd{\xi\cdot e^{-t(A,0)}}{t}{0}
+          =\Dsdd{(\xi_1,\xi_2)\cdot(e^{-tA},e_2)}{t}{0}
+          =\Dsdd{(\xi_1\cdot e^{-tA},\xi_2)}{t}{0},
+\end{equation}
+so $d\pi_1A^*=\Dsdd{\pi_1(\ldots)}{t}{0}=\omega_1(A^*)=A$. Let now $\Sigma\in T_{(\xi_1,\xi_2)}(P_1\circ P_2)$ be given by the path $(\xi_1(t),\xi_2(t))$. In this case we have
+\begin{equation}
+\begin{split}
+   \big(  R^*_{(g,e_2)\pi_1^*\omega_1}  \big)_{(\xi_1,\xi_2)}\Sigma&=
+      (\pi_1^*\omega_1)(dR_{(g,e_2)}\Sigma)\\
+     &=\omega_1( \Dsdd{\xi_1(t)\cdot g}{t}{0}  )\\
+     &=\omega_1( dR_g\Dsdd{\xi_1(t)}{t}{0} )\\
+     &=\Ad(g^{-1})\pi_1^*\omega_1( \Dsdd{( \xi_1(t),\xi_2(t) )}{t}{0} )\\
+     &=\Ad(g^{-1})\pi_1^*\omega_1\Sigma.
+\end{split}
+\end{equation}
+
+\subsection{Representations}
+%----------------------------
+
+Let $V$ be a vector space and $\dpt{\rho_i}{G_i}{GL(V)}$ be some representations such that 
+\begin{equation}\label{eq:cond_reprez}
+   [\rho_1(g_1),\rho_2(g_2)]=0
+\end{equation}
+for all $g_1\in G_1$ and $g_2\in G_2$ (in the sense of commutators of matrices). In this case, one can define the representation $\dpt{\rho_1\times\rho_2}{G_1\times G_2}{GL(V)}$ by
+\begin{equation}
+   (\rho_1\times\rho_2)(g_1,g_2)=\rho_1(g_1)\circ\rho_2(g_2)=\rho_2(g_2)\circ\rho_1(g_1).
+\end{equation}
+The relation \eqref{eq:cond_reprez} is needed in order for $\rho_1\times\rho_2$ to be a representation, as one can check by writing down explicitly the requirement
+\[
+  (\rho_1\times \rho_2)\big(  (g_1,g_2)(g'_1,g'_2)  \big)=(\rho_1\times \rho_2)(g_1g'_1,g_2g'_2) 
+\]
+
+\section{Connections}
+%++++++++++++++++++++
+
+\subsection{Gauge potentials}
+%----------------------------
+
+Let us consider a \defe{section}{section} $\salpha$ of $P$ over $\mU_{\alpha}$. It is a map $\dpt{\salpha}{\mU_{\alpha}}{P}$ such that $\pi\circ\salpha=\id$. A \defe{connection}{connection} on $P$ is a $1$-form $\dpt{\omega}{T_pP}{\yG}\in\Omega^1(P)$ which satisfies the following two conditions:
+\begin{subequations}
+\begin{align}
+   \omega_p(Y^*_p)&=Y,   \label{conn_1}\\
+   \omega(dR_g\xi)&=g^{-1}\omega(\xi)g.\label{conn_2}
+\end{align}
+\end{subequations}
+The \defe{gauge potential}{gauge!principal potential} of $\omega$ with respect of the local section\label{PgLocSecConn} $\salpha$ is  the $1$-form on $\mU_{\alpha}$ given by
+\begin{equation}
+          A_{\alpha}(x)(v)=(\salpha^*\omega)_x(v).
+\end{equation}
+We will not always explicitly write the dependence of $A_{\alpha}$ in $x$.\nomenclature{$A_{\alpha}$}{Gauge potentials} Now we consider another section $\dpt{\sbeta}{\mU_{\beta}}{P}$ which is related on $\mU_{\alpha}\cap\mU_{\beta}$ to $\salpha$ by $\sbeta(x)=\salpha(x)\cdot g_{\alpha\beta}(x)$ for a well defined map $\dpt{g_{\alpha\beta}}{\mU_{\alpha}\cap\mU_{\beta}}{G}$.
+
+\begin{proposition}
+The gauge potentials $A_{\alpha}$ and $A_{\beta}$ are related by
+\begin{equation}\label{trans_A}
+                A_{\beta}=g^{-1} A_{\alpha} g-g^{-1} dg.
+\end{equation}
+\label{prop:trans_A}
+\end{proposition}
+
+\begin{proof}
+By definition, for $v\in T_x\mU_{\alpha}$,
+\[
+   A_{\beta}(v)=(\sbeta^*\omega)_x(v)=
+         \omega_{\salpha(x)\cdot g_{\alpha\beta}(x)}\big((d\sbeta)_x(v)\big).
+\]
+We begin by computing $d\sbeta(v)$. Let us take a path $v(t)$ in $\mU_{\alpha}$ such that $v(0)=x$ and $v'(0)=v$. We have :
+\begin{equation}\label{eq:1407r1}
+\begin{split}
+   (d\sbeta)_x(v)&=\dsdd{\sbeta(v(t))}{t}{0}\\
+                 &=\dsdd{\salpha(v(t))\cdot\gab(v(t))}{t}{0}\\
+		 &=\Dsdd{\salpha(v(t))\cdot\gab(x)}{t}{0}
+		    +\Dsdd{\salpha(x)\cdot\gab(v(t))}{t}{0}\\
+		 &=dR_{\gab(x)}d\salpha(v)+\Dsdd{\salpha(x)\cdot\gab(x)e^{-ts}}{t}{0}\\
+		 &=dR_{\gab(x)}d\salpha(v)+s^*_{\salpha(x)\cdot\gab(x)}
+\end{split}
+\end{equation}
+where $s$ is defined by the requirement\label{pg:justif_s} that $\gab(x)^{-1}\gab(v(t))$ can be replaced in the derivative by $e^{-ts}$, so that we can replace $\gab(v(t))$ by $\gab(x)e^{-ts}$. As far as the derivatives are concerned, $e^{-ts}=\gab(x)^{-1}\gab(v(t))$, then
+\[
+     s=-\dsdd{\gab(x)^{-1}\gab(v(t))}{t}{0}=-\gab(x)^{-1} d\gab(v),
+\]
+this equality being a notation. Now, properties \eqref{conn_1} and \eqref{conn_2} make that
+\[
+   A_{\beta}(v)=\gab(x)^{-1}\omega_{\salpha(x)}(d\salpha(v))\gab(x)+s.
+\]
+The thesis is just the same, with ``reduced'' notations (see section \ref{subsec:digress}).
+.
+\end{proof}
+An explicit form for this transformation law is :
+\begin{equation}
+    A_{\beta}(v)=\Dsdd{g^{-1} e^{tA_{\alpha}(v)}g}{t}{0}-\Dsdd{g^{-1}\gab(v(t))}{t}{0},
+\end{equation}
+where $g:=\gab(x)$.
+
+\subsection{Covariant derivative}
+%-------------------------------
+
+When we have a connection on a principal bundle, we can define a covariant derivative\index{covariant!derivative} on any associated bundle. Let us quickly review it. An associated bundle is the semi-product $E=P\times_{\rho} V$ where $V$ is a vector space on which acts the representation $\rho$ of $G$. We denote the canonical projection by $\dpt{\pi_p}{E}{M}$. The classes are taken with respect to the equivalence relation $(p,v)\sim(p\cdot g,\rho(g^{-1})v)$.
+
+A \defe{section}{section!of associated bundle} of $E$ is a map $\dpt{\psi}{M}{E}$ such that $\pi\circ\psi=\id$. We denote by $\Gamma(E)$ the set of all the sections of $E$. A section of $E$ defines (and is defined by) an equivariant function\index{equivariant!function} $\dpt{\hpsi}{P}{V}$ such that
+\begin{subequations}
+\begin{align}
+  \psi(\pi(\xi))&=[\xi,\hpsi(\xi)],\\
+  \hpsi(\xi\cdot g)&=\rho(g^{-1})\hpsi(\xi).
+\end{align}
+\end{subequations}
+For a section $\psi\in\Gamma(E)$, we define $\dpt{\psi\bsa}{\mU_{\alpha}}{V}$ by
+ \[
+ \psi\bsa(x)=\hpsi(\sigma(x)).
+ \]
+We saw in \eqref{eq:nabla_coord} that a covariant derivative on $E$ is given by
+\begin{equation}\label{3008e1}
+  (D_X\psi)\bsa(x)=X_x\psi\bsa-\rho_*\Big((\salpha^*\omega)_x(X_x)\Big)\psi\bsa(x).
+\end{equation}
+Since $(d\psi)(X)=X(\psi)$, we can rewrite this formula in a simpler manner by forgetting the index $\alpha$ and the mention of $X$ :
+\[
+    D\psi=d\psi-(\rho_*A_{\alpha})\psi.
+\]
+If we note $(\rho_*A_{\alpha})\psi$ by $A_{\alpha}\psi$, we have
+\begin{equation}
+        D\psi=d\psi-A\psi.
+\end{equation}
+One has to understand that equation as a ``notational trick''\ for \eqref{3008e1}. By the way, remark that $(\rho_*A_{\alpha})$ is the only ``reasonable'' way for $A$ to act on $\psi$.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Gauge transformation}
+%---------------------------------------------------------------------------------------------------------------------------
+
+A \defe{gauge transformation}{gauge!transformation} of a $G$-principal bundle is a diffeomorphism $\dpt{\varphi}{P}{P}$ which satisfies
+\begin{subequations}
+\begin{align}
+   \pi\circ\varphi&=\pi,\\
+   \varphi(\xi\cdot g)&=\varphi(\xi)\cdot g.
+\end{align}
+\end{subequations}
+In local coordinates, it can be expressed in terms of a function $\dpt{\tilde{\varphi}_{\alpha}}{\mU_{\alpha}}{G}$ by the requirement that
+\begin{equation}\label{def_vpt}
+    \varphi(\salpha(x))=\salpha(x)\cdot\tilde{\varphi}_{\alpha}(x).
+\end{equation}
+
+We have shown in proposition \ref{prop:vp_conn} that, if $\omega$ is a connection $1$-form on $P$, the form $\varphi\cdot\omega:=\varphi^*\omega$ is still a connection $1$-form on $P$. Of course, with the same section $\salpha$ than before, we can define a gauge potential $(\varphi\cdot A)_{\alpha}$ for this new connection. We will see how it is related to $A_{\alpha}$. The reader can guess the result (it will be the same as proposition \ref{prop:trans_A}). We show it.
+
+\begin{proposition}		\label{Proptr_de_A}
+\begin{equation}\label{tr_de_A}
+     (\varphi\cdot A)=\tilde{\varphi}^{-1} A\tilde{\varphi}-\tilde{\varphi}^{-1} d\tilde{\varphi}.
+\end{equation}
+\end{proposition}
+\begin{proof}
+Let us consider $x\in\mU_{\alpha}$, and $v\in T_x\mU_{\alpha}$, the vector which is tangent to the curve $v(t)\in\mU_{\alpha}$. We compute
+\[
+    \salpha^*(\varphi^*\omega)_x(v)=\omega_{(\varphi\circ\salpha)(x)}((d\varphi\circ d\salpha)(v)),
+\]
+but equation \eqref{def_vpt} makes
+\begin{equation}
+\begin{split}
+   (d\varphi\circ d\salpha)(v)&=\dsdd{\varphi(\salpha(v(t)))}{t}{0}\\
+                          &=\dsdd{\salpha(v(t))\cdot\tilde{\varphi}_{\alpha}(v(t))}{t}{0}.
+\end{split}
+\end{equation}
+Now, we are in the same situation as in equation \eqref{eq:1407r1}.
+\end{proof}
+
+If $\dpt{\psi}{M}{E}$ is a section of $E$, the gauge transformation $\dpt{\varphi}{P}{P}$ acts on $\psi$ by
+\begin{equation}
+   \widehat{\varphi\cdot\psi}(\xi)=\hpsi(\varphi^{-1}(\xi)).
+\end{equation}
+On the other hand, $\varphi$ acts on the covariant derivative (and the potential) :
+$\varphi\cdot D$ is the covariant derivative  of the connection $\varphi\cdot\omega$. Of course, we define
+\begin{equation}
+    (\varphi\cdot D)\psi=d\psi-(\varphi\cdot A)\psi.
+\end{equation}
+
+\begin{lemma}
+If $\dpt{\varphi}{P}{P}$ is a gauge transformation, then
+\begin{enumerate}
+\item $\varphi^{-1}$ is also a gauge transformation and
+             $(\widetilde{\varphi^{-1}})_{\alpha}(x)=\tilde{\varphi}_{\alpha}(x)^{-1}$, \label{lem:i}
+\item $(\varphi\cdot\psi)\bsa(x)=\rho(\tilde{\varphi}_x^{-1})\psi\bsa(x)$.\label{lem:ii}
+\end{enumerate}
+\label{lem:prop_gauge}
+\end{lemma}
+
+\begin{proof}
+The first part is clear while the second is a computation :
+\begin{equation}
+    (\varphi\cdot\psi)\bsa=\widehat{\varphi\cdot\psi}(\salpha(x))
+                         =\hpsi(\varphi^{-1}(\salpha(x)))
+			 =\hpsi(\salpha(x)\cdot\tilde{\varphi}_{\alpha}(x)^{-1})
+			 =\rho(\tilde{\varphi}_{\alpha}(x))\psi\bsa(x).
+\end{equation}
+\end{proof}
+
+Now, we will proof the main theorem: the one which explains why the covariant derivative is ``covariant''.
+
+\begin{theorem}\label{th:covariance}
+The covariant derivative $D$ fulfils a ``covariant'' transformation rule under gauge transformations:
+\begin{equation}\label{eq:covariance_math}
+      (\varphi\cdot D)(\varphi^{-1}\cdot \psi)=\varphi^{-1}(D\psi).
+\end{equation}
+\end{theorem}
+
+\begin{proof}[Proof of theorem \ref{th:covariance}]
+First, we look at $(\varphi\cdot A)\psi_{\alpha}$. Using all the notational tricks used to give a sens to $A\psi$, we write :
+\[
+   [(\varphi\cdot A)_X\psi]\bsa(x)=(\varphi\cdot A)_X\psi\bsa(x)=\rho_*(\varphi\cdot A(X))\psi\bsa(x).
+\]
+But we know that $\varphi\cdot A=\tilde{\varphi}^{-1} A\tilde{\varphi}-\tilde{\varphi}^{-1} d\tilde{\varphi}$, then
+\begin{equation}\label{eq:en_deux}
+\begin{split}
+  (\varphi\cdot A)_X\psi\bsa(x)
+  &=\rho_*(\tilde{\varphi}^{-1} A(X)\tilde{\varphi})\psi\bsa(x)\\
+  &\quad-\rho_*(\tilde{\varphi}^{-1} d\tilde{\varphi}(X))\psi\bsa(x)\\
+  &=\Dsdd{ \rho(\tilde{\varphi}^{-1} e^{tA(X)}\tilde{\varphi})\psi\bsa(x)}{t}{0}\\
+ &\quad-\Dsdd{ \rho(\tilde{\varphi}^{-1}\tilde{\varphi}(X_t))\psi\bsa(x) }{t}{0}
+\end{split}
+\end{equation}
+Now, we have to write this equation with $\varphi^{-1}\cdot\psi$ instead of $\psi$. Using lemma \ref{lem:prop_gauge}, we find :
+\begin{equation}
+\begin{split}
+   (\varphi\cdot A)_X(\varphi^{-1}\cdot\psi)\bsa(x)
+   &=\Dsdd{ \rho(\tilde{\varphi}^{-1} e^{tA(X)}\tilde{\varphi}\tilde{\varphi}^{-1})\psi\bsa(x)}{t}{0}\\
+   &\quad-\Dsdd{ \rho(\tilde{\varphi}^{-1}\tilde{\varphi}(X_t)\tilde{\varphi}^{-1})\psi\bsa(x) }{t}{0}
+\end{split}
+\end{equation}
+After simplification, the first term is a term of the thesis: $\tilde{\varphi}(x)^{-1}(A\psi)_{\alpha}(x)$ and we let the second one as it is. Now, we turn our attention to the second term of \eqref{eq:covariance_math}; the same argument gives:
+\begin{equation}
+\begin{split}
+  d(\varphi^{-1}\psi\bsa)_xX
+  &=\Dsdd{(\varphi^{-1}\cdot\psi)\bsa(X_t)}{t}{0}\\
+  &=\Dsdd{\rho(\tilde{\varphi}(X_t)^{-1})\psi\bsa(X_t)}{t}{0}\\
+  &=\Dsdd{\rho(\tilde{\varphi}(X_t)^{-1})\psi\bsa(x)}{t}{0}
+  +\Dsdd{\rho(\tilde{\varphi}^{-1})\psi\bsa(X_t)}{t}{0}.
+\end{split}
+\end{equation}
+The second term is $\tilde{\varphi}^{-1} d\psi_{\alpha}(X)$. In definitive, we need to prove that the two exceeding terms cancel each other:
+\begin{equation}\label{eq:le_zero}
+  \Dsdd{\rho(\tilde{\varphi}^{-1}\tilde{\varphi}(X_t)\tilde{\varphi}^{-1})\psi\bsa(x)}{t}{0}
+  +\Dsdd{\rho(\tilde{\varphi}(X_t)^{-1})\psi\bsa(x)}{t}{0}
+\end{equation}
+must be zero.
+
+One can find a $g(t)\in G$ such that $\tilde{\varphi}(X_t)=\tilde{\varphi} g(t)$, $g(0)=e$. Then, what we have in the $\rho$ of these two terms is respectively $g(t)\tilde{\varphi}^{-1}$ and $g(t)^{-1}\tilde{\varphi}^{-1}$. As far as the derivative are concerned, $g(t)$ can be written as $e^{tZ}$ for a certain $Z\in\yG$. So we see that $g(t)^{-1}=e^{-tZ}$ and the derivative will come with the right sign to makes the sum zero.
+\end{proof}
+
+\begin{remark}
+Let us use more intuitive notations: we write \eqref{tr_de_A} under the form $A'=g^{-1} Ag-g^{-1} dg$. If we have two sections  $\psi$ and $\psi'$, they are necessarily related by a gauge transformation: $\psi'=g^{-1}\psi$. Then, the theorem tells us that the equation $D\psi=d\psi-A\psi$ becomes $D'\psi'=g^{-1} D\psi$ ``under a gauge transformation''. This is: $D\psi$ transforms under a gauge transformation as $d\psi$ transforms under a constant linear transformation. This is the reason why $D$ is a \emph{covariant} derivative. The physicist way to write \eqref{eq:covariance_math} is
+\begin{equation}\label{eq:covariance_phys}
+    D'\psi'=g^{-1} D\psi
+\end{equation}
+\label{rem:intuitif}
+\end{remark}
+
+\begin{remark}
+If we naively make the computation with the notations of remark~\ref{rem:intuitif}, we replace $\psi'=g^{-1}\psi$ and $A'=g^{-1} Ag-g^{-1} dg$ in
+\[
+  D'\psi'=d\psi'-A'\psi',
+\]
+using some intuitive ``Leibnitz formulas'', we find :
+$D'\psi'=dg^{-1}\psi+g^{-1} d\psi+g^{-1} A\psi+g^{-1} dg g^{-1}\psi$. It is exactly $g^{-1} d\psi+g^{-1} A\psi$ with two additional terms: $dg^{-1}\psi$ and $g^{-1} dg g^{-1}\psi$. One sees that these are precisely the two terms of the expression \eqref{eq:le_zero}. We will give a sens to this ``naive''\ computation in section~\ref{subsec:digress}.
+\end{remark}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Curvature}
+%---------------------------------------------------------------------------------------------------------------------------
+
+From the $\yG$-valued connection $1$-form $\omega$ on $P$, we may define its \defe{curvature $2$-form}{curvature} :
+\begin{equation}
+     \Omega=d\omega+\omega\wedge\omega.
+\end{equation}
+As before, we can see $\Omega$ as a $2$-form on $M$ instead of $P$. For this, we just need some sections $\dpt{\salpha}{\mU_{\alpha}}{P}$ and define
+\begin{equation}
+        F_{\alpha}=\salpha^*\Omega.
+\end{equation}
+This $F$ is called the \defe{Yang-Mills field strength}{Yang-Mills!field strength}. The question is now to see how does it transform under a change of chart ? What is $F_{\beta}=\sbeta^*\Omega$ in terms of~$F_{\alpha}$ ?
+
+First, note that we can't try to find a relation like $d(g\omega)=dg\wedge\omega+g\,d\omega$. Pose $A_x=g(x)\omega_x$:
+\[
+  A_x(v)=\dsdd{g(x)e^{t\omega_x(v)}}{t}{0}.
+\]
+Using
+\[
+   (d\alpha)(v,w)=v(\alpha(w))-w(\alpha(v))-\alpha([v,w]),
+\]
+we are led to write
+\begin{equation}
+     w(A(v))=d(A(v))w
+            =\dsdd{A_{w_u}(v)}{u}{0}
+	    =\dsdd{ \Dsdd{g(w_u)e^{t\omega_{w_u}(v)}}{t}{0} }{u}{0}.
+\end{equation}
+But at $t=u=0$, the expression in the bracket is $g(x)$, and not $e$. Then the whole expression is not an element of $\yG$. In other words, the problem is that for $\dpt{g}{M}{G}$, we have $\dpt{dg_x}{T_xM}{T_{g(x)}G\neq T_eG}$.
+
+Now, remark that in our matter, the problem will not arise because in the expressions $A_{\beta}=g^{-1} A_{\alpha} g+g^{-1} dg$, each term has a $g$ and a $g^{-1}$.
+
+\begin{lemma}
+\begin{equation}
+   d(g^{-1})_x(v)=-g(x)^{-1} dg(v)g(x)^{-1}.
+\end{equation}
+\label{lem:dgemu}
+\end{lemma}
+
+\begin{proof}
+Let $v_t$ be a path which defines the vector $v$, and define $Y\in\yG$ such that as far as the derivative are concerned, we have $g(v_t)=g(x)e^{tY}$. Then,
+\[
+      g(g^{-1})(v)=\Dsdd{g(v_t)^{-1}}{t}{0}=\Dsdd{e^{-tY}g(x)^{-1}}{t}{0}.
+\]
+But on the other hand,
+\[
+  g^{-1} dg(v)g^{-1}=\Dsdd{g(x)^{-1} g(v_t)g(x)^{-1}}{t}{0}=\Dsdd{e^{tY}g(x)^{-1}}{t}{0},
+\]
+thus $d(g^{-1})_x(v)=-g(x)^{-1} dg(v)g(x)^{-1}$, as we want.
+\end{proof}
+
+\begin{theorem}
+\begin{equation}
+     F_{\beta}=g^{-1} F_{\alpha} g.
+\end{equation}
+\label{tho:trans_F}
+\end{theorem}
+
+\begin{proof}[Naive proof]
+Let us accept $F_{\beta}=dA_{\beta}+A_{\beta}\wedge A_{\beta}$. With proposition \ref{prop:trans_A}, we can perform a simple computation with all the intuitive ``Leibnitz rules''\ :
+\[
+   dA_{\beta}=-g^{-1} dg\, g^{-1}\wedge A_{\alpha} g+g^{-1} dA_{\alpha} g+g^{-1} A_{\alpha}\wedge dg-g^{-1} dg\,g^{-1}\wedge dg,
+\]
+and
+\[
+  A_{\beta}\wedge A_{\beta}=g^{-1} A_{\alpha} g\wedge g^{-1} A_{\alpha} g+g^{-1} A_{\alpha} g\wedge g^{-1} dg+g^{-1} dg\wedge g^{-1} A_{\alpha} g+g^{-1} dg\wedge g^{-1} dg.
+\]
+The sum is obviously the announced result.
+\end{proof}
+This proof seems too beautiful to be false\footnote{More precisely, it is as beautiful as we want it to be true.}. Here is the full proof.
+
+\begin{proof}[Ultimate proof of theorem \ref{tho:trans_F}]
+First we compute $d(g^{-1} A_{\alpha} g)$. In order to do this, remark that the $1$-form $g^{-1} A_{\alpha} g$ is explicitly given on $v\in\cvec(M)$ by
+\[
+   (g^{-1} A_{\alpha} g)(v)_x=\Dsdd{g(x)^{-1} e^{tA(v)_x}g(x)}{t}{0}.
+\]
+For all $x\in M$, this expression is an element of $\yG$; then we can say that $(g^{-1} A_{\alpha} g)(v)$ is a map $\dpt{(g^{-1} A_{\alpha} g)(v)}{M}{\yG}$. So it is unambiguous to write $w((g^{-1} A_{\alpha} g)(v))\in\yG$ for $w\in T_xM$.
+
+We will use the formula
+\[
+   d(g^{-1} A_{\alpha} g)(v,w)=v(g^{-1} A_{\alpha} g)(w)-w(g^{-1} A_{\alpha} g)(v)-(g^{-1} A_{\alpha} g)([v,w]).
+\]
+As $w((g^{-1} A_{\alpha} g)(v))=d((g^{-1} A_{\alpha} g)(v))w$, we have
+\begin{equation}
+\begin{split}
+    w((g^{-1} A_{\alpha} g)(v))&=\dsdd{(g^{-1} A_{\alpha} g)(v)_{w_u}}{u}{0}\\
+                &=\dsdd{ \Dsdd{g(w_u)^{-1} e^{tA(v)_{w_u}}g(w_u)}{t}{0}  }{u}{0}\\
+		&=\dsdd{  \Dsdd{g(w_u)^{-1}}{u}{0} e^{tA(v)_x}g(x)  }{t}{0}\\
+		&\quad+\dsdd{ g(x)^{-1} \Dsdd{e^{tA(v)_{w_u}}}{u}{0} g(x)  }{t}{0}\\
+		&\quad+\dsdd{  g(x)^{-1} e^{tA(v)_x} \Dsdd{g(w_u)}{u}{0}  }{t}{0}\\
+		&=d(g^{-1})(w)A(v)_xg(x)\\
+		&\quad+g(x)^{-1} w_x(A(v))g(x)\\
+		&\quad+g(x)^{-1} A(v)_x dg(w).
+\end{split}
+\end{equation}
+On the other hand, one easily finds that
+\[
+     (g^{-1} A_{\alpha} g)([v,w])=g(x)^{-1} A([v,w])g(x).
+\]
+ Using lemma \ref{lem:dgemu}, we have
+\begin{equation}
+\begin{split}
+   d(g^{-1} A_{\alpha} g)_x(v,w)&=-g(x)^{-1} dg(v)g(x)^{-1} A(w)_xg(x)+g(x)^{-1} v(A(w))g(x)\\&\quad+g(x)^{-1} A(w)_xdg(v)_x\\
+                   &\quad+g(x)^{-1} dg(w)_xg(x)^{-1} A(v)_xg(x)-g(x)^{-1} w(A(v))g(x)\\&\quad-g(x)^{-1} A(v)_xdg(w)\\
+		   &\quad-g(x)^{-1} A([v,w])g(x).
+\end{split}
+\end{equation}
+We can regroup the terms two by two in order to form $dA_{\alpha}$ and some wedge; with simpler notations, we can write :
+\begin{equation}\label{eq:dA_1}
+  d(g^{-1} A_{\alpha} g)=-(g^{-1} dg\,g)\wedge(A_{\alpha} g)-(g^{-1} A)\wedge dg+(g^{-1} dA g).
+\end{equation}
+We compute $d(g^{-1} dg)$ in the same way; the result is
+\[
+   (g^{-1} dg)(v)_x=\Dsdd{g(x)^{-1} g(v_t)}{t}{0}\in\yG.
+\]
+For $v$, $w\in\cvec(M)$, we have :
+\begin{equation}
+\begin{split}
+   w\big((g^{-1} dg)(v)\big)&=\dsdd{ (g^{-1} dg)(v)_{w_u} }{u}{0}\\
+                   &=\DDsdd{  g(w_u)^{-1} g(v_{w_u}(t))  }{u}{0}{t}{0}\\
+		   &=\DDsdd{  g(w_u)^{-1} g(v_t)  }{t}{0}{u}{0}
+		      +\DDsdd{  g(x)^{-1} g(w_u(t))  }{t}{0}{u}{0}\\
+		   &=d(g^{-1})(w)dg(v)+\Dsdd{ g(x)^{-1} dg(v_{w_u}) }{u}{0}\\
+		   &=-g^{-1} dg(w)g^{-1} dg(v)+g(x)^{-1} w(dg(v))
+\end{split}
+\end{equation}
+where $w_u$ is a path such that $w'_0=w_x$ and $v_{w_u}(t)$ is, with respect of $t$, a path which gives the vector $v_{w_u}$. On the another hand, we have
+\[
+   (g^{-1} dg)([v,w])=g^{-1} dg([v,w]).
+\]
+
+Remark that the term $g(x)^{-1} w(dg(v))$ of  $w((g^{-1} dg)(v))$ together with the same with $v\leftrightarrow w$ and $(g^{-1} dg)([v,w])$ which comes from  $(g^{-1} dg)([v,w])$ will give $g(x)^{-1}(d^2g)(v,w)=0$ when we will compute $d(g^{-1} dg)$.
+Finally,
+\begin{equation}\label{eq:dA_2}
+   d(g^{-1} dg)=-(g^{-1} dg\,g^{-1}\wedge dg).
+\end{equation}
+The equations \eqref{eq:dA_1} and \eqref{eq:dA_2} allow us to write :
+\begin{equation}\label{eq:dA}
+\begin{split}
+    (dA_{\beta})&=d(g^{-1} A_{\alpha} g)+d(g^{-1} dg)\\
+              &=-(g^{-1} dg\,g^{-1}) \wedge(A_{\alpha} g)-(g^{-1} A_{\alpha})\wedge dg\\
+	      &\quad+(g^{-1} dA_{\alpha} g)-(g^{-1} dg\,g^{-1})\wedge dg.
+\end{split}
+\end{equation}
+Notice that the term $(g^{-1} dA_{\alpha} g)$ corresponds to the first one in $F_{\beta}=g^{-1}(dA_{\beta}+A_{\beta}\wedge A_{\beta})g$.
+
+For anyone who had understood the whole computations up to here, it is clear that
+\begin{equation}
+\begin{split}
+     [A_{\beta}(v),A_{\beta}(w)]&=\DDsdd{ e^{tA_{\beta}(v)}e^{tA_{\beta}(w)} }{t}{0}{u}{0}\\
+                            &\quad-\DDsdd{ e^{tA_{\beta}(w)}e^{tA_{\beta}(v)} }{t}{0}{u}{0}\,,
+\end{split}
+\end{equation}
+so that
+\begin{equation}
+\begin{split}
+  A_{\beta}\wedge A_{\beta}&=g^{-1} A_{\alpha} g\wedge g^{-1} A_{\alpha} g
+                         +g^{-1} A_{\alpha} g\wedge g^{-1} dg\\
+		       &\quad+g^{-1} dg\wedge g^{-1} A_{\alpha} g
+		       +g^{-1} dg\wedge g^{-1} dg.
+\end{split}
+\end{equation}
+Lemma \ref{lem:simplif} allows us to write it under the form
+\begin{equation}\label{eq:AA}
+\begin{split}
+  A_{\beta}\wedge A_{\beta}&=g^{-1} A_{\alpha} g\wedge g^{-1} A_{\alpha} g
+                         +g^{-1} A_{\alpha} g\wedge g^{-1} dg\\
+		       &\quad+g^{-1} dg\wedge g^{-1} A_{\alpha} g
+		       +g^{-1} dg\wedge g^{-1} dg.
+\end{split}
+\end{equation}
+Here the term $(g^{-1} A_{\alpha}\wedge A_{\alpha} g)$ corresponds to the second one in $F_{\beta}=g^{-1}(dA_{\beta}+A_{\beta}\wedge A_{\beta})g$. The sum of \eqref{eq:dA} and \eqref{eq:AA} is
+\[
+    F_{\beta}=g^{-1} F_{\alpha} g.
+\]
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Hodge decomposition theorem and harmonic forms}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Among other sources for Hodge decomposition and harmonic forms, we have \cite{JohnsonHodge,CohoHarBound,UndergradDeRham}. Some parts of the wikipedia article \wikipedia{en}{Hodge_dual}{Hodge\_dual} are interesting.
+
+Let $E$ be an oriented Euclidian space of dimension $m=2n$. We define the operation $*$ by
+\begin{equation}		\label{EqGradWedge}
+	\begin{aligned}
+		*\colon \Wedge E&\to \Wedge E \\
+		e_{i_1}\wedge e_{i_2}\wedge\cdots\wedge e_{i_k}&\mapsto e_{i_{k+1}}\wedge\cdots\wedge e_{i_m} 
+	\end{aligned}
+\end{equation}
+when $\{ e_i \}$ is an oriented basis of $E$ and $\{ i_k \}$ is an even permutation of $\{ 1,2,\cdots,m \}$. If it is impossible to build an even permutation, then we add a minus sign. We have $**\omega=(-1)^{p(m-p)}\omega$ belongs to $\omega\in\Wedge^pE$.
+
+\begin{example}
+	If we consider the space $\eR^4$ with the coordinates $(x,y,z,t)$,
+	\begin{equation}
+		*(dx\wedge dz\wedge dt)=dy
+	\end{equation}
+	because $(x,z,t,y)$ is an even permutation of $(x,y,z,t)$. Now, $*dy=dz\wedge dx\wedge dt=-(dx\wedge dz\wedge dt)$ because $(y,z,x,t)$ is an even permutation of $(x,y,z,t)$.
+
+	More generally, if we have a differential $p$-form $\omega$ on a $m$ dimensional space, we have
+	\begin{equation}
+		*(e_{\sigma(1)}\wedge e_{\sigma(2)}\wedge\ldots\wedge e_{\sigma(p)})=e_{\sigma(p+1)}\wedge \ldots\wedge e_{\sigma(m)}
+	\end{equation}
+	In order to compute $*(e_{\sigma(p+1)}\wedge \ldots\wedge e_{\sigma(m)})$, we need a permutation of $\big( \sigma(1),\ldots, \sigma(m)\big)$ which \emph{begins} by $\sigma(p+1)\ldots\sigma(m)$. This reduces to permute the $m-p$ elements $\sigma(p+1),\ldots,\sigma(m)$ with the $p$ first elements. Thus we have
+	\begin{equation}
+		**\omega=(-1)^{p(m-p)}\omega.
+	\end{equation}
+\end{example}
+
+Let $V$ be a compact, oriented manifold. Each of the spaces of sections $ C^{\infty}\big( V, \Wedge^k_{\eC}(T^*V)\big)$ is endowed with a $2$-form
+\begin{equation}		\label{EqProdWedgeHOfge}
+	\langle \omega_1, \omega_2\rangle =\int_V\omega_1\wedge *\omega_2.
+\end{equation}
+
+\begin{lemma}
+	The \defe{codifferential}{codifferential} $\delta$ defined by
+	\begin{equation}
+		\begin{aligned}[]
+			\delta	\colon \Wedge^k_{\eC}(T^*V)&\to \Wedge_{\eC}^{k-1}(T^*V)\\
+			\beta				&\mapsto (-1)^{mk+m+1}*d*\beta
+		\end{aligned}
+	\end{equation}
+	is a formal adjoint of $d$ for the product \eqref{EqProdWedgeHOfge}.
+\end{lemma}
+
+\begin{proof}
+	If $\beta\in\Wedge_{\eC}^k(T^*V)$ and $\alpha\in\Wedge_{\eC}^{k-1}(T^*V)$, we have
+	\begin{equation}
+		\begin{aligned}[]
+			*\delta\beta&=(-1)^{mk+m+1}* *\big( d*\beta \big)\\
+			&=(-1)^{mk+m+1}(-1)^{(m-k+1)(m-m+k-1)}d*\beta\\
+			&=(-1)^kd*\beta.
+		\end{aligned}
+	\end{equation}
+	Using that formula we find
+	\begin{equation}
+		\begin{aligned}[]
+			\langle d\alpha, \beta\rangle -\langle \alpha, \delta\beta\rangle &=\int_V d\alpha\wedge *\beta-\alpha\wedge *\delta\beta\\
+			&=\int_Vd\alpha\wedge *\beta-(-1)^k\alpha\wedge d*\beta\\
+			&=\int_Vd\alpha\wedge *\beta+(-1)^{k+1}\alpha\wedge d*\beta\\
+			&=\int_Vd(\alpha\wedge *\beta)\\
+			&=\int_{\partial V}\alpha\wedge *\beta\\
+			&=0.
+		\end{aligned}
+	\end{equation}
+	This proves that $\langle d\alpha, \beta\rangle =\langle \alpha, \delta\beta\rangle$.
+	\begin{probleme}
+		I do not understand why the integral in the boundary is zero. 
+	\end{probleme}	
+\end{proof}
+
+Now we define the \defe{Laplace-Beltrami operator}{Laplace-Beltrami operator}\index{operator!Laplace-Beltrami} by\nomenclature[D]{$\Delta$}{Laplace-Beltrami operator}
+\begin{equation}
+	\Delta=\delta d+d\delta
+\end{equation}
+and the space of \defe{harmonic forms}{harmonic form}
+\begin{equation}
+	H^k=\{ \omega\in\Omega^k\tq\Delta\omega=0 \}.
+\end{equation}
+
+\begin{lemma}
+	If $M$ is a closed manifold, a $k$-form is harmonic if and only if $d\omega=\delta\omega=0$.
+\end{lemma}
+
+\begin{proof}
+	No proof.
+\end{proof}
+
+\begin{theorem}[Hodge decomposition theorem]\index{theorem!Hodge decomposition}
+	For every integer $0\leq k\leq m$, the space $H^p$ is finite dimensional and $\Omega^k(M)$ has the orthogonal decomposition
+	\begin{equation}
+		\Omega^k(M)=H^k\oplus\Delta\big( \Omega^k(M) \big),
+	\end{equation}
+	i.e. the space splits into the kernel of $\Delta$ and its image.
+\end{theorem}
+
+\begin{theorem}
+	Let $M$ be a compact orientable manifold of dimension $m$. Any exterior differential $k$-form can be written as a unique sum of an exact form, a coexact form and an harmonic form :
+	\begin{equation}
+		\omega=d\alpha+\delta\beta+\gamma.
+	\end{equation}
+	with $\omega\in\Omega^k(M)$, $\alpha\in\Omega^{k-1}(M)$, $\beta\in\Omega^{k+1}(M)$ and $\gamma\in\Omega^k(M)$ harmonic.
+\end{theorem}
+
+The operator $\Delta$ commutes with the differential $d$ and we have $d\Delta=\Delta d= d\delta d$ since
+\begin{equation}
+	d\Delta \omega=dd\delta\omega+d\delta d\omega=d\delta d\omega,
+\end{equation}
+because $d^2=0$, while
+\begin{equation}
+	\Delta d\omega=d\delta d\omega+\Delta d d\omega=d\delta d\omega.
+\end{equation}
+
+\begin{lemma}
+	On a close manifold, $\Delta\omega=0$ if and only if $\delta\omega=d\omega=0$.
+\end{lemma}
+
+In the case of a closed manifold, a form is harmonic if and only if is belongs to the kernel of $d+\delta$. Moreover, a form in the image of $d+\delta$ is orthogonal to the harmonic forms :
+\begin{equation}
+	\langle d\alpha^{k-1}+\delta\beta^{k+1}, \gamma\rangle =0
+\end{equation}
+whenever $\gamma$ is harmonic on a closed manifold.

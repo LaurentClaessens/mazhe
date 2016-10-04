@@ -1,0 +1,219 @@
+% This is part of (almost) Everything I know in mathematics
+% Copyright (c) 2013-2014
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Mellin transform}
+
+If $f$ is a function, we define its \defe{Mellin transform}{Mellin transform} by
+\begin{equation}
+(Mf)(s)=\int_0^{\infty} x^sf(x)\frac{ dx }{ x }=\phi_f(s),
+\end{equation}
+and the inverse transform is given by
+\begin{equation}
+(M^{-1}\phi_f)(x)=f(x)=\frac{1}{ 2\pi i }\int_{c-i\infty}^{c+i\infty}x^{-s}\phi_f(s)ds
+\end{equation}
+where the integral is taken on a vertical line of the complex plane.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{General setting}\index{heat kernel}
+
+Matter about heat kernel expansions, boundary conditions and related physical consequences can be found in \cite{ConnesMotives,Heatmanual,ResEtaDiracTypeBoundary,QGBoundaryTermsSpectralAction}. Let $M$ be a compact Riemannian manifold without boundary. A \defe{heat kernel}{heat kernel} is a function $K\in  C^{\infty}\big( (0,\infty)\times M\times M \big)$ which satisfies the equation
+\begin{equation}
+(\partial_t-\Delta_x)K(t,x,y)=0
+\end{equation}
+with the initial condition 
+\begin{equation}		\label{EqCondLimoplusdelta}
+\lim_{t\to 0^+}K(t,x,y)=\delta_y(x)
+\end{equation}
+ where $\Delta_x$ is the \defe{Laplace-Beltrami}{Laplace-Beltrami operator} operator acting on the variable $x$. That operator is defined, in local coordinates, by the expression
+\[ 
+   \Delta=\frac{ 1 }{ \sqrt{ g } }\partial_i\big( \sqrt{g}g^{ij}\partial_j \big)
+\]
+The limit in the left hand side of condition \eqref{EqCondLimoplusdelta} means that for every smooth function $f$ on $M$, the function
+\[ 
+  u(t,x)=\int_MK(t,x,y)f(y)\sqrt{g}dy
+\]
+is everywhere (eventually not at $t=0$) and satisfies $u(0,x)=f(x)$.
+
+\begin{theorem}
+Heat kernel have the following properties:
+\begin{enumerate}
+\item There is one and only one heat kernel on a given manifold,
+\item for each $x\in M$ there is an asymptotic expansion
+\[ 
+  K(t,x,x)\sim t^{-m/2}\big( a_0(x)+a_1(x)t+a_2(x)t^2+\cdots \big)
+\]
+when $t\to 0$,
+\item the coefficients $a_j$ are smooth functions over $M$ and $a_j(x)$ is determined by the metric and its derivatives at $x$.
+\end{enumerate}
+\end{theorem}
+
+%----------------------------------------------------------------------------------------------------------------------------
+\subsection{Mellin}
+
+
+Let $D$ be any operator of order $q$ an $(x_i)$, local coordinates on $M$. We write $D=\sum_ID_I\partial_I$ where $I$ runs over multi-indices. If $D$ has order $2$, we have $D(x_j\partial_jf)=2Df+D_{ik}x_j\partial_{ijk}f$, and in general one can check that
+\[ 
+ \sum_i[D,x_j]\partial_j=qD+R_1
+\]
+where $q$ is the order of $D$ and $R_1$ is of order less or equal to $q-1$. One also can show that $(n+q)D=\sum_j[\partial_jD,x_j]+R_2$ where the order of $R_2$ is less than $q$ and $n=\dim M$. Since the trace of a commutator is always zero, we find
+\begin{equation}
+(n+q)\tr(D)=\tr(R_2).
+\end{equation}
+Let now $D_z$ be a pseudo differential operator of order $\real(z)$. Then we have
+\[ 
+  \tr(D_z)=\frac{1}{ (z+n) }\tr(R_z)
+\]
+with $R_z$ being an operator of order less or equal to $\real(z)-1$. Notice that $\tr(D_z)$ has a pole on $z=-n$. If one continues, one sees that $\tr(D_z)$ has poles on every negative integer.
+
+
+%----------------------------------------------------------------------------------------------------------------------------
+\subsection{Residues and zeta function}
+
+The main assumption we make about the operator $D$ is that we have the following asymptotic expansion when $t$ goes to zero $\tr\big( e^{-tD^2}\big)\sim \sum a_{\alpha}t^{\alpha}$. The zeta function is defined by 
+\begin{equation}
+\zeta_D(s)=\tr\big( | D |^{-s} \big)=\tr\big( \Delta^{-s/2} \big)
+\end{equation}
+where $\Delta=D^2$. We suppose that $D$ is invertible.
+
+\begin{lemma}		\label{LemaalphaGammaCo}
+Let us suppose that we have an asymptotic expansion of the form
+\begin{equation}	\label{EqDevHeatDsquare}
+\tr\big( e^{-tD^2} \big)\sim \sum_{\alpha} a_{\alpha}t^{\alpha}
+\end{equation}
+when $t\to 0$. Then
+\begin{enumerate}
+\item if $a_{\alpha}\neq 0$ with $\alpha<0$, then $\zeta_D$ has pole at $-2\alpha$ with residue given by
+\begin{equation}
+\Res_{s=-2\alpha}\zeta_D(s)=\frac{ 2a_{\alpha} }{ \Gamma(-\alpha) }.		
+\end{equation}
+\item The absence of term proportional to the logarithm of $t$ provides regularity for $\zeta_D$ with
+\begin{equation}		\label{LemiizetaDzero}
+\zeta_D(0)+\dim(\ker D)=a_0.
+\end{equation}
+
+\end{enumerate}
+
+\end{lemma}
+
+\begin{probleme}
+Je te signale que la preuve n'est pas complete.
+\end{probleme}
+
+\begin{proof}
+We know that the complex power of an operator can be written under the form
+\begin{equation}
+| D |^{-s}=\Delta^{-s/2}=\frac{1}{ \Gamma(s/2) }\int_0^{\infty} e^{-t\Delta}t^{(s/2)-1}dt.
+\end{equation}
+Taking the trace of both sides ,
+\[ 
+\begin{split}
+\zeta_D(s)=\tr\big( | D |^{-s} \big)&=\frac{1}{ \Gamma(s/2) }\int_0^{\infty}\tr\big( e^{-t\Delta} \big)t^{(s/2)-1}dt\\
+					&=\sum_{\alpha}\frac{1}{ \Gamma(s/2) }\int_0^{\infty}a_{\alpha}t^{\alpha}t^{(s/2)-1}dt.
+\end{split}
+\]
+We can compute the integral using the formula
+\[ 
+  \int_0^1t^{\alpha+\frac{ s }{ 2 }-1}dt=\left( \alpha+\frac{ s }{ 2 } \right)^{-1}
+\]
+and find
+\begin{equation}
+\zeta_D(s)=\sum_{\alpha}\frac{1}{ \Gamma(s/2) }\left( \alpha+\frac{ s }{ 2 } \right)^{-1}a_{\alpha}.
+\end{equation}
+Now we have to compute 
+\[ 
+  \Res_{s=-2\alpha}\left( \frac{ a_{\alpha} }{ \Gamma\left( \frac{ s }{ 2 } \right) \left( \alpha+\frac{ s }{ 2 } \right) } \right);
+\]
+using the formula $\Res_{z=a}f(z)=\lim_{z\to a}(z-a)f(z)$ we easily find that it is $2a_{\alpha}=\Gamma(-\alpha)$.
+\end{proof}
+
+
+
+
+%----------------------------------------------------------------------------------------------------------------------------
+\subsection{Boundary conditions for heat kernel expansions}
+
+
+Let $(M,\partial M)$ be a $m$ dimensional manifold with boundary and $N$ be the inward vector field normal to $\partial M$. The geodesic flow of $N$ allows to identify $\mC=\partial M\times [0,\epsilon[$ to a neighborhood of $\partial M$ in $M$. If $(y^1,\ldots,y^{m-1})$ is a coordinate system on $\partial M$, we define the coordinate $x^m$ saying that $(y,x^m)$ is the point at geodesic distance $x^m$ of $y\in \partial M$ following the geodesic flow of $N$. If $\{ e_1,\ldots,e_{m-1} \}$ is an orthonormal basis of $T(\partial M)$, we denote by $e_m=N=\partial_m$ the last vector of the orthonormal basis $\{ e_1,\ldots,e_m \}$ of $TM|_{\partial M}$.
+
+Let $\Delta$ be a Laplace type operator on $\Gamma(V)$. For the moment, we do not suppose it to be the square of nay Dirac operator. Let $\chi$ be an endomorphism of $V$ defined on $\partial M$ such that $\chi^2=1$. One can extend $\chi$ to $\mC$ with the condition $\nabla'\chi=0$ where $\nabla'$ is the unique connection on $V$ and $E$ the unique endomorphism of $V$ such that
+\[ 
+  \Delta=-\big( g^{ij}\nabla'_i\nabla'_j+E \big).
+\]
+We denote by $V_{\pm}$ the two complementary bundle of $V$ (eigenspaces of $\chi$) and we consider the operators $\Pi_{\pm}=\frac{ 1 }{2}(1\pm\chi)$. Let $S\in\End(V_+)$ be an auxiliary endomorphism. We consider the boundary condition for $\Delta$ as the operator $\mB\in\End\big(  C^{\infty}(V) \big)$,
+\begin{equation}
+\mB s=\Pi_-(s)|_{\partial M}\oplus \Pi_+(\nabla'_m+S)\Pi_+(s)|_{\partial M}.
+\end{equation}
+The operator we will study is $\Delta_{\mB}$ which is $\Delta$ restricted to the domain
+\[ 
+  \{ s\in\Gamma(v)\tq \mB(s)=0 \}.
+\]
+In that case we have an expression
+\begin{equation}
+\tr_{L^2}\big( f e^{-t\Delta_{\mB}} \big)\sim\sum_{n=0}^{\infty}t^{(n-m)/2}a_n(f,\Delta,\mB)
+\end{equation}
+when $t\to 0^+$. If $dx$ and $dy$ are the Riemann measures on $M$ and $\partial M$, there exists local invariants $a_n(x,\Delta)$ and $a_{n,\nu}(y,\Delta,\mB)$ such that
+\begin{equation}
+a_n(f,\Delta,\mB)=\int_Ma_n(x,\Delta)dx+\int_{\partial M}\sum_{\nu\leq n}N^{\nu}(f)a_{n,\nu}(y,\Delta,\mB)dy.
+\end{equation}
+
+%----------------------------------------------------------------------------------------------------------------------------
+\subsection{Boundary and Dirac}
+
+We use boundary conditions of the form $\mB\phi=0$ where the most frequent operators are
+\begin{align*}
+		\mB^-\phi=\phi|_{\partial M}		&&\text{Dirichtlet}\\
+		\mB^+\phi=(\nabla_n\phi+S\phi)		&&\text{Neumann}
+\end{align*}
+where $S$ is a matrix valued function and $\nabla_n$ denotes the covariant derivative in the direction of $n$ in the sense of the Levi-Civita connection on $M$. Let $\Pi_{\pm}$ be projections operators on complementary bundle over $V|_{\partial M}$. we have $\Pi_{\pm}^2=\Pi_{\pm}$ because they are projections and $\Pi_{+}\oplus\Pi_-=\id$ because the projectors are complementary. Thus we have the decomposition
+\[ 
+  V_{\partial M}=V_+\oplus V_-
+\]
+where $V_{\pm}=\Pi_{\pm}V|_{\partial M}$. A section of $V$ reads on the boundary $\phi=\phi^+\oplus\phi^-$. The boundary condition thus reads
+\begin{equation}
+\mB\phi=\phi^-\oplus(\nabla_n\phi^++S\phi^+)|_{\partial M}
+\end{equation}
+where $S$ acts on $V_+$, in particular $S=\Pi_+S=S\Pi_+$. These conditions are said to be \defe{mixed boundary conditions}{mixed!boundary condition}. One often meets the notations $V_N$ and $V_D$ instead of $V_+$ and $V_-$.
+
+
+Let $D=\gamma^i\partial_i-r$ be a Dirac type operator. We want operator $\chi$ which appears in the boundary condition to satisfy $\chi^2=\id$, $\chi\gamma_m=-\gamma_m\chi$ and $\chi\gamma_a=\gamma_a\chi$ for every $1\leq a\leq m-1$. Remark that $\gamma_m$ is invertible because, from the definition of a Dirac operator, $2\gamma^m\gamma^m=-2g^{mm}\id$, so up to a (non constant) multiple, $\gamma_m^{-1}=\gamma_m$. Then we have $\gamma_mV=V$ and
+\[ 
+  \gamma_mV_+=\frac{ 1 }{2}(\gamma_m+\gamma_m\chi)V=\frac{ 1 }{2}(\gamma_m-\chi\gamma_m)V=\frac{ 1 }{2}(\id-\chi)\gamma_mV
+\]
+proves that $\gamma_mV_+=V_-$. In particular $\dim V_+=\dim V_-$.
+
+We want to study the boundary problem given by the operator $b_{\chi}s=\Pi_-s|_{\partial M}$, and $D_{\chi}=D|_{\{ s\in\Gamma(V)\tq b_{\chi}s=0 \}}$. As far as the Laplace type operator $\Delta_{\chi}=D_{\chi}^2$ is concerned, we look at the domain $\dom(\Delta_{\chi})=\{ s\in\Gamma(V)\tq \mB_{\chi}s=0 \}$ where
+\begin{equation}
+  \mB_{\chi}s=\Pi_-s|_{\partial M}\oplus\Pi_-Ds|_{\partial M}.
+\end{equation}
+
+\begin{proposition}		\label{PropCondBordphiform}
+The boundary condition 
+\[ 
+  \mB_{\chi}s=\Pi_-s|_{\partial M}\oplus Ds|_{\partial M}
+\]
+has the form
+\[ 
+  \mB s=\Pi_-s=\Pi_-s|_{\partial M}\oplus\Pi_+(\nabla'_m+S)\Pi_+s|_{\partial M}
+\]
+with $S=\Pi_+\big( \gamma_m\Phi-\frac{ 1 }{2}\gamma_m\gamma_a\nabla'_a\chi \big)\Pi_+$ where $\Phi\in C^{\infty}\big( \End(V) \big)$ is defined by $D=\gamma_i\nabla'_i-\Phi$.
+\end{proposition}
+A proof of this proposition can be found in the lemma 7 of \cite{ResEtaDiracTypeBoundary}.
+
+Here is the main result. Let $D=\gamma^i\nabla_i-\Phi$ with $\nabla_i=\partial_i+\omega_i$, the connection $\omega$ being the spin connection torsion free. Let $E$, $\nabla'$ and $A$ be defined by $\Delta=D^2=-(g^{ij}\nabla'_i\nabla'_j+E)$ with $\nabla'_i=\partial_i+\omega'_i$ and $\omega'_i=\frac{ 1 }{2}g_{ij}\big( A^j+g^{kl}\Gamma^j_{kl} \big)$. In that case, proposition \ref{PropCondBordphiform} applies and we have
+\[ 
+  \nabla'_a\chi=\partial_a\chi+[\omega'_a,\chi]=K_{ab}\chi\gamma^n\gamma^b+[\theta_a,\chi]
+\]
+where $\theta_a=\omega'_a-\omega_a$. In that case, we have the following formulae for the first three Seeley-de Witt coefficients of $\Delta=D^2$:
+\begin{equation}		\label{EqSeeyleydeWitt}
+\begin{split}
+a_0(\Delta,\chi)	&=\frac{1}{ 16\pi^2 }\int_M\tr(1)\sqrt{g}d^4x\\
+a_1(\Delta,\chi)	&=0\\
+a_2(\Delta,\chi)	&=\frac{1}{ 96\pi^2 }\left( \int_M \tr(6E+R)\sqrt{g}d^4x+\int_{\partial M}\tr(2K+12S)\sqrt{h}d^3x   \right).
+\end{split}
+\end{equation}
+
+An example from \cite{QGBoundaryTermsSpectralAction} is given in section \ref{SecGravBoundCC}.
+

@@ -1,0 +1,1273 @@
+% This is part of (almost) Everything I know in mathematics
+% Copyright (c) 2014,2016
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+References for Hilbert spaces are \cite{Wassermann,Landsman}.
+
+Do you know what is normed, complete and yellow ? Answer in the footnote\footnote{A bananach space !}.
+
+\section{Basis and orthonormal systems}
+%+++++++++++++++++++++++++++++++++++++++++
+
+A \defe{sesquilinear map}{sesquilinear} map on a complex vector space $V$ is a map $(.,.)\colon V\times V\to \eC$ such that
+\[ 
+\begin{split}
+(x+y,x'+y')&=(x,x')+(x,y')+(y,x')+(y,y'),\\
+(\lambda x,\mu y)&=\bar\lambda\mu(x,y).
+\end{split}  
+\]
+
+\begin{definition}		\label{DefBanchHilbertpre}
+	\begin{enumerate}
+		\item
+			A \defe{Banach space}{Banach!space} is a complete and normed vector space.
+		\item
+			A \defe{pre-Hilbert}{pre-Hilbert} is a complex vector space with an inner product
+		\item
+			An \defe{Hilbert space}{Hilbert space} is a complex Banach space whose norm is induced from an inner product. Equivalently, it is a pre-Hilbert space in which the topology is complete.
+	\end{enumerate}
+\end{definition}
+
+From a pre-Hilbert space, one can construct an Hilbert space by \defe{completion}{completion}. The completion of a pre-Hilbert space $H_0$ is the set of all the Cauchy sequences in $H_0$. It turns out that this set is an Hilbert space. Points in $H_0$ are identified with Cauchy sequences that converge in $H_0$.
+
+\begin{remark}
+	In some literature\cite{AlgOpGirard}, a pre-Hilbert space is defined as a complex vector space endowed with a sesquilinear positive form. That is a sesquilinear form such that $\langle x, x\rangle \geq 0$. In this case the map $x\mapsto\langle x, x\rangle ^{1/2}$ is only a seminorm: there could be elements with vanishing norm.
+
+	If $H_0$ is such a space, before to take its completion, we have to take its \defe{separation}{separation}. The separation is as follows. Let $I=\{ x\in H_0\tq \langle x, x\rangle =0 \}$. The quotient space $H/I$ is then a pre-Hilbert in the sense of definition \ref{DefBanchHilbertpre}.
+\end{remark}
+
+A subset $\mS$ of a pre-Hilbert $\mP$ is \defe{total}{total subset in a pre-Hilbert} if $0$ is the only element in $\mP$ to be orthogonal to each element of $\mS$, in other words: $\scalh{z}{s}=0$ for any $s\in\mP$ implies $z=0$.
+
+\begin{proposition}		\label{PropCconvminiv}
+If $C\subset\hH$ is a closed convex subset of the Hilbert space $\hH$ and if $v\in\hH$, there exists one and only one $c_C\in C$ such that
+\[ 
+  \| v-v_C \|=\min_{w\in C}\| v-w \|,		
+\]
+i.e. $v_C$ minimizes the distance between $v$ and $C$.
+\end{proposition}
+\begin{proof}
+No proof.
+\end{proof}
+
+\begin{proposition}
+In the same setting that proposition \ref{PropCconvminiv}, with the assumption that $C$ is a vector subspace of $\hH$, we have $v-v_C\in C^{\perp}$.
+\end{proposition}
+
+\begin{proof}
+Let $v_C$ be the minimizer given by proposition \ref{PropCconvminiv}; by definition for every $w\in C$, the distance between $v_C+tw$ and $v$ is bigger than the one between $v_C$ and $v$. In particular, the derivative of $\| v_c+tw-v \|^2$ with respect to $t$ vanishes on $t=0$. A small computation provides
+\[ 
+  \real\big( \langle v-v_C, w\rangle  \big)=0
+\]
+for every $w$. Doing the same with $iw$, we find that the imaginary part of $\langle v-v_C, w\rangle $ vanishes too, so that the proposition is proved.
+\end{proof}
+
+We conclude that when $C$ is a convex closed vector subspace of $\hH$, the latter accepts the decomposition $\hH=C\oplus C^{\perp}$.
+
+A sequence $(x_n)$ in a Hilbert space $\pH$ is an  \defe{orthonormal basis}{basis!of Hilbert space} if 
+\begin{itemize}
+\item $\scalh{x_i}{x_j}=\delta_{ij}$,
+\item the sequence $(n_n)$ is total.
+\end{itemize}
+
+An Hilbert space $\pH$ is \defe{separable}{separable!Hilbert space} if it posses a total sequence. The link between this and the topological definition of \emph{separable} is not completely easy. A first step is done in lemma \ref{lem:sep_metric}.
+
+\begin{theorem}
+An Hilbert space is separable if and only if it posses an orthonormal basis.
+\end{theorem}
+
+A classical but powerful theorem about orthonormal basis :
+
+\begin{theorem}
+Let $\pH$ be an infinite dimensional Hilbert space and a sequence $(x_n)$ in $\pH$. Then the following propositions are equivalent :
+
+\begin{enumerate}
+\item $(x_n)$ is an orthonormal basis,
+\item $\sum_{k=1}^{\infty}|\scalh{x}{x_k}|^2=\|x\|^2$ for every $x\in\pH$,
+\item $\sum_{k=1}^{\infty}\scalh{x_k}{x}|x_k=x$ for every $x\in\pH$.
+\end{enumerate}
+\end{theorem}
+
+We will sometimes denote by $|\psi\rangle$ the vector $\psi$ and $\langle\phi|$ the form $|\psi\rangle\to\scal{ \phi }{ \psi }$. This notation is mainly used in the physics literature.
+
+Let $\{ v_{\alpha} \}$ be a maximal orthogonal set in $\hH$, then each $v\in\hH$ can be written under the form
+\begin{equation}		\label{Eqvsumvalphavmaxorth}
+	v=\sum_{\alpha}\langle v_{\alpha},v\rangle v_{\alpha},
+\end{equation}
+and the norm is given by
+\begin{equation}
+\| v \|^2=\sum_{\alpha}| v_{\alpha},v |^2.
+\end{equation}
+Notice that the latter sum is absolutely convergent, while the first one is not. The sum in the right hand side of \eqref{Eqvsumvalphavmaxorth} is \defe{unconditionally convergent}{unconditional convergence}. One says that a sum $\sum_{\alpha\in A} X_{\alpha}=X$ unconditionally in a Banach space if $\forall\epsilon>0$, there exists a finite subset $F$ of $A$ such that for every finite subset $F'$ containing $F$,
+\[ 
+  \| \sum_{\alpha\in F'}(X_{\alpha}-X)\| \leq \epsilon.
+\]
+That notion of convergence is the good one in Hilbert space where one does not always have absolute convergence.
+
+\begin{theorem}[Riesz-Fisher]		\label{ThoRiesz}\index{Riesz-Fisher theorem}
+If $\varphi\colon \hH\to \eC$ is a continuous linear functional on $\hH$, there exists a vector $w\in\hH$ such that
+\[ 
+  \varphi(v)=\langle v, w\rangle 
+\]
+for every $v\in\hH$.
+\end{theorem}
+
+\begin{proof}
+First, remark that, because of continuity, $\ker\varphi$ is a closed subspace of $\hH$, so that $\hH=\ker(\varphi)\oplus\ker(\varphi)^{\perp}$. Let $z$ be any non vanishing element of $\ker(\varphi)^{\perp}$. In that case, the map $v\mapsto\langle z, v\rangle $ has the same kernel as $\varphi$. But we know that two linear maps with the same kernel are related by a simple multiplication by a constant scalar. A rescaling of $z$ by that scalar provides the answer of the theorem.
+
+In order to be complete, notice that the kernel of $v\mapsto\langle z, v\rangle $ has codimension one in $\hH$ because the image has dimension one.
+\end{proof}
+
+\section{Operators on Hilbert spaces}
+%++++++++++++++++++++++++++++++++++++
+About spectral theory: \cite{AndrewGreen}.
+
+\begin{definition}	\label{DefVecteurTrace}
+	A vector $v\in\hH$ is a \defe{trace vector}{trace!vector} if the functional
+	\begin{equation}
+		T\mapsto\langle v, Tv\rangle 
+	\end{equation}
+	is a trace (that is $\omega(T^*T)=\omega(TT^*)$).
+\end{definition}
+
+\begin{definition}
+    An operator \(T\colon X\to Y\) between two Banach spaces is \defe{\href{http://en.wikipedia.org/wiki/Closed_operator}{closed}}{closed!operator} if for every sequence \( (x_n)\in D(T)\) such that \(x_n\to x\in X\) and \(Tx_n\to y\in Y\) we have \(x\in D(a)\) and \(Ax=y\).
+\end{definition}
+
+\begin{proposition}     \label{PropoOpFermableLim}
+    An operator admits a closure if and only of for every pair of sequences \( (x_n)\) and \( (y_n)\) in \(D(T)\) with \(\lim x_n=\lim y_n=x\) and such that \(Tx_n\) and \(Ty_n\) converge we have \(\lim Tx_n=\lim Ty_n\).
+\end{proposition}
+
+In this case the \defe{closure}{closure} of \(T\) is defined by \( Tx=\lim Tx_n \).
+
+\subsection{Topology on space of continuous endomorphism} \label{subsec_topomL}
+%--------------------------------------------------------
+
+A linear operator $T\colon \hH_1\to \hH_2$ is \defe{bounded}{bounded!operator} if
+\begin{equation}
+\sup_{\| v \|\leq 1}\| Tv \|<\infty.
+\end{equation}
+By Riesz's theorem \ref{ThoRiesz}, when $T$ is bounded, there exists an unique operator $T^*\colon \hH_2\to \hH_1$ such that
+\begin{equation}
+\langle Tv_1, v_2\rangle =\langle v_1, Tv_2\rangle 
+\end{equation}
+for every $v_1\in \hH_1$ and $v_"\in\hH_2$. Indeed one can see $\langle Tv_1, v_2\rangle $ as a linear functional of $v_1$ and apply the theorem. 
+
+\begin{lemma}			\label{LemTTzepoT}
+If $TT^*=0$, then $T=0$.
+\end{lemma}
+
+\begin{proof}
+The assumption makes that for every $v\in\hH$, 
+\begin{equation}
+0=\langle A^*Av, v\rangle =\langle Av, Av\rangle =\| Av \|^2.
+\end{equation}
+ That proves that $Av=0$ for every $v$, or that $A=0$.
+\end{proof}
+
+An operator such that $T^*T=\mtu$ is an \defe{isometry}{isometry!in Hilbert space}, but is not always invertible. An invertible isometry is an \defe{unitary operator}{unitary!operator} and fulfills $U^*U=\mtu=UU^*$. A \defe{projection}{projection!in Hilbert space} is an operator $P$ such that $P=P^*$ and $P^2=P$.
+
+A \defe{partial isometry}{partial!isometry} is a linear map $\dpt{ W }{ V_1 }{ V_2 }$ between two vector spaces such that there exists a closed subspace $K_1\subset V_1$ with $\scal{ W\psi }{ W\phi }_2=\scal{ \psi }{ \phi }_1$ for all $\psi,\phi\in K_1$ and $W=0$ on $K_1^{\perp}$. The most immediate property is that $W$ is unitary between $K_1$ and $WK_1$.
+
+\begin{lemma}		\label{LemPartIsomCstar}
+The element $A\in\cA$ is a partial isometry between $\cA$ and itself if and only if $A^*A$ is a projection.
+\end{lemma}
+
+\begin{proof}
+If we pose $V_1=V_2=\cA$ in the definition of a partial isometry, the fact for $p$ to be a projection is the existence of $K_1\subset\cA$ such that $\scal{ pA }{ pB }=\scal{ A }{ B }$ for every $A$, $B\in K_1$. For such a $K_1$, we have $p^*p=\id|_{K_1}$ and $p|_{K_1^{\perp}}=0$.
+\end{proof}
+
+Let $\pH$ be a Hilbert space and $\mL$ the space of continuous endomorphism on $\pH$. The \defe{uniform topology}{topology!uniform on $\protect\mL(\protect\pH)$} is the one of the norm $T\to\| T \|$; the \defe{strong topology}{topology!strong on $\mL(\pH)$} is given by semi-norms $T\to\| T\xi \|$ (one semi-norm for each $\xi\in\pH$); the \defe{weak topology}{topology!weak on $\protect\mL(\protect\pH)$} is given by semi-norms $T\to | \scal{ T\xi }{ \eta } |$.
+
+For a sequence $A_n\in\mL(\pH)$, we write $A_n\to 0$ in the sense of \defe{strong convergence}{convergence!strong in $\protect\mL(\protect\pH)$} in $\mL$ if for all neighbourhood $V$ of $0$, there exists a $N\in\eN$ such that $A_n\in V$ for all $n\geq N$. A neighbourhood of $0$ is of the form
+\[ 
+  V=\{ T\in\mL(\pH)\tq s_{\xi}(T)<\epsilon \}
+\]
+with $s_{\xi}$, the strong semi-norm defined by $\xi$ : $s_{\xi}(T)=\| T\xi \|$. So we have $A_n\to 0$ in the sense of strong topology in $\mL(\pH)$ if and only if for all $\xi\in\pH$, $\| A_n\xi \|\to 0$.
+
+\subsection{Compact operators}
+%-----------------------------
+
+\begin{definition}
+The \defe{adjoint}{adjoint!operator} $A^*$ of the operator $A$ on a Hilbert space is defined by the property $\scal{A\psi}{\phi}=\scal{\psi}{A^*\phi}$. It defines an involution on $\oB(\cB)$.  An element $x$ in an involutive algebra $\cA$ is \defe{hermitian}{hermitian} if $x^*=x$. In the case of $\cA=\cB(\hH)$ --the Banach space of the bounded operators on a Hilbert space $\hH$--- we say \defe{self-adjoint}{self-adjoint operator}.
+\end{definition}\lref{2.1.9}\dixref{1.1.3}
+
+As usual notations, $\hH$ denotes a Hilbert space, $\opK$ the space of compact operators and $\opB$ the one of bounded operators. Let us recall some properties of compact operators.  An operator is compact when it can be norm approximated by operators of finite rank, more precisely, we define the \defe{characteristic values}{characteristic!value} of the operator $T$ as
+\begin{equation}	\label{Defmuncaharacinfn}
+  \mu_n(T)=\inf\{ \| T-R \| \textrm{ where $R$ is an operator of range $\leq n$} \}
+\end{equation}
+
+\begin{lemma}
+The characteristic values $\mu_n(T)$ are the eigenvalues of the operator $| T |=(T^*T)^{1/2}$\nomenclature[F]{$|T|$}{Absolute value of an operator} classified in decreasing order with multiplicity. 
+\end{lemma}
+
+
+
+We define $\sigma_n(t)=\sum_{k=0}^n\mu_k(T)$\nomenclature[F]{$\sigma_n(T)$}{The sum of the $n$ first characteristic values of the operator $T$}. In the case of an infinitesimal of order $1$, one has to expect a divergence 
+\[ 
+  \sigma_n(T)=O(\ln n).
+\]
+Following the lemma, we have $\mu_0(T)\geq\mu_1(T)\geq\cdots$. One says that the operator $T$ is \defe{compact}{compact!operator} if $\lim_{n\to\infty}\mu_n(T)=0$.
+
+\begin{lemma}		\label{LemAstAcomAcomp}
+	If $A$ is an operator on $\hH$ such that $AA^*$ is compact, then $A$ is compact.
+\end{lemma}
+
+\begin{proof}
+	No proof.
+\end{proof}
+
+
+\begin{proposition}
+Let $T$ be a compact operator on a Hilbert space $\hH$. Then
+\begin{enumerate}
+\item The spectrum $\sigma(T)$ is discrete and has no limit point other than eventually zero,
+\item any non zero element in $\sigma(T)$ is eigenvalue of finite multiplicity.
+\end{enumerate}
+\end{proposition}
+Let us point out that a compact operator has no specially any eigenvalues.
+
+\begin{proposition}
+Let $T$ be a compact and self-adjoint operator on the Hilbert space $\hH$. There exists a complete orthonormal basis $\{ \phi_n \}_{n\in\eN}$ of $\hH$ such that $T\phi_n=\lambda_n\phi_n$ and $\lambda_n\to0$ when $n\to\infty$.
+\end{proposition}
+
+\begin{proposition}
+Let $T$ be a compact operator on $\hH$. Then we have a (norm) uniform convergent expansion 
+\[ 
+  T=\sum_{n\geq 0}\mu_n(T)\psi_n\langle \phi_i, .\rangle .
+\]
+where $0\leq\mu_{j+1}(T)\leq\mu_j(T)$ and $\{ \psi_n \}_{n\in\eN}$ is orthogonal to $\{ \phi_n \}_{n\in\eN}$.
+\end{proposition}
+
+This proposition allows us to decompose $T$ as
+\[ 
+  T=U| T |
+\]
+where $| T |=\sqrt{T^*T}$. Hence the $\mu_n(T)$ are eigenvalues of $| T |$ and 
+\[ 
+  \lim_{n\to\infty}\mu_n(T)=0
+\]
+because $| T |$ is compact and self-adjoint. The $\phi_n$ are the corresponding eigenvectors and
+\[ 
+  \psi_n=U\phi_n.
+\]
+ In this setting, we say that the $\mu_n(T)$ are the \defe{characteristic values}{characteristic!value} of $T$. We have $\mu_0(T)=\| T \|$. 
+
+Remark\label{pg_char_inv_U} that the characteristic values $\mu_n(T)$ are invariant under $T\to UT$ when $U$ is unitary. Indeed if $\mu$ is eigenvalue of $T^*T$ with eigenvector $\psi$, then $U^*\psi$ is eigenvector of $U^*TU$ with the same eigenvalue $\mu$.
+
+\begin{proposition}
+The operator $T$ is compact if and only if for all $\epsilon>0$, there exists a finite dimensional subspace $E\subset \hH$ such that
+\[ 
+  \| T \|_{E^{\perp}}\leq\epsilon.
+\]
+ \label{prop_comp_ini}
+\end{proposition}
+
+\begin{lemma}		\label{LemAmtuBcompaBcm}
+	Let $A$ be a compact operator. If $B$ is an invertible operator such that $(A+\mtu)B$ is compact, then $B$ is compact.
+\end{lemma}
+
+\begin{probleme}
+	The proof is mine; without guarantee.
+\end{probleme}
+
+\begin{proof}
+	Suppose that $B$ is not compact. There exists a $\sigma>0$ such that for every finite dimensional subspace $G$, we have
+	\begin{equation}
+		\sup_{\substack{x\in G^{\perp}\\\| x \|=1}}\| Bx \|>\sigma.
+	\end{equation}
+	Let $\epsilon>0$. Since $A$ is compact, there exists a finite dimensional subspace $F$ such that $\| A \|_{F^{\perp}}<\epsilon$. For $x\in F^{\perp}$, have
+	\begin{equation}
+		\big\| (A+\mtu)x \big\|\geq\Big| \| Ax \|-\| x \| \Big|=1-\| Ax \|\geq 1-\epsilon,
+	\end{equation}
+	so that 
+	\begin{equation}
+		\inf_{\substack{x\in F^{\perp}\\\| x \|=1}}\| (A+\mtu)x \|\geq 1-\epsilon.
+	\end{equation}
+	In the same way from compactness of $(A+\mtu)B$, there exists a finite dimensional subspace $E$ such that
+	\begin{equation}
+		\sup_{\substack{x\in E^{\perp}\\\| x \|=1}}\| (A+\mtu)Bx \|\leq \epsilon.
+	\end{equation}
+
+	Using these properties,
+	\begin{equation}
+		\begin{aligned}[]
+			\epsilon\geq\sup_{\substack{x\in E^{\perp}\\\| x \|=1}}\| (A+\mtu)x \|&\geq\sup_{\substack{x\in E^{\perp}\\ Bx\in F^{\perp}\\\| x \|=1}}\| (A+\mtu)x \|\\
+			&=\sup_{\substack{y\in F^{\perp}\\B^{-1}y\in E^{\perp}\\\sigma<\| y \|<\| B_{E^{\perp}} \|}}\| (A+\mtu)y \|\\
+			&\geq\inf_{\substack{y\in F^{\perp}\\B^{-1}y\in E^{\perp}\\\sigma<\| y \|<\| B_{E^{\perp}} \|}}\| (A+\mtu)y \|\\
+			&\geq\inf_{\substack{y\in F^{\perp}\\\sigma<\| y \|<\| B_{E^{\perp}} \|}}\| (A+\mtu)y \|\\
+			&\geq\inf_{\substack{y\in F^{\perp}\\\| y \|=\sigma}}\| (A+\mtu)y \|\\
+			&\geq \sigma(1-\epsilon).
+		\end{aligned}
+	\end{equation}
+	It is now sufficient to choose $\epsilon$ is such a way that $\frac{ \epsilon }{ 1-\epsilon }<\sigma$ in order to get a contradiction.
+\end{proof}
+
+\begin{theorem}[Spectral theorem]\index{spectral!theorem!compact operators}\index{theorem!spectral!compact operators}
+If $T$ is a compact self-adjoint operator on the Hilbert space $\hH$, then there exists an orthogonal basis of $\hH$ of eigenvectors of $T$. The eigenvalues are moreover real and the sequence converges to zero.
+\end{theorem}
+\begin{proof}
+No proof.
+\end{proof}
+\begin{proposition}
+Two other characterisations of compact operators:
+\begin{enumerate}
+\item the operator $T$ is compact if and only if it is the limit (for the operator norm) of finite rank operators,
+\item if $T$ is an operator over $L^2(X)$ and if $T$ can be written under the form
+\[ 
+  (Tf)(x)=\int_X k(x,y)f(y)dy,
+\]
+where $k$ is a square summable function on $X\times X$, then $T$ is compact. Such an operator is said to be \defe{Hilbert-Schmidt}{Hilbert-Schmidt!operator}, and every compact operators over $L^2(X)$ are \emph{not} of that form.
+\end{enumerate}
+\end{proposition}
+
+Let $T$ be a bounded operator on $\hH$. The \defe{singular values}{singular!value of an operator} of $T$ are defined by
+\begin{equation}
+\mu_j(T)=\inf_{\dim(V)=j}\sup_{v\perp V}\frac{ \| Tv \| }{ \| v \| }.
+\end{equation}
+The first singular value gives the operator norm: $\mu_0(T)=\| T \|$.
+
+\begin{proposition}
+The operator $T$ is compact if and only if $\lim_{j\to\infty}\mu_j(T)=0$.
+\end{proposition}
+
+\begin{lemma}		\label{Lemmulamequ}
+If $T$ is a positive\footnote{Notice that, for a positive operator, $\langle Tv, v\rangle \geq 0$, so that $T$ is self-adjoint too.} compact operator and if $(\lambda_j)$ is the sequence of eigenvalues sorted in decreasing order with multiplicity, then
+\begin{equation}
+\mu_j(T)=\lambda_j(T)
+\end{equation}
+to the condition that the eigenvalues are numbered from $\lambda_0$ instead of $\lambda_1$.
+\end{lemma}
+
+\begin{lemma}	\label{LemIneqscmpborn}
+If $T_1$ and $T_2$ are two compact operators and if $S$ is a bounded operator, then
+\begin{align*}
+\mu_j(T_1+T_2)&\leq \mu_j(T_1)+\mu_j(T_2)\leq\mu_{2j}(T_1+T_2)\\
+\mu_j(ST)&\leq\| S \|\mu_j(T)\\
+\mu_j(TS)&\leq\| S \|\mu_j(T).
+\end{align*}
+
+\end{lemma}
+\begin{proof}
+No proof.
+\end{proof}
+
+Let $\hH$ be an Hilbert space and $\oB(\hH)$ be the set of bounded operators over $\hH$. The \defe{trace class}{trace!class operator} operator ideal is
+\begin{equation}
+	\oL^1(\hH)=\{ T\in\oB(\hH)\tq \sum\mu_j(T)<\infty \}.
+\end{equation}
+Such an operator is always compact and the inequalities of lemma \ref{LemIneqscmpborn} assure that $\oL^1$ is an ideal.
+
+An interesting property is that $\oL^1$ is not norm-closed, actually its norm closure is the full $\oB(\hH)$.
+
+From definition of singular values, if $\{ v_1,\cdots,v_n \}$ is any orthogonal set in $\hH$, then
+\begin{equation}	\label{Eqineqstrdav}
+  \sum_{j=0}^N| \langle v_j, Tv_j\rangle  |\leq \sum_{j=0}^{N}\mu_j(T).
+\end{equation}
+So we can give the definition of a trace. If $T\in\oL^1$, the \defe{trace}{trace!of an operator} is given by
+\begin{equation}
+\tr(T)=\sum_{j=1}^{\infty}\langle v_j, Tv_j\rangle
+\end{equation}
+where $\{ v_j \}$ is any orthonormal basis of $\hH$. The relation \eqref{Eqineqstrdav} makes the sum absolutely convergent and the independent on the choice of basis, as can see by replacing $v_j$ by $A_{ji}v_i$ and using the fact that $(A^t)_{lj}A_{jk}=\delta_{lk}$.
+
+An interesting property of the trace is
+\begin{equation}
+\tr(ST)=\tr(TS)
+\end{equation}
+whenever $S\in\oB(\hH)$ and $T\in\oL^1(\hH)$.
+
+\subsection{Hilbert-Schmidt operators}\index{Hilbert-Schmidt!operator}
+%--------------------------------------------------------
+
+If $S$ and $T$ are Hilbert-Schmidt operators, one can show that $ST$ is a trace class operator. An operator $T$ over $L^2(X)$ is Hilbert-Schmidt if and only if $\sum\mu_j(T)^2<\infty$.
+
+\begin{lemma}
+Let $M$ be a closed manifold endowed with a smooth measure. If $k\in C^{\infty}(M)$, then the operator defined by
+\[ 
+  (Tf)(x)=\int_Mk(x,y)f(y)dy
+\]
+is a trace class operator and we have
+\begin{equation}
+\tr(T)=\int_Mk(x,x)dx.
+\end{equation}
+
+\end{lemma}
+
+
+\subsection{The Schatten-von Neumann ideal}
+%-------------------------------------------
+
+The \defe{Schatten-von Neumann ideal}{Schatten-von Neumann ideal} is the set
+\[ 
+  \oL^p(\hH)=\{ \textrm{compact operator } T\tq \sum_{n=0}^{\infty}\mu_n(T)^p<\infty \}
+\]
+Interesting properties of this set (including the fact that it is an ideal) are proven by virtue of \defe{Hölder inequality}{hölder inequality}: when $p$ and $q$ are reals such that $\frac{1}{ p }+\frac{1}{ q }=1$, we have
+\begin{equation}
+\sum_{k}| u_k | |v_k |\leq \Big( \sum_{k}| u_k |^p \Big)^{1/p}\Big( \sum_{k}| v_k |^{q} \Big)^{1/q}.
+\end{equation}
+There also exists an integral version :
+\begin{equation}
+\int | fg |\leq \Big( \int | f |^p \Big)^{1/p}\Big( \int| g |^q \Big)^{1/q}.
+\end{equation}
+
+\begin{probleme}
+	We should find a precise statement with precise hypothesis for that inequality.
+\end{probleme}
+
+One can prove that when $\sum_{j=1}^{k}\frac{1}{ p_j }=\frac{1}{ q }$, we have
+\begin{equation}    \label{EqPropLLLsvn}
+\oL^{p_1}\oL^{p_2}\ldots\oL^{p_k}\subset \oL^q.
+\end{equation}
+
+\begin{lemma}
+The space $\oL^q(\hH)$ is a left ideal.
+\end{lemma}
+
+\begin{proof}
+Let $T\in\oL^q(\hH)$: $\sum_n\mu_n(T)^q<\infty$.  If $a$ is an other linear operator on $\hH$, $\mu_n(aT)=\inf\{ \| aT-R \|\,;\Rank(R)\leq n \}=\inf\{ \| aT-aR \|;\Rank(R)\leq n \}$ because $\Rank(aR)$ and $\Rank(a^{-1}R)$ are always lower than $\Rank(T)$. Thus $\mu_n\leq\inf\{ \| a \|\| T-R \|;\Rank(R)\leq n \}=\| a \|\mu_n(T)$.
+\end{proof}
+
+The \defe{trace}{trace!of an operator} of an operator is defined on $T\in\oL(\hH)$ by
+\begin{equation}
+\tr(T)=\sum_{n}\langle T\xi_n,\,\xi_n\rangle
+\end{equation}
+where $\xi_n$ runs over an orthonormal basis. One can prove that $\tr(T)$ does not depend on the choice of this basis.
+
+\begin{proposition}
+When $T$ is compact and positive, on has
+\[ 
+  \tr(T)=\sum_{n}\mu_n(T).
+\]
+
+\end{proposition}
+\begin{proof}
+No proof.
+\end{proof}
+
+I found the following definitions in \cite{OlafPostDissertation}.
+\begin{definition}
+	A sesquilinear\index{sesquilinear!form} form $q$ on an Hilbert space $\hH$ is \defe{symmetric}{symmetric!sesquilinear form} if $q(u,v)=\overline{ q(v,u) }$ or, equivalently, if $q(u,u)\in\eR$ for every $u,v\in\Domain(q)$. It is \defe{positive}{positive!sesquilinear form} if $q(u)=q(u,u)\geq 0$ for every $u\in\Domain(q)$.
+\end{definition}
+The space $\Domain(q)$ is endowed by the inner product 
+\begin{equation}		\label{EqInnerProdqDomainsq}
+	\langle u, v\rangle_q=\langle u, v\rangle_{\hH}+q(u,v).
+\end{equation}
+Most of time, when we speak about topology on $\Domain(q)$, we are speaking about the topology of that norm. The form $q$ is \defe{closed}{closed!sesquilinear form} is $\Domain(q)$ is complete (for the topology of the inner product \eqref{EqInnerProdqDomainsq}). In that case, $\Domain(q)$ is itself an Hilbert space. 
+
+\begin{definition}		\label{DefFormCoreDomq}
+	A set $D\subset\Domain(q)$ which is $q$-norm-dense in $\Domain(q)$ is a \defe{form core}{form core} for $q$.
+\end{definition}
+
+\begin{definition}
+    Consider the algebra of bounded operators on an Hilbert space \( \hH\). Let \( \Spec(T)\) be the spectrum of \( T\). 
+    
+    The \defe{point spectrum}{spectrum!point}\index{point!spectrum} of \( T\), \( \Spec_P(T)\), is the set of eigenvalues. This is the set of \( \lambda\in\eC\) such that \( T-\lambda\mtu\) is not injective.
+
+    The \defe{continuous spectrum}{spectrum!continuous}\index{continuous!spectrum}, \( \Spec_C(T)\), is the subset of its spectrum given by the values \( \lambda\) such that \( T-\lambda\mtu\) is injective but for which the image of \( T-\lambda\mtu\) is a dense proper subspace of \( \hH\).
+
+    The \defe{residual spectrum}{spectrum!residual}\index{residual spectrum}, $\Spec_R(T)$, is the part of the spectrum that remains. So \( \lambda\in\Spec_R(T)\) if \( T-\lambda\mtu\) is injective and the closure \( \overline{ \Image(T-\lambda\mtu) }\) is a proper subspace of \( \hH\).
+\end{definition}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Normal operators on Hilbert space}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Many properties of normal operators can be found in \cite{AndrewGreen}.
+
+\begin{definition}  \label{DefFQFKZbB}
+    An operator \( T\) on an Hilbert space is said to be \defe{normal}{normal!operator} if \( T^*T=TT^*\) 
+\end{definition}
+In the setting of \( C^*\)-algebras we will define the same kind of normal element, see definition \ref{DefElemNormal}. 
+
+\begin{proposition}
+    If \( T\) is a bounded normal operator then \( T-\lambda\mtu\) is a bounded normal operator for every \( \lambda\in\eC\).
+\end{proposition}
+
+\begin{proof}
+    An immediate computation shows that \( (T-\lambda\mtu)(T^*-\bar\lambda\mtu)=(T^*-\bar\lambda\mtu)(T-\lambda\mtu)\), so \( T-\lambda\mtu\) is normal. In order to see that \( T-\lambda\mtu\) is bounded,
+    \begin{subequations}
+        \begin{align}
+            \| T-\lambda\mtu \|&=\sup_{h\in\hH}\frac{ \| Th-\lambda h \| }{ \| h \| }\\
+            &\leq\sup_{h\in\hH}\frac{ \| Th \|+| \lambda|\| h \| }{ \| h \| }\\
+            &\leq\sup_{h\in\hH}\frac{ \| Th \| }{ \| h \| }+| \lambda |\\
+            &=\| T \|+| \lambda |.
+        \end{align}
+    \end{subequations}
+    The last line is bounded because \( T\) is bounded.
+\end{proof}
+
+\begin{proposition}     \label{PropoCartactNormal}
+    An operator \( T\) is normal if and only if \( \| Tx \|=\| T^*x \|\) for every \( x\in\hH\).
+\end{proposition}
+
+\begin{proposition}
+    If \( T\) is diagonalizable by an unitary operator, then it is normal.
+\end{proposition}
+
+\begin{proof}
+    Let \( U\) be unitary and \( D\) be diagonal such that
+    \begin{equation}
+        UTU^*=D.
+    \end{equation}
+    Then we have \( (UTU^*)(UTU^*)^*=DD^*\) and thus
+    \begin{equation}
+        UTT^*U^*=DD^*.
+    \end{equation}
+    In the same time,
+    \begin{equation}
+        DD^*=D^*D=UT^*TU^*,
+    \end{equation}
+    so we have \( UTT^*U^*=UT^*TU^*\) and then \( TT^*=T^*T\) because \( U\) and \( U^*\) are invertible.
+\end{proof}
+
+\begin{proposition}
+    If \( T\) is normal and bounded, the residual spectrum \( \Spec_R(T)\) is empty.
+\end{proposition}
+
+\begin{proof}
+    See \cite{AndrewGreen} at page 20.
+\end{proof}
+
+\begin{proposition}
+    For a normal operator we have
+    \begin{equation}
+        \| T \|=r(T)
+    \end{equation}
+    where \( r(T)\) is the spectral radius of \( T\). 
+\end{proposition}
+
+\begin{proof}
+    A proof is available \wikipedia{fr}{Endomorphisme_normal}{on wikipedia}.
+\end{proof}
+
+\begin{proposition}
+    If \( T\) is a normal operator and if \( \lambda\) is an eigenvalue of \( T\), then \( \bar\lambda\) is an eigenvalue of \( T^*\) for the same eigenvector.
+\end{proposition}
+
+\begin{proof}
+    If \( v\) is eigenvector of \( T\) for the eigenvalue \( \lambda\), using proposition \ref{PropoCartactNormal} on the normal operator \( T-\lambda\mtu\) we have
+    \begin{equation}
+        0=\| (T-\lambda\mtu)v \|=\| (T-\lambda\mtu)^*v \|.
+    \end{equation}
+    Thus \( (T^*-\bar\lambda \mtu)v=0\) and \( v\) is eigenvector of \( T^*\) for the eigenvalue \( \bar\lambda\).
+\end{proof}
+
+\section{Spectral theory on Banach algebras}		\label{Sec_SpecBanach}
+%++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}      \label{DefInvolutionALge}
+    An \defe{involution}{involution!on algebra} on an algebra $\cA$ is a $\eR$-linear map $*\colon \cA\to \cA$ which fulfils
+    \begin{subequations}
+    \begin{align}
+      A^{**}&=A,\\
+        (AB)^*&=B^*A^*\\
+        (\lambda A)^*&=\overline{\lambda }A^*
+    \end{align}
+    \end{subequations}
+    where $\lambda$ is any complex number. An algebra endowed with an involution is a $*$-algebra.\lref{2.1.8}
+\end{definition}
+
+\begin{remark}
+    In the setting of Hopf algebras, we do not require \( A^{**}=A\). In that we follow \cite{SoibelmanI}; see subsection \ref{subsecHopfInvolution}.
+\end{remark}
+
+\begin{definition}
+The \defe{operator norm}{norm of an operator} of a linear map $\dpt{A}{\cB}{\cB}$ on a Banach space is 
+\[
+   \|A\|=\sup_{\|v\|=1}\|Av\|\in\eR.
+\]
+The operator $A$ is \defe{bounded}{bounded!operator} if its norm is finite. \label{def:normappl}
+\end{definition}
+
+A classical result is
+\begin{proposition} 
+A linear operator on a Banach space is bounded if and only if it is continuous.\label{prop:cont_born}
+\end{proposition}
+
+\begin{proposition}
+The space $\oB(\cB)$\nomenclature[F]{$\cB$}{Space of bounded operators on a Banach space} of bounded operators on the Banach space $\cB$ endowed with the norm operator is a Banach space. 
+\end{proposition}
+
+The norm of a functional is defined by
+\[
+   \|\rho\|:=\sup\{ |\rho(v)|:v\in\cB,\|v\|=1  \}
+\]\lref{2.7}
+It is the smallest $c$ that can be used in the definition of the continuity.
+
+We denote by $\cB^*$ the dual of the Banach space $\cB$. It is the set of all the functionals on $\cB$ and it is itself a Banach space.
+
+\begin{theorem}[Hahn-Banach]\index{Hahn-Banach theorem} \label{tho:hahnBanach}
+Any functional defined on a linear subspace $\cB_0$ of $\cB$ can be extended to a functional of same norm defined on the whole $\cB$. In particular, if $\rho(v)=0$ for all $\rho\in\cB^*$, then $v=0$.
+\end{theorem}
+
+
+
+The set of self-adjoint operators of a $C^*$-algebra $\cA$ is written as 
+\[
+  \cA_{\eR}=\{A\in\cA\tq A^*=A\}.
+\]
+As notation, we denotes by $G(\cA)$ the set of invertible elements of $\cA$ :
+\[
+   G(\cA):=\{A\in\cA|A^{-1}\text{ exists}\}
+\]
+
+\begin{lemma}
+A Banach $*$-algebra with $\|A\|^2\leq\|A^*A\|$ for all $A$ is a $C^*$-algebra.\label{lem:STARAlC}
+\end{lemma}
+
+\begin{proof}
+The definition is that a $C^*$-algebra is a Banach $*$-algebra such that $\|A^*A\|=\|A\|^2$, then we have to show that  if $A$ belongs to a Banach $*$-algebra, then $\|A\|^2\leq\|A^*A\|$ implies $\|A\|^2=\|A^*A\|$. In a Banach algebra, $\|A\|^2\leq\|A^*A\|\leq\|A^*\|\|A\|$ so that $\|A\|\leq\|A^*\|$. The same with $A^*$ instead of $A$ gives the inverse inequality. Then $\|A\|=\|A^*\|$.
+\end{proof}
+
+\begin{definition}
+An \defe{unit}{unit!in a Banach algebra} $\cA$ is an element $\cun$ such that $\|\cun\|=1$ and $\cun A=A\cun=A$ for all $A\in\cA$. A Banach algebra which contains an unit is \defe{unital}{}. When $z\in\eC$, we often write $z$ instead of $z\cun$.
+\end{definition}
+
+Note that in a $C^*$-algebra, the definition of an unit don't impose the norm because definition of a $C^*$-algebra applied to $A=\cun$ automatically gives $\|\cun\|=1$.
+
+Let $\cA$ be a Banach algebra without unit. We define $\cA_{\cun}:=\cA\oplus\eC$ with the notation $A+\lambda\cun$ for $(A,\cun)$. We enforce an algebra structure on this set following the natural way :
+\[
+  (A+\lambda\cun)(B+\mu\cun):=AB+\lambda B+\mu A+\lambda\mu\cun,
+\]
+in other terms, $1\in\eC$ is assimilated to the $\cun$ of $\cA_{\cun}$. The norm on $\cA_{\cun}$ is defined by
+\[
+   \|(A+\lambda\cun)(B+\mu\cun)\|\leq\|(A+\lambda\cun)\|\|(B+\mu\cun)|
+\]
+So $\cA_{\cun}$ becomes an unital Banach algebra. We have the following :
+
+\begin{proposition}
+For each Banach algebra without unit, there exists an unital Banach algebra $\cA_{\cun}$ and an isometric morphism $\cA\to\cA_{\cun}$ such that $\frac{\cA_{\cun}}{\cA}\simeq\eC$.
+\end{proposition}
+
+Note that such an unitization of a Banach algebra is not unique see page \pageref{pg:unit_nonunic} and \cite{Landsman} page 16 and proposition 2.4.6.
+
+  
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Spectral theorem and some consequences}\label{pg_spectralthe}
+%++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Spectrum}
+%---------------------------------------------------------------------------------------------------------------------------
+
+It is well know that a norm on a set gives rise to a topology. A normed vector space which is complete in the norm topology a \defe{Banach space}{Banach!space}. A \defe{Banach algebra}{Banach!algebra} is a Banach space equipped with an algebra structure such that 
+\begin{equation} \label{eq:normBanach}
+  \|AB\|\leq\|A\|B\|
+\end{equation}
+for all $A,B$ in the algebra. \label{def_banach}
+
+\begin{definition}			\label{def:fonctionelle}
+A \defe{functional}{functional} on a Banach space $\cA$ is a continuous linear map $\dpt{\rho}{\cA}{\eC}$. 
+\end{definition}
+We say that $\rho$ is \defe{continuous}{continuous!functional on Banach space} when there exists $c\in\eR$ such that $\forall v\in\cA$,  $|\rho(v)|\leq c\|v\|$.  We recall that, for linear maps, continuity is equivalent to boundedness. In fact we have the following \cite{Ops_Hilb_space}.
+\begin{proposition}
+	For a map $\rho\colon \hH_1\to \hH_2$ between two Hilbert space, the following are equivalent:
+	\begin{enumerate}
+	\item $\rho$ is continuous at $0$,
+	\item $\rho$ is continuous,
+	\item $\rho$ is bounded.
+	\end{enumerate}
+\end{proposition}
+
+\begin{definition} 
+	Let $\cA$ be an unital Banach algebra. The \defe{resolvent}{resolvent}\nomenclature[F]{$\rho(A)$}{Resolvent of $A$} of an element $A\in \cA$ is
+	\begin{equation}
+	  \rho(A)=\{ z\in\eC\tq(A-z\mtu)^{-1}\text{exists as two-sided inverse}  \}.
+	\end{equation}
+	The \defe{spectrum}{spectrum}\nomenclature[F]{$\sigma(A)$}{Spectrum of $A$} $\sigma(A)$, or $\Spec(A)$\nomenclature[F]{$\Spec(A)$}{Spectrum of $A$}, is the complement of $\rho(A)$ in $\eC$:
+	\begin{equation}
+	\Spec(A)=\{ \lambda\in\eC\tq\text{$(A-\lambda)$ is not invertible in the algebra} \}.
+	\end{equation}
+\end{definition}
+The spectrum of $A$ is sometimes written $\sigma(A)$. 
+
+
+Notice that in an algebra of polynomials, the spectrum of an element is is almost always $\eC$. The \defe{spectral radius}{spectral!radius}\nomenclature[F]{$r(A)$}{Spectral radius of $A$} of $A\in\cA$ is 
+\begin{equation}
+   r(A)=\sup_{z\in\Spec(A)}|z|.
+\end{equation} \label{def:spectre}
+In the finite dimensional case, the spectrum is equal to the set of eigenvalues.
+
+\begin{remark}
+When $\cA$ has no unit, the spectrum and the resolvent are defined by considering the unitization $\cA_{\mtu}:=\cA\oplus\eC$ instead of $\cA$.
+\end{remark}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Note about operator algebras}
+%---------------------------------------------------------------------------------------------------------------------------
+
+This subsection comes \wikipedia{en}{Decomposition_of_spectrum_(functional_analysis)}{from wikipedia}. Read it for more informations.
+
+In this subsection we consider an algebra of operators on \( H\). We say that \( \lambda\) is an \defe{eigenvalue}{eigenvalue} of \( A\) if there exists \( h\in H\) such that
+\begin{equation}
+    Ah=\lambda h.
+\end{equation}
+This implies that \( \lambda\) belongs to the spectrum of \( A\). The contrary is in general not true. If for instance we consider the algebra of \emph{bounded} operators on \( H\), it can happen that \( A-\lambda\mtu\) is invertible but with non bounded inverse. In this case, \( \lambda\) belongs to the spectrum (because \( A-\lambda\mtu\) is not invertible \emph{in the algebra}) but is not an eigenvalue.
+
+The set of eigenvalues is called the \defe{pure point spectrum}{spectrum!pure point}. This is in general a part of the spectrum.
+
+An operator $A\in\oB(\hH)$ is \defe{positive}{positive!operator} if $\langle Av, v\rangle \geq 0$ for every $v\in \hH$. Notice that $A^*A$ is positive for every operator $A$ because $\langle A^*Av, v\rangle =\langle Av, Av\rangle =\| Av \|^2\geq 0$. We will see in theorem \ref{ThoElsPositifsBBstar} that, in the case of unital $C^*$-algebra, all the positive elements are of that form. 
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Spectrum: next steps}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}
+The spectrum of a self-adjoint operator is a compact subset of $\eR^+$.
+\end{lemma}
+
+\begin{lemma}[\cite{Landsman}]\label{lem:cv_Ak}
+Let $\cA$ be an unital Banach algebra, and $A\in\cA$. Then the formula
+\begin{equation}
+   \lim_{N\to\infty}\sum_{k=0}^{N}A^k = (\mtu-A)^{-1}
+\end{equation}
+holds if $\|A\|< 1$,. As a consequence, $(A-z\mtu)^{-1}$ exists when $|z|>\|A\|$.
+\end{lemma}
+
+\begin{proof}
+	Since $\cA$ is complete, it is sufficient for convergence to prove the fact that the sequence of partial sums is Cauchy. Suppose $n>m$ and compute:
+	\[
+	  \| \sum_{k=0}^nA^k-\sum_{k=0}^mA^k  \|=\| \sum_{k=m+1}^nA^k \|\leq\sum_{k=m+1}^n\|A^k\|
+	     \leq\sum_{k=m+1}^n\|A\|^k.
+	\]
+	The last inequality comes from the fact that $\|AB\|\leq\|A\|\|B\|$. From the theory of the geometric series, we know that the last sum converges to zero when $n,m\to\infty$ because $\|A\|<1$.
+	Then 
+	$   \sum_{k=0}^{\infty}A^k\in\cA$.
+	Remains to check that this is the inverse of $(\mtu-A)$:
+	\[
+	   \sum_{k=0}^nA^k(\mtu-A)=\sum_{k=0}^n(A^k-A^{k+1})=\mtu-A^{n+1},
+	\]
+	so
+	\[
+	   \|\mtu-\sum_{k=0}^nA^k(\mtu-A)   \|=\|A^{n+1}\|\leq\|A\|^{n+1}.
+	\]
+	Since $\|A\|< 1$, the limit $n\to\infty$ of the right hand side is zero. The conclusion is that $\sum_{k=0}^{\infty}A^k$ is a left inverse of $(\mtu-A)$. The same shows that is is also a right inverse. This proves the first statement. The second is immediate by working with $A/z$ instead of $A$.
+
+\end{proof}
+
+\begin{lemma}
+The set of invertible elements
+\[
+   G(\cA):=\{A\in\cA : A^{-1}\,\text{exists}\}
+\]
+is open in $\cA$\nomenclature{$G(\cA)$}{Set of invertible elements in $\cA$}
+\end{lemma} \label{lem:G_ouvert}
+
+\begin{proof}
+	Let us consider a $A\in G(\cA)$ and $B\in\cA$ such that $\|B\|<\|A^{-1}\|^{-1}$. By definition \ref{def_banach}, we have $\|A^{-1} B\|\leq\|A^{-1}\|\|B\|<1$. Thus $A+B=A(\mtu+A^{-1} B)$ has an inverse because $A$ and $(\mtu+A^{-1} B)$ have both an inverse ($\|A^{-1} B\|<1$ and lemma \ref{lem:cv_Ak}).
+
+	Thus, when $A$ has an inverse, the element $A+B$ also has a one when $\|B\|$ is not too big. In other words: any $C\in\cA$ such that $\|A-C\|<\epsilon$ is in $G(\cA)$ when $\epsilon\leq\|A^{-1}\|^{-1}$.
+\end{proof}
+
+Now we can prove a great and fundamental theorem.
+
+\begin{theorem}			\label{ThoSpecBanach}
+    For any Banach algebra $\cA$ and any element $A\in\cA$, the spectrum $\sigma(A)$ is
+    \begin{enumerate}
+        \item       \label{ItemThoSpecBanachi}
+            a subset of $\{z\in\eC:|z|\leq\|A\|\}$,
+        \item
+            compact,
+        \item
+            non empty
+        \end{enumerate}
+\end{theorem} \label{tho:prop_sigma}
+
+\begin{proof}
+	If $\cA$ has no unit, we can add one and then one can suppose $\cA$ to be unital.
+
+	The first point is contained in lemma \ref{lem:cv_Ak}. Thus it is bounded and, in order to prove that it is compact, we only need to prove that it is closed.
+
+	We consider the map $\dpt{f}{\eC}{\cA}$ , $f(z)=z\mtu-A$. Clearly, $\|f(z+\delta)-f(z)\|=\delta$, then $f$ is continuous\footnote{We consider the topology induced by the metric.}. Since $G(\cA)$ is open by the lemma \ref{lem:G_ouvert}, continuity makes $f^{-1}(G(\cA))$ open in $\eC$. But this set is exactly the set of $z\in\eC$ such that $z-A$ has an inverse: $\rho(A)$. The complement $\sigma(A)$ is thus closed and therefore compact.
+
+	Now we show that $\sigma(A)$ is non-empty. For this, we begin by defining $\dpt{g}{\rho(A)}{\cA}$, 
+	$g(z):=(z-A)^{-1}$ (which is well defined by definition of $ \rho(A)$). Now, pick a $z_0\in\rho(A)$ and a $z\in\eC$ such that 
+	\[
+	   |z-z_0|<\| (A-z_0)^{-1} \|^{-1}.
+	\]
+	Since $\rho(A)$ is open, we can choose $z\in\rho(A)$. Note that $(z_0-A)^{-1}$ is a two-sided inverse because $z_0\in\rho(A)$. Since $\| (z_0-z)(z_0-A)^{-1} \|=|z_0-z|\| (z_0-A)^{-1} \|<1$,  lemma \ref{lem:cv_Ak} assures the convergence and makes sense to the following computation:
+	\begin{equation}
+	\begin{split}   
+	   \frac{1}{z_0-A}\sum_{k=0}^{\infty}(\frac{z_0-z}{z_0-A})^k
+	      &=   (z_0-A)^{-1}\left(   [(z_0-A)-(z_0-z)](z_0-A)^{-1}
+	       \right)^{-1}\\
+	      &=(z-A) ^{-1}\\
+	      &=g(z).
+	\end{split}      
+	\end{equation}
+	Then $g(z)=\sum_{k=0}^{\infty}(z_0-z)^k(z_0-A)^{k-1}$ is a norm-converging power series with respect to $z$. Now, assume $z\neq 0$. We have $g(z)=z^{-1}(\mtu-A/z)^{-1}$, then 
+	\begin{equation}\label{eq:cv_de_g}
+	   \|g(z)\|=|z|^{-1}\| (\mtu-A/z)^{-1} \|\to 0 
+	\end{equation}
+	when $z\to\infty$.
+
+	Let us now consider a functional $\rho\in\cA^*$. Recall that, by definition, it is bounded, and define 
+	$\dpt{g_{\rho}}{\eC}{\eC}$, 
+	$g_{\rho}(z):=\rho(g(z))$. The limit \eqref{eq:cv_de_g} makes 
+	\[
+	\lim_{z\to\infty}|g_{\rho}(z)|\leq\lim_{z\to\infty}c\|g(z)\|=0
+	\]
+	where $c$ is the constant of definition \ref{def:fonctionelle}. Then
+	\begin{equation}\label{eq:limite_g_rho}
+	  \lim_{z\to\infty}g_{\rho}(z)=0.
+	\end{equation}
+	Because $\lim_{z\to\infty}| \rho_g(z) |\leq\lim_{z\to\infty}\| g(z) \|=0$.
+
+	Suppose that $\sigma(A)=\varnothing$, or $\rho(A)=\eC$; the function $g$ is then defined on the whole $\eC$. More precisely, $g_{\rho}$ is an analytic complex function whose vanishes at infinity, then Liouville's theorem makes it constant\quext{As far as I remember, holomorphic equals analytic.}. Due to equation \eqref{eq:limite_g_rho}, for every functional $\rho$,
+	\[
+	   \rho\big(g(z)\big)=0\quad\forall z\in\eC.
+	\]
+	This yields $g(z)=0$ for any $z$ in $\eC$, but it is not possible. Thus we are leads to $\rho(A)\neq\eC$ and thus $\sigma(A)\neq\varnothing$.
+\end{proof}
+
+\begin{theorem}
+The spectrum of any element in a Banach algebra is 
+\begin{enumerate}
+\item non empty,
+\item compact.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+	Let $\cA$ be a Banach algebra and $A\in\cA$, and define $r_{\lambda}=(A-\lambda)^{-1}$. Formally, we have
+	\[ 
+	  r_{\lambda}=-\lambda^{-1}\left( 1-\frac{ A }{ \lambda } \right)^{-1}=-\lambda^{-1}\left( 1+\frac{ A }{ \lambda }+\frac{ A^2 }{ \lambda^2 }+\ldots \right).
+	\]
+	We have to study in which case does that expansion make sense, and check that it actually is an inverse of $(A-\lambda)$. 
+
+	When $| \lambda |>\| A \|$, that series is absolutely convergent thanks to the condition \eqref{eq:normBanach}, and one can check that it is an inverse. We conclude that, when $| \lambda |>\| A \|$, the expression $(A-\lambda)$ is invertible.
+
+	Now, the algebraic identity $a^{-1}-b^{-1}=a^{-1}(b-a)b^{-1}$ reads $r_{\lambda}-r_{\mu}=r_{\lambda}(\lambda-\mu)r_{\mu}$, from which we deduce an expression for $r_{\lambda}$ in terms of $r_{\lambda}$ and $r_{\mu}$:
+	\[ 
+	  r_{\lambda}=r_{\mu}+r_{\lambda}(\lambda-\mu)r_{\mu}.
+	\]
+	If one substitutes that expression into itself, we find $r_{\lambda}=r_{\mu}+r_{\mu}(\lambda-\mu)r_{\mu}+r_{\lambda}(\lambda-\mu)r_{\mu}(\lambda-\mu)r_{\mu}$. Making the same again and again provides the following expansion: 
+	\begin{equation}		\label{EqDevrllambu}
+		r_{\lambda}=r_{\mu}+(\lambda-\mu)r_{\mu}^2+(\lambda-\mu)^2r_{\mu}^3+\ldots
+	\end{equation}
+	So if $r_{\mu}$ exists (i.e. $\mu\notin\Spec(A)$), we want to define $r_{\lambda}$ by that formula. Now, if $| \lambda-\mu |\| r_{\mu} \|<1$, then $\lambda\notin\Spec(A)$ because formula \eqref{EqDevrllambu} actually works. That proves that the set $\eC\setminus\Spec(A)$ is open, and then that $\Spec(A)$ is closed. Since it is bounded too, we conclude that, being a part of $\eC^2$, the set $\Spec(A)$ is compact.
+
+	Let us now prove that the map $\lambda\mapsto r_{\lambda}$ is continuous. Indeed, consider $r_{\lambda}-r_{\mu}j$, and compute the difference using the series \eqref{EqDevrllambu}. One sees that it converges to $0$ when $\lambda\to\mu$. We know that $(A-\lambda)$ is invertible when $| \lambda |>\| A \|$, so that it makes sense to compute the limit of $\| r_{\lambda} \|$ when $\lambda$ goes to infinity. The limit of $\| r_{\lambda} \|$ when $\lambda\to 0$ is $0$. The map $\lambda\mapsto r_{\lambda}$ is a differentiable map over $\eC$ and must then be constant, so that it must be zero everywhere, because its limit is zero.
+
+	We deduce that $\Spec(A)\neq\emptyset$.
+
+	\begin{probleme}
+		Some questions to be elucidated:
+	\begin{itemize}
+	\item In order to prove that $\| r_{\lambda} \|\to 0$ when $\lambda\to\infty$, one has to say that the norm of $r_{\lambda}$ is the invert of the one of $(A-\lambda)$,  and that the latter goes to infinity when $\lambda$ goes to infinity.
+	\item The lase deduction is not clear at all, but it is done in greater details in theorem \ref{ThoSpecBanach}. To be merged.
+	\end{itemize}
+
+	\end{probleme}
+\end{proof}
+
+
+
+\begin{corollary}[Theorem of Gelfand-Mazur] 
+If all elements (except zero) of an unital Banach algebra $\cA$ are invertible, thus $\cA\simeq\eC$ as Banach algebras.
+\label{cor:GelfandMazur}
+\end{corollary}
+
+\begin{proof}
+	We just saw that $\sigma(A)\neq\emptyset$, thus for all non-zero element $A\in\cA$, there exists a $z_A\in\eC$ such that $A-z_A\cun$ is not invertible. From assumption, $A-z_A\cun=0$, so that $A\to z_A$ is the expected isomorphism. Since $\|A\|=\|z_A\cun\|=|z_A|$, this isomorphism is isometric.
+\end{proof}
+
+As a corollary, we have that 
+\begin{equation}
+r(A)\leq\|A\|.
+\end{equation}
+
+The following version of the spectral theorem is known as the \emph{continuous functional calculus}.
+\begin{theorem}[First version of the spectral theorem]\index{spectral!theorem!selfadjoint operators}			\label{ThoSpectralTho}
+Let $\hH$ be an Hilbert space, and $T\in\oB(\hH)$. If $T$ is self-adjoint, there is an algebra isomorphism
+\[ 
+  C^*(T,\mtu)\stackrel{\simeq}{\longrightarrow}C\big( \Spec(T) \big)
+\]
+which maps $T$ to the identity function. That isomorphism is unique and continuous from the norm topology to the topology of uniform convergence. If we denote by $f(T)$ the image of $f\in C\big( \Spec(T) \big)$ by the isomorphism, we have the following properties
+\begin{enumerate}
+\item $f(1)=\id$,
+\item $f(T)^*=\overline{ f }(T)$,
+\item $\| f(T) \|=\| f \|=\sup\{ | f(x) |,\,x\in\Spec(T) \}$,
+\item\label{ItemSpecffSpecThoSpectral} $\Spec\big( f(T) \big)=f\big( \Spec(T) \big)$,
+\item $f(T)\geq 0$ if and only if $f\geq 0$.
+\end{enumerate}
+\end{theorem}
+
+The map $f\mapsto f(T)$ is the \defe{continuous functional calculus}{continuous!functional calculus!selfadjoint operators}\index{functional calculus!continuous}.
+
+\begin{proof}
+
+	We recall that, by theorem \ref{ThoSpecBanach}, the set $\Spec(T)$ is non empty and compact.
+
+	For the second claim, first suppose that $\dim\hH$ is finite. Then there exists an orthonormal basis $\{ v_1,\ldots,v_n \}$ such that $Tv_j=\lambda_jv_j$, and $\Spec(T)=\{ \lambda_1,\ldots,\lambda_n \}$. Define $f(T)v_j=f(\lambda_j)v_j$. Properties of that map are easy to prove.
+
+	In the infinite dimensional case, the proof is again to build an orthonormal basis of eigenvectors of $T$. We refer to \cite{Wassermann,Landsman} for a proof.
+\end{proof}
+
+\begin{corollary}
+Every positive operator has an unique positive square root\index{square root of an operator}.
+\end{corollary}
+
+\begin{proof}
+	Let $A\geq 0$ and $B\in C^*(A,\mtu)$ be the element associated with the square root function on $C\big(\Spec(A))$ by the spectral theorem. Then $B^2=A$ because the correspondence is a morphism and $A$ correspond to the identity. The fact that $B$ is positive comes from the fact that $B=\left( \sqrt[4]{A} \right)^2$.
+\end{proof}
+
+Taking the square root of the positive operator $T^*T$, we define the \defe{absolute value}{absolute value of an operator} of the operator $T$\nomenclature[F]{$| T |$}{Absolute value of an operator} by
+\begin{equation}		\label{EqAbsValT}
+	| T |=\sqrt{T^*T}.
+\end{equation}
+
+\begin{lemma}		\label{LemkerTkersqrtT}
+We have
+\[ 
+ \ker(T)=\ker\big( \sqrt{T^*T} \big),
+\]
+for every $T\in\oB(\hH)$.
+\end{lemma}
+
+\begin{proof}
+	Taking the adjoint term by term in the development of $f(t)=\sqrt{t}$, we see that 
+	\[ 
+	  \Big( (T^*T)^{1/2} \Big)^*=(T^*T)^{1/2}, 
+	\]
+	then a vector $v\in\ker(T)$ satisfies
+	\[ 
+	  0=\langle Tv, Tv\rangle =\langle v, T^*Tv\rangle =\langle v,\sqrt{T^*T}\sqrt{T^*T}v \rangle =\langle \sqrt{T^*T}v, \sqrt{T^*T}v\rangle,
+	\]
+	which means that $v\in\ker\big( \sqrt{T^*T} \big)$.
+\end{proof}
+
+
+
+\begin{lemma}
+Let $p$ be a polynomial on $\eC$, if we define
+\[
+   p(\sigma(A)):=\{ p(z):z\in\sigma(1) \},
+\]
+then we have $p(\sigma(A))=\sigma(p(A))$. \label{lem:sigma_poly}
+\end{lemma}
+
+\begin{proof}
+	Let us consider $z,\alpha\in\eC$ and write the factorisations:
+	\begin{subequations}
+	\begin{align}
+	  p(z)-\alpha&=c\prod_{i=1}^{n}(z-\beta_i(\alpha))\label{eq:prod_1}\\
+	  p(A)-\alpha\mtu&=c\prod_{i=1}^{n}(A-\beta_i(\alpha)\mtu)\label{eq:prod_2},
+	\end{align}
+	\end{subequations}
+	where --of course-- $c$ and $\beta_i$ are determined by $p$ and $\alpha$.
+
+	Now, particularise to $\alpha\in\rho(p(A))$: $p(A)-\alpha\mtu$ is invertible and thus each of $A-\beta_i(\alpha)\mtu$ is too. In other words (taking the complement) $\alpha\in\sigma(p(A))$ implies that at least one out of $A-\beta_i(\alpha)\mtu$ is not invertible: $\beta_i(\alpha)\in\sigma(A)$ for one of the $i$. On the other hand, by definition $p(\beta_i)-\alpha=0$, then $\alpha\in p(\sigma(A))$. All in all, we have shown that $\sigma(p(A))\subset p(\sigma(A))$.
+
+	For the inverse inclusion, take $\alpha\in p(\sigma(A))$, i.e. $\alpha=p(z)$ for some $z\in\sigma(A)$. In this case the product \eqref{eq:prod_1} is zero and thus $z$ is one of the $\beta_i(z)$. For this $i$, $\beta_i(\alpha)\in\sigma(A)$, then $A-\beta_i(\alpha)$ is non-invertible. By \eqref{eq:prod_2}, $p(A)-\alpha\mtu$ is also non-invertible, and thus $\alpha\in\sigma(p(A))$.
+
+\end{proof}
+
+\begin{lemma}[Polar decomposition]		\label{LemPolarHilbert}
+	Every operator $A\in \oB(\hH)$ has a \defe{polar decomposition}{polar!decomposition!operator on Hilbert space} $A=U| A |$ where $| A |=\sqrt{A^*A}$ and $U$ is a partial isometry with the same kernel as $A$.
+\end{lemma}
+
+See \cite{Landsman} for a proof. A version of this decomposition in von~Neumann algebras is given in proposition \ref{PropPolarvNA}. The operator $\sqrt{A^*A}$ is defined by means of the spectral theorem \ref{ThoSpectralTho}, see equation \eqref{EqAbsValT}.
+
+The partial isometry $U$ is sometimes called the \defe{sign}{sign of an operator} of $A$ because when it is selfadjoint, it is the operator associated with the sign function by the continuous functional calculus. Indeed, let 
+\begin{equation}
+	\varphi_A\colon C\big( \Spec(A) \big)\to C^*(A,\mtu)
+\end{equation}
+be the isomorphism. We denote by $A'$ the restriction of $A$ to the space $\ker(A)^{\perp}$ and $\Sign$ the sign function. This is a continuous function on $\Spec(A')$, thus we can speak about $\varphi_{A'}(\Sign)$. The identity on $\Spec(A')\subset\eR$ can be expressed as
+\begin{equation}
+	\id(x)=\Sign(x)| x |=\Sign(x)\sqrt{x^*x},
+\end{equation}
+so that we have $\varphi_{A'}(\id)=\varphi_{A'}(\Sign)\circ \sqrt{(A')^*A'}$. Thus we have the decomposition
+\begin{equation}		\label{EqPolarSSKerSign}
+	A'=\Sign(A')\circ| A' |.
+\end{equation}
+The operator $\Sign(A')$ is a partial isometry of $\ker(A)^{\perp}$ because 
+\begin{equation}
+	\Sign(A')\Sign(A')^*=\varphi_{A'}(\Sign)\varphi_{A'}(\Sign)=\varphi_{A'}(1)=\id.
+\end{equation}
+
+\begin{proposition}			\label{prop:cv_lim_sup}
+If $(a_k)$ is a sequence in $\eR$ such that there exists a $a\in\eR$ for which for any $k\in\eN$,
+\[
+\lim\sup_{n\to\infty}a_n\leq a\leq a_k
+\]
+then $(a_k)$ admits a limit and $\lim_{n\to\infty}a_k=a$.
+\end{proposition}
+
+\begin{proposition}
+Let $\cA$ be an unital Banach algebra, the spectral radius is given by the formula 
+\begin{equation}
+   r(A)=\lim_{n\to\infty}\| A^n \|^{1/n}.
+\end{equation} \label{prop:An_usn} 
+for every $A\in\cA$.
+\end{proposition}
+
+\begin{proof}
+	Lemma \ref{lem:cv_Ak} says that when $|z|>\|A\|$, the operator $(A-z\cA)^{-1}$ exists. Let us once again consider the function $g$. From the lemma,
+	\begin{equation}
+	\frac{1}{z}\sum_{k=0}^{\infty}\left(\frac{A}{z}\right)^k=\frac{1}{z}\left(\mtu-\frac{A}{z}\right)^{-1}
+						  =(z-A)^{-1}\\
+						  =g(z)
+	\end{equation}
+
+	On the other hand, for any $z\in\rho(A)$, one can find an element $z_0\in\rho(A)$ such that
+	\[
+	   g(z)=\sum_{k=0}^{\infty}(z_0-z)^k(z_0-A)^{k-1}
+	\]
+	converges. If $|z|>r(A)$, then $z\in\rho(A)$ and then this series converges. But in the interior of the convergence disk, a power series converges uniformly. Then
+	\[
+	  g(z)=\frac{1}{z}\sum_{k=0}^{\infty}\left(\frac{A}{z}\right)^k
+	\]
+	uniformly converges with respect to $z$ when $|z|>r(A)$.
+
+	On the other hand, classical analysis makes this series norm-convergent only if $\|A\|^n/\|z\|^n$ from a certain large $n$. Since $\|A^n\|\leq\|A\|^n$, one can say:
+
+	$\forall |z|>r(A)$, $\exists N$  such that $n>N$ implies
+	\[
+	   \frac{\|A^n\|}{|z|^n}<1.
+	\]
+	Of course, the choice of $N$ relies on $z$. A consequence of this:
+	\[
+	   \lim\sup_{n\to\infty}\frac{\|A^n\|}{|z|^n}<1
+	\]
+	Replacing, $<$ by $\leq$, one can replace $|z|$ by $r(A)$; this yields
+	\begin{equation}
+	   \lim\sup_{n\to\infty} \|A^n\|^{1/n}\leq r(A).
+	\end{equation}
+	Now, we show that for any $n$, $r(A)\leq\|A^n\|^{1/n}$, so that proposition \ref{prop:cv_lim_sup} concludes our proof.
+
+	Since $\sigma(A)$ is closed (theorem \ref{tho:prop_sigma}), there exists a $\alpha\in\sigma(A)$ such that $|\alpha|=r(A)$. Lemma \ref{lem:sigma_poly} makes $\alpha^n\in\sigma(A^n)$, thus $|\alpha^n|\leq\|A^n\|$ and finally
+	\begin{equation}
+	  r(A)=\alpha\leq\|A^n\|^{1/n}.
+	\end{equation}
+	Now we are in the situation of a real sequence $(a_k)$ such that $\limsup_{n\to\infty} a_n\leq a \leq a_k$ for all $a_k$\footnote{We recall the definition of supremum limit\index{supremum!limit}:
+	\[ 
+	  \limsup_{n\to\infty} a_n=\lim_{n\to\infty}\sup\{ a_k\tq k\geq n \}.
+	\]
+	}.		% Fin de la note infrapaginale.
+	Let us show that in this situation, 
+	\begin{equation} \label{eq_limsupnana}
+	\limsup_{n\to\infty} a_n=a.
+	\end{equation}
+	 First suppose that $\limsup_{n\to\infty}a_k=b<a$.  In this case, $\forall \epsilon>0$, there exists a $N$ such that
+	$  | \sup\{ a_k\tq k\geq N \}-b |<\epsilon$;
+	in other words, $\sup\{ a_k\tq k\geq N \}\in B(b,\epsilon)$. The for all $\delta>0$, there are some $a_k$ with $B(b,\epsilon+\delta)$. If we choose $\epsilon$ and $\delta$ suitably small, it gives some $a_k<a$. We conclude that
+	\[ 
+	  \lim_{l\to\infty}\{ a_k\tq k\geq l \}=a\leq a_n
+	\]
+	for all $n$. Let $\epsilon>0$ and assume that there exists a $n>N$ with $a_n$ outside $B(a,\epsilon)$, i.e. suppose that $\lim_{n\to\infty}a_n\neq a$ or doesn't exist. So for all $l$, $\sup\{ a_k\tq k\geq l \}>a+\epsilon$. This is a contradiction with equation \eqref{eq_limsupnana}.
+
+	Now we have to prove that $r(A)\leq \| A^n \|^{1/n}$ for all $n$. Since $\sigma(A)$ is closed, there exists a $\alpha\in\sigma(A)$ such that $| \alpha |=r(A)$ because the supremum of a bounded closed set is reached\angl. From continuous calculus,  $\alpha^n\in\sigma(A^n)$ and therefore $| \alpha^n |\leq\| A^n \|$ because $r(1)\leq \| A^n \|$. We conclude that 
+	\[ 
+	  r(A)=\alpha\leq\| A^n \|^{1/n}.
+	\]
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Operators with compact resolvent}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+The following come from \cite{Whittaker} and a remark after the definition of a K-cycle in \cite{itoNCG_Varilly}. Since the Dirac operator of a spectral triple has compact resolvent, we need to know some theory about operators with compact resolvent\index{compact!resolvent}.
+
+\begin{lemma}		\label{LemResComKerFin}
+	Let $T$ be an operator with compact resolvent and $\lambda\in\eC\setminus\Spec(T)$. Then the kernel of $T$ is an eigenspace of $(T-\lambda\mtu)^{-1}$ for the eigenvalue $\lambda$.
+\end{lemma}
+
+\begin{proof}
+	First notice that $\lambda\neq 0$; if not, the kernel would be empty because we choose $\lambda$ among the values that are \emph{not} eigenvalues of $T$. If $x\in\ker(T)$, then $x=-\frac{1}{ \lambda }(T-\lambda\mtu)x$. Applying $(T-\lambda\mtu)^{-1}$ on both sides,
+	\begin{equation}
+		(T-\lambda\mtu)^{-1}x=-\frac{1}{ \lambda }x,
+	\end{equation}
+	as claimed.
+\end{proof}
+
+Since the eigenspaces of a compact operator are finite dimensional, we have in particular 
+\begin{corollary}		\label{CorRezcomkerfin}
+	If $T$ is an operator with compact resolvent, then the kernel of $T$ is finite dimensional.
+\end{corollary}
+
+\begin{lemma}		\label{LemResLcmpResLLcmp}
+	Let $D\colon \hH\to \hH$ be an operator and consider $R_{\lambda}=(D-\lambda\mtu)^{-1}$ for each $\lambda\in\eC\setminus\Spec(D)$ (i.e. $\lambda$ is in the resolvent of $D$). Then
+	\begin{enumerate}
+		\item
+			If $\lambda_1,\lambda_2\in\eC\setminus\Spec(D)$, we have
+			\begin{equation}
+				R_{\lambda_1}-R_{\lambda_2}=(\lambda_1-\lambda_2)R_{\lambda_1}R_{\lambda_2};
+			\end{equation}
+		\item
+			The operator $R_{\lambda_1}$ is compact if and only if $R_{\lambda_2}$ is compact. In other words, all the resolvent are compact if only one is compact.
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	We have
+	\begin{equation}
+		\lambda_1-\lambda_2=(D-\lambda_2)-(D-\lambda_1)=(D-\lambda_1)\Big( (D-\lambda_1)^{-1}-(D-\lambda_2)^{-1} \Big)(D-\lambda_2),
+	\end{equation}
+	so that
+	\begin{equation}
+		(D-\lambda_1)^{-1}-(D-\lambda_2)^{-1}=(\lambda_2-\lambda_1)(D-\lambda_1)^{-1}(D-\lambda_2)^{-1}.
+	\end{equation}
+	That proves the first claim. In order to prove the second claim, suppose that $R_{\lambda_1}$ is compact and write
+	\begin{equation}
+		R_{\lambda_1}=\big( (\lambda_1-\lambda_2)R_{\lambda_1}+\mtu \big)R_{\lambda_2}.
+	\end{equation}
+	We are thus in the case of lemma \ref{LemAmtuBcompaBcm} which makes $R_{\lambda_2}$ compact.
+\end{proof}
+
+\begin{proposition}
+	Let $D$ be a selfadjoint operator on the Hilbert space $\hH$. The operator $(D^2-\mtu)^{-1}$ is compact on $\hH$ if and only if $(D-\lambda\mtu)^{-1}$ is compact for some $\lambda\notin\Spec(D)$.
+\end{proposition}
+
+\begin{proof}
+	The operator $(D^2+\mtu)^{-1}$ can be written under the form
+	\begin{equation}		\label{EqDecDdeuxplusuncmp}
+		(D^2+\mtu)^{-1}=\Big( (D+i\mtu)(D-i\mtu) \Big)^{-1}=(D-i\mtu)^{-1}(D+i\mtu)^{-1}.
+	\end{equation}
+	Since $D$ is selfadjoint, the latter expression is of the form $AA^*$. If $(D^2+\mtu)^{-1}$ is compact, this shows that $(D\pm i\mtu)^{-1}$ are compacts by lemma \ref{LemAstAcomAcomp} while the values $\pm i$ are not in the spectra of $D$ which is real.
+
+	If $(D-\lambda\mtu)^{-1}$ is compact for some value $\lambda\notin\Spec(D)$, lemma \ref{LemResLcmpResLLcmp} shows that $(D\pm i\mtu)^{-1}$ are compacts because $\pm i$ are outside the spectrum of $D$. Now the decomposition \ref{EqDecDdeuxplusuncmp} shows that $(D^2+\mtu)$ is compact.
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+					\section{Strong, weak and other topologies}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+We are dealing with separable Hilbert spaces. More details in \cite{JonesVN}. The \defe{weak topology}{weak topology} on $\oB(\hH)$ is the one associated with the following convergence of nets. One says that $T_{\alpha}\to T$ if and only if for every $v$ and $w$ in $\hH$, we have
+\begin{equation}
+ \langle v, T_{\alpha}w\rangle \to \langle v, Tw\rangle .
+\end{equation}
+
+One of the main feature of the weak topology is the \defe{Banach-Alaoglu}{Banach-Alaoglu theorem} theorem.
+\begin{theorem}[\href{http://en.wikipedia.org/wiki/Banach-Alaoglu_theorem}{Banach-Alaoglu}]		\label{ThoBanachAlaoglu}
+If $\hH$ is a Hilbert space, then the unit ball in $\oB(\hH)$ is weakly compact.
+\end{theorem}
+
+
+The \defe{strong topology}{strong topology} on $\oB(\hH)$ is the topology generated by the open sets
+\begin{equation}
+\mU(S,v,\epsilon)=\{ T\in\oB(\hH)\tq \| Tv-Sv \|\leq\epsilon \}
+\end{equation}
+for all $S\in\oB(\hH)$, $v\in\hH$ and $\epsilon>0$. The associated convergence notion is the one of the pointwise convergence: $T_{\alpha}\to T$ if and only if 
+\begin{equation}		\label{EqDEflimforte}
+\| T_{\alpha}v-Tv \|\to 0
+\end{equation}
+ for all $v\in\hH$.
+
+The strong topology has more closed and open sets than the weak one. One difference between weak and strong topology is that the weak one is compatible with the involution while the strong is not. More precisely, \label{PgStarWeakRespecte}
+\begin{align}
+	T_{\alpha}\stackrel{w}{\to}T\,\Rightarrow\,(T_{\alpha})^*\stackrel{w}{\to}T^*
+\end{align}
+while the same is not true for convergence in the strong topology.
+
+%---------------------------------------------------------------------------------------------------------------------------
+					\subsection{Ultraweak topology}		\label{subSecUltraWtopol}
+%---------------------------------------------------------------------------------------------------------------------------
+
+
+
+\begin{definition}
+The \defe{ultraweak}{ultraweak topology}\index{topology!ultraweak} is the weakest topology (the one with the fewest open sets) on $\oB(\hH)$ such that the functionals
+\begin{equation}
+	T\mapsto \sum_{n=1}^{\infty}\langle v_nT, Tw_n\rangle 
+\end{equation}
+are continuous for every choice of sequences $(v_n)$ and $(w_n)$ such that $\sum_n\| v_n \|<\infty$ and $\sum_n\| w_n \|<\infty$.
+\end{definition}
+
+\begin{proposition}
+Every ultraweakly continuous linear functional on $\oB(\hH)$ has the form
+\begin{equation}
+	T\mapsto\sum\langle v_n, Tv_n\rangle 
+\end{equation}
+where $(v_n)$ is any sequence of vectors such that $\sum_n\| v_n \|<\infty$.
+\end{proposition}
+
+\begin{proof}
+No proof.
+\end{proof}
+
+An operator $T\in\oB(\hH)$ is \defe{Hilbert-Schmidt class}{Hilbert-Schmidt!class operator} if
+\begin{equation}
+	\| T \|_{HS}^2:=\sum_{n,m}^{\infty}| \langle v_n, Tv_m\rangle  |^2<\infty
+\end{equation}
+for some orthonormal basis $\{ v_n \}$ of $\hH$. The operator $T$ is \defe{trace class}{trace!class operator} if
+\begin{equation}
+	\| T \|_1:=\sum_n\langle | T |v_n, v_n\rangle <\infty
+\end{equation}
+for some orthonormal basis $\{ v_n \}$ of $\hH$. Notice that, from a simple change of basis formula, the fact to put these conditions for \emph{some} basis of for \emph{every} basis are equivalent. When $T$ is a trace class operator, we define its \defe{trace}{trace!of an operator} by
+\begin{equation}
+	\tr(T)=\sum_n\langle Tv_n, v_n\rangle 
+\end{equation}
+where $\{ v_n \}$ is an orthonormal basis of $\hH$. That definition is independent of the choice. We denote by $\oL^1(\hH)$\nomenclature[F]{$\oL(\hH)$}{Space of trace class operators over $\hH$} the set of trace class operators in $\hH$. 
+
+\begin{proposition}
+One has
+\begin{equation}
+	\| ST \|_1\leq \| S \|_{\oB(\hH)}\| T \|_1
+\end{equation}
+whenever it makes sense. Here, $\| . \|_{\oB(\hH)}$ denotes the operator norm over $\oB(\hH)$ and $\| . \|_1$ denotes the trace.
+\end{proposition}
+\begin{proof}
+No proof.
+\end{proof}
+
+One consequence of that proposition is that the map
+\begin{equation}
+	S\mapsto \tr(ST)
+\end{equation}
+is a bounded linear functional on $\oB(\hH)$.
+
+\begin{proposition}
+Every trace class operator is a compact linear operator.
+\end{proposition}
+
+\begin{proof}[Sketch of the proof]
+First, we know that $T$ is compact if and only if $| T |$ is compact. From spectral theory, the largest spectral value is the largest element in the sum $\sum_n\langle | T |v_n, v_n\rangle $, and the second largest spectral value is the second largest element of that sum and so on. Thus the convergence of the sum implies that $| T |$ is compact.
+\end{proof}
+
+Thus every positive trace class operator read
+\begin{equation}
+	Tv=\sum_n\lambda_n\langle v_n, v\rangle v_n,
+\end{equation}
+where the numbers $\lambda_n$ are positive reals, while a general trace class operator, being a positive one followed by a partial isometry, read
+\begin{equation}		\label{EqFormTraceClassGene}
+	Tv=\sum_n\lambda_n\langle v_n, v\rangle w_n
+\end{equation}
+where $\{ v_n \}$ and $\{ w_n \}$ are orthonormal basis of $\hH$ related by the partial isometry implied in the decomposition of $T$. When $T$ is the trace class operator \eqref{EqFormTraceClassGene}, the trace reads
+\begin{equation}
+	\tr(ST)=\sum_n\lambda_n\langle v_n, Sw_n\rangle .
+\end{equation}
+Since the $\lambda_n$ are eigenvalues of a compact operator, we have $\sum_n\lambda_n<\infty$, so that one can redefine $v_n\to \sqrt{\lambda_n}v_n$ and $W_n\to \sqrt{\lambda_n}w_n$ that are now summable sequences instead of being actual orthonormal basis. Thus one has
+\begin{equation}
+	\tr(ST)=\sum_n\langle v_n, Sw_n\rangle ,
+\end{equation}
+which proves that $\tr(ST)$ is ultraweakly continuous as function of $T$. In turn, that implies that the space of ultraweakly continuous linear functions identifies with the space $\oL(\hH)$ of trace class operators by the formula
+\begin{equation}
+	\varphi_S(T)=\tr(ST)
+\end{equation}
+for $S\in\oL^1(\hH)$. Notice that general theory of trace class operators assures that $\tr(ST)$ makes sense when $S\in\oL^1(\hH)$, and we have moreover $\| \varphi_S \|=\| S \|_1$. There is also the map
+\begin{equation}
+\begin{aligned}
+ \oB(\hH)&\to \oL^1(\hH) \\ 
+   T&\mapsto \varphi^T 
+\end{aligned}
+\end{equation}
+where $\varphi^T(S)=\varphi(ST)$.
+
+In the same way as $l^1(\eN)^*\simeq l^{\infty}(\eN)$, we have the following.
+\begin{theorem}
+The map $T\mapsto \varphi^T$ is an isometric isomorphism between $\oB(\hH)$ and $\oL^1$.
+\end{theorem}
+
+\begin{proof}
+No proof.
+\end{proof}
+Notice that if $x\in l^{\infty}(\eN)$, the functions $\varphi_i(x)=x_i$ provide an inclusion of $l^1(\eN)$ in $l^{\infty}(\eN)^*$, the latter space being in fact much bigger.
+
+\begin{theorem}[Hahn-Banach]\index{Hahn-Banach theorem}
+If $M\subseteq\oB(\hH)$ is a closed subspace in the ultraweak topology, then
+\begin{equation}
+	M\simeq (M_{*})*
+\end{equation}
+where $M_*$ is the space of ultraweakly continuous linear functionals on $M$. Moreover the weak-$*$ topology on $M$ is equivalent to th ultraweak one.
+\end{theorem}
