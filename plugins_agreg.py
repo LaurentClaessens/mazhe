@@ -120,7 +120,7 @@ class set_boolean(object):
             raise ValueError("You have to choose between 'true' of 'false'")
         return S
 
-set_isAgreg = set_boolean("isAgreg","true")
+set_isFrido = set_boolean("isFrido","true")
 
 def up_to_text(liste,text):
     for i,l in enumerate(liste):
