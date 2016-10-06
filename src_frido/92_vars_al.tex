@@ -1,5 +1,5 @@
 % This is part of Agregation : modélisation
-% Copyright (c) 2011-2015
+% Copyright (c) 2011-2016
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
@@ -7,22 +7,33 @@
 \subsection{Fonction de répartition}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Si \( X\) est une variable aléatoire réelle, nous définissons sa \defe{fonction de répartition}{fonction!de répartition} par
-\begin{equation}
-    \begin{aligned}
-        F_X\colon \eR&\to \mathopen[ 0 , 1 \mathclose] \\
-        F_X(x)&=P(X\leq x). 
-    \end{aligned}
-\end{equation}
+\begin{definition}      \label{DefooYAZVooNdxDCx}
+    Si \( X\) est une variable aléatoire réelle, nous définissons sa \defe{fonction de répartition}{fonction!de répartition} par
+    \begin{equation}
+        \begin{aligned}
+            F_X\colon \eR&\to \mathopen[ 0 , 1 \mathclose] \\
+            F_X(x)&=P(X\leq x). 
+        \end{aligned}
+    \end{equation}
+\end{definition}
+
+\begin{remark}
+    La fonction de répartition est discontinue en \( a\) si \( P(X=a)>0\). En particulier nous ne pouvons pas dire
+    \begin{equation}
+        P(X\geq a)=1-F_X(a).
+    \end{equation}
+\end{remark}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Fonction caractéristique}
 %---------------------------------------------------------------------------------------------------------------------------
 
-La \defe{fonction caractéristique}{fonction!caractéristique!d'une variable aléatoire} de la variable aléatoire \( X\colon \Omega\to \eR\) est la fonction réelle définie par
-\begin{equation}
-    \Phi_X(t)=E( e^{itX}).
-\end{equation}
+\begin{definition}      \label{DefooEIVXooNtHLQQ}
+    La \defe{fonction caractéristique}{fonction!caractéristique!d'une variable aléatoire} de la variable aléatoire \( X\colon \Omega\to \eR\) est la fonction réelle définie par
+    \begin{equation}
+        \Phi_X(t)=E( e^{itX}).
+    \end{equation}
+\end{definition}
 Une autre façon d'écrire la définition est
 \begin{equation}
     \Phi_X(t)=\int_{\eR} e^{itX}dP_X(x),
@@ -290,14 +301,16 @@ où la convergence \( X_n(\omega)\to X(\omega)\) est la convergence usuelle dans
 \end{proof}
 
 
-Nous disons que les variables aléatoires réelles \( X_n\) convergent \defe{en probabilité}{convergence!en probabilité} vers la variable aléatoire \( X\) si pour tout \( \eta>0\), on a
-\begin{equation}
-    P\big( | X_n-X |\geq \eta \big)\to 0,
-\end{equation}
-et on note
-\begin{equation}
-    X_n\stackrel{P}{\longrightarrow}X.
-\end{equation}
+\begin{definition}[\cite{ooUEDUooVTNhus}]
+    Nous disons que les variables aléatoires réelles \( X_n\) convergent \defe{en probabilité}{convergence!en probabilité} vers la variable aléatoire \( X\) si pour tout \( \eta>0\), on a
+    \begin{equation}
+        P\big( | X_n-X |\geq \eta \big)\to 0,
+    \end{equation}
+    et on note
+    \begin{equation}
+        X_n\stackrel{P}{\longrightarrow}X.
+    \end{equation}
+\end{definition}
 
 Nous disons que \( X_n\) converge vers \( X\) \defe{en loi}{convergence!en loi} vers la variable aléatoire \( X\) et nous notons
 \begin{equation}
@@ -372,17 +385,18 @@ Dans le cas particulier \( d=1\) nous avons quelques critères supplémentaires.
 \end{proposition}
 
 \begin{proof}
-    Quitte à passer aux composantes, nous pouvons supposer que \( d=1\). Nous avons
+    Quitte à passer aux composantes, nous pouvons supposer que \( d=1\). Soit \( \eta>0\); nous savons que l'inégalité \( | x |>a\) a pour solution \( x>a\) ou \( x<-a\). Dans notre cas,
     \begin{subequations}
         \begin{align}
-           P\big( | X_n-a |>\eta \big)&=P(X_n-a>\eta)+P(-X_n-a>\eta)\\
-           &=P(X_n>\eta+a)+1-P(X_n>a-\eta)  \label{EqPXngeqetaapumP}\\
-           &=1-F_{X_n}(\eta+a)+F_{X_n}(a-\eta).
+           P\big( | X_n-a |>\eta \big)&=P(X_n-a>\eta)+P(X_n-a<-\eta)\\
+           &=P(X_n>\eta+a)+P(X<a-\eta)\\
+           &=1-P(X_n\leq \eta+a)+P(X_n\leq a-\eta)-P(X_n=a-\eta)\\
+           &\leq 1-F_{X_n}(\eta+a)+F_{X_n}(a-\eta)
         \end{align}
     \end{subequations}
-    Nous allons utiliser la proposition \ref{PropXncvXFXcvFxt}. La fonction de répartition de la variable aléatoire constante \( X=a\) est donnée par
+    où la majoration est l'oubli du terme \( P(X_n=a-\eta)\), lequel est positif ou nul. Nous allons utiliser la proposition \ref{PropXncvXFXcvFxt}. La fonction de répartition de la variable aléatoire constante \( X=a\) est donnée par
     \begin{equation}
-        F_a(t)=P(a<t)=\caract{\eR^+}(t-a).
+    F_a(t)=P(a<t)=\caract_{\mathopen] 0 , \infty \mathclose[}(t-a).
     \end{equation}
     Par conséquent, la convergence en loi \( X_n\stackrel{\hL}{\longrightarrow}a\) nous montre que
     \begin{equation}
@@ -394,11 +408,6 @@ Dans le cas particulier \( d=1\) nous avons quelques critères supplémentaires.
     \end{equation}
     parce que \( \eta>0\).
 \end{proof}
-
-% TpijUi
-\begin{probleme}
-    Dans \cite{CourgGudRennes}, l'équation \eqref{EqPXngeqetaapumP} arrive avec une inégalité. Pourquoi ?
-\end{probleme}
 
 Le lemme de Slutsky sera utilisé en combinaison avec la proposition \ref{PropcvLsousfonc} pour calculer des intervalles de confiance, voir par exemple ce qui se passe autour de l'équation \eqref{EqGJxxjqs}.
 \begin{lemma}[Slutsky\cite{MPSmaitrise}]  \label{LemgXDlhs}
