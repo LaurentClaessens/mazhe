@@ -60,17 +60,19 @@ filecolor=Violet   % couleur des textes qui sont des liens
 % \exoDirectory provides the directory in which \Exo will search for the files
 %    exo*.tex and corr*.tex
 
-\makeatletter
-\providecommand*{\input@path}{}
-\g@addto@macro\input@path{%
-{src_frido/}%
-{src_research/}%
-{src_matlab/}%
-{src_outils_math/}%
-{src_exercices/}%   Ne pas oublier le / à la fin
-{src_front_back_matter/}%
-}
-\makeatother
+% The paths for 'phystricks' are given in 'src_pictures/Directories.py'
+
 
 \renewcommand{\exoDirectory}{src_exocorr/}
 
+
+% For each part of the document, we begin with
+% \emptyInputPath
+% \addInputPath{ path-to-the-files-for-the-part  }
+% In such a way, we are sure to cause an error if files are badly sorted.
+
+\makeatletter
+\providecommand{\input@path}{}
+\newcommand{\addInputPath}[1]{ \g@addto@macro\input@path{ {#1/} } }
+\newcommand{\emptyInputPath}{  \renewcommand{\input@path}{}  }
+\makeatother
