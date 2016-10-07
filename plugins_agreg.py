@@ -8,8 +8,8 @@
 
 from __future__ import unicode_literals
 
-import LaTeXparser
-import LaTeXparser.PytexTools
+import latexparser
+import latexparser.PytexTools
 
 agreg_mark_list=[]
 agreg_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
@@ -110,8 +110,6 @@ class set_boolean(object):
         """
         true_line=r"\booltrue{{{}}}".format(self.name)
         false_line=r"\boolfalse{{{}}}".format(self.name)
-        print(true_line)
-        print(false_line)
         if self.value=="true":
             S=A.replace(false_line,true_line)
         elif self.value=="false":
