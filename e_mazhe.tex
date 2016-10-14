@@ -77,6 +77,7 @@
 
 \usepackage{hyperref}     
 \usepackage{makeidx}
+\usepackage{minitoc}
 \usepackage[nottoc]{tocbibind}      % Biblio inclue  dans la table des matières.
 \usepackage[numbers]{natbib}        % le champ URL dans le fichier bibtex
 \usepackage[refpage]{nomencl}       % Some configuration at   1338719836
@@ -924,10 +925,18 @@
 
 \newenvironment{subproof}{\let\Olddescriptionlabel\descriptionlabel\let\descriptionlabel\subprooflabel \begin{description}}{\end{description}\let\descriptionlabel\Olddescriptionlabel}
 
+
+% See also the file 'src_front_back_matter/157_thematique.tex' in which we
+% open and close the intermediate file 'theme.toc'
 \newcommand{\InternalLinks}[1]
 {
-    \refstepcounter{numTheme} \paragraph{Thème \arabic{numTheme} : #1} 
+    \refstepcounter{numTheme} \paragraph{Thème \arabic{numTheme} : #1} \label{THTOC\arabic{numTheme}}
+    \immediate\write\themetoc{%
+        \unexpanded{\ref}{THTOC\arabic{numTheme}} %
+        : \unexpanded{#1\\}%
+    }
 }
+
 
 \newenvironment{probleme}{\refstepcounter{numprob}\tiny\fbox{\bf Problèmes et choses à faire}\\}{\normalsize}
 
