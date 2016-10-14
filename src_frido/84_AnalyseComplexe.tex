@@ -7,6 +7,8 @@
 \section{Fonctions holomorphes}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+La dérivée complexe est discutée à la section \ref{SECooJWNOooOgMiWR}.
+
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Équations de Cauchy-Riemann}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -445,6 +447,51 @@ Cette sous-section veut prouver le théorème de Cauchy. Comme d'habitude, une r
     Il suffit de recopier la démonstration du théorème \ref{ThomcPOdd} pour savoir que \( f\) se développe en série de puissances et est donc en particulier dérivable.
 \end{proof}
 
+Le fait qu'une fonction holomorphe soit \(  C^{\infty}\) comme dit dans la proposition \ref{ThomcPOdd} permet de démonter un résultat de dérivation sous l'intégrale, qui dépend de pouvoir majorer la différentielle.
+
+\begin{proposition}     \label{PROPooZCLYooUaSMWA}
+    Soit une fonction continue \( g\colon \eR\times \eC\to \eC\). Nous supposons que pour tout \( t\), la fonction \( z\mapsto g(t,z)\) est \( \eC\)-dérivable (définition \ref{DEFooVJVXooKlnFkh}) et différentiable. Soit \( B\) compact dans \( \eR\) et la fonction
+    \begin{equation}
+        G(z)=\int_B g(t,z)dt.
+    \end{equation}
+    que nous supposons exister pour tout \( z\).
+
+    Alors 
+    \begin{equation}
+        G'(z)=\int_Bg'(t,z)dt
+    \end{equation}
+    où le prime réfère à la \( \eC\)-dérivée par rapport à la variable \( z\) à \( t\) fixé.
+\end{proposition}
+
+\begin{proof}
+    Nous fixons \( z\in \eC\) et nous considérons la suite de fonctions
+    \begin{equation}
+        g_i(t)=\frac{ g(t,z+\epsilon_i)-g(t,z) }{ \epsilon_i }
+    \end{equation}
+    où \( \epsilon_i\) est une suite de nombres complexes tendant vers zéro (\( \epsilon_i\stackrel{\eC}{\longrightarrow}0\)). Si la limite existe et ne dépend pas de la suite choisie, alors \( \lim_{i\to \infty} g_i(t)=g'(t,z)\). Et vu que \( g\) est supposée dérivable, c'est le cas.
+
+    Nous avons aussi, par linéarité de l'intégrale :
+    \begin{equation}
+        G'(z)=\lim_{i\to \infty} \int_B g_i(t)dt.
+    \end{equation}
+    La difficulté est de permuter la limite et l'intégrale. Pour cela nous allons utiliser la convergence dominée de Lebesgue (théorème \ref{ThoConvDomLebVdhsTf}). Afin de majorer \( | g_i(t) |\) par une fonction intégrable en \( t\) (uniformément en \( i\)), nous exploitons le théorème des accroissements finis, théorème \ref{ThoNAKKght}. En notant \( dg\) la différentielle de \( g\) par rapport à \( z\) à \( t\) fixé, pour chaque \( t\) et chaque \( i\) nous avons
+    \begin{equation}
+        | g(t,z+\epsilon_i)-g(t,z) |\leq \sup_{\xi\in\mathopen[ z , z+\epsilon_i \mathclose]}\| dg_{\xi} \|\| \epsilon_i \|.
+    \end{equation}
+    Vu que \( z\) est fixé et que \( \xi\) est dans le compact \( \mathopen[ z , z+\epsilon_i \mathclose]\) et que \( dg\) est continue (parce que la \( \eC\)-dérivabilité implique la continuité de la différentielle parce que nous avons l'analycité par le théorème \ref{ThomcPOdd}), nous pouvons majorer \( \| dg_{\xi} \|\) par une constante \( M_i(z)\) qui dépend a priori de \( i\) et de \( z\).
+
+    Heureusement, nous pouvons prendre a fortiori le supremum sur \( \overline{ B(z,|\epsilon_i|) }\) (qui est tout autant compact) et supposer que \( | \epsilon_i |\) est strictement décroissante; de toutes façons, il y a un maximum parce que \( | \epsilon_i |\to 0\). Dans ce cas, il suffit de prendre le supremum de \( \| dg_{\xi} \|\) pour \( \xi\in \overline{ B(z,| \epsilon_1 |) }\) et ça contente tout le monde.
+
+    Quoi qu'il en soit nous avons une constante \( M(z)\) telle que
+    \begin{equation}
+        | g(t,z+\epsilon_i)-g(t,z) |\leq M(z)\| \epsilon_i \|
+    \end{equation}
+    et donc \( | g_i(t) |\leq M(z)\). La constante (par rapport à \( t\)) \( M(z)\) est évidemment intégrable sur le compact \( B\) et nous pouvons permuter la limite avec l'intégrale :
+    \begin{equation}
+        G'(z)=\lim_{i\to \infty} \int_Bg_i(t)dt=\int_B\lim_{i\to \infty} g_i(t)dt=\int_Bg'(t,z)dt.
+    \end{equation}
+\end{proof}
+
 \begin{proposition}\label{PropZOkfmO}
     Une fonction continue \( f\) est holomorphe si et seulement si la \( 1\)-forme différentielle \( f(z)dz\) est localement exacte.
 \end{proposition}
@@ -821,69 +868,49 @@ Nous commençons par le lemme technique.
 \end{proof}
 
 \begin{corollary}       \label{CorNxTjEj}
-    Si \( f\) est une fonction holomorphe sur l'ouvert \( \Omega\) contenant la fermeture de la boule \( B(z_0,r)\), alors pour tout \( z\) dans \( B(z_0,\rho)\) (\( \rho<r\)) les dérivées de \( f\) s'expriment pas la formule suivante :
-    \begin{equation}
-        f^{(k)}(z)=\frac{1}{ 2\pi i }\int_{\partial B(z_0,r)}\frac{ f(\omega) }{ (\omega-z)^{k+1} }d\omega.
+    Si \( f\) est une fonction holomorphe sur l'ouvert \( \xi\) contenant la fermeture de la boule \( B(z_0,r)\), alors pour tout \( z\) dans \( B(z_0,\rho)\) (\( \rho<r\)) les dérivées de \( f\) s'expriment pas la formule suivante :
+    \begin{equation}        \label{EQooBPIQooNhOTtB}
+        f^{(k)}(z)=\frac{1}{ 2\pi i }\int_{\partial B(z_0,r)}\frac{ f(\xi) }{ (\xi-z)^{k+1} }d\xi.
     \end{equation}
 \end{corollary}
 \index{compacité}
 
 \begin{proof}
-    Nous appliquons le théorème \ref{ThopCLOVN} à la fonction
-    \begin{equation}
-        g(z,\omega)=\frac{ f(\omega) }{ \omega-z }
-    \end{equation}
-    avec \( \Omega=\partial B(z_0,r)\) et \( A=B(z_0,\rho)\) avec \( \rho<r\). Étant donné que \( f\) est holomorphe, elle est continue et donc bornée sur tout compact \( K\subset A\) par une constante \( M\) (qui dépend du compact choisi).  D'autre part, nous avons toujours \( | \omega-z |>r-\rho\) et donc
-    \begin{equation}
-        | g(z,\omega) |\leq \frac{ M }{ r-\rho }.
-    \end{equation}
-    La fonction constante \( g_K=\frac{ M }{ r-\rho }\) est évidemment intégrable. Le théorème conclut que \( f\) est holomorphe (cela, nous le savions déjà\footnote{et cela fournit une preuve alternative à la réciproque du théorème de Cauchy : une fonction continue qui vérifie la formule de Cauchy est holomorphe.}), et
-    \begin{equation}
-        f'(z)=\frac{1}{ 2i\pi }\int_{\partial B}\frac{ f(\omega) }{ (\omega-z)^2 }d\omega.
-    \end{equation}
-    Un peu de récurrence montre maintenant que
-    \begin{equation}
-        f^{(k)}(z)=\frac{1}{ 2i\pi }\int_{\partial B(z_0,r)}\frac{ f(\omega) }{ (\omega-z)^{k+1} }d\omega.
-    \end{equation}
+    Nous faisons par récurrence.
+    \begin{subproof}
+    \item[Pour la dérivée première]
+        Nous appliquons le théorème \ref{ThopCLOVN} à la fonction
+        \begin{equation}
+            g(z,\xi)=\frac{ f(\xi) }{ \xi-z }
+        \end{equation}
+        avec \( \xi=\partial B(z_0,r)\) et \( A=B(z_0,\rho)\) avec \( \rho<r\). Étant donné que \( f\) est holomorphe, elle est continue et donc bornée sur tout compact \( K\subset A\) par une constante \( M\) (qui dépend du compact choisi).  D'autre part, nous avons toujours \( | \xi-z |>r-\rho\) et donc
+        \begin{equation}
+            | g(z,\xi) |\leq \frac{ M }{ r-\rho }.
+        \end{equation}
+        La fonction constante \( g_K=\frac{ M }{ r-\rho }\) est évidemment intégrable. Le théorème conclut que \( f\) est holomorphe (cela, nous le savions déjà\footnote{Et cela fournit une preuve alternative à la réciproque du théorème de Cauchy : une fonction continue qui vérifie la formule de Cauchy est holomorphe.}), et
+        \begin{equation}
+            f'(z)=\frac{1}{ 2i\pi }\int_{\partial B}\frac{ f(\xi) }{ (\xi-z)^2 }d\xi.
+        \end{equation}
+
+        \item[Les dérivées suivantes]
+            Pour la récurrence\cite{ooKZJHooZhNpkf} nous supposons que
+            \begin{equation}
+                f^{(k)}(z)=\frac{k!}{ 2i\pi }\int_{\partial B(z_0,r)}\frac{ f(\xi) }{ (\xi-z)^{k+1} }d\xi,
+            \end{equation}
+            et nous tentons de calculer \( f^{(k+1)}(z)\). Pour cela nous paramétrons l'intégrale de façon très usuelle :
+            \begin{equation}
+                f^{(k)}(z)=\frac{ k! }{ 2\pi i }\int_0^{2\pi}\frac{ f(r e^{it}) }{ (r e^{it}-z) }ir e^{it}dt.
+            \end{equation}
+            Nous permettons de permuter la \( \eC\)-dérivation (par rapport à \( z\)) et l'intégrale en vertu de la proposition \ref{PROPooZCLYooUaSMWA} appliquée à la fonction
+            \begin{equation}
+                g(t,z)=\frac{ f(r e^{it}) }{ (r e^{it}-z)^k+1 }ir e^{it}.
+            \end{equation}
+            Cela donne
+            \begin{equation}
+                f^{(k+1)}(z)=\frac{ k! }{ 2i\pi }\int_0^{2\pi}f(r e^{it})ir e^{it}\frac{ k+1 }{ (r e^{it}-z)^{k+1} }dt=\frac{ (k+1)! }{ 2i\pi }\int_{\partial B}\frac{ f(\xi) }{ (\xi-z)^{k+2} }d\xi.
+            \end{equation}
+    \end{subproof}
 \end{proof}
-
-\begin{definition}
-    Une \defe{mesure de Radon}{mesure!de Radon} sur un compact \(  K\) de \( \eC\) est une forme linéaire continue sur \( C(K)\). Si \( \mu\) est une mesure de Radon, on définit la \defe{transformée de Cauchy}{transformée!de Cauchy} de \( \mu\) par 
-    \begin{equation}
-        \begin{aligned}
-            \hat \mu\colon \eC\setminus K&\to \eC \\
-            z&\mapsto -\frac{1}{ \pi }\mu\left( \frac{1}{ \xi-z } \right). 
-        \end{aligned}
-    \end{equation}
-\end{definition}
-
-\begin{theorem}     \label{ThoJVNTzn}
-    Si \( \mu\) est une mesure de Radon sur \( K\) alors \( \hat \mu\) est infiniment \( \eC\)-dérivable sur \( \Omega=\eC\setminus K\) et nous avons
-    \begin{equation}
-        \hat\mu^{(n)}(z)=-\frac{ n! }{ \pi }\mu\left( \frac{1}{ (\xi-z)^{n+1} } \right).
-    \end{equation}
-\end{theorem}
-
-\begin{lemma}
-    Si \( f\) est holomorphe sur \( \Omega\) et si \( B\) est une boule fermée dans \( \Omega\) alors pour tout \( z\in \Int(B)\) nous avons
-    \begin{equation}
-        f^{(n)}(z)=\frac{ n! }{ 2i\pi }\int_{\partial B}\frac{ f(\xi) }{ (\xi-z)^{n+1} }d\xi.
-    \end{equation}
-\end{lemma}
-
-\begin{proof}
-    Appliquer le théorème \ref{ThoJVNTzn} à la mesure de Radon
-    \begin{equation}
-        \mu(\phi)=\int_{\partial B}\phi(\xi)d\xi.
-    \end{equation}
-\end{proof}
-
-\begin{lemma}
-    Si \( f\) est holomorphe sur \( \Omega\) et si \( B\) est une boule fermée dans \( \Omega\) alors pour tout \( z\) dans l'intérieur de \( B\) nous avons
-    \begin{equation}
-        f^{(n)}(z)=\frac{ n! }{ 2i\pi }\int_{\partial B}\frac{ f(\xi) }{ (\xi-z)^{n+1} }d\xi.
-    \end{equation}
-\end{lemma}
 
 \begin{theorem}
     Si \( f\) est une fonction holomorphe sur le disque ouvert \( B(z_0,R)\) alors
@@ -894,11 +921,11 @@ Nous commençons par le lemme technique.
 \end{theorem}
 
 \begin{proof}
-    Sans perte de généralité nous supposons que \( z_0=0\). La formule de Cauchy fournit
+    Sans perte de généralité nous supposons que \( z_0=0\). La formule de Cauchy (théorème \ref{ThoUHztQe}) fournit, pour \( z\in B(0,R)\),
     \begin{equation}
         f(z)=\frac{1}{ 2\pi i }\int_{\partial B}\frac{ f(\xi) }{ \xi-z }d\xi=\frac{1}{ 2\pi i }\int_{\partial B}\frac{ f(\xi) }{ 1-(z/\xi) }\frac{ d\xi }{ \xi }.
     \end{equation}
-    Nous utilisons la série géométrique
+    En particulier notons que \( z\in B(0,R)\) alors que \( \xi\) est sur le bord de cette boule ouverte. Donc \( | \xi |>| z |\) pour tous les \( \xi\) et \( z\) qui interviennent. Nous utilisons la série géométrique
     \begin{equation}
         \frac{1}{ 1-(z/\xi) }=\sum_{n=0}^{\infty}\left( \frac{ z }{ \xi } \right)^n.
     \end{equation}
@@ -915,35 +942,27 @@ Nous commençons par le lemme technique.
                     (\xi,n)&\mapsto \frac{ z^nf(\xi) }{ \xi^{n+1} }. 
                 \end{aligned}
             \end{equation}
-            Nous allons permuter les intégrales en utilisant le théorème de Fubini.
-    \end{subproof}
-    <++>
+            Nous allons permuter les intégrales en utilisant le théorème de Fubini, selon la procédure décrite en \ref{NORMooKIRJooPvyPWQ}. Nous commençons par l'intégrale sur \( \eN\) :
+            \begin{equation}        \label{EQooLQLOooKiSAKH}
+                \int_{\eN}| g(n,\xi) |=| \frac{ f(\xi) }{ \xi } |\sum_{n\in \eN}| \frac{ z }{ \xi } |^n=\frac{1}{ R }| f(\xi) |\frac{1}{ 1-| z |/R }.
+            \end{equation}
+            Ici nous avons utilisé \( | \xi |=R\). Notons que \( z\) est fixé depuis longtemps à l'intérieur de la boule de rayon \( R\) de telle sorte que \( | z/\xi |\) est une constante strictement inférieure à \( 1\).
 
-    nous avons
+            L'intégrale sur \( \xi\in \partial B\) n'a pas à être effectuée explicitement : nous nous contentons de prouver qu'elle est finie.
+            La fonction \( f\) est continue sur le compact \( \partial B\). Cela parce que \( B\) est une boule fermée dans l'ouvert \( \Omega\) sur lequel \( f\) est continue. Au final l'expression à droite de \eqref{EQooLQLOooKiSAKH} est bornée sur le compact \( \partial B\) et son intégrale donne un nombre fini.
+
+            Tout ceci pour invoquer le corollaire \ref{CorTKZKwP} qui nous indique que \( g\in L^1(\eN\times \partial B)\).
+
+            Une fois \( g\) intégrable sur l'espace produit \( \eN\times \partial B\), nous pouvons utiliser Fubini \ref{ThoFubinioYLtPI} pour permuter les intégrales.
+    \end{subproof}
+
+    Une fois la somme et l'intégrale permutées, nous avons
     \begin{equation} \label{EqXSgZGw}
             f(z)=\frac{1}{ 2\pi i }\sum_{n=0}^{\infty}\int_{\partial B}\frac{ z^nf(\xi) }{ \xi^{n+1} }
             =\sum_{n=0}^{\infty}\left( \frac{1}{ 2\pi i }\int_{\partial B}\frac{ f(\xi) }{ \xi^{n+1} } \right)z^n.
     \end{equation}
-    Nous devons maintenant montrer que ce qui se trouve dans la grande parenthèse vaut \( f^{(n)}(0)/n!\). Nous utilisons le théorème de Radon \ref{ThoJVNTzn} à la mesure
-    \begin{equation}
-        \mu(\phi)=\int_{\partial B}\phi(\xi)d\xi.
-    \end{equation}
-    La transformée de Cauchy est
-    \begin{equation}        \label{EqTzkmeL}
-        \hat \mu(z)=-\frac{1}{ \pi }\mu\left( \frac{1}{ \xi-z } \right)=-\frac{1}{ \pi }\int_{\partial B}\frac{1}{ \xi-z }d\xi,
-    \end{equation}
-    et le théorème assure que
-    \begin{equation}
-        \hat\mu^{(n)}(z)=-\frac{ n! }{ \pi }\mu\left( \frac{1}{ (\xi-z)^{n+1} } \right)=-\frac{ n! }{ \pi }\int_{\partial B}\frac{ 1 }{ (\xi-z)^{n+1} }d\xi.
-    \end{equation}
-    En comparant la formule \eqref{EqTzkmeL} avec la formule de Cauchy nous voyons que \( \hat\mu(z)=-2i f(z)\). Par conséquent
-    \begin{equation}
-        f^{(n)}(z)=-\frac{1}{ 2i }\hat\mu^{(n)}(z)=\frac{ n! }{ 2\pi i }\int_{\partial B}\frac{1}{ (\xi-z)^{n+1} }d\xi,
-    \end{equation}
-    et
-    \begin{equation}
-        f^{(n)}(0)=\frac{ n! }{ 2\pi i }\int_{\partial B}\frac{1}{ \xi^{n+1} }d\xi.
-    \end{equation}
+    Nous devons maintenant montrer que ce qui se trouve dans la grande parenthèse vaut \( f^{(n)}(0)/n!\). Cela est immédiat en comparant avec la formule \eqref{EQooBPIQooNhOTtB}.
+
 \end{proof}
 
 \begin{proposition}[Morera \cite{NEBgfg}]   \label{ThoRckxes}
@@ -976,6 +995,68 @@ Nous commençons par le lemme technique.
     \end{subequations}
     ce qui prouve que \( F\) est dérivable et \( F'=f\). Par définition (\ref{DefMMpjJZ}), \( F\) est holomorphe, et donc \( C^{\infty}\) par le théorème \ref{ThomcPOdd}. Du coup \( f\) est également \(  C^{\infty}\) et donc en particulier holomorphe.
 \end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Mesure de Radon}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Une \defe{mesure de Radon}{mesure!de Radon} sur un compact \(  K\) de \( \eC\) est une forme linéaire continue sur \( C(K)\). Si \( \mu\) est une mesure de Radon, on définit la \defe{transformée de Cauchy}{transformée!de Cauchy} de \( \mu\) par 
+    \begin{equation}
+        \begin{aligned}
+            \hat \mu\colon \eC\setminus K&\to \eC \\
+            z&\mapsto -\frac{1}{ \pi }\mu\left( \frac{1}{ \xi-z } \right). 
+        \end{aligned}
+    \end{equation}
+\end{definition}
+
+\begin{theorem}     \label{ThoJVNTzn}
+    Si \( \mu\) est une mesure de Radon sur \( K\) alors \( \hat \mu\) est infiniment \( \eC\)-dérivable sur \( \Omega=\eC\setminus K\) et nous avons
+    \begin{equation}
+        \hat\mu^{(n)}(z)=-\frac{ n! }{ \pi }\mu\left( \frac{1}{ (\xi-z)^{n+1} } \right).
+    \end{equation}
+\end{theorem}
+
+Cette théorie permet de fournir une démonstration plus technologique du corollaire \ref{CorNxTjEj}.
+\begin{lemma}
+    Si \( f\) est holomorphe sur \( \Omega\) et si \( B\) est une boule fermée dans \( \Omega\) alors pour tout \( z\in \Int(B)\) nous avons
+    \begin{equation}
+        f^{(k)}(z)=\frac{ k! }{ 2i\pi }\int_{\partial B}\frac{ f(\xi) }{ (\xi-z)^{k+1} }d\xi.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Appliquer le théorème \ref{ThoJVNTzn} à la mesure de Radon
+    \begin{equation}
+        \mu(\phi)=\int_{\partial B}\phi(\xi)d\xi.
+    \end{equation}
+\end{proof}
+
+Tout ce petit monde à propos de la mesure de Radon permet également de redémontrer que
+
+    \begin{equation}
+        \left( \frac{1}{ 2\pi i }\int_{\partial B}\frac{ f(\xi) }{ \xi^{n+1} } \right)=f^{(n)}(0)/n!,
+    \end{equation}
+    comme nous l'avons déjà fait autour de l'équation \eqref{EqXSgZGw}. Nous utilisons le théorème de Radon \ref{ThoJVNTzn} à la mesure
+    \begin{equation}
+        \mu(\phi)=\int_{\partial B}\phi(\xi)d\xi.
+    \end{equation}
+    La transformée de Cauchy est
+    \begin{equation}        \label{EqTzkmeL}
+        \hat \mu(z)=-\frac{1}{ \pi }\mu\left( \frac{1}{ \xi-z } \right)=-\frac{1}{ \pi }\int_{\partial B}\frac{1}{ \xi-z }d\xi,
+    \end{equation}
+    et le théorème assure que
+    \begin{equation}
+        \hat\mu^{(n)}(z)=-\frac{ n! }{ \pi }\mu\left( \frac{1}{ (\xi-z)^{n+1} } \right)=-\frac{ n! }{ \pi }\int_{\partial B}\frac{ 1 }{ (\xi-z)^{n+1} }d\xi.
+    \end{equation}
+    En comparant la formule \eqref{EqTzkmeL} avec la formule de Cauchy nous voyons que \( \hat\mu(z)=-2i f(z)\). Par conséquent
+    \begin{equation}
+        f^{(n)}(z)=-\frac{1}{ 2i }\hat\mu^{(n)}(z)=\frac{ n! }{ 2\pi i }\int_{\partial B}\frac{1}{ (\xi-z)^{n+1} }d\xi,
+    \end{equation}
+    et
+    \begin{equation}
+        f^{(n)}(0)=\frac{ n! }{ 2\pi i }\int_{\partial B}\frac{1}{ \xi^{n+1} }d\xi.
+    \end{equation}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Conditions équivalentes à l'holomorphie}
@@ -1011,7 +1092,7 @@ Nous nous proposons de lister les conditions que nous avons vues être équivale
 
     \ref{ItempBBPVv} est la définition de l'holomorphie.
 
-    \ref{ItemmLhzbB} implique \ref{ItemOtPcTb} est un a fortiori sur la définition. \ref{ItemOtPcTb} implique \ref{ItemmLhzbB} est contenu dans le théorème de développement en série entière \ref{ThoUHztQe}.
+    \ref{ItemmLhzbB} implique \ref{ItemOtPcTb} est un a fortiori sur la définition. \ref{ItemOtPcTb} implique \ref{ItemmLhzbB} est contenu dans le théorème de développement en série entière \ref{ThomcPOdd}.
 
     L'équivalence entre \ref{ItemCCrSrLj} et l'holomorphie est le théorème \ref{PropkwIQwg}.
 

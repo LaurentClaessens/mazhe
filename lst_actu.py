@@ -20,6 +20,11 @@ myRequest.ok_filenames_list.extend(["84_AnalyseComplexe"])
 myRequest.ok_filenames_list.extend(["71_suites_series_fonctions"])
 myRequest.ok_filenames_list.extend(["134_choses_finales"])
 myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["73_Chap_integrales_multiples"])
 myRequest.ok_filenames_list.extend(["157_thematique"])
 
 
