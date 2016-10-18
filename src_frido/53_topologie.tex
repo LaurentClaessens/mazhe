@@ -264,8 +264,13 @@ La définition-théorème suivante donne une topologie sur les espaces métrique
     Note : le corps\footnote{Définition \ref{DefTMNooKXHUd}} lui-même doit avoir sa topologie; typiquement c'est \( \eR\) ou \( \eC\) muni de la topologie usuelle.
 \end{definition}
 
-\begin{definition}
+\begin{definition}      \label{DEFooGTOZooRcvGHg}
     Une distance \( d\) sur un espace vectoriel topologique \( V\) est dite \defe{compatible}{distance!compatible} avec la topologie si la topologie induite\footnote{Définition \ref{ThoORdLYUu}.} de \( d\) est celle de \( V\).
+
+    Une distance \( d\) sur un espace vectoriel \( V\) est dite \defe{invariante}{distance!invariante} si pour tout \( x,y,u\in V\) nous avons
+    \begin{equation}
+        d(x+u,y+u)=d(x,y).
+    \end{equation}
 \end{definition}
 Notons que lorsque nous parlons d'une distance compatible avec un espace vectoriel topologique, nous parlons de compatibilité avec la topologie, pas avec la structure vectorielle.
 
@@ -327,33 +332,37 @@ Afin de suivre une notation proche de celle de la valeur absolue, à partir de m
 	Un espace vectoriel $E$ muni d'une norme est une \defe{espace vectoriel normé}{normé!espace vectoriel}, et on écrit $(E,\| . \|)$. 
 \end{definition}
 
-Si la distance \( d\) est déduite d'une norme, alors elle est invariante par translation :
-\begin{equation}    \label{EqooYMVKooGrudhf}
-    d(a,b)=d(a+u,b+u)
-\end{equation}
-pour tout \( a,b,u\in E\).
-
-\begin{lemmaDef}
-    Si \( \| . \|\) est une norme alors la formule \( d(x,y)=\| x-y \|\) donne une distance. C'est la \defe{distance induite}{distance!associée à une norme} par la norme.
+\begin{lemmaDef}[Distance induite par une norme]        \label{LEMooWGBJooYTDYIK}
+    Soit un espace vectoriel normé \( (E,\| . \|)\). Nous posons
+    \begin{equation}        \label{EQooZYJRooAHnsIG}
+        d(x,y)=\| x-y \| .
+    \end{equation}
+    Alors
+    \begin{enumerate}
+        \item       \label{ITEMooLITDooPeReOk}
+            \( d\) est invariante par translations : $d(a,b)=d(a+u,b+u)$
+        \item
+            \( d\) est une distance\footnote{Définition \ref{DefMVNVFsX}.} sur \( E\).
+    \end{enumerate}
+    C'est la \defe{distance induite}{distance!associée à une norme} par la norme.
 \end{lemmaDef}
 
 \begin{proof}
-    Le seul point délicat à vérifier de la définition \ref{DefMVNVFsX} est l'inégalité triangulaire. Nous avons \( \| x \|=d(x,0)\), donc nous pouvons écrire
-    \begin{subequations}
-        \begin{align}
-            d(x,y)&=\| x-y \|\\
-            &\leq\| x \|+\| y \|\\
-            &=d(x,0)+d(y,0)\\
-            &=d(x,z)+d(y,z)
-        \end{align}
-    \end{subequations}
-    parce que la distance associée à la norme est invariante par translation (équation \eqref{EqooYMVKooGrudhf}).
+    Le fait que la formule \eqref{EQooZYJRooAHnsIG} soit invariante par translations est immédiat. En ce qui concerne le fait que ce soit une distance, le seul point délicat à vérifier est l'inégalité triangulaire. Nous avons \( \| x \|=d(x,0)\), donc nous pouvons écrire
+    \begin{equation}
+            d(x,y)=\| x-y \| \leq\| x \|+\| y \| =d(x,0)+d(y,0) =d(x,z)+d(y,z)
+    \end{equation}
+    parce que la distance associée à la norme est invariante par translation.
 \end{proof}
 
 Un espace vectoriel normé est alors immédiatement un espace vectoriel topologique
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Suites de Cauchy, métrique et espaces complet}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 %--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Suites de Cauchy, métrique et espaces complet}
+\subsection{Généralités}
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{definition}[Suite de \( \tau\)-Cauchy, espace vectoriel topologique\cite{TQSWRiz,ooMKWJooLSkGfh}]   \label{DefZSnlbPc}
@@ -446,6 +455,48 @@ Un espace vectoriel normé est alors immédiatement un espace vectoriel topologi
     \end{enumerate}
 \end{example}
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Cas d'équivalence}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}
+    Soit un espace vectoriel topologique \( V\) et une distance \( d\colon V\times V\to \eR^+\) compatible avec la topologie de \( V\). Si \( d\) est invariante\footnote{Définition \ref{DEFooGTOZooRcvGHg}.}, alors les suites \( d\)-Cauchy et les suites \( \tau\)-Cauchy sont les mêmes.
+\end{lemma}
+
+\begin{proof}
+    Nous avons deux implications à prouver.
+    \begin{subproof}
+    \item[\( d\)-Cauchy implique \( \tau\)-Cauchy]
+        Soit \( (x_n)\), une suite \( d\)-Cauchy dans \( V\), et un voisinage \( U\) de \( 0\). Vu que \( d\) est compatible avec la topologie de \( V\), il existe une boule ouverte \( B(0,\epsilon)\) inclue à \( U\). Soit \( N>0\) tel que \( m,n>N\) implique \( d(x_n,x_m)<\epsilon\). Par invariance de la métrique, nous avons aussi
+        \begin{equation}
+            d(0,x_m-x_n)<\epsilon,
+        \end{equation}
+        c'est à dire \( x_m-x_n\in B(0,\epsilon)\subset U\). La suite \( (x_n)\) est donc \( \tau\)-Cauchy.
+    \item[\( \tau\)-Cauchy implique \( d\)-Cauchy]
+        Soit $(x_n)$, une suite \( \tau\)-Cauchy dans \( V\) et \( \epsilon>0\). Vu que \( B(0,\epsilon)\) est un voisinage de \( 0\) dans \( V\), il existe \( N\) tel que \( m,n>N\) implique \( x_n-x_m\in B(0,\epsilon)\). Cela signifie que \( d(0,x_n-x_m)<\epsilon\) et toujours par invariance, que \( d(x_n,x_m)<\epsilon\).
+    \end{subproof}
+\end{proof}
+
+\begin{definition}[Espace vectoriel topologique métrisable\cite{ooOFEPooVFgTXm}]
+    Un espace vectoriel topologique est \defe{métrisable}{métrisable} si il existe une distance compatible avec la topologie.
+\end{definition}
+
+Un espace vectoriel topologique métrisable possède évidemment une base dénombrable de topologie (celle des boules de la distance). Le contraire est également vrai.
+\begin{theorem}[\cite{ooOFEPooVFgTXm}]
+    Si $V$ est un espace vectoriel topologique possédant une base de topologie dénombrable, alors il existe une distance \( d\) sur \( V\) telle que
+    \begin{enumerate}
+        \item
+            \( d\) est compatible avec la topologie de \( V\),
+        \item
+            \( d\) est invariante.
+    \end{enumerate}
+\end{theorem}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Espace topologique normé}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Dans les espaces topologiques normés, il n'y a pas d'ambiguïté.
 \begin{proposition}     \label{PropooUEEOooLeIImr}
     Soit \( (E,d)\) un espace vectoriel topologique normé.
     \begin{enumerate}
@@ -470,19 +521,23 @@ Un espace vectoriel normé est alors immédiatement un espace vectoriel topologi
     En ce qui concerne les suites de Cauchy :
     \begin{subproof}
     \item[Sens direct]
-        Si \( (x_n)\) est une suite de Cauchy et si \( \epsilon>0\) est donné, alors \( B(0,\epsilon)\) est un voisinage de \( 0\) et il existe \( N_{\epsilon}\) tel que si \( p,q\geq N_{\epsilon}\) alors \( x_p-x_q\in B(0,\epsilon)\). Posons \( u=x_p-x_q\); en utilisant l'égalité \eqref{EqooYMVKooGrudhf} nous avons
+        Si \( (x_n)\) est une suite de Cauchy et si \( \epsilon>0\) est donné, alors \( B(0,\epsilon)\) est un voisinage de \( 0\) et il existe \( N_{\epsilon}\) tel que si \( p,q\geq N_{\epsilon}\) alors \( x_p-x_q\in B(0,\epsilon)\). Posons \( u=x_p-x_q\); en utilisant l'invariance par translation (lemme \ref{LEMooWGBJooYTDYIK}\ref{ITEMooLITDooPeReOk}.) nous avons
         \begin{equation}
             d(u,0)=d(x_p-x_q,0)=d(x_p,x_q).
         \end{equation}
         Par conséquent \( d(x_p,x_q)\leq \epsilon\).
     \item[Réciproque]
-        Soit \( \mO\) un voisinage de \( 0\). Il existe \( \epsilon\) tel que \( B(0,\epsilon)\subset \mO\). Par hypothèse il existe \( N_{\epsilon}\) tel que \( d(x_p,x_q)\leq \epsilon\) dès que \( p,q\geq N_{\epsilon}\). En utilisant encore \eqref{EqooYMVKooGrudhf} nous avons
+        Soit \( \mO\) un voisinage de \( 0\). Il existe \( \epsilon\) tel que \( B(0,\epsilon)\subset \mO\). Par hypothèse il existe \( N_{\epsilon}\) tel que \( d(x_p,x_q)\leq \epsilon\) dès que \( p,q\geq N_{\epsilon}\). En utilisant encore l'invariance par translation nous avons
         \begin{equation}
             d(x_p,x_q)=d(x_p-x_q,0),
         \end{equation}
         et comme cela est plus petit que \( \epsilon\), nous avons \( x_p-x_q\in B(0,\epsilon)\subset\mO\).
     \end{subproof}
 \end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Espace métrique}
+%---------------------------------------------------------------------------------------------------------------------------
 
 \begin{proposition}[\cite{IRWFPQB}]
     Toute suite convergente dans un espace métrique est de Cauchy.
@@ -498,10 +553,10 @@ Un espace vectoriel normé est alors immédiatement un espace vectoriel topologi
     Cela prouve que \( (x_n)\) est de Cauchy.
 \end{proof}
 
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Topologie sur l'ensemble des réels}
-%---------------------------------------------------------------------------------------------------------------------------
-\label{sebsecooGKHYooMwHQaD}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Topologie sur l'ensemble des réels}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SECooGKHYooMwHQaD}
 
 Nous allons à présent donner la topologie sur \( \eR\) et ainsi résoudre les questions laissées en suspend lors de la construction des réels, voir \ref{NormooHRDZooRGGtCd}.
 
@@ -626,9 +681,9 @@ Tant sur \( \eQ\) que sur \( \eR\), nous considérons la topologie métrique cor
     \end{equation}
 \end{proof}
 
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Base de topologie}
-%---------------------------------------------------------------------------------------------------------------------------
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Base de topologie}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \begin{proposition} \label{PropNBSooraAFr}
     Un espace métrique séparable\footnote{Qui possède une partie dense dénombrable, définition \ref{DefUADooqilFK}.} accepte une base de topologie dénombrable.
