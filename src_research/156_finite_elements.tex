@@ -95,7 +95,7 @@ Notons que cette formule pour \( a\) est symétrique et que nous n'avons pas enc
 
 The result of this sections is the following.
 \begin{proposition}[Not too rigorous]
-    A function \( u\in V\) is solution of the variational problem if and only if it is solution de l'équation de Poisson.
+    A function \( u\in V\) is solution of the variational problem if and only if it is solution of the Poisson equation.
 \end{proposition}
 
 \begin{proof}
@@ -128,3 +128,122 @@ The result of this sections is the following.
     \end{equation}
     The last integral is for sure strictly positive, which contradicts \eqref{EQooAJMDooNJTYRm}.
 \end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Galerkin's approximation}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Let us once again be not too rigorous and deal with the problem
+\begin{subequations}
+    \begin{numcases}{}
+        -u''+u=f\\
+        u(0)=u(1)=0
+    \end{numcases}
+\end{subequations}
+on the open interval \( \mathopen] 0 , 1 \mathclose[\). The good functional space seems to be
+\begin{equation}
+    H_0^1\big( \mathopen] 0 , 1 \mathclose[ \big)=\{ u\in H^1\big( \mathopen] 0 , 1 \mathclose[ \big)\st u(0)=u(1)=0 \}.        
+\end{equation}
+Of course, this definition is not rigorous because the elements in the Sobolev spaces are classes of functions and the boundary values are not defined. Let us go on and see what happens. 
+
+Let \( v\in H_0^1\). We multiply the equation by \( v\) and integrate over the interval \( I=\mathopen] 0 , 1 \mathclose[\) :
+\begin{equation}
+    -\langle u'', v\rangle +\langle u, v\rangle =\langle f, v\rangle,
+\end{equation}
+and an integration by part, taking into account the fact that \( v\) vanishes at the border gives
+\begin{equation}
+    \langle u', v'\rangle +\langle u, v\rangle =\langle f, v\rangle,
+\end{equation}
+
+If \( u\in C^2(I)\), the two formulations are equivalent. If not, we are not sure. The point of the second formulation is that one can build a piecewise affine approximation. We divide the interval \( I\) into \( N+1\) pieces
+\begin{equation}
+    x_j=\frac{ j }{ N+1 }
+\end{equation}
+with \( j=0,\ldots, N+1\). Let \( V_N\) be the set of continuous piecewise affine functions that are vanishing on the border :
+\begin{equation}
+V_N=\{ v\in C^0(I)\st v|_{\mathopen] x_j , x_{j+1} \mathclose[}\text{ is linear and } v(0)=v(1)=0 \}.
+\end{equation}
+This is a finite dimensional vector space because the elements are determined by the values on the \( x_i\)'s. Moreover the space \( V_N\) is included in \( H^1_0(I)\).
+
+\begin{proposition}
+    There exists an unique element \( u_N\in V_N\) satisfying the equation
+    \begin{equation}        \label{EQooOFLCooHmjaOM}
+        \langle u_n', v'\rangle +\langle u_N, v\rangle =\langle f, v\rangle 
+    \end{equation}
+    for all \( v\in V_N\). This solution is the \defe{Galerkin approximation}{Galerkin approximation}.
+\end{proposition}
+
+\begin{proof}
+    We consider the basis \( \{ \phi_j \}_{j=1,\ldots, N}\) of \( V_N\) defined by
+    \begin{equation}
+        \phi_j(x_i)=\delta_{ij}.
+    \end{equation}
+    We are searching for \( u_N\) under the form \( u_N=\sum_{j=1}^Na_j\phi_j\). Just by computing on the point \( x_j\) we know that
+    \begin{equation}
+        a_j=u_N(x_j).
+    \end{equation}
+    At this moment, this equality does not help, but we keep it in mind. Since the equality \eqref{EQooOFLCooHmjaOM} has to hold for every \( v \in V_N\), it holds in particular for \( v=\phi_k\) :
+    \begin{equation}
+        \langle u_N', \phi_k'\rangle +\langle u_N, \phi_k\rangle =\langle f, \phi_k\rangle 
+    \end{equation}
+    and by linearity of the inner product,
+    \begin{equation}
+        \sum_la_l\big( \langle \phi'_k, \phi'_l\rangle +\langle \phi_l, \phi_k\rangle  \big)=\langle f, \phi_k\rangle .
+    \end{equation}
+    If we set
+    \begin{subequations}
+        \begin{align}
+            R_{kl}&=\langle \phi_k', \phi_l'\rangle +\langle \phi_k, \phi_l\rangle \\
+            b_k&=\langle f, \phi_k\rangle,
+        \end{align}
+    \end{subequations}
+    we have to solve the linear system
+    \begin{equation}
+        Ra=b.
+    \end{equation}
+    In order to show that this system has an unique solution, we have to get some informations about the matrix \( R\). The matrix \( R\) is the matrix of the \( 2\)-form
+    \begin{equation}
+        R(f,g)=\langle f', g'\rangle +\langle f, g\rangle 
+    \end{equation}
+    in the basis \( \{ \phi_j \}\) of \( V_N\).
+
+    \begin{subproof}
+        \item[\( R\) is strictly positive defined]
+            We have \( R(f,f)\geq 0\) and if \( R(f,f)=0\), then \( \langle f, f\rangle =0\) and \( \langle f', f'\rangle =0\). Thus \( f=0\) almost everywhere and since elements of \( V_N\) are continuous, \( f=0\).
+        \item[\( R\) is symmetric] Clear from the definition.
+    \end{subproof}
+    
+    The matrix is thus invertible (in fact we do not use the symmetry to reach this conclusion) and the system has an unique solution in \( V_N\).
+    
+\end{proof}
+
+We can compute the matrix \( R\) : the elements are only some inner products and integrals. Here is a graph of \( \phi_1\) and \( \phi_2\) :
+\begin{center}
+   \input{pictures_tex/Fig_DGFSooWgbuuMoB.pstricks}
+\end{center}
+The affines pieces are :
+\begin{subequations}
+    \begin{align}
+        f_1(x)&=(N+1)x\\
+        f_2(x)&=-(N+1)x+2\\
+        f_3(x)&=(N+1)x-1\\
+        f_4(x)&=-(N+1)x+3.
+    \end{align}
+\end{subequations}
+And we have to integrate. We make the computations :
+\lstinputlisting{src_sage/sageSnip008.sage}
+returns
+\VerbatimInput[tabsize=3]{src_sage/sageSnip008.txt}
+which means that
+\begin{subequations}
+    \begin{align}
+        \langle \phi_j, \phi_j\rangle &=\frac{ 2 }{ 3(N+1) }\\
+        \langle \phi_j, \phi_{j+1}\rangle&=\langle \phi_j, \phi_{j-1}\rangle =\langle f_2, f_3\rangle =\frac{1}{ 6(N+1) }\\
+        \langle \phi'_j, \phi'_j\rangle &=2N+2\\
+        \langle \phi'_j, \phi'_{j+1}\rangle &=-N-1
+    \end{align}
+\end{subequations}
+The inner product \( \langle \phi_i, \phi_j\rangle \) is zero when \( | i-j |\geq 2\). 
+
+
+

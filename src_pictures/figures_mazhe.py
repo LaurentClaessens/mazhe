@@ -4,7 +4,7 @@
 from phystricks import *
 import sys
 
-
+from phystricksDGFSooWgbuuMoB import DGFSooWgbuuMoB
 from phystricksFCUEooTpEPFoeQ import FCUEooTpEPFoeQ
 from phystricksERPMooZibfNOiU import ERPMooZibfNOiU
 from phystricksOQTEoodIwAPfZE import OQTEoodIwAPfZE
@@ -519,8 +519,8 @@ figures_list.append(Mantisse)
 figures_list.append(SolsEqDiffSin)
 figures_list.append(SolsSinpA)
 figures_list.append(FCUEooTpEPFoeQ)
+figures_list.append(DGFSooWgbuuMoB)
 """
-figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
