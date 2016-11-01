@@ -18,6 +18,9 @@ myRequest.original_filename="mazhe.tex"
 myRequest.ok_filenames_list=["e_mazhe"]
 myRequest.ok_filenames_list.extend(["88_distributions"])
 myRequest.ok_filenames_list.extend(["83_analyse_fonctionnelle"])
+myRequest.ok_filenames_list.extend(["37_anal_vectorielle"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 
