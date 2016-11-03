@@ -4,6 +4,7 @@
 from phystricks import *
 import sys
 
+from phystricksPLTWoocPNeiZir import PLTWoocPNeiZir
 from phystricksDGFSooWgbuuMoB import DGFSooWgbuuMoB
 from phystricksFCUEooTpEPFoeQ import FCUEooTpEPFoeQ
 from phystricksERPMooZibfNOiU import ERPMooZibfNOiU
@@ -520,8 +521,8 @@ figures_list.append(SolsEqDiffSin)
 figures_list.append(SolsSinpA)
 figures_list.append(FCUEooTpEPFoeQ)
 figures_list.append(DGFSooWgbuuMoB)
+figures_list.append(PLTWoocPNeiZir)
 """
-figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
