@@ -1,11 +1,24 @@
+# Compiling with 'pytex' and the option '--verif' will check for "future references".
+# The program will basically look for every occurrence of '\label', '\ref' 
+# and '\eqref' and check the corresponding 'label' of a 'ref' or 'eqref' is 
+# before.
+
+# So no way to write
+#   According the equation \eqref{MyLovelyEq} we have \ldots
+# While the \label{MyLovelyEq} is lower in the text. This will produce a warning.
+
+# But there are a few circumstances in which one wants to do so. We list here
+# the hashes of the LaTeX lines in which we accept to have a "reference to 
+# the future".
+
+# Why a hash ? Because virtually any string can be valid LaTeX code. So it is much
+# easier to compare the hashes than compare the string itself. 
+# It is also easier to copy-paste from the terminal to here a sequence of 40 hex
+# digits than a full LaTeX line. Not to speak of correctly escape the string ...
+
+
+
 ok_hash=[]
-ok_hash.append("70b7afeb9bb07f1baf6a14fbd263111995201718")
-ok_hash.append("378d81de4e7ddf71f6e00a507012dd475abeae70")
-ok_hash.append("ce7e584b66779ed11bc0a3fcb0f74514e14e8877")
-ok_hash.append("6bb5cadbe8385a9ea9e386dc27ad6213a638616d")
-ok_hash.append("dbb4529fa5a86a08ead595d70d3db4068e42085f")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
@@ -15,7 +28,13 @@ ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("321073489b29325ca47998280e71cea56043bb0f")
 ok_hash.append("8feb19b034616df2fc86170121040e5cf91a67a7")
+ok_hash.append("a6d2c8a7768b11e347372ac2435b891e225a3009")
 ok_hash.append("9148dfe6f7ffa51862212f045c2f8bf097201be7")
+ok_hash.append("70b7afeb9bb07f1baf6a14fbd263111995201718")
+ok_hash.append("378d81de4e7ddf71f6e00a507012dd475abeae70")
+ok_hash.append("ce7e584b66779ed11bc0a3fcb0f74514e14e8877")
+ok_hash.append("6bb5cadbe8385a9ea9e386dc27ad6213a638616d")
+ok_hash.append("dbb4529fa5a86a08ead595d70d3db4068e42085f")
 ok_hash.append("91f49603145a8933382ce15fde7e99ed63d01520")
 ok_hash.append("968fcac616df2c2828c6814c750d923a83ac5226")
 ok_hash.append("b01e44ed5ba98b7f586c1a62208345338926703b")
