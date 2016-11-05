@@ -1,4 +1,5 @@
-# Compiling with 'pytex' and the option '--verif' will check for "future references".
+# Compiling with 'pytex' and the option '--verif' will check for
+# "references to the future".
 # The program will basically look for every occurrence of '\label', '\ref' 
 # and '\eqref' and check the corresponding 'label' of a 'ref' or 'eqref' is 
 # before.
