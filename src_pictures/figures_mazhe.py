@@ -4,7 +4,8 @@
 from phystricks import *
 import sys
 
-rom phystricksTIMYoochXZZNGP import TIMYoochXZZNGP
+from phystricksZOCNoowrfvQXsr import ZOCNoowrfvQXsr
+from phystricksTIMYoochXZZNGP import TIMYoochXZZNGP
 from phystricksQSKDooujUbDCsu import QSKDooujUbDCsu
 from phystricksPLTWoocPNeiZir import PLTWoocPNeiZir
 from phystricksDGFSooWgbuuMoB import DGFSooWgbuuMoB
