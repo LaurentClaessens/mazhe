@@ -128,7 +128,7 @@ Cela est évidemment à lier à la définition \ref{DefAWAooCMPuVM} et la propos
     Un \defe{produit scalaire}{produit!scalaire!en général} sur un espace vectoriel \( E\) est une forme bilinéaire\footnote{Définition \ref{DEFooEEQGooNiPjHz}.} symétrique strictement définie positive\footnote{Définition \ref{DEFooJIAQooZkBtTy}.}.
 \end{definition}
 
-Étant donné que l'inégalité de Cauchy-Schwarz sera surtout utilisée dans le cas où un produit scalaire est bel et bien donné, nous l'énonçons et le démontrons avec des notations adaptée à l'usage. Le produit scalaire sera noté \( X\cdot Y\) pour \( b(X,Y)\) si \( b\) est la forme.
+Étant donné que l'inégalité de Cauchy-Schwarz sera surtout utilisée dans le cas où un produit scalaire est bel et bien donné, nous l'énonçons et le démontrons avec des notations adaptée à l'usage. Le produit scalaire sera noté \( X\cdot Y\) pour \( b(X,Y)\) si \( b\) est la forme bilinéaire.
 \begin{theorem}[Inégalité de Cauchy-Schwarz]      \label{ThoAYfEHG}
 	Si $X$ et $Y$ sont des vecteurs, alors
     \begin{equation}        \label{EQooZDSHooWPcryG}
@@ -171,6 +171,11 @@ Vu que nous allons voir un pâté d'espaces avec des produits scalaires, nous le
 \begin{definition}\label{DefLZMcvfj}
     Un espace vectoriel \defe{euclidien}{euclidien!espace} est un espace vectoriel de dimension finie muni d'un produit scalaire.
 \end{definition}
+
+\begin{definition}[Isométrie, thème \ref{THMooVUCLooCrdbxm}]      \label{DEFooGGTYooXsHIZj}
+    Une \defe{isométrie}{isométrie!forme bilinéaire} d'une forme bilinéaire \( b\) sur l'espace vectoriel \( E\) est une application bijective \( f\colon E\to E\) telle que \( b\big( f(u),f(v) \big)=b(u,v)\) pour tout \( u,v\in E\).
+\end{definition}
+En particulier une isométrie d'un espace euclidien est une application bijective qui préserve le produit scalaire.
 
 \begin{proposition} \label{PropEQRooQXazLz}
     Si \( x,y\mapsto x\cdot y\) est un produit scalaire sur un espace vectoriel \( E\), alors \( N(x)=\sqrt{x\cdot x}\) est une norme vérifiant l'identité du parallélogramme :
@@ -469,6 +474,367 @@ Notez que les angles sont toujours des angles plus petits ou égaux à \unit{180
     \end{equation}
 \end{proof}
 Cet algorithme de Gram-Schmidt nous donne non seulement l'existence de bases orthonormée pour tout espace euclidien, mais aussi le moyen d'en construire à partir de n'importe quelle base.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Directions conservées}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Généralités}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous savons qu'une application \emph{linéaire} $A\colon \eR^3\to \eR^3$ est complètement définie par la donnée de son action sur les trois vecteurs de base, c'est à dire par la donnée de
+\begin{equation}
+	\begin{aligned}[]
+		Ae_1,&&Ae_2&&\text{et}&&Ae_3.
+	\end{aligned}
+\end{equation}
+Nous allons former la matrice de $A$ en mettant simplement les vecteurs $Ae_1$, $Ae_2$ et $Ae_3$ en colonne. Donc la matrice
+\begin{equation}		\label{EqExempleALin}
+	A=\begin{pmatrix}
+		3	&	0	&	0	\\
+		0	&	1	&	0	\\
+		0	&	1	&	0
+	\end{pmatrix}
+\end{equation}
+signifie que l'application linéaire $A$ envoie le vecteur $e_1$ sur $\begin{pmatrix}
+	3	\\ 
+	0	\\ 
+	0	
+\end{pmatrix}$, le vecteur $e_2$ sur $\begin{pmatrix}
+	0	\\ 
+	0	\\ 
+	1	
+\end{pmatrix}$ et le vecteur $e_3$ sur $\begin{pmatrix}
+	0	\\ 
+	1	\\ 
+	0	
+\end{pmatrix}$.
+Pour savoir comment $A$ agit sur n'importe quel vecteur, on applique la règle de produit vecteur$\times$matrice :
+\begin{equation}
+	\begin{pmatrix}
+		1	&	2	&	3	\\
+		4	&	5	&	6	\\
+		7	&	8	&	9
+	\end{pmatrix}\begin{pmatrix}
+		x	\\ 
+		y	\\ 
+		z	
+	\end{pmatrix}=
+	\begin{pmatrix}
+		x+2y+3z	\\ 
+		4x+5y+6z	\\ 
+		7x+8y+9z	
+	\end{pmatrix}.
+\end{equation}
+
+Une chose intéressante est de savoir quelles sont les directions invariantes de la transformation linéaire. Par exemple, on peut lire sur la matrice \eqref{EqExempleALin} que la direction $\begin{pmatrix}
+	1	\\ 
+	0	\\ 
+	0	
+\end{pmatrix}$ est invariante : elle est simplement multipliée par $3$. Dans cette direction, la transformation est juste une dilatation. Afin de savoir si $v$ est un vecteur d'une direction conservée, il faut voir s'il existe un nombre $\lambda$ tel que $Av=\lambda v$, c'est à dire voir si $v$ est simplement dilaté.
+
+L'équation $Av=\lambda v$ se récrit $(A-\lambda\mtu)v=0$, c'est à dire qu'il faut résoudre l'équation
+\begin{equation}
+	(A-\lambda\mtu)\begin{pmatrix}
+		x	\\ 
+		y	\\ 
+		z	
+	\end{pmatrix}=
+	\begin{pmatrix}
+		0	\\ 
+		0	\\ 
+		0	
+	\end{pmatrix}.
+\end{equation}
+Nous savons qu'une telle équation ne peut avoir de solutions que si $\det(A-\lambda\mtu)=0$. La première étape est donc de trouver les $\lambda$ qui vérifient cette condition.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Matrice orthogonale}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}      \label{DEFooUHANooLVBVID}
+    Une matrice \( U\) est \defe{orthogonale}{matrice!orthogonale}\index{orthogonal!matrice} si \( UU^t=\mtu\). Le \defe{groupe orthogonal}{groupe!orthogonal} noté \( \gO(n)\) est l'ensemble des matrices orthogonales \( n\times n\).
+\end{definition}
+
+Pour rappel, une isométrique d'un espace euclidien est une bijection qui préserve le produit scalaire, définition \ref{DEFooGGTYooXsHIZj}.
+
+\begin{proposition}[Thème \ref{THMooVUCLooCrdbxm}]     \label{PropKBCXooOuEZcS}
+    À propos de matrices orthogonales.
+    \begin{enumerate}
+        \item
+            L'ensemble des matrice réelles orthogonales forme un groupe noté \( \gO(n,\eR)\)\nomenclature[B]{\( \gO(n,\eR)\)}{le groupe des matrices orthogonales}.
+        \item
+            Si \( A\) est une matrice orthogonale, alors \( \det(A)=\pm 1\).
+        \item       \label{ITEMooOWMBooHUatNb}
+            Le groupe \( \gO(n)\) est le groupe des isométries de \( \eR^n\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Si \( A\) et \( B\) sont orthogonales, alors
+    \begin{equation}
+        (AB)(AB)^t=ABB^tA^t=A\mtu A^t=\mtu.
+    \end{equation}
+    Vu que \( \mtu\) est orthogonale, nous avons bien un groupe.
+
+    En ce qui concerne le déterminant, \( AA^t=\mtu\) donne \( \det(A)\det(A^t)=1\) ou encore \( \det(A)^2=1\). D'où le fait que \( \det(A)=\pm 1\).
+
+    D'autre part si \( A\) est une isométrie de \( \eR^n\) alors pour tout \( x,y\in \eR^n\) nous avons \( \langle Ax, Ay\rangle =\langle x, y\rangle \). En particulier,
+    \begin{equation}
+        \langle A^tAx, y\rangle =\langle x, y\rangle 
+    \end{equation}
+    pour tout \( x,y\in \eR^n\). En prenant \( y=e_i\) nous trouvons
+    \begin{equation}
+        (A^tAx)_i=x_i,
+    \end{equation}
+    ce qui signifie que pour tout \( x\), \( A^tAx=x\), ou encore que \( A^tA\) est l'identité.
+
+    Réciproquement si \( A^tA\) est l'identité nous avons
+    \begin{equation}
+        \langle a, y\rangle =\langle A^tAx, y\rangle =\langle Ax, Ay\rangle ,
+    \end{equation}
+    ce qui prouve que \( A\) est une isométrie.
+\end{proof}
+
+\begin{definition}      \label{DEFooJLNQooBKTYUy}
+    Le sous-groupe des matrices orthogonales de déterminant \( 1\) est le groupe \defe{spécial orthogonal}{groupe!spécial orthogonal} noté \( \SO(n)\).
+\end{definition}
+
+\begin{lemma}       \label{LEMooHRESooQTrpMz}
+    Les éléments de \( \SO(2)\) sont les rotations.
+\end{lemma}
+
+\begin{proof}
+    Soit une matrice \( A=\begin{pmatrix}
+        a    &   b    \\ 
+        c    &   d    
+    \end{pmatrix}\) et imposons qu'elle soit dans \( \SO(2)\). Le fait que \( A\) soit orthogonale impose
+    \begin{equation}
+        \begin{pmatrix}
+            a    &   c    \\ 
+            b    &   d    
+        \end{pmatrix}\begin{pmatrix}
+            a    &   b    \\ 
+            c    &   d    
+        \end{pmatrix}=\begin{pmatrix}
+            a^2+c^2    &   ab+cd    \\ 
+            ab+cd    &   b^2+d^2    
+        \end{pmatrix}=\begin{pmatrix}
+            1    &   0    \\ 
+            0    &   1    
+        \end{pmatrix}.
+    \end{equation}
+    Nous en déduisons l'existence et unicité de \( \theta\) et \( \alpha\) dans \( \mathopen[ O , 2\pi \mathclose[\) tels que \( a=\cos(\theta)\), \( c=\sin(\theta)\), \( b=\cos(\alpha)\), \( d=\sin(\alpha)\).
+
+    La matrice doit de plus être spéciale, c'est à dire de déterminant \( 1\) : \( ad-cb=1\). Cela donne l'équation trigonométrique
+    \begin{equation}
+        \cos(\theta)\sin(\alpha)-\sin(\theta)\cos(\alpha)=1
+    \end{equation}
+    qui a pour solution\quext{Si quelqu'un peut préciser l'unicité, je suis preneur.} \( \alpha=\frac{ \pi }{2}+\theta\), qui donne \( \cos(\alpha)=-\sin(\theta)\) et \( \sin(\alpha)=\cos(\theta)\) et donc
+    \begin{equation}
+        A=\begin{pmatrix}
+            \cos(\theta)    &   -\sin(\theta)    \\ 
+            \sin(\theta)    &   \cos(\theta)    
+        \end{pmatrix}
+    \end{equation}
+    qui est bien une matrice de rotation.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Comment trouver la matrice d'une symétrie donnée ?}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{SubSecMtrSym}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Symétrie par rapport à un plan}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Comment trouver par exemple la matrice $A$ qui donne la symétrie autour du plan $z=0$ ? La définition d'une telle symétrie est que les vecteurs du plan $z=0$ ne bougent pas, tandis que les vecteurs perpendiculaires changent de signe. Ces informations vont permettre de trouver comment $A$ agit sur une base de $\eR^3$. En effet :
+\begin{enumerate}
+
+	\item
+		Le vecteur $\begin{pmatrix}
+			1	\\ 
+			0	\\ 
+			0	
+		\end{pmatrix}$ est dans le plan $z=0$, donc il ne bouge pas,
+
+	\item
+		le vecteur $\begin{pmatrix}
+			0	\\ 
+			1	\\ 
+			0	
+		\end{pmatrix}$ est également dans le plan, donc il ne bouge pas non plus,
+
+	\item
+		et le vecteur $\begin{pmatrix}
+			0	\\ 
+			0	\\ 
+			1	
+		\end{pmatrix}$ est perpendiculaire au plan $z=0$, donc il va changer de signe.
+
+\end{enumerate}
+Cela nous donne directement les valeurs de $A$ sur la base canonique et nous permet d'écrire 
+\begin{equation}
+	A=\begin{pmatrix}
+		1	&	0	&	0	\\
+		0	&	1	&	0	\\
+		0	&	0	&	-1
+	\end{pmatrix}.
+\end{equation}
+Pour écrire cela, nous avons juste mit en colonne les images des vecteurs de base. Les deux premiers n'ont pas changé et le troisième a changé.
+
+Et si maintenant on donne un plan moins facile que $z=0$ ? Le principe reste le même : il faudra trouver deux vecteurs qui sont dans le plan (et dire qu'ils ne bougent pas), et puis un vecteur qui est perpendiculaire au plan\footnote{Pour le trouver, penser au produit vectoriel.}, et dire qu'il change de signe.
+
+Voyons ce qu'il en est pour le plan $x=-z$. Il faut trouver deux vecteurs linéairement indépendants dans ce plan. Prenons par exemple
+\begin{equation}		\label{EqffudE}
+	\begin{aligned}[]
+		f_1&=\begin{pmatrix}
+			0	\\ 
+			1	\\ 
+			0	
+		\end{pmatrix},&f_2&=\begin{pmatrix}
+			1	\\ 
+			0	\\ 
+			-1	
+		\end{pmatrix}.
+	\end{aligned}
+\end{equation}
+Nous avons 
+\begin{equation}
+	\begin{aligned}[]
+		Af_1&=f_1\\
+		Af_2&=f_2.
+	\end{aligned}
+\end{equation}
+Afin de trouver un vecteur perpendiculaire au plan, calculons le produit vectoriel :
+\begin{equation}
+	f_3=f_1\times f_2=\begin{vmatrix}
+		e_1	&	e_2	&	e_3	\\
+		0	&	1	&	0	\\
+		1	&	0	&	-1
+	\end{vmatrix}=-e_1-e_3=\begin{pmatrix}
+		-1	\\ 
+		0	\\ 
+		-1	
+	\end{pmatrix}.
+\end{equation}
+Nous avons 
+\begin{equation}
+	Af_3=-f_3.
+\end{equation}
+Afin de trouver la matrice $A$, il faut trouver $Ae_1$, $Ae_2$ et $Ae_3$. Pour ce faire, il faut d'abord écrire $\{ e_1,e_2,e_3 \}$ en fonction de $\{ f_1,f_2,f_3 \}$. La première des équation \eqref{EqffudE} dit que 
+\begin{equation}
+	f_1=e_2.
+\end{equation}
+Ensuite, nous avons
+\begin{equation}
+	\begin{aligned}[]
+		f_2&=e_1-e_3\\
+		f_3&=-e_1-e_3.
+	\end{aligned}
+\end{equation}
+La somme de ces deux équations donne $-2e_3=f_2+f_3$, c'est à dire
+\begin{equation}
+	e_3=-\frac{ f_2+f_3 }{ 2 }
+\end{equation}
+Et enfin, nous avons
+\begin{equation}
+	e_1=\frac{ f_2-f_3 }{ 2 }.
+\end{equation}
+
+Maintenant nous pouvons calculer les images de $e_1$, $e_2$ et $e_3$ en faisant
+\begin{equation}
+	\begin{aligned}[]
+		Ae_1&=\frac{ Af_2-Af_3 }{ 2 }=\frac{1 }{2}\begin{pmatrix}
+			0	\\ 
+			0	\\ 
+			-2	
+		\end{pmatrix}=\begin{pmatrix}
+			0	\\ 
+			0	\\ 
+			-1	
+		\end{pmatrix},\\
+		Ae_2&=Af_1=f_1=\begin{pmatrix}
+			0	\\ 
+			1	\\ 
+			0	
+		\end{pmatrix},\\
+		Ae_3&=-\frac{ f_2-f_3 }{ 2 }=-\frac{ 1 }{2}\begin{pmatrix}
+			2	\\ 
+			0	\\ 
+			0	
+		\end{pmatrix}=\begin{pmatrix}
+			-1	\\ 
+			0	\\ 
+			0	
+		\end{pmatrix}.
+	\end{aligned}
+\end{equation}
+La matrice $A$ s'écrit maintenant en mettant les trois images trouvées en colonnes :
+\begin{equation}
+	A=\begin{pmatrix}
+		0	&	0	&	-1	\\
+		0	&	1	&	0	\\
+		-1	&	0	&	0
+	\end{pmatrix}.
+\end{equation}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Symétrie par rapport à une droite}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Le principe est exactement le même : il faut trouver trois vecteurs $f_1$, $f_2$ et $f_3$ sur lesquels on connaît l'action de la symétrie. Ensuite il faudra exprimer $e_1$, $e_2$ et $e_3$ en termes de $f_1$, $f_2$ et $f_3$.
+
+Le seul problème est de trouver les trois vecteurs $f_i$. Le premier est tout trouvé : c'est n'importe quel vecteur sur la droite. Pour les deux autres, il faut un peu ruser parce qu'il faut impérativement qu'ils soient perpendiculaire à la droite. Pour trouver $f_2$, on peut écrire
+\begin{equation}
+	f_2=\begin{pmatrix}
+		1	\\ 
+		0	\\ 
+		x	
+	\end{pmatrix},
+\end{equation}
+et puis fixer le $x$ pour que le produit scalaire de $f_2$ avec $f_1$ soit nul. S'il n'y a pas moyen (genre si $f_1$ a sa troisième composante nulle), essayer avec $\begin{pmatrix}
+	x	\\ 
+	1	\\ 
+	0	
+\end{pmatrix}$. Une fois que $f_2$ est trouvé (il y a des milliards de choix possibles), trouver $f_3$ est super facile : prendre le produit vectoriel entre $f_1$ et $f_2$.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{En résumé}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+La marche à suivre est
+
+\begin{enumerate}
+
+	\item
+		Trouver trois vecteurs $f_1$, $f_2$ et $f_3$ sur lesquels on connaît l'action de la symétrie. Typiquement : des vecteurs qui sont sur l'axe ou le plan de symétrie, et puis des perpendiculaires. Pour la perpendiculaire, penser au produit scalaire et au produit vectoriel.
+
+	\item
+		Exprimer la base canonique $e_1$, $e_2$ et $e_3$ en termes de $f_1$, $f_2$, $f_3$.
+
+	\item
+		Trouver $Ae_1$, $Ae_2$ et $Ae_3$ en utilisant leur expression en termes des $f_i$, et le fait que l'on connaisse l'action de $A$ sur les $f_i$.
+
+	\item
+		La matrice s'obtient en mettant les images des $e_i$ en colonnes.
+\end{enumerate}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Angles orientés}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{proposition}[\cite{ooGEXYooMTrOdH}]
+    Si \( u\) et \( v\) sont des vecteurs unitaires\footnote{De norme \( 1\).} de \( \eR^2\) alors il existe une unique rotation \( f\) telle que \( f(u)=v\).
+\end{proposition}
+
+Notons l'unicité. Nous ne faisons pas de différences entre \( R_{\theta}\) et \( R_{\theta+2\pi}\) et les autres \( R_{\theta+2k\pi}\). En particulier si une rotation \( T\) est donnée, dire «\( T=R_{\theta}\)» ne définit pas un nombre \( \theta\) de façon univoque. Par contre ça définit une classe modulo \( 2\pi\), c'est à dire un élément \( \theta\in \eR/2\pi\).
+
+
+Nous avons déjà défini le groupe \( \SO(2)\) en la définition \ref{DEFooJLNQooBKTYUy} et vu que c'était le groupe des rotations dans \( \eR^2\) en le lemme \ref{LEMooHRESooQTrpMz}.
+
 
 %---------------------------------------------------------------------------------------------------------------------------
 \section{Norme opérateur}
@@ -1418,4 +1784,3 @@ Pour prouver l'inclusion inverse, soit \( x\in \partial B(a,r)\). Vu que toute b
     \end{equation}
     est continue.    
 \end{lemma}
-
