@@ -9,6 +9,7 @@ def DGFSooWgbuuMoB():
 
     N=3
     h=1/(N+1)
+    x=var('x')
     f1=phyFunction((N+1)*x).graph(0,h)
     f2=phyFunction(-(N+1)*x+2).graph(h,2*h)
     f3=phyFunction((N+1)*x-1).graph(h,2*h)
