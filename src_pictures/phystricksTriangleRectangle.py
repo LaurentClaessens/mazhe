@@ -25,8 +25,8 @@ def TriangleRectangle():
     angleT=AngleAOB(H,A,C)
     angleS.parameters.color="red"
     angleT.parameters.color="cyan"
-    angleS.put_mark(0.3,None,"$60$",pspict=pspict)
-    angleT.put_mark(0.3,None,"$30$",pspict=pspict)
+    angleS.put_mark(text="$60$",pspict=pspict)
+    angleT.put_mark(text="$30$",pspict=pspict)
 
     pspict.DrawGraphs(AB,AC,BC,hauteur,angleS,angleT,A,B,C,H)
     fig.conclude()

@@ -24,10 +24,9 @@ def ParallelogrammeOM():
     h.put_mark(0.2,0,"$h$",pspict=pspict)
 
     theta=Angle(D,O,b.F)
-    theta.put_mark(0.3,None,r"$\theta$",pspict=pspict)
+    theta.put_mark(text=r"$\theta$",pspict=pspict)
 
     pspict.DrawGraphs(a,b,C,l1,l2,h,theta,D)
-    #pspict.DrawDefaultAxes()
     pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()

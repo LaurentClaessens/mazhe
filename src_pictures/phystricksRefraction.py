@@ -16,8 +16,8 @@ def Refraction():
 
     theta1=AngleAOB(A,O,N.F)
     theta2=AngleAOB(B,O,N.I)
-    theta1.put_mark(0.3,None,r"$\theta_1$",pspict=pspict)
-    theta2.put_mark(0.3,None,r"$\theta_2$",pspict=pspict)
+    theta1.put_mark(text=r"$\theta_1$",pspict=pspict)
+    theta2.put_mark(text=r"$\theta_2$",pspict=pspict)
 
     pspict.DrawGraphs(plan,N,theta1,theta2,a,b)
     pspict.dilatation(1)

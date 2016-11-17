@@ -18,7 +18,7 @@ def ERPMooZibfNOiU():
     plp.parameters.symbol=""
     plp.put_mark(0.2,angle=None,added_angle=0,text="\( \ell_p\)",pspict=pspict)
     angle_t0=AngleAOB(axeX.F,O,lp.F)
-    angle_t0.put_mark(0.3,angle=None,added_angle=0,text="\( \\alpha\)",pspict=pspict)
+    angle_t0.put_mark(text="\( \\alpha\)",pspict=pspict)
     P=lp.midpoint()
     P.put_mark(0.2,angle=None,added_angle=180,text="\( P\)",pspict=pspict)
 

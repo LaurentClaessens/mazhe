@@ -16,7 +16,7 @@ def ExoPolaire():
 	m.put_mark(0.3,m.advised_mark_angle(pspict),"$l$",pspict=pspict)
 
 	theta=AngleAOB(X,O,P,r=0.5)
-	theta.put_mark(0.3,None,r"$\theta$",pspict=pspict)
+	theta.put_mark(text=r"$\theta$",pspict=pspict)
 
 	pspict.axes.no_numbering()
 
