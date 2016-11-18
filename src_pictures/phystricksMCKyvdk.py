@@ -10,7 +10,6 @@ def MCKyvdk():
     cube.put_vertex_mark(pspict)
 
     pspict.DrawGraphs(cube)
-    #pspict.DrawDefaultAxes()
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()
