@@ -21,8 +21,8 @@ def GVDJooYzMxLW():
     hauteur.parameters.color="blue"
     H.put_mark(0.3,-90,"$H$",pspict=pspict)
 
-    angleS=Angle(A,C,H)
-    angleT=Angle(H,A,C)
+    angleS=AngleAOB(A,C,H)
+    angleT=AngleAOB(H,A,C)
     angleS.parameters.color="red"
     angleT.parameters.color="cyan"
     angleS.put_mark(text="$60$",pspict=pspict)

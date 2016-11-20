@@ -21,7 +21,7 @@ def QIZooQNQSJj():
 
 
     AH=Segment(A,H)
-    rh=RightAngle(AH,BC,0,0)
+    rh=RightAngleAOB(AH,BC,0,0)
 
 
     triangle=Polygon(A,B,C)

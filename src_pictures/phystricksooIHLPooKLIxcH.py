@@ -21,7 +21,7 @@ def ooIHLPooKLIxcH():
     M=cercle.get_point((sigma+theta)/2)
     M.put_mark(0.3,M.advised_mark_angle(pspict),"$\sigma(t)$",pspict=pspict)
 
-    angle=Angle(P,O,Q,r=0.5)
+    angle=AngleAOB(P,O,Q,r=0.5)
     angle.put_mark(0.2,None,r"$\theta$",pspict=pspict)
     seg_theta=Segment(O,P)
     seg_sigma=Segment(O,Q)

@@ -13,7 +13,7 @@ def YHJYooTEXLLn():
     P=Point(R,h)
     P.put_mark(0.1,45,"$(R,h)$",pspict=pspict)
 
-    angle = Angle(Point(1,0),Point(0,0),P)
+    angle = AngleAOB(Point(1,0),Point(0,0),P)
     angle.parameters.color="red"
     angle.put_mark(0.3,None,"$\\alpha$",pspict=pspict)
 

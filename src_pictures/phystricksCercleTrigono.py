@@ -22,7 +22,7 @@ def CercleTrigono():
     measureCos.put_mark(0.1,text=r"$\cos(\theta)$",pspict=pspict,position="N")
     measureSin.put_mark(-0.1,text=r"$\sin(\theta)$",pspict=pspict,position="E")
 
-    angle=Angle(C,O,P,0.4)
+    angle=AngleAOB(C,O,P,0.4)
     angle.put_mark(text=r"$\theta$",pspict=pspict)
 
     pspict.DrawGraphs(Cercle,pc,ps,S,C,measureSin,measureCos,vecteur,angle,P)
