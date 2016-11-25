@@ -22,7 +22,7 @@ def CheminFresnel():
 
     P1.put_mark(0.1,P1.advised_mark_angle(pspict),"\( \gamma_1\)",pspict=pspict)
     P2.put_mark(0.1,P2.advised_mark_angle(pspict),"\( \gamma_2\)",pspict=pspict)
-    P3.put_mark(0.1,P3.advised_mark_angle(pspict)+180,"\( \gamma_3\)",pspict=pspict)
+    P3.put_mark(0.1,P3.advised_mark_angle(pspict),added_angle=180,text="\( \gamma_3\)",pspict=pspict)
 
     gamma1.parameters.color="blue"
     gamma2.parameters.color=gamma1.parameters.color
