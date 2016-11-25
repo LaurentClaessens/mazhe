@@ -650,7 +650,7 @@ Notice that \( \swD(\Omega)\) is included in \( H^1(\Omega)\), so that the defin
 \begin{lemma}[\cite{ooXRCOooCFWVg}]
     The formula
     \begin{equation}
-        | u |_{1,\Omega}=\left( \sum_{i=1}^d\int_{\Omega}\left( \frac{ \partial u }{ \partial x_i } \right)^2 \right)^{1/2}
+        | u |_{1,\Omega}=\| \nabla u \|_{L^2(\Omega)}=\left( \sum_{i=1}^d\int_{\Omega}\left( \frac{ \partial u }{ \partial x_i } \right)^2 \right)^{1/2}
     \end{equation}
     is a norm\footnote{Definition \ref{DefNorme}.} on \( H_0^1(\Omega)\).
 \end{lemma}
@@ -669,6 +669,86 @@ So now we consider the metric space
 \begin{equation}
     \big( H^1_0(\Omega),| . |_{1,\Omega} \big).
 \end{equation}
+The norm on \( H^1(\Omega)\) given by the inner product \eqref{EQooQRMKooLaMpcp} can be written
+\begin{equation}
+    \| u \|_{H^1(\Omega)}=\| u \|_{L^2(\Omega)}+\| \nabla u \|_{L^2(\Omega)}=\| u \|_{L^2(\Omega)}+| u |_{1,\Omega}.
+\end{equation}
+
+\begin{lemma}       \label{LEMooEVQKooYoZmbH}
+    Let \( v_i\in H_0^1(\Omega)\) satisfying \( v_i\stackrel{H^1(\Omega)}{\longrightarrow}v\). Then
+    \begin{enumerate}
+        \item
+            \( v_i\stackrel{H_0^1(\Omega)}{\longrightarrow}v\)
+        \item
+            \( v_i\stackrel{L^2(\Omega)}{\longrightarrow}v\)
+        \item
+            \( \| v_i \|_{L^2}\to \| v \|_{L^2}\)
+        \item
+            \( | v_i |_{1,\Omega}\to | v |_{1,\Omega}\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    By hypothesis we have
+    \begin{equation}
+        \| v_i-v \|_{H^1}=\| v_i-v \|_{L^2}+| v_i-v |_{1,\Omega}\to 0.
+    \end{equation}
+    Since the two terms are positive, they separately converge to \( 0\). Thus \( \| v_i-v \|_{L^2}\to 0\) and \( | v_i-v |_{1,\Omega}\to 0\). This means \( v_i\stackrel{L^2}{\longrightarrow}v\) and \( v_i\stackrel{H_0^1}{\longrightarrow}v\).
+
+    The two last statement about the norms are immediate consequences of the continuity of the norm.
+\end{proof}
+
+\begin{theorem}[Poincaré inequality\cite{ooXRCOooCFWVg}]        \label{THOooMIHQooYShOps}
+    Let \( \Omega\) be an open part of \( \eR^d\) which is bounded in at least one direction. There exists a constant \( C\) (which can depend on \( \Omega\)) such that
+    \begin{equation}
+        \| v \|_{L^2(\Omega)}\leq C\| v \|_{1,\Omega}
+    \end{equation}
+    for every \( v\in H_0^1(\Omega)\)
+\end{theorem}
+
+\begin{proof}
+Let us first consider \( v\in\swD(\Omega)\) and extend \( v\) with \( 0\) outside \( \Omega\). For the sake of notational simplicity we suppose that \( \Omega\) is bounded in the direction \( x_1\), that is \( \Omega\subset \{ x\tq x_1\in \mathopen] a , b \mathclose[ \}\).
+
+Since \( v\) has compact support in \( \Omega\), we have \( v(a,x')=0\) for every \( x'\in \eR^{d-1}\) and we can write 
+    \begin{equation}
+    v(x_1,x')=   \int_a^{x_1}(\partial_1v)(t,x')dt=\langle 1, \partial_1v\rangle_{L^2\big( \mathopen] a , x_1 \mathclose[ \big)},
+    \end{equation}
+    so that
+    \begin{subequations}
+        \begin{align}
+            | v(x_1,x') |^2&\leq \langle 1, 1\rangle \langle \partial_1v, \partial_1v\rangle \\
+            &=(x_1-a)\int_a^{x_1}| \partial_1 v|^2\\
+            &\leq(b-a)\int_a^b| \partial_1v |^2.
+        \end{align}
+    \end{subequations}
+    Let us integrate that inequality over \( x'\in \eR^{d-1}\) :
+    \begin{equation}
+        \int_{\eR^{d-1}}| v(x_1,x') |^2dx'\leq (b-a)\int_{\eR^{d-1}}\int_a^b| \partial_1v |^2=(b-a)\int_{\eR^d}| \partial_1v |^2=(b-a)\| \partial_1v \|^2_{L^2(\eR^d)}.
+    \end{equation}
+    We used the Fubini theorem \ref{ThoFubinioYLtPI}. This is allowed because \( v\) is compactly supported, so that \( | \partial_1v |\) is integrable on \( \eR^{d-1}\times \mathopen] a , b \mathclose[\).
+
+    We integrate with respect to \( x_1\) over \( \mathopen] a , b \mathclose[\). On the left we have
+        \begin{equation}
+            \int_a^b\int_{\eR^{d-1}}| v(x_1,x') |^2dx'dx_1=\int_{\eR^d}| v(x) |^2dx,
+        \end{equation}  
+        And on the right the integration is a simple multiplication by \( (b-a)\) :
+        \begin{equation}
+            \| v \|^2_{L^2(\eR^d)}\leq (b-a)^2\| \partial_1v \|^2_{L^2(\eR^d)}.
+        \end{equation}
+        Now we have
+        \begin{equation}
+            \| v \|^2_{L^2}\leq (b-a)^2\| \partial_1v \|^2\leq C\sum_{i=1}^d\| \partial_1v \|^2=C| v |_{1,\Omega}
+        \end{equation}
+        where \( C\) is a majoration of \( (b-a)^2\) and \( 1\).
+
+        The result is proved for \( v\in\swD(\Omega)\).
+
+        Let now consider \( u\in H_0^1(\Omega)\). By definition, there exists a sequence \( v_i\in\swD(\Omega)\) such that
+        \begin{equation}
+            v_i\stackrel{H^1(\Omega)}{\longrightarrow}u.
+        \end{equation}
+        For each \( i\) we have \( \| v_i \|^2_{L^2(\eR^d)}\leq C| v_i |_{1,\Omega}\). Taking the limit and using the lemma \ref{LEMooEVQKooYoZmbH} to enter the limits inside the norms we get the result.
+\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Smooth diffeomorphisms}
