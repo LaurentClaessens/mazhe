@@ -1,0 +1,505 @@
+% This is part of (almost) Everything I know in mathematics
+% Copyright (c) 2013-2014
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+This chapter actually don't deal with \emph{quantum} field theory in the sense that our wave functions aren't operators which acting on a Fock space. So this is just relativistic field theory. 
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Example : electromagnetism}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\index{electromagnetism}
+
+Let us consider the electromagnetism as the simplest example of a gauge invariant physical theory. We first discuss the theory of free electromagnetic field (this is: without taking into account the interactions with particles) from Maxwell's\index{Maxwell} equations, see \cite{Schomblond_em,llf}. The electric field $\bE$ and the magnetic field $\bB$ are subject to following relations:
+\begin{subequations}
+\begin{align}
+\nabla\cdot{\bE}&=\rho,    \label{M1}\\
+\nabla\cdot{\bB}&=0,                     \label{M2}  \\
+\nabla\times{\bE}+\partial_t{\bB}&=0,         \label{M3}\\
+\nabla\times{\bB}-\partial_t{\bE}&=\overline{ j }. \label{M4}
+\end{align}
+\end{subequations}
+Comparing \eqref{M1} and \eqref{M2}, we see that Maxwell's theory does not incorporate magnetic monopoles.
+Suppose that we can use the Poincaré lemma. Equation \eqref{M2} gives a vector field $\bA$ such that $\bB=\nabla\times\bA$, so that \eqref{M3} becomes $\nabla\times(\bE+\partial_t\bA)=0$ which gives a scalar field $\phi$ such that $-\nabla\cdot\phi=\bE+\partial_t\bA$.
+
+Now the equations \eqref{M1}--\eqref{M4} are equations for the potentials $\bA$ and $\phi$, and we find back the ``physical''\ field by
+\begin{subequations}\label{BE_de_A}
+\begin{align}
+    \bB&=\nabla\times\bA,\\
+    \bE&=-\nabla\phi-\partial_t\bA.
+\end{align}
+\end{subequations}
+
+One can easily see that there are several choice of potentials\index{potential} which describe the same electromagnetic field. Indeed, if
+\begin{subequations}\label{jauge_A}
+\begin{align}
+    \bA'&=\bA+\nabla\lambda,\\
+    \phi'&=\phi-\partial_t\lambda,
+\end{align}
+\end{subequations}
+the electromagnetic field given (via \eqref{BE_de_A}) by $\{\phi',\bA'\}$ is the same as the one given by $\{\phi,\bA\}$
+
+The Maxwell's equations can be written in a more ``covariant''\ way by defining
+\begin{equation}\label{def_F}
+F=\begin{pmatrix}
+0 & -E_x/c & -E_y/c & -E_z/c \\
+\cdot & 0 & -B_z & \cdot \\
+\cdot & \cdot & 0 & -B_x \\
+\cdot & -B_y & \cdot & 0
+\end{pmatrix},
+\end{equation} $F^{\mu\nu}=-F^{\nu\mu}$ and\nomenclature{$F_{\mu\nu}$}{Electromagnetic field strength}
+\[
+ J=\begin{pmatrix}
+c\rho & j_x & j_y & j_z
+\end{pmatrix}.
+\]\nomenclature{$J_{\mu}$}{Electromagnetic $4$-current}
+We also define $\star F^{\alpha\beta}=\frac{1}{2} e^{\alpha\beta\lambda\mu}F_{\lambda\mu}$. With all that, Maxwell's equations read:
+\begin{equation}
+\begin{split}
+\partial_{\mu} F^{\mu\nu}&=\mu_0J^{\nu},\\
+\partial_{\alpha}\star F^{\alpha\beta}&=0.
+\end{split}
+\end{equation}
+If we define
+\begin{equation}\label{def_A}
+  A=\begin{pmatrix}
+\frac{\displaystyle\phi}{\displaystyle c} & -A_x & -A_y & -A_z
+\end{pmatrix},
+\end{equation}
+%
+the physical fields are given by
+\[
+  F_{\mu\nu}=\partial_{\mu}A_{\nu}-\partial_{\nu}A_{\mu}.
+\]
+The \defe{gauge invariance}{gauge!invariance!of electromagnetism} of this theory is the fact that
+\begin{subequations}
+\begin{equation}
+  F'_{\mu\nu}=\partial_{\mu}A'_{\nu}-\partial_{\nu}A'_{\mu}=F_{\mu\nu}
+\end{equation}
+when
+\begin{equation}
+A'_{\mu}(x)=A_{\mu}(x)+\partial_{\mu}f(x)
+\end{equation}
+\end{subequations}
+for any scalar \emph{function} $f$ (to be compared with \eqref{jauge_A}).
+
+This is: in the picture of the world in which we see the $A$ as fundamental field of physics, several (as much as you have functions in $C^{\infty}(\eR^4)$) fields $A$, $A'$,\ldots\ describe the \emph{same} physical situation because the fields $\bE$ and $\bB$ which acts on the particle are the same for $A$ and $A'$.
+
+Now, we turn our attentions to the interacting field theory of electromagnetism. As far as we know, the electron makes interactions with the electromagnetic field via a term $\overline{ \psi } A_{\mu}\psi$ in the Lagrangian. The free Lagrangian for an electron is
+%
+%\begin{center}
+%\begin{fmffile}{monfey}
+%\begin{fmfgraph*}(40,25)
+%\fmfleft{i1}
+%\fmfright{o1,o2}
+%\fmf{fermion}{i1,v1}
+%\fmf{photon}{v1,o1}
+%%\fmf{fermion}{v1,o2}
+%\fmflabel{$e^-$}{i1}
+%\fmflabel{$e^-$}{o2}
+%\fmflabel{$A_{\mu}$}{o1}
+%\end{fmfgraph*}
+%\end{fmffile}
+%\end{center}
+%
+\begin{equation}\label{eq:freeL}
+\mL=\overline{ \psi }(\gamma^{\mu}\partial_{\mu}+m)\psi.
+\end{equation}
+%
+ The easiest way to include a $\overline{ \psi } A\psi$ term is to change $\partial_{\mu}$ to $\partial_{\mu}+A_{\mu}$. But we want to preserve the powerful gauge invariance of classical electrodynamics, then we want the new Lagrangian to keep unchanged if we do
+ \begin{equation} \label{eq_jaugeA_em}
+ A_{\mu}\rightarrow A_{\mu}'=A_{\mu}-i\partial_{\mu}\phi.
+ \end{equation}
+  In order to achieve it, we remark that the $\psi$ must be transformed \textit{simultaneously} into
+\begin{equation}\label{eq:jaugepsi_em}
+ \psi'(x)=e^{i\phi(x)}\psi(x).
+\end{equation}
+
+The conclusion is that if one want to write down a Lagrangian for QED\index{QED}, one must find a Lagrangian which remains unchanged under certain transformation $A\rightarrow A'$ and $\psi\rightarrow\psi'$. In other words the set $\{\psi,A\}$ of fields which describe the world of an electron in an electromagnetic field is not well defined from data of the physical situation alone: it is defined up to a certain invariance which is naturally called a \defe{gauge invariance}{gauge!invariance}.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Connections for the gauge invariance}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+In the physics books, the matter is presented in a slightly different way. We observe that the Lagrangian \eqref{eq:freeL} is invariant under
+\begin{equation}\label{eq:globale}
+\psi(x)\rightarrow\psi'(x)=e^{i\alpha}\psi(x)
+\end{equation}
+for any \emph{constant} $\alpha$. One can see that the associated conserved current (Noether) is closely related to the electric current. The idea (of Yang-Mills) is to upgrade this symmetry. Since the symmetry \eqref{eq:globale} depends only on a constant, we say it a \defe{global}{global symmetry} symmetry; we will simultaneously add a new field $A_{\mu}$ and upgrade \eqref{eq:globale} to a \defe{local}{local symmetry (physics)} symmetry:
+ \begin{equation}\label{eq:locate}
+\psi(x)\rightarrow\psi'(x)=e^{i\phi(x)}\psi(x).
+\end{equation}
+Then, we deduce the transformation law of $A_{\mu}$.
+
+Because of the form of \eqref{eq:jaugepsi_em}, we say that the electromagnetism is a $U(1)$-gauge theory. The fact that this is an abelian group has a deep physical meaning and many consequences.
+
+
+\subsection{Little more general, slightly more formal}
+%--------------------------------------------
+
+The aim of this text is to interpret the field $A$ as a gauge potential for a connection. But equation \eqref{eq_jaugeA_em} is not exactly the expected one which is \eqref{tr_de_A}. The point is that equation \eqref{eq_jaugeA_em} concerns a theory in which the gauge transformation of the field was a simple multiplication by a scalar field, so that simplifications as $e^{-i\phi(x)}A_{\mu}(x)e^{i\phi(x)}=A_{\mu}(x)$ are allowed.
+
+Now, we consider a vector space $V$, a manifold $M$ and a function $\dpt{\psi}{M}{V}$ which ``equation of motion''\ is
+\[
+   L^i(\partial_i+m_i)\psi=0
+\]
+Where we imply an unit matrix behind $\partial$ and $m$; the indices $i,j$ are the (local) coordinates in $M$ and $a,b$, the coordinates in $V$. Let $G$ be a matrix group which acts on $V$. If $\psi$ is a solution, $\Lambda^{-1}\psi$ is also a solution as far as $\Lambda$ is a constant --does not depend on $x\in M$-- matrix of $G$. In other words, $L^i(\partial_i+m_i)\psi_a=0$ for all $a$ implies $L^i(\partial_i+m_i)((\Lambda^{-1})^b_a\psi_b)=0$.
+
+The function, $\psi'(x)=\Lambda(x)^{-1}\psi(x)$ is no more a solution. If we want it to be solution of the same equation as $\psi$, we have to change the equation and consider
+\[
+   L^i(\partial_i+A_i+m_i)\psi=0.
+\]
+This equation is preserved under the \emph{simultaneous} change
+\begin{equation}\label{eq:jaugeG}
+    \left\{\begin{aligned}
+	   \psi_a'&=(\Lambda^{-1})^b_a\psi_b\\
+           (A_i')^a_b&=(\Lambda^{-1})^c_b (A_i)^d_c(\Lambda^a_d)-(\partial_i\Lambda^{-1})^d_b\Lambda^a_d.
+          \end{aligned}\right.
+\end{equation}
+The second line show that the formalism in which $A$ is a connection is the good one to write down covariant equations. This has to be compared with \eqref{trans_A}. Logically, a theory which includes an invariance under transformations as \eqref{eq:jaugeG} is called a $G$-gauge theory.
+
+\subsection{A ``final'' formalism}
+%---------------------------------------
+
+Now, we work with fields which are sections of some fiber bundle build over $M$, the physical space. More precisely, let $G$ be a matrix group. 
+
+\begin{probleme}
+	For sure, it also works for a much lager class of groups. Which one ?
+\end{probleme}
+
+
+We search for a theory which is ``locally invariant under $G$''. In order to achieve it, we consider a $G$-principal bundle $P$ over $M$ and the associated bundle $E=P\times_{\rho}V$ for a certain vector space $V$, and a representation $\rho$ of $G$ on $V$. Typically, $V$ is $\eC$ or the vector space on which the spinor representation acts.
+
+The physical fields are sections $\dpt{\psi}{M}{E}$. If we choose some reference sections $\dpt{\sigma_{\alpha}}{M}{P}$, they can be expressed by $\psi\bsa(x)=\hpsi(\salpha(x))$. We translate the idea of a local invariance under $G$ by requiring an invariance under
+\[
+     \psi'\bsa(x)=\rho(g(x))\psi\bsa(x)
+\]
+for every $\dpt{g}{M}{G}$. By \ref{lem:ii} of lemma \ref{lem:prop_gauge}, we see that $\psi'\bsa(x)=(\varphi^{-1}\cdot\psi)\bsa(x)$, where $\dpt{\varphi}{P}{P}$ is the gauge transformation given by
+\[
+   \varphi(\salpha(x))=\salpha(x)\cdot g(x).
+\]
+
+We want $\psi$ and $\psi'$ to ``describe the same physics''. From a mathematical point of view, we want $\psi$ and $\psi'$ to \emph{satisfy the same equation}. It is clear that equation $d\psi=0$ will not work.
+
+The trick is to consider any connection $\omega$ on $P$ and the gauge potential $A$ of $\omega$. In this case the equation
+\begin{equation}\label{eq:Dpsi}
+    (d-A)\psi=0\qquad\textrm{ or }\qquad D\psi=0
+\end{equation}
+is preserved under 
+\[ 
+ \begin{split}
+A&\rightarrow\varphi\cdot A,\\
+ \psi&\rightarrow\varphi^{-1}\cdot\psi.
+\end{split} 
+\]
+ Theorem \ref{th:covariance} powa !
+        
+In this sense, we say that equation \eqref{eq:Dpsi} is gauge invariant, and is thus taken by physicists to build some theories when they need a ``local $G$-covariance''. This gives rise to the famous Yang-Mills theories.
+
+In this picture the matter field $\psi$ and the bosonic field $A$ are both defined from a $U(1)$-principal bundle. When physicists say 
+\begin{quote}
+	$\psi$ transforms as ``blahblah'' under a $U(1)$ transformation,
+\end{quote}
+they mean that $\psi$ is a section of an $U(1)$-associated bundle; 
+when they say
+\begin{quote}
+	$A$ transforms as ``blahblah'' under a $U(1)$ transformation,
+\end{quote}
+they mean that $A$ is the gauge potential of a connection on a $U(1)$-principal bundle. In each case, the ``blahblah'' denotes an irreducible\footnote{Irreducibility is for elementary particles} representation of $U(1)$.
+
+\begin{remark}
+The mathematics of equation \eqref{eq:Dpsi} only requires a $\yG$-valued connection on $P$. There are several physical constraints on the choice of the connection. These give rise to interaction terms between the gauge bosons. We will not discuss it at all. This a matter of books about quantum field theories.
+
+The most used Yang-Mills groups in physics are $U(1)$ for the QED, $SU(2)$ for the weak interactions and $SU(3)$ for chromodynamic.
+\end{remark}
+
+
+\subsection{The electromagnetic field \texorpdfstring{$F$}{F}}
+%--------------------------------------
+Now, we are able to interpret the field $F$ introduced in equation \eqref{def_F}.  We follow \cite{Preparation}. From now, we use the usual Minkowski metric $g=diag(-,+,+,+)$.
+From the vector given by \eqref{def_A}, we define a (local) potential $1$-form
+\[
+   A=A_{\mu}dx^{\mu}=-\phi dt+A_x dx+A_y dy+A_z dz.
+\]
+The field strength\index{Yang-Mills!field strength} is $F=dA$. We easily find that
+\begin{equation}
+\begin{split}
+   F&=(dt\wedge dx)(\partial_x\phi+\partial_t A_x)+\ldots\\
+    &\quad+(dx\wedge dy)(-\partial_z A_x+\partial_x A_y)+\ldots
+\end{split}
+\end{equation}
+But the fields $\bB$ and $\bE$ are defined from $\bA$ and $\phi$ by \eqref{BE_de_A}, so
+\begin{equation}
+\begin{split}
+  F&=-E_x(dt\wedge dx)-E_y(dt\wedge dy)-E_z(dt\wedge dz)\\
+   &\quad+B_x(dy\wedge dz)+B_y(dz\wedge dx)+B_z(dx\wedge dy).
+\end{split}
+\end{equation}
+
+We naturally have $dF=d^2A=0$. But conversely, $dF=0$ ensures the existence of a $1$-form $A$ such that $F=dA$. If we define\footnote{\emph{i.e.} we consider $F$ as the main physical field while $\bE$ and $\bB$ are ``derived'' fields.} $\bB=\nabla\times\bA$ and $\bE=-\nabla\phi-\partial_t\bA$, equations \eqref{M2} and \eqref{M3} are obviously satisfied. So in the connection formalism, the equations ``without sources''\ are written by
+\begin{equation}\label{M23}
+ dF=0.
+\end{equation}
+In order to write the two others, we introduce the current $1$-form\index{current!$1$-form} :
+\[
+  j=j_{\mu}dx^{\mu}=-\rho dt+j_x dx+j_y dy+j_z dz.
+\]
+%
+One sees that
+\begin{equation}
+\begin{split}
+  \delta F:=\star d\star F&=-dt(\nabla\cdot\bE)\\
+                &\quad+ dx(-\partial_t \bE_x+ (\nabla\times\bB)_x )\\
+		&\quad+ dy(-\partial_t \bE_y+ (\nabla\times\bB)_y )\\
+		&\quad+ dz(-\partial_t \bE_z+ (\nabla\times\bB)_z ),
+\end{split}
+\end{equation}
+so that equation $\delta F=j$ gives equations \eqref{M1} and \eqref{M4}. Now, the complete set of Maxwell's\index{Maxwell} equations is :
+\begin{subequations}
+\begin{align}
+   d F&= 0\label{SM1}\\
+   \delta F &=j\label{SM2}
+\end{align}
+\end{subequations}
+with
+\begin{subequations}
+\begin{align}
+j&=-\rho dt+j_x dx+j_y dy+j_z dz,\\
+  \bB&=\nabla\times\bA\\
+  \bE&=-\nabla\phi-\partial_t\bA
+\end{align}
+\end{subequations}
+where $A$ is a $1$-form such that $F=dA$ whose existence is given by \eqref{SM1}.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Spin manifold for Lorentz invariance}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{subsec:incl_Lorentz}
+
+Up to now we had seen how to express the \emph{gauge} invariance of a physical theory. In particle physics, a really funny field theory must be invariant under the Lorentz group; it is rather clear that, from the bundle point of view, this feature will be implemented by a Lorentz-principal bundle and some associated bundles. A spinor will be a section of an associated bundle for spin one half representation of the Lorentz group on $\eC^4$. In order to describe non-zero spin particle interacting with an electromagnetic field (represented by a connection on a $U(1)$-principal bundle), we have to build a correct $\SLdc\times U(1)$-principal bundle. We are going to use the ideas of \ref{subsec:sym_nature}.
+
+A \defe{space-time}{space-time} is a differentiable \defe{pseudo-Riemannian}{pseudo-Riemannian} $4$-dimensional manifold. The pseudo-Riemannian structure is a $2$-form $g\in\Omega^2(M)$ for which we can find at each point $x\in M$ a basis $b=(\overline{ b }_0,\ldots,\overline{ b }_3)$ which fulfils
+\[
+  g_x(\overline{ b }_i,\overline{ b }_j)=\eta_{ij}.
+\]
+When we use an adapted coordinates, the metric reads $g=\eta_{ij}dx^i\otimes dx^j$.
+
+One says that $M$ is \defe{time orientable}{time!orientable} if one can find a vector field $T\in\cvec(M)$ such that $g_x(T_x,T_x)>0$ for all $x\in M$. A \defe{time orientation}{time!orientation} is a choice of such a vector field. A vector $v\in T_xM$ is \defe{future directed}{future!directed vector} if $g_x(T_x,v)>0$.
+
+The Lorentz group $L$ acts on the orthogonal basis of each $T_xM$, but you may note that $L$ don't act on $M$; it's just when the metric is flat that one can identify the whole manifold with a tangent space and consider that $L$ is the space-times isometry group. In the case of a curved metric, the Lorentz group have to be introduced pointwise and the building of a frame bundle is natural.
+
+Now, we are mainly interested in the frame related each other by a transformation of $L_+^{\uparrow}$. An arising question is to know if one can make a choice of some basis of each $T_xM$ in such a manner that 
+
+\begin{enumerate}
+\item pointwise, the chosen frames are related by a transformation of $L_+^{\uparrow}$,
+\item the choice is globally well defined.
+\end{enumerate}
+The first point is trivial to fulfil from the definition of a space-time. For the second, it turns out that a good choice can be performed if and only if there exists a vector field $V\in\cvec(M)$ such that $g_x(V_x,V_x)>0$ for all $x\in M$. We suppose that it is the case\footnote{That condition is rather restrictive because we cannot, for example, find an everywhere non zero vector field on the sphere $S^n$ with $n$ even.}.
+
+So our first principal bundle attempt to describe the space-time symmetry is the $L_+^{\uparrow}$-principal bundle of orthonormal oriented frame on $M$ :
+ \begin{equation}\label{bun:LpF}
+\xymatrix{
+    L_+^{\uparrow}  \ar@{~>}[r] & L(M) \ar[d]^{p_L} \\
+    &M
+  }
+\end{equation}
+The notion of ``\defe{relativistic invariance}{relativistic invariance}'' has to be understood in the sense of associated bundle to this one. The next step is to recall ourself (see subsection \ref{subsec:sym_nature}) that the physical fields doesn't transform under representation of the group $L_+^{\uparrow}$ but rather under representations of $\SLdc$. So we build a $\SLdc$-principal bundle
+ \[
+\xymatrix{
+    \SLdc  \ar@{~>}[r] & S(M) \ar[d]^{p_S} \\
+    &M
+  }
+\]
+In order this bundle to ``fit''{} as close as possible the bundle \eqref{bun:LpF}, we impose the existence of a map $\dpt{\lambda}{S(M)}{L(M)}$ such that
+
+\begin{enumerate}
+\item $p_B(\lambda(\xi))=p_S(\xi)$ for all $\xi\in S(M)$ and
+\item $\lambda(\xi\cdot g)=\lambda(\xi)\cdot\mSpin(g)$ for all $g\in\SLdc$.
+\end{enumerate}
+You can recognize the definition of a \defe{spin structure}{spin!structure}\label{pg_spinenphyz}. Notice that the existence of a spin structure on a given manifold is a non trivial issue.
+
+Now a physical field is given by a section of the associated bundle $E=S(M)\times_{\rho} V$ where $\rho$ is a representations of $\SLdc$ on $V$. For an electron, it is $V=\eC^4$ and $\rho=D^{(1/2,0)}\oplus D^{(0,1/2)}$. That describes a \emph{free} electron is the sense that it doesn't interacts with a gauge field. So in order to write down the formalism in which lives a non zero spin particle, we have to build a $U(1)\times\SLdc$-principal bundle. For this, we follow the procedure given in section \ref{sec:produit_bundle}
+
+\section{Interactions}
+%++++++++++++++++++
+
+\subsection{Spin zero}
+%--------------------
+
+The general framework is the following :
+\[
+ \xymatrix{
+    U(1)  \ar@{~>}[r] & P \ar[d]_{\displaystyle \pi} && E=P\times_{\rho} V \\
+                      & M&\mU_{\alpha}\ar@{^{(}->}[l]  \ar[ur]_{\displaystyle\phi} \ar[lu]_{\displaystyle\sigma_{\alpha}}
+  }
+\]
+a $U(1)$-principal bundle over a manifold $M$ (as far as topological subtleties are concerned, we suppose $M=\eR^4$) and a section $\phi$ of an associated bundle for a representation $\rho$ of $U(1)$ on $V$. We consider $M$ with the Lorentzian metric but, since we are intended to treat with scalar (spin zero) fields, we still don't include the Lorentz (or $\SLdc$) group in the picture. We also consider local sections $\dpt{\sigma_{\alpha}}{\mU_{\alpha}}{P}$, a connection $\omega$ on $P$ and $\Omega$ its curvature. We define $A_{\alpha}=\sigma_{\alpha}^*\omega$.
+
+Now we particularize ourself to the target space $V=\eC$ on which we put the scalar product
+\begin{equation}		\label{EqProdScalVeCU}
+	\scal{z_1}{z_2}=\frac{1}{2}( z_1\overline{ z }_2+z_2\overline{ z }_1  ),
+\end{equation}
+and the representation $\dpt{\rho_n}{U(1)}{GL(\eC)}$,
+\[
+  \rho_n(g)z=g\cdot z=g^nz
+\]
+where we identify $U(1)$ to the unit circle in $\eC$ in order to compute the product. A property of the product \eqref{EqProdScalVeCU} is to make $\rho_n$ an isometry: for all $g\in U(1)$, $z_1,z_2\in\eC$,
+\[
+  \scal{\rho_n(g)z_1}{\rho_n(g)z_2}=\scal{z_1}{z_2}.
+\]
+Our first aim is to write the covariant derivative of $\phi$ with respect to the connection $\omega$. For this we work on the section $\phi$ under the form $\dpt{\phi_{(\alpha)}}{M}{V}$ and we use formula \eqref{3008e1} :
+\begin{equation}
+  (D_X\phi)\bsa(x)=X_x\phi\bsa-\rho_*\big( (\sigma^*_{\alpha}\omega)_xX_x \big)\phi\bsa(x).
+\end{equation}
+Let us study this formula. We know that $(\sigma_{\alpha}^*\omega)_x=A_{\alpha}(x)\,:\,T_x\mU_{\alpha}\stackrel{\sigma}{\to}T_{\sigma_{\alpha}(x)}P\stackrel{\omega}{\to}u(1)$. Thus $A_{\alpha}(x)X_x$ is given by a path in $U(1)$; it is this path which is taken by $\rho_*$. Therefore (we forget some dependences in $x$)
+\begin{equation}
+\begin{split}
+  \rho_*\big( A_{\alpha}(x)X_x \big)\phi\bsa(x)&=\Dsdd{ \rho_n\big( (A_{\alpha} X)(t)  \big)\phi\bsa(x) }{t}{0}\\
+                                                &=\Dsdd{ (A_{\alpha} X)(t)^n }{t}{0}\phi\bsa(x)\\
+						&=n\Dsdd{(A_{\alpha} X)(t)}{t}{0}\phi\bsa(x)\\
+						&=nA_{\alpha}(X)\phi\bsa(x).
+\end{split}						
+\end{equation}
+Thus the covariant derivative is given by
+\begin{equation}
+  (D_X\phi)\bsa(x)=X_x\phi\bsa-nA_{\alpha}(x)(X_x)\phi\bsa(x).
+\end{equation}
+
+One can guess an electromagnetic coupling for a particle of electric charge~$n$. If this reveals to be physically relevant, it shows that the ``electromagnetic identity card'' of a particle is given by a representation of $U(1)$. This has to be seen in relation to the discussion on page \pageref{pg:phyz_reprez} where the ``type of particle'' was closely related to representations of the Lorentz group. It is a remarkable piece of quantum field theory: the properties of a particle are encoded in representations of some symmetry groups.
+
+Now we are going to prove that $\|D\phi\|^2$ is a gauche invariant quantity. The first step is to give a sense to this norm. We consider $X_i$ ($i=0,1,2,3$), an orthonormal basis of $T_xM$ and we naturally denote $D_i=D_{X_i}$, $\partial_i=X_i$ and $A_{\alpha i}=A_{\alpha}(\partial_i)$. Remark that 
+\begin{equation}
+   A_{\alpha}(x)X_x=(\sigma_{\alpha}^*)_xX_x
+                 =\omega( d\sigma_{\alpha} X_x )
+                 =\omega\Dsdd{ \sigma_{\alpha}(X(t)) }{t}{0}\in u(1),
+\end{equation}
+so this is given by a path in $U(1)$ which can be taken by $\rho$. Let $c(t)$ be this path, then
+\[
+   A_{\alpha}\phi\bsa(x)=\Dsdd{ e^{ic(t)}\phi\bsa(x) }{t}{0},
+\]
+so that under the conjugation, $\overline{A_{\alpha}\phi\bsa(x)}=-A_{\alpha}\overline{ \phi }\bsa(x)$. Now our definition of $\|D\phi\|^2$ is a composition of the norm on $V$ and the one on $T_xM$ :
+\begin{equation}
+  \|D\phi\|^2=\eta^{ij}\scal{ D_i\phi\bsa }{D_j\phi\bsa}
+\end{equation}
+Using the notation in which the upper indices are contractions with $\eta^{ij}$, we have
+\[
+\|D\phi\|^2=\Big(  (\partial_i\phi\bsa)(x)-nA_{\alpha i}\phi\bsa(x)   \Big)
+            \Big(  (\partial^i\overline{ \phi }\bsa)(x)+nA_{\alpha}^i\overline{ \phi }\bsa(x)   \Big).
+\]
+
+\subsubsection{Gauge transformation law}
+%////////////////////////////////////////
+
+A gauge transformation $\varphi$ is given by an equivariant function $\dpt{\tilde{\varphi}_{\alpha}}{\mU_{\alpha}}{U(1)}$ which can be written under the form
+\[
+   \tilde{\varphi}_{\alpha}(x)=e^{i\Lambda(x)}
+\]
+for a certain function $\dpt{\Lambda}{\mU_{\alpha}}{\eR}$. From the general formula \ref{lem:ii} of lemma \ref{lem:prop_gauge},
+\begin{equation}
+  (\varphi\cdot\phi)\bsa(x)=\rho_n(e^{-i\Lambda(x)})\phi\bsa(x)
+                          =e^{-ni\Lambda(x)}\phi\bsa(x).
+\end{equation}
+The transformation of the gauche field $A$ is given by equation \eqref{tr_de_A}. Let us see the meaning of the term $d\tilde{\varphi}$. For $v\in T_x\mU_{\alpha}$,
+\begin{equation}
+  (d\tilde{\varphi}_{\alpha})_xv=\Dsdd{\tilde{\varphi}_{\alpha}(v(t))}{t}{0}
+                   =\Dsdd{ e^{i\Lambda(v(t))} }{t}{0}
+		   =i\Dsdd{\Lambda(v(t))}{t}{0}e^{i\Lambda(v(0))}
+		   =i(d\Lambda)_xve^{i\Lambda(x)}.
+\end{equation}
+Thus $\tilde{\varphi}_{\alpha}^{-1}(x)(d\tilde{\varphi}_{\alpha})_x=i(d\Lambda)_x$. Since $U(1)$ is abelian, $\tilde{\varphi}^{-1} A\tilde{\varphi}=A$. Finally,
+\begin{equation}
+  (\varphi\cdot A)_{\alpha}(x)=A_{\alpha}(x)+i(d\Lambda)_x.
+\end{equation}
+Now we are able to prove the invariance of $\|D\phi\|^2$. First,
+\begin{equation}
+\begin{split}
+  (\varphi\cdot A)_{i\alpha}(x)=(\varphi\cdot A)_{\alpha}(\partial_i)
+                           =A_{i_{\alpha}}(x)+i(\partial_i\Lambda)(x);
+\end{split}
+\end{equation}
+second,
+\begin{equation}
+\partial_i\left(  e^{-ni\Lambda(x)}\phi\bsa(x)  \right)=-ni(\partial_i\Lambda)(x)\phi\bsa(x)+e^{-in\Lambda(x)}(\partial_i\phi\bsa)(x).
+\end{equation}
+With these two results, 
+\begin{equation}
+\partial_i(\varphi\cdot\phi)\bsa(x)+n(\varphi\cdot A)_{\alpha i}(\varphi\cdot\phi)\bsa(x)=e^{-in\Lambda(x)}( nA_{\alpha i}(x)+\partial_i\phi\bsa(x) ).
+\end{equation}
+
+The Yang-Mills \defe{field strength}{field!strength} is given by $F\bsa=\sigma^*_{\alpha}\Omega$ (cf. page \pageref{pg:curv_princ}). Since $U(1)$ is abelian, $dF\bsa=0$, so that the second pair of Maxwell's equations is complete without any Lagrangian assumptions.
+
+ The full Yang-Mills action is written as
+\[
+  S(\omega,\phi)=\int_M\left[  -\frac{1}{4}F\bsa_{ij}F\bsa^{ij}+\frac{1}{2}\|D\phi\|^2+\frac{1}{2} m\phi\bsa\overline{\phi\bsa}  \right].
+\]
+The Euler-Lagrange equations are
+\begin{subequations}
+\begin{align}
+(\partial_i-inA_{\alpha i})(\partial^i-inA_{\alpha}^i)\phi_{\alpha}+m^2\phi_{\alpha}&=0\\
+        \partial_iF\bsa^{ij}&=0.
+\end{align}
+\end{subequations}
+So the Yang-Mills Lagrangian only gives the first pair of Maxwell's equations while the second one is given by the geometric nature of fields.
+
+As explained in \cite{AlexModaveII}, the topology of the physical space has deep implications on the physics of Yang-Mills equations. The absence of magnetic monopoles for example is ultimately linked to the (simple) connectedness of $\eR^4$. When one consider the $U(1)$ Yang-Mills on a sphere, some topological charges appear and magnetic monopoles naturally arise.
+
+\subsection{Non zero spin formalism}
+%++++++++++++++++++++++++++++++++
+
+The formalism for a non zero spin particle in an electromagnetic field is described in section \ref{sec:produit_bundle}. We consider the spinor bundle
+\[
+\xymatrix{
+    \SLdc \ar@{~>}[r] & S(M)\ar[d]^{p_S}\\ &M 
+  }
+\]
+with the spinor connection on $S(M)$, and $\rho_1$, a representation of $\SLdc$ on $V$. For an electron, it is $V=\eC^4$ and $\rho_1=D^{(1/2,0)}\oplus D^{(0,1/2)}$, so for $g_1\in\SLdc$,
+\begin{equation}
+  \rho_1(g_1)\begin{pmatrix}
+  z_1\\\vdots\\z_4
+             \end{pmatrix}
+=
+\begin{pmatrix}
+  g_1\\\\
+&(\overline{g_1}^t)^{-1}
+\end{pmatrix}
+\begin{pmatrix}
+  z_1\\\vdots\\z_4
+             \end{pmatrix}.
+\end{equation}
+On the other hand, we consider the principal bundle
+\[
+\xymatrix{
+    U(1) \ar@{~>}[r] & P\ar[d]^{p_U}\\ &M 
+  }
+\]
+with a connection $\omega_2$ which describes the electromagnetic field. As representation $\dpt{\rho_2}{U(1)}{GL(\eC^4)}$ we choose the coordinatewise multiplication :
+\begin{equation}
+\rho_2(g_2)\begin{pmatrix}
+  z_1\\\vdots\\z_4
+             \end{pmatrix}
+=
+\begin{pmatrix}
+  g_2z_1\\\vdots\\g_2z_4
+             \end{pmatrix}.
+\end{equation}
+The physical picture of the electron is now the principal bundle
+\[
+\xymatrix{
+    \SLdc\times U(1) \ar@{~>}[r] & S(M)\circ P\ar[d]^{p}\\ &M,
+  }
+\]
+and the field is a section of the associated bundle $(S(M)\circ P)\times_{\rho}\eC^4$.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Singletons as sections of bundle}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SecUKPhZVd}
+
+If one wants to see singletons as a field theory, we have to follow the path of section \ref{subsec:incl_Lorentz}. So we consider the frame bundle over $M=AdS_4$, and an associated bundle for the scalar singleton representation:
+\begin{equation}
+ \xymatrix{
+	\SO(2,3)  \ar@{~>}[r]	& L(G/H) \ar[d]_{\displaystyle \pi}	&	& E=L(G/H)\times_{\rho} V \\
+				& M \ar[urr]_{\displaystyle\phi}	  
+  }
+\end{equation}
+where $(V,\rho)$ is the scalar singleton representation of $\SO(2,3)$, and $L(G/H)$ is the frame bundle over $AdS_4$, as build page \pageref{PgFrameHomo}.

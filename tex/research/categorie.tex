@@ -1,0 +1,307 @@
+% This is part of (almost) Everything I know in mathematics and physics
+% Copyright (c) 2013-2014
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Functor}
+
+%----------------------------------------------------------------------------------------------------------------------------
+\subsection{Functor and equivalence}
+
+For reference, see \cite{BarrCateg,CatePhysisist}. 
+
+If $\catC$ and $\catD$ are categories, a \defe{(covariant) functor}{functor (covariant)} is a map $F\colon \catC\to \catD$ such that
+\begin{enumerate}
+\item if $f\colon A\to B$ is an arrow in $\catC$, then $Ff\colon FA\to FB$ is an arrow in $\catD$ ($A$ and $B$ are objects in $\catC$),
+\item $F(\id_A)=\id_{FA}$,
+\item if $g\colon B\to C$, then $F(g\circ f)=Fg\circ Ff$. 
+\end{enumerate}
+
+A \defe{contravariant functor}{functor!contravariant}\index{contravariant!functor} is $F\colon \catC\to \catD$ with $F(X)\in\catD$ and $F(f)\in\hom\big( F(Y),F(X) \big)$ for every $X\in\catC$ and $f\in\hom(X,Y)$ such that
+\begin{enumerate}		\label{PgPropFnctConvtra}
+\item $F(\id_X)=\id_{F(X)}$,
+\item $F(g\circ f)=F(f)\circ F(g)$.
+\end{enumerate}
+Notice that in the contravariant case, $F(f)\in\hom\big( F(Y),F(X) \big)$, and not $\hom\big( F(X),F(Y) \big)$
+
+A functor is an \defe{isomorphism}{isomorphism!of categories} if it has an inverse. 
+
+When $A$ and $B$ are objects in the category $\catC$, we denote by $\hom_{\catC}(A,B)$\nomenclature{$\hom_{\catC}(A,B)$}{The homset of arrows from $A$ to $B$ in the category $\catC$} the set\footnote{In general, it is actually not a set.} of arrows from $A$ to $B$. Such a set is called an \defe{homset}{homset}. We say that  a functor is \defe{faithful}{faithful!functor} when its restriction to each homset is injective. It is \defe{full}{full functor} when it is surjective on each homset, i.e. for every $f\in \hom(FA,FB)$, there exists a $g\in \hom(A,B)$ such that $f=Fg$. The functor $F$ between $\catC$ and $\catD$ is an \defe{equivalence}{equivalence!of categories} when
+\begin{enumerate}
+\item it is full,
+\item it is faithful
+\item for every object $B$ in $\catD$, there exists an object $A$ in $\catC$ such that $F(A)$ is isomorphic to $B$.
+\end{enumerate}
+The notion of equivalence of categories applies on categories whose objects have a notion of isomorphism, such like category of groups, manifold or vector space.
+
+\section{Direct limit}
+%++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SecDirectLimit}
+
+\subsection{Direct limit of sets}
+
+Let $(A_i)$ be a family of set labeled by an ordered set $I$, and functions $f_{ij}\colon A_i\to A_j$ for $i\leq j$ such that
+\begin{itemize}
+\item $f_{ii}$ is the identity on $A_i$,
+\item $f_{ik}=f_{jk}\circ f_{ij}$ for every $i\leq j\leq k$.
+\end{itemize}
+We say that $(I,A_i,f_{ij})$ is an \defe{direct system}{direct!system}. The \defe{direct limit}{direct!limit} denoted by $A=\lim_{\rightarrow}A_i$\nomenclature{$\lim_{\rightarrow}A_i$}{the direct limit of $(A_i)_{i\in I}$} is defined as the quotient of the disjoint union $\bigsqcup_{i\in I}A_i$ by the equivalence relation $x_i\sim x_j$ if and only if there exists a $k\geq i,j$ such that $f_{ik}(x_i)=f_{jk}(x_j)$ ($x_i\in A_i$ and $x_j\in A_j$).
+
+If one sees the maps $f_{ij}$ as inclusions, equivalent elements are the ones which finish to be equal.
+
+\subsection{Direct limit of vector spaces}
+
+Consider a diagram $V_1\to V_2\to\cdots$ of vector spaces and linear maps. A \emph{direct limit} of that system is a vector space $V$ endowed with a collection of maps $V_n\to V$ such that the diagram 
+\[ 
+  \xymatrix{%
+   V_n \ar[rr]\ar[dr]		&		&	V_{n+1}\ar[dl]\\
+				& V
+}
+\]
+commutes. Moreover, we impose the following universal property: for every vector space $W$ and compatible maps
+\[ 
+  \xymatrix{%
+   V_n \ar[rr]\ar[dr]		&		&	V_{n+1}\ar[dl]\\
+				& W,
+}
+\]
+there exists an unique map $V\to W$ which is compatible with everything, i.e. such that
+\[ 
+  \xymatrix{%
+		& V_n\ar[dl]\ar[dr]\\
+   V\ar[rr]		&			&W
+}
+\]
+commutes. 
+
+One can show that the direct limit exists and is unique in the category of vector spaces. If the diagram is $V_1\subset V_2\subset \cdots$, each of them being a vector subspace of $V$, then the direct limit is given by $\bigcup_nV_n$.
+
+As an example\label{PgExDirectLimVS}, let consider a sequence of matrix algebras $M_1$, $M_2$,\ldots For simplicity, we suppose that these are full matrix algebras: $M_k\simeq \eM_{n_k}(\eC)$. Put $A_n=M_1\otimes_{\eC}\ldots\otimes_{\eC} M_n$; each of these $A_n$ is a matrix algebra and we define $A_n\to A_{n+1}$,
+\[ 
+  T_1\otimes\ldots\otimes T_n\mapsto T_1\otimes\ldots\otimes T_n\otimes\mtu.
+\]
+For instance if $M_1=M_2=\eM_2(\eC)$, we have $M_1\otimes M_2\simeq\eM_4(\eC)$ and $A_1\to A_2$,
+\[ 
+  \begin{pmatrix}
+a&b\\
+c&d
+\end{pmatrix}
+\mapsto
+\begin{pmatrix}
+a\mtu_2 & b\mtu_2\\
+c\mtu_2 & d\mtu_2
+\end{pmatrix}.
+\]
+Notice that the rank is not preserved, for example
+\[ 
+  \begin{pmatrix}
+1&0\\
+0&0
+\end{pmatrix}
+\mapsto
+\begin{pmatrix}
+1 \\
+&1\\
+&&0\\
+&&&0
+\end{pmatrix}.
+\]
+
+\subsection{Direct limit in categories}
+
+Let now $(X_i,f_{ij})$ be a direct system in a category $\catC$ (the definition is the same as in the case of sets). The direct limit of this system is an object $X$ of $\catC$ with arrows $\varphi_j\colon X_j\to X$ satisfying $\varphi_i=\varphi_j\circ f_{ij}$ whenever $i\leq j$ and which fulfils the following universal property: for every object $Y\in\catC$ with arrows $\psi_j\colon X_j\to X$ such that $\psi_i=\psi_j\circ f_{ij}$ (when $i\leq j$), there exists an arrow $u\colon Y\to X$ which makes the following diagram commutative when $i\leq j$
+\begin{equation}
+\xymatrix{%
+   X_i \ar[rr]^{f_{ij}}\ar[dr]^{\varphi_i}\ar[ddr]_{\psi_i}		&		&X_j\ar[ld]_{\varphi_j}\ar[ddl]^{\psi_j}\\
+									& X\ar[d]_u	\\
+   									&Y
+}
+\end{equation}
+All the arrows here are arrows of the category $\catC$. One can prove that the direct limit is unique in every category, but the existence is not always guarantee. In the case of the category of sets however it exists as we saw an explicit construction as quotient space.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Categories with tensor product}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+One source: \cite{Reshetikhin}.
+
+A category \( \catC\) with a functor \( \otimes\colon \catC\times\catC\to \catC\) and a collection of morphisms
+\begin{equation}
+    a_{XYZ}\colon (X\otimes Y)\otimes Z\to X\otimes(Y\otimes Z)
+\end{equation}
+for \( X,Y,Z\in\Ob\catC\) is a \defe{monoidal}{monoidal!category} if
+\begin{enumerate}
+    \item
+        \( a_{XYZ}\) is an isomorphism for every \( X\), \( Y\) and \( Z\);
+    \item
+        for every \( X,Y,Z,W\in\Ob\catC\) the diagram
+        \begin{equation}        \label{EqDiagPentagonalAxiom}
+        \xymatrix{%
+        \big( (X\otimes Y)\otimes Z \big)\otimes W \ar[rr]^{a_{XYZ}\otimes\id}\ar[d]_{a_{X\otimes Y,Z,W}}    &        &   \big( X\otimes(Y\otimes Z) \big)\otimes W\ar[d]^{a_{X,Y\otimes Z,W}}\\
+        (X\otimes Y)\otimes(Z\otimes W) \ar[rd]_{a_{X,Y,Z\otimes W}}   &   &    X\otimes\big( (Y\otimes Z)\otimes W \big)\ar[ld]^{\id\otimes a_{YZW}}\\
+        &        X\otimes\big( Y\otimes(Z\otimes W) \big)\\
+           }
+        \end{equation}
+        commutes;
+    \item
+        there exists an object \( I\) named \defe{identity object}{identity!in monoidal category} such that \( I\otimes I=I\) and the functors \( X\mapsto X\otimes I\) and \( X\mapsto I\otimes X\) are autoequivalences of \( \catC\).
+\end{enumerate}
+The commutativity of diagram \eqref{EqDiagPentagonalAxiom} is sometimes called the \defe{pentagonal axiom}{pentagonal axiom}. The transformation \( a\) is the \defe{associativity constraint}{associativity!constraint}.
+
+\begin{example}
+    The category of finite dimensional vector spaces over \( \eK\) with the usual tensor product is monoidal if we set
+    \begin{equation}
+        \begin{aligned}
+            a_{XYZ}\colon (X\otimes Y)\otimes Z&\to X\otimes(Y\otimes Z) \\
+            (x\otimes y)\otimes z&\mapsto x\otimes(y\otimes z), 
+        \end{aligned}
+    \end{equation}
+    i.e. the identity map. The unit object is \( \eK\) itself seen as one dimensional \( \eK\)-vector space.
+\end{example}
+
+A monoidal category is \defe{strict}{strict!monoidal category} if \( a_{XYZ}=\id\) for every objects \( X\), \( Y\) and \( Z\) and if there exists an object \( \mtu\) such that
+\begin{enumerate}
+    \item
+        \( X\otimes \mtu=\mtu\otimes X=X\);
+    \item
+        the diagram
+        \begin{equation}
+            \xymatrix{%
+            X\otimes Y \ar[r]^{\id}\ar[d]_-{\id}        &   (X\otimes \mtu)\otimes Y\ar[d]^{a_{X,\mtu,Y}}\\
+               X\otimes Y \ar[r]_-{\id}   &   X\otimes(\mtu\otimes Y)
+               }
+        \end{equation}
+        commutes.
+\end{enumerate}
+The category of finite dimensional \( \eK\)-vector space becomes a strict monoidal category when we set \( \mtu=I=\eK\).
+
+An object \( X\) in a strict monoidal category is \defe{rigid}{rigid!object in monoidal category} if there exists an object \( Y\) and a pair of morphisms
+\begin{equation}
+    \begin{aligned}[]
+        i_X&\colon \mtu\to X\otimes Y\\
+        e_X&\colon Y\otimes X\to\mtu
+    \end{aligned}
+\end{equation}
+such that the diagrams
+\begin{equation}
+    \xymatrix{%
+    X \ar[rr]^-{\id}\ar[d]_{\id}   &     &   \mtu\otimes X\ar[d]^{i_X\otimes \id_X}\\
+       X                        &         &   X\otimes Y\otimes X\ar[ll]^-{\id_X\otimes e_X}
+       }
+\end{equation}
+and
+\begin{equation}
+    \xymatrix{%
+    Y \ar[rr]^{\id}\ar[d]_-{\id} &       &   Y\otimes \mtu\ar[d]^{\id_Y\otimes i_X}\\
+    Y   &  & Y\otimes X\otimes Y\ar[ll]^-{e_X\otimes \id_Y}
+       }
+\end{equation}
+commute. In this case we say that \( Y\) is \defe{dual}{dual!in strict monoidal categories} of \( X\) and we write \( Y=X^*\).
+
+\begin{example}
+    In the case of \( \eK\)-vector spaces, the object \( X^*\) is the usual dual of \( X\). The map \( e_X\) is the evaluation
+    \begin{equation}
+        \begin{aligned}
+            e_X\colon X^*\otimes X&\to \eK \\
+            \alpha\otimes v&\mapsto \alpha(v) 
+        \end{aligned}
+    \end{equation}
+    for \( \alpha\in X^*\) and \( v\in X\). The map \( i_X\) is
+    \begin{equation}
+        \begin{aligned}
+            i_X\colon \eK&\to X\otimes X^* \\
+            z&\mapsto z\sum_i e_i\otimes e^*_i 
+        \end{aligned}
+    \end{equation}
+    where \( \{ e_i \}\) is a basis of \( X\) and \( \{ e_i^* \} \) is the dual basis (that is \( e_i^*(e_j)=\delta_{ij}\)). Notice that \( i_X\) is independent of the choice of the basis. Indeed let us apply \( \sum_ie_i\otimes e_i^*\) to the element \( \alpha\otimes v\in X^*\otimes X\). We have
+    \begin{equation}
+        \sum_ie_i\otimes e_i^*(\alpha\otimes v)=\sum_ie_i(\alpha)e_i^*(v)=\sum_i\alpha_i v_i
+    \end{equation}
+    where \( \alpha_i\) and \( v_i\) are the coordinates of \( \alpha\) and \( v\) with respect to the basis \( \{ e_i^* \}\) and \( \{ e_i^* \}\). The number \( \sum_i\alpha_iv_i\) is nothing else than the trace of the map \( X\to X\), \( w\mapsto\alpha(w)v\) and thus is independent on the choice of the basis. 
+
+    These definitions satisfy the axioms of a rigid monoidal category since
+    \begin{equation}
+        \xymatrix{%
+        v \ar[r]\ar[d]        &   1\otimes v\ar[d]\\
+           \sum_i e_i\otimes e_i^*(v)   &   \sum_ie_i\otimes e_i^*\otimes v\ar[l]
+           }
+    \end{equation}
+    commutes because, identifying \( X\) with \( X\otimes\eK\), we have \( \sum_ie_i^*(v)e_i=v\). The other diagram is the same and we found that it commutes because \( \sum_i\alpha(e_i)e_i^*=\alpha\).
+\end{example}
+
+A strict monoidal category is rigid if all the objects are rigid and if for every object \( X\) we have an object \( Y\) such that \( X\) is isomorphic to \( Y^*\).
+
+\begin{example}
+    The category of finite dimensional \( \eK\)-vector spaces is rigid since \( X^{**}=X\).
+\end{example}
+
+Let \( C\) be a strict monoidal category. A \defe{braiding}{braiding} on \( C\) is a collection \( c=\{ c_{X,Y} \}\) of functorial isomorphisms between the functors  \( (X,Y)\mapsto X\otimes Y\) and \( (X,Y)\mapsto Y\otimes X\) such that
+\begin{enumerate}
+    \item
+        \( x_{X,\mtu}=c_{\mtu,X}=\id_X\);
+    \item
+        for every objects \( X\), \( Y\) and \( Z\) the diagrams
+        \begin{equation}
+            \xymatrix{%
+            &  (X\otimes Y)\otimes Z\ar[rd]^{\id}\ar[ld]_{c_{X\otimes Y,Z}}\\
+            Z\otimes(X\otimes Y)\ar[d]_{\id}    &&    X\otimes(Y\otimes Z)\ar[d]^{\id_X\otimes c_{Y,Z}}\\
+            (Z\otimes X)\otimes Y\ar[dr]_{\id}&&(X\otimes Z)\otimes Y\ar[ld]^{c_{x,Z}\otimes \id_Y}\\
+            & (Z\otimes X)\otimes Y
+               }
+        \end{equation}
+        and
+        \begin{equation}
+            \xymatrix{%
+            &  (X\otimes Y)\otimes Z\ar[rd]^{\id}\ar[ld]_{c_{X,Y\otimes Z}}\\
+            (Y\otimes Z)\otimes X    &&    (X\otimes Y)\otimes Z\ar[d]^{c_{X,Y}\otimes\id_Z}\\
+            Y\otimes (Z\otimes X)\ar[u]^{\id}&&  (Y\otimes X)\otimes Z\ar[dl]^{\id}\\
+            & Y\otimes(X\otimes Z)\ar[ul]^{\id_Y\otimes c_{X,Z}}
+               }
+        \end{equation}
+        commute.
+\end{enumerate}
+The commutativity of these two diagrams is sometimes called the \defe{hexagonal identities}{hexagonal identities}.
+
+\begin{example}
+    The category of finite dimensional \( \eK\)-vector spaces is a braided category with
+    \begin{equation}
+        \begin{aligned}
+            c_{XY}\colon X\otimes Y&\to Y\otimes X \\
+            x\otimes y&\mapsto y\otimes x. 
+        \end{aligned}
+    \end{equation}
+\end{example}
+
+Let \( C\) be a braided strict monoidal category. A \defe{balancing}{balancing} on \( C\) is a collection \( b=\{ b_X \}\) of automorphisms of the identity functor such that the diagram
+\begin{equation}
+    \xymatrix{%
+    X\otimes Y \ar[r]^{b_{X\otimes Y}}\ar[d]_{b_X\otimes b_y}        &   X\otimes Y\ar[d]^{c_{XY}}\\
+    X\otimes Y \ar[r]_{b_{YX}}   &   Y\otimes X\ar[l]^{c_{YX}}
+       }
+\end{equation}
+commutes.
+
+In a balanced category one can define the \defe{trace}{trace!in a balanced category} of an arrow \( f\colon X\to X\). The trace is the arrow
+\begin{equation}
+    \tr_X(f)\colon \mtu\to \mtu
+\end{equation}
+given by
+\begin{equation}
+    \xymatrix{%
+    \mtu\ar[r]^-{i_X}    &   X\otimes X^*\ar[r]^-{f\otimes \id}&X\otimes X^*\ar[r]^-{b_X\otimes\id_{X^*}}&X\otimes X^*\ar[r]^-{e_{X^*}}&\mtu.
+       }
+\end{equation}
+
+\begin{example}
+    In the case of the finite dimensional \( \eK\)-vector spaces, we have the balancing \( b_X=\id_X\). We check that the trace of a linear map \( f\colon X\to X\) is the well known map:
+    \begin{equation}
+        \xymatrix{%
+        1\ar[r]&\sum_i e_i\otimes e^*_i\ar[r]&\sum_i f(e_i)\otimes e_i^*\ar[r]&\sum_i e_i^*\big( f(e_i) \big)=\sum_if(e_i)_i.
+        }
+    \end{equation}
+\end{example}
+
+\begin{definition}
+    A rigid balanced braided monoidal category is a \defe{ribbon category}{ribbon category}.
+\end{definition}

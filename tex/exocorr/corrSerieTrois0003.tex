@@ -1,0 +1,45 @@
+% This is part of Exercices et corrections de MAT1151
+% Copyright (C) 2010
+%   Laurent Claessens
+% See the file LICENCE.txt for copying conditions.
+
+\begin{corrige}{SerieTrois0003}
+
+	La stabilité de l'algorithme revient à la stabilité de tous les problèmes intermédiaires. Le problème numéro $n$ est le problème qui consiste à trouver $x_{n+1}$ en terme de la donnée de la fonction ($a$ et $b$). Dans notre cas, l'équation \eqref{EqFPourNewtonUn} s'écrit
+	\begin{equation}		\label{EqProbNDeNewtonTT}
+		F_n(x_{n+1},x_n,(a,b))=x_{n+1}-x_n+\frac{ x_n^2+ax_n+b }{ 2x_n+a }.
+	\end{equation}
+	La solution (unique) de ce problème est
+	\begin{equation}		\label{EqSolNewtonTT}
+		x_{n+1}(a,b)=x_n-\frac{ x_n^2+ax_n+b }{ 2x_n+a }
+	\end{equation}
+	Le problème \eqref{EqProbNDeNewtonTT} a une solution unique donnée par \eqref{EqSolNewtonTT}. Cette solution est une fonction de $a$ et $b$ après substitution de $x_n$ par sa valeur en termes de $x_{n-1}$ puis $x_{n-2}$, etc. En tant que composée de fonctions $C^1$ (chacune des fonctions $x_i(x_{i-1},a,b)$), la fonction $x_{n+1}(a,b)$ est $C^1$, de telle sorte que le résultat de l'exercice \ref{exoSerieUn0002} montre que le problème est stable. Notons que cela n'est pas vrai si $x_n$ est sur le sommet de la parabole, mais nous avons vu dans l'exercice \ref{exoSerieDeux0006} que si $x_0$ n'était pas sur le sommet, alors les $x_n$ n'y seraient pas non plus.
+
+	Le conditionnement absolu peut être approximé par la norme du gradient de la fonction $x_{n+1}$ :
+	\begin{equation}
+		\begin{aligned}[]
+			\frac{ \partial F_n }{ \partial a }&=\frac{ x_n^2-b }{ (2x_n+a)^2 }\\
+			\frac{ \partial F_n }{ \partial b }&=\frac{1}{ 2x_n+a }.
+		\end{aligned}
+	\end{equation}
+	En prenant la norme nous trouvons
+	\begin{equation}
+		K_{\text{abs}}\simeq \frac{ \sqrt{(x_n^2-b)^2+(2x_n+a)^2} }{ (2x_n+a)^2 },
+	\end{equation}
+	et donc nous avons le conditionnement relatif
+	\begin{equation}\label{EqKReltroitroti}
+		\begin{aligned}[]
+			K_{\text{rel}}&=K_{\text{abs}}\cdot\frac{ \sqrt{a^2+b^2} }{ | x_{n+1}(a,b,x_n) | }\\
+			&=\frac{ \sqrt{(x_n^2-b)^2+(2x_n+a)^2}\sqrt{a^2+b^2} }{ | 2x_n+a |\cdot| x_{n+1}(a,b,x_n) | }
+		\end{aligned}
+	\end{equation}
+	où $x_{n+1}(a,b,x_n)$ est donné par la formule \eqref{EqSolNewtonTT}.
+
+	Si l'algorithme converge\footnote{Voir exercice \ref{exoSerieTrois0004}}, alors les $x_n$ convergent vers la solution exacte. Or nous savons la solution exacte du problème depuis le jardin d'enfance; nous avons donc :
+	\begin{equation}		\label{EqSilimExisteTroistrois}
+		\lim x_n=\frac{ 1 }{2}\big( -a+\sqrt{a^2-4b} \big).
+	\end{equation}
+	
+	Le conditionnement relatif asymptotique est obtenu en substituant \eqref{EqSilimExisteTroistrois} dans l'expression \eqref{EqKReltroitroti} parce que quand une suite a une limite, sa limite supérieure est égale à sa limite.
+
+\end{corrige}

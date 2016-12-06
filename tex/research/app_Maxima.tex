@@ -1,0 +1,108 @@
+\section{Description of Maxima computations}  \label{SecAppMaxima}
+%+++++++++++++++++++++++++++++++++++++++++++
+
+This appendix is devoted to the description of the Maxima implementation of my computation related to groups acting on the open orbit. I will adopt mixed notation between the full correct syntax of Maxima and a more suitable mathematical notation.
+
+Fist of all I explicitly gave to Maxima the full $6\times 6$ matrices $J_{1},W,M,L,J_{2}$ and $V$. The commutator between two matrices is naturally defined by 
+\[ 
+\Maxcom(X,Y)=XY-YX.
+\]
+
+\subsection{Projections and decompositions}
+%-----------------------------------------
+
+In order to compute projection of a matrix on a basis (or on a sub-space), we introduce a scalar product on the matrices space:
+\begin{equation}    \label{EqDefMaxpprod}
+  \Maxpprod(X,Y)=\sum_{k,l=1}^{J}X_{kl}Y_{kl}
+\end{equation}
+when $X$ and $Y$ are $6\times 6$ matrices. Now projection of a matrix $X$ on $Y$ is given by
+\begin{equation}
+	\Maxproj(X,Y)=\frac{ \Maxpprod(X,Y) }{ \Maxpprod(Y,Y) }.
+\end{equation}
+Now the decomposition of the matrix $X$ in the basis $J_{1},W,M,L,J_{2},V$ is given by a set of six numbers:
+\[ 
+  \Maxdecomps(X)=[\Maxproj(X,J_{1}),\cdots,\Maxproj(X,V)].
+\]
+This decomposition works in the sense that the following equality is satisfied:
+\begin{equation}   \label{EqMaxPropDec}
+  X=\Maxdecomps(X)[1]J_{1}+\cdots+\Maxdecomps[6]V 
+\end{equation}
+Because the set $\{ J_{1},W,M,L,J_{2},V \}$ is orthogonal for the product \eqref{EqDefMaxpprod}. A function is also defined in order to easily compute the table of commutators:
+\[ 
+  \Maxtables(X,Y)=\Maxdecomps(\Maxcom(X,Y)).
+\]
+The function $\Maxtablesc$ returns the same as $\Maxtables$ plus a check of equality \eqref{EqMaxPropDec}: 
+\begin{equation}
+\begin{split}
+\Maxtablesc(X,Y)=[&\Maxtables(X,Y),\\
+		&\Maxtables(X,Y)[1]*J1+\Maxtables(X,Y)[2]*W\\
+		&+\Maxtables(X,Y)[3]*M+\Maxtables(X,Y)[4]*L\\
+		&+\Maxtables(X,Y)[5]*J2+\Maxtables(X,Y)[6]*V\\
+		&-\Maxcom(X,Y)];
+\end{split}
+\end{equation}
+it must return six numbers and a vanishing matrix.
+
+The function $\Maxcombis$ creates a matrix whose coefficients are given under the form of a vector $v$ of length $6$:
+\[ 
+  \Maxcombis(v)=v[1]J_{1}+\cdots+v[6]V.
+\]
+
+Functions $\Maxdecompq$, $\Maxtableq$ and $\Maxtableqc$ are the same as the $6$ corresponding ones, but they decompose into the basis $\{A,B,C,D\}$ instead of  $\{ J_{1},W,M,L,J_{2},V \}$. Notice however that the matrices $A$, $B$, $C$ and $D$ are not necessary orthogonal in the sense of  product \eqref{EqDefMaxpprod}. So we cannot compute the projection of $X$ on $A$ as $\Maxproj(X,A)$. In order to correct this problem, we remark that $A$ is the only element containing $J_{1}$, so the projection of $X$ on $A$ is the coefficient of $J_{1}$ in $X$. So we implement the following:
+\[ 
+  \Maxdecompq(X)=[\Maxproj(X,J_{1}),\Maxproj(X,W),\Maxproj(X,M),\Maxproj(X,L)].
+\]
+
+%\subsection{Scripts}
+%-------------------
+
+%Some scripts are defined in order to save time in encoding. The script \nomscript{systeme} contains the system of equations whose solutions provide our algebras, see equations \eqref{SubEqSystemeAlgTN}. The script \nomscript{mescommandes} contains my commands (among others, the one described here) and the script \nomscript{mesmatrices} contains the definition of my matrices $\{ J_{1},W,M,L \}$ and some other.
+
+\subsection{Symplectic computations}
+%-----------------------------------
+
+The script \nomscript{mesmatrices} contains the general symplectic matrix
+\[ 
+  \Maxomega=\begin{pmatrix}
+ 0	&	-\alpha	&-\beta&-\gamma\\
+&0&-\delta&-\sigma\\
+&&0&-\epsilon\\
+&&&0
+\end{pmatrix}.
+\]
+The command $\Maxsymple(X,Y)$ returns $\omega(X,Y)$. As we are searching for $\omega$ in the basis $\{ A,B,C,D \}$, it is implemented as
+\[ 
+  \Maxsymple(X,Y)=\sum_{k=1}^{4}\sum_{l=1}^{4}\Maxomega[k,l]\Maxdecompq(X)[k]\Maxdecompq(Y)[l].
+\]
+The command $\Maxcycle$ computes cyclic sums which appears in the definition of a symplectic algebra (see equation \eqref{EqDefAlgSymple}): 
+\begin{equation}
+\Maxcycle(X,Y,Z)=\Maxsymple(\Maxcom(X,Y),Z)+\Maxsymple(\Maxcom(Y,Z),X)+\Maxsymple(\Maxcom(Z,X),Y).
+\end{equation}
+When matrices $A$, $B$, $C$ and $D$ are given, the symplectic form is fixed by solving the condition $\Maxcycle(X,Y,Z)=0$. This is done by the Maxima function $\Maxsolve$:
+\[ 
+\begin{split}
+\Maxsolve\Big(&  [\Maxcycle(A,B,C)=0,\Maxcycle(A,B,D)=0,\Maxcycle(C,A,D)=0,\Maxcycle(B,D,C)=0]\\
+		&,[\alpha,\beta,\gamma,\delta,\sigma,\epsilon] \Big).
+\end{split}
+\]
+
+\subsection{\texorpdfstring{$\Ad(g)^*(\delta\xi^*)=E^*$}{AdgxiE}}
+%-------------------------------------------------------------
+
+For the computations with $\xi^*$ (see equation  \ref{EqSolxialgun}), we begin to define the function $\Maxxistar$ which computes $\xi^*(X)$:
+\[ 
+\Maxxistar(X):=\xi_{A}*\Maxdecompq(X)[1]+\xi_{B}*\Maxdecompq(X)[2]+\xi_{C}*\Maxdecompq(X)[3]+\xi_{D}*\Maxdecompq(X)[4],
+\]
+and then we define the function $\Maxdelxistar$ which computes $\delta\xi^*(X,Y)=\xi^*([X,Y])$:
+\[ 
+\begin{split}
+\Maxdelxistar(X,Y)&:=\xi_{A}*\Maxdecompq(\Maxcom(X,Y))[1]+\xi_{B}*\Maxdecompq(\Maxcom(X,Y))[2]\\
+	&\quad+\xi_{C}*\Maxdecompq(\Maxcom(X,Y))[3]+\xi_{D}*\Maxdecompq(\Maxcom(X,Y))[4];
+\end{split}
+\]
+In order to accelerate computation of  the $g$ such that $\Ad(g)^*\delta\xi^*=E^*$ (see page \pageref{PgAdgXEbbekl}), we compute by Maxima products as
+\[ 
+   e^{aA}p e^{-aA},
+\]
+using the extensions \texttt{linalg-utilities.lisp} and \texttt{matrixexp.lisp} for the matrix exponential. We apply $\xi^*$ to the result --- this operation does not require Maxima.
+

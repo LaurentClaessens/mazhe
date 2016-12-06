@@ -1,0 +1,1456 @@
+% This is part of Mes notes de mathématique
+% Copyright (c) 2011-2016
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+Nous commençons par donner quelques éléments à propos de dérivée et de différentielle pour des fonctions \( \eC\to \eC\) parce que les séries entières vont souvent être des fonctions complexes. Le gros du chapitre sur les fonctions holomorphes est le chapitre \ref{ChapICHIooXbLccl}.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Différentielle et dérivée complexe}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SECooJWNOooOgMiWR}
+
+Nous identifions \( \eR^2\) à \( \eC\) par l'application
+\begin{equation}
+    \begin{aligned}
+        \varphi\colon \eR^2&\to \eC \\
+        (x,y)&\mapsto x+iy. 
+    \end{aligned}
+\end{equation}
+Dans cette partie, nous désignons par \( \Omega\) un ouvert de \( \eC\). 
+
+\begin{definition}      \label{DEFooVJVXooKlnFkh}
+    Une fonction \( f\colon \Omega\to \eC\) est \defe{$\eC$-dérivable}{dérivable!au sens complexe} si la limite
+    \begin{equation}
+        \lim_{\substack{h\to0\\h\in \eC}} \frac{ f(a+h)-f(a) }{ h }
+    \end{equation}
+    existe. Dans ce cas, cette limite est la dérivée de \( f\) et est notée \( f'\).
+\end{definition}
+
+\begin{definition}  \label{DefMMpjJZ}
+    Soit \( \Omega\) un ouvert dans \( \eC\). Une fonction \( f\colon \Omega\to \eC\) est \defe{holomorphe}{holomorphe}\index{fonction!holomorphe} si elle est \( \eC\)-dérivable sur \( \Omega\). 
+\end{definition}
+
+\begin{definition}
+    Une matrice de la forme
+    \begin{equation}
+        \begin{pmatrix}
+            \alpha    &   \beta    \\ 
+            -\beta    &   \alpha    
+        \end{pmatrix}
+    \end{equation}
+    avec \( \alpha,\beta\in \eR\) est une \defe{similitude}{matrice!de similitude}\index{similitude}.
+\end{definition}
+
+\begin{lemma}
+    Une application \( A\colon \eC\to \eC\) est \( \eC\)-linéaire si et seulement si elle est une similitude en tant qu'application \( \eR^2\to \eR^2\).
+
+    Dans ce cas, il existe \( z_0\in \eC\) tel que \( A(z)=z_0z\) pour tout \( z\in \eC\).
+\end{lemma}
+
+\begin{lemma}       \label{LEMooJNFEooZCbJMo}
+    En tant qu'application linéaire \( \eC\to \eC\), l'opération de multiplication par \( \alpha+\beta i\) est la matrice
+    \begin{equation}
+        \begin{pmatrix}
+            \alpha    &   -\beta    \\ 
+            \beta    &   \alpha    
+        \end{pmatrix}.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Cela est vite remarqué en calculant explicitement \( (\alpha+\beta i)(u_1+iu_2)\).
+\end{proof}
+
+\begin{proof}
+    Commençons par considérer l'application \( A\) sur \( \eR^2\). Elle est en particulier une application \( \eR\)-linéaire et par conséquent il existe une matrice \( \begin{pmatrix}
+        \alpha    &   \beta    \\ 
+        \gamma    &   \delta    
+    \end{pmatrix}\) telle que 
+    \begin{equation}
+        A\begin{pmatrix}
+            x    \\ 
+            y    
+        \end{pmatrix}=\begin{pmatrix}
+            \alpha    &   \beta    \\ 
+            \gamma    &   \delta    
+        \end{pmatrix}\begin{pmatrix}
+            x    \\ 
+            y    
+        \end{pmatrix}.
+    \end{equation}
+    Nous voulons maintenant imposer la \( \eC\)-linéarité, c'est à dire que nous voulons 
+    \begin{equation}
+        A\big( (a+bi)(x+iy) \big)=(a+bi)A(x+iy)
+    \end{equation}
+    pour tout \( a,b,x,y\in \eR\). À gauche nous avons
+    \begin{equation}
+        A\big( ax-by+i(bx+ay) \big)
+    \end{equation}
+    et à droite nous avons
+    \begin{equation}
+        (a+bi)\big( \alpha x+\beta y+i(\gamma x+\delta y) \big).
+    \end{equation}
+    En égalant les deux expressions nous obtenons les équations
+    \begin{subequations}
+        \begin{numcases}{}
+            \beta b=-b\gamma\\
+            -\alpha b+\beta a =a\beta -b\delta\\
+            \delta b=b\alpha\\
+            -\gamma b+\delta a=b\beta+a\delta,
+        \end{numcases}
+    \end{subequations}
+    dont nous tirons immédiatement que \( \gamma=-b\beta\) et \( \delta=\alpha\). La matrice de \( A\) est donc de la forme demandée.
+
+    Inversement nous devons prouver que la fonction 
+    \begin{equation}        \label{EqOEWYooMaHCNb}
+        f(x+iy)=\alpha x+\beta y+i(-\beta x+\alpha y)
+    \end{equation}
+    est \( \eC\)-linéaire, c'est à dire qu'elle vérifie \( f(z_0z)=z_0f(z)\) pour tout \( z_0,z\in \eC\). Cela est un simple calcul que nous confions à Sage : le code suivant affiche «\( 0\)».
+    \lstinputlisting{src_frido/code_sage3.py}
+
+    Pour conclure, notons que la fonction \eqref{EqOEWYooMaHCNb} est la fonction de multiplication par \( \alpha-i\beta\).
+\end{proof}
+
+\begin{proposition}     \label{PropKJUDooJfqgYS}
+    Une fonction \( f\colon \Omega\to \eC\) est $\eC$-dérivable en \( a\in\Omega\) si et seulement si elle est différentiable en \( a\) et si \( df_a\) est une similitude.
+
+    Plus précisément si \( \varphi\colon \eC\to \eR^2\) est l'isomorphisme canonique, la fonction \( f\) est $\eC$-dérivable (donc holomorphe) au point \( z_0=x_0+iy_0\) si et seulement si la fonction \( F=\varphi^{-1}\circ f\circ \varphi\) est différentiable en \( (x_0,y_0)\) et si la matrice de \( dF\) est de la forme
+    \begin{equation}
+        dF=\begin{pmatrix}
+            \alpha    &   \beta    \\ 
+            -\beta    &   \alpha    
+        \end{pmatrix},
+    \end{equation}
+    c'est à dire si \( dF_{(x_0,y_0)}\) fournit une application \( \eC\)-linéaire.
+
+    Dans ce cas, le lien entre \( \eC\)-dérivée et différentielle est donné par
+    \begin{equation}        \label{EqPAEFooYNhYpz}
+        (df_{z_0})(z)=f'(z_0)z.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Nous décomposons \( f\) en parties réelles et imaginaires :
+    \begin{equation}
+        f(x+iy)=P(x,y)+iQ(x,y)
+    \end{equation}
+    où \( P\) et \( Q\) sont des fonctions réelles. La jacobienne de \( F\) est la matrice
+    \begin{equation}
+        \begin{pmatrix}
+            \frac{ \partial P }{ \partial x }    &   \frac{ \partial P }{ \partial y }    \\ 
+            \frac{ \partial Q }{ \partial x }    &   \frac{ \partial Q }{ \partial y }    
+        \end{pmatrix},
+    \end{equation}
+    et la condition dont nous parlons s'écrit comme le système
+    \begin{subequations}    \label{EqFDUrXBP}
+        \begin{numcases}{}
+            \frac{ \partial P }{ \partial x }=\frac{ \partial Q }{ \partial y }\\
+            \frac{ \partial P }{ \partial y }=-\frac{ \partial Q }{ \partial x}.
+        \end{numcases}
+    \end{subequations}
+    Si \( F\) est différentiable en \( (x_0,y_0)\) alors nous avons
+    \begin{equation}        \label{EqwlVfiR}
+        F\big( (x_0,y_0)+(h,k) \big)=F(x_0,y_0)+dF_{(x_0,y_0)}\begin{pmatrix}
+            h    \\ 
+            k    
+        \end{pmatrix}+s(| h |+| k |)
+    \end{equation}
+    où \( s\) est une fonction vérifiant \( \lim_{t\to 0} \frac{ s(t) }{ t }=0\). Soit
+    \begin{equation}
+        dF_{(x_0,y_0)}=\begin{pmatrix}
+            \alpha    &   \beta    \\ 
+            -\beta    &   \alpha    
+        \end{pmatrix}.
+    \end{equation}
+    Si nous posons \( \sigma=\alpha-i\beta\) et \( w=h+ik\), l'équation \eqref{EqwlVfiR} s'écrit dans \( \eC\) sous la forme
+    \begin{equation}        \label{EqYFmoiM}
+        f(z_0+w)=f(z_0)+\sigma w+s(|w|),
+    \end{equation}
+    ce qui implique que \( f\) est $\eC$-dérivable en \( z_0\).
+
+    Supposons maintenant que \( f\) soit $\eC$-dérivable en \( z_0\). Alors nous avons
+    \begin{equation}
+        f'(z_0)=\lim_{w\to 0} \frac{ f(z_0+w)-f(z_0) }{ w }=\sigma\in \eC,
+    \end{equation}
+    ce qui se récrit sous la forme
+    \begin{equation}
+        \lim_{w\to 0} \frac{ f(z_0+w)-f(z_0)-\sigma w }{ w }=0.
+    \end{equation}
+    Si nous posons \( z_0=x_0+iy_0\), \( w=h+ik\) et \( \sigma=\alpha-i\beta\) nous avons
+    \begin{equation}
+        \lim_{(h,k)\to (0,0)} \left| \frac{ F\big( (x_0,y_0)+(h,k) \big)-F(x_0,y_0)-\begin{pmatrix}
+            \alpha    &   \beta    \\ 
+            -\beta    &   \alpha    
+        \end{pmatrix}\begin{pmatrix}
+            h    \\ 
+            k    
+        \end{pmatrix}}{ | w | } \right| =0,
+    \end{equation}
+    ce qui signifie que \( F\) est différentiable et que sa différentielle est la matrice
+    \begin{equation}    \label{EqMLtbLD}
+       \begin{pmatrix}
+           \alpha &   \beta    \\ 
+           -\beta &   \alpha    
+       \end{pmatrix}.
+    \end{equation}
+
+    La matrice \eqref{EqMLtbLD} est, vue dans \( \eR^2\), la matrice de multiplication dans \( \eC\) par \( \alpha-i\beta=f'(z_0)\). En d'autre termes, dans \( \eC\) nous avons
+    \begin{equation}
+        df_{z_0}(z)=f'(z_0)z,
+    \end{equation}
+    et en particulier la différentielle est donnée par
+    \begin{equation}        \label{EqPropZOkfmO}
+        df_{z_0}=f'(z_0)dz.
+    \end{equation}
+\end{proof}
+
+\begin{example}[Une application \( C^{\infty}\) mais pas \( \eC\)-dérivable]
+    Nous considérons la fonction
+    \begin{equation}
+        \begin{aligned}
+            f\colon \eC&\to \eC \\
+            x+iy&\mapsto x. 
+        \end{aligned}
+    \end{equation}
+    Vu que c'est une application linéaire, elle est différentiable une infinité de fois et sa différentielle est elle-même. C'est donc une application \( C^{\infty}\).
+
+    Elle n'est cependant pas \( \eC\)-dérivable. En effet le quotient différentiel est, pour \( \epsilon\in \eC\) :
+    \begin{equation}
+        \frac{ f(x+iy+\epsilon_x+i\epsilon_y)-f(x+iy) }{ \epsilon }=\frac{ \epsilon_x }{ \epsilon }.
+    \end{equation}
+    Cela n'a pas de limite lorsque \( \epsilon\to 0\). Pour voir cela nous invoquons la méthode des chemins du corollaire \ref{CorMethodeChemin} avec les chemins \( \epsilon_1(t)=t\) et \( \epsilon_2(t)=it\). Dans le premier cas, le quotient différentiel vaut \( 1\) pour tout \( t\), tandis que dans le second il vaut zéro pour tout \( t\).
+\end{example}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Série de fonctions}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Les séries de fonctions sont des cas particuliers de suites, étant donné que, par définition,
+\begin{equation}
+    \sum_{n=1}^{\infty}f_n=\lim_{N\to \infty} \sum_{n=1}^{N}f_n.
+\end{equation}
+
+Il est bon de se rappeler des convergences absolues (définition \ref{DefVFUIXwU}) et uniforme (équation \ref{EqLNCJooVCTiIw}).
+
+\begin{lemma}
+    Soient des fonctions \( u_n\colon \Omega\to \eC\). Si il existe une suite réelle positive \( (a_n)_{n\in \eN}\) telle que
+    \begin{enumerate}
+        \item
+            pour tout \( z\in \Omega\) et pour tout \( n\in \eN\) nous avons \( | u_n(z) |\leq a_n\) (c'est à dire \( a_n\geq \| u_n \|_{\infty}\)),
+        \item
+            la somme \( \sum_{n}a_n\) converge,
+    \end{enumerate}
+    alors la série de fonctions \( \sum_{n=0}^{\infty}u_n\) converge normalement.
+\end{lemma}
+
+\begin{proof}
+    Découle du lemme de comparaison \ref{LemgHWyfG}.
+\end{proof}
+
+\begin{theorem}				\label{ThoSerCritAbel}
+	Soit $\sum_{k=1}^{\infty}g_k(x)$, une série de fonctions complexes où $g_k(x)=\varphi_k(x)\psi_k(x)$. Supposons que
+	\begin{enumerate}
+
+		\item
+			$\varphi_k\colon A\to \eC$ et $| \sum_{k=1}^K\varphi_k(x) |\leq M$ où $M$ est indépendant de $x$ et $K$,
+		\item
+			$\psi_k\colon A\to \eR$ avec $\psi_k(x)\geq 0$ et pour tout $x$ dans $A$, $\psi_{k+1}(x)\leq \psi_k(x)$, et enfin supposons que $\psi_k(x)$ converge uniformément vers $0$.
+
+	\end{enumerate}
+	Alors $\sum_{k=1}^{\infty}g_k$ est uniformément convergente.
+\end{theorem}
+
+\begin{theorem}		\label{ThoAbelSeriePuiss}
+	Si la série de puissances (réelle) converge en $x=x_0+R$, alors elle converge uniformément sur $\mathopen[ x_0-R+\epsilon , x_0+R \mathclose]$ ($\epsilon>0$) vers une fonction continue.
+\end{theorem}
+
+
+\begin{proposition}     \label{PropUEMoNF}
+    Soit \( (u_n)\) une suite de fonctions continues \( u_n\colon \Omega\subset\eC\to \eC\). Si la série \( \sum_nu_n\) converge normalement alors la somme est continue.
+\end{proposition}
+
+\begin{proof}
+    Nous posons \( u(z)=\lim_{N\to \infty} \sum_{n=0}^N u_n(z)\), et nous vérifions que la fonction ainsi définie sur \( \Omega\) est continue. Soit \( z\in \Omega\) et prouvons la continuité de \( u\) au point \( z\). Pour tout \( z'\) dans un voisinage de \( z\) nous avons 
+    \begin{subequations}
+        \begin{align}
+            \big| u(z)-u(z') \big|&=\left| \sum_{n=0}^{N}u_n(z)-\sum_{n=0}^{N}u_n(z')+\sum_{n=N+1}^{\infty}u_n(z)-\sum_{n=N+1}^{\infty}u_n(z') \right| \\
+            &\leq \left| \sum_{n=0}^N u_n(z)-\sum_{n=0}^Nu_n(z') \right| +\sum_{n=N+1}^{\infty}| u_n(z) |+\sum_{n=N+1}^{\infty}| u_n(z') |.
+        \end{align}
+    \end{subequations}
+    Étant donné que les sommes partielles sont continues, en prenant \( N\) suffisamment grand, le premier terme peut être rendu arbitrairement petit. Si \( N\) est suffisamment grand, le second terme est également petit. Par contre, cet argument ne tient pas pour le troisième terme parce que nous souhaitons une majoration pour tout \( z'\) dans une boule autour de \( z\). Nous devons donc écrire
+    \begin{equation}
+        \sum_{n=N}^{\infty}| u_n(z) |\leq \sum_{n=N+1}^{\infty}\| u_n \|_{\infty}.
+    \end{equation}
+    Ce dernier est arbitrairement petit lorsque \( N\) est grand. Notons que nous avons utilisé l'hypothèse de convergence normale.
+\end{proof}
+
+La même propriété, avec la même démonstration, tient dans le cas d'espaces vectoriels normée.
+\begin{proposition} \label{PropOMBbwst}
+    Soient \( E\) et \( F\), deux espaces vectoriels normés, \( \Omega\) une partie ouverte de \( E\) et une suite de fonctions \( u_n\colon \Omega\to F\) convergeant normalement sur \( \Omega\), c'est à dire que \( \sum_n\| u_n \|_{\infty}\) converge, la norme \( \| . \|_{\infty} \) devant être comprise comme la norme supremum sur \( \Omega\). Alors la fonction \( u=\sum_nu_n\) est continue sur \( \Omega\).
+\end{proposition}
+
+\begin{proof}
+    Soit \( x,x'\in \Omega\) en supposant que \( \| x-x' \|\) est petit. Soit encore \( \epsilon>0\). Nous allons montrer la continuité en \( x\). Pour cela nous savons que pour tout \( N\) l'inégalité suivante est correcte :
+    \begin{equation}
+        \| u(x)-u(x') \|\leq \left\|  \sum_{n=0}^Nu_n(x)-\sum_{n=0}^{N}u_n(x') \right\|+\sum_{n=N+1}^{\infty}\| u_n(x) \|+\sum_{n=N+1}^{\infty}\| u_n(x') \|.
+    \end{equation}
+    Les deux derniers termes sont majorés par \( \sum_{n=N+1}^{\infty}\| u_n \|_{\infty}\) qui, par hypothèse, peut être rendu aussi petit que souhaité en choisissant \( N\) assez grand. Nous choisissons donc un \( N\) tel que ces deux termes soient plus petits que \( \epsilon\). Ce \( N\) étant fixé, la fonction \( \sum_{n=0}^{N}u_n\) est continue et nous pouvons choisir \( x'\) assez proche de \( x\) pour que le premier terme soit majoré par \( \epsilon\).
+\end{proof}
+
+\begin{theorem}			\label{ThoSerUnifCont}
+	Si les $g_k$ sont continues et si $\sum g_k$ converge uniformément, alors $\sum g_k$ est continue.
+\end{theorem}
+
+Le corollaire suivant permet de considérer des séries de fonctions indexées par exemple par \( \eZ\) plutôt que par \( \eN\).
+\begin{corollary}
+    Une famille dénombrable de fonctions continues convergeant normalement converge vers une fonction continue.
+\end{corollary}
+
+\begin{proof}
+    Soit \( I\) dénombrable et considérons une famille de fonctions continues \( (f_n)_{n\in I}\) telles que la famille \( (\| f_i \|_{\infty})_{i\in I}\) soit sommable. Le proposition \ref{PropoWHdjw} nous permet d'utiliser une bijection entre \( I\) et \( \eN\). Le théorème \ref{PropUEMoNF} s'applique alors.
+\end{proof}
+
+\begin{theorem}[Critère de Weierstrass]\index{critère!Weierstrass!série de fonctions}		\label{ThoCritWeierstrass}
+	Soit une suite de fonctions $f_k\colon A\to \eC$ telles que $| f_k(x) |\leq M_k\in\eR$, $\forall x\in A$. Si $\sum_{k=1}^{\infty}M_k$ converge, alors $\sum_{k=1}^{\infty}f_k$ converge absolument et uniformément.
+\end{theorem}
+
+\begin{proof}
+    La convergence normale est facile : l'hypothèse dit que \( \| f_k \|_{\infty}\leq M_k\), et donc que
+    \begin{equation}
+        \sum_{k=1}^{\infty}\| f_k \|_{\infty}\leq \sum_kM_k<\infty.
+    \end{equation}
+    
+    La convergence uniforme est à peine plus subtile. Nous nommons \( F\) la fonction somme. Pour tout \( x\) et pour tout \( N\), nous avons
+    \begin{subequations}
+        \begin{align}
+            \left\| \sum_{n=1}^Nf_n(x)-F(x) \right\|&=\| \sum_{n=N}^{\infty}f_n(x) \|\\
+            &\leq\sum_{n=N}^{\infty}\| f_k(x) \|\\
+            &\leq \sum_{n=N}^{\infty}\| f_n \|_{\infty}.
+        \end{align}
+    \end{subequations}
+    La convergence normale étant assurée, la série \( \sum_{n_1}^{\infty}\| f_n \|_{\infty}\) est finie, ce qui implique que la queue de somme \( \sum_{n=N}^{\infty}\| f_n \|_{\infty}\) tend vers zéro lorsque \( N\to \infty\). Pour tout \( \epsilon\), il existe donc un \( N\) (non dépendant de \( x\)) tel que
+    \begin{equation}
+        \| \sum_{n=1}^Nf_n(x)-F(x) \|\leq \epsilon.
+    \end{equation}
+    En prenant le supremum sur \( x\in A\) nous trouvons la convergence uniforme.
+\end{proof}
+
+\begin{remark}
+    Il n'y a pas de critère correspondant pour les suites. Il n'est pas vrai que si \( \lim_{n\to \infty}\| f_n \| \) existe, alors \( \lim_{n\to \infty} f_n\) existe, comme le montre l'exemple
+    \begin{equation}
+        f_n(x)=\begin{cases}
+            1    &   \text{si } x\in\mathopen[ 0 , 1 \mathclose]\text{ et } n\text{ est pair}\\
+            1    &    \text{si } x\in\mathopen[ 1 , 2 \mathclose]\text{ et } n\text{ est impair}\\
+             0   &    \text{sinon.}
+        \end{cases}
+    \end{equation}
+\end{remark}
+
+\begin{theorem}      \label{ThoCciOlZ}
+    La somme uniforme de fonctions intégrables sur un ensemble de mesure fini est intégrable et on peut permuter la somme et l'intégrale.
+
+    En d'autres termes, supposons que \( \sum_{n=0}^{\infty}f_n\) converge uniformément vers \( F\) sur \( A\) avec \( \mu(A)<\infty\). Si \( F\) et \( f_n\) sont des fonctions intégrables sur \( A\) alors
+    \begin{equation}
+        \int_AF(x)d\mu(x)=\sum_{n=0}^{\infty}\int_Af_n(x)d\mu(x).
+    \end{equation}
+\end{theorem}
+\index{permuter!somme et intégrale}
+
+\begin{proof}
+    Ce théorème est une conséquence du théorème \ref{ThoUnifCvIntRiem}. En effet nous définissons la suite des sommes partielles
+    \begin{equation}
+        F_N=\sum_{n=0}^Nf_n.
+    \end{equation}
+    La limite \( \lim_{N\to \infty} F_N=F\) est uniforme. Par conséquent la fonction \( F\) est intégrable et
+    \begin{equation}
+        \int_A F=\lim_{N\to \infty} \int_AF_N=\lim_{N\to \infty} \int_A\sum_{n=0}^Nf_n=\lim_{N\to \infty} \sum_{n=0}^N\int_Af_n=\sum_{n=0}^{\infty}\int_Af_n.
+    \end{equation}
+    La première égalité est le théorème \ref{ThoUnifCvIntRiem}, les autres sont de simples manipulations rhétoriques.
+\end{proof}
+
+
+Le théorème suivant est une paraphrase du théorème de la convergence dominée de Lebesgue (\ref{ThoConvDomLebVdhsTf}).
+\begin{theorem}     \label{ThoockMHn}
+    Soient des fonctions \( (f_n)_{n\in \eN}\) telles que \( \sum_{n=0}^Nf_n\) soit intégrable sur \( (\Omega,\tribA,\mu)\) pour chaque \( N\). Nous supposons que la somme converge simplement vers
+    \begin{equation}
+        f(x)=\sum_{n=0}^{\infty}f_n(x)
+    \end{equation}
+    et qu'il existe une fonction \( g\) telle que
+    \begin{equation}
+        \left| \sum_{n=0}^Nf_n \right| <g
+    \end{equation}
+    pour tout \( N\in \eN\). Alors
+    \begin{enumerate}
+        \item
+            \( \sum_{n=0}^{\infty}f_n\) est intégrable,
+        \item
+            on peut permuter somme et intégrale :
+            \begin{equation}
+                \lim_{N\to \infty} \int_{\Omega}\sum_{n=0}^Nf_nd\mu=\int_{\Omega}\sum_{n=0}^{\infty}f_n,
+            \end{equation}
+        \item
+            \begin{equation}
+                \lim_{N\to \infty} \int_{\Omega}\left| \sum_{n=0}^Nf_n-\sum_{n=0}^{\infty}f_n \right| =\lim_{N\to \infty} \int_{\Omega}\left| \sum_{n=N}^{\infty}f_n \right| =0.
+            \end{equation}
+    \end{enumerate}
+\end{theorem}
+
+
+\begin{theorem} \label{ThoCSGaPY}
+    Soit \( f_n\) des fonctions \( C^1\mathopen[ a , b \mathclose]\) telles que
+    \begin{enumerate}
+        \item
+            la série \( \sum_n f_n(x_0)\) converge pour un certain \( x_0\in\mathopen[ a , b \mathclose]\),
+        \item
+            la série des dérivées \( \sum_n f'_n\) converge uniformément sur \( \mathopen[ a , b \mathclose]\).
+    \end{enumerate}
+    Alors la série \( \sum_n f_n\) converge vers une fonction \( F\) et
+    \begin{enumerate}
+        \item
+            La convergence est uniforme sur \( \mathopen[ a , b \mathclose]\).
+        \item
+            La fonction \( F\) est dérivable
+        \item
+            \( F'(x)=\sum_nf'_n(x)\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{lemma}
+    Soient \( E\) et \( F\) deux espaces vectoriels normés. Si la suite \( (T_n)\) converge vers \( T\) dans \( \aL(E,F)\), alors pour tout \( v\in E\) nous avons
+    \begin{equation}
+        \left( \sum_{n=0}^{\infty}T_n \right)(v)=\sum_{n=0}^{\infty}T_n(v).
+    \end{equation}
+\end{lemma}
+
+\begin{theorem}[\cite{DHdwZRZ}] \label{ThoLDpRmXQ}
+    Soit \( E\) et \( F\), deux espaces vectoriels normés, \( \Omega\) un ouvert connexe par arcs de \( E\). Soit \( (u_n)\) une suite de fonctions \( u_n\colon \Omega\to F\) telle que
+    \begin{enumerate}
+        \item
+            pour tout \( n\), la fonction \( u_n\) est de classe \( C^1\) sur \( \Omega\),
+        \item
+            la série \( \sum_nu_n\) converge simplement sur \( \Omega\),
+        \item
+            la série des différentielles \( \sum_n(du_n)\) converge normalement sur tout compact de \( \Omega\).
+    \end{enumerate}
+    Alors la somme \( u=\sum_nu_n\) est de classe \( C^1\) sur \( \Omega\) et sa différentielle est donnée par
+    \begin{equation}
+        du=\sum_{n=0}^{\infty}du_n.
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Pour chaque \( n\), la fonction \( du_n\colon \Omega\to \aL(E,F)\) est une fonction continue parce que \( u_n\) est de classe \( C^1\). La série convergeant normalement, la fonction \( \sum_{n=0}^{\infty}du_n\) est également continue par la proposition \ref{PropOMBbwst}. La difficulté de ce théorème est donc de prouver que cela est bien la différentielle de la fonction \( \sum_nu_n\).
+
+    Soit \( a,x\in \Omega\) et \( \gamma\colon \mathopen[ 0 , 1 \mathclose]\to \Omega\) un chemin joignant \( a\) à \( x\). Nous considérons ce chemin en coordonnées normales et nous notons \( l\) sa longueur. Par définition \ref{EqEFIZyEe},
+    \begin{equation}
+        \clubsuit=\int_{\gamma}\sum_{n=0}^{\infty}du_n=\int_0^l\sum_n(du_n)_{\gamma(t)}\big( \gamma'(t) \big)dt
+    \end{equation}
+    Si nous notons \( f_n(t)=(du_n)_{\gamma(t)}\big( \gamma'(t) \big)\), sachant que la paramétrisation est normale (\( \| \gamma'(t) \|=1\)) nous avons\footnote{Histoire de ne pas s'embrouiller, il faut se rendre compte que \( \| du_n \|_{\infty}=\sup_{x\in \Omega}\| (du_n)_x \|\).}
+    \begin{equation}
+        \| f_n(t) \|\leq \|   (du_n)_{\gamma(t)}  \|\leq \| du_n \|_{\infty}.
+    \end{equation}
+    Or la série des \( \| du_n \|_{\infty}\) converge par hypothèse. L'intervalle \( \mathopen[ 0 , l \mathclose]\) étant compact, les fonctions \( f_n\) sont uniformément (en \( n\)) bornées par le nombre \( \sum_n\| du_n \|_{\infty}\) qui est intégrable sur \( \mathopen[ 0 , 1 \mathclose]\). Par la convergence dominée (théorème \ref{ThoConvDomLebVdhsTf}) nous permutons la somme et l'intégrale :
+    \begin{equation}
+        \clubsuit=\sum_{n=0}^{\infty}\int_0^l(du_n)_{\gamma(t)}\big( \gamma'(t) \big)dt=\sum_{n=0}^{\infty}u_n(x)-\sum_{n=0}^{\infty}u_n(a)=u(x)-u(a)
+    \end{equation}
+    où nous avons utilisé le théorème \ref{ThoUJMhFwU}. Jusqu'à présent nous avons montré que
+    \begin{equation}
+        u(x)=u(a)+\int_{\gamma}\sum_{n=0}^{\infty}du_n=u(a)+\int_0^l\sum_{n=0}^{\infty}(du_n)_{\gamma(t)}\big( \gamma'(t) \big)dt.
+    \end{equation}
+    Nous allons utiliser cela pour calculer \( du_x(v)\) selon la bonne vieille formule
+    \begin{equation}
+        du_x(v)=\Dsdd{ u(x+sv) }{s}{0}.
+    \end{equation}
+    Cela sera fait en considérant à nouveau un chemin \( \gamma_s \) joignant \( a\) à \( x+sv\) en paramétrisation normale; nous notons \( l_s\) sa longueur. Dans le calcul suivant, nous inversons la somme et l'intégrale de la même façon qu'avant. En piste maestro
+    \begin{subequations}
+        \begin{align}
+            du_x(v)&=\frac{ d  }{ d s }\left.\int_0^{l_s}\sum_{n=0}^{\infty}(du_n)_{\gamma_s(t)}\big( \gamma'_s(t) \big)dt\right|_{s=0}\\
+            &=\frac{ d  }{ d s }\left.\sum_{n=0}^{\infty}\int_{\gamma_s}du_n\right|_{s=0}\\
+            &=\frac{ d  }{ d s }\sum_{n=0}^{\infty}\Big[ u_n\big( \gamma_s(l_s)\big)-u_n\big( \gamma_s(0) \big)  \Big]_{s=0}\\
+            &=d\left( \sum_{n=0}^{\infty}u_n \right)_x(v).
+        \end{align}
+    \end{subequations}
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Séries entières}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Dans cette section nous allons parler de séries complexes autant que de séries réelles. L'étude des propriétés à proprement parler complexes des séries entières (holomorphie) sera effectuée dans le chapitre dédié, voir le théorème \ref{ThomcPOdd} et ses conséquences.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Disque de convergence}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Une \defe{série de puissance}{série!de puissance} est une série de la forme
+\begin{equation}		\label{eqseriepuissance}
+	\sum_{k=0}^{\infty}c_k(z-z_0)^k
+\end{equation}
+où $z_0\in \eC$ est fixé, $(c_k)$ est une suite complexe fixée, et $z$ est un paramètre complexe. Nous disons que cette série est \emph{centrée} en $z_0$.
+
+\begin{definition}
+    Une \defe{série entière}{série!entière} est une somme de la forme
+    \begin{equation}
+        \sum_{n=0}^{\infty}a_nz^n
+    \end{equation}
+    avec \( a_n,z\in\eC\).    
+\end{definition}
+Une série entière peut définir une fonction
+\begin{equation}
+    f(z)=\sum_na_nz^n.
+\end{equation}
+Le but de cette section est d'étudier des conditions sur la suite \( (a_n)\) qui assurent la continuité de \( f\) ou la possibilité de dériver ou intégrer la série terme à terme.
+
+\begin{definition}  \label{DefZWKOZOl}
+    Soit \( \sum_{n\in \eN}a_nz^n\) une série entière. Le \defe{rayon de convergence}{rayon!de convergence} de cette série est le nombre
+    \begin{equation}
+        R=\sup\{ r\in \eR^+\tq \text{la suite }(a_nr^n)\text{ est bornée} \}\in\mathopen[ 0 , \infty \mathclose].
+    \end{equation}
+    La boule \( B(0,R)\) est le \defe{disque de convergence}{disque de convergence} de la série.
+\end{definition}
+Le rayon de convergence d'une série ne dépend que des réels \( | a_n |\), même si à la base \( a_n\in \eC\).
+
+\begin{lemma}[Critère d'Abel]\index{critère!Abel}   \label{LemmbWnFI}
+    Soit \( R>0\) le rayon de convergence de la somme \( \sum_na_nz^n\) et \( z\in \eC\).
+    \begin{enumerate}
+        \item
+            Si \( | z |<R\) alors la série converge absolument.
+        \item
+            Si \( R<\infty\) et si \( | z |>R\) alors la série diverge.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Démonstration en deux parties.
+    \begin{enumerate}
+        \item
+
+            Si \( | z |<R\) alors la suite \( (a_nz^n)\) est bornée et il existe un nombre \( M\in \eR\) tel que \( | a_n |r^n\leq M\) pour tout \( n\). Nous considérons alors un \( r\) tel que \( | z |<r<R\) et nous pouvons calculer :
+            \begin{equation}
+                | a_nz^n |=| a_n |r^n\big( \frac{ | z | }{ r } \big)^n\leq M\left( \frac{ | z | }{ r } \right)^n
+            \end{equation}
+            Vu que \( | z |<r\) nous tombons sur la série géométrique \eqref{EqZQTGooIWEFxL} qui converge. Par le critère de comparaison\footnote{Lemme \ref{LemgHWyfG}.} la série \( \sum_{n=0}^{\infty}| a_nz^n |\) converge.
+
+        \item
+            Par définition du rayon de convergence, la suite \( (a_nz^n)\) n'est donc pas bornée et la série ne peut pas converger à cause de la proposition \ref{propnseries_propdebase}\ref{point3-seriepropdebase}.
+    \end{enumerate}
+\end{proof}
+
+Le critère d'Abel parle bien de convergence absolue, et non de convergence normale. Pour chaque \( t\), la série \( \sum_k | a_nt^k |\) converge. Si par contre nous posons \( u_k(t)=a_kt^k\), nous n'avons a priori pas la convergence normale \( \sum_k\| u_k \|_{\infty}\), même pas si la norme est la norme supremum sur \( B(0,R)\)\quext{Il y aurait par contre bien convergence sur tout compact ? Cher lecteur, dites moi ce que vous en pensez}. Prenons comme exemple simplement \( a_k=1\) pour tout \( k\). Pour tout \( | t |<1\), la série \( \sum_k t^k\) converge absolument (série géométrique), mais nous aurions \( \| u_k \|_{\infty}=1\) et donc divergence évidente de \( \sum_k\| u_k \|_{\infty}\).
+
+La proposition suivante sera surtout utile lorsqu'on parlera de dérivée.
+\begin{proposition}[\cite{KOWMooXhcOoy}]        \label{PropHDIUooKTbVSX}
+    Quel que soit le nombre \( \alpha\in \eR\), les séries \( \sum_na_nz^n\) et \( \sum_nn^{\alpha}a_nz^n\) ont même rayon de convergence.
+\end{proposition}
+
+\begin{proof}
+    Nous posons
+    \begin{subequations}
+        \begin{align}
+            E=\{ r\in \eR^+\tq \text{  } (a_nr^n)\text{ est borné } \}
+            E'=\{ r\in \eR^+\tq \text{  } (n^{\alpha}a_nr^n)\text{ est borné } \}
+        \end{align}
+    \end{subequations}
+    Et aussi \( R=\sup(E)\), \( R'=\sup(E')\). Le fait que \( E'\geq E\) est facile. Nous supposons \( R>0\) et nous considérons \( r<R\) (c'est à dire \( r\in E\)).  Nous allons montrer que \( r\in E'\). Pour cela nous prenons un nombre \( s\) tel que \( r<s<R\). Nous avons
+    \begin{equation}
+        n^{\alpha}a_nr^n=n^{\alpha}a_n\left( \frac{ r }{ s } \right)^ns^n=n^{\alpha}\left( \frac{ r }{ s } \right)^na_ns^n.
+    \end{equation}
+    Mais \( r/s<1\), donc le lemme \ref{LemLJOSooEiNtTs} dit que \( n^{\alpha}(r/s)^n\to 0\). Cela est donc borné par une constante \( M\). Donc
+    \begin{equation}
+        n^{\alpha}a_nr^n\leq Ma_ns^n.
+    \end{equation}
+    Mais la suite \( (a_ns^n)\) est bornée. Donc la suite \( n^{\alpha}a_nr^n\) est également bornée, ce qui prouve que \( r\in E'\).
+\end{proof}
+
+\begin{remark}
+    Au fond, cette proposition n'est rien d'autre que dire que dans \( n^\alpha r^n\), l'effet «convergent» est \( r^n\) qui est une décroissance exponentielle tandis que l'effet «divergent» est \( n^{\alpha}\) qui a une croissance seulement polynômiale.
+\end{remark}
+
+\begin{theorem}[Formule de Hadamard]\index{formule!Hadamard}\index{Hadamard!formule}		\label{ThoSerPuissRap}
+Le rayon de convergence de la série entière \( \sum_n c_n z^n\) est donné par une des deux formules
+\begin{equation}		\label{EqRayCOnvSer}
+	\frac{1}{ R } =\limsup\sqrt[k]{| a_k |}
+\end{equation}
+ou
+\begin{equation}		\label{EqAlphaSerPuissAtern}
+	\frac{1}{ R }=\limite k \infty \abs{\frac{a_{k+1}}{a_k}}
+\end{equation}
+lorsque $a_k$ est non nul à partir d'un certain $k$.
+\end{theorem}
+
+Le disque $| z-z_0 |\leq R$ est le \defe{disque de convergence}{disque de convergence} de la série \( \sum_n a_n(z-z_0)^n\). Notons que le critère d'Abel ne dit rien pour les points tels que $| z-z_0 |=R$. Il faut traiter ces points au cas par cas. Et le pire, c'est qu'une série donnée peut converger pour certain des points sur le bord du disque, et diverger en d'autres. Le théorème d'Abel radial (théorème \ref{ThoLUXVjs}) nous donnera quelques informations sur le sujet.
+
+Il y a un dessin à la figure \ref{LabelFigDisqueConv}.
+\newcommand{\CaptionFigDisqueConv}{À l'intérieur du disque de convergence, la convergence est absolue. En dehors, la série diverge. Sur le cercle proprement dit, tout peut arriver.}
+\input{pictures_tex/Fig_DisqueConv.pstricks}
+
+Si les suites \( a_n\) et \( b_n\) sont équivalentes, alors les séries correspondantes auront le même rayon de convergence. Cela ne signifie pas que sur le bord du disque de convergence, elles aient même comportement. Par exemple nous avons
+\begin{equation}
+    \frac{1}{ \sqrt{n} }\sim \frac{1}{ \sqrt{n} }+\frac{ (-1)^n }{ n }.
+\end{equation}
+En même temps, en \( z=-1\) la série 
+\begin{equation}
+    \sum_{n\geq 1}\frac{ z^n }{ \sqrt{n} }
+\end{equation}
+converge par le critère des séries alternées (corollaire \ref{CoreMjIfw}). Par contre la série
+\begin{equation}
+    \sum_{n\geq 1}\left( \frac{1}{ \sqrt{n} }+\frac{ (-1)^n }{ n } \right)z^n
+\end{equation}
+ne converge pas pour \( z=-1\).
+
+\begin{example}
+    Soit \( \alpha\in \eR\) et considérons la série \( \sum_{n\geq 1}a_nz^n\) où \( a_n\) est la \( n\)-ième décimale de \( \alpha\). Si \( \alpha\) est un nombre décimal limité, la suite \( (a_n)\) est finie et le rayon de convergence est infini. Sinon, pour tout \( N\) il existe un \( n>N\) tel que \( a_n\neq 0\) et la suite \( (a_n)\) ne tend pas vers zéro. Par conséquent la série
+    \begin{equation}
+        \sum_{n}a_nz^n
+    \end{equation}
+    diverge pour \( z=1\) et le rayon de convergence satisfait \( R\leq 1\). Nous avons aussi \( | a_n |\leq 9\), de telle manière à ce que la série soit bornée et par conséquent majorée en module par \( 9z^n\), ce qui signifie que \( R\geq 1\). 
+
+    Nous déduisons alors \( R=1\).
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Propriétés de la somme}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}     \label{ThokPTXYC}
+    Soient \( \sum_na_nz^n\) et \( \sum b_nz^n\) deux séries de rayon de convergences respectivement \( R_a\) et \( R_b\).
+    \begin{enumerate}
+        \item   \label{IteWlajij}
+            Si \( R_s\) est le rayon de convergence de \( \sum_n(a_n+b_n)z^n\), nous avons
+            \begin{equation}
+                R_s\geq \min\{ R_a,R_b \}
+            \end{equation}
+            et nous avons l'égalité si pour tout \( |z |\leq\min\{ R_a,R_b \}\), \( \sum (a_n+b_n)z^n=\sum_n a_nz^n+\sum_nb_nz^n\).
+        \item
+            Si \( \lambda\neq 0\) la série \( \sum_n(\lambda a_n)z^n\) a le même rayon de convergence que la série \( \sum_na_nz^n\) et si \( | z |<R_a\) nous avons
+            \begin{equation}
+                \sum_{n=0}^{\infty}(\lambda a_n)z^n=\lambda\sum_{n=0}^{\infty}a_nz^n.
+            \end{equation}
+        \item
+            Le \defe{produit de Cauchy}{Cauchy!produit}\index{produit!de Cauchy} des deux séries est donné par
+            \begin{equation}        \label{EqFPGGooDQlXGe}
+                \left( \sum_na_nz^n \right)\left( \sum_k b_kz^k \right)=       \sum_{n=0}^{\infty}\left( \sum_{i+j=n}a_ib_j \right)z^n=\sum_{n=0}^{\infty}\left( \sum_{k=0}^{n}a_kb_{n-k} \right)z^n.
+            \end{equation}
+            Si \( R_p\) est le rayon de convergence de ce produit nous avons
+            \begin{equation}
+                R_p\geq \min\{ R_a,R_b \}
+            \end{equation}
+            et si \( | z |<\min\{ R_a,R_b \}\) alors
+            \begin{equation}
+                \sum_{n=0}^{\infty}\left( \sum_{i+j=n}a_ib_j \right)z^n=\left( \sum_{n=0}^{\infty}a_nz^n \right)\left( \sum_{n=0}^{\infty}b_nz^n \right).
+            \end{equation}
+            
+    \end{enumerate}
+    
+\end{theorem}
+
+\begin{proof}
+    Nous prouvons la partie sur le produit de Cauchy. En utilisant la propriété du produit de la somme par un scalaire nous avons
+    \begin{subequations}
+        \begin{align}
+            \left( \sum_{n=0}^{\infty}a_nz^n \right)\left( \sum_{m=0}^{\infty}b_mz^m \right)&=\sum_{n=0}^{\infty}\left( \sum_{m=0}^{\infty}b_ma_nz^{m+n} \right)\\
+            &=\lim_{N\to \infty} \lim_{M\to \infty} \sum_{n=0}^N\sum_{m=0}^Mb_ma_nz^{m+n}\\
+            &=\lim_{N\to \infty} \lim_{M\to \infty} \sum_{k=0}^{N+M}\sum_{i+k=k}b_ia_jz^k\\
+            &=\lim_{N\to \infty} \sum_{k=0}^{\infty}\sum_{i+k=k}b_ia_jz^k\\
+            &=\sum_{k=0}^{\infty}\sum_{i+j=k}b_ia_jz^k.
+        \end{align}
+    \end{subequations}
+\end{proof}
+
+\begin{example}
+    Montrons un produit de Cauchy dont le rayon de convergence est strictement plus grand que le minimum. D'abord nous considérons
+    \begin{equation}
+        A=1-z,
+    \end{equation}
+    c'est à dire \( a_0=1\), \( a_1=-1\), \( a_{n\geq 2}=0\) avec \( R_a=\infty\). Ensuite nous considérons
+    \begin{equation}
+        B=\sum_nz^n,
+    \end{equation}
+    c'est à dire \( B=(1-z)^{-1}\) et \( R_b=1\). Le produit de Cauchy de ces deux séries valant \( 1\), le rayon de convergence est infini.
+\end{example}
+
+\Exo{reserve0005}
+
+\begin{theorem}
+    Une série entière converge normalement sur tout disque fermé inclus au disque de convergence.
+\end{theorem}
+
+\begin{proof}
+    Toute boule fermée inclue à \( B(0,R)\) est inclue à la boule \( \overline{ B(0,r) }\) pour un certain \( r<R\). Nous nous concentrons donc sur une telle boule fermée.
+
+    Pour chaque \( n\) nous posons \( u_n(z)=a_nz^n\) que nous voyons comme une fonction sur \( \overline{ B(0,r) }\). Pour tout \( n\in \eN\) et tout \( z\in\overline{ B(0,r) }\) nous avons 
+    \begin{equation}
+        \| u_n \|_{\infty}\leq| a_nz^n |\leq | a_n |r^n.
+    \end{equation}
+    Étant donné que \( r<R\) la série \( \sum_n | a_n |r^n\) converge et la série \( \sum_n\| u_n \|\) est convergente. La série \( \sum_na_nz^n\) est alors normalement convergente.
+\end{proof}
+
+\begin{example}
+    Encore une fois nous n'avons pas d'informations sur le comportement au bord. Par exemple la série \( \sum_nz^n\) a pour rayon de convergence \( R=1\), mais \( \sup_{z\in B(0,1)}| z^n |=1\) et nous n'avons pas de convergence normale sur la boule fermée.
+\end{example}
+
+La convergence normale n'est donc pas de mise sur tout l'intérieur du disque de convergence. La continuité, par contre est effective sur la boule. En effet si \( z_0\in B(0,R)\) alors il existe un rayon \( 0<r<R\) tel que \( B(z_0,r)\subset B(0,R)\). Sur \( B(z_0,r)\) nous avons convergence normale et donc continuité en \( z_0\).
+
+La différence est que la continuité est une propriété locale tandis que la convergence normale est une propriété globale.
+
+\begin{proposition}
+    Soit \( f(z)=\sum_na_nz^n\) avec un rayon de convergence \( R\). Si \( \sum | a_n |R^n\) converge alors
+    \begin{enumerate}
+        \item
+            la série \( \sum_na_nz^n\) converge normalement sur \( \overline{ B(0,R) }\),
+        \item
+            \( f\) est continue sur \( \overline{ B(0,R) }\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    La conclusion est claire dans l'intérieur du disque de convergence. En ce qui concerne le bord, chacune des sommes partielles est une fonction continue. De plus nous avons \( \| u_n \|\leq | a_n |R^n\), dont la série converge. Par conséquent nous avons convergence normale sur le disque fermé.
+\end{proof}
+
+Le théorème suivant permet de donner, dans le cas de fonctions réelle, des informations sur la convergence en une des deux extrémités de l'intervalle de convergence.
+\begin{theorem}[Convergene radiale de Abel]\index{Abel!convergence radiale} \label{ThoLUXVjs}
+    Soit \( f(x)=\sum_na_nx^n\) une série réelle de rayon de convergence \( 0<R<\infty\).
+    \begin{enumerate}
+        \item
+            Si \( \sum a_nR^n\) converge, alors \( f\) est continue sur \( \mathopen[ 0 , R \mathclose]\).
+        \item
+            Si \( \sum_na_n(-R)^n\) converge, alors \( f\) est continue sur \( \mathopen[ -R , 0 \mathclose]\).
+    \end{enumerate}
+\end{theorem}
+
+\Exo{reserve0006}
+
+Le résultat suivant permet d'identifier deux séries complexes lorsque leurs valeurs sur \( \eR\) sont identiques.
+\begin{proposition}
+    Soient les séries \( f(z)=\sum a_nz^n\) et \( g(z)=\sum b_n z^n\) convergentes dans \( B(0,R)\). Si \( f(x)=g(x)\) pour \( x\in \mathopen[ 0 , R [\) alors \( a_n=b_n\).
+\end{proposition}
+
+\begin{proof}
+    Soit \( n_0\) le plus petit entier tel que \( a_{n_0}\neq b_{n_0}\). Pour tout \( z\in B(0,R)\) nous avons
+    \begin{equation}
+        f(z)-g(z)=\sum_{n=n_0}^{\infty}(a_n-b_n)z^n=z^{n_0}\varphi(z)
+    \end{equation}
+    où
+    \begin{equation}
+        \varphi(z)=\sum_{n\geq 0}(a_{n+n_0}-b_{n+n_0})z^n.
+    \end{equation}
+    Par le théorème \ref{ThokPTXYC}\ref{IteWlajij} le rayon de convergence de \( \varphi\) est plus grand que \( R\) et la fonction \( \varphi\) est continue en \( 0\). Étant donné que \( \varphi(0)=a_{n_0}-b_{n_0}\neq 0\) et que \( \varphi\) est continue nous avons un \( \rho\) tel que \( \varphi\neq 0\) sur \( B(0,\rho)\). Or cela n'est pas possible parce que au moins sur la partie réelle de cette dernière boule, \( \varphi\) doit être nulle.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Dérivation, intégration}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}       \label{LemFVMaSD}
+    Soit une série entière \( \sum a_nz^n\) de rayon de convergence \( R\). Les séries
+    \begin{equation}
+        \sum \frac{ a_n }{ n+1 }z^{n+1}
+    \end{equation}
+    et
+    \begin{equation}
+        \sum_{n\geq 1}na_nz^{n-1}
+    \end{equation}
+    ont même rayon de convergence \( R\).
+\end{lemma}
+
+Notons toutefois que nonobstant ce lemme, les séries dont il est question peuvent se comporter différemment sur le bord du disque de convergence. En effet la série
+\begin{equation}
+    \sum \frac{1}{ n }z^n
+\end{equation}
+diverge pour \( z=1\) alors que 
+\begin{equation}
+    \sum\frac{1}{ n(n+1) }z^{n+1}
+\end{equation}
+converge pour \( z=1\).
+
+
+Les théorèmes de dérivation et d'intégration de séries de fonctions (théorèmes \ref{ThoCciOlZ} et \ref{ThoCSGaPY}) fonctionnent bien dans le cas des séries entières.
+
+\begin{proposition} \label{PropfeFQWr}
+    Soit la série entière $\sum a_nx^n$ de rayon de convergence \( R\). Pour tout segment \( \mathopen[ a , b \mathclose]\subset\mathopen] -R , R \mathclose[\) nous pouvons intégrer terme à terme :
+    \begin{equation}
+        \int_a^b\sum_{n=0}^{\infty}a_nx^ndt=\sum_{n=0}^{\infty}a_n\int_a^bt^ndt.
+    \end{equation}
+\end{proposition}
+\index{permuter!série entière et intégration}
+
+\begin{proof}
+    Ceci est un cas particulier du théorème général \ref{ThoCciOlZ}. Notons que par le lemme \ref{LemFVMaSD}, la série entière qui intègre la série de \( f\) terme à terme a le même rayon de convergence que celui de \( f\).
+\end{proof}
+
+\begin{proposition}     \label{ProptzOIuG}
+    Soit la série entière
+    \begin{equation}
+        f(x)=\sum_{n=0}^{\infty}a_n x^n
+    \end{equation}
+    de rayon de convergence \( R\). Alors la fonction \( f\) est \( C^1\) sur \( \mathopen] -R , R \mathclose[\) et se dérive terme à terme :
+    \begin{equation}
+        f'(x)=\sum_{n=1}^{\infty}na_nx^{n-1}
+    \end{equation}
+    pour tout \( x\in\mathopen] -R , R \mathclose[\).
+\end{proposition}
+\index{permuter!série entière et dérivation}
+
+\begin{proof}
+    Nous savons que la série \( \sum_{n=1}^{\infty}na_nx^{n-1}\) a le même rayon de convergente que celui de la série \( f\). En particulier cette série des dérivées converge normalement sur tout compact dans \( \mathopen] -R , R \mathclose[\) et la somme est continue. Le théorème \ref{ThoCSGaPY} conclu.
+\end{proof}
+
+\begin{example}
+    Montrons que la fonction
+    \begin{equation}
+        \begin{aligned}
+            f\colon \eR_+\setminus\{ 0,1 \}&\to \eR \\
+            x&\mapsto \frac{ \ln(x) }{ x-1 } 
+        \end{aligned}
+    \end{equation}
+    admet un prolongement \( C^{\infty}\) sur \( \eR_+\setminus\{ 0 \}\).
+
+    Nous allons étudier la fonction
+    \begin{equation}
+        f(x)=\frac{ \ln(1+x) }{ x }
+    \end{equation}
+    autour de \( x=0\). Le logarithme ne pose pas de problèmes à développer dans un voisinage :
+    \begin{subequations}
+        \begin{align}
+            f(x)&=\frac{1}{ x }\sum_{n=1}^{\infty}\frac{ (-1)^{n+1} }{ n }x^n\\
+            &=\sum_{n=1}^{\infty}\frac{ (-1)^{n+1} }{ n }x^{n-1}\\
+            &=\sum_{n=0}^{\infty}\frac{ (-1)^k }{ k+1 }x^k.
+        \end{align}
+    \end{subequations}
+    Cette série a un rayon de convergence égal à \( 1\), et donc définit sans problèmes une fonction \( C^{\infty}\) dans un voisinage de \( x=0\). Notons que par convention \( x^0=1\) même si \( x=0\).
+\end{example}
+
+\begin{remark}
+    À part lorsqu'on parle de fonction \( \eR\to \eR\), la notion de classe \( C^k\) s'entend au sens de la différentielle, et non de la dérivée, voir les définitions \ref{DefPNjMGqy}. C'est cela qui explique la structure de la démonstration de la proposition \ref{PropSNMEooVgNqBP}.
+\end{remark}
+
+Le lemme suivant est encore essentiellement valable dans un espace de Banach (proposition \ref{PropQAjqUNp}).
+\begin{lemma}       \label{LemPQFDooGUPBvF}
+    La série entière \( \sum_{n\geq 0}z^{nk}\) a un rayon de convergence \( 1\) et converge vers la fonction
+    \begin{equation}
+        \sum_{n\geq 0}z^{nk}=\frac{1}{ 1-z^k }.
+    \end{equation}
+
+    Lorsque \( | \omega |=1\) nous avons aussi un rayon de convergence \( 1\) pour la série
+    \begin{equation}        \label{EqSSHZooLwCBAZ}
+        \frac{1}{ \omega-z }=\sum_{k\geq 0}\omega^{-k-1}z^k.
+    \end{equation}
+
+    Sous les mêmes hypothèses sur \( \omega\) nous avons encore la série
+    \begin{equation}
+        \frac{1}{ (\omega-z)^k }=\frac{1}{ (k-1)! }\sum_{s=0}^{\infty}\omega^{-s-1-k}\frac{ (s+k-1)! }{ s! }z^s
+    \end{equation}
+    
+\end{lemma}
+
+\begin{proof}
+    Les coefficients de la série sont \( a_n=1\) lorsque \( n\) est multiple de \( k\) et \( a_n=0\) autrement. Donc pour \( r=1\) la suite \( r^na_n\) reste bornée\footnote{Utilisation directe de la définition \ref{DefZWKOZOl}.}. Cela prouve que le rayon de convergence est au moins \( 1\). Par ailleurs si \( r>1\) alors clairement la suite \( (a_nr^n)\) n'est pas bornée. Cela prouve le rayon de convergence égal à \( 1\).
+
+    Soit donc \( z\in B(0,1)\). Nous avons
+    \begin{equation}
+        \left( \sum_{n\geq 0}z^{nk} \right)(1-z^k)=\sum_{n\geq 0}z^{nk}-\sum_{n\geq 0}z^{(n+1)k}.
+    \end{equation}
+    Le premier terme de la première somme vaut \( 1\) tandis que tous les autres termes s'annulent deux à deux.
+
+    En ce qui concerne la série \eqref{EqSSHZooLwCBAZ}, elle s'obtient facilement :
+    \begin{equation}
+        \frac{1}{ \omega-z }=\frac{1}{  \omega }\frac{1}{ 1-\frac{ z }{ \omega } }=\frac{1}{ \omega }\sum_{s=0}^{\infty}\left( \frac{ z }{ \omega } \right)^s=\sum_s\omega^{-s-1}z^s.
+    \end{equation}
+    
+    La troisième série s'obtient en dérivant la seconde, ce qui est permis dans le disque de convergence par la proposition \ref{PropfeFQWr}.
+\end{proof}
+
+\begin{remark}
+    Sur le bord du disque de convergence, la série \( \sum_nz^{nk}\) ne converge pas. En effet le rayon étant \( 1\), sur le bord nous avons la série \( \sum_n e^{ink\theta}\) dont la norme du terme général ne tend pas vers zéro.
+\end{remark}
+
+\begin{proposition}[\cite{GYDXooJJusGH,MonCerveau}]     \label{PropSNMEooVgNqBP} 
+    Si la série entière \( \sum_{n\geq 0}a_nz^n\) a un rayon de convergence \( R\) alors
+    \begin{enumerate}
+        \item
+            La somme est une fonction holomorphe dans le disque de convergence.
+        \item       \label{ItemUULDooEGRNiA}
+            La somme est différentiable et
+            \begin{equation}
+                du_{z_0}(z)=\sum_{n=1}^{\infty}na_nz_0^{n-1}z.
+            \end{equation}
+        \item
+    De plus pour tout \( z_0\in B(0,R)\), on pose\footnote{Pour rappel, dans tout ce texte, \( B(a,r)\) est une boule \emph{ouverte}.}
+    \begin{subequations}
+        \begin{align}
+            S(z)&=\sum_{n\geq 0}a_nz^n\\
+            T(z)&=\sum_{n\geq 1}na_nz^{n-1}=\sum_{n=0}^{\infty}(n+1)a_{n+1}z^n.
+        \end{align}
+    \end{subequations}
+    Alors  nous avons
+    \begin{equation}    \label{EqVQDPooOPICwN}
+        \lim_{z\to z_0}\frac{ S(z)-S(z_0) }{ z-z_0 }=T(z_0).
+    \end{equation}
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Nous allons prouver, en utilisant le théorème \ref{ThoLDpRmXQ}, que la somme est une fonction différentiable et que la différentielle est \( \eC\)-linéaire. La proposition \ref{PropKJUDooJfqgYS} nous dira alors que la somme est \( \eC\)-dérivable.
+
+    Nous posons \( u_n(z)=a_nz^n\), qui est une fonction de classe \( C^1\). En ce qui concerne sa différentielle nous considérons \( z_0\in B(0,R)\)  et nous avons    (si \( n=0\) alors la différentielle est nulle)
+    \begin{subequations}
+        \begin{align}
+            (du_n)_{z_0}(z)&=\Dsdd{ u_n(z_0+tz) }{t}{0}\\
+            &=\Dsdd{ a_n(z_0+tz)^n }{t}{0}\\
+            &=\Dsdd{ na_n(z_0^{n-1}tz) }{t}{0}\\
+            &=na_nz_0^{n-1}z.
+        \end{align}
+    \end{subequations}
+    En cours de calcul nous avons développé \( (z_0+tz)^n\) et gardé seulement les termes de degré \( 1\) en \( t\). Il y en a \( n\) et ils sont tous égaux à \( z_0^{n-1}tz\).
+
+    La convergence simple \( \sum_nu_n\) est dans les hypothèses. Il reste à prouver que la somme des différentielles converge uniformément sur tout compact autour de \( z_0\) ne débordant pas du disque ouvert de convergence. Soit \( K\) un compact autour de \( z_0\). Dans le calcul suivant nous utilisons une première fois la norme uniforme de \( du_n\) vu comme fonction de \( K\) vers \( \aL(\eC,\eC)\) et une fois la norme opérateur\footnote{Définition \ref{DefNFYUooBZCPTr}.} de \( (du_n)_{z_0}\) comme application linéaire \( \eC\to \eC\) :
+    \begin{subequations}
+        \begin{align}
+            \| du_n \|_k&=\sup_{z_0\in K}\| (du_n)_{z_0} \|\\
+            &=\sup_{z_0\in K}\sup_{| z |=1}\\
+            &=\sup_{z_0\in K}\sup_{| z |=1}| na_nz_0^{n-1}z |\\
+            &=\sup_{z_0\in K}n| a_n | |z_0 |^{n-1}.
+        \end{align}
+    \end{subequations}
+    Vu que \( z\mapsto| z |^{n-1}\) est une application continue sur le compact \( K\), elle atteint son maximum (théorème \ref{ThoWeirstrassRn}.), nous considérons \( z_K\), un point qui réalise le supremum. Ce nombre est dans le disque de convergence parce que \( K\) est un compact autour de \( z_0\). 
+    
+    Nous devons prouver que \( \sum_nn| a_n | |z_K |^{n-1}\) converge. Vu que \( | z_K |\) est une constante (par rapport à \( n\)) nous pouvons étudier la convergence en écrivant \( | z_K |^n\) au lieu de \( | z_K |^{n-1}\).
+
+    La suite \( (a_n| z_K |^n)\) est une suite bornée. Soit \( M\) tel que \( | a_n | |z_K |^n<M\) pour tout \( n\). Nous considérons de plus \( r\) de telle sorte que \( K\subset B(0,r)\subset B(0,R)\). En particulier \( | z_K |<r\) et nous avons
+    \begin{equation}
+        n| a_n | |z_K |^n\leq n| a_n |r^n\left( \frac{ | z_K | }{ r } \right)^n\leq nM\left( \frac{ | z_K | }{ r } \right)^n.
+    \end{equation}
+    Nous savons que ce qui est dans la parenthèse est plus petit que \( 1\), mais que \( \sum_nnx^n\) converge dès que \( | x |<1\). Par conséquent
+    \begin{equation}
+        \sum_n\| du_n \|_K
+    \end{equation}
+    converge et le théorème \ref{ThoLDpRmXQ} fonctionne : \( du=\sum_{n=1}^{\infty}du_n\) et la somme \( \sum_nu_n\) est de classe \( C^1\).
+
+    La différentielle de \( \sum_nu_n\) s'exprime explicitement par
+    \begin{equation}        \label{EqJBFMooMjSABz}
+        du_{z_0}(z)=\sum_{n=1}^{\infty}na_nz_0^{n-1}z.
+    \end{equation}
+    Cette forme montre que \( du_{z_0}\) est une application \( \eC\)-linéaire et donc la somme est \( \eC\)-dérivable par la proposition \ref{PropKJUDooJfqgYS}. Ergo holomorphe sur le disque de convergence par définition \ref{DefMMpjJZ}.
+
+    En ce qui concerne la formule \eqref{EqVQDPooOPICwN}, elle provient de la formule \eqref{EqPAEFooYNhYpz} : \( f'(z_0)\) est donné par la facteur multiplicatif de \( du_{z_0}\). En l'occurrence la formule \eqref{EqJBFMooMjSABz} nous donne
+    \begin{equation}
+        f'(z_0)=\sum_{n\geq 1}na_nz_0^{n-1}.
+    \end{equation}
+\end{proof}
+
+\begin{corollary}[\cite{GYDXooJJusGH,MonCerveau}]       \label{CorCBYHooQhgara}
+    La somme d'une série entière est de classe \( C^{\infty}\) sur le disque ouvert de convergence.
+\end{corollary}
+
+\begin{proof}
+    La proposition \ref{PropSNMEooVgNqBP} a démontré en réalité nettement plus : sur le disque ouvert de convergence, la somme est une fonction holomorphe. Il est n'est cependant pas possible de conclure ainsi parce que le fait qu'une fonction holomorphe est \( C^{\infty}\) ne sera démontré qu'au coût de nombreux efforts dans le théorème \ref{ThomcPOdd}\ref{ItemMRRTooMChmuZ}.
+
+    \begin{subproof}
+    \item[Cas réel]
+        Nous considérons la série entière \( \sum_na_nx^n\) pour \( x\in \eR\) de rayon de convergence \( R\). Une simple récurrence sur la proposition \ref{ProptzOIuG} donne le résultat.
+    \item[Cas complexe]
+        Attention : le fait d'être de classe \( C^k\) est le fait d'être \( k\) fois \emph{différentiable}. Rien à voir avec la \( \eC\)-dérivabilité.
+
+        En ce qui concerne la différentiabilité nous avons la proposition \ref{PropSNMEooVgNqBP} qui dit que dans le disque de convergence, la fonction \( u(z)=\sum_na_nz^n\) a pour différentielle l'application \( du\colon \eC\to \aL_{\eC}(\eC,\eC)\),
+        \begin{equation}
+            du_{z_0}(z)=\big( \sum_{n=0}^{\infty}(n+1)a_{n+1}z_0^n \big)z.
+        \end{equation}
+        Nous allons éviter de considérer la différentielle seconde comme une application
+        \begin{equation}
+            d^2u\colon \eC\to \aL\big( \eC,\aL(\eC,\eC) \big)
+        \end{equation}
+        parce que ça nous mènerait trop loin pour parler de la différentielle \( k\)\ieme. Au lieu de cela nous allons considérer l'isomorphisme d'espace vectoriel
+        \begin{equation}
+            \begin{aligned}
+                \psi\colon \eC&\to \aL_{\eC}(\eC,\eC) \\
+                z_0&\mapsto \psi(z_0) z=z_0z.
+            \end{aligned}
+        \end{equation}
+        Dans cette optique nous écrivons :
+        \begin{equation}
+            du_{z_0}=\psi\big( \sum_{n=0}^{\infty}(n+1)a_{n+1} z_0^n\big)
+        \end{equation}
+        ou encore :
+        \begin{equation}
+            (\psi^{-1}\circ d)u(z_0)=\sum_{n\geq 0}(n+1)a_{n+1}z_{0}^n.
+        \end{equation}
+        Nous allons prouver par récurrence que l'égalité suivante est vraie (y compris le fait que la somme converge) :
+        \begin{equation}
+            (\psi^{-1}\circ d)^ku(z_0)=\sum_{n=0}^{\infty}\frac{ (n+k)! }{ n! }a_{n+k}z_0^n.
+        \end{equation}
+        Prouvons d'abord que cette somme converge pour tout \( k\). Nous avons \( (n+k)!/n!<(n+k)^k\) et donc il suffit de prouver que la série de coefficients \( n^ka_n\) converge. C'est le cas par la proposition \ref{PropHDIUooKTbVSX}.
+
+        Nous pouvons calculer la différentielle de \( (\psi^{-1}\circ d)^ku\) en dérivant terme à terme en utilisant (encore) la proposition \ref{PropSNMEooVgNqBP}\ref{ItemUULDooEGRNiA} :
+        \begin{subequations}
+            \begin{align}
+                d\big( (\psi^{-1}\circ d)^k u\big)_{z_0}(z)&=\sum_{n=1}^{\infty}\frac{ (n+k)! }{ n! }a_{n+k}na_{0}^{n-1}z\\
+                &=\sum_{n=0}^{\infty}\frac{ (n+k+1)! }{ n! }a_{n+k+1}z_{0}^nz.
+            \end{align}
+        \end{subequations}
+        Nous appliquons \( \psi^{-1}\) à cela :
+        \begin{equation}
+            (\psi^{-1}\circ d)^{k+1}u(z_0)=\sum_{k=0}^{\infty}\frac{ (n+k+1)! }{ n! }a_{n+k+1}z_0^n.
+        \end{equation}
+        
+    \item[Dérouler à l'envers]
+
+        Nous allons maintenant utiliser la proposition \ref{PropEKLTooSvZjdW} pour montrer que \( u\) est de classe \( C^k\) pour tout \( k\). Nous avons démontré que \( (\psi^{-1}\circ d)^ku\) était différentiable. Par conséquent, \( d\big( (\psi^{-1}\circ d)^{k-1}u \big)\) est différentiable et donc \( (\psi^{-1}\circ d)^{k-1}\) est de classe \( C^1\). En continuant ainsi, \( (\psi^{-1}\circ d)^{k-l}u\) est de classe \( C^l\) et \( u\) est de classe \( C^k\).
+    \end{subproof}
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Exponentielle et logarithme}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La méthode adoptée ici est la suivante :
+\begin{itemize}
+    \item L'exponentielle est définie par la série.
+    \item Nous démontrons qu'elle vérifie l'équation différentielle \( y'=y\), \( y(0)=1\).
+    \item Nous démontrons l'unicité de la solution à cette équation différentielle.
+    \item Nous démontrons qu'elle est égale à \( x\mapsto y(1)^x\).
+    \item Nous définissons le logarithme comme l'application réciproque de l'exponentielle (définition \ref{DefDXPRooExiCpx}).
+\end{itemize}
+
+\begin{theorem}[Existence de l'exponentielle] \label{ThoKRYAooAcnTut}
+    La série entière
+    \begin{equation}    \label{EqEIGZooKWSvPS}
+        y(x)=\sum_{k=0}^{\infty}\frac{ x^k }{ k! }
+    \end{equation}
+    définit une fonction dérivable solution de
+    \begin{subequations}
+        \begin{numcases}{}
+            y'=y\\
+            y(0)=1.
+        \end{numcases}
+    \end{subequations}
+\end{theorem}
+\index{exponentielle!existence}
+
+\begin{proof}
+    La formule de Hadamard (théorème \ref{ThoSerPuissRap}) donne le rayon de convergence de la série \eqref{EqEIGZooKWSvPS} par
+    \begin{equation}
+        \frac{1}{ R }=\lim_{k\to \infty} \frac{ \frac{1}{ (k+1)! } }{ \frac{1}{ k! } }=\lim_{k\to \infty} \frac{1}{ k+1 }=0.
+    \end{equation}
+    Donc nous avons un rayon de convergence infini. La fonction \( y\) est définie sur \( \eR\) et la proposition \ref{ProptzOIuG} nous dit que \( y\) est dérivable. Nous pouvons aussi dériver terme à terme :
+    \begin{equation}
+            y'(x)=\sum_{k=0}^{\infty}\frac{ kx^{k-1} }{ k! }=\sum_{k=1}^{\infty}\frac{ kx^{k-1} }{ k! }=\sum_{k=1}^{\infty}\frac{ x^{k-1} }{ (k-1)! }=\sum_{k=0}^{\infty}\frac{ x^k }{ k! }=y(x).
+    \end{equation}
+    Notez le petit jeu d'indice de départ de \( k\). Dans un premier temps, nous remarquons que \( k=0\) donne un terme nul et nous le supprimons, et dans un second temps nous effectuons la simplification des factorielles (qui ne fonctionne pas avec \( k=0\)).
+\end{proof}
+
+Pour la suite nous notons \( y\) une solution de l'équation \( y'=y\), \( y(0)=1\), et nous allons en donner des propriétés indépendamment de l'existence, donnée par le théorème \ref{ThoKRYAooAcnTut}.
+
+\begin{proposition} \label{PropTLECooEiLbPP}
+    Quelques propriétés de \( y\) (si elle existe) :
+    \begin{enumerate}
+        \item
+            Pour tout \( x\in \eR\) nous avons \( y(x)y(-x)=1\).
+        \item
+            \( y(x)>0\) pour tout \( x\).
+        \item
+            \( y\) est strictement croissante.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Nous posons \( \varphi(x)=y(x)y(-x)\) et nous dérivons :
+    \begin{equation}
+        \varphi'(x)=y'(x)y(-x)-y(x)y'(-x)=0.
+    \end{equation}
+    Donc \( \varphi\) est constante\footnote{Proposition \ref{PropGFkZMwD}.}. Vu que \( \varphi(0)=1\) nous avons automatiquement \( y(x)y(-x)=1\) pour tout \( x\).
+
+Les deux autres allégations sont simples : si \( y(x_0)<0\) alors il existe \( t\in\mathopen] x_0 , 1 \mathclose[\) tel que \( y(t)=0\), ce qui est impossible parce que \( y(t)y(-t)=1\). La stricte croissance de \( y\) s'ensuit.
+\end{proof}
+
+\begin{proposition}[Unicité de l'exponentielle] \label{PropDJQSooYIwwhy}
+    Si elle existe, la solution au problème 
+    \begin{subequations}
+        \begin{numcases}{}
+            y'=y\\
+            y(0)=1
+        \end{numcases}
+    \end{subequations}
+    est unique.
+\end{proposition}
+\index{exponentielle!unicité}
+
+\begin{proof}
+    Soient \( y\) et \( g\) deux solutions et considérions la fonction \( h(x)=g(x)y(-x)\). Un calcul immédiat donne
+    \begin{equation}
+        h'(x)=0
+    \end{equation}
+    et donc \( h\) est constante. Vu que \( h(0)=1\) nous avons \( g(x)y(-x)=1\) pour tout \( x\), c'est à dire
+    \begin{equation}
+        g(x)=\frac{1}{ y(-x) }=y(x).
+    \end{equation}
+\end{proof}
+
+\begin{proposition}
+    Quelques formules pour tout \( a,b\in \eR\) et \( n\in \eZ\) :
+    \begin{enumerate}
+        \item
+            \( y(a+b)=y(a)y(b)\)
+        \item
+            \( y(na)=y(a)^n\)
+        \item
+            \( y\left( \frac{ a }{ n } \right)=\sqrt[n]{y(a)}\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Nous posons \( h(x)=y(a+b-x)y(x)\) et nous avons encore \( h'(x)=0\) dont nous déduisons que $h$ est constante. De plus
+    \begin{equation}
+        h(0)=y(a+b)y(0)=y(a+b)
+    \end{equation}
+    et
+    \begin{equation}
+        h(b)=y(a)y(b).
+    \end{equation}
+    Vu que \( h\) est constante, ces deux expressions sont égales : \( y(a+b)=y(a)y(b)\).
+
+    Forts de cette relation, une récurrence donne \( y(na)=y(a)^n\) pour tout \( n\in \eN\). De plus
+    \begin{equation}
+        y(a)=y\left( \frac{ a }{ n }\times n \right)=y\left( \frac{ a }{ n } \right)^n,
+    \end{equation}
+    ce qui donne \( y(a)=y(a/n)^n\) ou encore \( y(a/n)=\sqrt[n]{y(a)}\).
+
+    Enfin pour les négatifs, si \( n\in \eN\),
+    \begin{equation}
+        y(-na)=\frac{1}{ y(na) }=\frac{1}{ y(a)^n }=y(a)^{-n}.
+    \end{equation}
+    Et de la même façon,
+    \begin{equation}
+        y\left( -\frac{ a }{ n } \right)=\frac{1}{ y\left( \frac{ a }{ n } \right) }=\sqrt[n]{\frac{1}{ y(a) }}=\sqrt[-n]{y(a)}.
+    \end{equation}
+\end{proof}
+
+\begin{proposition} \label{PropCELWooLBSYmS}
+    Pour tout \( x\in \eR\), nous avons
+    \begin{equation}
+        y(x)=y(1)^x.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Si \( q\in \eQ\) alors \( q=a/b\) et
+    \begin{equation}
+        y(q)=y\left( \frac{ a }{ b } \right)=y\left( a\times \frac{1}{ b } \right)=y\left( \frac{1}{ b } \right)^a=\big( \sqrt[b]{y(1)} \big)^a=y(1)^{a/b}=y(1)^{q}.
+    \end{equation}
+
+    Par ailleurs si \( a\in \eR\), alors la fonction \( x\mapsto a^x\) est continue. Les fonctions \( y\) et \( x\mapsto y(1)^x\) sont deux fonctions continues égales sur \( \eQ\). Elles sont donc égales par la proposition \ref{PropCJGIooZNpnGF}.
+\end{proof}
+Nous notons \( y(1)=e\), le \defe{nombre de Néper}{nombre!de Néper}, de telle sorte que
+\begin{equation}
+    y(x)=e^x.
+\end{equation}
+
+Une conséquence est que 
+\begin{subequations}    \label{EqLOIUooHxnEDn}
+    \begin{align}
+        \lim_{x\to -\infty}  e^{x}=0\\
+        \lim_{x\to +\infty}  e^{x}=+\infty,
+    \end{align}
+\end{subequations}
+et en particulier, 
+\begin{equation}
+    \begin{aligned}
+    \exp\colon \eR&\to \mathopen] 0 , \infty \mathclose[ \\
+        x&\mapsto  e^{x} 
+    \end{aligned}
+\end{equation}
+est une bijection.
+
+\begin{theorem}[Définition de l'exponentielle]  \label{ThoRWOZooYJOGgR}
+    Les choses que nous savons sur l'exponentielle :
+    \begin{enumerate}
+        \item
+            Il y a unicité de la solution à l'équation différentielle
+            \begin{subequations}    \label{subeqBKJNooJQtbBD}
+        \begin{numcases}{}
+            y'=y\\
+            y(0)=1.
+        \end{numcases}
+    \end{subequations}
+    \item
+        L'équation différentielle \eqref{subeqBKJNooJQtbBD} possède une solution donnée par la série entière\nomenclature[Y]{\( \exp\)}{exponentielle}
+        \begin{equation}    \label{EqUARSooKXnQxu}
+        \exp(x)=\sum_{k=0}^{\infty}\frac{ x^k }{ k! }
+    \end{equation}
+\item
+    Cette solution est une bijection \( y\colon \eR\to \mathopen] 0 , \infty \mathclose[\).
+    \item   \label{ItemYTLTooSnfhOu}
+        La fonction \( y\) ainsi définie est de classe \(  C^{\infty}\).
+\item
+    Elle est également donnée par la formule
+    \begin{equation}
+        \exp(x)=e^x
+    \end{equation}
+    où \( e\) est définit par \( e=\exp(1)\).
+    \end{enumerate}
+\end{theorem}
+Nous nommons \defe{exponentielle}{exponentielle} cette fonction.
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            C'est la proposition \ref{PropDJQSooYIwwhy}.
+        \item 
+            C'est le théorème \ref{ThoKRYAooAcnTut}.
+        \item
+            Le rayon de convergence de la série \eqref{EqUARSooKXnQxu} est infini (théorème \ref{ThoKRYAooAcnTut}); elle est donc définie sur \( \eR\). Le fait que ce soit une bijection est dû au fait qu'elle est strictement croissante (proposition \ref{PropTLECooEiLbPP}) ainsi qu'aux limite \eqref{EqLOIUooHxnEDn}.
+        \item
+            Vu que \( y=y'\), \( y\) est dérivable. Mais comme \( y'\) est alors égale à une fonction dérivable, \( y'\) est dérivable. En dérivant l'égalité \( y'=y\) nous obtenons \( y''=y'\) et le jeu continue.
+        \item
+            C'est la proposition \ref{PropCELWooLBSYmS}.
+    \end{enumerate}
+\end{proof}
+
+\begin{example}[Un endomorphisme sans polynôme annulateur\cite{RombaldiO}]     \label{ExooLRHCooMYLQTU}
+    l'exponentielle permet de donner un exemple d'un endomorphisme n'ayant pas de polynôme annulateur\footnote{Voir la définition \ref{DefooOHUXooNkPWaB} et ce qui suit.} : l'endomorphisme de dérivation
+    \begin{equation}
+        \begin{aligned}
+            D\colon C^{\infty}(\eR,\eR)&\to  C^{\infty}(\eR,\eR) \\
+            f&\mapsto f' 
+        \end{aligned}
+    \end{equation}
+    n'a pas de polynôme annulateur. En effet supposons que \( P=\sum_{k=0}^{p}a_kX^k\) en soit un, et considérons les fonction \( f_{\lambda}\colon t\mapsto  e^{\lambda t}\). Nous avons
+    \begin{equation}
+            0=P(D)f_{\lambda}
+            =\sum_ka_kD^k(f_{\lambda})
+            =\sum_ka_k\lambda^kf_{\lambda}
+            =P(\lambda)f_{\lambda}.
+    \end{equation}
+    Par conséquent \( \lambda\) est une racine de \( P\) pour tout \( \lambda\in \eR\). Cela implique que \( P=0\).
+    
+    D'ailleurs si on y pense bien, cet exemple n'est qu'un habillage de l'exemple \ref{ExooDTUJooIMqSKn}.
+\end{example}
+
+\begin{definition}[Logarithme]  \label{DefDXPRooExiCpx}
+    La fonction \( \exp\colon \eR\to \mathopen] 0 , \infty \mathclose[\) étant une bijection, elle admet une application réciproque que nous nommons \defe{logarithme}{logarithme} et que nous notons
+\begin{equation}
+    \ln\colon \mathopen] 0 , \infty \mathclose[\to \eR.
+\end{equation}
+\end{definition}
+
+\begin{lemma}
+    Le logarithme est la primitive de \( x\mapsto\frac{1}{ x }\) qui s'annule en \( x=1\).
+\end{lemma}
+
+\begin{proof}
+    L'existence d'une primitive est justement le sujet de ce lemme\footnote{C'est l'avantage de notre approche, qui construit la primitive sans devoir invoquer le théorème \ref{PropKKGAooDQYGKg} pour en assurer l'existence.}. En tant qu'application réciproque nous avons pour tout \( x\in \eR\) :
+    \begin{equation}
+        \ln\big( \exp(x) \big)=x,
+    \end{equation}
+    que nous pouvons dériver en utilisant le théorème de dérivation des fonctions composées :
+    \begin{equation}
+        \ln'\big( \exp(x) \big)\exp'(x)=1.
+    \end{equation}
+    Mais \( \exp'(x)=x\), donc
+    \begin{equation}
+        \ln'(y)=\frac{1}{ y }
+    \end{equation}
+    pour tout \( y\) dans l'image de \( \exp\), c'est à dire pour tout \( y\) dans l'ensemble de définition de \( \ln\).
+
+    Par ailleurs, \( \exp(0)=1\) donc
+    \begin{equation}
+        \ln(1)=\ln\big( \exp(0) \big)=0.
+    \end{equation}
+
+    En ce qui concerne l'unicité d'une primitive s'annulant en \( x=1\), c'est le corollaire \ref{CorZeroCst}.
+\end{proof}
+
+\begin{lemma}
+Si \( u\colon \eR\to \mathopen] 0 , \infty \mathclose[\) est dérivable alors \( \ln(u)'=\dfrac{ u' }{ u }\).
+\end{lemma}
+
+\begin{proof}
+    Cela est une conséquence du théorème de dérivation des fonctions composées : si \( g(x)=\ln(u(x))\) alors
+    \begin{equation}
+        g'(x)=\ln'\big( u(x) \big)u'(x)=\frac{1}{ u(x) }u'(x).
+    \end{equation}
+\end{proof}
+
+\begin{lemma}   \label{LemPEYJooEZlueU}
+Si \( a,b\in\mathopen] 0 , \infty \mathclose[\) alors
+    \begin{equation}
+        \ln(ab)=\ln(a)+\ln(b)
+    \end{equation}
+    et
+    \begin{equation}    \label{EqOOZGooOWkGlA}
+        \ln\left( \frac{1}{ b } \right)=-\ln(b).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Nous posons \( f(x)=\ln(ax)\) qui est une fonction dérivable. Alors \( f'(x)=\frac{ a }{ ax }=\frac{1}{ x }\). Cette fonction \( f\) est donc une primitive de \( \frac{1}{ x }\) et il existe une constante \( K\) telle que
+    \begin{equation}
+        f(x)=\ln(x)+K.
+    \end{equation}
+    Vu que \( \ln(1)=0\) nous avons \( K=f(1)= \ln(a)\). Donc
+    \begin{equation}
+        \ln(ax)=\ln(x)+\ln(a).
+    \end{equation}
+
+    En ce qui concerne la seconde formule à démontrer, nous avons
+    \begin{equation}
+        \ln(1)=\ln\left( \frac{1}{ b }b \right)=\ln\left( \frac{1}{ b } \right)+\ln(b).
+    \end{equation}
+    Étant donné que $\ln(1)=0$ nous en déduisons la formule \eqref{EqOOZGooOWkGlA}.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Forme polaire ou trigonométrique des nombres complexes}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Dans le plan de Gauss, le module d'un complexe $z$ représente la distance entre $0$ et $z$. On appelle \Defn{argument} de $z$ (noté $\arg z$) l'angle (déterminé à $2\pi$ près) entre le demi-axe des réels positifs et la demi-droite qui part de $0$ et passe par $z$. Le module et l'argument d'un complexe permettent de déterminer univoquement ce complexe puisqu'on a la formule
+\[z = a + bi = \module z \left( \cos(\arg(z)) + i \sin(\arg(z)) \right)\]
+
+L'argument de $z$ se détermine via les formules 
+\[\frac a {\module z} = \cos(\arg(z)) \quad \frac b {\module z} = \sin(\arg(z))\]
+ou encore par la formule
+\[
+\frac b a = \tan(\arg(z)) \quad \text{en vérifiant le quadrant.}
+\]
+La vérification du quadrant vient de ce que la tangente ne détermine l'angle qu'à $\pi$ près.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Vitesses de $x^{\alpha}$, de l'exponentielle et du logarithme}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{lemma}   \label{LemSYHKooUiSMFJ}
+    Pour tout \( \alpha>0\), il existe \( N\) tel que \( \ln(n)\leq n^{\alpha}\) pour tout \( n\geq N\).
+\end{lemma}
+
+\begin{proof}
+En effet, nous avons
+\begin{equation}
+    \lim_{x\to\infty} \frac{ x^{\alpha} }{ \ln(x) }=\lim_{x\to\infty} \frac{ \alpha x^{\alpha-1} }{ 1/x }=\lim_{x\to\infty} \alpha x^{\alpha}=\infty
+\end{equation}
+quand $\alpha>0$. 
+\end{proof}
+Cela tient également lorsque nous considérons $\ln(x)^p$ au lieu de $\ln(x)$. De cela, nous disons que le logarithme croit moins vite que n'importe quel polynôme. 
+
+\begin{lemma}
+    L'exponentielle croit plus vite que tout polynôme, et plus vite que que logarithme :
+    \begin{equation}        \label{EqExpDecrtPlusVite}
+        \lim_{t\to\infty} e^{-t}(\ln t)^{n}t^{\alpha}=0
+    \end{equation}
+    pour tout $n$ et pour tout $\alpha$.
+\end{lemma}
+
+\begin{lemma}       \label{LemVKDKooEftNzG}
+    Nous avons aussi la limite utile suivante 
+    \begin{equation}
+        \lim_{n\to \infty} n^{\alpha}a^n
+    \end{equation}
+    pour tout \( \alpha>0\) et \( a<1\).
+\end{lemma}
+
+\begin{proof}
+    En passant à l'exponentielle, pour chaque \( n\) nous avons
+    \begin{equation}        \label{EqLKLQooLIlWgm}
+        n^{\alpha}a^n= e^{\alpha\ln(n)+n\ln(a)}.
+    \end{equation}
+    Ce qui est dans l'exponentielle est
+    \begin{equation}
+        \alpha\ln(n)+n\ln(a)=n\big(\alpha \frac{ \ln(n) }{ n }+\ln(a) \big).
+    \end{equation}
+    Dans la parenthèse, \( \ln(a)<0\) et \( \frac{ \ln(n) }{ n }\to 0\). Donc ce qui est dans l'exponentielle \eqref{EqLKLQooLIlWgm} tend vers \( -\infty\) et au final l'expression demandée tend vers zéro.
+\end{proof}
+
+\begin{proposition} \label{PropBQGBooHxNrrf}
+    Pour tout polynôme \( P\) et pour tout \( a>0\) la fonction \( f(x)=P(x) e^{-ax}\) est intégrable\footnote{Définition \ref{DefTCXooAstMYl}.} sur \( \mathopen[ 0 , \infty [\).
+\end{proposition}
+
+\begin{proof}
+    Nous avons \( f(x)=P(x) e^{-ax/2} e^{-ax/2}\), et par la vitesse comparée des exponentielles et polynômes, pour un certain \( M>0\) nous pouvons affirmer que \( P(x) e^{-ax/2}<1\) sur \( \mathopen[ M , 0 [\). Dès lors
+        \begin{equation}
+            | f(x) |< e^{-ax/2},
+        \end{equation}
+        qui est intégrable.
+\end{proof}
+
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Dénombrement des solutions d'une équation diophantienne}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}[\cite{fJhCTE,NHXUsTa}] \label{ThoDIDNooUrFFei}
+    Soient des entiers naturels premiers dans leur ensemble\footnote{Définition \ref{DefZHRXooNeWIcB}.} \( \alpha_1,\ldots, \alpha_p\) et l'équation
+    \begin{equation}
+        \alpha_1n_1+\cdots +\alpha_pn_p=n
+    \end{equation}
+    pour les naturels \( n_i\) où \( n\) est un naturel donné. Nous notons \( S_n\) le nombre de solutions de cette équation. Alors :
+    \begin{enumerate}
+        \item
+            Il existe un algorithme (en temps fini) pour calculer \( S_n\) en fonction des \( \alpha_i\) et de \( n\).
+        \item
+            Nous avons le comportement asymptotique
+            \begin{equation}
+                S_n\sim\frac{1}{ \alpha_1\ldots\alpha_p }\frac{ n^{p-1} }{ (p-1)! }.
+            \end{equation}
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Pour \( | z |<1\) dans \( \eC\), utilisant le lemme \ref{LemPQFDooGUPBvF}, nous écrivons le développement
+    \begin{equation}
+        F(z)=\prod_{i=1}^p\frac{1}{ 1-z^{\alpha_i} }=\prod_{i=1}^p\sum_{n\geq 0}z^{n\alpha_i}.
+    \end{equation}
+    Nous allons maintenant à la pêche au terme de degré \( k\) dans ce produit de sommes en utilisant \( p\) fois le produit de Cauchy de la formule \eqref{EqFPGGooDQlXGe}. Nous avons
+    \begin{equation}
+        F(z)=\sum_{k\geq 0}\left( \sum_{n_1\alpha_1+\cdots +n_p\alpha_p=n}1 \right)z^k=\sum_{k\geq 0}S_kz^k.
+    \end{equation}
+    
+    La technique pour déterminer la valeur de \( S_n\) est alors de développer \( F(z)\) en série de façon un peu explicite et d'identifier le coefficient de \( z^n\) parce que nous venons de voir que ce coefficient est \( S_n\). Nous commençons par une décomposition en éléments simples, expliquée autour de l'équation \eqref{EqDWYBooJIMBAt} :
+    \begin{equation}
+        \frac{1}{ 1-z^{\alpha_i} }=\sum_{\alpha\in U_{\alpha_i}}\frac{ A_{\omega,i} }{ \omega-z }.
+    \end{equation}
+    où \( U_{\alpha_i}\) est le groupe des racines \( \alpha_i\)\ieme de l'unité décrit en \ref{SecGJOLooWdMYVl}. La raison de ce développement est que, comme mentionné dans le lemme \ref{LemKYGBooAwpOHD}, \( \prod_{\omega\in\gU_{\alpha_i}}(z-\omega)=z^{\alpha_1}-1\). Lorsque nous effectuons la somme, le dénominateur commun est donc bien\footnote{Pour le signe, c'est ajustable avec le signe de \( A_{\omega,i}\).} \( 1-z^{\alpha_i}\).
+    En récrivant le produit :
+    \begin{equation}
+        F(z)=\prod_{i=1}^{p}\frac{1}{ 1-z^{\alpha_i} }=\prod_{i=1}^p\sum_{\omega\in U_{\alpha_i}}\frac{ A_{\omega,i} }{ \omega-z }
+    \end{equation}
+    Les coefficients \( A_{\omega,i}\) sont calculables explicitement, en temps fini.
+
+    Vu que \( 1\) est dans tous les \( \gU_{\alpha_i}\), le produit fait intervenir au dénominateur des puissances de \( (1-z)\) jusqu'à la puissance \( p\). Les autres racines de l'unité appartiennent au maximum à \( p-1\) des groupes \( \gU_{\alpha_i}\) parce que les nombres \( \alpha_i\) sont premiers dans leur ensemble, voir la proposition \ref{PropFDDHooEyYxBC}.
+
+    La fonction \( F\) peut alors s'écrire sous la forme
+    \begin{equation}    \label{EqLISXooSlwIWD}
+        F(z)=\frac{ A }{ (1-z)^p }+G(z)
+    \end{equation}
+    où \( G(z)\) est une somme de termes de la forme
+    \begin{equation}
+        \frac{ a_{i,1} }{ 1-\omega_i }+\cdots +\frac{ a_{i,p} }{ (1-\omega_i)^{p-1} }
+    \end{equation}
+    où les \( \omega_i\) sont les racines \( \alpha_i\)\ieme de l'unité et \( a_{k,r}\) sont des nombres complexes. Trouvons \( A\). D'abord grâce au lemme \ref{LemISPooHIKJBU}\ref{ItemLTBooAcyMtNii} nous avons
+    \begin{equation}
+        F(z)(1-z)^p=\prod_{l=1}^p\frac{ 1-z }{ 1-z^{\alpha_i} }=\prod_{i=1}^p\frac{ 1 }{ 1+z+\cdots +z^{\alpha_i-1} },
+    \end{equation}
+    et donc 
+    \begin{equation}
+        \lim_{z\to 1}F(z)(1-z)^p=\prod_{i=1}^p\frac{1}{ \alpha_i }.
+    \end{equation}
+    Mais vu ce que contient \( G(z)\), nous avons aussi \( \lim_{z\to 1}F(z)=A\). Nous avons donc déjà déterminé \( A=\frac{1}{  \alpha_1\ldots\alpha_p }\).
+
+    Pour la suite nous avons besoin des développements du lemme \ref{LemPQFDooGUPBvF}. Nous utiliserons en particulier celle-ci :
+    \begin{equation}
+        \frac{1}{ (\omega-z)^k }=\frac{1}{ (k-1)! }\sum_{s=0}^{\infty}\omega^{-s-1-k}\frac{ (s+k-1)! }{ s! }z^s.
+    \end{equation}
+    En particulier le module du coefficient de \( z^n\) là dedans est : \(  \frac{(n+k-1)! }{ n!(k-1)! } \). Dans la partie \( G\) de la décomposition \eqref{EqLISXooSlwIWD}, \( k\) est majoré par \( p-2\) et la dépendance en \( n\) est donc au maximum du type
+    \begin{equation}
+        \frac{ (n+p-2)! }{ n!(p-2)! }\sim  \frac{ n^{n+p-2} }{ n^n(p-2)! }=\frac{ n^{p-2} }{ (p-2)! }.
+    \end{equation}
+    Dans le premier terme par contre, il y a des termes jusqu'à \( k=p\). Le terme dominant est alors en \( \frac{ n^{p-1} }{ (p-1)! }\) et son coefficient est \( A\) qui est déjà calculé. Au final le terme dominant du coefficient de \( z^n\) dans \( F(z)\) est
+    \begin{equation}
+        S_n\sim \frac{ A }{ (p-1)! }n^{p-1}=\frac{1}{ \alpha_1\ldots \alpha_p }\frac{ n^{p-1} }{ (p-1)! }.
+    \end{equation}
+\end{proof}
+
+\begin{example}
+    Pour \( p=1\), l'équation est \( \alpha x=n\), qui possède au maximum une solution, quel que soit \( n\). Et de plus pour avoir une solution il faut et suffit que \( \alpha\) divise \( n\), c'est à dire que \( n\) soit un multiple de \( \alpha\). Il n'y a que un nombre sur \( \alpha\) à être multiple de \( \alpha\). D'où le comportement en \( \frac{1}{ \alpha }\).
+
+    Pour \( p=2\), c'est l'équation \eqref{EqTOVSooJbxlIq} déjà étudiée. Il y a une famille à un paramètre de solutions dont seulement un certain nombre sont positives. A priori, le nombre de solutions positives croît linéairement en \( n\).
+\end{example}

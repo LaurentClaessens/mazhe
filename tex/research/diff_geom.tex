@@ -1,0 +1,424 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+   \subsection{Notions of topology}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+Let $X$ be a set. A \defe{topology}{} on $X$ is a choice of a set $\tau$ of parts of $X$ such that
+
+\begin{itemize}
+\item $X\in\tau$, $\emptyset\in\tau$,
+\item $\bigcap_{\text{finite}}A_i\in\tau$ if $A_i\in\tau$,
+\item $\bigcup A_i\in\tau$ if $A_i\in\tau$.
+\end{itemize}
+Elements of $\tau$ are said \defe{open}{} in $X$ for the topology $\tau$. Let us point out the difference between the second and the third point: the third point allows infinite unions. If we consider $A_i=]0,1+\frac{1}{ i }[\subset\eR$, we have
+\[ 
+  \bigcap_{i\in\eN_0}A_i=]0,1]
+\]
+which is not open in $\eR$.
+
+If $E\subset X$, the \defe{induced}{} topology on $E$ by $X$ is the one for which a subset $A$ of $E$ is open in $E$ if and only if there exists a subset $\mU$ of $X$ which is open in $X$ and such that $A=E\cap\mU$. In other words, $A\in\tau_E$ if and only if $A=E\cap\mU$ for a certain $\mU\in\tau_X$.
+
+When $X$ and $Y$ are topological spaces, we say that $\dpt{ f}{ X }{ Y }$ is \defe{continuous}{} if for all $A\in\tau_Y$, $f^{-1}(A)\in\tau_X$, that is, if the inverse image of any open set is open. Let us see a non trivial example. 
+
+We consider $X$ as $\eR$ endowed with the usual topology and $Y$ as $\eR$ with the topology $\tau_Y=\{ \emptyset,\eR \}$. We have $X=Y$ as sets, but $X\neq Y$ as topological spaces. The identity map $\dpt{ \id }{ X }{ Y }$ is continuous because $\id^{-1}(\emptyset)=\emptyset\in\tau_X$ and $\id^{-1}(\eR)=\eR\in\tau_X$. But the identity $\dpt{ \tilde\id }{ Y }{ X }$ is not continuous because $\tilde\id^{-1}(]0,1[)=\,]0,1[$ which is not open in $Y$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+   \subsection{Differential, path and extensions}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+Let's take $X_0\in T_{x_0}C$, a map $\dpt{ f }{ C }{ C' }$ and an extension $\hat f$ of $f$ on a neighbourhood $V$ around $x_0$. If one consider the path $\dpt{ \eta }{ \eR }{ V }$, $\eta(t)=x_0+tX_0$, we know that
+\[ 
+\begin{split}
+  d\hat f_{x_0}\big(\eta'(0)\big)&=\Dsdd{ \hat f\big( \eta(t) \big) }{t}{0}\\
+				&=\frac{ \partial \hat f }{ \partial x^i }\frac{ d\eta^i }{ dt }.
+\end{split}
+\]
+On the latter expression, we see that if $\eta(0)=\gamma(0)=x_0$ and $\gamma'(0)=\eta'(0)$, then $df_{x_0}\big( \gamma'(0) \big)=df_{x_0}\big( \eta'(0) \big)$. In particular, we can chose a path $\gamma$ such that $\gamma(t)\in c$ for all $t$. For this path, we can put $f\big( \gamma(t) \big)$ in the derivative instead of $\hat f\big( \gamma(t) \big)$.
+
+Hence we can consider the differential of a map $\dpt{ f }{ C }{ C' }$ as an object intrinsically defined on $C$ without extensions. So we set $df_{x_0}\colon T_{x_0}C\to T_{f(x_0)}C$,
+\[ 
+  df_{x_0}(\eta'(0))=\Dsdd{ (f\circ\eta)(t) }{t}{0}.
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+   \subsection{Vector fields}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+A \emph{tangent vector field}  along an embedded curve $C$ in $\eR^2$ is a rule which assigns to every point
+$x\in C$ a vector $X_x$ tangent to $C$ at $x$. Moreover, one requires the dependence on $x$
+``to be smooth''. 
+
+More precisely, let $T(C)$ denote the set of all vectors tangent to $C$:
+\begin{equation} \label{eq_TC_bigcup}
+ T(C)=\bigcup_{x\in C}T_x(C) 
+\end{equation}
+where the union is a \emph{disjoint} union. A \defe{tangent vector field }{} on $C$ is a map $\dpt{ X }{ C }{ T(C) }$, $x\mapsto X_x$ such that
+\begin{enumerate}
+\item for all $x$, one has
+
+\begin{equation} \label{eq_XxTxC}
+ X_x\in T_x(C), 
+\end{equation}
+
+\item the map $C\to \eR^2\times\eR^2$,
+
+\begin{equation} \label{eq_xmapstoxXx}
+ x\mapsto(x,X_x) 
+\end{equation}
+is smooth.
+
+The latter is a non trivial point since $C$ is not open in $\eR^2$.
+
+\end{enumerate}
+
+\begin{exercice}
+Some students noticed that equation \eqref{eq_xmapstoxXx} was a wrong because of \eqref{eq_XxTxC}: firstly $T_xC$ is vector space of dimension one (so $X_x$ cannot belong to a $\eR^2$) and secondly, the union \eqref{eq_TC_bigcup} being a disjoint union, if $x$ and $y$ are different points of $C$, $X_x$ and $X_y$ belongs to two different spaces: $T_xC$ and $T_yC$.
+
+Try to understand the problem and to find a solution.
+\end{exercice}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+   \subsection{Cohomology}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+When $C$ is a curve in $\eR^2$, the \defe{cohomology}{} of $C$ is the quotient 
+\[ 
+  H^1(C)=\frac{ \Omega^1(C) }{ d C^{\infty}(C) }
+\]
+of differential forms on $C$ by forms which are differential of some functions. When $\alpha\in\Omega^1(C)$, 
+\[ 
+  [\omega]=\{ \omega+df\,| f\in C^{\infty}(C) \}.
+\]
+We are going to study two examples: $H^1(\eR)$ and $H^1(S^1)$.
+
+
+\subsubsection{Cohomology of $\eR$}
+%--------------------------------
+
+We begin by defining the form $dt$ on $\eR$ by the following action of a tangent vector $\dot\gamma(t)=v\in\eR$: $dt(\dot\gamma(t))=v$. Each form on $\eR$ can be written as
+\[ 
+  \alpha=a\,dt
+\]
+where $a$ is a smooth function on $\eR$. Why ? Because for each $x\in\eR$, $T^*_x\eR$ has dimension one. We are going to prove the following:
+
+\begin{theorem}
+   The cohomology of $\eR$ is zero:
+\[ 
+  H^1(\eR)=0.
+\]
+\end{theorem}
+
+In other words, each form $\alpha$ on $\eR$, reads $df$ for a suitable function $f\in C^{\infty}(\eR)$. For the proof, we explicitly give a function $f$ such that $\alpha=df$ for any $\alpha\in\Omega^1(\eR)$. 
+
+Let $\alpha\in\Omega^1(\eR)$ and let us write it as $\alpha_x=a(x)\,dt\in T_x^*(\eR)$. We pose
+\[ 
+  f(x)=\int_0^xa(u)\,du
+\]
+and we compute that $df=\alpha$. Let $\gamma$ be a path in $\eR$,
+\begin{equation}
+\begin{split}
+df_{\gamma(0)}\dot\gamma(0)&=\Dsdd{ (f\circ\gamma)(t) }{t}{0}\\
+		&=\Dsdd{ \int_0^{\gamma(t)}a(u)\,du }{t}{0}\\
+		&=a(\gamma(0))\gamma'(0).
+\end{split}
+\end{equation}
+On the other hand,
+\begin{equation}
+\begin{split}
+\alpha_{\gamma(0)}\dot\gamma(0)&=a(x)\big( dt\dot\gamma(0) \big)\\
+			&=a(\gamma(0))\dot\gamma(0);
+\end{split}
+\end{equation}
+this is the same !
+
+
+\subsubsection{Cohomology of $S^1$}
+%--------------------------------
+
+In the whole part about $S^1$, $\gamma$ will denote the path
+\[ 
+  \gamma(t)=e^{it},
+\]
+and $\sigma$ will denote a parametrization of $S^1$ used in integrals.
+
+We begin to show that $H^1(S^1)\neq0$: there exists some $1$-forms on $S^1$ that cannot be written under the form $df$. For this, we begin to prove that
+
+\begin{proposition} \label{prop_intdfz}
+For all $f\in C^{\infty}(S^1)$,
+\[ 
+  \int_{S^1}df=0.
+\]
+\end{proposition}
+
+\begin{proof}
+If $\dpt{ \sigma }{ [0,2\pi] }{ S^1 }$ is a parametrization of $S^1$, we have
+\begin{equation}
+\begin{split}
+  \int_{S^1}df&=\int_{[0,2\pi]}df_{\sigma(t)}\dot\sigma(t)\,dt\\
+		&=\int_0^{2\pi}\Dsdd{ (f\circ\sigma)(u) }{u}{t}\,dt\\
+		&=(f\circ\sigma)(2\pi)-(f\circ\sigma)(0)\\
+		&=0.
+\end{split}
+\end{equation}
+\end{proof}
+
+We define the differential $1$-form $\alpha$ by
+\[ 
+  \alpha(\dot\gamma(t))=1.
+\]
+So
+\[ 
+  \int_{s^1}\alpha=\int_0^{2\pi}\alpha_{\sigma(t)}(\dot \sigma(t))\,dt=2\pi\neq0.
+\]
+Then this $\alpha$ is not an exact form.
+
+There exists an alternative way to define this form. We consider the function $\dpt{ \theta }{ S^1 }{ \eR }$ given by 
+\begin{equation} \label{eq_deftheta}
+\theta(e^{i\eta})=\eta.
+\end{equation}
+ This is the function which gives the angular coordinate of a point in $S^1$. As a map from $S^1$ to $\eR$, one can compute its differential applied on a tangent vector; for example on $\dot\gamma(t)$:
+\[ 
+  d\theta\big( \dot\gamma(t) \big)=\Dsdd{ \theta(e^{it}) }{t}{0}=\Dsdd{ t }{t}{0}=1,
+\]
+so this is the previously defined form $\alpha$. By the way, it proves that this form is a smooth differential form.
+
+We have proved that $d\theta$ is the differential of the function $\theta$ and that it is not an exact form (because its integral is not zero). It is a problem. In fact, equation \eqref{eq_deftheta} doesn't \emph{globally} defines a function on $S^1$ because $\theta(e^{i\cdot 0})=0$ but $\theta(e^{i\cdot 2\pi})=2\pi$. In other words, $\theta(1)$ is not well defined. Then we can only define the function $\theta$ on a local chart. For example on the half circle, we define $\dpt{ \theta }{ S^1 }{ ]-\frac{ \pi }{ 2 },\frac{ \pi }{2}[ }$ by $\theta(e^{i\sigma})=\sigma$. This is a well defined function.
+
+The following theorem is the main part of the proof that $H^1(S^1)=\eR$.
+
+\begin{theorem}
+   A form $\alpha\in\Omega^1(S^1)$ fulfil
+\[ 
+  \int_{S^1}\alpha=0
+\]
+if and only if there exists a function $\dpt{ f }{ S^1 }{ \eR }$ such that $df=\alpha$.
+\end{theorem}
+Proposition  \ref{prop_intdfz} is the first half of the proof. Let's see the second one
+
+\begin{proof}
+Let $\alpha\in\Omega^1(S^1)$ such that $\int_{S^1}\alpha=0$ . It can be written under the form 
+\[ 
+  \alpha_{e^{i\theta}}=a(e^{i\theta})\,d\theta
+\]
+and we define $\dpt{ f }{ S^1 }{ \eR }$ by
+\[
+f(e^{i\theta})=\int_0^{\theta}a(e^{i\sigma})\,d\sigma.
+\]
+Since $\alpha_{e^{i\theta}}\big( \dot\gamma(\sigma) \big)=a(e^{i\theta})\,d\theta\big( \dot\gamma(\sigma) \big)=a(e^{i\theta})$, in fact $f$ is 
+\begin{equation}
+f(e^{i\theta})=\int_0^{\theta}\alpha.
+\end{equation}
+It is important to remark that this function has not the problem of definition of the previously $\theta$ because $\int_{S^1}\alpha=0$.
+
+Now we want to prove that $df=\alpha$. For this we consider a path $c(t)=e^{i\theta(t)}$ in $S^1$ and we compute $df_{e^{i\theta(0)}}c'(0)$. We have:
+\begin{equation}
+\begin{split}
+  df_{e^{i\theta(0)}}c'(0)&=\Dsdd{ (f\circ c)(t) }{t}{0}\\
+			&=\Dsdd{ \int_0^{\theta(t)}a(e^{i\sigma})\,d\sigma }{t}{0}\\
+		&=a(e^{i\theta(0)})\theta'(0).
+\end{split}
+\end{equation}
+On the other hand,
+\begin{equation}
+\begin{split}
+  \alpha_{e^{i\theta(0)}}c'(0)&=a(e^{i\theta(0)})\,d\theta\big( c'(0) \big)\\
+		&=a(e^{i\theta(0)})\Dsdd{ \theta(e^{i\theta(t)}) }{t}{0}\\
+		&=a(e^{i\theta(0)})\Dsdd{ \theta(t) }{t}{0}\\
+		&=a(e^{i\theta(0)})\theta'(0).
+\end{split}
+\end{equation}
+This concludes the proof.
+
+\end{proof}
+
+It is now easy to see that 
+\[ 
+  I:[\alpha]\mapsto\int_{S^1}\alpha 
+\]
+defines a vector space isomorphism between $H^1(S^1)$ and $\eR$. We check that $I$ is well defined: if $[\alpha]=[\beta]$, we must have $I([\alpha])=I([\beta])$. It is correct because $[\alpha]=[\beta]$ means that there exists a function $f$ such that $\beta= \alpha+df$. Then 
+\[ 
+  I([\beta])=\int_{S^1}\beta=\int_{S^1}(\alpha+df)=  \int_{S^1}\alpha=I([\alpha]). 
+\]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+   \subsection{Integral curve}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+A map $\dpt{ c }{ \eR }{ \eR^n }$ is an \defe{integral curve}{} of the vector field $X\in\cvec(\eR^n)$ if for all $t$ (in the domain of $c$),
+\begin{equation}  \label{eq_defintcurv}
+c'(t)=X_{c(t)}.
+\end{equation}
+As a vector field, $X$ is a map $\dpt{ X }{ \eR^n }{ \eR^n }$, so equation \eqref{eq_defintcurv} reads
+\[ 
+  c'(t)=X\big( c(t) \big).
+\]
+Now, ``to be an integral curve'' means ``to satisfy a differential equation''. You know some existence and unicity theorems; for example this one:
+
+\begin{theorem}  \label{tho_exuniintcur}
+  Let $\dpt{ u }{ I }{ \eR }$ and $\dpt{ f }{ J }{ \eR }$ where $J$ is open in $\eR$ and $I$ has non empty interior. We consider the following differential equation:
+\begin{equation}\label{eq:eqdiff}
+y'(t)=u(t)f(y(t)).
+\end{equation}
+Suppose that $u$ is continuous on $I$ and $f$ is continuous on $J$ with $f(\eta)\neq 0$ for all $\eta\in J$. Let $t_0\in I$ and $y_0\in J$. Then there exists an interval $I'\subset I$ with non empty interior with $t_0\in I'$ and a $C^1$ function $\dpt{ y }{ I' }{ J }$ such that 
+
+\begin{enumerate}
+\item $y$ is solution of \eqref{eq:eqdiff} on $I'$ and fulfils the initial condition  $y(t_0)=y_0$,
+\item if $z$ is a solution of \eqref{eq:eqdiff} in an interval $I''\subset I$ with $t_0\in I''$ and $z(t_0)=y_0$, then $I''\subset I'$ and $z(t)=y(t)$ for $t\in I''$.
+\end{enumerate}
+
+\end{theorem}
+
+When one says that an embedded curve $C$ is an integral curve of a vector field $X$, one means that there exists a system of charts $\dpt{ \varphi_{\alpha} }{ \mU_{\alpha} }{ C }$ on this curve which solve condition  \eqref{eq_defintcurv} as map $\dpt{ \varphi_{\alpha} }{ \mU_{\alpha} }{ \eR^n }$. In particular, $X$ must be tangent to $C$ on each point.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+   \subsection{Christoffel symbols}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+When $f\colon \mU\to \eR^3$ is a parametrization of a surface $S$ in $\eR^3$, there exists two interesting tangent vectors fields:
+\begin{equation} \label{eq_basvecto}
+ e_x|_{x_0,y_0}= \Dsdd{ f(x_0+t,y_0) }{t}{0}\text{ and } e_y|_{(x_0,y_0)}=\Dsdd{ f(x_0,y_0+t) }{t}{0}.
+\end{equation}
+They form a basis of $T_{f(x_0,y_0)}S$. These vectors are often called $\partial_i$. You can ask yourself why this partial derivative notation.
+
+The problem of finding the first fundamental  form (see exercise \ref{exo011}) reduce to computes products $e_1\cdot e_j$. These products form the matrix $g$:
+\[ 
+  g_{ij}:=e_i\cdot e_j.
+\]
+ Now, there are no reasons for $\partial_i e_j$ to be a tangent vector. In fact, it is even difficult to \emph{define} the object $\partial_i e_j$ because it should be something like
+\[ 
+  \partial_i e_j=\lim_{t\to 0}\frac{ e_j(x+t)-e_j(x) }{ t }.
+\]
+But $e_j(x)$ and $e_j(x+t)$ are not vectors on the same points, therefore the difference on the right hand side is not well defined as difference in $TS$. This difference is however well defined in the ambient space $\eR^3$. So in order to define the derivative of a tangent vector field, we have to consider the surface as a part of $\eR^3$. In other words, we have to extend the coordinate system $(x,y)\to S$ into a coordinate system $(x,y,z)\to\eR^3$ which reduce to original coordinates when $z=z_0$ and such that the vector $e_z$ is normal.
+
+As an example, polar coordinates on the (unit) sphere in $\eR^2$ are given by 
+\[ 
+  (\varphi,\theta)\to (\cos\varphi\sin\theta,\cos\varphi\cos\theta,\sin\varphi)
+\]
+and an extension of the system is the full spherical coordinates on $\eR^3$:
+\[ 
+   (\varphi,\theta,r)\to (r\cos\varphi\sin\theta,r\cos\varphi\cos\theta,r\sin\varphi);
+\]
+it is easy to see that $e_r$ is normal. Now, our new set of $e_i$'s form a basis of the whole $\eR^3$, then we define the \defe{Christoffel symbols}{} $\Gamma_{ij}^{k}$ of the new coordinates system
+\begin{equation} \label{eq_def_sch}
+\partial_ie_j=\sum_k\Gamma_{ij}^{k}e_k.
+\end{equation}
+In this formula, $k$ is summed over \emph{all} coordinates, including the normal one. 
+
+ There exists a funny formula to explicitly compute these Christoffel symbols. We begin by taking the derivative $\partial_k$ of $g_{ij}=e_i\cdot e_j$, where $k$, $i$ and $j$ are tangent coordinates. So we do not take care about the normal coordinate. Remark that in formula
+\[
+\partial_kg_{ij}=\Gamma_{ki}^{l}e_l\cdot e_j+e_i\cdot\Gamma_{kj}^{l}e_l,
+\]
+the summed index $l$ take \emph{a priori} all values including the normal coordinate, but the scalar product with $e_j$ and $e_i$ kill the normal component. So in the sequel we are left with only tangent coordinates. Replacing the products $e_l\cdot e_j$ and $e_i\cdot e_l$ by the corresponding elements of the matrix $g$,
+\[ 
+  \partial_kg_{ij}=\Gamma_{ki}^{l}g_{lk}+\Gamma_{kj}^{l}g_{il}.
+\]
+Computing the combination $\partial_kg_{ij}+\partial_ig_{jk}-\partial_jg_{ki}$ and taking the symmetry property $\Gamma_{ij}^{k}=\Gamma_{ji}^{k}$, $g_{ij}=g_{ji}$ into account, we find the relation
+\[ 
+  2\Gamma_{ki}^{l}g_{lj}=\partial_kg_{ij}+\partial_ig_{jk}-\partial_jg_{ki}.
+\]
+If we write $g^{ab}:=(g^{-1})_{ab}$, we can rewrite it as
+\begin{equation}  \label{eq_Gamaform}
+\Gamma_{ij}^{k}=\frac{ 1 }{2}g^{lk}\big( \partial_ig_{jl}+\partial_jg_{li}-\partial_lg_{ij} \big).
+\end{equation}
+This is the promised formula. Now we are able to write down elements $\Gamma_{ij}^{k}$ by simply derive and invert the matrix $g$.
+
+In formula \eqref{eq_Gamaform}, indices (including the summed one) only take values in tangent coordinates. The normal one is completely forgotten.
+
+
+\paragraph{Information}
+%----------------------
+
+Here is the definition given in the oral course. Let $r:U\subset\eR^3\to\Sigma\subset\eR^3$ be a chart on an embedded surface $\Sigma$.
+Set $r_i:=\partial_{x_i}r\;;\;N:=\frac{1}{\|r_1\times r_2\|}r_1\times r_2\quad(i=1,2)$. Then the \defe{Christoffel symbols}{}
+$\Gamma_{ij}^k$ are defined by the relations:
+\[
+\partial_{x_i}(r_j)\;:=\;\sum_k\Gamma_{ij}^kr_k\;+\;\nu_{ij}N\;.
+\]
+
+Do  you understand why the latter formula has two terms while formula  \eqref{eq_def_sch} has only one ? Is there \emph{really} one term less in \eqref{eq_def_sch} ?
+
+\subsection{Commutator of vector field}
+%--------------------------------------
+
+Let $M$ be a surface and $X$, $Y\in\cvec(M)$. We want to define $[X,Y]\in\cvec(M)$, so for each $x\in M$ and $f\in C^{\infty}(M)$ we have to define $[X,Y]_xf$. We know that $X_x$ is an element in $T_xM$ which acts on $f$ by
+\[ 
+  X_x(f)=\Dsdd{ f\big( X_x(t) \big) }{t}{0}=df_xX_x\quad\in\eR,
+\]
+so one can consider $Xf$ as a function, $(Xf)(x)=X_xf$. We can apply the vector $Y_x$ to this function and get a real:
+\[ 
+\begin{split}
+  Y_x(Xf)&=\Dsdd{ (Xf)(Y_x(t)) }{t}{0}\\
+	&=\Dsdd{ f\big( X_{Y_x(t)}(u) \big) }{t}{0}{s}{0}.
+\end{split}  
+\]
+This allows us to define $[X,Y]_xf=X_x(Yf)-Y_x(Xf)$. If, in a local coordinate system, $X=X^i\partial_i$ and $Y=Y^j\partial_j$, we have
+\[ 
+\begin{split}
+(XY)f&=X^i\partial_i(Y^j\partial_jf)\\
+	&=X^i(\partial_iY^j)\partial_jf+X^iY^j\partial^2_{ij}f.
+\end{split}  
+\]
+The same computation with $X\leftrightarrow Y$ shows that the second derivative disappears in the commutator $[X,Y]$. So $[X,Y]$ is a combination of the $e_i$'s and therefore is a vector fields.
+
+The set of vector fields endowed with the bracket $[.,.]$ is an algebra. It is even a \emph{Lie} algebra because the bracket 
+\begin{enumerate}
+\item is bilinear,
+\item is skew-symmetric: $[X,Y]=-[Y,X]$,
+\item fulfills the Jacobi identity: $[ [X,Y],Z]+[ [Y,Z],Z]+[ [Z,X],Y]=0$,
+\end{enumerate}
+for all $X$, $Y$, $Z\in\cvec(M)$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+   \section{Exercises}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+\Exo{002}
+
+\Exo{001}
+
+\Exo{004}
+
+\Exo{017}
+
+\Exo{003}
+
+\Exo{005}
+
+\Exo{007}
+
+\Exo{006}
+
+\Exo{009}
+
+\Exo{010}
+
+\Exo{008}
+
+\Exo{011}
+
+\Exo{012}
+
+\Exo{013}
+
+\Exo{014}
+
+\Exo{015}
+
+\Exo{016}

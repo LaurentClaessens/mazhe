@@ -1,0 +1,74 @@
+% This is part of Exercices et corrigés de CdI-1
+% Copyright (c) 2011,2012
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+\begin{corrige}{OutilsMath-0055}
+
+    La première chose à faire est de calculer les dérivées partielles et de les évaluer au point donné :
+    \begin{verbatim}
+    
+----------------------------------------------------------------------
+| Sage Version 4.6.1, Release Date: 2011-01-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: f(x,y,z)=exp(x)*cos(y*z)+x*y*z
+sage: f.diff(x)
+(x, y, z) |--> y*z + e^x*cos(y*z)
+sage: f.diff(y)
+(x, y, z) |--> -z*e^x*sin(y*z) + x*z
+sage: f.diff(z)
+(x, y, z) |--> -y*e^x*sin(y*z) + x*y
+sage: f.diff(x)(0,pi/2,1)
+1/2*pi
+sage: f.diff(y)(0,pi/2,1)
+-1
+sage: f.diff(z)(0,pi/2,1)
+-1/2*pi
+    \end{verbatim}
+    Nous avons donc
+    \begin{equation}
+        \begin{aligned}[]
+            \frac{ \partial f }{ \partial x }(0,\frac{ \pi }{2},1)&=\frac{ \pi }{2}\\
+            \frac{ \partial f }{ \partial y }(0,\frac{ \pi }{2},1)&=-1\\
+            \frac{ \partial f }{ \partial z }(0,\frac{ \pi }{2},1)&=-\frac{ \pi }{2}
+        \end{aligned}
+    \end{equation}
+    Notez que lorsque Sage écrit \info{1/2*pi} il veut dire $\frac{ 1 }{2}\pi$ et non $\frac{1}{ 2\pi }$.
+
+    Maintenant nous utilisons les super formules qui lient les dérivées partielles à la différentielle et aux dérivées directionnelles :
+    \begin{equation}
+        \begin{aligned}[]
+            \frac{ \partial f }{ \partial u }(a,b,c)&=\nabla f(a,b,c)\cdot u\\
+            &=u_1\frac{ \partial f }{ \partial x }(a,b,c)+u_2\frac{ \partial f }{ \partial y }(a,b,c)+u_3\frac{ \partial f }{ \partial z }(a,b,c)\\
+            &=df_{(a,b,c)}(u).
+        \end{aligned}
+    \end{equation}
+    Quelques remarques sur ces formules :
+    \begin{enumerate}
+        \item
+            La première égalité tient uniquement pour $\| u \|=1$. Les trois autres expressions sont par contre égales pour n'importe quel vecteur.
+        \item
+            En termes de calculs, c'est évidemment l'expression du milieu qu'on utilise.
+        \item
+            Elles sont importantes à retenir.
+    \end{enumerate}
+    En ce qui concerne la différentielle nous avons
+    \begin{equation}        \label{Eqomzzccdfabc}
+        df_{(0,\frac{ \pi }{2},1)}\begin{pmatrix}
+            u_1    \\ 
+            u_2    \\ 
+            u_3    
+        \end{pmatrix}=\frac{ \pi }{2}u_1-u_2-\frac{ \pi }{2}u_3.
+    \end{equation}
+    En ce qui concerne la dérivée directionnelle dans la direction du vecteur $(1,1,1)$, il faut prendre $u=(1,1,1)/\sqrt{3}$ parce que nous voulons un vecteur de norme $1$. Donc nous utilisons \eqref{Eqomzzccdfabc} avec $u_1=u_2=u_2=1/\sqrt{3}$ :
+    \begin{equation}
+        \frac{ \partial f }{ \partial u }(0,\frac{ \pi }{2},1)=df_{(0,\frac{ \pi }{2},1)}\begin{pmatrix}
+            1/\sqrt{3}    \\ 
+            1/\sqrt{3}    \\ 
+            1/\sqrt{3}    
+        \end{pmatrix}=\frac{ -1 }{ \sqrt{3} }.
+    \end{equation}
+    
+    
+\end{corrige}

@@ -1,0 +1,137 @@
+% This is part of Exercices et corrections de MAT1151
+% Copyright (C) 2010
+%   Laurent Claessens
+% See the file LICENCE.txt for copying conditions.
+
+\begin{corrige}{SerieCinq0002}
+
+Nous pouvons décomposer le groupe $\Sym(N+1)$ en $N+1$ classes de la façon suivante :
+\begin{equation}
+	\begin{aligned}[]
+		P_1&=\begin{pmatrix}
+			1	&	2	&	3	&	\ldots	&	N+1\\	
+			1	&	\cdot	&	\cdot	&	\ldots	&	\cdot
+		\end{pmatrix}\\
+		P_2&=\begin{pmatrix}
+			1	&	2	&	3	&	\ldots	&	N+1\\	
+			2	&	\cdot	&	\cdot	&	\ldots	&	\cdot
+		\end{pmatrix}\\
+		&\vdots\\
+		P_{N+1}&=\begin{pmatrix}
+			1	&	2	&	3	&	\ldots	&	N+1\\	
+			N+1	&	\cdot	&	\cdot	&	\ldots	&	\cdot
+		\end{pmatrix}.
+	\end{aligned}
+\end{equation}
+La première classe contient toutes les permutations qui envoient $1$ sur $2$, le second toutes les permutations qui envoient $1$ sur $2$, etc. Nous avons «évidement» l'union disjointe
+\begin{equation}
+	\Sym(N+1)=\bigcup_{i=1}^{N+1}P_i.
+\end{equation}
+
+Pour une matrice $A$ d'ordre $N$, nous posons 
+\begin{equation}
+	F(A)=\sum_{\sigma\in\Sym(N)}\epsilon(\sigma)A_{1\sigma(1)}\ldots A_{N\sigma(N)}.
+\end{equation}
+Le but est de prouver que la fonction $F$ est le déterminant.
+
+Pour $N=2$, nous avons
+\[
+\sum_{\sigma \in \Sym(2)} \epsilon(\sigma) A_{1\sigma(1)} A_{2\sigma(2)} = A_{11} A_{22} - A_{12} A_{21}= \det(A),
+\]
+puisque $\Sym(2) = \{ \id, (1,2) \}$ avec $\epsilon(\id) = 1$ et $\epsilon(1,2) = -1$.
+
+Si maintenant $A$ est d'ordre $N+1$, nous calculons $F(A)$ en décomposant la somme sur $\Sym(N+1)$ en sommes sur les classes $P_i$ :
+\begin{equation}		\label{EqCDsommeSymFA}
+	\begin{aligned}[]
+		F(A)&=\sum_{\sigma\in P_1}\epsilon(\sigma)A_{1\sigma(1)}A_{2\sigma(2)}\ldots A_{N+1,\sigma(N+1)}\\
+			&+\sum_{\sigma\in P_2}\epsilon(\sigma)A_{1\sigma(1)}A_{2\sigma(2)}\ldots A_{N+1,\sigma(N+1)}\\
+			&\vdots\\
+			&+\sum_{\sigma\in P_{N+1}}\epsilon(\sigma)A_{1\sigma(1)}A_{2\sigma(2)}\ldots A_{N+1,\sigma(N+1)}\\
+	\end{aligned}
+\end{equation}
+Commençons par étudier la première ligne. Par définition de $P_1$, nous avons $\sigma(1)=1$ pour tous les $\sigma$ de la somme. Par conséquent, le facteur $A_{11}$ peut se mettre en évidence. La première ligne vaut donc
+\begin{equation}	\label{EqCDPremierParq}
+	A_{11}\sum_{\sigma\in P_1}\epsilon(\sigma)A_{2\sigma(2)}\ldots A_{N+1,\sigma(N+1)}
+	=A_{11}F(B)
+\end{equation}
+où
+\begin{equation}
+	B=\begin{pmatrix}
+		 1	&	0	&	\ldots	&	0	\\
+		 0	&	A_{22}	&	\ldots	&	A_{2,N+1}	\\
+		 \vdots	&	\vdots	&	\ddots	&	\vdots	\\ 
+		 0	&	A_{N+1,2}	&	\ldots	&	A_{N+1,N+1}	 
+	 \end{pmatrix}.
+\end{equation}
+En effet, parmi les éléments $B_{1k}$, seul $B_{11}$ n'est pas nul et vaut $1$. Par conséquent, dans le cas de la matrice $B$, la somme sur tout $\Sym(N+1)$ se réduit à la somme sur $P_1$.
+
+Afin d'utiliser l'hypothèse de récurrence, il suffit de remarquer que pour toute matrice $M$, nous avons
+\begin{equation}
+	F(M)=F\begin{pmatrix}
+		1	&	0	\\ 
+		0	&	M	
+	\end{pmatrix}.
+\end{equation}
+Pour ce remarquer, considérons la matrice
+\begin{equation}
+	M=\begin{pmatrix}
+		 1	&	0	&	0	&	\ldots	\\
+		 0	&	B_{11}	&	B_{12}	&	\ldots	\\
+		 \vdots	&	\vdots	&	\ddots	&	\vdots	\\ 
+		 0	&	B_{N,1}	&	B_{N,2}	&	B_{NN}	 
+	 \end{pmatrix},
+\end{equation}
+et étudions la somme
+\begin{equation}
+	F(M)=\sum_{\sigma\in P_1}\epsilon(\sigma)M_{2\sigma(2)}\ldots M_{N+1,\sigma(N+1)}.
+\end{equation}
+Nous avons une bijection
+\begin{equation}
+	\begin{aligned}
+		\varphi\colon \Sym(N)&\to P_1 \\
+		\varphi(\eta)(n)&=\eta(n-1)+1.
+	\end{aligned}
+\end{equation}
+Cette bijection vérifie $\epsilon\big( \varphi(\eta) \big)=\epsilon(\eta)$. En utilisant cette bijection, nous avons
+\begin{equation}
+	\begin{aligned}[]
+		F(M)&=\sum_{\eta\in\Sym(N)}\epsilon\big( \varphi(\eta) \big)M_{2,\varphi(\eta)(2)}\ldots M_{N+1,\varphi(\eta)(N+1)}\\
+			&=\sum_{\eta\in\Sym(N)}\epsilon(\eta)M_{2,\eta(1)+1}\ldots M_{N+1,\eta(N)+1}\\
+			&=\sum_{\eta\in\Sym(N)}\epsilon(\eta)B_{1,\eta(1)}\ldots B_{N,\eta(N)}\\
+			&=F(B).
+	\end{aligned}
+\end{equation}
+La formule \eqref{EqCDPremierParq} est donc bien $A_{11}$ fois le déterminant du mineur correspondant, c'est à dire le premier terme du développement du déterminant de $A$ en suivant la première ligne.
+
+Nous regardons maintenant le second terme de la somme \eqref{EqCDsommeSymFA}. Dans cette somme nous avons toujours $\sigma(1)=2$ et donc nous pouvons factoriser $A_{12}$, et nous devons étudier
+\begin{equation}
+		A_{12}\sum_{\sigma\in P_2}\epsilon(\sigma)A_{2\sigma(2)}\ldots A_{N+1}\sigma(N+1)
+		=A_{12}F(B)
+\end{equation}
+où
+\begin{equation}
+	B=\begin{pmatrix}
+		0		&	1	&	0	&	\ldots	&	0\\	
+		A_{21}		&	0	&	A_{23}	&	\cdots	&	A_{2,N+1}\\	
+		\vdots		&	\vdots	&	\vdots	&	\ddots	&	\vdots\\	
+		A_{N+1,1}	&	0	&	A_{N+1,3}	&	\ldots	&	A_{N+1,N+1}	
+	\end{pmatrix}.
+\end{equation}
+Cette fois pour utiliser la relation de récurrence, nous devons prouver que permuter deux colonnes revient à changer le signe de $F$. De cette façon nous pouvons nous ramener au cas précédent, plus un signe, comme il se doit lorsqu'on calcule un déterminant.
+
+Considérons $\eta_{kl}$ la permutation de $k$ et $l$ qui laisse invariant tous les autres nombres. Nous considérons la matrice $N$ dont les éléments sont 
+\begin{equation}
+	N_{ij}=M_{i,\eta_{kl}(j)},
+\end{equation}
+c'est à dire la matrice $M$ dont nous avons permuté les colonnes $k$ et $l$. L'application $\sigma\mapsto\sigma\circ\eta$ est une bijection à l'intérieur de $\Sym(N)$ et de plus $\epsilon\Big( \sigma\circ\eta \Big)=-\epsilon(\sigma)$. Nous avons donc
+\begin{equation}
+	\begin{aligned}[]
+		F(N)&=\sum_{\sigma\in\Sym(n)}\epsilon(\sigma)N_{1\sigma(1)}\ldots N_{n,\sigma(n)}\\
+		&=\sum_{\sigma}\epsilon(\sigma)M_{1,(\sigma\circ\eta)(1)}\ldots M_{n,(\sigma\circ\eta)(n)}\\
+		&=\sum_{\sigma}\epsilon(\sigma\circ\eta)M_{1\sigma(1)}\ldots M_{n\sigma(n)}\\
+		&=-F(M).
+	\end{aligned}
+\end{equation}
+Pour obtenir l'avant-dernière ligne, nous avons changé la sommation de $\sigma$ vers $\sigma\circ\eta$.
+
+\end{corrige}

@@ -1,0 +1,74 @@
+% This is part of Outils mathématiques
+% Copyright (c) 2011,2014
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+\begin{corrige}{Derive-0006}
+
+    La croissance de la fonction revient à la positivité de la dérivée. La dérivée de $f$ est donnée par
+    \begin{equation}
+        f'(x)=1-\frac{ a }{ x^2 },
+    \end{equation}
+    et donc
+    \begin{equation}
+        f'\left( \frac{1}{ 10 } \right)=1-100a.
+    \end{equation}
+    Nous devons donc résoudre l'inéquation
+    \begin{equation}
+        1-100a>0
+    \end{equation}
+    par rapport à $a$. La solution est 
+    \begin{equation}
+        a<\frac{1}{ 100 }
+    \end{equation}
+    
+    Comment faire avec Sage ?
+    \begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.6.1, Release Date: 2011-01-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: var('x,a')
+(x, a)
+sage: f=x+a/x
+sage: derive=f.diff(x)
+sage: derive(1/10)
+/home/moky/Sage/local/lib/python2.6/site-packages/IPython/iplib.py:2073: 
+DeprecationWarning: Substitution using function-call syntax and unnamed
+arguments is deprecated and will be removed from a future release
+of Sage; you can use named arguments instead,like EXPR(x=..., y=...)
+exec code_obj in self.user_global_ns, self.user_ns -1/10/x^2 + 1
+sage: derive(x=1/10)
+-100*a + 1
+sage: solve(derive(x=1/10)>0,a)
+[[a < (1/100)]]
+    \end{verbatim}
+    Notes :
+    \begin{enumerate}
+        \item
+            Il faut dire que $a$ va être une variable. C'est pour cela qu'on a commencé par \info{var('x,a')}. Étant donné que Sage comprend tout seul que \info{x} est une variable, on aurait pu ne pas déclarer \info{x}.
+        \item
+            Lorsqu'on veut dériver, il faut dire par rapport à quelle variable on veut dériver. Exemple :
+            \begin{verbatim}
+sage: f
+x + a/x
+sage: f.diff(a)
+1/x
+            \end{verbatim}
+            C'est pour cela qu'il faut taper \info{f.diff(x)}.
+        \item
+            Le long message d'erreur \info{DeprecationWarning} est dû à une faute de ma part. En effet la fonction \info{derive} est une fonction de deux variables : \info{x} et $\info{a}$. C'est pour cela que je dois préciser que je veux l'évaluer avec \info{x=1/10} et en laissant \info{a} comme variable. Exemples:
+            \begin{verbatim}
+sage: derive
+-a/x^2 + 1
+sage: derive(a=5)
+-5/x^2 + 1
+sage: derive(a=x)
+-1/x + 1
+            \end{verbatim}
+        \item
+            Enfin, vous noterez la fonction \info{solve} qui sert à résoudre des équations et inéquations.
+
+    \end{enumerate}
+
+\end{corrige}
