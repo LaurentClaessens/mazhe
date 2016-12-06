@@ -529,7 +529,13 @@ figures_list.append(PLTWoocPNeiZir)
 figures_list.append(QSKDooujUbDCsu)
 figures_list.append(TIMYoochXZZNGP)
 figures_list.append(YQIDooBqpAdbIM)
+figures_list.append(ZOCNoowrfvQXsr)
 """
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
+figures_list.append(<++>)
 figures_list.append(<++>)
 figures_list.append(<++>)
 """

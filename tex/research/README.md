@@ -1,4 +1,4 @@
-# Le répertoire `src_research`
+# Le répertoire `research`
 
 
 Ce répertoire contient les fichier tex des parties de mathématique plus avancée, y compris du niveau recherche.

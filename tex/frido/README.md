@@ -1,4 +1,4 @@
-# Le répertoire `src_frido`
+# Le répertoire `frido`
 
 Ce répertoire contient
 
