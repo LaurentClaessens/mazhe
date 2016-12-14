@@ -16,13 +16,7 @@ myRequest.add_plugin(plugins_agreg.set_isFrido,"before_pytex")
 myRequest.original_filename="mazhe.tex"
 
 myRequest.ok_filenames_list=["e_mazhe"]
-myRequest.ok_filenames_list.extend(["161_EspacesProjectifs"])
-myRequest.ok_filenames_list.extend(["170_EspacesProjectifs"])
-myRequest.ok_filenames_list.extend(["56_espace_vecto_norme"])
-myRequest.ok_filenames_list.extend(["144_espace_vecto_norme"])
-myRequest.ok_filenames_list.extend(["81_Hilbert"])
-myRequest.ok_filenames_list.extend(["<++>"])
-myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["85_AnalyseComplexe"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])

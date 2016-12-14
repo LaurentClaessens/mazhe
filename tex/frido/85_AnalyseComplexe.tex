@@ -433,8 +433,12 @@ Le théorème suivant compète la proposition \ref{PropDRnYkKP}.
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Exponentielle complexe}
+\section{Exponentielle et logarithme complexe}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Définition et propriétés de l'exponentielle}
+%---------------------------------------------------------------------------------------------------------------------------
 
 \begin{definition}  \label{DefJilXoM}
     Soit \( z=x+iy\in \eC\). Nous définissons l'\defe{exponentielle}{exponentielle!complexe} de \( z\) par
@@ -452,7 +456,7 @@ Le rayon de convergence de cette somme est infini.
     \begin{enumerate}
         \item
             Le fonction \( \exp\) est continue.
-        \item
+        \item       \label{ITEMooRLHCooJTuYKV}
             Nous avons la formule \(  e^{z+w}= e^{z}+e^w\) pour tout \( z,w\in \eC\).
         \item
             \( (e^z)^{-1}= e^{-z}\)
@@ -684,6 +688,88 @@ ce qui signifie que
 \begin{equation}
     \int_0^{\infty} e^{-it^2}dt=\frac{ \sqrt{2\pi} }{ 2(1+i) }=\frac{ \sqrt{\pi} }{2} e^{-i\pi/4}.
 \end{equation}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Logarithme complexe}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous savons la définition \ref{DefJilXoM} de l'exponentielle complexe.
+
+\begin{definition}
+    Un \defe{logarithme}{logarithme!dans \( \eC\)} de \( \alpha\in \eC\) est une solution de l'équation \(  e^{z}=\alpha\). 
+\end{definition}
+Notons bien que cela définit \emph{un} logarithme, et non \emph{le} logarithme. 
+
+\begin{lemma}
+    Si \( z_1\) et \( z_2\) sont des logarithmes de \( \alpha\) alors il existe \( k\in \eZ\) tel que \( z_1=z_2+2ik\pi\).
+\end{lemma}
+
+\begin{proof}
+    Nous commençons par déterminer les logarithmes de \( \alpha=1\). Nous avons besoin de \(  e^{a+bi}=1\) (\( a,b\in \eR\)). Nous avons
+    \begin{equation}
+        e^{a} e^{bi}=1,
+    \end{equation}
+    et en prenant la norme nous trouvons \( | e^a |=1\), ce qui donne \( a=0\). Ensuite \(  e^{bi}=1\), qui signifie \( b=2k\pi\). Les logarithmes de \( 1\) sont donc les nombres de la forme \( 2ik\pi\).
+
+    Soient maintenant \( z_1\) et \( z_2\) des logarithmes de \( \alpha\). Alors \(  e^{z_1}= e^{z_2}\), donc\footnote{C'est facile de dire «donc». Il faut surtout citer la proposition \ref{PropdDjisy}\ref{ITEMooRLHCooJTuYKV}.} \(  e^{z_1-z_2}=1\), ce qui signifie que \( z_1-z_2\) est un logarithme de \( 1\). Donc il existe un \( k\in \eZ\) tel que \( z_1-z_2=2ik\pi\).
+\end{proof}
+
+\begin{remark}
+    Jusqu'ici nous n'avons pas donné de conditions donnant l'existence d'un logarithme. Nous avons seulement supposé des existences et donné des propriétés sur ces hypothétiques objets.
+\end{remark}
+
+\begin{definition}
+Si \( z\in \eC^*\) nous définissons la \defe{valeur principale}{valeur principale} de son argument le nombre \( \theta\in \mathopen] -\pi , \pi \mathclose]\) tel que 
+\begin{equation}
+    z=| z | e^{i\theta}
+\end{equation}
+pour un \( \rho\in\mathopen] 0 , \infty \mathclose[\). Nous le notons \( \arg(z)\)\nomenclature[Y]{\( \arg(z)\)}{La valeur principale de l'argument de \( z\in \eC\)}.
+\end{definition}
+
+\begin{definition}
+    Nous définissons la fonction \defe{logarithme}{logarithme!complexe} par
+    \begin{equation}
+        \begin{aligned}
+            \ln\colon \eC^*&\to \eC \\
+            z&\mapsto \ln\big( | z | \big)+i\arg(z)
+        \end{aligned}
+    \end{equation}
+    où le \( \ln\) à droite est le logarithme usuel sur \( \eR^+\).
+\end{definition}
+
+\begin{lemma}
+    Le nombre \( \ln(z)\) est un logarithme de \( z\).
+\end{lemma}
+
+\begin{proof}
+    Nous avons
+    \begin{equation}
+        e^{\ln(z)}= e^{\ln| z |} e^{i\arg(z)}=| z | e^{i\arg(z)}=z.
+    \end{equation}
+    Nous avons utilisé le fait que \(  e^{\ln(x)}=x\) pour \( x\in\eR^+\) et \( | z | e^{i\arg(z)}=z\) par définition de la fonction \( \arg\).
+\end{proof}
+
+Notons que si on avait pris d'autres conventions pour définir \( \arg\), nous aurions eu d'autres définitions possibles de \( \ln\).
+
+\begin{example}
+    Nous avons
+    \begin{equation}
+        \ln(-1)=\ln(1)+i\arg(-1).
+    \end{equation}
+    Mais \( \ln(1)=0\) et \( \arg(-1)=\pi\) (et non \( -\pi\)), donc 
+    \begin{equation}
+        \ln(-1)=i\pi.
+    \end{equation}
+
+    C'est cette définition du logarithme qui est prise par Sage, et c'est cela qui lui permet de donner la primitive de \( 1/x\) comme \( \ln(x)\) et non \( \ln(| x |)\), parce que Sage connait les logarithmes de nombres réels négatifs :
+\lstinputlisting{tex/sage/sageSnip010.sage}
+\end{example}
+
+Nous avons jusqu'ici défini une fonction sur \( \eC^*\) qui fait correspondre à chaque nombre complexe un de ses logarithmes. Il reste quelque questions à régler :
+\begin{itemize}
+    \item Est-ce que cette fonction est continue ? Holomorphe ? (réponses : non et non)
+    \item Si non, est-ce qu'il y avait moyen de trouver une définition plus efficace ? (réponse : non)
+\end{itemize}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Théorème de Weierstrass}
