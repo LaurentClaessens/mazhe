@@ -1,0 +1,5 @@
+sage: var('x,y')
+(x, y)
+sage: u(x,y)=ln(sqrt(x**2+y**2))
+sage: u.diff(x)
+(x, y) |--> x/(x^2 + y^2)
