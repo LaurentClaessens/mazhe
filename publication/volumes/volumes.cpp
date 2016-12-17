@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <ios>
 
 #include "volumes.h"
 #include "Utilities.h"
@@ -92,7 +93,16 @@ string Chapter::getName() const { return name; }
 int Chapter::getPage() const { return page; }
 
 string createFrontPage(int voln){
-    ifstream gardeVolume("gardeVolume.tex");
+
+    string gv_filename="./tex/front_back_matter/gardeVolume.tex";
+    ifstream gardeVolume(gv_filename);
+
+    if (!gardeVolume)
+    {
+        std::cout<<"The requested file does not exists : "<<gv_filename<<std::endl;
+    }
+
+
     string svol=NumberToString(voln);
     string output_filename="vol-garde"+svol+".tex";
     ofstream garde(output_filename.c_str());
@@ -169,6 +179,7 @@ void LatexDocument::extractFromTo(string Ichap,string Fchap,string output) const
     string command="pdftk "+pdf_filename+" cat "+sIpage+"-"+sFpage+" output "+output;
     std::cout<<command<<std::endl;
     system(command.c_str());
+    std::cout<<"Terminé pour "<<output<<std::endl;
 };
 
 void LatexDocument::extractListOfNotations(string filename) const
@@ -207,8 +218,9 @@ int main ()
 {
     std::vector<string> starting_chapters;
     starting_chapters.push_back("Introduction");
-    starting_chapters.push_back("Analyse réelle");
-    starting_chapters.push_back("Espaces de Hilbert");
+    //starting_chapters.push_back("Analyse réelle");
+    starting_chapters.push_back("Retour sur les groupes");
+    starting_chapters.push_back("Analyse complexe");
     starting_chapters.push_back("Liste des notations");
     LatexDocument frido_book("0-book.pdf","Inter_book-mazhe_pytex.toc");
 

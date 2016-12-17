@@ -11,19 +11,22 @@ def isbn(title,n):
             return "978-2-9540936-6-6"
         if n==3:
             return "978-2-9540936-7-3"       
-    raise ValueError("No ISBN attributed for the title "+title)
+
+    default = "No ISBN attributed for the title "+title
+    print(default)
+    return default
 
 def latex_code(title,n):
     """
     Return the latex code to be compiled for volume 'n'
     """
 
-    text=open("couverture_generic.tex",'e').read()
-    text=text.replace(TITLE,title).replace(NUMBER,str(n)).replace("ISBN_N",isbn(title,n))
+    text=open("couverture_generic.tex",'r').read()
+    text=text.replace("TITLE_N",title).replace("NUMBER_N",str(n)).replace("ISBN_N",isbn(title,n))
     return text
 
 
-title="Le Frido"
+title="Le Frido 2016"
 
 for i in [1,2,3]:
     code=latex_code(title,i)
