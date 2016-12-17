@@ -18,57 +18,8 @@ def latex_code(title,n):
     Return the latex code to be compiled for volume 'n'
     """
 
-    sn=str(n)
-    text=r"""
-\input{e_couverture} 
-
-\begin{document} 
-
-\pagestyle{empty}
-
-\begin{center}
-    {\Large """+title+r""", volume """+sn+r"""}\\
-    Laurent Claessens
-\end{center}
-
-\vspace{3cm}
-
-\begin{center}
-    \includegraphics[width=17cm]{vol"""+sn+r""".png}
-\end{center}
-
-\newpage
-
-\noindent
-\Large
-"""+title+r""", volume """+sn+r"""\\
-\noindent
-\large
-Laurent Claessens
-
-\normalsize
-
-\vspace{4cm}
-
-\noindent
-Ce livre est destiné aux candidats à l'agrégation de mathématique. Très complet, il couvre la quasi totalité du programme de façon claire et détaillée (rien n'est supposé évident). Publié sous une licence libre (FDL), vous pouvez télécharger une version PDF sur le site de l'auteur :\\
-http://laurent.claessens-donadello.eu/pdf/lefrido-vol"""+sn+r""".pdf 
-
-\noindent
-Ceci est une œuvre qui se veut collaborative, ainsi n'hésitez pas à écrire à l'auteur pour faire valoir toutes vos remarques et suggestions en vue d'une nouvelle édition plus belle, plus correcte et plus utile.
-
-\noindent
-Retrouvez des informations complémentaires sur la page dédié :\\
-http://laurent.claessens-donadello.eu/frido.html
-
-\vfill
-
-LOGO
-
-"""+isbn(title,n)+r"""
-
-\end{document}
-    """
+    text=open("couverture_generic.tex",'e').read()
+    text=text.replace(TITLE,title).replace(NUMBER,str(n)).replace("ISBN_N",isbn(title,n))
     return text
 
 
