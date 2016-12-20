@@ -88,7 +88,8 @@ Pour utiliser le Frido à l'agrégation, il faudra passer à la caisse et achete
 
 ## (almost) Everything I know in math
 
-The document [(almost) Everything I know in mathematics](http://laurent.claessens-donadello.eu/pdf/mazhe.pdf) contains almost everything I know in mathematics. It includes
+The document [(almost) Everything I know in mathematics](http://laurent.claessens-donadello.eu/pdf/mazhe.pdf) contains almost everything I know in mathematics. It includes :
+
 * A part (in French) about general mathematics at master level (le Frido)
 * A part (in French) containing the exercises and many corrections of the courses I gave at university.
 * Higher level mathematics including research stuff -- my PhD thesis is here (in English)
