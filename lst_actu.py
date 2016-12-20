@@ -21,6 +21,11 @@ myRequest.ok_filenames_list.extend(["79_inversion_locale"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["66_Chap_calcul_differentiel"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["134_choses_finales"])
 
 
