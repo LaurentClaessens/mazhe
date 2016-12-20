@@ -273,7 +273,7 @@ En langage imagé la coercivité de \( f\) s'exprime par la limite
     \lim_{\substack{\| x \|\to \infty\\x\in P}}f(x)=+\infty.
 \end{equation}
 
-\begin{proposition}
+\begin{proposition}     \label{PROPooYRLDooTwzfWU}
     Soit \( A\in S^{++}(n,\eR)\) et \( b\in \eR^n\). Nous considérons l'application
     \begin{equation}
         \begin{aligned}
@@ -321,22 +321,49 @@ En langage imagé la coercivité de \( f\) s'exprime par la limite
 \end{proof}
 
 \begin{proposition}[Gradient à pas optimal] \label{PropSOOooGoMOxG}
+    Soit \( A\in S^{++}(n,\eR)\) (\( A\) est une matrice symétrique strictement définie positive) et \( b\in \eR^n\). Nous considérons l'application
+    \begin{equation}
+        \begin{aligned}
+            f\colon \eR^n&\to \eR \\
+            x&\mapsto \frac{ 1 }{2}\langle Ax, x\rangle +\langle b, x\rangle . 
+        \end{aligned}
+    \end{equation}
     Soit \( x_0\in \eR^n\). Nous définissons la suite \( (x_k)\) par
     \begin{equation}
-        x_{k+1}=x_k+td_k
+        x_{k+1}=x_k+t_kd_k
     \end{equation}
-    où \( d_k=-\nabla f(x_k)\) et \( t_k\) est la valeur minimisant la fonction \( t\mapsto f(x_k+td_k)\) sur \( \eR\).
+    où
+    \begin{itemize}
+        \item 
+    \( d_k=-(\nabla f)(x_k)\) 
+\item
+    \( t_k\) est la valeur minimisant la fonction \( t\mapsto f(x_k+td_k)\) sur \( \eR\).
+    \end{itemize}
 
     Alors pour tout \( k\geq 0\) nous avons
     \begin{equation}
         \| x_k-\bar x \|\leq K \left( \frac{ c_2(A)-1 }{ c_2(A)+1 } \right)^k
     \end{equation}
-    où \( c_2(A)=\frac{ \lambda_{max} }{ \lambda_{min} }\) est le rapport ente la plus grande et la plus petite valeur propre de la matrice \( A\).
+    où \( c_2(A)=\frac{ \lambda_{max} }{ \lambda_{min} }\) est le rapport ente la plus grande et la plus petite valeur propre\quext{Cela est certainement très lié au conditionnement de la matrice \( A\), voir la proposition \ref{PROPooNUAUooIbVgcN}.} de la matrice \( A\) et \( \bar x\) est l'unique élément de \( \eR^n\) à minimiser \( f\).
 \end{proposition}
 
 \begin{proof}
-    D'abord si \( \nabla f(x_k)=0\), c'est que \( x_k=\bar x\) et l'algorithme est fini. Nous allons donc supposer que \( \nabla f(x_k)\neq 0\) pour tout \( k\).
+    Décomposition en plusieurs points.
     \begin{subproof}
+    \item[Existence de \( \bar x\)]
+        Le fait que \( \bar x\) existe et soit unique est la proposition \ref{PROPooYRLDooTwzfWU}.
+    \item[Si \( (\nabla f)(x_k)=0\)]
+    D'abord si \( \nabla f(x_k)=0\), c'est que \( x_{k+1}=x_k\) et l'algorithme est terminé : la suite est stationnaire. Pour dire que c'est gagné, nous devons prouver que \( x_k=\bar x\). Pour cela nous écrivons (à partir de maintenant «\( x_k\)» est la \( k\)\ieme composante de \( x\) qui est une variable, et non le \( x_k\) de la suite)
+    \begin{equation}
+        f(x)=\frac{ 1 }{2}\sum_{kl}A_{kl}x_lx_k+\sum_{k}b_kx_k
+    \end{equation}
+    et nous calculons \( \frac{ \partial f }{ \partial x_i }(a)\) en tenant compte du fait que \( \frac{ \partial x_k }{ \partial x_i }=\delta_{ki}\). Le résultat est que \( (\partial_if)(a)=(Ax+b)_i\) et donc que
+    \begin{equation}
+        (\nabla f)(a)=Aa+b.
+    \end{equation}
+    Vu que \( A\) est inversible (symétrique définie positive), il existe un unique \( a\in \eR^n\) qui vérifie cette relation. Par la proposition \ref{PROPooYRLDooTwzfWU}, cet élément est le minimum \( \bar x\).
+
+    Cela pour dire que si \( a\in \eR^n\) vérifie \( (\nabla f)(a)=0\) alors \( a=\bar x\). Nous supposons donc à partir de maintenant que \( \nabla f(x_k)\neq 0\) pour tout \( k\).
         \item[\( t_k\) est bien défini]
 
             Pour \( t\in \eR\) nous avons
