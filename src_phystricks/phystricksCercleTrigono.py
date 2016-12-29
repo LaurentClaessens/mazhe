@@ -8,8 +8,11 @@ def CercleTrigono():
     P=Cercle.get_point(alpha)
     P.put_mark(0.3,P.advised_mark_angle(pspict),"$P$",pspict=pspict)
     P.parameters.symbol=""
-    vecteur=Vector(P)
-    vecteur.parameters.color="blue"
+    vecteur=AffineVector(O,P)
+
+    #vecteur.parameters.color="blue"
+    vecteur.parameters.color="brown"
+
     C=P.projection(pspict.axes.single_axeX)
     S=P.projection(pspict.axes.single_axeY)
     pc=Segment(P,C)
@@ -20,7 +23,7 @@ def CercleTrigono():
     measureCos=MeasureLength(Segment(O,C),0.2)
     measureSin=MeasureLength(Segment(O,S),-0.2)
     measureCos.put_mark(0.1,text=r"$\cos(\theta)$",pspict=pspict,position="N")
-    measureSin.put_mark(-0.1,text=r"$\sin(\theta)$",pspict=pspict,position="E")
+    measureSin.put_mark(0.1,text=r"$\sin(\theta)$",pspict=pspict,position="E")
 
     angle=AngleAOB(C,O,P,0.4)
     angle.put_mark(text=r"$\theta$",pspict=pspict)

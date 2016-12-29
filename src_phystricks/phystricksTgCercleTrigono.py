@@ -37,8 +37,8 @@ def TgCercleTrigono():
 
 	vertical=Segment(A,B).dilatation(1.5)
 
-	A.put_mark(0.1,text=r"$\tan(\theta)$",pspict=pspict,position="W")
-	B.put_mark(0.1,text=r"$\tan(\varphi)$",pspict=pspict,position="W")
+	A.put_mark(0.2,text=r"$\tan(\theta)$",pspict=pspict,position="W")
+	B.put_mark(0.2,text=r"$\tan(\varphi)$",pspict=pspict,position="W")
 	A.parameters.color=vP.parameters.color
 	B.parameters.color=vQ.parameters.color
 
