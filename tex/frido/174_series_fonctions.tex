@@ -165,6 +165,61 @@ et en particulier,
 \end{equation}
 est une bijection.
 
+Nous donnons maintenant quelque approximations numériques de \( e\), particulièrement inefficaces.
+
+\begin{lemma}
+    Nous avons
+    \begin{equation}
+        2<e<3.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Nous savons que \( y(0)=1\) et \( y'(0)=1\). La fonction \( y\) est strictement croissante (et donc sa dérivée aussi). Nous avons donc \( y'(x)>1\) pour tout \( x\in\mathopen] 0 , 1 \mathclose]\), et donc
+    \begin{equation}
+        y(1)>1+1\times 1=2.
+    \end{equation}
+    Sachant que \( 2>y'(x)\) pour tout \( x\in \mathopen] 0 , 1 \mathclose[\) nous pouvons refaire le coup de l'approximation affine, cette fois en majorant :
+        \begin{equation}
+            y(1)<1+2\times 1=3.
+        \end{equation}
+\end{proof}
+
+De la même façon nous savons que
+\begin{equation}
+    y(\frac{1}{ n })>1+\frac{1}{ n }
+\end{equation}
+parce que \( y'\) est minoré par \( 1\) sur \( \mathopen] 0 , \frac{1}{ n } \mathclose[\). Avec cela nous avons aussi la majoration
+\begin{equation}
+    y(\frac{1}{ n })<1+\frac{1}{ n }\times \left( 1+\frac{1}{ n } \right)=1+\frac{1}{ n }+\frac{1}{ n^2 }.
+\end{equation}
+Et enfin nous pouvons donner l'encadrement, valable pour tout \( n\) :
+\begin{equation}
+    \left( 1+\frac{1}{ n } \right)^n<y(1)<\left( 1+\frac{1}{ n }+\frac{1}{ n^2 } \right)^n.
+\end{equation}
+Pour \( n=10\) nous trouvons
+\begin{equation}
+    2.50<e<2.83.
+\end{equation}
+
+Bien que ce soit à mon avis humainement pas possible à faire à la main nous avons, pour \( n=100\) :
+\begin{equation}
+    2.70<e<2.7317
+\end{equation}
+Cela reste un encadrement très modeste.
+
+Une méthode plus efficace consiste à calculer directement le développement de définition
+\begin{equation}
+    e=\exp(1)=\sum_{k=0}^{\infty}\frac{1}{ n! }.
+\end{equation}
+\lstinputlisting{tex/sage/sageSnip013.sage}
+
+\begin{probleme}
+    Comment trouver, avec cette méthode, un \emph{encadrement pour \( e\) ?}
+\end{probleme}
+    
+Ce petit programme, avec \( 5\) termes donne \( e\simeq 65/24\simeq 2.708\). Avouez que c'est déjà bien mieux.
+
 \begin{theorem}[Définition de l'exponentielle]  \label{ThoRWOZooYJOGgR}
     Les choses que nous savons sur l'exponentielle :
     \begin{enumerate}
@@ -376,7 +431,7 @@ Si \( a,b\in\mathopen] 0 , \infty \mathclose[\) alors
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 %--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Définitions}
+\subsection{Définitions, périodicité et quelque valeurs remarquables}
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{propositionDef}[Défintion du cosinus]        \label{PROPooZXPVooBjONka}
@@ -771,6 +826,67 @@ Tout cela nous permet d'écrire le tableau de variations de sinus et cosinus.
 Je crois que vous devriez pouvoir faire la preuve tout seul. Si ça ne va pas, contactez-moi.
 
 %--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Exemples}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous mettons ici quelque exemples concernant les fonctions trigonométriques, qui n'ont pas pu être mis dans les chapitres le plus adapté, parce que ces derniers sont plus haut dans la table des matière.
+
+\begin{example}[Taylor]     \label{EXooXLYJooKVqhTE}
+	Le développement du cosinus est donné par
+	\begin{equation}
+		\cos(x)=1-\frac{ x^2 }{ 2 }+\frac{ x^4 }{ 4! }-\frac{ x^6 }{ 6! }\cdots
+	\end{equation}
+	Nous avons donc l'existence d'une fonction $h_1\in o(x^2)$ telle que $\cos(x)=1-\frac{ x^2 }{ 2 }+h_1(x)$. Il existe aussi une autre fonction $h_2\in o(x^4)$ telle que $\cos(x)=1-\frac{ x^2 }{ 2 }+\frac{ x^4 }{ 4! }+h_2(x)$.
+\end{example}
+
+\begin{example}[Limite et prolongement par continuité] \label{ExQWHooGddTLE}
+    La fonction 
+    \begin{equation}
+        f(x)=\frac{ \cos(x)-1 }{ x }
+    \end{equation}
+    n'est pas définie en \( x=0\), mais en la limite
+    \begin{equation}
+        \lim_{x\to 0} \frac{ \cos(x)-1 }{ x }
+    \end{equation}
+    nous reconnaissons la limite définissant la dérivée du cosinus en \( 0\), c'est à dire que
+    \begin{equation}
+        \lim_{x\to 0} \frac{ \cos(x)-1 }{ x }=\sin(0)=0.
+    \end{equation}
+    Nous avons donc le prolongement par continuité
+    \begin{equation}
+        \tilde f(x)=\begin{cases}
+            \frac{ \cos(x)-1 }{ x }    &   \text{si } x\neq 0\\
+            0    &    \text{sinon}.
+        \end{cases}
+    \end{equation}
+
+    Encore une fois, le graphe de la fonction \(\tilde f\) ne présente aucune particularité autour de \( x=0\).
+    \begin{center}
+        \input{auto/pictures_tex/Fig_RPNooQXxpZZ.pstricks}
+    \end{center}
+\end{example}
+
+\begin{example}[Un calcul heuristique de limite]        \label{EXooINLRooPzRWEA}
+    Soit à calculer la limite suivante :
+    \begin{equation}
+        \lim_{x\to 0} \frac{  e^{-2\cos(x)+2}\sin(x) }{ \sqrt{ e^{2\cos(x)+2}}-1 }.
+    \end{equation}
+    La stratégie que nous allons suivre pour calculer cette limite est de développer certaines parties de l'expression en série de Taylor, afin de simplifier l'expression. La première chose à faire est de remplacer $ e^{y(x)}$ par $1+y(x)$ lorsque $y(x)\to 0$. La limite devient
+    \begin{equation}
+        \lim_{x\to 0} \frac{ \big( -2\cos(x)+3 \big)\sin(x) }{ \sqrt{-2\cos(x)+2} }.
+    \end{equation}
+    Nous allons maintenant remplacer $\cos(x)$ par $1$ au numérateur et par $1-x^2/2$ au dénominateur. Pourquoi ? Parce que le cosinus du dénominateur est dans une racine, donc nous nous attendons à ce que le terme de degré deux du cosinus donne un degré un en dehors de la racine, alors que du degré un est exactement ce que nous avons au numérateur : le développement du sinus commence par $x$.
+
+    Nous calculons donc
+    \begin{equation}
+        \begin{aligned}[]
+            \lim_{x\to 0} \frac{ \sin(x) }{ \sqrt{-2\left( 1-\frac{ x^2 }{ 2 } \right)+2} }=\lim_{x\to 0} \frac{ \sin(x) }{ x }=1.
+        \end{aligned}
+    \end{equation}
+    Tout ceci n'est évidement pas très rigoureux, mais en principe vous avez tous les éléments en main pour justifier les étapes.
+\end{example}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Très modeste approximation de \( \pi\)}
 %---------------------------------------------------------------------------------------------------------------------------
 \label{SUBSECooPQVKooAOyxOe}
@@ -817,42 +933,6 @@ Nous verrons plus tard que la longueur de l'arc de cercle intercepté par un ang
 %TODO : remettre ce lien après le fork
 %Voir exercice \ref{exoGeomAnal-0034}.
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Les fonctions sinus et cosinus}
-%---------------------------------------------------------------------------------------------------------------------------
-
-La longueur de la projection du point $P$ sur la droite horizontale va naturellement être égale à $\cos(\theta)$. En effet, si nous notons $X$ un vecteur horizontal de norme $1$, cette projection est donné par $P\cdot X$. Mais en reprenant l'équation \eqref{eqPropCosThet}, nous voyons que
-\begin{equation}
-	P\cdot X=\| P \|\| X \|\cos(\theta),
-\end{equation}
-tandis qu'ici nous avons $\| P \|=\| X \|=1$.
-
-Nous appelons $\sin(\theta)$ la longueur de la projection sur l'axe vertical.
-
-Quelques dessins nous convainquent que 
-\begin{equation}
-	\begin{aligned}[]
-		\sin(\theta+2\pi)&=\sin(\theta)&\cos(\theta+2\pi)&=\sin(\theta),\\
-		\sin(\theta+\frac{ \pi }{2})&=\cos(\theta)&\cos(\theta+\frac{ \pi }{2})&=-\sin(\theta),\\
-		\sin(\pi-\theta)&=\sin(\theta)&\cos(\pi-\theta)&=-\cos(\theta).
-	\end{aligned}
-\end{equation}
-Le théorème de Pythagore nous montre aussi l'importante relation
-\begin{equation}
-	\sin^2(\theta)+\cos^2(\theta)=1.
-\end{equation}
-
-Quelques valeurs remarquables pour les sinus et cosinus :
-\begin{equation}
-	\begin{aligned}[]
-		\sin 0&=0,&\sin\frac{ \pi }{ 6 }&=\frac{ 1 }{2},&\sin\frac{ \pi }{ 4 }&=\frac{ \sqrt{2} }{2},&\sin\frac{ \pi }{ 3 }&=\frac{ \sqrt{3} }{2},&\sin\frac{ \pi }{2}&=1,&\sin\pi&=0\\
-		\cos 0&=1,&\cos\frac{ \pi }{ 6 }&=\frac{ \sqrt{3} }{2},&\cos\frac{ \pi }{ 4 }&=\frac{ \sqrt{2} }{2},&\cos\frac{ \pi }{ 3 }&=\frac{ 1 }{2},&\cos\frac{ \pi }{2}&=0,&\cos\pi&=-1
-	\end{aligned}
-\end{equation}
-
-Nous pouvons prouver simplement que $\sin(\unit{30}{\degree})=\frac{ 1 }{2}$ et $\cos(\unit{30}{\degree})=\frac{ \sqrt{3} }{2}$ en s'inspirant de la figure \ref{LabelFigGVDJooYzMxLW}. % From file GVDJooYzMxLW
-\newcommand{\CaptionFigGVDJooYzMxLW}{Un triangle équilatéral de côté $1$.}
-\input{auto/pictures_tex/Fig_GVDJooYzMxLW.pstricks}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Les fonctions tangente et arc tangente}
@@ -949,178 +1029,6 @@ En ce qui concerne la représentation graphique de la fonction \( x\mapsto\arcta
 \begin{center}
    \input{auto/pictures_tex/Fig_UQZooGFLNEq.pstricks}
 \end{center}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Une meilleure approximation de \( \pi\)}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Nous avons laissé le nombre \( \pi\) avec l'approximation assez minable de \( 2\sqrt{ 2 }<\pi<4\) en le lemme \ref{LEMooJWSGooExmtDA}. Nous pouvons maintenant faire nettement mieux.
-
-Le lemme \ref{LEMooJKIUooEMMOrs} donne
-\begin{equation}
-    \arctan(1/\sqrt{ 3 })=\pi/6
-\end{equation}
-et l'idée est de donner un développement de \( \arctan\) autour de zéro, de l'évaluer en \( 1/\sqrt{ 3 }\) et d'égaliser le résultat à \( \pi/6\). Tout cela donne lieux à des calcules peut-être fastidieux, mais comme un gars l'a fait dès l'an 1424\cite{ooOMUNooGROVUu} pour trouver \( 16\) décimales corrects, nous faisons comme si c'était facile.
-
-Le développement en série de Taylor \ref{SubEqsDevTauil} d'arc tangente autour de \( x=0\) est donné par
-\begin{equation}
-    \arctan(x)=\sum_{k=0}^{\infty}\frac{ (-1)^{k}x^{2k+1} }{ 2k+1 },
-\end{equation}
-valable pour \( x\in \mathopen] -1 , 1 \mathclose[\). Avec cela nous avons
-\begin{equation}
-    \arctan(\frac{1}{ \sqrt{ 3 } })=\sum_{k=0}^{\infty}\frac{ (-1)^k }{ (2k+1)3^k }\times \frac{1}{ \sqrt{ 3 } }=\frac{ \pi }{ 6 },
-\end{equation}
-et donc
-\begin{equation}
-    \pi=\frac{ 6 }{ \sqrt{ 3 } }\sum_{k=0}^{\infty}\frac{ (-1)k }{ (2k+1)3^k }.
-\end{equation}
-
-Pour donner une idée du fait que ça fonctionne pas mal, voici le calcul pour quelque termes :
-\lstinputlisting{tex/sage/sageSnip012.sage}
-Calculer \( 5\) termes donne déjà \( 3.15\). Et on est à \( 10^{-6}\) de la bonne réponse avec \( 20\) termes. Et avec $58$ termes, on n'est à \( 10^{-16}\).
-
-\begin{probleme}
-    Pour bien faire, il faudrait étudier le reste et donner un encadrement.
-\end{probleme}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Les coordonnées polaires}
-%---------------------------------------------------------------------------------------------------------------------------
-
-On a vu qu'un point $M$ dans $\eR^2$ peut être représenté par ses abscisses $x$ et ses ordonnées $y$. Nous pouvons également déterminer le même point $M$ en donnant un angle et une distance comme montré sur la figure \ref{LabelFigJWINooSfKCeA}.
-\newcommand{\CaptionFigJWINooSfKCeA}{Un point en coordonnées polaires est donné par sa distance à l'origine et par l'angle qu'il faut avec l'horizontale.}
-\input{auto/pictures_tex/Fig_JWINooSfKCeA.pstricks}
-
-
-Le même point $M$ peut être décrit indifféremment avec les coordonnées $(x,y)$ ou bien avec $(r,\theta)$.
-
-\begin{remark}
-	L'angle $\theta$ d'un point n'étant a priori défini qu'à un multiple de $2\pi$ près, nous convenons de toujours choisir un angle $0\leq\theta<2\pi$. Par ailleurs l'angle $\theta$ n'est pas défini si $(x,y)=(0,0)$.
-
-	La coordonnée $r$ est toujours positive.
-\end{remark}
-
-En utilisant la trigonométrie, il est facile de trouver le changement de variable qui donne $(x,y)$ en fonction de $(r,\theta)$:
-\begin{subequations}		\label{EqrthetaxyPoal}
-	\begin{numcases}{}
-		x=r\cos(\theta)\\
-		y=r\sin(\theta).
-	\end{numcases}
-\end{subequations}
-
-%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-\subsubsection{Transformation inverse : théorie}
-%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Voyons la question inverse : comment retrouver $r$ et $\theta$ si on connait $x$ et $y$ ? Tout d'abord,
-\begin{equation}
-	r=\sqrt{x^2+y^2}
-\end{equation}
-parce que la coordonnée $r$ est la distance entre l'origine et $(x,y)$. Comment trouver l'angle ? Nous supposons $(x,y)\neq (0,0)$. Si $x=0$, alors le point est sur l'axe vertical et nous avons
-\begin{equation}
-	\theta=\begin{cases}
-		\pi/2	&	\text{si }y>0\\
-		3\pi/2	&	 \text{si }y<0
-	\end{cases}
-\end{equation}
-Notez que si $y<0$, conformément à notre convention $\theta\geq 0$, nous avons noté $\frac{ 3\pi }{2}$ et non $-\frac{ \pi }{ 2 }$.
-
-Supposons maintenant le cas général avec $x\neq 0$. Les équations \eqref{EqrthetaxyPoal} montrent que
-\begin{equation}
-	\tan(\theta)=\frac{ y }{ x }.
-\end{equation}
-Nous avons donc
-\begin{equation}
-	\theta=\tan^{-1}\left( \frac{ y }{ x } \right).
-\end{equation}
-La fonction inverse de la fonction tangente est celle définie plus haut.
-
-%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-\subsubsection{Transformation inverse : pratique}
-%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-Le code suivant utilise \href{http://www.sagemath.org}{Sage}.
-
-\lstinputlisting{tex/frido/calculAngle.py}
-
-Son exécution retourne :
-\begin{verbatim}
-(sqrt(2), 1/4*pi)
-(sqrt(5), pi - arctan(1/2))
-(6, 1/6*pi)
-\end{verbatim}
-Notez que ce sont des valeurs \emph{exactes}. Ce ne sont pas des approximations, Sage travaille de façon symbolique.
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Rappels de trigonométrie}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\label{secHTVooJuBtam}
-
-Voici un tableau qui rappelle les valeurs à retenir pour les fonctions sinus, cosinus et tangente.\label{PGooIMQFooTnBdIl}
-\begin{equation*}
-    \begin{array}[]{|c|c|c|c|}
-      \hline
-      x&\sin(x)&\cos(x)&\tan(x)\\
-      \hline
-      0&0&1&0\\
-      \hline
-      \pi/6&1/2&\sqrt{3}/2&\sqrt{3}/3\\
-      \hline
-      \pi/6&1/2&\sqrt{3}/2&\sqrt{3}/3\\
-      \hline
-      \pi/4&\sqrt{2}/2&\sqrt{2}/2&1\\
-      \hline
-      \pi/3&\sqrt{3}/2&1/2&\sqrt{3}\\
-      \hline
-      \pi/2&1&0&\text{N.D.}\\
-      \hline
-    \end{array}
-\end{equation*}
-où «N.D.»  signifie «non défini».
-
-Rappelons le graphe de la fonction sinus :
-\begin{center}
-   \input{auto/pictures_tex/Fig_TWHooJjXEtS.pstricks}
-\end{center}
-celui de la fonction cosinus :
-\begin{center}
-   \input{auto/pictures_tex/Fig_JJAooWpimYW.pstricks}
-\end{center}
-
-
-    \begin{lemma}
-      Pour toute valeur de $x\in \eR$ on a $|\sin(x)|\leq |x|$. 
-    \end{lemma}
-
-    \begin{proof}
-        Nous séparons des cas en fonction des valeurs.
-    \begin{itemize}
-    \item Si $0\leq x\leq \pi/2$ alors le sinus de $x$ est la longueur du cathète verticale du triangle rectangle de sommets $O = (0,0)$, $A = (\cos(x), \sin(x))$ et $B = (\cos(x), 0)$. Le triangle de sommets $A$, $B$ et $C = (1, 0)$ est aussi rectangle et nous savons que chacun des cathètes ne peut pas \^etre plus long que l'hypoténuse. Donc $\sin(x)$ est inférieur à la longueur du segment $AC$. À son tour le segment $AC$ ne peut pas \^etre plus long que l'arc de cercle $\wideparen{A0C}$, car le chemin le plus court entre deux points du plan est toujours donné par un morceau de droite. La longueur de l'arc du cercle $\frown{AC}$ est \emph{par définition} la mesure en radiants de l'angle $\widehat{AOC}$, qui est $x$ et on a l'inégalité $\sin(x)\leq x$. 
-    \item Si $-\pi/2\leq x\leq 0$ le m\^eme raisonnement que au point précédent permet de conclure que $\sin(x)\leq |x|$.
-    \item Nous savons par ailleurs que la fonction sinus prend ses valeurs dans l'intervalle $[-1,1]$ et donc pour tout $x$ tel que $|x|\geq \pi/2 \equiv 1,57\ldots$ on a forcement $|\sin(x)|\leq |x|$.  
-    \end{itemize}
-    \end{proof}
-
-\begin{proposition}
-    Nous avons la limite
-    \begin{equation}\label{sinsurx}
-      \lim_{x\to 0} \frac{\sin(x)}{x} = 1.
-    \end{equation}
-\end{proposition}
-
-\begin{proof}
-    On commence par observer que la fonction $g(x)=\frac{\sin(x)}{x}$ est un rapport entre deux fonction impaires et est donc une fonction paire. Nous pouvons alors nous réduire à considérer le cas où $x$ est positif. La première étape de cette preuve nous dit que $g(x)\leq 1$ pour tout $x\in\eR^{+,*}$. 
-
-    Nous voulons étudier le comportement de $g$ dans un voisinage de $0$. Nous pouvons alors supposer que $x$ soit inférieur à $\pi/2$. Soit $D = (1, \tan (x))$. On voit très bien dans le dessin que l'aire du triangle de sommets $O$, $D$ et $C$ est supérieure à l'aire du secteur circulaire de sommets $O$, $A$ et $C$. Ces deux aires peuvent \^etre calculées très facilement et nous obtenons
-    \begin{equation*}
-      \frac{\sin(x)}{2\cos(x)} \geq \frac{x}{2}.
-    \end{equation*}
-    À partir de cette dernière inégalité nous pouvons écrire 
-    \begin{equation*}
-      1\geq \frac{\sin(x)}{x}\geq \cos(x).
-    \end{equation*}
-    En prenant la limite lorsque $x$ tend vers $0$ dans les trois membres de l'inégalité la règle de l'étau nous permet d'obtenir la limite remarquable  \eqref{sinsurx}. 
-\end{proof}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{La fonction arc sinus}
@@ -1290,6 +1198,145 @@ En ce qui concerne la représentation graphique, il suffit de tracer la fonction
 \end{center}
 
 %---------------------------------------------------------------------------------------------------------------------------
+\subsection{Les coordonnées polaires}
+%---------------------------------------------------------------------------------------------------------------------------
+
+On a vu qu'un point $M$ dans $\eR^2$ peut être représenté par ses abscisses $x$ et ses ordonnées $y$. Nous pouvons également déterminer le même point $M$ en donnant un angle et une distance comme montré sur la figure \ref{LabelFigJWINooSfKCeA}.
+\newcommand{\CaptionFigJWINooSfKCeA}{Un point en coordonnées polaires est donné par sa distance à l'origine et par l'angle qu'il faut avec l'horizontale.}
+\input{auto/pictures_tex/Fig_JWINooSfKCeA.pstricks}
+
+
+Le même point $M$ peut être décrit indifféremment avec les coordonnées $(x,y)$ ou bien avec $(r,\theta)$.
+
+\begin{remark}
+	L'angle $\theta$ d'un point n'étant a priori défini qu'à un multiple de $2\pi$ près, nous convenons de toujours choisir un angle $0\leq\theta<2\pi$. Par ailleurs l'angle $\theta$ n'est pas défini si $(x,y)=(0,0)$.
+
+	La coordonnée $r$ est toujours positive.
+\end{remark}
+
+En utilisant la trigonométrie, il est facile de trouver le changement de variable qui donne $(x,y)$ en fonction de $(r,\theta)$:
+\begin{subequations}		\label{EqrthetaxyPoal}
+	\begin{numcases}{}
+		x=r\cos(\theta)\\
+		y=r\sin(\theta).
+	\end{numcases}
+\end{subequations}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Transformation inverse : théorie}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Voyons la question inverse : comment retrouver $r$ et $\theta$ si on connait $x$ et $y$ ? Tout d'abord,
+\begin{equation}
+	r=\sqrt{x^2+y^2}
+\end{equation}
+parce que la coordonnée $r$ est la distance entre l'origine et $(x,y)$. Comment trouver l'angle ? Nous supposons $(x,y)\neq (0,0)$. Si $x=0$, alors le point est sur l'axe vertical et nous avons
+\begin{equation}
+	\theta=\begin{cases}
+		\pi/2	&	\text{si }y>0\\
+		3\pi/2	&	 \text{si }y<0
+	\end{cases}
+\end{equation}
+Notez que si $y<0$, conformément à notre convention $\theta\geq 0$, nous avons noté $\frac{ 3\pi }{2}$ et non $-\frac{ \pi }{ 2 }$.
+
+Supposons maintenant le cas général avec $x\neq 0$. Les équations \eqref{EqrthetaxyPoal} montrent que
+\begin{equation}
+	\tan(\theta)=\frac{ y }{ x }.
+\end{equation}
+Nous avons donc
+\begin{equation}
+	\theta=\tan^{-1}\left( \frac{ y }{ x } \right).
+\end{equation}
+La fonction inverse de la fonction tangente est celle définie plus haut.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Transformation inverse : pratique}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Le code suivant utilise \href{http://www.sagemath.org}{Sage}.
+
+\lstinputlisting{tex/frido/calculAngle.py}
+
+Son exécution retourne :
+\begin{verbatim}
+(sqrt(2), 1/4*pi)
+(sqrt(5), pi - arctan(1/2))
+(6, 1/6*pi)
+\end{verbatim}
+Notez que ce sont des valeurs \emph{exactes}. Ce ne sont pas des approximations, Sage travaille de façon symbolique.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Rappels de trigonométrie}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{secHTVooJuBtam}
+
+Voici un tableau qui rappelle les valeurs à retenir pour les fonctions sinus, cosinus et tangente.\label{PGooIMQFooTnBdIl}
+\begin{equation*}
+    \begin{array}[]{|c|c|c|c|}
+      \hline
+      x&\sin(x)&\cos(x)&\tan(x)\\
+      \hline
+      0&0&1&0\\
+      \hline
+      \pi/6&1/2&\sqrt{3}/2&\sqrt{3}/3\\
+      \hline
+      \pi/6&1/2&\sqrt{3}/2&\sqrt{3}/3\\
+      \hline
+      \pi/4&\sqrt{2}/2&\sqrt{2}/2&1\\
+      \hline
+      \pi/3&\sqrt{3}/2&1/2&\sqrt{3}\\
+      \hline
+      \pi/2&1&0&\text{N.D.}\\
+      \hline
+    \end{array}
+\end{equation*}
+où «N.D.»  signifie «non défini».
+
+Rappelons le graphe de la fonction sinus :
+\begin{center}
+   \input{auto/pictures_tex/Fig_TWHooJjXEtS.pstricks}
+\end{center}
+celui de la fonction cosinus :
+\begin{center}
+   \input{auto/pictures_tex/Fig_JJAooWpimYW.pstricks}
+\end{center}
+
+
+    \begin{lemma}
+      Pour toute valeur de $x\in \eR$ on a $|\sin(x)|\leq |x|$. 
+    \end{lemma}
+
+    \begin{proof}
+        Nous séparons des cas en fonction des valeurs.
+    \begin{itemize}
+    \item Si $0\leq x\leq \pi/2$ alors le sinus de $x$ est la longueur du cathète verticale du triangle rectangle de sommets $O = (0,0)$, $A = (\cos(x), \sin(x))$ et $B = (\cos(x), 0)$. Le triangle de sommets $A$, $B$ et $C = (1, 0)$ est aussi rectangle et nous savons que chacun des cathètes ne peut pas \^etre plus long que l'hypoténuse. Donc $\sin(x)$ est inférieur à la longueur du segment $AC$. À son tour le segment $AC$ ne peut pas \^etre plus long que l'arc de cercle $\wideparen{A0C}$, car le chemin le plus court entre deux points du plan est toujours donné par un morceau de droite. La longueur de l'arc du cercle $\frown{AC}$ est \emph{par définition} la mesure en radiants de l'angle $\widehat{AOC}$, qui est $x$ et on a l'inégalité $\sin(x)\leq x$. 
+    \item Si $-\pi/2\leq x\leq 0$ le m\^eme raisonnement que au point précédent permet de conclure que $\sin(x)\leq |x|$.
+    \item Nous savons par ailleurs que la fonction sinus prend ses valeurs dans l'intervalle $[-1,1]$ et donc pour tout $x$ tel que $|x|\geq \pi/2 \equiv 1,57\ldots$ on a forcement $|\sin(x)|\leq |x|$.  
+    \end{itemize}
+    \end{proof}
+
+\begin{proposition}
+    Nous avons la limite
+    \begin{equation}\label{sinsurx}
+      \lim_{x\to 0} \frac{\sin(x)}{x} = 1.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    On commence par observer que la fonction $g(x)=\frac{\sin(x)}{x}$ est un rapport entre deux fonction impaires et est donc une fonction paire. Nous pouvons alors nous réduire à considérer le cas où $x$ est positif. La première étape de cette preuve nous dit que $g(x)\leq 1$ pour tout $x\in\eR^{+,*}$. 
+
+    Nous voulons étudier le comportement de $g$ dans un voisinage de $0$. Nous pouvons alors supposer que $x$ soit inférieur à $\pi/2$. Soit $D = (1, \tan (x))$. On voit très bien dans le dessin que l'aire du triangle de sommets $O$, $D$ et $C$ est supérieure à l'aire du secteur circulaire de sommets $O$, $A$ et $C$. Ces deux aires peuvent \^etre calculées très facilement et nous obtenons
+    \begin{equation*}
+      \frac{\sin(x)}{2\cos(x)} \geq \frac{x}{2}.
+    \end{equation*}
+    À partir de cette dernière inégalité nous pouvons écrire 
+    \begin{equation*}
+      1\geq \frac{\sin(x)}{x}\geq \cos(x).
+    \end{equation*}
+    En prenant la limite lorsque $x$ tend vers $0$ dans les trois membres de l'inégalité la règle de l'étau nous permet d'obtenir la limite remarquable  \eqref{sinsurx}. 
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
 \subsection{Forme polaire ou trigonométrique des nombres complexes}
 %---------------------------------------------------------------------------------------------------------------------------
 
@@ -1303,6 +1350,70 @@ ou encore par la formule
 \frac b a = \tan(\arg(z)) \quad \text{en vérifiant le quadrant.}
 \]
 La vérification du quadrant vient de ce que la tangente ne détermine l'angle qu'à $\pi$ près.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Angle entre deux vecteurs}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si $a$ et $b$ sont des réels, l'inégalité $| a |\leq b$ peut se développer en une double inégalité
+\begin{equation}
+	-b\leq a\leq b.
+\end{equation}
+L'inégalité de Cauchy-Schwarz devient alors
+\begin{equation}
+	-\| X \|\| Y \|\leq X\cdot Y\leq\| X \|\| Y \|.
+\end{equation}
+Si $X\neq 0$ et $Y\neq 0$, nous avons alors
+\begin{equation}
+	-1\leq\frac{ X\cdot Y }{ \| X \|\| Y \| }\leq 1.
+\end{equation}
+Il existe donc un angle $\theta\in\mathopen[ 0 , \pi \mathclose]$ tel que
+\begin{equation}		\label{eqDefAngleVect}
+	\cos(\theta)=\frac{ X\cdot Y }{ \| X \|\| Y \| }.
+\end{equation}
+
+\begin{definition}      \label{DEFooSVDZooPWHwFQ}
+L'angle ainsi défini est l'\defe{angle}{angle!entre vecteurs} entre $X$ et $Y$. La définition \eqref{eqDefAngleVect} est souvent utilisée sous la forme
+\begin{equation}		\label{eqPropCosThet}
+	X\cdot Y=\| X \|\| Y \|\cos(\theta).
+\end{equation}
+\index{cosinus!angle entre deux vecteurs}
+\end{definition}
+
+Notez que les angles sont toujours des angles plus petits ou égaux à \unit{180}{\degree}.
+
+La longueur de la projection du point $P$ sur la droite horizontale va naturellement être égale à $\cos(\theta)$. En effet, si nous notons $X$ un vecteur horizontal de norme $1$, cette projection est donné par $P\cdot X$. Mais en reprenant l'équation \eqref{eqPropCosThet}, nous voyons que
+\begin{equation}
+	P\cdot X=\| P \|\| X \|\cos(\theta),
+\end{equation}
+tandis qu'ici nous avons $\| P \|=\| X \|=1$.
+
+Nous appelons $\sin(\theta)$ la longueur de la projection sur l'axe vertical.
+
+Quelques dessins nous convainquent que 
+\begin{equation}
+	\begin{aligned}[]
+		\sin(\theta+2\pi)&=\sin(\theta)&\cos(\theta+2\pi)&=\sin(\theta),\\
+		\sin(\theta+\frac{ \pi }{2})&=\cos(\theta)&\cos(\theta+\frac{ \pi }{2})&=-\sin(\theta),\\
+		\sin(\pi-\theta)&=\sin(\theta)&\cos(\pi-\theta)&=-\cos(\theta).
+	\end{aligned}
+\end{equation}
+Le théorème de Pythagore nous montre aussi l'importante relation
+\begin{equation}
+	\sin^2(\theta)+\cos^2(\theta)=1.
+\end{equation}
+
+Quelques valeurs remarquables pour les sinus et cosinus :
+\begin{equation}
+	\begin{aligned}[]
+		\sin 0&=0,&\sin\frac{ \pi }{ 6 }&=\frac{ 1 }{2},&\sin\frac{ \pi }{ 4 }&=\frac{ \sqrt{2} }{2},&\sin\frac{ \pi }{ 3 }&=\frac{ \sqrt{3} }{2},&\sin\frac{ \pi }{2}&=1,&\sin\pi&=0\\
+		\cos 0&=1,&\cos\frac{ \pi }{ 6 }&=\frac{ \sqrt{3} }{2},&\cos\frac{ \pi }{ 4 }&=\frac{ \sqrt{2} }{2},&\cos\frac{ \pi }{ 3 }&=\frac{ 1 }{2},&\cos\frac{ \pi }{2}&=0,&\cos\pi&=-1
+	\end{aligned}
+\end{equation}
+
+Nous pouvons prouver simplement que $\sin(\unit{30}{\degree})=\frac{ 1 }{2}$ et $\cos(\unit{30}{\degree})=\frac{ \sqrt{3} }{2}$ en s'inspirant de la figure \ref{LabelFigGVDJooYzMxLW}. % From file GVDJooYzMxLW
+\newcommand{\CaptionFigGVDJooYzMxLW}{Un triangle équilatéral de côté $1$.}
+\input{auto/pictures_tex/Fig_GVDJooYzMxLW.pstricks}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Vitesses de $x^{\alpha}$, de l'exponentielle et du logarithme}
@@ -1361,6 +1472,41 @@ Cela tient également lorsque nous considérons $\ln(x)^p$ au lieu de $\ln(x)$. 
         qui est intégrable.
 \end{proof}
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Trigonométrie hyperbolique}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Les fonction \defe{sinus hyperbolique}{sinus!hyperbolique} et \defe{cosinus hyperbolique}{cosinus!hyperbolique} sont les fonctions définies sur $\eR$ par les formules suivantes :
+    \begin{subequations}
+        \begin{align}
+            \cosh(x)&=\frac{  e^{x}+ e^{-x} }{2}\\
+            \sinh(x)&=\frac{  e^{x}- e^{-x} }{2}
+        \end{align}
+    \end{subequations}
+\end{definition}
+
+Leurs principales propriétés sont :
+\begin{enumerate}
+    \item
+        \( \cosh^2(x)-\sinh^2(x)=1\)
+    \item
+        \( \cosh'(x)=\sinh(x)\) 
+    \item
+        \( \sinh'(x)=\cosh\).
+\end{enumerate}
+
+Les représentations graphiques sont ceci :
+\begin{center}
+   \input{auto/pictures_tex/Fig_UNVooMsXxHa.pstricks}
+\end{center}
+
+La \defe{tangente hyperbolique}{tangente hyperbolique} est donnée par le quotient
+\begin{equation}
+    \tanh(x)=\frac{ \sinh(x) }{ \cosh(x) }.
+\end{equation}
+
+%Les fonction réciproques de $\sinh$, $\cosh$ et $\tanh$ sont traitées dans les exercices.
 
 
 
