@@ -7,7 +7,7 @@ def BIFooDsvVHb():
 
     O=Point(0,0)
     cercle=Circle(  O,1 )
-    P=cercle.get_point(60)
+    P=cercle.get_point(30)
     Y=Point(0,P.y)
     X=Point(P.x,0)
 
