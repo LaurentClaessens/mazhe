@@ -17,6 +17,9 @@ def IOCTooePeHGCXH():
     gtb=Cir2.get_point(-90)
     gtC=Segment(gta,gtb).dilatation(3)
 
+    gtC.F.parameters.symbol=""
+    gtC.F.put_mark(0.2,angle=None,added_angle=0,text="\( \\tilde\phi(\mC)\)",pspict=pspict)
+
     gta.put_mark(0.3,angle=None,added_angle=0,text="\( \\tilde \phi(a)\)",pspict=pspict)
     gtb.put_mark(0.3,angle=None,added_angle=0,text="\( \\tilde \phi(b)\)",pspict=pspict)
 
@@ -42,7 +45,7 @@ def IOCTooePeHGCXH():
     mm1.put_mark(0.2,angle=None,added_angle=0,text="\( \\tilde \phi(A)\)",pspict=pspict)
     mm2.put_mark(0.2,angle=None,added_angle=0,text="\( \\tilde \phi(B)\)",pspict=pspict)
 
-    pspict.DrawGraphs(Cir1,Cir2,gta,gtc,gtb,gtC,gtm,mm1,mm2,O,L)
+    pspict.DrawGraphs(Cir1,Cir2,gta,gtc,gtb,gtC,gtm,mm1,mm2,O,L,gtC.F)
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()

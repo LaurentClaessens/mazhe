@@ -4,6 +4,7 @@
 from phystricks import *
 import sys
 
+from phystricksUCDQooMCxpDszQ import UCDQooMCxpDszQ
 from phystricksIOCTooePeHGCXH import IOCTooePeHGCXH
 from phystricksSJAWooRDGzIkrj import SJAWooRDGzIkrj
 from phystricksLMHMooCscXNNdU import LMHMooCscXNNdU
