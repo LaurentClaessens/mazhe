@@ -43,6 +43,8 @@
 
 \begin{lemma}       \label{LemdLKKnd}
     Soient \( A\) et \( B\) deux espaces compact. L'ensemble des fonctions continues de \( A\) vers \( B\) muni de la norme uniforme est complet.
+
+    Dit de façon courte : \( \big( C(A,B),\| . \|_{\infty} \big)\) est complet.
 \end{lemma}
 \index{espace!complet!\(\big( C(A,B),\| . \|_{\infty} \big)\)}
 
@@ -58,7 +60,9 @@
     En prenant \( k\) et \( n\) assez grands, cette expression peut être rendue aussi petite que l'on veut; le premier et le troisième terme par convergence ponctuelle \( f_k\to f\), le second terme par continuité de \( f_k\). La suite \( f(x_n)\) est donc convergente vers \( f(x)\) et la fonction \( f\) est continue.
 \end{proof}
 
-TODO : Revoir cette preuve à la lumière du critère de Cauchy uniforme \ref{PropNTEynwq}.
+\begin{probleme}
+Il serait sans doute bon de revoir cette preuve à la lumière du critère de Cauchy uniforme \ref{PropNTEynwq}.
+\end{probleme}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Théorèmes de point fixe}
@@ -528,15 +532,7 @@ Le théorème suivant est une conséquence du théorème de Markov-Katutani.
 \end{remark}
 
 \begin{proof}
-    Si \( y\) est une solution de l'équation différentielle considérée, elle vérifie
-    \begin{equation}        \label{EqPGLwcL}
-        y(t)=y_0+\int_{t_0}^tf\big( u,y(u) \big)du.
-    \end{equation}
-    Ceci nous incite à considérer l'opérateur \( \Phi\colon \mF\to \mF\) défini par
-    \begin{equation}
-        \Phi(y)(t)=y_0+\int_{t_0}^tf\big( u,y(u) \big)du.
-    \end{equation}
-
+    Nous divisions la preuve en plusieurs étapes (même pas toutes simples).
     \begin{subproof}
     \item[Cylindre de sécurité et espace fonctionnel]
 
@@ -549,17 +545,58 @@ Le théorème suivant est une conséquence du théorème de Markov-Katutani.
         \item
             \( T>0\) tel que \( \overline{ B(t_0,T) }\subset W\) et \( T<r/M\).
     \end{enumerate}
-    Nous considérons alors \( \mF\), l'ensemble des fonctions continues \( \overline{ B(t_0,T) }\to \overline{ B(y_0,r) }\) muni de la norme uniforme. Par le lemme \ref{LemdLKKnd} l'espace \( \mF\) est complet.
+    Nous considérons alors l'ensemble
+    \begin{equation}
+        \mF=C^0\big( \overline{ B(t_0,T) },\overline{ B(y_0,r) } \big)
+    \end{equation}
+    que nous munissons de la norme uniforme. Par le lemme \ref{LemdLKKnd} l'espace \( \big( \mF,\| . \|_{\infty} \big)\) est complet.
 
-    Le fait que \( \Phi(y)\) soit continue lorsque \( y\) est continue est une propriété de l'intégration et du fait que \( f\) soit continue en ses deux variables. Prouvons que \( \Phi(y)(t)\in\overline{ B(y_0,r) }\). Pour cela, notons que
+    \item[Une application \( \Phi\colon \mF\to \mF\)]
+
+
+    Si \( y\) est une solution de l'équation différentielle considérée, elle vérifie
+    \begin{equation}        \label{EqPGLwcL}
+        y(t)=y_0+\int_{t_0}^tf\big( u,y(u) \big)du.
+    \end{equation}
+    Ceci nous incite à considérer l'opérateur \( \Phi\colon \mF\to \mF\) défini par
+    \begin{equation}
+        \Phi(y)(t)=y_0+\int_{t_0}^tf\big( u,y(u) \big)du.
+    \end{equation}
+
+    Pour que l'application \( \Phi\) soit utile nous devons montrer que pour tout \( y\in \mF\),
+    \begin{itemize}
+        \item l'application \( \Phi(y)\) est bien définie,
+        \item pour tout \( t\in\overline{ B(y_0,r) }\) nous avons \( \Phi(y)(t)\in\overline{ B(t_0,T) }\),
+        \item l'application $\Phi(y)\colon    \overline{ B(t_0,T) }\to \overline{ B(y_0,r)} $ est continue.
+    \end{itemize}
+    Attention : nous ne prétendons pas que \( \Phi\) elle-même soit continue. C'est parti.
+    \begin{subproof}
+    \item[\( \Phi(y)\) est bien définie]
+            
+        Il faut montrer que l'intégrale converge. Le calcul de \( \Phi(y)(t)\) ne se fait qu'avec \( t\in \overline{ B(t_0,T) }\). Vu que \( u\) prend ses valeurs dans \( \mathopen[ t_0 , t \mathclose]\) et que \( y\in\mF\), le nombre \( y(u)\) est toujours dans \( \overline{ B(y_0,r) }\). Ceci pour dire que dans l'intégrale, la fonction \( f\) n'est considérée que sur \( \mathopen[ t_0 , t \mathclose]\times \overline{ B(y_0,r) }\subset V\times W\). La fonction \( f\) est donc uniformément majorable, et l'intégrale ne pose pas de problèmes.
+
+    \item[\( \Phi(y)(t)\in \overline{ B(t_0,T) }\)]
+
+    Prouvons que \( \Phi(y)(t)\in\overline{ B(y_0,r) }\). Pour cela, notons que
     \begin{equation}
         | \Phi(y)(t)-y_0 |\leq \int_{t_0}^t |f\big( u,y(u) \big)|du\leq | t-t_0 |\| f \|_{\infty}.
     \end{equation}
     Étant donné que \( t\in\overline{ B(t_0,T) }\) nous avons \( | t-t_0 |\leq r/M\) et donc \( | \Phi(y)(t)-y_0 |\leq r\).
 
+    \item[\( \Phi(y)\) est continue]
+
+        Nous pourrions invoquer le théorème \ref{ThoKnuSNd}, mais nous allons le faire à la main. Soit \( s_0\in B(t_0,T)\) et prouvons que \( \Phi(y)\) est continue en \( s_0\). Pour cela nous prenons \( s\in B(s_0,\delta)\) et nous calculons :
+        \begin{equation}
+            | \Phi(y)(s)-\Phi(y)(s_0) |\leq \int_{s_0}^s|f\big( u,y(u) \big)|du\leq | s_0-s |\| f \|_{\infty}.
+        \end{equation}
+        C'est le fait que \( f\) soit bornée dans le cylindre de sécurité qui fait en sorte que cela tende vers zéro lorsque \( s\to s_0\).
+    \end{subproof}
+
+
+    
     L'équation \eqref{EqPGLwcL} signifie que \( y\) est un point fixe de \( \Phi\). L'espace \( \mF\) étant complet le théorème de point fixe de Picard (théorème \ref{ThoEPVkCL}) s'applique. Nous allons montrer qu'il existe un \( p\in\eN\) tel que \( \Phi^p\) soit contractante. Par conséquent \( \Phi^p\) aura un unique point fixe qui sera également unique point fixe de \( \Phi\) par la remarque \ref{remIOHUJm}.
     
-\item[Une contraction]
+\item[Contractante]
 
     Prouvons donc que \( \Phi^p\) est contractante pour un certain \( p\). Pour cela nous commençons par montrer la formule suivante par récurrence :
     \begin{equation}        \label{EqRAdKxT}
@@ -612,6 +649,8 @@ Le théorème suivant est une conséquence du théorème de Markov-Katutani.
         \end{numcases}
     \end{subequations}
     Il existe un voisinage de \( b\) sur lequel la solution est unique. Sur ce voisinage nous devons donc avoir \( x_1=x_2\), ce qui contredit le fait que \( x_1\neq x_2\) en dehors de \( \mathopen[ t_0 , b \mathclose]\).
+
+    Donc \( x_1\) et \( x_2\) existent et sont égaux sur au moins \( I_1\cup I_2\).
     \end{subproof}
 \end{proof}
 
