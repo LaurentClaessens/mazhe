@@ -18,8 +18,7 @@ myRequest.original_filename="mazhe.tex"
 myRequest.ok_filenames_list=["e_mazhe"]
 myRequest.ok_filenames_list.extend(["179_edp"])
 myRequest.ok_filenames_list.extend(["89_Equations_diff"])
-myRequest.ok_filenames_list.extend(["<++>"])
-myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["90_Equations_diff"])
 myRequest.ok_filenames_list.extend(["78_inversion_locale"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
