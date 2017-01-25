@@ -161,7 +161,21 @@ où \( f\) est une fonction à déterminer par les conditions initiales qui peuv
 \subsection{Un théorème d'existence et d'unicité}
 %---------------------------------------------------------------------------------------------------------------------------
 
-\begin{proposition}[Équation de transport à coefficients variables\cite{ooAUICooVUjyqo,ooPMPXooEpbDkm}]
+La méthode des caractéristiques donne essentiellement une preuve de l'unicité des solutions aux équations de transport, et une méthode pour construire cette solution. En effet, la procédure suivante permet de construire \( u(x_0,y_0)\).
+\begin{itemize}
+    \item Trouver la caractéristique passant par le point \( (x_0,y_0)\)
+    \item Calculer en quel point elle passe par une condition initiale donnée.
+    \item Attribuer à \( u(x_0,y_0)\) la valeur trouvée sur la caractéristique là où elle passe par une condition initiale.
+\end{itemize}
+Rien ne permet a priori de savoir que cette procédure construit effectivement une solution. En particulier, comment calculer \( \partial_xu\) ? Le quotient différentiel serait
+\begin{equation}
+    \frac{ \partial u }{ \partial x }(x,y)=\lim_{\epsilon\to 0}\frac{ u(x+\epsilon,y)-u(x,y) }{ \epsilon },
+\end{equation}
+mais la caractéristique donnant la valeur de \( u(x+\epsilon,y)\) est différente pour chaque \( \epsilon\). Rien a priori ne permet d'affirmer que le calcul soit simple, ni qu'il arrive à une solution du problème donné.
+
+D'où la nécessité d'avoir un résultat un peu rigoureux donnant des conditions sous lesquelles les choses vont bien.
+
+\begin{proposition}[Équation de transport à coefficients variables\cite{ooAUICooVUjyqo,ooPMPXooEpbDkm}]     \label{PROPooVQLBooQyFfEH}
     Soit une fonction \( c\colon \eR^2\to \eR\) continue et uniformément Lipschitziennes en sa première variable et \( g\in C^1(\eR)\). Alors l'équation aux dérivées partielles de premier ordre
     \begin{subequations}        \label{SUBEQSooKWBFooKkpihH}
         \begin{numcases}{}
@@ -172,22 +186,54 @@ où \( f\) est une fonction à déterminer par les conditions initiales qui peuv
     admet une unique solution de classe \( C^1\).
 
     Cette solution est construite de la façon suivante\footnote{Le fait que la construction ait un sens fait partie des choses à prouver}. D'abord nous considérons la solution \( Y\) au problème
-    \begin{subequations}
+    \begin{subequations}        \label{SUBEQSooTOCEooHRhXiv}
         \begin{numcases}{}
             \frac{ \partial Y }{ \partial s }(s;x,y)=c\big( s,Y(s;x,y) \big)\\
             Y(x;x,y)=y,
         \end{numcases}
     \end{subequations}
     et ensuite le problème \eqref{SUBEQSooKWBFooKkpihH} a pour unique solution
-    \begin{equation}
+    \begin{equation}        \label{EQooLFYNooJewRhE}
         u(x,y)=g\big( Y(0;x,y) \big).
     \end{equation}
 \end{proposition}
 
 \begin{proof}
+    Nous commençons par étudier l'existence et l'unicité de la fonction \( Y\) définie par le problème \ref{SUBEQSooTOCEooHRhXiv}. La fonction \( c\) ici est dans les hypothèses de la fonction $f$ du théorème de Cauchy-Lipschitz global \ref{THOooZIVRooPSWMxg}. D'où l'existence et l'unicité de la fonction \( s\mapsto Y(s;x,y)\) sur \( \eR\) pour chaque \( (x,y)\) donné\footnote{Avec l'énoncé tel que donné dans \cite{ooAUICooVUjyqo}, il faut utiliser la technique de \ref{NORMooZROGooZfsdnZ} pour l'existence globale, parce que la fonction \( b\) là-dedans n'est pas dans les mêmes hypothèses.}.
+
+    Existence. Nous pouvons nous lancer dans la preuve proprement dite en vérifiant que la formule \eqref{EQooLFYNooJewRhE} définit bien une solution du problème. D'abord nous avons
+    \begin{subequations}
+        \begin{align}
+            \frac{ \partial u }{ \partial x  }(x,y)&=g'\big( Y(0;x,y) \big)\frac{ \partial Y }{ \partial x }(0;x,y)\\
+            \frac{ \partial u }{ \partial y  }(x,y)&=g'\big( Y(0;x,y) \big)\frac{ \partial Y }{ \partial y }(0;x,y)
+        \end{align}
+    \end{subequations}
+    En remplaçant dans l'équation,
+    \begin{equation}
+        \frac{ \partial u }{ \partial x }+c\frac{ \partial u }{ \partial y }=g'\big( Y(0;x,y) \big)h(0;x,y)
+    \end{equation}
+    où \( h\) est la fonction définie par
+    \begin{equation}
+        h(s;x,y)=\frac{ \partial Y }{ \partial x }(s;x,y)+c(x,y)\frac{ \partial Y }{ \partial y }(s;x,y).
+    \end{equation}
     
+    \begin{subproof}
+        \item[Une EDO pour \( h\)]
+        
+            Nous prouvons que, pour \( (x,y)\) donné, la fonction \( \varphi(s)=h(s;x,y)\) vérifie l'équation différentielle ordinaire
+            \begin{subequations}
+                \begin{numcases}{}
+                    \varphi'(s)=\alpha(s)\varphi(s)\\
+                    \alpha(s)=\frac{ \partial c }{ \partial y }\big( Y(s;x,y),s \big).
+                \end{numcases}
+            \end{subequations}
+            Bien entendu, \( \alpha\) dépend aussi de \( x\) et \( y\).
+
+    \end{subproof}
+    <++>
+
 \end{proof}
-<++>
+ 
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Méthode des caractéristique pour l'ordre \( 2\)}
