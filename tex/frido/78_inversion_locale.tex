@@ -678,8 +678,8 @@ Sous quelque hypothèses nous pouvons nous assurer de l'existence d'une solution
 \end{theorem}
 
 \begin{proof}
-    Soit un intervalle compact \( K\) dans \( I\) et contenant \( t_0\). Nous notons \( \ell\) le diamètre de \( K\). Sur l'espace \( E=C^0(K,\eR^n)\) nous considérons la topologie uniforme : \( (E,\| . \|_{\infty})\). C'est un espace complet par le lemme \ref{LemdLKKnd} (nous utilisons le fait que \( \eR^n\) soit complet, théorème \ref{ThoTFGioqS}). Nous allons utilise l'application suivante :
-    \begin{equation}
+    Soit un intervalle compact \( K\) dans \( I\) et contenant \( t_0\). Nous notons \( \ell\) le diamètre de \( K\). Sur l'espace \( E=C^0(K,\eR^n)\) nous considérons la topologie uniforme : \( (E,\| . \|_{\infty})\). C'est un espace complet par le lemme \ref{LemdLKKnd} (nous utilisons le fait que \( \eR^n\) soit complet, théorème \ref{ThoTFGioqS}). Nous allons utiliser l'application suivante :
+    \begin{equation}        \label{EQooJUTBooILBKoE}
         \begin{aligned}
             \Phi\colon E&\to E \\
             \Phi(y)(t)&=y_0+\int_{t_0}^tf\big( s,y(s) \big)ds
@@ -800,10 +800,51 @@ Au final, si \( t\geq t_0\),
             Soient \( y\) et \(z \) des solutions sur \( I\); vu que \( I\) n'est pas spécialement compact, le travail fait plus haut ne permet pas de conclure que \( y=z\). 
 
             Soit \( t\in I\). Alors \( t\in K_n\) pour un certain \( n\) et \( y\) et \( z\) sont des solutions sur \( K_n\) qui est compact. L'unicité sur \( K_n\) donne \( y(t)=z(t)\).
-
     \end{subproof}
-
 \end{proof}
+
+\begin{example}[\cite{ooSBHXooOMnaTC}]          \label{EXooJXIGooQtotMc}
+    Nous savons que le théorème de Picard permet de trouver le point fixe par itération de la contraction à partir d'un point quelconque. Tentons donc de résoudre
+    \begin{subequations}
+        \begin{numcases}{}
+            y'(t)=y(t)\\
+            y(0)=1
+        \end{numcases}
+    \end{subequations}
+    dont nous savons depuis l'enfance que la solution est l'exponentielle. Partons donc de la fonction constante \( y_0=1\), et appliquons la contraction \eqref{EQooJUTBooILBKoE} :
+    \begin{equation}
+        u_1=1+\int_0^1u_0(s)ds=1+t.
+    \end{equation}
+    Ensuite
+    \begin{equation}
+        u_2=1+\int_0^t(1+s)ds=1+t+\frac{ t^2 }{2}.
+    \end{equation}
+    Et on voit que les itérations suivantes vont donner l'exponentielle.
+
+    Nous sommes évidemment en droit de se dire que nous avons choisi un bon point de départ. Tentons le coup avec une fonction qui n'a rien à voir avec l'exponentielle : \( u_0(x)=\sin(x)\).
+
+    Le programme suivant permet de faire de belles investigations numériques en partant d'à peu près n'importe quelle fonction :
+
+\lstinputlisting{tex/sage/picard_exp.py}
+
+    Ce programme fait \( 30\) itérations depuis la fonction \( \sin(x)\) pour tenter d'approximer \( \exp(x)\). Pour donner une idée, après \( 7\) itérations nous avons la fonction suivante :
+    \begin{equation}
+        \frac{1}{ 60 }x^5+\frac{1}{ 24 }x^4+\frac{ 1 }{2}x^2+2x-\sin(x)+1.
+    \end{equation}
+    Nous voyons que les coefficients sont des factorielles, mais pas toujours celles correspondantes à la puissance, et qu'il manque certains termes par rapport au développement de l'exponentielle que nous connaissons. Bref, le polynôme qui se met en face de \( \sin(x)\) s'adapte tout seul pour compenser.
+
+    Et après \( 30\) itérations, ça donne quoi ? Voici un graphe de l'erreur entre \( u_{30}(x)\) et \( \exp(30)\) :
+    
+    
+\begin{center}
+   \input{auto/pictures_tex/Fig_XOLBooGcrjiwoU.pstricks}
+\end{center}
+
+    Pour donner une idée, \( \exp(10)\simeq 22000\). Donc il y a une faute de \( 0.01\) sur \( 22000\). Pas mal.
+
+\end{example}
+
+
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Théorème de Cauchy-Arzella}
