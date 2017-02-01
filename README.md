@@ -241,3 +241,8 @@ Afin de donner une idée, voici une liste des développements que vous pourriez 
 * Fonction continue et périodique dont la série de Fourier ne converge pas.
 * Estimation des grands écarts.
 * Théorème de Banach-Steinhaus.
+
+## Téléchargement
+
+
+[lefrido.pdf](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
