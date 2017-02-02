@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 
 # This is part of (almost) Everything I know in mathematics
-# Copyright (c) 2014-2015   (et en fait sûrement plus)
+# Copyright (c) 2014-2017   (et en fait sûrement plus)
 #   Laurent Claessens
 # See the file fdl-1.3.txt for copying conditions.
 
@@ -149,3 +149,37 @@ def set_commit_hexsha(A):
     print(hexsha)
     A = A.replace(u,u.replace("missing information",hexsha))
     return A
+
+def assert_MonCerveau_first():
+    """
+    Read the bbl file and check that the reference "MonCerveau" is the first one.
+    """
+
+    print(""" Vous pourriez avoir l'erreur suivante :
+
+ return self.fun(A)
+ TypeError: 'NoneType' object is not callable)
+
+    Cela signifie que vous devez mettre à jour 'pytex' et 'latexparser'. 
+
+    J'ai dû effectuer quelque modifications pour vérifier que "MonCerveau" est 
+    toujours la première référence dans le frido.
+ """)
+
+    import os.path
+    filename="Inter_frido-mazhe_pytex.bbl"
+    if not os.path.exists(filename):
+        print("Le fichier bbl n'existe pas. J'imagine qu'il va être regénéré à la prochine compilation")
+        return None
+    bbl_content=open(filename).read()
+    bbl_first=bbl_content.find("bibitem")
+    bbl_second=bbl_content.find("bibitem",bbl_first+1)
+    text=bbl_content[bbl_first:bbl_second]
+    if not "MonCerveau" in text:
+        print("""Il semblerait que la référence bibliographique 'MonCerveau' ne soit pas la première. Il faut corriger ça. En effet, le lecteur doit savoir que lorsqu'il voit la référence [1], ça veut dire 'danger'.
+
+        Après modification, le plus simple est de supprimer le fichier {} et de relancer.
+                
+                """.format(filename))
+        raise
+
