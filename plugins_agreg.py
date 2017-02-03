@@ -169,7 +169,7 @@ def assert_MonCerveau_first():
     import os.path
     filename="Inter_frido-mazhe_pytex.bbl"
     if not os.path.exists(filename):
-        print("Le fichier bbl n'existe pas. J'imagine qu'il va être regénéré à la prochine compilation")
+        print("Le fichier bbl n'existe pas. C'est pas très normal. Si cela persiste à la prochaine compilation, posez-vous des questions.")
         return None
     bbl_content=open(filename).read()
     bbl_first=bbl_content.find("bibitem")
