@@ -322,11 +322,93 @@ D'où la nécessité d'avoir un résultat un peu rigoureux donnant des condition
             doit être continue. C'est le cas parce que \( c\) est de classe \( C^1\) en sa première variable.
 
             \end{subproof}
-
     \end{subproof}
-    
 \end{proof}
  
+Les hypothèses de la proposition \ref{PROPooVQLBooQyFfEH} sont loin d'être optimales. Voici un exemple dans lequel \( c\) n'est même pas dérivable par rapport à \( t\) et qui se passe très bien quand même.
+
+\begin{example}
+    Soit l'équation différentielle
+    \begin{subequations}
+        \begin{numcases}{}
+            \frac{ \partial u }{ \partial t }(x,t)+| t-1 |\frac{ \partial u }{ \partial x }(x,t)=0\\
+            u(x,0)=h(x)
+        \end{numcases}
+    \end{subequations}
+    où \( h\) est une fonction bien régulière; mettons \( C^p\). En suivant la méthode de la proposition nous devrions poser l'équation différentielle
+    \begin{subequations}
+        \begin{numcases}{}
+            \frac{ \partial X }{ \partial s }(s;x,t)=| s-1 |\\
+            X(t;x,t)=x.
+        \end{numcases}
+    \end{subequations}
+    Cela est la caractéristique passant par \( (x,t)\). Cependant il sera plus simple de chercher les caractéristiques en demandant qu'elles passent par \( (x_0,0)\). Nous allons donc plutôt résoudre pour \( X_{x_0}\) l'équation différentielle
+    \begin{subequations}
+        \begin{numcases}{}
+            \frac{ \partial X }{ \partial s }(s)=| s-1 |\\
+            X_{x_0}(0)=x_0
+        \end{numcases}
+    \end{subequations}
+    et les courbes caractéristiques seront les chemins
+    \begin{equation}
+        \gamma_{x_0}(s)=\begin{pmatrix}
+            X_{x_0}(s)    \\ 
+            s    
+        \end{pmatrix}.
+    \end{equation}
+    La résolution donne d'abord
+    \begin{equation}
+        X_{x_0}(s)=\begin{cases}
+            -\frac{ s^2 }{2}+s+K_1    &   \text{si } s<1\\
+            \frac{ s^2 }{2}-s+K_2    &    \text{si } s>1.
+        \end{cases}
+    \end{equation}
+    Vu que la condition initiale est donnée pour \( s=0\), nous fixons \( K_1\) pour la condition initiale et \( K_2\) pour la continuité :
+    \begin{equation}
+        X_{x_0}(s)=\begin{cases}
+            -\frac{ s^2 }{2}+s+x_1   &   \text{si }  s<1\\
+            \frac{ 1 }{2}+x_0    &    \text{si } s=1\\
+            \frac{ s^2 }{2}-s+1+x_0    &    \text{si } s>1.
+        \end{cases}
+    \end{equation}
+    Soit \( (x,t)\in \eR^2\). Quelle caractéristique passe par là ? Nous allons déterminer la fonction \( x_0(x,t)\) qui donne le \( x_0\) tel que la caractéristique \( \gamma_{x_0}\) passe par \( (x,t)\). Nous devons résoudre
+    \begin{equation}
+        \begin{pmatrix}
+            X_{x_0}(s)    \\ 
+            s    
+        \end{pmatrix}=\begin{pmatrix}
+            x    \\ 
+            t    
+        \end{pmatrix}.
+    \end{equation}
+    Directement : \( s=t\). Et ensuite \( X_{x_0}(t)=x\). Nous avons
+    \begin{equation}
+        x_0(x,t)=\begin{cases}
+            x+\frac{ t^2 }{2}-t   &   \text{si } t<1\\
+            x-\frac{ 1 }{2}    &    \text{si } t=1\\
+            x-\frac{ t^2 }{2}+t-1    &    \text{si } t>1.
+        \end{cases}
+    \end{equation}
+    Le truc presque étonnant est que \( x_0\) est de classe \( C^1\). En effet le calcul de
+    \begin{equation}
+        \frac{ \partial x_0 }{ \partial t }(1)=\lim_{\epsilon\to 0}\frac{ x_0(x,1+\epsilon)-x_0(x,1) }{ \epsilon }
+    \end{equation}
+    se fait en séparant les limites \( \epsilon\to 0^+\) et \( \epsilon\to 0^-\). Le résultat est que \( \partial_tx_0(1)=0\). Nous avons donc
+    \begin{equation}
+        \frac{ \partial x_0 }{ \partial t }(t)=\begin{cases}
+            t-1    &   \text{si } t<1\\
+            0    &    \text{si } t=1\\
+            -t+1    &    \text{si }t>1.
+        \end{cases}
+    \end{equation}
+    Cela étant continu, la fonction \( x_0\) est de classe \( C^1\) en \( t\), et la dérivée en \( x\) étant toujours \( 1\), elle est de classe \( C^1\).
+
+    En ce qui concerne la solution de l'équation de départ,
+    \begin{equation}
+        u(x,t)=h\big( X_{x_0(x,t)}(0) \big)=h\big( x_0(x,t) \big).
+    \end{equation}
+    Pourvu que \( h\) soit assez régulière, la fonction \( u\) est facilement de classe \( C^1\).
+\end{example}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Méthode des caractéristique pour l'ordre \( 2\)}
@@ -350,7 +432,7 @@ alors nous avons
 \begin{equation}
     D=\left( \alpha\frac{ \partial  }{ \partial x }+\beta\frac{ \partial  }{ \partial y } \right)\left( \gamma\frac{ \partial  }{ \partial x }+\delta\frac{ \partial y }{ \partial  } \right)+\text{ termes d'ordre inférieurs}.
 \end{equation}
-Les «termes d'ordre inférieurs» sont deux comme \( \alpha(x,y)\frac{ \partial \delta }{ \partial x }\frac{ \partial  }{ \partial y }\).
+Les «termes d'ordre inférieurs» sont ceux de la forme \( \alpha(x,y)\frac{ \partial \delta }{ \partial x }\frac{ \partial  }{ \partial y }\).
 
 
 L'astuce est de poser 
