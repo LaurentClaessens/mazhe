@@ -29,24 +29,25 @@ cd mazhe
 rm .deploy.log
 touch .deploy.log
 
+# Frido's compilation is together with everything's verification
+# because we want to balance the two threads.
+
 compile_frido ()
 {
     pytex lst_frido.py
+    pytex lst_everything.py --verif
     cp 0-lefrido.pdf ../..
 }
 
 compile_everything ()
 {
     pytex lst_everything.py
+    pytex lst_frido.py --verif
     cp 0-everything.pdf ../..
 }
 
 # Poor man's multi-thread
 compile_frido&compile_everything
-
-pytex lst_frido.py --verif
-pytex lst_everything.py --verif
-
 
 
 cd ../..
