@@ -13,6 +13,18 @@
 # - publish the results on my website.
 
 
+mkdir build_tests
+cd build_tests
+
+
+# making
+# git clone .. 
+# does not work. So this is an assumption on the directory name in which the
+# user is working.
+git clone ../../mazhe
+
+cd mazhe
+
 rm .deploy.log
 touch .deploy.log
 pytex lst_frido.py
@@ -20,9 +32,15 @@ pytex lst_frido.py --verif
 pytex lst_everything.py
 pytex lst_everything.py --verif
 
-git status >> .deploy.log
+cd ../..
+git status >> build_tests/mazhe/.deploy.log
+
+cd build_tests/mazhe
 
 
 echo "Result : -----------"
 
 cat .deploy.log
+
+echo "--------------------"
+echo "Beware that this is the result for build_test/mazhe. I did not compile here."
