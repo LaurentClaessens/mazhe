@@ -13,6 +13,7 @@
 # - publish the results on my website.
 
 
+rm -rf build_tests
 mkdir build_tests
 cd build_tests
 
@@ -27,10 +28,26 @@ cd mazhe
 
 rm .deploy.log
 touch .deploy.log
-pytex lst_frido.py
+
+compile_frido ()
+{
+    pytex lst_frido.py
+    cp 0-lefrido.pdf ../..
+}
+
+compile_everything ()
+{
+    pytex lst_everything.py
+    cp 0-everything.pdf ../..
+}
+
+# Poor man's multi-thread
+compile_frido&compile_everything
+
 pytex lst_frido.py --verif
-pytex lst_everything.py
 pytex lst_everything.py --verif
+
+
 
 cd ../..
 git status >> build_tests/mazhe/.deploy.log
