@@ -516,9 +516,13 @@ Et la matrice \( P\) qui arrive dans \( PA=LU\) est la matrice \(P= P_{23}P_{21}
     Cela correspond bien à \eqref{EQooIBVJooTOWCGT}.
 \end{proof}
 
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Méthode de Gauss avec pivot partiel (décomposition PLU)}
-%---------------------------------------------------------------------------------------------------------------------------
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Méthode de Gauss avec pivot partiel (décomposition PLU)}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{L'idée}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 À chaque pas, nous faisons une permutation de ligne. Nous permutons à chaque pas la première ligne avec celle qui a le pivot le plus grand (en valeur absolue). Donc :
 \begin{equation}
@@ -587,7 +591,11 @@ Notons que ces \( L\) et \( U\) ne sont pas les mêmes que le \( L U\) obtenu sa
 \end{equation}
 où \( P\) est une matrice de permutation. 
 
-\begin{proposition}[Méthode de Gauss avec pivot partiel\cite{ooJZHZooLRqIsV}]
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Le théorème}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}[Méthode de Gauss avec pivot partiel\cite{ooJZHZooLRqIsV}]       \label{PROPooGCPAooDrlrGu}
     Soit une matrice inversible \( A\in\eM(n,\eC)\). Il existe
     \begin{itemize}
         \item une matrice de permutation \( P\)
@@ -692,7 +700,7 @@ d'abord de façon exacte, et ensuite en supposant une machin ne tenant que \( 8\
 
 Commençons par voir comment se passe en pratique la décomposition \( PA=LU\) de Gauss avec pivot partiel.
 
-\begin{example}
+\begin{example}     \label{EXooAZTDooTUXZJb}
     Décomposons la matrice
     \begin{equation}
         A=\begin{pmatrix}
@@ -836,6 +844,76 @@ Commençons par voir comment se passe en pratique la décomposition \( PA=LU\) d
 Notons que Sage utilise la méthode de Gauss avec pivots :
 \lstinputlisting{tex/sage/sageSnip006.sage}
 Mais attention : Sage crée une décomposition \( A=PLU\) et non \( PA=LU\). D'où le fait que la matrice de permutation de Sage est l'inverse de celle donnée ici.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{D'un point de vue algorithmique}
+%---------------------------------------------------------------------------------------------------------------------------
+
+(ne pas) vois \ref{FOOooGXOUooWQoZtY} et une référence manquante : \ref{klmkmlkmkm}.
+
+\begin{probleme}
+    Je ne suis pas certain de l'optimalité de ce que je raconte ici. Je décris simplement ce que j'ai fait pour écrire mon programme \href{https://github.com/LaurentClaessens/finitediff}{finitediff}.
+
+    Si vous êtes expert en calcul numérique, n'hésitez pas à donner votre avis.
+\end{probleme}
+
+Nous décrivons à présent la décomposition \( A=PLU\) (du théorème \ref{PROPooGCPAooDrlrGu}, avec le \( P \) à droite). En suivant l'exemple \ref{EXooAZTDooTUXZJb} nous voyons assez bien comment créer les matrices \( U\) et \( P\) au fur et à mesure. La construction de \( L\) est peut-être moins évidente.
+
+Au premier pas nous avons une matrice de permutation \( P_1\) telle que \( P_1A\) soit une matrice dont la première colonne est bien placée pour que la première lignes serve de pivot. Si \( M_1\) est la matrice qui effectue de réduction (les substitutions \( L_k\to L_k-mL_1\)) alors nous avons
+\begin{equation}
+    A=P_1M_1^{-1} S_1
+\end{equation}
+où \( S_1\) est une matrice dont la première colonne ne possède qu'un élément non nul.
+
+La récurrence consiste à travailler sur \( S_1\) pour avoir \( S_1=P_2M_2^{-1} S_2\) et donc à la fin
+\begin{equation}
+    A=(P_1M_1^{-1})(P_2M_2^{-1})\ldots (P_nM_n^{-1})U.
+\end{equation}
+Pour trouver \( L\), il faut permuter les \( P_i\) avec les \( M^{-1}_j\). Au lieu de faire cela d'un coup à la fin du calcul nous allons le faire à chaque étape. Vers la fin de la seconde étape nous avons
+\begin{equation}
+    A=P_1M_1^{-1}S_1=(P_1M_1^{-1})(P_2M_2^{-1})S_2
+\end{equation}
+que nous voulons récrire sous la forme
+\begin{equation}
+    P_1P_2L_2S_2,
+\end{equation}
+c'est à dire \( P_2L_2=L_1^{-1}P_2M_2^{-1}\). Nous avons donc les équations
+\begin{subequations}
+    \begin{numcases}{}
+        L_1=M_1^{-1}\\
+        L_{k-1}P_kM_k^{-1}=P_kL_{k+1}
+    \end{numcases}
+\end{subequations}
+Les matrices \( P_k\) n'ont pas besoin d'être enregistrées : seules les numéros de lignes permutées sont à retenir. La matrice \( L_k\) est enregistrée et modifiée à chaque étape.
+
+Si nous connaissons \( L_{k-1}\) nous avons la relation
+\begin{equation}
+    L_{k+1}=P_kL_{k-1}P_nM_k^{-1}=L'_{k-1}M_k^{-1}
+\end{equation}
+où \( L'_{k-1}\) est telle que \( L_{k-1}P_k=P_kL'_{k-1}\), et \( M_k^{-1}\) est connue par ses paramètres. La matrice \( M_k^{-1}\) est de la forme
+\begin{equation}
+    (M_k^{-1})_{ij}=\delta_{ij}+\delta_{jk}a_i
+\end{equation}
+avec \( a_i=0\) si \( i<n\). Ces matrices sont à multiplier par des matrices triangulaires inférieures \( T\). Voyons-en la règle. Si \( T\) est triangulaire inférieure, \( T_{ij}=0\) si \( i<j\). Du coup,
+\begin{equation}
+    (TM_k^{-1})_{ij}=\sum_lT_{il}(\delta_{lj}+\delta_{jk}a_l)=T_{ij}+\sum_lT_{il}\delta_{jk}a_l=T_{ij}+\sum_{l=k}^i\delta_{jk}T_{il}a_l.
+\end{equation}
+Il n'est donc nul besoin de faire un produit matriciel complet.
+
+Dans le produit \( MPA=S\), la matrice \( M\) est celle qui fait l'élimination de la colonne \( k\). Si \( PA\) a \( m\) sur l'élément \( (k,k)\) (le plus grand de la colonne en-dessous de la diagonale) et si le reste de la colonne sont les nombres \( s_i\) alors la matrice \( M^{-1}\) est celle avec des \( 1\) sur la diagonale et
+\begin{equation}
+    a_i=s_i/m=(PA)_{ik}/m.
+\end{equation}
+
+
+\begin{remark}      \label{FOOooGXOUooWQoZtY}
+    rien \ref{}.
+\end{remark}
+<++>
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Exemples}
+%---------------------------------------------------------------------------------------------------------------------------
 
 Nous nous lançons dans la résolution du système
 \begin{equation}
@@ -1156,6 +1234,10 @@ Nous nous lançons dans la résolution du système
 \begin{normaltext}
     L'utilisation du pivot non seulement assure le fait que la trigonalisation va bien se passer (on évite les zéros en pivot), mais aussi et surtout, en choisissant de prendre le plus grand pivot possible, nous obtenons une meilleur stabilité numérique.
 \end{normaltext}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Résolution de systèmes linéaires (suite)}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Déterminant}

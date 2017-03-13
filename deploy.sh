@@ -49,7 +49,6 @@ compile_everything ()
 # Poor man's multi-thread
 compile_frido&compile_everything
 
-
 cd ../..
 git status >> build_tests/mazhe/.deploy.log
 
