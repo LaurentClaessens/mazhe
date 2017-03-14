@@ -36,14 +36,12 @@ compile_frido ()
 {
     pytex lst_frido.py
     pytex lst_everything.py --verif
-    cp 0-lefrido.pdf ../..
 }
 
 compile_everything ()
 {
     pytex lst_everything.py
     pytex lst_frido.py --verif
-    cp 0-everything.pdf ../..
 }
 
 # Poor man's multi-thread
