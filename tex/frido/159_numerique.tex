@@ -857,6 +857,104 @@ Mais attention : Sage crée une décomposition \( A=PLU\) et non \( PA=LU\). D'o
 
 Nous décrivons à présent la décomposition \( A=PLU\) (du théorème \ref{PROPooGCPAooDrlrGu}, avec le \( P \) à droite). En suivant l'exemple \ref{EXooAZTDooTUXZJb} nous voyons assez bien comment créer les matrices \( U\) et \( P\) au fur et à mesure. La construction de \( L\) est peut-être moins évidente.
 
+Écrivons un exemple très explicite pour
+\begin{equation}
+    A=\begin{pmatrix}
+        2    &   1    &   3    \\
+        4    &   3    &   10    \\
+        -2    &   1    &   7
+    \end{pmatrix}.
+\end{equation}
+Nous commençons par permuter des lignes pour avoir un grand pivot :
+\begin{equation}
+    P_{12}A=\begin{pmatrix}
+        4    &   3    &   10    \\
+        2    &   1    &   3    \\
+        -2    &   1    &   7
+    \end{pmatrix}.
+\end{equation}
+Et nous effectuons l'élimination avec la matrice
+\begin{equation}
+    M_1=\begin{pmatrix}
+        1    &   0    &   0    \\
+        -1/2    &   1    &   0    \\
+        1/2    &   0    &   1
+    \end{pmatrix}.
+\end{equation}
+Cela donne le premier résultat :
+\begin{equation}
+    M_1P_{12}A=\begin{pmatrix}
+        4    &   3    &   10    \\
+        0    &   -1/2    &   -2    \\
+        0    &   5/2    &   12
+    \end{pmatrix}
+\end{equation}
+Nous continuons avec \( P_{23}\) pour avoir un nouveau grand pivot :
+\begin{equation}
+    P_{23}M_1P_{12}A=\begin{pmatrix}
+        4    &   3    &   10    \\
+        0    &   5/2    &   12\\
+        0    &   -1/2    &   -2    
+    \end{pmatrix}.
+\end{equation}
+Nous utilisons la matrice
+\begin{equation}
+    M_2=\begin{pmatrix}
+        1    &   0    &   0    \\
+        0    &   1    &   0    \\
+        0    &   1/5    &   1
+    \end{pmatrix}
+\end{equation}
+et au final :
+\begin{equation}
+    M_2P_{23}M_1P_{12}A=\begin{pmatrix}
+        4    &   3    &   10    \\
+        0    &   5/2    &   12    \\
+        0    &   0    &   2/5
+    \end{pmatrix}=U.
+\end{equation}
+L'égalité obtenue est
+\begin{equation}
+    M_2P_{23}M_1P_{12}A=U.
+\end{equation}
+Pour avoir la décomposition \( PLU\) il faut écrire
+\begin{equation}        \label{EQooWKUYooUBQYtc}
+    A=P_{12}M_1^{-1}P_{23}M_2^{-1}U,
+\end{equation}
+et permuter \( P_{23}\) avec \( M_1^{-1}\), ce qui est facile par le lemme \ref{LEMooYIYIooYhnaOt}.
+
+Cependant dans un cas \( 4\times 4\), cette méthode deviendrait fastidieuse parce que nous aurions encore des étapes à faire. En repartant de \eqref{EQooWKUYooUBQYtc}, mais avec \( m_U\) (la matrice pas encore tout à fait triangularisée) au lieu de \( U\), nous aurons, pour un certain \( k>3\) :
+\begin{equation}
+    M_3P_{3k}M_2P_{23}M_1P_{12}A=U,
+\end{equation}
+ce qui fait :
+\begin{equation}
+    A=P_{12}M_1^{-1}P_{23}M_2^{-1}P_{3k}M_3^{-1}U.
+\end{equation}
+Tous les \( P_{ij}\) peuvent être mis à gauche parce que leurs indices sont toujours strictement supérieurs à ceux des \( M_l\) placés devant eux. Mais c'est fastidieux.
+
+Nous allons donc permuter à chaque étape pour ne retenir que l'important. Si à une certaine étape nous avons
+\begin{equation}
+    A=P_{1,r_1}\ldots P_{k,r_k}M_1^{-1}\ldots M_k^{-1} m_U
+\end{equation}
+avec
+\begin{equation}
+    m_U=P_{k+1,r_{k+1}}M_{k+1}^{-1}U
+\end{equation}
+alors nous allons directement permuter \( P_{k+1,r_{k+1}}\) avec tous les \( M_i^{-1}\). Si nous notons \( P_k\) la permutation (pas élémentaire) à l'étape \( k\) et \( L_k\) la matrice triangulaire inférieure à de l'étape \( k\),
+\begin{equation}
+    A=P_kL_km_U=P_kL_kP_{k+1,r_{k+1}}M_{k+1}^{-1}m_U'.
+\end{equation}
+Nous enregistrons alors \( P_{k+1}=P_kP_{k+1,r_{k+1}}\) et pour \( L_{k+1}\) nous partons de \( L_k\) et nous faisons deux opérations suivantes :
+\begin{itemize}
+    \item nous permutons, sur ses colonnes non triviales, les indices \( k+1\) et \( r_{k+1}\),
+    \item nous multiplions par \( M_{k+1}^{-1}\), ce qui revient à simplement lui ajouter une colonne non triviale.
+\end{itemize}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Suite}
+%---------------------------------------------------------------------------------------------------------------------------
+
 Au premier pas nous avons une matrice de permutation \( P_1\) telle que \( P_1A\) soit une matrice dont la première colonne est bien placée pour que la première lignes serve de pivot. Si \( M_1\) est la matrice qui effectue de réduction (les substitutions \( L_k\to L_k-mL_1\)) alors nous avons
 \begin{equation}
     A=P_1M_1^{-1} S_1
@@ -879,16 +977,12 @@ c'est à dire \( P_2L_2=L_1^{-1}P_2M_2^{-1}\). Nous avons donc les équations
 \begin{subequations}
     \begin{numcases}{}
         L_1=M_1^{-1}\\
-        L_{k-1}P_kM_k^{-1}=P_kL_{k+1}
+        L_{k+1}=P_kL_kM_k^{-1}.
     \end{numcases}
 \end{subequations}
-Les matrices \( P_k\) n'ont pas besoin d'être enregistrées : seules les numéros de lignes permutées sont à retenir. La matrice \( L_k\) est enregistrée et modifiée à chaque étape.
+Les matrices \( P_k\) n'ont pas besoin d'être enregistrées : seules les numéros de lignes permutées sont à retenir. La matrice \( L_k\) est enregistrée et modifiée à chaque étape. Notons que \( P_k\) est une matrice de permutation élémentaire.
 
-Si nous connaissons \( L_{k-1}\) nous avons la relation
-\begin{equation}
-    L_{k+1}=P_k^{-1}L_{k-1}P_kM_k^{-1}.
-\end{equation}
-où \( M_k^{-1}\) est connue par ses paramètres. La matrice \( M_k^{-1}\) est de la forme
+La matrice \( M_k^{-1}\) est connue par ses paramètres; elle est de la forme
 \begin{equation}
     (M_k^{-1})_{ij}=\delta_{ij}+\delta_{jk}a_i
 \end{equation}
