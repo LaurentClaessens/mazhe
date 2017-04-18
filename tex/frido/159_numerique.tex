@@ -520,9 +520,9 @@ Et la matrice \( P\) qui arrive dans \( PA=LU\) est la matrice \(P= P_{23}P_{21}
 \section{Méthode de Gauss avec pivot partiel (décomposition PLU)}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{L'idée}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{L'idée}
+%---------------------------------------------------------------------------------------------------------------------------
 
 À chaque pas, nous faisons une permutation de ligne. Nous permutons à chaque pas la première ligne avec celle qui a le pivot le plus grand (en valeur absolue). Donc :
 \begin{equation}
@@ -950,52 +950,6 @@ Nous enregistrons alors \( P_{k+1}=P_kP_{k+1,r_{k+1}}\) et pour \( L_{k+1}\) nou
     \item nous permutons, sur ses colonnes non triviales, les indices \( k+1\) et \( r_{k+1}\),
     \item nous multiplions par \( M_{k+1}^{-1}\), ce qui revient à simplement lui ajouter une colonne non triviale.
 \end{itemize}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Suite}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Au premier pas nous avons une matrice de permutation \( P_1\) telle que \( P_1A\) soit une matrice dont la première colonne est bien placée pour que la première lignes serve de pivot. Si \( M_1\) est la matrice qui effectue de réduction (les substitutions \( L_k\to L_k-mL_1\)) alors nous avons
-\begin{equation}
-    A=P_1M_1^{-1} S_1
-\end{equation}
-où \( S_1\) est une matrice dont la première colonne ne possède qu'un élément non nul.
-
-La récurrence consiste à travailler sur \( S_1\) pour avoir \( S_1=P_2M_2^{-1} S_2\) et donc à la fin
-\begin{equation}
-    A=(P_1M_1^{-1})(P_2M_2^{-1})\ldots (P_nM_n^{-1})U.
-\end{equation}
-Pour trouver \( L\), il faut permuter les \( P_i\) avec les \( M^{-1}_j\). Au lieu de faire cela d'un coup à la fin du calcul nous allons le faire à chaque étape. Vers la fin de la seconde étape nous avons
-\begin{equation}
-    A=P_1M_1^{-1}S_1=(P_1M_1^{-1})(P_2M_2^{-1})S_2
-\end{equation}
-que nous voulons récrire sous la forme
-\begin{equation}
-    P_1P_2L_2S_2,
-\end{equation}
-c'est à dire \( P_2L_2=L_1^{-1}P_2M_2^{-1}\). Nous avons donc les équations
-\begin{subequations}
-    \begin{numcases}{}
-        L_1=M_1^{-1}\\
-        L_{k+1}=P_kL_kM_k^{-1}.
-    \end{numcases}
-\end{subequations}
-Les matrices \( P_k\) n'ont pas besoin d'être enregistrées : seules les numéros de lignes permutées sont à retenir. La matrice \( L_k\) est enregistrée et modifiée à chaque étape. Notons que \( P_k\) est une matrice de permutation élémentaire.
-
-La matrice \( M_k^{-1}\) est connue par ses paramètres; elle est de la forme
-\begin{equation}
-    (M_k^{-1})_{ij}=\delta_{ij}+\delta_{jk}a_i
-\end{equation}
-avec \( a_i=0\) si \( i<k\). Ces matrices sont à multiplier par des matrices triangulaires inférieures \( T\). Voyons-en la règle. Si \( T\) est triangulaire inférieure, \( T_{ij}=0\) si \( i<j\). Du coup,
-\begin{equation}
-    (TM_k^{-1})_{ij}=\sum_lT_{il}(\delta_{lj}+\delta_{jk}a_l)=T_{ij}+\sum_lT_{il}\delta_{jk}a_l=T_{ij}+\sum_{l=k}^i\delta_{jk}T_{il}a_l.
-\end{equation}
-Il n'est donc nul besoin de faire un produit matriciel complet.
-
-Dans le produit \( MPA=S\), la matrice \( M\) est celle qui fait l'élimination de la colonne \( k\). Si \( PA\) a \( m\) sur l'élément \( (k,k)\) (le plus grand de la colonne en-dessous de la diagonale) et si le reste de la colonne sont les nombres \( s_i\) alors la matrice \( M^{-1}\) est celle avec des \( 1\) sur la diagonale et
-\begin{equation}
-    a_i=s_i/m=(PA)_{ik}/m.
-\end{equation}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Exemples}
