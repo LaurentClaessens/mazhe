@@ -882,7 +882,7 @@ Et nous effectuons l'élimination avec la matrice
     \end{pmatrix}.
 \end{equation}
 Cela donne le premier résultat :
-\begin{equation}
+\begin{equation}        \label{EQooKTBLooHeOkgk}
     M_1P_{12}A=\begin{pmatrix}
         4    &   3    &   10    \\
         0    &   -1/2    &   -2    \\
@@ -923,6 +923,14 @@ Pour avoir la décomposition \( PLU\) il faut écrire
 \end{equation}
 et permuter \( P_{23}\) avec \( M_1^{-1}\), ce qui est facile par le lemme \ref{LEMooYIYIooYhnaOt}.
 
+\begin{remark}
+    Nous ne devons permuter la matrice \( M_k\) avec une matrice de permutation qu'à partir de la deuxième étape. En effet l'équation \eqref{EQooKTBLooHeOkgk} revient à
+    \begin{equation}
+        A=M_1^{-1}P_{12}m_U
+    \end{equation}
+    qui est dans le bon ordre. Ce n'est qu'à partir de la seconde étape que des matrices de permutation apparaissent à droite des matrices gaussiennes.
+\end{remark}
+
 Cependant dans un cas \( 4\times 4\), cette méthode deviendrait fastidieuse parce que nous aurions encore des étapes à faire. En repartant de \eqref{EQooWKUYooUBQYtc}, mais avec \( m_U\) (la matrice pas encore tout à fait triangularisée) au lieu de \( U\), nous aurons, pour un certain \( k>3\) :
 \begin{equation}
     M_3P_{3k}M_2P_{23}M_1P_{12}A=U,
@@ -950,6 +958,7 @@ Nous enregistrons alors \( P_{k+1}=P_kP_{k+1,r_{k+1}}\) et pour \( L_{k+1}\) nou
     \item nous permutons, sur ses colonnes non triviales, les indices \( k+1\) et \( r_{k+1}\),
     \item nous multiplions par \( M_{k+1}^{-1}\), ce qui revient à simplement lui ajouter une colonne non triviale.
 \end{itemize}
+Notons que \( r_{k+1}\geq k+1\), de telle sorte que sur les colonnes non triviales (qui sont jusqu'au numéro \( k\)), la permutation des lignes \( k+1\) et \( r_{k+1}\) ne change pas l'aspect de la matrice : elle reste multi-gaussienne de dernière colonne \( k\).
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Exemples}
@@ -1744,7 +1753,7 @@ Si nous négligeons le terme \( \eta(h^2)\) qui est supposé être petit nous po
 Notons ici l'importance de la notion de problème bien posé parce que en remplaçant le paramètre (fonctionnel) \( f\) par \( f+\eta(h^2)\), nous modifions les solutions. Dans la mesure où le problème est bien posé, cette petite modification ne modifiera pas trop la solution et nous pouvons espérer que \( \| u-u_h \|\) soit petit pour une norme ou une autre.
 
 Utilisant l'expression \eqref{EQooBLIIooWHXbqD} pour \( D^-D^+\) nous avons l'équation suivante pour \( u_h\) :
-\begin{equation}
+\begin{equation}        \label{EQooECLXooFxZEeA}
     \frac{1}{ h^2 }\Big( 2u_h(x)-u_h(x+h)-u_h(x-h) \Big)+c(x)u_h(x)=f(x).
 \end{equation}
 Avons-nous gagné quelque chose ? Pas encore. L'idée est de la discrétisation est de ne considérer \( u_h\) qu'en certains points, écartés de \( h\). Soit donc un nombre entier \( N\) et \( h=1/(N+1)\). Nous posons
@@ -1769,3 +1778,43 @@ et
 \end{equation}
 Enfin, nous ne considérons plus \( u_h\) que comme une fonction \( u_h\colon \bar\Omega_h\to \eR\). C'est à dire que \( u_h\) est un vecteur à \( N+2\) composantes.
 
+L'équation \eqref{EQooECLXooFxZEeA} devient
+\begin{equation}        \label{EQooZMVMooTqlpkF}
+    \frac{1}{ h^2 }\big( 2u_h(x_i)-u_h(x_{i+1})-u_h(x_{i-1})+c(x_i)u_h(x_i) \big)=f(x_i)
+\end{equation}
+pour \( i=1,\ldots, N\). Sur les bords, cette équation n'est pas possible parce que \( x_{i-1}\) ou \( x_{i+1}\) n'existerait pas. Au contraire, sur les bords nous avons les conditions aux bords
+\begin{equation}
+    u_h(x_0)=\alpha
+\end{equation}
+et
+\begin{equation}
+    u_h(x_{N+1})=\beta.
+\end{equation}
+
+En posant \( c_i=c(x_i)\) et \( u_i=u_h(x_i)\), les inconnues du problème sont les nombres \( u_i\) (\( i=1,\ldots, N+1\)). Elles sont immédiatement résolues pour \( u_0\) et \( u_{N+1}\). Pour les autres, il faut écrire et résoudre un système d'équation linéaire.
+
+L'écriture du système linéaire à résoudre consiste essentiellement à écrire \eqref{EQooZMVMooTqlpkF} en séparant les cas \( i=0\) et \( i=N\) parce que nous savons déjà les valeurs de \( u_0\) et \( u_N\). Le système que nous avons est :
+\begin{subequations}
+    \begin{numcases}{}
+    \left( \frac{ 2 }{ h^2 }+c_1 \right)u_1-\frac{1}{ h^2 }u_2=f_1+\frac{ \alpha }{ h^2 }  & $i=1$\\
+    \left( \frac{ 2 }{ h^2 }+c_N \right)u_N-\frac{1}{ h^2 }u_{N-1}=f_N+\frac{ \beta }{ h^2 }  &\( i=N\) \\
+    \left( \frac{ 2 }{ h^2 }+c_i \right)u_i-\frac{1}{ h^2 }u_{i+1}-\frac{1}{ h^2 }u_i=f_i.& autres
+    \end{numcases}
+\end{subequations}
+Cela se met sous la forme matricielle
+\begin{equation}
+    L_hU_h=F_h
+\end{equation}
+pour 
+\begin{equation}
+    F_h=\big( f_1+\frac{ \alpha }{ h^2 },f_2,\ldots, f_{N-1},f_N+\frac{ \beta }{ h^2 } \big)
+\end{equation}
+et les éléments non nuls de \( L_h\) sont :
+\begin{subequations}
+    \begin{align}
+        (L_h)_{i,i-1}&=-\frac{1}{ h^2 }&\text{ pour }i&=2,\ldots, N\\
+        (L_h)_{i,i+1}&=-\frac{1}{ h^2 }&\text{ pour }i&=1,\ldots, N-1\\
+        (L_h)_{i,i}&=\frac{ 2 }{ h^2 }+c_i&\text{ pour }i&=1,\ldots, N.
+    \end{align}
+\end{subequations}
+Cette matrice est pleine de zéros, à part les trois diagonales centrales, et il existe des méthodes efficaces pour résoudre le système d'équation correspondant.
