@@ -19,6 +19,9 @@ myRequest.ok_filenames_list=["e_mazhe"]
 myRequest.ok_filenames_list.extend(["60_EspacesVecto"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["56_espace_vecto_norme"])
 myRequest.ok_filenames_list.extend(["134_choses_finales"])
 
 
