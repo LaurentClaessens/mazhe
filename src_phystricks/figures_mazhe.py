@@ -4,6 +4,7 @@
 from phystricks import *
 import sys
 
+from phystricksDNHRooqGtffLkd import DNHRooqGtffLkd
 from phystricksXOLBooGcrjiwoU import XOLBooGcrjiwoU
 from phystricksGYODoojTiGZSkJ import GYODoojTiGZSkJ
 from phystricksEELKooMwkockxB import EELKooMwkockxB
@@ -550,7 +551,7 @@ figures_list.append(<++>)
 """
 
 def AllFigures():
-    tests=main.FigureGenerationSuite(figures_list,first=0,title=u"(almost) everything I know in mathematics and physics")
+    tests=FigureGenerationSuite(figures_list,first=0,title=u"(almost) everything I know in mathematics and physics")
     tests.generate()
     tests.summary()
 

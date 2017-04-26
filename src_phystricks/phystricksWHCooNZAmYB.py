@@ -14,7 +14,7 @@ def WHCooNZAmYB():
     I=Point(R,0)
     B=cercle.get_point(2*theta)
 
-    const=Circle(A, BasicGeometricObjects.Distance(A,I) )
+    const=Circle(A, Distance(A,I) )
     const.parameters.style="dashed"
     const.parameters.color="blue"
 
