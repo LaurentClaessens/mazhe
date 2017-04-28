@@ -9,22 +9,30 @@
 # - git status clean
 
 
-# If everything goes well :
+# If everything goes well (not yet implemented) :
 # - publish the results on my website.
+# - git push to github
+
+MAIN_DIR=`pwd`
+
+BUILD_DIR=$MAIN_DIR/build
+CLONE_DIR=BUILD_DIR/build_mazhe
+
+echo $MAIN_DIR
 
 
-rm -rf build_tests
-mkdir build_tests
-cd build_tests
+rm -rf BUILD_DIR
+mkdir BUILD_DIR
+cd BUILD_DIR
 
 
 # making
 # git clone .. 
 # does not work. So this is an assumption on the directory name in which the
 # user is working.
-git clone ../../mazhe
+git clone $MAIN_DIR $BUILD_DIR
 
-cd mazhe
+cd $BUILD_DIR
 
 rm .deploy.log
 touch .deploy.log
@@ -47,10 +55,10 @@ compile_everything ()
 # Poor man's multi-thread
 compile_frido&compile_everything
 
-cd ../..
-git status >> build_tests/mazhe/.deploy.log
+cd $MAIN_DIR
+git status >> $CLONE_DIR/.deploy.log
 
-cd build_tests/mazhe
+cd $CLONE_DIR
 
 
 echo "Result : -----------"
