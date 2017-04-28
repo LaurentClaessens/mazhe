@@ -16,21 +16,21 @@
 MAIN_DIR=`pwd`
 
 BUILD_DIR=$MAIN_DIR/build
-CLONE_DIR=BUILD_DIR/build_mazhe
+CLONE_DIR=$BUILD_DIR/build_mazhe
 
 echo $MAIN_DIR
 
 
-rm -rf BUILD_DIR
-mkdir BUILD_DIR
-cd BUILD_DIR
+rm -rf $BUILD_DIR
+mkdir $BUILD_DIR
+cd $BUILD_DIR
 
 
 # making
 # git clone .. 
 # does not work. So this is an assumption on the directory name in which the
 # user is working.
-git clone $MAIN_DIR $BUILD_DIR
+git clone $MAIN_DIR $CLONE_DIR
 
 cd $BUILD_DIR
 
@@ -51,6 +51,8 @@ compile_everything ()
     pytex lst_everything.py
     pytex lst_frido.py --verif
 }
+
+cd $CLONE_DIR
 
 # Poor man's multi-thread
 compile_frido&compile_everything
