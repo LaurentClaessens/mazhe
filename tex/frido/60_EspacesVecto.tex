@@ -221,7 +221,143 @@ Voici un résultat de diagonalisation simultanée. Nous donnerons un résultat d
 \end{example}
 
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Diagonalisation : cas complexe}
+\subsection{Diagonalisation : cas complexe, pas toujours}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Il n'est pas vrai qu'une matrice de \( \eM(n,\eC)\) soit toujours diagonalisable. En effet le théorème \ref{ThoDigLEQEXR}\ref{ItemThoDigLEQEXRii} dit qu'une matrice est diagonalisable si et seulement si son polynôme minimal est scindé à racines simples. Certes sur \( \eC\) le polynôme minimal sera scindé, mais il ne sera pas spécialement à racines simples.
+
+\begin{example}
+    La matrice
+    \begin{equation}
+        A=\begin{pmatrix}
+            0    &   1    \\ 
+            0    &   0    
+        \end{pmatrix}
+    \end{equation}
+    a pour polynôme caractéristique \( \chi_A(X)=X^2\). Cela est également son polynôme minimal, et ce n'est pas à racine simple. 
+
+    Il est par ailleurs facile de voir que le seul espace propre de \( A\) est \( \Span\{ (1,0) \}\) (ici le span est sur \( \eC\)). Donc l'espace \( \eC^2\) ne possède pas de base de vecteurs propres de \( A\).
+\end{example}
+
+Ce qui est vrai, c'est que le polynôme caractéristique a des racines, et que ces racines correspondent à des vecteurs propres. Mais il n'y a pas toujours autant de vecteurs propres que la multiplicité des racines.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Trigonalisation : cas complexe}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Le lemme suivant est utile en soi et dit que toute matrice complexe est trigonalisable. Une démonstration alternative passant par le polynôme caractéristique sera présentée dans la remarque \ref{RemXFZTooXkGzQg} utilisant la proposition \ref{PropKNVFooQflQsJ}.
+\begin{lemma}[Lemme de Schur complexe, trigonisation\cite{NormHKNPKRqV}]  \label{LemSchurComplHAftTq}
+    Si \( A\in\eM(n,\eC)\), il existe une matrice unitaire \( U\) telle que \( UAU^{-1}\) soit triangulaire supérieure.
+\end{lemma}
+\index{lemme!Schur complexe}
+%TODO : Le lemme de Schur est souvent énoncé en disant que si p est une représentation irréductible, alors les seuls endomorphismes de V commutant avec tous les p(g) sont les multiples de l'idenditié. Quel est le lien avec ceci ?
+
+\begin{proof}
+    Étant donné que \( \eC\) est algébriquement clos, nous pouvons toujours considérer un vecteur propre \( v_1\) de \( A\), de valeur propre \( \lambda_1\). Nous pouvons utiliser un procédé de Gram-Schmidt pour construire une base orthonormée \( \{ v,u_2,\ldots, u_n \}\) de \( \eR^n\), et la matrice (unitaire)
+    \begin{equation}
+        Q=\begin{pmatrix}
+             \uparrow   &   \uparrow    &       &   \uparrow    \\
+             v   &   u_2    &   \cdots    &   u_n    \\ 
+             \downarrow   &   \downarrow    &       &   \downarrow
+         \end{pmatrix}.
+    \end{equation}
+    Nous avons \( Q^{-1}AQe_1=Q^{-1} Av=\lambda Q^{-1} v=\lambda e_1\), par conséquent la matrice \( Q^{-1} AQ\) est de la forme
+    \begin{equation}
+        Q^{-1}AQ=\begin{pmatrix}
+            \lambda_1    &   *    \\ 
+            0    &   A_1    
+        \end{pmatrix}
+    \end{equation}
+    où \( *\) représente une ligne quelconque et \( A_1\) est une matrice de \( \eM(n-1,\eC)\). Nous pouvons donc répéter le processus sur \( A_1\) et obtenir une matrice triangulaire supérieure (nous utilisons le fait qu'un produit de matrices orthogonales est une matrice orthogonale).  
+\end{proof}
+En particulier les matrices hermitiennes, anti-hermitiennes et unitaires sont trigonalisables par une matrice unitaire, qui peut être choisie de déterminant \( 1\).
+
+\begin{lemma}       \label{LEMooRCFGooPPXiKi}
+    Soit \( A\in \eM(n,\eC)\) et une matrice unitaire \( U\) telle que \( A=UTU^{-1}\) où \( T\) est triangulaire. 
+    \begin{enumerate}
+        \item
+            En ce qui concerne les polynômes caractéristiques, \( \chi_A=\chi_T\).
+        \item
+            Pour les spectres, \( \Spec(A)=\Spec(T)\).
+        \item
+            Les valeurs propres de \( A\) sont les éléments diagonaux de \( T\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Vu que \( U\) commute évidemment avec \( \mtu\) nous avons
+    \begin{equation}
+        \chi_A(\lambda)=\det(A-\lambda \mtu)=\det(UTU^{-1}-\lambda\mtu)=\det\big( U(T-\lambda\mtu)U^{-1} \big).
+    \end{equation}
+    À ce niveau nous utilisons le fait que le déterminant soit multiplicatif \ref{PropYQNMooZjlYlA} pour conclure :
+    \begin{equation}
+        \chi_A(\lambda)=\det\big( U(T-\lambda\mtu)U^{-1} \big)=\det(U)\det(T-\lambda\mtu)\det(U^{-1})=\det(T-\lambda\mtu)=\chi_T(\lambda).
+    \end{equation}
+
+    Pour les spectres, l'égalité des polynômes caractéristique implique l'égalité des spectres parce que les valeurs propres sont les racines du polynôme caractéristique par le théorème \ref{ThoWDGooQUGSTL}.
+    
+    Les valeurs propres d'une matrice triangulaire sont les valeurs sur la diagonale.
+\end{proof}
+
+\begin{remark}
+    Le lemme mentionne le fait que les valeurs propres de \( A\) sont les éléments diagonaux de \( T\). Mais attention : ceci ne dit rien au niveau des multiplicités géométriques. Un nombre peut être cinq fois sur la diagonale de \( T\) alors que l'espace propre correspondant pour \( A\) n'est que de dimension \( 1\). Exemple : la matrice
+    \begin{equation}
+        A=\begin{pmatrix}
+            1    &   1    \\ 
+            0    &   1    
+        \end{pmatrix}
+    \end{equation}
+    a deux \( 1\) sur la diagonale. Le nombre \( 1\) est bien une valeur propre de \( A\), mais le système
+    \begin{equation}
+        A\begin{pmatrix}
+            x    \\ 
+            y    
+        \end{pmatrix}=\begin{pmatrix}
+            x    \\ 
+            y    
+        \end{pmatrix}
+    \end{equation}
+    donne \( y=0\) et donc un espace propre de dimension seulement \( 1\).
+\end{remark}
+
+\begin{corollary}   \label{CorUNZooAZULXT}
+    Le polynôme caractéristique\footnote{Définition \ref{DefOWQooXbybYD}.} sur \( \eC\) d'une matrice s'écrit sous la forme
+    \begin{equation}
+        \chi_A(X)=\prod_{i=1}^r(X-\lambda_i)^{m_i}
+    \end{equation}
+    où les \( \lambda_i\) sont les valeurs propres distinctes de \( A\) et \( m_i\) sont les multiplicités correspondantes.
+\end{corollary}
+\index{polynôme!caractéristique}
+
+\begin{proof}
+    Le lemme \ref{LemSchurComplHAftTq} nous donne l'existence d'une base de trigonalisation; dans cette base les valeurs propres de \( A\) sont sur la diagonale et nous avons 
+    \begin{equation}
+        \chi_A(X)=\det(A-X\mtu)=\det\begin{pmatrix}
+            X-\lambda_1    &   *    &   *    \\
+            0    &   \ddots    &   *    \\
+            0    &   0    &   X-\lambda_r
+        \end{pmatrix},
+    \end{equation}
+    qui vaut bien le produit annoncé.
+\end{proof}
+
+\begin{corollary}       \label{CORooTPDHooXazTuZ}
+    Si \( A\in \eM(n,\eC)\) et \( k\in \eN\) alors
+    \begin{equation}
+        \Spec(A^k)=\{ \lambda^k\tq \lambda\in \Spec(A) \}.
+    \end{equation}
+\end{corollary}
+
+\begin{proof}
+    Par le lemme \ref{LemSchurComplHAftTq} nous avons une matrice unitaire \( U\) et une triangulaire \( T\) telles que \( A=UTU^{-1}\). En passant à a puissance \( k\) nous avons aussi
+    \begin{equation}
+        A^k=UT^kU^{-1}.
+    \end{equation}
+    Donc le spectre de \( A^k\) est celui de \( T^k\) (lemme \ref{LEMooRCFGooPPXiKi} et le fait qu'une puissance d'une matrice triangulaire est encore triangulaire). Or les éléments diagonaux de \( T^k\) sont les puissance \( k\)\ieme des éléments diagonaux de \( T\), qui sont les valeurs propres de \( A\).
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Diagonalisation : cas complexe, ce qu'on a}
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{lemma}[Théorème spectral hermitien]      \label{LEMooVCEOooIXnTpp}
@@ -265,55 +401,7 @@ Voici un résultat de diagonalisation simultanée. Nous donnerons un résultat d
     Donc \( \lambda\geq 0\).
 \end{remark}
 
-Le lemme suivant est utile en soi et dit que toute matrice complexe est trigonalisable. Une démonstration alternative passant par le polynôme caractéristique sera présentée dans la remarque \ref{RemXFZTooXkGzQg} utilisant la proposition \ref{PropKNVFooQflQsJ}.
-\begin{lemma}[Lemme de Schur complexe\cite{NormHKNPKRqV}]  \label{LemSchurComplHAftTq}
-    Si \( A\in\eM(n,\eC)\), il existe une matrice unitaire \( U\) telle que \( UAU^{-1}\) soit triangulaire supérieure.
-\end{lemma}
-\index{lemme!Schur complexe}
-%TODO : Le lemme de Schur est souvent énoncé en disant que si p est une représentation irréductible, alors les seuls endomorphismes de V commutant avec tous les p(g) sont les multiples de l'idenditié. Quel est le lien avec ceci ?
-
-\begin{proof}
-    Étant donné que \( \eC\) est algébriquement clos, nous pouvons toujours considérer un vecteur propre \( v_1\) de \( A\), de valeur propre \( \lambda_1\). Nous pouvons utiliser un procédé de Gram-Schmidt pour construire une base orthonormée \( \{ v,u_2,\ldots, u_n \}\) de \( \eR^n\), et la matrice (unitaire)
-    \begin{equation}
-        Q=\begin{pmatrix}
-             \uparrow   &   \uparrow    &       &   \uparrow    \\
-             v   &   u_2    &   \cdots    &   u_n    \\ 
-             \downarrow   &   \downarrow    &       &   \downarrow
-         \end{pmatrix}.
-    \end{equation}
-    Nous avons \( Q^{-1}AQe_1=Q^{-1} Av=\lambda Q^{-1} v=\lambda e_1\), par conséquent la matrice \( Q^{-1} AQ\) est de la forme
-    \begin{equation}
-        Q^{-1}AQ=\begin{pmatrix}
-            \lambda_1    &   *    \\ 
-            0    &   A_1    
-        \end{pmatrix}
-    \end{equation}
-    où \( *\) représente une ligne quelconque et \( A_1\) est une matrice de \( \eM(n-1,\eC)\). Nous pouvons donc répéter le processus sur \( A_1\) et obtenir une matrice triangulaire supérieure (nous utilisons le fait qu'un produit de matrices orthogonales est une matrice orthogonale).  
-\end{proof}
-En particulier les matrices hermitiennes, anti-hermitiennes et unitaires sont trigonalisables par une matrice unitaire, qui peut être choisie de déterminant \( 1\).
-
-\begin{corollary}   \label{CorUNZooAZULXT}
-    Le polynôme caractéristique\footnote{Définition \ref{DefOWQooXbybYD}.} sur \( \eC\) d'une matrice s'écrit sous la forme
-    \begin{equation}
-        \chi_A(X)=\prod_{i=1}^r(X-\lambda_i)^{m_i}
-    \end{equation}
-    où les \( \lambda_i\) sont les valeurs propres distinctes de \( A\) et \( m_i\) sont les multiplicités correspondantes.
-\end{corollary}
-\index{polynôme!caractéristique}
-
-\begin{proof}
-    Le lemme \ref{LemSchurComplHAftTq} nous donne l'existence d'une base de trigonalisation; dans cette base les valeurs propres de \( A\) sont sur la diagonale et nous avons 
-    \begin{equation}
-        \chi_A(X)=\det(A-X\mtu)=\det\begin{pmatrix}
-            X-\lambda_1    &   *    &   *    \\
-            0    &   \ddots    &   *    \\
-            0    &   0    &   X-\lambda_r
-        \end{pmatrix},
-    \end{equation}
-    qui vaut bien le produit annoncé.
-\end{proof}
-
-\begin{theorem}[Théorème spectral pour les matrices normales\cite{LecLinAlgAllen,OMzxpxE,HOQzXCw}]\index{théorème!spectral!matrices normales}  \index{diagonalisation!cas complexe}  \label{ThogammwA}
+\begin{theorem}[Théorème spectral pour les matrices normales\footnote{Définition \ref{DefWQNooKEeJzv}}\cite{LecLinAlgAllen,OMzxpxE,HOQzXCw}]\index{théorème!spectral!matrices normales}  \index{diagonalisation!cas complexe}  \label{ThogammwA}
     Soit \( A\in\eM(n,\eC)\) une matrice de valeurs propres \( \lambda_1,\ldots, \lambda_n\) (non spécialement distinctes). Alors les conditions suivantes sont équivalentes :
     \begin{enumerate}
         \item   \label{ItemJZhFPSi}
@@ -354,6 +442,27 @@ En particulier les matrices hermitiennes, anti-hermitiennes et unitaires sont tr
         D^*D=UA^*AU^*,
     \end{equation}
     qui ce prouve que \( A\) est normale.
+\end{proof}
+
+Tant que nous en sommes à parler de spectre de matrices hermitiennes\ldots Soit une matrice inversible \( A\in \GL(n,\eC)\). La matrice \( A^*A\) est hermitienne\footnote{Définition \ref{DEFooKEBHooWwCKRK}.} et le théorème \ref{LEMooVCEOooIXnTpp} nous assure que ses valeurs propres sont réelles. Par la remarque \ref{REMooMLBCooTuKFmz}, ses valeurs propres sont même positives.
+
+\begin{lemma}[\cite{ooLMMRooUXhOdx}]   \label{LEMooHUGEooVYhZdZ}
+    Si \( A\) est une matrice carré et inversible,
+    \begin{equation}
+        \Spec(A^*A)=\Spec(AA^*)
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Nous allons montrer l'égalité des polynômes caractéristiques. D'abord une simple multiplication montre que
+    \begin{equation}
+        (A^*A-\lambda\mtu)A^{-1}=A^{-1}(AA^*-\lambda\mtu).
+    \end{equation}
+    Nous prenons le déterminant de cette égalité en utilisant les propriétés \ref{PropYQNMooZjlYlA}\ref{ItemUPLNooYZMRJy} et \ref{ITEMooZMVXooLGjvCy} :
+    \begin{equation}
+        \det(A^*A-\lambda\mtu)\det(A^{-1})=\det(A^{-1})\det(AA^*-\lambda\mtu).
+    \end{equation}
+    En simplifiant par \( \det(A^{-1})\) (qui est non nul parce que \( A\) est inversible) nous obtenons l'égalité des polynômes caractéristiques et donc l'égalité des spectres.
 \end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
