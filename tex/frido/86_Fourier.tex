@@ -1,0 +1,801 @@
+% This is part of Mes notes de mathématique
+% Copyright (c) 2011-2015,2017
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+Soit \( f\) une fonction; nous définissons ses \defe{coefficients de Fourier}{coefficient!de Fourier} par
+\begin{equation}
+    c_n(f)=\frac{1}{ 2\pi }\int_0^{2\pi}f(t) e^{-int}
+\end{equation}
+avec plus de détails en \ref{subSecXAYasNI}. 
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Densité des polynômes trigonométriques}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Convergence pour les fonctions continues (via Weierstrass)}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Le résultat fondamental qui nous permet d'utiliser les polynômes trigonométriques comme base pour les fonctions \emph{continues} périodiques est le suivant. Notons que pour les fonctions non continues, il y a encore du travail.
+\begin{lemma}   \label{LemXGYaRlC}
+    Si \( f\colon \eR\to \eC\) est une fonction continue \( 2\pi\)-périodique et si \( \epsilon>0\), alors il existe un polynôme trigonométrique \( P\) tel que \( \| f-P \|_{\infty}\leq \epsilon\).
+\end{lemma}
+
+\begin{proof}
+    Nous allons utiliser le théorème de Stone-Weierstrass \ref{ThoWmAzSMF}. Soit le compact Hausdorff
+    \begin{equation}
+        S^1=\{ z\in \eC\tq | z |=1 \},
+    \end{equation}
+    et \( C(S^1,\eC)\) l'algèbre des fonctions continues de \( S^1\) vers \( \eC\). Il suffit de vérifier que les polynômes trigonométriques vérifient les hypothèse du théorème de Stone-Weierstrass. Un polynôme trigonométrique est un polynôme en \( z\) et \( \bar z\) défini sur \( S^1\).
+    \begin{enumerate}
+        \item
+            Le polynôme constant est dans l'algèbre, ok.
+        \item
+            Pour la séparation des points, le polynôme trigonométrique \( x\mapsto  e^{ix}\).
+        \item
+            Si \( P\) est un polynôme en \( z\) et \( \bar z\), alors \( \bar P\) l'est encore.
+    \end{enumerate}
+    Donc si \( \epsilon>0\) et \( \tilde f\in C(S^1,\eC)\) sont donnés, il existe un polynôme trigonométrique \( P\) tel que
+    \begin{equation}
+        \sum_t| \tilde f( e^{it})-P(t) |<\epsilon.
+    \end{equation}
+    Soit \( f\colon \eR\to \eC\) une fonction continue \( 2\pi\)-périodique. Nous considérons \( \tilde f\in C(S^1,\eC)\) donnée par \( \tilde f( e^{it})=f(t)\). Alors \( \sup_t| f(t)-P(t) |\leq \epsilon\).
+\end{proof}
+
+
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Convergence pour les fonctions continues (via Fejér)}
+%---------------------------------------------------------------------------------------------------------------------------
+Si nous ne voulons pas passer par le gros théorème de Stone-Weierstrass pour prouver la densité des polynômes trigonométrique dans \( \big( C^0_{2\pi},\| . \|_{\infty} \big)\), nous pouvons passer par le gros théorème de Fejér. C'est ce que nous faisons maintenant.
+
+Le \defe{noyau de Dirichlet}{noyau!Dirichlet}\index{Dirichlet!noyau} est la fonction
+\begin{equation}
+    D_n(t)=\sum_{k=-n}^n e^{int}.
+\end{equation}
+Le \defe{noyau de Fejér}{noyau!Fejér}\index{Fejér!noyau} est la moyenne de Cesaro des noyaux de Dirichlet :
+\begin{equation}
+    F_n(t)=\frac{1}{ n }\sum_{k=0}^{n-1}D_k(t).
+\end{equation}
+
+\begin{lemma}   \label{LemHPoIkwu}
+    Le noyau de Dirichlet s'exprime sous la forme
+    \begin{equation}    
+        D_n(t)=\sum_{k=-n}^n e^{-ikt}=\frac{ \sin\left( \frac{ 2n+1 }{ 2 }t \right) }{ \sin(t/2) }
+    \end{equation}
+\end{lemma}
+Note : ce noyau n'est pas positif.
+
+\begin{proof}
+    Nous commençons par mettre en facteur le premier terme :
+    \begin{equation}
+        D_n(t)=\sum_{k=-n}^n e^{int}= e^{-int}\sum_{k=0}^{2n} e^{ikt}.
+    \end{equation}
+    En utilisant la formule de la somme géométrique,
+    \begin{subequations}
+        \begin{align}
+            D_n(t)&= e^{-int}\frac{ 1-( e^{it})^{2n+1} }{ 1- e^{it} }\\
+            &= e^{-int}\frac{ 1- e^{(2n+1)it} }{ 1- e^{it} }\\
+            &= e^{-int}\frac{  e^{(2n+1)it/2} }{  e^{i\frac{ t }{ 2 }} }\frac{  e^{-(2n+1)it/2}- e^{(2n+1)it/2} }{  e^{-it/2}- e^{it/2} }\\
+            &=\frac{ (-2i)\sin\left( \frac{ 2n+1 }{ 2 }t \right) }{ (-2i)\sin\left( \frac{ t }{2} \right) }.
+        \end{align}
+    \end{subequations}
+\end{proof}
+
+\begin{theorem}[Théorème de Dirichlet]\index{théorème!Dirichlet}\index{Dirichlet!théorème}
+    Soit \( f\) une fonction \( 2\pi\)-périodique et \( C^1\) par morceaux. Pour tout \( x\in \eR\) nous posons
+    \begin{equation}
+        s_n(x)=\sum_{k=-n}^nc_k(f) e^{ikx}.
+    \end{equation}
+    Alors nous avons
+    \begin{equation}
+        \lim_{n\to \infty} s_n(x)=\frac{ f(x^+)+f(x^-) }{ 2 }.
+    \end{equation}
+\end{theorem}
+
+
+\begin{lemma}   \label{LemtCAjJz}
+    Le noyau de Fejér s'exprime sous la forme
+    \begin{equation}    \label{EqLOtzCf}
+        F_n(t)=\frac{1}{ n }\left( \frac{ \sin\frac{ nt }{2} }{ \sin\frac{ t }{2} } \right)^2.
+    \end{equation}
+\end{lemma}
+Note : ce noyau est positif. C'est important parce qu'on s'en sert dans la preuve du théorème de Fejér.
+
+\begin{proof}
+    L'astuce est de noter \( \sin(x)=\Im( e^{ix})\) et de repartir du résultat à propos du noyau de Dirichlet. En utilisant encore la formule de la série géométrique partielle,
+    \begin{subequations}
+        \begin{align}
+            F_n(t)&=\frac{1}{ n\sin(t/2) }\Im\sum_{k=0}^{n-1} e^{(2k+1)it/2}\\
+            &=\frac{1}{ n\sin(t/2) }\Im e^{\frac{ it }{ 2 }}\sum_{k=0}^{n-1}\\
+            &=\frac{1}{ n\sin(t/2) }\Im e^{\frac{ it }{ 2 }}\left( \frac{ 1- e^{nit} }{ 1- e^{it} } \right)\\
+            &=\frac{1}{ n\sin(t/2) }\Im e^{it/2}\frac{  e^{\frac{ nit }{ 2 }}\left(  e^{-\frac{ int }{2}}- e^{\frac{ nit }{2}} \right) }{  e^{\frac{ it }{2}}\left(  e^{-it/2}- e^{it/2} \right) }\\
+            &=\frac{1}{ n\sin(t/2) }\underbrace{\Im e^{\frac{ nit }{2}}}_{\sin(nt/2)}\frac{ \sin\left( \frac{ nt }{ 2 } \right) }{ \sin(\frac{ t }{2}) }\\
+            &=\frac{1}{ n }\left( \frac{ \sin\frac{ nt }{2} }{ \sin\frac{ t }{2} } \right)^2.
+        \end{align}
+    \end{subequations}
+\end{proof}
+
+
+\begin{theorem}[Fejèr]      \label{ThoJFqczow}
+    Soit une fonction continue et \( 2\pi\)-périodique \( f\colon \eR\to \eC\). Pour tout \( k\in \eZ\) nous notons
+    \begin{equation}
+        \begin{aligned}
+            e_k\colon \eR&\to \eC \\
+            x&\mapsto  e^{ikx}. 
+        \end{aligned}
+    \end{equation}
+    Pour chaque \( n\in \eN\) nous posons
+    \begin{subequations}
+        \begin{align}
+            D_n&=\sum_{k=-n}^ne_k& \tilde S_n(f)&=\sum_{k=-n}^nc_k(f)e_k\\
+            F_n&=\frac{  D_0+\cdots + D_{n-1} }{ n }&  \tilde F_n=\sigma_n(f)&=\frac{1}{ n }\sum_{k=0}^{n-1}S_k(f).
+        \end{align}
+    \end{subequations}
+    Alors
+    \begin{enumerate}
+        \item
+            $\frac{1}{ 2\pi }\int_{-\pi}^{\pi}F_n(t)dt=1$.
+        \item
+            Pour tout \( \alpha\in \mathopen] 0 , \pi \mathclose[\), \( F_n\) converge uniformément vers \( 0\) sur \( \mathopen[ -\pi , \pi \mathclose]\setminus\mathopen[ -\alpha , \alpha \mathclose]\).
+        \item
+            La suite \( \tilde F_n \) converge uniformément sur \( \eR\) vers \( f\).
+        \item   \label{ItemUNQSPmyiv}
+            Le système trigonométrique \( \{ e_k \}_{k\in\eZ}\) est total pour l'espace \( \big( C^0(S^1),\| . \|_{\infty} \big)\) des fonctions continues \( 2\pi\)-périodiques.
+    \end{enumerate}
+\end{theorem}
+\index{théorème!Fejér}
+
+\begin{proof}
+    Un calcul usuel montre que
+    \begin{equation}
+        \int_{-\pi}^{\pi}e_l(t)dt=\begin{cases}
+            0    &   \text{si } l\neq 0\\
+            2\pi    &    \text{si } l=0
+        \end{cases}
+    \end{equation}
+    Nous avons alors
+    \begin{equation}
+        \frac{1}{ 2\pi }\int_{-\pi}^{\pi}F_n(t)dt=\frac{1}{ 2\pi }\frac{1}{ n }\sum_{k=0}^{n-1}\sum_{l=-k}^k\underbrace{\int_{-\pi}^{\pi}e_l(t)dt}_{2\pi\delta_l}=\frac{1}{ n }\sum_{k=0}^{n-1}1=1.
+    \end{equation}
+    Cela prouve déjà le premier point.
+
+    Pour le second point, en partant de l'expression \eqref{EqLOtzCf} et en considérant \( x\in\mathopen[ -\pi, \pi ,  \mathclose]\setminus\mathopen[ -\alpha , \alpha \mathclose]\) (ce qui nous évite l'annulation du dénominateur),
+    \begin{equation}
+        | F_n(x) |\leq\frac{1}{ (n+1)\sin^2(\alpha/2) },
+    \end{equation}
+    et donc \( F_n\to 0\) uniformément sur l'ensemble considéré.
+
+    Nous passons maintenant à cette histoire de convergence uniforme de la moyenne de Cesaro vers \( f\). Pour tout \( n\in \eN\) nous avons
+    \begin{subequations}
+        \begin{align}
+            \tilde  D_n(x)&=\frac{1}{ 2\pi }\sum_{k=-n}^n\left( \int_{-\pi}^{\pi}f(t) e^{-ikt}dt \right) e^{ikx}\\
+            &=\frac{1}{ 2\pi }\int_{-\pi}^{\pi}f(t)\sum_{k=-n}^ne_k(x-t)\\
+            &=\frac{1}{ 2\pi }\int_{-\pi}^{\pi}f(t)D_k(x-t).
+        \end{align}
+    \end{subequations}
+    Par conséquent, en effectuant le changement de variable \( u=x-t\) et la périodicité,
+    \begin{subequations}    \label{EqkDsyAc}
+        \begin{align}
+            \tilde F_n(x)&=\int_{-\pi}^{\pi}f(t)F_n(x-t)dt\\
+            &=-\int_{x+\pi}^{x-\pi}f(x-u)F_n(u)du\\
+            &=\int_{-\pi}^{\pi}f(x-u) F_n(u)du.
+        \end{align}
+    \end{subequations}
+    Nous prouvons à présent l'uniforme continuité. Soit \( \epsilon>0\); étant donné que \( f\) est continue et \( 2\pi\)-périodique, elle est uniformément continue et nous considérons \( \delta>0\) tel que \( | x-y |<\delta\) implique \( \big| f(x)-f(y) \big|<\epsilon\). Soit \( M\) un majorant de \( | f |\) sur \( \eR\). L'équation \eqref{EqkDsyAc} nous donne
+    \begin{subequations}
+        \begin{align}
+            \big| f(x)-\tilde F_n(x) \big|&=\big| \frac{1}{ 2\pi }\int_{-\pi}^{\pi}\big( f(x-t)-f(x) \big)F_n(t)dt \big|    \label{ykuGGh}\\
+            &\leq\frac{1}{ 2\pi }\int_{\delta\leq| t |\leq \pi}| 2MF_n(t) |dt+\frac{1}{ 2\pi }\int_{-\delta}^{\delta}\epsilon| F_n(t) |dt\\
+            &\leq\frac{ 2M }{ 2\pi }\int_{\delta\leq | t |\leq\pi}F_n(t)dt+\epsilon'    \label{uRAMyq}
+        \end{align}
+    \end{subequations}
+    Pour obtenir \eqref{ykuGGh} nous avons pu rentrer \( f(x)\) dans l'intégrale en utilisant le premier point. Pour obtenir \eqref{uRAMyq} nous avons d'abord utilisé la positivité de \( F_n\) (lemme \ref{LemtCAjJz}) pour enlever les valeurs absolues, et nous avons ensuite utilisé le fait que son intégrale valait \( 2\pi\).
+
+    Étant donné que \( F_n\to 0\) uniformément sur \( \mathopen[ -\pi,\pi ,  \mathclose]\setminus\mathopen[ -\alpha , \alpha \mathclose]\), il existe un \( N\) tel que 
+    \begin{equation}
+        \int_{\delta\leq| t |\leq \pi}F_n(t)dt\leq \epsilon
+    \end{equation}
+    dès que \( n>N\). Le résultat découle.
+
+    Pour le point \ref{ItemUNQSPmyiv}, il suffit de remarquer que chacun des \( \tilde F_n\) est une combinaison finie d'éléments du système trigonométrique.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Densité dans \texorpdfstring{$ L^p$}{Lp}}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous venons de voir (de deux façons différentes) que les polynômes trigonométriques étaient dense dans \( \big( C^0_{2\pi}(\eR),\| . \|_{\infty} \big)\). Nous avons aussi déjà vu par le théorème \ref{ThoQGPSSJq} que ces polynômes trigonométriques étaient denses dans \( L^p(S^1)\). Nous présentons à présent une autre façon de prouver cette dernière densité.
+
+\begin{theorem}     \label{ThoDPTwimI}
+    Les polynômes trigonométriques sont denses dans \( L^p(S^1)\) pour \( 1\leq p <\infty\).
+\end{theorem}
+
+\begin{proof}
+    Par les théorèmes \ref{LemXGYaRlC} ou \ref{ThoJFqczow} (au choix), nous savons que les polynômes trigonométriques sont denses dans \( \big( C^0_{2\pi}(S^1),\| . \|_{\infty} \big)\). Vu que \( S^1\) est compact, la densité est également au sens \( L^p\). En effet si \( \| f_n-f \|_{\infty}\leq \epsilon\), alors
+    \begin{equation}
+        \| f_n-f \|_{\infty}=\int_0^{2\pi}| f_n-f |^p\leq\int_0^{2\pi}\epsilon^p=2\pi\epsilon^p.
+    \end{equation}
+    Donc les polynômes trigonométriques sont denses dans \( \big( C^0_{2\pi}(S^1),\| . \|_p \big)\). Mais nous savons par (un a fortiori sur) le théorème \ref{ThoILGYXhX} que les fonction continues sont denses dans \( L^p(S^1)\). 
+
+    Par densité de la densité, les polynômes trigonométriques sont denses dans \( L^p(S^1)\).
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Suite équirépartie, critère de Weyl}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Soit \( u\) une suite dans \( \mathopen[ 0 , 1 \mathclose]\). Pour \( 0\leq a\leq b\leq 1\) nous posons
+    \begin{equation}
+        X_n(a,b)=\Card\big\{  k\in\{ 1,\ldots, n \}\tq u_k\in\mathopen[ a , b \mathclose] \big\}.
+    \end{equation}
+    Nous disons que la suite \( u\) est \defe{équirépartie}{suite!équirépartie} si pour tout \( 0\leq a<b<1\), on a
+    \begin{equation}
+        \lim_{n\to \infty} \frac{ X_n(a,b) }{ n }=b-a.
+    \end{equation}
+\end{definition}
+Voir aussi la remarque \ref{RemUXAkcuH} sur les nombres normaux.
+
+\begin{proposition}[Critère de Weyl\cite{ytMOpe,KXjFWKA}]  \label{PropDMvPDc}
+    Soit \( (x_n)\) une suite dans \( \mathopen[ 0 , 1 [\). Les conditions suivantes sont équivalentes.
+    \begin{enumerate}
+        \item   \label{ItemKWcZTHqi}
+            La suite \( (x_n)\) est équirépartie.
+        \item\label{ItemKWcZTHqii}
+            Pour toute fonction continue à valeurs réelles sur \( \mathopen[ 0 , 1 \mathclose]\),
+            \begin{equation}    \label{EqBSqdjpn}
+                \lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^nf(x_k)=\int_0^1f(x)dx.
+            \end{equation}
+        \item\label{ItemKWcZTHqiii}
+            Pour tout \( p\in\eN^*\) nous avons
+            \begin{equation}
+                \lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^n e^{2i\pi px_k}=0.
+            \end{equation}
+    \end{enumerate}
+\end{proposition}
+\index{convergence!suite numérique}
+\index{intégrale!calcul}
+\index{densité!dans un espace de fonction!critère de Weyl}
+\index{suite!équirépartie!critère de Weyl}
+
+\begin{proof}
+    On pose 
+    \begin{equation}
+        S_n(f)=\frac{1}{ n }\sum_{k=1}^nf(x_k).
+    \end{equation}
+
+
+    \begin{subproof}
+    \item[Une espèce de lemme]
+
+        Supposons connaitre un ensemble de fonctions \( A\) dense dans \( C^0(\mathopen[ 0 , 1 \mathclose])\) pour toutes les fonctions duquel nous avons la limite \eqref{EqBSqdjpn}. Alors la limite a lieu pour toute fonction de \( C^0(\mathopen[ 0 , 1 \mathclose])\). En effet, soit \( f\in C^0(\mathopen[ 0 , 1 \mathclose])\) et \( g\in A\) tel que \( \| f-g \|_{\infty}<\epsilon\). Alors
+        \begin{subequations}
+            \begin{align}
+                \left\|   \frac{1}{ n }\sum_{k=1}^nf(x_k)-\int_0^1f(t)dt  \right\|&\leq \left\| \frac{1}{ n }\sum_{k=1}^n\big( f(x_k)-g(x_k)\big) \right\|\\
+                &\quad+ \left\| \frac{1}{ n }\sum_{k=1}^n  g(x_k)-\int_0^1g(t)dt   \right\|\\
+                &\quad+ \left\| \int_0^1g(t)dt-\int_0^1f(t)dt \right\|.
+            \end{align}
+        \end{subequations}
+        Le premier terme se majore par \( \epsilon\). Le troisième est la même majoration : \( \int_0^1\big(  f(t)-g(t)\big)dt\leq \| f-g \|_{\infty}=\epsilon\). Par hypothèse sur l'espace \( A\), le second terme se majore par \( \epsilon\) lorsque \( n\) est grand.
+        
+
+    \item[\ref{ItemKWcZTHqi}\( \Rightarrow\)\ref{ItemKWcZTHqii}]
+    Nous supposons que la suite est équirépartie et nous commençons par montrer le résultat pour les fonctions en escalier. Soit donc la fonction en escalier \( \eta(x)=c_j\) sur \( a_{j-1}< x<a_j\). Sur le point \( a_j\) lui-même, la fonction \( \eta\) vaut soit \( c_j\) soit \( c_{j+1}\). Nous avons
+    \begin{equation}    \label{EqohMuel}
+        \frac{1}{ n }\sum_{k=1}^n\eta(x_k)=\frac{1}{ n }\left[  \sum_{j=1}^mc_jX_n(a_j,a_{j+1})-\sum_{j=1}^mc_jX_n(a_j,a_j)+\sum_{j=1}^m\eta(a_j)X_n(a_j,a_j) \right].
+    \end{equation}
+    À la limite \( n\to\infty\), les deux derniers termes tombent\quext{J'en profite pour mentionner que mon équation \eqref{EqohMuel} n'est pas la même que celle de \cite{ytMOpe} dans laquelle il me semble voir une faute; quoi qu'il en soit, les termes litigieux tombent.} et il reste
+    \begin{equation}
+        \lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^n\eta(x_k)=\sum_{j=1}^mc_j(a_{j-1}-a_j).
+    \end{equation}
+    Or par construction, pour une fonction en escalier,
+    \begin{equation}
+        \sum_{j=1}^mc_j(a_{j-1}-a_j)=\int_0^1\eta.
+    \end{equation}
+    
+    Étant donné que les fonctions en escalier sont denses dans les fonctions continues, l'espèce de lemme plus haut conclut.
+    
+    \item[\ref{ItemKWcZTHqii}\( \Rightarrow\)\ref{ItemKWcZTHqi}]
+    Nous prouvons maintenant le sens inverse. C'est à dire que pour toute fonction continue sur \( \mathopen[ 0 , 1 \mathclose]\), nous avons
+    \begin{equation}
+        \int_0^1f(x)dx=\lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^nf(x_k).
+    \end{equation}
+    Nous devons en déduire que \( (x_n)\) est équirépartie. Pour ce faire, soit \( x\in \mathopen[ 0 , 1 [\) et \( \epsilon>0\) tel que \( x+\epsilon<1\). Nous considérons \( \varphi=\mtu_{\mathopen[ x , 1 [}\) et
+    \begin{equation}
+        \varphi_{\epsilon(t)}=\begin{cases}
+            0    &   \text{si } t\in\mathopen[ 0 , x [\\
+            \frac{ t-x }{ \epsilon }    &   \text{si } t\in \mathopen[ x , x+\epsilon [\\
+            1    &    \text{si } t\geq x+\epsilon.
+        \end{cases}
+    \end{equation}
+    Cela est une fonction continue, donc
+    \begin{equation}
+        \lim_{n\to \infty} S_n\big( \varphi_{\epsilon}(t) \big)=\int_0^1\varphi_{\epsilon}(t)dt=\int_{x}^{x+\epsilon}\frac{ t-x }{ \epsilon }dt+\int_{x+\epsilon}^11dt=1-x-\frac{ \epsilon }{2}.
+    \end{equation}
+    Mais \( \varphi_{\epsilon}\leq \varphi\), donc \( S_n(\varphi_{\epsilon})\leq S_n(\varphi)\) et donc
+    \begin{equation}
+        \liminf_{n\to \infty}S_n(\varphi)\geq 1-x.
+    \end{equation}
+    Notons que nous ne savons pas si la \emph{vraie} limite de gauche existe; c'est pourquoi nous prenons la limite inférieure, qui existe toujours.
+
+    Nous définissons aussi
+    \begin{equation}
+        \psi_{\epsilon}(t)=\begin{cases}
+            0    &   \text{si } t\in \mathopen[ 0 , x-\epsilon [\\
+            \frac{ t-x+\epsilon }{ \epsilon }    &   \text{si } t\in\mathopen[ x-\epsilon , x [\\
+            1    &    \text{si } t>x.
+        \end{cases}
+    \end{equation}
+    C'est encore une fonction continue et nous trouvons\footnote{Je recommande chaudement de dessiner les fonctions \( \varphi_{\epsilon}\) et \( \psi_{\epsilon}\) pour avoir une idée de la situation.}
+    \begin{equation}
+        \int_0^1\psi_{\epsilon}(t)dt=1-x+\frac{ \epsilon }{2}.
+    \end{equation}
+    Vu que \( \psi_{\epsilon}\geq\varphi\), nous avons \( S_n(\psi_{\epsilon})\geq S_n(\varphi)\) et donc
+    \begin{equation}
+        \limsup_{n}S_n(\varphi)\leq 1-x.
+    \end{equation}
+    Nous avons déjà obtenu que
+    \begin{equation}
+        1-x\leq\liminf S_n(\varphi)\leq \limsup S_n(\varphi)\leq 1-x,
+    \end{equation}
+    donc la limite existe et vaut
+    \begin{equation}
+        \lim_{n\to \infty} S_n(\varphi)=1-x.
+    \end{equation}
+    Cela est pour la fonction caractéristique \( \varphi=\mtu_{\mathopen[ x , 1 [}\). Si nous prenons une fonction caractéristique \( \mtu_{\mathopen[ a , b \mathclose]}\), nous avons la même chose parce que \( \mtu_{\mathopen[ a , b [}\) est une combinaisons linéaire de fonctions du type \( \mtu_{\mathopen[ x , 1 [}\).
+
+    Nous avons donc
+    \begin{equation}
+        \lim_{n\to \infty} S_n\big( \mtu_{\mathopen[ a , b \mathclose]} \big)=b-a,
+    \end{equation}
+    alors que le membre de gauche n'est autre que
+    \begin{equation}
+        S_n\big( \mtu_{\mathopen[ a , b \mathclose]} \big)=\frac{1}{ n }\sum_{k=1}^n\mtu_{\mathopen[ a , b \mathclose]}(x_k)=\frac{1}{ n }N(n,a,b).
+    \end{equation}
+
+    \item[\ref{ItemKWcZTHqii}\( \Rightarrow\)\ref{ItemKWcZTHqiii}]
+
+        Vu que \(  e^{2i\pi px_k}=\cos(2\pi px_k)+\sin(2\pi ix_k)\) est une fonction périodique, c'est immédiat.
+    \item[\ref{ItemKWcZTHqiii}\( \Rightarrow\)\ref{ItemKWcZTHqii}]
+        Par linéarité, le point \ref{ItemKWcZTHqii} montre que si \( f\) est un polynôme trigonométrique, alors
+        \begin{equation}
+            \lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^nf(x_k)=\int_0^1f(t)dt.
+        \end{equation}
+    \item[Densité des polynômes trigonométriques]
+
+        Il nous reste à prouver que les polynômes trigonométriques sont denses dans les fonction continues sur \( \mathopen[ 0 , 1 \mathclose]\). Soit une fonction continue sur \( \mathopen[ 0 , 1 \mathclose]\) avec \( f(0)=f(1)\). Alors le théorème de Stone-Weierstrass dans sa version trigonométrique (lemme \ref{LemXGYaRlC}) nous donne la densité.
+
+        Si \( f(1)\neq f(0)\) c'est pas très grave : on peut trouver une fonction \( g\) vérifiant \( g(0)=g(1) \) et \( \| f-g \|_{\infty}\leq \epsilon\). Ensuite un polynôme trigonométrique approxime très bien \( g\).
+        .
+    \end{subproof}
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Fonctions de Dirichlet}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Une fonction \( f\colon \eR\to \eC\) est une \defe{fonction de Dirichlet}{fonction!de Dirichlet} si
+    \begin{enumerate}
+        \item
+            elle est \( 2\pi\)-périodique,
+        \item
+            elle est continue par morceaux,
+        \item
+            pour tout \( x\in \eR\) nous avons
+            \begin{equation}
+                f(x)=\frac{ f(x^+)+f(x^-) }{2}.
+            \end{equation}
+    \end{enumerate}
+    Nous notons \( \mD\) l'ensemble des fonctions de Dirichlet.
+\end{definition}
+
+\begin{lemma}[\cite{NJsYInp}]   \label{LemVIwMsTC}
+    L'ensemble \( C^0(S^1)\) est dense dans \( \big( \mD,\| . \|_2 \big)\).
+\end{lemma}
+
+\begin{proof}
+    Nous commençons par supposer que \( f\in\mD\) n'ait qu'un seul point de discontinuité, \( x_0\). Alors nous considérons la fonction \( f_n\) qui est égale à \( f\) sur \( S^1\setminus B(x_0,\frac{1}{ n })\) et qui sur \( B(x_n,\frac{1}{ n })\) est le segment de droite joignant \( f(x_0-\frac{1}{ n })\) et \( f(x_0+\frac{1}{ n })\). Cela est une fonction continue, et de plus nous avons
+    \begin{equation}
+        | f_n(x) |\leq \| f \|_{\infty}
+    \end{equation}
+    pour tout \( x\). En effet si \( x\) est en dehors de \( B(x_0,\frac{1}{ n })\) c'est évident, et si \( x\in B(x_0,\frac{1}{ n })\), alors \( | f_n(x) |\) est majoré soit par \( f(x_0-\frac{1}{ n })\) soit par \( f(x_0+\frac{1}{ n })\) suivant que le raccord affin soit croissant ou décroissant. Avec ça nous avons
+    \begin{equation}
+        \| f_n-f \|_2^2=\int_{x_0-1/n}^{x_0+1/n}| f(x)-f_n(x) |^2dx\leq \int_{x_0-1/n}^{x_0+1/n}4\| f \|_{\infty}=\frac{ 8\| f \|_{\infty} }{ n }.
+    \end{equation}
+    Et nous voyons que \( \| f_n-f \|_2\to 0\).
+
+    Si \( f\) contient plusieurs points de continuité, on fait le même coup autour de chaque point, en prenant \( n\) assez grand pour que si \( x_0\) est un point de discontinuité, \( B(x_0,\frac{1}{ n })\) n'en contienne pas d'autres.
+\end{proof}
+
+Notons que la densité de \( C^0(S^1)\) dans \( \big( \mD,\| . \|_{\infty} \big)\) est impossible parce qu'une limite uniforme de fonctions continue est continue.
+
+\begin{theorem}
+    Le système trigonométrique \( \{ e_n \}_{n\in \eZ}\) est total dans \( \big( \mD,\| . \|_2 \big)\).
+\end{theorem}
+
+\begin{proof}
+    Soit \( f\in\mD\). Si elle est continue, le théorème de Fejèr \ref{ThoJFqczow} nous donne convergence uniforme sur \( S^1\) d'une suite de polynômes trigonométriques vers \( f\). Cette convergence est également une convergence \( L^2\) parce que \( S^1\) est compact.
+
+    Prenons donc \( f\in \mD\) non continue et \( \epsilon>0\)\footnote{Par exemple \( \epsilon=0.4\), mais ce n'est qu'un exemple hein. Si vous en voulez un autre, prenez \( p\), un nombre premier puis calculez \( \epsilon=1/p\).}. Par le lemme \ref{LemVIwMsTC}, il existe une fonction \( g\in C^0(S^1)\) telle que
+    \begin{equation}
+        \| g-f \|_2\leq \epsilon.
+    \end{equation}
+    Le théorème de Fejèr donne aussi un polynôme trigonométrique \( P\) tel que \( \| P-g \|_2<\epsilon\); nous avons alors
+    \begin{equation}
+        \| P-f \|_2\leq \| P-g \|_{2}+\| g-f \|_2\leq 2\epsilon.
+    \end{equation}
+\end{proof}
+
+Notons que cette histoire de fonctions de Dirichlet n'a pas attaquée le vrai fond du problème de la densité des polynômes trigonométriques dans \(  L^2(S^1)\) parce que nous restons avec une hypothèse de continuité, alors que les représentants des éléments de \( L^2(S^1)\) n'ont strictement aucune régularité a priori.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Coefficients et série de Fourier}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    La \defe{série de Fourier}{série!de Fourier} associée à \( f\) est
+    \begin{equation}
+        f(x)\sim\sum_{n=-\infty}^{\infty}c_n(f) e^{2\pi i\frac{ n }{ T }x}.
+    \end{equation}
+\end{definition}
+Cette expression est pour l'instant purement formelle. Cela ne présume ni de la convergence de la série, ni, au cas où elle serait convergente, que la limite soit \( f\).
+
+Pour la suite nous allons considérer des fonctions périodiques de période \( 2\pi\), et les coefficients de Fourier de \( f\) (quand ils existent) sont alors
+\begin{equation}    \label{EqNDBaXRL}
+    c_n(f)=\frac{1}{ 2\pi }\int_0^{2\pi}f(t) e^{-int}dt
+\end{equation}
+
+\begin{proposition}[\cite{DupFourEsdgKEI}]  \label{PropmrLfGt}
+    Soit \( f\) une fonction continue et périodique telle que sa série de Fourier converge uniformément. Alors la convergence est vers \( f\).
+\end{proposition}
+%TODO : ajouter ce théorème à Wikipédia, et le lier dans l'article sur la formule sommatoire de Poisson.
+
+\begin{proof}
+    Notons d'abord que \( f\) étant continue sur \(\mathopen[ 0 , 2\pi \mathclose]\), elle y est bornée et \( L^2\). Par conséquent Parseval nous enseigne que 
+    \begin{equation}
+        \| S_N(f)-f \|_{L^2}\to 0.
+    \end{equation}
+    Cela signifie que
+    \begin{equation}
+        \lim_{N\to \infty} \frac{1}{ 2\pi }\int_{0}^{2\pi}| f(t)-S_N(t) |^2dt=0.
+    \end{equation}
+    L'hypothèse de convergence uniforme nous dit que la fonction \( | f(t)-S_N(t) |^2\) converge uniformément vers la fonction \( | f(t)-S(t) |^2\) où nous avons écrit \( S\) la limite de \( S_N\). En permutant la limite et l'intégrale,
+    \begin{equation}
+        \frac{1}{ 2\pi }\int_0^{2\pi}| f(t)-S(t) |^2dt=0,
+    \end{equation}
+    ce qui signifie que la fonction \( t\mapsto | f(t)-S(t) |^2\) est la fonction nulle. Nous en déduisons que \( f=S\).
+\end{proof}
+
+\begin{proposition}     \label{PropSgvPab}
+    Soit \( f\) une fonction \( 2\pi\)-périodique. Si \( \sum_{n\in \eZ}| c_n(f) |<\infty\), alors pour tout \( x\in \eR\) nous avons
+    \begin{equation}
+        f(x)=\sum_{n\in \eZ}c_n(f) e^{inx}.
+    \end{equation}
+    De plus, la suite \( (S_nf)\) converge uniformément vers \( f\).
+\end{proposition}
+
+\begin{proof}
+    Nous posons 
+    \begin{equation}
+        g(x)=\sum_{n\in \eZ}c_n(f) e^{inx}.
+    \end{equation}
+    Étant donné les hypothèses, la série de droite converge absolument, la fonction \( g\) est continue sur \( \eR\). Nous avons
+    \begin{equation}
+        \big| g(x)-(S_nf)(x) \big|\leq \sum_{| k |> n}| c_k(f) |,
+    \end{equation}
+    mais le terme de droite tend vers zéro lorsque \( n\to \infty\) parce que c'est le reste d'une série convergente. Cela signifie que \( S_nf\) converge uniformément vers \( g\).
+
+    Par ailleurs nous savons que dans \( L^2\) nous avons la convergence \( S_nf\to f\) (parce que \( f\) est continue sur le compact \( \mathopen[ 0 , 2\pi \mathclose]\) et donc y est bornée et \( L^2\)), ce qui signifie que \( g=f\) presque partout au sens \( L^2\). Ces deux fonctions étant continues, elles sont égales partout.
+\end{proof}
+
+\begin{theorem}     \label{ThozHXraQ}
+    Soit \( f\), une fonction \( C^1\) et \( 2\pi\)-périodique. Nous notons \( (c_n)_{n\in \eZ}\) la suite de ses coefficients de Fourier. Alors \( (c_n)\in \ell^1(\eZ)\) et pour tout \( x\in \eR\) nous avons
+    \begin{equation}
+        f(x)=\sum_{n\in \eZ}c_n(f) e^{inx}.
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Soit \( n\in \eZ\). Nous posons \( g(t)=f(t) e^{-int}\). Nous avons
+    \begin{equation}
+        0=g(2\pi)-g(0)=\int_0^{2\pi}g'(t)dt=\int_0^{2\pi}\big[ f'(t) e^{-int}-inf(t) e^{-int} \big].
+    \end{equation}
+    Du coup, \( c_n(f')=inc_n(f)\). La fonction \( f'\) étant bornée (parce que continue sur \( \mathopen[ 0 , 2\pi \mathclose]\)), elle est de carré intégrable sur \( \mathopen[ 0 , 2\pi \mathclose]\) et par les inégalités de Parseval (théorème \ref{ThoyAjoqP}) nous avons
+    \begin{equation}
+        \sum_{n\in \eZ}| c_n(f') |^2<\infty.
+    \end{equation}
+    Par conséquent \( (c_n(f'))\in \ell^2(\eZ)\) et a fortiori \( (c_n(f'))_{n\in \eN}\in \ell^2(\eN)\). L'inégalité de Cauchy-Schwartz nous indique alors
+    \begin{equation}
+        \sum_{n\in \eN}| c_n(f) |=\sum_{n\in \eN}\frac{1}{ n }| c_n(f') |\leq \left( \sum_n\frac{1}{ n^2 } \right)^{1/2}\left( \sum_{n}| c_n(f') |^2 \right)^{1/2}<\infty.
+    \end{equation}
+    Nous procédons de même pour \( n<0\). Cela prouve que 
+    \begin{equation}
+        \sum_{n\in \eZ}| c_n(f) |<\infty.
+    \end{equation}
+\end{proof}
+
+\begin{corollary}   \label{CordgtXlC}
+    Soient \( f,g\) deux fonctions continues et \( 2\pi\)-périodiques. Si \( c_n(f)=c_n(g)\) alors \( f=g\).
+\end{corollary}
+
+\begin{proof}
+    Dans le cas de fonctions continues, le théorème de Fejér nous enseigne que si nous posons 
+    \begin{equation}
+        S_n(x)=\sum_{k=-n}^{n}c_k(f) e^{ikx}
+    \end{equation}
+    alors nous avons la convergence
+    \begin{equation}
+        \frac{1}{ N+1 }\sum_{n=0}^NS_n(f)(x)\to f(x).
+    \end{equation}
+    C'est à dire qu'une fonction continue est déterminée par ses coefficients de Fourier.
+\end{proof}
+
+\begin{example}
+    Considérons la fonction
+    \begin{equation}
+        f(x)=1-\frac{ x^2 }{ \pi^2 }
+    \end{equation}
+    sur \( \mathopen[ -\pi , \pi \mathclose]\). Nous la développons en série trigonométrique, et étant paire il n'y a pas de sinus. Un calcul montre que
+    \begin{equation}
+        a_0=\frac{ 4 }{ 3 }
+    \end{equation}
+    et
+    \begin{equation}
+        a_n=(-1)^{n+1}\frac{ 4 }{ n^2\pi^2 },
+    \end{equation}
+    de telle sorte que
+    \begin{equation}
+        f(x)=\frac{ 2 }{ 3 }-\frac{ 4 }{ \pi^2 }\sum_{n=1}^{\infty}(-1)^n\frac{ \cos(nx) }{ n^2 }.
+    \end{equation}
+    Nous avons \( f(\pi)=0\), mais vu le développement,
+    \begin{equation}
+        f(\pi)=\frac{ 2 }{ 3 }-\frac{ 4 }{ \pi^2 }\sum_{n=1}^{\infty}\frac{1}{ n^2 },
+    \end{equation}
+    donc
+    \begin{equation}
+        \sum_{n=1}^{\infty}\frac{1}{ n^2 }=\frac{ \pi^2 }{ 6 }.
+    \end{equation}
+\end{example}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Le contre-exemple que nous attendions tous}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous montrons maintenant que la continuité et la périodicité ne sont pas suffisantes pour avoir convergence de la série de Fourier.
+
+\begin{proposition}[\cite{KXjFWKA}] \label{PropREkHdol}
+    Soit \( C^0_{2\pi}\) l'ensemble des fonctions continues muni de la norme uniforme. Nous définissons
+    \begin{equation}
+        S_n(f)(x)=\sum_{k=-n}^nc_k(f) e^{ikx}.
+    \end{equation}
+    Alors il existe \( f\in C^0_{2\pi}\) tel que la suite \(n\mapsto S_n(f)(0)\) soit divergente. En particulier \( f\) n'est pas la somme de sa série de Fourier.
+\end{proposition}
+
+\begin{proof}
+    Nous considérons la forme linéaire
+    \begin{equation}
+        \begin{aligned}
+            l_n\colon C^0_{2\pi}&\to \eC \\
+            f&\mapsto S_n(f)(0)=\sum_{k=-n}^nc_k(f). 
+        \end{aligned}
+    \end{equation}
+    \begin{subproof}
+        \item[La forme est continue]
+            
+            Nous montrons d'abord que \( \| l_n \|\) est continue en montrant que \( \| l_n \|<\infty\) et en utilisant la proposition \ref{PROPooQZYVooYJVlBd}. Pour cela nous calculons un peu :
+            \begin{equation}    \label{EqBELHGya}
+                l_n(f)=\sum_{k=-n}^n\frac{1}{ 2\pi }\int_{-\pi}^{\pi}f(t) e^{-ikt}dt=\frac{1}{ 2\pi }\int_{-\pi}^{\pi}f(t)\sum_{k=-n}^n e^{-ikt}dt=\frac{1}{ 2\pi }\int_{-\pi}^{\pi}f(t)D_n(t)dt
+            \end{equation}
+            où \( D_n(t)\) est le noyaux de Dirichlet dont nous savons une formule par le lemme \ref{LemHPoIkwu}. Nous avons donc
+            \begin{equation}
+                | l_n(f) |\leq \frac{1}{ 2\pi }\int_{-\pi}^{\pi}| D_n(t) |\| f \|_{\infty}dt.
+            \end{equation}
+            En prenant \( \| f \|_{\infty}=1\) nous avons la borne suivante pour la norme de \( l_n\) :
+            \begin{equation}        \label{EqBXoIUiD}
+                \| l_n \|\leq \frac{1}{ 2n }\int_{-\pi}^{\pi}| D_n(t) |dt<\infty.
+            \end{equation}
+            Notons que la convergence de l'intégrale vient de la continuité de la fonction
+            \begin{equation}
+                t\mapsto \frac{ \sin\left( \frac{ 2n+1 }{2}t \right) }{ \sin\left( \frac{ t }{ 2 } \right) }
+            \end{equation}
+            qui, elle même, se prouve avec une règle de l'Hospital :
+            \begin{equation}
+                \lim_{t\to 0} \frac{ \sin(at) }{ \sin(t) }=\lim_{t\to 0} \frac{ a\cos(at) }{ \cos(t) }=a.
+            \end{equation}
+            Donc \( D_n(t)\) a une limite bien définie pour \( t\to 0\) et est alors une fonction continue sur le compact \( \mathopen[ -\pi , \pi \mathclose]\).
+
+        \item[La norme de \( l_n\) (début)]
+
+            Nous avons prouvé que \( \| l_n \|\leq \frac{1}{ 2\pi }\int_{-\pi}^{\pi}| D_n(t) |dt\). Nous allons à présent prouver que cela est effectivement la norme de \( l_n\). Pour \( \epsilon>0\) nous considérons la fonction
+            \begin{equation}
+                \begin{aligned}
+                    f_{\epsilon}\colon \eR&\to \eC \\
+                    x&\mapsto \frac{ D_n(x) }{ | D_n(x) |+\epsilon }. 
+                \end{aligned}
+            \end{equation}
+            C'est une fonction continue et \( 2\pi\)-périodique satisfaisant \( \| f_{\epsilon} \|\leq 1\) parce que le dénominateur est toujours plus grand que le numérateur. Nous nous proposons de calculer
+            \begin{equation}
+                l_n(f_{\epsilon})=\sum_{k=-n}^n\frac{1}{ 2\pi }\int_{-\pi}^{\pi}f_{\epsilon}(t) e^{-ikt}dt.
+            \end{equation}
+            Vu que \( f_{\epsilon}(t) e^{-ikt}\) vaut en norme \( | f_{\epsilon}(t) |\) qui est une fonction intégrable (ne dépendant pas de \( k\)) sur \( \mathopen[ -\pi , \pi \mathclose]\), le théorème de la convergence dominée \ref{ThoConvDomLebVdhsTf} nous permet de permuter la somme et l'intégrale :
+            \begin{equation}
+                l_n(f_{\epsilon})=\frac{1}{ 2\pi }\int_{-\pi}^{\pi}\frac{ D_n(t) }{ | D_n(t) |+\epsilon }\underbrace{\sum_{k=-n}^n e^{-ikt}}_{=D_n(t)}dt=\frac{1}{ 2\pi }\int_{-\pi}^{\pi}\frac{ \big| D_n(t) \big|^2 }{ | D_n(t) |+\epsilon }dt.
+            \end{equation}
+            Nous avons donc
+            \begin{equation}
+                \lim_{\epsilon\to 0}l_n(f_{\epsilon})=\frac{1}{ 2\pi }\int_{-\pi}^{\pi}| D_n(t) |dt.
+            \end{equation}
+            Mais vue l'inégalité \eqref{EqBXoIUiD} nous avons
+            \begin{equation}
+                \| l_n \|=\frac{1}{ 2\pi }\int_{-\pi}^{\pi}| D_n(t) |dt.
+            \end{equation}
+            Notre tâche est maintenant de donner une valeur à cette intégrale.
+
+        \item[Norme de \( l_n\) tend vers \( \infty\)]
+
+            Nous utilisons la divergence de l'intégrale du sinus cardinal \eqref{EqKNOmLEd}. D'abord nous écrivons
+            \begin{equation}
+                \| l_n \|=\frac{1}{ 2\pi }\int_{-\pi}^{\pi}\frac{ \left| \sin\left( \frac{ 2n+1 }{2}t \right) \right|  }{ \big| \sin(t/2) \big| }dt,
+            \end{equation}
+            ensuite nous nous souvenons que \( | \sin(x) |\leq | x |\) pour tout \( x\), ce qui nous permet de changer le dénominateur :
+            \begin{equation}
+                \| l_n \|\geq \frac{ 2 }{ \pi }\int_0^{\pi}\frac{ \left| \sin\left( \frac{ 2n+1 }{2}t \right) \right|  }{ | t | }dt
+            \end{equation}
+            Nous y effectuons le changement de variable \( u=\frac{ 2n+1 }{2}t\) qui donne
+            \begin{equation}
+                \| l_n \|\geq \frac{ 2 }{ \pi }\int_{0}^{(n+\frac{ 1 }{2})\pi}\frac{ \big| \sin(u) \big| }{ | u | }.
+            \end{equation}
+            Utilisant cette histoire de sinus cardinal nous avons
+            \begin{equation}
+                \lim_{n\to \infty} \| l_n \|=\infty.
+            \end{equation}
+            
+
+        \item[La conclusion]
+
+            L'espace \( \big( C^0_{2\pi},\| . \|_{\infty} \big)\) est complet\footnote{Parce qu'une limite uniforme de fonctions continues est continue, théorème \ref{ThoUnigCvCont}.}, donc le théorème de Banach-Steinhaus \ref{ThoPFBMHBN} s'applique. Par rapport aux notations de l'énoncé de Banch-Steinhaus, nous posons
+            \begin{subequations}
+                \begin{align}
+                    E=\big( C^0_{2\pi},\| . \|_{\infty} \big)\\
+                    F=\eR\\
+                    H=\{ l_n \}_{n\in \eN}.
+                \end{align}
+            \end{subequations}
+            Vu que la suite \( (\| l_n \|)\) n'est pas bornée, il existe \( f\in C^0_{2\pi}\) tel que
+            \begin{equation}
+                \sup_n\| l_n(f) \|=\infty.
+            \end{equation}
+            Pour cette fonction nous avons
+            \begin{equation}
+                \sup_{n\geq 0}S_n(f)(0)=\infty,
+            \end{equation}
+            et donc la série de Fourier de \( f\) ne converge pas en zéro.
+
+        \end{subproof}
+\end{proof}
+
+%TODO : un peu partout lorsqu'on démontre des densités, ajouter à l'index ``densité ! de .. dans ..''
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Inégalité isopérimétrique}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Une \defe{courbe de Jordan}{courbe!de Jordan}\index{Jordan!courbe} dans le plan est une application \( \gamma\colon S^1\to \eR^2\) qui est continue et injective.
+\end{definition}
+Une telle courbe peut évidemment être vue comme une application \( \gamma\colon \mathopen[ 0 , 2\pi ]\to \eR^2\) telle que \( \gamma(0)=\gamma(2\pi)\). En particulier il n'est jamais mauvais de se rappeler qu'on peut choisir une paramétrisation normale par la proposition \ref{PropExisteChmNorm}.
+
+\begin{theorem}[Théorème de Jordan\cite{HDJTbua}]   \label{ThoHSPWBuh}
+    Si \( \gamma\) est une courbe de Jordan, alors l'ensemble \( \eR^2\setminus \gamma\) a exactement deux composantes connexes. L'une est bornée, l'autre non. Les deux ont \( \gamma\) comme frontière.
+\end{theorem}
+\index{théorème!Jordan}
+
+Le théorème suivant dit que parmi les courbes \( C^1\), le cercle a la plus grande surface possible à périmètre donné.
+\begin{theorem}[Inégalité isopérimétrique\cite{KXjFWKA}]    \label{ThoIXyctPo}
+    Soit \( f\colon S^1\to \eC \) une courbe de Jordan de classe \( C^1\). Nous notons \( L\) sa longueur et \( S\) l'aire contenue de la surface délimitée\footnote{C'est la partie connexe bornée de \( \eC\setminus\gamma\) dont l'existence est donnée par le théorème de Jordan \ref{ThoHSPWBuh}.} par \( f\). Alors
+    \begin{enumerate}
+        \item
+            Nous avons l'\defe{inégalité isopérimétrique}{inégalité!isopérimétrique} : \( L^2\geq 4\pi S\).
+        \item
+            Nous avons l'égalité \( L^2=4\pi S\) si et seulement si la courbe donnée par \( f\) est un cercle.
+    \end{enumerate}
+\end{theorem}
+\index{base!hilbertienne!utilisation}
+\index{inégalité!isopérimétrique}
+\index{géométrique!avec des nombres complexes}
+\index{courbe!étude métrique}
+\index{série!de Fourier!utilisation}
+\index{Fourier!série!utilisation}
+
+\begin{proof}
+    Nous commençons par considérer un chemin dont la longueur est \( 2\pi\) et nous en considérons sa paramétrisation normale. Nous allons exprimer l'aire \( S\) en utilisant le théorème de Green, et plus particulièrement la formule de surface \eqref{EqAJGrtOk}.
+
+    Si \( f(s)=x(s)+iy(s)\), nous devons intégrer \( y'x-x'y\), qui n'est rien d'autre que la partie imaginaire de \( f'(s)\overline{ f(s) }\). Donc
+    \begin{equation}    \label{EqCSWKbPX}
+        S=\frac{ 1 }{2}\imag\int_0^{2\pi}f'(s)\overline{ f(s) }ds
+    \end{equation}
+    Nous considérons les coefficients de Fourier de \( f\) donnés par la formule \eqref{EqNDBaXRL} :
+    \begin{equation}
+        c_n(f)=\frac{1}{ 2\pi }f(s) e^{-ins}.
+    \end{equation}
+    Ceux de \( f'\) (qui est aussi continue sur le compact \( S^1\) et donc tout autant \( L^2\)) sont donnés par
+    \begin{equation}
+        c_n(f')=inc_n(f).
+    \end{equation}
+
+    D'autre part en vertu du théorème \ref{ThoLongueurIntegrale}, la longueur de \( \gamma\) s'exprime en terme de l'intégrale de la norme de sa dérivée :
+    \begin{equation}
+        2\pi=L=\int_0^{2\pi}| f'(s) |ds=\int_0^{2\pi}| f'(s) |^2ds
+    \end{equation}
+    parce que nous avons choisit une paramétrisation normale qui vérifie automatiquement \( | f'(s) |=1\) pour tout \( s\). L'identité de Parseval sous sa forme \eqref{EqMIuCSfz} appliquée à \( f'\) nous enseigne que
+    \begin{equation}        \label{EqXSpHuZI}
+        L=2\pi=\int_0^{2\pi}| f'(s) |^2ds=2\pi\langle f', f'\rangle=2\pi\sum_{n=-\infty}^{\infty}| c_n(f') |^2=2\pi\sum_nn^2| c_n(f) |^2.
+    \end{equation}
+    Par ailleurs le système trigonométrique étant une base hilbertienne, et les fonctions \( f\) et \( f'\) étant dans \( L^2\big( \mathopen[ 0 , 2\pi \mathclose] \big)\) (parce que continues sur un compact), elles sont égales à leurs séries de Fourier (au sens \( L^2\)), c'est à dire que nous avons l'égalité \eqref{EqXMMRpSN}. Nous avons alors
+    \begin{subequations}
+        \begin{align}
+            \langle f', f\rangle_{L^2} &=\langle \sum_{n\in \eZ}c_n(f')e_n, \sum_{m\in \eZ}c_m(f)e_m\rangle \\
+            &=\sum_m\sum_nc_n(f')\overline{ c_m(f) }\underbrace{\langle e_n, e_m\rangle }_{\delta_{m,n}}\\
+            &=\sum_{n\in \eZ}c_n(f')\overline{ c_n(f) }\\
+            &=\sum_nin| c_n(f) |^2
+        \end{align}
+    \end{subequations}
+    où nous avons utilisé la continuité du produit scalaire pour sortir les sommes. Avec cela nous pouvons exprimer l'aire \eqref{EqCSWKbPX} en termes de coefficients de Fourier :
+    \begin{equation}    \label{EqOZBMiat}
+        S=\frac{ 1 }{2}\imag2\pi\langle f', f\rangle =\pi\sum_{n\in \eZ}n| c_n(f) |^2.
+    \end{equation}
+    En utilisant les expressions \eqref{EqXSpHuZI} et \eqref{EqOZBMiat} pour \( L\) et \( S\), et en écrivant \( L=2\pi L\), nous avons
+    \begin{equation}
+        L^2-4\pi S=4\pi^2\sum_{n\in \eZ}(n^2-n)| c_n(f) |^2\geq 0.
+    \end{equation}
+    Cela prouve l'inégalité demandée dans le cas où \( L=2\pi\).
+
+    Si \( \gamma\) n'est pas de longueur \( 2\pi\) mais \( L\), alors nous considérons le chemin \( \sigma(t)=\frac{ 2\pi\gamma(t) }{ L }\). Sa longueur est \( 2\pi\) et son aire, au vu de la formule de Green \eqref{EqCSWKbPX}, son aire est \( 4\pi^2\frac{ S }{ L^2 }\). L'inégalité isopérimétrique appliquée au chemin \( \sigma\) donne alors \( L^2\geq 4\pi S\).
+
+    Le cas d'égalité s'obtient uniquement si \( c_n=0\) pour tout \( n\) différent de \( 0\) ou \( 1\). Dans ce cas nous avons 
+    \begin{equation}
+        f(s)=c_0(f)+c_1(f) e^{is},
+    \end{equation}
+    qui est un cercle de centre \( c_0(f)\) et de rayon \( | c_1(f) |\).
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{À propos des coefficients}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous considérons l'application
+\begin{equation}
+    \begin{aligned}
+        c\colon \big( L^1_{2\pi},\| . \|_1 \big)&\to \big( C_0,\| .\|_{\infty} \big) \\
+        f&\mapsto (c_n(f))_{n\in \eZ} 
+    \end{aligned}
+\end{equation}
+qui à une fonction \( 2\pi\)-périodique fait correspondre la suite (bornée) de ses coefficients de Fourier. Nous rappelons la définition
+\begin{equation}
+    c_n(f)=\frac{1}{ 2\pi }\int_0^{2\pi}f(t) e^{-int}.
+\end{equation}
+Nous allons montrer que cette application est linéaire, continue, injective et non surjective. Pour la continuité, par la linéarité il suffit de la montrer en \( 0\). Nous devons donc montrer que si nous avons une suite de fonctions \( f_k\) qui tend vers \( 0\) au sens \( L^1\), alors \( c(f_k)\to 0\) au sens de la norme \( \| . \|_{\infty}\) sur l'ensemble des suites.
+
+Si nous posons \( r_k=\int_0^{2\pi}| f_k(t) |dt\), alors \( r_k=\| f_k \|_1\) et nous avons \( r_k\to 0\). Mais par définition
+\begin{equation}
+    | c_n(f_k) |\leq r_k,
+\end{equation}
+et donc \( \| c(f_k) \|_{\infty}\leq r_k\). L'application \( c\) est donc continue. L'injectivité est donnée par le corollaire \ref{CordgtXlC}. 
+
+Si nous supposons que l'application \( c\) est continue, alors le théorème d'isomorphisme de Banach (\ref{ThofQShsw}) nous dit que cela devrait être un homéomorphisme, c'est à dire que \( c^{-1}\) serait également continue. Nous allons montrer qu'il n'en est rien.
+
+Nous considérons la suite de suite
+\begin{equation}    \label{EqdMtbOB}
+    (c_n)_k=\begin{cases}
+        1    &   \text{si } k<n\\
+        0    &    \text{sinon}.
+    \end{cases}
+\end{equation}
+Ici \( (c_n)_k\) est le terme numéro \( k\) de la suite \( n\). Par injectivité de l'application qui à une fonction fait correspondre la suite de ses coefficients de Fourier, la seule fonction qui possède ces coefficients est
+\begin{equation}
+    f_n(t)=\sum_{k\in \eN}c_{n,k} e^{ikt}.
+\end{equation}
+Étant donné que \( \| f_n \|_1=n\), la suite \( (\| f_n \|_1)\) n'est pas bornée alors que a suite de suites \eqref{EqdMtbOB} est bornée dans l'ensemble des suites parce que \( \| c_n \|_{\infty}=1\).

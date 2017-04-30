@@ -1,23 +1,49 @@
 # Mazhe
-(English) This is a big course of mathematics declined in two versions. See below for an English presentation of the English part.
+(*English*) This is a big course of mathematics declined in two versions. See below for an English presentation of the English part.
 
-(Français) Ce dépôt contient les sources d'un livre de mathématique, décliné en deux versions :
+(*Français*) Ce dépôt contient les sources d'un livre de mathématique, décliné en deux versions :
 
-* [« Le Frido »](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il recouvre à peu près tout le programme.  
+* [« Le Frido »](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il couvre (à peu près) tout le programme.
 * [« (almost) Everything I know in mathematics »](http://laurent.claessens-donadello.eu/pdf/mazhe.pdf) contains more or less everything I know in mathematics, including my research.
-* Et ce fichier [readme.pdf](http://laurent.claessens-donadello.eu/pdf/readme.pdf) contient des instruction pour la compilation du Frido, ainsi que des politiques éditoriales à l'attention de qui voudrait contribuer.
+* Et ce fichier [manuel_du_contributeur.pdf](http://laurent.claessens-donadello.eu/pdf/manuel_du_contributeur.pdf) contient des instruction pour la compilation du Frido, ainsi que des politiques éditoriales à l'attention de qui voudrait contribuer.
 
-Les sources sont sur [github](https://github.com/LaurentClaessens/mazhe).
+## Download and compilation
+
+### Download and compilation: the whole book
+
+First you need the package [exocorr](https://github.com/LaurentClaessens/exocorr) to be somewhere in your LaTeX path.
+
+Source are on [GitHub (LaurentClaessens/mazhe/)](https://github.com/LaurentClaessens/mazhe). The main file is : `mazhe.tex` and a basic compilation is:
+```bash
+pdflatex mazhe.tex
+bibtex mazhe
+makeindex mazhe
+```
+to be done more or less three times to get all the cross-references correct.
+More precise information [here](http://laurent.claessens-donadello.eu/pdf/manuel_du_contributeur.pdf).
+
+### Download and compilation : le Frido (in French)
+
+If you want to compile [Le Frido](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf), it is more complicated because the point is to extract the "agrégation" part from the whole source.
+I developed some pre-compilation scripts that make the work, but you'll need to install some dependencies.
+
+It is fully explained here: [manuel_du_contributeur](http://laurent.claessens-donadello.eu/pdf/manuel_du_contributeur.pdf) (in French).
+
+### Download and compilation : the pictures
+
+If you want to recreate the pictures from their sources (the mysterious `phystricks*.py` files), there are [still more dependencies](https://github.com/LaurentClaessens/phystricks). I'll explain them another day.
 
 ## Le Frido (niveau agrégation)
 
+[Le Frido](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation.
+Il couvre à peu près tout [le programme](http://agreg.org/Rapports/rapport2015.pdf#chapter.9) (cf. [le dernier rapport de jury](http://agreg.org/Rapports/rapport2015.pdf), chapitre 9 pages 131-138).
 
-[Le Frido](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il recouvre à peu près tout le programme. Affin de donner une idée, une liste (pas spécialement à jour) des développements que vous pourriez y trouver est en annexe.
+Afin de donner une idée, une [liste (presque à jour) des développements](#annexe--liste-de-choses-que-lon-peut-trouver-dans-le-frido) que vous pourriez y trouver [est en annexe](#annexe--liste-de-choses-que-lon-peut-trouver-dans-le-frido).
 
 
 ### Quelque éléments en plus que l'agrégation
 
-* Construction compète de la mesure de Lebesgue, y compris les notions de complétion de mesure (le chapitre tribu/théorie de la mesure est assez lourd).
+* Construction complète de la mesure de Lebesgue, y compris les notions de complétion de mesure (le chapitre tribu/théorie de la mesure est assez lourd).
 * La topologie exacte des espaces de distribution, y compris la topologie liée à une famille de semi-normes.
 * La notion de produit semi-direct de groupe, et la décomposition du groupe des isométries de `R^n` en translation plus rotation.
 
@@ -46,42 +72,44 @@ Ce cours se distingue d'autres cours de mathématique pour l'agrégation de plus
 
 Le Frido se distingue également par certains aspects négatifs.
 
-* Manque de relecture. Vous croyez que les livres commerciaux sont bien relus et sans erreurs ? Eh bien ce n'est pas le cas pour le Frido. Il n'est pas très relu (si vous trouvez des erreurs, contactez moi!!), et contient sûrement beaucoup d'erreurs. Un certain nombre sont d'ailleurs très clairement indiquées.
+* Manque de relecture. Vous croyez que les livres commerciaux sont bien relus et sans erreurs ? Eh bien ce n'est pas le cas pour le Frido. Il n'est pas très relu (si vous trouvez des erreurs, contactez moi !), et contient sûrement beaucoup d'erreurs. Un certain nombre sont d'ailleurs très clairement indiquées.
 
 ### « *Est-ce je peux utiliser le Frido le jour de l'oral d'agreg ?* »
 
-Réponse : je ne sais pas. J'ai demandé au jury (que j'ai déjà relancé quelque fois) qui ne m'a pas répondu. 
-Quelque éléments de réflexion :
+Tel quel : non parce que le règlement demande de n'utiliser que des documents commercialisés et interdit d'apporter des choses imprimées chez soi (même avec un numéro ISBN).
 
-* Plusieurs candidats l'ont déjà utilisé sans être inquiétés.
-* Une version imprimée est [dans la bibliothèque de l'ENS Cachan](https://catalogue.ens-cachan.fr/cgi-bin/koha/opac-detail.pl?biblionumber=59258).
-* Si vous croyez que 3 mois sans réponse équivaut à acceptation, alors le Frido est accepté.
+Pour utiliser le Frido à l'agrégation, il faudra passer à la caisse et acheter une version papier chez [thebookedition.com](http://www.thebookedition.com/fr/).
 
-Posez donc la question vous-même (ou mieux : faites la poser par un préparateur agreg de votre université) et transmettez moi la réponse.
+* [Volume 1](http://www.thebookedition.com/fr/le-frido-volume-1-p-344540.html) 558 pages, 22.01 euros. Téléchargez le pdf [lefrido-vol1.pdf](http://laurent.claessens-donadello.eu/pdf/lefrido-vol1.pdf)
+
+* [Volume 2](http://www.thebookedition.com/fr/le-frido-volume-2-p-344541.html) 616 pages, 23.96 euros. Téléchargez le pdf [lefrido-vol2.pdf](http://laurent.claessens-donadello.eu/pdf/lefrido-vol2.pdf)
+
+* [Volume 3](http://www.thebookedition.com/fr/le-frido-volume-3-p-344542.html) 576 pages, 22.61 euros. Téléchargez le pdf [lefrido-vol3.pdf](http://laurent.claessens-donadello.eu/pdf/lefrido-vol3.pdf)
 
 ## (almost) Everything I know in math
 
-The document [(almost) Everything I know in mathematics](http://laurent.claessens-donadello.eu/pdf/mazhe.pdf) contains almost everything I know in mathematics. It includes
+The document [(almost) Everything I know in mathematics](http://laurent.claessens-donadello.eu/pdf/mazhe.pdf) contains almost everything I know in mathematics. It includes :
+
 * A part (in French) about general mathematics at master level (le Frido)
 * A part (in French) containing the exercises and many corrections of the courses I gave at university.
-* Higher level mathematics including research stuff -- my PhD thesis is here (in English) 
+* Higher level mathematics including research stuff -- my PhD thesis is here (in English)
 
 ### General differential geometry
 
-* Fibre bundles : vector, principal and associated bundles. 
-* Connexions on fibre bundle, covariant derivative.
+* Fiber bundles: vector, principal and associated bundles.
+* Connections on fiber bundle, covariant derivative.
 
 ### Lie groups, Lie algebra
 * Lie groups and Lie algebra.
 * Homogeneous and symmetric spaces.
-* Root spaces, Iwasawa decomposition. 
+* Root spaces, Iwasawa decomposition.
 * Cyclic modules and representations.
 
 ### Quantum field theory
 Very few physics. The aim is to understand why are we using groups, representations and principal bundle in quantum field theory.
 
-* Link between fibre bundle and quantum field theory : why are particles irreducible representations of the Poincaré group ?
-* Particles are modeled by sections of associated bundle : product of one representation of the Poincaré group and one representation of the gauge group. The interaction is given by a connexion on that bundle (with values in the Lie algebra of the gauge group).
+* Link between fiber bundle and quantum field theory: why are particles irreducible representations of the Poincaré group?
+* Particles are modeled by sections of associated bundle: product of one representation of the Poincaré group and one representation of the gauge group. The interaction is given by a connection on that bundle (with values in the Lie algebra of the gauge group).
 * Clifford module and Dirac operator.
 * Yang-Mills action.
 
@@ -93,7 +121,7 @@ Very few physics. The aim is to understand why are we using groups, representati
 ### Black hole in anti-de Sitter space
 This is the argument of my PhD thesis.
 
-* Black hole in anti-de Sitter space. The singular part is defined as the closed orbits of the Iwasawa subgroup of SO(2,l-1) acting on the l-dimensional anti-de Sitter space. 
+* Black hole in anti-de Sitter space. The singular part is defined as the closed orbits of the Iwasawa subgroup of SO(2,l-1) acting on the l-dimensional anti-de Sitter space.
 * Dirac operator on the anti-de Sitter space.
 * Deformation of the anti-de Sitter space.
 
@@ -102,7 +130,7 @@ This is the argument of my PhD thesis.
 * Bialgebra and Hopf algebra.
 * Oscillatory integral.
 * von Neumann algebra.
-* C* algebra and GNS construction.
+* C\* algebra and GNS construction.
 
 ## Annexe : liste de choses que l'on peut trouver dans le Frido
 
@@ -123,7 +151,7 @@ Afin de donner une idée, voici une liste des développements que vous pourriez 
 * Une forme canonique pour les transvections et dilatations.
 * Résolution diophantienne de ax+by=c en utilisant Bézout.
 * Résolution de l'équation diophantienne x^2+2 = y^3 en parlant de l'extension Z[i sqrt(2)] et de stathme.
-* Le dénombrement des solutions de l'équation diophantienne alpha\_1 n\_1 + ... alpha\_K n\_K = n, utilise des séries entières et des décomposition de fractions en éléments simples.
+* Le dénombrement des solutions de l'équation diophantienne alpha\_1 n\_1 + ... alpha\_K n\_K = n, utilise des séries entières et des décompositions de fractions en éléments simples.
 * Triplets pythagoriciens.
 * Polynômes semi-symétriques.
 * Lemme de Morse.
@@ -138,12 +166,12 @@ Afin de donner une idée, voici une liste des développements que vous pourriez 
 * Théorème de Sylow.
 * Coloriage de roulette et composition de colliers.
 * Théorème de Burnside sur les sous groupes d'exposant fini de GL(n, C).
-* Théorème d'isomorphisme entre (Z/pZ)^* et Z/(p-1)Z.
+* Théorème d'isomorphisme entre (Z/pZ)^\* et Z/(p-1)Z.
 * Forme alternées de degré maximum.
 * Décomposition de Bruhat.
 * Table des caractères du groupe symétrique S\_4.
 * Décomposition polaire d'un endomorphisme.
-* Théorème de Von Neumann.
+* Théorème de von Neumann.
 * Forme faible du théorème de Dirichlet.
 * Irréductibilité des polynômes cyclotomiques, proposition.
 * Structure des groupes d'ordre p×q.
@@ -154,7 +182,7 @@ Afin de donner une idée, voici une liste des développements que vous pourriez 
 * Polynômes irréductibles sur F\_q.
 * Nombres de Bell, exemples et théorème.
 * Partitions d'un entier en parts fixes, proposition.
-* Théorème de Rothstein-Trager sur l'intégration de fraction rationelles.
+* Théorème de Rothstein-Trager sur l'intégration de fraction rationnelles.
 * Théorème de la dimension.
 * Théorème de Carathéodory.
 * Diagonalisation de matrices symétriques.
@@ -172,25 +200,25 @@ Afin de donner une idée, voici une liste des développements que vous pourriez 
 
 ### Analyse
 
-* Le dénombrement des solutions de l'équation diophantienne alpha1 n1 + ... alphaK nK = n, utilise des séries entières et des décomposition de fractions en éléments simples.
+* Le dénombrement des solutions de l'équation diophantienne alpha1 n1 + ... alphaK nK = n, utilise des séries entières et des décompositions de fractions en éléments simples.
 * Méthode de Newton, exemple, théorème et preuve.
 * Formule sommatoire de Poisson.
 * Inégalité isopérimétrique.
 * Équation de Hill (y'' + qy = 0).
 * L'équation (x - x0)^{\alpha} u = 0, pour u dans les distributions tempérées.
-* Espace de Sobolev H^1(J) (J un intervale).
+* Espace de Sobolev H^1(J) (J un intervalle).
 * Un résultat sur l'équation de Hill (y'' + qy = 0) à partir d'une hypothèse de croissance.
 * L'inégalité de Jensen.
 * Théorème de Cauchy-Lipschitz.
 * Dual de L^p([0, 1]), pour p strictement entre 1 et 2.
 * Prolongement de fonction définie sur une partie dense.
 * Complétion d'un espace métrique.
-* Critère de Weyl (suites équiréparties).
+* Critère de Weyl (suites équi-réparties).
 * Densité des polynômes dans C0([0, 1])), et théorème de Bernstein.
 * Suite telle que lim d(u\_{k+1}, u\_k) = 0.
 * Théorème de Montel.
 * Théorème de Runge.
-* Théorème de Brouwer en dimension 2 ,via l'homotopie.
+* Théorème de Brouwer en dimension 2, via l'homotopie.
 * Théorème de Lie-Kolchin.
 * La notion de classes dans L^p.
 * Théorème de Fischer-Riesz.
@@ -207,9 +235,14 @@ Afin de donner une idée, voici une liste des développements que vous pourriez 
 * Théorème d'Abel angulaire.
 * Le théorème de Weierstrass sur la limite uniforme de fonctions holomorphes.
 * Problème de la ruine du joueur.
-* Calcul d'intégrale par suite équirépartie.
+* Calcul d'intégrale par suite équi-répartie.
 * Fonction caractéristique.
 * Théorème central limite.
 * Fonction continue et périodique dont la série de Fourier ne converge pas.
 * Estimation des grands écarts.
 * Théorème de Banach-Steinhaus.
+
+## Téléchargement
+
+
+[lefrido.pdf](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).

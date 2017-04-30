@@ -1,0 +1,837 @@
+% This is part of Mes notes de mathématique
+% Copyright (c) 2011-2012,2015
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{La différentielle revisitée}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Les formes différentielles de base}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si la fonction $f\colon \eR^n\to \eR$ est différentiable alors la différentielle en $a\in\eR^n$ est l'application
+\begin{equation}        \label{EqFormDiffdfahOM}
+    \begin{aligned}
+        df_a\colon \eR^n&\to \eR \\
+        u&\mapsto \frac{ \partial f }{ \partial x_1 }(a)u_1+\cdots+\frac{ \partial f }{ \partial x_n }(a)u_n.
+    \end{aligned}
+\end{equation}
+Considérons en particulier la fonction qui à $x\in\eR^n$ fait correspondre $x_i\in\eR$. Par abus de notations,  nous la noterons $x_i$. Nous avons 
+\begin{equation}
+    \frac{ \partial x_i }{ \partial x_j }=\delta_{ij}.
+\end{equation}
+Par exemple $\partial_yx=0$ et $\partial_xx=1$. Toutes les dérivées partielles de $x_i$ s'annulent sauf la $i$ème qui vaut $1$. Par conséquent
+\begin{equation}
+    \begin{aligned}
+        dx_i\colon \eR^n&\to \eR \\
+        u&\mapsto u_i. 
+    \end{aligned}
+\end{equation}
+
+\begin{remark}
+    En toute rigueur nous devrions écrire $(dx_i)_a$. Mais étant donné que
+    \begin{equation}
+        (dx_i)_a(u)=(dx_i)_b(u)
+    \end{equation}
+    pour tout points $a$, $b$ et pour tout vecteurs $u$, nous nous permettons de simplifier la notation en ne précisant pas en quel point nous calculons la différentielle de $x_i$.
+\end{remark}
+
+Étant donné que $dx_i(u)=u_i$, nous pouvons récrire la formule \eqref{EqFormDiffdfahOM} en remplaçant $u_i$ par $dx_i(u)$ :
+\begin{equation}
+    df_a(u)=\frac{ \partial f }{ \partial x_1 }(a)dx_1(u)+\cdots+\frac{ \partial f }{ \partial x_n }(a)dx_n(u).
+\end{equation}
+En tant que application linéaire, $df_a$ est une combinaison linéaire des $dx_i$. En notations compacte :
+\begin{equation}
+    df_a=\sum_{i=1}^n\frac{ \partial f }{ \partial x_i }(a)dx_i.
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Différentielles de fonctions composées}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Cette façon de voir la différentielle nous permet de jeter un nouveau regard sur la formule de différentiation des fonctions composées. Soient
+\begin{equation}
+    \begin{aligned}[]
+        f\colon \eR^p&\to \eR^n\\
+        g\colon \eR^n&\to \eR,
+    \end{aligned}
+\end{equation}
+et $h\colon \eR^p\to \eR$ définie par 
+\begin{equation}
+    h(u)=h\big( f(u) \big)=(g\circ f)(u).
+\end{equation}
+Nous allons noter $x$ les coordonnées de $\eR^p$, $a$ un point de $\eR^p$ et $u$, un vecteur de $\eR^p$ accroché au point $a$. Pour $\eR^n$, les notations seront que les coordonnées sont $y$, $b$ est un point de $\eR^n$ et $v$ est un vecteur «accroché» au point $b$.
+
+Nous avons
+\begin{equation}
+    dg_b(v)=\sum_{i=1}^n\frac{ \partial g }{ \partial y_i }(b)dy_i(v).
+\end{equation}
+Ici $dy_i(v)$ signifie la $i$ème composante de $v$. C'est simplement $v_i$. Cette formule étant valable pour tout point $b\in\eR^n$ et pour tout vecteur $v$, nous pouvons l'écrire en particulier pour
+\begin{subequations}
+    \begin{numcases}{}
+        b=f(a)\\
+        v=df_a(u).
+    \end{numcases}
+\end{subequations}
+Cela donne
+\begin{equation}        \label{EqdgfadfauOM}
+    dg_{f(a)}\big( df_a(u) \big)=\sum_{i=1}^n\frac{ \partial g }{ \partial y_i }\big( f(a) \big)dy_i\big( df_a(u) \big).
+\end{equation}
+Mais 
+\begin{equation}
+    df_a(u)=\sum_{j=1}^p\frac{ \partial f }{ \partial x_j }(a)dx_j(u),
+\end{equation}
+donc la $i$ème composante de ce vecteur est
+\begin{equation}
+     \big( df_a(u)\big)_i=\sum_{j=1}^p\frac{ \partial f_i }{ \partial x_j }(a)dx_j(u).
+\end{equation}
+En remplaçant $dy_i\big( df_a(u) \big)$ par cela dans l'expression \eqref{EqdgfadfauOM}, nous trouvons
+\begin{equation}
+    dg_{f(a)}\big( df_a(u) \big)=\sum_{i=1}^n\frac{ \partial g }{ \partial y_i }\big( f(a) \big)\sum_{j=1}^p\frac{ \partial f_i }{ \partial x_j }(a)dx_j(u).
+\end{equation}
+Nous pouvons vérifier que cela est la différentielle de $g\circ f$ au point $a$ appliquée au vecteur $u$. En effet
+\begin{equation}
+    d(g\circ f)_a(u)=\sum_{j=1}^p\frac{ \partial (g\circ f) }{ \partial x_j }(a)dx_j(u),
+\end{equation}
+tandis que, par la dérivation de fonctions composées, 
+\begin{equation}        \label{EqDerCompofgOM}
+    \frac{ \partial (g\circ f) }{ \partial x_j }(a)=\sum_{i=1}^n\frac{ \partial g }{ \partial y_i }\big( f(a) \big)\frac{ \partial f_i }{ \partial x_j }(a).
+\end{equation}
+Au final, ce que nous avons prouvé est que
+\begin{equation}
+    d(g\circ f)_a(u)=dg_{f(a)}\big( df_a(u) \big).
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Passage aux coordonnées polaires}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Le changement de coordonnées pour les polaires est la fonction
+\begin{equation}
+    f\begin{pmatrix}
+        r    \\ 
+        \theta    
+    \end{pmatrix}=\begin{pmatrix}
+        x    \\ 
+        y    
+    \end{pmatrix}=\begin{pmatrix}
+        r\cos\theta    \\ 
+        r\sin\theta    
+    \end{pmatrix}.
+\end{equation}
+Considérons une fonction $g$ sur $\eR^2$, et définissons la fonction $\tilde g$ par
+\begin{equation}
+    \tilde g(r,\theta)=g(r\cos\theta,r\sin\theta).
+\end{equation}
+La formule \eqref{EqDerCompofgOM} permet de trouver les dérivées partielles de $g$ par rapport à $r$ et $\theta$ en termes de celles par rapport à $x$ et $y$ de $g$.
+
+Pour faire le lien avec les notations du point précédent, nous avons
+\begin{equation}
+    \begin{aligned}[]
+        f_1(r,\theta)&=r\cos(\theta)\\
+        f_2(r,\theta)&=r\sin(\theta)\\
+        (x_1,x_2)&\to(r,\theta)\\
+        (y_1,y_2)&\to(x,y).
+    \end{aligned}
+\end{equation}
+Nous avons donc 
+\begin{equation}
+    \begin{aligned}[]
+        \frac{ \partial \tilde g }{ \partial r }(r,\theta)&=\sum_{i=1}^2\frac{ \partial g }{ \partial x_i }\big( f(r,\theta) \big)\frac{ \partial f_i }{ \partial r }(r,\theta)\\
+        &=\frac{ \partial g }{ \partial x }(r\cos\theta,r\sin\theta)\frac{ \partial \big( r\cos\theta \big) }{ \partial r }(r,\theta)\\
+        &\quad+\frac{ \partial g }{ \partial y }(r\cos\theta,r\sin\theta)\frac{ \partial \big( r\sin\theta\big) }{ \partial r }(r,\theta)\\
+        &=\cos\theta\frac{ \partial g }{ \partial x }(r\cos\theta,r\sin\theta)+\sin\theta\frac{ \partial g }{ \partial y }(r\cos\theta,r\sin\theta).
+    \end{aligned}
+\end{equation}
+
+Prenons par exemple $g(x,y)=\frac{1}{ x^2+y^2 }$. Étant donné que
+\begin{equation}
+    \frac{ \partial g }{ \partial x }=\frac{ -2x }{ (x^2+y^2)^2 },
+\end{equation}
+nous avons
+\begin{equation}
+    \frac{ \partial g }{ \partial x }(r\cos\theta,r\sin\theta)=\frac{ -2\cos\theta }{ r^3 }.
+\end{equation}
+En utilisant la formule,
+\begin{equation}
+    \frac{ \partial \tilde g }{ \partial r }(r,\theta)=\cos(\theta)\left( \frac{ -2\cos\theta }{ r^3 } \right)+\sin(\theta)\left( \frac{ -2\sin\theta }{ r^3 } \right)=-\frac{ 2 }{ r^3 }.
+\end{equation}
+Nous pouvons vérifier directement que cela est correct. En effet
+\begin{equation}
+    \tilde g(r,\theta)=g(r\cos\theta,r\sin\theta)=\frac{1}{ r^2 },
+\end{equation}
+dont la dérivée par rapport à $r$ vaut $-2/r^3$.
+
+En ce qui concerne la dérivée par rapport à $\theta$, nous avons
+\begin{equation}
+    \begin{aligned}[]
+    \frac{ \partial \tilde g }{ \partial \theta }&=\frac{ \partial g }{ \partial x }(r\cos\theta,r\sin\theta)\frac{ \partial \big( r\cos(\theta) \big) }{ \partial \theta }+\frac{ \partial g }{ \partial y }(r\cos\theta,r\sin\theta)\frac{ \partial \big( r\sin(\theta) \big) }{ \partial \theta }\\
+    &=\left( \frac{ -2\cos\theta }{ r^3 } \right)(-r\sin\theta)+\left( \frac{ -2\sin\theta }{ r^3 } \right)(r\cos\theta)\\
+    &=0.
+    \end{aligned}
+\end{equation}
+
+En résumé et avec quelques abus de notations :
+\begin{equation}
+    \begin{aligned}[]
+        \frac{ \partial \tilde g }{ \partial r }&=\cos(\theta)\frac{ \partial g }{ \partial x }+\sin(\theta)\frac{ \partial g }{ \partial y }\\
+        \frac{ \partial \tilde g }{ \partial \theta }&=-r\sin(\theta)\frac{ \partial g }{ \partial x }+r\cos(\theta)\frac{ \partial g }{ \partial y }\\
+    \end{aligned}
+\end{equation}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Théorie générale}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Base locale}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les coordonnées sphériques et cylindriques sont deux systèmes de coordonnées «un peu courbe» qui existent sur $\eR^3$. Il en existe de nombreux autres, que nous appelons \defe{coordonnées curvilignes}{coordonnées!curvilignes}. Des coordonnées curvilignes sur $\eR^3$ est n'importe quel\footnote{Nous n'entrons pas dans les détails de régularité.} système qui permet de repérer un point de $\eR^3$ à partir de trois nombres.
+
+Il s'agit donc d'un ensemble de trois applications 
+\begin{equation}
+    x_i\colon \eR^3\to \eR.
+\end{equation}
+Les coordonnées cylindriques sont
+\begin{subequations}
+    \begin{numcases}{}
+        x_1(r,\theta,z)=r\cos\theta\\
+        x_2(r,\theta,z)=r\sin\theta\\
+        x_3(r,\theta,z)=z
+    \end{numcases}
+\end{subequations}
+
+Soit donc un système général $q=(q_1,q_2,q_3)$ et 
+\begin{equation}
+    M(q)=\begin{pmatrix}
+        x_1(q)    \\ 
+        x_2(q)    \\ 
+        x_3(q)    
+    \end{pmatrix}.
+\end{equation}
+Si nous fixons $q_2$ et $q_3$ et que nous laissons varier $q_1$, nous obtenons une courbe\footnote{Dans le cas des sphériques, c'est une demi-droite horizontale d'angle $q_2$ et de hauteur $q_3$.} dont nous pouvons considérer le vecteur vitesse, c'est à dire le vecteur tangent. En chaque point nous avons ainsi trois vecteurs
+\begin{equation}
+    \frac{ \partial M }{ \partial q_i }(q).
+\end{equation}
+Nous disons que le système de coordonnées curviligne est \defe{orthogonal}{orthogonal!coordonnées curviligne} si ces trois vecteurs sont orthogonaux. Dans la suite nous supposerons que c'est toujours le cas.
+
+Nous posons
+\begin{equation}
+    h_i=\left\| \frac{ \partial M }{ \partial q_i } \right\|
+\end{equation}
+et nous considérons les trois vecteurs normés
+\begin{equation}        \label{EqDefeihMqOM}
+    e_i=h_i^{-1}\frac{ \partial M }{ \partial q_i }.
+\end{equation}
+Les trois vecteurs $\{ e_1,e_2,e_3 \}$ forment une base orthonormée dite \defe{base locale}{base!locale}. Ce sont des vecteurs liés\footnote{En géométrie différentielle on dira que ce sont des élément de l'espace tangent, mais c'est une toute autre histoire.} au point $M$.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Importance de l'orthogonalité}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous avons dit que nous nous restreignons au cas où les vecteurs $e_i$ sont orthogonaux. En termes de produits scalaires, cela signifie
+\begin{equation}
+    e_i\cdot e_j=\delta_{ij}.
+\end{equation}
+Nous en étudions maintenant quelque conséquence. L'équation \eqref{EqDefeihMqOM} peut s'écrire plus explicitement sous la forme
+\begin{equation}
+    e_i=\sum_k h_i^{-1}\frac{ \partial x_k }{ \partial q_i }1_k.
+\end{equation}
+Notez que pour chaque $k$ et $i$, la quantité $h_i^{-1}\frac{ \partial x_k }{ \partial q_i }$ est un simple nombre. Nous allons les mettre dans une matrice :
+\begin{equation}
+    A_{ki}=h_i^{-1}\frac{ \partial x_k }{ \partial q_i }.
+\end{equation}
+Cela nous donne le changement de base
+\begin{equation}        \label{EqChmBaseeisAkiAkOM}
+    e_i=\sum_kA_{ki}1_k.
+\end{equation}
+Le produit $e_i\cdot e_j$ s'écrit alors
+\begin{equation}
+    \begin{aligned}[]
+        e_i\cdot e_j&=\sum_{kl}A_{ki}A_{lj}\underbrace{1_k\cdot 1_l}_{=\delta_{kl}}\\
+        &=\sum_{kl}A_{ki}A_{lj}\delta_{kl}\\
+        &=\sum_kA_{ki}A_{kj}\\
+        &=\sum_k(A^T)_{ik}A_{kj}.
+    \end{aligned}
+\end{equation}
+Or cela doit valoir $\delta_{ij}$. Par conséquent 
+\begin{equation}
+    A^T=A^{-1}.
+\end{equation}
+Le fait que les coordonnées curvilignes considérées soient orthogonales s'exprime donc par la fait que la matrice de changement de base est une matrice orthogonale.
+
+Cette circonstance nous permet d'inverser le changement de base \eqref{EqChmBaseeisAkiAkOM} en multipliant cette équation par $(A^{-1})_{il}$ des deux côtés et en faisant la somme sur $i$ :
+\begin{equation}
+    \sum_i (A^{-1})_{il}e_i=\sum_{kl}\underbrace{A_{ki}(A^{-1})_{il}}_{=\delta_{kl}}1_k,
+\end{equation}
+par conséquent
+\begin{equation}
+    \sum_i(A^T)_{il}e_i=1_l,    
+\end{equation}
+et
+\begin{equation}        \label{EqChamvarunlAeiOM}
+    1_l=\sum_iA_{li}e_i=\sum_ih_i^{-1}\frac{ \partial x_l }{ \partial q_i }e_i.
+\end{equation}
+Armés de cette importante formule, nous pouvons exprimer les quantités que nous connaissons dans la base canonique en termes de la base locale.
+
+Une autre conséquence du fait que $e_1$, $e_2$ et $e_3$ est une base orthonormée est que, éventuellement en réordonnant les vecteurs, on a
+\begin{equation}
+    \begin{aligned}[]
+        e_1\times e_2&=e_3\\
+        e_2\times e_3&=e_1\\
+        e_3\times e_1&=e_2
+    \end{aligned}
+\end{equation}
+Ces trois relations s'écrivent en une seule avec
+\begin{equation}
+    e_i\times e_j=\sum_{k}\epsilon_{ijk}e_k
+\end{equation}
+où 
+\begin{equation}
+    \epsilon_{ijk}=\begin{cases}
+        0    &   \text{si} i,j,k \text{ne sont pas tous différents}\\
+        1    &    \text{si } ijk \text{ se ramène à 123 par un nombre pair de permutations}\\
+        -1    &    \text{si }ijk \text{ se ramène à 123 par un nombre impair de permutations}
+    \end{cases}
+\end{equation}
+est le \defe{symbole de Levi-Civita}{Levi-Civita}. La formule du produit vectoriel peut également être utilisée à l'envers sous la forme
+\begin{equation}        \label{EqekeitimesejOM}
+    e_k=\frac{ 1 }{2}\sum_{ij}\epsilon_{ijk}\,e_i\times e_j.
+\end{equation}
+
+Le symbole de Levi-Civita possède de nombreuses formules. En voici certaines, facilement démontrables en considérant tous les cas :
+\begin{equation}
+    \epsilon_{ijk}\epsilon_{ijl}=\delta_{kl}| \epsilon_{ijk} |.
+\end{equation}
+Grâce au symboles de Levi-Civita, le produit mixte des vecteurs de base a une belle forme :
+\begin{equation}        \label{EqProdMixteepsilonCicivrOM}
+    e_l\cdot(e_i\times e_j)=\sum_k\epsilon_{ijk}e_l\times e_k=\sum_k\epsilon_{ijk}\delta_{lk}=\epsilon_{ijl}.
+\end{equation}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Gradient en coordonnées curvilignes}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soit $(x,y,z)\mapsto f(x,y,z)$ une fonction sur $\eR^3$. Nous pouvons la composer avec les coordonnées curvilignes $q$ pour obtenir la fonction
+\begin{equation}
+    \tilde f(q_1,q_2,q_3)=f\big( x_1(q),x_2(x),x_3(q) \big).
+\end{equation}
+Nous disons que $\tilde f$ est l'expression de $f$ dans les coordonnées $q$. Nous savons déjà comment calculer le gradient de $f$ en coordonnées cartésiennes :
+\begin{equation}
+    F(x,y, z)=\nabla f(x,y,z)=\begin{pmatrix}
+        \partial_xf(x,y,z)    \\ 
+        \partial_yf(x,y,z)    \\ 
+        \partial_zf(x,y,z)    \
+    \end{pmatrix}.
+\end{equation}
+Cela est un vecteur lié au point $(x,y,z)$. Nous voudrions exprimer ce vecteur dans la base $\{ e_1,e_2,e_3 \}$. En d'autres termes, nous voudrions trouver les nombres $\tilde F_1$, $\tilde F_2$ et $\tilde F_3$ tels que
+\begin{equation}
+    F(x,y,z)=F\big( x(q),y(q),z(q) \big)=\tilde F_1e_1+\tilde F_2e_2+\tilde F_3e_3.
+\end{equation}
+Ces nombres seront des fonctions de $(q_1,q_2,q_3)$.
+
+Par définition,
+\begin{equation}
+    \nabla f=\sum_l\frac{ \partial f }{ \partial x_l }1_l.
+\end{equation}
+En remplaçant $1_l$ par sa valeur en termes des $e_i$ par la formule \eqref{EqChamvarunlAeiOM},
+\begin{equation}
+    \begin{aligned}[]
+        \nabla f&=\sum_l\frac{ \partial f }{ \partial x_l }1_l\\
+        &=\sum_l\frac{ \partial f }{ \partial x_l }\sum_ih_i^{-1}\frac{ \partial x_l }{ \partial q_i }e_i\\
+        &=\sum_{il}\frac{1}{ h_i }\frac{ \partial f }{ \partial x_l }\frac{ \partial x_l }{ \partial q_i }e_i\\
+        &=\sum_i\frac{1}{ h_i }\frac{ \partial \tilde f }{ \partial q_i }e_i.
+    \end{aligned}
+\end{equation}
+
+Plus explicitement,
+\begin{equation}        \label{EqGradientenCurviligneOM}
+    \nabla f\big( x(q),y(q),z(q) \big)=\sum_i \frac{1}{ h_i(q) }\frac{ \partial \tilde f }{ \partial q_i }(q)e_i
+\end{equation}
+où
+\begin{equation}
+    h_i(q)=\left\| \frac{ \partial M }{ \partial q_i }(q) \right\|.
+\end{equation}
+Le plus souvent nous n'allons pas noter explicitement la dépendance de $h_i$ en $q$.
+
+Quelques formulaires intéressants sont en appendice de \cite{Schomblond_em}.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées polaires}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les coordonnées curvilignes polaires sont données par
+\begin{equation}
+    M(r,\theta)=\begin{pmatrix}
+        r\cos(\theta)    \\ 
+        r\sin(\theta)    
+    \end{pmatrix},
+\end{equation}
+et par conséquent
+\begin{equation}
+    \begin{aligned}[]
+        \frac{ \partial M }{ \partial r }&=\begin{pmatrix}
+            \cos(\theta)    \\ 
+            \sin(\theta)    
+        \end{pmatrix},&\frac{ \partial M }{ \partial \theta }=\begin{pmatrix}
+            -r\sin(\theta)    \\ 
+            r\cos(\theta)    
+        \end{pmatrix}.
+    \end{aligned}
+\end{equation}
+Nous avons les normes $h_r=1$ et $h_{\theta}=r$, et donc les vecteurs de la base locale en $(r,\theta)$ sont
+\begin{equation}
+    e_r=\begin{pmatrix}
+        \cos(\theta)    \\ 
+        \sin(\theta)    
+    \end{pmatrix}=\cos(\theta)e_x+\sin(\theta)e_y
+\end{equation}
+ainsi que
+\begin{equation}
+    e_{\theta}=\begin{pmatrix}
+        -\sin(\theta)    \\ 
+        \cos(\theta)    
+    \end{pmatrix}=-\sin(\theta)e_x+\cos(\theta)e_y.
+\end{equation}
+
+
+Ces vecteurs sont représentés à la figure \ref{LabelFigCurvilignesPolaires}. Notez qu'il y en a une paire différente en chaque point.
+\newcommand{\CaptionFigCurvilignesPolaires}{En brun, les lignes que le point suivrait si on ne variait qu'une coordonnées polaire à la fois. Les vecteurs rouges sont les vecteurs $e_{r}$ et $e_{\theta}$.}
+\input{auto/pictures_tex/Fig_CurvilignesPolaires.pstricks}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées cylindriques}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les coordonnées cylindriques sont les mêmes que les coordonnées polaires à part qu'il faut écrire
+\begin{equation}
+    M(r,\theta,z)=\begin{pmatrix}
+        r\cos(\theta)    \\ 
+        r\sin(\theta)    \\ 
+        z    
+    \end{pmatrix},
+\end{equation}
+et nous avons le vecteur de base supplémentaire
+\begin{equation}
+    e_z=\frac{ \partial M }{ \partial z }=\begin{pmatrix}
+        0    \\ 
+        0    \\ 
+        1    
+    \end{pmatrix}
+\end{equation}
+parce que $h_z=1$.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées sphériques}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les coordonnées curvilignes sphériques sont données par
+\begin{equation}
+    M(\rho,\theta,\varphi)=
+    \begin{pmatrix}
+        \rho\sin(\theta)\cos(\varphi)    \\ 
+        \rho\sin(\theta)\sin(\varphi)    \\ 
+        \rho\cos(\theta)
+    \end{pmatrix},
+\end{equation}
+dont les dérivées sont données par
+\begin{equation}
+    \begin{aligned}[]
+        \frac{ \partial M }{ \partial r }&=\begin{pmatrix}
+        \sin(\theta)\cos(\varphi)    \\ 
+        \sin(\theta)\sin(\varphi)    \\ 
+        \cos(\theta)
+    \end{pmatrix},
+    &\frac{ \partial M }{ \partial \theta }&=
+    \begin{pmatrix}
+        \rho\cos(\theta)\cos(\varphi)    \\ 
+        \rho\cos(\theta)\sin(\varphi)    \\ 
+        -\rho\sin(\theta)
+    \end{pmatrix},\\
+    \frac{ \partial M }{ \partial \varphi }&=
+    \begin{pmatrix}
+        -\rho\sin(\theta)\sin(\varphi)    \\ 
+        \rho\sin(\theta)\cos(\varphi)    \\ 
+        0
+    \end{pmatrix}
+    \end{aligned}
+\end{equation}
+Les normes de ces vecteurs sont $h_{\rho}=1$, $h_{\theta}=\rho$ et $h_{\varphi}=\rho\sin(\theta)$. Les vecteurs de la base locale en $(\rho,\theta,\varphi)$ sont donc
+\begin{equation}
+    \begin{aligned}[]
+        e_r&=\begin{pmatrix}
+        \sin(\theta)\cos(\varphi)    \\ 
+        \sin(\theta)\sin(\varphi)    \\ 
+        \cos(\theta)
+    \end{pmatrix},
+    &e_{\theta}&=
+    \begin{pmatrix}
+        \cos(\theta)\cos(\varphi)    \\ 
+        \cos(\theta)\sin(\varphi)    \\ 
+        -\sin(\theta)
+    \end{pmatrix},\\
+    e_{\varphi}&=
+    \begin{pmatrix}
+        -\sin(\varphi)    \\ 
+        \cos(\varphi)    \\ 
+        0
+    \end{pmatrix}
+    \end{aligned}
+\end{equation}
+
+Nous pouvons exprimer le gradient d'une fonction en coordonnées sphériques en utilisant la formule \eqref{EqGradientenCurviligneOM} :
+\begin{equation}        \label{EqGradientSpheriqueOM}
+    \nabla\tilde f(\rho,\theta,\varphi)=\frac{ \partial \tilde f }{ \partial \rho }e_{\rho}+\frac{1}{ \rho }\frac{ \partial \tilde f }{ \partial \theta }e_{\theta}+\frac{1}{ \rho\sin(\theta) }\frac{ \partial \tilde f }{ \partial \varphi }r_{\varphi}.
+\end{equation}
+Cette expression peut paraître peu pratique parce que les vecteurs $e_{\rho}$, $e_{\theta}$ et $e_{\varphi}$ eux-mêmes changent en chaque point. Elle est effectivement peu adaptée au dessin, mais elle est très pratique pour des fonctions ayant des symétries.
+
+\begin{example}
+    Le potentiel de la gravitation est la fonction
+    \begin{equation}
+        V(x,y,z)=\frac{1}{ \sqrt{x^2+y^2+z^2} }.
+    \end{equation}
+    En coordonnées sphériques elle s'écrit
+    \begin{equation}
+        \tilde V(\rho,\theta,\varphi)=\frac{1}{ \rho }.
+    \end{equation}
+    En voila une fonction qu'elle est facile à dériver, contrairement à $V$ ! En suivant la formule \eqref{EqGradientSpheriqueOM}, nous avons immédiatement
+    \begin{equation}
+        \nabla\tilde V=-\frac{1}{ \rho^2 }e_{\rho}.
+    \end{equation}
+    Nous voyons immédiatement que cela est un champ de vecteurs dont la norme diminue comme le carré de la distance à l'origine et qui est en permanence dirigé vers l'origine.
+\end{example}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Divergence en coordonnées curvilignes}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous savons que 
+\begin{equation}
+    \nabla\tilde f=\sum_j\frac{1}{ h_j }\frac{ \partial \tilde f }{ \partial q_j }e_j.
+\end{equation}
+Nous pouvons en particulier considérer la fonction $f(q)=q_i$. De la même manière que nous avions noté $x_i$ la fonction $x\mapsto x_i$, nous notons $q_i$ la fonction $q\mapsto q_i$. Le gradient de cette fonction est donné par
+\begin{equation}
+    \nabla q_i=\sum_j\frac{1}{ h_j }\frac{ \partial q_i }{ \partial q_j }e_j,
+\end{equation}
+mais $\frac{ \partial q_i }{ \partial q_j }=\delta_{ij}$, donc
+\begin{equation}
+    \nabla q_i=\frac{ e_i }{ h_i },
+\end{equation}
+ou encore
+\begin{equation}
+    e_i=h_i\nabla q_i.
+\end{equation}
+Cela n'est pas étonnant : la direction dans laquelle la coordonnées $q_i$ varie le plus est le vecteur $e_i$ qui donne la tangente à la courbe obtenue lorsque \emph{seul} $q_i$ varie.
+
+Commençons par calculer la divergence de $e_i$. En utilisant la formule \eqref{EqekeitimesejOM},
+\begin{equation}
+    \nabla\cdot e_k=\frac{ 1 }{2}\sum_{ij}\epsilon_{ijk}\,\nabla\cdot (e_i\times e_j).
+\end{equation}
+Nous avons, en utilisant les règles de Leibnitz \eqref{EqLeinDivNablRotOM}, 
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\cdot(e_i\times e_j)&=\nabla\cdot(h_i\nabla q_i\times h_j\nabla q_j)\\
+        &=\nabla(h_ih_j)\cdot\big( \nabla q_i\times\nabla q_j \big)+h_ih_j\nabla\cdot\big( \nabla q_i\times\nabla q_j \big)\\
+        &=\nabla(h_ih_j)\cdot\big( \nabla q_i\times\nabla q_j \big)\\
+        &\quad+h_ih_j\nabla q_j\cdot\big( \underbrace{\nabla\times\nabla q_i}_{=0} \big)\\
+        &\quad+h_ih_j\nabla q_i\cdot\big( \underbrace{\nabla\times\nabla q_j}_{=0} \big)
+    \end{aligned}
+\end{equation}
+Cela nous fait
+\begin{equation}
+    \nabla\cdot e_k=\sum_{ij}\epsilon_{ijk}\frac{ \nabla(h_ih_j) }{ h_ih_j }\cdot (e_i\times e_j).
+\end{equation}
+parce que $\nabla q_i=h_i^{-1}e_i$. Nous pouvons développer le gradient qui intervient :
+\begin{equation}
+    \nabla(h_ih_j)=\sum_l\frac{1}{ h_l }\frac{ \partial  }{ \partial q_l }(h_ih_j)e_l.
+\end{equation}
+Nous voyons donc arriver le produit mixte $e_l\cdot (e_i\times e_j)$. En utilisant la formule \eqref{EqProdMixteepsilonCicivrOM}, cela s'exprime directement sous la forme $\epsilon_{ijl}$.
+
+Nous avons alors
+\begin{equation}        \label{EqFragradekdviOM}
+    \begin{aligned}[]
+        \nabla\cdot e_k&=\frac{ 1 }{2}\sum_{ijl}\frac{1}{ h_ih_jh_l }\frac{ \partial  }{ \partial q_l }(h_ih_j)\epsilon_{ijk}\epsilon_{ijl}\\
+        &=\frac{ 1 }{2}\sum_{ijl}\delta_{kl}| \epsilon_{ijk} |\frac{ \partial  }{ \partial q_l }(h_ih_j)\\
+        &=\frac{ 1 }{2}\sum_{ij}\frac{| \epsilon_{ijk} |}{ h_ih_jh_k }\frac{ \partial  }{ \partial q_k }(h_ih_j).
+    \end{aligned}
+\end{equation}
+Par exemple,
+\begin{equation}
+    \nabla\cdot e_1=\frac{1}{ h_1h_2h_3 }\frac{ \partial  }{ \partial q_1 }(h_2h_3).
+\end{equation}
+
+Nous devons maintenant chercher le gradient d'un champ général
+\begin{equation}
+    F(q)=\sum_kF_k(q)e_k.
+\end{equation}
+La première chose à faire est d'utiliser la formule de Leibnitz :
+\begin{equation}        \label{EqLeibnbablaFekOM}
+    \nabla\cdot F=\sum_k\nabla F_k(q)\cdot e_k+\sum_kF_k(q)\nabla\cdot e_k.
+\end{equation}
+Afin d'alléger les notations, nous allons nous concentrer sur le terme numéro $k$ et ne pas écrire la somme. Si $i$ et $j$ sont les nombres tels que $\epsilon_{ijk}=1$, alors ce que la formule \eqref{EqFragradekdviOM} signifie, c'est que
+\begin{equation}
+    \nabla\cdot e_k=\frac{1}{ h_1h_2h_3 }\frac{ \partial  }{ \partial q_k }(h_ih_j).
+\end{equation}
+Nous savons déjà par la formule \eqref{EqGradientenCurviligneOM} que
+\begin{equation}
+    \nabla F_k=\sum_l\frac{1}{ h_l }\frac{ \partial F_k }{ \partial q_l }e_l,
+\end{equation}
+par conséquent
+\begin{equation}
+    \nabla F_k\cdot e_k=\sum_l\frac{1}{ h_l }\frac{ \partial F_k }{ \partial q_l }\delta_{kl}=\frac{1}{ h_k }\frac{ \partial F_k }{ \partial q_k }.
+\end{equation}
+Pour obtenir cela nous avons utilisé le fait que $e_l\cdot e_k=\delta_{lk}$. Le terme numéro $k$ de la somme \eqref{EqLeibnbablaFekOM} est donc
+\begin{equation}
+    \frac{1}{ h_k }\frac{ \partial F_k }{ \partial q_k }+\frac{ F_k }{ h_kh_ih_j }\frac{ \partial (h_ih_j) }{ \partial q_k }=\frac{1}{ h_ih_jh_k }\frac{ \partial (F_kh_ih_j) }{ \partial q_k }
+\end{equation}
+où il est entendu que $i$ et $j$ représentent les nombres tels que $\epsilon_{ijk}=1$.
+
+Au final, nous avons
+\begin{equation}
+    \nabla\cdot F=\frac{1}{ h_1h_2h_3 }\sum_{ijk}| \epsilon_{ijk} |\frac{ \partial (F_kh_ih_j) }{ \partial q_k }.
+\end{equation}
+Ici, la somme sur $i$ et $j$ consiste seulement à sélectionner les termes tels que $i$ et $j$ ne sont pas $k$. En écrivant la somme explicitement,
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\cdot F=\frac{1}{ h_1h_2h_3 }\left[ \frac{ \partial  }{ \partial q_1 }(F_1h_2h_3)+\frac{ \partial  }{ \partial q_2 }(F_2h_1h_3)+\frac{ \partial  }{ \partial q_3 }(F_3h_1h_2) \right].
+    \end{aligned}
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées cylindriques}
+%---------------------------------------------------------------------------------------------------------------------------
+
+En coordonnées cylindriques, nous avons déjà vu que $h_r=1$, $h_{\theta}=r$ et $h_z=1$. La divergence est donc donnée par
+\begin{equation}        \label{EqDivEnCylonfOM}
+    \nabla\cdot F=\frac{1}{ r }\left[ \frac{ \partial  }{ \partial r }(rF_r)+\frac{ \partial  }{ \partial \theta }(F_{\theta})+\frac{ \partial  }{ \partial z }(rF_z) \right].
+\end{equation}
+Par exemple si
+\begin{equation}
+    F(r,\theta,z)=re_{\theta}+e_z,
+\end{equation}
+nous avons
+\begin{equation}
+    (\nabla\cdot F)(r,\theta,z)=\frac{1}{ r }\left[ \frac{ \partial  }{ \partial \theta }(r)+\frac{ \partial  }{ \partial z }(r) \right]=0.
+\end{equation}
+Cela est logique parce que $re_{\theta}$ est à peu près le champ dont nous avons parlé dans l'exemple \eqref{ExamDivFrotOM}, qui était à divergence nulle. En réalité, le champ dont on parlait dans cet exemple était exactement $-e_{\theta}$. Le champ $e_z$ est également à divergence nulle parce qu'il est constant.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées sphériques}
+%---------------------------------------------------------------------------------------------------------------------------
+
+En coordonnées sphériques, nous avons $h_{\rho}=1$, $h_{\theta}=r$ et $h_{\varphi}=r\sin\theta$, donc
+\begin{equation}
+    \nabla\cdot F=\frac{1}{ r^2\sin\theta }\left[ \frac{ \partial  }{ \partial \rho }(\rho^2\sin\theta F_{\rho})+\frac{ \partial  }{ \partial \theta }(\rho\sin\theta F_{\theta})+\frac{ \partial  }{ \partial \varphi }(\rho F_{\varphi}) \right].
+\end{equation}
+si $F(\rho,\theta,\varphi)=F_{\rho}e_{\rho}+F_{\theta}e_{\theta}+F_{\varphi}e_{\varphi}$.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Laplacien en coordonnées curvilignes orthogonales}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soit une fonction $f\colon \eR^3\to \eR$. Le \defe{Laplacien}{Laplacien} de $f$ est donné par
+\begin{equation}
+    \Delta f=\nabla\cdot(\nabla f).
+\end{equation}
+En utilisant les formules données, nous avons
+\begin{equation}
+    \Delta f=\frac{1}{ h_1h_2h_3 }\left[ \frac{ \partial  }{ \partial q_1 }\left( \frac{ h_2h_3 }{ h_1 }\frac{ \partial f }{ \partial q_1 } \right)  +\frac{ \partial  }{ \partial q_2 }\left( \frac{ h_1h_3 }{ h_2 }\frac{ \partial f }{ \partial q_2 } \right)  +\frac{ \partial  }{ \partial q_3 }\left( \frac{ h_1h_2 }{ h_3 }\frac{ \partial f }{ \partial q_3 } \right)     \right].
+\end{equation}
+Dans cette expression, la fonction $f$ est donnée comme fonction de $q_1$, $q_2$ et $q_3$.
+
+En coordonnées cylindriques, cela s'écrit
+\begin{equation}
+    \begin{aligned}[]
+        \Delta f&=\frac{1}{ r }\left[ \frac{ \partial  }{ \partial r }\left( r\frac{ \partial f }{ \partial r } \right)+\frac{ \partial  }{ \partial \theta }\left( \frac{1}{ r }\frac{ \partial f }{ \partial \theta } \right)+\frac{ \partial  }{ \partial z }\left( r\frac{ \partial f }{ \partial z } \right) \right]\\
+        &=\frac{ \partial^2f  }{ \partial r^2 }+\frac{1}{ r }\frac{ \partial f }{ \partial r }+\frac{1}{ r^2 }\frac{ \partial^2f }{ \partial \theta^2 }+\frac{ \partial^2f }{ \partial z^2 }.
+    \end{aligned}
+\end{equation}
+Dans cette expression, $f$ est fonction de $r$, $\theta$ et $z$.
+
+En coordonnées sphériques, cela devient
+\begin{equation}        \label{EqLaplaceSpheOM}
+    \Delta f=\frac{1}{ \rho^2\sin\theta }\left[ \frac{ \partial  }{ \partial \rho }\left( \rho^2\sin\theta\frac{ \partial f }{ \partial \rho } \right)+\frac{ \partial  }{ \partial \theta }\left( \sin\theta\frac{ \partial f }{ \partial \theta } \right)+\frac{ \partial  }{ \partial \varphi }\left( \frac{1}{ \sin\theta }\frac{ \partial f }{ \partial \varphi } \right) \right].
+\end{equation}
+Dans cette expression, $f$ est fonction de $\rho$, $\theta$ et $\varphi$.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Rotationnel en coordonnées curvilignes orthogonales}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous voulons calculer le rotationnel de $F(q)=\sum_kF_k(q)e_k$. Pour cela nous commençons par écrire $e_k=h_k\nabla q_k$ et nous utilisons la formule \eqref{EqLeinRotfFFOM} avec $F_kh_k$ en guise de $f$ :
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\times F_ke_k&=\nabla\times(F_kh_k\nabla q_k)\\
+        &=F_kh_k\underbrace{\nabla\times(\nabla q_k)}_{=0}+\nabla(F_kh_k)\times\nabla q_k\\
+        &=\frac{1}{ h_k }\nabla(F_kh_k)\times e_k.
+    \end{aligned}
+\end{equation}
+Nous utilisons à présent la formule \eqref{EqGradientenCurviligneOM} du gradient et le formule $e_j\times e_k=\sum_l\epsilon_{jkl}e_l$ :
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\times(F_ke_k)&=\sum_{j}\frac{1}{ h_jh_k }\frac{ \partial  }{ \partial q_j }(F_kh_k)e_j\times e_k\\
+        &=\sum_{jl}\frac{1}{ h_jh_k }\epsilon_{jkl}\frac{ \partial  }{ \partial q_j }(F_kh_k)e_l.
+    \end{aligned}
+\end{equation}
+Le rotationnel s'écrit donc
+\begin{equation}
+    \nabla\times F=\sum_{jkl}\frac{1}{ h_jh_k }\epsilon_{jkl}\frac{ \partial  }{ \partial q_j }(F_kh_k)e_l.
+\end{equation}
+Devant $e_1$ par exemple nous avons seulement les termes $j=2$, $k=3$ et $j=3$, $k=2$. Étant donné que $\epsilon_{231}=1$ et $\epsilon_{321}=-1$, le coefficient de $e_1$ sera simplement
+\begin{equation}
+    \frac{1}{ h_2h_3 }\left( \frac{ \partial  }{ \partial q_2 }(F_3h_3)-\frac{ \partial  }{ \partial q_3 }(F_2h_2) \right).
+\end{equation}
+La formule complète devient
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\times\sum_k F_ke_k&=\frac{1}{ h_2h_3 }\left( \frac{ \partial  }{ \partial q_2 }(F_3h_3)-\frac{ \partial  }{ \partial q_3 }(F_2h_2) \right)\\
+            &\quad+\frac{1}{ h_1h_3 }\left( \frac{ \partial  }{ \partial q_3 }(F_1h_1)-\frac{ \partial  }{ \partial q_1 }(F_3h_3) \right)\\
+            &\quad+\frac{1}{ h_2h_1 }\left( \frac{ \partial  }{ \partial q_1 }(F_2h_2)-\frac{ \partial  }{ \partial q_2 }(F_1h_1) \right).  
+    \end{aligned} 
+\end{equation} 
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées cylindriques}
+%---------------------------------------------------------------------------------------------------------------------------
+
+En utilisant $h_r=1$, $h_{\theta}=r$ et $h_z=1$, nous trouvons
+\begin{equation}        \label{EqRotationnelCylinOM}
+    \begin{aligned}[]
+        \nabla\times(F_re_r+F_{\theta}e_{\theta}+F_ze_z)&=\frac{1}{ r }\left( \frac{ \partial F_z }{ \partial \theta }-\frac{ \partial (F_{\theta}r) }{ \partial z } \right)e_r\\
+        &\quad+\left( \frac{ \partial F_r }{ \partial z }-\frac{ \partial F_z }{ \partial r } \right)e_{\theta}\\
+        &\quad+\left( \frac{ \partial (F_{\theta} r) }{ \partial r }-\frac{ \partial F_r }{ \partial \theta } \right)e_z.
+    \end{aligned}
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées sphériques}
+%---------------------------------------------------------------------------------------------------------------------------
+
+En utilisant $h_{\rho}=1$, $h_{\theta}=\rho$ et $h_{\varphi}=\rho\sin\theta$, nous trouvons
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\times(F_{\rho}e_{\rho}+F_{\theta}e_{\theta}+F_{\varphi}e_{\varphi})&=\frac{1}{ \rho\sin\theta }\left( \frac{ \partial (F_{\varphi})\sin\theta }{ \partial \theta }-\frac{ \partial F_{\theta} }{ \partial \varphi } \right)e_{\rho}\\
+        &\quad+\frac{1}{ \rho\sin\theta }\left( \frac{ \partial F_{\rho} }{ \partial \varphi }-\frac{ \partial (F_{\varphi}\rho\sin\theta) }{ \partial \rho } \right)e_{\theta}\\
+        &\quad+\frac{1}{ \rho }\left( \frac{ \partial F_{\theta}\rho }{ \partial \rho }-\frac{ \partial F_r }{ \partial \theta } \right)e_{\varphi}.
+    \end{aligned}
+\end{equation}
+Note : dans le premier terme, il y a une simplification par $\rho$.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Les formules}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées polaires}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les vecteurs de base :
+\begin{subequations}
+    \begin{align}
+    e_r=\begin{pmatrix}
+        \cos(\theta)    \\ 
+        \sin(\theta)    
+    \end{pmatrix}=\cos(\theta)e_x+\sin(\theta)e_y\\
+    e_{\theta}=\begin{pmatrix}
+        -\sin(\theta)    \\ 
+        \cos(\theta)    
+    \end{pmatrix}=-\sin(\theta)e_x+\cos(\theta)e_y.
+    \end{align}
+\end{subequations}
+
+Le gradient :
+\begin{equation}
+    \nabla\tilde f(r,\theta)=\frac{ \partial \tilde f }{ \partial r }(r,\theta)e_r+\frac{1}{ r }\frac{ \partial \tilde f }{ \partial \theta }(r,\theta)e_{\theta}.
+\end{equation}
+
+La divergence :
+\begin{equation}    \label{EqgRxJKdOM}
+    \nabla\cdot F=\frac{1}{ r }\left[ \frac{ \partial  }{ \partial r }(rF_r)+\frac{ \partial  }{ \partial \theta }(F_{\theta}) \right].
+\end{equation}
+
+Le rotationnel :
+\begin{equation}    \label{EqtBnoCwOM}
+    \nabla\times(F_re_r+F_{\theta}e_{\theta})=\left( \frac{ \partial (F_{\theta} r) }{ \partial r }-\frac{ \partial F_r }{ \partial \theta } \right)e_z.
+\end{equation}
+Notons que le rotationnel n'existe pas vraiment en deux dimensions. Ici nous avons vu le champ \( F(r,\theta)\) comme un champs dans \( \eR^3\) ne dépendant pas de \( z\) et n'ayant pas de composante \( z\). Le résultat est un rotationnel qui est dirigé selon l'axe \( z\).
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées cylindriques}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les vecteurs de base : idem qu'en coordonnées polaires, et on ajoute \( e_z\) sans modifications.
+
+Le gradient :
+\begin{equation}
+    \nabla\tilde f(r,\theta,z)=\frac{ \partial \tilde f }{ \partial r }(r,\theta,z)e_r+\frac{1}{ r }\frac{ \partial \tilde f }{ \partial \theta }(r,\theta,z)e_{\theta}+\frac{ \partial \tilde f }{ \partial z }(r,\theta,z)e_z.
+\end{equation}
+
+La divergence :
+\begin{equation} 
+    \nabla\cdot F=\frac{1}{ r }\left[ \frac{ \partial  }{ \partial r }(rF_r)+\frac{ \partial  }{ \partial \theta }(F_{\theta})+\frac{ \partial  }{ \partial z }(rF_z) \right].
+\end{equation}
+
+Le rotationnel :
+\begin{equation}    
+    \begin{aligned}[]
+        \nabla\times(F_re_r+F_{\theta}e_{\theta}+F_ze_z)&=\frac{1}{ r }\left( \frac{ \partial F_z }{ \partial \theta }-\frac{ \partial (F_{\theta}r) }{ \partial z } \right)e_r\\
+        &\quad+\left( \frac{ \partial F_r }{ \partial z }-\frac{ \partial F_z }{ \partial r } \right)e_{\theta}\\
+        &\quad+\left( \frac{ \partial (F_{\theta} r) }{ \partial r }-\frac{ \partial F_r }{ \partial \theta } \right)e_z.
+    \end{aligned}
+\end{equation}
+
+Note : les formules concernant les coordonnées polaires se réduisent de celles-ci en enlevant toutes les références à \( z\).
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées sphériques}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les vecteurs de base :
+\begin{equation}
+    \begin{aligned}[]
+        e_r&=\begin{pmatrix}
+        \sin(\theta)\cos(\varphi)    \\ 
+        \sin(\theta)\sin(\varphi)    \\ 
+        \cos(\theta)
+    \end{pmatrix},
+    &e_{\theta}&=
+    \begin{pmatrix}
+        \cos(\theta)\cos(\varphi)    \\ 
+        \cos(\theta)\sin(\varphi)    \\ 
+        -\sin(\theta)
+    \end{pmatrix},\\
+    e_{\varphi}&=
+    \begin{pmatrix}
+        -\sin(\varphi)    \\ 
+        \cos(\varphi)    \\ 
+        0
+    \end{pmatrix}
+    \end{aligned}
+\end{equation}
+
+
+Le gradient :
+\begin{equation}
+    \nabla\tilde f(\rho,\theta,\varphi)=\frac{ \partial \tilde f }{ \partial \rho }e_{\rho}+\frac{1}{ \rho }\frac{ \partial \tilde f }{ \partial \theta }e_{\theta}+\frac{1}{ \rho\sin(\theta) }\frac{ \partial \tilde f }{ \partial \varphi }r_{\varphi}.
+\end{equation}
+
+
+La divergence :
+\begin{equation}
+    \nabla\cdot F=\frac{1}{ \rho^2\sin\theta }\left[ \frac{ \partial  }{ \partial \rho }(\rho^2\sin\theta F_{\rho})+\frac{ \partial  }{ \partial \theta }(\rho\sin\theta F_{\theta})+\frac{ \partial  }{ \partial \varphi }(\rho F_{\varphi}) \right].
+\end{equation}
+
+Le rotationnel :
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\times(F_{\rho}e_{\rho}+F_{\theta}e_{\theta}+F_{\varphi}e_{\varphi})&=\frac{1}{ \rho\sin\theta }\left( \frac{ \partial (F_{\varphi})\sin\theta }{ \partial \theta }-\frac{ \partial F_{\theta} }{ \partial \varphi } \right)e_{\rho}\\
+        &\quad+\frac{1}{ \rho\sin\theta }\left( \frac{ \partial F_{\rho} }{ \partial \varphi }-\frac{ \partial (F_{\varphi}\rho\sin\theta) }{ \partial \rho } \right)e_{\theta}\\
+        &\quad+\frac{1}{ \rho }\left( \frac{ \partial F_{\theta}\rho }{ \partial \rho }-\frac{ \partial F_r }{ \partial \theta } \right)e_{\varphi}.
+    \end{aligned}
+\end{equation}

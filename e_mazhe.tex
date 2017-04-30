@@ -1,19 +1,19 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2011-2016
+% Copyright (c) 2011-2017
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
 % TODO : mettre à jour pour suivre les recommandations
 %http://openclassrooms.com/courses/guide-des-bonnes-pratiques-en-latex
 
-\documentclass[a4paper,oneside,11pt]{book}
+\documentclass[a4paper,twoside,11pt]{book}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
 \usepackage{etex}
 \usepackage{ifthen}
-\usepackage{etoolbox}           % Ceci devrait remplacer ifthen. Pour l'instant ce n'est utilisé que dans gardeFrido.tex
+\usepackage{etoolbox}           % Ceci devrait remplacer ifthen. 
 
 \usepackage{latexsym}
 \usepackage{amsfonts}
@@ -71,13 +71,13 @@
 
 \usepackage[cdot,thinqspace,amssymb]{SIunits}    %   1410612643
 
-
 \usepackage{textcomp}
 \usepackage{lmodern}
-\usepackage[a4paper,margin=2cm]{geometry} 
+\usepackage[a4paper,margin=2cm,left=2.6cm]{geometry} 
 
 \usepackage{hyperref}     
 \usepackage{makeidx}
+\usepackage{minitoc}
 \usepackage[nottoc]{tocbibind}      % Biblio inclue  dans la table des matières.
 \usepackage[numbers]{natbib}        % le champ URL dans le fichier bibtex
 \usepackage[refpage]{nomencl}       % Some configuration at   1338719836
@@ -95,7 +95,7 @@
 \setcounter{defPattern}{0}
 \newcommand{\utilde}[1]{\underline{#1}}
 
-\input{configuration.tex}
+\input{configuration}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -185,6 +185,7 @@
 \DeclareMathOperator{\esssup}{ess-\sup}
 \DeclareMathOperator{\gpAff}{Aff}
 \DeclareMathOperator{\Vect}{Vect}
+\DeclareMathOperator{\eae}{eae}         % espace affine engendré
 \DeclareMathOperator{\gpSymp}{Symp}
 \DeclareMathOperator{\horsp}{hor}
 \DeclareMathOperator{\Dim}{Dim}
@@ -244,6 +245,8 @@
 \DeclareMathOperator{\Int}{Int}     % Intérieur d'un ensemble.
 \DeclareMathOperator{\Adh}{Adh}     % Adhérence d'un ensemble.
 \DeclareMathOperator{\Ind}{Ind}     % l'indice d'un chemin en analyse complexe
+\DeclareMathOperator{\Turn}{Turn} % Le nombre de tours d'une courbe fermée
+\DeclareMathOperator{\IR}{Ind}       % indice de rotation
 \DeclareMathOperator{\Cond}{Cond}   % conditionnement d'une matrice
 \DeclareMathOperator{\Diam}{Diam}
 \DeclareMathOperator{\id}{Id}
@@ -291,7 +294,7 @@
 \DeclareMathOperator{\codim}{codim} % pour la codimension.
 \DeclareMathOperator{\diam}{diam} % le diamètre d'un ensemble.
 \DeclareMathOperator{\Var}{Var}     % Variance d'une variable aléatoire.
-\DeclareMathOperator{\Fun}{\texttt{Fun}}     % Ensemble des applications d'un ensemble vers l'autre.
+\DeclareMathOperator{\Fun}{Fun}     % Ensemble des applications d'un ensemble vers l'autre.
 \DeclareMathOperator{\Cov}{Cov}     % la covariance.
 \DeclareMathOperator{\gr}{gr}     % le groupe engendré
 \DeclareMathOperator{\pgcd}{pgcd}     
@@ -330,12 +333,8 @@
 \newcommand{\angl}{\quext{Anglais ?}}
 \newcommand{\intr}[1]{\mathaccent 23 {#1}}
 \newcommand{\UU}{\intr{U}}
-%TODO : supprimer ces commandes.
-\newcommand{\dref}[1]{}
-\newcommand{\dixref}[1]{}
-\newcommand{\lref}[1]{} 
-\newcommand{\leref}[1]{[Landsman {(#1)}]}
-\newcommand{\lsref}[1]{[Landsman {\bf #1}]}
+
+\newcommand{\donc}{\Rightarrow}
 
 \newcommand{\ecart}{ecart} % quand tu trouveras une meilleure traduction...
 
@@ -362,6 +361,7 @@
 
 \newcommand{\Cinf}{C^{\infty}}
 \newcommand{\vnM}{\mathfrak{M}}         % Le M des algèbres de von Neumann
+\newcommand{\hodge}{\star}         % the Hodge dual
 
 
 %\newcommand{\bmodE}{\mathcal{\bar E}}      % Pour le module conjugué
@@ -420,7 +420,7 @@
 \newcommand{\tH}{\tilde{H}}
 \newcommand{\tX}{\tilde{X}}
 \newcommand{\tY}{\tilde{Y}}
-\newcommand{\utX}{\underline{X}}                %Il faut encore trouver comment sousligner avec un tilde.
+\newcommand{\utX}{\underline{X}}                %Il faut encore trouver comment souligner avec un tilde.
 \newcommand{\utE}{\underline{E}}
 \newcommand{\utH}{\underline{H}}
 \newcommand{\talpha}{\tilde{\alpha}}
@@ -489,7 +489,7 @@
 \newcommand{\lA}{\mathfrak{a}}
 \newcommand{\lB}{\mathfrak{b}}
 \newcommand{\lF}{\mathfrak{f}}
-\newcommand{\lG}{\mathfrak{g}}      % Pour les algèbes de Lie en geneal; comme ça je peux choisir,  
+\newcommand{\lG}{\mathfrak{g}}      % Pour les algèbres de Lie en général; comme ça je peux choisir,  
 \newcommand{\lH}{\mathfrak{h}}      % mais le mal du \mG est déjà loin !
 \newcommand{\lI}{\mathfrak{i}}
 \newcommand{\lJ}{\mathfrak{j}}
@@ -684,7 +684,7 @@
 \newcommand{\dashint}{\Xint-}
 
 
-% Le premier argument est optionel, c'est pour ajouter un [math.QA] par exemple pour la nouvelle numérotation de arXiv. Comme tu le vois, la valeur par défaut est vide.
+% Le premier argument est optionnel, c'est pour ajouter un [math.QA] par exemple pour la nouvelle numérotation de arXiv. Comme tu le vois, la valeur par défaut est vide.
 \newcommand{\arxiv}[2][]{%
 \newline
 \ifthenelse{\equal{#1}{}}{%                     Tester si un argument optionnel est passé ou non.
@@ -732,6 +732,7 @@
 
 \newcounter{numtho}
 \newcounter{numprob}
+\newcounter{numTheme}           % For the thematic index, see InternalLinks
 
 \makeatletter
 \@addtoreset{numtho}{chapter}
@@ -844,11 +845,11 @@
 \newcommand{\mZ}{\mathcal{Z}}
 
 
-
 \newcommand{\scal}[2]{ \langle #1,#2\rangle }
 \newcommand{\vect}[1]{\overrightarrow{#1}}
 
 \newcommand{\tq}{\text{ tel que }}          %TODO : il y a un paquet qui doit être changé en \st
+\newcommand{\st}{\text{ such that }} 
 \newcommand{\tqs}{\text{ tels que }}
 \newcommand{\quext}[1]{ \footnote{\textsf{#1}}  }
 \newcommand{\info}[1]{\texttt{#1}}
@@ -922,8 +923,22 @@
 
 
 \newcommand{\subprooflabel}[1]{\underline{\bf #1}}
+
 \newenvironment{subproof}{\let\Olddescriptionlabel\descriptionlabel\let\descriptionlabel\subprooflabel \begin{description}}{\end{description}\let\descriptionlabel\Olddescriptionlabel}
-\newenvironment{InternalLinks}{\small}{\normalsize}
+
+
+% See also the file 'src_front_back_matter/157_thematique.tex' in which we
+% open and close the intermediate file 'theme.toc'
+\newcommand{\InternalLinks}[1]
+{
+    \refstepcounter{numTheme} \paragraph{Thème \arabic{numTheme} : #1} \label{THTOC\arabic{numTheme}}
+    \immediate\write\themetoc{%
+        \unexpanded{\ref}{THTOC\arabic{numTheme}} %
+        : \unexpanded{#1\\}%
+    }
+}
+
+
 \newenvironment{probleme}{\refstepcounter{numprob}\tiny\fbox{\bf Problèmes et choses à faire}\\}{\normalsize}
 
 \newcommand{\TextePourISBN}{
@@ -932,48 +947,26 @@ ISBN : Y-Y-YYYYYYY-Y-Y
     \end{center}
 }
 
-% J'ajoute un OLD à la commande suivante parce qu'elle n'est plus censée être utilisée.
-\newcommand{\LicenceCCOLD}{
-
-\begin{center}
-
-            \includegraphics{CreativeCommons.png}
-
-            {\small
-
-        \emph{Le Frido} de \href{http://laurent.claessens-donadello.eu/}{Laurent Claessens} est mis à disposition selon les termes de la licence \href{http://creativecommons.org/licenses/by-nc-nd/3.0/fr/}{licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Pas de Modification 3.0 France.}.
-
-        Une version plus à jour de ce texte, publiée sous la \href{http://fr.wikipedia.org/wiki/FDL}{licence GNU-FDL} est disponible sur \href{http://laurent.claessens-donadello.eu/pdf/lefrido.pdf}{le site de l'auteur}.
-    }
-\end{center}
-
-}
-
 \newcommand{\LicenceFDL}{
 \begin{center}
 
-            \includegraphics[width=1cm]{gfdl-logo-small.png}
+            \includegraphics[width=1cm]{pictures_bitmap/gfdl-logo-small.png}
 
-Copyright (c) 2011-2016  Laurent Claessens, Carlotta Donadello
+Copyright 2011-2017  Laurent Claessens, Carlotta Donadello
 
 Permission is granted to copy, distribute and/or modify this document under the terms of the \href{http://www.gnu.org/licenses/fdl-1.3.html}{GNU Free Documentation License}, Version 1.3 or any later version published by the Free Software Foundation; with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. A copy of the license is included in the chapter entitled ``GNU Free Documentation~License''.
 
 \end{center}
-Vous avez le droit de copier, distribuer et modifier ce document pourvu que vous suiviez les règles de la \href{http://www.gnu.org/licenses/fdl-1.3.html}{GNU Free Documentation License}. Vous trouverez les sources \LaTeX\ à l'adresse\\ \url{https://github.com/LaurentClaessens/mazhe}
-
 }
 
 \newcommand{\LogoEtLicence}{
-\ifthenelse{\value{isAgreg}=0}{
-
+\notbool{isFrido}{
 \LicenceFDL
-
 } 
 {
     %\LicenceCC
     \LicenceFDL
     \TextePourISBN
-
 }
 }
 
@@ -1050,15 +1043,8 @@ Vous avez le droit de copier, distribuer et modifier ce document pourvu que vous
 \newcommand{\Bcplx}{B_\cdot}
 \newcommand{\toisom}{\fleche\simeq}
 \newcommand{\D}{\partial}
-%\newcommand{\cat}[1]{{\bf #1}}
-%\newcommand{\donc}{\Rightarrow}
-%\newcommand{\im}{\text{im}}
-%\newcommand{\coker}{\text{coker}}
 \newcommand{\lied}{\mathcal L}
 \newcommand*{\nom}[1]{\textsc{#1}}
-%\makeatletter
-%\newcommand*{\attention}[1]{\@latex@warning{#1}{!\small\bf #1!}\marginpar{Warning}}
-%\makeatother
 \newcommand*{\inner}{\imath}
 \newcommand*{\newexo}{}
 \newcommand*{\principe}{}
@@ -1114,25 +1100,11 @@ Vous avez le droit de copier, distribuer et modifier ce document pourvu que vous
   \mbox{$#1{\scriptstyle #3}$}}
 
 
-\newcommand{\telque}{\vert\,}
-\newcommand{\donc}{\Rightarrow}
 
-%
-\newcommand{\OC}{Octave}
-\newcommand{\ML}{Matlab}
-\newcommand{\SB}{Stixbox}
-%
-\newcommand{\FIG}[4]{%  fname scale floatparams caption
- \begin{figure}[#3]%
-  \begin{center}%
-  \includegraphics[scale=#2]{#1}%
-  \caption{#4}%
-  \label{fi:#1}%
-  \end{center}%
- \end{figure}
-}
 
-% 1410612643  :   L'option amssymb sert à éviter un conflit avec la commande \square de amssymb. Note qu'elle n'est plus accessible. Si tu en as besoin, faudra RTFM
-%                    The change from SIunits to siunitx causes a too many math alphabet error.
-%                    ! LaTeX Error: Too many math alphabets used in version normal.
-%                    Thus we stick on the old SIunits
+% 1410612643  :   L'option amssymb sert à éviter un conflit avec la commande \square de amssymb. Note que cette dernière n'est plus accessible. 
+%The change from SIunits to siunitx causes a too many math alphabet error.
+% ! LaTeX Error: Too many math alphabets used in version normal.
+% Thus we stick on the old SIunits
+
+

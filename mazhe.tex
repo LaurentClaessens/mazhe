@@ -1,8 +1,7 @@
 % This is part of (almost) Everything I know in mathematics 
-% Copyright (c) 2010-2016
+% Copyright (c) 2010-2017
 %   Laurent Claessens 
 % See the file fdl-1.3.txt for copying conditions. 
-
 
 % CODING CONVENTION
 
@@ -34,11 +33,10 @@
 \input{e_mazhe} 
 
 % TODO : enlever les \cite{} qui citent mes documents qui ont été fusionnés.  
-% TODO : Il y a un super théorème sur les fonctions continues ici :  http://allken-bernard.org/pierre/weblog/?p=2445 
 
 % 1 on utilise external et 0 on ne l'utilise pas
 \newcounter{useexternal} \setcounter{useexternal}{1} 
-\ifthenelse{\value{useexternal}=1}{ \usetikzlibrary{external} \tikzexternalize }{ \newcommand{\tikzsetnextfilename}[1]{} } 
+\ifthenelse{\value{useexternal}=1}{ \usetikzlibrary{external} \tikzexternalize[prefix=auto/pictures_tikz/] }{ \newcommand{\tikzsetnextfilename}[1]{} } 
 
 \makeindex
 \makenomenclature
@@ -48,22 +46,38 @@
 \bibliographystyle{unsrtnat} 
 \corrPosition{1}
 
-\newcounter{isAgreg}
-\setcounter{isAgreg}{0}        % Ceci est changé en 1 par un plugin de lst_agreg.py
+% The following booleans serve to know in what type of compilation we are.
+% They are set to 'true' by the pre-compilation scripts.
+% http://ftp.oleane.net/pub/CTAN/macros/latex/contrib/etoolbox/etoolbox.pdf
+\newbool{isFrido}
+\newbool{isEverything}
+\newbool{isEnVolume}
+\newbool{isBook}
+\boolfalse{isFrido}
+\boolfalse{isEverything}
+\boolfalse{isEnVolume}      % This list is hard-coded in 'gardeVolume.tex'.
+\boolfalse{isBook}        
 
-% Le compteur envolume sert à mettre une ancre pour la publication en volumes. 0 signifie qu'il n'est pas divisé en volume.
-% En pratique c'est le script 'volume' qui s'en occupe.
-\newcounter{envolume}
-\setcounter{envolume}{0}            % Laisser à zéro.
 
-
-\ifthenelse{\value{isAgreg}=1}{\corrPosition{1}}{}
+\ifbool{isFrido}{\corrPosition{1}}{}
 \newcommand{\GitCommitHexsha}{\info{missing information}}       % Ceci est modifié par un plugin de lst_agreg.py
+
+\emptyInputPath
+\addInputPath{tex/front_back_matter}
 
 % SCRIPT MARK -- GARDE MES NOTES
 \selectlanguage{frenchb}
 \input{gardeFrido}
-\input{EtAgreg}
+
+\notbool{isBook}{
+    \input{166_description_version}
+    \newpage
+}{}
+\ifbool{isFrido}{
+    \input{EtAgreg}
+}{}
+
+\newpage
 
 % SCRIPT MARK -- GARDE MAZHE
 \selectlanguage{english}
@@ -75,6 +89,10 @@
 
 % SCRIPT MARK -- TOC
 
+\addcontentsline{toc}{chapter}{Thématique}
+\input{157_thematique}
+
+\newpage
 \addcontentsline{toc}{chapter}{Table des matières}
 \tableofcontents
 %\addcontentsline{toc}{chapter}{Index}
@@ -95,19 +113,34 @@
 \selectlanguage{frenchb}
 \input{introSage}            
 
-% SCRIPT MARK -- AGRÉGATION
+% SCRIPT MARK -- FRIDO
+
 
 \selectlanguage{frenchb}
 
-\ifthenelse{\value{isAgreg}=1}{
-\setcounter{chapter}{0}
-\chapter{Introduction}
-\input{remerciements}
-\input{introAgreg}
-}{\part{Pour l'agrégation}}
+\ifbool{isFrido}
+{
+    \setcounter{chapter}{0}
+    \chapter{Introduction}
+        \input{remerciements}
+        \input{introAgreg}
+}{}
+\ifbool{isEverything}
+{
+    \part{Le Frido}
+}{}
 
+\ifbool{isBook}{
+    \setcounter{chapter}{0}
+    \chapter{Introduction}
+        \input{162_preface}
+        \input{remerciements}
+}{}
 
-\input{questionsMesNotes}
+\emptyInputPath
+\addInputPath{tex/frido}
+
+\input{168_questionsFrido}
 
 \chapter{Construction des ensembles de nombres}
 \input{42_nombres}
@@ -125,7 +158,6 @@
 \input{51_StructCorps}
 \input{52_StructCorps}
 
-
 \chapter{Topologie générale}
 \input{53_topologie}
 \input{54_topologieR}
@@ -135,8 +167,8 @@
 \input{144_espace_vecto_norme}
 \input{56_espace_vecto_norme}
 \input{57_espace_vecto_norme}
+\input{181_espace_vecto_norme}
 \input{59_EspacesVecto}
-\input{139_EspacesVecto}
 \input{60_EspacesVecto}
 \input{138_EspacesVecto}
 \input{141_EspacesVecto}
@@ -151,47 +183,64 @@
 \chapter{Espaces affines}
 \input{140_EspacesAffines}
 
-\chapter{Espaces projectifs}
-\input{EspacesProjectifs}
-
 \chapter{Analyse réelle}
 \input{64_Chap_analyse_R}
 \input{65_Chap_analyse_R}
 \input{66_Chap_calcul_differentiel}
+\input{173_differentielle}
 \input{67_Chap_calcul_differentiel}
 \input{68_Chap_calcul_differentiel}
 \input{69_Chap_calcul_differentiel}
-\input{1_general}
-\input{4_dev_limite}
-
 
 \chapter{Retour sur les groupes}
 \input{61_representations}
+\input{153_representations}
 \input{62_representations}
-\input{63_representations}
-
-\chapter{Arc paramétré}
-\input{74_Chap_courbes_parametre}
 
 \chapter{Intégration}
 \input{70_suites_series_fonctions}
 \input{71_suites_series_fonctions}
+\input{169_suites_series_fonctions}
 \input{72_suites_series_fonctions}
+\input{155_suites_series_fonctions}
 \input{73_Chap_integrales_multiples}
 \input{38_Chap_integrales_multiples}
 \input{2_calcul_integral}
 
+\chapter{Suites et séries de fonctions}
+\input{75_series_fonctions}
+\input{174_series_fonctions}
+\input{4_dev_limite}
+\input{76_series_fonctions}
 
-\chapter{Analyse vectorielle}
-\input{37_anal_vectorielle}
+\chapter{Trigonométrie, isométries}
+\input{175_trigono}
+\input{178_trigono}
+\input{177_trigono}
+
+\chapter{Représentations et caractères}
+\input{63_representations}
+
+\chapter{Arc paramétré}
+\input{74_Chap_courbes_parametre}
+\input{152_Chap_courbes_parametre}
 
 \chapter{Suite de l'analyse}
-\input{75_series_fonctions}
-\input{76_series_fonctions}
 \input{77_series_fonctions}
 \input{78_inversion_locale}
 \input{79_inversion_locale}
 \input{80_Newton}
+
+\chapter{Géométrie hyperbolique}
+\input{160_hyperbolique}
+
+\chapter{Espaces projectifs}
+\input{161_EspacesProjectifs}
+\input{170_EspacesProjectifs}
+
+
+\chapter{Analyse vectorielle}
+\input{37_anal_vectorielle}
 
 \chapter{Espaces de Hilbert}
 \input{81_Hilbert}
@@ -204,22 +253,31 @@
 \input{84_AnalyseComplexe}
 \input{85_AnalyseComplexe}
 
-
-\chapter{Séries de Fourier}
+\chapter{Série de Fourier}
 \input{86_Fourier}
+
+\chapter{Transformation de Fourier}
 \input{87_Fourier}
 
 \chapter{Distributions}
 \input{88_distributions}
 
-\chapter{Équations différentielles}
+\chapter{Espaces de Sobolev, équations elliptiques}      \label{CHAPooVTIIooGOEvXT}
+\input{158_Sobolev}
+
+\chapter{Équations différentielles ordinaires}
 \input{89_Equations_diff}
 \input{90_Equations_diff}
+\input{180_Equations_diff}
 \input{150_ED_analyseCTU}
 
-\chapter{Analyse numérique}
+\chapter{Équations aux dérivées partielles}
+\input{179_edp}
+
+\chapter{Calcul numérique}
 \input{145_numerique}
 \input{148_numerique}
+\input{159_numerique}
 
 \chapter{Variables aléatoires et théorie des probabilités}
 \input{91_vars_al}
@@ -251,9 +309,11 @@
 \chapter{Développements possibles}
 \input{98_liste_developpements}
 
-
 % SCRIPT MARK -- OUTILS MATHÉMATIQUES
 % -------------------------------------------------------------------------
+
+\emptyInputPath
+\addInputPath{tex/outils_math}
  
 \part{Outils mathématiques} 
 
@@ -286,6 +346,8 @@
 
 % SCRIPT MARK -- RESEARCH PART
 
+\emptyInputPath
+\addInputPath{tex/research}
 
     \selectlanguage{english}
 \part{More advanced stuff and research}
@@ -303,8 +365,8 @@
 \input{directedSets}
 
 \chapter{General differential geometry} \label{Chapitre_FB}
-\input{var_diff}
-\input{diff_geom}   % This is from the course MATH1241 at Louvain-la-Neuve.
+\input{154_var_diff}
+\input{diff_geom} 
 
 \chapter{Lie groups and subgroups}
 \input{143_Lie_gp_and_subgp}
@@ -322,7 +384,7 @@
 \input{111_algebre}
 \input{Cyclic_homol}
 
-\chapter{Fibre bundle}
+\chapter{Fiber bundle}
 \input{105_fibre_bundle}
 \input{106_fibre_bundle}
 
@@ -335,20 +397,24 @@
 
 \chapter{Classical mechanics}
 \input{Mecanique}
-\input{algebroid}
 
 \chapter{Hilbert spaces}
 \input{Hilbert}
 \input{reprez_Lie_Hilbert}
 
+\chapter{Sobolev spaces}
+\input{167_Sobolev}
+
 \chapter{Analysis}
-\input{anal_notations}
-\input{distrib}
-\input{Sobolev}
-\input{frechet}
 \input{136_garding}
 \input{app_oscilla}
 \input{Dixmier_tr}
+
+\chapter{Partial derivative equation}
+\input{171_pde}
+
+\chapter{Finite elements}
+\input{156_finite_elements}
 
 \chapter{Chain complexes}
 \input{chaines}
@@ -368,7 +434,7 @@
 \chapter{Relativistic fields and group theory}
 \input{MQ}
 
-\chapter{Relativistic fields and fibre bundle formalism}
+\chapter{Relativistic fields and fiber bundle formalism}
 \input{117_Fibre_QFT}
 
 \chapter{Conformal fiels theory}
@@ -455,6 +521,9 @@
 
 % SCRIPT MARK -- MATLAB
 
+\emptyInputPath
+\addInputPath{tex/matlab}
+
     \selectlanguage{frenchb}
 \part{Matlab}
 \input{133_matlab}
@@ -462,10 +531,12 @@
 
 % SCRIPT MARK -- EXERCICES
 
+\emptyInputPath
+\addInputPath{tex/exercices}
 \part{Exercices} 
 
 \input{TD_SVT}
-\input{part_exercices}
+\input{164_part_exercices}
 
 % SCRIPT MARK -- CdI
 
@@ -485,8 +556,11 @@
 
 % SCRIPT MARK -- FINAL
 
+
+\emptyInputPath
+\addInputPath{tex/front_back_matter}
 \input{134_choses_finales} 
 \end{document}
 
 % SCRIPT MARK -- AFTER DOCUMENT
-% Ma réserve d'exercices est dans le fichier reserve.tex
+% Ma réserve d'exercices est dans le fichier réserve.tex

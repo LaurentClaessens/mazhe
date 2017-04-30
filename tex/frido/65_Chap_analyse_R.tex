@@ -1,0 +1,1359 @@
+% This is part of Mes notes de mathématique
+% Copyright (c) 2008-2017
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+\subsection{Continuité}
+%----------------------
+
+Nous allons considérer trois approches différentes de la continuité. La première sera de définir la continuité de fonctions de $\eR$ vers $\eR$ au moyen du critère usuel. Ensuite, nous définiront la continuité des applications entre n'importes quels espaces métriques, et nous montrerons que les deux définitions sont équivalentes dans le cas des fonctions sur $\eR$ à valeurs réelles.
+
+Enfin, un peu plus tard nous verrons que la continuité peut également être vue en termes de limites. Encore une fois nous verrons que dans le cas de fonctions de $\eR$ vers $\eR$ cette troisième approche est équivalentes aux deux premières.
+
+La définition de fonction continue est la définition \ref{DefOLNtrxB}.
+
+Nous allons donc dire qu'une fonction est continue quand plus $x$ s'approche de $a$ en suivant la courbe, plus $f(x)$ s'approche de $f(a)$. Voici la définition précise.
+\begin{definition}      \label{DefContinue}
+Nous disons que la fonction $x\mapsto f(x)$ est \defe{continue en $a$}{continue} si
+\begin{equation}
+ \forall \epsilon>0,\exists \delta\text{ tel que } \big(| x-a |\leq\delta\big)\Rightarrow | f(x)-f(a) |\leq \epsilon.
+\end{equation}
+\end{definition}
+
+
+\begin{definition}		\label{DefFonctContinueRR}
+	Soit une fonction $f\colon D\to \eR$ et un point $a$ dans $D$. Nous disons que $f$ est \defe{continue}{continue!fonction réelle} lorsque $f$ possède une limite en $a$ et $\lim_{x\to a} f(x)=f(a)$.
+\end{definition}
+En remplaçant $\ell$ par $f(a)$ dans la définition de la limite, nous exprimons la continuité de $f$ en $a$ par la façon suivante. Pour tout $\varepsilon>0$, il existe un $\delta>0$ tel que $\forall x\in D$,
+\begin{equation}
+	| x-a |<\delta\Rightarrow \big| f(x)-f(a) \big|<\varepsilon.
+\end{equation}
+
+
+Nous allons maintenant étudier quelques conséquences de cette définition. 
+
+\begin{enumerate}
+\item D'abord on voit que la continuité n'a été définie qu'en un point. On peut dire que la fonction $f$ est continue \emph{en tel point donné}, mais nous n'avons pas dit ce qu'est une fonction continue \emph{dans son ensemble}.
+
+\item Si $I$ est un intervalle de $\eR$, on dit que $f$ est \defe{continue sur l'intervalle}{continuité!sur un intervalle} $I$ si elle est continue en chaque point de $I$.
+
+\item Comme la définition de $f$ continue en $a$ fait intervenir $f(x)$ pour tous les $x$ pas trop loin de $a$, il faut au moins déjà que $f$ soit définie sur ces $x$. En d'autres termes, dire que $f$ est continue en $a$ demande que $f$ existe sur un intervalle autour de $a$. 
+
+Ceci couplé à la définition précédente laisse penser qu'il est surtout intéressant d'étudier les fonctions qui sont continues sur un intervalle.
+
+\item L'intuition comme quoi une fonction continue doit pouvoir être tracée sans lever la main correspond aux fonctions continues sur des intervalles. Au moins sur l'intervalle où elle est continue, elle est traçable en un morceau.
+\end{enumerate}
+
+
+Nous allons démontrer maintenant une série de petits résultats qui permettent de simplifier la démonstration de la continuité de fonctions.
+\begin{theorem}
+Si la fonction $f$ est continue au point $a$, alors la fonction $\lambda f$ est également continue en $a$.
+\end{theorem}
+
+\begin{proof}
+Soit $\epsilon>0$. Nous avons besoin d'un $\delta>0$ tel que pour chaque $x$ à moins de $\delta$ de $a$, la fonction $\lambda f$ soit à moins de $\epsilon$ de $(\lambda f)(a)=\lambda f(a)$. Étant donné que la fonction $f$ est continue en $a$, on sait déjà qu'il existe un $\delta_1$ (nous notons $\delta_1$ afin de ne pas confondre ce nombre dont on est sûr de l'existence avec le $\delta$ que nous sommes en train de chercher) tel que 
+\[ 
+  (| x-a |\leq \delta_1)\Rightarrow | f(x)-f(a) |\leq \epsilon_1.
+\]
+Hélas, ce $\delta_1$ n'est pas celui qu'il faut faut parce que nous travaillons avec $\lambda f$ au lieu de $f$, ce qui fait qu'au lieu d'avoir $| f(x)-f(a) |$, nous avons $| \lambda f(x)-\lambda f(a) |=| \lambda |\cdot | f(x)-f(a) |$.  Ce que $\delta_1$ fait avec $(\lambda f)$, c'est
+\[ 
+  (| x-a |\leq\delta_1)\Rightarrow  | (\lambda f)(x)- (\lambda f)(a)|\leq | \lambda |\epsilon_1.
+\]
+Ce que nous apprend la continuité de $f$, c'est que pour chaque choix de $\epsilon_1$, on a un $\delta_1$ qui fait cette implication. Comme cela est vrai pour chaque choix de $\epsilon_1$, essayons avec $\epsilon_1=\epsilon/| \lambda |$ pour voir ce que ça donne. Nous avons donc un $\delta_1$ qui fait
+\[ 
+  (| x-a |\leq\delta_1)\Rightarrow  | (\lambda f)(x)- (\lambda f)(a)|\leq | \lambda |\epsilon_1=\epsilon.
+\]
+Ce $\delta_1$ est celui qu'on cherchait. 
+\end{proof}
+
+\begin{theorem}
+Si $f$ et $g$ sont deux fonctions continues en $a$, alors la fonction $f+g$ est également continue en $a$.
+\end{theorem}
+
+\begin{proof}
+La continuité des fonctions $f$ et $g$ au point $a$ fait en sorte que pour tout choix de $\epsilon_1$ et $\epsilon_2$, il existe $\delta_1$ et $\delta_2$ tels que 
+\[ 
+  (| x-a |\leq \delta_1)\Rightarrow | f(x)-f(a) |\leq \epsilon_1.
+\]
+et
+\[ 
+  (| x-a |\leq \delta_2)\Rightarrow | g(x)-g(a) |\leq \epsilon_2.
+\]
+La quantité que nous souhaitons analyser est $| f(x)+g(x)-f(a)-g(a) |$. Tout le jeu de la démonstration de la continuité est de triturer cette expression pour en tirer quelque chose en termes de $\epsilon_1$ et $\epsilon_2$. Si nous supposons avoir pris $| x-a |$ plus petit en même temps que $\delta_1$ et que $\delta_2$, nous avons
+\[
+| f(x)+g(x)-f(a)-g(a) |\leq| f(x)-g(x) |+| g(x)-g(a) |\leq\epsilon_1+\epsilon_2 
+\]
+en utilisant la formule générale $| a+b |\leq | a |+| b |$. Maintenant si on choisit $\epsilon_1$ et $\epsilon_2$ tels que $\epsilon_1+\epsilon_2<\epsilon$, et les $\delta_1$, $\delta_2$ correspondants, on a que 
+\[
+| f(x)+g(x)-f(a)-g(a) |\leq\epsilon,
+\]
+pourvu que $| x-a |$ soit plus petit que $\delta_1$ et $\delta_2$. Le bon $\delta$ a prendre est donc le minimum de $\delta_1$ et $\delta_2$ qui eux-même sont donnés par un choix de $\epsilon_1$ et $\epsilon_2$ tels que $\epsilon_1+\epsilon_2\leq\epsilon$.
+\end{proof}
+
+Pour résumer ces deux théorèmes, on dit que si $f$ et $g$ sont continues en $a$, alors la fonction $\alpha f+\beta g$ est également continue en $a$ pour tout $\alpha$, $\beta\in\eR$.
+
+Parmi les propriétés immédiates de la continuité d'une fonction, nous avons ceci qui est souvent bien utile.
+
+\begin{corollary}   \label{CorNNPYooMbaYZg}
+Si la fonction $f$ est continue en $a$ et si $f(a)>0$, alors $f$ est positive sur un intervalle autour de $a$.
+\end{corollary}
+
+\begin{proof}
+Prenons $\epsilon<f(a)$ et voyons\footnote{ici, nous insistons sur le fait que nous prenons $\epsilon$ \emph{strictement} plus petit que $f(a)$.} ce que la continuité de $f$ en $a$ nous offre : il existe un $\delta$ tel que
+\[ 
+  (| x-a |\leq \delta)\Rightarrow | f(x)-f(a) |\leq\epsilon < f(a).
+\]
+Nous en retenons que sur un intervalle (de largeur $\delta$), nous avons $| f(x)-f(a) |\leq f(a)$. Par hypothèse, $f(a)>0$, donc si $f(x)<0$, alors la différence $f(x)-f(a)$ donne un nombre encore plus négatif que $-f(a)$, c'est à dire que $| f(x)-f(a) |>f(a)$, ce qui est contraire à ce que nous venons de démontrer. D'où la conclusion que $f(x)>0$.
+\end{proof}
+
+\subsection{La fonction la moins continue du monde}
+%--------------------------------------------------
+
+Parmi les exemples un peu sales de fonctions non continues, il y a celle-ci :
+\[ 
+  \chi_{\eQ}(x)=
+\begin{cases}
+    1 \text{ si }x\in\eQ\\
+    0 \text{ sinon.}
+\end{cases}
+\]
+Par exemple, $\chi_{\eQ}(0)=1$, et\footnote{Pour prouver que $\sqrt{2}$ n'est pas rationnel, c'est pas trop compliqué, mais pour prouver que $\pi$ ne l'est pas non plus, il faudra encore manger de la soupe.} $\chi_{\eQ}(\pi)=\chi_{\eQ}(\sqrt{2})=0$. Malgré que $\chi_{\eQ}(0)=1$, il n'existe \emph{aucun} voisinage de $1$ sur lequel la fonction reste proche de $1$, parce que tout voisinage va contenir au moins un irrationnel. À chaque millimètre, cette fonction fait une infinité de bonds !
+
+Cette fonction n'est donc continue nulle part. 
+
+À partir de là, nous pouvons construire la fonction suivante qui n'est continue qu'en un point :
+\[ 
+  f(x)=x\chi_{\eQ}(x)=
+\begin{cases}
+x\text{ si }x\in\eQ\\
+0\text{ sinon.}
+\end{cases}
+\]
+Cette fonction est continue en zéro. En effet, prenons $\delta>0$; il nous faut un $\epsilon$ tel que $| x |\leq\epsilon$ implique $f(x)\leq \delta$ parce que $f(0)=0$. Bon ben prendre simplement $\epsilon=\delta$ nous contente. Cette fonction est donc très facilement continue en zéro.
+
+Et pourtant, dès que l'on s'écarte un tant soit peu de zéro, elle fait des bons une infinité de fois par millionième de millimètre ! Cette fonction est donc la plus discontinue du monde en tous les points saut un (zéro) où elle est une fonction continue !
+
+\subsection{Approche topologique}
+%--------------------------------
+
+Nous avons vu que sur tout ensemble métrique, nous pouvons définir ce qu'est un ouvert : c'est un ensemble qui contient une boule ouverte autour de chacun de ses points. Quand on est dans un ensemble ouvert, on peut toujours un peu se déplacer sans sortir de l'ensemble.
+
+Le théorème suivant est une très importante caractérisation des fonctions continues (de $\eR$ dans $\eR$) en termes de topologie, c'est à dire en termes d'ouverts.
+
+\begin{theorem}     \label{ThoContInvOuvert}
+Si $I$ est un intervalle ouvert contenu dans $\dom f$, alors $f$ est continue sur $I$ si et seulement si pour tout ouvert $\mO$ dans $\eR$, l'image inverse $f|_I^{^{-1}}(\mO)$ est ouvert.
+\end{theorem}
+
+Par abus de langage, nous exprimons souvent cette condition par \og une fonction est continue si et seulement si l'image inverse de tout ouvert est un ouvert\fg.
+
+\begin{proof}
+
+Dans un premier temps, nous allons transformer le critère de continuité en termes de boules ouvertes, et ensuite, nous passeront à la démonstration proprement dite. Le critère de continuité de $f$ au point $x$ dit que
+\begin{equation}        \label{EqDEfCOntAn}
+  \forall \delta>0,\exists\,\epsilon>0\text{ tel que }\big( | x-a |< \epsilon \big)\Rightarrow| f(x)-f(a) |<\delta.
+\end{equation}
+Cette condition peut être exprimée sous la forme suivante :
+\[ 
+  \forall \delta>0,\exists\epsilon\text{ tel que } a\in B(x,\epsilon)\Rightarrow f(a)\in B\big( f(x),\delta \big),
+\]
+ou encore
+\begin{equation}        \label{EqRedefContBoules}
+  \forall \delta>0,\exists\epsilon\text{ tel que } f\big( B(x,\epsilon) \big)\subset B\big( f(x),\delta \big).
+\end{equation}
+Jusque ici, nous n'avons fait que du jeu de notations. Nous avons exprimé en termes de topologie des inégalités analytiques. Si tu veux, tu peux retenir cette condition \eqref{EqRedefContBoules} comme définition d'une fonction continue en $x$. Si tu choisit de vivre comme ça, tu dois être capable de retrouver \eqref{EqDEfCOntAn} à partir de \eqref{EqRedefContBoules}.
+ 
+Passons maintenant à la démonstration proprement dite du théorème. 
+
+D'abord, supposons que $f$ est continue sur $I$, et prenons $\mO$, un ouvert quelconque. Le but est de prouver que $f|_I^{-1}(\mO)$ est ouvert. Pour cela, nous prenons un point $x_0\in f|_I^{-1}(\mO)$ et nous allons trouver un ouvert autour ce ce point contenu dans $f|_I^{-1}(\mO)$. Nous écrivons $y_0=f(x_0)$. Évidement, $y_0\in\mO$, donc on a une boule autour de $y_0$ qui est contenue dans $\mO$, soit donc $\delta>0$ tel que
+\[  
+  B(y_0,\delta)\subset\mO.
+\]
+Par hypothèse, $f$ est continue en $x_0$, et nous pouvons donc y appliquer le critère \eqref{EqRedefContBoules}. Il existe donc $\epsilon>0$ tel que 
+\[ 
+  f\big( B(x_0,\epsilon) \big)\subset B\big( f(x_0),\delta \big)\subset\mO.
+\]
+Cela prouve que $B(x_0,\epsilon)\subset f|_I^{-1}(\mO)$.
+
+Dans l'autre sens, maintenant. Nous prenons $x_0\in I$ et nous voulons prouver que $f$ est continue en $x_0$, c'est à dire que pour tout $\delta$ nous cherchons un $\epsilon$ tel que $f\big( B(x_0,\epsilon) \big)\subset B\big( f(x_0),\delta \big)$. Oui, mais $B\big( f(x_0),\delta \big)$ est ouverte, donc par hypothèse, $f|_I^{-1}\Big( B\big( f(x_0),\delta \big) \Big)$ est ouvert, inclus à $I$ et contient $x_0$. Donc il existe un $\epsilon$ tel que
+\[ 
+  B(x_0,\epsilon)\subset f|_I^{-1}\Big( B\big( f(x_0),\delta \big) \Big),
+\]
+et donc tel que 
+\[ 
+  f\big( B(x_0,\epsilon) \big)\subset B\big( f(x_0),\delta \big),
+\]
+ce qu'il fallait prouver.
+\end{proof}
+
+\begin{lemma}   \label{LemConncontconn}
+L'image d'un ensemble connexe par une fonction continue est connexe.
+\end{lemma}
+
+\begin{proof}
+Nous allons encore faire la contraposée. Soit $A$ une partie de $\eR$ telle que $f(A)$ ne soit pas connexe. Nous allons prouver que $A$ elle-même n'est pas connexe. Dire que $f(A)$ n'est pas connexe, c'est dire qu'il existe $\mO_1$ et $\mO_2$, deux ouverts disjoints qui recouvrent $f(A)$. Je prétends que $f^{-1}(\mO_1)$ et $f^{-1}(\mO_2)$ sont ouverts, disjoints et qu'ils recouvrent $A$.
+\begin{itemize}
+\item Ces deux ensembles sont ouverts parce qu'ils sont images inverses d'ouverts par une fonction continue (théorème \ref{ThoContInvOuvert}).
+\item Si $x\in f^{-1}(\mO_1)\cap f^{-1}(\mO_2)$, alors $f(x)\in \mO_1\cap\mO_2$, ce qui contredirait le fait que $\mO_1$ et $\mO_2$ sont disjoints. Il n'y a donc pas d'éléments dans l'intersection de $f^{-1}(\mO_1)$ et de $f^{-1}(\mO_2)$.
+\item Si $f^{-1}(\mO_1)$ et $f^{-1}(\mO_2)$ ne recouvrent pas $A$, il existe un $x$ dans $A$ qui n'est dans aucun des deux. Dans ce cas, $f(x)$ est dans $f(A)$, mais n'est ni dans $\mO_1$, ni dans $\mO_2$, ce qui contredirait le fait que ces deux derniers recouvrent $f(A)$.
+\end{itemize}
+Nous déduisons que $A$ n'est pas connexe. Et donc le lemme.
+\end{proof}
+
+\begin{theorem}[Théorème des valeurs intermédiaires]        \label{ThoValInter}
+Soit $f$, une fonction continue sur $[a,b]$, et supposons que $f(a)<f(b)$. Alors pour tout $y$ tel que $f(a)\leq y\leq f(b)$, il existe un $x$ entre $a$ et $b$ tel que $f(x)=y$.
+\end{theorem}
+\index{connexité!théorème des valeurs intermédiaires}
+\index{théorème!valeurs intermédiaires}
+
+\begin{proof}
+Nous savons que $[a,b]$ est connexe parce que c'est un intervalle (proposition \ref{PropInterssiConn}). Donc $f\big( [a,b] \big)$ est connexe (lemme \ref{LemConncontconn}) et donc est un intervalle (à nouveau la proposition \ref{PropInterssiConn}). Étant donné que $f\big( [a,b] \big)$ est un intervalle, il contient toutes les valeurs intermédiaires entre n'importe quels deux de ses éléments. En particulier toutes les valeurs intermédiaires entre $f(a)$ et $f(b)$.
+\end{proof}
+
+\begin{corollary}       \label{CorImInterInter}
+L'image d'un intervalle par une fonction continue est un intervalle.
+\end{corollary}
+
+\begin{proof}
+Soit \( I\) un intervalle et \( \alpha<\beta\in f(I)\) et \( \gamma\in\mathopen] \alpha , \beta \mathclose[\). Nous considérons \(a,b\in I\) tels que \( \alpha=f(a)\) et \( \beta=f(b)\). Par le théorème des valeurs intermédiaires\ref{ThoValInter}, il existe \( t\in\mathopen] a , b \mathclose[\) tel que \( f(t)=\gamma\). Par conséquent \( \gamma\in f(I)\).
+\end{proof}
+
+\begin{corollaryDef}[Existence de la racine carré]
+    Si \( x\geq 0\) alors il existe un unique \( y\geq 0\) tel que \( y^2=x\). Ce nombre est noté \( \sqrt{x}\) et est nommé \defe{racine carré}{racine carré} de \( x\).
+\end{corollaryDef}
+
+\begin{proof}
+    La fonction \( f\colon t\mapsto t^2\) est continue et strictement croissante. Nous avons \( f(0)=0\) et\footnote{Faites deux cas suivant \( x\geq 1\) ou non si vous le voulez, moi je prends \( x+1\).} \( f(x+1)>x\). Donc le théorème des valeurs intermédiaires \ref{ThoValInter} nous assure qu'il existe un unique \( y\in\mathopen[ 0 , x+1 \mathclose]\) tel que \( f(y)=x\).
+\end{proof}
+
+Nous avons déjà vu dans la proposition \ref{PropooRJMSooPrdeJb} que \( \sqrt{2}\) était irrationnel. En fait le théorème suivant va nous montrer que le nombre \( \sqrt{ n }\) est soit entier, soit irrationnel.
+\begin{theorem}     \label{THOooYXJIooWcbnbm}
+    Soit \( n\in \eN\). Le nombre \( \sqrt{n}\) est rationnel si et seulement si \( n\) est un carré parfait.
+\end{theorem}
+
+\begin{proof}
+    Supposons que \( \sqrt{n}\) soit rationnel. Le théorème \ref{THOooWYQVooRBaAAM} nous donne \( p,q\in \eN\) premiers entre eux tels que \( \sqrt{n}=p/q\). La proposition \ref{PROPooRZDDooLJabov} nous enseigne de plus que \( p^2\) et \( q^2\) sont premiers entre eux. Nous avons
+    \begin{equation}
+        p^2=nq^2.
+    \end{equation}
+    Le nombre $q$ est alors un diviseur commun de \( q^2\) et de \( p\). Donc \( q=1\) et \( n=p^2\) est un carré parfait.
+\end{proof}
+
+\subsection{Continuité de la racine carré, invitation à la topologie induite}
+%-----------------------------------------
+
+Pourquoi nous intéresser particulièrement à cette fonction ? Parce qu'elle a une sale condition d'existence : son domaine de définition n'est pas ouvert. Or dans tous les théorèmes de continuité d'approche topologique que nous avons vus, nous avons donné des contions \emph{pour tout ouvert}. Nous nous attendons donc a avoir des difficultés avec la continuité de $\sqrt{x}$ en zéro.
+
+Prenons $I$, n'importe quel intervalle ouvert dans $\eR^+$, et voyons que la fonction
+\begin{equation}
+\begin{aligned}
+ f\colon \eR^+&\to \eR^+ \\ 
+   x&\mapsto \sqrt{x} 
+\end{aligned}
+\end{equation}
+est continue sur $I$. Remarque déjà que si $I$ est un ouvert dans $\eR^+$, il ne peut pas contenir zéro. Avant de nous lancer dans notre propos, nous prouvons un lemme qui fera tout le travail\footnote{C'est toujours ingrat d'être un lemme : on fait tout le travail et c'est toujours le théorème qui est nommé.}.
+
+\begin{lemma}
+Soit $\mO$, un ouvert dans $\eR^+$. Alors $\mO^2=\{ x^2\tq x\in\mO \}$ est également ouvert .
+\end{lemma}
+
+\begin{proof}
+Un élément de $\mO^2$ s'écrit sous la forme $x^2$ pour un certain $x\in\mO$. Le but est de trouver un ouvert autour de $x^2$ qui soit contenu dans $\mO^2$. Étant donné que $\mO$ est ouvert, on a une boule centrée en $x$ contenue dans $\mO$. Nous appelons $\delta$ le rayon de cette boule :
+\[ 
+  B(x,\delta)\subset\mO.
+\]
+Étant donné que cet ensemble est connexe, nous savons par le lemme \ref{LemConncontconn} que $B(x,\delta)^2$ est également connexe (parce que la fonction $x\mapsto x^2$ est continue). Son plus grand élément est $(x+\delta)^2=x^2+\delta^2+2x\delta>x^2+\delta^2$, et son plus petit élément est $(x-\delta)^2=x^2+\delta^2-2x\delta$. 
+
+Ce qui serait pas mal, c'est que ces deux bornes entourent $x^2$; de cette façon elles définiraient un ouvert autour de $x^2$ qui soit dans $\mO^2$. Hélas, c'est pas gagné que $x^2+\delta^2-2x\delta$ soit plus petit que $x^2$. 
+
+Heureusement, en fait c'est vrai parce que d'une part, du fait que $\mO\subset\eR^+$, on a $x>0$, et d'autre part, pour que $\mO$ soit positif, il faut que $\delta<x$. Donc on a évidement que $\delta<2x$, et donc que
+\[ 
+  x^2+\delta^2-2x\delta=x^2+\delta\underbrace{(\delta-2x)}_{<0}<x^2.
+\]
+Donc nous avons fini : l'ensemble
+\[ 
+  B(x,\delta)^2=]x^2+\delta^2-2x\delta,x^2+\delta^2+2x\delta[\subset\mO^2
+\]
+est un intervalle qui contient $x^2$, et donc qui contient une boule ouverte centrée en~$x^2$.
+
+\end{proof}
+
+Maintenant nous pouvons nous attaquer à la continuité de la racine carré sur tout ouvert positif en utilisant le théorème \ref{ThoContInvOuvert}. Soit $\mO$ n'importe quel ouvert de $\eR$, et prouvons que $f|_I^{-1}(\mO)$ est ouvert. Par définition,
+\begin{equation}
+  f|_I^{-1}(\mO)=\{ x\in I\tq \sqrt{x}\in\mO \}.
+\end{equation}
+Maintenant c'est un tout petit effort que de remarquer que $f|_I^{-1}(\mO)=\mO^2\cap I$. De là, on a gagné parce que $\mO^2$ et $I$ sont des ouverts. Or l'intersection de deux ouverts est ouvert. 
+
+Nous n'en avons pas fini avec la fonction $\sqrt{x}$. Nous avons la continuité de la racine carré pour tous les réels strictement positifs. Il reste à pouvoir dire que la fonction est continue en zéro malgré qu'elle ne soit pas définie sur un ouvert autour de zéro. 
+
+Il est possible de dire que la racine carré est continue en $0$, malgré qu'elle ne soit pas définie sur un ouvert autour de $0$\ldots en tout cas pas un ouvert au sens que tu as en tête. Nous allons rentabiliser un bon coup notre travail sur les espaces métriques.
+
+Nous pouvons définir la notion de boule ouverte sur n'importe quel espace métrique $A$ en disant que
+\[ 
+  B(x,r)=\{ y\in A\tq d(x,y)<r \}.
+\]
+\begin{definition}      \label{DefContMetrique}
+Soit $f\colon A\to B$, une application entre deux espaces métriques. Nous disons que $f$ est \defe{continue}{continue!sur espace métrique} au point $a\in A$ si $\forall \delta>0$, $\exists\epsilon>0$ tel que 
+\begin{equation}
+  f\big( B(a,\epsilon) \big)\subset B\big( f(a),\delta \big).
+\end{equation}
+\end{definition}
+Tu reconnais évidement la condition \eqref{EqRedefContBoules}. Nous l'avons juste recopiée. Tu remarqueras cependant que cette définition généralise immensément la continuité que l'on avait travaillé à propos des fonctions de $\eR$ vers $\eR$. Maintenant tu peux prendre n'importe quel espace métrique et c'est bon.
+
+Nous n'allons pas faire un tour complet des conséquences et exemples de cette définition. Au lieu de cela, nous allons juste montrer en quoi cette définition règle le problème de la continuité de la racine carré en zéro.
+
+La fonction que nous regardons est 
+\begin{equation}
+\begin{aligned}
+f \colon \eR^+&\to \eR^+ \\ 
+   x&\mapsto \sqrt{x}.
+\end{aligned}
+\end{equation}
+Mais cette fois, nous ne la voyons pas comme étant une fonction dont le domaine est une partie de $\eR$, mais comme fonction dont le domaine est $\eR^+$ vu comme un espace métrique en soi. Quelles sont les boules ouvertes dans $\eR^+$ autour de zéro ? Réponse : la boule ouverte de rayon $r$ autour de zéro dans $\eR^+$ est :
+\[ 
+  B(0,r)_{\eR^+}=\{ x\in\eR^+\tq d(x,0)<r \}=[0,r[.  
+\]
+Cet intervalle est un ouvert. Aussi incroyable que cela puisse paraître !
+
+Testons la continuité de la racine carré en zéro dans ce contexte. Il s'agit de prendre $A=\eR^+$, $B=\eR^+$ et $a=0$ dans la définition \ref{DefContMetrique}. Nous avons que $B(\sqrt{0},\delta)=B(0,\delta)=[0,\delta[$ pour la topologie de $\eR^+$.
+
+Il s'agit maintenant de trouver un $\epsilon$ tel que $f\big( B(0,\epsilon) \big)\subset [0,\delta[$. Par définition, nous avons que
+\[ 
+  f\big( B(0,\epsilon) \big)=[0,\sqrt{\epsilon}[,
+\]
+le problème revient dont à trouver $\epsilon$ tel que $\sqrt{\epsilon}\leq\delta$. Prendre $\epsilon<\delta^2$ fait l'affaire.
+
+
+Donc voila. Au sens de la \href{http://fr.wikipedia.org/wiki/Topologie_induite}{topologie propre} à $\eR^+$, nous pouvons dire que la fonction racine carré est partout continue.
+\subsection{Limites en des nombres}
+%----------------------------------
+
+Si tu regardes la fonction $f(x)=5x+3$, tu ne serais pas étonnée si je te disais par exemple que 
+\begin{align}
+\lim_{x\to 10}f(x)&=53&\text{et}&\lim_{x\to 0}f(x)=3.
+\end{align}
+En effet, plus $x$ est proche de $10$, plus $f(x)$ est proche de $53$ et plus $x$ est proche de $0$, plus $f(x)$ est proche de $3$. Pas grand chose de neuf sous le Soleil.
+
+Oui, mais l'intérêt d'introduire le concept de limite dans le cas de l'infini était qu'on ne peut pas bêtement calculer $f(\infty)$. Il fallait donc une astuce pour parler du comportement de $f$ quand on s'approche de l'infini.
+
+Nous posons la définition suivante.
+\begin{definition}      \label{DefInfNombre}
+Lorsque $a\in\eR$, on dit que la fonction $f$ \defe{tend vers l'infini quand $x$ tend vers $a$}{} si
+\[ 
+  \forall M\in\eR,\exists \delta\tq (| x-a |\leq \delta )\Rightarrow f(x)\geq M\text{ quand }x\in\dom f.
+\]
+\end{definition}
+Cela signifie que l'on demande que dès que $x$ est assez proche de $a$ (c'est à dire dès que $| x-a |\leq\delta$), alors $f(x)$ est plus grand que $M$, et que l'on peut trouver un $\delta$ qui fait ça pour n'importe quel $M$. Une autre façon de le dire est que pour toute hauteur $M$, on peut trouver un intervalle de largeur $\delta$ autour de $a$\footnote{C'est à dire un intervalle de la forme $[a-\delta,a+\delta]$.} tel que sur cet intervalle, la fonction $f$ est toujours plus grande que $M$.
+
+Montrons sur un dessin pourquoi je disais que la fonction $x\to 1/x$ n'est pas de ce type.
+
+
+Le problème est qu'il n'existe par exemple aucun intervalle autour de $0$ sur lequel $f$ serait toujours plus grande que $10$. En effet n'importe quel intervalle autour de $0$ contient au moins un nombre négatif. Or quand $x$ est négatif, $f$ n'est certainement pas plus grande que $10$. Nous y reviendrons.
+
+Pour l'instant, montrons que la fonction $f(x)=1/x^2$ est une fonction qui vérifie la définition \ref{DefInfNombre}.  Avant de prendre n'importe quel $M$, prenons par exemple $100$. Nous avons besoin d'un intervalle autour de zéro sur lequel $f$ est toujours plus grande que $100$. C'est vite vu que $f(0.1)=f(-0.1)=100$, donc l'intervalle $[-\frac{ 1 }{ 10 },\frac{1}{ 10 }]$ est le bon. Partout dans cet intervalle, $f$ est plus grande que $100$. Partout ? Ben non : en $x=0$, la fonction n'est même pas définie, donc c'est un peu dur de dire qu'elle est plus grande que $100$. C'est pour cela que nous avons ajouté la condition \og quand $x\in\dom f$\fg{} dans la définition de la limite.
+
+Prenons maintenant un $M\in\eR$ arbitraire, et trouvons un intervalle autour de $0$ sur lequel $f$ est toujours plus grande que $M$. La réponse est évidement l'intervalle de largeur $1/\sqrt{M}$, c'est à dire 
+\[ 
+  \left[ -\frac{ 1 }{ \sqrt{M} },\frac{ 1 }{ \sqrt{M} } \right].
+\]
+
+\subsection{Limites quand tout va bien}
+%--------------------------------------
+
+D'abord définissons ce qu'on entend par la limite d'une fonction en un point quand il n'y a aucun infini en jeu.
+\begin{definition}      \label{DefLimPointSansInfini}
+ On dit que la fonction $f$ \defe{tend vers $b$ quand $x$ tend vers $a$}{} si 
+\[ 
+  \forall \epsilon>0,\exists\delta\tq (| x-a |\leq\delta)\Rightarrow | f(x)-b |\leq \epsilon\text{ quand }x\in\dom f.
+\]
+Dans ce cas, nous notons
+\begin{equation}
+\lim_{x\to a}f(x)=b.
+\end{equation} 
+\end{definition}
+
+Commençons par un exemple très simple : prouvons que $\lim_{x\to 0}x=0$. C'est donc $a=b=0$ dans la définition. Prenons $\epsilon>0$, et trouvons un intervalle autour de zéro tel que partout dans l'intervalle, $x\leq \epsilon$. Bon ben c'est clair que $\delta=\epsilon$ fonctionne.
+
+Plus compliqué maintenant, mais toujours sans surprises.
+
+\begin{proposition}
+\[ 
+  \lim_{x\to 0}x^2=0.
+\]
+
+\end{proposition}
+
+\begin{proof}
+Soit $\epsilon>0$. On veut un intervalle de largeur $\delta$ autour de zéro tel que $x^2$ soit plus petit que $\epsilon$ sur cet intervalle. Cette fois-ci, le $\delta$ qui fonctionne est $\delta=\sqrt{\epsilon}$. En effet un élément de l'intervalle $[-\delta,\delta]$ est un $r$ de valeur absolue plus petite ou égale à $\delta$ : 
+\[ 
+| r |\leq\delta=\sqrt{\epsilon}.
+\]
+En prenant le carré de cette inégalité on a :
+\[ 
+  r^2\leq\epsilon,
+\]
+ce qu'il fallait prouver.
+\end{proof}
+
+
+Calculer et prouver des valeurs de limites, mêmes très simples, devient vite de l'arrachage de cheveux à essayer de trouver le bon $\delta$ en fonction de $\epsilon$ si on n'a pas quelques théorèmes généraux. Nous allons donc maintenant en prouver quelque-uns.
+
+\begin{theorem}     \label{ThoLimLinMul}
+    Si
+    \begin{equation} \label{Eqhypmullimlin}
+      \lim_{x\to a}f(x)=b,
+    \end{equation}
+    alors
+    \begin{equation} \label{Eqbutmultlim}
+      \lim_{x\to a}(\lambda f)(x)=\lambda b
+    \end{equation}
+    pour n'importe quel $\lambda\in\eR$.
+\end{theorem}
+
+\begin{proof}
+Soit $\epsilon>0$. Afin de prouver la propriété \eqref{Eqbutmultlim}, il faut trouver un $\delta$ tel que pour tout $x$ dans $[a-\delta,a+\delta]$, on ait $| (\lambda f)(x)- \lambda b |\leq\epsilon$. Cette dernière inégalité est équivalente à $|\lambda|| f(x)-b |\leq\epsilon$. Nous devons donc trouver un $\delta$ tel que 
+\begin{equation} 
+| f(x)-b |\leq\frac{ \epsilon }{ | \lambda | }.
+\end{equation}
+soit vraie pour tout $x$ dans $[a-\delta,a+\delta]$. Mais l'hypothèse \eqref{Eqhypmullimlin} dit précisément qu'il existe un $\delta$ tel que pour tout $x$ dans $[a-\delta,a+\delta]$ on ait cette inégalité. 
+\end{proof}
+
+\begin{theorem}     \label{ThoLimLin}
+    Si
+    \begin{subequations}
+    \begin{align}
+        \lim_{x\to a}f(x)&=b_1\\
+        \lim_{x\to a}g(x)&=b_2,
+    \end{align}
+    \end{subequations}
+    alors
+    \begin{equation}
+        \lim_{x\to a}(f+g)(x)=b_1+b_2.
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Soit $\epsilon>0$. Par hypothèse, il existe $\delta_1$ tel que
+    \begin{equation}    \label{Eqfbunepsdeux}
+      | f(x)-b_1 |\leq \frac{ \epsilon }{ 2 }
+    \end{equation}
+    dès que $| x-a |\leq\delta_1$. Il existe aussi $\delta_2$ tel que 
+    \begin{equation}    \label{Eqgbdeuxepsdeux}
+      | g(x)-b_2 |\leq \frac{ \epsilon }{ 2 }.
+    \end{equation}
+    dès que $| x-a |\leq \delta_2$. Tu notes l'astuce de prendre $\epsilon/2$ dans la définition de limite pour $f$ et $g$. Maintenant, ce qu'on voudrait c'est un $\delta$ tel que l'on ait $| (f+g)(x)-(b_1+b_2) |\leq \epsilon$ dès que $| x-a |\leq \delta$. Moi je dit que $\delta=\min\{ \delta_1,\delta_2 \}$ fonctionne. En effet, en utilisant l'inégalité $| a+b |\leq | a |+| b |$, nous trouvons :
+    \begin{align}
+    | (f+g)(x)-(b_1+b_2) |=| (f(x)-b_1)+(g(x)-b_2) |
+            \leq | f(x)-b_1 |+| g(x)-b_2 |.     \label{Eqfplusgfbun}
+    \end{align}
+    Comme on suppose que $| x-a |\leq\delta$, on a évidement $| x-a |\leq\delta_1$, et donc l'équation \eqref{Eqfbunepsdeux} tient. Mais si $| x-a |\leq\delta$, on a aussi $| x-a |\leq\delta_2$, et donc l'équation  \eqref{Eqfbunepsdeux} tient également. Chacun des deux termes de \eqref{Eqfplusgfbun} est donc plus petits que $\epsilon/2$, et donc le tout est plus petit que $\epsilon$, ce qu'il fallait montrer.
+
+\end{proof}
+
+Une formule qui résume ces deux théorèmes est que
+\begin{equation}    \label{EqLimLinRes}
+    \lim_{x\to a}[\alpha f(x)+\beta g(x)]=\alpha\lim_{x\to a}f(x)+\beta\lim_{x\to a}g(x).
+\end{equation}
+
+\begin{lemma}       \label{LemLimMajorableVois}
+    Si $\lim_{x\to a}f(x)=b$ avec $a$, $b\in\eR$, alors il existe un $\delta>0$ et un $M>0$ tels que 
+    \[ 
+        (| x-a |\leq\delta)\Rightarrow | f(x) |\leq M.
+    \]
+
+\end{lemma}
+
+Ce que signifie ce lemme, c'est que quand la fonction $f$ admet une limite finie en un point, alors il est possible de majorer la fonction sur un intervalle autour du point.
+
+\begin{proof}
+    Cela va être démontré par l'absurde. Supposons qu'il n'existe pas de $\delta$ ni de $M$ qui vérifient la condition. Dans ce cas, pour tout $\delta$ et pour tout $M$, il existe un $x$ tel que $| x-a |\leq\delta$ et $| f(x) |> M$. Cela est valable pour tout $M$, donc prenons par exemple $b+1000$. Donc 
+    \begin{equation}
+    \forall\delta>0,\exists x\text{ tel que } | x-a |\leq\delta\text{ et }| f(x) |>b+1000.
+    \end{equation}
+    Cela signifie qu'aucun $\delta$ ne peut convenir dans la définition de $\lim_{x\to a}f(x)=b$, ce qui contredit les hypothèses.
+\end{proof}
+
+Dans le même ordre d'idée, on peut prouver que si la limite de la fonction en un point est positive, alors elle est positive autour ce ce point. Plus précisément, nous avons la
+\begin{proposition} \label{PropoLimPosFPos}
+    Si $f$ est une fonction telle que $\lim_{x\to a}f(x)>0$, alors il existe un voisinage de $a$ sur lequel $f$ est positive.
+\end{proposition}   
+
+\begin{proof}
+    Supposons que $\lim_{x\to a}f(x)=y_0$. Par la définition de la limite fait que si pour tout $x$ dans un voisinage autour de $a$, on ait $| f(x)-a |<\epsilon$. Cela est valable pour tout $\epsilon$, pourvu que le voisinage soit assez petit. Si je choisit un voisinage pour lequel $| f(x)-a |<\frac{ y_0 }{ 2 }$, alors sur ce voisinage, $f$ est positive.
+\end{proof}
+
+
+\begin{theorem}     \label{Tholimfgabab}
+    Si
+    \begin{align}
+        \lim_{x\to a}f(x)&=b_1&\text{et}&&\lim_{x\to a}g(x)=b_2,
+    \end{align}
+    alors
+    \begin{equation}
+        \lim_{x\to a}(fg)(x)=b_1b_2.
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Soit $\epsilon>0$, et tentons de trouver un $\delta$ tel que $| f(x)g(x)-b_1b_2 |\leq \epsilon$ dès que $| x-a |\leq \delta$. Nous avons 
+    \begin{equation}    \label{EqfgbunbdeuxMin}
+    \begin{split}
+    | f(x)g(x)-b_1b_2 |&=|  f(x)g(x)-b_1b_2 +f(x)b_2-f(x)b_2 |\\
+            &=\left|   f(x)\big( g(x)-b_2 \big)+b_2\big( f(x)-b_1 \big)    \right|\\
+            &\leq \left|  f(x)\big( g(x)-b_2 \big)  \right|+\left|  b_2\big( f(x)-b_1 \big)    \right|\\
+            &= | f(x) | | g(x)-b_2  |+| b_2 | |f(x)-b_1 |.  
+    \end{split}
+    \end{equation}
+    À la première ligne se trouve la subtilité de la démonstration : on ajoute et on enlève\footnote{Comme exercice, tu peux essayer de refaire la démonstration en ajoutant et enlevant $g(x)b_1$ à la place.} $f(x)b_2$. Maintenant nous savons par le lemme \ref{LemLimMajorableVois} que pour un certain $\delta_1$, la quantité $| f(x) |$ peut être majoré par un certain $M$ dès que $| x-a |\leq \delta_1$. Prenons donc un tel $\delta_1$ et supposons que $| x-a |\leq \delta_1$. Nous savons aussi que pour n'importe quel choix de $\epsilon_2$ et $\epsilon_3$, il existe des nombres $\delta_2$ et $\delta_3$ tels que $| f(x)-b_1 |\leq \epsilon_2$ et $| g(x)-b_1 |\leq \epsilon_3$ dès que $| x-a |\leq\delta_2$ et $| x-a |\leq\delta_3$. Dans ces conditions, la dernière expression \eqref{EqfgbunbdeuxMin} se réduit à
+    \begin{equation}
+    | f(x)g(x)-b_1b_2 |\leq M\epsilon_2+| b_2 |\epsilon_3.
+    \end{equation}
+    Pour terminer la preuve, il suffit de choisir $\epsilon_2$ et $\epsilon_3$ tels que $M\epsilon_2+| b_2 |\epsilon_3\leq\epsilon$, et puis prendre $\delta=\min\{ \delta_1,\delta_2,\delta_3 \}$.
+
+
+    Remetons les choses dans l'ordre. L'on se donne $\epsilon$ au départ. La première chose est de trouver un $\delta_1$ qui permet de majorer $|f(x)|$ par $M$ selon le lemme \ref{LemLimMajorableVois}, et puis choisissons $\epsilon_2$ et $\epsilon_3$ tels que $M\epsilon_2+| b_2 |\epsilon_3\leq\epsilon$. Ensuite nous prenons, en vertu des hypothèses de limites pour $f$ et $g$, les nombres $\delta_2$ et $\delta_3$ tels que $| f(x)-b_1 |\leq \epsilon_2$ et $| g(x)-b_2 |\leq \epsilon_3$ dès que $| x-a |\leq \delta_2$ et $| x-a |\leq \delta_3$.
+
+    Si avec tous ça on prend $\delta=\min\{ \delta_1,\delta_2,\delta_3 \}$, alors la majoration et les deux inégalités sont valables en même temps et au final
+    \[ 
+      | f(x)g(x)-b_1b_2 |\leq M\epsilon_2+b_2\epsilon_3\leq \epsilon,
+    \]
+    ce qu'il fallait prouver.
+
+\end{proof}
+
+À l'aide de ces petits résultats, nous pouvons déjà calculer pas mal de limites. Nous pouvons déjà par exemple calculer les limites de tous les polynomes en tous les nombrs réels. En effet, nous savons la limite de la fonction $f(x)=x$. la fonction $x\mapsto x^2$ n'est rien d'autre que le produit de $f$ par elle-même. Donc
+\[ 
+  \lim_{x\to a}x^2=\big( \lim_{x\to a}x\big)\cdot\big( \lim_{x\to a}x \big)=a^2.
+\]
+De la même façon, nous trouvons facilement que 
+\begin{equation}
+ \lim_{x\to a}x^n=a^n.
+\end{equation}
+
+\begin{theorem}[Limite et continuité]           \label{ThoLimCont}
+La fonction $f$ est continue au point $a$ si et seulement si $\lim_{x\to a}f(x)=f(a)$.
+\end{theorem}
+
+\begin{proof}
+Nous commençons par supposer que $f$ est continue en $a$, et nous prouvons que $\lim_{x\to a}f(x)=a$. Soit $\epsilon>0$; ce qu'il nous faut c'est un $\delta$ tel que $| x-a |\leq\delta$ implique $| f(x)-f(a) |\leq\epsilon$. La définition \ref{DefContinue} de la continuité donne l'existence d'un $\delta$ comme il nous faut.
+
+Dans l'autre sens, c'est à dire prouver que $f$ est continue au point $a$ sous l'hypothèse que $\lim_{x\to a}f(x)=f(a)$, la preuve se fait de la même façon.
+\end{proof}
+
+Nous en déduisons que si nous voulons gagner quelque chose à parler de limites, il faut prendre des fonctions non continues. Prenons une fonction qui fait un saut. Pour se fixer les idées, prenons celle-ci :
+\begin{equation}    \label{EqnCtOEL}
+f(x)=
+\begin{cases}
+2x&\text{si }x\in]\infty,2[\\
+x/2&\text{si }x\in[2,\infty[
+\end{cases}
+\end{equation}  
+Essayons de trouver la limite de cette fonction lorsque $x$ tend vers $2$. Étant donné que $f$ n'est pas continue en $2$, nous savons déjà que $\lim_{x\to 2}f(x)\neq f(2)$. Donc ce n'est pas $1$. Cette limite ne peut pas valoir $4$ non plus parce que si je prends n'importe quel $\epsilon$, la valeur de $f(2+\epsilon)$ est très proche de $2$, et donc ne peut pas s'approcher de $4$. En fait, tu peux facilement vérifier que \emph{aucun nombre ne vérifie la condition de limite pour $f$ en $2$}. Nous disons que la limite n'existe pas.
+
+Pour résumer, les limites qui ne font pas intervenir l'infini ne servent à rien parce que
+\begin{itemize}
+\item si la fonction est continue, la limite est simplement la valeur de la fonction par le théorème \ref{ThoLimCont},
+\item si la fonction fait un saut, alors la limite n'existe pas (nous n'avons pas prouvé cela en général, mais avoue que l'exemple est convainquant).
+\end{itemize}
+Nous avons même la proposition suivante :
+\begin{proposition}     \label{PropExisteLimVql}
+Si $f$ existe en $a$ (c'est à dire si $a\in\dom(f)$) et si $\lim_{x\to a}f(x)=b$, alors $f(a)=b$.
+\end{proposition}
+
+\begin{proof}
+Du fait que $\lim_{x\to a}f(x)=b$, il découle que pour tout $\epsilon$, il existe un $\delta$ tel que $| x-a |\leq \delta$ implique $| f(x)-b |\leq \epsilon$. Il est évident que pour tout $\delta$, $| x-x |\leq \delta$, donc nous avons que 
+\[ 
+  | f(a)-b |\leq\epsilon
+\]
+pour tout $\epsilon$. Cela implique que $f(a)=b$.
+\end{proof}
+Notons toutefois que l'inverse de cette proposition n'est pas vraie : la fonction \eqref{EqnCtOEL} donne justement une fonction qui prend la valeur $1$ en $2$ sans que la limite en $2$ soit $1$. Quoi qu'il en soit, cette proposition achève de nous convaincre de l'inutilité d'étudier d'étudier les limites sans infinis : dès qu'on a une limite, à tous les coups c'est la valeur de la fonction \ldots heu \ldots en es-tu bien sûr ?
+
+\begin{proposition}[\cite{MonCerveau}]      \label{PROPooWXBAooAEweSF}
+    Soit \( f\colon \eR^2\to \eR\) une application continue dont la variable \( y\) varie dans un compact \( I\) de \( \eR\). Alors la fonction
+    \begin{equation}
+        \begin{aligned}
+            d\colon \eR&\to \eR \\
+            x&\mapsto \sup_{y\in I} f(x,y) 
+        \end{aligned}
+    \end{equation}
+    est continue.
+\end{proposition}
+
+\begin{proof}
+    Soit \( x_0\) fixé et prouvons que \( d\) est continue en \( x_0\). Nous notons \( y_0\) la valeur de \( y\) qui réalise le maximum (par le théorème \ref{ThoMKKooAbHaro} et le fait que les fonctions projection soient continues, lemme \ref{LEMooHAODooYSPmvH}). Soit aussi \( \epsilon>0\) tellement fixé que même avec un tourne vis hydraulique, il ne bougerait pas. Nous considérons \( \delta\) tel que si \( \| (x,y)-(x_0,y_0) \|\leq \delta\) alors \( \| f(x,y)-f(x_0,y_0) \|<\epsilon\).
+
+    Si \( | x-x_0 |<\delta\) alors pour \( y\) assez proche de \( y_0\) nous avons \( \| (x,y)-(x_0,y_0) \|\leq \delta\), et donc \( \| f(x,y)-f(x_0,y_0) \|\leq \epsilon \). Cela montre qu'il existe \( \delta\) tel que \( | x-x_0 |\leq \delta\) implique \( d(x)\geq d(x_0)-\epsilon\).
+
+    Nous devons encore trouver un \( \delta\) tel que si \( | x-x_0 |\leq \delta\) alors \( d(x)\leq d(x_0)+\epsilon\). Supposons que non. Alors pour tout \( \delta\) il existe un \( x\) tel que \( | x-x_0 |\leq \delta\) et \( d(x)> d(x_0)+\epsilon\). Cela nous donne une suite \( x_i\to x_0\).
+
+    Pour chaque \( x_i\) nous notons \( y_i\) la valeur de \( y\) qui réalise le supremum correspondant. La suite \( (y_i)\) étant contenue dans un compact nous supposons prendre une sous-suite de \( (x_i)\) telle que la suite \( (y_i)\) converge. Nous nommons \( a\) la limite (et non \( y_0\) parce que nous ne savons pas si \( y_i\to y_0\)). Pour chaque \( i\) nous avons
+    \begin{equation}
+        f(x_i,y_i)>\sup_{y\in I}f(x_0,y)+\epsilon.
+    \end{equation}
+    En prenant la limite et en utilisant la continuité de \( f\),
+    \begin{equation}
+        f(x_0,a)>\sup_{y\in I} f(x_0,y)+\epsilon,
+    \end{equation}
+    ce qui est impossible.
+\end{proof}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Discussion avec mon ordinateur}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Voici un extrait de ce peut donner Sage. Nous lui donnons la fonction
+\begin{equation}    \label{EqyEHTBZ}
+    f(x)=\frac{ x+4 }{ 3x^2+10x-8 }.
+\end{equation}
+Cette fonction est faite exprès pour que le dénominateur s'annule en \( -4\). En fait \( 3x^2+10x-8=(x+4)(3x-2)\), et la fraction peut se simplifier en
+\begin{equation}
+    f(x)=\frac{1}{ 3x-2 }.
+\end{equation}
+Et avec cela nous écririons \( f(-4)=-\frac{1}{ 14 }\). Voyons comment cela passe dans Sage.
+
+\begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 5.2, Release Date: 2012-07-25                         |
+| Type "notebook()" for the browser-based notebook interface.        |
+| Type "help()" for help.                                            |
+----------------------------------------------------------------------
+sage: f(x)=(x+4)/(3*x**2+10*x-8)                                                                                              
+sage: f(-4)
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+ValueError: power::eval(): division by zero
+\end{verbatim}
+Il produit donc une erreur de division par zéro. Cela n'est pas étonnant. Pourtant si on lui demande, il est capable de simplifier. En effet :
+\begin{verbatim}
+sage: f.simplify_full()                                                                                                        
+x |--> 1/(3*x - 2)                                                                                                                                           
+sage: f.simplify_full()(-4)                                                                                                                                  
+-1/14                                                                                                                                                        
+\end{verbatim}
+
+\subsection{Limites et prolongement}
+%-----------------------------------
+
+La proposition \ref{PropExisteLimVql} a une terrible limitation : il faut que la fonction existe au point considéré. Or en regardant bien la définition \ref{DefLimPointSansInfini}, nous remarquons que $\lim_{x\to a}f(x)$ peut très bien exister sans que $f(a)$ n'existe.
+
+Reprenons l'exemple de la fonction \eqref{EqyEHTBZ} que mon ordinateur refusait de calculer en zéro :
+\begin{equation}
+f(x)=\frac{ x+4 }{ 3x^2+10x-8 }=\frac{ x+4 }{ (x+4)\left( x-\frac{ 2 }{ 3 } \right) }.
+\end{equation}
+Cette fonction a une condition d'existence en $x=-4$. Et pourtant, tant que $x\neq 4$, cela a un sens de simplifier les $(x+4)$ et d'écrire
+\[ 
+  f(x)=\frac{ 1 }{ x-\frac{ 2 }{ 3 } }=\frac{ 3 }{ 3x-2 }.
+\]
+Étant donné que pour toute valeur de $x$ différente de $-4$, la fonction $f$ s'exprime de cette façon, nous avons que
+\[ 
+  \lim_{x\to -4}f(x)=\lim_{x\to -4}\left(\frac{ 3 }{ 3x-2 }\right).
+\]
+Oui, mais la fonction\footnote{Cette fonction $g$ n'est pas $f$ parce que $g$ a en plus l'avantage d'être définie en $-4$.} $g(x)=3/(3x-2)$ est continue en $-4$ et donc sa limite vaut sa valeur. Nous en déduisons que
+\[ 
+  \lim_{x\to -4}f(x)=-\frac{ 3 }{ 14 }.
+\]
+Que dire maintenant de la fonction ainsi définie ?
+\begin{equation}
+\tilde f(x)=
+\begin{cases}
+f(x)&\text{si }x\neq -4\\
+-3/14&\text{si }x=-4.
+\end{cases}
+\end{equation}
+Cette fonction est continue en $-4$ parce qu'elle y est égale à sa limite. Les étapes suivies pour obtenir ce résultat sont :
+\begin{itemize}
+\item Repérer un point où la fonction n'existe pas,
+\item calculer la limite de la fonction en ce point, et en particulier vérifier que cette limite existe, ce qui n'est pas toujours le cas,
+\item définir une nouvelle fonction qui vaut partout la même chose que la fonction originale, sauf au point considéré où l'on met la valeur de la limite.
+\end{itemize}
+C'est ce qu'on appelle \defe{prolonger la fonction par continuité}{prolongement!par continuité} parce que la fonction résultante est continue. La prolongation de $f$ par continuité est donc en général définie par
+\begin{equation}
+\tilde f(x)=
+\begin{cases}
+f(x)            &\text{si }f(x)\\
+\lim_{y\to x}f(y)   &\text{si }f(x)
+\end{cases}
+\end{equation}
+Dans le cas que nous regardions, 
+\[ 
+    f(x)=\frac{ x+4 }{ 3x^2+10x-8 },
+\]
+le prolongement par continuité est donné par
+\begin{equation}
+\tilde f =\frac{ 3 }{ 3x-2 }.
+\end{equation}
+Remarque que cette fonction n'est toujours pas définie en $x=2/3$. 
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Dérivée : exemples introductifs}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{La vitesse}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Lorsqu'un mobile se déplace à une vitesse variable, nous obtenons la \emph{vitesse instantanée} en calculant une vitesse moyenne sur des intervalles de plus en plus petits. Si le mobile a un mouvement donné par $x(t)$, la vitesse moyenne entre $t=2$ et $t=5$ sera
+\[ 
+  v_{\text{moy}}(2\to 5)=\frac{ x(5)-x(2) }{ 5-2 }.
+\]
+Plus généralement, la vitesse moyenne entre $2$ et $2+\Delta t$ est donnée par
+\[ 
+  v_{\text{moy}}(2\to 2+\Delta t)=\frac{ x(2+\Delta t)-x(2) }{ \Delta t }.
+\]
+Cela est une fonction de $\Delta t$. Oui, mais je te rappelle qu'on a dans l'idée de calculer une vitesse instantanée, c'est à dire de voir ce que vaut la vitesse moyenne sur un intervalle très {\small très} {\footnotesize très} {\scriptsize très} {\tiny petit}. La notion de limite semble toute indiquée pour décrire mathématiquement l'idée physique de vitesse instantanée.
+
+Nous allons dire que la vitesse instantanée d'un mobile est la limite quand $\Delta t$ tends vers zéro de sa vitesse moyenne sur l'intervalle de temps $\Delta t$, ou en formule :
+\begin{equation}		\label{Eqvinstlimite}
+	v(t_0)=\lim_{\Delta t\to 0}\frac{ x(t_0)-x(t_0+\Delta t) }{ \Delta t }.
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{La tangente à une courbe}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Passons maintenant à tout autre chose, mais toujours dans l'utilisation de la notion de limite pour résoudre des problèmes intéressants. Comment trouver l'équation de la tangente à la courbe $y=f(x)$ au point $(x_0,f(x_0))$ ?
+
+Essayons de trouver la tangente au point $P$ donné de la courbe donnée à la figure \ref{LabelFigTangenteQuestion}.
+
+\newcommand{\CaptionFigTangenteQuestion}{Comment trouver la tangente à la courbe au point $P$ ?}
+\input{auto/pictures_tex/Fig_TangenteQuestion.pstricks}
+
+La tangente est la droite qui touche la courbe en un seul point sans la traverser. Afin de la construire, nous allons dessiner des droites qui touchent la courbe en $P$ et un autre point $Q$, et nous allons voir ce qu'il se passe quand $Q$ est très proche de $P$. Cela donnera une droite qui, certes, touchera la courbe en deux points, mais en deux point \emph{tellement proche que c'est comme si c'étaient les mêmes}. Tu sens que la notion de limite va encore venir.
+
+
+%Pour rappel cette figure TangenteDetail est générée par phystricksRechercheTangente.py
+\newcommand{\CaptionFigTangenteDetail}{Traçons d'abord une corde entre le point $P$ et un point $Q$ un peu plus loin.}
+\input{auto/pictures_tex/Fig_TangenteDetail.pstricks}
+
+Nous avons placé le point, sur la figure \ref{LabelFigTangenteDetail}, le point $P$ en $a$ et le point $Q$ un peu plus loin $x$. En d'autres termes leurs coordonnées sont
+\begin{align}
+	P=\big(a,f(a)\big)&& Q=\big(x,f(x)\big).
+\end{align}
+Comme tu devrais le savoir sans même regarder la figure \ref{LabelFigTangenteDetail}, le coefficient directeur de la droite qui passe par ces deux points est donné par
+\begin{equation}
+	\frac{ f(x)-f(a) }{ x-a },
+\end{equation}
+et bang ! Encore le même rapport que celui qu'on avait trouvé à l'équation \eqref{Eqvinstlimite} en parlant de vitesses. Si tu regardes la figure \ref{LabelFigLesSubFigures}, tu verras que réellement en faisant tendre $x$ vers $a$ on obtient la tangente.
+
+\newcommand{\CaptionFigLesSubFigures}{Recherche de la tangente par approximations successives.}
+\input{auto/pictures_tex/Fig_LesSubFigures.pstricks}
+%See also the subfigure \ref{LabelFigLesSubFiguressssubZ}
+%See also the subfigure \ref{LabelFigLesSubFiguressssubO}
+%See also the subfigure \ref{LabelFigLesSubFiguressssubT}
+%See also the subfigure \ref{LabelFigLesSubFiguressssubTh}
+%See also the subfigure \ref{LabelFigLesSubFiguressssubF}
+%See also the subfigure \ref{LabelFigLesSubFiguressssubFi}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{L'aire en dessous d'une courbe}		\label{SubSecAirePrimInto}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Encore un exemple. Nous voudrions bien pouvoir calculer l'aire en dessous d'une courbe. Nous notons $S_f(x)$ l'aire en dessous de la fonction $f$ entre l'abscisse $0$ et $x$, c'est à dire l'aire bleue de la figure \ref{LabelFigNOCGooYRHLCn}. % From file NOCGooYRHLCn
+\newcommand{\CaptionFigNOCGooYRHLCn}{L'aire en dessous d'une courbe. Le rectangle rouge d'aire $f(x)\Delta x$ approxime de combien la surface augmente lorsqu'on passe de $x$ à $x+\Delta x$.}
+\input{auto/pictures_tex/Fig_NOCGooYRHLCn.pstricks}
+
+Si la fonction $f$ est continue et que $\Delta x$ est assez petit, la fonction ne varie pas beaucoup entre $x$ et $x+\Delta x$. L'augmentation de surface entre $x$ et $x+\Delta x$ peut donc être approximée par le rectangle de surface $f(x)\Delta x$. Ce que nous avons donc, c'est que quand $\Delta x$ est très petit,
+\begin{equation}
+	S_f(x+\Delta x)-S_f(x)=f(x)\Delta x,
+\end{equation}
+c'est à dire
+\begin{equation}
+	f(x)=\lim_{\Delta x\to 0}\frac{  S_f(x+\Delta x)-S_f(x)}{ \Delta x }.
+\end{equation}
+Donc, la fonction $f$ est la dérivée de la fonction qui représente l'aire en dessous de $f$. Calculer des surfaces revient donc au travail inverse de calculer des dérivées.
+
+Nous avons déjà vu que calculer la dérivée d'une fonction n'est pas très compliqué. Aussi étonnant que cela puisse paraître, il se fait que le processus inverse est très compliqué : il est en général extrêmement difficile (et même souvent impossible) de trouver une fonction dont la dérivée est une fonction donnée.
+
+Une fonction dont la dérivée est la fonction $f$ s'appelle une \defe{primitive}{primitive} de $f$, et la fonction qui donne l'aire en dessous de la fonction $f$ entre l'abscisse $0$ et $x$ est notée
+\begin{equation}
+	S_f(x)=\int_0^xf(t)dt.
+\end{equation}
+Nous pouvons nous demander si, pour une fonction $f$ donnée, il existe une ou plusieurs primitives, c'est à dire s'il existe une ou plusieurs fonctions $F$ telles que $F'=f$. La réponse viendra\ldots
+%TODO : faire la référence
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Définition de la dérivée}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soit $I\subset\eR$ un intervalle et une fonction
+\begin{equation}
+	\begin{aligned}
+		f\colon I&\to \eR \\
+		x&\mapsto f(x). 
+	\end{aligned}
+\end{equation}
+On dit que $f$ est \defe{dérivable}{dérivable!fonction} en $a\in I$ si la limite
+\begin{equation}	\label{EqLimDeirve}
+	\lim_{x\to a} \frac{ f(x)-f(a) }{ x-a }
+\end{equation}
+existe. Formellement nous disons que cette limite existe et vaut $\ell$ lorsque pour tout $\epsilon>0$, il existe un $\delta>0$ tel que dès que $| x-a |<\delta$ on ait
+\begin{equation}
+	\left| \frac{ f(x)-f(a) }{ x-a } -\ell \right| <\epsilon.
+\end{equation}
+
+Lorsque la limite \eqref{EqLimDeirve} existe nous l'appelons $f'(a)$ et nous disons que la fonction $f$ est dérivable en $a$. Si la fonction est dérivable en tout point de $I$, nous disons qu'elle est dérivable sur $I$. Cela fournit un nombre $f'(x)$ en chaque point $x\in I$, c'est à dire une nouvelle fonction
+\begin{equation}
+	\begin{aligned}
+		f'\colon I&\to \eR \\
+		x&\mapsto f'(x)
+	\end{aligned}
+\end{equation}
+qui sera nommée \defe{fonction dérivée}{dérivée} de $f$.
+
+Il arrive que la fonction $f'$ soit elle-même dérivable. Dans ce cas nous nommons $f''$ la dérivée de $f$; cela est la \defe{dérivée seconde}{dérivée!seconde} de $f$.
+
+\section{Continuité et dérivabilité}
+\label{seccontetderiv}
+
+On considère dans la suite une fonction $f : A \to \eR$, où $a \in A \subset \eR$ ; cependant, les notions de continuité et de dérivabilité se généralisent immédiatement au cas de fonctions à valeurs vectorielles ; la notion de continuité se généralise au cas des fonctions à plusieurs variables (la notion de dérivabilité est remplacée par celle de différentiabilité dans ce cadre).
+
+\begin{definition}
+    La fonction $f$ est \defe{dérivable}{dérivable} en \( a\) si $a \in
+  \operatorname{int} A$ et si
+  \begin{equation*}
+    \lim_{\substack{x\rightarrow a\\x\neq a}} \frac{f(x)-f(a)}{x-a}
+  \end{equation*}
+  existe. On note alors cette quantité $f^\prime(a)$, c'est le nombre
+  dérivé de $f$ en $a$. La \Defn{fonction dérivée} de $f$ est
+  \begin{equation*}
+    f^\prime : A^\prime \to \eR : a \mapsto f^\prime(a)
+  \end{equation*}
+  définie sur l'ensemble noté $A^\prime$ des points $a$ où $f$ est
+  dérivable.
+\end{definition}
+
+\begin{example}
+      Montrons que la fonction $f : \eR \to \eR : x\mapsto x$ est continue et dérivable. Exceptionnellement (bien qu'on sache que la dérivabilité implique la continuité), montrons ces deux assertions séparément.
+      \begin{description}
+      \item[Continuité] Pour prouver la continuité au point $a \in \eR$ nous devons montrer que
+     \begin{equation}
+       \limite x a x = a
+     \end{equation}
+     c'est-à-dire
+     \begin{equation}
+       \forall \epsilon > 0, \exists \delta > 0 :  \forall x \in \eR \abs{x-a} <
+       \delta \Rightarrow \abs{x-a} < \epsilon
+     \end{equation}
+     ce qui est clair en prenant $\delta = \epsilon$.
+
+      \item[Dérivabilité] Soit $a \in \eR$. Calculons la limite du quotient différentiel
+        \begin{equation}
+          \limite[x\neq a]{x}{a} \frac{x-a}{x-a} = \limite[x\neq a]x a 1 = 1
+        \end{equation}
+        ce qui prouve que $f$ est dérivable et que sa dérivée vaut $1$ en
+        tout point $a$ de $\eR$.
+      \end{description}
+
+     On a donc montré que la fonction $x \mapsto x$ est continue, dérivable, et que sa dérivée vaut $1$ en tout point $a$ de son domaine.
+
+\end{example}
+
+\begin{proposition} \label{PropSFyxOWF}
+    Une fonction dérivable sur un intervalle y est continue.
+\end{proposition}
+
+\begin{proof}
+    Soit \( I\) un intervalle sur lequel la fonction \( f\) est dérivable, et soit \( x_0\in I\). Nous allons prouver la continuité de \( f\) en \( x_0\). Le fait que la limite
+    \begin{equation}
+        f'(x_0)=\lim_{h\to 0} \frac{ f(x_0+h)-f(x_0) }{ h }
+    \end{equation}
+    existe implique a fortiori que 
+    \begin{equation}
+        \lim_{h\to 0} f(x_0+h)-f(x_0)=0.
+    \end{equation}
+    Cela signifie la continuité de \( f\) en vertu du critère \ref{ThoLimCont}.
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Dérivation de fonctions d'une variable réelle}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Exemples}
+%---------------------------------------------------------------------------------------------------------------------------
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{La fonction $f(x)=x$}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Commençons par la fonction $f(x)=x$. Dans ce cas nous avons
+\begin{equation}
+	\frac{ f(x)-f(a) }{ x-a }=\frac{ x-a }{ x-a }=1.
+\end{equation}
+La dérivée est donc $1$.
+
+\begin{proposition}
+    La dérivé de la fonction $x\mapsto x$ vaut $1$, en notations compactes : $(x)'=1$.
+\end{proposition}
+
+\begin{proof}
+D'après la définition de la dérivée, si $f(x)=x$, nous avons
+\begin{equation}
+    f(x)=\lim_{\epsilon\to 0}\frac{ (x+\epsilon) -x }{\epsilon} =\lim_{\epsilon\to 0}\frac{ \epsilon }{\epsilon} =1,
+\end{equation}
+et c'est déjà fini.
+\end{proof}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{La fonction $f(x)=x^2$}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Prenons ensuite $f(x)=x^2$. En utilisant le produit remarquable $(x^2-a^2)=(x-a)(x+a)$ nous trouvons
+\begin{equation}
+	\frac{ f(x)-f(a) }{ x-a }=x+a.
+\end{equation}
+Lorsque $x\to a$, cela devient $2a$. Nous avons par conséquent
+\begin{equation}
+	f'(x)=2x.
+\end{equation}
+
+\begin{lemma}           \label{LemDeccCarr}
+    Si $f(x)=x^2$, alors $f'(x)=2x$.
+\end{lemma}
+
+\begin{proof}
+    Utilisons la définition, et remplaçons $f$ par sa valeur :
+    \begin{subequations}
+        \begin{align}
+            f'(x)   &=\lim_{\epsilon\to 0}\frac{ f(x+\epsilon)-f(x) }{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}\frac{ (x+\epsilon)^2-x^2 }{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}\frac{ x^2+2x\epsilon+\epsilon^2-x^2 }{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}\frac{\epsilon(2x+\epsilon)}{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}(2x+\epsilon)\\
+                &=2x,
+        \end{align}
+    \end{subequations}
+    ce qu'il fallait prouver.
+\end{proof}
+
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{La fonction $f(x)=\sqrt{x}$}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Considérons maintenant la fonction $f(x)=\sqrt{x}$. Nous avons
+\begin{equation}
+	\begin{aligned}[]
+		\frac{ f(x)-f(a) }{ x-a }&=\frac{ \sqrt{x}-\sqrt{a} }{ x-a }\\
+		&=\frac{ (\sqrt{x}-\sqrt{a})(\sqrt{x}+\sqrt{x}) }{ (x-a)(\sqrt{x}+\sqrt{x}) }\\
+		&=\frac{1}{ \sqrt{x}+\sqrt{x} }.
+	\end{aligned}
+\end{equation}
+Lorsque $x\to 0$, nous obtenons
+\begin{equation}
+	f'(a)=\frac{1}{ 2\sqrt{a} }.
+\end{equation}
+Notons que la dérivée de $f(x)=\sqrt{x}$ n'existe pas en $x=0$. En effet elle serait donnée par le quotient
+\begin{equation}
+	f'(0)=\lim_{x\to 0} \frac{ \sqrt{x}-\sqrt{0} }{ x }=\lim_{x\to 0} \frac{ \sqrt{x} }{ x }=\lim_{x\to 0} \frac{1}{ \sqrt{x} }.
+\end{equation}
+Mais si $x$ devient très petit, la dernière fraction tend vers l'infini.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Calcul de la dérivée}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}     \label{PROPooOUZOooEcYKxn}
+    Soit $f,g\colon I\subset\eR\to\eR $ deux fonctions dérivables. Alors nous avons les propriétés suivante
+    \begin{enumerate}
+    	\item
+    		la fonction $h=f+g$ est dérivable et $h'(x)=f'(x)+g'(x)$.
+    	\item
+    		la fonction $h=fg$ est dérivable et 
+    		\begin{equation}
+    			(fg)'(x)=f'(x)g(x)+f(x)g'(x).
+    		\end{equation}
+    		Cette formule est appelée \defe{règle de Leibnitz}{Leibnitz}.
+        \item       \label{ITEMooMUNQooLiKffz}
+    		la fonction $h=\frac{ f }{ g }$ est dérivable en tout point $x$ tel que $g(x)\neq 0$ et 
+    		\begin{equation}
+    			\left( \frac{ f }{ g } \right)'(x)=\frac{ f'(x)g(x)-f(x)g'(x) }{ g(x)^2 }.
+    		\end{equation}
+        \item   \label{ITEMooLYZCooVUPTyh}
+    		la fonction $h=f\circ g$ est dérivable et 
+    		    \begin{equation}
+    		    	(f\circ g)'(x)=f'\big( g(x) \big)g'(x).
+    	    	\end{equation}
+    \end{enumerate}
+\end{proposition}
+
+\begin{proposition}
+	Si $f(x)=x^n$ avec $n\in\eN$, alors $f'(x)=nx^{n-1}$.
+\end{proposition}
+\begin{proof}
+	Nous avons déjà vu que la proposition était vraie avec $n=1$ et $n=2$. Supposons qu'elles soit vraie avec $n=k$, et prouvons qu'elle est vraie pour $n=k+1$. Nous avons
+	\begin{equation}
+		x^{k+1}=xx^k.
+	\end{equation}
+	En utilisant la règle de Leibnitz et l'hypothèse de récurrence,
+	\begin{equation}
+		\begin{aligned}[]
+			\big( x^{k+1} \big)'&=(x)'x^k+x\big( x^k \big)'\\
+			&=x^k+x\big( kx^{k-1} \big)\\
+			&=x^k+kx^k\\
+			&=(k+1)x^k,
+		\end{aligned}
+	\end{equation}
+	ce qu'il fallait démontrer.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------
+\subsection[Interprétation géométrique : tangente]{Interprétation géométrique de la dérivée : tangente}
+%--------------------------------------------------------------------------------------------------------------------------
+
+Considérons le \defe{graphe}{graphe} de la fonction $f$ sur $I$, c'est à dire l'ensemble
+\begin{equation}
+	\big\{ \big( x,f(x) \big)\tq x\in I \big\}.
+\end{equation}
+Le nombre 
+\begin{equation}
+	\frac{ f(x)-f(a) }{ x-a }
+\end{equation}
+est la pente de la droite qui joint les points $\big( x,f(x) \big)$ et $\big( a,f(a) \big)$, voir la figure  \ref{LabelFigGWOYooRxHKSm}. % From file GWOYooRxHKSm
+\newcommand{\CaptionFigGWOYooRxHKSm}{Le coefficient directeur de la corde entre $a$ et $x$.}
+\input{auto/pictures_tex/Fig_GWOYooRxHKSm.pstricks}
+
+Étant donné que $f'(a)$ est le coefficient directeur de la tangente au point $\big( a,f(a) \big)$, l'équation de la tangente est
+\begin{equation}		\label{EqTgfaen}
+	y-f(a)=f'(a)(x-a).
+\end{equation}
+
+%--------------------------------------------------------------------------------------------------------------------------
+\subsection[Interprétation géométrique : approximation affine]{Interprétation géométrique de la dérivée : approximation affine}
+%--------------------------------------------------------------------------------------------------------------------------
+
+Le fait que la fonction $f$ soit dérivable au point $a\in I$ signifie que
+\begin{equation}
+	\lim_{x\to a} \frac{ f(x)-f(a) }{ x-a }=\ell
+\end{equation}
+pour un certain nombre $\ell$. Cela peut être récrit sous la forme
+\begin{equation}
+	\lim_{x\to a} \frac{ f(x)-f(a) }{ x-a }-\ell=0,
+\end{equation}
+ou encore
+\begin{equation}
+	\lim_{x\to a} \frac{ f(x)-f(a)-\ell(x-a) }{ x-a }=0.
+\end{equation}
+Introduisons la fonction
+\begin{equation}
+	\alpha(t)=\frac{ f(a+t)-f(a)-t\ell }{ t }.
+\end{equation}
+Cette fonction est faite exprès pour que
+\begin{equation}		\label{EqIntermsaxaama}
+	\alpha(x-a)=\frac{ f(x)-f(a)-\ell(x-a) }{ x-a };
+\end{equation}
+par conséquent $\lim_{x\to a} \alpha(x-a)=0$. Nous récrivons l'équation \eqref{EqIntermsaxaama} sous la forme
+\begin{equation}        \label{EqCodeDerviffxam}
+	f(x)-f(a)-\ell(x-a)=(x-a)\alpha(x-a).
+\end{equation}
+Le second membre tend vers zéro lorsque $x$ tend vers $a$ avec une «vitesse au carré» : c'est le produit de deux facteurs tous deux tendant vers zéro. Si $x$ n'est pas très loin de $a$, il n'est donc pas une mauvaise approximation de dire
+\begin{equation}
+	f(x)-f(a)-\ell(x-a)\simeq 0,
+\end{equation}
+c'est à dire
+\begin{equation}		\label{Eqfxsimesfa}
+	f(x)\simeq f(a)+f'(a)(x-a).
+\end{equation}
+Nous avons retrouvé l'équation \eqref{EqTgfaen}. La manipulation que nous venons de faire revient donc à dire que la fonction $f$, au voisinage de $a$, est bien approximée par sa tangente.
+
+L'équation \eqref{Eqfxsimesfa} peut être aussi écrite sous la forme
+\begin{equation}		\label{EqfxdxSimeqfxfpx}
+	f(x+\Delta x)\simeq f(x)+f'(x)\Delta x
+\end{equation}
+qui est une approximation d'autant meilleure que $\Delta x$ est petit.
+
+\begin{proposition}[\cite{ooAAFGooXRSaWs}]      \label{PROPooSGTBooFxUuXK}
+    Soit \(f \) une fonction dérivable et strictement monotone de l'intervalle \( I\) sur l'intervalle \( J\)  (f est alors une bijection de $I$ vers $J$). Si  ne s'annule par sur  alors 
+    \begin{enumerate}
+        \item
+            la fonction \( f\) est une bijection de \( I\) vers \( J\),
+        \item
+            la fonction \( f^{-1}\) est dérivable sur \( J\),
+        \item
+            et nous avons la formule
+            \begin{equation}        \label{EQooELIHooDxUFxH}
+                (f^{-1})'=\frac{1}{ f'\circ f^{-1} }.               
+            \end{equation}
+    \end{enumerate}
+\end{proposition}
+\index{réciproque!dérivabilité}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Opérations sur les dérivées}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Pour continuer, nous allons en faire une un peu plus abstraite.
+\begin{proposition}     \label{PropDerrLin}
+    La dérivation est une opération linéaire, c'est à dire que
+    \begin{enumerate}
+        \item $(\lambda f)'=\lambda f'$ pour tout réel $\lambda$ où, pour rappel, la fonction $(\lambda f)$ est définie par $(\lambda f)(x)=\lambda\cdot f(x)$,
+        \item $(f+g)'=f'+g'$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Ces deux propriétés découlent des propriétés correspondantes de la limite. Nous allons faire la première, et laisser la seconde à titre d'exercice. Écrivons la définition de la dérivée avec $(\lambda f)$ au lieu de $f$, et calculons un petit peu :
+\begin{equation}
+    \begin{aligned}[]
+        (\lambda f)'(x) &=\lim_{\epsilon\to 0}\frac{ (\lambda f)(x+\epsilon)-(\lambda f)(x) }{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}\frac{ \lambda \big( f(x+\epsilon) \big)-\lambda f(x) }{ \epsilon }\\
+                &=\lim_{\epsilon\to 0}\lambda \frac{ f(x+\epsilon) -f(x) }{ \epsilon }\\
+                &=\lambda \lim_{\epsilon\to 0}\frac{ f(x+\epsilon) -f(x) }{ \epsilon }\\
+                &=\lambda f'(x).
+    \end{aligned}
+\end{equation}
+\end{proof}
+
+
+\begin{proposition}
+    La dérivée d'un produit obéit à la \defe{règle de Leibnitz}{Règle de Leibnitz}\index{Leibnitz}:
+    \begin{equation}
+        (fg)'(x)=f'(x)g(x)+f(g)g'(x).
+    \end{equation}
+    Cette règle est souvent écrite sous la forme compacte $(fg)'=f'g+g'f$.
+\end{proposition}
+
+\begin{proof}
+La définition de la dérivée dit que
+\begin{equation}        \label{Eqfgrimeepsfgx}
+    (fg)'(x)=\lim_{\epsilon\to 0}\frac{f(x+\epsilon)g(x+\epsilon)-f(x)g(x)}{\epsilon}.
+\end{equation}
+La subtilité est d'ajouter au numérateur la quantité $-f(x)g(x+\epsilon)+f(x)g(x+\epsilon)$, ce qui est permit parce que cette quantité est nulle\footnote{Le coup d'ajouter et enlever la même chose a déjà été fait durant la démonstration du théorème \ref{Tholimfgabab}. C'est une technique assez courante en analyse.}. Le numérateur de \eqref{Eqfgrimeepsfgx} devient donc
+\begin{equation}
+    \begin{aligned}[]
+f(x+\epsilon)g(x+\epsilon)&-f(x)g(x+\epsilon)+f(x)g(x+\epsilon)-f(x)g(x) \\
+            &= g(x+\epsilon)\big( f(x+\epsilon)-f(x) \big)+f(x)\big( g(x+\epsilon)-g(x) \big),
+    \end{aligned}
+\end{equation}
+où nous avons effectué deux mises en évidence. Étant donné que nous avons deux termes, nous pouvons couper la limite en deux :
+\begin{equation}
+    \begin{aligned}[]
+        (fg)'(x)    &=\lim_{\epsilon\to 0}g(x+\epsilon)\frac{ f(x+\epsilon)-f(x) }{\epsilon}            &+\lim_{\epsilon\to 0}f(x)\frac{ g(x+\epsilon)-g(x) }{\epsilon}\\
+                &=\lim_{\epsilon\to 0}g(x+\epsilon)\lim_{\epsilon\to 0}\frac{ f(x+\epsilon)-f(x) }{\epsilon}    &+f(x)\lim_{\epsilon\to 0}\frac{ g(x+\epsilon)-g(x) }{\epsilon},
+    \end{aligned}
+\end{equation}
+où nous avons utilisé le théorème \ref{Tholimfgabab} pour scinder la première limite en deux, ainsi que la propriété \eqref{Eqbutmultlim} pour sortir le $f(x)$ de la limite dans le second terme. Maintenant, dans le premier terme, nous avons évidement\footnote{Pas tout à fait évidemment : selon le théorème \ref{ThoLimCont}, \emph{limite et continuité}, il faut que $g$ soit continue.} $\lim_{\epsilon\to 0}g(x+\epsilon)=g(x)$. Les limites qui restent sont les définitions classiques des dérivées de $f$ et $g$ au point~$x$ :
+\begin{equation}
+    (fg)'(x)=g(x)f'(x)-f(x)g'(x),
+\end{equation}
+ce qu'il fallait démontrer.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Développement limité au premier ordre}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si une fonction est dérivable en \( a\) alors elle peut être approximée «au premier ordre» par une formule simple.
+\begin{proposition}[Développement limité au premier ordre]  \label{PropUTenzfQ}
+    Si \( f\) est dérivable en \( a\) alors nous avons la formule
+    \begin{equation}
+        f(a+h)=f(a)+hf'(a)+\alpha(h)
+    \end{equation}
+    pour une fonction \( \alpha\) telle que
+    \begin{equation}
+        \lim_{h\to 0} \frac{ \alpha(h) }{ h }=0.
+    \end{equation}
+\end{proposition}
+\index{développement!limité!premier ordre}
+Ce résultat sera généralisé pour des dérivées d'ordre supérieures avec les séries de Taylor, théorème \ref{ThoTaylor}.
+
+\begin{proof}
+    La fonction \( f\) étant dérivable en \( a\) nous avons l'existence de la limite suivante :
+    \begin{equation}
+        f'(a)=\lim_{h\to 0} \frac{ f(a+h)-f(a) }{ h },
+    \end{equation}
+    ce qui revient à dire qu'en définissant la fonction \( \beta\) par
+    \begin{equation}
+        f'(a)=\frac{ f(a+h)-f(a) }{ h }+\beta(h)
+    \end{equation}
+    alors \( \beta(h)\to 0\) lorsque \( h\to 0\). En multipliant par \( h\) et en nommant \( \alpha(h)=h\beta(h)\) nous trouvons le résultat :
+    \begin{equation}
+        f(a+h)=f(a)+hf'(a)+\alpha(h)
+    \end{equation}
+    avec 
+    \begin{equation}
+        \lim_{h\to 0} \frac{ \alpha(h) }{ h }=\lim_{h\to 0} \beta(h)=0.
+    \end{equation}
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Quelque rappels}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}[Intervalle]
+    Une partie \( I\) de \( \eR\) est un \defe{intervalle}{intervalle} si pour tout \( a,b\in I\) nous avons \( t\in I\) dès que \( a\leq t\leq b\).
+
+    Un intervalle est \defe{ouvert}{intervalle!ouvert} s'il est de la forme \( \mathopen] a , b \mathclose[\) avec éventuellement \( a=-\infty\) ou \( b=+\infty\). Un intervalle est \defe{fermé}{intervalle!fermé} s'il est de la forme \( \mathopen[ a , b \mathclose]\) ou \( \mathopen] -\infty , b \mathclose]\) ou \( \mathopen[ a , +\infty [\) avec \( a,b\in \eR\).
+\end{definition}
+
+\begin{remark}
+  L'ensemble $\eR$ ne contient pas $-\infty$ et $-\infty$. L'intervalle $[-\infty, 5]$ par exeple, n'est pas une partie de $\eR$.
+\end{remark}
+
+\begin{example}
+    \begin{enumerate}
+        \item
+        Les ensembles \( \mathopen] 3 , 7 \mathclose[\) et \( \mathopen] -\infty , \pi \mathclose[\) sont des intervalles ouverts.
+        \item
+            Les ensembles \( \mathopen[ 10 , 15 \mathclose]\) et \( \mathopen[ -1 , +\infty [\) sont des intervalles fermés.
+        \item
+        L'ensemble \( \mathopen] -4 , -2 \mathclose[\cup\mathopen] 2 , 9 \mathclose[\) n'est pas un intervalle (il y a un «trou» entre \(- 2\) et \( 2\)).
+        \item
+            L'ensemble \( \eR\) lui-même est un intervalle; par convention, il est à la fois ouvert et fermé.
+    \end{enumerate}
+Un intervalle peut n'être ni ouvert ni fermé; par exemple \( \mathopen] 4 , 8 \mathclose]\). Cet intervalle est «ouvert en \( 4\) et fermé en \( 8\)» .
+\end{example}
+
+\begin{definition}[Fonction, domaine, image, graphe]
+  Soient $X$ et $Y$ deux ensembles. Une \defe{fonction}{fonction} $f$ définie sur $X$ et à valeurs dans $Y$ est une correspondence qui associe à chaque élément $x$ dans $X$ {\bf au plus} un élément $y$ dans $Y$. On écrit $y= f(x)$.
+  \begin{itemize}
+  \item La partie de $X$ qui contient tous les $x$ sur lesquels $f$ peut opérer est dite \defe{domaine}{domaine} de $f$. Le domaine de $f$ est indiqué par $\Dom f$.
+  \item L'élément de $y\in Y$ associé par $f$ à un élément $x\in \Dom f$ (c'est à dire $f(x) = y$)  est appellé \defe{image}{image} de $x$ par $f$. L'\defe{image}{fonction!image} de la fonction $f$ est la partie de $Y$ qui contient les images de tous les éléments de $\Dom f$. L'image de $f$ est indiquée par $\Im f$.
+  \item Le \defe{graphe}{graphe} de $f$ est l'ensemble de toutes les couples $(x, f(x))$ pour $x\in \Dom f$. Le graphe de $f$ est une partie de l'ensemble noté $X\times Y$ et il est indiqué par $\Graph f$. Dans ce cours $X = \eR$ et $Y = \eR$, donc le graphe de $f$ est contenu dans le plan cartésien. 
+  \end{itemize}
+\end{definition}
+
+\begin{definition}[Fonction croissante, décroissante et monotone]
+    Soit une fonction \( f\colon \eR\to \eR\) et un intervalle \( I\subset \eR\).
+    \begin{enumerate}
+        \item
+            Le fonction \( f\) est \defe{croissante}{fonction!croissante} sur \( I\) si pour tout \( x<y\) dans \( I\) nous avons \( f(x)\leq f(y)\). Elle est \emph{strictement} croissante si \( f(x)<f(y)\) dès que \( x<y\).
+        \item
+            Le fonction \( f\) est \defe{décroissante}{fonction!décroissante} sur \( I\) si pour tout \( x<y\) dans \( I\) nous avons \( f(x)\geq f(y)\). Elle est \emph{strictement} décroissante si \( f(x)>f(y)\) dès que \( x<y\).
+        \item
+            La fonction \( f\) est dite \defe{monotone}{fonction!monotone} sur \( I\) si elle est soit croissante soit décroissante sur \( I\).
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    La fonction \( x\mapsto x^2\) est décroissante sur l'intervalle \( \mathopen] -\infty , 0 \mathclose]\) et croissante sur l'intervalle \( \mathopen[ 0 , \infty \mathclose[\). Elle n'est par contre ni croissante ni décroissante sur l'intervalle \( \mathopen[ -4 , 3 \mathclose]\).
+\end{example}
+
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Continuité et dérivabilité}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Dans cette section, nous désignerons par \( I\) un intervalle ouvert non vide contenu dans $\eR$.
+
+\begin{definition}[Fonction continue]
+    Une fonction \( f\colon I\to \eR\) est \defe{continue}{continue!fonction!en un point} au point \( x_0\in I\) si \( \lim_{x\to x_0} f(x)=f(x_0)\).
+
+    La fonction est dite \defe{continue}{continue!fonction!sur un intervalle} sur l'intervalle \( I\) si elle est continue en tous les points de \( I\).
+\end{definition}
+
+\begin{theorem}[Théorème des valeurs intermédiaires]    \label{ThoLEPooJxGXSN}
+    Si \( f\) est continue sur un intervalle \( I=\mathopen[ a , b \mathclose]\) avec \( f(a)\neq f(b)\) alors pour tout \( t\) entre \(f(a)\) et \(f(b)\), il existe \( x\in I\) tel que \( f(x)=t\).
+\end{theorem}
+
+Nous considérons la question suivante : étant donné une fonction \( f\) définie sur \( I\setminus\{ x_0 \}\), est-il possible de définir \( f\) en \( x_0\) de telles façon à ce qu'elle soit continue ?
+
+\begin{example}
+    La fonction
+    \begin{equation}
+        \begin{aligned}
+            f\colon \eR\setminus\{ 0 \}&\to \eR \\
+            x&\mapsto \frac{1}{ x } 
+        \end{aligned}
+    \end{equation}
+    n'est pas définie pour \( x=0\) et il n'y a pas moyen de définir \( f(0)\) de telle sorte que \( f\) soit continue parce que \( \lim_{x\to 0} \frac{1}{ x }\) n'existe pas.
+\end{example}
+
+\begin{definition}[Prolongement par continuité]
+    Soit \( f\colon I\setminus\{ x_0 \}\to \eR\) telle que \( \lim_{x\to x_{0}} f(x)=\ell\). La fonction
+    \begin{equation}
+        \begin{aligned}
+            \tilde f\colon I&\to \eR \\
+            \tilde f(x)&=\begin{cases}
+                f(x)    &   \text{si } x\neq x_0\\
+                \ell    &    \text{si } x=x_0
+            \end{cases}
+        \end{aligned}
+    \end{equation}
+    est une fonction continue sur \( I\) et est appelée le \defe{prolongement par continuité}{prolongement!par continuité} de \( f\) en \( x_0\).
+\end{definition}
+
+\begin{example}
+    La fonction \( f(x)=x\ln(|x|)\) n'est pas définie en \( x=0\). Cependant
+    \begin{equation}
+        \lim_{x\to 0} x\ln(|x|)=0.
+    \end{equation}
+    Nous pouvons donc définir la fonction
+    \begin{equation}
+        \begin{aligned}
+            \tilde f\colon \eR&\to \eR \\
+            x&\mapsto \begin{cases}
+                x\ln(| x |)    &   \text{si } x\neq 0\\
+                0    &    \text{si } x=0.
+            \end{cases}
+        \end{aligned}
+    \end{equation}
+    Contrairement à la fonction initiale \( f\), cette fonction \( \tilde f\) est définie et continue en \( 0\). 
+
+    Notez que sur le graphe de la fonction \( \tilde f\), la courbe est bien régulière en \( x=0\).
+    \begin{center}
+       \input{auto/pictures_tex/Fig_XJMooCQTlNL.pstricks}
+    \end{center}
+
+\end{example}
+
+\begin{example}
+    La fonction
+    \begin{equation}
+        \begin{aligned}
+            f\colon \eR\setminus\{ -3,2 \}&\to \eR \\
+            x&\mapsto  \frac{ x^2+2x-3 }{ (x+3)(x-2) }
+        \end{aligned}
+    \end{equation}
+    admet pour limite \( \lim_{x\to -3} f(x)=\frac{ 4 }{ 5 }\). Son prolongement par continuité en \( x=-3\) est donné par
+    \begin{equation}
+        \tilde f(x)=\frac{ x-1 }{ x-2 }.
+    \end{equation}
+    Notons que les fonctions \( f\) et \( \tilde f\) ne sont pas identiques : l'une est définie pour \( x=-3\) et l'autre pas. Lorsqu'on fait le calcul
+    \begin{equation}
+        \frac{ x^2+2x-3 }{ (x+3)(x-2) }=\frac{ (x-1)(x+3) }{ (x+3)(x-2) }=\frac{ x-1 }{ x-2 },
+    \end{equation}
+    la simplification n'est pas du tout un acte anodin. Le dernier signe «\( =\)» est discutable parce que les deux dernières expressions ne sont pas égales pour tout \( x\); elles ne sont égales «que» pour les \( x\) pour lesquels les deux expressions existent.
+\end{example}
+
+Les fonctions trigonométriques donneront quelque exemples intéressants de prolongements par continuité. Voir l'exemple \ref{ExQWHooGddTLE}.
+
+\begin{definition}[Fonction dérivable]\label{defderivable}
+    Nous disons qu'une fonction \( f\) est \defe{dérivable}{dérivable} au point \( x_0\in I\) si la limite
+    \begin{equation}
+        \lim_{\epsilon\to 0}\frac{ f(x_0+\epsilon)-f(x_0) }{ \epsilon }
+    \end{equation}
+    existe.
+\end{definition}
+
+Si \( f\) est une fonction dérivable, rien n'empêche la fonction dérivée \( f'\) d'être elle-même dérivable. Dans ce cas nous notons \( f''\) ou \( f^{(2)}\) la dérivée de la fonction \( f'\). Cette fonction $f''$ est la \defe{dérivée seconde}{dérivée!seconde} de \( f\). Elle peut encore être dérivable; dans ce cas nous notons \( f^{(3)}\) sa dérivée, et ainsi de suite. Nous définissons \( f^{(n)}=(f^{(n-1)})'\) la dérivée \( n\)\ieme de \( f\). Nous posons évidemment $f^{(0)}=f$.
+
+\begin{theorem}
+  Toute fonction $f$ dérivable au point $x_0$ est continue au point $x_0$. 
+\end{theorem}
+
+\begin{remark}
+  La réciproque du théorème précédent n'est pas vraie : il existent bien des fonctions qui sont continues à un point $x_0$ mais qui ne sont pas dérivables en $x_0$. La fonction valeur absolue, $x\mapsto |x|$, par exemple est continue sur tout $\eR$ mais elle n'est pas dérivable en $0$. 
+\end{remark}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Quelques formules à connaître}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{Aretenir}\label{formulesderivation}
+  \begin{subequations}
+    \begin{equation}
+      \left(\alpha f(x) + \beta g(x)\right)' = \alpha f'(x)  + \beta g'(x).
+    \end{equation}
+    \begin{equation}
+       \left(f(x)g(x)\right)' =  f'(x) g(x) + f(x) g'(x). 
+    \end{equation}
+    \begin{equation}
+      \left(f(u(x))\right)' =  f'(u(x))u'(x). 
+    \end{equation}
+    \begin{equation}
+      \left(\frac{f(x)}{g(x)}\right)' = \frac{f'(x) g(x) - f(x) g'(x)}{(g(x))^2}.
+    \end{equation}
+  \end{subequations}
+\end{Aretenir}

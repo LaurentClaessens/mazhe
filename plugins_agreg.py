@@ -1,26 +1,30 @@
 # -*- coding: utf8 -*-
 
 # This is part of (almost) Everything I know in mathematics
-# Copyright (c) 2014-2015   (et en fait sûrement plus)
+# Copyright (c) 2014-2017   (et en fait sûrement plus)
 #   Laurent Claessens
 # See the file fdl-1.3.txt for copying conditions.
 
 
 from __future__ import unicode_literals
 
-import LaTeXparser
-import LaTeXparser.PytexTools
-
-# Replaced by a lambda, March, 26, 2014
-#def accept_input(filename):
-#    return True
+import latexparser
+import latexparser.PytexTools
 
 agreg_mark_list=[]
 agreg_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
 agreg_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
 agreg_mark_list.append("% SCRIPT MARK -- TOC")
-agreg_mark_list.append("% SCRIPT MARK -- AGRÉGATION")
+agreg_mark_list.append("% SCRIPT MARK -- FRIDO")
 agreg_mark_list.append("% SCRIPT MARK -- FINAL")
+
+book_mark_list=[]
+book_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+book_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
+book_mark_list.append("% SCRIPT MARK -- TOC")
+book_mark_list.append("% SCRIPT MARK -- FRIDO")
+book_mark_list.append("% SCRIPT MARK -- FINAL")
+
 
 mesnotes_mark_list=agreg_mark_list[:]
 mesnotes_mark_list.append("% SCRIPT MARK -- DÉVELOPPEMENTS POSSIBLES")
@@ -50,7 +54,7 @@ mazhe_mark_list.append("% SCRIPT MARK -- TOC")
 mazhe_mark_list.append("% SCRIPT MARK -- ENGLISH INTRODUCTION")
 mazhe_mark_list.append("% SCRIPT MARK -- MOODLE")
 mazhe_mark_list.append("% SCRIPT MARK -- INTRO SAGE")
-mazhe_mark_list.append("% SCRIPT MARK -- AGRÉGATION")
+mazhe_mark_list.append("% SCRIPT MARK -- FRIDO")
 mazhe_mark_list.append("% SCRIPT MARK -- DÉVELOPPEMENTS POSSIBLES")
 mazhe_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUES")
 mazhe_mark_list.append("% SCRIPT MARK -- RESEARCH PART")
@@ -71,13 +75,50 @@ class set_filename(object):
     def __init__(self,new_output_filename):
         self.new_output_filename=new_output_filename
     def __call__(self,medicament):
-        raise DeprecationWarning
+        raise DeprecationWarning("Use myRequest.new_output_filename='foo.pdf' instead")
         medicament.new_output_filename=self.new_output_filename
 
-def set_isAgreg(A):
-    u="\setcounter{isAgreg}{0}"
-    A = A.replace(u,u.replace("0","1"))
-    return A
+# TODO : use a partial object from the module 'functools'
+# https://pymotw.com/3/functools/
+class set_counter(object):
+    def __init__(self,counter_name,init_value,final_value):
+        self.counter_name=counter_name
+        self.init_value=init_value
+        self.final_value=final_value
+    def __call__(self,A):
+        """
+        Changes the line
+        \setcounter{<counter_name>}{<init_value>}
+        into
+        \setcounter{<counter_name>}{<final_value>}
+        """
+        u="\setcounter{{{}}}{{{}}}".format(self.counter_name,self.init_value)
+        S = A.replace(u,u.replace(str(self.init_value),str(self.final_value)))
+        return S
+
+class set_boolean(object):
+    def __init__(self,name,value):
+        self.name=name
+        self.value=value
+    def __call__(self,A):
+        r"""
+        Changes the line
+        \boolfalse{<name>}
+        into
+        \booltrue{<name>}
+        or the contrary
+        """
+        true_line=r"\booltrue{{{}}}".format(self.name)
+        false_line=r"\boolfalse{{{}}}".format(self.name)
+        if self.value=="true":
+            S=A.replace(false_line,true_line)
+        elif self.value=="false":
+            S=A.replace(true_line,false_line)
+        else :
+            raise ValueError("You have to choose between 'true' of 'false'")
+        return S
+
+set_isFrido = set_boolean("isFrido","true")
 
 def up_to_text(liste,text):
     for i,l in enumerate(liste):
@@ -108,3 +149,37 @@ def set_commit_hexsha(A):
     print(hexsha)
     A = A.replace(u,u.replace("missing information",hexsha))
     return A
+
+def assert_MonCerveau_first():
+    """
+    Read the bbl file and check that the reference "MonCerveau" is the first one.
+    """
+
+    print(""" Vous pourriez avoir l'erreur suivante :
+
+ return self.fun(A)
+ TypeError: 'NoneType' object is not callable)
+
+    Cela signifie que vous devez mettre à jour 'pytex' et 'latexparser'. 
+
+    J'ai dû effectuer quelque modifications pour vérifier que "MonCerveau" est 
+    toujours la première référence dans le frido.
+ """)
+
+    import os.path
+    filename="Inter_frido-mazhe_pytex.bbl"
+    if not os.path.exists(filename):
+        print("Le fichier bbl n'existe pas. C'est pas très normal. Si cela persiste à la prochaine compilation, posez-vous des questions.")
+        return None
+    bbl_content=open(filename).read()
+    bbl_first=bbl_content.find("bibitem")
+    bbl_second=bbl_content.find("bibitem",bbl_first+1)
+    text=bbl_content[bbl_first:bbl_second]
+    if not "MonCerveau" in text:
+        print("""Il semblerait que la référence bibliographique 'MonCerveau' ne soit pas la première. Il faut corriger ça. En effet, le lecteur doit savoir que lorsqu'il voit la référence [1], ça veut dire 'danger'.
+
+        Après modification, le plus simple est de supprimer le fichier {} et de relancer.
+                
+                """.format(filename))
+        raise
+
