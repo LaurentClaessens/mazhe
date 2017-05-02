@@ -6,3 +6,6 @@ This files provides a small description of the branches.
 
 Dans cette branche j'écris les notes du cours d'analyse numérique du CTES de Marseille.
 
+## propsomme
+
+La proposition propnseries_propdeba sur les propriétés des séries est à démontrer et certainement que certains points sont déjà démontrés ailleurs.
