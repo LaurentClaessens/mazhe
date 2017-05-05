@@ -17,18 +17,16 @@ myRequest.original_filename="mazhe.tex"
 
 myRequest.ok_filenames_list=["e_mazhe"]
 myRequest.ok_filenames_list.extend(["181_espace_vecto_norme"])
-myRequest.ok_filenames_list.extend(["<++>"])
-myRequest.ok_filenames_list.extend(["<++>"])
-myRequest.ok_filenames_list.extend(["<++>"])
-myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["157_thematique"])
+myRequest.ok_filenames_list.extend(["76_series_fonctions"])
 myRequest.ok_filenames_list.extend(["141_EspacesVecto"])
+myRequest.ok_filenames_list.extend(["53_topologie"])
 myRequest.ok_filenames_list.extend(["57_espace_vecto_norme"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
-myRequest.ok_filenames_list.extend(["53_topologie"])
 myRequest.ok_filenames_list.extend(["134_choses_finales"])
 
 

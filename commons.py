@@ -20,10 +20,15 @@
 
 
 ok_hash=[]
+ok_hash.append("1fca2b704bb437573df03114f06f502cb7ad780f")
+ok_hash.append("305c05b3d913cfdcaa89e1726cd79ea852a986c5")
+ok_hash.append("0afed0f13964d80a33073a8da363f3a30ec4e348")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
+ok_hash.append("bb46c79e9c5787d9f18151464eaedc99ef95a23f")
+ok_hash.append("30ee61a32f7cb70510d060cf58d7a3fa17ada78a")
 ok_hash.append("fa0cee4110ba39e47d283c7b6fc44e108f93b04b")
 ok_hash.append("a0df8b487e72f37c8e25cb2db7d0440b0a57a6a9")
 ok_hash.append("bf1af7b732242d0ec021ce70a5c1f879e3619c8a")
