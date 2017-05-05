@@ -619,7 +619,7 @@ Notons la somme sur la ligne \( i\), pas sur la colonne : la somme est horizonta
     \end{equation}
 
     Elle est \defe{à diagonale strictement dominante}{diagonale!strictement dominante} si 
-    \begin{equation}
+    \begin{equation}        \label{EQooQLNLooJCLram}
         \sum_{j\neq i}| A_{ij} |< | A_{ii} |
     \end{equation}
     pour tout \( i\) (entier entre \( 1\) et \( n\)).
@@ -630,19 +630,20 @@ Nous avons les inclusions suivantes :
     \text{strictement dominante}\subset\text{fortement dominante}\subset\text{dominante}.
 \end{equation}
 
-\begin{lemma}
+\begin{lemma}       \label{LEMooMQAEooUCkQxU}
     Si \( A\) est dans un des deux cas suivant :
     \begin{itemize}
         \item diagonale strictement dominante,
-        \item diagonale fortement dominante et irréductible\footnote{Définition \ref{DEFooXIREooQtlzkO}.}
+        \item diagonale dominante et irréductible\footnote{Définition \ref{DEFooXIREooQtlzkO}.}
     \end{itemize}
     alors \( A_{ii}\neq 0\) pour tout \( i\).
 \end{lemma}
 
 \begin{proof}
-    
+    Si \( A\) est à diagonale strictement dominante, alors l'inégalité stricte \eqref{EQooQLNLooJCLram} n'est pas possible.
+
+    Si \( A\) est à diagonale dominante, alors si \( A_{ii}=0\), toute la ligne est nulle. Dans ce cas, la matrice ne peut pas être irréductible.
 \end{proof}
-<++>
 
 \begin{proposition}[\cite{ooFAQUooRcQHZf}]
     Une matrice à diagonale strictement dominante est inversible.
@@ -675,7 +676,12 @@ Nous avons les inclusions suivantes :
 \end{proof}
 
 \begin{proposition}
-    Soit \( A\in \eM(n,\eC)\) une matrice a diagonale strictement dominante. Si \( A=D-M\) où \( D\) est la diagonale de \( A\) (et \( M\) est «le reste») alors
+    Soit \( A\in \eM(n,\eC)\) une matrice qui est dans un des deux cas suivants :
+    \begin{itemize}
+        \item à diagonale strictement dominante
+        \item à diagonale dominante et irréductible
+    \end{itemize}
+    Si \( A=D-M\) où \( D\) est la diagonale de \( A\) (et \( M\) est «le reste») alors \( D\) est inversible et
     \begin{equation}
         \rho(D^{-1}M)<1
     \end{equation}
@@ -683,15 +689,64 @@ Nous avons les inclusions suivantes :
 \end{proposition}
 
 \begin{proof}
-    Nous posons \( T=D^{-1}M\). Nous avons alors
+    Le lemme \ref{LEMooMQAEooUCkQxU} nous dit que les éléments diagonaux de \( A\) sont non nuls. Cela donne déjà le fait que la matrice \( D\) est inversible et que la produit \( D^{-1}M\) ait un sens. Nous posons \( T=D^{-1}M\). Nous avons alors
     \begin{equation}
         T_{ii}=\sum_k(D^{-1})_{ik}M_{ki}.
     \end{equation}
-    Si \( k=i\) alors \( M_{ki}=0\) et si \( k\neq i\) alors \( D_{ik}=0\). Donc \( T_{ii}=0\) pour tout \( i\).
+    Si \( k=i\) alors \( M_{ki}=0\) et si \( k\neq i\) alors \( D_{ik}=0\). Donc \( T_{ii}=0\) pour tout \( i\). 
+
+    En ce qui concerne les autres éléments de \( T\),
+    \begin{equation}
+        T_{ij}=\sum_k(D^{-1})_{ik}M_{kj}=\sum_k\frac{1}{ A_{ik} }\delta_{ik}M_{kj}=-\frac{ A_{ij} }{ A_{ii} }.
+    \end{equation}
+    Notes :
+    \begin{itemize}
+        \item 
+    Les hypothèses sur \( A\) jouent pour dire que \( A_{ii}\neq 0\). 
+\item
+    Le signe moins est dû au fait que \( M_{ij}=-A_{ij}\) lorsque \( i\neq j\).
+    \end{itemize}
+    En faisant la somme des modules :
+    \begin{equation}
+        \sum_{j\neq i}| T_{ij} |=\sum_{j\neq i}\frac{ | A_{ij} | }{ | A_{ii} | }=\frac{1}{ | A_{ii} | }\sum_{j\neq i}| A_{ij} |\leq 1.
+    \end{equation}
+    La dernière inégalité est le fait que \( A\) soit à diagonale dominante.
+
+    \begin{subproof}
+    \item[Si \( A\) est à diagonale strictement dominante]
+        Alors nous avons l'inégalité stricte
+        \begin{equation}
+            \sum_{j\neq i}| T_{ij} |<1.
+        \end{equation}
+        Et le théorème de Gershgorin \ref{THOooUJNFooHpvCCF} dit que le spectre de \( T\) est contenu dans l'union des disques
+    \begin{equation}
+        D_i=\{ z\in \eC\tq | z-T_{ii} |\leq r_i \}
+    \end{equation}
+    où
+\begin{equation}
+    r_i=\sum_{j\neq i}| T_{ij} |.
+\end{equation}
+Mais nous avons prouvé que pour tout \( i\), \( T_{ii}=0\) et \( \sum_{j\neq i}| T_{ij} |<1\). Donc toutes ces boules sont contenues dans \( B(0,1)\). Cela prouve que \( \rho(T)<1\).
+
+    \item[Diagonale dominante, irréductible]
+
+        La matrice \( T\) est alors également irréductible parce que les éléments non nuls de \( A\) et de \( T\) sont les mêmes : \( T_{ij}=-A_{ij}/A_{ii}\). Nous utilisons alors le second théorème de Gershgorin \ref{THOooTXAPooQqsBCj}. Si \( \lambda\) est une valeur propre de \( T\), alors soit
+        \begin{equation}
+            \lambda\in\bigcup_iB\big( 0,r_i \big)
+        \end{equation}
+        soit
+        \begin{equation}
+            \lambda\in\bigcap_i\partial B(0,r_i).
+        \end{equation}
+
+        Vu que \( r_i\leq 1\) pour tout \( i\), dans le premier cas \( \lambda\) est dans l'union des boules \emph{ouvertes} de rayon \( 1\). Le nombre \( \lambda\) est donc une la boule ouverte de rayon \( 1\). Bref, \( | \lambda |<1\).
+
+        Dans le second cas, l'intersection de deux cercles de même centre sont soit vide soit tout le cercle (auquel cas les rayon sont égaux). Dans le second cas, ledit rayon est certainement strictement plus petit que \( 1\) parce que
+        \begin{equation}
+            r_i=\sum_{j\neq i}| T_{ij} |=\sum_{j\neq i}\frac{ | A_{ij} | }{ | A_{ii} | }<1.
+        \end{equation}
+    \end{subproof}
 \end{proof}
-<++>
-
-
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{M-matrice}
@@ -708,6 +763,49 @@ Nous avons les inclusions suivantes :
             \( A\) est inversible et \( A^{-1}\geq 0\).
     \end{enumerate}
 \end{definition}
+
+
+\begin{proposition}
+    Soit \( A\in \eM(n,\eR)\) telle que \( A_{ii}>0\) pour tout \( i\) et \( A_{ij}\leq 0\) pour tout \( i\neq j\). Nous posons \( A=D-M\) où \( D\) est la diagonale de \( A\). 
+
+    La matrice \( A\) est une M-matrice si et seulement si \( \rho(D^{-1}M)<1\).
+\end{proposition}
+
+\begin{proof}
+    En deux morceaux.
+    \begin{subproof}
+        \item[Si \( \rho(D^{-1}M)<1\)]
+            Nous posons encore \( T=D^{-1}M\). Par le théorème \ref{THOooMNLGooKETwhh}, la matrice \( \mtu-T\) est inversible et
+            \begin{equation}
+                (\mtu-T)^{-1}=\sum_{k=0}^{\infty}T^k.
+            \end{equation}
+            D'autre part, via des calculs déjà faits, et les hypothèses sur les signes des éléments de \( A\),
+            \begin{equation}
+                T_{ij}=-\frac{ A_{ij} }{ A_{ii} }\geq 0.
+            \end{equation}
+            Donc tous les éléments de \( T\) sont positifs (ou nuls). Par conséquent \( T^k\geq 0\) pour tout \( k\) et \( (\mtu-T)^{-1}\) est positive.
+
+            Mais \( A=D-M=D(\mtu-D^{-1}M)=D(\mtu-T)\). Vu que \( D\) et \( \mtu-T\) sont inversibles, nous savons que \( A\) est inversible et
+            \begin{equation}
+                A^{-1}=(\mtu-A)^{-1}D^{-1},
+            \end{equation}
+            qui est un produit de matrices positives. Donc \( A^{-1}\geq 0\).
+
+            Au final, \( A\) est une M-matrice.
+
+        \item[Si \( A\) est une M-matrice]
+
+
+            Soit une valeur propre \( \lambda\) de \( T=D^{-1}M\) est un vecteur propre u : \( Tu=\lambda u\). Vu que \( T\geq 0\) nous avons d'une part \( | \lambda u |=| \lambda | u |\) et d'autre part \( | \lambda u |=| Tu |\leq T| u |\), ce qui donne
+            \begin{equation}
+                | \lambda | |u |\leq T| u |.
+            \end{equation}
+            <++>
+        
+    \end{subproof}
+    <++>
+\end{proof}
+<++>
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Méthode des différences finies}
