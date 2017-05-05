@@ -20,7 +20,6 @@
 
 
 ok_hash=[]
-<<<<<<< HEAD
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
