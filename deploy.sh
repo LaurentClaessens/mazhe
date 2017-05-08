@@ -36,7 +36,7 @@ rm -rf $BUILD_DIR
 mkdir $BUILD_DIR
 cd $BUILD_DIR
 
-git clone $MAIN_DIR --branch   $NEW_BRANCH   --single-branch  $BUILD_DIR
+git clone $MAIN_DIR --branch   $NEW_BRANCH   --single-branch  $CLONE_DIR
 
 cd $BUILD_DIR
 
