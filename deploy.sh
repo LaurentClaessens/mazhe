@@ -18,19 +18,25 @@ MAIN_DIR=`pwd`
 BUILD_DIR=$MAIN_DIR/build
 CLONE_DIR=$BUILD_DIR/build_mazhe
 
-echo $MAIN_DIR
+NEW_BRANCH=deploy_$RANDOM$RANDOM
+CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
 
+echo $NEW_BRANCH
+echo $CURRENT_BRANCH
+
+
+git stash
+git checkout -b $NEW_BRANCH
+git stash apply
+git commit -a -m "The new build-test branch"
+git checkout $CURRENT_BRANCH
+git stash apply
 
 rm -rf $BUILD_DIR
 mkdir $BUILD_DIR
 cd $BUILD_DIR
 
-
-# making
-# git clone .. 
-# does not work. So this is an assumption on the directory name in which the
-# user is working.
-git clone $MAIN_DIR $CLONE_DIR
+git clone $MAIN_DIR --branch   $NEW_BRANCH   --single-branch  $BUILD_DIR
 
 cd $BUILD_DIR
 
