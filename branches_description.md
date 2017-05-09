@@ -10,3 +10,6 @@ Dans cette branche j'écris les notes du cours d'analyse numérique du CTES de M
 
 Solve some future references.
 
+## deploy
+
+Take into account the case with a non empty stash list.
