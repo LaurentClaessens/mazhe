@@ -18,6 +18,18 @@ MAIN_DIR=`pwd`
 BUILD_DIR=$MAIN_DIR/build
 CLONE_DIR=$BUILD_DIR/build_mazhe
 
+STASH=`git stash list`
+if [[ -z $A  ]];then
+    echo "The git's stash is empty. We can continue"
+else
+    echo "The stash list is not empty. You should empty it before to launch 'deploy.sh'"
+    exit
+fi
+
+
+
+
+
 echo $MAIN_DIR
 
 
