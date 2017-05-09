@@ -61,7 +61,8 @@ compile_everything ()
 cd $CLONE_DIR
 
 # Poor man's multi-thread
-compile_frido&compile_everything
+compile_frido
+compile_everything
 
 cd $MAIN_DIR
 git status >> $CLONE_DIR/.deploy.log
