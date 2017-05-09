@@ -1,9 +1,30 @@
 % This is part of Mes notes de mathématique
-% Copyright (C) 2010-2013,2016
+% Copyright (C) 2010-2013,2016-2017
 %   Laurent Claessens
 % See the file LICENCE.txt for copying conditions.
 
 D'autres lectures agréables dans \cite{GianlucaB}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Introduction}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+À quels types de problèmes peut-on s'attendre lorsqu'on se lance dans du calcul numérique et en particulier dans la résolution numérique d'équations (algébrique, différentielles ou aux dérivées partielles) ?
+
+Quelque réflexions en vrac sur ce sujet.
+
+\begin{enumerate}
+    \item
+        Les erreurs de représentation de nombres : troncature et drift,
+    \item
+        Erreur de cancellation
+    \item
+        Conditionnement, stabilité : les réponses peuvent fortement dépendre des paramètres.
+    \item
+        Si on utilise une méthode itérative, comment savoir à quel moment on s'arrête ? Calculer la différence \( | x_k-x_{k-1} |\) a-t-elle une erreur de cancellation ?
+    \item
+        Le fait que certaines méthodes son non-déterministes (Monté-Carlo) mène à des problèmes pour les tests unitaires des implémentations.
+\end{enumerate}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Représentations numériques}
@@ -762,292 +783,10 @@ Il faut cependant parfois faire acte d'imagination. La fonction $x\mapsto| x |$ 
 \begin{proposition}
 	Pour le problème stable $x=x(d)$ avec $x\in C^1(\eR^n,\eR)$, on a
 	\begin{equation}
-		K_{abs}(d)\sim|dx_d|_{\mbox{op}}
+		K_{abs}(d)\sim\| dx_d \|
 	\end{equation}
-	où \( dx_d\) désigne la différentielle de $x$ en $d$.
+	où \( dx_d\) désigne la différentielle de $x$ en $d$ et la norme est la norme opérateur.
 \end{proposition}
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Conditionnement d'une matrice}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-Soit le système d'équations linéaires \( Au=b\) avec la matrice inversible \( A\) ainsi que le système perturbé \( (A+\Delta A)u'=(b+\Delta b)\). Nous notons \( \Delta u=u'-u\) et nous voudrions pouvoir dire des choses de l'erreur relative \( \frac{ \| \Delta u \| }{ \| u \| }\).
-
-\begin{example}[\cite{ooLMMRooUXhOdx}]
-    Soit la matrice
-    \begin{equation}
-        A=\begin{pmatrix}
-            10    &   7    \\ 
-            7    &   5    
-        \end{pmatrix}
-    \end{equation}
-    et \( b=\begin{pmatrix}
-        32    \\ 
-        23    
-    \end{pmatrix}\). La solution de \( Au=b\) est \( u=\begin{pmatrix}
-        -1    \\ 
-        6    
-    \end{pmatrix}\). Si nous conservons la même matrice mais nous considérons \( b=\begin{pmatrix}
-        32.1    \\ 
-        22.9    
-    \end{pmatrix}\). La solution devient \( u'=\begin{pmatrix}
-        0.2    \\ 
-        4.3    
-    \end{pmatrix}\)
-
-    En norme \( \| . \|_{\infty}\) nous avons\footnote{La proposition \ref{PropLJEJooMOWPNi}\ref{ItemABSGooQODmLNiii} montre que si nous voulions des estimations en norme \( \| . \|_2\), il y aurait au maximum un facteur \( \sqrt{2}\) par-ci par là.}
-    \begin{equation}
-        \frac{ \| \Delta b \| }{ \| b \| }=\frac{ 0.1 }{ 32 }=0.003125
-    \end{equation}
-    et
-    \begin{equation}
-        \frac{ \| \Delta u \| }{ \| u \| }=\frac{ 1.7 }{ 6 }=0.28.
-    \end{equation}
-    Cela montre environ amplification d'un facteur \( 100\) entre l'erreur sur \( b\) et l'erreur sur la solution.
-\end{example}
-
-\begin{definition}
-    Le \defe{conditionnement}{conditionnement!d'une matrice inversible} de la matrice inversible \( A\in \GL(n,\eC)\) est le nombre positif
-    \begin{equation}
-        \Cond(A)=\| A \|\| A^{-1} \|.
-    \end{equation}
-\end{definition}
-
-Cette dénomination sera justifié par le corollaire \ref{CORooXKPWooJVHVvh} parce qu'il est évident que le conditionnement d'une matrice est lié au conditionnement du problème de résolution d'un système linéaire.
-
-\begin{remark}
-    Le conditionnement dépend de la norme choisie, mais cette dependence est contrôlée par la proposition \ref{PropLJEJooMOWPNi} qui nous indique que si le conditionnement d'une matrice est grand dans une norme, il sera grand dans une autre norme.
-
-    D'autre part, lorsque nous écrirons \( \| A \|\) nous supposerons toujours que \( \| . \|\) est une norme d'algèbre\footnote{Définition \ref{DefJWRWQue}.} et donc que nous avons toujours
-    \begin{equation}
-        \| AB \|\leq \| A \|\| B \|.
-    \end{equation}
-    De plus nous supposerons toujours avoir une norme subordonnée à une norme sur l'espace \( \eC^n\), de telle sorte à avoir
-    \begin{equation}
-        \| Au \|\leq \| A \|\| u \|
-    \end{equation}
-    pour tout \( u\in\eC^n\). Voir aussi le lemme \ref{LEMooIBLEooLJczmu}.
-\end{remark}
-
-\begin{proposition}[\cite{ooLMMRooUXhOdx}]
-    Si \( A\) est une matrice inversible et si \( \alpha\in \eC\) nous avons :
-    \begin{enumerate}
-        \item
-            \( \Cond(A)\geq 1\)
-        \item
-            \( \Cond(A)=\Cond(A^{-1})\)
-        \item
-            \( \Cond(\alpha A)=\Cond(A)\).
-    \end{enumerate}
-    Si \( Q\in\gO(n)\) alors
-    \begin{enumerate}
-        \item
-            Nous avons \( \Cond_2(Q)=1\) où \( \Cond_2\) est le conditionnement pour la norme \( \| . \|_2\).
-        \item
-            Nous avons aussi
-            \begin{equation}
-                \Cond_2(A)=\Cond_2(AQ)=\Cond_2(QA).
-            \end{equation}
-    \end{enumerate}
-\end{proposition}
-
-\begin{proof}
-    Nous savons que \( \Cond(\mtu)=1\) et donc
-    \begin{equation}
-        1=\| \mtu \|\leq \| A \|\| A^{-1} \|
-    \end{equation}
-    parce que la norme utilisée est une norme matricielle.
-
-    Les deux autres formules sont évidentes à partit du fait que la définition du conditionnement de \( A\) est symétrique entre \( A\) et \( A^{-1}\).
-
-    En ce qui concerne les formules relatives à la matrice orthogonale \( Q\) nous savons par la proposition \ref{PropKBCXooOuEZcS}\ref{ITEMooOWMBooHUatNb} qu'une matrice orthogonale est une bijection de l'ensemble \(  \{ x\in \eR^n\tq \| x \|=1 \}  \). Par conséquent
-    \begin{equation}
-        \| AQ \|=\sup_{x\tq \| x \|=1}\| AQx \|=\sup_{ Q^{-1}x\tq \| x \|=1  }\| AQQ^{-1}x \|=\| A \|.
-    \end{equation}
-    Donc \( \| AQ \|=\| A \|\). Les assertions s'ensuivent immédiatement en remarquant que \( Q^{-1}\) est également orthogonale.
-\end{proof}
-
-Soit une matrice inversible \( A\in \GL(n,\eC)\). La matrice \( A^*A\) est hermitienne\footnote{Définition \ref{DEFooKEBHooWwCKRK}.} et le théorème \ref{LEMooVCEOooIXnTpp} nous assure que ses valeurs propres sont réelles. Par la remarque \ref{REMooMLBCooTuKFmz}, ses valeurs propres sont même positives.
-
-\begin{proposition}[\cite{ooLMMRooUXhOdx}]      \label{PROPooNUAUooIbVgcN}
-    Soit une matrice inversible \( A\in\GL(n,\eC)\), et \( \mu_1\leq\ldots\leq \mu_n\) les valeurs propres de \( A^*A\). Alors nous avons la formule
-    \begin{equation}
-        \Cond_2(A)=\sqrt{ \frac{ \mu_n }{ \mu_1 }}.
-    \end{equation}
-\end{proposition}
-
-\begin{proof}
-    Par le théorème \ref{THOooNDQSooOUWQrK}, la norme de \( A\) est liée au au rayon spectral de \( A^*A\) par
-    \begin{equation}
-        \| A \|_2=\sqrt{ \rho(A^*A) }=\sqrt{ \mu_n }.
-    \end{equation}
-    Vu que le spectre de \( AA^*\) est le même que celui de \( A^*A\) (lemme \ref{LEMooHUGEooVYhZdZ}) nous avons aussi
-    \begin{equation}
-        \| A^{-1} \|_2=\sqrt{ \rho\big( (A^{-1})^*A^{-1} \big) }=\sqrt{ \rho\big( (A^*A)^{-1} \big) }=\frac{1}{ \sqrt{ \mu_1 } }
-    \end{equation}
-    parce que la plus grande valeur propre de \( (A^*A)^{-1}\) est l'inverse de la plus petite de \( A^*A\).
-
-    Ces deux calculs étant,
-    \begin{equation}
-        \Cond_2(A)=\| A \|_2\| A^{-1} \|_2=\sqrt{ \frac{ \mu_n }{ \mu_1 } }.
-    \end{equation}
-\end{proof}
-
-\begin{probleme}
-    À mon avis ce qui est dans la proposition \ref{PropSOOooGoMOxG} est le conditionnement de la matrice ou sa racine carré ou un truc du genre. Il faut voir le lien entre les valeurs propres de \( A\) et celles de \( AA^*\).
-\end{probleme}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Perturbation du vecteur}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{proposition}[Système linéaire : perturbation du vecteur\cite{ooLMMRooUXhOdx}]        \label{PROPooGIXFooAhJkIs}
-    Soit une matrice inversible \( A\) et les systèmes d'équations linéaires
-    \begin{subequations}        \label{EQooYQIGooPXqWoX}
-        \begin{align}
-            Au=b\\
-            Au'=b'.
-        \end{align}
-    \end{subequations}
-    En notant \( \Delta u=u'-u\) et \( \Delta b=b'-b\) nous avons
-    \begin{equation}        \label{EQooESXRooMYuvRa}
-        \frac{ \| \Delta u \| }{ \| u \| }\leq \Cond(A)\frac{ \| \Delta b \| }{ \| b \| }.
-    \end{equation}
-\end{proposition}
-
-\begin{proof}
-    En soustrayant les équations \eqref{EQooYQIGooPXqWoX} nous avons \( \Delta b=A\Delta u\), et donc \( \Delta u=A^{-1} \Delta b\). D'une part nous avons alors
-    \begin{equation}
-        \| \Delta u \|\leq \| A^{-1} \|\| \Delta b \|.
-    \end{equation}
-    Et d'autre part, \( \| b \|\leq \| A \|\| u \|\), ce qui donne
-    \begin{equation}
-        \frac{ \| b \| }{ \| A \| }\leq \| u \|.
-    \end{equation}
-    En mettant les deux ensemble,
-    \begin{equation}
-        \frac{ \| \Delta u \| }{ \| u \| }\leq \frac{ \| A^{-1} \|\| \Delta b \| }{ \| b \| }\| A \|=\Cond(A)\frac{ \| \Delta b \| }{ \| b \| }.
-    \end{equation}
-\end{proof}
-
-Le corollaire suivant justifie le nom «conditionnement» au conditionnement d'une matrice.
-\begin{corollary}       \label{CORooXKPWooJVHVvh}
-    Soit \( A\in \GL(n,\eC)\) fixée et le problème de résoudre \( Au=b\), c'est à dire la fonction
-    \begin{equation}
-        F(u,b)=Au-b.
-    \end{equation}
-    \begin{enumerate}
-        \item
-            Ce problème est stable pour toute valeur de \( b\).
-        \item
-            Nous avons une majoration pour le conditionnement relatif\footnote{Si vous doutez de la norme à prendre, lisez la remarque \ref{REMooAIKIooJEBEqi}} :
-            \begin{equation}        \label{EQooZHQJooTMKYfr}
-                K_{rel}(\eta,b_0)\leq \Cond(A).
-            \end{equation}
-    \end{enumerate}
-\end{corollary}
-
-\begin{proof}
-    \begin{subproof}
-    \item[Stabilité]
-        Vu que \( A\) est inversible, il existe une solution unique à tout système de la forme \( Au=b'\). De plus \( u(b)=A^{-1} b\), donc
-        \begin{equation}
-            \| u(b)-u(b_0) \|= \| A^{-1}(b-b_0) \|\leq \| A^{-1} \|\| b-b_0 \|,
-        \end{equation}
-        de telle sorte que la condition \ref{DEFooYIFAooSJbMkC}\ref{ItemProbStableB} fonctionne avec \( K=\| A^{-1} \|\).
-    \item[Conditionnement]
-        En partant de la définition \ref{DEFEQooSXDBooYbvGrC}, et en utilisant la majoration de la proposition \ref{PROPooGIXFooAhJkIs} sous la forme
-        \begin{equation}
-            \| u(b)-u(b_0) \|\leq \Cond(A)\| u(b_0) \|\frac{ \| \Delta b \| }{ \| b_0 \| },
-        \end{equation}
-        nous obtenons :
-        \begin{subequations}
-            \begin{align}
-                K_{rel}(b_0,\eta)&=K_{abs}(b_0,\eta)\frac{ \| b_0 \| }{ \| u(b_0) \| }\\
-                &=\sup_{\| b-b_0 \|\leq \eta}\frac{ \| u(b)-u(b_0) \| }{ \| b-b_0 \| }\frac{ \| b_0 \| }{ \| u(b_0) \| }
-                &\leq \sup_b\Cond(A)\frac{ \| u(b_0) \| }{ \| b_0 \| }\| \Delta b \|\frac{1}{ \| b-b_0 \| }\frac{ \| b_0 \| }{ \| u(b_0) \| }\\
-                &=\Cond(A).
-            \end{align}
-        \end{subequations}
-    \end{subproof}
-\end{proof}
-
-
-\begin{remark}      \label{REMooAIKIooJEBEqi}
-    La notion de conditionnement relatif dépend aussi de la norme choisie. Dans la formule \eqref{EQooZHQJooTMKYfr} il faut prendre le conditionnement \( \Cond(A)\) pour la norme dans laquelle le \( K_{rel}\) est écrit. Encore une fois, toutes les normes étant équivalentes,  cette majoration est à constante près bonne pour toutes les normes. Si la dimension est très grande, cette constante peut par contre être grande.
-\end{remark}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Perturbation de la matrice}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{proposition}[Système linéaire : perturbation de la matrice\cite{ooLMMRooUXhOdx}]
-    Soient les systèmes linéaires
-    \begin{subequations}
-        \begin{align}
-            Au=b\\
-            A'u'=b
-        \end{align}
-    \end{subequations}
-    avec \( A\) et \( A'\) inversibles. Nous notons \( \Delta A=A'-A\). Alors
-    \begin{enumerate}
-        \item       \label{ITEMooJMTKooSEBavB}
-            \begin{equation}
-                \frac{ \| \Delta u \| }{ \| u' \| }\leq \Cond(A)\frac{ \| \Delta A \| }{ \| A \| }
-            \end{equation}
-        \item
-            \begin{equation}
-                \frac{ \| \Delta u \| }{ \| u \| }\leq \Cond(A)\frac{ \| \Delta A \| }{ \| A \| }\big( 1+\alpha(\| \Delta A \|) \big)
-            \end{equation}
-            où \( \lim_{x\to 0} \alpha(x)=0\).
-    \end{enumerate}
-\end{proposition}
-
-\begin{proof}
-    D'abord nous avons
-    \begin{subequations}
-        \begin{align}
-            0&=Au'-Au\\
-            &=(A'-A)u'-Au'-Au\\
-            &=\Delta Au'+A\Delta u.
-        \end{align}
-    \end{subequations}
-    Par conséquent, \( \Delta u=-A^{-1}(\Delta A)u'\) et
-    \begin{equation}        \label{EQooYYITooSSczEj}
-        \| \Delta u \|\leq \| A^{-1} \|\| \Delta A \|\| u' \|.
-    \end{equation}
-    Donc
-    \begin{equation}
-        \frac{ \| \Delta u \| }{ \| u' \| }\leq   \| A^{-1} \|\| A \|\frac{ \| \Delta A \| }{ \| A \| }   =\Cond(A)\frac{ \| \Delta A \| }{ \| A \| }.
-    \end{equation}
-    Cela est \ref{ITEMooJMTKooSEBavB}.
-
-    Pour l'autre inégalité, nous avons \( A'=A+\Delta A\) et donc
-    \begin{equation}
-        \| A'^{-1} \|=\| (A+\Delta A)^{-1} \|
-    \end{equation}
-    Nous repartons alors de \eqref{EQooYYITooSSczEj} en changeant le rôle de \( A\) et \( A'\) (et donc aussi de \( u\) et \( u'\)). Ce changement étant, \( \| \Delta u \|\) et \( \| \Delta A \|\) ne changent pas. Nous avons :
-    \begin{subequations}
-        \begin{align}
-            \frac{ \| \Delta u \| }{ \| u \| }&\leq \| A'^{-1} \|\| \Delta A \|\\
-            &=\| (A+\Delta A)^{-1} \|\| \Delta A \|\frac{ \Cond(A) }{ \| A \|\| A^{-1} \| }\\
-            &=\frac{ \| (A+\Delta A)^{-1} \| }{ \| A^{-1} \| }\frac{ \| \Delta A \| }{ \| A \| }\Cond(A).
-        \end{align}
-    \end{subequations}
-    Il reste à voir que
-    \begin{equation}
-        \lim_{\| \Delta A \|\to 0} \frac{ \| (A+\Delta A)^{-1} \| }{ \| A^{-1} \| }=1,
-    \end{equation}
-    ou autrement dit que
-    \begin{equation}        \label{EQooJURGooFvYiAs}
-        \lim_{A\to A'} \frac{ \| A'^{-1} \| }{ \| A^{-1} \| }=1
-    \end{equation}
-    où la limite est celle dans \( \GL(n,\eC)\). Par définition de la topologie, la norme est continue (quelle qu'elle soit par l'équivalence de norme \ref{ThoNormesEquiv}). Par le théorème \ref{ThoCINVBTJ}, l'application \( A\mapsto A^{-1}\) est également continue et commute donc avec la limite. Nous avons donc
-    \begin{equation}
-        \lim_{A'\to A}\| A'^{-1} \|=\| (\lim_{A'\to A} A')^{-1} \|=\| A^{-1} \|.
-    \end{equation}
-    Donc la limite du quotient \eqref{EQooJURGooFvYiAs} est bien \( 1\).
-\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Un peu de points fixes}
