@@ -29,6 +29,11 @@ fi
 NEW_BRANCH=deploy_$RANDOM$RANDOM
 CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
 
+# Create a new branch which contains not only the state of the last commit,
+# but also the state of the modified files.
+# Thus we are testing the current state of the project, not the last commit
+# state.
+
 git stash
 git checkout -b $NEW_BRANCH
 git stash apply
