@@ -1,8 +1,289 @@
 % This is part of Mes notes de mathématique
-% Copyright (C) 2010-2013,2017
+% Copyright (C) 2010-2017
 %   Laurent Claessens
 % See the file LICENCE.txt for copying conditions.
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Conditionnement d'une matrice}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soit le système d'équations linéaires \( Au=b\) avec la matrice inversible \( A\) ainsi que le système perturbé \( (A+\Delta A)u'=(b+\Delta b)\). Nous notons \( \Delta u=u'-u\) et nous voudrions pouvoir dire des choses de l'erreur relative \( \frac{ \| \Delta u \| }{ \| u \| }\).
+
+\begin{example}[\cite{ooLMMRooUXhOdx}]
+    Soit la matrice
+    \begin{equation}
+        A=\begin{pmatrix}
+            10    &   7    \\ 
+            7    &   5    
+        \end{pmatrix}
+    \end{equation}
+    et \( b=\begin{pmatrix}
+        32    \\ 
+        23    
+    \end{pmatrix}\). La solution de \( Au=b\) est \( u=\begin{pmatrix}
+        -1    \\ 
+        6    
+    \end{pmatrix}\). Si nous conservons la même matrice mais nous considérons \( b=\begin{pmatrix}
+        32.1    \\ 
+        22.9    
+    \end{pmatrix}\). La solution devient \( u'=\begin{pmatrix}
+        0.2    \\ 
+        4.3    
+    \end{pmatrix}\)
+
+    En norme \( \| . \|_{\infty}\) nous avons\footnote{La proposition \ref{PropLJEJooMOWPNi}\ref{ItemABSGooQODmLNiii} montre que si nous voulions des estimations en norme \( \| . \|_2\), il y aurait au maximum un facteur \( \sqrt{2}\) par-ci par là.}
+    \begin{equation}
+        \frac{ \| \Delta b \| }{ \| b \| }=\frac{ 0.1 }{ 32 }=0.003125
+    \end{equation}
+    et
+    \begin{equation}
+        \frac{ \| \Delta u \| }{ \| u \| }=\frac{ 1.7 }{ 6 }=0.28.
+    \end{equation}
+    Cela montre environ amplification d'un facteur \( 100\) entre l'erreur sur \( b\) et l'erreur sur la solution.
+\end{example}
+
+\begin{definition}
+    Le \defe{conditionnement}{conditionnement!d'une matrice inversible} de la matrice inversible \( A\in \GL(n,\eC)\) est le nombre positif
+    \begin{equation}
+        \Cond(A)=\| A \|\| A^{-1} \|.
+    \end{equation}
+\end{definition}
+
+Cette dénomination sera justifié par le corollaire \ref{CORooXKPWooJVHVvh} parce qu'il est évident que le conditionnement d'une matrice est lié au conditionnement du problème de résolution d'un système linéaire.
+
+\begin{remark}
+    Le conditionnement dépend de la norme choisie, mais cette dependence est contrôlée par la proposition \ref{PropLJEJooMOWPNi} qui nous indique que si le conditionnement d'une matrice est grand dans une norme, il sera grand dans une autre norme.
+
+    D'autre part, lorsque nous écrirons \( \| A \|\) nous supposerons toujours que \( \| . \|\) est une norme d'algèbre\footnote{Définition \ref{DefJWRWQue}.} et donc que nous avons toujours
+    \begin{equation}
+        \| AB \|\leq \| A \|\| B \|.
+    \end{equation}
+    De plus nous supposerons toujours avoir une norme subordonnée à une norme sur l'espace \( \eC^n\), de telle sorte à avoir
+    \begin{equation}
+        \| Au \|\leq \| A \|\| u \|
+    \end{equation}
+    pour tout \( u\in\eC^n\). Voir aussi le lemme \ref{LEMooIBLEooLJczmu}.
+\end{remark}
+
+\begin{proposition}[\cite{ooLMMRooUXhOdx}]
+    Si \( A\) est une matrice inversible et si \( \alpha\in \eC\) nous avons :
+    \begin{enumerate}
+        \item
+            \( \Cond(A)\geq 1\)
+        \item
+            \( \Cond(A)=\Cond(A^{-1})\)
+        \item
+            \( \Cond(\alpha A)=\Cond(A)\).
+    \end{enumerate}
+    Si \( Q\in\gO(n)\) alors
+    \begin{enumerate}
+        \item
+            Nous avons \( \Cond_2(Q)=1\) où \( \Cond_2\) est le conditionnement pour la norme \( \| . \|_2\).
+        \item
+            Nous avons aussi
+            \begin{equation}
+                \Cond_2(A)=\Cond_2(AQ)=\Cond_2(QA).
+            \end{equation}
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Nous savons que \( \Cond(\mtu)=1\) et donc
+    \begin{equation}
+        1=\| \mtu \|\leq \| A \|\| A^{-1} \|
+    \end{equation}
+    parce que la norme utilisée est une norme matricielle.
+
+    Les deux autres formules sont évidentes à partit du fait que la définition du conditionnement de \( A\) est symétrique entre \( A\) et \( A^{-1}\).
+
+    En ce qui concerne les formules relatives à la matrice orthogonale \( Q\) nous savons par la proposition \ref{PropKBCXooOuEZcS}\ref{ITEMooOWMBooHUatNb} qu'une matrice orthogonale est une bijection de l'ensemble \(  \{ x\in \eR^n\tq \| x \|=1 \}  \). Par conséquent
+    \begin{equation}
+        \| AQ \|=\sup_{x\tq \| x \|=1}\| AQx \|=\sup_{ Q^{-1}x\tq \| x \|=1  }\| AQQ^{-1}x \|=\| A \|.
+    \end{equation}
+    Donc \( \| AQ \|=\| A \|\). Les assertions s'ensuivent immédiatement en remarquant que \( Q^{-1}\) est également orthogonale.
+\end{proof}
+
+Soit une matrice inversible \( A\in \GL(n,\eC)\). La matrice \( A^*A\) est hermitienne\footnote{Définition \ref{DEFooKEBHooWwCKRK}.} et le théorème \ref{LEMooVCEOooIXnTpp} nous assure que ses valeurs propres sont réelles. Par la remarque \ref{REMooMLBCooTuKFmz}, ses valeurs propres sont même positives.
+
+\begin{proposition}[\cite{ooLMMRooUXhOdx}]      \label{PROPooNUAUooIbVgcN}
+    Soit une matrice inversible \( A\in\GL(n,\eC)\), et \( \mu_1\leq\ldots\leq \mu_n\) les valeurs propres de \( A^*A\). Alors nous avons la formule
+    \begin{equation}
+        \Cond_2(A)=\sqrt{ \frac{ \mu_n }{ \mu_1 }}.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Par le théorème \ref{THOooNDQSooOUWQrK}, la norme de \( A\) est liée au au rayon spectral de \( A^*A\) par
+    \begin{equation}
+        \| A \|_2=\sqrt{ \rho(A^*A) }=\sqrt{ \mu_n }.
+    \end{equation}
+    Vu que le spectre de \( AA^*\) est le même que celui de \( A^*A\) (lemme \ref{LEMooHUGEooVYhZdZ}) nous avons aussi
+    \begin{equation}
+        \| A^{-1} \|_2=\sqrt{ \rho\big( (A^{-1})^*A^{-1} \big) }=\sqrt{ \rho\big( (A^*A)^{-1} \big) }=\frac{1}{ \sqrt{ \mu_1 } }
+    \end{equation}
+    parce que la plus grande valeur propre de \( (A^*A)^{-1}\) est l'inverse de la plus petite de \( A^*A\).
+
+    Ces deux calculs étant,
+    \begin{equation}
+        \Cond_2(A)=\| A \|_2\| A^{-1} \|_2=\sqrt{ \frac{ \mu_n }{ \mu_1 } }.
+    \end{equation}
+\end{proof}
+
+\begin{probleme}
+    À mon avis ce qui est dans la proposition \ref{PropSOOooGoMOxG} est le conditionnement de la matrice ou sa racine carré ou un truc du genre. Il faut voir le lien entre les valeurs propres de \( A\) et celles de \( AA^*\).
+\end{probleme}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Perturbation du vecteur}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}[Système linéaire : perturbation du vecteur\cite{ooLMMRooUXhOdx}]        \label{PROPooGIXFooAhJkIs}
+    Soit une matrice inversible \( A\) et les systèmes d'équations linéaires
+    \begin{subequations}        \label{EQooYQIGooPXqWoX}
+        \begin{align}
+            Au=b\\
+            Au'=b'.
+        \end{align}
+    \end{subequations}
+    En notant \( \Delta u=u'-u\) et \( \Delta b=b'-b\) nous avons
+    \begin{equation}        \label{EQooESXRooMYuvRa}
+        \frac{ \| \Delta u \| }{ \| u \| }\leq \Cond(A)\frac{ \| \Delta b \| }{ \| b \| }.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    En soustrayant les équations \eqref{EQooYQIGooPXqWoX} nous avons \( \Delta b=A\Delta u\), et donc \( \Delta u=A^{-1} \Delta b\). D'une part nous avons alors
+    \begin{equation}
+        \| \Delta u \|\leq \| A^{-1} \|\| \Delta b \|.
+    \end{equation}
+    Et d'autre part, \( \| b \|\leq \| A \|\| u \|\), ce qui donne
+    \begin{equation}
+        \frac{ \| b \| }{ \| A \| }\leq \| u \|.
+    \end{equation}
+    En mettant les deux ensemble,
+    \begin{equation}
+        \frac{ \| \Delta u \| }{ \| u \| }\leq \frac{ \| A^{-1} \|\| \Delta b \| }{ \| b \| }\| A \|=\Cond(A)\frac{ \| \Delta b \| }{ \| b \| }.
+    \end{equation}
+\end{proof}
+
+Le corollaire suivant justifie le nom «conditionnement» au conditionnement d'une matrice.
+\begin{corollary}       \label{CORooXKPWooJVHVvh}
+    Soit \( A\in \GL(n,\eC)\) fixée et le problème de résoudre \( Au=b\), c'est à dire la fonction
+    \begin{equation}
+        F(u,b)=Au-b.
+    \end{equation}
+    \begin{enumerate}
+        \item
+            Ce problème est stable pour toute valeur de \( b\).
+        \item
+            Nous avons une majoration pour le conditionnement relatif\footnote{Si vous doutez de la norme à prendre, lisez la remarque \ref{REMooAIKIooJEBEqi}} :
+            \begin{equation}        \label{EQooZHQJooTMKYfr}
+                K_{rel}(\eta,b_0)\leq \Cond(A).
+            \end{equation}
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    \begin{subproof}
+    \item[Stabilité]
+        Vu que \( A\) est inversible, il existe une solution unique à tout système de la forme \( Au=b'\). De plus \( u(b)=A^{-1} b\), donc
+        \begin{equation}
+            \| u(b)-u(b_0) \|= \| A^{-1}(b-b_0) \|\leq \| A^{-1} \|\| b-b_0 \|,
+        \end{equation}
+        de telle sorte que la condition \ref{DEFooYIFAooSJbMkC}\ref{ItemProbStableB} fonctionne avec \( K=\| A^{-1} \|\).
+    \item[Conditionnement]
+        En partant de la définition \ref{DEFEQooSXDBooYbvGrC}, et en utilisant la majoration de la proposition \ref{PROPooGIXFooAhJkIs} sous la forme
+        \begin{equation}
+            \| u(b)-u(b_0) \|\leq \Cond(A)\| u(b_0) \|\frac{ \| \Delta b \| }{ \| b_0 \| },
+        \end{equation}
+        nous obtenons :
+        \begin{subequations}
+            \begin{align}
+                K_{rel}(b_0,\eta)&=K_{abs}(b_0,\eta)\frac{ \| b_0 \| }{ \| u(b_0) \| }\\
+                &=\sup_{\| b-b_0 \|\leq \eta}\frac{ \| u(b)-u(b_0) \| }{ \| b-b_0 \| }\frac{ \| b_0 \| }{ \| u(b_0) \| }
+                &\leq \sup_b\Cond(A)\frac{ \| u(b_0) \| }{ \| b_0 \| }\| \Delta b \|\frac{1}{ \| b-b_0 \| }\frac{ \| b_0 \| }{ \| u(b_0) \| }\\
+                &=\Cond(A).
+            \end{align}
+        \end{subequations}
+    \end{subproof}
+\end{proof}
+
+
+\begin{remark}      \label{REMooAIKIooJEBEqi}
+    La notion de conditionnement relatif dépend aussi de la norme choisie. Dans la formule \eqref{EQooZHQJooTMKYfr} il faut prendre le conditionnement \( \Cond(A)\) pour la norme dans laquelle le \( K_{rel}\) est écrit. Encore une fois, toutes les normes étant équivalentes,  cette majoration est à constante près bonne pour toutes les normes. Si la dimension est très grande, cette constante peut par contre être grande.
+\end{remark}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Perturbation de la matrice}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}[Système linéaire : perturbation de la matrice\cite{ooLMMRooUXhOdx}]
+    Soient les systèmes linéaires
+    \begin{subequations}
+        \begin{align}
+            Au=b\\
+            A'u'=b
+        \end{align}
+    \end{subequations}
+    avec \( A\) et \( A'\) inversibles. Nous notons \( \Delta A=A'-A\). Alors
+    \begin{enumerate}
+        \item       \label{ITEMooJMTKooSEBavB}
+            \begin{equation}
+                \frac{ \| \Delta u \| }{ \| u' \| }\leq \Cond(A)\frac{ \| \Delta A \| }{ \| A \| }
+            \end{equation}
+        \item
+            \begin{equation}
+                \frac{ \| \Delta u \| }{ \| u \| }\leq \Cond(A)\frac{ \| \Delta A \| }{ \| A \| }\big( 1+\alpha(\| \Delta A \|) \big)
+            \end{equation}
+            où \( \lim_{x\to 0} \alpha(x)=0\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    D'abord nous avons
+    \begin{subequations}
+        \begin{align}
+            0&=Au'-Au\\
+            &=(A'-A)u'-Au'-Au\\
+            &=\Delta Au'+A\Delta u.
+        \end{align}
+    \end{subequations}
+    Par conséquent, \( \Delta u=-A^{-1}(\Delta A)u'\) et
+    \begin{equation}        \label{EQooYYITooSSczEj}
+        \| \Delta u \|\leq \| A^{-1} \|\| \Delta A \|\| u' \|.
+    \end{equation}
+    Donc
+    \begin{equation}
+        \frac{ \| \Delta u \| }{ \| u' \| }\leq   \| A^{-1} \|\| A \|\frac{ \| \Delta A \| }{ \| A \| }   =\Cond(A)\frac{ \| \Delta A \| }{ \| A \| }.
+    \end{equation}
+    Cela est \ref{ITEMooJMTKooSEBavB}.
+
+    Pour l'autre inégalité, nous avons \( A'=A+\Delta A\) et donc
+    \begin{equation}
+        \| A'^{-1} \|=\| (A+\Delta A)^{-1} \|
+    \end{equation}
+    Nous repartons alors de \eqref{EQooYYITooSSczEj} en changeant le rôle de \( A\) et \( A'\) (et donc aussi de \( u\) et \( u'\)). Ce changement étant, \( \| \Delta u \|\) et \( \| \Delta A \|\) ne changent pas. Nous avons :
+    \begin{subequations}
+        \begin{align}
+            \frac{ \| \Delta u \| }{ \| u \| }&\leq \| A'^{-1} \|\| \Delta A \|\\
+            &=\| (A+\Delta A)^{-1} \|\| \Delta A \|\frac{ \Cond(A) }{ \| A \|\| A^{-1} \| }\\
+            &=\frac{ \| (A+\Delta A)^{-1} \| }{ \| A^{-1} \| }\frac{ \| \Delta A \| }{ \| A \| }\Cond(A).
+        \end{align}
+    \end{subequations}
+    Il reste à voir que
+    \begin{equation}
+        \lim_{\| \Delta A \|\to 0} \frac{ \| (A+\Delta A)^{-1} \| }{ \| A^{-1} \| }=1,
+    \end{equation}
+    ou autrement dit que
+    \begin{equation}        \label{EQooJURGooFvYiAs}
+        \lim_{A\to A'} \frac{ \| A'^{-1} \| }{ \| A^{-1} \| }=1
+    \end{equation}
+    où la limite est celle dans \( \GL(n,\eC)\). Par définition de la topologie, la norme est continue (quelle qu'elle soit par l'équivalence de norme \ref{ThoNormesEquiv}). Par le théorème \ref{ThoCINVBTJ}, l'application \( A\mapsto A^{-1}\) est également continue et commute donc avec la limite. Nous avons donc
+    \begin{equation}
+        \lim_{A'\to A}\| A'^{-1} \|=\| (\lim_{A'\to A} A')^{-1} \|=\| A^{-1} \|.
+    \end{equation}
+    Donc la limite du quotient \eqref{EQooJURGooFvYiAs} est bien \( 1\).
+\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Système linéaires (généralités)}
@@ -1283,538 +1564,3 @@ Nous nous lançons dans la résolution du système
 \begin{normaltext}
     L'utilisation du pivot non seulement assure le fait que la trigonalisation va bien se passer (on évite les zéros en pivot), mais aussi et surtout, en choisissant de prendre le plus grand pivot possible, nous obtenons une meilleur stabilité numérique.
 \end{normaltext}
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Résolution de systèmes linéaires (suite)}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Déterminant}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Pour calculer un déterminant lorsque nous avons la décomposition \( A=LU\) nous pouvons faire
-\begin{equation}
-    \det(A)=\det(LU)=\det(L)\det(U)=\det(U)
-\end{equation}
-parce que \( L\) est triangulaire avec des \( 1\) sur la diagonale.
-
-Si par contre nous avons fait des pivots, nous avons \( PA=LU\). Il nous faut le déterminant de \( P\), qui n'est autre que \( \pm 1\). Nous avons
-\begin{equation}
-    \det(P)=(-1)^s
-\end{equation}
-où \( s\) est le nombre de permutations effectives effectuées. Nous précisons «effectives» parce qu'il ne faut pas compter le pas où nous n'avons pas permuté (les cas où le bon pivot était présent du premier coup). Nous avons alors
-\begin{equation}
-    \det(A)=(-1)^s\det(U).
-\end{equation}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Plusieurs termes indépendants}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Mettons un système \( Ax=b\) qu'il faut résoudre pour plusieurs \( b\) différents. C'est typiquement le cas où l'on voudrait calculer l'inverse de \( A\). Mais on va directement se calmer. Soient donc à résoudre \( Ax_1=b_1\), \ldots, \( Ax_n=b_n\).
-
-Les opérations (avec ou sans pivot) que nous faisons ne dépendent que de la matrice \( A\), mais aucune décisions concernant les pivots ou la matrice des multiplicateurs ne dépend de \( b\). Autre façon de dire : si le système \(  (A|b_1)  \) devient \( (U|y_1)\), le système \( (A|b_i)\) devient \( (U|y_i)\) avec le même \( U\).
-
-Nous ne sommes donc pas obligés de faire tout le travail autant de fois qu'il n'y a de systèmes à résoudre. Donc si on a plusieurs systèmes à résoudre avec la même matrice, on fait mieux de retenir une fois pour toute la décomposition \( LU\) (avec ou sans pivots), avant de vraiment résoudre.
-
-Ou alors on peut aussi faire que, au lieu de faire \( (A|b_i)\) plein de fois, faire une seule fois
-\begin{equation}
-    (A|b_1\ldots b_n).
-\end{equation}
-Et on fait tout le travail sur tous les vecteurs d'un en même temps.
-
-Soit \( {e_i}\) la base canonique. Si nous notons \( x_n\) les solutions des problèmes \( Ax_i=e_i\), tous les problèmes \( Ax_i=e_i\) s'écrivent d'un seul coup 
-\begin{equation}
-    AX=Y
-\end{equation}
-où \( X\) est la matrice des \( x_i\) en colonnes, et \( Y\) est celle des \( e_i\) en colonnes. Oh, mais \( Y=\mtu\) évidemment. Donc
-\begin{equation}
-    AX=\mtu.
-\end{equation}
-Si nous supposons que \( A\) est inversible, alors ce \( X\) est l'inverse.
-
-Donc pour calculer l'inverse d'une matrice de dimension non trop grande, il suffit d'utiliser la méthode de Gauss sur les vecteurs de la base canonique. Cette idée est la base du calcul de l'inverse par matrice companion. En effet, si nous partons du problème
-\begin{equation}
-    (A|\mtu)
-\end{equation}
-et nous appliquons la méthode de Gauss avec pivot, nous arrivons à
-\begin{equation}
-    (U|L^{-1} P).
-\end{equation}
-Attention : le produit \( L^{-1}P\) est une permutation des \emph{colonnes} de \( L^{-1}\). Vu que \( L\) est triangulaire inférieure avec des \( 1\) sur la diagonale, \( L^{-1}\) est triangulaire inférieure avec des \( 1\) sur la diagonale. Donc si la matrice n'est pas trop grande, on peut assez facilement remettre les colonnes de \( L^{-1}P\) dans l'ordre pour recomposer une matrice triangulaire inférieure avec \( 1\) sur la diagonale.
-
-Une autre façon de calculer l'inverse, si \( A=LU\) est connue, il suffit de faire 
-\begin{equation}
-    A^{-1}=U^{-1}L^{-1}.
-\end{equation}
-Et il existe un algorithme facile pour l'inverse d'une matrice triangulaire.
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Cholesky}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Le commandant Cholesky travaillait sur le tir de canon (chose éminemment liée à de nombreuses mathématiques ingénieuses). La méthode de Cholesky est encore utilisée aujourd'hui dans les vrais problèmes.
-
-La méthode de Gauss s'applique sans hypothèses sur la matrice \( A\), à part qu'elle doit être de petite dimension, comme pour toute méthode directe. Souvent nous savons des choses sur la matrice. Ici nous allons supposer que \( A\) est symétrique et définie positive.
-
-Comment numériquement vérifier ces hypothèses ? En ce qui concerne la symétrique, il suffit de faire le test complet :
-\begin{equation}
-    A^t=A.
-\end{equation}
-La vérification de cela coûte au maximum \( n^2\) comparaisons (et en fait la moitié de ça moins la diagonale). 
-
-Le fait que \( A\) soit définie positive est facile à vérifier pour utiliser Cholesky parce que il suffit de le faire, et s'il n'y a pas de nombres complexes qui arrivent, c'est que la matrice était définie positive.
-
-Un lemme très simple à mettre en oeuvre numériquement nous permet de traiter certains cas.
-\begin{lemma}
-    Une matrice symétrique possédant un élément négatif sur la diagonale n'est pas définie positive.
-\end{lemma}
-
-\begin{proof}
-    Un simple calcul ou effort d'imagination montre que \( \langle Me_k, e_k\rangle =M_{kk}\). Donc si \( M\) doit être définie positive, \( M_{kk}\) doit être positive par le lemme \ref{LemWZFSooYvksjw}.
-\end{proof}
-Ce lemme est un moyen déjà de faire quelque vérifications. Et si les éléments diagonaux de \( A\) sont tous négatifs, on peut prendre \( -A\).
-
-\begin{lemma}       \label{LEMooVEIYooZbShQb}
-    Si \( A\) est une matrice symétrique strictement définie positive, alors pour tout \( k\), la matrice tronquée \( \Delta_k(A)\) l'est également.    
-\end{lemma}
-
-\begin{proof}
-    Le fait que \( \Delta_k(A)\) soit symétrique est évidement. Le fait qu'elle soit définie positive l'est moins. Soit \( y\in \eR^k\) et le vecteur \( \tau y\in \eR^n\), qui est «complété» avec des zéros.
-
-    Nous avons \( \langle \Delta_k(A)y, y\rangle_k=\langle A\tau y, \tau \rangle_n\). En effet
-    \begin{equation}
-        \langle \Delta_k(A)y, y\rangle =\sum_{i=1}^k\sum_{l=1}^kA_{il}y_ly_i.
-    \end{equation}
-    Et à droite :
-    \begin{equation}
-            \langle A\tau y, \tau y\rangle =\sum_{i=1}^n(A\tau y)_i(\tau y)_i
-            =\sum_{i=1}^k(A\tau y)_i y_i
-            =\sum_{i=1}^k\sum_{l=1}^n A_{il}(\tau y)_ly_i
-            =\sum_{i=1}^k\sum_{l=1}^k A_{il}y_ly_i
-    \end{equation}
-    où nous avons utilisé le fait que \( (\tau y)_i=0\) dès que \( i>k\) et que \( (\tau y)_i=y_i\) sinon.
-
-    En conséquence de quoi \( \langle \Delta_k(A)y, u\rangle >0\) pour tout \( y\in \eR^k\) et la matrice \( \Delta_k(A)\) est strictement définie positive.
-\end{proof}
-
-\begin{lemma}       \label{LEMooLBQLooIYvacH}
-    Si \( T\) est une matrice triangulaire, alors \( (T_{ii})^{-1}=(T^{-1})_{ii}\).
-\end{lemma}
-
-\begin{proof}
-    Il suffit de se rendre compte que le coefficient \( ii\) de l'égalité \( \mtu=TT^{-1}\) donne
-    \begin{equation}
-        1=\sum_lT_{il}(T^{-1})li.
-    \end{equation}
-    Dans la somme il ne reste que le terme \( l=i\).
-\end{proof}
-
-Nous allons chercher une décomposition de type \( LU\) sous la forme \( A=LL^t\), c'est à dire \( U=L^t\). Attention : maintenant nous n'avons plus des \( 1\) sur la diagonale. Ce n'est donc pas exactement la décomposition \( LU\) dont nous parlions plus haut. C'est pour cela que nous n'allons pas la noter \( LL^t\) mais \( BB^t\).
-
-\begin{theorem}[Cholesky\cite{ooDANFooPSmBfd}]
-    Soit une matrice réelle symétrique strictement définie positive. Il existe une unique matrice réelle \( B\) telle que
-    \begin{itemize}
-        \item \( B\) est triangulaire inférieure,
-        \item la diagonale de \( B\) est positive,
-        \item \( A=BB^t\).
-    \end{itemize}
-\end{theorem}
-
-\begin{proof}
-    Par la décomposition \( LU\) du théorème \ref{THOooUXKJooYaPhiu} nous avons des matrices \( L\) et \( U\) telles que \( A=LU\). Soit \( D\) la matrice diagonale donnée par 
-    \begin{equation}
-        D_{ii}=\sqrt{ U_{ii} }.
-    \end{equation}
-    Cette définition fonctionne parce que \( U_{ii}>0\). En effet nous savons que \( \Delta_k(A)=\Delta_k(L)\Delta_k(U)\), et en passant au déterminant, 
-    \begin{equation}
-        \det\big( \Delta_k(A) \big)=\det\big( \Delta_k(U) \big).
-    \end{equation}
-    Vu que \( \Delta_k(A)\) est strictement définie positive par le lemme \ref{LEMooVEIYooZbShQb}, son determinant est strictement positif\footnote{Le théorème \ref{ThoeTMXla} donne une diagonalisation par des matrices de déterminant \( 1\). Vu que les valeurs propres forment sur la diagonale, et qu'elles sont toutes positives, el déterminant est positif.} et nous avons
-    \begin{equation}
-        \det\big( \Delta_k(U) \big)>0.
-    \end{equation}
-    En appliquant cela à \( k=1\) nous avons \( U_{11}>0\) puis de proche en proche, \( U_ii>0\) pour tout \( i\).
-
-    Nous posons :
-    \begin{subequations}
-        \begin{align}
-            B&=LD&\text{qui est triangulaire inférieure}\\
-            C&=D^{-1} U&\text{qui est triangulaire supérieure.}
-        \end{align}
-    \end{subequations}
-    Nous avons bien entendu \( A=BC\) et nous allons prouver que \( C=B^t\). Vu que \( A=A^t\) nous pouvons identifier \( BC\) et \( C^tB^t\) :
-    \begin{equation}
-        BC=C^tB^t.
-    \end{equation}
-    En mettant les matrices triangulaires supérieures à gauche et inférieures à droite :
-    \begin{equation}
-        C(B^t)^{-1}=B^{-1}C^t,
-    \end{equation}
-    qui sont donc deux matrices diagonales. Nous montrons que cette diagonale est en réalité l'identité.
-
-    D'abord
-    \begin{equation}
-        B_{ii}=\sum_{l=1}^nL_{il}D_{li}=L_{ii}\sqrt{ U_{ii} }=\sqrt{ U_{ii} }
-    \end{equation}
-    parce que \( L_{ii}=1\). Notons en passant que la diagonale de \( B\) est positive.  Ensuite 
-    \begin{equation}
-        C_{ii}=\sum_{l=1}^n(D^{-1})_{il}U_{li}=(D^{-1})_{ii}U_{ii}=\frac{1}{ \sqrt{ U_ii } }U_{ii}=\sqrt{ U_{ii} }.
-    \end{equation}
-    Donc \( B\) et $C$ ont des diagonales égales. Calculons alors la diagonale de \( B^{-1}C^t\) :
-    \begin{equation}
-        \big( B^{-1}C^t \big)_{ii}=\sum_l(B^{-1})_{il}(C^t)_{li}=(B^{-1})_{ii}C_{ii}
-    \end{equation}
-    parce que encore une fois, de la somme il ne reste que le terme \( l=i\).
-
-    Mais \( B\) est une matrice triangulaire qui tombe sous le coup du lemme \ref{LEMooLBQLooIYvacH}. Donc \( (B^{-1})_{ii}=(B_{ii})^{-1}=(C_{ii})^{-1}\). Nous avons alors
-    \begin{equation}
-        (B^{-1}C^t)_{ii}=1.
-    \end{equation}
-    Cela conclu l'existence de la décomposition de Cholesky.
-
-    En ce qui concerne l'unicité, soient \( A=BB^t=CC^t\). Nous regroupons les supérieures et les inférieures :
-    \begin{equation}        \label{EQooRRJHooJrFBLn}
-        B^t(C^t)^{-1}=B^{-1}C.
-    \end{equation}
-    Ces deux matrices sont donc diagonales et nous posons \( D=B^{-1} C\), c'est à dire \( C=BD\). Nous remplaçons donc \( C\) par \( BD\) dans \eqref{EQooRRJHooJrFBLn} :
-    \begin{equation}
-        A=BB^t=BD(BD)^t=BDD^tB^t.
-    \end{equation}
-    Donc \( DD^t=\mtu\), ce qui signifie que les éléments diagonaux de \( D\) sont \( \pm 1\). Nous montrons qu'ils sont positifs : à partir de \( C=BD\) nous déballons 
-    \begin{equation}
-        C_{ii}=\sum_lB_{il}D_{li},
-    \end{equation}
-    et donc
-    \begin{equation}
-        B_{ii}D_{ii}=C_{ii}.
-    \end{equation}
-    En sachant que les conditions de la décomposition de Cholesky demandent les éléments diagonaux positifs nous en déduisons que \( D_{ii}\) est positif et donc égal à \( 1\). Finalement \( D=\mtu\) et \( B=C\).
-\end{proof}
-
-Prenons la matrice
-\begin{equation}
-    A=\begin{pmatrix}
-        4    &   2    &   -2    \\
-        2    &   10    &   -7    \\
-        -2    &   -7    &   9
-    \end{pmatrix}
-\end{equation}
-Elle est symétrique et définie positive. Nous posons
-\begin{subequations}        \label{EQooFMWUooFdTgiF}
-    \begin{numcases}{}
-    l_{11}=\sqrt{ a_{11} }
-    l_{i1}=a_{i1}/l_{11}
-    \end{numcases}
-\end{subequations}
-pour \( i=2,\ldots, n\). Et aussi
-\begin{subequations}        \label{EQooJTVGooEkynpH}
-    \begin{numcases}{}
-        l_{jj}=(a_{jj}-\sum_{k=1}^{j-1}l_{jk}^2)^{1/2}\\
-        l_{ij}=(a_{ij}-\sum_{k=1}^{j-1}l_{ik}l_{jk})/a_{jj}
-    \end{numcases}
-\end{subequations}
-pour \( i=j+1,\ldots, n\).
-
-Les formules \eqref{EQooFMWUooFdTgiF} nous disent comment remplir la première colonne. Cela donne la matrice
-\begin{equation}
-    L=\begin{pmatrix}
-        \sqrt{ 4 }=2    &  .     &  .     \\
-        2/2=1    &    .   &  .     \\
-        -2/2=-1    &   .    &   .
-    \end{pmatrix}
-\end{equation}
-Les formules \eqref{EQooJTVGooEkynpH} donnent les autres colonnes en fonction des précédentes.
-
-
-Dans Sage :
-
-\lstinputlisting{tex/sage/sageSnip005.sage}
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Système linéaire (méthodes itératives)}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-Nous trouvons des méthodes itératives lorsque les matrices sont grandes, ce qui arrive lorsque l'on discrétise une équation différentielle.
-
-Nous allons chercher des méthodes de la forme \( x_{n+1}=Bx_n+q\); ce sont des méthodes stationnaires. La convergence d'une méthode est toujours liée à la matrice \( B\) et en général, la convergence ne dépend pas du choix du vecteur initial. Nous faisons donc souvent \( x_0=0\) et donc \( x_1=q\). Voila donc une itération de faite gratuitement.
-
-Nous notons \( e_k\) le \defe{vecteur d'erreur}{erreur} qui est définit par \( e_k=x-x_k\). Et le \defe{vecteur résidu}{résidu!méthode itérative} \( r_k=b-Ax_k\). Attention : ici \( k\) n'est pas un indice mais un numéro de vecteur.
-
-Notons que si \( x\) est solution, alors \( b-Ax=0\), ce qui motive le vecteur résidu.
-
-Les conditions d'arrêt d'un algorithme seraient
-\begin{subequations}
-    \begin{numcases}{}
-        \| e_k \|_{\infty}\ll \epsilon_1\\
-        \| r_k \|_{\infty}<\epsilon_2
-    \end{numcases}
-\end{subequations}
-où \( \epsilon_1\) et \( \epsilon_2\) sont des précisions décidées à l'avance par l'utilisateur.
-
-\begin{proposition}
-    Si \( A\) est une matrice inversible, alors
-    \begin{equation}
-        \lim_{k\to \infty} e_k=\lim_{k\to \infty} r_k=0.
-    \end{equation}
-\end{proposition}
-
-Vu que \( r_k=Ae_k\), si la matrice \( A\) est mal conditionnée, il peut arriver que \( r_k\) reste grand alors que \( e_k\) est déjà petit.
-
-\begin{remark}
-    Dans les méthode stationnaires, nous avons \( x_{n+1}=Bx_n+q\) avec \( B\) et \( q\) fixés au départ de l'algorithme. Il existe des méthodes non stationnaires pour lesquelles l'itération prend la forme \( x_{n+1}=B_nx_n+q_n\) avec \( B_n\) et \( q_n\) qui changement avec les étapes.
-\end{remark}
-
-\begin{proposition}     \label{PROPooAQSWooSTXDCO}
-    Pour la méthode \( x_{n+1}=Bx_n+q\) nous avons équivalence de
-    \begin{enumerate}
-        \item
-            La méthode converge pour tout \( x_0\)
-        \item
-            \( B\) est une matrice convergente\footnote{C'est à dire \( \lim_{k\to \infty} B^k=0\).}
-        \item
-            \( \rho(B)<1\) (rayon spectral).
-    \end{enumerate}
-    De plus si \( \| B \|<1\) alors la méthode converge (quelle que soit la norme algébrique). 
-\end{proposition}
-
-La norme d'une matrice (en tout cas, certaines normes) est quelque chose de facile à calculer à l'ordinateur. Typiquement \( \| . \|_{\infty}\) est un simple maximum. Cependant si après avoir calculer \( \| B \|_i\) pour des dizaines de normes \( i\) différentes, nous avons toujours \( \| B\|_i\geq 1\), alors nous ne pouvons rien conclure.
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{La méthode générale}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Nous décomposons la matrice \( A\) sous la forme \( A=M-N\) avec \( M\) inversible. Le système \( Ax=b\) devient
-\begin{equation}
-    Mx-Nx=b
-\end{equation}
-puis \( Mx=Nx+b\) et finalement 
-\begin{equation}
-    x=M^{-1}Nx+M^{-1}b,
-\end{equation}
-et voila une méthode stationnaire avec \( B=M^{-1}N\) et \( q=M^{-1}b\).
-
-Mais ici nous voyons que \( M\) doit être non seulement inversible, mais en plus doit être facilement calculable. En sachant que nous travaillons avec des grandes matrices, il n'est pas question d'inverser \( M\) avec une méthode de Gauss.
-
-En bref, il faut choisir \( M\) triangulaire parce que c'est en gros la seule que nous pouvons inverser facilement\footnote{Les matrices orthogonales sont aussi facilement inversibles, mais ne se prêtent pas bien à une décomposition de type somme.}.
-
-\begin{remark}
-    La matrice \( B\) ne doit pas spécialement être inversible. Si elle ne l'est pas, ce n'est pas un problème.
-\end{remark}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Jacobi}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Nous décomposons  
-\begin{equation}        \label{EQooOCJYooCqsfQM}
-    A=D-E-F
-\end{equation}
-où \( D\) est la diagonale de \( A\), \( -F\) est la partie triangulaire supérieure (sans la diagonale) et \( -E\) la triangulaire inférieure (sans la diagonale). Donc \( D\), \( E\) et \( F\) sont simplement des extraction de parties de la matrice \( A\) (et quelque changements de signes).
-
-La méthode de Jacobi prend \( M=D\) et \( N=(E+F)\). L'inverse de \( M\) est facile à calculer parce que \( M\) est diagonale. Nous notons \( B_J\) la matrice \( B\) de la méthode de Jacobi.
-
-\begin{remark}
-    Il se peut que la matrice \( A\) ait des zéros sur la diagonale, même si elle est inversible. Et cela est un problème parce qu'alors la matrice \( D\) ici construite n'est pas inversible. Dans ce cas, avant de nous lancer dans la méthode de Jacobi, il faut permuter deux lignes de \( A\) et donc de \( b\).
-
-    Attention cependant que l'on pourrait vouloir effectuer ces permutations en mettant sur la diagonale des nombres les plus grands possibles (parce qu'ensuite, ce qui rentre dans les calculs, c'est \( D^{-1}\) qui aura alors des petits nombres). Mais il faut toutefois faire en sorte que le rayon spectral de la matrice \(B \) résultante reste plus petit que \( 1\).
-
-    Chaque changement dans \( A\) induit des changements dans \( B\) et donc sur la convergence de la méthode.
-\end{remark}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Gauss-Seidel}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Nous partons de la même décomposition \( A=D-E-F\) que dans \eqref{EQooOCJYooCqsfQM}. La méthode de Gauss-Seidel prend \( M=(D-E)\) et \( N=F\).
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Autres}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Voir la méthode des gradients, et des gradients conjugués.
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Méthode des différences finies}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-Soit une fonction \( u\colon \eR\to \eR\), et soit \( h>0\). Nous définissons les opérations suivantes (qui sont supposées approximer la dérivée \( u'(x)\) lorsqu'elle existe).
-
-\begin{definition}
-    La \defe{différence progressive}{différence!progressive} est 
-    \begin{equation}
-        (D^+_hu)(x)=\frac{ u(x+h)-u(x) }{ h },
-    \end{equation}
-    la \defe{différence régressive}{différence!régressive} est 
-    \begin{equation}
-        (D^-_hu)(x)=\frac{ u(x)-u(x-h) }{ h },
-    \end{equation}
-    la \defe{différence centrée}{différence!centrée} est 
-    \begin{equation}
-        (D^0_hu)(x)=\frac{ u(x+h)-u(x-h) }{ 2h }.
-    \end{equation}
-\end{definition}
-Nous ne noterons pas toujours la dépendance en \( h\), c'est à dire que nous noterons \( D^+u\) au lieu de \( D^+_hu\) lorsque cela ne pose pas de problèmes.
-
-Notons que \( u''\) peut être approximé par \( D^+D^+u\), \( D^0D^+\), \( D^+D^-\), et encore de nombreuses autres possibilités.
-
-Voici un lemme qui dit que tout cela n'est pas si mal, pourvu que \( u\) soit assez régulière.
-
-\begin{lemma}       \label{LEMooHWLGooDsgAIu}
-    Soit un ouvert connexe \( \Omega\) de \( \eR\), soit \( x\in \Omega\) et \( h>0\) tel que \( \overline{ B(x,h) }\subset \Omega\).
-    \begin{enumerate}
-        \item
-            Si \( u\in C^2(\Omega)\) alors
-            \begin{equation}
-                | u'(x)-D^+u(x) |\leq \frac{ h }{2}\| u'' \|_{\bar\Omega}
-            \end{equation}
-            et
-            \begin{equation}
-                | u'(x)-D^-u(x) |\leq \frac{ h }{2}\| u'' \|_{\bar\Omega}.
-            \end{equation}
-        \item
-            Si \( u\in C^3(\bar\Omega)\) alors
-            \begin{equation}
-                | u'(x)-D^0(x) |\leq \frac{ h^2 }{2}\| u^{(3)} \|_{\bar\Omega}
-            \end{equation}
-        \item       \label{ITEMooRWUHooZJLKuL}
-            Si \( u\in C^4(\bar \Omega)\) alors
-            \begin{equation}
-                | u''(x)-D^-D^+u(x) |\leq \frac{ h^2 }{ 12 }\| u^{(4)} \|_{\bar\Omega}.
-            \end{equation}
-    \end{enumerate}
-\end{lemma}
-
-\begin{proof}
-    Nous prouvons le point \ref{ITEMooRWUHooZJLKuL}. D'abord nous regardons de quoi nous avons besoin :
-    \begin{equation}        \label{EQooBLIIooWHXbqD}
-        D^-D^+u(x)=\frac{ (D^+u)(x)-(D^+u)(x-h) }{ h }=\frac{ u(x+h)-2u(x)+u(x-h) }{ h^2 }
-    \end{equation}
-    Nous allons y mettre les approximations de \( u(x+h)\) et \( u(x-h)\) par Taylor, proposition \ref{PropResteTaylorc} :
-    \begin{equation}
-        u(x+h)=u(x)+hu'(x)+\frac{ h^2 }{2}u''(x)+\frac{ h^3 }{ 6 }u'''(x)+\frac{ h^4 }{ 24 }u^{(4)}(x+\theta_1h)
-    \end{equation}
-    avec \( \theta_1\in \mathopen[ 0 , 1 \mathclose]\). De même,
-    \begin{equation}
-        u(x-h)=u(x)-hu'(x)+\frac{ h^2 }{2}u''(x)-\frac{ h^3 }{ 6 }u'''(x)+\frac{ h^4 }{ 24 }u^{(4)}(x-\theta_2h)
-    \end{equation}
-    avec \( \theta_2\in \mathopen[ 0 , 1 \mathclose]\).
-
-    Donc
-    \begin{equation}
-        u(x+h)+u(x-h)-2u(x)=h^2u''(x)+\frac{ h^4 }{ 4! }\Big( u^{(4)}(x+\theta_1h)+u^{(4)}(x-\theta_2h) \Big),
-    \end{equation}
-    ce qui donne
-    \begin{equation}
-        (D^-D^+u)(x)=u''(x)+\frac{ h^2 }{ 4! }\Big( u^{(4)}(x+\theta_1h)+u^{(4)}(x-\theta_2h) \Big).
-    \end{equation}
-    Chacun des deux termes dans la parenthèse peut être majoré par \( \| u^{(4)} \|_{\bar\Omega}\). Notons que c'est une majoration très sauvage parce que \( x+\theta_1h\) ne prend ses valeurs que dans \( \mathopen[ x , x+h \mathclose]\) avec \( h\) supposé petit. Quoi qu'il en soit nous ne pouvons pas dire mieux que
-    \begin{equation}
-        | u''(x)-D^-D^+u(x) |\leq \frac{ h^2 }{ 12 }\| u^{(4)} \|_{\bar\Omega}.
-    \end{equation}
-\end{proof}
-
-\begin{remark}[\cite{MonCerveau}]
-    Lorsque nous écrivons
-    \begin{equation}        \label{EQooHSPFooTJIoFy}
-        | u'(x)-D^+u(x) |\leq \delta
-    \end{equation}
-    pour tout \( x\), nous ne pouvons pas écrire
-    \begin{equation}
-        \| u'-D^+u \|_{\infty}\leq \delta
-    \end{equation}
-    parce que l'inégalité \eqref{EQooHSPFooTJIoFy} n'est valable que pour les \( x\) tels que \( \mathopen[ x-h , x+h \mathclose]\subset \Omega\), de telle sorte que l'inégalité n'est pas spécialement correcte sur \( \bar\Omega\).
-\end{remark}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Un exemple de discrétisation}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Soit \( \Omega=\mathopen] 0 , 1 \mathclose[\) et l'équation différentielle
-\begin{equation}
-     \begin{cases}
-         -u''(x)+c(x)u(x)=f    &   \text{sur } \Omega\\
-         u(0)=\alpha\\
-         u(1)=\beta
-     \end{cases}
-\end{equation}
-où \( c\) est une fonction positive et \( \alpha,\beta\in \eR\). Nous considérons \( h>0\) assez petit pour que le reste ait un sens. Si nous cherchons des solutions dans \( C^4(\bar\Omega)\), le lemme \ref{LEMooHWLGooDsgAIu} nous dit que 
-\begin{equation}
-    | u''(x)-D^-D^+u(x) |=\eta(h^2)
-\end{equation}
-où \( \eta\) est une fonction telle que \( \lim_{t\to 0} \eta(t)=0\). Nous pouvons récrire l'équation différentielle sous la forme
-\begin{equation}
-    -D^-D^+u(x)+c(x)u(x)=f(x)+\eta(h^2).
-\end{equation}
-Si nous négligeons le terme \( \eta(h^2)\) qui est supposé être petit nous pouvons tenter de résoudre pour la fonction \( u_h\)
-\begin{equation}
-    -D^-D^+u_h(x)+c(x)u_h(x)=f(x).
-\end{equation}
-Notons ici l'importance de la notion de problème bien posé parce que en remplaçant le paramètre (fonctionnel) \( f\) par \( f+\eta(h^2)\), nous modifions les solutions. Dans la mesure où le problème est bien posé, cette petite modification ne modifiera pas trop la solution et nous pouvons espérer que \( \| u-u_h \|\) soit petit pour une norme ou une autre.
-
-Utilisant l'expression \eqref{EQooBLIIooWHXbqD} pour \( D^-D^+\) nous avons l'équation suivante pour \( u_h\) :
-\begin{equation}        \label{EQooECLXooFxZEeA}
-    \frac{1}{ h^2 }\Big( 2u_h(x)-u_h(x+h)-u_h(x-h) \Big)+c(x)u_h(x)=f(x).
-\end{equation}
-Avons-nous gagné quelque chose ? Pas encore. L'idée est de la discrétisation est de ne considérer \( u_h\) qu'en certains points, écartés de \( h\). Soit donc un nombre entier \( N\) et \( h=1/(N+1)\). Nous posons
-\begin{equation}
-    x_k=kh
-\end{equation}
-pour \( i=0,\ldots, N+1\). Avec cela nous avons
-\begin{subequations}
-    \begin{align}
-        \overline{ \Omega }&=\bigcup_{k=0}^{N-1}\mathopen[ x_k , x_{k+1} \mathclose]\\
-        x_0&=0\\
-        x_{N+1}&=1.
-    \end{align}
-\end{subequations}
-Nous posons surtout
-\begin{equation}
-    \Omega_h=\{ x_i \}_{i=1,\ldots, N}
-\end{equation}
-et
-\begin{equation}
-    \bar\Omega_h=\{ x_i \}_{i=0,\ldots, N+1}.
-\end{equation}
-Enfin, nous ne considérons plus \( u_h\) que comme une fonction \( u_h\colon \bar\Omega_h\to \eR\). C'est à dire que \( u_h\) est un vecteur à \( N+2\) composantes.
-
-L'équation \eqref{EQooECLXooFxZEeA} devient
-\begin{equation}        \label{EQooZMVMooTqlpkF}
-    \frac{1}{ h^2 }\big( 2u_h(x_i)-u_h(x_{i+1})-u_h(x_{i-1})+c(x_i)u_h(x_i) \big)=f(x_i)
-\end{equation}
-pour \( i=1,\ldots, N\). Sur les bords, cette équation n'est pas possible parce que \( x_{i-1}\) ou \( x_{i+1}\) n'existerait pas. Au contraire, sur les bords nous avons les conditions aux bords
-\begin{equation}
-    u_h(x_0)=\alpha
-\end{equation}
-et
-\begin{equation}
-    u_h(x_{N+1})=\beta.
-\end{equation}
-
-En posant \( c_i=c(x_i)\) et \( u_i=u_h(x_i)\), les inconnues du problème sont les nombres \( u_i\) (\( i=1,\ldots, N+1\)). Elles sont immédiatement résolues pour \( u_0\) et \( u_{N+1}\). Pour les autres, il faut écrire et résoudre un système d'équation linéaire.
-
-L'écriture du système linéaire à résoudre consiste essentiellement à écrire \eqref{EQooZMVMooTqlpkF} en séparant les cas \( i=0\) et \( i=N\) parce que nous savons déjà les valeurs de \( u_0\) et \( u_N\). Le système que nous avons est :
-\begin{subequations}
-    \begin{numcases}{}
-    \left( \frac{ 2 }{ h^2 }+c_1 \right)u_1-\frac{1}{ h^2 }u_2=f_1+\frac{ \alpha }{ h^2 }  & $i=1$\\
-    \left( \frac{ 2 }{ h^2 }+c_N \right)u_N-\frac{1}{ h^2 }u_{N-1}=f_N+\frac{ \beta }{ h^2 }  &\( i=N\) \\
-    \left( \frac{ 2 }{ h^2 }+c_i \right)u_i-\frac{1}{ h^2 }u_{i+1}-\frac{1}{ h^2 }u_i=f_i.& autres
-    \end{numcases}
-\end{subequations}
-Cela se met sous la forme matricielle
-\begin{equation}
-    L_hU_h=F_h
-\end{equation}
-pour 
-\begin{equation}
-    F_h=\big( f_1+\frac{ \alpha }{ h^2 },f_2,\ldots, f_{N-1},f_N+\frac{ \beta }{ h^2 } \big)
-\end{equation}
-et les éléments non nuls de \( L_h\) sont :
-\begin{subequations}
-    \begin{align}
-        (L_h)_{i,i-1}&=-\frac{1}{ h^2 }&\text{ pour }i&=2,\ldots, N\\
-        (L_h)_{i,i+1}&=-\frac{1}{ h^2 }&\text{ pour }i&=1,\ldots, N-1\\
-        (L_h)_{i,i}&=\frac{ 2 }{ h^2 }+c_i&\text{ pour }i&=1,\ldots, N.
-    \end{align}
-\end{subequations}
-Cette matrice est pleine de zéros, à part les trois diagonales centrales, et il existe des méthodes efficaces pour résoudre le système d'équation correspondant.

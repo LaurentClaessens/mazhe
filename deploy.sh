@@ -18,19 +18,34 @@ MAIN_DIR=`pwd`
 BUILD_DIR=$MAIN_DIR/build
 CLONE_DIR=$BUILD_DIR/build_mazhe
 
-echo $MAIN_DIR
+STASH=`git stash list`
+if [[ -z $STASH  ]];then
+    echo "The git's stash is empty. We can continue"
+else
+    echo "The stash list is not empty. You should empty it before to launch 'deploy.sh'"
+    exit
+fi
 
+NEW_BRANCH=deploy_$RANDOM$RANDOM
+CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+
+# Create a new branch which contains not only the state of the last commit,
+# but also the state of the modified files.
+# Thus we are testing the current state of the project, not the last commit
+# state.
+
+git stash
+git checkout -b $NEW_BRANCH
+git stash apply
+git commit -a -m "The new build-test branch"
+git checkout $CURRENT_BRANCH
+git stash pop
 
 rm -rf $BUILD_DIR
 mkdir $BUILD_DIR
 cd $BUILD_DIR
 
-
-# making
-# git clone .. 
-# does not work. So this is an assumption on the directory name in which the
-# user is working.
-git clone $MAIN_DIR $CLONE_DIR
+git clone $MAIN_DIR --branch   $NEW_BRANCH   --single-branch  $CLONE_DIR
 
 cd $BUILD_DIR
 
@@ -55,7 +70,8 @@ compile_everything ()
 cd $CLONE_DIR
 
 # Poor man's multi-thread
-compile_frido&compile_everything
+compile_frido&
+compile_everything
 
 cd $MAIN_DIR
 git status >> $CLONE_DIR/.deploy.log
