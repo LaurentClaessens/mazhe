@@ -13,3 +13,7 @@ Solve some future references.
 ## deploy
 
 Take into account the case with a non empty stash list.
+
+## testing
+
+Rename some testing scripts
