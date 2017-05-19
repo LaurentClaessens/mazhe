@@ -365,7 +365,7 @@ Voir la méthode des gradients, et des gradients conjugués.
     Soit \( A\in \eM(n,\eR)\) et \( i,j\in\{ 1,\ldots, n \}\). Nous disons que les indices \( i\) et \( j\) sont \defe{directement connectés}{connectés!indices d'une matrice} si \( A_{ij}\neq 0\) ou \( A_{ji}\neq 0\).
 \end{definition}
 
-\begin{definition}
+\begin{definition}      \label{DEFooADAAooAAMscc}
     Soit \( A\in \eM(n,\eR)\) et \( i,j\in\{ 1,\ldots, n \}\). Nous disons que les indices \( i\) et \( j\) sont \defe{connectés}{connectés!indices d'une matrice} si il existe un ensemble d'indices \( i_0=i,i_1,\ldots, i_{r-1},i_r=j   \) tels que \( A_{i_k,i_{k+1}}\neq 0\) pour tout \( 0\leq k\leq r\).
 \end{definition}
 
@@ -381,7 +381,7 @@ Par exemple pour que les indices \( 1\) et \( 4\) soient connectés, on peut avo
     \end{equation}
     où \( K\) et \( M\) sont carrées.
 \end{definition}
-Notons que par définition des matrices d'applications linéaires,
+Notons que par définition de la matrice d'une application linéaire,
 \begin{equation}
     B_{ij}= \langle e_i, Be_j\rangle =\langle e_i, \sigma^tA\sigma e_j\rangle =\langle \sigma e_i, A\sigma e_j\rangle =A_{\sigma(i),\sigma(j)}.
 \end{equation}
@@ -394,7 +394,7 @@ Notons que par définition des matrices d'applications linéaires,
         \item       \label{ITEMooNLVXooYSQKwO}
             Il existe une partition non triviale \( I,J\) de \( \{ 1,\ldots, n \}\) telle que \( I\cup J=\{ 1,\ldots, n \}\), \( I\cap J=\emptyset\) et pour tout \( i\in I\), et pour tout \( j\in J\), \( A_{ij}=0\).
         \item       \label{ITEMooVNOHooRUNpwG}
-            La matrice \( A\) admet des indices non connectés.
+            La matrice \( A\) admet des indices non connectés (définition \ref{DEFooADAAooAAMscc}).
     \end{enumerate}
 \end{proposition}
 
@@ -606,7 +606,7 @@ Notons la somme sur la ligne \( i\), pas sur la colonne : la somme est horizonta
 \subsection{Matrices à diagonale dominante}
 %---------------------------------------------------------------------------------------------------------------------------
 
-\begin{definition}[\cite{ooFAQUooRcQHZf,ooZGNYooGgPFhl}]
+\begin{definition}[\cite{ooFAQUooRcQHZf,ooZGNYooGgPFhl}]        \label{DEFooLSUTooHuXabV}
     La matrice \( A\in \eM(n,\eK)\) est \defe{à diagonale dominante}{diagonale!dominante} si pour tout \( i\),
     \begin{equation}
         \sum_{j\neq i}| A_{ij} |\leq | A_{ii} |
@@ -1024,6 +1024,10 @@ Voici un lemme qui dit que tout cela n'est pas si mal, pourvu que \( u\) soit as
 \subsection{Un exemple de discrétisation}
 %---------------------------------------------------------------------------------------------------------------------------
 
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Poser le système}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 Soit \( \Omega=\mathopen] 0 , 1 \mathclose[\) et l'équation différentielle
 \begin{equation}
      \begin{cases}
@@ -1112,3 +1116,66 @@ et les éléments non nuls de \( L_h\) sont :
     \end{align}
 \end{subequations}
 Cette matrice est pleine de zéros, à part les trois diagonales centrales, et il existe des méthodes efficaces pour résoudre le système d'équation correspondant.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Propriétés du système}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+La matrice est la suivante :
+\begin{equation}
+    L_h=\begin{pmatrix}
+        \frac{ 2 }{ h^2 }+c_1    &   -1/h^2    &   0    & 0     &    \cdots         &   0 \\
+        -1/h^2    &   \frac{ 2 }{ h^2 }+c_2    &   -1/h^2   &   0 &    \cdots       &      0 \\
+        0    &   -1/h^2    &   \frac{ 2 }{ h^2 }+c_3   & -1/h^2     &    \ddots &   \vdots  \\
+        0   &      0    &     -1/h^2  & \ddots & \ddots     & 0\\
+        \vdots&  \vdots   &  \ddots & \ddots & \ddots&-1/h^2\\
+        0   &  0 & \cdots & 0 & -1/h^2 & \frac{ 2 }{ h^2 }+c_N
+    \end{pmatrix}
+\end{equation}
+où nous avions déjà posé l'hypothèse \( c_i\geq 0\) pour tout \( i\).
+
+\begin{lemma}
+    La matrice \( L_h\) est irréductible\footnote{Caractérisation \ref{PROPooZTYDooZAxQxF}.} à diagonale fortement dominante\footnote{Définition \ref{DEFooLSUTooHuXabV}.}.
+\end{lemma}
+
+\begin{proof}
+    Nous décomposons la preuve en plusieurs parties.
+    \begin{subproof}
+        \item[La première ligne]
+
+            Sur la première ligne, seuls deux éléments sont non nuls et nous avons
+            \begin{equation}
+                L_{11}=\frac{ 2 }{ h^2 }+c_1\geq \frac{ 2 }{ h^2 }>\frac{1}{ h^2 }=L_{12}.
+            \end{equation}
+            
+        \item[La dernière ligne]
+
+            Elle est semblable à la première.
+        
+        \item[Les autres lignes]
+
+            Sur les autres lignes nous avons trois éléments non nuls et
+            \begin{equation}
+                \sum_{j\neq i}| A_{ij} |=\frac{ 2 }{ h^2 }\leq \frac{ 2 }{ h^2 }+c_i=L_{ii}.
+            \end{equation}
+            
+        \item[Diagonale fortement dominante]
+
+            Nous avons prouvé jusqu'à présent que \( L_h\) était une matrice à diagonale fortement dominante.
+
+        \item[Irréductible]
+
+            Nous allons utiliser la caractérisation de la proposition \ref{PROPooZTYDooZAxQxF}\ref{ITEMooVNOHooRUNpwG}. Pour cela nous considérons le chaîne d'éléments non nuls
+            \begin{equation}
+                A_{12}, A_{23},\ldots, A_{N-1,N}=-\frac{1}{ h^2 }.
+            \end{equation}
+            Soient deux indices \( i\) et \( j\) avec \( i<j\). Cette suite d'indice (ou un sous-suite) rend \( i\) et \( j\) connectés.
+
+            Si par contre \( i>j\), il faut considérer la suite inversée grâce au fait que \( L_h\) est symétrique :
+            \begin{equation}
+                A_{N,N-1},A_{N-1,N-2},\ldots, A_{32}, A_{21}=-\frac{ 1 }{ h^2 }.
+            \end{equation}
+
+    \end{subproof}
+\end{proof}
+
