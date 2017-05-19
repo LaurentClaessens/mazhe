@@ -39,7 +39,7 @@ git checkout -b $NEW_BRANCH
 git stash apply
 git commit -a -m "The new build-test branch"
 git checkout $CURRENT_BRANCH
-git stash apply
+git stash pop
 
 rm -rf $BUILD_DIR
 mkdir $BUILD_DIR
@@ -70,7 +70,7 @@ compile_everything ()
 cd $CLONE_DIR
 
 # Poor man's multi-thread
-compile_frido
+compile_frido&
 compile_everything
 
 cd $MAIN_DIR
