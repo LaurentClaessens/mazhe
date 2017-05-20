@@ -59,13 +59,13 @@ touch .testing.log
 
 compile_frido ()
 {
-    pytex lst_frido.py
+    pytex lst_frido.py --no-external
     pytex lst_everything.py --verif
 }
 
 compile_everything ()
 {
-    pytex lst_everything.py
+    pytex lst_everything.py --no-external
     pytex lst_frido.py --verif
 }
 
