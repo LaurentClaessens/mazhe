@@ -1,17 +1,17 @@
 #!/bin/bash
 # -*- coding: utf8 -*-
 
+# These tests are supposed to be launched in a cloned directory.
+
 
 PWD=`pwd`
 
 echo $PWD
 
-exit
-
 MAIN_TEX=$PWD/..
-PICTURES_TEX=$MAIN_TEX/auto/pictures_tex
+AUTO_PICTURES_TEX=$MAIN_TEX/auto/pictures_tex
+AUTO_PICTURES_TIKZ=$MAIN_TEX/auto/pictures_tikz
 PICTURES_SRC=$PWD
-PICTURES_TIKZ=$MAIN_TEX/auto/pictures_tikz
 
 compile_pass ()
 {
@@ -26,16 +26,9 @@ pytex lst_everything.py --no-external --all
 cd $PICTURES_SRC
 rm *.pyc >> /dev/null
 
-cd $PICTURES_TEX
-rm *.comment >> /dev/null
+cd $AUTO_PICTURES_TEX
+rm *.pstricks 
 
-cd $PICTURES_TIKZ
-rm *.dpth >> /dev/null
-rm *.log >> /dev/null
-rm *.maf >> /dev/null
-rm *.mtc >> /dev/null
-rm *.mtc0 >> /dev/null
-rm *.nlo >> /dev/null
 
 rm *.md5 >> /dev/null
 rm *.pdf >> /dev/null
