@@ -35,10 +35,11 @@ def SurfacePrimiteGeog():
     F.parameters.symbol=""
     N.parameters.symbol=""
 
-    pspict.axes.no_graduation()
 
     pspict.DrawGraphs(f,surface,a,x,F,N,surface)
-
+    pspict.axes.no_graduation()
     pspict.DrawDefaultAxes()
+
     fig.conclude()
     fig.write_the_file()
+

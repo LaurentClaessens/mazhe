@@ -27,3 +27,4 @@ def IntegraleSimple():
 
     fig.conclude()
     fig.write_the_file()
+

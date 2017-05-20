@@ -6,12 +6,14 @@
 # - no future references in 'mazhe'
 # - compile with no errors 'frido'
 # - compile with no errors 'mazhe'
+# - the pictures are clean
 # - git status clean
 
 
 # If everything goes well (not yet implemented) :
 # - publish the results on my website.
 # - git push to github
+
 
 MAIN_DIR=`pwd`
 
@@ -70,8 +72,12 @@ compile_everything ()
 cd $CLONE_DIR
 
 # Poor man's multi-thread
-compile_frido&
-compile_everything
+
+#compile_frido&
+#compile_everything
+
+cd $CLONE_DIR/src_phystricks
+./testing.sh
 
 cd $MAIN_DIR
 git status >> $CLONE_DIR/.testing.log

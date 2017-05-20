@@ -12,7 +12,7 @@ def VANooZowSyO():
 
 
     for psp in pspicts:
-        psp.dilatation_X(1)
+        psp.dilatation_X(0.7)
         psp.dilatation_Y(1)
 
     x=var('x')
@@ -36,3 +36,4 @@ def VANooZowSyO():
 
     fig.conclude()
     fig.write_the_file()
+

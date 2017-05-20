@@ -26,3 +26,4 @@ def ChampGraviation():
     pspict.DrawGraphs(terre)
     fig.conclude()
     fig.write_the_file()
+

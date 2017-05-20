@@ -16,3 +16,4 @@ def IWuPxFc():
     pspictThree.dilatation(1)
     figThree.conclude()
     figThree.write_the_file()
+

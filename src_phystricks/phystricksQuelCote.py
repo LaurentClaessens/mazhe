@@ -32,3 +32,4 @@ def QuelCote():
     pspict.DrawGraphs(curve,tangent_segment,tangent_vector,second,normal,Mnormal,P)
     fig.conclude()
     fig.write_the_file()
+
