@@ -566,6 +566,10 @@ append_picture(<++>,1)
 append_picture(<++>,1)
 """
 
+# À enlever après avoir déterminé plus précisément ce qui doit être compilé plusieurs fois
+figures_list_2=figures_list_1
+figures_list_3=figures_list_1
+
 def AllFigures():
     figures_list=figures_list_1
     if "--pass-number=2" in sys.argv :
