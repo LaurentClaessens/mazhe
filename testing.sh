@@ -69,15 +69,15 @@ compile_everything ()
     pytex lst_frido.py --verif
 }
 
-cd $CLONE_DIR
-
-# Poor man's multi-thread
-
-#compile_frido&
-#compile_everything
-
 cd $CLONE_DIR/src_phystricks
 ./testing.sh
+
+
+cd $CLONE_DIR
+# Poor man's multi-thread
+compile_frido&
+compile_everything
+
 
 cd $MAIN_DIR
 git status >> $CLONE_DIR/.testing.log

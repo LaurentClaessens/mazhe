@@ -40,9 +40,9 @@ rm *.aux >> /dev/null
 # (yes, some pictures need three passes)
 
 cd $PICTURES_SRC
-compile_demo 1 &&
-compile_demo 2 &&
-compile_demo 3 
+compile_pass 1 &&
+compile_pass 2 &&
+compile_pass 3 
 
 # Then compare with the "recall" ones
 
