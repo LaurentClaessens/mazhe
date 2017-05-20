@@ -15,10 +15,10 @@ PICTURES_SRC=$PWD
 
 compile_pass ()
 {
-cd $PICTURES_SRC
-./figures_mazhe.py --all --pass-number=$1 &&
-cd $MAIN_TEX
-pytex lst_everything.py --no-external --all 
+    cd $PICTURES_SRC
+    ./figures_mazhe.py --all --pass-number=$1 &&
+    cd $MAIN_TEX
+    pytex lst_everything.py --no-external 
 }
 
 # Remove the garbage files
