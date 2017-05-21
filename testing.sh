@@ -90,4 +90,4 @@ echo "Result : -----------"
 cat .testing.log
 
 echo "--------------------"
-echo "Beware that this is the result for build_test/mazhe. I did not compile here."
+echo "Beware that this is the result for the branch $1. I did not compile here."
