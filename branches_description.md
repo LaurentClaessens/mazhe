@@ -17,3 +17,8 @@ Solve some future references.
 ## deploy
 
 Take into account the case with a non empty stash list.
+
+## bibi6
+
+- Ajouter dans la liste des contributeurs
+- Mettre ok les références restées vides.
