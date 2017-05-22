@@ -22,7 +22,6 @@ myRequest.ok_filenames_list.extend(["49_StructCorps"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
-myRequest.ok_filenames_list.extend(["<++>"])
 
 
 myRequest.ok_filenames_list.extend(["157_thematique"])
