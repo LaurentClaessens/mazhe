@@ -9,7 +9,7 @@ def YQIDooBqpAdbIM():
     O=Segment(A,B).midpoint()+(0,3)
 
     trig=Polygon(A,B,O)
-    trig.put_mark(0.4,points_names="ABO",pspict=pspict)
+    trig.put_mark(0.2,points_names="ABO",pspict=pspict)
 
     aA=AngleAOB(B,A,O)
     aA.parameters.color="red"
