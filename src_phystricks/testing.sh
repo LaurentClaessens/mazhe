@@ -43,10 +43,3 @@ cd $PICTURES_SRC
 compile_pass 1 &&
 compile_pass 2 &&
 compile_pass 3 
-
-# Then compare with the "recall" ones
-
-cd $PICTURES_SRC
-
-./test_recall.py
-
