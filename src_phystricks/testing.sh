@@ -28,12 +28,8 @@ rm *.pyc >> /dev/null
 
 cd $AUTO_PICTURES_TEX
 rm *.pstricks 
-
-
 rm *.md5 >> /dev/null
 rm *.pdf >> /dev/null
-
-rm *.pstricks >> /dev/null
 rm *.aux >> /dev/null
 
 # Compile three times the demo pictures 

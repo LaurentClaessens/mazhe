@@ -15,11 +15,13 @@
 # - git push to github
 
 
-MAIN_DIR=`pwd`
+MAIN_DIR=`pwd`/..
 
 BUILD_DIR=$MAIN_DIR/build
 CLONE_DIR=$BUILD_DIR/build_mazhe
 SRC_PHYSTRICKS=$CLONE_DIR/src_phystricks
+AUTO_PICTURES_TEX=$CLONE_DIR/auto/pictures_tex
+LOG_FILE=$BUILD_DIR/.testing.log
 
 STASH=`git stash list`
 if [[ -z $STASH  ]];then
@@ -52,8 +54,8 @@ git clone $MAIN_DIR --branch   $NEW_BRANCH   --single-branch  $CLONE_DIR
 
 cd $BUILD_DIR
 
-rm .testing.log
-touch .testing.log
+rm $LOG_FILE
+touch  $LOG_FILE
 
 # Frido's compilation is together with everything's verification
 # because we want to balance the two threads.
@@ -61,37 +63,40 @@ touch .testing.log
 compile_frido ()
 {
     pytex lst_frido.py --no-external
-    pytex lst_everything.py --verif
+    pytex lst_frido.py --verif
 }
 
 compile_everything ()
 {
     pytex lst_everything.py --no-external
-    pytex lst_frido.py --verif
+    pytex lst_everything.py --verif
 }
 
 cd $SRC_PHYSTRICKS
 ./testing.sh
 
 cd $CLONE_DIR/testing
-./test_recall.py $SRC_PHYSTRICKS
 
+./test_recall.py $AUTO_PICTURES_TEX >> $LOG_FILE
 
 cd $CLONE_DIR
 # Poor man's multi-thread
-compile_frido&
-compile_everything
+#compile_everything&
+#compile_frido
 
 
 cd $MAIN_DIR
-git status >> $CLONE_DIR/.testing.log
+git status >> $LOG_FILE
 
 cd $CLONE_DIR
 
 
 echo "Result : -----------"
 
-cat .testing.log
+cat  $LOG_FILE 
 
 echo "--------------------"
 echo "Beware that this is the result for the branch $1. I did not compile here."
+
+# remettre la liste des figures
+# remettre les compilations ici

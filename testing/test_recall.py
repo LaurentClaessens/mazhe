@@ -19,6 +19,7 @@ def pstricks_files_iterator(directory):
         if f.endswith(".pstricks"):
             yield f
 
+
 for filename in pstricks_files_iterator(directory):
     with open(filename,'r') as f:
         get_text=f.read()
@@ -32,5 +33,3 @@ for filename in pstricks_files_iterator(directory):
 
     if get_text != recall_text :
         print("Wrong : "+filename)
-
-
