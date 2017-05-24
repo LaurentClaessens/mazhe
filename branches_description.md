@@ -22,3 +22,4 @@ Take into account the case with a non empty stash list.
 
 - Ajouter dans la liste des contributeurs
 - Mettre ok les références restées vides.
+-Include the work of bibi6
