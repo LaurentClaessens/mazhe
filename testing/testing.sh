@@ -6,8 +6,11 @@
 # - no future references in 'mazhe'
 # - compile with no errors 'frido'
 # - compile with no errors 'mazhe'
-# - the pictures are clean
+# - the '.pstricks' recompiled from the '.py' are equal to the '.recall'
 # - git status clean
+
+# The fact that the '.pstricks' are equal to the '.recall'
+# is checked at each compilation in 'lst_frido.py'
 
 
 # If everything goes well (not yet implemented) :
