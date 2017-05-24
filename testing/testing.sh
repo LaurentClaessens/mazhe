@@ -82,8 +82,7 @@ cd $CLONE_DIR/testing
 ./test_recall.py $AUTO_PICTURES_TEX >> $LOG_FILE
 
 cd $CLONE_DIR
-# Poor man's multi-thread
-compile_everything&
+compile_everything
 compile_frido
 
 
