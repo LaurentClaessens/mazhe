@@ -194,4 +194,3 @@ def check_recall():
         print("There are wrong recall/pstricks files :")
         for f in wfl:
             print(f)
-    raise
