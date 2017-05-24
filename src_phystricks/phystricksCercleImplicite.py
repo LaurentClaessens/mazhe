@@ -10,10 +10,12 @@ def CercleImplicite():
     Q=C.get_point(180)
 
     X=P.projection(pspict.axes.single_axeX)
-    P.put_mark(0.1,P.advised_mark_angle(pspict),"$P$",pspict=pspict)
-    Pp.put_mark(0.1,Pp.advised_mark_angle(pspict),"\( P'\)",pspict=pspict)
-    Q.put_mark(0.1,Q.advised_mark_angle(pspict),"\( Q\)",pspict=pspict)
-    X.put_mark(0.1,-90,"\( x\)",pspict=pspict)
+    X.put_mark(0.3,180+45,"\( x\)",pspict=pspict)
+
+    P.put_mark(0.3,P.advised_mark_angle(pspict),"$P$",pspict=pspict)
+    Pp.put_mark(0.3,Pp.advised_mark_angle(pspict),"\( P'\)",pspict=pspict)
+
+    Q.put_mark(0.3,180-45,"\( Q\)",pspict=pspict)
 
     vert=Segment(P,Pp)
     vert.parameters.style="dotted"
@@ -24,3 +26,4 @@ def CercleImplicite():
     pspict.DrawDefaultAxes()
     fig.conclude()
     fig.write_the_file()
+

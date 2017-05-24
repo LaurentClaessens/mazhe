@@ -10,7 +10,7 @@ def CoinPasVar():
     A=Point(-l,0)
     B=Point(l,0)
 
-    N.put_mark(0.1,90,"\( N\)",pspict=pspict)
+    N.put_mark(0.1,90-45,"\( N\)",pspict=pspict)
 
     S=Segment(A,N)
     S.parameters.color="blue"
@@ -29,3 +29,4 @@ def CoinPasVar():
     pspict.DrawDefaultAxes()
     fig.conclude()
     fig.write_the_file()
+

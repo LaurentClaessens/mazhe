@@ -24,3 +24,4 @@ def BEHTooWsdrys():
     pspict.DrawGraphs(rect,F)
     fig.conclude()
     fig.write_the_file()
+

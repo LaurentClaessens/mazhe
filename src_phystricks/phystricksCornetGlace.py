@@ -4,15 +4,20 @@ def CornetGlace():
 
 	l=1.2
 	x=var('x')
-	f1=phyFunction(sqrt(1-x**2)).graph(-1,1)
+
+	f1=phyFunction(sqrt(1-x**2)).graph(-1,1) # half-circle
 	f2a=phyFunction(-x).graph(-l,0)
 	f2b=phyFunction(x).graph(0,l)
+
 	P = Intersection(f1,f2a)[0]
 	Q = Intersection(f1,f2b)[0]
-	c1=f1.graph(P.x,Q.x)
-	c2a=f2a.graph(0,P.x)
-	c2b=f2b.graph(0,Q.x)
-	surf=CustomSurface(c2a,c1,c2b)
+
+        c1=ParametricCurve(x,sqrt(1-x**2)).graph(P.x,Q.x).reverse()
+
+	c2a=f2a.graph(P.x,0) # descending line
+	c2b=f2b.graph(0,Q.x) # ascending line
+
+	surf=CustomSurface(c2a,c2b,c1)
 	surf.parameters.hatched()
 	surf.parameters.hatch.color="lightgray"
 
@@ -20,3 +25,4 @@ def CornetGlace():
 	pspict.DrawDefaultAxes()
 	fig.conclude()
 	fig.write_the_file()
+

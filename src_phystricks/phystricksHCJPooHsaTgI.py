@@ -34,6 +34,7 @@ def HCJPooHsaTgI():
     lB.parameters=lA.parameters
 
     pspict[0].DrawGraphs(surface,A,B,lA,f1,f2,surface.bounding_box(pspict[0]))
+    pspict[0].axes.no_graduation()
     pspict[0].DrawDefaultAxes()
     pspict[0].dilatation(1)
 
@@ -63,10 +64,10 @@ def HCJPooHsaTgI():
     lD.parameters=lA.parameters
 
     pspict[1].DrawGraphs(region,C,D,lC,lD,g1,g2,region.bounding_box(pspict[1]))
-    for pspicture in pspict:
-        pspicture.axes.no_graduation()
+    pspict[1].axes.no_graduation()
     pspict[1].DrawDefaultAxes()
     pspict[1].dilatation(1)
 
     fig.conclude()
     fig.write_the_file()
+

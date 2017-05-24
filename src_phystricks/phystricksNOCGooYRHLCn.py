@@ -7,7 +7,7 @@ def NOCGooYRHLCn():
 	x0 = 5
 	dx = 1
 	x=var('x')
-	f = phyFunction(-((x+0.5)/3)**2+4+x).graph(mx,Mx)
+	f = phyFunction(-((x+0.5)/3)**2+4+x-3).graph(mx,Mx)
 	f.parameters.color="brown"
 
 	P=f.get_point(x0)
@@ -34,3 +34,4 @@ def NOCGooYRHLCn():
 	pspict.dilatation(1)
 	fig.conclude()
 	fig.write_the_file()
+

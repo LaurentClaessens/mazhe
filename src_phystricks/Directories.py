@@ -13,7 +13,10 @@
 
 # Directories are given relative to the one where the source pictures are.
 
+# Attention : these directories are hard-coded in src_phystricks/testing.sh
+
 MAIN_TEX=".."
 PICTURES_TEX="../auto/pictures_tex"
 PICTURES_SRC="."
 PICTURES_TIKZ="../auto/pictures_tikz"
+

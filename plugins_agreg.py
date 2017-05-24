@@ -155,17 +155,6 @@ def assert_MonCerveau_first():
     Read the bbl file and check that the reference "MonCerveau" is the first one.
     """
 
-    print(""" Vous pourriez avoir l'erreur suivante :
-
- return self.fun(A)
- TypeError: 'NoneType' object is not callable)
-
-    Cela signifie que vous devez mettre à jour 'pytex' et 'latexparser'. 
-
-    J'ai dû effectuer quelque modifications pour vérifier que "MonCerveau" est 
-    toujours la première référence dans le frido.
- """)
-
     import os.path
     filename="Inter_frido-mazhe_pytex.bbl"
     if not os.path.exists(filename):
@@ -183,3 +172,21 @@ def assert_MonCerveau_first():
                 """.format(filename))
         raise
 
+def check_recall():
+    # import from the path name:
+# https://stackoverflow.com/questions/27381264/python-3-4-how-to-import-a-module-given-the-full-path
+    import sys,os
+    import importlib
+
+    module_path="testing/TestRecall.py"
+    sys.path.append(os.path.dirname(module_path))
+    module_name = os.path.splitext(os.path.basename(module_path))[0]
+    TestRecall = importlib.import_module(module_name)                       
+    sys.path.pop()
+
+    wfl=TestRecall.wrong_file_list(os.getcwd())
+    if wfl != []:
+        print("There are wrong recall/pstricks files :")
+        for f in wfl:
+            print(f)
+        raise
