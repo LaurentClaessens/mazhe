@@ -155,17 +155,6 @@ def assert_MonCerveau_first():
     Read the bbl file and check that the reference "MonCerveau" is the first one.
     """
 
-    print(""" Vous pourriez avoir l'erreur suivante :
-
- return self.fun(A)
- TypeError: 'NoneType' object is not callable)
-
-    Cela signifie que vous devez mettre à jour 'pytex' et 'latexparser'. 
-
-    J'ai dû effectuer quelque modifications pour vérifier que "MonCerveau" est 
-    toujours la première référence dans le frido.
- """)
-
     import os.path
     filename="Inter_frido-mazhe_pytex.bbl"
     if not os.path.exists(filename):
