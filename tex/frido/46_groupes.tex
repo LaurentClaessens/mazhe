@@ -566,75 +566,75 @@ Cette proposition implique que \( m\leq p^n\) et \( \pgcd(m,p^n)\neq 1\) si et s
 
 Source : \cite{BezoutCos}.
 
-Soient \( A\) et \( B\), deux entier disons positifs. Nous allons voir maintenant l'algorithme de \defe{Euclide étendu}{Euclide!algorithme étendu} qui est capable, pour \( A\) et \( B\) donnés, de calculer le \( \pgcd(A,B)\) et un couple de Bézout \( (u,v)\) tel que \( uA+vB=\pgcd(A,B)\). Ce calcul est indispensable si on veut implémenter RSA (\ref{SecEVaFYi}).
+Soient \( a\) et \( b\), deux entiers que nous allons prendre positifs. Nous allons voir maintenant l'algorithme de \defe{Euclide étendu}{Euclide!algorithme étendu} qui est capable, pour \( a\) et \( b\) donnés, de calculer le PGCD de $a$ et $b$, et un couple de Bézout \( (u,v)\) tel que \( ua+vb=\pgcd(a,b)\). Ce calcul est indispensable si on veut implémenter RSA (\ref{SecEVaFYi}).
 
 Cela se base sur le lemme suivant.
 
 \begin{lemma}       \label{LemiVqita}
-    Soient \( A,B\in \eN\) et des nombres \( q\) et \( r\) tels que \( A=qB+r\) avec \( r<B\). Alors \( \pgcd(A,B)=\pgcd(r,B)\).
+    Soient \( a,b\in \eN\) et des nombres \( q\) et \( r\) tels que \( a=qb+r\). Alors \( \pgcd(a,b)=\pgcd(r,b)\).
 \end{lemma}
 
 \begin{proof}
-    Il suffit de voir que les diviseurs communs de \( A\) et \( B\) sont diviseurs de \( r\) et que les diviseurs communs de \( r\) et \( B\) divisent \( A\).
+    Il suffit de voir que les diviseurs communs de \( a\) et \( b\) sont diviseurs de \( r\) et que les diviseurs communs de \( r\) et \( b\) divisent \( a\).
 
-    Si \( s\) divise \( A\) et \( B\), alors dans l'équation \( \frac{ A }{ s }=\frac{ qB }{ s }+\frac{ r }{ s }\), les termes \( A/s\) et \( qB/s\) sont entiers, donc \( r/s\) doit aussi être entier.
+    Si \( s\) divise \( a\) et \( b\), alors dans l'équation 
+    \begin{equation*}
+        \frac{ a }{ s }=\frac{ qb }{ s }+\frac{ r }{ s }
+    \end{equation*}
+    les termes \( a/s\) et \( qb/s\) sont entiers, donc \( r/s\) est aussi entier, et \( s\) divise \( r\).
 
-    Inversement, si \( s\) divise \( r\) et \( B\), alors il divise \( qB+r\) et donc \( A\).
+    Inversement, si \( s\) divise \( r\) et \( b\), alors il divise \( qb+r\) et donc \( a\).
 \end{proof}
-
 \begin{remark}
-    Ce lemme est surtout intéressant lorsque \( A=qB+r\) est la division euclidienne de \( A\) par \( B\).
+    Ce lemme est surtout intéressant lorsque \( a=qb+r\) est la division euclidienne de \( a\) par \( b\): en effet, dans ce cas \( r < b \), et le calcul du PGCD de deux nombres ($a$ et $b$) est ramené à un calcul de PGCD de deux nombres plus petits ($b$ et $r$).
+    
+    L'algorithme pour calculer \( \pgcd(a,b)\) consiste à écrire des divisions euclidiennes successives de la manière suivante:  
+    \begin{subequations}
+        \begin{align}
+            a &= q_2 b   + r_2 && r_2<b\\
+            b &= q_3 r_2 + r_3 && r_3<r_2\\
+            \dots
+        \end{align}
+    \end{subequations}
+    en remarquant que \( \pgcd(a,b)=\pgcd(b,r_2)=\pgcd(r_2,r_3) \). Étant donné que les inégalités \( r_2<b\) et \( r_3<r_2) sont strictes, en continuant ainsi nous finissons sur zéro, c'est à dire qu'il existera un $n$ pour lequel \( r_{n+1} = 0 \); et donc 
+\begin{equation*}
+    r_{n-1}=q_{n+1}r_n,
+\end{equation*}
+et à ce moment nous avons \( \pgcd(a,b)=\pgcd(r_{n-1},r_n)=r_n\).
 \end{remark}
 
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-\subsubsection{L'idée}
-%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-L'algorithme pour calculer \( \pgcd(A,B)\) consiste à écrire la division euclidienne de \( A\) par \( B\) puis celle de \( B\) par \( r\) :
-\begin{subequations}
-    \begin{align}
-        A&=qB+r&&r<B\\
-        B&=q'r+r'&&r'<r
-    \end{align}
-\end{subequations}
-et donc \( \pgcd(A,B)=\pgcd(B,r)=\pgcd(r,r')\). Étant donné que les inégalités \( r<B\) et \( r'<r\) sont strictes, en continuant ainsi nous finissons sur zéro, c'est à dire
-\begin{equation}
-    r_{n-1}=q_nr_n,
-\end{equation}
-et à ce moment nous avons \( \pgcd(A,B)=\pgcd(r_{n-1},r_n)=r_n\).
-
-%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-\subsubsection{Pour le PGCD}
+\subsubsection{Algorithme d'Euclide pour le PGCD}
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 \index{pgcd!calcul effectif}
 
-Écrivons cela en détail (parce que Bézout, ça va être le même chose en cinq fois plus compliqué). On pose
+Écrivons l'algorithme en détail (parce que Bézout, ça va être la même chose en cinq fois plus compliqué). On pose
 \begin{subequations}
     \begin{align}
-        r_0=A\\
-        r_1=B.
+        r_0=a\\
+        r_1=b
     \end{align}
 \end{subequations}
-Ensuite on écrit la division euclidienne \( A=q_1B+r_2\), c'est à dire \( r_0=q_1r_1+r_2\). Cela donne \( r_2\) et \( q_1\) en termes de \( r_0\) et \( r_1\) :
+(ce qui explique que nous n'ayons pas utilisé $r_0$ et $r_1$ précédemment). Ensuite on écrit la division euclidienne \( a=q_2b+r_2\), c'est à dire \( r_0=q_2r_1+r_2\). Cela donne \( r_2\) et \( q_2\) en termes de \( r_0\) et \( r_1\) :
 \begin{equation}
-    r_2=r_0-q_1r_1.
+    r_2=r_0-q_2r_1.
 \end{equation}
 Ensuite, sachant \( r_2\) nous pouvons continuer :
 \begin{equation}
-    r_1=q_2r_2+r_3
+    r_1=q_3r_2+r_3
 \end{equation}
-donne \( q_2\) et \( r_3=r_1-q_2r_2\). On continue avec \( r_2=q_3r_3+r_4\). Tout cela pour poser la suite
+donne \( q_3\) et \( r_3=r_1-q_3r_2\). On continue avec \( r_2=q_4r_3+r_4\). Tout cela pour poser la suite
 \begin{equation}
     \begin{aligned}[]
-        r_0&=A\\
-        r_1&=B\\
-        r_k&=q_{k+1}r_{k+1}+r_{r+2}
+        r_0&=a\\
+        r_1&=b\\
+        r_k&=q_{k+2}r_{k+1}+r_{k+2}
     \end{aligned}
 \end{equation}
-où la troisième ligne est la définition de \( r_{k+2}\) et de \( q_{k+1}\) en fonction de \( r_k\) et \( r_{k+1}\). La suite \( (r_k)\) ainsi construite est strictement décroissante et à chaque étape le lemme \ref{LemiVqita} et le principe de l'algorithme d'Euclide nous donnent
+où la troisième définit \( r_{k+2}\) et \( q_{k+2}\) en fonction de \( r_k\) et \( r_{k+1}\), à l'aide du théorème de la division euclidienne. La suite \( (r_k)\) ainsi construite est strictement décroissante et à chaque étape le lemme \ref{LemiVqita} et le principe de l'algorithme d'Euclide nous donnent
 \begin{subequations}
     \begin{numcases}{}
-        \pgcd(r_k,r_{k+1})=\pgcd(r_{k+1},r_{k+2})=\pgcd(A,B)\\
+        \pgcd(r_k,r_{k+1})=\pgcd(r_{k+1},r_{k+2})=\pgcd(a,b)\\
         0\leq r_{k+1}<r_k.
     \end{numcases}
 \end{subequations}
@@ -642,7 +642,7 @@ La suite étant strictement décroissante, nous prenons \( r_n\), le dernier non
 \begin{equation}
     r_{n-1}=q_nr_n
 \end{equation}
-avec \( \pgcd(A,B)=\pgcd(r_n,r_{n-1})=r_n\). 
+avec \( \pgcd(a, b)=\pgcd(r_n,r_{n-1})=r_n\). 
 
 \begin{example}
     Calculons le PGCD de \( 18\) et \( 231\). Pour cela nous écrivons les divisions euclidiennes en chaîne :
@@ -657,13 +657,13 @@ avec \( \pgcd(A,B)=\pgcd(r_n,r_{n-1})=r_n\).
 \end{example}
 
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-\subsubsection{Bézout : calcul effectif}
+\subsubsection{Algorithme étendu: calcul effectif des coefficients de Bézout}
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 \index{Bézout!calcul effectif}
 
-La difficulté est de construire la suite qui donne Bézout. Elle va être construite à l'envers. Nous supposons déjà connaître la liste complète des \( r_k\) jusqu'à \( r_n=\pgcd(A,B)\), ainsi que la liste complète des divisions euclidiennes
+La difficulté est de construire la suite qui donne des coefficients de Bézout. Elle va être construite à l'envers. Nous supposons déjà connaître la liste complète des \( r_k\) jusqu'à \( r_n=\pgcd(a,b)\), ainsi que la liste complète des divisions euclidiennes
 \begin{equation}
-    r_k=q_{k+1}r_{k+1}+r_{k+2}.
+    r_k=q_{k+2}r_{k+1}+r_{k+2}.
 \end{equation}
 
 Nous voulons trouver les couples \( (u_k,v_k)\) de telle façon à avoir à chaque étape
@@ -674,22 +674,23 @@ Notons que c'est à chaque fois \( r_n\) que nous construisons. La première éq
 \begin{equation}
     r_n=u_nr_n+v_nr_{n-1},
 \end{equation}
-sachant que \( r_{n-1}=q_nr_n\). On pose \( v_n=0\) et \( u_n=1\) et c'est bon. Pour la récurrence, nous égalisons les deux expressions pour \( r_n\) :
+sachant que \( r_{n-1}=q_nr_n\). On pose \( v_n=0\) et \( u_n=1\) et c'est bon. Pour la récurrence, supposons les coefficients $u_k$ et $v_k$ connus, et déterminons les coefficients \( u_{k-1} \) et \( v_{k-1} \). Pour ce faire, nous égalons les deux expressions pour \( r_n\) :
 \begin{equation}
-    r_n=u_kr_k+v_kr_{k-1}=u_{k-1}r_{k-1}+v_{k-1}r_{k-2}
+    r_n=u_kr_k+v_kr_{k-1}=u_{k-1}r_{k-1}+v_{k-1}r_{k-2};
 \end{equation}
-dans laquelle nous substituons \( r_{k-2}=q_{k-1}r_{k-1}+r_k\) et nous égalisons les coefficients de \( r_k\) et \( r_{k-1}\) :
-\begin{equation}
-    u_kr_k+v_kr_{k-1}=u_{k-1}r_{k-1}+v_{k-1}(q_{k-1}r_{k-1}+r_k),
-\end{equation}
-cela donne
+dans laquelle nous substituons \( r_{k-2}=q_k-r_{k-1}+r_k\):
+\begin{align}
+    u_kr_k+v_kr_{k-1}&=u_{k-1}r_{k-1}+v_{k-1}(q_k r_{k-1}+r_k)\\
+    &= (u_{k-1} + q_k v_{k-1}) r_{k-1} + +v_{k-1} r_k
+\end{align}
+et nous égalons les coefficients de \( r_k\) et \( r_{k-1}\) pour obtenir
 \begin{subequations}
     \begin{numcases}{}
         v_{k-1}=u_k\\
-        u_{k-1}=v_k-v_{k-1}q_{k-1}.
+        u_{k-1}=v_k-v_{k-1}q_k.
     \end{numcases}
 \end{subequations}
-Dès que \( u_k\) et \( v_k\) ainsi que \( q_{k-1}\) sont connus, on peut calculer \( u_{k-1}\) et \( v_{k-1}\). 
+Dès que \( u_k\) et \( v_k\) ainsi que \( q_k\) sont connus, on peut calculer \( u_{k-1}\) et \( v_{k-1}\). 
 
 La dernière équation, celle avec \( k=1\), est
 \begin{equation}
@@ -697,9 +698,9 @@ La dernière équation, celle avec \( k=1\), est
 \end{equation}
 c'est à dire
 \begin{equation}        \label{EqNDMLooDvaiAc}
-    \pgcd(A,B)=u_1B+v_1A.
+    \pgcd(a,b)=u_1b+v_1a.
 \end{equation}
-Nous avons ainsi résolu Bézout.
+Nous avons ainsi trouvé des coefficients de Bézout pour $a$ et $b$.
 
 \begin{lemma}[Lemme de Gauss]    \label{LemPRuUrsD}
     Soient \( a,b,c\in \eZ\) tels que \( a\) divise \( bc\). Si \( a\) est premier avec \( c\), alors \( a\) divise \( b\).
