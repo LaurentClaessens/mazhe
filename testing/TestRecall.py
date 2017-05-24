@@ -15,29 +15,33 @@
 import os
 
 def pstricks_files_iterator(directory):
-    os.chdir(directory)
-    for f in os.listdir():
+    for f in os.listdir(directory):
         if f.endswith(".pstricks"):
             yield os.path.join(directory,f)
 
 def wrong_file_list(directory):
+    """
+    return a tuple of lists
+    - the list of missing 'recall'
+    - the list of 'recall/pstricks' which do not match
+    """
     src_phystricks_dir=os.path.join(directory,"src_phystricks")
     auto_pictures_tex_dir=os.path.join(directory,"auto/pictures_tex")
-    wfl=[]
+    wfl=[]  # wrong file list
+    mfl=[]  # missing file list
+    print("src_phystricks_dir : ",src_phystricks_dir)
     for filename in pstricks_files_iterator(auto_pictures_tex_dir):
         with open(filename,'r') as f:
             get_text=f.read()
         try :
-            recall_filename=\
-                        os.path.join(src_phystricks_dir,filename+".recall")
+            recall_filename=os.path.join(src_phystricks_dir,
+                                os.path.split(filename)[1]+".recall")
             with open(recall_filename,'r') as f:
                 recall_text=f.read()
         except FileNotFoundError as err :
-            print("No recall file for ",filename)
-            print("See 'phystricks/testing/README.md' \
-                                to know how to use 'test_recall.py'")
-            recall_text=""
+            mfl.append(filename)
+            recall_text=get_text    # we do not append it to the wfl list.
 
         if get_text != recall_text :
             wfl.append(filename)
-    return wfl
+    return mfl,wfl

@@ -141,7 +141,8 @@ def get_hexsha(repo):
 
 def set_commit_hexsha(A):
     import pygit2
-    repo=pygit2.Repository(".")
+    import os
+    repo=pygit2.Repository(os.getcwd())
     hexsha=str(get_hexsha(repo))
     if is_dirty(repo):
         hexsha=hexsha+" -- and slightly more"
@@ -184,7 +185,11 @@ def check_recall():
     TestRecall = importlib.import_module(module_name)                       
     sys.path.pop()
 
-    wfl=TestRecall.wrong_file_list(os.getcwd())
+    mfl,wfl=TestRecall.wrong_file_list(os.getcwd())
+    if mfl != []:
+        print("There are missing recall files :")
+        for f in mfl:
+            print(f)
     if wfl != []:
         print("There are wrong recall/pstricks files :")
         for f in wfl:
