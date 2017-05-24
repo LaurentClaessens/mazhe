@@ -62,21 +62,20 @@ touch  $LOG_FILE
 
 compile_frido ()
 {
-    pytex lst_frido.py --no-external
-    pytex lst_frido.py --verif
+    pytex lst_frido.py --no-external --output=$LOG_FILE
+    pytex lst_frido.py --verif  --output=$LOG_FILE
 }
 
 compile_everything ()
 {
-    pytex lst_everything.py --no-external
-    pytex lst_everything.py --verif
+    pytex lst_everything.py --no-external --output=$LOG_FILE
+    pytex lst_everything.py --verif --output=$LOG_FILE
 }
 
 cd $SRC_PHYSTRICKS
 ./testing.sh
 
 cd $CLONE_DIR/testing
-
 ./test_recall.py $AUTO_PICTURES_TEX >> $LOG_FILE
 
 cd $CLONE_DIR

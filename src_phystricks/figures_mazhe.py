@@ -301,6 +301,11 @@ def append_picture(fun,number):
         figures_list_3.append(fun)
 
 
+
+append_picture(UUNEooCNVOOs,3)
+append_picture(NOCGooYRHLCn,3)
+append_picture(YQIDooBqpAdbIM,3)
+
 append_picture(SurfacePrimiteGeog,2)
 append_picture(XOLBooGcrjiwoU,2)
 append_picture(DynkinrjbHIu,2)
@@ -360,7 +365,6 @@ append_picture(IntEcourbe,2)
 append_picture(IOCTooePeHGCXH,2)
 append_picture(QSKDooujUbDCsu,2)
 append_picture(NiveauHyperboleDeux,2)
-append_picture(UUNEooCNVOOs,2)
 append_picture(CSCiv,2)
 append_picture(ConeRevolution,2)
 append_picture(DNRRooJWRHgOCw,2)
@@ -468,8 +472,6 @@ append_picture(UZGooBzlYxr,2)
 append_picture(QCb,2)
 append_picture(TriangleUV,2)
 append_picture(FonctionEtDeriveOM,2)
-append_picture(NOCGooYRHLCn,2)
-append_picture(YQIDooBqpAdbIM,2)
 append_picture(ProjPoly,2)
 append_picture(TWHooJjXEtS,2)
 append_picture(ContourSqL,2)

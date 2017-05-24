@@ -6,16 +6,14 @@
 
 PWD=`pwd`
 
-echo $PWD
-
 MAIN_TEX=$PWD/..
 AUTO_PICTURES_TEX=$MAIN_TEX/auto/pictures_tex
 AUTO_PICTURES_TIKZ=$MAIN_TEX/auto/pictures_tikz
-PICTURES_SRC=$PWD
+SRC_PHYSTRICKS=$PWD
 
 compile_pass ()
 {
-    cd $PICTURES_SRC
+    cd $SRC_PHYSTRICKS
     ./figures_mazhe.py --all --pass-number=$1 &&
     cd $MAIN_TEX
     pytex lst_everything.py --no-external 
@@ -23,7 +21,7 @@ compile_pass ()
 
 # Remove the garbage files
 
-cd $PICTURES_SRC
+cd $SRC_PHYSTRICKS
 rm *.pyc >> /dev/null
 
 cd $AUTO_PICTURES_TEX
@@ -35,7 +33,7 @@ rm *.aux >> /dev/null
 # Compile three times the demo pictures 
 # (yes, some pictures need three passes)
 
-cd $PICTURES_SRC
+cd $SRC_PHYSTRICKS
 compile_pass 1 &&
 compile_pass 2 &&
 compile_pass 3 
