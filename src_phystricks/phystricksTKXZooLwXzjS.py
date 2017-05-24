@@ -25,3 +25,4 @@ def TKXZooLwXzjS():
     pspict.DrawGraphs(rect,F)
     fig.conclude()
     fig.write_the_file()
+

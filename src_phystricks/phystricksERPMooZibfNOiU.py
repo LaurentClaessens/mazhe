@@ -45,3 +45,4 @@ def ERPMooZibfNOiU():
     pspict.comment="l'ellipse est tangente à la droite au point P. La marque de P est à l'extérieur de l'ellipse."
     fig.conclude()
     fig.write_the_file()
+

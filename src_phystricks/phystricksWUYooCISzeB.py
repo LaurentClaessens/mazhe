@@ -14,7 +14,7 @@ def WUYooCISzeB():
         psp.dilatation_Y(0.5)
 
     mx=-0.7
-    Mx=4
+    Mx=3
 
     x=var('x')
     f=phyFunction(3*(x+1)**(1/3)+exp(-2*x)).graph(mx,Mx)
@@ -33,3 +33,4 @@ def WUYooCISzeB():
 
     fig.conclude()
     fig.write_the_file()
+

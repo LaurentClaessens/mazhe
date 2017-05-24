@@ -18,8 +18,21 @@ Solve some future references.
 
 Take into account the case with a non empty stash list.
 
+# pictures
+
+Recompile the pictures and some tests...
+
+## testing
+
+Rename some testing scripts
+
 ## bibi6
 
 - Ajouter dans la liste des contributeurs
 - Mettre ok les références restées vides.
 -Include the work of bibi6
+
+
+## url
+
+Track death links.

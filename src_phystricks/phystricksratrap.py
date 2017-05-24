@@ -33,3 +33,4 @@ def ratrap():
     pspict.comment="Une surface hachurée en bleu"
     fig.conclude()
     fig.write_the_file()
+

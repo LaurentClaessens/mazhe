@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from phystricks import *
 
 def LYORooNKDHqt():
-    n_ssfig=6
+    n_ssfig=4           # Au-delà de 4, la figure ne parvient pas à se mettre en carré.
     pspictQuestion,figQuestion = SinglePicture("TangenteQuestion",script_filename="RechercheTangente")
     pspictDetail,figDetail = SinglePicture("TangenteDetail",script_filename="RechercheTangente")
     pspictsSubFig,figSubFig = MultiplePictures("LesSubFigures",n_ssfig)
@@ -64,7 +64,7 @@ def LYORooNKDHqt():
     for psp in pspictsSubFig :
         psp.mother.caption="\ldots de mieux en mieux \ldots"
 
-    pspictsSubFig[0].mother.caption="Pas très non \ldots"
+    pspictsSubFig[0].mother.caption="Pas très bon \ldots"
     pspictsSubFig[-1].mother.caption="\ldots presque parfait"
 
     fixed_size=4
@@ -97,3 +97,4 @@ def LYORooNKDHqt():
     pspictQuestion.DrawDefaultAxes()
     figQuestion.conclude()
     figQuestion.write_the_file()
+

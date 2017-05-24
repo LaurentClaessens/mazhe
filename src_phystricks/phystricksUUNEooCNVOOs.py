@@ -4,7 +4,7 @@ def UUNEooCNVOOs():
     pspicts,fig = MultiplePictures("UUNEooCNVOOs",2)
 
     pspicts[0].mother.caption=u"L'eau pousse bien perpendiculairement à la palle du moulin."
-    pspicts[1].mother.caption=u"Lorsque l'eau ne pousse pas perpendiculairement, une partie de la force est perdue."
+    pspicts[1].mother.caption=u"Lorsque l'eau ne pousse pas perpendiculairement, une partie de la force est perdue. Ici la partie normale (en rouge) est très petite."
 
     h=SR(2)
     P = Point(0,h)
@@ -22,7 +22,7 @@ def UUNEooCNVOOs():
 
     pspicts[0].DrawGraphs(palle0,courant)
 
-    palle1 = Segment(P,P.get_polar_point(l,-130))
+    palle1 = Segment(P,P.get_polar_point(l,-160))
     Q=palle1.get_point_proportion(0.5)
     v=AffineVector( Q, Point(Q.x-1,Q.y) )
     vx,vy = v.decomposition(palle1)
@@ -31,7 +31,10 @@ def UUNEooCNVOOs():
     vx.parameters.color="red"
     vy.parameters.color="green"
 
-    pspicts[1].DrawGraphs(palle1,vx,vy,courant)
+    dec_x=vx.fix_origin( Point(0,0) )
+    dec_y=vy.fix_origin(Point(0,0))
+
+    pspicts[1].DrawGraphs(palle1,dec_x,dec_y,courant)
 
     fig.conclude()
     fig.write_the_file()

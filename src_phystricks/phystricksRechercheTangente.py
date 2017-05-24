@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from phystricks import *
 
 def VGZooJnvvZc():
-    n_ssfig=6
+    n_ssfig=4           # Pas plus que 4, sinon ça se met en colonne.
     pspictQuestion,figQuestion = SinglePicture("TangenteQuestionOM",script_filename="RechercheTangente")
     pspictDetail,figDetail = SinglePicture("TangenteDetailOM",script_filename="RechercheTangente")
     pspictsSubFig,figSubFig = MultiplePictures("LesSubFiguresOM",n_ssfig)
@@ -96,3 +96,4 @@ def VGZooJnvvZc():
     pspictQuestion.DrawDefaultAxes()
     figQuestion.conclude()
     figQuestion.write_the_file()
+
