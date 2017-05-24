@@ -83,8 +83,8 @@ cd $CLONE_DIR/testing
 
 cd $CLONE_DIR
 # Poor man's multi-thread
-#compile_everything&
-#compile_frido
+compile_everything&
+compile_frido
 
 
 cd $MAIN_DIR
@@ -99,6 +99,3 @@ cat  $LOG_FILE
 
 echo "--------------------"
 echo "Beware that this is the result for the branch $1. I did not compile here."
-
-# remettre la liste des figures
-# remettre les compilations ici
