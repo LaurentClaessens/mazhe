@@ -15,8 +15,7 @@
 import os
 
 def pstricks_files_iterator(directory):
-    os.chdir(directory)
-    for f in os.listdir():
+    for f in os.listdir(directory):
         if f.endswith(".pstricks"):
             yield os.path.join(directory,f)
 

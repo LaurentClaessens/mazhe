@@ -141,7 +141,8 @@ def get_hexsha(repo):
 
 def set_commit_hexsha(A):
     import pygit2
-    repo=pygit2.Repository(".")
+    import os
+    repo=pygit2.Repository(os.getcwd())
     hexsha=str(get_hexsha(repo))
     if is_dirty(repo):
         hexsha=hexsha+" -- and slightly more"
@@ -189,4 +190,3 @@ def check_recall():
         print("There are wrong recall/pstricks files :")
         for f in wfl:
             print(f)
-        raise
