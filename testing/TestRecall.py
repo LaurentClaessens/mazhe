@@ -5,32 +5,39 @@
 # This script compares the files "*.pstricks" with the corresponding one 
 # "*.pstricks.recall" and prints a warning if they are not equal.
 
-# It is supposed to be launched from 'testing.sh' and 
-# assumes many stuff on the directory structure.
+# The directory passed as argument is the main directory of the
+# mazhe project.
+#
+# So, relative to the passed argument 
+# - '.pstricks' files to be checked are in `auto/pictures_tex`
+# - '.recall' files to be checked against are in `src_phystricks`
 
 import os
-import sys
-
-directory=sys.argv[1]
 
 def pstricks_files_iterator(directory):
     os.chdir(directory)
     for f in os.listdir():
         if f.endswith(".pstricks"):
-            yield f
+            yield os.path.join(directory,f)
 
 def wrong_file_list(directory):
+    src_phystricks_dir=os.path.join(directory,"src_phystricks")
+    auto_pictures_tex_dir=os.path.join(directory,"auto/pictures_tex")
     wfl=[]
-    for filename in pstricks_files_iterator(directory):
+    for filename in pstricks_files_iterator(auto_pictures_tex_dir):
         with open(filename,'r') as f:
             get_text=f.read()
         try :
-            with open(filename+".recall",'r') as f:
+            recall_filename=\
+                        os.path.join(src_phystricks_dir,filename+".recall")
+            with open(recall_filename,'r') as f:
                 recall_text=f.read()
         except FileNotFoundError as err :
             print("No recall file for ",filename)
-            print("See 'phystricks/testing/README.md' to know how to use 'test_recall.py'")
+            print("See 'phystricks/testing/README.md' \
+                                to know how to use 'test_recall.py'")
             recall_text=""
 
         if get_text != recall_text :
             wfl.append(filename)
+    return wfl

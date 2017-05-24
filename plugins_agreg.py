@@ -172,3 +172,21 @@ def assert_MonCerveau_first():
                 """.format(filename))
         raise
 
+def check_recall():
+    # import from the path name:
+# https://stackoverflow.com/questions/27381264/python-3-4-how-to-import-a-module-given-the-full-path
+    import sys,os
+    import importlib
+
+    module_path="testing/TestRecall.py"
+    sys.path.append(os.path.dirname(module_path))
+    module_name = os.path.splitext(os.path.basename(module_path))[0]
+    TestRecall = importlib.import_module(module_name)                       
+    sys.path.pop()
+
+    wfl=TestRecall.wrong_file_list(os.getcwd())
+    if wfl != []:
+        print("There are wrong recall/pstricks files :")
+        for f in wfl:
+            print(f)
+        raise
