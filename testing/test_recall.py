@@ -13,6 +13,10 @@ from TestRecall import wrong_file_list
 
 directory=sys.argv[0]
 
-for f in wrong_file_list(directory):
+mfl,wfl=wrong_file_list(directory)
+
+for f in mfl:
+    print("missing recall : ",f)
+for f in wfl:
     print("Wrong : ",f)
 
