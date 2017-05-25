@@ -36,3 +36,7 @@ Rename some testing scripts
 ## url
 
 Track death links.
+
+## pr
+
+Deal with the pull requests from github
