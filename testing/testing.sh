@@ -6,7 +6,7 @@
 # - no future references in 'mazhe'
 # - compile with no errors 'frido'
 # - compile with no errors 'mazhe'
-# - the '.pstricks' recompiled from the '.py' are equal to the '.recall'
+# - the '.pstricks' recompiled from the '.py' are equal to the '.recall' (only if "--full" is given as argument)
 # - git status clean
 
 # The fact that the '.pstricks' are equal to the '.recall'
@@ -16,6 +16,7 @@
 # If everything goes well (not yet implemented) :
 # - publish the results on my website.
 # - git push to github
+
 
 
 MAIN_DIR=`pwd`/..
@@ -75,14 +76,32 @@ compile_everything ()
     pytex lst_everything.py --verif --output=$LOG_FILE
 }
 
-cd $SRC_PHYSTRICKS
-./testing.sh
 
-cd $CLONE_DIR/testing
-./test_recall.py $AUTO_PICTURES_TEX >> $LOG_FILE
+test_death_links ()
+{
+    cd $CLONE_DIR/testing
+    ./test_death_links.py $CLONE_DIR --output=$LOG_FILE
+}
+
+
+test_picture ()
+{
+    cd $SRC_PHYSTRICKS
+    ./testing.sh
+
+    cd $CLONE_DIR/testing
+    ./test_recall.py $AUTO_PICTURES_TEX >> $LOG_FILE
+}
+
+
+if [[  "$@" == "--full"  ]]
+then
+    test_picture
+fi
 
 cd $CLONE_DIR
-compile_everything
+test_death_links&
+compile_everything&
 compile_frido
 
 

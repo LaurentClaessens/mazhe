@@ -35,4 +35,11 @@ Rename some testing scripts
 
 ## url
 
-Track death links.
+Ne faire les tests de figure que si "--full" est passé en argument de 'testing.sh'
+
+Track death links. 13,15,21
+PDFpersoWanadoo
+BezoutCos
+NjCCfW
+
+
