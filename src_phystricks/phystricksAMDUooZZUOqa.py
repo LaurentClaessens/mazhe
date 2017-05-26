@@ -33,3 +33,4 @@ def AMDUooZZUOqa():
     pspict.DrawGraphs(cercle,arc,angle,seg_theta,seg_sigma,P,Q)
     fig.conclude()
     fig.write_the_file()
+

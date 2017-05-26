@@ -42,3 +42,4 @@ def RGjjpwF():
     unDynkin("RGjjpwF",["$1$","","","",""])
 def STdyNTH():
     unDynkin("STdyNTH",["","","","","$1$"])
+

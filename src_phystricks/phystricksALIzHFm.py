@@ -14,7 +14,7 @@ def ALIzHFm():
     l1=cercle.get_tangent_segment(alpha).dilatation(2.5)
     l2=cercle.get_tangent_segment(180+alpha).dilatation(2.5)
 
-    l3=l1+AffineVector(P,Point(0,0))
+    l3=l1.translation(AffineVector(P,Point(0,0)))
     l3.parameters.style="dotted"
 
     P.put_mark(0.2,P.advised_mark_angle(pspict),"\( z_1\)",pspict=pspict,position="corner")
@@ -23,3 +23,4 @@ def ALIzHFm():
     pspict.DrawGraphs(cercle,P,Q,l1,l2,l3)
     fig.conclude()
     fig.write_the_file()
+

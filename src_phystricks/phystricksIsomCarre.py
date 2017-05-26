@@ -24,3 +24,4 @@ def IsomCarre():
     pspict.DrawGraphs(Carre,S,A,B,C,D,E)
     fig.conclude()
     fig.write_the_file()
+
