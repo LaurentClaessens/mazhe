@@ -37,8 +37,18 @@ Rename some testing scripts
 
 Track death links.
 
+Ne faire les tests de figure que si "--full" est passé en argument de 'testing.sh'
+
+Track death links. 13,15,21
+PDFpersoWanadoo
+BezoutCos
+NjCCfW
+
+
+
 ## pr
 
 Deal with the pull requests from github
 
 Lemme 3.22: il faudrait réfléchir à un meilleur placement de ce lemme. Il est général, pourquoi le mettre avec des choses Z-centrées?
+
