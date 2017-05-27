@@ -17,8 +17,8 @@ myRequest.original_filename="mazhe.tex"
 
 myRequest.ok_filenames_list=["e_mazhe"]
 myRequest.ok_filenames_list.extend(["46_groupes"])
-myRequest.ok_filenames_list.extend(["<++>"])
-myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["47_groupes"])
+myRequest.ok_filenames_list.extend(["48_StructAnneaux"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 
