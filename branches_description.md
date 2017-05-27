@@ -28,9 +28,9 @@ Rename some testing scripts
 
 ## bibi6
 
-- Ajouter dans la liste des contributeurs
+- Ajouter dans la liste des contributeurs.
 - Mettre ok les références restées vides.
--Include the work of bibi6
+- Include the work of bibi6.
 
 
 ## url
@@ -42,3 +42,7 @@ Track death links.
 Deal with the pull requests from github
 
 Lemme 3.22: il faudrait réfléchir à un meilleur placement de ce lemme. Il est général, pourquoi le mettre avec des choses Z-centrées?
+
+## pr
+
+Lire le diff de  https://github.com/LaurentClaessens/mazhe/pull/36
