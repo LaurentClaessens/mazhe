@@ -41,8 +41,13 @@ Track death links.
 
 Deal with the pull requests from github
 
-Lemme 3.22: il faudrait réfléchir à un meilleur placement de ce lemme. Il est général, pourquoi le mettre avec des choses Z-centrées?
 
 ## pr
 
 Lire le diff de  https://github.com/LaurentClaessens/mazhe/pull/36
+
+Modifiés : les fichiers 46_, 47_ et 48_
+
+Lemme 3.22: il faudrait réfléchir à un meilleur placement de ce lemme. Il est général, pourquoi le mettre avec des choses Z-centrées?
+
+Trouver la définition de groupe simple dans mazhe
