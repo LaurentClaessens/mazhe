@@ -28,17 +28,35 @@ Rename some testing scripts
 
 ## bibi6
 
-- Ajouter dans la liste des contributeurs
+- Ajouter dans la liste des contributeurs.
 - Mettre ok les références restées vides.
--Include the work of bibi6
+- Include the work of bibi6.
 
 
 ## url
 
 Track death links.
 
+Ne faire les tests de figure que si "--full" est passé en argument de 'testing.sh'
+
+Track death links. 13,15,21
+PDFpersoWanadoo
+BezoutCos
+NjCCfW
+
+
+
 ## pr
 
 Deal with the pull requests from github
 
+
+## pr
+
+Lire le diff de  https://github.com/LaurentClaessens/mazhe/pull/36
+
+Modifiés : les fichiers 46_, 47_ et 48_
+
 Lemme 3.22: il faudrait réfléchir à un meilleur placement de ce lemme. Il est général, pourquoi le mettre avec des choses Z-centrées?
+
+Trouver la définition de groupe simple dans mazhe
