@@ -18,9 +18,9 @@ def ASHYooUVHkak():
     Q=Point(t1,delta)
     R=Point(t2,delta)
 
-    m1=Segment(  P.translation(-v),P.translation(v)  )
-    m2=Segment(  Q.translation(-v),Q.translation(v)  )
-    m3=Segment(  R.translation(-v),R.translation(v)  )
+    m1=Segment(  P.translate(-v),P.translate(v)  )
+    m2=Segment(  Q.translate(-v),Q.translate(v)  )
+    m3=Segment(  R.translate(-v),R.translate(v)  )
 
     T=Point(t1,0)
     T.put_mark(0.2,text="\( t_1\)",pspict=pspict,position="N")
