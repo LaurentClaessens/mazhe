@@ -47,6 +47,9 @@ def file_to_url_iterator(filename):
     for line in text.split("\\url{")[1:]:
         url=line[0:line.find("}")]
         print(url)
+    for line in text.split("\\href{")[1:]:
+        url=line[0:line.find("}")]
+        print(url)
 
 # Tel quel, il ne liste pas mazhe.bib
 for f in tex_file_iterator(starting_path):
