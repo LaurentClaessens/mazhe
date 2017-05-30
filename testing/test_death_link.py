@@ -27,8 +27,6 @@ def tex_file_iterator(directory):
             for f in tex_file_iterator(path):
                 yield f
 
-
-print(starting_path)
-
+# Tel quel, il ne liste pas mazhe.bib
 for f in tex_file_iterator(starting_path):
     print(f)
