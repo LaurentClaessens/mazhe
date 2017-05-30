@@ -62,9 +62,25 @@ def _file_to_url_iterator(filename):
             if url is not "...":
                 yield url
 
+# List of death links that we don't care (because from other projects)
+useless_url=[]
+useless_url.append("http://xmaths.free.fr/1S/exos/1SstatexA2.pdf")
+useless_url.append("http://www.daniel-botton.fr/mathematiques/seconde/geometrie_plane/seconde_geometrie_plane_devoir.pdf")
+useless_url.append("<++>")
+useless_url.append("<++>")
+useless_url.append("<++>")
+
+def is_serious_url(url):
+    if url == r"\lstname":
+        return False
+    if url in useless_url :
+        return False
+    return True
+
+
 def file_to_url_iterator(filename):
     for url in _file_to_url_iterator(filename):
-        if url != r"\lstname":
+        if is_serious_url(url):
             yield url
 
             
@@ -76,7 +92,14 @@ def check_url_corectness(url,f):
         print("In ",f," : the url does not starts with an ascii character :")
         print(url)
 
+def is_death(url):
+    import requests
+    ret = requests.head(url)
+    return ret.status_code > 400
 
 for f in tex_file_iterator(starting_path):
     for url in file_to_url_iterator(f):
         check_url_corectness(url,f)
+        if is_death(url):
+            print("death link in ",f," :")
+            print(url)
