@@ -7,6 +7,7 @@
 
 import os
 import sys
+import string
 
 starting_path=os.path.abspath(sys.argv[1])
 
@@ -36,7 +37,7 @@ def tex_file_iterator(directory):
     for p in _tex_file_iterator(directory):
         yield p
 
-def file_to_url_iterator(filename):
+def _file_to_url_iterator(filename):
     """
     iterate over the url cited in 'filename'
     """
@@ -46,11 +47,36 @@ def file_to_url_iterator(filename):
 
     for line in text.split("\\url{")[1:]:
         url=line[0:line.find("}")]
-        print(url)
+        yield url
     for line in text.split("\\href{")[1:]:
         url=line[0:line.find("}")]
+        yield url
+
+    # La frime serait d'utiliser des vues de listes
+    # pour éviter la copie.
+    if filename.endswith("mazhe.bib"):
+        for line in text.split("url =")[1:]:
+            start=line.find('"')
+            end=line.find('"',2)
+            url=line[start+1:end]
+            if url is not "...":
+                yield url
+
+def file_to_url_iterator(filename):
+    for url in _file_to_url_iterator(filename):
+        if url != r"\lstname":
+            yield url
+
+            
+
+def check_url_corectness(url,f):
+    if url=="":
+        print("There is an empty URL in ",f)
+    if url[0] not in string.ascii_letters :
+        print("In ",f," : the url does not starts with an ascii character :")
         print(url)
 
-# Tel quel, il ne liste pas mazhe.bib
+
 for f in tex_file_iterator(starting_path):
-    file_to_url_iterator(f)
+    for url in file_to_url_iterator(f):
+        check_url_corectness(url,f)
