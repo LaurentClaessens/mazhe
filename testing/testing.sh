@@ -108,6 +108,8 @@ compile_frido
 cd $MAIN_DIR
 git status >> $LOG_FILE
 
+wait
+
 cd $CLONE_DIR
 
 
