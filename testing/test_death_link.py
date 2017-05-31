@@ -55,6 +55,7 @@ mainbib = "mazhe.bib"
 
 
 def exclude_dir(directory):
+    # subdirectory 'build' is created by '<mazhe>/testing/testing.sh'
     if "build" in directory:
         return True
     if ".git" in directory :
@@ -78,7 +79,7 @@ def tex_file_iterator(directory):
     Provides 'mazhe.bib' and then the '.tex' files in the
     directory (recursive).
     """
-    bib = os.path.join(directory, bib)
+    bib = os.path.join(directory, mainbib)
     if os.path.exists(bib) and os.path.isfile(bib):
         yield bib
     for p in _tex_file_iterator(directory):
@@ -145,7 +146,7 @@ if __name__ == '__main__':
     for f in tex_file_iterator(starting_path):
         for url in file_to_url_iterator(f):
             check_url_corectness(url,f)
-            if not is_death(url):
+            if not is_not_dead(url):
                 # FIXME we should print the line also
-                print("death link in ", f, " :")
+                print("dead link in ", f, " :")
                 print(url)
