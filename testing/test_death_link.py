@@ -111,18 +111,17 @@ def _file_to_url_iterator(filename):
             if url is not "...":
                 yield url
 
-# List of death links that we don't care (because from other projects)
-useless_url = []
-useless_url.append("http://xmaths.free.fr/1S/exos/1SstatexA2.pdf")
-useless_url.append("http://www.daniel-botton.fr/mathematiques/seconde/geometrie_plane/seconde_geometrie_plane_devoir.pdf")
-useless_url.append("<++>")
-useless_url.append("<++>")
-useless_url.append("<++>")  # ? why different versions?
+# List of broken links for which the author is already contacted,
+# so we do not check these urls.
+contacted_author = []
+contacted_author.append("http://www.sebastien-pellerin.fr/zfiles/agreg/devanalyse.pdf")
+contacted_author.append("http://www.sebastien-pellerin.fr/zfiles/agreg/devalgebre.pdf")
+contacted_author.append("http://dynamaths.free.fr/docs/lecons/developpement_algebre_6.pdf")
 
 def is_serious_url(url):
     if url == r"\lstname":
         return False
-    if url in useless_url :
+    if url in contacted_author :
         return False
     return True
 
