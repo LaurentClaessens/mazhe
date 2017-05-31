@@ -117,6 +117,13 @@ contacted_author = []
 contacted_author.append("http://www.sebastien-pellerin.fr/zfiles/agreg/devanalyse.pdf")
 contacted_author.append("http://www.sebastien-pellerin.fr/zfiles/agreg/devalgebre.pdf")
 contacted_author.append("http://dynamaths.free.fr/docs/lecons/developpement_algebre_6.pdf")
+contacted_author.append("http://www.ceremade.dauphine.fr/~mgubi/e1112/pd3.pdf")
+contacted_author.append("http://www.rblld.fr/cours/chap8.pdf")
+contacted_author.append("http://www.rblld.fr/cours/chap6.pdf")
+contacted_author.append("http://www.iecn.u-nancy.fr/~kurtzman/cours/agreg/esperance-conditionnelle.pdf")
+contacted_author.append("http://www.dms.umontreal.ca/~math1600/6Supplement/Normematricielle-1.pdf")
+
+
 
 def is_serious_url(url):
     if url == r"\lstname":
