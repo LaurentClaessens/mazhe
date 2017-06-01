@@ -122,7 +122,8 @@ contacted_author.append("http://www.rblld.fr/cours/chap8.pdf")
 contacted_author.append("http://www.rblld.fr/cours/chap6.pdf")
 contacted_author.append("http://www.iecn.u-nancy.fr/~kurtzman/cours/agreg/esperance-conditionnelle.pdf")
 contacted_author.append("http://www.dms.umontreal.ca/~math1600/6Supplement/Normematricielle-1.pdf")
-
+contacted_author.append("http://perso.eleves.bretagne.ens-cachan.fr/~pmonm570/fichiers/1-total.pdf")
+contacted_author.append("http://li.perso.math.cnrs.fr/textes/Integration/change-v.pdf")
 
 
 def is_serious_url(url):
