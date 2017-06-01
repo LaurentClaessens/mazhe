@@ -16,8 +16,7 @@ myRequest.add_plugin(plugins_agreg.set_isFrido,"before_pytex")
 myRequest.original_filename="mazhe.tex"
 
 myRequest.ok_filenames_list=["e_mazhe"]
-myRequest.ok_filenames_list.extend(["148_numerique"])
-myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["48_StructAnneaux"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 
