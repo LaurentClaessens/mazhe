@@ -98,7 +98,7 @@ test_picture ()
 
 if [[  "$@" == "--pictures"  ]] || [[  "$@" == "--full"  ]]
 then
-    test_picture&
+    test_picture
 fi
 
 if [[  "$@" == "--dead_links"  ]] || [[  "$@" == "--full"  ]]
