@@ -60,3 +60,11 @@ Modifiés : les fichiers 46_, 47_ et 48_
 Lemme 3.22: il faudrait réfléchir à un meilleur placement de ce lemme. Il est général, pourquoi le mettre avec des choses Z-centrées?
 
 Trouver la définition de groupe simple dans mazhe
+
+## rep
+
+2 - oui, E( P(A|X) ) = P(A). Démo, par les propriétés de l'espérance conditionnelle, E( P(A|X) ) = E( E (1_A|X) ) = E (1_A)= P(A), où 1_A est l'indicatrice de l'événement A.
+4 - la question n'a pas forcément de sens en toute généralité : la compacité dépend de la topologie, qui n'a pas de raison d'être lié à la mesure. Étant donnée une mesure, il n'y a pas de façon naturelle de lui associer une topologie. En revanche, l'inverse a un sens : la définition des Borelliens n'est pas restreinte à R^n. Étant donné un espace topologique, par définition, la tribu borellienne est la tribu qui est engendrée par les ouverts de la topologie. Ensuite, on peut mettre n'importe quelle mesure sur cette tribu, et il n'y a pas de raison qu'elle soit de masse finie sur des compacts. Par exemple, on peut prendre [0,1] muni de la tribu borellienne et de la mesure dont la densité par rapport à la mesure de Lebesgue est f(x) = 1/x, la masse de [0,1], pourtant compact, est infinie.
+7 - c'est faux. Contre-exemple : prenons Z=XY, avec X et Y indépendants égaux à + ou - 1 avec proba 1/2. Alors E(XY|Z) = Z et E(X|Z) = E(Y|Z) = 0.
+8 - E(X) = m n'implique absolument pas que P(X=m-a) = P(X=m+a). Contre exemple : X = 1 ou 3 avec proba 1/4 chacun et -2 avec proba 1/2. Alors E(X) = 0 mais P(X=-k) est différent de P(X=k) pour k = 1,2,3. Ensuite, quand on fait le TCL et qu'on regarde X_n = (somme des X_i, i =1..n)/racine de n, première remarque : P(X_n = a) pour tout a tend vers 0 puisque la gaussienne est à densité. Ensuite, P(X_n<-a) converge vers la même quantité que P(X_n >a), puisque la gaussienne est symétrique, mais il n'y a aucune raison qu'il y ait égalité pour un n donné.
+
