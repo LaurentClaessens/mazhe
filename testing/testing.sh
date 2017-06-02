@@ -98,18 +98,16 @@ test_picture ()
 
 if [[  "$@" == "--pictures"  ]] || [[  "$@" == "--full"  ]]
 then
-    echo "testing picture"
-    test_picture
+    test_picture&
 fi
 
 if [[  "$@" == "--dead_links"  ]] || [[  "$@" == "--full"  ]]
 then
-    echo "testing dead"
     test_death_links&
 fi
 
-#compile_everything&
-#compile_frido
+compile_everything&
+compile_frido
 
 
 cd $MAIN_DIR

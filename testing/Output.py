@@ -9,6 +9,8 @@ The point is to use `output` instead of `print` for the lines which have to
 be displayed as summary.
 """
 
+import os,sys
+
 class SummaryOutput(object):
     """
     This class serves to replace `print` for the summary messages
@@ -53,7 +55,8 @@ def args_to_output(args):
     If no "--output" is found, returns the usual 'print' function.
     """
     for arg in args :
-        filename=arg.split("=")[1]
-        return SummaryOutput(FileOutput(filename))
+        if arg.startswith("--output="):
+            filename=arg.split("=")[1]
+            return SummaryOutput(FileOutput(filename))
     return print
 

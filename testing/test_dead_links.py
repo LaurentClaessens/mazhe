@@ -10,7 +10,7 @@ import os,sys,string
 
 from Output import args_to_output
 
-outpur=args_to_output(sys.argv)
+output=args_to_output(sys.argv)
 
 try:
     import requests
