@@ -82,7 +82,7 @@ compile_everything ()
 test_death_links ()
 {
     cd $CLONE_DIR/testing
-    ./test_death_links.py $CLONE_DIR --output=$LOG_FILE
+    ./test_dead_links.py $CLONE_DIR --output=$LOG_FILE
 }
 
 
@@ -108,8 +108,8 @@ then
     test_death_links&
 fi
 
-compile_everything&
-compile_frido
+#compile_everything&
+#compile_frido
 
 
 cd $MAIN_DIR
