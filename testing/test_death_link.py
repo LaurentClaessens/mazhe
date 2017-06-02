@@ -6,9 +6,11 @@ r""" Read all the .tex files in the current directory, and check *every* link.
 - The directory passed as argument is the main directory of the mazhe project.
 """
 
-import os
-import sys
-import string
+import os,sys,string
+
+from Output import args_to_output
+
+outpur=args_to_output(sys.argv)
 
 try:
     import requests
@@ -142,10 +144,10 @@ def file_to_url_iterator(filename):
 
 def check_url_corectness(url,f):
     if url=="":
-        print("There is an empty URL in ",f)
+        output("There is an empty URL in ",f)
     if url[0] not in string.ascii_letters :
-        print("In ",f," : the url does not starts with an ascii character :")
-        print(url)
+        output("In ",f," : the url does not starts with an ascii character :")
+        output(url)
 
 
 # Run script
@@ -155,5 +157,5 @@ if __name__ == '__main__':
             check_url_corectness(url,f)
             if not is_not_dead(url):
                 # FIXME we should print the line also
-                print("dead link in ", f, " :")
-                print(url)
+                output("dead link in ", f, " :")
+                output(url)
