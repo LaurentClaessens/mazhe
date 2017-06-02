@@ -96,19 +96,17 @@ test_picture ()
 }
 
 
-if [[  "$@" == "--picture"  ]] or [[  "$@" == "--full"  ]]
+if [[  "$@" == "--pictures"  ]] || [[  "$@" == "--full"  ]]
 then
     echo "testing picture"
     test_picture
 fi
 
-if [[  "$@" == "--dead_links"  ]] or [[  "$@" == "--full"  ]]
+if [[  "$@" == "--dead_links"  ]] || [[  "$@" == "--full"  ]]
 then
     echo "testing dead"
     test_death_links&
 fi
-
-exit
 
 compile_everything&
 compile_frido
