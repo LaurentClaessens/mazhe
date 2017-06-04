@@ -68,3 +68,6 @@ Trouver la définition de groupe simple dans mazhe
 7 - c'est faux. Contre-exemple : prenons Z=XY, avec X et Y indépendants égaux à + ou - 1 avec proba 1/2. Alors E(XY|Z) = Z et E(X|Z) = E(Y|Z) = 0.
 8 - E(X) = m n'implique absolument pas que P(X=m-a) = P(X=m+a). Contre exemple : X = 1 ou 3 avec proba 1/4 chacun et -2 avec proba 1/2. Alors E(X) = 0 mais P(X=-k) est différent de P(X=k) pour k = 1,2,3. Ensuite, quand on fait le TCL et qu'on regarde X_n = (somme des X_i, i =1..n)/racine de n, première remarque : P(X_n = a) pour tout a tend vers 0 puisque la gaussienne est à densité. Ensuite, P(X_n<-a) converge vers la même quantité que P(X_n >a), puisque la gaussienne est symétrique, mais il n'y a aucune raison qu'il y ait égalité pour un n donné.
 
+## vecto
+
+On croyait rêver : le chapitre sur les espaces vectoriels parle de dérivabilité, Cinfini et tout ça ...
