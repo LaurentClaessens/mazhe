@@ -16,12 +16,13 @@ myRequest.add_plugin(plugins_agreg.set_isFrido,"before_pytex")
 myRequest.original_filename="mazhe.tex"
 
 myRequest.ok_filenames_list=["e_mazhe"]
+myRequest.ok_filenames_list.extend(["79_inversion_locale"])
+myRequest.ok_filenames_list.extend(["60_EspacesVecto"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
-myRequest.ok_filenames_list.extend(["135_mesure"])
-myRequest.ok_filenames_list.extend(["168_questionsFrido"])
-myRequest.ok_filenames_list.extend(["92_vars_al"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 
