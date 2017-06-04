@@ -71,3 +71,10 @@ Trouver la définition de groupe simple dans mazhe
 ## vecto
 
 On croyait rêver : le chapitre sur les espaces vectoriels parle de dérivabilité, Cinfini et tout ça ...
+
+## url
+Track death links. 13,15,21
+PDFpersoWanadoo
+BezoutCos
+NjCCfW
+
