@@ -16,7 +16,7 @@ def CWKJooppMsZXjw():
     seg=Segment( O,Z  )
 
     ang=AngleAOB(Z,O,X)
-    ang.put_mark(0.2,angle=None,added_angle=0,text="\( \\arg(z)\)",pspict=pspict)
+    ang.put_mark(0.5,angle=None,added_angle=0,text="\( \\arg(z)\)",pspict=pspict)
 
     pspict.DrawGraphs(v,seg,Z,ang)
 
