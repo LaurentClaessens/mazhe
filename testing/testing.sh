@@ -6,7 +6,7 @@
 # - no future references in 'mazhe'
 # - compile with no errors 'frido'
 # - compile with no errors 'mazhe'
-# - the '.pstricks' recompiled from the '.py' are equal to the '.recall'
+# - the '.pstricks' recompiled from the '.py' are equal to the '.recall' (only if "--full" is given as argument)
 # - git status clean
 
 # The fact that the '.pstricks' are equal to the '.recall'
@@ -16,6 +16,7 @@
 # If everything goes well (not yet implemented) :
 # - publish the results on my website.
 # - git push to github
+
 
 
 MAIN_DIR=`pwd`/..
@@ -65,29 +66,54 @@ touch  $LOG_FILE
 
 compile_frido ()
 {
+    cd $CLONE_DIR
     pytex lst_frido.py --no-external --output=$LOG_FILE
     pytex lst_frido.py --verif  --output=$LOG_FILE
 }
 
 compile_everything ()
 {
+    cd $CLONE_DIR
     pytex lst_everything.py --no-external --output=$LOG_FILE
     pytex lst_everything.py --verif --output=$LOG_FILE
 }
 
-cd $SRC_PHYSTRICKS
-./testing.sh
 
-cd $CLONE_DIR/testing
-./test_recall.py $AUTO_PICTURES_TEX >> $LOG_FILE
+test_death_links ()
+{
+    cd $CLONE_DIR/testing
+    ./test_dead_links.py $CLONE_DIR --output=$LOG_FILE
+}
 
-cd $CLONE_DIR
-compile_everything
+
+test_picture ()
+{
+    cd $SRC_PHYSTRICKS
+    ./testing.sh
+
+    cd $CLONE_DIR/testing
+    ./test_recall.py $AUTO_PICTURES_TEX >> $LOG_FILE
+}
+
+
+if [[  "$@" == "--pictures"  ]] || [[  "$@" == "--full"  ]]
+then
+    test_picture
+fi
+
+if [[  "$@" == "--dead_links"  ]] || [[  "$@" == "--full"  ]]
+then
+    test_death_links&
+fi
+
+compile_everything&
 compile_frido
 
 
 cd $MAIN_DIR
 git status >> $LOG_FILE
+
+wait
 
 cd $CLONE_DIR
 

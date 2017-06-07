@@ -20,6 +20,8 @@ myRequest.ok_filenames_list.extend(["182_numerique"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
 
 myRequest.ok_filenames_list.extend(["134_choses_finales"])
 myRequest.ok_filenames_list.extend(["157_thematique"])
