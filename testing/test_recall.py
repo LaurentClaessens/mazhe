@@ -11,9 +11,14 @@
 import sys
 from TestRecall import wrong_file_list
 
-directory=sys.argv[0]
+directory=sys.argv[1]
 
-mfl,wfl=wrong_file_list(directory)
+try:
+    mfl,wfl=wrong_file_list(directory)
+except NotADirectoryError :
+    print("[test_recall.py] the passed directory does not exist")
+    raise
+
 
 for f in mfl:
     print("missing recall : ",f)

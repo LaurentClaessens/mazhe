@@ -29,7 +29,6 @@ def wrong_file_list(directory):
     auto_pictures_tex_dir=os.path.join(directory,"auto/pictures_tex")
     wfl=[]  # wrong file list
     mfl=[]  # missing file list
-    print("src_phystricks_dir : ",src_phystricks_dir)
     for filename in pstricks_files_iterator(auto_pictures_tex_dir):
         with open(filename,'r') as f:
             get_text=f.read()
