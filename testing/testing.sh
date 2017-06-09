@@ -61,9 +61,6 @@ cd $BUILD_DIR
 rm $LOG_FILE
 touch  $LOG_FILE
 
-# Frido's compilation is together with everything's verification
-# because we want to balance the two threads.
-
 compile_frido ()
 {
     cd $CLONE_DIR
@@ -93,8 +90,10 @@ test_picture ()
 
     cd $CLONE_DIR/testing
     ./test_recall.py $AUTO_PICTURES_TEX >> $LOG_FILE
+    if [ $? -eq 1 ]; then
+        echo "test_recall.py had a problem " >> $LOG_FILE
+    fi
 }
-
 
 if [[  "$@" == "--pictures"  ]] || [[  "$@" == "--full"  ]]
 then
