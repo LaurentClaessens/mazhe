@@ -89,7 +89,7 @@ test_picture ()
     ./testing.sh
 
     cd $CLONE_DIR/testing
-    ./test_recall.py $AUTO_PICTURES_TEX >> $LOG_FILE
+    ./test_recall.py $BUILD_DIR >> $LOG_FILE
     if [ $? -eq 1 ]; then
         echo "test_recall.py had a problem " >> $LOG_FILE
     fi
