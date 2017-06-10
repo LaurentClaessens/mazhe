@@ -89,7 +89,7 @@ test_picture ()
     ./testing.sh
 
     cd $CLONE_DIR/testing
-    ./test_recall.py $BUILD_DIR >> $LOG_FILE
+    ./test_recall.py $CLONE_DIR >> $LOG_FILE
     if [ $? -eq 1 ]; then
         echo "test_recall.py had a problem " >> $LOG_FILE
     fi
@@ -105,21 +105,20 @@ then
     test_death_links&
 fi
 
-compile_everything&
-compile_frido
+#compile_everything&
+#compile_frido
 
 
 cd $MAIN_DIR
-git status >> $LOG_FILE
 
 wait
 
 cd $CLONE_DIR
 
 
-echo "Result : -----------"
+echo "log file : $LOG_FILE "
+echo "----------------"
 
 cat  $LOG_FILE 
 
 echo "--------------------"
-echo "Beware that this is the result for the branch $1. I did not compile here."
