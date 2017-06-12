@@ -1,6 +1,6 @@
 from phystricks import *
 def ExerciceGraphesbis():
-    fig = GenericFigure("Exercicebis")
+    fig = GenericFigure("ExerciceGraphesbis")
 
     ssfig1 = fig.new_subfigure("","cosinus")
     pspict1 = ssfig1.new_pspicture("cosinus")
