@@ -286,11 +286,9 @@ def append_picture(fun,number):
         figures_list_3.append(fun)
 
 
-
 append_picture(UUNEooCNVOOs,3)
 append_picture(NOCGooYRHLCn,3)
 append_picture(YQIDooBqpAdbIM,3)
-
 append_picture(SurfacePrimiteGeog,2)
 append_picture(XOLBooGcrjiwoU,2)
 append_picture(DynkinrjbHIu,2)

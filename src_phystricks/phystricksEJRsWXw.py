@@ -10,8 +10,8 @@ def EJRsWXw():
     B=S+(2,2)
 
     trig=Polygon(S,A,B)
-    trig.parameters.hatched()
-    trig.parameters.hatch.color="green"
+    trig.hatched()
+    trig.hatch_parameters.color="green"
 
     s1=Segment(A,B)
     t1=Segment(S,A)

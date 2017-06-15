@@ -13,15 +13,15 @@ def FWJuNhU():
     C3=Rectangle( Point(0,0),Point(-l,-l) )
     C4=Rectangle( Point(dist,-dist),Point(l,-l) )
 
-    C1.parameters.color="blue"
-    C2.parameters.color="red"
-    C3.parameters.color="cyan"
-    C4.parameters.color="green"
+    C1.edges_parameters.color="blue"
+    C2.edges_parameters.color="red"
+    C3.edges_parameters.color="cyan"
+    C4.edges_parameters.color="green"
 
-    C1.parameters.style="dashed"
-    C2.parameters.style=C1.parameters.style
-    C2.parameters.style=C1.parameters.style
-    C4.parameters.style=C1.parameters.style
+    C1.edges_parameters.style="dashed"
+    C2.edges_parameters.style=C1.edges_parameters.style
+    C2.edges_parameters.style=C1.edges_parameters.style
+    C4.edges_parameters.style=C1.edges_parameters.style
 
     a1=C1.center()
     a1.parameters.symbol=""
