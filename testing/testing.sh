@@ -66,12 +66,14 @@ touch  $LOG_FILE
 
 compile_frido ()
 {
+    cd $CLONE_DIR
     pytex lst_frido.py --no-external --output=$LOG_FILE
     pytex lst_frido.py --verif  --output=$LOG_FILE
 }
 
 compile_everything ()
 {
+    cd $CLONE_DIR
     pytex lst_everything.py --no-external --output=$LOG_FILE
     pytex lst_everything.py --verif --output=$LOG_FILE
 }
@@ -80,7 +82,7 @@ compile_everything ()
 test_death_links ()
 {
     cd $CLONE_DIR/testing
-    ./test_death_links.py $CLONE_DIR --output=$LOG_FILE
+    ./test_dead_links.py $CLONE_DIR --output=$LOG_FILE
 }
 
 
@@ -94,13 +96,16 @@ test_picture ()
 }
 
 
-if [[  "$@" == "--full"  ]]
+if [[  "$@" == "--pictures"  ]] || [[  "$@" == "--full"  ]]
 then
     test_picture
 fi
 
-cd $CLONE_DIR
-test_death_links&
+if [[  "$@" == "--dead_links"  ]] || [[  "$@" == "--full"  ]]
+then
+    test_death_links&
+fi
+
 compile_everything&
 compile_frido
 
