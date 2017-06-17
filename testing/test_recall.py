@@ -9,19 +9,23 @@
 # - '.recall' files to be checked against are in `src_phystricks`
 
 import sys
-from TestRecall import wrong_file_list
+import os
+import importlib
+
+# Get the directory name of 'phystricks'
+pkg_loader = importlib.find_loader('phystricks')
+phystricks_dir=os.path.split(pkg_loader.path)[0]
+
+# Append to 'sys.path' the name of the directory in which is 'TestRecall.py'
+test_recall_file=os.path.join(phystricks_dir,"testing/recall_tests/TestRecall.py")
+sys.path.append(os.path.dirname(test_recall_file))
+
+# Import 'TestRecall'
+TestRecall = importlib.import_module("TestRecall")
 
 directory=sys.argv[1]
 
-try:
-    mfl,wfl=wrong_file_list(directory)
-except NotADirectoryError :
-    print("[test_recall.py] the passed directory does not exist")
-    raise
+pstricks_directory=os.path.join(directory,"auto/pictures_tex")
+recall_directory=os.path.join(directory,"src_phystricks")
 
-
-for f in mfl:
-    print("missing recall : ",f)
-for f in wfl:
-    print("Wrong : ",f)
-
+TestRecall.check_pictures(pstricks_directory,recall_directory)
