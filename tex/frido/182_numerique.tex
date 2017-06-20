@@ -1364,7 +1364,7 @@ où les \( s_i\) sont des nombres parfaitement connus : par exemple \( s_1=\sin(
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Nous allons considérer le système
-\begin{equation}        
+\begin{equation}                \label{SYSooTANLooRgnIMp}
      \begin{cases}
          -\Delta u=f    &   \text{sur } \Omega\\
          u=g            &   \text{sur } \partial\Omega
@@ -1372,6 +1372,139 @@ Nous allons considérer le système
 \end{equation}
 où \( \Omega=\mathopen] 0 , a \mathclose[\times \mathopen] 0 , b \mathclose[\).
 
-Nous discrétisons \( \Omega\) en mailles carrés de côté \( h\) : \( x_k=kkh\) et \( y_k=kh\).
+\begin{remark}
+    Pourquoi un signe moins devant le laplacien ? Pour avoir le corollaire \ref{CORooZFBXooVGuhQD} qui dira que la matrice correspondant aux différences finies appliquées à ce système est une M-matrice. Sinon, c'est la matrice \(-L_h\) qui en serait une.
+\end{remark}
+
+Nous discrétisons \( \Omega\) en mailles carrés de côté \( h\) : \( x_k=kkh\) et \( y_k=kh\). L'opération de dérivée partielle \( \partial_x\) est discrétisée par
+\begin{equation}
+    (D_x^+u)(x,y)=\frac{ u(x+h)-u(x,y) }{ h }
+\end{equation}
+ou
+\begin{equation}
+    (D_x^-u)(x,y)=\frac{ u(x,y)-u(x-h,y) }{ h }
+\end{equation}
+ou
+\begin{equation}
+    (D^0_xu)(x,y)=\frac{ u(x+h,y)-u(x-h,y) }{ 2h }
+\end{equation}
+où le \( h\) est sous-entendu dans les opérateurs \( D^0\), \( D^+\) et \( D^-\).
+
+La dérivée partielle seconde \( \partial^2_xu\) peut être approximée par toutes les combinaisons imaginable, par exemple
+\begin{equation}
+    (D^-_xD^+_xu)(x,y)=\frac{ u(x+h,y)-2u(x,y)+u(x-h,y) }{ h^2 }.
+\end{equation}
+Pour évaluer la différence entre \( (\partial^2_xu)(x,y)\) et \( (D^-D^+u)(x,y)\), il est possible de faire du Taylor en deux dimension, mais nous pouvons également recycler ce qui a été fait. Nous posons \( u_y(x)=u(x,y)\) et alors \( (\partial_x^2u)(x,y)=u_y''(x)\) et le lemme \ref{LEMooZECZooVKxOZZ}\ref{ITEMooRWUHooZJLKuL} donne, si \( u_y\) est de classe \( C^4\),
+\begin{equation}
+    | u_y''(x)-D^-D^+u_y(x) |\leq \frac{1}{ 12 }h^2\| u_y^{(4)} \|_{\infty}.
+\end{equation}
+Là, les opérateurs \( D^+\) et \( D^-\) sont ceux à une dimension. Mais nous avons \( (D^-D^+u_y)(x)=(D^-D^+u)(x,y)\) (à droite ce sont les opérateurs à deux dimension), donc
+\begin{equation}
+    \big| (\partial^2_xu)(x,y)-(D^-D^+u)(x,y) \big|\leq \frac{1}{ 12 }h^2\| \partial^4_xu \|_{\infty}
+\end{equation}
+et nous pouvons écrire
+\begin{equation}
+    (\partial^2_xu)(x,y)=(D^-D^+u)(x,y)+h^2R(x,y,h)
+\end{equation}
+où \( R\) est une fonction qui dépend de \( x\), \( y\) et \( h\), mais aussi de \( u\). Le point important est que \( R\) soit majoré par une quantité indépendante de \( h\), de telle sorte que nous ayons quelque garanties que négliger ce terme soit une bonne approximation lorsque \( h\to 0\).
+
+Au niveau de la discrétisation, nous considérons \( x_i\) avec \( i=0,\ldots, N_x\) et \( y_j\) avec \( j=0,\ldots, N_y\). La discrétisation de \( -(\Delta u)(x,y)=f(x,y)\) donne, pour \( i=1,\ldots, N_x-1\) et \( j=1,\ldots, N_y-1\),
+\begin{equation}        \label{EQooPWXBooPimUrU}
+    \frac{1}{ h^2 }(-u_{i+1,j}+4u_{ij}-u_{i-1,j}-u_{i,j+1}+u_{i,j-1})=f_{ij}.
+\end{equation}
+Les équations avec \( i\) ou \( j\) valant \( 0\) ou \( N_x\), \( N_y\) sont les valeurs au bords.
+
+Les équations \eqref{EQooPWXBooPimUrU} forment un système d'équations linéaires à résoudre. Certaines peuvent être simplifiées parce qu'elles «touchent» le bord. Nous verrons cela un peu plus tard.
+
+Nous allons d'abord numéroter correctement les équations de façon à ne pas avoir deux mais un seul indice. Notre fonction de numérotation sera
+\begin{equation}
+    \varphi(i,j)=(j-1)(N_x-1)+i
+\end{equation}
+avec \( i=1,\ldots, N_x-1\) et \( j=1,\ldots, N_y-1\). Cela correspond à numéroter les points de l'intérieur du quadrillage ligne par ligne en bas en haut et de gauche à droite. Avec cela les équations \eqref{EQooPWXBooPimUrU} vont être numérotées par un seul indice \( I\) allant de \( \varphi(1,1)=1\) à \( \varphi(N_x-1,N_y-1)=(N_x-1)(N_y-1)\).
+
+Si \( I=\varphi(i,j)\) alors nous avons vite
+\begin{subequations}
+    \begin{align}
+        \varphi(i+1,j)&=I+1\\
+        \varphi(i,j+1)&=I+N_x-1\\
+        \varphi(i-1,j)&=I-1\\
+        \varphi(i,j-1)&=I-N_x+1.
+    \end{align}
+\end{subequations}
+Nous posons \( U_I=u_{\varphi^{-1}(I)}\), et l'équation \eqref{EQooPWXBooPimUrU} devient 
+\begin{equation}
+    \frac{1}{ h^2 }(-U_{I+1}+4U_I-U_{I-1}-U_{I+N_x-1}-U_{I-N_x+1})=f_I.
+\end{equation}
+Pour savoir la matrice représentant ce système, nous devons simplifier les équations qui doivent l'être. Par exemple avec \( I=1\), le terme \( U_{I-1}=U_0\) vaut \( u_{0,1}=f_01\). Ce n'est donc pas réellement une inconnue de notre problème.
+
+Nous voulons mettre les équations sous la forme du système
+\begin{equation}
+    L_hU=F.
+\end{equation}
+Sur la ligne numéro \( I\) de \( L_h\), les éléments non nuls sont :
+\begin{subequations}        \label{SUBEQQooSRQNooYrCNhj}
+    \begin{align}
+        L_{I,I}=4\\
+        L_{I,I+1}=-1\\
+        L_{I,I-1}=-1\\
+        L_{I,I+N_x-1}=-1\\
+        L_{I,I-N_x+1}=-1
+    \end{align}
+\end{subequations}
+pour peu qu'ils existent. Par exemple pour \( I=1\), il n'y a pas d'éléments \( L_{I,I-1}\). Les indices \( I\) et \( J\) de \( L_{I,J}\) vont de \( 1\) à \( \varphi(N_x-1,N_y-1)=(N_y-1)(N_x-1)\).
+
+Voici un dessin de notre situation :
+
+\begin{center}
+   \input{auto/pictures_tex/Fig_GMRNooCNBpIl.pstricks}
+\end{center}
+
+À chaque élément du quadrillage correspond une équation. 
+\begin{itemize}
+    \item 
+        Aux points simples sur le bord, correspondent des équations triviales parce que la fonction \(u \) y est directement donnée par les conditions aux bords.
+    \item
+        Aux points étoilés entourés en traits continus correspondent des équations «incomplètes» parce que certains termes de l'équation \eqref{EQooPWXBooPimUrU} sont donnés par les conditions aux bords. Elle correspondent aussi aux lignes incomplète de la matrice \( L_h\) où certains éléments donnés en \eqref{SUBEQQooSRQNooYrCNhj} n'existent pas.
+
+        Le membre de droite de ces équations est par contre enrichi de ce qui à gauche est «donné».
+
+    \item
+        Au points étoilés du centre entourés en traits discontinus correspondent des équations complètes.
+
+\end{itemize}
+
+Notons que \( f_{00}\) ne joue aucun rôle dans notre histoire parce que dans les équations \eqref{EQooPWXBooPimUrU}, chaque point \( (i,j)\) du maillage n'est liée qu'aux quatre points situés «à côté».
 
 
+\begin{proposition} \label{PROPooWGTRooVjWhYY}
+    La matrice \(L_h\) est irréductible et à diagonale dominante\footnote{Définition \ref{DEFooLSUTooHuXabV}.}.
+\end{proposition}
+
+\begin{proof}
+    Une matrice \( n\times n\) dont les deux premières diagonales sont entièrement composées d'éléments non nuls est toujours irréductible. En effet, la première lie l'élément \( (1,2)\) à l'élément \( (n-1,n)\) et donc permet de dire que tous les \( i<j\) sont connectés.
+
+    La seconde diagonale lie l'élément \( (n,n-1)\) à l'élément \( (2,1)\).
+
+    En ce qui concerne la dominance de la diagonale, il faut sommer sur les lignes. Or chaque ligne contient (en valeur absolue) un \( 4\) sur la diagonale et \( 4\) éléments qui valent \( 1\). D'où
+    \begin{equation}
+        | L_{II} |\geq \sum_{J\neq I}| L_{IJ} |.
+    \end{equation}
+\end{proof}
+
+Notons que \( L_h\) est le plus souvent à diagonale fortement dominante parce que dès qu'une ligne est «incomplète», la diagonale domine.
+
+\begin{corollary}       \label{CORooZFBXooVGuhQD}
+    La matrice \( L_h\) est
+    \begin{enumerate}
+        \item
+            Une M-matrice
+        \item
+            inversible avec \( L_{h}>0\)
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    D'après ce que nous venons de voir (proposition \ref{PROPooWGTRooVjWhYY}), le théorème \ref{THOooLZGSooSevggj} fonctionne et \( L_h\) est une M-matrice\footnote{Notons que c'est ici que nous sommes content d'avoir posé \( -\Delta u=f\) dans le système \eqref{SYSooTANLooRgnIMp}, avec un signe négatif devant le laplacien. Sinon tous le signes auraient changé et la matrice \( -L_h\) aurait été une M-matrice au lieu de \( L_h\).}.
+
+    La proposition \ref{PROPooZDMQooIZAbKK} nous assure qu'une M-matrice irréductible est d'inverse strictement positif. Donc \( L_h^{-1}>0\).
+\end{proof}
