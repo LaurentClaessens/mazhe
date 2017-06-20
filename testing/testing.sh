@@ -118,9 +118,9 @@ wait
 cd $CLONE_DIR
 
 
-echo "log file : $LOG_FILE "
 echo "----------------"
 
 cat  $LOG_FILE 
 
 echo "--------------------"
+echo "Find all the results in $LOG_FILE"
