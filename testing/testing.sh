@@ -11,6 +11,8 @@
 
 # The fact that the '.pstricks' are equal to the '.recall'
 # is checked at each compilation in 'lst_frido.py'
+# For that, the directory of 'phystricks' must be in $PYTONPATH,
+# see test_recall.py
 
 
 # If everything goes well (not yet implemented) :

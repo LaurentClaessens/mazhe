@@ -8,13 +8,18 @@
 # - '.pstricks' files to be checked are in `auto/pictures_tex`
 # - '.recall' files to be checked against are in `src_phystricks`
 
+
+# This script only works when the directory of 'phystricks' is in
+# $PYTHONPATH
+# The reason is that we need to import 'TestRecall'
+
 import sys
 import os
-import importlib
+import importlib.util
 
-# Get the directory name of 'phystricks'
-pkg_loader = importlib.find_loader('phystricks')
-phystricks_dir=os.path.split(pkg_loader.path)[0]
+# Get the path in which to find the module 'phystricks'
+spec=importlib.util.find_spec('phystricks')
+phystricks_dir=spec.submodule_search_locations[0]
 
 # Append to 'sys.path' the name of the directory in which is 'TestRecall.py'
 test_recall_file=os.path.join(phystricks_dir,"testing/recall_tests/TestRecall.py")
