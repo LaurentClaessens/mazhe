@@ -8,8 +8,8 @@ def ExoXLVL():
 
     C1=Rectangle( Point(-l,l),Point(-dist,dist) )
     C2=Rectangle( Point(0,0),Point(l,l) )
-    C3=Rectangle( Point(0,0),Point(-l,-l) )
-    C4=Rectangle( Point(dist,-dist),Point(l,-l) )
+    C3=Rectangle( Point(-dist,-dist),Point(-l,-l) )
+    C4=Rectangle( Point(0,0),Point(l,-l) )
 
     C1.edges_parameters.color="blue"
     C2.edges_parameters.color="red"
@@ -17,9 +17,9 @@ def ExoXLVL():
     C4.edges_parameters.color="green"
 
     C1.edges_parameters.style="dashed"
-    C2.edges_parameters.style=C1.edges_parameters.style
-    C2.edges_parameters.style=C1.edges_parameters.style
-    C4.edges_parameters.style=C1.edges_parameters.style
+    C3.edges_parameters.style=C1.edges_parameters.style
+    #C2.edges_parameters.style=C1.edges_parameters.style
+    #C4.edges_parameters.style=C1.edges_parameters.style
 
     a1=C1.center()
     a1.parameters.symbol=""

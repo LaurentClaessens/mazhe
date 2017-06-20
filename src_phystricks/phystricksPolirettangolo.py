@@ -23,6 +23,7 @@ def Polirettangolo():
         rect.edges_parameters.style="dotted"
 
     for rect in [R1,R2,R3]:
+        rect.hatched()
         rect.edges_parameters=R.edges_parameters.copy()
         rect.hatch_parameters=R.hatch_parameters.copy()
 

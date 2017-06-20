@@ -7,7 +7,7 @@ def BQXKooPqSEMN():                # ex SurfaceDerive  (February 2016)
 	x0 = 5
 	dx = 1
 	x=var('x')
-	f = phyFunction(-((x+0.5)/3)**2+4+x).graph(mx,Mx)
+	f = phyFunction(-((x+0.5)/3)**2+1+x).graph(mx,Mx)
 	f.parameters.color="brown"
 
 	P=f.get_point(x0)
