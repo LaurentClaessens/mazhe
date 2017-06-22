@@ -8,8 +8,6 @@ from phystricks import *
 import sys
 
 from phystricksGMRNooCNBpIl import GMRNooCNBpIl 
-
-
 from phystricksCWKJooppMsZXjw import CWKJooppMsZXjw
 from phystricksDNRRooJWRHgOCw import DNRRooJWRHgOCw
 from phystricksDNHRooqGtffLkd import DNHRooqGtffLkd
@@ -551,7 +549,7 @@ append_picture(DGFSooWgbuuMoB,1)
 append_picture(ZOCNoowrfvQXsr,1)
 append_picture(UCDQooMCxpDszQ,1)
 
-append_picture(GMRNooCNBpIll,2)
+append_picture(GMRNooCNBpIl,2)
 
 """
 append_picture(<++>,1)
