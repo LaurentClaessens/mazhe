@@ -415,9 +415,9 @@ La règle de troncature adoptée dans Sage est d'arrondir au nombre pair le plus
 		Les opérations délicates sont l'addition et la soustraction. La multiplication et la division sont sans dangers, à part l'erreur de dépassement du maximum. Dans une multiplication, on perd au pire quelque chiffres significatifs, mais certainement les derniers, pas les premiers.
 \end{enumerate}
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Erreur de ``cancellation''}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Erreur de ``cancellation''}
+%---------------------------------------------------------------------------------------------------------------------------
 
 Lorsque deux nombres sont de même ordre de grandeur, avec plusieurs nombres significatifs identiques. La cancellation est le fait que, suite à la soustraction, tous les chiffres significatifs ou presque se sont simplifiés et qu'il ne reste plus que des chiffres non significatifs. 
 
@@ -518,6 +518,33 @@ Quitte à redéfinir \( x_1\) et \( x_2\), la solution bien calculée est :
 
 Les erreurs de cancellation ne se résolvent pas en augmentant la précision des nombres donnés.
 
+\begin{example}[Dans la vie réelle]
+    La préparation de l'exemple \ref{EXooJXIGooQtotMc} nous a porté à calculer la différence entre \( \exp(x)\) et \( f_{30}(x)\) où \( f_{30}\) est censée être une bonne approximation de l'exponentielle. Des erreurs de cancellation sont donc à craindre.
+
+Et en effet, le code suivant produit un résultat non déterministe :
+\lstinputlisting{tex/sage/sageSnip016.sage}
+
+Voir la question ici :\\ \url{https://ask.sagemath.org/question/37946/undeterministic-numerical-approximation/}
+
+\end{example}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Calcul d'une dérivée}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Pour calculer la dérivée de \( f\) en \( a\), il est loisible d'utiliser la formule
+\begin{equation}
+    f'(a)=\lim_{h\to 0} \frac{ f(a+h)-f(a) }{ h }.
+\end{equation}
+Le numérateur est alors sujet à une erreur d'absorption dans le calcul de \( a+h\) et ensuite une erreur de cancellation dans le calcul de la différence.
+
+En utilisant la formule
+\begin{equation}
+    f'(a)=\lim_{h\to 0} \frac{ f(a+h)-f(a-h) }{ 2h }
+\end{equation}
+nous pouvons espérer avoir une erreur de cancellation plus petite.
+
+
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Erreur d'absorption}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -535,22 +562,6 @@ Une situation particulièrement ennuyeuse est celle où justement c'est le petit
 qui ne possède qu'un seul chiffre significatif correct alors que voyant le calcul, la réponse aurait pu être trouvée.
 
 Moralité : si certains manipulations algébrique peuvent faire apparaître des simplifications avant de passer le calcul à la machine, il est bon de les effectuer.
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Calcul d'une dérivée}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Pour calculer la dérivée de \( f\) en \( a\), il est loisible d'utiliser la formule
-\begin{equation}
-    f'(a)=\lim_{h\to 0} \frac{ f(a+h)-f(a) }{ h }.
-\end{equation}
-Le numérateur est alors sujet à une erreur d'absorption dans le calcul de \( a+h\) et ensuite une erreur de cancellation dans le calcul de la différence.
-
-En utilisant la formule
-\begin{equation}
-    f'(a)=\lim_{h\to 0} \frac{ f(a+h)-f(a-h) }{ 2h }
-\end{equation}
-nous pouvons espérer avoir une erreur de cancellation plus petite.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Conditionnement et stabilité}
