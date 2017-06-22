@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+from sage.all import arccos
 from phystricks import *
 def GMIooJvcCXg():
     pspict,fig = SinglePicture("GMIooJvcCXg")
