@@ -29,7 +29,7 @@ def UEGEooHEDIJVPn():
         segV.parameters.style="dashed"
         pspict.DrawGraphs(P,Q,S,segH,segV)
 
-    pspict.axes.no_numbering()
+    pspict.axes.no_graduation()
     pspict.DrawDefaultAxes()
     fig.no_figure()
     fig.conclude()
