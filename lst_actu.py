@@ -19,8 +19,6 @@ myRequest.ok_filenames_list=["e_mazhe"]
 myRequest.ok_filenames_list.extend(["78_inversion_locale"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
-myRequest.ok_filenames_list.extend(["<++>"])
-myRequest.ok_filenames_list.extend(["<++>"])
 
 myRequest.ok_filenames_list.extend(["134_choses_finales"])
 myRequest.ok_filenames_list.extend(["157_thematique"])
