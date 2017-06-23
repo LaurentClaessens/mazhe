@@ -334,7 +334,13 @@ L'existence d'extrema locaux se prouve généralement en invoquant de la compaci
 \subsection{Algorithme du gradient à pas optimal}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Une idée pour trouver un minimum à une fonction est de prendre un point \( p\) au hasard, calculer le gradient \(\nabla f(p) \) et suivre la direction \(-\nabla f(p)\) tant que ça descend. Une fois qu'on est «dans le creux», recalculer le gradient et continuer ainsi. Nous allons détailler cet algorithme dans un cas très particulier.
+Une idée pour trouver un minimum à une fonction est de prendre un point \( p\) au hasard, calculer le gradient \(\nabla f(p) \) et suivre la direction \(-\nabla f(p)\) tant que ça descend. Une fois qu'on est «dans le creux», recalculer le gradient et continuer ainsi.
+
+Nous allons détailler cet algorithme dans un cas très particulier d'une matrice \( A\) symétrique et strictement définie positive. 
+\begin{itemize}
+    \item Dans la proposition \ref{PROPooYRLDooTwzfWU} nous montrons que résoudre le système linéaire \( Ax=-b\) est équivalent à minimiser une certaine fonction.
+    \item La proposition \ref{PropSOOooGoMOxG} donnera une méthode itérative pour trouver ce minimum.
+\end{itemize}
 
 \begin{definition}  \label{DefQXPooYSygGP}
     Si \( X\) est un espace vectoriel normé et \( f\colon X\to \eR\cup\{ \pm\infty \}\) nous disons que \( f\) est \defe{coercive}{coercive} sur le domaine non borné \( P\) de \( X\) si pour tout \( M\in \eR\), l'ensemble
@@ -348,6 +354,7 @@ En langage imagé la coercivité de \( f\) s'exprime par la limite
     \lim_{\substack{\| x \|\to \infty\\x\in P}}f(x)=+\infty.
 \end{equation}
 
+Nous rappelons que \( S^{++}(n,\eR)\) est l'ensemble des matrice symétriques strictement définies positives définies en \ref{NORMooAJLHooQhwpvr}.
 \begin{proposition}     \label{PROPooYRLDooTwzfWU}
     Soit \( A\in S^{++}(n,\eR)\) et \( b\in \eR^n\). Nous considérons l'application
     \begin{equation}
@@ -356,16 +363,33 @@ En langage imagé la coercivité de \( f\) s'exprime par la limite
             x&\mapsto \frac{ 1 }{2}\langle Ax, x\rangle +\langle b, x\rangle . 
         \end{aligned}
     \end{equation}
-    Il existe un unique \( \bar x\in \eR^n\) minimisant \( f\) et il vérifie \( A\bar x=-b\).
+    Alors :
+    \begin{enumerate}
+        \item
+            Il existe un unique \( \bar x\in \eR^n\) tel que \( A\bar x=-b\).
+        \item
+            Il existe un unique \( x^*\in \eR^n\) minimisant \( f\).
+        \item
+            Ils sont égaux : \( \bar x=x^*\).
+    \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-    La fonction est strictement convexe par la proposition \ref{PropHRLooTqIJPS} parce que elle est de classe \( C^2\) et vu que
-    \begin{equation}
-        f(x)=\frac{ 1 }{2}\sum_{kl}A_{kl}x_lx_k+\sum_kb_kx_k
-    \end{equation}
-    il est vite vu que \( \frac{ \partial^2f }{ \partial x_i\partial x_j }=A_{ij}\), c'est à dire que \( A\) est la matrice hessienne de \( f\). Cette matrice étant strictement définie positive par hypothèse, la fonction \( f\) est strictement convexe.
 
+    Une matrice symétrique strictement définie positive est inversible, entre autres parce qu'elle se diagonalise par des matrices orthogonales (qui sont inversibles) et que la matrice diagonalisée est de déterminant non nul : tous les éléments diagonaux sont strictement positifs. Voir le théorème spectral symétrique \ref{ThoeTMXla}.
+
+    D'où l'unicité du \( \bar x\) résolvant le système \( Ax=-b\) pour n'importe quel \( b\).
+
+    \begin{subproof}
+    \item[\( f\) est strictement convexe]
+        
+        Nous utilisons la proposition \ref{PropHRLooTqIJPS}. La fonction \( f\) s'écrit
+    \begin{equation}
+        f(x)=\frac{ 1 }{2}\sum_{kl}A_{kl}x_lx_k+\sum_kb_kx_k.
+    \end{equation}
+    Elle est de classe \( C^2\) sans problèmes, et il est vite vu que \( \frac{ \partial^2f }{ \partial x_i\partial x_j }=A_{ij}\), c'est à dire que \( A\) est la matrice hessienne de \( f\). Cette matrice étant définie positive par hypothèse, la fonction \( f\) est convexe.
+
+\item[\( f\) est coercive]
     Montrons à présent que \( f\) est coercive. Nous avons :
     \begin{subequations}
         \begin{align}
@@ -375,6 +399,7 @@ En langage imagé la coercivité de \( f\) s'exprime par la limite
         \end{align}
     \end{subequations}
     Pour la dernière ligne nous avons nommé \( \lambda_{max}\) la plus grande valeur propre de \( A\) et utilisé Cauchy-Schwarz pour le second terme. Nous avons donc bien \( | f(x) |\to \infty\) lorsque \( \| x \|\to\infty\) et la fonction \( f\) est coercive.
+    \end{subproof}
 
     Soit \( M\) une valeur atteinte par \( f\). L'ensemble
     \begin{equation}

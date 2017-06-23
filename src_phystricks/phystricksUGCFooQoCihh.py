@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+from sage.all import factorial
 from phystricks import *
 
 def proba(l,k):
@@ -6,7 +7,6 @@ def proba(l,k):
 
 def UGCFooQoCihh():
     pspict,fig = SinglePicture("UGCFooQoCihh")
-    #pspict.dilatation_X(1)
     pspict.dilatation_Y(10)
 
     l=2
@@ -19,5 +19,3 @@ def UGCFooQoCihh():
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()
-
-

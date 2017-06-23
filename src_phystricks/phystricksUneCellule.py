@@ -52,8 +52,8 @@ def UneCellule():
 
     cellule=Rectangle(Point(sigma1[3],sigma2[1]),
                                         Point(sigma1[4],sigma2[2])  )
-    cellule.parameters.filled()
-    cellule.parameters.fill.color="lightgray"
+    cellule.filled()
+    cellule.fill_parameters.color="lightgray"
     pspict.DrawGraphs(cellule)
 
     pspict.axes.no_graduation()

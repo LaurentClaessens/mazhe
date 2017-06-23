@@ -32,9 +32,9 @@ def TriangleUV():
     t.put_mark(0.1,n.advised_mark_angle(pspict),"\( T\)",pspict=pspict)
 
     Trig=Polygon(O,A,B)
-    Trig.parameters.style="none"
-    Trig.parameters.hatched()
-    Trig.parameters.hatch.color="blue"
+    Trig.edges_parameters.style="none"
+    Trig.hatched()
+    Trig.hatch_parameters.color="blue"
 
     pspict.axes.no_graduation()
     pspict.DrawGraphs(Trig,u,v,n,t)

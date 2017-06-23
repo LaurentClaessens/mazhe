@@ -2,12 +2,11 @@
 from phystricks import *
 def BIFooDsvVHb():
     pspict,fig = SinglePicture("BIFooDsvVHb")
-    pspict.dilatation_X(1.5)
-    pspict.dilatation_Y(1.5)
+    pspict.dilatation(2)
 
     O=Point(0,0)
     cercle=Circle(  O,1 )
-    P=cercle.get_point(30)
+    P=cercle.get_point(55)
     Y=Point(0,P.y)
     X=Point(P.x,0)
 

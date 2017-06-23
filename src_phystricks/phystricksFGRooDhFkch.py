@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+from sage.all import arcsin
 from phystricks import *
 def FGRooDhFkch():
     pspict,fig = SinglePicture("FGRooDhFkch")

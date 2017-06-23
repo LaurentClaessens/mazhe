@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+from sage.all import binomial
 from phystricks import *
 
 def proba(n,p,k):

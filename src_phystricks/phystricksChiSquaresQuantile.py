@@ -1,3 +1,4 @@
+from sage.all import RealDistribution
 from phystricks import *
 def ChiSquaresQuantile():
     pspict,fig = SinglePicture("ChiSquaresQuantile")

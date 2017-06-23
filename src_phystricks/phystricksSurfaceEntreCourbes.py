@@ -13,10 +13,10 @@ def SurfaceEntreCourbes():
     pspicts[2].mother.caption=u"La surface entre les deux fonctions."
 
     x=var('x')
-    mx=-0.5
-    Mx=2.5
-    f1 = phyFunction(3*(x-1)**2+3).graph(mx,Mx)
-    f2 = phyFunction(-3*(x-1)**2+8).graph(mx,Mx)
+    mx=0.1
+    Mx=2.3
+    f1 = phyFunction(3*(x-1.25)**2+3).graph(mx,Mx)
+    f2 = phyFunction(-3*(x-1.25)**2+8).graph(mx,Mx)
 
     intersection=Intersection(f1,f2)
     i1=intersection[0].x
@@ -40,14 +40,9 @@ def SurfaceEntreCourbes():
     moyenne_surface.parameters.fill.color="red"
 
 
-    #grande_surface.parameters.color="brown"
-    #petite_surface.parameters.color="cyan"
-    #moyenne_surface.parameters.color="red"
-
-
-    pspicts[0].DrawGraphs(f1,f2,grande_surface)
+    pspicts[0].DrawGraphs(grande_surface,f1,f2)
     pspicts[1].DrawGraphs(f1,f2,petite_surface)
-    pspicts[2].DrawGraphs(f1,f2,moyenne_surface)
+    pspicts[2].DrawGraphs(moyenne_surface,f1,f2)
 
     for psp in pspicts :
         psp.DrawGraphs(A,B)

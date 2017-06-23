@@ -19,7 +19,7 @@ def IsomCarre():
     E.put_mark(0.1,45,"\( s\)",pspict=pspict)
     E.parameters.symbol=""
     Carre=Rectangle(A,C)
-    Carre.parameters.color="blue"
+    Carre.edges_parameters.color="blue"
 
     pspict.DrawGraphs(Carre,S,A,B,C,D,E)
     fig.conclude()

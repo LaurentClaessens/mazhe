@@ -18,8 +18,8 @@ def ZTTooXtHkci():
     D=Point(0,-1)
 
     regV=Polygon(A,B,C,D)
-    regV.parameters.hatched()
-    regV.parameters.hatch.color="red"
+    regV.hatched()
+    regV.hatch_parameters.color="red"
 
     K=Point(-2,2)
     L=Point(2,2)
@@ -27,8 +27,8 @@ def ZTTooXtHkci():
     N=Point(-1,1)
 
     regU=Polygon(K,L,M,N)
-    regU.parameters.hatched()
-    regU.parameters.hatch.color="blue"
+    regU.hatched()
+    regU.hatch_parameters.color="blue"
 
     pspicts[0].DrawGraphs(regV)
     pspicts[1].DrawGraphs(regU)

@@ -8,8 +8,6 @@ from phystricks import *
 import sys
 
 from phystricksGMRNooCNBpIl import GMRNooCNBpIl 
-
-
 from phystricksCWKJooppMsZXjw import CWKJooppMsZXjw
 from phystricksDNRRooJWRHgOCw import DNRRooJWRHgOCw
 from phystricksDNHRooqGtffLkd import DNHRooqGtffLkd
@@ -277,24 +275,6 @@ from phystricksPVJooJDyNAg import PVJooJDyNAg
 from phystricksVANooZowSyO import VANooZowSyO
 from phystricksXTGooSFFtPu import XTGooSFFtPu
 
-
-# Naming inconstancies fixing.   February 26, 2016
-#   SurfaceDerive  replaced by BQXKooPqSEMN
-#   ArcCercleAngle replaced by ooIHLPooKLIxcH
-
-# Suppression août 2014
-#from figure_devoir1 import exercice1A1
-#from figure_devoir1 import exercice1A2
-#from figure_devoir1 import exercice4
-#from phystricksExerciceGraphes import ExerciceGraphes              # Remplacé par ACUooQwcDMZ
-#from phystricksIntCourbePolaire import IntCourbePolaire
-#from phystricksExoCourone import ExoCourone
-#from phystricksExampleChangementVariables import ExampleChangementVariables
-#from phystricksAIFsOQO import AIFsOQO  # Il n'est pas dans le fichier phystricksAIFsOQO.
-#from phystricksDessinExp import DessinExp
-#from phystricksDS2010exo1 import DS2010exo1
-#from phystricksDS2010bisExoGraph import DS2010bisExoGraph
-
 figures_list_1=[]
 figures_list_2=[]
 figures_list_3=[]
@@ -307,11 +287,9 @@ def append_picture(fun,number):
         figures_list_3.append(fun)
 
 
-
 append_picture(UUNEooCNVOOs,3)
 append_picture(NOCGooYRHLCn,3)
 append_picture(YQIDooBqpAdbIM,3)
-
 append_picture(SurfacePrimiteGeog,2)
 append_picture(XOLBooGcrjiwoU,2)
 append_picture(DynkinrjbHIu,2)
@@ -537,8 +515,8 @@ append_picture(TangentSegment,2)
 append_picture(PONXooXYjEot,2)
 
 append_picture(FXVooJYAfif,1)
-append_picture(VGZooJnvvZc,1)
-append_picture(LYORooNKDHqt,1)
+append_picture(VGZooJnvvZc,2)
+append_picture(LYORooNKDHqt,2)
 append_picture(TKXZooLwXzjS,1)
 append_picture(YQVHooYsGLHQ,1)
 append_picture(ZGUDooEsqCWQ,1)
@@ -563,15 +541,15 @@ append_picture(SpiraleLimite,1)
 append_picture(Cardioid,1)
 append_picture(ArcLongueurFinesse,1)
 append_picture(SenoTopologo,1)
-append_picture(TraceCycloide,1)
+append_picture(TraceCycloide,2)
 append_picture(Osculateur,1)
 append_picture(JGuKEjH,1)
-append_picture(ExerciceGraphesbis,1)
+append_picture(ExerciceGraphesbis,2)
 append_picture(DGFSooWgbuuMoB,1)
 append_picture(ZOCNoowrfvQXsr,1)
 append_picture(UCDQooMCxpDszQ,1)
 
-append_picture(GMRNooCNBpIll,2)
+append_picture(GMRNooCNBpIl,2)
 
 """
 append_picture(<++>,1)

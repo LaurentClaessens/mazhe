@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+from sage.all import cosh,sinh
 from phystricks import *
 def UNVooMsXxHa():
     pspict,fig = SinglePicture("UNVooMsXxHa")

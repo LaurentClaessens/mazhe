@@ -24,7 +24,8 @@ def AMDUooZZUOqa():
     M.put_mark(0.3,M.advised_mark_angle(pspict),"$\sigma(t)$",pspict=pspict)
 
     angle=AngleAOB(P,O,Q,r=0.5)
-    angle.put_mark(0.2,None,r"$\theta$",pspict=pspict)
+    #angle.put_mark(0.2,None,r"$\theta$",pspict=pspict)
+    angle.put_mark(text=r"$\theta$",pspict=pspict)
     seg_theta=Segment(O,P)
     seg_sigma=Segment(O,Q)
     

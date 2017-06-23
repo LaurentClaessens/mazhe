@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+from sage.all import sinh,cosh
 from phystricks import *
 def SYNKooZBuEWsWw():
     pspict,fig = SinglePicture("SYNKooZBuEWsWw")

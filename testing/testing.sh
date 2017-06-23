@@ -11,6 +11,8 @@
 
 # The fact that the '.pstricks' are equal to the '.recall'
 # is checked at each compilation in 'lst_frido.py'
+# For that, the directory of 'phystricks' must be in $PYTONPATH,
+# see test_recall.py
 
 
 # If everything goes well (not yet implemented) :
@@ -61,9 +63,6 @@ cd $BUILD_DIR
 rm $LOG_FILE
 touch  $LOG_FILE
 
-# Frido's compilation is together with everything's verification
-# because we want to balance the two threads.
-
 compile_frido ()
 {
     cd $CLONE_DIR
@@ -92,9 +91,11 @@ test_picture ()
     ./testing.sh
 
     cd $CLONE_DIR/testing
-    ./test_recall.py $AUTO_PICTURES_TEX >> $LOG_FILE
+    ./test_recall.py $CLONE_DIR >> $LOG_FILE
+    if [ $? -eq 1 ]; then
+        echo "test_recall.py had a problem " >> $LOG_FILE
+    fi
 }
-
 
 if [[  "$@" == "--pictures"  ]] || [[  "$@" == "--full"  ]]
 then
@@ -106,21 +107,20 @@ then
     test_death_links&
 fi
 
-compile_everything&
-compile_frido
+#compile_everything&
+#compile_frido
 
 
 cd $MAIN_DIR
-git status >> $LOG_FILE
 
 wait
 
 cd $CLONE_DIR
 
 
-echo "Result : -----------"
+echo "----------------"
 
 cat  $LOG_FILE 
 
 echo "--------------------"
-echo "Beware that this is the result for the branch $1. I did not compile here."
+echo "Find all the results in $LOG_FILE"

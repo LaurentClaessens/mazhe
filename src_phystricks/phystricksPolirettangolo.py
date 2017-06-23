@@ -16,13 +16,16 @@ def Polirettangolo():
     R1=Rectangle(P2,P3)
     R2=Rectangle(P4,P5)
     R3=Rectangle(P6,P7)
-    R.parameters.hatched()
-    R.parameters.hatch.color="red"
+    R.hatched()
+    R.hatch_parameters.color="red"
+
     for rect in [R,R1,R2,R3]:
-        rect.edge_model.parameters.style="dotted"
-    R1.parameters=R.parameters.copy()
-    R2.parameters=R.parameters.copy()
-    R3.parameters=R.parameters.copy()
+        rect.edges_parameters.style="dotted"
+
+    for rect in [R1,R2,R3]:
+        rect.hatched()
+        rect.edges_parameters=R.edges_parameters.copy()
+        rect.hatch_parameters=R.hatch_parameters.copy()
 
     pspict.DrawGraphs(R,R1,R2,R3)
     
@@ -31,4 +34,3 @@ def Polirettangolo():
     pspict.DrawDefaultAxes()
     fig.conclude()
     fig.write_the_file()
-
