@@ -107,8 +107,8 @@ then
     test_death_links&
 fi
 
-#compile_everything&
-#compile_frido
+compile_everything&
+compile_frido
 
 
 cd $MAIN_DIR
