@@ -26,10 +26,10 @@ def KKRooHseDzC():
     surface.parameters.hatch.color="blue"
 
     rectangle=Rectangle(P,Q)
-    rectangle.parameters.hatched()
-    rectangle.parameters.hatch.color="red"
-    rectangle.parameters.color="red"
-    rectangle.parameters.style="dashed"
+    rectangle.hatched()
+    rectangle.hatch_parameters.color="red"
+    rectangle.edges_parameters.color="red"
+    rectangle.edges_parameters.style="dashed"
 
     pspict.DrawGraphs(surface,f,rectangle,P,Px,Q)
     pspict.axes.no_graduation()

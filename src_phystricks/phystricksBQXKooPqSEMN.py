@@ -7,7 +7,7 @@ def BQXKooPqSEMN():                # ex SurfaceDerive  (February 2016)
 	x0 = 5
 	dx = 1
 	x=var('x')
-	f = phyFunction(-((x+0.5)/3)**2+4+x).graph(mx,Mx)
+	f = phyFunction(-((x+0.5)/3)**2+1+x).graph(mx,Mx)
 	f.parameters.color="brown"
 
 	P=f.get_point(x0)
@@ -22,10 +22,10 @@ def BQXKooPqSEMN():                # ex SurfaceDerive  (February 2016)
         surface.parameters.hatched()
 	surface.parameters.hatch.color="blue"
 	rectangle=Rectangle(P,Q)
-	rectangle.parameters.hatched()
-	rectangle.parameters.hatch.color="red"
-	rectangle.parameters.color="red"
-	rectangle.parameters.style="dashed"
+	rectangle.hatched()
+	rectangle.hatch_parameters.color="red"
+	rectangle.edges_parameters.color="red"
+	rectangle.edges_parameters.style="dashed"
 	
 
 	pspict.DrawGraphs(surface,f,rectangle,P,Px,Q)

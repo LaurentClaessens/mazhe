@@ -10,7 +10,7 @@ def Cardioideexo():
 	O=Point(0,0)
 	Q=curve.get_point(pi/4)
 	rect=Rectangle(O,P)
-	rect.parameters.color="lightgray"
+	rect.edges_parameters.color="lightgray"
 
 	C1=Circle(O,1)
 	C2=Circle(O,2)
@@ -19,7 +19,7 @@ def Cardioideexo():
 
 	seg=Segment(O,Q)
 	seg.parameters.style="dashed"
-	seg.parameters.color=rect.parameters.color
+	seg.parameters.color=rect.edges_parameters.color
 
 	pspict.DrawGraphs(C1,C2,curve,rect,seg,P,Q)
 	pspict.DrawDefaultAxes()

@@ -1,3 +1,4 @@
+from sage.all import binomial
 from phystricks import *
 def MaxVraissLp():
     pspict,fig = SinglePicture("MaxVraissLp")

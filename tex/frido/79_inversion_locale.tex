@@ -3,338 +3,17 @@
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Algorithme du gradient à pas optimal}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Recherche d'extrema}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Extrema à une variable}
-%---------------------------------------------------------------------------------------------------------------------------
+Une idée pour trouver un minimum à une fonction est de prendre un point \( p\) au hasard, calculer le gradient \(\nabla f(p) \) et suivre la direction \(-\nabla f(p)\) tant que ça descend. Une fois qu'on est «dans le creux», recalculer le gradient et continuer ainsi.
 
-\begin{definition}
-Soit $f\colon A\subset \eR\to \eR$ et $a\in A$. Le point $a$ est un \defe{maximum local}{maximum!local} de $f$ s'il existe un voisinage $\mU$ de $a$ tel que $f(a)\geq f(x)$ pour tout $x\in\mU\cap A$. Le point $a$ est un \defe{maximum global}{maximum!global} si $f(a)\geq g(x)$ pour tout $x\in A$.
-\end{definition}
-
-La proposition basique à utiliser lors de la recherche d'extrema est la suivante :
-\begin{proposition}     \label{PROPooNVKXooXtKkuz}
-Soit $f\colon A\subset\eR\to \eR$ et $a\in\Int(A)$. Supposons que $f$ est dérivable en $a$. Si $a$ est un \href{http://fr.wikipedia.org/wiki/Extremum}{extremum} local, alors $f'(a)=0$.
-\end{proposition}
-
-La réciproque n'est pas vraie, comme le montre l'exemple de la fonction $x\mapsto x^3$ en $x=0$ : sa dérivée est nulle et pourtant $x=0$ n'est ni un maximum ni un minimum local. 
-
-Cette proposition ne sert donc qu'à sélectionner des \emph{candidats} extremum. Afin de savoir si ces candidats sont des extrema, il y a la proposition suivante.
-\begin{proposition}
-Soit $f\colon I\subset \eR\to \eR$, une fonction de classe $C^k$ au voisinage d'un point $a\in\Int I$. Supposons que
-\begin{equation}
-    f'(a)=f''(a)=\ldots=f^{(k-1)}(a)=0,
-\end{equation}
-et que
-\begin{equation}
-    f^{(k)}(a)\neq 0.
-\end{equation}
-Dans ce cas,
-\begin{enumerate}
-
-\item
-Si $k$ est pair, alors $a$ est un point d'extremum local de $f$, c'est un minimum si $f^{(k)}(a)>0$, et un maximum si $f^{(k)}(a)<0$,
-\item
-Si $k$ est impair, alors $a$ n'est pas un extremum local de $f$.
-
-\end{enumerate}
-\end{proposition}
-
-Note : jusqu'à présent nous n'avons rien dit des extrema \emph{globaux} de $f$. Il n'y a pas grand chose à en dire. Si un point d'extremum global est situé dans l'intérieur du domaine de $f$, alors il sera extremum local (a fortiori). Ou alors, le maximum global peut être sur le bord du domaine. C'est ce qui arrive à des fonctions strictement croissantes sur un domaine compact.
-
-Une seule certitude : si une fonction est continue sur un compact, elle possède une minimum et un maximum global par le théorème \ref{ThoMKKooAbHaro}.
-
-Soit une fonction $f\colon I\to \eR$, et soit $a\in I$. Si $f'(a)>0$, alors la tangente au graphe de $f$ au point $\big( a,f(a) \big)$ sera une droite croissante (coefficient directeur positif). Cela ne veut pas spécialement dire que la fonction elle-même sera croissante, mais en tout cas cela est un bon indice.
-
-\begin{example}
-	Si $f(x)=x^2$, il est connu que $f'(x)=2x$. Nous avons donc que $f'$ est positive si $x\geq 0$ et $f'>$ est négative si $x<0$. Cela correspond bien au fait que $x^2$ est décroissante sur $\mathopen] -\infty , 0 \mathclose[$ et croissante sur $\mathopen] 0 , \infty \mathclose[$.
-\end{example}
- 
-Sur la figure \ref{LabelFigWIRAooTCcpOV}, nous avons dessiné la fonction $f(x)=x\cos(x)$ et sa dérivée. Nous voyons que partout où la dérivée est négative, la fonction est décroissante tandis que, inversement, partout où la dérivée est positive, la fonction est croissante.
-\newcommand{\CaptionFigWIRAooTCcpOV}{La fonction $f(x)=x\cos(x)$ en bleu et sa dérivée en rouge.}
-\input{auto/pictures_tex/Fig_WIRAooTCcpOV.pstricks}
-
-Les extrema de la fonction $f$ sont donc placés là où $f'$ change de signe. En effet si $f'(x)<0$ pour $x<a$ et $f'(x)>0$ pour $x>a$, la fonction est décroissante jusqu'à $a$ et est ensuite croissante. Cela signifie que la fonction connait un creux en $a$. Le point $a$ est donc un minimum de la fonction.
-
-Attention cependant. Le fait que $f'(a)=0$ ne signifie pas automatiquement que $f$ a un maximum ou un minimum en $a$. Nous avons par exemple tracé sur la figure \ref{LabelFigVBOIooRHhKOH} les fonctions $x^3$ et sa dérivée. Il est à noter que, conformément à ce que l'on pense, certes la dérivée s'annule en $x=0$, mais elle ne change pas de signe.
-
-\newcommand{\CaptionFigVBOIooRHhKOH}{La dérivée de $x^3$ s'annule en $x=0$, mais ce n'est ni un minimum ni un maximum.}
-\input{auto/pictures_tex/Fig_VBOIooRHhKOH.pstricks}
- 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Extrema libre}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{definition}      \label{DEFooYJLZooLkEAYf}
-Un point $a$ à l'intérieur du domaine d'une fonction $f\colon A\subset\eR^n\to \eR$ est un \defe{point critique}{critique!point} de $f$ lorsque $df(a)=0$. 
-\end{definition}
-
-Ces points sont analogues aux points où la dérivée d'une fonction sur $\eR$ s'annule. Les points critiques de $f$ sont dons les candidats à être des points d'extremum.
-
-Pour rappel, dans le cas d'une fonction à deux variables, $d^2f(a)$ est la matrice (et donc l'application linéaire)
-\begin{equation}
-    d^2f(a)=\begin{pmatrix}
-    \frac{ d^2f  }{ dx^2 }(a)   &   \frac{ d^2f  }{ dx\,dy }(a) \\ 
-    \frac{ d^2f  }{ dy\,dx }(a)     &   \frac{ d^2f  }{ dy^2 }(a)
-\end{pmatrix}.
-\end{equation}
-Dans le cas d'une fonction $C^2$, cette matrice est symétrique.
-
-\begin{proposition}[\cite{ooZSEQooEGRdCK}] \label{PropUQRooPgJsuz}
-    Soit un ouvert \( \Omega\) de \( \eR^n\) et \( a\in \Omega\). Soit une fonction \( f\colon \Omega\to \eR\) différentiable en \( a\). Si \( a\) est un extremum local de \( f\), alors \( a\) est un point critique de \( f\).
-\end{proposition}
-
-\begin{proof}
-    Nous supposons que \( a\) est un maximum local (ce sera la même chose si \( a\) est un minimum). Soit \( r>0\) tel que \( f(x)\leq f(a)\) pour tout \( x\in B(a,r)\) (et tel que cette boule reste dans \( \Omega\)). Soit \( u\in \eR^n\) assez petit pour que \( a\pm u\in B(a,r)\) de sorte que la définition suivante ait un sens :
-    \begin{equation}
-        \begin{aligned}
-            g\colon \mathopen[ -1 , 1 \mathclose]&\to \eR \\
-            t&\mapsto f(a+tu) 
-        \end{aligned}
-    \end{equation}
-    Cette fonction est différentiable en \( t=0\) (composée de fonctions différentiables, proposition \ref{PROPooBWZFooTxKavX}) et a un maximum local en \( t=0\). Donc \( g'(0)=0\) par la proposition \ref{PROPooNVKXooXtKkuz}. Donc
-    \begin{equation}
-        0=\Dsdd{ f(a+tu) }{t}{0}=df_a(u).
-    \end{equation}
-\end{proof}
-
-\begin{proposition}[\cite{ooOQEZooBaRMjY,MonCerveau}]     \label{PropoExtreRn}
-    Soit un ouvert \( \Omega\) de \( \eR^n\) et une fonction \( f\colon \Omega\to \eR\) de classe \( C^2\) ainsi que \( a\in\Omega\).
-    \begin{enumerate}
-        \item   \label{ITEMooCVFVooWltGqI}
-            Si $a$ est un point critique\footnote{Définition \ref{DEFooYJLZooLkEAYf}.} de $f$, et si $d^2f_a$ est \href{http://fr.wikipedia.org/wiki/Matrice_définie_positive}{strictement définie positive\footnote{La fonction \( f\) est de classe \( C^2\), donc les dérivées croisées sont égales et \( d^2f\) est symétrique. La définition \ref{DefAWAooCMPuVM} s'applique donc.}}, alors $a$ est un minimum local strict de $f$,
-        \item\label{ItemPropoExtreRn}
-            Si $a$ est un minimum local, alors $(d^2f)_a$ est semi définie positive.
-    \end{enumerate}
-\end{proposition}
-\index{extrema}
-
-\begin{proof}
-    Pour \ref{ItemPropoExtreRn}. Si \( a\) est un minimum local, nous savons déjà que \( df_a=0\) par la proposition \ref{PropUQRooPgJsuz}. Nous écrivons le développement de Taylor de \( f\) à l'ordre \( 2\) de la proposition \ref{PROPooTOXIooMMlghF} :
-    \begin{equation}
-        f(a+h)=f(a)+df_a(h)+\frac{ 1 }{2}(d^2f)_a(h,h)+\| h \|^2\alpha(\| h \|).
-    \end{equation}
-    En prenant \( h\) assez petit pour que \( a+h\) ne sorte pas de la boule dans laquelle \( a\) est un minimum, nous avons \( f(a+h)-f(a)>0\). Donc
-    \begin{equation}
-        \frac{ 1 }{2}(d^2f)_a(h,h)+\| h \|^2\alpha(\| h \|)>0
-    \end{equation}
-    Nous divisons cela par \( \| h \|^2\) et notons \( e_h=h/\| h \|\) :
-    \begin{equation}
-        \frac{ 1 }{2}(d^2f)_a(e_h,e_h)+\alpha(\| h \|)>0.
-    \end{equation}
-    À la limite \( h\to 0\), le premier terme est constant tandis que le deuxième tend vers zéro. À la limite,
-    \begin{equation}
-        (d^2f)_a(e_h,e_h)\geq 0.
-    \end{equation}
-    La caractérisation du lemme \ref{LemWZFSooYvksjw}\ref{ITEMooMOZYooWcrewZ} nous dit alors que \( (d^2f)_a\) est semi-définie positive.
-\end{proof}
-
-La partie \ref{ItemPropoExtreRn} est tout à fait comparable au fait bien connu que, pour une fonction $f\colon \eR\to \eR$, si le point $a$ est minimum local, alors $f'(a)=0$ et $f''(a)>0$.
-
-Notons que le point \ref{ItemPropoExtreRn} ne parle pas de minimum strict, et donc pas de matrice \emph{strictement} définie positive.
-
-La méthode pour chercher les extrema de $f$ est donc de suivre le points suivants :
-\begin{enumerate}
-    \item
-        Trouver les candidats extrema en résolvant $\nabla f=(0,0)$,
-    \item
-        écrire $d^2f(a)$ pour chacun des candidats
-    \item
-        calculer les valeurs propres de $d^2f(a)$, déterminer si la matrice est définie positive ou négative,
-    \item
-        conclure.
-\end{enumerate}
-
-Une conséquence de la proposition \ref{PropcnJyXZ}\ref{ItemluuFPN}\footnote{La matrice $d^2f(a)$ est toujours symétrique quand $f$ est de classe $C^2$.} est que si \( \det M<0\), alors le point \( a\) n'est pas  un extrema dans le cas où $M=d^2f(a)$ par le point \ref{ItemPropoExtreRn} de la proposition \ref{PropoExtreRn}.
-
-\begin{example}
-    Soit la fonction \( f(x,y)=x^4+y^4-4xy\). C'est une fonction différentiable sans problèmes. D'abord sa différentielle est
-    \begin{equation}
-        df=\big(4x^3-4y;4y^3-4x),
-    \end{equation}
-    et la matrice des dérivées secondes est
-    \begin{equation}
-        M=d^2f(x,y)=\begin{pmatrix}
-            12x^2    &   -4    \\ 
-            -4    &   12y^2    
-        \end{pmatrix}.
-    \end{equation}
-    Nous avons \( fd=0\) pour les trois points \( (0,0)\), \( (1,1)\) et \( -1,-1\).
-
-    Pour le point \( (0,0)\) nous avons
-    \begin{equation}
-        M=\begin{pmatrix}
-            0    &   -4    \\ 
-            -4    &   0    
-        \end{pmatrix},
-    \end{equation}
-    dont les valeurs propres sont \( 4\) et \( -4\). Elle n'est donc semi-définie ou définie rien du tout. Donc \( (0,0)\) n'est pas un extremum local.
-
-    Au contraire pour les points \( (1,1)\) et \( (-1,-1)\) nous avons
-    \begin{equation}
-        M=\begin{pmatrix}
-            12    &   -4    \\ 
-            -4    &   12    
-        \end{pmatrix},
-    \end{equation}
-    dont les valeurs propres sont \( 16\) et \( 8\). La matrice \( d^2f\) y est donc définie positive. Ces deux points sont donc extrema locaux.
-\end{example}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Un peu de recettes de cuisine}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{enumerate}
-\item Rechercher les points critiques, càd les $(x,y)$ tels que
-\[\begin{cases} \frac{\partial f}{\partial x}(x,y) = 0 \\ \frac{\partial f}{\partial y}(x,y) = 0 \end{cases} \]
-En effet, si $(x_0,y_0)$ est un extrémum local de $f$, alors $\frac{\partial f}{\partial x}(x_0,y_0) = 0 = \frac{\partial f}{\partial y}(x_0,y_0)$.
-\item Déterminer la nature des points critiques: «test» des dérivées secondes:
-\[\text{On pose }H(x_0,y_0) = \frac{\partial^2 f}{\partial x^2}(x_0,y_0)\frac{\partial f^2}{\partial y^2}(x_0,y_0) - \left(\frac{\partial^2 f}{\partial x\partial y}(x_0,y_0)\right)^2\]
-\begin{enumerate}
-\item Si $H(x_0,y_0) > 0$ et $\frac{\partial^2 f}{\partial x^2}(x_0,y_0) > 0 \Longrightarrow (x_0,y_0)$ est un minimum local de $f$.
-\item Si $H(x_0,y_0) > 0$ et $\frac{\partial^2 f}{\partial x^2}(x_0,y_0) < 0 \Longrightarrow (x_0,y_0)$ est un maximum local de $f$.
-\item Si $H(x_0,y_0) < 0 \Longrightarrow f$ a un point de selle en $(x_0,y_0)$.
-\item Si $H(x_0,y_0) = 0 \Longrightarrow$ on ne peut rien conclure.
-\end{enumerate}
-\end{enumerate}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Extrema liés}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Soit $f$, une fonction sur $\eR^n$, et $M\subset \eR^n$ une variété de dimension $m$. Nous voulons savoir quelle sont les plus grandes et plus petites valeurs atteintes par $f$ sur $M$.
-
-Pour ce faire, nous avons un théorème qui permet de trouver des extrema \emph{locaux} de $f$ sur la variété. Pour rappel, $a\in M$ est une \defe{extrema local de $f$ relativement}{extrema!local!relatif} à l'ensemble $M$ s'il existe une boule $B(a,\epsilon)$ telle que $f(a)\leq f(x)$ pour tout $x\in B(a,\epsilon)\cap M$.
-
-\begin{theorem}[Extrema lié \cite{ytMOpe}] \label{ThoRGJosS}
-    Soit \( A\), un ouvert de \( \eR^n\) et
-    \begin{enumerate}
-        \item
-            une fonction (celle à minimiser) $f\in C^1(A,\eR)$,
-        \item 
-            des fonctions (les contraintes) $G_1,\ldots,G_r\in C^1(A,\eR)$,
-        \item
-            $M=\{ x\in A\tq G_i(x)=0\,\forall i\}$,
-        \item
-            un extrema local $a\in M$ de $f$ relativement à $M$.
-    \end{enumerate}
-    Supposons que les gradients $\nabla G_1(a)$, \ldots,$\nabla G_r(a)$ soient linéairement indépendants. Alors $a=(x_1,\ldots,x_n)$ est une solution de \( \nabla L(a)=0\) où
-    \begin{equation}
-        L(x_1,\ldots,x_n,\lambda_1,\ldots,\lambda_r)=f(x_1,\ldots,x_n)+\sum_{i=1}^r\lambda_iG_i(x_1,\ldots,x_n).
-    \end{equation}
-    Autrement dit, si \( a\) est un extrema lié, alors \( \nabla f(a)\) est une combinaisons des \( \nabla G_i(a)\), ou encore il existe des \( \lambda_i\) tels que
-    \begin{equation}    \label{EqRDsSXyZ}
-        df(a)=\sum_i\lambda_idG_i(a).
-    \end{equation}
-\end{theorem}
-\index{théorème!inversion locale!utilisation}
-\index{extrema!lié}
-\index{théorème!extrema!lié}
-\index{application!différentiable!extrema lié}
-\index{variété}
-\index{rang!différentielle}
-\index{forme!linéaire!différentielle}
-La fonction $L$ est le \defe{lagrangien}{lagrangien} du problème et les variables \( \lambda_i\) sont les \defe{multiplicateurs de Lagrange}{multiplicateur!de Lagrange}\index{Lagrange!multiplicateur}.
-
-\begin{proof}
-    Si \( r=n\) alors les vecteurs linéairement indépendantes \( \nabla G_i(a) \) forment une base de \( \eR^n\) et donc évidemment les \( \lambda_i\) existent. Nous supposons donc maintenant que \( r<n\). Nous notons \( (z_i)_{i=1\ldots n}\) les coordonnées sur \( \eR^n\).
-    
-    La matrice
-    \begin{equation}
-        \begin{pmatrix}
-            \frac{ \partial G_1 }{ \partial z_1 }(a)    &   \cdots    &   \frac{ \partial G_1 }{ \partial z_n }(a)    \\
-            \vdots    &   \ddots    &   \vdots    \\
-            \frac{ \partial G_r }{ \partial z_1 }(a)    &   \cdots    &   \frac{ \partial G_r }{ \partial z_n }(a)
-        \end{pmatrix}
-    \end{equation}
-    est de rang \( r\) parce que les lignes sont par hypothèses linéairement indépendantes. Nous nommons \( (y_i)_{i=1,\ldots, r}\) un choix de \( r\) parmi les \( (z_i)\) tels que
-    \begin{equation}
-        \det\begin{pmatrix}
-            \frac{ \partial G_1 }{ \partial y_1 }    &   \ldots    &   \frac{ \partial G_1 }{ \partial y_r }    \\
-            \vdots    &   \ddots    &   \vdots    \\
-            \frac{ \partial G_r }{ \partial y_1 }    &   \ldots    &   \frac{ \partial G_r }{ \partial y_r }
-        \end{pmatrix}\neq 0.
-    \end{equation}
-    Nous identifions \( \eR^n\) à \( \eR^s\times \eR^r\) dans lequel \( \eR^r\) est la partie générée par les \( (y_i)_{i=1,\ldots, r}\). Nous nommons \( (x_j)_{j=1,\ldots, s}\) les coordonnées sur \( \eR^s\). Autrement dit, les coordonnées sur \( \eR^n\) sont \( x_1,\ldots, x_s,y_1,\ldots, y_r\). Dans ces coordonnées, nous nommons \( a=(\alpha,\beta)\) avec \( \alpha\in \eR^s\) et \( \beta\in \eR^r\).
-
-    Si nous notons \( G=(G_1,\ldots, G_r)\), le théorème de la fonction implicite (théorème \ref{ThoAcaWho})  nous dit qu'il existe un voisinage \( U'\) de \( \alpha\in \eR^n\), un voisinage \( V'\) de \( \beta\in \eR^r\) et une fonction \( \varphi\colon U'\to V'\) de classe \( C^1\) telle que si \( (x,y)\in U'\times V'\), alors
-    \begin{equation}
-        g(x,y)=0
-    \end{equation}
-    si et seulement si \( y=\varphi(x)\). Nous posons maintenant
-    \begin{subequations}
-        \begin{align}
-            \psi(x)&=(x,\varphi(x))\\
-            h(x)&=f\big( \psi(x) \big).
-        \end{align}
-    \end{subequations}
-    Nous avons \( \psi(\alpha)=a\) et \( \psi(x)\in M\) pour tout \( x\in U'\). La fonction \( h\) a donc un extrema local en \( \alpha\) et donc les dérivées partielles de \( h\) y sont nulles. Cela signifie que
-    \begin{equation}
-        0=\frac{ \partial h }{ \partial x_i }(\alpha)=\sum_{j=1}^n\frac{ \partial f }{ \partial x_j }\frac{ \partial x_j }{ \partial x_i }+\sum_{k=1}^r\frac{ \partial f }{ \partial y_k }\frac{ \partial \varphi_k }{ \partial x_i },
-    \end{equation}
-    c'est à dire
-    \begin{equation}
-        \frac{ \partial f }{ \partial x_i }(\alpha)+\sum_{k=1}^r\frac{ \partial f }{ \partial y_k }(a)\frac{ \partial \varphi_k }{ \partial x_i }(\alpha)=0
-    \end{equation}
-    pour tout \( i=1,\ldots, s\). D'autre part pour tout $k$, la fonction \( l_k(x)=G_k\big( x,\varphi(x) \big)\) est constante et vaut zéro; ses dérivées partielles sont donc nulles :
-    \begin{equation}
-        \frac{ \partial l }{ \partial x_i }(\alpha)=\frac{ \partial G_k }{ \partial x_i }(\alpha)+\sum_{k=1}^r\frac{ \partial G_k }{ \partial y_k }(a)\frac{ \partial \varphi_k }{ \partial x_i }(\alpha)=0
-    \end{equation}
-    pour tout \( i=1,\ldots, s\) et \( k=1,\ldots, r\).
-    
-    Les \( s\) premières colonnes de la matrice
-    \begin{equation}
-        \begin{pmatrix}
-            \frac{ \partial f }{ \partial x_1 }   &   \cdots    &   \frac{ \partial f }{ \partial x_s }    &   \frac{ \partial f }{ \partial y_1 }    &   \cdots    &   \frac{ \partial f }{ \partial y_r }\\  
-            \frac{ \partial G_1 }{ \partial x_1 }    &   \cdots    &   \frac{ \partial G_1 }{ \partial x_s }    &   \frac{ \partial G_1 }{ \partial y_1 }    &   \cdots    &   \frac{ \partial G_1 }{ \partial y_r }\\
-            \vdots    &   \vdots    &   \vdots    &   \vdots    &   \vdots    &   \vdots\\
-            \frac{ \partial G_r }{ \partial x_1 }    &   \cdots    &   \frac{ \partial G_r }{ \partial x_s }    &   \frac{ \partial G_r }{ \partial y_1 }    &  \cdots   & \frac{ \partial G_r }{ \partial y_r }  
-        \end{pmatrix}
-    \end{equation}
-    s'expriment en terme des \( r\) dernières. La matrice est donc au maximum de rang \( r\). Notons que la première ligne est \( \nabla f\) et les \( r\) suivantes sont les \( \nabla G_i\). Vu que ces lignes sont des vecteurs liés, il existe \( \mu_0,\ldots, \mu_r\) tels que
-    \begin{equation}
-        \mu_0\nabla f+\sum_{i=1}^r\mu_i\nabla G_i=0.
-    \end{equation}
-    Par hypothèse les \( \nabla G_i\) sont linéairement indépendants, ce qui nous dit que \( \mu_0\neq 0\). Donc nous avons ce qu'il nous faut :
-    \begin{equation}
-        \nabla f(a)=\sum_i\frac{ \mu_i }{ \mu_0 } \nabla G_i(a).
-    \end{equation}
-
-    Notons qu'au vu de l'expression \eqref{EqRDsSXyZ}, le fait que les formes \( \{ dG_i(a) \}_{1\leq i\leq r}\) forment une partie libre dans \( (\eR^n)^*\) implique que les \( \lambda_i\) sont uniques.
-\end{proof}
-
-La proposition suivante est la même que \ref{ThoRGJosS}.
-\begin{proposition} \label{PropfPPUxh}
-    Soit \( U\), un ouvert de \( \eR^n\) et des fonctions de classe \( C^1\) \( f,g_1,\ldots, g_r\colon U\to \eR\). Nous considérons
-    \begin{equation}
-        \Gamma=\{ x\in U\tq g_1(x)=\ldots=g_r(x)=0 \}.
-    \end{equation}
-    Soit \( a\) un extrémum de \( f|_{\Gamma}\). Supposons que les formes \( dg_1,\ldots, dg_r\) soient linéairement indépendantes en \( a\). Alors il existe \( \lambda_1,\ldots, \lambda_r\) dans \( \eR\) tel que
-    \begin{equation}
-        df_a=\sum_{i=1}^r\lambda_i(dg_i)_a.
-    \end{equation}
-\end{proposition}
-
-En pratique les candidats extrema locaux sont tous les points où les gradients ne sont pas linéairement indépendants, plus tous les points donnés par l'équation $\nabla L=0$. Parmi ces candidats, il faut trouver lesquels sont maxima ou minima, locaux ou globaux.
-
-L'existence d'extrema locaux se prouve généralement en invoquant de la compacité, et en invoquant le lemme suivant qui permet de réduire le problème à un compact.
-
-\begin{lemma}       \label{LemmeMinSCimpliqueS}
-    Soit $S$, une partie de $\eR^n$ et $C$, un ouvert de $\eR^n$. Si $a\in\Int S$ est un minimum local relatif à $S\cap C$, alors il est un minimum local par rapport à $S$.
-\end{lemma}
-
-\begin{proof}
-    Nous avons que $\forall x\in B(a,\epsilon_1)\cap S\cap C$, $f(x)\geq f(x)$. Mais étant donné que $C$ est ouvert, et que $a\in C$, il existe un $\epsilon_2$ tel que $B(a,\epsilon_2)\subset C$. En prenant $\epsilon=\min\{ \epsilon_1,\epsilon_2 \}$, nous trouvons que $f(x)\geq f(a)$ pour tout $x\in B(a,\epsilon)\cap(S\cap C)=B(a,\epsilon)\cap S$.
-\end{proof}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Algorithme du gradient à pas optimal}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Une idée pour trouver un minimum à une fonction est de prendre un point \( p\) au hasard, calculer le gradient \(\nabla f(p) \) et suivre la direction \(-\nabla f(p)\) tant que ça descend. Une fois qu'on est «dans le creux», recalculer le gradient et continuer ainsi. Nous allons détailler cet algorithme dans un cas très particulier.
+Nous allons détailler cet algorithme dans un cas très particulier d'une matrice \( A\) symétrique et strictement définie positive. 
+\begin{itemize}
+    \item Dans la proposition \ref{PROPooYRLDooTwzfWU} nous montrons que résoudre le système linéaire \( Ax=-b\) est équivalent à minimiser une certaine fonction.
+    \item La proposition \ref{PropSOOooGoMOxG} donnera une méthode itérative pour trouver ce minimum.
+\end{itemize}
 
 \begin{definition}  \label{DefQXPooYSygGP}
     Si \( X\) est un espace vectoriel normé et \( f\colon X\to \eR\cup\{ \pm\infty \}\) nous disons que \( f\) est \defe{coercive}{coercive} sur le domaine non borné \( P\) de \( X\) si pour tout \( M\in \eR\), l'ensemble
@@ -348,6 +27,8 @@ En langage imagé la coercivité de \( f\) s'exprime par la limite
     \lim_{\substack{\| x \|\to \infty\\x\in P}}f(x)=+\infty.
 \end{equation}
 
+
+Nous rappelons que \( S^{++}(n,\eR)\) est l'ensemble des matrice symétriques strictement définies positives définies en \ref{NORMooAJLHooQhwpvr}.
 \begin{proposition}     \label{PROPooYRLDooTwzfWU}
     Soit \( A\in S^{++}(n,\eR)\) et \( b\in \eR^n\). Nous considérons l'application
     \begin{equation}
@@ -356,16 +37,33 @@ En langage imagé la coercivité de \( f\) s'exprime par la limite
             x&\mapsto \frac{ 1 }{2}\langle Ax, x\rangle +\langle b, x\rangle . 
         \end{aligned}
     \end{equation}
-    Il existe un unique \( \bar x\in \eR^n\) minimisant \( f\) et il vérifie \( A\bar x=-b\).
+    Alors :
+    \begin{enumerate}
+        \item
+            Il existe un unique \( \bar x\in \eR^n\) tel que \( A\bar x=-b\).
+        \item
+            Il existe un unique \( x^*\in \eR^n\) minimisant \( f\).
+        \item
+            Ils sont égaux : \( \bar x=x^*\).
+    \end{enumerate}
 \end{proposition}
 
 \begin{proof}
-    La fonction est strictement convexe par la proposition \ref{PropHRLooTqIJPS} parce que elle est de classe \( C^2\) et vu que
-    \begin{equation}
-        f(x)=\frac{ 1 }{2}\sum_{kl}A_{kl}x_lx_k+\sum_kb_kx_k
-    \end{equation}
-    il est vite vu que \( \frac{ \partial^2f }{ \partial x_i\partial x_j }=A_{ij}\), c'est à dire que \( A\) est la matrice hessienne de \( f\). Cette matrice étant strictement définie positive par hypothèse, la fonction \( f\) est strictement convexe.
 
+    Une matrice symétrique strictement définie positive est inversible, entre autres parce qu'elle se diagonalise par des matrices orthogonales (qui sont inversibles) et que la matrice diagonalisée est de déterminant non nul : tous les éléments diagonaux sont strictement positifs. Voir le théorème spectral symétrique \ref{ThoeTMXla}.
+
+    D'où l'unicité du \( \bar x\) résolvant le système \( Ax=-b\) pour n'importe quel \( b\).
+
+    \begin{subproof}
+    \item[\( f\) est strictement convexe]
+        
+        Nous utilisons la proposition \ref{CORooMBQMooWBAIIH}. La fonction \( f\) s'écrit
+    \begin{equation}
+        f(x)=\frac{ 1 }{2}\sum_{kl}A_{kl}x_lx_k+\sum_kb_kx_k.
+    \end{equation}
+    Elle est de classe \( C^2\) sans problèmes, et il est vite vu que \( \frac{ \partial^2f }{ \partial x_i\partial x_j }=A_{ij}\), c'est à dire que \( A\) est la matrice hessienne de \( f\). Cette matrice étant définie positive par hypothèse, la fonction \( f\) est convexe.
+
+\item[\( f\) est coercive]
     Montrons à présent que \( f\) est coercive. Nous avons :
     \begin{subequations}
         \begin{align}
@@ -375,6 +73,7 @@ En langage imagé la coercivité de \( f\) s'exprime par la limite
         \end{align}
     \end{subequations}
     Pour la dernière ligne nous avons nommé \( \lambda_{max}\) la plus grande valeur propre de \( A\) et utilisé Cauchy-Schwarz pour le second terme. Nous avons donc bien \( | f(x) |\to \infty\) lorsque \( \| x \|\to\infty\) et la fonction \( f\) est coercive.
+    \end{subproof}
 
     Soit \( M\) une valeur atteinte par \( f\). L'ensemble
     \begin{equation}
@@ -546,6 +245,182 @@ En langage imagé la coercivité de \( f\) s'exprime par la limite
 \end{proof}
 
 Notons que lorsque \( c_2(A)\) est proche de \( 1\) la méthode converge rapidement. Par contre si \( c_2(A)\) est proche de zéro, la méthode converge lentement.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Ellipsoïde de John-Loewer}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soit \( q\) une forme quadratique sur \( \eR^n\) ainsi que \( \mB\) une base orthonormée de \( \eR^n\) dans laquelle la matrice de  \( q\) est diagonale. Dans cette base, la forme \( q\) est donnée par la proposition \ref{PropFWYooQXfcVY} :
+\begin{equation}
+    q(x)=\sum_i\lambda_ix_i
+\end{equation}
+où les \( \lambda_i\) sont les valeurs propres de \( q\).
+
+Plus généralement nous notons \( mat_{\mB}(q)\)\nomenclature[A]{\( mat_{\mB}(q)\)}{matrice de \( q\) dans la base \( \mB\)} la matrice de \( q\) dans la base \( \mB\) de \( \eR^n\).
+
+\begin{proposition} \label{PropOXWooYrDKpw}
+    Soit \( \mB\) une base orthonormée de \( \eR^n\) et l'application\footnote{L'ensemble \( Q(E)\) est l'ensemble des formes quadratiques sur \( E\).}
+    \begin{equation}
+        \begin{aligned}
+            D\colon Q(\eR^n)&\to \eR \\
+            q&\mapsto \det\big( mat_{\mB}(q) \big) .
+        \end{aligned}
+    \end{equation}
+    Alors :
+    \begin{enumerate}
+        \item
+            La valeur et \( D\) ne dépend pas du choix de la base orthonormée \( \mB\).
+        \item
+            La fonction \( D\) est donnée par la formule \( D(q)=\prod_i\lambda_i\) où les \( \lambda_i\) sont les valeurs propres de \( q\).
+        \item
+            La fonction \( D\) est continue.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Soit \( q\) une forme quadratique sur \( \eR^n\). Nous considérons \( \mB\) une base de diagonalisation de \( q\) :
+    \begin{equation}
+        q(x)=\sum_i\lambda_ix_i
+    \end{equation}
+    où les \( x_i\) sont les composantes de \( x\) dans la base \( \mB\). Par définition, la matrice \( mat_{\mB}(q)\) est la matrice diagonale contenant les valeurs propres de \( q\).
+
+    Nous considérons aussi \( \mB_1\), une autre base orthonormées de \( \eR^n\). Nous notons \( S=mat_{\mB_1}(q)\); étant symétrique, cette matrice se diagonalise par une matrice orthogonale : il existe \( P\in\gO(n,\eR)\) telle que
+    \begin{equation}
+        S=P mat_{\mB}(q)P^t;
+    \end{equation}
+    donc \( \det(S)=\det(PP^t)\det\big( \diag(\lambda_1,\ldots, \lambda_n) \big)=\lambda_1\ldots\lambda_n\). Ceci prouve en même temps que \( D\) ne dépend pas du choix de la base et que sa valeur est le produit des valeurs propres.
+
+    Passons à la continuité. L'application déterminant \( \det\colon S_n(\eR^n)\to \eR\) est continue car polynôme en les composantes. D'autre par l'application \( mat_{\mB}\colon Q(\eR^n)\to S_n(\eR)\) est continue par la proposition \ref{PropFSXooRUMzdb}. L'application  \( D\) étant la composée de deux applications continues, elle est continue.
+\end{proof}
+
+\begin{proposition}[Ellipsoïde de John-Loewner\cite{KXjFWKA}]   \label{PropJYVooRMaPok}
+    Soit \( K\) compact dans \( \eR^n\) et d'intérieur non vide. Il existe une unique ellipsoïde\footnote{Définition \ref{DefOEPooqfXsE}.} (pleine) de volume minimal contenant \( K\).
+\end{proposition}
+\index{déterminant!utilisation}
+\index{extrema!volume d'un ellipsoïde}
+\index{convexité!utilisation}
+\index{compacité!utilisation}
+
+\begin{proof}
+    Nous subdivisons la preuve en plusieurs parties.
+    \begin{subproof}
+        \item[À propos de volume d'un ellipsoïde]
+
+            Soit \( \ellE\) un ellipsoïde. La proposition \ref{PropWDRooQdJiIr} et son corollaire \ref{CorKGJooOmcBzh} nous indiquent que 
+            \begin{equation}
+                \ellE=\{ x\in \eR^n\tq q(x)\leq 1 \}
+            \end{equation}
+            pour une certaine forme quadratique strictement définie positive \( q\). De plus il existe une base orthonormée \( \mB=\{ e_1,\ldots, e_n \}\) de \( \eR^n\) telle que 
+            \begin{equation}    \label{EqELBooQLPQUj}
+                q(x)=\sum_{i=1}^na_ix_i^2
+            \end{equation}
+            où \( x_i=\langle e_i, x\rangle \) et les \( a_i\) sont tous strictement positifs. Nous nommons \( \ellE_q\) l'éllipsoïde associée à la forme quadratique \( q\) et \( V_q\) son volume que nous allons maintenant calculer\footnote{Le volume ne change pas si nous écrivons l'inégalité stricte au lieu de large dans le domaine d'intégration; nous le faisons pour avoir un domaine ouvert.} :
+            \begin{equation}
+                V_q=\int_{\sum_ia_ix_i^2<1}dx
+            \end{equation}
+            Cette intégrale est écrite de façon plus simple en utilisant le \( C^1\)-difféomorphisme
+            \begin{equation}
+                \begin{aligned}
+                    \varphi\colon \ellE_q&\to B(0,1) \\
+                    x&\mapsto \Big( x_1\sqrt{a_1},\ldots, x_n\sqrt{a_n} \Big). 
+                \end{aligned}
+            \end{equation}
+            Le fait que \( \varphi\) prenne bien ses valeurs dans \( B(0,1)\) est un simple calcul : si \( x\in\ellE_q\), alors
+            \begin{equation}
+                \sum_i\varphi(x)_i^2=\sum_ia_ix_i^2<1.
+            \end{equation}
+            Cela nous permet d'utiliser le théorème de changement de variables \ref{THOooUMIWooZUtUSg} :
+            \begin{equation}
+                V_q=\int_{\sum_ia_ix_i^2<1}dx=\frac{1}{ \sqrt{a_1\ldots a_n} }\int_{B(0,1)}dx.
+            \end{equation}
+            %TODO : le volume de la sphère dans \eR^n. Mettre alors une référence ici.
+            La dernière intégrale est le volume de la sphère unité dans \( \eR^n\); elle n'a pas d'importance ici et nous la notons \( V_0\). La proposition \ref{PropOXWooYrDKpw} nous permet d'écrire \(V_q\) sous la forme
+            \begin{equation}
+                V_q=\frac{ V_0 }{ \sqrt{D(q)} }.
+            \end{equation}
+            
+        \item[Existence de l'ellipsoïde]
+
+            Nous voulons trouver un ellipsoïde contenant \( K\) de volume minimal, c'est à dire une forme quadratique \( q\in Q^{++}(\eR^n)\) telle que
+            \begin{itemize}
+                \item \( D(q)\) soit maximal
+                \item \( q(x)\leq 1\) pour tout \( x\in K\).
+            \end{itemize}
+            Nous considérons l'ensemble des candidats semi-définis positifs.
+            \begin{equation}
+                A=\{ q\in Q^+\tq q(x)\leq 1\forall x\in K \}.
+            \end{equation}
+            Nous allons montrer que \( A\) est convexe, compact et non vide dans \( Q(\eR^n)\); il aura ainsi un maximum de la fonction continue \( D\) définie sur \( Q(\eR^n)\). Nous montrerons ensuite que le maximum est dans \( Q^{++}\). L'unicité sera prouvée à part.
+
+            \begin{subproof}
+            \item[Non vide]
+                L'ensemble \( K\) est compact et donc borné par \( M>0\). La forme quadratique \( q\colon x\mapsto \| x \|^2/M^2\) est dans \( A\) parce que si \( x\in K\) alors 
+                \begin{equation}
+                    q(x)=\frac{ \| x \|^2 }{ M^2 }\leq 1.
+                \end{equation}
+            \item[Convexe]
+                Soient \( q,q'\in A\) et \( \lambda\in\mathopen[ 0 , 1 \mathclose]\). Nous avons encore \( \lambda q+(1-\lambda)q'\in Q^+\) parce que 
+                \begin{equation}
+                    \lambda q(x)+(1-\lambda)q'(x)\geq 0
+                \end{equation}
+                dès que \( q(x)\geq 0\) et \( q'(x)\geq 0\).
+            D'autre part si \( x\in K\) nous avons
+            \begin{equation}
+                \lambda q(x)+(1-\lambda)q'(x)\leq \lambda+(1-\lambda)=1.
+            \end{equation}
+            Donc \( \lambda q+(1-\lambda)q'\in A\).
+
+        \item[Fermé]
+
+            Pour rappel, la topologie de \( Q(\eR^n)\) est celle de la norme \eqref{EqZYBooZysmVh}. Nous considérons une suite \( (q_n)\) dans \( A\) convergeant vers \( q\in Q(\eR^n)\) et nous allons prouver que \( q\in A\), de sorte que la caractérisation séquentielle de la fermeture (proposition \ref{PropLFBXIjt}) conclue que \( A\) est fermé. En nommant \( e_x\) le vecteur unitaire dans la direction \( x\) nous avons
+            \begin{equation}
+                \big| q(x) \big|=\big| \| x \|^2q(e_x) \big|\leq \| x \|^2N(q),
+            \end{equation}
+            de sorte que notre histoire de suite convergente  donne pour tout \( x\) :
+            \begin{equation}
+                \big| q_n(x)-q(x) \big|\leq \| x \|^2N(q_n-q)\to 0.
+            \end{equation}
+            Vu que \( q_n(x)\geq 0\) pour tout \( n\), nous devons aussi avoir \( q(x)\geq 0\) et donc \( q\in Q^+\) (semi-définie positive). De la même manière si \( x\in K\) alors \( q_n(x)\leq 1\) pour tout \( n\) et donc \( q(x)\leq 1\). Par conséquent \( q\in A\) et \( A\) est fermé.
+
+        \item[Borné]
+
+            La partie \( K\) de \( \eR^n\) est borné et d'intérieur non vide, donc il existe \( a\in K\) et \( r>0\) tel que \( \overline{ B(a,r) }\subset K\). Si par ailleurs \( q\in A\) et \( x\in\overline{ B(0,r) }\) nous avons \( a+x\in K\) et donc \( q(a+x)\leq 1\). De plus \( q(-a)=q(a)\leq 1\), donc
+            \begin{equation}
+                \sqrt{q(x)}=\sqrt{q\big( x+a-a \big)}\leq \sqrt{q(x+a)}+\sqrt{q(-a)}\leq 2
+            \end{equation}
+            par l'inégalité de Minkowski \ref{PropACHooLtsMUL}. Cela prouve que si \( x\in\overline{ B(0,r) }\) alors \( q(x)\leq 4\). Si par contre \( x\in\overline{ B(0,1) }\) alors \( rx\in\overline{ B(0,r) } \) et 
+            \begin{equation}
+                0\leq q(x)=\frac{1}{ r^2 }q(rx)\leq \frac{ 4 }{ r^2 },
+            \end{equation}
+            ce qui prouve que \( N(q)\leq \frac{ 4 }{ r^2 }\) et que \( A\) est borné.
+
+
+            \end{subproof}
+
+            L'ensemble \( A\) est compact parce que fermé et borné, théorème de Borel-Lebesgue \ref{ThoXTEooxFmdI}. L'application continue \( D\colon Q(\eR^n)\to \eR\) de la proposition \ref{PropOXWooYrDKpw} admet donc un maximum sur le compact \( A\). Soit \( q_0\) ce maximum.
+
+            Nous montrons que \( q_0\in Q^{++}(\eR^d)\). Nous savons que l'application \( f\colon x\mapsto \frac{ \| x \|^2 }{ M^2 }\) est dans \( A\) et que \( D(f)>0\). Vu que \( q_0\) est maximale pour \( D\), nous avons
+            \begin{equation}
+                D(q_0)\geq D(f)>0.
+            \end{equation}
+            Donc \( q_0\in Q^{++}\).
+
+        \item[Unicité]
+
+            S'il existe une autre ellipsoïde de même volume que celle associée à la forme quadratique \( q_0\), nous avons une forme quadratique \( q\in Q^{++}\) telle que \( q(x)\leq 1\) pour tout \( x\in K\). C'est à dire que nous avons \( q_0,q\in A\) tels que \( D(q_0)=D(q)\).
+
+            Nous considérons la base canonique \( \mB_c\) de \( \eR^n\) et nous posons \( S=mat_{\mB_c}(q)\), \( S_0=mat_{\mB_c}(q_0)\). Étant donné que \( A\) est convexe, \( (q_0+q)/2\in A\) et nous allons prouver que cet élément de \( A\) contredit la maximalité de \( q_0\). En effet
+            \begin{equation}
+                D\left( \frac{ q+q_0 }{ 2 }\right)=\det\left( \frac{ S+S_0 }{2} \right)
+            \end{equation}
+            Nous allons utiliser le lemme \ref{LemXOUooQsigHs} qui dit que le logarithme est log-concave sous la forme de l'équation \eqref{EqSPKooHFZvmB} avec \( \alpha=\beta=\frac{ 1 }{2}\) :
+            \begin{equation}    \label{eqBHJooYEUDPC}
+                D\left( \frac{ q+q_0 }{ 2 }\right)=\det\left( \frac{ S+S_0 }{2} \right)>\sqrt{\det(S)}\sqrt{\det(S_0)}=\det(S_0)=D(q_0).
+            \end{equation}
+            Nous avons utilisé le fait que \( D(q_0)=D(q)\) qui signifie que \( \det(S_0)=\det(S)\). L'inéquation \eqref{eqBHJooYEUDPC} contredit la maximalité de \( D(q_0)\) et donne donc l'unicité.
+    \end{subproof}
+\end{proof}
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Formes quadratiques, signature, et lemme de Morse}

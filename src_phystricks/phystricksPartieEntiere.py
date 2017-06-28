@@ -1,3 +1,4 @@
+from sage.all import floor
 from phystricks import *
 def PartieEntiere():
 	pspict,fig = SinglePicture("PartieEntiere")

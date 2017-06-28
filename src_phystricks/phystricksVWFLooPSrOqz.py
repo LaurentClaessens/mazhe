@@ -8,9 +8,9 @@ def VWFLooPSrOqz():
     D=Point(0,0)
 
     poly=Polygon( A,B,C,D )
-    poly.parameters.hatched()
-    poly.parameters.hatch.color="green"
-    poly.edge_model.parameters.color="blue"
+    poly.hatched()
+    poly.hatch_parameters.color="green"
+    poly.edges_parameters.color="blue"
 
     segments=[s.copy().dilatation(3.3) for s in poly.edges]
     for s in segments :
@@ -21,4 +21,3 @@ def VWFLooPSrOqz():
     pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()
-

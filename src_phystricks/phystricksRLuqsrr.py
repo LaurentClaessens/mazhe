@@ -16,7 +16,7 @@ def RLuqsrr():
     f2 = phyFunction( n(0,1) )
 
     mx = 0
-    Mx = mx+2*math.pi
+    Mx = mx+2*pi
 
     F1 = f1.graph(mx,Mx)
     F2 = f2.graph(mx,Mx)
@@ -30,7 +30,5 @@ def RLuqsrr():
     pspict.axes.single_axeX.Dx=0.5
     pspict.DrawDefaultAxes()
 
-
     fig.conclude()
     fig.write_the_file()
-
