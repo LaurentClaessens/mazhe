@@ -78,3 +78,6 @@ PDFpersoWanadoo
 BezoutCos
 NjCCfW
 
+# finite
+
+Dans cette branche on parle d'éléments finis.
