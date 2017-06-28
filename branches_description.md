@@ -78,3 +78,6 @@ PDFpersoWanadoo
 BezoutCos
 NjCCfW
 
+## gradient
+
+On rend plus lisible la méthode du gradient à pas optimal et on démontre les choses qu'il faut au niveau des fonction convexes.
