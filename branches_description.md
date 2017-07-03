@@ -78,3 +78,6 @@ PDFpersoWanadoo
 BezoutCos
 NjCCfW
 
+## futur
+
+Régler les réfénreces vers le futur et faire un peu d'index thématique.
