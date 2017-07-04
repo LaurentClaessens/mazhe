@@ -4,6 +4,425 @@
 % See the file fdl-1.3.txt for copying conditions.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Algorithme du gradient à pas optimal}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Une idée pour trouver un minimum à une fonction est de prendre un point \( p\) au hasard, calculer le gradient \(\nabla f(p) \) et suivre la direction \(-\nabla f(p)\) tant que ça descend. Une fois qu'on est «dans le creux», recalculer le gradient et continuer ainsi.
+
+Nous allons détailler cet algorithme dans un cas très particulier d'une matrice \( A\) symétrique et strictement définie positive. 
+\begin{itemize}
+    \item Dans la proposition \ref{PROPooYRLDooTwzfWU} nous montrons que résoudre le système linéaire \( Ax=-b\) est équivalent à minimiser une certaine fonction.
+    \item La proposition \ref{PropSOOooGoMOxG} donnera une méthode itérative pour trouver ce minimum.
+\end{itemize}
+
+\begin{definition}  \label{DefQXPooYSygGP}
+    Si \( X\) est un espace vectoriel normé et \( f\colon X\to \eR\cup\{ \pm\infty \}\) nous disons que \( f\) est \defe{coercive}{coercive} sur le domaine non borné \( P\) de \( X\) si pour tout \( M\in \eR\), l'ensemble
+    \begin{equation}
+        \{ x\in P\tq f(x)\leq M \}
+    \end{equation}
+    est borné.
+\end{definition}
+En langage imagé la coercivité de \( f\) s'exprime par la limite
+\begin{equation}
+    \lim_{\substack{\| x \|\to \infty\\x\in P}}f(x)=+\infty.
+\end{equation}
+
+
+Nous rappelons que \( S^{++}(n,\eR)\) est l'ensemble des matrice symétriques strictement définies positives définies en \ref{NORMooAJLHooQhwpvr}.
+\begin{proposition}     \label{PROPooYRLDooTwzfWU}
+    Soit \( A\in S^{++}(n,\eR)\) et \( b\in \eR^n\). Nous considérons l'application
+    \begin{equation}
+        \begin{aligned}
+            f\colon \eR^n&\to \eR \\
+            x&\mapsto \frac{ 1 }{2}\langle Ax, x\rangle +\langle b, x\rangle . 
+        \end{aligned}
+    \end{equation}
+    Alors :
+    \begin{enumerate}
+        \item
+            Il existe un unique \( \bar x\in \eR^n\) tel que \( A\bar x=-b\).
+        \item
+            Il existe un unique \( x^*\in \eR^n\) minimisant \( f\).
+        \item
+            Ils sont égaux : \( \bar x=x^*\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+
+    Une matrice symétrique strictement définie positive est inversible, entre autres parce qu'elle se diagonalise par des matrices orthogonales (qui sont inversibles) et que la matrice diagonalisée est de déterminant non nul : tous les éléments diagonaux sont strictement positifs. Voir le théorème spectral symétrique \ref{ThoeTMXla}.
+
+    D'où l'unicité du \( \bar x\) résolvant le système \( Ax=-b\) pour n'importe quel \( b\).
+
+    \begin{subproof}
+    \item[\( f\) est strictement convexe]
+        
+        La fonction \( f\) s'écrit
+    \begin{equation}
+        f(x)=\frac{ 1 }{2}\sum_{kl}A_{kl}x_lx_k+\sum_kb_kx_k.
+    \end{equation}
+    Elle est de classe \( C^2\) sans problèmes, et il est vite vu que \( \frac{ \partial^2f }{ \partial x_i\partial x_j }=A_{ij}\), c'est à dire que \( A\) est la matrice hessienne de \( f\). Cette matrice étant strictement définie positive par hypothèse, la fonction \( f\) est strictement convexe par le corollaire \ref{CORooMBQMooWBAIIH}\ref{ITEMooDGISooPlRLOd}.
+
+\item[\( f\) est coercive]
+    Montrons à présent que \( f\) est coercive. Nous avons :
+    \begin{subequations}
+        \begin{align}
+            | f(x) |&=\big| \frac{ 1 }{2}\langle Ax, x\rangle +\langle b, x\rangle  \big|\\
+            &\geq\frac{ 1 }{2}| \langle Ax, x\rangle  |-| \langle b, x\rangle  |\\
+            &\geq\frac{ 1 }{2}\lambda_{max}\| x \|^2-\| b \|\| x \|
+        \end{align}
+    \end{subequations}
+    Pour la dernière ligne nous avons nommé \( \lambda_{max}\) la plus grande valeur propre de \( A\) et utilisé Cauchy-Schwarz pour le second terme. Nous avons donc bien \( | f(x) |\to \infty\) lorsque \( \| x \|\to\infty\) et la fonction \( f\) est coercive.
+    \end{subproof}
+
+    Soit \( M\) une valeur atteinte par \( f\). L'ensemble
+    \begin{equation}
+        \{ x\in \eR^n\tq f(x)\leq M \}
+    \end{equation}
+    est fermé (parce que \( f\) est continue) et borné parce que \( f\) est coercive. Cela est donc compact\footnote{Théorème \ref{ThoXTEooxFmdI}} et \( f\) atteint un minimum qui sera forcément dedans. Cela est pour l'existence d'un minimum.
+
+    Pour l'unicité du minimum nous invoquons la convexité : si \( \bar x_1\) et \( \bar x_2\) sont deux points réalisant le minimum de \( f\), alors
+    \begin{equation}
+        f\left( \frac{ \bar x_1+\bar x_2 }{2} \right)<\frac{ 1 }{2}f(\bar x_1)+\frac{ 1 }{2}f(\bar x_2)=f(\bar x_1),
+    \end{equation}
+    ce qui contredit la minimalité de \( f(\bar x_1)\).
+
+    Nous devons maintenant prouver que \( \bar x\) vérifie l'équation \( A\bar x=-b\). Vu que \( \bar x\) est minimum local de \( f\) qui est une fonction de classe \( C^2\), le théorème des minima locaux \ref{PropUQRooPgJsuz} nous indique que \( \bar x\) est solution de \( \nabla f(x)=0\). Calculons un peu cela avec la formule
+    \begin{equation}
+        df_x(u)=\Dsdd{ f(x+tu) }{t}{0}=\frac{ 1 }{2}\big( \langle Ax, u\rangle +\langle Au, x\rangle  \big)+\langle b, u\rangle =\langle Ax, u\rangle +\langle b, u\rangle =\langle Ax+b, u\rangle .
+    \end{equation}
+    Donc demander \( df_x(u)=0\) pour tout \( u\) demande \( Ax+b=0\).
+\end{proof}
+
+\begin{proposition}[Gradient à pas optimal] \label{PropSOOooGoMOxG}
+    Soit \( A\in S^{++}(n,\eR)\) (\( A\) est une matrice symétrique strictement définie positive) et \( b\in \eR^n\). Nous considérons l'application
+    \begin{equation}
+        \begin{aligned}
+            f\colon \eR^n&\to \eR \\
+            x&\mapsto \frac{ 1 }{2}\langle Ax, x\rangle +\langle b, x\rangle . 
+        \end{aligned}
+    \end{equation}
+    Soit \( x_0\in \eR^n\). Nous définissons la suite \( (x_k)\) par
+    \begin{equation}
+        x_{k+1}=x_k+t_kd_k
+    \end{equation}
+    où
+    \begin{itemize}
+        \item 
+    \( d_k=-(\nabla f)(x_k)\) 
+\item
+    \( t_k\) est la valeur minimisant la fonction \( t\mapsto f(x_k+td_k)\) sur \( \eR\).
+    \end{itemize}
+
+    Alors pour tout \( k\geq 0\) nous avons
+    \begin{equation}
+        \| x_k-\bar x \|\leq K \left( \frac{ c_2(A)-1 }{ c_2(A)+1 } \right)^k
+    \end{equation}
+    où \( c_2(A)=\frac{ \lambda_{max} }{ \lambda_{min} }\) est le rapport ente la plus grande et la plus petite valeur propre\quext{Cela est certainement très lié au conditionnement de la matrice \( A\), voir la proposition \ref{PROPooNUAUooIbVgcN}.} de la matrice \( A\) et \( \bar x\) est l'unique élément de \( \eR^n\) à minimiser \( f\).
+\end{proposition}
+
+\begin{proof}
+    Décomposition en plusieurs points.
+    \begin{subproof}
+    \item[Existence de \( \bar x\)]
+        Le fait que \( \bar x\) existe et soit unique est la proposition \ref{PROPooYRLDooTwzfWU}.
+    \item[Si \( (\nabla f)(x_k)=0\)]
+    D'abord si \( \nabla f(x_k)=0\), c'est que \( x_{k+1}=x_k\) et l'algorithme est terminé : la suite est stationnaire. Pour dire que c'est gagné, nous devons prouver que \( x_k=\bar x\). Pour cela nous écrivons (à partir de maintenant «\( x_k\)» est la \( k\)\ieme composante de \( x\) qui est une variable, et non le \( x_k\) de la suite)
+    \begin{equation}
+        f(x)=\frac{ 1 }{2}\sum_{kl}A_{kl}x_lx_k+\sum_{k}b_kx_k
+    \end{equation}
+    et nous calculons \( \frac{ \partial f }{ \partial x_i }(a)\) en tenant compte du fait que \( \frac{ \partial x_k }{ \partial x_i }=\delta_{ki}\). Le résultat est que \( (\partial_if)(a)=(Ax+b)_i\) et donc que
+    \begin{equation}
+        (\nabla f)(a)=Aa+b.
+    \end{equation}
+    Vu que \( A\) est inversible (symétrique définie positive), il existe un unique \( a\in \eR^n\) qui vérifie cette relation. Par la proposition \ref{PROPooYRLDooTwzfWU}, cet élément est le minimum \( \bar x\).
+
+    Cela pour dire que si \( a\in \eR^n\) vérifie \( (\nabla f)(a)=0\) alors \( a=\bar x\). Nous supposons donc à partir de maintenant que \( \nabla f(x_k)\neq 0\) pour tout \( k\).
+        \item[\( t_k\) est bien défini]
+
+            Pour \( t\in \eR\) nous avons
+            \begin{equation}    \label{EqKEHooYaazQi}
+                f(x_k+td_k)=f(x_k)+\frac{ 1 }{2}t^2\langle Ad_k, d_k\rangle +t\langle \underbrace{Ax_k+b}_{=-d_k}, d_k\rangle=\frac{ 1 }{2}t^2\langle Ad_k, d_k\rangle -t_k\| d_k \|^2 +f(x_k).
+            \end{equation}
+            qui est un polynôme du second degré en \( t\). Le coefficient de \( t^2\) est \( \frac{ 1 }{2}\langle Ad_k, d_k\rangle >0\) parce que \( d_k\neq 0\) et \( A\) est strictement définie positive. Par conséquent la fonction \( t\mapsto f(x_k+td_k)\) admet bien un unique minimum. Nous pouvons même calculer \( t_k\) parce que l'on connaît pas cœur le sommet d'une parabole :
+            \begin{equation}    \label{EqVWJooWmDSER}
+                t_k=-\frac{ \langle Ax_k+b, d_k\rangle  }{ \langle Ad_k, d_k\rangle  }=\frac{ \| d_k \|^2 }{ \langle Ad_k, d_k\rangle  }
+            \end{equation}
+            parce que \( d_k=-\nabla f(x_k)=-(Ax_k+b)\).
+
+        \item[La valeur de \( d_{k+1}\)]
+
+            Par définition, \( d_{k+1}=-\nabla f(x_{k+1})=-(Ax_{k+1}+b)\). Mais \( x_{k+1}=x_k+t_kd_k\), donc
+            \begin{equation}
+                d_{k+1}=-Ax_k-t_kAd_k-b=d_k-t_kAd_k
+            \end{equation}
+            parce que \( -Ax_k-b=d_k\).
+            
+            Par ailleurs, \( \langle d_{k+1}, d_k\rangle =0\) parce que
+            \begin{equation}
+                \langle d_{k+1}, d_k\rangle =\langle d_k, d_k\rangle -t_k\langle d_k, Ad_k\rangle =\| d_k \|^2-\frac{ \| d_k \|^2 }{ \langle Ad_k, d_k\rangle  }\langle d_k, Ad_k\rangle =0
+            \end{equation}
+            où nous avons utilisé la valeur \eqref{EqVWJooWmDSER} de \( t_k\).
+        
+        \item[Calcul de \( f(x_{k+1})\)] 
+
+            Nous repartons de \eqref{EqKEHooYaazQi} où nous substituons la valeur \eqref{EqVWJooWmDSER} de \( t_k\) :
+            \begin{equation}
+                f(x_{k+1})=f(x_k)+\frac{ 1 }{2}\frac{ \| d_k \|^4 }{ \langle Ad_k, d_k\rangle  }-\frac{ \| d_k \|^4 }{ \langle Ad_k, d_k\rangle  }=f(x_k)-\frac{ 1 }{2}\frac{ \| d_k \|^4 }{ \langle Ad_k, d_k\rangle  }.
+            \end{equation}
+            
+        \item[Encore du calcul \ldots]
+
+            Vu que le produit \( \langle Ad_k, d_k\rangle \) arrive tout le temps, nous allons étudier \( \langle A^{-1}d_k, d_k\rangle \). Le truc malin est d'essayer d'exprimer ça en termes de \( \bar x\) et \( \bar f=f(\bar x)\). Pour cela nous calculons \( f(\bar x)\) :
+            \begin{equation}
+                \bar f=f(\bar x)=f(-A^{-1} b)=-\frac{ 1 }{2}\langle b, A^{-1}b\rangle .
+            \end{equation}
+            Ayant cela en tête nous pouvons calculer :
+            \begin{subequations}
+                \begin{align}
+                    \langle A^{-1}d_k, d_k\rangle &=\langle A^{-1}(Ax_k+b), Ax_k+b\rangle \\
+                    &=\langle x_k, Ax_k\rangle +\langle A^{-1}b, Ax_k\rangle +\langle b, x_k\rangle+\underbrace{\langle A^{-1}b, b\rangle}_{-2\bar f} \\
+                    &=\langle x_k, Ax_k\rangle +2\langle x_k, b\rangle  -2\bar f \label{subeqVIIooVzZlRc}\\
+                    &=2\big( f(x_k)-\bar f \big)
+                \end{align}
+            \end{subequations}
+            où nous avons utilisé le fait que \( \langle x, Ay\rangle =\langle Ax, y\rangle \) parce que \( A\) est symétrique.
+
+        \item[Erreur sur la valeur du minimum]
+
+            Nous voulons à présent estimer la différence \( f(x_{k+1})-\bar f\). Pour cela nous mettons en facteur \( f(x_k)-\bar f\) dans \( f(x_{k+1}-\bar f)\); et d'ailleurs c'est pour cela que nous avons calculé \( \langle A^{-1}d_k, d_k\rangle \) : parce que ça fait intervenir \( f(x_k)-\bar f\).
+            \begin{subequations}
+                \begin{align}
+                    f(x_{k+1})-\bar f&=f(x_k)-\frac{ 1 }{2}\frac{ \| d_k \|^4 }{ \langle Ad_k, d_k\rangle  }-\bar f\\
+                    &=\big( f(x_k)-\bar f \big)\left( 1-\frac{ 1 }{2}\frac{ \| d_k \|^{4} }{ \langle Ad_k, d_k\rangle \big( f(x_k)-\bar f \big) } \right)\\
+                    &=\big( f(x_k)-\bar f \big)\left( 1-\frac{ \| d_k \|^{4} }{ \langle Ad_k, d_k\rangle \langle A^{-1}d_k, d_k\rangle  } \right).\label{subeqGFDooRAwAJk}
+                \end{align}
+            \end{subequations}
+            Nous traitons le dénominateur à l'aide de l'inégalité de Kantorovitch \ref{PropMNUooFbYkug}. Nous avons
+            \begin{equation}
+                \frac{ \| d_k \|^4 }{ \langle Ad_k, d_k\rangle \langle A^{-1}d_k, d_k\rangle  }\geq \frac{ \| d_k \|^4 }{ \frac{1}{ 4 }\left( \sqrt{c_2(A)}+\frac{1}{ \sqrt{c_2(A)} } \right)^2\| d_k \|^4 }=\frac{ 4c_2(A) }{ (c_2(A)+1)^2 }.
+            \end{equation}
+            Mettre cela dans \eqref{subeqGFDooRAwAJk} est un calcul d'addition de fractions :
+            \begin{equation}
+                f(x_{k+1})-\bar f\leq \big( f(x_k)-\bar f \big)\left( \frac{ c_2(A)-1 }{ c_2(A)+1 } \right)^2.
+            \end{equation}
+            Par récurrence nous avons alors
+            \begin{equation}    \label{eqANKooNPfCFj}
+                f(x_k)-\bar f\leq \big( f(x_0)-\bar f \big)\left( \frac{ c_2(A)-1 }{ c_2(A)+1 } \right)^{2k}.
+            \end{equation}
+            Notons qu'il n'y a pas de valeurs absolues parce que \( \bar f\) étant le minimum de \( f\), les deux côtés de l'inégalité sont automatiquement positifs.
+
+        \item[Erreur sur la position du minimum]
+
+            Nous voulons à présent étudier la norme de \( x_k-\bar x\). Pour cela nous l'écrivons directement avec la définition de \( f\) en nous souvenant que \( b=-A\bar x\) :
+            \begin{subequations}
+                \begin{align}
+                    f(x_k)-\bar f&=\frac{ 1 }{2}\langle Ax_k, x_k\rangle +\langle A\bar x, x_k\rangle +\frac{ 1 }{2}\langle A\bar x, \bar x\rangle +\langle A\bar x, \bar x\rangle \\
+                    &=\frac{ 1 }{2}\langle Ax_k, x_k\rangle -\langle A\bar x, x_k\rangle +\frac{ 1 }{2}\langle A\bar x, \bar x\rangle \\
+                    &=\frac{ 1 }{2}\langle Ax_k, x_k\rangle -\frac{ 1 }{2}\langle A\bar x, x_k\rangle-\frac{ 1 }{2}\langle A\bar x, x_k\rangle +\frac{ 1 }{2}\langle A\bar x, \bar x\rangle \\
+                    &=\frac{ 1 }{2}\Big( \langle A(x_k-\bar x), x_k\rangle +\langle A\bar x, \bar x-x_k\rangle  \Big)\\
+                    &=\frac{ 1 }{2}\Big( \langle A(x_k-\bar x), (x_k-\bar x)\rangle  \Big)
+                \end{align}
+            \end{subequations}
+            où à la dernière ligne nous avons fait \( \langle A\bar x, \bar x-x_k\rangle =\langle \bar x, A(\bar x-x_k)\rangle \) en vertu de la symétrie de \( A\).
+
+            Les produits de la forme \( \langle Ay, y\rangle \) sont majorés par \( \lambda_{min}\| y \|^2\) parce que \( \lambda_{min}\) est la plus grande valeur propre de \( A\). Dans notre cas,
+            \begin{equation}    \label{EqVMRooUMXjig}
+                f(x_k)-\bar f\geq \frac{ 1 }{2}\lambda_{min}\| x_k-\bar x \|^2
+            \end{equation}
+            
+        \item[Conclusion]
+
+            En combinant les inéquations \eqref{EqVMRooUMXjig} et \eqref{eqANKooNPfCFj} nous trouvons
+            \begin{equation}
+                \frac{ 1 }{2}\lambda_{min}\| x_k-\bar x \|^2\leq f(x_k)-\bar f\leq \big( f(x_0)-\bar f \big)\left( \frac{ c_2(A)-1 }{ c_2(A)+1 } \right)^{2k}, 
+            \end{equation}
+            c'est à dire
+            \begin{equation}
+                \| x_k-\bar x \|\leq \sqrt{\frac{ 2\big( f(x_0)-\bar f \big) }{ \lambda_{min} +1}}^{2k}.
+            \end{equation}
+    \end{subproof}
+\end{proof}
+
+Notons que lorsque \( c_2(A)\) est proche de \( 1\) la méthode converge rapidement. Par contre si \( c_2(A)\) est proche de zéro, la méthode converge lentement.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Ellipsoïde de John-Loewer}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soit \( q\) une forme quadratique sur \( \eR^n\) ainsi que \( \mB\) une base orthonormée de \( \eR^n\) dans laquelle la matrice de  \( q\) est diagonale. Dans cette base, la forme \( q\) est donnée par la proposition \ref{PropFWYooQXfcVY} :
+\begin{equation}
+    q(x)=\sum_i\lambda_ix_i
+\end{equation}
+où les \( \lambda_i\) sont les valeurs propres de \( q\).
+
+Plus généralement nous notons \( mat_{\mB}(q)\)\nomenclature[A]{\( mat_{\mB}(q)\)}{matrice de \( q\) dans la base \( \mB\)} la matrice de \( q\) dans la base \( \mB\) de \( \eR^n\).
+
+\begin{proposition} \label{PropOXWooYrDKpw}
+    Soit \( \mB\) une base orthonormée de \( \eR^n\) et l'application\footnote{L'ensemble \( Q(E)\) est l'ensemble des formes quadratiques sur \( E\).}
+    \begin{equation}
+        \begin{aligned}
+            D\colon Q(\eR^n)&\to \eR \\
+            q&\mapsto \det\big( mat_{\mB}(q) \big) .
+        \end{aligned}
+    \end{equation}
+    Alors :
+    \begin{enumerate}
+        \item
+            La valeur et \( D\) ne dépend pas du choix de la base orthonormée \( \mB\).
+        \item
+            La fonction \( D\) est donnée par la formule \( D(q)=\prod_i\lambda_i\) où les \( \lambda_i\) sont les valeurs propres de \( q\).
+        \item
+            La fonction \( D\) est continue.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Soit \( q\) une forme quadratique sur \( \eR^n\). Nous considérons \( \mB\) une base de diagonalisation de \( q\) :
+    \begin{equation}
+        q(x)=\sum_i\lambda_ix_i
+    \end{equation}
+    où les \( x_i\) sont les composantes de \( x\) dans la base \( \mB\). Par définition, la matrice \( mat_{\mB}(q)\) est la matrice diagonale contenant les valeurs propres de \( q\).
+
+    Nous considérons aussi \( \mB_1\), une autre base orthonormées de \( \eR^n\). Nous notons \( S=mat_{\mB_1}(q)\); étant symétrique, cette matrice se diagonalise par une matrice orthogonale : il existe \( P\in\gO(n,\eR)\) telle que
+    \begin{equation}
+        S=P mat_{\mB}(q)P^t;
+    \end{equation}
+    donc \( \det(S)=\det(PP^t)\det\big( \diag(\lambda_1,\ldots, \lambda_n) \big)=\lambda_1\ldots\lambda_n\). Ceci prouve en même temps que \( D\) ne dépend pas du choix de la base et que sa valeur est le produit des valeurs propres.
+
+    Passons à la continuité. L'application déterminant \( \det\colon S_n(\eR^n)\to \eR\) est continue car polynôme en les composantes. D'autre par l'application \( mat_{\mB}\colon Q(\eR^n)\to S_n(\eR)\) est continue par la proposition \ref{PropFSXooRUMzdb}. L'application  \( D\) étant la composée de deux applications continues, elle est continue.
+\end{proof}
+
+\begin{proposition}[Ellipsoïde de John-Loewner\cite{KXjFWKA}]   \label{PropJYVooRMaPok}
+    Soit \( K\) compact dans \( \eR^n\) et d'intérieur non vide. Il existe une unique ellipsoïde\footnote{Définition \ref{DefOEPooqfXsE}.} (pleine) de volume minimal contenant \( K\).
+\end{proposition}
+\index{déterminant!utilisation}
+\index{extrema!volume d'un ellipsoïde}
+\index{convexité!utilisation}
+\index{compacité!utilisation}
+
+\begin{proof}
+    Nous subdivisons la preuve en plusieurs parties.
+    \begin{subproof}
+        \item[À propos de volume d'un ellipsoïde]
+
+            Soit \( \ellE\) un ellipsoïde. La proposition \ref{PropWDRooQdJiIr} et son corollaire \ref{CorKGJooOmcBzh} nous indiquent que 
+            \begin{equation}
+                \ellE=\{ x\in \eR^n\tq q(x)\leq 1 \}
+            \end{equation}
+            pour une certaine forme quadratique strictement définie positive \( q\). De plus il existe une base orthonormée \( \mB=\{ e_1,\ldots, e_n \}\) de \( \eR^n\) telle que 
+            \begin{equation}    \label{EqELBooQLPQUj}
+                q(x)=\sum_{i=1}^na_ix_i^2
+            \end{equation}
+            où \( x_i=\langle e_i, x\rangle \) et les \( a_i\) sont tous strictement positifs. Nous nommons \( \ellE_q\) l'éllipsoïde associée à la forme quadratique \( q\) et \( V_q\) son volume que nous allons maintenant calculer\footnote{Le volume ne change pas si nous écrivons l'inégalité stricte au lieu de large dans le domaine d'intégration; nous le faisons pour avoir un domaine ouvert.} :
+            \begin{equation}
+                V_q=\int_{\sum_ia_ix_i^2<1}dx
+            \end{equation}
+            Cette intégrale est écrite de façon plus simple en utilisant le \( C^1\)-difféomorphisme
+            \begin{equation}
+                \begin{aligned}
+                    \varphi\colon \ellE_q&\to B(0,1) \\
+                    x&\mapsto \Big( x_1\sqrt{a_1},\ldots, x_n\sqrt{a_n} \Big). 
+                \end{aligned}
+            \end{equation}
+            Le fait que \( \varphi\) prenne bien ses valeurs dans \( B(0,1)\) est un simple calcul : si \( x\in\ellE_q\), alors
+            \begin{equation}
+                \sum_i\varphi(x)_i^2=\sum_ia_ix_i^2<1.
+            \end{equation}
+            Cela nous permet d'utiliser le théorème de changement de variables \ref{THOooUMIWooZUtUSg} :
+            \begin{equation}
+                V_q=\int_{\sum_ia_ix_i^2<1}dx=\frac{1}{ \sqrt{a_1\ldots a_n} }\int_{B(0,1)}dx.
+            \end{equation}
+            %TODO : le volume de la sphère dans \eR^n. Mettre alors une référence ici.
+            La dernière intégrale est le volume de la sphère unité dans \( \eR^n\); elle n'a pas d'importance ici et nous la notons \( V_0\). La proposition \ref{PropOXWooYrDKpw} nous permet d'écrire \(V_q\) sous la forme
+            \begin{equation}
+                V_q=\frac{ V_0 }{ \sqrt{D(q)} }.
+            \end{equation}
+            
+        \item[Existence de l'ellipsoïde]
+
+            Nous voulons trouver un ellipsoïde contenant \( K\) de volume minimal, c'est à dire une forme quadratique \( q\in Q^{++}(\eR^n)\) telle que
+            \begin{itemize}
+                \item \( D(q)\) soit maximal
+                \item \( q(x)\leq 1\) pour tout \( x\in K\).
+            \end{itemize}
+            Nous considérons l'ensemble des candidats semi-définis positifs.
+            \begin{equation}
+                A=\{ q\in Q^+\tq q(x)\leq 1\forall x\in K \}.
+            \end{equation}
+            Nous allons montrer que \( A\) est convexe, compact et non vide dans \( Q(\eR^n)\); il aura ainsi un maximum de la fonction continue \( D\) définie sur \( Q(\eR^n)\). Nous montrerons ensuite que le maximum est dans \( Q^{++}\). L'unicité sera prouvée à part.
+
+            \begin{subproof}
+            \item[Non vide]
+                L'ensemble \( K\) est compact et donc borné par \( M>0\). La forme quadratique \( q\colon x\mapsto \| x \|^2/M^2\) est dans \( A\) parce que si \( x\in K\) alors 
+                \begin{equation}
+                    q(x)=\frac{ \| x \|^2 }{ M^2 }\leq 1.
+                \end{equation}
+            \item[Convexe]
+                Soient \( q,q'\in A\) et \( \lambda\in\mathopen[ 0 , 1 \mathclose]\). Nous avons encore \( \lambda q+(1-\lambda)q'\in Q^+\) parce que 
+                \begin{equation}
+                    \lambda q(x)+(1-\lambda)q'(x)\geq 0
+                \end{equation}
+                dès que \( q(x)\geq 0\) et \( q'(x)\geq 0\).
+            D'autre part si \( x\in K\) nous avons
+            \begin{equation}
+                \lambda q(x)+(1-\lambda)q'(x)\leq \lambda+(1-\lambda)=1.
+            \end{equation}
+            Donc \( \lambda q+(1-\lambda)q'\in A\).
+
+        \item[Fermé]
+
+            Pour rappel, la topologie de \( Q(\eR^n)\) est celle de la norme \eqref{EqZYBooZysmVh}. Nous considérons une suite \( (q_n)\) dans \( A\) convergeant vers \( q\in Q(\eR^n)\) et nous allons prouver que \( q\in A\), de sorte que la caractérisation séquentielle de la fermeture (proposition \ref{PropLFBXIjt}) conclue que \( A\) est fermé. En nommant \( e_x\) le vecteur unitaire dans la direction \( x\) nous avons
+            \begin{equation}
+                \big| q(x) \big|=\big| \| x \|^2q(e_x) \big|\leq \| x \|^2N(q),
+            \end{equation}
+            de sorte que notre histoire de suite convergente  donne pour tout \( x\) :
+            \begin{equation}
+                \big| q_n(x)-q(x) \big|\leq \| x \|^2N(q_n-q)\to 0.
+            \end{equation}
+            Vu que \( q_n(x)\geq 0\) pour tout \( n\), nous devons aussi avoir \( q(x)\geq 0\) et donc \( q\in Q^+\) (semi-définie positive). De la même manière si \( x\in K\) alors \( q_n(x)\leq 1\) pour tout \( n\) et donc \( q(x)\leq 1\). Par conséquent \( q\in A\) et \( A\) est fermé.
+
+        \item[Borné]
+
+            La partie \( K\) de \( \eR^n\) est borné et d'intérieur non vide, donc il existe \( a\in K\) et \( r>0\) tel que \( \overline{ B(a,r) }\subset K\). Si par ailleurs \( q\in A\) et \( x\in\overline{ B(0,r) }\) nous avons \( a+x\in K\) et donc \( q(a+x)\leq 1\). De plus \( q(-a)=q(a)\leq 1\), donc
+            \begin{equation}
+                \sqrt{q(x)}=\sqrt{q\big( x+a-a \big)}\leq \sqrt{q(x+a)}+\sqrt{q(-a)}\leq 2
+            \end{equation}
+            par l'inégalité de Minkowski \ref{PropACHooLtsMUL}. Cela prouve que si \( x\in\overline{ B(0,r) }\) alors \( q(x)\leq 4\). Si par contre \( x\in\overline{ B(0,1) }\) alors \( rx\in\overline{ B(0,r) } \) et 
+            \begin{equation}
+                0\leq q(x)=\frac{1}{ r^2 }q(rx)\leq \frac{ 4 }{ r^2 },
+            \end{equation}
+            ce qui prouve que \( N(q)\leq \frac{ 4 }{ r^2 }\) et que \( A\) est borné.
+
+
+            \end{subproof}
+
+            L'ensemble \( A\) est compact parce que fermé et borné, théorème de Borel-Lebesgue \ref{ThoXTEooxFmdI}. L'application continue \( D\colon Q(\eR^n)\to \eR\) de la proposition \ref{PropOXWooYrDKpw} admet donc un maximum sur le compact \( A\). Soit \( q_0\) ce maximum.
+
+            Nous montrons que \( q_0\in Q^{++}(\eR^d)\). Nous savons que l'application \( f\colon x\mapsto \frac{ \| x \|^2 }{ M^2 }\) est dans \( A\) et que \( D(f)>0\). Vu que \( q_0\) est maximale pour \( D\), nous avons
+            \begin{equation}
+                D(q_0)\geq D(f)>0.
+            \end{equation}
+            Donc \( q_0\in Q^{++}\).
+
+        \item[Unicité]
+
+            S'il existe une autre ellipsoïde de même volume que celle associée à la forme quadratique \( q_0\), nous avons une forme quadratique \( q\in Q^{++}\) telle que \( q(x)\leq 1\) pour tout \( x\in K\). C'est à dire que nous avons \( q_0,q\in A\) tels que \( D(q_0)=D(q)\).
+
+            Nous considérons la base canonique \( \mB_c\) de \( \eR^n\) et nous posons \( S=mat_{\mB_c}(q)\), \( S_0=mat_{\mB_c}(q_0)\). Étant donné que \( A\) est convexe, \( (q_0+q)/2\in A\) et nous allons prouver que cet élément de \( A\) contredit la maximalité de \( q_0\). En effet
+            \begin{equation}
+                D\left( \frac{ q+q_0 }{ 2 }\right)=\det\left( \frac{ S+S_0 }{2} \right)
+            \end{equation}
+            Nous allons utiliser le lemme \ref{LemXOUooQsigHs} qui dit que le logarithme est log-concave sous la forme de l'équation \eqref{EqSPKooHFZvmB} avec \( \alpha=\beta=\frac{ 1 }{2}\) :
+            \begin{equation}    \label{eqBHJooYEUDPC}
+                D\left( \frac{ q+q_0 }{ 2 }\right)=\det\left( \frac{ S+S_0 }{2} \right)>\sqrt{\det(S)}\sqrt{\det(S_0)}=\det(S_0)=D(q_0).
+            \end{equation}
+            Nous avons utilisé le fait que \( D(q_0)=D(q)\) qui signifie que \( \det(S_0)=\det(S)\). L'inéquation \eqref{eqBHJooYEUDPC} contredit la maximalité de \( D(q_0)\) et donne donc l'unicité.
+    \end{subproof}
+\end{proof}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Formes quadratiques, signature, et lemme de Morse}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
