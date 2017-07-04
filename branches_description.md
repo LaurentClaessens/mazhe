@@ -78,6 +78,10 @@ PDFpersoWanadoo
 BezoutCos
 NjCCfW
 
+# orga
+
+Écrire des points d'organisation dans le Frido.
+
 # finite
 
 Dans cette branche on parle d'éléments finis.
