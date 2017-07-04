@@ -78,6 +78,10 @@ PDFpersoWanadoo
 BezoutCos
 NjCCfW
 
+## futur
+
+Régler les réfénreces vers le futur et faire un peu d'index thématique.
+
 ## gradient
 
 On rend plus lisible la méthode du gradient à pas optimal et on démontre les choses qu'il faut au niveau des fonction convexes.
