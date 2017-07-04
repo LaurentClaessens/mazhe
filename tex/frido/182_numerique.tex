@@ -1017,7 +1017,7 @@ Voici un lemme qui dit que tout cela n'est pas si mal, pourvu que \( u\) soit as
 \end{remark}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Un exemple de discrétisation}
+\subsection{Un schéma à cinq points}
 %---------------------------------------------------------------------------------------------------------------------------
 
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1399,7 +1399,7 @@ Là, les opérateurs \( D^+\) et \( D^-\) sont ceux à une dimension. Mais nous 
     \big| (\partial^2_xu)(x,y)-(D^-D^+u)(x,y) \big|\leq \frac{1}{ 12 }h^2\| \partial^4_xu \|_{\infty}
 \end{equation}
 et nous pouvons écrire
-\begin{equation}
+\begin{equation}        \label{EQooCLSCooYLYJkU}
     (\partial^2_xu)(x,y)=(D^-D^+u)(x,y)+h^2R(x,y,h)
 \end{equation}
 où \( R\) est une fonction qui dépend de \( x\), \( y\) et \( h\), mais aussi de \( u\). Le point important est que \( R\) soit majoré par une quantité indépendante de \( h\), de telle sorte que nous ayons quelque garanties que négliger ce terme soit une bonne approximation lorsque \( h\to 0\).
@@ -1477,7 +1477,7 @@ Notons que \( f_{00}\) ne joue aucun rôle dans notre histoire parce que dans le
     \begin{enumerate}
         \item
             irréductible et à diagonale fortement dominante\footnote{Définition \ref{DEFooLSUTooHuXabV}. Le cas \( 1\times 1\) est discutablement à diagonale fortement dominante, il faut avouer.},
-        \item
+        \item       \label{ITEMooOOHPooDsvUPP}
             une M-matrice,
         \item
             inversible avec \( L_{h}>0\),
@@ -1528,6 +1528,10 @@ Notons que \( f_{00}\) ne joue aucun rôle dans notre histoire parce que dans le
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Consistance, convergence}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Définitions, mise en place}
+%---------------------------------------------------------------------------------------------------------------------------
 
 Soit un ouvert \( \Omega\subset \eR^n\) et un opérateur différentiel \( L\) sur \( \Omega\). Nous considérons le problème qui consiste à trouver une fonction \( u\) sur \( \Omega\) telle que
 \begin{equation}
@@ -1741,7 +1745,7 @@ Bien entendu, en tant qu'opérateur linéaire sur un espace de dimension finie, 
     Un schéma numérique est \defe{stable}{stable!schéma numérique} si il existe une constante \( C>0\) indépendante de \( h\) telle que \( \| L_h^{-1} \|\leq C\).
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}     \label{THOooEPQQooUQMcgF}
     En deux parties.
     \begin{enumerate}
         \item
@@ -1763,4 +1767,69 @@ Bien entendu, en tant qu'opérateur linéaire sur un espace de dimension finie, 
         \| e_h \|\leq C\| \tau_h \|\leq C'h^p
     \end{equation}
     Il est donc également convergeant à l'ordre \( p\).
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Exemple : schéma à cinq points}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous avions développé le schéma dont l'opérateur sur \( \Omega_h\) est (voir \eqref{EQooPWXBooPimUrU}) 
+\begin{equation}
+    (L_hu_h)(x_i,y_j)=\frac{1}{ h^2 }\big( -u_{i+1,j}-u_{i,j+1} +4u_{i,j}-u_{i-1,j}-u_{i,j-1}  \big).
+\end{equation}
+
+\begin{proposition}
+    Le schéma est :
+    \begin{enumerate}
+        \item
+            consistant à l'ordre \( 2\),
+        \item
+            stable pour la norme uniforme et
+            \begin{equation}
+                \| L_h^{-1} \|_{\infty}\leq \frac{1}{ 8 },
+            \end{equation}
+        \item
+            convergeant à l'ordre \( 2\) pour la norme \( \| . \|_{\infty}\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Cet opérateur avait été construit de telle sorte à avoir (voir \eqref{EQooCLSCooYLYJkU})
+    \begin{equation}
+        (\Delta u)(x_i,y_j)=(L_hu)(x_i,y_i)+h^2R(x,y,h)
+    \end{equation}
+    où \( R\) peut être majoré indépendamment de \( h\). En tant que fonctions sur \( \Omega_h\) nous avons
+    \begin{equation}
+        \tau_h=\Delta u-L_hu=h^2R(x,y,h),
+    \end{equation}
+    et donc \( \| \tau_h \|_{\infty}\leq Ch^2\), parce que le lemme \ref{LEMooZECZooVKxOZZ}\ref{ITEMooRWUHooZJLKuL} donne aussi
+    \begin{equation}
+        \| R \|_{\infty}\leq C\max\{ \| \frac{ \partial^4u }{ \partial x^4 } \|_{\infty},\| \frac{ \partial^4u }{ \partial y^4 } \|_{\infty} \}.
+    \end{equation}
+
+    En ce qui concerne la stabilité nous allons utiliser le théorème \ref{THOooWIFGooBQpddF}. Nous considérons la fonction
+    \begin{equation}
+        g(x,y)=-\frac{1}{ 4 }(x^2+y^2),
+    \end{equation}
+    qui vérifie \( -\Delta g=1\) sur le carré \( \mathopen[ 0 , 1 \mathclose]^2\). Nous considérons le vecteur \( g_h\) d'indices \( (i,j)\mapsto g_{ij}=g(x_i,y_j)\) sur lequel nous calculons \( L_h\) :
+    \begin{equation}
+        (L_hg_h)_{ij}=\frac{1}{ h^2 }(-g_{i+1,j}-g_{i,j+1}+4g_{ij}-g_{i-1,j}-g_{i,j-1});
+    \end{equation}
+    en remplaçant les \( g\) par leurs valeurs en termes de \( x_i\), \( x_{i-1}\), \( x_{i+1}\), \( y_j\), \( y_{j-1}\) et \( y_{j+1}\), et ne tenant compte du fait que \( x_k=kh\) et \( y_l=lh\) nous avons :
+    \begin{equation}
+        (L_hg_h)_{ij}=\frac{1}{ 4 }\big( (i+1)^2-j^2+i^2+(j+1)^2-4i^2-4j^2+(i-1)^2+j^2+i^2+(j-1)^2 \big)=1.
+    \end{equation}
+    Donc \( L_hg_h=1\).
+
+    Vu que \( L_h\) est une M-matrice (proposition \ref{ooOOHPooDsvUPP}\ref{ITEMooOOHPooDsvUPP}), le théorème \ref{THOooWIFGooBQpddF} nous dit alors que \( L_h^{-1}\) vérifie
+    \begin{equation}
+        \| L_h^{-1} \|_{\infty}\leq \| g_h \|_{\infty}.
+    \end{equation}
+    Mais 
+    \begin{equation}
+        \| g_h \|_{\infty}\leq \| g \|_{\infty}=g\big( \frac{ 1 }{2},\frac{ 1 }{2} \big)=\frac{1}{ 8 }.
+    \end{equation}
+    Notons que cela est bien une inégalité et non une égalité parce que rien n'assure que le point \( (1/2,1/2)\) soit sur le maillage; donc rien n'assure que la valeur \( g(1/2,1/2)\) ne soit parmi les valeurs du vecteur discrétisé \( g_h\).
+
+    Notre schéma numérique est stable et consistant à l'ordre \( 2\) pour la norme \( \| . \|_{\infty}\). Le théorème \ref{THOooEPQQooUQMcgF} dit alors que le schéma est convergeant à l'ordre \( 2\) pour la même norme.
 \end{proof}
