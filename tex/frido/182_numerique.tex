@@ -1476,13 +1476,13 @@ Notons que \( f_{00}\) ne joue aucun rôle dans notre histoire parce que dans le
     La matrice \(L_h\) est 
     \begin{enumerate}
         \item
-            irréductible et à diagonale fortement dominante\footnote{Définition \ref{DEFooLSUTooHuXabV}. Le cas \( 1\times 1\) est discutablement à diagonale fortement dominante, il faut avouer.}.
+            irréductible et à diagonale fortement dominante\footnote{Définition \ref{DEFooLSUTooHuXabV}. Le cas \( 1\times 1\) est discutablement à diagonale fortement dominante, il faut avouer.},
         \item
             une M-matrice,
         \item
-            inversible avec \( L_{h}>0\).
+            inversible avec \( L_{h}>0\),
         \item
-            symétrique
+            symétrique,
         \item
             strictement définie positive.
     \end{enumerate}
@@ -1558,3 +1558,142 @@ pour une fonction \( f\) donnée.
 Cela pour dire que le lien entre la solution exacte \( u\) et la solution approchée n'a rien d'évident, et va dépendre des choix faits lors de la discrétisation et lors de la résolution du système linéaire. Nous allons supposer dans un premier temps que l'équation \( L_hu_h=f\) est résolue exactement (nous avons un peu parlé de ces problème dans les sections \ref{SECooQGLRooZQzzsA} et suivantes).
 \end{normaltext}
 
+\begin{definition}
+    L'erreur \defe{de consistance}{erreur!de consistance} d'un schéma numérique est la fonction \( \tau_h\colon \Omega_h\to \eR\) définie par
+    \begin{equation}        \label{EQooPFBBooJumDZO}
+        \tau_h(x_i)=(L_hu)_i-(Lu)(x_i).
+    \end{equation}
+\end{definition}
+Il y a un jeu de notation pas tout à fait évident dans la définition \eqref{EQooPFBBooJumDZO}. En effet, \( L_h\) est une matrice, et ne s'applique donc a priori pas immédiatement à une fonction. Ce que signifie la notation \( (L_hu)_i\) est que l'on applique la matrice \( L_h\) au vecteur \( j\mapsto u(x_j)\) et que l'on prend la composante \( i\) du résultat.
+
+\begin{definition}
+    Nous disons que le schéma est \defe{consistant}{schéma!consistant} avec l'opérateur différentiel \( L\) lorsque
+    \begin{equation}        \label{EQooMPQYooCZsaAT}
+        \lim_{h\to 0^+} \| \tau_h \|=0
+    \end{equation}
+    où la norme \( \| . \|\) est souvent la norme uniforme, c'est à dire \( \| \tau_h \|=\max_i\tau_h(x_i)\).
+\end{definition}
+
+Notons que le lien entre \( h\) et le choix des \( x_i\) fait partie de la définition des schéma. Sur un segment de longueur \( L\), lorsque \( h\) n'est pas un diviseur de \( L\), le schéma devrait expliquer ce que l'on fait pour que la limite \eqref{EQooMPQYooCZsaAT} ait un sens.
+
+\begin{definition}
+    Le schéma \( (\Omega_h,L_h)\) est \defe{consistant à l'ordre \( p\)}{consistance!ordre} avec l'opérateur différentiel \( L\) pour la norme \( \| . \|\) si il existe une constante \( C\) indépendante de \( h\) telle que
+    \begin{equation}
+        \| \tau_h \|\leq Ch^p.
+    \end{equation}
+\end{definition}
+
+\begin{definition}
+    L'\defe{erreur de discrétisation}{erreur!discrétisation} entre la solution \( u\) du problème \( Lu=f\) et la solution approchée \( u_h\) sur \( \Omega_h\) est la fonction 
+    \begin{equation}
+        \begin{aligned}
+            e_h\colon \Omega_h&\to \eR \\
+            x_i&\mapsto u(x_i)-u_i. 
+        \end{aligned}
+    \end{equation}
+    où \( u_i=u_h(x_i)\) est la solution approchée.
+
+    Le schéma discret \( (L_hu_h)(x_i)=f_i\) est \defe{convergent}{convergent!schéma discret} si \( \lim_{h\to 0} \| e_h \|=0\). Si de plus is existe une constante \( C\) et \( p>0\) tels que
+    \begin{equation}
+        \| e_h \|\leq Ch^p,
+    \end{equation}
+    alors nous disons que le schéma est convergence à l'\defe{ordre}{ordre!de convergence d'un schéma} \( p\).
+\end{definition}
+
+Si l'erreur de consistance est petite, le \emph{problème} est bien approximé par la système linéaire. Cela n'implique cependant pas que la solution trouvée soit bien approximée.
+
+\begin{example}[Deux opérateurs différentiels proches dont les solutions sont loin]
+    Soit la partie \( \Omega=\mathopen] 0 , \infty \mathclose[\), et les problèmes
+    \begin{subequations}
+        \begin{numcases}{}
+            L_1u=u'=0\\
+            u(0)=1
+        \end{numcases}
+    \end{subequations}
+    et
+    \begin{subequations}
+        \begin{numcases}{}
+            L_2v=v'-\epsilon v=0\\
+            v(0)=1.
+        \end{numcases}
+    \end{subequations}
+    Les solutions exactes sont \( u(x)=1\) et \( v(x)= e^{\epsilon x}\).
+
+    En ce qui concerne les opérateurs, quelle que soit la norme utilisée nous avons
+    \begin{subequations}
+        \begin{align}
+            \| L_1-L_2 \|=\sup_{\| f \|=1}\| L_1(f)-L_2(f) \|\\
+            &=\sup_{\| f \|=1}\| \epsilon f \|\\
+            &=\epsilon.
+        \end{align}
+    \end{subequations}
+    Donc lorsque \( \epsilon\) est petit, l'opérateur \( L_2\) approxime bien l'opérateur \( L_1\). Pour toutes les normes. Mais 
+    \begin{equation}
+        \big| u(x)-v(x) \big|=| 1- e^{\epsilon x} |,
+    \end{equation}
+    donc quel que soit \( \epsilon\) nous avons \( \| u-v \|_{\infty}=\infty\). Et d'ailleurs, quelle que soit la norme raisonnable que nous mettons sur l'espace des fonctions, avoir \( \| u-v \|=\infty\) semble inévitable.
+
+    Donc deux opérateurs différentiels proches peuvent avoir des solutions lointaines.
+\end{example}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Exemple}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit l'opérateur différentiel \( L\) donné par
+\begin{equation}
+    Lu=-u''+cu
+\end{equation}
+où \( c\) est une fonction. Nous considérons sur \( \Omega=\mathopen] 0 , 1 \mathclose[\) l'équation différentielle
+\begin{equation}
+    Lu=0.
+\end{equation}
+En ce qui concerne la discrétisation, nous définissons le maillage \( \Omega_h=\{x_i=ih\}\) avec \( i=0,\ldots, N+1\). La solution approchée discrètement sera le vecteur \( v\) qui peut être vu comme fonction \( v\colon \Omega_h\to \eR\). Les nombres \( v_0\) et \( v_{N+1}\) sont a priori donnés par les conditions aux bords. Pour les autres \( v_i\) nous avons les équations
+\begin{equation}
+    (L_hv)_i=-\frac{ v_{i+1}-2v_i+v_{i-1} }{ h^2 }+c(x_i)v_i.
+\end{equation}
+Cela est la définition de l'opérateur \( L_h\), et le vecteur \( v\) solution de \( L_hv=0\) est la solution du problème au sens de la méthode des différences finies (pour peu qu'il existe, soit unique et tout ça).
+
+Pour calculer l'erreur de consistence, nous considérons une fonction \( u\) et nous posons \( u_i=u(x_i)\). Le vecteur \( (u_i)\) ainsi construit est approximé par \( v\) (on espère). Nous avons :
+\begin{equation}
+    \tau_h(x_i)=-\frac{ u_{i+1}-2u_i+u_{i-1} }{ h^2 }-c(x_i)u_i-(Lu)(x_i).
+\end{equation}
+Pour étudier cela nous développons \( u_{i+1}=u(x_i+h)\) et \( u_{i-1}=u(x_i-h)\) à l'ordre \( 4\) : il existe \( \alpha_i\in\mathopen[ x_i , x_i+h \mathclose]\) et \( \beta_i\in\mathopen[ x_i-h , x_i \mathclose]\) tels que
+\begin{equation}
+    u_{i+1}=u(x_i)+hu'(x_i)+\frac{ h^2 }{2}u''(x_i)+\frac{ h^3 }{ 3! }u^{(3)}(x_i)+\frac{ h^4 }{ 4! }u^{(4)}(\alpha_i)
+\end{equation}
+et
+\begin{equation}
+    u_{i-1}=u(x_i)-hu'(x_i)+\frac{ h^2 }{2}u''(x_i)-\frac{ h^3 }{ 3! }u^{(3)}(x_i)+\frac{ h^4 }{ 4! }u^{(4)}(\beta_i).
+\end{equation}
+Après simplification de plusieurs termes,
+\begin{equation}
+    \tau_h(x_i)=-\frac{ u_{i+1}-2u_i+u_{i-1} }{ h^2 }-c_iu_i+u''(x_i)+c_iu_i=\frac{ h^2 }{ 4! }\big( u^{(4)}(\alpha_i)+u^{(4)}(\beta_i) \big).
+\end{equation}
+Parler de la consistance du schéma demande d'étudier \( \lim_{h\to 0^+}\| \tau_h \| \), et pour cela, il faut préciser la norme avec laquelle nous voulons travailler. L'ordre de consistance va dépendre de la norme utilisée.
+
+Pour la norme \(  \| . \|_{\infty}\), les nombres \( u^{(4)}(\alpha_i)\) et \( u^{(4)}(\beta_i)\) se majorent par \(  \| u^{(4)} \|_{\infty}\) et nous avons
+\begin{equation}
+    \| \tau_h \|_{\infty}\leq \frac{ h^2 }{ 12 }\| u^{(4)} \|_{\infty}.
+\end{equation}
+Nous avons consistance d'ordre \( 2\).
+
+\begin{remark}
+    La valeur de \( \| \tau_h \|_{\infty}\) dépend de la fonction \( u\) sur laquelle nous la calculons. Cependant nous avons convergence \( \| \tau_h \|_{\infty}\to 0\) pour toute fonction (de classe disons \( C^4\)).
+
+    La constante \( C\) pour laquelle nous avons \( \| \tau_h \|\leq Ch^2\) et donc qui nous vaut de pouvoir dire que la consistance est d'ordre \( 2\) ne dépend pas de \( h\), ni des valeurs ponctuelles de \( u\) ou de ses dérivées, mais dépend des normes de \( u\) et de ses dérivées (en l'occurrence seulement de la norme de \( u^{(4)}\).)
+\end{remark}
+
+Étudions la consistance pour la norme \( L_1\) :
+\begin{equation}
+    \| \tau_h \|_1=\sum_i| \tau_h(x_i) |\leq \frac{ h^2 }{ 12 }\sum_i\| u^{(4)} \|_{\infty}
+\end{equation}
+où nous avons majoré chacun des \( u^{(4)}(\alpha_i)\) par \( \| u^{(4)} \|_{\infty}\). Combien de termes dans la somme ? Nous avons \( h=1/(N-1)\) et donc \( N=(1+h)/h\), ce qui donne
+\begin{equation}
+    \| \tau_h \|_1\leq N\frac{ h^2 }{ 12 }\| u^{(4)} \|_{\infty}=(1+h)Ch.
+\end{equation}
+La constante \( 1+h\) se majore par n'importe quelle constante strictement plus grande que \( 1\). Nous pouvons donc la rentrer dans \( C\) et écrire 
+\begin{equation}
+    \| \tau_h \|_1\leq Ch
+\end{equation}
+et donc avoir la consistance à l'ordre \( 1\).
