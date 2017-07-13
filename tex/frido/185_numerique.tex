@@ -4,7 +4,7 @@
 % See the file LICENCE.txt for copying conditions.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Méthode des différences finies de dimension un}
+\section{Problèmes de dimension un}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Soit une fonction \( u\colon \eR\to \eR\), et soit \( h>0\). Nous définissons les opérations suivantes (qui sont supposées approximer la dérivée \( u'(x)\) lorsqu'elle existe).
@@ -437,8 +437,9 @@ Nous tenons compte du fait que \( u_0=u_4=0\) et que \( h=1/4\) pour écrire le 
 où les \( s_i\) sont des nombres parfaitement connus : par exemple \( s_1=\sin(x_1)=\sin(1/4)\simeq 0.247403959254523\).
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Méthode des différences finies de dimension deux}
+\section{Problèmes de dimension deux}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 
 Nous allons considérer le système
 \begin{equation}                \label{SYSooTANLooRgnIMp}
@@ -453,7 +454,11 @@ où \( \Omega=\mathopen] 0 , a \mathclose[\times \mathopen] 0 , b \mathclose[\).
     Pourquoi un signe moins devant le laplacien ? Pour avoir la proposition \ref{PROPooOQJVooJMTkVM} qui dira que la matrice correspondant aux différences finies appliquées à ce système est une M-matrice. Sinon, c'est la matrice \(-L_h\) qui en serait une.
 \end{remark}
 
-Nous discrétisons \( \Omega\) en mailles carrés de côté \( h\) : \( x_k=kkh\) et \( y_k=kh\). L'opération de dérivée partielle \( \partial_x\) est discrétisée par
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Discrétisation en croix}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous allons maintenant déduire une discrétisation du laplacien en discrétisant les opérations \( \partial^2_x\) et \( \partial^2_y\). Nous discrétisons \( \Omega\) en mailles carrés de côté \( h\) : \( x_k=kkh\) et \( y_k=kh\). L'opération de dérivée partielle \( \partial_x\) est discrétisée par
 \begin{equation}
     (D_x^+u)(x,y)=\frac{ u(x+h)-u(x,y) }{ h }
 \end{equation}
@@ -495,7 +500,67 @@ Nous notons pour référence ultérieure la discrétisation suivante du laplacie
 \begin{equation}    \label{EQooQQUHooNYVqta}
     (\Delta_hu)(x_i,y_j)=\frac{1}{ h^2 }\big( -4u_{i,j}+u_{i+1,j}+u_{i-1,j}+u_{i,j-1}+u_{i,j+1} \big).
 \end{equation}
-Nous verrons dans la section \ref{SECooAYBEooNEUUfP} que d'autres discrétisations sont possibles.
+Cette discrétisation est dite «en croix» parce que les points exploités forment une croix.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Discrétisation en carré}
+%---------------------------------------------------------------------------------------------------------------------------
+
+L'opérateur laplacien est défini par \( \Delta=\partial_x^2+\partial_y^2\). Mais il existe de nombreuses autres façons de l'écrire.
+
+\begin{lemma}
+    Le laplacien est invariant par changement de coordonnées orthogonales. Plus précisément, si \( A\) est une matrice orthogonale, en posant \( u_i=\sum_kA_{ik}e_k\) nous avons
+    \begin{equation}
+        \sum_i\frac{ \partial^2f }{ \partial u_i^2 }f=\Delta f.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+Nous avons :
+\begin{equation}
+    \frac{ \partial f }{ \partial u_i }=\sum_kA_{ik}\frac{ \partial f }{ \partial x_k },
+\end{equation}
+et donc
+\begin{equation}
+    \sum_i\frac{ \partial^2f }{ \partial u_i^2 }=\sum_i\frac{ \partial  }{ \partial u_i }\left( \sum_kA_{ik}\frac{ \partial f }{ \partial x_k } \right)=\sum_{ijk}(A^t)_{ji}A_{ik}\partial^2f=\sum_{jk}(A^tA)_{jk}\partial^2_{jk}f.
+\end{equation}
+En particulier si \( A\) est une matrice orthogonale, \( (A^tA)_{jk}=\delta_{jk}\) et le résultat est prouvé.
+\end{proof}
+
+Les plus convaincus diront que \( \Delta=\nabla\cdot\nabla\) et que le produit scalaire est invariant sous changement de coordonnées orthogonales.
+
+Nous avons déjà déduit la discrétisation \eqref{EQooQQUHooNYVqta} du laplacien :
+\begin{equation}    
+    (\Delta_hu)(x_i,y_j)=\frac{1}{ h^2 }\big( -4u_{i,j}+u_{i+1,j}+u_{i-1,j}+u_{i,j-1}+u_{i,j+1} \big).
+\end{equation}
+Nous allons maintenant en déduire une par l'idée de décomposer le laplacien dans la base \( u=e_1+e_2\), \( v=e_1-e_2\). Pour cela nous introduisons les opérations (le nombre \( h\) dont dépendent ces opérateurs est sous-entendu)
+\begin{subequations}
+    \begin{align}
+        (D^+_uf)(x,y)&=\frac{ f(x+h,y+h)-f(x,y) }{ h }\\
+        (D^+_vf)(x,y)&=\frac{ f(x+h,y-h)-f(x,y) }{ h }\\
+        (D^-_uf)(x,y)&=\frac{ f(x,y)-f(x-h,y-h) }{ h }\\
+        (D^-_vf)(x,y)&=\frac{ f(x,y)-f(x-h,y+h) }{ h }.
+    \end{align}
+\end{subequations}
+Vu que 
+\begin{equation}
+    \partial_u^2+\partial_v^2=2\Delta,
+\end{equation}
+nous discrétisons le laplacien par
+\begin{equation}
+    \Delta'_h=\frac{ 1 }{2}\big( D_u^-D_u^++D_v^-D_v^+ \big).
+\end{equation}
+Un peu de calcul donne :
+\begin{subequations}   \label{EQooLHBDooSBFkho}
+    \begin{align}
+    (\Delta'_hf)(x,y)=\frac{1}{ 2h^2 }\Big( -4f(x,y)&+f(x+h,y+h)+f(x-h,y+h)\\
+    &+f(x+h,y-h)+f(x-h,y-h) \Big).
+    \end{align}
+\end{subequations}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Résolution de la discrétisation en croix}
+%---------------------------------------------------------------------------------------------------------------------------
 
 Les équations \eqref{EQooPWXBooPimUrU} forment un système d'équations linéaires à résoudre. Certaines peuvent être simplifiées parce qu'elles «touchent» le bord. Nous verrons cela un peu plus tard.
 
@@ -857,7 +922,7 @@ Bien entendu, en tant qu'opérateur linéaire sur un espace de dimension finie, 
 \end{proof}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Exemple : schéma à cinq points}
+\subsection{Exemple : schéma à cinq points, laplacien en croix}
 %---------------------------------------------------------------------------------------------------------------------------
 
 Nous avions développé le schéma dont l'opérateur sur \( \Omega_h\) est (voir \eqref{EQooPWXBooPimUrU}) 
@@ -922,35 +987,118 @@ Nous avions développé le schéma dont l'opérateur sur \( \Omega_h\) est (voir
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Autres façons d'aborder le laplacien}
+\section{Autres laplaciens}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\label{SECooAYBEooNEUUfP}
 
-L'opérateur laplacien est défini par \( \Delta=\partial_x^2+\partial_y^2\). Mais il existe de nombreuses autres façons de l'écrire.
-
-\begin{lemma}
-    Le laplacien est invariant par changement de coordonnées orthogonales. Plus précisément, si \( A\) est une matrice orthogonale, en posant \( u_i=\sum_kA_{ik}e_k\) nous avons
-    \begin{equation}
-        \sum_i\frac{ \partial^2f }{ \partial u_i^2 }f=\Delta f.
-    \end{equation}
-\end{lemma}
-
-\begin{proof}
-Nous avons :
+Nous avons vu le laplacien en croix \eqref{EQooQQUHooNYVqta} 
+\begin{equation}            \label{EQooOBWUooDEWKYv}
+    (\Delta_hf)(x_i,y_j)=\frac{1}{ h^2 }\big( -4f(x,y)+f(x+h,y)+f(x-h,y)+f(x,y+h)+f(x,y-h) \big).
+\end{equation}
+et le laplacien en carré \eqref{EQooLHBDooSBFkho}
+\begin{subequations}   \label{EQooUOYVooRpAMOC}
+    \begin{align}
+    (\Delta'_hf)(x,y)=\frac{1}{ 2h^2 }\Big( -4f(x,y)&+f(x+h,y+h)+f(x-h,y+h)\\
+    &+f(x+h,y-h)+f(x-h,y-h) \Big).
+    \end{align}
+\end{subequations}
+A priori toutes combinaisons de la forme
 \begin{equation}
-    \frac{ \partial f }{ \partial u_i }=\sum_kA_{ik}\frac{ \partial f }{ \partial x_k },
+    a\Delta_h+b\Delta_h'
 \end{equation}
-et donc
+avec \( a+b=1\) est valable comme tentative de discrétiser le laplacien. Ce sont des schémas à \( 9\) points. Évidemment la matrice \( L_h\) correspondante va être moins creuse, mais nous pouvons espérer ajuster \( a\) et \( b\) de telle sorte à obtenir une consistance d'un ordre supérieur à \( 2\).
+
+Nous allons développer les \( \Delta_hf\) et \( \Delta_h'f\) à l'ordre \( 4\) (reste à l'ordre \( 6\)). Quelque remarques avant de commencer. 
+\begin{enumerate}
+    \item
+        Allez relire la proposition \ref{PROPooQKZIooXTvkIr} et les notations qui vont avec pour comprendre les différentielles.
+    \item
+        Écrivez les formules du type \eqref{EQooXRWWooMoKoOB} pour \( d^2f\) et \( d^4f\).
+    \item
+        Allez relire le développement de Taylor du théorème \ref{THOooTDFRooEkChgi}.
+    \item
+        À l'ordre zéro, il n'y a rien parce que le terme \( -4f(x,y)\) compense les quatre termes d'ordre zéro des autres termes.
+    \item
+        Aux ordres impairs, il n'y a rien. En effet, prenons un nombre impair \( l\) et la formule
+        \begin{equation}
+            (d^lf)_x(h,\ldots, h)=\sum_{i_1,\ldots, i_l}h_{i_1}\ldots h_{i_l}\frac{ \partial^lf }{ \partial x_{i_1}\ldots \partial x_{i_l} }(x).
+        \end{equation}
+        Nous avons 
+        \begin{equation}
+            (d^lf)_x(h,\ldots, h)+(d^lf)_x(-h,\ldots, -h)=0.
+        \end{equation}
+        Or dans les expressions \eqref{EQooUOYVooRpAMOC} et \eqref{EQooOBWUooDEWKYv}, les termes arrivent par pair opposées.
+\end{enumerate}
+
+Commençons par calculer \( h^2(\Delta_hf)(x,y)\). 
+\begin{description}
+    \item[Ordre \( 4\)]. Le premier terme est :
+        \begin{equation}
+            (d^2f)_{(x,y)}\big( (h,0),(h,0) \big)=h^2(d^2f)_{(x,y)}\big( (1,0),(1,0) \big).
+        \end{equation}
+        La formule \eqref{EQooXRWWooMoKoOB} à peine adaptée permet de calculer ça explicitement.
+
+        Il y a encore les termes du même type avec \( (0,1)\), \( (-1,0)\) et \( (0,-1)\).
+
+    \item[Ordre \( 4\)]
+        Cette fois, ce sont \( 4\) termes du type
+        \begin{equation}
+            h^4(d^4f)_{(x,y)}\big( (1,0),(1,0),(1,0),(1,0) \big)
+        \end{equation}
+        à calculer.
+\end{description}
+Cela fait beaucoup de termes à calculer. Je vois laisse vous persuader que le programme suivant en Sage nous donne les coefficients.
+\lstinputlisting{tex/sage/coefs.sage}
+
+Le résultat est que, en utilisant la formule
 \begin{equation}
-    \sum_i\frac{ \partial^2f }{ \partial u_i^2 }=\sum_i\frac{ \partial  }{ \partial u_i }\left( \sum_kA_{ik}\frac{ \partial f }{ \partial x_k } \right)=\sum_{ijk}(A^t)_{ji}A_{ik}\partial^2f=\sum_{jk}(A^tA)_{jk}\partial^2_{jk}f.
+    \partial^4_xf+2\partial_{xxyy}^4f+\partial^4_yf=\Delta\Delta f,
 \end{equation}
-En particulier si \( A\) est une matrice orthogonale, \( (A^tA)_{jk}=\delta_{jk}\) et le résultat est prouvé.
-\end{proof}
+nous avons
+\begin{subequations}
+    \begin{align}
+    (\Delta_hf)(x,y)&=\frac{ 1 }{2}(2\partial_x^2f+2\partial_y^2f)(x,y)+\frac{1}{ 4! }2h^2(\partial^4_xf+\partial_y^4f)(x,y)+Kh^4\\
+    &=(\Delta f)(x,y)+\frac{1}{ 12 }h^2(\partial_x^4f+\partial_y^4f)(x,y)\\
+    &=\Delta f+\frac{ h^2 }{ 12 }\Delta\Delta f-\frac{ h^2 }{ 12 }2\partial^4_{xxyy}f\\
+    &=\Delta f+\frac{ h^2 }{ 12 }\Delta\Delta f-\frac{ h^2 }{ 6 }\partial^4_{xxyy}f
+    \end{align}
+\end{subequations}
+où \( K\) est une constante qui peut être majorée en terme des dérivées quatrièmes de \( f\). En particulier la plus grande des normes supremum de ces dérivées.
 
-Les plus convaincus diront que \( \Delta=\nabla\cdot\nabla\) et que le produit scalaire est invariant sous changement de coordonnées orthogonales.
-
-Nous avons déjà déduit la discrétisation \eqref{EQooQQUHooNYVqta} du laplacien :
-\begin{equation}    
-    (\Delta_hu)(x_i,y_j)=\frac{1}{ h^2 }\big( -4u_{i,j}+u_{i+1,j}+u_{i-1,j}+u_{i,j-1}+u_{i,j+1} \big).
+Le même genre de calculs donnent
+\begin{equation}
+        (\Delta'_hf)(x,y)=\frac{ 1 }{2}\Big[  \frac{ 1 }{2}4\Delta f+\frac{h^2}{ 4! }(4\partial_x^4f+24\partial_x^2\partial_y^2f+4\partial_y^2f)   \Big].
 \end{equation}
-Nous allons maintenant en déduire une par l'idée de décomposer le laplacien dans la base \( u_1=e_1+e_2\), \( u_2=e_1-e_2\).
+Ça donne :
+\begin{equation}
+    (\Delta'_hf)=\Delta f+\frac{ h^2 }{ 12 }\Delta\Delta f+\frac{ h^2 }{ 3 }\partial^4_{xxyy}f+Kh^4.
+\end{equation}
+
+
+Nous avons donc le résultat proposé dans \cite{ooURUTooREoTyo} :
+\begin{equation}
+    a\Delta_hf+b\Delta_h'f=(a+b)\Delta f+(a+b)\frac{ h^2 }{ 12 }\Delta^2f+h^2\frac{1}{ 6 }(a-2b)\partial^4_{xxyy}f.
+\end{equation}
+L'idée est d'appliquer ça à une fonction \( u\) qui vérifie l'équation différentielle \( -\Delta u=f\) (attention au clash de notation pour \( f\)). Le mieux est de supprimer le terme en \( \partial_{xxyy}f\) en demandant \( a-2b=0\). Nous avons donc à résoudre le système
+\begin{subequations}
+    \begin{numcases}{}
+        a+b=1\\
+        a-2b=0.
+    \end{numcases}
+\end{subequations}
+Qui propose une décomposition \( PLU\) pour résoudre ce système linéaire ? Quelle que soit la manière, la solution est
+\begin{equation}
+    \begin{aligned}[]
+        a=\frac{ 2 }{ 3 },&&b=\frac{1}{ 3 }.
+    \end{aligned}
+\end{equation}
+Nous allons donc étudier la discrétisation
+\begin{equation}
+    L_h=\frac{ 2 }{ 3 }\Delta_h+\frac{1}{ 3 }\Delta'_h.
+\end{equation}
+En faisant quelque additions nous trouvons
+\begin{equation}
+    \begin{aligned}[]
+        6h^2(L_hu)(x_i,y_j)=-20u_{ij}&+4\big( u_{i+1,j}+u_{i-1,j}+u_{i,j+1}+u_{i,j-1} \big)\\
+        &+u(i+1,j+1)+u_{i-1,j+1}+u_{i+1,j-1}+u_{i-1,j-1}.
+    \end{aligned}
+\end{equation}
