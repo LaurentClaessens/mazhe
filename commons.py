@@ -13,13 +13,19 @@
 # the future".
 
 # Why a hash ? Because virtually any string can be valid LaTeX code. So it is much
-# easier to compare the hashes than compare the string itself. 
+# easier to compare the hashes than compare the strings themselves. 
 # It is also easier to copy-paste from the terminal to here a sequence of 40 hex
 # digits than a full LaTeX line. Not to speak of correctly escape the string ...
 
 
 
 ok_hash=[]
+ok_hash.append("<++>")
+ok_hash.append("<++>")
+ok_hash.append("<++>")
+ok_hash.append("a52f512999c0a620ed5584084bf2d55e90515d51")
+ok_hash.append("a4631d05be6207d01a8bd87efa316c5054947257")
+ok_hash.append("7f467e77ce5b6e281d2ba67ae516bb49ee8616b6")
 ok_hash.append("fb706465b1c90d651b9f81e76de145d6e2baf21d")
 ok_hash.append("f780fc310d41ff713876ad4423eb66e430e1b631")
 ok_hash.append("31ce34aeda420a4f216f192638f4fd1acae5c204")
@@ -29,12 +35,6 @@ ok_hash.append("fc7872c669fc74a863d6ec66793c1770358ae365")
 ok_hash.append("67779fd0ecc1fa366da3619fb517a2deac388351")
 ok_hash.append("7da5dd6c51862fadd86f857f9be9aa405df2a648")
 ok_hash.append("e21cd5d47647e4aefb2c40cfeb421f3c23f64c54")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("7f467e77ce5b6e281d2ba67ae516bb49ee8616b6")
 ok_hash.append("2dfda732d2272359d5462e7bb9003ac2488dc870")
 ok_hash.append("890344c8471d0f0b677f33e1474c7b953183911d")
 ok_hash.append("ca514d3d53f283651b1aa7a993187d008adedbf4")
