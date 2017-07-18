@@ -93,3 +93,7 @@ Régler les réfénreces vers le futur et faire un peu d'index thématique.
 ## gradient
 
 On rend plus lisible la méthode du gradient à pas optimal et on démontre les choses qu'il faut au niveau des fonction convexes.
+
+## corr
+
+Tenir compte de ce que m'a envoyé Anthony Olivier
