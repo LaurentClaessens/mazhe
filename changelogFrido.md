@@ -1,6 +1,9 @@
 # Changelog du Frido
 
 
+## Correction (19 juillet 2017)
+
+Si A est un anneau intègre, il n'est pas vrai que A[X] est euclidien et principal.
 
 ## Différences finies : différentes discrétisation du laplacien (13 juillet 2027)
 

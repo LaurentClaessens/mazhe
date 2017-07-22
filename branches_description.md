@@ -97,3 +97,7 @@ On rend plus lisible la méthode du gradient à pas optimal et on démontre les 
 ## corr
 
 Tenir compte de ce que m'a envoyé Anthony Olivier
+
+## tetra
+
+Le isométries du tétrahèdre
