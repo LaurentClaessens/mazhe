@@ -17,6 +17,8 @@ myRequest.original_filename="mazhe.tex"
 
 myRequest.ok_filenames_list=["e_mazhe"]
 myRequest.ok_filenames_list.extend(["140_EspacesAffines"])
+myRequest.ok_filenames_list.extend(["63_representations"])
+myRequest.ok_filenames_list.extend(["175_trigono"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
