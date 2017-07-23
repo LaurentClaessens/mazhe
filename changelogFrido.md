@@ -1,6 +1,13 @@
 # Changelog du Frido
 
 
+## Isométries du tétraèdre et une représentation de S_4 (23 juillet 2017)
+
+Le groupe Iso(T) est isomorphe à S_4 (T est une tétraèdre régulier). Quand T est centré en 0, cela donne une représentation
+de S_4 de dimension 3.
+
+Nous en calculons les caractères.
+
 ## Correction (19 juillet 2017)
 
 Si A est un anneau intègre, il n'est pas vrai que A[X] est euclidien et principal.
