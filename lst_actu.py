@@ -16,9 +16,11 @@ myRequest.add_plugin(plugins_agreg.set_isFrido,"before_pytex")
 myRequest.original_filename="mazhe.tex"
 
 myRequest.ok_filenames_list=["e_mazhe"]
-myRequest.ok_filenames_list.extend(["63_representations"])
-myRequest.ok_filenames_list.extend(["62_representations"])
-myRequest.ok_filenames_list.extend(["47_groupes"])
+
+myRequest.ok_filenames_list.append("47_groupes.tex") 
+myRequest.ok_filenames_list.append("175_trigono.tex") 
+
+
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
