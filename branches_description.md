@@ -101,3 +101,4 @@ Tenir compte de ce que m'a envoyé Anthony Olivier
 ## tetra
 
 Le isométries du tétrahèdre
+tuto
