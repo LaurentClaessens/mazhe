@@ -1,5 +1,12 @@
 # Changelog du Frido
 
+## Dans le groupe symétrique (4 août 2017)
+
+Nous avons ajouté pas mal de choses concernant le groupe symétrique.
+
+- les sous-groupes normaux de S_n
+- le seul sous-groupe d'indice n dans S_n
+
 ## Isométries du tétraèdre et une représentation de S_4 (23 juillet 2017)
 
 Le groupe Iso(T) est isomorphe à S_4 (T est une tétraèdre régulier). Quand T est centré en 0, cela donne une représentation
