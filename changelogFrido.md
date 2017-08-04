@@ -1,6 +1,5 @@
 # Changelog du Frido
 
-
 ## Isométries du tétraèdre et une représentation de S_4 (23 juillet 2017)
 
 Le groupe Iso(T) est isomorphe à S_4 (T est une tétraèdre régulier). Quand T est centré en 0, cela donne une représentation
