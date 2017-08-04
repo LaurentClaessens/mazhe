@@ -101,4 +101,8 @@ Tenir compte de ce que m'a envoyé Anthony Olivier
 ## tetra
 
 Le isométries du tétrahèdre
-tuto
+
+## tuto
+
+## xspace
+What happens when one suppress xspace ?
