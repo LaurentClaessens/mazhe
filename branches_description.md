@@ -106,3 +106,7 @@ Le isométries du tétrahèdre
 
 ## xspace
 What happens when one suppress xspace ?
+
+## part
+
+Try to add "part" in the toc file
