@@ -1,7 +1,7 @@
 #! /usr/bin/python3
 # -*- coding: utf8 -*-
 
-
+import os
 
 class UnicodeCouple(object):
     def __init__(self,iec,utf):
@@ -99,7 +99,7 @@ def get_volume_pages(filename):
     return 1,tot_page/3,2*tot_page/3
 
 
-def hack_toc_file(filename):
+def _hack_toc_file(filename):
     init_vol1, init_vol2,init_vol3= get_volume_pages(filename)
     with open(filename,'r') as f:
         text=f.read()
@@ -121,3 +121,10 @@ def hack_toc_file(filename):
 
     with open(filename,'w') as f:
         f.write(new_text)
+
+
+def hack_toc_file(filename):
+    if os.path.exists(filename):
+        _hack_toc_file(filename)
+    else :
+        print("The given toc filename does not exist.")
