@@ -15,6 +15,12 @@ myRequest.ok_hash=commons.ok_hash
 # alors que keep_script_marks compte dessus pour faire sa sélection.
 myRequest.add_plugin(latexparser.PytexTools.accept_all_input,"medicament")
 myRequest.add_plugin(latexparser.PytexTools.keep_script_marks(plugins_agreg.agreg_mark_list),"before_pytex")
+
+
+# the plugin "split_doc" should better be of type "medicament"
+# because the "Traitement" object can find the toc filename
+# by himself instead of hard-code it in the function.
+myRequest.add_plugin(plugins_agreg.split_toc,"before_compilation")
 myRequest.add_plugin(plugins_agreg.set_boolean("isFrido","true"),"before_pytex")
 myRequest.add_plugin(plugins_agreg.set_commit_hexsha,"after_pytex")
 myRequest.add_plugin(plugins_agreg.assert_MonCerveau_first,"after_compilation")

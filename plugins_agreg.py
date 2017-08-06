@@ -172,3 +172,8 @@ def assert_MonCerveau_first():
                 
                 """.format(filename))
         raise
+
+def split_toc():
+    filename="Inter_frido-mazhe_pytex.toc"
+    from splittoc import hack_toc_file
+    hack_toc_file(filename)
