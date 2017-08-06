@@ -1,7 +1,6 @@
 #! /usr/bin/python3
 # -*- coding: utf8 -*-
 
-starting_string="""\contentsline {chapter}{\\numberline {"""
 
 
 class UnicodeCouple(object):
@@ -58,16 +57,36 @@ class Chapter(object):
         b=a[4].split("}")
         return int(b[0])
     def hack(self,n):
+        """
+        Append "(vol n)" at the end of the chapter's title.
+        """
         a=self.original.split("}")
         a[-4]=a[-4]+" (Vol {})".format(n)
         return "}".join(a)
 
-
         
 def is_chapter_line(line):
+    """
+    Return 'true' is 'line' is a line defining a chapter
+    in the toc file.
+    """
+    starting_string="""\contentsline {chapter}{\\numberline {"""
     return line.startswith(starting_string)
 
 def get_volume_pages(filename):
+    """
+    Return a tupe (a,b,c) where a,b,c are the "theoretical"
+    initial page for the three parts.
+
+    - we approximate the number of pages by the starting page number
+      of the last chapter (which is the GNU FLD)
+    - let N be that number
+    - we return 1,N/3,2N/3
+
+    For a given chapter, we decide its volume number on the basis
+    of its first page number.
+    See position 1140726388
+    """
     with open(filename,'r') as f:
         init_toc=f.read()
 
@@ -89,7 +108,7 @@ def hack_toc_file(filename):
     for line in text.split("\n") :
         if is_chapter_line(line):
             chapter=Chapter(line)
-            n=1
+            n=1     # position 1140726388
             if chapter.page() > init_vol2 :
                 n=2
             if chapter.page() > init_vol3 :
