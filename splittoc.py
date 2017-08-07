@@ -116,7 +116,14 @@ class Book(object):
         See position 1140726388
         """
 
-        return [i*self.tot_pages()/n for i in range(0,n)]
+        # We need to add a 'fake' last volume whose first page
+        # is for sure larger than any other pages in the book.
+        # The reason is that a chapter whose first page in F will
+        # be assigned to the (k-1)th volume where k is the first volume
+        # whose first page is larger than F.
+        a = [i*self.tot_pages()/n for i in range(0,n)]
+        a.append( a[-1]*4  )
+        return a
 
     def volume_number(self,chap,n):
         """
@@ -128,7 +135,7 @@ class Book(object):
         """
         # position 1140726388
         for i,k in enumerate(self.get_volume_pages(n)):
-            if chap.page()>k:
+            if k>chap.page():
                 return i
         print("The first page of this chapter has a number which is larger then the last page of the book ???")
         raise ValueError
