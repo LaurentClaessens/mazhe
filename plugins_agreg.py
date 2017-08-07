@@ -159,7 +159,7 @@ def assert_MonCerveau_first():
     import os.path
     filename="Inter_frido-mazhe_pytex.bbl"
     if not os.path.exists(filename):
-        print("Le fichier bbl n'existe pas. C'est pas très normal. Si cela persiste à la prochaine compilation, posez-vous des questions.")
+        print("Le fichier bbl n'existe pas. C'est pas très normal.  Si cela persiste à la prochaine compilation, posez-vous des questions.")
         return None
     bbl_content=open(filename).read()
     bbl_first=bbl_content.find("bibitem")
@@ -173,7 +173,18 @@ def assert_MonCerveau_first():
                 """.format(filename))
         raise
 
-def split_toc():
-    filename="Inter_frido-mazhe_pytex.toc"
-    from splittoc import hack_toc_file
-    hack_toc_file(filename)
+def split_toc(n):
+    """
+    Rewrites the TOC file with adding "(Vol i)" to the chapter name.
+    With i being the number of the volume in which the chapter should appears.
+
+    @param n : the number of volumes
+    @return : a function which makes the work
+    """
+
+    def _split_doc():
+        filename="Inter_frido-mazhe_pytex.toc"
+        from splittoc import Book
+        book=Book(filename)
+        book.rewrite_toc(n)
+    return _split_doc

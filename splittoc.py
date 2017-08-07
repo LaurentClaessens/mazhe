@@ -26,6 +26,14 @@ def IeC_remove(s):
         s=s.replace(c.iec,c.utf)
     return s
 
+def is_chapter_line(line):
+    """
+    Return 'true' is 'line' is a line defining a chapter
+    in the toc file.
+    """
+    starting_string="""\contentsline {chapter}{\\numberline {"""
+    return line.startswith(starting_string)
+
 class Chapter(object):
     """
     A chapter is defined from its TOC line which looks like
@@ -56,75 +64,93 @@ class Chapter(object):
         a=self.noIeC.split("{")
         b=a[4].split("}")
         return int(b[0])
-    def hack(self,n):
+    def hack(self,i):
         """
-        Append "(vol n)" at the end of the chapter's title.
+        Append "(vol i)" at the end of the chapter's title.
         """
         a=self.original.split("}")
-        a[-4]=a[-4]+" (Vol {})".format(n)
+        a[-4]=a[-4]+" (Vol {})".format(i)
         return "}".join(a)
 
-        
-def is_chapter_line(line):
+class Book(object):
     """
-    Return 'true' is 'line' is a line defining a chapter
-    in the toc file.
+    Represents a book, from the TOC point of view.
+
+    This is a wrapper around a list of chapters.
     """
-    starting_string="""\contentsline {chapter}{\\numberline {"""
-    return line.startswith(starting_string)
+    def __init__(self,toc_filename):
+        self.toc_filename=toc_filename
+    def splitlines(self):
+        """
+        Return a list of lines.
+        """
+        with open(self.toc_filename,'r') as f:
+            text=f.read()
+        return text.split("\n")
+    def chapter_list(self):
+        """
+        Return a list of chapters
+        """
+        return [ Chapter(line) for line in self.splitlines() 
+                            if is_chapter_line(line)    ]
+    def tot_pages(self):
+        """
+        Approximate the total page by the initial page of the last chapter
+        """
+        return self.chapter_list()[-1].page()   
+    def get_volume_pages(self,n):
+        """
+        Return the theoretical page number for the starting of 
+        the volumes.
 
-def get_volume_pages(filename):
-    """
-    Return a tupe (a,b,c) where a,b,c are the "theoretical"
-    initial page for the three parts.
+        @param  n The number of volumes
+        @return list of numbers (not guaranteed to be integers)
 
-    - we approximate the number of pages by the starting page number
-      of the last chapter (which is the GNU FLD)
-    - let N be that number
-    - we return 1,N/3,2N/3
+        - Approximate the number of pages by the starting page number
+          of the last chapter (which is the GNU FLD)
+        - Let N be that number
+        - Return [1,N/n,2N/n,\ldots (n-1)/N]
 
-    For a given chapter, we decide its volume number on the basis
-    of its first page number.
-    See position 1140726388
-    """
-    with open(filename,'r') as f:
-        init_toc=f.read()
+        For a given chapter, we decide its volume number on the basis
+        of its first page number.
+        See position 1140726388
+        """
 
-    chapter_list=[ Chapter(line) for line in init_toc.split("\n") 
-                        if is_chapter_line(line)    ]
+        return [i*self.tot_pages()/n for i in range(0,n)]
 
-    # Approximate the total page by the initial page of the last chapter
-    tot_page=chapter_list[-1].page()   
+    def volume_number(self,chap,n):
+        """
+        Return the volume number of the given chapter
 
-    return 1,tot_page/3,2*tot_page/3
+        @param chap : a chapter (type Chapter)
+        @param n (integer) : the number of volumes we want
+        @return : an integer
+        """
+        # position 1140726388
+        for i,k in enumerate(self.get_volume_pages(n)):
+            if chap.page()>k:
+                return i
+        print("The first page of this chapter has a number which is larger then the last page of the book ???")
+        raise ValueError
 
+    def rewrite_toc(self,n):
+        new_toc=[]
+        for line in self.splitlines():
+            if is_chapter_line(line):
+                chapter=Chapter(line)
+                vn=self.volume_number(chapter,n)
+                new_toc.append(chapter.hack(vn))
+            else :
+                new_toc.append(line)
 
-def _hack_toc_file(filename):
-    init_vol1, init_vol2,init_vol3= get_volume_pages(filename)
-    with open(filename,'r') as f:
-        text=f.read()
-
-    new_toc=[]
-    for line in text.split("\n") :
-        if is_chapter_line(line):
-            chapter=Chapter(line)
-            n=1     # position 1140726388
-            if chapter.page() > init_vol2 :
-                n=2
-            if chapter.page() > init_vol3 :
-                n=3
-            new_toc.append(chapter.hack(n))
-        else :
-            new_toc.append(line)
-
-    new_text="\n".join(new_toc)
-
-    with open(filename,'w') as f:
-        f.write(new_text)
-
+        new_text="\n".join(new_toc)
+    
+        with open(self.toc_filename,'w') as f:
+            f.write(new_text)
 
 def hack_toc_file(filename):
     if os.path.exists(filename):
-        _hack_toc_file(filename)
+        book=Book(filename)
+        book.rewrite_toc()
     else :
         print("The given toc filename does not exist.")
