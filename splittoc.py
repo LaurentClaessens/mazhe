@@ -120,6 +120,14 @@ class Book(object):
         of its first page number.
         See position 1140726388
         """
+        # A chapter is assigned to the (i-1)th volume when
+        # the first page number of the ith part is larger
+        # than the first page of the chapter.
+        # Thus we need a 'fake' (n+1)th volume whose
+        # first page number is for sure larger then any
+        # chapter's first page.
+        if v>n:
+            return self.tot_pages()*3
         return (v-1)*self.tot_pages()/n
     def volume_first_page(self,v,n):
         """
@@ -142,9 +150,9 @@ class Book(object):
         @param n (integer) : the number of volumes we want
         @return : an integer
         """
-        for v in range(1,n+1):
-            if chap.first_page()>self.volume_first_theoretical_page(v,n):
-                return v
+        for v in range(1,n+2):
+            if chap.first_page()<self.volume_first_theoretical_page(v,n):
+                return v-1
         print("The first page of this chapter has a number which is larger then the last page of the book ???")
         print("chapter : ",chap.title())
         print("first page : ",chap.first_page())
@@ -155,7 +163,11 @@ class Book(object):
         for v in range(1,n+1):
             print(v," -> ",self.volume_first_page(v,n))
 
-        raise
+        print("Chapitres : ")
+        for chap in self.chapter_list():
+            print("Titre : ",chap.title())
+            print("Première page :",chap.first_page())
+            print("Volume : ",self.volume_number(chap,n))
 
         new_toc=[]
         for line in self.splitlines():
