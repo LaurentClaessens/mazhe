@@ -60,7 +60,7 @@ class Chapter(object):
             print(t)
             raise ValueError 
         return(t)
-    def page(self):
+    def first_page(self):
         a=self.noIeC.split("{")
         b=a[4].split("}")
         return int(b[0])
@@ -93,38 +93,47 @@ class Book(object):
         """
         return [ Chapter(line) for line in self.splitlines() 
                             if is_chapter_line(line)    ]
+    def first_pages(self) :
+        return [x.first_page() for x in self.chapter_list]
     def tot_pages(self):
         """
         Approximate the total page by the initial page of the last chapter
         """
-        return self.chapter_list()[-1].page()   
-    def get_volume_pages(self,n):
+        return self.chapter_list()[-1].first_page()   
+    def volume_first_theoretical_page(self,v,n):
         """
-        Return the theoretical page number for the starting of 
-        the volumes.
+        Return the theoretical first page number of the volume
 
-        @param  n The number of volumes
-        @return list of numbers (not guaranteed to be integers)
+        @param v the volume number for which we are requesting the first
+                  theoretical page.
+        @param  n The total number of volumes
+        @return number
+
+        The returned number is not guaranteed to be integer.
 
         - Approximate the number of pages by the starting page number
           of the last chapter (which is the GNU FLD)
         - Let N be that number
-        - Return [1,N/n,2N/n,\ldots (n-1)/N]
+        - Return 1->1, 2->N/n, 3-> 2N/n ... n->(n-1)N/n
 
         For a given chapter, we decide its volume number on the basis
         of its first page number.
         See position 1140726388
         """
+        return (v-1)*self.tot_pages()/n
+    def volume_first_page(self,v,n):
+        """
+        Return the first page of volume 'v' if we divide into 'n' volumes
 
-        # We need to add a 'fake' last volume whose first page
-        # is for sure larger than any other pages in the book.
-        # The reason is that a chapter whose first page in F will
-        # be assigned to the (k-1)th volume where k is the first volume
-        # whose first page is larger than F.
-        a = [i*self.tot_pages()/n for i in range(0,n)]
-        a.append( a[-1]*4  )
-        return a
+        @param v,n integers
+        @return integer 
 
+        The returned integer is guaranteed to be the first page 
+        of a chapter.
+        """
+        for chap in self.chapter_list():
+            if chap.first_page() > self.volume_first_theoretical_page(v,n):
+                return chap.first_page()
     def volume_number(self,chap,n):
         """
         Return the volume number of the given chapter
@@ -133,14 +142,21 @@ class Book(object):
         @param n (integer) : the number of volumes we want
         @return : an integer
         """
-        # position 1140726388
-        for i,k in enumerate(self.get_volume_pages(n)):
-            if k>chap.page():
-                return i
+        for v in range(1,n+1):
+            if chap.first_page()>self.volume_first_theoretical_page(v,n):
+                return v
         print("The first page of this chapter has a number which is larger then the last page of the book ???")
-        raise ValueError
-
+        print("chapter : ",chap.title())
+        print("first page : ",chap.first_page())
+        raise
     def rewrite_toc(self,n):
+
+        print("Volumes :")
+        for v in range(1,n+1):
+            print(v," -> ",self.volume_first_page(v,n))
+
+        raise
+
         new_toc=[]
         for line in self.splitlines():
             if is_chapter_line(line):
@@ -154,10 +170,3 @@ class Book(object):
     
         with open(self.toc_filename,'w') as f:
             f.write(new_text)
-
-def hack_toc_file(filename):
-    if os.path.exists(filename):
-        book=Book(filename)
-        book.rewrite_toc()
-    else :
-        print("The given toc filename does not exist.")
