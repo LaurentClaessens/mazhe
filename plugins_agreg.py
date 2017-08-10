@@ -11,23 +11,12 @@ from __future__ import unicode_literals
 import latexparser
 import latexparser.PytexTools
 
-agreg_mark_list=[]
-agreg_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
-agreg_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
-agreg_mark_list.append("% SCRIPT MARK -- TOC")
-agreg_mark_list.append("% SCRIPT MARK -- FRIDO")
-agreg_mark_list.append("% SCRIPT MARK -- FINAL")
-
-book_mark_list=[]
-book_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
-book_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
-book_mark_list.append("% SCRIPT MARK -- TOC")
-book_mark_list.append("% SCRIPT MARK -- FRIDO")
-book_mark_list.append("% SCRIPT MARK -- FINAL")
-
-
-mesnotes_mark_list=agreg_mark_list[:]
-mesnotes_mark_list.append("% SCRIPT MARK -- DÉVELOPPEMENTS POSSIBLES")
+frido_mark_list=[]
+frido_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+frido_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
+frido_mark_list.append("% SCRIPT MARK -- TOC")
+frido_mark_list.append("% SCRIPT MARK -- FRIDO")
+frido_mark_list.append("% SCRIPT MARK -- FINAL")
 
 outilsmath_mark_list=[]
 outilsmath_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")

@@ -78,8 +78,9 @@ class Book(object):
 
     This is a wrapper around a list of chapters.
     """
-    def __init__(self,toc_filename):
+    def __init__(self,toc_filename,pdf_filename=None):
         self.toc_filename=toc_filename
+        self.pdf_filename=pdf_filename
     def splitlines(self):
         """
         Return a list of lines.
@@ -157,8 +158,10 @@ class Book(object):
         print("chapter : ",chap.title())
         print("first page : ",chap.first_page())
         raise
+
     def rewrite_toc(self,n):
 
+        # Print a summary
         print("Volumes :")
         for v in range(1,n+1):
             print(v," -> ",self.volume_first_page(v,n))
@@ -169,6 +172,7 @@ class Book(object):
             print("Première page :",chap.first_page())
             print("Volume : ",self.volume_number(chap,n))
 
+        # Makes the work
         new_toc=[]
         for line in self.splitlines():
             if is_chapter_line(line):
@@ -182,3 +186,13 @@ class Book(object):
     
         with open(self.toc_filename,'w') as f:
             f.write(new_text)
+
+def split_book(book,n):
+    """
+    Split the book in 'v' volumes
+    
+    @param book (type Book)
+    @param n (integer) the number of volumes
+
+    The 'book' parameter has to contain the pdf filename.
+    """
