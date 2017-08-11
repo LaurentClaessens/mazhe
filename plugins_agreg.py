@@ -11,23 +11,12 @@ from __future__ import unicode_literals
 import latexparser
 import latexparser.PytexTools
 
-agreg_mark_list=[]
-agreg_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
-agreg_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
-agreg_mark_list.append("% SCRIPT MARK -- TOC")
-agreg_mark_list.append("% SCRIPT MARK -- FRIDO")
-agreg_mark_list.append("% SCRIPT MARK -- FINAL")
-
-book_mark_list=[]
-book_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
-book_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
-book_mark_list.append("% SCRIPT MARK -- TOC")
-book_mark_list.append("% SCRIPT MARK -- FRIDO")
-book_mark_list.append("% SCRIPT MARK -- FINAL")
-
-
-mesnotes_mark_list=agreg_mark_list[:]
-mesnotes_mark_list.append("% SCRIPT MARK -- DÉVELOPPEMENTS POSSIBLES")
+frido_mark_list=[]
+frido_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+frido_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
+frido_mark_list.append("% SCRIPT MARK -- TOC")
+frido_mark_list.append("% SCRIPT MARK -- FRIDO")
+frido_mark_list.append("% SCRIPT MARK -- FINAL")
 
 outilsmath_mark_list=[]
 outilsmath_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
@@ -159,7 +148,7 @@ def assert_MonCerveau_first():
     import os.path
     filename="Inter_frido-mazhe_pytex.bbl"
     if not os.path.exists(filename):
-        print("Le fichier bbl n'existe pas. C'est pas très normal. Si cela persiste à la prochaine compilation, posez-vous des questions.")
+        print("Le fichier bbl n'existe pas. C'est pas très normal.  Si cela persiste à la prochaine compilation, posez-vous des questions.")
         return None
     bbl_content=open(filename).read()
     bbl_first=bbl_content.find("bibitem")
@@ -173,7 +162,18 @@ def assert_MonCerveau_first():
                 """.format(filename))
         raise
 
-def split_toc():
-    filename="Inter_frido-mazhe_pytex.toc"
-    from splittoc import hack_toc_file
-    hack_toc_file(filename)
+def split_toc(n):
+    """
+    Rewrites the TOC file with adding "(Vol i)" to the chapter name.
+    With i being the number of the volume in which the chapter should appears.
+
+    @param n : the number of volumes
+    @return : a function which makes the work
+    """
+
+    def _split_doc():
+        filename="Inter_frido-mazhe_pytex.toc"
+        from splittoc import Book
+        book=Book(filename)
+        book.rewrite_toc(n)
+    return _split_doc
