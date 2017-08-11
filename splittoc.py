@@ -1,6 +1,8 @@
 #! /usr/bin/python3
 # -*- coding: utf8 -*-
 
+# Requires the python module pdfrw (apt install python3-pdfrw)
+
 import os
 
 class UnicodeCouple(object):
@@ -81,6 +83,10 @@ class Book(object):
     def __init__(self,toc_filename,pdf_filename=None):
         self.toc_filename=toc_filename
         self.pdf_filename=pdf_filename
+        self.pdf_reader=None
+        if self.pdf_filename is not None :
+            from pdfrw import PdfReader
+            self.pdf_reader=PdfReader(self.pdf_filename)
     def splitlines(self):
         """
         Return a list of lines.
@@ -94,13 +100,36 @@ class Book(object):
         """
         return [ Chapter(line) for line in self.splitlines() 
                             if is_chapter_line(line)    ]
+    def get_chapter(self,n=2,title=None):
+        """
+        Return the requested chapter
+
+        @param n integer : the number of the requested chapter
+        @param title (string) : the title of the requested chapter
+
+        @return a chapter (class Chapter)
+
+        If 'n' is given, the title is ignored.
+        """
+        if n is not None:
+            return self.chapter_list()[n-1]
+        for chap in self.chaper_list() :
+            if chap.title==title:
+                return chap
+        raise "Are you giving a title which does not exist ?"
     def first_pages(self) :
         return [x.first_page() for x in self.chapter_list]
     def tot_pages(self):
         """
-        Approximate the total page by the initial page of the last chapter
+        If no actual pdf is given, approximate the total 
+        page by the initial page of the last chapter.
+
+        If a pdf filename is given, provides an exact answer.
         """
-        return self.chapter_list()[-1].first_page()   
+        if self.pdf_filename is None:
+            return self.chapter_list()[-1].first_page()   
+        if self.pdf_reader:
+            return len(self.pdf_reader.pages)
     def volume_first_theoretical_page(self,v,n):
         """
         Return the theoretical first page number of the volume
@@ -158,9 +187,17 @@ class Book(object):
         print("chapter : ",chap.title())
         print("first page : ",chap.first_page())
         raise
+    def to_pdf(self,pI,pF,filename):
+        """
+        copy the pages pI->pF into the file 'filename'
 
+        @param pI,pF : integers
+        @param filename : string
+        """
+        command="pdftk {} cat {}-{} output {}".format(self.pdf_filename,pI,pF,filename)
+        print("*** "+command)
+        os.system(command)
     def rewrite_toc(self,n):
-
         # Print a summary
         print("Volumes :")
         for v in range(1,n+1):
@@ -196,3 +233,13 @@ def split_book(book,n):
 
     The 'book' parameter has to contain the pdf filename.
     """
+
+    from pdfrw import PdfReader
+
+    # - 'front.pdf' contains thematic index, toc, index
+    # - 'not.pdf' contains the notation index
+    print(book.get_chapter(n=1).title())
+    for v in range(1,n+1):
+        print(book.volume_first_page(v,n))
+    #book.to_pdf(2,book.volume_first_page(1,n)-1,"front.pdf")
+    print(book.tot_pages())
