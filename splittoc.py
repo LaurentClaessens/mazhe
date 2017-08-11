@@ -172,6 +172,17 @@ class Book(object):
         for chap in self.chapter_list():
             if chap.first_page() > self.volume_first_theoretical_page(v,n):
                 return chap.first_page()
+    def volume_last_page(self,v,n):
+        """
+        Return the last page of a volume.
+
+        This is the same (-1) of the first page of the next one,
+        but for the last volume for which the last page is the last
+        page of the book.
+        """
+        if v==n :
+            return self.tot_pages()
+        return self.volume_first_page(v+1,n)-1
     def volume_number(self,chap,n):
         """
         Return the volume number of the given chapter
@@ -239,7 +250,6 @@ def split_book(book,n):
     # - 'front.pdf' contains thematic index, toc, index
     # - 'not.pdf' contains the notation index
     print(book.get_chapter(n=1).title())
-    for v in range(1,n+1):
-        print(book.volume_first_page(v,n))
-    #book.to_pdf(2,book.volume_first_page(1,n)-1,"front.pdf")
     print(book.tot_pages())
+    for v in range(1,n+1):
+        print("Volume {} : {} -> {}".format( v, book.volume_first_page(v,n), book.volume_last_page(v,n)))
