@@ -9,4 +9,3 @@ toc_filename="Inter_book-mazhe_pytex.toc"
 
 book=Book(toc_filename,pdf_filename)
 split_book(book,4)
-
