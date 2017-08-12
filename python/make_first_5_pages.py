@@ -81,11 +81,3 @@ for imprimeur in ["lulu","thebookedition"]:
             f.write(code)
 
         os.system("pdflatex "+filename)
-
-for i in [1,2,3]:
-    code=latex_code(title,i)
-    filename="couverture"+str(i)+".tex"
-    with open(filename,'w') as f:
-        f.write(code)
-
-    os.system("pdflatex "+filename)
