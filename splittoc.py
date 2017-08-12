@@ -209,6 +209,8 @@ class Book(object):
         print("*** "+command)
         os.system(command)
     def rewrite_toc(self,n):
+        if not os.path.exists(self.toc_filename):
+            return
         # Print a summary
         print("Volumes :")
         for v in range(1,n+1):
