@@ -21,10 +21,12 @@ myRequest.add_plugin(latexparser.PytexTools.keep_script_marks(plugins_agreg.frid
 # the plugin "split_doc" should better be of type "medicament"
 # because the "Traitement" object can find the toc filename
 # by himself instead of hard-code it in the function.
-myRequest.add_plugin(plugins_agreg.split_toc(4),"before_compilation")
+
+# If you change the '4' here, you have to change it also in 'split_book.py'
+myRequest.add_plugin(plugins_agreg.split_toc("book",4),"before_compilation")
+
 myRequest.add_plugin(plugins_agreg.set_boolean("isBook","true"),"before_pytex")
 myRequest.add_plugin(plugins_agreg.set_commit_hexsha,"after_pytex")
 myRequest.add_plugin(plugins_agreg.assert_MonCerveau_first,"after_compilation")
 
 myRequest.new_output_filename="0-book.pdf"
-
