@@ -70,14 +70,15 @@ def latex_code(title,year,v,imprimeur):
     return text
 
 
-title="Le Frido"
-year=2017
+def frido_2017():
+    title="Le Frido"
+    year=2017
 
-for imprimeur in ["lulu","thebookedition"]:
-    for v in range(1,5):
-        code=latex_code(title,year,v,imprimeur)
-        filename="firsts_5_"+imprimeur+"_"+str(v)+".tex"
-        with open(filename,'w') as f:
-            f.write(code)
+    for imprimeur in ["lulu","thebookedition"]:
+        for v in range(1,5):
+            code=latex_code(title,year,v,imprimeur)
+            filename="firsts_5_"+imprimeur+"_"+str(v)+".tex"
+            with open(filename,'w') as f:
+                f.write(code)
 
-        os.system("pdflatex "+filename)
+            os.system("pdflatex "+filename)

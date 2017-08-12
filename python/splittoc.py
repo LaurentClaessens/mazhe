@@ -250,26 +250,3 @@ class Book(object):
         with open(self.toc_filename,'w') as f:
             f.write(new_text)
 
-def split_book(book,n):
-    """
-    Split the book in 'v' volumes
-    
-    @param book (type Book)
-    @param n (integer) the number of volumes
-
-    The 'book' parameter has to contain the pdf filename.
-    """
-
-    from pdfrw import PdfReader
-
-    # - 'front.pdf' contains thematic index, toc, indexes
-    print(book.get_chapter(n=1).title())
-    print(book.tot_pages())
-    print("Creating front matter")
-    book.sub_pdf(2,book.volume_first_page(1,n)-1,"front.pdf")
-    for v in range(1,n+1):
-        pI=book.volume_first_page(v,n)
-        pF=book.volume_last_page(v,n)
-        filename="matter_{}.pdf".format(v)
-        print("Creating matter of volume {} : {} -> {}".format( v, pI, pF ))
-        book.sub_pdf(pI,pF,filename)
