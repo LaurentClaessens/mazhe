@@ -3,6 +3,13 @@
 
 # Requires the python module pdfrw (apt install python3-pdfrw)
 
+# The purpose of this module is two-fold
+# - Adding (Vol k) to the chapter names in the table of contents.
+#   The division is automatic from the given number of volumes.
+#   This is called from 'lst_frido.py' via the plugin 'split_toc'.
+# - Actually recompose the 'n' pdf for the decomposition in 'n' parts.
+#   This functionality is called from the script "split_book.py".
+
 import os
 
 class UnicodeCouple(object):
@@ -198,16 +205,22 @@ class Book(object):
         print("chapter : ",chap.title())
         print("first page : ",chap.first_page())
         raise
-    def to_pdf(self,pI,pF,filename):
+    def sub_pdf(self,pI,pF,filename):
         """
         copy the pages pI->pF into the file 'filename'
 
-        @param pI,pF : integers
+        @param pI,pF : integers, the page numbers
         @param filename : string
+
+        'pI' and 'pF' are the pdf numbers (the ones you see in the document),
+        not the numbers in the python's list of pages (which begins at 0).
         """
-        command="pdftk {} cat {}-{} output {}".format(self.pdf_filename,pI,pF,filename)
-        print("*** "+command)
-        os.system(command)
+        from pdfrw import PdfReader, PdfWriter
+        output=PdfWriter(filename)
+        pages=self.pdf_reader.pages
+        for k in range(pI-1,pF):
+            output.addpage(pages[k])
+        output.write(filename)
     def rewrite_toc(self,n):
         if not os.path.exists(self.toc_filename):
             return
@@ -249,9 +262,14 @@ def split_book(book,n):
 
     from pdfrw import PdfReader
 
-    # - 'front.pdf' contains thematic index, toc, index
-    # - 'not.pdf' contains the notation index
+    # - 'front.pdf' contains thematic index, toc, indexes
     print(book.get_chapter(n=1).title())
     print(book.tot_pages())
+    print("Creating front matter")
+    book.sub_pdf(2,book.volume_first_page(1,n)-1,"front.pdf")
     for v in range(1,n+1):
-        print("Volume {} : {} -> {}".format( v, book.volume_first_page(v,n), book.volume_last_page(v,n)))
+        pI=book.volume_first_page(v,n)
+        pF=book.volume_last_page(v,n)
+        filename="matter_{}.pdf".format(v)
+        print("Creating matter of volume {} : {} -> {}".format( v, pI, pF ))
+        book.sub_pdf(pI,pF,filename)
