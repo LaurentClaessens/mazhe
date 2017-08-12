@@ -223,6 +223,9 @@ class Book(object):
         output.write(filename)
     def rewrite_toc(self,n):
         if not os.path.exists(self.toc_filename):
+            print("la toc n'existe pas ?")
+            print(self.toc_filename)
+            raise
             return
         # Print a summary
         print("Volumes :")

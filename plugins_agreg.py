@@ -162,21 +162,26 @@ def assert_MonCerveau_first():
                 """.format(filename))
         raise
 
-def split_toc(n):
+def split_toc(name,n):
     """
     Rewrites the TOC file with adding "(Vol i)" to the chapter name.
     With i being the number of the volume in which the chapter should appears.
 
     @param n : the number of volumes
+    @param name (string) the name of the document we are speaking about
     @return : a function which makes the work
+
+    The parameter 'name' serves to distinguish 'frido' from 'book' when
+    creating the pathname of the toc file.
     """
 
     def _split_doc():
         import sys
         import os
-        sys.path.append(os.path.join(os.getcwd(),"python"))
+        cwd=os.getcwd()
+        sys.path.append(os.path.join(cwd,"python"))
         from splittoc import Book
-        filename="Inter_frido-mazhe_pytex.toc"
-        book=Book(filename)
+        toc_filename=os.path.join(cwd,"Inter_{}-mazhe_pytex.toc".format(name))
+        book=Book(toc_filename)
         book.rewrite_toc(n)
     return _split_doc
