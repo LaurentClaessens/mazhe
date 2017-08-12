@@ -172,8 +172,11 @@ def split_toc(n):
     """
 
     def _split_doc():
-        filename="Inter_frido-mazhe_pytex.toc"
+        import sys
+        import os
+        sys.path.append(os.path.join(os.getcwd(),"python"))
         from splittoc import Book
+        filename="Inter_frido-mazhe_pytex.toc"
         book=Book(filename)
         book.rewrite_toc(n)
     return _split_doc
