@@ -120,3 +120,10 @@ Travailler le découpage en volumes.
 Il y avait trois fois le théorème fondamental de l'analyse. Fixer ça.
 
 
+# madore
+
+Traiter l'équation diophantienne proposée dans
+http://www.madore.org/~david/weblog/d.2017-08-18.2460.html#d.2017-08-18.2460
+
+
+
