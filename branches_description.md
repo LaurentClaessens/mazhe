@@ -127,3 +127,7 @@ http://www.madore.org/~david/weblog/d.2017-08-18.2460.html#d.2017-08-18.2460
 
 
 
+# Alembert
+
+Encore déplacer ce théorème
+
