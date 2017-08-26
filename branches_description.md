@@ -125,9 +125,11 @@ Il y avait trois fois le théorème fondamental de l'analyse. Fixer ça.
 Traiter l'équation diophantienne proposée dans
 http://www.madore.org/~david/weblog/d.2017-08-18.2460.html#d.2017-08-18.2460
 
-
-
 # Alembert
 
 Encore déplacer ce théorème
+
+# weiner
+
+Traiter de la constante de Weiner.
 
