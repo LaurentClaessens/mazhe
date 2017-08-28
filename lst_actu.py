@@ -17,7 +17,6 @@ myRequest.ok_filenames_list=["e_mazhe"]
 
 
 myRequest.ok_filenames_list.extend(["177_trigono"])
-myRequest.ok_filenames_list.extend(["51_StructCorps"])
 myRequest.ok_filenames_list.extend(["178_trigono"])
 myRequest.ok_filenames_list.extend(["175_trigono"])
 myRequest.ok_filenames_list.extend(["<++>"])
