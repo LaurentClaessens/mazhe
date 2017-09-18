@@ -133,3 +133,6 @@ Encore déplacer ce théorème
 
 Traiter de la constante de Weiner.
 
+# frido2017
+
+Pour la publication de septembre 2017
