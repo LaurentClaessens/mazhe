@@ -24,16 +24,6 @@ def matter_filename(v):
 
 
 def isbn(title,year,v,imprimeur=None):
-    if title=="Le Frido":
-        if v==1:
-            return "978-2-9540936-5-9"
-        if v==2:
-            return "978-2-9540936-6-6"
-        if v==3:
-            return "978-2-9540936-7-3"       
-
-    # En attente de réponse de la part de l'AFNIL
-    # Ais-je besoin d'ISBN différents pour Lulu et thebookedition ?
     if title=="Le Frido" and year==2017:
         if imprimeur == "lulu":
             if v==1:
@@ -53,6 +43,14 @@ def isbn(title,year,v,imprimeur=None):
                 return "ISBN-thebookedition3"
             if v==4:
                 return "ISBN-thebookedition4"
+
+    if title=="Le Frido":
+        if v==1:
+            return "978-2-9540936-5-9"
+        if v==2:
+            return "978-2-9540936-6-6"
+        if v==3:
+            return "978-2-9540936-7-3"       
 
 
     default = "No ISBN attributed for the title "+title
@@ -77,7 +75,7 @@ def latex_code(title,year,v,imprimeur):
 
     text=open("generic.tex",'r').read()
 
-    substitutions=[  ["TITLE",title],["NUMBER",str(v)],["RISBN",isbn(title,v,imprimeur)],["YEAR+1",str(year+1)],["YEAR",str(year)],["PEPPERCARROT",pepper(imprimeur)]  ]
+    substitutions=[  ["TITLE",title],["NUMBER",str(v)],["RISBN",isbn(title,year=year,v=v,imprimeur=imprimeur)],["YEAR+1",str(year+1)],["YEAR",str(year)],["PEPPERCARROT",pepper(imprimeur)]  ]
 
     for s in substitutions:
         text=text.replace(s[0],s[1])
