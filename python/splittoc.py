@@ -1,4 +1,3 @@
-#! /usr/bin/python3
 # -*- coding: utf8 -*-
 
 # Requires the python module pdfrw (apt install python3-pdfrw)
