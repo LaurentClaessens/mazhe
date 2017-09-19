@@ -101,7 +101,6 @@ def make_5_pages(n):
             filename=first_filename(v,imprimeur)+".tex"
             with open(filename,'w') as f:
                 f.write(code)
-
             os.system("pdflatex "+filename)
 
 def split_book(book,n):
