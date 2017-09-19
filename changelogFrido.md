@@ -1,5 +1,9 @@
 # Changelog du Frido
 
+## Sous-groupes finis de SO(3) (17 septembre 2017)
+
+Démonstration de la liste des sous-groupes finis de SO(3).
+
 ## Dans le groupe symétrique (4 août 2017)
 
 Nous avons ajouté pas mal de choses concernant le groupe symétrique.
