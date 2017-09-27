@@ -140,3 +140,7 @@ Pour la publication de septembre 2017
 # hilbert
 
 Prouver que L^2 est le seul L^p qui soit un espace de Hilbert.
+
+# linuxfr
+
+Les patches venant de linuxfr et autres trucs qui m'arrivent par mail.
