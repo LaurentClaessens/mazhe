@@ -1,5 +1,21 @@
 # Changelog du Frido
 
+## Produit scalaire, espaces L^p, complexes et réels (24 septembre 2017)
+
+Il y avait eu du flottement au niveau des définitions, mais il faut prendre des décisions. 
+
+* Les espaces L^p sont des (classes de) fonctions à valeurs dans C et non R
+* Un produit scalaire sur un espace sur C est une forme bilinéaire vers C
+* Un espace de Hilbert est muni soit d'une produit scalaire si il est vectoriel sur R soit 
+d'un produit Hermitien si il est vectoriel sur C.
+* Personne ne parle jamais de produit scalaire pour un espace vectoriel sur C parce qu'on suppose tout de suite
+les hypothèses qu'il faut pour qu'il soit hermitien.
+
+
+## Sous-groupes finis de SO(3) (17 septembre 2017)
+
+Démonstration de la liste des sous-groupes finis de SO(3).
+
 ## Dans le groupe symétrique (4 août 2017)
 
 Nous avons ajouté pas mal de choses concernant le groupe symétrique.
