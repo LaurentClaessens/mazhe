@@ -16,8 +16,11 @@ myRequest.original_filename="mazhe.tex"
 myRequest.ok_filenames_list=["e_mazhe"]
 
 
-myRequest.ok_filenames_list.extend(["42_nombres"])
-myRequest.ok_filenames_list.extend(["53_topologie"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["<++>"])
+myRequest.ok_filenames_list.extend(["49_StructCorps"])
+myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
 myRequest.ok_filenames_list.extend(["<++>"])
