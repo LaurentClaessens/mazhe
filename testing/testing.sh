@@ -124,3 +124,8 @@ cat  $LOG_FILE
 
 echo "--------------------"
 echo "Find all the results in $LOG_FILE"
+
+ack "es fonction "
+ack "es variabe "
+
+
