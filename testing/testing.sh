@@ -84,6 +84,11 @@ test_death_links ()
     ./test_dead_links.py $CLONE_DIR --output=$LOG_FILE
 }
 
+check_spelling()
+{
+    ack "es variables " >> $LOG_FILE
+    ack "ligne" >> $LOG_FILE
+}
 
 test_picture ()
 {
@@ -109,13 +114,14 @@ fi
 
 compile_everything&
 compile_frido
-
+check_spelling
 
 cd $MAIN_DIR
 
 wait
 
 cd $CLONE_DIR
+
 
 
 echo "----------------"
@@ -125,7 +131,5 @@ cat  $LOG_FILE
 echo "--------------------"
 echo "Find all the results in $LOG_FILE"
 
-ack "es fonction "
-ack "es variabe "
 
 
