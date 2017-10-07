@@ -86,8 +86,7 @@ test_death_links ()
 
 check_spelling()
 {
-    ack "es variables " >> $LOG_FILE
-    ack "ligne" >> $LOG_FILE
+    ack " [LldDcC]es variables " >> $LOG_FILE
 }
 
 test_picture ()
