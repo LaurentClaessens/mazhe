@@ -87,6 +87,8 @@ test_death_links ()
 check_spelling()
 {
     ack " [LldDcC]es variable " >> $LOG_FILE
+    ack " demi [a-z]"
+    ack " d'intersections "
 }
 
 test_picture ()
