@@ -1,7 +1,7 @@
 # Le répertoire `research`
 
 
-Ce répertoire contient les fichier tex des parties de mathématique plus avancée, y compris du niveau recherche.
+Ce répertoire contient les fichiers tex des parties de mathématique plus avancée, y compris du niveau recherche.
 
 Pour l'obtenir, il faut compiler avec :
 ```bash
