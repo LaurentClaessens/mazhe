@@ -149,3 +149,7 @@ Les patches venant de linuxfr et autres trucs qui m'arrivent par mail.
 
 Il y a deux fichiers 185. Corriger ça.
 
+# eric
+
+Prendre les correctifs de https://github.com/LaurentClaessens/mazhe/pull/55
+
