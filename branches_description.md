@@ -153,3 +153,6 @@ Il y a deux fichiers 185. Corriger ça.
 
 Prendre les correctifs de https://github.com/LaurentClaessens/mazhe/pull/55
 
+# lax
+
+Tenir compte des remarques de Antoine Bensalah pour le théorème de Lax-Milgram
