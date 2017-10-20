@@ -1,5 +1,9 @@
 # Changelog du Frido
 
+## Complétude des réels (Octobre 2017)
+
+Séparer plus clairement le théorème qui dit que R est complet au sens des corps complets (avec les notions de suites de Cauchy dans un corps) de ce qui qui dit que R est complet en tant qu'espace métrique.
+
 ## Produit scalaire, espaces L^p, complexes et réels (24 septembre 2017)
 
 Il y avait eu du flottement au niveau des définitions, mais il faut prendre des décisions. 
