@@ -160,3 +160,9 @@ Tenir compte des remarques de Antoine Bensalah pour le théorème de Lax-Milgram
 # cdr
 
 Les remarques de cdrcprds
+
+# holo
+
+Montrer le coup de l'anneau des fonctions holomorphes sur un compact.
+(wikipédia -> anneau principal)
+
