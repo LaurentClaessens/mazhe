@@ -1,5 +1,15 @@
 # Changelog du Frido
 
+## Anneau intègre (octobre 2017)
+
+Suite à une remarque de cdr[1], correction d'une faute et quelque améliorations :
+
+- Oui, Z est intègre et euclidien, contrairement à ce qui était écrit.
+- Non, Z[X] n'est pas intègre.
+
+
+[1] https://github.com/LaurentClaessens/mazhe/issues/58
+
 ## Complétude des réels (Octobre 2017)
 
 Séparer plus clairement le théorème qui dit que R est complet au sens des corps complets (avec les notions de suites de Cauchy dans un corps) de ce qui qui dit que R est complet en tant qu'espace métrique.
