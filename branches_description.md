@@ -166,3 +166,7 @@ Les remarques de cdrcprds
 Montrer le coup de l'anneau des fonctions holomorphes sur un compact.
 (wikipédia -> anneau principal)
 
+# deschamps
+
+Tenir compte des remarques de Guillaume Deschamps
+
