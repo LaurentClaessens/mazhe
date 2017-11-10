@@ -1,5 +1,10 @@
 # Changelog du Frido
 
+## Matrices et changement de base (novembre 2017)
+
+- Mettre bien à plat les définitions de matrices associées à une application linéaire et à une forme bilinéaire
+- Donner les formules de changement de base (corriger quelque erreurs qu'il y avait là)
+
 ## Théorie des ensembles (novembre 2017)
 
 Suite à quelque remarques de Guillaume Deschamps, ajout de quelque précisions un peu partout dans la partie «théorie des ensembles».
@@ -12,6 +17,8 @@ Suite à une remarque de cdr[1], correction d'une faute et quelque amélioration
 
 - Oui, Z est intègre et euclidien, contrairement à ce qui était écrit.
 - Non, Z[X] n'est pas intègre.
+- Préciser qui de Z, Z[X] et Z/nZ est principal.
+- Quelque exemples et contre-exemples d'anneaux principaux, y compris dans les fonctions holomorphes.
 
 
 [1] https://github.com/LaurentClaessens/mazhe/issues/58
