@@ -221,6 +221,104 @@ Soit \( F\) un sous-espace vectoriel de l'espace vectoriel \( E\). La \defe{codi
     \codim_E(F)=\dim(E/F).
 \end{equation}
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Matrices}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous parlons maintenant de matrices. Les matrices sont de simples tableaux de nombres sur lesquels nous allons définir des opérations. Le lien entre ces opérations et les opérations correspondantes sur les applications linéaires sera fait plus tard. D'ailleurs nous n'avons pas encore défini la notion d'application linéaire.
+
+\begin{definition}
+    Soit une corps \( \eK\) ainsi que des entiers \( m\), \( n\) strictement positifs. L'ensemble \( \eM(n\times n,\eK)\) est l'ensemble des applications
+    \begin{equation}
+        \{ 1,\ldots, n \}\times \{ 1,\ldots, m \}\to \eK,
+    \end{equation}
+    et est appelé ensemble des \defe{matrices}{matrice} \(n\times m\) sur \( \eK\).
+\end{definition}
+Si \( A\) est une matrice, nous notons \( A_{ij}\) au lieu de \( A(i,j)\) l'image de \( (i,j)\) par l'application \( A\). Si \( n=m\) alors nous disons que la matrice est \defe{carré}{carré!matrice}, et nous notons \( \eM(n,\eK)\) au lieu de \( \eM(n\times n,\eK)\).
+
+Si \( A,B\in \eM(n\times m,\eK)\) et \( \lambda\in \eK\)  nous définissons
+\begin{description}
+    \item[La somme] \( (A+B)_{ij}=A_{ij}+B_{ij}\),
+    \item[Le produit par un scalaire] \( (\lambda A)_{ij}=\lambda A_{ij}\),
+    \item[La transposée] \( A^t_{ij}=A_{ji}\),
+    \item[La trace] \( \tr(A)=\sum_iA_{ii}\).
+\end{description}
+Cela donne à \( \eM(n\times m,\eK)\) une structure d'espace vectoriel. La notion de produit de deux matrice est à peine plus subtile; c'est une application
+\begin{equation}
+    \begin{aligned}
+         \eM(n\times p,\eK)\times \eM(p\times m,\eK)&\to \eM(n\times m,\eK) \\
+         (A,B)&\mapsto (AB)_{ij}=\sum_{k=1}^pA_{ik}B_{kj}. 
+    \end{aligned}
+\end{equation}
+La motivation de cette définition apparaîtra plus loin, mais le Frido n'étant pas un livre d'introduction, j'imagine que le lecteur a déjà une idée.
+
+\begin{lemma}[\cite{MonCerveau}]
+    Nous avons :
+    \begin{enumerate}
+        \item
+            \( (AB)^t=B^tA^t\),
+        \item
+            \( \tr(ABC)=\tr(CAB)\).
+    \end{enumerate}
+    La seconde égalité est importante et est nommée \defe{invariance cyclique}{invariance cyclique!trace} de la trace.
+\end{lemma}
+
+\begin{proof}
+    La première est un simple calcul :
+    \begin{equation}
+        (AB)^t_{ij}=(AB)_{ji}=\sum_kA_{jk}B_{ki}=\sum_kA^tkjB^t_{ik}=(B^tA^t)_{ij}.
+    \end{equation}
+    Pour la seconde :
+    \begin{equation}
+        \tr(ABC)=\sum_{ikl}A_{ik}B_{kl}C_{li}=\sum_{ikl}C_{li}A_{ik}B_{kl}=\sum_l(CAB)_l=\tr(CAB).
+    \end{equation}
+\end{proof}
+
+Nous notons \( \mtu\) la matrice carré\footnote{En toute rigueur nous devrions donner sa taille, mais elle sera toujours claire dans le contexte.} donnée par
+\begin{equation}
+    \mtu_{ij}=\begin{cases}
+        1    &   \text{si } i=j\\
+        0    &    \text{sinon.}
+    \end{cases}
+\end{equation}
+Il est vite vu que si \( A\) est une matrice de même taille que \( \mtu\) alors \( A\mtu=\mtu A=A\).
+
+\begin{propositionDef}[\cite{MonCerveau}]
+    Une matrice \( A\in \eM(n,\eK)\) est \defe{inversible}{inversible!matrice} si il existe une matrice \( B\) telle que
+    \begin{equation}
+        AB=BA=\mtu.
+    \end{equation}
+    Dans ce cas, une telle matrice est unique et est nommée \defe{inverse}{matrice!inverse} de \( A\).
+\end{propositionDef}
+
+\begin{proof}
+    Supposons que \( B_1\) et \( B_2\) soient des inverses de \( A\). Alors
+    \begin{subequations}
+        \begin{align}
+            \mtu=AB_1=\mtu\\
+            \mtu=AB_2=B_2A.
+        \end{align}
+    \end{subequations}
+    En multipliant la première par \( B_2\) à gauche :
+    \begin{equation}
+        B_2=B_2AB_1,
+    \end{equation}
+    mais vu que \( B_2A=\mtu\) nous avons \( B_2=B_1\). D'où l'unicité.
+\end{proof}
+
+\begin{definition}
+    Si \( A\in\eM(n,\eK)\) nous définissons le \defe{déterminant}{déterminant!matrice} de \( A\) par la formule
+    \begin{equation}
+        \det(A)=\sum_{\sigma\in S_n}\prod_{i=1}^nA_{i\sigma(i)}
+    \end{equation}
+    où la somme est effectué sur tous les élément du groupe symétrique\footnote{Définition \ref{DEFooJNPIooMuzIXd}.} \( S_n\).
+\end{definition}
+En se souvenant que \( | S_n |=n!\), nous sommes frappés de stupeur devant le fait que le nombre de termes dans la somme croît de façon factorielle (c'est plus qu'exponentiel, pour info) en la taille de la matrice. Cette formule est donc sans espoir pour une matrice plus grande que \( 3\times 3\) ou à la rigueur \( 4\times 4\) à la main. À l'ordinateur, il est possible de monter plus haut, mais pas tellement.
+
+\begin{theorem}
+    Une matrice sur \( \eR\) ou \( \eC\) est inversible si et seulement si sont déterminant est non nul.
+\end{theorem}
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Applications linéaires}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -561,6 +659,16 @@ x_m
     \end{equation}
     lorsque les bases canoniques sont considérées des deux côtés.
 \end{normaltext}
+
+\begin{normaltext}
+    Il convient de ne pas confondre matrice et application linéaires (bien que nous le ferons sans vergogne). Une matrice est un bête tableau de nombres, et nous savons déjà en calculer le déterminant, le dual, la trace, l'inverse et bien d'autres choses.
+
+    Une application linéaire est une application linéaire. Nous savons comment associer, lorsque deux bases sont données, une matrice à une application linéaire. Mais nous n'avons encore pas vu quel est le lien entre les propriétés de la matrice et celles de l'application linéaire.
+\end{normaltext}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Injection, surjection}
+%---------------------------------------------------------------------------------------------------------------------------
 
 \begin{definition}
   Une application $S: \eR^m\to\eR^n$ est dite \defe{affine}{affine (application)} si elle est la somme d'une application linéaire et d'une application constante. Autrement dit, $S$ est affine s'il existe $T: \eR^m\to\eR^n$, linéaire, telle que $S(x)-T(x)$ soit un vecteur constant dans $\eR^n$. 
