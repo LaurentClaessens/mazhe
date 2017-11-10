@@ -1,5 +1,11 @@
 # Changelog du Frido
 
+## Théorie des ensembles (novembre 2017)
+
+Suite à quelque remarques de Guillaume Deschamps, ajout de quelque précisions un peu partout dans la partie «théorie des ensembles».
+
+En particulier, prévenir le lecteur que la constructions des nombres n'est pas le premier chapitre à lire. Être plus clair sur ce que signifie «supposer avoir une théorie des ensembles».
+
 ## Anneau intègre (octobre 2017)
 
 Suite à une remarque de cdr[1], correction d'une faute et quelque améliorations :
