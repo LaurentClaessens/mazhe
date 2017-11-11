@@ -315,7 +315,7 @@ Il est vite vu que si \( A\) est une matrice de même taille que \( \mtu\) alors
 \end{definition}
 En se souvenant que \( | S_n |=n!\), nous sommes frappés de stupeur devant le fait que le nombre de termes dans la somme croît de façon factorielle (c'est plus qu'exponentiel, pour info) en la taille de la matrice. Cette formule est donc sans espoir pour une matrice plus grande que \( 3\times 3\) ou à la rigueur \( 4\times 4\) à la main. À l'ordinateur, il est possible de monter plus haut, mais pas tellement.
 
-\begin{theorem}
+\begin{theorem}     \label{THOooSNXWooSRjleb}
     Une matrice sur \( \eR\) ou \( \eC\) est inversible si et seulement si sont déterminant est non nul.
 \end{theorem}
 
@@ -1005,6 +1005,75 @@ Notons qu'on le note \( B^o\) et non \( B^{\perp}\) parce qu'on veut un peu s'ab
     Enfin \( F^{\perp}\subset\Span\{ e_{p+1}^*,e_n^* \}\) parce que si \( \omega=\sum_{k=1}^n\omega_ke_k^*\), alors \( \omega(e_i)=\omega_i\), mais nous savons que si \( \omega\in F^{\perp}\), alors \( \omega(e_i)=0\) pour \( i\leq p\). Donc \( \omega=\sum_{i=p+1}^n\omega_ke^*_k\).
 \end{proof}
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Transposée : pas d'approche naïve}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Il est légitime, si \( t\colon V\to V\) est une application linéaire, de dire que sa transposée soit l'application linéaire \( t^t\colon V\to V\) dont la matrice est la matrice transposée de celle de \( t\). Lorsque nous travaillons sur \( \eR^n\) muni de la base canonique, cela ne pose pas de problèmes et nous pouvons écrire des égalités du type \( \langle x, Ay\rangle =\langle A^tx, y\rangle \).
+
+Hélas nous allons voir que cette façon de définir une transposée est mauvaise. 
+
+Soit une application linéaire \( t\colon V\to V\) de matrice \( A\) dans la base \( \{ e_i \}_{i=1,\ldots, n}\) et de matrice \( B\) dans la base \( \{ f_{\alpha} \}_{\alpha=1,\ldots, n}\).
+
+Nous nommons \( t_1\) l'application linéaire associée à \( A^t\) dans la base \( \{ e_i \}\) et \( t_2\) l'application linéaire associée à la matrice \( B^t\) dans la base \( \{ f_{\alpha} \}\). Définir la transposée d'une application linéaire comme étant l'application linéaire associée à la transposée de sa matrice ne sera une bonne définition que si \( t_1=t_2\).
+
+La première chose facile à voir est
+\begin{equation}        \label{EQooAMHPooUQEkJo}
+    t_1(e_i)_j=\sum_k(A^t)_{jk}(e_i)_k=A^t_{ji}=A_{ij}.
+\end{equation}
+Pour calculer \( t_2(e_i)_j\), c'est un peu plus laborieux :
+\begin{subequations}
+    \begin{align}
+        t_2(e_i)&=\sum_{\alpha}Q_{\alpha i}^{-1} t_2(f_\alpha)=\sum_{\beta\gamma\alpha}Q_{\alpha i}^{-1}B^t_{\gamma\beta}\underbrace{(t_{\alpha})_{\beta}}_{\delta_{\alpha\beta}}f_{\gamma}=\sum_{\beta\gamma}Q_{\beta i}^{-1}B^t_{\gamma\beta}f_{\gamma}\\
+        &=(B^tQ^{-1})_{\gamma i}Q_{j\gamma}e_j\\
+        &=\sum_j(QB^tQ^{-1})_{ji}e_j.
+    \end{align}
+\end{subequations}
+Donc \( t_Z(e_i)_j=(QB^tQ^{-1})_{ji}\). En tenant compte du fait que \( B=Q^{-1}AQ\) nous avons
+\begin{equation}
+    t_2(e_i)_j=(QQ^tA^t(Q^{-1})^tQ^{-1})_{ji}.
+\end{equation}
+Cela est égal à l'expression \eqref{EQooAMHPooUQEkJo} lorsque \( Q^t=Q^{-1}\). Nous voyons que confondre transposée d'une application linéaire avec transposée de la matrice associée n'est valable que si nous sommes certain de ne considérer que des changements de base par des matrices orthogonales.
+
+Cela est la situation typique dans laquelle nous nous trouvons lorsque nous considérons des application linéaires sur \( \eR^n\) muni de la base canonique et que nous n'avons aucune intention de changer de base, et encore moins de chercher une base non orthonormale. Cette situation est clairement la situation la plus courante.
+
+\begin{example}[\cite{ooLIOMooBuCPUS}]
+    Soit la base canonique \( \{ e_1,e_2 \}\) de \( \eR^2\). Nous considérons l'application linéaire \( t\colon \eR^2\to \eR^2\) définie par
+    \begin{subequations}
+        \begin{align}
+            t(e_1)&=e_1\\
+            t(e_2)&=0.
+        \end{align}
+    \end{subequations}
+    La matrice de \( t\) dans cette base est
+    \begin{equation}
+        A=\begin{pmatrix}
+            1    &   0    \\ 
+            0    &   0    
+        \end{pmatrix}.
+    \end{equation}
+    Elle est symétrique : elle vérifie \( A^t=A\). Si nous comptions sur la transposée de matrice pour définir la transposée de \( t\), nous aurions \( t^t=t\). 
+
+    Soit maintenant la base \( f_1=e_1\), \( f_2=e_1+e_2\). Nous avons \( t(f_1)=f_1\) et
+    \begin{equation}
+        t(f_2)=t(e_1)+t(e_2)=e_1=f_1.
+    \end{equation}
+    Donc la matrice de \( t\) dans cette base est
+    \begin{equation}
+        B=\begin{pmatrix}
+            1    &   1    \\ 
+            0    &   0    
+        \end{pmatrix}.
+    \end{equation}
+    Et là, nous avons \( B^t\neq B\). Donc en comptant sur cette base pour définir la transposée de \( t\) nous aurions \( t^t\neq t\).
+\end{example}
+
+\begin{normaltext}      \label{NooMZVRooExWVKJ}
+    Autrement dit, la façon «usuelle» de voir la transposée d'une application linéaire ne fonctionne dans les livres pour enfant uniquement parce qu'on n'y considère toujours \( \eR^n\) muni de la base canonique ou de bases orthonormées.
+     
+    Notons que nous avons tout de mêmes les notions d'opérateur adjoint et autoadjoint pour parler d'application orthogonale sans passer par la transposée, voir \ref{DEFooYKCSooURQDoS}.
+\end{normaltext}
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Transposée}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -1120,44 +1189,6 @@ En corollaire, les rangs de \( f\) et de \( f^t\) sont égaux parce que le rang 
     \end{equation}
     qui implique que \( f\) est injective.
 \end{proof}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Transposée : sans le dual}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{probleme}        \label{PROBooWNTKooNErOvt}
-    J'aimerais une confirmation de ce qui est écrit dans ici à propos du fait que si \( f\) est une application linéaire, \( f^t\) n'est pas bien définie.
-\end{probleme}
-
-Il est légitime, si \( f\colon V\to V\) est une application linéaire, de dire que sa transposée soit l'application linéaire \( f^t\colon V\to V\) dont la matrice est la matrice transposée de celle de \( f\). Lorsque nous travaillons sur \( \eR^n\) muni de la base canonique, cela ne pose pas de problèmes et nous pouvons écrire des égalités du type \( \langle x, Ay\rangle =\langle A^tx, y\rangle \).
-
-Hélas nous allons voir que cette façon de définir une transposée est mauvaise. 
-\begin{equation}
-    f(x)=\sum_{kl}A_{kl}x_le_k=\sum_{\alpha\beta}A'_{\alpha\beta}x'_{\beta}e'_{\alpha}.
-\end{equation}
-Nous écrivons l'application transposée par rapport à la première base :
-\begin{equation}
-    f^{t_1}(x)=\sum_{kl}A_{lk}x_le_k
-\end{equation}      
-et par rapport à la seconde base :
-\begin{equation}        \label{EQooFXDQooEjYCrP}
-    f^{t_2}(x)=\sum_{\alpha\beta}A'_{\beta\alpha}x'_{\beta}e'_{\alpha}.
-\end{equation}
-En replaçant dans \( f^{(t_1)}\) les nombres \( x_l\) et les vecteurs \( e_k\) par les valeurs en termes des \( x'_{\beta}\) et \( e'_{\alpha}\) nous obtenons
-\begin{equation}
-    f^{t_1}(x)=\sum_{\alpha\beta}(Q^{-1}A^tQ)_{\alpha\beta}x'_{\beta}e'_{\alpha}.
-\end{equation}
-Nous avons égalité avec \eqref{EQooFXDQooEjYCrP} seulement lorsque \( A'_{\beta\alpha}=(Q^{-1}A^tQ)_{\alpha\beta}\), mais sachant que \( A'=Q^{-1}AQ\) nous avons besoin que
-\begin{equation}
-    Q^{-1}=Q^t
-\end{equation}
-(cela étant une égalité de matrice).
-
-\begin{normaltext}      \label{NooMZVRooExWVKJ}
-    Autrement dit, la façon «usuelle» de voir la transposée d'une application linéaire ne fonctionne dans les livres pour enfant uniquement parce qu'on n'y considère toujours \( \eR^n\) muni de la base canonique ou de bases orthonormées.
-     
-    Notons que nous avons tout de mêmes le notions d'opérateur adjoint et autoadjoint pour parler d'application orthogonale sans passer par la transposée, voir \ref{DEFooYKCSooURQDoS}.
-\end{normaltext}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Polynômes de Lagrange}
