@@ -1,5 +1,9 @@
 # Changelog du Frido
 
+## Corps des fractions et (novembre 2017)
+
+Nous définissons Q comme corps des fractions sur Z. Cela nous demande de déplacer encore beaucoup de choses sur les anneaux et corps entre la construction de Z et celle de Q. En réalité nous allons mettre tout cela avec groupes/anneaux/corps entre N et Z.
+
 ## Matrices et changement de base (novembre 2017)
 
 - Mettre bien à plat les définitions de matrices associées à une application linéaire et à une forme bilinéaire
