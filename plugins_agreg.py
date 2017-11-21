@@ -1,15 +1,6 @@
 # -*- coding: utf8 -*-
 
-# This is part of (almost) Everything I know in mathematics
-# Copyright (c) 2014-2017   (et en fait sûrement plus)
-#   Laurent Claessens
-# See the file fdl-1.3.txt for copying conditions.
-
-
 from __future__ import unicode_literals
-
-import latexparser
-import latexparser.PytexTools
 
 frido_mark_list=[]
 frido_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
