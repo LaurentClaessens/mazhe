@@ -1,5 +1,18 @@
 # Changelog du Frido
 
+## corps de rupture, corps de décomposition (novembre, décembre 2017)
+
+Suite à des remarques de cdrcprds, de gros travaux ont été fait du côté des corps de rupture et de décomposition.
+
+- définition, existence de corps de rupture
+- définition, existence et unicité du corps de décomposition
+- Clarifier la définition d'un polynôme comme suite presque nulle. Entre autres, donner un sens à la formule P(X)=P
+- Clarifier ce qu'est A[X], A(X), A(a), A[a]
+- Éléments transcendants et algébriques.
+
+https://github.com/LaurentClaessens/mazhe/issues/60
+https://github.com/LaurentClaessens/mazhe/issues/62
+
 ## Corps des fractions et (novembre 2017)
 
 Nous définissons Q comme corps des fractions sur Z. Cela nous demande de déplacer encore beaucoup de choses sur les anneaux et corps entre la construction de Z et celle de Q. En réalité nous allons mettre tout cela avec groupes/anneaux/corps entre N et Z.
