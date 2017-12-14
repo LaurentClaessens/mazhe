@@ -344,6 +344,188 @@ En se souvenant que \( | S_n |=n!\), nous sommes frappés de stupeur devant le f
     Une matrice sur \( \eR\) ou \( \eC\) est inversible si et seulement si sont déterminant est non nul.
 \end{theorem}
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Lignes et colonnes de matrices}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous nommons \( E_{ij}\) la matrice remplie de zéros sauf à la case \( ij\) qui vaut \( 1\). Autrement dit
+\begin{equation}
+    (E_{ij})_{kl}=\delta_{ik}\delta_{jl}.
+\end{equation}
+\begin{definition}
+    Une \defe{matrice de transvection}{transvection (matrice)}\index{matrice!de transvection} est une matrice de la forme
+    \begin{equation}
+        T_{ij}(\lambda)=\id+\lambda E_{ij}
+    \end{equation}
+    avec \( i\neq j\).
+
+    Une \defe{matrice de dilatation}{matrice!de dilatation}\index{dilatation (matrice)} est une matrice de la forme
+    \begin{equation}
+        D_i(\lambda)=\id+(\lambda-1)E_{ii}.
+    \end{equation}
+    Ici le \( (\lambda-1)\) sert à avoir \( \lambda\) et non \( 1+\lambda\). C'est donc une matrice qui dilate d'un facteur \( \lambda\) la direction \( i\) tout en laissant le reste inchangé.
+
+    Si \( \sigma\) est une permutation (un élément du groupe symétrique \( S_n\)) alors la \defe{matrice de permutation}{matrice!de permutation}\index{permutation!matrice} associée est la matrice d'entrées
+    \begin{equation}
+        (P_{\sigma})_{ij}=\delta_{i\sigma(j)}.
+    \end{equation}
+\end{definition}
+
+\begin{lemma}   \label{LemyrAXQs}
+    La matrice \( T_{ij}(\lambda)A=(\mtu+\lambda E_{ij})A\) est la matrice \( A\) à qui on a effectué la substitution
+    \begin{equation}
+        L_i\to L_i+\lambda L_j.
+    \end{equation}
+    La matrice \( AT_{ij}(\lambda)\) est la substitution 
+    \begin{equation}
+        C_j\to C_j+\lambda C_i.
+    \end{equation}
+
+    La matrice \( AP_{\sigma}\) est la matrice \( A\) dans laquelle nous avons permuté les colonnes avec \( \sigma\).
+
+    La matrice \( P_{\sigma}A\) est la matrice \( A\) dans laquelle nous avons permuté les lignes avec \( \sigma^{-1}\).
+\end{lemma}
+
+\begin{proof}
+    Calculons la composante \( kl\) de la matrice \( E_{ij}A\) :
+    \begin{subequations}
+        \begin{align}
+            (E_{ij}A)_{kl}&=\sum_m(E_{ij})_{km}A_{ml}\\
+            &=\sum_m\delta_{ik}\delta_{jm}A_{ml}\\
+            &=\delta_{ik}A_{jl}.
+        \end{align}
+    \end{subequations}
+    C'est donc la matrice pleine de zéros, sauf la ligne \( i\) qui est donnée par la ligne \( j\) de \( A\). Donc effectivement la matrice
+    \begin{equation}
+        A+\lambda E_{ij}A
+    \end{equation}
+    est la matrice \( A\) à laquelle on a substitué la ligne \( i\) par la ligne \( i\) plus \( \lambda\) fois la ligne \( j\).
+
+    En ce qui concerne l'autre assertion sur les transvections, le calcul est le même et nous obtenons
+    \begin{equation}
+        (AE_{ij})=A_{ki}\delta_{jl}.
+    \end{equation}
+
+    Pour les matrices de permutation, nous avons 
+    \begin{equation}
+        (AP_{\sigma})_{kl}=A_{k\sigma(l)}
+    \end{equation}
+    et
+    \begin{equation}
+        (P_{\sigma}A)_{kl}=\sum_m\delta_{k\sigma(m)}A_{ml}=\sum_m\delta_{\sigma^{-1}(k)m}A_{ml}=A_{\sigma^{-1}(k)l}.
+    \end{equation}
+\end{proof}
+
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Algorithme des facteurs invariants}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{probleme}
+Définir les anneaux de matrices, et en particulier \(GL_n(A) \).
+\end{probleme}
+
+\begin{proposition}[Algorithme des facteurs invariants\cite{KXjFWKA}]   \label{PropPDfCqee}
+    Soit \( (A,\delta)\) un anneau euclidien muni de son stathme  et \( U\in \eM(n,m,A)\). Alors il existe \( d_1,\ldots, d_s\in A^*\) et des matrices \( P\in\GL(m,A)\), \( Q\in \GL(n,A)\) tels que nous ayons
+    \begin{equation}
+        U=P \begin{pmatrix}
+            \begin{matrix}
+                d_1    &       &       \\
+                    &   \ddots    &       \\
+                    &       &   d_s
+            \end{matrix}&   0    \\ 
+            0    &   0    
+        \end{pmatrix}Q
+    \end{equation}
+    avec \( d_i\divides d_{i+1}\) pour tout \( i\).
+\end{proposition}
+\index{anneau!euclidien!facteurs invariants}
+\index{algorithme!facteurs invariants}
+
+\begin{proof}
+    Nous allons donner la preuve plus ou moins sous forme d'algorithme.
+
+    D'abord si \( U=0\) c'est bon, on a la réponse. Sinon, nous prenons l'élément \( (i_0,j_0)\) dont le stathme est le plus petit et nous l'amenons en \( (1,1)\) par les permutations
+    \begin{equation}
+        \begin{aligned}[]
+            C_1&\leftrightarrow C_{j_0}\\
+            L_1&\leftrightarrow L_{i_0}
+        \end{aligned}
+    \end{equation}
+    Ensuite nous traitons la première colonne jusqu'à amener des zéros partout en dessous de \( u_{11}\) de la façon suivante : pour chaque ligne successivement nous calculons la division euclidienne
+    \begin{equation}
+        u_{i1}=qu_{11}+r_i,
+    \end{equation}
+    et nous faisons
+    \begin{equation}
+        L_i\to L_i-qL_1,
+    \end{equation}
+    c'est à dire que nous enlevons le maximum possible et il reste seulement \( r_i\) en \( u_{i1}\). Vu que le but est de ne laisser que des zéros dans la première colonne, si le reste n'est pas zéro nous ne sommes pas content\footnote{S'il est zéro, nous passons à la ligne suivante}. Dans ce cas nous permutons \( L_1\leftrightarrow L_i\), ce qui aura pour effet de strictement diminuer le stathme de \( u_{11}\) parce qu'on va mettre en \( u_{11}\) le nombre \( r_i\) dont le stathme est strictement plus petit que celui de \( u_{11}\).
+
+    En faisant ce jeu de division euclidienne puis échange, on diminue toujours le stathme de \( u_{11}\), donc ça finit par s'arrêter, c'est à dire qu'à un certain moment la division euclidienne de \( u_{i1}\) par \( u_{11}\) va donner un reste zéro et nous serons content.
+
+    Une fois la première colonne ramenée à la forme
+    \begin{equation}
+        C_1=\begin{pmatrix}
+            u_{11}    \\ 
+            0    \\ 
+            \vdots    \\ 
+            0    
+        \end{pmatrix},
+    \end{equation}
+    nous faisons tout le même jeu avec la première ligne en faisant maintenant des sommes divisions et permutations de colonnes. Notons que ce faisant nous ne changeons plus la première colonne.
+
+    En fin de compte nous trouvons une matrice\footnote{Nous nommons toujours par la même lettre \( U\) la matrice originale et la modifiée, comme il est d'usage en informatique.}
+    \begin{equation}
+        U=\begin{pmatrix}
+            u_{11}   &   0    &   \ldots    &   0    \\
+             0   &       &       &       \\
+             \vdots   &       &   A    &       \\ 
+             0   &       &       &        
+         \end{pmatrix}
+    \end{equation}
+    Si l'élément \( u_{11}\) ne divise pas un des éléments de \( A\), disons \( a_{ij}\), alors nous faisons 
+    \begin{equation}
+        C_1\to C_1-C_j.
+    \end{equation}
+    Cela nous détruit un peu la première colonne, mais ne change pas \( u_{11}\). Nous avons maintnant
+    \begin{equation}
+        U=\begin{pmatrix}
+            u_{11}   &   0    &   \ldots    &   0    \\
+             0   &       &       &       \\
+             *   &       &       &       \\ 
+             u_{ij}   &       &   A    &       \\ 
+             *   &       &       &       \\ 
+             0   &       &       &        
+         \end{pmatrix}
+    \end{equation}
+    Et nous refaisons tout le jeu depuis le début. Cependant lorsque nous allons nous attaquer à la ligne \( i\), \( u_{11}\) ne divisera pas \( u_{ij}\), ce qui donnera lieu à une division euclidienne et un échange \( L_1\leftrightarrow L_i\). L'échange consistant à mettre \( r_i\) à la place de \( u_{11}\) et inversement  diminuera encore strictement le stathme. Encore une fois nous allons travailler jusqu'à avoir la matrice sous la forme
+    \begin{equation}    \label{EqADcNVgI}
+        U=\begin{pmatrix}
+            u_{11}   &   0    &   \ldots    &   0    \\
+             0   &       &       &       \\
+             \vdots   &       &   A    &       \\ 
+             0   &       &       &        
+         \end{pmatrix},
+    \end{equation}
+    sauf que cette fois le stathme de \( u_{11}\) est strictement plus petit que la fois précédente. Si \( u_{11}\) ne divise toujours pas tous les éléments de \( A\), nous recommençons encore et encore. En fin de compte nous finissons par avoir une matrice de la forme \eqref{EqADcNVgI} avec \( u_{11}\) qui divise tous les éléments de \( A\).
+
+    Une fois que cela est fait, il faut continuer en recommençant tout sur la matrice \( A\). Nous avons maintenant
+    \begin{equation}
+        U=\begin{pmatrix}
+            \begin{matrix}
+                u_{11}  &       \\ 
+                &   u_{22}    
+            \end{matrix}&   0    \\ 
+            0    &   B    
+        \end{pmatrix}.
+    \end{equation}
+    Sous cette forme nous avons \( u_{11}\divides u_{22}\) et \( u_{11}\) divise tous les éléments de \( B\). En effet \( u_{11}\) divisant tous les éléments de \( A\), il divise toutes les combinaisons de ces éléments. Or tout l'algorithme ne consiste qu'à prendre des combinaisons d'éléments.
+
+    Nous finissons donc bien sûr une matrice comme annoncée. De plus n'ayant effectué que des combinaisons de lignes, nous avons seulement multiplié par des matrices inversibles (lemme \ref{LemyrAXQs}).
+\end{proof}
+
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Applications linéaires}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
