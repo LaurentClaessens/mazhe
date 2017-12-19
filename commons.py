@@ -19,9 +19,9 @@
 
 
 ok_hash=[]
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
+ok_hash.append("36e783e4a3e6f5c9976644f731e67bb472bafc83")
+ok_hash.append("0ac597a6a90cab2f643b14bf8d25b5e488b9771f")
+ok_hash.append("e87e990ffb6e9830eb3f166ff4bc7c660c883ef0")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
