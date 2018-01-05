@@ -170,3 +170,7 @@ Montrer le coup de l'anneau des fonctions holomorphes sur un compact.
 
 Tenir compte des remarques de Guillaume Deschamps
 
+# gb
+
+Tenir compte des remarques de Guillaume Barriere
+
