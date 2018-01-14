@@ -174,3 +174,6 @@ Tenir compte des remarques de Guillaume Deschamps
 
 Tenir compte des remarques de Guillaume Barriere
 
+# rsa
+
+Voir si isométries du cube et RSA peuvent être déplacés.
