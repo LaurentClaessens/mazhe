@@ -179,3 +179,7 @@ Tenir compte des remarques de Guillaume Barriere
 La partie sur les racines de l'unité dans les groupes dépend de 
 - polynômes
 - exponentielle complexe (séries entières)
+
+# rsa
+
+Voir si isométries du cube et RSA peuvent être déplacés.
