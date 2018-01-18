@@ -1144,6 +1144,8 @@ Dans ce qui suit, nous considérons une algèbre commutative.
     Nous pouvons comprendre maintenant que \( \exp\) est même de classe \(  C^{\infty}\) parce qu'à chaque différentiation nous tombons sur la même fonction, laquelle est de classe au moins \( C^1\).
 
     Cependant, pour formaliser ça, il faut un peut travailler. Le cauchemar des différentielles successives d'une application \( A\to A\) est que les espaces en jeu sont des emboîtements terribles de \( \aL(A,\aL(A,\aL(A,A)))\).
+
+    Ce qui nous sauve est que l'espace \( \aL(A,V)\) est un \( A\)-module, quel que soit \( V\). En particulier lorsque \( V\) est lui-même déjà un emboîtement. Faisons un lemme pour voir comment ça fonctionne.
 \end{normaltext}
 
 \begin{lemma}[\cite{MonCerveau}]
@@ -1166,9 +1168,48 @@ Dans ce qui suit, nous considérons une algèbre commutative.
 \end{lemma}
 
 \begin{proof}
-    
+    En plusieurs étapes.
+    \begin{subproof}
+        \item[\( f\) est \( C^1\)]
+            Nous savons, par hypothèse, que \( f\) est différentiable. Il faut montrer que sa différentielle est continue, en remarquant déjà que \( g\) est continue parce que différentiable.
+
+            Soit \( x_k\stackrel{E}{\longrightarrow}x\), et calculons \( \| df_{x_k}-df_x \|\) :
+            \begin{equation}
+                \begin{aligned}[]
+                    \| df_{x_k}-df_x \|&=\sup_{\| y \|=1}\| df_{x_k}(y)-df_x(y) \|\\
+                    &=\sup_{\| y \|=1}\| \big(g(x_k)-g(x)\big)y \|\\
+                    &\leq\sup_{\| y \|=1}\| g(x_k)-g(x) \|\| y \|\\
+                    &=\| g(x_k)-g(x) \|.
+                \end{aligned}
+            \end{equation}
+            Donc nous avons bien \(df_{x_k}\stackrel{\aL(E,V)}{\longrightarrow}df_x\), ce qui signifie la continuité de \( df\). Donc \( f\) est de classe \( C^1\).
+
+        \item[\( f\) est deux fois différentiable]
+
+            Pour montrer que \( df\) est différentiable, nous mettons directement dans la définition \eqref{EqIQuRGmO} le candidat
+            \begin{equation}
+                T_x(u)\alpha=(df_x)(u)\alpha.
+            \end{equation}
+            Nous devons vérifier la limite suivante :
+            \begin{equation}
+                \lim_{h\stackrel{E}{\longrightarrow} 0} \frac{ df_{x+h}-df_x-T_x(h) }{ \| h \| }=0.
+            \end{equation}
+            En appliquant à \( y\in E\) nous avons :
+            \begin{equation}
+                df_{x+h}(y)-df_x(y)-dg_x(h)y=g(x+h)y-g(x)y-dg_x(h)y.
+            \end{equation}
+            Donc
+            \begin{subequations}
+                \begin{align}
+                    \frac{ \| df_{x+h}-df_x-T_x(h) \| }{ \| h \| }&=\sup_{\| y \|=1}\frac{ \| g(x+h)y-g(x)y-dg_x(h)y \| }{ \| y \|\|h \| }\\
+                    &\leq\frac{ \| g(x+h)-g(x)-dg_x(h) \|\| y \| }{ \| y \|\| h \| }\\
+                    &=\frac{ \| g(x+h)-g(x)-dg_x(h) \| }{ \| h \| }.
+                \end{align}
+            \end{subequations}
+            La limite \( h\to 0\) de la dernière expression est zéro par définition de la différentielle de \( g\).
+    \end{subproof}
+    Note : la partie démontrant que \( f\) est \( C^1\) n'est pas strictement obligatoire parce qu'en vérifiant que \( f\) est deux fois différentiable, nous vérifions de facto que \( df\) est en particulier continue.
 \end{proof}
-<++>
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Exponentielle et logarithme dans les réels}
