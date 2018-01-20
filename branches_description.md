@@ -177,3 +177,8 @@ Tenir compte des remarques de Guillaume Barriere
 # rsa
 
 Voir si isométries du cube et RSA peuvent être déplacés.
+
+# l2
+
+Quelque réflexions sur la TF sur L2.
+
