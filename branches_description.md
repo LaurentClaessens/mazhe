@@ -183,3 +183,8 @@ La partie sur les racines de l'unité dans les groupes dépend de
 # rsa
 
 Voir si isométries du cube et RSA peuvent être déplacés.
+
+# l2
+
+Quelque réflexions sur la TF sur L2.
+
