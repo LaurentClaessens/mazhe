@@ -17,7 +17,6 @@
 # It is also easier to copy-paste from the terminal to here a sequence of 40 hex
 # digits than a full LaTeX line. Not to speak of correctly escape the string ...
 
-
 ok_hash=[]
 ok_hash.append("e05540baa733a35e4e39982128485c9dc5ed2795")
 ok_hash.append("2fb1de1d8c33dc5ca8e60406e054842487d1b3a6")
@@ -25,6 +24,12 @@ ok_hash.append("8e04d3063e2fb156356b4708803c13c77f46520f")
 ok_hash.append("1a91cf86affc09fab8ca3c51e3372ca5765e4f09")
 ok_hash.append("438f400189ec69e59e3a693542a01c956bd9eb1d")
 ok_hash.append("c21281eadb6b4389fde7f9a3a8a2ac7da05936c3")
+ok_hash.append("cba185278f25f4c9556b90c17c6cbdfaca93ddb5")
+ok_hash.append("e910bb115f361fac77a54eeaf8eec7009b9528d2")
+ok_hash.append("3e84f2d210f688035b0bb48067a3ac189769bd1a")
+ok_hash.append("e68c51b02b63d4f04ad240729dae833cf70d72d3")
+ok_hash.append("71fb9d2095743edc607ac91525991b3f4340f7b4")
+ok_hash.append("e8f2cf1238170534d39b8de3be0905d5761a3ffe")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
