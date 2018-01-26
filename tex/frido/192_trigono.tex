@@ -799,7 +799,7 @@ En utilisant la trigonométrie, il est facile de trouver le changement de variab
 \subsection{Coordonnées polaires : le théorème}
 %---------------------------------------------------------------------------------------------------------------------------
 
-\begin{proposition}
+\begin{proposition}     \label{PROPooFLUAooDsyMXO}
     Soit la fonction
     \begin{equation}
         \begin{aligned}
@@ -1072,11 +1072,258 @@ N'oubliez pas que lorsqu'on effectue un changement de variables dans une intégr
 
 Cependant notre convention de coordonnées sphériques fait venir \( \sin(\phi)\) avec \( \phi\in\mathopen[ 0 , \pi [\); vu que le signe de \( \sin(\phi)\) y est toujours positif, cette histoire de valeur absolue est sans grandes conséquent. Ce n'est pas le cas de toutes les conventions possibles.
 
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{une limite}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Calcul de limites}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Beaucoup de techniques de calcul de limites fonctionnent bien avec les fonctions trigonométriques, entre autres grâce à l'utilisation des coordonnées polaires de la proposition \ref{PROPooFLUAooDsyMXO}. De plus, le théorème de la fonction implicite Nous en voyons quelque exemples à présent.
+
+\begin{example}[Limite et prolongement par continuité] \label{ExQWHooGddTLE}
+    La fonction 
+    \begin{equation}
+        f(x)=\frac{ \cos(x)-1 }{ x }
+    \end{equation}
+    n'est pas définie en \( x=0\). 
+    
+    Nous avons vu dans l'équation \eqref{SUBEQooTTNNooXzApSM} que \( \cos(0)=1\), donc la limite
+    \begin{equation}
+        \lim_{x\to 0} \frac{ \cos(x)-1 }{ x }
+    \end{equation}
+    est la limite définissant la dérivée de cosinus en \( 0\) (ici, le \( x\) joue le rôle de \( \epsilon\)). Le lemme \ref{LEMooBBCAooHLWmno} nous donne la dérivée du cosinus comme étant le sinus. Nous avons donc :
+    \begin{equation}
+        \lim_{x\to 0} \frac{ \cos(x)-1 }{ x }=\sin(0)=0,
+    \end{equation}
+    et nous définissons le prolongement par continuité :
+    \begin{equation}
+        \tilde f(x)=\begin{cases}
+            \frac{ \cos(x)-1 }{ x }    &   \text{si } x\neq 0\\
+            0    &    \text{sinon}.
+        \end{cases}
+    \end{equation}
+
+    Encore une fois, le graphe de la fonction \(\tilde f\) ne présente aucune particularité autour de \( x=0\).
+    \begin{center}
+        \input{auto/pictures_tex/Fig_RPNooQXxpZZ.pstricks}
+    \end{center}
+\end{example}
+
+\begin{example}[Un calcul heuristique de limite]        \label{EXooINLRooPzRWEA}
+    Soit à calculer la limite suivante :
+    \begin{equation}
+        \lim_{x\to 0} \frac{  e^{-2\cos(x)+2}\sin(x) }{ \sqrt{ e^{2\cos(x)+2}}-1 }.
+    \end{equation}
+    La stratégie que nous allons suivre pour calculer cette limite est de développer certaines parties de l'expression en série de Taylor, afin de simplifier l'expression. La première chose à faire est de remplacer $ e^{y(x)}$ par $1+y(x)$ lorsque $y(x)\to 0$. La limite devient
+    \begin{equation}
+        \lim_{x\to 0} \frac{ \big( -2\cos(x)+3 \big)\sin(x) }{ \sqrt{-2\cos(x)+2} }.
+    \end{equation}
+    Nous allons maintenant remplacer $\cos(x)$ par $1$ au numérateur et par $1-x^2/2$ au dénominateur. Pourquoi ? Parce que le cosinus du dénominateur est dans une racine, donc nous nous attendons à ce que le terme de degré deux du cosinus donne un degré un en dehors de la racine, alors que du degré un est exactement ce que nous avons au numérateur : le développement du sinus commence par $x$.
+
+    Nous calculons donc
+    \begin{equation}
+        \begin{aligned}[]
+            \lim_{x\to 0} \frac{ \sin(x) }{ \sqrt{-2\left( 1-\frac{ x^2 }{ 2 } \right)+2} }=\lim_{x\to 0} \frac{ \sin(x) }{ x }=1.
+        \end{aligned}
+    \end{equation}
+    Tout ceci n'est évidemment pas très rigoureux, mais en principe vous avez tous les éléments en main pour justifier les étapes.
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Méthode des coordonnées polaires}
 %---------------------------------------------------------------------------------------------------------------------------
 
-\begin{proposition}
+La proposition suivante exprime la définition de la limite en d'autres termes, et va être pratique dans le calcul de certaines limites.
+\begin{proposition}		\label{PropMethodePolaire}
+	Soit $f\colon D\subset\eR^m\to \eR^n$, $a$ un point d'accumulation de $D$ et $\ell\in \eR^n$. Nous définissons
+	\begin{equation}
+		E_r=\{ f(x)\tq x\in B(a,r)\cap D \},
+	\end{equation}
+	et
+	\begin{equation}
+		s_r=\sup\{ \| v-\ell \|\tq v\in E_r \}.
+	\end{equation}
+	Alors nous avons $\lim_{x\to a} f(x)=\ell$ si et seulement si $\lim_{r\to 0} s_r=0$.
+\end{proposition}
+
+Dans cette proposition, $E_r$ représente l'ensemble des valeurs atteintes par $f$ dans un rayon $r$ autour de $a$. Le nombre $s_r$ sélectionne, parmi toutes ces valeurs, celle qui est la plus éloignée de $\ell$ et donne la distance. En d'autres termes, $s_r$ est la distance maximale entre $f(x)$ et $\ell$ lorsque $x$ est à une distance au maximum $r$ de $a$.
+
+Lorsque nous avons affaire à une fonction $f\colon \eR^2\to \eR$, cette proposition nous permet de calculer facilement les limites en passant aux coordonnées polaires.
+
+\begin{example}		\label{ExempleMethodeTrigigi}
+	Reprenons la fonction de l'exemple \ref{ExFNExempleMethodeTrigigi}:
+	\begin{equation}
+		f(x,y)=\frac{ xy }{ x^2+y^2 }.
+	\end{equation}
+	Son domaine est $\eR^2\setminus\{ (0,0) \}$. Nous voulons calculer $\lim_{(x,y)\to(0,0)}f(x,y)$. Écrivons la définition de $E_r$~:
+	\begin{equation}
+		E_r=\{ f(x,y)\tq (x,y)\in B\big( (0,0),r \big) \}.
+	\end{equation}
+	Les points de la boule sont, en coordonnées polaires, les points de la forme $(\rho,\theta)$ avec $\rho<r$. La chose intéressante est que $f(\rho,\theta)$ est relativement simple (plus simple que la fonction départ). En effet en remplaçant tous les $x$ par $\rho\cos(\theta)$ et tous les $y$ par $\rho\sin(\theta)$, et en utilisant le fait que $\cos^2(\theta)+\sin^2(\theta)=1$, nous trouvons
+	\begin{equation}		\label{Eq2807fpolairerhodeuxcossin}
+		f(\rho,\theta)=\frac{ \rho^2\cos(\theta)\sin(\theta) }{ \rho^2 }=\cos(\theta)\sin(\theta).
+	\end{equation}
+	Cela signifie que
+	\begin{equation}
+		E_r=\{ \cos(\theta)\sin(\theta)\tq\theta\in\mathopen[ 0 , 2\pi [ \}.
+	\end{equation}
+	Prenons $\ell$ quelconque. Le nombre $s_r$ est le supremum des
+	\begin{equation}
+		\| \ell-\cos(\theta)\sin(\theta) \|
+	\end{equation}
+	lorsque $\theta$ parcours $\mathopen[ 0 , 2\pi \mathclose]$. Nous ne sommes pas obligés calculer la valeur exacte de $s_r$. Ce qui compte ici est que $s_r$ ne vaut certainement pas zéro, et ne dépend pas de $r$. Donc il est impossible d'avoir $\lim_{r\to 0} s_r=0$, et la fonction donnée n'a pas de limite en $(0,0)$.
+\end{example}
+
+Nous pouvons retenir cette règle pour calculer les limites lorsque $(x,y)\to(0,0)$ de fonctions $f\colon \eR^2\to \eR$ :
+\begin{enumerate}
+	\item
+		passer en coordonnées polaires, c'est à dire remplacer $x$ par $\rho\cos(\theta)$ et $y$ par $\rho\sin(\theta)$;
+	\item
+		nous obtenons une fonction $g$ de $\rho$ et $\theta$. Si la limite $\lim_{r\to 0} g(r,\theta)$ n'existe pas ou dépend de $\theta$, alors la fonction n'a pas de limite. Si on peut majorer $g$ par une fonction ne dépendant pas de $\theta$, et que cette fonction a une limite lorsque $r\to 0$, alors cette limite est la limite de la fonction.
+\end{enumerate}
+
+La vraie difficulté de la technique des coordonnées polaires est de trouver le supremum de $E_r$, ou tout au moins de montrer qu'il est borné par une fonction qui a une limite qui ne dépend pas de $\theta$. Une des situations classiques dans laquelle c'est facile est lorsque la fonction se présente comme une fonction de $r$ multiplié par une fonction de $\theta$. 
+
+\begin{example}		\label{Exemplexyxsqysq}
+	Soit à calculer la limite
+	\begin{equation}
+		\lim_{(x,y)\to(0,0)}xy\left( \frac{ x^2-y^2 }{ x^2+y^2 }\right).
+	\end{equation}
+	Le passage aux coordonnées polaires donne
+	\begin{equation}
+		f(r,\theta)=r^2\sin\theta\cos\theta(\cos^2\theta-\sin^2\theta).
+	\end{equation}
+	Déterminer le supremum de cela est relativement difficile. Mais nous savons que de toutes façons, la quantité $\sin\theta\cos\theta(\cos^2\theta-\sin^2\theta)$ est bornée par $1$. Donc
+	\begin{equation}
+		\| f(r,\theta) \|\leq r^2.
+	\end{equation}
+	Maintenant la règle de l'étau montre que $\lim_{(x,y)\to(0,0)}f(x,y)$ est zéro.
+
+	La situation vraiment gênante serait celle avec une fonction de $\theta$ qui risque de s'annuler dans un dénominateur.
+\end{example}
+
+L'exemple \ref{EXooSDHDooJzDioW} donnera un cas où la méthode fonctionne plus difficilement. Entre autres parce qu'il utilisera en même temps la méthode des chemins et celle des coordonnées polaires.
+
+\begin{example}\label{ExmeASDLAf}
+	Considérons fonction 
+	\begin{equation}
+		f(x,y)=\frac{ x^2+y^2 }{ x-y }.
+	\end{equation}
+	Une mauvaise idée pour prouver que la limite n'existe pas pour $(x,y)\to(0,0)$ est de considérer le chemin $(t,t)$. En effet, la fonction n'existe pas sur ce chemin. Or la méthode des chemins parle uniquement de chemins contenus dans le domaine de la fonction.
+
+	Nous prouvons que la limite n'existe pas en trouvant des chemins le long desquels les limites sont différentes. Si nous essayons le chemin \( (t,kt)\) avec \( k\) constant, nous trouvons
+    \begin{equation}
+        f(t,kt)=\frac{ t(1+k^2) }{ 1-k }.
+    \end{equation}
+    La limite \( t\to 0\) est hélas toujours \( 0\). Nous ne pouvons donc pas conclure.
+
+    Nous allons maintenant utiliser la même technique que celle utilisée en coordonnées polaires. Vous noterez que dans ce cas, travailler en cartésiennes donne lieu à des calculs plus longs.  L'astuce consiste à prendre \( k\) non constant et à chercher par exemple \( k(t)\) de façon à avoir
+    \begin{equation}
+        \frac{ 1+k(t)^2 }{ 1-k(t) }=\frac{1}{ t }.
+    \end{equation}
+    Avec une telle fonction \( k\), la fonction \( t\mapsto f(t,tk(t))\) serait la constante \( 1\). L'équation à résoudre pour \( k\) est
+    \begin{equation}
+        tk^2+k+(t-1)=0,
+    \end{equation}
+    et les solutions sont
+    \begin{equation}
+        k(t)=\frac{ -1\pm\sqrt{1-4t(t-1)} }{ 2t }.
+    \end{equation}
+    Nous proposons donc les chemins
+    \begin{equation}
+        \begin{pmatrix}
+            x    \\ 
+            y    
+        \end{pmatrix}=\begin{pmatrix}
+            t    \\ 
+            \frac{ -1\pm\sqrt{1-4t(t-1)}    }{2}
+        \end{pmatrix}
+    \end{equation}
+    Nous devons vérifier deux points. D'abord que ce chemin est bien défini, et ensuite que \( tk(t)\) tend bien vers zéro lorsque \( t\to 0\) (sinon \( (t,k(t)t)\)) n'est pas un chemin passant par \( (0,0)\). Lorsque \( t\) est petit, ce qui se trouve sous la racine est proche de \( 1\) et ne pose pas de problèmes. Ensuite,
+    \begin{equation}
+        \lim_{t\to 0} tk(t)=\frac{ -1\pm 1 }{ 2 }.
+    \end{equation}
+    En choisissant le signe \( +\), nous trouvons un chemin qui nous convient. 
+
+    Ce que nous avons prouvé est que
+    \begin{equation}
+        f\left( t,   \frac{ -1+\sqrt{1-4t(t-1)}    }{2}\right)=1
+    \end{equation}
+    pour tout \( t\). Le long de ce chemin, la limite de \( f\) est donc \( 1\). Cette limite est différente des limites obtenues le long de chemins avec \( k\) constant. La limite \( \lim_{(x,y)\to (0,0)} f(x,y)\) n'existe donc pas.
+\end{example}
+
+\begin{example}\label{seno}
+	Considérons la fonction (figure \ref{LabelFigsenotopologo})
+
+	\begin{equation}
+		f(x,y)=\begin{cases}
+			\sqrt{x^2+y^2}\sin\frac{1}{ x^2+y^2 }	&	\text{si }(x,y)\neq(0,0)\\
+			0	&	 \text{si }(x,y)=(0,0),
+		\end{cases}
+	\end{equation}
+    et cherchons la limite $(x,y)\to(0,0)$. Le passage en coordonnées polaires\footnote{Proposition \ref{PROPooFLUAooDsyMXO}.} donne
+	\begin{equation}		\label{EqFoncRho2907}
+		f(\rho,\theta)=\rho\sin\frac{1}{ \rho }.
+	\end{equation}
+	Pour calculer la limite de cela lorsque $\rho\to 0$, nous remarquons que
+	\begin{equation}
+		0\leq|\rho\sin\frac{1}{ \rho }|\leq\rho
+	\end{equation}
+	parce que $\sin(\frac{1}{ \rho })\leq 1$ quel que soit $\rho$. Or évidemment $\lim_{\rho\to 0} \rho=0$, donc la limite de la fonction \eqref{EqFoncRho2907} est zéro et ne dépend pas de $\theta$. Nous en concluons que $\lim_{(x,y)\to(0,0)}f(x,y)=0$.
+\end{example}
+\newcommand{\CaptionFigsenotopologo}{La fonction de l'exemple \ref{seno}.}
+\input{auto/pictures_tex/Fig_senotopologo.pstricks}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Méthode du développement asymptotique}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{SUBSECooRAKKooAnpvkE}
+
+Nous savons  que nous pouvons développer certaines fonctions en série grâce au développement de Taylor (théorème \ref{ThoTaylor}). Lorsque nous avons une limite à calculer, nous pouvons remplacer certaines parties de la fonction à traiter par la formule \eqref{subeqfTepseqb}. Cela est très utile pour comparer des fonctions trigonométrique à des polynômes.
+
+\begin{example}		\label{ExamLimSinxxa}
+    Nous calculons la limite
+    \begin{equation}
+        \lim_{x\to 0} \frac{ \sin(x) }{ x }
+    \end{equation}
+    à l'aide d'un tout petit développement en série. Pour information, la proposition \ref{PROPooNBRBooEQBypy} nous fera la même limite sans développements.
+    
+    Une manière de la prouver des d'écrire
+	
+    \begin{equation}
+		\sin(x)=x+h(x)
+	\end{equation}
+	avec $h\in o(x)$, c'est à dire $\lim_{x\to 0} h(x)/x=0$. Alors nous avons
+	\begin{equation}
+		\lim_{x\to 0} \frac{ \sin(x) }{ x }=\lim_{x\to 0} \frac{ x+h(x) }{ x }=\lim_{x\to 0} \frac{ x }{ x }+\lim_{x\to 0} \frac{ h(x) }{ x }=1.
+	\end{equation}
+\end{example}
+
+L'utilisation de la proposition \ref{PropLimCompose} permet d'utiliser cette technique dans le cadre de limites à plusieurs variables. Reprenons l'exemple \ref{ExamLimSinxxa} un tout petit peu modifié :
+
+\begin{example}
+	Soit à calculer $\lim_{(x,y)\to(0,0)}f(x,y)$ où
+	\begin{equation}
+		f(x,y)=\frac{ \sin(xy) }{ xy }.
+	\end{equation}
+	La première chose à faire est de voir $f$ comme la composée de fonctions $f=f_1\circ f_2$ avec
+	\begin{equation}
+		\begin{aligned}
+			f_1\colon \eR&\to \eR \\
+			t&\mapsto \frac{ \sin(t) }{ t } 
+		\end{aligned}
+	\end{equation}
+	et
+	\begin{equation}
+		\begin{aligned}
+			f_2\colon \eR^2&\to \eR \\
+			(x,y)&\mapsto xy. 
+		\end{aligned}
+	\end{equation}
+	Étant donné que $\lim_{(x,y)\to(0,0)}f_2(x,y)=0$, nous avons $\lim_{(x,y)\to(0,0)}f(x,y)=\lim_{t\to 0} f_1(t)=1$.
+\end{example}
+
+La proposition suivante reprend la limite de l'exemple \ref{ExamLimSinxxa}.
+\begin{proposition}     \label{PROPooNBRBooEQBypy}
     Nous avons la limite
     \begin{equation}\label{sinsurx}
       \lim_{x\to 0} \frac{\sin(x)}{x} = 1.
@@ -1200,7 +1447,7 @@ Le volume de $A$ est donc
 					\subsection{Changement de variables}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Le domaine $E=\{ (x,y)\in\eR^2\tq x^2+y^2<1 \}$ s'écrit plus facilement $E=\{ (r,\theta)\tq r<1 \}$ en coordonnées polaires. Le passage aux coordonnées polaire permet de transformer une intégration sur un domaine rond à une intégration sur le domaine rectangulaire $\mathopen]0,2\pi\mathclose[\times\mathopen]0,1\mathclose[$. La question est évidemment de savoir si nous pouvons écrire
+Le domaine $E=\{ (x,y)\in\eR^2\tq x^2+y^2<1 \}$ s'écrit plus facilement $E=\{ (r,\theta)\tq r<1 \}$ en coordonnées polaires. Le passage aux coordonnées polaires permet de transformer une intégration sur un domaine rond à une intégration sur le domaine rectangulaire $\mathopen]0,2\pi\mathclose[\times\mathopen]0,1\mathclose[$. La question est évidemment de savoir si nous pouvons écrire
 \begin{equation}
 	\int_Ef=\int_{0}^{2\pi}\int_0^1f(r\cos\theta,r\sin\theta)drd\theta.
 \end{equation}
