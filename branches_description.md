@@ -188,3 +188,6 @@ Voir si isométries du cube et RSA peuvent être déplacés.
 
 Quelque réflexions sur la TF sur L2.
 
+# eg
+
+Les remarques de Éric Guirbal
