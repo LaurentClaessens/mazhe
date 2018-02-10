@@ -6,6 +6,8 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 Les fautes sont présentées par ordre anti-chronoligique de découvertes.
 
+- Volume 2. Exponentielle. La proposition 15.53 est fausse et fallacieuse. Il est démontré que y(x)=y(1)^x pour tout rationnels x. Cependant la notion de x^y pour un irrationnel y n'est pas encore définie. Il faut donc d'abord définir x^a=exp(aln(x)) avant de pouvoir poursuivre, et conclure y(x)=y(1)^x pour tout x. Lorsque x est irrationnel, cette égalité seulement une définition.
+
 - Volumes 1 et 2. Définition de la limite. Induit en erreur à moitié par mon manque d'attention et à moitié par Wikipédia, la définition de la limite d'une fonction était incorrecte, et surtout incohérente avec les théorèmes démontrés plus bas.
 
     La définition correcte de la limite se fait *en excluant* le point vers lesquel on fait tendre x.
