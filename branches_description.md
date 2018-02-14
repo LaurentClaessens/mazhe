@@ -170,3 +170,29 @@ Montrer le coup de l'anneau des fonctions holomorphes sur un compact.
 
 Tenir compte des remarques de Guillaume Deschamps
 
+# gb
+
+Tenir compte des remarques de Guillaume Barriere
+
+# racines
+
+La partie sur les racines de l'unité dans les groupes dépend de 
+- polynômes
+- exponentielle complexe (séries entières)
+
+# rsa
+
+Voir si isométries du cube et RSA peuvent être déplacés.
+
+# l2
+
+Quelque réflexions sur la TF sur L2.
+
+# eg
+
+Les remarques de Éric Guirbal
+
+# ordre
+
+Remise en ordre des nombreux points restés en suspend après le passage de Guillaume Barriere.
+

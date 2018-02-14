@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2008-2017
+% Copyright (c) 2008-2018
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
@@ -7,12 +7,86 @@
 \section{Valeur propre et vecteur propre}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Généralités}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous savons qu'une application \emph{linéaire} $A\colon \eR^3\to \eR^3$ est complètement définie par la donnée de son action sur les trois vecteurs de base, c'est à dire par la donnée de
+\begin{equation}
+	\begin{aligned}[]
+		Ae_1,&&Ae_2&&\text{et}&&Ae_3.
+	\end{aligned}
+\end{equation}
+Nous allons former la matrice de $A$ en mettant simplement les vecteurs $Ae_1$, $Ae_2$ et $Ae_3$ en colonne. Donc la matrice
+\begin{equation}		\label{EqExempleALin}
+	A=\begin{pmatrix}
+		3	&	0	&	0	\\
+		0	&	1	&	0	\\
+		0	&	1	&	0
+	\end{pmatrix}
+\end{equation}
+signifie que l'application linéaire $A$ envoie le vecteur $e_1$ sur $\begin{pmatrix}
+	3	\\ 
+	0	\\ 
+	0	
+\end{pmatrix}$, le vecteur $e_2$ sur $\begin{pmatrix}
+	0	\\ 
+	0	\\ 
+	1	
+\end{pmatrix}$ et le vecteur $e_3$ sur $\begin{pmatrix}
+	0	\\ 
+	1	\\ 
+	0	
+\end{pmatrix}$.
+Pour savoir comment $A$ agit sur n'importe quel vecteur, on applique la règle de produit vecteur$\times$matrice :
+\begin{equation}
+	\begin{pmatrix}
+		1	&	2	&	3	\\
+		4	&	5	&	6	\\
+		7	&	8	&	9
+	\end{pmatrix}\begin{pmatrix}
+		x	\\ 
+		y	\\ 
+		z	
+	\end{pmatrix}=
+	\begin{pmatrix}
+		x+2y+3z	\\ 
+		4x+5y+6z	\\ 
+		7x+8y+9z	
+	\end{pmatrix}.
+\end{equation}
+
+Une chose intéressante est de savoir quelles sont les directions invariantes de la transformation linéaire. Par exemple, on peut lire sur la matrice \eqref{EqExempleALin} que la direction $\begin{pmatrix}
+	1	\\ 
+	0	\\ 
+	0	
+\end{pmatrix}$ est invariante : elle est simplement multipliée par $3$. Dans cette direction, la transformation est juste une dilatation. Afin de savoir si $v$ est un vecteur d'une direction conservée, il faut voir s'il existe un nombre $\lambda$ tel que $Av=\lambda v$, c'est à dire voir si $v$ est simplement dilaté.
+
+L'équation $Av=\lambda v$ se récrit $(A-\lambda\mtu)v=0$, c'est à dire qu'il faut résoudre l'équation
+\begin{equation}
+	(A-\lambda\mtu)\begin{pmatrix}
+		x	\\ 
+		y	\\ 
+		z	
+	\end{pmatrix}=
+	\begin{pmatrix}
+		0	\\ 
+		0	\\ 
+		0	
+	\end{pmatrix}.
+\end{equation}
+Nous savons qu'une telle équation ne peut avoir de solutions que si $\det(A-\lambda\mtu)=0$. La première étape est donc de trouver les $\lambda$ qui vérifient cette condition.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Dans le vif du sujet}
+%---------------------------------------------------------------------------------------------------------------------------
+
 \begin{definition}      \label{DefooMMKZooVcskCc}
     Soit un \( \eK\)-espace vectoriel \( E\) et un endomorphisme \( A\colon V\to V\). Un \defe{vecteur propre}{vecteur!propre} de \( A\) est un vecteur \( v \neq 0\) tel que \( Av=\lambda v\) pour un certain \( \lambda\in \eK\). Dans ce cas, \( \lambda\) est la \defe{valeur propre}{valeur!propre} de \( v\).
 
     L'\defe{espace propre}{espace!propre} de \( A\) pour la valeur \( \lambda\)\footnote{Nous laissons au lecteur le soin de vérifier que c'est bien un sous-espace vectoriel de \( E\).} est l'ensemble des vecteurs propres de \( A\) pour la valeur propre \( \lambda\) et zéro.
 \end{definition}
-L'ensemble de valeurs propres de l'endomorphisme \( u\) est son \defe{spectre}{spectre!d'un endomorphisme} et est noté \( \Spec(u)\).
+L'ensemble de valeurs propres de l'endomorphisme \( u\) est son \defe{spectre}{spectre d'un endomorphisme} et est noté \( \Spec(u)\).
 
 \begin{remark}
     Le nombre zéro peut être une valeur propre; c'est le vecteur zéro qui ne peut pas être vecteur propre. La matrice nulle est une matrice diagonalisable.
@@ -41,7 +115,7 @@ L'ensemble de valeurs propres de l'endomorphisme \( u\) est son \defe{spectre}{s
 \end{proposition}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Polynôme d'endomorphismes}
+\section{Polynômes d'endomorphismes}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \label{SECooUEQVooLBrRiE}
 
@@ -166,62 +240,6 @@ Ce résultat est utilisé pour prouver que toute représentation est décomposab
         P(u)x=\sum_{k=0}^nc_ku^k(x)=\sum_{k=0}^nc_k\lambda^ku=P(\lambda)x.
     \end{equation}
 \end{proof}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Calcul effectif de l'exponentielle d'une matrice}
-%---------------------------------------------------------------------------------------------------------------------------
-\label{SUBSECooGAHVooBRUFub}
-
-Nous reprenons l'exemple de \cite{MneimneReduct}. Soit \( A\) une matrice dont le polynôme minimum s'écrit
-\begin{equation}
-    P(X)=(X-1)^2(X-2).
-\end{equation}
-Par le théorème \ref{ThoDecompNoyayzzMWod} de décomposition des noyaux nous avons
-\index{théorème!décomposition des noyaux!et exponentielle de matrice}
-\begin{equation}
-    E=\ker(A-1)^2\oplus\ker(A-2).
-\end{equation}
-En suivant les notations de ce théorème nous avons \( P_1(X)=(X-1)^2\), \( P_2(X)=X-2\) et
-\begin{subequations}
-    \begin{align}
-        Q_1(X)&=X-2\\
-        Q_2(X)&=(X-1)^2.
-    \end{align}
-\end{subequations}
-Les polynômes \( R_i\) dont l'existence est assurée par le théorème de Bézout sont
-\begin{equation}
-    \begin{aligned}[]
-        R_1(X)&=-X\\
-        R_2(X)&=1.
-    \end{aligned}
-\end{equation}
-Nous avons
-\begin{equation}
-    R_1Q_1+R_2Q_2=1.
-\end{equation}
-Le projecteur \( p_i\) sur \( \ker P_i\) est \( R_iQ_i\) :
-\begin{equation}
-    \begin{aligned}[]
-        p_1&=-A(A-2)=\pr_{\ker(u-1)^2}\\
-        p_2&=(A-1)^2=\pr_{\ker(u-2)}.
-    \end{aligned}
-\end{equation}
-Passons maintenant au calcul de l'exponentielle. Nous avons évidemment
-\begin{equation}
-    e^A=e^Ap_1+e^Ap_2.
-\end{equation}
-Étant donné que \( p_1\) est le projecteur sur le noyau de \( (A-1)^2\), nous avons
-\begin{equation}
-    e^Ap_1=ee^{A-1}p_1=ep_1+e(u-1)1=ep_1=-Ae(A-2).
-\end{equation}
-En effet \( e^{A-1}p_1=\sum_{k=0}^{\infty}(A-1)^k\circ p_1\). De la même façon nous avons
-\begin{equation}
-    e^Ap_2=e^2e^{A-2}p_2=e^2p_2=e^2(A-1)^2.
-\end{equation}
-Au final,
-\begin{equation}
-    e^A=-Ae(A-2)+e^2(A-1)^2.
-\end{equation}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Polynôme minimal et minimal ponctuel}
@@ -831,7 +849,7 @@ La \defe{trace}{trace!matrice} d'une matrice \( A\in \eM(n,\eK)\) est la somme d
 \end{equation}
 Une propriété importante est son invariance cyclique.
 \begin{lemma}   \label{LemhbZTay}
-    Si \( A\) et \( B\) sont des matrices carré, alors \( \tr(AB)=\tr(BA)\).
+    Si \( A\) et \( B\) sont des matrices carrées, alors \( \tr(AB)=\tr(BA)\).
 
     La trace est un invariant de similitude.
 \end{lemma}
@@ -1529,7 +1547,7 @@ i
 Tant que nous en sommes à parler de spectre de matrices hermitiennes\ldots Soit une matrice inversible \( A\in \GL(n,\eC)\). La matrice \( A^*A\) est hermitienne\footnote{Définition \ref{DEFooKEBHooWwCKRK}.} et le théorème \ref{LEMooVCEOooIXnTpp} nous assure que ses valeurs propres sont réelles. Par la remarque \ref{REMooMLBCooTuKFmz}, ses valeurs propres sont même positives.
 
 \begin{lemma}[\cite{ooLMMRooUXhOdx}]   \label{LEMooHUGEooVYhZdZ}
-    Si \( A\) est une matrice carré et inversible,
+    Si \( A\) est une matrice carrée et inversible,
     \begin{equation}
         \Spec(A^*A)=\Spec(AA^*)
     \end{equation}
@@ -1798,7 +1816,7 @@ La notation adoptée ici avec le produit scalaire \( \langle x, Mx\rangle \) est
     \begin{equation}
         A_{ii}=\langle Ae_i, e_i\rangle \geq \lambda\| e_i \|^2=\lambda\geq 0.
     \end{equation}
-    Si \( A\) est strictement définie positive, alors \( \lambda\) peut être choisit strictement positif.
+    Si \( A\) est strictement définie positive, alors \( \lambda\) peut être choisi strictement positif.
 \end{proof}
  
 %--------------------------------------------------------------------------------------------------------------------------- 

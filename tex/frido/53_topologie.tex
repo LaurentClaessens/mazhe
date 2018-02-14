@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2008-2017
+% Copyright (c) 2008-2018
 %   Laurent Claessens, Carlotta Donadello
 % See the file fdl-1.3.txt for copying conditions.
 
@@ -54,7 +54,7 @@ Dans un espace topologique, nous avons une caractérisation très importante des
 \begin{proof} 
     Soit \( X\) un espace topologique et \( A\subset X\). Le sens direct est évident : $A$ lui-même est un ouvert autour de $x\in A$, qui est inclus dans $A$.
 
-Pour le sens inverse, nous supposons que \( A\) contienne un ouvert atour de chacun de ses points. Pour chaque $x\in A$, nous considérons l'ensemble $\mO_x\subset A$, un ouvert autour de $x$. Nous avons que
+Pour le sens inverse, nous supposons que \( A\) contienne un ouvert autour de chacun de ses points. Pour chaque $x\in A$, nous considérons l'ensemble $\mO_x\subset A$, un ouvert autour de $x$. Nous avons que
 \begin{equation}	\label{EqAUniondesOx}
 	A=\bigcup_{x\in A}\mO_x.
 \end{equation}
@@ -64,6 +64,47 @@ L'union du membre de droite de \eqref{EqAUniondesOx} est une union d'ouverts et 
 
 \end{proof}
 Une utilisation typique de ce théorème est faite dans le lemme \ref{LemMESSExh}.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Adhérence, fermeture}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Disons-le tout de suite : «adhérence» et «fermeture» sont synonymes.
+
+\begin{definition}      \label{DEFooSVWMooLpAVZR}
+    Soient un espace topologique \( X\) et une partie \( A\) de \( X\).
+    \begin{enumerate}
+        \item
+            Un point \( x\in X\) est \defe{adhérent}{point adhérent} à \( A\) si tout ouvert de \( X\) contenant \( x\) a une intersection non vide avec \( A\). L'ensemble des points d'adhérence de \( A\) est noté $\Adh(A)$.\nomenclature[T]{$\Adh(A)$}{adhérence de \( A\)}
+        \item
+            L'\defe{adhérence}{adhérence} de \( A\), notée \( \bar A\), est l'intersection de tous les fermés de \( X\) contenant \( A\).
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}       \label{LEMooILNCooOFZaTe}
+    L'adhérence de \( A\) est l'ensemble des points adhérents :
+    \begin{equation}
+        \Adh(A)=\bar A.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Deux inclusions à prouver, que nous allons toutes deux démontrer par contraposée.
+    \begin{subproof}
+        \item[Si \( x\in \bar A\) alors \( x\in\Adh(A)\)]
+            Si \( x\) n'est pas dans \( \bar A\) alors nous avons un fermé \( F\) contenant \( A\) et pas \( x\). Le complémentaire \( F^c\) est un ouvert qui contient \( x\) et dont l'intersection avec \( A\) est vide. Donc \( x\) n'est pas dans \( \Adh(A)\).
+
+        \item[Si \( x\in\bar A\) alors \( x\in \Adh(A)\)]
+
+            Si \( x\) n'est pas dans \( \Adh(A)\) alors il existe un ouvert \( \mO\) contenant \( x\) et n'intersectant pas \( A\). Le complémentaire \( \mO^c\) est un fermé qui contient \( A\) et qui ne contient pas \( x\).
+
+            Vu que \( \bar A\) est l'intersection de tous les fermés contenant \( A\), nous avons \( \bar A\subset\mO^c\) et donc \( x\) n'est pas dans \( \bar A\).
+    \end{subproof}
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Convergence de suite}
+%---------------------------------------------------------------------------------------------------------------------------
 
 Dès que nous avons une topologie nous avons une notion de convergence.
 \begin{definition}[Convergence de suite] \label{DefXSnbhZX}
@@ -83,8 +124,38 @@ Dès que nous avons une topologie nous avons une notion de convergence.
     muni de la topologie suivante. L'ensemble \( U\) est ouvert si et seulement si pour tout \( x\in U\) il existe des ouverts \( A_i\in X_i \) tels que \( x\in A_1\times \cdots\times A_n\subset U\).
 \end{definition}
 
+\begin{lemma}[Application partielle\cite{MonCerveau}]       \label{LEMooHAODooYSPmvH}
+    Soient trois espaces topologiques \( X_1\), \( X_2\) et \( Y\). Nous considérons une fonction continue \( f\colon X_1\times X_2\to Y\) ainsi que \( x_1\in X_1\). Alors l'application
+    \begin{equation}
+        \begin{aligned}
+            g\colon X_2&\to Y \\
+            x_2&\mapsto f(x_1,x_2) 
+        \end{aligned}
+    \end{equation}
+    est continue.
+\end{lemma}
+
+\begin{proof}
+    Soit un ouvert \( \mO\) de \( Y\); par hypothèse sur \( f\), la partie \( f^{-1}(\mO)\) est ouverte dans \( X_1\times X_2\). Notre but est de prouver que \( g^{-1}(\mO)\) est un ouvert de \( X_2\). Nous avons :
+    \begin{equation}
+        g^{-1}(\mO)=\{ x_2\in X_2\tq (x_1,x_2)\in f^{-1}(\mO) \}.
+    \end{equation}
+    Nous considérons \( x_2\in g^{-1}(\mO)\) et nous prouvons qu'il existe dans \( X_2\) un voisinage de \( x_2\) entièrement contenu dans \( g^{-1}(\mO)\).
+
+    Étant donné que \( (x_1,x_2)\) est dans \( f^{-1}(\mO)\) qui est ouvert, la définition \ref{DefIINHooAAjTdY} de la topologie sur \( X_1\times X_2\) nous donne des ouverts \( A_1\) dans \( X_1\) et \( A_2\) dans \( X_2\) tels que
+    \begin{equation}
+        (x_1,x_2)\in A_1\times A_2\subset f^{-1}(\mO).
+    \end{equation}
+    
+    Nous montrons à présent que \( A_2\subset g^{-1}(\mO)\). Soit \( y_2\in A_2\). Par construction \( (x_1,y_2)\in A_1\times A_2\subset f^{-1}(\mO)\), donc
+    \begin{equation}
+        g(y_2)=f(x_1,x_2)\in \mO.
+    \end{equation}
+    Cela termine la démonstration.
+\end{proof}
+
 \begin{proposition}[\cite{MonCerveau}]      \label{PROPooNRRIooCPesgO}
-    La convergence d'une suite pour la topologie de l'espace produit implique la convergence des suites «composantes par composante».
+    La convergence d'une suite pour la topologie de l'espace produit implique la convergence des suites «composante par composante».
 \end{proposition}
 
 \begin{proof}
@@ -176,12 +247,11 @@ Notons toutefois que nous sommes loin d'avoir une union dénombrable en généra
     Un couple $(E,d)$ formé d'un ensemble et d'une distance est un \defe{espace métrique}{espace!métrique}.
 \end{definition}
 
-
 La définition-théorème suivante donne une topologie sur les espaces métriques en partant des boules. Par construction, les boules sont une base de la topologie\footnote{Définition \ref{DefQELfbBEyiB}.} d'un espace métrique.
 
 \begin{theoremDef}     \label{ThoORdLYUu}
     Soit \( (E,d)\) un espace métrique. Nous définissons les \defe{boules ouvertes}{boule!ouverte} par
-    \begin{equation}
+    \begin{equation}        \label{EQooYCWSooIhibvd}
         B(x,r)=\{ y\in E\tq d(x,y)<r \}.
     \end{equation}
     Alors en posant
@@ -208,8 +278,16 @@ La définition-théorème suivante donne une topologie sur les espaces métrique
     Cette définition est faite exprès pour respecter le théorème \ref{ThoPartieOUvpartouv}.
 \item
     Par construction, les boules ouvertes sont une base de la topologie (définition \ref{DefQELfbBEyiB}) des espaces métriques.
+\item       \label{ITEMooUIHJooXAFaJa}
+    Si \( V\) est un voisinage de \( x\) (c'est à dire que \( V\) contient un ouvert contenant \( x\)) alors il existe\( r\) tel que \( B(x,r)\subset V\).
     \end{enumerate}
 \end{remark}
+
+\begin{normaltext}
+    Si vous avez un peu de temps, vous pouvez vérifier que si \( \eK\) est un corps totalement ordonné, alors avec toutes les définitions de \ref{DefKCGBooLRNdJf}, en posant \( d(x,y)=| x-y |\) nous avons une distance sur \( \eK\).
+    
+    De plus, les boules définies en \ref{DefKCGBooLRNdJf} sont alors les mêmes que celles définies en \eqref{EQooYCWSooIhibvd}, ce qui donne à tout corps totalement ordonné une structure d'espace topologique.
+\end{normaltext}
 
 \begin{definition}
   Un sous-ensemble $A \subset \eR^n$ est \defe{borné}{borné} s'il existe une boule de $\eR^n$ contenant $A$.
@@ -220,7 +298,7 @@ La définition-théorème suivante donne une topologie sur les espaces métrique
 \end{proposition}
 
 \begin{definition}
-    Si \( (X,d_X)\) et \( (Y,d_Y)\) sont des espaces métrique, une \defe{isométrie}{isométrie!d'espaces métriques} est une application bijective \( f\colon X\to Y\) telle que pour tout \( x,y\in X\) nous ayons
+    Si \( (X,d_X)\) et \( (Y,d_Y)\) sont des espaces métriques, une \defe{isométrie}{isométrie d'espaces métriques} est une application bijective \( f\colon X\to Y\) telle que pour tout \( x,y\in X\) nous ayons
     \begin{equation}        \label{EQooVUOXooKJntMN}
         d_Y\big( f(x),f(y) \big)=d_X(x,y).
     \end{equation}
@@ -235,19 +313,17 @@ La définition-théorème suivante donne une topologie sur les espaces métrique
 \end{example}
 
 \begin{example}
-    Si \( X\) est un ensemble, nous pouvons écrire la \defe{métrique discrète}{métrique!discrète}
+    Si \( X\) est un ensemble, nous pouvons écrire la \defe{distance discrète}{distance discrète} :
     \begin{equation}
         d(x,y)=\begin{cases}
             0    &   \text{si } x=y\\
             1    &    \text{si } x\neq y\text{.}
         \end{cases}
     \end{equation}
+    La topologie résultante sera nommée la \defe{topologie discrète}{topologie discrète}.
+
     Pour cette métrique, le groupe des isométries est le groupe symétrique de \( X\), c'est à dire le groupe de toutes les bijections de \( X\) sur lui-même.
 \end{example}
-
-\begin{proposition}
-    Une isométrie est continue.
-\end{proposition}
 
 \begin{propositionDef}[Groupe des isométries]
     Si \( (X,d)\) est un espace métrique, 
@@ -258,6 +334,7 @@ La définition-théorème suivante donne une topologie sur les espaces métrique
             Ce groupe agit fidèlement sur \( X\).
     \end{enumerate}
 \end{propositionDef}
+Nous verrons plus loin (proposition \ref{PropLYMgVMJ}) qu'une isométrie est toujours continue.
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Espace vectoriel topologique}
@@ -317,11 +394,11 @@ La premier notion de «taille» pour un vecteur de $\eR^2$ que nous vient à l'e
 \begin{equation}
   \textrm{taille de } (a,b) = \sqrt{a^2+b^2}.
 \end{equation}
-Nous pouvons introduire une la notion de distance entre les éléments de $\eR^2$ de façon similaire :
+Nous pouvons introduire une notion de distance entre les éléments de $\eR^2$ de façon similaire :
 \begin{equation}
 	d\big((a_x,a_y),(b_x,b_y)\big)=\sqrt{  (a_x-b_x)^2+(a_y-b_y)^2  }.
 \end{equation}
-Cette définition a l'air raisonnable; est-elle mathématiquement correcte ? Peut-elle jouer le rôle de la valeur absolue dans $\eR^2$ ? Est-elle la seule définitions possibles de «taille» et distance en $\eR^2$ ?  
+Cette définition a l'air raisonnable; est-elle mathématiquement correcte ? Peut-elle jouer le rôle de la valeur absolue dans $\eR^2$ ? Est-elle la seule définition possibles de «taille» et distance en $\eR^2$ ?  
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Norme}
@@ -410,10 +487,10 @@ Afin de suivre une notation proche de celle de la valeur absolue, à partir de m
 Un espace vectoriel normé est alors immédiatement un espace vectoriel topologique
 
 %--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Quelque exemples}
+\subsection{Quelques exemples}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Il est possible de définir de nombreuses normes sur $\eR^n$. Citons en quelque unes. 
+Il est possible de définir de nombreuses normes sur $\eR^n$. Citons en quelques unes. 
 
 \begin{propositionDef}      \label{PROPooCLZRooIRxCnZ}
     Les formules suivantes définissent des normes sur \( \eR^n\).
@@ -445,7 +522,7 @@ Il est possible de définir de nombreuses normes sur $\eR^n$. Citons en quelque 
     \end{equation}
     laquelle se démontre en passant au carré :
     \begin{equation}        \label{EQooRYNYooTzZpPz}
-        (a+b^2)=a^2+b^2+2ab\leq a^2+b^2+2| ab |=\big( \sqrt{ a^2 }+\sqrt{ b^2 } \big)^2.
+        (a+b)^2=a^2+b^2+2ab\leq a^2+b^2+2| ab |=\big( \sqrt{ a^2 }+\sqrt{ b^2 } \big)^2.
     \end{equation}
 \item
     \end{enumerate}
@@ -486,7 +563,7 @@ par conséquent,
 Les distances que nous avons vues jusqu'à présent sont des distances définies à partir d'une norme. La définition générale d'une distance est la définition \ref{DefMVNVFsX}.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Suites de Cauchy, métrique et espaces complet}
+\section{Suites de Cauchy, métrique et espaces complets}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 %--------------------------------------------------------------------------------------------------------------------------- 
@@ -512,7 +589,7 @@ Notons qu'ici, même si l'espace \( V\) n'a rien à voir avec \( \eR\), nous pre
 \end{definition}
 
 \begin{normaltext}
-    Ces définitions méritent quelque remarques.
+    Ces définitions méritent quelques remarques.
     \begin{enumerate}
         \item
             Dans le cas des espaces vectoriels topologiques, nous définissons les notions de suite \( \tau\)-Cauchy et d'espace topologique \( \tau\)-complet. Nous ajoutons le préfixe \( \tau\) pour indiquer que ce sont des notions topologiques.
@@ -720,10 +797,12 @@ Le théorème suivant donne la complétude de \( \eR\) et le critère de Cauchy 
 
 Si vous n'êtes pas sûr ou si vous ne voulez pas étudier les notations de convergence et de suites de Cauchy dans les corps, vous pouvez simplement recopier la démonstration du théorème \ref{THOooUFVJooYJlieh} en remplaçant partout \( \eQ\) par \( \eR\), et aussi en remplaçant les \( | x-y |\) par \( d(x,y)\).
 
-Nous pouvons également mettre une structure d'espace métrique sur \( \eC\) en posant 
-\begin{equation}
-    d(z,z')=| z-z' |.
-\end{equation}
+\begin{normaltext}
+    Nous pouvons également mettre une structure d'espace métrique sur \( \eC\) en posant 
+    \begin{equation}
+        d(z,z')=| z-z' |.
+    \end{equation}
+\end{normaltext}
 
 \begin{proposition}
     L'espace métrique \( (\eC,d)\) est complet.
@@ -741,11 +820,11 @@ Nous pouvons également mettre une structure d'espace métrique sur \( \eC\) en 
         | x_k-x_l |\leq | z_k-z_l |\leq \epsilon.
     \end{equation}
     
-    Dons la suite des parties réelles converge par la complétude de \( (\eR,d)\) du théorème \ref{THOooNULFooYUqQYo}. Notez que le \( d\) ici n'est pas tout à fait le même, et que la démonstration fonctionne parce que la distance prise sur \( \eR\) est la restriction à \( \eR\) de la distance prise sur \( \eC\). Notons \( x\) la limite de \( (x_k)\).
+    Donc la suite des parties réelles converge par la complétude de \( (\eR,d)\) du théorème \ref{THOooNULFooYUqQYo}. Notez que le \( d\) ici n'est pas tout à fait le même, et que la démonstration fonctionne parce que la distance prise sur \( \eR\) est la restriction à \( \eR\) de la distance prise sur \( \eC\). Notons \( x\) la limite de \( (x_k)\).
 
     De la même manière la suite des parties imaginaires \( y_k=\imag(z_k)\) converge vers un réel que nous notons \( y\). Avec tout cela, la suite \( z_k\) converge dans \( \eC\) vers \( x+iy\). En effet pour \( \epsilon\) donné et pour un \( k\) suffisament grand,
     \begin{equation}
-        | z_k(x+iy) |=\big| \real(z_k)-x+i(\imag(z_k)-y) \big|\leq | x_k-x |+| y_k-y |\leq \epsilon.
+        | z_k-(x+iy) |=\big| \real(z_k)-x+i(\imag(z_k)-y) \big|\leq | x_k-x |+| y_k-y |\leq \epsilon.
     \end{equation}
 \end{proof}
 
@@ -753,7 +832,7 @@ Nous pouvons également mettre une structure d'espace métrique sur \( \eC\) en 
 \subsection{Espace topologique métrique}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Dans les espaces vectoriels topologiques métrique, il n'y a pas d'ambiguïté.
+Dans les espaces vectoriels topologiques métriques, il n'y a pas d'ambiguïté.
 \begin{proposition}[Suite de Cauchy]     \label{PropooUEEOooLeIImr}
     Soit \( (E,d)\) un espace vectoriel topologique métrique.
     \begin{enumerate}
@@ -817,6 +896,7 @@ Dans les espaces vectoriels topologiques métrique, il n'y a pas d'ambiguïté.
 
 Nous allons à présent donner la topologie sur \( \eR\) et ainsi résoudre les questions laissées en suspend lors de la construction des réels, voir \ref{NormooHRDZooRGGtCd}.
 
+La valeur absolue de la définition \ref{DefKCGBooLRNdJf}\ref{ItemooWUGSooRSRvYC} permet de définir une norme sur \( \eR\).
 \begin{lemma}
     L'application 
     \begin{equation}
@@ -824,7 +904,6 @@ Nous allons à présent donner la topologie sur \( \eR\) et ainsi résoudre les 
     \end{equation}
      est une norme sur $\eR$.
 \end{lemma}
-La valeur absolue est celle de la définition \ref{DefKCGBooLRNdJf}\ref{ItemooWUGSooRSRvYC}.
 
 \begin{proof}
     Les conditions de la définition \ref{DefNorme} sont immédiatement vérifiées grâce au lemme \ref{LemooANTJooYxQZDw} et à la remarque \ref{RemooJCAUooKkuglX}.

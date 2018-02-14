@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2006-2017
+% Copyright (c) 2006-2018
 %   Laurent Claessens, Carlotta Donadello
 % See the file fdl-1.3.txt for copying conditions.
  
@@ -12,11 +12,16 @@
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{definition}[\cite{TrenchRealAnalisys}]
-    Nous disons qu'une suite de fonctions \( (f_n)\) définies sur un ensemble \( A\) \defe{converge uniformément}{convergence!uniforme} vers une fonction \( f\) si
+    Soient un espace (dont la nature n'est pas très importante) \( \Omega\), une partie \( A\) de \( \Omega\) et un espace normé \( V\). Lorsque \( g\) est une fonction \( g\colon \Omega\to V\), nous notons
     \begin{equation}
-        \lim_{n\to \infty} \| f_n-f \|_A=0
+    \| g \|_A=\sup_{x\in A}\| g(x) \|
     \end{equation}
-    où \( \| g \|_A=\sup_{x\in A}\| g(x) \|\).
+    C'est la norme supremum limitée à la partie \( A\).
+
+    Nous disons qu'une suite de fonctions \( (f_n)\) définies sur un ensemble \( A\) \defe{converge uniformément sur \( A\)}{convergence!uniforme} vers la fonction \( f\) si
+    \begin{equation}
+        \lim_{n\to \infty} \| f_n-f \|_A=0.
+    \end{equation}
 \end{definition}
 
 \begin{proposition}[Critère de Cauchy uniforme\cite{LCbyNWQ}]   \label{PropNTEynwq}
@@ -62,12 +67,18 @@ Grosso modo, cela dit que si qu'une suite de Cauchy pour la norme uniforme est u
     \end{subequations}
     Grâce à l'uniforme convergence, nous considérons \(N\in \eN\) tel que \( \| f_n-f \|\leq \epsilon\) pour tout \( n\geq N\). Pour de tels \( n\), nous avons
     \begin{equation}
-        \| f(x)-f(x_0) \|\leq 2\epsilon\| f_n-f \|+\| f_n(x)-f_n(x_0) \|.
+        \| f(x)-f(x_0) \|\leq 2\epsilon+\| f_n(x)-f_n(x_0) \|.
     \end{equation}
     La continuité de \( f_n\) nous fournit un \( \delta>0\) tel que \( \| f_n(x_0)-f_n(x) \|<\epsilon\) dès que \( \| x-x_0 \|<\delta\). Pour ce \( \delta\), nous avons alors \( \| f(x)-f(x_0) \|<\epsilon\).
+
+    Donc lorsque \( \| x-x_0 \|<\delta\) et \( n\geq N\) nous avons
+    \begin{equation}
+        \| f(x)-f(x_0) \|\leq 3\epsilon,
+    \end{equation}
+    où vous remarquerez qu'il n'y a plus de dépendance en \( n\). Cela prouve la continuité de \( f\) en \( x_0\).
 \end{proof}
 
-%--------------------------------------------------------------------------------------------------------------------------- 
+%-------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Complétude avec la norme uniforme}
 %---------------------------------------------------------------------------------------------------------------------------
 
@@ -77,9 +88,13 @@ Grosso modo, cela dit que si qu'une suite de Cauchy pour la norme uniforme est u
 
 \begin{proof}
     Soit \( a\in X\) et prouvons que \( f\) est séquentiellement continue en \( a\). Pour cela nous considérons une suite \( x_n\to a\) dans \( X\). Nous savons que \( f(x_n)\stackrel{Y}{\longrightarrow}f(x)\). Pour tout \(k\in \eN\), tout \( n\in \eN\) et tout \( x\in X\) nous avons la majoration
-    \begin{equation}
-        \big\| f(x_n)-f(x) \big\|\leq \big\| f(x_n)-f_k(x_n) \big\|+\big\| f_k(x_n)-f_k(x) \big\|+\big\| f_k(x)-f(x) \big\|\leq 2\| f-f_k \|_{\infty}+\big\| f_k(x_n)-f_k(x) \big\|.    
-    \end{equation}
+    \begin{subequations}
+        \begin{align}
+            \big\| f(x_n)-f(x) \big\|&\leq \big\| f(x_n)-f_k(x_n) \big\|+\big\| f_k(x_n)-f_k(x) \big\|+\big\| f_k(x)-f(x) \big\|\\
+            &\leq 2\| f-f_k \|_{\infty}+\big\| f_k(x_n)-f_k(x) \big\|.    
+        \end{align}
+    \end{subequations}
+    <++>
     Soit \( \epsilon>0\). Si nous choisissons \( k\) suffisamment grand la premier terme est plus petit que \( \epsilon\). Et par continuité de \( f_k\), en prenant \( n\) assez grand, le dernier terme est également plus petit que \( \epsilon\).
 \end{proof}
 
@@ -105,7 +120,7 @@ Grosso modo, cela dit que si qu'une suite de Cauchy pour la norme uniforme est u
 
 
 \begin{lemma}       \label{LemdLKKnd}
-    Soit \( A\) compact et \( B\) complet. L'ensemble des fonctions continues de \( A\) vers \( B\) muni de la norme uniforme est complet.
+    Soient un espace topologique compact \( A\) et un espace complet \( B\). L'ensemble des fonctions continues de \( A\) vers \( B\) muni de la norme uniforme est complet.
 
     Dit de façon courte : \( \big( C(A,B),\| . \|_{\infty} \big)\) est complet.
 \end{lemma}
@@ -115,7 +130,7 @@ Grosso modo, cela dit que si qu'une suite de Cauchy pour la norme uniforme est u
     \begin{equation}
         \| f_k(x)-f_l(x) \|_B\leq \| f_k-f_l \|_{\infty},
     \end{equation}
-    de telle sorte que la suite \( (f_k(x))\) est de Cauchy dans \( B\) et converge donc vers un élément de \( B\). La suite de Cauchy \( (f_k)\) converge donc ponctuellement vers une fonction \( f\colon A\to B\). Nous devons encore voir que cette fonction est continue; ce sera l'uniformité de la norme qui donnera la continuité. En effet soit \( x_n\to x\) une suite dans \( A\) convergent vers \( x\in A\). Pour chaque \( k\in \eN\) nous avons
+    de telle sorte que la suite \( (f_k(x))\) est de Cauchy dans \( B\) et converge donc vers un élément de \( B\). La suite de Cauchy \( (f_k)\) converge donc ponctuellement vers une fonction \( f\colon A\to B\). Nous devons encore voir que cette fonction est continue; ce sera l'uniformité de la norme qui donnera la continuité. En effet soit \( x_n\to x\) une suite dans \( A\) qui converge vers \( x\in A\). Pour chaque \( k\in \eN\) nous avons
     \begin{equation}
         \| f(x_n)-f(x) \|\leq \| f(x_n)-f_k(x_n) \|  +\| f_k(x_n)-f_k(x) \|+\| f_k(x)-f(x) \|.
     \end{equation}
@@ -132,7 +147,7 @@ Il serait sans doute bon de revoir cette preuve à la lumière du critère de Ca
 \end{normaltext}
 
 \begin{theorem}[Théorème de Dini\cite{JIFGuct}] \label{ThoUFPLEZh}
-    Soit \( D\) un espace métrique compact et une suite de fonctions \( f_n\in C(D,\eR)\) telle que
+    Soient un espace métrique complet \( D\) et une suite de fonctions \( f_n\in C(D,\eR)\) telle que
     \begin{enumerate}
         \item
             \( f_n\to g\) ponctuellement,
@@ -171,7 +186,7 @@ Il serait sans doute bon de revoir cette preuve à la lumière du critère de Ca
     \begin{multicols}{2}
         \begin{enumerate}
             \item
-                Les deux première inégalités sont la croissance de la suite.
+                Les deux premières inégalités sont la croissance de la suite.
             \item
                 La suivante est \eqref{subEqHTiYZLd}.
             \item
@@ -254,7 +269,7 @@ Les techniques usuelles sont
 		\begin{equation}
 			| x |=\sqrt{x^2}\leq\sqrt{x^2+y^2}.
 		\end{equation}
-		Cela permet de majorer le numérateur. Attention : ce genre de majoration ne fonctionnent qu'au numérateur : agrandir le dénominateur ferait diminuer la fraction.
+		Cela permet de majorer le numérateur. Attention : ce genre de majoration fonctionne seulement au numérateur : agrandir le dénominateur ferait diminuer la fraction.
 
 	\item
 		Il n'est pas vrai que
@@ -427,6 +442,224 @@ En ce qui concerne les dérivées, tout se passe comme avant. Si les dérivées 
         \end{pmatrix}.
     \end{aligned}
 \end{equation}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Limites à plusieurs variables}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{proposition}	\label{PropLimParcompos}
+	Soit $f\colon D\subset\eR^m\to \eR^n$. Nous avons 
+	\begin{equation}
+		\lim_{x\to a} f(x)=\ell
+	\end{equation}
+	si et seulement si 
+	\begin{equation}
+		\lim_{x\to a} f_i(x)=\ell_i
+	\end{equation}
+	pour tout $i\in\{ 1,\ldots,n \}$ où $f_i(x)$ dénote la $i$-ème composante de $f(x)$ et $\ell_i$ la $i$-ème composante de $\ell\in\eR^n$.
+\end{proposition}
+Cette proposition revient à dire que la convergence d'une fonction est équivalente à la convergence de chacune de ses composantes.
+
+\begin{proof}
+	L'élément clef de la preuve est le fait que pour tout vecteur $u\in\eR^p$, nous ayons l'inégalité
+	\begin{equation}	\label{Equilequnorme}
+		| u_i |\leq\sqrt{\sum_{k=1}^p| u_k |^2}=\| u \|.
+	\end{equation}
+	La norme (dans $\eR^p$) d'un vecteur est plus grande ou égale à la valeur absolue de chacune de ses composantes.
+
+	Supposons que nous ayons une fonction dont chacune des composantes a une limite en $a$ : $\lim_{x\to a} f_i(x)=\ell_i$. Montrons que dans ce cas la fonction $f$ tend vers $\ell$. Si nous considérons $\varepsilon>0$, par définition de la limite de chacune des fonctions $f_i$, il  existent des $\delta_i$ tels que
+	\begin{equation}
+		\| x-a \|_{\eR^m}<\delta_i\Rightarrow | f_i(x)-\ell_i |<\varepsilon.
+	\end{equation}
+	Notez que la norme à gauche est une norme dans $\eR^m$ et que celle à droite est une simple valeur absolue dans $\eR$. Considérons $\delta=\min\{ \delta_i \}_{i=1,\ldots n}$. Si $\| x-a \|<\delta$, alors
+	\begin{equation}
+		\| f(x)-\ell \|=\sqrt{\sum_{i=1}^n| f_i(x)-\ell_i |^2}<\sqrt{\sum_{i=1}^n\varepsilon^2}=\sqrt{n\varepsilon^2}=\sqrt{n}\varepsilon.
+	\end{equation}
+	Nous voyons qu'en choisissant les $\delta_i$ tels que $| f_i(x)-\ell_i |<\varepsilon$, nous trouvons $\| f(x)-\ell \|<\sqrt{n}\varepsilon$. Afin d'obtenir $\| f(x)-\ell \|<\varepsilon$, nous choisissons donc les $\delta_i$ de telle manière a avoir $| f_i(x)-\ell_i |<\varepsilon/\sqrt{n}$.
+
+	Nous avons donc prouvé que la limite composante par composante impliquait la limite de la fonction. Nous devons encore prouver le sens inverse.
+
+	Supposons donc que $\lim_{x\to a} f(x)=\ell$, et prouvons que nous ayons $\lim_{x\to a} f_i(x)=\ell_i$ pour chaque $i$. Soit $\varepsilon>0$ et $\delta>0$ tel que $\| x-a \|<\delta$ implique $\| f(x)-\ell \|<\varepsilon$. Avec ces choix, nous avons
+	\begin{equation}
+		| f_i(x)-\ell_i |\leq\| f(x)-\ell \|<\varepsilon
+	\end{equation}
+	où nous avons utilisé la majoration \eqref{Equilequnorme} avec $f(x)-\ell$ en guise de $u$.
+\end{proof}
+
+De même, pour la continuité nous avons la proposition suivante :
+\begin{proposition}
+	Soit une fonction $f\colon D\subset\eR^m\to \eR^n$ et $a\in D$. La fonction $f$ est continue en $a$ si et seulement si chacune de ses composantes l'est, c'est à dire si et seulement si chacune des fonctions $f_i\colon D\to \eR$ est continue en $a$.
+\end{proposition}
+Essayez de prouver cette proposition directement par la définition de la continuité, en suivant pas à pas la démonstration de la proposition \ref{PropLimParcompos}.
+
+\begin{proposition}		\label{Propfaposfxposcont}
+	Soit $f\colon \eR^m\to \eR$ et $a$, un point du domaine de $f$ telle que $f(a)>0$. Alors il existe un rayon $r$ tel que $f(x)>0$ pour tout $x$ dans $B(a,r)$.
+\end{proposition}
+Cette proposition signifie que si la fonction est strictement positive en un point, alors elle restera strictement positive en tous les points «pas trop loin».
+
+\begin{proof}
+	Prenons $\varepsilon=f(a)/2$ dans la définition de la continuité. Il existe donc un rayon $\delta$ tel que pour tout $x$ dans $B(a,\delta)$,
+	\begin{equation}
+		| f(x)-f(a) |\leq \frac{ f(a) }{2},
+	\end{equation}
+	en d'autres termes, $f(x)\in B\big( f(a),\frac{ f(a) }{ 2 } \big)$. évidemment aucun nombre négatif ne fait partie de cette dernière boule lorsque $f(a)$ est strictement positif.
+\end{proof}
+
+\begin{corollary}		\label{CorfneqzOuvert}
+	Si $f\colon \eR^m\to \eR$ est une fonction continue, alors l'ensemble
+	\begin{equation}
+		A=\{ x\in\eR^m\tqs f(x)\neq 0 \}
+	\end{equation}
+	est ouvert.
+\end{corollary}
+
+\begin{proof}
+	Soit $x\in A$. Si $x>0$ (le cas $x<0$ est laissé en exercice), alors il existe une boule autour de $x$ sur laquelle $f$ reste strictement positive (proposition \ref{Propfaposfxposcont}). Cette boule est donc contenue dans $A$. Étant donné qu'autour de chaque point de $A$ nous pouvons trouver une boule contenue dans $A$, ce dernier est ouvert.
+\end{proof}
+
+\begin{example} \label{ExBNOQEWe}
+    Soit  $GL_n(\eR)$ l'ensemble des matrices $n \times n$ inversibles.   Nous allons montrer que $GL_n(\eR)$ est un ouvert de $ \eR^{n^2}$. L'identification entre les vecteurs et les matrices consiste simplement à «déplier» la matrice pour en faire un vecteur. Par exemple, en dimension deux,
+	\begin{equation}
+		\begin{pmatrix}
+			1	&	2	\\ 
+			3	&	4	
+		\end{pmatrix}\mapsto
+		\begin{pmatrix}
+			1	\\ 
+			2	\\ 
+			3	\\ 
+			4	
+		\end{pmatrix}\in\eR^4.
+	\end{equation}
+	En dimension $3$,
+	\begin{equation}
+		\begin{aligned}[]
+			\begin{pmatrix}
+				1	&	2	&	3	\\
+				4	&	5	&	6	\\
+				7	&	8	&	9
+			\end{pmatrix}
+			\mapsto
+			\begin{pmatrix}
+				1	\\ 
+				2	\\ 
+				3	\\ 
+				4	\\ 
+				5	\\ 
+				6	\\ 
+				7	\\ 
+				8	\\ 
+				9	
+			\end{pmatrix}\in\eR^9.
+		\end{aligned}
+	\end{equation}
+	
+	Une matrice est inversible si et seulement si son déterminant est non nul. Or le déterminant est un polynôme en les composantes de la matrice. En dimension deux, nous avons
+	\begin{equation}
+		\det\begin{pmatrix}
+			a	&	b	\\ 
+			c	&	d	
+		\end{pmatrix}=ad-bc,
+	\end{equation}
+	mais en écriture «dépliée», nous pouvons aussi bien écrire
+	\begin{equation}
+		\det\begin{pmatrix}
+			a	\\ 
+			b	\\ 
+			c	\\ 
+			d	
+		\end{pmatrix}=ad-bc.
+	\end{equation}
+	En dimension $3$, le déterminant est donc un polynôme des $9$ variables qui apparaissent dans le vecteur «déplié». En général, dans $\eR^{n^2}$, nous considérons donc le polynôme $\det\colon \eR^{n^2}\to \eR$ qui à un vecteur $X\in\eR^{n^2}$ fait correspondre le déterminant de la matrice obtenue en «repliant» le vecteur $X$.
+
+	Donc dans $\eR^{n^2}$, l'ensemble des matrices inversibles est donné par l'ensemble des vecteurs sur lesquels le polynôme $\det$ ne s'annule pas, c'est à dire
+	\begin{equation}
+		\{ X\in\eR^{n^2}\tqs \det(X)\neq 0 \}.
+	\end{equation}
+	Mais le déterminant est un polynôme, et donc une fonction continue. Cet ensemble est par conséquence ouvert par le corollaire \ref{CorfneqzOuvert}.
+\end{example}
+
+
+
+La proposition suivante montre que la limite peut «passer à travers» les fonctions continues.
+\begin{proposition}[limite de fonction composée]		\label{PropLimCompose}
+	Soit $f\colon \eR^n\to \eR^q$ et $g\colon \eR^m\to \eR^n$ telles que
+	\begin{subequations}
+		\begin{align}
+			\lim_{x\to a} g(x)&= p		\label{EqLimCompHypa}\\
+			\lim_{y\to p} f(y)&= q		\label{EqLimCompHypb}
+		\end{align}
+	\end{subequations}
+	Alors nous avons $\lim_{x\to a} (f\circ g)(x)=q$. 
+\end{proposition}
+
+\begin{proof}
+	Comme presque toute preuve à propos de limite ou de continuité, nous commençons par choisir $\varepsilon>0$. Nous devons montrer qu'il existe un $\delta$ tel que $\| x-a \|\leq \delta$ implique $\| f\big( g(x) \big)-q \|\leq \varepsilon$.
+
+	La limite \eqref{EqLimCompHypb} impose l'existence d'un $\tilde\delta$ tel que $\| y-p \|\leq\tilde\delta$ implique $\| f(y)-q \|\leq\varepsilon$, tandis que la limite \eqref{EqLimCompHypa} donne un $\delta$ tel que $\| x-a \|\leq\delta$ implique $\| g(x)-p \|\leq\tilde\delta$ (nous avons pris $\tilde\delta$ en guise de $\varepsilon$ dans la définition de la limite pour $g$).
+
+	Avec ces choix, si $\| x-a \|\leq \delta$, alors $\| g(x)-p \|\leq\tilde\delta$, et par conséquent,
+	\begin{equation}
+		\| f\big( g(x) \big)-q \|\leq\varepsilon,
+	\end{equation}
+	ce que nous voulions.
+\end{proof}
+
+De façon pragmatique, la proposition \ref{PropLimCompose} nous fournit une formule pour les limites de fonctions composée :
+\begin{equation}		\label{Eqlimfgvomp}
+	\lim_{x\to a} (f\circ g)(x)=\lim_{y\to \lim_{x\to a} g(x)}f(y)
+\end{equation}
+lorsque $f$ est continue.
+
+\begin{remark}
+	La formule \eqref{Eqlimfgvomp} ne peut pas être utilisée à l'envers. Il existe des cas où $\lim_{x\to a} (g\circ f)(x)=q$, et $\lim_{x\to a} f(x)=p$ sans pour autant avoir $\lim_{y\to q} g(y)=q$. Par exemple
+	\begin{subequations}
+		\begin{align}
+			g(x)&=\begin{cases}
+				2	&	\text{si }x\geq0\\
+				0	&	 \text{si }x<0\\
+			\end{cases}\\
+			f(x)&=| x |.
+		\end{align}
+	\end{subequations}
+	Nous avons $(g\circ f)(x)=2$ pour tout $x$, ainsi que $\lim_{x\to 0} f(x)=0$, mais la limite $\lim_{y\to 0} g(y)$ n'existe pas.
+\end{remark}
+
+
+\begin{theorem}[Caractérisation de la limite par les suites]		\label{ThoLimSuite}
+	Une fonction $f\colon D\subset\eR^m\to \eR^n$ admet une limite $\ell$ en un point d'accumulation $a$ de $D$ si et seulement si pour toute suite $(x_n)$ dans $D\setminus\{ a \}$ convergente vers $a$, la suite $\big( f(x_n) \big)$ dans $\eR^n$ converge vers $\ell$.
+\end{theorem}
+
+\begin{proof}
+	Supposons d'abord que la fonction ait une limite $\ell$ lorsque $x\to a$, et considérons une suite $(x_n)$ dans $D\setminus\{ a \}$ convergente vers $a$. Nous devons montrer que la suite $y_n=f(x_n)$ converge vers $\ell$, c'est à dire que si nous choisissons $\varepsilon>0$ nous devons montrer qu'il existe un $N$ tel que $n>N$ implique $\| y_n-\ell  \|=\| f(x_n)-\ell \|<\varepsilon$. 
+	
+	Nous avons deux hypothèses. La première est la convergence de la fonction et la seconde est la convergence de la suite $(x_n)$. L'hypothèse de convergence de la fonction nous dit que (le $\varepsilon$ a déjà été choisi dans le paragraphe précédent)
+	\begin{equation}
+		\exists\delta\tq\,0<\| x-a \|<\delta\Rightarrow\| f(x)-\ell \|<\varepsilon.
+	\end{equation}
+	Une fois choisi ce $\delta$ qui «va avec» le $\varepsilon$ qui a été choisi précédemment, la définition de la convergence de la suite nous enseigne que
+	\begin{equation}
+		\exists N\tq n>N\Rightarrow\| x_n-a \|<\delta.
+	\end{equation}
+	Récapitulons ce que nous avons fait. Nous avons choisi un $\varepsilon$, et puis nous avons construit un $N$. Lorsque $n>N$, nous avons $\| x_n-a \|<\delta$. Mais alors, par construction de ce $\delta$, nous avons $\| f(x_n)-\ell \|<\varepsilon$. Au final, $n>N$ implique bien $\| y_n-\ell \|<\varepsilon$, ce qu'il nous fallait.
+
+	Nous supposons maintenant que la fonction $f$ \emph{ne} converge \emph{pas} vers $\ell$, et nous allons construire une suite d'éléments $x_n$ qui converge vers $a$ sans que $(y_n)=f(x_n)$ ne converge vers $\ell$. La fonction $f$ vérifie la condition \eqref{EqCaractNonLim}. Nous prenons donc un $\varepsilon$ tel que $\forall \delta$, il existe un $x$ qui vérifie \emph{en même temps} les deux conditions
+	\begin{subequations}
+		\begin{numcases}{}
+			0<\| x-a \|<\delta\\
+			\| f(x)-\ell \|>\varepsilon.
+		\end{numcases}
+	\end{subequations}
+	Un tel $x$ existe pour tout choix de $\delta$. Choisissons un $n$ arbitraire et $\delta=\frac{1}{ n }$. Nous nommons $x_n$ le $x$ correspondant à ce choix de $n$. La suite $(x_n)$ ainsi construite converge vers $a$ parce que 
+	\begin{equation}
+		\| x_n-a \|<\delta_n=\frac{1}{ n },
+	\end{equation}
+	donc dès que $n$ est grand, $\| x_n-a \|$ est petit. Mais la suite $y_n=f(x_n)$ ne converge pas vers $\ell$ parce que
+	\begin{equation}
+		\| f(x_n)-\ell \|>\varepsilon
+	\end{equation}
+	pour tout $n$. La suite $y_n$ ne s'approche donc jamais à moins d'une distance $\varepsilon$ de $\ell$.
+\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Champs de vecteurs}
@@ -682,7 +915,7 @@ Il y a deux propriétés importantes :
 \section[Interprétation de la divergence]{Interprétation géométrique et physique de la divergence}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-En physique, on dit qu'un champ de vecteurs à divergence nulle est \defe{incompressible}{incompressible!champ de vecteur}. Nous allons essayer de comprendre pourquoi. Lorsqu'un fluide incompressible se déplace, il faut qu'en chaque point il y autant de fluide qui rentre que de fluide qui sort. Nous allons voir sur quelques exemples que la divergence d'un champ de vecteurs est le «bilan de masse» d'un fluide qui se déplace selon le champ de vecteurs.
+En physique, on dit qu'un champ de vecteurs à divergence nulle est \defe{incompressible}{incompressible!champ de vecteur}. Nous allons essayer de comprendre pourquoi. Lorsqu'un fluide incompressible se déplace, il faut qu'en chaque point il y ait autant de fluide qui rentre que de fluide qui sort. Nous allons voir sur quelques exemples que la divergence d'un champ de vecteurs est le «bilan de masse» d'un fluide qui se déplace selon le champ de vecteurs.
 
 Si en un point la divergence est positive, cela signifie qu'il y a une perte de masse et si la divergence est négative, cela signifie qu'il y a une accumulation de masse.
 
@@ -736,7 +969,7 @@ Cette divergence étant négative, il y a bien accumulation de fluide en tout po
             z
         \end{pmatrix}.
     \end{equation}
-    Nous pouvons rapidement remarquer que $\nabla\cdot F=0$. Est-ce que cela peut se comprendre sur le dessin de la figure \ref{LabelFigZGUDooEsqCWQ}. % From file ZGUDooEsqCWQ
+    Nous pouvons rapidement remarquer que $\nabla\cdot F=0$. Est-ce que cela peut se comprendre sur le dessin de la figure \ref{LabelFigZGUDooEsqCWQ} ? % From file ZGUDooEsqCWQ
 \newcommand{\CaptionFigZGUDooEsqCWQ}{Le champ de vecteur de la gravité. Nous avons tracé, sur les deux cercles la même densité de vecteurs, c'est à dire le même nombre de vecteurs par unité de surface.}
 \input{auto/pictures_tex/Fig_ZGUDooEsqCWQ.pstricks}
 
