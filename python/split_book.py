@@ -50,7 +50,7 @@ def isbn(title,year,v,imprimeur=None):
         if v==2:
             return "978-2-9540936-6-6"
         if v==3:
-            return "978-2-9540936-7-3"       
+            return "978-2-9540936-7-3"
 
 
     default = "No ISBN attributed for the title "+title
@@ -88,7 +88,7 @@ def make_5_pages(n):
     - two withe pages
     - one with the title on the top (small)
     - one speaking about the numerous versions of the book
-    - one with the copyright on the bottom 
+    - one with the copyright on the bottom
 
     @param n (integer) the number of volumes
     """
@@ -106,7 +106,7 @@ def make_5_pages(n):
 def split_book(book,n):
     """
     Split the book in 'v' volumes
-    
+
     @param book (type Book)
     @param n (integer) the number of volumes
 

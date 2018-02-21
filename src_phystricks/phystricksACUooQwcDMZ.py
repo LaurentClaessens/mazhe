@@ -12,7 +12,7 @@ def ACUooQwcDMZ():
     eps=exp(-2)
     # Fonctions
     x=var('x')
-        
+
     f1=ln(x)
     f2=ln(abs(x))
     f3=ln(x+r)
@@ -53,7 +53,6 @@ def ACUooQwcDMZ():
     pspicts[6].BB.addX(-2)
     pspicts[6].BB.addY(3)
 
-    
+
     fig.conclude()
     fig.write_the_file()
-

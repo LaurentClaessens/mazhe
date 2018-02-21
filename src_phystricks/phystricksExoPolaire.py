@@ -2,7 +2,7 @@ from phystricks import *
 def ExoPolaire():
 	pspict,fig = SinglePicture("ExoPolaire")
 	pspict.dilatation(1)
-	
+
 	O=Point(0,0)
 	X=Point(1,0)
 
@@ -24,4 +24,3 @@ def ExoPolaire():
 	pspict.DrawDefaultAxes()
 	fig.conclude()
 	fig.write_the_file()
-

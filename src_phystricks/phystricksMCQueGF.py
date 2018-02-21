@@ -3,7 +3,7 @@ from phystricks import *
 def MCQueGF():
     #pspictOne,figOne = SinglePicture("levelsetsOne")
     pspictOne,figOne = SinglePicture("MCQueGF")
-    
+
     x,y=var('x,y')
 
     Fmoins1=ImplicitCurve(x+y+1==0,(x,-3,3),(y,-3,3))
@@ -16,4 +16,3 @@ def MCQueGF():
     pspictOne.dilatation(1)
     figOne.conclude()
     figOne.write_the_file()
-

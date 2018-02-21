@@ -149,7 +149,7 @@ def assert_MonCerveau_first():
         print("""Il semblerait que la référence bibliographique 'MonCerveau' ne soit pas la première. Il faut corriger ça. En effet, le lecteur doit savoir que lorsqu'il voit la référence [1], ça veut dire 'danger'.
 
         Après modification, le plus simple est de supprimer le fichier {} et de relancer.
-                
+
                 """.format(filename))
         raise
 

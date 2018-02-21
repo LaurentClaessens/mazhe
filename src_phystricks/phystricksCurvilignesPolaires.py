@@ -27,9 +27,8 @@ def CurvilignesPolaires():
 
         pspict.DrawGraphs(C,l,vr,vtheta)
 
-    Vision(fig,2,30,u"Base locale.") 
-    Vision(fig,1.5,200,u"Base locale.") 
+    Vision(fig,2,30,u"Base locale.")
+    Vision(fig,1.5,200,u"Base locale.")
 
     fig.conclude()
     fig.write_the_file()
-

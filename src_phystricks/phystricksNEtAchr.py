@@ -14,4 +14,3 @@ def NEtAchr():
     pspict.DrawGraphs(curve,pts)
     fig.conclude()
     fig.write_the_file()
-

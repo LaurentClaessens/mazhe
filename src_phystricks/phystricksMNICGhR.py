@@ -36,10 +36,9 @@ def unDynkin(name,sym):
 
 def MNICGhR():
     unDynkin("MNICGhR",["$\\alpha_1$","$\\alpha_2$","$\\alpha_3$","$\\alpha_{l-1}$","$\\alpha_l$"])
-def LEJNDxI():    
+def LEJNDxI():
     unDynkin("LEJNDxI",["","","","",""])
 def RGjjpwF():
     unDynkin("RGjjpwF",["$1$","","","",""])
 def STdyNTH():
     unDynkin("STdyNTH",["","","","","$1$"])
-

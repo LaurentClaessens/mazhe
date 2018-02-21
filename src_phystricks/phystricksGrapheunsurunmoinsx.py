@@ -3,7 +3,7 @@ from phystricks import *
 
 def Grapheunsurunmoinsx():
 	pspict,fig = SinglePicture("Grapheunsurunmoinsx")
-	
+
 	x=var('x')
 	f=phyFunction(1/(1-x))
 	eps=0.21
@@ -19,4 +19,3 @@ def Grapheunsurunmoinsx():
 	pspict.dilatation(1)
 	fig.conclude()
 	fig.write_the_file()
-

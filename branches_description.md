@@ -176,7 +176,7 @@ Tenir compte des remarques de Guillaume Barriere
 
 # racines
 
-La partie sur les racines de l'unité dans les groupes dépend de 
+La partie sur les racines de l'unité dans les groupes dépend de
 - polynômes
 - exponentielle complexe (séries entières)
 
@@ -195,4 +195,3 @@ Les remarques de Éric Guirbal
 # ordre
 
 Remise en ordre des nombreux points restés en suspend après le passage de Guillaume Barriere.
-

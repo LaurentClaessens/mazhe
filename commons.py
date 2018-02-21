@@ -1,7 +1,7 @@
 # Compiling with 'pytex' and the option '--verif' will check for
 # "references to the future".
-# The program will basically look for every occurrence of '\label', '\ref' 
-# and '\eqref' and check the corresponding 'label' of a 'ref' or 'eqref' is 
+# The program will basically look for every occurrence of '\label', '\ref'
+# and '\eqref' and check the corresponding 'label' of a 'ref' or 'eqref' is
 # before.
 
 # So no way to write
@@ -9,11 +9,11 @@
 # While the \label{MyLovelyEq} is lower in the text. This will produce a warning.
 
 # But there are a few circumstances in which one wants to do so. We list here
-# the hashes of the LaTeX lines in which we accept to have a "reference to 
+# the hashes of the LaTeX lines in which we accept to have a "reference to
 # the future".
 
 # Why a hash ? Because virtually any string can be valid LaTeX code. So it is much
-# easier to compare the hashes than compare the strings themselves. 
+# easier to compare the hashes than compare the strings themselves.
 # It is also easier to copy-paste from the terminal to here a sequence of 40 hex
 # digits than a full LaTeX line. Not to speak of correctly escape the string ...
 

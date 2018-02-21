@@ -41,7 +41,6 @@ def IntTrois():
     t2.parameters=t1.parameters
     pspict2.DrawGraphs(t1,t2,surf,h,v,arc,s1,A,B,pC,D,s2)
     pspict2.DrawDefaultAxes()
-    
+
     fig.conclude()
     fig.write_the_file()
-

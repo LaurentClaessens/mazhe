@@ -28,8 +28,7 @@ def FCUEooTpEPFoeQ():
     hO.put_mark(0.1,angle=-90,text="\( \Omega_{k+1}(A_2)\)",pspict=pspict)
 
     pspict.DrawGraphs(matrix,squareDelta,squareOmega,hD,hO)
-    
+
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()
-

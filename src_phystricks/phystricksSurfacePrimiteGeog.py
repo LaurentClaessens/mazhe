@@ -4,7 +4,7 @@ def SurfacePrimiteGeog():
     pspict.dilatation(1.5)
 
     x=var('x')
-    
+
     O = Point(0,0)
     mx = 1
     Mx = 5
@@ -42,4 +42,3 @@ def SurfacePrimiteGeog():
 
     fig.conclude()
     fig.write_the_file()
-

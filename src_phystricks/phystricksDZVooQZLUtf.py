@@ -10,7 +10,7 @@ def DZVooQZLUtf():
     F.append(   phyFunction(  ln(x)+1 ).graph(0.01,4)  ) #2
     F.append(   phyFunction(  sqrt(ln(x)) ).graph(1,4)  )   #2
     F.append(   phyFunction(  ln(x+1) ).graph(-0.99,3.5)  )  #4
-        
+
     F.append(   phyFunction(  ln(x**2) ).graph(-2.5,2.5)  )     #5
     F[-1].addPlotPoint(0)
 
@@ -38,4 +38,3 @@ def DZVooQZLUtf():
 
     fig.conclude()
     fig.write_the_file()
-

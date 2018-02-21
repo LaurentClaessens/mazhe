@@ -31,4 +31,3 @@ def GVDJooYzMxLW():
     pspict.DrawGraphs(AB,AC,BC,hauteur,angleS,angleT,A,B,C,H)
     fig.conclude()
     fig.write_the_file()
-

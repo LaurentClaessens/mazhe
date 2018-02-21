@@ -12,4 +12,3 @@ for i=100:200
 s(i)
 end
 % Le dernier est 223.88
-

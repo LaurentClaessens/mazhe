@@ -9,4 +9,3 @@ def ContourGreen():
     pspict.DrawGraphs(contour)
     fig.conclude()
     fig.write_the_file()
-

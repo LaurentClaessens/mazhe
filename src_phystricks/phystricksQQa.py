@@ -5,7 +5,7 @@ def QQa():
     pspict,fig = MultiplePictures("QQa",6)
 
     x=var('x')
-    
+
     a=2
     O=Point(0,0)
     N=Point(0,a)
@@ -42,4 +42,3 @@ def QQa():
 
     fig.conclude()
     fig.write_the_file()
-

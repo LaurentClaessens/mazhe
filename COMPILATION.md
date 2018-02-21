@@ -25,7 +25,7 @@ The simplest is to append the following in `~/.bashrc` :
 PATH=$PATH:~/FOO/pytex
 ```
 
-Then, for the package `exocorr`, 
+Then, for the package `exocorr`,
 ```
 sudo mktexlst
 ```

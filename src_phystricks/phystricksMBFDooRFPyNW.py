@@ -51,5 +51,3 @@ def KGQXooZFNVnW():
     pspict2.dilatation(1)
     fig2.conclude()
     fig2.write_the_file()
-
-

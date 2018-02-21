@@ -17,11 +17,11 @@ def ExampleChangementVariables():
     reg=CustomSurface(l1,l2,l3,l4)
     reg.parameters.hatched()
     reg.parameters.hatch.color="red"
-    
+
     pspict.DrawGraphs(reg,l1,l2,l3,l4 )
     pspict.DrawDefaultAxes()
     pspict.dilatation(1)
-    
+
     R=Point(-1,1)
     R1=Point(1,1)
     R2=Point(2,2)
@@ -40,4 +40,3 @@ def ExampleChangementVariables():
 
     fig.conclude()
     fig.write_the_file()
-

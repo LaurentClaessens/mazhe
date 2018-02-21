@@ -8,7 +8,7 @@ def Osculateur():
 	llamI=0
 	llamF=1
 	curve=ParametricCurve(f1,f2).graph(llamI,llamF)
-	
+
 	LLms=[0.25,0.3,0.7]
 	for llam in LLms :
 		P=curve.get_point(llam)
@@ -16,9 +16,8 @@ def Osculateur():
 		if abs(osculateur.radius)<3:
 			pspict.DrawGraphs(P,osculateur)
 		pspict.DrawGraphs(P)
-	
+
 	pspict.DrawGraphs(curve)
 	pspict.dilatation(1)
 	fig.conclude()
 	fig.write_the_file()
-

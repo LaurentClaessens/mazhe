@@ -22,7 +22,7 @@ def ERPMooZibfNOiU():
     P=lp.midpoint()
     P.put_mark(0.2,angle=None,added_angle=180,text="\( P\)",pspict=pspict)
 
-    fun = lambda t:Point(a*cos(t),b*sin(t)).rotation(t0)+P 
+    fun = lambda t:Point(a*cos(t),b*sin(t)).rotation(t0)+P
     decal=fun(pi/2)-P
     Gamma = NonAnalyticPointParametricCurve( lambda x:fun(x)+decal  ,0,2*pi  )
     Gamma.parameters.plotpoints=20
@@ -45,4 +45,3 @@ def ERPMooZibfNOiU():
     pspict.comment="l'ellipse est tangente à la droite au point P. La marque de P est à l'extérieur de l'ellipse."
     fig.conclude()
     fig.write_the_file()
-

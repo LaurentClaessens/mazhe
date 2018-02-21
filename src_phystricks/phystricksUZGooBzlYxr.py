@@ -13,7 +13,7 @@ def UZGooBzlYxr():
     K=Point(0,3)
     A=Intersection( d1,d2  )[0]
     B=Intersection(  cercle,d1  )[1]
-    
+
     A.put_mark(0.2,180+45,"\( A\)",pspict=pspict,position="corner")
     B.put_mark(0.2,-45,"\( B\)",pspict=pspict,position="corner")
 
@@ -31,4 +31,3 @@ def UZGooBzlYxr():
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()
-

@@ -32,7 +32,7 @@ def LYORooNKDHqt():
     Py=Point(0,P.y)
     Qx=Point(Q.x,0)
     Qy=Point(0,Q.y)
-    
+
     Py.put_mark(0.1,text="$f(a)$",pspicts=pspicts,position="E")
     Qy.put_mark(0.1,text="$f(x)$",pspicts=pspicts,position="E")
     Px.put_mark(0.2,text="$a$",pspicts=pspicts,position="N")
@@ -97,4 +97,3 @@ def LYORooNKDHqt():
     pspictQuestion.DrawDefaultAxes()
     figQuestion.conclude()
     figQuestion.write_the_file()
-

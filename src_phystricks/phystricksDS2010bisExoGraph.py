@@ -29,7 +29,7 @@ def DS2010bisExoGraph():
     eps=exp(-2)
     # Fonctions
     x=var('x')
-        
+
     f1=cos(x)
     f2=abs(cos(x))
     f3=cos(x)+1
@@ -42,7 +42,7 @@ def DS2010bisExoGraph():
     f10=cos(x**2)
 
         # Graphes
-        
+
     F1=phyFunction(f1).graph(-pi, 3*pi/2)
     F2=phyFunction(f2).graph(-pi, 3*pi/2)
     F3=phyFunction(f3).graph(-pi,3*pi/2)
@@ -57,7 +57,7 @@ def DS2010bisExoGraph():
 
         # Figures
         # pspict1ss.DrawGraphs(F0)
-    
+
     pspict[0].DrawGraphs(F1)
     pspict[0].axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict[0].axes.Dx=0.5
@@ -100,7 +100,7 @@ def DS2010bisExoGraph():
     #pspict[4].BB.addY(-3)
     pspict[4].DrawDefaultAxes()
     pspict[4].dilatation(.7)
-    
+
     #Celle-ci est à enlever
     pspict[5].DrawGraphs(F6)
     pspict[5].BB.addX(-2)
@@ -110,7 +110,7 @@ def DS2010bisExoGraph():
     pspict[5].dilatation(.5)
 
     pspict[6].DrawGraphs(F7a)
-    pspict[6].DrawGraphs(F7b)  
+    pspict[6].DrawGraphs(F7b)
     pspict[6].axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict[6].axes.Dx=0.5
     #pspict[6].BB.addX(-2)
@@ -143,5 +143,3 @@ def DS2010bisExoGraph():
 
     new_fig.conclude()
     new_fig.write_the_file()
-
-

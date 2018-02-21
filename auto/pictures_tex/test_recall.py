@@ -2,7 +2,7 @@
 # -*- coding: utf8 -*-
 
 
-# This script compares the files "*.pstricks" with the corresponding one 
+# This script compares the files "*.pstricks" with the corresponding one
 # "*.pstricks.recall" and prints a warning if they are not equal.
 
 import os
@@ -26,5 +26,3 @@ for filename in pstricks_files_iterator():
 
     if get_text != recall_text :
         print("Wrong : "+filename)
-
-

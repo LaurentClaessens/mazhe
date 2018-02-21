@@ -1,5 +1,5 @@
 
-# MAIN_TEX 
+# MAIN_TEX
 #   is the directory of the main latex file.
 
 # PICTURES_TEX
@@ -19,4 +19,3 @@ MAIN_TEX=".."
 PICTURES_TEX="../auto/pictures_tex"
 PICTURES_SRC="."
 PICTURES_TIKZ="../auto/pictures_tikz"
-

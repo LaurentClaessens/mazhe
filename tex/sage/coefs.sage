@@ -52,4 +52,3 @@ K=sum(  coef2(v) for v in square   )
 L=sum(  coef4(v) for v in square   )
 print(K)
 print(L)
-

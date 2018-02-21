@@ -7,7 +7,7 @@
 from phystricks import *
 import sys
 
-from phystricksGMRNooCNBpIl import GMRNooCNBpIl 
+from phystricksGMRNooCNBpIl import GMRNooCNBpIl
 from phystricksCWKJooppMsZXjw import CWKJooppMsZXjw
 from phystricksDNRRooJWRHgOCw import DNRRooJWRHgOCw
 from phystricksDNHRooqGtffLkd import DNHRooqGtffLkd
@@ -44,7 +44,7 @@ from phystricksBNHLooLDxdPA import BNHLooLDxdPA
 from phystricksMBFDooRFPyNW import CQIXooBEDnfK
 from phystricksMBFDooRFPyNW import KGQXooZFNVnW
 from phystricksSQNPooPTrLRQ import SQNPooPTrLRQ
-from phystricksGVDJooYzMxLW import GVDJooYzMxLW  
+from phystricksGVDJooYzMxLW import GVDJooYzMxLW
 from phystricksQOBAooZZZOrl import QOBAooZZZOrl
 from phystricksVSZRooRWgUGu import VSZRooRWgUGu
 from phystricksDDCTooYscVzA import DDCTooYscVzA

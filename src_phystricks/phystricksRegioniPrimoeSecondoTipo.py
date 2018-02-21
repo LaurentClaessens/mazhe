@@ -48,7 +48,7 @@ def RegioniPrimoeSecondoTipo():
     pspict1.DrawGraphs(reg,Xa,Xb,Mf,Mg,Sa,Sb,F,G)
     pspict1.DrawDefaultAxes()
     pspict1.dilatation(1)
-    
+
     c=0
     d=4
     m=float(d+c)/2
@@ -89,4 +89,3 @@ def RegioniPrimoeSecondoTipo():
 
     fig.conclude()
     fig.write_the_file()
-

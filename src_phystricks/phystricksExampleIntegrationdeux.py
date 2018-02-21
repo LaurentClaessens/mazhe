@@ -1,7 +1,7 @@
 from phystricks import *
 def ExampleIntegrationdeux():
 	pspict,fig = SinglePicture("ExampleIntegrationdeux")
-	
+
 	a=-3
 	b=-1
 	e=0
@@ -32,4 +32,3 @@ def ExampleIntegrationdeux():
 	pspict.dilatation(1)
 	fig.conclude()
 	fig.write_the_file()
-

@@ -27,7 +27,7 @@ def NOCGooYRHLCn():
 	rectangle.hatch_parameters.color="red"
 	rectangle.edges_parameters.color="red"
 	rectangle.edges_parameters.style="dashed"
-	
+
 
 	pspict.DrawGraphs(surface,f,rectangle,P,Px,Q)
 	pspict.axes.no_graduation()

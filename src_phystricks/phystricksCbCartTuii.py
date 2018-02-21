@@ -8,10 +8,9 @@ def CbCartTuii():
     f2=phyFunction(cos(x)**3*sin(x))
 
     courbe=ParametricCurve(f1,f2).graph(0,2*pi)
-    
+
 
     pspict.DrawGraphs(courbe)
     pspict.DrawDefaultAxes()
     fig.conclude()
     fig.write_the_file()
-

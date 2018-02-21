@@ -1,4 +1,4 @@
-# Le répertoire `auto` 
+# Le répertoire `auto`
 
 Contient des fichiers générés automatiquement. Ils sont fournis pour vous simplifier la compilation du document, et diminuer le nombre de dependences.
 

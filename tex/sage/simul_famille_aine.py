@@ -27,7 +27,7 @@ def toctoc():
     F=famille()
     if F[1] != 'f':
         return None
-    else : 
+    else :
         if F[0]=='f':
             return 1
         else :

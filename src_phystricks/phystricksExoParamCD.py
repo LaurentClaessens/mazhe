@@ -2,7 +2,7 @@ from phystricks import *
 def ExoParamCD():
     pspict,fig = SinglePicture("ExoParamCD")
     pspict.dilatation(3)
-    
+
     x=var('x')
     f1=sin(2*x)
     f2=sin(3*x)
@@ -24,4 +24,3 @@ def ExoParamCD():
     pspict.DrawDefaultAxes()
     fig.conclude()
     fig.write_the_file()
-

@@ -13,7 +13,7 @@ endfor
 
 x
 
-% Pour faire une fonction qui calcule le terme n, il suffit de faire 
+% Pour faire une fonction qui calcule le terme n, il suffit de faire
 % une fonction qui contient n fois la récurrence.
 function y = xn(n)
 	x = 0;

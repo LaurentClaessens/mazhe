@@ -16,7 +16,7 @@ compile_pass ()
     cd $SRC_PHYSTRICKS
     ./figures_mazhe.py --all --pass-number=$1 &&
     cd $MAIN_TEX
-    pytex lst_everything.py --no-external 
+    pytex lst_everything.py --no-external
 }
 
 # Remove the garbage files
@@ -25,15 +25,15 @@ cd $SRC_PHYSTRICKS
 rm *.pyc >> /dev/null
 
 cd $AUTO_PICTURES_TEX
-rm *.pstricks 
+rm *.pstricks
 rm *.md5 >> /dev/null
 rm *.pdf >> /dev/null
 rm *.aux >> /dev/null
 
-# Compile three times the demo pictures 
+# Compile three times the demo pictures
 # (yes, some pictures need three passes)
 
 cd $SRC_PHYSTRICKS
 compile_pass 1 &&
 compile_pass 2 &&
-compile_pass 3 
+compile_pass 3

@@ -13,4 +13,3 @@ X = 0:0.1:2
 Y = exact(X)
 plot(x,y,'o',X,Y)
 print -dps exo3novQ5.ps
-

@@ -3,7 +3,7 @@ from phystricks import *
 
 def ExoCUd():
 	pspict,fig = SinglePicture("ExoCUd")
-	
+
 	x=var('x')
 	f=phyFunction(x**2-2*x+1)
 	a=1
@@ -39,4 +39,3 @@ def ExoCUd():
 	pspict.dilatation(1)
 	fig.conclude()
 	fig.write_the_file()
-

@@ -10,7 +10,7 @@ def SurfaceHorizVerti():
     b=6
     A=Point(a,0)
     B=Point(b,0)
-    
+
     x=var('x')
     f1=phyFunction(sin(x)+4).graph(a,b)
     f2=phyFunction(cos(x/2)*cos(2*x)+2).graph(a,b)
@@ -35,8 +35,8 @@ def SurfaceHorizVerti():
 
     pspict[0].DrawGraphs(surface,A,B,lA,lB,f1,f2,surface.bounding_box(pspict[0]))
 
-    g1=ParametricCurve(f1,x).graph(a,b)   
-    g2=ParametricCurve(f2,x).graph(a,b)   
+    g1=ParametricCurve(f1,x).graph(a,b)
+    g2=ParametricCurve(f2,x).graph(a,b)
 
     region=SurfaceBetweenParametricCurves(g1,g2,interval=(a,b))
 
@@ -68,4 +68,3 @@ def SurfaceHorizVerti():
 
     fig.conclude()
     fig.write_the_file()
-

@@ -76,7 +76,7 @@ def ExerciceGraphesbis():
     pspict7.comment="The function is drawn in two parts"
     pspict7.dilatation(.7)
     pspict7.DrawGraphs(F7a)
-    pspict7.DrawGraphs(F7b)  
+    pspict7.DrawGraphs(F7b)
     pspict7.axes.axes_unitX=AxesUnit(pi,"\\pi")
     pspict7.axes.Dx=0.5
     pspict7.DrawDefaultAxes()
@@ -90,4 +90,3 @@ def ExerciceGraphesbis():
 
     fig.conclude()
     fig.write_the_file()
-

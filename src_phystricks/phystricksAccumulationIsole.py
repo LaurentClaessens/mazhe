@@ -24,9 +24,8 @@ def AccumulationIsole():
 
     CercleS=Circle(S,0.2)
     CercleS.parameters = CercleP.parameters
-    
+
     pspict.DrawGraphs(Boule,P,Q,S,CercleP,CercleQ,CercleS)
 
     fig.conclude()
     fig.write_the_file()
-

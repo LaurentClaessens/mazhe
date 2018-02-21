@@ -19,4 +19,3 @@ def DistanceEuclide():
 	pspict.dilatation(1)
 	fig.conclude()
 	fig.write_the_file()
-

@@ -33,7 +33,7 @@ def GMRNooCNBpIl():
     Nx.put_mark(0.2,angle=-45,added_angle=0,text="\( N_x\)",pspict=pspict)
 
     pspict.DrawGraphs(matrix,I1,I2,I3,I4,S,Ny,Z,Nx)
-    
+
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()

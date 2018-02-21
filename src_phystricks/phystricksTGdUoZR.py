@@ -79,7 +79,7 @@ def TGdUoZR():
     fig.conclude()
     fig.write_the_file()
 
-    
+
 def AIFsOQO():
     pspict,fig = SinglePicture("AIFsOQO")
     pspict.dilatation_X(1)
@@ -101,4 +101,3 @@ def AIFsOQO():
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()
-

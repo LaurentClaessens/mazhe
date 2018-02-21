@@ -1,7 +1,7 @@
 from phystricks import *
 def CercleTrigono():
     pspict,fig = SinglePicture("CercleTrigono")
-    
+
     O=Point(0,0)
     Cercle=Circle(O,2)
     alpha=30
@@ -33,4 +33,3 @@ def CercleTrigono():
     pspict.DrawDefaultAxes()
     fig.conclude()
     fig.write_the_file()
-

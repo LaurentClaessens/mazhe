@@ -15,4 +15,3 @@ endfor
 
 plot(X,Y)
 print -dps exo55.ps
-

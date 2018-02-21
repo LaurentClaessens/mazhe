@@ -22,7 +22,7 @@ def ExoProjection():
     \usepackage{amsthm}
     \usepackage{amssymb}
     \usepackage{bbm}
-    \usepackage{mathrsfs}           
+    \usepackage{mathrsfs}
     \DeclareMathOperator{\pr}{\texttt{proj}}"""       # Un de ces paquets est demandé par \DeclareMathOperator
     B.put_mark(0.1,-45,"$\pr_w(A)$",pspict=pspict)
 
@@ -44,4 +44,3 @@ def ExoProjection():
     pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()
-

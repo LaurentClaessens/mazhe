@@ -23,4 +23,3 @@ def ALIzHFm():
     pspict.DrawGraphs(cercle,P,Q,l1,l2,l3)
     fig.conclude()
     fig.write_the_file()
-

@@ -27,7 +27,7 @@ def MoulinEau():
     Q=palle1.get_point_proportion(0.5)
     v=AffineVector( Q, Point(Q.x-1,Q.y) )
     vx,vy = v.decomposition(palle1)
-    
+
     v.parameters.color="blue"
     vx.parameters.color="red"
     vy.parameters.color="green"
@@ -36,4 +36,3 @@ def MoulinEau():
 
     fig.conclude()
     fig.write_the_file()
-

@@ -4,7 +4,7 @@ from sage.all import *
 
 def Dynkin():
     """
-    This proves that the Dynkin diagram with a triple point whose branches are 
+    This proves that the Dynkin diagram with a triple point whose branches are
     of length 1,3,5 does not exist.
 
     The result is zero.
@@ -33,4 +33,3 @@ def gXgemu():
     for i in range(0,3):
         for j in range(0,3):
             print i,j," -- ",g[i,j].real_part().simplify_full()
-

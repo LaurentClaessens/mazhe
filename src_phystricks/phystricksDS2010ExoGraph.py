@@ -22,7 +22,7 @@ def DS2010ExoGraph():
     eps=exp(-2)
     # Fonctions
     x=var('x')
-        
+
     f1=ln(x)
     f2=ln(abs(x))
     f3=ln(x+r)
@@ -33,7 +33,7 @@ def DS2010ExoGraph():
 
 
         # Graphes
-        
+
     F1=phyFunction(f1).graph(eps,2)
     F2a=phyFunction(f2).graph(eps,2)
     F2b=phyFunction(f2).graph(-2, -eps)
@@ -93,7 +93,6 @@ def DS2010ExoGraph():
     pspict[6].DrawDefaultAxes()
     pspict[6].dilatation(1)
 
-    
+
     fig.conclude()
     fig.write_the_file()
-

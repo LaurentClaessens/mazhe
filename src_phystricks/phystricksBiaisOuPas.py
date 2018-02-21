@@ -3,7 +3,7 @@ def BiaisOuPas():
     pspict,fig = SinglePicture("BiaisOuPas")
     pspict.dilatation(2.5)
 
-    
+
     x=var('x')
     def normale(m,s):
         return phyFunction( 1/(s*sqrt(2*pi))*exp(-((x-m)/s)**2) ).graph(-3,3)
@@ -25,4 +25,3 @@ def BiaisOuPas():
     pspict.DrawDefaultAxes()
     fig.conclude()
     fig.write_the_file()
-

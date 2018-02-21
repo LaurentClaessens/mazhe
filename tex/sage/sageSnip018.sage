@@ -1,4 +1,4 @@
-# Dans un cas réel, vous avez nettement intérêt à 
+# Dans un cas réel, vous avez nettement intérêt à
 # créer une classe 'Vecteur' qui implémente somme, différence
 # et norme.
 def N(v):

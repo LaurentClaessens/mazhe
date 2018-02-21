@@ -1,7 +1,7 @@
 from phystricks import *
 def ExampleIntegration():
 	pspict,fig = SinglePicture("ExampleIntegration")
-	
+
 	a=0
 	b=(sqrt(5)+1)/2
 	c=2
@@ -23,5 +23,3 @@ def ExampleIntegration():
 	pspict.dilatation(1)
 	fig.conclude()
 	fig.write_the_file()
-
-

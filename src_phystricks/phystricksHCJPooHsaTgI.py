@@ -9,7 +9,7 @@ def HCJPooHsaTgI():
     b=6
     A=Point(a,0)
     B=Point(b,0)
-    
+
     x=var('x')
     f1=phyFunction(sin(x)+4).graph(a,b)
     f2=phyFunction(cos(x/2)*cos(2*x)+2).graph(a,b)
@@ -38,8 +38,8 @@ def HCJPooHsaTgI():
     pspict[0].DrawDefaultAxes()
     pspict[0].dilatation(1)
 
-    g1=ParametricCurve(f1,x).graph(a,b)   
-    g2=ParametricCurve(f2,x).graph(a,b)   
+    g1=ParametricCurve(f1,x).graph(a,b)
+    g2=ParametricCurve(f2,x).graph(a,b)
 
     region=SurfaceBetweenParametricCurves(g1,g2,interval=(a,b))
 
@@ -70,4 +70,3 @@ def HCJPooHsaTgI():
 
     fig.conclude()
     fig.write_the_file()
-

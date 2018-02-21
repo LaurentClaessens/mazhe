@@ -2,7 +2,7 @@
 from phystricks import *
 def PHTVjfk():
     pspictTwo,figTwo = SinglePicture("PHTVjfk")
-    
+
     x,y=var('x,y')
 
     Gmoins2=ImplicitCurve( 1-x**2-y**2+2==0 ,(x,-5,5),(y,-5,5))
@@ -15,4 +15,3 @@ def PHTVjfk():
     pspictTwo.dilatation(1)
     figTwo.conclude()
     figTwo.write_the_file()
-

@@ -27,7 +27,7 @@ def CheminFresnel():
     gamma1.parameters.color="blue"
     gamma2.parameters.color=gamma1.parameters.color
     gamma3.parameters.color=gamma1.parameters.color
-    
+
 
     pspict.DrawGraphs(gamma1,gamma2,gamma3,P1,P2,P3)
     pspict.axes.no_numbering()
@@ -35,4 +35,3 @@ def CheminFresnel():
     pspict.DrawDefaultAxes()
     fig.conclude()
     fig.write_the_file()
-

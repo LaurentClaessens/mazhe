@@ -14,7 +14,7 @@ def DerivTangenteOM():
 	X=f.get_point(xb)
 	Xx=Point(X.x,0)
 	Xy=Point(0,X.y)
-	
+
 	Ay.put_mark(0.1,text="$f(a)$",pspict=pspict,position="E")
 	Xy.put_mark(0.1,text="$f(x)$",pspict=pspict,position="E")
 	Ax.put_mark(0.2,text="$a$",pspict=pspict,position="N")
@@ -48,4 +48,3 @@ def DerivTangenteOM():
 	pspict.dilatation(1)
 	fig.conclude()
 	fig.write_the_file()
-

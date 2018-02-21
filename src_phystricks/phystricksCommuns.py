@@ -29,4 +29,3 @@ def CorrectionParametrique(curve,LLms,name,dilatation=1):
 
     fig.conclude()
     fig.write_the_file()
-

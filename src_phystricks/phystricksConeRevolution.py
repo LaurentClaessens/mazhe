@@ -21,4 +21,3 @@ def ConeRevolution():
     pspict.DrawDefaultAxes()
     fig.conclude()
     fig.write_the_file()
-

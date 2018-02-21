@@ -27,7 +27,7 @@ def TriangleUV():
     n.parameters.color=u.parameters.color
     t.parameters.color=v.parameters.color
 
-    
+
     n.put_mark(0.1,n.advised_mark_angle(pspict),"\( \\nu\)",pspict=pspict)
     t.put_mark(0.1,n.advised_mark_angle(pspict),"\( T\)",pspict=pspict)
 
@@ -42,4 +42,3 @@ def TriangleUV():
     pspict.dilatation(1)
     fig.conclude()
     fig.write_the_file()
-

@@ -2,7 +2,7 @@ from phystricks import *
 def CourbeRectifiable():
     pspict,fig = SinglePicture("CourbeRectifiable")
     pspict.dilatation(0.7)
-    
+
     x=var('x')
     f1=-20*cos(x)
     f2=2*sin(2*pi*x)
@@ -32,4 +32,3 @@ def CourbeRectifiable():
 
     fig.conclude()
     fig.write_the_file()
-

@@ -11,7 +11,7 @@ def Polirettangolo():
     P5=Point(6,2)
     P6=Point(4,3)
     P7=Point(7,7)
-    
+
     R=Rectangle(P,P1)
     R1=Rectangle(P2,P3)
     R2=Rectangle(P4,P5)
@@ -28,7 +28,7 @@ def Polirettangolo():
         rect.hatch_parameters=R.hatch_parameters.copy()
 
     pspict.DrawGraphs(R,R1,R2,R3)
-    
+
     pspict.single_axeX.Dx=2
     pspict.single_axeY.Dx=2
     pspict.DrawDefaultAxes()

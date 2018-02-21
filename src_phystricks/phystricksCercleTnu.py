@@ -17,8 +17,7 @@ def CercleTnu():
         n.put_mark(0.3,n.advised_mark_angle(pspict),"\( n\)",pspict=pspict)
         t.put_mark(0.3,t.advised_mark_angle(pspict),added_angle=180,text="\( e_{\\theta}\)",pspict=pspict)
         pspict.DrawGraphs(n,t)
-        
+
     pspict.DrawGraphs(C)
     fig.conclude()
     fig.write_the_file()
-

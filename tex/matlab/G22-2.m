@@ -16,4 +16,3 @@ for i=1:length(X)
 endfor
 plot(X,Y)
 print -dps G22-2.ps
-

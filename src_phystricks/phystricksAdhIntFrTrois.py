@@ -40,7 +40,7 @@ def AdhIntFrTrois():
 	A.curve2.parameters = A.curve1.parameters
 
 	pspict.DrawGraphs(F1p,F2p,F1,F2,A,P,Cer)
-        
+
 
 	pspict.axes.Dx=0.5
 	pspict.DrawDefaultAxes()
@@ -48,4 +48,3 @@ def AdhIntFrTrois():
 
 	fig.conclude()
 	fig.write_the_file()
-
