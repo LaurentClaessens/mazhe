@@ -1,5 +1,21 @@
 # Changelog du Frido
 
+## Fonction puissance (février 2018)
+
+Définition de la fonction puissance x->a^x.
+
+- définition de a^x pour x rationnel
+- prolongation par continuité à R
+
+## Limite de fonction (janvier 2018)
+
+Des incohérences ont été détectées, essentiellement dues à mon inattention et accessoirement dues au fait que Wikipédia francophone utilise une définition pas du tout standard sans prévenir[1].
+
+Les définition ont été clarifiées et unifiées. La définition de limite choisie ici est celle que les Français nomme "épointée", et qui est la seule correcte dans l'histoire de l'univers depuis (au moins) l'apparition de eucaryotes, partout sauf en France depuis moins de 10 ans.
+
+[1] https://fr.wikipedia.org/wiki/Espace_topologique  
+    Si vous ne voyez pas le problème avec la définition de la limite, lisez la page de discussion.
+
 ## corps de rupture, corps de décomposition (novembre, décembre 2017)
 
 Suite à des remarques de cdrcprds, de gros travaux ont été fait du côté des corps de rupture et de décomposition.
