@@ -13,4 +13,3 @@ myRequest.add_plugin(PytexTools.accept_all_input,"medicament")
 myRequest.add_plugin(PytexTools.keep_script_marks(plugins_agreg.research_mark_list),"before_pytex")
 
 myRequest.new_output_filename="0-research.pdf"
-

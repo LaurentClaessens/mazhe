@@ -24,4 +24,3 @@ with open(sys.argv[1],'r') as f:
     for n in f.readlines() :
         name=n[:-1]
         print(skel.replace("NAME",name))
-

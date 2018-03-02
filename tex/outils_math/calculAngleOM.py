@@ -12,7 +12,7 @@ def PointToPolaire(x,y):
 			alpha = pi/2
 		if y < 0:
 			alpha = 3*pi/2
-		if y == 0 : 	
+		if y == 0 :
 			raise ValueError,"Pas d'angle pour le point (0,0) !!"
 	else :
 		alpha = atan(y/x)

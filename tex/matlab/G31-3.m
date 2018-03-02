@@ -9,7 +9,7 @@ end
 f(1)	#0.53120
 X=0:0.1:3
 Y=[]
-for	i = 1:length(X) 
+for	i = 1:length(X)
 	Y(i)=f(X(i))	;
 end
 

@@ -26,4 +26,3 @@ myRequest.add_plugin(plugins_agreg.set_commit_hexsha,"after_pytex")
 myRequest.add_plugin(plugins_agreg.assert_MonCerveau_first,"after_compilation")
 
 myRequest.new_output_filename="0-lefrido.pdf"
-

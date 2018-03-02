@@ -10,11 +10,10 @@ theorie = polyval(p,long_terme)
 plot(annee,consommation,'o',long_terme,theorie)
 print -dps petrole.ps
 
-% Consomation extrapolée année par année : 
+% Consomation extrapolée année par année :
 extracons = polyval(p,2009:2050)
 % Consomation en 2050 :
 polyval(p,2050)
 
 % Somme de notre consommation entre 2009 et 2050 :
 sum(extracons)
-

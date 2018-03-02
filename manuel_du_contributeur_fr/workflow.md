@@ -14,7 +14,7 @@ From the same LaTeX source we have to be able to create
 
   This division is given by the name of two chapters that are the beginning of volume 2 and volume 3.
 
-The universal solution for that adopted in this project is to create many python scripts which perform the necessary changes to the LaTeX code before to launch the compilation. The script [pytex](https://github.com/LaurentClaessens/pytex) is developed for that purpose. 
+The universal solution for that adopted in this project is to create many python scripts which perform the necessary changes to the LaTeX code before to launch the compilation. The script [pytex](https://github.com/LaurentClaessens/pytex) is developed for that purpose.
 
 ## Le Frido
 
@@ -22,7 +22,7 @@ Invoking
 ```
 pytex lst_frido.py
 ```
-will 
+will
 * copy the file `mazhe.tex`
 * remove the `\input` corresponding to files which have not to be included (the placeholders `%SCRIPT MARK` are there for that purpose)
 * change the line `\boolfalse{isFrido}` into `\booltrue{isFrido}`.

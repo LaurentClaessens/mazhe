@@ -15,7 +15,7 @@ output=args_to_output(sys.argv)
 try:
     import requests
 
-    # use default solution with 
+    # use default solution with
     def is_not_dead(url):
         try:
             ret = requests.head(url)
@@ -35,7 +35,7 @@ except ImportError:
         from urllib.parse import urlparse
     except ImportError:  # using Python 2!
         from urlparse import urlparse
-    
+
     # use other function, with HTTPConnection and urlparse
     def is_not_dead(url):
         try:

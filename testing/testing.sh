@@ -127,10 +127,7 @@ cd $CLONE_DIR
 
 echo "----------------"
 
-cat  $LOG_FILE 
+cat  $LOG_FILE
 
 echo "--------------------"
 echo "Find all the results in $LOG_FILE"
-
-
-

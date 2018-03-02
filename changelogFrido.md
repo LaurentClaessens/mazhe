@@ -62,11 +62,11 @@ Séparer plus clairement le théorème qui dit que R est complet au sens des cor
 
 ## Produit scalaire, espaces L^p, complexes et réels (24 septembre 2017)
 
-Il y avait eu du flottement au niveau des définitions, mais il faut prendre des décisions. 
+Il y avait eu du flottement au niveau des définitions, mais il faut prendre des décisions.
 
 * Les espaces L^p sont des (classes de) fonctions à valeurs dans C et non R
 * Un produit scalaire sur un espace sur C n'existe pas
-* Un espace de Hilbert est muni soit d'une produit scalaire si il est vectoriel sur R soit 
+* Un espace de Hilbert est muni soit d'une produit scalaire si il est vectoriel sur R soit
 d'un produit Hermitien si il est vectoriel sur C.
 
 ## Sous-groupes finis de SO(3) (17 septembre 2017)

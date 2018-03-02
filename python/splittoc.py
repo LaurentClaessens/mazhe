@@ -66,7 +66,7 @@ class Chapter(object):
         t=b[1]
         if "IeC" in t :
             print(t)
-            raise ValueError 
+            raise ValueError
         return(t)
     def first_page(self):
         a=self.noIeC.split("{")
@@ -104,7 +104,7 @@ class Book(object):
         """
         Return a list of chapters
         """
-        return [ Chapter(line) for line in self.splitlines() 
+        return [ Chapter(line) for line in self.splitlines()
                             if is_chapter_line(line)    ]
     def get_chapter(self,n=2,title=None):
         """
@@ -127,13 +127,13 @@ class Book(object):
         return [x.first_page() for x in self.chapter_list]
     def tot_pages(self):
         """
-        If no actual pdf is given, approximate the total 
+        If no actual pdf is given, approximate the total
         page by the initial page of the last chapter.
 
         If a pdf filename is given, provides an exact answer.
         """
         if self.pdf_filename is None:
-            return self.chapter_list()[-1].first_page()   
+            return self.chapter_list()[-1].first_page()
         if self.pdf_reader:
             return len(self.pdf_reader.pages)
     def volume_first_theoretical_page(self,v,n):
@@ -170,9 +170,9 @@ class Book(object):
         Return the first page of volume 'v' if we divide into 'n' volumes
 
         @param v,n integers
-        @return integer 
+        @return integer
 
-        The returned integer is guaranteed to be the first page 
+        The returned integer is guaranteed to be the first page
         of a chapter.
         """
         for chap in self.chapter_list():
@@ -245,7 +245,6 @@ class Book(object):
                 new_toc.append(line)
 
         new_text="\n".join(new_toc)
-    
+
         with open(self.toc_filename,'w') as f:
             f.write(new_text)
-

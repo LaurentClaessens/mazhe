@@ -21,7 +21,7 @@ def famille():
 
 def toctoc():
     """
-    - Create a family with two children. 
+    - Create a family with two children.
     - If 'gg', there are no girls -> return None
     - If 'gf', there is a girl but the other is a boy -> 0
     - If 'fg', there is a girl but the other is a boy -> 0

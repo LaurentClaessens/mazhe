@@ -19,7 +19,7 @@ def famille():
 
 def toctoc():
     """
-    - Create a family with two children. 
+    - Create a family with two children.
     - Choose one (the one who opens the door)
     - if it is a 'g', return None.
     - if it is a 'f', return the other one.
@@ -28,7 +28,7 @@ def toctoc():
     s=random.choice([0,1])
     if F[s] != 'f':
         return None
-    else : 
+    else :
         t=(s+1)%2
         if F[t]=='f':
             return 1

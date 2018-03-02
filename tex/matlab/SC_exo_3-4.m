@@ -9,5 +9,3 @@ ordonnees = p(1)*sqrt(abcisses)+p(2)
 
 plot(abcisses,ordonnees,':',x,y,'o')
 print -dps exo34.ps
-  
-

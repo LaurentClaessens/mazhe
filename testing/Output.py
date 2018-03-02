@@ -25,7 +25,7 @@ class SummaryOutput(object):
 
 class FileOutput(object):
     """
-    A `FileOutput` object is intended to be given as `out` in 
+    A `FileOutput` object is intended to be given as `out` in
     `SummaryOutput`. Thus here the write` function always gets
     a single `str` argument, since the work of conversion from `*args` is
     done in `SummaryOutput.__call__`
@@ -59,4 +59,3 @@ def args_to_output(args):
             filename=arg.split("=")[1]
             return SummaryOutput(FileOutput(filename))
     return print
-

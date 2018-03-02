@@ -30,7 +30,7 @@ class SolveLinearSystem(object):
 		s = automatedVar("x",self.nvars)
 		self.xx=var(s)
 	def equations(self):
-		"""Return the equations corresponding to the 
+		"""Return the equations corresponding to the
                 self.matrix and self.vector as a list of equations"""
 		X=matrix( [self.xx[i] for i in range(0,self.nvars) ]).transpose()
 		eqs=[]
@@ -52,7 +52,7 @@ class SolveLinearSystem(object):
 		""")
 		for eq in self.equations():
 			a.append("					"+str(eq).replace("x","x_").replace("*","").replace("==","=")+"\\\\ \n")
-		a.append(r"""	
+		a.append(r"""
 					\end{array}
 					\right.
 					$
@@ -106,7 +106,7 @@ class SymmetricMatrix(object):
 		return matrix(v)
 	def principal_minors(self):
 		"""
-		Return the list of principal minors. The principal minor of order k is 
+		Return the list of principal minors. The principal minor of order k is
                 the determinant of the primary principal matrix of order k.
 		"""
 		a=[]
@@ -116,7 +116,7 @@ class SymmetricMatrix(object):
 	def genre_list(self):
 		"""
 		Return the genius of the matrix as a list of booleans in the order
-		positive defined, negative defined; 
+		positive defined, negative defined;
                 semidefinite positive, semidefinite negative, indefinite.
 
 		"""
@@ -163,11 +163,11 @@ class QuadraticForm(SymmetricMatrix):
 		return QuadraticMap(self.matrix,v)
 	def diagonalizing_martrix(self):
 		"""
-		Return the matrix B such that B^tAB is diagonal. 
+		Return the matrix B such that B^tAB is diagonal.
 		"""
-		# The transposition is because, in the matrix B, the eigenvectors have 
+		# The transposition is because, in the matrix B, the eigenvectors have
 		# to be read as column while Sage's matrix constructor takes rows.
-		return matrix(self.orthonormal_basis()).transpose() 
+		return matrix(self.orthonormal_basis()).transpose()
 	def new_variables(self):
 		"""
 		Give the change of variables needed to put the quadratic form under its normal form
@@ -181,7 +181,7 @@ class QuadraticForm(SymmetricMatrix):
 		return self.matrix.eigenmatrix_left()
 	def eigenvectors(self):
 		"""
-		Return a list of eigenvectors of the matrix. 
+		Return a list of eigenvectors of the matrix.
 
 		As the matrix is symmetric, that list has to be a basis.
 		"""
@@ -189,7 +189,7 @@ class QuadraticForm(SymmetricMatrix):
 		return [P[i] for i in range(P.nrows())]
 	def eigenvalues(self):
 		"""
-		Return a list of eigenvalues of the matrix in the same order as the list of eigenvectors given in 
+		Return a list of eigenvalues of the matrix in the same order as the list of eigenvectors given in
 			self.eigenvectors()
 		"""
 		D,P = self.eigenmatrix_left()

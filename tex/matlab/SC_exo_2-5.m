@@ -12,5 +12,5 @@ echantillon = debut+pas:pas:fin
 
 valeurs = f(echantillon)
 
-plot(echantillon,valeurs)		
-print -dps exo2-5.ps	
+plot(echantillon,valeurs)
+print -dps exo2-5.ps
