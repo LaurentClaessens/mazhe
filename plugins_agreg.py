@@ -1,33 +1,13 @@
 # -*- coding: utf8 -*-
 
-# This is part of (almost) Everything I know in mathematics
-# Copyright (c) 2014-2017   (et en fait sûrement plus)
-#   Laurent Claessens
-# See the file fdl-1.3.txt for copying conditions.
-
-
 from __future__ import unicode_literals
 
-import latexparser
-import latexparser.PytexTools
-
-agreg_mark_list=[]
-agreg_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
-agreg_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
-agreg_mark_list.append("% SCRIPT MARK -- TOC")
-agreg_mark_list.append("% SCRIPT MARK -- FRIDO")
-agreg_mark_list.append("% SCRIPT MARK -- FINAL")
-
-book_mark_list=[]
-book_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
-book_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
-book_mark_list.append("% SCRIPT MARK -- TOC")
-book_mark_list.append("% SCRIPT MARK -- FRIDO")
-book_mark_list.append("% SCRIPT MARK -- FINAL")
-
-
-mesnotes_mark_list=agreg_mark_list[:]
-mesnotes_mark_list.append("% SCRIPT MARK -- DÉVELOPPEMENTS POSSIBLES")
+frido_mark_list=[]
+frido_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+frido_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
+frido_mark_list.append("% SCRIPT MARK -- TOC")
+frido_mark_list.append("% SCRIPT MARK -- FRIDO")
+frido_mark_list.append("% SCRIPT MARK -- FINAL")
 
 outilsmath_mark_list=[]
 outilsmath_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
@@ -159,7 +139,7 @@ def assert_MonCerveau_first():
     import os.path
     filename="Inter_frido-mazhe_pytex.bbl"
     if not os.path.exists(filename):
-        print("Le fichier bbl n'existe pas. C'est pas très normal. Si cela persiste à la prochaine compilation, posez-vous des questions.")
+        print("Le fichier bbl n'existe pas. C'est pas très normal.  Si cela persiste à la prochaine compilation, posez-vous des questions.")
         return None
     bbl_content=open(filename).read()
     bbl_first=bbl_content.find("bibitem")
@@ -169,6 +149,30 @@ def assert_MonCerveau_first():
         print("""Il semblerait que la référence bibliographique 'MonCerveau' ne soit pas la première. Il faut corriger ça. En effet, le lecteur doit savoir que lorsqu'il voit la référence [1], ça veut dire 'danger'.
 
         Après modification, le plus simple est de supprimer le fichier {} et de relancer.
-                
+
                 """.format(filename))
         raise
+
+def split_toc(name,n):
+    """
+    Rewrites the TOC file with adding "(Vol i)" to the chapter name.
+    With i being the number of the volume in which the chapter should appears.
+
+    @param n : the number of volumes
+    @param name (string) the name of the document we are speaking about
+    @return : a function which makes the work
+
+    The parameter 'name' serves to distinguish 'frido' from 'book' when
+    creating the pathname of the toc file.
+    """
+
+    def _split_doc():
+        import sys
+        import os
+        cwd=os.getcwd()
+        sys.path.append(os.path.join(cwd,"python"))
+        from splittoc import Book
+        toc_filename=os.path.join(cwd,"Inter_{}-mazhe_pytex.toc".format(name))
+        book=Book(toc_filename)
+        book.rewrite_toc(n)
+    return _split_doc

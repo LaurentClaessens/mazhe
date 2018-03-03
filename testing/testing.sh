@@ -84,6 +84,12 @@ test_death_links ()
     ./test_dead_links.py $CLONE_DIR --output=$LOG_FILE
 }
 
+check_spelling()
+{
+    ack " [LldDcC]es variable " >> $LOG_FILE
+    ack " demi [a-z]"
+    ack " d'intersections "
+}
 
 test_picture ()
 {
@@ -109,7 +115,7 @@ fi
 
 compile_everything&
 compile_frido
-
+check_spelling
 
 cd $MAIN_DIR
 
@@ -118,9 +124,10 @@ wait
 cd $CLONE_DIR
 
 
+
 echo "----------------"
 
-cat  $LOG_FILE 
+cat  $LOG_FILE
 
 echo "--------------------"
 echo "Find all the results in $LOG_FILE"

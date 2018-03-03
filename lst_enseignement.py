@@ -17,4 +17,3 @@ myRequest.add_plugin(latexparser.PytexTools.keep_script_marks(plugins_agreg.ense
 myRequest.new_output_filename="0-enseignement.pdf"
 
 myRequest.original_filename="mazhe.tex"
-

@@ -18,17 +18,17 @@ p = polyfit(x,y,3)
 polyout(p,"T")
 
 X = 250:350
-Y = polyval(p,X)	
+Y = polyval(p,X)
 % polyval est la commande pour évaluer un polynôme en un point.
 % Ici, on l'évalue en tous les points d'abscisse qu'on veut tracer.
 
 plot(X,Y,':',x,y,'o')
 print -dps exo32.ps
-% Noter que je trace de 250 à 350 de façon très arbitraire. 
-% Rien dans les données expérimentales ne montre la croissance de la 
+% Noter que je trace de 250 à 350 de façon très arbitraire.
+% Rien dans les données expérimentales ne montre la croissance de la
 % fonction entre 250 et 280, ni celle entre 340 et 350.
 % D'un point de vue scientifique, la méfiance est de rigueur lorsqu'on
 % extrapole des données en-dehors du domaine des expériences.
 
-% Pour évaluer la valeur de p au point 316 : 
+% Pour évaluer la valeur de p au point 316 :
 polyval(p,316)	%1.1470

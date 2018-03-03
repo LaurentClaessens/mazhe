@@ -60,4 +60,3 @@ FunctionToFile(exercise_1_3,"exo13.txt")
 FunctionToFile(exercise_6_5,"exo65.txt")
 FunctionToFile(exercise_1_5,"exo15.txt")
 FunctionToFile(exercise_DV002,"exoDV002.txt")
-

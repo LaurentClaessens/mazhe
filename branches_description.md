@@ -78,3 +78,120 @@ PDFpersoWanadoo
 BezoutCos
 NjCCfW
 
+# orga
+
+Écrire des points d'organisation dans le Frido.
+
+# finite
+
+Dans cette branche on parle d'éléments finis.
+
+## futur
+
+Régler les réfénreces vers le futur et faire un peu d'index thématique.
+
+## gradient
+
+On rend plus lisible la méthode du gradient à pas optimal et on démontre les choses qu'il faut au niveau des fonctions convexes.
+
+## corr
+
+Tenir compte de ce que m'a envoyé Anthony Olivier
+
+## tetra
+
+Le isométries du tétrahèdre
+
+## tuto
+
+## xspace
+What happens when one suppress xspace ?
+
+## part
+
+Try to add "part" in the toc file
+
+# decoupe
+
+Travailler le découpage en volumes.
+
+# fondamental
+
+Il y avait trois fois le théorème fondamental de l'analyse. Fixer ça.
+
+
+# madore
+
+Traiter l'équation diophantienne proposée dans
+http://www.madore.org/~david/weblog/d.2017-08-18.2460.html#d.2017-08-18.2460
+
+# Alembert
+
+Encore déplacer ce théorème
+
+# weiner
+
+Traiter de la constante de Weiner.
+
+# frido2017
+
+Pour la publication de septembre 2017
+
+# hilbert
+
+Prouver que L^2 est le seul L^p qui soit un espace de Hilbert.
+
+# linuxfr
+
+Les patches venant de linuxfr et autres trucs qui m'arrivent par mail.
+
+# renomme
+
+Il y a deux fichiers 185. Corriger ça.
+
+# eric
+
+Prendre les correctifs de https://github.com/LaurentClaessens/mazhe/pull/55
+
+# lax
+
+Tenir compte des remarques de Antoine Bensalah pour le théorème de Lax-Milgram
+
+# cdr
+
+Les remarques de cdrcprds
+
+# holo
+
+Montrer le coup de l'anneau des fonctions holomorphes sur un compact.
+(wikipédia -> anneau principal)
+
+# deschamps
+
+Tenir compte des remarques de Guillaume Deschamps
+
+# gb
+
+Tenir compte des remarques de Guillaume Barriere
+
+# racines
+
+La partie sur les racines de l'unité dans les groupes dépend de
+- polynômes
+- exponentielle complexe (séries entières)
+
+# rsa
+
+Voir si isométries du cube et RSA peuvent être déplacés.
+
+# l2
+
+Quelque réflexions sur la TF sur L2.
+
+# eg
+
+Les remarques de Éric Guirbal
+
+# ordre
+
+Remise en ordre des nombreux points restés en suspend après le passage de Guillaume Barriere.

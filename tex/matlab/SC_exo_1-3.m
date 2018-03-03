@@ -9,8 +9,8 @@ B(:,2) = log(2)*B(:,2)		# B(:,2) représente la deuxième colone de B
 C = inv(B)*B
 comparaison = eye(6)-C
 
-erreur_max = max(max(abs(comparaison)))		
-# max appliqué à une matrice retourne le vecteur 
+erreur_max = max(max(abs(comparaison)))
+# max appliqué à une matrice retourne le vecteur
 # qui contient le plus grand de chaque colonne.
 # Donc il faut appliquer deux fois max pour prendre le max de ces max
 

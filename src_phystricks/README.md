@@ -56,7 +56,3 @@ Il y a quelque astuces qui permettent de gagner du temps.
 * Pour la dernière compilation, celle `pytex lst_everything.py` sans `--no-external`, il faut savoir que chaque figure prendra le temps de compilation de l'ensemble du document. Il vous en coûtera donc environ une minute par figure.
 
    Si par contre vous compilez `pytex lst_frido.py`, il vous en coûtera que 30 secondes par figures (pour celles qui sont dans la partie Frido). Il est donc très efficace de compiler séparément chaque partie.
-
-
-
-

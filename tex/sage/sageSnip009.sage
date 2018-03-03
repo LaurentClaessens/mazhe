@@ -14,4 +14,3 @@ A=matrix( [  [F1.diff(x).simplify_full(),F1.diff(y).simplify_full()],[F2.diff(x)
 S=A.transpose()*A
 S=S.simplify_full()     # Mais ça, ça marche !!
 print(S)
-

@@ -3,4 +3,3 @@ u = [20,4,0]
 
 deter = det(A)
 v = A\u'
-

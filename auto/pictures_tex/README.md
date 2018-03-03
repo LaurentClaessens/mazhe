@@ -4,5 +4,5 @@ Ce répertoire contient les fichiers `*.pstricks` qui eux-mêmes contiennent le 
 
 À ne pas confondre avec :
 
-* `pictures_bitmap`  qui contient les images `png` incluses dans le Frido. 
+* `pictures_bitmap`  qui contient les images `png` incluses dans le Frido.
 * `pictures_tizk` qui contient les fichiers nécessaires à tikz pour ne pas devoir recompiler les figures.

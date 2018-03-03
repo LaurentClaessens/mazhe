@@ -11,31 +11,31 @@ function y = f3(x)
 end
 
 # Créer un vecteur avec les valeurs où on va calculer la fonction
-echantillon = 0:0.1:2*pi		
+echantillon = 0:0.1:2*pi
 # Créer le vecteur avec les valeurs de la fonction
-v = f1(echantillon)			
+v = f1(echantillon)
 # Créer le graphique
-plot(echantillon,v)			
+plot(echantillon,v)
 # Enregistrer le graphique dans exo24_f1.ps
-print -dps exo24_f1.ps			
+print -dps exo24_f1.ps
 
-echantillon = -3:0.1:3		
-v = f2(echantillon)	
+echantillon = -3:0.1:3
+v = f2(echantillon)
 plot(echantillon,v)
-print -dps exo24_f2.ps			
+print -dps exo24_f2.ps
 
-echantillon = 10^(-2):0.1:pi	
-v = f3(echantillon)	
+echantillon = 10^(-2):0.1:pi
+v = f3(echantillon)
 plot(echantillon,v)
-print -dps exo24_f3.ps			
+print -dps exo24_f3.ps
 
-# Notez la différence avec ce zoom sur la partie 0->0.5 
+# Notez la différence avec ce zoom sur la partie 0->0.5
 # avec un pas de 0.001 au lieu de 0.1
 
-echantillon = 10^(-2):0.001:0.4	
-v = f3(echantillon)	
+echantillon = 10^(-2):0.001:0.4
+v = f3(echantillon)
 plot(echantillon,v)
-print -dps exo24_f3_zoom.ps			
+print -dps exo24_f3_zoom.ps
 
-# Il y a une oscillation infinie qu'on devine maintenant 
+# Il y a une oscillation infinie qu'on devine maintenant
 # mais qui était presque invisible sur le graphique avec un pas de 0.1.
