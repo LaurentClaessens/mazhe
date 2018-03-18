@@ -248,7 +248,7 @@ Il serait sans doute bon de revoir cette preuve à la lumière du critère de Ca
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{theorem}[\cite{TrenchRealAnalisys}]     \label{THOooXZQCooSRteSr}
-    Soient une suite de fonctions \( f_i\), une fonction \( f\) et une fonction \( g\) telles que
+    Soient une suite de fonctions \( f_i\colon \eR\to \eR\), une fonction \( f\colon \eR\to \eR\) et une fonction \( g\colon \eR\to \eR\) telles que
     \begin{enumerate}
         \item
             \( f_i\) est de classe \( C^1\) pour tout \( i\),
@@ -269,13 +269,55 @@ Il serait sans doute bon de revoir cette preuve à la lumière du critère de Ca
 \end{theorem}
 
 \begin{proof}
-    Soient un intervalle compact \( K\), et \( x_0\in K\). Par hypothèse, les fonctions \( f_i\) sont continues, donc
-    \begin{equation}
+    En plusieurs pas.
+    \begin{subproof}
+    \item[Une formule intégrale]
+    Soient un intervalle compact \( K\), et \( x_0\in K\). Par hypothèse, les fonctions \( f_i\) sont continues (en particulier sur un ouvert contenant \( K\)), et le théorème fondamental de l'analyse \ref{ThoRWXooTqHGbC} donne
+    \begin{equation}        \label{EQooFUBZooOVUhep}
         f_i(x)=f_i(x_0)+\int_{x_0}^xf_i'(t)dt.
     \end{equation}
-    <++>
+\item[Convergence dominée]
+    D'autre par, la convergence uniforme sur tout compact des fonctions continues \( f'_i\) vers \( g\) donne la continuité de \( g\), théorème \ref{ThoUnigCvCont}. En particulier \( g\) est bornée et donc intégrable sur le compact \( \mathopen[ x_0 , x \mathclose]\). Mais il en faut plus pour le théorème de la convergence dominée de Lebesgue (théorème \ref{ThoConvDomLebVdhsTf}). Soit \( a>0\); il existe \( N\) tel que pour tout \( i>n\) nous ayons \( \| f'_i-g \|<a\). Avec cela nous avons
+    \begin{equation}
+        | f'_i(x) |<| g(x) |+a
+    \end{equation}
+    pour tout \( x\in K\). En particulier, la fonction \( x\mapsto g(x)+a\) fonctionne pour la convergence dominée et nous pouvons permuter la limite et l'intégrale.
+\item[Passage à la limite]
+
+    En passant à la limite \( i\to \infty\) dans \eqref{EQooFUBZooOVUhep} nous trouvons
+    \begin{equation}        \label{EQooAECSooZpoJhd}
+        f(x)=f(x_0)+\int_{x_0}^xg(t)dt.
+    \end{equation}
+\item[Première conclusion]
+
+    Il suffit maintenant de prendre la dérivée de \ref{EQooAECSooZpoJhd} au point \( x=x_0\) grâce à la proposition \ref{PropEZFRsMj} :
+    \begin{equation}
+        f'(x_0)=g(x_0).
+    \end{equation}
+    Cela nous donne la première partie du théorème.
+
+\item[Convergence uniforme \( f_i\to f\) sur tout compact]
+
+    Prenons la différence entre \eqref{EQooAECSooZpoJhd} et \eqref{EQooFUBZooOVUhep} :
+    \begin{subequations}
+        \begin{align}
+            | f(x)-f_i(x) |&=\big| f(x_0)-f_i(x_0)+\int_{x_0}^x g(t)-f'_i(t)dt \big|\\
+            &\leq | f(x_0)-f_i(x_0) |+\Big| \int_{x_0}^x| g(t)-f_i'(t) |dt  \Big|       \label{SUBEQooIWSJooGckNmj}\\
+            &\leq | (f-f_i)(x_0) |+| x-x_0 |\| g-f'_i \|_K.
+        \end{align}
+    \end{subequations}
+    Notez les valeurs absolues autour de l'intégrale dans \eqref{SUBEQooIWSJooGckNmj}. Elles sont nécessaires parce que \( x\) est dans un voisinage de \( x_0\), sans que nous sachions si \( x\geq x_0\) ou \( x\leq x_0\) (ça change le signe de l'intégrale).
+
+    Nous avons donc
+    \begin{equation}
+        \| f-f_i \|\leq | (f-f_i)(x_0) |+\diam(K)\| g-f'_i \|
+    \end{equation}
+    où \( \diam(K)\) est le diamètre de \( K\), c'est à dire la plus grande distance entre deux éléments de \( K\) c'est un nombre fini parce que \( K\) est borné. Il majore évidemment \( | x-x_0 |\). Le membre de droite tend vers zéro si \( i\to \infty\) parce que nous avons convergence simple \( f_i\to f\) et donc \( (f-f_i)(x_0)\to 0\), et parce que nous avons convergence uniforme sur tout compact, donc \( \| g-f_i' \|\to 0\).
+
+    Nous avons donc bien \( \lim_{i\to \infty}\| f-f_i \|=0\), c'est à dire convergence uniforme de \( (f_i)\) vers \( f\).
+
+    \end{subproof}
 \end{proof}
-<++>
 
 \begin{theorem}		\label{ThoSerUnifDerr}
 	Soit $U\subset\eR^n$ ouvert, $f_k\colon U\to \eR$ et $f_k$ de classe $C^1$. Supposons que $f_k$ converge simplement vers $f$ et que $\partial_if_k$ converge uniformément sur tout compact  vers une fonction $g_i$ pour $i=1,\ldots,n$. Alors $f$ est de classe $C^1$ et $\partial_if=g_i$. De plus, $f_k$ converge vers $f$ uniformément.
@@ -283,7 +325,28 @@ Il serait sans doute bon de revoir cette preuve à la lumière du critère de Ca
 \index{permuter!dérivée et limite}
 %TODO : une preuve.
 
+La proposition suivante est la généralisation à \( \eR\) de la proposition \ref{PROPooSGLGooIgzque}.
+\begin{proposition}     \label{PROPooKIASooGngEDh}
+    Pour tout \( \alpha\in \eR\), si \( f_{\alpha}(x)=x^{\alpha}\) alors
+    \begin{equation}
+        f'_{\alpha}(x)=\alpha x^{\alpha-1}.
+    \end{equation}
+    Au niveau du domaine, c'est \( \eR\) auquel il faut enlever \( \{ 0 \}\) si \( \alpha-1<0\).
+\end{proposition}
 
+\begin{proof}
+    Soient \( \alpha\in \eR\) et une suite de rationnels \( \alpha_i\) qui converge vers \( \alpha\). Le plus amateurs d'abstraction diront \( (\alpha_i)\in \alpha\) en référence à la proposition \ref{PropooEPFCooMtDOfP}.
+
+    Nous notons \( f_{\alpha}(x)=x^{\alpha}\) et \( f_i(x)=x^{\alpha_i}\). Par définition nous avon
+    \begin{equation}
+        f_i\to f_{\alpha}
+    \end{equation}
+    ponctuellement. De plus en utilisant la proposition \ref{PROPooSGLGooIgzque} nous savons que \( f'_i(x)=\alpha_i x^{\alpha_i-1}\). En posant \( g(x)=\alpha x^{\alpha-1}\) nous avons donc
+    \begin{equation}
+        f'_i\to g.
+    \end{equation}
+    ponctuellement. Mais \( f'_i\) est continue pour tout \( i\) et \( g\) également. Donc la convergence \( f_i\to f_{\alpha}\) est uniforme sur tout compact\footnote{Proposition \ref{}.}. Le théorème \ref{THOooXZQCooSRteSr} nous permet de permuter limite et dérivée pour avoir \( g=f'_{\alpha}\).
+\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Fonctions réelles de deux variables réelles}
