@@ -248,6 +248,10 @@ Soit \( F\) un sous-espace vectoriel de l'espace vectoriel \( E\). La \defe{codi
 \end{equation}
 \end{definition}
 
+\begin{probleme}
+Voir que $E/F$ a une structure vectoriel, expliciter sa dimension en fonction de celles de $E$ et $F$.
+\end{probleme}
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Et en dimension infinie}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -384,7 +388,7 @@ Quelques remarques méritent d'être soulignées.
 \begin{remark}
 \begin{enumerate}
     \item Nous utiliserons (presque) tout le temps des matrices à coefficients dans un corps. Il est clair que, si \( \eK \) est un corps (commutatif), alors \( \eM(n\times m,\eK) \) a une structure d'espace vectoriel sur \( \eK \).
-    \item Par ailleurs, sur les matrices carrées d'ordre \( n \) fixé, le produit de deux matrices est bien défini. Ainsi, \( \eM(n,\eA)\) se voit conférer une structure d'anneau, dont le neutre pour la multiplication est la matrice carrée\footnote{En toute rigueur, nous devrions préciser la taille de cette matrice dans la notation, mais elle sera toujours claire dans le contexte.} \( \mtu\) donnée par
+    \item Par ailleurs, sur les matrices carrées d'ordre \( n \) fixé, le produit de deux matrices est bien défini. Ainsi, \( \eM(n,\eA)\) se voit conférer une structure d'anneau, dont le neutre pour la multiplication est la matrice carrée \( \mtu_n\) (notée aussi \( \mtu\) lorsqu'il n'y a pas d'ambiguïté sur l'ordre), donnée par
 \begin{equation}
     \mtu_{ij}=\begin{cases}
         1    &   \text{si } i=j\\
@@ -395,7 +399,7 @@ Il est vite vu que si \( A\) est une matrice carrée d'ordre \( n \), alors \( A
 \end{enumerate}
 \end{remark}
 
-\begin{lemma}[\cite{MonCerveau}]
+\begin{lemma}[\cite{MonCerveau}]\label{LemInvarianceCycliqueTrace}
     Nous avons :
     \begin{enumerate}
         \item
@@ -840,11 +844,11 @@ La proposition~\ref{DefALUAooSPcmyK} et le théorème~\ref{ThoGkkffA} sont valab
 \begin{proof}
     Soit une application linéaire \( f\colon E\to F\). Nous considérons \( v,w\) dans l'image de \( f\) ainsi que \( \lambda\) dans le corps de base commun à \( E\) et \( F\).
 
-    Soient \( v_0\in E\) et \( w_0\in E\) tels que \( v=f(v_0)\) et \( w=f(w_0)\). Alors \( v+w=f(v_0+w_9)\) et \( \lambda v=f(\lambda v_0)\). Donc l'image est bien un espace vectoriel.
+    Soient \( v_0\in E\) et \( w_0\in E\) tels que \( v=f(v_0)\) et \( w=f(w_0)\). Alors \( v+w=f(v_0+w_0)\) et \( \lambda v=f(\lambda v_0)\). Donc l'image est bien un espace vectoriel.
 \end{proof}
 
 \begin{theorem}[Théorème du rang]       \label{ThoGkkffA}
-    Soient \( E\) et \( F\) deux espaces vectoriels (de dimensions finies ou non) et soit \( f\colon E\to F\) une application linéaire. Alors le rang\footnote{Définition~\ref{DefALUAooSPcmyK}.} de \( f\) est égal à la codimension du noyau, c'est à dire
+    Soient \( E\) et \( F\) deux espaces vectoriels (de dimensions finies ou non) et soit \( f\colon E\to F\) une application linéaire. Alors le rang\footnote{Définition~\ref{DefALUAooSPcmyK}.} de \( f\) est égal à la codimension\footnote{Définition~\ref{DefCodimension}.} du noyau, c'est à dire
        \begin{equation}
            \rang(f)+\dim\ker f=\dim E.
        \end{equation}
@@ -916,6 +920,8 @@ Une conséquence du théorème du rang est que les endomorphismes ont un inverse
 \end{proof}
 C'est ce corollaire qui nous permet d'écrire \( f^{-1}\) sans plus de précisions dès que \( f\) est une bijection.
 
+% TODO: comme pour les matrices, c'est un résultat "d'anneau", avec peut-être une subtilité sur les domaines, à préciser.
+
 \begin{example}[Pas en dimension infinie]
     Tout cela ne fonctionne pas en dimension infinie. Par exemple avec une base \( \{ e_k \}_{k\in \eN}\) nous pouvons considérer l'opérateur
     \begin{equation}
@@ -972,15 +978,17 @@ C'est ce corollaire qui nous permet d'écrire \( f^{-1}\) sans plus de précisio
             \begin{equation}
                 \begin{aligned}
                     g\colon F&\to E \\
-                    \sum_ka_kf(x_k)&\mapsto \sum_kx_k.
+                    \sum_k a_k f(x_k)&\mapsto \sum_k a_k x_k.
                 \end{aligned}
             \end{equation}
             Cela donne \(  f\circ g=\id|_F\) parce que si \( v\in F\) alors \( v=\sum_kv_kf(x_k)\) avec \( v_k\in \eK\), et nous avons
             \begin{equation}
-                (f\circ g)(v)=\sum_kv_k(f\circ g)f(x_k)=f\left( \sum_kv_kx_k \right)=\sum_kf(x_k)=v.
+                (f\circ g)(v)=\sum_k v_k (f\circ g) \left(f(x_k)\right)
+                             =f\left( \sum_k v_k x_k \right)
+                             =\sum_k v_k f(x_k) = v.
             \end{equation}
 
-            Inversement, s'il existe \( g\colon F\to E\) tel que \( f\circ g=\id\) alors \( f\) soit être surjective parce que
+            Inversement, s'il existe \( g\colon F\to E\) tel que \( f\circ g=\id\) alors \( f\) doit être surjective parce que
             \begin{equation}
                 F=\Image(f\circ g)=f\big( \Image(g) \big)\subset \Image(f).
             \end{equation}
@@ -996,7 +1004,7 @@ C'est ce corollaire qui nous permet d'écrire \( f^{-1}\) sans plus de précisio
 \[
 t(x)=Ax,
 \]
-avec $A$ dans $\mathcal{M}_{n\times m}$.
+avec $A$ dans $\eM(n\times m, \eR)$.
 \end{proposition}
 
 \begin{proof}
@@ -1034,7 +1042,7 @@ x_m
 \end{proof}
 
 \begin{normaltext}
-    Soient deux espaces vectoriels de dimension finie \( V,W\) sur le corps \( \eK\) ainsi qu'une application linéaire \( t\colon V\to W\). Nous considérons les bases\footnote{C'est le théorème~\ref{ThonmnWKs} qui nous permet de considérer des bases. Et ce théorème ne fonctionne que parce que nous avons supposé une dimension finie.} \( \{ e_i \}\) pour \( V\) et \( \{ f_{\alpha} \}\) pour \( W\). Ces bases ne sont pas supposées canoniques en aucun sens du terme. Les dimensions de \( V\) et \( W\) ne sont pas non plus supposées identiques.
+    Soient deux espaces vectoriels de dimension finie \( E,F\) sur le corps \( \eK\) ainsi qu'une application linéaire \( t\colon E\to F\). Nous considérons les bases\footnote{C'est le théorème~\ref{ThonmnWKs} qui nous permet de considérer des bases. Et ce théorème ne fonctionne que parce que nous avons supposé une dimension finie.} \( \{ e_i \}\) pour \( E\) et \( \{ f_{\alpha} \}\) pour \( F\). Ces bases ne sont pas supposées canoniques en aucun sens du terme. Les dimensions de \( E\) et \( F\) ne sont pas non plus supposées identiques.
 
     Nous définissons les nombres
     \begin{equation}
@@ -1048,11 +1056,11 @@ x_m
     \begin{equation}
         t(x)_{\alpha}=\sum_iA_{\alpha i}x_i=(Ax)_{\alpha}
     \end{equation}
-    où, à droite, nous avons utilisé un abus de notations en notant \( x\) l'élément de \( \eK^n\) donnant les coordonnées de \( x\in V\) dans la base \( \{ e_i \}\). Avec encore plus d'abus de notations, nous pouvons également écrire
+    où, à droite, nous avons utilisé un abus de notations en notant \( x\) l'élément de \( \eK^n\) donnant les coordonnées de \( x\in E\) dans la base \( \{ e_i \}\). Avec encore plus d'abus de notations, nous pouvons également écrire
     \begin{equation}
         t(x)=Ax.
     \end{equation}
-    Cette écriture n'est valable que si les bases de \( V\) et de \( W\) sont ultra-fixées. En effet, elle signifie que le vecteur \( t(x)\in W\) est le vecteur dont les composantes dans la base \( \{ f_{\alpha} \}\) sont données par le produit de la matrice \( A\) par l'élément de \( \eK^n\) dont les composantes sont celles de \( x\) dans la base \( \{ e_i \}\).
+    Cette écriture n'est valable que si les bases de \( E\) et de \( F\) sont ultra-fixées. En effet, elle signifie que le vecteur \( t(x)\in F\) est le vecteur dont les composantes dans la base \( \{ f_{\alpha} \}\) sont données par le produit de la matrice \( A\) par l'élément de \( \eK^n\) dont les composantes sont celles de \( x\) dans la base \( \{ e_i \}\).
 \end{normaltext}
 
 \begin{normaltext}
@@ -1064,7 +1072,7 @@ x_m
 \end{normaltext}
 
 \begin{normaltext}
-    Il convient de ne pas confondre matrice et application linéaires (bien que nous le ferons sans vergogne). Une matrice est un bête tableau de nombres, et nous savons déjà en calculer le déterminant, le dual, la trace, l'inverse et bien d'autres choses.
+    Il convient de ne pas confondre matrice et application linéaire (bien que nous le ferons sans vergogne). Une matrice est un bête tableau de nombres, et nous savons déjà en calculer le déterminant, le dual, la trace, l'inverse et bien d'autres choses.
 
     Une application linéaire est une application linéaire. Nous savons comment associer, lorsque deux bases sont données, une matrice à une application linéaire. Mais nous n'avons encore pas vu quel est le lien entre les propriétés de la matrice et celles de l'application linéaire.
 \end{normaltext}
@@ -1176,12 +1184,16 @@ L'espace de tous les polynômes étant de dimension infinie, il peut servir de c
     pour tout \( \lambda\in \eK\) implique \( b(u,v)=0\).
 \end{normaltext}
 
+\begin{probleme}
+Même en caractéristique 2? ...
+\end{probleme}
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Généralités}
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{definition}[\cite{RUAoonJAym}]   \label{DefBSIoouvuKR}
-    Soit un espace vectoriel \( E\) et \( \eF\) un corps de caractéristique différente de \( 2\). Une \defe{forme quadratique}{forme!quadratique} sur \( E\) est une application \( q\colon V\to \eF\) pour laquelle il existe une forme bilinéaire symétrique \( b\colon V\times V\to \eF\) satisfaisant \( q(x)=b(x,x)\) pour tout \( x\in V\).
+    Soit un espace vectoriel \( E\) et \( \eF\) un corps de caractéristique différente de \( 2\). Une \defe{forme quadratique}{forme!quadratique} sur \( E\) est une application \( q\colon E\to \eF\) pour laquelle il existe une forme bilinéaire symétrique \( b\colon E\times E\to \eF\) satisfaisant \( q(x)=b(x,x)\) pour tout \( x\in E\).
 
     L'ensemble des formes quadratiques réelles sur \( E\) est noté \( Q(E)\)\nomenclature[B]{\( Q(E)\)}{formes quadratiques réelles sur \( E\)}.
 \end{definition}
@@ -1203,15 +1215,15 @@ Notons la division par \( 2\) qui est le pourquoi de la demande de la caractéri
 \subsection{Matrice associée à une forme bilinéaire}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Soit une forme bilinéaire \( q\colon V\times V\to \eK\) et une base \( \{ f_{\alpha} \}\) de \( V\), pas spécialement orthonormée. Nous définissons les nombres
+Soit une forme bilinéaire \( b\colon E\times E\to \eK\) et une base \( \{ f_{\alpha} \}\) de \( E\), pas spécialement orthonormée. Nous définissons les nombres
 \begin{equation}    \label{EQooCUGFooRlKUtu}
-    B_{\alpha\beta}=q(f_{\alpha},f_{\beta}),
+    B_{\alpha\beta}=b(f_{\alpha},f_{\beta}),
 \end{equation}
 qui forment une matrice symétrique dans \( \eM(n,\eK)\). Alors nous avons aussi, si \( y=\sum_{\alpha}y_{\alpha}f_{\alpha}\) et \( y'=\sum_{\beta}y'_{\beta}f_{\beta}\) :
 \begin{equation}
-    q(y,y')=\sum_{\alpha\beta}q(f_{\alpha},f_{\beta})=\sum_{\alpha\beta}B_{\alpha\beta}y_{\alpha}y'_{\beta}.
+    b(y,y')=\sum_{\alpha\beta}q(f_{\alpha},f_{\beta})=\sum_{\alpha\beta}B_{\alpha\beta}y_{\alpha}y'_{\beta}.
 \end{equation}
-La matrice \( B\) est la matrice de \( q\) dans la base \( \{ f_{\alpha} \}\) de \( V\).
+La matrice \( B\) est la matrice de \( b\) dans la base \( \{ f_{\alpha} \}\) de \( V\).
 
 Notons que la matrice associée à une forme bilinéaire (ou quadratique associée) est uniquement valable pour une base donnée. Si nous changeons de base, la matrice change. Cependant lorsque nous travaillons sur \( \eR^n\), la base canonique est tellement canonique que nous allons nous permettre de parler de «la» matrice associée à une forme bilinéaire.
 
@@ -1374,14 +1386,18 @@ où \( Q^t\) désigne la transposée de la matrice \( Q\) :  \( Q^t_{ij}=Q_{ji}\
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 \begin{proposition} \label{PropEJBZooTNFPRj}
-    Si $A$ est la matrice d'une application linéaire, alors le rang de cette application linéaire est égal à la taille de la plus grande matrice carrée de déterminant non nul contenue dans $A$.
+    Si \( A\) est la matrice d'une application linéaire, alors le rang de cette application linéaire est égal au rang de \( A \), c'est-à-dire à la taille de la plus grande matrice carrée de déterminant non nul contenue dans \( A\).
 \end{proposition}
 
 \begin{definition}  \label{DefJPGSHpn}
-    Si \( E\) est un espace vectoriel sur \( \eK\), le \defe{dual algébrique}{dual algébrique} de \( E\), noté \( E^*\), l'ensemble des formes linéaires sur \( E\).
+    Soit \( E\) un espace vectoriel sur \( \eK\).
+
+    Une \defe{forme linéaire}{forme linéaire} sur \( E \) est une application linéaire de \( E \) sur son corps de base \( \eK\).
+
+    Le \defe{dual algébrique}{dual algébrique} de \( E\), noté \( E^*\), l'ensemble des formes linéaires sur \( E\). Ainsi, \( E^* = \GL(E,\eK)\).
 \end{definition}
 
-Nous verrons plus tard qu'en dimension infinie, les applications linéaires ne sont pas toujours continue. Nous définirons donc aussi un concept de dual topologique. Voir la proposition~\ref{PROPooQZYVooYJVlBd}, la remarque~\ref{RemOAXNooSMTDuN} et la définition~\ref{DEFooKSDFooGIBtrG}.
+Nous verrons plus tard qu'en dimension infinie, les applications linéaires ne sont pas toujours continues. Nous définirons donc aussi un concept de dual topologique. Voir la proposition~\ref{PROPooQZYVooYJVlBd}, la remarque~\ref{RemOAXNooSMTDuN} et la définition~\ref{DEFooKSDFooGIBtrG}.
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Orthogonal}
@@ -1421,20 +1437,23 @@ Notons qu'on le note \( B^o\) et non \( B^{\perp}\) parce qu'on veut un peu s'ab
 
     Déjà c'est une partie libre en tant que partie d'une base.
 
-    Ensuite ce sont des éléments de \( F^{\perp}\) parce que si \( i\leq p\) et si \( k\geq 1\), nous avons \( e^*_{p+k}(e_i^*)=0\); donc oui, \( e^*_{p+k}\in F^{\perp}\).
+    Ensuite ce sont des éléments de \( F^{\perp}\) parce que si \( i\leq p\) et si \( k\geq 1\), nous avons \( e^*_{p+k}(e_i)=0\); donc oui, \( e^*_{p+k}\in F^{\perp}\).
 
-    Enfin \( F^{\perp}\subset\Span\{ e_{p+1}^*,e_n^* \}\) parce que si \( \omega=\sum_{k=1}^n\omega_ke_k^*\), alors \( \omega(e_i)=\omega_i\), mais nous savons que si \( \omega\in F^{\perp}\), alors \( \omega(e_i)=0\) pour \( i\leq p\). Donc \( \omega=\sum_{k=p+1}^n\omega_ke^*_k\).
+    Enfin \( F^{\perp}\subset\Span\{ e_{k}^*, k \in \{p+1, \dots, n\}\}\) parce que si \( \omega=\sum_{k=1}^n\omega_ke_k^*\), alors \( \omega(e_i)=\omega_i\), mais nous savons que si \( \omega\in F^{\perp}\), alors \( \omega(e_i)=0\) pour \( i\leq p\). Donc \( \omega=\sum_{k=p+1}^n\omega_ke^*_k\).
 \end{proof}
 
+\begin{probleme}
+Démonstration réalisée en dimension finie sans l'avoir précisé dans l'énoncé.
+\end{probleme}
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Transposée : pas d'approche naïve}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Il est légitime, si \( t\colon V\to V\) est une application linéaire, de dire que sa transposée soit l'application linéaire \( t^t\colon V\to V\) dont la matrice est la matrice transposée de celle de \( t\). Lorsque nous travaillons sur \( \eR^n\) muni de la base canonique, cela ne pose pas de problèmes et nous pouvons écrire des égalités du type \( \langle x, Ay\rangle =\langle A^tx, y\rangle \).
+Il est légitime, si \( t\colon E\to E\) est une application linéaire, de dire que sa transposée soit l'application linéaire \( t^t\colon E\to E\) dont la matrice est la matrice transposée de celle de \( t\). Lorsque nous travaillons sur \( \eR^n\) muni de la base canonique, cela ne pose pas de problèmes et nous pouvons écrire des égalités du type \( \langle x, Ay\rangle =\langle A^tx, y\rangle \).
 
 Hélas nous allons voir que cette façon de définir une transposée est mauvaise.
 
-Soit une application linéaire \( t\colon V\to V\) de matrice \( A\) dans la base \( \{ e_i \}_{i=1,\ldots, n}\) et de matrice \( B\) dans la base \( \{ f_{\alpha} \}_{\alpha=1,\ldots, n}\).
+Soit une application linéaire \( t\colon E\to E\) de matrice \( A\) dans la base \( \{ e_i \}_{i=1,\ldots, n}\) et de matrice \( B\) dans la base \( \{ f_{\alpha} \}_{\alpha=1,\ldots, n}\).
 
 Nous nommons \( t_1\) l'application linéaire associée à \( A^t\) dans la base \( \{ e_i \}\) et \( t_2\) l'application linéaire associée à la matrice \( B^t\) dans la base \( \{ f_{\alpha} \}\). Définir la transposée d'une application linéaire comme étant l'application linéaire associée à la transposée de sa matrice ne sera une bonne définition que si \( t_1=t_2\).
 
@@ -1669,14 +1688,15 @@ Les \defe{polynômes de Lagrange}{Lagrange!polynôme}\index{polynôme!Lagrange} 
     Nous considérons l'application
     \begin{equation}
         \begin{aligned}
-            f\colon \eM(n,\eK)&\to \eM(n,\eK)' \\
+            f\colon \eM(n,\eK)&\to \eM(n,\eK)^* \\
             A&\mapsto f_A
         \end{aligned}
     \end{equation}
-    et nous voulons prouver que c'est une bijection. Étant donné que nous sommes en dimension finie, nous avons égalité des dimensions de \( \eM_n(\eK)\) et \( \eM_n(\eK)'\), et il suffit de prouver que \( f\) est injective. Soit donc \( A\) telle que \( f_A=0\). Nous l'appliquons à la matrice \( (E_{ij})_{kl}=\delta_{ik}\delta_{jl}\) :
+    et nous voulons prouver que c'est une bijection. Étant donné que nous sommes en dimension finie, nous avons égalité des dimensions de \( \eM_n(\eK)\) et \( \left(\eM(n,\eK)\right)^*\), et il suffit de prouver que \( f\) est injective. Soit donc \( A\) telle que \( f_A=0\). Nous l'appliquons à la matrice \( (E_{ij})_{kl}=\delta_{ik}\delta_{jl}\) :
     \begin{equation}
             0=f_A(E_{ij})
             =\sum_{k}(AE_{ij})_{kk}
+            =\sum_{kl}A_{kl}(E_{ij})_{lk}
             =\sum_{kl}A_{kl}\delta_{il}\delta_{jk}
             =A_{ij}.
     \end{equation}
@@ -1684,28 +1704,28 @@ Les \defe{polynômes de Lagrange}{Lagrange!polynôme}\index{polynôme!Lagrange} 
 \end{proof}
 
 \begin{corollary}[\cite{KXjFWKA}]
-    Soit \( \eK\) un corps et \( \phi\in\eM(n,\eK)^*\) telle que pour tout \( X,Y\in \eM(n,\eK)\) on ait
+    Soit \( \eK\) un corps et \( \phi\in\eM(n,\eK)^*\) telle que pour tout \( M,N\in \eM(n,\eK)\) on ait
     \begin{equation}
-        \phi(XY)=\phi(YX).
+        \phi(MN)=\phi(NM).
     \end{equation}
     Alors il existe \( \lambda\in \eK\) tel que \( \phi=\lambda\Tr\).
 \end{corollary}
 \index{trace!unicité pour la propriété de trace}
 
 \begin{proof}
-    La proposition~\ref{PropHOjJpCa} nous donne une matrice \( A\in \eM(n,\eK)\) telle que \( \phi=f_A\). L'hypothèse nous dit que \( f_A(XY)=f_A(YX)\), c'est à dire
+    La proposition~\ref{PropHOjJpCa} nous donne une matrice \( A\in \eM(n,\eK)\) telle que \( \phi=f_A\). L'hypothèse nous dit que \( f_A(MN)=f_A(NM)\), c'est à dire
     \begin{equation}
-        \Tr(AXY)=\Tr(AYX)
+        \Tr(AMN)=\Tr(ANM)
     \end{equation}
-    pour toute matrices \( X,Y\in \eM(n,\eK)\). L'invariance cyclique de la trace nous dit que \( \Tr(AXY)=\Tr(XAY)\), ce qui signifie que
+    pour toutes matrices \( M, N\in \eM(n,\eK)\). L'invariance cyclique de la trace\footnote{Lemme~\ref{LemInvatianceCycliqueTrace}.} appliqué au membre de droite nous donne \( \Tr(AMN)=\Tr(MAN)\), ce qui signifie que
     \begin{equation}
-        \Tr\big( (AX-XA)Y \big)=0
+        \Tr\big( (AM-MA)N \big)=0
     \end{equation}
-    ou encore que \( f_{AX-XA}=0\) pour tout \( X\). La fonction \( f\) étant injective nous en déduisons que la matrice \( A\) doit satisfaire
+    ou encore que \( f_{AM-MA}=0\), et ce, pour toute matrice \( M\). La fonction \( f\) étant injective nous en déduisons que la matrice \( A\) doit satisfaire
     \begin{equation}
-        AX=XA
+        AM=MA
     \end{equation}
-    pour tout \( X\in\eM\). En particulier en prenant la fameuse matrice \( E_{ij}\) et en calculant un peu,
+    pour tout \( M\in\eM(n,\eK)\). En particulier, en prenant pour \( M \) les fameuses matrices \( E_{ij}\) et en calculant un peu,
     \begin{equation}
         A_{li}\delta_{jm}=\delta_{il}A_{jm}
     \end{equation}
@@ -1728,17 +1748,17 @@ Les \defe{polynômes de Lagrange}{Lagrange!polynôme}\index{polynôme!Lagrange} 
             0    &   0
         \end{pmatrix}.
     \end{equation}
-    Pour tout \( X\in \eM\) nous avons
+    Pour tout \( M\in \eM\) nous avons
     \begin{equation}
-        \phi(X)=\Tr(AX)=\Tr(PJ_rQX)=\Tr(J_rQXP).
+        \phi(M)=\Tr(AM)=\Tr(PJ_rQM)=\Tr(J_rQMP),
     \end{equation}
-    Ce que nous cherchons est \( X\in \GL(n,\eK)\) telle que \( \phi(X)=0\). Nous commençons par trouver \( Y\in\GL(n,\eK)\) telle que \( \Tr(J_rY)=0\). Celle-là est facile : c'est
+la dernière égalité découlant de l'invariance cyclique de la trace\footnote{Lemme~\ref{LemInvarainceCycliqueTrace}.}. Ce que nous cherchons est \( M\in \GL(n,\eK)\) telle que \( \phi(M)=0\). Nous commençons par trouver \( N\in\GL(n,\eK)\) telle que \( \Tr(J_rN)=0\). Celle-là est facile : c'est
     \begin{equation}
-        Y=\begin{pmatrix}
+        N=\begin{pmatrix}
             0    &   1    \\
             \mtu_{n-1}    &   0
         \end{pmatrix}.
     \end{equation}
-    Les éléments diagonaux de \( J_rY\) sont tous nuls. Par conséquent en posant \( X=Q^{-1}YP^{-1}\) nous avons notre matrice inversible dans le noyau de \( \phi\).
+    Les éléments diagonaux de \( J_rN\) sont tous nuls. Par conséquent en posant \( M=Q^{-1}NP^{-1}\) nous avons notre matrice inversible dans le noyau de \( \phi\).
 \end{proof}
 \index{hyperplan!de \( \eM(n,\eK)\)}
