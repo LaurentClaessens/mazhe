@@ -4,8 +4,9 @@
 
 Définition de la fonction puissance x->a^x.
 
-- définition de a^x pour x rationnel
+- définition de a^q pour q rationnel
 - prolongation par continuité à R
+- déplacement de nombreux examples utilisant les puissances vers plus bas dans le texte.
 
 ## Limite de fonction (janvier 2018)
 
