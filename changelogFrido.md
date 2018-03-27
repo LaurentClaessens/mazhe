@@ -1,5 +1,12 @@
 # Changelog du Frido
 
+## Coefficients de Fourier (mars 2018)
+
+Les coefficients de Fourier dans L^2(-T/2,T/2) étaient définis avec un coefficients 1/T. Cela étant incohérent avec la définition du
+produit scalaire sur L^2, on change la définition pour supprimer les coefficients.
+
+Ça fait un sacré paquet de changements un peu partout.
+
 ## Fonction puissance (février 2018)
 
 Définition de la fonction puissance x->a^x.
