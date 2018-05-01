@@ -745,7 +745,7 @@ Un peu de calcul montre que
     \frac{ \phi'(x) }{ \phi(x) }=\frac{ r(1-x^{r-1}) }{ (1+x^r)(1+x) }.
 \end{equation}
 
-\begin{lemma}
+\begin{lemma}       \label{LEMooFKKEooDTypUd}
     Soient \( a,b>0\) et \( r>1\). Nous avons les inégalités
     \begin{equation}
         a^r+b^r\leq (a+b)^r\leq 2^{r-1}(a^r+b^r).
@@ -787,10 +787,60 @@ Un peu de calcul montre que
     \begin{subproof}
         \item[\( p>2\)]
             Pour chaque \( x\in \Omega\) nous avons \( f(x), g(x)\in \eC\) et donc l'identité du parallélogramme\footnote{Proposition \ref{PropEQRooQXazLz} en remarquant que $(z_1,z_2)\mapsto z_1\bar z_2$ est un produit scalaire hermitien sur $\eC$.} :
-            \begin{equation}
+            \begin{equation}        \label{EQooUBFEooDUjLnb}
                 \big| f(x)-g(x) \big|^2+\big| f(x)+g(x) \big|=2| f(x) |+2| g(x) |^2.
             \end{equation}
-            Vu que \( p>2\), la fonction \( x\mapsto x^{p/2}\) est convexe (lemme \ref{LEMooSXTXooZOmtKq}).
+            Vu que \( p>2\), la fonction \( s\colon x\mapsto  x^{p/2}\) est convexe (lemme \ref{LEMooSXTXooZOmtKq}). Calcul :
+            \begin{subequations}
+                \begin{align}
+                    | f(x)-g(x) |^p+| f(x)+g(x) |^p&=\big( | f(x)-g(x) |^2 \big)^{p/2}+\big( | f(x)+g(x) |^2 \big)^{p/2}\\
+                    &=s\big( | \ldots |^2 \big)+s\big( | \ldots |^2 \big)\\
+                    &\leq \big( | f(x)-g(x) |^2+| f(x)+g(x) |^2 \big)^{p/2}     \label{SUBEQooRHAEooHkYNLH}\\
+                    &=\big( 2| f(x) |^2+2| g(x) |^2 \big)^{p/2}                 \label{SUBEQooQFSLooJkoeqN}\\
+                    &=2^{p/2}\big( | f(x) |^2+| g(x) |^2 \big)^{p/2}\\
+                    &\leq  2^{p/2}2^{p/2-1}\big( | f(x) |^p+| g(x) |^p \big)     \label{SUBEQooQSUHooXKaWwO}\\
+                    &=2^{p-1}\big( | f(x) |^p+| g(x) |^p \big)    
+                \end{align}
+            \end{subequations} 
+            Justifications : 
+            \begin{itemize}
+                \item Pour \eqref{SUBEQooRHAEooHkYNLH} : la convexité de \( s\).
+                \item Pour \eqref{SUBEQooQFSLooJkoeqN} : la relation \eqref{EQooUBFEooDUjLnb}.
+                \item Pour \eqref{SUBEQooQSUHooXKaWwO} : la seconde inégalité du lemme \ref{SUBEQooQSUHooXKaWwO}.
+            \end{itemize}
+            Nous isolons \( | f(x)-g(x) |^p\) :
+            \begin{subequations}
+                \begin{align}
+                    | f(x)-g(x) |^p&\leq 2^{p-1}\big( | f(x) |^p+| g(x) |^p \big)-| f(x)+g(x) |^p\\
+                    &=2^p\left( \frac{ | f(x) |^p+| g(x) |^p }{2}-\left| \frac{ | f(x) |+| g(x) | }{2} \right|^p \right)
+                \end{align}
+            \end{subequations}
+            Cette inégalité étant valable pour tout \( x\), nous pouvons intégrer sur \( \Omega\) et découper l'intégrale en petits morceaux :
+            \begin{equation}        \label{EQooVNHSooPXjFNC}
+                \| f-g \|^p_p\leq 2^p\left( \frac{ \| f \|_p^p+\| g \|_p^p }{2}- \| \frac{ f+g }{2} \|_p^p \right).
+            \end{equation}
+            Voila une bonne chose de prouvée. Nous pouvons maintenant passer au vif du sujet.
+
+            Soit une suite \( w_j\) dans \( W\) telle que \( \| u_0-w_j \|\to d(u_0,W)\). Trois choses à savoir sur cette suite :
+            \begin{enumerate}
+                \item
+                    Une telle suite existe parce que \( d(u_0,W)\) est défini comme un infimum.
+                \item
+                    Rien ne garanti qu'elle converge.
+                \item
+                    Même si elle convergeait, rien ne garantirait que la limite soit encore dans \( W\).
+            \end{enumerate}
+            Le troisième point est facile à régler : vu que \( W\) est fermé par hypothèse, une suite convergente contenue dans \( W\) a sa limite dans \( W\). Nous allons régler la convergence de \( w_j\) en prouvant qu'elle est de Cauchy.
+            
+            Remarquons que \( W\) est vectoriel, donc \( (w_j+w_k)/2\) est dans \( W\) pour tout \( j\) et \( k\); donc
+            \begin{equation}
+                \| \frac{ w_j+w_k }{2}-u_0 \|\geq d(u_0,W).
+            \end{equation}
+            En tenant compte de cela, nous écrivons l'inégalité \eqref{EQooVNHSooPXjFNC} avec \( f=w_j-u_0\) et \( g=w_k-u_0\) :
+            \begin{equation}
+                \| f-g \|_p^p=\| w_j-w_k \|_p^p\leq 2^p\left( \frac{ \| w_j-u_0 \|^p+\| w_k-u_0 \|^p }{2}-d(u_0,W) \right),
+            \end{equation}
+            donc
     \end{subproof}
     <++>
 \end{proof}
