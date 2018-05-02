@@ -195,4 +195,12 @@ Les remarques de Éric Guirbal
 # ordre
 
 Remise en ordre des nombreux points restés en suspend après le passage de Guillaume Barriere.
-overfull
+
+# overfull
+
+Supprimer quelque "Overfull \hbox".
+
+# exocorr
+
+Supprimer la dépendence en le paquet personnel 'exocorr'.
+
