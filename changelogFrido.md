@@ -1,5 +1,11 @@
 # Changelog du Frido
 
+## Suppression de exocorr (mai 2018)
+
+- Le paquet LaTeX personnel `exocorr` n'est plus nécessaire pour compiler le Frido.
+- Il est encore nécessaire pour compiler `everything`
+- Les exercices ont été converti en exemples
+
 ## Coefficients de Fourier (mars 2018)
 
 Les coefficients de Fourier dans L^2(-T/2,T/2) étaient définis avec un coefficients 1/T. Cela étant incohérent avec la définition du
@@ -7,7 +13,7 @@ produit scalaire sur L^2, on change la définition pour supprimer les coefficien
 
 Ça fait un sacré paquet de changements un peu partout.
 
-## Fonction puissance (février 2018)
+## Fonction puissance (février-avril 2018)
 
 Définition de la fonction puissance x->a^x.
 
