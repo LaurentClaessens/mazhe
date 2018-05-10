@@ -30,6 +30,11 @@ Les définition ont été clarifiées et unifiées. La définition de limite cho
 [1] https://fr.wikipedia.org/wiki/Espace_topologique  
     Si vous ne voyez pas le problème avec la définition de la limite, lisez la page de discussion.
 
+## Théorème de Weiner (décembre 2017 - ...)
+
+Le théorème qui dit que L^p est un Hilbert si et seulement si p=2.
+Pas encore terminé.
+
 ## corps de rupture, corps de décomposition (novembre, décembre 2017)
 
 Suite à des remarques de cdrcprds, de gros travaux ont été fait du côté des corps de rupture et de décomposition.
