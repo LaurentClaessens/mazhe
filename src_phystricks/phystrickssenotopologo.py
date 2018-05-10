@@ -5,7 +5,7 @@ from __future__ import division
 from phystricks import *
 def senotopologo():
     pspict,fig = SinglePicture("senotopologo")
-    pspict.dilatation(2)
+    pspict.dilatation(1.8)
 
     x=var('x')
     f=phyFunction(x*sin(1/x**2)).graph(-4,4)
