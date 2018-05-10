@@ -5,7 +5,7 @@ from phystricks import *
 
 def TWHooJjXEtS():
     pspict,fig = SinglePicture("TWHooJjXEtS")
-    pspict.dilatation_X(1)
+    pspict.dilatation_X(0.8)
     pspict.dilatation_Y(1)
 
     x=var('x')
