@@ -1,11 +1,25 @@
 # Changelog du Frido
 
-## Fonction puissance (février 2018)
+## Suppression de exocorr (mai 2018)
+
+- Le paquet LaTeX personnel `exocorr` n'est plus nécessaire pour compiler le Frido.
+- Il est encore nécessaire pour compiler `everything`
+- Les exercices ont été converti en exemples
+
+## Coefficients de Fourier (mars 2018)
+
+Les coefficients de Fourier dans L^2(-T/2,T/2) étaient définis avec un coefficients 1/T. Cela étant incohérent avec la définition du
+produit scalaire sur L^2, on change la définition pour supprimer les coefficients.
+
+Ça fait un sacré paquet de changements un peu partout.
+
+## Fonction puissance (février-avril 2018)
 
 Définition de la fonction puissance x->a^x.
 
-- définition de a^x pour x rationnel
+- définition de a^q pour q rationnel
 - prolongation par continuité à R
+- déplacement de nombreux examples utilisant les puissances vers plus bas dans le texte.
 
 ## Limite de fonction (janvier 2018)
 
@@ -15,6 +29,11 @@ Les définition ont été clarifiées et unifiées. La définition de limite cho
 
 [1] https://fr.wikipedia.org/wiki/Espace_topologique  
     Si vous ne voyez pas le problème avec la définition de la limite, lisez la page de discussion.
+
+## Théorème de Weiner (décembre 2017 - ...)
+
+Le théorème qui dit que L^p est un Hilbert si et seulement si p=2.
+Pas encore terminé.
 
 ## corps de rupture, corps de décomposition (novembre, décembre 2017)
 

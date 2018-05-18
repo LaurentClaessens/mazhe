@@ -6,6 +6,10 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 Les fautes sont présentées par ordre anti-chronoligique de découvertes.
 
+- Volume 1. Toute suite dans un compact de R admet une sous-suite convergente (théorème 6.93). La démonstration est fausse, en particulier le cas où nous n'avons qu'un nombre fini de points maximaux. Exemple : x0=5, et ensuite alterner une suite partant de zéro et croissante vers 1 avec une suite partant de zéro et décroissante vers -1. Dans ce cas, x0 est l'unique élément maximal de cette suite.
+
+    Merci à bibi6 pour avoir trouvé cette faute.
+
 - Volume 2. La définition de mesure positive sur un espace mesurable est incorrecte (définition 13.23). La première condition doit être remplacée par 
         mu(vide)=0.
     Sinon, il est possible d'avoir une mesure pour laquelle tous les éléments de la tribu ont une mesure infinie (y compris le vide). Dans

@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (C) 2010-2013,2016
+% Copyright (C) 2010-2013,2016,2018
 %   Laurent Claessens
 % See the file LICENCE.txt for copying conditions.
 
@@ -78,7 +78,7 @@ Il a \( p=3\) lorsque \( \alpha\) est racine simple. Mais encore \( p=1\) pour l
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \label{SECooIUEUooVcHAoc}
 
-Supposons de ne pas avoir \( f\) analytique, mais seulement la possibilité de calculer \( f(x)\) pour tout \( x\). Newton ne fonctionne pas, mais la bisection fonctionne.
+Si nous n'avons pas de formule analytique pour \( f\), mais seulement la possibilité de calculer \( f(x)\) pour tout \( x\). Newton ne fonctionne pas, mais la bisection fonctionne.
 
 Nous pouvons approximer
 \begin{equation}
@@ -497,12 +497,263 @@ Que le nombre de d'évaluations de \( f\) intervienne est logique parce que chaq
 \end{example}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Exercices}
+\section{Exemples sous forme d'exercices}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-\Exo{mazhe-0002}
-\Exo{mazhe-0003}
-\Exo{mazhe-0004}
+\begin{example}
+    
+    Nous supposons une machine acceptant \( 5\) chiffres significatifs. Elle retient les nombres sous la forme \( \pm 0.x\cdots\times 10^{\ldots}\).
+    
+    \( x=1.403\), \( y=0.4112\times 10^{-3}\), \( z=-0.4111\times 10^{-3}\). 
+
+    Soient
+            \( a=(x\oplus y)\oplus z\) et  \( b=(y\oplus z)\oplus x\).
+
+    \begin{enumerate}
+        \item
+     D'abord la calculer à la main. 
+        \item
+     Quel est le calcul préférable ?
+ \item
+     Donner l'erreur relative avec \( 3\) chiffres significatifs.
+    \end{enumerate}
+
+Dans le cas du calcul à la main, il faut en faire un seul parce que, algébriquement, \( a=b\).
+
+Nous avons \( x=1.403\), \( y=0.0004112\) et \( z=-0.0004111\). Et la somme donne :
+\begin{equation}
+    a=b=1.4030001=0.14030001\times 10^1.
+\end{equation}
+
+Faisons d'abord la normalisation de \( x\), c'est à dire \( \fl(x)\).
+\begin{equation}
+    \fl(x)=0.1403\times 10^1.
+\end{equation}
+et \( y\) est déjà normalisé :
+\begin{equation}
+    \fl(y)=0.4112\times 10^{-3}.
+\end{equation}
+Il n'y a pas d'erreurs d'assignation pour ces deux nombres. 
+
+Pour faire la somme, il faudra déjà un peu casser les nombres pour les écrire de façon à pouvoir les sommer. En effet, il faut écrire les deux nombres avec le même exposant de \( 10\) (le plus grand), pour pouvoir les mettre en colonne :
+\begin{subequations}
+    \begin{align}
+        0.1404\times 10^1&\to 0.1404\times 10^1\\
+        0.4112\times 10^{-3}&\to 0.00004\times 10^1.
+    \end{align}
+\end{subequations}
+La somme donne \( 0.14034\times 10 ^1\). Et ça, c'est à nouveau arrondi. Le premier chiffre supprimé est un \( 4\), donc 
+\begin{equation}
+    x\oplus y=0.1403\times 10^1.
+\end{equation}
+Et là on remarque que nous avons la même chose que \( x\). C'est un classique du calcul numérique.
+
+Nous avons aussi
+\begin{equation}
+    \fl(z)=0.4111\times 10^{-3}.
+\end{equation}
+Et pour faire la somme de cela avec \( x\oplus y\) nous devons le remettre sous la forme d'un \( 10^1\) :
+\begin{equation}
+    \fl(z)\to -0.00004\times 10^1
+\end{equation}
+(erreur de conversion), et en sommant on trouve
+\begin{equation}
+    (x\oplus y)\oplus z=0.140216\times 10^1,
+\end{equation}
+qui est encore arrondi. Le premier chiffre supprimé est un \( 6\), donc
+\begin{equation}
+    \fl(a)=0.1403\times 10^1,
+\end{equation}
+
+Le nom de l'erreur qui consiste à avoir \( x\oplus y=x\) est ``relation annirmale''.
+
+Calculons \( b\).
+
+Les nombres \( y\) et \( z\) ont même ordre de grandeur, donc pas d'erreur au moment de les mettre sous forme sommable.
+\begin{subequations}
+    \begin{align}
+        \fl(x)+\fl(y)=0.00010\times 10^{-3}.
+    \end{align}
+\end{subequations}
+Cela est renormalisé et arrondi : \( \fl(x)\oplus\fl(y)=0.1000\times 10^{-6}\).
+
+Notons que nous avons ici commis potentiellement une erreur de cancellation parce que entre \( y\) et \( z\), il y a \( 3\) chiffres sur \( 4\) qui sont identiques. Seul le chiffre \( 1\) est significatif en réalité.
+
+Il faut maintenant ajouter \( x\) à cela. D'abord
+\begin{equation}
+    \fl(x)=0.1403\times 10^1.
+\end{equation}
+Pour cette somme, il faudra remettre notre \( 0.1000\times 10^{-6}\) avec une puissance \( 10^1\). Et là, nous obtenons zéro parce que vraiment ce nombre est trop petit pour être écrit avec \( 10^1\). Résultat des courses :
+\begin{equation}
+    \fl(b)=0.1403\times 10^1.
+\end{equation}
+
+
+Dans le premier calcul nous avons deux ``relations anormales'' et dans le second nous en avons une plus une cancellation.
+
+Nous préférons avoir deux relations anormales, parce que l'erreur de cancellation est plus grave : elle consiste à une perte de chiffre significatifs. Le fait est que faisant la différence à l'ordinateur nous avons obtenu \( 0.1\) qui est certes exact, mais qui est un coup de bol : la différence aurait aussi bien pu être \(0.19\) avec d'autres nombres, machinement égaux.
+
+Note : avec les données ici, il n'y a en fait pas d'erreur de cancellation. Mais il y a une erreur potentielle de cancellation, potentiellement grave.
+
+En ce qui concerne l'erreur relative. Dans la formule
+\begin{equation}
+    \epsilon_r=\frac{ | a-a^* | }{ | a | },
+\end{equation}
+la différence ne peut pas être calculée à la calculatrice justement parce qu'elle est très potentiellement sujette à erreur de cancellation.
+\begin{equation}
+    \epsilon_r=\frac{ | 0.1030001\times 10^1-0.1403\times 10^1 | }{ 0.14030001\times 10^1 }=\frac{ 0.1\times 10^{-6} }{ 0.14030001\times 10^1 }\simeq 0.712758\times 10^{-7}.
+\end{equation}
+En passant à \( 3\) chiffres significatifs, \( 0.713\times 10^{-7}\) (le premier chiffre supprimé est un \( 7\)).
+
+\end{example}
+
+\begin{example}
+    Soient \( x=0.1\times 10^{21}\) et \( y=0.5\times 10^20\) et les expressions 
+    \begin{enumerate}
+        \item
+            \( z_1=\frac{ x-y }{ y }+\frac{ x+y }{ x }\)
+        \item
+            \( z_2=\frac{ x^2+y^2 }{ xy }\).
+    \end{enumerate}
+    Ces deux expressions sont algébriquement équivalentes.
+    
+    \begin{enumerate}
+        \item
+            Calculer les valeurs.
+        \item
+            On suppose une machine en précision simple. Laquelle des deux expressions est préférable ?
+    \end{enumerate}
+
+    Pour \( z_1 \), en arithmétique exacte :
+    \begin{equation}
+        z_1=\frac{ 0.5\times 10^{20} }{ 0.5\times 10^{20} }+\frac{ 1.5\times 10^{20} }{ 1\times 10^{20} }=0.25\times 10^{1}.
+    \end{equation}
+    Le calcul exact de \( z_2\) donne la même chose.
+
+    \begin{subproof}
+
+        \item[Calcul de \( z_1\)]
+        
+            Les deux valeurs sont mémorisables et la différence \( x-y\) se fait sans erreurs de cancellation. Idem pour la somme \( x+y\). Idem pour les divisions.
+
+        \item[Calcul de \( z_2\)]
+
+            Pour faire \( x^2\), c'est pas possible parce que c'est de l'ordre de \( 10^{40}\) alors que nous sommes en précision simple. Idem pour le produit \( xy\).
+
+    \end{subproof}
+    Morale : \( z_2\) donne un \info{overflow} alors que \( z_1\) fonctionne de façon exacte.
+
+    \begin{remark}
+        En réalité le \( z_1\) n'est pas tout à fait calculable de façon exacte sur la machine parce qu'elle doit d'abord convertir en binaire, ce qui n'est pas toujours possible. Mais sur notre machine qui fonctionne en base \( 10\), il n'y a pas de problèmes.
+    \end{remark}
+
+
+\end{example}
+
+\begin{example}
+
+    Soit la fonction 
+    \begin{equation}
+        f(x)=2x^2-4x+2-e^{-x}.
+    \end{equation}
+
+    \begin{enumerate}
+        \item
+            Identifier la plus grande des solutions réelles de \( f(x)=0\).
+        \item
+            Effectuer une bisection pour la savoir.
+        \item
+            Sachant que
+            \begin{equation}
+                \alpha\simeq 1.358500220734946,
+            \end{equation}
+            quelle est l'erreur relative ?
+    \end{enumerate}
+
+    Note : si c'est pour chercher à la main des approximations pour démarrer, il est évidemment préférable de dessiner \( f_1(x)=2x^2-4x+2\) et \( f_2(x)=- e^{-x}\) séparément.
+
+    Quoi qu'il en soit, voici un graphique :
+
+\begin{center}
+   \input{auto/pictures_tex/Fig_OQTEoodIwAPfZE.pstricks}
+\end{center}
+
+    Nous voyons trois racines : \( \alpha_1\in\mathopen[ 0,0.5 ,  \mathclose]\), \( \alpha_2\in\mathopen[ 1, 1.5 \mathclose]\) et \( \alpha_0\in\mathopen[ -4 , -3.5 \mathclose]\).
+
+    La plus grande solution est \( \alpha_2\). Nous pouvons déjà remplir le tableau des précisions :
+
+    \begin{equation*}
+        \begin{array}[]{|c|c|c|c|c|c|}
+            \hline
+            n&a_n&b_n&x_n&g(x_n)&| b_n-a_n |\\
+            \hline\hline
+            <++>&<++>&<++>&<++>&<++>&0.5\\
+            \hline
+            <++>&<++>&<++>&<++>&<++>&0.25\\
+            \hline
+            <++>&<++>&<++>&<++>&<++>&0.125\\
+            \hline
+        \end{array}
+    \end{equation*}
+
+    Et nous calculons les valeurs de \( f\) aux points d'extrémité de l'intervalle. Note que seul le signe nous importe :
+    \begin{subequations}
+        \begin{align}
+            f(1)\simeq -0.368\\
+            f(1.5)\simeq 0.278.
+        \end{align}
+    \end{subequations}
+    Voici donc le tableau avec le signe de \( f\) indiqué :
+
+    \begin{equation*}
+        \begin{array}[]{|c|c|c|c|c|c|}
+            \hline
+            n&a_n&b_n&x_n&g(x_n)&| b_n-a_n |\\
+            \hline\hline
+            0&1 (+)&1.5 (-)&<++>&-0.162\times 10^{0}&0.5\\
+            \hline
+            1&<++>&<++>&<++>&<++>&0.25\\
+            \hline
+            2&<++>&<++>&<++>&<++>&0.125\\
+            \hline
+        \end{array}
+    \end{equation*}
+    Puis :
+    \begin{equation*}
+        \begin{array}[]{|c|c|c|c|c|c|}
+            \hline
+            n&a_n&b_n&x_n&g(x_n)&| b_n-a_n |\\
+            \hline\hline
+            0&1 (+)&1.5 (-)&1.25 (-)&-0.162\times 10^{0}&0.5\\
+            \hline
+            1&<++>&<++>&<++>&<++>&0.25\\
+            \hline
+            2&<++>&<++>&<++>&<++>&0.125\\
+            \hline
+        \end{array}
+    \end{equation*}
+    Et enfin :
+    \begin{equation*}
+        \begin{array}[]{|c|c|c|c|c|c|}
+            \hline
+            n&a_n&b_n&x_n&g(x_n)&| b_n-a_n |\\
+            \hline\hline
+            0&1 (+)&1.5 (-)&1.25 (-)&-0.162\times 10^{0}&0.5\\
+            \hline
+            1&1.25 (-)&1.5(+)&1.375(+)&+0.284\times 10^{-1}&0.25\\
+            \hline
+            2&1.25(-)&1.375(+)&1.3125(-)&)0.738\times 10^{-1}&0.125\\
+            \hline
+        \end{array}
+    \end{equation*}
+    Note que les \( f(x_n)\) restent toujours du même ordre de grandeur. Si un moment on voit un \( 1.6\times 10^{7}\), c'est qu'une erreur a été commise.
+
+    En ce qui concerne le calcul de l'erreur relative, la première chose à faire est de vérifier que le \( \alpha\) proposé est dans l'intervalle qui nous reste. Sinon c'est qu'une erreur a été commise.
+
+    De plus notre approximation est \( x_n=1.3125\), dont déjà deux chiffres sont corrects. En deux itérations de bisection en partant de \( 0.5\), nous ne pouvons pas nous attendre à mieux.
+    
+\end{example}
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Approximations de fonctions}
@@ -643,7 +894,50 @@ Cela donne effectivement une méthode de récurrence pour trouver les coefficien
     Il faut donc calculer en réalité tous les \( f[x_i]\) pour terminer le calcul. Par contre, pour ajouter un point, il ne faut pas tout recalculer, et même pas tout conserver en mémoire. Il faut seulement garder en mémoire la dernière diagonale.
 \end{remark}
 
-\Exo{mazhe-0005}
+\begin{example}
+
+    Soit les nœuds
+    \begin{equation*}
+        \begin{array}[]{|c||c|}
+            \hline
+            x&f(x)\\
+            \hline\hline
+            3&1\\
+            \hline
+            1&-3\\
+            \hline
+            5&2\\
+            \hline
+            6&4\\
+            \hline
+        \end{array}
+    \end{equation*}
+    Trouver le polynôme d'interpolation via la base de Newton.
+
+
+    \begin{equation*}
+        \begin{array}[]{|c||c|c|c|}
+            \hline
+            x_i&f[x_i]&f[x_i,x_j]&f[x_i,x_j,x_k]\\
+            \hline\hline
+            3&1&\frac{ 1+3 }{ 2 }=2&\frac{ f[x_0,x_1]-f[x_1,x_2] }{ x_0-x_2 }=\frac{ 2-\frac{ 5 }{ 4 } }{ -2 }=-\frac{ 3 }{ 8 }\\
+            \hline
+            1&-3&\frac{ -3-2 }{ -4 }=\frac{ 5 }{ 4 }&\frac{ \frac{ 5 }{ 4 }-2 }{ -5 }=\frac{ 3 }{ 20 }\\
+            \hline
+            5&2&\frac{ 2-4 }{ -1 }=2&\frac{ f[x_0,x_1,x_2]-f[x_1,x_2,x_3] }{ x_0-x_3 }=\frac{ 4 }{ 40 }\\
+            \hline
+            6&4&<++>&<++>\\
+            \hline
+        \end{array}
+    \end{equation*}
+    Le polynôme d'interpolation sera
+    \begin{equation}
+        P_3(x)=c_0+c_1(x-x_0)+c_2(x-x_0)(x-x_1)+c_3(x-x_0)(x-x_1)(x-x_2).
+    \end{equation}
+    
+\end{example}
+<++>
+
 
 Un exercice typique serait de donner tout pour \( 3\) points puis de demander le polynôme qui aurait un quatrième point.
 

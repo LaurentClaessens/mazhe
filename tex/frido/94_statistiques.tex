@@ -624,10 +624,110 @@ est la \defe{vraisemblance}{vraisemblance} de l'échantillon. Nous définissons 
 
 La variable aléatoire \( \hat\theta_n=\hat\theta_n(X_1,\ldots,X_n)\) est l'\defe{estimateur de maximum de vraisemblance}{estimateur!maximum de vraisemblance} de \( \theta\).
 
-\Exo{Model-0000}
-\Exo{Model-0001}
-\Exo{Model-0002}
-\Exo{Model-0003}
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Exemples sous forme d'exercices}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{example}
+    Soit \( (X_1,\ldots,X_n)\) un échantillon de loi \( \dB(1,\theta)\) avec \( \theta\in\mathopen[ 0 , 1 \mathclose]\). Trouver l'estimateur de maximum de vraisemblance de \( \theta\).
+
+    En utilisant la densité de la loi multinomiale,
+    \begin{equation}
+        p_n(x_1,\ldots,x_n;\theta)=\prod_ip(x_i,\theta)=\prod_i\theta^{x_i}(1-\theta)^{1-x_i}\mtu_{\{ 0,1 \}^n}(x_1,\ldots,x_n).
+    \end{equation}
+    En passant au logarithme, si \( x_i\in\{ 0,1 \}\),
+    \begin{equation}
+        L_n(\theta)=\sum_i x_i\ln(\theta)+(1-x_i)\ln(1-\theta)
+    \end{equation}
+    En passant à la dérivée, nous trouvons que l'extremum est donné par
+    \begin{equation}
+        \theta=\frac{1}{ n }\sum_{i=1}^nx_i.
+    \end{equation}
+\end{example}
+
+\begin{example}
+    
+    Soit \( (X_1,\ldots,X_n)\) un échantillon de loi \( \dE(\lambda)\) avec \( \theta>0\). Trouver l'estimateur de maximum de vraisemblance de \( \theta\).
+
+    Nous avons
+    \begin{equation}
+        p_n(x_1,\ldots,x_n)=\prod_{i=1}^n\theta_i e^{-\theta x_i}.
+    \end{equation}
+    En passant au logarithme la fonction à minimiser est
+    \begin{equation}
+        L(\theta)=n\ln(\theta)-\theta\sum_i x_i.
+    \end{equation}
+    La minimisation donne
+    \begin{equation}
+        \theta=\frac{ n }{ \sum_ix_i },
+    \end{equation}
+    c'est à dire
+    \begin{equation}
+        \hat\theta_n(X_1,\ldots,X_n)=\frac{ n }{ \sum_iX_i }=\frac{1}{ \bar X_n }.
+    \end{equation}
+    Ce résultat n'est pas étonnant vu que le paramètre \( \lambda\) de la loi exponentielle est l'inverse de la moyenne.
+
+\end{example}
+
+\begin{example}
+
+    Soit \( (X_1,\ldots,X_n)\), un échantillon de loi parente uniforme sur \( \mathopen[ 0 , \theta \mathclose]\) avec \( \theta>0\).
+
+    \begin{enumerate}
+        \item
+            Montrer que la fonction de vraisemblance est donnée par
+            \begin{equation}
+                L(x_1,\ldots,x_n;\theta)=\frac{1}{ \theta^n }\mtu_{\mathopen[ 0 , \infty [}\big( \min(x_1,\ldots,x_n) \big)\mtu_{\mathopen[ \max(x_1,\ldots,x_n) , \infty [}(\theta).
+            \end{equation}
+            
+        \item
+            Déterminer l'estimateur du maximum de vraisemblance de \( \theta\).
+    \end{enumerate}
+
+
+    Lorsque nous parlons de paramètres qui peuvent prendre un spectre continu de valeurs, il est inutile de calculer la \emph{probabilité} parce qu'elle est nulle. Le système de maximum de vraisemblance fonctionne avec les densités. Dans notre cas, la fonction de vraisemblance est le produit des densités :
+    \begin{subequations}
+        \begin{align}
+            L(x_1,\ldots,x_n;\theta)&=\prod_{i=1}^np(x_i;\theta)\\
+            &=\prod_i\frac{1}{ \theta }\mtu_{\mathopen[ 0, \theta \mathclose]}(x_i)\\
+            &=\frac{1}{ \theta^n }\mtu_{\mathopen[ 0 , \theta \mathclose]^n}(x_1,\ldots,x_n).
+        \end{align}
+    \end{subequations}
+    De cette expression nous voyons que \( \min\{ x_1,\ldots,x_n \}\) doit être positif en même temps que le maximum doit être plus petit que \( \theta\). Cette seconde condition peut s'écrire \( \mtu_{\mathopen[ \max\{ x_1,\ldots,x_n \} , \infty [}(\theta)\). Au final nous avons
+    \begin{equation}
+        L(x_1,\ldots,x_n;\theta)=\frac{1}{ \theta^n }\mtu_{\mathopen[ 0 , \infty [}\big( \min(x_1,\ldots,x_n) \big)\mtu_{\mathopen[ \max\{ x_1,\ldots,x_n \} , \infty [}(\theta).
+    \end{equation}
+    
+    Il n'est évidemment pas possible de dériver explicitement cette expression. Par contre pour que cette fonction soit non nulle, il faut obligatoirement \( \theta\geq\max\{ x_1,\ldots,x_n \}\). Par conséquent elle prend son maximum pour \( \theta=\max\{ x_1,\ldots,x_n \}\).
+
+    La conclusion est que l'estimateur de maximum de vraisemblance de \( \theta\) est \( \hat\theta_n=\max_i\{ X_i \}\).
+\end{example}
+
+\begin{example}
+    
+    Déterminer l'estimateur de maximum de vraisemblance de la moyenne pour un modèle statistique dans laquelle la famille de probabilités est
+    \begin{equation}
+        (\mu_{\theta})=\{ \dN(\theta,\sigma^2)\tq \theta\in\in\eR \}.
+    \end{equation}
+    Nous supposons que \( \sigma\) est connu.
+
+    La densité de la variable aléatoire conjointe \( (X_1,\ldots,X_n)\) au point \( (x_1,\ldots,x_n)\) est le produit des densités, donc
+    \begin{equation}
+        \prod_{i=1}^n\gamma_{m,\sigma}(x_1,\ldots,x_n)=\frac{1}{ \sigma^n(2\pi)^{n/2} }\exp-\frac{ 1 }{2}\left( \sum_i\left( \frac{ x_i-m }{ \sigma } \right)^2 \right).
+    \end{equation}
+    Étant donné que le but est de minimiser, nous pouvons oublier le facteur et passer au logarithme :
+    \begin{equation}
+        L_0(\bar x)=-\frac{ 1 }{2}\sum_{i=0}^n\left( \frac{ x_i-m }{ \sigma } \right)^2.
+    \end{equation}
+    Nous pouvons également supprimer le \( \frac{ 1 }{2}\) et le \( 1/\sigma^2\). La fonction à minimiser devient
+    \begin{equation}
+        L(x_1,\ldots,x_n)=-\sum_i(x_i-m)^2,
+    \end{equation}
+    dont la dérivée vaut \( 2nm-2\sum_ix_i\). Par conséquent nous avons un minimum avec
+    \begin{equation}
+        m=\frac{1}{ n }\sum_{i=1}^nx_i.
+    \end{equation}
+\end{example}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Estimation d'une fonction de répartition}
@@ -666,8 +766,106 @@ Notons que de façon générale lorsqu'on parle d'estimateurs, partout où il y 
     \end{equation}
 \end{proof}
 
-\Exo{Model-0004}
-\Exo{Model-0005}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Exemples sous forme d'exercices}
+%---------------------------------------------------------------------------------------------------------------------------
+
+
+\begin{example}
+    Dans cet exercice nous construisons un estimateur biaisé qui présente un risque quadratique inférieur à un estimateur non biaisé.
+
+    Soit un modèle statistique dont la famille de lois est \( \{ \dN(m,\sigma^2) \}_{\theta\in\mathopen] 0 , \infty \mathclose[}\) où \( m\) est un paramètre réel connu. En ce qui concerne la variance nous considérons
+    \begin{equation}
+        \hat\sigma_n^2=\frac{1}{ n }\sum_{i=1}^n(X_i-m)^2.
+    \end{equation}
+    \begin{enumerate}
+        \item
+            Montrer que \( \hat\sigma_n^2\) est un estimateur sans biais de \( \theta\).
+        \item
+            Montrer que le risque quadratique de \( \hat\sigma_n^2\) est
+            \begin{equation}
+                R(\hat\sigma_n^2,\theta)=\frac{ 2\theta^2 }{ n }.
+            \end{equation}
+        \item
+            Considérer la famille d'estimateurs \( c\hat\sigma_n^2\) avec \( c>0\). Déterminer la valeur de \( c\) qui minimise le risque quadratique de l'estimateur.
+    \end{enumerate}
+
+    \begin{enumerate}
+        \item
+            Nous calculons
+            \begin{equation}
+                \begin{aligned}[]
+                    E(\hat\sigma_n^2)&=\frac{1}{ n }\sum_i E\big[ (X_i-m)^2 \big]\\
+                    &=\frac{1}{ n }\sum_i\Var(X_i-m)-\frac{1}{ n }\sum_iE(X_i-mj^2)\\
+                    &=\frac{1}{ n }\sum_i\Var(X_i)\\
+                    &=\sigma^2.
+                \end{aligned}
+            \end{equation}
+        \item
+            Par la formule \eqref{EqRisqueetbaisiVar} nous savons que le risque d'un estimateur sans biais est donné par sa variance:
+            \begin{equation}
+                R(\hat\theta_n,\theta)=\Var(| \hat\sigma_n^2-\theta |)=\Var(\hat\sigma_n^2).
+            \end{equation}
+            Étant donné que les variables aléatoires \( X_i\) sont indépendantes et identiquement distribuées, le lemme \ref{LemVarXpYsmindep} nous enseigne que la variance de la somme est la somme des variances. Nous avons donc à calculer
+            \begin{equation}
+                \begin{aligned}[]
+                    \Var(| \hat\sigma_n^2-\theta |)&=\Var(\hat\sigma_n^2)\\
+                    &=\frac{1}{ n^2 }\sum_i\Var\big[ (X_i-m)^2 \big]\\
+                    &=\frac{1}{ n^2 }\sum_i E\big[ (X_i-m)^4 \big]-E\big[ (X_i-m)^2 \big]^2.
+                \end{aligned}
+            \end{equation}
+            Ces espérances ne sont pas très compliquées à calculer en utilisant la fonction caractéristique donnée par la proposition \ref{PropFnCaractNorm} :
+            \begin{equation}
+                \Phi_{X-m}(t)= E\big(  e^{it(X-m)} \big)= e^{-itm}E( e^{itX})= e^{-itm}\Phi_X(t)= \exp\left( -\frac{ \sigma^2t^2 }{2} \right).
+            \end{equation}
+            Nous avons \( \Phi^{(4)}(0)=3\sigma^4\) et \( \Phi''(0)=-\sigma^2\). Par conséquent
+            \begin{equation}
+                \Var(\hat\sigma_n^2)=\frac{1}{ n^2 }\sum_i2\theta^2=\frac{ 2\theta^2 }{ n }.
+            \end{equation}
+            Notez ici que \( \theta=\sigma^2\).
+
+        \item
+            En tenant compte du fait que \( \Var(\hat\sigma_n^2)=\frac{ 2\theta^2 }{ n }\) et \( E(\hat\sigma_n^2)=\theta\), nous avons
+            \begin{subequations}
+                \begin{align}
+                    E\big( (c\hat\sigma_n^2-\theta)^2 \big)&=\Var(c\hat\sigma_n^2-\theta)+E(c\hat\sigma_n^2-\theta)^2\\
+                    &=2\frac{ c^2\theta^2 }{ n }+(c-1)^2\theta^2.   \label{subeqcdtedestcthecmu}
+                \end{align}
+            \end{subequations}
+            La dérivée (par rapport à \( c\)) de cela s'annule pour \( c_0=\frac{ n }{ n+2 }\). Notons que nous n'avons pas tout à fait démontré que cela est bien un minimum. Calculons cependant le risque quadratique de notre estimateur pour cette valeur de \( c\). Pour cela nous reportons \( c=c_0\) dans l'expression \eqref{subeqcdtedestcthecmu}:
+            \begin{equation}
+                E\big( \frac{ n }{ n+2 }\hat\sigma_n^2 \big)=\frac{ 2\theta^2 }{ n+2 }.
+            \end{equation}
+            Cela est effectivement plus petit que \( R(\hat\sigma_n^2,\theta)\).
+    \end{enumerate}
+    Nous avons ainsi construit un estimateur biaisé qui a un risque quadratique plus petit que l'estimateur non biaisé.
+\end{example}
+
+\begin{example}
+    Nous considérons la famille de probabilités \( \mu_{\theta}=\dN(\theta)\) où \( \theta=(m,\sigma^2)\in\eR\times\mathopen] 0 , \infty \mathclose[\). Déterminer l'estimateur de maximum de vraisemblance du paramètre \( \theta=(m,\sigma^2)\).
+    
+    Pour chaque observation \( x_i\) nous avons une densité gaussienne. Le produit donne
+    \begin{equation}
+        p\big( x_1,\ldots,x_n;(m,\sigma^2) \big)=\frac{1}{ \sigma^2(2\pi)^{n/2} }\exp\left[ -\frac{1}{ 2\sigma^2 }\sum_i(x_i-m)^2 \right].
+    \end{equation}
+    En passant au logarithme et en supprimant des facteurs inutiles à la minimisation,
+    \begin{equation}
+        L(m,\sigma)=-n\ln(\sigma)-\frac{1}{ 2\sigma^2 }\sum_i(x_i-m)^2.
+    \end{equation}
+    L'annulation de la dérivée par rapport à \( m\) donne immédiatement \( m=\frac{1}{ n }\sum_i x_i\). L'annulation de la dérivée par rapport à \( \sigma\) donne
+    \begin{equation}
+        -n\sigma^2+\sum_i(x_i-m)^2=0
+    \end{equation}
+    et donc
+    \begin{equation}
+        \sigma^2=\frac{1}{ n }\sum_i(x_i-\bar x_n).
+    \end{equation}
+    L'estimateur de maximum de vraisemblance du couple \( \theta=(m,\sigma^2)\) est donc
+    \begin{equation}
+        \hat\theta_n=\left( \frac{1}{ n }\sum_iX_i,\frac{1}{ n }\sum_i(X_i-\bar X_n)^2 \right).
+    \end{equation}
+\end{example}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Espérance et variance d'un estimateur}
@@ -955,7 +1153,103 @@ Cet intervalle est à interpréter de la façon suivante : si nous recommençons
 \end{equation}
 vaut zéro ou un.
 
-\Exo{Model-0006}
+
+\begin{example}
+    
+    Soit un échantillon \( (X_1,\ldots,X_n)\) de loi parente \( \dN(m,\sigma^2)\) où \( m\) et \( \sigma^2\) sont inconnus. Déterminer un intervalle de confiance exact symétrique au niveau de confiance \( 1-\alpha\).
+
+    Déterminer un intervalle de confiance pour \( \sigma^2\).
+
+    Nous savons que la moyenne empirique est un estimateur de la moyenne :
+    \begin{equation}
+        \bar X_n=\frac{1}{ n }\sum_{i=1}^nX_i.
+    \end{equation}
+    Nous cherchons un intervalle du type \( I=\mathopen[ \bar X_n-\epsilon , \bar X_n+\epsilon \mathclose]\) pour lequel \( P(m\in I)=1-\alpha\). Nous savons que la variable aléatoire
+    \begin{equation}
+        \frac{ \bar X_n-m }{ \alpha/\sqrt{n} }
+    \end{equation}
+    suit une loi \( \dN(0,1)\), mais la variance est inconnue. La subtilité à savoir est que la variable aléatoire
+    \begin{equation}
+        Z=\frac{ \bar X_n-m }{ S_n/\sqrt{\sigma} }
+    \end{equation}
+    où \( S_n^2=\sum_i(X_i-\bar X_n)^2/(n-1)\) suit une loi de Student\index{Student} à \( n\) degrés de liberté \( \dT(n-1)\) en vertu du théorème de Cochran \ref{ThoCochraneChiStudent}. Comme il est usuel de le faire, nous inversons l'intervalle :
+    \begin{subequations}
+        \begin{align}
+            1-\alpha&=P\left( -\epsilon\leq \bar X_n-m\leq \epsilon \right)\\
+            &=P\left( -\frac{ \epsilon\sqrt{n} }{ S_n }\leq Z\leq \frac{ \epsilon\sqrt{n} }{ S_n } \right).
+        \end{align}
+    \end{subequations}
+    Les valeurs se trouvent dans des tables; par exemple pour \( n=10\) et \( \alpha=5\%\) nous trouvons
+    \begin{equation}
+        \frac{ \epsilon\sqrt{n} }{ S_n }=2.262.
+    \end{equation}
+    Plus généralement nous notons \( t_{n-1,1-\frac{ \alpha }{2}}\) le quantile d'ordre \( 1-\frac{ \alpha }{2}\) de la loi \( \dT(n-1)\), c'est à dire le nombre tel que
+    \begin{equation}
+        P(Z\leq t_{n-1,1-\frac{ \alpha }{2}})=1-\frac{ \alpha }{2}
+    \end{equation}
+    si \( Z\sim\dT(n-1)\). L'intervalle de confiance est alors donné par
+    \begin{equation}
+        I=\left[ \bar X_n-\frac{ t_{n-1,1-\frac{ \alpha }{2}}S_n }{ \sqrt{n} },\bar X_n+\frac{ t_{n-1,1-\frac{ \alpha }{2}}S_n }{ \sqrt{n} } \right].
+    \end{equation}
+    Cela est un intervalle exact pour \( m\) au niveau de confiance \( 1-\alpha\).
+
+    Nous pouvons aussi trouver un intervalle asymptotique en utilisant le théorème central limite :
+    \begin{equation}
+        \frac{ \bar X_n-m }{ S_n/\sqrt{n} }\stackrel{\hL}{\longrightarrow} T
+    \end{equation}
+    avec \( T\sim\dN(0,1)\). 
+
+    Rappel : dire que \( I_n\) est un \defe{intervalle de confiance asymptotique}{intervalle de confiance!asymptotique} signifie que
+    \begin{equation}
+        \lim_{n\to \infty} P(m\in I_n)= 1-\alpha.
+    \end{equation}
+
+    En ce qui concerne la variance \( \sigma^2\), l'intervalle de confiance se construit en utilisant la partie \ref{ItemThoCochraneChiStudentii} du théorème de Cochran \ref{ThoCochraneChiStudent}. Nous introduisons la variable aléatoire pivot
+    \begin{equation}
+        Z=(n-1)\frac{ S_n^2 }{ \sigma^2 }
+    \end{equation}
+    qui suit une loi \( \chi^2(n-1)\). Cette loi n'étant pas symétrique (voir figure \ref{LabelFigChiSquared}), nous n'allons pas chercher un intervalle de confiance symétrique. Nous cherchons \( c_1\) et \( c_2\) tels que
+    \begin{subequations}
+        \begin{numcases}{}
+            P\big( \sigma^2\in\mathopen[ c_1 , c_2 \mathclose] \big)=1-\alpha\\
+            P\big( \sigma^2\in\mathopen[ 0 , c_1 \mathclose] \big)=\frac{ \alpha }{2}\\
+            P\big( \sigma^2\in\mathopen[ c_2 , \infty \mathclose[ \big)=\frac{ \alpha }{2}
+        \end{numcases}
+    \end{subequations}
+    
+    La situation est représentée à la figure \ref{LabelFigChiSquaresQuantile}.
+    \newcommand{\CaptionFigChiSquaresQuantile}{L'intervalle de confiance pour une $\chi^2$.}
+    \input{auto/pictures_tex/Fig_ChiSquaresQuantile.pstricks}
+
+    Le construction des nombres \( c_1\) et \( c_2\) passe par la relation
+    \begin{equation}
+        P(c_1\leq \sigma^2\leq c_2)=P\left( \frac{ (n-1)S_n^2 }{ c_2 }\leq Z\leq\frac{ (n-1)S_n^2 }{ c_1 } \right).
+    \end{equation}
+    Nous notons \( t_{n-1,\frac{ \alpha }{2}}\) et \( t_{n-1,1-\frac{ \alpha }{2}}\) les quantiles donnés sur la figure \ref{LabelFigChiSquaresQuantile}, c'est à dire
+    \begin{subequations}
+        \begin{align}
+            P(Z\leq t_{n-1,\frac{ \alpha }{2}})=\frac{ \alpha }{2}
+            P(Z\geq t_{n-1,1-\frac{ \alpha }{2}})=1-\frac{ \alpha }{2}.
+        \end{align}
+    \end{subequations}
+    Ce que nous obtenons est
+    \begin{subequations}
+        \begin{align}
+            \frac{ (n-1)S_n^2 }{ c_2 }=t_{n-1,\frac{ \alpha }{2}}\\
+            \frac{ (n-1)S_n^2 }{ c_1 }=t_{n-1,1-\frac{ \alpha }{2}},
+        \end{align}
+    \end{subequations}
+    et par conséquent l'intervalle de confiance pour \( \sigma^2\) est
+    \begin{equation}
+        I=\left[ \frac{ (n-1)S_n^2 }{ t_{n-1,1-\frac{ \alpha }{2}} },\frac{ (n-1)S_n^2 }{ t_{n-1,1-\frac{ \alpha }{2}} } \right]
+    \end{equation}
+    avec \( P(\sigma^2\in I)=95\%\).
+    
+    \begin{remark}
+        Il n'est pas clair a priori que la longueur de l'intervalle \( I\) décroisse avec \( n\) parce qu'il y a \( n\) dans les \( t\) au numérateur.
+    \end{remark}
+
+\end{example}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Sondage de proportion}
@@ -1464,7 +1758,62 @@ La proposition suivante montre le lien entre région de confiance et les tests.
     est une région de confiance \( 1-\alpha\) pour \( \theta\).
 \end{remark}
 
-\Exo{Model-0008}
+\begin{example}
+    
+    Soit \( (X_1,\ldots,X_n)\) un échantillon de loi parente \( \dN(\theta,1)\) avec \( \theta\in\{ \theta_0,\theta_1 \}\). Nous supposons \( \theta_0<\theta_1\). Nous voulons tester \( H_0=\{ \theta_0 \}\) contre \( H_1=\{ \theta_1 \}\). Nous proposons le test suivant. La variable de décision sera \( \bar X_n\) et la région de rejet sera
+    \begin{equation}
+        W=\{ (x_1,\ldots,x_n)\in\eR^n\tq\frac{1}{ n }\sum_ix_i>\frac{ \theta_1+\theta_2 }{ 2 } \}.
+    \end{equation}
+    
+    \begin{enumerate}
+        \item
+            Donner le risque de première espèce de ce test.
+        \item
+            Soit \( 0<\alpha<1\). Pour quelle valeur de \( n\) le tests a-t-il un risque de première espèce égal à \( \alpha\) ?
+        \item
+            Donner la puissance du test.
+    \end{enumerate}
+    Les réponses peuvent être exprimées en termes de la fonction de répartition \( F\) de la loi normale centrée réduite.
+
+    Le risque de première espèce est donné par
+    \begin{equation}    \label{EqwxFBMu}
+        \alpha=P\left( \frac{1}{ n }\sum_iX_i>\frac{ \theta_0+\theta_1 }{2} \right)
+    \end{equation}
+    où les \( X_i\) sont des variables aléatoires indépendantes et identiquement distribuées de loi parente \( \dN(\theta_0,1)\). Cela est la probabilité d'être dans la région de rejet alors que l'hypothèse \( H_0\) est vraie. La formule \eqref{EqwxFBMu} se transforme en
+    \begin{subequations}
+        \begin{align}
+        \alpha&=P\left( \frac{ \frac{1}{ n }\sum X_i-\theta_0 }{ 1/\sqrt{n} }>\frac{ \frac{ \theta_0+\theta_1 }{2}-\theta_0 }{ 1/\sqrt{n} } \right)\\
+        &=P(T>\sqrt{n}\frac{ \theta_1-\theta_0 }{2}).
+        \end{align}
+    \end{subequations}
+    En termes de la fonction de répartition nous avons alors
+    \begin{equation}
+        \alpha=1-F\big( \sqrt{n}\frac{ \theta_1-\theta_0 }{2} \big)
+    \end{equation}
+    Il s'agit maintenant de trouver le nombre \( n\) qui réalise cette égalité. Pour cela nous utilisons l'inverse \( F^{-1}\) de la fonction de répartition de la normale :
+    \begin{equation}    \label{EqQLFsJpi}
+        n=\left( \frac{ 2 }{ \theta_1-\theta_0 }F^{-1}(1-\alpha) \right)^2.
+    \end{equation}
+    Le risque de seconde espèce est la possibilité d'accepter \( H_0\) lorsque \( H_1\) est vraie, c'est à dire
+    \begin{equation}        \label{EqBKQoyL}
+        \beta=P\left( \frac{1}{ n }\sum_i X_i<\frac{ \theta_0+\theta_1 }{2} \right)
+    \end{equation}
+    sous l'hypothèse \( H_1\). Dans le calcul de \eqref{EqBKQoyL} nous prenons donc \( X_i\sim\dN(\theta_1,1)\). Le résultat est que
+    \begin{equation}
+        \beta=F\big( \sqrt{n}\frac{ \theta_0-\theta_1 }{2} \big).
+    \end{equation}
+    
+    \begin{remark}
+        L'expression \eqref{EqQLFsJpi} diminue lorsque \( \theta_0\) et \( \theta_1\) s'éloignent, ce qui est normal : plus les nombres à discerner sont éloignés, moins l'échantillon à prendre pour réaliser le travail doit être grand.
+
+        Notons aussi que \( \theta_0-\theta_1<0\), par conséquent augmenter \( n\) diminue la valeur de 
+        \begin{equation}
+            \beta=F\big( \sqrt{n}\frac{ \theta_0-\theta_1 }{2} \big)
+        \end{equation}
+    \end{remark}
+\end{example}
+<++>
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Tests d'adéquation}

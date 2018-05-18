@@ -6,7 +6,7 @@ from __future__ import division
 from phystricks import *
 def JJAooWpimYW():
     pspict,fig = SinglePicture("JJAooWpimYW")
-    pspict.dilatation_X(1)
+    pspict.dilatation_X(0.8)
     pspict.dilatation_Y(1)
 
     x=var('x')

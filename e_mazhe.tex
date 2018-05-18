@@ -17,6 +17,7 @@
 \usepackage{mathabx}           % For \divides et \widehat.
 \usepackage{bbm}
 
+
 \usepackage{wrapfig}
 \usepackage{framed}
 \let\Sun\undefined
@@ -49,7 +50,10 @@
 \usepackage{color}
 \usepackage{graphicx}                   % Pour l'inclusion d'image en pfd.
 
+\usepackage[subfigure]{tocloft}        % Increase the size to the box containing the section number in the TOC. If not, ``10.20.12`` is too long
+\renewcommand\cftsubsecnumwidth{1.5cm}
 \usepackage{subfigure}
+
 \usepackage{fancyvrb}
 \usepackage{stmaryrd}       % Pour le \obslash
 \usepackage{xstring}        % Utilisé pour les références vers wikipédia
@@ -76,7 +80,9 @@
 \usepackage[refpage]{nomencl}       % Some configuration at   1338719836
 \usepackage{array}
 
-\usepackage[fr]{exocorr}
+% We do not use 'exocorr' for Frido.
+\ifbool{isFrido}{}{\usepackage[fr]{exocorr} }
+
 
 \usepackage[english,french]{babel}
 \frenchsetup{
@@ -734,7 +740,11 @@
 \makeatletter
 \@addtoreset{numtho}{chapter}
 \@addtoreset{equation}{chapter}
-\@addtoreset{CountExercice}{chapter}
+%\ifbool{isFrido}{}
+%{
+%    \@addtoreset{CountExercice}{chapter}
+%}
+
 \makeatother
 
 \newlength{\EnvSpace}
@@ -797,11 +807,17 @@
             \newtheorem{lemmaDef}[numtho]{Lemme-définition}
 			\newtheorem{loiphyz}[numloiphyz]{Loi numéro}
 
-            \newtheorem{exo}[CountExercice]{Exercice}       % C'est provisoire, pour Chafaï
+            %\newtheorem{exo}[CountExercice]{Exercice}       % C'est provisoire, pour Chafaï
 
 % La numérotation des équations change dans les corrigés
 \renewcommand{\theequation}{\thechapter.\arabic{equation}}
-\renewcommand{\theCountExercice}{\arabic{CountExercice}}       % Ce compteur est défini dans SystemeCorr.sty
+
+% This counter is defined in SystemeCorr.sty.
+%\ifbool{isFrido}{}{
+%    \renewcommand{\theCountExercice}{\arabic{CountExercice}}       
+%}
+
+
 \newcommand{\defe}[2]{\textbf{#1}\index{#2}}
 
 \renewcommand{\labelenumi}{\theenumi}
@@ -1038,7 +1054,7 @@ Permission is granted to copy, distribute and/or modify this document under the 
 \newcommand*{\ideal}[1]{\{#1\}}
 \newcommand*{\fleche}[1]{\stackrel{#1}\longrightarrow}
 
-\setcounter{CountExercice}{0}
+%\setcounter{CountExercice}{0}
 
 \newcommand{\Acplx}{A_\cdot}
 \newcommand{\Bcplx}{B_\cdot}
@@ -1101,6 +1117,45 @@ Permission is granted to copy, distribute and/or modify this document under the 
   \mbox{$#1{\scriptstyle #3}$}}
 
 
+
+% The following uses xstring in order to replace specific characters by %xx codes.
+% See the table http://www.utf8-chartable.de/
+\newcommand{\MakeUTFPerCent}[1]{% 
+   \StrSubstitute{#1}({\%28}[\result]% 
+   \expandafter\StrSubstitute\expandafter{\result}){\%29}[\result]% 
+   \expandafter\StrSubstitute\expandafter{\result}{à}{\%C3\%A0}[\result]% 
+   \expandafter\StrSubstitute\expandafter{\result}{â}{\%C3\%A2}[\result]% 
+   \expandafter\StrSubstitute\expandafter{\result}{ç}{\%C3\%A7}[\result]% 
+   \expandafter\StrSubstitute\expandafter{\result}{è}{\%C3\%A8}[\result]% 
+   \expandafter\StrSubstitute\expandafter{\result}{é}{\%C3\%A9}[\result]% 
+   \expandafter\StrSubstitute\expandafter{\result}{ê}{\%C3\%AA}[\result]% 
+   \expandafter\StrSubstitute\expandafter{\result}{ù}{\%C3\%B9}[\result]% 
+   \expandafter\StrSubstitute\expandafter{\result}{û}{\%C3\%BB}[\result]% 
+   \expandafter\StrSubstitute\expandafter{\result}{ô}{\%C3\%B4}[\result]% 
+   \expandafter\StrSubstitute\expandafter{\result}_{\_}[\result]% 
+} 
+
+   %\expandafter\StrSubstitute\expandafter{\result}{#}{\%23}[\result]%       If you want a # in the URL you still have to write \# in the source.
+
+%------------------------
+% Links to wikipedia.
+%------------------------
+% Typical use is
+% \wikipedia{fr}{Norme_(mathématiques)}{Norme}
+% It creates the link \href to the right page on wikipedia, replacing special characters by their respective %xx codes.
+\newcommand{\wikipedia}[3]{% 
+   \saveexpandmode\noexpandarg 
+   \MakeUTFPerCent{#2}% 
+   \restoreexpandmode 
+   \href{http://#1.wikipedia.org/wiki/\result}{#3}% 
+} 
+
+\newcommand{\wikiversity}[3]{% 
+   \saveexpandmode\noexpandarg 
+   \MakeUTFPerCent{#2}% 
+   \restoreexpandmode 
+   \href{http://#1.wikiversity.org/wiki/\result}{#3}% 
+} 
 
 
 % 1410612643  :   L'option amssymb sert à éviter un conflit avec la commande \square de amssymb. Note que cette dernière n'est plus accessible.
