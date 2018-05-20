@@ -580,7 +580,7 @@ au point \( x\) appliquée à \( v^{(1)}\) appliquée au point \( v^{(2)}\), \ld
 % TODO : une preuve serait importante.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Développement asymptotique, théorème de Taylor}
+\section{Polynômes de Taylor}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \label{AppSecTaylorR}
 
@@ -631,7 +631,7 @@ Le théorème de Taylor généralise le développement limité au premier ordre 
     \end{equation}
 \end{normaltext}
 
-\begin{proposition}[\cite{ooSZKEooLejXAh}]
+\begin{proposition}[\cite{ooSZKEooLejXAh}]      \label{PROPooUYCMooQjeXpn}
     Soit une fonction \( f\) qui est \( n\) fois dérivable sur l'intervalle ouvert \( I\subset \eR\) contenant \( a\). Alors
     \begin{equation}
         \lim_{x\to a} \frac{ R_n(x) }{ (x-a)^n }=\lim_{x\to a} \frac{ f(x)-P_n(x) }{ (x-a)^n }=0
@@ -644,9 +644,41 @@ Le théorème de Taylor généralise le développement limité au premier ordre 
     \begin{equation}
         R_n^{(k)}(a)=0
     \end{equation}
-    pour \( k=0,\ldots, n\).
+    pour \( k=0,\ldots, n\). En posant d'autre par \( s(x)=(x-a)^n\) nous avons \( s^{(k)}(a)=0\) pour tout \( k=0,\ldots, n-1\). Par conséquent la règle de l'Hospital de la proposition \ref{PROPooBZHTooHmyGsy} s'applique au quotient \( R_n(x)/s(x)^n\). En l'utilisant \( n\) fois,
+    \begin{equation}
+        \lim_{x\to a} \frac{ R_n(x) }{ s(x) }=\lim_{x\to a} \frac{ R^{(k)}(x) }{ k!(x-a)^0 }=\frac{ 0 }{ k! }=0.
+    \end{equation}
 \end{proof}
-<++>
+
+Nous démontrons à présent que le polynôme de Taylor est le seul à avoir la propriété de la proposition \ref{PROPooUYCMooQjeXpn}.
+\begin{proposition}[\cite{ooSZKEooLejXAh}]
+    Soit \( f\), une fonction \( n\) fois dérivable sur l'intervalle \( I\subset \eR\) contenant \( 0\). Soit un polynôme \( Q\) de degré \( n\) (ou moins) tel que
+    \begin{equation}    \label{EQooXPTIooOZqBaD}
+        \lim_{x\to a} \frac{ f(x)-Q(x) }{ (x-a)^n  }=0.
+    \end{equation}
+    Alors \( Q\) est le polynôme de Taylor de degré \( n\) pour \( f\) en \( a\) ci-après simplement noté \( P_n\).
+\end{proposition}
+
+\begin{proof}
+    D'après la proposition \ref{PROPooUYCMooQjeXpn}, la fonction \( f-P_n\) vérifie la même limite que \( f-Q\). DOnc \( P_n-Q\) vérifie également la limite
+    \begin{equation}        \label{EQooYBHHooEgZxtk}
+        \lim_{x\to 0} \frac{ (P_n-Q)(x) }{ x^n }=0.
+    \end{equation}
+    Nous notons \( P_n(x)=\sum_{k=0}^na_kx^k\) et \( Q(x)=\sum_{k=0}^nb_kx^k\). La relation \eqref{EQooYBHHooEgZxtk} donne en particulier 
+    \begin{equation}
+        \lim_{x\to 0} (P_n-Q)(x)=0
+    \end{equation}
+    qui donne \( a_0-b_0=0\). Nous continuons par récurrence en supposant que \( a_i=b_i\) pour \( i=0,\ldots, k\). Alors
+    \begin{equation}
+        0=\lim_{x\to 0} \frac{ (P_n-Q)(x) }{ x^{k+1} }=\lim_{x\to 0} \sum_{l=k+1}^n(a_l-b_l)x^{l-(k+1)}.
+    \end{equation}
+    Le seul terme non nul à droite est celui vérifiant \( l-(k+1)=0\). Et ce terme donne l'équation
+    \begin{equation}
+        a_{k+1}-b_{k+1}=0,
+    \end{equation}
+    c'est à dire \( a_{k+1}=b_{k+1}\). La récurrence continue ainsi jusqu'à \( k=n\), et nous pouvons conclure que \( Q=P_n\).
+\end{proof}
+L'intérêt de cette proposition est que si l'on trouve, par n'importe quel moyen, un polynôme \( Q\) vérifiant la condition \eqref{EQooXPTIooOZqBaD}, alors nous savons que c'est le polynôme de Taylor.
 
 \begin{theorem}[Théorème de Taylor\cite{TrenchRealAnalisys,ooCNZAooJEcgHZ}]		\label{ThoTaylor}
 Soit $I\subset$ un intervalle non vide et non réduit à un point de $\eR$ ainsi que $a\in I$. Soit une fonction $f\colon I\to \eR$ telle que $f^{(n)}(a)$ existe. Alors il existe une fonction $\alpha$ définie sur $I$ et à valeurs dans $\eR$ vérifiant les deux conditions suivantes :
@@ -657,9 +689,15 @@ Soit $I\subset$ un intervalle non vide et non réduit à un point de $\eR$ ainsi
 	\end{align}
 \end{subequations}
 pour tout \( x\in I\). Ici $f^{(k)}$ dénote la $k$-ième dérivée de $f$ (en particulier, $f^{(0)}=f$, $f^{(1)}=f'$).\nomenclature{$f^{(n)}$}{La $n$-ième dérivée de la fonction $f$}
-
-Le polynôme $T^a_{f,n}$ est le \defe{polynôme de Taylor}{Taylor} de $f$ au point $a$ à l'ordre $n$.
 \end{theorem}
+
+\begin{proof}
+    Si \( R_n(x)=f(x)-P_n(x)\), il suffit de poser
+    \begin{equation}
+        \alpha(x)=R_n(x)(x-a)^n
+    \end{equation}
+    et d'utiliser la proposition \ref{PROPooUYCMooQjeXpn}.
+\end{proof}
 
 \begin{remark}
     Quelque remarques.
@@ -671,7 +709,6 @@ Le polynôme $T^a_{f,n}$ est le \defe{polynôme de Taylor}{Taylor} de $f$ au poi
     \end{enumerate}
 \end{remark}
 
-
 \begin{normaltext}
     Les conditions \eqref{SubEqsDevTauil} sont souvent aussi énoncées sous la forme qu'il existe une fonction \( \alpha\) telle que
     \begin{subequations}    \label{SUBEQooPYABooKpDgdu}
@@ -682,8 +719,51 @@ Le polynôme $T^a_{f,n}$ est le \defe{polynôme de Taylor}{Taylor} de $f$ au poi
     \end{subequations}
 \end{normaltext}
 
-Voici un énoncé pour les fonctions à plusieurs variables.
+Le théorème suivant donne une expression pas tout à fait explicite, mais pas mal quand même pour le reste de Taylor.
+\begin{theorem}
+    Soient un intervalle ouvert \( I\subset \eR\) ainsi que \( a,b\in I\) (\( a\neq b\)). Nous avons l'égalité
+    \begin{equation}
+        f(b)=\sum_{k=0}^n\frac{ f^{(k)}(a) }{k!}(b-a)^k+\frac{ f^{(n+1)}(c) }{ (n+1)! }(b-a)^{n+1}.
+    \end{equation}
+\end{theorem}
 
+\begin{proof}
+    Nous posons
+    \begin{equation}
+        R(x)=f(x)-P_n(x)=f(x)-\sum_{k=0}^n\frac{ f^{(k)}(a) }{ k! }(x-a)^k.
+    \end{equation}
+    Cela vérifie \( R(a)=f(a)-f(a)=0\) et même
+    \begin{equation}
+        R^{(j)}(a)=0
+    \end{equation}
+    pour tout \( j=1,\ldots, n\). Nous posons encore
+    \begin{equation}
+        F(x)=R(x)-\frac{ R(b) }{ (b-a)^{n+1} }(x-a)^{n+1}.
+    \end{equation}
+    Nous avons \( F^{(j)}(a)=0\) pour tout \( j=0,\ldots, n\) ainsi que
+    \begin{equation}
+        F(b)=R(b)-\frac{ R(b) }{ (b-a)^{n+1} }(b-a)^{n+1}=0.
+    \end{equation}
+    et aussi
+    \begin{equation}
+        F(a)=R(a)-0=0.
+    \end{equation}
+Bref, la fonction \( F\) vérifie les conditions de la généralisation \ref{PROPooCPCAooJjOZNy} du lemme de Rolle. Il existe donc \( c\in\mathopen] a , b \mathclose[\) tel que \( F^{(n+1)}(c)=0\). Mais vu que \( P_n^{(n+1)}(x)=0\), nous avons \( R^{(n+1)}(x)=f^{(n+1)}(x)\), de telle sorte que
+    \begin{equation}
+        f^{(n+1)}(c)=\frac{ R(b)(n+1)! }{ (b-a)^{n+1} }.
+    \end{equation}
+    En injectant cela dans la définition de \( F\)
+    \begin{equation}
+        F(x)=R(x)-\frac{ f^{(n+1)}(c) }{ (n+1)! }(x-a)^{n+1}.
+    \end{equation}
+    En évaluant en \( x=b\), et en nous souvenant que \( F(b)=0\), nous trouvons
+    \begin{equation}
+        0=R(b)-\frac{ f^{(n+1)}(c) }{ (n+1)! }(b-a)^{n+1}
+    \end{equation}
+    qui est ce que nous voulions prouver.
+\end{proof}
+
+Voici un énoncé pour les fonctions à plusieurs variables.
 \begin{theorem}[\cite{ooLZSZooIOILHY}]      \label{THOooTDFRooEkChgi}
     Si \( f\colon E\to \eR\) est une application \( n\) fois différentiable en \( a\in E\) alors il existe une fonction \( \epsilon\colon \eR\to \eR\) telle que
     \begin{subequations}
