@@ -301,7 +301,7 @@ La méthode adoptée ici est la suivante :
     définit une fonction dérivable solution de
     \begin{subequations}
         \begin{numcases}{}
-            y'=y\\
+            y'=y        \label{EQooSEIHooNmQKiC}\\
             y(0)=1.
         \end{numcases}
     \end{subequations}
@@ -766,7 +766,7 @@ Si \( u\colon \eR\to \mathopen] 0 , \infty \mathclose[\) est dérivable alors \(
 \end{proof}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Taylor pour l'exponentielle et le logarithme}
+\subsection{Taylor pour l'exponentielle}
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{proposition}[Développement de l'exponentielle]       \label{PROPooQBRGooAhGrvP}
@@ -780,44 +780,31 @@ Si \( u\colon \eR\to \mathopen] 0 , \infty \mathclose[\) est dérivable alors \(
     Il s'agit de la proposition \ref{PROPooQLHNooRsBYbe} appliquée à la série entière \eqref{DEFooSFDUooMNsgZY}.
 \end{proof}
 
-\begin{proposition}[\cite{MonCerveau}]     \label{PROPooWCUEooJudkCV}
-    Soit la fonction
-    \begin{equation}
-        \begin{aligned}
-        f\colon \mathopen] -1 , \infty \mathclose[&\to \eR \\
-            x&\mapsto \ln(1+x). 
-        \end{aligned}
-    \end{equation}
-    Pour tout \( n\), il existe une fonction \( \alpha\colon \eR\to \eR\) telle que \( \lim_{t\to 0} \alpha(t)=0\) et
-    \begin{equation}
-        f(x)=\sum_{k=1}^n\frac{ (-1)^{k+1} }{ k }x^k+\alpha(x)x^n
-    \end{equation}
-    pour tout \( x\) dans le domaine de \( f\).
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Analycité}
+%---------------------------------------------------------------------------------------------------------------------------
 
-    Notez la somme qui part de \( k=1\) et non \( k=0\).
-\end{proposition}
+Vu que \( \exp(x)\) est défini par une série entière (définition \ref{DEFooSFDUooMNsgZY}) et vu la proposition \ref{PROPooTRWVooETTtbP}, il n'est pas étonnant que \( \exp\) soit analytique. Traitons ce cas.
 
-\begin{proof}
-    Nous utilisons la formule de Taylor-Young (proposition \ref{PropVDGooCexFwy}). La première dérivée de \( f\) se calcule en utilisant le lemme \ref{LEMooTGCBooJdkLpg} :
-    \begin{equation}
-        f'(x)=\frac{1}{ 1+x }.
-    \end{equation}
-    Pour les dérivées suivantes, c'est juste du calcul et nous pouvons prouver par récurrence que
-    \begin{equation}
-        f^{(k)}(x)=\frac{ (k-1)!(-1)^{k+1} }{ (1+x)^k }.
-    \end{equation}
-    En ce qui concerne l'évaluation en zéro :
-    \begin{equation}
-        f^{(k)}(0)=\begin{cases}
-            0    &   \text{si } k=0\\
-            (k-1)!(-1)^{k+1}    &    \text{sinon.}
-        \end{cases}
-    \end{equation}
-    Du fait que \( f^{(0)}(0)=\ln(1)=0\), la somme commence à \( k=1\) et non \( k=0\). Nous avons
-    \begin{equation}
-        f(x)=\sum_{k=1}^{n}\frac{ f^{(k)}(0) }{ k! }x^k+\alpha(x)x^n=\sum_{k=1}^n\frac{ (-1)^{k+1} }{ k }x^k+\alpha(x)x^n.
-    \end{equation}
-\end{proof}
+\begin{example}[Analycité de l'exponentielle]
+   Soient \( a\in \eR\) et \( R>0\). Nous démontrons que \( \exp\) est analytique sur \( B(a,R)\). Si \( f(x)= e^{x}\), alors \( f^{(n)}(x)= e^{x}\) pour tout \( n\) (équation \eqref{EQooSEIHooNmQKiC}). Nous avons donc
+   \begin{equation}
+       | f^{(n)}(x) |< e^{a+R}
+   \end{equation}
+   pour tout \( x\in B(a,R)\). Nous partons de l'expression \eqref{THOooEUVEooXZJTRL} du reste :
+   \begin{equation}
+       | R_n(x) |\leq \frac{ M_n }{ (n+1)! }| x-a |^{n+1}\leq \frac{  e^{a+R} }{ (n+1)! }R^{n+1}.
+   \end{equation}
+   Mais nous avons la limite 
+   \begin{equation}
+       \lim_{n\to \infty} \frac{ R^{n+1} }{ (n+1)! }=0
+   \end{equation}
+   pour tout \( R\). 
+
+   Donc avec les polynômes de Taylor \( P_n\) calculés en \( a\), nous avons \( P_n\to \exp\) simplement sur \( \eR\).
+
+   Nous pouvons donc développer la fonction exponentielle autour de n'importe quel point, et avoir convergence des polynômes vers l'exponentielle sur tout \( \eR\). Vous accepterez cependant que si \( a\) et \( x\) sont éloignés, la convergence \( P_n(x)\to \exp(x)\) peut être extrêmement lente.
+\end{example}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Autres propriétés et petits calculs}
@@ -912,18 +899,125 @@ Si \( a,b\in\mathopen] 0 , \infty \mathclose[\) alors
     et comme \( \alpha(n)\to 1\), la parenthèse tend vers \( 1\).
 \end{proof}
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Taylor pour le logarithme}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Vu que \( \ln(0)\) n'existe pas, il n'est pas question de développer \( \ln\) autour de \( x=0\). À la place, nous allons le développer autour de \( x=1\) et plus précisément nous allons étudier Taylor pour la fonction \( f(x)=\ln(1+x)\). Les résultats seront résumés dans la proposition \ref{PROPooKPBIooJdNsqX}.
+
+\begin{proposition}[\cite{MonCerveau}]     \label{PROPooWCUEooJudkCV}
+    Soit la fonction
+    \begin{equation}
+        \begin{aligned}
+        f\colon \mathopen] -1 , \infty \mathclose[&\to \eR \\
+            x&\mapsto \ln(1+x). 
+        \end{aligned}
+    \end{equation}
+    Pour tout \( n\), il existe une fonction \( \alpha\colon \eR\to \eR\) telle que \( \lim_{t\to 0} \alpha(t)=0\) et
+    \begin{equation}
+        f(x)=\sum_{k=1}^n\frac{ (-1)^{k+1} }{ k }x^k+\alpha(x)x^n
+    \end{equation}
+    pour tout \( x\) dans le domaine de \( f\).
+
+    Notez la somme qui part de \( k=1\) et non \( k=0\).
+\end{proposition}
+
+\begin{proof}
+    Nous utilisons la formule de Taylor-Young (proposition \ref{PropVDGooCexFwy}). La première dérivée de \( f\) se calcule en utilisant le lemme \ref{LEMooTGCBooJdkLpg} :
+    \begin{equation}
+        f'(x)=\frac{1}{ 1+x }.
+    \end{equation}
+    Pour les dérivées suivantes, c'est juste du calcul et nous pouvons prouver par récurrence que
+    \begin{equation}        \label{EQooKEAOooGmTLJF}
+        f^{(k)}(x)=\frac{ (k-1)!(-1)^{k+1} }{ (1+x)^k }.
+    \end{equation}
+    En ce qui concerne l'évaluation en zéro :
+    \begin{equation}
+        f^{(k)}(0)=\begin{cases}
+            0    &   \text{si } k=0\\
+            (k-1)!(-1)^{k+1}    &    \text{sinon.}
+        \end{cases}
+    \end{equation}
+    Du fait que \( f^{(0)}(0)=\ln(1)=0\), la somme commence à \( k=1\) et non \( k=0\). Nous avons
+    \begin{equation}
+        f(x)=\sum_{k=1}^{n}\frac{ f^{(k)}(0) }{ k! }x^k+\alpha(x)x^n=\sum_{k=1}^n\frac{ (-1)^{k+1} }{ k }x^k+\alpha(x)x^n.
+    \end{equation}
+\end{proof}
+
+Nous étudions les polynômes de la série de Taylor pour
+\begin{equation}
+    \begin{aligned}
+    f\colon \mathopen] -1 , \infty \mathclose[&\to \eR \\
+        x&\mapsto \ln(1+x). 
+    \end{aligned}
+\end{equation}
+
+Les dérivées successives de \( f\) ont déjà été calculées en \eqref{EQooKEAOooGmTLJF}. Nous développons autour de \( x=0\). Donc \( f(0)=\ln(1)=0\) et pour les autres,
+\begin{equation}
+    f^{(k)}(0)=(-1)^{k+1}(k-1)!.
+\end{equation}
+Pour les polynômes de Taylor, nous avons
+\begin{equation}
+    P_n(x)=\sum_{k=1}^n\frac{ (-1)^{k+1} }{ k }x^k
+\end{equation}
+où vous noterez la somme qui part de \( k=1\) et non de \( k=0\). Nous avons aussi la série de Taylor de \( f\) donnée par
+\begin{equation}        \label{EQooTAREooKfpTPo}
+    T(x)=\sum_{k=1}^{\infty}\frac{ (-1)^{k+1} }{ k }x^k.
+\end{equation}
+La somme est une limite ponctuelle, là où elle existe.
+
+Jusqu'à présent, la seule certitude à props de \( T\) est que \( T(0)=f(0)=0\). Pour le reste :
+\begin{itemize}
+    \item Rien ne dit que \( T(x)\) existe pour d'autres \( x\) que \( x=1\).
+    \item Et même si \( T(x)\) existait pour d'autres \( x\) (c'est à dire si le rayon de convergence de \eqref{EQooTAREooKfpTPo} était strictement plus grand que zéro), rien n'assurerait que la valeur serait celle de \( f\).
+    \item Et même si \( T(x)\) convergeait vers \( f\) sur son disque de convergence, ce ne serait pas encore assez pour dire que \( f\) est analytique, parce que l'analycité demande que les séries de Taylor autour de \emph{chaque} point converge vers \( f\). Or ici nous ne parlons encore que de \( T\) qui est la série autour de \( x=0\).
+\end{itemize}
+
+\begin{lemma}
+    La série de Taylor de \( x\mapsto \ln(1+x)\) autour de \( x=0\) converge sur \( \mathopen] -1 , 1 \mathclose]\).
+\end{lemma}
+
+\begin{proof}
+        
+    En ce qui concerne le rayon de convergence de \( T\), nous utilisons la formule de Hadamard\footnote{Théorème \ref{ThoSerPuissRap}.} avec
+    \begin{equation}
+        a_k=\frac{ (-1)^{k+1} }{ k }.
+    \end{equation}
+    Ce que nous trouvons est
+    \begin{equation}
+        \frac{1}{ R }=\lim_{k\to \infty} | \frac{ a_{k+1} }{ a_k } |=\lim_{k\to \infty} \frac{ k }{ k+1 }=1.
+    \end{equation}
+    Le rayon de convergence de \( T\) est donc \( 1\). Nous avons donc que \( P_n\to T\) sur \( \mathopen] -1 , 1 \mathclose[\), et peut-être que \( P_n\to T\) en \( x=\pm 1\).
+
+    Pour \( x=-1\). L'intuition nous dit que ce serait \( \ln(0)\) qui n'est pas défini. C'est le cas parce que 
+    \begin{equation}
+        P_n(-1)=\sum_{k=1}^n\frac{ (-1)^{k+1}(-1)^k }{ k }=-\sum_{k=1}^n\frac{1}{ k }.
+    \end{equation}
+    La limite \( n\to \infty\) diverge. Donc \( T\) n'est pas définie en \( x=-1\).
+
+    Pour \( x=1\) par contre,
+    \begin{equation}
+        P_n(1)=\sum_{k=1}^n\frac{ (-1)^{k+1} }{ k }.
+    \end{equation}
+    
+
+\end{proof}
+<++>
+
 \begin{proposition}     \label{PROPooKPBIooJdNsqX}
-    Pour tout \( x\in\mathopen] -1 , 1 \mathclose[\) nous avons
+Pour tout \( x\in\mathopen] -1 , 1 \mathclose]\) nous avons
     \begin{equation}        \label{EqweEZnV}
-        -\ln(1-x)=\sum_{n=1}^{\infty}\frac{ x^n }{ n }.
+        \ln(1+x)=\sum_{k=1}^{\infty}\frac{ (-1)^{k+1} }{ k }x^k
     \end{equation}
     De plus nous avons
     \begin{equation}    \label{EqKUQmOZ}
-        \sum_{n=1}^{\infty}\frac{ (-1)^n }{ n }=-\ln(2).
+        \sum_{k=1}^{\infty}\frac{ (-1)^k }{ k }=\ln(2).
     \end{equation}
 \end{proposition}
 
 \begin{proof}
+
+
     La série \eqref{EqKUQmOZ} serait \( f(-1)=-\ln(2)\) où \( f\) est la série de fonctions \eqref{EqweEZnV}. Nous utilisons le théorème de convergence radiale d'Abel (théorème~\ref{ThoLUXVjs}) pour justifier cette réponse :
     \begin{equation}
         \sum_n\frac{ (-1)^n }{ n }

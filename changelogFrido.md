@@ -1,5 +1,11 @@
 # Changelog du Frido
 
+## Polynômes et série de Taylor (mai 2018)
+
+- Une démonstration du théorème de de Taylor avec son reste classique (il existe c dans ]a,b[ tel que \ldots).
+- Définition de fonction analytique
+- exemple de ln(1+x)
+
 ## Suppression de exocorr (mai 2018)
 
 - Le paquet LaTeX personnel `exocorr` n'est plus nécessaire pour compiler le Frido.

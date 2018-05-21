@@ -593,7 +593,6 @@ La proposition suivante sera surtout utile lorsqu'on parlera de dérivée.
 
 \begin{remark}
     Au fond, cette proposition n'est rien d'autre que dire que dans \( n^\alpha r^n\), l'effet «convergent» est \( r^n\) qui est une décroissance exponentielle tandis que l'effet «divergent» est \( n^{\alpha}\) qui a une croissance seulement polynomiale.
-
 \end{remark}
 
 \begin{theorem}[Formule de Hadamard]\index{formule!Hadamard}\index{Hadamard!formule}		\label{ThoSerPuissRap}
@@ -1037,6 +1036,7 @@ Vu que le rayon de convergence ne varie pas par la dérivation ou par l'intégra
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Séries de Taylor}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SECooDWRMooUKSuPh}
 
 \begin{normaltext}
     Avant de commencer, une petite formule de dérivation toute simple que nous allons utiliser souvent :
@@ -1096,13 +1096,77 @@ Le polynôme de Taylor d'une fonction définie par une série entière s'obtient
 \end{proof}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Une majoration pour le reste}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}       \label{LEMooOVPIooAPWFOm}
+    Soit une fonction \( f\colon \eR\to \eR\) dérivable \( n+1\) fois sur \( B(a,R)\). Alors pour tout \( x\in B(a,r)\),
+    \begin{equation}
+        f(x)=f(a)+\sum_{k=1}^{n-1}\frac{ (x-a)^{k} }{ k! }f^{(k)}(a)+\int_a^{x}\ldots\int_a^{u_{n-1}}f^{(n)}(u_n)du_1\ldots du_1.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Nous allons intensivement utiliser le théorème fondamental du calcul intégral \ref{ThoRWXooTqHGbC} sous la forme de la formule \eqref{EqooBBCYooNweVrF}. Nous avons d'abord
+    \begin{equation}
+        f(x)=f(a)+\int_a^x f'(u_1)du_1=\int_a^x\big[ f'(a)+\int_a^{u_1}f''(u_2)du_2 \big]du_1.
+    \end{equation}
+    Toute l'astuce de ce théorème est de continuer à substituer \( f^{(k)}(t)\) par \( f^{(k)}(a)\) plus une intégrale de \( a\) à \( t\) de \( f^{(k+1)}(u)\). Nous démontrons ainsi par récurrence que
+    \begin{equation}        \label{EQooOWJMooHATpMV}
+        f(x)=f(a)+\sum_{k=1}^{n-1}\frac{ (x-a)^k }{ k! }f^{(k)}(a)+\int_a^x\cdots\int_a^{u_{n-1}}f^{(n)}(u_n)du_n\ldots du_1.
+    \end{equation}
+    La preuve de cela se fait en substituant
+    \begin{equation}
+        f^{(n)}(u_n)=f^{(n)}(a)+\int_{a}^{u_n}f^{(n+1)}(u_{n+1})du_{n+1}
+    \end{equation}
+    et en remarquant (encore par récurrence par exemple) que
+    \begin{equation}
+        \int_a^x\ldots \int_a^{u_{n-1}}du_n\ldots du_1=\frac{ (x-a)^n }{ n! }.   
+    \end{equation}
+\end{proof}
+
+Le théorème suivant donne majoration du reste du polynôme de Taylor. Il est un premier pas dans la démonstration de formules comme
+\begin{equation}
+    \lim_{n\to \infty} P_n(x)=f(x)
+\end{equation}
+lorsque \( P_n\) est un polynôme de Taylor autour d'un point \( a\neq x\). Nous ne saurions trop insister sur le fait que de telles formules ne seraient valables que pour une classe relativement restreintes de fonctions.
+\begin{theorem}[Inégalité de Taylor\cite{ooNVJGooGKwDWG}]       \label{THOooEUVEooXZJTRL}
+    Soit une fonction \( f\colon \eR\to \eR\) dérivable \( n+1\) fois et telle que \( | f^{(n+1)}(x) |\leq M_N\) sur \( B(a,d)\). Alors
+    \begin{equation}
+        | R_n(x) |\leq \frac{ M_n }{ (n+1)! }| x-a |^{n+1}
+    \end{equation}
+    où \( R(x)=f(x)-P_n(x)\) et où \( P_n\) sont les polynômes de Taylor autour de \( a\in \eR\).
+\end{theorem}
+
+\begin{proof}
+    Nous pouvons écrire la formule du lemme \ref{LEMooOVPIooAPWFOm} pour \( n+1\) au lieu de \( n\); cela donne
+    \begin{equation}
+        f(x)=P_n(x)+\int\cdots,
+    \end{equation}
+    et donc
+    \begin{equation}
+        | R_n(x) |=| P_n(x)-f(x) |=\int_a^x\ldots\int_a^{u_n}f^{(n+1)}(x)du_n\cdots du_{1}
+    \end{equation}
+    En effectuant toutes les intégrales nous trouvons\quext{Je me demande si je n'ai pas une faute entre \( n\) et \( n+1\) quelque part. Relisez attentivement et écrivez moi si vous trouvez une faute.}
+    \begin{equation}
+        | R_n(x) |\leq \frac{ M_n }{ (n+1)! }| x-a |^{n+1}.
+    \end{equation}
+\end{proof}
+Cette formule pour le reste est très bien, mais pour l'exploiter au maximum de ses possibilités, il faudra la notion de convergence de suite de fonctions, et en particulier la notion de série de fonctions, pour pouvoir écrire 
+\begin{equation}
+    f(x)=\sum_{k=0}^{\infty}\frac{ f^{(k)}(a) }{ k! }x^k
+\end{equation}
+lorsque cela est possible. Nous renvoyons donc aux séries de Taylor, section \ref{SECooDWRMooUKSuPh}, et en particulier aux fonctions analytiques de la sous-section \ref{SUBSECooXKHWooEzqGRJ}.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Fonctions analytiques}
 %---------------------------------------------------------------------------------------------------------------------------
+\label{SUBSECooXKHWooEzqGRJ}
 
 Nous avons vu les polynômes de Taylor et déjà noté qu'il n'est pas en général vrai que \( \lim_{n\to \infty} P_n(x)=f(x)\) pour des \( x\) même proches du point autour duquel les polynômes de Taylor \( P_n\) sont calculés.
 
 Nous allons maintenant étudier la classe des fonctions pour lesquelles la série de Taylor est égale à la fonction de départ. D'abord une proposition montrant que les coefficients de Taylor sont les seuls pour lesquels il est possible d'espérer avoir une telle propriété.
-\begin{proposition}[\cite{ooSBUJooIuujhF}]
+\begin{proposition}[\cite{ooSBUJooIuujhF}]      \label{PROPooTRWVooETTtbP}
     Soit une fonction donnée par la série entière
     \begin{equation}
         f(x)=\sum_{k=0}^{\infty}c_n(x-a)^n
@@ -1125,3 +1189,32 @@ Nous allons maintenant étudier la classe des fonctions pour lesquelles la séri
     qui donne immédiatement le résultat.
 \end{proof}
 
+\begin{proposition}
+    Soit l'intervalle \( I=B(a,r)\). Si il existe \( M\) tel que 
+    \begin{equation}
+        | f^{(n)}(x) |\leq \frac{ M }{ r^n }n!
+    \end{equation}
+    pour tout \( x\in B(a,r)\). Alors nous avons la convergence simple
+    \begin{equation}
+        P_n\to f
+    \end{equation}
+    sur \( B(a,r)\). Ici, \( P_n\) est le polynôme de Taylor d'ordre \( n\) pour la fonction \( f\) autour du point \( a\)\footnote{Pour être complet, il faut préciser que \( P_n\) est calculé dans ZFC. C'est pour cela que nous n'écrivons pas des lourdeurs comme \( P_{n,a}(f)(x)\); si il fallait donner tout le contexte dans la notation, on n'en sortirait pas.
+
+Ah, et tant que j'y suis si vous ne savez pas ce qu'est ZFC, je vous déconseille fortement de répéter cela à un jury d'aggreg, entre autres parce que vous allez attirer la question «vraiment ? Vous utilisez C ? Où ? Pourquoi ?». Et là, bonne chance.}.
+\end{proposition}
+
+\begin{proof}
+    Vu que nous avons \( | f^{(n)}(x) |\leq \frac{ M }{ r^n }n!\) pour tout \( x\), nous pouvons poser 
+    \begin{equation}
+        M_n=\frac{ M }{ r^n }n!
+    \end{equation}
+    dans le théorème \ref{THOooEUVEooXZJTRL} pour le faire fonctionner. Nous avons alors
+    \begin{equation}
+        | R_n(x) |\leq \frac{ M }{ r^n }n!\frac{1}{ (n+1)! }| x-a |^{n+1}=\frac{ M }{ n+1 }| x-a |\left| \frac{ x-a }{ r } \right|^n.
+    \end{equation}
+    Vu que \( x\in B(a,r)\) nous avons \( | x-a |<r\) et donc \( |(x-a)/r |^n<1\). Nous pouvons aussi majorer \( | x-a |\) par \( r\) et écrire
+    \begin{equation}
+        | R_n(x) |\leq \frac{ rM }{ n+1 }.
+    \end{equation}
+    Nous avons donc bien \( \lim_{n\to \infty} R_n(x)\to 0\).
+\end{proof}
