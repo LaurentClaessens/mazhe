@@ -204,3 +204,4 @@ Supprimer quelque "Overfull \hbox".
 
 Supprimer la dépendence en le paquet personnel 'exocorr'.
 
+bibi
