@@ -1,5 +1,9 @@
 # Changelog du Frido
 
+## Mise en ordre coordonnées polaires/cylindrique/sphériques (juin 2018)
+
+- Entre autres, la démonstration du théorème qui donne les coordonnées polaires comme difféomorphisme de classe C^{\infty}.
+
 ## Polynômes et série de Taylor (mai 2018)
 
 - Une démonstration du théorème de de Taylor avec son reste classique (il existe c dans ]a,b[ tel que \ldots).
