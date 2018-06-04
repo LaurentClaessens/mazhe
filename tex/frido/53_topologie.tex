@@ -112,7 +112,7 @@ Quelques exemples particuliers de topologies.
             L'\defe{intérieur}{intérieur} de \( A\), notée \( \mathring A\), est l'union de tous les ouverts de \( X\) contenus dans \( A\).
     \end{enumerate}
 \end{definition}
-\begin{remark}
+\begin{remark}\label{RemIntOuvert}
   Pour tout \( A \subset X\), l'ensemble \( \mathring A\) est un ouvert, comme union quelconque d'ouverts.
 
   Par ailleurs, on a  \( \mathring A = \Int A \): en effet, \( x \in \Int A \) si et seulement s'il existe un ouvert \( O \) contenant \( x \) et inclus à \( A \), si et seulement si \( x \) est dans l'union de tous les ouverts contenus dans \( A \), si et seulement si \( x \in \mathring A \).
@@ -164,13 +164,31 @@ Disons-le tout de suite : «adhérence» et «fermeture» sont synonymes.
     \end{subproof}
 \end{proof}
 
+\begin{remark}\label{RemAdhFerme}
+  Comme corollaire du lemme précédent, on obtient que pour \( A \subset X \), l'ensemble \( \bar A \) est fermé: c'est en effet le complémentaire d'un ouvert, précisément l'intérieur de \( A^c \).
+\end{remark}
+
 \begin{definition}\label{DefEnsembleDense}
   Soit \( X \) un espace topologique. Un sous-ensemble \( A \) de \( X \) est \defe{dense}{dense} dans \( X \) si \( \bar A = X\). 
 \end{definition}
 
+
+
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Séparabilité, compacité et convergence de suites}
+\subsection{Suites et convergence}
 %---------------------------------------------------------------------------------------------------------------------------
+
+\begin{normaltext}
+    À propos de notations. La pire notation possible pour une suite est \( (a_n)_n\). What on the f*** vient faire le second indice \( n\) ? Il peut être raisonnable d'écrire \( (a_n)_{n\in I}\) lorsqu'on veut dire dans quel ensemble se déplace \( n\). Si nous parlons de \emph{suite}, il faut une sérieuse raison de prendre autre chose que \( \eN\) comme ensemble d'indices.
+
+    Une suite étant une fonction, de la même façon qu'on ne devrait pas dire «la fonction \( f(x)\)», mais «la fonction \( f\)» ou «la fonction \( x\mapsto f(x)\)», nous devrions simplement écrire \( a\) pour désigner la suite dont les éléments sont \( a_n\). 
+
+    Par conséquent, il est parfaitement légal, et même conseillé, d'écrire «\( a+b\)» pour la somme des suites \( a\) et \( b\). Et il est tout aussi légal d'écrire «\( \lim a\)» au lieu de \( \lim_{n\to \infty} a_n\).
+
+    Le hic est que nous écrivons souvent \( x\) la limite de la suite \( n\mapsto x_n\). Dans ce cas, nous sommes évidemment obligé d'écrire l'indice \( n\) pour parler de la suite.
+
+    Tout cela pour dire qu'il faut être souple avec les notations.
+\end{normaltext}
 
 Dès que nous avons une topologie nous avons une notion de convergence.
 \begin{definition}[Convergence de suite] \label{DefXSnbhZX}
@@ -183,10 +201,21 @@ Dès que nous avons une topologie nous avons une notion de convergence.
 \end{proposition}
 
 \begin{proof}
-    Soient un espace topologique \( X\) et un fermé \( F\) dans \( X\). Nous supposons que la suite \( (x_k)\) soit contenue dans \( F\). Nous allons prouver que les éléments de \( F^c\) ne peuvent pas être limite.
+    Soient un espace topologique \( X\) et un fermé \( F\) dans \( X\). Nous supposons que la suite \( (x_k)\) soit contenue dans \( F\). Nous allons prouver qu'aucun élément de \( F^c\) ne peut être limite.
 
-    Vu que le complémentaire de \( F\) est un ouvert, et vu le théorème \ref{ThoPartieOUvpartouv}, il existe un ouvert \( \mO_a\) contenant \( a\), et contenu dans \( F^c\). Le voisinage \( \mO_a\) de \( a\) ne contient donc aucun élément de la suite \( (x_k)\), qui ne peut donc pas converger vers \( a\).
+    Soit \( a \in F^c\). Vu que le complémentaire de \( F\) est un ouvert, et vu le théorème \ref{ThoPartieOUvpartouv}, il existe un ouvert \( \mO_a\) contenant \( a\), et contenu dans \( F^c\). Le voisinage \( \mO_a\) de \( a\) ne contient donc aucun élément de la suite \( (x_k)\), qui ne peut donc pas converger vers \( a\).
 \end{proof}
+
+\begin{corollary}\label{CorLimAbarA}
+  Soit \( A \) un sous-ensemble d'un espace topologique \(X \). Toute suite d'éléments de \(A \) qui converge, admet pour limite un élément de \( \bar A \).
+\end{corollary}
+\begin{proof}
+  Une fois la suite \( (x_n) \) fixée, il suffit de remarquer que tous les \( x_n \) sont dans \( \bar A \), et puis d'appliquer la proposition~\ref{PROPooBBNSooCjrtRb}. 
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Pour des limites uniques : séparabilité}
+%---------------------------------------------------------------------------------------------------------------------------
 
 Notons que l'on a parlé d'\emph{une} limite de suite jusqu'à présent: en effet, s'il existe deux éléments distincts $x$ et $y$ tels que tout ouvert contenant $x$ contient $y$, alors la définition \ref{DefXSnbhZX} dit que toute suite convergeant vers $x$ converge aussi vers $y$\dots
 
@@ -194,7 +223,7 @@ Notons que l'on a parlé d'\emph{une} limite de suite jusqu'à présent: en effe
 \begin{example} \label{EXooSHKAooZQEVLB}
     Oui, il y a moyen de converger vers plusieurs points distincts si l'espace n'est pas super cool. Nous pouvons par exemple\cite{EJVQuas} considérer la droite réelle munie de sa topologie usuelle et y ajouter un point $0'$ (qui clone le réel $0$) dont les voisinages sont les voisinages de $0$ dans lesquels nous remplaçons $0$ par $0'$. Dans cet espace, la suite $(1/n)$ converge à la fois vers $0$ et $0'$.
 
-    En fait, on "voit" le problème: on ne peut pas distinguer d'un point de vue topologique le $0$ et le $0'$.
+    En fait, on «voit» le problème: on ne peut pas distinguer d'un point de vue topologique le $0$ et le $0'$.
 \end{example}
 
 Pour assurer l'unicité de la limite d'une suite, ou plus généralement d'une fonction en un point (voir la proposition~\ref{PropFObayrf}), on pose la définition suivante.
@@ -208,12 +237,20 @@ Attention, cette notion est à ne pas confondre avec :
     Un espace topologique est \defe{séparable}{séparable!espace topologique} s'il possède une partie dénombrable\footnote{Définition~\ref{DefEnsembleDenombrable}.} dense\footnote{Définition~\ref{DefEnsembleDense}.}.
 \end{definition}
 
-\begin{proposition}
+\begin{proposition}\label{PropUniciteLimitePourSuites}
   Dans un espace séparé, si une suite converge, alors sa limite est unique.
 \end{proposition}
 \begin{proof}
-  Supposons que la suite \( (x_k)\) converge vers deux éméments distincts \( x \) et \( y \). L'espace étant séparé, il existe deux ouverts \( \mO_x \) et \( \mO_y \), disjoints, contenant respectivement \( x \) et \( y \). La suite convergeant à la fois vers \( x \) et \( y \), il existe \( k_x \) et \( k_y \), tels que, si \( k \geq \max\{k_x, k_y\} \), l'élément  \( x_k \) est (à la fois) dans  \( \mO_x \) et \( \mO_y \). Cela est en contradiction avec le fait que ces deux ensembles sont disjoints.
+  Supposons que la suite \( (x_k)\) converge vers deux éléments distincts \( x \) et \( y \). L'espace étant séparé, il existe deux ouverts \( \mO_x \) et \( \mO_y \), disjoints, contenant respectivement \( x \) et \( y \). La suite convergeant à la fois vers \( x \) et \( y \), il existe \( k_x \) et \( k_y \), tels que, si \( k \geq \max\{k_x, k_y\} \), l'élément  \( x_k \) est (à la fois) dans  \( \mO_x \) et \( \mO_y \). Cela est en contradiction avec le fait que ces deux ensembles sont disjoints.
 \end{proof}
+
+\begin{normaltext}
+  Donc, on pourra parler, avec des espaces séparés, de «la limite d'une suite». On notera \( x_n\to a\), ou \(\lim_{n\to \infty} x_n = a \), pour signifier que la suite \( (x_n) \) converge vers \( a \). 
+\end{normaltext}
+
+%----------------------------------------------------------------------------------------------------------------------
+\subsection{Compacité}
+%----------------------------------------------------------------------------------------------------------------------
 
 \begin{definition}  \label{DefJJVsEqs}
   Une partie $A$ d'un espace topologique est \defe{compacte}{compact} s'il vérifie la propriété de Borel-Lebesgue : pour tout recouvrement de $A$ par des ouverts (c'est-à-dire une collection d'ouverts dont la réunion contient $A$) on peut tirer un recouvrement fini.
@@ -287,7 +324,7 @@ Notons toutefois que nous sommes loin d'avoir une union dénombrable en généra
 % TODO : faire la réciproque.
 
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Limite et continuité}
+\subsection{Limite et continuité d'une fonction}
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{definition}[Limite d'une fonction, thème~\ref{THEMEooGVCCooHBrNNd}]\label{DefYNVoWBx}
@@ -296,7 +333,7 @@ Notons toutefois que nous sommes loin d'avoir une union dénombrable en généra
         f\big( W\cap A\setminus\{a\} \big)\subset V.
     \end{equation}
 
-    Si un tel élément est unique, alors nous disons que cet élément est la \defe{limite}{limite d'une fonction} de \( f\) et nous notons
+    Si un tel élément est unique\footnote{Rappelons que ce n'est pas toujours le cas, mais que ça l'est si l'espace topologique est séparé -- définition~\ref{DefYFmfjjm}.}, alors nous disons que cet élément est la \defe{limite}{limite!d'une fonction} de \( f\) et nous notons
     \begin{equation}
         \lim_{x\to a} f(x)=y.
     \end{equation}
@@ -382,6 +419,11 @@ La proposition~\ref{PropQZRNpMn} donnera des détails sur ce qu'il se passe lors
     Un \defe{homéomorphisme}{homéomorphisme} est une application bijective continue entre deux espaces topologiques dont la réciproque est continue. Deux espaces topologiques $X$ et $Y$ pour lesquels il existe un homéomorphisme entre $X$ et $Y$, sont dits \defe{isomorphes}{isomorphisme!d'espaces topologiques}.
 \end{definition}
 
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Topologie, distance et structure d'espace vectoriel}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Topologie métrique}
 %---------------------------------------------------------------------------------------------------------------------------
@@ -408,7 +450,7 @@ La proposition~\ref{PropQZRNpMn} donnera des détails sur ce qu'il se passe lors
     Un couple $(E,d)$ formé d'un ensemble et d'une distance est un \defe{espace métrique}{espace!métrique}.
 \end{definition}
 
-La définition-théorème suivante donne une topologie sur les espaces métriques en partant des boules. Par construction, les boules sont une base de la topologie\footnote{Définition~\ref{DefQELfbBEyiB}.} d'un espace métrique.
+La définition-théorème suivante donne une topologie sur les espaces métriques en partant des boules.
 
 \begin{theoremDef}     \label{ThoORdLYUu}
     Soit \( (E,d)\) un espace métrique. Nous définissons les \defe{boules ouvertes}{boule!ouverte} par
@@ -436,12 +478,12 @@ La définition-théorème suivante donne une topologie sur les espaces métrique
     \begin{enumerate}
     \item
       Cette définition est faite exprès pour respecter le théorème~\ref{ThoPartieOUvpartouv}. Même si, a priori, on aurait dû utiliser la topologie engendrée faite à l'exemple \ref{DefTopologieEngendree}\dots\ mais on peut montrer que les deux topologies sont les mêmes.
-    \item
+    \item      \label{ITEMooUIHJooXAFaIz}
       Par construction, les boules ouvertes sont une base de la topologie (définition~\ref{DefQELfbBEyiB}) des espaces métriques.
     \item       \label{ITEMooUIHJooXAFaJa}
       Si \( V\) est un voisinage de \( x\), alors il existe \( r\) tel que \( B(x,r)\subset V\).
     \item
-      Tout espace métrique est séparé. En effet, si deux éléments \( x \) et \( y \) sont distincts, alors en posant \( r = d(x , y) / 3 > 0 \), les boules \( B(x,r) \) et \( B(y,r)\) sont disjointes. Très pratique pour les limites.
+      Tout espace métrique est séparé. En effet, si deux éléments \( x \) et \( y \) sont distincts, alors en posant \( r = d(x , y) / 3 > 0 \), les boules \( B(x,r) \) et \( B(y,r)\) sont disjointes. Très pratique pour les limites : elles sont uniques, grâce aux propositions~\ref{PropUniciteLimitePourSuites} et \ref{PropFObayrf}!
     \end{enumerate}
 \end{remark}
 
@@ -451,7 +493,7 @@ La définition-théorème suivante donne une topologie sur les espaces métrique
     De plus, les boules définies en~\ref{DefKCGBooLRNdJf} sont alors les mêmes que celles définies en \eqref{EQooYCWSooIhibvd}, ce qui donne à tout corps totalement ordonné une structure d'espace topologique.
 \end{normaltext}
 
-\begin{definition}
+\begin{definition}\label{DefEnsembleBorne}
   Soit \( (X, d) \) un espace métrique. Un sous-ensemble $A \subset X$ est \defe{borné}{borné} s'il existe une boule de $X$ contenant $A$.
 \end{definition}
 
@@ -483,7 +525,13 @@ La définition-théorème suivante donne une topologie sur les espaces métrique
             Ce groupe agit fidèlement\footnote{Si vous ne savez pas ce que c'est, alors vous avez zappé la définition~\ref{DefuyYJRh}.} sur \( X\).
     \end{enumerate}
 \end{propositionDef}
-Nous verrons plus loin (proposition~\ref{PropLYMgVMJ}) qu'une isométrie est toujours continue.
+\begin{proposition}\label{PropLYMgVMJ}
+    Une isométrie entre deux espaces métriques est continue.
+\end{proposition}
+
+\begin{proof}
+    Soient \( f\colon X\to Y\) une application isométrique et \( \mO\) un ouvert de \( Y\). Soit \( a\in f^{-1}(\mO)\); si \( d(a,b)<r\), alors \( d\big( f(a),f(b) \big)<r\) et donc \( b\in f^{-1}\big( B(f(a),r) \big)\). Donc autour de chaque point de \( f^{-1}(\mO)\) nous pouvons trouver une boule ouverte contenue dans \( f^{-1}(\mO)\), ce qui prouve que \( f^{-1}(\mO)\) est ouvert.
+\end{proof}
 
 \begin{example}
     Si \( X\) est un ensemble, nous pouvons écrire la \defe{distance discrète}{distance discrète} :
@@ -498,12 +546,132 @@ Nous verrons plus loin (proposition~\ref{PropLYMgVMJ}) qu'une isométrie est tou
     Pour cette métrique, le groupe des isométries est le groupe symétrique de \( X\), c'est à dire le groupe de toutes les bijections de \( X\) sur lui-même.
 \end{example}
 
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Caractérisations séquentielles}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}  \label{DefENioICV}
+    Si \( X\) et \( Y \) sont deux espaces topologiques, une fonction \( f\colon X\to \eR\) est \defe{séquentiellement continue}{continuité!séquentielle} en un point \( a\) si pour toute suite convergente \( x_n\to a\) dans \( X\) nous avons \( f(x_n)\to f(x)\) dans \( Y\).
+\end{definition}
+
+%TODO : il y a un contre-exemple à faire à la page http://www.les-mathematiques.net/phorum/read.php?14,787368,787582
+
+\begin{proposition}[Caractérisation séquentielle de la limite\cite{MonCerveau}]     \label{PROPooJYOOooZWocoq}
+    Soient deux espaces topologiques \( X\) et \( Y\) ainsi qu'une fonction \( f\colon X\to Y\). Soit \( a\in X\) et \( \ell\in Y\). Si
+    \begin{equation}\label{EqLimooJYOOooZWocoqG}
+        \lim_{x\to a} f(x)=\ell,
+    \end{equation}
+    alors, pour toute suite \( (x_k) \) telle que \( x_k \to a \), on a
+    \begin{equation}\label{EqLimooJYOOooZWocoqS}
+        \lim f(x_k)=\ell.
+    \end{equation}
+    
+    De plus, si \( X\) et \( Y\) sont des espaces \emph{métriques}, alors \ref{EqLimooJYOOooZWocoqG} est équivalent à \ref{EqLimooJYOOooZWocoqS} pour toute suite \( (x_k) \) convergeant vers \( a\), et une des deux limites existe si et seulement si l'autre existe.
+\end{proposition}
+
+\begin{proof}
+    En deux parties.
+    \begin{subproof}
+    \item[Sens direct, espaces topologiques]
+        Nous considérons une suite \( (x_k)\) qui converge vers \( a\) dans \( X\). Soient \( V\) un voisinage de \( \ell \) et \( W\) un voisinage de \( a\) tels que \( f(W)\subset V\) (définition~\ref{DefYNVoWBx} de la continuité en un point). Par la convergence \( a_k\to a\),  il existe \( N\) tel que pour tout \( k>N\), \( a_k\in W\), et donc tel que \( f(a_k)\in V\), ce qui donne la continuité séquentielle de \( f\).
+
+    \item[Réciproque]
+        Pour la réciproque, nous passons par la contraposée. C'est à dire que nous supposons que \( \ell\) n'est pas une limite de \( f\) pour \( x\to a\). Il existe un \( \epsilon\) tel que pour tout \( \delta\), il existe un \( x\) vérifiant \( \| x-a \|<\delta\) et \( \| f(x)-\ell \|>\epsilon\).
+
+        Nous construisons à présent une suite de la manière suivante. Pour \( \delta=\frac{1}{ n }\) nous considérons \( x_n\) tel que \( \| x_n-a \|<\delta\) et \( \| f(x_n)-\ell \|>\epsilon\). Cette suite converge vers \( a\), mais la suite \( f(x_n)\) ne converge manifestement pas vers \( \ell\) : elle ne rentre jamais dans la boule \( B(\ell,\epsilon)\).
+    \end{subproof}
+\end{proof}
+
+Une fonction continue est séquentiellement continue. Dans les espaces métriques la proposition suivante montre que la réciproque est également vraie et la continuité est équivalente à la continuité séquentielle. Cela n'est cependant pas vrai pour n'importe quel espace topologique.
+
+\begin{corollary}[Caractérisation séquentielle de la continuité en un point\cite{MonCerveau}]		\label{PropFnContParSuite}
+    Le lien entre continuité et continuité séquentielle.
+
+    \begin{enumerate}
+        \item
+    Une application continue est séquentiellement continue (quels que soient les espaces de départ et d'arrivée).
+
+\item\label{ItemWJHIooMdugfu}
+
+    Si \( X\) et \( Y\) sont des espaces métriques, alors une fonction \( f\colon X\to Y\) est continue en un point si et seulement si elle est séquentiellement continue en ce point.
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+    Il suffit de reprendre la preuve précédente en remplaçant \( \ell \) par \( f(a) \).
+    \begin{subproof}
+    \item[Sens direct]
+      Recopie telle quelle, modulo la modification.
+    \item[Sens réciproque, espaces métriques]
+      Paraphrasons la preuve précédente. Nous supposons que \( X\) et \( Y\) sont métriques. Si \( f\) n'est pas continue en \( a\), il existe \( \epsilon>0\) tel que pour tout \( \delta>0\), il existe \( x\) tel que \( \| x-a \|\leq\delta\) et \( \| f(x)-f(a) \|>\epsilon\). Nous considérons un tel \( \epsilon\) et pour chaque \( n\geq1\in \eN\) nous considérons un \( x_n\) correspondant à \( \delta=\frac{1}{ n }\). Cela nous donne une suite \( x_n\to a\) dans \( X\) mais \( \| f(x_n) -f(a)\|\) reste plus grand que \( \epsilon\). Cela montre que \( f\) n'est pas non plus séquentiellement continue.
+    \end{subproof}
+\end{proof}
+
+Les espaces métriques ont une propriété importante que la \wikipedia{fr}{Espace_séquentiel}{fermeture séquentielle} est équivalente à la fermeture.
+\begin{proposition}[Caractérisation séquentielle d'un fermé]    \label{PropLFBXIjt}
+    Soient \( X\) un espace métrique et \( F\subset X\). L'ensemble \( F\) est fermé si et seulement si toute suite contenue dans \( F\) et convergeant dans \( X\) converge vers un élément de \( F\).
+\end{proposition}
+\index{fermeture séquentielle}
+\index{séquentiellement fermé}
+
+\begin{proof}
+   Une suite contenue dans un fermé ne peut converger que vers un élément de ce fermé: c'était la proposition \ref{PROPooBBNSooCjrtRb}. Le point le plus important est donc l'autre sens: si toute suite d'éléments de \( F \) converge dans \( F \) alors \( F \) est fermé.
+    
+   Par contraposée, supposons que \( X\setminus F\) ne soit pas ouvert. Alors il existe \( x\in X\setminus F\) pour lequel tout voisinage intersecte \( F\). En prenant \( x_k\in B(x,\frac{1}{ k })\), nous construisons une suite contenue dans \( F\), convergeant vers \( x\) qui n'est pas dans \( F \).
+\end{proof}
+
+
+\begin{lemma}		\label{LemLimAbarA}
+	Soit $(x_n)$ une suite convergente contenue dans un ensemble $A\subset V$. Alors la limite $x_n$ appartient à $\bar A$.
+\end{lemma}
+Ce lemme est précisément la version «espace vectoriel normé» du corollaire \ref{CorLimAbarA}; mais, donnons-en une preuve tout de même.
+\begin{proof}
+	Supposons que nous ayons une partie $A$ de $V$, et une suite $(x_n)$ dont la limite $\ell$ se trouve hors de $\bar A$. Dans ce cas, il existe un $r>0$ tel que\footnote{Une autre manière de dire la même chose : si $\ell\notin\bar A$, alors $d(\ell,A)>0$.} $B(\ell,r)\cap A=\emptyset$. Si tous les éléments $x_n$ de la suite sont dans $A$, il n'y en a donc aucun tel que $d(x_n,\ell)=\| x_n-\ell \|<r$. Cela contredit la notion de convergence $x_n\to \ell$.
+\end{proof}
+
+\begin{corollary}		\label{CorAdhEstLim}
+	Soit $a$ un point de l'adhérence d'une partie $A$ de $V$. Alors il existe une suite d'éléments dans $A$ qui converge vers $a$.
+\end{corollary}
+
+\begin{proof}
+	Si $a\in A$, alors nous pouvons prendre la suite constante $x_n=a$. Si $a$ n'est pas dans $A$, alors $a$ est dans $\partial A$, et pour tout $n$, il existe un point de $A$ dans la boule $B(a,\frac{1}{ n })$. Si nous nommons $x_n$ ce point, la suite ainsi construite est une suite contenue dans $A$ et qui converge vers $a$ (ce dernier point est laissé à la sagacité du lecteur ou de la lectrice).
+\end{proof}
+
+En termes savants, ce corollaire signifie que la fermeture $\bar A$ est composé de $A$ plus de toutes les limites de toutes les suites contenues dans $A$.
+
+\begin{proposition} \label{PropXIAQSXr}[Caractérisation séquentielle de la continuité\cite{MonCerveau}]	
+    Soient \( X\) et \( Y\) deux espaces métriques. Soit \( f\colon X\to Y\) une application séquentiellement continue (en tout \( a \in X \)). Alors \( f\) est continue.
+\end{proposition}
+
+\begin{proof}
+    Soit \( \mO\) un ouvert de \( Y\); nous allons voir que le complémentaire de \( f^{-1}(\mO)\) est fermé dans \( E\). Pour cela nous considérons une suite convergente \( x_k\stackrel{E}{\longrightarrow} x\) avec \( x_k\in\complement f^{-1}(\mO)\) pour tout \( k\). Nous allons montrer que \( x\in \complement f^{-1}(\mO)\) et la caractérisation séquentielle\footnote{Proposition~\ref{PropLFBXIjt}.} de la fermeture conclura que \( \complement f^{-1}(\mO)\) est fermé.
+
+    Pour tout \( k\), nous avons \( f(x_k)\in\complement \mO\), mais \( \mO\) est ouvert et \( f(x_k)\stackrel{Y}{\longrightarrow}f(x)\) parce que \( f\) est séquentiellement continue. Par conséquent \( f(x)\in\complement \mO\) et \( x\in\complement f^{-1}(\mO)\).
+\end{proof}
+
+%TODO : il y a ici trois théorèmes sur la continuité séquentielle. Il faut sans doute les fusionner.
+
+\begin{proposition} \label{PropCJGIooZNpnGF}
+    Si \( X\) et \( Y\) sont deux espaces métriques et \( f,g\colon X\to Y\) sont deux fonctions continues égales sur une partie dense de \( X\) alors \( f=g\).
+\end{proposition}
+\index{fonction!continue!égales}
+
+\begin{proof}
+    Les fonctions \( f\) et \( g\) sont séquentiellement continues (proposition~\ref{PropFnContParSuite}\ref{ItemWJHIooMdugfu}). Soient \( A\) un ensemble dense dans \( X\) sur lequel \( f\) et \( g\) sont égales, et \( x\notin A\). Vu que \( A\) est dense, il existe une suite \( a_n\) dans \( A\) telle que \( a_n\to x\). La séquentielle continuité de \( f\) et \( g\) donnent
+    \begin{subequations}
+        \begin{align}
+            f(a_n)\to f(x)\\
+            g(a_n)\to g(x),
+        \end{align}
+    \end{subequations}
+    mais pour tout \( n\), \( f(a_n)=g(a_n)\). Par unicité de la limite\footnote{Proposition~\ref{PropFObayrf}.} dans \( Y\), \( f(x)=g(x)\).
+\end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Espace vectoriel topologique}
 %---------------------------------------------------------------------------------------------------------------------------
 
-\begin{definition}
+\begin{definition}\label{DefEVTopologique}
   Un espace vectoriel \( V\) sur le corps \( \eK\) muni d'une topologie est un \defe{espace vectoriel topologique}{espace vectoriel!topologique} si
     \begin{enumerate}
         \item
@@ -524,13 +692,10 @@ On le redit quand même: le corps\footnote{Définition~\ref{DefTMNooKXHUd}} lui-
 \end{definition}
 Notons que lorsque nous parlons d'une distance compatible avec un espace vectoriel topologique, nous parlons de compatibilité avec la topologie, pas avec la structure vectorielle.
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Espace vectoriel normé}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Introduction : norme et valeur absolue}
+\subsection{Norme; espace vectoriel normé}
 %---------------------------------------------------------------------------------------------------------------------------
+\label{SECooWKJNooKOqpsx}
 
 La valeur absolue est essentielle pour introduire les notions de limite et de continuité pour les fonctions d'une variable. En fait, pour $\eR$ muni de sa topologie usuelle, on a:
 \begin{proposition}
@@ -566,14 +731,9 @@ Nous pouvons introduire une notion de distance entre les éléments de $\eR^2$ d
 \end{equation}
 Cette définition a l'air raisonnable; est-elle mathématiquement correcte ? Peut-elle jouer le rôle de la valeur absolue dans $\eR^2$ ? Est-elle la seule définition possibles de «taille» et distance en $\eR^2$ ?
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Norme}
-%---------------------------------------------------------------------------------------------------------------------------
-\label{SECooWKJNooKOqpsx}
-
 Nous voulons formaliser les notions de «taille» et de distance dans $\eR^n$, et plus généralement dans un espace vectoriel $V$ de dimension finie. Pour cela nous nous inspirons des propriétés de la valeur absolue.
 
-\begin{definition}[\cite{BrunelleMatricielle}, thème~\ref{THEMEooUJVXooZdlmHj}]  \label{DefNorme}
+\begin{definition}[\cite{BrunelleMatricielle}, thème~\ref{THEMEooUJVXooZdlmHj}]  \label{DefNorme}	\label{DefEVNetDistance}
     Soit \( E\) un espace vectoriel (pas spécialement de dimension finie) sur le corps \( \eK\) (\( =\eR\) ou \( \eC\)). Une  \defe{norme}{norme} sur $E$ est une application $N\colon E\to \eR^+$ telle que
 	\begin{enumerate}
 		\item
@@ -622,13 +782,13 @@ Cette proposition signifie aussi que
 	-N(x-y)\leq N(x)-N(y)\leq N(x-y).
 \end{equation}
 
+\begin{normaltext}	
 Afin de suivre une notation proche de celle de la valeur absolue, à partir de maintenant, la norme d'un vecteur $v$ sera notée $\| v\|$ au lieu de $N(v)$. La proposition~\ref{PropNmNNm} s'énoncera donc
 \begin{equation}
 \big| \| x \|-\| y \| \big|\leq \| x-y \|.
 \end{equation}
-\begin{definition}		\label{DefEVNetDistance}
-	Un espace vectoriel $E$ muni d'une norme est une \defe{espace vectoriel normé}{normé!espace vectoriel}, et on écrit $(E,\| . \|)$.
-\end{definition}
+Un espace vectoriel $E$ muni d'une norme est, on l'a déjà dit, un \defe{espace vectoriel normé}{normé!espace vectoriel}; on le notera $(E,\| . \|)$ pour distinguer la norme fixée.
+\end{normaltext}
 
 \begin{lemmaDef}[Distance induite par une norme]        \label{LEMooWGBJooYTDYIK}
     Soit un espace vectoriel normé \( (E,\| . \|)\). Nous posons
@@ -652,13 +812,13 @@ Afin de suivre une notation proche de celle de la valeur absolue, à partir de m
     \end{equation}
 \end{proof}
 
-Un espace vectoriel normé est alors immédiatement un espace vectoriel topologique
+Un espace vectoriel normé est alors immédiatement un espace vectoriel topologique\footnote{Définition~\ref{DefEVTopologique}.}.
 
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Quelques exemples}
+\subsection{Quelques exemples de normes sur \texorpdfstring{$\eR^n$}{Rn}}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Il est possible de définir de nombreuses normes sur $\eR^n$. Citons en quelques-unes.
+Il est possible de définir de nombreuses normes sur $\eR^n$. Citons-en quelques-unes.
 
 \begin{propositionDef}      \label{PROPooCLZRooIRxCnZ}
     Les formules suivantes définissent des normes sur \( \eR^n\).
@@ -728,8 +888,6 @@ par conséquent,
 	Ceci explique pourquoi cette propriété des normes est appelée «inégalité triangulaire».
 \end{remark}
 
-Les distances que nous avons vues jusqu'à présent sont des distances définies à partir d'une norme. La définition générale d'une distance est la définition~\ref{DefMVNVFsX}.
-
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Suites de Cauchy, métrique et espaces complets}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -743,7 +901,7 @@ Les distances que nous avons vues jusqu'à présent sont des distances définies
 \end{definition}
 
 \begin{definition}[Espace \( \tau\)-complet]      \label{DEFooVQDBooNxprFU}
-    Nous disons qu'une partie \( A\) d'un espace vectoriel topologique est \defe{\( \tau\)-complet}{complet!espace topologique} si toute suite \(  \tau\)-Cauchy d'éléments de \( A\) converge vers un élément de \( A\).
+    Nous disons qu'une partie \( A\) d'un espace vectoriel topologique est \defe{\( \tau\)-complet}{complet!espace topologique} si toute suite \(  \tau\)-Cauchy d'éléments de \( A\) converge\footnote{Définition~\ref{DefXSnbhZX}.} vers un élément de \( A\).
 \end{definition}
 
 \begin{definition}[Suite de Cauchy, espace métrique]      \label{DEFooXOYSooSPTRTn}
@@ -833,21 +991,20 @@ Notons qu'ici, même si l'espace \( V\) n'a rien à voir avec \( \eR\), nous pre
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Cas d'équivalence}
 %---------------------------------------------------------------------------------------------------------------------------
-
 \begin{lemma}       \label{LEMooIAHSooFkXjvr}
-    Soit un espace vectoriel topologique \( V\) et une distance \( d\colon V\times V\to \eR^+\) compatible avec la topologie de \( V\). Si \( d\) est invariante\footnote{Définition~\ref{DEFooGTOZooRcvGHg}.}, alors les suites \( d\)-Cauchy et les suites \( \tau\)-Cauchy sont les mêmes.
+    Soit un espace vectoriel topologique\footnote{Définition~\ref{DefEVTopologique}.} \( V\) et une distance \( d\colon V\times V\to \eR^+\) compatible\footnote{Définition~\ref{DEFooGTOZooRcvGHg}.} avec la topologie de \( V\). Si \( d\) est invariante\footnote{Définition~\ref{DEFooGTOZooRcvGHg}.}, alors les suites de Cauchy pour \( d \) et les suites \( \tau\)-Cauchy sont les mêmes.
 \end{lemma}
 
 \begin{proof}
-    Nous avons deux implications à prouver.
+    Nous avons deux implications à prouver. 
     \begin{subproof}
-    \item[\( d\)-Cauchy implique \( \tau\)-Cauchy]
-        Soit \( (x_n)\), une suite \( d\)-Cauchy dans \( V\), et un voisinage \( U\) de \( 0\). Vu que \( d\) est compatible avec la topologie de \( V\), il existe une boule ouverte \( B(0,\epsilon)\) incluse à \( U\). Soit \( N>0\) tel que \( m,n>N\) implique \( d(x_n,x_m)<\epsilon\). Par invariance de la métrique, nous avons aussi
+    \item[Cauchy pour \( d\) implique \( \tau\)-Cauchy]
+        Soit \( (x_n)\), une suite de Cauchy dans \( V\) pour \( d\), et un voisinage \( U\) de \( 0\). Vu que \( d\) est compatible avec la topologie de \( V\), il existe une boule ouverte \( B(0,\epsilon)\) incluse à \( U\). Soit \( N>0\) tel que \( m,n>N\) implique \( d(x_n,x_m)<\epsilon\). Par invariance de la métrique, nous avons aussi
         \begin{equation}
             d(0,x_m-x_n)<\epsilon,
         \end{equation}
         c'est à dire \( x_m-x_n\in B(0,\epsilon)\subset U\). La suite \( (x_n)\) est donc \( \tau\)-Cauchy.
-    \item[\( \tau\)-Cauchy implique \( d\)-Cauchy]
+    \item[\( \tau\)-Cauchy implique Cauchy pour \( d\)]
         Soit $(x_n)$, une suite \( \tau\)-Cauchy dans \( V\) et \( \epsilon>0\). Vu que \( B(0,\epsilon)\) est un voisinage de \( 0\) dans \( V\), il existe \( N\) tel que \( m,n>N\) implique \( x_n-x_m\in B(0,\epsilon)\). Cela signifie que \( d(0,x_n-x_m)<\epsilon\) et toujours par invariance, que \( d(x_n,x_m)<\epsilon\).
     \end{subproof}
 \end{proof}
@@ -936,12 +1093,12 @@ Une preuve est donnée dans \cite{ooMKWJooLSkGfh} et je vous préviens : c'est p
     Il s'agit seulement de mettre bout à bout les corollaires~\ref{CORooTWFYooCNMieM} et théorème~\ref{THOooAGBXooZnvQLK}.
 \end{proof}
 
-Tout ceci nous mène à donner une large classe d'espaces vectoriels topologiques sur lesquelles les notions de suites \( d\)-Cauchy et \( \tau\)-Cauchy coïncident.
+Tout ceci nous mène à donner une large classe d'espaces vectoriels topologiques sur lesquelles les notions de suites de Cauchy pour une distance et \( \tau\)-Cauchy coïncident.
 
 \begin{theoremDef}     \label{THOooGQZSooAmQolf}
-    Soit \( V\) un espace vectoriel topologique métrisable\footnote{i.e. admet une base dénombrable de topologique, voir la proposition~\ref{PROPooPRLBooGtsRjr}}, alors il admet une métrique \( d\) compatible avec la topologie telle que une suite dans \( V\) est \( d\)-Cauchy si et seulement si elle est \( \tau\)-Cauchy.
+    Soit \( V\) un espace vectoriel topologique métrisable\footnote{i.e. admet une base dénombrable de topologie, voir la proposition~\ref{PROPooPRLBooGtsRjr}}, alors il admet une métrique \( d\) compatible avec la topologie telle que une suite dans \( V\) est de Cauchy pour \( d\) si et seulement si elle est \( \tau\)-Cauchy.
 
-    Une \defe{suite de Cauchy}{Cauchy!suite} dans un espace vectoriel métrique \( (E,d)\) est une suite \( d\)-Cauchy ou \( \tau\)-Cauchy.
+    Une \defe{suite de Cauchy}{Cauchy!suite} dans un espace vectoriel métrique \( (E,d)\) est une suite \( \tau\)-Cauchy ou de Cauchy pour \( d \).
 \end{theoremDef}
 
 \begin{proof}
@@ -1055,10 +1212,6 @@ Dans les espaces vectoriels topologiques métriques, il n'y a pas d'ambiguïté.
     \end{subproof}
 \end{proof}
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Espace métrique}
-%---------------------------------------------------------------------------------------------------------------------------
-
 \begin{proposition}[\cite{IRWFPQB}]
     Toute suite convergente dans un espace métrique est de Cauchy.
 \end{proposition}
@@ -1073,68 +1226,9 @@ Dans les espaces vectoriels topologiques métriques, il n'y a pas d'ambiguïté.
     Cela prouve que \( (x_n)\) est de Cauchy.
 \end{proof}
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Topologie sur l'ensemble des réels}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\label{SECooGKHYooMwHQaD}
-
-Nous allons à présent donner la topologie sur \( \eR\) et ainsi résoudre les questions laissées en suspens lors de la construction des réels, voir~\ref{NormooHRDZooRGGtCd}.
-
-La valeur absolue de la définition~\ref{DefKCGBooLRNdJf}\ref{ItemooWUGSooRSRvYC} permet de définir une norme sur \( \eR\).
-\begin{lemma}
-    L'application
-    \begin{equation}
-         x\mapsto | x |
-    \end{equation}
-     est une norme sur $\eR$.
-\end{lemma}
-
-\begin{proof}
-    Les conditions de la définition \ref{DefNorme} sont immédiatement vérifiées grâce au lemme \ref{LemooANTJooYxQZDw} et à la remarque \ref{RemooJCAUooKkuglX}.
-\end{proof}
-
-\begin{normaltext}      \label{ooLCMFooQjMaxV}
-Tant sur \( \eQ\) que sur \( \eR\), nous considérons la topologie métrique correspondant à cette norme (hors cas rarissimes qui seront signalés). Nous utiliserons toujours les caractérisations de la proposition~\ref{PropooUEEOooLeIImr} pour parler de suites convergentes et de suites de Cauchy.
-\end{normaltext}
-
-\begin{proposition}     \label{PropooUHNZooOUYIkn}
-    Les rationnels sont denses dans les réels.
-\end{proposition}
-\index{densité!de \( \eQ\) dans \( \eR\)}
-
-\begin{proof}
-    Soient \( r\in \eR\) et \( \epsilon\in \eR^+\). Nous devons prouver l'existence d'un rationnel dans \( B(x,\epsilon)\). Le lemme~\ref{LemooHLHTooTyCZYL} dit qu'il existe un rationnel dans \( \mathopen] x-\epsilon/2 , x+\epsilon/2 \mathclose[\) et donc dans \( B(x,\epsilon)\).
-\end{proof}
-
-\begin{proposition}[\cite{MonCerveau}] \label{PropSLCUooUFgiSR}
-    Quel que soit le réel \( r\), il existe une suite croissante de rationnels convergente vers \( r\).
-\end{proposition}
-
-\begin{proof}
-    Soient \( x\in \eR\) et \( \delta\in \eR\); vu que \( x-\delta\) et \( x\) sont des réels, le lemme~\ref{LemooHLHTooTyCZYL} donne un élément \( x_{\delta}\) tel que
-    \begin{equation}
-        x-2\delta<x_{\delta}<x.
-    \end{equation}
-    Il ne reste plus qu'à pêcher parmi ces \( x_{\delta}\) pour trouver une suite croissante. Soit \( x_0\) un rationnel plus petit que \( x\). Nous posons \( \delta_0=x-x_0\) et ensuite :
-    \begin{subequations}
-        \begin{numcases}{}
-            \delta_i=x-x_i\\
-            x_{i+1}=x_{\delta_i/2}.
-        \end{numcases}
-    \end{subequations}
-    Ainsi nous avons pour tout \( i\) les inégalités
-    \begin{equation}
-        x_i=x-\delta_i<x-\frac{ \delta_i }{ 2 }<x_{i+1}<x.
-    \end{equation}
-    La suite est donc croissante et toujours plus petite que \( x\). Mais nous avons à chaque étape \( \delta_{i+1}<\frac{ \delta_i }{ 2 }\), ce qui donne \( \delta_i\to 0\). Soit \( \epsilon>0\) et \( k\) tel que \( \delta_k<\epsilon\). Nous avons alors
-    \begin{equation}
-        x_{k+1}\in B(x,\frac{ \delta_k }{ 2 })\subset B(x,\epsilon).
-    \end{equation}
-\end{proof}
-
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Base de topologie}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Les boules, une base de topologie}
+%---------------------------------------------------------------------------------------------------------------------------
 
 \begin{proposition} \label{PropNBSooraAFr}
     Un espace métrique séparable\footnote{Qui possède une partie dense dénombrable, définition~\ref{DefUADooqilFK}.} accepte une base de topologie dénombrable.
