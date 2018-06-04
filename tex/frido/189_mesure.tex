@@ -89,7 +89,7 @@ Nous devons prouver que \( F\) est dérivable et que pour tout \( x_0\in\mathope
     Le fait que \( F\) s'annule en \( x=a\) est par sa définition. L'unicité provient du corollaire~\ref{CorZeroCst}.
 \end{proof}
 
-\begin{theorem}[Théorème fondamental de l'analyse]    \label{ThoRWXooTqHGbC}
+\begin{theorem}[Théorème fondamental du calcul intégral]    \label{ThoRWXooTqHGbC}
     Soit \( f\) une fonction continue sur un intervalle ouvert \( I\) contenant strictement l'intervalle \( \mathopen[ a , b \mathclose]\subset \eR\) et \( F\) une primitive de \( f\) sur \( I\). Alors
     \begin{equation}
         \int_a^bf(t)dt=F(b)-F(a).
@@ -176,29 +176,36 @@ En termes de notations, nous posons
 \end{remark}
 
 \begin{remark}
-  Si l'intervalle d'intégration est réduit à un seul point alors la valeur de l'intégrale est zéro, car $ \int_a^af(t)dt=F(a)-F(a) =0$.
+  Si l'intervalle d'intégration est réduit à un seul point alors la valeur de l'intégrale est zéro. Nous le savions déjà, et cela est cohérent avec le théorème fondamental car $ \int_a^af(t)dt=F(a)-F(a) =0$.
 \end{remark}
-
-\begin{remark}
-    Conformément à ce que nous montre la figure~\ref{LabelFigKKRooHseDzC}, si une fonction continue est positive sur l'intervalle \( \mathopen[ a , b \mathclose]\), alors le nombre \( \int_a^bf(t)dt\) est l'aire de la portion de plan comprise entre les droites verticales \( x=a\), \( x=b\), la courbe représentant la fonction \( f\) et l'axe des abscisses.
-
-    Si la fonction est négative : l'aire est comptée négativement.
-\end{remark}
-
-\begin{example}
-    Comme nous le voyons sur le dessin suivant,
-    \begin{equation}
-        \int_{-3\pi/2}^{3\pi/2}\sin(x)\,dx=0
-    \end{equation}
-    parce que les deux parties bleues s'annulent avec les deux parties rouges (qui sont comptées comme des aires négatives).
-    \begin{center}
-       \input{auto/pictures_tex/Fig_JSLooFJWXtB.pstricks}
-    \end{center}
-\end{example}
 
 \begin{remark}
   Toute intégrale d'une fonction impaire sur un intervalle symétrique par rapport à l'origine est nulle.
 \end{remark}
+
+\begin{proposition}[\cite{MonCerveau}]      \label{PROPooJYIAooXLkbMx}
+    Soient des espaces vectoriels normés \( E\) et \( F\) où \( F\) est de dimension finie\footnote{Sinon l'intégrale dont nous allons parler n'est pas définie au sens où nous n'en avons pas donné de définition. Voir \ref{NORMooTQBIooBaScjt}.}. Nous considérons une fonction \( f\colon E\to F\) de classe \( C^1\) ainsi qu'un chemin \( \gamma\colon \mathopen[ 0 , 1 \mathclose]\to E\) de classe \( C^1\) également.
+
+    Alors nous avons l'égalité
+    \begin{equation}
+        \int_0^1(df)_{\gamma(t)}\big( \gamma'(t) \big)=f\big( \gamma(1) \big)-f\big( \gamma(0) \big).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Nous posons
+    \begin{equation}
+        \begin{aligned}
+            f\colon \mathopen[ 0 , 1 \mathclose]&\to F \\
+            t&\mapsto (f\circ\gamma)(t). 
+        \end{aligned}
+    \end{equation}
+    Cette fonction vérifie \( g'(t)=(df)_{\gamma(t)}\big( \gamma'(t) \big)\) par le lemme \ref{LEMooKNBVooQSowos}. Le théorème fondamental du calcul intégral\footnote{Théorème \ref{ThoRWXooTqHGbC}.} nous permet donc d'écrire
+    \begin{equation}
+        \int_0^1(df)_{\gamma(t)}\big( \gamma'(t) \big)dt=\int_0^1g'(t)df=g(1)-g(0).
+    \end{equation}
+    Notons que \( g\) est continue grâce aux hypothèses de classe \( C^1\) pour \( \gamma\) et \( f\).
+\end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Permuter limite et dérivée}
@@ -229,34 +236,41 @@ Pour permuter différentielle et limite, ce sera le théorème \ref{ThoLDpRmXQ}.
 \end{theorem}
 
 \begin{proof}
-    En plusieurs pas.
+    Nous commençons par considérer \( x_0\in \eR\) et un intervalle compact \( K\) contenant \( x_0\). Nous montrons que \( f'(x_0)=g(x_0)\) en plusieurs étapes.
     \begin{subproof}
     \item[Une formule intégrale]
-    Soient un intervalle compact \( K\), et \( x_0\in K\). Par hypothèse, les fonctions \( f_i\) sont continues (en particulier sur un ouvert contenant \( K\)), et le théorème fondamental de l'analyse \ref{ThoRWXooTqHGbC} donne
+    Par hypothèse, les fonctions \( f_i\) sont continues (en particulier sur un ouvert contenant \( K\)), et le théorème fondamental de l'analyse \ref{ThoRWXooTqHGbC} donne
     \begin{equation}        \label{EQooFUBZooOVUhep}
-        f_i(x)=f_i(x_0)+\int_{x_0}^xf_i'(t)dt.
+        f_i(x)=f_i(x_0)+\int_{x_0}^xf_i'(t)dt
     \end{equation}
+    pour tout \( x\in K\). Nous avons envie de prendre la limite \( i\to \infty\) en permutant la limite avec l'intégrale. Pour cela nous allons utiliser la convergence dominée de Lebesgue.
+
 \item[Convergence dominée]
-    D'autre par, la convergence uniforme sur tout compact des fonctions continues \( f'_i\) vers \( g\) donne la continuité de \( g\), théorème \ref{ThoUnigCvCont}. En particulier \( g\) est bornée et donc intégrable sur le compact \( \mathopen[ x_0 , x \mathclose]\). Mais il en faut plus pour le théorème de la convergence dominée de Lebesgue (théorème \ref{ThoConvDomLebVdhsTf}). Soit \( a>0\); il existe \( N\) tel que pour tout \( i>n\) nous ayons \( \| f'_i-g \|<a\). Avec cela nous avons
+    La convergence uniforme sur tout compact des fonctions continues \( f'_i\) vers \( g\) donne la continuité de \( g\), théorème \ref{ThoUnigCvCont}. En particulier \( g\) est bornée et donc intégrable sur le compact \( \mathopen[ x_0 , x \mathclose]\). Mais il en faut plus pour le théorème de la convergence dominée de Lebesgue (théorème \ref{ThoConvDomLebVdhsTf}). Soit \( a>0\); il existe \( N\) tel que pour tout \( i>n\) nous ayons \( \| f'_i-g \|<a\). Avec cela nous avons
     \begin{equation}
         | f'_i(x) |<| g(x) |+a
     \end{equation}
-    pour tout \( x\in K\). En particulier, la fonction \( x\mapsto g(x)+a\) fonctionne pour la convergence dominée et nous pouvons permuter la limite et l'intégrale.
+    pour tout \( x\in K\). En particulier, la fonction \( x\mapsto g(x)+a\) fonctionne pour la convergence dominée et nous pouvons permuter la limite et l'intégrale dans \eqref{EQooFUBZooOVUhep}.
+
 \item[Passage à la limite]
 
     En passant à la limite \( i\to \infty\) dans \eqref{EQooFUBZooOVUhep} nous trouvons
     \begin{equation}        \label{EQooAECSooZpoJhd}
         f(x)=f(x_0)+\int_{x_0}^xg(t)dt.
     \end{equation}
-\item[Première conclusion]
+\item[Premières conclusions]
 
     Il suffit maintenant de prendre la dérivée de \eqref{EQooAECSooZpoJhd} au point \( x=x_0\) grâce à la proposition \ref{PropEZFRsMj} :
     \begin{equation}
         f'(x_0)=g(x_0).
     \end{equation}
-    Cela nous donne la première partie du théorème.
+    Cela nous donne l'égalité \( f=g\) parce que \( x_0\) était arbitraire.
 
-\item[Convergence uniforme \( f_i\to f\) sur tout compact]
+    De plus \( g\) est continue comme limite uniforme des fonctions continues \( f'_i\). Plus précisément, pour voir la continuité de \( g\) en \( x_0\), prendre un ouvert borné \( B(x_0,r)\) autour de \( x_0\), et ensuite un compact \( K\) contenant cet ouvert. La convergence uniforme \( f'_i\to g\) sur \( K\) implique la convergence uniforme sur \( B(x_0,r)\) et donc la continuité sur \( B(x_0,r)\) (théorème \ref{ThoUnigCvCont}).
+
+\item[\( f_i\to f\) uniforme sur tout compact]
+
+    Un compact n'étant pas spécialement connexe, nous ne pouvons pas reprendre le travail fait jusqu'ici sans prendre une petite précaution. Soit un compact \( L\). Cette partie de \( \eR\) étant bornée\footnote{Par le théorème de Borel-Lebesgue \ref{ThoXTEooxFmdI}}, nous pouvons prendre \( r\) assez grand pour que \( L\subset \overline{ B(0,r) }\). Nous posons \( K=\overline{ B(0,r) }\) et nous prouvons la convergence uniforme \( f_i\to f\) sur \( K\). A fortiori, cela donnera la convergence uniforme sur \( L\).
 
     Prenons la différence entre \eqref{EQooAECSooZpoJhd} et \eqref{EQooFUBZooOVUhep} :
     \begin{subequations}
@@ -274,7 +288,7 @@ Pour permuter différentielle et limite, ce sera le théorème \ref{ThoLDpRmXQ}.
     \end{equation}
     où \( \diam(K)\) est le diamètre de \( K\), c'est à dire la plus grande distance entre deux éléments de \( K\) c'est un nombre fini parce que \( K\) est borné. Il majore évidemment \( | x-x_0 |\). Le membre de droite tend vers zéro si \( i\to \infty\) parce que nous avons convergence simple \( f_i\to f\) et donc \( (f-f_i)(x_0)\to 0\), et parce que nous avons convergence uniforme sur tout compact, donc \( \| g-f_i' \|\to 0\).
 
-    Nous avons donc bien \( \lim_{i\to \infty}\| f-f_i \|=0\), c'est à dire convergence uniforme de \( (f_i)\) vers \( f\).
+    Nous avons donc bien \( \lim_{i\to \infty}\| f-f_i \|=0\), c'est à dire convergence uniforme de \( (f_i)\) vers \( f\) sur \( K\).
 
     \end{subproof}
 \end{proof}
@@ -863,7 +877,7 @@ Soit $\phi(u,v)=g(u,v)e_1+h(u,v)e_2$ un difféomorphisme dans $\eR^2$. Soit $(x_
 
 Un exemple avec une exponentielle est donnée dans l'exemple \ref{EXooNIOZooWxciAC}.
 
-Énormément d'exemples sont disponibles avec les coordonnées polaires et toutes leurs variations. Cependant les fonctions trigonométriques ne seront vues que plus tard; ce exemples sont donc pour plus tard en \ref{SUBSECooUUAKooMSJHsL}.
+Énormément d'exemples sont disponibles avec les coordonnées polaires et toutes leurs variations. Cependant les fonctions trigonométriques ne seront vues que plus tard; les coordonnées polaires, cylindrique et sphériques seront vues en section \ref{SECooWTPRooZbOSzO} et les exemples d'utilisation pour les intégrales seront dans la section \ref{SECooOOPPooZLbaEH}.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Changement d'espace mesuré}
