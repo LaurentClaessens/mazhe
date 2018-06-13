@@ -98,6 +98,29 @@ class set_boolean(object):
             raise ValueError("You have to choose between 'true' of 'false'")
         return S
 
+class set_pdftitle(object):
+    def __init__(self,pdftitle):
+        self.pdftitle = pdftitle
+    def __call__(self, old_text):
+        r"""
+        Changes the line
+        \newcommand{\pdftitle}{<wathever>}
+        into
+        \newcommand{\pdftitle}{<pdftitle>}
+
+        @param {str} `old_text`     the tex file which will be compiled
+        @return {str}               the tex file (changed) to be compiled
+        """
+        mark = r"\newcommand{\pdftitle}"
+        new_command_line = r"""\newcommand{\pdftitle}{PDFTITLE}""".replace("PDFTITLE", self.pdftitle)
+        new_text_list = []
+        for line in old_text.split("\n"):
+            if line.startswith(mark):
+                new_text_list.append(new_command_line)
+            else:
+                new_text_list.append(line)
+        return "\n".join(new_text_list)
+
 set_isFrido = set_boolean("isFrido","true")
 
 def up_to_text(liste,text):
