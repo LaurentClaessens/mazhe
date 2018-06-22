@@ -1,6 +1,18 @@
 # Changelog du Frido
 
-## Mise en ordre coordonnées polaires/cylindrique/sphériques (juin 2018)
+## Produit tensoriel d'espaces vectoriels (juin 2018)
+
+Parce qu'on en aura besoin pour parler de différentielle d'ordre supérieur de produit.
+
+## Mise en ordre de la topologie (juin 2018)
+
+- Meilleur division en trois chapitres :
+    * topologie générale
+    * topologie réelle
+    * topologie générale (suite)
+- Démonstration de quelques résultats laissés en suspend.
+
+## Mise en ordre coordonnées polaires/cylindrique/sphériques (juin 2018 -- ... )
 
 - Entre autres, la démonstration du théorème qui donne les coordonnées polaires comme difféomorphisme de classe C^{\infty}.
 
