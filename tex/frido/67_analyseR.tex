@@ -298,14 +298,83 @@ Si on prend la limite de cette expression pour $(h_1,h_2)\to (0_m,0_n)$ on obtie
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-\section{Autres trucs sur la différentielle}
+\section{Différentielle de fonction composée}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Différentielle de fonction composée}
-%---------------------------------------------------------------------------------------------------------------------------
+\begin{lemma}       \label{LEMooYQZZooVybqjK}
+    Soit une fonction \( f\colon E\to V\) (espaces vectoriels normés) différentiable en \( a\in E\). Alors il existe une fonction \( \alpha\colon E\to V\) telle que
+    \begin{subequations}
+        \begin{numcases}{}
+            \lim_{h\to 0} \frac{ \alpha(h) }{ \| h \| }=0\\
+            f(a+h)=f(a)+df_a(h)+\alpha(h).
+        \end{numcases}
+    \end{subequations}
+\end{lemma}
 
-La plus importante entre les règles de différentiation est la règle de différentiation d'une fonction composée (\emph{chain rule} dans les livres anglais et américains). Cette règle généralise la règle de dérivation pour fonctions de $\eR$ dans $\eR$. Il est utile d'introduire d'abord une formulation équivalente de la définition de différentielle
+\begin{proof}
+    Il s'agit seulement de poser
+    \begin{equation}
+        \alpha(h)=f(a+h)-f(a)-df_a(h).
+    \end{equation}
+    Le fait que \( \alpha(h)/\| h \|\to 0\) est alors la définition de la différentiabilité de \( f\).
+\end{proof}
+
+\begin{theorem}     \label{THOooIHPIooIUyPaf}
+    Soient des espaces vectoriels normés \( E,V\) et \( W\). Nous considérons deux fonctions \( f\colon E\to V\) et \( g\colon V\to W\). Nous supposons que \( f\) est différentiable en \( a\in E\) et que \( g\) est différentiable en \( f(a)\in V\). Alors \( g\circ f\colon E\to W\) est différentiable en \( a\) et
+    \begin{equation}
+        f(g\circ f)_a(u)=df_{f(a)}\big( df_a(u) \big),
+    \end{equation}
+    ou encore
+    \begin{equation}
+        f(g\circ f)_a=dg_{f(a)}\circ df_a.
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    En utilisant le lemme \ref{LEMooYQZZooVybqjK} pour les fonctions \( f\) et \( g\), nous avons
+    \begin{equation}        \label{EQooXNWZooJSPjRS}
+        f(a+h)=f(a)+df_a(h)+\alpha(h)
+    \end{equation}
+    et
+    \begin{equation}        \label{EQooIQZZooWPyMbE}
+        g\big( f(a)+k \big)=g\big( f(a) \big)+dg_{f(a)}(k)+\beta(k).
+    \end{equation}
+    L'application \( dg_{f(a)}\circ df_a\) est une application linéaire, et est notre candidat différentielle. En suivant la définition \ref{DefDifferentiellePta}, nous allons calculer
+    \begin{equation}
+        \lim_{h\to 0} \frac{ (g\circ f)(a+h)-(g\circ f)(a)-(dg_{f(a)}\circ df_a)(h) }{ \| h \| }.
+    \end{equation}
+    Si cette limite existe et vaut zéro, alors nous aurons prouvé que le candidat différentielle est correct.
+
+    Pour cela, nous emboîtons les formules \eqref{EQooXNWZooJSPjRS} et \eqref{EQooIQZZooWPyMbE} l'une dans l'autre pour avoir : 
+    \begin{equation}
+        g(a+h)=g\big( f(a)+df_a(h)+\alpha(h) \big)=g\big( f(a) \big)+dg_{f(a)}\big( df_a(h)+\alpha(h) \big)+\beta\big( df_a(h)+\alpha(h) \big).
+    \end{equation}
+    Vu que \( dg_{f(a)}\) est linéaire, le deuxième terme peut être coupé en deux et après recombinaisons,
+    \begin{equation}
+        (g\circ f)(a+h)-(g\circ f)(a)-(df_{f(a)}\circ df_a)(h)=dg_{f(a)}\big( \alpha(h) \big)+\beta\big( df_a(h)+\alpha(h) \big).
+    \end{equation}
+    Étant donné que \( dg_{f(a)}\) est linéaire,
+    \begin{equation}
+        \frac{ dg_{f(a)}\big(\alpha(h)\big) }{ \| h \| }=dg_{f(a)}\left( \frac{ \alpha(h) }{ \| h \| } \right)\to 0.
+    \end{equation}
+    Il nous reste à voir que
+    \begin{equation}        \label{EQooUQNUooFgNyJp}
+        \lim_{h\to 0} \frac{ \beta\big( df_a(h)+\alpha(h) \big) }{ \| h \| }
+    \end{equation}
+    existe au vaut zéro. Vu que \( df_a\) est linéaire, il existe \( M>0\) tel que\footnote{Ce \( M\) est par exemple la norme opérateur de \( df_a\), comme nous l'assure le lemme \ref{LEMooIBLEooLJczmu}.} \( \| df_a(h) \|\leq M\| h \|\). D'autre part, vu que \( \alpha(h)/\| h \|\to 0\), nous avons \( \| \alpha(h) \|\leq \| h \|\) pour tout \( h\) suffisamment petit.
+
+    Donc si \( h\) est assez petit, nous avons
+    \begin{equation}        \label{EQooEQJBooSmacrD}
+        \| df_a(h)+\alpha(h) \|\leq (M+1)\| h \|.
+    \end{equation}
+    Soit \( \epsilon>0\). Soit \( \delta>0\) tel que \( \| h \|\leq \delta\) implique \( \beta(h)/\| h \|\leq \epsilon\) et \eqref{EQooEQJBooSmacrD} en même temps. Soit \( r\) tel que \( (M+1)r<\delta\); et notons que \( r<\delta\). Nous considérons alors \( h\in B(0,r)\) et nous calculons :
+    \begin{equation}
+        \frac{ \beta\big( df_a(h)+\alpha(h) \big) }{ \| h \| }=\frac{ \beta\big( df_a(h)+\alpha(h) \big) }{ \| df_a(h)+\alpha(h) \| }\frac{ \| df_a(h)+\alpha(h) \| }{ \| h \| }\leq (M+1)\epsilon.
+    \end{equation}
+    La limite \eqref{EQooUQNUooFgNyJp} existe donc et vaut zéro.
+\end{proof}
+
+Une importante règles de différentiation est la règle de différentiation d'une fonction composée (\emph{chain rule} dans les livres anglais et américains). Cette règle généralise la règle de dérivation pour fonctions de $\eR$ dans $\eR$. Il est utile d'introduire d'abord une formulation équivalente de la définition de différentielle
 \begin{lemma}\label{Def_diff2}
   Soit $U$ un ouvert de $\eR^m$. La fonction $f: U\to\eR^n$ est différentiable au point $a$ dans $U$, si et seulement s'il existe une fonction $\sigma_f: U\times U\to \eR^n$ telle que
   \begin{subequations}		\label{SubEqsDiff2}
@@ -423,6 +492,10 @@ Le lemme suivant sert à prouver les théorèmes \ref{ThoLDpRmXQ} et \ref{ThoUJM
     \end{equation}
     En remettant au bout de \eqref{SUBEQSooWKRYooGyVgNl}, nous obtenons le résultat.
 \end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Autres trucs sur la différentielle}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 %---------------------------------------------------------------------------------------------------------------------------
   \subsection{Différentielle et dérivées partielles}
