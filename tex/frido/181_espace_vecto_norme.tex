@@ -985,6 +985,776 @@ Voyons comment montrer cela de façon plus directe (bien que le raisonnement pr�
     \end{subequations}
 \end{proof}
 
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Applications multilinéaires}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}[Application multilinéaire]       \label{DefFRHooKnPCT}
+    Une application $T: \eR^{m_1}\times \ldots \times\eR^{m_k}\to\eR^p $ est dite \defe{\( k\)-linéaire}{application!multilinéaire} si pour tout $X=(x_1, \ldots,x_k)$ dans $ \eR^{m_1}\times \ldots \times\eR^{m_k}$ les applications $x_i\mapsto T(x_1, \ldots, x_i,\ldots,x_k)$ sont linéaires pour tout $i$ dans $\{1,\ldots,k\}$, c'est à dire
+	\begin{equation}
+		\begin{aligned}[]
+			T(\cdot,x_2, \ldots, x_i,\ldots,x_k)&\in \mathcal{L}(\eR^{m_1}, \eR^p),\\
+			T(x_1,\cdot, \ldots, x_i,\ldots,x_k)&\in \mathcal{L}(\eR^{m_2}, \eR^p),\\
+						& \vdots\\
+			T(x_1, \ldots, x_i,\ldots,x_{k-1},\cdot)&\in \mathcal{L}(\eR^{m_k}, \eR^p).\\
+		\end{aligned}
+	\end{equation}
+	En particulier lorsque $k=2$, nous parlons d'applications \defe{bilinéaires}{bilinéaire}. Vous pouvez deviner ce que sont les applications \emph{tri}linéaire ou \emph{quadri}linéaire.
+\end{definition}
+
+L'ensemble des applications $k$-linéaires de $ \eR^{m_1}\times \ldots \times\eR^{m_k}$ dans $\eR^p$ est noté $\mathcal{L}(\eR^{m_1}\times \ldots \times\eR^{m_k}, \eR^p)$ ou $\mathcal{L}(\eR^{m_1}, \ldots,\eR^{m_k}; \eR^p)$.
+
+\begin{example}
+  Soit $A$ une matrice avec $m$ lignes et $n$ colonnes. L'application bilinéaire de $\eR^m\times \eR^n$ dans $\eR$ associée à $A$ est définie par
+\[
+T_A(x,y)= x^TAy=\sum_{i,j}a_{i,j}x_i y_j, \qquad \forall x\in \eR^m, \, y \in \eR^n.
+\]
+\end{example}
+
+Nous énonçons la proposition suivante dans le cas d'espaces vectoriels normés\footnote{Sans hypothèses sur la dimension.} parce que nous allons l'utiliser dans ce cas, mais le cas particulier \( E_i=\eR^{m_i}\) et \( F=\eR^p\) est important.
+\begin{proposition} \label{PropUADlSMg}
+    Soient des espaces vectoriels normés \( E_i\) et \( F\). Une application \( n\)-linéaire
+    \begin{equation}
+        T\colon E_1\times\ldots\times E_n\to F
+    \end{equation}
+    est est continue si et seulement s'il existe un réel $L\geq 0$ tel que
+  \begin{equation}\label{limitatezza}
+     \|T(x_1, \ldots,x_n)\|_F\leq L \|x_1\|_{F_1}\cdots\|x_n\|_{F_n}, \qquad \forall x_i\in E_i.
+  \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Pour simplifier l'exposition nous nous limitons au cas $n=2$ et nous notons $T(x,y)=x*y$
+
+    Supposons que l'inégalité \eqref{limitatezza} soit satisfaite.
+    \begin{equation}\label{LimImplCont}
+      \begin{aligned}
+        \|x*y-x_0*y_0\|&=\|(x-x_0)*y-x_0*(y-y_0)\|\\
+    &\leq \|(x-x_0)*y\|+\|x_0*(y-y_0)\|\\
+    &\leq L\|x-x_0\|\|y\| + L\|x_0\|\|y-y_0\|.
+      \end{aligned}
+    \end{equation}
+    Si $x\to x_0$ et $y\to y_0$  on voit que $T$ est continue en passant à la limite aux deux côtes de l'inégalité \eqref{LimImplCont}.
+
+    Soit $T$ continue en $(0,0)$. Évidemment\footnote{Dans la formule suivante, les trois zéros sont les zéros de trois espaces différents.} $0*0=0$, donc il existe $\delta>0$ tel que si $x\in B_{E_1}(0,\delta)$ et $y\in B_{E_2}(0,\delta)$ alors $\|x*y\|\leq 1$. En particulier si \( (x,y)\in B_{E_1\times E_2}(0,\delta)\) nous sommes dans ce cas. Soient maintenant  $x\in E_1\setminus\{ 0 \}$  et $y\in E_2\setminus\{ 0\}$
+    \begin{equation}
+        x*y=\left(\frac{\|x\|}{\delta}\frac{\delta x}{\|x\|}\right)*\left(\frac{\|y\|}{\delta}\frac{\delta y}{\|y\|}\right)
+    =\frac{\|x\|\|y\|}{\delta^2} \left(\frac{\delta x}{\|x\|}\right)*\left(\frac{\delta y}{\|y\|}\right).
+     \end{equation}
+    On remarque que $\delta x/\|x\|_m$ est dans la boule de rayon $\delta$ centrée en $0_m$ et que $\delta y/\|y\|_n$ est dans la boule de rayon $\delta$ centrée en $0_n$. On conclut
+    \[
+     x*y\leq \frac{\|x\|_m\|y\|_n}{\delta^2}.
+    \]
+    Il faut prendre $L=1/\delta^2$.
+\end{proof}
+
+La norme de \( T\) est alors définie comme la plus petite constante \( L\) qui fait fonctionner la proposition~\ref{PropUADlSMg}.
+\begin{definition}  \label{DefKPBYeyG}
+	La norme sur l'espace $\aL(E_1\times \cdots\times E_n, F)$ des applications $k$-linéaires et continues est
+	\begin{equation}
+        \|T\|_{E_1\times \ldots\times E_n}=\sup\{ \|T(u_1, \ldots,u_k)\|_{F}\,\vert\,\|u_i\|_{E_i}\leq 1, i=1,\ldots, k \}.
+	\end{equation}
+\end{definition}
+Nous avons donc automatiquement
+\begin{equation}    \label{EqYLnbRbC}
+    \| T(u,v) \|\leq \| T \|\| u \|\| v \|.
+\end{equation}
+Et nous notons que cette norme est uniquement définie pour les applications linéaires continues. Ce n'est pas très grave parce qu'alors nous définissons \( \| T \|=\infty\) si \( T\) n'est pas continue. Cela pour retrouver le principe selon lequel on est continue si et seulement si on est borné.
+
+\begin{proposition}\label{isom_isom}
+  On définit les fonctions
+  \begin{equation}
+    \begin{array}{rccc}
+      \omega_g: & \mathcal{L}(\eR^{m}\times\eR^{n}, \eR^p)&\to &\mathcal{L}(\eR^{m}, \mathcal{L}(\eR^{n}, \eR^p)),\\
+      \omega_d: & \mathcal{L}(\eR^{m}\times\eR^{n}, \eR^p)&\to &\mathcal{L}(\eR^{n}, \mathcal{L}(\eR^{m}, \eR^p)),
+    \end{array}
+  \end{equation}
+par
+\[
+\omega_g(T)(x)=T(x,\cdot), \qquad \forall x\in\eR^m,
+\]
+et
+\[
+\omega_d(T)(y)=T(\cdot, y), \qquad \forall y\in\eR^n.
+\]
+Les fonctions $\omega_g$ et $\omega_d$ sont des isomorphismes qui préservent les normes.
+\end{proposition}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Séries}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SECooYCQBooSZNXhd}
+
+\begin{definition}\label{DefGFHAaOL}
+    Soit \( (a_k)\) une suite dans un espace vectoriel normé \( (V,\| . \| )\). La suite des \defe{sommes partielles}{somme!partielle} associée est la suite \( (s_k)\) définie par
+    \begin{equation}
+        s_k=\sum_{i=0}^ka_i
+    \end{equation}
+    La \defe{série}{série!dans un espace vectoriel normé} associée est la limite des sommes partielles
+    \begin{equation}
+        \sum_{n=0}^{\infty}a_k=\lim_{k\to \infty} \sum_{k=0}^na_k
+    \end{equation}
+    si elle existe.
+
+    Si une telle limite existe nous disons que \( \sum_{k=0}^{\infty}a_k\) \defe{converge}{série convergente} dans \( V\). Si la limite de la suite des sommes partielles n'existe pas nous disons que la série \defe{diverge}{série divergente}.
+\end{definition}
+
+\begin{remark}
+    Si la limite de la suite des sommes partielles n'existe pas dans \( V\), alors elle peut parfois exister dans des extensions de \( V\). Par exemple une série de rationnels convergeant vers \( \sqrt{2}\) dans \( \eR\) ne converge pas dans \( \eQ\). Autre exemple : avec une bonne topologie sur \( \bar \eR\), une série peut ne pas converger dans \( \eR\) mais converger vers \( \pm\infty\) dans \( \bar \eR\).
+\end{remark}
+
+Dans le cas des espaces de fonctions, nous avons une norme importante : la norme uniforme définie par \( \| f \|_{\infty}=\sup\{ f(x) \}\) où le supremum est pris sur l'ensemble de définition de \( f\).
+\begin{definition}[Convergence absolue] \label{DefVFUIXwU}
+    Nous disons que la série \( \sum_{n=0}^{\infty}a_n\) dans l'espace vectoriel normé \( V\) \defe{converge absolument}{convergence absolue} si la série \( \sum_{n=0}^{\infty}\| a_n \|\) converge dans \( \eR\).
+\end{definition}
+
+La convergence absolue dans le cas d'un espace de fonctions muni de la norme uniforme s'appelle la convergence normale.
+
+\begin{definition}[Convergence normale] \label{DefVBrJUxo}
+    Une série de fonctions \( \sum_{n\in \eN}u_n \) converge \defe{normalement}{convergence normale} si la série de nombres \( \sum_n\| u_n \|_{\infty}\) converge. C'est à dire si la série converge absolument pour la norme \( \| f \|_{\infty}\).
+\end{definition}
+
+La convergence normale est à ne pas confondre avec la convergence uniforme.
+
+\begin{definition}[Convergence uniforme]
+    La somme \( \sum_nf_n\) \defe{converge uniformément}{convergence uniforme!série de fonctions} vers la fonction \( F\) si la suite des sommes partielles converge uniformément, c'est à dire si
+    \begin{equation}        \label{EqLNCJooVCTiIw}
+        \lim_{N\to \infty} \| \sum_{n=1}^Nf_n-F \|_{\infty}=0.
+    \end{equation}
+\end{definition}
+
+\begin{proposition} \label{PropAKCusNM}
+    Une série convergeant absolument dans un espace de Banach\footnote{Un espace vectoriel normé complet. Typiquement \( \eR\).} y converge au sens usuel.
+\end{proposition}
+
+\begin{proof}
+    Soit \( (a_k)\) une suite dans un espace vectoriel normé complet dont la série converge absolument. Nous allons montrer que la suite des sommes partielles est de Cauchy. Cela suffira à montrer sa convergence par hypothèse de complétude.
+
+    Nous avons
+    \begin{equation}
+        \| s_p-s_l \|=\| \sum_{k=l+1}^{p}a_k\|  \leq\sum_{k=l+1}^p\| a_k \|=\bar s_p-\bar s_l
+    \end{equation}
+    où \( \bar s_n=\sum_{k=0}^n \| a_k \|\) est la suite des sommes partielles de la série des normes (qui converge). Vu que la suite \( (\bar s_n)\) converge dans \( \eR\), elle y est de Cauchy par la proposition~\ref{PROPooTFVOooFoSHPg}. Donc il existe un \( N\) tel que \( p,l>N\) implique
+    \begin{equation}
+        \| s_p-s_l \|=\bar s_p-\bar s_l\leq \epsilon.
+    \end{equation}
+    Cela signifie que \( (s_n)\) est une suite de Cauchy et donc convergente.
+\end{proof}
+
+\begin{example}[Si l'espace n'est pas complet\cite{MonCerveau}]
+    Dans un espace pas complet, il est possible de construire un série qui converge absolument sans converger au sens usuel.
+
+    Nous allons trouver dans \( \eQ\) une série qui converge simplement vers \( \sqrt{ 2 }\) (et donc ne converge pas dans \( \eQ\)) mais absolument vers \( 4\).
+
+    La base est que si \( A,B\in \eQ\) avec \( A<B\) il est possible de résoudre
+    \begin{subequations}
+        \begin{numcases}{}
+            r_1+r_2=A\\
+            | r_1 |+| r_2 |=B
+        \end{numcases}
+    \end{subequations}
+    pour \( r_1,r_2\in \eQ\). Ce n'est pas très compliqué : la solution est \( r_1=(A+B)/2\) et \( r_2=(A-B)/2\).
+
+    Nous considérons l'espace \( \eQ\) qui n'est pas complet dans \( \eR\). Soit une série \( (a_k)\) dans \( \eQ\) qui converge vers \( \sqrt{ 2 }\) (convergence dans \( \eR\)) nous nommons \( (s_k)\) la suite des ses sommes partielles. Soit aussi la suite \( (b_k)\) qui converge vers \( 4\) (zéro serait encore plus facile mais bon, juste pour faire un peu de généralité).
+
+    Nous supposons que \( a_k<b_k\) pour tout \( k\) et que les deux suites sont constituées de rationnels positifs. Nous nommons \( (s_k)\) et \( (s'_k)\) les sommes partielles. En particulier \( s_n<s'_n\) et ce sont des suites croissantes.
+
+    Nous savons comment trouver \( r_1,r_2\in \eQ\) tels que \( r_1+r_2=s_1\) et \( | r_1 |+| r_2 |=s'_1\). Par récurrence, si nous savons \( r_1,\ldots, r_k\) tels que
+    \begin{subequations}
+        \begin{numcases}{}
+            r_1+\ldots +r_k=s_n\\
+            |r_1|+\ldots +|r_k|=s'_n
+        \end{numcases}
+    \end{subequations}
+    (avec, soit dit en passant \( k=2n\)), alors nous pouvons trouver des rationnels \( r_{k+1}\), \( r_{k+2}\) tels que
+    \begin{subequations}
+        \begin{numcases}{}
+            r_1+\ldots +r_k+r_{k+1}+r_{k+2}=s_{n+1}\\
+            |r_1|+\ldots +|r_k|+|r_{k+1}|+|r_{k+2}|=s'_{n+1},
+        \end{numcases}
+    \end{subequations}
+    en effet il s'agit de résoudre
+    \begin{subequations}
+        \begin{numcases}{}
+            r_{k+1}+r_{k+2}=s_{n+1}-r_1-\ldots-r_k=s_{n+1}-s_n>0\\
+            | r_{k+1} |+| r_{k+2} |=s'_{n+1}-| r_1 | -\ldots -| r_k |=s'_{n+1}-s'_n>0.
+        \end{numcases}
+    \end{subequations}
+    Cela se résout comme plus haut. Au final nous pouvons construire une suite \( (r_k)\) dans \( \eQ\) telle que
+    \begin{equation}
+        \sum_{k=0}^{2n}r_k=s_n
+    \end{equation}
+    et
+    \begin{equation}
+        \sum_{k=0}^{2n}| r_k |=s'_n.
+    \end{equation}
+\end{example}
+
+\begin{remark}
+    Nous savons que sur les espaces vectoriels de dimension finie toutes les normes sont équivalentes (théorème~\ref{DefEquivNorm}). La notion de convergence de série ne dépend alors pas du choix de la norme. Il n'en est pas de même sur les espaces de dimension infinie. Une série peut converger pour une norme mais pas pour une autre.
+\end{remark}
+Lorsque nous verrons la convergence de séries, nous verrons que la convergence normale est la convergence absolue pour la norme uniforme.
+
+\begin{lemma}       \label{LemCAIPooPMNbXg}
+    Si \( E\) et \( F\) sont des espaces de Banach\quext{Je crois qu'il ne faut pas que \( E\) soit complet.}, l'espace \( \aL(E,F)\) est également de Banach.
+\end{lemma}
+
+\begin{proof}
+    Soit \( (u_n)\) une suite de Cauchy dans \( \aL(E,F)\); si \( x\in E\) il existe \( N\) tel que si \( l,m>N\) alors \( \| u_l-u_m \|<\epsilon\), c'est à dire que pour tout \( \| x \|=1\) on a \( \| u_l(x)-u_n(x) \|<\epsilon\). Cela signifie que \( u_n(x)\) est une suite de Cauchy dans l'espace complet \( F\). Cette suite converge et nous pouvons définir l'application \( u\colon E\to F\) par
+    \begin{equation}
+        u(x)=\lim_{n\to \infty} u_n(x).
+    \end{equation}
+    Il suffit maintenant de prouver que \( u\) est linéaire, ce qui est une conséquence directe de la linéarité de la limite :
+    \begin{equation}
+        u(\alpha x+\beta y)=\lim_{n\to \infty} \big( \alpha u_n(x)+\beta u_n(y) \big).
+    \end{equation}
+\end{proof}
+
+\begin{proposition}[Thème~\ref{THEMEooPQKDooTAVKFH}]     \label{PropQAjqUNp}
+    Soit \( E\) un espace de Banach (espace vectoriel normé complet). Si \( A\) est un endomorphisme de \( E\) satisfaisant  \( \| A \|<1\) pour la norme opérateur, alors \( (\mtu-A)\) est inversible et son inverse est donné par
+    \begin{equation}
+        (\mtu-A)^{-1}=\sum_{k=0}^{\infty}A^k.
+    \end{equation}
+\end{proposition}
+\index{série!donnant \( (1-A)^{-1}\)}
+
+\begin{proof}
+    Étant donné que la norme opérateur est une norme algébrique (lemme~\ref{LEMooFITMooBBBWGI}), nous avons \( \| A^k \|\leq \| A \|^k\). Par conséquent la série \( \| A^k \|\) est majorée par la série géométrique qui converge. Par conséquent \( \sum_{k}A^k\) est une série absolument convergente et donc convergente par la proposition~\ref{PropAKCusNM} et le fait que \( \aL(E)\) est complet (proposition~\ref{LemCAIPooPMNbXg}).
+
+    Montrons à présent que la somme est l'inverse de \( \mtu-A\) en utilisant le produit terme à terme autorisé par la proposition~\ref{PropQXqEPuG} :
+    \begin{equation}
+        \sum_{k=0}^nA^k(\mtu-A)=\sum_{k=0}^n(A^k-A^{k+1})=\mtu-A^{n+1}.
+    \end{equation}
+    Par conséquent
+    \begin{equation}
+        \| \mtu-\sum_{k=0}^nA^k(\mtu-A) \|=\| A^{n+1} \|\leq \| A \|^{n+1}\to 0.
+    \end{equation}
+\end{proof}
+
+\begin{proposition}  \label{PROPooYDFUooTGnYQg}
+    Si une série converge dans un espace complet, la norme de son terme général converge vers $0$.
+\end{proposition}
+
+\begin{proof}
+    Soit une suite \( (a_n)\) dont la série converge vers \( s\). Soit \( \epsilon>0\). La suite des sommes partielles \( (s_n)\) est de Cauchy et converge vers \( s\) : \( s_n\to s\). En particulier il existe un \( N\) tel que si \( n>N\), nous avons \( \| s_n-s_{n-1} \|<\epsilon\). Pour de telles valeurs de \( n\) nous avons :
+    \begin{equation}
+        \| a_n \|=\| s_n-s_{n-1} \|\leq \epsilon.
+    \end{equation}
+    Cela prouve que \( a_n\to 0\).
+\end{proof}
+
+\begin{proposition}
+    Si la série converge alors la somme est associative
+\end{proposition}
+
+\begin{proof}
+    Associativité. Supposons que \( \sum_ka_k\) et \( \sum_kb_k\) convergent tous deux. Alors nous avons pour tout \( N\) :
+    \begin{equation}
+        \sum_{k=0}^N(a_k+b_k)=\sum_{k=0}^Na_k+\sum_{k=0}^Nb_k.
+    \end{equation}
+    Mais si deux limites existent alors la somme commute avec la limite. C'est le cas pour la limite \( N\to \infty\), donc
+    \begin{equation}
+        \lim_{N\to \infty} \sum_{k=1}^{\infty}(a_k+b_k)=\lim_{N\to \infty} \sum_{k=0}^{\infty}a_k+\lim_{N\to \infty} \sum_{k=0}^{\infty}b_k.
+    \end{equation}
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Série réelle}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{secseries}
+
+La notion de série formalise le concept de somme infinie. L'absence de certaines propriétés de ces objets (problèmes de commutativité et même d'associativité) incite à la prudence et montre à quel point une définition précise est importante.
+
+
+\subsection{Critères de convergence absolue}
+
+Étant donné le terme général d'une série, il est souvent --dans les cas qui nous intéressent-- difficile de déterminer la somme de la série. L'exemple de la série géométrique est particulier, puisqu'on connaît une formule pour chaque somme partielle, mais pour l'exemple des séries de Riemann il n'y a aucune formule simple pour un $\alpha$ général. D'où l'intérêt d'avoir des critères de convergence ne nécessitant aucune connaissance de l'éventuelle limite de la série.
+
+\begin{lemma}[Critère de comparaison]   \label{LemgHWyfG}
+Soient $\sum_i a_i$ et $\sum_j
+b_j$ deux séries à termes positifs vérifiant
+\begin{equation*}
+  0 \leq a_i \leq b_i
+\end{equation*}
+alors
+\begin{enumerate}
+\item si $\sum_i a_i$ diverge, alors $\sum_j b_j$ diverge,
+\item si $\sum_j b_j$ converge, alors $\sum_i a_i$ converge
+  (absolument).
+  \end{enumerate}
+\end{lemma}
+
+
+\begin{proposition}[Critère d'équivalence\cite{TrenchRealAnalisys}]
+ Soient $\sum_i a_i$ et $\sum_j b_j$ deux séries à termes positifs. Supposons l'existence de la limite (éventuellement infinie) suivante
+\begin{equation}
+  \limite i \infty \frac{a_i}{b_i} = \alpha
+\end{equation}
+avec \( \alpha\in \eR\cup\{ +\infty \}\). Alors
+\begin{enumerate}
+\item si $\alpha \neq 0$ et $\alpha\neq \infty$, alors
+  \begin{equation}
+    \sum_i a_i \text{~converge} \ssi \sum_j b_j\text{~converge,}
+  \end{equation}
+\item si $\alpha = 0$ et $\sum_j b_j$ converge, alors $\sum_i a_i$
+  converge (absolument),
+\item si $\alpha = +\infty$ et $\sum_j b_j$ diverge, alors $\sum_i
+  a_i$ diverge.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\begin{enumerate}
+    \item
+        Le fait que la suite $a_n/b_n$ converge vers $\alpha$ signifie que tant sa limite supérieure que sa limite inférieure convergent vers $\alpha$. En particulier la suite $\frac{ a_n }{ b_n }$ est bornée vers le haut et vers le bas. À partir d'un certain rang $N$, il existe $M$ tel que
+        \begin{equation}
+            \frac{ a_n }{ b_n }<M
+        \end{equation}
+        et il existe $m$ tel que
+        \begin{equation}
+            \frac{ a_n }{ b_n }>m.
+        \end{equation}
+        Nous avons donc $a_n<Mb_n$ et $a_n>mb_n$. La série de $(a_n)$ converge donc si et seulement si la série de $(b_n)$ converge.
+    \item
+        Si $\alpha=0$, cela signifie que pour tout $\epsilon$, il existe un rang tel que $\frac{ a_n }{ b_n }<\epsilon$, et donc tel que $a_n<\epsilon b_k$. La suite de $(a_i)$ converge donc dès que la suite de $(b_i)$ converge.
+    \item
+        Pour tout $M$, il existe un rang dans la suite à partir duquel on a $\frac{ a_i }{ b_i }>M$, et donc $a_k>Mb_k$. Si la série de $(b_k)$ diverge, la série de $(a_k)$ doit également diverger.
+\end{enumerate}
+\end{proof}
+
+
+\begin{proposition}[Critère du quotient\cite{KeislerElemCalculus}]     \label{PropOXKUooQmAaJX}
+    Soit $\sum_i a_i$ une série. Supposons l'existence de la limite (éventuellement infinie) suivante
+    \begin{equation}
+      \limite i \infty \abs{\frac{a_{i+1}}{a_i}} = L
+    \end{equation}
+    avec \( L\in \eR\cup\{ +\infty \}\).  Alors
+    \begin{enumerate}
+    \item si $L < 1$, la série converge absolument,
+    \item si $L > 1$, la série diverge,
+    \item si $L = 1$ le critère échoue : il existe des exemples de convergence et des exemples de divergence.
+    \end{enumerate}
+\end{proposition}
+\index{critère du quotient}
+
+\begin{proof}
+\begin{enumerate}
+    \item
+        Soit $b$ tel que $L<b<1$. À partir d'un certain rang $K$, on a $\left| \frac{ a_{i+1} }{ a_i } \right| <b$. En particulier,
+        \begin{equation}
+            | a_{K+1} |<b| a_K |,
+        \end{equation}
+        et pour $a_{K+2}$ nous avons
+        \begin{equation}
+            | a_{K+2} |<b| a_{K+1} |<b^2| a_K |.
+        \end{equation}
+        Au final,
+        \begin{equation}
+            | a_{K+n} |<b^n| a_K |.
+        \end{equation}
+        Étant donné que la série $\sum_{n\geq K}b^n$ converge (parce que $b<1$), la queue de suite $\sum_{i\geq K}a_i$ converge, et par conséquent la suite au complet converge.
+    \item
+        Si $L>1$, on a
+        \begin{equation}
+            | a_K |<| a_{K+1} |<| a_{K+2} |<\ldots
+        \end{equation}
+        Il est donc impossible que la suite $(a_i)$ converge vers zéro. La série ne peut donc pas converger.
+    \item
+        Par exemple la suite harmonique $a_n=\frac{1}{ n }$ vérifie $L=1$, mais la série ne converge pas. Par contre, la suite $a_n=\frac{ 1 }{ n^2 }$ vérifie aussi le critère avec $L=1$ tandis que la série $\sum_n\frac{1}{ n^2 }$ converge.
+\end{enumerate}
+\end{proof}
+
+
+\begin{proposition}[Critère de la racine\cite{TrenchRealAnalisys}]
+    Soit $\sum_i a_i$ une série, et considérons
+    \begin{equation*}
+      \limsup_{i \rightarrow \infty} \sqrt[i]{\abs{a_i}} = L
+    \end{equation*}
+    avec \( L\in \eR\cup\{ +\infty \}\). Alors
+    \begin{enumerate}
+    \item si $L < 1$, la série converge absolument,
+    \item si $L> 1$, la série diverge,
+    \item si $L = 1$ le critère échoue.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            Si $L<1$, il existe un $r\in \mathopen] 0 , 1 \mathclose[$ tel que $| a_n |^{1/n}<r$ pour les grands $n$. Dans ce cas, $| a_n |<r^{n}$, et la série converge absolument parce que la série $\sum_nr^n$ converge du fait que $r<1$.
+        \item
+            Si $L>1$, il existe un $r>1$ tel que $| a_n |^{1/n}>r>1$. Cela fait que $| a_n |$ prend des valeurs plus grandes que $n$ pour une infinité de termes. Le terme général $a_n$ ne peut donc pas être une suite convergente. Par conséquent la suite diverge au sens où elle ne converge pas.
+
+    \end{enumerate}
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Critères de convergence simple}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les critères de comparaison, d'équivalence, du quotient et de la racine sont des critères de convergence absolue. Pour conclure à une convergence simple qui n'est pas une convergence absolue, le critère d'Abel sera notre outil principal.
+
+\subsubsection{Critère d'Abel}
+
+\begin{proposition}[Critère d'Abel]
+    Soit la série $\sum_i c_iz_i$ avec
+    \begin{enumerate}
+        \item $(c_i)$ est une suite réelle décroissante qui tend vers zéro,
+        \item $(z_i)$ est une suite dans $\eC$ dont la suite des sommes partielles est bornée dans $\eC$, c'est à dire qu'il existe un $M>0$ tel que pour tout $n$,
+        \begin{equation}
+            \left| \sum_{i=1}^nz_i \right| \leq M.
+        \end{equation}
+        Alors la série $\sum_ic_iz_i$ est convergente.
+    \end{enumerate}
+\end{proposition}
+Remarquons que ce critère ne donne pas de convergence absolue.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Quelques séries usuelles}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{SUBSECooDTYHooZjXXJf}
+
+\begin{example}[Série harmonique]
+    La \defe{série harmonique}{série!harmonique} est
+    \begin{equation}
+        \sum_{i=1}^\infty \frac1i
+    \end{equation}
+    et diverge (possède une limite $+\infty$).
+\end{example}
+
+\begin{example}[Série géométrique] \label{ExZMhWtJS}
+    La \defe{série géométrique}{série!géométrique} de raison $q \in \eC$ est
+    \begin{equation}    \label{EqZQTGooIWEFxL}
+        \sum_{i=0}^\infty q^i.
+    \end{equation}
+    Étudions la somme partielle \( S_N=1+q+q^2+\cdots +q^{N}\). Nous avons évidemment $S_N-qS_N=1-q^{N+1}$ et donc
+    \begin{equation}    \label{EqASYTiCK}
+        S_N=\sum_{n=0}^Nq^n=\frac{ 1-q^{N+1} }{ 1-q }.
+    \end{equation}
+    La limite \( \lim_{N\to \infty} S_N\) existe si et seulement si \( | q |\leq 1\) et dans ce cas nous avons
+    \begin{equation}    \label{EqRGkBhrX}
+        \sum_{n=0}^{\infty}q^n=\frac{ 1 }{ 1-q }.
+    \end{equation}
+    La convergence est absolue.
+
+    Si la somme commence en \( n=1\) au lieu de \( n=0\) alors
+    \begin{equation}        \label{EqPZOWooMdSRvY}
+        \sum_{n=1}^{\infty}q^n=\frac{1}{ 1-q }-1=\frac{ q }{ 1-q }.
+    \end{equation}
+\end{example}
+
+Un cas particulier de la formule \eqref{EqASYTiCK} est le calcul de \( \sum_{j=1}^{N}q^{-j}\) bien utile lorsque l'on joue avec des nombres binaires (voir l'exemple~\ref{EXEMooRHENooGwumoA}). Nous avons
+\begin{equation}        \label{EQooFMBAooEJkHWT}
+    \sum_{j=1}^Nq^{-j}=\sum_{j=0}^Nq^{-j}-1=\frac{ 1-q^{-N} }{ q-1 }.
+\end{equation}
+
+\begin{example}[Série de Riemann]       \label{EXooCTYNooCjYQvJ}
+    Pour $\alpha \in \eR$, la \defe{série de Riemann}{série!Riemann}
+    \begin{equation}        \label{EqSerRiem}
+        \sum_{i=1}^\infty \frac1{i^\alpha}
+    \end{equation}
+    converge (absolument, puisque réelle et positive) si et seulement si $\alpha > 1$, et diverge sinon.
+\end{example}
+
+\begin{example}[Série exponentielle] \label{ExIJMHooOEUKfj}
+    La série exponentielle est la série (pour \( t\in \eR\))
+    \begin{equation}
+        \exp(t)=\sum_{k=0}^{\infty}\frac{ t^k }{ k! }.
+    \end{equation}
+    Nous montrons qu'elle converge pour tout \( t\in \eR\). Si \( a_k=t^k/k!\) alors \( \frac{ a_{k+1} }{ a_k }=\frac{ t }{ k }\) dont la limite \( k\to \infty\) est zéro (quel que soit \( t\)). En vertu du critère du quotient~\ref{PropOXKUooQmAaJX} la série exponentielle converge (absolument) pour tout \( t\in \eR\).
+
+    Pour tout savoir de l'exponentielle et de ses variations, voir le thème~\ref{THEMEooKXSGooCsQNoY}.
+\end{example}
+\index{exponentielle!convergence}
+
+\begin{example}[Série arithmético-géométrique\cite{QXuqdoo}]
+    Une \defe{suite arithmético-géométrique}{suite!arithmético-géométrique} est une suite vérifiant pour tout \( n\) la relation
+    \begin{equation}
+        u_{n+1}=au_n+b
+    \end{equation}
+    avec \( a\) et \( b\) non nuls. Si elle possède une limite, cette dernière doit résoudre \( l=al+b\), et donc être donnée par
+    \begin{equation}
+        l=\frac{ b }{ 1-a }.
+    \end{equation}
+
+    Comportement amusant : la limite peut exister pour certains valeurs de \( a_0\) et pas pour d'autres. Mais elle ne dépend pas de \( a_0\) parmi ceux pour lesquelles la limite existe.
+
+    Il n'est pas très compliqué de trouver le terme général de la suite en fonction de \( a\) et de \( b\). Il suffit de considérer la suite \( v_n=u_n-r\), et de remarquer que cette suite est géométrique :
+    \begin{equation}
+        v_{n+1}=av_n.
+    \end{equation}
+    Par conséquent \( v_n=a^nv_0\), ce qui donne pour la suite \( (u_n)\) la formule
+    \begin{equation}
+        u_n=a^n(u_0-r)+r.
+    \end{equation}
+\end{example}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Séries alternées}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}[Critère des séries alternées\cite{ooXFPIooCLUvzV}]      \label{THOooOHANooHYfkII} 
+    Si \( a\) est une suite réelle décroissante à limite nulle, alors
+    \begin{enumerate}
+        \item
+            La série \( \sum_n(-1)^na_n\) converge,
+        \item
+            si nous notons \( (S_n)\) la suite des sommes partielles, les sous-suites \( (S_{2n})\) et \( (S_{2n+1})\) sont adjacentes de limite \( \sum_{n=1}^{\infty}(-1)^na_n\).
+        \item
+            Si nous considérons le reste 
+            \begin{equation}
+                R_n=\sum_{k=n+1}^{\infty}(-1)^ka_k,
+            \end{equation}
+            nous avons
+            \begin{subequations}
+                \begin{align}
+                    \signe(R_n)=(-1)^{n+1}\\
+                    | R_n |\leq a_{n+1}.
+                \end{align}
+            \end{subequations}
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    En termes de notations, nous allons écrire \( (S_n)\) la suite des sommes partielles de \( \sum_{k=0}^{\infty}(-1)^ka_k\). Nous notons \( (S_{2n})\) la suite des termes pairs de cette suite. C'est donc la suite \( n\mapsto S_{2n}\).
+    Nous divisons en plusieurs morceaux.
+    \begin{subproof}
+        \item[\( S_{2n}\) est croissante]
+            Nous avons simplement
+            \begin{equation}
+                S_{2n+2}-S_{2n}=a_{2n+2}-a_{2n+1}\leq 0.
+            \end{equation}
+        \item[\( (S_{2n+1})\) est décroissante]
+            Même calcul.
+        \item[Les suites \( (S_{2n})\) et \( S_{2n+1}\) sont adjacentes] Nous avons simplement
+            \begin{equation}
+                S_{2n+1}-S_{2n}=a_{2n+1}\to 0.
+            \end{equation}
+            Nous concluons par le théorème des suites adjacentes \ref{THOooZJWLooAtGMxD} que les sous-suites des termes pairs et impairs sont convergentes et convergent vers la même limite.
+    \end{subproof}
+    C'est le moment d'utiliser la proposition \ref{PROPooXOOCooGMqJNe} qui convaincra la lectrice que \( (S_n)\) converge vers la même limite, que nous notons \( S\). Le théorème des suites adjacentes nous dit encore que 
+    \begin{equation}
+        S_{2n+1}\leq S\leq S_{2n}
+    \end{equation}
+    et donc que \( R_{2n}=S-S_{2n}\leq 0\). Cela donne la majoration
+    \begin{equation}
+        | R_{2n} |=| S-S_n |=S_{2n}-S\leq S_{2n}-S_{2n+1}=a_{2n+1}.
+    \end{equation}
+    Nous faisons le même genre de majorations pour \( R_{2n+1}\).
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Moyenne de Cesaro}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Si \( (a_n)_{n\in \eN} \) est une suite dans \( \eR\) ou \( \eC\), alors sa \defe{moyenne de Cesaro}{moyenne!de Cesaro}\index{Cesaro!moyenne} est la limite (si elle existe) de la suite
+    \begin{equation}
+        c_n=\frac{1}{ n }\sum_{k=1}^na_k.
+    \end{equation}
+    En un mot, c'est la limite des moyennes partielles.
+\end{definition}
+
+\begin{lemma}       \label{LemyGjMqM}
+    Si la suite \( (a_n)\) converge vers la limite \( \ell\) alors la suite admet une moyenne de Cesaro qui vaudra \( \ell\).
+\end{lemma}
+
+\begin{proof}
+    Soit \( \epsilon>0\) et \( N\in \eN\) tel que \( | a_n-\ell |<\epsilon\) pour tout \( n>N\). En remarquant que
+    \begin{equation}
+        \frac{1}{ n }\sum_{k=1}^nk-\ell=\frac{1}{ n }\sum_{k=1}^n(a_k-\ell),
+    \end{equation}
+    nous avons
+    \begin{subequations}
+        \begin{align}
+            | \frac{1}{ n }\sum_{k=1}^na_k-\ell |&\leq| \frac{1}{ n }\sum_{k=1}^N| a_k-\ell | |+\big| \frac{1}{ n }\sum_{k=N+1}^n\underbrace{| a_k-\ell |}_{\leq \epsilon} \big|\\
+            &\leq \epsilon+\frac{ n-N-1 }{ n }\epsilon\\
+            &\leq 2\epsilon.
+        \end{align}
+    \end{subequations}
+    Dans ce calcul nous avons redéfinit \( N\) de telle sorte que le premier terme soit inférieur à \( \epsilon\).
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Écriture décimale d'un nombre}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{normaltext}      \label{NORMALooTZWYooPMgOIm}
+    Soit \( b\geq 2\) un entier qui sera la base dans laquelle nous allons écrire les nombres. Nous considérons l'ensemble \( \eD_b\)\nomenclature[Y]{\( \eD_b\)}{l'ensemble de écritures décimales en base \( b\)} des suites dans \( \{ 0,1,\ldots, b-1 \}\) qui n'ont pas une queue de suite uniquement formée de \( b-1\). Autrement dit une suite \( (c_n)\) est dans \( \eD_b\) lorsque pour tout \( N\), il existe \( k>N\) tel que \( c_k\neq b-1\). Associé à cet ensemble nous considérons la fonction
+    \begin{equation}    \label{EqXXXooOTsCK}
+        \begin{aligned}
+            \varphi_b\colon \eD_b&\to \mathopen[ 0 , 1 [ \\
+                c&\mapsto \sum_{n=1}^{\infty}\frac{ c_n }{ b^n }.
+        \end{aligned}
+    \end{equation}
+\end{normaltext}
+
+\begin{lemma}
+    La fonction \( \varphi_b\) est bien définie au sens où elle converge et prend ses valeurs dans \( \mathopen[ 0 , 1 [\).
+\end{lemma}
+
+\begin{proof}
+    Tout se base sur la somme de la série géométrique \eqref{EqRGkBhrX} sous la forme
+    \begin{equation}    \label{EqWZGooXJgwl}
+        \sum_{k=0}^{\infty}\frac{1}{ b^k }=\frac{ b }{ b-1 }.
+    \end{equation}
+    La somme \eqref{EqXXXooOTsCK} est donc majorée par \( \sum_n\frac{ b-1 }{ b^n }\) qui converge.
+
+    Pour prouver que l'image de \( \varphi_b\) est bien \( \mathopen[ 0 , 1 [\), nous savons qu'au moins un des \( c_n\) (en fait une infinité) est plus petit que \( b-1\), donc nous avons la majoration stricte\footnote{Notez que la somme \eqref{EqXXXooOTsCK} commence à un tandis que la série géométrique \eqref{EqWZGooXJgwl} commence à zéro.}
+        \begin{equation}
+            \varphi_b(c)<\sum_{n=1}^{\infty}\frac{ b-1 }{ b^n }=(b-1)\left( \sum_{n=1}^{\infty}\frac{1}{ b^n }-1 \right)=1
+        \end{equation}
+\end{proof}
+
+Le fait d'introduire l'ensemble \( \eD\) au lieu de l'ensemble de toutes les suites est justifié par la proposition suivante. Elle explique pourquoi un nombre possède au maximum deux écritures décimales distinctes et que ces deux sont obligatoirement de la forme, par exemple en base \( 10\) :
+\begin{equation}
+    0.34599999999\ldots=0.34600000\ldots
+\end{equation}
+mais qu'un nombre commençant par \( 0.347\) ne peut pas être égal. C'est pour cela que dans la définition de \( \eD_b\) nous avons exclu les suites qui terminent par tout des \( b-1\).
+\begin{proposition} \label{PropSAOoofRlQR}
+    Soit la fonction
+    \begin{equation}
+        \begin{aligned}
+            \varphi\colon \{ 0,\ldots, b-1 \}^{\eN}&\to \mathopen[ 0 , 1 [ \\
+                x&\mapsto \sum_{n=1}^{\infty}\frac{ x_n }{ b^n }.
+        \end{aligned}
+    \end{equation}
+    Si \( \varphi(x)=\varphi(y)\) et si \( n_0\) est le plus petit entier tel que \( x_{n_0}\neq y_{n_0}\) alors soit
+    \begin{equation}
+        x_{n_0}-y_{n_0}=1
+    \end{equation}
+    et \( x_n=0\), \( y_n=b-1\) pour tout \( n>n_0\), soit le contraire : \( y_{n_0}-x_{n_0}=1\) avec \( y_n=0\) et \( x_n=b-1\) pour tout \( n>n_0\).
+\end{proposition}
+
+\begin{proof}
+    Nous nous basons sur la formule (facilement dérivable depuis \eqref{EqWZGooXJgwl}) suivante :
+    \begin{equation}
+        \sum_{k=n_0+1}^{\infty}\frac{1}{ b^k }=\frac{1}{ b^{n_0+1} }\frac{ b }{ b-1 }.
+    \end{equation}
+    Nous avons
+    \begin{equation}
+        0=\varphi(x)-\varphi(y)=\frac{ x_{n_0}-y_{n_0} }{ b^{n_0} }+\sum_{n=n_0+1}^{\infty}\frac{ x_n-y_n }{ b^n }\geq \frac{ x_{n_0}-y_{n_0} }{ b^{n_0} }-\sum_{n=n_0+1}^{\infty}\frac{ b-1 }{ b^n }=\frac{ x_{n_0}-y_{n_0}-1 }{ b^{n_0} }.
+    \end{equation}
+    Le dernier terme étant manifestement positif\footnote{C'est ici qu'intervient la subdivision entre le cas \( x_{n_0}-y_{n_0}=1\) ou le contraire. En effet si «ce dernier terme était manifestement \emph{négatif}», il aurait fallu majorer avec de \( 1-b\) au lieu de \( 1-b\).}, il est nul et nous avons \( x_{n_0}-y_{n_0}=1\).
+
+    Nous avons donc maintenant
+    \begin{equation}    \label{EqHWQoottPnb}
+        0=\varphi(x)-\varphi(y)=\frac{1}{ b^{n_0} }+\sum_{n=n_0+1}^{\infty}\frac{ x_n-y_n }{ b^n }.
+    \end{equation}
+    Nous majorons la dernière somme de la façon suivante, en supposant que \( | x_n-y_n |\neq b-1\) pour un certain \( n>n_0\) :
+    \begin{equation}
+        \left| \sum_{n=n_0+1}^{\infty}\frac{ x_n-y_n }{ b^n } \right| \leq\sum_{n=n_0+1}^{\infty}\frac{ | x_n-y_n | }{ b^n }<\sum_{n=n_0+1}^{\infty}\frac{ b-1 }{ b^n }=\frac{1}{ b^{n_0} }.
+    \end{equation}
+    Étant donné cette inégalité stricte, l'équation \eqref{EqHWQoottPnb} ne peut pas être correcte (valoir zéro). Nous avons donc \( | x_n-b_n |=b-1\) pour tout \( n>n_0\). Donc pour chaque \( n>n_0\) nous avons soit \( x_n=0\) et \( y_n=b-1\), soit \( a_n=b-1\) et \( b_n=0\). Pour conclure il faut encore prouver que le choix doit être le même pour tout \( n\).
+
+    Nous nous mettons dans le cas \( x_{n_0}-y_{n_0}=1\); dans ce cas nous avons bien l'égalité \eqref{EqHWQoottPnb} sans petites nuances de signes. Nous écrivons
+    \begin{equation}
+        \sum_{n=n_0+1}^{\infty}\frac{ x_n-y_n }{ b^n }=(b-1)\sum_{n=n_0+1}^{\infty}\frac{ (-1)^{s_n} }{ b^n }
+    \end{equation}
+    où \( s_n\) est pair ou impair suivant que \( x_n=0\), \( y_n=b-1\) ou le contraire. Si un des \( (-1)^{s_n}\) est pas \( -1\) alors nous avons l'inégalité stricte
+    \begin{equation}
+        (b-1)\sum_{n=n_0+1}^{\infty}\frac{ (-1)^{s_n} }{ b^n }>(b-1)\sum_{n=n_0+1}^{\infty}\frac{-1}{ b^n }=-\frac{1}{ b^{n_0} }.
+    \end{equation}
+    Dans ce cas il est impossible d'avoir \( \varphi(x)-\varphi(y)=0\). Nous en concluons que \( (-1)^{s_n}\) est toujours \( -1\), c'est à dire \( x_n-y_n=1-b\), ce qui laisse comme seule possibilité \( x_n=0\) et \( y_n=b-1\).
+\end{proof}
+
+\begin{theorem} \label{ThoRXBootpUpd}
+    L'application \( \varphi_b\colon \eD_b\to \mathopen[ 0 , 1 [\) est bijective.
+\end{theorem}
+
+\begin{proof}
+    En ce qui concerne l'injection, nous savons de la proposition~\ref{PropSAOoofRlQR} que si \( \varphi_b(x)=\varphi_b(y)\) pour \( x,y\in\{ 0,\ldots, b-1 \}^{\eN}\), alors soit \( x\) soit \( y\) a une queue de suite composée uniquement de \( b-1\), ce qui est exclu dans \( \eD_b\). Nous en déduisons que \( \varphi_b\) est bien injective en prenant \( \eD_b\) comme ensemble départ.
+
+    La partie lourde est la surjectivité. Nous prenons \( x\in \mathopen[ 0 , 1 [\) et nous allons construire par récurrence une suite \( a\in \eD_b\) telle que \( \varphi_b(a)=x\). Si il existe \( a_1\in\{ 0,\ldots, b-1 \}\) tel que \( x=a_1/b\) alors nous prenons la suite \( (a_1,0,\ldots, )\) et nous avons évidemment \( \varphi(a)=x\). Sinon il existe \( a_1\in\{ 0,\ldots, b-1 \}\) tel que
+        \begin{equation}
+            \frac{ a_1 }{ b }<x<\frac{ a_1+1 }{ b }
+        \end{equation}
+        parce que les autres possibilités pour \( x\) sont dans l'ensemble \( \mathopen[ 0 , 1 \mathclose[\setminus\{ \frac{ k }{ b } \}_{k=0,\ldots, b-1}\) que nous subdivisons en
+        \begin{equation}
+        \mathopen] 0 , \frac{1}{ b } \mathclose[\cup\mathopen] \frac{1}{ b } , \frac{ 2 }{ b } \mathclose[\cup\ldots\cup\mathopen] \frac{ b-1 }{ b } , 1 \mathclose[.
+        \end{equation}
+        Pour la récurrence nous supposons avoir trouvé \( a_1,\ldots, a_n\) tels que
+        \begin{equation}
+            \sum_{k=1}^n\frac{ a_k }{ b^k }< x<\sum_{k=1}^{n-1}\frac{ a_k }{ b^k }+\frac{ a_n+1 }{ b^n }.
+        \end{equation}
+    Encore une fois s'il existe \( a_{n+1}\in\{ 0,\ldots, b-1 \}\) tel que \( \sum_{k=1}^{n+1}\frac{ a_k }{ b^k }=x\) alors nous prenons ce \( a_{n+1}\) et nous complétons la suite avec des zéros pour avoir \( \varphi(a)=x\). Sinon
+%nous subdivisions l'intervalle \( \mathopen]  \frac{ a_n }{ b^n }, \frac{ a_n }{ b^n }+\frac{ a_n+1 }{ b^n } \mathclose[\) (auquel nous retranchons les \( b\) nombres déjà traités) en
+ %       \begin{equation}
+ %       \mathopen] \frac{ a_n }{ b^n } , \frac{ a_n }{ b^n }+\frac{1}{ b^{n+1} } \mathclose[ \cup \mathopen] \frac{ a_n }{ b^n }+\frac{1}{ b^{n+1} } , \frac{ a_n }{ b^n }+\frac{2}{ b^{n+1} } \mathclose[\cup\ldots\cup\mathopen] \frac{ a_n }{ b^n }+\frac{ b-1 }{ b^{n+1} } , \frac{ a_n }{ b^n }+\frac{ 1 }{ b^n } \mathclose[.
+ %       \end{equation}
+        , pour simplifier les notations nous notons \( x'=x-\sum_{k=1}^{n}\frac{ a_k }{ b^k }\) et nous avons
+        \begin{equation}
+            0<x'<\frac{ a_n+1 }{ b^n }.
+        \end{equation}
+        Le nombre \( x'\) est forcément dans un des intervalles
+        \begin{equation}
+                \mathopen] \frac{ s }{ b^{n+1} } , \frac{ s+1 }{ b^{n+1} } \mathclose[
+        \end{equation}
+        avec \( s\in\{ 0,\ldots, b-1 \}\). Nous prenons le \( s\) correspondant à \( x'\) comme \( a_{n+1}\). Dans ce cas nous avons
+        \begin{equation}
+            \sum_{k=1}^{n+1}\frac{ a_k }{ b^k }< x<\sum_{k=1}^{n+1}\frac{ a_k }{ b^k }+\frac{1}{ b^{n+1} }.
+        \end{equation}
+        Note : les deux inégalités sont strictes. La première parce que s'il y avait égalité, nous nous serions déjà arrêté en complétant avec des zéros. La seconde parce que
+        \begin{equation}
+            \sum_{k=n+2}^{\infty}\frac{ a_k }{ b^k }\leq \sum_{k=n+2}^{\infty}\frac{ b-1 }{ b^k }=\frac{1}{ b^{n+1} }
+        \end{equation}
+        où l'égalité n'est possible que si \( a_k=b-1\) pour tout \( k\geq n+2\). Dans ce cas nous aurions eu
+        \begin{equation}
+            x=\sum_{k=1}^{n}\frac{ a_k }{ b^k }+\frac{ a_{n+1}+1 }{ b^{n+1} }
+        \end{equation}
+        et nous aurions choisi le nombre \( a_{n+1}\) autrement et complété la suite par des zéros à partir de là. Notons que cela prouve au passage que la suite que nous sommes en train de construire est bien dans \( \eD_b\) parce qu'elle ne contiendra pas de queue de suite composée de \( b-1\).
+
+        Ceci termine la construction par récurrence de la suite \( a\in \eD_b\). Par construction nous avons pour tout \( N\geq 1\),
+        \begin{equation}
+            \sum_{k=1}^N\frac{ a_k }{ b^k }\leq x\leq \sum_{k=1}^N\frac{ a_k }{ b^k }+\frac{1}{ b^{N+1} },
+        \end{equation}
+        autrement dit : \( \varphi_b(a_1,\ldots, a_N)\in B(x,\frac{1}{ b^{N+1} })\). Nous avons donc bien convergence
+        \begin{equation}
+            \lim_{N\to \infty} \varphi_b(a_1,\ldots, a_N)=x
+        \end{equation}
+        et l'application \( \varphi_b\) est surjective.
+\end{proof}
+
+L'application \( \varphi_b^{-1}\colon \mathopen[ 0 , 1 [\to \eD_b\) est la \defe{décomposition décimale}{décimale!décomposition} en base \( b\) des nombres de \( \mathopen[ 0 , 1 [\).
+
+Tout cela nous permet de montrer entre autres que \( \eR\) n'est pas dénombrable. Vu qu'il y a une bijection entre \( \mathopen[ 0 , 1 [\) et \( \eD_b\), il suffit de prouver que \( \eD_b\) est non dénombrable. De plus il suffit de démontrer que \( \eD_b\) est non dénombrable pour un entier \( b\geq 2\) donné.
+
+\begin{proposition}[\cite{KZIoofzFLV}]  \label{PropNNHooYTVFw}
+    Il n'existe pas de surjection \( \eN\to \eD_b\). Autrement dit \( \eD_b\) est non dénombrable.
+\end{proposition}
+
+\begin{proof}
+    Nous prenons \( b\neq 2\) pour des raisons qui seront claires plus tard. Soit \( f\colon \eN\to \eD_b\). Pour \( i\in \eN\) nous notons
+    \begin{equation}
+        f(n)=(c_i^{(n)})_{i\geq 1},
+    \end{equation}
+    et nous définissons la suite
+    \begin{equation}
+        c_k=\begin{cases}
+            0    &   \text{si } c_k^{(k)}\neq 0\\
+            1    &    \text{si } c_k^{(k)}=0.
+        \end{cases}
+    \end{equation}
+    Cela est une suite dans \( \eD_b\) parce que \( b\neq 2\) et que la suite ne contient que des \( 0\) et des \( 1\). Mais nous n'avons \( f(n)=c\) pour aucun \( n\in \eN\) parce que nous avons \( c_n\neq f(n)_n\).
+
+    Si \( b=2\) alors nous savons que \( \eD_2\sim\mathopen[ 0 , 1 [\sim \eD_3\). Donc \( \eD_2\sim \eD_3\) et \( \eD_2\) ne peut pas plus être mis en bijection avec \( \eN\) que \( \eD_3\).
+\end{proof}
+\begin{remark}
+    La preuve ne fonctionne pas en base \( b=2\) parce que rien n'empêche d'avoir une queue de \( 1\). Il y a alors toutefois moyen de se débrouiller en construisant la suite \( c\) de façon plus subtile. Si \( b=2\) et \( n\in \eN\) alors \( f(n)\) est une suite de \( 0\) et \( 1\) contenant une infinité de \( 0\) (parce qu'il n'y a pas de queue de suite ne contenant que des \( 1\)). Nous construisons alors \( c\) de la façon suivante : d'abord nous recopions \( f(0)\) jusqu'à son \emph{deuxième} zéro que nous changeons en \( 1\); nommons \( n_0\) le rang de ce deuxième zéro. Ensuite nous recopions les éléments de \( f(1) \) à partir du rang \( n_0+1\) jusqu'au second zéro que nous changeons en \( 1\), etc.
+
+    Le fait de prendre le deuxième zéro nous garanti que la suite \( c\) n'aura pas de queue de suite ne contenant que des \( 1\).
+
+    Notons que cette construction s'adapte à tout \( b\); il suffit de prendre le second terme qui n'est pas \( b-1\) et le remplacer par \( b-1\).
+\end{remark}
+
+\begin{corollary}
+    L'ensemble \( \mathopen[ 0 , 1 [\) n'est pas dénombrable.
+\end{corollary}
+
+\begin{proof}
+    L'ensemble \( \mathopen[ 0 , 1 [\) est en bijection avec \( \eD_b\) que nous venons de prouver n'être pas dénombrable.
+\end{proof}
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Produit tensoriel d'espaces vectoriels}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -2201,4 +2971,549 @@ Il est temps de démontrer le truc difficile, à savoir que si \( f\) et \( g\) 
 
     Nous avons prouvé que \( d(f\tilde\otimes g)\) est de classe \( C^k\), donc \( f\tilde\otimes g\) est de classe \( C^{k+1}\). Cela nous fait la récurrence.
 \end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Formule des accroissements finis}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition} \label{PropDQLhSoy}
+    Soient \( a<b\) dans \( \eR\) et deux fonctions
+    \begin{subequations}
+        \begin{align}
+            f\colon \mathopen[ a , b \mathclose]\to E\\
+            g\colon \mathopen[ a , b \mathclose]\to \eR
+        \end{align}
+    \end{subequations}
+    continues sur \( \mathopen[ a , b \mathclose]\) et dérivables sur \( \mathopen] a , b \mathclose[\). Si pour tout \( t\in\mathopen] a , b \mathclose[\) nous avons \( \| f'(t) \|\leq g'(t)\) alors
+        \begin{equation}
+            \| f(b)-f(a) \|\leq g(b)-g(a).
+        \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Soit \( \epsilon>0\) et la fonction
+    \begin{equation}
+        \begin{aligned}
+            \varphi_{\epsilon}\colon \mathopen[ a , b \mathclose]&\to \eR \\
+            t&\mapsto \| f(t)-f(a) \|-g(t)-\epsilon t.
+        \end{aligned}
+    \end{equation}
+    Cela est une fonction continue réelle à variable réelle. En particulier pour tout \( u\in\mathopen] a , b \mathclose[\) la fonction \( \varphi_{\epsilon}\) est continue sur le compact \( \mathopen[ u , b \mathclose]\) et donc y atteint son minimum en un certain point \( c\in\mathopen[ u , b \mathclose]\); c'est le bon vieux théorème de Weierstrass~\ref{ThoWeirstrassRn}. Nous commençons par montrer que pour tout \( u\), ledit minimum ne peut être que \( b\). Pour cela nous allons montrer que si \( t\in\mathopen[ u , b [\), alors \( \varphi_{\epsilon}(s)<\varphi_{\epsilon}(t)\) pour un certain \( s>t\). Par continuité si \( s\) est proche de \( t\) nous avons
+        \begin{equation}
+            \left\|  \frac{ f(s)-f(t) }{ s-t }  \right\|-\frac{ \epsilon }{2}<\| f'(t) \|<g'(t)+\frac{ \epsilon }{2}=\frac{ g(s)-g(t) }{ s-t }+\frac{ \epsilon }{2}.
+        \end{equation}
+        Ces inégalités proviennent de la limite
+        \begin{equation}
+            \lim_{s\to t} \frac{ f(s)-f(t) }{ s-t }=f'(t),
+        \end{equation}
+        donc si \( s\) et \( t\) sont proches,
+        \begin{equation}
+            \left\| \frac{ f(s)-f(t) }{ s-t }-f'(t) \right\|
+        \end{equation}
+        est petit. Si \( s>t\) nous pouvons oublier des valeurs absolues et transformer l'inégalité en
+        \begin{equation}
+            \| f(s)-f(t) \|<g(s)-g(t)+\epsilon(s-t).
+        \end{equation}
+        Utilisant cela et l'inégalité triangulaire,
+        \begin{subequations}
+            \begin{align}
+                \varphi_{\epsilon}(s)&\leq\| f(s)-f(t) \|+\| f(t)-f(a) \|-g(s)-\epsilon s\\
+                &\leq g(s)-g(t)+\epsilon s-\epsilon t+\| f(t)-f(a) \|-g(s)-\epsilon s\\
+                &=\varphi_{\epsilon}(t).
+            \end{align}
+        \end{subequations}
+        Donc nous avons bien \( \varphi_{\epsilon}(s)<\varphi_{\epsilon}(t)\) avec l'inégalité stricte. Par conséquent pour tout \( u\in\mathopen] a , b \mathclose[\) nous avons \( \varphi_{\epsilon}(b)<\varphi_{\epsilon}(u)\) et en prenant la limite \( u\to a\) nous avons
+        \begin{equation}
+            \varphi_{\epsilon}(b)\leq \varphi_{\epsilon}(a).
+        \end{equation}
+        Cette inégalité donne immédiatement
+        \begin{equation}
+            \| f(b)-f(a) \|\leq g(b)-g(a)+\epsilon(b-a)
+        \end{equation}
+         pour tout \( \epsilon>0\) et donc
+         \begin{equation}
+            \| f(b)-f(a) \|\leq g(b)-g(a).
+         \end{equation}
+\end{proof}
+
+\begin{theorem}[Théorème des accroissements finis]\label{ThoNAKKght}
+    Soient \( E\) et \( F\) des espaces vectoriels normés, \( U \) ouvert dans \( E\) et une application différentiable \( f\colon U\to F\). Pour tout segment \( \mathopen[ a , b \mathclose]\subset U\) nous avons
+    \begin{equation}
+        \| f(b)-f(a) \|\leq\left( \sup_{x\in\mathopen[ a , b \mathclose]}\| df_x \| \right)\| b-a \|.
+    \end{equation}
+\end{theorem}
+\index{théorème!accroissements finis}
+
+
+\begin{proof}
+    Nous prenons les applications
+    \begin{equation}
+        \begin{aligned}
+            k\colon \mathopen[ 0 , 1 \mathclose]&\to E \\
+            t&\mapsto f\big( (1-t)a+tb \big)
+        \end{aligned}
+    \end{equation}
+    et
+    \begin{equation}
+        \begin{aligned}
+            g\colon \mathopen[ 0 , 1 \mathclose]&\to \eR \\
+            t&\mapsto t\sup_{x\in\mathopen[ a , b \mathclose]}\| df_x \|\| b-a \|.
+        \end{aligned}
+    \end{equation}
+    Pour tout \( t\) nous avons \( g'(t)=M\| b-a \|\) où il n'est besoin de dire ce qu'est \( M\). D'un autre côté nous avons aussi
+    \begin{equation}
+        \begin{aligned}[]
+            k'(t)&=\lim_{\epsilon\to 0}\frac{ f\big( (1-t-\epsilon)a+(t+\epsilon)b \big)-f\big( (1-t)a+tb \big) }{ \epsilon }\\
+            &=\Dsdd{ f\big( (1-t)a+tb+\epsilon(b-a) \big)  }{\epsilon}{0}\\
+            &=df_{(1-t)a+tb}(b-a)
+        \end{aligned}
+    \end{equation}
+    où nous avons utilisé l'hypothèse de différentiabilité de \( f\) sur \( \mathopen[ a , b \mathclose]\) et donc en \( (1-t)a+tb\). Nous avons donc
+    \begin{equation}
+        \| k'(t) \|\leq \| b-a \|\| df_{(1-t)a+tb} \|\leq M\| b-a \|=g'(t)
+    \end{equation}
+    La proposition~\ref{PropDQLhSoy} est donc utilisable et
+    \begin{equation}
+        \| k(1)-k(0) \|=g(1)-g(0),
+    \end{equation}
+    c'est à dire
+    \begin{equation}
+        \| f(b)-f(a) \|=M\| b-a \|
+    \end{equation}
+    comme il se doit.
+\end{proof}
+
+\begin{proposition} \label{ProFSjmBAt}
+    Soient \( E\) et \( F\) des espaces vectoriels normés, \( U \) ouvert dans \( E\) et une application \( f\colon U\to F\). Soient \( a,b\in U\) tels que \( \mathopen[ a , b \mathclose]\subset U\). Nous posons \( u=(b-a)/\| b-a \|\) et nous supposons que pour tout \( x\in\mathopen[ a , b \mathclose]\), la dérivée directionnelle
+    \begin{equation}
+        \frac{ \partial f }{ \partial u }(x)=\Dsdd{ f(x+tu) }{t}{0}
+    \end{equation}
+    existe. Nous supposons de plus que \( \frac{ \partial f }{ \partial u }(x)\) est continue en \( x=a\). Alors
+    \begin{equation}
+        \| f(b)-f(a) \|\leq\left( \sup_{x\in\mathopen[ a , b \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \| \right)\| b-a \|.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Nous posons évidemment
+    \begin{equation}
+        M=\sup_{x\in\mathopen[ a , b \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \|
+    \end{equation}
+    et nous considérons les fonctions
+    \begin{equation}
+        k(t)=f\big( (1-t)a+tb \big)
+    \end{equation}
+    et
+    \begin{equation}
+        g(t)=tM\| b-a \|.
+    \end{equation}
+    Pour alléger les notations nous posons \( x=(1-t)a+tb\) et nous calculons avec un petit changement de variables dans la limite :
+    \begin{equation}
+        k'(t)=\Dsdd{  f\big( x+\epsilon(b-a) \big)  }{\epsilon}{0}=\| b-a \|\Dsdd{ f\big( x+\frac{ \epsilon }{ \| b-a \| }(b-a) \big) }{\epsilon}{0}=\| b-a \|\frac{ \partial f }{ \partial u }(x),
+    \end{equation}
+    et donc encore une fois nous avons
+    \begin{equation}
+        \| k'(t) \|\leq g'(t),
+    \end{equation}
+    ce qui donne
+    \begin{equation}
+        \| k(1)-k(0) \|=g(1)-g(0),
+    \end{equation}
+    c'est à dire
+    \begin{equation}
+        \| f(b)-f(a) \|\leq \sup_{x\in\mathopen[ a , b \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \|\| b-a \|.
+    \end{equation}
+\end{proof}
+
+\begin{theorem} \label{ThoOYwdeVt}
+    Soient \( E,V\) deux espaces vectoriels normés, une application \( f\colon E\to V\), un point \( a\in E\) tel que pour tout \( u\in E\), la dérivée
+    \begin{equation}
+        \Dsdd{ f(x+tu) }{t}{0}
+    \end{equation}
+    existe pour tout \( x\in B(a,r)\) et est continue (par rapport à \( x\)) en \( x=a\). Nous supposons de plus que
+    \begin{equation}
+        \frac{ \partial f }{ \partial u }(a)=0
+    \end{equation}
+    pour tout \( u\in E\). Alors \( f\) est différentiable en \( a\) et
+    \begin{equation}
+        df_a=0
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Soit \( \epsilon>0\). Pourvu que \( \| h \|\) soit assez petit pour que \( a+h\in B(a,r)\), la proposition~\ref{ProFSjmBAt} nous donne
+    \begin{equation}
+        \| f(a+h)-f(a) \|\leq \sup_{x\in\mathopen[ a , a+h \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \|  |h |
+    \end{equation}
+    où \( u=h/\| h \|\). Par continuité de \( \partial_uf(x)\) en \( x=a\) et par le fait que cela vaut \( 0\) en \( x=a\), il existe un \( \delta>0\) tel que si \( \| h \|<\delta\) alors
+    \begin{equation}
+        \| \frac{ \partial f }{ \partial u }(a+h) \|\leq \epsilon.
+    \end{equation}
+    Pour de tels \( h\) nous avons
+    \begin{equation}
+        \| f(a+h)-f(a) \|\leq \epsilon\| h \|,
+    \end{equation}
+    ce qui prouve que l'application linéaire \( T(u)=0\) convient parfaitement pour faire fonctionner la définition \ref{DefDifferentiellePta}.
+%
+%    Nous ne supposons plus que les dérivées directionnelles de \( f\) sont nulles en \( x=a\). Alors nous posons, pour \( x\in U\),
+%    \begin{equation}    \label{EqCUgHXHy}
+%        g(x)=f(x)-\Dsdd{ f(a+s(x-a)) }{s}{0}.
+%    \end{equation}
+%    Le fait que cette fonction soit bien définie est encore un coup de hypothèses sur les dérivées directionnelles de \( f\) qui sont bien définies autour de \( a\). Cette nouvelle fonction \( g\) satisfait à \( \frac{ \partial g }{ \partial v }(a)=0\) pour tout \( v\in E\) parce que
+%    \begin{subequations}
+%        \begin{align}
+%            \frac{ \partial g }{ \partial v }(a)&=\Dsdd{ g(a+tv) }{t}{0}\\
+%            &=\Dsdd{ f(a+tv)-\Dsdd{ f\big( a+s(tv) \big) }{s}{0} }{t}{0}\\
+%            &=\frac{ \partial f }{ \partial v }(a)-\Dsdd{ t\frac{ \partial f }{ \partial v }(a) }{t}{0}\\
+%            &=0.
+%        \end{align}
+%    \end{subequations}
+%    Pour la dérivée par rapport à \( s\) nous avons effectué le changement de variables \( s\to ts\), ce qui explique la présence d'un \( t\) en facteur. La fonction \( g\) est donc différentiable en \( a\).
+%
+%
+% Position 229262367
+    % Attention : ce qui suit est faux. Mais il y a peut-être moyen d'adapter.
+%\item[Dérivées non nulles]
+%
+%    Nous allons montrer que la fonction
+%    \begin{equation}
+%        l(x)=\Dsdd{ f\big( a+s(x-a) \big) }{t}{0}
+%    \end{equation}
+%    est différentiable en \( x=a\), de différentielle \( T(u)=l(u+a)\). Cela fournira la différentiabilité de \( f\) parce que \eqref{EqCUgHXHy} donnerait alors \( f\) comme somme de deux fonctions différentiables.
+%
+%    En premier lieu nous devons montrer que \( T\) ainsi définie est linéaire.
+%
+%    Notre but est donc de prouver que
+%    \begin{equation}
+%        \lim_{h \to 0}\frac{ \| l(x+h)-l(x)-l(h) \| }{ \| h \| }=0.
+%    \end{equation}
+%    Un premier pas est de calculer
+%    \begin{subequations}
+%        \begin{align}
+%            l(x+h)-l(x)-l(h)&=\lim_{s\to 0}\frac{ f\big( s(x+h) \big)-f(0)-f(sx)+f(0)-f(sh)+f(0) }{ s }\\
+%            &=\lim_{s\to 0}\frac{ f\big( s(x+h) \big)-f(sx)-f(sh)+f(0) }{ s }.
+%        \end{align}
+%    \end{subequations}
+%    Ensuite nous étudions le numérateur en utilisant la proposition~\ref{ProFSjmBAt}:
+%    \begin{subequations}
+%        \begin{align}
+%            \| f\big( s(x+h) \big)-f(sx)-f(sh)+f(0) \|&\leq  \| f\big( s(x+h) \big)-f(sx)\| + \|f(sh)-f(0) \|  \\
+%            &\leq \sup_{z\in\mathopen[ sx , sx+sh \mathclose]}\| \frac{ \partial f }{ \partial h }(z) \|\| sh \|\\
+%            &\quad +\sup_{z\in\mathopen[ 0 , sh \mathclose]}\| \frac{ \partial f }{ \partial h }(z) \|\| sh \|.
+%        \end{align}
+%    \end{subequations}
+%    La division par \( s\) se passe bien et nous avons
+%    \begin{subequations}
+%        \begin{align}
+%            \| l(x+h)-l(x)-l(h) \|&\leq \lim_{s\to 0}  \sup_{z\in\mathopen[ sx , sx+sh \mathclose]}\| \frac{ \partial f }{ \partial h }(z) \|\| h \|+ \sup_{z\in\mathopen[ 0 , sh \mathclose]}\| \frac{ \partial f }{ \partial h }(z) \|\| h \|\\
+%            &=2\| h \|\| \frac{ \partial f }{ \partial h }(0) \|        \label{SubeqVMMoSDH}\\
+%            &=2\| h \|^2\| \frac{ \partial f }{ \partial u }(0) \|
+%        \end{align}
+%    \end{subequations}
+%    où nous avons posé \( u=h/\| h \|\). Pour l'égalité \eqref{SubeqVMMoSDH} nous avons utilisé la continuité de \( \frac{ \partial f }{ \partial h }(z)\) en \( z=0\). Du coup
+%    \begin{equation}
+%        \lim_{y\to 0} \frac{ \| f(x+h)-f(x)-f(h) \| }{ \| h \| }=\lim_{h\to 0} 2\| h \|\| \frac{ \partial f }{ \partial u }(0) \|=0.
+%    \end{equation}
+%    Cela prouve que \( l\) est bien différentiable en \( x=0\).
+%
+%    \end{subproof}
+%
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Applications multilinéaires}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous avons déjà parlé d'applications multilinéaires dans la définition \ref{DefFRHooKnPCT}.
+
+\begin{lemma}[Leibnitz pour les formes bilinéaires\cite{SNPdukn}]\label{LemFRdNDCd}
+    Si \( B\colon E\times F\to G\) est bilinéaire et continue, elle est \(  C^{\infty}\) et
+    \begin{equation}    \label{EqXYJgDBt}
+        dB_{(x,y)}(u,v)=B(x,v)+B(u,y).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    D'abord le membre de droite de \eqref{EqXYJgDBt} est une application linéaire et continue, donc c'est un bon candidat à être différentielle. Nous allons prouver que ça l'est, ce qui prouvera la différentiabilité de \( B\). Avec ce candidat, le numérateur de la définition \eqref{DefDifferentiellePta} s'écrit dans notre cas
+    \begin{equation}
+        B\big( (x,y)+(u,v) \big)-B(x,y)-B(x,v)-B(u,y)=B(u,v).
+    \end{equation}
+    Il reste à voir que
+    \begin{equation}
+        \lim_{ (u,v)\to (0,0) } \frac{ B(u,v) }{ \| (u,v) \| }=0
+    \end{equation}
+    Par l'équation \eqref{EqYLnbRbC} nous avons
+    \begin{equation}
+        \frac{ \| B(u,v) \| }{ \| (u,v) \| }\leq \frac{ \| B \|\| u \|\| v \| }{ \| u \| }=\| B \|\| v \|
+    \end{equation}
+    parce que \( \| (u,v) \|\geq \| u \|\). À partir de là il est maintenant clair que
+    \begin{equation}
+        \lim_{(u,v)\to (0,0)}\frac{ \| B(u,v) \| }{ \| (u,v) \| }=0,
+    \end{equation}
+    ce qu'il fallait.
+\end{proof}
+
+\begin{proposition}[Règle de Leibnitz\cite{SNPdukn}]
+    Soient \( E,F_1,F_2\) des espaces vectoriels normés, \( U\) ouvert dans \( E\) et des applications de classe \( C^r\) (\( r\geq 1\))
+    \begin{subequations}
+        \begin{align}
+            f_1\colon U\to F_1\\
+            f_2\colon U\to F_2\\
+        \end{align}
+    \end{subequations}
+    et \( B\in\cL(F_1\times F_2,G)\). Alors l'application
+    \begin{equation}
+        \begin{aligned}
+            \varphi\colon U&\to G \\
+            x&\mapsto B\big( f_1(x),f_2(x) \big)
+        \end{aligned}
+    \end{equation}
+    est de classe \( C^r\) et
+    \begin{equation}    \label{EqMNGBXWc}
+        d\varphi_x(u)=\varphi\big( (df_1)_x(u),f_2(x) \big)+\varphi\big( f_1(x),(df_2)_x(u) \big).
+    \end{equation}
+\end{proposition}
+\index{Leibnitz!applications entre espaces vectoriels normés}
+
+\begin{proof}
+    Par hypothèse \( B\) est continue (c'est la définition de l'espace \( \cL\)), et donc \(  C^{\infty}\) par le lemme~\ref{LemFRdNDCd}. Par ailleurs la fonction \( f_1\times f_2\) est de classe \( C^r\) parce que \( f_1\) et \( f_2\) le sont et parce que la proposition~\ref{PropOYtgIua} le dit. L'application composée \( B\circ(f_1\times f_2)\) est donc également de classe \( C^r\) par le théorème~\ref{ThoAGXGuEt}.
+
+    Il ne nous reste donc qu'à prouver la formule~\ref{EqMNGBXWc}. En utilisant la différentielle du produit cartésien\footnote{Proposition~\ref{PropOYtgIua}.} nous avons
+    \begin{equation}
+        f\big( B\circ(f_1\times f_2) \big)_x(h)=dB_{(f_1\times f_2)(x)}\big( (df_1)_x(h),(df_2)_x(h) \big).
+    \end{equation}
+    Nous développons cela en utilisant le lemme~\ref{LemFRdNDCd} :
+    \begin{subequations}
+        \begin{align}
+        d\big( B\circ(f_1\times f_2) \big)_x(h)&=dB_{\big( f_1(x),f_2(x) \big)}\big( (df_1)_x(h),(df_2)_x(h) \big)\\
+        &=B\big( f_1(x),(df_2)_x(h) \big)+B\big( (df_1)_x(h),f_2(x) \big),
+        \end{align}
+    \end{subequations}
+    comme souhaité.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Différentielle partielle}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[Différentielle partielle]    \label{VJM_CtSKT}
+    Soient \( E\), \( F\) et \( G\) des espaces vectoriels normés et une fonction \( f\colon E\times F\to G\). Nous définissons sa \defe{différentielle partielle}{différentielle!partielle} sur l'espace \( E\) par
+    \begin{equation}
+        \begin{aligned}
+            d_1f_{(x_0,y_0)}\colon E&\to G \\
+            u&\mapsto \Dsdd{ f(x_0+tu,y_0 }{t}{0} .
+        \end{aligned}
+    \end{equation}
+    La différentielle \( d_2\) se définit de la même façon.
+\end{definition}
+
+\begin{proposition}[\cite{SNPdukn}] \label{PropLDN_nHWDF}
+    Soient \( E_1\), \( E_2\) et \( F\) des espaces vectoriels normés, soit un ouvert \( U\subset E_1\times E_2\) et une fonction \( f\colon U\to F\).
+    \begin{enumerate}
+        \item   \label{ItemRDD_oPmXVi}
+            Si \( f\) est différentiable alors les différentielles partielles existent et
+            \begin{subequations}
+                \begin{align}
+                    d_1f_{(x_0,y_0)}(u)=df_{(x_0,y_0)}(u,0)\\
+                    d_2f_{(x_0,y_0)}(v)=df_{(x_0,y_0)}(0,v)
+                \end{align}
+            \end{subequations}
+            où \( u\in E_1\) et \( v\in E_2\).
+        \item
+            Si \( f\) est différentiable alors
+            \begin{equation}
+                df_{(x_0,y_0)}(u,v)=d_1f_{(x_,y_0)}(u)+d_2f_{(x_0,y_0)}(v).
+            \end{equation}
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Nous posons \( \alpha=(x_0,y_0)\in U\) et
+    \begin{equation}
+        \begin{aligned}
+            j_{\alpha}^{(1)}\colon E_1&\to E_1\times E_2 \\
+            x&\mapsto (x,y_0).
+        \end{aligned}
+    \end{equation}
+    C'est une fonction de classe \(  C^{\infty}\) et
+    \begin{equation}
+        (dj_{\alpha}^{(1)})_{x_0}(u)=\Dsdd{ j_{\alpha}^{(1)}(x_0+tu) }{t}{0}=\Dsdd{ (x_0+tu,y_0) }{t}{0}=(u,0).
+    \end{equation}
+    D'autre part
+    \begin{subequations}
+        \begin{align}
+            (d_1f)_{\alpha}(u)&=\Dsdd{ f(x_0+tu,y_0) }{t}{0}\\
+            &=\Dsdd{ (f\circ j_{\alpha}^{(1)})(x_0+tu) }{t}{0}\\
+            &=\big( d(f\circ j_{\alpha}^{(1)}) \big)_{x_0}(u).
+        \end{align}
+    \end{subequations}
+    À ce moment nous utilisons la règle des différentielles composées~\ref{ThoAGXGuEt} pour dire que
+    \begin{equation}
+        (d_1f)_{\alpha}(u)=df_{j_{\alpha}^{(1)}(x_0)}\circ (dj_{\alpha}^{(1)})_{x_0}(u)=df_{\alpha}(u,0).
+    \end{equation}
+    Voila qui prouve déjà le point~\ref{ItemRDD_oPmXVi}.
+
+    Pour la suite nous considérons les fonctions
+    \begin{equation}
+        \begin{aligned}[]
+            P_1(x,y)&=x,&&&J_1(u)&=(u,0),\\
+            P_2(x,y)&=y,&&&J_2(v)&=(0,v)
+        \end{aligned}
+    \end{equation}
+    et nous avons l'égalité évidente
+    \begin{equation}
+        J_1\circ P_1+J_2\circ P_2=\mtu
+    \end{equation}
+    sur \( E_1\times E_2\). En appliquant \( df_{\alpha}\) à cette dernière égalité, en appliquant à \( (u,v)\) et en utilisant la linéarité de \( df_{\alpha}\) nous trouvons
+    \begin{subequations}
+        \begin{align}
+            df_{\alpha}(u,v)&=df_{\alpha}\big( (J_1\circ P_1)(u,v) \big)+df_{\alpha}\big( (J_2\circ P_2)(u,v) \big)\\
+            &=df_{\alpha}(u,0)+df_{\alpha}(0,v)\\
+            &=(d_1f)_{\alpha}(u)+(d_2f)_{\alpha}(v)
+        \end{align}
+    \end{subequations}
+    où nous avons utilisé le point~\ref{ItemRDD_oPmXVi} pour la dernière égalité.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{L'inverse, sa différentielle}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si \( E\) est un espace de Banach, nous sommes intéressés à l'espace \( \GL(E)\) des endomorphismes inversibles de \( E\) sur \( E\). Cet ensemble est métrique par la formule usuelle
+\begin{equation}
+    \| T \|=\sup_{\| x \|=1}\| T(x) \|_E.
+\end{equation}
+
+\begin{theorem}[Inverse dans \( \GL(E)\)\cite{laudenbach2000calcul,SNPdukn}]    \label{ThoCINVBTJ}
+    Soient \( E\) et \( F\) des espaces vectoriels normés.
+    \begin{enumerate}
+        \item
+        L'ensemble \( \GL(E)\) est ouvert dans \( \End(E)\).
+    \item
+        L'application inverse
+    \begin{equation}
+        \begin{aligned}
+        i\colon \GL(E,F)&\to \GL(F,E) \\
+        u&\mapsto u^{-1}
+        \end{aligned}
+    \end{equation}
+    est de classe \( C^{\infty}\) et
+    \begin{equation}
+        di_{u_0}(h)=-u_0^{-1}\circ h\circ u_0^{-1}
+    \end{equation}
+    pour tout \( h\in\End(E)\)
+    \end{enumerate}
+\end{theorem}
+\index{différentielle!de $u\mapsto u^{-1}$}
+
+\begin{proof}
+Nous supposons que \( \GL(E,F)\) n'est pas vide, sinon ce n'est pas du jeu.
+        \begin{subproof}
+
+        \item[Cas de dimension finie]
+
+            Si la dimension de \( E\) et \( F\) est finie, elles doivent être égales, sinon il n'y a pas de fonctions inversibles \( E\to F\). L'ensemble \( \GL(E,F)\) est donc naturellement \( \GL(n,\eR)\). Un élément de \( \eM(n,\eR)\) est dans \( \GL(n,\eR)\) si et seulement si son déterminant est non nul. Le déterminant étant une fonction continue (polynomiale) en les entrées de la matrice, l'ensemble \( \GL(n,\eR)\) est ouvert dans \( \eM(n,\eR)\).
+
+            Même idée pour la régularité de la fonction \( i\colon \GL(n,\eR)\to \GL(n,\eR)\), \( X\mapsto X^{-1}\). Les entrées de \( X^{-1}\) sont les cofacteurs de \( X\) divisé par \( \det(X)\), et donc des polynômes en les entrées de \( X\) divisés par un polynôme qui ne s'annule pas sur \( \GL(n,\eR)\), et donc sur un ouvert autour de \( X\) et de \( X^{-1}\). Bref, tout est \(  C^{\infty}\).
+
+            Le reste de la preuve parle de la dimension infinie.
+
+        \item[Ouvert autour de l'identité]
+
+        Nous commençons par prouver que \( B(\mtu,1)\subset \GL(E)\). Pour cela il suffit de remarquer que si \( \| u \|<1\) alors le lemme~\ref{PropQAjqUNp} nous donne un inverse de \( (1+u)\) en la personne de \( \sum_{k=0}^{\infty}(-u)^k\).
+
+    \item[Ouvert en général]
+
+        Soit maintenant \( u_0\in\GL(E)\). Si \( \| u \|<\frac{1}{ \| u_0^{-1} \| }\) alors \( \| u_0^{-1}u \|<1\), ce qui signifie que
+        \begin{equation}
+            \mtu+u_0^{-1}u
+        \end{equation}
+    est inversible. Mais \( u_0+u=u_0(\mtu+u_0^{-1}u)\), donc \( u_0+u\in\GL(E)\) ce qui signifie que
+    \begin{equation}
+    B\left( u_0,\frac{1}{ \| u_0^{-1} \| } \right)\subset \GL(E).
+    \end{equation}
+
+    \item[Différentielle en l'identité]
+
+    Nous commençons par prouver que \( di_{\mtu}(u)=-u\). Pour cela nous posons
+    \begin{equation}
+        \alpha(h)=\sum_{k=2}^{\infty}(-1)^kh^k
+    \end{equation}
+    et nous calculons
+    \begin{equation}
+    di_{\mtu}(u)=\Dsdd{ i(\mtu+tu) }{t}{0}=\Dsdd{ \mtu-tu+\alpha(tu) }{t}{0}.
+    \end{equation}
+    Il suffit de prouver que \( \Dsdd{ \alpha(tu) }{t}{0}=0\) pour conclure que \( di_{\mtu}(u)=-u\). Pour cela, nous remarquons que \( \alpha(0)=0\) et donc que
+    \begin{subequations}
+        \begin{align}
+        \Dsdd{ \alpha(tu) }{t}{0}&=\lim_{t\to 0} \frac{ \alpha(tu)-\alpha(0) }{ t }\\
+        &=\lim_{t\to 0} \sum_{k=2}^{\infty}(-1)^k\frac{ (tu)^k }{ t }\\
+        &=-\lim_{t\to 0} u\sum_{k=1}^{\infty}(-1)^kt^ku^k.
+        \end{align}
+    \end{subequations}
+    La norme de ce qui est dans la limite est majorée par
+    \begin{equation}
+    \| u \|\sum_{k=1}^{\infty}\| tu \|^k=\| u \|\left( \frac{1}{ 1-\| tu \| }-1 \right),
+    \end{equation}
+    et cela tend vers zéro lorsque \( t\to\infty\). Nous avons utilisé la somme~\ref{EqRGkBhrX} de la série géométrique. Nous avons bien prouvé que \( di_{\mtu}(u)=-u\).
+
+    \item[Différentielle en général]
+    Soit maintenant \( u_0\in\GL(E)\) et \( h\in\End(E)\) tel que \( u_0+h\in \GL(E)\); par le premier point, il suffit de prendre \( \| h \|\) suffisamment petit. Vu que \( u_0+h=u_0(\mtu+u_0^{-1}h)\) nous avons
+    \begin{equation}
+        (u_0+h)^{-1}=(\mtu+u_0^{-1}h)^{-1}u_0^{-1}.
+    \end{equation}
+    Nous pouvons donc calculer
+    \begin{equation}
+        (u_0+h)^{-1}=\big( \mtu-u_0^{-1}h+\alpha(u_0^{-1}h) \big)u_0^{-1}=u_0^{-1}-u_0^{-1}hu_0^{-1}+\alpha(u_0^{-1}h)u_0^{-1},
+    \end{equation}
+    et ensuite
+    \begin{equation}
+        di_{u_0}(h)=\Dsdd{ i(u_0+th) }{t}{0}=\Dsdd{ u_0^{-1}-tu_0^{-1}hu_0^{-1}+\alpha(tu_0^{-1}h)u_0^{-1} }{t}{0},
+    \end{equation}
+    mais nous avons déjà vu que
+    \begin{equation}
+        \Dsdd{ \alpha(th) }{t}{0}=0,
+    \end{equation}
+    donc
+    \begin{equation}
+        di_{u_0}(h)=-u_0^{-1}hu_0^{-1}
+    \end{equation}
+    Cela donne la différentielle de l'application inverse.
+
+    \item[Continuité de l'inverse]
+
+        L'application \( i\) est continue parce que différentiable.
+    \item[L'inverse est \(  C^{\infty}\)]
+
+        Nous allons écrire la fonction inverse comme une composée. Soient les applications
+        \begin{equation}
+            \begin{aligned}
+                B\colon \cL(F,E)\times \cL(F,E)&\to \cL\big( \cL(E,F),\cL(F,E) \big) \\
+                B(\psi_1,\psi_2)(A)&= -\psi_1\circ A\circ\psi_2
+            \end{aligned}
+        \end{equation}
+        et
+        \begin{equation}
+            \begin{aligned}
+                \Delta\colon \cL(F,E)&\to \cL(F,E)\times \cL(F,E) \\
+                \varphi&\mapsto (\varphi,\varphi)
+            \end{aligned}
+        \end{equation}
+        Nous avons alors
+        \begin{equation}
+            di=B\circ\Delta\circ i.
+        \end{equation}
+        L'application \( \Delta\) est de classe \(  C^{\infty}\). Nous devons voir que \( B\) l'est aussi. Pour le voir nous commençons par prouver qu'elle est bornée :
+        \begin{equation}
+            \begin{aligned}[]
+                \| B \|&=\sup_{\| \psi_1 \|,\| \psi_2 \|=1}\| B(\psi_1,\psi_2) \|_{\aL\big( L(E,F),L(F,E) \big)}\\
+                &=\sup_{  \| \psi_1 \|,\| \psi_2 \|=1 }\sup_{\| A \|=1}\| \psi_1\circ A\circ\psi_2 \|_{L(F,E)}\\
+                &\leq \sup_{\| \psi_1 \|,\| \psi_2 \|=1}\sup_{\| A \|=1}\| \psi_1 \|\| A \|\| \psi_2 \|\\
+                &\leq 1.
+            \end{aligned}
+        \end{equation}
+        Donc \( B\) est bien bornée et par conséquent continue. Une application bilinéaire continue est \(  C^{\infty}\) par le lemme~\ref{LemFRdNDCd}. La décomposition \( di=B\circ \Delta\circ i\) nous donne donc que \( i\in C^{\infty}\) dès que \( i\) est continue, ce que nous avions déjà montré.
+        \end{subproof}
+\end{proof}
+
 
