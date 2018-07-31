@@ -1,5 +1,11 @@
 # Changelog du Frido
 
+## Intégration sur les variétés (juillet-août 2018)
+
+- Définition d'une variété via les cartes. Nous nous limitons au cas de variétés dans R^n dans le but de 
+  définir l'intégrale sans passer par l'arbitraire d'une forme volume.
+- Définition de l'intégrale sur une variété.
+
 ## Produit tensoriel d'espaces vectoriels (juin 2018)
 
 Parce qu'on en aura besoin pour parler de différentielle d'ordre supérieur de produit.
@@ -12,7 +18,7 @@ Parce qu'on en aura besoin pour parler de différentielle d'ordre supérieur de 
     * topologie générale (suite)
 - Démonstration de quelques résultats laissés en suspend.
 
-## Mise en ordre coordonnées polaires/cylindrique/sphériques (juin 2018 -- ... )
+## Mise en ordre coordonnées polaires/cylindrique/sphériques (juin 2018)
 
 - Entre autres, la démonstration du théorème qui donne les coordonnées polaires comme difféomorphisme de classe C^{\infty}.
 
