@@ -548,6 +548,54 @@ En se souvenant que \( | S_n |=n!\), nous sommes frappés de stupeur devant le f
 
 Nous voudrions savoir ce qu'il se passe avec le déterminant d'une matrice lorsque nous substituons à une ligne ou une colonne une combinaison des autres lignes et colonnes. Lorsque une matrice est donnée, nous notons \( C_j\) sa \( j\)\ieme colonne.
 
+\begin{lemma}[\cite{MonCerveau}]        \label{LEMooCEQYooYAbctZ}
+    Si \( A\) est une matrice, alors \( \det(A)=\det(A^t)\).
+\end{lemma}
+
+\begin{proof}
+    En utilisant la commutativité du produit, nous avons :
+    \begin{equation}
+        \det(A^t)=\sum_{\sigma\in S_n}\epsilon(\sigma)\prod_{i=1}^n(A^t)_{i\sigma(i)}=\sum_{\sigma}\epsilon(\sigma)\prod_iA_{i\sigma^{-1}(i)}.
+    \end{equation}
+    C'est le moment d'utiliser la proposition \ref{PROPooWJQQooFINSEc} en faisant \( \sum_{\sigma}f(\sigma)=\sum_{\sigma}f(\sigma\sigma^2)\). Vu que \( \epsilon(\sigma)=\pm 1\), nous avons \( \epsilon(\sigma^3)=\epsilon(\sigma)^3=\epsilon(\sigma)\) et
+    \begin{equation}
+        \det(A^t)=\sum_{\sigma}\epsilon(\sigma\sigma^2)\prod_iA_{i\sigma^{-1}\sigma^2(i)}=\sum_{\sigma}\epsilon(\sigma)\prod_iA_{i\sigma(i)}=\det(A).
+    \end{equation}
+\end{proof}
+
+Le fait que \( \det(A)=\det(A^t)\) permet, dans toutes les propositions du type «ce qui arrive au déterminant si on change telle ligne ou colonnes» de ne donner qu'une preuve pour la partie «ligne» et déduire automatiquement le cas «colonne». Le lemme suivant donne un exemple d'utilisation.
+
+\begin{lemma}[\cite{MonCerveau}]        \label{LEMooWMQWooGWFlmC}
+    Soit une matrice \( A\). Nous considérons la matrice \( B\) obtenue à partir de \( A\) par la permutation de lignes \( L_k\leftrightarrow L_l\) ainsi que la matrice \( C\) obtenue à partir de \( A^t\) par la permutation de colonnes \( C_k\leftrightarrow C_l\).
+    
+    Alors \( C^t=B\).
+\end{lemma}
+
+\begin{proof}
+    Calculons les éléments de matrice de \( C\) :
+    \begin{equation}
+        C_{ij}=\begin{cases}
+            (A^t)_{ij}    &   \text{si }  j\neq k, j\neq l\\
+            (A^t)_{ik}    &   \text{si } j=l\\
+            (A^t)_{il}    &    \text{si }j=k
+        \end{cases}=
+        \begin{cases}
+            A_{ji}    &   \text{si }  j\neq k, j\neq l\\
+            A_{ki}    &   \text{si } j=l\\
+            A_{li}    &    \text{si }j=k.
+        \end{cases}
+    \end{equation}
+    Ensuite nous prouvons que \( C^t=B\) en écrivant les éléments de \( C^t\) :
+    \begin{equation}
+        (C^t)_{ij}=C_{ji}=\begin{cases}
+            A_{ij}    &   \text{si } i\neq k, i\neq l\\
+            A_{kj}    &   \text{si } i=l\\
+            A_{lj}    &    \text{si }i=k.
+        \end{cases}
+    \end{equation}
+    Cette dernière expression est la matrice \( A\) après permutation des lignes \( L_k\leftrightarrow L_l\), c'est à dire a matrice \( B\).
+\end{proof}
+
 \begin{proposition}[\cite{ooKBOMooSkKHvu}]      \label{PROPooZIVNooUPsBtr}
     Soit une matrice \( A\in \eM(n,\eK)\).
     \begin{enumerate}
@@ -591,6 +639,12 @@ Nous voudrions savoir ce qu'il se passe avec le déterminant d'une matrice lorsq
                 \det(A)=\sum_{\sigma\in S_n}f(\sigma)=\sum_{\sigma}f(\alpha \sigma)=-\sum_{\sigma\in S_n}\epsilon(\sigma)\prod_{i=1}^nB_{i\sigma(i)}=-\det(B).
             \end{equation}
 
+            Que se passe-t-il si nous permutons les lignes \( L_k\) et \( L_{l}\) ?Si nous notons \( B'\) la matrice obtenue à partir de \( A\) par la permutation de lignes \( L_k\leftrightarrow L_l\), et \( C\) celle obtenue de \( A^t\) après permutation de colonnes \( C_k\leftrightarrow C_l\) alors nous avons \( C^t=B'\). Le lemme \ref{LEMooWMQWooGWFlmC} nous dit que \( C^t=B'\). En utilisant le lemme \ref{LEMooCEQYooYAbctZ} sur le déterminant de la transposée,
+            \begin{equation}
+                \det(B')=\det(C^t)=\det(C)=-\det(A^t)=-\det(A).
+            \end{equation}
+            Voila qui prouve le résultat pour les permutation de lignes.
+
         \item[\ref{ITEMooBKIGooCDQEDt}]
 
                 La matrice \( B\) est donnée par les éléments
@@ -614,6 +668,63 @@ Nous voudrions savoir ce qu'il se passe avec le déterminant d'une matrice lorsq
     \end{subproof}
 \end{proof}
 Notons que si pour \( k\neq l\) nous avons \( C_k=\lambda C_l\), alors nous avons aussi \( \det(A)=0\).
+
+\begin{proposition}[\cite{ooKBOMooSkKHvu}]      \label{PROPooNGZJooHjtMyn}
+    Soient \( A\in \eM(n,\eK)\), et \( v\in \eK^n\). Si \( B\) est la matrice \( A\) avec la substitution \( L_j\to L_j+v\) et \( C\) est la matrice \( A\) avec la substitution \( L_j\to v\), alors
+    \begin{equation}
+        \det(B)=\det(A)+\det(C).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    En utilisant l'associativité de la multiplication,
+    \begin{subequations}
+        \begin{align}
+            \det(B)&=\sum_{\sigma\in S_n}\epsilon(\sigma)\prod_{i=1}^nB_{i\sigma(i)}\\
+            &=\sum_{\sigma}\epsilon(\sigma)\big( \prod_{i\neq j}B_{i\sigma(i)} \big)B_{j\sigma(j)}\\
+            &=\sum_{\sigma}\epsilon(\sigma)\big( \prod_{i\neq j}A_{i\sigma(i)} \big)(A_{j\sigma(j)}+v_{\sigma(j)})\\
+            &=\sum_{\sigma}\epsilon(\sigma)\prod_iA_{i\sigma(i)}+\sum_{\sigma}\epsilon(\sigma)\prod_{i\neq j}C_{i\sigma(i)}v_{\sigma(j)}         \label{SUBEQooKATCooVIbEpv}\\
+            &=\det(A)+\sum_{\sigma}\epsilon(\sigma)\prod_{i\neq j}C_{i\sigma(i)}C_{j\sigma(j)}  \label{SUBEQooCOTDooPPrEYJ}\\    
+            &=\det(A)+\det(C).
+        \end{align}
+    \end{subequations}
+    Justifications :
+    \begin{itemize}
+        \item \ref{SUBEQooKATCooVIbEpv} parce que pour \( i\neq j\) nous avons \( A_{i\sigma(i)}=C_{i\sigma(i)}\)
+        \item \ref{SUBEQooCOTDooPPrEYJ} parce que \( v_{\sigma(j)}=C_{j\sigma(j)}\).
+    \end{itemize}
+\end{proof}
+
+\begin{proposition}[\cite{ooKBOMooSkKHvu}]
+    Soit une matrice \( A\in \eM(n,\eK)\). Nous considérons la matrice \( B\) obtenue à partir de \( A\) par la substitution de lignes \( L_k\to L_k+\lambda L_l\). Alors
+    \begin{equation}
+        \det(A)=\det(B).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Soit la matrice \( C\) obtenue à partir de \( A\) par \( L_k\to \lambda L_l\). En considérant le vecteur \( v=\lambda L_l\), nous sommes dans la situation de la proposition \ref{PROPooNGZJooHjtMyn}. Donc
+    \begin{equation}
+        \det(B)=\det(A)+\det(C).
+    \end{equation}
+    Mais dans la matrice \( C\), nous avons \( L_k=\lambda L_l\), ce qui implique \( \det(C)=0\) par la proposition \ref{PROPooZIVNooUPsBtr}\ref{ITEMooWBUTooGuGkmN}. Donc \( \det(A)=\det(B)\) comme il se devait.
+\end{proof}
+
+Pour la suite nous écrivons \( \delta\) la matrice «identité», c'est à dire celle dont les entrées sont précisément les \( \delta_{ik}\).  Nous écrivons également \( E_{ij}\) la matrice contenant de zéros partout sauf en \( (i,j)\) où elle a un \( 1\), c'est à dire
+\begin{equation}
+    (E_{ij})_{kl}=\detla_{ik}\delta_{jl}.
+\end{equation}
+
+\begin{proposition}[\cite{ooKBOMooSkKHvu}]
+    Soit une matrice \( A\in \eM(n,\eK)\). Nous considérons la matrice \( B\) obtenue à partir de \( A\) par la permutation de lignes \( L_k\leftrightarrow L_l\). Alors
+    \begin{equation}
+        B=SA
+    \end{equation}
+    avec \( S=\delta+E_{kl}+E_{lk}-E_{kk}-E_{ll}\).
+
+    Autrement dit : la matrice \( S\) est une matrice de permutations de lignes.
+\end{proposition}
+<++>
 
 Faisons maintenant le cas général.
 
