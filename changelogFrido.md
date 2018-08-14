@@ -1,14 +1,25 @@
 # Changelog du Frido
 
-## Intégration sur les variétés (juillet-août 2018)
+## Matrices et déterminant : manipulations de lignes et de colonnes (août 2018 - ... )
+
+Ceci parle de matrices en tant que tableaux de nombres (dans un corps) sans parler d'applications linéaires.
+- La façon dont le déterminant change lorqu'on manipule les lignes et colonnes
+- Les matrices qui font ces opérations
+- Triangulation de Gauss
+
+## Intégration sur les variétés (juillet 2018 - ...)
 
 - Définition d'une variété via les cartes. Nous nous limitons au cas de variétés dans R^n dans le but de 
   définir l'intégrale sans passer par l'arbitraire d'une forme volume.
 - Définition de l'intégrale sur une variété.
+- Cas de dimension 1, 2 et 3. Entrée en jeu du produit vectoriel et du produit mixte.
 
 ## Produit tensoriel d'espaces vectoriels (juin 2018)
 
 Parce qu'on en aura besoin pour parler de différentielle d'ordre supérieur de produit.
+- produit tensoriel d'espaces topologiques
+- Dérivation d'un produit tensoriel de fonctions
+- application au fait que les coordonnées polaires sont de classe  C^{\infty}
 
 ## Mise en ordre de la topologie (juin 2018)
 
