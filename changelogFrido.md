@@ -7,6 +7,8 @@ Ceci parle de matrices en tant que tableaux de nombres (dans un corps) sans parl
 - Les matrices qui font ces opérations
 - Triangulation de Gauss
 
+Ceci est nécessaire pour identifier le produit mixte dans l'intégrale sur des variétés de dimension 3.
+
 ## Intégration sur les variétés (juillet 2018 - ...)
 
 - Définition d'une variété via les cartes. Nous nous limitons au cas de variétés dans R^n dans le but de 

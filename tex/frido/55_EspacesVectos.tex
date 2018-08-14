@@ -710,9 +710,13 @@ Notons que si pour \( k\neq l\) nous avons \( C_k=\lambda C_l\), alors nous avon
     Mais dans la matrice \( C\), nous avons \( L_k=\lambda L_l\), ce qui implique \( \det(C)=0\) par la proposition \ref{PROPooZIVNooUPsBtr}\ref{ITEMooWBUTooGuGkmN}. Donc \( \det(A)=\det(B)\) comme il se devait.
 \end{proof}
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Triangulation}
+%---------------------------------------------------------------------------------------------------------------------------
+
 Pour la suite nous écrivons \( \delta\) la matrice «identité», c'est à dire celle dont les entrées sont précisément les \( \delta_{ik}\).  Nous écrivons également \( E_{ij}\) la matrice contenant de zéros partout sauf en \( (i,j)\) où elle a un \( 1\), c'est à dire
 \begin{equation}
-    (E_{ij})_{kl}=\detla_{ik}\delta_{jl}.
+    (E_{ij})_{kl}=\delta_{ik}\delta_{jl}.
 \end{equation}
 
 \begin{proposition}[\cite{ooKBOMooSkKHvu}]
@@ -724,7 +728,137 @@ Pour la suite nous écrivons \( \delta\) la matrice «identité», c'est à dire
 
     Autrement dit : la matrice \( S\) est une matrice de permutations de lignes.
 \end{proposition}
-<++>
+
+\begin{proof}
+    Si \( k=l\), il n'y a pas de permutations, et il est vite vu que la matrice \( S\) est l'identité parce qu'il y a quatre fois le terme \( E_{kk}\). Nous supposons donc que \( k\neq l\); en particulier \( \delta_{kl}=0\).
+
+    Il s'agit surtout d'un beau calcul :
+    \begin{subequations}
+        \begin{align}
+            (SA)_{ij}=\sum_{m}S_{im}A_{mj}&=A_{ij}+\sum_m(\delta_{ki}\delta_{lm}+\delta_{li}\delta_{lm}-\delta_{ki}\delta_{km}-\delta_{li}\delta_{lm})A_{mj}\\
+            &=A_{ij}+\delta_{ki}A_{lj}+\delta_{li}A_{kj}-\delta_{ki}A_{kj}-\delta_{li}A_{lj}.
+        \end{align}
+    \end{subequations}
+    Si \( i\neq j\) et \( i\neq l\), alors \( (SA)_{ij}=A_{ij}\). Si \( i=k\), alors 
+    \begin{equation}
+        (SA)_{kj}=A_{kj}+A_{lj}-A_{kj}=A_{lj},
+    \end{equation}
+    c'est à dire que la \( k\)\ieme ligne de \( SA\) est la \( l\)\ieme ligne de \( A\).
+
+    Avec \( i=l\) nous obtenons la \( k\)\ieme ligne de \( A\).
+
+    Tout cela montre que \( SA\) est la matrice \( A\) dans laquelle les lignes \( k\) et \( l\) ont été inversées, c'est à dire \( SA=B\).
+\end{proof}
+
+\begin{proposition}     \label{PROPooILVTooTnbfxU}
+    Si \( B\) est la matrice \( A\) dans laquelle nous avons fait la substitution \( L_k\to L_k+\lambda L_l\), alors
+    \begin{equation}
+        B=UA
+    \end{equation}
+    avec \( U=\delta+\lambda E_{kl}\)
+\end{proposition}
+
+\begin{proof}
+    Encore un calcul :
+    \begin{equation}
+        (UA)_{ij}=\sum_m\big( \delta_{im}+\lambda(E_{kl})_{im} \big)A_{mj}=A_{ij}+\lambda\sum_m\delta_{ki}\delta_{lm}A_{mj}=A_{ij}+\lambda \delta_{li}A_{kj}.
+    \end{equation}
+    Cela donne, pour \( i=k\) la ligne
+    \begin{equation}
+        (UA)_{kj}=A_{kj}+\lambda A_{lj},
+    \end{equation}
+    ce qui correspond bien à \( L_k\to L_k+\lambda L_l\).
+\end{proof}
+
+\begin{proposition}
+    Si \( A\) est une matrice et si \( B\) est la matrice obtenue à partie de \( A\) par la substitution \( L_k\to \lambda L_k\), alors
+    \begin{equation}
+        B=TA
+    \end{equation}
+    avec \( T=\delta+(\lambda-1)E_{kk}\).
+
+    C'est à dire que a matrice \( T\) est une matrice de multiplication de ligne par un scalaire.
+\end{proposition}
+
+\begin{proof}
+    C'est un cas particulier de la proposition \ref{PROPooILVTooTnbfxU} en prenant \( k=l\) et en adaptant le \( \lambda\).
+\end{proof}
+
+\begin{proposition}[\cite{MonCerveau}]
+    Soient les matrices déjà vues
+    \begin{subequations}
+        \begin{align}
+            S&=\delta+E_{kl}+E_{lk}-E_{kk}-E_{ll}\\
+            U&=\delta+\lambda E_{kl}\\
+            T&=\delta+(\lambda-1)E_{kk}
+        \end{align}
+    \end{subequations}
+    Nous avons les déterminants
+    \begin{subequations}
+        \begin{align}
+            \det(S)&=-1\\
+            \det(T)&=\lambda\\
+            \det(U)&=1.
+        \end{align}
+    \end{subequations}
+\end{proposition}
+
+\begin{proof}
+    Un à la fois.
+    \begin{subproof}
+        \item[\( \det(S)\)]
+            En utilisant la définition du déterminant,
+            \begin{subequations}
+                \begin{align}
+                    \det(S)&=\sum_{\sigma\in S_n}\epsilon(\sigma)\prod_{i=1}^nS_{i\sigma(i)}\\
+                    &=\sum_{\sigma}\epsilon(\sigma)\prod_i\big( \delta_{i\sigma(i)}+\delta_{ki}\delta_{l\sigma(i)}+\delta_{li}\delta_{k\sigma(i)}-\delta_{ki}\delta_{k\sigma(i)}-\delta_{li}\delta_{l\sigma(i)} \big).
+                \end{align}
+            \end{subequations}
+            Nous utilisons l'associativité et la commutativité du produit pour séparer les facteurs \( i=k\) et \( i=l\) des autres :
+            \begin{equation}
+                \det(S)=\sum_{\sigma}\epsilon(\sigma)\prod_{\substack{i\neq k\\i\neq l}}\delta_{i\sigma(i)}(\delta_{k\sigma(k)}+\delta_{l\sigma(k)}-\delta_{k\sigma(k)})(\delta_{l\sigma(l)}+\delta_{k\sigma(l)}-\delta_{l\sigma(l)}).
+            \end{equation}
+            À cause des facteurs \( i\neq k\) et \( i\neq l\), les \( \sigma\) pour lesquels le tout n'est pas nuls doivent vérifier \( \delta_{i\sigma(i)}=1\) pour tout \( i\) différent de \( k\) et \( l\). Les deux seuls sont donc \( \sigma=\id\) et la permutation \( \sigma=(k,l)\). Pour \( \sigma=\id\), nous avons
+            \begin{equation}
+                \prod_{\substack{i\neq k\\i\neq l}}\delta_{ii}(\delta_{kk}+\delta_{lk}-\delta_{kk})(\delta_{ll}+\delta_{kl}-\delta_{ll})=0.
+            \end{equation}
+            Dernier espoir : \( \sigma=(k,l)\). Pour ce terme nous avons \( \epsilon(\sigma)=-1\) et
+            \begin{equation}
+                \prod_{\substack{i\neq k\\i\neq l}}\delta_{ii}(\delta_{kl}+\delta_{ll}-\delta_{kl})(\delta_{lk}+\delta_{kk}-\delta_{lk})=1.
+            \end{equation}
+            Au final dans \( \det(S)\) il n'y a de non nul que le terms \( \sigma=(k,l)\) et il vaut \( -1\). Donc
+            \begin{equation}
+                \det(S)=-1.
+            \end{equation}
+        \item[\( \det(T)\)]
+            Nous calculons le déteminant de la matrice \( T=\delta+(\lambda-1)E_{kk}\). La formule du déterminant donne
+            \begin{equation}
+                \det(T)=\sum_{\sigma}\epsilon(\sigma)\prod_{i=1}^n\big( \delta_{i\sigma(i)}+(\lambda-1)\delta_{ki}\delta_{k\sigma(i)} \big).
+            \end{equation}
+            Si \( i\neq \sigma(i)\), alors non seulement \( \delta_{i\sigma(i)}=0\), mais en plus \( \delta_{ki}\delta_{k\sigma(i)}=0\). Donc suel \( \sigma=\id\) reste dans la somme sur \( \sigma\in S_n\). Il reste donc
+            \begin{equation}
+                \det(T)=\prod_{i=1}^n\big( 1+(\lambda-1)\delta_{ki} \big)=\left( \prod_{i\neq k}1 \right)(1+(\lambda-1))=\lambda
+            \end{equation}
+            où nous avons utilisé encore l'associativité pour isoler le facteur \( i=k\).
+        \item[\( \det(U)\)]
+            Nous calculons le déterminant de \( U=\delta+\lambda E_{kl}\) avec \( k\neq l\). Nous avons dans un premier temps :
+            \begin{equation}
+                \det(U)=\sum_{\sigma\in S_n}\epsilon(\sigma)\prod_{i=1}^n(\delta_{i\sigma(i)}+\lambda \delta_{ki}\delta_{l\sigma(i)}).
+            \end{equation}
+            Vu que nous avons toujours \( \delta_{ki}\delta_{li}=0\), le terme \( \sigma=\id\) donne \( 1\).
+
+            Pour les \( \sigma\neq \id\), le facteur \( \lambda\delta_{ki}\delta_{l\sigma(i)}\) ne s'annulle pas uniquement si \( i=k\) et \( \sigma(i)=k\). Donc le seul terme non nul autre que \( \sigma=\id\) peut provenir de \( \sigma=(k,l)\). Pour ce terme, nous isolons les termes \( i=l\) et \( i=k\) :
+            \begin{equation}
+                (\delta_{k\sigma(k)}+\lambda\delta_{kk}\delta_{k\sigma(k)})(\delta_{l\sigma(l)}+\lambda\delta_{kl}\delta_{k\sigma(l)}).
+            \end{equation}
+            Le dernier facteur est nul.
+    \end{subproof}
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Déterminant et combinaisons de lignes et colonnes}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{SUBSECooKMSVooBBHwkH}
 
 Faisons maintenant le cas général.
 
