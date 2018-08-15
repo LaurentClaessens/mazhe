@@ -526,7 +526,15 @@ On note \( \GL(n,\eA) \) l'ensemble des matrices carrées d'ordre \( n \) à coe
 \end{definition}
 
 \begin{definition}[Groupe orthogonal de matrices]\label{DefMatriceOrthogonale}
-On dit qu'une matrice \( A \) est \defe{orthogonale}{matrice!orthogonale} si son inverse est sa transposée, c'est-à-dire si \( A^{-1} = A^t \). On note \( \gO(n,\eA) \) l'ensemble des matrices carrées d'ordre \( n \) à coefficients dans \( \eA \), qui sont orthogonales.
+    On dit qu'une matrice \( A \) est \defe{orthogonale}{matrice!orthogonale} si son inverse est sa transposée, c'est-à-dire si \( A^{-1} = A^t \). On note \( \gO(n,\eA) \) l'ensemble des matrices carrées d'ordre \( n \) à coefficients dans \( \eA \), qui sont orthogonales.
+\end{definition}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Rang}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[\cite{ooKBOMooSkKHvu}]
+    Le \defe{rang}{rang d'une matrice} d'une matrice de \( \eM(n,\eK)\) est la dimension de la partie de \( \eK^n\) engendrée par ses colonnes.
 \end{definition}
 
 %---------------------------------------------------------------------------------------------------------------------------
@@ -596,13 +604,124 @@ Le fait que \( \det(A)=\det(A^t)\) permet, dans toutes les propositions du type 
     Cette dernière expression est la matrice \( A\) après permutation des lignes \( L_k\leftrightarrow L_l\), c'est à dire a matrice \( B\).
 \end{proof}
 
+\begin{proposition}[Permuter des lignes ou des colonnes \( L_k\leftrightarrow L_l\)\cite{ooKBOMooSkKHvu,MonCerveau}]
+    Soient une matrice \( A\in \eM(n,\eK)\), deux entiers \( k\neq l\) inférieurs ou égaux à \( n\). 
+    \begin{enumerate}
+        \item   \label{ITEMooAIHWooHXzeys}
+            Si \( B\) est la matrice obtenue à partir de \( A\) en permutant deux lignes ou deux colonnes, alors
+            \begin{equation}
+                \det(A)=\det(B).
+            \end{equation}
+        \item  \label{ITEMooDNHWooOMgmxa}
+            Si \( B\) est la matrice obtenue à partir de \( A\) par la permutation de lignes \( L_k\leftrightarrow L_l\). Alors
+            \begin{equation}
+                B=SA
+            \end{equation}
+            avec \( S=\delta+E_{kl}+E_{lk}-E_{kk}-E_{ll}\).
+
+            Autrement dit : la matrice \( S\) est une matrice de permutations de lignes.
+        \item \label{ITEMooSHRQooQrqVdO}
+            La matrice \( S\) vérifie \( \det(S)=-1\)
+        \item       \label{ITEMooQXSEooMWiKbL}
+            Nous avons 
+            \begin{equation}
+                \det(SA)=\det(S)\det(A).
+            \end{equation}
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Point par point
+    \begin{subproof}
+    \item[\ref{ITEMooAIHWooHXzeys} pour les colonnes]
+
+    Soient \( k\) et \( l\) fixés, et considérons la permutation des colonnes \( C_k\) et \( C_l\). Nous notons \( \alpha\) la permutation \( (kl)\) dans \( S_n\) (groupe symétrique, définition \ref{DEFooJNPIooMuzIXd}). Nous avons
+    \begin{equation}
+        B_{ij}=A_{i \alpha(j)},
+    \end{equation}
+    ou encore : \( A_{ij}=B_{i\alpha(j)}\). Par définition,
+    \begin{equation}
+        \det(A)=\sum_{\sigma\in S_{n}}\epsilon(\sigma)\prod_{i=1}^nA_{i\sigma(i)}
+    \end{equation}
+    C'est le moment d'utiliser la proposition \ref{PROPooWJQQooFINSEc} à propos de somme sur des groupes avec \( G=S_n\), \( h=\alpha\) et 
+    \begin{equation}
+        f(\sigma)=\epsilon(\sigma)\prod_iA_{i,\sigma(i)}.
+    \end{equation}
+    Nous savons que \( \epsilon(\alpha)=-1\) et que \( \epsilon\) est un homomorphisme par la proposition \ref{ProphIuJrC}\ref{ITEMooBQKUooFTkvSu}, donc
+    \begin{equation}
+        f(\alpha \sigma)=\epsilon(\alpha\sigma)\prod_iA_{i,(\alpha\sigma)(i)}=-\epsilon(\sigma)\prod_iB_{i,\sigma(i)}.
+    \end{equation}
+    Avec ça, nous concluons :
+    \begin{equation}
+        \det(A)=\sum_{\sigma\in S_n}f(\sigma)=\sum_{\sigma}f(\alpha \sigma)=-\sum_{\sigma\in S_n}\epsilon(\sigma)\prod_{i=1}^nB_{i\sigma(i)}=-\det(B).
+    \end{equation}
+    \item[\ref{ITEMooAIHWooHXzeys} pour les lignes]
+
+    Que se passe-t-il si nous permutons les lignes \( L_k\) et \( L_{l}\) ?Si nous notons \( B'\) la matrice obtenue à partir de \( A\) par la permutation de lignes \( L_k\leftrightarrow L_l\), et \( C\) celle obtenue de \( A^t\) après permutation de colonnes \( C_k\leftrightarrow C_l\) alors nous avons \( C^t=B'\). Le lemme \ref{LEMooWMQWooGWFlmC} nous dit que \( C^t=B'\). En utilisant le lemme \ref{LEMooCEQYooYAbctZ} sur le déterminant de la transposée,
+    \begin{equation}
+        \det(B')=\det(C^t)=\det(C)=-\det(A^t)=-\det(A).
+    \end{equation}
+    Voila qui prouve le résultat pour les permutation de lignes.
+        
+\item[\ref{ITEMooDNHWooOMgmxa}]
+    Si \( k=l\), il n'y a pas de permutations, et il est vite vu que la matrice \( S\) est l'identité parce qu'il y a quatre fois le terme \( E_{kk}\). Nous supposons donc que \( k\neq l\); en particulier \( \delta_{kl}=0\).
+
+    Il s'agit surtout d'un beau calcul :
+    \begin{subequations}
+        \begin{align}
+            (SA)_{ij}=\sum_{m}S_{im}A_{mj}&=A_{ij}+\sum_m(\delta_{ki}\delta_{lm}+\delta_{li}\delta_{lm}-\delta_{ki}\delta_{km}-\delta_{li}\delta_{lm})A_{mj}\\
+            &=A_{ij}+\delta_{ki}A_{lj}+\delta_{li}A_{kj}-\delta_{ki}A_{kj}-\delta_{li}A_{lj}.
+        \end{align}
+    \end{subequations}
+    Si \( i\neq j\) et \( i\neq l\), alors \( (SA)_{ij}=A_{ij}\). Si \( i=k\), alors 
+    \begin{equation}
+        (SA)_{kj}=A_{kj}+A_{lj}-A_{kj}=A_{lj},
+    \end{equation}
+    c'est à dire que la \( k\)\ieme ligne de \( SA\) est la \( l\)\ieme ligne de \( A\).
+
+    Avec \( i=l\) nous obtenons la \( k\)\ieme ligne de \( A\).
+
+    Tout cela montre que \( SA\) est la matrice \( A\) dans laquelle les lignes \( k\) et \( l\) ont été inversées, c'est à dire \( SA=B\).
+
+\item[\ref{ITEMooSHRQooQrqVdO}]
+            En utilisant la définition du déterminant,
+            \begin{subequations}
+                \begin{align}
+                    \det(S)&=\sum_{\sigma\in S_n}\epsilon(\sigma)\prod_{i=1}^nS_{i\sigma(i)}\\
+                    &=\sum_{\sigma}\epsilon(\sigma)\prod_i\big( \delta_{i\sigma(i)}+\delta_{ki}\delta_{l\sigma(i)}+\delta_{li}\delta_{k\sigma(i)}-\delta_{ki}\delta_{k\sigma(i)}-\delta_{li}\delta_{l\sigma(i)} \big).
+                \end{align}
+            \end{subequations}
+            Nous utilisons l'associativité et la commutativité du produit pour séparer les facteurs \( i=k\) et \( i=l\) des autres :
+            \begin{equation}
+                \det(S)=\sum_{\sigma}\epsilon(\sigma)\prod_{\substack{i\neq k\\i\neq l}}\delta_{i\sigma(i)}(\delta_{k\sigma(k)}+\delta_{l\sigma(k)}-\delta_{k\sigma(k)})(\delta_{l\sigma(l)}+\delta_{k\sigma(l)}-\delta_{l\sigma(l)}).
+            \end{equation}
+            À cause des facteurs \( i\neq k\) et \( i\neq l\), les \( \sigma\) pour lesquels le tout n'est pas nuls doivent vérifier \( \delta_{i\sigma(i)}=1\) pour tout \( i\) différent de \( k\) et \( l\). Les deux seuls sont donc \( \sigma=\id\) et la permutation \( \sigma=(k,l)\). Pour \( \sigma=\id\), nous avons
+            \begin{equation}
+                \prod_{\substack{i\neq k\\i\neq l}}\delta_{ii}(\delta_{kk}+\delta_{lk}-\delta_{kk})(\delta_{ll}+\delta_{kl}-\delta_{ll})=0.
+            \end{equation}
+            Dernier espoir : \( \sigma=(k,l)\). Pour ce terme nous avons \( \epsilon(\sigma)=-1\) et
+            \begin{equation}
+                \prod_{\substack{i\neq k\\i\neq l}}\delta_{ii}(\delta_{kl}+\delta_{ll}-\delta_{kl})(\delta_{lk}+\delta_{kk}-\delta_{lk})=1.
+            \end{equation}
+            Au final dans \( \det(S)\) il n'y a de non nul que le terms \( \sigma=(k,l)\) et il vaut \( -1\). Donc
+            \begin{equation}
+                \det(S)=-1.
+            \end{equation}
+        \item[\ref{ITEMooQXSEooMWiKbL}]
+            Il s'agit de mettre bout à bout les points déjà prouvés :
+            \begin{equation}
+                \det(SA)=-\det(A)=\det(S)\det(A).
+            \end{equation}
+    \end{subproof}
+\end{proof}
+
 \begin{proposition}[\cite{ooKBOMooSkKHvu}]      \label{PROPooZIVNooUPsBtr}
     Soit une matrice \( A\in \eM(n,\eK)\).
     \begin{enumerate}
         \item       \label{ITEMooSOHWooEHJFZD}
             Si \( B\) est la matrice obtenue en permutant deux lignes ou colonnes de \( A\), alors
             \begin{equation}
-                \det(B)=\det(A).
+                \det(B)=-\det(A).
             \end{equation}
         \item       \label{ITEMooBKIGooCDQEDt}
             Si \( B\) est la matrice obtenue un multipliant une ligne ou une colonne par \( \lambda\in \eK\), alors
@@ -617,33 +736,6 @@ Le fait que \( \det(A)=\det(A^t)\) permet, dans toutes les propositions du type 
 \begin{proof}
     Point par point.
     \begin{subproof}
-        \item[\ref{ITEMooSOHWooEHJFZD}]
-            Soient \( k\) et \( l\) fixés, et considérons la permutation des colonnes \( C_k\) et \( C_l\). Nous notons \( \alpha\) la permutation \( (kl)\) dans \( S_n\) (groupe symétrique, définition \ref{DEFooJNPIooMuzIXd}). Nous avons
-            \begin{equation}
-                B_{ij}=A_{i \alpha(j)},
-            \end{equation}
-            ou encore : \( A_{ij}=B_{i\alpha(j)}\). Par définition,
-            \begin{equation}
-                \det(A)=\sum_{\sigma\in S_{n}}\epsilon(\sigma)\prod_{i=1}^nA_{i\sigma(i)}
-            \end{equation}
-            C'est le moment d'utiliser la proposition \ref{PROPooWJQQooFINSEc} à propos de somme sur des groupes avec \( G=S_n\), \( h=\alpha\) et 
-            \begin{equation}
-                f(\sigma)=\epsilon(\sigma)\prod_iA_{i,\sigma(i)}.
-            \end{equation}
-            Nous savons que \( \epsilon(\alpha)=-1\) et que \( \epsilon\) est un homomorphisme par la proposition \ref{ProphIuJrC}\ref{ITEMooBQKUooFTkvSu}, donc
-            \begin{equation}
-                f(\alpha \sigma)=\epsilon(\alpha\sigma)\prod_iA_{i,(\alpha\sigma)(i)}=-\epsilon(\sigma)\prod_iB_{i,\sigma(i)}.
-            \end{equation}
-            Avec ça, nous concluons :
-            \begin{equation}
-                \det(A)=\sum_{\sigma\in S_n}f(\sigma)=\sum_{\sigma}f(\alpha \sigma)=-\sum_{\sigma\in S_n}\epsilon(\sigma)\prod_{i=1}^nB_{i\sigma(i)}=-\det(B).
-            \end{equation}
-
-            Que se passe-t-il si nous permutons les lignes \( L_k\) et \( L_{l}\) ?Si nous notons \( B'\) la matrice obtenue à partir de \( A\) par la permutation de lignes \( L_k\leftrightarrow L_l\), et \( C\) celle obtenue de \( A^t\) après permutation de colonnes \( C_k\leftrightarrow C_l\) alors nous avons \( C^t=B'\). Le lemme \ref{LEMooWMQWooGWFlmC} nous dit que \( C^t=B'\). En utilisant le lemme \ref{LEMooCEQYooYAbctZ} sur le déterminant de la transposée,
-            \begin{equation}
-                \det(B')=\det(C^t)=\det(C)=-\det(A^t)=-\det(A).
-            \end{equation}
-            Voila qui prouve le résultat pour les permutation de lignes.
 
         \item[\ref{ITEMooBKIGooCDQEDt}]
 
@@ -695,7 +787,7 @@ Notons que si pour \( k\neq l\) nous avons \( C_k=\lambda C_l\), alors nous avon
     \end{itemize}
 \end{proof}
 
-\begin{proposition}[\cite{ooKBOMooSkKHvu}]
+\begin{proposition}[\cite{ooKBOMooSkKHvu}]      \label{PROPooYMFQooOYCpEX}
     Soit une matrice \( A\in \eM(n,\eK)\). Nous considérons la matrice \( B\) obtenue à partir de \( A\) par la substitution de lignes \( L_k\to L_k+\lambda L_l\). Alors
     \begin{equation}
         \det(A)=\det(B).
@@ -718,37 +810,6 @@ Pour la suite nous écrivons \( \delta\) la matrice «identité», c'est à dire
 \begin{equation}
     (E_{ij})_{kl}=\delta_{ik}\delta_{jl}.
 \end{equation}
-
-\begin{proposition}[\cite{ooKBOMooSkKHvu}]
-    Soit une matrice \( A\in \eM(n,\eK)\). Nous considérons la matrice \( B\) obtenue à partir de \( A\) par la permutation de lignes \( L_k\leftrightarrow L_l\). Alors
-    \begin{equation}
-        B=SA
-    \end{equation}
-    avec \( S=\delta+E_{kl}+E_{lk}-E_{kk}-E_{ll}\).
-
-    Autrement dit : la matrice \( S\) est une matrice de permutations de lignes.
-\end{proposition}
-
-\begin{proof}
-    Si \( k=l\), il n'y a pas de permutations, et il est vite vu que la matrice \( S\) est l'identité parce qu'il y a quatre fois le terme \( E_{kk}\). Nous supposons donc que \( k\neq l\); en particulier \( \delta_{kl}=0\).
-
-    Il s'agit surtout d'un beau calcul :
-    \begin{subequations}
-        \begin{align}
-            (SA)_{ij}=\sum_{m}S_{im}A_{mj}&=A_{ij}+\sum_m(\delta_{ki}\delta_{lm}+\delta_{li}\delta_{lm}-\delta_{ki}\delta_{km}-\delta_{li}\delta_{lm})A_{mj}\\
-            &=A_{ij}+\delta_{ki}A_{lj}+\delta_{li}A_{kj}-\delta_{ki}A_{kj}-\delta_{li}A_{lj}.
-        \end{align}
-    \end{subequations}
-    Si \( i\neq j\) et \( i\neq l\), alors \( (SA)_{ij}=A_{ij}\). Si \( i=k\), alors 
-    \begin{equation}
-        (SA)_{kj}=A_{kj}+A_{lj}-A_{kj}=A_{lj},
-    \end{equation}
-    c'est à dire que la \( k\)\ieme ligne de \( SA\) est la \( l\)\ieme ligne de \( A\).
-
-    Avec \( i=l\) nous obtenons la \( k\)\ieme ligne de \( A\).
-
-    Tout cela montre que \( SA\) est la matrice \( A\) dans laquelle les lignes \( k\) et \( l\) ont été inversées, c'est à dire \( SA=B\).
-\end{proof}
 
 \begin{proposition}     \label{PROPooILVTooTnbfxU}
     Si \( B\) est la matrice \( A\) dans laquelle nous avons fait la substitution \( L_k\to L_k+\lambda L_l\), alors
@@ -786,13 +847,11 @@ Pour la suite nous écrivons \( \delta\) la matrice «identité», c'est à dire
 
 \begin{proposition}[\cite{MonCerveau}]
     Soient les matrices déjà vues
-    \begin{subequations}
-        \begin{align}
-            S&=\delta+E_{kl}+E_{lk}-E_{kk}-E_{ll}\\
-            U&=\delta+\lambda E_{kl}\\
-            T&=\delta+(\lambda-1)E_{kk}
-        \end{align}
-    \end{subequations}
+    \begin{itemize}
+        \item permutation de lignes : $S=\delta+E_{kl}+E_{lk}-E_{kk}-E_{ll}$,
+        \item ajout d'un multiple d'une ligne à une autre : $U=\delta+\lambda E_{kl}$,
+        \item multiplication d'une ligne par un scalaire : $T=\delta+(\lambda-1)E_{kk}$.
+    \end{itemize}
     Nous avons les déterminants
     \begin{subequations}
         \begin{align}
@@ -806,30 +865,7 @@ Pour la suite nous écrivons \( \delta\) la matrice «identité», c'est à dire
 \begin{proof}
     Un à la fois.
     \begin{subproof}
-        \item[\( \det(S)\)]
-            En utilisant la définition du déterminant,
-            \begin{subequations}
-                \begin{align}
-                    \det(S)&=\sum_{\sigma\in S_n}\epsilon(\sigma)\prod_{i=1}^nS_{i\sigma(i)}\\
-                    &=\sum_{\sigma}\epsilon(\sigma)\prod_i\big( \delta_{i\sigma(i)}+\delta_{ki}\delta_{l\sigma(i)}+\delta_{li}\delta_{k\sigma(i)}-\delta_{ki}\delta_{k\sigma(i)}-\delta_{li}\delta_{l\sigma(i)} \big).
-                \end{align}
-            \end{subequations}
-            Nous utilisons l'associativité et la commutativité du produit pour séparer les facteurs \( i=k\) et \( i=l\) des autres :
-            \begin{equation}
-                \det(S)=\sum_{\sigma}\epsilon(\sigma)\prod_{\substack{i\neq k\\i\neq l}}\delta_{i\sigma(i)}(\delta_{k\sigma(k)}+\delta_{l\sigma(k)}-\delta_{k\sigma(k)})(\delta_{l\sigma(l)}+\delta_{k\sigma(l)}-\delta_{l\sigma(l)}).
-            \end{equation}
-            À cause des facteurs \( i\neq k\) et \( i\neq l\), les \( \sigma\) pour lesquels le tout n'est pas nuls doivent vérifier \( \delta_{i\sigma(i)}=1\) pour tout \( i\) différent de \( k\) et \( l\). Les deux seuls sont donc \( \sigma=\id\) et la permutation \( \sigma=(k,l)\). Pour \( \sigma=\id\), nous avons
-            \begin{equation}
-                \prod_{\substack{i\neq k\\i\neq l}}\delta_{ii}(\delta_{kk}+\delta_{lk}-\delta_{kk})(\delta_{ll}+\delta_{kl}-\delta_{ll})=0.
-            \end{equation}
-            Dernier espoir : \( \sigma=(k,l)\). Pour ce terme nous avons \( \epsilon(\sigma)=-1\) et
-            \begin{equation}
-                \prod_{\substack{i\neq k\\i\neq l}}\delta_{ii}(\delta_{kl}+\delta_{ll}-\delta_{kl})(\delta_{lk}+\delta_{kk}-\delta_{lk})=1.
-            \end{equation}
-            Au final dans \( \det(S)\) il n'y a de non nul que le terms \( \sigma=(k,l)\) et il vaut \( -1\). Donc
-            \begin{equation}
-                \det(S)=-1.
-            \end{equation}
+
         \item[\( \det(T)\)]
             Nous calculons le déteminant de la matrice \( T=\delta+(\lambda-1)E_{kk}\). La formule du déterminant donne
             \begin{equation}
