@@ -5,7 +5,7 @@
 Ceci parle de matrices en tant que tableaux de nombres (dans un corps) sans parler d'applications linéaires.
 - La façon dont le déterminant change lorqu'on manipule les lignes et colonnes
 - Les matrices qui font ces opérations
-- Triangulation de Gauss
+- Réduction de Gauss
 
 Ceci est nécessaire pour identifier le produit mixte dans l'intégrale sur des variétés de dimension 3.
 
