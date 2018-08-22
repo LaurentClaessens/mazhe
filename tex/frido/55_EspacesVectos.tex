@@ -396,7 +396,7 @@ Il est parfois pratique d'écrire les éléments de \( F(S)\) comme sommes «for
 Mais attention : si \( S=\eR\), l'élément \( 4+7\) de \( F(\eR)\) n'est pas \( 11\). L'élément \( 11\) de \( F(\eR)\) est un élément complètement différent. Bref, il n'est pas judicieux d'écrire les éléments de \( F(S)\) comme des combinaisons linéaires d'éléments de \( S\). Pour \( x\in S\) il vaut mieux écrire explicitement \( \delta_x\) que \( x\). La somme \( \delta_x+\delta_y\) est parfaitement bien définie dans l'esemble des applications de \( S\) vers \( \eK\).
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Matrices et applications linéaires}
+\section{Matrices}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Les matrices et les applications linéaires sont deux choses différentes. Une application linéaire\footnote{Définition \ref{DEFooULVAooXJuRmr}.}.est une application d'un espace vectoriel vers un autre, et une matrice est un simple tableau de nombres sur lesquels nous définissons des opérations, de telle sorte à fournir une structure d'espace vectoriel. Le lien entre ces opérations et les opérations correspondantes sur les applications linéaires sera fait plus tard. D'ailleurs nous n'avons pas encore défini la notion d'application linéaire.
@@ -509,30 +509,54 @@ Il est vite vu que si \( A\) est une matrice carrée d'ordre \( n \), alors \( A
     \end{equation}
 \end{proof}
 
-\begin{propositionDef}
-    Soit une matrice \( A\in \eM(n,\eK)\). Il existe au maximum une matrice \( B\) telle que
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Application linéaire associée}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Le théorème suivant montre que les matrices et les applications linéaires, dans le cas des espaces vectoriels \( \eK^n\) sont deux présentations de la même chose.
+\begin{theorem}[\cite{MonCerveau}]
+    Soit un corps commutatif. Lorsque \( A\in \eM(n,\eK)\), nous considérons l'application linéaire \( f_A\in \End(\eK^n)\) donné par
     \begin{equation}
-        AB=BA=\mtu.
+        \begin{aligned}
+            f_A\colon \eK^n&\to \eK^n \\
+            x&\mapsto \sum_{ij}A_{ij}x_je_j 
+        \end{aligned}
     \end{equation}
-    Si une telle matrice existe, la matrice \( A\) est dite \defe{inversible}{inversible!matrice}, et la matrice \( B\) ainsi définie est notée \( A^{-1}\).
-\end{propositionDef}
+    où \( \{ e_i \}\) est la base canonique de \( \eK^n\) et \( \{ x_i \}\) sont les coordonnées de \( x\) dans cette base.
+
+    Nous avons la formule
+    \begin{equation}
+        f_A(e_j)_i=A_{ij},
+    \end{equation}
+    et l'application
+    \begin{equation}
+        \begin{aligned}
+            \psi\colon \eM(n,\eK)&\to \End(\eK^n) \\
+            A&\mapsto f_A 
+        \end{aligned}
+    \end{equation}
+    est un isomorphisme d'anneaux\footnote{C'est également un isomorphisme de corps au sens où \( f_{A^{-1}}=f_A^{-1}\), mais nous n'avons pas encore étudié les matrices inversibles. Voir \ref{}.} et un isomorphisme d'algèbres\quext{J'espère avoir vérifié toutes les conditions. Soyez prudent et systématique.}.
+\end{theorem}
 
 \begin{proof}
-La preuve est réalisée dans le cas général par le lemme \ref{LEMooECDMooCkWxXf}.
+    Plusieurs choses à prouver.
+    \begin{subproof}
+        \item[La petite formule]
+            En utilisant le fait que \( (e_j)_k=\delta_{jk}\) nous avons
+            \begin{equation}
+                f_A(e_j)=\sum_{kl}A_{kl}(e_j)_le_k=\sum_kA_{kj}e_k,
+            \end{equation}
+            ce qui donne \( A_{kj}=f_A(e_j)_k\).
+        \item[Injective]
+            Soient deux matrices telles que \( f_A=f_B\). En utilisant la formule à peine prouvée,
+            \begin{equation}
+                A_{ij}=f_A(e_j)_i=f_B(e_j)_i=B_{ij},
+            \end{equation}
+            c'est à dire que \( A=B\).
+    \end{subproof}
+    <++>
 \end{proof}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Quelques ensembles de matrices particuliers}
-%---------------------------------------------------------------------------------------------------------------------------
-Certains ensembles de matrices ont une importance particulière, que nous développerons plus tard.
-
-\begin{definition}[Groupe linéaire de matrices]
-On note \( \GL(n,\eA) \) l'ensemble des matrices carrées d'ordre \( n \) à coefficients dans \( \eA \), qui sont inversibles. En d'autres termes, \( \GL(n,\eA) = U (\eM (n,\eA) ) \).
-\end{definition}
-
-\begin{definition}[Groupe orthogonal de matrices]\label{DefMatriceOrthogonale}
-    On dit qu'une matrice \( A \) est \defe{orthogonale}{matrice!orthogonale} si son inverse est sa transposée, c'est-à-dire si \( A^{-1} = A^t \). On note \( \gO(n,\eA) \) l'ensemble des matrices carrées d'ordre \( n \) à coefficients dans \( \eA \), qui sont orthogonales.
-\end{definition}
+<++>
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Rang}
@@ -1060,7 +1084,57 @@ Nous avons vu les matrices d'opérations élémentaire sur les lignes et colonne
 \subsection{Matrices inversibles}
 %---------------------------------------------------------------------------------------------------------------------------
 
+\begin{propositionDef}      \label{PROPooMLWRooRWfZXE}
+    Soit une matrice \( A\in \eM(n,\eK)\). Si les matrices \( B_1\) et \( B_2\) de \( \eM(n,\eK)\) vérifient
+    \begin{equation}
+        AB_1=B_1A=\delta
+    \end{equation}
+    et
+    \begin{equation}
+        AB_2=B_2A=\delta,
+    \end{equation}
+    alors \( B_1=B_2\). Dans ce cas, nous disons que \( A\) est inversible et nous notons \( A^{-1}\) l'unique matrice telle que \( AA^{-1}=A^{-1}A=\delta\).
+\end{propositionDef}
+
+\begin{proof}
+    La preuve est réalisée dans le cas général par le lemme \ref{LEMooECDMooCkWxXf}. Mais si vous en voulez une preuve avec les notations d'ici, en voici une.
+
+    Nous avons $AB_1=AB_2$. En multipliant à gauche par \( B_1\), nous trouvons \( B_1AB_1=B_1AB_2\). En remplaçant \( B_1A\) par \( \delta\) des deux côtés, il reste \( B_1=B_2\).
+\end{proof}
+
+\begin{proposition}[\cite{ooKBOMooSkKHvu}]      \label{PROPooECIIooVMCIwz}
+    Si \( A,B\in \eM(n,\eK)\) vérifient \( AB=\delta\), alors \( BA=\delta\).
+\end{proposition}
+
+\begin{proof}
+    L'astuce est de poser \( C=BA-\delta+B\) et de montrer que \( C=B\). Pour cela, un rapide calcul commence par montrer que
+    \begin{equation}
+        AC=ABA-A+AB=AB=\delta.
+    \end{equation}
+    Donc \( C\) est également un inverse à droite de \( A\). Nous avons donc en particulier \( A(B-C)=0\).
+\end{proof}
 <++>
+
+\begin{corollary}
+    Soit \( A\in \eM(n,\eK)\). Si il existe \( B\in \eM(n,\eK)\) tel que \( AB=\delta\), alors \( A\) est inversible et son inverse est \( B\).
+\end{corollary}
+
+\begin{proof}
+    Il s'agit d'une paraphrase de la proposition \ref{PROPooECIIooVMCIwz} et de la définition \ref{PROPooMLWRooRWfZXE}.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Quelques ensembles de matrices particuliers}
+%---------------------------------------------------------------------------------------------------------------------------
+Certains ensembles de matrices ont une importance particulière, que nous développerons plus tard.
+
+\begin{definition}[Groupe linéaire de matrices]
+On note \( \GL(n,\eA) \) l'ensemble des matrices carrées d'ordre \( n \) à coefficients dans \( \eA \), qui sont inversibles. En d'autres termes, \( \GL(n,\eA) = U (\eM (n,\eA) ) \).
+\end{definition}
+
+\begin{definition}[Groupe orthogonal de matrices]\label{DefMatriceOrthogonale}
+    On dit qu'une matrice \( A \) est \defe{orthogonale}{matrice!orthogonale} si son inverse est sa transposée, c'est-à-dire si \( A^{-1} = A^t \). On note \( \gO(n,\eA) \) l'ensemble des matrices carrées d'ordre \( n \) à coefficients dans \( \eA \), qui sont orthogonales.
+\end{definition}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Déterminant et combinaisons de lignes et colonnes}
