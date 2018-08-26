@@ -18,7 +18,7 @@
 # digits than a full LaTeX line. Not to speak of correctly escape the string ...
 
 ok_hash=[]
-ok_hash.append("<++>")
+ok_hash.append("c648a67288873db2cc4198193dab818681ab7474")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
