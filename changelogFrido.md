@@ -1,6 +1,6 @@
 # Changelog du Frido
 
-## Matrices et déterminant : manipulations de lignes et de colonnes (août 2018 - ... )
+## Matrices et déterminant : manipulations de lignes et de colonnes (août 2018)
 
 Ceci parle principalement de matrices en tant que tableaux de nombres (dans un corps) sans parler d'applications linéaires.
 - La façon dont le déterminant change lorqu'on manipule les lignes et colonnes
