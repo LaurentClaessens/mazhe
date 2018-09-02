@@ -5,8 +5,8 @@ import os
 from pdfrw import PdfReader,PdfWriter
 from splittoc import Book
 
-pdf_filename="../0-book.pdf"
-toc_filename="../Inter_book-mazhe_pytex.toc"
+pdf_filename = "../0-book.pdf"
+toc_filename = "../Inter_book-mazhe_pytex.toc"
 
 def first_filename(v,imprimeur):
     """
@@ -24,32 +24,32 @@ def matter_filename(v):
 
 
 def isbn(title,year,v,imprimeur=None):
-    if title=="Le Frido" and year==2017:
+    if title == "Le Frido" and year == 2017:
         if imprimeur == "lulu":
-            if v==1:
+            if v == 1:
                 return "ISBN-lulu1"
-            if v==2:
+            if v == 2:
                 return "ISBN-lulu2"
-            if v==3:
+            if v == 3:
                 return "ISBN-lulu3"
-            if v==4:
+            if v == 4:
                 return "ISBN-lulu4"
         if imprimeur == "thebookedition":
-            if v==1:
+            if v == 1:
                 return "ISBN-thebookedition1"
-            if v==2:
+            if v == 2:
                 return "ISBN-thebookedition2"
-            if v==3:
+            if v == 3:
                 return "ISBN-thebookedition3"
-            if v==4:
+            if v == 4:
                 return "ISBN-thebookedition4"
 
-    if title=="Le Frido":
-        if v==1:
+    if title == "Le Frido":
+        if v == 1:
             return "978-2-9540936-5-9"
-        if v==2:
+        if v == 2:
             return "978-2-9540936-6-6"
-        if v==3:
+        if v == 3:
             return "978-2-9540936-7-3"
 
 
@@ -58,9 +58,9 @@ def isbn(title,year,v,imprimeur=None):
     return default
 
 def pepper(imprimeur):
-    if imprimeur=="lulu":
+    if imprimeur == "lulu":
         return ""
-    if imprimeur=="thebookedition":
+    if imprimeur == "thebookedition":
         return "(c) 2015 David Revoy  pour les illustrations de couverture CC-BY, \\url{https://www.peppercarrot.com/}"
 
 
@@ -73,12 +73,12 @@ def latex_code(title,year,v,imprimeur):
     @param 'year' (integer) the year
     """
 
-    text=open("generic.tex",'r').read()
+    text = open("generic.tex",'r').read()
 
-    substitutions=[  ["TITLE",title],["NUMBER",str(v)],["RISBN",isbn(title,year=year,v=v,imprimeur=imprimeur)],["YEAR+1",str(year+1)],["YEAR",str(year)],["PEPPERCARROT",pepper(imprimeur)]  ]
+    substitutions = [  ["TITLE",title],["NUMBER",str(v)],["RISBN",isbn(title,year=year,v=v,imprimeur=imprimeur)],["YEAR+1",str(year+1)],["YEAR",str(year)],["PEPPERCARROT",pepper(imprimeur)]  ]
 
     for s in substitutions:
-        text=text.replace(s[0],s[1])
+        text = text.replace(s[0],s[1])
     return text
 
 
@@ -92,13 +92,13 @@ def make_5_pages(n):
 
     @param n (integer) the number of volumes
     """
-    title="Le Frido"
-    year=2017
+    title = "Le Frido"
+    year = 2017
 
     for imprimeur in ["lulu","thebookedition"]:
         for v in range(1,n+1):
-            code=latex_code(title,year,v,imprimeur)
-            filename=first_filename(v,imprimeur)+".tex"
+            code = latex_code(title,year,v,imprimeur)
+            filename = first_filename(v,imprimeur)+".tex"
             with open(filename,'w') as f:
                 f.write(code)
             os.system("pdflatex "+filename)
@@ -119,9 +119,9 @@ def split_book(book,n):
     print("Creating front matter")
     book.sub_pdf(2,book.volume_first_page(1,n)-1,"front.pdf")
     for v in range(1,n+1):
-        pI=book.volume_first_page(v,n)
-        pF=book.volume_last_page(v,n)
-        filename=matter_filename(v)
+        pI = book.volume_first_page(v,n)
+        pF = book.volume_last_page(v,n)
+        filename = matter_filename(v)
         print("Creating matter of volume {} : {} -> {}".format( v, pI, pF ))
         book.sub_pdf(pI,pF,filename)
 
@@ -129,25 +129,25 @@ def concatenate(n):
     for imprimeur in ["lulu","thebookedition"]:
         for v in range(1,n+1):
             print("Concatenating for {}, volume {}".format(imprimeur,str(v)))
-            first=PdfReader(first_filename(v,imprimeur)+".pdf")
-            front=PdfReader("front.pdf")
-            matter=PdfReader(matter_filename(v))
+            first = PdfReader(first_filename(v,imprimeur)+".pdf")
+            front = PdfReader("front.pdf")
+            matter = PdfReader(matter_filename(v))
 
-            out_filename="book_{}_{}.pdf".format(str(v),imprimeur)
-            outpdf=PdfWriter(out_filename)
+            out_filename = "book_{}_{}.pdf".format(str(v),imprimeur)
+            outpdf = PdfWriter(out_filename)
             outpdf.addpages(first.pages)
             outpdf.addpages(front.pages)
             outpdf.addpages(matter.pages)
 
             outpdf.write(out_filename)
 
-n=4
+n = 4
 
 # Creating the 5 first pages
 make_5_pages(n)
 
 # Creating the front and matter of the 4 books.
-book=Book(toc_filename,pdf_filename)
+book = Book(toc_filename,pdf_filename)
 split_book(book,n)
 
 # Concatenating the files

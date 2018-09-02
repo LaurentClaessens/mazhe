@@ -1,23 +1,25 @@
 # -*- coding: utf8 -*-
 
-# Requires the python module pdfrw (apt install python3-pdfrw)
+"""
+Requires the python module pdfrw (apt install python3-pdfrw)
 
-# The purpose of this module is two-fold
-# - Adding (Vol k) to the chapter names in the table of contents.
-#   The division is automatic from the given number of volumes.
-#   This is called from 'lst_frido.py' via the plugin 'split_toc'.
-# - Actually recompose the 'n' pdf for the decomposition in 'n' parts.
-#   This functionality is called from the script "split_book.py".
+The purpose of this module is two-fold
+- Adding (Vol k) to the chapter names in the table of contents.
+  The division is automatic from the given number of volumes.
+  This is called from 'lst_frido.py' via the plugin 'split_toc'.
+- Actually recompose the 'n' pdf for the decomposition in 'n' parts.
+  This functionality is called from the script "split_book.py".
+"""
 
 import os
 
 class UnicodeCouple(object):
     def __init__(self,iec,utf):
-        self.iec="\IeC {{{}}}".format(iec)
-        self.utf=utf
+        self.iec = "\IeC {{{}}}".format(iec)
+        self.utf = utf
 
 def IeC_remove(s):
-    IeC_couples=[]
+    IeC_couples = []
     IeC_couples.append(UnicodeCouple("\\^\\i ","î") );
     IeC_couples.append(UnicodeCouple("\\'e","é"));
     IeC_couples.append(UnicodeCouple("\\^e ","ê"));
@@ -31,7 +33,7 @@ def IeC_remove(s):
     IeC_couples.append(UnicodeCouple("\\'E","É")  );
 
     for c in IeC_couples:
-        s=s.replace(c.iec,c.utf)
+        s = s.replace(c.iec,c.utf)
     return s
 
 def is_chapter_line(line):
@@ -39,7 +41,7 @@ def is_chapter_line(line):
     Return 'true' is 'line' is a line defining a chapter
     in the toc file.
     """
-    starting_string="""\contentsline {chapter}{\\numberline {"""
+    starting_string = """\contentsline {chapter}{\\numberline {"""
     return line.startswith(starting_string)
 
 class Chapter(object):
@@ -53,31 +55,31 @@ class Chapter(object):
     - chapter number
     """
     def __init__(self,original):
-        self.original=original
-        self.noIeC=IeC_remove(original)
+        self.original = original
+        self.noIeC = IeC_remove(original)
 
     def number(self):
-        a=self.noIeC.split("{")
-        sn=a[3][0:a[3].find("}")]
+        a = self.noIeC.split("{")
+        sn = a[3][0:a[3].find("}")]
         return int(sn)
     def title(self):
-        a=self.noIeC.split("{")
-        b=a[3].split("}")
-        t=b[1]
+        a = self.noIeC.split("{")
+        b = a[3].split("}")
+        t = b[1]
         if "IeC" in t :
             print(t)
             raise ValueError
         return(t)
     def first_page(self):
-        a=self.noIeC.split("{")
-        b=a[4].split("}")
+        a = self.noIeC.split("{")
+        b = a[4].split("}")
         return int(b[0])
     def hack(self,i):
         """
         Append "(vol i)" at the end of the chapter's title.
         """
-        a=self.original.split("}")
-        a[-4]=a[-4]+" (Vol {})".format(i)
+        a = self.original.split("}")
+        a[-4] = a[-4]+" (Vol {})".format(i)
         return "}".join(a)
 
 class Book(object):
@@ -87,18 +89,18 @@ class Book(object):
     This is a wrapper around a list of chapters.
     """
     def __init__(self,toc_filename,pdf_filename=None):
-        self.toc_filename=toc_filename
-        self.pdf_filename=pdf_filename
-        self.pdf_reader=None
+        self.toc_filename = toc_filename
+        self.pdf_filename = pdf_filename
+        self.pdf_reader = None
         if self.pdf_filename is not None :
             from pdfrw import PdfReader
-            self.pdf_reader=PdfReader(self.pdf_filename)
+            self.pdf_reader = PdfReader(self.pdf_filename)
     def splitlines(self):
         """
         Return a list of lines.
         """
         with open(self.toc_filename,'r') as f:
-            text=f.read()
+            text = f.read()
         return text.split("\n")
     def chapter_list(self):
         """
@@ -120,7 +122,7 @@ class Book(object):
         if n is not None:
             return self.chapter_list()[n-1]
         for chap in self.chaper_list() :
-            if chap.title==title:
+            if chap.title == title:
                 return chap
         raise "Are you giving a title which does not exist ?"
     def first_pages(self) :
@@ -186,7 +188,7 @@ class Book(object):
         but for the last volume for which the last page is the last
         page of the book.
         """
-        if v==n :
+        if v == n :
             return self.tot_pages()
         return self.volume_first_page(v+1,n)-1
     def volume_number(self,chap,n):
@@ -215,8 +217,8 @@ class Book(object):
         not the numbers in the python's list of pages (which begins at 0).
         """
         from pdfrw import PdfReader, PdfWriter
-        output=PdfWriter(filename)
-        pages=self.pdf_reader.pages
+        output = PdfWriter(filename)
+        pages = self.pdf_reader.pages
         for k in range(pI-1,pF):
             output.addpage(pages[k])
         output.write(filename)
@@ -225,8 +227,8 @@ class Book(object):
             return
         # Print a summary
         print("Volumes :")
-        for v in range(1,n+1):
-            print(v," -> ",self.volume_first_page(v,n))
+        for vol in range(1,n+1):
+            print(vol, " -> ", self.volume_first_page(vol,n))
 
         print("Chapitres : ")
         for chap in self.chapter_list():
@@ -235,16 +237,16 @@ class Book(object):
             print("Volume : ",self.volume_number(chap,n))
 
         # Makes the work
-        new_toc=[]
+        new_toc = []
         for line in self.splitlines():
             if is_chapter_line(line):
-                chapter=Chapter(line)
-                vn=self.volume_number(chapter,n)
-                new_toc.append(chapter.hack(vn))
+                chapter = Chapter(line)
+                volume_number = self.volume_number(chapter,n)
+                new_toc.append(chapter.hack(volume_number))
             else :
                 new_toc.append(line)
 
-        new_text="\n".join(new_toc)
+        new_text = "\n".join(new_toc)
 
-        with open(self.toc_filename,'w') as f:
-            f.write(new_text)
+        with open(self.toc_filename,'w') as toc_file:
+            toc_file.write(new_text)
