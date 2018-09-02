@@ -12,6 +12,9 @@ The purpose of this module is two-fold
 """
 
 import os
+from pdfrw import PdfReader
+
+from debug_tools import dprint
 
 class UnicodeCouple(object):
     def __init__(self,iec,utf):
@@ -88,12 +91,12 @@ class Book(object):
 
     This is a wrapper around a list of chapters.
     """
-    def __init__(self,toc_filename,pdf_filename=None):
+    def __init__(self, toc_filename, pdf_filename=None):
         self.toc_filename = toc_filename
         self.pdf_filename = pdf_filename
         self.pdf_reader = None
         if self.pdf_filename is not None :
-            from pdfrw import PdfReader
+            dprint('pdf_filename :', pdf_filename)
             self.pdf_reader = PdfReader(self.pdf_filename)
     def splitlines(self):
         """

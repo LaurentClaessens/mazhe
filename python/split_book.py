@@ -5,6 +5,32 @@ import os
 from pdfrw import PdfReader,PdfWriter
 from splittoc import Book
 
+"""
+This script generates the pdf's for printing/commercialization
+by thebookedition.com and lulu.com
+
+Usage
+-----
+
+- compile with 
+  ```
+  pytex lst_book.py
+  ``` 
+  this generates 0-book.pdf which will be used here to extract the
+  TOC/matters.
+- launch this script
+
+
+Number of volumes
+-----------------
+
+The variable `tot_volumes` is the number of volumes we want. 
+It has to be the same
+- here
+- in `lst_frido.py`
+- in `lst_book.py`
+"""
+
 pdf_filename = "../0-book.pdf"
 toc_filename = "../Inter_book-mazhe_pytex.toc"
 
@@ -82,7 +108,7 @@ def latex_code(title,year,v,imprimeur):
     return text
 
 
-def make_5_pages(n):
+def make_5_pages(tot_volumes, title, year):
     """
     This script creates the pdf of the firsts page for the commercialized Frido.
     - two withe pages
@@ -90,25 +116,25 @@ def make_5_pages(n):
     - one speaking about the numerous versions of the book
     - one with the copyright on the bottom
 
-    @param n (integer) the number of volumes
+    @param {int} `tot_volumes` 
+            the number of volumes
     """
-    title = "Le Frido"
-    year = 2017
 
-    for imprimeur in ["lulu","thebookedition"]:
-        for v in range(1,n+1):
+    for imprimeur in ["lulu", "thebookedition"]:
+        for v in range(1, tot_volumes + 1):
             code = latex_code(title,year,v,imprimeur)
             filename = first_filename(v,imprimeur)+".tex"
             with open(filename,'w') as f:
                 f.write(code)
             os.system("pdflatex "+filename)
 
-def split_book(book,n):
+def split_book(book, tot_volumes):
     """
     Split the book in 'v' volumes
 
-    @param book (type Book)
-    @param n (integer) the number of volumes
+    @param  book (type Book)
+    @param {int} tot_volumes
+            the number of volumes
 
     The 'book' parameter has to contain the pdf filename.
     """
@@ -117,10 +143,12 @@ def split_book(book,n):
     print(book.get_chapter(n=1).title())
     print(book.tot_pages())
     print("Creating front matter")
-    book.sub_pdf(2,book.volume_first_page(1,n)-1,"front.pdf")
-    for v in range(1,n+1):
-        pI = book.volume_first_page(v,n)
-        pF = book.volume_last_page(v,n)
+    book.sub_pdf(2, 
+                 book.volume_first_page(1, tot_volumes) - 1, 
+                 "front.pdf")
+    for v in range(1, tot_volumes + 1):
+        pI = book.volume_first_page(v, tot_volumes)
+        pF = book.volume_last_page(v, tot_volumes)
         filename = matter_filename(v)
         print("Creating matter of volume {} : {} -> {}".format( v, pI, pF ))
         book.sub_pdf(pI,pF,filename)
@@ -141,14 +169,14 @@ def concatenate(n):
 
             outpdf.write(out_filename)
 
-n = 4
+tot_volumes = 4
 
 # Creating the 5 first pages
-make_5_pages(n)
+make_5_pages(tot_volumes, title="Le Frido", year=2017)
 
 # Creating the front and matter of the 4 books.
-book = Book(toc_filename,pdf_filename)
-split_book(book,n)
+book = Book(toc_filename, pdf_filename)
+split_book(book, tot_volumes)
 
 # Concatenating the files
 concatenate(n)
