@@ -12,7 +12,7 @@ The purpose of this module is two-fold
 """
 
 import os
-from pdfrw import PdfReader
+from pdfrw import PdfReader, PdfWriter
 
 from debug_tools import dprint
 
@@ -96,7 +96,6 @@ class Book(object):
         self.pdf_filename = pdf_filename
         self.pdf_reader = None
         if self.pdf_filename is not None :
-            dprint('pdf_filename :', pdf_filename)
             self.pdf_reader = PdfReader(self.pdf_filename)
     def splitlines(self):
         """
@@ -209,22 +208,24 @@ class Book(object):
         print("chapter : ",chap.title())
         print("first page : ",chap.first_page())
         raise
-    def sub_pdf(self,pI,pF,filename):
+    def extract_sub_pdf(self, pI, pF, filename):
         """
         copy the pages pI->pF into the file 'filename'
 
         @param pI,pF : integers, the page numbers
         @param filename : string
 
-        'pI' and 'pF' are the pdf numbers (the ones you see in the document),
-        not the numbers in the python's list of pages (which begins at 0).
+        'pI' and 'pF' are the pdf numbers 
+        (the ones you see in the document),
+        not the numbers in the python's list of pages 
+        (which begins at 0).
         """
-        from pdfrw import PdfReader, PdfWriter
         output = PdfWriter(filename)
         pages = self.pdf_reader.pages
         for k in range(pI-1,pF):
             output.addpage(pages[k])
-        output.write(filename)
+        #output.write(filename)
+        output.write()
     def rewrite_toc(self,n):
         if not os.path.exists(self.toc_filename):
             return

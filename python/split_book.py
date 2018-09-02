@@ -39,12 +39,12 @@ def first_filename(v,imprimeur):
     """
     return "firsts_5_"+imprimeur+"_"+str(v)
 
-def matter_filename(v):
+def matter_filename(volume):
     """
     Return the filename in which to write the pdf containing
     the matter of volume 'v'.
     """
-    return "matter_{}.pdf".format(v)
+    return f"matter_{volume}.pdf"
 
 
 def isbn(title,year,v,imprimeur=None):
@@ -86,6 +86,7 @@ def pepper(imprimeur):
         return ""
     if imprimeur == "thebookedition":
         return "(c) 2015 David Revoy  pour les illustrations de couverture CC-BY, \\url{https://www.peppercarrot.com/}"
+    raise ValueError(f"Unknown printer : {imprimeur}")
 
 
 def latex_code(title,year,v,imprimeur):
@@ -128,7 +129,7 @@ def make_5_pages(tot_volumes, title, year):
 
 def split_book(book, tot_volumes):
     """
-    Split the book in 'v' volumes
+    Split the book into some volumes
 
     @param  book (type Book)
     @param {int} tot_volumes
@@ -138,34 +139,34 @@ def split_book(book, tot_volumes):
     """
 
     # - 'front.pdf' contains thematic index, toc, indexes
-    print(book.get_chapter(n=1).title())
-    print(book.tot_pages())
+    print("Title: ", book.get_chapter(n=1).title())
+    print("Number of pages: ", book.tot_pages())
     print("Creating front matter")
-    book.sub_pdf(2, 
+    book.extract_sub_pdf(2, 
                  book.volume_first_page(1, tot_volumes) - 1, 
                  "front.pdf")
-    for v in range(1, tot_volumes + 1):
-        pI = book.volume_first_page(v, tot_volumes)
-        pF = book.volume_last_page(v, tot_volumes)
-        filename = matter_filename(v)
-        print("Creating matter of volume {} : {} -> {}".format( v, pI, pF ))
-        book.sub_pdf(pI,pF,filename)
+    for volume in range(1, tot_volumes + 1):
+        pI = book.volume_first_page(volume, tot_volumes)
+        pF = book.volume_last_page(volume, tot_volumes)
+        filename = matter_filename(volume)
+        print(f"Creating matter of volume {volume} : {pI} -> {pF}")
+        book.extract_sub_pdf(pI, pF, filename)
 
-def concatenate(n):
-    for imprimeur in ["lulu","thebookedition"]:
-        for v in range(1,n+1):
-            print("Concatenating for {}, volume {}".format(imprimeur,str(v)))
+def concatenate(tot_volumes):
+    for imprimeur in ["lulu", "thebookedition"]:
+        for v in range(1, tot_volumes + 1):
+            print(f"Concatenating for {imprimeur}, volume {v}")
             first = PdfReader(first_filename(v,imprimeur)+".pdf")
             front = PdfReader("front.pdf")
             matter = PdfReader(matter_filename(v))
 
-            out_filename = "book_{}_{}.pdf".format(str(v),imprimeur)
+            out_filename = f"book_{v}_{imprimeur}.pdf")
             outpdf = PdfWriter(out_filename)
             outpdf.addpages(first.pages)
             outpdf.addpages(front.pages)
             outpdf.addpages(matter.pages)
 
-            outpdf.write(out_filename)
+            outpdf.write()
 
 def make_the_work():
     """
