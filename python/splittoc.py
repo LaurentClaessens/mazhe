@@ -171,7 +171,8 @@ class Book(object):
         return (v-1)*self.tot_pages()/n
     def volume_first_page(self,v,n):
         """
-        Return the first page of volume 'v' if we divide into 'n' volumes
+        Return the first page of volume 'v' if we divide 
+        into 'n' volumes
 
         @param v,n integers
         @return integer

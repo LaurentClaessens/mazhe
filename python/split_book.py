@@ -160,10 +160,12 @@ def concatenate(tot_volumes):
             front = PdfReader("front.pdf")
             matter = PdfReader(matter_filename(v))
 
-            out_filename = f"book_{v}_{imprimeur}.pdf")
+            out_filename = f"book_{v}_{imprimeur}.pdf"
             outpdf = PdfWriter(out_filename)
             outpdf.addpages(first.pages)
-            outpdf.addpages(front.pages)
+
+            if v == 1:
+                outpdf.addpages(front.pages)
             outpdf.addpages(matter.pages)
 
             outpdf.write()
