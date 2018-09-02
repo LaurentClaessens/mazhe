@@ -31,8 +31,6 @@ It has to be the same
 - in `lst_book.py`
 """
 
-pdf_filename = "../0-book.pdf"
-toc_filename = "../Inter_book-mazhe_pytex.toc"
 
 def first_filename(v,imprimeur):
     """
@@ -169,14 +167,22 @@ def concatenate(n):
 
             outpdf.write(out_filename)
 
-tot_volumes = 4
+def make_the_work():
+    """
+    Make the whole work.
+    """
+    tot_volumes = 4
+    pdf_filename = "../0-book.pdf"
+    toc_filename = "../Inter_book-mazhe_pytex.toc"
 
-# Creating the 5 first pages
-make_5_pages(tot_volumes, title="Le Frido", year=2017)
+    # Creating the 5 first pages
+    make_5_pages(tot_volumes, title="Le Frido", year=2017)
 
-# Creating the front and matter of the 4 books.
-book = Book(toc_filename, pdf_filename)
-split_book(book, tot_volumes)
+    # Creating the front and matter of the 4 books.
+    book = Book(toc_filename, pdf_filename)
+    split_book(book, tot_volumes)
 
-# Concatenating the files
-concatenate(n)
+    # Concatenating the files
+    concatenate(tot_volumes)
+
+make_the_work()
