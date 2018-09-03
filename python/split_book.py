@@ -47,7 +47,27 @@ def matter_filename(volume):
     return f"matter_{volume}.pdf"
 
 
-def isbn(title,year,v,imprimeur=None):
+def isbn(title, year, v, imprimeur=None):
+    if title == "Le Frido" and year == 2018:
+        if imprimeur == "lulu":
+            if v == 1:
+                return "979-10-97085-14-8"
+            if v == 2:
+                return "979-10-97085-15-5"
+            if v == 3:
+                return "979-10-97085-16-2"
+            if v == 4:
+                return "979-10-97085-17-9"
+        if imprimeur == "thebookedition":
+            if v == 1:
+                return "979-10-97085-10-0"
+            if v == 2:
+                return "979-10-97085-11-7"
+            if v == 3:
+                return "979-10-97085-12-4"
+            if v == 4:
+                return "979-10-97085-13-1"
+
     if title == "Le Frido" and year == 2017:
         if imprimeur == "lulu":
             if v == 1:
@@ -179,7 +199,7 @@ def make_the_work():
     toc_filename = "../Inter_book-mazhe_pytex.toc"
 
     # Creating the 5 first pages
-    make_5_pages(tot_volumes, title="Le Frido", year=2017)
+    make_5_pages(tot_volumes, title="Le Frido", year=2018)
 
     # Creating the front and matter of the 4 books.
     book = Book(toc_filename, pdf_filename)
