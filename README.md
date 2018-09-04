@@ -5,29 +5,34 @@
 
 * [« Le Frido »](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il couvre (à peu près) tout le programme.
 * [« (almost) Everything I know in mathematics »](http://laurent.claessens-donadello.eu/pdf/mazhe.pdf) contains more or less everything I know in mathematics, including my research.
-* Et ce fichier [manuel_du_contributeur.pdf](http://laurent.claessens-donadello.eu/pdf/manuel_du_contributeur.pdf) contient des instruction pour la compilation du Frido, ainsi que des politiques éditoriales à l'attention de qui voudrait contribuer.
 
 ## Download and compilation
+
+### Download and compilation : le Frido (in French)
+
+If you want to compile [Le Frido](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) you'll have to use a pre-compilation script.
+
+- Download the python module `latexparser`
+```
+git clone https://github.com/LaurentClaessens/LaTeXparser.git
+```
+- Add the directory where python will find it (see the environment variable `PYTHONPATH`)
+- Compile the book with
+```
+pytex lst_frido.py
+```
 
 ### Download and compilation: the whole book
 
 First you need the package [exocorr](https://github.com/LaurentClaessens/exocorr) to be somewhere in your LaTeX path.
 
-Source are on [GitHub (LaurentClaessens/mazhe/)](https://github.com/LaurentClaessens/mazhe). The main file is : `mazhe.tex` and a basic compilation is:
+The main file is : `mazhe.tex` and a basic compilation is:
 ```bash
 pdflatex mazhe.tex
 bibtex mazhe
 makeindex mazhe
 ```
 to be done more or less three times to get all the cross-references correct.
-More precise information [here](http://laurent.claessens-donadello.eu/pdf/manuel_du_contributeur.pdf).
-
-### Download and compilation : le Frido (in French)
-
-If you want to compile [Le Frido](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf), it is more complicated because the point is to extract the "agrégation" part from the whole source.
-I developed some pre-compilation scripts that make the work, but you'll need to install some dependencies.
-
-It is fully explained here: [manuel_du_contributeur](http://laurent.claessens-donadello.eu/pdf/manuel_du_contributeur.pdf) (in French).
 
 ### Download and compilation : the pictures
 
