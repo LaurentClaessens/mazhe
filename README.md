@@ -8,35 +8,8 @@
 
 ## Download and compilation
 
-### Download and compilation : le Frido (in French)
-
-If you want to compile [Le Frido](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) you'll have to use a pre-compilation script.
-
-- Download the python module `latexparser`
-```
-git clone https://github.com/LaurentClaessens/LaTeXparser.git
-```
-- Add the directory where python will find it (see the environment variable `PYTHONPATH`)
-- Compile the book with
-```
-pytex lst_frido.py
-```
-
-### Download and compilation: the whole book
-
-First you need the package [exocorr](https://github.com/LaurentClaessens/exocorr) to be somewhere in your LaTeX path.
-
-The main file is : `mazhe.tex` and a basic compilation is:
-```bash
-pdflatex mazhe.tex
-bibtex mazhe
-makeindex mazhe
-```
-to be done more or less three times to get all the cross-references correct.
-
-### Download and compilation : the pictures
-
-If you want to recreate the pictures from their sources (the mysterious `phystricks*.py` files), there are [still more dependencies](https://github.com/LaurentClaessens/phystricks). I'll explain them another day.
+(*English*) See the file `COMPILATION_mazhe.md`
+(*Français*) Voir le fichier `COMPILTATION_frido.md`
 
 ## Le Frido (niveau agrégation)
 
