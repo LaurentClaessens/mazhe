@@ -10,5 +10,5 @@ L'ensemble suit l'ordre mathématiquement logique, qui n'est pas l'ordre pédago
 Téléchargement du cours, des sources LaTeX et de la version en préparation de l'année prochaine :
 http://laurent.claessens-donadello.eu/frido.html
 
-
-
+Téléchargement de l'erratum :
+https://github.com/LaurentClaessens/mazhe/blob/master/erratum.md
