@@ -5,6 +5,11 @@
 - définition
 - ajouter la référence là où elle manque
 
+## D'Alembert
+
+Voir la preuve proposée par
+https://linuxfr.org/nodes/115201/comments/1748682
+
 ## topologie sur D(Omega)
 
 https://github.com/LaurentClaessens/mazhe/issues/87
