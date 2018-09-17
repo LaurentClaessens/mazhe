@@ -19,3 +19,7 @@ https://github.com/LaurentClaessens/mazhe/issues/87
     https://github.com/LaurentClaessens/mazhe/files/2372948/Topologie.et.calcul.differentiel.pdf
 
 - Voir la définition de Wikipédia
+
+## limite et dérivée
+
+Quand ce sera tapé, ajouter la référence dans les remerciements.
