@@ -1,5 +1,9 @@
 # Changelog du Frido
 
+## Limite et dérivée (Septembre 2018)
+
+Ajout d'une démonstration du théorème d'inversion de limite et dérivée sans passer par les intégrales par Pierre Lairez.
+
 ## Matrices et déterminant : manipulations de lignes et de colonnes (août 2018)
 
 Ceci parle principalement de matrices en tant que tableaux de nombres (dans un corps) sans parler d'applications linéaires.
@@ -10,7 +14,7 @@ Ceci parle principalement de matrices en tant que tableaux de nombres (dans un c
 
 Ceci est nécessaire pour identifier le produit mixte dans l'intégrale sur des variétés de dimension 3.
 
-## Intégration sur les variétés (juillet 2018 - ...)
+## Intégration sur les variétés (juillet 2018 - août 2018)
 
 - Définition d'une variété via les cartes. Nous nous limitons au cas de variétés dans R^n dans le but de 
   définir l'intégrale sans passer par l'arbitraire d'une forme volume.
