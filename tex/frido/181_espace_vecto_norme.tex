@@ -305,6 +305,41 @@ Un des intérêts d'utiliser une norme d'algèbre est que l'on a l'inégalité \
     donc le résultat annoncé : \( \| Au \|\leq \| A \|\| u \|\).
 \end{proof}
 
+\begin{lemma}
+    Soient des espaces vectoriels normés \( E\) et \( F\). Soit \( x\in E\). Alors l'application d'évaluation
+    \begin{equation}
+        \begin{aligned}
+            ev_x\colon \aL(E,F)&\to F \\
+            f&\mapsto f(x) 
+        \end{aligned}
+    \end{equation}
+    est continue.
+\end{lemma}
+
+\begin{proof}
+    Si \( x=0\), alors par linéarité de \( f\) nous avons \( ev_0(f)=0\) pour tout \( f\). Donc d'accord pour la continuité.
+
+    Soit une suite convergente \( f_k\stackrel{\aL(E,F)}{\longrightarrow}f\). Nous voulons prouver que \( ev_x(f_k)\stackrel{F}{\longrightarrow}ev_x(f)\), c'est à dire que
+    \begin{equation}
+        \lim_{k\to \infty} \| f_k(x)-f(x) \|=0.
+    \end{equation}
+    Par hypothèse si \( k\) est grand, alors \( \| f_k-f  \|_{\aL(E,F)}\leq \epsilon\), c'est à dire que\footnote{Définition \ref{DefNFYUooBZCPTr} de la norme sur \( \aL(E,F)\).}
+    \begin{equation}
+        \sup_{y\in E}\frac{ \| f_k(y)-f(y) \| }{ \| y \| }\leq \epsilon.
+    \end{equation}
+    En particulier pour notre \( x\) nous avons
+    \begin{equation}
+        \frac{ \| f_k(x)-f(x) \| }{ \| x \| }\leq \epsilon,
+    \end{equation}
+    c'est à dire \( \| f_k(x)-f(x) \|\leq \| x \|\epsilon\). Vu que \( \| x \|\) est une simple constante et que \( \epsilon\) est arbitraire, cela implique \( f_k(x)\to f(x)\).
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Matrices, spectre et norme}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La lien entre la norme opérateur d'une matrice et son spectre sera entre autres utilisé pour étudier le conditionnement de problèmes numériques. Voir la définition \ref{DEFooBKQWooJuoCGX} et par exemple son lien avec la résolution numérique de systèmes linéaires dans la proposition \ref{PROPooGIXFooAhJkIs}.
+
 \begin{proposition}[\cite{ooYLHAooCzQvoa}]      \label{PROPooKLFKooSVnDzr}
     Soit une matrice \( A\in \eM(n,\eC)\) de rayon spectral \( \rho(A)\). Soit une norme \( \| . \|\) sur \( \eC^n\) et la norme opérateur correspondante. Alors
     \begin{equation}
@@ -513,83 +548,6 @@ La chose impressionnante dans la proposition suivante est que \( \rho(A)\) est d
 Le point important de la définition~\ref{DEFooTLQUooJvknvi} est la continuité. En dimension infine, la continuité n'est par exemple pas équivalente à l'inversibilité (penser à \( e_k\mapsto ke_k\)).
 
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Application linéaire continue et bornée}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Nous avons vu dans la proposition~\ref{PROPooQZYVooYJVlBd} que pour une application linéaire, être bornée est équivalent à être continue. Nous allons maintenant voir un certain nombre d'exemples illustrant ce fait.
-
-\begin{example}[Une application linéaire non continue]  \label{ExHKsIelG}
-    Soit \( V\) l'espace vectoriel normé des suites \emph{finies} de réels muni de la norme usuelle $\| c \|=\sqrt{\sum_{i=0}^{\infty}| c_i |^2}$ où la somme est finie. Nous nommons \( \{ e_k \}_{k\in \eN}\) la base usuelle de cet espace, et nous considérons l'opérateur \( f\colon V\to V\) donnée par \( f(e_k)=ke_k\). C'est évidemment linéaire, mais ce n'est pas continu en zéro. En effet la suite \( u_k=e_k/k\) converge vers \( 0\) alors que \( f(u_k)=e_k\) ne converge pas.
-\end{example}
-
-Cet exemple aurait pu également être donnée dans un espace de Hilbert, mais il aurait fallu parler de domaine.
-%TODO : le faire, et regarder si Hilbet n'est pas la complétion de cet espace. Référencer à l'endroit qui définit l'espace vectoriel librement engendré. Ici ce serait par N.
-
-%TODO : dire qu'une application bilinéaire sur RxR n'est pas une application linéaire sur R^2
-
-\begin{example}[Une autre application linéaire non continue\cite{GTkeGni}]      \label{EXooDMVJooAJywMU}
-    En dimension infinie, une application linéaire n'est pas toujours continue. Soit \( E\) l'espace des polynômes à coefficients réels sur \( \mathopen[ 0 , 1 \mathclose]\) muni de la norme uniforme. L'application de dérivation \( \varphi\colon E\to E\), \( \varphi(P)=P'\) n'est pas continue.
-
-    Pour la voir nous considérons la suite \( P_n=\frac{1}{ n }X^n\). D'une part nous avons \( P_n\to 0\) dans \( E\) parce que \( P_n(x)=\frac{ x^n }{ n }\) avec \( x\in \mathopen[ 0 , 1 \mathclose]\). Mais en même temps nous avons \( \varphi(P_n)=X^{n-1}\) et donc \( \| \varphi(P_n) \|=1\).
-
-    Nous n'avons donc pas \( \lim_{n\to \infty} \varphi(P_n)=\varphi(\lim_{n\to \infty} P_n)\) et l'application \( \varphi\) n'est pas continue en \( 0\). Elle n'est donc continue nulle part par linéarité.
-
-    Nous avons utilisé le critère séquentiel de la continuité, voir la définition~\ref{DefENioICV} et la proposition~\ref{PropFnContParSuite}.
-\end{example}
-
-\begin{remark}  \label{RemOAXNooSMTDuN}
-Cette proposition permet de retrouver l'exemple~\ref{ExHKsIelG} plus simplement. Si \( \{ e_k \}_{k\in \eN}\) est une base d'un espace vectoriel normé formée de vecteurs de norme \( 1\), alors l'opérateur linéaire donné par \( u(e_k)=ke_k\) n'est pas borné et donc pas continu.
-\end{remark}
-
-C'est également ce résultat qui montre que le produit scalaire est continu sur un espace de Hilbert par exemple.
-
-\begin{definition}      \label{DEFooKSDFooGIBtrG}
-    Soit un espace vectoriel \( E\) sur le corps \( \eK\). Son \defe{dual topologique}{dual topologique}, noté \( E'\), est l'ensemble des formes linéaires continues de \( E\) vers \( \eK\).
-\end{definition}
-
-\begin{lemma}   \label{LemWWXVSae}
-Soit \( F\) un espace de Banach et deux suites \( A_k\to A\) et \( B_k\to B\) dans \( \aL(F,F)\). Alors \( A_k\circ B_k\to A\circ B\) dans \( \aL(F,F)\), c'est à dire
-\begin{equation}
-    \lim_{n\to \infty} (A_kB_k)=\left( \lim_{n\to \infty} A_k \right)\left( \lim_{n\to \infty} B_k \right).
-\end{equation}
-\end{lemma}
-
-\begin{proof}
-    Il suffit d'écrire
-    \begin{equation}
-        \| A_kB_k-AB \|\leq \| A_kB_k-A_kB \|+\| A_kB-AB \|.
-    \end{equation}
-    Le premier terme tend vers zéro pour \( k\to\infty\) parce que
-    \begin{subequations}
-        \begin{align}
-            \| A_kB_k-A_kB \|&=\| A_k(B_k-B) \|\\
-            &\leq \| A_k \|\| B_k-B \|\to \| A \|\cdot 0\\
-            &=0
-        \end{align}
-    \end{subequations}
-    où nous avons utilisé la propriété fondamentale de la norme opérateur : la proposition~\ref{PROPooQZYVooYJVlBd}. Le second terme tend également vers zéro pour la même raison.
-\end{proof}
-
-\begin{proposition}[Distributivité de la somme infinie] \label{PropQXqEPuG}
-    Soient \( E\) un espace normé, une suite \( (u_k)\) dans \( \GL(E)\) ainsi que \( a\in\GL(E)\). Pourvu que la série \( \sum_{n=0}^{\infty}u_k\) converge nous avons
-    \begin{equation}
-        \left( \sum_{k=0}^{\infty}u_k \right)a=\sum_{k=0}^{\infty}(u_ka).
-    \end{equation}
-\end{proposition}
-
-\begin{proof}
-    Par définition de la somme infinie,
-    \begin{equation}
-        \spadesuit=\left( \sum_{k=0}^{\infty}u_k \right)a=\left( \lim_{n\to \infty} \sum_{k=0}^nu_k \right)a.
-    \end{equation}
-    Le lemme~\ref{LemWWXVSae} appliqué à \( n\mapsto\sum_{k=0}^nu_k\) et à la suite constante \( a\) nous donne
-    \begin{equation}    \label{EqOAoopjz}
-        \spadesuit=\lim_{n\to \infty} \left( \sum_{k=0}u_ka \right),
-    \end{equation}
-    ce que nous voulions par distributivité de la somme finie : dans \eqref{EqOAoopjz}, le \( a\) est dans ou hors de la somme, au choix. L'important est qu'il soit dans la limite.
-\end{proof}
-
-%---------------------------------------------------------------------------------------------------------------------------
 \subsection{Normes de matrices et d'applications linéaires}
 %---------------------------------------------------------------------------------------------------------------------------
 \label{subsecNomrApplLin}
@@ -704,6 +662,83 @@ donc $\|T_b\|_{\mathcal{L}}=\|b \|_{\eR^n}$.
 \end{proof}
 
 Note : dans un espace de dimension infinie, la linéarité ne suffit pas pour avoir la continuité : il faut de plus être borné (ce que sont toutes les applications linéaires \( \eR^m\to\eR^n\)). Voir la proposition~\ref{PROPooQZYVooYJVlBd}.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Application linéaire continue et bornée}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous avons vu dans la proposition~\ref{PROPooQZYVooYJVlBd} que pour une application linéaire, être bornée est équivalent à être continue. Nous allons maintenant voir un certain nombre d'exemples illustrant ce fait.
+
+\begin{example}[Une application linéaire non continue]  \label{ExHKsIelG}
+    Soit \( V\) l'espace vectoriel normé des suites \emph{finies} de réels muni de la norme usuelle $\| c \|=\sqrt{\sum_{i=0}^{\infty}| c_i |^2}$ où la somme est finie. Nous nommons \( \{ e_k \}_{k\in \eN}\) la base usuelle de cet espace, et nous considérons l'opérateur \( f\colon V\to V\) donnée par \( f(e_k)=ke_k\). C'est évidemment linéaire, mais ce n'est pas continu en zéro. En effet la suite \( u_k=e_k/k\) converge vers \( 0\) alors que \( f(u_k)=e_k\) ne converge pas.
+\end{example}
+
+Cet exemple aurait pu également être donnée dans un espace de Hilbert, mais il aurait fallu parler de domaine.
+%TODO : le faire, et regarder si Hilbet n'est pas la complétion de cet espace. Référencer à l'endroit qui définit l'espace vectoriel librement engendré. Ici ce serait par N.
+
+%TODO : dire qu'une application bilinéaire sur RxR n'est pas une application linéaire sur R^2
+
+\begin{example}[Une autre application linéaire non continue\cite{GTkeGni}]      \label{EXooDMVJooAJywMU}
+    En dimension infinie, une application linéaire n'est pas toujours continue. Soit \( E\) l'espace des polynômes à coefficients réels sur \( \mathopen[ 0 , 1 \mathclose]\) muni de la norme uniforme. L'application de dérivation \( \varphi\colon E\to E\), \( \varphi(P)=P'\) n'est pas continue.
+
+    Pour la voir nous considérons la suite \( P_n=\frac{1}{ n }X^n\). D'une part nous avons \( P_n\to 0\) dans \( E\) parce que \( P_n(x)=\frac{ x^n }{ n }\) avec \( x\in \mathopen[ 0 , 1 \mathclose]\). Mais en même temps nous avons \( \varphi(P_n)=X^{n-1}\) et donc \( \| \varphi(P_n) \|=1\).
+
+    Nous n'avons donc pas \( \lim_{n\to \infty} \varphi(P_n)=\varphi(\lim_{n\to \infty} P_n)\) et l'application \( \varphi\) n'est pas continue en \( 0\). Elle n'est donc continue nulle part par linéarité.
+
+    Nous avons utilisé le critère séquentiel de la continuité, voir la définition~\ref{DefENioICV} et la proposition~\ref{PropFnContParSuite}.
+\end{example}
+
+\begin{remark}  \label{RemOAXNooSMTDuN}
+Cette proposition permet de retrouver l'exemple~\ref{ExHKsIelG} plus simplement. Si \( \{ e_k \}_{k\in \eN}\) est une base d'un espace vectoriel normé formée de vecteurs de norme \( 1\), alors l'opérateur linéaire donné par \( u(e_k)=ke_k\) n'est pas borné et donc pas continu.
+\end{remark}
+
+C'est également ce résultat qui montre que le produit scalaire est continu sur un espace de Hilbert par exemple.
+
+\begin{definition}      \label{DEFooKSDFooGIBtrG}
+    Soit un espace vectoriel \( E\) sur le corps \( \eK\). Son \defe{dual topologique}{dual topologique}, noté \( E'\), est l'ensemble des formes linéaires continues de \( E\) vers \( \eK\).
+\end{definition}
+
+\begin{lemma}   \label{LemWWXVSae}
+Soit \( F\) un espace de Banach et deux suites \( A_k\to A\) et \( B_k\to B\) dans \( \aL(F,F)\). Alors \( A_k\circ B_k\to A\circ B\) dans \( \aL(F,F)\), c'est à dire
+\begin{equation}
+    \lim_{n\to \infty} (A_kB_k)=\left( \lim_{n\to \infty} A_k \right)\left( \lim_{n\to \infty} B_k \right).
+\end{equation}
+\end{lemma}
+
+\begin{proof}
+    Il suffit d'écrire
+    \begin{equation}
+        \| A_kB_k-AB \|\leq \| A_kB_k-A_kB \|+\| A_kB-AB \|.
+    \end{equation}
+    Le premier terme tend vers zéro pour \( k\to\infty\) parce que
+    \begin{subequations}
+        \begin{align}
+            \| A_kB_k-A_kB \|&=\| A_k(B_k-B) \|\\
+            &\leq \| A_k \|\| B_k-B \|\to \| A \|\cdot 0\\
+            &=0
+        \end{align}
+    \end{subequations}
+    où nous avons utilisé la propriété fondamentale de la norme opérateur : la proposition~\ref{PROPooQZYVooYJVlBd}. Le second terme tend également vers zéro pour la même raison.
+\end{proof}
+
+\begin{proposition}[Distributivité de la somme infinie] \label{PropQXqEPuG}
+    Soient \( E\) un espace normé, une suite \( (u_k)\) dans \( \GL(E)\) ainsi que \( a\in\GL(E)\). Pourvu que la série \( \sum_{n=0}^{\infty}u_k\) converge nous avons
+    \begin{equation}
+        \left( \sum_{k=0}^{\infty}u_k \right)a=\sum_{k=0}^{\infty}(u_ka).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Par définition de la somme infinie,
+    \begin{equation}
+        \spadesuit=\left( \sum_{k=0}^{\infty}u_k \right)a=\left( \lim_{n\to \infty} \sum_{k=0}^nu_k \right)a.
+    \end{equation}
+    Le lemme~\ref{LemWWXVSae} appliqué à \( n\mapsto\sum_{k=0}^nu_k\) et à la suite constante \( a\) nous donne
+    \begin{equation}    \label{EqOAoopjz}
+        \spadesuit=\lim_{n\to \infty} \left( \sum_{k=0}u_ka \right),
+    \end{equation}
+    ce que nous voulions par distributivité de la somme finie : dans \eqref{EqOAoopjz}, le \( a\) est dans ou hors de la somme, au choix. L'important est qu'il soit dans la limite.
+\end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Produit fini d'espaces vectoriels normés}
