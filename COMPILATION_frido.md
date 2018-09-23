@@ -6,6 +6,10 @@ La compilation du Frido demande l'utilisation d'un script spécifique.
 
 Nous supposons un répertoire vide `~/FOO` dans lequel nous allons tout mettre.
 
+## Prérequis
+
+Vous devez avoir python3 installé et disponible sur votre système. 
+
 ## Les dépendances
 
 D'abord il faut cloner les sources du Frido lui-même et les sources de `pytex` : 
