@@ -573,20 +573,75 @@ La proposition suivante lie une bonne fois pour toute dérivée et différentiel
 \end{proposition}
 
 \begin{proof}
+    Nous commençons par poser un certain nombre de notations. Comme souvent nous posons \( V_0=\eR\) et
+    \begin{equation}
+        V_{k+1}=\aL(\eR,V_k).
+    \end{equation}
+    De plus nous considérons \( M_1\in \aL(\eR,\eR)\) donnée par \( M_1(t)=t\). Et par récurrence
+    \begin{equation}
+        M_{k+1}(t)=tM_{k}.
+    \end{equation}
+    Nous avons \( M_1\in V_1\) et \( M_k\colon \eR\to V_{k-1}\), c'est à dire \( M_k\in V_k\).
+
+    Les formules que nous allons prouver sont que d'une part,
+    \begin{equation}
+        df_a=f'(a)M_1.
+    \end{equation}
+    et que d'autre part, plus généralement,
+    \begin{equation}
+        (d^kf)_a=f^{(k)}(a)M_k.
+    \end{equation}
+
     En plusieurs parties et par récurrence.
     \begin{subproof}
-    \item[Si \( f\) est de classe \( C^1\) alors \( f\) est dérivable et \( f'\) est continue]
-        Par hypothèse, la fonction \( df\colon \eR\to \aL(\eR,\eR)\) existe et est continue. Soyons conscient que \( df_a(\epsilon)=\epsilon df_a(1)\) et calculons
+    \item[Si \( f\) est continûment dérivable, alors \( f\) est \( C^1\) ]
+        Le candidat différentielle serait \( df_a(h)=hf'(a)\). Vérifions cela directement dans la définition :
+        \begin{equation}        \label{EQooCPWKooWdgbED}
+            \frac{ f(a+h)-f(a)-f'(a)h }{ \| h \| }=\frac{ f(a+h)-f(a) }{ \| h \| }-1_h'f(a).
+        \end{equation}
+        où nous avons noté \( 1_h\) le vecteur unité dans la direction de \( h\), c'est à dire \( 1_h=h/\| h \|\). Vu que \( h\in \eR\), c'est simplement
+        \begin{equation}
+            1_h=\begin{cases}
+                1    &   \text{si } h>0\\
+                -1    &    \text{si }h<0
+            \end{cases}
+        \end{equation}
+        et nous ne définissons pas \( 1_h\) si \( h=0\).
+        
+        C'est le moment de prendre la limite de \eqref{EQooCPWKooWdgbED} pour \( h\to 0^+\) et \( h\to 0^-\) séparément. Lorsque \( h\to 0^+\), nous avons \( \| h \|=h\) et \( 1_h=h\). Vu que \( f\) est supposée dérivable, la limite du quotient existe et vaut \( f'(a)\). Donc le tout a une limite nulle :
+        \begin{equation}       
+            \lim_{h\to 0^+} \frac{ f(a+h)-f(a)-f'(a)h }{ \| h \| }=\lim_{h\to 0^+}\frac{ f(a+h)-f(a) }{  h  }-'f(a)=0.
+        \end{equation}
+        En ce qui concerne la limite \( h\to 0^-\), nous avons \( \| h \|=-h\) et \( 1_h=-1\), et à nouveau une limite nulle.
+    \item[Si \( f\) est de classe \( C^1\) alors \( f'\) existe et est continue]
+        Dire que \( f\) est de classe \( C^1\) revient à dire que la différentielle \( df\colon \eR\to \aL(\eR,\eR)\) existe et est continue. Soyons conscient que \( df_a(\epsilon)=\epsilon df_a(1)\) et calculons
         \begin{equation}
             \frac{ f(a+\epsilon)-f(a)-df_a(\epsilon) }{ \epsilon }=\frac{ f(a+\epsilon)-f(a) }{ \epsilon }-df_a(1).
         \end{equation}
-        La définition de la différentielle est que la limite de cela pour \( \epsilon\to 0\) soit nulle. Cela implique que la limite suivante existe et
+        La définition de la différentielle est que la limite de cela pour \( \epsilon\to 0\) soit nulle. Cela implique que la limite suivante existe et vaut
         \begin{equation}
             \lim_{\epsilon\to 0}\frac{ f(a+\epsilon)-f(a) }{ \epsilon }=df_a(1).
         \end{equation}
-        Nous avons prouvé que \( f'(a)=df_a(1)\). 
+        Nous avons prouvé que \( f'(a)=df_a(1)\).
 
-        La fonction \( a\mapsto df_a\) est continue. Pouvons-nous en déduire que \( f'\) est continue ?
+        La fonction \( a\mapsto df_a\) est continue. Pouvons-nous en déduire que \( f'\) est continue ? Nous avons
+        \begin{equation}
+            f'=ev_1\circ df
+        \end{equation}
+        où \( ev_1\) est l'application d'évaluation dont le lemme \ref{LEMooWFNXooLyTyyX} a déjà donné la continuité. Donc \( f'\) est continue comme composée d'applications continues.
+    \item[\( f\) est \( C^p\). Récurrence]
+        Nous supposons que \( f\) est de classe \( C^p\), et nous allons montrer par récurrence que \( f^{(k)}\) existe et est continue pour tout \( k\leq p\). Posons exactement l'énoncé de notre récurrence.
+
+        Pour \( k=1\) c'est fait. Nous supposons que la formule soit correcte pour un certain \( k\leq p\) et nous y allons pour \( k+1\). Nous avons
+        \begin{subequations}        \label{SUBEQSooUPLAooQhueCl}
+            \begin{align}
+            \frac{ (d^kf)(a+h)-(d^kf)(a)-f^{(k+1)}(a)M_{k+1}(h) }{ \| h \| }&=\frac{ \big[ f^{(k)}(a+h)-f^k(a)-hf^{(k+1)}(a) \big]M_k  }{ \| h \| }\\
+                &=\big[ \frac{ f^{(k)}(a+h)-f^{(k)}(a) }{ \| h \| }-1_hf^{(k+1)}(a) \big]M_k.
+            \end{align}
+        \end{subequations}
+        où nous avons aussi tenu compte que \( M_{k+1}(h)=hM_k\).
+
+        C'est le moment de calculer séparément les limites \( h\to 0^+\) et \( h\to 0^-\).
     \end{subproof}
     <++>
 \end{proof}
@@ -641,7 +696,7 @@ au point \( x\) appliquée à \( v^{(1)}\) appliquée au point \( v^{(2)}\), \ld
 \end{proposition}
 
 \begin{proof}
-    En utilisant le théorème de différentiation de fonctions composées \ref{THOooIHPIooIUyPaf}, 
+    En utilisant le théorème de différentiation de fonctions composées \ref{THOooIHPIooIUyPaf},
     \begin{equation}
         f(\varphi\circ f)_a(u)=d\varphi_{f(a)}df_a(u),
     \end{equation}
@@ -668,7 +723,7 @@ au point \( x\) appliquée à \( v^{(1)}\) appliquée au point \( v^{(2)}\), \ld
     \begin{equation}
         \begin{aligned}
             \varphi_k\colon \aL(E,V_{k-1})&\to \aL(E,W_{k-1}) \\
-            g&\mapsto \varphi_{k-1}\circ g. 
+            g&\mapsto \varphi_{k-1}\circ g.
         \end{aligned}
     \end{equation}
     Avec tout cela, nous prétendons que \( d^k(\varphi\circ f)=\varphi_k\circ d^kf\) avec \( \varphi_k\) linéaire.
