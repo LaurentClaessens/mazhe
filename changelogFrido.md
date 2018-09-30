@@ -1,5 +1,13 @@
 # Changelog du Frido
 
+## Théorème de d'Alembert (September 2018)
+
+Démontrer le théorème de d'Alembert, suite à une remarque de kantien sur linuxfr [1].
+- Le gros morceau est de prouver que z^n=a+bi a une solution pour tout entier n>1 sans passer par la forme trigonométrique
+  des nombres complexes.
+
+[1] https://linuxfr.org/nodes/115201/comments/1748682
+
 ## Limite et dérivée (Septembre 2018)
 
 Ajout d'une démonstration du théorème d'inversion de limite et dérivée sans passer par les intégrales par Pierre Lairez.
