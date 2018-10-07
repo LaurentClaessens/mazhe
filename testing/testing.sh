@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # This script is intended to launch all tests and publish the new version of my texts.
 
 # - no future references in 'frido'
