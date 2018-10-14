@@ -2,6 +2,17 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
+## Frido 2018
+
+Les fautes sont présentées par ordre anti-chronoligique de découvertes.
+
+- Il me semble qu'il y ait quelque incohérences entre limite et continuité. Prenons une fonction définie sur un singleton. Soit a ce point et A={a}, l'ensemble.
+  Pour sa propre topologie, A est un ouvert. La fonction est continue sur A parce que l'image inverse de tout ouvert est ouvert.
+  Mais elle n'est pas continue en chacun de ses points parce que nous n'avons pas définit la notion de limite sur un point qui n'est pas un point d'accumulation. Bien entendu, A ne possède aucun point d'accumulation.
+
+  Il faudra sans doute donner une définition de limite par les voisinages au lieu des limites.
+
+
 ## Frido 2017
 
 Les fautes sont présentées par ordre anti-chronoligique de découvertes.
