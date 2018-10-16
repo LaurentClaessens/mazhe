@@ -1,6 +1,26 @@
 # Changelog du Frido
 
-## Théorème de d'Alembert (Septembre 2018 - ...)
+## Limite et continuité (Octobre 2018)
+
+Il y avait du flottement entre limite et continuité dans le cas d'une fonction définie sur un point isolé.
+- Fixer cela
+- Changer la définition de continuité pour utiliser les voisinages plutôt que la limite
+
+## Élément premier (Octobre 2018)
+
+Ayant reçu quelque réponses d'algèbres de Gregory Berhuy, j'ai ajouté les notions d'élément premier et les démonstrations de quelque faits comme l'équivalence entre
+- (p) est un idéal premier
+- p est un élément premier
+- p est un élément irréductible
+- (p) est un idéal maximal propre.
+
+Fixer un certain nombre de flottements sur ce qui pouvait être réduit à {0} ou non. Un corps le peu. Cela a des conséquences sur des idéaux qui doivent
+être propres ou non dans d'autres énoncés.
+
+Je crois qu'il y a une faute dans Wikipédia
+https://fr.wikipedia.org/wiki/Discussion:Idéal_premier#Idéaux_premiers_dans_un_anneau_principal
+
+## Théorème de d'Alembert (Septembre 2018)
 
 Démontrer le théorème de d'Alembert, suite à une remarque de kantien sur linuxfr [1].
 - Le gros morceau est de prouver que z^n=a+bi a une solution pour tout entier n>1 sans passer par la forme trigonométrique
