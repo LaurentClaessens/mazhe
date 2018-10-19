@@ -1,5 +1,10 @@
 # Changelog du Frido
 
+## Ordre dans les conventions autour de Fourier (Octobre 2018 - ...)
+
+- Définition du système trigonométrique sur [-T,T].
+- Régler des problèmes de coefficients un peu partout.
+
 ## Limite et continuité (Octobre 2018)
 
 Il y avait du flottement entre limite et continuité dans le cas d'une fonction définie sur un point isolé.
