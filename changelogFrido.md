@@ -3,6 +3,7 @@
 ## Ordre dans les conventions autour de Fourier (Octobre 2018 - ...)
 
 - Définition du système trigonométrique sur [-T,T].
+- Fixer les conventions en ce qui concerne le produit scalaire sur L^2.
 - Régler des problèmes de coefficients un peu partout.
 
 ## Limite et continuité (Octobre 2018)

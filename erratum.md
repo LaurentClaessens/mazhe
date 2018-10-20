@@ -6,12 +6,13 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 Les fautes sont présentées par ordre anti-chronoligique de découvertes.
 
+- Produit sur L^2. Volume 3, lemme 28.58. Il ne faut pas la racine carré au-dessus de l'intégrale. C'est la norme de 'f' qui demande de prendre une racine carré.
+
+- Coefficients de Fourier. Dans les équations (31.34) du volume 4, c'est la grande foire aux coefficients manquants. Le fait est que vous aurez remarqué que la section 28.5.4 (volume 3) n'est pas écrite. Les conventions pour les choses attenantes à Fourier sur [-T,T] ne sont pas fixées.
+
 - Il me semble qu'il y ait quelque incohérences entre limite et continuité. Prenons une fonction définie sur un singleton. Soit a ce point et A={a}, l'ensemble.
   Pour sa propre topologie, A est un ouvert. La fonction est continue sur A parce que l'image inverse de tout ouvert est ouvert.
   Mais elle n'est pas continue en chacun de ses points parce que nous n'avons pas définit la notion de limite sur un point qui n'est pas un point d'accumulation. Bien entendu, A ne possède aucun point d'accumulation.
-
-  Il faudra sans doute donner une définition de limite par les voisinages au lieu des limites.
-
 
 ## Frido 2017
 
