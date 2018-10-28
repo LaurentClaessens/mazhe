@@ -28,7 +28,7 @@ Cette opération devrait prendre pas mal de temps et produire une longue liste d
 ```bash
 pytex lst_everything.py --no-external
 ```
-Le `--no-external` fait en sorte que `tikz` ne va pas chercher à créer le `pdf` de chaque figure. Le but de cette compilation est de faire en sorte que `pdflatex` crée les fichiers `aux` contenant la taille des boites inclues dans les figures.
+Le `--no-external` fait en sorte que `tikz` ne va pas chercher à créer le `pdf` de chaque figure. Le but de cette compilation est de faire en sorte que `pdflatex` crée les fichiers `aux` contenant la taille des boîtes inclues dans les figures.
 
 Retour à la compilation des figures :
 ```bash
