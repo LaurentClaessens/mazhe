@@ -2,6 +2,11 @@
 
 ## Ordre dans les conventions autour de Fourier (Octobre 2018 - ...)
 
+- Reprise en détail du cas de S^1 : 
+    * structure d'espace mesuré
+    * convolution
+    * approximation de l'unité
+    * densité des polynômes trigonométriques
 - Définition du système trigonométrique sur [-T,T].
 - Fixer les conventions en ce qui concerne le produit scalaire sur L^2.
 - Régler des problèmes de coefficients un peu partout.
