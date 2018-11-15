@@ -35,3 +35,10 @@ append_picture(JOQVoolPTsYPZK,1)
 Sage
 
 Launch Sage in the directory `src_phystricks`
+
+## Get Sage
+
+- Download
+- Unzip
+- Copy to `~/.Sage` so that the directory `~/.Sage` contains the bash executable `sage`.
+
