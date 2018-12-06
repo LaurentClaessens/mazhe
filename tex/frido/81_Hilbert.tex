@@ -15,9 +15,13 @@
     Un espace \defe{préhilbertien}{préhilbertien} est
     \begin{itemize}
         \item soit un espace vectoriel réel muni d'un produit scalaire\footnote{Définition \ref{DefVJIeTFj}.},
-        \item soit un espace vectoriel complexe muni d'un produit hermitien\footnote{Définition \ref{DefMZQxmQ}.}.
+        \item soit un espace vectoriel complexe muni d'un produit scalaire hermitien\footnote{Définition \ref{DefMZQxmQ}.}.
     \end{itemize}
-    Un \defe{espace de Hilbert}{Hilbert!espace} est un espace préhilbertien qui est complet\footnote{Définition~\ref{DEFooVQDBooNxprFU}.} pour la norme induite par son produit (scalaire ou hermitien).
+    Un \defe{espace de Hilbert}{Hilbert!espace} est un espace préhilbertien qui est complet\footnote{Définition~\ref{DEFooVQDBooNxprFU}.} pour la norme induite par son produit (scalaire ou hermitien), c'est à dire tel que
+    \begin{equation}
+        \| x \|=\sqrt{ \langle x, x\rangle  }
+    \end{equation}
+    pour tout élément \( x\).
 
     Dans les deux cas nous considérons la topologie métrique dérivant du produit.
 \end{definition}
@@ -58,6 +62,34 @@ Dans un espace vectoriel de dimension infinie, tous les opérateurs linéaires n
     \end{equation}
     Mais la suite \( (a_k)\) converge vers \( 0\) qui fait partie de \( T^{-1}\mO\). Donc le complémentaire de \( T^{-1}\mO\) n'est pas fermé, ce qui prouve que \( T^{-1}\mO\) n'est pas ouvert.
 \end{example}
+
+\begin{proposition}[\cite{MonCerveau}]
+    Soit un espace de Hilbert \( \hH\) et un espace vectoriel normé \( (E,\| . \|)\) tel qu'il existe une bijection linéaire isométrique \( \Phi\colon \hH\to E\). Alors en posant
+    \begin{equation}
+        \langle \alpha, \beta\rangle_E =\langle \Phi^{-1}(\alpha), \Phi^{-1}(\beta)\rangle_{\hH} ,
+    \end{equation}
+    l'espace \( E\) devient un espace de Hilbert.
+\end{proposition}
+
+\begin{proof}
+    Le fait que \( \langle ., .\rangle_E\) soit un produit scalaire (hermitien) lorsque \( \langle ., .\rangle_{\hH}\) l'est est une conséquence de la linéarité de \( \Phi\). Il donne la norme parce que
+    \begin{equation}
+        \sqrt{ \langle \alpha , \alpha\rangle  }=\sqrt{ \langle \Phi^{-1}(\alpha), \Phi^{-1}(\alpha)\rangle  }=\| \Phi^{-1}(\alpha) \|=\| \alpha \|
+    \end{equation}
+    parce que \( \Phi^{-1}\) est une isométrie.
+
+    Pour voir que \( E\) est complet, soit une suite \( (\alpha_k)\) de \( \tau\)-Cauchy dans \( E\). Nous devons prouver qu'elle converge. Nous posons \( x_k=\Phi^{-1}(\alpha_k)\).
+
+    Commençons par voir que \( (x_k)\) est \( \tau\)-Cauchy dans \( \hH\). Soit un voisinage \( V\) de \( 0\) dans \( \hH\). Nous posons \( U=\Phi(V)\). Vu que \( (\alpha_k)\) est \( \tau\)-Cauchy, il existe \( N>0\) tel que \( \alpha_k-\alpha_l\in U\) dès que \( k,l>N\). Du coup, si \( k,l>N\) nous avons aussi \( \Phi(\alpha_k-\alpha_l)\in \Phi(U)=V\).
+
+    Vu que \( \hH\) est complet, il existe \( x\in hH\) tel que \( x_k\stackrel{\hH}{\longrightarrow}x\). Montrons que \( \alpha_k\stackrel{\hH'}{\longrightarrow}\Phi(x)\).
+
+    Soit \( \epsilon>0\) et \( N>0\) tel que \( \| x_k-x \|<\epsilon\) dès que \( k\geq N\). Alors nous avons aussi
+    \begin{equation}
+        \| \alpha_k-\Phi(x) \|=\| \Phi(x_k)-\Phi(x) \|=\| \Phi(x_k-x) \|=\| x_k-x \|<\epsilon
+    \end{equation}
+    où nous avons utilisé le fait que \( \Phi\) était linéaire et une isométrie.
+\end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Sous-espace vectoriel fermé ???}
@@ -375,7 +407,16 @@ Pour vérifier si un sous-espace vectoriel d'un espace de Hilbert est dense, il 
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{lemma}       \label{LemjYVcHE}
-    L'application  \( \Phi\colon \hH\to \aL(\hH,\eK)\) donnée par \( y\mapsto\Phi_y\) est une isométrie : nous avons \( \| \Phi_y \|=\| y \|\). De plus pour chaque \( y\), l'application \( \Phi_y\) est continue.
+    L'application linéaire
+    \begin{equation}
+        \begin{aligned}
+            \Phi\colon \hH&\to \aL(\hH,\eK) \\
+            y&\mapsto \Phi_y 
+        \end{aligned}
+    \end{equation}
+    est une isométrie : nous avons \( \| \Phi_y \|=\| y \|\). 
+    
+    De plus pour chaque \( y\), l'application \( \Phi_y\) est continue.
 \end{lemma}
 
 \begin{proof}
@@ -441,7 +482,7 @@ Notons que dans le contexte des espaces de Hilbert nous demandons la continuité
 
 \item[Existence]
 
-    Nous pouvons maintenant prouver l'existence de \( y\) tel que \(  \Phi_y= f\). En effet si nous posons \( y=\overline{  f(v) }v\) nous avons \(  \Phi_y= f\), en effet
+    Nous pouvons maintenant prouver l'existence de \( y\) tel que \(  \Phi_y= f\). Prouvons qu'en posant \( y=\overline{  f(v) }v\) nous avons \(  \Phi_y= f\). Pour cela, un peu de calcul :
     \begin{subequations}
         \begin{align}
              \Phi_y(v)=\langle v, y\rangle = f(v)\langle v, v\rangle = f(v)\\
