@@ -1,4 +1,4 @@
-# Changelog du Frido
+# Journal des changements du Frido
 
 ## Ordre dans les conventions autour de Fourier (Octobre 2018 - ...)
 
