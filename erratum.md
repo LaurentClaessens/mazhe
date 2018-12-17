@@ -6,6 +6,10 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 Les fautes sont présentées par ordre anti-chronoligique de découvertes.
 
+- Volume 1, proposition 11.68. Il n'est pas vrai que le groupe O(n) est le groupe des isométries de R^n : parmi les isométries de R^n, il y a aussi
+  les translations, comme prouvé ailleurs.
+  Ce qui est vrai et démontré dans 11.68 est que, parmi les applications *linéaires*, les isométries sont les éléments de O(n).
+
 - Déterminant de la matrice transposée. Lemme 5.63 volume 1. L'utilisation de la proposition 2.49 n'est pas correcte parce que 2.49 permet de faire un «décalage constant» dans la somme alors qu'ici nous introduisons sigma^2 qui n'est pas constant dans la somme.
     La solution est d'utiliser une proposition similaire pour le produit et d'utiliser, pour chaque élément de la somme, la commutativité du produit; cela revient à ré-indexer le produit par sigma. Ensuite, il faut ré-indexer la somme sur sigma^{-1} au lieu de sigma.
     Voir https://ljk.imag.fr/membres/Bernard.Ycart/mel/de/de.pdf
