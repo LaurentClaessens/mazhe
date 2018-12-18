@@ -1,5 +1,10 @@
 # Journal des changements du Frido
 
+## hyperplan (Décembre 2018 - ...)
+
+- lien entre hyperplan et forme linéaire
+- sous-espace vectoriel comme intersection d'hyperplans
+
 ## Ordre dans les conventions autour de Fourier (Octobre 2018 - ...)
 
 - Reprise en détail du cas de S^1 : 
