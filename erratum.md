@@ -6,6 +6,9 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 Les fautes sont présentées par ordre anti-chronoligique de découvertes.
 
+- Volume 1, corollaire 5.36. Il n'est pas vrai en général que, pour une application linéaire, il y a équivalence entre "injectif", "surjectif" et "bijectif". Cela n'est vrai que si les espaces de départ et d'arrivée ont la même dimension.
+  La preuve se trompe en mélangeant les dim(E) de l'espace de départ avec les rang(f) qui sont dans l'espace d'arrivée.
+
 - Volume 1, proposition 11.68. Il n'est pas vrai que le groupe O(n) est le groupe des isométries de R^n : parmi les isométries de R^n, il y a aussi
   les translations, comme prouvé ailleurs.
   Ce qui est vrai et démontré dans 11.68 est que, parmi les applications *linéaires*, les isométries sont les éléments de O(n).
