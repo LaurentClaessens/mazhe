@@ -30,8 +30,7 @@ Ayant reçu quelque réponses d'algèbres de Gregory Berhuy, j'ai ajouté les no
 - p est un élément irréductible
 - (p) est un idéal maximal propre.
 
-Fixer un certain nombre de flottements sur ce qui pouvait être réduit à {0} ou non. Un corps le peu. Cela a des conséquences sur des idéaux qui doivent
-être propres ou non dans d'autres énoncés.
+Fixer un certain nombre de flottements sur ce qui pouvait être réduit à {0} ou non. Un corps le peu. Cela a des conséquences sur des idéaux qui doivent être propres ou non dans d'autres énoncés.
 
 Je crois qu'il y a une faute dans Wikipédia
 https://fr.wikipedia.org/wiki/Discussion:Idéal_premier#Idéaux_premiers_dans_un_anneau_principal
