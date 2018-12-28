@@ -207,3 +207,7 @@ Supprimer la dépendence en le paquet personnel 'exocorr'.
 bibi
 frido2018
 thisirs
+
+# guilietta
+
+Work on the 'research' part.
