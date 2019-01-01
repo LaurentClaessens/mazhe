@@ -22,7 +22,7 @@ tikzFIGLabelFigJOQVoolPTsYPZKPICTJOQVoolPTsYPZK.md5
 
 Prepare tests
 
-In the file `src_phystricks/figures_mazhe.py`, add the line
+In the file `src_phystricks/figures_giulietta.py`, add the line
 ```
 from phystricksJOQVoolPTsYPZK import JOQVoolPTsYPZK
 ```

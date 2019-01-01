@@ -16,7 +16,7 @@ compile_pass ()
     cd $SRC_PHYSTRICKS
     ./figures_mazhe.py --all --pass-number=$1 &&
     cd $MAIN_TEX
-    pytex lst_everything.py --no-external
+    pytex lst_giulietta.py --no-external
 }
 
 # Remove the garbage files

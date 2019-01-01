@@ -1,14 +1,14 @@
-# Mazhe
+# Giulietta
 (*English*) This is a big course of mathematics declined in two versions. See below for an English presentation of the English part.
 
 (*Français*) Ce dépôt contient les sources d'un livre de mathématique, décliné en deux versions :
 
 * [« Le Frido »](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf) contient des mathématiques du niveau de l'agrégation. Il couvre (à peu près) tout le programme.
-* [« (almost) Everything I know in mathematics »](http://laurent.claessens-donadello.eu/pdf/mazhe.pdf) contains more or less everything I know in mathematics, including my research.
+* [« Giulietta »](http://laurent.claessens-donadello.eu/pdf/giulietta.pdf) contains more or less everything I know in mathematics, including my research.
 
 ## Download and compilation
 
-(*English*) See the file `COMPILATION_mazhe.md`
+(*English*) See the file `COMPILATION_giulietta.md`
 (*Français*) Voir le fichier `COMPILTATION_frido.md`
 
 ## Le Frido (niveau agrégation)
@@ -64,9 +64,9 @@ Pour utiliser le Frido à l'agrégation, il faudra passer à la caisse et achete
 
 * [Volume 3](http://www.thebookedition.com/fr/le-frido-volume-3-p-344542.html) 576 pages, 22.61 euros. Téléchargez le pdf [lefrido-vol3.pdf](http://laurent.claessens-donadello.eu/pdf/lefrido-vol3.pdf)
 
-## (almost) Everything I know in math
+## Giulietta
 
-The document [(almost) Everything I know in mathematics](http://laurent.claessens-donadello.eu/pdf/mazhe.pdf) contains almost everything I know in mathematics. It includes :
+The document [Giulietta](http://laurent.claessens-donadello.eu/pdf/giulietta.pdf) contains almost everything I know in mathematics. It includes :
 
 * A part (in French) about general mathematics at master level (le Frido)
 * A part (in French) containing the exercises and many corrections of the courses I gave at university.

@@ -70,11 +70,11 @@ compile_frido ()
     pytex lst_frido.py --verif  --output=$LOG_FILE
 }
 
-compile_everything ()
+compile_giulietta ()
 {
     cd $CLONE_DIR
-    pytex lst_everything.py --no-external --output=$LOG_FILE
-    pytex lst_everything.py --verif --output=$LOG_FILE
+    pytex lst_giulietta.py --no-external --output=$LOG_FILE
+    pytex lst_giulietta.py --verif --output=$LOG_FILE
 }
 
 
@@ -114,7 +114,7 @@ then
     test_death_links&
 fi
 
-compile_everything&
+compile_giulietta&
 compile_frido
 check_spelling
 

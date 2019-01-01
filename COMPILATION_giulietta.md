@@ -1,6 +1,6 @@
-# Compile mazhe
+# Compile Giulietta
 
-This file describes how to compile the full book `mazhe`.
+This file describes how to compile the full book `Giulietta`.
 
 In this tutorial we assume that you have an empty directory `~/FOO` and we are going to install everything therein.
 

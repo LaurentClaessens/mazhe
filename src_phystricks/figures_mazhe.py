@@ -566,7 +566,7 @@ def AllFigures():
     if "--pass-number=3" in sys.argv :
         figures_list=figures_list_3
 
-    tests=FigureGenerationSuite(figures_list,first=0,title=u"(almost) everything I know in mathematics and physics")
+    tests=FigureGenerationSuite(figures_list,first=0,title=u"Giulietta")
     tests.generate()
     tests.summary()
 
