@@ -14,7 +14,7 @@ SRC_PHYSTRICKS=$PWD
 compile_pass ()
 {
     cd $SRC_PHYSTRICKS
-    ./figures_mazhe.py --all --pass-number=$1 &&
+    ./figures_giulietta.py --all --pass-number=$1 &&
     cd $MAIN_TEX
     pytex lst_giulietta.py --no-external
 }

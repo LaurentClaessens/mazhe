@@ -3,9 +3,9 @@
 # This script is intended to launch all tests and publish the new version of my texts.
 
 # - no future references in 'frido'
-# - no future references in 'mazhe'
+# - no future references in 'giulietta'
 # - compile with no errors 'frido'
-# - compile with no errors 'mazhe'
+# - compile with no errors 'giulietta'
 # - the '.pstricks' recompiled from the '.py' are equal to the '.recall' (only if "--full" is given as argument)
 # - git status clean
 
@@ -24,7 +24,7 @@
 MAIN_DIR=`pwd`/..
 
 BUILD_DIR=$MAIN_DIR/build
-CLONE_DIR=$BUILD_DIR/build_mazhe
+CLONE_DIR=$BUILD_DIR/build_giulietta
 SRC_PHYSTRICKS=$CLONE_DIR/src_phystricks
 AUTO_PICTURES_TEX=$CLONE_DIR/auto/pictures_tex
 LOG_FILE=$BUILD_DIR/.testing.log
