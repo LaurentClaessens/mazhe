@@ -12,10 +12,10 @@ myRequest.ok_hash=commons.ok_hash
 # alors que keep_script_marks compte dessus pour faire sa sélection.
 myRequest.add_plugin(PytexTools.accept_all_input,"medicament")
 myRequest.add_plugin(PytexTools.keep_script_marks(plugins_agreg.mazhe_mark_list),"before_pytex")
-myRequest.add_plugin(plugins_agreg.set_boolean("isEverything","true"),"before_pytex")
+myRequest.add_plugin(plugins_agreg.set_boolean("isGiulietta","true"),"before_pytex")
 myRequest.add_plugin(plugins_agreg.set_commit_hexsha,"after_pytex")
 
-myRequest.new_output_filename="0-everything.pdf"
+myRequest.new_output_filename="0-giulietta.pdf"
 
 
 myRequest.original_filename="mazhe.tex"
