@@ -1,6 +1,12 @@
 # Journal des changements du Frido
 
-## hyperplan (Décembre 2018 - ...)
+## John-Loewner (Janvier 2019 - ...)
+
+- préciser qu'on ne parle que d'ellipsoïdes centrés en l'origine
+- parler de ce qu'il se passe si on se permet de bouger le centre
+- corriger quelque fautes pointées par Benoît Tran.
+
+## hyperplan (Décembre 2018)
 
 - lien entre hyperplan et forme linéaire
 - sous-espace vectoriel comme intersection d'hyperplans
