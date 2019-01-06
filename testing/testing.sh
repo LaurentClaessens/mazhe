@@ -90,6 +90,7 @@ check_spelling()
     ag " demi [a-z]" >> $LOG_FILE
     ag " d'intersections " >> $LOG_FILE
     ag "boite" >> $LOG_FILE
+    ag "est a dire" >> $LOG_FILE        # il faut un trait d'union
 }
 
 test_picture ()
