@@ -1,5 +1,12 @@
 # Giulietta's changelog
 
+
+## Lie subgroup (2019 January - ...)
+
+- Prove the rank theorem about functions between manifolds.
+- Prove that a Lie subgroup is a submanifold.
+- Separate Lie group/Lie algebra/links in three chapters.
+
 ## Giulietta (2019 January 1)
 
 Change the name 'mazhe'/'everything' -> 'giulietta'.
