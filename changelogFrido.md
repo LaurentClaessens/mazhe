@@ -1,6 +1,6 @@
 # Journal des changements du Frido
 
-## John-Loewner (Janvier 2019 - ...)
+## John-Loewner (Janvier 2019)
 
 - préciser qu'on ne parle que d'ellipsoïdes centrés en l'origine
 - parler de ce qu'il se passe si on se permet de bouger le centre
