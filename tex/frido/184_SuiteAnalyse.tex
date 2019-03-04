@@ -1278,7 +1278,7 @@ Nous en faisons une en détail; elle sera utile en analyse fonctionnelle, lors d
             x&\mapsto x^p 
         \end{aligned}
     \end{equation}
-    est convexe.
+    est strictement convexe.
 \end{lemma}
 
 \begin{proof}
@@ -1916,77 +1916,82 @@ qu'il n'y a pas de réciproque dans l'énoncé~\ref{ITEMooHAGQooYZyhQk}.
 \begin{proof}
     La preuve va se diviser en deux parties. D'abord nous allons utiliser la matrice Hessienne pour démontrer le résultat sur l'ouvert \( \eR^n\setminus\{ 0 \}\), et ensuite nous allons un peu bricoler pour ajouter \( 0\) au domaine de stricte convexité\quext{Si quelqu'un sait comment éviter ce bricolage en deux parties, je suis preneur.}.
 
-    Nous notons
-    \begin{equation}
-        f_p(x)=\| x \|^p=\big( \sum_ix_i^2 \big)^{p/2},
-    \end{equation}
-    et nous dérivons :
-    \begin{equation}        \label{EQooNZZWooGeAlyj}
-        \frac{ \partial f_p }{ \partial x_i }(x)=\frac{ p }{2}2x_i\big( \sum_ix_i^2 \big)^{(p-2)/2}=px_if_{p-2}(x).
-    \end{equation}
-    Cela n'est déjà pas bien défini en \( x=0\) lorsque \( p<2\), mais qu'importe ? Nous dérivons encore en utilisant entre autres la formule \eqref{EQooNZZWooGeAlyj} elle-même avec \( p\to p-2\) :
-    \begin{equation}
-        \frac{ \partial^2f_p  }{ \partial x_j\partial x_i }(x)=p_{\delta_{ij}}\| x \|^{p-2}+p(p-2)x_ix_j\| p-4 \|.
-    \end{equation}
-    Nous avons donc la matrice Hessienne
-    \begin{equation}
-        H_{ij}(x)=p\delta_{ij}\| x \|^{p-2}+p(p-2)x_ix_j\| x \|^{p-4}.
-    \end{equation}
-    Pour prouver que cette matrice est strictement définie positive, nous avons le choix entre la proposition \ref{PropcnJyXZ}\ref{ITEMooTJVQooYmRkas} ou le lemme \ref{LemWZFSooYvksjw}\ref{ITEMooSKRAooOgHbGA}. Nous utilisons le second. Nous avons\footnote{Si vous ne savez pas où placer les indices, voyez \eqref{EQooFYNYooFQhVyE}.} :
-    \begin{subequations}
-        \begin{align}
-            y\cdot H(x)y&=\sum_{kl}y_kH(x)_{kl}y_l\\
-            &=p\sum_ly_l^2\| x \|^{p-2}+p(p-2)\| x \|^{p-4}\sum_{kl}x_ky_kx_ly_l\\
-            &=p\| y \|^2\| x \|^{p-2}+p(p-2)\| x \|^{p-4}(x\cdot y)^2\\
-            &=p\| x \|^{p-4}\big( \| y \|^2\| x \|^2+(p-2)(x\cdot y)^2 \big)\\
-            &>p\| x \|^{p-4}\big( \| y \|^2\| x \|^2-(x\cdot y)^2 \big) \label{SUBEQooUSZOooCqgWPE}\\   
-            &\geq 0     \label{SUBEQooBXQKooZcarVv}.
-        \end{align}
-    \end{subequations}
-    Justifications :
-    \begin{itemize}
-        \item Pour \ref{SUBEQooUSZOooCqgWPE}.
-            Vu que \( p>1\) nous avons \( p-2>-1\). Là, l'inégalité est stricte et c'est important.
-        \item Pour \ref{SUBEQooBXQKooZcarVv}. C'est l'inégalité de Cauchy-Schwarz du théorème \ref{ThoAYfEHG}.
-    \end{itemize}
-Voila. La matrice Hessienne est strictement définie positive par le lemme \ref{LemWZFSooYvksjw}\ref{ITEMooSKRAooOgHbGA} sur \( \eR^n\setminus\{ 0 \}\). Le corollaire \ref{CORooMBQMooWBAIIH}\ref{ITEMooUAFTooXfCviI} nous indique que pour tout \( x,y\in \eR^n\setminus\{ 0 \}\) et pour tout \( \theta\in \mathopen] 0 , 1 \mathclose[\),
-    \begin{equation}        \label{EQooFXXZooBZhJYY}
-        f_p\big( \theta x+(1-\theta)y \big)<\theta f_p(x)+(1-\theta)f_p(y)
-    \end{equation}
-    pourvu que \( \theta x+ (1-\theta)y\neq 0\) pour tout \( \theta\).
-
-Nous devons prouver que l'inéquation \eqref{EQooFXXZooBZhJYY} tient également lorsque \( \theta x+(1-\theta)y=0\) pour une certaine valeur \( \theta=\theta_0\in \mathopen] 0 , 1 \mathclose[\).
-
-    Soient \( a,b\in \eR^n\) tels qu'en posant
-    \begin{equation}
-        \gamma(\theta)=\theta a+(1-\theta)b
-    \end{equation}
-    nous ayons \( \gamma(\theta_0)=0\). Nous posons
-    \begin{equation}
-        l_1(\theta)=\theta\| a \|^p
-    \end{equation}
-    et
-    \begin{equation}
-        l_2(\theta)=\theta\| a \|^p+(1-\theta)\| b \|^p.
-    \end{equation}
-
-    D'abord, vu que \( \theta\in \mathopen] 0 , 1 \mathclose[\) et que \( p>0\) nous avons \( \theta^p<\theta\) et donc
+    \begin{subproof}
+    \item[La Hessienne]
+        Nous notons
         \begin{equation}
-            f_p\big( \gamma(\theta) \big)=\| \gamma(\theta) \|^p=\theta
+            f_p(x)=\| x \|^p=\big( \sum_ix_i^2 \big)^{p/2},
         \end{equation}
-        <++>
+        et nous dérivons :
+        \begin{equation}        \label{EQooNZZWooGeAlyj}
+            \frac{ \partial f_p }{ \partial x_i }(x)=\frac{ p }{2}2x_i\big( \sum_ix_i^2 \big)^{(p-2)/2}=px_if_{p-2}(x).
+        \end{equation}
+        Cela n'est déjà pas bien défini en \( x=0\) lorsque \( p<2\), mais qu'importe ? Nous dérivons encore en utilisant entre autres la formule \eqref{EQooNZZWooGeAlyj} elle-même avec \( p\to p-2\) :
+        \begin{equation}
+            \frac{ \partial^2f_p  }{ \partial x_j\partial x_i }(x)=p_{\delta_{ij}}\| x \|^{p-2}+p(p-2)x_ix_j\| p-4 \|.
+        \end{equation}
+        Nous avons donc la matrice Hessienne
+        \begin{equation}
+            H_{ij}(x)=p\delta_{ij}\| x \|^{p-2}+p(p-2)x_ix_j\| x \|^{p-4}.
+        \end{equation}
+        Pour prouver que cette matrice est strictement définie positive, nous avons le choix entre la proposition \ref{PropcnJyXZ}\ref{ITEMooTJVQooYmRkas} ou le lemme \ref{LemWZFSooYvksjw}\ref{ITEMooSKRAooOgHbGA}. Nous utilisons le second. Nous avons\footnote{Si vous ne savez pas où placer les indices, voyez \eqref{EQooFYNYooFQhVyE}.} :
+        \begin{subequations}
+            \begin{align}
+                y\cdot H(x)y&=\sum_{kl}y_kH(x)_{kl}y_l\\
+                &=p\sum_ly_l^2\| x \|^{p-2}+p(p-2)\| x \|^{p-4}\sum_{kl}x_ky_kx_ly_l\\
+                &=p\| y \|^2\| x \|^{p-2}+p(p-2)\| x \|^{p-4}(x\cdot y)^2\\
+                &=p\| x \|^{p-4}\big( \| y \|^2\| x \|^2+(p-2)(x\cdot y)^2 \big)\\
+                &>p\| x \|^{p-4}\big( \| y \|^2\| x \|^2-(x\cdot y)^2 \big) \label{SUBEQooUSZOooCqgWPE}\\   
+                &\geq 0     \label{SUBEQooBXQKooZcarVv}.
+            \end{align}
+        \end{subequations}
+        Justifications :
+        \begin{itemize}
+            \item Pour \ref{SUBEQooUSZOooCqgWPE}.
+                Vu que \( p>1\) nous avons \( p-2>-1\). Là, l'inégalité est stricte et c'est important.
+            \item Pour \ref{SUBEQooBXQKooZcarVv}. C'est l'inégalité de Cauchy-Schwarz du théorème \ref{ThoAYfEHG}.
+        \end{itemize}
+    Voila. La matrice Hessienne est strictement définie positive par le lemme \ref{LemWZFSooYvksjw}\ref{ITEMooSKRAooOgHbGA} sur \( \eR^n\setminus\{ 0 \}\). Le corollaire \ref{CORooMBQMooWBAIIH}\ref{ITEMooUAFTooXfCviI} nous indique que pour tout \( x,y\in \eR^n\setminus\{ 0 \}\) et pour tout \( \theta\in \mathopen] 0 , 1 \mathclose[\),
+        \begin{equation}        \label{EQooFXXZooBZhJYY}
+            f_p\big( \theta x+(1-\theta)y \big)<\theta f_p(x)+(1-\theta)f_p(y)
+        \end{equation}
+        pourvu que \( \theta x+ (1-\theta)y\neq 0\) pour tout \( \theta\).
 
-    Vu que \( \| a \|^p>0\) et \( \| b \|^p>0\) nous avons
-    \begin{equation}
-        l_2(\theta_0)=\theta_0\| a \|^p+(1-\theta_0)\| b \|^p>0.
-    \end{equation}
-    Nous avons aussi
-    \begin{equation}
-        l_2(\theta)>l_1(\theta)
-    \end{equation}
-    <++>
+    \item[La suite]
+
+        Nous devons prouver que l'inéquation \eqref{EQooFXXZooBZhJYY} tient également lorsque \( \theta x+(1-\theta)y=0\) pour une certaine valeur \( \theta=\theta_0\in \mathopen] 0 , 1 \mathclose[\).
+
+    \item[Les cordes passant par zéro]
+
+        Pour ce faire, nous allons montrer que le segment de droite joignant \( \big( a,f_p(a) \big)\) à \( (b,f_p(b))\) est toujours au-dessus de la courbe \( \big( x,f_p(x) \big)\). Nous commençons par \( b=0\). Vu que \( p>1\) et que \( \theta\in \mathopen] 0 , 1 \mathclose[\) nous avons
+        \begin{equation}
+            \| \theta a \|^p=| \theta |^p\| a \|^p<\theta\| a \|^p=\theta f_p(a).
+        \end{equation}
+
+    \item[Les cordes passant au-dessus de zéro]
+        
+        Dans le cas \( b\neq 0\) nous considérons
+        \begin{equation}
+            \begin{aligned}
+                l_1\colon \mathopen[ a , b \mathclose]&\to \eR \\
+                x&\mapsto l_1(x) 
+            \end{aligned}
+        \end{equation}
+        tel que \( \big( x,l_1(x) \big)\) soit (le segment) la droite joignant \( \big( a,\| a \|^p \big)\) à \( \big( b,\| b \|^p \big)\).
+
+        Nous considérons aussi, pour \( x\in\mathopen[ 0 , a \mathclose]\) la fonction \( l_2\) telle que \( \big( x,l_2(x) \big)\) soit la droite joignant \( (0,0)\) à \( \big( a,\| a \|^p \big)\). Nous avons déjà vu que pour \( x\in \mathopen] 0 , a \mathclose[\) nous avons \( l_1(x)>\| x \|^p\).
+        
+        Nous avons \( l_1(a)=l_2(a)=\| a \|^p\). Donc \( l_2(x)-l_1(x)\) ne change pas de signe sur \( \mathopen[ 0 , a \mathclose]\). Mais comme \( l_1(0)>0=l_2(0)\) nous avons
+        \begin{equation}
+            l_2(x)>l_1(x)
+        \end{equation}
+        pour tout \( x\in \mathopen[ 0 , a \mathclose]\).
+
+        Au final, \( l_2(x)>l_1(x)>f_p(x)\).
+
+        Pour la partie \( \mathopen[ b , 0 \mathclose]\) nous faisons de même en considérant \( l_3\) de telle sorte que \( \big( x,l_3(x) \big)\) soit le segment joignant \( (0,0)\) à \( \big( b,\| b \|^p \big)\).
+    \end{subproof}
 \end{proof}
-<++>
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Quelques inégalités}
