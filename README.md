@@ -58,11 +58,18 @@ Tel quel : non parce que le règlement demande de n'utiliser que des documents c
 
 Pour utiliser le Frido à l'agrégation, il faudra passer à la caisse et acheter une version papier chez [thebookedition.com](http://www.thebookedition.com/fr/).
 
-* [Volume 1](http://www.thebookedition.com/fr/le-frido-volume-1-p-344540.html) 558 pages, 22.01 euros. Téléchargez le pdf [lefrido-vol1.pdf](http://laurent.claessens-donadello.eu/pdf/lefrido-vol1.pdf)
+* [Volume 1](https://www.thebookedition.com/fr/le-frido-2018-volume-1-p-360829.html) 558  pages, 22.01 euros. Téléchargez le pdf [lefrido-vol1.pdf](https://laurent.claessens-donadello.eu/pdf/Frido2018/book_1_thebookedition.pdf)
+* [Volume 2](https://www.thebookedition.com/fr/le-frido-2018-volume-2-p-360830.html) 501  pages, 20.08  euros. Téléchargez le pdf [lefrido-vol2.pdf](https://laurent.claessens-donadello.eu/pdf/Frido2018/book_2_thebookedition.pdf)
+* [Volume 3](https://www.thebookedition.com/fr/le-frido-2018-volume-3-p-360831.html) 501  pages, 20.08 euros. Téléchargez le pdf [lefrido-vol3.pdf](https://laurent.claessens-donadello.eu/pdf/Frido2018/book_3_thebookedition.pdf)
+* [Volume 4](https://www.thebookedition.com/fr/le-frido-2018-volume-4-p-360832.html) 516  pages, 20.58 euros. Téléchargez le pdf [lefrido-vol4.pdf](https://laurent.claessens-donadello.eu/pdf/Frido2018/book_4_thebookedition.pdf)
 
-* [Volume 2](http://www.thebookedition.com/fr/le-frido-volume-2-p-344541.html) 616 pages, 23.96 euros. Téléchargez le pdf [lefrido-vol2.pdf](http://laurent.claessens-donadello.eu/pdf/lefrido-vol2.pdf)
 
-* [Volume 3](http://www.thebookedition.com/fr/le-frido-volume-3-p-344542.html) 576 pages, 22.61 euros. Téléchargez le pdf [lefrido-vol3.pdf](http://laurent.claessens-donadello.eu/pdf/lefrido-vol3.pdf)
+### « *Est-ce qu'il y a moyen de truander le reglement pour ne pas payer ?* »
+
+Oui. Le règlement demande qu'un livre soit commercialisé, mais pas que vous vous le soyez procuré par la voie commerciale. Lu très littéralement, le règlement vous permet de télécharger les PDF et les imprimer vous même. Mais :
+
+* c'est lire le règlement avec de la mauvaise foi (perso, je ne tenterais pas)
+* c'est pas certain que ce soit moins cher de l'imprimer vous même que de l'acheter.
 
 ## Giulietta
 
