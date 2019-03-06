@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2006-2018
+% Copyright (c) 2006-2019
 %   Laurent Claessens, Carlotta Donadello
 % See the file fdl-1.3.txt for copying conditions.
 
@@ -87,6 +87,246 @@ On peut conclure en passant à la limite $x\to a$ parce que les fonctions $f$, $
   \end{array}
 \end{equation}
 \end{remark}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Différentielle et dérivée complexe}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SECooJWNOooOgMiWR}
+
+\begin{normaltext}
+    Nous commençons par donner quelques éléments à propos de dérivée et de différentielle pour des fonctions \( \eC\to \eC\) parce que les séries entières vont souvent être des fonctions complexes. Le gros du chapitre sur les fonctions holomorphes est le chapitre~\ref{ChapICHIooXbLccl}.
+\end{normaltext}
+
+Nous identifions \( \eR^2\) à \( \eC\) par l'application
+\begin{equation}
+    \begin{aligned}
+        \varphi\colon \eR^2&\to \eC \\
+        (x,y)&\mapsto x+iy.
+    \end{aligned}
+\end{equation}
+Dans cette partie, nous désignons par \( \Omega\) un ouvert de \( \eC\).
+
+\begin{definition}      \label{DEFooVJVXooKlnFkh}
+    Une fonction \( f\colon \Omega\to \eC\) est \defe{$\eC$-dérivable}{dérivable!au sens complexe} si la limite
+    \begin{equation}
+        \lim_{\substack{h\to0\\h\in \eC}} \frac{ f(a+h)-f(a) }{ h }
+    \end{equation}
+    existe. Dans ce cas, cette limite est la dérivée de \( f\) et est notée \( f'\).
+\end{definition}
+
+\begin{definition}  \label{DefMMpjJZ}
+    Soit \( \Omega\) un ouvert dans \( \eC\). Une fonction \( f\colon \Omega\to \eC\) est \defe{holomorphe}{holomorphe}\index{fonction!holomorphe} si elle est \( \eC\)-dérivable sur \( \Omega\).
+\end{definition}
+
+\begin{definition}
+    Une matrice de la forme
+    \begin{equation}
+        \begin{pmatrix}
+            \alpha    &   \beta    \\
+            -\beta    &   \alpha
+        \end{pmatrix}
+    \end{equation}
+    avec \( \alpha,\beta\in \eR\) est une \defe{similitude}{matrice!de similitude}\index{similitude}.
+\end{definition}
+
+\begin{lemma}       \label{LEMooJNFEooZCbJMo}
+    En tant qu'application linéaire \( \eC\to \eC\), l'opération de multiplication par \( \alpha+\beta i\) est la matrice
+    \begin{equation}
+        \begin{pmatrix}
+            \alpha    &   -\beta    \\
+            \beta    &   \alpha
+        \end{pmatrix}.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Cela est vite remarqué en calculant explicitement \( (\alpha+\beta i)(u_1+iu_2)\).
+\end{proof}
+
+\begin{lemma}
+    Une application \( A\colon \eC\to \eC\) est \( \eC\)-linéaire si et seulement si elle est une similitude en tant qu'application \( \eR^2\to \eR^2\).
+
+    Dans ce cas, il existe \( z_0\in \eC\) tel que \( A(z)=z_0z\) pour tout \( z\in \eC\).
+\end{lemma}
+
+\begin{proof}
+    Commençons par considérer l'application \( A\) sur \( \eR^2\). Elle est en particulier une application \( \eR\)-linéaire et par conséquent il existe une matrice \( \begin{pmatrix}
+        \alpha    &   \beta    \\
+        \gamma    &   \delta
+    \end{pmatrix}\) telle que
+    \begin{equation}
+        A\begin{pmatrix}
+            x    \\
+            y
+        \end{pmatrix}=\begin{pmatrix}
+            \alpha    &   \beta    \\
+            \gamma    &   \delta
+        \end{pmatrix}\begin{pmatrix}
+            x    \\
+            y
+        \end{pmatrix}.
+    \end{equation}
+    Nous voulons maintenant imposer la \( \eC\)-linéarité, c'est-à-dire que nous voulons
+    \begin{equation}
+        A\big( (a+bi)(x+iy) \big)=(a+bi)A(x+iy)
+    \end{equation}
+    pour tout \( a,b,x,y\in \eR\). À gauche nous avons
+    \begin{equation}
+        A\big( ax-by+i(bx+ay) \big)
+    \end{equation}
+    et à droite nous avons
+    \begin{equation}
+        (a+bi)\big( \alpha x+\beta y+i(\gamma x+\delta y) \big).
+    \end{equation}
+    En égalant les deux expressions nous obtenons les équations
+    \begin{subequations}
+        \begin{numcases}{}
+            \beta b=-b\gamma\\
+            -\alpha b+\beta a =a\beta -b\delta\\
+            \delta b=b\alpha\\
+            -\gamma b+\delta a=b\beta+a\delta,
+        \end{numcases}
+    \end{subequations}
+    dont nous tirons immédiatement que \( \gamma=-b\beta\) et \( \delta=\alpha\). La matrice de \( A\) est donc de la forme demandée.
+
+    Inversement nous devons prouver que la fonction
+    \begin{equation}        \label{EqOEWYooMaHCNb}
+        f(x+iy)=\alpha x+\beta y+i(-\beta x+\alpha y)
+    \end{equation}
+    est \( \eC\)-linéaire, c'est-à-dire qu'elle vérifie \( f(z_0z)=z_0f(z)\) pour tout \( z_0,z\in \eC\). Cela est un simple calcul que nous confions à Sage : le code suivant affiche «\( 0\)».
+    \lstinputlisting{tex/frido/code_sage3.py}
+
+    Pour conclure, notons que la fonction \eqref{EqOEWYooMaHCNb} est la fonction de multiplication par \( \alpha-i\beta\).
+\end{proof}
+
+\begin{normaltext}      \label{NORMooMKNDooBeoGRN}
+    Soient une fonction \( f\colon \eC\to \eC\) et l'isomorphisme canonique \( \varphi\colon \eC\to \eR^2\). La fonction \( f\) définit une la fonction
+    \begin{equation}
+        F=\varphi^{-1} \circ f\circ \varphi\colon \eR^2\to \eR^2.
+    \end{equation}
+    Cela est la fonction \( \eR^2\to \eR^2\) associée à \( f\). Il serait tentant de croire que tout ce qui est vrai pour \( F\) est également vrai pour \( f\). Eh bien non.
+
+    Par exemple, \( F\) peut être différentiable sans que \( f\) le soit. La proposition suivant donne une condition sur \( dF\) pour que \( f\) soit différentiable.
+\end{normaltext}
+
+\begin{proposition}     \label{PropKJUDooJfqgYS}
+    Une fonction \( f\colon \Omega\to \eC\) est $\eC$-dérivable en \( a\in\Omega\) si et seulement si elle est différentiable en \( a\) et si \( df_a\) est une similitude.
+
+    Plus précisément avec les notations de~\ref{NORMooMKNDooBeoGRN}, la fonction \( f\) est $\eC$-dérivable (donc holomorphe) au point \( z_0=x_0+iy_0\) si et seulement si la fonction \( F\) est différentiable en \( (x_0,y_0)\) et si la matrice de \( dF\) est de la forme
+    \begin{equation}        \label{EQooWZGKooLDEHGr}
+        dF=\begin{pmatrix}
+            \alpha    &   \beta    \\
+            -\beta    &   \alpha
+        \end{pmatrix},
+    \end{equation}
+    c'est-à-dire si \( dF_{(x_0,y_0)}\) fournit une application \( \eC\)-linéaire.
+
+    Dans ce cas, le lien entre \( \eC\)-dérivée et différentielle est donné par
+    \begin{equation}        \label{EqPAEFooYNhYpz}
+        (df_{z_0})(z)=f'(z_0)z.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Nous décomposons \( f\) en parties réelles et imaginaires :
+    \begin{equation}
+        f(x+iy)=P(x,y)+iQ(x,y)
+    \end{equation}
+    où \( P\) et \( Q\) sont des fonctions réelles. La jacobienne de \( F\) est la matrice
+    \begin{equation}
+        \begin{pmatrix}
+            \frac{ \partial P }{ \partial x }    &   \frac{ \partial P }{ \partial y }    \\
+            \frac{ \partial Q }{ \partial x }    &   \frac{ \partial Q }{ \partial y }
+        \end{pmatrix},
+    \end{equation}
+    et la condition dont nous parlons s'écrit comme le système
+    \begin{subequations}    \label{EqFDUrXBP}
+        \begin{numcases}{}
+            \frac{ \partial P }{ \partial x }=\frac{ \partial Q }{ \partial y }\\
+            \frac{ \partial P }{ \partial y }=-\frac{ \partial Q }{ \partial x}.
+        \end{numcases}
+    \end{subequations}
+    Si \( F\) est différentiable en \( (x_0,y_0)\) alors nous avons
+    \begin{equation}        \label{EqwlVfiR}
+        F\big( (x_0,y_0)+(h,k) \big)=F(x_0,y_0)+dF_{(x_0,y_0)}\begin{pmatrix}
+            h    \\
+            k
+        \end{pmatrix}+s(| h |+| k |)
+    \end{equation}
+    où \( s\) est une fonction vérifiant \( \lim_{t\to 0} \frac{ s(t) }{ t }=0\). Soit
+    \begin{equation}
+        dF_{(x_0,y_0)}=\begin{pmatrix}
+            \alpha    &   \beta    \\
+            -\beta    &   \alpha
+        \end{pmatrix}.
+    \end{equation}
+    Si nous posons \( \sigma=\alpha-i\beta\) et \( w=h+ik\), l'équation \eqref{EqwlVfiR} s'écrit dans \( \eC\) sous la forme
+    \begin{equation}        \label{EqYFmoiM}
+        f(z_0+w)=f(z_0)+\sigma w+s(|w|),
+    \end{equation}
+    ce qui implique que \( f\) est $\eC$-dérivable en \( z_0\).
+
+    Supposons maintenant que \( f\) soit $\eC$-dérivable en \( z_0\). Alors nous avons
+    \begin{equation}
+        f'(z_0)=\lim_{w\to 0} \frac{ f(z_0+w)-f(z_0) }{ w }=\sigma\in \eC,
+    \end{equation}
+    ce qui se récrit sous la forme
+    \begin{equation}
+        \lim_{w\to 0} \frac{ f(z_0+w)-f(z_0)-\sigma w }{ w }=0.
+    \end{equation}
+    Si nous posons \( z_0=x_0+iy_0\), \( w=h+ik\) et \( \sigma=\alpha-i\beta\) nous avons
+    \begin{equation}
+        \lim_{(h,k)\to (0,0)} \left| \frac{ F\big( (x_0,y_0)+(h,k) \big)-F(x_0,y_0)-\begin{pmatrix}
+            \alpha    &   \beta    \\
+            -\beta    &   \alpha
+        \end{pmatrix}\begin{pmatrix}
+            h    \\
+            k
+        \end{pmatrix}}{ | w | } \right| =0,
+    \end{equation}
+    ce qui signifie que \( F\) est différentiable et que sa différentielle est la matrice
+    \begin{equation}    \label{EqMLtbLD}
+       \begin{pmatrix}
+           \alpha &   \beta    \\
+           -\beta &   \alpha
+       \end{pmatrix}.
+    \end{equation}
+
+    La matrice \eqref{EqMLtbLD} est, vue dans \( \eR^2\), la matrice de multiplication dans \( \eC\) par \( \alpha-i\beta=f'(z_0)\). En d'autre termes, dans \( \eC\) nous avons
+    \begin{equation}
+        df_{z_0}(z)=f'(z_0)z,
+    \end{equation}
+    et en particulier la différentielle est donnée par
+    \begin{equation}        \label{EqPropZOkfmO}
+        df_{z_0}=f'(z_0)dz.
+    \end{equation}
+\end{proof}
+
+\begin{example}[Une application \( C^{\infty}\) mais pas \( \eC\)-dérivable]
+    Nous considérons la fonction
+    \begin{equation}
+        \begin{aligned}
+            f\colon \eC&\to \eC \\
+            x+iy&\mapsto x.
+        \end{aligned}
+    \end{equation}
+    Vu que c'est une application linéaire, elle est différentiable une infinité de fois et sa différentielle est elle-même. C'est donc une application \( C^{\infty}\).
+
+    Elle n'est cependant pas \( \eC\)-dérivable. En effet le quotient différentiel est, pour \( \epsilon\in \eC\) :
+    \begin{equation}
+        \frac{ f(x+iy+\epsilon_x+i\epsilon_y)-f(x+iy) }{ \epsilon }=\frac{ \epsilon_x }{ \epsilon }.
+    \end{equation}
+    Cela n'a pas de limite lorsque \( \epsilon\to 0\). Pour voir cela nous invoquons la méthode des chemins du corollaire~\ref{CorMethodeChemin} avec les chemins \( \epsilon_1(t)=t\) et \( \epsilon_2(t)=it\). Dans le premier cas, le quotient différentiel vaut \( 1\) pour tout \( t\), tandis que dans le second il vaut zéro pour tout \( t\).
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Quelques règles de calcul}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}       \label{LEMooVDXOooUyFHXZ}
+    Si \( f\) et \( g\) sont deux fonctions holomorphes sur un ouvert \( \Omega\subset \eC\) et si \( g\) ne s'annule pas sur \( \Omega\), alors \( f/g\) est holomorphe sur \( \Omega\).
+\end{lemma}
 
 
 %++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
