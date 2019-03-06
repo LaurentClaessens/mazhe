@@ -1,5 +1,18 @@
 # Journal des changements du Frido
 
+## Convexité de \| x \|^p (Février-mars 2019)
+
+Stricte convexité de la fonction x->| x |^p lorsque p>1
+
+## Banach-Steinhaus (Févirer 2019)
+
+- Différence entre convergence forte et convergence en norme dans le cas de suite d'opérateurs.
+- Preuve plus simple de Banach-Steinhaus
+
+## Réflexivité de L^p (Févirer 2019)
+
+Les espaces L^p sont réflexifs, preuve
+
 ## John-Loewner (Janvier 2019)
 
 - préciser qu'on ne parle que d'ellipsoïdes centrés en l'origine
