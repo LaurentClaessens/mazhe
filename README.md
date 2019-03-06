@@ -69,7 +69,7 @@ Pour utiliser le Frido à l'agrégation, il faudra passer à la caisse et achete
 Oui. Le règlement demande qu'un livre soit commercialisé, mais pas que vous vous le soyez procuré par la voie commerciale. Lu très littéralement, le règlement vous permet de télécharger les PDF et les imprimer vous même. Mais :
 
 * c'est lire le règlement avec de la mauvaise foi (perso, je ne tenterais pas)
-* c'est pas certain que ce soit moins cher de l'imprimer vous même que de l'acheter.
+* il n'est pas certain que ce soit moins cher de l'imprimer vous même que de l'acheter.
 
 ## Giulietta
 
