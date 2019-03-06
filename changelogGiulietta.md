@@ -1,10 +1,10 @@
 # Giulietta's changelog
 
-
-## SU(2) (2019 December - January 2019)
+## SU(2) (2019 December - 2019 March)
 
 - The Pauli matrices
 - Isomorphism SO(3)=SU(2)/Z2.
+- Continuous paths lifted from SO(3) to SU(2)
 
 ## Lie subgroup (2019 January)
 
