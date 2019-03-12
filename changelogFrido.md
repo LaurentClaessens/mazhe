@@ -1,5 +1,13 @@
 # Journal des changements du Frido
 
+## Fonction puissance (mars 2019)
+
+- Introduction de l'exponentielle par l'équation fonctionnelle
+- Preuve que a^x est dérivable via l'utilisation de primitive
+- Déplacer Stone-Weierstrass beaucoup plus haut pour avoir la notion de primitive
+  avant de discuter la fonction puissance
+- Complètement séparer le concept de primitive de celui d'intégrale
+
 ## Convexité de \| x \|^p (Février-mars 2019)
 
 Stricte convexité de la fonction x->| x |^p lorsque p>1
