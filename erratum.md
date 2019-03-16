@@ -6,6 +6,8 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 Les fautes sont présentées par ordre anti-chronoligique de découvertes.
 
+- Volume 3. Principe des zéros isolés. La valeur des coefficients d_k est erronée. Il faut d_k = c__{m+k}/c_m.
+
 - Volume 3. Dans le gros théorème 28.73 à propos de dualité « théorème de représentation de Riesz », il y a un cas "p=1". La preuve donnée dans cette partie ne traite que le cas où la mesure est finie et non sigma-finie comme annoncée. Il y a donc un trou dans la preuve.
 
 - Volume 2, ellipsoïde de John-Loewner 19.113. L'énoncé manque de préciser que l'ellipsoïde est centrée en l'origine. Il faut lire :
@@ -18,7 +20,7 @@ Les fautes sont présentées par ordre anti-chronoligique de découvertes.
   les translations, comme prouvé ailleurs.
   Ce qui est vrai et démontré dans 11.68 est que, parmi les applications *linéaires*, les isométries sont les éléments de O(n).
 
-- Déterminant de la matrice transposée. Lemme 5.63 volume 1. L'utilisation de la proposition 2.49 n'est pas correcte parce que 2.49 permet de faire un «décalage constant» dans la somme alors qu'ici nous introduisons sigma^2 qui n'est pas constant dans la somme.
+- Volume 1. Déterminant de la matrice transposée, lemme 5.63. L'utilisation de la proposition 2.49 n'est pas correcte parce que 2.49 permet de faire un «décalage constant» dans la somme alors qu'ici nous introduisons sigma^2 qui n'est pas constant dans la somme.
     La solution est d'utiliser une proposition similaire pour le produit et d'utiliser, pour chaque élément de la somme, la commutativité du produit; cela revient à ré-indexer le produit par sigma. Ensuite, il faut ré-indexer la somme sur sigma^{-1} au lieu de sigma.
     Voir https://ljk.imag.fr/membres/Bernard.Ycart/mel/de/de.pdf
 
@@ -32,7 +34,7 @@ Les fautes sont présentées par ordre anti-chronoligique de découvertes.
 
 ## Frido 2017
 
-Les fautes sont présentées par ordre anti-chronoligique de découvertes.
+Les fautes sont présentées par ordre anti-chronologique de découvertes.
 
 - Volume 1. La définition de forme bilinéaire n'est pas correcte. Elle mélange bilinéarité et symétrie. Être bilinéaire signifie être linéaire en chacune des deux composantes séparément.
 
