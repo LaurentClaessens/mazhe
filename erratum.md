@@ -6,6 +6,8 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 Les fautes sont présentées par ordre anti-chronoligique de découvertes.
 
+- Volume 1. Somme infinie. Le corollaire 11.197 me semble faux; il manque sans doute l'hypothèse de sommabilité de f(a_i). Voir la proposition 11.199 qui dit la même chose avec plus d'hypothèses.
+
 - Volume 3. Principe des zéros isolés. La valeur des coefficients d_k est erronée. Il faut d_k = c__{m+k}/c_m.
 
 - Volume 3. Dans le gros théorème 28.73 à propos de dualité « théorème de représentation de Riesz », il y a un cas "p=1". La preuve donnée dans cette partie ne traite que le cas où la mesure est finie et non sigma-finie comme annoncée. Il y a donc un trou dans la preuve.
