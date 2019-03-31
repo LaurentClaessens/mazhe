@@ -1,5 +1,9 @@
 # Journal des changements du Frido
 
+## exponentielle de matrices (mars 2019)
+
+- e^A e^B = e^(A+B) dès que A et B commutent.
+
 ## Fonction puissance (mars 2019)
 
 - Introduction de l'exponentielle par l'équation fonctionnelle
