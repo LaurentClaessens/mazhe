@@ -80,6 +80,8 @@
 \usepackage[refpage]{nomencl}       % Some configuration at   1338719836
 \usepackage{array}
 
+\usepackage{scalerel,stackengine}   % reallywidehat
+
 % We do not use 'exocorr' for Frido.
 \ifbool{isFrido}{}{\usepackage[fr]{exocorr} }
 
@@ -465,6 +467,20 @@
 \newcommand{\hB}{\hat{B}}
 \newcommand{\hX}{\hat{X}}
 \newcommand{\hY}{\hat{Y}}
+
+
+%https://tex.stackexchange.com/questions/100574/really-wide-hat-symbol
+\stackMath
+\newcommand\reallywidehat[1]{%
+\savestack{\tmpbox}{\stretchto{%
+  \scaleto{%
+    \scalerel*[\widthof{\ensuremath{#1}}]{\kern-.6pt\bigwedge\kern-.6pt}%
+    {\rule[-\textheight/2]{1ex}{\textheight}}%WIDTH-LIMITED BIG WEDGE
+  }{\textheight}% 
+}{0.5ex}}%
+\stackon[1pt]{#1}{\tmpbox}%
+}
+
 %\Overline,underline, hat,tilde----------
 
 %------Produits star
