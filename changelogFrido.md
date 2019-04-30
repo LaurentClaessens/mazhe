@@ -1,5 +1,11 @@
 # Journal des changements du Frido
 
+## Théorème de la projection normale (avril 2019 - ...)
+
+- Banach uniformément convexe
+- Projection normale
+- Inégalités de Clarkson
+
 ## exponentielle de matrices (mars 2019)
 
 - e^A e^B = e^(A+B) dès que A et B commutent.
@@ -139,13 +145,13 @@ Définition de la fonction puissance x->a^x.
 
 - définition de a^q pour q rationnel
 - prolongation par continuité à R
-- déplacement de nombreux examples utilisant les puissances vers plus bas dans le texte.
+- déplacement de nombreux exemples utilisant les puissances vers plus bas dans le texte.
 
 ## Limite de fonction (janvier 2018)
 
 Des incohérences ont été détectées, essentiellement dues à mon inattention et accessoirement dues au fait que Wikipédia francophone utilise une définition pas du tout standard sans prévenir[1].
 
-Les définition ont été clarifiées et unifiées. La définition de limite choisie ici est celle que les Français nomme "épointée", et qui est la seule correcte dans l'histoire de l'univers depuis (au moins) l'apparition de eucaryotes, partout sauf en France depuis moins de 10 ans.
+Les définition ont été clarifiées et unifiées. La définition de limite choisie ici est celle que les Français nomme "épointée", et qui est la seule correcte dans l'histoire de l'univers depuis (au moins) l'apparition de eukaryotes, partout sauf en France.
 
 [1] https://fr.wikipedia.org/wiki/Espace_topologique  
     Si vous ne voyez pas le problème avec la définition de la limite, lisez la page de discussion.
