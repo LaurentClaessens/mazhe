@@ -5,6 +5,7 @@
 - Banach uniformément convexe
 - Projection normale
 - Inégalités de Clarkson
+- Inégalités de Hölder
 
 ## exponentielle de matrices (mars 2019)
 
