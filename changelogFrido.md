@@ -1,6 +1,12 @@
 # Journal des changements du Frido
 
-## Théorème de la projection normale (avril 2019 - ...)
+
+## Formes bilinéaires (mai 2019 - )
+
+* Démonstration des transformations de Lorentz
+* Mise en ordre et correction d'une faute
+
+## Théorème de la projection normale (avril 2019 - mai 2019)
 
 - Banach uniformément convexe
 - Projection normale
