@@ -1,7 +1,7 @@
 # Journal des changements du Frido
 
 
-## Formes bilinéaires (mai 2019 - )
+## Formes bilinéaires (mai 2019)
 
 * Démonstration des transformations de Lorentz
 * Mise en ordre et correction d'une faute
