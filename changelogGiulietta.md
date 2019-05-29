@@ -1,5 +1,12 @@
 # Giulietta's changelog
 
+## Exponential map and Taylor expansion for Lie groups (2019 May)
+
+- Definition of the exponential from the left-invariant vector fields
+- A Lie group must be analytical
+- Taylor formula
+- Proof of exp(A+B+t^2[A,B]/2)=exp(tA)exp(tB)+o(t^2)
+
 ## SU(2) (2019 December - 2019 March)
 
 - The Pauli matrices
@@ -8,7 +15,7 @@
 
 ## Lie subgroup (2019 January)
 
-- Prove the rank theorem about functions between manifolds.
+- Prove the rank theorem for maps between manifolds.
 - Prove that a Lie subgroup is a submanifold.
 - Separate Lie group/Lie algebra/links in three chapters.
 
