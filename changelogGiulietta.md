@@ -1,17 +1,18 @@
 # Giulietta's changelog
 
-## Exponential map and Taylor expansion for Lie groups (2019 May)
+## Exponential map and Taylor expansion for Lie groups (2019 May - ...)
 
 - Definition of the exponential from the left-invariant vector fields
 - A Lie group must be analytical
 - Taylor formula
 - Proof of exp(A+B+t^2[A,B]/2)=exp(tA)exp(tB)+o(t^2)
 
-## SU(2) (2019 December - 2019 March)
+## SU(2) (2018 December - ...)
 
 - The Pauli matrices
 - Isomorphism SO(3)=SU(2)/Z2.
 - Continuous paths lifted from SO(3) to SU(2)
+- Representations of U(1)
 
 ## Lie subgroup (2019 January)
 
