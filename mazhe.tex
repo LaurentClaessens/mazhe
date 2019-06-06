@@ -1,75 +1,81 @@
-% This is part of (almost) Everything I know in mathematics 
-% Copyright (c) 2010-2016
-%   Laurent Claessens 
-% See the file fdl-1.3.txt for copying conditions. 
-
+% This is part of Giulietta
+% Copyright (c) 2010-2019
+%   Laurent Claessens
+    % See the file fdl-1.3.txt for copying conditions.
 
 % CODING CONVENTION
 
 %  The compilation of this file and particularly the extraction of the ``agregation'' part relies on a couple of external scripts.
 %  These scripts are making some assumptions on the structure of this file.
 %
-% 
-%           The lines beginning with ``SCRIPT MARK'' are intended to be used by automatic scripts in order to 
-%           extract the right lines from this documents.  
-%           Do not modify them. 
 %
-% 
-%           There should not be explicit text in mazhe.tex, but only chapter declarations and \input. 
+%           The lines beginning with ``SCRIPT MARK'' are intended to be used by automatic scripts in order to
+%           extract the right lines from this documents.
+%           Do not modify them.
+%
+%
+%           There should not be explicit text in mazhe.tex, but only chapter declarations and \input.
 %           The commands \chapter and \input have to be alone on their line (apart of a \label if you want). So we write
-%               \if{...} 
+%               \if{...}
 %               {
 %                   \chapter{chapter name}              \label{FooBar}
 %                   \input{}
 %}              {}
 %           and not
-%               \if{...} { \chapter{chapter name}
+%               \if{...} { \chapter{chapter name}input
 %                  \input{}
 %}              {}
 
 
 
 % SCRIPT MARK -- DECLARATIVE PART
+\documentclass[a4paper,twoside,11pt]{book}
 
-\input{e_mazhe} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 
-% TODO : enlever les \cite{} qui citent mes documents qui ont été fusionnés.  
-% TODO : Il y a un super théorème sur les fonctions continues ici :  http://allken-bernard.org/pierre/weblog/?p=2445 
-
-% 1 on utilise external et 0 on ne l'utilise pas
-\newcounter{useexternal} \setcounter{useexternal}{1} 
-\ifthenelse{\value{useexternal}=1}{ \usetikzlibrary{external} \tikzexternalize[prefix=pictures_tikz/] }{ \newcommand{\tikzsetnextfilename}[1]{} } 
-
-\makeindex
-\makenomenclature
-
-\begin{document} 
-
-\bibliographystyle{unsrtnat} 
-\corrPosition{1}
-
-
-\renewcommand{\exoDirectory}{exercises/}
+\usepackage{ifthen}
+\usepackage{etoolbox}           % Ceci devrait remplacer ifthen.
 
 
 % The following booleans serve to know in what type of compilation we are.
 % They are set to 'true' by the pre-compilation scripts.
 % http://ftp.oleane.net/pub/CTAN/macros/latex/contrib/etoolbox/etoolbox.pdf
+% They are set quite early because some parts of the headings are changed
+% by some plugins (ex: the colors in 'configuration.tex')
 \newbool{isFrido}
-\newbool{isMazhe}
+\newbool{isGiulietta}
 \newbool{isEnVolume}
 \newbool{isBook}
 \boolfalse{isFrido}
-\boolfalse{isMazhe}
+\boolfalse{isGiulietta}
 \boolfalse{isEnVolume}      % This list is hard-coded in 'gardeVolume.tex'.
-\boolfalse{isBook}        
+\boolfalse{isBook}
+
+% The following line is changed by pytex. You can change the title
+% but not the exact string ``\newcommand{\pdftitle}''.
+\newcommand{\pdftitle}{Giulietta}
+
+\input{e_mazhe}
+
+% 1 on utilise external et 0 on ne l'utilise pas
+\newcounter{useexternal} \setcounter{useexternal}{1}
+\ifthenelse{\value{useexternal}=1}{ \usetikzlibrary{external} \tikzexternalize[prefix=auto/pictures_tikz/] }{ \newcommand{\tikzsetnextfilename}[1]{} }
+
+\makeindex
+\makenomenclature
 
 
-\ifbool{isFrido}{\corrPosition{1}}{}
+\begin{document}
+
+
 \newcommand{\GitCommitHexsha}{\info{missing information}}       % Ceci est modifié par un plugin de lst_agreg.py
 
+\emptyInputPath
+\addInputPath{tex/front_back_matter}
+
 % SCRIPT MARK -- GARDE MES NOTES
-\selectlanguage{frenchb}
+\selectlanguage{french}
 \input{gardeFrido}
 
 \notbool{isBook}{
@@ -84,22 +90,26 @@
 
 % SCRIPT MARK -- GARDE MAZHE
 \selectlanguage{english}
-\input{gardeMazhe}
+\input{gardeGiulietta}
 
 % SCRIPT MARK -- GARDE ENSEIGNEMENT
-\selectlanguage{frenchb}
+\selectlanguage{french}
 \input{gardeEnseignement}
 
 % SCRIPT MARK -- TOC
 
+\newpage
 \addcontentsline{toc}{chapter}{Thématique}
+\setcounter{chapter}{-2}
 \input{157_thematique}
 
 \newpage
 \addcontentsline{toc}{chapter}{Table des matières}
 \tableofcontents
-%\addcontentsline{toc}{chapter}{Index}
 \printindex
+
+\addcontentsline{toc}{chapter}{Liste des notations}
+\printnomenclature
 
 % SCRIPT MARK -- ENGLISH INTRODUCTION
 
@@ -108,38 +118,27 @@
 \chapter*{Introduction in English}
 \input{AvertissementMazhe}
 
-% SCRIPT MARK -- MOODLE
-\selectlanguage{frenchb}
-\input{45_contreMoodle}
-
-% SCRIPT MARK -- INTRO SAGE
-\selectlanguage{frenchb}
-\input{introSage}            
-
 % SCRIPT MARK -- FRIDO
+\selectlanguage{french}
 
-\selectlanguage{frenchb}
-
-\ifbool{isFrido}
-{
-    \setcounter{chapter}{0}
-    \chapter{Introduction}
-        \input{remerciements}
-        \input{introAgreg}
-}{}
-\ifbool{isMazhe}
+\ifbool{isGiulietta}
 {
     \part{Le Frido}
 }{}
+
+    \setcounter{chapter}{-1}
+    \chapter{Introduction}
+        \input{remerciements}
 
 \ifbool{isBook}{
     \setcounter{chapter}{0}
     \chapter{Introduction}
         \input{162_preface}
-        \input{remerciements}
+        %\input{remerciements}
 }{}
 
-\input{168_questionsFrido}
+\emptyInputPath
+\addInputPath{tex/frido}
 
 \chapter{Construction des ensembles de nombres}
 \input{42_nombres}
@@ -150,97 +149,125 @@
 
 \chapter{Anneaux}
 \input{48_StructAnneaux}
+\input{194_StructAnneaux}
+
+\chapter{Espaces vectoriels (début)}
+\input{55_EspacesVectos}
+
+\chapter{Classification de certains groupes}
+\input{186_groupes}
 
 \chapter{Corps}
 \input{49_StructCorps}
+\input{196_StructCorps}
 \input{50_StructCorps}
-\input{51_StructCorps}
-\input{52_StructCorps}
 
 \chapter{Topologie générale}
 \input{53_topologie}
+
+\chapter{Topologie sur les réels}
+\input{185_topologie}
+
+\chapter{Topologie générale, le retour}
+\input{199_topologie}
 \input{54_topologieR}
 
-\chapter{Espaces vectoriels}
-\input{55_espace_vecto_norme}
-\input{144_espace_vecto_norme}
-\input{56_espace_vecto_norme}
-\input{57_espace_vecto_norme}
-\input{59_EspacesVecto}
-\input{139_EspacesVecto}
-\input{60_EspacesVecto}
-\input{138_EspacesVecto}
-\input{141_EspacesVecto}
+\chapter{Espaces affines}
+\input{140_EspacesAffines}
 
-% les tribus ont besoin de la notion de somme infinie (qui est dans le chapitre espaces vectoriels) pour séparer une somme sur NxN en deux sommes sur N
-\chapter{Tribus, théorie de la mesure}
+\chapter{Espaces vectoriels (encore)}
+\input{56_EspacesVectos}
+\input{188_EspacesVectos}
+\input{57_EspacesVectos}
+\input{59_EspacesVectos}
+\input{138_EspacesVectos}
+\input{141_EspacesVectos}
+
+
+\chapter{Espaces vectoriels normés}
+\input{181_espace_vecto_norme}
+\input{187_espace_vecto_norme}
+
+
+\chapter{Analyse réelle}
+\input{64_analyseR}
+\input{65_analyseR}
+\input{66_analyseR}
+\input{173_analyseR}
+\input{67_analyseR}
+\input{68_analyseR}
+\input{69_analyseR}
+
+\chapter{Analyse sur des groupes}
+\input{61_representations}
+
+\chapter{Tribus, théorie de la mesure, intégration}
 \input{40_mesure}
 \input{41_mesure}
 \input{135_mesure}
 \input{43_mesure}
+\input{189_mesure}
 
-\chapter{Espaces affines}
-\input{140_EspacesAffines}
+\chapter{Suites et séries de fonctions}
+\input{75_series_fonctions}
+\input{198_series_fonctions}
+\input{76_series_fonctions}
+
+
+\chapter{Représentations et caractères}
+\input{63_representations}
+
+\chapter{Encore de l'analyse (et c'est pas fini)}
+\input{77_series_fonctions}
+\input{184_SuiteAnalyse}
+\input{79_inversion_locale}
+\input{80_Newton}
+
+\chapter{Trigonométrie, isométries}
+\input{175_trigono}
+\input{177_trigono}
+\input{190_trigono}
+\input{192_trigono}
+
+\chapter{Corps finis, racines de l'unité}
+\input{197_racines}
+
+\chapter{Intégration sur des variétés}
+\input{72_Integration}
+\input{155_Integration}
+\input{73_Integration}
+\input{38_Integration}
+\input{2_Integration}
+
+
+\chapter{Arcs paramétrés}
+\input{74_Chap_courbes_parametre}
+\input{152_Chap_courbes_parametre}
+
 
 \chapter{Géométrie hyperbolique}
 \input{160_hyperbolique}
 
 \chapter{Espaces projectifs}
 \input{161_EspacesProjectifs}
+\input{170_EspacesProjectifs}
 
-\chapter{Analyse réelle}
-\input{64_Chap_analyse_R}
-\input{65_Chap_analyse_R}
-\input{66_Chap_calcul_differentiel}
-\input{67_Chap_calcul_differentiel}
-\input{68_Chap_calcul_differentiel}
-\input{69_Chap_calcul_differentiel}
-\input{1_general}
-\input{4_dev_limite}
-
-\chapter{Retour sur les groupes}
-\input{61_representations}
-\input{153_representations}
-\input{62_representations}
-\input{63_representations}
-
-
-\chapter{Intégration}
-\input{70_suites_series_fonctions}
-\input{71_suites_series_fonctions}
-\input{72_suites_series_fonctions}
-\input{155_suites_series_fonctions}
-\input{73_Chap_integrales_multiples}
-\input{38_Chap_integrales_multiples}
-\input{2_calcul_integral}
-
-\chapter{Arc paramétré}
-\input{74_Chap_courbes_parametre}
-\input{152_Chap_courbes_parametre}
 
 \chapter{Analyse vectorielle}
 \input{37_anal_vectorielle}
 
-\chapter{Suite de l'analyse}
-\input{75_series_fonctions}
-\input{76_series_fonctions}
-\input{77_series_fonctions}
-\input{78_inversion_locale}
-\input{79_inversion_locale}
-\input{80_Newton}
-
 \chapter{Espaces de Hilbert}
 \input{81_Hilbert}
-
-\chapter{Analyse fonctionnelle}
-\input{82_analyse_fonctionnelle}
-\input{83_analyse_fonctionnelle}
 
 \chapter{Analyse complexe}          \label{ChapICHIooXbLccl}
 \input{84_AnalyseComplexe}
 \input{85_AnalyseComplexe}
 
-\chapter{Série de Fourier}
+\chapter{Analyse fonctionnelle}
+\input{82_analyse_fonctionnelle}
+\input{83_analyse_fonctionnelle}
+
+\chapter{Séries de Fourier}
 \input{86_Fourier}
 
 \chapter{Transformation de Fourier}
@@ -252,20 +279,29 @@
 \chapter{Espaces de Sobolev, équations elliptiques}      \label{CHAPooVTIIooGOEvXT}
 \input{158_Sobolev}
 
-\chapter{Équations différentielles}
+\chapter{Équations différentielles ordinaires}
 \input{89_Equations_diff}
 \input{90_Equations_diff}
+\input{180_Equations_diff}
 \input{150_ED_analyseCTU}
 
-\chapter{Calcul numérique}
+\chapter{Équations aux dérivées partielles}
+\input{179_edp}
+
+\chapter{Numérique}
 \input{145_numerique}
 \input{148_numerique}
 \input{159_numerique}
+\input{182_numerique}
+
+\chapter{Méthode des différences finies}
+\input{193_numerique}
 
 \chapter{Variables aléatoires et théorie des probabilités}
 \input{91_vars_al}
 \input{92_vars_al}
 \input{93_vars_al}
+\input{203_vars_al}
 
 \chapter{Statistiques}
 \input{94_statistiques}
@@ -279,6 +315,9 @@
 \chapter{Processus de Poisson}
 \input{97_ProcessusPoisson}
 
+\chapter{Langages}
+\input{202_langages}
+
 \chapter{Utilisation dans les autres sciences}
 \input{Science}
 \input{146_relativite}
@@ -286,50 +325,22 @@
 \chapter{Exemples avec Sage}
 \input{44_sage}
 
+\chapter{Épilogue : la constante de Weiner}
+\input{191_weiner}
+
 % SCRIPT MARK -- DÉVELOPPEMENTS POSSIBLES
 % -------------------------------------------------------------------------
 
 \chapter{Développements possibles}
 \input{98_liste_developpements}
 
-
-% SCRIPT MARK -- OUTILS MATHÉMATIQUES
-% -------------------------------------------------------------------------
- 
-\part{Outils mathématiques} 
-
-\chapter{Vecteurs, matrices et déterminants}
-\input{SystemeCoordOM}    
-
-\chapter{Dérivées de fonctions de une variable}
-\input{calcul_differentiel}
-
-\chapter{Fonctions de plusieurs variables}
-\input{plusieurs_variables}
-
-\chapter{Champs de vecteurs}
-\input{champs_vecteurs}
-
-\chapter{Coordonnées curvilignes orthogonales}
-\input{curviligne}
-
-\chapter{Intégrales multiples et de surface}
-\input{integrales}
-
-\chapter{Les théorèmes intégraux de l'analyse vectorielle}
-\input{Stokes_et_co}
-
-\chapter{Autres}
-\input{theorie_generale}
-
-\chapter{Exercices}
-\input{liste_exos_outils_math}
-
 % SCRIPT MARK -- RESEARCH PART
 
+\emptyInputPath
+\addInputPath{tex/research}
 
     \selectlanguage{english}
-\part{More advanced stuff and research}
+\part{Giulietta}
 
 \input{questionsMazhe}
 
@@ -343,27 +354,33 @@
 \input{147_topo}
 \input{directedSets}
 
-\chapter{General differential geometry} \label{Chapitre_FB}
+\chapter{Manifolds} \label{Chapitre_FB}
 \input{154_var_diff}
-\input{diff_geom} 
+\input{204_diff_geom}
 
-\chapter{Lie groups and subgroups}
-\input{143_Lie_gp_and_subgp}
+\chapter{Representations}
+\input{207_representations}
 
 \chapter{Lie algebras}
-\input{99_mazhe}  
-\input{100_mazhe} 
+\input{99_mazhe}
+\input{100_mazhe}
 \input{101_mazhe}
 \input{102_mazhe}
 \input{103_mazhe}
 \input{104_helgaLie}
+
+\chapter{Lie groups}
+\input{143_Lie_gp_and_subgp}
+
+\chapter{Lie group and Lie algebra}
+\input{206_lie_group_algebra}
 
 \chapter{A lot of algebra}
 \input{110_algebre}
 \input{111_algebre}
 \input{Cyclic_homol}
 
-\chapter{Fibre bundle}
+\chapter{Fiber bundle}
 \input{105_fibre_bundle}
 \input{106_fibre_bundle}
 
@@ -381,11 +398,16 @@
 \input{Hilbert}
 \input{reprez_Lie_Hilbert}
 
-\chapter{Analysis}
+\chapter{Sobolev spaces}
 \input{167_Sobolev}
+
+\chapter{Analysis}
 \input{136_garding}
 \input{app_oscilla}
 \input{Dixmier_tr}
+
+\chapter{Partial derivative equation}
+\input{171_pde}
 
 \chapter{Finite elements}
 \input{156_finite_elements}
@@ -408,16 +430,16 @@
 \chapter{Relativistic fields and group theory}
 \input{MQ}
 
-\chapter{Relativistic fields and fibre bundle formalism}
+\chapter{Relativistic fields and fiber bundle formalism}
 \input{117_Fibre_QFT}
 
-\chapter{Conformal fiels theory}
+\chapter{Conformal fields theory}
 \input{142_CFT}
 
 \chapter{Banach and \texorpdfstring{$C^*$}{C*}-algebras}
-\input{118_cstar}   
-\input{119_cstar}   
-\input{120_cstar}   
+\input{118_cstar}
+\input{119_cstar}
+\input{120_cstar}
 
 \chapter{Compact quantum groups}
 \input{149_compact_quantum_groups}
@@ -443,8 +465,6 @@
 \input{BTZ_3}
 
 \chapter{BTZ black holes in anti de Sitter spaces}                  \label{ChapBHinAdS}
-%\input{IntroThese}
-%\input{remerciements}
 \input{introduction}
 \input{125_BTZ}
 \input{126_BTZ}
@@ -453,7 +473,6 @@
 \input{129_DiracAdS}
 \input{130_DiracAdS}
 \input{conclThese}
-\input{avecOld}
 
 \chapter{General non commutative geometry}
 \input{131_noncommutative_geometry}
@@ -466,7 +485,7 @@
 \chapter{Deformations: non-formal aspects}
 \input{twists_general}
 \input{qansl}
-\input{KG}      
+\input{KG}
 
 \chapter{WKB quantization}
 \input{universel}
@@ -495,14 +514,19 @@
 
 % SCRIPT MARK -- MATLAB
 
-    \selectlanguage{frenchb}
+\emptyInputPath
+\addInputPath{tex/matlab}
+
+    \selectlanguage{french}
 \part{Matlab}
 \input{133_matlab}
 
 
 % SCRIPT MARK -- EXERCICES
 
-\part{Exercices} 
+\emptyInputPath
+\addInputPath{tex/exercices}
+\part{Exercices}
 
 \input{TD_SVT}
 \input{164_part_exercices}
@@ -512,7 +536,7 @@
 \chapter{Exercices de calcul différentiel et intégral 1 (Bruxelles)}
 \input{exoUnif}
 \input{suiteCorr}
- 
+
 \chapter{Exercices de calcul différentiel et intégral 2 (Bruxelles)}
 \input{listeExo}
 \input{listeExo_cv}
@@ -521,11 +545,17 @@
 \chapter{Exercices pour analyse CTU}
 \input{151_exercices_analyseCTU}
 
-\corrChapitre{Corrigés systématiques}
+\ifbool{isFrido}{}
+{
+    \corrChapitre{Corrigés systématiques}
+}
 
 % SCRIPT MARK -- FINAL
 
-\input{134_choses_finales} 
+
+\emptyInputPath
+\addInputPath{tex/front_back_matter}
+\input{134_choses_finales}
 \end{document}
 
 % SCRIPT MARK -- AFTER DOCUMENT

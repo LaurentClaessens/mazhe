@@ -3,9 +3,10 @@
 
 from __future__ import unicode_literals
 
-import LaTeXparser
-import LaTeXparser.PytexTools
+import latexparser
+import latexparser.PytexTools
 
-myRequest = LaTeXparser.PytexTools.Request("mesure")
+myRequest = latexparser.PytexTools.Request("mesure")
 myRequest.original_filename="test_couleur.tex"
 myRequest.ok_filenames_list=["e_mazhe"]
+myRequest.new_output_filename="0-test_couleur.pdf"

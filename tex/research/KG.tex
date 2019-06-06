@@ -1,0 +1,994 @@
+% This is part of (almost) Everything I know in mathematics
+% Copyright (c) 2016-2018
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+\section{Klein-Gordon calculus}
+
+
+\subsection{Affine space primer}
+%-------------------------------
+
+Let $V$ be a vector space. The \defe{affine space}{affine!space} $A(V)$ is the set $V$ endowed with the notion of line (inherited from $V$ as lateral classes of one dimensional vector subspace), parallel lines (inherited from $V$) and of the section ratio, i.e. a function $\dpt{ \rho }{ A(V)^3 }{ \eR }$ such that if $a$, $b$ and $c$ are aligned,
+\[
+  c-a=\rho(a,b,c)(b-a).
+\]
+
+A localised vector in $A(V)$ is a pair $(a,b)\in A(V)^2$. We put the following equivalence relation on the set of localised vectors: $(a,b)\sim(c,d)$ if and only if $b-a=d-c$. Although expressions $b-a$ and $d-c$ need the vector space structure of $V$, one can prove that this relation can be expressed only in terms of the affine structure. An equivalence class is a \defe{free vector}{free!vector} (in the sense of freedom). We denote by $\overrightarrow{ab}$ the class of $(a,b)$. For each $\overrightarrow{ab}$ and $c\in A(V)$, there exists one and only one $d\in A(V)$ such that $\overrightarrow{ab}=\overrightarrow{cd}$. So a free vector defines a permutation of points in $\eM$; we say that it is a \defe{translation}{translation!in affine space}.
+
+If $A$ is a linear transformation of $V$, we define the action of $A$ on a free vector by
+\[
+  A(\overrightarrow{ab})=\overrightarrow{(Aa)(Ab)}
+\]
+This definition doesn't depends on the choice of $a$ and $b$ because linearity of $A$ gives $\tilde Pb'-\tilde Pa'=\tilde Pb-\tilde Pa$ and thus $\tilde P(\overrightarrow{a'b'})=\overrightarrow{\tilde Pa'\tilde Pb'}=\overrightarrow{\tilde Pa\tilde Pb}$.
+
+\subsection{Space-time structure}
+%--------------------------------
+
+Let $n\geq 1$. The \defe{Minkowski space}{Minkowski!space} or \defe{space-time}{space-time} $\eM$ is a real affine space of dimension $n+1$ endowed with a quadratic form on the free vector space that, from a physical usage,  we denote by $ds$ which has signature $-,+,\ldots,+$. The quantity $ds(v,v)$ is usually written as $ds^2(v)$.
+
+The \defe{Poincaré group}{Poincaré!group} $\LoP$\nomenclature{$\LoP$}{Poincaré group} is the group of isometries whose identity component is denoted by $\LoP_0$. The vector space of translations in $\eM$ is $\tilde\eM$. When $P\in\LoP$, $\tilde P$ is the linear part of $P$. The \defe{Lorentz group}{Lorentz!group} is
+\[
+  \LoL=\{ \tilde P\tq P\in\LoP \}.
+\]
+
+An unrestricted observer is a triple $\omega=(x,T,E)$ where
+
+\begin{itemize}
+\item $x\in\eM$,
+\item $T$ and $E$ are vector subspaces endowed with an orientation with $\dim T=1$ and $\dim E=n$,
+\item $ds|_T$ is positive definite and $ds|_E$ is negative definite,
+\item $ds(T,E)=0$.
+\end{itemize}
+For the two last items, we have to define $ds(P,Q)$ when $P$ and $Q$ are translations in $\eM$, i.e. are free vectors. For, we choose $a\in\eM$ and then $P_a$, $Q_a$ such that $P=\overrightarrow{aP_a}$ and $Q=\overrightarrow{aQ_a}$ and we define $ds(P,Q)=ds(P_a,Q_a)$. In order to prove that it doesn't depends on the choice of $a$, we remark that $P_b=P_a-a+b$ and that $ds$, being an affine notions, is invariant under translations. So
+\[
+ds(P_a-a+b,Q_a-a+b)=ds(\overrightarrow{ba}(P_a-a+b),\overrightarrow{ba}(Q_a-a+b))
+		=ds(P_a,Q_a).
+\]
+
+Note that the orientations are part of the definition of an observer. So it is possible to have $(x,T_1,E_1)\neq(x,T_2,E_2)$ as observers but $T_1=T_2$ and $E_1=E_2$ as (non oriented) vector spaces.
+
+The Poincaré group acts on the space of unrestricted observers by
+\begin{equation}
+P\cdot(x,T,E)=(Px,\tilde PT,\tilde PE)
+\end{equation}
+where we endow $\tilde PT$ and $\tilde PE$ with orientations such that $\tilde P$ is positive. This action is transitive and the stabilizer of $(x,T,E)$ is canonically isomorphic to the group $O^+(E)$ of rotations in $E$\quext{Moi je crois que ce $O^+$, c'est $\SO(3)$ parce que c'est des rotations qui doivent garder l'orientation.}.
+
+Let $\omega=(x,T,E)$. The \defe{spacial symmetry}{spacial!symmetry} $P_{\omega}$ of the observer $\omega$ is the unique affine transformation of $\eM$ such that
+\begin{itemize}
+\item $P_{\omega}x=x$,
+\item $\tilde P_{\omega}z=z$ if $z\in T$ and $\tilde P_{\omega}z=-z$ if $z\in E$.
+\end{itemize}
+Let us prove the unicity. For, we pick a $y\in\eM$ and we write $P={\overrightarrow{ab}}\circ\tilde P$ where $\tilde P$ is Lorentz and $P_{\overrightarrow{ab}}$ is a translation. A $z\in E$ is a translation and can be written under the form $z=\overrightarrow{xz}$ for a certain $z\in\eM$. From definitions,
+\[
+  \tilde P_{\omega}(\overrightarrow{xz})=\overrightarrow{ \tilde P_{\omega}x\tilde P_{\omega}z }=\overrightarrow{x\tilde P_{\omega}z}
+\]
+Therefore $\tilde P_{\omega}(\overrightarrow{xz})=\overrightarrow{x\tilde P_{\omega}z}=\pm\overrightarrow{xz}$ with the minus sign when $z\in T$ and the plus sign when $z\in E$. A general $y\in\eM$ can be decomposed as $y=y_T+y_E$, and finally, we find
+\begin{equation} \label{eq_PomegaprT}
+P_{\omega}y=x+\pr_T(\overrightarrow{xy})-\pr_E(\overrightarrow{xy})
+\end{equation}
+where $\pr_T(\overrightarrow{xy})$ is a translation in $\eM$ identified with a point in $\eM$ by $\overrightarrow{ab}\simeq r$ if $\overrightarrow{ab}=\overrightarrow{xr}$.
+
+If $n$ is odd, the spacial symmetry $P_{\omega}$ has a negative determinant and therefore does not belong to $\LoP_0$.
+
+\subsection{Observer}
+%--------------------
+
+We now fix a reference unrestricted observer $\omega_0=(x_0,T_0,E_0)$. Then an \defe{observer}{observer} is an unrestricted observer of the form $\omega=P\cdot\omega_0$ with $P\in\LoP_0$. We denote by $\Omega$ the space of all observers. By restricting $ds$ to $T_0$ and $-ds$ to $E_0$, we build euclidian spaces $T_0$ and $E_0$. Let us write $\| . \|_0$ the norm on $E_0$.
+
+We denote by $\epsilon_0$ the positive unit vector in $T_0$. Let $P\in\LoP$; we can write $\tilde P\epsilon_0=\alpha\epsilon_0+w$ with $\alpha>0$ (because $\LoP_0$ is orthochrone) and $\alpha^2-\| w \|_0^2=1$. Indeed
+\begin{align*}
+  ds^2(\tilde P\epsilon_0)&=ds(\alpha\epsilon_0,+w,\alpha\epsilon_0+w)\\
+		&=ds^2(\alpha\epsilon_0)+ds^2(w)&\text{from }ds(E_0,T_0)=0\\
+		&=\alpha^2-\| w \|_0^2
+\end{align*}
+because $ds^2(\epsilon_0)=1$ and $\| . \|_0$ is the restriction of $-ds$ to $E_0$.
+
+We define $v_{\tilde P}=\alpha^{-1}w$\nomenclature{$v_{\tilde P}$}{Velocity of observer $P\cdot \omega_0$} which is an element of $E_0$ of norm $\leq 1$ because
+\[
+  \| v_{\tilde P} \|_0^2=\alpha^{-2}\| w \|_0^2=\alpha^{-2}(\alpha^2-1)=1-\frac{1}{ \alpha^2 }.
+\]
+When $P$ runs over $\LoP$, $v_{\tilde P}$ spans the unit open ball $B_{E_0}(o,1)$. We say that $v_{\tilde P}$ is the velocity of the observer $P\cdot \omega_0$ with respect to $\omega_0$ in the frame of $\omega_0$.
+
+
+\begin{proposition}
+Let $\omega_0=(x_0,T_0,E_0)\in\Omega$. The map
+\[
+  \Omega=\LoP_0/O^+(E_0)\to \eM\times B_{E_0}(o,1)
+\]
+given by the quotient of $P\mapsto(Px_0-x_0,v_{\tilde P})$ is bijective.
+\end{proposition}
+
+\begin{proof}
+The action of $\LoP_0$ on $\Omega$ is transitive and the stabilizer of $\omega_0$ is $O^+$, so as homogeneous spaces, $\Omega=\LoP_0/O^+(E_0)$. For the remaining, let us choose a positive oriented orthonormal basis which allows us to identify $\eM$ and $\tilde\eM$. For this, we choose $o=x_0$, $ds^2=dt^2-d\ovx^2$ in such a way that $T_O=\eR\times\{ 0 \}$ and $E_0=\{ 0 \}\times \eR^n$. The spatial symmetry $P_{\omega_0}$ is given by
+\[
+    J(t,\overline(x))=(t,-\overline(x))
+\]
+and the Lorentz group is made up with matrices $M$ which satisfies
+\[
+  M^tJM=J.
+\]
+The vector $\epsilon_0$ is the first vector of the chosen basis $(\epsilon_i)_{i\geq 0}$ of $\eR^{n+1}$. The group $O^+(E_0)=\{ 1 \}\times \SO(n)$ is the subgroup of $\LoP_0$ which leaves $\epsilon_0$ unchanged. In fact, $\LoP_0$ is the semi-direct product
+\begin{equation}
+  \LoP_0=\eR^{n+1}\times_{\rho}\LoL_0
+\end{equation}
+with $\rho_M(a')=Ma'$.
+
+A \defe{boost}{boost} is an selfadjoint positive definite matrix of $\LoL$. This is automatically in $\LoL_0$ and antisymmetric (because we consider real spaces). These are ``rotations'' in mixed space-times planes. One can show that any element $M$ in $\LoL$ can be decomposed into $M=AK$ where $A$ is a boost and $K$ a matrix of $\SO(n)$. Now we ask ourself which elements of $\LoP$ define the same observer. For a given $(a,M)\in\LoP$, which are the $(a',M')$ such that $(a,M)\cdot\omega_0=(a',M')\cdot \omega_0$? In order to find $E=E'$ and $T=T'$, we have to put $a=a'$. Then we need $M\epsilon_0=M'\epsilon_0$ and $ME_0=M'E_0$ which in turn imposes $M$ and $M'$ to differ only by a matrix of $\SO(n)$: there exists $S\in \SO(n)$ such that $M=M'S$. It proves that $\Omega$ is parametrized by translations and boosts. It remains to prove that $\eM\times B(E_0)$ can too.
+
+From now, we take the convention to put a bar over vectors in $\eR^n$ in order to distinguish them from vectors in $\eR^{n+1}$. A vector $\xi\in\eR^{n+1}$ is thus written
+$
+\begin{pmatrix}
+\xi_0\\\overline{ \xi }
+\end{pmatrix}
+$ with $\xi_0\in\eR$ and $\overline{ \xi }\in\eR^n$.
+
+To a $\overline{ v }\in\eR^n$ with $| \overline{ v } |<1$ we associate
+\[
+  (1-| \overline{ v } |^2)^{1/2}
+\begin{pmatrix}
+1\\v_1\\\vdots\\v_n
+\end{pmatrix}
+\in\eR^{n+1}.
+\]
+Now we prove that formula
+\begin{equation}
+A
+\begin{pmatrix}
+1\\0\\\vdots\\0
+\end{pmatrix}
+=(1-|\overline{ v }|^2)^{-1/2}
+\begin{pmatrix}
+1\\v_1\\\vdots \\v_n
+\end{pmatrix}
+\end{equation}
+defines a bijection between the boosts $A$ and the $|\overline{ v }|<1$. It is first clear that this formula gives only one $\overline{v}$ for each boost $A$. Now let $K_0\in \SO(n)$ and $\mu\in\eR$ such that $\overline{v}=\tanh\mu\,K_0\epsilon_1$, or
+\[
+\begin{pmatrix}
+v_1\\\vdots\\v_n
+\end{pmatrix}
+=
+(\tanh\mu)K_0
+\begin{pmatrix}
+1\\0\\\vdots\\0
+\end{pmatrix}.
+\]
+It is possible because one can always find a matrix in $\SO(n)$ which places $\epsilon_1$ in the right direction and since $\tanh$ is surjective on $]-1,1[$, it is a suitable function to rescale $K_0\epsilon_1$. Let
+\[
+  K=
+\begin{pmatrix}
+1&0\\0&K_0
+\end{pmatrix},
+\]
+we have
+\[
+  K^{-1}AK\epsilon_0=K^{-1}A\epsilon_0=K^{-1}(1-|\overline{v}|^2)^{-1/2}
+\begin{pmatrix}
+1\\\overline{v}
+\end{pmatrix}
+\]
+and $(1-|\overline{v}|^2)^{-1/2}=\cosh\mu$. It leads to
+\[
+\begin{split}
+K^{-1}AK\epsilon_0&=\cosh\mu(K^{-1}\epsilon_0)+\cosh\mu(K^{-1}v)\\
+		&=\cosh\mu\epsilon_0+\sinh\mu\epsilon_1.
+\end{split}
+\]
+Therefore the first column of $K^{-1}AK$ is
+$
+\begin{pmatrix}
+\cosh\mu\\\sinh\mu\\0\\\vdots
+\end{pmatrix}
+$ and finally the form of $K^{-1}AK$ is fixed by
+\[
+  K^{-1}AK=
+\begin{pmatrix}
+\cosh\mu&\sinh\mu\\\sinh\mu&\cosh\mu\\&&\mtu
+\end{pmatrix}.
+\]
+This concludes the proof.
+
+\end{proof}
+The latter matrix is called \emph{boost in direction of $\partial_1$}\index{boost!in direction of $\partial_1$}. It represent a ``rotation'' in the plane $(t,x_1)$.
+
+\subsection{Action of \texorpdfstring{$\LoP_0$}{L0} on \texorpdfstring{$\Omega$}{O}}
+%------------------------------------------
+
+We want now to describe the action of $\LoP_0$ on $\Omega$ in the realization $\Omega=\eR^{n+1}\times B_n$ where $B_n=\{ v\in\eR^n\tq | v |<1 \}$. Let $\omega=(N,x)\cdot \omega_0$ and suppose that it is described by $(x,v)$ (recall that $x_o=o$, thus $(N,x)$ must be of the form $(x,.)$). Our aim is to express $v$ in terms of $\omega_0$ and $N$. If $\epsilon_T$ is the positive unit vector in $T$,
+\begin{equation} \label{eq_epsTv}
+  \epsilon_T=N\epsilon_0=AS\epsilon_0=A\epsilon_0=
+(1-|\overline{v}|^2)^{-1/2}
+\begin{pmatrix}
+1\\\overline{v}
+\end{pmatrix}
+\end{equation}
+from definition of $\overline{v}$. Now, take $\omega=(x,T,E)$, $(M,a)\in\LoP_0$ and $\omega'=(M,a)\cdot \omega$ corresponds to $(x',v')$. We have $x'=Mx+a$ and
+\[
+  \epsilon_{T'}=M\epsilon_T=M(1-|\overline{v}|^2)^{-1/2}
+\begin{pmatrix}
+1\\\overline{v}
+\end{pmatrix}.
+\]
+On the other hand,
+\[
+  \epsilon_{T'}=(1-|\overline{v'}|^2)^{-1/2}
+\begin{pmatrix}
+1\\\overline{v'}
+\end{pmatrix}.
+\]
+We want to establish a link between $v$ and $v'$ with $M$. Suppose in a first time that
+$
+M=
+\begin{pmatrix}
+1&0\\0&K_0
+\end{pmatrix}
+$ with $K_0\in \SO(n)$. In this case,
+\[
+  (1-|\overline{v}|^2)^{-1/2}
+\begin{pmatrix}
+A\\K_0\overline{v}
+\end{pmatrix}
+=(1-|\overline{v'}|^2)^{-1/2}
+\begin{pmatrix}
+1\\\overline{v'}
+\end{pmatrix}.
+\]
+The first component of this equation gives $| \overline{v} |=| \overline{v'} |$ while the others leads to $\overline{v'}=K_0\overline{v}$. Now suppose that $M$ is a boost of velocity $w=\tanh\mu$ in the direction $\partial_1$. It gives
+\begin{equation} \label{eq_sysumv2}
+  (1-|\overline{v}|^2)^{-1/2}
+\begin{pmatrix}
+  \cosh\mu&\sinh\mu\\
+\sinh\mu&\cosh\mu\\
+&&\mtu
+\end{pmatrix}
+\begin{pmatrix}
+  1\\v_1\\\vdots\\v_n
+\end{pmatrix}
+(1-|\overline{v'}|^2)^{-1/2}
+\begin{pmatrix}
+1\\\overline{v'}
+\end{pmatrix}.
+\end{equation}
+The components $0$ and $1$ of this equation give the system
+\begin{subequations}
+\begin{align}
+  (1-|\overline{v}'|^2)^{-1/2}\overline{v}'_1=(1-|\overline{v}|^2)^{-1/2}(\sinh\mu+v_1\cosh\mu)\\
+ (1-|\overline{v}'|^2)^{-1/2}=(1-|\overline{v}'|^2)^{-1/2}(\cosh\mu+v_1\sinh\mu)
+\end{align}
+\end{subequations}
+Substituting the $(1-|\overline{v}'|^2)^{-1/2}$ of the second equation into the left hand side of the first, we find
+\[
+  \overline{v}'_1=\frac{ \sinh\mu+v_1\cosh\mu }{ \cosh\mu+v_1\sinh\mu }.
+\]
+The $k$th component of \eqref{eq_sysumv2} with $x=\tanh\mu$ leads\footnote{We use formula
+\[\cosh\mu=1/\sqrt{1-\tanh^2\mu}\]} to
+\[
+  \overline{v}'_1=\frac{ w+v_1 }{ 1+wv_1 }\text{ and } v_k'=\frac{ v_k\sqrt{1-w^2} }{ 1+v_1w }.
+\]
+
+
+\subsection{The spacial symmetry \texorpdfstring{$P_{\omega}$}{P}}
+%----------------------------------------------
+
+We want to express $P_{\omega}$ in terms of $(x,v)$. Let us recall that $z\in E$ if and only if $ds(z,\epsilon_T)=0$, but $ds(x,y)=\scald{ x }{ Jy }$ where $\scald{ . }{ . }$ is the usual euclidian inner product on $\eR^{n+1}$; the space $E$ is characterised by equation $\scald{ z }{ J\epsilon_T }=0$. We begin to express the linear part $\tilde P_{\omega}$ of $P_{\omega}$. We have $\tilde P_{\omega}z=z$ on $T$ and $\tilde P_{\omega}=-z$ on $E$. Then
+\begin{equation}
+\tilde P_{\omega}=-z+2\scald{ z }{ J\epsilon_T }\epsilon_T,
+\end{equation}
+or
+\begin{subequations}
+\begin{align}
+  \pr_Tz&=\scald{ z }{ J\epsilon_T }\epsilon_T\\
+ \pr_Ez&=z-\scald{ z }{ J\epsilon_T }\epsilon_T.
+\end{align}
+\end{subequations}
+
+\begin{lemma}
+Suppose $\omega=(x,T,E)$ and $\omega'=(x',T,E)$, i.e. among others, $\epsilon_T=\epsilon_{T'}$ or $\epsilon_{T}'$. Then $P_{\omega}=P_{\omega}'$ is and only if $x-x'$ is a multiple of $\epsilon_T$.
+\end{lemma}
+
+\begin{proof}
+Equating formula  \eqref{eq_PomegaprT} for $P_{\omega}$ and $P_{\omega}'$,
+\[
+  x+\pr_T(y-x)-\pr_E(y-x)=x'+\pr_T(y-x')-\pr_E(y-x)
+\]
+which is true if and only if
+\begin{equation}
+  x-x'=\pr_T(x-x')-\pr_E(x-x').
+\end{equation}
+The projection of this equation on $T$ gives nothing while the projection on $E$ leads to $2\pr_E(x-x')=0$, which proves the proposition.
+\end{proof}
+
+\begin{proposition}
+If $\omega=(x,v)\cdot \omega_0$ and $\omega'=(x',v')\cdot\omega_0$, then $P_{\omega}=P_{\omega}'$ if and only if
+\begin{subequations}
+\begin{align}
+  \overline{x}-t\overline{v}&=\overline{x}'-t\overline{v}',\\
+ \overline{v}&=\overline{v}'.
+\end{align}
+\end{subequations}
+In other words, $P_{\omega}$ depends only on $(\overline{x}-t\overline{v};\overline{v})$.
+\end{proposition}
+
+\begin{proof}
+We begin to explicit the condition $P_{\omega}=P_{\omega_0}$. For this, we need $\epsilon_T=\epsilon_0$ and thus $\overline{v}=0$. Since $x_0=o$, the condition $x-x_0\sim\epsilon_0$ is equivalent to $\overline{x}=o$.
+
+For the same reason, it is cleat that $\overline{v}=\overline{v}'$ is a condition in order to get $P_{\omega}=P_{\omega}'$. Now the condition $x-x'\sim\epsilon_T$ is equivalent to the existence of a $\lambda\in\eR$ such that
+\[
+\begin{pmatrix}
+  t\\\overline{x}
+\end{pmatrix}
+=\lambda(1-|\overline{v}'|^2)^{-1/2}
+\begin{pmatrix}
+1\\\overline{v}'
+\end{pmatrix}
++
+\begin{pmatrix}
+t'\\\overline{x}'
+\end{pmatrix}.
+\]
+Taking $\overline{v}=\overline{v}'$ into account, we find the system
+\begin{subequations}
+\begin{align}
+  t&=\lambda(1-|\overline{v}|^2)^{-1/2}+t'\\
+\overline{x}&=\lambda(1-|\overline{v}|^2)^{-1/2}\overline{v}'+\overline{x}.
+\end{align}
+\end{subequations}
+Taking the difference, we find $\overline{x}-t\overline{v}=\overline{x}'=t'\overline{v}'$. The converse is also true: if $\overline{x}-t\overline{v}=\overline{x}'-t\overline{v}'$, the $\lambda=(1-|\overline{v}|^2)^{-1/2}(t-t')$ is a solution.
+
+
+\end{proof}
+
+
+\subsection{Momentum}
+%---------------------
+
+Let $\tilde\eM^*$ be the dual of $\tilde\eM$ on which we consider the dual coordinates of $\tilde\eM$. We call it the \defe{energy-momentum space}{energy-momentum} and we write the elements as line matrices: $p=\begin{pmatrix}p_0,\overline{p}\end{pmatrix}$. The \defe{mass hyperboloid}{mass hyperboloid} is the set
+\begin{equation}
+\scrM=\{ p\in\tilde\eM^*\tq p_0>0\text{ and }(1-|\overline{p}|^2)^{1/2} \}.
+\end{equation}
+There is a bijection $\dpt{ f }{ \scrM }{ B_n }$ by the formula
+\begin{subequations}
+\begin{equation}
+p=(1-|f(p)|^2)^{-1/2}
+\begin{pmatrix}
+1& -f(p)^t
+\end{pmatrix}.
+\end{equation}
+From now we denote this $f(p)^t$ by $\overline{v}$,and the latter equations is best written
+\begin{equation}
+p=(1-|\overline{v}|^2)^{-1/2}
+\begin{pmatrix}
+1\\
+-\overline{v}
+\end{pmatrix}.
+\end{equation}
+\end{subequations}
+Comparing this equation with expression  \eqref{eq_epsTv} of $\epsilon_T$, one sees that
+\begin{equation}
+\epsilon_T=Jp.
+\end{equation}
+
+We have an action of $\LoL_0$ on $B_n$ given by $\dpt{ \sigma_M }{ B_n }{ B_n }$,
+\[
+  (1-|\overline{v}|^2)^{-1/2}M
+\begin{pmatrix}
+1\\\overline{v}
+\end{pmatrix}
+=
+(1-|\sigma_M(\overline{v})|^2)^{-1/2}
+\begin{pmatrix}
+1\\\sigma_M(\overline{v})
+\end{pmatrix}
+\]
+Let us study how this $\sigma$ acts on $\scrM$: let $M\in\LoL_0$, $p\in\scrM$ and compute $(f^{-1}\circ\sigma_M\circ f)(p)$. As usual, we denote $f(\overline{p})$ by $\overline{v}$: they are related by
+\[
+  (1-|\overline{v}|^2)^{-1/2}
+\begin{pmatrix}
+1\\-\overline{v}
+\end{pmatrix}
+=
+\begin{pmatrix}
+p_0\\\overline{p}
+\end{pmatrix}.
+\]
+The first component of this equality is $(1-|\overline{v}|^2)^{-1/2}=p_0$ while the other gives $\overline{v}^t=-\overline{p}(1-|\overline{v}|^2)^{-1/2}$.
+\begin{equation}
+ f(p)=-\overline{p}/p_0
+\end{equation}
+Now we compute $\overline{v}'=\sigma_M(f(p))$ whose definition is
+\[
+  (1-|f(p)|^2)^{-1/2}M
+\begin{pmatrix}
+1\\f(p)
+\end{pmatrix}
+=
+(1-|\overline{v}'|^2)^{-1/2}
+\begin{pmatrix}
+1\\\overline{v}'
+\end{pmatrix}.
+\]
+Using definition of $p_0$ in terms of $\overline{p}$ and the fact that $p_0>0$, we find
+\[
+  p_0M
+\begin{pmatrix}
+1\\f(p)
+\end{pmatrix}
+=
+(1-|\overline{v}'|^2)^{-1/2}
+\begin{pmatrix}
+1\\\overline{v}'
+\end{pmatrix},
+\]
+but
+\[
+\begin{pmatrix}
+1\\f(p)
+\end{pmatrix}
+=
+\begin{pmatrix}
+1\\-\overline{p}/p_0
+\end{pmatrix}
+=
+\frac{1}{ p_0 }
+\begin{pmatrix}
+p_0\\-\overline{p}
+\end{pmatrix}
+=\frac{1}{ p_0 }Jp,
+\]
+therefore
+\begin{equation}
+ JMJp=(1-|\overline{v}'|^2)^{-1/2}
+\begin{pmatrix}
+1\\-\overline{v}'
+\end{pmatrix}.
+\end{equation}
+The latter proves that $f^{-1}(\overline{v}')JMJp$. Finally the action of $\LoL_0$ on $\scrM$ is given by
+\[
+  p\mapsto {M^{t}}^{-1} p.
+\]
+The observer space $\Omega$ is now renamed \defe{phase space}{phase!space} and is seen as
+\begin{equation}
+\Omega=\eR^{n+1}\times\scrM.
+\end{equation}
+The action of $\LoP_0$ on $\Omega$ is given by
+\begin{equation} \label{eq_Maxp}
+(M,a)\cdot(x;p)=(Mx+a;JMJp).
+\end{equation}
+
+
+\begin{lemma} \label{lem_boost_inverse}
+The boost associated with the momentum $-\overline{p}$ is the inverse or the one associated with $\overline{p}$.
+\end{lemma}
+
+
+\begin{proof}
+It is first clear that if $\overline{v}$ is associated with $\overline{p}$, then the boost of $-\overline{p}$ is the one of $-\overline{v}$. So we have
+\begin{subequations}
+\begin{align}
+  A\epsilon_0=(1-|\overline{v}|^2)^{-1/2}
+\begin{pmatrix}
+A\\\overline{v}
+\end{pmatrix}\\
+\intertext{and}
+A'\epsilon_0=(1-|\overline{v}|^2)^{-1/2}
+\begin{pmatrix}
+1\\-\overline{v}
+\end{pmatrix}.
+\end{align}
+\end{subequations}
+If $K_0$ and $\mu$ are such that $\overline{v}=\tanh\mu K_0\epsilon_0$, then, as far as upper left corner is concerned,
+\[
+  K^{-1}AK=
+\begin{pmatrix}
+\cosh\mu & \sinh\mu\\
+\sinh\mu & \cosh\mu
+\end{pmatrix},
+\]
+but $-\overline{v}=\tanh(-\mu)K_0\epsilon_0$, then
+\[
+  K^{-1}A'K=
+\begin{pmatrix}
+\cosh\mu & -\sinh \mu\\
+-\sinh\mu & \cosh\mu
+\end{pmatrix}
+\]
+and $K^{-1}AKK^{-1}A'K=\mtu$. This proves that $AA'=\mtu$.
+\end{proof}
+
+
+\subsection{Invariant measure}
+%-----------------------------
+
+General measure theory is given in section~\ref{sec_distrib_mesure}. A more complete discussion and construction of the present measure on $\scrM$ is given in the book \cite{Reed_Simon} We will prove that $p_0^{-1}d\overline{p}$ is an invariant measure on $\scrM$, but we begin to give a sense to expressions like
+\[
+  \int_{\scrM} f(p)p_0^{-1}d\overline{p}.
+\]
+First, $\scrM$ is parametrized by
+\[
+  \overline{p}\to
+\begin{pmatrix}
+\sqrt{1+\overline{p}^2}\\\overline{p}
+\end{pmatrix},
+\]
+and we know that $dp$ is an invariant measure on $\eR^4$ under the group $\LoL_0$ because the determinant is $1$. Let $f\in C^{\infty}(\scrM)$, there exists (at least everywhere locally) an extension $\hat f$ of $f$ on an open set around $\scrM$. We parametrize $\eR^4$ by $(\overline{p},y)$ where $y=\| y \|^2$, $dp_0=\frac{ 1 }{2}p_0^{-1}\,dy$ and we are leads to consider
+\[
+  \int_{\eR^4}\hat f(\overline{p},y)\frac{ dy }{ 2p_0 }\,d\overline{p}
+\]
+where $\frac{ dy }{ 2p_0 }d\overline{p}$ is an invariant measure. The mass hyperboloid is given by equation $y=m^2$ (we usually set $m=1$). The variable $y$ is invariant under $LoL_0$, so we define ``$p_0^{-1}d\overline{p}$'' by the expression
+\begin{equation}
+  \int_{\scrM}f(p)p_0^{-1}d\overline{p}= \int_{\eR^4}\hat f(\overline{p},y)\delta(y-m^2)\frac{ dy\,d\overline{p} }{ \sqrt{m^2+\overline{p}^2} }
+\end{equation}
+where the $\delta$ has to be taken in the sense of distributions. When we integrate this expression with respect to $y$, we find
+\[
+  \int_{\eR^3}\hat f(\overline{p},m^2)p_0^{-1}\,d\overline{p}
+\]
+and $\hat f(\overline{p},m^2)$ is exactly what one wants to call $f(\overline{p})$.
+
+\subsection{Sobolev setting, Bargmann and Wigner representation}
+%----------------------------------------------
+
+We consider the following action of $\LoP_0$ on $\swS'(\eR^{n+1})$; if $T\in\swS'(\eR^{n+1})$ and $(M,a)\in\LoP_0$, the distribution $U(M,a)$ acts on $\varphi\in\swS(\eR^{n+1})$ as
+\begin{equation}
+	\scald{ U(M,a)T }{ \varphi }=\scald{ T }{ \varphi\circ(M,a) }
+\end{equation}
+where in the right hand side $(M,a)$ is seen as a map $\eR^{n+1}\to\eR^{n+A}$. Let $\LoP^{\uparrow}$ be the maximal subgroup of $\LoP$ containing $\LoP_0$ and not the temporal symmetry $(t,\overline{x})\to(-t,\overline{x})$. This is the \defe{orthochoneous Poincaré group}{Poincaré!orthochroneous}. The action $U$ extends by the same to $\LoP^{\uparrow}$ and becomes the so-called \defe{Wigner-Bargmann representation}{Wigner-Bargmann representation}\index{representation!Wigner-Bargmann}. We define in particular\nomenclature{$\sigma_{\omega}$}{Bargmann-Winger representation}
+\begin{equation}
+\sigma_{\omega}=U(P_{\omega})
+\end{equation}
+
+We are here interested in the Sobolev space $H^{1/2}$ defined in~\ref{DEFooWEAQooAIWBwx}, and more precisely, in the pseudo differential operator of example at page \pageref{pg_exem_psdo}. Using all that, here is some ways to write the scalar product in $H^{1/2}$
+\begin{equation}
+\begin{split}
+  (u,v)_{1/2}&=(Fu,Fv)_{\hat H^{1/2}}\\
+		&=\int (\overline{xi}^2+1)^{1/2}(Fu)(\xi)\overline{ Fv(\xi) }\,d\overline{ \xi }\\
+		&=\int_{\scrM}\hat u(\xi)\overline{ \hat v(\xi) }\xi_0\,d\overline{ \xi }.
+\end{split}
+\end{equation}
+
+We define $\mG\colon H^{1/2}(\eR^n)\to L^2(\scrM)$ by
+\begin{equation}
+  (\mG u)(p)=p_0\hat u(\overline{p});
+\end{equation}
+this is isometric because
+\[
+\begin{split}
+  \| u \|_{1/2}^2&=\int_{\scrM}\hat u(\overline{xi})\overline{ \hat u(\overline{ \xi }) }\xi_0\,d\xi\\
+		&=\int_{\scrM}\frac{1}{ \xi_0 }(\mG u)(\xi)\frac{1}{ \xi_0 }\overline{ \mG u(\xi) }\xi_0\,d\xi\\
+		&=\int_{\scrM}| \mG u(\xi) |^2\xi_0^{-1}\,d\overline{ \xi }\\
+		&=\| \mG u \|_{L^2}(\scrM).
+\end{split}
+\]
+Now, for $u\in H^{1/2}(\eR^n)$, we pose
+\begin{equation}
+  \tilde u(x)=\int_{\scrM} e^{2i\pi x\cdot\scald{ x }{ p } }(\mG u)(p)p_0^{-1}\,d\overline{p}
+		=\int_{\scrM} e^{2i\pi\scald{ x }{ p }}\hat u(\overline{p})\,d\overline{p}.
+\end{equation}
+We have $\tilde u(0,\overline{x})=u(x)$. An other important notion is the \defe{d'Alembert operator}{operator!d'Alembert}\index{d'Alembert operator}
+\[
+  \Box=\partial_t^2-\Delta
+\]
+on $\eR^{n+1}$.
+
+
+\begin{proposition}
+The prolongation $\tilde u$ of $u\in H^{1/2}(\eR^n)$ is solution of the Klein-Gordon equation:
+\[
+  \Box \tilde u=-4\pi^2\tilde u
+\]
+
+\end{proposition}
+
+
+\begin{proof}
+
+One can invert derivatives and integrals because $H^{1/2}$ is a completion of $\swS$, so
+\[
+\begin{split}
+(\Box \tilde u)(x)&=\int_{\scrM}\Box\left(  e^{2i\pi\scald{ x }{ p }}(\mG u)(p)p_0^{-1} \right)\,d\overline{p}\\
+		&=\int_{\scrM} e^{2i\pi\scald{ x }{ p }}(2i\pi)^2(p_0^2-\overline{p}^2)\mG u(p)p_0^{-1}\,d\overline{p}\\
+		&=-4\pi^2\int_{\scrM} e^{2i\pi\scald{ x }{ p }}p_0\hat u(\overline{p})p_0^{-1}\,d\overline{p}\\
+		&=-4\pi^2\tilde u(x).
+\end{split}
+\]
+
+
+\end{proof}
+
+
+An other way to state the same equation is to write\quext{On n'obtient pas le résultat obtenu: le tilde est beaucoup trop large.}
+\[
+\begin{split}
+(2i\pi)^{-1}\partial_t\tilde u(x)&=\int_{\scrM}\partial_t( e^{2i\pi\scald{ x }{ p }})\hat u(\overline{p})\,d\overline{p}\\
+		&=\int_{\scrM}2i\pi p_0 e^{2i\pi\scald{ x }{ p }}\hat u(\overline{p})\,d\overline{p}\\
+\intertext{using $p_0=(1-|\overline{p}|^2)^{-1/2}$ on $\scrM$ and equation \eqref{eq_umdpi_spi},}
+		&=\int_{\scrM}2i\pi e^{2i\pi\scald{ x }{ p }}(1-|\overline{p}|^2)^{1/2}\hat u(\overline{p})\,d\overline{p}\\
+		&=2i\pi\widetilde{  [1-(2\pi)^2\Delta]^{1/2}u }(x)
+\end{split}
+\]
+
+\begin{proposition}
+Let $\tilde u$ and $\tilde v$ be prolongations of the elements $u$ and $v$ of $H^{1/2}(\eR^n)$. If $\tilde v=U(M,a)\tilde u$, then
+\begin{equation}
+(\mG v)(p)=e^{-2i\pi\scald{ a }{ p }}(\mG u)(M^t).
+\end{equation}
+\end{proposition}
+
+
+\begin{proof}
+The condition $\tilde v=U(L,a)\tilde u$ is to be taken in the sense of distributions, i.e., for each $\varphi\in\swS(\eR^{n+1})$,
+\[
+  \int_{\eR^{n+1}}\tilde v(x)\varphi(x)\,dx=\int_{\eR^{n+1}}\tilde u(x)\varphi(Mx+a).
+\]
+It leads us to the equality
+\[
+\begin{split}
+  \iint_{\eR^{n+1}\times\scrM}& e^{2i\pi\scald{ x }{ p }}(\mG v)(p)\varphi(x)p_0^{-1}\,d\overline{p}\,dx\\
+		&=\iint_{\eR^{n+1}\times\scrM} e^{2i\pi\scald{ x }{ p }}\mG u(p)p_0^{-1}\varphi(Mx+a)\,d\overline{p}\,dx\\
+		&=\iint_{\eR^{n+1}\times\scrM} e^{2i\pi\scald{ x }{ p }} e^{-2i\pi\scald{ a }{ p }}\mG u(M^{-1}p)\varphi(x)\,dx\,p_0^{-1}d\overline{p}.
+\end{split}
+\]
+It is an equality of the form
+\[
+  \int  e^{2i\pi\scald{ x }{ p }}f(p)\varphi(x)=\int e^{2i\pi\scald{ x }{ p }}g(p)\varphi(x)\,dx
+\]
+that must be satisfied for all $\varphi$. It implies $f(p)=g(p)$ and the claim.
+
+
+\end{proof}
+
+The correspondence $u\mapsto \tilde u$ allows us to identify $H^{1/2}(\eR^n)$ to a subspace of $\swS'(\eR^{n+1})$. The representation $U$ can be restricted to the subspace of $\swS'$ made up with elements of the form $\tilde u$ for a $u\in H^{1/2}$. In other words, for all $u\in H^{1/2}$, there exists a $v\in H^{1/2}$ such that $U(M,a)\tilde u=\tilde v$. Such a $v$ is obtained by formula
+\[
+  \hat v(\overline{p})=\frac{ (M^{-1}p)_0 }{ p_0 }\hat u(M^{-1}\overline{p}) e^{-2i\pi\scald{ a }{ p }}.
+\]
+
+How does $U(P)$ acts on $u\in H^{1/2}(\eR^n)$? This action is defined \emph{via} the extension $\tilde u\in\swS(\eR^{n+1})$ and the diagram
+\[
+\xymatrix{
+ u \ar[r]\ar@{.>}[d]	&	\tilde u \ar[d]\\
+v:=U(P)u		&	U(P)\tilde u=:\tilde v \ar[l]
+}
+\]
+Since $v(\overline{x})=\tilde v(0,\overline{x})$, we have $U(P)u(\overline{x})=U(P)\tilde u(0,\overline{x})$. When functions make sense, the distribution $U(P)\overline{ u }$ applied to $\varphi$ gives
+\[
+  (U(P)\tilde u)\varphi=\int_{\eR^{n+1}}\tilde u(x)\varphi(Px)\,dx
+		=\int_{\eR^{n+1}}\tilde u(P^{-1} y)\varphi(y)\,dy;
+\]
+then $(U(P)\tilde u)(x)=\tilde u(P^{-1}x)$. Finally,
+\begin{equation}  \label{eq_Upxuxb}
+  U(P)u(\overline{x})=\tilde u\left(
+P^{-1}
+\begin{pmatrix}
+0\\\overline{x}
+\end{pmatrix}
+ \right).
+\end{equation}
+
+
+
+
+\subsection{Back to operator \texorpdfstring{$P_{\omega}$}{P}}
+%------------------------------------------
+
+We consider an observer $\omega=(x;p)$ and its spatial symmetry $P_{\omega}$. We know from \eqref{eq_PomegaprT} that $P_{\omega}y=x+\pr_T(y-x)-\pr_E(y-x)$ and that the linear part of $P_{\omega}$ is given by $\tilde P_{\omega}=J_v$ where $v$ is the velocity associated with the momentum $p$. Let us search for the non linear part of $P_{\omega}$. We have
+\[
+\begin{split}
+P_{\omega}o&=x-\pr_T x+\pr_E x\\
+		&=x-J_vx.
+\end{split}
+\]
+Finally, $P_{\omega}$ can be written under the form $(M,a)$ as
+\[
+  P_{\omega}=(J_v,x-J_vx).
+\]
+
+\begin{proposition}
+  \begin{equation} \label{eq_mGsiguSp}
+ (\mG\sigma_{\omega}u)(p')=\mG u(S_pp') e^{2i\pi x\cdot(S_pp'-p')}
+\end{equation}
+where $S_p$ is the transposed matrix of $J_v$.
+\end{proposition}
+
+\begin{proof}
+We know that $\sigma_{\omega}=U(P_{\omega})$ acts on $u\in H^{1/2}(\eR^n)$ with formula \eqref{eq_Upxuxb}. From definition of $\mG$, we have
+\[
+  \mG(\sigma_{\omega} u)(p')=p'_0\widehat{\sigma_{\omega} u}(\overline{p}').
+\]
+Since $\tilde v=U(M,a)\tilde u$ and more precisely $\tilde v=\sigma_{\omega}\tilde u$, we see that
+\begin{equation} \label{eq_mGsigome}
+\mG(\sigma_{\omega}u)p'= e^{-2i\pi a\cdot p'}\mG u(\tilde P_{\omega}^{-1}p')
+\end{equation}
+where $(a,\tilde P_{\omega})$ is the representation of $P_{\omega}$ under the form $(a,M)$, i.e. $\tilde P_{\omega}^{-1}=J_v^{-1}$ and $a=x-J_vx$. This $a$ fulfils
+\[
+   a\cdot p'=x\cdot p'-J_vx\cdot p'
+		=x\cdot(p'-S_pp');
+\]
+it allows us to rewrite \eqref{eq_mGsigome} as
+\[
+  (\mG\sigma_{\omega}u)(p')= e^{2i\pi x\cdot (p'-S_pp')}\mG u(S_pp').
+\]
+
+\end{proof}
+
+\subsection{Passive symbol}
+%--------------------------
+
+Let $A$ be a trace operator (see subsection~\ref{subsec_traceop}) on $H^{1/2}(\eR^n)$ its \defe{passive symbol}{passive symbol}\index{symbol!Klein-Gordon!passive} in the sense of Klein-Gordon is the function $g\colon \Omega\to \eR$,
+\begin{equation}
+ g(\omega)=2^n\tr(A\sigma_{\omega})\end{equation}
+This is an \defe{admissible}{admissible!function} function: its value at $(t,\overline{x};\overline{v})$ only depends on $(\overline{x}-t\overline{v};v)$. In the $(x;p)$ parametrization of $\Omega$, it means that it only depends on $(\overline{x}+x_0p_0^{-1}\overline{p};p)$.
+
+\begin{proposition}
+The Klein-Gordon calculus is covariant under the action of $\LoP_0$, i.e. for all $P\in\LoP_0$ and trace operator $A$,
+\[
+  U(P)A U(P^{-1})=g\circ P^{-1}
+\]
+
+\end{proposition}
+
+\begin{proof}
+From now, $J_p$ denotes $J_v$ with the corresponding $p\leftrightarrow v$. We know that $\epsilon_T=Jp$ and that $J_vz=-z+2\scald{ z }{ J\epsilon_T }\epsilon_T$; therefore
+\[
+  J_pz=-z+2\scald{ z }{ p }Jp
+\]
+and if $M\in\LoL_0$, we have
+\begin{equation} \label{eq_Memuapr}
+M^{-1}J_pM=J_{M^tp}.
+\end{equation}
+Indeed we know that
+\[
+  J_{M^tp}z=-z+2\scald{ z }{ M^tp }JM^tp,
+\]
+but $J=M^{-1}J{M^t}^{-1}$ because $M\in\LoL$ and on the other hand,
+\[
+\begin{split}
+ M^{-1}J_pMz&=M^{-1}\big( -Mz+2\scald{ Mz }{ p }Jp \big)\\
+		&=-z+2\scald{ Mz }{ p }M^{-1}Jp.
+\end{split}
+\]
+Since $\scald{ . }{ . }$ denotes the euclidian scalar product on $\eR^{n+1}$, we have $\scald{ M. }{ . }=\scald{ . }{ M^t. }$, then
+\[
+  M^{-1}J_pMz=-z+2\scald{ z }{ M^tp }M^{-1}Jp.
+\]
+Relation \eqref{eq_Memuapr} follows because $JM^tp=M^{-1}Jp$ which comes from the fundamental relation $M^tJ=JM^{-1}$.
+
+Let now consider $P_{\omega}=(J_p,x-J_px)$, $(M,a)$ in $\LoP_0$ and $y\in\eR^{n+1}$. First, one can check that
+\[
+  (M,a)^{-1}=M^{-1}\big( J_p(My+a)+x-J_px-a \big),
+\]
+then We have
+\[
+\begin{split}
+  (M,a)^{-1}P_{\omega}(M,a)y&=(M,a)^{-1}\big( J_p(My+a)+x-J_px \big)\\
+		&=J_{M^tp}y+M^{-1}(x-a)+M^{-1}J_p(a-x)\\
+		&=J_{M^tp}y+M^{-1}(x-a)-J_{M^tp}M^{-1}(x-a).
+\end{split}
+\]
+On the other hand, if $\omega=(x;p)$, we know that $P_{\omega}=(J_p,x-J_px)$. Finally,
+\begin{equation}
+  (M,a)^{-1}P_{\omega}(M,a)y=P_{(M^{-1}(x-a),M^tp)}y;
+\end{equation}
+This observer, $(M^{-1}(x-a),M^tp)$, can be written under a more elegant way using formula \eqref{eq_Maxp}. We find
+\[
+  (M,a)^{-1}P_{\omega}(M,a)=P_{(M,a)^{-1}\cdot\omega}.
+\]
+Since $\sigma_{\omega}=U(P_{\omega})$, we conclude that
+\begin{equation}
+U(M,a)^{-1}\sigma_{\omega}U(M,a)=\sigma_{(M,a)^{-1}\cdot\omega}.
+\end{equation}
+
+\end{proof}
+
+\begin{remark}
+If $(M,a)$ don't belong to $LoP_0$, $(M,a)^{-1}\cdot\omega$ is not an observer because it is not linked to $\omega_0$ by a transformation of $\LoP_0$.
+\end{remark}
+
+\subsection{The spacial bundle}
+%-----------------------------
+
+The \defe{spacial bundle}{spacial!bundle} $\eE$\nomenclature{$\eE$}{Spacial bundle} is the following part of $\Omega$:
+\[
+  \eE=\{ (x;p)\in\Omega\tq \scald{ x }{ p }=0 \}
+\]
+where, we insist once again, the product $\scald{ x }{ p }$ is the euclidian one on $\eR^{n+1}$. When $p\in\scrM$ is fixed, $E_p$ denote the hyperplane $\scald{ x }{ p }=0$. In particular,
+\[
+  E_0=\{ x\in\eR^{n+1}\tq x_0=0 \}\simeq\eR^n.
+\]
+
+\begin{proposition}
+The space $E_p$ is the spacial component of the observer whose velocity is $\overline{v}=-p_0^{-1}\overline{p}$ with respect to the reference observer $\omega_0$.
+\end{proposition}
+
+\begin{proof}
+The spacial component is given by $x\cdot \epsilon_T$ (Minkowskian product) and $\epsilon_T=Jp$ where $p$ is related to $\overline{v}$ by $\overline{v}=-p_0^{-1}\overline{p}$. But equation $\scald{ x }{ p }=0$ is precisely $x\cdot Jp=x\cdot\epsilon_t=0$.
+\end{proof}
+
+The group $\LoL_0$ acts on $\eE$: if $x\in E_p$, then $Mx\in E_{ {M^t}^{-1}p}$.
+
+\begin{proposition}
+The bundle $\eE$ admits a canonical trivialization as $\eR^3\times\eR^3$: an element of $\eE$ is parametrized by an element of $E_0$ and a boots which is itself given by $\overline{p}$ or $\overline{v}$.
+\end{proposition}
+
+\begin{proof}
+We will prove that, as $x$ runs over $E_0$, $y=\Lambda_{\overline{p}}x$ runs over $E_p$ if $\Lambda_{\overline{p}}$ is the boost associated with $\overline{p}$. Let $\Lambda$ be a boost and consider $p$ such that
+\begin{equation}  \label{eq_condJpEp}
+Jp=\Lambda e_0.
+\end{equation}
+For each $x\in E_p$, we have
+\[
+  0=\scald{ x }{ p }=x\cdot Jp=x\cdot\Lambda e_0=\Lambda^{-1}x\cdot e_0.
+\]
+So $x\in E_p$ if and only if $(\Lambda^{-1}x)_0=0$. This shows that $E_p=\Lambda E_0$.
+
+On the other hand, if we pick a $p$, then equation \eqref{eq_condJpEp} gives as $\Lambda$ the map $x\mapsto y$ defined by
+ \begin{subequations} \label{eq_transofI}
+\begin{align}
+  y_0&=p_0x_0-\scald{ \overline{p} }{ \overline{x} }\\
+\overline{ y }=\overline{x}-x_0\overline{p}+(1-|\overline{p}|^2)^{-1}\scald{ \overline{p} }{ \overline{x} }\overline{p}.
+\end{align}
+\end{subequations}
+It is easy to see that this transformation effectively gives $\Lambda e_0=Jp=
+\begin{pmatrix}
+p_0\\-\overline{p}
+\end{pmatrix}
+$. To prove that this is a boost is nos as easy. First, check that $y_0^2-\overline{ y }^2=x_0^2-\overline{x}^2$ by developing the left hand side and use the fact that $\overline{p}^2=(p_0+1)(p_0-1)$. So \eqref{eq_transofI} defines a Lorentz transformation. One can check that it is selfadjoint from its explicit matricial representation. In order to check that transformation \eqref{eq_transofI} is positive defined, one checks that for all $x\in\eR^{n+1}$,  $\scald{ x }{ Ax }>0$ where $A$ is the transformation. For this, consider $\scald{ x }{ Ax }$ as a polynomial with respect to $x_0$. Since $p_0>1$, it goes to infinity when $x_0$ goes to $\pm\infty$. It remains to be proved that it doesn't vanishes. For this, solve a second degree polynomial as usual using Cauchy-Schwarz $| \scald{ \overline{p} }{ \overline{x} } |^2\leq \overline{p}^2\overline{x}^2$ and finds for the determinant a second degree polynomial with respect to $p_0$ which admits no roots with $p_0>1$.
+
+From the representation \eqref{eq_transofI} of $\Lambda$ in function of $p$, we see that when $x_0=0$, $y$ runs over $E_p$.
+
+\end{proof}
+
+\subsection{Measures on spacial bundle}
+%--------------------------------------
+
+From system \eqref{eq_transofI}, one easy see that
+\[
+\frac{ \partial y_j }{ \partial x_k }=\delta_{jk}+(1+p_0)^{-1}p_jp_k,
+\]
+from which we derive
+\begin{equation}
+\begin{split}
+d\overline{y}&=d\overline{x}+(1+p_0)^{-1}\overline{p}^2\,d\overline{x}\\
+		&=p_0\,d\overline{x}\\
+ \end{split}
+\end{equation}
+
+
+\begin{probleme}
+Dans cette dérivation ainsi que les autres mesures qui vont suivre, je ne comprends pas le raisonement d'Unterberger.
+\end{probleme}
+
+There is another way to parametrize $E_p$ with $E_0$. For this, we projects $E_0$ on $E$, the spacial component of the observer $\omega$. This projection is given by $\pr_Ex=x-\scald{ x }{ J\epsilon_T }\epsilon_T$, or
+\begin{equation} \label{eq_xtozzeq}
+z=\pr_Ex=x-\scald{ x }{ p }Jp.
+\end{equation}
+This gives a bijection $x\mapsto z$ between $E_0$ and $E_p$. Indeed if $x\in E_0$, then $\scald{ z }{ p }=\scald{ x }{ p }-\scald{ x }{ p }-\scald{ Jp }{ p }=0$. This is injective because $x-\scald{ x }{ p }Jp=x'-\scald{ x' }{ p }Jp$ implies $x-x'=\scald{ x-x' }{ p }Jp$. But $x,x'\in E_0$, then $x_0=x'_0=0$ and $(Jp)_0=0$ which should implies $p_0=0$ which is impossible.
+
+ Let us now prove that \eqref{eq_xtozzeq} is surjective: for all $z\in\eR^{n+1}$ such that $\scald{ z }{ p }=0$, there exists a $x\in E_0$ such that $z=x-\scald{ x }{ p }Jp$. First, we remark that $x=z+aJp$ works for all $a\in \eR$ as far as condition $\pr_Ex=z$ is concerned. It is therefore easy to fix $a$ in order to get $x_0=0$: it is $a=-p_0/z_0$ where we know that $z_0\neq 0$ because \eqref{eq_xtozzeq} should imply $p_0=0$.
+
+
+If $d\overline{x}$ is the measure on $E_0$, which is the corresponding measure $d\overline{ z }$ on $E_p$?
+
+\begin{probleme}
+Toujours le même truc d'Unterbeger que je ne comprends pas sur sa façon de trouver les $d\overline{ z }$ en fonction des $d\overline{ x }$.
+\end{probleme}
+The answer is
+\begin{equation}
+  d\overline{ z }=(1+\overline{p}^2)\,d\overline{x}=p_0^2\,d\overline{x}.
+\end{equation}
+
+The measure $p_0^{-2}\,d\overline{x}\,d\overline{p}$ is invariant under pure spacial rotations. Now equality $\Lambda(x;p)=(y;q)$ means that $\Lambda x=y$ and $\Lambda^{-1}p=q$ because momentum transform with ${M^t}^{-1}$ and here $\Lambda^t=\Lambda$ because $\Lambda$ is a boost. So we look at a boost $\Lambda_{\overline{p'}}$ related to the momentum $p'$ and we will prove that $p_0^{-2}\,d\overline{x}\,d\overline{p}$ is invariant under this boost. In other words, we want $q_0^{-2}\,d\overline{ y }\,d\overline{ q }=p_0^{-2}\,d\overline{x}\,d\overline{p}$.
+
+By lemma~\ref{lem_boost_inverse} and system \eqref{eq_transofI} , we find $q_0=(\Lambda^{-1})_0=p'_0p_0+\scald{ \overline{p}' }{ \overline{p} }$. On the other hand, $x\in E_p$, so $x_0=-p_0^{-1}\scald{ \overline{x} }{ \overline{p} }$ and formula
+\[
+  \overline{ y }=\overline{x}-x_0\overline{p}'+(1+p'_0)^{-1}\scald{ \overline{p}' }{ \overline{x} }\overline{p}'
+\]
+gives $d\overline{ y }/d\overline{x}=p_0^{-1}$ which proves that $d\overline{ y }=p_0^{-1}q_0\,d\overline{x}$. But we know from a long time that measure $p_0^{-1}\,d\overline{p}$ is invariant, then $d\overline{ q }=q_0p_0^{-1}\,d\overline{p}$.
+
+\begin{lemma}
+ The function $f(x;p)$ defined on $\Omega$ depends only on $(\overline{x}+x_0p_0^{-1}\overline{p};p)$ if and only if fulfils the differential equation
+\begin{equation}
+  p_0\frac{ \partial f }{ \partial x_0 }f=\sum_j \frac{ \partial f }{ \partial x_j }.
+\end{equation}
+
+\end{lemma}
+
+
+\begin{proof}
+When one computes $\partial_0f$, one remark that $f(x_0+t,\overline{x};p)$ only contains $x_0$ under the form $\overline{x}+(x_0+t)p_0^{-1}\overline{p}=\overline{x}+x_0p_0^{-1}\overline{p}+tp_0^{-1}\overline{p}$, then
+\[
+  f(x_0+t,\overline{x};p)=f(x_0,\overline{x}+tp_0^{-1}\overline{p};p).
+\]
+This leads to the conclusion.
+\end{proof}
+
+\subsection{Active symbol}
+%------------------------
+
+Let $f$ be an admissible function on $\Omega$ which fulfils
+\[
+  \int_{\eE} | f(x;p) |p_0^{-2}\,d\overline{x}\,\overline{p}<\infty.
+\]
+The operator $\Op(f)$ of \defe{active symbol}{active symbol}\index{symbol!active}\nomenclature{$Op(f)$}{Active symbol of $f$} $f$ is the operator on $H^{1/2}(\eR^n)$ defined by
+\begin{equation}
+  \Op(f)=2^n\int_{\eE} f(x;p)\sigma_{(x;p)}p_0^{-2}\,d\overline{x}\,d\overline{p}.
+\end{equation}
+
+One can prove that it is a bounded operator\quext{Saut que moi, je n'y parviens pas.}.
+
+\begin{proposition} \label{prop_symbadj}
+The active or passive symbol of the adjoint of an operator is the complex conjugated of the corresponding symbol.
+\end{proposition}
+
+We begin by proving a lemma:
+
+\begin{lemma}
+The operator $\sigma_{\omega}$ is involutive.
+\end{lemma}
+
+\begin{proof}[Proof of the lemma]
+Formula \eqref{eq_mGsiguSp} with $\sigma_{\omega}^2$ gives
+ \[
+\begin{split}
+  (\mG\sigma_{\omega}^2u)(q)&=(\mG\sigma_{\omega} u)(S_pq) e^{2i\pi x\cdot(S_pq-q)}\\
+		&=\mG u(q),
+\end{split}
+\]
+taking into account $S_p^2=\mtu$.
+\end{proof}
+Remark that an unitary involutive operator is selfadjoint.
+
+\begin{proof}[Proof of proposition~\ref{prop_symbadj} ]
+Let $A$ be a trace operator; its passive symbol is the function $g\colon \Omega\to \eC$,
+\[
+  g_A(\omega)=2^n\tr(A\sigma_{\omega}),
+\]
+therefore
+\[
+\begin{split}
+  \overline{ g_{A^*}(\omega) }&= 2^n\overline{  \tr(\overline{ A }\sigma^t_{\omega})   }\\
+		&=2^n\tr(A\sigma^*_{\omega})\\
+		&=2^n\tr(A\sigma_{\omega})\\
+		&=g_A(\omega).
+\end{split}
+\]
+
+We now turn our attention to ative symbol. We prove that
+\[
+  \big( \Op(f)u,v \big)_{1/2}=\big( u,\Op(\overline{ f })v \big)_{1/2}.
+\]
+by the following computation:
+\[
+\begin{split}
+ \big( \Op(f)u,v \big)_{1/2}&=\int_{\scrM}\xi_0\widehat{\Op(f)u}(\overline{\xi})\overline{ \hat v(\overline{\xi}) }\,d\overline{ \xi }\\
+		&\begin{split}=
+2^n\int_{\scrM}\int_{\eR^n}\xi_0\int_{\eE}&e^{-2i\pi \scald{ \overline{ \xi } }{ \overline{ y } }}f(x;p)
+			\sigma_{(x;p)}u(\overline{ y })\overline{  \hat v(\overline{ \xi })  }p_0^{-1}\\
+		d\overline{x}\,d\overline{ y }\,d\overline{ \xi }\,d\overline{p},\\
+\end{split}
+\intertext{but integral over $\overline{ y }$ leads  to the Fourier transform of $\sigma_{(x;p)}u$ at $\overline{ \xi }$, so}
+		&=2^n\int_{\eE} \big( \sigma_{(x;p)}u,v \big)_{1/2} f(x;p)p_0^{-1}\,d\overline{x}\,d\overline{p}\\
+		&=2^n\int_{\eE} \big( u,\overline{ f }(x;p)\sigma_{(x;p)}v \big)_{1/2}p_0^{-1}\,d\overline{x}\,d\overline{p}\\
+		&=\big( u,\Op(\overline{ f })v \big)_{1/2}.
+\end{split}
+\]
+\end{proof}
+
+
+\subsection{The operator \texorpdfstring{$\nabla^{\lambda}$}{nabla}}
+%-------------------------------------------
+
+Let $f$ be a continuous function on $\Omega$ which grows slowly with respect to the variable $x$. We denote by $F_1f$ the Fourier transform of $f$ with respect to this variable and we suppose that the support of $(F_1f)(\xi,p)$ is space-like: for all $\xi\in\Supp F_1f$, we have $\overline{ \xi }^2-\xi_0^2\geq0$. In the same way that we defined $(1+\Delta)^s$ in section~\ref{SECooNJLDooFcUzQv}, we define
+\[
+  \nabla^s=\big( 1+(4\pi)^{-2}\Box \big)^{s/2}
+\]
+by formula
+\begin{equation}
+  F_1(\nabla^sf)(\xi,p)=\big( 1+\frac{ 1 }{ 4 }(\overline{ \xi }^2-\xi_0^2) \big)^{s/2}(F_1f)(\xi,p).
+\end{equation}
+When $s=2$, we find back the d'Alembert operator $\Box=\partial_t^2-\sum_j\partial_j^2$. If $f$ is admissible, it fulfils equation $\scald{ Jp }{ \partial_{\overline{x}}f }=0$ where we defined $(\partial f/\partial_{\overline{x}})_i=\partial f/\partial x_i$. Let us prove that $\scald{ Jp }{ \xi }=0$ on the support of $F_1f$.	Standard result \eqref{subeq_prop_Four} leads to
+\[
+  \scald{ Jp }{ \partial_{\overline{x}}f }=2i\pi F_1^{-1}\big( \scald{ Jp }{ \xi }F_1f \big)(x)=0,
+\]
+which imposes $\scald{ Jp }{ \xi }=0$ on the support of $F_1f$. So $p_0\xi_0=\scald{ \overline{p} }{ \overline{\xi}}\leq| \overline{p} | |\overline{\xi} |$, and thus on the support of $F_1f$, we have $\xi_0^2\leq p_0^{-2}\overline{p}^2\overline{\xi}^2$, but $1-p_0^{-2}\overline{p}^2=p_0^{-2}(p_0^2-\overline{p}^2)=p_0^{-2}$ and finally,
+\[
+  \overline{\xi}^2-\xi_0\geq p_0^{-2}\overline{\xi}^2\geq\frac{ 1 }{2}p_0^{-2}\overline{\xi}^2.
+\]

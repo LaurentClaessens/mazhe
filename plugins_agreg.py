@@ -1,33 +1,13 @@
 # -*- coding: utf8 -*-
 
-# This is part of (almost) Everything I know in mathematics
-# Copyright (c) 2014-2015   (et en fait sûrement plus)
-#   Laurent Claessens
-# See the file fdl-1.3.txt for copying conditions.
-
-
 from __future__ import unicode_literals
 
-import LaTeXparser
-import LaTeXparser.PytexTools
-
-agreg_mark_list=[]
-agreg_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
-agreg_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
-agreg_mark_list.append("% SCRIPT MARK -- TOC")
-agreg_mark_list.append("% SCRIPT MARK -- FRIDO")
-agreg_mark_list.append("% SCRIPT MARK -- FINAL")
-
-book_mark_list=[]
-book_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
-book_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
-book_mark_list.append("% SCRIPT MARK -- TOC")
-book_mark_list.append("% SCRIPT MARK -- FRIDO")
-book_mark_list.append("% SCRIPT MARK -- FINAL")
-
-
-mesnotes_mark_list=agreg_mark_list[:]
-mesnotes_mark_list.append("% SCRIPT MARK -- DÉVELOPPEMENTS POSSIBLES")
+frido_mark_list=[]
+frido_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+frido_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
+frido_mark_list.append("% SCRIPT MARK -- TOC")
+frido_mark_list.append("% SCRIPT MARK -- FRIDO")
+frido_mark_list.append("% SCRIPT MARK -- FINAL")
 
 outilsmath_mark_list=[]
 outilsmath_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
@@ -110,8 +90,6 @@ class set_boolean(object):
         """
         true_line=r"\booltrue{{{}}}".format(self.name)
         false_line=r"\boolfalse{{{}}}".format(self.name)
-        print(true_line)
-        print(false_line)
         if self.value=="true":
             S=A.replace(false_line,true_line)
         elif self.value=="false":
@@ -119,6 +97,29 @@ class set_boolean(object):
         else :
             raise ValueError("You have to choose between 'true' of 'false'")
         return S
+
+class set_pdftitle(object):
+    def __init__(self,pdftitle):
+        self.pdftitle = pdftitle
+    def __call__(self, old_text):
+        r"""
+        Changes the line
+        \newcommand{\pdftitle}{<wathever>}
+        into
+        \newcommand{\pdftitle}{<pdftitle>}
+
+        @param {str} `old_text`     the tex file which will be compiled
+        @return {str}               the tex file (changed) to be compiled
+        """
+        mark = r"\newcommand{\pdftitle}"
+        new_command_line = r"""\newcommand{\pdftitle}{PDFTITLE}""".replace("PDFTITLE", self.pdftitle)
+        new_text_list = []
+        for line in old_text.split("\n"):
+            if line.startswith(mark):
+                new_text_list.append(new_command_line)
+            else:
+                new_text_list.append(line)
+        return "\n".join(new_text_list)
 
 set_isFrido = set_boolean("isFrido","true")
 
@@ -143,7 +144,8 @@ def get_hexsha(repo):
 
 def set_commit_hexsha(A):
     import pygit2
-    repo=pygit2.Repository(".")
+    import os
+    repo=pygit2.Repository(os.getcwd())
     hexsha=str(get_hexsha(repo))
     if is_dirty(repo):
         hexsha=hexsha+" -- and slightly more"
@@ -151,3 +153,49 @@ def set_commit_hexsha(A):
     print(hexsha)
     A = A.replace(u,u.replace("missing information",hexsha))
     return A
+
+def assert_MonCerveau_first():
+    """
+    Read the bbl file and check that the reference "MonCerveau" is the first one.
+    """
+
+    import os.path
+    filename="Inter_frido-mazhe_pytex.bbl"
+    if not os.path.exists(filename):
+        print("Le fichier bbl n'existe pas. C'est pas très normal.  Si cela persiste à la prochaine compilation, posez-vous des questions.")
+        return None
+    bbl_content=open(filename).read()
+    bbl_first=bbl_content.find("bibitem")
+    bbl_second=bbl_content.find("bibitem",bbl_first+1)
+    text=bbl_content[bbl_first:bbl_second]
+    if not "MonCerveau" in text:
+        print("""Il semblerait que la référence bibliographique 'MonCerveau' ne soit pas la première. Il faut corriger ça. En effet, le lecteur doit savoir que lorsqu'il voit la référence [1], ça veut dire 'danger'.
+
+        Après modification, le plus simple est de supprimer le fichier {} et de relancer.
+
+                """.format(filename))
+        raise
+
+def split_toc(name,n):
+    """
+    Rewrites the TOC file with adding "(Vol i)" to the chapter name.
+    With i being the number of the volume in which the chapter should appears.
+
+    @param n : the number of volumes
+    @param name (string) the name of the document we are speaking about
+    @return : a function which makes the work
+
+    The parameter 'name' serves to distinguish 'frido' from 'book' when
+    creating the pathname of the toc file.
+    """
+
+    def _split_doc():
+        import sys
+        import os
+        cwd=os.getcwd()
+        sys.path.append(os.path.join(cwd,"python"))
+        from splittoc import Book
+        toc_filename=os.path.join(cwd,"Inter_{}-mazhe_pytex.toc".format(name))
+        book=Book(toc_filename)
+        book.rewrite_toc(n)
+    return _split_doc
