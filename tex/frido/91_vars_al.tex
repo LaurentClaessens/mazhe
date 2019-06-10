@@ -1326,21 +1326,52 @@ Donc sachant \( A\), la probabilité que la famille soit constituée de deux fil
 
 \paragraph{Comment faire mieux ?}
 
-Ce calcul semble être correct, mais il ne l'est pas. Dans ce calcul, nous n'avons pas inclus le fait que nous avons une des deux filles devant nous. Certes, nous pouvons penser que cela ne change rien. Oui oui, on peut le penser. Mais ici, on ne doit pas penser, on doit \emph{démontrer}. 
+Ce calcul semble être correct, mais il ne l'est pas. Ce raisonnement fait l'hypothèse implicite que l'espace probabilisé décrivant la situation contient deux variables aléatoires \( X_1\) et \( X_2\) représentant les deux enfants. Or nous avons bien trois événements aléatoires dans l'histoires : le sexe des deux enfants et le \emph{choix} de l'enfant qui ouvre la porte.
 
-Comment faire mieux ? En faisant un calcul qui inlcus réellement tous les paramètres de la question. Dans l'histoire de la fille qui ouvre la porte, il s'est produit \( 3\) événements aléatoires : deux naissances et le «choix» de l'enfant qui ouvre la porte.
+Certes, nous pouvons penser que cette troisième variable aléatoire ne change rien. Oui oui, on peut le penser. Mais ici, on ne doit pas penser, on doit \emph{démontrer}. 
+
+Nous allons donc rédiger un calcul complet, en introduisant toutes les variables aléatoires, et en décrivant correctement l'espace probabilisé \( \Omega\) et la mesure de probabilité \( P\).
+
+Peut-être que ça ne changera rien. Ou peut-être pas. Mais au moins nous serons surs d'avoir résolu le problème correctement.
 
 \paragraph{La vraie réponse}
 
 Nous considérons les variables aléatoires \( X_0,X_1\colon \Omega_E\to \{ f,g \}\) avec probabilité \( \frac{ 1 }{2}\). De plus nous considérons une nouvelle variable aléatoire qui donne le numéro de l'enfant qui ouvre la porte :
 \begin{equation}
-    \sigma\colon \Omega_C\to \{ 0,1 \}.
+    \sigma\colon \Omega_C\to \{ 1,2 \}.
 \end{equation}
+
+Notre espace de probabilité est donc l'ensemble \( \Omega=\{ f,g \}\times \{ f,g \}\times {0,1}\) sur lequel nous considérons la mesure d'équiprobabilité\footnote{C'est une hypothèse forte faisant appel d'un part ce que l'on sait de la reproduction humaine, et d'autre part ce que l'on sait de la sociologie de deux enfants qui entendent une sonnette.}.
+
+Nous introduisont les variables aléatoires\footnote{Sur \( \Omega\), sur \( \{ f,g \}\) et sur \( \{ 0,1 \}\) nous mettons la tribu des parties. Vérifiez que \( X_1\), \( X_2\) et \( \sigma\) sont mesurables.}
+\begin{equation}
+    \begin{aligned}
+        X_1\colon \Omega&\to \{ f,g \} \\
+        (s_1,s_2,n)&\mapsto s_1 
+    \end{aligned}
+\end{equation}
+et
+\begin{equation}
+    \begin{aligned}
+        X_2\colon \Omega&\to \{ f,g \} \\
+        (s_1,s_2,n)&\mapsto s_2 
+    \end{aligned}
+\end{equation}
+et
+\begin{equation}
+    \begin{aligned}
+        \sigma\colon \Omega&\to \{ 1,2 \} \\
+        (s_1,s_2,n)&\mapsto n
+    \end{aligned}
+\end{equation}
+
+
 Nous devons calculer
 \begin{equation}
     P\big( X_{1-\sigma}=f|X_{\sigma}=f \big)=\frac{ P\big( X_{1-\sigma}=f,X_{\sigma}=f \big) }{ P(X_{\sigma}=f) }.
 \end{equation}
-L'univers de toute cette expérience est, donnée en triples pour les valeurs \( (X_1,X_2,\sigma)\) :
+
+Pour être explicite jusqu'au bout, nous énumérons tous les éléments de \( \Omega\) :
 \begin{multicols}{4}
     \begin{enumerate}
         \item
@@ -1361,7 +1392,19 @@ L'univers de toute cette expérience est, donnée en triples pour les valeurs \(
             \( f,f,1\).
     \end{enumerate}
 \end{multicols}
-Cela fait \( 8\) cas en tout. Nous avons
+
+Et tant qu'à être explicite, l'événement vulgairement noté \( \{ X_{\sigma}=f \}\) est la partie
+\begin{subequations}
+    \begin{align}
+    \{ X_{\sigma}=f \}&=\{ \omega\in \Omega\tq X_{\sigma(\omega)}(\omega)=f \}\\
+    &=\{ (s_1,s_2,n)\tq X_n(s_1,s_2,n)=f \}\\
+    &=\{ (s_1,s_2,n)\tq s_n=f \}.
+    \end{align}
+\end{subequations}
+Méditez la dernière égalité; elle n'est pas totalement indispensable au raisonnement, mais elle est cool.
+
+
+Nous avons
 \begin{equation}
     \{ X_{\sigma}=f \}=\{ (g,f,1),(f,g,0),(f,f,0),(f,f,1) \}.
 \end{equation}
@@ -1384,7 +1427,7 @@ Au final,
 
 \paragraph{Simulation}
 
-Pour en avoir le cœur net, nous avons écrit ce programme :
+Vous avez encore un doute ? Faites tourner la simulation suivante :
 \lstinputlisting{tex/sage/simul_famille_simple.py}
 
 Le faisant tourner, la réponse est sans appel : la fréquence observée est beaucoup plus proche de \( 0.5\) que de \( 0.33\) ou \( 0.66\).
