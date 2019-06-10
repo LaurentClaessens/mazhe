@@ -1,5 +1,9 @@
 # Journal des changements du Frido
 
+## Isométries affines (juin 2019)
+
+- un peu de mise au clair à propos de la différence entre des isométries de (R^n,d) et de (R^n, ||.||).
+- pavage du plan
 
 ## Formes bilinéaires (mai 2019)
 
