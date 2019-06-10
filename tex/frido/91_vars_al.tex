@@ -1274,14 +1274,14 @@ L'exemple que nous venons de faire montre qu'il n'en est rien.
 
 Attention : ce qui est écrit ici est ma réflexion personnelle sur le sujet. Merci de me dire si je me trompe.
 
-Soit une famille dont vous savez seulement qu'il y a exactement deux enfants. Trois questions :
+Soit une famille dont vous savez seulement qu'il y a exactement deux enfants. Trois situations :
 \begin{enumerate}
     \item       \label{ITEMooNUPAooWCXwBE}
         Vous frappez, une fille ouvre la porte et dit «Bonjour, je suis l'aînée». Quelle est la probabilité que l'autre enfant soit une fille ?
     \item   \label{ITEMooBGIWooLnVCpm}
         Vous frappez, une fille ouvre la porte et dit «Bonjour». Quelle est la probabilité que l'autre enfant soit une fille ?
     \item       \label{ITEMooCBNSooMaIwwB}
-        Vous demandez aux parents s'il y a au moins une fille, ils répondent «oui». Vous demandez si l'autre est une fille, quelle est la probabilité qu'ils répondent «oui» ?
+        Vous demandez aux parents s'il y a au moins une fille, ils répondent «oui». Quelle est la probabilité que les deux enfants soient des filles ?
 \end{enumerate}
 Dans les trois cas l'intuition dit que la probabilité est \( 1/2\). Il semble que de plus la~\ref{ITEMooBGIWooLnVCpm} et la~\ref{ITEMooCBNSooMaIwwB} soient les mêmes parce que l'on sait qu'il y a une fille et on se demande quelle est la probabilité qu'il y ait deux filles.
 
@@ -1308,30 +1308,27 @@ Voici un petit programme qui simule la situation. Il retourne clairement \( 1/2\
 \subsubsection{«Bonjour»}
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Nous frappons à la porte, une fille ouvre en disant «bonjour», sans préciser si elle est la première ou la seconde. Quelle est la probabilité que l'autre soit une fille ? Naïvement on croirait que la probabilité est également \( \frac{ 1 }{2}\). Un raisonnement moins naïf montre le contraire. Et nous allons voir qu'un raisonnement encore moins naïf montre que la probabilité est bien \( \frac{ 1 }{2}\).
+Nous frappons à la porte, une fille ouvre en disant «bonjour», sans préciser si elle est la première ou la seconde. Quelle est la probabilité que l'autre soit une fille ? Naïvement on croirait que la probabilité est également \( \frac{ 1 }{2}\). 
 
-\paragraph{Premier raisonnement}
+Un raisonnement moins naïf montre le contraire. 
 
-Voici le raisonnement qui est, à mon avis, faux. Vu que l'enfant qui ouvre la porte est une fille, la famille a une des compositions suivantes : \( fg\), \( ff\) ou \( gf\). Le cas où une fille ouvre la porte \emph{et} que l'autre est également une fille est seulement le cas \( ff\) dont la probabilité est \( \frac{1}{ 3 }\). Pour justifier cela nous considérons le couple de variables aléatoires \( \left( X_1,X_2 \right)\) et le conditionnement \( A=\{ X_1=f \}\cup\{ X_2=f \}\) : évidemment \( P(A)=\frac{ 3 }{ 4 }\). Nous calculons facilement la loi du couple \( (X_1,X_2)\) conditionné à \( A\) :
+Et nous allons voir qu'un raisonnement encore moins naïf montre que la probabilité est bien \( \frac{ 1 }{2}\).
+
+\paragraph{Premier raisonnement (incorrect)}
+
+Voici le raisonnement qui est, à mon avis, faux. Vu que l'enfant qui ouvre la porte est une fille, la famille a une des compositions suivantes : \( fg\), \( ff\) ou \( gf\). Le cas où une fille ouvre la porte \emph{et} que l'autre est également une fille est seulement le cas \( ff\) dont la probabilité est \( \frac{1}{ 3 }\). 
+
+Pour justifier cela nous considérons le couple de variables aléatoires \( \left( X_1,X_2 \right)\) et le conditionnement \( A=\{ X_1=f \}\cup\{ X_2=f \}\) : évidemment \( P(A)=\frac{ 3 }{ 4 }\). Nous calculons facilement la loi du couple \( (X_1,X_2)\) conditionné à \( A\) :
 \begin{equation}
-    P(X_1=f,X_2=f|A)=\frac{ P(  \{ X_1=f,X_2=f \}\cap A  ) }{ P(A) }=\frac{ 1/4 }{ 3/4 }=\frac{1}{ 3 };
+    P(X_1=f,X_2=f|A)=\frac{ P(  \{ X_1=f,X_2=f \}\cap A  ) }{ P(A) }=\frac{ 1/4 }{ 3/4 }=\frac{1}{ 3 }.
 \end{equation}
-de même,
-\begin{subequations}
-    \begin{align}
-        P(X_1=g,X_2=f|A)&=\frac{1}{ 3 }\\
-        P(X_1=f,X_2=g|A)&=\frac{1}{ 3 }\\
-        P(X_1=g,X_2=g|A)&=0
-    \end{align}
-\end{subequations}
 Donc sachant \( A\), la probabilité que la famille soit constituée de deux filles est \( \frac{1}{ 3 }\).
 
-\paragraph{Simulation}
+\paragraph{Comment faire mieux ?}
 
-Pour en avoir le cœur net, nous avons écrit ce programme :
-\lstinputlisting{tex/sage/simul_famille_simple.py}
+Ce calcul semble être correct, mais il ne l'est pas. Dans ce calcul, nous n'avons pas inclus le fait que nous avons une des deux filles devant nous. Certes, nous pouvons penser que cela ne change rien. Oui oui, on peut le penser. Mais ici, on ne doit pas penser, on doit \emph{démontrer}. 
 
-Le faisant tourner, la réponse est sans appel : la fréquence observée est beaucoup plus proche de \( 0.5\) que de \( 0.33\) ou \( 0.66\).
+Comment faire mieux ? En faisant un calcul qui inlcus réellement tous les paramètres de la question. Dans l'histoire de la fille qui ouvre la porte, il s'est produit \( 3\) événements aléatoires : deux naissances et le «choix» de l'enfant qui ouvre la porte.
 
 \paragraph{La vraie réponse}
 
@@ -1385,6 +1382,13 @@ Au final,
     P\big( X_{1-\sigma}=f|X_{\sigma}=f \big)=\frac{ 1/4 }{ 1/2 }=\frac{ 2 }{ 4 }=\frac{ 1 }{2}.
 \end{equation}
 
+\paragraph{Simulation}
+
+Pour en avoir le cœur net, nous avons écrit ce programme :
+\lstinputlisting{tex/sage/simul_famille_simple.py}
+
+Le faisant tourner, la réponse est sans appel : la fréquence observée est beaucoup plus proche de \( 0.5\) que de \( 0.33\) ou \( 0.66\).
+
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 \subsubsection{Le parent qui répond aux questions}
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1415,7 +1419,6 @@ L'événement \( S=2\) est réduit au singleton \( \{ ff \}\) et sa probabilité
 \end{equation}
 Et là, la réponse est \( 1/3\) et non \( 1/2\) comme d'aucuns auraient pu le croire.
 
-
 \paragraph{Précision}
 Notons que l'événement \( S\geq 1\) n'est pas le même que l'événement \( X_{\sigma}=f\). En effet
 \begin{equation}
@@ -1427,10 +1430,18 @@ tandis que
 \end{equation}
 
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Conclusion}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+L'internet regorge de sites discuttant du paradoxe des deux enfants\footnote{Par exemple \cite{BIBooBXKDooOTEkjy}.}. Beaucoup insistent sur le fait que non seulement certaines informations apparament anodines sont importantes, mais en plus \emph{la façon} dont on obtient l'information est importante. Dans la situation «une fille ouvre», nous obtenons l'information «il y a au moins une fille» en en voyant une; dans la situation «la parent dit qu'il y a au moins une fille», nous obtenons l'information «il y a au moins une fille» de façon plus «pure».
+
+Personnellement je ne souscris pas vraiment à cette façon de penser. Ma conclusion est plutôt que «sachant que» en mathématique ne signifie pas la même chose que «sachant que» en français. Pour obtenir «la bonne réponse», il ne suffit pas d'écrire \( P(A|B)\) en substituant \( A\) par la question posée et \( B\) par l'information que nous avons. Il faut de plus correctement construire les espaces probabilisés dans lesquels sont \( A\) et \( B\), et être sûr d'ajouter une variable aléatoire pour chaque événement aléatoire qui intervient dans l'histoire.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 \subsubsection{À propos des simulations}
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Si vous lisez ces lignes avec l'intention de passer l'agrégation en utilisant Sage à l'épreuve de modélisation, vous devez être capable de refaire les trois simulations. Notez de plus que les simulations ici sont données avec python3 alors que Sage utilise Python2. Je ne vous dit pas si ça change quelque chose.
+Si vous lisez ces lignes avec l'intention de passer l'agrégation en utilisant Sage à l'épreuve de modélisation, vous devez être capable de refaire les trois simulations. Les bouts de code donnés ici sont écrits pour python3 alors que Sage utilise Python2. Je ne vous dit pas si ça change quelque chose.
 
 Allez oui, je vous dit. Si vous changez dans \info{simul\_famille\_une\_fille.py} la première ligne pour utiliser python2 au lieu de python3, le résultat affiché sera \info{0} et non \info{0.333}. La raison est que dans Python2, l'opérateur \info{/} entre deux entiers est une {\bf division entière}. Autrement dit : le résultat \( 0.33\) est arrondi à zéro.
 
