@@ -6,6 +6,8 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 Les fautes sont présentées par ordre anti-chronoligique de découvertes.
 
+- Volume 2. Lemme 13.47. La démonstration du fait qu'une application affine préservant les points d'une base affine est l'identité ne fonctionne pas bien. D'abord ça n'a aucun sens de multiplier un point d'un espace affine par un nombre; ensuite la décomposition en composée de translation et d'application linéaire n'est pas vraie. Toute cette preuve fonctionne seulement dans le cas très particulier de R^n.
+
 - Volume 3. Lemme 20.5. Une isométrie est bijective. La démonstration de ce lemme s'appuie sur le théorème 20.4 pour déduire que l'application est bijective, alors que la bijectivité est une hypothèse de 20.4, et non une conclusion.
 
 - Volume 2. Fonctions convexes. La définition 19.85 est trop évasive concernant les fonctions strictement convexes. Pour une fonction strictement convexe, l'inégalité est stricte lorsque lambda est dans ]0,1[ et x1 != x2.
