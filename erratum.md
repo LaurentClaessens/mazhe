@@ -6,6 +6,10 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 Les fautes sont présentées par ordre anti-chronoligique de découvertes.
 
+- Volume 3. Groupe diédral. La proposition 20.113 n'est pas tout à fait exacte, parce que certains éléments du groupe diédral s'écrivent sans conjugaison complexe.
+
+- Volume 3. Groupe diédral. Juste au-dessus de la proposition 20.112, il est dit que la conjugaison complexe n'est pas dans le groupe diédral pour n=3. C'est faux : la conjugaison complexe est dans tous les groupes diédraux (n>=3). C'est le point A_3 qui est faux te qui devrait être (-1/2, -sqrt(3)/2).
+
 - Volume 2. Lemme 13.47. La démonstration du fait qu'une application affine préservant les points d'une base affine est l'identité ne fonctionne pas bien. D'abord ça n'a aucun sens de multiplier un point d'un espace affine par un nombre; ensuite la décomposition en composée de translation et d'application linéaire n'est pas vraie. Toute cette preuve fonctionne seulement dans le cas très particulier de R^n.
 
 - Volume 3. Lemme 20.5. Une isométrie est bijective. La démonstration de ce lemme s'appuie sur le théorème 20.4 pour déduire que l'application est bijective, alors que la bijectivité est une hypothèse de 20.4, et non une conclusion.
