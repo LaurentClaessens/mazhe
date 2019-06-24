@@ -2,9 +2,10 @@
 
 ## Isométries affines (juin 2019)
 
-- Orientation dans un espace affine ou euclidien
+- Orientation dans un espace affine ou euclidien.
 - un peu de mise au clair à propos de la différence entre des isométries de (R^n,d) et de (R^n, ||.||).
-- pavage du plan
+- sous-groupes finis des isométries affines du plan.
+- pavage du plan.
 
 ## Formes bilinéaires (mai 2019)
 
