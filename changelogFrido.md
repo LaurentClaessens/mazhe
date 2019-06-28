@@ -5,6 +5,7 @@
 - Orientation dans un espace affine ou euclidien.
 - un peu de mise au clair à propos de la différence entre des isométries de (R^n,d) et de (R^n, ||.||).
 - sous-groupes finis des isométries affines du plan.
+- Démonstration que les rotations centrées en (0,0) sont exactement le groupe SO(2).
 - pavage du plan.
 
 ## Formes bilinéaires (mai 2019)
