@@ -1,9 +1,10 @@
 # Giulietta's changelog
 
-## Suppress the dependency 'exocorr'
+## Suppress the dependency 'exocorr' (2019 June)
 
 - Add `\input{exocorr}` in `e_mazhe.tex`. The file `exocorr.tex` is now essentialy a copy of `exocorr.sty`[1].
 - Not that dependency anymore.
+- Update the tutorials `COMPILATION_frido.md` and `COMPILATION_giulietta.md`
 
 [1] https://github.com/LaurentClaessens/exocorr
 
