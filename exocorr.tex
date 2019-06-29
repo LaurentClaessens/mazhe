@@ -1,0 +1,149 @@
+% This is a part of 'giuilietta'.
+%
+% Copyright (c) 2010-2012, 2019 
+% Laurent Claessens <lauren@claessens-donadello.eu>.
+
+\makeatletter
+
+\newboolean{LangageFR}
+\setboolean{LangageFR}{false}
+\DeclareOption{fr}{\setboolean{LangageFR}{true}}
+\ProcessOptions
+
+% ENGLISH DEFAULT TEXTS
+\newcommand{\@ExoTheoremName}{Exercise}
+\newcommand{\@CorrText}{Correction of the exercise}
+\newcommand{\@AlternativeText}{Other resolution}
+\newcommand{\@LinkToCorrText}{Correction at page}
+
+% FRENCH TRANSLATIONS
+\ifthenelse{\boolean{LangageFR}}{%
+\renewcommand{\@ExoTheoremName}{Exercice}
+\renewcommand{\@CorrText}{Correction de l'exercice}
+\renewcommand{\@AlternativeText}{Résolution alternative}
+\renewcommand{\@LinkToCorrText}{Correction à la page}
+}{}
+ 
+\newcounter{CountExercice}
+\renewcommand{\theCountExercice}{\arabic{CountExercice}}
+
+\newcounter{@corrDraft}
+\setcounter{@corrDraft}{0}
+\newcommand{\corrDraft}{\setcounter{@corrDraft}{1}}
+% When @corrDraft is 1, a tag is added in the document in order to indicate the file name
+
+
+\newenvironment{exercice}[1][]{%
+\refstepcounter{CountExercice}%
+{\bf \@ExoTheoremName\ \theCountExercice} #1 \noindent\nopagebreak%
+}{}
+
+%\newenvironment{corrige}[1]{\par\bigskip\noindent {\bf \@CorrText\ \ref{exo#1}}\label{corr#1}\par\nopagebreak}{}
+\newenvironment{corrige}[1]{\label{corr#1}\par\bigskip\noindent {\bf \@CorrText\ \ref{exo#1}}\par\nopagebreak \ifthenelse{\value{@corrDraft}=1}{--#1--}{} }{}
+\newenvironment{alternative}{\par\bigskip\noindent {\bf \@AlternativeText\ }\par\nopagebreak}{}
+
+\newcounter{@CorrPosition}
+\newcommand{\corrPosition}[1]{\setcounter{@CorrPosition}{#1}}
+% 0 : No corrections 
+% 1 : Correction immediately under the questions
+% 2 : Corrections in a specific chapter, use \corrChapitre
+
+
+% \CorrectionRepertory is the name of the directory in which the correction file has to be searched. 
+% By default it is the current repertory.
+\newcommand{\CorrectionRepertory}{}
+
+
+
+% The multiple-file system for corrections comes from the answer by mpg
+% in the thread «\closeout d'un fichier dont je ne connais que le nom ou savoir le nom d'un \newwrite» 
+% on the french speaking usent LaTeX forum.
+
+
+% The function \stream@name produce the name of the stream in which we can write from
+% the name of the file.
+% For the file foo.tex, the stream will be named f@streal@foo
+% Thus one write in foo.tex by \write\f@stream@foo
+\newcommand \stream@name [1] {%
+%f@stream@\detokenize{#1}% 
+  f@stream@{#1}% 
+}
+
+\newcommand \NewCorrectionFile [1] {% #1 = filename
+  \expandafter \New@CorrectionFile \csname\stream@name{#1}\endcsname {#1}% (2)
+}
+
+\newcommand \New@CorrectionFile [2] {% #1 = command, #2 = filename
+  \newwrite #1%
+  \immediate\openout #1 #2\relax
+}
+
+\newcommand \WriteInFile [2] {% #1 = nom de fichier, #2 = contenu
+  \immediate\write \csname\stream@name{#1}\endcsname {#2}% (3)
+}
+\newcommand \CloseFile [1] {% #1 = nom de fichier
+  \immediate\closeout \csname\stream@name{#1}\endcsname % (3)
+}
+
+% \@InterCorrFile is the name of the file that will contain the \input of the corrections files.
+\newcommand{\@DefaultCorrFileName}{corr}
+
+\NewCorrectionFile{\@DefaultCorrFileName}
+\newcommand{\InterCorrFile}{\@DefaultCorrFileName}
+
+\newcommand{\UseCorrectionFile}[1]{%
+    \renewcommand{\InterCorrFile}{#1}
+    \NewCorrectionFile{\InterCorrFile}
+}
+
+\newcommand{\exoDirectory}{./}
+
+% The optional first argument says if you want to include the correction.
+% \Exo{bla}  will include the correction (if exists)
+% \Exo[0]{bla} will not include the correction, even if it exists
+
+% The files are searched in the directory given by '\exoDirectory'. 
+% Default : the current directory.
+% In order to change : \renewcommand{\exoDiretory}{mydir/}    Do not forget the slash.
+
+
+\newcommand{\Exo}[2][1]{%
+\input{\exoDirectory exo#2}
+\ifthenelse{\value{@corrDraft}=1}{--#2--}{}%
+\ifthenelse{#1=1}{
+\ifthenelse{\value{@CorrPosition}=1}{\IfFileExists{\exoDirectory corr#2.tex}{\input{\exoDirectory corr#2}}{}}{}
+%\ifthenelse{\value{@CorrPosition}=2}{\IfFileExists{corr#2.tex}{\WriteInFile{\InterCorrFile}{\string\import{\CorrectionRepertory}{corr#2}}}{}}{}
+\ifthenelse{\value{@CorrPosition}=2}{\IfFileExists{\exoDirectory corr#2.tex}{\WriteInFile{\InterCorrFile}{\string\input{\exoDirectory corr#2}}}{}}{}
+}
+{}
+}
+
+\newcommand{\corrChapitre}[2][\InterCorrFile]{%
+\ifthenelse{\value{@CorrPosition}=2}{%
+\chapter{#2}
+\CloseFile{#1}
+    \input{#1}
+}{}		% Fin du ifthenelse
+}		% Fin de la macro \corrChapitre
+
+\newcommand{\corrref}[1]{%
+\ifthenelse{\value{@CorrPosition}=2}{\par \@LinkToCorrText\ \pageref{corr#1}.}{}%
+}
+
+% Ces histoires de \newwrite pour écrire dans un fichier sont par exemple expliquées sur le fctt [1]
+% Le \immediate vient de la discussion fctt [2]
+
+
+%%%%%%%%%%
+% References to Wikipedia
+% I suppressed the command \wikipedia and \wikiversity on May 2, 2018.
+% They are copied directly in mazhe.tex
+
+
+
+\makeatother
+
+% [1] http://groups.google.fr/group/fr.comp.text.tex/browse_thread/thread/76eb44e2e928ba8b/ab0f092c79a062cd?hl=fr&lnk=gst&q=newwrite#ab0f092c79a062cd 
+% [2] http://groups.google.fr/group/fr.comp.text.tex/browse_thread/thread/80909a66028ef5a3/ab89634948317f36?hl=fr#ab89634948317f36
+% [3] http://groups.google.fr/group/fr.comp.text.tex/browse_thread/thread/b2a0fa029bf9e0d9/fd3b47dfaac9cc96?hl=fr&lnk=gst&q=shorthand#fd3b47dfaac9cc96
+% [4] http://groups.google.fr/group/fr.comp.text.tex/browse_thread/thread/68bf87c02c4515bc?hl=fr#

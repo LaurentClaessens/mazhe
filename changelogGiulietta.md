@@ -1,6 +1,13 @@
 # Giulietta's changelog
 
-## Exponential map and Taylor expansion for Lie groups (2019 May - ...)
+## Suppress the dependency 'exocorr'
+
+- Add `\input{exocorr}` in `e_mazhe.tex`. The file `exocorr.tex` is now essentialy a copy of `exocorr.sty`[1].
+- Not that dependency anymore.
+
+[1] https://github.com/LaurentClaessens/exocorr
+
+## Exponential map and Taylor expansion for Lie groups (2019 May - 2019 June)
 
 - Definition of the exponential from the left-invariant vector fields
 - A Lie group must be analytical
