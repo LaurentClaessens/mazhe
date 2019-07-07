@@ -2,7 +2,7 @@
 
 This is a small howto for myself; I still have to make it much simpler for the potential contributors.
 
-- Use the script `new_picture.py` for creating a skeleton.
+- Use the script `new_picture.py` (furnished with `Yanntricks`) for creating a skeleton.
 - Copy the new files to a tmp directory
 - Compile once, for creating the new files.
 
