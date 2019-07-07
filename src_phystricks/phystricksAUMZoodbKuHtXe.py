@@ -1,52 +1,35 @@
 # -*- coding: utf8 -*-
 from phystricks import *
+
+
+def rotate_point(P):
+    """Return a rotation of the given point."""
+    z = P.x + I * P.y
+    new_z = exp(I*pi/3)*z
+
+    return Point(new_z.real_part(), new_z.imag_part())
+
+def rotate_polygon(polygon):
+    """Return the rotation of the given polygon."""
+
+    new_points_list = [rotate_point(P) for P in polygon.points_list]
+    return Polygon(new_points_list)
+
 def AUMZoodbKuHtXe():
-    pspict,fig = SinglePicture("AUMZoodbKuHtXe")
-    #pspict.dilatation_X(1)
-    #pspict.dilatation_Y(1)
+    pspict, fig = SinglePicture("AUMZoodbKuHtXe")
     pspict.dilatation(1)
 
-    x=var('x')
-    P=Point(0,0)
+    A = Point(0, 0)
+    B = Point(1, 0)
+    C = Point(0.5, sqrt(3)/6)
 
-    pspict.DrawGraphs(P)
+    triangles = [Polygon(A, B ,C)]
+
+    for i in range(0, 5):
+        triangles.append( rotate_polygon(triangles[-1]) )
+
+    pspict.DrawGraphs(triangles)
     pspict.DrawDefaultAxes()
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()
-
-----------------
-    pspicts,fig = MultiplePictures("AUMZoodbKuHtXe",3)
-    pspicts[0].mother.caption="<+caption1+>"
-    pspicts[1].mother.caption="<+caption2+>"
-    pspicts[2].mother.caption="<+caption3+>"
-
-    for psp in pspicts:
-        psp.dilatation_X(1)
-        psp.dilatation_Y(1)
-
-    <+Définition des objets+>
-
-    for psp in pspicts:
-        psp.DrawDefaultAxes()
-
-    fig.conclude()
-    fig.write_the_file()
-
-------------------------------
-
-    pspicts,figs = IndependentPictures("AUMZoodbKuHtXe",3)
-
-    for psp in pspicts:
-        psp.dilatation(1)
-
-    <+Définition des objets+>
-
-    for psp in pspicts:
-        psp.DrawDefaultAxes()
-
-    for fig in figs:
-        fig.no_figure()
-        fig.conclude()
-        fig.write_the_file()
-
