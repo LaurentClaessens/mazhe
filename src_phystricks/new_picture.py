@@ -34,7 +34,7 @@ def create_file(filename, text):
 
 def do_work():
     figure_name = create_name()
-    src_dir = Path('.') / "src"
+    src_dir = Path('.') / "src_phystricks"
 
     skel_path = src_dir / "picture.skel"
     with open(skel_path, 'r') as skel_file:
@@ -43,7 +43,7 @@ def do_work():
     code = code_base.replace("XXXX", figure_name)
 
     phystricks_file = Path('.')\
-                    / "src"\
+                    / "src_phystricks"\
                     / f"phystricks{figure_name}.py"
 
     fig_file = Path('.')\
@@ -61,15 +61,22 @@ def do_work():
                 / "pictures_tikz"\
                 / f"tikzFIGLabelFig{figure_name}PICT{figure_name}.md5"
 
+    phystricks_file = phystricks_file.resolve()
+    fig_file = fig_file.resolve()
+    pdf_file = pdf_file.resolve()
+    md5_file = md5_file.resolve()
+
     for f in [phystricks_file, fig_file, pdf_file]:
         create_file(f, code)
     create_file(md5_file, "")
 
     print(f"from phystricks{figure_name} import {figure_name}")
-    print(f"git add {filename.from_here()}"
-            "{pstricksfilename.from_here()}"
-            "{pdffilename.from_here()}"
-            "{md5filename.from_here()}"
-    print(f"attach('{filename.filename}');{figure_name}();exit()")
+    print("")
+    print(f"git add {phystricks_file} "
+            f" {fig_file}"
+            f" {pdf_file}"
+            f" {md5_file}")
+    print("")
+    print(f"attach('{phystricks_file}');{figure_name}();exit()")
 
 do_work()
