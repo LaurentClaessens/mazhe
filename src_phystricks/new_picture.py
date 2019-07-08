@@ -4,110 +4,72 @@ import sys
 import os
 import random
 import string
+from pathlib import Path
 
-from src.NoMathUtilities import SubdirectoryFilenames
+import dirmanage    # working directory is mazhe's main dir.
 
 
 def via_random(alphabet, n):
+    """Return a string of `n` random letters."""
     a = ""
     for k in range(0, n):
-        a = a+random.choice(alphabet)
+        a = a + random.choice(alphabet)
     return a
 
 
-try:
-    figure_name = sys.argv[1]
-except IndexError:
+def create_name():
+    """Create a name for the picture."""
     a = via_random(string.ascii_uppercase, 4)
     b = via_random(string.ascii_letters, 8)
-    figure_name = a+"oo"+b
-
-forbidden_symb = ["_", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
-
-for s in forbidden_symb:
-    if s in figure_name:
-        raise ValueError("You should not use '{0}' in the name.".format(s))
-
-code_base = """# -*- coding: utf8 -*-
-from phystricks import *
-def XXXX():
-    pspict,fig = SinglePicture("XXXX")
-    #pspict.dilatation_X(1)
-    #pspict.dilatation_Y(1)
-    pspict.dilatation(1)
-
-    x=var('x')
-    P=Point(0,0)
-
-    pspict.DrawGraphs(P)
-    pspict.DrawDefaultAxes()
-    fig.no_figure()
-    fig.conclude()
-    fig.write_the_file()
-
-----------------
-    pspicts,fig = MultiplePictures("XXXX",3)
-    pspicts[0].mother.caption="<+caption1+>"
-    pspicts[1].mother.caption="<+caption2+>"
-    pspicts[2].mother.caption="<+caption3+>"
-
-    for psp in pspicts:
-        psp.dilatation_X(1)
-        psp.dilatation_Y(1)
-
-    <+Définition des objets+>
-
-    for psp in pspicts:
-        psp.DrawDefaultAxes()
-
-    fig.conclude()
-    fig.write_the_file()
-
-------------------------------
-
-    pspicts,figs = IndependentPictures("XXXX",3)
-
-    for psp in pspicts:
-        psp.dilatation(1)
-
-    <+Définition des objets+>
-
-    for psp in pspicts:
-        psp.DrawDefaultAxes()
-
-    for fig in figs:
-        fig.no_figure()
-        fig.conclude()
-        fig.write_the_file()
-
-"""
+    return a + "oo" + b
 
 
-def create_file(sfile, text):
-    if not os.path.isfile(sfile.abspath()):
-        with open(sfile.abspath(), "w") as f:
+def create_file(filename, text):
+    if not os.path.isfile(filename):
+        with open(filename, "w") as f:
             f.write(text)
     else:
-        print("Le fichier {} existe déjà. Je ne fais rien".format(filename))
+        print(f"Le fichier {filename} existe déjà. Je ne fais rien.")
 
 
-code = code_base.replace("XXXX", figure_name)
+def do_work():
+    figure_name = create_name()
+    src_dir = Path('.') / "src"
 
-filename = SubdirectoryFilenames(
-    "phystricks%s.py" % figure_name, "pictures_src")
-pstricksfilename = SubdirectoryFilenames(
-    "Fig_{}.pstricks".format(figure_name), "pictures_tex")
-pdffilename = SubdirectoryFilenames(
-    "tikzFIGLabelFig"+figure_name+"PICT"+figure_name+".pdf", "pictures_tikz")
-md5filename = SubdirectoryFilenames(
-    "tikzFIGLabelFig"+figure_name+"PICT"+figure_name+".md5", "pictures_tikz")
+    skel_path = src_dir / "picture.skel"
+    with open(skel_path, 'r') as skel_file:
+        code_base = skel_file.read()
 
+    code = code_base.replace("XXXX", figure_name)
 
-for f in [filename, pstricksfilename, pdffilename]:
-    create_file(f, code)
-create_file(md5filename, "")
+    phystricks_file = Path('.')\
+                    / "src"\
+                    / f"phystricks{figure_name}.py"
 
-print("from phystricks{} import {}".format(figure_name, figure_name))
-print("git add {} {} {} {}".format(filename.from_here(),
-                                   pstricksfilename.from_here(), pdffilename.from_here(), md5filename.from_here()))
-print("attach('{}');{}();exit()".format(filename.filename, figure_name))
+    fig_file = Path('.')\
+                / "auto"\
+                / "pictures_tex"\
+                / f"Fig_{figure_name}.pstricks"
+
+    pdf_file = Path('.')\
+                / "auto"\
+                / "pictures_tikz"\
+                / f"tikzFIGLabelFig{figure_name}PICT{figure_name}.pdf"
+
+    md5_file = Path('.')\
+                / "auto"\
+                / "pictures_tikz"\
+                / f"tikzFIGLabelFig{figure_name}PICT{figure_name}.md5"
+
+    for f in [phystricks_file, fig_file, pdf_file]:
+        create_file(f, code)
+    create_file(md5_file, "")
+
+    print(f"from phystricks{figure_name} import {figure_name}")
+    print(f"git add {filename.from_here()}"
+            "{pstricksfilename.from_here()}"
+            "{pdffilename.from_here()}"
+            "{md5filename.from_here()}"
+    print(f"attach('{filename.filename}');{figure_name}();exit()")
+
+do_work()
