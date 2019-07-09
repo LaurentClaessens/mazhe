@@ -70,7 +70,10 @@ def do_work():
         create_file(f, code)
     create_file(md5_file, "")
 
+    print("")
+    print("For `src_phystricks/figures_mazhe.py :`")
     print(f"from phystricks{figure_name} import {figure_name}")
+    print(f"append_picture({figure_name}, 1)")
     print("")
     print(f"git add {phystricks_file} "
             f" {fig_file}"

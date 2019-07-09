@@ -7,6 +7,7 @@
 from phystricks import *
 import sys
 
+from phystricksCRHZooMcaRhrUh import CRHZooMcaRhrUh
 from phystricksJOQVoolPTsYPZK import JOQVoolPTsYPZK
 from from phystricksAUMZoodbKuHtXe impoer AUMZoodbKuHtXe
 from phystricksGMRNooCNBpIl import GMRNooCNBpIl 
@@ -555,6 +556,8 @@ append_picture(GMRNooCNBpIl,2)
 append_picture(JOQVoolPTsYPZK,1)
 
 append_picture(AUMZoodbKuHtXe,1)
+append_picture(CRHZooMcaRhrUh, 1)
+
 """
 append_picture(<++>,1)
 append_picture(<++>,1)
