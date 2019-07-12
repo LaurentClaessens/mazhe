@@ -10,7 +10,6 @@ import sys
 from phystricksATJSooefYkmCbP import ATJSooefYkmCbP
 from phystricksCRHZooMcaRhrUh import CRHZooMcaRhrUh
 from phystricksJOQVoolPTsYPZK import JOQVoolPTsYPZK
-from from phystricksAUMZoodbKuHtXe impoer AUMZoodbKuHtXe
 from phystricksGMRNooCNBpIl import GMRNooCNBpIl 
 from phystricksCWKJooppMsZXjw import CWKJooppMsZXjw
 from phystricksDNRRooJWRHgOCw import DNRRooJWRHgOCw
@@ -556,7 +555,6 @@ append_picture(UCDQooMCxpDszQ,1)
 append_picture(GMRNooCNBpIl,2)
 append_picture(JOQVoolPTsYPZK,1)
 
-append_picture(AUMZoodbKuHtXe,1)
 append_picture(CRHZooMcaRhrUh, 1)
 
 append_picture(ATJSooefYkmCbP, 1)
