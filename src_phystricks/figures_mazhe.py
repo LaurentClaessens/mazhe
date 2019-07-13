@@ -7,6 +7,7 @@
 from phystricks import *
 import sys
 
+from phystricksPWMCooGWYCczZn import PWMCooGWYCczZn
 from phystricksATJSooefYkmCbP import ATJSooefYkmCbP
 from phystricksCRHZooMcaRhrUh import CRHZooMcaRhrUh
 from phystricksJOQVoolPTsYPZK import JOQVoolPTsYPZK
@@ -551,13 +552,11 @@ append_picture(ExerciceGraphesbis,2)
 append_picture(DGFSooWgbuuMoB,1)
 append_picture(ZOCNoowrfvQXsr,1)
 append_picture(UCDQooMCxpDszQ,1)
-
 append_picture(GMRNooCNBpIl,2)
 append_picture(JOQVoolPTsYPZK,1)
-
 append_picture(CRHZooMcaRhrUh, 1)
-
 append_picture(ATJSooefYkmCbP, 1)
+append_picture(PWMCooGWYCczZn, 1)
 
 """
 append_picture(<++>,1)
