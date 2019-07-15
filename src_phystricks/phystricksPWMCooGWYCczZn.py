@@ -67,9 +67,11 @@ def PWMCooGWYCczZn():
     T4 = move_polygon(1,1,4,base)
     T5 = move_polygon(1,1,5,base)
 
+    T4.edges_parameters.color = "red"
+
     trigs = [T0, T1, T2, T3, T4, T5]
 
-    pspicts[1].DrawGraphs(T0, T1, T2, T4, T5, T3, parallelogram)
+    pspicts[1].DrawGraphs(T0, T1, T2, T5, T3, T4)
 
     # subfigure 3
 
