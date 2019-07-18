@@ -84,7 +84,11 @@ def PWMCooGWYCczZn():
 
     a=var('a')
     b=var('b')
-    Q= action(k,l,2,Point(a,b))
+    L = action(0,0,2,Point(a,b))
+    print("Lx", L.x.simplify_full())
+    print("Ly", L.y.simplify_full())
+    Q = action(k,l,2,Point(a,b))
+    
     print(fAC(Q).simplify_full())
 
 
