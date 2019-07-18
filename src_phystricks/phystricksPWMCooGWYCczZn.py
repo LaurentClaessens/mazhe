@@ -26,11 +26,38 @@ def move_polygon(k, l, m, polygon):
     return Polygon(new_vertices)
 
 
+def fAB(P):
+    return P.x-sqrt(3)*P.y
+
+def fBC(P):
+    return -P.x-sqrt(3)*P.y+1
+
+def fAC(P):
+    return P.y
+
+def rfAB(P):
+    return P.x+sqrt(3)*P.y
+
+def rfBC(P):
+    return -2*P.x-1
+
+def rfAC(P):
+    return -sqrt(3)*P.x/2-P.y/2
+
+def gfAB(k,l,P):
+    return P.x+sqrt(3)*P.y-k-l
+
+def gfBC(k,l,P):
+    return -2*P.x+2*k-l-1
+
+def gfAC(k,l,P):
+    return -sqrt(3)*P.x/2-P.y/2+sqrt(3)*k/2
+
 def PWMCooGWYCczZn():
     pspicts, fig = MultiplePictures("PWMCooGWYCczZn", 3)
-    pspicts[0].mother.caption = "<+caption1+>"
-    pspicts[1].mother.caption = "<+caption2+>"
-    pspicts[2].mother.caption = "<+caption3+>"
+    pspicts[0].mother.caption = "Le compact \( K\) est ses rotations."
+    pspicts[1].mother.caption = "Une maille du réseau des translations de \( G\)."
+    pspicts[2].mother.caption = "Une partie du pavage complet."
 
     for psp in pspicts:
         psp.dilatation_X(1)
@@ -43,6 +70,23 @@ def PWMCooGWYCczZn():
     A = Point(0, 0)
     B = Point(1/2, sqrt(3)/6)
     C = Point(1, 0)
+
+    rA = action(0,0,2,A)
+    rB = action(0,0,2,B)
+    rC = action(0,0,2,C)
+
+    k=var('k')
+    l=var('l')
+    gA = action(k,l,2,A)
+    gB = action(k,l,2,B)
+    gC = action(k,l,2,C)
+
+
+    a=var('a')
+    b=var('b')
+    Q= action(k,l,2,Point(a,b))
+    print(fAC(Q).simplify_full())
+
 
     base = Polygon(A, B, C)
 
