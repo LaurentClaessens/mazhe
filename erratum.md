@@ -6,6 +6,9 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 Les fautes sont présentées par ordre anti-chronoligique de découvertes.
 
+- Volume 2. Prolongement de fonctions, lemme 14.61. Dans la partie «candidat limite», on utilise un argument de continuité uniforme de f. Or me fait remarquer Provatiscus[1],  f n'est pas spécialement uniformément continue.
+        [1] https://github.com/LaurentClaessens/mazhe/issues/124
+
 - Volume 3. Groupe diédral. La proposition 20.113 n'est pas tout à fait exacte, parce que certains éléments du groupe diédral s'écrivent sans conjugaison complexe.
 
 - Volume 3. Groupe diédral. Juste au-dessus de la proposition 20.112, il est dit que la conjugaison complexe n'est pas dans le groupe diédral pour n=3. C'est faux : la conjugaison complexe est dans tous les groupes diédraux (n>=3). C'est le point A_3 qui est faux te qui devrait être (-1/2, -sqrt(3)/2).
