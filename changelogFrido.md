@@ -1,5 +1,15 @@
 # Journal des changements du Frido
 
+## Fonction Cauchy-continue (juillet 2019)
+
+Correction d'une faute : il n'est pas vrai qu'une fonction
+continue sur Q s'étend en une fonction continue sur R.
+
+- Donner un contre-exemple
+- Adapter la preuve du lemme d'extension pour l'hypothèse
+de Cauchy-continue
+- Prouver que q -> a^q est Cauchy-continue.
+
 ## Isométries affines (juin 2019)
 
 - Orientation dans un espace affine ou euclidien.
