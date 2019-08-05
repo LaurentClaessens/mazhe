@@ -10,7 +10,7 @@ continue sur Q s'étend en une fonction continue sur R.
 de Cauchy-continue
 - Prouver que q -> a^q est Cauchy-continue.
 
-## Isométries affines (juin 2019)
+## Isométries affines (juin 2019 - aout 2019)
 
 - Orientation dans un espace affine ou euclidien.
 - un peu de mise au clair à propos de la différence entre des isométries de (R^n,d) et de (R^n, ||.||).
