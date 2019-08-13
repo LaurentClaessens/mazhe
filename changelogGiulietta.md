@@ -1,5 +1,9 @@
 # Giulietta's changelog
 
+## sl(2,C)  (Augustus 2019)
+
+- Finite dimensional irreducible representations of the Lie algebra sl(2,C)
+
 ## Suppress the dependency 'exocorr' (2019 June)
 
 - Add `\input{exocorr}` in `e_mazhe.tex`. The file `exocorr.tex` is now essentialy a copy of `exocorr.sty`[1].
