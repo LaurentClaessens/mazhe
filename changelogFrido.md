@@ -1,5 +1,10 @@
 # Journal des changements du Frido
 
+## Formule de Stirling (aout 2019)
+
+- Taylor avec reste intégral.
+- Approximation de ln(2)
+
 ## Fonction Cauchy-continue (juillet 2019)
 
 Correction d'une faute : il n'est pas vrai qu'une fonction
