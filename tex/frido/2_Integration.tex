@@ -495,6 +495,265 @@ Nous allons nous contenter de donner un exemple de chaque type.
   \end{subequations}
 \end{Aretenir}
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Taylor : reste intégral}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}     \label{THOooDGCJooXKmFTT}
+    Soit une fonction \( f\colon \mathopen[ a , b \mathclose]\to \eR\) de classe \( C^{n+1}\). Alors pour tout \( N\leq n\) nous avons
+    \begin{equation}        \label{EQooSCKCooXcKzCc}
+        f(b)=f(a)+\sum_{k=1}^N\frac{ f^{(k)}(a) }{ k! }(b-a)^k+\frac{1}{ N! }\int_a^b(b-t)^Nf^{(N+1)}(t)dt.
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Notons que dans l'énoncé, \( n\) est fixé; nous faisons une récurrence sur \( N\). Ça ne change pas grand chose, mais il faut être conscient de ce qui est exactement dans l'hypothèse du théorème et ce qui est dans l'hypothèse de récurrence.
+
+    Bref, \( n\) est fixé, la fonction \( f\) est de classe \( C^{n+1}\) et nous vérifions d'abord la formule avec \( N=1\). À droite dans \eqref{EQooSCKCooXcKzCc} nous avons
+    \begin{equation}        \label{EQooETPRooJHcOXh}
+        f(a)+f'(a)(b-a)\int_a^b(b-t)f''(t)dt.
+    \end{equation}
+    Nous évaluons l'intégrale à part en faisant une intégration par parties\footnote{Proposition \ref{PROPooRLFIooQHnyJY}.}. Il s'agit de poser
+    \begin{subequations}
+        \begin{align}
+            u&=b-t\\
+            v'&=f'',
+        \end{align}
+    \end{subequations}
+    de déduire
+    \begin{subequations}
+        \begin{align}
+            u'&=-1\\
+            v&=f'
+        \end{align}
+    \end{subequations}
+    et d'écrire
+    \begin{subequations}
+        \begin{align}
+            \int_a^b(b-t)f''(t)dt&=\left[ (b-t)f'(t) \right]^b_a-\int_a^b(-)f'(t)dt\\
+            &=-(b-a)f'(a)+\int_a^bf'(t)dt\\
+            &=-(b-a)f'(a)+f(b)-f(a).
+        \end{align}
+    \end{subequations}
+    Dans le calcul nous avons utilisé le théorème fondamental du calcul intégral \ref{ThoRWXooTqHGbC}. En remettant ça dans \eqref{EQooETPRooJHcOXh} nous trouvons \( f(b)\) comme il se doit.
+    
+    En ce qui concerne la récurrence, nous devons calculer
+    \begin{equation}        \label{EQooKQWZooGBvtlZ}
+        f(a)+\sum_{k=1}^{N+1}\frac{ f^{(k)(a)} }{ k! }(b-a)^k+\frac{1}{ (N+1)! }\int_a^b(b-t)^{N+1}f^{(N+2)}(t)dt.
+    \end{equation}
+    Ici encore, il s'agit de faire une intégration par partie, et sortir de la somme le terme \( k=N+1\). L'intégration par partie donne
+    \begin{equation}
+        \int_a^b(b-t)^{N+1}f^{(N+2)}(t)dt=-(b-a)^{N+1}f^{(N+1)}(a)+(N+1)\int_a^b(b-t)^Nf^{(N+1)}(t)dt.
+    \end{equation}
+    En remettant tout ensemble, il y a encore deux termes qui se simplifient, et des termes qui se remettent pour former la formule de récurrence. Bref, on obtient que \eqref{EQooKQWZooGBvtlZ} se réduit bien à \( f(b)\).
+\end{proof}
+
+Cette formule avec reste intégral sert par exemple à prouver un encadrement pour \( \ln(2)\), voir la proposition \ref{PROPooHOMYooFclkCU}.
+
+\begin{proposition}[Approximation de \( \ln(2)\)\cite{BIBooSJDCooHjuWeU}]       \label{PROPooHOMYooFclkCU}
+    Pour tout \( n\) nous avons
+    \begin{equation}
+        \left| \ln(2)-\sum_{k=1}^n\frac{ (-1)^{k+1} }{ k } \right|\leq \frac{1}{ n+1 }.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Nous écrivons la formule de Taylor avec reste intégral du théorème \ref{THOooDGCJooXKmFTT} pour la fonction \( f=\ln\) et pour \( a=1\) et \( b=x\). Cela donne :
+    \begin{equation}
+        \ln(x)=\ln(1)+\sum_{k=1}^N\frac{ \ln^{(k)}(1) }{ k! }(x-1)^k+\frac{1}{ N! }(x-t)^N\ln^{(N+1)}(t)dt.
+    \end{equation}
+    Sachant que la dérivée du logarithme\footnote{Voir la proposition \ref{ExZLMooMzYqfK}.} est \( 1/x\) et faisant une petite récurrence, pour \( k\geq 1\) nous avons
+    \begin{equation}
+        \ln^{(k)}(x)=\frac{ (-1)^{k+1}(k-1)! }{ x^k }.
+    \end{equation}
+    En remplaçant,
+    \begin{equation}
+        \ln(x)=\sum_{k=1}^N\frac{ (-1)^{k+1} }{ k }(x-1)^k+\int_1^x\frac{ (-1)^N(x-t)^N }{ t^{N+1} }dt.
+    \end{equation}
+    C'est le moment de poser \( x=2\) et de faire les simplifications qui s'imposent,
+    \begin{equation}
+        \ln(2)=\sum_{k=1}^N\frac{ (-1)^{k+1} }{ k }+\int_1^2\frac{ (-1)^N(2-t)^N }{ t^{N+1} }dt.
+    \end{equation}
+    Nous déplaçons la somme à gauche, et nous prenons la valeur absolue des deux côtés :
+    \begin{subequations}
+        \begin{align}
+            | \ln(2)-\sum_{k=1}^N\frac{ (-1)^{k+1} }{ k } |&=| \int_1^2\frac{ (-1)^N(2-t)^N }{ t^{N+1} }dt |\\
+            &\leq\int_1^2\int_1^2\frac{ (2-t)^N }{ t^{N+1} }dt \label{SUBEQooZSXEooVcbJpd}\\
+            &\leq \int_1^2(2-t)^N       \label{SUBEQooHGZLooGIhoVt}.
+        \end{align}
+    \end{subequations}
+    Justifications :
+    \begin{itemize}
+        \item Pour \ref{SUBEQooZSXEooVcbJpd}. Majoration en rentrant la valeur absolue dans l'intégrale, suppression de \( (-1)^N\), et le fait que pour \( t\in \mathopen[ 1 , 2 \mathclose]\), \( 2-t\geq 0\).
+        \item Pour \ref{SUBEQooHGZLooGIhoVt}. Majoration en supprimant purement et simplement le dénominateur \( t^N+1\geq 1\).
+    \end{itemize}
+    Ais-je vraiment besoin de vous dire que la dernière intégrale se calcule en posant le changement de variables\footnote{Proposition \ref{PROPooMVIUooZmvHxS}.} \( u=2-t\) ? Le résultat est que
+    \begin{equation}
+        \int_1^2(2-t)^Ndt=\frac{1}{ N+1 }.
+    \end{equation}
+\end{proof}
+
+\begin{proposition}[Formule de Taylor avec reste intégral\cite{VBYOJrU,ooSZKEooLejXAh}]\label{PropAXaSClx}
+    Soient \( X\) et \( Y\) des espaces normés et un ouvert \( \mO\subset X\). Si \( f\in C^m(\mO,Y)\) et si \( [p,x]\subset \mO\) alors
+    \begin{equation}
+        \begin{aligned}[]
+            f(x)=f(p)&+\sum_{k=1}^{m-1}\frac{1}{ k! }(d^kf)_p (x-p)^k \\
+            &+\frac{1}{ (m-1)! }\int_0^1(1-t)^{m-1}(d^mf)_{ p+t(x-p) }(x-p)^m\,dt 
+        \end{aligned}
+    \end{equation}
+    où \( \omega_pu^k\) signifie \( \omega_p(u,\ldots, u)\) lorsque \( \omega\in \Omega^k\).
+\end{proposition}
+\index{formule!Taylor!reste intégral}
+
+Notez que l'intégrale n'est pas une intégrale faisant intervenir les espaces \( X\) ou \( Y\). Elle est une simple intégrale d'une fonction \( \eR\to \eR\), comme définie par la mesure de Lebesgue de la définition \ref{DefooYZSQooSOcyYN}.
+
+Comme expliqué dans l'exemple \ref{ExZHZYcNH}, toute ces applications de différentielles se réduisent à des termes de la forme
+\begin{equation}
+    f^{(k)}(p)(x-p)^k
+\end{equation}
+dans le cas d'une fonction \( \eR\to\eR\).
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Lemme de Morse}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}[Lemme de Morse]     \label{LemNQAmCLo}
+    Soit \( f\in C^3(\mU,\eR)\) où \( \mU\) est un ouvert de \( \eR^n\) contenant \( 0\). Nous supposons que \( df_0=0\) et que \( d^2f_0\) est non dégénérée\footnote{En tant qu'application bilinéaire.} et de signature \( (p,n-p)\). Alors il existe un \( C^1\)-difféomorphisme \( \varphi\) entre deux voisinages de \( 0\) dans \( \eR^n\) tel que
+    \begin{enumerate}
+        \item
+            \( \varphi(0)=0\),
+        \item
+            si \( \varphi(x)=u\) alors
+            \begin{equation}
+                f(x)-f(0)=u_1^2+\cdots +u_p^2-u_{p+1}^2-\ldots-u_n^2.
+            \end{equation}
+    \end{enumerate}
+    Une autre façon de dire est qu'il existe un \( C^1\)-difféomorphisme local \( \psi\) tel que
+    \begin{equation}
+        (f\circ\psi)(x)-f(0)=x_1^2+\cdots +x_p^2-x_{p+1}^2-\ldots-x_n^2.
+    \end{equation}
+\end{lemma}
+\index{lemme!de Morse}
+\index{développement!Taylor}
+\index{application!différentiable}
+\index{forme!quadratique}
+\index{théorème!inversion locale!utilisation}
+\index{action de groupe!sur des matrices}
+\index{extremum}
+
+\begin{proof}
+    Nous allons noter \( Hf\) la matrice hessienne de \( f\), c'est-à-dire \( Hf_a=d^2f_a\in\aL^{(2)}(\eR^n,\eR)\). Écrivons la formule de Taylor avec reste intégral (proposition~\ref{PropAXaSClx} avec \( p=0\) et \( m=2\)) :
+    \begin{equation}
+        f(x)-f(0)=\underbrace{df_0(x)}_{=0}+\int_0^1(1-t)\underbrace{d^2f_{tx}(x,x)}_{x^t(Hf)_{tx}x=\langle Hf_{tx}x, x\rangle }dt=x^tQ(x)x
+    \end{equation}
+    avec
+    \begin{equation}
+        Q(x)=\int_0^1(1-t)(Hf)_{tx}dt
+    \end{equation}
+    qui est une intégrale dans \( \aL^{(2)}(\eR^n,\eR)\). Nous prouvons à présent que \( Q\) est de classe \( C^1\) en utilisant le résultat de différentiabilité sous l'intégrale~\ref{PropAOZkDsh}. Pour cela nous passons aux composantes (de la matrice) et nous considérons
+    \begin{equation}
+        \begin{aligned}
+            h_{kl}\colon U\times\mathopen[ 0 , 1 \mathclose]&\to \eR \\
+            h_{kl}(x,t)&=(1-t)\frac{ \partial^2f  }{ \partial x_k\partial x_l }(tx).
+        \end{aligned}
+    \end{equation}
+    Étant donné que \( f\) est de classe \( C^3\), la dérivée de \( h_{kl}\) par rapport à \( x_i\) ne pose pas de problèmes :
+    \begin{equation}
+        \frac{ \partial h_{kl} }{ \partial x_i }=t(t-1)\frac{ \partial^3f  }{ \partial x_i\partial x_k\partial x_l }(tx),
+    \end{equation}
+    qui est encore continue à la fois en \( t\) et en \( x\). La proposition~\ref{PropAOZkDsh} nous montre à présent que
+    \begin{equation}
+        Q_{kl}(x)=\int_0^1(1-t)h_{kl}(tx)dt
+    \end{equation}
+    est une fonction \( C^1\). Étant donné que les composantes de \( Q\) sont \( C^1\), la fonction \( Q\) est également \( C^1\).
+
+    Nous avons \( Q(0)=\frac{ 1 }{2}(Hf)_0\in S_n\cap \GL(n,\eR)\), d'abord parce que \( f\) est \( C^2\) (et donc la matrice hessienne est symétrique), ensuite par hypothèse \( d^2f_0\) est non dégénérée.
+    %TODO : prouver que la matrice hessienne est symétrique lorsque f est C^2 (ou vérifier que c'est déjà fait), et référentier ici.
+
+    À partir de là, le lemme~\ref{LemWLCvLXe} donne un voisinage \( V\) de \( Q(0)\) dans \( S_n\) et une application \( \phi\) de classe \( C^1\)
+    \begin{equation}
+            \phi\colon V\to \GL(n,\eR) \\
+    \end{equation}
+    telle que pour tout \( A\in V\),
+    \begin{equation}
+        \phi(A)^tQ(0)\phi(A)=A.
+    \end{equation}
+    Si on pose \( M=\phi\circ Q\), et si \( x\) est dans un voisinage de zéro, \( Q\) étant continue nous avons \( Q(x)\in V\) et donc
+    \begin{equation}
+        Q(x)=M(x)^tQ(0)M(x).
+    \end{equation}
+    Notons que l'application \( \eM\colon \eR\to \GL(n,\eR)\) est de classe \( C^1\) parce que \( Q\) et \( \phi\) le sont.
+
+    Nous avons
+    \begin{equation}
+        f(x)-f(0)=x^tQ(x)x=x^tM(x)^tQ(0)M(x)x=y(x)^tQ(0)y(x)
+    \end{equation}
+    où \( y(x)=M(x)x=(\phi\circ Q)(x)x\) est encore une fonction de classe \( C^1\) parce que la multiplication est une application \(  C^{\infty}\).
+
+    D'un autre côté le théorème de Sylvester~\ref{ThoQFVsBCk} nous donne une matrice inversible \( P\) telle que
+    \begin{equation}
+        Q(0)=P^t\begin{pmatrix}
+            \mtu_p    &       \\
+            &   -\mtu_{n-p}
+        \end{pmatrix}P.
+    \end{equation}
+    Et nous posons enfin \( u=\varphi(x)=Py(x)\) qui est toujours de classe \( C^1\) et qui donne
+    \begin{subequations}
+        \begin{align}
+            f(x)-f(0)&=y^tQ(0)y\\
+            &=y^tP^t\begin{pmatrix}
+                \mtu    &       \\
+                    &   -\mtu
+            \end{pmatrix}Py\\
+            &=u^t\begin{pmatrix}
+                \mtu    &       \\
+                    &   -\mtu
+            \end{pmatrix}u\\
+            &=u_1^2+\cdots +u_p^2-u_{p+1}^2-\ldots -u_n^2.
+        \end{align}
+    \end{subequations}
+
+    Nous devons maintenant montrer que, quitte à réduire son domaine à un ouvert plus petit, \( \varphi\) est un \( C^1\)-difféomorphisme. Dans la chaine qui donne \( \varphi\), seule l'application
+    \begin{equation}
+        \begin{aligned}
+            g\colon U\subset \eR^n&\to \eR^n \\
+            x&\mapsto M(x)x
+        \end{aligned}
+    \end{equation}
+    est sujette à caution. Nous allons appliquer le théorème d'inversion locale. Nous savons que \( g\) est de classe \( C^1\) et donc différentiable; calculons la différentielle en utilisant la formule \eqref{EqOWQSoMA} :
+    \begin{equation}
+        dg_0(x)=\Dsdd{ g(tx) }{t}{0}=\Dsdd{ tM(tx)x }{t}{0}=M(0)x.
+    \end{equation}
+    Note que nous avons utilisé la règle de Leibnitz pour la dérivée d'un produit, mais le second terme s'est annulé. Donc \( dg_0=M(0)\in \GL(n,\eR)\) et \( g\) est localement un \( C^1\)-difféomorphisme.
+
+    Il suffit de restreindre \( \varphi\) au domaine sur lequel \( g\) est un \( C^1\)-difféomorphisme pour que \( \varphi\) devienne lui-même un \( C^1\)-difféomorphisme.
+
+\end{proof}
+
+\begin{definition}
+    Un point \( a\) est un \defe{point critique}{point critique!définition} de la fonction différentiable \( f\) si \( df_a=0\).
+\end{definition}
+
+\begin{corollary}[\cite{XPautfO}]
+    Les points critiques non dégénérés d'une fonction \( C^3\) sont isolés.
+\end{corollary}
+
+\begin{proof}
+    Soit \( a\) un point critique non dégénéré. Par le lemme de Morse~\ref{LemNQAmCLo}, il existe un \( C^1\)-difféomorphisme \( \psi\) et un entier \( p\) tel que
+    \begin{equation}
+        (f\circ \psi)(x)=x_1^2+\cdots +x_p^2-x_{p+1}^2-\ldots -x_n^2+f(a)
+    \end{equation}
+    sur un voisinage \( \mU\) de \( a\). Vue la formule générale \( df_x(u)=\nabla f(x)\cdot u\), si \( x\) est un point critique de \( f\), alors \( \nabla f(x)=0\). Dans notre cas, les points critiques de \( f\circ \psi\) dans \( \mU\) doivent vérifier \( x_i=0\) pour tout \( i\), et donc \( x=a\).
+
+    Nous devons nous assurer que la fonction \( f\) elle-même n'a pas de points critiques dans \( \mU\). Pour cela nous utilisons la formule générale de dérivation de fonction composée :
+    \begin{equation}
+        \nabla(f\circ\psi)(x)=\sum_k \frac{ \partial f }{ \partial y_k }\big( g(x) \big)\nabla g_k(x).
+    \end{equation}
+    Si \( \psi(x)\) est une point critique de \( f\), alors le membre de droite est le vecteur nul parce que tous les \( \partial_kf\big( \psi(x) \big)\) sont nuls. Par conséquent le membre de gauche est également nul, et \( x\) est un point critique de \( f\circ\psi\). Or nous venons de voir que \( f\circ\psi\) n'a pas de points critiques dans \( \mU\).
+
+    Donc \( f\) n'a pas de points critiques dans un voisinage d'un point critique non dégénéré.
+\end{proof}
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Constructions plus naïves de l'intégrale dans le cas réel}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
