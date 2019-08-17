@@ -4,6 +4,7 @@
 
 - Taylor avec reste intégral.
 - Approximation de ln(2)
+- intégrales de Wallis
 
 ## Fonction Cauchy-continue (juillet 2019)
 

@@ -496,7 +496,7 @@ Nous allons nous contenter de donner un exemple de chaque type.
 \end{Aretenir}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Taylor : reste intégral}
+\subsection{Approximation de \texorpdfstring{$ \ln(2)$}{ln(2)}}
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{theorem}     \label{THOooDGCJooXKmFTT}
@@ -592,6 +592,40 @@ Cette formule avec reste intégral sert par exemple à prouver un encadrement po
         \int_1^2(2-t)^Ndt=\frac{1}{ N+1 }.
     \end{equation}
 \end{proof}
+
+\begin{example}[\cite{MonCerveau}]      \label{EXooYMEEooMGpUNM}
+    La convergence de l'encadrement \eqref{PROPooHOMYooFclkCU} n'est pas terrible. Pour avoir une erreur de \( \frac{1}{ 10 }\), il faut
+    \begin{equation}
+        \frac{1}{ 10 }=\frac{1}{ n+1 },
+    \end{equation}
+    ce qui demande \( n=9\). Ça reste jouable, même pour les jeunes d'aujourd'hui. Écrivons \( 9\) termes :
+    \begin{equation}
+        | \ln(2)-1+\frac{ 1 }{2}-\frac{1}{ 3 }+\frac{1}{ 4 }-\frac{1}{ 5 }+\frac{1}{ 6 }-\frac{ 1 }{ 7 }+\frac{1}{ 8 }-\frac{1}{ 9 } |\leq \frac{1}{ 10 }.
+    \end{equation}
+    En calculant\footnote{Moi j'ai utilisé Sage, mais si tu es au tableau, débrouilles-toi.},
+    \begin{equation}
+        | \ln(2)-\frac{ 1879 }{ 2520 } |\leq\frac{1}{ 10 }.
+    \end{equation}
+    Voici donc un bel encadrement
+    \begin{equation}
+        \frac{ 1879 }{ 2520 }-\frac{1}{ 10 }\leq \ln(2)\leq \frac{ 1879 }{ 2520 }+\frac{1}{ 10 }.
+    \end{equation}
+    Pour avoir quelque chose avec des virgules, d'abord un peu de calcul mental donne
+    \begin{equation}
+        \frac{ 1879 }{ 2520 }\simeq 0.745634920634921.
+    \end{equation}
+    Donc en majorant et minorant, disons, la troisième décimale\footnote{Notez ici que nous utilisons le fait que la division euclidienne, elle, donne un encadrement pour les fractions. Pensez-y.}, on n'est pas moins précis que le $\frac{1}{ 10 }$. On a
+    \begin{equation}
+        0.744-\frac{1}{ 10 }\leq \ln(2)\leq 0.746+\frac{1}{ 10 }.
+    \end{equation}
+    Bref, on retient l'approximation
+    \begin{equation}
+        0.644\leq \ln(2)\leq 0.846.
+    \end{equation}
+    
+    Pour la quantité de travail, avouez que ce n'est pas terrible comme résultat. Eh oui; le calcul numérique c'est tout un métier; il existe des méthodes nettement plus efficaces que ce que nous venons de faire.
+\end{example}
+
 
 \begin{proposition}[Formule de Taylor avec reste intégral\cite{VBYOJrU,ooSZKEooLejXAh}]\label{PropAXaSClx}
     Soient \( X\) et \( Y\) des espaces normés et un ouvert \( \mO\subset X\). Si \( f\in C^m(\mO,Y)\) et si \( [p,x]\subset \mO\) alors
@@ -1445,3 +1479,407 @@ Réciproquement, si $f$ est intégrable sur $E$, alors $f$ est mesurable.
         \int_a^{\infty}f\leq\lim_{b\to\infty}\int_a^bf.
     \end{equation}
 \end{proof}
+
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Intégrale de Wallis}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}[\cite{BIBooBKPHooAHRmLD}]     \label{LEMooMGUVooIIQSmC}
+    Soit \( n>0\). En posant \( I_n=\int\sin^n(x)dx\), nous avons :
+    \begin{equation}
+        I_n=\frac{ \cos(x)\sin^{n-1}(x) }{ n }+\frac{ n-1 }{ n }I_{n-2},
+    \end{equation}
+    c'est à dire
+    \begin{equation}
+        \int\sin^n(x)dx=\frac{ n-1 }{ n }\int\sin^{n-2}(t)dt-\frac{ \sin^{n-1}(x)\cos(x) }{ n }.
+    \end{equation}
+
+    De la même manière,
+    \begin{equation}        \label{EQooWJMIooSgBbJx}
+        \int\cos^n(x)dx=\frac{ \cos^{n-1}(x)\sin(x) }{ n }+\frac{ n-1 }{ n }\int\cos^{n-2}(x)dx.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Nous posons \( I_n=\int\sin^n(t)dt\), et nous y allons par récurrence. D'abord pour \( n=1\). Dans ce cas, la formule à démontrer se réduit à
+    \begin{equation}
+        \int\sin(x)dx=\cos(x).
+    \end{equation}
+    Pas de problèmes.
+
+    Pour \( n\geq 2\), nous évaluons l'intégrale \( I_n\) en utilisant une intégration par partie\footnote{Proposition \ref{PROPooRLFIooQHnyJY}.} en posant
+    \begin{subequations}
+        \begin{numcases}{}
+            u=\sin^{n-1}(t)\\
+            v'=\sin(t)
+        \end{numcases}
+    \end{subequations}
+    et en déduisant
+    \begin{subequations}
+        \begin{numcases}{}
+            u'=(n-1)\sin^{n-2}(t)\cos(t)\\
+            v=-\cos(t).
+        \end{numcases}
+    \end{subequations}
+    Nous avons alors le calcul
+    \begin{subequations}
+        \begin{align}
+            I_n&=-\cos(x)\sin^{n-1}(x)+\int(n-1)\sin^{n-2}(x)\cos^2(x)dx\\
+            &=-\cos(x)\sin^{n-1}(x)+(n-1)\int\sin^{n-2}\underbrace{\cos^2(x)}_{=1-\sin^2(x)}dx\\
+            &=\cos(x)\sin^{n-1}(x)+(n-1)\underbrace{\int\sin^{n-2}(x)dx}_{=I_{n-2}}-(n-1)\underbrace{\int\sin^n(x)}_{=I_n}dx
+        \end{align}
+    \end{subequations}
+    Nous avons donc déjà prouvé que
+    \begin{equation}
+        I_n=\cos(x)\sin^{n-1}(x)+(n-1)(I_{n-2}-I_n).
+    \end{equation}
+    En isolant \( I_n\),
+    \begin{equation}
+        I_n=\frac{ \cos(x)\sin^{n-1}(x) }{ n }+\frac{ n-1 }{ n }I_{n-2}.
+    \end{equation}
+
+    La formule \eqref{EQooWJMIooSgBbJx} se démontre de la même façon.
+\end{proof}
+
+\begin{lemma}[\cite{BIBooFMRSooRYnhNf,BIBooSZLCooXWYESD}]       \label{LEMooUOIBooLyMDft}
+    Nous posons
+    \begin{equation}
+        W_n=\int_0^{\pi/2}\cos^n(t)dt.
+    \end{equation}
+    Alors :
+    \begin{enumerate}
+        \item
+            une formule de récurrence :
+            \begin{equation}        \label{EQooILMZooBUgJpk}
+                W_n=\frac{ n-1 }{ n }W_{n-2},
+            \end{equation}
+        \item et une formule un peu explicite :
+            \begin{equation}        \label{EQooUYIDooEpHCnP}
+                W_{2n}=\frac{ (2n)! }{ (2^nn!)^2 }\frac{ \pi }{2}.
+            \end{equation}
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Le nombre \( W_n\) est seulement la seconde intégrale du lemme \ref{LEMooMGUVooIIQSmC}, évaluée entre \( 0\) et \( \pi/2\). En partant donc de \eqref{EQooWJMIooSgBbJx}, nous avons
+    \begin{equation}
+        W_n=\int_0^{\pi/2}\cos^n(x)dx=\left[ \frac{ \cos^{n-1}(x)\sin(x) }{ n } \right]_0^{\pi/2}+\frac{ n-1 }{ n }\int_0^{\pi/2}\cos^{n-2}(x)dx.
+    \end{equation}
+    Le terme aux bords disparaît grâce aux valeurs trigonométriques remarquables\footnote{Par exemple la proposition \ref{PROPooMWMDooJYIlis}\ref{ITEMooQKPKooEPeHER}.}. Il reste immédiatement
+    \begin{equation}
+        W_n=\frac{ n-1 }{ n }W_{n-2}.
+    \end{equation}
+    À partir de là, nous démontrons \eqref{EQooUYIDooEpHCnP} par récurrence. D'abord pour \( n=0\), c'est l'égalité \( W_0=\pi/2\) qui est correcte parce que
+    \begin{equation}
+        \int_0^{\pi/2}\cos^0(x)dx=\int_0^{\pi/2}1dx.
+    \end{equation}
+    Pour la récurrence elle-même,
+    \begin{subequations}
+        \begin{align}
+            W_{2(n+1)}&=\frac{ 2n+1 }{ 2(n+1) }W_{2n}\\
+            &=\frac{ 2n+1 }{ 2n+2 }\frac{ (2n)! }{ (2^nn!)^2 }\frac{ \pi }{ 2 }\\
+            &\text{\ldots pas mal de petits calculs \ldots}\\
+            &=\frac{ (2n+2)! }{ \big( (n+1)!2^{n+1} \big)^2 }\frac{ \pi }{2}.
+        \end{align}
+    \end{subequations}
+    Voila.
+\end{proof}
+
+Maintenant, la suite \( (W_n)\) se divise en ses termes pairs et ses termes impairs. Pour les pairs, nous avons une formule assez explicite donnée par le lemme \ref{LEMooUOIBooLyMDft}. Pour les termes impairs, nous n'avons rien. Dans tous les cas, nous avons la formule de récurrence
+\begin{equation}
+    W_n=\frac{ n-1 }{ n }W_{n-2}
+\end{equation}
+qui ne sert à rien pour déduire des choses sur les termes impairs à partir de ce que l'on sait des termes pairs.
+
+Sommes-nous perdus ? Non. La situation se débloque grâce au lemme suivant.
+
+\begin{lemma}       \label{LEMooZFBVooQsOuOx}
+    La suite donnée par
+    \begin{equation}
+        W_n=\int_0^{\pi/2}\cos^n(x)dx
+    \end{equation}
+    est décroissante.
+\end{lemma}
+
+\begin{proof}
+    Vu que l'intégrale est sur \( \mathopen[ 0 , \pi/2 \mathclose]\), le nombre \( \cos(x)\) prend ses valeurs dans \( \mathopen[ 0 , 1 \mathclose]\). Nous avons donc
+    \begin{equation}
+        \cos^{n+1}(x)\leq \cos^n(x).
+    \end{equation}
+    Les intégrales suivent les mêmes inégalités.
+\end{proof}
+
+Ce lemme permet de relancer le jeu parce que les termes impairs sont coincés entre les termes pairs, qui décroissent. Les termes impairs doivent donc décroître à la même vitesse. Le lemme suivant met cela en musique.
+
+\begin{lemma}       \label{LEMooAXTEooLBXQuM}
+    Nous posons
+    \begin{equation}
+        W_n=\int_0^{\pi/2}\cos^n(x)dx
+    \end{equation}
+    La fonction \( \alpha\colon \eN\to \eR\) définie par \( W_n=\alpha(n)W_{n-1}\) vérifie \( \lim_{n\to \infty} \alpha(n)=1\).
+\end{lemma}
+
+\begin{proof}
+    Parce que nous en aurons besoin, nous triturons d'abord un peu la formule de récurrence \eqref{EQooILMZooBUgJpk}. D'abord nous l'inversons un peu pour avoir
+    \begin{equation}
+        W_n=\frac{ n+2 }{ n }W_{n+2},
+    \end{equation}
+    et ensuite nous écrivons
+    \begin{equation}        \label{EQooYINNooBUKUYB}
+        W_{n-1}=\frac{ n+1 }{ n }W_{n+1}.
+    \end{equation}
+    Ne vous posez pas de questions, ça va être utile. Le fait que la suite soit décroissante (lemme \ref{LEMooZFBVooQsOuOx}) nous permet d'écrite
+    \begin{equation}
+        W_{n+2}\leq W_n\leq W_{n-1}.
+    \end{equation}
+    En y remplaçant \( W_n\) par \( \alpha(n)W_{n+1}\) et \( W_{n-1}\) par \eqref{EQooYINNooBUKUYB},
+    \begin{equation}
+        W_{n+1}\leq \alpha(n)W_{n+1}\leq \frac{ n+1 }{ n }W_{n+1}.
+    \end{equation}
+    Nous simplifions par \( W_{n+1}\) et nous trouvons l'encadrement, valable pour tout \( n\) :
+    \begin{equation}
+        1\leq \alpha(n)\leq \frac{ n+1 }{ n }.
+    \end{equation}
+    Nous en déduisons par la règle de l'étau que \( \alpha(n)\to 1\).
+\end{proof}
+
+\begin{lemma}       \label{LEMooWQZAooOXAPQO}
+    Soit
+    \begin{equation}
+        W_n=\int_0^{\pi/2}\cos^n(x)dx.
+    \end{equation}
+    Encore plusieurs choses à dire.
+    \begin{enumerate}
+        \item
+            Pour tout \( n\) nous avons
+            \begin{equation}        \label{EQooLOLFooMIwMXN}
+                nW_nW_{n-1}=\frac{ \pi }{2}.
+            \end{equation}
+            \item
+                Nous avons l'équivalence de suites\footnote{Définition \ref{DEFooEWRTooKgShmT}.}
+                \begin{equation}
+                    W_n\sim\sqrt{ \frac{ \pi }{ 2n } }.
+                \end{equation}
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    En deux parties
+    \begin{subproof}
+        \item[La suite constante]
+            Nous posons \( K_n=nW_nW_{n-1}\). Grâce aux formules de récurrence \eqref{EQooILMZooBUgJpk} que nous écrivons sous la forme
+            \begin{subequations}
+                \begin{align}
+                    W_n&=\frac{ n-1 }{ n }W_{n-2}\\
+                    W_{n+1}&=\frac{ n }{ n+1 }W_{n-1},
+                \end{align}
+            \end{subequations}
+            nous avons
+            \begin{equation}
+                K_{n+1}=(n+1)W_{n+1}W_n=(n+1)\frac{ n }{ n+1 }\frac{ n-1 }{ n }W_{n-2}W_{n_2}=(n-1)W_{n-1}W_{n-2}=K_{n-1}.
+            \end{equation}
+            Nous avons montré que \( K_{n+1}=K_{n-1}\).
+
+            Il nous reste à prouver que \( K_1=K_2=\frac{ \pi }{2}\). Pour cela nous avons immédiatement \( W_0=\frac{ \pi }{2}\) ainsi que
+            \begin{equation}
+                W_1=\int_0^{\pi/2}\cos(t)dt=1.
+            \end{equation}
+            Pour \( W_2\), il ne faut pas calculer d'intégrales, mais seulement utiliser le formule \eqref{EQooUYIDooEpHCnP}. Nous trouvons vite \( W_2=\frac{ \pi }{ 4 }\). Donc
+            \begin{equation}
+                K_1=W_1W_0=\frac{ \pi }{2}
+            \end{equation}
+            et
+            \begin{equation}
+                K_2=2W_2W_1=\frac{ \pi }{2}.
+            \end{equation}
+        \item[L'équivalence de suites]
+            Soit la fonction \( \alpha\)  définie par \( W_n=\alpha(n)W_{n-1}\). Le lemme \ref{LEMooAXTEooLBXQuM} nous dit que \( \alpha(n)\to 1\). Nous l'utilisons dans \eqref{EQooLOLFooMIwMXN} :
+            \begin{equation}
+                \frac{ \pi }{2}=nW_nW_{n-1}=n\alpha(n)W_{n-1}^2.
+            \end{equation}
+            Donc
+            \begin{equation}
+                W_{n-1}^2=\frac{ \pi }{ 2n\alpha(n) },
+            \end{equation}
+            et
+            \begin{equation}
+                W_{n-1}\sqrt{ \frac{1}{ \alpha(n) } }\sqrt{ \frac{ \pi }{ 2n } }.
+            \end{equation}
+            Vu que le coefficient \( \sqrt{ 1/\alpha(n) }\) tend vers \( 1\) pour \( n\to 1\), nous avons l'équivalence demandée.
+    \end{subproof}
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Formule de Stirling}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}[\cite{BIBooFRPFooFDvXrp}]     \label{LEMooDXJOooOGFcIv}
+    Si \( n\in \eN\) nous avons la formule
+    \begin{equation}
+        \ln(1+\frac{1}{ n })=2\sum_{k=0}^{\infty} \frac{1}{ 2k+1 } \left( \frac{1}{ 2n+1 } \right)^{2k+1}
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Il s'agit d'utiliser astucieusement le développement de la proposition \ref{PROPooKPBIooJdNsqX}. Nous avons d'une part
+    \begin{equation}
+        \ln(1+t)=\sum_{k=1}^{\infty}(-1)^{k+1}\frac{ x^k }{ k }
+    \end{equation}
+    et d'autre part,
+    \begin{equation}
+        -\ln(1-t)=\sum_{k=1}^{\infty}\frac{ x^k }{ k }.
+    \end{equation}
+    Cela permet de calculer, en utilisant l'associativité de la série\footnote{Proposition \ref{PROPooUEBWooUQBQvP}.}
+    \begin{subequations}\label{EQooYVXHooNDetVx}
+        \begin{align} 
+            \ln\left( \frac{ 1+t }{ 1-t } \right)&=\ln(1+t)-\ln(1-t)\\
+            &=\sum_{k=1}^{\infty}\left( \frac{ (-1)^{k+1}x^k }{ k }+\frac{ x^k }{ k } \right)\\
+            &=2\sum_{k=0}^{\infty}\frac{ x^{2k+1} }{ 2k+1 }     \label{SUBEQooIIOBooXYoHkK}
+        \end{align}
+    \end{subequations}
+    parce que tous les termes pairs s'annulent, tandis que les termes impairs sont doublée. Notez que la somme dans \eqref{SUBEQooIIOBooXYoHkK} commence à \( k=0\), contrairement aux autres qui commencent à \( 1\).
+   
+    Et là c'est l'astuce : on pose écrit l'égalité \eqref{EQooYVXHooNDetVx} avec le \( t\) qu'il faut pour que
+    \begin{equation}
+        \frac{ 1+t }{ 1-t }=1+\frac{1}{ n }.
+    \end{equation}
+    Nous posons donc \( t=\frac{1}{ 2n+1 }\) nous avons
+    \begin{equation}
+        \ln\left( 1+\frac{1}{ n } \right)=2\sum_{k=0}^{\infty}  \frac{1}{ 2k+1 } \left( \frac{1}{ 2n+1 } \right)^{2k+1},
+    \end{equation}
+    ce qu'il fallait.
+\end{proof}
+
+
+\begin{lemma}[Formule de Stirling\cite{MEHuVnb,BIBooZRVYooGKkFmy,BIBooFMRSooRYnhNf,BIBooFRPFooFDvXrp,BIBooEFYIooBvytzQ}]        \label{LemCEoBqrP}
+    Nous avons l'équivalence de suites\footnote{Définition \ref{DEFooEWRTooKgShmT}.}
+    \begin{equation}
+        n!\sim \left( \frac{ n }{ e } \right)^n\sqrt{2\pi n}.
+    \end{equation}
+\end{lemma}
+\index{formule de Stirling}
+
+\begin{proof}
+    Nous posons
+    \begin{equation}
+        a_n=\frac{ n! }{ \sqrt{ 2n } \left( \frac{ n }{ e } \right)^n }
+    \end{equation}
+    et \( b_n=\ln(a_n)\).
+    \begin{subproof}
+        \item[Une formule pour \( b_n-b_{n+1}\)]
+            Nous faisons un beau calcul qui utilise les formules de la proposition \ref{PROPooLAOWooEYvXmI} ainsi que \( \ln(e)=1\) :
+            \begin{subequations}        \label{SUBEQSooZTABooBukFGM}
+                \begin{align}
+                    b_n-b_{n+1}&=\ln\left( \frac{ a_n }{ a_{n+1} } \right)\\
+                    &=\ln\left(     \frac{ (n+1)^{n+1/2} }{ n^{n+1/2} }\frac{1}{ e }    \right)\\
+                    &=\ln\left( (\frac{ n+1 }{ n })^{n+1/2} \right)-1\\
+                    &=\left( n+\frac{1}{ 2 } \right)\ln(1+\frac{1}{ n })-1.
+                \end{align}
+            \end{subequations}
+        \item[La suite \( (b_n)\) est décroissante]
+            Nous écrivons l'égalité \eqref{SUBEQSooZTABooBukFGM} en utilisant le lemme \ref{LEMooDXJOooOGFcIv} :
+            \begin{subequations}
+                \begin{align}
+                    b_n-b_{n+1}&=(n+\frac{ 1 }{2})\ln(1+\frac{1}{ n })-1\\
+                    &=\frac{ 1 }{2}(2n+1)2\sum_{k=0}^{\infty}\frac{1}{ 2k+1 }\left( \frac{1}{ 2n+1 } \right)^{2k+1}-1\\
+                    &=(2n+1)\sum_{k=1}^{\infty}\frac{1}{ 2k+1 }\left( \frac{1}{ 2n+1 } \right)^{2k+1}\\
+                    &=\sum_{k=1}^{\infty}  \frac{1}{ 2k+1 }  \left( \frac{1}{ 2n+1 } \right)^{2k}.
+                \end{align}
+            \end{subequations}
+            Notez que le terme \( k=0\) s'est simplifié avec le \( -1\). Vu que le tout est une somme de termes positifs, nous avons
+            \begin{equation}
+                b_n-b_{n+1}>0
+            \end{equation}
+            et la suite est décroissante.
+        \item[Majoration pour \( b_n-b_{n+1}\)]
+            Vu que \( \frac{1}{ 2k+1 }<1\), nous pouvons majorer :
+            \begin{equation}
+                b_n-b_{n+1}\leq \sum_{k=1}^{\infty}\left( \frac{1}{ (2n+1)^2 } \right)^k.
+            \end{equation}
+            Nous remarquons que cela est une série géométrique déjà traitée dans l'exemple \ref{ExZMhWtJS}. Nous faisons un peu de calcul en partant de 
+            \begin{equation}
+                \sum_{k=1}^{\infty}q^n=\frac{ q }{ 1-q }
+            \end{equation}
+            avec \( q=\frac{1}{ (2n+1)^2 }\). Après quelque simplifications,
+            \begin{equation}
+                b_n-b_{n+1}\leq \frac{1}{ 4 }\frac{ 1 }{ n(n+1) }
+            \end{equation}
+        \item[Le coup de la somme téléscopique]
+            Nous avons
+            \begin{equation}
+                b_1-b_n=(b_1-b_2)+(b_2-b_3)+\ldots+(b_{n_1}-b_n).
+            \end{equation}
+            Chacun de ces termes est majoré; nous avons donc
+            \begin{equation}
+                b_1-b_n<\frac{1}{ 4 }\sum_{m=1}^{n-1}\frac{1}{ m(m+1) }\leq \frac{1}{ 4 }\sum_{m=1}^{\infty}\frac{1}{ m(m+1) }=\frac{1}{ 4 }
+            \end{equation}
+            grâce au lemme \ref{LEMooKDHPooPlFTIT} pour la dernière somme.
+        \item[La suite \( b_n\) est bornée vers le bas]
+
+            Vu que \( b_1=1-\frac{ \ln(2) }{2}\), nous avons
+            \begin{equation}
+                b_n>b_1-\frac{1}{ 4 }=\frac{ 3 }{ 4 }-\frac{ \ln(2) }{ 2 }.
+            \end{equation}
+            En utilisant la majoration de l'exemple \ref{EXooYMEEooMGpUNM} nous trouvons
+            \begin{equation}
+                0.327\leq b_n\leq 0.427.
+            \end{equation}
+            Ce encadrement n'est pas très important. Le point est que la suite \( (b_n)\) soit bornée vers le bas; savoir que la borne est strictement positive n'est pas indispensable.
+
+        \item[Une limite pour \( (a_n)\)]
+            La suite \( (b_n)\) est décroissante et bornée vers le bas, donc elle est convergente par le lemme \ref{LemSuiteCrBorncv}. Vu que l'exponentielle est une fonction continue\footnote{Voir \ref{}.}, la suite \( a_n= e^{b_n}\) est également convergente.
+
+            Vu que \( \lim_{n\to \infty} b_n>0\), nous avons \( \lim_{n\to \infty} a_n= e^{\lim_{n\to \infty} b_n}>1\).
+
+            L'important est que nous sachions que \( (a_n)\) est une suite convergente. Nous notons \( L\) sa limite :
+            \begin{equation}
+                \lim_{n\to \infty} \frac{ n! }{ \sqrt{ 2n }\left( \frac{ n }{ e } \right)^n }=L.
+            \end{equation}
+            Ou encore :
+            \begin{equation}
+                \lim_{n\to \infty} \frac{ n! }{ L\sqrt{ 2n }\left( \frac{ n }{ e } \right)^n }=1.
+            \end{equation}
+            Autrement dit, en posant
+            \begin{equation}        \label{EQyiBooFVCCooJbGpsW}
+                n!=\alpha(n)L\sqrt{ 2n }\left( \frac{ n }{ e } \right)^n,
+            \end{equation}
+            nous avons \( \lim_{n\to \infty} \alpha(n)=1\).
+
+        \item[Introduction de Wallis]
+            Nous avons déjà parlé dans le lemme \ref{LEMooUOIBooLyMDft} du nombre
+            \begin{equation}
+                W_{2n}=\frac{ (2n)! }{ (2^nn!)^2 }\frac{ \pi }{2}.
+            \end{equation}
+            Le lemme \ref{LEMooWQZAooOXAPQO} implique que la suite \( I_n=W_{2n}\) est équivalente à \( \sqrt{ \pi/4n }\). 
+            
+            Cela étant dit, nous faisons un gros calcul en remplaçant les factorielles dans \( W_{2n}\) par la formule \eqref{EQooFVCCooJbGpsW}. Après pas mal de calculs\footnote{Si vous êtes en manque de papier de brouillon, c'est le moment de vous inquiéter.}, nous trouvons
+            \begin{equation}
+                I_n=\frac{ \alpha(2n) }{ \alpha(n)^2 }\frac{1}{ \sqrt{ n } }\frac{ \pi }{ 2n }.
+            \end{equation}
+            Nous avons donc
+            \begin{equation}
+                \sqrt{ \frac{ \pi }{ 4n } }\sim \frac{ \alpha(2n) }{ \alpha(n)^2 }\frac{ \pi }{ \sqrt{ n } }\frac{1}{ 2L }.
+            \end{equation}
+            Il existe donc une fonction \( \beta(n)\) avec \( \beta(n)\to 1\) telle que
+            \begin{equation}
+                \frac{ \sqrt{ \pi } }{2}\frac{1}{ \sqrt{ n } }=\beta(n)\frac{ \alpha(2n) }{ \alpha(n)^2 }\frac{ \pi }{ \sqrt{ n } }\frac{1}{ 2L }.
+            \end{equation}
+            En simplifiant par \( 1/\sqrt{ n }\),
+            \begin{equation}
+                \frac{ \sqrt{ \pi } }{2}=\beta(n)\frac{ \alpha(2n) }{ \alpha(n)^2 }\frac{\pi}{ 2L }.
+            \end{equation}
+            Nous prenons à présent la limite \( n\to \infty\) en nous rappelant que \( \alpha\) et \( \beta \) donnent \( 1\). Après simplifications, nous trouvons
+            \begin{equation}
+                L=\sqrt{ \pi }.
+            \end{equation}
+            
+        \item[La fin]
+            Nous introduisons la valeur \( L=\sqrt{ \pi }\) dans l'expression \eqref{EQooFVCCooJbGpsW} de la factorielle :
+            \begin{equation}
+                n!=\alpha(n)\sqrt{ 2\pi n }\left( \frac{ n }{ e } \right)^n.
+            \end{equation}
+    \end{subproof}
+    La dernière équation est exactement ce qui signifie l'équivalence de suite demandée.
+\end{proof}
+
