@@ -1,9 +1,13 @@
 # Journal des changements du Frido
 
+## Aout 2019
+
+- Lemme de Urysohn, version basique dans R
+
 ## Formule de Stirling (aout 2019)
 
 - Taylor avec reste intégral.
-- Approximation de ln(2)
+- Encadrement de ln(2)
 - intégrales de Wallis
 
 ## Fonction Cauchy-continue (juillet 2019)
@@ -22,7 +26,7 @@ de Cauchy-continue
 - un peu de mise au clair à propos de la différence entre des isométries de (R^n,d) et de (R^n, ||.||).
 - sous-groupes finis des isométries affines du plan.
 - Démonstration que les rotations centrées en (0,0) sont exactement le groupe SO(2).
-- pavage du plan.
+- pavages du plan.
 
 ## Formes bilinéaires (mai 2019)
 
