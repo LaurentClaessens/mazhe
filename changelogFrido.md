@@ -3,6 +3,7 @@
 ## Aout 2019
 
 - Lemme de Urysohn, version basique dans R
+- lim x->oo de int_0^x est égale à int_0^{oo}.
 
 ## Formule de Stirling (aout 2019)
 
@@ -16,8 +17,7 @@ Correction d'une faute : il n'est pas vrai qu'une fonction
 continue sur Q s'étend en une fonction continue sur R.
 
 - Donner un contre-exemple
-- Adapter la preuve du lemme d'extension pour l'hypothèse
-de Cauchy-continue
+- Adapter la preuve du lemme d'extension pour l'hypothèse de Cauchy-continue
 - Prouver que q -> a^q est Cauchy-continue.
 
 ## Isométries affines (juin 2019 - aout 2019)
