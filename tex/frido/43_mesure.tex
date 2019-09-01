@@ -896,6 +896,10 @@ Une mesure \( \mu\) sur un espace mesurable \( (\Omega,\tribA)\) permet de défi
     Mais comme \( A\) n'est pas mesurable et que \( \mtu_A\) n'est le supremum d'aucune suite de fonctions mesurables (lemme~\ref{LemIGKvbNR}), bien que le supremum qui définirait l'intégrale de \( f\) existe (toute partie de \( \eR\) a un supremum), il est sans espoir que ce supremum ait un sens que l'on puisse interpréter en tant que mesure de \( f\).
 \end{normaltext}
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Premières propriétés}
+%---------------------------------------------------------------------------------------------------------------------------
+
 \begin{normaltext}
     Si \( (\Omega^n(\cA)\tribA,\mu)\) est un espace mesurable, et si \( Y\) est un élément de \( \tribA\), nous avons l'espace mesurable \( (Y,\tribA_Y,\mu_Y)\) donné par
     \begin{itemize}
@@ -907,14 +911,11 @@ Une mesure \( \mu\) sur un espace mesurable \( (\Omega,\tribA)\) permet de défi
     Heureusement, nous allons tout de suite montrer que ces deux choses sont identiques.
 \end{normaltext}
 
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Premières propriétés}
-%---------------------------------------------------------------------------------------------------------------------------
 
 \begin{lemma}
-    Soit un espace mesuré \( (\Omega,\tribA,\mu)\) ainsi que \( Y\in\tribA\). Nous considérons une fonction \( f\colon \Omega\to \eR\) qui est \( \tribA\)-mesurable et intégrable sur \( Y\).
+    Soit un espace mesuré \( (\Omega,\tribA,\mu)\) ainsi que \( Y\in\tribA\). Nous considérons une fonction \( f\colon \Omega\to \eR^+\) qui est \( \tribA\)-mesurable et intégrable sur \( Y\).
     
-    Alors
+    Alors, avec des notations que j'espère être claires,
     \begin{enumerate}
         \item
             \( f\) est \( \tribA_Y\)-mesurable,
@@ -923,14 +924,61 @@ Une mesure \( \mu\) sur un espace mesurable \( (\Omega,\tribA)\) permet de défi
         \item
             nous avons l'égalité
     \begin{equation}
-        \int_{(Y,\tribA_Y,\mu_Y)}f|_Y=\int(Y\subset \Omega,\tribA,\mu).
+        \int_{(Y,\tribA_Y,\mu_Y)}f|_Y=\int_{(Y\subset \Omega,\tribA,\mu)}f.
     \end{equation}
     \end{enumerate}
 \end{lemma}
 
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Quelque propriétés}
-%---------------------------------------------------------------------------------------------------------------------------
+\begin{proof}
+    Nous considérons les deux ensembles suivants :
+    \begin{subequations}
+        \begin{align}
+            S_1&=\{ \psi\text{ étagées sur } Y\text{ et majorées par } f|_Y \}\\
+            S_2&=\{ \psi\text{ étagées sur } \Omega\text{ et majorées par } f \}.
+        \end{align}
+    \end{subequations}
+    Nous considérons l'application suivante :
+    \begin{equation}
+        \begin{aligned}
+            s\colon S_1&\to S_2 \\
+            s(\psi)(x)&=\begin{cases}
+                \psi(x)    &   \text{si } x\in Y\\
+                0    &    \text{sinon.}
+            \end{cases}
+        \end{aligned}
+    \end{equation}
+    L'application \( s\) est une bijection.
+
+    Pour \( \psi\in S_1\) nous avons 
+    \begin{equation}
+        \psi=\sum_{k=1}^n\psi_k\mtu_{A_k}|_Y
+    \end{equation}
+    avec \( A_k\in \tribA_k\subset \tribA\) et \( \mtu_{A_k}|_Y\colon Y\to \{ 0,1 \}\). Nous avons aussi
+    \begin{equation}
+        s(\psi)=\sum_{\psi_k}\mtu_{A_k}
+    \end{equation}
+    avec \( \mtu_{A_k}\colon \Omega\to \{ 0,1 \}\).
+
+    En ce qui concerne les intégrales de ces fonctions étagées, nous avons
+    \begin{subequations}
+        \begin{align}
+            \int_{(Y,\tribA_Y,\mu_Y)}\psi&=\sum_{k=1}^n\psi_k\mu_Y(A_k\cap Y)\\
+            &=\sum_{k=1}^n\psi_k\mu(A_k) \label{SUBEQooGWYGooOuucEo}\\
+            &=\int_{(Y\subset \Omega,\tribA,\mu)}s(\psi).
+        \end{align}
+    \end{subequations}
+    Justifications. Pour passer à \eqref{SUBEQooGWYGooOuucEo} nous avons utilisé d'abord que \( A_k\subset Y\) et ensuite que \( \mu_Y(A_k)=\mu(A_k)\).
+
+    Nous sommes maintenant prêts à prouver l'égalité du lemme. Nous avons ceci :
+    \begin{subequations}
+        \begin{align}
+            \int_{(Y,\tribA_Y,\mu_Y)}f|_Y&=\sup\{ \int_{(Y,\tribA_Y,\mu_Y)}\psi\tq \psi\in S_1 \}\\
+            &=\sup\{ \int_{(Y\subset \Omega,\tribA,\mu)}s(\psi)\tq \psi\in S_1 \}\\
+            &=\sup\{ \int_{(Y\subset \Omega,\tribA,\mu)}\varphi\tq \varphi\in S_2 \}\\
+            &=\int_{(Y\subset\Omega,\tribA,\mu)}f.
+        \end{align}
+    \end{subequations}
+\end{proof}
 
 \begin{lemma}       \label{LemooPJLNooVKrBhN}
     Si \( (\Omega,\tribA,\mu)\) est un espace mesuré et si \( B\in \tribA\) alors
@@ -954,6 +1002,52 @@ Une mesure \( \mu\) sur un espace mesurable \( (\Omega,\tribA)\) permet de défi
 \begin{proof}
     Une fonction étagée qui minore \( f\) minore également \( g\). Donc l'ensemble sur lequel il faut faire le supremum pour définir \( \int_{\Omega}f\) est inclus dans celui pour \( \int_{\Omega}g\). Le second supremum étant fini, le premier l'est également.
 \end{proof}
+
+\begin{lemma}
+    Soient un espace mesuré \( (\Omega,\tribA,\mu)\), une fonction \( f\colon \Omega\to \eR^+\) et \( Y\in\tribA\). Nous avons :
+    \begin{equation}
+        \int_Yfd\mu=\int_{\Omega}f\mtu_Ad\mu.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    En plusieurs parties, selon la généralité.
+    \begin{subproof}
+        \item[Si \( f\) est étagée]
+            Nous posons \( f=\sum_{k=1}^nf_k\mtu_{A_k}\) avec \( f_k\in \eR^+\). Dans ce cas,
+            \begin{equation}
+                f\mtu_Y=\sum_kf_k\mtu_{A_k\cap Y}
+            \end{equation}
+            est encore une fonction étagée. Donc nous avons d'une part
+            \begin{equation}
+                \int_{\Omega}f\mtu_Y=\int_{\Omega}\sum_kf_k\mtu_{A_k\cap Y}=\sum_kf_k\mu(A_k\cap Y),
+            \end{equation}
+            et d'autre part,
+            \begin{equation}
+                \int_Yfd\mu=\sum_kf_k\mu(Y\cap A_k),
+            \end{equation}
+        \item[Si \( f\) est à valeurs positives]
+            Nous posons
+            \begin{equation}
+                S_1=\{ \psi\text{ étagées sur } \Omega\tq 0\leq \psi f\mtu_{Y} \}
+            \end{equation}
+            et
+            \begin{equation}
+                S_2=\{ \psi\mtu_Y\tq \psi\text{ étagée avec } 0\leq\psi\leq f \}.
+            \end{equation}
+            Nous prouvons que \( S_1=S_2\). Si \( \psi\in S_1\), alors
+            \begin{equation}
+                0\leq \psi\leq f\mtu_Y\leq f.
+            \end{equation}
+            De plus comme \( \psi=0\) hors de \( Y\) nous avons \( \psi=\psi\mtu_Y\).
+    \end{subproof}
+
+\end{proof}
+<++>
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Propriétés plus avancées}
+%---------------------------------------------------------------------------------------------------------------------------
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsubsection{Convergence monotone}
