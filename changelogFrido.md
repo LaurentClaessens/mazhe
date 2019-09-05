@@ -48,8 +48,8 @@ continue sur Q s'étend en une fonction continue sur R.
 
 - Introduction de l'exponentielle par l'équation fonctionnelle
 - Preuve que a^x est dérivable via l'utilisation de primitive
-- Déplacer Stone-Weierstrass beaucoup plus haut pour avoir la notion de primitive
-  avant de discuter la fonction puissance
+- Déplacer Stone-Weierstrass beaucoup plus haut pour avoir
+  la notion de primitive avant de discuter la fonction puissance
 - Complètement séparer le concept de primitive de celui d'intégrale
 
 ## Convexité de \| x \|^p (Février-mars 2019)
@@ -89,7 +89,8 @@ Les espaces L^p sont réflexifs, preuve
 
 ## Limite et continuité (Octobre 2018)
 
-Il y avait du flottement entre limite et continuité dans le cas d'une fonction définie sur un point isolé.
+Il y avait du flottement entre limite et continuité dans le cas d'une
+fonction définie sur un point isolé.
 - Fixer cela
 - Changer la définition de continuité pour utiliser les voisinages plutôt que la limite
 
