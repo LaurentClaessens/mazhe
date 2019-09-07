@@ -1,3 +1,7 @@
+Ce texte est maintenant en rédaction. Il ne faut plus le modifier ici.
+https://linuxfr.org/redaction/news/nouvelle-depeche-39424
+
+
 # Le Frido 2019, mathématique pour l'agrégation
 
 Ce fichier contient mes notes pour créer l'article d'annonce du Frido 2019 sur linuxfr.
