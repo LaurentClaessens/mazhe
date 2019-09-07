@@ -7,7 +7,7 @@ from splittoc import Book
 
 """
 This script generates the pdf's for printing/commercialization
-by thebookedition.com and lulu.com
+by thebookedition.com.
 
 Usage
 -----
@@ -169,7 +169,8 @@ def split_book(book, tot_volumes):
         pI = book.volume_first_page(volume, tot_volumes)
         pF = book.volume_last_page(volume, tot_volumes)
         filename = matter_filename(volume)
-        print(f"Creating matter of volume {volume} : {pI} -> {pF}")
+        print(f"Creating matter of volume {volume}: "
+              f"{pI} -> {pF} = {pF-pI}")
         book.extract_sub_pdf(pI, pF, filename)
 
 def concatenate(tot_volumes):
