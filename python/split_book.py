@@ -2,7 +2,7 @@
 # -*- coding: utf8 -*-
 
 import os
-from pdfrw import PdfReader,PdfWriter
+from pdfrw import PdfReader, PdfWriter
 from splittoc import Book
 
 """
@@ -32,12 +32,13 @@ It has to be the same
 """
 
 
-def first_filename(v,imprimeur):
+def first_filename(v, imprimeur):
     """
     return the filename in which to write the pdf containing
     the 5 first pages.
     """
     return "firsts_5_"+imprimeur+"_"+str(v)
+
 
 def matter_filename(volume):
     """
@@ -106,10 +107,10 @@ def isbn(title, year, v, imprimeur=None):
         if v == 3:
             return "978-2-9540936-7-3"
 
-
     default = "No ISBN attributed for the title "+title
     print(default)
     return default
+
 
 def pepper(imprimeur):
     if imprimeur == "lulu":
@@ -119,7 +120,7 @@ def pepper(imprimeur):
     raise ValueError(f"Unknown printer : {imprimeur}")
 
 
-def latex_code(title,year,v,imprimeur):
+def latex_code(title, year, v, imprimeur):
     """
     Return the LaTeX code to be compiled.
 
@@ -128,17 +129,18 @@ def latex_code(title,year,v,imprimeur):
     @param 'year' (integer) the year
     """
 
-    text = open("generic.tex",'r').read()
+    text = open("generic.tex", 'r').read()
 
-    substitutions = [["TITLE",title],
-                     ["NUMBER",str(v)],
-                     ["RISBN",isbn(title,year=year,v=v,imprimeur=imprimeur)],
-                     ["YEAR+1",str(year+1)],
-                     ["YEAR",str(year)],
-                     ["PEPPERCARROT",pepper(imprimeur)]]
+    substitutions = [["TITLE", title],
+                     ["NUMBER", str(v)],
+                     ["RISBN", isbn(title, year=year, v=v,
+                                    imprimeur=imprimeur)],
+                     ["YEAR+1", str(year+1)],
+                     ["YEAR", str(year)],
+                     ["PEPPERCARROT", pepper(imprimeur)]]
 
     for s in substitutions:
-        text = text.replace(s[0],s[1])
+        text = text.replace(s[0], s[1])
     return text
 
 
@@ -156,11 +158,12 @@ def make_5_pages(tot_volumes, title, year):
 
     for imprimeur in ["thebookedition"]:
         for v in range(1, tot_volumes + 1):
-            code = latex_code(title,year,v,imprimeur)
-            filename = first_filename(v,imprimeur)+".tex"
-            with open(filename,'w') as f:
+            code = latex_code(title, year, v, imprimeur)
+            filename = first_filename(v, imprimeur)+".tex"
+            with open(filename, 'w') as f:
                 f.write(code)
             os.system("pdflatex "+filename)
+
 
 def split_book(book, tot_volumes):
     """
@@ -177,9 +180,9 @@ def split_book(book, tot_volumes):
     print("Title: ", book.get_chapter(n=1).title())
     print("Number of pages: ", book.tot_pages())
     print("Creating front matter")
-    book.extract_sub_pdf(2, 
-                 book.volume_first_page(1, tot_volumes) - 1, 
-                 "front.pdf")
+    book.extract_sub_pdf(2,
+                         book.volume_first_page(1, tot_volumes) - 1,
+                         "front.pdf")
     for volume in range(1, tot_volumes + 1):
         pI = book.volume_first_page(volume, tot_volumes)
         pF = book.volume_last_page(volume, tot_volumes)
@@ -188,11 +191,12 @@ def split_book(book, tot_volumes):
               f"{pI} -> {pF} = {pF-pI}")
         book.extract_sub_pdf(pI, pF, filename)
 
+
 def concatenate(tot_volumes):
     for imprimeur in ["thebookedition"]:
         for v in range(1, tot_volumes + 1):
             print(f"Concatenating for {imprimeur}, volume {v}")
-            first = PdfReader(first_filename(v,imprimeur)+".pdf")
+            first = PdfReader(first_filename(v, imprimeur)+".pdf")
             front = PdfReader("front.pdf")
             matter = PdfReader(matter_filename(v))
 
@@ -205,6 +209,7 @@ def concatenate(tot_volumes):
             outpdf.addpages(matter.pages)
 
             outpdf.write()
+
 
 def make_the_work():
     """Make the whole work."""
@@ -221,5 +226,6 @@ def make_the_work():
 
     # Concatenating the files
     concatenate(tot_volumes)
+
 
 make_the_work()
