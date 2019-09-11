@@ -48,6 +48,16 @@ def matter_filename(volume):
 
 
 def isbn(title, year, v, imprimeur=None):
+    if title == "Le Frido" and year == 2019:
+        if imprimeur == "thebookedition":
+            if v == 1:
+                return "979-10-97085-18-6"
+            if v == 2:
+                return "979-10-97085-19-3"
+            if v == 3:
+                return "979-10-97085-20-9"
+            if v == 4:
+                return "979-10-97085-21-6"
     if title == "Le Frido" and year == 2018:
         if imprimeur == "lulu":
             if v == 1:
@@ -120,7 +130,12 @@ def latex_code(title,year,v,imprimeur):
 
     text = open("generic.tex",'r').read()
 
-    substitutions = [  ["TITLE",title],["NUMBER",str(v)],["RISBN",isbn(title,year=year,v=v,imprimeur=imprimeur)],["YEAR+1",str(year+1)],["YEAR",str(year)],["PEPPERCARROT",pepper(imprimeur)]  ]
+    substitutions = [["TITLE",title],
+                     ["NUMBER",str(v)],
+                     ["RISBN",isbn(title,year=year,v=v,imprimeur=imprimeur)],
+                     ["YEAR+1",str(year+1)],
+                     ["YEAR",str(year)],
+                     ["PEPPERCARROT",pepper(imprimeur)]]
 
     for s in substitutions:
         text = text.replace(s[0],s[1])
@@ -139,7 +154,7 @@ def make_5_pages(tot_volumes, title, year):
             the number of volumes
     """
 
-    for imprimeur in ["lulu", "thebookedition"]:
+    for imprimeur in ["thebookedition"]:
         for v in range(1, tot_volumes + 1):
             code = latex_code(title,year,v,imprimeur)
             filename = first_filename(v,imprimeur)+".tex"
@@ -174,7 +189,7 @@ def split_book(book, tot_volumes):
         book.extract_sub_pdf(pI, pF, filename)
 
 def concatenate(tot_volumes):
-    for imprimeur in ["lulu", "thebookedition"]:
+    for imprimeur in ["thebookedition"]:
         for v in range(1, tot_volumes + 1):
             print(f"Concatenating for {imprimeur}, volume {v}")
             first = PdfReader(first_filename(v,imprimeur)+".pdf")
