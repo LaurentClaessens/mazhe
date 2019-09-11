@@ -207,15 +207,13 @@ def concatenate(tot_volumes):
             outpdf.write()
 
 def make_the_work():
-    """
-    Make the whole work.
-    """
+    """Make the whole work."""
     tot_volumes = 4
     pdf_filename = "../0-book.pdf"
     toc_filename = "../Inter_book-mazhe_pytex.toc"
 
     # Creating the 5 first pages
-    make_5_pages(tot_volumes, title="Le Frido", year=2018)
+    make_5_pages(tot_volumes, title="Le Frido", year=2019)
 
     # Creating the front and matter of the 4 books.
     book = Book(toc_filename, pdf_filename)
