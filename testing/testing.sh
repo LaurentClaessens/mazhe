@@ -90,6 +90,7 @@ check_spelling()
     ag " demi [a-z]" >> $LOG_FILE
     ag " d'intersections " >> $LOG_FILE
     ag "boite" >> $LOG_FILE
+    ag "est choisit" >> $LOG_FILE
     ag "inclus à" >> $LOG_FILE      # on dit "inclus DANS"
     ag "est a dire" >> $LOG_FILE        # il faut un trait d'union
 }
