@@ -822,13 +822,22 @@
 \renewcommand{\theCounterExample}{\thechapter.\arabic{CounterExample}}
 \renewcommand{\thenumtho}{\thechapter.\arabic{numtho}}
 
-% The ifthenelse line here serves to write something in parenthesis if the optional argument is given.
-\newenvironment{example}[1][]%
-{\vspace{\EnvSpace}\refstepcounter{numtho}\noindent{\bf Exemple \thenumtho}%
-\ifthenelse{\equal{#1}{}}{}{(#1)}%
-\newline}%
-{\phantom{a}\hfill $\triangle$\vspace{\EnvSpace}}
-%TODO : example est un environnement et non un théorème seulement pour cette histoire de triangle. Il faudrait trouver quelque chose.
+
+\theoremstyle{MyExamples}
+    \newtheorem{example}[numtho]{Exemple}
+\DeclareRobustCommand{\trig}{%
+   \ifmmode \quad\hbox{\triangle}
+   \else
+      \leavevmode\unskip\penalty9999 \hbox{}\nobreak\hfill
+      \quad\hbox{$\triangle$}
+   \fi
+}
+
+
+\let\exold\example
+\let\endexold\endexample
+\renewenvironment{example}{\pushQED{\trig}\exold}{\popQED\endexold}
+
 
 \newenvironment{Aretenir}{\refstepcounter{numtho}\begin{oframed}\noindent{\bf À retenir \thenumtho}\newline}{\end{oframed}\vspace{\EnvSpace}}
 
