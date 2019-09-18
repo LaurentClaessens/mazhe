@@ -93,6 +93,8 @@ check_spelling()
     ag "est choisit" >> $LOG_FILE
     ag "inclus à" >> $LOG_FILE      # on dit "inclus DANS"
     ag "est a dire" >> $LOG_FILE        # il faut un trait d'union
+    ag "corollaire" >> $LOG_FILE        # orthographe réformée
+    ag "chaîne" >> $LOG_FILE        # orthographe réformée
 }
 
 test_picture ()
