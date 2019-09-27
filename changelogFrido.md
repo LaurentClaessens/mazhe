@@ -3,6 +3,7 @@
 ## Septembre 2019
 
 - Discussion plus complète entre limite pointée et épointée
+- Quotient d'un anneau par un idéal, placé avant la définition de R (qui est un quotient d'anneau par un idéal)
 - Une bonne définition des anneaux de polynômes à partir du A-module libre A^I.
 
 ## Aout 2019
