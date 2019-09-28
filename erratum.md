@@ -2,6 +2,10 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
+## Frido 2019
+
+- Volume 1. Lemme 2.7. Tout sous-groupe de G contenant A contient gr(A) et non "est contenu dans".
+
 ## Frido 2018
 
 Les fautes sont présentées par ordre anti-chronoligique de découvertes.
