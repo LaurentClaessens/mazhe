@@ -15,16 +15,17 @@ import plugins_agreg
 myRequest = PytexTools.Request()
 myRequest.ok_hash=commons.ok_hash
 
-myRequest.add_plugin(plugins_agreg.set_isFrido,"before_pytex")
+
+myRequest.add_plugin(plugins_agreg.set_boolean("isFrido", 'true'),"before_pytex")
+myRequest.add_plugin(plugins_agreg.set_pdftitle("actu"),"before_pytex")
+
 myRequest.original_filename="mazhe.tex"
+
 myRequest.ok_filenames_list=["e_mazhe"]
 
-
-myRequest.ok_filenames_list.extend(["81_Hilbert"])
 myRequest.ok_filenames_list.extend(["48_StructAnneaux"])
-
-myRequest.ok_filenames_list.extend(["157_thematique"])
-myRequest.ok_filenames_list.extend(["134_choses_finales"])
-
+myRequest.ok_filenames_list.extend(["194_StructAnneaux"])
+myRequest.ok_filenames_list.extend(["42_nombres"])
+myRequest.ok_filenames_list.extend(["remerciements"])
 
 myRequest.new_output_filename="0-exemple.pdf"
