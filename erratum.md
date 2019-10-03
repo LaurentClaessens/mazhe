@@ -33,7 +33,7 @@ Les fautes sont présentées par ordre anti-chronoligique de découvertes.
 - Volume 3. Dans le gros théorème 28.73 à propos de dualité « théorème de représentation de Riesz », il y a un cas "p=1". La preuve donnée dans cette partie ne traite que le cas où la mesure est finie et non sigma-finie comme annoncée. Il y a donc un trou dans la preuve.
 
 - Volume 2, ellipsoïde de John-Loewner 19.113. L'énoncé manque de préciser que l'ellipsoïde est centrée en l'origine. Il faut lire :
-  «Il existe un unique ellipsoïde centré en l'origine etc.». Si nous cherchons des ellipsoïdes en acceptant de ne pas centré en l'origine, il y a moyen a priori d'en trouver de plus petites que celle donnée par le théorème tel que prouvé (pour l'unicité par contre c'est moins clair).
+  «Il existe un unique ellipsoïde centré en l'origine etc.». Si nous cherchons des ellipsoïdes en acceptant de ne pas centré en l'origine, il y a moyen à priori d'en trouver de plus petites que celle donnée par le théorème tel que prouvé (pour l'unicité par contre c'est moins clair).
 
 - Volume 1, corolaire 5.36. Il n'est pas vrai en général que, pour une application linéaire, il y a équivalence entre "injectif", "surjectif" et "bijectif". Cela n'est vrai que si les espaces de départ et d'arrivée ont la même dimension.
   La preuve se trompe en mélangeant les dim(E) de l'espace de départ avec les rang(f) qui sont dans l'espace d'arrivée.
