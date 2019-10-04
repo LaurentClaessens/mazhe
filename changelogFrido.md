@@ -1,5 +1,10 @@
 # Journal des changements du Frido
 
+## Octobre 2019
+
+- Déplacer plusieurs résultats sur les fonctions holomorphes qui sont en réalité des résultats sur les fonctions analytiques.
+- Prouver le théorème du prolongement analytique.
+
 ## Septembre 2019
 
 - Discussion plus complète entre limite pointée et épointée
