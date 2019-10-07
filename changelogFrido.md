@@ -4,6 +4,7 @@
 
 - Déplacer plusieurs résultats sur les fonctions holomorphes qui sont en réalité des résultats sur les fonctions analytiques.
 - Prouver le théorème du prolongement analytique.
+- Intégrale de Dirichlet via une dérivation sous l'intégrale et beaucoup de séries alternées
 
 ## Septembre 2019
 
