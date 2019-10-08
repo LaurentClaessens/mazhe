@@ -3040,12 +3040,15 @@ En ce qui concerne la norme :
 
 La fonction sinus cardinal est
 \begin{equation}
-    f(x)=\begin{cases}
-        1    &   \text{si } x=0 \\
-        \frac{ \sin(x) }{ x }    &    \text{sinon. }
+    f(t)=\begin{cases}
+        1    &   \text{si } t=0 \\
+        \frac{ \sin(t) }{ t }    &    \text{sinon. }
     \end{cases}
 \end{equation}
-Elle est continue en zéro\footnote{Lemme \ref{LEMooZYNEooYkwsWD}.}.
+Elle est continue en zéro parce que le lemme \ref{LEMooZYNEooYkwsWD} nous donne
+\begin{equation}
+    \lim_{t\to 0}\frac{ \sin(t) }{ t }=1.
+\end{equation}
 
 Le but que nous nous fixons maintenant est de prouver que
 \begin{equation}
@@ -3093,15 +3096,73 @@ Pour chaque \( b\), l'intégrale existe sans problèmes (fonction continue sur l
 \end{lemma}
 
 \begin{proof}
-    Nous découpons l'intervalle \( \mathopen[ 0 , b \mathclose]\) en morceaux du type \( \mathopen[ k\pi , (k+1)\pi \mathclose]\) et un morceau restant lorsque \( b\) n'est pas un multiple de \( \pi\) :
-    \begin{equation}
-        \mathopen[ 0 , b \mathclose]=\bigcup_{k=0}^{N(b)-1}\mathopen[ k\pi , (k+1)\pi \mathclose]\cup\mathopen[ N(b)\pi , b \mathclose]
-    \end{equation}
-    où \( N(b)\) est un entier bien choisit. En tout cas \( \lim_{b\to \infty}N(b)=\infty\).
+    En plusieurs parties.
+    \begin{subproof}
+        \item[Découpage]
 
-    Sur l'intervalle \( \mathopen[ k\pi , (k+1)\pi \mathclose]\), nous avons \( \sin(t)=(-1)^k| \sin(t) |\). Nous pouvons toujours majorer \( | \sin(t) |\) par \( 1\).
+            Nous découpons l'intervalle \( \mathopen[ 0 , b \mathclose]\) en morceaux du type \( \mathopen[ k\pi , (k+1)\pi \mathclose]\) et un morceau restant lorsque \( b\) n'est pas un multiple de \( \pi\) :
+            \begin{equation}
+                \mathopen[ 0 , b \mathclose]=\bigcup_{k=0}^{N(b)-1}\mathopen[ k\pi , (k+1)\pi \mathclose]\cup\mathopen[ N(b)\pi , b \mathclose]
+            \end{equation}
+            où \( N(b)\) est un entier bien choisi\quext{Il me semble que le traitement de ce terme manque dans \cite{BIBooCFXJooWrArNT}.}. En tout cas \( \lim_{b\to \infty}N(b)=\infty\).
+
+        \item[Majoration 1]
+
+            Pour chaque \( b\in \eR^+\) nous avons
+            \begin{equation}
+                \int_0^b\frac{ \sin(t) }{ t }dt=\sum_{k=0}^{N(b)}\int_{\mathopen\big[ k\pi , (k+1)\pi \mathclose\big]}\frac{ \sin(t) }{ t }dt+\int_{\mathopen[ \big( N(b)+1 \big)\pi , b \mathclose]}\frac{ \sin(t) }{ t }
+            \end{equation}
+            Dans le dernier terme, nous majorons \( | \sin(t) |\leq 1\) et \( \frac{1}{ t }\leq \big( N(b)+1 \big)\pi\). Cela donne
+            \begin{equation}
+                \left|  \int_{\mathopen\big[ \big(N(b)+1\big)\pi  , b \mathclose\big]}\frac{ \sin(t) }{ t } \right|\leq \frac{ b-\big( N(b)+1 \big)\pi }{ \big( N(b)+1 \big)\pi }\leq \frac{1}{ N(b)+1 }
+            \end{equation}
+            où nous avons encore majoré \( b\leq \big( N(b)+2 \big)\pi\).
+
+        \item[Majoration 2]
+
+            En ce qui concerne les autres termes, sur l'intervalle \( \mathopen[ k\pi , (k+1)\pi \mathclose]\), nous avons \( \sin(t)=(-1)^k| \sin(t) |\). Nous avons alors
+            \begin{equation}        \label{EQooHZPRooFuwRWQ}
+                \int_0^b\frac{ \sin(t) }{ t }dt=\sum_{k=0}^{N(b)}(-1)^k\int_{k\pi}^{(k+1)\pi}\frac{ | \sin(t) | }{ t }dt+\alpha(b)
+            \end{equation}
+            où \( | \alpha(b) |\leq \frac{1}{ N(b)+1 }\); l'important est que \( \lim_{b\to \infty}\alpha(b)=0\).
+            
+        \item[Une suite alternée]
+
+            L'inégalité \eqref{EQooHZPRooFuwRWQ} nous incite à étudier la série \( \sum_{k=0}^{\infty}(-1)^ka_k\) en ayant posé
+            \begin{equation}
+                a_k=\int_{k\pi}^{(k+1)\pi}\frac{ | \sin(t) | }{ t }dt.
+            \end{equation}
+            Nous montrons à présent que la suite \( (a_k)\) vérifie les conditions du critère des séries alternées \ref{THOooOHANooHYfkII}.
+
+            D'abord, \( a_{k+1}\leq a_k\). En effet en utilisant le changement de variables\footnote{Le théorème \ref{THOooUMIWooZUtUSg} est toujours bon à citer.} \( u=t-\pi\),
+            \begin{equation}
+                a_{k+1}=\int_{(k+1)\pi}^{(k+2)\pi}\frac{ | \sin(t) | }{ t }dt=\int_{k\pi}^{(k+1)\pi}\frac{ | \sin(u+\pi) | }{ u+\pi }du=\int_{k\pi}^{(k+1)\pi}\frac{ | \sin(u) | }{ u+\pi }du<a_k.
+            \end{equation}
+            Nous avons utilisé le fait que \( | \sin(u+\pi) |=| \sin(u) |\) pour tout \( u\).
+
+            De plus, vu que \( | \sin(t) |\leq 1\) et que \( t\in\mathopen[ k\pi , (k+1)\pi \mathclose]\), nous avons
+            \begin{equation}
+                \int_{k\pi}^{(k+1)\pi}\frac{ | \sin(t) | }{ t }\leq \int_{k\pi}^{(k+1)\pi}\frac{1}{ k\pi }=\frac{ (k+1)\pi-k\pi }{ k\pi }=\frac{1}{ k }.
+            \end{equation}
+            Donc \( a_k\leq\frac{1}{ k }\to 0\).
+
+            Le critère des séries alternées \ref{THOooOHANooHYfkII} nous dit que
+            \begin{equation}
+                \sum_{k=0}^{\infty}(-1)^ka_k<\infty.
+            \end{equation}
+
+        \item[Conclusion]
+            Nous repartons de \eqref{EQooHZPRooFuwRWQ} :
+            \begin{equation} 
+                \int_0^b\frac{ \sin(t) }{ t }dt=\sum_{k=0}^{N(b)}(-1)^k\int_{k\pi}^{(k+1)\pi}\frac{ | \sin(t) | }{ t }dt+\alpha(b).
+            \end{equation}
+            Cette égalité est valable pour tout \( b\in \eR^+\). Le passage à la limite \( b\to 0\) à droite donne un nombre fini; donc à gauche aussi, et nous avons prouvé que
+            \begin{equation}
+                \lim_{b\to\infty} \int_0^b\frac{ \sin(t) }{ t }dt<\infty.
+            \end{equation}
+    \end{subproof}
 \end{proof}
-<++>
+Notre tache n'est donc pas sans espoir. Au moins l'intégrale que nous cherchons à évaluer est finie.
 
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
