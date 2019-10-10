@@ -186,7 +186,7 @@ Voir si isométries du cube et RSA peuvent être déplacés.
 
 # l2
 
-Quelque réflexions sur la TF sur L2.
+Quelques réflexions sur la TF sur L2.
 
 # eg
 

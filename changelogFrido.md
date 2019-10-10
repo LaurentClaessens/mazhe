@@ -81,7 +81,7 @@ Les espaces L^p sont réflexifs, preuve
 
 - préciser qu'on ne parle que d'ellipsoïdes centrés en l'origine
 - parler de ce qu'il se passe si on se permet de bouger le centre
-- corriger quelque fautes pointées par Benoît Tran.
+- corriger quelques fautes pointées par Benoît Tran.
 
 ## hyperplan (Décembre 2018)
 
@@ -108,7 +108,7 @@ fonction définie sur un point isolé.
 
 ## Élément premier (Octobre 2018)
 
-Ayant reçu quelque réponses d'algèbres de Gregory Berhuy, j'ai ajouté les notions d'élément premier et les démonstrations de quelque faits comme l'équivalence entre
+Ayant reçu quelques réponses d'algèbres de Gregory Berhuy, j'ai ajouté les notions d'élément premier et les démonstrations de quelques faits comme l'équivalence entre
 - (p) est un idéal premier
 - p est un élément premier
 - p est un élément irréductible
@@ -228,22 +228,22 @@ Nous définissons Q comme corps des fractions sur Z. Cela nous demande de dépla
 ## Matrices et changement de base (novembre 2017)
 
 - Mettre bien à plat les définitions de matrices associées à une application linéaire et à une forme bilinéaire
-- Donner les formules de changement de base (corriger quelque erreurs qu'il y avait là)
+- Donner les formules de changement de base (corriger quelques erreurs qu'il y avait là)
 
 ## Théorie des ensembles (novembre 2017)
 
-Suite à quelque remarques de Guillaume Deschamps, ajout de quelque précisions un peu partout dans la partie «théorie des ensembles».
+Suite à quelques remarques de Guillaume Deschamps, ajout de quelques précisions un peu partout dans la partie «théorie des ensembles».
 
 En particulier, prévenir le lecteur que la constructions des nombres n'est pas le premier chapitre à lire. Être plus clair sur ce que signifie «supposer avoir une théorie des ensembles».
 
 ## Anneau intègre (octobre 2017)
 
-Suite à une remarque de cdr[1], correction d'une faute et quelque améliorations :
+Suite à une remarque de cdr[1], correction d'une faute et quelques améliorations :
 
 - Oui, Z est intègre et euclidien, contrairement à ce qui était écrit.
 - Non, Z[X] n'est pas intègre.
 - Préciser qui de Z, Z[X] et Z/nZ est principal.
-- Quelque exemples et contre-exemples d'anneaux principaux, y compris dans les fonctions holomorphes.
+- Quelques exemples et contre-exemples d'anneaux principaux, y compris dans les fonctions holomorphes.
 
 
 [1] https://github.com/LaurentClaessens/mazhe/issues/58
@@ -293,7 +293,7 @@ Si A est un anneau intègre, il n'est pas vrai que A[X] est euclidien et princip
 * Mettre ensemble et au début toutes les choses concernant les fonctions sur R, et après celles sur R^n
 * Regrouper les choses sur les dérivées directionnelles et les mettre avant la différentielle
 * Ré-exprimer la définition de la différentielle en la mettant comme une proposition-définition pour l'unicité.
-* Quelque mots à propos des formes différentielles _avant_ la définition de df.
+* Quelques mots à propos des formes différentielles _avant_ la définition de df.
 
 ## Réorganisation des questions (4 Juillet 2017)
 

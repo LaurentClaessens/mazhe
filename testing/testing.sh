@@ -96,6 +96,9 @@ check_spelling()
     ag "corollaire" >> $LOG_FILE        # orthographe réformée
     ag "Corollaire" >> $LOG_FILE        # orthographe réformée
     ag "chaîne" >> $LOG_FILE        # orthographe réformée
+    ag "[Qq]uelque [a-z]*s " >> $LOG_FILE
+    ag "[Qq]uelque [a-zéàçèùôîûê]*s " >> $LOG_FILE
+    ag "[Qq]uelque [a-zéàçèùôîûê]*x " >> $LOG_FILE
 }
 
 test_picture ()

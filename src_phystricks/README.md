@@ -50,7 +50,7 @@ La première est une simple formalité. La seconde va prendre des heures.
 
 ### Astuces
 
-Il y a quelque astuces qui permettent de gagner du temps.
+Il y a quelques astuces qui permettent de gagner du temps.
 
 * Lorsque vous faites `figures_giulietta.py`, à partir de la seconde fois, vous pouvez le couper pour ne pas recompiler les figures qui n'ont pas de Warning.
 * Pour la dernière compilation, celle `pytex lst_giulietta.py` sans `--no-external`, il faut savoir que chaque figure prendra le temps de compilation de l'ensemble du document. Il vous en coûtera donc environ une minute par figure.

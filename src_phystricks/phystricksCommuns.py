@@ -4,7 +4,7 @@ from phystricks import *
 def CorrectionParametrique(curve,LLms,name,dilatation=1):
     fig = GenericFigure("SubfiguresCDU"+name,script_filename="Communs")
 
-    ssfig1 = fig.new_subfigure(u"Quelque points de repères","SS1"+name)
+    ssfig1 = fig.new_subfigure(u"Quelques points de repères","SS1"+name)
     pspict1 = ssfig1.new_pspicture(name+"psp1")
     ssfig2 = fig.new_subfigure(u"La courbe","SS2"+name)
     pspict2 = ssfig2.new_pspicture(name+"psp2")

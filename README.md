@@ -19,7 +19,7 @@ Il couvre à peu près tout [le programme](http://agreg.org/Rapports/rapport2015
 Afin de donner une idée, une [liste (presque à jour) des développements](#annexe--liste-de-choses-que-lon-peut-trouver-dans-le-frido) que vous pourriez y trouver [est en annexe](#annexe--liste-de-choses-que-lon-peut-trouver-dans-le-frido).
 
 
-### Quelque éléments en plus que l'agrégation
+### Quelques éléments en plus que l'agrégation
 
 * Construction complète de la mesure de Lebesgue, y compris les notions de complétion de mesure (le chapitre tribu/théorie de la mesure est assez lourd).
 * La topologie exacte des espaces de distribution, y compris la topologie liée à une famille de semi-normes.

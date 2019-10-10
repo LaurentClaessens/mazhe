@@ -4,7 +4,7 @@ from phystricks import *
 def CSCiii():
     pspict,fig = MultiplePictures("CSCiii",3)
     pspict[0].mother.caption=u"La première branche pour les angles positifs."
-    pspict[1].mother.caption=u"Quelque autres branches pour les angles positifs."
+    pspict[1].mother.caption=u"Quelques autres branches pour les angles positifs."
     pspict[2].mother.caption=u"Le dessin au complet"
 
     pspict[0].dilatation(3)
