@@ -150,7 +150,7 @@ Afin de donner une idée, voici une liste des développements que vous pourriez 
 * RSA, plus l'exponentielle rapide, plus la recherche de couples de Bézout.
 * Théorème de Sylow.
 * Coloriage de roulette et composition de colliers.
-* Théorème de Burnside sur les sous groupes d'exposant fini de GL(n, C).
+* Théorème de Burnside sur les sous-groupes d'exposant fini de GL(n, C).
 * Théorème d'isomorphisme entre (Z/pZ)^\* et Z/(p-1)Z.
 * Forme alternées de degré maximum.
 * Décomposition de Bruhat.

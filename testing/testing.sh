@@ -107,6 +107,7 @@ check_spelling()
     ag "[Rr]acine carré " >> $LOG_FILE
     ag "une cas " >> $LOG_FILE
     ag " pout " >> $LOG_FILE
+    ag " en terme " >> $LOG_FILE
 }
 
 test_picture ()
