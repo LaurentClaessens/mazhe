@@ -108,6 +108,7 @@ check_spelling()
     ag "une cas " >> $LOG_FILE
     ag " pout " >> $LOG_FILE
     ag " en terme " >> $LOG_FILE
+    ag " paramétrisation " >> $LOG_FILE  # doit être "paramétrage"
 }
 
 test_picture ()
