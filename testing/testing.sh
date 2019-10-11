@@ -106,7 +106,8 @@ check_spelling()
     ag "ez moi" >> $LOG_FILE        # vient par exemple de "écrivez moi" au lieu de "écrivez-moi".
     ag "[Rr]acine carré " >> $LOG_FILE
     ag "une cas " >> $LOG_FILE
-    ag " pout " >> $LOG_FILE
+    ag " status " >> $LOG_FILE
+    ag " c'est à dire " >> $LOG_FILE # doit être c'est-à-dire
     ag " en terme " >> $LOG_FILE
     ag " paramétrisation " >> $LOG_FILE  # doit être "paramétrage"
 }

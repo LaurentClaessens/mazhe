@@ -198,7 +198,7 @@ Définition de la fonction puissance x->a^x.
 
 Des incohérences ont été détectées, essentiellement dues à mon inattention et accessoirement dues au fait que Wikipédia francophone utilise une définition pas du tout standard sans prévenir[1].
 
-Les définition ont été clarifiées et unifiées. La définition de limite choisie ici est celle que les Français nomme "épointée", et qui est la seule correcte dans l'histoire de l'univers depuis (au moins) l'apparition de eukaryotes, partout sauf en France.
+Les définitions ont été clarifiées et unifiées. La définition de limite choisie ici est celle que les Français nomme "épointée", et qui est la seule correcte dans l'histoire de l'univers depuis (au moins) l'apparition de eukaryotes, partout sauf en France.
 
 [1] https://fr.wikipedia.org/wiki/Espace_topologique  
     Si vous ne voyez pas le problème avec la définition de la limite, lisez la page de discussion.
