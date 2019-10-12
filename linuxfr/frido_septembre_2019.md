@@ -13,7 +13,7 @@ Ce fichier contient mes notes pour créer l'article d'annonce du Frido 2019 sur 
 Il se distingue des autres livres de mathématique par :
 
 - Il couvre tous les champs de l'agrégation, donc il est long (2200 pages)
-- Il va dans l'ordre logique mathématique, c'est à dire que les démonstrations n'utilisent que des théorèmes déjà démontrés. Cela n'est pas (et de loin) l'ordre pédagogique. Ce n'est donc pas dans le Frido qu'il faut commencer à apprendre la mathématique.
+- Il va dans l'ordre logique mathématique, c'est-à-dire que les démonstrations n'utilisent que des théorèmes déjà démontrés. Cela n'est pas (et de loin) l'ordre pédagogique. Ce n'est donc pas dans le Frido qu'il faut commencer à apprendre la mathématique.
 - [Les sources](https://github.com/LaurentClaessens/mazhe) LaTeX sont publiées sous licence FDL et n'attendent que vos commentaires et contributions.
 
 ## Quoi de neuf depuis l'année passée ?

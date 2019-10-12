@@ -127,7 +127,7 @@ Afin de donner une idée, voici une liste des développements que vous pourriez 
 
 * Endomorphismes cycliques et commutant dans le cas diagonalisable.
 * Isométries du cube.
-* Racine carré d'une matrice hermitienne positive.
+* Racine carrée d'une matrice hermitienne positive.
 * Action du groupe modulaire sur le demi-plan de Poincaré.
 * Algorithme des facteurs invariants.
 * Méthode du gradient à pas optimal.
