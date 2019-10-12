@@ -50,7 +50,7 @@ Ce cours se distingue d'autres cours de mathématique pour l'agrégation de plus
 
 Le Frido se distingue également par certains aspects négatifs.
 
-* Manque de relecture. Vous croyez que les livres commerciaux sont bien relus et sans erreurs ? Eh bien ce n'est pas le cas pour le Frido. Il n'est pas très relu (si vous trouvez des erreurs, contactez moi !), et contient sûrement beaucoup d'erreurs. Un certain nombre sont d'ailleurs très clairement indiquées.
+* Manque de relecture. Vous croyez que les livres commerciaux sont bien relus et sans erreurs ? Eh bien ce n'est pas le cas pour le Frido. Il n'est pas très relu (si vous trouvez des erreurs, contactez-moi !), et contient sûrement beaucoup d'erreurs. Un certain nombre sont d'ailleurs très clairement indiquées.
 
 ### « *Est-ce je peux utiliser le Frido le jour de l'oral d'agreg ?* »
 
