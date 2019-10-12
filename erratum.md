@@ -47,7 +47,7 @@ Les fautes sont présentées par ordre anti-chronoligique de découvertes.
     La solution est d'utiliser une proposition similaire pour le produit et d'utiliser, pour chaque élément de la somme, la commutativité du produit; cela revient à ré-indexer le produit par sigma. Ensuite, il faut ré-indexer la somme sur sigma^{-1} au lieu de sigma.
     Voir https://ljk.imag.fr/membres/Bernard.Ycart/mel/de/de.pdf
 
-- Produit sur L^2. Volume 3, lemme 28.58. Il ne faut pas la racine carré au-dessus de l'intégrale. C'est la norme de 'f' qui demande de prendre une racine carré.
+- Produit sur L^2. Volume 3, lemme 28.58. Il ne faut pas la racine carrée au-dessus de l'intégrale. C'est la norme de 'f' qui demande de prendre une racine carrée.
 
 - Coefficients de Fourier. Dans les équations (31.34) du volume 4, c'est la grande foire aux coefficients manquants. Le fait est que vous aurez remarqué que la section 28.5.4 (volume 3) n'est pas écrite. Les conventions pour les choses attenantes à Fourier sur [-T,T] ne sont pas fixées.
 
