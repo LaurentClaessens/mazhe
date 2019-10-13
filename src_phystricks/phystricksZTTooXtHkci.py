@@ -1,12 +1,8 @@
-# -*- coding: utf8 -*-
-
-from __future__ import unicode_literals
-
 from phystricks import *
 def ZTTooXtHkci():
     pspicts,fig = MultiplePictures("ZTTooXtHkci",2)
-    pspicts[0].mother.caption="La région \( V\)"
-    pspicts[1].mother.caption="La région \( U=\phi^{-1}(V)\)"
+    pspicts[0].mother.caption=r"La région \( V\)"
+    pspicts[1].mother.caption=r"La région \( U=\phi^{-1}(V)\)"
 
     for psp in pspicts:
         psp.dilatation_X(1)
@@ -38,4 +34,3 @@ def ZTTooXtHkci():
 
     fig.conclude()
     fig.write_the_file()
-
