@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 
 from __future__ import unicode_literals
-from phystricks import *
+from yanntricks import *
 
 def VGZooJnvvZc():
     n_ssfig=4           # Pas plus que 4, sinon ça se met en colonne.

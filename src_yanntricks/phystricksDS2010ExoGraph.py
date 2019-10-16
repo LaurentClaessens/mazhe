@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 
 def DS2010ExoGraph():
     pspict,fig=MultiplePictures("DS2010ExoGraph",7)

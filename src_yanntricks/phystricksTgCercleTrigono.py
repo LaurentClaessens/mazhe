@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def TgCercleTrigono():
 	pspict,fig = SinglePicture("TgCercleTrigono")
 

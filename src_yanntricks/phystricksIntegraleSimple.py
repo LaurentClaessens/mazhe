@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def IntegraleSimple():
     pspict,fig = SinglePicture("IntegraleSimple")
     pspict.dilatation(1)

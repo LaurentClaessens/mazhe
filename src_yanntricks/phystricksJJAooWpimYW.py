@@ -3,7 +3,7 @@
 from __future__ import division
 
 
-from phystricks import *
+from yanntricks import *
 def JJAooWpimYW():
     pspict,fig = SinglePicture("JJAooWpimYW")
     pspict.dilatation_X(0.8)

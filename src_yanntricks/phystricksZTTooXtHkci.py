@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def ZTTooXtHkci():
     pspicts,fig = MultiplePictures("ZTTooXtHkci",2)
     pspicts[0].mother.caption=r"La région \( V\)"

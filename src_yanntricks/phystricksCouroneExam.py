@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def CouroneExam():
     pspict,fig = SinglePicture("CouroneExam")
 

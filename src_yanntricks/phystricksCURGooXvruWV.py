@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def CURGooXvruWV():
     pspict,fig = SinglePicture("CURGooXvruWV")
     x=var('x')

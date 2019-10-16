@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def Laurin():
     pspict,fig = SinglePicture("Laurin")
 

@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def ExoCourone():
     pspict,fig = SinglePicture("ExoCourone")
     pspict.dilatation(1)

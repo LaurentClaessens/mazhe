@@ -1,5 +1,5 @@
 from sage.all import floor
-from phystricks import *
+from yanntricks import *
 def PartieEntiere():
 	pspict,fig = SinglePicture("PartieEntiere")
 

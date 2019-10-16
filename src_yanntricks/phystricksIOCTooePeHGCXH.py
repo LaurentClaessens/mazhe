@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def IOCTooePeHGCXH():
     pspict,fig = SinglePicture("IOCTooePeHGCXH")
     #pspict.dilatation_X(1)

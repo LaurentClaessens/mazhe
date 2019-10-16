@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def SurfaceHorizVerti():
     pspict,fig = MultiplePictures("SurfaceHorizVerti",2)
     pspict[0].mother.caption="Un domaine horizontal."

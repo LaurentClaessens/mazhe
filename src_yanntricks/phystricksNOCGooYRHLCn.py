@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def NOCGooYRHLCn():
 	pspict,fig = SinglePicture("NOCGooYRHLCn")
 	mx = -0.5

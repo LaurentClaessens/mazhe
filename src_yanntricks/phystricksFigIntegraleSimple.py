@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def FigIntegraleSimple():
     pspict,fig = SinglePicture("FigIntegraleSimple")
     #pspict.dilatation_X(1)

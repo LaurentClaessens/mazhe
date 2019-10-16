@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def GMRNooCNBpIl():
     pspict,fig = SinglePicture("GMRNooCNBpIl")
     pspict.dilatation(1)

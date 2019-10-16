@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def CoordPolaires():
 	pspict,fig = SinglePicture("CoordPolaires")
 

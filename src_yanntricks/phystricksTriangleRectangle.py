@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def TriangleRectangle():
     pspict,fig = SinglePicture("TriangleRectangle")
     pspict.dilatation(4)

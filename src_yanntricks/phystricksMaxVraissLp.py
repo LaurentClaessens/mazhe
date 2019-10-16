@@ -1,5 +1,5 @@
 from sage.all import binomial
-from phystricks import *
+from yanntricks import *
 def MaxVraissLp():
     pspict,fig = SinglePicture("MaxVraissLp")
     pspict.dilatation(10)   # Mettre ceci plus bas (au-dessus de pspict.conclude()) produit un beau bogue :)

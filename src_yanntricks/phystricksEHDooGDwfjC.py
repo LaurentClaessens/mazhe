@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def EHDooGDwfjC():
     pspict,fig = SinglePicture("EHDooGDwfjC")
     pspict.dilatation_X(4)

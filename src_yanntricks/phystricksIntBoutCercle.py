@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def IntBoutCercle():
     pspict,fig = SinglePicture("IntBoutCercle")
     pspict.dilatation(2)

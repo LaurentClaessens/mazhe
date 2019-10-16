@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 
 from __future__ import unicode_literals
-from phystricks import *
+from yanntricks import *
 
 def LYORooNKDHqt():
     n_ssfig=4           # Au-delà de 4, la figure ne parvient pas à se mettre en carré.

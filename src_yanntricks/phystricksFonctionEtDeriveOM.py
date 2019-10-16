@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def FonctionEtDeriveOM():
     pspict,fig = SinglePicture("FonctionEtDeriveOM")
     pspict.dilatation(0.7)

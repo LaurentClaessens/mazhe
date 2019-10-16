@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def AdhIntFrTrois():
 	pspict,fig = SinglePicture("AdhIntFrTrois")
 	pspict.dilatation_X(4)

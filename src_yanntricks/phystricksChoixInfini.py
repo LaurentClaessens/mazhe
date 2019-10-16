@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 from __future__ import unicode_literals
 
-from phystricks import *
+from yanntricks import *
 def ChoixInfini():
     pspict,fig = MultiplePictures("ChoixInfini",2)
 

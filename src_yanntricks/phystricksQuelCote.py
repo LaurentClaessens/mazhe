@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def QuelCote():
     pspict,fig = SinglePicture("QuelCote")
     pspict.dilatation(2)

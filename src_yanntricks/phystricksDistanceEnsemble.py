@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def DistanceEnsemble():
     pspict,fig = SinglePicture("DistanceEnsemble")
     pspict.dilatation(2)

@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def UZGooBzlYxr():
     pspict,fig = SinglePicture("UZGooBzlYxr")
     pspict.dilatation_X(1)

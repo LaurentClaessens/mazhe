@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def ProjPoly():
     pspict,fig = SinglePicture("ProjPoly")
     pspict.dilatation(0.5)

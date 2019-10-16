@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def FonctionXtroisOM():
     pspict,fig = SinglePicture("FonctionXtroisOM")
     pspict.dilatation(0.6)

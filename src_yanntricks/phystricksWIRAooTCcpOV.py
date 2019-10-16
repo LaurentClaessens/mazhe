@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def WIRAooTCcpOV():
         pspict,fig = SinglePicture("WIRAooTCcpOV")
 	pspict.dilatation(0.7)

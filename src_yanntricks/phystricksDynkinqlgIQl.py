@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def DynkinqlgIQl():
     pspict,fig = SinglePicture("DynkinqlgIQl")
     pspict.dilatation(1)

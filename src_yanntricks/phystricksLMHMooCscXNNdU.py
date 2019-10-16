@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def LMHMooCscXNNdU():
     pspict,fig = SinglePicture("LMHMooCscXNNdU")
     #pspict.dilatation_X(1)

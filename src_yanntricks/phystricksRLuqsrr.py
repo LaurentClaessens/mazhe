@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def RLuqsrr():
 
     def n(u,v):
@@ -25,7 +25,7 @@ def RLuqsrr():
     pspict.DrawGraphs(F1)
     pspict.DrawGraphs(F2)
 
-    from phystricks.src.MathStructures import AxesUnit
+    from yanntricks.src.MathStructures import AxesUnit
     pspict.axes.single_axeX.axes_unit=AxesUnit(pi,"")
     pspict.axes.single_axeX.Dx=0.5
     pspict.DrawDefaultAxes()

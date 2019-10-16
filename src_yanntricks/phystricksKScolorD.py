@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def KScolorD():
     pspict,fig = SinglePicture("KScolorD")
     pspict.dilatation(1)

@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from sage.all import binomial
-from phystricks import *
+from yanntricks import *
 
 def proba(n,p,k):
     return binomial(n,k)*p**k*(1-p)**(n-k)

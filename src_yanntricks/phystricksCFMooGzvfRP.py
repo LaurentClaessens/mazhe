@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def CFMooGzvfRP():
     pspict,fig = SinglePicture("CFMooGzvfRP")
     pspict.dilatation_X(2)

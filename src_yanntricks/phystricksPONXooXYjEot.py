@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def PONXooXYjEot():
     pspict,fig = SinglePicture("PONXooXYjEot")
     x=var('x')

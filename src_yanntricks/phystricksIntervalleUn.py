@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def IntervalleUn():
     pspict,fig = SinglePicture("IntervalleUn")
     pspict.dilatation(3)

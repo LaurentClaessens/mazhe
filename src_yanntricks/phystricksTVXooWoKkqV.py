@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def TVXooWoKkqV():
     pspict,fig = SinglePicture("TVXooWoKkqV")
     pspict.dilatation_X(1)

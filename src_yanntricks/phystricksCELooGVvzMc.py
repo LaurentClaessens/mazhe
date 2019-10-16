@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def CELooGVvzMc():
     pspict,fig = SinglePicture("CELooGVvzMc")
     pspict.dilatation_X(1)

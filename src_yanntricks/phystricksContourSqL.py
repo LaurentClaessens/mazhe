@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def ContourSqL():
     pspict,fig = SinglePicture("ContourSqL")
     pspict.dilatation(3)

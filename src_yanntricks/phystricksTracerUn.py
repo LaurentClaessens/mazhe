@@ -1,8 +1,8 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 
 """
-Une copie de ce fichier est dans les démonstrations de phystricks sous le nom de PFCUoorQhitKoJ
+Une copie de ce fichier est dans les démonstrations de yanntricks sous le nom de PFCUoorQhitKoJ
 """
 
 def TracerUn():

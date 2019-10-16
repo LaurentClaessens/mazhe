@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from sage.all import sinh,cosh
-from phystricks import *
+from yanntricks import *
 def SYNKooZBuEWsWw():
     pspict,fig = SinglePicture("SYNKooZBuEWsWw")
     pspict.dilatation_X(2)

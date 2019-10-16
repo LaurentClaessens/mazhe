@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 import numpy
-from phystricks import *
+from yanntricks import *
 def SBTooEasQsT():
     pspict,fig = SinglePicture("SBTooEasQsT")
     pspict.dilatation_X(1)

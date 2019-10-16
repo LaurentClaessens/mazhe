@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def CbCartTui():
     pspict,fig = SinglePicture("CbCartTui")
     pspict.dilatation(0.7)

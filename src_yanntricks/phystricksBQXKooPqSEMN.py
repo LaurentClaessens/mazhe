@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def BQXKooPqSEMN():                # ex SurfaceDerive  (February 2016)
 	pspict,fig = SinglePicture("BQXKooPqSEMN")
 

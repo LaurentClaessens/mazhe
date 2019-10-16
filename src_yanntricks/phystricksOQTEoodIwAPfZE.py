@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def OQTEoodIwAPfZE():
     pspict,fig = SinglePicture("OQTEoodIwAPfZE")
     pspict.dilatation_Y(0.1)

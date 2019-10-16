@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def ExoVarj():
     pspict,fig = SinglePicture("ExoVarj")
     pspict.dilatation(3)

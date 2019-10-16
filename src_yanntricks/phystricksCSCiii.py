@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-from phystricks import *
+from yanntricks import *
 def CSCiii():
     pspict,fig = MultiplePictures("CSCiii",3)
     pspict[0].mother.caption=u"La première branche pour les angles positifs."

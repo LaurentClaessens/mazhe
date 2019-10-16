@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def BIFooDsvVHb():
     pspict,fig = SinglePicture("BIFooDsvVHb")
     pspict.dilatation(2)

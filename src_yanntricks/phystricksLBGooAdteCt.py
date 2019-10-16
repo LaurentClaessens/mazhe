@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def LBGooAdteCt():
     pspict,fig = SinglePicture("LBGooAdteCt")
     pspict.dilatation_X(1)

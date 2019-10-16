@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from sage.all import factorial
-from phystricks import *
+from yanntricks import *
 
 def proba(l,k):
     return exp(-l)*(l**k/factorial(k))

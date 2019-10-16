@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def HCJPooHsaTgI():
     pspict,fig = MultiplePictures("HCJPooHsaTgI",2)
     pspict[0].mother.caption="Un domaine horizontal."

@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def YQIDooBqpAdbIM():
     pspict,fig = SinglePicture("YQIDooBqpAdbIM")
     pspict.dilatation(1)

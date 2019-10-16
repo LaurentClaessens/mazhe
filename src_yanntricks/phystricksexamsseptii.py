@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def examsseptii():
     pspict,fig = SinglePicture("examsseptii")
 

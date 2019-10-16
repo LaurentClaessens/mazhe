@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def examssepti():
     pspict,fig = SinglePicture("examssepti")
     pspict.dilatation(3)

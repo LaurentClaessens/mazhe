@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def FnCosApprox():
     pspict,fig = SinglePicture("FnCosApprox")
     pspict.dilatation(2)

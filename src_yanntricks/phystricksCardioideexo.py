@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def Cardioideexo():
 	pspict,fig = SinglePicture("Cardioideexo")
 

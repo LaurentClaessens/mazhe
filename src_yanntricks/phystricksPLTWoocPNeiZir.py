@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def PLTWoocPNeiZir():
     pspict,fig = SinglePicture("PLTWoocPNeiZir")
     pspict.dilatation(1)

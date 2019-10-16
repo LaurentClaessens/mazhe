@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def CbCartTuiii():
     pspict,fig = SinglePicture("CbCartTuiii")
     pspict.dilatation(2)

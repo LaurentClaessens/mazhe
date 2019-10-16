@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def QOBAooZZZOrl():
     pspicts,fig = MultiplePictures("QOBAooZZZOrl",3)
 

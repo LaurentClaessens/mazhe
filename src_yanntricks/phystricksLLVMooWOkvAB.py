@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def LLVMooWOkvAB():
     pspict,fig = SinglePicture("LLVMooWOkvAB")
     pspict.dilatation(3)

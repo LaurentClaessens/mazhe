@@ -1,5 +1,5 @@
-from phystricks import *
-import phystricksCommuns as Communs
+from yanntricks import *
+import yanntricksCommuns as Communs
 def TraceCycloide():
     x=var('x')
     f1=phyFunction(x+cos(x))

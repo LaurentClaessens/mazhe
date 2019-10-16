@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from sage.all import arccos
-from phystricks import *
+from yanntricks import *
 def GMIooJvcCXg():
     pspict,fig = SinglePicture("GMIooJvcCXg")
     pspict.dilatation_X(1)

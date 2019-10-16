@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def IsomCarre():
     pspict,fig = SinglePicture("IsomCarre")
     pspict.dilatation(1)

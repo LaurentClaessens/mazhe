@@ -1,5 +1,5 @@
 from __future__ import division
-from phystricks import *
+from yanntricks import *
 
 def ExempleNonRang():
     pspict,fig = SinglePicture("ExempleNonRang")

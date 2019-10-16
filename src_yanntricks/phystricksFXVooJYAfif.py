@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def FXVooJYAfif():
     pspict,fig = SinglePicture("FXVooJYAfif")
     pspict.dilatation_X(1)

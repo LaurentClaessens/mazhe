@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def ContourTgNDivergence():
     pspict,fig = SinglePicture("ContourTgNDivergence")
     pspict.dilatation(2)

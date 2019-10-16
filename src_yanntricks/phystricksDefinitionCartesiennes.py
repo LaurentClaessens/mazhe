@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def DefinitionCartesiennes():
 	pspict,fig = SinglePicture("DefinitionCartesiennes")
 	pspict.dilatation(1)

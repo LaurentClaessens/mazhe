@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def VANooZowSyO():
     pspicts,fig = MultiplePictures("VANooZowSyO",7)
     pspicts[0].mother.caption=""

@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 
 def CSCvi():
     pspicts,fig = MultiplePictures("CSCvi",2)

@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 
 pspict,fig = SinglePicture("NiveauHyperbole")
 pspict2,fig2 = SinglePicture("NiveauHyperboleDeux")

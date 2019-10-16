@@ -4,7 +4,7 @@ from __future__ import division
 
 import itertools
 
-from phystricks import *
+from yanntricks import *
 
 
 def action(k, l, m, P):

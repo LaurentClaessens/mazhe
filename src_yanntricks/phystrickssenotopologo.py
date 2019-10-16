@@ -2,7 +2,7 @@
 
 from __future__ import division
 
-from phystricks import *
+from yanntricks import *
 def senotopologo():
     pspict,fig = SinglePicture("senotopologo")
     pspict.dilatation(1.8)

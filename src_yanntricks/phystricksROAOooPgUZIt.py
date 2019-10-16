@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def ROAOooPgUZIt():
     pspict,fig = SinglePicture("ROAOooPgUZIt")
     a=3

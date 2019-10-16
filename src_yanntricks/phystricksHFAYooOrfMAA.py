@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def HFAYooOrfMAA():
     pspict,fig = SinglePicture("HFAYooOrfMAA")
     pspict.dilatation(2)

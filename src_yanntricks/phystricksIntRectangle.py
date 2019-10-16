@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def IntRectangle():
     pspict,fig = SinglePicture("IntRectangle")
     pspict.dilatation(1)

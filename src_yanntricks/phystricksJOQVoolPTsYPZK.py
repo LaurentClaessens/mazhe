@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def JOQVoolPTsYPZK():
     pspict,fig = SinglePicture("JOQVoolPTsYPZK")
     pspict.dilatation(2)

@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def ExampleChangementVariables():
     fig = GenericFigure("ExampleChangementVariables")
 

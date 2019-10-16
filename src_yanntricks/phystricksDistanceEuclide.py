@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def DistanceEuclide():
 	pspict,fig=SinglePicture("DistanceEuclide")
 

@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def XTGooSFFtPu():
     pspict,fig = SinglePicture("XTGooSFFtPu")
     pspict.dilatation_X(1)

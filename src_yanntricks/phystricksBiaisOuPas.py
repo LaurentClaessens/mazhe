@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def BiaisOuPas():
     pspict,fig = SinglePicture("BiaisOuPas")
     pspict.dilatation(2.5)

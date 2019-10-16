@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from sage.all import arcsin
-from phystricks import *
+from yanntricks import *
 def FGRooDhFkch():
     pspict,fig = SinglePicture("FGRooDhFkch")
     pspict.dilatation_X(3)

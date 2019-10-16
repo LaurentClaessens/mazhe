@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 
 def DS2010bisExoGraph():
     pspict,fig=MultiplePictures("DS2010bisExoGraph",10)

@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def JWINooSfKCeA():
         pspict,fig = SinglePicture("JWINooSfKCeA")
 	X=Point(1,0)

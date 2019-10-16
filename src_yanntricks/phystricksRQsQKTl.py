@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def RQsQKTl():
     pspict,fig = SinglePicture("RQsQKTl")
     pspict.dilatation_X(1)

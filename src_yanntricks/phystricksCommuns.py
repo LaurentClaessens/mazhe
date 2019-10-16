@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-from phystricks import *
+from yanntricks import *
 def CorrectionParametrique(curve,LLms,name,dilatation=1):
     fig = GenericFigure("SubfiguresCDU"+name,script_filename="Communs")
 

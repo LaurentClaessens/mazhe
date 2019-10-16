@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def TIMYoochXZZNGP():
     pspict,fig = SinglePicture("TIMYoochXZZNGP")
     pspict.dilatation(0.7)

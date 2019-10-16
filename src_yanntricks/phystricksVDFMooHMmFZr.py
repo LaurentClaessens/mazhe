@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def VDFMooHMmFZr():
     pspict,fig = SinglePicture("VDFMooHMmFZr")
     x=var('x')

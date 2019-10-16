@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 
 from __future__ import division
-from phystricks import *
+from yanntricks import *
 
 def HLJooGDZnqF():
     pspict,fig = SinglePicture("HLJooGDZnqF")

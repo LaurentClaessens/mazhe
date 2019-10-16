@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def MethodeChemin():
     pspict,fig = SinglePicture("MethodeChemin")
     pspict.dilatation(1.5)

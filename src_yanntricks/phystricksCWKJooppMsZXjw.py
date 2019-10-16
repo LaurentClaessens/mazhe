@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def CWKJooppMsZXjw():
     pspict,fig = SinglePicture("CWKJooppMsZXjw")
     pspict.dilatation(1)

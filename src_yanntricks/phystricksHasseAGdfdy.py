@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def HasseAGdfdy():
     pspict,fig = SinglePicture("HasseAGdfdy")
     pspict.dilatation(1)

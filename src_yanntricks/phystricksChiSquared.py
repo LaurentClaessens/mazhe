@@ -1,5 +1,5 @@
 from sage.all import RealDistribution
-from phystricks import *
+from yanntricks import *
 def ChiSquared():
     pspict,fig = SinglePicture("ChiSquared")
     pspict.dilatation_X(0.5)

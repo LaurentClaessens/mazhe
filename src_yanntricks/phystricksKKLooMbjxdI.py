@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def KKLooMbjxdI():
     pspict,fig = SinglePicture("KKLooMbjxdI")
     pspict.dilatation(1)

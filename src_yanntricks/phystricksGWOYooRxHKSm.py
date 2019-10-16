@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def GWOYooRxHKSm():
         pspict,fig = SinglePicture("GWOYooRxHKSm")
 	a=3

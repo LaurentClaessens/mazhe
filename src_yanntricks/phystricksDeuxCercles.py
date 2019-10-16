@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def DeuxCercles():
     pspict,fig = SinglePicture("DeuxCercles")
     pspict.dilatation(2)

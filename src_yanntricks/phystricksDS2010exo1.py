@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def DS2010exo1():
     pspict,fig = SinglePicture("DS2010exo1")
 

@@ -1,5 +1,5 @@
-from phystricks import *
-import phystricks.src.MathConstructions
+from yanntricks import *
+import yanntricks.src.MathConstructions
 
 def MethodeNewton():
     pspict,fig = SinglePicture("MethodeNewton")
@@ -16,7 +16,7 @@ def MethodeNewton():
     F=f.graph(mx,Mx)
     pspict.DrawGraphs(F)
 
-    newton = phystricks.src.MathConstructions.NewtonMethod(f)
+    newton = yanntricks.src.MathConstructions.NewtonMethod(f)
     elements = newton.step_from_point(xn)
     A=elements.A
     B=elements.B

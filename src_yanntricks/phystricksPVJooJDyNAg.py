@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def PVJooJDyNAg():
     pspict,fig = SinglePicture("PVJooJDyNAg")
     #pspict.dilatation_X(1)

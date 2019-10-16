@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def Polirettangolo():
     pspict,fig = SinglePicture("Polirettangolo")
     pspict.dilatation(0.5)

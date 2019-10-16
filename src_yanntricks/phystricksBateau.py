@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def Bateau():
 	pspict,fig = SinglePicture("Bateau")
 	pspict.specific_needs="\usepackage[cdot,thinqspace,amssymb]{SIunits}"

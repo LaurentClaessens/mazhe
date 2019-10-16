@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def ExoParamCD():
     pspict,fig = SinglePicture("ExoParamCD")
     pspict.dilatation(3)

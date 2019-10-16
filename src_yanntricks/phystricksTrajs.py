@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def Trajs():
     pspict,fig = SinglePicture("Trajs")
     pspict.dilatation(1)

@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def ACUooQwcDMZ():
     liste_noms=["logarithme","lnvalabsolue","lnxplusun","valabsolueln","unplusln","sqrtln","lnsqrt"]
     pspicts,fig = MultiplePictures("ACUooQwcDMZ",len(liste_noms))

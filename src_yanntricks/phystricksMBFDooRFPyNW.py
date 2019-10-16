@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 
 pspict,fig = SinglePicture("CQIXooBEDnfK")
 pspict2,fig2 = SinglePicture("KGQXooZFNVnW")

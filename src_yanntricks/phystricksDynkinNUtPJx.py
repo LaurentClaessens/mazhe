@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def DynkinNUtPJx():
     pspicts,fig = MultiplePictures("DynkinNUtPJx",5)
     pspicts[0].mother.caption=""

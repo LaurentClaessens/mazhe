@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 
-from phystricks import *
+from yanntricks import *
 def SurfaceEntreCourbes():
     pspicts,fig = MultiplePictures("SurfaceEntreCourbes",3)
     for psp in pspicts :

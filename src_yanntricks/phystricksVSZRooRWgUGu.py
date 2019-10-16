@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def VSZRooRWgUGu():
     pspict,fig = SinglePicture("VSZRooRWgUGu")
     pspict.dilatation(1.5)

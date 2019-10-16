@@ -2,7 +2,7 @@
 
 from __future__ import division
 
-from phystricks import *
+from yanntricks import *
 def QIZooQNQSJj():
     pspict,fig = SinglePicture("QIZooQNQSJj")
     pspict.dilatation_X(0.7)

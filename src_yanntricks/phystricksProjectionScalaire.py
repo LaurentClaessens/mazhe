@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def ProjectionScalaire():
 	pspict,fig = SinglePicture("ProjectionScalaire")
 	pspict.dilatation(1)

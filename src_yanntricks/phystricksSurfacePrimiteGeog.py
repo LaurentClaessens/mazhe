@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def SurfacePrimiteGeog():
     pspict,fig = SinglePicture("SurfacePrimiteGeog")
     pspict.dilatation(1.5)

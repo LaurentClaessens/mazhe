@@ -1,6 +1,6 @@
 from __future__ import division
 
-from phystricks import *
+from yanntricks import *
 def CoinPasVar():
     pspict,fig = SinglePicture("CoinPasVar")
 

@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from sage.all import arccos
-from phystricks import *
+from yanntricks import *
 def SpiraleLimite():
 	pspict,fig = SinglePicture("SpiraleLimite")
 	pspict.dilatation(3)

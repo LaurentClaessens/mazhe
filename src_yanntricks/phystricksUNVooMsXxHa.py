@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 from sage.all import cosh,sinh
-from phystricks import *
+from yanntricks import *
 def UNVooMsXxHa():
     pspict,fig = SinglePicture("UNVooMsXxHa")
     pspict.dilatation_X(1)

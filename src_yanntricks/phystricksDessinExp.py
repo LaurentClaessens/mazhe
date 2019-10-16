@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def DessinExp():
     pspict,fig = MultiplePictures("DessinExp",6)
 

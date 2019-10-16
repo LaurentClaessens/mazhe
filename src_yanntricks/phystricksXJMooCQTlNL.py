@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def XJMooCQTlNL():
     pspict,fig = SinglePicture("XJMooCQTlNL")
     pspict.dilatation_X(2)

@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def ALIzHFm():
     pspict,fig = SinglePicture("ALIzHFm")
     pspict.dilatation_X(1)

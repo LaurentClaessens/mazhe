@@ -2,7 +2,7 @@
 
 from __future__ import division
 
-from phystricks import *
+from yanntricks import *
 
 c=0.5
 def small_box(X,Y,pspict,text=""):

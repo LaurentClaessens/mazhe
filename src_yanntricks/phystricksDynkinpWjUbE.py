@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def DynkinpWjUbE():
     pspict,fig = SinglePicture("DynkinpWjUbE")
     pspict.dilatation(1)

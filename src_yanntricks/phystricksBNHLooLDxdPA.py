@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def BNHLooLDxdPA():
     pspict,fig = SinglePicture("BNHLooLDxdPA")
     O=Point(0,0)

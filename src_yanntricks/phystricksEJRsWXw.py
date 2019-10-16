@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def EJRsWXw():
     pspict,fig = SinglePicture("EJRsWXw")
     pspict.dilatation_X(1)

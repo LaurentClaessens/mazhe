@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def DivergenceTrois():
     pspict,fig = SinglePicture("DivergenceTrois")
 

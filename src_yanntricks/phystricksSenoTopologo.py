@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def SenoTopologo():
     pspict,fig = SinglePicture("SenoTopologo")
     pspict.dilatation(5)

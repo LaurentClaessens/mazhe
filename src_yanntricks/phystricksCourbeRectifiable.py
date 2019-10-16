@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def CourbeRectifiable():
     pspict,fig = SinglePicture("CourbeRectifiable")
     pspict.dilatation(0.7)

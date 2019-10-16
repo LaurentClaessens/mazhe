@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def QSKDooujUbDCsu():
     pspict,fig = SinglePicture("QSKDooujUbDCsu")
     pspict.dilatation(0.7)

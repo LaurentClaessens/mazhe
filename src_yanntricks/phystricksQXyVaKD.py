@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def QXyVaKD():
     pspict,fig = SinglePicture("QXyVaKD")
     pspict.dilatation(2)

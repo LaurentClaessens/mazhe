@@ -2,7 +2,7 @@
 
 from __future__ import unicode_literals
 
-from phystricks import *
+from yanntricks import *
 def WUYooCISzeB():
     num=4
     pspicts,fig = MultiplePictures("WUYooCISzeB",num)

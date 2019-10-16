@@ -1,5 +1,5 @@
 # -*- coding: utf8 -*-
-from phystricks import *
+from yanntricks import *
 def SQNPooPTrLRQ():
     pspict,fig = SinglePicture("SQNPooPTrLRQ")
     import numpy

@@ -1,4 +1,4 @@
-from phystricks import *
+from yanntricks import *
 def ParamTangente():
 	pspict,fig = SinglePicture("ParamTangente")
 	x=var('x')
