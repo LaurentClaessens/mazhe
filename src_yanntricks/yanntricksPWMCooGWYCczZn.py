@@ -55,8 +55,8 @@ def gfAC(k,l,P):
 
 def PWMCooGWYCczZn():
     pspicts, fig = MultiplePictures("PWMCooGWYCczZn", 3)
-    pspicts[0].mother.caption = "Le compact \( K\) est ses rotations."
-    pspicts[1].mother.caption = "Une maille du réseau des translations de \( G\)."
+    pspicts[0].mother.caption = r"Le compact \( K\) et ses rotations."
+    pspicts[1].mother.caption = r"Une maille du réseau des translations de \( G\)."
     pspicts[2].mother.caption = "Une partie du pavage complet."
 
     for psp in pspicts:

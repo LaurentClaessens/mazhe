@@ -1,5 +1,4 @@
 #! /usr/bin/sage -python
-# -*- coding: utf8 -*-
 
 # The 'recall' files are in the directory <mazhe>/src_yanntricks
 # The 'pstricks' files are in directory : <mazhe>/auto/pictures_tex
