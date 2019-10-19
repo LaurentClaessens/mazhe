@@ -15,7 +15,7 @@ def ContourTgNDivergence():
         n = -contour.get_normal_vector(llam,Green_convention=True).normalize(0.5)
         n.parameters.color="green"
         t.parameters.color="red"
-        pspict.DrawGraphs(t,n)
+    pspict.DrawGraphs(t,n)
 
     contour.put_arrow(pts)
 

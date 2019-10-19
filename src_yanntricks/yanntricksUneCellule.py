@@ -27,13 +27,13 @@ def UneCellule():
             P.put_mark(dist,-90,"$a_1=y_{10}$",pspict=pspict)
         elif i == len(sigma1)-1:
             P.put_mark(dist,-90,"$b_1=y_{1%s}$"%str(i),
-                                                pspict=pspict)
+                                            pspict=pspict)
         else:
             P.put_mark(dist,-90,"$y_{1%s}$"%str(i),pspict=pspict)
         seg1=Segment(P,Point(x,a2))
         seg1.parameters.style="dotted"
         seg2=Segment(Point(x,a2),Point(x,b2))
-        pspict.DrawGraphs(P,seg1,seg2)
+    pspict.DrawGraphs(P,seg1,seg2)
 
     for i in range(len(sigma2)):
         y=sigma2[i]
@@ -42,13 +42,13 @@ def UneCellule():
             P.put_mark(0.3,180,"$a_2=y_{20}$",pspict=pspict)
         elif i == len(sigma2)-1:
             P.put_mark(0.3,180,"$b_2=y_{2%s}$"%str(i),
-                                                        pspict=pspict)
+                                                    pspict=pspict)
         else:
             P.put_mark(0.3,180,"$y_{2%s}$"%str(i),pspict=pspict)
         seg1=Segment(P,Point(a1,y))
         seg1.parameters.style="dotted"
         seg2=Segment(Point(a1,y),Point(b1,y))
-        pspict.DrawGraphs(P,seg1,seg2)
+    pspict.DrawGraphs(P,seg1,seg2)
 
     cellule=Rectangle(Point(sigma1[3],sigma2[1]),
                                         Point(sigma1[4],sigma2[2])  )

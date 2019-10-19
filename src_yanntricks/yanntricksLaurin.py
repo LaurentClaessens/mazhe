@@ -15,7 +15,7 @@ def Laurin():
     colors=["blue","cyan","green","red"]
     for i,g in enumerate(F):
         g.parameters.color=colors[i]
-        pspict.DrawGraphs(g)
+    pspict.DrawGraphs(g)
 
     pspict.DrawDefaultAxes()
     pspict.dilatation(1)

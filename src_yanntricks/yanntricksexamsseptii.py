@@ -5,7 +5,7 @@ def examsseptii():
     for x in range(0,4):
         seg = Segment(Point(x**2,-2),Point(x**2,2))
         seg.parameters.color="blue"
-        pspict.DrawGraphs(seg)
+    pspict.DrawGraphs(seg)
 
     pspict.DrawDefaultAxes()
     pspict.dilatation(1)

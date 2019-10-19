@@ -15,7 +15,7 @@ def PLTWoocPNeiZir():
         C=ell_perp.get_point_proportion(p)
         circle=CircleOA(C,P)
         circle.parameters.color="red"
-        pspict.DrawGraphs(circle)
+    pspict.DrawGraphs(circle)
 
     pspict.DrawGraphs(P,ell,ell_perp)
     fig.no_figure()

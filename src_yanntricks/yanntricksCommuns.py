@@ -17,8 +17,8 @@ def CorrectionParametrique(curve,LLms,name,dilatation=1):
         normal.parameters.color="green"
         tangent.parameters.color="brown"
 
-        pspict1.DrawGraphs(P,second,tangent,normal)
-        pspict2.DrawGraphs(P,tangent)
+    pspict1.DrawGraphs(P,second,tangent,normal)
+    pspict2.DrawGraphs(P,tangent)
 
     curve.parameters.style="dashed"
     pspict2.DrawGraphs(curve)

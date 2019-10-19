@@ -27,7 +27,7 @@ def UEGEooHEDIJVPn():
         segV=Segment(P,S)
         segV.parameters.color="red"
         segV.parameters.style="dashed"
-        pspict.DrawGraphs(P,Q,S,segH,segV)
+    pspict.DrawGraphs(P,Q,S,segH,segV)
 
     pspict.axes.no_graduation()
     pspict.DrawDefaultAxes()

@@ -21,7 +21,7 @@ def SQNPooPTrLRQ():
                 if P.norm>R:
                     d=P.norm
                     F=2*Vector(P).fix_origin(P).normalize(1/d**2)
-                    pspict.DrawGraphs(F)
+                pspict.DrawGraphs(F)
 
     pspict.DrawGraphs(terre)
     #pspict.DrawDefaultAxes()

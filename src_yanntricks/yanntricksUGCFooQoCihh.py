@@ -13,7 +13,7 @@ def UGCFooQoCihh():
     for k in range(0,10):
         P=Point(k,proba(l,k))
         P.parameters.symbol="*"
-        pspict.DrawGraphs(P)
+    pspict.DrawGraphs(P)
 
     pspict.DrawDefaultAxes()
     fig.no_figure()

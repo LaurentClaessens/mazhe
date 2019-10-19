@@ -1,4 +1,3 @@
-# -*- coding: utf8 -*-
 from yanntricks import *
 def ACUooQwcDMZ():
     liste_noms=["logarithme","lnvalabsolue","lnxplusun","valabsolueln","unplusln","sqrtln","lnsqrt"]
@@ -30,8 +29,8 @@ def ACUooQwcDMZ():
         pspicts[i].DrawGraphs(F[i])
         pspicts[i].DrawDefaultAxes()
 
-        pspicts[0].BB.addX(-0.5)
-        pspicts[0].BB.addY(3.5)
+    pspicts[0].BB.addX(-0.5)
+    pspicts[0].BB.addY(3.5)
 
     pspicts[1].BB.addX(-2)
     pspicts[1].BB.addY(3)

@@ -20,7 +20,7 @@ def PVJooJDyNAg():
     for k in range(-3,3):
         seg=Segment(  Point(pi/2+k*pi,my),Point(pi/2+k*pi,My) )
         seg.parameters.style="dashed"
-        pspict.DrawGraphs(seg)
+    pspict.DrawGraphs(seg)
 
     pspict.DrawDefaultAxes()
     #fig.no_figure()

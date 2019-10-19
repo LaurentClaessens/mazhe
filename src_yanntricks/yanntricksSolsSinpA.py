@@ -8,7 +8,7 @@ def SolsSinpA():
     for i,C in enumerate(X) :
         f=phyFunction(sin(x+C)).graph(-pi/2-C,pi/2-C)
         f.parameters.color=colors[i]
-        pspict.DrawGraphs(f)
+    pspict.DrawGraphs(f)
 
     pspict.axes.single_axeX.axes_unit=AxesUnit(pi,"")
     pspict.axes.single_axeX.Dx=0.5

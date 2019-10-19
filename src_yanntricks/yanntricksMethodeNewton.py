@@ -34,7 +34,7 @@ def MethodeNewton():
     for i in range(len(roots)):
         P = roots[i]
         P.put_mark(0.3,90,"$r_%s$"%str(i),pspict=pspict)
-        pspict.DrawGraphs(P)
+    pspict.DrawGraphs(P)
     sommet=f.get_point( (roots[0].x+roots[1].x)/2 )
     C=sommet
     C.put_mark(0.3,-90,"$S$",pspict=pspict)

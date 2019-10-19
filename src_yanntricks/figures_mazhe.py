@@ -8,7 +8,6 @@ import sys
 
 from yanntricksPWMCooGWYCczZn import PWMCooGWYCczZn
 from yanntricksATJSooefYkmCbP import ATJSooefYkmCbP
-from yanntricksCRHZooMcaRhrUh import CRHZooMcaRhrUh
 from yanntricksJOQVoolPTsYPZK import JOQVoolPTsYPZK
 from yanntricksGMRNooCNBpIl import GMRNooCNBpIl 
 from yanntricksCWKJooppMsZXjw import CWKJooppMsZXjw
@@ -553,7 +552,6 @@ append_picture(ZOCNoowrfvQXsr,1)
 append_picture(UCDQooMCxpDszQ,1)
 append_picture(GMRNooCNBpIl,2)
 append_picture(JOQVoolPTsYPZK,1)
-append_picture(CRHZooMcaRhrUh, 1)
 append_picture(ATJSooefYkmCbP, 1)
 append_picture(PWMCooGWYCczZn, 1)
 

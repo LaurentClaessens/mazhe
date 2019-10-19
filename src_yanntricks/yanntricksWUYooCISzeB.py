@@ -1,13 +1,9 @@
-# -*- coding: utf8 -*-
-
-from __future__ import unicode_literals
-
 from yanntricks import *
 def WUYooCISzeB():
     num=4
     pspicts,fig = MultiplePictures("WUYooCISzeB",num)
     for i in range(0,num):
-        pspicts[i].mother.caption="Polyôme d'ordre {}".format(i+1)
+        pspicts[i].mother.caption=f"Polyôme d'ordre {i+1}"
 
     for psp in pspicts:
         psp.dilatation_X(1.2)
@@ -23,7 +19,7 @@ def WUYooCISzeB():
         g=phyFunction(f.sage.taylor(x,0,i)).graph(mx,Mx)
         g.parameters.color="red"
         g.cut_y(-1,7)
-        pspicts[i-1].DrawGraphs(g)
+    pspicts[i-1].DrawGraphs(g)
 
 
     for psp in pspicts:

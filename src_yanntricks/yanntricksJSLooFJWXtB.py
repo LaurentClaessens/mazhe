@@ -25,7 +25,7 @@ def JSLooFJWXtB():
         surf.parameters.hatch.color='red'
         if i%2==0 :
             surf.parameters.hatch.color='blue'
-        pspict.DrawGraphs(surf)
+    pspict.DrawGraphs(surf)
 
     pspict.DrawGraphs(f)
     pspict.axes.single_axeX.axes_unit=AxesUnit(pi/2,'')

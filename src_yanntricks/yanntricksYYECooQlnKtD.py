@@ -16,7 +16,7 @@ def YYECooQlnKtD():
     for k in range(0,n+2):
         P=Point(k,proba(n,p,k))
         P.parameters.symbol="*"
-        pspict.DrawGraphs(P)
+    pspict.DrawGraphs(P)
 
     pspict.DrawDefaultAxes()
     fig.no_figure()

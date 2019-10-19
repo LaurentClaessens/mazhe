@@ -13,7 +13,7 @@ def UIEHooSlbzIJ():
     for k in range(0,15):
         P=Point(k,proba(p,k))
         P.parameters.symbol="*"
-        pspict.DrawGraphs(P)
+    pspict.DrawGraphs(P)
 
     pspict.DrawDefaultAxes()
     fig.no_figure()

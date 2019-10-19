@@ -9,7 +9,7 @@ def SBTooEasQsT():
     x=var('x')
     for c in numpy.linspace(-5,5,15):
         f=phyFunction(c*exp(x)).graph(-4,2)
-        pspict.DrawGraphs(f)
+    pspict.DrawGraphs(f)
 
     pspict.axes.single_axeY.Dx=10
     pspict.grid.Dy=5

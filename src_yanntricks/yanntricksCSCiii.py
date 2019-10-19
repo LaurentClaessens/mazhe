@@ -38,7 +38,7 @@ def CSCiii():
     for br in branch :
         minus = curve.graph(-br.mx,-br.Mx )
         minus.parameters.color="red"
-        pspict[2].DrawGraphs(br,minus)
+    pspict[2].DrawGraphs(br,minus)
 
     pspict[2].axes.single_axeX.Dx=0.5
     pspict[2].axes.single_axeY.Dx=0.5

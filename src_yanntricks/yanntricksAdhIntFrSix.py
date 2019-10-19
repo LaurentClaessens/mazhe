@@ -9,7 +9,7 @@ def AdhIntFrSix():
         x=float(1)/n
         seg=Segment(Point(x,0),Point(x,1))
         seg.parameters.color="blue"
-        pspict.DrawGraphs(seg)
+    pspict.DrawGraphs(seg)
     seg=Segment(Point(0,0),Point(0,1))
     pspict.DrawGraphs(seg)
 
