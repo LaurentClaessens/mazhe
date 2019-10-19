@@ -1,5 +1,4 @@
 #!/bin/bash
-# -*- coding: utf8 -*-
 
 # These tests are supposed to be launched in a cloned directory.
 

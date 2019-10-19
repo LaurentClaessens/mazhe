@@ -5,6 +5,12 @@
 - Déplacer plusieurs résultats sur les fonctions holomorphes qui sont en réalité des résultats sur les fonctions analytiques.
 - Prouver le théorème du prolongement analytique.
 - Intégrale de Dirichlet via une dérivation sous l'intégrale et beaucoup de séries alternées
+- Énormément de fautes d'orthographe corrigées par vuod et Bruno Turgeon (qui sont peut-être la même personne...)
+
+- Pas directement lié, mais j'ai fait un passage à python3 pour `phystricks`, qui est au passage renommé `yanntricks`.
+  Ça utilise maintenant une version de Sage compilée avec python3 (pas encore totalement officielle pour l'instant). Les
+  figures du Frido sont recompilées, et j'espère qu'il n'y aura aucune différences visuelles.
+  https://github.com/LaurentClaessens/yanntricks
 
 ## Septembre 2019
 
