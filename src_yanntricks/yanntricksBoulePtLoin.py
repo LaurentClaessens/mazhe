@@ -1,4 +1,7 @@
 from yanntricks import *
+
+dprint = print
+
 def BoulePtLoin():
     pspict,fig = SinglePicture("BoulePtLoin")
 
@@ -11,6 +14,7 @@ def BoulePtLoin():
     v=AffineVector(a,x)
     delta=r/2
     N=4*(v.length/delta)/3
+
     P=x.translate(v/N)
     P.put_mark(0.3,-90,"$P$",pspict=pspict)
     B=Circle(x,delta)
