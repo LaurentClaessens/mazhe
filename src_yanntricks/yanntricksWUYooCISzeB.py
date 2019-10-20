@@ -1,4 +1,8 @@
 from yanntricks import *
+from sage.all import Integer
+
+dprint = print
+
 def WUYooCISzeB():
     num=4
     pspicts,fig = MultiplePictures("WUYooCISzeB",num)
@@ -13,7 +17,8 @@ def WUYooCISzeB():
     Mx=3
 
     x=var('x')
-    f=phyFunction(3*(x+1)**(1/3)+exp(-2*x)).graph(mx,Mx)
+    # See https://ask.sagemath.org/question/48429/taylor-expansion-crashing-python3/?answer=48430
+    f=phyFunction(3*(x+1)**(Integer(1)/3)+exp(-2*x)).graph(mx,Mx)
 
     for i in range(1,num+1):
         g=phyFunction(f.sage.taylor(x,0,i)).graph(mx,Mx)

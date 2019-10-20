@@ -1,15 +1,10 @@
-# coding: utf8
-
-from __future__ import division
-
 import itertools
 from yanntricks import *
-
 
 def action(k, l, m, P):
     """Act with the group on the point P"""
     z = P.x+I*P.y
-    new_z = exp(i*pi*m)*z
+    new_z = exp(I*pi*m)*z
 
     new_P = Point(new_z.real_part(), new_z.imag_part())
 

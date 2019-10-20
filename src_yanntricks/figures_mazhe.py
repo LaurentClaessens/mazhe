@@ -561,6 +561,7 @@ append_picture(<++>,1)
 append_picture(<++>,1)
 """
 
+
 def AllFigures():
     figures_list=figures_list_1
     if "--pass-number=2" in sys.argv :
