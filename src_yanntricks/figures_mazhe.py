@@ -146,8 +146,8 @@ from yanntricksFonctionEtDeriveOM import FonctionEtDeriveOM
 from yanntricksRechercheTangente import VGZooJnvvZc
 from yanntricksDerivTangenteOM import DerivTangenteOM
 from yanntricksCoordPolaires import CoordPolaires
-from yanntricksDefinitionCartesiennes import DefinitionCartesiennes
-from yanntricksProjectionScalaire import ProjectionScalaire
+#from yanntricksDefinitionCartesiennes import DefinitionCartesiennes
+#from yanntricksProjectionScalaire import ProjectionScalaire
 from yanntricksCercleTrigono import CercleTrigono
 from yanntricksTgCercleTrigono import TgCercleTrigono
 from yanntricksExoPolaire import ExoPolaire
@@ -163,7 +163,7 @@ from yanntricksIntDeuxCarres import IntDeuxCarres
 from yanntricksMoulinEau import MoulinEau
 from yanntricksMethodeNewton import MethodeNewton
 from yanntricksSurfacePrimiteGeog import SurfacePrimiteGeog
-from yanntricksSurfaceEntreCourbes import SurfaceEntreCourbes
+#from yanntricksSurfaceEntreCourbes import SurfaceEntreCourbes
 from yanntricksChoixInfini import ChoixInfini
 from yanntricksProjPoly import ProjPoly
 from yanntrickstrigoWedd import trigoWedd
@@ -328,8 +328,8 @@ append_picture(TgCercleTrigono,2)
 append_picture(SJAWooRDGzIkrj,2)
 append_picture(UMEBooVTMyfD,2)
 append_picture(GBnUivi,2)
-append_picture(SurfaceEntreCourbes,2)
-append_picture(ProjectionScalaire,2)
+#append_picture(SurfaceEntreCourbes,2)
+#append_picture(ProjectionScalaire,2)
 append_picture(AdhIntFr,2)
 append_picture(Cardioideexo,2)
 append_picture(RPNooQXxpZZ,2)
@@ -358,7 +358,7 @@ append_picture(CFMooGzvfRP,2)
 append_picture(AccumulationIsole,2)
 append_picture(LAfWmaN,2)
 append_picture(TZCISko,2)
-append_picture(DefinitionCartesiennes,2)
+#append_picture(DefinitionCartesiennes,2)
 append_picture(DistanceEuclide,2)
 append_picture(ASHYooUVHkak,2)
 append_picture(GVDJooYzMxLW,2)
