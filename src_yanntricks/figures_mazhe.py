@@ -143,7 +143,7 @@ from yanntricksNiveauHyperbole import NiveauHyperboleDeux
 from yanntricksBateau import Bateau
 from yanntricksFonctionXtroisOM import FonctionXtroisOM
 from yanntricksFonctionEtDeriveOM import FonctionEtDeriveOM
-from yanntricksRechercheTangente import VGZooJnvvZc
+#from yanntricksRechercheTangente import VGZooJnvvZc
 from yanntricksDerivTangenteOM import DerivTangenteOM
 from yanntricksCoordPolaires import CoordPolaires
 #from yanntricksDefinitionCartesiennes import DefinitionCartesiennes
@@ -517,7 +517,7 @@ append_picture(TangentSegment,2)
 append_picture(PONXooXYjEot,2)
 
 append_picture(FXVooJYAfif,1)
-append_picture(VGZooJnvvZc,2)
+#append_picture(VGZooJnvvZc,2)
 append_picture(LYORooNKDHqt,2)
 append_picture(TKXZooLwXzjS,1)
 append_picture(YQVHooYsGLHQ,1)

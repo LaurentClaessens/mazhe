@@ -4,10 +4,14 @@ from yanntricks import *
 def VGZooJnvvZc():
     n_ssfig = 4           # Pas plus que 4, sinon ça se met en colonne.
     pspictQuestion, figQuestion = SinglePicture(
-        "TangenteQuestionOM", script_filename="RechercheTangente")
+        "TangenteQuestionOM",
+        script_filename="RechercheTangente")
     pspictDetail, figDetail = SinglePicture(
-        "TangenteDetailOM", script_filename="RechercheTangente")
-    pspictsSubFig, figSubFig = MultiplePictures("LesSubFiguresOM", n_ssfig)
+        "TangenteDetailOM",
+        script_filename="RechercheTangente")
+    pspictsSubFig, figSubFig = MultiplePictures(
+        "LesSubFiguresOM",
+        n_ssfig)
 
     pspictDetail.dilatation(1)
     pspictQuestion.dilatation(0.7)
