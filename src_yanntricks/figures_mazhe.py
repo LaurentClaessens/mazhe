@@ -246,7 +246,7 @@ from yanntricksSolsEqDiffSin import SolsEqDiffSin
 from yanntricksSolsSinpA import SolsSinpA
 from yanntricksTrajs import Trajs
 from yanntricksBQXKooPqSEMN import BQXKooPqSEMN
-from yanntricksooIHLPooKLIxcH import ooIHLPooKLIxcH
+# from yanntricksooIHLPooKLIxcH import ooIHLPooKLIxcH
 from yanntricksUEGEooHEDIJVPn import UEGEooHEDIJVPn
 
 
@@ -512,7 +512,7 @@ append_picture(ExPolygone,2)
 append_picture(CoinPasVar,2)
 append_picture(DynkinNUtPJx,2)
 append_picture(Differentielle,2)
-append_picture(ooIHLPooKLIxcH,2)
+#append_picture(ooIHLPooKLIxcH,2)
 append_picture(TangentSegment,2)
 append_picture(PONXooXYjEot,2)
 

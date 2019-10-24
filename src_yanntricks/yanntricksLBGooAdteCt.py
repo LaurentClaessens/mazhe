@@ -1,4 +1,3 @@
-# -*- coding: utf8 -*-
 from yanntricks import *
 def LBGooAdteCt():
     pspict,fig = SinglePicture("LBGooAdteCt")
@@ -15,4 +14,3 @@ def LBGooAdteCt():
     fig.no_figure()
     fig.conclude()
     fig.write_the_file()
-

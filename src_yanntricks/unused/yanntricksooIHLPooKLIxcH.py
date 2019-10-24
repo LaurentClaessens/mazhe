@@ -19,7 +19,7 @@ def ooIHLPooKLIxcH():
     P.parameters.symbol=""
     Q.parameters.symbol=""
     M=cercle.get_point((sigma+theta)/2)
-    M.put_mark(0.3,M.advised_mark_angle(pspict),"$\sigma(t)$",pspict=pspict)
+    M.put_mark(0.3,M.advised_mark_angle(pspict),r"$\sigma(t)$",pspict=pspict)
 
     angle=AngleAOB(P,O,Q,r=0.5)
     angle.put_mark(0.2,None,r"$\theta$",pspict=pspict)
