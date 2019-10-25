@@ -121,7 +121,7 @@ from yanntricksChiSquaresQuantile import ChiSquaresQuantile
 from yanntricksratrap import ratrap
 from yanntricksCouroneExam import CouroneExam
 from yanntricksContourTgNDivergence import ContourTgNDivergence
-from yanntricksContourSqL import ContourSqL
+#from yanntricksContourSqL import ContourSqL
 from yanntricksContourGreen import ContourGreen
 from yanntricksExSinLarge import ExSinLarge
 from yanntricksToreRevolution import ToreRevolution
@@ -156,7 +156,7 @@ from yanntricksExoUnSurxPolaire import ExoUnSurxPolaire
 from yanntricksSurfaceHorizVerti import SurfaceHorizVerti
 from yanntricksSurfaceCercle import SurfaceCercle
 #from yanntricksIntRectangle import IntRectangle
-from yanntricksIntTriangle import IntTriangle
+#from yanntricksIntTriangle import IntTriangle
 from yanntricksIntEcourbe import IntEcourbe
 from yanntricksIntBoutCercle import IntBoutCercle
 from yanntricksIntDeuxCarres import IntDeuxCarres
@@ -445,7 +445,7 @@ append_picture(RQsQKTl,2)
 append_picture(HNxitLj,2)
 append_picture(FonctionXtroisOM,2)
 append_picture(OQTEoodIwAPfZE,2)
-append_picture(IntTriangle,2)
+#append_picture(IntTriangle,2)
 append_picture(LesSpheres,2)
 append_picture(JSLooFJWXtB,2)
 append_picture(RGjjpwF,2)
@@ -460,7 +460,7 @@ append_picture(TriangleUV,2)
 append_picture(FonctionEtDeriveOM,2)
 append_picture(ProjPoly,2)
 append_picture(TWHooJjXEtS,2)
-append_picture(ContourSqL,2)
+#append_picture(ContourSqL,2)
 #append_picture(IntegraleSimple,2)
 append_picture(HGQPooKrRtAN,2)
 append_picture(YWxOAkh,2)
