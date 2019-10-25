@@ -126,7 +126,7 @@ from yanntricksContourGreen import ContourGreen
 from yanntricksExSinLarge import ExSinLarge
 from yanntricksToreRevolution import ToreRevolution
 from yanntricksConeRevolution import ConeRevolution
-from yanntricksExPolygone import ExPolygone
+#from yanntricksExPolygone import ExPolygone
 from yanntricksIntegraleSimple import IntegraleSimple
 from yanntricksExoMagnetique import ExoMagnetique
 from yanntricksCurvilignesPolaires import CurvilignesPolaires
@@ -245,7 +245,7 @@ from yanntricksDS2010ExoGraph import DS2010ExoGraph
 from yanntricksSolsEqDiffSin import SolsEqDiffSin
 from yanntricksSolsSinpA import SolsSinpA
 from yanntricksTrajs import Trajs
-from yanntricksBQXKooPqSEMN import BQXKooPqSEMN
+#from yanntricksBQXKooPqSEMN import BQXKooPqSEMN
 # from yanntricksooIHLPooKLIxcH import ooIHLPooKLIxcH
 from yanntricksUEGEooHEDIJVPn import UEGEooHEDIJVPn
 
@@ -500,7 +500,7 @@ append_picture(CELooGVvzMc,2)
 append_picture(ParamTangente,2)
 append_picture(KKJAooubQzgBgP,2)
 append_picture(IntRectangle,2)
-append_picture(BQXKooPqSEMN,2)
+#append_picture(BQXKooPqSEMN,2)
 append_picture(EJRsWXw,2)
 append_picture(CercleImplicite,2)
 append_picture(ZTTooXtHkci,2)
@@ -508,7 +508,7 @@ append_picture(EELKooMwkockxB,2)
 append_picture(GYODoojTiGZSkJ,2)
 append_picture(ERPMooZibfNOiU,2)
 append_picture(TriangleRectangle,2)
-append_picture(ExPolygone,2)
+#append_picture(ExPolygone,2)
 append_picture(CoinPasVar,2)
 append_picture(DynkinNUtPJx,2)
 append_picture(Differentielle,2)
