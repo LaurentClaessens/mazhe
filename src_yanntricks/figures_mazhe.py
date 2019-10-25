@@ -127,7 +127,7 @@ from yanntricksExSinLarge import ExSinLarge
 from yanntricksToreRevolution import ToreRevolution
 from yanntricksConeRevolution import ConeRevolution
 #from yanntricksExPolygone import ExPolygone
-from yanntricksIntegraleSimple import IntegraleSimple
+#from yanntricksIntegraleSimple import IntegraleSimple
 from yanntricksExoMagnetique import ExoMagnetique
 from yanntricksCurvilignesPolaires import CurvilignesPolaires
 from yanntricksRefraction import Refraction
@@ -144,8 +144,8 @@ from yanntricksBateau import Bateau
 from yanntricksFonctionXtroisOM import FonctionXtroisOM
 from yanntricksFonctionEtDeriveOM import FonctionEtDeriveOM
 #from yanntricksRechercheTangente import VGZooJnvvZc
-from yanntricksDerivTangenteOM import DerivTangenteOM
-from yanntricksCoordPolaires import CoordPolaires
+#from yanntricksDerivTangenteOM import DerivTangenteOM
+#from yanntricksCoordPolaires import CoordPolaires
 #from yanntricksDefinitionCartesiennes import DefinitionCartesiennes
 #from yanntricksProjectionScalaire import ProjectionScalaire
 from yanntricksCercleTrigono import CercleTrigono
@@ -461,12 +461,12 @@ append_picture(FonctionEtDeriveOM,2)
 append_picture(ProjPoly,2)
 append_picture(TWHooJjXEtS,2)
 append_picture(ContourSqL,2)
-append_picture(IntegraleSimple,2)
+#append_picture(IntegraleSimple,2)
 append_picture(HGQPooKrRtAN,2)
 append_picture(YWxOAkh,2)
 append_picture(CornetGlace,2)
 append_picture(QMWKooRRulrgcH,2)
-append_picture(CoordPolaires,2)
+#append_picture(CoordPolaires,2)
 append_picture(MethodeChemin,2)
 append_picture(MaxVraissLp,2)
 append_picture(CycloideA,2)
@@ -484,7 +484,7 @@ append_picture(UIEHooSlbzIJ,2)
 append_picture(STdyNTH,2)
 append_picture(ExoProjection,2)
 append_picture(ADUGmRRC,2)
-append_picture(DerivTangenteOM,2)
+#append_picture(DerivTangenteOM,2)
 append_picture(DistanceEnsemble,2)
 append_picture(examsseptii,2)
 append_picture(IWuPxFc,2)
