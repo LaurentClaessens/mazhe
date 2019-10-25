@@ -132,7 +132,7 @@ from yanntricksExoMagnetique import ExoMagnetique
 from yanntricksCurvilignesPolaires import CurvilignesPolaires
 from yanntricksRefraction import Refraction
 from yanntricksMomentForce import MomentForce
-from yanntricksParallelogrammeOM import ParallelogrammeOM
+#from yanntricksParallelogrammeOM import ParallelogrammeOM
 from yanntricksDivergenceTrois import DivergenceTrois
 from yanntricksDivergenceDeux import DivergenceDeux
 from yanntricksDivergenceUn import DivergenceUn
@@ -141,8 +141,8 @@ from yanntricksFnCosApprox import FnCosApprox
 from yanntricksNiveauHyperbole import NiveauHyperbole
 from yanntricksNiveauHyperbole import NiveauHyperboleDeux
 from yanntricksBateau import Bateau
-from yanntricksFonctionXtroisOM import FonctionXtroisOM
-from yanntricksFonctionEtDeriveOM import FonctionEtDeriveOM
+#from yanntricksFonctionXtroisOM import FonctionXtroisOM
+#from yanntricksFonctionEtDeriveOM import FonctionEtDeriveOM
 #from yanntricksRechercheTangente import VGZooJnvvZc
 #from yanntricksDerivTangenteOM import DerivTangenteOM
 #from yanntricksCoordPolaires import CoordPolaires
@@ -439,11 +439,11 @@ append_picture(WUYooCISzeB,2)
 append_picture(VWFLooPSrOqz,2)
 append_picture(ChiSquared,2)
 append_picture(QOBAooZZZOrl,2)
-append_picture(ParallelogrammeOM,2)
+#append_picture(ParallelogrammeOM,2)
 append_picture(SurfaceHorizVerti,2)
 append_picture(RQsQKTl,2)
 append_picture(HNxitLj,2)
-append_picture(FonctionXtroisOM,2)
+#append_picture(FonctionXtroisOM,2)
 append_picture(OQTEoodIwAPfZE,2)
 #append_picture(IntTriangle,2)
 append_picture(LesSpheres,2)
@@ -457,7 +457,7 @@ append_picture(JJAooWpimYW,2)
 append_picture(UZGooBzlYxr,2)
 append_picture(QCb,2)
 append_picture(TriangleUV,2)
-append_picture(FonctionEtDeriveOM,2)
+#append_picture(FonctionEtDeriveOM,2)
 append_picture(ProjPoly,2)
 append_picture(TWHooJjXEtS,2)
 #append_picture(ContourSqL,2)
