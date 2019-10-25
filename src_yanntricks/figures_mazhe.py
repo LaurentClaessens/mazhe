@@ -124,8 +124,8 @@ from yanntricksContourTgNDivergence import ContourTgNDivergence
 #from yanntricksContourSqL import ContourSqL
 from yanntricksContourGreen import ContourGreen
 from yanntricksExSinLarge import ExSinLarge
-from yanntricksToreRevolution import ToreRevolution
-from yanntricksConeRevolution import ConeRevolution
+#from yanntricksToreRevolution import ToreRevolution
+#from yanntricksConeRevolution import ConeRevolution
 #from yanntricksExPolygone import ExPolygone
 #from yanntricksIntegraleSimple import IntegraleSimple
 from yanntricksExoMagnetique import ExoMagnetique
@@ -157,8 +157,8 @@ from yanntricksSurfaceHorizVerti import SurfaceHorizVerti
 from yanntricksSurfaceCercle import SurfaceCercle
 #from yanntricksIntRectangle import IntRectangle
 #from yanntricksIntTriangle import IntTriangle
-from yanntricksIntEcourbe import IntEcourbe
-from yanntricksIntBoutCercle import IntBoutCercle
+#from yanntricksIntEcourbe import IntEcourbe
+#from yanntricksIntBoutCercle import IntBoutCercle
 from yanntricksIntDeuxCarres import IntDeuxCarres
 from yanntricksMoulinEau import MoulinEau
 from yanntricksMethodeNewton import MethodeNewton
@@ -347,12 +347,12 @@ append_picture(VSZRooRWgUGu,2)
 append_picture(BIFooDsvVHb,2)
 append_picture(ADUGmRRA,2)
 append_picture(UneCellule,2)
-append_picture(IntEcourbe,2)
+#append_picture(IntEcourbe,2)
 append_picture(IOCTooePeHGCXH,2)
 append_picture(QSKDooujUbDCsu,2)
 append_picture(NiveauHyperboleDeux,2)
 append_picture(CSCiv,2)
-append_picture(ConeRevolution,2)
+#append_picture(ConeRevolution,2)
 append_picture(DNRRooJWRHgOCw,2)
 append_picture(CFMooGzvfRP,2)
 append_picture(AccumulationIsole,2)
@@ -382,7 +382,7 @@ append_picture(KGQXooZFNVnW,2)
 append_picture(XTGooSFFtPu,2)
 append_picture(CurvilignesPolaires,2)
 append_picture(JWINooSfKCeA,2)
-append_picture(IntBoutCercle,2)
+#append_picture(IntBoutCercle,2)
 append_picture(senotopologo,2)
 append_picture(ratrap,2)
 append_picture(CSCvi,2)
@@ -397,7 +397,7 @@ append_picture(YHJYooTEXLLn,2)
 append_picture(TIMYoochXZZNGP,2)
 append_picture(NWDooOObSHB,2)
 append_picture(FGRooDhFkch,2)
-append_picture(ToreRevolution,2)
+#append_picture(ToreRevolution,2)
 append_picture(BNHLooLDxdPA,2)
 append_picture(ChoixInfini,2)
 append_picture(ExoPolaire,2)
