@@ -155,7 +155,7 @@ from yanntricksExoProjection import ExoProjection
 from yanntricksExoUnSurxPolaire import ExoUnSurxPolaire
 from yanntricksSurfaceHorizVerti import SurfaceHorizVerti
 from yanntricksSurfaceCercle import SurfaceCercle
-from yanntricksIntRectangle import IntRectangle
+#from yanntricksIntRectangle import IntRectangle
 from yanntricksIntTriangle import IntTriangle
 from yanntricksIntEcourbe import IntEcourbe
 from yanntricksIntBoutCercle import IntBoutCercle
@@ -499,7 +499,7 @@ append_picture(MethodeNewton,2)
 append_picture(CELooGVvzMc,2)
 append_picture(ParamTangente,2)
 append_picture(KKJAooubQzgBgP,2)
-append_picture(IntRectangle,2)
+#append_picture(IntRectangle,2)
 #append_picture(BQXKooPqSEMN,2)
 append_picture(EJRsWXw,2)
 append_picture(CercleImplicite,2)
