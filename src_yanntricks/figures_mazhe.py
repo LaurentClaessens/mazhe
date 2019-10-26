@@ -162,7 +162,7 @@ from yanntricksSurfaceCercle import SurfaceCercle
 from yanntricksIntDeuxCarres import IntDeuxCarres
 from yanntricksMoulinEau import MoulinEau
 from yanntricksMethodeNewton import MethodeNewton
-from yanntricksSurfacePrimiteGeog import SurfacePrimiteGeog
+#from yanntricksSurfacePrimiteGeog import SurfacePrimiteGeog
 #from yanntricksSurfaceEntreCourbes import SurfaceEntreCourbes
 from yanntricksChoixInfini import ChoixInfini
 from yanntricksProjPoly import ProjPoly
@@ -292,10 +292,10 @@ def append_picture(fun,number):
 append_picture(UUNEooCNVOOs,3)
 append_picture(NOCGooYRHLCn,3)
 append_picture(YQIDooBqpAdbIM,3)
-append_picture(SurfacePrimiteGeog,2)
+#append_picture(SurfacePrimiteGeog,2)
 append_picture(XOLBooGcrjiwoU,2)
 append_picture(DynkinrjbHIu,2)
-append_picture(HCJPooHsaTgI,2)
+append_picture(HCJPooHsaTgI,3)
 append_picture(LMHMooCscXNNdU,2)
 append_picture(IntervalleUn,2)
 append_picture(UGCFooQoCihh,2)

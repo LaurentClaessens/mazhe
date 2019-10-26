@@ -34,7 +34,7 @@ def HCJPooHsaTgI():
     lA.parameters.style = "dotted"
     lB.parameters = lA.parameters
 
-    pspict[0].DrawGraphs(surface, A, B, lA, f1, f2,
+    pspict[0].DrawGraphs(surface, A, B, lA, lB, f1, f2,
                          surface.bounding_box(pspict[0]))
     pspict[0].axes.no_graduation()
     pspict[0].DrawDefaultAxes()

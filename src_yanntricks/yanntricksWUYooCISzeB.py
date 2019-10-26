@@ -24,7 +24,7 @@ def WUYooCISzeB():
         g=phyFunction(f.sage.taylor(x,0,i)).graph(mx,Mx)
         g.parameters.color="red"
         g.cut_y(-1,7)
-    pspicts[i-1].DrawGraphs(g)
+        pspicts[i-1].DrawGraphs(g)
 
 
     for psp in pspicts:
