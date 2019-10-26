@@ -129,7 +129,7 @@ from yanntricksExSinLarge import ExSinLarge
 #from yanntricksExPolygone import ExPolygone
 #from yanntricksIntegraleSimple import IntegraleSimple
 from yanntricksExoMagnetique import ExoMagnetique
-from yanntricksCurvilignesPolaires import CurvilignesPolaires
+#from yanntricksCurvilignesPolaires import CurvilignesPolaires
 from yanntricksRefraction import Refraction
 from yanntricksMomentForce import MomentForce
 #from yanntricksParallelogrammeOM import ParallelogrammeOM
@@ -138,8 +138,8 @@ from yanntricksDivergenceDeux import DivergenceDeux
 from yanntricksDivergenceUn import DivergenceUn
 from yanntricksChampGraviation import ChampGraviation
 from yanntricksFnCosApprox import FnCosApprox
-from yanntricksNiveauHyperbole import NiveauHyperbole
-from yanntricksNiveauHyperbole import NiveauHyperboleDeux
+#from yanntricksNiveauHyperbole import NiveauHyperbole
+#from yanntricksNiveauHyperbole import NiveauHyperboleDeux
 from yanntricksBateau import Bateau
 #from yanntricksFonctionXtroisOM import FonctionXtroisOM
 #from yanntricksFonctionEtDeriveOM import FonctionEtDeriveOM
@@ -153,7 +153,7 @@ from yanntricksTgCercleTrigono import TgCercleTrigono
 from yanntricksExoPolaire import ExoPolaire
 from yanntricksExoProjection import ExoProjection
 from yanntricksExoUnSurxPolaire import ExoUnSurxPolaire
-from yanntricksSurfaceHorizVerti import SurfaceHorizVerti
+#from yanntricksSurfaceHorizVerti import SurfaceHorizVerti
 from yanntricksSurfaceCercle import SurfaceCercle
 #from yanntricksIntRectangle import IntRectangle
 #from yanntricksIntTriangle import IntTriangle
@@ -350,7 +350,7 @@ append_picture(UneCellule,2)
 #append_picture(IntEcourbe,2)
 append_picture(IOCTooePeHGCXH,2)
 append_picture(QSKDooujUbDCsu,2)
-append_picture(NiveauHyperboleDeux,2)
+#append_picture(NiveauHyperboleDeux,2)
 append_picture(CSCiv,2)
 #append_picture(ConeRevolution,2)
 append_picture(DNRRooJWRHgOCw,2)
@@ -380,7 +380,7 @@ append_picture(Trajs,2)
 append_picture(ExampleIntegration,2)
 append_picture(KGQXooZFNVnW,2)
 append_picture(XTGooSFFtPu,2)
-append_picture(CurvilignesPolaires,2)
+#append_picture(CurvilignesPolaires,2)
 append_picture(JWINooSfKCeA,2)
 #append_picture(IntBoutCercle,2)
 append_picture(senotopologo,2)
@@ -418,7 +418,7 @@ append_picture(DessinLim,2)
 append_picture(ALIzHFm,2)
 append_picture(MomentForce,2)
 append_picture(LEJNDxI,2)
-append_picture(NiveauHyperbole,2)
+#append_picture(NiveauHyperbole,2)
 append_picture(WIRAooTCcpOV,2)
 append_picture(AdhIntFrDeux,2)
 append_picture(YYECooQlnKtD,2)
@@ -440,7 +440,7 @@ append_picture(VWFLooPSrOqz,2)
 append_picture(ChiSquared,2)
 append_picture(QOBAooZZZOrl,2)
 #append_picture(ParallelogrammeOM,2)
-append_picture(SurfaceHorizVerti,2)
+#append_picture(SurfaceHorizVerti,2)
 append_picture(RQsQKTl,2)
 append_picture(HNxitLj,2)
 #append_picture(FonctionXtroisOM,2)
