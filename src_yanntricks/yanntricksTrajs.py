@@ -12,7 +12,7 @@ def Trajs():
         curve.parameters.color=colors[i]
         P=curve.get_point(0)
         P.parameters.color="brown"
-    pspict.DrawGraphs(curve,P)
+        pspict.DrawGraphs(curve,P)
 
 
     pspict.DrawDefaultAxes()
