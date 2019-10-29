@@ -1,5 +1,4 @@
 #! /usr/bin/sage -python
-# -*- coding: utf8 -*-
 
 # The 'recall' files are in the directory <mazhe>/src_yanntricks
 # The 'pstricks' files are in directory : <mazhe>/auto/pictures_tex
@@ -9,7 +8,6 @@ import sys
 
 from yanntricksPWMCooGWYCczZn import PWMCooGWYCczZn
 from yanntricksATJSooefYkmCbP import ATJSooefYkmCbP
-from yanntricksCRHZooMcaRhrUh import CRHZooMcaRhrUh
 from yanntricksJOQVoolPTsYPZK import JOQVoolPTsYPZK
 from yanntricksGMRNooCNBpIl import GMRNooCNBpIl 
 from yanntricksCWKJooppMsZXjw import CWKJooppMsZXjw
@@ -123,49 +121,49 @@ from yanntricksChiSquaresQuantile import ChiSquaresQuantile
 from yanntricksratrap import ratrap
 from yanntricksCouroneExam import CouroneExam
 from yanntricksContourTgNDivergence import ContourTgNDivergence
-from yanntricksContourSqL import ContourSqL
+#from yanntricksContourSqL import ContourSqL
 from yanntricksContourGreen import ContourGreen
 from yanntricksExSinLarge import ExSinLarge
-from yanntricksToreRevolution import ToreRevolution
-from yanntricksConeRevolution import ConeRevolution
-from yanntricksExPolygone import ExPolygone
-from yanntricksIntegraleSimple import IntegraleSimple
+#from yanntricksToreRevolution import ToreRevolution
+#from yanntricksConeRevolution import ConeRevolution
+#from yanntricksExPolygone import ExPolygone
+#from yanntricksIntegraleSimple import IntegraleSimple
 from yanntricksExoMagnetique import ExoMagnetique
-from yanntricksCurvilignesPolaires import CurvilignesPolaires
+#from yanntricksCurvilignesPolaires import CurvilignesPolaires
 from yanntricksRefraction import Refraction
 from yanntricksMomentForce import MomentForce
-from yanntricksParallelogrammeOM import ParallelogrammeOM
+#from yanntricksParallelogrammeOM import ParallelogrammeOM
 from yanntricksDivergenceTrois import DivergenceTrois
 from yanntricksDivergenceDeux import DivergenceDeux
 from yanntricksDivergenceUn import DivergenceUn
 from yanntricksChampGraviation import ChampGraviation
 from yanntricksFnCosApprox import FnCosApprox
-from yanntricksNiveauHyperbole import NiveauHyperbole
-from yanntricksNiveauHyperbole import NiveauHyperboleDeux
+#from yanntricksNiveauHyperbole import NiveauHyperbole
+#from yanntricksNiveauHyperbole import NiveauHyperboleDeux
 from yanntricksBateau import Bateau
-from yanntricksFonctionXtroisOM import FonctionXtroisOM
-from yanntricksFonctionEtDeriveOM import FonctionEtDeriveOM
-from yanntricksRechercheTangente import VGZooJnvvZc
-from yanntricksDerivTangenteOM import DerivTangenteOM
-from yanntricksCoordPolaires import CoordPolaires
-from yanntricksDefinitionCartesiennes import DefinitionCartesiennes
-from yanntricksProjectionScalaire import ProjectionScalaire
+#from yanntricksFonctionXtroisOM import FonctionXtroisOM
+#from yanntricksFonctionEtDeriveOM import FonctionEtDeriveOM
+#from yanntricksRechercheTangente import VGZooJnvvZc
+#from yanntricksDerivTangenteOM import DerivTangenteOM
+#from yanntricksCoordPolaires import CoordPolaires
+#from yanntricksDefinitionCartesiennes import DefinitionCartesiennes
+#from yanntricksProjectionScalaire import ProjectionScalaire
 from yanntricksCercleTrigono import CercleTrigono
 from yanntricksTgCercleTrigono import TgCercleTrigono
 from yanntricksExoPolaire import ExoPolaire
 from yanntricksExoProjection import ExoProjection
 from yanntricksExoUnSurxPolaire import ExoUnSurxPolaire
-from yanntricksSurfaceHorizVerti import SurfaceHorizVerti
+#from yanntricksSurfaceHorizVerti import SurfaceHorizVerti
 from yanntricksSurfaceCercle import SurfaceCercle
-from yanntricksIntRectangle import IntRectangle
-from yanntricksIntTriangle import IntTriangle
-from yanntricksIntEcourbe import IntEcourbe
-from yanntricksIntBoutCercle import IntBoutCercle
+#from yanntricksIntRectangle import IntRectangle
+#from yanntricksIntTriangle import IntTriangle
+#from yanntricksIntEcourbe import IntEcourbe
+#from yanntricksIntBoutCercle import IntBoutCercle
 from yanntricksIntDeuxCarres import IntDeuxCarres
 from yanntricksMoulinEau import MoulinEau
 from yanntricksMethodeNewton import MethodeNewton
-from yanntricksSurfacePrimiteGeog import SurfacePrimiteGeog
-from yanntricksSurfaceEntreCourbes import SurfaceEntreCourbes
+#from yanntricksSurfacePrimiteGeog import SurfacePrimiteGeog
+#from yanntricksSurfaceEntreCourbes import SurfaceEntreCourbes
 from yanntricksChoixInfini import ChoixInfini
 from yanntricksProjPoly import ProjPoly
 from yanntrickstrigoWedd import trigoWedd
@@ -247,8 +245,8 @@ from yanntricksDS2010ExoGraph import DS2010ExoGraph
 from yanntricksSolsEqDiffSin import SolsEqDiffSin
 from yanntricksSolsSinpA import SolsSinpA
 from yanntricksTrajs import Trajs
-from yanntricksBQXKooPqSEMN import BQXKooPqSEMN
-from yanntricksooIHLPooKLIxcH import ooIHLPooKLIxcH
+#from yanntricksBQXKooPqSEMN import BQXKooPqSEMN
+# from yanntricksooIHLPooKLIxcH import ooIHLPooKLIxcH
 from yanntricksUEGEooHEDIJVPn import UEGEooHEDIJVPn
 
 
@@ -294,10 +292,10 @@ def append_picture(fun,number):
 append_picture(UUNEooCNVOOs,3)
 append_picture(NOCGooYRHLCn,3)
 append_picture(YQIDooBqpAdbIM,3)
-append_picture(SurfacePrimiteGeog,2)
+#append_picture(SurfacePrimiteGeog,2)
 append_picture(XOLBooGcrjiwoU,2)
 append_picture(DynkinrjbHIu,2)
-append_picture(HCJPooHsaTgI,2)
+append_picture(HCJPooHsaTgI,3)
 append_picture(LMHMooCscXNNdU,2)
 append_picture(IntervalleUn,2)
 append_picture(UGCFooQoCihh,2)
@@ -330,8 +328,8 @@ append_picture(TgCercleTrigono,2)
 append_picture(SJAWooRDGzIkrj,2)
 append_picture(UMEBooVTMyfD,2)
 append_picture(GBnUivi,2)
-append_picture(SurfaceEntreCourbes,2)
-append_picture(ProjectionScalaire,2)
+#append_picture(SurfaceEntreCourbes,2)
+#append_picture(ProjectionScalaire,2)
 append_picture(AdhIntFr,2)
 append_picture(Cardioideexo,2)
 append_picture(RPNooQXxpZZ,2)
@@ -349,18 +347,18 @@ append_picture(VSZRooRWgUGu,2)
 append_picture(BIFooDsvVHb,2)
 append_picture(ADUGmRRA,2)
 append_picture(UneCellule,2)
-append_picture(IntEcourbe,2)
+#append_picture(IntEcourbe,2)
 append_picture(IOCTooePeHGCXH,2)
 append_picture(QSKDooujUbDCsu,2)
-append_picture(NiveauHyperboleDeux,2)
+#append_picture(NiveauHyperboleDeux,2)
 append_picture(CSCiv,2)
-append_picture(ConeRevolution,2)
+#append_picture(ConeRevolution,2)
 append_picture(DNRRooJWRHgOCw,2)
 append_picture(CFMooGzvfRP,2)
 append_picture(AccumulationIsole,2)
 append_picture(LAfWmaN,2)
 append_picture(TZCISko,2)
-append_picture(DefinitionCartesiennes,2)
+#append_picture(DefinitionCartesiennes,2)
 append_picture(DistanceEuclide,2)
 append_picture(ASHYooUVHkak,2)
 append_picture(GVDJooYzMxLW,2)
@@ -382,9 +380,9 @@ append_picture(Trajs,2)
 append_picture(ExampleIntegration,2)
 append_picture(KGQXooZFNVnW,2)
 append_picture(XTGooSFFtPu,2)
-append_picture(CurvilignesPolaires,2)
+#append_picture(CurvilignesPolaires,2)
 append_picture(JWINooSfKCeA,2)
-append_picture(IntBoutCercle,2)
+#append_picture(IntBoutCercle,2)
 append_picture(senotopologo,2)
 append_picture(ratrap,2)
 append_picture(CSCvi,2)
@@ -399,7 +397,7 @@ append_picture(YHJYooTEXLLn,2)
 append_picture(TIMYoochXZZNGP,2)
 append_picture(NWDooOObSHB,2)
 append_picture(FGRooDhFkch,2)
-append_picture(ToreRevolution,2)
+#append_picture(ToreRevolution,2)
 append_picture(BNHLooLDxdPA,2)
 append_picture(ChoixInfini,2)
 append_picture(ExoPolaire,2)
@@ -420,7 +418,7 @@ append_picture(DessinLim,2)
 append_picture(ALIzHFm,2)
 append_picture(MomentForce,2)
 append_picture(LEJNDxI,2)
-append_picture(NiveauHyperbole,2)
+#append_picture(NiveauHyperbole,2)
 append_picture(WIRAooTCcpOV,2)
 append_picture(AdhIntFrDeux,2)
 append_picture(YYECooQlnKtD,2)
@@ -441,13 +439,13 @@ append_picture(WUYooCISzeB,2)
 append_picture(VWFLooPSrOqz,2)
 append_picture(ChiSquared,2)
 append_picture(QOBAooZZZOrl,2)
-append_picture(ParallelogrammeOM,2)
-append_picture(SurfaceHorizVerti,2)
+#append_picture(ParallelogrammeOM,2)
+#append_picture(SurfaceHorizVerti,2)
 append_picture(RQsQKTl,2)
 append_picture(HNxitLj,2)
-append_picture(FonctionXtroisOM,2)
+#append_picture(FonctionXtroisOM,2)
 append_picture(OQTEoodIwAPfZE,2)
-append_picture(IntTriangle,2)
+#append_picture(IntTriangle,2)
 append_picture(LesSpheres,2)
 append_picture(JSLooFJWXtB,2)
 append_picture(RGjjpwF,2)
@@ -459,16 +457,16 @@ append_picture(JJAooWpimYW,2)
 append_picture(UZGooBzlYxr,2)
 append_picture(QCb,2)
 append_picture(TriangleUV,2)
-append_picture(FonctionEtDeriveOM,2)
+#append_picture(FonctionEtDeriveOM,2)
 append_picture(ProjPoly,2)
 append_picture(TWHooJjXEtS,2)
-append_picture(ContourSqL,2)
-append_picture(IntegraleSimple,2)
+#append_picture(ContourSqL,2)
+#append_picture(IntegraleSimple,2)
 append_picture(HGQPooKrRtAN,2)
 append_picture(YWxOAkh,2)
 append_picture(CornetGlace,2)
 append_picture(QMWKooRRulrgcH,2)
-append_picture(CoordPolaires,2)
+#append_picture(CoordPolaires,2)
 append_picture(MethodeChemin,2)
 append_picture(MaxVraissLp,2)
 append_picture(CycloideA,2)
@@ -486,7 +484,7 @@ append_picture(UIEHooSlbzIJ,2)
 append_picture(STdyNTH,2)
 append_picture(ExoProjection,2)
 append_picture(ADUGmRRC,2)
-append_picture(DerivTangenteOM,2)
+#append_picture(DerivTangenteOM,2)
 append_picture(DistanceEnsemble,2)
 append_picture(examsseptii,2)
 append_picture(IWuPxFc,2)
@@ -501,8 +499,8 @@ append_picture(MethodeNewton,2)
 append_picture(CELooGVvzMc,2)
 append_picture(ParamTangente,2)
 append_picture(KKJAooubQzgBgP,2)
-append_picture(IntRectangle,2)
-append_picture(BQXKooPqSEMN,2)
+#append_picture(IntRectangle,2)
+#append_picture(BQXKooPqSEMN,2)
 append_picture(EJRsWXw,2)
 append_picture(CercleImplicite,2)
 append_picture(ZTTooXtHkci,2)
@@ -510,16 +508,16 @@ append_picture(EELKooMwkockxB,2)
 append_picture(GYODoojTiGZSkJ,2)
 append_picture(ERPMooZibfNOiU,2)
 append_picture(TriangleRectangle,2)
-append_picture(ExPolygone,2)
+#append_picture(ExPolygone,2)
 append_picture(CoinPasVar,2)
 append_picture(DynkinNUtPJx,2)
 append_picture(Differentielle,2)
-append_picture(ooIHLPooKLIxcH,2)
+#append_picture(ooIHLPooKLIxcH,2)
 append_picture(TangentSegment,2)
 append_picture(PONXooXYjEot,2)
 
 append_picture(FXVooJYAfif,1)
-append_picture(VGZooJnvvZc,2)
+#append_picture(VGZooJnvvZc,2)
 append_picture(LYORooNKDHqt,2)
 append_picture(TKXZooLwXzjS,1)
 append_picture(YQVHooYsGLHQ,1)
@@ -554,7 +552,6 @@ append_picture(ZOCNoowrfvQXsr,1)
 append_picture(UCDQooMCxpDszQ,1)
 append_picture(GMRNooCNBpIl,2)
 append_picture(JOQVoolPTsYPZK,1)
-append_picture(CRHZooMcaRhrUh, 1)
 append_picture(ATJSooefYkmCbP, 1)
 append_picture(PWMCooGWYCczZn, 1)
 

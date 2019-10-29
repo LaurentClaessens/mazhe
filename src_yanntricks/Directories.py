@@ -1,5 +1,5 @@
 
-# MAIN_TEX 
+# MAIN_TEX
 #   is the directory of the main latex file.
 
 # PICTURES_TEX
@@ -15,8 +15,14 @@
 
 # Attention : these directories are hard-coded in src_yanntricks/testing.sh
 
-MAIN_TEX=".."
-PICTURES_TEX="../auto/pictures_tex"
-PICTURES_SRC="."
-PICTURES_TIKZ="../auto/pictures_tikz"
+from pathlib import Path
 
+HERE = Path('.')
+
+PICTURES_SRC = HERE
+SAGE_DIR = HERE
+MAIN_TEX = HERE / ".."
+AUTO = MAIN_TEX / "auto"
+MAIN_TEX = MAIN_TEX.resolve()
+PICTURES_TIKZ = AUTO / "pictures_tikz"
+PICTURES_TEX = AUTO / "pictures_tex"
