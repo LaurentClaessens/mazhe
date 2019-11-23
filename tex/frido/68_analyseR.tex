@@ -589,7 +589,7 @@ Dans la suite, pour économiser des parenthèses et des maux de tête, nous allo
     Soient une application différentiable \( f\colon V\to E\) ainsi que \( \psi\in\aL\big( V,\aL(V,\eR) \big)\). Soit
     \begin{equation}
         \begin{aligned}
-            g\colon V&\to \aL\big( \aL(V,E) \big) \\
+            g\colon V&\to \aL\big(V, \aL(V,E) \big) \\
             x&\mapsto f(x)\cdot \psi. 
         \end{aligned}
     \end{equation}
@@ -615,9 +615,112 @@ Notons que nous n'avons pas \( dg_a=df_a\cdot \psi\). En effet, \( df_a\in \aL( 
     \end{equation}
 \end{proof}
 
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Espaces d'applications multilinéaires et identifications}
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{Identification des espaces d'applications multilinéaires}
+
+Si \( V\) et \( E\) sont des espaces vectoriels de dimensions finies, la différentielle de \( f\colon V\to E\) est une application \( df\colon V\to \aL(V,E)\). La différentielle seconde est une application \( d(df)\colon V\to \aL\big( V,\aL(V,E) \big)\) et ainsi de suite.
+
+Une grande difficulté de la manipulation des différentielles d'ordre supérieurs provient de cet emboîtement d'espaces d'applications linéaires. Nous nous attaquons à présent à la description de ces espaces emboîtés\footnote{Toutes les constructions, tous les énoncés et les preuves qui suivent sont de l'invention personnelle de l'auteur de ces lignes. Je n'ai trouvé nulle part une source qui s'attaque réellement à le récurrence.}.
+
+Pour la suite, nous considérerons des espaces vectoriels normés \( V\) et \( E\) de dimension finie. Nous notons \( \aL^n(V,E)\) l'espace des applications multilinéaires \( V^n\to E\).
+
+Nous définissons aussi par récurrence
+\begin{subequations}
+    \begin{numcases}{}
+        E_0=E\\
+        E_{k+1}=\aL(V,E_k).
+    \end{numcases}
+\end{subequations}
+
+\begin{lemma}
+    À propos de dimensions,
+    \begin{equation}
+         \dim(E_n)=\dim(V)^n\dim(E).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Par récurrence. D'abord \( \dim(E_0)=\dim(E)\) et ensuite
+    \begin{equation}
+        \dim(E_{k+1})=\dim\aL(V,E_k)=\dim(V)\dim(E_k)=\dim(V)^{n+1}\dim(E).
+    \end{equation}
+\end{proof}
+
+\begin{lemma}[\cite{MonCerveau}]
+    Soit \( n\in \eN\) nous définissons par récurrence
+    \begin{equation}
+        \begin{aligned}
+            \psi_{n,0}\colon E_n&\to E_n \\
+            \alpha&\mapsto \alpha. 
+        \end{aligned}
+    \end{equation}
+    et
+    \begin{equation}
+        \begin{aligned}
+            \psi_{n,k}\colon E_n&\to \aL^k(V,E_{n-k}) \\
+            \psi_{n,k}(\alpha)(v_1,\ldots, v_k)&=\big( \psi_{n,k-1}(\alpha)(v_1,\ldots, v_{k-1}) \big)v_k. 
+        \end{aligned}
+    \end{equation}
+    L'application
+    \begin{equation}
+        \psi_{n,n}\colon E_n\to \aL^n(V,E) 
+    \end{equation}
+    est un isomorphisme isométrique.
+\end{lemma}
+
+\begin{proof}
+    Nous allons démontrer par récurrence sur \( k\) que tous les \( \psi_{n,k}\) sont des isomorphismes isométriques. Pour \( k=1\) c'est évident parce que \( \psi_{n,1}\) est l'identité.
+
+    \begin{subproof}
+        \item[Injective]
+            Soient \( \alpha\in E_n\) tels que \( \psi_{n,k+1}(\alpha)=O\). Cela signifie que pour tout \( v_1,\ldots, v_{k+1}\) nous avons
+            \begin{equation}
+                \psi_{n,k}(\alpha)(v_1,\ldots, v_k)v_{k+1}=0.
+            \end{equation}
+            c'est à dire \( \psi_{n,k}(\alpha)(v_1,\ldots, v_{k}=0)\). Vu que \( \psi_{n,k}\) est injective (hypothèse de récurrence), nous avons \( \alpha=0\).
+
+        \item[Surjective]
+            Soit \( \omega\in \aL^{k+1}(V,E_{n-k})\); nous cherchons \( \alpha\in E_n\) tel que \( \psi_{n,k+1}(\alpha)=\omega\). Cette condition s'exprime
+            \begin{equation}        \label{EQooACUOooKCKame}
+                \psi_{n,k+1}(\alpha)(v_1,\ldots, v_{k+1})=\psi_{n,k}(\alpha)(v_1,\ldots, v_k)v_{k+1}=\stackrel{!}{=}\omega(v_1,\ldots, v_{k+1}).
+            \end{equation}
+            Notez que
+            \begin{equation}
+                \psi_{n,k}(\alpha)\in \aL^k(V,E_{n-k})=\aL^k\big( V,\aL(V,E_{n-k-1}) \big).
+            \end{equation}
+            En considérant \( \alpha\in \aL^k\big( V,\aL(V,E_{n-k-1}) \big)\) donné par
+            \begin{equation}
+                \sigma(v_1,\ldots, v_k)v_{k+1}=\omega(v_1,\ldots, v_{k+1}),
+            \end{equation}
+            il existe (hypothèse de récurrence sur \( k\)) un \( \alpha\in E_n\) tel que \( \psi_{n,k}(\alpha)=\sigma\).
+
+            Pour ce \( \alpha\), la condition \eqref{EQooACUOooKCKame} est satisfaite.
+
+        \item[Isométrique]
+            Encore une fois par récurrence. Soit \( \alpha\in E_n\). Nous avons
+            \begin{subequations}
+                \begin{align}
+                    \| \psi_{n,k}(\alpha) \|_{\aL^k(V,E_{n-k})}&=\sup_{\| v_i \|=1}\| \psi_{n,k}(\alpha)(v_1,\ldots, v_k) \|_{E_{n-k}}\\
+                    &=\sup_{\| v_i \|=1}\| \psi_{n,k-1}(\alpha)(v_1,\ldots, v_{k-1})v_k \|_{E_{n-k}}\\
+                    &=\sup_{\substack{\| v_i \|=1\\i=1,\ldots, k-1}}\| \psi_{n,k-1}(v_1,\ldots, v_{k-1}) \|_{\aL(V,E_{n-k-1})}\\
+                    &=\| \psi_{n,k-1}(\alpha) \|\\
+                    &=\| \alpha \|.
+                \end{align}
+            \end{subequations}
+            La dernière égalité est l'hypothèse de récurrence. Notez la subtile utilisation du lemme \ref{LEMooQLVAooICaPvR} qui permet de donner un sens aux supremums, grace au fait que \( \{ v\in V\tq \| v \|=1 \}\) est compact.
+    \end{subproof}
+\end{proof}
+
 %---------------------------------------------------------------------------------------------------------------------------
+\subsection{Identification des espaces d'applications multilinéaires (vieux)}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{SUBSECooXBGUooXYFZjy}
+
+\begin{probleme}        \label{PROBooDLAWooLqHDPs}
+    Les choses dites en \ref{SUBSECooXBGUooXYFZjy} sont obsolètes. Il faut soit les retirer soit les déplacer.
+\end{probleme}
 
 La différentielle de la différentielle de $f$ est notée
 \[
@@ -634,8 +737,7 @@ Plus précisément, l'identification se fait de la façon suivante : si \( \omeg
 \begin{equation}
     \omega(u_1,\ldots, u_{k+1})=\omega(u_1)(u_2,\ldots, u_{k+1}).
 \end{equation}
-
-Cela étant posé nous pouvons donner les définitions.
+Cela étant posé nous pouvons donner des définitions.
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Fonctions différentiables plusieurs fois}
