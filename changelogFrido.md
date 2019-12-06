@@ -1,5 +1,12 @@
 # Journal des changements du Frido
 
+## Différentiabilité (novembre 2019 - décembre 2019)
+
+Le but est de prouver qu'une application est C^n si et seulement si ses dérivées partielles d'ordre sont C^(n-1).
+
+- Espaces d'applications multilinéaires.
+- Isomorphisme entre les espaces emboîtés et les applications multilinéaires
+
 ## Octobre 2019
 
 - Déplacer plusieurs résultats sur les fonctions holomorphes qui sont en réalité des résultats sur les fonctions analytiques.
