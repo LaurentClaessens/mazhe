@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2019
 
+- Volume 2. Proposition 13.276. Une fonction est de classe C^k si et seulement si ses dérivées partielles sont de classe C^(k-1) et non C^k.
 - Volume 1. Théorème 12.80 sur les séries alternées. La suite (a_n) doit être à termes positifs et non seulement "réels". Sinon il n'y a au final aucune garantie que la série soit alternée.
 - Volume 1. Lemme 2.7. Tout sous-groupe de G contenant A contient gr(A) et non "est contenu dans".
 - Volume 1. Sous la définition 2.21. La justification du fait que D(G) est non vide est fausse : le fait que G fasse partie des ensembles de l'intersection ne signifie pas que l'intersection est non vide. Par contre l'élément neutre est nécessairement présent. (découverte par Colin Pitrat)
