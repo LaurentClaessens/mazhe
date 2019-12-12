@@ -1,7 +1,7 @@
 % Ici, nous avons des données expérimentales, et puis une courbe théorique
 % La stratégie sera la suivante :
 % 1. Nous mettons les données expérimentales dans les vecteurs x et y.
-% 2. Nous calculeront la courbe théorique avec un polyfit.
+% 2. Nous calculerons la courbe théorique avec un polyfit.
 % 3. Pour tracer la courbe théorique, nous allons procéder comme d'habitude.
 %		Nous commencerons par créer un vecteur d'abcisse X
 %		et puis nous calculerons le vecteur d'ordonnées correspondant Y.
