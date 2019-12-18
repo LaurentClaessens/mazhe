@@ -1,5 +1,17 @@
 # Journal des changements du Frido
 
+
+## Topologie produit, topologie engendrée (Décembre 2019)
+
+Le but est de prouver que (x,y)->x+y est continue de RxR->R.
+Plusieurs mises en ordre
+
+- Définition de la topologie engendrée par un ensemble de parties
+- Définition de la topologie produit
+- Équivalence de la limite pour la topologie métrique produit ou la topologie produit
+- Définition de la topologie sur R^n en tenant compte de tout ça.
+
+
 ## Différentiabilité (novembre 2019 - décembre 2019)
 
 Le but est de prouver qu'une application est C^n si et seulement si ses dérivées partielles d'ordre sont C^(n-1).
