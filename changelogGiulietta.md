@@ -1,12 +1,18 @@
 # Giulietta's changelog
 
+## Lorentz (December 2019-January 2020)
+
+- Adjoint
+- Boost
+- Standard decomposition
+
 ## sl(2,C)  (Augustus 2019)
 
 - Finite dimensional irreducible representations of the Lie algebra sl(2,C)
 
 ## Suppress the dependency 'exocorr' (2019 June)
 
-- Add `\input{exocorr}` in `e_mazhe.tex`. The file `exocorr.tex` is now essentialy a copy of `exocorr.sty`[1].
+- Add `\input{exocorr}` in `e_mazhe.tex`. The file `exocorr.tex` is now essentially a copy of `exocorr.sty`[1].
 - Not that dependency anymore.
 - Update the tutorials `COMPILATION_frido.md` and `COMPILATION_giulietta.md`
 
