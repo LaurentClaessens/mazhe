@@ -448,18 +448,38 @@ Nous dirons tout un tas de chose sur l'indépendance et la variance en~\ref{subs
     \end{equation}
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}[\cite{MonCerveau}]
     Soit un espace de probabilité \( \Omega\) ainsi qu'une variable aléatoire \( X\colon \Omega\to \eR\) prenant seulement les valeurs \( \{ y_k \}_{k\in \eN}\). Alors
     \begin{equation}
-        E(X)=\sum_{k=0}^{\infty}y_kP(x=k).
+        E(X)=\sum_{k=0}^{\infty}y_kP(X=y_k).
     \end{equation}
 \end{lemma}
-<++>
+
+\begin{proof}
+    Vu que l'application \( X\colon \Omega\to \eR\) ne prend que les valeurs \( y_k\), nous avons \( \Omega=\bigcup_{k=0}^{\infty}X^{-1}(y_k)\), avec une union disjointe. Nous avons
+    \begin{subequations}
+        \begin{align}
+        E(X)&=\int_{\bigcup_iX^{-1}(y_i)}X(\omega)dP(\omega)\\
+        &=\sum_{i=0}^{\infty}\int_{X^{-1}(y_k)}\underbrace{X(\omega)}_{=y_k}dP(\omega)      \label{SUBEQooVLTMooOflpAI}\\
+        &=\sum_{k=0}^{\infty}y_k\int_{X^{-1}(y_k)}dP(\omega)\\
+        &=\sum_{k=0}^{\infty}y_kP\big( X^{-1}(y_k) \big)        \label{SUBEQooXRHOooJVuFtY}\\
+        &=\sum_{k=0}^{\infty}y_pP(X=y_k)        \label{SUBEQooHDIBooNxnBwg}
+        \end{align}
+    \end{subequations}
+    Justifications :
+    \begin{itemize}
+        \item 
+            Pour \eqref{SUBEQooVLTMooOflpAI}, nous avons utilisé la \( \sigma\)-additivité de l'intégrale de la proposition \ref{PROPooTFOAooJBwmCV}.
+        \item
+            Pour \eqref{SUBEQooXRHOooJVuFtY}, l'intégrale de la fonction \( 1\) donne la mesure de la partie, c'est le lemme \ref{LemooPJLNooVKrBhN}.
+        \item
+            Pour \eqref{SUBEQooHDIBooNxnBwg}, la notation \( P(X=y)\) signifie \( P\big( \{ \omega\in \Omega \tq X(\omega)=y\}\big)\); c'est la mesure de \( X^{-1}(y)\).
+    \end{itemize}
+\end{proof}
 
 \begin{definition}
     Si \( E(X)=0\) nous disons que la variable aléatoire est \defe{centrée}{variable aléatoire!centrée}. La variable aléatoire \( X-E(X)\) est la variable aléatoire centrée associée à \( X\).
 \end{definition}
-
 
 \begin{proposition}[\cite{Marazzi}] \label{PropZBnsCgh}
     Si \( X\) et \( Y\) sont deux variables aléatoires (pas spécialement indépendantes), nous avons
@@ -696,6 +716,38 @@ La probabilité conditionnelle à \( B\) est quelque chose qui ne tient compte q
             \end{equation}
     \end{enumerate}
 \end{proof}
+
+\begin{lemma}[\cite{MonCerveau}]
+    Soient une variable aléatoire \( X\colon \Omega\to \eR\) ainsi qu'un réel \( y\neq 0\) et qu'une partie \( A\subset \Omega\) de mesure non nulle\footnote{Ceci est exactement synonyme de «un événement de probabilité non nulle».}. Alors
+    \begin{equation}
+        P(X\mtu_A=y)=P(X=y|A)P(A).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Juste pour être clair avec les notations,
+    \begin{itemize}
+        \item La notation \( X=y\) désigne l'ensemble \( \{ \omega\in \Omega\tq X(\omega)=y \}=X^{-1}(y)\)
+        \item
+            De même \( X\mtu_1=y\) désigne l'ensemble \( \{ \omega\in \Omega\tq X(\omega)\mtu_A(\omega)=y \}\). Comme ici \( y\neq 0\), il s'agit des éléments de \( A\) tels que \( X(\omega)=y\), ou encore \( X^{-1}(y)\cap A\).
+    \end{itemize}
+    Nous avons :
+    \begin{subequations}
+        \begin{align}
+            P(X=y|A)&=\frac{ P(X=y\cap A) }{ P(A) }     \label{SUBEQooTJDIooHlIiTD}\\
+            &=\frac{ P(A\mtu_A=y) }{ P(A) }.        \label{SUBEQooDAATooBeClLa}
+        \end{align}
+    \end{subequations}
+    Justifications :
+    \begin{itemize}
+        \item Pour \eqref{SUBEQooTJDIooHlIiTD}, c'est la définition \ref{DEFooGJVHooVbhVYv}.
+        \item Pour \eqref{SUBEQooDAATooBeClLa}, vu que \( y\neq 0\) nous avons
+            \begin{equation}
+                \{ \omega\in \Omega\tq X(\omega)=y \}\cap A=\{ \omega\in \Omega\tq (X\mtu_A)(\omega)=y \}.
+            \end{equation}
+    \end{itemize}
+\end{proof}
+
 
 \begin{lemma}[\cite{MonCerveau}]
     Soit un espace de probabilité \( (\Omega,\tribF,P)\). Nous considérons un mesurable \(B\in \tribF \) ainsi que des mesurables \( (A_i)_{i\in \eN}\) deux à deux disjoints. Alors
