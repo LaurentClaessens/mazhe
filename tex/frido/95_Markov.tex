@@ -25,6 +25,14 @@ Pour une chaine de Markov, il n'est pas important de savoir l'historique pour pr
     Il existe une théorie des chaines de Markov à temps continu ou avec \( E\) non dénombrable, mais ce n'est pas au programme.
 \end{remark}
 
+\begin{normaltext}
+    Vu que l'ensemble \( E\) des états est au plus dénombrable, nous rappelons très humblement au lecteur la proposition \ref{PropoWHdjw} qui nous permet de changer des sommes sur \( E\) en des sommes sur \( \eN\) sans nous soucier de l'ordre sur \( E\). Si \( f\) est une fonction sur \( E\), nous nous écrirons
+    \begin{equation}
+        \sum_{x\in E}f(x)=\sum_{k=0}^{\infty}f(x_k)
+    \end{equation}
+    sans citer \ref{PropoWHdjw} à chaque fois.
+\end{normaltext}
+
 \begin{definition}      \label{DEFooVVWUooKIBQDv}
     Si \( (X_n)\) est une chaine de Markov\footnote{Définition \ref{DEFooGDPFooWsvfRv}.}, nous notons
     \begin{equation}
@@ -33,7 +41,7 @@ Pour une chaine de Markov, il n'est pas important de savoir l'historique pour pr
     la \defe{probabilité de transition}{transition!probabilité} de la chaine à l'instant \( n\). Si cette probabilité ne dépend pas de \( n\), nous disons que la chaine de Markov est \defe{homogène}{homogène!chaine de Markov}\index{chaine!de Markov!homogène}, et nous notons \( p(x,y)\) au lieu de \( p_n(x,y)\). 
 \end{definition}
 
-\begin{definition}[Matrice de transition]
+\begin{definition}[Matrice de transition]       \label{DEFooKQROooYvJvvl}
     Nous notons \( Q^{(n)}\) la matrice de transition\index{matrice de transition} qui est éventuellement infinie:
     \begin{equation}
         Q^{(n)}_{xy}=p_n(x,y).
@@ -42,7 +50,7 @@ Pour une chaine de Markov, il n'est pas important de savoir l'historique pour pr
 \end{definition}
 
 Le lemme suivant est intuitivement rien d'autre que le fait que la somme des probabilités doit être \( 1\).
-\begin{lemma}
+\begin{lemma}       \label{LEMooQNIWooQBMlge}
     Soit un processus de Markov \( (X_n)\) sur l'ensemble \( E\). Pour chaque \( x\in E\) pour pour tout \( n\in \eN\) nous avons
     \begin{equation}
         \sum_{y\in E}p_n(x,y)=1.
@@ -50,7 +58,59 @@ Le lemme suivant est intuitivement rien d'autre que le fait que la somme des pro
 \end{lemma}
 
 \begin{proof}
-    Lorsque \( E\) est un ensemble fini, il n'y a pas de sport; quand \( E\) est du type de \( \eN\) non plus. Nous supposons donc que \( E\) est quelconque et nous utilisons la définition \ref{DefHYgkkA}. Vu que les \( p_n(x,y)\) sont des probabilités, ce sont des nombres réels positifs et la définition fonctionne.
+    Nous avons le calcul
+    \begin{subequations}
+        \begin{align}
+            \sum_{y\in E}p_x(x,y)&=\sum_{y\in E}P(X_{n+1}=y|X_n=x)\\
+            &=  P(\Omega|X_n=x)        \label{SUBEQooIRGEooHDOxOd}\\
+            &=\frac{ P(\Omega\cap X_n=x) }{ P(X_n=x) }\\
+            &=1\label{SUBEQooBRMTooQJiKfR}.
+        \end{align}
+    \end{subequations}
+    Justifications :
+    \begin{itemize}
+        \item Pour \eqref{SUBEQooIRGEooHDOxOd}, c'est le lemme \ref{LEMooRDXRooQLMRGF} en observant que \( \Omega=\bigcup_{y\in E}\{ X_{n+1}=y \}\).
+        \item Pour \eqref{SUBEQooBRMTooQJiKfR}, c'est \( \Omega\cap A=A\).
+    \end{itemize}
+\end{proof}
+
+\begin{remark}
+    Attention à ce que ce lemme \ref{LEMooQNIWooQBMlge} ne fonctionne que sur les colonnes de \( p_n\). En effet, la somme \( \sum_{x\in E}p(x,y)\) ne vaut pas spécialement \( 1\). Si les états \( x_1\) et \( x_2\) arrivent tous les deux en \( y\) de façon certaine, alors nous avons \( \sum_xp(x,y)\geq 2\). Il n'y a donc pas de limites aux sommes des lignes.
+\end{remark}
+
+\begin{lemmaDef}[Produit de matrices de transition]         \label{LEMooZIEPooXHGnvy}
+    Soient deux processus de Markov \( (X_n)\) et \( (Y_n)\) sur le même ensemble \( E\). En notons \( p\) et \( q\) leurs matrices de transition\footnote{Qui n'est pas spécialement une matrice, voir la définition \ref{DEFooKQROooYvJvvl}.} alors
+    \begin{enumerate}
+        \item
+            La somme \( \sum_{x\in E}p(a,x)q(x,b)\) converge pour tout \( a,b\in E\).
+        \item
+            Nous notons \( pq\) la «matrice de transition»
+            \begin{equation}
+                (pq)(a,b)=\sum_{x\in E}p(a,x)q(x,b).
+            \end{equation}
+        \item
+            La matrice \( pq\) vérifie
+            \begin{equation}
+                \sum_{y\in E}(pq)(x,y)=1
+            \end{equation}
+            pour tout \( x\in E\).
+    \end{enumerate}
+\end{lemmaDef}
+
+\begin{proof}
+    Nous considérons la mesure de comptage sur \( E\) (définition \ref{DEFooILJRooByDzhs}). Cela nous permet d'écrire la somme comme une intégrale. Nous devons donc démontrer la convergence de
+    \begin{equation}        \label{EQooCNNCooGJRWyi}
+        \sum_{x\in E}p(a,x)q(x,b)=\int_Ep(a,x)q(x,b)dm(x)
+    \end{equation}
+    où \( dm(x)\) n'est pas du tout la mesure de Lebesgue (qui n'aurait aucun sens), mais bien la mesure de comptage en \( x\).
+    
+    Nous pouvons majorer \( q(x,b)\) par \( 1\) (tous les nombres sont strictement plus grands que zéro) : pour chaque \( x\) nous avons
+    \begin{equation}
+        p(a,x)q(x,b)\leq p(a,x), 
+    \end{equation}
+    alors que $\int_Ep(a,x)dm(x)=1$ par le lemme \ref{LEMooQNIWooQBMlge}.
+
+    Vu que la fonction \( x\mapsto p(a,x)q(x,b)\) est dominée par la fonction \( x\mapsto p(a,x)\) et que cette dernière est intégrable, le lemme \ref{LemPfHgal} conclu à l'intégrabilité de la première. Bref, l'intégrale \eqref{EQooCNNCooGJRWyi} existe et est finie.
 \end{proof}
 
 \begin{definition}      \label{DefGJEBooZvuIAV}
@@ -62,9 +122,6 @@ Notons que l'ensemble des matrices stochastiques est un fermé dans l'ensemble d
     Si \( U\) est une matrice stochastique\footnote{Définition~\ref{DefGJEBooZvuIAV}.}, alors il existe une chaine de Markov dont la matrice de transition est \( U\).
 \end{lemma}
 
-\begin{remark}
-    La somme \( \sum_{x\in E}p(x,y)\) ne vaut pas spécialement \( 1\). Si les états \( x_1\) et \( x_2\) arrivent tous les deux en \( y\) de façon certaine, alors nous avons \( \sum_xp(x,y)\geq 2\). Il n'y a donc pas de limites aux sommes des colonnes.
-\end{remark}
 
 \begin{example}
     Nous considérons une fourmi qui se déplace dans un appartement à trois pièces \( A\), \( B\), \( C\). Supposons qu'à chaque minute, elle a une probabilité \( 1/3\) de rester dans la pièce et une probabilité \( 2/3\) de se déplacer. Le plan de l'appartement est
