@@ -81,14 +81,14 @@ Le lemme suivant est intuitivement rien d'autre que le fait que la somme des pro
 \begin{lemmaDef}[Produit de matrices de transition]         \label{LEMooZIEPooXHGnvy}
     Soient deux processus de Markov \( (X_n)\) et \( (Y_n)\) sur le même ensemble \( E\). En notons \( p\) et \( q\) leurs matrices de transition\footnote{Qui n'est pas spécialement une matrice, voir la définition \ref{DEFooKQROooYvJvvl}.} alors
     \begin{enumerate}
-        \item
+        \item       \label{ITEMooWNWXooCKOYpE}
             La somme \( \sum_{x\in E}p(a,x)q(x,b)\) converge pour tout \( a,b\in E\).
-        \item
+        \item       \label{ITEMooEZIEooFEbwhj}
             Nous notons \( pq\) la «matrice de transition»
             \begin{equation}
                 (pq)(a,b)=\sum_{x\in E}p(a,x)q(x,b).
             \end{equation}
-        \item
+        \item       \label{ITEMooKEFXooMLREkO}
             La matrice \( pq\) vérifie
             \begin{equation}
                 \sum_{y\in E}(pq)(x,y)=1
@@ -98,19 +98,47 @@ Le lemme suivant est intuitivement rien d'autre que le fait que la somme des pro
 \end{lemmaDef}
 
 \begin{proof}
-    Nous considérons la mesure de comptage sur \( E\) (définition \ref{DEFooILJRooByDzhs}). Cela nous permet d'écrire la somme comme une intégrale. Nous devons donc démontrer la convergence de
-    \begin{equation}        \label{EQooCNNCooGJRWyi}
-        \sum_{x\in E}p(a,x)q(x,b)=\int_Ep(a,x)q(x,b)dm(x)
-    \end{equation}
-    où \( dm(x)\) n'est pas du tout la mesure de Lebesgue (qui n'aurait aucun sens), mais bien la mesure de comptage en \( x\).
+    Nous considérons la mesure de comptage sur \( E\) (définition \ref{DEFooILJRooByDzhs}). Cela nous permet d'écrire la somme comme une intégrale. 
     
-    Nous pouvons majorer \( q(x,b)\) par \( 1\) (tous les nombres sont strictement plus grands que zéro) : pour chaque \( x\) nous avons
-    \begin{equation}
-        p(a,x)q(x,b)\leq p(a,x), 
-    \end{equation}
-    alors que $\int_Ep(a,x)dm(x)=1$ par le lemme \ref{LEMooQNIWooQBMlge}.
+    \begin{subproof}
+        \item[Pour \ref{ITEMooWNWXooCKOYpE}]
+            Nous devons donc démontrer la convergence de
+            \begin{equation}        \label{EQooCNNCooGJRWyi}
+                \sum_{x\in E}p(a,x)q(x,b)=\int_Ep(a,x)q(x,b)dm(x)
+            \end{equation}
+            où \( dm(x)\) n'est pas du tout la mesure de Lebesgue (qui n'aurait aucun sens), mais bien la mesure de comptage en \( x\).
+            
+            Nous pouvons majorer \( q(x,b)\) par \( 1\) (tous les nombres sont strictement plus grands que zéro) : pour chaque \( x\) nous avons
+            \begin{equation}
+                p(a,x)q(x,b)\leq p(a,x), 
+            \end{equation}
+            alors que $\int_Ep(a,x)dm(x)=1$ par le lemme \ref{LEMooQNIWooQBMlge}.
 
-    Vu que la fonction \( x\mapsto p(a,x)q(x,b)\) est dominée par la fonction \( x\mapsto p(a,x)\) et que cette dernière est intégrable, le lemme \ref{LemPfHgal} conclu à l'intégrabilité de la première. Bref, l'intégrale \eqref{EQooCNNCooGJRWyi} existe et est finie.
+            Vu que la fonction \( x\mapsto p(a,x)q(x,b)\) est dominée par la fonction \( x\mapsto p(a,x)\) et que cette dernière est intégrable, le lemme \ref{LemPfHgal} conclu à l'intégrabilité de la première. Bref, l'intégrale \eqref{EQooCNNCooGJRWyi} existe et est finie.
+        \item[Pour \ref{ITEMooEZIEooFEbwhj}]
+            Il n'y a rien à prouver, c'est seulement une définition.
+        \item[Pour \ref{ITEMooKEFXooMLREkO}]
+            Nous devons calculer la valeur de
+            \begin{equation}
+                \sum_{b\in E}\big( \sum_{x\in E}p(a,x)q(x,b) \big)=\int_E\big( \int_Ep(a,x)q(x,b)dm(x) \big)dm(b).
+            \end{equation}
+            Pour cela nous allons utiliser le théorème de Fubini comme expliqué en \ref{NORMooKIRJooPvyPWQ}, et nous partons de la somme dans le sens inverse. D'abord nous prouvons que \( (x,b)\mapsto p(a,x)q(x,b)\) est dans \( L^1(E\times E)\) en étudiant les intégrales en chaine :
+            \begin{subequations}
+                \begin{align}
+                    \int_E\Big( \int_E| p(a,x)q(x,b) |dm(b) \Big)dm(x)&=\int_E p(a,x)\Big( \underbrace{\int_Eq(x,b)dm(b)}_{=1} \Big)dm(x)\\
+                    &=\int_Ep(a,x)dm(x)\\
+                    &=1.
+                \end{align}
+            \end{subequations}
+            Donc la fonction est \( L^1(E\times E)\) et nous pouvons fusionner et permuter les intégrales à volonté. Nous avons alors
+            \begin{subequations}
+                \begin{align}
+                    1&=\int_E\Big( \int_E| p(a,x)q(x,b) |dm(b) \Big)dm(x)\\
+                    &=\int_{E\times E}p(a,x)q(x,b)dm(x,b)\\
+                    &=\int_E\Big( \int_Ep(a,x)q(x,b)dm(x) \Big)dm(b).
+                \end{align}
+            \end{subequations}
+        \end{subproof}
 \end{proof}
 
 \begin{definition}      \label{DefGJEBooZvuIAV}
@@ -412,13 +440,14 @@ La matrice de transition de cette chaine de Markov est une matrice infinie «dan
                 P(X_n=x_n|X_0=x_0)=Q^n_{x_0,x_n}.
             \end{equation}
         \item       \label{ITEMooJUEMooWXEkBO}
-            Si l'espace des états \( E\) est fini, l'espérance d'une fonction bornée \( f\colon E\to \eR\) de l'état est donnée par
+            Si l'espace des états \( E\) est fini, l'espérance d'une fonction bornée\footnote{L'hypothèse de borne sur \( f\) n'est pas très chère parce que \( E\) est fini. Il suffit que \( f\) ne soit infinie en aucun point.} \( f\colon E\to \eR\) de l'état est donnée par
             \begin{equation}
                     E\big( f(X_{n+1})|X_n=x_n,\ldots,X_0=x_0 \big)=E\big( f(X_{n+1})|X_n=x_n \big)
                     =\sum_{y\in E}f(y)p(x_n,y)
             \end{equation}
             pour tout \( x_0,\ldots, x_n\in E\).
     \end{enumerate}
+    Pour être précis, ce que nous notons «\( f(X_{n+1})\)» est la composée \( f\circ X_{n+1}\).
 \end{proposition}
 
 \begin{proof}
@@ -452,7 +481,35 @@ La matrice de transition de cette chaine de Markov est une matrice infinie «dan
             Nous avons utilisé l'homogénéité de la chaine de Markov au moment d'écrire l'expression \eqref{subEqyExdyyxz}. En principe nous aurions dû écrire \( p_2(y,x_2)p_1(x_0,y)\).
 
         \item[Pour \ref{ITEMooJUEMooWXEkBO}]
-            jkjkljkl
+            Vu que \( E\) est fini, \( f(E)\) est fini et nous notons \( \{a_k \}_{k=1,\ldots, N}\) l'ensemble des valeurs non nulles (dans \( \eR\)) atteintes par \( f\). Nous utilisons le lemme \ref{LEMooRTVBooCEeIxL} pour la variable aléatoire\footnote{La composée de fonctions mesurables est mesurable, proposition \ref{PROPooEFHKooARJBwW}. De plus \( f\) est mesurable parce que \( E\) étant dénombrable, nous y mettons la tribu de toutes les parties.} \( f\circ X_{n+1}\colon \Omega\to \{ 0,a_k \}_{k=1,\ldots,N}\) :
+            \begin{equation}    \label{EQooLRZJooJGceeV}
+                E\big( f(X_{n+1})|X_n=x_n,\ldots, X_0=x_0 \big)=\sum_{k=1}^{N}a_kP\big( f\circ X_{n+1}=a_k|X_n=x_n,\ldots, X_0=x_0 \big).
+            \end{equation}
+            L'événement \( f\circ X_{n+1}=a_k\) signifie \( X_{n+1}\in f^{-1}(a_k)\) ou encore
+            \begin{equation}
+                \{ \omega\in \Omega\tq X_{n+1}(\omega)\in f^{-1}(a_k) \}.
+            \end{equation}
+            Vu que \( E\) est fini, l'ensemble \( f^{-1}(a_k)\) est fini et nous écrivons
+            \begin{equation}
+                f^{-1}(a_k)=\{ y_{k,1},\ldots, y_{k,N_k} \}.
+            \end{equation}
+            Nous avons
+            \begin{equation}
+                \{ \omega\in \Omega\tq X_{n+1}(\omega)\in f^{-1}(a_k) \}=\bigcup_{i=1}^{N_k}\{ \omega\in \Omega\tq X_{n+1}(\omega)=y_{k,i} \}.
+            \end{equation}
+            Nous pouvons utiliser le lemme \ref{LEMooRDXRooQLMRGF} pour décomposer
+            \begin{equation}
+                P(f\circ X_{n+1}=a_k|\cdots)=\sum_{i=1}^{N_k}P(X_{n+1}=y_{k,i}|\cdots)
+            \end{equation}
+            et continuer \eqref{EQooLRZJooJGceeV} pas
+            \begin{subequations}
+                \begin{align}
+                    E\big( f(X_{n+1})|X_n=x_n,\ldots, X_0=x_0 \big)&=\sum_{k=1}^Na_k\sum_{i=1}^{N_k}P(X_{n+1}=y_{k,i}|X_n=x_n,\ldots, X_0=x_0)\\
+                    &=\sum_{k=1}^Na_k\sum_{i=1}^{N_k}P(X_{n+1}=y_{k,i}|X_n=x_n)     \label{SUBEQooOWSUooTlUXAs}\\
+                    &=\sum_{k=1}^Na_kP\big( f\circ X_{n+1}=a_k|X_n=x_n \big)\\
+                    &=E\big( f(X_{n+1})|X_n=x_n \big).
+                \end{align}
+                Pour \eqref{SUBEQooOWSUooTlUXAs}, nous avons utilisé la propriété de Markov.
     \end{subproof}
 \end{proof}
 
