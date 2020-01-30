@@ -22,7 +22,7 @@ ok_hash=[]
 # Le 19 décembre 2019, il y avait exactement 1000 places libres.
 ok_hash.append("956170f9e90e47f6a4e4a5c3f097011bed576350")
 ok_hash.append("956170f9e90e47f6a4e4a5c3f097011bed576350 ")
-ok_hash.append("<++>")
+ok_hash.append("2f57ac594837d3bccc5afa1ddbabf3cc88fbfd1e")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
