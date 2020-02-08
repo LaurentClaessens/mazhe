@@ -20,10 +20,6 @@
 ok_hash=[]
 
 # Le 19 décembre 2019, il y avait exactement 1000 places libres.
-ok_hash.append("956170f9e90e47f6a4e4a5c3f097011bed576350")
-ok_hash.append("956170f9e90e47f6a4e4a5c3f097011bed576350 ")
-ok_hash.append("2f57ac594837d3bccc5afa1ddbabf3cc88fbfd1e")
-ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
@@ -1362,6 +1358,10 @@ ok_hash.append("385801d7486b7e8ec2c591ad3a278dd7b181122c")
 ok_hash.append("385801d7486b7e8ec2c591ad3a278dd7b181122c")
 ok_hash.append("591833163f4914a6c54627dd77fa92a635f4f9d2")
 ok_hash.append("b0f7b3c6d554c4d9d55e9b2a10b3398835953f94")
+ok_hash.append("956170f9e90e47f6a4e4a5c3f097011bed576350")
+ok_hash.append("956170f9e90e47f6a4e4a5c3f097011bed576350 ")
+ok_hash.append("2f57ac594837d3bccc5afa1ddbabf3cc88fbfd1e")
+ok_hash.append("621c32bdeaf03d7ca6c225cfaeacba335185e340")
 ok_hash.append("b7def02afe4510b5668dc6a26e7bcf95ef69ba87")
 ok_hash.append("d97d9b0f1af9661d415978b460cc085a0b3d372e")
 ok_hash.append("6b7dfb0de5532913a019075d60e3b06bded467be")
