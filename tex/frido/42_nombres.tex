@@ -371,12 +371,104 @@ Les ensembles dénombrables sont les plus petits ensembles infinis possibles, co
 \end{proof}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Théorème de Cantor-Schröder-Bernstein}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}[\cite{BIBooECJMooGPxBem}]     \label{LEMooTNMHooBpdzab}
+    Soient un ensemble \( A\) et une partie \( B\) de \( A\). Si il existe une injection \( f\colon A\to B\) alors il existe une bijection \( \alpha\colon A\to B\).
+\end{lemma}
+
+\begin{proof}
+    Nous posons \( Y=A\setminus B\) et nous décomposons la preuve en étapes.
+    \begin{subproof}
+        \item[Les \( f^k(Y)\) sont disjoints]
+            Vu que \( f\) prend ses valeurs dans \( B\), nous avons \( f^k(Y)\subset B\) pour tout \( k\). Et vu que \( Y=A\setminus B\), nous avons
+            \begin{equation}        \label{EQooDNHJooFJBrDq}
+                f^k(Y)\cap Y=\emptyset
+            \end{equation}
+            pour tout \( k\). L'application \( f\) étant injective, elle vérifie \( f(C\cap D)=f(C)\cap f(D)\). Nous appliquons \( f^m\) des deux côtés de \eqref{EQooDNHJooFJBrDq} :
+            \begin{equation}
+                f^{k+m}(Y)\cap f^m(Y)=\emptyset
+            \end{equation}
+            pour tout \( k,m\in \eN\).
+        \item[Une décomposition] 
+            Vu que \( f(X)\subset B\) nous avons l'égalité
+            \begin{equation}
+                B=f(X)\cup\big(B\setminus f(X)\big)
+            \end{equation}
+        \item[\( A\setminus X=B\setminus f(X)\)]
+            Supposons \( x\in A\setminus X\). Vu que \( A\setminus B\) est dans \( X\), l'élément \( x\) n'est pas dans \( A\setminus B\) et donc est dans \( B\) parce qu'il est dans \( A\). Mais \( x\) n'est pas dans \( X\) et en particulier pas dans \( f(X)\) parce que \( f(X)\subset X\). Donc \( x\) est dans \( B\setminus f(X)\).
+
+            Dans l'autre sens, nous supposons que \( x\in B\setminus f(X)\). Vu que \( B\subset A\) nous avons \( x\in A\). Comme \( x\) est hors de \( f(X)\), il est hors des \( f^k(Y)\) pour \( k\geq 1\). Mais \( x\in B\), donc \( x\) est hors de \( A\setminus B=f^0(Y)\). Donc \( x\) est hors de \( k^k(Y)\) pour tout \( k\geq 0\). Donc \( x\) est hors de \( X\).
+
+        \item[La bijection]
+            Nous considérons l'application
+            \begin{equation}
+                \begin{aligned}
+                    \alpha\colon A&\to B \\
+                    x&\mapsto \begin{cases}
+                        f(x)    &   \text{si } x\in X\\
+                        x    &    \text{si } x\in A\setminus X.
+                    \end{cases}
+                \end{aligned}
+            \end{equation}
+            Nous démontrons dans les points suivants que \( \alpha\) est bijective.
+        \item[Injective]
+            Nous supposons \( \alpha(x)=\alpha(y)\). Il y a 4 possibilités suivant que \( x\) et \( y\) soient dans \( X\) ou \( A\setminus X\).
+
+            Si \( x,y\in X\) alors \( f(x)=f(y)\) et donc \( x=y\) parce que \( f\) est injective.
+
+            Si \( x\in X\) et \( y\in A\setminus X\), alors \( f(x)=y\). Mais \( f(x)\in f(X)\) et \( y\in A\setminus X=B\setminus f(X)\). Donc l'élément \( f(x)=y\) est dans \( f(X)\cap \big( B\setminus f(X) \big)=\emptyset\). Il n'est donc pas possible d'avoir \( \alpha(x)=\alpha(y)\) avec \( x\in X\) et \( y\in A\setminus X\).
+
+            Si \( x\in A\setminus X\) et \( y\in X\), c'est la même chose.
+
+            Si \( x,y\in A\setminus X\), alors \( x=\alpha(x)=\alpha(y)=y\).
+
+        \item[Injective]
+            Soit \( y\in B\). Il y a deux possibilités : \( y\in x\) et \( y\in A\setminus X\). La première se divise en deux : \( y\in Y\) et \( y\in \bigcup_{k=1}^{\infty}f^k(Y)\). On y va.
+
+            \begin{subproof}
+                \item[\( y\in Y\)]
+                    Ce cas n'est pas possible parce que \( y\in B\) alors que \( Y=A\setminus B\).
+                \item[\( y\in f^k(Y)\) avec \( k\geq 1\)]
+                    Nous avons
+                    \begin{equation}
+                         y\in f\big( f^{k-1}(Y) \big)\subset f(X)\subset \alpha(A).
+                    \end{equation}
+                \item[\( y\in A\setminus X\)]
+                    Alors \( y=\alpha(y)\).
+            \end{subproof}
+    \end{subproof}
+\end{proof}
+
+\begin{theorem}[Cantor-Schröder-Bernstein]
+    Soient deux ensembles \( A\) et \( B\) pour lesquels il existe des injections \( f\colon A\to B\) et \( g\colon B\to A\). Alors il existe une bijection entre \( A\) et \( B\).
+\end{theorem}
+
+\begin{proof}
+    La composée \( g\circ f\colon A\to A\) est injective et prend ses valeurs dans \( g\big( f(A) \big)\subset g(B)\subset A\). Bref, l'application \( g\circ f\colon A \to g(B)\) est injective. Le lemme \ref{LEMooTNMHooBpdzab} donne alors une bijection \( \varphi\colon A\to g(B)\).
+
+    Nous montrons que \( g^{-1}\circ\varphi\colon A\to B\) est une bijection.
+
+    \begin{subproof}
+        \item[Injective]
+            Nous supposons \( x,y\in A\) tels que
+            \begin{equation}
+                g^{-1}\big( \varphi(x) \big)=g^{-1}\big( \varphi(y) \big).
+            \end{equation}
+            Nous appliquons \( g\) des deux côtés : \( \varphi(x)=\varphi(y)\). Vu que \( \varphi\) est une bijection, cela entraîne \( x=y\).
+        \item[Surjective]
+            Soit \( b\in B\). En posant \( a=\varphi^{-1}\big( g(b) \big)\) nous avons bien \( (g^{-1}\circ \varphi)(a)=b\).
+    \end{subproof}
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Ensembles équipotents, surpotents, subpotents}
 %---------------------------------------------------------------------------------------------------------------------------
 
 Les notions d'équipotence, surpotence et de subpotence permettent de comparer les «tailles» des ensembles sans avoir besoin de la théorie des ordinaux. Tout ceci ne sera pas très souvent utile par la suite. Un exemple d'utilisation de ces notions est le théorème de Steinitz \ref{THOooEDQKooLEGlDv} qui démontre l'existence de clôture algébrique pour tout corps.
 
-\begin{definition}[\cite{BIBooAKHUooProFGE,BIBooWNKRooETlebF}]
+\begin{definition}[\cite{BIBooAKHUooProFGE,BIBooWNKRooETlebF}]      \label{DEFooXGXZooIgcBCg}
     Soient deux ensembles \( A\) et \( B\).
     \begin{enumerate}
         \item
@@ -527,6 +619,21 @@ La proposition suivante sera utilisée en théorie de la mesure, dans l'exemple~
 \begin{proof}
     La proposition \ref{PropVCSooMzmIX} donne une bijection \( \varphi\colon \{ 1,2 \}\times S\to S\). Il suffit de poser \( A=\varphi(1,S)\) et \( B=\varphi(2,S)\).
 \end{proof}
+
+\begin{lemma}
+    Si \( A\) est un ensemble infini et si \( B\subset A\) est strictement subpotent à \( A\), alors \( A\) est équipotent à \( A\setminus B\).
+\end{lemma}
+
+\begin{proof}
+    Supposons pour commencer que \( B\) soit fini. Nous pouvons écrire
+    \begin{equation}
+        A=(A\setminus B)\cup B.
+    \end{equation}
+    La partie \( A\setminus B\) est infinie, sinon \( A\) serait l'union de deux ensembles finis et le lemme \ref{LEMooYHGCooAwsVQN} dirait que \( A\) est infini. Le lemme \ref{LEMooUFCAooSyZtZj} nous dit alors que \( (A\setminus B)\cup B\) est équipotent à \( A\setminus B\). Voila qui règle le lemme dans le cas où \( B\) est fini.
+
+    Nous supposons à présent que \( B\) est infini.
+\end{proof}
+<++>
 
 La proposition suivante est une généralisation de la proposition \ref{PropVCSooMzmIX}. Elle implique, entre autres choses, qu'il existe une bijection entre \( \eR\) et \( \eR\times \eR\).
 \begin{proposition}
