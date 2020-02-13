@@ -268,11 +268,18 @@ est bien définie et injective. Elle n'est pas surjective tant que \( f\) ne l'e
 
 Toutes les constructions sont faites dans \cite{RWWJooJdjxEK}. Les résultats énoncés ici sont utilisés plus bas et servent de guide à un éventuel contributeur qui voudrait écrire une partie sur la construction de \( \eN\) et \( \eZ\). Nous espérons que des preuves se trouvent dans \cite{RWWJooJdjxEK}. En tout cas, le lecteur est invité à ne pas les prendre pour évidents.
 
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{La construction}
-%---------------------------------------------------------------------------------------------------------------------------
+Nous supposons en particulier que \( \eN\) est construit avec sa relation d'ordre. Voici quelque affirmations que nous admettons.
 
-Cette section est vide, insuffisamment détaillée ou incomplète. Votre aide est la bienvenue ! \hyperref[SecooCKWWooBFgnea]{Comment faire ?}
+\begin{lemma}
+    Quelques affirmations sur l'ordre dans \( \eN\).
+    \begin{enumerate}
+        \item
+            Il n'existe pas de \( n\in \eN\) tel que \( n<0\).
+        \item
+            Si \( a,b\in \eN\) vérifient \( a>b\), alors il n'existe pas de \( x\) dans \( \eN\) tel que \( a+x=b\).
+    \end{enumerate}
+\end{lemma}
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Quelques résultats de cardinalité}
@@ -308,6 +315,97 @@ Nous ne définissons pas ce qu'est le cardinal d'un ensemble infini; c'est très
 \end{definition}
 Une chose vraiment amusante avec cette définition que l'on met en rapport avec la définition~\ref{DefEOZLooUMCzZR}, c'est qu'un ensemble fini n'est ni dénombrable ni non dénombrable\footnote{Beaucoup de sources disent qu'un ensemble est dénombrable lorsqu'il est en bijection avec une partie de \( \eN\). Cela laisse la porte ouverte aux ensembles finis. Par exemple Wikipédia\cite{ooLMVKooUiQUtb}.}.
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Dénombrabilité et ensemble des naturels}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La proposition suivante donne une bijection explicite entre \( \eN\) et \( \eN\times \eN\). Elle n'a rien de transcendante, mais je ne résiste pas à la donner ici parce qu'elle est utilisée dans l'article \emph{Un peu de programmation transfinie} de David Madore\footnote{Et comme j'aime beaucoup cet article, il me fallait une excuse pour le placer ici.\\ \url{http://www.madore.org/~david/weblog/d.2017-08-18.2460.html}.}. Son utilité est de pouvoir créer un langage de programmation pouvant traiter des paires d'entiers rien qu'en traitant des entiers.
+\begin{proposition}[Une bijection \( \eN\times \eN\to \eN\)]        \label{PROPooLPKUooAlsYJg}
+    La fonction
+    \begin{equation}
+        \begin{aligned}
+            f\colon \eN\times \eN&\to \eN \\
+            (x,y)&\mapsto \begin{cases}
+                y^2+x    &   \text{si } x<y\\
+                x^2+x+y    &    \text{si } y\leq x.
+            \end{cases}
+        \end{aligned}
+    \end{equation}
+    est une bijection.
+\end{proposition}
+
+\begin{proof}
+    Il s'agit de prouver qu'elle est injective et surjective. Dans la suite, tous les nombres sont des entiers positifs.
+    \begin{subproof}
+        \item[\( f\) est injective]
+
+            Pour \( k\in \eN\) donné, nous allons prouver que
+            \begin{enumerate}
+                \item
+                    l'équation \( f(x,y)=k\) possède au maximum une solution avec \( x<y\),
+                \item
+                    l'équation \( f(x,y)=k\) possède au maximum une solution avec \( y\leq x\),
+                \item
+                    si \(   k=y^2+x \) avec \( x<y\) alors il est impossible que \( k=x'^2+x'+y'\) avec \( y'\leq x'\).
+            \end{enumerate}
+            On y va.
+            \begin{enumerate}
+                \item
+                    Nous supposons \( y^2+x=t^2+z\) avec \( x<y\) et \( z<t\). Pour fixer les idées, nous supposons \( t>y\) et nous posons \( t=y+s\) (\( s\geq 1\)). En substituant, et en isolant \( z\),
+                    \begin{subequations}
+                        \begin{align}
+                            z&=x-2sy-s^2\\
+                            &<x-2sy\\
+                            &<x-2sx\\
+                            &=x(1-2s)\\
+                            &<0.
+                        \end{align}
+                    \end{subequations}
+                    Impossible parce que \( z\geq 0\).
+                \item
+                    De même nous supposons \( x^2+x+y=z^2+z+t\) avec \( y\leq x\) et \( t\leq z\). Nous posons \( z=x+s\), et nous déballons le même genre de calculs en isolant \( t\).
+                \item
+                    Enfin nous supposons \( y^2+x=z^2+z+t\) avec \( x<y\) et \( t\leq z\). Les plus courageux diviseront en trois cas : \( y<z\), \( y=z\) et \( y>z\) et feront les calculs. Par exemple, pour le cas \( y>z\) nous posons \( y=z+s\) et nous substituons :
+                    \begin{equation}
+                        (y+s)^2+x=z^2+z+t
+                    \end{equation}
+                    qui donne
+                    \begin{equation}
+                        x=z+t-2zs-s^2<2z-2zs-s^2=2z(1-s)-s^2\leq -s<0
+                    \end{equation}
+                    parce que \( s\geq 1\), donc \( 1-s\leq 0\).
+            \end{enumerate}
+
+        \item[\( f\) est surjective]
+
+            Nous devons prouver que tous les éléments de \( \eN\) sont dans l'image de \( \eN\times \eN\) par \( f\). En premier lieu, \( 0=f(0,0)\). C'est un bon début. Soit \( a\in \eN\) non nul; nous montrons que tous les nombres de \( a^2\) à \( (a+1)^2\) sont des images de \( f\). D'abord \( a^2=f(0,a)\), ensuite les nombres
+            \begin{equation}
+                f(1,a),f(2,a),\ldots, f(a-1,a)
+            \end{equation}
+            prennent les valeurs \( a^2+1\), \ldots, \( a^2+a-1\). Enfin nous avons \( f(a,0)=a^2+a\) et les nombres \( f(a,1),\ldots, f(a,a)\) prennent les valeurs de \( a^2+a+1\) à \( a^2+2a=(a+1)^2-1\).
+    \end{subproof}
+\end{proof}
+Sachez que cette fonction s'étend aux ordinaux (mais là ce n'est plus pour rigoler).
+
+\begin{proposition}[\cite{MonCerveau,ooLMVKooUiQUtb}]     \label{PROPooENTPooSPpmhY}
+    Une union dénombrable d'ensembles finis ou dénombrables est finie ou dénombrable.
+\end{proposition}
+
+\begin{proof}
+    Soient des ensembles finis ou dénombrables \( \{ A_i \}_{i\in \eN}\). Nous posons \( A=\bigcup_{i\in \eN}A_i\). Si \( A\) est fini, la proposition est faite. Sinon, \( A\) est infini et il existe certainement une surjection \( A\to \eN\).
+
+    Nous considérons aussi une partition de \( \eN\) en une infinité dénombrable de parties \( \eN_i\), chacune infinie dénombrable (par exemple parce que \( \eN\times \eN\) est équipotent à \( \eN\) par le théorème \ref{THOooDGOVooRdURVi} ou la proposition \ref{PROPooLPKUooAlsYJg}).
+
+    Les ensembles \( A_i\) étant finis ou dénombrables, il existe des surjections \(\sigma_i\colon \eN_i\to A_i\). Pour chaque \( n\in \eN\), il existe un unique \( i\in \eN\) tel que \( n\in \eN_i\); donc nous avons une bijection \( f\colon \eN\to \eN\) telle que \( n\in \eN_{f(n)}\). Bref, l'application
+    \begin{equation}
+        \begin{aligned}
+            \sigma\colon \eN&\to A \\
+            n&\mapsto \sigma_{f(n)}(n)
+        \end{aligned}
+    \end{equation}
+    est une surjection.
+\end{proof}
+
 \begin{lemma}[\cite{MonCerveau}]        \label{LEMooRXSRooBUWOyb}
     Si \( N\) est un ensemble dénombrable, alors il existe une bijection \( g\colon \{ 1,2 \}\times N\to N\).
 \end{lemma}
@@ -323,16 +421,8 @@ Une chose vraiment amusante avec cette définition que l'on met en rapport avec 
     Ensuite si \( f\colon \eN\to N\) est une bijection, il suffit de poser \( g(n,k)=f\big( \varphi(n,k) \big)\).
 \end{proof}
 
-\begin{lemma}       \label{LEMooPXWEooNOdtij}
-    Il existe une bijection \( \eN\to \eN\times \eN\)
-\end{lemma}
-
 \begin{proposition}[\cite{ooLMVKooUiQUtb}]     \label{PROPooDMZHooXouDrQ}
     Si \( N\) est un ensemble dénombrable, alors pour tout \( n\in \eN\), l'ensemble \( N^n\) est dénombrable.
-\end{proposition}
-
-\begin{proposition}[\cite{ooLMVKooUiQUtb}]     \label{PROPooENTPooSPpmhY}
-    Une union dénombrable d'ensembles dénombrables est dénombrable.
 \end{proposition}
 
 Les ensembles dénombrables sont les plus petits ensembles infinis possibles, comme en témoigne la proposition suivante.
@@ -512,6 +602,8 @@ Vu que l'ensemble des ensembles n'existe pas, nous n'allons pas énoncer le fait
             Cela est injectif parce que \( f(y_1)=f(y_2)\) implique \( a_{y_1}=a_{y_2}\), c'est à dire que l'intersection \( \varphi^{-1}(y_1)\cap\varphi^{-1}(y_2)\) est non vide. Vu que \( \varphi\) est injective, cela implique que $y_1=y_2$.
     \end{subproof}
 \end{proof}
+
+
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Théorème de Cantor, ensemble des ensembles}
@@ -846,8 +938,8 @@ La proposition suivante sera utilisée en théorie de la mesure, dans l'exemple~
     Cette définition est bonne parce que \( U\) et \( B\) sont disjoints, et \( g\) est injective.
 \end{proof}
 
-Le théorème suivant est une généralisation de la proposition \ref{PropVCSooMzmIX}. Elle implique, entre autres choses, qu'il existe une bijection entre \( \eR\) et \( \eR\times \eR\).
-\begin{theorem}
+Le théorème suivant est une généralisation de la proposition \ref{PropVCSooMzmIX}. Elle implique, entre autres choses, qu'il existe une bijection entre \( \eR\) et \( \eR\times \eR\). Pour le cas de \( \eN\times \eN\simeq \eN\), il y a la proposition \ref{PROPooLPKUooAlsYJg} qui donne une bijection explicite et donc sans axiome du choix et sans lemme de Zorn.
+\begin{theorem}     \label{THOooDGOVooRdURVi}
     Si \( A\) est infini, alors \( A\simeq A\times A\).
 \end{theorem}
 
@@ -861,7 +953,7 @@ Le théorème suivant est une généralisation de la proposition \ref{PropVCSooM
         \end{cases}
     \Big\}
     \end{equation}
-    Cet ensemble est non vide parce que \( A\) est infini; il contient donc une partie dénombrables \( N\), et nous connaissons la surjection \( \eN\to \eN\times \eN\) du lemme \ref{LEMooPXWEooNOdtij}.
+    Cet ensemble est non vide parce que \( A\) est infini; il contient donc une partie dénombrables \( N\), et nous connaissons la surjection \( \eN\to \eN\times \eN\) du lemme \ref{PROPooLPKUooAlsYJg}.
 
     Nous ordonnons \( \mA\) par l'inclusion : \( (X,\varphi)\leq (Y,\phi)\) lorsque \( X\subset Y\) et \( \phi|_X=\varphi\). La tambouille usuelle montre que \( \mA\) est un ensemble inductif et le lemme de Zorn \ref{LemUEGjJBc} donne l'existence d'un élément maximum que nous notons \( (B,\varphi)\).
 
@@ -1153,75 +1245,8 @@ Cela est la \defe{structure canonique}{structure d'anneau canonique} d'anneau su
 \subsection{Quelques autres résultats}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Nous supposons ici connaitre, et avoir démontré les rudiments du calcul dans \( \eN\) et \( \eZ\). En particulier les produits remarquables, et les implications comme \( a>b\) implique qu'il n'existe pas de \( x\) dans \( \eN\) tel que \( a+x=b\).
+Nous supposons ici connaitre, et avoir démontré les rudiments du calcul dans \( \eN\) et \( \eZ\), en particulier les produits remarquables.
 
-La proposition suivante donne une bijection explicite entre \( \eN\) et \( \eN\times \eN\). Elle n'a rien de transcendante, mais je ne résiste pas à la donner ici parce qu'elle est utilisée dans l'article \emph{Un peu de programmation transfinie} de David Madore\footnote{Et comme j'aime beaucoup cet article, il me fallait une excuse pour le placer ici.\\ \url{http://www.madore.org/~david/weblog/d.2017-08-18.2460.html}.}. Son utilité est de pouvoir créer un langage de programmation pouvant traiter des paires d'entiers rien qu'en traitant des entiers.
-\begin{proposition}[Une bijection \( \eN\times \eN\to \eN\)]        \label{PROPooLPKUooAlsYJg}
-    La fonction
-    \begin{equation}
-        \begin{aligned}
-            f\colon \eN\times \eN&\to \eN \\
-            (x,y)&\mapsto \begin{cases}
-                y^2+x    &   \text{si } x<y\\
-                x^2+x+y    &    \text{si } y\leq x.
-            \end{cases}
-        \end{aligned}
-    \end{equation}
-    est une bijection.
-\end{proposition}
-
-\begin{proof}
-    Il s'agit de prouver qu'elle est injective et surjective. Dans la suite, tous les nombres sont des entiers positifs.
-    \begin{subproof}
-        \item[\( f\) est injective]
-
-            Pour \( k\in \eN\) donné, nous allons prouver que
-            \begin{enumerate}
-                \item
-                    l'équation \( f(x,y)=k\) possède au maximum une solution avec \( x<y\),
-                \item
-                    l'équation \( f(x,y)=k\) possède au maximum une solution avec \( y\leq x\),
-                \item
-                    si \(   k=y^2+x \) avec \( x<y\) alors il est impossible que \( k=x'^2+x'+y'\) avec \( y'\leq x'\).
-            \end{enumerate}
-            On y va.
-            \begin{enumerate}
-                \item
-                    Nous supposons \( y^2+x=t^2+z\) avec \( x<y\) et \( z<t\). Pour fixer les idées, nous supposons \( t>y\) et nous posons \( t=y+s\) (\( s\geq 1\)). En substituant, et en isolant \( z\),
-                    \begin{subequations}
-                        \begin{align}
-                            z&=x-2sy-s^2\\
-                            &<x-2sy\\
-                            &<x-2sx\\
-                            &=x(1-2s)\\
-                            &<0.
-                        \end{align}
-                    \end{subequations}
-                    Impossible parce que \( z\geq 0\).
-                \item
-                    De même nous supposons \( x^2+x+y=z^2+z+t\) avec \( y\leq x\) et \( t\leq z\). Nous posons \( z=x+s\), et nous déballons le même genre de calculs en isolant \( t\).
-                \item
-                    Enfin nous supposons \( y^2+x=z^2+z+t\) avec \( x<y\) et \( t\leq z\). Les plus courageux diviseront en trois cas : \( y<z\), \( y=z\) et \( y>z\) et feront les calculs. Par exemple, pour le cas \( y>z\) nous posons \( y=z+s\) et nous substituons :
-                    \begin{equation}
-                        (y+s)^2+x=z^2+z+t
-                    \end{equation}
-                    qui donne
-                    \begin{equation}
-                        x=z+t-2zs-s^2<2z-2zs-s^2=2z(1-s)-s^2\leq -s<0
-                    \end{equation}
-                    parce que \( s\geq 1\), donc \( 1-s\leq 0\).
-            \end{enumerate}
-
-        \item[\( f\) est surjective]
-
-            Nous devons prouver que tous les éléments de \( \eN\) sont dans l'image de \( \eN\times \eN\) par \( f\). En premier lieu, \( 0=f(0,0)\). C'est un bon début. Soit \( a\in \eN\) non nul; nous montrons que tous les nombres de \( a^2\) à \( (a+1)^2\) sont des images de \( f\). D'abord \( a^2=f(0,a)\), ensuite les nombres
-            \begin{equation}
-                f(1,a),f(2,a),\ldots, f(a-1,a)
-            \end{equation}
-            prennent les valeurs \( a^2+1\), \ldots, \( a^2+a-1\). Enfin nous avons \( f(a,0)=a^2+a\) et les nombres \( f(a,1),\ldots, f(a,a)\) prennent les valeurs de \( a^2+a+1\) à \( a^2+2a=(a+1)^2-1\).
-    \end{subproof}
-\end{proof}
-Sachez que cette fonction s'étend aux ordinaux (mais là ce n'est plus pour rigoler).
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Anneau intègre}
