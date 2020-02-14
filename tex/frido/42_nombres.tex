@@ -270,13 +270,15 @@ Toutes les constructions sont faites dans \cite{RWWJooJdjxEK}. Les résultats é
 
 Nous supposons en particulier que \( \eN\) est construit avec sa relation d'ordre. Voici quelque affirmations que nous admettons.
 
-\begin{lemma}
+\begin{lemma}       \label{LEMooYMRJooYIAhBb}
     Quelques affirmations sur l'ordre dans \( \eN\).
     \begin{enumerate}
         \item
             Il n'existe pas de \( n\in \eN\) tel que \( n<0\).
         \item
             Si \( a,b\in \eN\) vérifient \( a>b\), alors il n'existe pas de \( x\) dans \( \eN\) tel que \( a+x=b\).
+        \item       \label{ITEMooNHRIooODBVNK}
+            Toute partie non vide de \( \eN\) possède un unique élément minimal.
     \end{enumerate}
 \end{lemma}
 
@@ -327,14 +329,38 @@ Une chose vraiment amusante avec cette définition que l'on met en rapport avec 
     Toute partie d'une ensemble fini est finie.
 \end{lemma}
 
-\begin{lemma}[\cite{MonCerveau}]
+\begin{lemma}[\cite{MonCerveau}]        \label{LEMooXPSQooRaSrxv}
     Si \( A\) est un ensemble infini et si \( f\colon A\to B\) est une application injective, alors \( f(A)\) est infini.
 \end{lemma}
 
 \begin{proof}
-    Vu que \( A\) est infini, il existe \( A'\) strictement inclus à \( A\) et une bijection \( \sigma\colon A'\to A\).
+    Vu que \( A\) est infini, il existe \( A'\) strictement inclus à \( A\) et une bijection \( \sigma\colon A'\to A\). Nous allons prouver que la partie \( f(A')\) est en bijection avec \( f(A)\) tout en étant un sous-ensemble strict de \( f(A)\).
+
+    \begin{subproof}
+        \item[Stricte inclusion]
+            Si \( a\in A\setminus A'\), alors par injectivité de \( f\), nous avons aussi \( f(a)\in f(A)\setminus f(A')\). Autrement dit, \( f(a)\) est un élément de \( f(A)\) qui n'est pas dans \( f(A')\).
+        \item[La candidate bijection]
+            Vu que \( f\) est une injection nous pouvons considérer \( f^{-1}\) sur \( f(A)\) est poser
+            \begin{equation}
+                \begin{aligned}
+                    \varphi\colon f(A')&\to f(A) \\
+                    x&\mapsto  f\Big( \sigma\big( f^{-1}(x) \big) \Big).
+                \end{aligned}
+            \end{equation}
+        \item[Surjection]
+            Une élément de \( f(A)\) est de la forme \( y=f(a)\) avec \( a\in A\). L'application \( \sigma\) est une bijection, donc nous pouvons poser \( b=\sigma^{-1}(a)\). Il est alors facile de vérifier que \( x=f(b)\) satisfait \( \varphi(x)=f(a)\). En effet :
+            \begin{equation}
+                \varphi(x)=(\varphi f\sigma^{-1})(a)=(f\sigma f^{-1}f\sigma^{-1})(a)=f(a).
+            \end{equation}
+            Cela prouve que \( \varphi\) est surjective.
+        \item[Injection]
+            Soient \( a,b\in A'\) tels que \( \varphi\big( f(a) \big)=\varphi\big( f(b) \big)\). Nous devons prouver que \( f(a)=f(b)\). Nous avons
+            \begin{equation}
+                (\varphi f)(a)=(f\sigma f^{-1} f)(a)=(f\sigma)(a).
+            \end{equation}
+            Donc l'hypothèse dit que \( (f\sigma)(a)=(f\sigma)(b)\). Vu que \( \sigma\) est injective, cela implique que \( f(a)=f(b)\).
+    \end{subproof}
 \end{proof}
-<++>
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Dénombrabilité et ensemble des naturels}
@@ -443,6 +469,48 @@ Une chose vraiment amusante avec cette définition que l'on met en rapport avec 
     \end{subproof}
 \end{proof}
 Sachez que cette fonction s'étend aux ordinaux (mais là ce n'est plus pour rigoler).
+
+\begin{lemma}
+    Si \( f\colon \eN\to A\) est une surjection, alors \( A\) est fini ou dénombrable.
+\end{lemma}
+
+\begin{proof}
+    Pour chaque \( a\in A\), l'ensemble \( f^{-1}(a)\) est une partie de \( \eN\). 
+    \begin{subproof}
+        \item[Une application]
+            Le lemme \ref{LEMooYMRJooYIAhBb}\ref{ITEMooNHRIooODBVNK} nous permet de poser
+            \begin{equation}
+                \begin{aligned}
+                    \sigma\colon A&\to \eN \\
+                    a&\mapsto \min\big( f^{-1}(a) \big). 
+                \end{aligned}
+            \end{equation}
+        \item[\( \sigma\) est injective]
+            Supposons que \( \sigma(a)=\sigma(b)\). Nous appelons \( x\) ce nombre :
+            \begin{equation}
+                x=\min\big( f^{-1}(a) \big)=\min\big( f^{-1}(b) \big).
+            \end{equation}
+            Nous avons \( x\in f^{-1}(a)\cap f^{-1}(b)\), ce qui implique que \( f(x)=a\) et que \( f(x)=b\); donc \( a=b\).
+
+            Donc \( \sigma\) est une injection.
+        \item[\( A\) est infini]
+            Si \( A\) est fini, le lemme est prouvé. Donc à partir de maintenant nous supposons que \( A\) est infini. Le but est de prouver qu'il est dénombrable, c'est à dire de construire une bijection \( A\to \eN\).
+        \item[\( \sigma(A)\) est dénombrable]
+            Vu que \( \sigma\colon A\to  \eN\) est injective et que \( A\) est infini, le lemme \ref{LEMooXPSQooRaSrxv} dit que \( \sigma(A)\) est infini dans \( \eN\). La proposition \ref{PROPooOBKMooWEGCvM} nous dit alors que \( \sigma(A)\) est dénombrable.
+
+            Soit une bijection \( \varphi\colon \sigma(A)\to \eN\).
+        \item[La candidate bijection]
+            Nous posons
+            \begin{equation}
+                f=\varphi\circ \sigma\colon A\to \eN
+            \end{equation}
+            et nous allons prouver que c'est une bijection.
+        \item[Injective]
+            Vu que \( \varphi\) et \( \sigma\) sont injectives, l'égalité \( (\varphi\sigma)(a)=(\varphi\sigma)(b)\) implique immédiatement \( a=b\).
+        \item[Surjective]
+            Soit \( k\in \eN\). Vu que \( \varphi\) et \( \sigma\) sont des injections, nous pouvons poser \( a=(\sigma^{-1}\varphi^{-1})(k)\). Il est alors immédiat que \( f(a)=k\).
+    \end{subproof}
+\end{proof}
 
 \begin{proposition}[\cite{MonCerveau,ooLMVKooUiQUtb}]     \label{PROPooENTPooSPpmhY}
     Une union dénombrable d'ensembles finis ou dénombrables est finie ou dénombrable.
