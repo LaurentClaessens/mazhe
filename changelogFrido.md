@@ -1,6 +1,12 @@
 # Journal des changements du Frido
 
 
+## Cardinalité (janvier-février 2020)
+
+- Prouver que si A est infini, alors AxA est équipotent à A
+- Quelques autres résultats de cardinalité comme A-B=A si B est strictement subpotent à A
+- Une réunion dénombrables d'ensembles dénombrables est dénombrable.
+
 ## Topologie produit, topologie engendrée (Décembre 2019)
 
 Le but est de prouver que (x,y)->x+y est continue de RxR->R.
