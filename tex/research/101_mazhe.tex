@@ -1,5 +1,5 @@
 % This is part of (almost) Everything I know in mathematics and physics
-% Copyright (c) 2013, 2019
+% Copyright (c) 2013, 2019-2020
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
@@ -1001,7 +1001,11 @@ In the following we are considering an abstract Cartan matrix \( A\) and its ass
             &=-\sum_{i<j}(A_{ij}A_{ji})^{1/2}+\text{number of nodes}.
         \end{aligned}
     \end{equation}
-    Since for each linked pair \( (i,j)\) we have a term \( A_{ij}A_{ji}\geq 1\), we have \( -\sum_{i<j}(A_{ij}A_{ji})^{1/2}\leq \text{number of pairs}\) and the positivity of the sum shows that
+    Since for each linked pair \( (i,j)\) we have a term \( A_{ij}A_{ji}\geq 1\), we have 
+    \begin{equation}
+    -\sum_{i<j}(A_{ij}A_{ji})^{1/2}\leq \text{number of pairs}
+    \end{equation}
+    and the positivity of the sum shows that
     \begin{equation}
         \text{number of nodes}>\sum_{ij}A_{ij}A_{ji}\geq\text{number of pairs}.
     \end{equation}
@@ -1189,12 +1193,17 @@ sage: a=[var('a'+str(i-1)) for i in range(1,11)]
 sage: l=9
 sage: a[1]=1
 sage: squares = sum( [a[i]**2 for i in range(1,l+1)] )     # The sum goes to l
-sage: lines = sum(  [a[i]*a[i+1] for i in range(1,l-1)  ]   )+a[3]*a[9]  # The sum goes up to l-2
+
+# The sum goes up to l-2
+sage: lines = sum(  [a[i]*a[i+1] for i in range(1,l-1)  ]   )+a[3]*a[9]  
 sage: f=symbolic_expression(squares - lines)
-sage: X = solve( [f.diff(a[i])==0 for i in range(2,l+1)],[ a[i] for i in range(2,l+1)  ]  )
+sage: X = solve( [f.diff(a[i])==0 for i in range(2,l+1)],
+                [ a[i] for i in range(2,l+1)  ]  )
 sage: print X[0]
-[a2 == 2, a3 == 3, a4 == (5/2), a5 == 2, a6 == (3/2), a7 == 1, a8 == (1/2), a9 == (3/2)]
-sage: f(   *tuple(  [  X[0][i].rhs() for i in range(0,l-1)  ]  )   )
+[a2 == 2, a3 == 3, a4 == (5/2), a5 == 2, 
+a6 == (3/2), a7 == 1, a8 == (1/2), 
+a9 == (3/2)]
+sage: f(*tuple(  [  X[0][i].rhs() for i in range(0,l-1)]) )
 0
 \end{verbatim}
 This proves that the vector \( v_1+2v_2+3a_3+\frac{ 5 }{2}v_4+2v_5+\frac{ 3 }{2}v_6+v_7+\frac{ 1 }{2}v_8+\frac{ 3 }{2}v_9\) has vanishing norm, which is impossible.
@@ -1445,51 +1454,99 @@ Now if \( \alpha+\beta=\gamma+\mu\), the elements \( [E_{\alpha},E_{\beta}]\) an
 \end{probleme}
 
 The classification of complex semisimple Lie algebras is the following:
-\begin{subequations}
-    \begin{align}
-        A_l&&\gsl(l+1,\eC)&&\dim=l(l+2)&&l=1,2,\ldots&&
+\begin{enumerate}
+    \item
+        \( A_l\) avec \( l=1,2,\ldots \).
+        \begin{itemize}
+            \item \( A_l=\gsl(l+1,\eC)\)
+            \item \( \dim(A_l)=l(l+2)\)
+            \item $
         \xymatrix{%
         \alpha_1 \ar@{-}[r]&\alpha_2  \ar@1{-}[r]&\ldots  \ar@1{-}[r]&\alpha_l
-           }\\
-        B_l&&\go(2l+1,\eC)&&\dim=l(2l+1)&&l=2,3,\ldots&&
+           }$
+        \end{itemize}
+       \item
+           \( B_l\) avec \( l=2,3,\ldots\).
+           \begin{itemize}
+               \item \( B_l=\go(2l+1,\eC)\)
+               \item \( \dim(B_l)=l(2l+1)\)
+               \item $
     \xymatrix{%
     \alpha_1 \ar@2{->}[r]&\alpha_2  \ar@1{-}[r]   & \ldots \ar@{-}[r] & \alpha_{l-1}\ar@{-}[r]&\alpha_l.
-    }   \\
-    C_l&&\gsp(l,\eC)&&\dim=l(2l+1)&&l=3,4,\ldots&&
+    }   $
+           \end{itemize}
+       \item
+           \( C_l\) avec \( l=3,4,\ldots\)
+           \begin{itemize}
+               \item \( C_l=\gsp(l,\eC)\)
+               \item \( \dim(C_l)=l(2l+1)\)
+               \item $
     \xymatrix{%
     \alpha_1 \ar@{->}[r]&\alpha_2  \ar@1{-}[r]   & \ldots \ar@{-}[r] & \alpha_{l-1}\ar@2{->}[r]&\alpha_l.
-    }   \\
-    D_l&&\go(2l,\eC)&&\dim=l(2l-1)&&l=4,5,\ldots&&
+    }   $
+           \end{itemize}
+       \item \( D_l\) avec \( l=4,5\ldots\)
+           \begin{itemize}
+       \item \( D_l=\go(2l, \eC)\)
+       \item \( \dim(D_l)=l(2l-1)\)
+       \item $
     \xymatrix{%
     &                       &                       &                          &\alpha_{l-1}\\
     \alpha_1 \ar@{-}[r]&\alpha_2  \ar@1{-}[r]   & \ldots \ar@{-}[r] & \alpha_{l-2}\ar@{-}[dr]\ar[ur]\\
     &               &                               &                              &\alpha_l
-    }   \\
-    E_6&&&&\dim=78&&l=7,\ldots&&
+    }  $
+           \end{itemize}
+       \item
+        \( E_6\)
+        \begin{itemize}
+            \item \( E_6\)
+            \item \( \dim(E_6)=78\)
+            \item $ 
     \xymatrix{%
     &                   &   \alpha_{6}\\
     \alpha_1 \ar@{-}[r]&\alpha_2  \ar@1{-}[r]   & \alpha_3 \ar@{-}[r]\ar@{-}[u] & \alpha_4\ar@{-}[r] &\alpha_5
-    }   \\
-    E_7&&&&\dim=133&&l=7,\ldots&&
+    }  $
+        \end{itemize}
+    \item \( E_7\)
+        \begin{itemize}
+            \item \( E_7\)
+            \item \( \dim(E_7)=133\)
+            \item $ 
     \xymatrix{%
     &                  & &   \alpha_{7}\\
     \alpha_1 \ar@{-}[r]&\alpha_2  \ar@1{-}[r]&\alpha_3\ar@{-}[r]   & \alpha_4 \ar@{-}[r]\ar@{-}[u] & \alpha_5\ar@{-}[r] &\alpha_6
-    }   \\
-    E_8&&&&\dim=248&&l=8,\ldots&&
+    }  $
+        \end{itemize}
+    \item \( E_8\)
+        \begin{itemize}
+            \item
+                \( E_8\)
+            \item \( \dim(E_8)=248\)
+            \item$
     \xymatrix{%
     &                &  & &   \alpha_{8}\\
     \alpha_1 \ar@{-}[r]&\alpha_2  \ar@1{-}[r]&\alpha_3\ar@{-}[r]&\alpha_4\ar@{-}[r]  & \alpha_5 \ar@{-}[r]\ar@{-}[u] & \alpha_6\ar@{-}[r] &\alpha_7
-    }   \\
-    F_4&&&&\dim=52&&l=4,\ldots&&
-    \xymatrix{%
+    }  $  
+        \end{itemize}
+\item \( F_4\)
+    \begin{itemize}
+        \item \( F_4\)
+        \item \( \dim(F_4)=52\)
+        \item
+    $\xymatrix{%
     \alpha_1 \ar@{-}[r]&\alpha_2  \ar@2{->}[r]   & \alpha_3 \ar@{-}[r] & \alpha_4
-    }   \\
-    G_2&&&&\dim=14&&l=2,\ldots&&
+    }   $
+    \end{itemize}
+\item \( G_2\)
+    \begin{itemize}
+        \item \( G_2\)
+        \item \( \dim(G_2)=14\)
+        \item$
     \xymatrix{%
     \alpha_1 \ar@3{-}[r]&\alpha_2
-    }
-    \end{align}
-\end{subequations}
+    }$
+    \end{itemize}
+\end{enumerate}
 
 %---------------------------------------------------------------------------------------------------------------------------
                     \subsection{Cartan-Weyl basis}
