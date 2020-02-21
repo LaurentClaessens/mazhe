@@ -1,11 +1,18 @@
 # Journal des changements du Frido
 
 
+## Clôture algébrique (février 2020)
+
+- Existence et unicité d'une clôture algébrique
+
 ## Cardinalité (janvier-février 2020)
 
 - Prouver que si A est infini, alors AxA est équipotent à A
 - Quelques autres résultats de cardinalité comme A-B=A si B est strictement subpotent à A
 - Une réunion dénombrables d'ensembles dénombrables est dénombrable.
+- Théorème de Cantor, inexistence de l'ensemble des ensembles
+- Théorème de Cantor-Bernstein et de la comparabilité cardinale : on a à peu près un ordre 
+  sur l'ensemble des ensembles.
 
 ## Topologie produit, topologie engendrée (Décembre 2019)
 
