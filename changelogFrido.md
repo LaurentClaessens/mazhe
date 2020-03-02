@@ -1,6 +1,10 @@
 # Journal des changements du Frido
 
 
+## Connexe, mais pas par arcs (mars 2020)
+
+- le graphe de (t,sin(1/t)) avec (0,0) est connexe mais pas connexe par arcs.
+
 ## Clôture algébrique (février 2020)
 
 - Existence et unicité d'une clôture algébrique
