@@ -1,7 +1,3 @@
-# -*- coding: utf8 -*-
-
-from __future__ import unicode_literals
-
 frido_mark_list=[]
 frido_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
 frido_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
@@ -174,7 +170,7 @@ def assert_MonCerveau_first():
         Après modification, le plus simple est de supprimer le fichier {} et de relancer.
 
                 """.format(filename))
-        raise
+        raise ValueError(f"The reference 'MonCerveau' is not the first one. The first is one is: {text}")
 
 def split_toc(name,n):
     """
