@@ -1,9 +1,20 @@
 # Journal des changements du Frido
 
 
+## Formes quadratiques (mars 2020)
+
+- signature d'une forme quadratique
+- q-orthogonalité, existence de bases q-orthogonales
+- théorème de Sylvester
+
+## Trigonométrie (mars 2020)
+
+- Preuve de pas mal de valeurs remarquables pour les fonctions trigonométriques.
+
 ## Connexe, mais pas par arcs (mars 2020)
 
 - le graphe de (t,sin(1/t)) avec (0,0) est connexe mais pas connexe par arcs.
+- connexité par arcs de la compactification en un point
 
 ## Clôture algébrique (février 2020)
 
@@ -27,7 +38,6 @@ Plusieurs mises en ordre
 - Définition de la topologie produit
 - Équivalence de la limite pour la topologie métrique produit ou la topologie produit
 - Définition de la topologie sur R^n en tenant compte de tout ça.
-
 
 ## Différentiabilité (novembre 2019 - décembre 2019)
 
