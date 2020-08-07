@@ -4,6 +4,7 @@
 ## Formes quadratiques (mars 2020)
 
 - signature d'une forme quadratique
+- réduction de Gauss
 - q-orthogonalité, existence de bases q-orthogonales
 - théorème de Sylvester
 
