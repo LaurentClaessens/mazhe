@@ -14,8 +14,6 @@ Je peux produire autant de pdf différents que vous voulez, et appliquer autant 
 
 ## Pour contribuer
 
-
-
 ### Niveau facile
 
 Lire et m'écrire quand vous voyez des erreurs ou des choses pas claires.
@@ -33,4 +31,10 @@ Il y a des permaliens grâce à showkeys, qui est un pur détournement de foncti
 
 Quelques idées en vrac pour le texte de septembre 2020.
 
-- frido et covid19
+## Frido et covid19
+
+La pandémie de covid19 a donné un gros coup d'arrêt au Frido. La raison est que, les écoles étant fermées, j'ai dû faire un mi-temps taf le matin plus un mi-temps garde d'enfants l'après-midi et un troisième mi-temps la nuit pour terminer les heures de boulot.
+
+Ça, c'était du temps du confinement. Maintenant les choses ont changé, et certaines habitudes commencent à se prendre.
+
+
