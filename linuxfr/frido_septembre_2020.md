@@ -1,3 +1,9 @@
+## Changements
+
+- Une application est C^n si et seulement si ses dérivées partielles sont C^{n-1}. Je suis assez fier de ce résultat parce que c'est démontré complètement, en montrant de manière explicite l'isomorphisme qu'il y a entre l'espace des applications n-multilinéaires et les espaces emboîtés L(V,L(V, L(V,W))) dans lesquels vivent les différentielles d'ordre plus élevés.
+- Si A est un ensemble infini, alors AxA est équipotent à A. Utilisation massive du lemme de Zorn. Je sais que chaque fois qu'on utilise l'axiome du choix, Dieu tue un chaton, mais comme je n'aime pas les chats...
+- Preuve que tout corps admet une clôture algébrique.
+    
 ## Orthographe réformée
 
 J'en fais pas spécialement une religion, mais j'ai décidé de m'y mettre. Des fois, ça pique les yeux parce que je suis trop vieux pour m'y faire (des maximums, le mois d'aout sans accent); des fois c'est juste plus simple (à priori, sans italique).
@@ -29,12 +35,12 @@ La version en ligne du Frido utilise `showkeys` pour montrer les labels des thé
 Il y a des permaliens grâce à showkeys, qui est un pur détournement de fonctionalité.
 
 
-Quelques idées en vrac pour le texte de septembre 2020.
-
 ## Frido et covid19
 
 La pandémie de covid19 a donné un gros coup d'arrêt au Frido. La raison est que, les écoles étant fermées, j'ai dû faire un mi-temps taf le matin plus un mi-temps garde d'enfants l'après-midi et un troisième mi-temps la nuit pour terminer les heures de boulot.
 
 Ça, c'était du temps du confinement. Maintenant les choses ont changé, et certaines habitudes commencent à se prendre.
+
+Grâce au télétravail, je peux me libérer le mercredi après-midi, et récupérer les soirs entre 21h et 22h. Le télétravail me permet donc de convertir du temps de Frido le soir en temps avec les enfants le mercredi.
 
 
