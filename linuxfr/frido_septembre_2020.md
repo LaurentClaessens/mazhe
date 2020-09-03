@@ -30,9 +30,9 @@ Prenez n'importe quel résultat énoncé sans preuve. Envoyez moi une référenc
 
 ### Conseil
 
-La version en ligne du Frido utilise `showkeys` pour montrer les labels des théorèmes.
+La version en ligne du Frido utilise `showlabels` pour montrer les labels des théorèmes.
 
-Il y a des permaliens grâce à showkeys, qui est un pur détournement de fonctionalité.
+Il y a des permaliens grâce à showlabels, qui est un pur détournement de fonctionalité.
 
 
 ## Frido et covid19
