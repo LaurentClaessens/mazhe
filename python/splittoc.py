@@ -1,5 +1,3 @@
-# -*- coding: utf8 -*-
-
 """
 Requires the python module pdfrw (apt install python3-pdfrw)
 
@@ -171,7 +169,7 @@ class Book(object):
         return (v-1)*self.tot_pages()/n
     def volume_first_page(self,v,n):
         """
-        Return the first page of volume 'v' if we divide 
+        Return the first page of volume 'v' if we divide
         into 'n' volumes
 
         @param v,n integers
@@ -216,9 +214,9 @@ class Book(object):
         @param pI,pF : integers, the page numbers
         @param filename : string
 
-        'pI' and 'pF' are the pdf numbers 
+        'pI' and 'pF' are the pdf numbers
         (the ones you see in the document),
-        not the numbers in the python's list of pages 
+        not the numbers in the python's list of pages
         (which begins at 0).
         """
         output = PdfWriter(filename)
