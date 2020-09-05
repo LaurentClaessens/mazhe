@@ -12,29 +12,28 @@ The purpose of this module is two-fold
 import os
 from pdfrw import PdfReader, PdfWriter
 
-from debug_tools import dprint
 
 class UnicodeCouple(object):
-    def __init__(self,iec,utf):
+    def __init__(self, iec,utf):
         self.iec = "\IeC {{{}}}".format(iec)
         self.utf = utf
 
 def IeC_remove(s):
     IeC_couples = []
-    IeC_couples.append(UnicodeCouple("\\^\\i ","î") );
-    IeC_couples.append(UnicodeCouple("\\'e","é"));
-    IeC_couples.append(UnicodeCouple("\\^e ","ê"));
-    IeC_couples.append(UnicodeCouple("\\^o ","ô"));
-    IeC_couples.append(UnicodeCouple("\\\"o ","ö"));
-    IeC_couples.append(UnicodeCouple("\\\"u ","ü"));
-    IeC_couples.append(UnicodeCouple("\\`e","è")  );
-    IeC_couples.append(UnicodeCouple("\\`A ","Á")  );
-    IeC_couples.append(UnicodeCouple("\\`u ","ù")  );
-    IeC_couples.append(UnicodeCouple("\\`a","à")  );
-    IeC_couples.append(UnicodeCouple("\\'E","É")  );
+    IeC_couples.append(UnicodeCouple("\\^\\i ", "î") );
+    IeC_couples.append(UnicodeCouple("\\'e", "é"));
+    IeC_couples.append(UnicodeCouple("\\^e ", "ê"));
+    IeC_couples.append(UnicodeCouple("\\^o ", "ô"));
+    IeC_couples.append(UnicodeCouple("\\\"o ", "ö"));
+    IeC_couples.append(UnicodeCouple("\\\"u ", "ü"));
+    IeC_couples.append(UnicodeCouple("\\`e", "è")  );
+    IeC_couples.append(UnicodeCouple("\\`A ", "Á")  );
+    IeC_couples.append(UnicodeCouple("\\`u ", "ù")  );
+    IeC_couples.append(UnicodeCouple("\\`a", "à")  );
+    IeC_couples.append(UnicodeCouple("\\'E", "É")  );
 
     for c in IeC_couples:
-        s = s.replace(c.iec,c.utf)
+        s = s.replace(c.iec, c.utf)
     return s
 
 def is_chapter_line(line):
@@ -207,30 +206,31 @@ class Book(object):
         print("chapter : ",chap.title())
         print("first page : ",chap.first_page())
         raise
-    def extract_sub_pdf(self, pI, pF, filename):
-        """
-        copy the pages pI->pF into the file 'filename'
 
-        @param pI,pF : integers, the page numbers
+    def extract_sub_pdf(self, first_page, last_page, filename):
+        """
+        copy the pages first_page -> last_page into the file 'filename'
+
+        @param first_page, last_page : integers, the page numbers
         @param filename : string
 
-        'pI' and 'pF' are the pdf numbers
+        'first_page' and 'last_page' are the pdf numbers
         (the ones you see in the document),
         not the numbers in the python's list of pages
         (which begins at 0).
         """
         output = PdfWriter(filename)
         pages = self.pdf_reader.pages
-        for k in range(pI-1,pF):
+        for k in range(first_page-1, last_page):
             output.addpage(pages[k])
-        #output.write(filename)
         output.write()
-    def rewrite_toc(self,n):
+
+    def rewrite_toc(self, n):
         if not os.path.exists(self.toc_filename):
             return
         # Print a summary
         print("Volumes :")
-        for vol in range(1,n+1):
+        for vol in range(1, n+1):
             print(vol, " -> ", self.volume_first_page(vol,n))
 
         print("Chapitres : ")
