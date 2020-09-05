@@ -2,7 +2,7 @@
 
 
 ## Texte pour le site
-Le Frido 2019 est un cours de mathématique recouvrant (presque) l'ensemble de la matière du niveau de l'agrégation de mathématiques. Les démonstrations sont très détaillées; rien n'est considéré comme évident.
+Le Frido 2020 est un cours de mathématique recouvrant (presque) l'ensemble de la matière du niveau de l'agrégation de mathématiques. Les démonstrations sont très détaillées; rien n'est considéré comme évident.
 
 Il commence par la construction des ensembles de nombres (rationnels, réels), passe par les groupes, corps, l'analyse réelle, les espaces topologiques, les probabilités et bien d'autres.
 

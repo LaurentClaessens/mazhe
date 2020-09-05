@@ -1,7 +1,8 @@
 #! /usr/bin/python3
-# -*- coding: utf8 -*-
 
 import os
+import json
+import contextlib
 from pdfrw import PdfReader, PdfWriter
 from splittoc import Book
 
@@ -12,10 +13,10 @@ by thebookedition.com.
 Usage
 -----
 
-- compile with 
+- compile with
   ```
   pytex lst_book.py
-  ``` 
+  ```
   this generates 0-book.pdf which will be used here to extract the
   TOC/matters.
 - launch this script
@@ -24,7 +25,7 @@ Usage
 Number of volumes
 -----------------
 
-The variable `tot_volumes` is the number of volumes we want. 
+The variable `tot_volumes` is the number of volumes we want.
 It has to be the same
 - here
 - in `lst_frido.py`
@@ -48,66 +49,16 @@ def matter_filename(volume):
     return f"matter_{volume}.pdf"
 
 
-def isbn(title, year, v, imprimeur=None):
-    if title == "Le Frido" and year == 2019:
-        if imprimeur == "thebookedition":
-            if v == 1:
-                return "979-10-97085-18-6"
-            if v == 2:
-                return "979-10-97085-19-3"
-            if v == 3:
-                return "979-10-97085-20-9"
-            if v == 4:
-                return "979-10-97085-21-6"
-    if title == "Le Frido" and year == 2018:
-        if imprimeur == "lulu":
-            if v == 1:
-                return "979-10-97085-14-8"
-            if v == 2:
-                return "979-10-97085-15-5"
-            if v == 3:
-                return "979-10-97085-16-2"
-            if v == 4:
-                return "979-10-97085-17-9"
-        if imprimeur == "thebookedition":
-            if v == 1:
-                return "979-10-97085-10-0"
-            if v == 2:
-                return "979-10-97085-11-7"
-            if v == 3:
-                return "979-10-97085-12-4"
-            if v == 4:
-                return "979-10-97085-13-1"
+def isbn(title, year, volume, imprimeur=None):
+    volume_key = f"v{volume}"
+    year_key = str(year)
+    with open("isbn.json", 'r') as json_file:
+        isbns = json.load(json_file)
 
-    if title == "Le Frido" and year == 2017:
-        if imprimeur == "lulu":
-            if v == 1:
-                return "ISBN-lulu1"
-            if v == 2:
-                return "ISBN-lulu2"
-            if v == 3:
-                return "ISBN-lulu3"
-            if v == 4:
-                return "ISBN-lulu4"
-        if imprimeur == "thebookedition":
-            if v == 1:
-                return "ISBN-thebookedition1"
-            if v == 2:
-                return "ISBN-thebookedition2"
-            if v == 3:
-                return "ISBN-thebookedition3"
-            if v == 4:
-                return "ISBN-thebookedition4"
+    with contextlib.suppress(KeyError):
+        return isbns[year_key][imprimeur][volume_key]
 
-    if title == "Le Frido":
-        if v == 1:
-            return "978-2-9540936-5-9"
-        if v == 2:
-            return "978-2-9540936-6-6"
-        if v == 3:
-            return "978-2-9540936-7-3"
-
-    default = "No ISBN attributed for the title "+title
+    default = "No ISBN attributed for the title " + title
     print(default)
     return default
 
@@ -116,7 +67,8 @@ def pepper(imprimeur):
     if imprimeur == "lulu":
         return ""
     if imprimeur == "thebookedition":
-        return "(c) 2015 David Revoy  pour les illustrations de couverture CC-BY, \\url{https://www.peppercarrot.com/}"
+        return "(c) 2015 David Revoy  pour les illustrations de " \
+               "couverture CC-BY, \\url{https://www.peppercarrot.com/}"
     raise ValueError(f"Unknown printer : {imprimeur}")
 
 
@@ -133,7 +85,7 @@ def latex_code(title, year, v, imprimeur):
 
     substitutions = [["TITLE", title],
                      ["NUMBER", str(v)],
-                     ["RISBN", isbn(title, year=year, v=v,
+                     ["RISBN", isbn(title, year=year, volume=v,
                                     imprimeur=imprimeur)],
                      ["YEAR+1", str(year+1)],
                      ["YEAR", str(year)],
@@ -146,13 +98,14 @@ def latex_code(title, year, v, imprimeur):
 
 def make_5_pages(tot_volumes, title, year):
     """
-    This script creates the pdf of the firsts page for the commercialized Frido.
+    This script creates the pdf of the firsts page for the
+    commercialized Frido.
     - two withe pages
     - one with the title on the top (small)
     - one speaking about the numerous versions of the book
     - one with the copyright on the bottom
 
-    @param {int} `tot_volumes` 
+    @param {int} `tot_volumes`
             the number of volumes
     """
 
