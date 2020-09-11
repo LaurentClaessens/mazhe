@@ -66,13 +66,3 @@ La pandémie de covid19 a donné un gros coup d'arrêt au Frido. La raison est q
 Ça, c'était du temps du confinement. Maintenant les choses ont changé, et certaines habitudes commencent à se prendre.
 
 Grâce au télétravail, je peux me libérer le mercredi après-midi, et récupérer les soirs entre 21h et 22h. Le télétravail me permet donc de convertir du temps de Frido le soir en temps avec les enfants le mercredi.
-
-### Opportunité
-
-J'ai toujours trouvé immensément frustrant (et pas loin de l'insultant) que le monde académique s'imagine que ce qui est dans «les livres» est «disponible». Quand j'entends «va voir dans le Perrin, le Chambord-Machin», j'entends «achète-toi des brioches, si tu n'as pas de pain».
-
-Il me semble que certains ont du mal à concevoir que «les livres» ne sont en fait pas réellement disponibles en-dehors du monde académique.
-
-Deux professeurs d'université m'ont contacté pour utiliser le Frido avec leurs étudiants pendant le confinement (réponse : oui, la licence FDL est là pour ça). C'est pas mal. Ça en fait deux qui ont remarqué que, quand la bibliothèque universitaire n'est plus accessible, eh bien les livres, on se les gratte. Il n'y a pas raisonnablement moyen de se procurer un corpus de mathématique suffisant pour l'agrégation autrement qu'en étant dans une université.
-
-Voila. Donc avec le Frido, au moins l'accès à la connaissance mathématique de l'agrégation est 
