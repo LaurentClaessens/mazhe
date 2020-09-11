@@ -17,8 +17,13 @@ La base, c'est que c'est libre (oui, c'est un jeu de mot; j'avais juste envie de
 
 Donc au final c'est un peu long.
 
+## Images de couverture
 
-## Changements
+Les [images de couverture](https://github.com/LaurentClaessens/mazhe/tree/master/python/Pepper_Carrot) proviennent de la BD libre [Pepper et Carrot](https://www.peppercarrot.com/fr/) par David Revoy.
+
+## Changements depuis septembre 2019
+
+Il y a peu de changements cette année pour cause de covid19 (voir plus bas).
 
 - Une application est C^n si et seulement si ses dérivées partielles sont C^{n-1}. Je suis assez fier de ce résultat parce que c'est démontré complètement, en montrant de manière explicite l'isomorphisme qu'il y a entre l'espace des applications n-multilinéaires et les espaces emboîtés L(V,L(V, L(V,W))) dans lesquels vivent les différentielles d'ordre plus élevés.
 - Si A est un ensemble infini, alors AxA est équipotent à A. Utilisation massive du lemme de Zorn.
@@ -28,7 +33,7 @@ Donc au final c'est un peu long.
 
 J'en fais pas spécialement une religion, mais j'ai décidé de m'y mettre. Des fois, ça pique les yeux parce que je suis trop vieux pour m'y faire (des maximums, le mois d'aout sans accent); des fois c'est juste plus simple (à priori, sans italique).
 
-Tant qu'à parler d'orthogaphe, j'adopte une grammaire terriblement arriérée et non inclusive. Je n'hésite pas à écrire «Cette fonction, elle est un homomorphisme», sur le même modèle que «le père noël est une ordure» ou «cette femme est un ministre».
+Tant qu'à parler d'orthogaphe, j'adopte une grammaire terriblement arriérée et non inclusive. Je n'hésite pas à écrire «Cette fonction, est un homomorphisme», sur le même modèle que «le père noël est une ordure» ou «cette femme est un ministre».
 
 ## Accessibilité
 
@@ -52,13 +57,9 @@ Prenez n'importe quel résultat énoncé sans preuve. Envoyez moi une référenc
 
 Vous pouvez télécharger [les sources sur github](https://github.com/LaurentClaessens/mazhe) et tout de suite taper vous-même.
 
-### Conseil
-
-
-Il y a des permaliens grâce à showlabels, qui est un pur détournement de fonctionalité.
-
-
 ## Frido et covid19
+
+### Frein
 
 La pandémie de covid19 a donné un gros coup d'arrêt au Frido. La raison est que, les écoles étant fermées, j'ai dû faire un mi-temps taf le matin plus un mi-temps garde d'enfants l'après-midi et un troisième mi-temps la nuit pour terminer les heures de boulot.
 
@@ -66,4 +67,12 @@ La pandémie de covid19 a donné un gros coup d'arrêt au Frido. La raison est q
 
 Grâce au télétravail, je peux me libérer le mercredi après-midi, et récupérer les soirs entre 21h et 22h. Le télétravail me permet donc de convertir du temps de Frido le soir en temps avec les enfants le mercredi.
 
+### Opportunité
 
+J'ai toujours trouvé immensément frustrant (et pas loin de l'insultant) que le monde académique s'imagine que ce qui est dans «les livres» est «disponible». Quand j'entends «va voir dans le Perrin, le Chambord-Machin», j'entends «achète-toi des brioches, si tu n'as pas de pain».
+
+Il me semble que certains ont du mal à concevoir que «les livres» ne sont en fait pas réellement disponibles en-dehors du monde académique.
+
+Deux professeurs d'université m'ont contacté pour utiliser le Frido avec leurs étudiants pendant le confinement (réponse : oui, la licence FDL est là pour ça). C'est pas mal. Ça en fait deux qui ont remarqué que, quand la bibliothèque universitaire n'est plus accessible, eh bien les livres, on se les gratte. Il n'y a pas raisonnablement moyen de se procurer un corpus de mathématique suffisant pour l'agrégation autrement qu'en étant dans une université.
+
+Voila. Donc avec le Frido, au moins l'accès à la connaissance mathématique de l'agrégation est 
