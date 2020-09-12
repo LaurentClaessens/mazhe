@@ -1,3 +1,6 @@
+import pygit2
+import os
+
 frido_mark_list=[]
 frido_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
 frido_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
@@ -139,16 +142,15 @@ def get_hexsha(repo):
     return commit.id
 
 def set_commit_hexsha(A):
-    import pygit2
-    import os
-    repo=pygit2.Repository(os.getcwd())
+    repo = pygit2.Repository(os.getcwd())
     hexsha=str(get_hexsha(repo))
     if is_dirty(repo):
-        hexsha=hexsha+" -- and slightly more"
-    u="\\newcommand{\GitCommitHexsha}{\info{missing information}}"
+        hexsha = hexsha+" -- and slightly more"
+    u = "\\newcommand{\GitCommitHexsha}{\info{missing information}}"
     print(hexsha)
     A = A.replace(u,u.replace("missing information",hexsha))
     return A
+
 
 def assert_MonCerveau_first():
     """
@@ -158,12 +160,12 @@ def assert_MonCerveau_first():
     import os.path
     filename="Inter_frido-mazhe_pytex.bbl"
     if not os.path.exists(filename):
-        print("Le fichier bbl n'existe pas. C'est pas très normal.  Si cela persiste à la prochaine compilation, posez-vous des questions.")
+        print(f"Le fichier {filename} n'existe pas. C'est pas très normal.  Si cela persiste à la prochaine compilation, posez-vous des questions.")
         return None
-    bbl_content=open(filename).read()
-    bbl_first=bbl_content.find("bibitem")
-    bbl_second=bbl_content.find("bibitem",bbl_first+1)
-    text=bbl_content[bbl_first:bbl_second]
+    bbl_content = open(filename).read()
+    bbl_first = bbl_content.find("bibitem")
+    bbl_second = bbl_content.find("bibitem",bbl_first+1)
+    text = bbl_content[bbl_first:bbl_second]
     if not "MonCerveau" in text:
         print("""Il semblerait que la référence bibliographique 'MonCerveau' ne soit pas la première. Il faut corriger ça. En effet, le lecteur doit savoir que lorsqu'il voit la référence [1], ça veut dire 'danger'.
 
