@@ -1,7 +1,13 @@
+Fin de la dédaction ici le 11 sept 2020.
+Le reste va sur linuxfr.
+
+
+
+
 # Le Frido et Giulietta : la mathématique libre
 
 
-Le Frido est un livre de mathématique qui a pour but est d'aller de la théorie des ensembles (non comprise) jusqu'à finir l'agrégation. Giuletta est une extension qui va de l'agrégation jusqu'à tout ce que je sais en mathématique.
+[Le Frido](https://laurent.claessens-donadello.eu/pdf/lefrido.pdf) est un livre de mathématique qui a pour but est d'aller de la théorie des ensembles (non comprise) jusqu'à finir l'agrégation. [Giulietta](https://laurent.claessens-donadello.eu/pdf/giulietta.pdf) est une extension qui va de l'agrégation jusqu'à tout ce que je sais en mathématique.
 
 - Si vous voulez juste lire ? téléchargez les versions courantes [le frido](https://laurent.claessens-donadello.eu/pdf/lefrido.pdf) ou [Giulietta](https://laurent.claessens-donadello.eu/pdf/giulietta.pdfhttp://laurent.claessens-donadello.eu/pdf/giulietta.pdf) et profitez. Ces pdf sont régulièrement mis à jour.
 - Vous voulez passer l'agreg ? Téléchargez les versions "stables" de cette année, et si vous aimez, achetez. (je ne suis pas certain que vous ayez le droit de venir avec le Frido imprimé depuis chez vous).
