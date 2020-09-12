@@ -1,5 +1,9 @@
 import pygit2
 import os
+import sys
+from python.splittoc import Book
+
+dprint = print
 
 frido_mark_list=[]
 frido_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
@@ -128,7 +132,6 @@ def up_to_text(liste,text):
             return i
 
 def is_dirty(repo):
-    import pygit2
     status = repo.status()
     print("list done")
     for filepath, flags in status.items():
@@ -141,6 +144,7 @@ def get_hexsha(repo):
     commit=repo.revparse_single('HEAD')
     return commit.id
 
+
 def set_commit_hexsha(A):
     repo = pygit2.Repository(os.getcwd())
     hexsha=str(get_hexsha(repo))
@@ -152,17 +156,19 @@ def set_commit_hexsha(A):
     return A
 
 
-def assert_MonCerveau_first():
+def assert_MonCerveau_first(options):
     """
-    Read the bbl file and check that the reference "MonCerveau" is the first one.
-    """
+    Check that the reference "MonCerveau" is the first one.
 
-    import os.path
-    filename="Inter_frido-mazhe_pytex.bbl"
-    if not os.path.exists(filename):
-        print(f"Le fichier {filename} n'existe pas. C'est pas très normal.  Si cela persiste à la prochaine compilation, posez-vous des questions.")
+    Make the check in the bbl file.
+    """
+    filename = "Inter_frido-mazhe_pytex.bbl"
+    bbl_filename = options.bibliographie()
+    dprint("The bibliography filename is: ", bbl_filename)
+    if not os.path.exists(bbl_filename):
+        print(f"Le fichier {bbl_filename} n'existe pas. C'est pas très normal.  Si cela persiste à la prochaine compilation, posez-vous des questions.")
         return None
-    bbl_content = open(filename).read()
+    bbl_content = open(bbl_filename).read()
     bbl_first = bbl_content.find("bibitem")
     bbl_second = bbl_content.find("bibitem",bbl_first+1)
     text = bbl_content[bbl_first:bbl_second]
@@ -173,6 +179,7 @@ def assert_MonCerveau_first():
 
                 """.format(filename))
         raise ValueError(f"The reference 'MonCerveau' is not the first one. The first is one is: {text}")
+
 
 def split_toc(name,n):
     """
@@ -187,13 +194,11 @@ def split_toc(name,n):
     creating the pathname of the toc file.
     """
 
-    def _split_doc():
-        import sys
-        import os
-        cwd=os.getcwd()
-        sys.path.append(os.path.join(cwd,"python"))
-        from splittoc import Book
-        toc_filename=os.path.join(cwd,"Inter_{}-mazhe_pytex.toc".format(name))
-        book=Book(toc_filename)
+    def _split_doc(options=None):
+        cwd = os.getcwd()
+        sys.path.append(os.path.join(cwd, "python"))
+        filename = f"Inter_{name}-mazhe_pytex.toc"
+        toc_filename = os.path.join(cwd, filename)
+        book = Book(toc_filename)
         book.rewrite_toc(n)
     return _split_doc
