@@ -1,5 +1,8 @@
 # Journal des changements du Frido
 
+## Septembre-octobre 2002
+
+- L'identification matrice-application linéaire est continue.
 
 ## Formes quadratiques (mars 2020)
 
