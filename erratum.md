@@ -2,6 +2,10 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
+## Frido 2020
+
+- Volume 3. Définition 19.20 d'une partition de l'unité. Cette définition me semble très bizarre : si l'ouvert est composé de deux ouverts non connexes, je ne vois pas comment c'est possible. Décuplez votre vigilance, et dites-moi si vous connaissez un énoncé exact.
+
 ## Frido 2019
 
 - Volume 1. Définition 1.45 d'anneau commutatif. C'est la multiplication qui doit être commutative. La somme est toujours commutative; c'est dans la définition d'un anneau.
