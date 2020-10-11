@@ -1,6 +1,12 @@
 # Journal des changements du Frido
 
-## Septembre-octobre 2002
+## Distributions (octobre 2020 - ...)
+
+- partition de l'unité
+- principe de recollement (pour les distributions)
+- permuter distribution et dérivée/intégrale
+
+## Septembre-octobre 2020
 
 - L'identification matrice-application linéaire est continue.
 
