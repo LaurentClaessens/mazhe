@@ -1,5 +1,10 @@
 # Journal des changements du Frido
 
+
+## Novembre 2020
+
+- Dérivation de fonction composée (oui, c'est fou, mais ça n'y était pas)
+
 ## Distributions (octobre 2020 - ...)
 
 - partition de l'unité
