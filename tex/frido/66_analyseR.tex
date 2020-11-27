@@ -1588,7 +1588,7 @@ Nous avons donc toutes les dérivées sans ambigüité :
     \begin{align}
         \frac{ \partial f }{ \partial x }(x,t)&=\sin(t)\\
         \frac{ \partial f }{ \partial t }(x,t)&=x\cos(t)\\
-        \varphi'(t)=2t\sin(t)+t^2\cos(t).
+        \varphi'(t)&=2t\sin(t)+t^2\cos(t).
     \end{align}
 \end{subequations}
 
@@ -1604,30 +1604,74 @@ Le mieux serait même d'écrire \( \partial_1f\) et \( \partial_2f\) au lieu de 
     Tout cela pour dire que nous allons maintenant prouver le théorème de dérivation partielle de fonctions composées. C'est ce théorème qui est utilisé chaque fois qu'on fait un «changement de variables» dans une équation aux dérivées partielles.
 \end{normaltext}
 
-\begin{theorem}[\cite{MonCerveau}]     \label{THOooKBTYooWFtoSF}
+\begin{theorem}[\cite{MonCerveau,BIBooKWZDooWnWJWO}]     \label{THOooKBTYooWFtoSF}
     Soient :
     \begin{enumerate}
         \item
             trois espaces vectoriels normés \( U\), \( V\) et \( W\) de dimension fine
         \item
-            \( a\in V\), un voisinage \( \mO\) de \( a\)
+            \( a\in V\), un voisinage \( \Omega\) de \( a\)
         \item
-            des applications \( g\colon \mO\to U\) et \( f\colon f(\mO)\to W\)
+            des applications \( g\colon \Omega\to U\) et \( f\colon g(\Omega)\to W\)
         \item
-            des bases de \( U\), \( V\) et \( W\) de telle sorte que parler des dérivées partielles ait un sens.
+            des bases de \( U\), \( V\) et \( W\) de telle sorte que parler des dérivées partielles ait un sens. Toutes les bases vont être notées \( \{ e_i \}\) sans précisions. Sinon, on ne va pas s'en sortir.
     \end{enumerate}
     Nous supposons que
     \begin{enumerate}
         \item
-            \( f\) est de classe \( C^1\) en \( g(a)\),
+            \( f\) est de classe \( C^1\) sur un voisinage de \( g(a)\)\quext{Je ne suis pas totalement certain qu'il soit nécessaire d'être \( C^1\) sur un voisinage. En tout cas, cela va suffire. Dite-moi si vous savez.},
         \item
-            toutes les dérivées partielles \( (\partial_kg)(a)\) existent.
+            \( g\) admet une dérivée partielle dans la direction de \( e_i\) en \( a\).
     \end{enumerate}
-    Alors nous avons la formule
+    Alors 
+    \begin{enumerate}
+        \item
+            La fonction \( f\circ g\) a une dérivée partielle dans la direction de \( e_i\) en \( a\),
+        \item
+    nous avons la formule
     \begin{equation}        \label{EQooZMAUooIusxgD}
         \partial_i(f\circ g)(a)=\sum_{k}(\partial_kf)\big( g(a) \big)(\partial_ig_k)(a).
     \end{equation}
+    \end{enumerate}
 \end{theorem}
+
+\begin{proof}
+    Vu que \( f\) est différentiable en \( g(a)\), nous pouvons y utiliser le lemme \ref{LemdfaSurLesPartielles} et écrire
+    \begin{equation}        \label{EQooFZBVooTwNexc}
+        df_{g(a)}\left( \frac{ \partial g }{ \partial x_i }(a) \right)=\Dsdd{ f\big( g(a)+t\frac{ \partial g }{ \partial x_i }(a) \big) }{t}{0}
+        =\lim_{\epsilon\to 0}\frac{ f\big( g(a)+\epsilon\frac{ \partial g }{ \partial x_i }(a) \big)-f\big( g(a) \big) }{ \epsilon }.
+    \end{equation}
+    
+    Maintenant, le jeu est de travailler \( f\big( g(a)+\epsilon\partial_i(a) \big)\) de deux façons différentes. D'une part en effectuant un développement de \( f\) autour de \( g(a)\) et d'autre part dé-développant \( g(a)+\epsilon\partial_i(a)\) pour le changer en \( g(a+\epsilon e_i)\).
+
+    \begin{subproof}
+        \item[Développer \( f\)]
+            En utilisant le lemme \ref{LEMooNMTAooLgMkgH} pour \( f\) autour de \( g(a)\), nous avons
+            \begin{subequations}
+                \begin{align}
+                    f\big( g(a)+\epsilon\partial_ig(a) \big)&=f\big( g(a)+\epsilon\sum_k(\partial_ig_k)(a)e_k \big)\\
+                    &=f\big( g(a) \big)+\epsilon\sum_k(\partial_ig_k)(a)(\partial_kf)\big(g(a)+\epsilon u_k\big)
+                \end{align}
+            \end{subequations}
+            où \( u_k=\sum_{j=k+1}^n(\partial_ig_l)(a)e_l\). La forme exacte de \( u_k\) n'est pas importante pour notre histoire.
+
+            En mettant cela dans la dernière fraction de \eqref{EQooFZBVooTwNexc},
+            \begin{subequations}
+                \begin{align}
+                    &\frac{ f\big( g(a)+\epsilon(\partial_ig)(a) \big)-f\big( g(a) \big) }{ \epsilon }\\
+                    &=\frac{ f\big( g(a) \big)  +\epsilon\sum_k(\partial_ig_k)(a)(\partial_kf)\big(g(a)+\epsilon u_k\big)+\epsilon\alpha(\epsilon)-f\big( g(a) \big)   }{ \epsilon }\\
+                    &=\sum_k(\partial_ig_k)(a)(\partial_kf)\big( g(a)+\epsilon u_k\big)+\alpha(\epsilon).
+                \end{align}
+            \end{subequations}
+            Nous prenons la limite \( \epsilon\to 0\) en tenant compte du fait que \( \lim_{\epsilon\to 0}\alpha(\epsilon)=0\) et du fait que les dérivées partielles de \( f\) sont continues en \( g(a)\) (théorème \ref{THOooBEAOooBdvOdr}). Nous avons
+            \begin{equation}
+                df_{g(a)}\big( (\partial_ig)(a) \big)=\sum_k(\partial_ig_k)(a)(\partial_kf)\big( g(a) \big).
+            \end{equation}
+            <++>
+    \end{subproof}
+    <++>
+\end{proof}
+<++>
 
 
 \begin{theorem}	
