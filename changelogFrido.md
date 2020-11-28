@@ -4,6 +4,8 @@
 ## Novembre 2020
 
 - Dérivation de fonction composée (oui, c'est fou, mais ça n'y était pas)
+- Dérivation partielle de fonction composée 
+- Quelque version des accroissements finis avec des dérivées partielles
 
 ## Distributions (octobre 2020 - ...)
 
