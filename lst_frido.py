@@ -1,5 +1,3 @@
-# -*- coding: utf8 -*-
-
 from pytex.src import PytexTools
 import commons
 import plugins_agreg
@@ -14,13 +12,15 @@ def print_future_reference(future_reference):
 
 
 myRequest = PytexTools.Request("mesure")
-myRequest.ok_hash=commons.ok_hash
-myRequest.original_filename="mazhe.tex"
+myRequest.ok_hash = commons.ok_hash
+myRequest.original_filename = "mazhe.tex"
 
-# L'ordre dans les plugin est important parce que set_boolean retourne un code latex sans les commentaires
+# L'ordre dans les plugin est important parce que set_boolean
+# retourne un code latex sans les commentaires
 # alors que keep_script_marks compte dessus pour faire sa sélection.
 myRequest.add_plugin(PytexTools.accept_all_input, "options")
-myRequest.add_plugin(PytexTools.keep_script_marks(plugins_agreg.frido_mark_list),"before_pytex")
+marks_plugin = PytexTools.keep_script_marks(plugins_agreg.frido_mark_list)
+myRequest.add_plugin(marks_plugin, "before_pytex")
 
 
 # the plugin "split_doc" should better be of type "medicament"
