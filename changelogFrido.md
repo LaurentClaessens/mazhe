@@ -1,6 +1,12 @@
 # Journal des changements du Frido
 
 
+## Décembre 2020
+
+- Encore des fonctions plateau
+- Lemme d'Urysohn en plusieurs dimensions
+
+
 ## Novembre 2020
 
 - Dérivation de fonction composée (oui, c'est fou, mais ça n'y était pas)
