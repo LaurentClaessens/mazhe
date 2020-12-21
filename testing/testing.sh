@@ -109,6 +109,8 @@ check_spelling()
     ag " c'est à dire " >> $LOG_FILE # doit être c'est-à-dire
     ag " en terme " >> $LOG_FILE
     ag " paramétrisation " >> $LOG_FILE  # doit être "paramétrage"
+    ag " multi-indice " >> $LOG_FILE  # doit être "multiindice"
+    ag " multi-norme" >> $LOG_FILE  # doit être "seminorme"
 }
 
 test_picture ()

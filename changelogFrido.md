@@ -5,6 +5,9 @@
 
 - Encore des fonctions plateau
 - Lemme d'Urysohn en plusieurs dimensions
+- Je décide d'écrire «multiindice», sur le modèle de «multinational» et dans l'esprit des règles[1].
+
+[1] http://www.renouvo.org/regles.php
 
 
 ## Novembre 2020
