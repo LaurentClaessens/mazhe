@@ -6,9 +6,9 @@
 - Encore des fonctions plateau
 - Lemme d'Urysohn en plusieurs dimensions
 - Je décide d'écrire «multiindice», sur le modèle de «multinational» et dans l'esprit des règles[1]. Idem pour "seminorme".
+- Changer énormément de \href en entrées dans la bibliographie
 
 [1] http://www.renouvo.org/regles.php
-
 
 ## Novembre 2020
 
@@ -16,11 +16,11 @@
 - Dérivation partielle de fonction composée 
 - Quelque version des accroissements finis avec des dérivées partielles
 
-## Distributions (octobre 2020 - ...)
+## Distributions (octobre 2020 - Décembre 2020)
 
 - partition de l'unité
 - principe de recollement (pour les distributions)
-- permuter distribution et dérivée/intégrale
+- permuter distribution et dérivée
 
 ## Septembre-octobre 2020
 
