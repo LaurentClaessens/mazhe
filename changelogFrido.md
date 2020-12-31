@@ -7,7 +7,7 @@
 - Lemme d'Urysohn en plusieurs dimensions
 - Je décide d'écrire «multiindice», sur le modèle de «multinational» et dans l'esprit des règles[1]. Idem pour "seminorme".
 - Changer énormément de \href en entrées dans la bibliographie
-- espace vectoriel topologique : métrisabilité
+- espace vectoriel topologique : métrisabilité. Ça fait pas mal de topologie générale sur les espaces vectoriels topologiques. En particulier le fait que de tels espaces séparent les fermés des compacts.
 
 [1] http://www.renouvo.org/regles.php
 
