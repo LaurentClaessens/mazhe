@@ -4,6 +4,8 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2020
 
+- Volume 1. Lemme 7.286. Il s'agit d'une inclusion et non d'une égalité.
+- Volume 1. Théorème 7.288. Il manque le traitement de pas mal de subtilités topologiques. En particulier la preuve de d(x,y)=0 => x=y n'est pas écrite, et elles est moins simple que vous pouvez le croire. La définition dans l'équation (7.335) manque d'une sérieuse preuve de l'injectivité de la fonction qui à un r donné fait correspondre le n et la suite des coefficients.
 - Volume 3. Définition 19.20 d'une partition de l'unité. Cette définition me semble très bizarre : si l'ouvert est composé de deux ouverts non connexes, je ne vois pas comment c'est possible. Décuplez votre vigilance, et dites-moi si vous connaissez un énoncé exact.
 
 ## Frido 2019
