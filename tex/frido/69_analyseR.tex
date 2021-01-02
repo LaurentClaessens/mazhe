@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2006-2020
+% Copyright (c) 2006-2021
 %   Laurent Claessens, Carlotta Donadello
 % See the file fdl-1.3.txt for copying conditions.
 
@@ -384,7 +384,7 @@ Le corolaire suivant permet de considérer des séries de fonctions indexées pa
 
 Pour permuter différentielle et limite, ce sera le théorème \ref{ThoLDpRmXQ}.
 
-\begin{theorem}[\cite{TrenchRealAnalisys,ooCPZDooOqIIEz}]     \label{THOooXZQCooSRteSr}
+\begin{theorem}[\cite{TrenchRealAnalisys,ooCPZDooOqIIEz, MonCerveau}]     \label{THOooXZQCooSRteSr}
     Soient une suite de fonctions \( f_i\colon \eR\to \eR\), une fonction \( f\colon \eR\to \eR\) et une fonction \( g\colon \eR\to \eR\) telles que
     \begin{enumerate}
         \item
@@ -396,110 +396,137 @@ Pour permuter différentielle et limite, ce sera le théorème \ref{ThoLDpRmXQ}.
     \end{enumerate}
     Alors
     \begin{enumerate}
-        \item
-            \( f\) est de classe \( C^1\),
-        \item
+        \item       \label{ITEMooYSWDooFFeQCd}
+            \( f_i\to f\) uniformément sur tout compact.
+        \item       \label{ITEMooFAWUooVQJPZh}
             \( f'=g\),
         \item
-            \( f_i\to f\) uniformément sur tout compact.
+            \( f\) est de classe \( C^1\),
     \end{enumerate}
 \end{theorem}
 
 \begin{proof}
-  On commence par démonter la convergence uniforme sur les compacts des~$f_i$.
-  Soit~$K \subseteq \eR$ un intervalle compact contenant~$x$.
-  Il suffit de montrer que la suite~$(f_i)_i$ restreinte à $K$ est une suite de
-  Cauchy pour la norme uniforme.  Soit~$\epsilon > 0$.
-  On note~$\omega_i$ le module de continuité de~$f_i'$.
-  Par le lemme~\ref{LEMooKPPSooPIncvn}, il existe~$N \geq 0$ tel que pour tout \( \delta>0\) nous ayons
-  \begin{equation}\label{eq:1}
-    \omega_i(\delta) \leq \omega_g(\delta) + \epsilon.
-  \end{equation}
+    Un point à la fois.
+    \begin{subproof}
+        \item[Pour \ref{ITEMooYSWDooFFeQCd}]
+            Soit un compact \( K\subset \eR\). Dans cette partie, toutes les fonctions en jeu sont restreintes à \( K\). En particulier, lorsque nous parlerons du module de continuité \( \omega_g\) pour \( g\) ou \( \omega_i\) pour \( f'_i\), nous parlerons en réalité des fonctions \( g|_K\) et \( f'_i|_K\).
+
+            Ceci dit, nous allons montrer que \( (f_i)\) est une suite de Cauchy pour la norme uniforme\footnote{Et si vous avez bien suivi l'avertissement, c'est bien de la norme uniforme sur \( K\) que nous parlons.}.
   
-  Soit~$y\in K$, $n \in \eN$ et~$\alpha_n = \frac{x-y}{n+1}$.
-  Pour tout~$i \geq 0$,
+  Soit~$\epsilon > 0$. On note~$\omega_i$ le module de continuité de~$f_i'$. Soient $y\in K$, $n \in \eN$ et posons $\alpha_n = \frac{y-x}{n+1}$.
+  Pour tout~$i \geq 0$, nous avons la somme télescopique
   \begin{equation}
-    f_i(y) = f_i(x) + \sum_{k=0}^n \left( f_i(x+(k+1)\alpha_n) - f_i(x+k\alpha_n) \right),
+      f_i(y) = f_i(x) + \sum_{k=0}^n \Big[  f_i(x+(k+1)\alpha_n) - f_i(x+k\alpha_n) \Big].
   \end{equation}
-  c'est une somme télescopique.
-  Par le théorème des accroissements finis, il existe pour tout~$0\leq k\leq n$
+  Par le théorème des accroissements finis \ref{ThoAccFinis}, il existe pour tout~$0\leq k\leq n$
   un réel~$u_{n,i,k} \in [k,(k+1)\alpha_n]$ tel que
   \begin{equation}
-    f_i(x+(k+1)\alpha_n) - f_i(x+k\alpha_n) = \alpha_n f'_i(x+ u_{n,i,k}),
+    f_i(x+(k+1)\alpha_n) - f_i(x+k\alpha_n) = |\alpha_n| f'_i(x+ u_{n,i,k}),
   \end{equation}
   de sorte que
   \begin{equation}
-    f_i(y) = f_i(x) + \alpha_n \sum_{k=0}^n  f'_i(x+ u_{n,i,k}).
+    f_i(y) = f_i(x) + |\alpha_n| \sum_{k=0}^n  f'_i(x+ u_{n,i,k}).
   \end{equation}
   Et pour tout~$i,j \geq 0$, on obtient
-  \begin{align}
-    \left| f_i(y) - f_j(y) \right| &\leq \left| f_i(x) - f_j(x) \right|
-                                     + \alpha_n \sum_{k=0}^n \left| f'_i(x+ u_{n,i,k}) - f'_j(x+u_{n,j,k}) \right|.
-  \end{align}
-  Or
-  \begin{align}
-    \left| f'_i(x+ u_{n,i,k}) - f'_j(x+u_{n,j,k}) \right| &\leq  \left| f'_i(x+ u_{n,i,k}) - f'_i(x+u_{n,j,k}) \right| +  \left| f'_i(x+ u_{n,j,k}) - f'_j(x+u_{n,j,k}) \right| \\
-                                                          &\leq \omega_i(\alpha_n) + \|f'_i-f'_j\|,
-  \end{align}
-  et il suit que pour tout~$i,j \geq N$,
-  \begin{align}
-    \left| f_i(y) - f_j(y) \right| & \leq  \left| f_i(x) - f_j(x) \right| + |x-y| \left(\omega_i(\alpha_n) + \|f'_i+f'_j\|_K \right)\\
-    &\leq \left| f_i(x) - f_j(x) \right| + |x-y| \left(\omega_g(\alpha_n) + \epsilon + \|f'_i+f'_j\|_K \right), \label{eq:2}
-  \end{align}
-  où la dernière inégalité vient de~\eqref{eq:1}.
-  Comme~$g$ est continue (limite uniforme de fonctions continues) sur un
-  compact, elle est uniformément continue et
-  $\lim_{\delta\to 0} \omega_g(\delta) = 0$.
-  Donc l'inégalité~\eqref{eq:2}, avec~$n\to \infty$ devient
-  \begin{equation}\label{eq:3}
-  \left| f_i(y) - f_j(y) \right| \leq \left| f_i(x) - f_j(x) \right| + |x-y|
-    \left(\epsilon + \|f'_i+f'_j\|_K \right).
-  \end{equation}
-
-  Comme~$K$ est borné, $\left| x-y \right|$ est borné par une quantité~$M$ ne
-  dépendant que de~$K$.
-  En prenant dans~\eqref{eq:3} le supremum par rapport à~$y$, on obtient
-  \begin{equation}
-    \|f_i-f_j\|_K \leq  \left| f_i(x) - f_j(x) \right| + |x-y|
-    \left(\epsilon + \|f'_i+f'_j\|_K \right).
-  \end{equation}
-  
-  Étant donné
-  que~$\left( f_i(x) \right)_i$ est une suite de Cauchy, que~$\left( f'_i
-  \right)_i$ est une suite de Cauchy pour la norme uniforme sur~$K$,
-  il suit que~$(f_i|_K)_i$ est une suite de Cauchy. Donc elle converge uniformément vers une
-  limite~$f|_K$.
-  
-  \bigskip
-  Montrons maintenant que la limite~$f$ de la suite~$(f_i)_i$ est dérivable
-  et que~$f'=g$.
-  Soit~$y\in \eR$ et soit~$K$ un voisinage compact de~$y$. On reprend les
-  notations précédentes. Pour tout~$\delta \in \eR$ suffisamment petit
-  $y+\delta \in K$, et pour tout~$i \geq 0$ on a alors
-  \begin{subequations}
+  \begin{subequations}      \label{SUBEQSooUYFTooWPVfWt}
       \begin{align}
-    \Big| \frac{1}\delta \big( f(y+\delta) &- f(y) \big) - g(y) \Big|\\
-    &\leq  \frac1\delta \left| f(y)-f_i(y) \right| + \frac1\delta \left| f(y+\delta) - f_i(y+\delta)  \right|
-      + \left| \frac1\delta \left(f_i(y+\delta) - f_i(y)\right) - g(y) \right|\\
-    &\leq \frac2\delta \|f_i - f\|_K  + \left| \frac1\delta \left(f_i(y+\delta) - f_i(y)\right) - g(y) \right|.
+    \left| f_i(y) - f_j(y) \right| &\leq \left| f_i(x) - f_j(x) \right| + |\alpha_n| \sum_{k=0}^n \left| f'_i(x+ u_{n,i,k}) - f'_j(x+u_{n,j,k}) \right|\\
+    &\leq | f_i(x)-f_j(x) |\\
+    &\qquad+|\alpha_n|\sum_{k=0}^n \left| f'_i(x+ u_{n,i,k}) - f'_i(x+u_{n,j,k}) \right| \nonumber  \\
+    &  \qquad +  |\alpha_n|\sum_{k=0}^n\left| f'_i(x+ u_{n,j,k}) - f'_j(x+u_{n,j,k}) \right| \nonumber\\
+    &\leq | f_i(x)-f_j(x) |      \label{EQooYMHKooDFYPIf}\\     
+    &\qquad+ |\alpha_n|\sum_{k=0}^n \left| f'_i(x+ u_{n,i,k}) - f'_i(x+u_{n,j,k}) \right|\nonumber\\
+    &\qquad + |\alpha_n|\sum_{k=0}^n  \| f'_i-f'_j \|   \nonumber \\
+    &\leq  | f_i(x)-f_j(x) |+|\alpha_n|\sum_{k=0}^n  \omega_i(|\alpha_n|) + |\alpha_n|\sum_{k=0}^n  \| f'_i-f'_j \|        \label{EQooGHDOooMMNXdj}\\
+    &\leq  \left| f_i(x) - f_j(x) \right| + |x-y| \left(\omega_i(|\alpha_n|) + \|f'_i-f'_j\|_K \right)      \label{EQooZCFIooNDojBX}         \\
+    &\leq | f_i(x)-f_j(x) |+M\Big( \omega_i\big( \frac{ M }{ n+1 } \big)+\| f_i'-f_j' \|_K \Big)        \label{SUBEQooISWEooBfnJVN}
       \end{align}
   \end{subequations}
-  Par le théorème des accroissements finis, il existe~$u\in[y-|\delta|, y+|\delta|]$ tel que
+  Justifications :
+  \begin{itemize}
+      \item Pour \eqref{EQooYMHKooDFYPIf}
+          La norme supremum est forcément plus grande que la valeur en un point.
+      \item Pour \eqref{EQooGHDOooMMNXdj}
+  Remarquer que \( \| x+u_{n,i,k}-(x+u_{n,j,k}) \|=\| u_{n,i,k}-u_{n,j,k} \|\leq |\alpha_n|\). Cela est donc une bonne occasion de prendre la définition \eqref{EQooKWUVooSORHXN} du module de continuité :
   \begin{equation}
-    \frac1\delta \left(f_i(y+\delta) - f_i(y)\right) = f'_i(u).
+     \left| f'_i(x+ u_{n,i,k}) - f'_i(x+u_{n,j,k}) \right|\leq \omega_i(\alpha_n) .
   \end{equation}
-  Il suit,
-  \begin{align}
-    \left| \frac{1}\delta \left( f(y+\delta) - f(y) \right) - g(y) \right| &\leq \frac2\delta \|f_i - f\|_K +
-                                                                             \left| f'_i(u) - f'_i(y) \right| + \|f_i'-g\| \\
-    &\leq \frac2\delta \|f_i - f\|_K + \omega_i(\delta) + \|f_i'-g\|.
-  \end{align}
-  En prenant~$i \to \infty$, on obtient
+    \item  Pour \eqref{EQooZCFIooNDojBX}, il y a \( n+1\) termes dans les sommes et \( \alpha_n=(y-x)/(n+1)\).
+    \item Pour \eqref{SUBEQooISWEooBfnJVN}, nous travaillons uniquement sur le compact \( K\). En particulier \( x,y\in K\) et il existe un nombre \( M\) ne dépendant que de \( K\) tel que \( | y-x |<M\). De plus \( \omega_i\) est décroissante. Donc en remplaçant \( | y-x |\) par \( M\) nous majorons.
+  \end{itemize}
+
+    Recopions notre dernière inéquation :
+    \begin{equation}
+        | f_i(y) - f_j(y)| \leq | f_i(x)-f_j(x) |+M\Big( \omega_i\big( \frac{ M }{ n+1 } \big)+\| f_i'-f_j' \|_K \Big)
+    \end{equation}
+    Vu que \( f_i\) est de classe \( C^1\), la fonction \( f'_i\) est continue. Et vu que nous travaillons sur le compact \( K\), elle est même uniformément continue (proposition \ref{PROPooBWUFooYhMlDp}). Le lemme \ref{LemeERapq} dit qu'une fonction uniformément continue a un module de continuité continu en zéro : $\lim_{\delta\to 0} \omega_i(\delta) = 0$. Nous pouvons donc prendre la limite \( n\to 0\) pour nous supprimer le module de continuité :
+    \begin{equation}
+        | f_i(y)-f_j(y) |\leq | f_i(x)-f_j(x) |+M\| f_i'-f_j' \|_K.
+    \end{equation}
+  Nous prenons maintenant le supremum par rapport à~$y$ :
   \begin{equation}
-    \left| \frac{1}\delta \left( f(y+\delta) - f(y) \right) - g(y) \right| \leq \omega_g(\delta).
+    \|f_i-f_j\|_K \leq  \left| f_i(x) - f_j(x) \right| + M \|f'_i+f'_j\|_K.
   \end{equation}
-  Or~$\lim_{\delta\to 0}\omega_g(\delta) = 0$, donc~$f$ est dérivable en~$y$
-  et~$f'(y) = g(y)$.
+  
+  Par hypothèse nous avons la convergence simple \( f_i\to f\), c'est à dire la convergence \( f_i(x)\stackrel{\eR}{\longrightarrow}f_i(x)\) pour tout \( x\). Pour le \( x\) que nous nous sommes fixés, la suite \( i\mapsto f_i(x)\) est donc une suite de Cauchy dans \( \eR\).
+
+  Soit \( \epsilon>0\). Il existe \( N\in \eN\) tels que si \( i,j>N\) nous avons \( | f_i(x)-f_j(x) |<\epsilon\). De même la convergence uniforme \( f'_i\stackrel{\| . \|_K}{\longrightarrow} g\) implique que \( f'_k\) est également de Cauchy pour la norme uniforme. Donc pour un \( i,j>N\) (éventuellement un autre \( N\), mais on prend le maximum entre les deux), nous avons \( \| f'_i-f'_j \|<\epsilon\).
+
+  Donc si \( i,j>N\) nous avons
+  \begin{equation}
+    \|f_i-f_j\|_K \leq \epsilon + M \epsilon=(M+1)\epsilon.
+  \end{equation}
+
+  Nous avons donc prouvé que \( (f_i)\) est une suite de Cauchy pour la norme \( \| . \|_K \). Cela implique que \( (f_i)\) a une limite uniforme sur \( K\). Vu que nous avons déjà \( f_i\to f\), nous en déduisons que sur \( K\), cette limite est uniforme :
+  \begin{equation}
+      f_i\stackrel{\| . \|_K}{\longrightarrow}f.
+  \end{equation}
+    Voila qui prouve la convergence uniforme sur tout compacts.
+
+\item[Pour \ref{ITEMooFAWUooVQJPZh}]
+    Nous ne savons encore rien de la fonction limite \( f\). Nous montrons qu'elle est dérivable et que \( f'=g\).
+  
+    Soient $y\in \eR$ et un voisinage compact $K=\overline{ B(u,\delta) }$ de~$y$ avec \( \delta>0\). Pour tout \( i>0\) nous avons :
+  \begin{subequations}
+      \begin{align}
+          \Big| &  \frac{ f(y+\delta)-f(y) }{ \delta }  - g(y) \Big|\\
+          &\leq   \frac{ | f(y)-f_i(y)|}{ \delta }  +\frac{ | f(y+\delta)-f_i(y+\delta) | }{ \delta }+\big| \frac{ f_i(y+\delta)-f_i(y) }{ \delta }-g(y) \big|\\
+          &\leq \frac{ 2 }{ \delta } \|f_i - f\|_K + \big| \frac{ f_i(y+\delta)-f_i(y) }{ \delta }-g(y) \big|\\
+          &\leq \frac{ 2 }{ \delta }\| f_i-f \|_K+| f_i'(u)-g(y) |  \label{SUBEQooUKMFooGvbSKz} \\
+          &\leq \frac{ 2 }{ \delta }\| f_i-f \|_K+| f'_i(u)-f_i'(y) |+| f_i'(y)-g(y) | \\
+          &\leq \frac{ 2 }{ \delta }\| f_i-f \|_K+| f'_i(u)-f_i'(y) |+\| f_i'-g \|_K  \label{SUBEQooWHLZooCGTjeH} \\
+          &\leq \frac{ 2 }{ \delta }\| f_i-f \|_K+   \omega_i(| u-y |)    +\| f_i'-g \|_K   \\
+          &\leq \frac{ 2 }{ \delta }\| f_i-f \|_K      +\| f_i'-g \|_K + \omega_i(2\delta)    \label{SUBEQooVRWIooCwEWPE}  \\
+          &\leq \frac{ 2 }{ \delta }\| f_i-f \|_K      +\| f_i'-g \|_K + \omega_g(2\delta)    \label{SUBEQooQNMMooRsAjyb}  \\
+          &\leq 
+      \end{align}
+  \end{subequations}
+  Justifications :
+  \begin{itemize}
+      \item 
+  Pour \ref{SUBEQooUKMFooGvbSKz}. Nous avons utilisé le théorème des accroissements finis \ref{ThoAccFinis}, qui assure l'existence de \( u\in B(y,\delta) \) tel que
+  \begin{equation}
+      \frac{ f_i(y+\delta)-f_i(y) }{ \delta }=f_i'(u).
+  \end{equation}
+  \item Pour \ref{SUBEQooWHLZooCGTjeH}. Nous faisons un supremum sur le \( y\in K\) dans le dernier terme.
+  \item Pour \ref{SUBEQooVRWIooCwEWPE}. Nous majorons \( | u-y |\) par le diamètre \( 2\delta\) du compact \( K=\overline{ B(y,\delta) }\).
+  \item Pour \ref{SUBEQooQNMMooRsAjyb}. Le lemme \ref{LEMooKPPSooPIncvn} et le fait que \(   f'_i\stackrel{\| . \|_K}{\longrightarrow}g \).
+  \end{itemize}
+
+  Recopions la dernière inégalité :
+  \begin{equation}
+      \big| \frac{ f(y+\delta)-f(y) }{ \delta }-g(y) \big|\leq \frac{ 2 }{ \delta }\| f_i-f \|_K+\| f'_i-g \|_K+\omega_g(2\delta).
+  \end{equation}
+  Nous prenons la limite \( i\to \infty\). Par le point \ref{ITEMooYSWDooFFeQCd} nous savons que \( \| f_i-f \|_K\to 0\). Par hypothèse nous savons aussi que \( \| f'_i-g \|_K\to 0\). Nous restons donc avec
+  \begin{equation}
+      \big| \frac{ f(y+\delta)-f(y) }{ \delta }-g(y) \big|\leq \omega_g(2\delta).
+  \end{equation}
+  Or, par uniforme continuité de \( g\), nous avons $\lim_{\delta\to 0}\omega_g(\delta) = 0$, donc la limite dans le membre de gauche se passe bien et
+  \begin{equation}
+      \lim_{\delta\to \delta}\frac{ f(y+\delta)-f(y) }{ \delta }=g(y),
+  \end{equation}
+  ce qui signifie que \( f\) est dérivable en \( y\) et que la dérivée est \( g(y)\).
+    \end{subproof}
 \end{proof}
 
 \begin{theorem}		\label{ThoSerUnifDerr}
