@@ -1,6 +1,16 @@
 # Journal des changements du Frido
 
 
+## Janvier 2021
+
+- Décision : on vire la géométrie différentielle, et en particulier :
+    * orientation
+    * intégration sur des variétés
+    * espace tangent
+    * démonstration de Brower via le théorème de Stokes
+  Tout cela nous mène trop loin et sera déplacé progressivement vers [Giulietta](http://laurent.claessens-donadello.eu/pdf/giulietta.pdf)
+
+
 ## Décembre 2020
 
 - Encore des fonctions plateau
