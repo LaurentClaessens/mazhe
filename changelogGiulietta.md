@@ -1,5 +1,12 @@
 # Giulietta's changelog
 
+## Manifolds (January 2021)
+
+Be more precise and systematic about
+- definition of charts
+- tangent vectors
+- integration
+
 ## Lorentz (December 2019-January 2020)
 
 - Adjoint
