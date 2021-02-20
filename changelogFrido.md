@@ -1,6 +1,11 @@
 # Journal des changements du Frido
 
 
+## Février 2021
+
+Théorème de Hahn-Banach. Extension de fonctionnelle linéaire.
+
+
 ## Janvier 2021
 
 - Décision : on vire la géométrie différentielle, et en particulier :
