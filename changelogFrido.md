@@ -3,7 +3,9 @@
 
 ## Février 2021
 
-Théorème de Hahn-Banach. Extension de fonctionnelle linéaire.
+Théorème de Hahn-Banach. 
+- Extension de fonctionnelle linéaire.
+- Le dual sépare les points dans un espace vectoriel normé.
 
 
 ## Janvier 2021
