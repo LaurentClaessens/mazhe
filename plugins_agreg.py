@@ -5,32 +5,15 @@ from python.splittoc import Book
 
 dprint = print
 
-frido_mark_list=[]
+frido_mark_list = []
 frido_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
 frido_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
 frido_mark_list.append("% SCRIPT MARK -- TOC")
 frido_mark_list.append("% SCRIPT MARK -- FRIDO")
+frido_mark_list.append("% SCRIPT MARK -- DÉVELOPPEMENTS POSSIBLES")
 frido_mark_list.append("% SCRIPT MARK -- FINAL")
 
-outilsmath_mark_list=[]
-outilsmath_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
-outilsmath_mark_list.append("% SCRIPT MARK -- GARDE ENSEIGNEMENT")
-outilsmath_mark_list.append("% SCRIPT MARK -- TOC")
-outilsmath_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUES")
-outilsmath_mark_list.append("% SCRIPT MARK -- FINAL")
-
-enseignement_mark_list=[]
-enseignement_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
-enseignement_mark_list.append("% SCRIPT MARK -- GARDE ENSEIGNEMENT")
-enseignement_mark_list.append("% SCRIPT MARK -- TOC")
-enseignement_mark_list.append("% SCRIPT MARK -- INTRO SAGE")
-enseignement_mark_list.append("% SCRIPT MARK -- OUTILS MATHÉMATIQUES")
-enseignement_mark_list.append("% SCRIPT MARK -- MATLAB")
-enseignement_mark_list.append("% SCRIPT MARK -- EXERCICES")
-enseignement_mark_list.append("% SCRIPT MARK -- CdI")
-enseignement_mark_list.append("% SCRIPT MARK -- FINAL")
-
-mazhe_mark_list=[]
+mazhe_mark_list = []
 mazhe_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
 mazhe_mark_list.append("% SCRIPT MARK -- GARDE MAZHE")
 mazhe_mark_list.append("% SCRIPT MARK -- TOC")
@@ -46,13 +29,6 @@ mazhe_mark_list.append("% SCRIPT MARK -- EXERCICES")
 mazhe_mark_list.append("% SCRIPT MARK -- CdI")
 mazhe_mark_list.append("% SCRIPT MARK -- FINAL")
 
-research_mark_list=[]
-research_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
-research_mark_list.append("% SCRIPT MARK -- GARDE MAZHE")
-research_mark_list.append("% SCRIPT MARK -- TOC")
-research_mark_list.append("% SCRIPT MARK -- ENGLISH INTRODUCTION")
-research_mark_list.append("% SCRIPT MARK -- RESEARCH PART")
-research_mark_list.append("% SCRIPT MARK -- FINAL")
 
 class set_filename(object):
     def __init__(self,new_output_filename):
