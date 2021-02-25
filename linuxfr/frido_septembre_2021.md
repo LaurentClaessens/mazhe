@@ -4,4 +4,4 @@
     Giulietta (EN)
     Des corrigés Matlab (FR)
     Des exercices et corrigés (FR)
-
+- Faire une note à propos du nouveau règlement de l'agreg qui est dans le rapport du jury.
