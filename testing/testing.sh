@@ -110,7 +110,7 @@ check_spelling()
     ag " en terme " >> $LOG_FILE
     ag " paramétrisation " >> $LOG_FILE  # doit être "paramétrage"
     ag " multi-indice " >> $LOG_FILE  # doit être "multiindice"
-    ag " multi-norme" >> $LOG_FILE  # doit être "seminorme"
+    ag " semi-norme" >> $LOG_FILE  # doit être "seminorme"
 }
 
 test_picture ()
