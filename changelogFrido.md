@@ -7,7 +7,6 @@ Théorème de Hahn-Banach.
 - Extension de fonctionnelle linéaire.
 - Le dual sépare les points dans un espace vectoriel normé.
 
-
 ## Janvier 2021
 
 - Décision : on vire la géométrie différentielle, et en particulier :
@@ -16,7 +15,6 @@ Théorème de Hahn-Banach.
     * espace tangent
     * démonstration de Brower via le théorème de Stokes
   Tout cela nous mène trop loin et sera déplacé progressivement vers [Giulietta](http://laurent.claessens-donadello.eu/pdf/giulietta.pdf)
-
 
 ## Décembre 2020
 

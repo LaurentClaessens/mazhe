@@ -6,3 +6,5 @@
     Des exercices et corrigés (FR)
 - Faire une note à propos du nouveau règlement de l'agreg qui est dans le rapport du jury.
 - Dire que la liste des développements est à nouveau là.
+
+- Écriture épicène. ah ah. Je fais du pseudo-aléatoire.
