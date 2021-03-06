@@ -1,5 +1,8 @@
 # Journal des changements du Frido
 
+## Mars 2021
+
+- Tétraèdre et bijections affines.
 
 ## Février 2021
 
