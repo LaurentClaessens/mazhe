@@ -3,6 +3,7 @@
 ## Mars 2021
 
 - Tétraèdre et bijections affines.
+- Commencer une section «géométrie dans l'espace» pour y regrouper plans, droites, etc.
 
 ## Février 2021
 
