@@ -4,6 +4,7 @@
 
 - Tétraèdre et bijections affines.
 - Commencer une section «géométrie dans l'espace» pour y regrouper plans, droites, etc.
+- Produit de Cauchy : mise en ordre et un peu de démonstration.
 
 ## Février 2021
 
