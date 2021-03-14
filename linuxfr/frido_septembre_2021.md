@@ -4,7 +4,9 @@
     Giulietta (EN)
     Des corrigés Matlab (FR)
     Des exercices et corrigés (FR)
-- Faire une note à propos du nouveau règlement de l'agreg qui est dans le rapport du jury.
 - Dire que la liste des développements est à nouveau là.
 
 - Écriture épicène. ah ah. Je fais du pseudo-aléatoire.
+
+- Règlement de l'agrégation.
+    Maintenant que l'équité entre les candidats est au centre du règlement, nous pouvons nous amuser avec des paradoxes. Est-ce que les livres qui ne sont plus vendus sont interdits ?
