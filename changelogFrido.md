@@ -5,6 +5,7 @@
 - Tétraèdre et bijections affines.
 - Commencer une section «géométrie dans l'espace» pour y regrouper plans, droites, etc.
 - Produit de Cauchy : mise en ordre et un peu de démonstration.
+- Il y a deux fois la partition d'un entier en parts égales. J'avais commencé à en faire une troisième. Fusion, prendre le meilleur des trois.
 
 ## Février 2021
 
