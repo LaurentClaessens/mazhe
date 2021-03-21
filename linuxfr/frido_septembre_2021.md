@@ -13,3 +13,8 @@
     Maintenant que l'équité entre les candidats est au centre du règlement, nous pouvons nous amuser avec des paradoxes. Est-ce que les livres qui ne sont plus vendus sont interdits ?
 
 - Il est dans la bibliothèque de l'agreg interne:  https://interne.agreg.org/index.php?id=oraux
+
+- Idées de développements. Il me faut des idées de développement avec:
+    * énoncé
+    * démonstration
+    * un mot expliquant pourquoi ce développement rentre dans la leçon
