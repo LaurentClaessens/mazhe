@@ -6,6 +6,10 @@
 - Commencer une section «géométrie dans l'espace» pour y regrouper plans, droites, etc.
 - Produit de Cauchy : mise en ordre et un peu de démonstration.
 - Il y a deux fois la partition d'un entier en parts égales. J'avais commencé à en faire une troisième. Fusion, prendre le meilleur des trois.
+- Mise en ordre; j'ai plus ou moins la progression suivantes :
+    * La topologie sur R est celle de la valeur absolue
+    * On démontre juste ce qu'il faut pour définir la racine carré (théorème des valeurs intermédiaires)
+    * On peut alors faire différentes normes, R^n, espaces vectoriels normés.
 
 ## Février 2021
 
