@@ -20,10 +20,18 @@
 # sequence of 40 hex digits than a full LaTeX line. Not to speak
 # of correctly escape the string ...
 
-ok_hash = []
+
+def has_to_be_printed(future_reference):
+    """Print the future reference."""
+    for filename in future_reference.concerned_files:
+        if "front_back_matter" in filename:
+            return False
+    return True
+    future_reference.output()
 
 # Le 19 décembre 2019, il y avait exactement 1000 places libres.
 
+ok_hash = []
 ok_hash.append("0c0437c005eb5a119b891f3a4334a886f580ba41")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
