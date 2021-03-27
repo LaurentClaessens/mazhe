@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2020
 
+- Volume 1. Définition 1.97. Les mots «corps» et «anneaux» sont inversés. Un corps est un anneau dans lequel les non nuls sont inversibles.
 - Volume 2. Théorème 11.311. La passage de (11.813) à (11.814) limite la validité de l'inéquation à des valeurs de i assez grandes. Or ce "assez grand" dépend à priori des valeurs de n,y et x (qui sont cachées dans alpha_n). Il n'est pas clair que nous puissions prendre la limite n->infini si facilement parce que rien ne garantit que le domaine de validité (par rapport à i) de l'inéquation reste non vide. Cela est particulièrement délicat au moment de prendre le supremum sur y un peu plus bas, parce qu'encore le domaine de validité en i dépend de y. La solution est de remarquer que l'on travaille sur un compact, de telle sorte que | y-x | < M. Nous faisons alors une étape supplémentaire de majoration | y-x | < M à l'intérieur de alpha_n. 
 - Volume 1. Lemme 7.286. Il s'agit d'une inclusion et non d'une égalité.
 - Volume 1. Théorème 7.288. Il manque le traitement de pas mal de subtilités topologiques. En particulier la preuve de d(x,y)=0 => x=y n'est pas écrite, et elles est moins simple que vous pouvez le croire. La définition dans l'équation (7.335) manque d'une sérieuse preuve de l'injectivité de la fonction qui à un r donné fait correspondre le n et la suite des coefficients.
