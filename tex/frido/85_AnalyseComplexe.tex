@@ -135,6 +135,345 @@ Le théorème suivant complète la proposition~\ref{PropDRnYkKP}.
     \end{enumerate}
 \end{theorem}
 
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Dénombrement des solutions d'une équation diophantienne}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Le théorème \ref{THOooQDYWooCOiUMb} peut être vu soit comme un dénombrement de solutions d'une certaine équation diophantienne, soit comme partition d'un entier en parts fixées. Avant de nous lancer dans sa démonstration, nous prouvons un certain nombre de lemmes qui vont traiter des aspects combinatoires de la preuve.
+
+Soit \( n,N\in \eN\). Soit \( a\in \eN^N\). Nous considérons les ensembles suivants :
+\begin{subequations}
+    \begin{align}
+    V_n(N)&=\{ x\in \eN^N\tq \sum_{i=1}^Nx_i=n \}, \\
+    W_n(a,N)&=\{ y\in \eN^N\tq y\cdot a=n \},\\
+    V_n(N)_a&=\{ x\in V_n(N)\tq a_i\divides x_i\,\forall i=1,\ldots, N \}.
+    \end{align}
+\end{subequations}
+L'ensemble \( V_n(N)\) avait déjà été rencontré en \eqref{EQooJCBSooMSbaCd}.
+
+\begin{lemma}       \label{LEMooLKCAooCeDnSj}
+    L'application
+    \begin{equation}
+        \begin{aligned}
+            \psi\colon W_n(a,N)&\to V_n(N)_a \\
+            (y_1,\ldots, y_N)&\mapsto (y_1a_1,\ldots, y_Na_N) 
+        \end{aligned}
+    \end{equation}
+    \begin{enumerate}
+        \item       
+            est bien définie, c'est à dire qu'elle prend effectivement ses valeurs dans \( V_n(N)_a\),
+        \item
+            est une bijection.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    En plusieurs parties.
+    \begin{subproof}
+        \item[Bien définie]
+            Soit \( y\in W_n(a,N)\). Nous avons \( \psi(y)_i=a_iy_i\). Le nombre \( a_i\) divise donc bien \( \psi(y)_i\) et \( \sum_{i=1}^N\psi(y)_i=n\).
+        \item[Injective]
+            Si \( \psi(y)=\psi(y')\), alors pour tout \( i\) nous avons \( y_ia_i=y'_ia_i\), et donc \( y_i=y'_i\). La fonction \( \psi\) est donc bien injective.
+        \item[Surjective]
+            Soit \( x\in V_n(N)_a\). Vu que \( a_i\divides x_i\), il existe \( y_i\in \eN\) tel que \( x_i=a_iy_i\). On vérifie que \( y\in W_n(a,N)\) et que \( \psi(y)=x\).
+    \end{subproof}
+\end{proof}
+
+
+\begin{lemma}       \label{LEMooOPXHooHzoHrm}
+    Pour \( i=1,\ldots, N\), nous posons
+    \begin{equation}
+        \begin{aligned}
+            b_i\colon \eN^N&\to \{ 0,1 \} \\
+            x&\mapsto \begin{cases}
+                1    &   \text{si } a_i\divides x_i\\
+                0    &    \text{sinon. }
+            \end{cases}
+        \end{aligned}
+    \end{equation}
+    Nous avons
+    \begin{equation}
+        \sum_{x\in V_n(N)}\prod_{i=1}^Nb_i(x)=\Card\big( W_n(a,N) \big).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Nous décomposons la somme en \( V_n(N)_a\) et son complémentaire dans \( V_n(N)\) :
+    \begin{subequations}
+        \begin{align}
+        \sum_{x\in V_n(N)}\prod_{i=1}^Nb_i(x)&=\sum_{x\in V_n(N)_a}\prod_{i=1}^Nb_i(x)+\sum_{x\in V_n(N)\setminus V_n(N)_a}\prod_{i=1}^Nb_i(x)\\
+        &=\sum_{x\in V_n(N)_a}1+\sum_{x\in V_n(N)\setminus V_n(N)_a}0       \label{SUBEQooLMBGooIfxjgy}\\
+        &=\Card\big( V_n(N)_a \big) \\
+        &=\Card\big( W_n(N,a) \big)     \label{SUBEQooBBOIooBHDgYF}
+        \end{align}
+    \end{subequations}
+    Justifications :
+    \begin{itemize}
+        \item Pour \eqref{SUBEQooLMBGooIfxjgy}.
+    Si \( x\in V_n(N)_a\), alors \( a_i\divides x_i\) pour tout \( i\), et donc \( b_i(x)=1\) pour tout \( i\). Si au contraire \( x\in V_n(N)\setminus V_n(N)_a\), il existe un \( i\) tel que \( a_i\) ne divise pas \( x_i\) et donc tel que \( b_i(x)=0\).
+\item Pour \eqref{SUBEQooBBOIooBHDgYF}. Les deux ensembles sont en bijection par le lemme \ref{LEMooLKCAooCeDnSj}.
+    \end{itemize}
+\end{proof}
+
+\begin{lemma}       \label{LEMooRJOKooPJGVTr}
+    Soit \( s\geq 1\). La série entière
+    \begin{equation}
+        \sum_{l=0}^{\infty}z^{ls}
+    \end{equation}
+    a un rayon de convergence égal à \( 1\).
+\end{lemma}
+
+\begin{proof}
+    Pour un \( z\in \eC\) fixé, nous avons \( z^{ls}=(z^s)^l\)\footnote{Vu qu'ici \( l\) et \( s\) sont entiers, c'est pas profond ça. Il ne faut pas invoquer la proposition générale \ref{PROPooDWZKooNwXsdV}.}. Nous appelons dons la proposition \ref{PROPooWOWQooWbzukS} avec \( q=z^s\).
+
+    Si \( | z |<1\), alors \( | z^s |<1\) et la proposition \ref{PROPooWOWQooWbzukS} nous dit que la série converge. Si au contraire \( | z |>1\), alors \( | z^s |>1\) et la série diverge.
+
+    Le corollaire \ref{CORooCUDSooTfMvAB} conclu que le rayon de convergence est bien \( 1\).
+\end{proof}
+
+\begin{theorem}[\cite{fJhCTE,NHXUsTa,BIBooLIDJooYWosFk,KXjFWKA}] \label{THOooQDYWooCOiUMb}
+    Soient \( N\in \eN\) et \( a\in \eN^N\) tel que \( \pgcd(a_i,\ldots, a_{N})=1\). Nous posons
+    \begin{equation}
+        W_n(a,N)=\{ y\in \eN^N\tq y\cdot a=n \}.
+    \end{equation}
+    Nous avons alors
+    \begin{equation}
+        \Card\big( W_n(a,N) \big)\sim\frac{1}{ \prod_{k=1}^Na_k }\frac{ n^{N-1} }{ (N-1)! }.
+    \end{equation}
+\end{theorem}
+
+
+\begin{proof}
+    Pour chaque \( i=1,\ldots, N\), nous considérons la série entière
+    \begin{equation}
+        s_i(z)=\sum_{k=0}^{\infty}z^{ka_i}.
+    \end{equation}
+    dont le rayon de convergence vaut \( 1\) par le lemme \ref{LEMooRJOKooPJGVTr}. Nous nous apprêtons à faire le produit de Cauchy multiple de la proposition \ref{PROPooJPVVooLqSdSn}; nous posons donc
+    \begin{equation}
+        b_{ik}=\begin{cases}
+            1    &   \text{si } a_i|k\\
+            0    &    \text{sinon },
+        \end{cases}
+    \end{equation}
+    et nous écrivons toutes les séries \( s_i\) sous la forme
+    \begin{equation}
+        s_i(z)=\sum_{k=0}^{\infty}b_{ik}z^k.
+    \end{equation}
+    La proposition \ref{PROPooJPVVooLqSdSn} nous assure que si \( | z |<1\), le produit \( \prod_{i=1}^Ns_i(z)\) peut être écrit sous la forme de la série entière
+    \begin{subequations}
+        \begin{align}
+            \prod_{i=1}^Ns_i(z)&=\sum_{n=0}^{\infty}\left( \sum_{x\in V_n(N)}\prod_{i=1}^Nb_{ix_i} \right)z^n\\
+            &=\sum_{n=0}^{\infty}\left( \sum_{x\in V_n(N)}\prod_{i=1}^Nb_i(x) \right)z^n        \label{SUBEQooEEHKooPSrpiT} \\
+            &=\sum_{n=0}^{\infty}\Card\big( W_n(a,N) \big)z^n       \label{SUBEQooULBCooSTuHvy}
+        \end{align}
+    \end{subequations}
+    Justifications :
+    \begin{itemize}
+        \item Pour \eqref{SUBEQooEEHKooPSrpiT}. Notation \( b_i\) du lemme \ref{LEMooOPXHooHzoHrm}.
+        \item Pour \eqref{SUBEQooULBCooSTuHvy}. Utilisation du lemme \ref{LEMooOPXHooHzoHrm}
+    \end{itemize}
+    <++>
+    
+\end{proof}
+<++>
+
+
+\begin{theorem}[\cite{fJhCTE,NHXUsTa,BIBooLIDJooYWosFk,KXjFWKA}] \label{ThoDIDNooUrFFei}
+    Soient des entiers naturels premiers dans leur ensemble\footnote{Définition~\ref{DefZHRXooNeWIcB}.} \( \alpha_1,\ldots, \alpha_p\) et l'équation
+    \begin{equation}
+        \alpha_1n_1+\cdots +\alpha_pn_p=n
+    \end{equation}
+    pour les naturels \( n_i\) où \( n\) est un naturel donné. Nous notons \( S_n\) le nombre de solutions de cette équation. Alors :
+    \begin{enumerate}
+        \item
+            Il existe un algorithme (en temps fini) pour calculer \( S_n\) en fonction des \( \alpha_i\) et de \( n\).
+        \item
+            Nous avons le comportement asymptotique
+            \begin{equation}
+                S_n\sim\frac{1}{ \alpha_1\ldots\alpha_p }\frac{ n^{p-1} }{ (p-1)! }.
+            \end{equation}
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Pour \( | z |<1\) dans \( \eC\), utilisant le lemme~\ref{LemPQFDooGUPBvF}, nous écrivons le développement
+    \begin{equation}
+        F(z)=\prod_{i=1}^p\frac{1}{ 1-z^{\alpha_i} }=\prod_{i=1}^p\sum_{n\geq 0}z^{n\alpha_i}.
+    \end{equation}
+    Nous allons maintenant à la pêche au terme de degré \( k\) dans ce produit de sommes en utilisant \( p\) fois le produit de Cauchy de la formule \eqref{EqFPGGooDQlXGe}. Nous avons
+    \begin{equation}
+        F(z)=\sum_{k\geq 0}\left( \sum_{n_1\alpha_1+\cdots +n_p\alpha_p=n}1 \right)z^k=\sum_{k\geq 0}S_kz^k.
+    \end{equation}
+
+    La technique pour déterminer la valeur de \( S_n\) est alors de développer \( F(z)\) en série de façon un peu explicite et d'identifier le coefficient de \( z^n\) parce que nous venons de voir que ce coefficient est \( S_n\). Nous commençons par une décomposition en éléments simples, expliquée autour de l'équation \eqref{EqDWYBooJIMBAt} :
+    \begin{equation}
+        \frac{1}{ 1-z^{\alpha_i} }=\sum_{\alpha\in U_{\alpha_i}}\frac{ A_{\omega,i} }{ \omega-z }.
+    \end{equation}
+    où \( U_{\alpha_i}\) est le groupe des racines \( \alpha_i\)\ieme de l'unité décrit en~\ref{SecGJOLooWdMYVl}. La raison de ce développement est que, comme mentionné dans le lemme~\ref{LemKYGBooAwpOHD}, \( \prod_{\omega\in\gU_{\alpha_i}}(z-\omega)=z^{\alpha_1}-1\). Lorsque nous effectuons la somme, le dénominateur commun est donc bien\footnote{Pour le signe, c'est ajustable avec le signe de \( A_{\omega,i}\).} \( 1-z^{\alpha_i}\).
+    En récrivant le produit :
+    \begin{equation}
+        F(z)=\prod_{i=1}^{p}\frac{1}{ 1-z^{\alpha_i} }=\prod_{i=1}^p\sum_{\omega\in U_{\alpha_i}}\frac{ A_{\omega,i} }{ \omega-z }
+    \end{equation}
+    Les coefficients \( A_{\omega,i}\) sont calculables explicitement, en temps fini.
+
+    Vu que \( 1\) est dans tous les \( \gU_{\alpha_i}\), le produit fait intervenir au dénominateur des puissances de \( (1-z)\) jusqu'à la puissance \( p\). Les autres racines de l'unité appartiennent au maximum à \( p-1\) des groupes \( \gU_{\alpha_i}\) parce que les nombres \( \alpha_i\) sont premiers dans leur ensemble, voir la proposition~\ref{PropFDDHooEyYxBC}.
+
+    La fonction \( F\) peut alors s'écrire sous la forme
+    \begin{equation}    \label{EqLISXooSlwIWD}
+        F(z)=\frac{ A }{ (1-z)^p }+G(z)
+    \end{equation}
+    où \( G(z)\) est une somme de termes de la forme
+    \begin{equation}
+        \frac{ a_{i,1} }{ 1-\omega_i }+\cdots +\frac{ a_{i,p} }{ (1-\omega_i)^{p-1} }
+    \end{equation}
+    où les \( \omega_i\) sont les racines \( \alpha_i\)\ieme de l'unité et \( a_{k,r}\) sont des nombres complexes. Trouvons \( A\). D'abord grâce au lemme~\ref{LemISPooHIKJBU}\ref{ItemLTBooAcyMtNii} nous avons
+    \begin{equation}
+        F(z)(1-z)^p=\prod_{l=1}^p\frac{ 1-z }{ 1-z^{\alpha_i} }=\prod_{i=1}^p\frac{ 1 }{ 1+z+\cdots +z^{\alpha_i-1} },
+    \end{equation}
+    et donc
+    \begin{equation}
+        \lim_{z\to 1}F(z)(1-z)^p=\prod_{i=1}^p\frac{1}{ \alpha_i }.
+    \end{equation}
+    Mais vu ce que contient \( G(z)\), nous avons aussi \( \lim_{z\to 1}F(z)=A\). Nous avons donc déjà déterminé \( A=\frac{1}{  \alpha_1\ldots\alpha_p }\).
+
+    Pour la suite nous avons besoin des développements du lemme~\ref{LemPQFDooGUPBvF}. Nous utiliserons en particulier celle-ci :
+    \begin{equation}
+        \frac{1}{ (\omega-z)^k }=\frac{1}{ (k-1)! }\sum_{s=0}^{\infty}\omega^{-s-1-k}\frac{ (s+k-1)! }{ s! }z^s.
+    \end{equation}
+    En particulier le module du coefficient de \( z^n\) là dedans est : \(  \frac{(n+k-1)! }{ n!(k-1)! } \). Dans la partie \( G\) de la décomposition \eqref{EqLISXooSlwIWD}, \( k\) est majoré par \( p-2\) et la dépendance en \( n\) est donc au maximum du type
+    \begin{equation}
+        \frac{ (n+p-2)! }{ n!(p-2)! }\sim  \frac{ n^{n+p-2} }{ n^n(p-2)! }=\frac{ n^{p-2} }{ (p-2)! }.
+    \end{equation}
+    Dans le premier terme par contre, il y a des termes jusqu'à \( k=p\). Le terme dominant est alors en \( \frac{ n^{p-1} }{ (p-1)! }\) et son coefficient est \( A\) qui est déjà calculé. Au final le terme dominant du coefficient de \( z^n\) dans \( F(z)\) est
+    \begin{equation}
+        S_n\sim \frac{ A }{ (p-1)! }n^{p-1}=\frac{1}{ \alpha_1\ldots \alpha_p }\frac{ n^{p-1} }{ (p-1)! }.
+    \end{equation}
+\end{proof}
+
+
+
+\begin{proposition}[\cite{KXjFWKA,BIBooLIDJooYWosFk}]     \label{PropWUFpuBR}
+    Soient \( a_1,\ldots, a_k\in \eN^*\) des entiers premiers entre eux dans leur ensemble. Pour \( n\geq 1\) nous posons
+    \begin{equation}
+        u_n=\Card\left\{  (x_1,\ldots, x_k)\in \eN^*\tq \sum_{i=1}^ka_ix_i=n \right\},
+    \end{equation}
+    et \( u_0=1\).
+
+    Alors nous avons l'équivalence de suite (pour \( n\to \infty\)) :
+    \begin{equation}
+        u_n\sim\frac{1}{ a_1\ldots a_k }\frac{ n^{k-1} }{ (k-1)! }.
+    \end{equation}
+\end{proposition}
+\index{série!entière!utilisation}
+\index{série!génératrice d'une suite!utilisation}
+\index{anneau!de séries formelles!utilisation}
+\index{corps!des fractions rationnelles!utilisation}
+\index{partition!d'un entier en parts fixées}
+
+\begin{proof}
+    Pour chacun des \( i\in\{ 1,\ldots, k \}\) nous considérons la série entière
+    \begin{equation}
+        \sum_{x=0}^{\infty}z^{xa_i}=\sum_k(z^{a_i})^x.
+    \end{equation}
+    Étant donné que \( | z^{a_i} |<1\) si et seulement si \( | z<1 |\), cette série a un rayon de convergence égal à \( 1\). Nous allons calculer le produit de Cauchy de ces \( k\) séries, en nous souvenant que le théorème~\ref{ThokPTXYC} nous assure que la série résultante aura un rayon de convergence au moins égal à \( 1\) et vaudra le produit des différentes séries.
+
+    Le coefficient de \( z^n\) dans cette série vaut
+    \begin{equation}
+        \sum_{\substack{x\in \eN^k\\\sum x_ia_i=n}}1=u_n
+    \end{equation}
+    parce que dans chacune des séries, le coefficient de tous les \( z^{xa_i}\) est \( 1\). Nous définissons la fonction
+    \begin{equation}    \label{EqKTRNFSl}
+        f(z)=\sum_{n=0}^{\infty}u_nz^n=\prod_{i=1}^k\left( \sum_{x=0}^{\infty}z^{xa_i} \right)=\prod_{i=1}^k\frac{1}{ 1-z^{a_i} }.
+    \end{equation}
+    La fonction \( f\) existe sur \( | z |<1\) parce que nous venons de voir qu'elle peut  s'exprimer comme un produit de Cauchy; et la dernière égalité est simplement la somme de la série harmonique. D'autre part la fonction \( f\) est la série génératrice de la suite \( (u_n)\).
+
+    Nous sommes en présence d'une fonction ayant des pôles\footnote{Définition \ref{DEFooUIJTooUJPiDG}.} aux racines \( a_1\),\ldots, \( a_k\)\ieme\ de l'unité. Étant donné que \( 1\) est une racine de l'unité de tous les ordres, le pôle en \( z=1\) est de multiplicité \( k\). Les autres pôles sont de multiplicité strictement inférieure; en effet soit \( \omega\in \eC\) tel que \( \omega^{a_i}=1\) pour tout \( i\). Alors Bezout\footnote{Théorème~\ref{ThoBuNjam}.} nous donne des entiers \( v_i\in \eZ\) tels que \( \sum_iv_ia_i=1\). Alors nous avons
+%TODO : il faudrait citer ici un théorème de Bezout pour les ensembles de nombres premiers dans leur ensemble; le théorème cité ici n'est pas suffisant.
+    \begin{equation}
+        \omega=\omega^{\sum_{v_ia_i}}=\prod_{i=1}^k(\omega^{a_i})^{v_i}=1.
+    \end{equation}
+    Donc nous voyons que \( 1\) est le seul à être racine de tous les ordres en même temps. Nous notons
+    \begin{equation}
+        P=\{ \omega_1,\ldots, \omega_p \}
+    \end{equation}
+    l'ensemble des pôles avec \( \omega_1=1\). Par ailleurs la fonction \( f\) est une fraction rationnelle dont nous connaissons les racines du dénominateur (ce sont les \( \omega_i\)) et à peu près leurs ordres. Nous utilisons le truc de la décomposition en fractions simples
+%TODO : après avoir fait la décomposition en fractions simples, il faut mettre une référence ici.
+    en séparant le terme de puissance \( k\) qui n'existe que pour la racine \( \omega_1=1\) :
+    \begin{equation}    \label{EqDLTJaYr}
+        f(z)=\frac{ \alpha }{ (1-z)^k }+\sum_{i=1}^p\sum_{j=1}^{k-1}\frac{ c_{ij} }{ (\omega_i-z)^j }.
+    \end{equation}
+    Ce développement est valable pour tout \( | z |<1\). Nous considérons maintenant \( \omega\in P\) et \( j\in \eN\) et nous étudions la fonction
+    \begin{equation}
+        g(z)=\frac{1}{ \omega-z }.
+    \end{equation}
+    Un rapide calcul (par exemple par récurrence) montre que
+    \begin{equation}    \label{EqEJLDIFJ}
+        g^{(k)}(z)=\frac{ k! }{ (\omega-z)^{k+1} },
+    \end{equation}
+    et étant donné que \( | \omega |=1\) nous pouvons écrire la série
+    \begin{equation}
+        \frac{1}{ \omega-z }=\sum_{k=0}^{\infty}\frac{ z^k }{ \omega^{k+1} },
+    \end{equation}
+    valable pour \( | z |<1\). Ce qui nous intéresse, c'est d'exprimer une série pour \( 1/(\omega-z)^j\); et voyant \eqref{EqEJLDIFJ}, nous voyons qu'il suffit de calculer les dérivées de la série de \( g\). Nous dériver terme à terme à l'intérieur du rayon de convergence. Avec quelques abus d'écriture, et en utilisant la bête formule \eqref{EqSOFdwhw} nous avons\quext{À ce niveau j'ai pas exactement le même coefficient binomial que dans \cite{KXjFWKA}, mais je n'exclus absolument pas que ce soit moi qui me trompe. Écrivez-moi si vous pouvez infirmer ou confirmer l'erreur. Quoi qu'il en soit, cela ne change pas le résultat asymptotique que nous cherchons.}
+    \begin{subequations}
+        \begin{align}
+            \frac{1}{ (\omega-z)^j }&=\frac{ g^{(j-1)}(z) }{ (j-1)! }\\
+            &=\frac{1}{ (j-1)! }\left( \frac{1}{ \omega-z } \right)^{(j-1)}\\
+            &=\frac{1}{ (j-1)! }\sum_{k=0}^{\infty}\frac{1}{ \omega^{k+1} }(z^k)^{(j-1)}\\
+            &=\sum_{k=j-^{\infty}}\frac{1}{ (j-1)! }\frac{1}{ \omega^{k+1} }\frac{ k! }{ (k-j+1)! }z^{k-j+1}\\
+            &=\sum_{n=0}^{\infty}\frac{1}{ \omega^{n+j} }\frac{ (n+j-1)! }{ n!(j-1)! }z^n\\
+            &=\sum_{n=0}^{\infty}\frac{1}{ \omega^{n+j} }{n+j-1\choose n}z^n.
+        \end{align}
+    \end{subequations}
+    Nous pouvons utiliser cela pour récrire la formule \eqref{EqDLTJaYr} de façon considérablement plus compliquée :
+    \begin{equation}
+            f(z)=\alpha\sum_{n=0}^{\infty}{n+j-1\choose n}z^n
+            +\sum_{i=1}^p\sum_{j=1}^{k-1}\sum_{n=0}^{\infty}c_{ij}{n+j-1\choose n}\frac{ z^n }{ \omega_i^{n+j} }.
+    \end{equation}
+    Mais nous savons que ce \( f\) est la série génératrice de la suite \( (u_n)\) et que nous pouvons donc utiliser la formule \eqref{EqNGhVCpP} pour exprimer les nombres \( u_l\) : \( u_l\) est simplement le coefficient de \( z^l\) divisé par \( l!\). C'est-à-dire
+    \begin{equation}
+        u_l=\alpha{l+k-1\choose l}+\sum_{i=1}^p\sum_{j=1}^{k-1}c_{ij}{l+j-1\choose l}\frac{1}{ \omega_i^{l+j} }.
+    \end{equation}
+    Notre boulot est d'examiner le comportement de cela lorsque \( l\to\infty\), c'est-à-dire regarder quels sont les puissances de \( l\) en présence. Notons que
+
+    En ce qui concerne le premier terme, la puissance dominante dans le coefficient binomial est \( l^{k-1}\). Dans les autres termes\footnote{Attention : les termes \( i=1\) ont \( \omega_1=1\) et il n'est donc pas possible de conclure simplement en disant que \( \omega_i^{l-j}\to 0\) pour \( l\to \infty\); bien que cela soit vrai pour tous les \( i\neq 1\).}, c'est \( l^{j-1}\) qui est de degré moins grand. Donc le comportement de \( u_l\) en termes de \( l\) est
+    \begin{equation}
+        u_l\sim \alpha\frac{ l^{k-1} }{ (k-1)! }.
+    \end{equation}
+    Il nous reste à voir ce que vaut \( \alpha\). Pour cela nous repartons de l'expression~\ref{EqKTRNFSl} que nous écrivons sous la forme
+    \begin{equation}
+        (1-z)^kf(z)=\prod_{i=1}^{k}\frac{ 1-z }{ 1-z^{a_i} }.
+    \end{equation}
+    Nous reconnaissons l'inverse d'une somme harmonique partielle :
+    \begin{equation}    \label{EqTIAxvHE}
+        (1-z)^kf(z)=\prod_{i=1}^k\frac{1}{ 1+z+z^2+\cdots +z^{a_i-1} }.
+    \end{equation}
+    Par ailleurs, nous ne savons pas si \( f(1)\) existe parce que son rayon de convergence n'est que de \( 1\); et nous savons même qu'elle n'existe pas (parce que ce serait la somme des \( u_n\)). Mais nous savons aussi que le pôle de plus grande multiplicité de \( f\) est en \( z=1\) et est de multiplicité \( k\). Donc \( (1-z)^kf(z)\) devrait converger pour \( z\to 1\). Pour tout \( | z<1 |\) nous avons
+    \begin{equation}
+        (1-z)^kf(z)=\alpha+\sum_{i=1}^p\sum_{j=1}^{k-1}c_{ij}\frac{ (1-z)^k }{ (\omega_i-z)^j }.
+    \end{equation}
+    Lorsque \( z\to 1\), tous les termes des sommes tendent vers zéro, y compris ceux avec \( i=1\) parce que \( j<k\). Il reste donc
+    \begin{equation}
+        \lim_{z\to 0} (1-z)^kf(z)=\alpha.
+    \end{equation}
+    En calculant la même limite avec \eqref{EqTIAxvHE} nous trouvons
+    \begin{equation}
+        \lim_{z\to 1}(1-z)^kf(z)=\lim_{z\to 1}\prod_{i=1}^k\frac{1}{ 1+z+z^2+\cdots +z^{a_i-1} }=\frac{1}{ a_1\ldots a_k }.
+    \end{equation}
+    Donc
+    \begin{equation}
+        \alpha=\frac{1}{ a_1\ldots a_k },
+    \end{equation}
+    et le résultat est prouvé.
+\end{proof}
+
+\begin{example}
+    Pour \( p=1\), l'équation est \( \alpha x=n\), qui possède au maximum une solution, quel que soit \( n\). Et de plus pour avoir une solution il faut et suffit que \( \alpha\) divise \( n\), c'est-à-dire que \( n\) soit un multiple de \( \alpha\). Il n'y a que un nombre sur \( \alpha\) à être multiple de \( \alpha\). D'où le comportement en \( \frac{1}{ \alpha }\).
+
+    Pour \( p=2\), c'est l'équation \eqref{EqTOVSooJbxlIq} déjà étudiée. Il y a une famille à un paramètre de solutions dont seulement un certain nombre sont positives. À priori, le nombre de solutions positives croît linéairement en \( n\).
+\end{example}
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Fonctions d'Euler}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
