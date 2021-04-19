@@ -31,13 +31,14 @@ def has_to_be_printed(future_reference):
 
 # Le 19 décembre 2019, il y avait exactement 1000 places libres.
 
+
 ok_hash = []
 ok_hash.append("fad812fe30b9e4472498012a1f29fbd81889c43d")
 ok_hash.append("7a4b0fd24f74f2bc0cf4ea78b22e7d0f591bc08b")
 ok_hash.append("827f898b30c9663c8dd46cd2805cc12e0431b91c")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
+ok_hash.append("37b0ed39b438321e553714c41c4420999d022b28")
+ok_hash.append("51dc0512eb39703cf5d425f416a1ab002afe0214")
+ok_hash.append("dcfc433d0fde747f46dc0cf3a1ed6391dd91327f")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
