@@ -1,6 +1,10 @@
 # Journal des changements du Frido
 
-## Mars 2021
+## Avril 2021
+
+- L^1 avec le produit de convolution est une algèbre de Banach.
+
+## Mars-Avril 2021
 
 - Tétraèdre et bijections affines.
 - Commencer une section «géométrie dans l'espace» pour y regrouper plans, droites, etc.

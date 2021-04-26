@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2011-2020
+% Copyright (c) 2011-2021
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
@@ -69,24 +69,94 @@ Ce théorème sera généralisé à tous les \( L^p(\eR^d)\) par le théorème~\
 
 Le théorème qui permet de dire que le produit de convolution n'est pas tout à fait ridicule est le suivant.
 
-\begin{theorem}[\cite{MesIntProbb}]     \label{THOooMLNMooQfksn}
-    Soient \( f,g\in L^1(\eR^n)\).
+\begin{theorem}[\cite{MesIntProbb,BIBooILUOooWJfTok}]     \label{THOooMLNMooQfksn}
+    Soient \( f,g\in L^1(\eR^d)\).
     \begin{enumerate}
         \item
-            Pour presque tout \( x\in \eR^n\), la fonction
+            Pour presque tout \( x\in \eR^d\), la fonction
             \begin{equation}
-                y\mapsto g(x-y)f(y)
+                \begin{aligned}
+                    h_x\colon \eR^d&\to \eC \\
+                    y&\mapsto g(x-y)f(y)
+                \end{aligned}
             \end{equation}
-            est dans \( L^1(\eR^n)\).
+            est dans \( L^1(\eR^d)\).
         \item
-            \( f*g\in L^1(\eR^n)\).
+            \( f*g\in L^1(\eR^d)\).
         \item
             \( \| f*g \|_1\leq \| f \|_1\| g \|_1\).
     \end{enumerate}
 \end{theorem}
 
+\begin{proof}
+    Nous considérons l'application
+    \begin{equation}
+        \begin{aligned}
+            \phi\colon \eR^d\times \eR^d&\to \eR^d\times \eR^d \\
+            (x,y)&\mapsto (x-y,y). 
+        \end{aligned}
+    \end{equation}
+    Cela est un \( C^1\)-difféomorphisme dont le jacobien vaut
+    \begin{equation}
+        J_{\phi}(x,y)=\det\begin{pmatrix}
+            (\partial_1\phi_1)(x,y)    &   (\partial_2\phi_1)(x,y)    \\ 
+            (\partial_1\phi_2)(x,y)    &   (\partial_2\phi_2)(x,y)    
+        \end{pmatrix}=\det\begin{pmatrix}
+            1    &   -1    \\ 
+            0    &   1    
+        \end{pmatrix}=1.
+    \end{equation}
+    C'est une première bonne chose.
+    
+    Ensuite nous considérons la fonction
+    \begin{equation}
+        \begin{aligned}
+            \alpha\colon \eR^d\times \eR^d&\to \eC \\
+            (x,y)&\mapsto f(y)g(x). 
+        \end{aligned}
+    \end{equation}
+    Par hypothèse, pour chaque \( y\), la fonction \( x\mapsto |\alpha(x,y)|\) est dans \( L^1(\eR^d)\). Bref, le calcul suivant a un sens :
+    \begin{subequations}
+        \begin{align}
+            \int_{\eR^d}\left[ \int_{\eR^d}| \alpha |dx \right]dy&=\int_{\eR^d}\left[ \int_{\eR^d}| f(y)g(x) |dx \right]dy\\
+            &=\int_{\eR^d}\left[ | f(y) |\int_{\eR^d}| g(x) |dx \right]dy\\
+            &=\| f \|_{L^1(\eR^d)}\| g \|_{L^1(\eR^d)}  \label{SUBEQooMYLWooPeNLlk}\\
+            &<\infty.
+        \end{align}
+    \end{subequations}
+    Le corollaire \ref{CorTKZKwP} nous dit alors que \( \alpha\in L^1(\eR^d\times \eR^d)\). Et notons au passage que
+    \begin{equation}        \label{EQooLCWNooHLLdRd}
+        \| \alpha \|_{L^1(\eR^d\times \eR^d)} =\int_{\eR^d\times \eR^d}| \alpha | =\| f \|_{L^1(\eR^d)}\| g \|_{L^1(\eR^d)}
+    \end{equation}
+    parce que le théorème de Fubini \ref{ThoFubinioYLtPI} permet de scinder l'intégrale et de retomber sur \eqref{SUBEQooMYLWooPeNLlk}.
+    
+    Vu que \( \alpha\in L^1(\eR^d\times \eR^d)\), nous pouvons utiliser le changement de variable \ref{THOooUMIWooZUtUSg} avec l'application \( \phi\) ci-dessus. En notant \( \lambda\) la mesure de Lebesgue,
+    \begin{subequations}
+        \begin{align}
+            \infty>\int_{\eR^d\times \eR^d}| \alpha |d\lambda&=\int_{\eR^d\times \eR^d}\big( | \alpha |\circ\phi \big)| J_{\phi} |d\lambda\\
+            &=\int_{\eR^d\times \eR^d}| \alpha |(x-y,y)d\lambda(x,y)\\
+            &=\int_{\eR^d\times \eR^d}| f(y)g(x-y) |d\lambda(x,y)\\
+            &=\int_{\eR^d}\left[ \int_{\eR^d}| f(y)g(x-y) |dy \right]dx.
+        \end{align}
+    \end{subequations}
+    Nous avons scindé l'intégrale avec le théorème de Fubini pour la dernière étape.
+
+    Passons à l'intégrabilité de \( f*g\). Nous avons
+    \begin{equation}        \label{EQooXMFYooKPIGfU}
+        | (f*g)(x) |\leq \int_{\eR^d}| f(y)g(x-y) |dy.
+    \end{equation}
+    Or nous venons de voir que \eqref{EQooXMFYooKPIGfU} était, en tant que fonction de \( x\), intégrable sur \( \eR^d\) et que
+    \begin{equation}
+        \int_{\eR^d}| (f*g)(x) |dx\leq\int_{\eR^d}\left[ \int_{\eR^d}| f(y)g(x-y) |dy \right]dx=\int_{\eR^d\times \eR^d}| \alpha |d\lambda<\infty.
+    \end{equation}
+    Cela prouve que \( f*g\in L^1(\eR^d)\), mais en nous souvenant de \eqref{EQooLCWNooHLLdRd}, cela prouve aussi que
+    \begin{equation}
+        \int_{\eR^d}| (f*g)(x) |dx\leq\int_{\eR^d\times \eR^d}| \alpha |d\lambda=\| f \|_{L^1(\eR^d)}\| g \|_{L^1(\eR^d)}.
+    \end{equation}
+\end{proof}
+
 \begin{proposition}     \label{PROPooNBHNooInwoar}
-    L'ensemble \( L^1(\eR^n)\) devient alors une algèbre de Banach.
+    Le couple \( \big( L^1(\eR^d), * \big)\) est  une algèbre de Banach.
 \end{proposition}
 
 \begin{lemma}
@@ -788,8 +858,7 @@ Le lemme suivant montre que que les boules autour de \( 1\) sont délimitées pa
 
 Si \( r<\pi\), alors nous partons de la formule \eqref{EQooRVPJooTMwNTU} qui dit que \(  e^{ir}=\cos(e)+i\sin(r)\). D'après le lemme \ref{LEMooMYNVooIWWsiV}, un élément de \( B_d(1,r)\) est de la forme \(  e^{iy}\) avec \( y\in \mathopen] -r , r \mathclose[\). Nous voudrions donc prouver que \( \cos(y)>\cos(r)\) dès que \( y\in\mathopen] -r , r \mathclose[\) et \( r<\pi\).
 
-    %TODOooBZPCooAFVbcT
-Sur \( \mathopen] -r , 0 \mathclose[\), la fonction \( \cos\) est croissante, donc si \( y<0\) alors 
+Sur \( \mathopen] -r , 0 \mathclose[\), la fonction \( \cos\) est croissante\footnote{Lemme \ref{LEMooBIPFooQNiTqZ}.}, donc si \( y<0\) alors 
     \begin{equation}
         \cos(y)>\cos(-r)=\cos(r).
     \end{equation}
