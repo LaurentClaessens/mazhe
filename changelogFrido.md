@@ -1,8 +1,13 @@
 # Journal des changements du Frido
 
+
+## Mai 2021
+
+- Théorème de prolongement de Riemann
+- L^1 avec le produit de convolution est une algèbre de Banach.
+
 ## Avril 2021
 
-- L^1 avec le produit de convolution est une algèbre de Banach.
 
 ## Mars-Avril 2021
 

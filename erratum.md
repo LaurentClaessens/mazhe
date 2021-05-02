@@ -2,8 +2,9 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
-## Frido 2020
+## Frido 2020 (7 fautes)
 
+- Volume 3. Proposition 26.37. Inégalité de Minkwowski. La partie (2) sur le cas d'égalité est fausse.
 - Volume 2. Théorème 11.32. La convergence de f_k vers f est seulement uniforme sur tout compacts.
 - Volume 1. Définition 1.97. Les mots «corps» et «anneaux» sont inversés. Un corps est un anneau dans lequel les non nuls sont inversibles.
 - Volume 2. Théorème 11.311. La passage de (11.813) à (11.814) limite la validité de l'inéquation à des valeurs de i assez grandes. Or ce "assez grand" dépend à priori des valeurs de n,y et x (qui sont cachées dans alpha_n). Il n'est pas clair que nous puissions prendre la limite n->infini si facilement parce que rien ne garantit que le domaine de validité (par rapport à i) de l'inéquation reste non vide. Cela est particulièrement délicat au moment de prendre le supremum sur y un peu plus bas, parce qu'encore le domaine de validité en i dépend de y. La solution est de remarquer que l'on travaille sur un compact, de telle sorte que | y-x | < M. Nous faisons alors une étape supplémentaire de majoration | y-x | < M à l'intérieur de alpha_n. 
@@ -11,7 +12,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 - Volume 1. Théorème 7.288. Il manque le traitement de pas mal de subtilités topologiques. En particulier la preuve de d(x,y)=0 => x=y n'est pas écrite, et elles est moins simple que vous pouvez le croire. La définition dans l'équation (7.335) manque d'une sérieuse preuve de l'injectivité de la fonction qui à un r donné fait correspondre le n et la suite des coefficients.
 - Volume 3. Définition 19.20 d'une partition de l'unité. Cette définition me semble très bizarre : si l'ouvert est composé de deux ouverts non connexes, je ne vois pas comment c'est possible. Décuplez votre vigilance, et dites-moi si vous connaissez un énoncé exact.
 
-## Frido 2019
+## Frido 2019 (7 fautes)
 
 - Volume 1. Définition 1.45 d'anneau commutatif. C'est la multiplication qui doit être commutative. La somme est toujours commutative; c'est dans la définition d'un anneau.
 - Volume 2. Proposition 15.193. La démonstration ne traite pas le cas d'une union dénombrable. Il faut utiliser le théorème de la convergence monotone pour passer à la limite. C'est à dire suivre les lignes de la proposition 15.187.
@@ -21,9 +22,8 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 - Volume 1. Lemme 2.7. Tout sous-groupe de G contenant A contient gr(A) et non "est contenu dans".
 - Volume 1. Sous la définition 2.21. La justification du fait que D(G) est non vide est fausse : le fait que G fasse partie des ensembles de l'intersection ne signifie pas que l'intersection est non vide. Par contre l'élément neutre est nécessairement présent. (découverte par Colin Pitrat)
 
-## Frido 2018
+## Frido 2018 (16 fautes)
 
-Les fautes sont présentées par ordre anti-chronoligique de découvertes.
 
 - Volume 2. Prolongement de fonctions, lemme 14.61. Ce lemme est faux.
             Un contre-exemple est donné par la fonction caractéristique des rationnels plus grands que sqrt(2). C'est une fonction continue sur Q qui n'est pas prolongeable en une fonction continue sur R.
@@ -69,7 +69,7 @@ Les fautes sont présentées par ordre anti-chronoligique de découvertes.
   Pour sa propre topologie, A est un ouvert. La fonction est continue sur A parce que l'image inverse de tout ouvert est ouvert.
   Mais elle n'est pas continue en chacun de ses points parce que nous n'avons pas définit la notion de limite sur un point qui n'est pas un point d'accumulation. Bien entendu, A ne possède aucun point d'accumulation.
 
-## Frido 2017
+## Frido 2017 (9 fautes)
 
 Les fautes sont présentées par ordre anti-chronologique de découvertes.
 
