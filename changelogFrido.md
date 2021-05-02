@@ -5,6 +5,7 @@
 
 - Théorème de prolongement de Riemann
 - L^1 avec le produit de convolution est une algèbre de Banach.
+- cas d'égalité dans Hölder et Minkowski
 
 ## Avril 2021
 
