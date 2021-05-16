@@ -18,3 +18,5 @@
     * énoncé
     * démonstration
     * un mot expliquant pourquoi ce développement rentre dans la leçon
+
+- permalien avec showkeys
