@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2020 (7 fautes)
 
+- Volume 1. Lemme 9.85. Dans l'équation (9.161), le premier terme doit être (lambda1-lambda1)v_1, et donc être nul. Ensuite, il faut continuer à appliquer les (A-lambda_i) avec i < p pour finir avec v_p=0. Et continuer avec p-1. Merci à Patrice Goyer pour l'avoir trouvée.
 - Volume 3. Proposition 26.37. Inégalité de Minkwowski. La partie (2) sur le cas d'égalité est fausse.
 - Volume 2. Théorème 11.32. La convergence de f_k vers f est seulement uniforme sur tout compacts.
 - Volume 1. Définition 1.97. Les mots «corps» et «anneaux» sont inversés. Un corps est un anneau dans lequel les non nuls sont inversibles.
