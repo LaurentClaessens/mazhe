@@ -2,8 +2,9 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
-## Frido 2020 (8 fautes)
+## Frido 2020 (9 fautes)
 
+- Volume 1. Proposition 1.28. Dans la partie «L'autre sens», rien ne va. Les A et B sont mélangés et phi n'est pas injective (mais de toutes façons elle devait aller dans l'autre sens).
 - Volume 1. Lemme 9.85. Dans l'équation (9.161), le premier terme doit être (lambda1-lambda1)v_1, et donc être nul. Ensuite, il faut continuer à appliquer les (A-lambda_i) avec i < p pour finir avec v_p=0. Et continuer avec p-1. Merci à Patrice Goyer pour l'avoir trouvée.
 - Volume 3. Proposition 26.37. Inégalité de Minkwowski. La partie (2) sur le cas d'égalité est fausse.
 - Volume 2. Théorème 11.32. La convergence de f_k vers f est seulement uniforme sur tout compacts.
@@ -24,7 +25,6 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 - Volume 1. Sous la définition 2.21. La justification du fait que D(G) est non vide est fausse : le fait que G fasse partie des ensembles de l'intersection ne signifie pas que l'intersection est non vide. Par contre l'élément neutre est nécessairement présent. (découverte par Colin Pitrat)
 
 ## Frido 2018 (16 fautes)
-
 
 - Volume 2. Prolongement de fonctions, lemme 14.61. Ce lemme est faux.
             Un contre-exemple est donné par la fonction caractéristique des rationnels plus grands que sqrt(2). C'est une fonction continue sur Q qui n'est pas prolongeable en une fonction continue sur R.
