@@ -1,10 +1,8 @@
-#! /usr/bin/python
-# -*- coding: utf8 -*-
-
 from pytex.src import PytexTools
 import commons
 import plugins_agreg
 
+from commons import has_to_be_printed
 
 def print_future_reference(future_reference):
     """Print the future reference."""
@@ -28,3 +26,4 @@ myRequest.new_output_filename="0-giulietta.pdf"
 
 myRequest.original_filename="mazhe.tex"
 myRequest.print_future_reference = print_future_reference
+myRequest.has_to_be_printed = has_to_be_printed
