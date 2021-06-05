@@ -1,5 +1,8 @@
 # Journal des changements du Frido
 
+## Juin 2021
+
+- Encore à propos de limite pointée et épointée. Démonstration du théorème complet de composition de limites.
 
 ## Mai 2021
 
