@@ -8,6 +8,7 @@
 - Suppression de la géométrie différentielle
 
 - Écriture épicène. ah ah. Je fais du pseudo-aléatoire.
+  Ce n'est pas cryptographiquement sûr, entre autres parce que le compteur de page en LaTeX ne se mets pas à jour exactement au saut de page.
 
 - Règlement de l'agrégation.
     Maintenant que l'équité entre les candidats est au centre du règlement, nous pouvons nous amuser avec des paradoxes. Est-ce que les livres qui ne sont plus vendus sont interdits ?
