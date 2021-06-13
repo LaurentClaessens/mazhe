@@ -781,11 +781,12 @@
 
 
 % Writes #1 or #2 in a more or less random way.
+\newcounter{rndgendercont}
 \newcommand{\randomGender}[2]{%
-                \setcounter{tmpcounter}{%
+                \setcounter{rndgendercont}{%
                     \numexpr\value{page}+\value{numtho}\relax%
 }%
-                \ifthenelse{\isodd{\value{tmpcounter}}}{#1}{#2}%
+\ifthenelse{\isodd{\value{rndgendercont}}}{#1}{#2}\arabic{numtho} \arabic{page} \arabic{rndgendercont}%
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -878,14 +879,8 @@
                 \newtheorem{normaltext}[numtho]{}
 
 % I'm trying to make «lecteur»/«lectrice» in a random way.
-\newcounter{tmpcounter}
 \theoremstyle{MyProblems}
-            \newtheorem{probleme}[numtho] {
-                \setcounter{tmpcounter}{%
-                    \numexpr\value{page}+\value{numtho}\relax%
-}
-                \ifthenelse{\isodd{\value{tmpcounter}}}{¡¡ Avertissement/question au lecteur !!}{¡¡ Avertissement/question à la lectrice !!}
-            }
+\newtheorem{probleme}[numtho] {\randomGender{¡¡ Avertissement/question au lecteur !!}{¡¡ Avertissement/question à la lectrice !!}}
 \theoremstyle{MyTheorems}
             \newtheorem{lemma}[numtho]{Lemme}
             \newtheorem{corollary}[numtho]{Corolaire}
