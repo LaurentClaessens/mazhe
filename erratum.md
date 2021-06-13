@@ -2,8 +2,9 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
-## Frido 2020 (9 fautes)
+## Frido 2020 (10 fautes)
 
+- Volume 1. Proposition 1.108. Il faut démontrer que S est un corps, et prouver que phi est un morphisme. De plus il manque l'expression d'un isomorphisme sigma entre A et A'. Une bonne partie des 'a' et 'b' sont en réalité des 'sigma(a)' et 'sigma(b)'. La proposition 1.104 fait une partie de ce travail.
 - Volume 1. Proposition 1.28. Dans la partie «L'autre sens», rien ne va. Les A et B sont mélangés et phi n'est pas injective (mais de toutes façons elle devait aller dans l'autre sens).
 - Volume 1. Lemme 9.85. Dans l'équation (9.161), le premier terme doit être (lambda1-lambda1)v_1, et donc être nul. Ensuite, il faut continuer à appliquer les (A-lambda_i) avec i < p pour finir avec v_p=0. Et continuer avec p-1. Merci à Patrice Goyer pour l'avoir trouvée.
 - Volume 3. Proposition 26.37. Inégalité de Minkwowski. La partie (2) sur le cas d'égalité est fausse.
