@@ -30,8 +30,29 @@ Vous devez savoir, \randomGender{chèr lecteur}{chère lectrice} que etc.
 
   Par contre, ça fait le travail d'être apparemment aléatoire du point de vue de la personne qui lit, tout en étant suffisamment déterministe pour que la valeur aléatoire ne change pas à l'intérieur d'un environnement, ce qui est nécessaire si je veux faire un choix cohérent sur plusieurs phrases.
 
-- Règlement de l'agrégation.
+
+## Règlement de l'agrégation
+
     Maintenant que l'équité entre les candidats est au centre du règlement, nous pouvons nous amuser avec des paradoxes. Est-ce que les livres qui ne sont plus vendus sont interdits ?
+
+## Accessibilité
+
+    Un lecteur aveugle m'a expliqué qu'il était surtout intéressé par les sources LaTeX (même pas par le pdf). En gros, il transforme au maximum les formules en unicode équivalent. Par exemple 
+```
+    $\Sigma^* = \Sigma^+ \cup \{ \varepsilon \}$ 
+```
+va devenir 
+```
+    Σ^*=Σ^+∪{ϵ}
+```
+
+Cela pour dire que nous retombons dans un discours très classique sur linuxfr : fournir les source (et de préférence des sources claires) a également un intérêt du point de vue de l'accessibilité.
+
+Voila. Et comme je suis un monomaniaque du règlement de l'agrégation, je dirais que les livres fournis sans les sources provoquent en une rupture d'équité entre le candidats. Ils sont donc interdits à l'agrégation -- au moins dans l'esprit sinon à la lettre.
+
+Ok. Dit comme ça c'est un peu fort, mais si ça peut faire réfléchir les auteurs : publier les sources LaTeX des bouquins aide vraiment certains aveugles.
+
+## Bibliothèque aggregation interne
 
 - Il est dans la bibliothèque de l'agreg interne:  https://interne.agreg.org/index.php?id=oraux
 
@@ -41,3 +62,5 @@ Vous devez savoir, \randomGender{chèr lecteur}{chère lectrice} que etc.
     * un mot expliquant pourquoi ce développement rentre dans la leçon
 
 - permalien avec showkeys
+
+
