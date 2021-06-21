@@ -3,6 +3,7 @@
 ## Juin 2021
 
 - Encore à propos de limite pointée et épointée. Démonstration du théorème complet de composition de limites.
+- Énormément de relecture et de précisions à propos de la construction des réels et des suites de Cauchy dans un corps totalement ordonné. En particulier tout corps ordonné contient une copie de Q, et cette copie respecte l'ordre.
 
 ## Mai 2021
 
