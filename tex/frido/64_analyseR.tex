@@ -850,6 +850,98 @@ Le segment $[b,a]$ est l'image de l'application $r\colon [0,1]\to \eR^p$ donnée
     avec $a$, $b\in A$, et $x_0\notin A$. Cela finit de prouver que $A$ n'est pas un intervalle.
 \end{proof}
 
+Le lemme suivant dit que si on recouvre un intervalle avec des ouverts, alors on peut ordonner ces ouverts de telle sorte qu'ils s' enchainent bien : on peut sauter de l'un à l'autre en passant par les intersections. C'est donc un lemme qui permet de passer du local au global.
+
+\begin{lemma}
+    Soient un intervalle \( I\) de \( \eR\) ainsi qu'un recouvrement \( \{ \mO_i \}_{i=1,\ldots, n}\) de \( I\) par des ouverts connexes tels que \( \mO_i\cap I\neq\emptyset\) pour tout \( i\)\footnote{Il est cependant possible que les \( \mO_i\) ne soient pas inclus à \( I\).}. Alors il existe une bijection \( \psi\colon \{ 1,\ldots, n \}\to \{ 1,\ldots, n \}\) tel que
+    \begin{enumerate}
+        \item
+    \begin{equation}
+        \bigcup_{i=1}^m\mO_{\psi(i)}
+    \end{equation}
+    est connexe pour tout \( m\).
+\item
+    \begin{equation}
+        \mO_{\psi(m)}\cap\bigcup_{i=1}^{m-1}\mO_{\psi(i)}\neq \emptyset.
+    \end{equation}
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Nous allons construire \( \psi\) par récurrence; plus précisément nous allons construire des applications \( \psi_k\colon \{ 1,\ldots, k \}\to \{ 1,\ldots, n \}\) telle que
+    \begin{enumerate}
+        \item
+            \( \psi_k\) est injective.
+        \item
+            Si \( i\leq k\) alors \( \psi_k(i)=\psi_i(i)\).
+        \item
+            La partie
+            \begin{equation}        \label{EQooAMAGooDHHvGR}
+            \bigcup_{i=1}^m\mO_{\psi_k(i)}
+            \end{equation}
+            est connexe pour tout \( m\leq k\).
+        \item
+            Nous avons
+            \begin{equation}        \label{EQooOOZUooKVlDPi}
+             \mO_{\psi_k(m)}\cap\bigcup_{i=1}^{m-1}\mO_{\psi_k(i)}\neq \emptyset
+            \end{equation}
+             pour tout \( m\leq k\).
+    \end{enumerate}
+
+    Nous commençons en douceur par
+    \begin{equation}
+        \begin{aligned}
+            \psi_1\colon \{ 1 \}&\to \{ 1,\ldots, n \} \\
+            1&\mapsto 1. 
+        \end{aligned}
+    \end{equation}
+    Ai-je besoin de vous prouver que c'est injectif ?
+
+    Nous supposons que les applications \( \psi_i\) sont correctement définies pour \( i\leq k\), et nous construisons \( \psi_{k+1}\). Nous posons
+    \begin{subequations}
+        \begin{align}
+            A&=\psi_k\big( \{ 1,\ldots, k \} \big)\\
+            B&=\{ 1,\ldots, n \}\setminus A\\
+            P&=\bigcup_{i=1}^k\mO_{\psi_k(i)}\\
+            Q&=\bigcup_{i=k+1}^n\mO_{\psi_k(i)}
+        \end{align}
+    \end{subequations}
+    En tant qu'unions d'ouverts, les parties \( P\) et \( Q\) sont ouvertes dans \( \eR\). Elles recouvrent l'intervalle \( I\) qui est connexe par la proposition \ref{PropInterssiConn}. De plus \( P\cap I\neq \emptyset\) et \( Q\cap I\neq \emptyset\); donc, par définition de la connexité nous avons \( P\cap Q\neq\emptyset\).
+
+    Il existe donc \( i_0\in B\) tel que \( P\cap\mO_{i_0}\neq \emptyset\). Nous posons
+    \begin{equation}
+        \begin{aligned}
+            \psi_{k+1}\colon \{ 1,\ldots, k+1 \}&\to \{ 1,\ldots, n \} \\
+            i&\mapsto \begin{cases}
+                \psi_k(i)    &   \text{si } i\neq k+1\\
+                 i_0   &    \text{si } i=k+1.
+            \end{cases}
+        \end{aligned}
+    \end{equation}
+    Vérifions que ce \( \psi_{k+1}\) vérifie les conditions.
+    \begin{enumerate}
+        \item
+            \( \psi_{k+1}\) est injective. Soient \( i,j\) tels que \( \psi_{k+1}(i)=\psi_{k+1}(j)\). Si \( i=k+1\) et \( j\neq k+1\) alors \( \psi_{k+1}(i)=i_0\in B\), alors que \( \psi_{k+1}(j)=\psi_k(j)\in A\). Donc le cas \( i=k+1\), \( j\neq k+1\) n'est pas possible.
+
+            Si \( i,j\neq k+1\), alors \( \psi_{k+1}(i)=\psi_k(i)\) et \( \psi_{k+1}(j)=\psi_k(j)\). L'injectivité de \( \psi_k\) implique que \( i=j\).
+        \item
+            Si \( i\leq k\), nous avons \( \psi_{k+1}(i)=\psi_k(i)=\psi_i(i)\) en utilisant la récurrence.
+        \item
+            Nous séparons les cas \( m=k+1\) et \( m\neq k+1\). Si \( m\neq k+1\) alors tous les \( \psi_{k+1}\) dans \eqref{EQooAMAGooDHHvGR}\footnote{Nous sommes en train de parler de cette équation avec \( k+1\) au lieu de \( k\), parce que nous sommes dans un processus de récurrence. Il est donc normal de dire qu'il y a des \( \psi_{k+1}\) dans cette équation.} sont des \( \psi_k\) et la récurrence fonctionne. Si \( m=k+1\) alors
+            \begin{equation}
+                \bigcup_{i=1}^{k+1}\mO_{\psi_{k+1}(i)}=\bigcup_{i=1}^k\mO_{\psi_k(i)}\cup\mO_{\psi_{k+1}(k+1)}=P\cup\mO_{i_0}.
+            \end{equation}
+            Le nombre \( i_0\) a été choisit pour avoir \( \mO_{i_0}\cap P\neq \emptyset\). Vu que \( \mO_{i_0} \) et \( P\) sont de connexes, la proposition \ref{PropIWIDzzH}\ref{ITEMooLVSSooTGstBz} implique que \( P\cup\mO_{i_0}\) est connexe.
+        \item
+            Encore une fois, si \( m\neq k+1\), tous les \( \psi_{k+1}\) de \eqref{EQooOOZUooKVlDPi} deviennent des \( \psi_k\) et la récurrence fonctionne. Avec \( m=k+1\) nous avons
+            \begin{equation}
+                \mO_{\psi_{k+1}(k+1)}\cap\bigcup_{i=1}^k\mO_{\psi_{k+1}(i)}=\mO_{i_0}\cap P.
+            \end{equation}
+            Cette intersection est non vide, par choix du \( i_0\).
+    \end{enumerate}
+    Quand tous les \( \psi_k\) (\( k=1,\ldots, n\)) sont construits, en posant \( \psi=\psi_n\) nous avons le résultat annoncé.
+\end{proof}
+
 \begin{theorem}[Théorème des bornes atteintes]\label{ThoMKKooAbHaro}
     Une fonction à valeurs réelles continue sur un compact est bornée et atteint ses bornes.
 
@@ -869,8 +961,6 @@ Le théorème suivant est essentiellement inutile pour les raisons suivantes :
         Il est un cas particulier du théorème~\ref{ThoBWFTXAZNH} qui donne pour tout espace métrique, l'équivalence entre la compacité et la compacité séquentielle.
     \item
         Il est un cas particulier du théorème \ref{THOooRDYOooJHLfGq} qui le donne pour tous les espaces compacts.
-    \item
-        Il utilise le cas particulier de \( \eR\), qui n'est pas démontré directement dans le Frido.
 \end{itemize}
 Bref, nous ne le laissons que pour le lecteur qui n'aurait pas en tête d'autres définitions de «compact» à part «fermé borné».
 
