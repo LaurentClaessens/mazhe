@@ -1,5 +1,10 @@
 # Journal des changements du Frido
 
+## Juillet 2021
+
+- Théorème de l'application ouverte, théorème d'isomorphisme de Banach
+- Les entiers, opérations, relation d'ordre
+
 ## Juin 2021
 
 - Encore à propos de limite pointée et épointée. Démonstration du théorème complet de composition de limites.
