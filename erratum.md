@@ -2,9 +2,9 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
-## Frido 2020 (11 fautes)
+## Frido 2020 (12 fautes)
 
-- Volume 3. Proposition 26.105. À mon avis l'approche est mauvaise parce que les fonctions proposées ne séparent pas les points. Par exemple e_k(0)=e_k(T) pour tout k.
+- Volume 3. Proposition 26.105. Il me semble que les fonctions proposées ne séparent pas les points. Par exemple e_k(0)=e_k(T) pour tout k. Il y a peut-être une faute dans la définition des fonctions de base.
 - Volume 1. Proposition 1.115. Le epsilon est un élément de K, pas de Q. Donc après avoir fait la majoration qui arrive à 2epsilon, il faut encore prouver qu'il existe un élément de K dont le double est plus petit que epsilon. Autrement dit, il faut trouver epsilon' tel que 2epsilon' < epsilon.
     D'habiture, en analyse, on laisse tomber parce que epsilon est un élément de R et on n'a qu'à prendre epsilon'=epsilon/2. Ici ce n'est pas aussi simple. Il faut trouver un morphisme de Q vers K qui respecte l'ordre.
     Merci à Patrice Goyer pour avoir découvert ce petit bijou.
