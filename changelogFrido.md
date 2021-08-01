@@ -1,9 +1,12 @@
 # Journal des changements du Frido
 
-## Juillet 2021
+## Juillet-aout 2021
 
+- Les entiers et les naturels : définition, opérations, relation d'ordre
+- Base trigonométrique sur L^2(a,b).
+
+## Juillet 2021
 - Théorème de l'application ouverte, théorème d'isomorphisme de Banach
-- Les entiers, opérations, relation d'ordre
 
 ## Juin 2021
 
