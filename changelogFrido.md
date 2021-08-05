@@ -3,6 +3,7 @@
 ## Juillet-aout 2021
 
 - Les entiers et les naturels : définition, opérations, relation d'ordre
+- Application définie par récurrence sur N. Existence et unicité.
 - Base trigonométrique sur L^2(a,b).
 
 ## Juillet 2021
@@ -18,9 +19,6 @@
 - Théorème de prolongement de Riemann
 - L^1 avec le produit de convolution est une algèbre de Banach.
 - cas d'égalité dans Hölder et Minkowski
-
-## Avril 2021
-
 
 ## Mars-Avril 2021
 
