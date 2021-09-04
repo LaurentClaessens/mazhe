@@ -6,8 +6,8 @@ myRequest = PytexTools.Request("mesure")
 myRequest.ok_hash = commons.ok_hash
 myRequest.original_filename = "mazhe.tex"
 
-# L'ordre dans les plugin est important parce que set_isFrido retourne
-# un code latex sans les commentaires
+# L'ordre dans les plugin est important parce que set_<boolean>
+# retourne un code latex sans les commentaires
 # alors que keep_script_marks compte dessus pour faire sa sélection.
 myRequest.add_plugin(PytexTools.accept_all_input, "options")
 plugin = PytexTools.keep_script_marks(plugins_agreg.frido_mark_list)

@@ -2,7 +2,6 @@
 
 import os
 import json
-import contextlib
 from pdfrw import PdfReader, PdfWriter
 
 from splittoc import Book
@@ -56,13 +55,7 @@ def isbn(title, year, volume, imprimeur=None):
     year_key = str(year)
     with open("isbn.json", 'r') as json_file:
         isbns = json.load(json_file)
-
-    with contextlib.suppress(KeyError):
-        return isbns[year_key][imprimeur][volume_key]
-
-    default = "No ISBN attributed for the title " + title
-    print(default)
-    return default
+    return isbns[year_key][imprimeur][volume_key]
 
 
 def pepper(imprimeur):
@@ -156,7 +149,8 @@ def concatenate(options):
             front = PdfReader("front.pdf")
             matter = PdfReader(matter_filename(v))
 
-            out_filename = f"book_{options.year}_{v}_{imprimeur}.pdf"
+            out_filename = options.out_dir \
+                / f"book_{options.year}_{v}_{imprimeur}.pdf"
             outpdf = PdfWriter(out_filename)
             outpdf.addpages(first.pages)
 
@@ -169,7 +163,12 @@ def concatenate(options):
 
 def make_the_work():
     """Make the whole work."""
-    options = Options(4, 2020, ["thebookedition"])
+    import datetime
+
+    currentDateTime = datetime.datetime.now()
+    date = currentDateTime.date()
+
+    options = Options(4, date.year, ["thebookedition"])
     pdf_filename = "../0-book.pdf"
     toc_filename = "../Inter_book-mazhe_pytex.toc"
 
