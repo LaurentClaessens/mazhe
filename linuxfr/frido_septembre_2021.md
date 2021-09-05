@@ -34,8 +34,11 @@ Que pouvons-nous en déduire ?
 
 Nous retombons sur trois points classiques du libre : la pérennité, le [cout](http://www.renouvo.org/liste.php) et le handicap.
 
-## giulietta
+## Remerciements
 
+
+
+## giulietta
 
 [Giulietta](https://laurent.claessens-donadello.eu/pdf/giulietta.pdf) est un document plus informel. Il contient à peu près tout ce que je connais en mathématique. Il se divise en 4 parties :
 
