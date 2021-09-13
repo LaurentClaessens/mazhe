@@ -1,7 +1,10 @@
 #! /usr/bin/python3
 
 import os
+import sys
 import json
+import datetime
+
 from pdfrw import PdfReader, PdfWriter
 
 from splittoc import Book
@@ -163,10 +166,19 @@ def concatenate(options):
 
 def make_the_work():
     """Make the whole work."""
-    import datetime
-
     currentDateTime = datetime.datetime.now()
     date = currentDateTime.date()
+
+    text = f"""Vous ne devriez pas utiliser ce script. En effet ceci
+produirait des nouveaux volumes avec les ISBN
+déjà attribués à l'année {date.year}.
+Si vous voulez voir ce que ça donne, vous devez
+    - modifier le fichier 'isbn.json' en mettant des ISBN
+      qui vous appartiennent ou avec des xxxxx
+    - supprimer la ligne 'sys.exit(1)' dans ce script
+    """
+    print(text)
+    sys.exit(1)
 
     options = Options(4, date.year, ["thebookedition"])
     pdf_filename = "../0-book.pdf"
