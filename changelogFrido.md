@@ -1,5 +1,9 @@
 # Journal des changements du Frido
 
+## Septembre 2021
+
+- compilation via un docker par Gjacquenot
+
 ## Juillet-aout 2021
 
 - Les entiers et les naturels : définition, opérations, relation d'ordre

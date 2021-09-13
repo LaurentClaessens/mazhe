@@ -2,12 +2,11 @@
 
 Dans ce fichier nous décrivons comment compiler le Frido.
 
-Nous supposons un répertoire vide `~/FRIDO` dans lequel nous allons tout mettre.
-
-## La méthode directe
+## compiler tout sans distinctions
 
 ```
-cd ~/FRIDO
+mkdir FRIDO
+cd FRIDO
 git clone https://github.com/LaurentClaessens/mazhe
 cd mazhe
 ```
@@ -21,37 +20,29 @@ makeindex mazhe
 À lancer au moins trois fois pour avoir toutes les références correctes.
 
 
-## Ce n'est pas le Frido, ça !
+## Compiler le Frido
 
-En effet, en compilant `mazhe.tex` vous obtenez plus que le Frido. Le Frido est en effet une partie d'un livre plus long contenant de la mathématique plus avancée.
+La compilation du Frido demande l'utilisation d'un script spécifique. Il y a plusieurs méthodes
 
-La compilation du Frido demande l'utilisation d'un script spécifique.
+- si vous êtes à l'aise avec python
+- si vous êtes à l'aise avec docker
 
-## Prérequis
-
-Vous devez avoir python3 installé et disponible sur votre système. 
-
-## Les dépendances
+## Méthode si vous être à l'aise avec python
 
 D'abord il faut cloner les sources du Frido lui-même et les sources de `pytex` : 
 ```
-cd ~/FRIDO
 git clone https://github.com/LaurentClaessens/mazhe
 git clone https://github.com/LaurentClaessens/pytex
 ```
 
-### pytex accessible à bash
-
-- Le répertoire `~/FRIDO/pytex` doit être accessible à bash. Le plus simple est d'ajouter ceci dans votre `~/.bashrc` :
+Il faut ensuite rendre `pytex` accessible à bash. Le plus simple est d'ajouter ceci dans votre `~/.bashrc` :
 ```
-PATH=$PATH:~/FRIDO/pytex
+PATH=$PATH:/path/to/pytex
 ```
-
-### Compiler le Frido
 
 Maintenant il est possible de compiler le Frido :
 ```
-cd ~/FRIDO/mazhe
+cd /path/to/mazhe
 pytex lst_frido.py
 ```
 Vous pouvez vérifier les références vers le futur :
@@ -59,13 +50,16 @@ Vous pouvez vérifier les références vers le futur :
 pytex lst_frido.py --verif
 ```
 
-### Compiler seulement une partie
+Si vous voulez compiler seulement une partie:
 
 - Regardez le fichier `lst_exemple.py`. 
 - Copiez-le sous le nom `lst_foobar.py`
 - Modifiez la liste des fichiers à inclure
 - Compilez `pytex lst_foobar.py`
 
-## Contribuer
+## Méthode si vous être à l'aise avec docker
 
-C'est parti !
+
+Gjacquenot nous a créé un petit [docker](https://docs.docker.com/engine/install/ubuntu/) avec toutes les dépendances : [Compilation_frido](https://github.com/Gjacquenot/Compilation_frido).
+
+Un simple `make` crée le docker et compile le Frido et ses variations.
