@@ -26,7 +26,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 ## Frido 2019 (7 fautes)
 
 - Volume 1. Définition 1.45 d'anneau commutatif. C'est la multiplication qui doit être commutative. La somme est toujours commutative; c'est dans la définition d'un anneau.
-- Volume 2. Proposition 15.193. La démonstration ne traite pas le cas d'une union dénombrable. Il faut utiliser le théorème de la convergence monotone pour passer à la limite. C'est à dire suivre les lignes de la proposition 15.187.
+- Volume 2. Proposition 15.193. La démonstration ne traite pas le cas d'une union dénombrable. Il faut utiliser le théorème de la convergence monotone pour passer à la limite. C'est-à-dire suivre les lignes de la proposition 15.187.
 - Volume 1. Proposition 3.24. Les epsilon et epsilon' n'ont rien à faire là et rendent l'énoncé faux. Si e=e'=8, ça multiplie par 8 le PGCD.
 - Volume 2. Proposition 13.276. Une fonction est de classe C^k si et seulement si ses dérivées partielles sont de classe C^(k-1) et non C^k.
 - Volume 1. Théorème 12.80 sur les séries alternées. La suite (a_n) doit être à termes positifs et non seulement "réels". Sinon il n'y a au final aucune garantie que la série soit alternée.

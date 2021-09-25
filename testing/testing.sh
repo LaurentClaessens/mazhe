@@ -104,7 +104,7 @@ check_spelling()
     one_spelling "est choisit" 
     one_spelling "inclus à"       # on dit "inclus DANS"
     one_spelling "est a dire"         # il faut un trait d'union
-    one_spelling "corollaire"         # orthographe réformée
+    one_spelling "corollaire"         # orthographe réformée, doit être corolaire
     one_spelling "Corollaire"         # orthographe réformée
     one_spelling "chaîne"         # orthographe réformée
     one_spelling "[Qq]uelque [a-zéàçèùôîûê]*s " 
