@@ -121,6 +121,7 @@ check_spelling()
     one_spelling " une ensemble"   
     one_spelling " s'il "     # devrait être "s'il", mais je préfère si il.
     one_spelling " S'il "  
+    one_spelling " Cesaro "  # Cesàro
 }
 
 test_picture ()
