@@ -111,6 +111,9 @@ check_spelling()
     ag " paramétrisation " >> $LOG_FILE  # doit être "paramétrage"
     ag " multi-indice " >> $LOG_FILE  # doit être "multiindice"
     ag " semi-norme" >> $LOG_FILE  # doit être "seminorme"
+    ag " une ensemble" >> $LOG_FILE  
+    ag " s'il " >> $LOG_FILE    # devrait être "s'il", mais je préfère si il.
+    ag " S'il " >> $LOG_FILE 
 }
 
 test_picture ()
