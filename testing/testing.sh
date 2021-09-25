@@ -84,36 +84,43 @@ test_death_links ()
     ./test_dead_links.py $CLONE_DIR --output=$LOG_FILE
 }
 
+
+one_spelling()
+{
+    wrong=$1
+    echo "Search for $wrong" >> $LOG_FILE
+    ag "$wrong" >> $LOG_FILE
+}
+
 check_spelling()
 {
     # For your information, you can make replacements
     # with
     # sed -i -- 's/foo/bar/g' *
 
-    ag " [LldDcC]es variable " >> $LOG_FILE
-    ag " demi [a-z]" >> $LOG_FILE
-    ag " d'intersections " >> $LOG_FILE
-    ag "boite" >> $LOG_FILE
-    ag "est choisit" >> $LOG_FILE
-    ag "inclus à" >> $LOG_FILE      # on dit "inclus DANS"
-    ag "est a dire" >> $LOG_FILE        # il faut un trait d'union
-    ag "corollaire" >> $LOG_FILE        # orthographe réformée
-    ag "Corollaire" >> $LOG_FILE        # orthographe réformée
-    ag "chaîne" >> $LOG_FILE        # orthographe réformée
-    ag "[Qq]uelque [a-zéàçèùôîûê]*s " >> $LOG_FILE
-    ag "[Qq]uelque [a-zéàçèùôîûê]*x " >> $LOG_FILE
-    ag "ez moi" >> $LOG_FILE        # vient par exemple de "écrivez moi" au lieu de "écrivez-moi".
-    ag "[Rr]acine carré " >> $LOG_FILE
-    ag "une cas " >> $LOG_FILE
-    ag " status " >> $LOG_FILE
-    ag " c'est à dire " >> $LOG_FILE # doit être c'est-à-dire
-    ag " en terme " >> $LOG_FILE
-    ag " paramétrisation " >> $LOG_FILE  # doit être "paramétrage"
-    ag " multi-indice " >> $LOG_FILE  # doit être "multiindice"
-    ag " semi-norme" >> $LOG_FILE  # doit être "seminorme"
-    ag " une ensemble" >> $LOG_FILE  
-    ag " s'il " >> $LOG_FILE    # devrait être "s'il", mais je préfère si il.
-    ag " S'il " >> $LOG_FILE 
+    one_spelling " [LldDcC]es variable " 
+    one_spelling " demi [a-z]" 
+    one_spelling "boite" 
+    one_spelling "est choisit" 
+    one_spelling "inclus à"       # on dit "inclus DANS"
+    one_spelling "est a dire"         # il faut un trait d'union
+    one_spelling "corollaire"         # orthographe réformée
+    one_spelling "Corollaire"         # orthographe réformée
+    one_spelling "chaîne"         # orthographe réformée
+    one_spelling "[Qq]uelque [a-zéàçèùôîûê]*s " 
+    one_spelling "[Qq]uelque [a-zéàçèùôîûê]*x " 
+    one_spelling "ez moi"         # vient par exemple de "écrivez moi" au lieu de "écrivez-moi".
+    one_spelling "[Rr]acine carré " 
+    one_spelling "une cas " 
+    one_spelling " status " 
+    one_spelling " c'est à dire "  # doit être c'est-à-dire
+    one_spelling " en terme " 
+    one_spelling " paramétrisation "   # doit être "paramétrage"
+    one_spelling " multi-indice "   # doit être "multiindice"
+    one_spelling " semi-norme"   # doit être "seminorme"
+    one_spelling " une ensemble"   
+    one_spelling " s'il "     # devrait être "s'il", mais je préfère si il.
+    one_spelling " S'il "  
 }
 
 test_picture ()
@@ -138,8 +145,8 @@ then
     test_death_links&
 fi
 
-compile_giulietta&
-compile_frido
+#compile_giulietta&
+#compile_frido
 check_spelling
 
 cd $MAIN_DIR
