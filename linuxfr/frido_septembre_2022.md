@@ -41,7 +41,7 @@ va devenir
 
 Cela pour dire que nous retombons dans un discours très classique sur linuxfr : fournir les source (et de préférence des sources claires) a également un intérêt du point de vue de l'accessibilité.
 
-Voila. Et comme je suis un monomaniaque du règlement de l'agrégation, je dirais que les livres fournis sans les sources provoquent en une rupture d'équité entre le candidats. Ils sont donc interdits à l'agrégation -- au moins dans l'esprit sinon à la lettre.
+Voilà. Et comme je suis un monomaniaque du règlement de l'agrégation, je dirais que les livres fournis sans les sources provoquent en une rupture d'équité entre le candidats. Ils sont donc interdits à l'agrégation -- au moins dans l'esprit sinon à la lettre.
 
 Ok. Dit comme ça c'est un peu fort, mais si ça peut faire réfléchir les auteurs : publier les sources LaTeX des bouquins aide vraiment certains aveugles.
 

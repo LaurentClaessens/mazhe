@@ -88,8 +88,8 @@ test_death_links ()
 one_spelling()
 {
     wrong=$1
-    echo "Search for $wrong" >> $LOG_FILE
-    ag "$wrong" >> $LOG_FILE
+    # echo "Search for $wrong" 
+    ag "$wrong" 
 }
 
 check_spelling()
@@ -119,9 +119,9 @@ check_spelling()
     one_spelling " multi-indice "   # doit être "multiindice"
     one_spelling " semi-norme"   # doit être "seminorme"
     one_spelling " une ensemble"   
-    one_spelling " s'il "     # devrait être "s'il", mais je préfère si il.
-    one_spelling " S'il "  
     one_spelling " Cesaro "  # Cesàro
+    one_spelling " la théorème " 
+    one_spelling " [Vv]oila " 
 }
 
 test_picture ()
