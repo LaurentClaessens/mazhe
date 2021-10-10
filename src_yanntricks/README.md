@@ -9,7 +9,7 @@ Vous ne devriez pas être intéressé par ce répertoire, à moins que vous ne c
 ### Préparation
 
 Supprimer les fichiers qui vont être recréés. En supposant être dans le répertoire principal (et non ici) :
-```bash
+```
 rm auto/pictures_tex/*.pstricks & rm auto/pictures_tikz/*.md5 & rm auto/pictures_tikz/*.pdf
 ```
 (je rappelle que `rm` est un ancien mot sud-africain signifiant «fais tes backup !!»).

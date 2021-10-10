@@ -1,6 +1,10 @@
 from yanntricks import *
 
 
+# À mon avis ce fichier ne sert plus, et est remplacé par
+# yanntricksLYORooNKDHqt.py
+
+
 def VGZooJnvvZc():
     n_ssfig = 4           # Pas plus que 4, sinon ça se met en colonne.
     pspictQuestion, figQuestion = SinglePicture(

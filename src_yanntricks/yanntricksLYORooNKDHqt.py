@@ -1,7 +1,10 @@
-# -*- coding: utf8 -*-
-
-from __future__ import unicode_literals
-from yanntricks import *
+from yanntricks.src.segment import Segment
+from yanntricks.src.point import Point
+from yanntricks.src.Constructors import phyFunction
+from yanntricks.src.Constructors import Intersection
+from yanntricks.src.main import SinglePicture
+from yanntricks.src.main import MultiplePictures
+from yanntricks.src.MeasureLengthGraph import MeasureLength
 
 def LYORooNKDHqt():
     n_ssfig=4           # Au-delà de 4, la figure ne parvient pas à se mettre en carré.
@@ -14,7 +17,7 @@ def LYORooNKDHqt():
     for psp in pspictsSubFig:
         psp.dilatation(0.7)
 
-    pspicts=[pspictQuestion,pspictDetail]
+    pspicts = [pspictQuestion, pspictDetail]
     pspicts.extend(pspictsSubFig)
 
     mx=0.7
@@ -27,12 +30,11 @@ def LYORooNKDHqt():
     P.put_mark(0.3,P.advised_mark_angle(pspicts),"$P$",pspicts=pspicts)
     Q.put_mark(0.3,Q.advised_mark_angle(pspicts),"$Q$",pspicts=pspicts)
 
-
     Px=Point(P.x,0)
     Py=Point(0,P.y)
     Qx=Point(Q.x,0)
     Qy=Point(0,Q.y)
-    
+
     Py.put_mark(0.1,text="$f(a)$",pspicts=pspicts,position="E")
     Qy.put_mark(0.1,text="$f(x)$",pspicts=pspicts,position="E")
     Px.put_mark(0.2,text="$a$",pspicts=pspicts,position="N")
@@ -62,10 +64,10 @@ def LYORooNKDHqt():
     pspictDetail.DrawGraphs(corde,v1,v2,h1,h2,h3,f,P,Px,Py,Q,Qx,Qy,Dx,Dy)
 
     for psp in pspictsSubFig :
-        psp.mother.caption="\ldots de mieux en mieux \ldots"
+        psp.mother.caption="\\ldots de mieux en mieux \\ldots"
 
-    pspictsSubFig[0].mother.caption="Pas très bon \ldots"
-    pspictsSubFig[-1].mother.caption="\ldots presque parfait"
+    pspictsSubFig[0].mother.caption="Pas très bon \\ldots"
+    pspictsSubFig[-1].mother.caption="\\ldots presque parfait"
 
     fixed_size=4
     tangente=f.get_tangent_segment(P.x).normalize(fixed_size)
@@ -74,6 +76,7 @@ def LYORooNKDHqt():
     for i,psp in enumerate(pspictsSubFig):
         Qi = f.get_point( Q.x-i*(Q.x-P.x)/(n_ssfig) )
         Qi.put_mark(0.3,Qi.advised_mark_angle(pspicts)+180,"$Q_{%s}$"%str(i),pspicts=pspicts,position="corner")
+
 
         corde=Segment(P,Qi).normalize(fixed_size)
         corde.parameters.color="cyan"
