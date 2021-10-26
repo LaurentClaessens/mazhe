@@ -1,5 +1,13 @@
 # Journal des changements du Frido
 
+
+## Septembre-Octobre 2021
+
+Dualité.
+
+- L^p est réflexif
+- L^1 s'injecte dans L^infini, mais pas surjectivement
+
 ## Septembre 2021
 
 - compilation via un docker par Gjacquenot
