@@ -1,6 +1,11 @@
 # Journal des changements du Frido
 
 
+## Novembre 2021
+
+- corps topologique
+- un ensemble avec ses seminormes est un espace vectoriel normé
+
 ## Septembre-Octobre 2021
 
 Dualité.
