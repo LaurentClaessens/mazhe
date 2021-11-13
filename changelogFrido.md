@@ -4,7 +4,7 @@
 ## Novembre 2021
 
 - corps topologique
-- un ensemble avec ses seminormes est un espace vectoriel normé
+- un ensemble avec ses seminormes est un espace vectoriel topologique
 
 ## Septembre-Octobre 2021
 
