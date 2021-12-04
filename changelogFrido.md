@@ -1,6 +1,10 @@
 # Journal des changements du Frido
 
 
+## Décembre 2021
+
+- Corolaire à Banach Steinhaus avec des seminormes.
+
 ## Novembre 2021
 
 - corps topologique
