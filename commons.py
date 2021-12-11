@@ -34,10 +34,10 @@ def has_to_be_printed(future_reference):
 
 ok_hash = []
 ok_hash.append("18419ee237dd913763479e9e742d25eeaebea811")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
+ok_hash.append("6ff7074043655ad33d1a037e5271f0c80374c5ab")
+ok_hash.append("ddeec42b75cbe83ad2c64698bddb2811877fcdf7")
+ok_hash.append("77216a199616e155d53ffbd669d438f047a82ac9")
+ok_hash.append("77216a199616e155d53ffbd669d438f047a82ac9")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
