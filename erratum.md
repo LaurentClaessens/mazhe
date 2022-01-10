@@ -5,6 +5,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 ## Frido 2021 (1 faute pour l'instant)
 
 - Volume 3. Lemme 27.114. On invoque à tort le théorème 27.3. Le problème est que 27.3 concerne S^1 alors qu'ici on travaille sur [0,2pi[. Pour adapter, il faudrait composer avec un isomorphisme.
+- Volume 1. Équation 6.66. L'inclusion est en réalité dans l'autre sens. Merci à Alain Vigne pour l'avoir trouvée.
 
 ## Frido 2020 (12 fautes)
 
