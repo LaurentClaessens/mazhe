@@ -850,7 +850,13 @@ Tout cela nous permet de définir une somme sympathique et bien connue.
 \begin{lemma}
     Pour chaque \( i\in I\) nous considérons l'élément \( e_i\in A^I\) donné par
     \begin{equation}
-        e_i=(\delta_{ij})_{j\in I}.
+        \begin{aligned}
+            e_i\colon I&\to A \\
+            j&\mapsto \begin{cases}
+                1    &   \text{si } j=i\\
+                0    &    \text{sinon. }
+            \end{cases}
+        \end{aligned}
     \end{equation}
     La famille \( \{ e_i \}_{i\in I}\) est libre\footnote{Définition \ref{DEFooRUKVooLnXxdS}.} dans \( A^I\).
 \end{lemma}
@@ -870,6 +876,34 @@ Tout cela nous permet de définir une somme sympathique et bien connue.
 \begin{definition}      \label{DEFooBMEPooFsCHgb}
     Nous notons \( A^{(I)}\) le sous-module de \( A^I\) engendré\footnote{Définition \ref{DEFooWBOBooJNyyBF}.} par les \( e_i\).
 \end{definition}
+
+\begin{lemma}[\cite{MonCerveau}]
+    L'ensemble \( A^{(I)}\) est l'ensemble des applications \( I\to A\) de support fini.
+\end{lemma}
+
+\begin{proof}
+    En deux sens.
+    \begin{subproof}
+    \item[Si \( x\in A^{(I)}\)]
+        Pour rappel, la définition \ref{DEFooLCJEooBvVmkV} nous dit que \( x\) est une application \( I\to A\). Vu que \( x\) est dans le sous-module engendré par les \( e_i\), il existe une partie finie \( J\subset I\) telle que
+        \begin{equation}
+            x=\sum_{j\in J}x_je_j.
+        \end{equation}
+        Pour \( i\in I\) nous avons
+        \begin{equation}
+            x(i)=\sum_{j\in J}x_j\delta_{ij}=\begin{cases}
+                x_i    &   \text{si } i\in J\\
+                0    &    \text{sinon. }
+            \end{cases}
+        \end{equation}
+        Donc le support de \( x\) est dans \( J\) qui est fini. Vu que toute partie d'un ensemble fini est fini (lemme \ref{LEMooTUIRooEXjfDY}), le support de \( x\) est fini.
+    \item[Si \( x\) est de support fini]
+        Supposons que le support de \( x\colon I\to A\) soit la partie finie \( J\subset I\). En notant \( x_j=x(j)\) pour tout \( j\in J\), nous avons
+        \begin{equation}
+            x=\sum_{j\in J}x_je_j.
+        \end{equation}
+    \end{subproof}
+\end{proof}
 
 \begin{theorem}[Propriété universelle de \( A^{(I)}\)\cite{BIBooSTWWooItiMUp}]      \label{THOooPDZCooJnHbOd}
     Soient un anneau \( A\) ainsi qu'un \( A\)-module \( P\). Pour \( \phi\in\Hom_A(A^{(I)}, P)\), nous considérons
@@ -941,7 +975,7 @@ Soient \( M\) un \( A\)-module et \( x=(x_i)_{i\in I}\) une famille d'éléments
         (a_i)_{i\in I}&\mapsto \sum_{i\in I}a_ix_i.
     \end{aligned}
 \end{equation}
-Ici \( A^{(I)}\) désigne l'ensemble de toutes les applications \( I\to A\) de support fini.
+Ici \( A^{(I)}\) désigne l'ensemble de toutes les applications \( I\to A\) de support fini (définition \ref{DEFooBMEPooFsCHgb}).
 
 \begin{definition}      \label{DefBasePouyKj}
     À l'instar des espaces vectoriels, les modules ont une notion de partie libre, génératrice et de bases :
@@ -1162,20 +1196,48 @@ Si \( \eK\) est un corps de caractéristique \( 2\), alors l'égalité \( x=-x\)
 
 Et voilà la définition que tout le monde attendait; la définition des anneaux de polynômes. Pour ne pas taper trop fort du premier coup, nous commençons par les polynômes d'une seule variable\footnote{Pour les polynômes à plusieurs variables, voir la définition \ref{DEFooZNHOooCruuwI}.}.
 
-Nous allons définir et étudier ici l'anneau des polynômes sur un anneau \( A\), c'est-à-dire ce qui sera noté \( A[X]\). Pour \( \eK(X)\) lorsque \( \eK\) est un corps, voir~\ref{DEFooQPZIooQYiNVh}.
 
 L'ensemble des polynômes sur \( A\) sera simplement \( A^{(\eN)}\). Puisque \( \eN\) est un ensemble bien particulier possédant plein de structure, nous allons pouvoir installer sur \( A^{(\eN)}\) une structure non seulement de \( A\)-module (ça c'est déjà fait), mais en plus d'anneau, ainsi qu'une évaluation.
 \begin{definition}      \label{DEFooFYZRooMikwEL}
-    L'ensemble des \defe{polynômes}{polynômes} en une indéterminée sur l'anneau \( A\) est l'anneau \( A^{(\eN)}\) que nous avons défini en \ref{DEFooBMEPooFsCHgb}. Il sera noté \( \polyP(A)\).
-
-    En ce qui concerne la notation \( A[X]\), voir \ref{SUBSECooLEKVooFBPSJz}.
+    L'ensemble des \defe{polynômes}{polynômes} en une indéterminée sur l'anneau \( A\) est l'anneau 
+    \begin{equation}
+        \polyP(A)=A^{(eN)}
+    \end{equation}
+    défini en \ref{DEFooBMEPooFsCHgb}.
 \end{definition}
 
-\begin{definition}  \label{DefDegrePoly}
-    Soit \( P\) non nul dans \(\polyP(A)\), \( P \neq 0 \). On appelle \defe{degré}{degré!d'un polynôme} de $P$ le plus grand nombre naturel $n$ pour lequel le coefficient correspondant est non-nul. Ce naturel est noté \( \deg(P) \). L'ensemble des polynômes de degré \( n\) sur \( A\) sera noté \( \polyP_n(A)\).
-\end{definition}
+\begin{normaltext}
+    En ce qui concerne la notation \( A[X]\), voir \ref{SUBSECooLEKVooFBPSJz}. Pour \( \eK(X)\) lorsque \( \eK\) est un corps, voir~\ref{DEFooQPZIooQYiNVh}.
+\end{normaltext}
 
-Notez que nous n'avons pas encore donné la notation \( A[X]\); nous verrons plus tard comment elle arrive. 
+\begin{propositionDef}[\cite{BIBooZDRQooLrUVrb}]  \label{DefDegrePoly}
+    Soit \( P\) non nul dans \(\polyP(A)\). Nous notons \( a_n\) la valeur\footnote{Ici il y a une énorme subtilité de terminologie. Formellement, \( P\) est une application \( \eN\to A\). Cela n'a rien à voir avec le fait que \( P\) puisse être évalué sur \( A\) avec des formule du type \( P(x)=\sum_na_nx^n\). D'ailleurs nous n'avons pas encore vu cette évaluation.} de \( P\) en \( n\in \eN\) : \( P=(a_n)_{n\in \eN}\).
+    \begin{enumerate}
+        \item
+            L'ensemble \( \{ n\in \eN\tq a_n\neq 0 \}\) est fini dans \( \eN\).
+        \item
+            Cet ensemble possède un minimum et un maximum.
+    \end{enumerate}
+    Le \defe{degré}{degré d'un polynôme} de $P$ est
+    \begin{equation}
+        \deg(P)=\max\{ n\in \eN\tq a_n\neq 0 \},
+    \end{equation}
+    et la \defe{valuation}{valuation d'un polynôme} de \( P\) est
+    \begin{equation}
+        \val(P)=\min\{ n\tq a_n\neq 0 \}.
+    \end{equation}
+    Dans le cas du polynôme nul, l'ensemble \( \{ n\in \eN\tq a_n\neq 0 \}\) est vide, et les définitions ne s'appliquent pas. Nous convenons que
+    \begin{subequations}
+        \begin{align}
+            \val(0)&=+\infty\\           
+            \deg(0)&=-\infty.
+        \end{align}
+    \end{subequations}
+\end{propositionDef}
+
+\begin{proof}
+    Le fait que \( P\) soit non nul implique que \( A=\{ n\in \eN\tq a_n\neq 0 \}\) est non vide. De plus cet ensemble est fini parce que \( P\in A^{(\eN)}\). Toute partie finie non vide de \( \eN\) étant majorée et minorée (lemme \ref{LEMooKUWUooPLWelf}), le lemme \ref{LEMooOEJOooOgaxzi} définit correctement le minimum et le maximum de \( A\).
+\end{proof}
 
 Vu que \( A^{(\eN)}\) est engendré par les \( e_i\), tout polynôme sur \( A\) s'écrit \( P=\sum_{i=1}^na_ie_i\).
 
