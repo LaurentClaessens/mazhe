@@ -2,8 +2,9 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
-## Frido 2021 (1 faute pour l'instant)
+## Frido 2021 (3 faute pour l'instant)
 
+- Volume 1. Remarque 9.159. L'équation (9.321) est fausse. La réalité est que (f - a 1)^2e_2=0 et non que (f - alpha 1)^2e_2=0. Heureusement, la conclusion ne change pas.
 - Volume 3. Lemme 27.114. On invoque à tort le théorème 27.3. Le problème est que 27.3 concerne S^1 alors qu'ici on travaille sur [0,2pi[. Pour adapter, il faudrait composer avec un isomorphisme.
 - Volume 1. Équation 6.66. L'inclusion est en réalité dans l'autre sens. Merci à Alain Vigne pour l'avoir trouvée.
 
