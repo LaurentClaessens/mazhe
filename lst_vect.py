@@ -25,11 +25,11 @@ myRequest.add_plugin(plugin, "before_pytex")
 myRequest.add_plugin(plugins_agreg.split_toc("frido",4),
                                              "before_compilation")
 
-myRequest.add_plugin(plugins_agreg.set_boolean("isFrancisme","true"),"before_pytex")
-myRequest.add_plugin(plugins_agreg.set_pdftitle("Francismes"),"before_pytex")
+myRequest.add_plugin(plugins_agreg.set_boolean("isVect","true"),"before_pytex")
+myRequest.add_plugin(plugins_agreg.set_pdftitle("vect"),"before_pytex")
 myRequest.add_plugin(plugins_agreg.set_commit_hexsha,"after_pytex")
 myRequest.add_plugin(plugins_agreg.assert_MonCerveau_first,"after_compilation")
 
-myRequest.new_output_filename="0-francismes.pdf"
+myRequest.new_output_filename="0-vect.pdf"
 myRequest.has_to_be_printed = has_to_be_printed
 
