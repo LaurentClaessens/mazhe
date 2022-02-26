@@ -1,0 +1,1793 @@
+% This is part of Mes notes de mathématique
+% Copyright (c) 2008-2022
+%   Laurent Claessens, Carlotta Donadello
+% See the file fdl-1.3.txt for copying conditions.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Éléments généraux de topologie}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Définitions et propriétés de base}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[\cite{BIBooAYWDooPwDIOH}]		\label{DefTopologieGene}
+Soient \( X \), un ensemble et \( \mT \), une partie de l'ensemble de ses parties qui vérifie les propriétés suivantes.
+\begin{enumerate}
+\item
+  Les ensembles \( \emptyset \) et \( X \) sont dans \( \mT \),
+\item
+  Une union quelconque\footnote{Par «quelconque» nous entendons vraiment quelconque : c'est-à-dire indicée par un ensemble qui peut autant être \( \eN\) que \( \eR\) qu'un ensemble encore considérablement plus grand.} d'éléments de \( \mT\) est dans \( \mT\).
+\item
+  Une intersection \emph{finie} d'éléments de \( \mT\) est dans \( \mT\).
+\end{enumerate}
+Un tel choix \( \mT \) de sous-ensembles de \( X \) est une  \defe{topologie}{topologie} sur \( X \), et les éléments de \( \mT \) sont appelés des \defe{ouverts}{ouvert}. On dit aussi que \( (X,\mT) \) (voire simplement \( X \) lorsqu'il n'y a pas d'ambiguïté) est un \defe{espace topologique}{espace topologique}.
+\end{definition}
+
+Deux espaces topologiques sont isomorphes quand il existe une bijection continue d'inverse continue. Nous verrons ça en la définition \ref{DEFooYPGQooMAObTO}.
+
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Base de topologie}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{propositionDef}[Base de topologie\cite{BIBooUMGRooSwJMRo,ooKBUGooWCSiXh}]  \label{DEFooLEHPooIlNmpi}
+    Soit un espace topologique \( (X,\mT)\). Soit une partie \( \mB\) de \( \mT\). Les propriétés suivantes sont équivalentes :
+    \begin{enumerate}
+        \item\label{ITEMooCTPEooRCaxvx}
+            Tout élément de \( \mT\) est une réunion d'éléments de \( \mB\).
+        \item       \label{ITEMooWOVWooRozYmM}
+            Pour tout \( x\in X\) et pour tout ouvert \( \mO\) contenant \( x\), il existe \( B\in \mB\) tel que 
+            \begin{equation}
+                x\in B\subset \mO.
+            \end{equation}
+    \end{enumerate}
+    Une partie \( \mB\) de \( \mT\) qui vérifie ces propriétés est une \defe{base de topologie}{base de topologie} pour \( X\).
+\end{propositionDef}
+
+\begin{proof}
+    En deux parties.
+    \begin{subproof}
+    \item[\ref{ITEMooCTPEooRCaxvx} implique \ref{ITEMooWOVWooRozYmM}]
+        Soient \( x\in X\) et \( \mO\) un ouvert contenant \( x\). Étant donné que \( \mO\) est une réunion d'éléments de \( \mB\), il y a au moins un \( B\in \mB\) contenant \( x\). Ce \( B\) vérifie \( x\in B\subset \mO\).
+    \item[\ref{ITEMooWOVWooRozYmM} implique \ref{ITEMooCTPEooRCaxvx}]
+        Soit \( \mO\) un ouvert de \( X\); pour chaque \( x\in\mO\) nous considérons un ouvert \( B(x)\in \mB\) tel que \( x\in B(x)\subset\mO\). Nous avons alors \( \mO=\bigcup_{x\in \mO}B(x)\).
+    \end{subproof}
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Fermés}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}	\label{DEFFermeooNSAAooHxZbAo}
+    Si \(X \) est un espace topologique, un sous-ensemble \( F \) de \( X \) est dit \defe{fermé}{fermé} si son complémentaire, \( X\setminus F \), est ouvert.
+\end{definition}
+
+\begin{definition}		\label{DEFVoisinageooGHZCooLRcpXY}
+    Si \(a \in X\), on dit que \(V \subset X\) est un \defe{voisinage}{voisinage} de \(a\) si il existe un ouvert \(\mO \in \mT\) tel que \(a \in \mO\) et \(\mO \subset V\).
+\end{definition}
+
+\begin{definition}[Base de voisinage\cite{BIBooMKSNooKCGqnP}]       \label{DEFooBWZIooXotZLA}
+    Soient un espace topologique \( X\) ainsi que \( a\in X\). Un ensemble \( \{ U_i \}_{i\in I}\) de voisinages de \( a\) est une \defe{base de voisinages}{base de voisinages} de \( a\) si pour tout voisinage \( V\) de \( a\), il existe \( k\in I\) tel que \( U_k\subset V\).
+\end{definition}
+
+\begin{lemma}   \label{LemQYUJwPC}
+    Union et intersection de fermés.
+    \begin{enumerate}
+        \item       \label{ITEMooBHIGooMvkUtX}
+            Une intersection quelconque de fermés est fermée.
+        \item       \label{ItemKJYVooMBmMbG}
+            Une union finie de fermés est fermée.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Soit \( \{ F_i \}_{i\in I} \) un ensemble de fermés; nous avons
+    \begin{equation}
+        \left( \bigcap_{i\in I}F_i \right)^c=\bigcup_{i\in I}F_i^c.
+    \end{equation}
+    Le membre de droite est une union d'ouverts, c'est donc un ouvert; donc l'intersection qui apparaît dans le membre de gauche est le complémentaire d'un ouvert: c'est donc un fermé.
+
+    De la même manière, le complémentaire d'une union finie de fermés est une intersection finie de complémentaires de fermés, et est donc ouvert\footnote{Un bon exercice est d'écrire ces unions et intersections, pour se convaincre que ça fonctionne.}.
+\end{proof}
+
+Dans un espace topologique, nous avons une caractérisation très importante des ouverts.
+\begin{theorem}		\label{ThoPartieOUvpartouv}
+    Une partie d'un espace topologique est ouverte si et seulement si elle contient un ouvert autour de chacun de ses éléments.
+\end{theorem}
+
+\begin{proof}
+    Soit \( X\) un espace topologique et \( A\subset X\). Le sens direct est évident : $A$ lui-même est un ouvert autour de $x\in A$, qui est inclus dans $X$.
+
+    Pour le sens inverse, nous supposons que \( A\) contienne un ouvert autour de chacun de ses points. Pour chaque $x\in A$, choisissons $\mO_x\subset A$ un ouvert autour de $x$. Alors,
+\begin{equation}	\label{EqAUniondesOx}
+	A=\bigcup_{x\in A}\mO_x
+\end{equation}
+en effet, d'une part, $A\subset\bigcup_{x\in A}\mO_x$ parce que chaque élément $x$ de $A$ est dans le $\mO_x$ correspondant, par construction; et d'autre part, $\bigcup_{x\in A}\mO_x\subset A$ parce que chacun des $\mO_x$ est inclus dans $A$.
+
+Ainsi, $A$ est égal à une union d'ouverts, cela prouve que $A$ est un ouvert.
+\end{proof}
+Le lemme \ref{LemMESSExh} est une version particulière de celui-ci, pour l'espace topologique \( \eR \). Une autre application typique est la proposition~\ref{DEFooLEHPooIlNmpi} et le théorème~\ref{ThoESCaraB}.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Quelques exemples}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\subsubsection{Une première vague}
+%///////////////////////////
+
+\begin{example}\label{DefTopologieGrossiere}
+    Soit un ensemble quelconque \( X\). L'ensemble de parties \( \mT=\{ \emptyset, X \}\) est une topologie sur \( X\).
+
+    La topologie ainsi définie sur \(X \) est appelée \defe{topologie grossière}{topologie!grossière}.
+\end{example}
+
+\begin{example}\label{DefTopologieDiscrete}
+    Pour un ensemble \( X \) quelconque, on considère l'ensemble \( \mT \) constitué de toutes les parties de \( X \). Avec cet ensemble, on confère à nouveau une structure d'espace topologique à \(X \); toutes les parties sont des ouverts, et aussi des fermés. La topologie ainsi posée sur \(X \) est appelée \defe{topologie discrète}{topologie!discrète}.
+\end{example}
+
+\begin{example} [Toutes les topologies d'un ensemble à 3 éléments]      \label{EXooLAOSooJtjJnu}
+    On pose \( X = \{1, 2, 3\} \). Alors on peut munir \( X \) de 29 topologies différentes\cite{BIBooSLBZooRYtdIi}; saurez-vous les retrouver toutes?
+\end{example}
+
+\subsubsection{Topologie engendrée}
+%//////////////////////////
+
+\begin{propositionDef}[Topologie engendrée, prébase\cite{BIBooTAMKooWwOwAL}]\label{DefTopologieEngendree}
+    Soient un ensemble \( X \), et \( \mT_0 \) un ensemble de parties de \( X \). Nous définissons \( \tau(\mT_0)\) comme étant l'union quelconque d'intersections finies d'éléments de \( \mT_0 \). 
+
+    Plus précisément, nous faisons les constructions suivantes :
+    \begin{enumerate}
+        \item
+            Nous notons \( \{\mO_i \}_{i\in I}\) les éléments de \( \mT_0\) indexés par l'ensemble \( I\).
+        \item 
+            Soit  \( B(\mT_0)\) l'ensemble des intersections finies d'éléments de \( \mT_0\) :
+            \begin{equation}
+                B(\mT_0)=\big\{ \bigcap_{j\in J}\mO_j \big\}_{J\text{ fini dans }I}
+            \end{equation}
+            où nous convenons que \( \bigcap_{j\in\emptyset}\mO_j=X\)\footnote{Bref, nous mettons \( X\) dans \( B(\mT_0)\).}.
+        \item
+            Soit \( A\) un ensemble qui indexe \(   B(\mT_0) \) :
+            \begin{equation}
+                B(\mT_0)=\{ B_{\alpha} \}_{\alpha\in A}.
+            \end{equation}
+        \item 
+            Nous posons
+            \begin{equation}
+                \tau(\mT_0)=\big\{    \bigcup_{\alpha\in S}B_{\alpha}   \big\}_{S\subset A}.
+            \end{equation}
+    \end{enumerate}
+    Alors \( \tau(\mT_0) \) est une topologie sur \(X\), qu'on appelle \defe{topologie engendrée}{topologie!engendrée par une famille} par \( \mT_0 \). La partie \( \mT_0\) est appelée \defe{prébase}{prébase} de la topologie \(  \tau(\mT_0)  \).
+\end{propositionDef}
+
+\begin{proof}
+    Nous devons montrer les différents points de la définition \ref{DefTopologieGene} d'une topologie.
+    \begin{enumerate}
+        \item
+            L'ensemble vide est dans \( \tau(\mT_0)\) parce que \( \emptyset=\bigcup_{\alpha\in \emptyset}B_{\alpha}\). L'ensemble \( X\) est également dans \( \tau(\mT_0)\) parce que \( X\in B(\mT_0)\).
+
+        \item
+            Soient \( \{ D_l \}_{l\in L}\) des éléments de \( \tau(\mT_0)\) indexés par un ensemble \( L\). Pour chaque \( l\) nous avons un ensemble \( S\subset A\) tel que \( D_l=\bigcup_{\alpha\in S_l}B_{\alpha}\). En posant \( S=\bigcup_{l\in L}S_l\) nous avons
+            \begin{equation}
+                \bigcup_{l\in L} D_l=\bigcup_{\alpha\in S}B_{\alpha}\in \tau(\mT_0).
+            \end{equation}
+            Donc \( \tau(\mT_0)\) est stable par union quelconque.
+        \item
+            Soient \( D_1\) et \( D_2\) des éléments de \( \tau(\mT_0)\). Nous posons \( D_i=\bigcup_{\alpha\in S_i}B_{\alpha}\). Alors nous avons
+            \begin{equation}        \label{EQooUCJOooCbKVpw}
+                \bigcup_{\alpha\in S_1}B_{\alpha}\cap\bigcup_{\beta\in S_2}B_{\beta}=\bigcup_{\alpha,\beta\in S_1\times S_2}(B_{\alpha}\cap B_{\beta}).
+            \end{equation}
+            Mais \( B_{\alpha}\) et \( B_{\beta}\) sont dans \( B(\mT_0)\). Donc \( B_{\alpha}\cap B_{\beta}\in B(\mT_0)\). Donc \eqref{EQooUCJOooCbKVpw} est une union d'éléments de \( B(\mT_0)\).
+    \end{enumerate}
+    Au final nous avons prouvé que \( \tau(\mT_0)\) est une topologie sur \( X\).
+\end{proof}
+
+\begin{lemma}
+    Soient un ensemble \( X\) et un ensemble \( \mT_0\) de parties de \( X\). Toute topologie sur \( X\) contenant \( \mT_0\) contient \( \tau(\mT_0)\).
+\end{lemma}
+
+\begin{proof}
+    Soit une topologie \( \mu\) sur \( X\) contenant \( \tau(\mT_0)\). Puisque \( \mu\) est une topologie, les intersections finies d'éléments de \( \mu\) sont dans \( \mu\), donc, en suivant les notations de \ref{DefTopologieEngendree}, \( B(\mT_0)\subset \mu\).
+
+    Comme toutes les unions d'éléments de \( \mu\) sont dans \( \mu\), l'inclusion de \( B(\mT_0)\) dans \( \mu\) implique celle de \( \tau(\mT_0)\).
+\end{proof}
+
+Dès que nous avons une topologie, nous avons une notion de convergence de suite.
+\begin{definition}[Convergence de suite] \label{DefXSnbhZX}
+    Une suite \( (x_n)\) d'éléments de \( X\) \defe{converge}{convergence de suite} vers un élément \( y\) de \( X\) si pour tout ouvert \(\mO \)  contenant \( y\) , il existe un \( K\in \eN\) tel que \( k\geq K\) implique \( x_k\in\mO\).
+\end{definition}
+\index{limite!de suite!espace topologique}
+
+La proposition suivante montre que vérifier la convergence d'une suite sur une prébase suffit pour vérifier la convergence.
+\begin{proposition}     \label{PROPooJTJBooNtczsO}
+    Soit \( \mT_0\) un ensemble de parties de l'ensemble \( X\). Soient une suite \( (x_n)\) dans \( X\) ainsi que \( x\in X\). Nous supposons que la suite \( (x_n)\) satisfait la propriété suivante : pour tout \( A\in \mT_0\) tel que \( x\in A\), il existe \( K\in \eN\) tel que \( k\geq K\) implique \( x_k\in A\). 
+
+    Alors nous avons la convergence de suite\footnote{Définition \ref{DefXSnbhZX}.}
+    \begin{equation}
+        x_n\stackrel{\big( X,\tau(\mT_0) \big)}{\longrightarrow}x.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Nous considérons la topologie \( \tau(\mT_0)\) sur \( X\). Soit un ouvert \( \mO\) contenant \( x\). Nous le décomposons en suivant (à l'envers) la construction de la définition \ref{DefTopologieEngendree} :
+    \begin{equation}
+        \mO=\bigcup_{\alpha\in S}B_{\alpha}
+    \end{equation}
+    avec \( B_{\alpha}\in B(\mT_0)\). Donc pour chaque \( \alpha\), il existe un ensemble fini \( J_{\alpha}\) tel que
+    \begin{equation}
+        B_{\alpha}=\bigcap_{j\in J_{\alpha}}A_j
+    \end{equation}
+    avec \( A_j\in \mT_0\). Puisque \( x\in \mO\), nous avons un \( \alpha_0\) tel que \( x\in B_{\alpha_0}\). Donc \( x\in A_j\) pour tous les \( j\in J_{\alpha_0}\). 
+    
+    Pour chaque \( j\in J_{\alpha_0}\), il existe \( K_j\in \eN\) tel que \( k\geq K_j\) implique \( x_k\in A_j\). Comme \( J_{\alpha_0}\) est un ensemble fini, nous pouvons poser \( K=\max_{j\in J_{\alpha_0}}K_j\).
+
+    Maintenant, si \( k\geq K\), nous avons \( x_k\in A_j\) pour tout \( j\), et donc \( x_k\in B_{\alpha_0}\). Par conséquent, \( x_k\in \mO\).
+\end{proof}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Topologie produit}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[Produit d'espaces topologiques, thème~\ref{THEMEooYRIWooDXZnhX}]      \label{DefIINHooAAjTdY}
+    Soient $\{ (X_i,\tau_i) \}_{i=1,\ldots, n}$ des espaces topologiques. Leur \defe{produit}{produit!espaces topologiques}\index{topologie!produit} est l'ensemble
+    \begin{equation}
+        X=\prod_{i=1}^nX_i
+    \end{equation}
+    muni de la topologie 
+    \begin{equation}
+        \mT=\{ mO\subset X\tq \forall x\in U,\exists U_i\in\tau_i\tq x\in U_1\times\ldots\times U_n\subset \mO \}.
+    \end{equation}
+\end{definition}
+
+\begin{proposition}[Convergence composante par composante]
+    Soient des espaces topologiques \( X_i\) (\( i=1,\ldots, n\)) et une suite \( (a^{(1)}_k,\ldots, a^{(n)}_k)\) dans \( X_1\times\ldots \times X_n\). Nous avons la convergence
+    \begin{equation}
+        (a^{(1)}_k,\ldots, a^{(n)}_k)\stackrel{X_1\times\ldots \times X_n}{\longrightarrow}(a^{(1)},\ldots, a^{(n)})
+    \end{equation}
+    si et seulement si \( a^{(i)}_k\to a^{(i)}\) pour chaque \( i\).
+\end{proposition}
+
+\begin{proof}
+    En deux parties.
+    \begin{subproof}
+        \item[Sens direct]
+            Soient des ouverts \( \mO_i\) autour de \( a^{(i)}\) dans \( X_i\). Puisque \( \mO_1\times \ldots\times \mO_n\) est un ouvert autour de \( (a^{(1)},\ldots, a^{(n)})\), il existe \( K\in \eN\) tel que si \( k\geq K\) nous avons \( (a^{(1)}_k,\ldots, a^{(n)}_k)\in \mO_1\times \ldots \times \mO_n\). Pour ce \( K\) nous avons séparément \( a^{(i)}_k\in \mO_i\) pour chaque \( i\).
+
+        \item[Sens inverse]
+            Une prébase de la topologie sur \( X_1\times \ldots\times X_n\) est donnée par les \( \mO_1\times \ldots \times \mO_n\) où \( \mO_i\) est un ouvert de \( X_i\). Voir la définition \ref{DefIINHooAAjTdY} de la topologie produit et la définition \ref{DefTopologieEngendree} de ce qu'est une prébase.
+
+            La proposition \ref{PROPooJTJBooNtczsO} nous permet de ne vérifier la convergence de \( (a^{(1)}_k,\ldots, a^{(n)}_k)\) que sur la prébase. Soit donc \(\mO= \mO_1\times \ldots \times \mO_n\) avec \( (a^{(1)},\ldots, a^{(n)})\in \mO\). Puisque \( (a^{(i)}_k)_{k\in \eN}\to a^{(i)}\), pour chaque \( i\), il existe \( K_i\in \eN\) tel que si \( k\geq K_i\) alors \( a^{(i)}_k\in \mO_i\).
+
+            En posant \( K=\max_i(K_i)\), nous avons \( (a^{(1)}_k,\ldots, a^{(n)}_k)\in \mO_1\times \ldots \mO_n\) pour tout \( k\geq K\).
+
+            La proposition \ref{PROPooJTJBooNtczsO} permet de conclure.
+    \end{subproof}
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Adhérence, fermeture, intérieur, point d'accumulation et point isolé}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}      \label{DEFooSVWMooLpAVZRInt}
+    Soient un espace topologique \( X\) et une partie \( A\) de \( X\).
+    \begin{enumerate}
+        \item
+            Un point \( x\in X\) est \defe{intérieur}{point intérieur} à \( A\) si il existe un ouvert \( \mO\) tel que\( x\in \mO\subset A\).
+        \item
+            L'\defe{intérieur}{intérieur} de \( A\), notée \( \Int(A)\), est l'union de tous les ouverts de \( X\) contenus dans \( A\).
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+    Quelques propriétés en vrac.
+    \begin{enumerate}
+        \item   \label{ITEMooHLIMooJEacKt}
+            L'intérieur de \( A\) est l'ensemble de tous les points intérieurs de \( A\).
+        \item \label{ITEMooYTXSooMyiBpMgzK}
+            Pour tout \( A \subset X\), l'ensemble \( \Int(A)\) est un ouvert.
+\item   \label{ITEMooYYFDooHgsRfV}
+    On a  \( \Int(A) \subset A \)
+\item \label{ITEMooTDXFooFdyLeO}
+        Nous avons \( \Int(A) = A \) si et seulement si $A$ est un ouvert.
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    En plusieurs morceaux.
+    \begin{subproof}
+    \item[\ref{ITEMooHLIMooJEacKt}]
+        Si \( a\in\Int(A)\), alors \( a\) est dans un ouvert contenu dans \( A\), et donc \( a\) est un point intérieur à \( A\). Dans l'autre sens, si \( a\) est un point intérieur à \( A\), alors il existe un ouvert \( \mO\subset A\) contenant \( a\). Puisque \( \mO\) est un ouvert dans \( A\), nous avons \( \mO\subset\Int(A)\), et en particulier \( a\in \Int(A)\).
+    \item[\ref{ITEMooYTXSooMyiBpMgzK}]
+        L'ensemble \( \Int(A)\) est une union d'ouverts.
+    \item[\ref{ITEMooYYFDooHgsRfV}]
+        L'ensemble \( \Int(A)\) est une union d'ensembles contenus dans \( A\).
+    \item[\ref{ITEMooTDXFooFdyLeO}]
+        Supposons que \( \Int(A)=A\). Puisque \( \Int(A)\) est ouvert (point \ref{ITEMooYYFDooHgsRfV}), \( A\) est ouvert aussi.
+
+        Dans l'autre sens, nous supposons que \( A\) est ouvert. Puisque \( A\) est un ouvert contenu dans \( A\), nous avons \( A\subset\Int(A)\). Mais comme \( \Int(A)\subset A\), nous avons l'égalité.
+    \end{subproof}
+\end{proof}
+
+\subsubsection{Adhérence et fermeture}
+%///////////////////////
+
+Disons-le tout de suite : «adhérence» et «fermeture» sont synonymes. Dans le Frido, nous allons nous évertuer à utiliser le mot «adhérence» et la notation \( \Adh(A)\) au lieu de \( \bar A\) que l'on rencontre assez souvent. La notation \( \bar z\) définissant le complexe conjugué de \( z\), définir l'adhérence par \( \bar A\) peut mener dans certains cas, à des confusions.
+\begin{definition}      \label{DEFooSVWMooLpAVZR}
+    Soient un espace topologique \( X\) et une partie \( A\) de \( X\). Un point \( x\in X\) est \defe{adhérent}{point adhérent} à \( A\) si tout ouvert de \( X\) contenant \( x\) a une intersection non vide avec \( A\). L'ensemble des points d'adhérence de \( A\) est noté $\Adh(A)$.\nomenclature[T]{$\Adh(A)$}{adhérence de \( A\)}
+
+    Nous allons aussi parfois noter \( \bar A\) l'adhérence de \( A\). Surtout pour éviter une quantité excessive de parenthèses. Par exemple \( \overline{ B(a,r) }\) pour la boule fermée.
+\end{definition}
+
+\begin{lemma}       \label{LEMooILNCooOFZaTe}
+    À propos d'adhérence.
+    \begin{enumerate}
+        \item
+    L'adhérence de \( A\) est l'intersection de tous les fermés de \( X\) contenant \( A\).
+\item
+    Nous avons l'égalité
+    \begin{equation}
+      \Int(A)^c = \Adh(A^c).
+    \end{equation}
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Commençons par prouver la dernière égalité d'ensembles. On a les équivalences entre les affirmations suivantes, pour tout $x \in X$:
+    \begin{itemize}
+    \item \( x\) n'est pas dans \( \Int(A)\);
+    \item il n'y a aucun ouvert contenant \( x\) et inclus dans \( A\);
+    \item tout ouvert contenant \( x\) a une intersection non-vide avec \( A^c\);
+    \item \( x\) est dans \( \Adh({A^c})\).
+    \end{itemize}
+    Nous allons à présent montrer l'égalité d'ensembles \( \Int(A)^c=\Adh(A^c) \) en prouvant la double inclusion.
+    \begin{subproof}
+        \item[Si \( \Int(A)^c\subset \Adh(A^c)\)]
+            Soit \( x\in \Int(A)^c\). Nous devons prouver que \( x\in \Adh(A^c)\). Soit un ouvert \( \mO\) contenant \( x\). Vu que \( x\) n'est pas dans l'intérieur de \( A\), l'ouvert \( \mO\) est pas inclus à \( A\), et donc \( \mO\cap A^c\) est non vide.
+
+            Nous avons montré que tout ouvert contenant \( x\) intersecte \( A^c\). Autrement dit : \( x\in\Adh(A^c)\).
+
+        \item[\( \Adh(A^c)\subset\Int(A)^c\)]
+
+            Soit \( x\in \Adh(A^c)\). Tout ouvert contenant \( x\) intersecte \( A^c\), et ne peut donc pas être inclus à \( A\). Si aucun ouvert contenant \( x\) n'est inclus à \( A\), alors \( x\) n'est pas dans \( \Int(A)\).
+    \end{subproof}
+\end{proof}
+
+\begin{remark}\label{RemAdhFerme}
+  Comme corolaire du lemme précédent, et grâce aux remarques faites pour les intérieurs, on obtient que pour \( A \subset X \) :
+  \begin{enumerate}
+  \item l'ensemble \( \bar A \) est fermé: c'est en effet le complémentaire d'un ouvert, précisément l'intérieur de \( A^c \);
+  \item \( A \) est fermé si et seulement si \( \bar A = A \): en effet, \( A \) est fermé si et seulement si \( A^c \) est ouvert, si et seulement si l'intérieur de \( A^c \) est \( A^c \) lui-même; or, l'intérieur de \( A^c \) est le complémentaire de \( \bar A \) par le lemme \ref{LEMooILNCooOFZaTe}, si bien que \( A \) est fermé si et seulement si \( (\bar A)^c  = A^c \), ou encore\dots{} ce qu'on affirmait au début.
+  \end{enumerate}
+\end{remark}
+
+\begin{definition}\label{DefEnsembleDense}
+  Soit \( X \) un espace topologique. Un sous-ensemble \( A \) de \( X \) est \defe{dense}{dense} dans \( X \) si \( \bar A = X\). 
+\end{definition}
+
+\subsubsection{Frontière}
+%/////////////////////////
+
+\begin{definition}
+  Soit \( X \) un espace topologique, et \( A \subset X \). La \defe{frontière}{frontière} de \( A \), notée \( \partial A \), est l'ensemble des points adhérents de \( A \) qui ne sont pas intérieurs à \( A \). Ainsi,
+  \begin{equation}
+    \partial A = \Adh(A) \setminus \Int(A).
+  \end{equation}
+\end{definition}
+
+\subsubsection{Topologie induite}
+%//////////////////////////
+
+\begin{propositionDef}[Topologie induite\cite{BIBooTQXWooMOxuoy}] \label{DefVLrgWDB}
+  Soit un espace topologique \( (X, \tau_X) \), et soit \( Y \subset X \). Nous définissons
+  \begin{equation}
+      \tau_Y=\{ Y\cap\mO\tq \mO\in\tau_X \}.
+  \end{equation}
+    L'ensemble \( \tau_Y\) est une topologie sur \( Y\).  
+
+  Elle est la \defe{topologie induite}{topologie!induite}.
+\end{propositionDef}
+
+\begin{proof}
+    Il s'agit de vérifier les conditions de la définition \ref{DefTopologieGene}.
+
+    \begin{subproof}
+    \item[\( Y\in \tau_Y\)]
+        Parce que \( Y=X\cap Y\) et que \( X\) est un ouvert de \( X\).
+    \item[\( \emptyset\in \tau_Y\)]
+        Parce que \( \emptyset = Y\cap\emptyset\) et que \( \emptyset\) est un ouvert de \( X\).
+    \item[Union quelconque]
+        Soient des ouverts \( A_i\) de \( X\). Nous avons
+        \begin{equation}        \label{EQooJUYHooIugQXG}
+            \bigcup_{i\in I}Y\cap A_i=Y\cap\big( \bigcup_{i\in I}A_i \big).
+        \end{equation}
+        Comme les \( A_i\) sont des ouverts de \( X\), leur union est encore un ouvert de \( X\). Donc \eqref{EQooJUYHooIugQXG} est encore dans \( \tau_Y\).
+    \item[Intersection finie]
+        Nous avons
+        \begin{equation}
+            \bigcap_{i\in I}Y\cap A_i=Y\cap\left( \bigcap_{i\in I}A_i \right).
+        \end{equation}
+    \end{subproof}
+\end{proof}
+
+
+\begin{lemma}[\cite{MonCerveau}]        \label{LemBWSUooCCGvax}
+    Soit \( (X,\tau_X)\) un espace topologique et \( S\subset X\), un fermé de \( X\) sur lequel nous considérons la topologie induite \( \tau_S\). Si \( F\) est un fermé de \( (S,\tau_S)\) alors \( F\) est fermé de \( (X,\tau_X)\).
+\end{lemma}
+
+\begin{proof}
+    Nous savons que \( F\subset S\) et que le complémentaire de \( F\) dans \( S\) est un ouvert de \( (S,\tau_S)\) : il existe un ouvert \( \Omega\in \tau_X\) tel que \( S\setminus F=S\cap \Omega\). Si maintenant nous considérons le complémentaire de \( F\) dans \( X\) nous avons
+    \begin{equation}
+        F^c=(S\setminus F)\cup (X\setminus S)=(S\cap \Omega)\cup S^c=(S\cap \Omega)\cup(S^c\cap \Omega)\cup S^c=\Omega\cup S^c.
+    \end{equation}
+    Puisque \( \Omega\) et \( S^c\) sont des ouverts de \( X\), l'union est un ouvert. Donc \( F^c\in \tau_X\) et \( F\) est un fermé de \( X\).
+\end{proof}
+
+\begin{lemma}       \label{LemkUYkQt}
+    Si \( B\subset A\) alors la fermeture de \( B\) pour la topologie de \( A\) (induite de \( X\)) que nous noterons \( \tilde B\) est
+    \begin{equation}
+        \tilde B=\bar B\cap A
+    \end{equation}
+    où \( \bar B\) est la fermeture de \( B\) pour la topologie de \( X\).
+\end{lemma}
+
+\begin{proof}
+    Si \( a\in \bar B\cap A\), un ouvert de \( A\) autour de \( a\) est un ensemble de la forme \( \mO\cap A\) où \( \mO\) est un ouvert de \( X\). Comme \( a\in\bar B\), l'ensemble \( \mO\) intersecte \( B\) et donc \( (\mO\cap A)\cap B\neq \emptyset\). Donc \( a\) est bien dans l'adhérence\footnote{Définition \ref{DEFooSVWMooLpAVZR}.} de \( B\) au sens de la topologie de \( A\).
+
+    Pour l'inclusion inverse, soit \( a\in \tilde  B\), montrons que \( a\in \bar B\cap A\). Par définition \( a\in A\), parce que \( \tilde B\) est une fermeture dans l'espace topologique \( A\). Il faut donc seulement montrer que \( a\in\bar B\). Soit donc \( \mO\) un ouvert de \( X\) contenant \( a\); par hypothèse \( \mO\cap A\) intersecte \( B\) (parce que tout ouvert de \( A\) contenant \( a\) intersecte \( B\)). Donc \( \mO\) intersecte \( B\). Cela signifie que tout ouvert (de \( X\)) contenant \( a\) intersecte \( B\), ou encore que \( a\in \bar B\).
+\end{proof}
+
+Si \( A\) est un ouvert de \( X\), on pourrait croire que la topologie induite n'a rien de spécial. Il est vrai que \( B\) sera ouvert dans \( A\) si et seulement si il est ouvert dans \( X\), mais certaines choses surprenantes se produisent tout de même.
+
+\begin{example} \label{ExloeyoR}
+Prenons \( X=\eR\) et \( A=\mathopen] 0 , 1 \mathclose[\). Si \( B=\mathopen] \frac{ 1 }{2} , 1 \mathclose[ \), alors la fermeture de \( B\) dans \( A\) sera \( \tilde B=\mathopen[ \frac{ 1 }{2} , 1 [\) et non \( \mathopen[ \frac{ 1 }{2} , 1 \mathclose]\) comme on l'aurait dans \( \eR\).
+\end{example}
+
+Prendre la topologie induite de \( \eR\) vers un fermé de \( \eR\) donne des boules un peu spéciales comme le montre l'exemple suivant.
+
+\begin{example}  \label{ExKYZwYxn}
+    Quid de la boule ouverte \( B(1,\epsilon)\) dans le fermé \( \mathopen[ 0 , 1 \mathclose]\) ? Par définition c'est
+    \begin{equation}
+        B(1,\epsilon)=\{ x\in\mathopen[ 0 , 1 \mathclose]\tq | x-1 |<\epsilon \}=\mathopen] 1-\epsilon , 1 \mathclose].
+    \end{equation}
+    Oui, c'est \emph{ouvert} dans \( \mathopen[ 0 , 1 \mathclose]\). C'est d'ailleurs un des ouverts de la topologie induite de \( \eR\) sur \( \mathopen[ 0 , 1 \mathclose]\).
+
+    Donc pour la topologie de \( \mathopen[ 0 , 1 \mathclose]\), toutes les boules ouvertes \( B(x,\delta)\) avec \( x\in\mathopen[ 0 , 1 \mathclose]\) sont incluses dans \( \mathopen[ 0 , 1 \mathclose]\). Bref, vous pouvez écrire
+    \begin{equation}
+        B(\frac{ 1 }{2}, 10)\subset \mathopen[ 0 , 1 \mathclose],
+    \end{equation}
+    mais vous avez intérêt à être très clair sur la topologie sous-entendue.
+\end{example}
+
+
+\subsubsection{Points d'accumulation et isolés}
+%/////////////////////////
+
+\begin{definition}      \label{DEFooGHUUooZKTJRi}
+    Soient un espace topologique \( X\) et une partie \( A\) de \( X\). Un point \( s\in X \) est un \defe{point d'accumulation}{point d'accumulation} de \( A\) si tout ouvert de \( X\) contenant \( s\) contient au moins un élément de \( A\setminus\{ s \}\).
+\end{definition}
+
+Quelle est la différence entre un point d'accumulation et un point d'adhérence ? La différence est que tous les points de \( A\) sont des points d'adhérence de \( A\), parce que tout voisinage de \( a\in A\) contient au moins \( a\) lui-même, alors que certains points de \( A\) peuvent ne pas être des points d'accumulation de \( A\). Voir l'exemple \ref{EXooWOYQooJolaTV}.
+
+Notons qu'un point d'accumulation de \( A\) dans \( X\) n'est pas spécialement dans \( A\).
+
+\begin{definition}      \label{DEFooXIOWooWUKJhN}
+    Soient un espace topologique \( X\) et une partie \( A\) de \( X\). Un point \( s\in A \) est un \defe{point isolé}{point isolé} de \( A\) si il existe un voisinage ouvert \( \mO\) de \( s\) dans \( X\) tel que \( A\cap\mO=\{ s \}\).
+\end{definition}
+
+La définition suivante est \emph{la} définition de la continuité dans tous les cas.
+\begin{definition}[Fonction continue\cite{ooBFBXooLJWsFq}]\label{DefOLNtrxB}
+    Deux définitions :
+    \begin{enumerate}
+        \item   \label{ITEMooXARPooNzsWLr}
+            Soient une fonction \( f\colon X\to Y\) entre les espaces topologiques \( X\) et \( Y\) et un point \( a\in X\). Nous disons que \( f\) est \defe{continue}{fonction continue en un point} en \( a\) si pour tout ouvert \( W\) contenant \( f(a)\), il existe un voisinage \( V\) de \( a\) dans \( X\) tel que \( f(V)\subset W\).
+        \item       \label{ITEMooEHGWooDdITRV}
+    Une fonction \( f\colon X\to Y\) est \defe{continue}{continue!fonction entre espaces topologiques} sur \( X\) si pour tout ouvert \( \mO\) de \( Y\), l'ensemble
+    \begin{equation}      \label{defFminus1ofaset}
+      f^{-1}(\mO) = \{ x \in X \tq f(x) \in \mO\}
+    \end{equation}
+est ouvert dans \( X\).
+    \end{enumerate}
+\end{definition}
+
+\begin{example}[\cite{MonCerveau}]
+    Un truc bien avec la définition \ref{DefOLNtrxB}\ref{ITEMooXARPooNzsWLr} est que la continuité de \( f\) en un point est définie pour tout point du domaine; pas seulement les points d'accumulation. Soit par exemple une fonction simple
+    \begin{equation}
+        \begin{aligned}
+            f\colon \{a\}&\to \eR \\
+            a&\mapsto 4. 
+        \end{aligned}
+    \end{equation}
+    Si \( W\) est un ouvert de \( \eR\) contenant \( 4\), nous avons l'ouvert \( V=\{a\}\) tel que \( f(V)\subset W\). Donc \( f\) est continue au point \( 4\).
+
+    Mais \( f\) est également continue sur \( \{4\}\) en tant qu'espace topologique. En effet, si \( W\) est un ouvert de \( \eR\), l'ensemble \( f^{-1}(W)\) est soit \( \emptyset\) soit \( \{a\}\). Dans les deux cas c'est un ouvert.
+\end{example}
+
+\subsubsection{Isomorphismes}
+%/////////////////
+
+\begin{definition}[Isomorphisme d'espaces topologiques]      \label{DEFooYPGQooMAObTO}
+    Un \defe{isomorphisme}{isomorphisme d'espace topologique} d'espaces topoloqiues est une application bijective continue\footnote{Application continue, définition \ref{DefOLNtrxB}.} entre deux espaces topologiques dont la réciproque est continue. 
+
+    Un isomorphisme d'un espace avec lui-même est un \defe{automorphisme}{automorphisme}.
+
+    Le mot «homéomorphisme» est parfois utilisé. Il devrait ne pas apparaître dans le Frido.
+\end{definition}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Suites et convergence}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{normaltext}
+    À propos de notations. La pire notation possible pour une suite est \( (a_n)_n\). Mais que vient faire le second indice \( n\) ? Il peut être raisonnable d'écrire \( (a_n)_{n\in I}\) lorsqu'on veut dire dans quel ensemble se déplace \( n\). Si nous parlons de \emph{suite}, il faut une sérieuse raison de prendre autre chose que \( \eN\) comme ensemble d'indices.
+
+    Une suite étant une fonction, de la même façon qu'on ne devrait pas dire «la fonction \( f(x)\)», mais «la fonction \( f\)» ou «la fonction \( x\mapsto f(x)\)», nous devrions simplement écrire \( a\) pour désigner la suite dont les éléments sont \( a_n\). 
+
+    Par conséquent, il est parfaitement légal, et même conseillé, d'écrire «\( a+b\)» pour la somme des suites \( a\) et \( b\). Et il est tout aussi légal d'écrire «\( \lim a\)» au lieu de \( \lim_{n\to \infty} a_n\).
+
+    Le hic est que nous écrivons souvent \( x\) la limite de la suite \( n\mapsto x_n\). Dans ce cas, nous sommes évidemment obligé d'écrire l'indice \( n\) pour parler de la suite.
+
+    Tout cela pour dire qu'il faut être souple avec les notations.
+\end{normaltext}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Convergence dans un fermé}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}[\cite{MonCerveau}]      \label{PROPooBBNSooCjrtRb}
+    Une suite contenue dans un fermé ne peut converger que vers un élément de ce fermé.
+\end{proposition}
+
+\begin{proof}
+    Soient un espace topologique \( X\) et un fermé \( F\) dans \( X\). Nous supposons que la suite \( (x_k)\) soit contenue dans \( F\). Nous allons prouver qu'aucun élément de \( F^c\) ne peut être limite.
+
+    Soit \( a \in F^c\). Puisque le complémentaire de \( F\) est un ouvert, et d'après le théorème \ref{ThoPartieOUvpartouv}, il existe un ouvert \( \mO_a\) contenant \( a\), et contenu dans \( F^c\). Le voisinage \( \mO_a\) de \( a\) ne contient donc aucun élément de la suite \( (x_k)\), qui ne peut donc pas converger vers \( a\).
+\end{proof}
+
+\begin{corollary}\label{CorLimAbarA}
+  Soit \( A \) un sous-ensemble d'un espace topologique \( X\). Toute suite d'éléments de \( A\) qui converge, admet pour limite un élément de \( \Adh(A) \).
+\end{corollary}
+\begin{proof}
+  Une fois la suite \( (x_n) \) fixée, il suffit de remarquer que tous les \( x_n \) sont dans \( \Adh(A) \), et puis d'appliquer la proposition~\ref{PROPooBBNSooCjrtRb}. 
+\end{proof}
+
+
+\begin{lemma}   \label{LemPESaiVw}
+    Soit \( A\subset X\) muni de la topologie induite de \( X\) et \( (x_n)\) une suite dans \( A\). Si \( (x_n) \) converge vers un élément \( x \) dans \(A \), alors elle converge aussi vers \(x \) dans \( X \).
+\end{lemma}
+
+\begin{proof}
+    Soit \( \mO\) un ouvert autour de \( x\) dans \( X\). Alors \( A\cap\mO\) est un ouvert autour de \( x\) dans \( A\) et il existe \( N\in \eN\) tel que si \( n\geq N\), alors \( x_n\in A\cap\mO\subset\mO\).
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Pour des limites uniques : séparabilité}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Notons que l'on a parlé d'\emph{une} limite de suite jusqu'à présent: en effet, si il existe deux éléments distincts $x$ et $y$ tels que tout ouvert contenant $x$ contient $y$, alors la définition \ref{DefXSnbhZX} dit que toute suite convergeant vers $y$ converge aussi vers $x$\dots
+
+
+\begin{example} \label{EXooSHKAooZQEVLB}
+    Oui, il y a moyen de converger vers plusieurs points distincts si l'espace n'est pas super cool. Nous pouvons par exemple \cite{EJVQuas} considérer la droite réelle munie de sa topologie usuelle et y ajouter un point $0'$ (qui clone le réel $0$) dont les voisinages sont les voisinages de $0$ dans lesquels nous remplaçons $0$ par $0'$. Dans cet espace, la suite $(1/n)$ converge à la fois vers $0$ et $0'$.
+
+    En fait, on «voit» le problème: on ne peut pas distinguer d'un point de vue topologique le $0$ et le $0'$.
+\end{example}
+
+Nous posons la définition suivante, qui nous permettra de donner une assez grande classe d'espaces topologiques dans lesquels nous avons unicité de la limite\footnote{Voir la proposition \ref{PropFObayrf}.}.
+\begin{definition}[Espace topologique séparé]  \label{DefYFmfjjm}\label{DefWEOTrVl}
+    Si deux points distincts admettent toujours deux voisinages disjoints\footnote{Définition~\ref{DefEnsemblesDisjoints}.}, nous disons que l'espace est \defe{séparé}{espace!séparé} ou \defe{de Hausdorff}{Hausdorff}.
+\end{definition}
+
+Attention, cette notion est à ne pas confondre avec :
+\begin{definition}[Espace topologique séparable]  \label{DefUADooqilFK}
+    Un espace topologique est \defe{séparable}{séparable!espace topologique} si il possède une partie dénombrable\footnote{Définition~\ref{DefEnsembleDenombrable}.} dense\footnote{Définition~\ref{DefEnsembleDense}.}.
+\end{definition}
+
+\begin{proposition}\label{PropUniciteLimitePourSuites}
+  Dans un espace topologique séparé, si une suite converge, alors sa limite est unique.
+\end{proposition}
+\begin{proof}
+  Supposons que la suite \( (x_k)\) converge vers deux éléments distincts \( x \) et \( y \). L'espace étant séparé, il existe deux ouverts \( \mO_x \) et \( \mO_y \), disjoints, contenant respectivement \( x \) et \( y \). La suite convergeant à la fois vers \( x \) et \( y \), il existe \( k_x \) et \( k_y \), tels que, si \( k \geq \max\{k_x, k_y\} \), l'élément  \( x_k \) est (à la fois) dans  \( \mO_x \) et \( \mO_y \). Cela est en contradiction avec le fait que ces deux ensembles sont disjoints.
+\end{proof}
+
+\begin{normaltext}
+  Donc, on pourra parler, avec des espaces séparés, de «la limite d'une suite». On notera \( x_n\to a\), ou \(\lim_{n\to \infty} x_n = a \), pour signifier que la suite \( (x_n) \) converge vers \( a \). 
+\end{normaltext}
+
+\begin{proposition}[\cite{MonCerveau}]      \label{PROPooNRRIooCPesgO}
+    La convergence de suite pour la topologie de l'espace produit\footnote{Définition \ref{DefIINHooAAjTdY}.} est équivalente à la convergence des suites «composante par composante».
+\end{proposition}
+
+\begin{proof}
+    En deux parties
+    \begin{subproof}
+        \item[Sens direct]
+            Pour simplifier les notations, nous allons considérer le produit de deux espaces. Soit donc \( (x_k,y_k)\stackrel{X\times Y}{\longrightarrow}(x,y)\) et des ouverts \( \mO_1\) dans \( X\) autour de \( x\) et \( \mO_2\) autour de \( y\) dans \( Y\). 
+
+            La partie \( \mO_1\times \mO_2\) est ouverte dans \( X\times Y\). Donc il existe \( K\) tel que \( k\geq K\) implique \( (x_k,y_k)\in \mO_1\times \mO_2\).
+
+            Nous avons prouvé que pour tout ouvert \( \mO_1\) autour de \( x\) il existe \( K\) tel que \( k\geq K\) implique \( x_k\in \mO_1\). Donc \( x_k\stackrel{X}{\longrightarrow}x\). Idem pour \( y\).
+
+        \item[Dans l'autre sens]
+            Nous considérons l'espace produit\footnote{Pour les notations, ça va être le sport : \( (x_i)_k\) désigne une suite dans \( X_i\), mais \( x_i\) désigne la limite de cette suite.} \( X=\prod_{i=1}^nX_i\). Nous supposons pour chaque \( i\), avoir une suite convergente \( (x_i)_k\stackrel{X_i}{\longrightarrow}x_i\).
+
+            Nous allons prouver que
+            \begin{equation}
+                \big( (x_1)_k,\ldots, (x_n)_k \big)\stackrel{X}{\longrightarrow}(x_1,\ldots, x_n).
+            \end{equation}
+            Soit un ouvert \( \mO\) de \( X\) autour de \( (x_1,\ldots, x_n)\). Nous considérons des ouverts \( U_i\) de \( X_i\) tels que \( x_i\in U_i\) et \( U_1\times\ldots U_n\subset\mO\).
+    
+            Vu que \( (x_i)_k\stackrel{X_i}{\longrightarrow}x_i\), il existe \( K_i\in \eN\) tel que \( k>K_i\) implique \( (x_i)_k\in U_i\). Si \( k\geq \max_i\{ K_i \}\), alors \( (x_i)_k\in U_i\) pour tout \( i\) et nous avons
+            \begin{equation}
+                \big( (x_1)_k,\ldots,(x_n)_k \big)\in U_1\times\ldots\times U_n\subset \mO.
+            \end{equation}
+    \end{subproof}
+\end{proof}
+
+\begin{lemma}[\cite{MonCerveau}]        \label{LEMooSJKMooKSiEGq}
+    Soit un espace topologique \( X\). Soient dans \( X\) une suite \( (x_n)\) et un élément \( x\) tels que toute sous-suite de \( (x_n)\) contient une sous-suite convergente vers \( x\). Alors \( x_n\to x\).
+\end{lemma}
+
+\begin{proof}
+    Supposons que \( (x_n)\) ne converge pas vers \( x\). Il existe alors un ouvert \( \mO\) autour de \( x\) tel que pour tout \( N>0\), il existe \( n\geq N\) tel que \( x_n\) n'est pas dans \( \mO\).
+
+    Cela nous permet de construire une sous-suite de \( (x_n)\) composée d'éléments hors de \( \mO\). Aucune sous-suite de cette sous-suite ne peut converger vers \( x\).
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Fonctions équivalentes}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{propositionDef}[\cite{ooZGTXooHrIgMQ}]       \label{DEFooWDSAooKXZsZY}
+    Soit un espace topologique \( X\) et \( D\subset X\). Soient encore des fonctions \( f,g\colon D\to \eC\) et un point \( a\in\Adh(D)\)\footnote{Adhérence ou fermeture, c'est la même chose. Voir la définition \ref{DEFooSVWMooLpAVZR} et le lemme \ref{LEMooILNCooOFZaTe}.}.
+
+    Nous définissons sur \( \Fun(D,\eC)\) la relation \( f\sim g\) lorsque qu'il existe un voisinage \( V\) de \( a\) dans \( X\) et une fonction \( \alpha\colon V\to \eR\) telles que
+    \begin{enumerate}
+        \item
+            \( \lim_{x\to a} \alpha(x)=0\),
+        \item
+            pour tout \( x\in (V\cap D)\setminus\{ a \}\), 
+            \begin{equation}        \label{EQooQXKYooSDPpNq}
+                f(x)=\big( 1+\alpha(x) \big)g(x).
+            \end{equation}
+    \end{enumerate}
+    Cette relation est une relation d'équivalence.
+
+    Lorsque \( f\sim g\), nous disons que \( f\) et \( g\) sont \defe{équivalentes}{fonctions équivalentes} en \( a\).
+\end{propositionDef}
+
+\begin{proof}
+    Nous devons prouver les trois conditions de la définition \ref{DefHoJzMp} de relation d'équivalence.
+    \begin{subproof}
+        \item[Réflexive]
+            Il suffit de poser \( \alpha(x)=0\).
+        \item[Symétrique]
+            Si \( f\sim g\), il existe une fonction \( \alpha\) vérifiant ce qu'il faut telle que
+            \begin{equation}
+                f(x)=\big( 1+\alpha(x) \big)g(x).
+            \end{equation}
+            Comme \( \lim_{x\to a} \alpha(x)=0\), il y a un voisinage de \( a\) sur lequel \( | \alpha(x) |<1\); il n'y a donc pas de problème de dénominateur en écrivant
+            \begin{equation}
+                g(x)=\frac{1}{ 1+\alpha(x) }f(x).
+            \end{equation}
+            Nous posons alors \( \beta(x)=-\alpha(x)/\big( 1+\alpha(x) \big)\). Cela vérifie
+            \begin{equation}
+                g(x)=\big( 1+\beta(x) \big)f(x).
+            \end{equation}
+            Et 
+            \begin{equation}
+                \lim_{x\to a} \beta(x)=0
+            \end{equation}
+            parce que \( \lim_{x\to a} \big( 1 + \alpha(x)\big)=1\) et \( \lim_{x\to a} -\alpha(x)=0\).
+        \item[Transitive]
+            Soit \( f\sim g\) et \( g\sim h\). Sur un voisinage \( V\) de \( a\) nous avons
+            \begin{equation}
+                f(x)=\big( 1+\alpha(x) \big)g(x),
+            \end{equation}
+            sur un voisinage \( W\) de \( a\) nous avons
+            \begin{equation}
+                g(x)=\big( 1+\beta(x) \big)h(x).
+            \end{equation}
+            Sur le voisinage \( V\cap W\) nous avons
+            \begin{equation}
+                f(x)=\big( 1+\beta(x)+\alpha(x)+(\alpha\beta)(x) \big)h(x).
+            \end{equation}
+            Donc la fonction \( \gamma(x)=\beta(x)+\alpha(x)+(\alpha\beta)(x)\) fait l'affaire.
+    \end{subproof}
+\end{proof}
+
+Notons que la notion d'équivalence de fonctions, de même que la notion de limite, ne dépend pas des valeurs exactes atteintes par les fonctions au point.
+
+\begin{lemma}
+    Si \( f\) et \( g\) sont équivalentes en \( a\), et si \( g\) ne s'annule pas sur un voisinage de \( a\), alors pour tout \( \epsilon>0\), il existe \( r\) tel que
+    \begin{equation}
+        \frac{ f(x) }{ g(x) }\in B(1,\epsilon)
+    \end{equation}
+    pour tout \( x\in B(a,r)\).
+\end{lemma}
+
+\begin{proof}
+    Nous considérons un voisinage \( V\) de \( a\) sur lequel en même temps :
+    \begin{itemize}
+        \item 
+            la fonction \( \alpha\) de la définition d'équivalence est définie,
+        \item
+            \( | \alpha(x) |<\epsilon\) pour tout \( x\in V\),
+        \item
+            \( g(x)\neq 0\), pour tout \( x\in V\).
+    \end{itemize}
+    Ensuite nous considérons \( r>0\) tel que \( B(a,r)\subset V\). En divisant la condition \eqref{EQooQXKYooSDPpNq} par \( g(x)\) nous trouvons
+    \begin{equation}
+        \frac{ f(x) }{ g(x) }=1+\alpha(x).
+    \end{equation}
+    Donc
+    \begin{equation}
+        | \frac{ f(x) }{ g(x) }-1 |=| \alpha(x) |\leq \epsilon,
+    \end{equation}
+    ce qu'il fallait prouver.
+\end{proof}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Connexité}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+L'idée de la connexité, c'est de s'assurer qu'un ensemble est «d'un seul tenant».
+
+\begin{definition}  \label{DefIRKNooJJlmiD}
+     Lorsque $X$ est un espace topologique, nous disons qu'un sous-ensemble $A$ est \defe{non connexe}{connexité!définition} quand on peut trouver des ouverts $O_1$ et $O_2$ disjoints tels que
+    \begin{equation}    \label{EqDefnnCon}
+        A=(A\cap O_1)\cup (A\cap O_2),
+    \end{equation}
+    et tels que $A\cap O_1\neq\emptyset$, et $A\cap O_2\neq\emptyset$. Si un sous-ensemble n'est pas non-connexe, alors on dit qu'il est \defe{connexe}{ensemble connexe}.
+\end{definition}
+Une autre façon d'exprimer la condition \eqref{EqDefnnCon} est de dire que $A$ n'est pas connexe quand il est contenu dans la réunion de deux ouverts disjoints qui intersectent tous les deux $A$.
+
+
+\begin{propositionDef}[\cite{BIBooCGIFooGvxBWL}]        \label{DEFooFHXNooJGUPPn}
+    Soient un espace topologique \( X\) et un point \( x\in X\).
+    \begin{enumerate}
+        \item
+            La réunion de toutes les parties connexes de \( X\) contenant \( x\) est connexe. 
+        \item
+            Cette réunion est la plus grande (au sens de la relation d'inclusion) de toutes les parties connexes de \( X\) contenant \( x\).
+    \end{enumerate}
+    La réunion de toutes les parties connexes de \( X\) contenant \( x\) est nommée \defe{composante connexe}{composante connexe} de \( x\) dans \( X\).
+\end{propositionDef}
+
+\begin{proposition}[\cite{MonCerveau}] \label{PropHSjJcIr}
+    Soit \( X\) un espace topologique. Les conditions suivantes sont équivalentes.
+    \begin{enumerate}
+        \item       \label{ITEMooXHIKooGqrgTs}
+            L'espace \( X\) est connexe.
+        \item       \label{ITEMooRTNPooADKVnw}
+            Si \( X=O_1\cup O_2\) avec \( O_1\) et \( O_2\) des ouverts disjoints, alors soit \( O_1=\emptyset\) soit \( O_2=\emptyset\).
+        \item       \label{ITEMooOEZYooFBNaOZ}
+            Si \( X=F_1\cup F_2\) avec \( F_1\) et \( F_2\) fermés disjoints dans \( X\), alors \( F_1=\emptyset\) ou \( F_2=\emptyset\).
+        \item       \label{ITEMooNIPZooIDPmEf}
+            Si \( A\subset X\) avec \( A\) ouvert et fermé en même temps, alors \( A=\emptyset\) ou \( A=X\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    En quatre parties.
+    \begin{subproof}
+    \item[\ref{ITEMooXHIKooGqrgTs} implique \ref{ITEMooRTNPooADKVnw}]
+    Par rapport à la définition \ref{DefIRKNooJJlmiD}, nous prenons la partie \( X\) de l'espace \( X\). Supposons que \( O_1\) et \( O_2\) sont tout deux non vides. Dans ce cas nous avons
+    \begin{equation}
+        X= O_1\cup O_2 = (O_1\cap X)\cup (O_2\cap X),
+    \end{equation}
+    ce qui prouverait que \( X\) est non connexe. Contradiction. Un des \( O_i\) est vide.
+    \item[\ref{ITEMooRTNPooADKVnw} implique \ref{ITEMooOEZYooFBNaOZ}]
+        Soit une union disjointe de fermés \( X=F_1\cup F_2\). Puisque l'union est disjointe, nous avons \( F_1=X\setminus F_2\) et \( F_2=X\setminus F_1\), ce qui fait que \( F_1\) et \( F_2\) sont également ouverts. Nous en déduisons que \( X=F_1\cup F_2\) est une union disjointe d'ouverts. L'hypothèse indique que \( F_1=\emptyset\) ou \( F_2=\emptyset\).
+    \item[\ref{ITEMooOEZYooFBNaOZ} implique \ref{ITEMooNIPZooIDPmEf}]
+        Soit \( A\) une partie ouverte et fermée de \( X\). Nous supposons que \( A\) est ouvert et fermé, donc \( X\setminus A\) est également ouvert et fermé : c'est la définition \ref{DEFFermeooNSAAooHxZbAo} d'un fermé. Nous avons évidemment l'union $X=A\cup(X\setminus A)$ qui est une union disjointe de fermés. Par hypothèse nous avons soit \( A=\emptyset\) soit \( X\setminus A=\emptyset\).
+    \item[\ref{ITEMooNIPZooIDPmEf} implique \ref{ITEMooXHIKooGqrgTs}]
+        Supposons que \( X\) ne soit pas connexe. Il existe donc des ouverts disjoints \( O_1\) et \( O_2\) tels que \( X=O_1\cup O_2\). Étant donné que \( O_1=X\setminus O_2\), la partie \( O_1\) est fermée comme complémentaire d'ouvert. Donc \( O_1\) est fermé et ouvert (et \( O_2\) aussi d'ailleurs). Par hypothèse nous concluons que \( O_1\) est soit \( X\) soit \( \emptyset\).
+    \end{subproof}
+\end{proof}
+
+Nous verrons plus tard (proposition~\ref{PropConnexiteViaFonction}) une autre caractérisation de la connexité basée sur la continuité des fonctions \( X\to \eZ\).
+
+\begin{proposition}     \label{PROPooSCKNooRbewdv}
+    Si \( A\subset X\) est connexe et si \( A\subset B\subset \Adh(A)\), alors \( B\) est connexe.
+\end{proposition}
+
+\begin{proposition} \label{PropIWIDzzH}
+    Stabilité de la connexité par union.
+    \begin{enumerate}
+        \item       \label{ITEMooLVSSooTGstBz}
+    Une union quelconque de connexes ayant une intersection non vide est connexe.
+\item
+    Pour tout \( n \in \eN, n > 0 \), si \( A_1,\ldots, A_n\) sont des connexes de \( X\) avec \( A_i\cap A_{i+1}\neq \emptyset\), alors l'union \( \bigcup_{i=1}^nA_i\) est connexe.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Point par point.
+    \begin{enumerate}
+        \item
+    Soient \( \{ C_i \}_{i\in I}\) un ensemble de connexes et un point \( p\) dans l'intersection : \( p\in\bigcap_{i\in I}C_i\). Supposons que l'union ne soit pas connexe. Alors nous considérons \( A\) et \( B\), deux ouverts disjoints recouvrant tous les \( C_i\) et ayant chacun une intersection non vide avec l'union.
+
+    Supposons pour fixer les idées que \( p\in A\) et prenons \( x\in B\cap\bigcup_{i\in I}C_i\). Il existe un \( j\in I\) tel que \( x\in C_j\). Avec tout cela nous avons
+    \begin{enumerate}
+        \item
+            \( C_j\subset A\cup B\) parce que \(A \cup B\) recouvre tous les \( C_i \),
+        \item
+            \( C_j\cap A\neq \emptyset\) parce que \( p\) est dans l'intersection,
+        \item
+            \( C_j\cap B\neq\emptyset\) parce que \( x\) est dans cette intersection.
+    \end{enumerate}
+    Cela contredit le fait que \( C_j\) soit connexe.
+
+\item
+
+    Pour la seconde partie nous procédons de proche en proche\footnote{Parce qu'on a la flemme de faire une preuve par récurrence!}. D'abord \( A_1\cup A_2\) est connexe par la première partie, ensuite \( (A_1\cup A_2)\cup A_3\) est connexe parce que les connexes \( A_1\cup A_2\) et \( A_3\) ont un point d'intersection par hypothèse, et ainsi de suite.
+    \end{enumerate}
+\end{proof}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Compacité}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+La compacité est le thème~\ref{THEMEooQQBHooLcqoKB}.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Définition et notions connexes}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit $E$, un sous-ensemble de $\eR$. Nous pouvons considérer les ouverts suivants :
+\begin{equation}
+    \mO_x=B(x,1)
+\end{equation}
+pour chaque $x\in E$. Évidemment,
+\begin{equation}
+    E\subseteq \bigcup_{x\in E}\mO_x.
+\end{equation}
+Cette union contient en général de nombreuses redondances. Si par exemple $E=[-10,10]$, l'élément $3\in E$ est contenu dans $\mO_{3.5}$, $\mO_{2.7}$ et bien d'autres. Pire : même si on enlève par exemple $\mO_2$ de la liste des ouverts, l'union de ce qui reste continue à être tout $E$. La question est : \emph{est-ce qu'on peut en enlever suffisamment pour qu'il n'en reste qu'un nombre fini ?}
+
+\begin{definition} 
+Soit $E$, un sous-ensemble de $\eR$. Une collection d'ouverts $\mO_i$ est un \defe{recouvrement}{recouvrement} de $E$ si $E\subseteq \bigcup_{i}\mO_i$.
+\end{definition}
+
+\begin{definition} \label{DefJJVsEqs}
+    Une partie \( A\) d'un espace topologique est \defe{compacte}{compact} si elle vérifie la propriété de Borel-Lebesgue : pour tout recouvrement de \( A\) par des ouverts (c'est-à-dire une collection d'ouverts dont la réunion contient \( A\)) on peut extraire un recouvrement fini.
+\end{definition}
+
+\begin{remark}
+    Certaines sources (dont \wikipedia{fr}{Compacité_(mathématiques)}{wikipédia}) disent que pour être compact il faut aussi être séparé\footnote{Définition~\ref{DefWEOTrVl}.}. Pour ces sources, un espace qui ne vérifie que la propriété de Borel-Lebesgue est alors dit \defe{quasi-compact}{quasi-compact}\index{compact!quasi}.
+\end{remark}
+
+\begin{normaltext}
+    La définition \ref{DefJJVsEqs} en cache deux. En effet, si la partie \( A\) est l'espace topologique lui-même, cela définit un espace topologique compact. Un espace topologique est compact \emph{en soi} lorsque de tout recouvrement par des ouverts, nous pouvons extraire un sous-recouvrement fini. Dans ce cas, si \( X\) est l'espace et si \( \{ A_i \}_{i\in I}\) est le recouvrement, nous avons \( X=\bigcup_{i\in I}A_i\) et non une simple inclusion \( X\subset \bigcup_{i\in I}A_i\).
+\end{normaltext}
+
+\begin{lemma}       \label{LEMooNNHYooITNbyz}
+    Si \( a,b\in \eR\), alors la partie \( \mathopen[ a , b \mathclose]\) est compacte\footnote{Définition \ref{DefJJVsEqs}.} dans \( \eR\).
+\end{lemma}
+
+\begin{lemma}       \label{LEMooVYTRooKTIYdn}
+    Si \( K\) est une partie compacte de l'espace topologique \( X\), alors \( K\) est un espace topologique compact pour la topologie induite\footnote{Définition \ref{DefVLrgWDB}.} de \( X\).
+\end{lemma}
+
+\begin{proof}
+    Nous notons \( \tau\) la topologie de \( X\) et \( \tau_K\) la topologie induite de \( X\) vers \( K\), c'est-à-dire
+    \begin{equation}
+        \tau_K=\{ \mO\cap K\tq \mO\in\tau \}.
+    \end{equation}
+    Soient des ouverts \( A_i\in \tau_K\) (\( i\in I\) où \( I\) est un ensemble quelconque) tels que \( \bigcup_iA_i=K\). Pour chaque \( i\in I\), il existe un \( \mO_i\in \tau\) tel que \( A_i=K\cap\mO_i\). Nous avons
+    \begin{equation}
+        K=\bigcup_{i\in I}(K\cap\mO_i)\subset\bigcup_{i\in I}\mO_i.
+    \end{equation}
+    Donc les \( \mO_i\) forment un recouvrement de \( K\) par des ouverts de \( X\). Puisque \( K\) est une partie compacte de \( X\), il existe un sous-ensemble fini \( J\) de \( I\) tel que
+    \begin{equation}
+        K\subset\bigcup_{j\in J}\mO_j.
+    \end{equation}
+    Nous avons donc aussi
+    \begin{equation}
+        K\subset\bigcup_{j\in J}K\cap\mO_j=\bigcup_{j\in J}A_j.
+    \end{equation}
+    Nous avons prouvé que \( \{ A_j \}_{j\in J}\) est un recouvrement fini de \( K\) par des ouverts de \( K\). Donc \( K\) est un espace topologique compact.
+\end{proof}
+
+\begin{definition}
+    Une partie d'un espace topologique est \defe{relativement compact}{compact!relativement}\index{relativement!compact} si son adhérence est compacte.
+\end{definition}
+
+\begin{definition}  \label{DefEIBYooAWoESf}
+    Un espace topologique est \defe{localement compact}{compact!localement} si tout élément possède un voisinage compact.
+\end{definition}
+
+\begin{definition}[Séquentiellement compact]
+    Nous disons qu'un espace topologique est \defe{séquentiellement compact}{compact!séquentiellement} si toute suite admet une sous-suite convergente.
+\end{definition}
+
+\begin{definition}      \label{DefFCGBooLpnSAK}
+    Un espace topologique est \defe{dénombrable à l'infini}{dénombrable!à l'infini} si il est réunion dénombrable de compacts.
+\end{definition}
+
+\begin{definition}
+    Une famille \( \mA\) de parties de \( X\) a la \defe{propriété d'intersection finie non vide}{propriété d'intersection non vide} si tout sous-ensemble fini de \( \mA\) a une intersection non vide.
+\end{definition}
+
+\begin{proposition}\label{PropXKUMiCj}
+    Soient \( X\) un espace topologique et \( K\subset X\). Les propriétés suivantes sont équivalentes :
+    \begin{enumerate}
+        \item\label{ItemXYmGHFai}
+            \( K\) est compact.
+        \item\label{ItemXYmGHFaii}
+            Si \( \{ F_i \}_{i\in I}\) est une famille de fermés telle que \( \bigcap_{i\in I}F_i \cap K =\emptyset\), alors il existe une partie finie non vide \( A\) de \( I\) tel que \( \bigcap_{i\in A}F_i \cap K =\emptyset\).
+        \item\label{ItemXYmGHFaiii}
+            Si \( \{ F_i \}_{i\in I}\) est une famille de fermés telle que pour tout choix de \( A\) fini dans \( I\), \( \bigcap_{i\in A}F_i \cap K \neq\emptyset\), alors l'intersection complète est non vide : \( \bigcap_{i\in I}F_i \cap K\neq\emptyset\).
+        \item\label{ItemXYmGHFaiv}
+            Toute famille de fermés de \( X \), à laquelle \( K \) est joint, et qui a la propriété d'intersection finie non vide, a une intersection non vide.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Les propriétés~\ref{ItemXYmGHFaiii} et~\ref{ItemXYmGHFaii} sont équivalentes par contraposition. De plus le point~\ref{ItemXYmGHFaiv} est une simple\footnote{Enfin, simple\dots{} il faut remarquer que dans la formulation de~\ref{ItemXYmGHFaiv}, les intersections peuvent ne pas faire intervenir \( K \), mais, au final, on s'en moque.} reformulation en français de la propriété~\ref{ItemXYmGHFaiii}.
+
+    Prouvons~\ref{ItemXYmGHFai} \( \Rightarrow\)~\ref{ItemXYmGHFaii}. Soit \( \{ F_i \}_{i\in I}\) une famille de fermés tels que \( K\bigcap_{i\in I}F_i=\emptyset\). Les complémentaires \( \mO_i\) de \( F_i\) dans \( X\) recouvrent \( K\) et donc on peut en extraire un sous-recouvrement fini :
+    \begin{equation}
+        K\subset\bigcup_{i\in A}\mO_i
+    \end{equation}
+    pour un certain sous-ensemble fini \( A\) de \( I\). Pour ce même choix \( A\), nous avons alors aussi
+    \begin{equation}
+        \bigcap_{i\in A}F_i \cap K =\emptyset.
+    \end{equation}
+
+    L'implication~\ref{ItemXYmGHFaii} \( \Rightarrow\)~\ref{ItemXYmGHFai} est la même histoire de passage aux complémentaires.
+\end{proof}
+
+Le théorème \ref{ThoCQAcZxX} est en général celui qu'on nomme «théorème des fermés emboîtés», mais le corolaire suivant en mériterait également le nom.
+\begin{corollary}[\cite{MonCerveau}]       \label{CORooQABLooMPSUBf}
+    Soient un espace topologique compact \( X\) et une suite \( (F_i)_{i\in \eN}\) de fermés emboîtés\footnote{C'est-à-dire que \( F_{i+1}\subset F_i\).} dans \( X\) telle que
+    \begin{equation}
+        \bigcap_{i\in \eN}F_i=\emptyset.
+    \end{equation}
+    Alors il existe \( j_0\in \eN\) tel que \( F_i=\emptyset\) pour tout \( i\geq j_0\).
+\end{corollary}
+
+\begin{proof}
+    La proposition \ref{PropXKUMiCj} nous dit qu'il existe une partie finie non vide \( J\) de \( \eN\) telle que \( \bigcup_{j\in J}F_j=\emptyset\). Si \( j_0=\min(J)\), alors \( F_j\subset F_{j_0}\) pour tout \( j\in J\) et nous avons
+    \begin{equation}
+        \emptyset=\bigcap_{j\in J}F_j=F_{j_0}.
+    \end{equation}
+    Dès que \( F_{j_0}=\emptyset\), tous les suivants sont également vides.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Quelques propriétés}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}   \label{LemOWVooZKndbI}
+    Une partie \( K\) d'un espace topologique est compacte si et seulement si de tout recouvrement par des ouverts d'une base de topologie nous pouvons extraire un sous-recouvrement fini.
+\end{lemma}
+Remarquons que la partie qui est réellement à prouver est que, si \og ça marche \fg{} pour des ouverts d'une base de topologie, alors \og ça marche\fg{} pour tous types d'ouverts.
+\begin{proof}
+    Soit \( K\) une partie d'un espace topologique et \( \{ \mO_i \}_{i\in I}\) un recouvrement de \( K\) par des ouverts. Chacun des \( \mO_i\) est une union d'éléments de la base de topologie par la proposition~\ref{DEFooLEHPooIlNmpi}: disons \( \mO_i = \bigcup_{j \in J_i} A_{(i,j)} \). Soit \( J = \{ j = (i, j_i) | i \in I, j_i \in J_i \} \); alors nous obtenons  \( \bigcup_{j\in J}A_j=\bigcup_{i\in I}\mO_i\).
+
+    Par hypothèse nous pouvons extraire un ensemble fini \( J_0\subset J\) tel que \( K\subset\bigcup_{j\in J_0}A_j\). Par construction chacun des \( A_j\) est inclus dans (au moins) un des \( \mO_i\). Le choix d'un élément de \( I\) pour chacun des éléments de \( J_0\) donne une partie finie \( I_0\) de \( I\) telle que \( K\subset\bigcup_{j\in J_0}A_j\subset\bigcup_{i\in I_0}\mO_i\).
+\end{proof}
+
+
+\begin{example}[Un compact non fermé]
+    En général, un compact n'est pas toujours fermé. Si nous prenons par exemple un ensemble \( X\) de plus de deux points muni de la topologie grossière \( \{ \emptyset,X \}\). Toutes les parties de cet espace sont compactes, mais les seuls fermés sont \( \{ \emptyset,X \}\). Toutes les autres parties sont alors compactes et non fermées.
+\end{example}
+
+
+\begin{lemma}[Compacts et fermés\cite{SNSposN}]   \label{LemnAeACf}
+    À propos de parties fermées dans un compact.
+    \begin{enumerate}
+        \item       \label{ITEMooNKAKooQoNddr}
+    Une partie fermée d'un compact est compacte.
+\item       \label{ITEMooAZWVooLyPDeY}
+    Tout compact d'un espace topologique séparé est fermé.
+    \end{enumerate}
+\end{lemma}
+\index{compacts et fermés}
+
+\begin{proof}
+    En deux parties.
+    \begin{subproof}
+    \item[Pour \ref{ITEMooNKAKooQoNddr}]
+    Soient \( F\) fermé dans un compact \( K\) et \( \{ \mO_i \}_{i\in I}\) un recouvrement de \( F\) par des ouverts. Puisque \( F\) est fermé, \( F^c\) est ouvert et \( \{ \mO_i \}_{i\in I}\cup\{ K\setminus F \}\) est un recouvrement de \( K\) par des ouverts. Si nous en extrayons un sous-recouvrement fini, c'est un recouvrement de \( F\), et en supprimant éventuellement l'ouvert \( K\setminus F\), ça reste un sous-recouvrement fini de \( F\) tout en étant extrait de \( \{ \mO_i \}_{i\in I}\).
+
+\item[Pour \ref{ITEMooAZWVooLyPDeY}]
+    Soient \( X\) un espace séparé et \( K\) compact dans \( X\). Nous considérons \( y \in K^c\) et, par hypothèse de séparation, pour chaque \( x\in K\) nous considérons un voisinage ouvert \( V_x\) de \( x\) et un voisinage ouvert~\footnote{Oui, la notation du voisinage peut surprendre, mais elle est quand même pratique pour ce qu'on veut en faire.} \( W_x\) de \( y\) tels que \( V_x\cap W_x=\emptyset\). Bien entendu les \( V_x\) forment un recouvrement de \( K\) par des ouverts dont nous pouvons extraire un sous-recouvrement fini : soit \( S\) fini dans \( K\) tel que
+    \begin{equation}
+        K\subset\bigcup_{x\in S}V_x.
+    \end{equation}
+    L'ensemble \( W=\bigcap_{x\in S}W_x\) est une intersection finie d'ouverts autour de \( y\) et est donc un ouvert autour de \( y\). 
+    
+    Montrons que \( W\cap K=\emptyset\). Soit \( a\in K\); par définition de \( S\), il existe \( s\in S\) tel que \( a\in V_s\). Par conséquent, \( a\) n'est pas dans \( W_s\) et donc pas non plus dans \( W\).
+
+    L'ouvert \( W\) prouve que \( y\) est dans l'intérieur du complémentaire de \( K\), et comme \( y \) est arbitraire, nous concluons que le complémentaire de \( K\) est ouvert (théorème~\ref{ThoPartieOUvpartouv}), en d'autres termes, que \( K\) est fermé.
+    \end{subproof}
+\end{proof}
+
+
+\begin{lemma}[\cite{MonCerveau}]        \label{LEMooFJZDooSxYWVW}
+    Toute union finie de compacts est compacte.
+\end{lemma}
+
+\begin{proof}
+    Soient \( (K_i)_{i=1,\ldots, n}\) des compacts dans \( X\). Si \( \{ \mO_s \}_{i\in S}\) est un recouvrement de \( \bigcup_{i\in I}K_i\) par des ouverts, à fortiori, ce sera un recouvrement de chacun des \( K_i\). Pour chaque \( i\), il existera donc une partie finie \( S_i\) de \( S\) telle que \( \{ \mO_s \}_{s\in S_i}\) recouvre \( K_i\).
+
+    L'union finie de parties finies \( S_i \) est une partie finie de \( S\), et nous avons
+    \begin{equation}
+        \bigcup_iK_i\subset \bigcup_{s\in \bigcup_iS_i}\mO_s.
+    \end{equation}
+\end{proof}
+
+\begin{proposition}[\cite{BIBooRLJDooKCEKjj}]     \label{PROPooQWHSooXeJOkT}
+    Dans un espace séparé, toute intersection de compacts est compacte.
+\end{proposition}
+
+\begin{proof}
+    Soit un espace topologie séparé \( X\) et des compacts \( \{ K_i \}_{i\in I}\) dans \( X\) (\( I\) est un ensemble quelconque). Chacun des \( K_i\) est fermé par le lemme \ref{LemnAeACf}\ref{ITEMooAZWVooLyPDeY}. Donc l'intersection
+    \begin{equation}
+        K=\bigcap_{i\in I} K_i
+    \end{equation}
+    est un fermé de \( X\) par le lemme \ref{LemQYUJwPC}\ref{ITEMooBHIGooMvkUtX}. Soit \( i\) dans \( I\). Nous avons \( K\subset K_i\). Donc \( K\) est un fermé dans le compact \( K_i\); il est donc compact par le lemme \ref{LemnAeACf}.
+\end{proof}
+
+\begin{example}[Intersection de compacts non compacte\cite{BIBooRLJDooKCEKjj}]
+    Un exemple d'intersection de compacts qui n'est pas compacte. Vu la proposition \ref{PROPooQWHSooXeJOkT}, il va falloir chercher un espace non séparé. Soit \( X=\eN\cup\{ x_1,x_2 \}\) où \( x_1\) et \( x_2\) sont deux éléments distincts hors de \( \eN\). Nous définissons une topologie sur \( X\) en disant que les ouverts sont les parties suivantes :
+    \begin{itemize}
+        \item les parties de \( \eN\),
+        \item la partie \( \eN\cup\{ x_1 \}\),
+        \item la partie \( \eN\cup\{ x_2 \}\),
+        \item la partie \( \eN\cup\{ x_1,x_2 \}\).
+    \end{itemize}
+    Nous considérons les parties \( K_1=\eN\cup\{ x_1 \}\) et \(K_2= \eN\cup \{ x_2 \}\).
+    \begin{subproof}
+    \item[\( K_i\) est compact]
+        Soit \( \{ \mO_i \}_{i\in I}\) un recouvrement de \( K_1\) par des ouverts de \( X\). Alors il existe \( i_0\in I\) tel que \( x_1\in\mO_{i_0}\). Vue la liste des ouverts, \( \mO_{i_0}\) est soit \( \eN\cup\{ x_1 \}\) soit \( \eN\cup\{ x_1,x_2 \}\). Dans les deux cas, \( \{ \mO_{i_0} \}\) est un sous-recouvrement fini de \( K_1\).
+    \item[\( K_1\cap K_2=\eN\)]
+        C'est immédiat parce que \( x_1\) et \( x_2\) sont distincts.
+    \item[\( \eN\) n'est pas compact]
+        Il peut être recouvert par les ouverts \( \{ \{ i \} \}_{i\in \eN}\) dont on ne peut pas extraire de sous-recouvrements finis.
+    \end{subproof}
+\end{example}
+
+\begin{proposition}     \label{PropGBZUooRKaOxy}
+    Si \( V\) est une partie de l'espace topologique \( X\) muni de la topologie induite\footnote{Définition \ref{DefVLrgWDB}.} \( \tau_V\) de celle de \( X\), et si \( K\) est un compact de \( (V,\tau_V)\) alors \( K\) est un compact de \( (X,\tau_X)\).
+\end{proposition}
+
+\begin{proof}
+    Soient \( \{ \mO_\alpha \}_{\alpha\in A}  \) des ouverts de \( X\) recouvrant \( K\). Alors les ensembles \( V\cap \mO_{\alpha}\) recouvrent également \( K\), mais sont des ouverts de \( V\). Donc il en existe un sous-recouvrement fini. Soient donc \( \{V\cap\mO_i\}_{i\in I}\) recouvrant \( K\) avec \( I\) un sous-ensemble fini de \( A\). Les ensembles \( \{\mO_i\}_{i\in I}\) recouvrent encore \( K\) et sont des ouverts de \( X\).
+\end{proof}
+
+\begin{proposition}[\cite{MonCerveau}]
+    Soient des espaces topologiques \( X\) et \( Y\). Nous considérons des ouverts \( A\) de \( X\) et \( B\) de \( Y\). Soit un compact \( M\) dans \( A\times B\)\footnote{Topologie produit, définition \ref{DefIINHooAAjTdY}}. Il existe des compacts \( K\) et \( L\) dans \( A\) et \( B\) tels que \( M\subset K\times L\).
+\end{proposition}
+
+\begin{proof}
+    Nous considérons les «projections» de \( M\) sur \( A\) et \( B\):
+    \begin{equation}
+        K=\{ a\in A\tq \exists b\in B\tq (a,b)\in M \},
+    \end{equation}
+    et
+    \begin{equation}
+        L=\{ b\in B\tq \exists a\in A\tq (a,b)\in M \}.
+    \end{equation}
+    Nous avons \( M\subset K\times L\); il reste à montrer que \( K\) et \( L\) sont des compacts de leurs espaces respectifs. Soit un recouvrement \( \{ U_i \}_{i\in I} \) de \( K\) par des ouverts de \( X\) et \( \{ V_j \}_{j\in J}\) de \( L\) par des ouverts de \( Y\). Alors
+    \begin{equation}
+        \{ U_i\times  V_j \}_{\substack{i\in I\\j\in J}} 
+    \end{equation}
+    est un recouvrement de \( M\) par des ouverts de \( X\times Y\). Puisque \( M\) est un compact de \( X\times Y\), nous pouvons en extraire un sous-recouvrement fini, c'est-à-dire \( I_0\) fini dans \( I\) et \( J_0\) fini dans \( J\) tels que
+    \begin{equation}
+        \{ U_i\times  V_j \}_{\substack{i\in I_0\\j\in J_0}} 
+    \end{equation}
+    soit encore un recouvrement de \( K\times L\). Nous prouvons à présent que \( \{ U_i \}_{i\in I_0}\) est un recouvrement de \( K\), ce qui montrera que \( K\) est un compact.
+
+    Soit \( a\in K\). Il existe \( b\in B\) tel que \( (a,b)\in M\). Donc il existe \( i_0\in I_0\) et \( j_0\in J_0\) tels que \( (a,b)\in U_{i_0}\times V_{j_0}\). En particulier \( a\in U_i\).
+
+    Le même raisonnement montre que \( \{ V_j \}_{j\in J_0}\) est un recouvrement de \( L\).
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Compactifié d'Alexandrov}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{propositionDef}[\cite{ooEDBNooKshWkw}]       \label{PROPooHNOZooPSzKIN}
+    Soit un espace topologique séparé localement compact\footnote{Définition \ref{DefEIBYooAWoESf}.} \( X\). Nous considérons un élément \( \omega\notin X\) et l'ensemble \( \hat X =\ X\cup\{ \omega \}\). Nous nommons «ouverts de \( \hat X\)» les parties suivantes :
+    \begin{itemize}
+        \item les ouverts de \( X\),
+        \item les parties de la forme \( A\cup\{ \omega \}\) avec \( X\setminus A\) compact dans \( X\).
+    \end{itemize}
+   Alors \( \hat X\) est un espace topologique compact (cela justifie le nom «ouvert» donné aux parties sus-définies).
+\end{propositionDef}
+
+\begin{proof}
+    La première chose à faire est de prouver que \( \hat X\) est bien un espace topologique (définition \ref{DefTopologieGene}). Nous notons \( \tau\) la topologie sur \( X\) et \( \hat\tau\) l'ensemble des «ouverts» de \( \hat X\). Le but est de prouver que \( \hat \tau\) est une topologie.
+    \begin{subproof}
+    \item[L'espace lui-même]
+            \( \hat X\in \hat\tau\) parce que \( \hat X=X\cup \{ \omega \}\) et que \( X\setminus X=\emptyset\) est compact.
+        \item[Le vide]
+            \( \emptyset\in \tau\subset \hat \tau\).
+        \item[Union quelconque]
+            Soient \( A_i\) (\( i\in I\)) des éléments de \( \hat\tau\). Nous posons \( I_1=\{ i\in I\tq A_i\subset X \}\) et \( I_2=I\setminus I_1\). Nous avons
+            \begin{equation}
+                \bigcup_{i\in I}A_i=\big( \bigcup_{i\in I_1}A_i \big)\cup \big( \bigcup_{i\in I_2}A_i \big)=B\cup\big( \bigcup_{i\in I_2}B_i\cup\{ \omega \} \big)
+            \end{equation}
+            où \( B\) et les \( B_i\) sont des ouverts de \( X\) tels que \( X\setminus B_i\) est compact dans \( X\). Nous récrivons ça sous la forme
+            \begin{equation}
+                \bigcup_{i\in I}A_i=B\cup\big( \bigcup_{i\in I_2}B_i \big)\cup\{ \omega \}.
+            \end{equation}
+            La question est de savoir si
+            \begin{equation}
+                X\setminus\Big( B\cup\big( \bigcup_{i\in I_2}B_i \big) \Big)
+            \end{equation}
+            est compact dans \( X\). Un peu de réécriture :
+            \begin{equation}
+                X\setminus\Big( B\cup\big( \bigcup_{i\in I_2}B_i \big) \Big)=(X\setminus B)\cap X\setminus\big( \bigcup_{i\in I_2}B_i \big)=(X\setminus B)\cap\big( \bigcap_{i\in I_2}(X\setminus B_i) \big).
+            \end{equation}
+            La partie \( X\setminus B\) est fermée dans \( X\) parce que \( B\) est ouverte. La proposition \ref{PROPooQWHSooXeJOkT} dit qu'une intersection de compacts est compacte (parce que \( X\) est séparé). Nous sommes donc en présence de l'intersection entre un compact et un fermé.
+
+            Tout compact d'un espace séparé est fermé\footnote{Lemme \ref{LemnAeACf}\ref{ITEMooAZWVooLyPDeY}.}. Donc nous sommes en présence de l'intersection de deux fermés. Donc
+            $(X\setminus B)\cap\big( \bigcap_{i\in I_2}(X\setminus B_i) \big)$ est fermé. Mais c'est contenu dans le compact \( \bigcap_{i\in I_2}(X\setminus B_i)\). Fermé dans un compact, donc compact (lemme \ref{LemnAeACf}).
+        \item[Intersection finie]
+            Nous considérons les «ouverts» \( (A_i)_{i=1,\ldots, n}\) de \( \hat X\). Si ce sont tous des ouverts de \( X\), l'intersection est un ouvert de \( X\) et on est bon.
+
+            Supposons que tous les \( A_i\) soient de la forme \( A_i=B_i\cup\{ \omega \}\) avec \( X\setminus B_i\) compact. Alors
+\begin{equation}
+ \bigcap_{i=1}^n (B_i\cup\{ \omega \})=\left( \bigcap_{i=1}^nB_i \right)\cup\{ \omega \}
+\end{equation}
+
+
+            Mais le lemme \ref{LEMooHRKAooRskzQL} (appliqué un nombre fini de fois) donne
+            \begin{equation}
+                X\setminus\left( \bigcap_{i=1}^nB_i \right)=\bigcup_{i=1}^n(X\setminus B_i)
+            \end{equation}
+            qui est compact en tant qu'union finie de compacts\footnote{Lemme \ref{LEMooFJZDooSxYWVW}.}.
+
+            Enfin, nous supposons que les \( A_i\) sont un mélange des deux types, nous les séparons entre ceux qui sont directement des ouverts de \( X\) et les autres : 
+            \begin{equation}
+                A_i=\begin{cases}
+                    B_i    &   \text{si } i\leq q\\
+                    C_i\cup\{ \omega \}    &    \text{si }q<i\leq n
+                \end{cases}
+            \end{equation}
+            où \( B_i\) sont ouverts et \( C_i\) sont des parties de \( X\) telles que \( X\setminus C_i\) est compacte.
+
+            Nous avons
+            \begin{subequations}
+                \begin{align}
+                \bigcap_{i=1}^nA_i&=\left( \bigcap_{i=1}^qB_i \right)\cap\left( \bigcap_{i=q+1}^n(C_i\cup\{ \omega \}) \right)\\
+                &=B\cap\left( \bigcap_{i=q+1}^nC_i \right).
+                \end{align}
+            \end{subequations}
+            Justifications.
+            \begin{itemize}
+                \item Nous avons posé \( B\) est l'intersection des \( B_i\).
+                \item
+                    Vu que \( \omega\) n'est pas dans \( B\), nous pouvons l'oublier dans les \( C_i\cup\{ \omega \}\).
+            \end{itemize}
+            C'est le moment d'étudier \( E=\bigcap_{i=q+1}^nC_i\). Nous avons
+            \begin{equation}
+                X\setminus E=X\setminus\left( \bigcap_{i=q+1}^nC_i \right)=\bigcup_{i=q+1}^n(X\setminus C_i).
+            \end{equation}
+            Vu que \( X\setminus C_i\) est compact, il est fermé\footnote{Par le lemme \ref{LemnAeACf}\ref{ITEMooAZWVooLyPDeY} et le fait que nous considérons un espace séparé.}. La partie \( X\setminus E\) est donc fermée comme union finie de fermés\footnote{Par le lemme \ref{LemQYUJwPC}\ref{ItemKJYVooMBmMbG}.}. Et donc \( E\) est ouvert. Et finalement
+            \begin{equation}
+                \bigcap_{i=1}^nA_i=B\cap E
+            \end{equation}
+            est un ouvert de \( X\) comme intersection d'ouverts. C'est donc aussi un ouvert de \( \hat X\).
+
+    \end{subproof}
+    Nous avons fini de prouver que \( (\hat X, \hat \tau)\) est un espace topologique. Nous montrons à présent que \( \hat X\) est compact.
+
+    Soit \( \{ A_i \}_{i\in I}\) un recouvrement de \( \hat X\) par des ouverts. Pour au moins un \( i_0\in I\) nous avons \( \omega\in A_{i_0}\). Nous posons \( A_{i_0}=B\cup\{ \omega \}\) avec \( X\setminus B\) compact dans \( X\).
+
+    Les ouverts \( \{ A_i \}_{i\in I}\) forment un recouvrement de \( X\setminus B\) par des ouverts. Nous pouvons en extraire un sous-recouvrement fini :
+    \begin{equation}
+        X\setminus B\subset \bigcup_{i\in I_1}A_i.
+    \end{equation}
+    Nous avons alors
+    \begin{equation}        \label{EQooJQFMooKPXLkh}
+        \hat X\subset \bigcup_{i\in I_1\cup\{ i_0 \}}A_i.
+    \end{equation}
+    Et voilà que \( \hat X\) est recouvert par un nombre fini des \( A_i\). Notez que \eqref{EQooJQFMooKPXLkh} est une égalité, mais nous n'en avons pas besoin.
+\end{proof}
+
+\begin{normaltext}
+    Oh bien entendu, les plus férus de questions embarrassantes demanderont, si \( X\) est l'espace considéré, où prendre ce \( \omega\) ? Quel «objet» existe en-dehors de \( X\) ? Qui m'assure que \( X\) n'est pas tellement grand que tout est dedans ? Le fait est qu'il n'existe pas d'ensemble contenant tous les ensembles (c'est le corolaire \ref{CORooZMAOooPfJosM}). Nous pouvons donc toujours trouver un ensemble \( \omega\) qui n'est pas dans \( X\).
+\end{normaltext}
+
+En ce qui concerne \( \eR\) auquel nous pouvons attacher deux infinis (\( +\infty\) et \( -\infty\)), ce sera la définition \ref{DEFooRUyiBSUooALDDOa}.
+
+Pour \( \eC\), nous donnerons une caractérisation de la limite en \( \infty\) dans le lemme \ref{LEMooERABooQjLBzW}.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Limite de fonction}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}[Limite d'une fonction, thème~\ref{THEMEooGVCCooHBrNNd}\cite{BIBooPGRGooBrqxAA}]\label{DefYNVoWBx}
+    Soient des espaces topologiques \( X\) et \( Y\) ainsi que \( \Omega\subset X\) et \( a\in \Adh(\Omega)\). Soit une application \( f\colon \Omega\to Y\). Nous disons que l'élément \( \ell\) de \( Y\) est une \defe{limite}{limite!d'une fonction} de \( f\) en \( a\) lorsque pour tout ouvert \( V\) contenant \( \ell\), il existe un voisinage ouvert \( U\) de \( a\) tel que
+    \begin{equation}        \label{EQooXLJJooZDcOtU}
+        f\big( U\cap\Omega\setminus\{ a \} \big)\subset V.
+    \end{equation}
+    Si un tel élément est unique\footnote{Rappelons que ce n'est pas toujours le cas, mais que ça l'est si l'espace topologique est séparé -- définition~\ref{DefYFmfjjm}.}, alors nous disons que cet élément est la \defe{limite}{limite!d'une fonction} de \( f\) et nous notons
+    \begin{equation}
+        \lim_{x\to a} f(x)=\ell.
+    \end{equation}
+\end{definition}
+
+\begin{normaltext}
+    Il aurait été tout aussi bien de définir la limite d'une fonction \( f\colon X\to Y\) définie sur tout \( X\), puis de considérer \( \Omega\) avec la topologie induite depuis \( X\).
+\end{normaltext}
+
+\begin{remark}
+    Nous ne saurions trop insister sur le fait que la valeur de \( f\) en \( a\) n'intervient pas dans la définition de la limite de \( f\) en \( a\). Il n'est même pas nécessaire que \( f\) soit définie en \( a\) pour que l'on puisse parler de limite de \( f\) en \( a\). Par exemple nous avons
+    \begin{equation}
+        \lim_{x\to 1} \frac{ x^2-1 }{ x-1 }=2,
+    \end{equation}
+    alors que la fonction n'est pas définie en \( x=1\).
+
+    Plus généralement, un peu par principe, toutes les fois que la notion de limite apporte une information, le point où l'on prend la limite est spécial. Sinon on ne calculerait pas la limite, mais on regarderait directement la valeur de la fonction. Cela est typiquement le cas lorsque nous aborderons les dérivées. En effet, regardons (en faisant semblant d'anticiper) la définition  \eqref{DEFooOYFZooFWmcAB}. Dans la formule
+    \begin{equation}
+        f'(a)=\lim_{x\to a} \frac{ f(x)-f(a) }{ x-a },
+    \end{equation}
+    la fonction sur laquelle nous prenons la limite n'est \emph{jamais} définie en \( x=a\).
+\end{remark}
+
+\begin{proposition}[Unicité de la limite pour un espace séparé]\label{PropFObayrf}
+    Soient \( X\) un espace topologique, \( A\) une partie de \( X\) et \( Y\) un espace topologique séparé\footnote{Définition~\ref{DefYFmfjjm}.}. Nous considérons une fonction \( f\colon A\to Y\). Si \( a\in \Adh(A)\), alors \( f\) admet au plus une limite en \( a\).
+\end{proposition}
+\index{limite!unicité}
+
+\begin{proof}
+    Soient \( y\) et \( y'\) des limites de \( f\) en \( a\), ainsi que des voisinages \( V\) et \( V'\) de \( y\) et \( y'\). Nous prenons également les voisinages \( W\) et \( W'\) correspondants :
+    \begin{subequations}
+        \begin{numcases}{}
+            f(W\cap A)  \subset V   \\
+            f(W'\cap A) \subset V'.
+        \end{numcases}
+    \end{subequations}
+    Quitte à prendre des sous-ensembles nous pouvons supposer que \( W\) et \( W'\) sont ouverts. Il s'ensuit alors que:
+    \begin{itemize}
+      \item l'ensemble \( W\cap W'\) est un ouvert contenant \( a\) et intersecte donc \( A\);
+      \item l'ensemble \( (W\cap W')\cap A\) est donc non vide;
+      \item et donc, \( f(W\cap W'\cap A) \) est, lui aussi, non vide.
+    \end{itemize}
+    Mais
+    \begin{equation}
+            f(W\cap W'\cap A)\subset f(W\cap A)\subset V,
+    \end{equation}
+    et
+    \begin{equation}
+            f(W\cap W'\cap A)\subset f(W'\cap A)\subset V',
+    \end{equation}
+    d'où \( V \) et \( V'\) ont une intersection. Puisque ces ensembles sont arbitraires, nous avons prouvé que tout voisinage de \( y\) et tout voisinage de \( y'\) ont une intersection non vide; étant donné que \( Y\) est séparé, nous devons avoir \( y=y'\).
+\end{proof}
+
+\begin{proposition}
+    À propos de séparation.
+    \begin{enumerate}
+        \item
+    Tout espace métrique est séparé.
+\item
+    Si une suite dans un espace métrique possède une limite, alors elle est unique.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Si deux éléments \( x \) et \( y \) sont distincts, alors en posant \( r = d(x , y) / 3 > 0 \), les boules \( B(x,r) \) et \( B(y,r)\) sont disjointes. 
+
+    En ce qui concerne les limites, ce sont les propositions \ref{PropUniciteLimitePourSuites} et \ref{PropFObayrf}.
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Topologie, distances et normes}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Certains ensembles ont plus de structures qu'une topologie. Nous fixons quelques bases maintenant, et nous détaillerons certains résultats plus tard.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Distance et topologie métrique}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}  \label{DefMVNVFsX}
+    Si $E$ est un ensemble, une \defe{distance}{distance} sur $E$ est une application $d\colon E\times E\to \eR$ telle que pour tout $x,y\in E$,
+    \begin{enumerate}
+
+    \item
+    $d(x,y)\geq 0$
+
+    \item
+    $d(x,y)=0$ si et seulement si $x=y$,
+
+    \item
+    $d(x,y)=d(y,x)$
+
+    \item
+    $d(x,y)\leq d(x,z)+d(z,y)$.
+
+    \end{enumerate}
+    La dernière condition est l'\defe{inégalité triangulaire}{inégalité!triangulaire}.
+
+    Un couple $(E,d)$ formé d'un ensemble et d'une distance est un \defe{espace métrique}{espace!métrique}.
+\end{definition}
+
+La définition-théorème suivante donne une topologie sur les espaces métriques en partant des boules.
+
+\begin{theoremDef}[Topologie métrique]     \label{ThoORdLYUu}
+    Soit \( (E,d)\) un espace métrique. Nous définissons les \defe{boules ouvertes}{boule!ouverte} par
+    \begin{equation}        \label{EQooYCWSooIhibvd}
+        B(x,r)=\{ y\in E\tq d(x,y)<r \}.
+    \end{equation}
+    pout tout \( x\in E\) et \( r>0\).
+    Alors en posant
+    \begin{equation}        \label{EqGDVVooDZfwSf}
+        \mT=\big\{  \mO\subset E  \tq\forall x\in \mO,\exists r>0\tq B(x,r)\subset \mO \big\}
+    \end{equation}
+    nous définissons une topologie sur \( E\).
+
+    Cette topologie sur \( E\) est la \defe{topologie métrique}{topologie!métrique} de \( (E,d)\). En présence d'une distance, sauf mention explicite du contraire, c'est toujours cette topologie-là que nous utiliserons.
+\end{theoremDef}
+
+\begin{proof}
+    D'abord \( \emptyset\in\mT\) parce que tout élément de l'ensemble vide \ldots heu \ldots enfin parce que, d'accord hein\footnote{Pour qui ne serait pas d'accord, ajoutez \( \emptyset\) dans la définition des ouverts et puis c'est tout.}. Ensuite si les \( \{A_i\}_{i\in I}\) sont des éléments de \( \mT\) et si \( x\in\bigcup_{i\in I}A_i\) alors il existe \( k\in I\) tel que \( x\in A_k\). Par hypothèse il existe une boule \( B(x,r)\subset A_k\subset\bigcup_{i\in I}A_i\).
+
+    Enfin si les \( \{A_i\}_{i\in\{ 1,\ldots, n \}}\) sont des éléments de \( \mT\) alors pour tout \( i\) il existe \( r_i>0\) tel que \( B(x,r_i)\subset A_i\). En prenant \( r=\min\{ r_i \}_{i=1,\ldots, n}\) nous avons $B(x,r)\subset\bigcap_{i=1}^nA_i.$
+\end{proof}
+
+\begin{proposition}     \label{PROPooZXTXooEMLgMn}
+    La topologie sur un espace métrique\footnote{Définition \ref{ThoORdLYUu}.} est la topologie engendrée\footnote{Définition \ref{DefTopologieEngendree}} par ses boules ouvertes.
+\end{proposition}
+
+\begin{normaltext}
+    Si vous avez un peu de temps, vous pouvez vérifier que si \( \eK\) est un corps totalement ordonné, alors avec toutes les définitions de~\ref{DefKCGBooLRNdJf}, en posant \( d(x,y)=| x-y |\) nous avons une distance sur \( \eK\).
+
+    De plus, les boules définies en~\ref{DefKCGBooLRNdJf} sont alors les mêmes que celles définies en \eqref{EQooYCWSooIhibvd}, ce qui donne à tout corps totalement ordonné une structure d'espace topologique.
+\end{normaltext}
+
+\begin{corollary}[Caractérisation séquentielle de la continuité en un point\cite{MonCerveau}]		\label{PropFnContParSuite}
+    Une application entre deux espaces topologiques continue en un point y est séquentiellement continue.
+\end{corollary}
+
+\begin{proof}
+    Soit une application \( f\colon X\to Y\) entre les espaces topologiques \( X\) et \( Y\). Nous supposons que \( f\) est continue en \( a\in X\). Soit une suite convergente \( x_k\stackrel{X}{\longrightarrow}a\). Nous devons prouver que \( f(x_k)\to f(a)\).
+
+    Soit un voisinage \( V\) de \( f(a)\) dans \( Y\). Le fait que \( f\) soit continue en \( a\) signifie\footnote{C'est la définition \ref{DefOLNtrxB} de la continuité en un point.} que \( f(a)\) est une limite de \( f\) en \( a\), c'est-à-dire\footnote{Définition \ref{DefYNVoWBx} d'une limite.} qu'il existe un voisinage \( W\) de \( a\) tel que \( f(W\setminus\{ a \})\subset V\).
+
+    Puisque \( x_k\to a\), il existe \( N\) tel que \( x_k\in W\) pour tout \( k\geq N\). Pour ces valeurs de \( k\), nous avons \( f(x_k)\in V\).
+
+    Nous avons prouvé que pour tout voisinage \( V\) de \( f(a)\) dans \( Y\), il existe \( N\) tel que \( f(x_k)\in V\) dès que \( k\geq N\). Cela signifie exactement que \( f(x_k)\to f(a)\).
+\end{proof}
+
+\subsubsection{Les boules, une base de topologie}
+%////////////////////////////
+
+\begin{proposition} \label{PropNBSooraAFr}
+    Un espace métrique séparable\footnote{Qui possède une partie dense dénombrable, définition~\ref{DefUADooqilFK}.} accepte une base de topologie\footnote{Base de topologie, définition \ref{DEFooLEHPooIlNmpi}.} dénombrable.
+
+     Soit \( A\) dense et dénombrable dans l'espace métrique séparable \( (E,d)\). Si \( \{ a_i \}_{i\in \eN}\) est une énumération de \( A\) et \( \{ r_i \}_{i\in \eN}\) une énumération de \( \eQ\), alors
+    \begin{equation}
+        \mB=\{ B(a_i,r_j) \}_{i,j\in \eN}
+    \end{equation}
+    est une base de la topologie\footnote{Définition \ref{DEFooLEHPooIlNmpi}.} de \( E\).
+\end{proposition}
+\index{base!de topologie!espace métrique}
+\index{espace!métrique!base de topologie}
+\index{base!de topologie!dénombrable}
+
+\begin{proof}
+    Soient \( x\in E\) et \( V\) un voisinage de \( x\). Ce dernier contient une boule \( B(x,r)\) et quitte à prendre \( r\) un peu plus petit nous supposons que \( r\in \eQ\) (existence d'un tel rationnel par le lemme \ref{LemooHLHTooTyCZYL}).
+
+    Soit \( a\in A\) avec \( \| a-x \|<\frac{ r }{ 3 }\) (existe par densité de \( A\) dans \( E\)); nous avons \( B(a,\frac{ 2r }{ 3 })\subset B(x,r)\) parce que si \( y\in B( a,\frac{ 2r }{ 3 } )\) alors
+    \begin{equation}
+        \| y-x \|\leq \| y-a \|+\| a-x \|<\frac{ 2 }{ 3 }r+\frac{ 1 }{ 3 }r=r.
+    \end{equation}
+    La seconde inégalité est stricte parce que les boules sont ouvertes. Le tout montre que \( y\in B(x,r)\). Par ailleurs \( x\in B(a,\frac{ 2 }{ 3 }r)\) et nous avons trouvé un élément de \( \mB\) contenant \( x\) tout en étant inclus dans \( V\). Cela prouve que \( \mB\) est bien une base de la topologie de \( E\).
+\end{proof}
+
+
+\begin{remark}      \label{RemIPVLooHUXyeW}
+    Il est vite vu que les cubes ouverts forment aussi une base de la topologie de \( \eR^n\). Cela est à mettre en rapport avec le fait que toutes les normes sont équivalentes sur \( \eR^n\) (proposition~\ref{ThoNormesEquiv}).
+
+    % position 13268
+
+    Voir aussi le corolaire~\ref{CorTHDQooWMSbJe} qui donnera tout ouvert comme union de pavés presque disjoints.
+\end{remark}
+
+\begin{definition}\label{DefEnsembleBorne}
+  Soit \( (X, d) \) un espace métrique. Un sous-ensemble $A \subset X$ est \defe{borné}{borné} si il existe une boule de $X$ contenant $A$.
+\end{definition}
+
+\begin{proposition}     \label{PROPooJIOAooWqzKMu}
+  Toute réunion finie d'ensembles bornés est un ensemble borné. Toute partie d'un ensemble borné est un ensemble borné.
+\end{proposition}
+
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+subsection{Continuité et compacité}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Un résultat important dans la théorie des fonctions sur les espaces vectoriels normés est qu'une fonction continue sur un compact est bornée et atteint ses bornes. Ce résultat sera (dans d'autres cours) énormément utilisé pour trouver des maximums et minimums de fonctions. Le théorème exact est le suivant.
+
+\begin{lemma}[de Lebesgue\cite{AntoniniAndAl-EspacesMetriquesCompacts}]    \label{LemQFXOWyx}
+    Soit \( (X,d)\) un espace métrique tel que toute suite ait une sous-suite convergente à l'intérieur de l'espace. Si \( \{ V_i \}\) est un recouvrement par des ouverts de \( X\), alors il existe \( \epsilon\) tel que pour tout \( x\in X\), nous ayons \( B(x,\epsilon)\subset V_i\) pour un certain \( i\).
+\end{lemma}
+
+\begin{proof}
+    Par l'absurde, nous supposons que pour tout \( n\), il existe un \( x_n\in X\) tel que la boule \( B(x_n,\frac{1}{ n })\) n'est contenue dans aucun des \( V_i\). De ces \( x_n\), nous extrayons une sous-suite convergente (que nous nommons encore \( (x_n)\)) et nous posons \( x_n\to x\). Pour \( n\) assez grand (\( \frac{1}{ n }<\epsilon\)) nous avons \( x_n\in B(x,\epsilon)\), donc tous les \( x_n\) suivants sont dans le \( V_i\) qui contient \( x\).
+\end{proof}
+
+\begin{lemma}[\cite{AntoniniAndAl-EspacesMetriquesCompacts}]   \label{LemMGQqgDG}
+    Soit \( (X,d)\) un espace métrique tel que toute suite possède une sous-suite convergente. Pour tout \( \epsilon>0\), il existe un ensemble fini \( \{ x_i \}_{i\in I}\) tel que les boules \( B(x_i,\epsilon)\) recouvrent \( X\).
+\end{lemma}
+
+\begin{proof}
+    Soit par l'absurde un \( \epsilon>0\) contredisant le lemme. Il n'existe pas de parties finies de \( X\) autour des points desquels les boules de taille \( \epsilon\) recouvrent \( X\).
+
+    Nous construisons par récurrence une suite ne possédant pas de sous-suite convergente. Le premier terme, \( x_0\) est pris arbitrairement dans \( X\). Ensuite si nous avons déjà \( N\) termes de la suite, nous savons que les boules de rayon \( \epsilon\) centrées sur les points \( \{ x_i \}_{i=1,\ldots, N}\) ne recouvrent pas \( X\). Donc nous prenons \( x_{N+1}\) hors de l'union de ces boules.
+
+    Ainsi nous avons une suite \( (x_n)\) dont tous les termes sont à distance plus grande que \( \epsilon\) les uns des autres. Une telle suite ne peut pas contenir de sous-suite convergente. Contradiction.
+\end{proof}
+
+\begin{theorem}[Bolzano-Weierstrass\cite{AntoniniAndAl-EspacesMetriquesCompacts}, thème \ref{THEMEooQQBHooLcqoKB}]\label{ThoBWFTXAZNH}
+    Un espace métrique est compact si et seulement si toute suite admet une sous-suite qui converge à l'intérieur de l'espace.
+\end{theorem}
+\index{théorème!Bolzano-Weierstrass}
+\index{Bolzano-Weierstrass!espaces métriques}
+\index{compacité}
+
+\begin{proof}
+   Soient \( X\) un espace métrique compact et \( (x_n)\) une suite dans \( X\). Nous considérons la suite de fermés emboîtés
+   \begin{equation}
+       X_n=\overline{ \{ x_k\tq k>n \} }.
+   \end{equation}
+   Ce sont des fermés ayant la propriété d'intersection finie non vide, et donc la proposition~\ref{PropXKUMiCj} nous dit qu'ils ont une intersection non vide. Un élément de cette intersection est automatiquement un point d'accumulation de la suite\footnote{Définition \ref{DEFooGHUUooZKTJRi}.}.
+
+   Nous passons à l'autre sens. Nous supposons que toute suite dans \( X\) contient une sous-suite convergente, et nous considérons \( \{ V_i \}_{i\in I}\), un recouvrement de \( X\) par des ouverts. Par le lemme~\ref{LemQFXOWyx}, nous considérons un \( \epsilon\) tel que pour tout \( x\), il existe un \( i\in I\) avec \( B(x,\epsilon)\subset V_i\). Par le lemme~\ref{LemMGQqgDG}, nous considérons un ensemble fini \( \{ y_i \}_{i\in A}\) tel que les boules \( B(y_i,\epsilon)\) recouvrent \( X\).
+
+   Par construction, chacune de ces boules \( B(y_i,\epsilon)\) est contenue dans un des ouverts \( V_i\). Nous sélectionnons donc parmi les \( V_i\) le nombre fini qu'il faut pour recouvrir les \( B(y_i,\epsilon)\) et donc pour recouvrir \( X\).
+\end{proof}
+
+\begin{example}[Non compacité de la boule unité en dimension infinie]\label{ExEFYooTILPDk}
+    Le théorème de Bolzano-Weierstrass permet de voir tout de suite que la boule unité n'est pas compacte dans un espace vectoriel de dimension infinie : la suite des vecteurs de base ne possède pas de sous-suite convergente.
+\end{example}
+
+
+Le théorème de Bolzano–Weierstrass~\ref{ThoBWFTXAZNH} a l'importante conséquence suivante.
+\begin{theorem}[Weierstrass]		\label{ThoWeirstrassRn}
+	Une fonction continue à valeurs réelles définie sur un compact est bornée et atteint ses bornes.
+\end{theorem}
+\index{théorème!Weierstrass}
+\index{compact!et fonction continue}
+
+\begin{proof}
+	Soient \( K\) un compact et \( f\colon K\to \eR\) une fonction continue. Nous désignons par \( A\) l'ensemble des valeurs prises par \( f\) sur \( K\) :
+	\begin{equation}
+		A=f(K)=\{ f(x)\tq x\in K \}.
+	\end{equation}
+	Nous considérons le supremum $M=\sup A=\sup_{x\in K}f(x)$ avec la convention suivante : si $A$ n'est pas borné supérieurement, nous posons $M=\infty$ (voir définition~\ref{DefSupeA}).
+
+	Nous allons maintenant construire une suite $(x_n)$ de deux façons différentes selon que $M=\infty$ ou non.
+	\begin{enumerate}
+		\item
+			Si \( M=\infty\), nous choisissons, pour chaque $n\in\eN$, un $x_n\in K$ tel que $f(x_n)>n$. C'est certainement possible parce que si $A$ n'est pas borné, nous pouvons y trouver des nombres aussi grands que nous voulons.
+		\item
+			Si \( M\neq\infty\), nous savons que pour tout $\varepsilon$, il existe un $y\in A$ tel que $y>M-\varepsilon$. Pour chaque $n$, nous choisissons donc $x_n\in K$ tel que $f(x_n)>M-\frac{1}{ n }$.
+	\end{enumerate}
+    Quel que soit le cas dans lequel nous sommes, la suite $(x_n)$ est une suite dans $K$ qui est compact, et donc nous pouvons en extraire une sous-suite convergente à l'intérieur de \( K\) par le théorème de Bolzano-Weierstrass~\ref{ThoBWFTXAZNH}. Afin d'alléger la notation, nous allons noter $(x_n)$ la sous-suite convergente. Nous avons donc
+	\begin{equation}
+		x_n\to x\in K.
+	\end{equation}
+	Par la proposition~\ref{PropFnContParSuite}, nous savons que $f$ prend en \( x\) la valeur
+	\begin{equation}
+		f(x)=\lim_{n\to \infty} f(x_n).
+	\end{equation}
+	Donc $f(x)<\infty$. Évidemment, si nous avions été dans le cas où $M=\infty$, la suite $x_n$ aurait été choisie pour avoir $f(x_n)>n$ et donc il n'aurait pas été possible d'avoir $\lim_{n\to \infty} f(x_n)<\infty$. Nous en concluons que $M<\infty$, et donc que $f$ est bornée sur $K$.
+
+	Afin de prouver que $f$ atteint sa borne, c'est-à-dire que $M\in A$, nous considérons les inégalités
+	\begin{equation}
+		M-\frac{1}{ n }<f(x_n)\leq M.
+	\end{equation}
+	En passant à la limite $n\to \infty$, ces inégalités deviennent
+	\begin{equation}
+		M\leq f(x)\leq M,
+	\end{equation}
+	et donc $f(x)=M$, ce qui prouve que $f$ atteint sa borne $M$ au point $x\in K$.
+\end{proof}
+
+\begin{lemma}[\cite{MonCerveau}]       \label{LEMooQLVAooICaPvR}
+    Soient des compacts \( A,B\) et une fonction continue \( f\colon A\times B\to \eR\). Alors
+    \begin{equation}
+        \sup_{(x,y)\in A\times B}| f(x,y) |=\sup_{x\in A}\big( \sup_{y\in B}| f(x,y) | \big).
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Pour chaque \( x\in A \), la fonction \( f_x\colon B\to \eR\) donnée par \( f_x(y)=| f(x,y) |\) est continue et atteint donc sa borne\footnote{Théorème \ref{ThoWeirstrassRn}.} en \( y_M(x)\). Notons que cela ne définit pas de façon univoque \( y_M(x)\) parce que \( f_x\) peut atteindre son maximum en plusieurs points. L'important est que pour tout \( x\), le nombre \( | f\big( x,y_M(x) \big) |\) ne dépend pas du choix de \( y_M(x)\) parmi les \( y\) qui réalisent le maximum.
+
+
+    Notons \( (x_0,y_0)\) un point de \( A\times B\) sur lequel \( | f |\) réalise son maximum\footnote{Encore une fois, ce point n'est pas déterminé de façon unique par cette propriété.} :
+    \begin{equation}        \label{EQooDDXDooVsnlKG}
+        \sup_{(x,y)\in A\times B}| f(x,y) |=| f(x_0,y_0) |.
+    \end{equation}
+    
+
+    Nous avons d'une part
+    \begin{equation}
+        \sup_{x\in A}\big( \sup_{y\in B}| f(x,y) | \big)=\sup_{x\in A}| f\big( x,y_M(x) \big) |\leq | f(x_0,y_0) |
+    \end{equation}
+
+    Et d'autre part, quelques calculs avec justifications en-dessous :
+    \begin{subequations}        \label{SUBEQooPYJPooBJyEgN}
+        \begin{align}
+            \sup_{x\in A}\big( \sup_{y\in B}| f(x,y) | \big)&\leq \sup_{x\in A}\sup_{y\in B}| f(x_0,y_0) |  \label{SUBEQooAKPOooPdkvMJ} \\
+            &=| f(x_0,y_0) |\\
+            &\leq | f\big(x_0,y_M(x_0)\big) |       \label{SUBEQooDYVPooUgOpfD}\\
+            &\leq \sup_{x\in A}| f\big(x,y_M(x)\big) |  \label{SUBEQooVOFAooNtzSpt}\\
+            &\leq \sup_{x\in A}\big( \sup_{y\in B}| f(x,y) | \big).
+        \end{align}
+    \end{subequations}
+    Justifications.
+    \begin{itemize}
+        \item   Pour \eqref{SUBEQooAKPOooPdkvMJ}. Le point \( (x_0,y_0)\) est un maximum de \( | f |\).
+        \item Pour \eqref{SUBEQooDYVPooUgOpfD}. \( y_M\) est définie pour maximiser, en fonction de \( x\), la quantité \( | f(x, y_M(x)) |\).
+        \item Pour \eqref{SUBEQooVOFAooNtzSpt}. Au lieu de conserver la valeur \( x_0\) fixé, nous prenons le maximum sur tous les \( x\) possibles.
+    \end{itemize}
+    Vu que les premiers et derniers termes des inégalités \eqref{SUBEQooPYJPooBJyEgN} sont égaux, toutes les inégalités sont en réalité des égalités. En particulier, en reprenant \eqref{EQooDDXDooVsnlKG},
+    \begin{equation}
+        \sup_{(x,y)\in A\times B}| f(x,y) |=| f(x_0,y_0) |=\sup_{x\in A}\big( \sup_{y\in B}| f(x,y) | \big).
+    \end{equation}
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Distance à un ensemble}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}      \label{DEFooGNNUooFUZINs}
+    Si \( A\) est une partie de l'espace métrique \( (X,d)\), et si \( b\in X\), nous définissons
+    \begin{equation}
+        d(b,A)=\inf_{y\in A}d(b,y).
+    \end{equation}
+\end{definition}
+
+\begin{lemma}[\cite{MonCerveau}]        \label{LEMooAIARooQADaxM}
+    Si \( A\) est fermé dans \( (X,d)\), et si \( b\in X\) vérifie \( d(b,A)=0\), alors \( b\in A\).
+\end{lemma}
+
+\begin{proof}
+    Puisque \( A\) est fermé, le complémentaire \( A^c\) est ouvert (c'est la définition \ref{DEFFermeooNSAAooHxZbAo}). Supposons que \( b\in A^c\). Alors il existe \( r>0\) tel que \( B(b,r)\subset A^c\). Si \( a\in A\) nous avons alors \( d(b,A)\geq r\) et donc \( d(b,A)\geq r>0\). Cela contredit l'hypothèse \( d(b,A)=0\).
+
+    Nous en déduisons que \( b\) n'est pas dans \( A^c\) et qu'il est donc dans \( A\).
+\end{proof}
+
+
+\begin{example}[Pas avec un ouvert]
+    En prenant l'ouvert \( A=\mathopen] 0 , 1 \mathclose[\) dans \( \eR\) nous avons \( d(0,A)=0\), alors que \( 0\) n'est pas dans \( A\).
+\end{example}
+
+\begin{lemma}[\cite{MonCerveau}]    \label{LEMooJNRTooZyKiFC}
+    Soient un espace métrique \( (X,d)\) ainsi qu'une partie \( A\subset X\). Soit \( r>0\). La partie
+    \begin{equation}
+        \mO=\{ x\in X\tq d(x,A) < r\}
+    \end{equation}
+    est ouverte.
+\end{lemma}
+
+\begin{proof}
+   Soit \( y\in \mO\); nous avons \( d(y,A)<r\). Autrement dit,
+   \begin{equation}
+       \inf_{a\in A}d(y,a)<r
+   \end{equation}
+   et donc il existe \( a\in A\) tel que \( d(y,a)<r\). Soit \( \delta=d(y,a)<r\). Nous montrons à présent que \( B(y,r-\delta)\) est dans \( \mO\). En effet si \( z\in B(y,r-\delta)\), alors
+   \begin{equation}
+       d(z,a)\leq d(z,y)+d(y,a)<r-\delta+\delta=r.
+   \end{equation}
+\end{proof}
+
+\begin{lemma}[\cite{MonCerveau}]        \label{LEMooEQIZooLpsbOe}
+   Soit un fermé \( F\) de l'espace métrique \( (X,d)\). Si \( a\in X\) vérifie \( d(a,F)=0\), alors \( a\in F\).
+\end{lemma}
+
+\begin{proof}
+    Supposons que \( d(a,F)=0\), c'est à dire que \( \inf_{x\in F} d(a,x) =0\). Il existe donc une suite \( (x_k)\) dans \( F\) telle que \( d(a,x_k)\to 0\).
+
+    Cela signifie que \( x_k\stackrel{(X,d)}{\longrightarrow}a\). La proposition \ref{PROPooBBNSooCjrtRb} nous dit alors que \( a\in F\).
+\end{proof}
+ 
+
+\begin{lemma}[\cite{MonCerveau}]        \label{LEMooCFGTooIfdcfk}
+    Si \( A\) est une partie de \( (X,d)\), alors la fonction
+    \begin{equation}
+        \begin{aligned}
+            f\colon \Omega&\to \mathopen[ 0 , \infty \mathclose[ \\
+            x&\mapsto d(x,A) 
+        \end{aligned}
+    \end{equation}
+    est continue.
+\end{lemma}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Norme}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[Partie convexe]        \label{DEFooQQEOooAFKbcQ}
+    Une partie \( A\) d'un espace vectoriel est \defe{convexe}{partie convexe} si pour tout \( a,b\in A\) et pour tout \( t\in \mathopen[ 0 , 1 \mathclose]\), le point \( ta+(1-t)b\) est dans \( A\).
+
+    Autrement dit, une partie est convexe lorsqu'elle contient tous les segments joignant ses points.
+\end{definition}
+
+\begin{definition}[\cite{BrunelleMatricielle}, thème~\ref{THEMEooUJVXooZdlmHj}]  \label{DefNorme}
+    Soit \( E\) un espace vectoriel (pas spécialement de dimension finie) sur le corps \( \eK\) (\( =\eR\) ou \( \eC\)). Une  \defe{norme}{norme} sur $E$ est une application $N\colon E\to\mathopen[ 0 , \infty \mathclose[$ telle que
+	\begin{enumerate}
+        \item
+            \( N(x)\geq 0\) pour tout \( x\).
+		\item
+            \( N(x)=0\) si et seulement si \( x=0\);
+		\item\label{ItemDefNormeii}
+			$N(\lambda x)=| \lambda |N(x)$ pour tout $\lambda\in\eR$ et $x\in E$;
+		\item\label{ItemDefNormeiii}
+			$N(x+y)\leq N(x)+N(y)$
+	\end{enumerate}
+    pour tout $x,y\in E$ et pour tout $\lambda\in\eK$.
+
+    La propriété~\ref{ItemDefNormeiii} est appelée \defe{inégalité triangulaire}{inégalité!triangulaire}.
+
+    Un espace vectoriel muni d'une norme est un \defe{espace vectoriel normé}{espace vectoriel normé}.
+\end{definition}
+En prenant $\lambda=-1$ dans la propriété~\ref{ItemDefNormeii}, nous trouvons immédiatement que $N(-x)=N(x)$.
+
+\begin{proposition}		\label{PropNmNNm}
+	Toute norme $N$ sur l'espace vectoriel $E$ vérifie l'inégalité
+	\begin{equation}
+		\big| N(x)-N(y) \big|\leq N(x-y)
+	\end{equation}
+	pour tout $x,y\in E$.
+\end{proposition}
+
+\begin{proof}
+	Nous avons, en utilisant le point~\ref{ItemDefNormeiii} de la définition~\ref{DefNorme},
+	\begin{subequations}
+		\begin{align}
+			N(x)&=N(x-y+y)\leq N(x-y)+N(y),	\label{subEqNNNxxyyya}\\
+			N(y)&=N(y-x+x)\leq N(y-x)+N(x).	\label{subEqNNNxxyyyb}
+		\end{align}
+	\end{subequations}
+	Supposons d'abord que $N(x)\geq N(y)$. Dans ce cas, en utilisant \eqref{subEqNNNxxyyya},
+	\begin{equation}
+		\big| N(x)-N(y) \big|=N(x)-N(y)\leq N(x-y)+N(y)-N(y)=N(x-y).
+	\end{equation}
+	Si par contre $N(x)\leq N(y)$, alors nous utilisons \eqref{subEqNNNxxyyyb} et nous trouvons
+	\begin{equation}
+		\big| N(x)-N(y) \big|=N(y)-N(x)\leq N(y-x)+N(x)-N(x)=N(y-x)=N(x-y).
+	\end{equation}
+	Dans les deux cas, nous avons retrouvé l'inégalité annoncée.
+\end{proof}
+Cette proposition signifie aussi que
+\begin{equation}	\label{EqNleqNNleqNvqlqbs}
+	-N(x-y)\leq N(x)-N(y)\leq N(x-y).
+\end{equation}
+
+Le lemme suivant dit que nous pouvons remplacer l'inégalité triangulaire par la convexité de la boule unité dans la définition de norme.
+\begin{lemma}[\cite{BIBooXHRKooZrKDcs}]     \label{LEMooAVIJooFhdXXr}
+    Soit une application \( N\colon E\to \mathopen[ 0 , \infty \mathclose[\) telle que
+        \begin{enumerate}
+            \item
+                \( N(x)\geq 0\) pour tout \( x\in E\),
+            \item
+                \( N(x)=0\) si et seulement si \( x=0\),
+            \item
+                \( N(\lambda x)=| \lambda | N(x)\).
+        \end{enumerate}
+        Alors \( N\) est une norme si et seulement si la partie
+        \begin{equation}
+            B = \{ x\in E\tq N(x)\leq 1 \}
+        \end{equation}
+        est convexe\footnote{Définition \ref{DEFooQQEOooAFKbcQ}.}.
+\end{lemma}
+
+\begin{proof}
+    Dans les deux sens.
+    \begin{subproof}
+    \item[\( \Rightarrow\)]
+        Nous supposons que \( N\) est une norme et nous prouvons que la boule \( B\) est convexe. Soient \( x,y\in B\) et \( \lambda\in \mathopen[ 0 , 1 \mathclose]\). Nous avons
+        \begin{subequations}
+            \begin{align}
+                N\big( \lambda x+(1-\lambda)y \big) & \leq N(\lambda x)+N\big( (1-\lambda)y \big)\\
+               &= \lambda N(x)+(1-\lambda)N(y)\\
+                                                    & \leq \lambda +(1-\lambda) \\
+                                                    &= 1.
+            \end{align}
+        \end{subequations}
+        Nous avons utilisé diverses propriétés de la norme, ainsi que la majoration \( N(x), N(y)\leq 1\).
+    \item[\( \Leftarrow\)]
+        Nous supposons que \( B\) est convexe, et nous prouvons que \( N\) vérifie l'inégalité triangulaire. Soient \( x,y\in E\) que nous choisissons tous deux non nuls (sinon c'est trop facile). Nous posons
+        \begin{equation}        \label{EQooCIMBooFeOtWg}
+            z=\frac{ x+y }{ N(x)+N(y) }
+        \end{equation}
+        et la subtilité sera d'écrire \( z\) de telle sorte à être une somme de deux éléments de \( B\). L'astuce est de poser
+        \begin{equation}
+            \lambda=\frac{ N(x) }{ N(x)+N(y) }.
+        \end{equation}
+        Une simple vérification montre qu'alors
+        \begin{equation}
+            z = \lambda\frac{ x }{ N(x) }+  (1-\lambda) \frac{ y }{ N(y) }.
+        \end{equation}
+        Nous avons évidemment \( x/N(x)\in B\) (et de même avec \( y\)). Puisque \( B\) est convexe, nous avons \( z\in B\). Exprimons le fait que \( z\in B\) à partir de la définition \eqref{EQooCIMBooFeOtWg} :
+        \begin{equation}
+            \frac{ N(x+y) }{ N(x)+N(y) }\leq 1.
+        \end{equation}
+        Cela signifie exactement \( N(x+y)\leq N(x)+N(y)\).
+    \end{subproof}
+\end{proof}
+
+\begin{normaltext}	
+Afin de suivre une notation proche de celle de la valeur absolue, à partir de maintenant, la norme d'un vecteur $v$ sera notée $\| v\|$ au lieu de $N(v)$. La proposition~\ref{PropNmNNm} s'énoncera donc
+\begin{equation}
+    \big| \| x \|-\| y \| \big|\leq \| x-y \|.
+\end{equation}
+Un espace vectoriel $E$ muni d'une norme est, on l'a déjà dit, un \defe{espace vectoriel normé}{normé!espace vectoriel}; on le notera $(E,\| . \|)$ pour distinguer la norme fixée.
+\end{normaltext}
+
+Une autre inégalité utile de temps en temps.
+\begin{corollary}       \label{CORooDFBGooAqVRfS}
+    Si \( a\) et \( b\) sont dans un espace vectoriel normé, alors
+    \begin{equation}
+        \big| \| a-b \|-\| b \| \big|\leq \| a \|.
+    \end{equation}
+\end{corollary}
+
+\begin{proof}
+    Il s'agit seulement de la proposition \ref{PropNmNNm} avec \( x=a-b\) et \( y=b\).
+\end{proof}
+
+\begin{lemmaDef}[Distance induite par une norme]        \label{LEMooWGBJooYTDYIK}
+    Soit un espace vectoriel normé \( (E,\| . \|)\). Nous posons
+    \begin{equation}        \label{EQooZYJRooAHnsIG}
+        d(x,y)=\| x-y \| .
+    \end{equation}
+    Alors
+    \begin{enumerate}
+        \item       \label{ITEMooLITDooPeReOk}
+            \( d\) est invariante par translations : $d(a,b)=d(a+u,b+u)$
+        \item
+            \( d\) est une distance\footnote{Définition~\ref{DefMVNVFsX}.} sur \( E\).
+    \end{enumerate}
+    C'est la \defe{distance induite}{distance!associée à une norme} par la norme.
+\end{lemmaDef}
+
+\begin{proof}
+    Le fait que la formule \eqref{EQooZYJRooAHnsIG} soit invariante par translations est immédiat. En ce qui concerne le fait que ce soit une distance, le seul point délicat à vérifier est l'inégalité triangulaire. Mais, pour tous \( x, y, z \in E\), on a
+    \begin{equation}
+            d(x,y)=\| x-y \| = \| x-z+z-y \|  \leq\| x - z \|+\| z - y\| =d(x,z)+d(z,y).
+    \end{equation}
+\end{proof}
+
+\begin{definition}      \label{DEFooPMVFooPSYVNQ}
+    La topologie associée à une norme est celle associée à la distance donnée en \ref{LEMooWGBJooYTDYIK} par le théorème \ref{ThoORdLYUu}.
+\end{definition}
+
+\begin{corollary}       \label{CORooMWCUooKyoyZV}
+    Un espace vectoriel normé est un espace vectoriel topologique : en d'autres mots, l'addition et la multiplication par un élément du corps sont continues.
+\end{corollary}
+
+\begin{proposition}     \label{PROPooYMCUooERvDpk}
+    La norme est une application continue sur un espace vectoriel normé.
+
+    Plus précisément, si \( (E,\| . \|)\) est un espace vectoriel normé, alors l'application
+    \begin{equation}
+        \begin{aligned}
+            f\colon E & \to \eR         \\
+                    x & \mapsto \| x \| 
+        \end{aligned}
+    \end{equation}
+    est continue.
+\end{proposition}
+
+\begin{lemma}[\cite{MonCerveau}]        \label{LEMooGCJEooOAynZW}
+    Soient un espace vectoriel normé \( E\) ainsi qu'une partie libre \( \{ a_i \}\) dans \( E\). Si nous avons \( \| \sum_i\lambda_ia_i \|<M\), alors nous avons
+    \begin{equation}
+        | \lambda_i |\| a_i \|<M
+    \end{equation}
+    pour chaque \( i\).
+\end{lemma}
+
+Nous étudierons plus en détail les espaces vectoriels topologiques à partir de la définition~\ref{DefEVTopologique}.
+

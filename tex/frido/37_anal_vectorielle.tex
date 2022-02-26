@@ -1,0 +1,1201 @@
+% This is part of Mes notes de mathématique
+% Copyright (c) 2009-2010
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Le théorème de Green}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soit un champ de vecteurs
+\begin{equation}
+    F(x,y,z)=\begin{pmatrix}
+        F_1(x,y,z)    \\
+        F_2(x,y,z)    \\
+        F_2(x,y,z)
+    \end{pmatrix}
+\end{equation}
+et un chemin $\sigma\colon \mathopen[ a , b \mathclose]\to \eR^3$ donné par
+\begin{equation}
+    \sigma(t)=\begin{pmatrix}
+        x(t)    \\
+        y(t)    \\ 
+        z(t)
+    \end{pmatrix}.
+\end{equation}
+Nous avons défini la circulation de $F$ le long de $\sigma$ par
+\begin{equation}
+    \begin{aligned}[]
+        \int_{\sigma}F\cdot d\sigma&=\int_a^bF\big( \sigma(t) \big)\cdot\sigma'(t)dt\\
+        &=\int_a^b\Big[ F_1\big( \sigma(t) \big)x'(t)+F_2\big( \sigma(t) \big)y'(y)+F_3\big( \sigma(t) \big)z'(t)\Big]dt\\
+        &=\int_{\sigma} F_1dx +F_2dy+F_3dz.
+    \end{aligned}
+\end{equation}
+La dernière ligne est juste une notation compacte\footnote{Il y aurai beaucoup de choses à dire là-dessus, mais la vie est trop courte pour parler de formes différentielles, et c'est dommage.}. Elle sert à se souvenir qu'on va mettre $x'$ à côté de $F_1$, $y'$ à côté de $F_2$ et $z'$ à côté de $F_3$. L'avantage de cette notation est qu'on peut écrire d'autres combinaisons.
+
+Si $f$ et $g$ sont deux fonctions sur $\eR^3$, nous pouvons écrire
+\begin{equation}
+    \int_{\sigma} fdy+gdz.
+\end{equation}
+Cela signifie
+\begin{equation}
+    \int_a^b \Big[ f\big( \sigma(t) \big)y'(t)+g\big( \sigma(t) \big)z'(t)\Big]dt.
+\end{equation}
+
+Soit $D$ une région du plan et $\sigma$, son contour que nous prenons, par convention\footnote{Il y aurait beaucoup de choses à dire sur ça aussi, mais\ldots}, dans l'orientation trigonométrique, comme indiqué sur la figure~\ref{LabelFigVDFMooHMmFZr}. Nous supposons également que le domaine $D$ n'a pas de trous intérieurs.
+\newcommand{\CaptionFigVDFMooHMmFZr}{Un contour avec son ortientation.}
+\input{auto/pictures_tex/Fig_VDFMooHMmFZr.pstricks}
+
+Nous notons par $\sigma=\partial D$ le bord de $D$, c'est-à-dire le contour dont nous venons de parler.
+
+\begin{theorem}[Théorème de Green]
+    Soient $P,Q\colon D\to \eR$ deux fonctions de classe $C^1$. Alors
+    \begin{equation}        \label{EqThoGreen}
+        \int_{\partial D} Pdx+Qdy=\int_D\left( \frac{ \partial Q }{ \partial x }-\frac{ \partial P }{ \partial y } \right)dxdy.
+    \end{equation}
+\end{theorem}
+Pour rappel, l'intégrale du membre de gauche signifie
+\begin{equation}
+    \int_a^b \Big[P\big( \sigma(t) \big)\sigma_x'(t)+Q\big( \sigma(t) \big)\sigma_y'(t)\Big]dt.
+\end{equation}
+Ce n'est d'ailleurs rien d'autre que l'intégrale du champ de vecteurs $\begin{pmatrix}
+    P    \\
+    Q
+\end{pmatrix}$.
+
+\begin{corollary}
+    L'aire du domaine $D$ est donnée par
+    \begin{equation}
+        A=\frac{ 1 }{2}\int_{\partial D}(xdy-ydx).
+    \end{equation}
+\end{corollary}
+
+\begin{proof}
+    L'intégrale $\int_{\partial D}(xdy-ydx)$ se traite avec le théorème de Green où l'on pose $P=-y$ et $Q=x$. Nous avons donc
+    \begin{equation}
+        \begin{aligned}[]
+            \int_{\partial D} -ydx+xdy&=\int_D\left( \frac{ \partial x }{ \partial x }-\frac{ \partial (-y) }{ \partial y } \right)dxdy\\
+            &=\int_D2\,dxdy.
+        \end{aligned}
+    \end{equation}
+    La dernière ligne est bien le double de la surface.
+\end{proof}
+
+\begin{example}
+    Calculons (encore une fois) l'aire du disque de rayon $R$. Il s'agit de calculer l'intégrale
+    \begin{equation}
+        I=\frac{ 1 }{2}\int_{\sigma}(xdt-ydx)
+    \end{equation}
+    où $\sigma$ est le cercle donné par
+    \begin{equation}
+        \sigma(t)=\begin{pmatrix}
+            x(t)    \\
+            y(t)
+        \end{pmatrix}=\begin{pmatrix}
+            R\cos(t)    \\
+            R\sin(t)
+        \end{pmatrix}
+    \end{equation}
+    Le calcul est
+    \begin{equation}
+        \begin{aligned}[]
+            I&=\frac{ 1 }{2}\int_{0}^{2\pi} \underbrace{R\cos(\theta)}_{x}\underbrace{R\cos(\theta)}_{y'}-\underbrace{R\sin(\theta)}_{y}\underbrace{(-R\sin(\theta))}_{x'}\,d\theta\\
+            &=\frac{ R^2 }{2}\int_{0}^{\pi}d\theta\\
+            &=\pi R^2.
+        \end{aligned}
+    \end{equation}
+\end{example}
+
+\begin{example}
+    Calculons l'aire de l'ellipse
+    \begin{equation}
+        \frac{ x^2 }{ a^2 }+\frac{ y^2 }{ b^2 }\leq 1
+    \end{equation}
+    dont le bord est donné par
+    \begin{subequations}
+        \begin{numcases}{}
+            x(t)=a\cos(t)\\
+            y(t)=b\sin(t).
+        \end{numcases}
+    \end{subequations}
+    Le terme $xdy$ devient $a\cos(t)b\cos(t)=ab\cos^2(t)$ et le terme $ydx$ devient $b\sin(t)(-a\sin(t))=-ab\sin^2(t)$. L'intégrale qui donne la surface est donc
+    \begin{equation}
+        \frac{ 1 }{2}\int_{\partial D}(xdy-ydx)=\frac{ 1 }{2}\int_0^{2\pi}ab=\pi ab.
+    \end{equation}
+\end{example}
+
+Le théorème de Green peut être mis sous une autre forme.
+
+\begin{theorem}[Théorème de Green, forme vectorielle]       \label{ThoGreenVecto}
+    Si $G$ est un champ de vecteurs sur $D$, nous avons
+    \begin{equation}        \label{EqGreenVecto}
+        \int_{\partial D}G\cdot d\sigma=\int_D(\nabla\times G)\cdot dS
+    \end{equation}
+    où le second membre est le flux de $\nabla\times G$ sur la surface $D$.
+\end{theorem}
+
+\begin{proof}
+    Analysons le membre de droite. Nous savons que $D$ est une surface dans le plan $\eR^2$. Le vecteur normal à la surface est donc simplement le vecteur (constant) $e_z$. Le produit scalaire $(\nabla\times F)\cdot dS$ est donc $(\nabla\times F)\cdot e_z$ et se réduit à la troisième composante du rotationnel, c'est-à-dire
+    \begin{equation}
+        \frac{ \partial F_2 }{ \partial x }-\frac{ \partial F_1 }{ \partial y }.
+    \end{equation}
+    Cela est bien le membre de droite de l'équation \eqref{EqThoGreen}. Le membre de gauche de cette dernière est bien le membre de gauche de \eqref{EqGreenVecto}.
+\end{proof}
+
+\begin{example}     \label{ExempleGreenSqL}
+    Soit le champ de vecteurs $F(x,y)=\begin{pmatrix}
+        xy^2    \\
+        y+x
+    \end{pmatrix}$, et soit à calculer
+    \begin{equation}
+        \int_D\nabla\times F\cdot dS
+    \end{equation}
+    où $D$ est la région comprise entre les courbes $y=x^2$ et $y=x$ pour $x\geq 0$ (voir la figure~\ref{LabelFigLLVMooWOkvAB}).
+
+\newcommand{\CaptionFigLLVMooWOkvAB}{Le contour d'intégration pour l'exemple~\ref{ExempleGreenSqL}.}
+\input{auto/pictures_tex/Fig_LLVMooWOkvAB.pstricks}
+
+    Nous pouvons calculer cette intégrale directement en calculant le rotationnel de $F$:
+    \begin{equation}
+        \nabla\times F=\begin{pmatrix}
+            0    \\
+            0    \\
+            1-2xy
+        \end{pmatrix}.
+    \end{equation}
+    Par conséquent l'intégrale à effectuer est
+    \begin{equation}
+        I=\int_0^1 dx\int_{x^2}^x(1-2xy)dy=\frac{1}{ 12 }.
+    \end{equation}
+    \begin{verbatim}
+----------------------------------------------------------------------
+| Sage Version 4.6.1, Release Date: 2011-01-11                       |
+| Type notebook() for the GUI, and license() for information.        |
+----------------------------------------------------------------------
+sage: f(x,y)=1-2*x*y
+sage: f.integrate(y,x**2,x).integrate(x,0,1)
+(x, y) |--> 1/12
+    \end{verbatim}
+
+    L'autre façon de calculer l'intégrale est d'utiliser le théorème de Green et de calculer la circulation de $F$ le long de $\partial D$ :
+    \begin{equation}
+        I=\int_{\partial D}F\cdot \sigma.
+    \end{equation}
+    Le chemin $\sigma=\partial D$ est composé de la parabole $y=x^2$ et du segment de droite $x=y$. Attention : il faut respecter l'orientation. Nous avons
+    \begin{equation}
+        \sigma_1(t)=(t,t^2)
+    \end{equation}
+    et
+    \begin{equation}
+        \sigma_2(t)=(1-t,1-t).
+    \end{equation}
+    Notez bien que le second chemin est $(1-t,1-t)$ et non $(t,t)$ parce qu'il faut le parcourir dans le bon sens (voir le dessin).
+
+    Commençons par le premier chemin :
+    \begin{equation}
+        \begin{aligned}[]
+            \sigma_1(t)&=(t,t^2)\\
+            \sigma_1'(t)&=(1,2t)\\
+            F\big( \sigma_1(t) \big)&=\begin{pmatrix}
+                t^5    \\
+                t+t^2
+            \end{pmatrix},
+        \end{aligned}
+    \end{equation}
+    et par conséquent
+    \begin{equation}
+        F\big( \sigma_1(t) \big)\cdot \sigma_1'(t)=t^5+2t^2+2t^3,
+    \end{equation}
+    et le premier morceau de la circulation vaut
+    \begin{equation}
+        \int_{\sigma_1} F\cdot d\sigma_1=\int_0^1 t^5+2t^2+2t^3=\frac{ 4 }{ 3 }.
+    \end{equation}
+
+    Pour le second chemin :
+    \begin{equation}
+        \begin{aligned}[]
+            \sigma_2(t)=(1-t,1-t)\\
+            \sigma_2'(t)=(-1,-1)\\
+            F\big( \sigma_2(t) \big)=\begin{pmatrix}
+                (1-t)^3    \\
+                2(1-t)
+            \end{pmatrix}.
+        \end{aligned}
+    \end{equation}
+    Par conséquent
+    \begin{equation}
+        F\big( \sigma_2(t) \big)\cdot \sigma_2(t)=-(1-t)^2-2(1-t).
+    \end{equation}
+    Le second morceau de la circulation est par conséquent
+    \begin{equation}
+        \int_0^1-(1-t)^2-2(1-t)dt=-\frac{ 5 }{ 4 }.
+    \end{equation}
+    La circulation de $F$ le long de $\sigma$ est donc égale à
+    \begin{equation}
+        \frac{ 4 }{ 3 }-\frac{ 5 }{ 4 }=\frac{1}{ 12 }.
+    \end{equation}
+    Comme prévu, nous obtenons le même résultat.
+\end{example}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Théorème de la divergence dans le plan}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{La convention de sens de parcours}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soient $D$, un domaine dans le plan et un paramétrage
+\begin{equation}
+    \begin{aligned}
+        \sigma\colon \mathopen[ a , b \mathclose]&\to \eR^2 \\
+        t&\mapsto \begin{pmatrix}
+            x(t)    \\
+            y(t)
+        \end{pmatrix},
+    \end{aligned}
+\end{equation}
+un paramétrage du bord $\partial D$ de $D$. La normale à $\sigma$ est perpendiculaire à la tangente, donc la normale extérieure de norme $1$ vaut
+\begin{equation}
+    \begin{aligned}[]
+        n&=\frac{ \big( y'(t),-x'(t) \big) }{ \sqrt{ \big( x'(t)\big)^2+\big( y'(t) \big)^2  } }&\text{ou}&&n&-=\frac{ \big( y'(t),-x'(t) \big) }{ \sqrt{ \big( x'(t)\big)^2+\big( y'(t) \big)^2  } }.
+    \end{aligned}
+\end{equation}
+Comment faire le choix ?
+
+Nous prenons comme convention que le sens \emph{du chemin} doit être tel que le vecteur normal extérieur soit
+\begin{equation}
+        n=\frac{ \big( y'(t),-x'(t) \big) }{ \sqrt{ \big( x'(t)\big)^2+\big( y'(t) \big)^2  } }.
+\end{equation}
+Donc si le chemin $\sigma$ donne lieu à un vecteur $n$ pointant vers l'intérieur, il faut utiliser le chemin qui va dans le sens contraire : $\tilde \sigma(t)=\sigma(1-t)$.
+
+Les vecteurs tangents et normaux d'un contour sont dessinés sur la figure~\ref{LabelFigDDCTooYscVzA}.
+
+\newcommand{\CaptionFigDDCTooYscVzA}{Le champ de vecteurs tangents est dessiné en rouge tandis qu'en vert nous avons le champ de vecteurs normaux extérieurs.}
+\input{auto/pictures_tex/Fig_DDCTooYscVzA.pstricks}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Théorème de la divergence}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}[Théorème de la divergence]
+    Soit $F$ un champ de vecteurs sur $\eR^2$. Le flux de $F$ à travers le bord de $D$ est égal à l'intégrale de la divergence de $F$ sur $D$. En formule :
+    \begin{equation}
+        \int_{\partial D} F\cdot n\,d\sigma=\int_D\nabla\cdot F\,dxdy.
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+   Tant $F\cdot n$ que $\nabla\times F$ sont des fonctions. Le membre de gauche est donc l'intégrale d'une fonction sur un chemin et le membre de droite est l'intégrale d'une fonction sur une surface. Notre convention de sens de parcours du chemin permet d'écrire le produit scalaire $F\cdot n$ sous la forme suivante :
+    \begin{equation}
+        \begin{aligned}[]
+            F\cdot n&=\frac{1}{ \| \sigma' \| }\begin{pmatrix}
+                F_x    \\
+                F_y
+            \end{pmatrix}\cdot \begin{pmatrix}
+                y'    \\
+                -x'
+            \end{pmatrix}\\
+            &=\frac{1}{ \| \sigma' \| }(F_xy'-F_yx')\\
+            &=\frac{1}{ \| \sigma' \| }\begin{pmatrix}
+                -F_y    \\
+                F_x
+            \end{pmatrix}\cdot \begin{pmatrix}
+                x'    \\
+                y'
+            \end{pmatrix}\\
+            &=\frac{1}{ \| \sigma' \| }\begin{pmatrix}
+                -F_y    \\
+                F_x
+            \end{pmatrix}\cdot \sigma'.
+        \end{aligned}
+    \end{equation}
+
+    Par conséquent, la \emph{fonction}
+    \begin{equation}
+        F\cdot n
+    \end{equation}
+    est la même que la \emph{fonction}
+    \begin{equation}
+        \frac{1}{ \| \sigma' \| }\begin{pmatrix}
+            -F_y    \\
+            F_x
+        \end{pmatrix}\cdot \sigma'.
+    \end{equation}
+    L'intégrale de cette dernière fonction sur le chemin $\sigma$ est
+    \begin{equation}
+        \begin{aligned}[]
+            I&=\int_{\sigma} F\cdot n\\
+            &=\int_{\sigma}\frac{1}{ \| \sigma' \| }\begin{pmatrix}
+                -F_y    \\
+                F_x
+            \end{pmatrix}\cdot \sigma'\\
+            &=  \int_a^b\frac{1}{ \| \sigma'(t)\| }\begin{pmatrix}
+                -F_y\big( \sigma(t) \big)    \\
+                F_x\big( \sigma(t) \big)
+            \end{pmatrix}
+            \cdot\sigma'(t)\| \sigma'(t) \|dt\\
+            &=
+            \int_a^b\begin{pmatrix}
+                -F_y    \\
+                F_x
+            \end{pmatrix}\cdot \sigma'(t)dt.
+        \end{aligned}
+    \end{equation}
+    Cette dernière intégrale est la circulation du champ de vecteurs $\begin{pmatrix}
+        -F_y    \\
+        F_x
+    \end{pmatrix}$ sur le chemin $\sigma$. Le théorème de Green~\ref{ThoGreenVecto} nous enseigne que la circulation le long d'un chemin est égale au flux du rotationnel à travers la surface. Par conséquent,
+    \begin{equation}
+        I=\int_D\left( \nabla\times\begin{pmatrix}
+            -F_y    \\
+            F_x
+        \end{pmatrix}\right)\cdot dS=\int_D\nabla\cdot F\, dxdy
+    \end{equation}
+
+
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Théorème de Stokes}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous nous mettons maintenant dans $\eR^3$, et nous y considérons une surface paramétrée $S$ donc le bord est $\partial S$.
+
+\begin{theorem}[Théorème de Stokes]     \label{THOooIRYTooFEyxif}
+    Alors le flux du rotationnel de $F$ à travers $S$ est égal à la circulation de $F$ le long du bord. En formule :
+    \begin{equation}
+        \int_S\nabla\times F\cdot dS=\int_{\partial S} F\cdot d\sigma.
+    \end{equation}
+\end{theorem}
+
+Nous pouvons nous donner une idée du pourquoi ce théorème est vrai. D'abord, si la surface est plate, cela est exactement le théorème de Green~\ref{ThoGreenVecto}. Supposons maintenant que le bord reste plat, mais que la surface se déforme un petit peu. Le chemin
+\begin{equation}
+    \sigma(t)=\begin{pmatrix}
+        \cos(t)    \\
+        \sin(t)    \\
+        0
+    \end{pmatrix}
+\end{equation}
+est tout autant le bord du disque plat de rayon $1$ que celui de la demi-sphère
+\begin{equation}
+    \phi(x,y)=\begin{pmatrix}
+        x    \\
+        y    \\
+        \sqrt{1-x^2-y^2}
+    \end{pmatrix}.
+\end{equation}
+Le champ de vecteur que nous considérons est $G=\nabla\times F$. Il a un certain flux à travers le disque plat, et ce plus est égal à la circulation de $F$ sur $\sigma$. Quel est le flux de $G$ à travers la demi-sphère ? Étant donné que $\nabla\cdot G=\nabla\cdot(\nabla\times F)=0$, le champ de vecteurs $G$ est incompressible, de telle façon que tout ce qui rentre dans la demi-sphère doit en sortir. Le flux de $G$ à travers la demi-sphère doit par conséquent être égal à celui à travers le disque plat.
+
+
+\begin{example}
+
+    Soit $C$ l'intersection entre le cylindre $x^2+y^2=1$ et le plan $x+y+z=1$. Calculer la circulation de
+    \begin{equation}
+        F(x,y,z)=\begin{pmatrix}
+            -y^3    \\
+            x^3    \\
+            -z^3
+        \end{pmatrix}
+    \end{equation}
+    le long de $C$.
+
+    Au lieu de calculer directement
+    \begin{equation}
+        \int_{C}F\cdot d\sigma,
+    \end{equation}
+    nous allons calculer
+    \begin{equation}
+        \int_S\nabla\times F\cdot dS
+    \end{equation}
+    où $S$ est une surface dont $C$ est le bord. Cette intégrale est à calculer avec la formule \eqref{EqResIntFluxPhi}.
+
+    La première chose à faire est de trouver une surface dont le bord est $C$ et en trouver un paramétrage $\phi$. Le plus simple est de prendre le graphe du plan sur le cercle $x^2+y^2+1$. Un paramétrage de cette surface est simplement
+    \begin{equation}
+        \begin{aligned}
+            \phi\colon D&\to \eR^3 \\
+            (x,y)&\mapsto \begin{pmatrix}
+                x    \\
+                y    \\
+                1-x-y
+            \end{pmatrix}
+        \end{aligned}
+    \end{equation}
+    où $D$ est le disque de rayon $1$. Étant donné que cela paramètre le plan $x+y+z-1=0$, le vecteur normal est $n=e_x+e_y+z_z$. Nous pouvons cependant calculer ce vecteur normal en suivant la recette usuelle. D'abord les vecteurs tangents sont
+    \begin{equation}
+        \begin{aligned}[]
+            \frac{ \partial \phi }{ \partial x }&=\begin{pmatrix}
+                1    \\
+                0    \\
+                -1
+            \end{pmatrix},
+            &\frac{ \partial \phi }{ \partial y }&=\begin{pmatrix}
+                0    \\
+                1    \\
+                -1
+            \end{pmatrix}.
+        \end{aligned}
+    \end{equation}
+    Et le vecteur normal est donné par le produit vectoriel :
+    \begin{equation}
+        \begin{aligned}[]
+            n&=\frac{ \partial \phi }{ \partial x }\times\frac{ \partial \phi }{ \partial y }\\
+            &=\begin{vmatrix}
+                e_x    &   e_y    &   e_z    \\
+                1    &   0    &   -1    \\
+                0    &   1    &   -1
+            \end{vmatrix}\\
+            &=e_x+e_y+z_z.
+        \end{aligned}
+    \end{equation}
+
+    Ensuite, le rotationnel de $F$ est donné par
+    \begin{equation}
+        \nabla\times F=3(x^2+y^2)e_z.
+    \end{equation}
+    Par conséquent,
+    \begin{equation}
+        \nabla\times F\cdot\left( \frac{ \partial \phi }{ \partial x }\times\frac{ \partial \phi }{ \partial y } \right)=3(x^2+y^2).
+    \end{equation}
+    L'intégrale à calculer est donc
+    \begin{equation}
+        \begin{aligned}[]
+            \int_S\nabla\times F\cdot dS&=\int_D(\nabla\times F)\big( \phi(x,y) \big)\cdot\left( \frac{ \partial \phi }{ \partial x }\times\frac{ \partial \phi }{ \partial y } \right)dxdy\\
+            &=3\int_D(x^2+y^2)dxdy.
+        \end{aligned}
+    \end{equation}
+    Cette dernière intégrale est l'intégrale d'une fonction sur le disque de rayon $1$. Elle s'effectue en passant aux coordonnées polaires :
+    \begin{equation}
+        3\int_D(x^2+y^2)dxdy=\int_0^{2\pi}d\theta\int_0^1(r^2)r\,dr=\frac{ 3\pi }{2}.
+    \end{equation}
+\end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Théorème de Gauss}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soit $V$ une partie de $\eR^3$ délimitée par une surface $S$ sur laquelle nous considérons la normale extérieure. Soit $F$ un champ de vecteurs sur $\eR^3$.
+
+\begin{theorem}[Théorème de la divergence ou de Gauss]
+    Le flux d'un champ de vecteur $F$ à travers une surface fermée est égale à l'intégrale de la divergence sur le volume correspondant :
+    \begin{equation}
+        \int_{\partial V} F\cdot dS=\int_V\nabla\cdot F\,dxdydz.
+    \end{equation}
+\end{theorem}
+
+Ce théorème signifie que la quantité de fluide qui s'accumule dans le volume (le flux est ce qui rentre moins ce qui sort) est égal à l'intégrale de $\nabla\cdot F$ sur le volume, alors que nous savons que, localement, la quantité $\nabla\cdot F(x,y,z)$ est la quantité de fluide qui s'accumule au point $(x,y,z)$.
+
+\begin{remark}
+    Ce théorème ne fonctionne qu'avec des surfaces fermées. Essayer de l'appliquer au calcul de flux à travers des surfaces ouvertes n'a pas de sens parce qu'une surface ouverte ne délimite pas un volume.
+\end{remark}
+
+\begin{normaltext}
+    La formule de la divergence peut être utilisée comme intégration par partie. Si \( u\) est une fonction et \( F\) un champ de vecteurs, \( \nabla(uF)=\nabla(u)\cdot F+u\nabla\cdot F\) et alors
+    \begin{equation}
+        \int_{\partial V}uF\cdot n=\int V\nabla(uF)=\int_Vu\nabla\cdot F+\int_VF\cdot \nabla u
+    \end{equation}
+    où \( n\) est le champ de vecteurs normal extérieur à \( V\). En remettant les termes dans un ordre qui ressemble plus à l'intégration par partie :
+    \begin{equation}        \label{EQooRUCKooUUrgxI}
+        \int_{V}F\cdot \nabla u=\int_{\partial V}uF\cdot n-\int_Vu\nabla F.
+    \end{equation}
+\end{normaltext}
+
+\begin{example}
+    Calculer le flux du champ de vecteurs
+    \begin{equation}
+        F(x,y,z)=\begin{pmatrix}
+            2x    \\
+            y^2    \\
+            z^2
+        \end{pmatrix}
+    \end{equation}
+    à travers la sphère de rayon $1$ centrée à l'origine. Nous utilisons le théorème de la divergence
+    \begin{equation}
+        \int_S F\cdot n\,dS=\int_B\nabla \cdot F\,dxdydz
+    \end{equation}
+    où $S$ est la sphère et $B$ est la boule (la sphère pleine). La divergence de $F$ se calcule :
+    \begin{equation}
+        \nabla\cdot F=\frac{ \partial F_x }{ \partial x }+\frac{ \partial F_y }{ \partial y }+\frac{ \partial F_z }{ \partial z }=2+2x+2y.
+    \end{equation}
+    L'intégrale est donc en trois termes :
+    \begin{equation}
+        \begin{aligned}[]
+            \int_B2=2\text{Volume(B)}=\frac{ 8\pi }{ 3 }\\
+            \int_By\,dxdydz=0\\
+            \int_Bz\,dxdydz=0.
+        \end{aligned}
+    \end{equation}
+\end{example}
+
+Dans certains cas le théorème de Gauss permet de simplifier le calcul de l'intégrale d'une fonction sur une surface.
+
+\begin{example}
+    Soit à calculer l'intégrale
+    \begin{equation}
+        I=\int_{\partial B}(x^2+y+z)dS,
+    \end{equation}
+    c'est-à-dire l'intégrale de la fonction $x^2+y+z$ sur la sphère. Le vecteur normal à la sphère est
+    \begin{equation}
+        n=xe_x+ye_y+ze_z.
+    \end{equation}
+    Étant donné que nous sommes sur la sphère de rayon $1$, ce vecteur est même normé. La fonction que nous regardons n'est rien d'autre que $F\cdot n$ avec
+    \begin{equation}
+        F=\begin{pmatrix}
+            x    \\
+            1    \\
+            1
+        \end{pmatrix}.
+    \end{equation}
+    Nous pouvons donc simplement intégrer $\nabla\cdot F$ sur toute la boule :
+    \begin{equation}
+        I=\int_{B}\nabla\cdot F\,dxdydz=\int_B 1\,dxdudz=\frac{ 4\pi }{ 3 }.
+    \end{equation}
+\end{example}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Coordonnées curvilignes}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Base locale}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous connaissons déjà les coordonnées sphériques et cylindriques sur \( \eR^3\). Ce sont des systèmes «un peu courbes». Il en existe bien entendu de nombreux autres (sinon ce ne serait pas drôle), et nous allons faire une étude un peu général de ces systèmes de \defe{coordonnées curvilignes}{coordonnées!curvilignes}. Des coordonnées curvilignes sur $\eR^3$ est n'importe quel\footnote{Nous n'entrons pas dans les détails de régularité.} système qui permet de repérer un point de $\eR^3$ à partir de trois nombres.
+
+Il s'agit donc d'un ensemble de trois applications
+\begin{equation}
+    x_i\colon \eR^3\to \eR.
+\end{equation}
+Les coordonnées cylindriques sont
+\begin{subequations}
+    \begin{numcases}{}
+        x_1(r,\theta,z)=r\cos\theta\\
+        x_2(r,\theta,z)=r\sin\theta\\
+        x_3(r,\theta,z)=z
+    \end{numcases}
+\end{subequations}
+
+Soit donc un système général $q=(q_1,q_2,q_3)$ et
+\begin{equation}
+    M(q)=\begin{pmatrix}
+        x_1(q)    \\
+        x_2(q)    \\
+        x_3(q)
+    \end{pmatrix}.
+\end{equation}
+Si nous fixons $q_2$ et $q_3$ et que nous laissons varier $q_1$, nous obtenons une courbe\footnote{Dans le cas des sphériques, c'est une demi-droite horizontale d'angle $q_2$ et de hauteur $q_3$.} dont nous pouvons considérer le vecteur vitesse, c'est-à-dire le vecteur tangent. En chaque point nous avons ainsi trois vecteurs
+\begin{equation}
+    \frac{ \partial M }{ \partial q_i }(q).
+\end{equation}
+Nous disons que le système de coordonnées curviligne est \defe{orthogonal}{orthogonal!coordonnées curviligne} si ces trois vecteurs sont orthogonaux. Dans la suite nous supposerons que c'est toujours le cas.
+
+Nous posons
+\begin{equation}
+    h_i=\left\| \frac{ \partial M }{ \partial q_i } \right\|
+\end{equation}
+et nous considérons les trois vecteurs normés
+\begin{equation}        \label{EqDefeihMq}
+    e_i=h_i^{-1}\frac{ \partial M }{ \partial q_i }.
+\end{equation}
+Les trois vecteurs $\{ e_1,e_2,e_3 \}$ forment une base orthonormée dite \defe{base locale}{base!locale}. Ce sont des vecteurs liés\footnote{En géométrie différentielle on dira que ce sont des élément de l'espace tangent, mais c'est une toute autre histoire.} au point $M$.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Importance de l'orthogonalité}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous avons dit que nous nous restreignons au cas où les vecteurs $e_i$ sont orthogonaux. En termes de produits scalaires, cela signifie
+\begin{equation}
+    e_i\cdot e_j=\delta_{ij}.
+\end{equation}
+Nous en étudions maintenant quelques conséquences. L'équation \eqref{EqDefeihMq} peut s'écrire plus explicitement sous la forme
+\begin{equation}
+    e_i=\sum_k h_i^{-1}\frac{ \partial x_k }{ \partial q_i }1_k.
+\end{equation}
+Notez que pour chaque $k$ et $i$, la quantité $h_i^{-1}\frac{ \partial x_k }{ \partial q_i }$ est un simple nombre. Nous allons les mettre dans une matrice :
+\begin{equation}
+    A_{ki}=h_i^{-1}\frac{ \partial x_k }{ \partial q_i }.
+\end{equation}
+Cela nous donne le changement de base
+\begin{equation}        \label{EqChmBaseeisAkiAk}
+    e_i=\sum_kA_{ki}1_k.
+\end{equation}
+Le produit $e_i\cdot e_j$ s'écrit alors
+\begin{equation}
+    \begin{aligned}[]
+        e_i\cdot e_j&=\sum_{kl}A_{ki}A_{lj}\underbrace{1_k\cdot 1_l}_{=\delta_{kl}}\\
+        &=\sum_{kl}A_{ki}A_{lj}\delta_{kl}\\
+        &=\sum_kA_{ki}A_{kj}\\
+        &=\sum_k(A^T)_{ik}A_{kj}.
+    \end{aligned}
+\end{equation}
+Or cela doit valoir $\delta_{ij}$. Par conséquent
+\begin{equation}
+    A^T=A^{-1}.
+\end{equation}
+Le fait que les coordonnées curvilignes considérées soient orthogonales s'exprime donc par la fait que la matrice de changement de base est une matrice orthogonale.
+
+Cette circonstance nous permet d'inverser le changement de base \eqref{EqChmBaseeisAkiAk} en multipliant cette équation par $(A^{-1})_{il}$ des deux côtés et en faisant la somme sur $i$ :
+\begin{equation}
+    \sum_i (A^{-1})_{il}e_i=\sum_{kl}\underbrace{A_{ki}(A^{-1})_{il}}_{=\delta_{kl}}1_k,
+\end{equation}
+par conséquent
+\begin{equation}
+    \sum_i(A^T)_{il}e_i=1_l,
+\end{equation}
+et
+\begin{equation}        \label{EqChamvarunlAei}
+    1_l=\sum_iA_{li}e_i=\sum_ih_i^{-1}\frac{ \partial x_l }{ \partial q_i }e_i.
+\end{equation}
+Armés de cette importante formule, nous pouvons exprimer les quantités que nous connaissons dans la base canonique en termes de la base locale.
+
+Une autre conséquence du fait que $e_1$, $e_2$ et $e_3$ est une base orthonormée est que, éventuellement en réordonnant les vecteurs, on a
+\begin{equation}
+    \begin{aligned}[]
+        e_1\times e_2&=e_3\\
+        e_2\times e_3&=e_1\\
+        e_3\times e_1&=e_2
+    \end{aligned}
+\end{equation}
+Ces trois relations s'écrivent en une seule avec
+\begin{equation}
+    e_i\times e_j=\sum_{k}\epsilon_{ijk}e_k
+\end{equation}
+où
+\begin{equation}
+    \epsilon_{ijk}=\begin{cases}
+        0    &   \text{si }i, j,k \text{ ne sont pas tous différents}\\
+        1    &    \text{si } ijk    \text{ se ramène à 123 par un nombre pair de permutations}\\
+        -1    &    \text{si } ijk    \text{ se ramène à 123 par un nombre impair de permutations}
+    \end{cases}
+\end{equation}
+est le \defe{symbole de Levi-Civita}{Levi-Civita}. La formule du produit vectoriel peut également être utilisée à l'envers sous la forme
+\begin{equation}        \label{Eqekeitimesej}
+    e_k=\frac{ 1 }{2}\sum_{ij}\epsilon_{ijk}\,e_i\times e_j.
+\end{equation}
+
+Le symbole de Levi-Civita possède de nombreuses formules. En voici certaines, facilement démontrables en considérant tous les cas :
+\begin{equation}
+    \epsilon_{ijk}\epsilon_{ijl}=\delta_{kl}| \epsilon_{ijk} |.
+\end{equation}
+Grâce au symboles de Levi-Civita, le produit mixte des vecteurs de base a une belle forme :
+\begin{equation}        \label{EqProdMixteepsilonCicivr}
+    e_l\cdot(e_i\times e_j)=\sum_k\epsilon_{ijk}e_l\times e_k=\sum_k\epsilon_{ijk}\delta_{lk}=\epsilon_{ijl}.
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées polaires}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les coordonnées curvilignes polaires sont données par
+\begin{equation}
+    M(r,\theta)=\begin{pmatrix}
+        r\cos(\theta)    \\
+        r\sin(\theta)
+    \end{pmatrix},
+\end{equation}
+et par conséquent
+\begin{equation}
+    \begin{aligned}[]
+        \frac{ \partial M }{ \partial r }&=\begin{pmatrix}
+            \cos(\theta)    \\
+            \sin(\theta)
+        \end{pmatrix},&\frac{ \partial M }{ \partial \theta }=\begin{pmatrix}
+            -r\sin(\theta)    \\
+            r\cos(\theta)
+        \end{pmatrix}.
+    \end{aligned}
+\end{equation}
+Nous avons les normes $h_r=1$ et $h_{\theta}=r$, et donc les vecteurs de la base locale en $(r,\theta)$ sont
+\begin{equation}
+    e_r=\begin{pmatrix}
+        \cos(\theta)    \\
+        \sin(\theta)
+    \end{pmatrix}=\cos(\theta)e_x+\sin(\theta)e_y
+\end{equation}
+ainsi que
+\begin{equation}
+    e_{\theta}=\begin{pmatrix}
+        -\sin(\theta)    \\
+        \cos(\theta)
+    \end{pmatrix}=-\sin(\theta)e_x+\cos(\theta)e_y.
+\end{equation}
+
+
+Ces vecteurs sont représentés à la figure~\ref{LabelFigHGQPooKrRtAN}. Notez qu'il y en a une paire différente en chaque point.
+\newcommand{\CaptionFigHGQPooKrRtAN}{En brun, les lignes que le point suivrait si on ne variait qu'une coordonnées polaires à la fois. Les vecteurs rouges sont les vecteurs $e_{r}$ et $e_{\theta}$.}
+\input{auto/pictures_tex/Fig_HGQPooKrRtAN.pstricks}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées cylindriques}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les coordonnées cylindriques sont les mêmes que les coordonnées polaires à part qu'il faut écrire
+\begin{equation}
+    M(r,\theta,z)=\begin{pmatrix}
+        r\cos(\theta)    \\
+        r\sin(\theta)    \\
+        z
+    \end{pmatrix},
+\end{equation}
+et nous avons le vecteur de base supplémentaire
+\begin{equation}
+    e_z=\frac{ \partial M }{ \partial z }=\begin{pmatrix}
+        0    \\
+        0    \\
+        1
+    \end{pmatrix}
+\end{equation}
+parce que $h_z=1$.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées sphériques}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les coordonnées curvilignes sphériques sont données par
+\begin{equation}
+    M(\rho,\theta,\varphi)=
+    \begin{pmatrix}
+        \rho\sin(\theta)\cos(\varphi)    \\
+        \rho\sin(\theta)\sin(\varphi)    \\
+        \rho\cos(\theta)
+    \end{pmatrix},
+\end{equation}
+dont les dérivées sont données par
+\begin{equation}
+    \begin{aligned}[]
+        \frac{ \partial M }{ \partial r }&=\begin{pmatrix}
+        \sin(\theta)\cos(\varphi)    \\
+        \sin(\theta)\sin(\varphi)    \\
+        \cos(\theta)
+    \end{pmatrix},
+    &\frac{ \partial M }{ \partial \theta }&=
+    \begin{pmatrix}
+        \rho\cos(\theta)\cos(\varphi)    \\
+        \rho\cos(\theta)\sin(\varphi)    \\
+        -\rho\sin(\theta)
+    \end{pmatrix},\\
+    \frac{ \partial M }{ \partial \varphi }&=
+    \begin{pmatrix}
+        -\rho\sin(\theta)\sin(\varphi)    \\
+        \rho\sin(\theta)\cos(\varphi)    \\
+        0
+    \end{pmatrix}
+    \end{aligned}
+\end{equation}
+Les normes de ces vecteurs sont $h_{\rho}=1$, $h_{\theta}=\rho$ et $h_{\varphi}=\rho\sin(\theta)$. Les vecteurs de la base locale en $(\rho,\theta,\varphi)$ sont donc
+\begin{equation}
+    \begin{aligned}[]
+        e_r&=\begin{pmatrix}
+        \sin(\theta)\cos(\varphi)    \\
+        \sin(\theta)\sin(\varphi)    \\
+        \cos(\theta)
+    \end{pmatrix},
+    &e_{\theta}&=
+    \begin{pmatrix}
+        \cos(\theta)\cos(\varphi)    \\
+        \cos(\theta)\sin(\varphi)    \\
+        -\sin(\theta)
+    \end{pmatrix},\\
+    e_{\varphi}&=
+    \begin{pmatrix}
+        -\sin(\varphi)    \\
+        \cos(\varphi)    \\
+        0
+    \end{pmatrix}
+    \end{aligned}
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Gradient en coordonnées curvilignes}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit $(x,y,z)\mapsto f(x,y,z)$ une fonction sur $\eR^3$. Nous pouvons la composer avec les coordonnées curvilignes $q$ pour obtenir la fonction
+\begin{equation}
+    \tilde f(q_1,q_2,q_3)=f\big( x_1(q),x_2(x),x_3(q) \big).
+\end{equation}
+Nous disons que $\tilde f$ est l'expression de $f$ dans les coordonnées $q$. Nous savons déjà comment calculer le gradient de $f$ en coordonnées cartésiennes :
+\begin{equation}
+    F(x,y, z)=\nabla f(x,y,z)=\begin{pmatrix}
+        \partial_xf(x,y,z)    \\
+        \partial_yf(x,y,z)    \\
+        \partial_zf(x,y,z)    \
+    \end{pmatrix}.
+\end{equation}
+Cela est un vecteur lié au point $(x,y,z)$. Notre objectif de bonheur dans la vie serait d'exprimer les coordonnées de ce vecteur dans la base $\{ e_1,e_2,e_3 \}$. En d'autres termes, nous voudrions trouver les nombres $\tilde F_1$, $\tilde F_2$ et $\tilde F_3$ tels que
+\begin{equation}
+    F(x,y,z)=F\big( x(q),y(q),z(q) \big)=\tilde F_1e_1+\tilde F_2e_2+\tilde F_3e_3.
+\end{equation}
+Ces nombres seront des fonctions de $(q_1,q_2,q_3)$.
+
+Par définition,
+\begin{equation}
+    \nabla f=\sum_l\frac{ \partial f }{ \partial x_l }1_l.
+\end{equation}
+En remplaçant $1_l$ par sa valeur en termes des $e_i$ par la formule \eqref{EqChamvarunlAei},
+\begin{equation}
+    \begin{aligned}[]
+        \nabla f&=\sum_l\frac{ \partial f }{ \partial x_l }1_l\\
+        &=\sum_l\frac{ \partial f }{ \partial x_l }\sum_ih_i^{-1}\frac{ \partial x_l }{ \partial q_i }e_i\\
+        &=\sum_{il}\frac{1}{ h_i }\frac{ \partial f }{ \partial x_l }\frac{ \partial x_l }{ \partial q_i }e_i\\
+        &=\sum_i\frac{1}{ h_i }\frac{ \partial \tilde f }{ \partial q_i }e_i.
+    \end{aligned}
+\end{equation}
+
+Plus explicitement,
+\begin{equation}        \label{EqGradientenCurviligne}
+    \nabla f\big( x(q),y(q),z(q) \big)=\sum_i \frac{1}{ h_i(q) }\frac{ \partial \tilde f }{ \partial q_i }(q)e_i
+\end{equation}
+où
+\begin{equation}
+    h_i(q)=\left\| \frac{ \partial M }{ \partial q_i }(q) \right\|.
+\end{equation}
+Le plus souvent nous n'allons pas noter explicitement la dépendance de $h_i$ en $q$.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Coordonnées sphériques}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Nous pouvons exprimer le gradient d'une fonction en coordonnées sphériques en utilisant la formule \eqref{EqGradientenCurviligne} :
+\begin{equation}        \label{EqGradientSpherique}
+    \nabla\tilde f(\rho,\theta,\varphi)=\frac{ \partial \tilde f }{ \partial \rho }e_{\rho}+\frac{1}{ \rho }\frac{ \partial \tilde f }{ \partial \theta }e_{\theta}+\frac{1}{ \rho\sin(\theta) }\frac{ \partial \tilde f }{ \partial \varphi }r_{\varphi}.
+\end{equation}
+Cette expression peut paraitre peu pratique parce que les vecteurs $e_{\rho}$, $e_{\theta}$ et $e_{\varphi}$ eux-mêmes changent en chaque point. Elle est effectivement peu adaptée au dessin, mais elle est très pratique pour des fonctions ayant des symétries.
+
+\begin{example}
+    Le potentiel de la gravitation est la fonction
+    \begin{equation}
+        V(x,y,z)=\frac{1}{ \sqrt{x^2+y^2+z^2} }.
+    \end{equation}
+    En coordonnées sphériques elle s'écrit
+    \begin{equation}
+        \tilde V(\rho,\theta,\varphi)=\frac{1}{ \rho }.
+    \end{equation}
+    En voilà une fonction qu'elle est facile à dériver, contrairement à $V$ ! En suivant la formule \eqref{EqGradientSpherique}, nous avons immédiatement
+    \begin{equation}
+        \nabla\tilde V=-\frac{1}{ \rho^2 }e_{\rho}.
+    \end{equation}
+    Nous voyons immédiatement que cela est un champ de vecteurs dont la norme diminue comme le carré de la distance à l'origine et qui est en permanence dirigé vers l'origine.
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Divergence en coordonnées curvilignes}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous savons que
+\begin{equation}
+    \nabla\tilde f=\sum_j\frac{1}{ h_j }\frac{ \partial \tilde f }{ \partial q_j }e_j.
+\end{equation}
+Nous pouvons en particulier considérer la fonction $f(q)=q_i$. De la même manière que nous avions noté $x_i$ la fonction $x\mapsto x_i$, nous notons $q_i$ la fonction $q\mapsto q_i$. Le gradient de cette fonction est donné par
+\begin{equation}
+    \nabla q_i=\sum_j\frac{1}{ h_j }\frac{ \partial q_i }{ \partial q_j }e_j,
+\end{equation}
+mais $\frac{ \partial q_i }{ \partial q_j }=\delta_{ij}$, donc
+\begin{equation}
+    \nabla q_i=\frac{ e_i }{ h_i },
+\end{equation}
+ou encore
+\begin{equation}
+    e_i=h_i\nabla q_i.
+\end{equation}
+Cela n'est pas étonnant : la direction dans laquelle la coordonnées $q_i$ varie le plus est le vecteur $e_i$ qui donne la tangente à la courbe obtenue lorsque \emph{seul} $q_i$ varie.
+
+Commençons par calculer la divergence de $e_i$. En utilisant la formule \eqref{Eqekeitimesej},
+\begin{equation}
+    \nabla\cdot e_k=\frac{ 1 }{2}\sum_{ij}\epsilon_{ijk}\,\nabla\cdot (e_i\times e_j).
+\end{equation}
+Nous avons, en utilisant les règles de Leibnitz de la proposition \ref{PROPooDMWEooNaJBCM},
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\cdot(e_i\times e_j)&=\nabla\cdot(h_i\nabla q_i\times h_j\nabla q_j)\\
+        &=\nabla(h_ih_j)\cdot\big( \nabla q_i\times\nabla q_j \big)+h_ih_j\nabla\cdot\big( \nabla q_i\times\nabla q_j \big)\\
+        &=\nabla(h_ih_j)\cdot\big( \nabla q_i\times\nabla q_j \big)\\
+        &\quad+h_ih_j\nabla q_j\cdot\big( \underbrace{\nabla\times\nabla q_i}_{=0} \big)\\
+        &\quad+h_ih_j\nabla q_i\cdot\big( \underbrace{\nabla\times\nabla q_j}_{=0} \big)
+    \end{aligned}
+\end{equation}
+Cela nous fait
+\begin{equation}
+    \nabla\cdot e_k=\sum_{ij}\epsilon_{ijk}\frac{ \nabla(h_ih_j) }{ h_ih_j }\cdot (e_i\times e_j).
+\end{equation}
+parce que $\nabla q_i=h_i^{-1}e_i$. Nous pouvons développer le gradient qui intervient :
+\begin{equation}
+    \nabla(h_ih_j)=\sum_l\frac{1}{ h_l }\frac{ \partial  }{ \partial q_l }(h_ih_j)e_l.
+\end{equation}
+Nous voyons donc arriver le produit mixte $e_l\cdot (e_i\times e_j)$. En utilisant la formule \eqref{EqProdMixteepsilonCicivr}, cela s'exprime directement sous la forme $\epsilon_{ijl}$.
+
+Nous avons alors
+\begin{equation}        \label{EqFragradekdvi}
+    \begin{aligned}[]
+        \nabla\cdot e_k&=\frac{ 1 }{2}\sum_{ijl}\frac{1}{ h_ih_jh_l }\frac{ \partial  }{ \partial q_l }(h_ih_j)\epsilon_{ijk}\epsilon_{ijl}\\
+        &=\frac{ 1 }{2}\sum_{ijl}\delta_{kl}| \epsilon_{ijk} |\frac{ \partial  }{ \partial q_l }(h_ih_j)\\
+        &=\frac{ 1 }{2}\sum_{ij}\frac{| \epsilon_{ijk} |}{ h_ih_jh_k }\frac{ \partial  }{ \partial q_k }(h_ih_j).
+    \end{aligned}
+\end{equation}
+Par exemple,
+\begin{equation}
+    \nabla\cdot e_1=\frac{1}{ h_1h_2h_3 }\frac{ \partial  }{ \partial q_1 }(h_2h_3).
+\end{equation}
+
+Nous devons maintenant chercher le gradient d'un champ général
+\begin{equation}
+    F(q)=\sum_kF_k(q)e_k.
+\end{equation}
+La première chose à faire est d'utiliser la formule de Leibnitz :
+\begin{equation}        \label{EqLeibnbablaFek}
+    \nabla\cdot F=\sum_k\nabla F_k(q)\cdot e_k+\sum_kF_k(q)\nabla\cdot e_k.
+\end{equation}
+Afin d'alléger les notations, nous allons nous concentrer sur le terme numéro $k$ et ne pas écrire la somme. Si $i$ et $j$ sont les nombres tels que $\epsilon_{ijk}=1$, alors ce que la formule \eqref{EqFragradekdvi} signifie, c'est que
+\begin{equation}
+    \nabla\cdot e_k=\frac{1}{ h_1h_2h_3 }\frac{ \partial  }{ \partial q_k }(h_ih_j).
+\end{equation}
+Nous savons déjà par la formule \eqref{EqGradientenCurviligne} que
+\begin{equation}
+    \nabla F_k=\sum_l\frac{1}{ h_l }\frac{ \partial F_k }{ \partial q_l }e_l,
+\end{equation}
+par conséquent
+\begin{equation}
+    \nabla F_k\cdot e_k=\sum_l\frac{1}{ h_l }\frac{ \partial F_k }{ \partial q_l }\delta_{kl}=\frac{1}{ h_k }\frac{ \partial F_k }{ \partial q_k }.
+\end{equation}
+Pour obtenir cela nous avons utilisé le fait que $e_l\cdot e_k=\delta_{lk}$. Le terme numéro $k$ de la somme \eqref{EqLeibnbablaFek} est donc
+\begin{equation}
+    \frac{1}{ h_k }\frac{ \partial F_k }{ \partial q_k }+\frac{ F_k }{ h_kh_ih_j }\frac{ \partial (h_ih_j) }{ \partial q_k }=\frac{1}{ h_ih_jh_k }\frac{ \partial (F_kh_ih_j) }{ \partial q_k }
+\end{equation}
+où il est entendu que $i$ et $j$ représentent les nombres tels que $\epsilon_{ijk}=1$.
+
+Au final, nous avons
+\begin{equation}
+    \nabla\cdot F=\frac{1}{ h_1h_2h_3 }\sum_{ijk}| \epsilon_{ijk} |\frac{ \partial (F_kh_ih_j) }{ \partial q_k }.
+\end{equation}
+Ici, la somme sur $i$ et $j$ consiste seulement à sélectionner les termes tels que $i$ et $j$ ne sont pas $k$. En écrivant la somme explicitement,
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\cdot F=\frac{1}{ h_1h_2h_3 }\left[ \frac{ \partial  }{ \partial q_1 }(F_1h_2h_3)+\frac{ \partial  }{ \partial q_2 }(F_2h_1h_3)+\frac{ \partial  }{ \partial q_3 }(F_3h_1h_2) \right].
+    \end{aligned}
+\end{equation}
+
+\subsubsection{Coordonnées cylindriques}
+
+En coordonnées cylindriques, nous avons déjà vu que $h_r=1$, $h_{\theta}=r$ et $h_z=1$. La divergence est donc donnée par
+\begin{equation}        \label{EqDivEnCylonf}
+    \nabla\cdot F=\frac{1}{ r }\left[ \frac{ \partial  }{ \partial r }(rF_r)+\frac{ \partial  }{ \partial \theta }(F_{\theta})+\frac{ \partial  }{ \partial z }(rF_z) \right].
+\end{equation}
+Par exemple si
+\begin{equation}
+    F(r,\theta,z)=re_{\theta}+e_z,
+\end{equation}
+nous avons
+\begin{equation}
+    (\nabla\cdot F)(r,\theta,z)=\frac{1}{ r }\left[ \frac{ \partial  }{ \partial \theta }(r)+\frac{ \partial  }{ \partial z }(r) \right]=0.
+\end{equation}
+Cela est logique parce que $re_{\theta}$ est à peu près le champ dont nous avons parlé dans l'exemple \eqref{ExamDivFrot}, qui était à divergence nulle. En réalité, le champ dont on parlait dans cet exemple était exactement $-e_{\theta}$. Le champ $e_z$ est également à divergence nulle parce qu'il est constant.
+
+\subsubsection{Coordonnées sphériques}
+
+En coordonnées sphériques, nous avons $h_{\rho}=1$, $h_{\theta}=r$ et $h_{\varphi}=r\sin\theta$, donc
+\begin{equation}
+    \nabla\cdot F=\frac{1}{ r^2\sin\theta }\left[ \frac{ \partial  }{ \partial \rho }(\rho^2\sin\theta F_{\rho})+\frac{ \partial  }{ \partial \theta }(\rho\sin\theta F_{\theta})+\frac{ \partial  }{ \partial \varphi }(\rho F_{\varphi}) \right].
+\end{equation}
+si $F(\rho,\theta,\varphi)=F_{\rho}e_{\rho}+F_{\theta}e_{\theta}+F_{\varphi}e_{\varphi}$.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Laplacien en coordonnées curvilignes orthogonales}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit une fonction $f\colon \eR^3\to \eR$. Le \defe{laplacien}{laplacien} de $f$ est donné par
+\begin{equation}
+    \Delta f=\nabla\cdot(\nabla f).
+\end{equation}
+En utilisant les formules données, nous avons
+\begin{equation}
+    \Delta f=\frac{1}{ h_1h_2h_3 }\left[ \frac{ \partial  }{ \partial q_1 }\left( \frac{ h_2h_3 }{ h_1 }\frac{ \partial f }{ \partial q_1 } \right)  +\frac{ \partial  }{ \partial q_2 }\left( \frac{ h_1h_3 }{ h_2 }\frac{ \partial f }{ \partial q_2 } \right)  +\frac{ \partial  }{ \partial q_3 }\left( \frac{ h_1h_2 }{ h_3 }\frac{ \partial f }{ \partial q_3 } \right)     \right].
+\end{equation}
+Dans cette expression, la fonction $f$ est donnée comme fonction de $q_1$, $q_2$ et $q_3$.
+
+En coordonnées cylindriques, cela s'écrit
+\begin{equation}
+    \begin{aligned}[]
+        \Delta f&=\frac{1}{ r }\left[ \frac{ \partial  }{ \partial r }\left( r\frac{ \partial f }{ \partial r } \right)+\frac{ \partial  }{ \partial \theta }\left( \frac{1}{ r }\frac{ \partial f }{ \partial \theta } \right)+\frac{ \partial  }{ \partial z }\left( r\frac{ \partial f }{ \partial z } \right) \right]\\
+        &=\frac{ \partial^2f  }{ \partial r^2 }+\frac{1}{ r }\frac{ \partial f }{ \partial r }+\frac{1}{ r^2 }\frac{ \partial^2f }{ \partial \theta^2 }+\frac{ \partial^2f }{ \partial z^2 }.
+    \end{aligned}
+\end{equation}
+Dans cette expression, $f$ est fonction de $r$, $\theta$ et $z$.
+
+En coordonnées sphériques, cela devient
+\begin{equation}        \label{EqLaplaceSphe}
+    \Delta f=\frac{1}{ \rho^2\sin\theta }\left[ \frac{ \partial  }{ \partial \rho }\left( \rho^2\sin\theta\frac{ \partial f }{ \partial \rho } \right)+\frac{ \partial  }{ \partial \theta }\left( \sin\theta\frac{ \partial f }{ \partial \theta } \right)+\frac{ \partial  }{ \partial \varphi }\left( \frac{1}{ \sin\theta }\frac{ \partial f }{ \partial \varphi } \right) \right].
+\end{equation}
+Dans cette expression, $f$ est fonction de $\rho$, $\theta$ et $\varphi$.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Rotationnel en coordonnées curvilignes orthogonales}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous voulons calculer le rotationnel de $F(q)=\sum_kF_k(q)e_k$. Pour cela nous commençons par écrire $e_k=h_k\nabla q_k$ et nous utilisons la formule de la proposition \ref{PROPooDMWEooNaJBCM}\ref{ITEMooFDJIooKTnvKj} avec $F_kh_k$ en guise de $f$ :
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\times F_ke_k&=\nabla\times(F_kh_k\nabla q_k)\\
+        &=F_kh_k\underbrace{\nabla\times(\nabla q_k)}_{=0}+\nabla(F_kh_k)\times\nabla q_k\\
+        &=\frac{1}{ h_k }\nabla(F_kh_k)\times e_k.
+    \end{aligned}
+\end{equation}
+Nous utilisons à présent la formule \eqref{EqGradientenCurviligne} du gradient et le formule $e_j\times e_k=\sum_l\epsilon_{jkl}e_l$ :
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\times(F_ke_k)&=\sum_{j}\frac{1}{ h_jh_k }\frac{ \partial  }{ \partial q_j }(F_kh_k)e_j\times e_k\\
+        &=\sum_{jl}\frac{1}{ h_jh_k }\epsilon_{jkl}\frac{ \partial  }{ \partial q_j }(F_kh_k)e_l.
+    \end{aligned}
+\end{equation}
+Le rotationnel s'écrit donc
+\begin{equation}
+    \nabla\times F=\sum_{jkl}\frac{1}{ h_jh_k }\epsilon_{jkl}\frac{ \partial  }{ \partial q_j }(F_kh_k)e_l.
+\end{equation}
+Devant $e_1$ par exemple nous avons seulement les termes $j=2$, $k=3$ et $j=3$, $k=2$. Étant donné que $\epsilon_{231}=1$ et $\epsilon_{321}=-1$, le coefficient de $e_1$ sera simplement
+\begin{equation}
+    \frac{1}{ h_2h_3 }\left( \frac{ \partial  }{ \partial q_2 }(F_3h_3)-\frac{ \partial  }{ \partial q_3 }(F_2h_2) \right).
+\end{equation}
+La formule complète devient
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\times\sum_k F_ke_k&=\frac{1}{ h_2h_3 }\left( \frac{ \partial  }{ \partial q_2 }(F_3h_3)-\frac{ \partial  }{ \partial q_3 }(F_2h_2) \right)\\
+            &\quad+\frac{1}{ h_1h_3 }\left( \frac{ \partial  }{ \partial q_3 }(F_1h_1)-\frac{ \partial  }{ \partial q_1 }(F_3h_3) \right)\\
+            &\quad+\frac{1}{ h_2h_1 }\left( \frac{ \partial  }{ \partial q_1 }(F_2h_2)-\frac{ \partial  }{ \partial q_2 }(F_1h_1) \right).
+    \end{aligned}
+\end{equation}
+
+\subsubsection{Coordonnées cylindriques}
+
+En utilisant $h_r=1$, $h_{\theta}=r$ et $h_z=1$, nous trouvons
+\begin{equation}        \label{EqRotationnelCylin}
+    \begin{aligned}[]
+        \nabla\times(F_re_r+F_{\theta}e_{\theta}+F_ze_z)&=\frac{1}{ r }\left( \frac{ \partial F_z }{ \partial \theta }-\frac{ \partial (F_{\theta}r) }{ \partial z } \right)e_r\\
+        &\quad+\left( \frac{ \partial F_r }{ \partial z }-\frac{ \partial F_z }{ \partial r } \right)e_{\theta}\\
+        &\quad+\left( \frac{ \partial (F_{\theta} r) }{ \partial r }-\frac{ \partial F_r }{ \partial \theta } \right)e_z.
+    \end{aligned}
+\end{equation}
+
+\subsubsection{Coordonnées sphériques}
+
+En utilisant $h_{\rho}=1$, $h_{\theta}=\rho$ et $h_{\varphi}=\rho\sin\theta$, nous trouvons
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\times(F_{\rho}e_{\rho}+F_{\theta}e_{\theta}+F_{\varphi}e_{\varphi})&=\frac{1}{ \rho\sin\theta }\left( \frac{ \partial (F_{\varphi})\sin\theta }{ \partial \theta }-\frac{ \partial F_{\theta} }{ \partial \varphi } \right)e_{\rho}\\
+        &\quad+\frac{1}{ \rho\sin\theta }\left( \frac{ \partial F_{\rho} }{ \partial \varphi }-\frac{ \partial (F_{\varphi}\rho\sin\theta) }{ \partial \rho } \right)e_{\theta}\\
+        &\quad+\frac{1}{ \rho }\left( \frac{ \partial F_{\theta}\rho }{ \partial \rho }-\frac{ \partial F_r }{ \partial \theta } \right)e_{\varphi}.
+    \end{aligned}
+\end{equation}
+Note : dans le premier terme, il y a une simplification par $\rho$.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Les formules}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées polaires}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les vecteurs de base :
+\begin{subequations}
+    \begin{align}
+    e_r=\begin{pmatrix}
+        \cos(\theta)    \\
+        \sin(\theta)
+    \end{pmatrix}=\cos(\theta)e_x+\sin(\theta)e_y\\
+    e_{\theta}=\begin{pmatrix}
+        -\sin(\theta)    \\
+        \cos(\theta)
+    \end{pmatrix}=-\sin(\theta)e_x+\cos(\theta)e_y.
+    \end{align}
+\end{subequations}
+
+Le gradient :
+\begin{equation}
+    \nabla\tilde f(r,\theta)=\frac{ \partial \tilde f }{ \partial r }(r,\theta)e_r+\frac{1}{ r }\frac{ \partial \tilde f }{ \partial \theta }(r,\theta)e_{\theta}.
+\end{equation}
+
+La divergence :
+\begin{equation}    \label{EqgRxJKd}
+    \nabla\cdot F=\frac{1}{ r }\left[ \frac{ \partial  }{ \partial r }(rF_r)+\frac{ \partial  }{ \partial \theta }(F_{\theta}) \right].
+\end{equation}
+
+Le rotationnel :
+\begin{equation}    \label{EqtBnoCw}
+    \nabla\times(F_re_r+F_{\theta}e_{\theta})=\left( \frac{ \partial (F_{\theta} r) }{ \partial r }-\frac{ \partial F_r }{ \partial \theta } \right)e_z.
+\end{equation}
+Notons que le rotationnel n'existe pas vraiment en deux dimensions. Ici nous avons vu le champ \( F(r,\theta)\) comme un champ dans \( \eR^3\) ne dépendant pas de \( z\) et n'ayant pas de composante \( z\). Le résultat est un rotationnel qui est dirigé selon l'axe \( z\).
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées cylindriques}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les vecteurs de base : idem qu'en coordonnées polaires, et on ajoute \( e_z\) sans modifications.
+
+Le gradient :
+\begin{equation}
+    \nabla\tilde f(r,\theta,z)=\frac{ \partial \tilde f }{ \partial r }(r,\theta,z)e_r+\frac{1}{ r }\frac{ \partial \tilde f }{ \partial \theta }(r,\theta,z)e_{\theta}+\frac{ \partial \tilde f }{ \partial z }(r,\theta,z)e_z.
+\end{equation}
+
+La divergence :
+\begin{equation}
+    \nabla\cdot F=\frac{1}{ r }\left[ \frac{ \partial  }{ \partial r }(rF_r)+\frac{ \partial  }{ \partial \theta }(F_{\theta})+\frac{ \partial  }{ \partial z }(rF_z) \right].
+\end{equation}
+
+Le rotationnel :
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\times(F_re_r+F_{\theta}e_{\theta}+F_ze_z)&=\frac{1}{ r }\left( \frac{ \partial F_z }{ \partial \theta }-\frac{ \partial (F_{\theta}r) }{ \partial z } \right)e_r\\
+        &\quad+\left( \frac{ \partial F_r }{ \partial z }-\frac{ \partial F_z }{ \partial r } \right)e_{\theta}\\
+        &\quad+\left( \frac{ \partial (F_{\theta} r) }{ \partial r }-\frac{ \partial F_r }{ \partial \theta } \right)e_z.
+    \end{aligned}
+\end{equation}
+
+Note : les formules concernant les coordonnées polaires se réduisent de celles-ci en enlevant toutes les références à \( z\).
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Coordonnées sphériques}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les vecteurs de base :
+\begin{equation}
+    \begin{aligned}[]
+        e_r&=\begin{pmatrix}
+        \sin(\theta)\cos(\varphi)    \\
+        \sin(\theta)\sin(\varphi)    \\
+        \cos(\theta)
+    \end{pmatrix},
+    &e_{\theta}&=
+    \begin{pmatrix}
+        \cos(\theta)\cos(\varphi)    \\
+        \cos(\theta)\sin(\varphi)    \\
+        -\sin(\theta)
+    \end{pmatrix},\\
+    e_{\varphi}&=
+    \begin{pmatrix}
+        -\sin(\varphi)    \\
+        \cos(\varphi)    \\
+        0
+    \end{pmatrix}
+    \end{aligned}
+\end{equation}
+
+
+Le gradient :
+\begin{equation}
+    \nabla\tilde f(\rho,\theta,\varphi)=\frac{ \partial \tilde f }{ \partial \rho }e_{\rho}+\frac{1}{ \rho }\frac{ \partial \tilde f }{ \partial \theta }e_{\theta}+\frac{1}{ \rho\sin(\theta) }\frac{ \partial \tilde f }{ \partial \varphi }r_{\varphi}.
+\end{equation}
+
+
+La divergence :
+\begin{equation}
+    \nabla\cdot F=\frac{1}{ \rho^2\sin\theta }\left[ \frac{ \partial  }{ \partial \rho }(\rho^2\sin\theta F_{\rho})+\frac{ \partial  }{ \partial \theta }(\rho\sin\theta F_{\theta})+\frac{ \partial  }{ \partial \varphi }(\rho F_{\varphi}) \right].
+\end{equation}
+
+Le rotationnel :
+\begin{equation}
+    \begin{aligned}[]
+        \nabla\times(F_{\rho}e_{\rho}+F_{\theta}e_{\theta}+F_{\varphi}e_{\varphi})&=\frac{1}{ \rho\sin\theta }\left( \frac{ \partial (F_{\varphi})\sin\theta }{ \partial \theta }-\frac{ \partial F_{\theta} }{ \partial \varphi } \right)e_{\rho}\\
+        &\quad+\frac{1}{ \rho\sin\theta }\left( \frac{ \partial F_{\rho} }{ \partial \varphi }-\frac{ \partial (F_{\varphi}\rho\sin\theta) }{ \partial \rho } \right)e_{\theta}\\
+        &\quad+\frac{1}{ \rho }\left( \frac{ \partial F_{\theta}\rho }{ \partial \rho }-\frac{ \partial F_r }{ \partial \theta } \right)e_{\varphi}.
+    \end{aligned}
+\end{equation}

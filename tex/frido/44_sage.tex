@@ -1,0 +1,608 @@
+% This is part of (almost) Everything I know in mathematics
+% Copyright (C) 2009-2010,2016-2020
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+Ce chapitre est un foure-tout de choses que l'on peut faire avec Sage.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Graphiques}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Pour afficher le graphe d'une fonction, vous pouvez faire
+\begin{verbatim}
++--------------------------------------------------------------------+
+| SageMath version 8.1, Release Date: 2017-12-07                     | 
+| Type "notebook()" for the browser-based notebook interface.        | 
+| Type "help()" for help.                                            |
++--------------------------------------------------------------------+
+sage: plot(cos(x),0,5)
+Launched png viewer for Graphics object consisting of 1 graphics primitive
+sage: f(x)=sin(x)
+sage: f.plot(-pi,pi)
+Launched png viewer for Graphics object consisting of 1 graphics primitive
+\end{verbatim}
+Un programme externe se lance automatiquement pour afficher le graphique que vous avez demandé.
+
+Il se peut qu'aucun programme ne se lance et vous ayez, au lieu de \info{Launched png viewer for Graphics object \ldots} uniquement \info{Created graphics object \ldots}. Disons pour faire court que Sage a produit un \info{png} et qu'il ne sait pas quel programme externe utiliser pour l'afficher.
+
+La solution est à l'adresse \url{http://doc.sagemath.org/html/en/reference/misc/sage/misc/viewer.html}
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Autres}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Dans le but d'automatiser certaines tâches, j'ai écrit ce module, nomé \info{outilsINGE.sage}, dans le cadre d'un cours de première année donné à des ingénieurs. Certaines des fonctions définies ici sont utilisée dans les exemples qui suivent.
+
+\lstinputlisting{tex/sage/outilsINGE.sage}
+
+\begin{example}     \label{ExBCRXooDVUdcf}
+	Calculer la limite
+			\begin{equation}
+				\lim_{x\to\infty}\frac{ \sin(x)\cos(x) }{ x }
+			\end{equation}
+
+
+            \begin{verbatim}
+			var('x')
+			f(x)=sin(x)*cos(x)/x
+			limit(f(x),x=oo)
+            \end{verbatim}
+	La première ligne déclare que la lettre \texttt{x} désignera une variable. Pour la troisième ligne, notez que l'infini est écrit par deux petits « o ».
+\end{example}
+
+\begin{example}     \label{ExCWDRooKxnjGL}
+    Quelques limites et graphes avec Sage.
+
+    \begin{enumerate}
+
+		\item
+			$\lim_{x\to 0} \frac{ \sin(\alpha x) }{ \sin(\beta x) }$.
+
+			Pour effectuer cet exercice avec Sage, il faut taper les lignes suivantes~:
+
+
+\begin{verbatim}
+sage: var('x,a,b')
+(x, a, b)
+sage: f(x)=sin(a*x)/sin(b*x)
+sage: limit( f(x),x=0  )
+a/b
+\end{verbatim}
+
+			Noter qu'il faut déclarer les variables \texttt{x}, \texttt{a} et \texttt{b}.
+
+		\item
+			$\lim_{x\to \pm\infty} \frac{ \sqrt{x^2+1}-x }{ x-2 }$
+
+            \begin{verbatim}
+sage: f(x)=(sqrt(x**2+1))/(x-2)
+sage: limit(f(x),x=oo)
+1
+sage: limit(f(x),x=-oo)
+-1
+            \end{verbatim}
+
+			Noter la commande pour la racine carré~: \texttt{sqrt}. Étant donné que cette fonction diverge en $x=2$, si nous voulons la tracer, il faut procéder en deux fois :
+
+            \begin{verbatim}
+sage: plot(f,(-100,1.9))
+Launched png viewer for Graphics object consisting of 1 graphics primitive
+sage: plot(f,(2.1,100))
+Launched png viewer for Graphics object consisting of 1 graphics primitive
+            \end{verbatim}
+			La première ligne trace de $-100$ à $1.9$ et la seconde de $2.1$ à $100$. Ces graphiques vous permettent déjà de voir les limites. Attention : ils ne sont pas des \emph{preuves} ! Mais ils sont de sérieux indices qui peuvent vous inspirer dans vos calculs.
+
+	\end{enumerate}
+\end{example}
+
+\begin{example} \label{exJMGTooZcZYNy}
+
+
+Calculer les dérivées partielles $\partial_xf$, $\partial_yf$, $\partial^2_xf$, $\partial^2_{xy}f$, $\partial^2_{yx}f$ et $\partial^2_yf$ des fonctions suivantes.
+\begin{multicols}{2}
+\begin{enumerate}
+\item
+$2x^3+3x^2y-2y^2$
+\item
+$\ln(xy^2)$
+\item
+$\tan(x/y)$
+\item
+$\frac{ xy^2 }{ x+y }$
+
+\end{enumerate}
+\end{multicols}
+
+
+Le script Sage suivant (\verb+exoDV002.sage+) résout l'exercice :
+
+
+\lstinputlisting{tex/sage/exoDV002.sage}
+
+La sortie est :
+
+\VerbatimInput[tabsize=3]{tex/sage/exoDV002.txt}
+
+\end{example}
+
+\begin{example}\label{exKGDIooVefujD}
+
+
+
+Résoudre les systèmes suivants.
+\begin{multicols}{2}
+	\begin{enumerate}
+
+			\item
+                                        $
+                                        \left\{
+                                        \begin{array}{ll}
+                                                        x_1 - 2x_2 + 3x_3 - 2x_4 = 0\\
+                                        3x_1 - 7x_2 - 2x_3 + 4x_4 = 0\\
+                                        4x_1 + 3x_2 + 5x_3 + 2x_4 = 0\\
+
+                                        \end{array}
+                                        \right.
+                                        $
+
+
+
+                                \item
+                                        $
+                                        \left\{
+                                        \begin{array}{ll}
+                                                        2x_1 + x_2 - 2x_3 + 3x_4 = 0\\
+                                        3x_1 + 2x_2 - x_3 + 3x_4 = 4\\
+                                        3x_1 + 3x_2 + 3x_3 - 3x_4 = 9\\
+
+                                        \end{array}
+                                        \right.
+                                        $
+
+
+
+                                \item
+                                        $
+                                        \left\{
+                                        \begin{array}{ll}
+                                                        x_1 + 2x_2 - 3x_3 = 0\\
+                                        2x_1 + 5x_2 + 2x_3 = 0\\
+                                        3x_1 - x_2 - 4x_3 = 0\\
+
+                                        \end{array}
+                                        \right.
+                                        $
+
+
+
+                                \item
+                                        $
+                                        \left\{
+                                        \begin{array}{ll}
+                                                        x_1 + 2x_2 - x_3 = 0\\
+                                        2x_1 + 5x_2 + 2x_3 = 0\\
+                                        x_1 + 4x_2 + 7x_3 = 0\\
+                                        x_1 + 3x_2 + 3x_3 = 0\\
+
+                                        \end{array}
+                                        \right.
+                                        $
+
+
+
+                                \item
+                                        $
+                                        \left\{
+                                        \begin{array}{ll}
+                                                        x_1 + x_2 + x_3 + x_4 = 0\\
+                                        x_1 + x_2 + x_3 - x_4 = 4\\
+                                        x_1 + x_2 - x_3 + x_4 = -4\\
+                                        x_1 - x_2 + x_3 + x_4 = 2\\
+
+                                        \end{array}
+                                        \right.
+                                        $
+
+
+
+                                \item
+                                        $
+                                        \left\{
+                                        \begin{array}{ll}
+                                                        x_1 + 3x_2 + 3x_3 = 1\\
+                                        x_1 + 3x_2 + 4x_3 = 0\\
+                                        x_1 + 4x_2 + 3x_3 = 3\\
+
+                                        \end{array}
+                                        \right.
+                                        $
+
+
+
+                                \item
+                                        $
+                                        \left\{
+                                        \begin{array}{ll}
+                                                        x_1 - 3x_2 + 2x_3 = -6\\
+                                        -3x_1 + 3x_2 - x_3 = 17\\
+                                        2x_1 - x_2 = 3\\
+
+                                        \end{array}
+                                        \right.
+                                        $
+
+
+
+                                \item
+                                        $
+                                        \left\{
+                                        \begin{array}{ll}
+                                                        x_1 - 2x_2 + 3x_3 - 2x_4 = 0\\
+                                        3x_1 - 7x_2 - 2x_3 + 4x_4 = 0\\
+                                        4x_1 + 3x_2 + 5x_3 + 2x_4 = 0\\
+
+                                        \end{array}
+                                        \right.
+                                        $
+
+
+
+                                \item
+                                        $
+                                        \left\{
+                                        \begin{array}{ll}
+                                                        2x_1 + x_2 - 2x_3 + 3x_4 = 0\\
+                                        3x_1 + 2x_2 - x_3 + 3x_4 = 4\\
+                                        3x_1 + 3x_2 + 3x_3 - 3x_4 = 9\\
+
+                                        \end{array}
+                                        \right.
+                                        $
+
+
+
+                                \item
+                                        $
+                                        \left\{
+                                        \begin{array}{ll}
+                                                        x_1 + 2x_2 - 3x_3 = 0\\
+                                        2x_1 + 5x_2 + 2x_3 = 0\\
+                                        3x_1 - x_2 - 4x_3 = 0\\
+
+                                        \end{array}
+                                        \right.
+                                        $
+
+
+
+                                \item
+                                        $
+                                        \left\{
+                                        \begin{array}{ll}
+                                                        x_1 + 2x_2 - x_3 = 0\\
+                                        2x_1 + 5x_2 + 2x_3 = 0\\
+                                        x_1 + 4x_2 + 7x_3 = 0\\
+                                        x_1 + 3x_2 + 3x_3 = 0\\
+
+                                        \end{array}
+                                        \right.
+                                        $
+
+
+
+                                \item
+                                        $
+                                        \left\{
+                                        \begin{array}{ll}
+                                                        x_1 + x_2 + x_3 + x_4 = 0\\
+                                        x_1 + x_2 + x_3 - x_4 = 4\\
+                                        x_1 + x_2 - x_3 + x_4 = -4\\
+                                        x_1 - x_2 + x_3 + x_4 = 2\\
+
+                                        \end{array}
+                                        \right.
+                                        $
+
+
+
+                                \item
+                                        $
+                                        \left\{
+                                        \begin{array}{ll}
+                                                        x_1 + 3x_2 + 3x_3 = 1\\
+                                        x_1 + 3x_2 + 4x_3 = 0\\
+                                        x_1 + 4x_2 + 3x_3 = 3\\
+
+                                        \end{array}
+                                        \right.
+                                        $
+
+
+
+                                \item
+                                        $
+                                        \left\{
+                                        \begin{array}{ll}
+                                                        x_1 - 3x_2 + 2x_3 = -6\\
+                                        -3x_1 + 3x_2 - x_3 = 17\\
+                                        2x_1 - x_2 = 3\\
+
+                                        \end{array}
+                                        \right.
+                                        $
+
+	\end{enumerate}
+
+
+\end{multicols}
+
+
+	Nous résolvons les systèmes en utilisant Sage avec le script suivant.
+
+\lstinputlisting{tex/sage/exo11.sage}
+
+Le résultat est le suivant :
+
+\VerbatimInput[tabsize=3]{tex/sage/exo11.txt}
+
+\end{example}
+
+\begin{example}     \label{ExBGCEooPIQgGW}
+
+
+	Pour chacun des systèmes suivants $A\cdot X=B$,
+	\begin{enumerate}
+
+		\item
+			Résoudre le système par échelonnement,
+		\item
+			Calculer $A^{-1}$,
+		\item
+			Vérifier votre réponse en calculant $A^{-1}B$. Qu'êtes-vous censé obtenir ?
+
+	\end{enumerate}
+
+	Les énoncés sont
+	\begin{enumerate}
+
+		\item
+			\begin{equation}
+				\begin{aligned}[]
+					A=\begin{pmatrix}
+						2	&	1	&	-2	\\
+						3	&	2	&	2	\\
+						5	&	4	&	3
+					\end{pmatrix},
+					&&B=\begin{pmatrix}
+						10	\\
+						1	\\
+						4
+					\end{pmatrix}
+				\end{aligned}
+			\end{equation}
+	\end{enumerate}
+
+
+	Nous utilisons Sage pour fournir la réponse. Le code suivant résout le système et donne l'inverse de la matrice :
+
+\lstinputlisting{tex/sage/exo13.sage}
+
+La sortie est ici :
+
+\VerbatimInput[tabsize=3]{tex/sage/exo13.txt}
+
+
+
+\end{example}
+
+\begin{example}     \label{exBNGVooIvKfTT}
+
+
+	 Sachant que $(-1,0,1,0)$ est un vecteur propre de la matrice
+	\begin{equation}
+		A=\begin{pmatrix}
+			 2	&	1	&	-1	&	1	\\
+			 1	&	0	&	1	&	1	\\
+			 -1	&	1	&	2	&	1	\\
+			 1	&	1	&	1	&	0
+		 \end{pmatrix}
+	\end{equation}
+	\begin{enumerate}
+
+		\item
+			Diagonaliser $A$ au moyen d'une matrice orthogonale
+		\item
+			Écrire la forme quadratique $X^tAX$ sous forme d'une somme pondérée de carrés.
+	\end{enumerate}
+
+
+
+	Calculons $Av$ afin de savoir la valeur propre associée au vecteur donné :
+	\begin{equation}
+		\begin{pmatrix}
+			 2	&	1	&	-1	&	1	\\
+			 1	&	0	&	1	&	1	\\
+			 -1	&	1	&	2	&	1	\\
+			 1	&	1	&	1	&	0
+		 \end{pmatrix}
+		 \begin{pmatrix}
+			 -1	\\
+			 0	\\
+			 1	\\
+			 0
+		 \end{pmatrix}
+		 =
+		 \begin{pmatrix}
+			 -3	\\
+			 0	\\
+			 3	\\
+			 0
+		 \end{pmatrix}.
+	\end{equation}
+	La valeur propre est donc $3$. Nous savons donc que $(\lambda-3)$ pourra être factorisé dans le polynôme caractéristique.
+
+	Pour le reste de l'exercice c'est standard et c'est résolu de la façon suivante :
+
+	\lstinputlisting{tex/sage/exo65.sage}
+
+	qui retourne
+
+	\VerbatimInput[tabsize=3]{tex/sage/exo65.txt}
+
+\end{example}
+
+\begin{example}     \label{exZHGRooTQpVpq}
+
+
+	 Rechercher les extrémums des fonctions suivantes
+	\begin{enumerate}
+
+		\item
+			$f(x,y)=2-\sqrt{x^2+y^2}$
+		\item
+			$f(x,y)=x^3+3xy^2-15x-12y$
+		\item
+			$f(x,y)=\frac{ x^3 }{ 3 }+\frac{ 4y^3 }{ 3 }-x^2-3x-4y-3$
+
+	\end{enumerate}
+
+
+
+
+	Les corrigés sont créés par le script Sage \verb+exo101.sage+
+
+	\VerbatimInput[tabsize=3]{tex/sage/exo101.sage}
+
+	Des réponses :
+
+	\begin{enumerate}
+
+		\item
+			\VerbatimInput[tabsize=3]{tex/sage/exo101A.txt}
+
+			Ici nous voyons que Sage a du mal à calculer la matrice hessienne en $(0,0)$. En effet, nous tombons sur une division par zéro. Pour résoudre l'exercice, il faut se rendre compte que la fonction $(x,y)\mapsto\sqrt{x^2+y^2}$ est toujours positive et est nulle seulement au point $(0,0)$. Donc $f$ est toujours plus petite ou égale à deux tandis que $f(0,0)=2$. Le point est donc un maximum global.
+		\item
+			\VerbatimInput[tabsize=3]{tex/sage/exo101B.txt}
+
+		\item
+			\VerbatimInput[tabsize=3]{tex/sage/exo101C.txt}
+
+	\end{enumerate}
+
+\end{example}
+
+\begin{example}     \label{exHWIHooOAvaDQ}
+
+
+
+	Déterminer les valeurs extrêmes et les points de selle des fonctions suivantes.
+	\begin{multicols}{2}
+		\begin{enumerate}
+			\item	%1
+				$f(x,y)=x^2+4x+y^2-2y$.
+			\item	%8
+				$f(x,y)= e^{x^2+xy}$.
+			\item	%17
+				$f(x,y)=e^x\sin(y)$.
+		\end{enumerate}
+	\end{multicols}
+
+
+	Certains corrigés de cet exercice ont étés réalisés par Sage. Le script utilisé est \verb+exo103.sage+
+
+	\lstinputlisting{tex/sage/exo103.sage}
+
+	Des réponses :
+
+	\begin{enumerate}
+		\item	%1
+			\VerbatimInput[tabsize=3]{tex/sage/exo103A.txt}
+		\item	%8
+			\VerbatimInput[tabsize=3]{tex/sage/exo103H.txt}
+		\item	%17
+			\VerbatimInput[tabsize=3]{tex/sage/exo103Q.txt}
+
+			Ici, Sage n'est pas capable de résoudre les équations qui annulent le jacobien. Les équations à résoudre sont pourtant faciles :
+			\begin{subequations}
+				\begin{numcases}{}
+					e^{x}\cos(y)=0\\
+					e^{x}\sin(y)=0
+				\end{numcases}
+			\end{subequations}
+			Étant donné que l'exponentielle ne s'annule jamais, il faudrait avoir en même temps $\cos(y)=0$ et $\sin(y)=0$, ce qui est impossible. La fonction n'a donc aucun extrémums local.
+
+	\end{enumerate}
+
+\end{example}
+
+
+\begin{example}     \label{exEEHPooKDxLTJ}
+
+
+	Considérons la fonction
+	\begin{equation}
+		f(x,y)=xy^2 e^{-(x^2+y^2)/4}.
+	\end{equation}
+	\begin{enumerate}
+
+		\item
+			Montrer qu'il y a une infinité de points critiques.
+		\item
+			Déterminer leur nature.
+
+	\end{enumerate}
+
+	Voici la fonction Sage qui fournit les informations :
+
+	\lstinputlisting{tex/sage/exo104.sage}
+
+	La sortie est
+
+	\VerbatimInput[tabsize=3]{tex/sage/exo104.txt}
+
+	Notez la présence de \verb+r1+ comme paramètres dans les solutions. Tous les points avec $y=0$ sont des points critiques. Cependant, Sage\footnote{ou, plus précisément, le programme que j'ai écrit avec Sage.} ne parvient pas à conclure la nature de ces points $(x,0)$.
+
+	Notons que le nombre $f(x,y)$ a toujours le signe de $x$ parce que $y^2$ et l'exponentielle sont positives. Toujours ? En tout cas lorsque $x\neq 0$. Prenons un point $(a,0)$ avec $a>0$. Dans un voisinage de ce point, nous avons $f(x,y)>0$ parce que si $a>0$, alors $x>0$ dans un voisinage de $a$. Le point $(a,0)$ est un minimum local parce que $0=f(a,0)\leq f(x,y)$ pour tout $(x,y)$ dans un voisinage de $(a,0)$.
+
+	De la même façon, les points $(a,0)$ avec $a<0$ sont des maximums locaux parce que dans un voisinage, la fonction est négative.
+
+	Le point $(0,0)$ n'est ni maximum ni minimum local. C'est un point de selle.
+
+\end{example}
+
+\begin{example}     \label{exRNZKooUIOfPU}
+
+    Dériver les fonctions suivantes.
+	\begin{enumerate}
+		\item
+			$\sin\big( \ln(x) \big)$
+		\item
+			$\displaystyle \frac{\sin x}{x}$ ;
+		\item
+			$ e^{x^2}$
+		\item
+			$\cos(x)^{\sin(x)}$
+	\end{enumerate}
+
+Le programme suivant par Sage résout l'exercice:
+\lstinputlisting{tex/sage/corrDerive_0002.sage}
+
+Le résultat est :
+\VerbatimInput[tabsize=3]{tex/sage/corrDerive_0002.txt}
+
+\end{example}
+
+\begin{example}     \label{exLFYFooNCXCJz}
+
+	Donner une approximation de $\ln(1.0001)$.
+
+	\begin{verbatim}
+		----------------------------------------------------------------------
+		| Sage Version 4.5.3, Release Date: 2010-09-04                       |
+		| Type notebook() for the GUI, and license() for information.        |
+		----------------------------------------------------------------------
+		sage: numerical_approx(ln(1.0001))
+		0.0000999950003332973
+	\end{verbatim}
+
+\end{example}

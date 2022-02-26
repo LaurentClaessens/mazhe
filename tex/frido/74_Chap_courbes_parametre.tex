@@ -1,0 +1,1226 @@
+% This is part of Mes notes de mathématique
+% Copyright (c) 2010-2018, 2020
+%   Laurent Claessens, Carlotta Donadello
+% See the file fdl-1.3.txt for copying conditions.
+
+La structure de ce chapitre, comme beaucoup de choses dans le Frido, est fortement liée au choix de présenter toutes les matières dans l'ordre mathématiquement logique. Nous devons donc le placer après la trigonométrie; les propriétés principales des fonctions trigonométriques étant dans la proposition~\ref{PROPooMWMDooJYIlis}, et c'est la proposition~\ref{PROPooKSGXooOqGyZj} qui nous permet de dire que \( \big( \cos(t),\sin(t) \big)\) décrit le cercle.
+
+Et enfin nous n'avons pas encore calculé la circonférence du cercle, et pour cause : nous n'avons pas encore donné de définition à la longueur d'un chemin dans \( \eR^2\). C'est pourquoi ce chapitre va aller droit à la longueur avant de donner des exemples.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Définitions}        \label{SecDeExCPar}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Un \defe{arc paramétré}{arc!paramétré} dans $\eR^p$ est un couple $(I,\gamma)$ où $I$ est un intervalle de $\eR$ et $\gamma$ est une application continue de $I$ dans $\eR^p$. Nous disons que $(I,\gamma)$ est un arc paramétré \defe{compact}{compact!arc paramétré} (ou un \defe{chemin}{chemin!dans $\eR^p$} dans $\eR^p$) lorsque $I$ est compact dans $\eR$.
+\end{definition}
+L'intervalle $I$ d'un arc paramétré compact est toujours de la forme $[a,b]$, étant donné que tous les intervalles compacts de $\eR$ sont de cette forme. Un \defe{sous arc}{sous arc} de $(I,\gamma)$ est un arc de la forme $(I_0,\gamma)$ avec $I_0\subset I$.
+
+\begin{definition}
+    Un \defe{chemin}{chemin} dans $\eR$ est une application continue
+    \begin{equation}
+        \begin{aligned}
+            \sigma\colon [a,b]&\to \eR^3 \\
+            t&\mapsto \sigma(t).
+        \end{aligned}
+    \end{equation}
+\end{definition}
+
+La fonction $\sigma'(t)$ est la \defe{vitesse}{vitesse d'un chemin} du chemin $\sigma$. Si la fonction $t\mapsto\sigma(t)$ est dérivable, on dit que $\sigma''(t)$ est l'\defe{accélération}{accélération d'un chemin}. Les points $\sigma(a)$ et $\sigma(b)$ sont les extrémités du chemin. L'ensemble
+\begin{equation}
+    \{ \sigma(t)\tq t\in\mathopen[ a , b \mathclose] \}
+\end{equation}
+est la \defe{courbe}{courbe} $\sigma$.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Longueur d'arc}        \label{SecLongArc}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous voulons définir et étudier la notion de \wikipedia{fr}{Arc_rectifiable}{longueur} d'un arc paramétré. Pour cela, le plus raisonnable est d'approcher l'arc par des petits segments de droites (dont les longueurs sont évidentes), et d'extraire la «meilleure» approximation.
+
+Une des notions clefs pour la suite est celle de subdivision d'intervalles. Cette notion sera encore utilisée par la suite à propos des intégrales.
+\begin{definition}      \label{DefSubdivisionIntervalle}
+    Si $I$ est un intervalle d'extrêmes $a$ et $b$ avec $a<b$, nous appelons \defe{subdivision finie}{subdivision!d'un intervalle} de $I$ un choix de nombres $t_i$ tels que
+    \begin{equation}
+        a=t_0<t_1<\ldots<t_n=b.
+    \end{equation}
+    Nous disons qu'une subdivision $\sigma'$ est \defe{plus fine}{fine!subdivision} que la subdivision $\sigma$ si l'ensemble des points de $\sigma$ est inclus dans celui des points de $\sigma'$. Dans ce cas, la subdivision $\sigma'$ est un \defe{raffinement}{raffinement} de $\sigma$. Nous désignons par $\sdS(I)$ l'ensemble des subdivisions finies de l'intervalle $I$.
+\end{definition}
+Dans la suite, toutes les subdivisions que nous considérons seront des subdivisions finies. Aussi nous parlerons simplement de \emph{subdivisions} sans préciser. Nous allons souvent noter $\sigma=(t_i)_{i=1}^n$ pour désigner la subdivision formée par les nombres $t_i$. Il faut garder en tête que dans une subdivision, les nombres \emph{sont ordonnés}.
+
+% TODOooHLDQooGIwacO Dans cette figure, les segments rouges ne s'affichent pas tous.
+\newcommand{\CaptionFigCourbeRectifiable}{La longueur d'un découpage. La somme des longueurs des segments droits est facile à calculer.}
+\input{auto/pictures_tex/Fig_CourbeRectifiable.pstricks}
+\begin{definition}      \label{DEFooDNZWooXmxhsU}
+    Soit un arc paramétré compact $(I,\gamma)$ et une subdivision $\sigma=(t_i)_{i=1}^n$ de $I=[a,b]$. À partir de $\gamma$ et du découpage $\sigma$ nous définissons le nombre (voir figure~\ref{LabelFigCourbeRectifiable})
+    \begin{equation}        \label{Eqlsigmagammasss}
+        l_{\sigma}(\gamma)=\sum_{i=1}^n\big\| \gamma(t_i)-\gamma(t_{i-1}) \big\|.
+    \end{equation}
+    On appelle \defe{longueur}{longueur!d'un arc paramétré compact} de l'arc $\gamma$ le nombre
+    \begin{equation}
+        l(\gamma)=\sup_{\sigma}l_{\sigma}(\gamma)\in\mathopen[ 0 , \infty \mathclose].
+    \end{equation}
+    Nous disons que $\gamma$ est \defe{rectifiable}{rectifiable} lorsque $l(\gamma)<\infty$.
+\end{definition}
+Lorsque nous voulons spécifier sur quel intervalle nous considérons l'arc, nous noterons $l(I,\gamma)$ au lieu de $l(\gamma)$ pour être plus précis.
+
+Par l'inégalité triangulaire, si $\sigma_1$ est plus fine que $\sigma$, nous avons
+\begin{equation}
+    l_{\sigma}(\gamma)\leq l_{\sigma_1}(\gamma),
+\end{equation}
+Comme cela peut être vu sur la figure~\ref{LabelFigArcLongueurFinesse}.
+\newcommand{\CaptionFigArcLongueurFinesse}{Il est visible que la longueur donnée par l'approximation par des petits segments (verts) est plus longue et plus précise que celle donnée par les longs segments (rouge).}
+\input{auto/pictures_tex/Fig_ArcLongueurFinesse.pstricks}
+%TODO : questa figura e' invisibile quando stampiamo il pdf.
+
+\begin{proposition}     \label{PROPooCXLYooRpKDMs}
+    Si \( P\) et \( Q\) sont des points de \( \eR^2\), alors le segment de droite joignant \( P\) à \( Q\) est le plus court des arcs paramétrés passant par \( P\) et \( Q\).
+\end{proposition}
+
+\begin{proof}
+    Si \( \gamma\) est un arc paramétré joignant \( P\) et \( Q\), la longueur de \( \gamma\) est donné par un supremum dont un des éléments est la longueur du segment de droite.
+\end{proof}
+
+Dans la vie réelle, il est souvent difficile et peu pratique de calculer le supremum «à la main». C'est pourquoi nous allons travailler à exprimer la longueur d'un arc à l'aide d'une intégrale (théorème~\ref{ThoLongueurIntegrale}).
+
+\begin{lemma}
+    Nous avons $l(\gamma)=0$ si et seulement si $\gamma(t)$ est un vecteur constant.
+\end{lemma}
+
+\begin{proof}
+    Si l'application $\gamma(t)$ est constante, le résultat est évident. Supposons maintenant que $\gamma$ ne soit pas constante. Cela signifie qu'il existe $t_1$ et $t_2$ dans $I$ tels que $\gamma(t_1)\neq \gamma(t_2)$. Dans ce cas, si nous prenons le découpage $\sigma=\{ a,t_1,t_2,b \}$, la somme \eqref{Eqlsigmagammasss} contient au moins le terme non nul $\| \gamma(t_2)-\gamma(t_1) \|$, et donc $l_{\sigma}(\gamma)>0$. Par définition du supremum, nous avons alors $l(\gamma)\geq l_{\sigma}(\gamma)>0$.
+\end{proof}
+
+\begin{proposition}     \label{Propletautredecop}
+    Soit $(I,\gamma)$ un arc paramétré compact.
+    \begin{enumerate}
+        \item
+            Si $\gamma'=(I',\gamma)$ avec $I'\subset I$, alors $l(\gamma')\leq l(\gamma)$.
+        \item
+            Soit $c\in\mathopen[ a , b \mathclose]$, et considérons les arcs $\gamma_1=\big( \mathopen[ a , c \mathclose],\gamma \big)$ et $\gamma_2=\big( \mathopen[ c , b \mathclose],\gamma \big)$. Alors
+            \begin{equation}
+                l(\gamma)=l(\gamma_1)+l(\gamma_2).
+            \end{equation}
+            En particulier, $\gamma$ est rectifiable si et seulement si $\gamma_1$ et $\gamma_2$ le sont.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item
+            Nous notons $I=\mathopen[ a , b \mathclose]$ et $I'=\mathopen[ a' , b' \mathclose]$. Étant donné que $I'\subset I$, nous avons
+            \begin{equation}
+                a\leq a'<b'\leq b.
+            \end{equation}
+            Pour chaque subdivision $\sigma_0:a'=t_0<t_1<\ldots<t_n=b'$ de $I'$, nous pouvons construire une subdivision de $I$ en «ajoutant» les points $a$ et $b$, c'est-à-dire
+            \begin{equation}
+                \sigma:a\leq t_0<\ldots<t_n\leq b.
+            \end{equation}
+            Si nous calculons $l_{\sigma}(\gamma)$, nous avons tous les termes qui arrivent dans $l_{\sigma_0}(\gamma')$ plus le premier et dernier terme : $\| \gamma(t_0)-\gamma(a) \|$ et $\| \gamma(b)-\gamma(t_n)\|$. Nous avons donc
+            \begin{equation}
+                l_{\sigma_0}(\gamma')\leq l_{\sigma}(\gamma)\leq\sup_{\sigma}l_{\sigma}(\gamma)=l(\gamma).
+            \end{equation}
+            Étant donné que pour toute subdivision $\sigma_0$ nous avons $l_{\sigma_0}(\gamma')\leq l(\gamma)$, en prenant le supremum sur les subdivisions $\sigma_0$ de $I'$, nous avons comme annoncé
+            \begin{equation}
+                l(\gamma')\leq l(\gamma).
+            \end{equation}
+        \item
+            Soit $\sigma=\{ t_i \}$ une subdivision de $\mathopen[ a , b \mathclose]$. Nous considérons les subdivisions $\sigma_1$ et $\sigma_2$ définies comme suit:
+            \begin{equation}
+                \begin{aligned}[]
+                    \sigma_1&:\{ t_i\tq t_i< c \}\cup\{ c \},\\
+                    \sigma_2&:\{ t_i\tq t_i> c \}\cup\{ c \}.
+                \end{aligned}
+            \end{equation}
+            L'inégalité triangulaire implique que
+            \begin{equation}
+                l_{\sigma}(\gamma)\leq l_{\sigma\cup\{ c \}}(\gamma)=l_{\sigma_1}(\gamma_1)+l_{\sigma_2}(\gamma_2)\leq l(\gamma_1)+l(\gamma_2).
+            \end{equation}
+            Nous avons donc
+            \begin{equation}    \label{EqIneglglglgud}
+                l(\gamma)\leq l(\gamma_1)+l(\gamma_2).
+            \end{equation}
+
+            Nous prouvons maintenant l'inégalité inverse. Soit $\varepsilon>0$. Étant donné que $l(\gamma_1)$ est le supremum des quantités $l_{\sigma_1}(\gamma_1)$ lorsque $\sigma_1$ parcours toutes les subdivisions possibles, il existe une partition $\sigma_1^{\varepsilon}$ telle que (idem pour $\gamma_2$)
+            \begin{equation}        \label{EqAllsigmaepsgammaufd}
+                \begin{aligned}[]
+                    l_{\sigma_1^{\varepsilon}}(\gamma_1)+\frac{ \varepsilon }{2}>l(\gamma_1),\\
+                    l_{\sigma_2^{\varepsilon}}(\gamma_2)+\frac{ \varepsilon }{2}>l(\gamma_2),
+                \end{aligned}
+            \end{equation}
+            où $\sigma_1^{\varepsilon}$ est une subdivision de $\mathopen[ a , c \mathclose]$ et $\sigma_2^{\varepsilon}$ en est une de $\mathopen[ c , b \mathclose]$. En faisant la somme des deux équations \eqref{EqAllsigmaepsgammaufd}, nous trouvons
+            \begin{equation}
+                l(\gamma_1)+l(\gamma_2)<l_{\sigma_1^{\varepsilon}}(\gamma_1)+l_{\sigma_2^{\varepsilon}}(\gamma_2)+\varepsilon=l_{\sigma_1^{\varepsilon}\cup\sigma_2^{\varepsilon}}(\gamma)\leq l(\gamma)+\varepsilon.
+            \end{equation}
+            L'inégalité $l(\gamma_1)+l(\gamma_2)<l(\gamma)+\varepsilon$ étant valable pour tout $\varepsilon$, nous avons
+            \begin{equation}
+                l(\gamma_1)+l(\gamma_2)\leq l(\gamma).
+            \end{equation}
+            Cette inégalité, combinée avec l'inégalité \eqref{EqIneglglglgud}, donne bien $l(\gamma)=l(\gamma_1)+l(\gamma_2)$.
+    \end{enumerate}
+\end{proof}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Abscisse curviligne}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Soit $(I,\gamma)$ un arc rectifiable compact avec $I=\mathopen[ a , b \mathclose]$. L'application
+    \begin{equation}
+        \begin{aligned}
+            \varphi\colon \mathopen[ a , b \mathclose]&\to \eR^+ \\
+            t&\mapsto l\big( \mathopen[ a , t \mathclose],\gamma \big)
+        \end{aligned}
+    \end{equation}
+    est la \defe{longueur d'arc}{longueur d'arc} de $\gamma$.
+\end{definition}
+Cette fonction nous permet de calculer la distance (suivant la courbe) entre deux points arbitraires parce que si $a\leq t<u\leq b$, nous avons
+\begin{equation}
+    l\big( [t,u],\gamma \big)=\varphi(u)-\varphi(t).
+\end{equation}
+En effet,
+\begin{equation}
+    \varphi(u)-\varphi(t)=l\big( [a,u],\gamma \big)-l\big( [a,t],\gamma \big),
+\end{equation}
+mais en utilisant la proposition~\ref{Propletautredecop}, nous avons
+\begin{equation}
+    l\big( [a,u],\gamma \big)=l\big( [a,t],\gamma \big)+l\big( [t,u],\gamma \big).
+\end{equation}
+
+\begin{proposition}
+    La longueur d'arc d'un arc rectifiable compact est une fonction continue et croissante.
+\end{proposition}
+
+\begin{proof}
+    Soit $(I,\gamma)$ un arc paramétré rectifiable compact avec $I=[a,b]$. Afin de montrer que $\varphi$ est croissante, prenons $t\in I$ ainsi que $h>0$ et montrons que $\varphi(t+h)\geq \varphi(t)$. La proposition~\ref{Propletautredecop} implique que
+    \begin{equation}
+        l\big( \mathopen[ a , t+h \mathclose],\gamma \big)=l\big( \mathopen[ a ,t  \mathclose],\gamma \big)+l\big( \mathopen[ t , t+h \mathclose],\gamma \big),
+    \end{equation}
+    c'est-à-dire
+    \begin{equation}
+        \varphi(t+h)=\varphi(t)+l\big( \mathopen[ t , t+h \mathclose],\gamma \big)\geq \varphi(t).
+    \end{equation}
+
+    Pour la continuité, soit $t$ fixé dans $\mathopen[ a , b \mathclose]$ et $\varepsilon>0$. Il nous faut démontrer qu'il existe $\eta>0$ tel que si $s$ est dans $[0,\eta]$ alors
+\[
+|\varphi(t+s)-\varphi(t)|\leq \varepsilon, \qquad \forall t \in [a,b].
+\]
+Étant donné que $l\big( \mathopen[ t , b \mathclose],\gamma \big)$ est le supremum des $l_{\sigma}\big( \mathopen[ t , b \mathclose],\gamma \big)$, il existe une subdivision $\sigma$ donnée par les points  $t,t_1,\cdots,t_{n-1},b$ telle que
+    \begin{equation}
+        l_{\sigma}\big( \mathopen[ t , b \mathclose],\gamma \big)>l\big( \mathopen[ t , b \mathclose],\gamma \big)-\frac{ \varepsilon }{2}=\varphi(b)-\varphi(t)-\frac{ \varepsilon }{2}.
+    \end{equation}
+    La continuité de $\gamma$ implique qu'il existe un $\eta$ tel que
+    \begin{equation}
+        s\in\mathopen[ 0 , \eta \mathclose]\Rightarrow\| \gamma(t+s)-\gamma(t) \|<\frac{ \varepsilon }{2}
+    \end{equation}
+    Quitte à prendre $\eta$ encore plus petit, nous supposons que $t+\eta<t_1$. Soit $s\in\mathopen[ 0 , \eta \mathclose]$ et considérons la subdivision de $\mathopen[ t , b \mathclose]$ donnée par $\sigma'=\sigma\cup\{ t+s \}$. Étant donné que $\sigma'$ est plus fine que $\sigma$, le nombre $l_{\sigma}\big( \mathopen[ t , b \mathclose],\gamma \big)$ est inférieur ou égal à $l_{\sigma'}\big( \mathopen[ t , b \mathclose],\gamma \big)$. Nous avons donc les inégalités
+    \begin{equation}
+        \begin{aligned}[]
+            \varphi(b)-\varphi(t)-\frac{ \varepsilon }{2}&\leq l_{\sigma}\big( \mathopen[ t , b \mathclose],\gamma \big)\\
+            &\leq l_{\sigma'}\big( \mathopen[ t , b \mathclose],\gamma \big)\\
+            &= \big\| \gamma(t+s)-\gamma(t) \big\|+l_{\sigma'\setminus\{ t \}}\big( \mathopen[ t+s , b \mathclose]\gamma \big)\\
+            &\leq\| \gamma(t+s)-\gamma(t) \|+\varphi(b)-\varphi(t+s)\\
+            &\leq \frac{ \varepsilon }{2}+\varphi(b)-\varphi(t+s).
+        \end{aligned}
+    \end{equation}
+    Au final, nous avons trouvé que
+    \begin{equation}
+        \varphi(t+s)-\varphi(t)\leq\varepsilon,
+    \end{equation}
+    ce qui prouve que $\varphi$ est continue au point $t$.
+\end{proof}
+
+En guise de paramètre sur un arc, nous pouvons utiliser la longueur d'arc elle-même. En effet si $(I,\gamma)$ est un arc de longueur $l$, nous pouvons donner le même arc avec le couple $\big( \mathopen[ 0 , l \mathclose],g \big)$ où $g$ est la fonction qui au réel $s$ fait correspondre l'élément $\gamma\big( \varphi^{-1}(s) \big)$ de $\eR^n$. Dire
+\begin{equation}
+    P=(\gamma\circ\varphi^{-1})(s)
+\end{equation}
+revient à dire que le point $P$ est le point sur la courbe sur lequel on tombe après avoir marché une distance $s$ sur la courbe.
+
+Nous allons revenir sur ce «changement de paramètre» plus tard, en particulier dans la section~\ref{SecArcGeometrique}.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Formule intégrale de la longueur}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous pouvons voir un chemin $\gamma$ comme étant la trajectoire d'une particule en fonction du temps. Sa vitesse à l'instant $t$ est le vecteur $\gamma'(t)$, tandis que sa vitesse \emph{scalaire} est le nombre $\| \gamma'(t) \|$. Une question naturelle est de savoir quelle est la longueur de la trajectoire parcourue entre $t=a$ et $t=b$.
+
+Si nous prenons un petit intervalle de temps $dt$, nous pouvons supposer que le mobile avance à la vitesse constante $\| \gamma'(t) \|$. Cela ferait un trajet parcouru de longueur $\| \gamma'(t) \|dt$. Nous nous attendons donc à une formule de la forme suivante pour la longueur de \( \gamma\) :
+\begin{equation}        \label{EqDefLongueurChemin}
+    l(\gamma)=\int_a^b\| \gamma'(t) \|dt.
+\end{equation}
+Plus explicitement, si $\gamma(t)=\big( x(t),y(t),z(t) \big)$, alors nous aurions la formule
+\begin{equation}
+    l(\gamma)=\int_a^b\sqrt{x'(t)^2+y'(t)^2+z'(t)^2}dt.
+\end{equation}
+
+
+\begin{theorem}     \label{ThoLongueurIntegrale}
+    Soit $(I,\gamma)$ un arc paramétré compact de classe $\mathcal{C}^1$. Alors $\gamma$ est rectifiable et
+    \begin{equation}        \label{EqLongGammalInt}
+        l(\gamma)=\int_a^b\| \gamma'(t) \|dt=\int_{\gamma}1,
+    \end{equation}
+    où $I=\mathopen[ a , b \mathclose]$.
+\end{theorem}
+
+\begin{proof}
+    L'égalité avec l'intégrale le long de \( \gamma\) de la fonction \( 1\) est simplement la définition~\ref{DEFooFAYUooCaUdyo} de l'intégrale curviligne.
+
+    Si $\sigma=\{ t_i \}$ est une subdivision de l'intervalle $\mathopen[ a , b \mathclose]$, alors
+    \begin{equation}
+        \begin{aligned}[]
+            l_{\sigma}(\gamma)&=\sum_{i=1}^n\| \gamma(t_i)-\gamma(t_{i-1}) \|\\
+                &=\sum_{i=1}^n\| \int_{t_{i-1}}^{t_i}\gamma'(t)dt \|\\
+                &\leq\sum_{i=1}^n\int_{t_{i-1}}^{t_i}\| \gamma'(t) \|dt\\
+                &=\int_a^b\| \gamma'(t) \|dt.
+        \end{aligned}
+    \end{equation}
+    Cela prouve déjà que
+    \begin{equation}        \label{Eq_0208lsigsigmmintifp}
+        l(\gamma)=\sup_{\sigma}l_{\sigma}(\gamma)\leq\int_a^b\| \gamma'(t) \|dt.
+    \end{equation}
+    Nous devons maintenant prouver l'inégalité inverse.
+
+    Notons $\varphi$ l'abscisse curviligne $\varphi(t)=l\big( \mathopen[ a , t \mathclose],\gamma \big)$. Cette dernière vérifie
+    \begin{equation}
+        \varphi(t+h)-\varphi(t)=l\big( \mathopen[ t , t+h \mathclose],\gamma \big)\geq \| \gamma(t+h)-\gamma(t) \|,
+    \end{equation}
+    et en particulier
+    \begin{equation}     \label{Eq_0208intervpvpintfrach}
+        \left\| \frac{ \gamma(t+h)-\gamma(t) }{ h } \right\|\leq \frac{ \varphi(t+h)-\varphi(t) }{ h }.
+    \end{equation}
+    D'autre part, en utilisant \eqref{Eq_0208lsigsigmmintifp} sur le segment $\mathopen[ t , t+h \mathclose]$, nous avons
+    \begin{equation}
+        \varphi(t+h)-\varphi(t)=l\big( \mathopen[ t , t+h \mathclose],\gamma \big)\leq\int_{t}^{t+h}\| \gamma'(u) \|du.
+    \end{equation}
+    Cela nous permet de continuer l'inéquation \eqref{Eq_0208intervpvpintfrach} en
+    \begin{equation}
+        \left\| \frac{ \gamma(t+h)-\gamma(t) }{ h } \right\|\leq\frac{ \varphi(t+h)-\varphi(t) }{ h }\leq\frac{1}{ h }\int_t^{t+h}\| \gamma'(u) \|du.
+    \end{equation}
+    Prenons la limite $h\to 0$. À gauche nous reconnaissons la formule de la dérivée, et nous obtenons $\| \gamma'(t) \|$; au centre nous avons $\varphi'(t)$ et à droite, si $n(u)$ représente une primitive de la fonction $u\mapsto\| \gamma'(u) \|$,
+    \begin{equation}
+        \lim_{h\to 0}\frac{ n(t+h)-n(t) }{ h }=n'(t)=\| \gamma'(t) \|.
+    \end{equation}
+    Au final,
+    \begin{equation}
+        \| \gamma'(t) \|\leq \varphi'(t)\leq\| \gamma'(t) \|,
+    \end{equation}
+    c'est-à-dire $\varphi'(t)=\| \gamma'(t) \|$ et donc par le théorème fondamental du calcul intégral~\ref{ThoRWXooTqHGbC},
+    \begin{equation}
+        \varphi(t)-\varphi(a)=\int_a^t\| \gamma'(u) \|du.
+    \end{equation}
+    Par construction de la longueur d'arc, $\varphi(a)=0$ et en posant $t=b$ nous obtenons la relation recherchée:
+    \begin{equation}
+        l(\gamma)=\varphi(b)=\int_a^b\| \gamma'(u) \|du.
+    \end{equation}
+\end{proof}
+
+\begin{remark}  \label{RemLongIntUn}
+    Cela est cohérent avec~\ref{NORMooDSNXooFhyHkx}, mais il faut garder en tête que \( l(\gamma)\) n'est pas le mesure de Lebesgue de l'image de \( \gamma\) dans \( \eR^2\). Cette dernière est nulle.
+\end{remark}
+
+\begin{example}
+Soient donc $a$ et $b$ deux points de $\eR^m$, et $\gamma$ la droite joignant $a$ à $b$, c'est-à-dire
+\begin{equation}
+    \gamma(t)=(1-t)a+tb
+\end{equation}
+avec $t\in\mathopen[ 0 , 1 \mathclose]$. Le théorème~\ref{ThoLongueurIntegrale} nous enseigne que la longueur de ce chemin est
+\begin{equation}
+    l\big( [0,1],\gamma \big)=\int_0^1\| \gamma'(t) \|dt=\int_0^1\| -a+b \|=\| b-a \|,
+\end{equation}
+qui est bien la distance entre $a$ et $b$.
+\end{example}
+
+\begin{example}[Circonférence du cercle]
+    Nous savons que l'image de
+    \begin{equation}
+        \begin{aligned}
+            \gamma\colon \mathopen[ 0 , 2\pi \mathclose[&\to \eR^2 \\
+            t&\mapsto \big( R\cos(t),R\sin(t) \big)
+        \end{aligned}
+    \end{equation}
+    est le cercle de centre \( (0,0)\) et de rayon \( R>0\). Et de plus cet arc est de classe \( C^1\) (et même \(  C^{\infty}\)) par la proposition~\ref{PROPooZXPVooBjONka}. La longueur sera, d'après la formule \eqref{ThoLongueurIntegrale}
+    \begin{equation}
+        l_{\gamma}=\int_0^{2\pi}\| \gamma'(t) \|dt=2\pi R
+    \end{equation}
+    grâce à la formule \( \sin^2+\cos^2=1\) du lemme~\ref{LEMooAEFPooGSgOkF}.
+
+    Mais tout cela n'est pas satisfaisant parce que nous n'avons pas encore de valeur numérique de \( \pi\).
+
+    Il y a une autre façon de faire en considérant le quart de cercle dont la longueur en fonction de \( \pi\) est vite calculée par
+    \begin{equation}
+        l_{\gamma}=\int_0^{pi/2}\| \gamma'(t) \|dt=\frac{ \pi R }{ 2 }.
+    \end{equation}
+
+    Cette même longueur est calculée en termes de fonctions plus courantes avec le chemin
+    \begin{equation}
+        \begin{aligned}
+        \sigma\colon \mathopen] 0 , 1 \mathclose[&\to \eR^2 \\
+            t&\mapsto \begin{pmatrix}
+                t    \\
+                \sqrt{ R^2-t^2 }
+            \end{pmatrix}
+        \end{aligned}
+    \end{equation}
+    La longueur s'exprime avec
+    \begin{equation}        \label{EQooIIKSooRQMgWY}
+        l_{\sigma}=\int_0^1\sqrt{ \frac{ R^2 }{ R^2+t^2 } }dt.
+    \end{equation}
+    Notons que le changement de variables \( t=R\sin(u)\) permet de retrouver l'expression \( l_{\sigma}=\pi R/2\).
+
+    Pour avoir une approximation de \( \pi\), il est loisible de calculer une approximation numérique de l'intégrale \eqref{EQooIIKSooRQMgWY} (avec \( R=1\)) et de l'égaler à \( \pi/2\).
+\end{example}
+
+\begin{example}
+    Considérons l'arc de cercle de rayon $R$ interceptée par l'angle $\theta$ présenté sur la figure~\ref{LabelFigAMDUooZZUOqa}. % From file AMDUooZZUOqa
+\newcommand{\CaptionFigAMDUooZZUOqa}{Quelle est la longueur de la partie bleue de ce cercle de rayon $R$ ?}
+\input{auto/pictures_tex/Fig_AMDUooZZUOqa.pstricks}
+
+    Par définition, cette longueur sera
+    \begin{equation}
+        \int_{\theta_0}^{\theta_1}\sqrt{R^2\sin^2(t)+R^2\cos^2(t)}dt=R(\theta_1-\theta_0).
+    \end{equation}
+    Le radian comme unité de mesure d'angle est donc l'unité parfaite : elle est la longueur d'arc interceptée (si le rayon est $R=1$).
+\end{example}
+
+Une conséquence à peine indirecte de ce que nous venons de voir à propos de longueur d'arc de cercle est la proposition suivante\quext{À mon avis il y a moyen de prouver ça avec un développement limité, mais je ne sais pas trop comment majorer l'erreur sans accepter que \( x\) soit arbitrairement proche de \( y\). Si vous savez comment faire, écrivez-moi.}.
+\begin{proposition}     \label{PROPooYMMKooSUBtoo}
+    Pour tout \( x,y\in \eR\), nous avons
+    \begin{equation}
+        |  e^{ix}- e^{iy} |\leq | x-y |.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Évacuons tout de suite la différence entre \( \eR^2\) et \( \eC\) : ils sont isométriques. Si vous n'êtes pas convaincu que tout se passe bien, vous pouvez récrire toute la démonstration en écrivant systématiquement \( \big( \cos(x),\sin(x) \big)\) au lieu de \(  e^{ix}\). Cela serait au passage un bon exercice pour voir que les formules de dérivation fonctionnent bien.
+    
+    Nous considérons les points \(  e^{ix}\) et \(  e^{iy}\) dans \( \eC\) et deux chemins différents les joignant. Le premier est le segment de droite
+    \begin{equation}
+        \begin{aligned}
+            \sigma_1\colon \mathopen[ 0 , 1 \mathclose]&\to \eC \\
+            t&\mapsto t e^{ix}+(1-t) e^{iy}. 
+        \end{aligned}
+    \end{equation}
+    Le second est l'arc de cercle
+    \begin{equation}
+        \begin{aligned}
+            \sigma_1\colon \mathopen[ 0 , 1 \mathclose]&\to \eC \\
+            t&\mapsto  e^{i\big( tx+(1-t)y \big)}. 
+        \end{aligned}
+    \end{equation}
+    Nous avons \( \sigma_1'(t)= e^{ix}- e^{iy}\) qui ne dépend pas de \( t\), et donc la longueur est facile à calculer à partir de la formule intégrale du théorème \ref{ThoLongueurIntegrale} :
+    \begin{equation}
+        l(\sigma_1)=\int_0^1| \sigma_1'(t) |=|  e^{ix}- e^{iy} |.
+    \end{equation}
+    En ce qui concerne le second chemin,
+    \begin{equation}
+        \sigma_2'(t)=(x-y) e^{i\big( tx+(1-t)y \big)}.
+    \end{equation}
+    Nous avons\footnote{Si vous voulez citer des résultats, lemme \ref{LEMooHOYZooKQTsXW} et proposition \ref{PROPooXLARooYSDCsF}.} \( | \sigma_2'(t) |=| x-y |\) qui ne dépend pas non plus de \( t\). Donc
+    \begin{equation}
+        l(\sigma_2)=| x-y |.
+    \end{equation}
+    Étant donné la proposition \ref{PROPooCXLYooRpKDMs} qui dit que le chemin le plus court est le segment de droite,
+    \begin{equation}
+        l(\sigma_1)<l(\sigma_2) 
+    \end{equation}
+    et donc le résultat annoncé.
+\end{proof}
+
+\begin{normaltext}
+    Si on veut savoir la longueur d'une courbe donnée sous la forme d'une fonction $y=y(x)$, un chemin qui trace la courbe est évidemment donné par
+    \begin{equation}
+        \gamma(t)=(t,y(t)),
+    \end{equation}
+    et le vecteur tangent au chemin est $\gamma'(t)=(1,y'(t))$. Donc
+    \begin{equation}
+        \| \gamma'(t) \|=\sqrt{1+y'(t)^2},
+    \end{equation}
+    et
+    \begin{equation} \label{EqLongFonction}
+        L=\int_a^b\sqrt{1+y'(t)^2}.
+    \end{equation}
+\end{normaltext}
+
+\begin{example}
+    La longueur de l'hélice
+    \begin{equation}
+        \sigma(t)=\begin{pmatrix}
+            \cos(2t)    \\
+            \sin(2t)    \\
+            \sqrt{5}t
+        \end{pmatrix}
+    \end{equation}
+    pour $t\in\mathopen[ 0 , 2\pi \mathclose]$ est donnée par
+    \begin{equation}
+        l(\sigma)=\int_0^{4\pi}\sqrt{4\sin^2(2t)+4\cos^2(2t)+5}dt=\int_0^{4\pi}\sqrt{9}=12\pi.
+    \end{equation}
+\end{example}
+
+\begin{definition}
+    Soit $\sigma_1\colon \mathopen[ a , b \mathclose]\to \eR^3$, un chemin et $\sigma_2\colon \mathopen[ c , d \mathclose]\to \eR^3$, un autre chemin. On dit que ces chemins sont \defe{équivalents}{equivalence@équivalence!chemin} si il existe une fonction $\varphi\colon \mathopen[ a , b \mathclose]\to \mathopen[ c , d \mathclose]$ strictement croissante telle que $\sigma_1(t)=\sigma_2\big( \varphi(t) \big)$.
+\end{definition}
+
+Deux chemins équivalents parcourent la même courbe dans le même sens. Ils ne le parcourent toutefois pas à la même vitesse. On dit que les chemins sont \defe{opposée}{opposés!chemins} si la fonction $\varphi$ de la définition est strictement décroissante. Dans ce cas, ils ont la même image, mais parcourue dans le sens opposés. Nous disons que deux chemins équivalents sont un \defe{changement de paramétrage}{paramétrage} pour la même courbe.
+
+ Dans le cas d'un paramétrage équivalente, nous avons $\varphi(a)=c$ et $\varphi(b)=d$. Les points de départ et d'arrivée des deux paramètres coïncident. Dans le cas d'un paramètre qui va dans le sens opposé par contre nous avons automatiquement $\varphi(a)=d$ et $\varphi(b)=c$.
+
+\begin{proposition}
+    La longueur d'une courbe ne dépend pas du paramètre (équivalent ou opposé) choisi.
+\end{proposition}
+
+\begin{proof}
+    Soient $\sigma_1\colon \mathopen[ a , b \mathclose]\to \eR^3$ et $\sigma_2\colon \mathopen[ c , d \mathclose]\to \eR^3$ tels que
+    \begin{equation}     \label{EqChmsigmaundeuxvp}
+        \sigma_1(t)=\sigma_2\big( \varphi(t) \big)
+    \end{equation}
+    où $\varphi\colon \mathopen[ a , b \mathclose]\to \mathopen[ a , d \mathclose]$ est une bijection strictement monotone. Par définition on a
+    \begin{equation}
+        l(\sigma_1)=\int_a^b\| \sigma_1'(t) \|dt.
+    \end{equation}
+    Nous pouvons exprimer la dérivée de $\sigma_1$ en termes de celle de $\sigma_2$ en dérivant la relation \eqref{EqChmsigmaundeuxvp} :
+    \begin{equation}
+        \sigma_1'(t)=\varphi'(t)\sigma_2'\big( \varphi(t) \big).
+    \end{equation}
+    En ce qui concerne la norme,
+    \begin{equation}
+        \| \sigma_1'(t) \|=| \varphi'(t) |\| \sigma_2'(t) \|.
+    \end{equation}
+    Notez dans cette relation que $\varphi'(t)$ est un nombre (et non un vecteur). Étant donné que nous avons supposé que $\varphi$ était monotone, soit elle est monotone croissante et $\| \varphi'(t) \|=\varphi'(t)$ pour tout $t$, soit elle est monotone décroissante et $\| \varphi'(t) \|='\varphi(t)$ pour tout $t$.
+
+    Considérons d'abord le premier cas, c'est-à-dire $\| \varphi'(t) \|=\varphi'(t)$. Nous posons $s=\varphi(t)$, $ds=\varphi'(t)dt$. En remplaçant cela dans la formule de la longueur est
+    \begin{equation}
+        \begin{aligned}[]
+            l(\sigma_1)&=\int_a^b\varphi'(t)\| \sigma_2\big( \varphi(t) \big) \|dt\\
+            &=\int_{\varphi(a)}^{\varphi(b)}\| \sigma_2'(s) \|ds\\
+            &=\int_c^d\| \sigma_2'(s) \|ds\\
+            &=l(\sigma_2).
+        \end{aligned}
+    \end{equation}
+
+    Si nous considérons maintenant un paramétrage strictement décroissante. Dans ce cas, $\varphi'(t)\leq 0$ et $\| \varphi'(t) \|=-\varphi'(t)$. Nous posons encore une fois $s=\varphi(t)$, $ds=\varphi'(t)ds$. Ici il ne faut pas oublier que $\varphi(a)=d$ et $\varphi(b)=c$. Le calcul est à part cela le même en faisant attention au singe :
+    \begin{equation}
+        \begin{aligned}[]
+            l(\sigma_1)&=\int_a^b\varphi'(t)\| \sigma_2\big( \varphi(t) \big) \|dt\\
+            &=-\int_{\varphi(a)}^{\varphi(b)}\| \sigma_2'(s) \|ds\\
+            &=-\int_d^c\| \sigma_2'(s) \|ds\\
+            &=\int_c^d\| \sigma_2'(s) \|ds\\
+            &=l(\sigma_2).
+        \end{aligned}
+    \end{equation}
+    Nous avons changé le signe en changeant l'ordre des bornes.
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Suite du chapitre}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Le grand avantage des arcs paramétrés par rapports aux graphes de fonctions est le le graphe peut «faire des retours en arrière», ou bien des auto intersections. Outre les deux exemples typiques de la la figure~\ref{LabelFigExempleArcParam}, un exemple classique est la droite verticale. Les fonctions $y=ax+b$ permettent de décrire toutes les droites, sauf les droites verticales. Dans le cadre des courbes paramétrées, les droites verticales et horizontales sont sur pied d'égalité. Quelques exemples classiques :
+\begin{description}
+    \item[Droite horizontale] Une droite horizontale à la hauteur $a$ est donnée par la courbe paramétrée $\gamma(t)=(t,a)$, avec $t\in I=\eR$.
+    \item[Droite verticale] Une droite verticale à la distance $b$ de l'origine est donnée par la courbe paramétrée $\gamma(t)=(b,t)$, avec $t\in I=\eR$.
+    \item[Graphe d'une fonction]\label{PgGrqFnGamma} Le graphe d'une fonction $f\colon \eR\to \eR$ est donné par l'arc $\gamma(t)=\big( t,f(t) \big)$.
+    \item[Un cercle] Le cercle de rayon $R$ est donné par l'arc $\gamma(t)=\big( R\cos(t),R\sin(t) \big)$.
+\end{description}
+
+\newcommand{\CaptionFigExempleArcParam}{Des exemples d'arcs paramétrées. Ceux ne sont pas des graphes.}
+\input{auto/pictures_tex/Fig_ExempleArcParam.pstricks}
+
+\begin{remark}
+    Afin d'alléger la notation, nous allons le plus souvent désigner l'arc $(I,\gamma)$ simplement par la fonction $\gamma$. Il est cependant toujours \emph{très} important de savoir sur quel intervalle nous considérons le chemin. Cela dépendra le plus souvent du contexte, et nous indiquerons l'intervalle $I$ explicitement lorsqu'une ambigüité est à craindre.
+
+    Par exemple, lorsque nous considérons le cercle $\gamma(t)=\big( R\cos(t),R\sin(t) \big)$, le plus souvent l'intervalle de variation de $t$ sera $I=\mathopen[ 0 , 2\pi \mathclose]$. Par contre, si nous considérons la droite $\gamma(t)=(t,2t)$, l'intervalle de variation de $t$ sera naturellement $I=\eR$.
+\end{remark}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Autres exemples}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{example}
+    Soit $v\in\eR^3$ et $x_0\in\eR^3$. Le chemin
+    \begin{equation}
+        \sigma(t)=x_0+tv
+    \end{equation}
+    est une droite. Sa vitesse est $\sigma'(t)=v$.
+\end{example}
+
+\begin{example}
+    La courbe
+    \begin{equation}
+        \sigma(t)=\begin{pmatrix}
+            \cos(t)    \\
+            \sin(t)
+        \end{pmatrix}\in\eR^2
+    \end{equation}
+    avec $t\in\mathopen[ 0 , 2\pi [$ est le cercle unité parcouru une fois dans le sens trigonométrique.
+
+    Notez que si on prend $t\in\mathopen[ 0 , 4\pi [$, nous avons un \emph{autre} chemin; c'est le même cercle unité, mais parcouru \emph{deux} fois. Même si le «dessin» (le graphe) des deux est le même, le chemin n'est pas le même.
+
+    Le chemin
+    \begin{equation}
+        \gamma(t)=\begin{pmatrix}
+            \cos(2\pi-t)    \\
+            \sin(2\pi-t)
+        \end{pmatrix}
+    \end{equation}
+    est le cercle unité parcouru une fois dans le sens inverse. Encore une fois le «dessin» est le même, mais le chemin n'est pas le même.
+\end{example}
+
+\begin{example}
+    Le chemin
+    \begin{equation}
+        \sigma(t)=\begin{pmatrix}
+            t    \\
+            t^2
+        \end{pmatrix}
+    \end{equation}
+    est un chemin dont l'image est la parabole d'équation $y=x^2$.
+\end{example}
+
+L'importance de la dérivée du chemin réside en le fait qu'elle donne la tangente. En effet le vecteur $\sigma'(t)$ est tangent au graphe de $\sigma$ au point $\sigma(t)$.
+
+\begin{corollary}       \label{CorKBEMooRvYAcJ}
+    La tangente à un cercle est perpendiculaire au rayon.
+\end{corollary}
+
+\begin{proof}
+    Nous savons que pour un cercle,
+	\begin{equation}
+		y'(x)=\frac{ -x }{ \sqrt{R^2-x^2} }.
+	\end{equation}
+	Un point général du cercle a pour abscisse $x=R\cos(\theta)$. En remplaçant nous trouvons le coefficient directeur suivant pour la tangente :
+	\begin{equation}
+		y'\big( R\cos(\theta) \big)=-\frac{1}{ \tan(\theta) }.
+	\end{equation}
+	Par conséquent une droite perpendiculaire à la tangente aurait comme coefficient directeur le nombre $\tan(\theta)$. Or cela est bien le coefficient directeur du rayon qui joint le point $(0,0)$ au point $\big( R\cos(\theta),R\sin(\theta) \big)$.
+
+\end{proof}
+
+\begin{example}
+    Pour le cercle,
+    \begin{equation}
+        \sigma(t)=\begin{pmatrix}
+            \cos(t)    \\
+            \sin(t)
+        \end{pmatrix},
+    \end{equation}
+    la dérivée est donnée par
+    \begin{equation}
+        \sigma'(t)=\begin{pmatrix}
+            -\sin(t)    \\
+            \cos(t).
+        \end{pmatrix}
+    \end{equation}
+    Le produit scalaire $\sigma(t)\cdot \sigma'(t)$ est nul. Le vecteur $\sigma'(t)$ est donc bien tangent (corolaire~\ref{CorKBEMooRvYAcJ}).
+\end{example}
+
+\begin{example}
+    Le courbe donnée par le chemin
+    \begin{equation}
+        \sigma(t)=\begin{pmatrix}
+            \cos(t)    \\
+            \sin(t)    \\
+            t
+        \end{pmatrix}
+    \end{equation}
+    est une hélice. Sa vitesse est
+    \begin{equation}
+        \sigma'(t)=\begin{pmatrix}
+            -\sin(t)    \\
+            \cos(t)    \\
+            1
+        \end{pmatrix}.
+    \end{equation}
+    Notez que pour tout $t\in\eR$, nous avons $\| \sigma'(t) \|=\sqrt{2}$.
+\end{example}
+
+\begin{remark}
+    Lorsqu'on parle d'une courbe dans l'espace, l'intervalle sur lequel on considère la variation du paramètre est une donné fondamentale. Elle fait partie intégrante de la définition de la courbe.
+\end{remark}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Élément de longueur}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Élément de longueur : cartésiennes}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Étant donné que la longueur d'arc d'une courbe paramétrée $(I,\gamma)$ est donnée par l'intégrale de $\| \gamma'(t) \|$, il est naturel d'appeler le nombre $\| \gamma'(t) \|\,dt$, \defe{l'élément de longueur}{longueur!élément de} de la courbe $\gamma$ au point $\gamma(t)$.
+
+En coordonnées cartésiennes dans le plan, une courbe paramétrée est donnée par
+\begin{equation}
+    \gamma(t)=\big( x_1(t),x_2(t) \big),
+\end{equation}
+et l'élément de longueur est
+\begin{equation}        \label{EqElLongCart}
+    \| x'(t) \|\, dt =\sqrt{(x_1')^2+(x_2')^2} \, dt.
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Élément de longueur : polaires (1)}
+%---------------------------------------------------------------------------------------------------------------------------
+
+En coordonnées polaires, une courbe est donnée par
+\begin{equation}
+    \gamma(t)=\big( \rho(t),\theta(t) \big),
+\end{equation}
+et le passage aux cartésiennes se fait via les formules
+\begin{subequations}
+    \begin{numcases}{}
+        x(t)=\rho(t)\cos\big( \theta(t) \big)\\
+        y(t)=\rho(t)\sin\big( \theta(t) \big).
+    \end{numcases}
+\end{subequations}
+L'élément de longueur se trouve directement en remplaçant $x(t)$ et $y(t)$ dans la formule \eqref{EqElLongCart}. Les dérivées sont données par
+\begin{equation}
+    \begin{aligned}[]
+        x'(t)&=\rho'(t)\cos\theta(t)-\rho(t)\theta'(t)\sin\theta(t)\\
+        y'(t)&=\rho'(t)\sin\theta(t)+\rho(t)\theta'(t)\cos\theta(t),
+    \end{aligned}
+\end{equation}
+et un calcul montre que
+\begin{equation}        \label{EqElLongEnPolaires}
+    \big( x'(t) \big)^2+\big( y'(t) \big)^2=\big( \rho'(t) \big)^2+\big( \rho(t) \big)^2\big( \theta'(t) \big)^2.
+\end{equation}
+
+Nous reviendrons plus en détail sur le concept de changement de paramétrage (ici, les polaires) à la section~\ref{SecArcGeometrique}.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Élément de longueur : polaires (2)}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Parfois on utilise $\theta$ comme paramètre. L'équation de la courbe est alors donnée en coordonnées polaires sous la forme
+\begin{equation}        \label{Eqgenereformepolaire}
+    \rho(\theta)=f(\theta),
+\end{equation}
+où $f$ est une fonction réelle et  il faut comprendre que nous parlons de la courbe $\big( \rho(\theta),\theta \big)$ en coordonnées polaires. En coordonnées cartésiennes, cette courbe est donnée par
+\begin{subequations}        \label{EqPolaireSemiGen}
+    \begin{numcases}{}
+        x(t)=\rho(t)\cos(t)\\
+        y(t)=\rho(t)\sin(t)
+    \end{numcases}
+\end{subequations}
+avec $t$ qui parcours le plus souvent l'intervalle $\mathopen[ 0 , 2\pi \mathclose]$. Notez qu'il se peut que le domaine ne soit pas toujours $\mathopen[ 0 , 2\pi \mathclose]$; cela peut dépendre des circonstances. Quoi qu'il en soit, la donnée du domaine fait partie de la donnée d'une courbe, et il ne peut donc pas y avoir d'équivoques à ce niveau.
+
+Nous utilisons à nouveau la formule \eqref{EqElLongCart} en y mettant les valeurs \eqref{EqPolaireSemiGen} :
+\begin{subequations}
+    \begin{numcases}{}
+        x'(t)=\rho'(t)\cos(t)-\rho(t)\sin(t)\\
+        y'(t)=\rho'(t)\sin(t)+\rho(t)\cos(t),
+    \end{numcases}
+\end{subequations}
+et
+\begin{equation}        \label{EqElemOngPOldeux}
+    \big( x'(t) \big)^2+\big( y'(t) \big)^2=\rho'(t)^2+\rho(t)^2.
+\end{equation}
+% position 55702
+%Si vous avez bien compris ce passage, vous pouvez jeter un œil à l'exercice~\ref{exoGeomAnal-0004}.
+
+\begin{remark}
+    N'oubliez pas, en utilisant ces formules, que ce qui rentre dans l'intégrale est la \emph{racine carré} de $(x')^2+(y')^2$.
+\end{remark}
+
+\begin{example}     \label{ExempleLongCercle}
+    Calculons la circonférence du cercle. En coordonnées polaires, le graphe du cercle correspond à l'équation
+    \begin{equation}
+        \big( \rho(t),\theta(t) \big)=(R,t)
+    \end{equation}
+    où $R$ est constante (le rayon du cercle) et $t$ va de $0$ à $2\pi$. En substituant dans l'équation \eqref{EqElLongEnPolaires}, l'élément de longueur à intégrer est seulement
+    \begin{equation}
+        \sqrt{R^2}=R
+    \end{equation}
+    parce que $\rho'(t)=0$ et $\theta'(t)=1$. La longueur du cercle est alors directement donnée par
+    \begin{equation}
+        l=\int_0^{2\pi}Rdt=2\pi R.
+    \end{equation}
+
+    Nous pouvions aussi faire le calcul en coordonnées cartésiennes. Alors la courbe est donnée par les équations
+    \begin{equation}
+        \begin{aligned}[]
+            x(t)&=R\cos(t)\\
+            y(t)&=R\sin(t)
+        \end{aligned}
+    \end{equation}
+    et $t\in\mathopen[ 0 , 2\pi \mathclose]$. La circonférence du cercle est alors
+    \begin{equation}
+        l=\int_0^{2\pi}\sqrt{R^2\sin^2(t)+R^2\cos^2(t)}\,dt=\int_0^{2\pi}R\,dt=2\pi R.
+    \end{equation}
+\end{example}
+\begin{remark}
+  Il faut bien comprendre que quand on parle de courbes paramétrées en  coordonnées cartésiennes on pense à une courbe dont le paramètre est, par exemple, $t$ et les équations de la courbe sont $(x(t), y(t))$. Cela ne veut pas dire que $x$ ou $y$ soit le paramètre. La cas où $x$ ou $y$ est le paramètre est un cas particulier qui est possible seulement pour certaines courbes et notamment pour les graphes. Le cercle de rayon $1$ n'est pas un graphe, donc si on veut utiliser $x$ ou $y$ comme paramètre il faut d'abord découper la courbe en deux morceaux, par exemple, la moitié inférieure ($y<0$) et la moitié supérieure ($y>0$).
+\end{remark}
+\begin{example}     \label{ExCycloLong}
+    Une \defe{cycloïde}{cycloïde!longueur} est une courbe paramétrée par
+    \begin{subequations}
+        \begin{numcases}{}
+            x(t)=a(t-\sin(t))\\
+            y(t)=a(1-\cos(t))
+        \end{numcases}
+    \end{subequations}
+    avec $a>0$ et $t\in\eR$. Comme montré sur la figure~\ref{LabelFigCycloideA}, la cycloïde donne lieu à un graphe périodique. Il est possible de montrer (le faire) que le premier arc correspond à $t\in\mathopen[ 0 , 2\pi \mathclose]$. Nous voulons donc calculer la longueur de l'arc sur cet intervalle.
+    \newcommand{\CaptionFigCycloideA}{La cycloïde de paramètre $a=1$ entre $0$ et $4\pi$.}
+    \input{auto/pictures_tex/Fig_CycloideA.pstricks}
+
+    Nous avons $x'(t)=a(1-\cos(t))$ et $y'(t)=a\sin(t)$, de telle façon que
+    \begin{equation}    \label{Eq_0508dlcycloide}
+        \sqrt{(x')^2+(y')^2}=a\sqrt{2-2\cos(t)}=a\sqrt{4\sin^2\left( \frac{ t }{ 2 } \right)}=2a\Big| \sin\frac{ t }{2} \Big|.
+    \end{equation}
+    La longueur est donc donnée par
+    \begin{equation}
+        \int_0^{2\pi}2a| \sin\frac{ t }{2} | dt=4a\int_0^{\pi}\sin(t)dt=8a.
+    \end{equation}
+
+\end{example}
+
+\begin{example}
+    La \defe{cardioïde}{cardioïde} est la courbe donnée par
+    \begin{equation}        \label{EqCardioide}
+        \rho(\theta)=a(1+\cos(\theta)).
+    \end{equation}
+    avec $\theta\in\mathopen[ -\pi , \pi \mathclose]$. Le nom de cette courbe provient de son graphe illustré à la figure~\ref{LabelFigCardioid}.
+    \newcommand{\CaptionFigCardioid}{Une cardioïde, $\rho=1+\cos(\theta)$.}
+    \input{auto/pictures_tex/Fig_Cardioid.pstricks}
+
+    L'équation \eqref{EqCardioide} est donnée sous la forme \eqref{Eqgenereformepolaire}, c'est-à-dire que $\theta(t)=t$ et $\theta'(t)=1$, et par conséquent l'élément de longueur est donné par
+    \begin{equation}
+        \begin{aligned}[]
+            (\rho')^2+(\rho)^2&=\big( -a\sin(\theta) \big)^2+a^2\big( 1+\cos(\theta) \big)^2\\
+                    &=a^2\sin^2(\theta)+a^2\big( 1+2\cos(\theta)+\cos^2(\theta) \big)\\
+                    &=a^2\big( 1+1+2\cos(\theta) \big)\\
+                    &=2a^2\big( 1+\cos(\theta) \big)\\
+                    &=4a^2\cos^2\frac{ \theta }{2}.
+        \end{aligned}
+    \end{equation}
+    La longueur d'arc est donc donnée par
+    \begin{equation}
+        l=\int_{-\pi}^{\pi}2a\cos\frac{ \theta }{2}d\theta=2a\int_{-\pi/2}^{\pi/2}\cos(t)2dt=8a.
+    \end{equation}
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Approximation de la longueur par des cordes}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[Point régulier, birégulier\cite{BIBooUNILooYoKvbg}]
+    Soit un arc paramétré $(I,\gamma)$. Un point $t\in I$ est dit \defe{régulier}{régulier!point d'un arc} si $\gamma'(t)\neq 0$, et il est dit \defe{critique}{critique!point d'un arc} si $\gamma'(t)=0$. Le point $t\in I$ est dit \defe{birégulier}{birégulier!point sur une courbe} si les vecteurs $\gamma'(t)$ et $\gamma''(t)$ sont linéairement indépendants et non nuls.
+
+    Par extension, nous dirons également que le point $\gamma(t)$ lui-même est régulier, critique ou birégulier. Un arc est dit \emph{régulier}\index{régulier!arc} lorsque tous ses points sont réguliers.
+\end{definition}
+Note : dans le lemme~\ref{LEMooUECMooNBDGiR} et ses dépendances, nous utilisons effectivement que l'arc \( \gamma\) est de classe \( C^2\).
+
+Nous savons que la longueur d'une courbe est donné par le supremum sur toutes les subdivisions de la longueur des cordes correspondantes. De plus l'inégalité triangulaire nous enseigne que plus la subdivision est fine, plus la longueur sera grande. Il est donc naturel de penser que sur un petit intervalle, la longueur de la courbe ne doit pas être très différente de la longueur de la corde correspondante.
+
+La proposition suivante est un énoncé précis et quantitatif de ce fait.
+\begin{proposition}
+    Soit $(I,\gamma)$ un arc de classe $\mathcal{C}^1$ et $t_0\in I$ un point régulier (c'est-à-dire $\gamma'(t_0)\neq 0$). Alors pour tout $\varepsilon>0$, il y a un $\delta>0$ tel que on trouve  $t,t'\in I\cap(t_0,\delta)$ tels que
+    \begin{equation}
+        \left| \int_t^{t'}\| \gamma'(u) \|du-\| \gamma(t)-\gamma(t') \| \right| \leq 2\varepsilon| t-t' |.
+    \end{equation}
+\end{proposition}
+Intuitivement, cette proposition signifie qu'au voisinage de $t_0$, la longueur d'arc est équivalente à celle de la corde.
+
+\begin{proof}
+    Par la continuité de $\gamma'$ (parce que $\gamma$ est $\mathcal{C}^1$), pour tout $\varepsilon$, il existe un $\delta$ tel que
+    \begin{equation}
+        | t-t_0 |<\delta\Rightarrow\big\| \gamma'(t)-\gamma'(t_0) \big\|\leq \varepsilon.
+    \end{equation}
+    Nous considérons la fonction
+    \begin{equation}
+        u\mapsto \gamma(u)-\gamma(t_0)-(u-t_0)\gamma'(t_0),
+    \end{equation}
+    dont la dérivée (par rapport à $u$) est
+    \begin{equation}
+        \gamma'(u)-\gamma'(t_0).
+    \end{equation}
+    Nous y appliquons la formule des accroissements finis entre $t$ et $t'$ choisis dans $I\cap\mathopen] t_0-\delta , t_0+\delta \mathclose[$. Il existe un $u$ entre $t$ et $t'$ tel que
+    \begin{equation}
+        \begin{aligned}[]
+            \big\| \gamma(t)-\gamma(t_0)-(t-t_0)\gamma'(t_0)&-\gamma(t')+\gamma(t_0)+(t'-t_0)\gamma'(t_0) \big\|\\
+                    &=| t-t' | \|\gamma'(u)-\gamma'(t_0) \|\\
+                    &\leq\varepsilon| t-t' |.
+        \end{aligned}
+    \end{equation}
+    En simplifiant ce qui peut être simplifié dans le membre de gauche, nous trouvons
+    \begin{equation}
+        \big\| \gamma(t)-\gamma(t')-(t-t')\gamma'(t_0) \big\|\leq\varepsilon| t-t' |.
+    \end{equation}
+    Le membre de gauche peut être minoré en utilisant la proposition~\ref{PropNmNNm} :
+    \begin{equation}        \label{Eq0308ffttttftt}
+        \Big| \| \gamma(t)-\gamma(t')\| -\|(t-t')\gamma'(t_0) \| \Big|\leq\varepsilon| t-t' |.
+    \end{equation}
+    D'autre part, les inégalités \eqref{EqNleqNNleqNvqlqbs} montrent que
+    \begin{equation} \label{EqNleqNNleqNvqlqbsgamma}
+        -\| \gamma'(u)-\gamma'(t_0) \|\leq \| \gamma'(u) \|-\| \gamma'(t_0) \|\leq\| \gamma'(u)-\gamma'(t_0) \|.
+    \end{equation}
+    Si de plus $u$ est compris entre $t$ et $t'$, ces inégalités sont encore coincées entre $-\varepsilon$ et $\varepsilon$. En intégrant \eqref{EqNleqNNleqNvqlqbsgamma} par rapport à $u$ entre $t$ et $t'$, nous obtenons
+    \begin{equation}
+        \left| \int_t^{t'}\big\| \gamma'(u) \big\|-(t-t')\big\| \gamma'(t_0) \big\| \right| \leq\varepsilon| t-t' |.
+    \end{equation}
+    Afin d'alléger les notations pour la ligne suivante, nous notons $A$ le nombre positif $\int_t^{t'}\| \gamma'(u) \|du$. Nous avons
+    \begin{equation}        \label{Eq0308Afffgelleqinegs}
+        \begin{aligned}[]
+        \Big| A-\| \gamma(t)-\gamma(t')\| \Big| &=\Big| A-| t-t' |\,\| \gamma'(t_0) \|+| t-t' |\,\| \gamma'(t_0) \|-\| \gamma(t)-\gamma(t') \| \Big| \\
+                &\leq\Big|  A-| t-t' |\,\| \gamma'(t_0) \|  \Big|+\Big| | t-t' |\,\| \gamma'(t_0) \|-\| \gamma(t)-\gamma(t') \|    \Big|.
+        \end{aligned}
+    \end{equation}
+    L'équation \eqref{Eq0308ffttttftt} montre que le second terme est plus petit ou égal à $\varepsilon| t-t' |$. En ce qui concerne le premier terme, étant donné que $A$ est positif,
+    \begin{equation}
+        \Big|   A-| t-t' |\,\| \gamma'(t_0) \|   \Big| \leq\Big|  A-(t-t')\,\| \gamma'(t_0) \|  \Big|\leq \varepsilon| t-t' |.
+    \end{equation}
+    Au final, l'inéquation \eqref{Eq0308Afffgelleqinegs} donne
+    \begin{equation}
+            \Big| A-\| \gamma(t)-\gamma(t')\| \Big| \leq 2\varepsilon\,| t-t' |,
+    \end{equation}
+    ce qu'il fallait démontrer.
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Arc géométrique}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SecArcGeometrique}
+
+\begin{definition}      \label{DefAcrEquiva}
+Soient $(I,\gamma)$ et $(J,g)$ deux arcs paramétrés de classe $\mathcal{C}^k$. On dit qu'il sont \defe{équivalents}{equivalence@équivalence!arcs paramétrés} si il existe une bijection $\theta\colon I\to J$ de classe $\mathcal{C}^k$, d'inverse de classe $\mathcal{C}^k$ telle que $g=\gamma\circ\theta$. Nous notons $\gamma\sim g$\nomenclature[C]{$\gamma\sim g$}{Équivalence d'arcs paramétrés} lorsque $\gamma$ et $g$ sont équivalents (les ensembles $I$ et $J$ sont sous-entendus).
+\end{definition}
+
+Le passage d'un paramétrage $(I,\gamma)$ à une autre $(J,g)$ se fait selon le diagramme suivant:
+\begin{equation}
+\xymatrix{%
+I \ar[r]^{\gamma}   &   \eR^n\\
+J \ar[ru]_{g}\ar[u]^{\theta}
+   }
+\end{equation}
+
+\begin{proposition}
+La relation donnée dans la définition~\ref{DefAcrEquiva} est une relation d'équivalence.
+\end{proposition}
+
+\begin{proof}
+Les trois points d'une relation d'équivalence se vérifient en utilisant le fait que $\theta$ est inversible, et que l'inverse $\theta^{-1}$ jouit des mêmes propriétés de continuité ($\mathcal{C}^k$) que $\theta$.
+\begin{description}
+    \item[Réflexivité] Nous avons $\gamma\sim \gamma$ avec $\theta=\id$.
+    \item[Symétrie] Si $\gamma\sim g$, alors nous avons une application $\theta$ telle que $g=\gamma\circ\theta$, et donc $\gamma=g\circ\theta^{-1}$, ce qui montre que $g\sim \gamma$.
+    \item[Transitivité] Si $\gamma\sim g$ et $g\sim h$ avec $g=\gamma\circ\theta$ et $h=g\circ\omega$, alors $h=\gamma\circ(\theta\circ\omega)$, ce qui montre que $\gamma\sim h$.
+\end{description}
+\end{proof}
+Si les arcs $(I,\gamma)$ et $(J,g)$ sont équivalents, les images dans $\eR^n$ sont identiques, et décrivent donc «le même dessin». Nous allons préciser cette notion plus loin.
+
+\begin{definition}
+    Pour cette raison les classes d'équivalences sont appelées des \defe{arcs géométriques}{arc!géométriques} (de classe $\mathcal{C}^k$).
+\end{definition}
+
+Si $\Gamma$ est une arc géométrique, ses représentants sont dits des \defe{paramétrages admissibles}{paramétrages!admissible} ou, plus simplement \emph{paramétrage}. On dit que l'application $\theta\colon J\to I$ est un \defe{changement de variable}{changement de variable}. Nous disons que un arc géométrique est \emph{compact} quand ses représentants sont compacts.
+
+%Voir l'exercice~\ref{exoGeomAnal-0001} position 31124
+
+\begin{lemma}       \label{LemChamVarsStriMomnot}
+Dans le cas d'un arc $\mathcal{C}^1$, les changements de variables sont strictement monotones (croissants ou décroissants).
+\end{lemma}
+
+\begin{proof}
+Nous considérons $(I,\gamma)$ et $(J,g)$, deux paramétrages différents du même arc géométrique, et $\theta\in \mathcal{C}^1(J,I)$ le changement de variable. Nous allons noter $t$ la variable sur $I$ et $s$ la variable sur $J$. Par définition, $\theta\big( \theta^{-1}(t) \big)=t$, et par conséquent,
+\begin{equation}
+    \theta'\big( \theta^{-1}(t) \big)(\theta^{-1})'(t)=1.
+\end{equation}
+En particulier $\theta'\big( \theta^{-1}(t) \big)$ ne s'annule pas pour aucune valeur de $t$. Mais $\theta^{-1}(t)$ peut prendre n'importe quelle valeur dans $J$, donc nous avons $\theta'(s)\neq 0$ pour tout $s\in J$. Cela signifie bien que $\theta$ est strictement monotone. En effet, $\theta'$ étant continue, elle ne peut pas changer de signe sans passer par zéro (théorème~\ref{ThoValInter} des valeurs intermédiaires).
+\end{proof}
+
+\begin{theorem}     \label{ThoLongArcGeom}
+La longueur d'un arc est indépendante de son paramétrage, c'est-à-dire que les représentants d'un arc géométrique compact de classe $\mathcal{C}^1$ ont même longueur.
+\end{theorem}
+
+\begin{proof}
+Nous utilisons les mêmes notations que celles du lemme~\ref{LemChamVarsStriMomnot}. Nous savons déjà que le changement de variable $\theta \colon J\to I$ est strictement monotone. Supposons que $\theta$ soit croissante.
+%    (voir exercice~\ref{exoGeomAnal-0002}). Position 23657
+En effectuant un changement de variable dans l'intégrale qui donne la longueur\footnote{Théorème~\ref{ThoLongueurIntegrale}.} nous avons
+\begin{equation}
+    \begin{aligned}[]
+        l(\gamma)&=\int_I\| \gamma'(t) \|dt\\
+            &=\int_J\| \gamma'\big( \theta(s) \big) \|\theta'(s)ds\\
+            &=\int_J\| \gamma'\big( \theta(s) \big)\theta'(s) \|ds\\
+            &=\int_J\| \frac{ d }{ ds }(\gamma\circ\theta)(s) \|ds\\
+            &=\int_J\| g'(s) \|ds\\
+            &=l(J,g).
+    \end{aligned}
+\end{equation}
+\end{proof}
+
+\begin{definition}
+    Nous nommons \defe{longueur}{longueur!arc géométrique} d'un arc géométrique la longueur commune de tous ses représentants. On dit que l'arc géométrique est \defe{rectifiable}{rectifiable!arc géométrique} si sa longueur est $<\infty$.
+\end{definition}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Abscisse curviligne et paramétrage normal}     \label{SubSecAbsCurv}
+%---------------------------------------------------------------------------------------------------------------------------
+\index{paramétrage!normale}
+
+\begin{definition}
+    Soit $(I,\gamma)$ un arc paramétré continu rectifiable. Nous appelons \defe{abscisse curviligne}{abscisse!curviligne} de $\gamma$ toute application $\phi\colon I\to \eR$ telle que pour tout $t,t'\in I$ avec $t<t'$, nous ayons
+    \begin{equation}
+        l\big( \mathopen[ t,t'  \mathclose],\gamma\big) = \big|  \phi(t')-\phi(t) \big|.
+    \end{equation}
+    Si il existe un $t_0\in I$ tel que $\phi(t_0)=0$, alors nous disons que $t_0$ est l'\defe{origine}{origine!abscisse curviligne} de l'abscisse $\phi$.
+\end{definition}
+
+\begin{definition}      \label{DEFooJJQFooEITCvG}
+    Un arc paramétré $(I,\gamma_N)$ continu rectifiable est dit \defe{normal}{normal!arc paramétré} si l'identité est une abscisse curviligne.
+\end{definition}
+
+%
+% Une abscisse curviligne est une fonction qui vérifie cette propriété. Les abscisse curvilignes sont notées \phi.
+% Le nom de longueur d'arc est réservé à l'abscisse curviligne qui commence en 0. C'est celle définie plus haut.
+% La longueur d'arc est notée \varphi.
+%
+
+\begin{lemma}       \label{LEMooLADUooBlHjuT}
+    Si \( \gamma\) est de classe \( C^1\) et est un paramétrage normal, alors 
+    \begin{enumerate}
+        \item
+    pour tout choix de $t$ et $t'$ dans $I$ avec $t<t'$, nous avons
+    \begin{equation}
+        l\big( \mathopen[ t , t' \mathclose],\gamma_N \big)=t'-t.
+    \end{equation}
+\item
+    \( \| \gamma'(t) \|=1\) pour tout \( t\).
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Pour tout \( x_1,x_2\) dans le domaine nous avons
+    \begin{equation}
+        l\big( [x_1,x_2],\gamma \big)=\int_{x_1}^{x_2}\| \gamma'(t) \|dt=x_2-x_1.
+    \end{equation}
+
+    Cela implique \( \| \gamma'(t) \|=1\) pour tout \( t\). En effet, pour fixer les idées, supposons que \( \| \gamma'(t) \|>1\) en un point, par continuité, cela reste strictement supérieur à \( 1\) sur un intervalle. L'intégrale sur cet intervalle ne peut alors pas être la taille de l'intervalle.
+\end{proof}
+
+\begin{example}     \label{ExCerlceRadNorm}
+Le cercle unitaire est donné par l'arc
+\begin{equation}
+    \gamma(t)=\big( \cos(t),\sin(t) \big)
+\end{equation}
+et $t\in\mathopen[ 0 , 2\pi \mathclose]$. Pour tout choix de $t$ et $t'$ dans $\mathopen[ 0 , 2\pi \mathclose]$, nous avons
+\begin{equation}
+    l\big( \mathopen[ t , t' \mathclose],\gamma \big)=\int_t^{t'}\sqrt{\sin^2(u)+\cos^2(u)}du=t'-t.
+\end{equation}
+Les angles exprimés en radians forment donc un paramétrage normal du cercle de rayon~$1$.
+% position 28183
+%Voir aussi les exercices~\ref{exoGeomAnal-0003} et~\ref{exoCourbesSurfaces0008}.
+\end{example}
+
+\begin{lemma}
+Pour un arc paramétré compact, la longueur d'arc est une abscisse curviligne.
+\end{lemma}
+
+\begin{proof}
+Par définition de la longueur d'arc $\varphi$, nous avons
+\begin{equation}
+    \varphi(t')-\varphi(t)=l\big( [a,t'],\gamma \big)-l\big( [a,t],\gamma \big)=\diamondsuit.
+\end{equation}
+Supposons pour fixer les idées que $t'>t$. En utilisant la proposition~\ref{Propletautredecop}, nous avons
+\begin{equation}
+    l\big( [a,t'],\gamma \big)=l\big( [a,t],\gamma \big)+l\big( [t,t'],\gamma \big),
+\end{equation}
+et donc après simplification de deux termes,
+\begin{equation}
+    \diamondsuit=l\big( [t,t'],\gamma \big),
+\end{equation}
+ce qui est précisément la propriété demandée pour être une abscisse curviligne.
+\end{proof}
+
+\begin{proposition}     \label{PropExisteChmNorm}
+Pour tout arc paramétré $C^1$ sans points critiques, il existe un changement de coordonnées qui rend l'arc normal.
+\end{proposition}
+
+\begin{proof}
+Soit $(I,\gamma)$ un arc de classe $\mathcal{C}^1$. Nous devons montrer qu'il existe un intervalle $J$ et une application $\theta\colon J\to I$ de classe $\mathcal{C}^1$ et d'inverse $\mathcal{C}^1$ tel que l'arc $(J,\gamma_N)$ soit $\mathcal{C}^1$ où $\gamma_N=\gamma\circ\theta$.
+
+Si $I=\mathopen[ a ,b \mathclose]$, nous considérons la fonction
+\begin{equation}        \label{EqDevVarPhi}
+    \begin{aligned}
+        \phi\colon I&\to \eR^+ \\
+        t&\mapsto \int_a^t\| \gamma'(u) \|du.
+    \end{aligned}
+\end{equation}
+Étant définie par l'intégrale d'une fonction $\mathcal{C}^0$, la fonction $\phi$ est $\mathcal{C}^1$, et nous avons $\phi'(t)=\| \gamma'(t) \|>0$ pour tout $t\in I$. Vue comme application $\phi\colon \mathopen[ a , b \mathclose]\to \mathopen[ 0 , l(\gamma) \mathclose]$, l'application $\phi$ est bijective et d'inverse $\mathcal{C}^1$. Voyons cela point par point.
+\begin{enumerate}
+    \item
+        La fonction $\phi$ est injective parce que strictement croissante.
+    \item
+        Elle est surjective parce que $\phi(a)=0$ et $\phi(b)=l(\gamma)$.
+    \item
+        La continuité de l'inverse est plus délicate. Soit $l\in\mathopen[ 0 , l(\gamma) \mathclose]$ et $\varepsilon>0$. Pour prouver la continuité de $\phi^{-1}$ en $s$, nous devons trouver un $\delta$ tel que
+        \begin{equation}
+            | s-s' |<\delta\Rightarrow\big| \phi^{-1}(s)-\phi^{-1}(s') \big|<\varepsilon.
+        \end{equation}
+        Étant donné que $s$ et $s'$ sont dans l'image de $\phi$, nous considérons les uniques $t$ et $t'$ tels que $s=\phi(t)$ et $s'=\phi(t')$. La quantité $\phi(t)-\phi(t')$ devient
+        \begin{equation}        \label{EqCondvpemuCont}
+            \int_a^t\big\| \gamma'(u) \big\|du-\int_a^{t'}\big\| \gamma'(u) \big\|du=\int_{t}^{t'}\big\| \gamma'(u) \big\|du.
+        \end{equation}
+        D'autre part, $\phi^{-1}(s)=t$ et $\phi^{-1}(s')=t'$, donc la condition  \eqref{EqCondvpemuCont} devient
+        \begin{equation}
+            |   \int_{t'}^t\big\| \gamma'(u) \big\|du  |\leq\delta\Rightarrow | t-t' |<\varepsilon.
+        \end{equation}
+        Cela revient à la continuité des fonctions définies par une intégrale.
+    \item
+        La dérivée de son inverse est donnée par\footnote{Pour obtenir cette formule, dérivez les deux membres de l'équation $\phi\big( \phi^{-1}(s) \big)=s$.}
+        \begin{equation}
+            (\phi^{-1})'(s)=\frac{1}{\phi'\big( \phi^{-1}(s) \big)}.
+        \end{equation}
+        Nous avons vu que $\phi^{-1}$ et $\phi'$ étaient continues. La fonction $(\phi^{-1})'$ étant exprimée en termes de ces deux fonctions elle est également continue.
+\end{enumerate}
+
+Nous considérons l'arc paramétré $(J,\gamma_N)$ avec $J=\mathopen[ 0 , l(\gamma) \mathclose]$ et
+\begin{equation}
+    \gamma_N(s)=(\gamma\circ\phi^{-1})(s).
+\end{equation}
+Nous montrons maintenant que ce nouveau paramétrage est normal. Soient $0\leq s\leq s'\leq l(\gamma)$,
+\begin{equation}
+    \begin{aligned}[]
+        l\big( \mathopen[ s , s' \mathclose],g \big)&=\int_s^{s'}\big\| \gamma_N'(u) \big\|du\\
+        &=\int_{\phi^{-1}(s)}^{\phi^{-1}(s')}\big\| (\gamma_N'\circ\phi)(t) \big\|\phi'(t)dt\\
+        &=\int_{\phi^{-1}(s)}^{\phi^{-1}(s')}\big\| (\gamma_N\circ\phi)'(t) \big\|dt\\
+        &=\int_{\phi^{-1}(s)}^{\phi^{-1}(s')}\big\| \gamma'(t) \big\|dt\\
+        &=\int_{0}^{\phi^{-1}(s')}\big\| \gamma'(t) \big\|\,dt -\int_0^{\phi^{-1}(s)}\big\| \gamma'(t) \big\|\,dt \\
+        &=\phi\big( \phi^{-1}(s') \big)-\phi\big( \phi^{-1}(s) \big)\\
+        &=s'-s,
+    \end{aligned}
+\end{equation}
+ce qui prouve que le paramétrage $(J,\gamma_N)$ est normale.
+\end{proof}
+
+Nous retenons que le paramétrage normal de $\gamma$ est donnée par $(J,\gamma_N)$ avec $J=\mathopen[ 0 , l(\gamma) \mathclose]$ et
+\begin{equation}        \label{EqFomVPcogammaN}
+\gamma_N(s)=(\gamma\circ\phi^{-1})(s)
+\end{equation}
+où
+\begin{equation}        \label{EqFomVPcoordnorm}
+\begin{aligned}
+    \phi\colon I&\to \eR^+ \\
+    t&\mapsto \int_a^t\| \gamma'(u) \|du.
+\end{aligned}
+\end{equation}
+Notons aussi que $\phi$ est une fonction croissante, étant l'intégrale d'une fonction positive.
+
+\begin{example}
+Trouvons les coordonnées normales pour la cycloïde\index{cycloïde!coordonnées normales} donnée par
+\begin{subequations}
+    \begin{numcases}{}
+        x(t)=a(t-\sin(t)),\\
+        y(t)=a(1-\cos(t))
+    \end{numcases}
+\end{subequations}
+et $t\in\mathopen] 0 , 2\pi \mathclose[$. Relire l'exemple~\ref{ExCycloLong}.
+
+D'abord nous trouvons $\phi$ avec la formule \eqref{EqFomVPcoordnorm} avec $a=0$. En utilisant le bout de calcul \eqref{Eq_0508dlcycloide}, nous avons
+\begin{equation}
+    \phi(t)=2a\int_0^t\sin\frac{ u }{2}du=4a\left( 1-\cos\frac{t}{2} \right).
+\end{equation}
+Pour trouver $\phi^{-1}(s)$, nous résolvons l'équation
+\begin{equation}
+    s=\phi\big( \phi^{-1}(s) \big)
+\end{equation}
+par rapport à $\phi^{-1}(s)$. Dans un premier temps, nous trouvons
+\begin{equation}
+    1-\frac{ s }{ 4a }=\cos\frac{ \phi^{-1}(s) }{ 2 },
+\end{equation}
+donc $\frac{ \phi^{-1}(s) }{2}=\arccos(\frac{ 4a-s }{ 4a })$, et finalement
+\begin{equation}
+    \phi^{-1}(s)=2\arccos\left(\frac{ 4a-s }{ 4a }\right).
+\end{equation}
+Il nous reste à injecter cela dans les expressions de $x(t)$ et $y(t)$ pour trouver $(\gamma_N)_x(s)$ et $(\gamma_N)_y(s)$. D'abord,
+\begin{equation}
+    (\gamma_N)_x(s)=a\big[ \phi^{-1}(s)-\sin\big( \phi^{-1}(s) \big) \big].
+\end{equation}
+Nous utilisons maintenant la formule trigonométrique $\sin(x)=2\sin\frac{ x }{ 2 }\cos\frac{ x }{2}$ afin de simplifier les expressions :
+\begin{equation}
+    \begin{aligned}[]
+        (\gamma_N)_x&=a\Big[ 2\arccos\left( \frac{ 4a-s }{ 4a } \right)-2\sin\big( \arccos\left( \frac{ 4a-s }{ 4a } \right) \big)\cos\big( \arccos\left( \frac{ 4a-s }{ 4a } \right) \big) \Big]\\
+        &=a\Big[ 2\arccos\left( \frac{ 4a-s }{ 4a } \right)-\frac{ 4a-s }{ 2a } \sqrt{1-\left( \frac{ 4a-s }{ 4a } \right)^2}\Big]\\
+        &=2a\arccos\left( \frac{ 4a-s }{ 4a } \right)-\sqrt{8as-s^2}\,\frac{ 4a-s }{ 8a }
+    \end{aligned}
+\end{equation}
+où nous avons utilisé la formule $\sin\big( \arccos(x) \big)=\sqrt{1-x^2}$. Ensuite, pour obtenir $(\gamma_N)_y$ nous devons calculer
+\begin{equation}
+    (\gamma_N)_y(s)=a\big[ 1-\cos\big( \phi^{-1}(s) \big) \big].
+\end{equation}
+Encore une fois, il est intéressant d'exprimer le cosinus en termes des angles divisés par deux : $\cos(x)=\cos^2\frac{ x }{2}-\sin^2\frac{ x }{2}$.
+\begin{equation}
+    \begin{aligned}[]
+        (\gamma_N)_y&=a\Big[ 1-\cos^2\frac{ \phi^{-1}(s) }{2}+\sin^2\frac{ \phi^{-1}(s) }{2} \Big]\\
+        &=a\Big[ 2-2\cos^2\frac{ \phi^{-1}(s) }{2} \Big]\\
+        &=2a\Big[ 1-\left( \frac{ 4a-s }{ 4a } \right)^2 \Big].
+    \end{aligned}
+\end{equation}
+Dans ce paramétrage, $s\in\mathopen] 0 , 8a \mathclose[$.
+\end{example}
+
+\begin{example}
+La cardioïde $\rho(\theta)=a\big(1+\cos(\theta)\big)$ avec $\theta$ entre $-\pi$ et $\pi$. Avant d'utiliser la formule \eqref{EqFomVPcoordnorm}, nous devons trouver l'élément de longueur de la cardioïde. Étant donné la façon dont l'équation de la cardioïde nous est donnée, l'élément de longueur est donné par\footnote{Nous vous déconseillons d'étudier cette formule par cœur. Sachez cependant la retrouver assez vite.} \eqref{EqElemOngPOldeux} :
+\begin{equation}
+    \begin{aligned}[]
+        \| \gamma'(u) \|^2&=a^2\sin^2(u)+a^2(1+\cos(u))^2\\
+            &=2a^2\big( 1+\cos(u) \big),
+    \end{aligned}
+\end{equation}
+et par conséquent\footnote{L'utilisation stricte de la formule \eqref{EqFomVPcoordnorm} demanderait d'intégrer à partir de $-\pi$. Pour plus de simplicité, nous intégrons à partir de zéro, et nous verrons plus tard comment adapter l'intervalle du nouveau paramètre.}
+\begin{equation}
+    \begin{aligned}[]
+        \phi(t)&=\int_0^t\sqrt{2a^2\big( 1+\cos(u) \big)}du\\
+        &=\int_0^t\sqrt{2a^2\left( 1+\cos^2\frac{ u }{2}-\sin^2\frac{ u }{2} \right)}du\\
+        &=2a\int_0^t\cos\frac{ u }{2}du\\
+        &=4a\sin\frac{ t }{2}.
+    \end{aligned}
+\end{equation}
+Pour trouver l'inverse, nous résolvons $\phi\big( \phi^{-1}(s) \big)=s$ par rapport à $\phi^{-1}(s)$ :
+\begin{equation}
+    \begin{aligned}[]
+        4a\sin\left( \frac{ \phi^{-1}(s) }{2} \right)&=s,\\
+        \phi^{-1}(s)&=2\arcsin\left( \frac{ s }{ 4a } \right).
+    \end{aligned}
+\end{equation}
+
+Avant d'écrire trop brutalement $\gamma_N(s)=(\gamma\circ\phi^{-1})(s)$, il faut comprendre comment est $\gamma$. Nous avons reçu la courbe sous forme polaire, c'est-à-dire
+\begin{equation}
+    \gamma(t)=\big( \gamma_r(t),\gamma_{\theta}(t) \big)=\Big( a\big( 1+\cos(t) \big),t \Big).
+\end{equation}
+C'est comme cela qu'il faut comprendre la donnée $\rho(\theta)=a\big( 1+\cos(\theta) \big)$. Maintenant la formule $\gamma_N(s)=(\gamma\circ\phi^{-1})(s)$ devient
+\begin{subequations}
+    \begin{numcases}{}
+        (\gamma_N)_r(s)=\gamma_r\big( \phi^{-1}(s) \big)\\
+        (\gamma_N)_{\theta}(s)=\gamma_{\theta}\big( \phi^{-1}(s) \big).
+    \end{numcases}
+\end{subequations}
+Étant donné que $\gamma_{\theta}(t)=t$, la seconde est facile :
+\begin{equation}
+    (\gamma_N)_{\theta}(s)=2\arcsin\left( \frac{ s }{ 4a } \right).
+\end{equation}
+Pour la première,
+\begin{equation}
+    (\gamma_N)_r(s)=a\big[ 1+\cos\big( 2\arcsin\frac{ s }{ 4a } \big) \big]=\frac{ 16a^2-s^2 }{ 8a }.
+\end{equation}
+Nous écrivons donc le nouveau paramétrage en coordonnées polaires sous la forme
+\begin{equation}
+    \left( \frac{ 16a^2-s^2 }{ 8a },2\arcsin\frac{ s }{ 4a } \right).
+\end{equation}
+La question qui arrive maintenant est de savoir quel intervalle parcours la nouvelle variable $s$. D'après le résultat de l'exemple~\ref{EqCardioide}, la longueur de la cardioïde est de $8a$ et nous avons donc $s\in\mathopen[ 0 , 8a \mathclose]$. Cependant, la condition d'existence de $\arcsin$ nous interdit d'avoir $s$ plus grand que $4a$ en valeur absolue. Où est le problème ?
+
+Le problème est que nous avons changé l'origine de notre paramètre en donnant $\phi(t)$ comme une intégrale à partir de $0$ au lieu de $-\pi$. Cela se voit en regardant de quel point nous partons : en $s=0$ nous sommes sur le point $(2a,0)$ tandis qu'avec le paramètre original, c'est-à-dire $\theta\in\mathopen[ -\pi , \pi \mathclose]$, nous avons pour $\theta=-\pi$ le point $(0,-\pi)$.
+
+Il se passe donc que si nous commençons à parcourir la cardioïde avec $s=0$, nous partons du milieu, et nous ne parcourons donc pas tout. Étant donné que le «premier» point de la cardioïde est le point $(0,-\pi)$, le paramètre $s$ commence en $s=-4a$, et nous avons comme intervalle :
+\begin{equation}
+    s\in\mathopen[ -4a , 4a \mathclose],
+\end{equation}
+ce qui est en accord avec la conditions d'existence.
+\end{example}
+
+Quel enseignement tirer de cet exemple ? Lorsqu'on calcule $\phi(t)$ pour trouver les coordonnées normales, il y a deux solutions.
+\begin{enumerate}
+\item
+    Utiliser strictement la formule $\phi(t)=\int_a^t\| \gamma'(u) \|du$, en prenant bien comme borne de départ le point de départ de le paramétrage de $\gamma$. À ce moment la coordonnée normale construite aura $\mathopen[ 0 , l(\gamma) \mathclose]$ comme intervalle de variation.
+\item
+    Faire commencer l'intervalle d'intégration en zéro (ou ailleurs). Un bon choix peut simplifier quelques calculs, mais alors il faudra bien choisir la valeur de départ de la nouvelle coordonnées pour que le «premier» point de la courbe soit correct. Dans ce cas, la longueur de l'intervalle sera quand même $l(\gamma)$. Il n'y a donc pas de problèmes pour trouver la valeur du bout de l'intervalle de variation du paramètre normal.
+\end{enumerate}
+Dans tous les cas, il faut bien préciser l'intervalle de variation du paramètre lorsqu'on donne une courbe paramétrée.

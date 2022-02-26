@@ -1,0 +1,1706 @@
+% This is part of Mes notes de mathématique
+% Copyright (c) 2011-2021
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Variétés}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\subsection{Introduction}
+Soit $f : S^2 \to \eR$ une fonction définie sur la sphère usuelle
+$S^2 \subset \eR^3$. Une question naturelle est d'estimer la
+régularité de $f$ ; est-elle continue, dérivable, différentiable ? Il
+n'existe pas de dérivée directionnelle étant donné que le quotient
+différentiel
+\begin{equation*}
+  \frac{f(x + \epsilon u_1 ,y + \epsilon u_2) - f(x,y)}{\epsilon}
+\end{equation*}
+n'a pas de sens pour un point $(x + \epsilon u_1 ,y + \epsilon u_2)$
+qui n'est pas --sauf valeurs particulières-- dans la surface. Pour la
+même raison il n'est pas possible de parler de différentiabilité de
+cette manière. Comment faire, sans devoir étendre le domaine de
+définition de $f$ à un voisinage de la sphère ? Une solution possible
+est de parler de la notion de variété.
+
+Une variété est un objet qui ressemble, vu de près, à $\eR^m$ pour un
+certain $m$. En d'autres termes, on imagine une variété comme un
+recollement de morceaux de $\eR^m$ vivant dans un espace plus grand
+$\eR^n$. Ces morceaux sont appelés des ouverts de carte, et
+l'application qui exprime la ressemblance à $\eR^m$ est l'application
+de carte.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Définition, carte}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Une \defe{variété}{variété} de dimension \( m\) de classe \( C^1\) est une partie \( M\) de \( \eR^n\) (\( n\geq m\)) munie d'un ensemble de paires \( \{ U_{\alpha},\varphi_{\alpha} \}\) où \( U_{\alpha}\) est un ouvert de \( \eR^n\) et \( \varphi_{\alpha}\colon U_{\alpha}\to \eR^n\) est une application vérifiant
+    \begin{enumerate}
+        \item
+            \( \varphi_{\alpha}\) est une bijection entre \( U_{\alpha}\) et \( \varphi_{\alpha}(U_{\alpha})\);
+        \item
+            pour tout \( a\in M\), il existe un \( \alpha\) tel que \( a\in\varphi_{\alpha}(U_{\alpha})\);
+        \item
+            pour tout \( \alpha,\beta\), la partie \( \varphi_{\alpha}^{-1}\big( \varphi_{\alpha}(U_{\alpha})\cap \varphi_{\beta}(U_{\beta}) \big)\) est un ouvert de \( U_{\alpha}\);
+        \item
+            L'application
+            \begin{equation}
+                \varphi_{\beta}^{-1}\circ \varphi_{\alpha}\colon \varphi_{\alpha}^{-1}\big( \varphi_{\alpha}(U_{\alpha})\cap \varphi_{\beta}(U_{\beta}) \big)\to U_{\beta}
+            \end{equation}
+            est un \( C^1\)-difféomorphisme vers son image.
+    \end{enumerate}
+\end{definition}
+
+Notez que cette définition n'utilise pas du tout la structure de \( \eR^n\) dans lequel se trouve \( M\). Seulement la structure différentielle du \( \eR^m\) depuis lequel les cartes partent. En particulier, nous n'avons pas dit si \( \varphi_{\alpha}\colon U_{\alpha}\to M\) était de classe \( C^1\) pour une topologie induite de \( \eR^n\) vers \( M\). Nous pouvons en réalité définir plus généralement une variété en remplaçant «une partie de \( \eR^n\)» par «un ensemble» sans rien y changer.
+
+La difficulté qui apparaît lorsque nous voulons dire que \( M\) est un ensemble quelconque au lieu d'une partie de \( \eR^n\) est pour la mesure.
+
+Nous verrons plus loin comment les cartes \( \varphi_{\alpha}\) peuvent transporter la mesure de \( U_{\alpha}\) (celle de Lebesgue dans \( \eR^m\)) vers une partie de \( \eR^n\) en utilisant le déterminant de \( d\varphi_{\alpha}\). Cela n'est possible que parce que \( \eR^n\) a une structure différentielle qui permet de définir \( d\varphi_{\alpha}\). Si \( M\) est un ensemble quelconque, cette façon de faire n'est plus possible. Dans ce cas, il faut définir des fibrés tangents et cotangents puis en extraire une «forme volume». Le choix de la forme volume n'étant pas canonique, il n'y a pas d'intégrale canonique sur une variété générale comme il y en a une sur une variété «dans \( \eR^n\)».
+
+\begin{definition}      \label{DEFooWABZooGIEDEV}
+    Soit une variété \( M\) de dimension \( m\). Une \defe{carte}{carte} pour \( M\) est un couple \( (U,\varphi)\) où \( U\) est un ouvert de \( \eR^m\) et \( \varphi\colon U\to M\) est une application
+    \begin{enumerate}
+        \item
+            qui est une bijection entre \( U\) et son image,
+        \item
+    pour tout \( \alpha\),
+    \begin{equation}
+        \varphi_{\alpha}^{-1}\circ \varphi\colon \varphi^{-1}\big( \varphi(U)\cap\varphi_{\alpha}(U_{\alpha}) \big)\to \varphi_{\alpha}^{-1}\big( \varphi(U)\cap\varphi_{\alpha}(U_{\alpha}) \big)
+    \end{equation}
+    est un \( C^1\)-difféomorphisme.
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}[\cite{MonCerveau}]
+    Si \( (U_1,\varphi_1)\) et \( (U_2,\varphi_2)\) sont des cartes pour la variété \( M\), alors en posant \( S=\varphi_1(U_1)\cap \varphi_2(U_2)\), l'application
+    \begin{equation}
+        \varphi_2^{-1}\circ\varphi_1\colon \varphi_1^{-1}(S)\to \varphi_2^{-1}(S)
+    \end{equation}
+    est un \( C^1\)-difféomorphisme.
+\end{proposition}
+
+\begin{proof}
+    Le fait que \( \varphi_2^{-1}\circ\varphi_1\) soit une bijection est dû au fait que nous ayons choisit les espaces de départ et d'arrivée pour que ce soit une bijection.
+
+    Soit \( a\in \varphi_1(U_1)\cap\varphi_2(U_2)\). Soient \( \alpha\) tel que \( a\in\varphi_{\alpha}(U_{\alpha})\) et un ouvert \( A\) autour de \( \varphi_{\alpha}^{-1}(a)\) tel que \( \varphi_{\alpha}(A)\subset \varphi_1(U_1)\cap \varphi_2(U_2)\). Nous allons montrer que
+    \begin{equation}
+        \varphi_2^{-1}\circ \varphi_1\colon \varphi_1\big( \varphi_{\alpha}(A) \big)\to \varphi_2^{-1}\big( \varphi_{\alpha}(A) \big)
+    \end{equation}
+    est un \( C^1\)-difféomorphisme. Nous avons
+    \begin{equation}
+        \varphi_2\circ\varphi_1=\varphi_2^{-1}\circ\varphi_{\alpha}\circ\varphi_{\alpha}^{-1}\circ\varphi_1,
+    \end{equation}
+    mais vu que \( \varphi_1\) et \( \varphi_2\) sont des cartes, les applications \( \varphi_2^{-1}\circ\varphi_{\alpha}\) et \( \varphi_{\alpha}\circ \varphi_1\) sont de classe \( C^1\) et d'inverses \( C^1\). La composition l'est encore.
+\end{proof}
+
+Nous avons demandé qu'une variété n'admette que des cartes partant d'ouverts de \( \eR^m\). Aurions-nous pu admettre, dans la définition \ref{DEFooWABZooGIEDEV} que la carte parte d'un ouvert de \( \eR^p\) avec \( p\neq m\) ? Non. Voici une résultat qui dit que si une carte part de \( \eR^m\), alors toutes les cartes doivent partir de \( \eR^m\).
+
+\begin{proposition}
+    Soit une variété \( M\) de dimension \( m\) et une carte \( \varphi_{\alpha}\colon U_{\alpha}\to M\). Si \( U\) est un ouvert de \( \eR^p\) et si \( \varphi\colon U\to M\) est telle que \( \varphi_{\alpha}^{-1}\circ \varphi\) soit un difféomorphisme, alors \( p=m\).
+\end{proposition}
+
+\begin{proof}
+    Soit \( A=\varphi_{\alpha}(U_{\alpha})\cap \varphi(U)\). Les parties \( \varphi_{\alpha}^{-1}(A)\) et \( \varphi^{-1}(U)\) sont des ouverts de \( \eR^m\) et de \( \eR^p\) respectivement. Par hypothèse, l'application
+    \begin{equation}
+        \varphi_{\alpha}^{-1}\circ\varphi\colon \varphi^{-1}(A)\to \varphi_{\alpha}^{-1}(A)
+    \end{equation}
+    est un difféomorphisme entre l'ouvert \( \varphi^{-1}(A)\subset \eR^p\) et l'ouvert \( \varphi_{\alpha}^{-1}(A)\subset \eR^m\). La proposition \ref{PROPooNONAooCyAtce} implique que \( m=p\).
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Ancienne définition}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Cette section est à recycler.
+
+\begin{definition}
+  Soit $\emptyset \neq M \subset \eR^n$, $1 \leq m < n$ et $k \geq
+  1$. $M$ est une \Defn{variété de classe $C^k$ de dimension $m$} si
+  pour tout $a \in  M$, il existe un voisinage ouvert $U$ de $a$
+  dans $\eR^n$, et un ouvert $V$ de $\eR^m$ tel que $U \cap M$
+  soit le graphe d'une fonction $f : V \subset \eR^m \to \eR^{n-m}$
+  de classe $C^1$, c'est-à-dire qu'il existe un réagencement des
+  coordonnées $(x_{i_1}, \ldots, x_{i_m}, x_{i_{m+1}}, \ldots,
+  x_{i_n})$ avec
+  \begin{equation*}
+    M \cap U = \left\{ (x_1, \ldots, x_n) \in \eR^n \tq
+%      \begin{array}{l} % deux conditions
+      (x_{i_1}, \ldots, x_{i_m}) \in V \quad \left\{\begin{array}{c!{=}l} % 1: equations
+        x_{i_{m+1}} & f_1(x_{i_1}, \ldots, x_{i_m})\\
+        \vdots & \vdots \\
+        x_{i_n} & f_{n-m}(x_{i_1}, \ldots, x_{i_m})
+      \end{array}\right.
+%    \end{array}
+    \right\}
+  \end{equation*}
+  où $V$ est un voisinage ouvert de $(a_{i_1}, \ldots, a_{i_m}) \in \eR^m$.
+\end{definition}
+
+La littérature regorge de théorèmes qui proposent des conditions équivalentes à la définition d'une variété. Celle que nous allons le plus utiliser est la suivante% , de la page 268.
+\begin{proposition}
+    Soit $M\subset\eR^n$ et $1\leq m\leq n-1$. L'ensemble $M$ est une variété si et seulement si $\forall a\in M$, il existe un voisinage ouvert $\mU$ de $a$ dans $\eR^n$ et une application $F\colon W\subset\eR^m\to \eR^n$ où $W$ est un ouvert tels que
+    \begin{enumerate}
+        \item
+            $F$ est un homéomorphisme de $W$ vers $M\cap\mU$,
+        \item
+            $F\in C^1(W,\eR^n)$,
+        \item
+            Le rang de $dF(w)\in L(\eR^m,\eR^n)$ est de rang maximum (c'est-à-dire $m$) en tout point $w\in W$.
+    \end{enumerate}
+\end{proposition}
+
+Pour rappel, si $T\colon \eR^m\to \eR^n$ est une application linéaire, son rang\footnote{Définition~\ref{DefALUAooSPcmyK}.} est la dimension de son image. Si $A$ est la matrice d'une application linéaire, alors le rang de cette application linéaire est égal à la taille de la plus grande matrice carrée de déterminant non nul contenue dans $A$\footnote{Proposition~\ref{PropEJBZooTNFPRj}}.
+
+La condition de rang maximum sert à éviter le genre de cas de la figure~\ref{LabelFigExempleNonRang} qui représente l'image de l'ouvert $\mathopen] -1 , 1 \mathclose[$ par l'application $F(t)=(t^2,t^3)$.
+\newcommand{\CaptionFigExempleNonRang}{Quelque chose qui n'est pas de rang maximum et qui n'est pas une variété.}
+\input{auto/pictures_tex/Fig_ExempleNonRang.pstricks}
+%\ref{LabelFigExempleNonRang}
+%\newcommand{\CaptionFigExempleNonRang}{Quelque chose qui n'est pas de rang maximum et qui n'est pas une variété.}
+%\input{auto/pictures_tex/Fig_ExempleNonRang.pstricks}
+La différentielle a pour matrice
+\begin{equation}
+    dF(t)=(2t,3t^2).
+\end{equation}
+Le rang maximum est $1$, mais en $t=0$, la matrice vaut $(0,0)$ et son rang est zéro. Pour toute autre valeur de $t$, c'est bon.
+
+Une autre caractérisation des variétés est donnée par la proposition suivante %(proposition 3, page 274).
+\begin{proposition}     \label{PropCarVarZerFonc}
+    Soit $M\in \eR^n$ et $1\leq m\leq n-1$. L'ensemble $M$ est une variété si et seulement si $\forall a\in M$, il existe un voisinage ouvert $\mU$ de $a$ dans $\eR^n$ tel et une application $G\in C^1(\mU,\eR^{n-m})$ tel que
+    \begin{enumerate}
+        \item
+            le rang de $dG_a\in L(\eR^n,\eR^{n-m})$ soit maximum (c'est-à-dire $n-m$) en tout $a\in M$,
+        \item
+            $M\cap\mU=\{ x\in\mU\tq G(x)=0 \}$.
+    \end{enumerate}
+\end{proposition}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Espace tangent}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit $M$, une variété dans $\eR^n$, et considérons un chemin $\gamma\colon I\to \eR^n$ tel que $\gamma(t)\in M$ pour tout $t\in I$ et tel que $\gamma(0)=a$ et que $\gamma$ est dérivable en $0$. La \defe{tangente}{tangente à un chemin} au chemin $\gamma$ au point $a\in M$ est la droite
+\begin{equation}
+    s\mapsto a+s\gamma'(0).
+\end{equation}
+L'\defe{espace tangent}{espace!tangent} de $M$ au point $a$ est l'ensemble décrit par toutes les tangentes en $a$ pour tous les chemins $\gamma$ possibles.
+
+\begin{proposition}         \label{PropDimEspTanVarConst}
+    Une variété de dimension $m$ dans $\eR^n$ a un espace tangent de dimension $m$ en chacun de ses points.
+\end{proposition}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Intégration}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Le problème pour une intégration globale}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soient une variété \( M\) et une partie \( A\) de \( M\). Si nous avons une fonction \( f\colon A\to \eR\), nous voudrions définir une intégrale de \( f\) sur \( A\) en utilisant les cartes.
+
+Il y a une petite complication. Supposons que \( A\) soit dans \( \varphi_{\alpha}(U_{\alpha})\cap \varphi_{\beta}(U_{\beta})\). Pour la carte \( \varphi_{\alpha}\) nous aurions tendance à vouloir écrire
+\begin{equation}        \label{EQooUEVHooOXgonw}
+    \int_A f=\int_{\varphi_{\alpha}^{-1}(A)}f\circ \varphi_{\alpha}
+\end{equation}
+pour la mesure de Lebesgue induite de \( \eR^m\) vers son ouvert \( U_{\alpha}\). Pas de problème à ce que \eqref{EQooUEVHooOXgonw} soit bien définie. Le problème est que \( \alpha\) n'est pas à priori spécial par rapport à \( \beta\) et qu'il faudrait également que
+\begin{equation}        \label{EQooEOJIooIGLQHs}
+    \int_A f=\int_{\varphi_{\beta}^{-1}(A)}f\circ \varphi_{\beta}
+\end{equation}
+Mais en utilisant le changement de variable (théorème \ref{THOooUMIWooZUtUSg}\ref{ITEMooAJGDooGHKnvj}) pour le \( C^1\)-difféomorphisme \( \phi=\varphi_{\alpha}^{-1}\circ \varphi_{\beta}\), nous avons
+\begin{equation}
+    \int_{\varphi_{\alpha}^{-1}(A)}f\circ \varphi_{\alpha}=\int_{\varphi_{\beta}(A)}(f\circ \varphi_{\alpha}\circ\varphi_{\alpha}^{-1}\circ\varphi_{\beta})| J_{\phi} |=\int_{\varphi_{\beta}(A)}(f\circ \varphi_{\beta})| J_{\phi} |.
+\end{equation}
+À moins d'une coïncidence extraordinaire sur les valeurs du jacobien, il n'y aura pas égalité entre \eqref{EQooUEVHooOXgonw} et \eqref{EQooEOJIooIGLQHs}.
+
+Pour faire mieux, il faudra ajouter quelque chose qui compense l'arrivée du jacobien. C'est ce que nous allons faire maintenant.
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Intégrale sur une carte}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Dans un premier temps, nous allons définir l'intégrale sur une carte. Nous verrons plus tard comment combiner les cartes pour faire une intégrale sur une variété entière.
+
+\begin{propositionDef}[\cite{MonCerveau}]     \label{PROPooOAHWooAfxvyv}
+    Soient deux cartes \( (U_1,\varphi_1)\) et \( (U_2,\varphi_2)\) pour la partie \( A\) d'une variété de dimension \( m\) dans \( \eR^n\). Soit une fonction mesurable \( f\colon A\to \mathopen[ 0 , +\infty \mathclose]\)\footnote{Si \( f\) est seulement mesurable, allez voir les hypothèses du théorème \ref{THOooUMIWooZUtUSg}\ref{ITEMooAJGDooGHKnvj}.}.
+
+    Alors\footnote{Voir la définition de l'adjoint \ref{DEFooROVNooFlTbSK}.}
+    \begin{equation}
+        \int_{U_1}(f\circ \varphi_1)(x)\sqrt{ \det\big( (d\varphi_1)_x^*(d\varphi_1)_x \big) }dx=
+        \int_{U_2}(f\circ \varphi_2)(y)\sqrt{ \det\big( (d\varphi_2)_y^*(d\varphi_2)_y \big) }dy
+    \end{equation}
+    où les deux intégrales sont au sens de la mesure de Lebesgue sur des ouverts de \( \eR^m\).
+
+    Ce nombre est \defe{l'intégrale}{intégrale sur une carte} de \( f\) sur \( A\), et est noté
+    \begin{equation}
+        \int_Af.
+    \end{equation}
+\end{propositionDef}
+
+\begin{proof}
+    Vu que nous sommes en présence de cartes pour une variété, les applications \( \varphi_1\colon U_1\to A\) et \( \varphi_2\colon U_2\to A\) sont des bijections telles que \( \varphi_1^{-1}\circ \varphi_2\colon U_2\to U_1\) soit un \( C^1\)-difféomorphisme. 
+
+    Nous considérons le \( C^1\)-difféomorphisme \( \phi=\varphi_1^{-1}\circ \varphi_2\). Notre but est d'utiliser le théorème de changement de variables \ref{THOooUMIWooZUtUSg}\ref{ITEMooEZUBooGBuDOS}.
+    
+    Vu que \( \varphi_1\) est une bijection, \( (\varphi_1\circ\varphi_1^{-1})(A)=A\) et nous avons
+    \begin{equation}
+        \phi^{-1}\big( \varphi_1^{-1}(A) \big)=\varphi_2^{-1}(A).
+    \end{equation}
+
+    Ensuite, \( f\circ\varphi_1\circ\phi=f\circ\varphi_2\).
+
+    Jusqu'ici, rien de drôle me diriez-vous. Ok. Alors voyons un peu comment se passe le jacobien et ce qui se trouve sous la racine carré.
+
+    L'application \( x\mapsto \det\big( (d\varphi_1)_x^*\circ(d\varphi_1)_x \big)\) doit être composée avec \( \phi\) pour donner
+    \begin{equation}
+        y\mapsto\det\big( (d\varphi_1)_{\phi(y)}^*\circ(d\varphi_1)_{\phi(y)} \big).
+    \end{equation}
+    Attardons-nous un peu sur \( (d\varphi_1)_{\phi(y)}\). Nous savons par la règle de différentiation en chaine \ref{ThoAGXGuEt} que
+    \begin{equation}        \label{EQooCBGAooCneiJv}
+        d(\varphi_1\circ \phi)_y=(d\varphi_1)_{\phi(y)}\circ(d\phi)_y.
+    \end{equation}
+    Le lemme \ref{LemooTJSZooWkuSzv} nous dit que l'application linéaire \( d\phi_y\colon \eR^m\to \eR^m\) est inversible et que \( d\phi_y^{-1}=(d\phi^{-1})_{\phi(y)}\). En composant les deux côtés de \eqref{EQooCBGAooCneiJv} par cela nous trouvons
+    \begin{equation}
+        (d\varphi_1)_{\phi(y)}=d(\varphi_1\circ\phi)_y\circ(d\phi)_y^{-1}=(d\varphi_2)_y\circ(d\phi^{-1})_{\phi(y)}.
+    \end{equation}
+    C'est me moment d'utiliser la proposition \ref{PROPooVPSYooRuoEFi} à propos de la composition des applications adjointes. Ce qui est dans le déterminant est :
+    \begin{equation}
+        \big( (d\varphi_2)_y\circ(d\phi^{-1})_{\phi(y)} \big)^*\circ\big( (d\varphi_2)_y\circ(d\phi^{-1})_{\phi(y)} \big)=
+        \underbrace{(d\phi^{-1})_{\phi(y)}^*}_{\eR^m\to \eR^m}\circ\underbrace{(d\varphi_2)^*_y\circ(d\varphi_2)_y}_{\eR^m\to \eR^m}\circ\underbrace{(d\phi^{-1})_{\phi(y)}}_{\eR^m\to \eR^m}.
+    \end{equation}
+    Nous utilisons à présent un combo entre les propriétés des déterminants et de l'adjoint : les propositions \ref{PropYQNMooZjlYlA}\ref{ITEMooNZNLooODdXeH} et \ref{PROPooSHZMooGwdfBd} font sortir \( | \det\big( (d\phi^{-1})_{\phi(y)} \big) |\) de la racine carré. Ne pas oublier la valeur absolue parce que \( \sqrt{ x^2 }=| x |\) et non \( \sqrt{ x^2 }=x\). Cela pour dire que
+    \begin{equation}
+        \sqrt{ \det\big( (d\varphi_1)_{\phi(y)}^*\circ(d\varphi_1)_{\phi(y)} \big) }=| \det\big( (d\phi^{-1})_{\phi(y)} \big) |\sqrt{ \det\big( (d\varphi_2)_y^*\circ(d\varphi_2)_y \big) }.
+    \end{equation}
+    En ce qui concerne l'intégrale que nous voulons calculer, en mettant les bouts ensemble,
+    \begin{equation}
+        \begin{aligned}[]
+        \int_{\varphi_1^{-1}(A)}&(f\circ\varphi_1)(x)\sqrt{ \det(\cdots) }dx\\
+        &=\int_{\varphi^{-1}_2(A)}(f\circ\varphi_2)(y)| \det\big( (d\phi^{-1})_{\phi(y)} \big) |\sqrt{ \det\big( (d\varphi_2)_y^*\circ(d\varphi_2)_y \big) }| \det(d\phi_y) |dy.
+        \end{aligned}
+    \end{equation}
+    Enfin, les déterminants se suppriment : dans la valeur absolue nous avons :
+    \begin{equation}
+        \det\big( (d\phi^{-1})_{\phi(y)} \big)\det(d\phi_y)=\det\big( (d\phi^{-1})_{\phi(y)}\circ d\phi_y \big)=\det(\id)=1.
+    \end{equation}
+\end{proof}
+
+\begin{normaltext}
+    Notez que si \( A\) est un ouvert de $\eR^m$ lui-même, le nombre défini dans la définition \ref{PROPooOAHWooAfxvyv} est l'intégrale usuelle. Pour le voir, choisir \( U=A\) ainsi que la carte
+    \begin{equation}
+        \begin{aligned}
+            \varphi\colon U&\to A \\
+            x&\mapsto x. 
+        \end{aligned}
+    \end{equation}
+    La différentielle de \( \varphi\) est l'identité, de telle sorte que \( \det\big( (d\varphi)_x^*(d\varphi)_x \big)=1\). De même, \( f\circ \varphi=f\). Il reste seulement \( \int_Uf(x)dx\).
+\end{normaltext}
+
+Si nous voulons que la formule de la proposition \ref{PROPooOAHWooAfxvyv} fournisse une définition raisonnable de \( \int_Af\), il faut que si \( (U,\varphi)\) est une carte,
+\begin{equation}
+    \det\big( d\varphi_x^*\circ d\varphi_x \big)\geq 0
+\end{equation}
+pour tout \( x\), et ne soit nul sur aucun ouvert de \( U\).
+
+\begin{lemma}[\cite{MonCerveau}]
+    Soit une carte \( (U,\varphi)\) d'une variété \( M\) de dimension \( \eR^m\). Soit \( x\in U\). Alors
+    \begin{enumerate}
+        \item
+            L'opérateur \( d\varphi_x^*\circ d\varphi_x\) est autoadjoint semi-défini positif.
+        \item
+            Il existe une base de \( \eR^m\) formée de vecteurs propres de \( d\varphi_x^*\circ d\varphi_x\). Les valeurs propres sont réelles et positives.
+        \item
+            Pour tout \( x\in U\) nous avons
+            \begin{equation}
+                \det(d\varphi_x^*\circ d\varphi_x) > 0.
+            \end{equation}
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Point par point.
+    \begin{enumerate}
+        \item
+            Soit \( x\in U\). Nous notons \( A=d\varphi_x\). Par la proposition \ref{PROPooVPSYooRuoEFi} nous avons \( (AA^*)^*=AA^*\) du fait que \( (A^*)^*=A\). Donc \( A^*A\) est autoadjoint. Sa matrice est donc symétrique par la proposition \ref{DEFooROVNooFlTbSK}\ref{ITEMooXXEUooPtfPKY}.
+            
+            De plus, pour tout \( u\in \eR^m\) nous avons
+            \begin{equation}
+                \langle A^*Au, u\rangle =\langle Au, Au\rangle \geq 0.
+            \end{equation}
+            Cela implique que la matrice de \( A^*A\) est semi-définie positive par le lemme \ref{LemWZFSooYvksjw}\ref{ITEMooMOZYooWcrewZ}. L'opérateur \( A^*A\) est également semi-défini positif par la proposition \ref{PROPooNQSXooVMFAtU}.
+        \item
+            L'existence de la base de vecteurs propres est le théorème \ref{ThoeTMXla}. Ce théorème dit de plus que les valeurs propres sont réelles. Le fait qu'elles soient positives est le fait déjà prouvé que \( A^*A\) est semi-défini positif.
+        \item
+            Dans la base de vecteurs propres, la matrice est diagonale avec des nombres positifs sur la diagonale. Le déterminant est alors le produit des valeurs propres. Voilà pourquoi le déterminant est positif.
+
+            Il nous reste à montrer que ce déterminant ne peut pas être nul. Si \( \det(d\varphi_a^*\circ d\varphi_a)=0\), alors l'application \( d\varphi_a^*\circ d\varphi\) a un noyau (proposition \ref{PropYQNMooZjlYlA}\ref{ITEMooNZNLooODdXeH}), c'est-à-dire un vecteur \( u\) tel que \( d\varphi_a^*d\varphi_a(u)=0\) en particulier,
+            \begin{equation}
+                0=\langle d\varphi_a^*d\varphi_au, u\rangle =\langle d\varphi_au,d\varphi_au, \rangle =\| d\varphi_au \|^2.
+            \end{equation}
+            Donc \( d\varphi_a(u)=0\).
+
+            Mais \( \varphi\colon U\to \varphi(U)\) est bijective, donc l'application \( \varphi^{-1}\colon \varphi(U)\to U\) l'est aussi et vu que \( \varphi\) est une carte, l'application \( \varphi^{-1}\circ\varphi\colon U\to U\) est égale à l'identité. L'identité est une application linéaire dont la différentielle est elle-même, c'est-à-dire que
+            \begin{equation}
+                d(\varphi^{-1}\circ\varphi)_a=(d\varphi^{-1})_{\varphi(a)}\circ d\varphi_a=\id.
+            \end{equation}
+            Si donc \( u\neq 0\), nous devons avoir \( d\varphi_a(u)\neq 0\).
+    \end{enumerate}
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Quelques expressions pour l'élément de volume}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Ce que nous appelons «élément de volume» (pour des raisons qui apparaîtront plus tard) est le coefficient \( \sqrt{ \det(d\varphi_x^*\circ d\varphi_x) }\), introduit pour le besoin de compenser l'arrivée du jacobien en cas de changement de variables. Mais à quoi ressemble de coefficient pour les variétés de petite dimension ?
+
+C'est ce que nous allons voir maintenant.
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{En dimension un}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Nous supposons une variété de dimension un dans \( \eR^n\). Une carte est donc une application \( \varphi\colon \eR\to \eR^n\) dont nous notons \( \varphi_i\) les composantes. Nous avons, pour \( u\in \eR\),
+\begin{equation}
+    d\varphi_a(u)=\Dsdd{ \varphi(a+tu) }{t}{0}=\frac{ d }{ dt }\begin{pmatrix}
+        \varphi_1(a+tu)    \\ 
+        \vdots    \\ 
+        \varphi_n(a+tu)    
+    \end{pmatrix}=u\begin{pmatrix}
+        \varphi'_1(a)    \\ 
+        \vdots    \\ 
+        \varphi_n'(a)    
+    \end{pmatrix}=u\varphi'(a).
+\end{equation}
+Là dedans, vous vous souviendrez que \( a\in \eR\) et que \( \varphi'(a)\in \eR^n\).
+
+Nous devons savoir ce que vaut \( d\varphi_a^*x\) lorsque \( a\in \eR\) et \( x\in \eR^m\). Pour tout \( u\in \eR\) nous avons
+\begin{equation}
+    \langle d\varphi_ax, u\rangle_{\eR}=\langle x, d\varphi_a(u)\rangle_{\eR^n}=u\langle x, \varphi'(a)\rangle_{\eR^n}=u\varphi'(a)\cdot x=\langle \varphi'(a)\cdot x, u\rangle_{\eR}.
+\end{equation}
+Donc \( d\varphi_a^*(x)=\varphi'(a)\cdot x\).
+
+Question notation, nous avons noté \( \langle a, b\rangle_{\eR}=ab\) et indifféremment \( \langle x, y\rangle_{\eR^n}=x\cdot y\).
+
+L'application \( d\varphi_a^*\circ d\varphi_a\) est une application linéaire bijective entre \( \eR\) et \( \eR\). Sa matrice est donc \( 1\times 1\) et elle se calcule en appliquant l'application au vecteur de base \( 1\) de \( \eR\) :
+\begin{equation}
+    (d\varphi_a^*\circ d\varphi_a)(1)=d\varphi_a^*\big( \varphi'(a) \big)=\varphi'(a)\cdot \varphi'(a)=\| \varphi'(a) \|^2.
+\end{equation}
+Nous avons donc
+\begin{equation}
+    \det\big( d\varphi^*_a\circ d\varphi_a \big)=\| \varphi'(a) \|^2.
+\end{equation}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{En dimension quelconque}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Soit une carte \( \varphi\colon \eR^m\to \eR^n\) pour une variété de dimension \( m\). Les éléments de matrice de la différentielle d'une application sont donnés par la proposition \ref{PROPooBMROooThgLuU} :
+\begin{equation}
+    (d\varphi_a)_{ij}=\frac{ \partial \varphi_i }{ \partial x_j }(a).
+\end{equation}
+Les éléments de la matrice de \( d\varphi_a^*\) sont ceux de la matrice transposée. En ce qui concerna la composition, c'est le produit des matrices :
+\begin{equation}
+    (d\varphi_a^*\circ d\varphi_a)_{ij}=\sum_k(d\varphi_a^*)_{ik}(d\varphi_a)_{kj}=\sum_k(d\varphi_a)_{ki}(d\varphi_a)_{kj}=\sum_k\frac{ \partial \varphi_k }{ \partial x_i }(a)\frac{ \partial \varphi_k }{ \partial x_j }(a).
+\end{equation}
+Cela pour écrire cette bonne formule :
+\begin{equation}        \label{EQooQRQKooJVJRsy}
+    (d\varphi_a^*\circ d\varphi_a)_{ij}=\frac{ \partial \varphi }{ \partial x_i }(a)\cdot \frac{ \partial \varphi }{ \partial x_j }(a).
+\end{equation}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{En dimension deux}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Nous considérons maintenant une carte \( \varphi\colon U\to \eR^3\) avec \( U\subset \eR^2\). En notant \( v_i=\partial_i\varphi(a)\) nous notons la formule \eqref{EQooQRQKooJVJRsy} sous la forme
+\begin{equation}
+    \det\big( d\varphi_a^*\circ d\varphi_a \big)=
+    \det\begin{pmatrix}
+        v_1\cdot v_1    &   v_1\cdot v_2    \\ 
+        v_2\cdot v_1    &   v_2\cdot v_2    
+    \end{pmatrix}=\| v_1 \|^2\| v_2 \|^2-(v_1\cdot v_2)^2.
+\end{equation}
+L'identité de Lagrange de la proposition \ref{PROPooMXAIooJureOD} nous donne alors
+\begin{equation}
+    \sqrt{ \det(d\varphi_a^*\circ d\varphi_a )  }=\| \frac{ \partial \varphi }{ \partial x }\times \frac{ \partial \varphi }{ \partial y } \|.
+\end{equation}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{En dimension trois}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Nous considérons maintenant une carte \( \varphi\colon U\to \eR^3\) avec \( U\subset \eR^3\). Nous notons \( u=\frac{ \partial \varphi }{ \partial \partial x }(a)\), \( v=\frac{ \partial \varphi }{ \partial y }(a)\) et \( w=\frac{ \partial \varphi }{ \partial z }(a)\). 
+
+En utilisant l'expression du lemme \ref{LEMooSMWNooCmEZeY} à propos du produit mixte, la formule \ref{EQooQRQKooJVJRsy} donne
+\begin{equation}
+    \det(d\varphi_a^*\circ d\varphi_a)=\det\begin{pmatrix}
+        \| u \|^2    &   u\cdot v    &   u\cdot w    \\
+        v\cdot u    &   \| v \|^2    &   v\cdot w    \\
+        w\cdot u    &   w\cdot v    &   \| w \|^2
+    \end{pmatrix}=\big| (u\times v)\cdot w \big|.
+\end{equation}
+Donc 
+\begin{equation}        \label{EQooYIJSooHtkXfu}
+    \det(d\varphi_a^*\circ d\varphi_a)=\big| (\frac{ \partial \varphi }{ \partial x }(a)\times \frac{ \partial \varphi }{ \partial y }(a))\cdot \frac{ \partial \varphi }{ \partial z }(a) \big|.
+\end{equation}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Intégrale sur une variété}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Mesure sur une carte}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous considérons dans cette section uniquement des variétés $M$ de dimension $2$ dans $\eR^3$.  Une particularité de $\eR^3$ (par rapport aux autres $\eR^n$) est qu'il existe le produit vectoriel.
+
+Si $v$, $w\in\eR^3$, alors le vecteur $v\times w$ est une vecteur normal au plan décrit par $v$ et $w$ qui jouit de l'importante propriété suivante :
+\begin{equation}
+	\text{aire du parallélogramme}=\| v\times w \|.
+\end{equation}
+L'aire du parallélogramme construit sur $v$ et $w$ est donnée par la norme du produit vectoriel. Afin de donner une mesure infinitésimale en un point $p\in M$, nous voudrions prendre deux vecteurs tangents à $M$ en $p$, et puis considérer la norme de leur produit vectoriel. Cette idée se heurte à la question du choix des vecteurs tangents à considérer.
+
+Dans $\eR^2$, le choix est évident : nous choisissons $e_x$ et $e_y$, et nous avons $\|e_x\times e_y\|=1$. L'idée est donc de choisir une carte $F\colon W\to F(w)$ autour du point $p=F(w)$, et de choisir les vecteurs tangents qui correspondent à $e_x$ et $e_y$ via la carte, c'est-à-dire les vecteurs
+\begin{equation}
+	\begin{aligned}[]
+		\frac{ \partial F }{ \partial x }(w),&&\text{et}&&\frac{ \partial F }{ \partial y }(w).
+	\end{aligned}
+\end{equation}
+L'\defe{élément infinitésimal de surface}{element@élément de surface} sur $M$ au point $p=F(w)$ est alors défini par
+\begin{equation}
+	d\sigma_F=\|  \frac{ \partial F }{ \partial x }(w)\times\frac{ \partial F }{ \partial y }(w) \|dw,
+\end{equation}
+et si la partie $A\subset M$ est entièrement contenue dans $F(W)$, nous définissons la \defe{mesure}{mesure!dans une carte} de $A$ par
+\begin{equation}		\label{EqDefMuDeuxDF}
+	\mu_2(A)=\int_{F^{-1}(A)}d\sigma_F=\int_{F^{-1}(A)}\| \frac{ \partial F }{ \partial x }(w)\times\frac{ \partial F }{ \partial y }(w) \|dw.
+\end{equation}
+\begin{remark}
+	Afin que cette définition ait un sens, nous devons prouver qu'elle ne dépend pas du choix de la carte $F$. En effet, les vecteurs $\partial_xF$ et $\partial_yF$ dépendent de la carte $F$, donc leur produit vectoriel (et sa norme) dépendent également de la carte $F$ choisie. Il faudrait donc un petit miracle pour que le nombre $\mu_2(A)$ donné par \eqref{EqDefMuDeuxDF} soit indépendant du choix de $F$.  Nous allons bientôt voir comme cas particulier du théorème~\ref{ThoIntIndepF} que c'est en fait le cas. C'est-à-dire que si $F$ et $\tilde F$ sont deux cartes qui contiennent $A$, alors
+	\begin{equation}
+		\int_{F^{-1}(A)}d\sigma_F=\int_{\tilde F^{-1}(A)}d\sigma_{\tilde F}.
+	\end{equation}
+\end{remark}
+
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+\subsubsection{Exemple : la mesure de la sphère}
+%///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Nous nous proposons maintenant de calculer la surface de la sphère $S^2=x^2+y^2+z^2=R^2$. L'application $F\colon B( (0,0),R)\to R^3$ donnée par
+\begin{equation}
+	F(x,y)=\begin{pmatrix}
+		x	\\
+		y	\\
+		\sqrt{R^2-x^2-y^2}
+	\end{pmatrix}
+\end{equation}
+est une carte pour une demi-sphère. Ses dérivées partielles sont
+\begin{equation}
+	\begin{aligned}[]
+		\frac{ \partial F }{ \partial x }&=\begin{pmatrix}
+			1	\\
+			0	\\
+			-\frac{ x }{ \sqrt{R^2-x^2-y^2} }
+		\end{pmatrix},
+		&\frac{ \partial F }{ \partial y }&=\begin{pmatrix}
+			0	\\
+			1	\\
+			-\frac{ y }{ \sqrt{R^2-x^2-y^2} }
+		\end{pmatrix}.
+	\end{aligned}
+\end{equation}
+Le produit vectoriel de ces deux vecteurs tangents donne
+\begin{equation}
+	\frac{ \partial F }{ \partial x }(x,y)\times\frac{ \partial F }{ \partial y }(x,y)=\frac{ x }{ \alpha }e_1+\frac{ y }{ \alpha }e_2+e_3
+\end{equation}
+où $\alpha=\sqrt{R^2-x^2-y^2}$. En calculant la norme, nous trouvons
+\begin{equation}
+	\| \frac{ \partial F }{ \partial x }(x,y)\times\frac{ \partial F }{ \partial y }(x,y)\| =\sqrt{  \frac{ R^2 }{ R^2-x^2-y^2 } },
+\end{equation}
+et en passant aux coordonnées polaires, nous écrivons l'intégrale \eqref{EqDefMuDeuxDF} sous la forme
+\begin{equation}        \label{EQooYGRFooKwEYfV}
+	\int_B\| \partial_xF\times\partial_yF \|=\int_0^{2\pi}d\theta\int_0^R r\sqrt{  \frac{ R^2 }{ R^2-x^2-y^2 } }dr=2\pi R^2,
+\end{equation}
+qui est bien la mesure de la demi-sphère.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrale sur une carte}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous pouvons maintenant définir l'intégrale d'une fonction sur une carte de la variété $M$.
+\begin{definition}      \label{DEFooZNFOooZPiBWY}
+	Soit $F\colon W\subset \eR^2\to \eR^3$, une carte pour une variété $M$. Soit $A$, une partie de $F(W)$ telle que $A=F(B)$ où $B\subset W$ est mesurable.  Soit encore $f\colon A\to \eR$, une fonction continue. L'\defe{intégrale}{intégrale!d'une fonction sur une carte} de $f$ sur $A$ est le nombre
+	\begin{equation}	\label{EqDefIntDeuxDF}
+		\int_Af=\int_Afd\sigma_F=\int_{F^{-1}(A)}(f\circ F)(w)\|  \frac{ \partial F }{ \partial x }(w)\times\frac{ \partial F }{ \partial y }(w) \| dw
+	\end{equation}
+\end{definition}
+
+\begin{remark}
+	L'intégrale \eqref{EqDefIntDeuxDF} n'est pas toujours bien définie. Étant donné que $F$ est $C^1$ et que $f$ est continue, l'intégrante est continue. L'intégrale sera donc bien définie par exemple lorsque $B$ est borné et si la fermeture $\bar A$ est un compact contenu dans $F(w)$.
+\end{remark}
+
+Le théorème suivant montre que le travail que nous avons fait jusqu'à présent ne dépend en fait pas du choix de carte $F$ effectué.
+
+\begin{theorem}\label{ThoIntIndepF}
+	Soient $F\colon W\to F(w)$ et $\tilde F\colon \tilde W\to \tilde F(\tilde W)$, deux cartes de la variété $M$. Soit une partie $A\subset F(W)\cap\tilde F(\tilde W)$ telle que $A=F(B)$ avec $B\subset W$ mesurable.  Alors $A=\tilde F(\tilde B)$ avec $\tilde B\subset\tilde W$ mesurable.
+
+	Si $f$ est une fonction continue, et si $\int_Afd\sigma_F$ existe, alors $\int_Afd\sigma_{\tilde F}$ existe et
+	\begin{equation}
+		\int_Afd\sigma_F=\int_Afd\sigma_{\tilde F}.
+	\end{equation}
+\end{theorem}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Exemples}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Intégrons la fonction $f(x,y,z)$ sur le carré $K=\mathopen] 0 , 1 \mathclose[\times \mathopen] 0 , 2 \mathclose[\times\{ 1 \}$. La première carte que nous pouvons utiliser est
+\begin{equation}
+	\begin{aligned}
+		F\colon \mathopen] 0 , 1 \mathclose[\times\mathopen] 0 , 2 \mathclose[&\to K \\
+		(x,y)&\mapsto (x,y,1).
+	\end{aligned}
+\end{equation}
+Nous trouvons aisément les vecteurs tangents qui forment l'élément de surface:
+\begin{equation}
+	\begin{aligned}[]
+		\frac{ \partial F }{ \partial x }&=\begin{pmatrix}
+			1	\\
+			0	\\
+			0
+		\end{pmatrix},
+		&\frac{ \partial F }{ \partial y }&=\begin{pmatrix}
+			0	\\
+			1	\\
+			0
+		\end{pmatrix},
+	\end{aligned}
+\end{equation}
+donc $d\sigma_F=1\cdot dxdy$, et
+\begin{equation}		\label{IntKSurcarrUn}
+	\int_Kfd\sigma_F=\int_{\mathopen] 0 , 1 \mathclose[\times\mathopen] 0 , 2 \mathclose[}f(x,y,1)\cdot 1\cdot dxdy.
+\end{equation}
+
+Nous pouvons également utiliser la carte
+\begin{equation}
+	\begin{aligned}
+		\tilde F\colon \mathopen] 0 , \frac{ 1 }{2} \mathclose[\times\mathopen] 0 , 6 \mathclose[&\to K \\
+		(\tilde x,\tilde y)&\mapsto (2\tilde x,\frac{ \tilde y }{ 3 },1).
+	\end{aligned}
+\end{equation}
+Les vecteurs tangents sont maintenant
+\begin{equation}
+	\begin{aligned}[]
+		\frac{ \partial \tilde F }{ \partial \tilde x }&=\begin{pmatrix}
+			2	\\
+			0	\\
+			0
+		\end{pmatrix},
+		&\frac{ \partial \tilde F }{ \partial \tilde y }&=\begin{pmatrix}
+			0	\\
+			1/3	\\
+			0
+		\end{pmatrix},
+	\end{aligned}
+\end{equation}
+et nous avons donc $d\sigma_{\tilde F}=\| \frac{ 2 }{ 3 }e_3 \|=\frac{ 2 }{ 3 }$. Cette fois, l'intégrale de $f$ sur $K$ s'écrit
+\begin{equation}
+	\int_Kfd\sigma_{\tilde F}=\int_{\mathopen] 0 , \frac{ 1 }{2} \mathclose[\times\mathopen] 0 , 6 \mathclose[}f\big( 2\tilde x,\frac{ \tilde y }{ 3 },1 \big)\cdot\frac{ 2 }{ 3 }\cdot d\tilde xs\tilde y.
+\end{equation}
+Conformément au théorème~\ref{ThoIntIndepF}, cette dernière intégrale est égale à l'intégrale \eqref{IntKSurcarrUn} parce qu'il s'agit juste d'un changement de variable.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Orientation}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soient $F\colon W\to F(w)$ et $\tilde F\colon \tilde W\to \tilde F(\tilde W)$, deux cartes de la variété $M$. Nous pouvons considérer la fonction $h=\tilde F^{-1}\circ F$, définie uniquement sur l'intersection des cartes :
+\begin{equation}
+	h\colon F^{-1}\big( F(W)\cap\tilde F(\tilde W) \big)\to \tilde F^{-1}\big( F(W)\cap\tilde F(\tilde W) \big).
+\end{equation}
+Nous disons que $F$ et $\tilde F$ ont même \defe{orientation}{orientation} si
+\begin{equation}
+	J_h(w)>0
+\end{equation}
+pour tout $w\in  F^{-1}\big( F(W)\cap\tilde F(\tilde W) \big)$.
+
+Considérons les deux cartes suivantes pour le même carré:
+\begin{equation}
+	\begin{aligned}
+		F\colon\mathopen] 0 , 1 \mathclose[\times \mathopen] 0 , 1 \mathclose[ &\to \eR^3 \\
+		(x,y)&\mapsto (x,y,0)
+	\end{aligned}
+\end{equation}
+et
+\begin{equation}
+	\begin{aligned}
+		\tilde F\colon\mathopen] 0 , \frac{ 1 }{2} \mathclose[\times\mathopen] 0 , \frac{1}{ 3 } \mathclose[ &\to \eR^3 \\
+		(x,y)&\mapsto (2x,3y,0)
+	\end{aligned}
+\end{equation}
+Ici, $h(x,y)=\left( \frac{ x }{ 2 },\frac{ y }{ 3 } \right)$ et nous avons $J_h=\frac{1}{ 6 }>0$. Ces deux cartes ont même orientation. Notez que
+\begin{equation}
+	\frac{ \partial F }{ \partial x }\times\frac{ \partial F }{ \partial y }=e_3,
+\end{equation}
+tandis que
+\begin{equation}
+	\frac{ \partial \tilde F }{ \partial x }\times\frac{ \partial \tilde F }{ \partial y }=6e_3.
+\end{equation}
+Les vecteurs normaux à le paramétrage pointent dans le même sens.
+
+Si par contre nous prenons le paramétrage
+\begin{equation}
+	\begin{aligned}
+		G\colon \mathopen] 0,1 \mathclose[\times\mathopen] 0,1 ,  \mathclose[&\to \eR^2 \\
+		(x,y)&\mapsto (x,(1-y),0),
+	\end{aligned}
+\end{equation}
+nous avons
+\begin{equation}
+	\frac{ \partial G }{ \partial x }\times\frac{ \partial G }{ \partial y }=-e_3,
+\end{equation}
+et si $g=G^{-1}\circ F$, alors $J_g=-1$.
+
+L'orientation d'une carte montre donc si le vecteur normal à la surface pointe d'un côté ou de l'autre de la surface.
+
+% TODOooWZGYooQXMjJO Faire un lien vers la définition d'orientation de carte.
+\begin{definition}[Variété orientable]      \label{DEFooSWREooNdQpdA}
+    Une variété $M$ est \defe{orientable}{variété orientable} si il existe un atlas de $M$ tel que deux cartes quelconques ont toujours même orientation. Une variété est \defe{orientée}{variété !orientée} lorsque qu'un tel choix d'atlas est fait.
+\end{definition}
+
+\begin{proposition}
+	Soit $M$, une variété orientable et un atlas orienté $\{ F_i\colon W_i\to \eR^3 \}$. Alors le vecteur unitaire
+	\begin{equation}
+		\frac{   \frac{ \partial F }{ \partial x }(x,y)\times\frac{ \partial F }{ \partial y }(x,y)   }{ \| \frac{ \partial F }{ \partial x }(x,y)\times\frac{ \partial F }{ \partial y }(x,y)\| }
+	\end{equation}
+	ne dépend pas du choix de $F$ parmi les $F_i$.
+\end{proposition}
+
+
+\begin{proof}
+	Considérons deux cartes $F_1$ et $F_2$, ainsi que l'application $h=F_2^{-1}\circ F_1$. Écrivons le vecteur $\partial_x F_1\times\partial_yF_1$ en utilisant $F_1=F_2\circ h$. D'abord, par la règle de dérivation de fonctions composées,
+	\begin{equation}
+		\frac{ \partial (F_2\circ h) }{ \partial x }=\frac{ \partial F_2 }{ \partial x }\frac{ \partial h_1 }{ \partial x }+\frac{ \partial F_2 }{ \partial y }\frac{ \partial h_2 }{ \partial x }.
+	\end{equation}
+	Après avoir fait le même calcul pour $\frac{ \partial (F_2\circ h) }{ \partial y }$, nous pouvons écrire
+	\begin{equation}
+		\partial_x(F_2\circ h)\times\partial_y(F_2\circ h)=(\partial_xh_1\partial_xF_2+\partial_xh_2\partial_yF_2)\times(\partial_yh_1\partial_xF_2+\partial_yh_2\partial_yF_2).
+	\end{equation}
+	Dans cette expression, les facteurs $\partial_ih_j$ sont des nombres, donc ils se factorisent dans les produits vectoriels. En tenant compte du fait que $\partial_xF_2\times\partial_xF_2=0$ et $\partial_yF_2\times\partial_yF_2=0$, ainsi que de l'antisymétrie du produit vectoriel, l'expression se réduit à
+	\begin{equation}
+		\left( \frac{ \partial F_2 }{ \partial x }\times\frac{ \partial F_2 }{ \partial y } \right)(\partial_xh_1\partial_yh_2-\partial_xh_2\partial_yh_2).
+	\end{equation}
+	Par conséquent,
+	\begin{equation}
+		\frac{ \partial F_1 }{ \partial x }\times\frac{ \partial F_1 }{ \partial y } =\frac{ \partial (F_2\circ h) }{ \partial x }\times\frac{ \partial (F_2\circ h) }{ \partial y } =\left( \frac{ \partial F_2 }{ \partial x }\times\frac{ \partial F_2 }{ \partial y } \right)\det J_h.
+	\end{equation}
+	Donc, tant que $J_h$ est positif, les vecteurs unitaires correspondants au membre de gauche et de droite sont égaux.
+\end{proof}
+
+\begin{corollary}
+	Si nous avons choisi un atlas orienté pour la variété $M$, nous avons une fonction continue $G\colon M\to \eR^3$ telle que $\| G(p) \|=1$ pour tout $p\in M$. Cette fonction est donnée par
+	\begin{equation}		\label{DefCarteGOritn}
+		G(F(x,y))=\frac{   \frac{ \partial F }{ \partial x }(x,y)\times\frac{ \partial F }{ \partial y }(x,y)   }{ \| \frac{ \partial F }{ \partial x }(x,y)\times\frac{ \partial F }{ \partial y }(x,y)\| }
+	\end{equation}
+	sur l'image de la carte $F$.
+\end{corollary}
+
+\begin{proof}
+	La fonction $G$ est construite indépendamment sur chaque carte $F(W)$ en utilisant la formule \eqref{DefCarteGOritn}. Cette fonction est une fonction bien définie sur tout $M$ parce que nous venons de démontrer que sur $F_1(W_1)\cap F_2(W_2)$, les fonctions construites à partir de $F_1$ et à partir de $F_2$ sont égales.
+\end{proof}
+
+Il est possible que prouver, bien que cela soit plus compliqué, que la réciproque est également vraie.
+\begin{proposition}
+	Une variété $M$ de dimension $2$ dans $\eR^3$ est orientable si et seulement si il existe une fonction continue $G\colon M\to \eR^3$ telle que pour tout $p\in M$, le vecteur $G(p)$ soit de norme $1$ et normal à $M$ au point $p$.
+\end{proposition}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Formes différentielles}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous allons donner une toute petite introduction aux formes différentielles sur des variétés compactes.
+
+\begin{lemma}[\cite{SpindelGeomDoff}]       \label{LemdwLGFG}
+    Soit \( \omega\) une \( k\)-forme sur \( \eR^n\) et \( f\), une fonction \( C^{\infty}\) sur \( \eR^n\). Alors \( d(f^*\omega)=f^*d\omega\).
+\end{lemma}
+
+\begin{proof}
+    Nous effectuons la preuve par récurrence sur le degré de la forme. Soit d'abord une \( 0\)-forme, c'est-à-dire une fonction \( g\colon \eR^n\to \eR\). Nous avons
+    \begin{equation}
+        d(d^*g)X=d(g\circ f)X=(dg\circ df)X=dg\big( df X \big)=(f^*dg)(X).
+    \end{equation}
+
+    Supposons maintenant que le résultat soit exact pour toutes les \( p-1\)-formes et montrons qu'il reste valable pour les \( p\)-formes. Par linéarité de la différentielle nous pouvons nous contenter de considérer la forme différentielle
+    \begin{equation}
+        \omega=g\,dx^1\wedge\ldots dx^p
+    \end{equation}
+    où \( g\) est une fonction \(  C^{\infty}\). Pour soulager les notations nous allons noter \( dx^I=dx^1\wedge\ldots dx^{p-1}\). Nous avons
+    \begin{subequations}
+        \begin{align}
+            d(f^*\omega)&=d\big( f^*(gdx^I\wedge dx^p) \big)\\
+            &=d\big( f^*(gdx^I)\wedge f^*dx^p \big)\\
+            &=d\big( f^*(gdx^I)\big)\wedge f^*dx^p+(-1)^{p-1}f^*(gdx^I)\wedge(f^*dx^p)  \label{gnAnSt}\\
+            &=f^*\big( d(gdx^I) \big)\wedge f^*dx^p      \label{xZrfjZ}\\
+            &=f^*\big( d(gdx^I)\wedge dx^p \big)\\
+            &=f^*d\omega        \label{loWUji}
+        \end{align}
+    \end{subequations}
+    Justifications : \eqref{gnAnSt} est la formule de Leibnitz. \eqref{xZrfjZ} est parce que le second terme est nul : \( d(f^*dx^p)=f^*(d^2x^p)=0\). Nous avons utilisé l'hypothèse de récurrence et le fait que \( d^2=0\). L'étape \eqref{loWUji} est une utilisation à l'envers de la règle de Leibnitz en tenant compte que \( d^2x^p=0\).
+\end{proof}
+
+
+Soit \( M\) une variété de dimension \( n\) et \( \omega\) une \( n\)-forme différentielle
+\begin{equation}
+    \omega_p=f(p)dx_1\wedge\ldots\wedge dx_n.
+\end{equation}
+ Si \( (U,\varphi)\) est une carte (\( U\subset\eR^n\) et \( \varphi\colon U\to M\)) alors nous définissons
+\begin{equation}
+    \int_{\varphi(U)}\omega=\int_{U}f\big( \varphi(x) \big)dx_1\ldots dx_n.
+\end{equation}
+Lorsque nous voulons intégrer sur une partie plus grande qu'une carte nous utilisons une partition de l'unité du théorème \ref{THOooQFCQooSlgLpz}. 
+
+
+\begin{propositionDef}[Intégrale d'une forme sur une variété]       \label{DEFooOMQLooGiJWZS}
+    % TODOooLLCVooClheMq préciser ce qu'est un atlas, et pointer vers la bonne définition de partition de l'unité.
+    Si \( \{ f_i \}\) est une partition de l'unité subordonnée\footnote{Définition \ref{THOooQFCQooSlgLpz}.} à un atlas de \( M\) nous définissons
+    \begin{equation}
+        \int_M\omega=\sum_i\int_{U_i}f\omega.
+    \end{equation}
+    Il est possible de montrer que cette définition ne dépend pas du choix de la partition de l'unité.
+\end{propositionDef}
+
+\begin{remark}
+    Nous ne définissons pas d'intégrale de \( k\)-forme différentielle sur une variété de dimension \( n\neq k\). Le seul cas où cela se fait est le cas de \( 0\)-formes (les fonctions), mais cela n'est pas vraiment un cas particulier vu que les \( 0\)-formes sont associées aux \( n\)-formes de façon évidente.
+\end{remark}
+
+\begin{remark}
+    La définition~\ref{DEFooOMQLooGiJWZS} permet d'intégrer des formes sur des variétés, pas sur des sous-variétés. Autrement dit, ce n'est pas cette définition là qu'il faut utiliser pour comprendre des objets comme
+    \begin{equation}
+        \int_{\gamma}f
+    \end{equation}
+    où \( \gamma\) est un chemin dans \( \eR^n\). Nous définirons ce genre de choses plus bas.
+\end{remark}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrale d'une fonction sur une sous-variété}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous allons nous restreindre au cas d'une sous-variété de \( \eR^n\). C'est-à-dire que nous considérons l'espace \( \eR^n\) comme espace ambiant et nous allons intégrer sur des parties de \( \eR^n\). Ces parties peuvent être de dimension plus basses que \( n\), et c'est justement ça qui fait la différence entre ce que nous faisons maintenant et la définition~\ref{DEFooOMQLooGiJWZS}.
+
+L'exemple typique est l'intégrale sur une surface dans \( \eR^3\), ou de volumes.
+
+Nous supposons à présent que $M$ est une variété compacte de dimension $2$ dans $\eR^3$. La compacité fait que $M$ possède un atlas contenant un nombre fini de cartes $F_i\colon W_i\to F_i(W_i)$.
+
+Si $A\subset M$ est tel que pour chaque $i$, $A\cap F_i(W_i)=F_i(V_i)$ pour un ensemble $V_i$ mesurable dans $\eR^2$, alors nous considérons
+\begin{equation}
+	A_1=A\cap F_1(W_2)=F_1(V_1).
+\end{equation}
+Ensuite, nous construisons $A_2$ en considérant $F_A(W_2)$ et en lui retranchant $A_1$ :
+\begin{equation}
+	A_2=\big( A\cap F_2(W_2) \big)\cap F_1(V_1).
+\end{equation}
+En continuant de la sorte, nous construisons la décomposition
+\begin{equation}
+	A=A_1\cup\ldots\cup A_p
+\end{equation}
+de $A$ en ouverts disjoints, chacun de ouverts $A_p$ étant compris dans une carte.
+
+Il est possible de prouver que dans ce cas, la définition suivante a un sens et ne dépend pas du choix de l'atlas effectué.
+\begin{definition}
+	Si $f\colon A\to \eR$ est une fonction continue, alors l'\defe{intégrale}{intégrale!d'une fonction sur une variété} est le nombre
+	\begin{equation}
+		\int_Af=\sum_{i=1}^p\int_{A_i}fd\sigma_{F_i}.
+	\end{equation}
+\end{definition}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Longueur, aire, volumes etc.}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Grâce à la mesure de Lebesgue (définition~\ref{DEFooSWJNooCSFeTF}), nous avons la définition d'aires dans \( \eR^2\) et de volumes dans \( \eR^3\). Dans tout ce qui suit, nous considérons toujours la tribu de Lebesgue, la mesure de Lebesgue, et l'intégrale de Lebesgue correspondante.
+
+\begin{definition}      \label{DEFooPZRDooWbbBXy}
+    L'\defe{aire}{aire dans \( \eR^2\)} de la partie mesurable \( S\) de \( \eR^2\) est le nombre
+    \begin{equation}
+        \int_{\eR^2}\mtu_S
+    \end{equation}
+    au sens de l'intégrale pour la mesure de Lebesgue de la fonction caractéristique de la partie \( S\).
+\end{definition}
+
+\begin{definition}
+    Le \defe{volume}{volume dans \( \eR^3\)} de la partie mesurable \( V\) de \( \eR^3\) est le nombre
+    \begin{equation}
+        \int_{\eR^R}\mtu_V
+    \end{equation}
+    au sens de l'intégrale pour la mesure de Lebesgue de la fonction caractéristique de la partie \( V\).
+\end{definition}
+
+Ceci est bien beau, mais ne permet pas de définir l'aire d'une surface dans \( \eR^3\), ni une longueur dans \( \eR^2\). Nous n'avons pas encore défini ce que nous appelons une surface dans \( \eR^3\), mais selon toute définition raisonnable, si \( S\) en est une, elle sera négligeable au sens de la mesure de Lebesgue dans \( \eR^3\) et nous aurons toujours
+\begin{equation}
+    \int_{\eR^3}\mtu_S=0.
+\end{equation}
+
+L'objet de ce chapitre sera de donner un sens aux notions de longueurs dans \( \eR^2\), de surfaces dans \( \eR^3\) et d'y définir des intégrales permettant de définir longueurs et aires.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Quelques aires faciles}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous nous souvenons de la proposition~\ref{PROPooTUVKooOQXKKl} qui donnait une bonne propriété du produit vectoriel dans \( \eR^3\). Nous en donnons une autre.
+
+\begin{lemma}       \label{LEMooVHGKooDjcfOL}
+    L'aire d'une droite dans \( \eR^2\) est nulle.
+\end{lemma}
+
+\begin{proof}
+    Nous considérons la mesure le Lebesgue \( \lambda\) sur \( \eR\) et une droite \( A\) dans \( \eR^2\). 
+
+    La mesure dans \( \eR^2\) est donné par la définition \ref{DEFooSWJNooCSFeTF} qui demande de calculer les intégrales \eqref{EqDFxuGtH} :
+    \begin{equation}        \label{EQooUTAHooUyFScq}
+        (\lambda\otimes \lambda)(A)=\int_{\eR}\lambda\big( A_2(x) \big)d\lambda(x)=\int_{\eR}\lambda\big( A_1(y) \big)d\lambda(y)
+    \end{equation}
+    où \( A_2(x)=\{ y\in \eR\tq (x,y)\in A \}\) et \( A_1(y)=\{ x\in \eR\tq (x,y)\in A \}\).
+
+    En vertu du lemme \ref{LEMooYIHXooEwmlPo}, cette droite est soit d'équation \( y=ax+b\), soit d'équation \( x=a\).
+    \begin{subproof}
+        \item[Droite \( y=ax+b\)]
+            Dans ce cas, \( A_2(x)=\{ ax+b \}\). C'est un singleton et nous avons \( \lambda\big( A_2(x) \big)=0\) pour tout \( x\). Nous avons donc \( (\lambda\otimes \lambda)(A)=0\).
+        \item[Droite \( x=a\)]
+            Nous utilisons la seconde possibilité laissée par l'égalité \eqref{EQooUTAHooUyFScq}. L'ensemble \( A_1\) est facile à déterminer :  \( A_1(y)=\{ a \}\) pour tout \( y\). Donc \( \lambda\big( A_1(y) \big)=0\) pour tout \( y\), et l'intégrale est nulle.
+    \end{subproof}
+\end{proof}
+
+\begin{lemma}       \label{LEMooEJLUooXkomNQ}
+    Tout hyperplan est de mesure nulle.
+\end{lemma}
+
+
+\begin{remark}
+    Dans la preuve de \ref{LEMooVHGKooDjcfOL}, nous aurions pu faire le cas \( x=a\) en utilisant la première formule. Dans ce cas nous serions partis de 
+    \begin{equation}
+        A_2(x)=\begin{cases}
+            \eR    &   \text{si } x=a\\
+            \emptyset    &    \text{sinon, }
+        \end{cases}
+    \end{equation}
+    et donc de
+    \begin{equation}
+        \lambda\big( A_2(x) \big)=\begin{cases}
+            \infty    &   \text{si } x=a\\
+            0    &    \text{sinon. }
+        \end{cases}
+    \end{equation}
+    Le lemme \ref{LEMooHAUGooWITETb} nous dit que l'intégrale de \( A_2\) sur \( \eR\) est nulle.
+\end{remark}
+
+
+\begin{definition}      \label{DEFooDTFCooCTdaDO}
+    Soient \( a\), \( u_1\) et \( u_2\) dans \( \eR^2\). Le \defe{parallélogramme}{parallélogramme} basé en \( a\) formé sur \( u_1\) et \( u_2\) est l'ensemble
+    \begin{equation}
+        \{ a+su_1+tu_2\tq 0\leq 1, 0\leq s\leq 1 \}.
+    \end{equation}
+    Assez souvent, nous supposeront que \( u_1\) et \( u_2\) ne sont pas colinéaires.
+\end{definition}
+
+\begin{proposition}     \label{PROPooAVVNooOOlSzr}
+    L'aire\footnote{Définition \ref{DEFooPZRDooWbbBXy}.} du parallélogramme\footnote{Définition \ref{DEFooDTFCooCTdaDO}.}  basé en \( a\) et formé sur \( u_1\) et \( u_2\) (que nous supposons n'être pas colinéaires) est donné par
+       \begin{equation}
+         \| u\times v \| =  | u_1v_2-v_1u_2 |.
+       \end{equation}
+\end{proposition}
+
+\begin{proof}
+    En vertu de la définition \ref{DEFooPZRDooWbbBXy} d'une aire, le nombre à calculer est \( \int_D1d\lambda\) où
+    \begin{equation}
+        D_0=\{ a+xu+yv\tq x\in \mathopen[ 0 , 1 \mathclose], y\in\mathopen[ 0 , 1 \mathclose] \}.
+    \end{equation}
+    En posant
+    \begin{equation}
+    D=\{ a+xu+yv\tq x\in \mathopen] 0 , 1 \mathclose[, y\in\mathopen] 0 , 1 \mathclose[ \},
+    \end{equation}
+    nous avons
+    \begin{equation}
+        \int_{D_0}d\lambda=\int_Dd\lambda,
+    \end{equation}
+    parce que ce que nous avons enlevé sont des segment de droites alors que les droites sont de mesure nulle (lemme \ref{LEMooVHGKooDjcfOL}).
+    
+    Nous considérons la paramétrisation
+    \begin{equation}
+        \begin{aligned}
+        \varphi\colon \mathopen] 0 , 1 \mathclose[\times \mathopen] 0 , 1 \mathclose[&\to D \\
+            (x,y)&\mapsto a+xu+yv. 
+        \end{aligned}
+    \end{equation}
+    Pour le théorème \ref{THOooUMIWooZUtUSg}, nous devons montrer que \( \phi\) est un \( C^1\)-difféomorphisme. Comme nous sommes un peu fatigués, nous allons seulement prouver \( \phi\) est injective\footnote{Pour le reste, écrivez l'inverse explicitement, et prouvez que c'est \( C^1\). Si ça pose problème, écrivez-moi parce que je n'ai pas vérifié.}. Supposons que \( \phi(x_1, x_2)=\phi(y_1, y_2)\). Alors
+    \begin{equation}
+        (x_1-x_2)u+(y_1-y_2)v=0.
+    \end{equation}
+    Si \( y_1-y_2=0\), alors \( x_1-x_2=0\) et on est bon. Sinon,
+    \begin{equation}
+        v=-\frac{ x_1-x_2 }{ y_1-y_2 }u
+    \end{equation}
+    Vu que les vecteurs \( u\) et \( v\) ne sont pas colinéaires, nous en déduisons que \( x_1-x_2=0\) et on est encore bon.
+
+    Nous utilisons la formule \eqref{EqRANEooQsFhbC} de changement de variable avec la fonction \( \phi\). Le jacobien à calculer est 
+    \begin{equation}
+        J=\det\begin{pmatrix}
+            (\partial_x\phi_1)(x,y)    &   (\partial_x\phi_2)(x,y)    \\ 
+            (\partial_y\phi_1)(x,y)    &   (\partial_y\phi_2)(x,y)    
+        \end{pmatrix}=\det\begin{pmatrix}
+            u_1    &   u_2    \\ 
+            v_1    &   v_2    
+        \end{pmatrix}=| u_1v_2-v_1u_2 |.
+    \end{equation}
+
+    Le lien avec le produit vectoriel est un petit abus de notation : il s'agit du produit vectoriel entre \( (u1, u2, 0)\) et \( (v_1,v_2,0)\) qui peut être obtenu en utilisant directement la formule de définition \eqref{EQooCUJRooFuFPaZ}.
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Autres théorèmes de points fixes}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SECooDWMPooWZgzRZ}
+
+En termes de théorème de points fixes nous avons déjà vu le théorème de Picard \ref{ThoEPVkCL}. Voir aussi le thème \ref{THEMEooWAYJooUSnmMh}.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Brouwer}
+%---------------------------------------------------------------------------------------------------------------------------
+\label{subSecZCCmMnQ}
+
+\begin{proposition}
+    Soit \( f\colon \mathopen[ a , b \mathclose]\to \mathopen[ a , b \mathclose]\) une fonction continue. Alors \( f\) accepte un point fixe.
+\end{proposition}
+
+\begin{proof}
+    En effet si nous considérons \( g(x)=f(x)-x\) alors nous avons \( g(a)=f(a)-a\geq 0\) et \( g(b)=f(b)-b\leq 0\). Si \( g(a)\) ou \( g(b)\) est nul, la proposition est démontrée; nous supposons donc que \( g(a)>0\) et \( g(b)<0\). La proposition découle à présent du théorème des valeurs intermédiaires~\ref{ThoValInter}.
+\end{proof}
+
+\begin{example}
+    La fonction \( x\mapsto\cos(x)\) est continue entre \( \mathopen[ -1 , 1 \mathclose]\) et \( \mathopen[ -1 , 1 \mathclose]\). Elle admet donc un point fixe. Par conséquent il existe (au moins) une solution à l'équation \( \cos(x)=x\).
+\end{example}
+
+\begin{probleme}    \label{PROBooSSOBooCsovCy}
+    La démonstration de la proposition \ref{PropDRpYwv} souffre de quelque problèmes. Voir en particulier la question et la réponse dans \cite{BIBooIDAGooAbmLcf}.
+
+    En fait, prouver réellement ce théorème via le théorème de Stokes nous mènerait trop loin. Si vous voulez le faire, n'hésitez pas à compléter. Mais sachez qu'il faudra d'abord définir complètement l'intégration sur des variétés.
+\end{probleme}
+
+% Cette proposition doit être dans Giulietta, après définir correctement les intégrales.
+\begin{proposition}[Brouwer dans \( \eR^n\) version \(  C^{\infty}\) via Stokes]     \label{PropDRpYwv}
+    Soit \( B\) la boule fermée de centre \( 0\) et de rayon \( 1\) de \( \eR^n\) et \( f\colon B\to B\) une fonction \(  C^{\infty}\). Alors \( f\) admet un point fixe.
+\end{proposition}
+\index{point fixe!Brouwer}
+
+\begin{proof}
+    Supposons que \( f\) ne possède pas de points fixes. Alors pour tout \( x\in B\) nous considérons la demi-droite issue de \( f(x)\) et passant par \( x\) (cette demi-droite existe parce que \( x\) et \( f(x)\) sont supposés distincts). Cette demi-droite intersecte \( \partial B\) en un point que nous appelons \( g(x)\). Prouvons que cette fonction est \( C^k\) dès que \( f\) est \( C^k\) (y compris avec \( k=\infty\)).
+
+   Le point \( g(x) \) est la solution du système
+    \begin{subequations}
+        \begin{numcases}{}
+        g(x)-f(x)=\lambda\big( x-f(x) \big)\\
+        \| g(x) \|^2=1\\
+        \lambda\geq 0.
+        \end{numcases}
+    \end{subequations}
+    En substituant nous obtenons l'équation
+    \begin{equation}
+        P_x(\lambda)=\| \lambda\big( x-f(x) \big)+f(x) \|^2-1=0,
+    \end{equation}
+    ou encore
+    \begin{equation}
+        \lambda^2\| x-f(x) \|^2+2\lambda\big( x-f(x) \big)\cdot f(x)+\| f(x) \|^2-1=0.
+    \end{equation}
+    En tenant compte du fait que \( \| f(x) \| <1\) (parce que les images de \( f\) sont dans \( \mB\)), nous trouvons que \( P_x(0)\leq 0\) et \( P_x(1)\leq 0\). De même \( \lim_{\lambda\to\infty} P_x(\lambda)=+\infty\). Par conséquent le polynôme de second degré \( P_x\) a exactement deux racines distinctes \( \lambda_1\leq 0\) et \( \lambda_2\geq 1\). La racine que nous cherchons est la seconde. Le discriminant est strictement positif, donc pas besoin d'avoir peur de la racine dans
+    \begin{equation}
+        \lambda(x)=\frac{ -\big( x-f(x) \big)\cdot f(x)+\sqrt{   \Delta_x  } }{ \| x-f(x) \|^2 }
+    \end{equation}
+    où
+    \begin{equation}
+        \Delta_x=4\Big( \big( x-f(x) \big)\cdot f(x) \Big)^2-4\| x-f(x) \|^2\big( \| f(x) \|^2-1 \big).
+    \end{equation}
+    Notons que la fonction \( \lambda(x)\) est \( C^k\) dès que \( f\) est \( C^k\); et en particulier elle est \( C^{\infty}\) si \( f\) l'est.
+
+    En résumé la fonction \( g\) ainsi définie vérifie deux propriétés :
+    \begin{enumerate}
+        \item
+            elle est \(  C^{\infty}\);
+        \item
+            elle est l'identité sur \( \partial B\).
+    \end{enumerate}
+    La suite de la preuve consiste à montrer qu'une telle application \( g\colon B\to \partial B\) ne peut pas exister\footnote{Notons qu'il n'existe pas non plus de rétractions continues sur \( B\), mais pour le montrer il faut utiliser d'autres méthodes que Stokes, ou alors présenter les choses dans un autre ordre.}. Nous considérons une forme de volume \( \omega\) sur \( \partial B\) : l'intégrale de \( \omega\) sur \( \partial B\) est l'aire de \( \partial B\) qui est non nulle. Nous avons alors la contradiction suivante : 
+    \begin{equation}
+        0<\int_{\partial B}\omega
+        =\int_{\partial B}g^*\omega
+        =\int_Bd(g^*\omega)
+        =\int_Bg^*(d\omega)
+        =0
+    \end{equation}
+    Justifications\quext{Voir \ref{PROBooSSOBooCsovCy}.} :
+    \begin{itemize}
+        \item
+            L'intégrale \( \int_{\partial B}\omega\) est l'aire de \( \partial B\) et est donc strictement positive.       % citer
+        \item
+            La fonction \( g\) est l'identité sur \( \partial B\). Nous avons donc \( \omega=g^*\omega\).
+        \item
+            Le lemme~\ref{LemdwLGFG}.
+        \item
+            La forme \( \omega\) est de volume, par conséquent de degré maximum et \( d\omega=0\).      % citer
+    \end{itemize}
+\end{proof}
+
+
+Un des points délicats est de se ramener au cas de fonctions \( C^{\infty}\). Pour la régularisation par convolution, voir \cite{AllardBrouwer}; pour celle utilisant le théorème de Weierstrass, voir \cite{KuttlerTopInAl}.
+\begin{theorem}[Brouwer dans \( \eR^n\) version continue]\label{ThoRGjGdO}
+    Soit \( B\) la boule fermée de centre \( 0\) et de rayon \( 1\) de \( \eR^n\) et \( f\colon B\to B\) une fonction continue\footnote{Une fonction continue sur un fermé de \( \eR^n\) est à comprendre pour la topologie induite.}. Alors \( f\) admet un point fixe.
+\end{theorem}
+\index{théorème!Brouwer}
+
+\begin{proof}
+    Nous commençons par définir une suite de fonctions
+    \begin{equation}
+        f_k(x)=\frac{ f(x) }{ 1+\frac{1}{ k } }.
+    \end{equation}
+    Nous avons \( \| f_k-f \|_{\infty}\leq \frac{1}{ 1+k }\) où la norme est la norme uniforme sur \( B\). Par le théorème de Weierstrass~\ref{CORooNIUJooLDrPSv} il existe une suite de fonctions \(  C^{\infty}(B,\eR)\) que nous nommons \( g_k\) telles que
+    \begin{equation}
+        \|  g_k-f_k\|_{\infty}\leq\frac{1}{ 1+k }.
+    \end{equation}
+    Vérifions que cette fonction \( g_k\) soit bien une fonction qui prend ses valeurs dans \( B\) :
+    \begin{subequations}
+        \begin{align}
+            \| g_k(x) \|&\leq \| g_k(x)-f_k(x) \|+\| f_k(x) \|\\
+            &\leq \frac{1}{ 1+k }+\frac{ \| f(x) \| }{ 1+\frac{1}{ k } }\\
+            &\leq \frac{1}{ 1+k}+\frac{1}{ 1+\frac{1}{ k } }\\
+            &=1.
+        \end{align}
+    \end{subequations}
+    Par la version \(  C^{\infty}\) du théorème (proposition~\ref{PropDRpYwv}), \( g_k\) admet un point fixe que l'on nomme \( x_k\).
+
+    Étant donné que \( x_k\) est dans le compact \( B\), quitte à prendre une sous-suite nous supposons que la suite \( (x_k)\) converge vers un élément \( x\in B\). Nous montrons maintenant que \( x\) est un point fixe de \( f\) :
+    \begin{subequations}
+        \begin{align}
+            \| f(x)-x \|&=\| f(x)-g_k(x)+g_k(x)-x_k+x_k-x \|\\
+            &\leq \| f(x)-g_k(x) \| +\underbrace{\| g_k(x)-x_k \|}_{=0}+\| x_k-x \|\\
+            &\leq \frac{1}{ 1+k }+\| x_k-x \|.
+        \end{align}
+    \end{subequations}
+    En prenant le limite \( k\to\infty\) le membre de droite tend vers zéro et nous obtenons \( f(x)=x\).
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Théorème de Schauder}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Une conséquence du théorème de Brouwer est le théorème de Schauder qui est valide en dimension infinie. 
+
+\begin{theorem}[Théorème de Schauder\cite{ooWWBQooKIciWi}]\index{théorème!Schauder}       \label{ThovHJXIU}
+    Soit \( E\), un espace vectoriel normé, \( K\) un convexe compact de \( E\) et \( f\colon K\to K\) une fonction continue. Alors \( f\) admet un point fixe.
+\end{theorem}
+\index{théorème!Schauder}
+\index{point fixe!Schauder}
+
+\begin{proof}
+    Étant donné que \( f\colon K\to K\) est continue, elle y est uniformément continue. Si nous choisissons \( \epsilon\) alors il existe \( \delta>0\) tel que
+    \begin{equation}
+        \| f(x)-f(y) \|\leq \epsilon
+    \end{equation}
+    dès que \( \| x-y \|\leq \delta\). La compacité de \( K\) permet de choisir un recouvrement fini par des ouverts de la forme
+    \begin{equation}    \label{EqKNPUVR}
+        K\subset \bigcup_{1\leq i\leq p}B(x_j,\delta)
+    \end{equation}
+    où \( \{ x_1,\ldots, x_p \}\subset K\). Nous considérons maintenant \( L=\Span\{ f(x_j)\tq 1\leq j\leq p \}\) et
+    \begin{equation}
+        K^*=K\cap L.
+    \end{equation}
+    Le fait que \( K\) et \( L\) soient convexes implique que \( K^*\) est convexe. L'ensemble \( K^*\) est également compact parce qu'il s'agit d'une partie fermée de \( K\) qui est compact (lemme~\ref{LemnAeACf}). Notons en particulier que \( K^*\) est contenu dans un espace vectoriel de dimension finie, ce qui n'est pas le cas de \( K\).
+
+    Nous allons à présent construire une sorte de partition de l'unité subordonnée au recouvrement \eqref{EqKNPUVR} sur \( K\) (voir le théorème  \ref{THOooQFCQooSlgLpz}). Nous commençons par définir
+    \begin{equation}
+        \psi_j(x)=\begin{cases}
+            0    &   \text{si } \| x-x_j \|\geq \delta\\
+            1-\frac{ \| x-x_j \| }{ \delta }    &    \text{sinon}.
+        \end{cases}
+    \end{equation}
+    pour chaque \( 1\leq j\leq p\). Notons que \( \psi_j\) est une fonction positive, nulle en-dehors de \( B(x_j,\delta)\). En particulier la fonction suivante est bien définie :
+    \begin{equation}
+        \varphi_j(x)=\frac{ \psi_j(x) }{ \sum_{k=1}^p\psi_k(x) }
+    \end{equation}
+    et nous avons \( \sum_{j=1}^p\varphi_j(x)=1\). Les fonctions \( \varphi_j\) sont continues sur \( K\) et nous définissons finalement
+    \begin{equation}
+        g(x)=\sum_{j=1}^p\varphi_j(x)f(x_j).
+    \end{equation}
+    Pour chaque \( x\in K\), l'élément \( g(x)\) est une combinaison des éléments \( f(x_j)\in K^*\). Étant donné que \( K^*\) est convexe et que la somme des coefficients \( \varphi_j(x)\) vaut un, nous avons que \( g\) prend ses valeurs dans \( K^*\) par la proposition~\ref{PropPoNpPz}.
+
+    Nous considérons seulement la restriction \( g\colon K^*\to K^*\) qui est continue sur un compact contenu dans un espace vectoriel de dimension finie. Le théorème de Brouwer nous enseigne alors que \( g\) a un point fixe (proposition~\ref{ThoRGjGdO}). Nous nommons \( y\) ce point fixe. Notons que \( y\) est fonction du \( \epsilon\) choisi au début de la construction, via le \( \delta\) qui avait conditionné la partition de l'unité.
+
+    Nous avons
+    \begin{subequations}        \label{EqoXuTzE}
+        \begin{align}
+            f(y)-y&=f(y)-g(y)\\
+            &=\sum_{j=1}^p\varphi_j(y)f(y)-\sum_{j=1}^p\varphi_j(y)f(x_j)\\
+            &=\sum_{j=1}^p\varphi(j)(y)\big( f(y)-f(x_j) \big).
+        \end{align}
+    \end{subequations}
+    Par construction, \( \varphi_j(y)\neq 0\) seulement si \( \| y-x_j \|\leq \delta\) et par conséquent seulement si \( \| f(y)-f(x_j) \|\leq \epsilon\). D'autre part nous avons \( \varphi_j(y)\geq 0\); en prenant la norme de \eqref{EqoXuTzE} nous trouvons
+    \begin{equation}
+        \| f(y)-y \|\leq \sum_{j=1}^p\| \varphi_j(y)\big( f(y)-f(x_j) \big) \|\leq \sum_{j=1}^p\varphi_j(y)\epsilon=\epsilon.
+    \end{equation}
+    Nous nous souvenons maintenant que \( y\) était fonction de \( \epsilon\). Soit \( y_m\) le \( y\) qui correspond à \( \epsilon=2^{-m}\). Nous avons alors
+    \begin{equation}
+        \| f(y_m)-y_m \|\leq 2^{-m}.
+    \end{equation}
+    L'élément \( y_m\) est dans \( K^*\) qui est compact, donc quitte à choisir une sous-suite nous pouvons supposer que \( y_m\) est une suite qui converge vers \( y^*\in K\)\footnote{Notons que même dans la sous-suite nous avons \( \| f(y_m)-y_m \|\leq 2^{-m}\), avec le même «\( m\)» des deux côtés de l'inégalité.}. Nous avons les majorations
+    \begin{equation}
+        \| f(y^*)-y^* \|\leq \| f(y^*)-f(y_m) \|+\| f(y_m)-y_m \|+\| y_m-y^* \|.
+    \end{equation}
+    Si \( m\) est assez grand, les trois termes du membre de droite peuvent être rendus arbitrairement petits, d'où nous concluons que
+    \begin{equation}
+        f(y^*)=y^*
+    \end{equation}
+    et donc que \( f\) possède un point fixe.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Théorème de Cauchy-Arzella}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}[Cauchy-Arzela\cite{ClemKetl}]   \label{ThoHNBooUipgPX}
+    Nous considérons le système d'équation différentielles
+    \begin{subequations}        \label{EqTXlJdH}
+        \begin{numcases}{}
+            y'=f(t,y)\\
+            y(t_0)=y_0.
+        \end{numcases}
+    \end{subequations}
+    avec \( f\colon U\to \eR^n\), continue où \( U\) est ouvert dans \( \eR\times \eR^n\). Alors il existe un voisinage fermé \( V\) de \( t_0\) sur lequel une solution \( C^1\) du problème \eqref{EqTXlJdH} existe.
+\end{theorem}
+\index{théorème!Cauchy-Arzela}
+
+\begin{proof}[Idée de la démonstration]
+    Nous considérons \( M=\| f \|_{\infty}\) et \( K\), l'ensemble des fonctions \( M\)-Lipschitz sur \( U\). Nous prouvons que \( (K,\| . \|_{\infty})\) est compact. Ensuite nous considérons l'application
+    \begin{equation}
+        \begin{aligned}
+            \Phi\colon K&\to K \\
+            \Phi(f)(t)&=x_0+\int_{t_0}^tf\big( u,f(u) \big)du.
+        \end{aligned}
+    \end{equation}
+    Après avoir prouvé que \( \Phi\) était continue, nous concluons qu'elle a un point fixe par le théorème de Schauder~\ref{ThovHJXIU}.
+\end{proof}
+
+\begin{remark}
+    Quelques remarques.
+    \begin{enumerate}
+        \item
+    Les théorème de Cauchy-Lipschitz et Cauchy-Arzella donnent des existences pour des équations différentielles du type \( y'=f(t,y)\). Et si nous avons une équation du second ordre ? Alors il y a la méthode de la réduction de l'ordre qui permet de transformer une équation différentielle d'ordre élevé en un système d'ordre \( 1\).
+\item
+    Ces théorèmes posent des \emph{conditions initiales} : la valeur de \( y\) est donnée en un point, et la méthode de la réduction de l'ordre permet de donner l'existence de solutions d'un problème d'ordre \( k\) en donnant les valeurs de \( y(0)\), \( y'(0)\), \ldots \( y^{(k-1)}(0)\). C'est-à-dire de la fonction et de ses dérivées en un point. Rien n'est dit sur l'existence de \emph{conditions aux bords}.
+    \end{enumerate}
+    Ces deux points sont illustrés dans les exemples~\ref{EXooSHMMooHVfsMB} et~\ref{EXooJNOMooYqUwTZ}.
+\end{remark}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Théorème de Markov-Kakutani et mesure de Haar}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Soit \( G\) un groupe topologique. Une \defe{mesure de Haar}{mesure!de Haar} sur \( G\) est une mesure positive\footnote{Définition \ref{DefBTsgznn}.} \( \mu\) telle que
+    \begin{enumerate}
+        \item
+            \( \mu(gA)=\mu(A)\) pour tout mesurable \( A\) et tout \( g\in G\),
+        \item
+            \( \mu(K)<\infty\) pour tout compact \( K\subset G\).
+    \end{enumerate}
+    Si de plus le groupe \( G\) lui-même est compact nous demandons que la mesure soit normalisée : \( \mu(G)=1\).
+\end{definition}
+
+Le théorème suivant nous donne l'existence d'une mesure de Haar sur un groupe compact.
+\begin{theorem}[Markov-Katutani\cite{BeaakPtFix}]\index{théorème!Markov-Takutani}   \label{ThoeJCdMP}
+    Soit \( E\) un espace vectoriel normé et \( L\), une partie non vide, convexe, fermée et bornée de \( E'\). Soit \( T\colon L\to L\) une application continue. Alors \( T\) a un point fixe.
+\end{theorem}
+
+\begin{proof}
+    Nous considérons un point \( x_0\in L\) et la suite
+    \begin{equation}
+        x_n=\frac{1}{ n+1 }\sum_{i=0}^n T^ix_0.
+    \end{equation}
+    La somme des coefficients devant les \( T^i(x_0)\) étant \( 1\), la convexité de \( L\) montre que \( x_n\in L\). Nous considérons l'ensemble
+    \begin{equation}
+        C=\bigcap_{n\in \eN}\overline{ \{ x_m\tq m\geq n \} }.
+    \end{equation}
+    Le lemme~\ref{LemooynkH} indique que \( C\) n'est pas vide, et de plus il existe une sous-suite de \( (x_n)\) qui converge vers un élément \( x\in C\). Nous avons
+    \begin{equation}
+        \lim_{n\to \infty} x_{\sigma(n)}(v)=x(v)
+    \end{equation}
+    pour tout \( v\in E\). Montrons que \( x\) est un point fixe de \( T\). Nous avons
+    \begin{subequations}
+        \begin{align}
+            \| (Tx_{\sigma(k)}-x_{\sigma(k)})v \|&=\Big\| T\frac{1}{ 1+\sigma(k) }\sum_{i=0}^{\sigma(k)}T^ix_0(v)-\frac{1}{ 1+\sigma(k) }\sum_{i=0}^{\sigma(k)}T^ix_0(v) \Big\|\\
+            &=\Big\| \frac{1}{ 1+\sigma(k) }\sum_{i=0}^{\sigma(k)}T^{i+1}x_0(v)-T^ix_0(v) \Big\|\\
+            &=\frac{1}{ 1+\sigma(k) }\big\| T^{\sigma(k)+1}x_0(v)-x_0(v) \big\|\\
+            &\leq\frac{ 2M }{ \sigma(k)+1 }
+        \end{align}
+    \end{subequations}
+    où \( M=\sum_{y\in L}\| y(v) \|<\infty\) parce que \( L\) est borné. En prenant \( k\to\infty\) nous trouvons
+    \begin{equation}
+        \lim_{k\to \infty} \big( Tx_{\sigma(k)}-x_{\sigma(k)} \big)v=0,
+    \end{equation}
+    ce qui signifie que \( Tx=x\) parce que \( T\) est continue.
+\end{proof}
+
+Le théorème suivant est une conséquence du théorème de Markov-Katutani.
+\begin{theorem} \label{ThoBZBooOTxqcI}
+    Si \( G\) est un groupe topologique compact possédant une base dénombrable de topologie alors \( G\) accepte une unique mesure de Haar normalisée. De plus elle est unimodulaire :
+    \begin{equation}
+        \mu(Ag)=\mu(gA)=\mu(A)
+    \end{equation}
+    pour tout mesurables \( A\subset G\) et tout élément \( g\in G\).
+\end{theorem}
+\index{mesure!de Haar}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Intégrales curvilignes}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{secintcurvi}
+
+\subsection{Chemins de classe \texorpdfstring{$C^1$}{C1}}
+
+\begin{definition}
+    Soit $p, q\in \eR^n$. Un \defe{chemin}{chemin} $C^1$ par morceaux joignant $p$ à $q$ est une application continue
+    \begin{equation}
+      \gamma : [a,b] \to \eR^n \qquad \gamma(a) = p, \gamma(b) = q
+    \end{equation}
+    pour laquelle il existe une subdivision $a = t_0 < t_1 < \ldots < t_{r-1} < t_r = b$ telle que :
+    \begin{enumerate}
+    \item la restriction de $\gamma$ sur chaque ouvert $\mathopen]t_i, t_{i+1}\mathclose[$ est de classe $C^1$~;
+    \item pour tout $0 \leq i \leq r$, $\gamma^\prime$ possède une limite à gauche (sauf pour $i = 0$) et une limite à droite (sauf pour $i = r$) en $t_i$.
+    \end{enumerate}
+    Le \defe{chemin $\gamma$ est (globalement) de classe $C^1$}{Chemin!classe $C^2$} si la subdivision peut être choisie de « longueur » $r = 1$.
+\end{definition}
+
+\begin{remark}
+	Si $a$ et $b$ sont des points de $\eR^n$, on peut créer le chemin particulier
+  \begin{equation}
+    \gamma : [0,1] \to \eR^n : t \mapsto (1-t)a + tb
+  \end{equation}
+  qui relie ces points par un segment de droite.
+\end{remark}
+
+\subsection{Intégrer une fonction}
+
+\begin{definition}      \label{DEFooFAYUooCaUdyo}
+    Soit $f : D \subset \eR^n \to \eR$ une fonction continue, et $\gamma : [a,b] \to D$ un chemin $C^1$. On définit \defe{l'intégrale de $f$ sur $\gamma$}{intégrale!sur un chemin} par
+      \begin{equation}    \label{EqhJGRcb}
+      \int_\gamma f d s = \int_\gamma f = \int_a^b f(\gamma(t)) \norme{\gamma^\prime(t)} d t.
+    \end{equation}
+\end{definition}
+Note : dans le cadre de l'analyse complexe, ce n'est pas exactement cette définition. Voir \ref{DEFooBPLJooZwsmxi}.
+
+\begin{example}
+    Soit l'hélice
+    \begin{equation}
+        \begin{aligned}
+            \sigma\colon \mathopen[ 0 , 2\pi \mathclose]&\to \eR^3 \\
+            t&\mapsto \begin{pmatrix}
+                \cos(t)    \\
+                \sin(t)    \\
+                t
+            \end{pmatrix},
+        \end{aligned}
+    \end{equation}
+    et la fonction $f(x,y,z)=x^2+y^2+z^2$. L'intégrale de $f$ sur $\sigma$ est
+    \begin{equation}
+        \begin{aligned}[]
+            \int_{\sigma}f&=\int_0^{2\pi}(\cos^2t+\sin^2t+t^2)\| \sigma'(t) \|dt\\
+            &=\int_0^{2\pi}(1+t^2)\sqrt{2}dt\\
+            &=\sqrt{2}\left[ t+\frac{ t^3 }{ 3 } \right]_0^{2\pi}\\
+            &=\sqrt{2}\left( 2\pi+\frac{ 8\pi^3 }{ 8 } \right).
+        \end{aligned}
+    \end{equation}
+\end{example}
+
+\begin{remark}
+    Si $f=1$, alors nous tombons sur
+    \begin{equation}
+        \int_{\gamma}ds=\int_a^b\| \gamma'(t) \|dt,
+    \end{equation}
+    Nous verrons par le théorème~\ref{ThoLongueurIntegrale} que cette dernière intégrale est la longueur de la courbe. Il est un fait général que l'intégrale de la fonction \( 1\) sur un ensemble en donne la «mesure».
+    Cela est à mettre en rapport avec le lemme~\ref{LemooPJLNooVKrBhN} en gardant en tête que \( \int_{\gamma}1\) n'est pas la mesure de l'image de \( \gamma\) dans \( \eR^2\).
+\end{remark}
+
+\begin{proposition}[Indépendence en le paramétrage]
+    La valeur de l'intégrale de $f$ sur $\gamma$ ne dépend pas du paramétrage (équivalent ou pas) choisi.
+\end{proposition}
+
+\begin{proof}
+    Soit donc un chemin \( \gamma\colon \mathopen[ c , d \mathclose]\to \eR^3\) ainsi que $\varphi\colon \mathopen[ c , d \mathclose]\to \mathopen[ a , b \mathclose]$, un reparamétrage de classe $C^1$, strictement monotone et le chemin \( \sigma\) définit par $\gamma(s)=\sigma\big( \varphi(s) \big)$ avec $s\in\mathopen[ c , d \mathclose]$. En supposant que $\varphi'(s)\geq 0$, nous avons
+    \begin{equation}
+        \begin{aligned}[]
+            I=\int_{\gamma}f&=\int_c^df\big( \gamma(s) \big)\| \gamma'(s) \|ds\\
+            &=\int_c^df\Big( \sigma\big( \varphi(s) \big) \Big)\| \sigma'\big( \varphi(s) \big) \| |\varphi'(s) |ds.
+        \end{aligned}
+    \end{equation}
+    Pour cette intégrale, nous posons $t=\varphi(s)$, et par conséquent $dt=\varphi'(s)ds$. Étant donné que $\varphi'(s)\geq 0$, nous pouvons supprimer les valeurs absolues, et obtenir
+    \begin{equation}
+        \begin{aligned}[]
+            I&=\int_{\varphi(c)}^{\varphi(d)}f\big( \sigma(t) \big)\| \sigma'(t) \|dt\\
+            &=\int_a^bf\big( \sigma(t) \big)\| \sigma'(t) \|dt\\
+            &=\int_{\sigma}f.
+        \end{aligned}
+    \end{equation}
+
+    Essayez de faire le cas $\varphi'(s)\leq 0$.
+\end{proof}
+
+\begin{remark}      \label{RemiqswPd}
+    Attention : les intégrales sur des chemins dans \( \eC\) ne sont la même chose. En effet \( \eC\) doit être souvent plutôt traité comme \( \eR\) que comme \( \eR^2\). Si \( \gamma\) est un chemin dans \( \eC\), l'intégrale
+    \begin{equation}
+        \int_{\gamma}f
+    \end{equation}
+    doit être comprise comme une généralisation de \( \int_a^bf(x)dx\) et non comme l'intégrale sur un chemin. La différence est qu'en retournant les bornes d'une intégrale usuelle sur \( \eR\) on change le signe, alors qu'en retournant un chemin dans \( \eR^2\), on ne change pas. Bref, la définition est que si \( \gamma\colon \mathopen[ a , b \mathclose]\to \eC\) est un chemin, alors
+    \begin{equation}
+        \int_{\gamma}f=\int_{\gamma}f(z)dz=\int_a^bf\big( \gamma(t) \big)\gamma'(t)dt,
+    \end{equation}
+    sans valeur absolue autour de \( \gamma'(t)\).
+\end{remark}
+
+\subsection{Intégrer un champ de vecteurs}
+
+\begin{definition}      \label{DEFooSHHFooVdsxMf}
+    Un \defe{champ de vecteur}{champ!de vecteurs} est une application $G : \eR^n \to \eR^n$. On définit l'intégrale de $G$ sur un chemin $\gamma : [a,b] \to \eR^n$ par
+    \begin{equation*}
+      \int_\gamma G \pardef \int_a^b \scalprod {G(\gamma(t))}{\gamma^\prime(t)} d t.
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+  Cette définition ne dépend pas de le paramétrage choisie, mais le signe change selon le sens du chemin.
+\end{remark}
+
+
+
+    Si $\sigma'(t)\neq 0$, nous pouvons considérer le vecteur unitaire tangent à la courbe :
+    \begin{equation}
+        T(t)=\frac{ \sigma'(t) }{ \| \sigma'(t) \| }.
+    \end{equation}
+    Si $F$ est un champ de vecteurs sur $\eR^3$, la circulation de $F$ le long de $\sigma$ sera donnée par
+    \begin{equation}
+        \int_{\sigma}F\cdot ds=\int_a^b F\big( \sigma(t) \big)\cdot \sigma'(t)dt=\int_{a}^bF\big( \sigma(t) \big)\cdot\frac{ \sigma'(t) }{ \| \sigma'(t) \| }dt=\int_{\sigma} F\cdot T ds
+    \end{equation}
+    où dans la dernière expression, $F\cdot T$ est vu comme fonction $(x,y,z)\mapsto F(x,y,z)\cdot T(x,y,z)$. L'intégrale d'un champ de vecteurs sur une courbe n'est donc rien d'autre que l'intégrale de la composante tangentielle du champ de vecteurs.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrer une forme différentielle sur un chemin}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La formule d'intégration d'un champ de vecteur\footnote{Définition~\ref{DEFooSHHFooVdsxMf}.},
+\begin{equation}
+	\int_{\gamma}G=\int_{[a,b]}\langle G (\gamma(t)), \gamma'(t)\rangle dt,
+\end{equation}
+contient quelque chose d'intéressant : la combinaison $\langle G( \gamma(t) ), \gamma'(t)\rangle$. Cette combinaison sert à transformer le vecteur tangent $\gamma'(t)$ en un nombre en utilisant le produit scalaire avec le vecteur $G( \gamma(t) )$.
+
+Si $G$ est un champ de vecteur sur $\eR^n$, et si $x\in\eR^n$, nous pouvons utiliser l'isomorphisme musical (définition~\ref{EqDefBemol})
+\begin{equation}
+	\begin{aligned}[]
+		G^{\flat}_x\colon \eR^n&\to \eR \\
+			v&\mapsto \langle G(x), v\rangle
+	\end{aligned}
+\end{equation}
+pour écrire de façon plus compacte :
+\begin{equation}
+	\int_{\gamma}G=\int_{[a,b]} G^{\flat}_{\gamma(t)}\big( \gamma'(t)\big) dt.
+\end{equation}
+
+\begin{definition}      \label{DEFooRMHGooFtMEPB}
+    Soient une forme différentielle \( \omega\) sur \( \eR^n\) et un chemin de classe \( C^1\) \( \gamma\colon \mathopen[ a , b \mathclose]\to \eR^n\). L'\defe{intégrale}{intégrale d'une forme différentielle} de \( \omega\) sur \( \gamma\) est définie par
+    \begin{equation}    \label{EqEFIZyEe}
+        \int_\gamma \omega = \int_a^b \omega_{\gamma(t)}\gamma^\prime(t) d t
+    \end{equation}
+\end{definition}
+
+\begin{remark}
+  Cette définition ne dépend pas de le paramétrage choisie, mais le signe change selon le sens du chemin.
+\end{remark}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégration d'une forme différentielle sur un chemin}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Les formes intégrales que nous avons déjà vues sont celles de fonctions et de champs de vecteur sur des chemins. Si $\gamma\colon [a,b]\to \eR^n$ est le chemin, les formules sont
+\begin{equation}
+	\begin{aligned}[]
+		\int_{\gamma}f&=\int_{[a,b]}f\big( \gamma(t) \big)\| \gamma'(t) \|dt\\
+		\int_{\gamma}G&=\int_{[a,b]}\langle G\big( \gamma(t) \big), \gamma'(t)\rangle dt.
+	\end{aligned}
+\end{equation}
+Dans les deux cas, le principe est que nous disposons de quelque chose (la fonction $f$ ou le vecteur $G$), et du vecteur tangent $\gamma'(t)$, et nous essayons d'en tirer un nombre que nous intégrons. Lorsque nous avons une $1$-forme, la façon de l'utiliser pour produire un nombre avec le vecteur tangent est évidemment d'appliquer la $1$-forme au vecteur tangent. La définition suivante est donc naturelle.
+
+\begin{definition}
+	Soit $\gamma\colon [a,b]\to \eR^n$, un chemin de classe $C^1$ tel que son image est contenue dans le domaine $D$. Si $\omega$ es une $1$-forme différentielle sur $D$, nous définissons l'\defe{intégrale de $\omega$ le long de $\gamma$}{intégrale!d'une forme différentielle} le nombre
+	\begin{equation}
+		\begin{aligned}[]
+			\int_{\gamma}\omega&=\int_a^b\omega_{\gamma(t)}\big( \gamma'(t) \big)dt\\
+				&=\int_a^b\Big[ a_1\big( \gamma(t) \big)\gamma'_1(t)+\cdots +  a_n\big( \gamma(t) \big)\gamma'_n(t) \Big]dt.
+		\end{aligned}
+	\end{equation}
+\end{definition}
+
+Cette définition est une bonne définition parce que si on change le paramétrage du chemin, on ne change pas la valeur de l'intégrale, c'est la proposition suivante.
+\begin{proposition}
+	Si $\gamma$ et $\beta$ sont des chemins équivalents, alors
+	\begin{equation}
+		\int_{\gamma}\omega=\int_{\beta}\omega,
+	\end{equation}
+	c'est-à-dire que l'intégrale est invariante sous les reparamétrages du chemin.
+\end{proposition}
+\begin{proof}
+	Deux chemins sont équivalents quand il existe un difféomorphisme $C^1$ $h\colon [a,b]\to [c,d]$ tel que $\gamma(t)=(\beta\circ h)(t)$. En remplaçant $\gamma$ par $(\beta\circ h)$ dans la définition de $\int_{\gamma}\omega$, nous trouvons
+	\begin{equation}
+		\int_a^b\omega_{\gamma(t)}\big( \gamma'(t) \big)dt=\int_a^b\omega_{(\beta\circ h)(t)}\big( (\beta\circ h)'(t) \big)dt.
+	\end{equation}
+	Un changement de variable $u=h(t)$ transforme cette dernière intégrale en $\int_{\beta}\omega$, ce qui prouve la proposition.
+\end{proof}
+
+\begin{remark}
+	Si $\gamma$ est une somme de chemins, $\gamma=\gamma^{(1)}+\cdots+\gamma^{(n)}$, où chacun des $\gamma^{(i)}$ est un chemin, alors
+	\begin{equation}
+		\int_{\gamma}\omega=\sum_{i=1}^n\int_{\gamma_i}\omega
+	\end{equation}
+	parce que $\omega$ est linéaire.
+\end{remark}
+
+\begin{remark}
+	Si $-\gamma$ est le chemin
+	\begin{equation}
+		\begin{aligned}
+			- \gamma\colon [a,b]&\to \eR^n \\
+			t&\mapsto \gamma\big( b-(t-a) \big),
+		\end{aligned}
+	\end{equation}
+	alors
+	\begin{equation}
+		\int_{-\gamma}\omega=-\int_{\gamma}\omega,
+	\end{equation}
+	c'est-à-dire que si l'on parcours le chemin en sens inverse, alors on change le signe de l'intégrale.
+\end{remark}
+
+L'intégrale d'une forme différentielle sur un chemin est compatible avec l'intégrale déjà connue d'un champ de vecteur sur le chemin parce que si $G$ est un champ de vecteurs,
+\begin{equation}
+	\int_{\gamma}G^{\flat}=\int_{\gamma}G.
+\end{equation}
+En effet,
+\begin{equation}
+	\begin{aligned}[]
+		\int_{\gamma G^{\flat}}	&=\int_a^b G_{\gamma(t)}^{\flat}(\gamma'(t))\\
+					&=\int_a^b\big[ G_1( \gamma(t) )dx_1+\ldots G_n(\gamma(t))dx_n \big]\big( \gamma'_1(t),\ldots,\gamma'_n(t) \big)\\
+					&=\int_{a}^b\langle G(\gamma(t)), \gamma'(t)\rangle \\
+					&=\int_{\gamma}G.
+	\end{aligned}
+\end{equation}
+
+
+\begin{proposition}
+	Soit $\omega=df$, une $1$-forme exacte et continue sur le domaine $D$. Alors la valeur de $\int_{\gamma}df$ ne dépend que des valeurs de $f$ aux extrémités de $\gamma$.
+\end{proposition}
+
+\begin{proof}
+	Nous avons
+	\begin{equation}
+		\begin{aligned}[]
+			\int_{\gamma}\omega=\int_{\gamma}df&=\int_{a}^b\sum_{i=1}n\frac{ \partial f }{ \partial x_i }\big( \gamma(t) \big)\gamma'_i(t)dt\\
+				&=\int_a^b\frac{ d }{ dt }\Big( (f\circ\gamma)(t) \Big)dt\\
+				&=(f\circ\gamma)(b)-(f\circ\gamma(a)).
+		\end{aligned}
+	\end{equation}
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Interprétation physique : travail}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[\cite{BIBooACKCooYGRoEO}]
+	Une force $F\colon D\subset\eR^n\to \eR^n$ est \defe{conservative}{champ de vecteur conservatif} si elle dérive d'un potentiel, c'est-à-dire si il existe une fonction $V\in C^1(D,\eR)$ telle que
+	\begin{equation}
+		F(x)=(\nabla V)(x).
+	\end{equation}
+\end{definition}
+Étant donné que $F$ est un champ de vecteurs, nous avons une forme différentielle associée $F^{\flat}$,
+\begin{equation}
+	F^{\flat}_x\colon x\mapsto \langle F(x), v\rangle .
+\end{equation}
+
+\begin{lemma}
+	Le champ $F$ est conservatif si et seulement si la $1$-forme différentielle $F^{\flat}$ est exacte.
+\end{lemma}
+
+\begin{proof}
+	Supposons que la force $F$ soit conservative, c'est-à-dire qu'il existe une fonction $V$ telle que $F=\nabla V$. Dans ce cas, il est facile de prouver que $F^{\flat}$ est exacte et est donnée par $F_x^{\flat}=dV(x)$. En effet,
+	\begin{equation}
+		\begin{aligned}[]
+			F_x^{\flat}(v)	&=\langle F(x), v\rangle \\
+					&=F_1(x)v_1+\cdots+F_n(x)v_n\\
+					&=\frac{ \partial V }{ \partial x_1 }(x)v_1+\ldots\frac{ \partial V }{ \partial x_n }(x)v_n\\
+					&=dV(x)v.
+		\end{aligned}
+	\end{equation}
+
+	Pour le sens inverse, supposons que $F^{\flat}$ soit exacte. Dans ce cas, nous avons une fonction $V$ telle que $F^{\flat}=dV$. Il est facile de prouver qu'alors, $F=\nabla V$.
+\end{proof}
+En résumé, nous avons deux façons équivalentes d'exprimer que la force $F$ dérive du potentiel $V$ :  soit nous disons $F=\nabla V$, soit nous disons $F^{\flat}=dV$.
+
+\begin{proposition}
+    Si $F$ est une force conservative, alors le travail\footnote{Voir \cite{BIBooTQWKooHJKzlk}.} de $F$ lors d'un déplacement ne dépend pas du chemin suivit.
+\end{proposition}
+
+\begin{proof}
+	Le travail d'une force le long d'un chemin n'est autre que l'intégrale de la force le long du chemin, et le calcul est facile :
+	\begin{equation}
+		W_{\gamma}(F)=\int_{\gamma}F=\int_{\gamma}dV=V\big( \gamma(b) \big)-V\big( \gamma(a) \big).
+	\end{equation}
+	Donc si $\beta$ est un autre chemin tel que $\beta(a)=\gamma(a)$ et $\beta(b)=\gamma(b)$, nous avons $W_{\beta}(F)=W_{\gamma}(F)$.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrer un champ de vecteurs sur un bord en \texorpdfstring{$ 2D$}{2D}}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si $D\subset\eR^2$ est tel que $\partial D$ est une variété de dimension $1$ et tel que $D$ accepte un champ de vecteur normal extérieur unitaire $\nu$. Si nous voulons définir
+\begin{equation}
+	\int_{\partial D}G,
+\end{equation}
+le mieux est de prendre un paramétrage $\gamma\colon \mathopen[ 0 , 1 \mathclose]\to \eR^2$ et de calculer
+\begin{equation}
+	\int_0^1 \langle G_{\gamma(t)}, \frac{ \dot\gamma(t) }{ \| \dot\gamma(t) \| }\rangle dt.
+\end{equation}
+Hélas, cette définition ne fonctionne pas parce que son signe dépend du sens de le paramétrage $\gamma$. Si le paramétrage tourne dans l'autre sens, il y a un signe de différence.
+
+Nous allons définir
+\begin{equation}		\label{EqIntVectbordDeux}
+	\int_{\partial D}G=\int_0^1\langle G_{\gamma(t)}, T(t)\rangle dt
+\end{equation}
+où $T(t)=\dot\gamma(t)/\| \dot\gamma(t) \|$ et où $\gamma$ est choisi de telle façon que la rotation d'angle $\frac{ \pi }{ 2 }$ amène $\nu$ sur $T$. Cela fixe le choix de sens.
+
+Ce choix de sens aura des répercussions dans l'application de la formule de Green et du théorème de Stokes.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrer une forme différentielle sur un bord en \texorpdfstring{$ 2D$}{2D}}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous n'allons pas chercher très loin :
+\begin{equation}
+	\int_{\partial D}\omega=\int_{\partial D}\omega^{\sharp},
+\end{equation}
+c'est-à-dire que l'intégrale de la forme différentielle est celle du champ de vecteur associé. Le membre de droite est définit par \eqref{EqIntVectbordDeux}, avec le choix d'orientation qui va avec.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrer une forme différentielle sur un bord en \texorpdfstring{$ 3D$}{3D}}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous allons maintenant intégrer une forme différentielle sur certains chemins fermés dans $\eR^3$. Soit $F(D)\subset\eR^3$, une variété de dimension $2$ dans $\eR^3$ où $F\colon D\subset\eR^2\to \eR^3$ est la carte. Nous supposons que $D$ vérifie les hypothèses de la formule de Green. Alors nous définissons
+\begin{equation}		\label{EqDefIntTroisForBord}
+	\int_{F(\partial D)}\omega = \int_{\partial D} F^*\omega
+\end{equation}
+où $F^*\omega$ est la forme différentielle définie sur $\partial D$ par $(F^*\omega)(v)=\omega\big( dF(v) \big)$.
+
+Cette définition est très abstraite, mais nous n'allons, en pratique, jamais l'utiliser, grâce au théorème de Stokes.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrer un champ de vecteurs sur un bord en \texorpdfstring{$ 3D$}{3D}}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Encore une fois, nous n'allons pas chercher bien loin :
+\begin{equation}
+	\int_{F(\partial D)}G=\int_{F(\partial D)}G^{\flat}
+\end{equation}
+où $G^{\flat}$ est la forme différentielle associée au champ de vecteur. Le membre de droite est définit par l'équation \eqref{EqDefIntTroisForBord}.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Dérivées croisées et forme différentielle exacte}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous considérons le problème suivant : trouver une fonction \( f\colon \eR^2\to \eR\) telle que
+\begin{subequations}        \label{EqskfgfNr}
+    \begin{numcases}{}
+        \frac{ \partial f }{ \partial x }=a(x,y)\\
+        \frac{ \partial f }{ \partial y }=b(x,y)
+    \end{numcases}
+\end{subequations}
+où \( a\) et \( b\) sont des fonctions supposées suffisamment régulières. Nous savons que ce problème n'a pas de solutions lorsque
+\begin{equation}
+    \frac{ \partial a }{ \partial y }\neq\frac{ \partial b }{ \partial x }
+\end{equation}
+parce que cela impliquerait \( \partial^2_{xy}f\neq \partial^2_{yx}f\). Nous sommes en droit de nous demander si la condition
+\begin{equation}
+    \frac{ \partial a }{ \partial y }=\frac{ \partial b }{ \partial x }
+\end{equation}
+impliquerait qu'il existe une solution au problème \eqref{EqskfgfNr}. La réponse est oui, et nous allons brièvement la justifier. Pour plus de détails nous vous demandons de chercher un peu. La référence \cite{DiffExact} peut être utile.
+
+\begin{proposition}
+    Si \( a\) et \( b\) sont des fonctions qui satisfont à la condition
+    \begin{equation}
+        \frac{ \partial a }{ \partial y }=\frac{ \partial b }{ \partial x },
+    \end{equation}
+    alors la fonction
+    \begin{equation}        \label{EqllhTaT}
+        f(x,y)=\int_0^x a(t,0)dt+\int_0^yb(x,t)dt
+    \end{equation}
+    répond au problème
+    \begin{subequations}
+        \begin{numcases}{}
+            \frac{ \partial f }{ \partial x }=a(x,y)\\
+            \frac{ \partial f }{ \partial y }=b(x,y)
+        \end{numcases}
+    \end{subequations}
+\end{proposition}
+
+La preuve qui suit n'en est pas complètement une parce qu'il manque des justifications, notamment au moment de permuter la dérivée et l'intégrale.
+\begin{proof}
+    La clef de la preuve est le théorème fondamental de l'analyse :
+    \begin{equation}
+        \int_0^x \frac{ \partial f }{ \partial x }(t,y)dt=f(x,y)
+    \end{equation}
+    et son pendant par rapport à \( y\) :
+    \begin{equation}
+        \int_0^y \frac{ \partial f }{ \partial y }(x,t)dt=f(x,y).
+    \end{equation}
+    En appliquant ces version du théorème fondamental, nous obtenons immédiatement.
+    \begin{equation}
+        \frac{ \partial f }{ \partial y }=b(x,y).
+    \end{equation}
+    En ce qui concerne la dérivée par rapport à \( y\),
+    \begin{subequations}
+        \begin{align}
+            \frac{ \partial f }{ \partial x }&=a(x,0)+\int_0^y\frac{ \partial b }{ \partial x }(x,t)dt\\
+            &=a(x,0)+\int_0^y\frac{ \partial a }{ \partial y }(x,t)dt\\
+            &=a(x,0)+[a(x,t)]_{t=0}^{t=y}\\
+            &=a(x,y).
+        \end{align}
+    \end{subequations}
+\end{proof}
+
+En ce qui concerne l'unicité, supposons que \( f\) et \( g\) soient deux solutions au problème. L'équation
+\begin{equation}
+    \frac{ \partial f }{ \partial x }=a(x,y)=\frac{ \partial g }{ \partial x }
+\end{equation}
+implique que
+\begin{equation}
+    f(x,y)=g(x,y)+C(y)
+\end{equation}
+où \( C\) est une fonction seulement de \( y\). L'autre équation implique
+\begin{equation}
+    f(x,y)=g(x,y)+D(x)
+\end{equation}
+où \( D\) est seulement une fonction de \( x\). En égalisant nous voyons que les fonctions \( C\) et \( D\) doivent être des constantes.
+
+Par conséquent la fonction \( f\) est donnée à une constante près et en réalité la fonction \eqref{EqllhTaT} est suffisante pour répondre au problème de trouver toutes les fonctions dont les dérivées partielles sont données par les fonctions \( a\) et \( b\).
+
+La fonction \( f\) ainsi créée est un \defe{potentiel}{potentiel} pour le champ de force
+\begin{equation}
+    F(x,y)=\begin{pmatrix}
+        a(x,y)    \\
+        b(x,y)
+    \end{pmatrix}.
+\end{equation}
+Notez que ce champ de vecteurs est le gradient de \( f\). La question initiale aurait donc pu être posée en les termes suivants : trouver une fonction \( f\) dont le gradient est donné par
+\begin{equation}
+    \nabla f=\begin{pmatrix}
+        a(x,y)    \\
+        b(x,y)
+    \end{pmatrix}.
+\end{equation}

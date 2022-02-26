@@ -1,0 +1,925 @@
+% This is part of Mes notes de mathématique
+% Copyright (C) 2010-2018
+%   Laurent Claessens
+% See the file LICENCE.txt for copying conditions.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Résolution de systèmes linéaires (suite)}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Déterminant}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Pour calculer un déterminant lorsque nous avons la décomposition \( A=LU\) nous pouvons faire
+\begin{equation}
+    \det(A)=\det(LU)=\det(L)\det(U)=\det(U)
+\end{equation}
+parce que \( L\) est triangulaire avec des \( 1\) sur la diagonale.
+
+Si par contre nous avons fait des pivots, nous avons \( PA=LU\). Il nous faut le déterminant de \( P\), qui n'est autre que \( \pm 1\). Nous avons
+\begin{equation}
+    \det(P)=(-1)^s
+\end{equation}
+où \( s\) est le nombre de permutations effectives effectuées. Nous précisons «effectives» parce qu'il ne faut pas compter le pas où nous n'avons pas permuté (les cas où le bon pivot était présent du premier coup). Nous avons alors
+\begin{equation}
+    \det(A)=(-1)^s\det(U).
+\end{equation}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Plusieurs termes indépendants}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Mettons un système \( Ax=b\) qu'il faut résoudre pour plusieurs \( b\) différents. C'est typiquement le cas où l'on voudrait calculer l'inverse de \( A\). Mais on va directement se calmer. Soient donc à résoudre \( Ax_1=b_1\), \ldots, \( Ax_n=b_n\).
+
+Les opérations (avec ou sans pivot) que nous faisons ne dépendent que de la matrice \( A\), mais aucune décisions concernant les pivots ou la matrice des multiplicateurs ne dépend de \( b\). Autre façon de dire : si le système \(  (A|b_1)  \) devient \( (U|y_1)\), le système \( (A|b_i)\) devient \( (U|y_i)\) avec le même \( U\).
+
+Nous ne sommes donc pas obligés de faire tout le travail autant de fois qu'il n'y a de systèmes à résoudre. Donc si on a plusieurs systèmes à résoudre avec la même matrice, on fait mieux de retenir une fois pour toute la décomposition \( LU\) (avec ou sans pivots), avant de vraiment résoudre.
+
+Ou alors on peut aussi faire que, au lieu de faire \( (A|b_i)\) plein de fois, faire une seule fois
+\begin{equation}
+    (A|b_1\ldots b_n).
+\end{equation}
+Et on fait tout le travail sur tous les vecteurs d'un en même temps.
+
+Soit \( {e_i}\) la base canonique. Si nous notons \( x_n\) les solutions des problèmes \( Ax_i=e_i\), tous les problèmes \( Ax_i=e_i\) s'écrivent d'un seul coup
+\begin{equation}
+    AX=Y
+\end{equation}
+où \( X\) est la matrice des \( x_i\) en colonnes, et \( Y\) est celle des \( e_i\) en colonnes. Oh, mais \( Y=\mtu\) évidemment. Donc
+\begin{equation}
+    AX=\mtu.
+\end{equation}
+Si nous supposons que \( A\) est inversible, alors ce \( X\) est l'inverse.
+
+Donc pour calculer l'inverse d'une matrice de dimension non trop grande, il suffit d'utiliser la méthode de Gauss sur les vecteurs de la base canonique. Cette idée est la base du calcul de l'inverse par matrice companion. En effet, si nous partons du problème
+\begin{equation}
+    (A|\mtu)
+\end{equation}
+et nous appliquons la méthode de Gauss avec pivot, nous arrivons à
+\begin{equation}
+    (U|L^{-1} P).
+\end{equation}
+Attention : le produit \( L^{-1}P\) est une permutation des \emph{colonnes} de \( L^{-1}\). Vu que \( L\) est triangulaire inférieure avec des \( 1\) sur la diagonale, \( L^{-1}\) est triangulaire inférieure avec des \( 1\) sur la diagonale. Donc si la matrice n'est pas trop grande, on peut assez facilement remettre les colonnes de \( L^{-1}P\) dans l'ordre pour recomposer une matrice triangulaire inférieure avec \( 1\) sur la diagonale.
+
+Une autre façon de calculer l'inverse, si \( A=LU\) est connue, il suffit de faire
+\begin{equation}
+    A^{-1}=U^{-1}L^{-1}.
+\end{equation}
+Et il existe un algorithme facile pour l'inverse d'une matrice triangulaire.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Cholesky}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Le commandant Cholesky travaillait sur le tir de canon (chose éminemment liée à de nombreuses mathématiques ingénieuses). La méthode de Cholesky est encore utilisée aujourd'hui dans les vrais problèmes.
+
+La méthode de Gauss s'applique sans hypothèses sur la matrice \( A\), à part qu'elle doit être de petite dimension, comme pour toute méthode directe. Souvent nous savons des choses sur la matrice. Ici nous allons supposer que \( A\) est symétrique et définie positive.
+
+Comment numériquement vérifier ces hypothèses ? En ce qui concerne la symétrique, il suffit de faire le test complet :
+\begin{equation}
+    A^t=A.
+\end{equation}
+La vérification de cela coûte au maximum \( n^2\) comparaisons (et en fait la moitié de ça moins la diagonale).
+
+Le fait que \( A\) soit définie positive est facile à vérifier pour utiliser Cholesky parce que il suffit de le faire, et si il n'y a pas de nombres complexes qui arrivent, c'est que la matrice était définie positive.
+
+Un lemme très simple à mettre en oeuvre numériquement nous permet de traiter certains cas.
+\begin{lemma}
+    Une matrice symétrique possédant un élément négatif sur la diagonale n'est pas définie positive.
+\end{lemma}
+
+\begin{proof}
+    Un simple calcul ou effort d'imagination montre que \( \langle Me_k, e_k\rangle =M_{kk}\). Donc si \( M\) doit être définie positive, \( M_{kk}\) doit être positive par le lemme~\ref{LemWZFSooYvksjw}.
+\end{proof}
+Ce lemme est un moyen déjà de faire quelques vérifications. Et si les éléments diagonaux de \( A\) sont tous négatifs, on peut prendre \( -A\).
+
+\begin{lemma}       \label{LEMooVEIYooZbShQb}
+    Si \( A\) est une matrice symétrique strictement définie positive, alors pour tout \( k\), la matrice tronquée \( \Delta_k(A)\) l'est également.
+\end{lemma}
+
+\begin{proof}
+    Le fait que \( \Delta_k(A)\) soit symétrique est évidemment. Le fait qu'elle soit définie positive l'est moins. Soit \( y\in \eR^k\) et le vecteur \( \tau y\in \eR^n\), qui est «complété» avec des zéros.
+
+    Nous avons \( \langle \Delta_k(A)y, y\rangle_k=\langle A\tau y, \tau \rangle_n\). En effet
+    \begin{equation}
+        \langle \Delta_k(A)y, y\rangle =\sum_{i=1}^k\sum_{l=1}^kA_{il}y_ly_i.
+    \end{equation}
+    Et à droite :
+    \begin{equation}
+            \langle A\tau y, \tau y\rangle =\sum_{i=1}^n(A\tau y)_i(\tau y)_i
+            =\sum_{i=1}^k(A\tau y)_i y_i
+            =\sum_{i=1}^k\sum_{l=1}^n A_{il}(\tau y)_ly_i
+            =\sum_{i=1}^k\sum_{l=1}^k A_{il}y_ly_i
+    \end{equation}
+    où nous avons utilisé le fait que \( (\tau y)_i=0\) dès que \( i>k\) et que \( (\tau y)_i=y_i\) sinon.
+
+    En conséquence de quoi \( \langle \Delta_k(A)y, u\rangle >0\) pour tout \( y\in \eR^k\) et la matrice \( \Delta_k(A)\) est strictement définie positive.
+\end{proof}
+
+\begin{lemma}       \label{LEMooLBQLooIYvacH}
+    Si \( T\) est une matrice triangulaire, alors \( (T_{ii})^{-1}=(T^{-1})_{ii}\).
+\end{lemma}
+
+\begin{proof}
+    Il suffit de se rendre compte que le coefficient \( ii\) de l'égalité \( \mtu=TT^{-1}\) donne
+    \begin{equation}
+        1=\sum_lT_{il}(T^{-1})li.
+    \end{equation}
+    Dans la somme il ne reste que le terme \( l=i\).
+\end{proof}
+
+Nous allons chercher une décomposition de type \( LU\) sous la forme \( A=LL^t\), c'est-à-dire \( U=L^t\). Attention : maintenant nous n'avons plus des \( 1\) sur la diagonale. Ce n'est donc pas exactement la décomposition \( LU\) dont nous parlions plus haut. C'est pour cela que nous n'allons pas la noter \( LL^t\) mais \( BB^t\).
+
+\begin{theorem}[Cholesky\cite{ooDANFooPSmBfd}]
+    Soit une matrice réelle symétrique strictement définie positive. Il existe une unique matrice réelle \( B\) telle que
+    \begin{itemize}
+        \item \( B\) est triangulaire inférieure,
+        \item la diagonale de \( B\) est positive,
+        \item \( A=BB^t\).
+    \end{itemize}
+\end{theorem}
+
+\begin{proof}
+    Par la décomposition \( LU\) du théorème~\ref{THOooUXKJooYaPhiu} nous avons des matrices \( L\) et \( U\) telles que \( A=LU\). Soit \( D\) la matrice diagonale donnée par
+    \begin{equation}
+        D_{ii}=\sqrt{ U_{ii} }.
+    \end{equation}
+    Cette définition fonctionne parce que \( U_{ii}>0\). En effet nous savons que \( \Delta_k(A)=\Delta_k(L)\Delta_k(U)\), et en passant au déterminant,
+    \begin{equation}
+        \det\big( \Delta_k(A) \big)=\det\big( \Delta_k(U) \big).
+    \end{equation}
+    Vu que \( \Delta_k(A)\) est strictement définie positive par le lemme~\ref{LEMooVEIYooZbShQb}, son determinant est strictement positif\footnote{Le théorème~\ref{ThoeTMXla} donne une diagonalisation par des matrices de déterminant \( 1\). Vu que les valeurs propres forment sur la diagonale, et qu'elles sont toutes positives, el déterminant est positif.} et nous avons
+    \begin{equation}
+        \det\big( \Delta_k(U) \big)>0.
+    \end{equation}
+    En appliquant cela à \( k=1\) nous avons \( U_{11}>0\) puis de proche en proche, \( U_ii>0\) pour tout \( i\).
+
+    Nous posons :
+    \begin{subequations}
+        \begin{align}
+            B&=LD&\text{qui est triangulaire inférieure}\\
+            C&=D^{-1} U&\text{qui est triangulaire supérieure.}
+        \end{align}
+    \end{subequations}
+    Nous avons bien entendu \( A=BC\) et nous allons prouver que \( C=B^t\). Vu que \( A=A^t\) nous pouvons identifier \( BC\) et \( C^tB^t\) :
+    \begin{equation}
+        BC=C^tB^t.
+    \end{equation}
+    En mettant les matrices triangulaires supérieures à gauche et inférieures à droite :
+    \begin{equation}
+        C(B^t)^{-1}=B^{-1}C^t,
+    \end{equation}
+    qui sont donc deux matrices diagonales. Nous montrons que cette diagonale est en réalité l'identité.
+
+    D'abord
+    \begin{equation}
+        B_{ii}=\sum_{l=1}^nL_{il}D_{li}=L_{ii}\sqrt{ U_{ii} }=\sqrt{ U_{ii} }
+    \end{equation}
+    parce que \( L_{ii}=1\). Notons en passant que la diagonale de \( B\) est positive.  Ensuite
+    \begin{equation}
+        C_{ii}=\sum_{l=1}^n(D^{-1})_{il}U_{li}=(D^{-1})_{ii}U_{ii}=\frac{1}{ \sqrt{ U_ii } }U_{ii}=\sqrt{ U_{ii} }.
+    \end{equation}
+    Donc \( B\) et $C$ ont des diagonales égales. Calculons alors la diagonale de \( B^{-1}C^t\) :
+    \begin{equation}
+        \big( B^{-1}C^t \big)_{ii}=\sum_l(B^{-1})_{il}(C^t)_{li}=(B^{-1})_{ii}C_{ii}
+    \end{equation}
+    parce que encore une fois, de la somme il ne reste que le terme \( l=i\).
+
+    Mais \( B\) est une matrice triangulaire qui tombe sous le coup du lemme~\ref{LEMooLBQLooIYvacH}. Donc \( (B^{-1})_{ii}=(B_{ii})^{-1}=(C_{ii})^{-1}\). Nous avons alors
+    \begin{equation}
+        (B^{-1}C^t)_{ii}=1.
+    \end{equation}
+    Cela conclu l'existence de la décomposition de Cholesky.
+
+    En ce qui concerne l'unicité, soient \( A=BB^t=CC^t\). Nous regroupons les supérieures et les inférieures :
+    \begin{equation}        \label{EQooRRJHooJrFBLn}
+        B^t(C^t)^{-1}=B^{-1}C.
+    \end{equation}
+    Ces deux matrices sont donc diagonales et nous posons \( D=B^{-1} C\), c'est-à-dire \( C=BD\). Nous remplaçons donc \( C\) par \( BD\) dans \eqref{EQooRRJHooJrFBLn} :
+    \begin{equation}
+        A=BB^t=BD(BD)^t=BDD^tB^t.
+    \end{equation}
+    Donc \( DD^t=\mtu\), ce qui signifie que les éléments diagonaux de \( D\) sont \( \pm 1\). Nous montrons qu'ils sont positifs : à partir de \( C=BD\) nous déballons
+    \begin{equation}
+        C_{ii}=\sum_lB_{il}D_{li},
+    \end{equation}
+    et donc
+    \begin{equation}
+        B_{ii}D_{ii}=C_{ii}.
+    \end{equation}
+    En sachant que les conditions de la décomposition de Cholesky demandent les éléments diagonaux positifs nous en déduisons que \( D_{ii}\) est positif et donc égal à \( 1\). Finalement \( D=\mtu\) et \( B=C\).
+\end{proof}
+
+Prenons la matrice
+\begin{equation}
+    A=\begin{pmatrix}
+        4    &   2    &   -2    \\
+        2    &   10    &   -7    \\
+        -2    &   -7    &   9
+    \end{pmatrix}
+\end{equation}
+Elle est symétrique et définie positive. Nous posons
+\begin{subequations}        \label{EQooFMWUooFdTgiF}
+    \begin{numcases}{}
+    l_{11}=\sqrt{ a_{11} }
+    l_{i1}=a_{i1}/l_{11}
+    \end{numcases}
+\end{subequations}
+pour \( i=2,\ldots, n\). Et aussi
+\begin{subequations}        \label{EQooJTVGooEkynpH}
+    \begin{numcases}{}
+        l_{jj}=(a_{jj}-\sum_{k=1}^{j-1}l_{jk}^2)^{1/2}\\
+        l_{ij}=(a_{ij}-\sum_{k=1}^{j-1}l_{ik}l_{jk})/a_{jj}
+    \end{numcases}
+\end{subequations}
+pour \( i=j+1,\ldots, n\).
+
+Les formules \eqref{EQooFMWUooFdTgiF} nous disent comment remplir la première colonne. Cela donne la matrice
+\begin{equation}
+    L=\begin{pmatrix}
+        \sqrt{ 4 }=2    &  .     &  .     \\
+        2/2=1    &    .   &  .     \\
+        -2/2=-1    &   .    &   .
+    \end{pmatrix}
+\end{equation}
+Les formules \eqref{EQooJTVGooEkynpH} donnent les autres colonnes en fonction des précédentes.
+
+
+Dans Sage :
+
+\lstinputlisting{tex/sage/sageSnip005.sage}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Système linéaire (méthodes itératives)}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Nous trouvons des méthodes itératives lorsque les matrices sont grandes, ce qui arrive lorsque l'on discrétise une équation différentielle.
+
+Nous allons chercher des méthodes de la forme \( x_{n+1}=Bx_n+q\); ce sont des méthodes stationnaires. La convergence d'une méthode est toujours liée à la matrice \( B\) et en général, la convergence ne dépend pas du choix du vecteur initial. Nous faisons donc souvent \( x_0=0\) et donc \( x_1=q\). Voilà donc une itération de faite gratuitement.
+
+Nous notons \( e_k\) le \defe{vecteur d'erreur}{erreur} qui est définit par \( e_k=x-x_k\). Et le \defe{vecteur résidu}{résidu!méthode itérative} \( r_k=b-Ax_k\). Attention : ici \( k\) n'est pas un indice mais un numéro de vecteur.
+
+Notons que si \( x\) est solution, alors \( b-Ax=0\), ce qui motive le vecteur résidu.
+
+Les conditions d'arrêt d'un algorithme seraient
+\begin{subequations}
+    \begin{numcases}{}
+        \| e_k \|_{\infty}\ll \epsilon_1\\
+        \| r_k \|_{\infty}<\epsilon_2
+    \end{numcases}
+\end{subequations}
+où \( \epsilon_1\) et \( \epsilon_2\) sont des précisions décidées à l'avance par l'utilisateur.
+
+\begin{proposition}
+    Si \( A\) est une matrice inversible, alors
+    \begin{equation}
+        \lim_{k\to \infty} e_k=\lim_{k\to \infty} r_k=0.
+    \end{equation}
+\end{proposition}
+
+Vu que \( r_k=Ae_k\), si la matrice \( A\) est mal conditionnée, il peut arriver que \( r_k\) reste grand alors que \( e_k\) est déjà petit.
+
+\begin{remark}
+    Dans les méthode stationnaires, nous avons \( x_{n+1}=Bx_n+q\) avec \( B\) et \( q\) fixés au départ de l'algorithme. Il existe des méthodes non stationnaires pour lesquelles l'itération prend la forme \( x_{n+1}=B_nx_n+q_n\) avec \( B_n\) et \( q_n\) qui changement avec les étapes.
+\end{remark}
+
+\begin{proposition}     \label{PROPooAQSWooSTXDCO}
+    Pour la méthode \( x_{n+1}=Bx_n+q\) nous avons équivalence de
+    \begin{enumerate}
+        \item
+            La méthode converge pour tout \( x_0\)
+        \item
+            \( B\) est une matrice convergente\footnote{C'est-à-dire \( \lim_{k\to \infty} B^k=0\).}
+        \item
+            \( \rho(B)<1\) (rayon spectral).
+    \end{enumerate}
+    De plus si \( \| B \|<1\) alors la méthode converge (quelle que soit la norme algébrique).
+\end{proposition}
+
+La norme d'une matrice (en tout cas, certaines normes) est quelque chose de facile à calculer à l'ordinateur. Typiquement \( \| . \|_{\infty}\) est un simple maximum. Cependant si après avoir calculé \( \| B \|_i\) pour des dizaines de normes \( i\) différentes, nous avons toujours \( \| B\|_i\geq 1\), alors nous ne pouvons rien conclure.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{La méthode générale}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous décomposons la matrice \( A\) sous la forme \( A=M-N\) avec \( M\) inversible. Le système \( Ax=b\) devient
+\begin{equation}
+    Mx-Nx=b
+\end{equation}
+puis \( Mx=Nx+b\) et finalement
+\begin{equation}
+    x=M^{-1}Nx+M^{-1}b,
+\end{equation}
+et voilà une méthode stationnaire avec \( B=M^{-1}N\) et \( q=M^{-1}b\).
+
+Mais ici nous voyons que \( M\) doit être non seulement inversible, mais en plus doit être facilement calculable. En sachant que nous travaillons avec des grandes matrices, il n'est pas question d'inverser \( M\) avec une méthode de Gauss.
+
+En bref, il faut choisir \( M\) triangulaire parce que c'est en gros la seule que nous pouvons inverser facilement\footnote{Les matrices orthogonales sont aussi facilement inversibles, mais ne se prêtent pas bien à une décomposition de type somme.}.
+
+\begin{remark}
+    La matrice \( B\) ne doit pas spécialement être inversible. Si elle ne l'est pas, ce n'est pas un problème.
+\end{remark}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Jacobi}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous décomposons
+\begin{equation}        \label{EQooOCJYooCqsfQM}
+    A=D-E-F
+\end{equation}
+où \( D\) est la diagonale de \( A\), \( -F\) est la partie triangulaire supérieure (sans la diagonale) et \( -E\) la triangulaire inférieure (sans la diagonale). Donc \( D\), \( E\) et \( F\) sont simplement des extractions de parties de la matrice \( A\) (et quelques changements de signes).
+
+La méthode de Jacobi prend \( M=D\) et \( N=(E+F)\). L'inverse de \( M\) est facile à calculer parce que \( M\) est diagonale. Nous notons \( B_J\) la matrice \( B\) de la méthode de Jacobi.
+
+\begin{remark}
+    Il se peut que la matrice \( A\) ait des zéros sur la diagonale, même si elle est inversible. Et cela est un problème parce qu'alors la matrice \( D\) ici construite n'est pas inversible. Dans ce cas, avant de nous lancer dans la méthode de Jacobi, il faut permuter deux lignes de \( A\) et donc de \( b\).
+
+    Attention cependant que l'on pourrait vouloir effectuer ces permutations en mettant sur la diagonale des nombres les plus grands possibles (parce qu'ensuite, ce qui rentre dans les calculs, c'est \( D^{-1}\) qui aura alors des petits nombres). Mais il faut toutefois faire en sorte que le rayon spectral de la matrice \(B \) résultante reste plus petit que \( 1\).
+
+    Chaque changement dans \( A\) induit des changements dans \( B\) et donc sur la convergence de la méthode.
+\end{remark}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Gauss-Seidel}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous partons de la même décomposition \( A=D-E-F\) que dans \eqref{EQooOCJYooCqsfQM}. La méthode de Gauss-Seidel prend \( M=(D-E)\) et \( N=F\).
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Autres}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Voir la méthode des gradients, et des gradients conjugués.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Indices connectés, matrice irréductible}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}
+    Soit \( A\in \eM(n,\eR)\) et \( i,j\in\{ 1,\ldots, n \}\). Nous disons que les indices \( i\) et \( j\) sont \defe{directement connectés}{connectés!indices d'une matrice} si \( A_{ij}\neq 0\) ou \( A_{ji}\neq 0\).
+\end{definition}
+
+\begin{definition}      \label{DEFooADAAooAAMscc}
+    Soit \( A\in \eM(n,\eR)\) et \( i,j\in\{ 1,\ldots, n \}\). Nous disons que les indices \( i\) et \( j\) sont \defe{connectés}{connectés!indices d'une matrice} si il existe un ensemble d'indices \( i_0=i,i_1,\ldots, i_{r-1},i_r=j   \) tels que \( A_{i_k,i_{k+1}}\neq 0\) pour tout \( 0\leq k\leq r\).
+\end{definition}
+
+Par exemple pour que les indices \( 1\) et \( 4\) soient connectés, on peut avoir les éléments \( A_{13}\), \( A_{32}\) \( A_{24}\) non nuls.
+
+\begin{definition}[\cite{ooZGNYooGgPFhl}]      \label{DEFooXIREooQtlzkO}
+    Une matrice carrée \( A\) est \defe{réductible}{matrice!réductible} si il existe une permutation \( \sigma\) telle que
+    \begin{equation}        \label{EQooGGZKooUyXSJk}
+        \sigma^tA\sigma=\begin{pmatrix}
+            K    &   L    \\
+            0    &   M
+        \end{pmatrix}
+    \end{equation}
+    où \( K\) et \( M\) sont carrées.
+\end{definition}
+Notons que par définition de la matrice d'une application linéaire,
+\begin{equation}
+    B_{ij}= \langle e_i, Be_j\rangle =\langle e_i, \sigma^tA\sigma e_j\rangle =\langle \sigma e_i, A\sigma e_j\rangle =A_{\sigma(i),\sigma(j)}.
+\end{equation}
+
+\begin{proposition}[\cite{ooZGNYooGgPFhl}]      \label{PROPooZTYDooZAxQxF}
+    Soit une matrice carrée \( A\). Les faits suivants sont équivalents :
+    \begin{enumerate}
+        \item       \label{ITEMooYULAooVqgOnt}
+            \( A\) est réductible.
+        \item       \label{ITEMooNLVXooYSQKwO}
+            Il existe une partition non triviale \( I,J\) de \( \{ 1,\ldots, n \}\) telle que \( I\cup J=\{ 1,\ldots, n \}\), \( I\cap J=\emptyset\) et pour tout \( i\in I\), et pour tout \( j\in J\), \( A_{ij}=0\).
+        \item       \label{ITEMooVNOHooRUNpwG}
+            La matrice \( A\) admet des indices non connectés (définition~\ref{DEFooADAAooAAMscc}).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Dans plusieurs sens\ldots
+    \begin{subproof}
+        \item[\ref{ITEMooYULAooVqgOnt} implique~\ref{ITEMooNLVXooYSQKwO}]
+
+            Nous notons \( j^*\) la taille de la matrice \( K\) dans \eqref{EQooGGZKooUyXSJk}. Nous avons \(  B_{ij}=0  \) si
+            \begin{subequations}
+                \begin{numcases}{}
+                    J^*+1\leq i\leq n\\
+                    1\leq j\leq j^*.
+                \end{numcases}
+            \end{subequations}
+            Donc en posant \( I=\sigma\{ j^*+1,\ldots, n \}\) et \( J=\sigma\{ 1,\ldots, j^* \}\) nous avons une partition non triviale de \( \{ 1,\ldots, n \}\) telle que si \( i\in I\) et \( j\in J\) alors \( i=\sigma(i_0)\), \( j=\sigma(j_0)\) et
+            \begin{equation}
+                A_{ij}=A_{\sigma(i_0),\sigma(j_0)}=B_{i_0,j_0}=0.
+            \end{equation}
+        \item[\ref{ITEMooNLVXooYSQKwO} implique~\ref{ITEMooYULAooVqgOnt}]
+            Soit une partition \( I,J\) comme indiquée dans l'hypothèse. Soit \( j^*\) le nombre d'éléments dans \( J\). Soit \( \sigma\) une permutation de \( \{ 1,\ldots, n \}\) telle que \( \sigma\{ j^*+1,\ldots, n \}=I\) et \( \sigma\{ 1,\ldots, j^* \}=J\). Nous posons ensuite \( B=\sigma^tA\sigma\). Par construction si \( i\in I\) et \( j\in J\) alors \( A_{ij}=0\).
+
+            Mais si
+            \begin{subequations}
+                \begin{numcases}{}
+                    J^*+1\leq i\leq n\\
+                    1\leq j\leq j^*.
+                \end{numcases}
+            \end{subequations}
+            alors \( B_{ij}=A_{\sigma(i)\sigma(j)}=0\). Donc \( B\) a la bonne forme.
+
+        \item[\ref{ITEMooVNOHooRUNpwG} implique~\ref{ITEMooNLVXooYSQKwO}]
+
+            Soient \( i\) et \( j\) deux indices non connectés : il n'existe pas de chaines partant de \( i\) et arrivant à \( j\). Nous notons \( I \) l'ensemble des indices connectés à \( i\), et \( J\) les autres. Pat hypothèses ces ensembles sont non vides.
+
+            Si \( k\in i\) et \( l\in J\) alors \( A_{kl}=0\) parce que sinon on aurait une chaine de \( i\) à \( k\) puis de \( k\) à \( l\) et donc de \( i\) à \( l\), ce qui signifierait que \( l\) est connecté à \( i\).
+
+        \item[\ref{ITEMooNLVXooYSQKwO} implique~\ref{ITEMooVNOHooRUNpwG}]
+            Soit une partition \( I,J\) comme dans l'hypothèse. Si \( j\in J\) est connecté à \( i\in I\) alors il existe une chaine
+            \begin{equation}
+                i=i_0,i_1,\ldots, i_r=j.
+            \end{equation}
+            Si \( i_s\) est le premier dans \( J\) alors \( i_{s-1}\in I\) et \( A_{i_{s-1},i_s}=0\), ce qui empêche la chaine de connecter \( j\) à \( i\).
+    \end{subproof}
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Localisation des valeurs propres}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Sur l'ensemble \( \eM(n,\eR)\) des matrices \( n\times n\) à coefficients réels nous introduisons l'ordre partiel\footnote{Définition~\ref{DEFooVGYQooUhUZGr}.} donné par \( A\geq B\) lorsque \( A_{ij}\geq B_{ij}\) pour tout \( i\) et \( j\). Nous définissons de façon similaire les relations \( A\leq B\), \( A<B\) et \( A>B\).
+
+Si \( x\in \eR^n\) nous notons \( | x |=\big( | x_1 |,\ldots, | x_n | \big)\) et \( x\leq y\) lorsque \( x_i\leq y_i\) pour tout \( i\).
+
+\begin{proposition}     \label{PROPooGVRVooZEvKcn}
+    Soit \( A\in \eM(n,\eR)\) et \( x,y\in \eR^n\).
+    \begin{enumerate}
+        \item       \label{ITEMooXQOPooPVLjFh}
+            Si \( A\geq 0\) et si \( x\leq y\) alors \( Ax\leq Ay\).
+        \item       \label{ITEMooQLCJooKIbws}
+            Si \( A\geq 0\) alors \( Ax\leq | Ax |\leq A| x |\).
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Pour la première inégalité, pour tout \( i\) et \( k\) nous avons \( A_{ik}x_k\leq A_{ik}y_k\) et donc
+    \begin{equation}
+        (Ax)_i=\sum_kA_{ik}x_k\leq \sum_kA_{ik}y_k=(Ay)_k.
+    \end{equation}
+
+    Pour la seconde, d'abord l'inégalité \( Ax\leq | Ax |\) est évidente. Ensuite vu que \( A_{ik}\geq 0\) nous avons
+    \begin{equation}
+        | Ax |_i=| \sum_kA_{ik}x_k |\leq \sum_kA_{ik}| x_k |=\big( A| x | \big)_i.
+    \end{equation}
+\end{proof}
+
+Soit une matrice \( A\in\eM(n,\eR)\). Nous notons
+\begin{equation}
+    r_i=\sum_{j\neq i}| A_{ij} |.
+\end{equation}
+Notons la somme sur la ligne \( i\), pas sur la colonne : la somme est horizontale.
+\begin{definition}
+    Les ensembles
+    \begin{equation}
+        D_i=\{ z\in \eC\tq | z-A_{ii} |\leq r_i \}
+    \end{equation}
+    sont les \defe{disques de Gershgorin}{Gershgorin!disque}. Nous allons également noter \( B_i=\Int(D_i)\) les boules ouvertes correspondantes.
+\end{definition}
+
+\begin{theorem}[Gershgorin]     \label{THOooUJNFooHpvCCF}
+    Soit \( A\in \eM(n,\eR)\). Si \( \lambda\in \eC\) est valeur propre de \( A\) alors \(   \lambda\in D_i   \) pour un certain \( i\).
+\end{theorem}
+
+\begin{proof}
+    Soit une valeur propre \( \lambda\) et un de ses vecteurs propres \( u\in \eR^n\) : \( Au=\lambda u\) avec \( u\neq 0\). Soit \( i\) un indice réalisant le maximum \( | u_i |=\max\{ | u_k | \}_k\). Nous écrivons la \( i\)\ieme ligne de \( Au=\lambda u\) :
+    \begin{equation}
+        \sum_kA_{ik}u_k=\lambda u_i,
+    \end{equation}
+    c'est-à-dire \( A_{ii}u_i+\sum_{k\neq i}A_{ik}u_k=\lambda u_i\), ou encore
+    \begin{equation}
+        A_{ii}+\sum_{k\neq i}A_{ik}\frac{ u_k }{ u_i }=\lambda,
+    \end{equation}
+    qui donne
+    \begin{equation}
+        | A_{ii} -\lambda|\leq \sum_{k\neq i}| A_{ik} |\frac{ | u_k | }{ | u_i | }\leq \sum_{k\neq i}| A_{ik} |
+    \end{equation}
+    pare que \( | u_i |\geq | u_k |\). Notons que sur la ligne précédente, \( | . |\) est le module dans \( \eC\), pas la valeur absolue dans \( \eR\).
+\end{proof}
+
+\begin{theorem}[Gershgorin 2\cite{ooZGNYooGgPFhl}]      \label{THOooTXAPooQqsBCj}
+    Soit une matrice irréductible \( A\in \eM(n,\eR)\) et une valeur propre \( \lambda\) de \( A\). Si elle est sur la frontière de l'union des disques de Gershgorin, alors elle est sur le bord de tous les disques.
+\end{theorem}
+
+\begin{proof}
+    Soit une valeur propre \( \lambda\) de \( A\) telle que \( \lambda\in \partial\big( \bigcup_iD_i \big)\). Alors \( \lambda\) n'est dans l'intérieur d'aucune boule et nous avons \( | \lambda-A_{ii} |\geq r_i\) pour tout \( i\).
+
+    Soit un vecteur propre \( u\) de \( A\) tel que \( \| u \|_{\infty}=1\). Nous posons \( I= \{ 1\leq i\leq n \tq | u_i |=1 \}  \) et \( J=\{ 1\leq j\leq n\tq | i_j |<1 \}\). Par hypothèse \( I\) n'est pas vide, et de plus \( I\cap J=\emptyset\) et \( I\cup J=\{ 1,\ldots, n \}\) parce qu'aucune composante de \( u\) n'a un module\footnote{Les composantes de \( u\) sont à priori dans \( \eC\), et non spécialement dans \( \eR\), même si \( A\) est une matrice réelle.} plus grand que \( 1\).
+
+    La \( i\)\ieme composante de la relation \( Au=\lambda u\) peut s'écrire
+    \begin{equation}
+        (A_{ii}-\lambda)u_i+\sum_{k\neq i}A_{ik}u_k=0.
+    \end{equation}
+    Forts de cela nous écrivons les inégalités suivantes :
+    \begin{equation}
+        r_i\leq | \lambda-A_{ii} |=\big| (\lambda-A_{ii})u_i \big|=| \sum_{k\neq i}A_{ik}u_k |\leq \sum_{k\neq i}| A_{ik} | |u_k |\leq \sum_{k\neq i}| A_{ik} |=r_i.
+    \end{equation}
+    Donc les inégalités sont des égalités :
+    \begin{equation}        \label{EQooBIBJooFlscrx}
+        r_i= | \lambda-A_{ii} |=\big| (\lambda-A_{ii})u_i \big|=| \sum_{k\neq i}A_{ik}u_k |=\sum_{k\neq i}| A_{ik} | |u_k |=\sum_{k\neq i}| A_{ik} |.
+    \end{equation}
+    En particulier l'égalité \( \sum_{k\neq i}| A_{ik} | |u_k |=\sum_{k\neq i}| A_{ik} |\) donne
+    \begin{equation}
+        \sum_{k\neq i}| A_{ik} |\big( | u_k |-1 \big)=0.
+    \end{equation}
+    Donc pour tout \( k\in J\) nous avons \( A_{ik}=0\). Vu que \( A\) est irréductible, cela donnerait une partition impossible \( \{ 1,\ldots, n \}=I\cup J\). Nous en déduisons que \( J\) est vide et donc que \( | u_j |=1\) pour tout $j$. En repartant de \eqref{EQooBIBJooFlscrx} nous avons alors
+    \begin{equation}
+        r_i=\big| (\lambda-A_{ii})u_i \big|=| \lambda-A_{ii} | |u_i |=| \lambda-A_{ii} |.
+    \end{equation}
+    Cela prouve que \( \lambda\in\partial D_i\) pour tout \( i\).
+\end{proof}
+
+\begin{example}     \label{EXooUKQIooQqteHx}
+
+    Soit la matrice
+    \begin{equation}
+        B=\begin{pmatrix}
+            2    &   0    &   1    \\
+            0    &   1    &   -1/2    \\
+            -1    &   0    &   3
+        \end{pmatrix}.
+    \end{equation}
+
+    D'abord nous rappelons que si vous voulez entrer cette matrice dans Sage (ou plus généralement dans Python2\footnote{Que vous n'avez aucune raison d'utiliser autre que Sage.}), vous devez faire attention au \( 1/2\) qui, tel quel, est évalué à \( 0\). Nous vous rappelons donc que tous vos codes Sage doivent commencer par ceci :
+
+\lstinputlisting{tex/sage/sageSnip015.sage}
+
+    Les éléments non nuls hors diagonale sont \( B_{13}\), \( B_{31}\) et \( B_{23}\). Elle n'est donc pas irréductible; nous avons par exemple la partition \( I=\{ 1,3 \}\), \( J=\{ 2 \}\) pour le critère de la proposition~\ref{PROPooZTYDooZAxQxF}\ref{ITEMooNLVXooYSQKwO}.
+
+    Les disques de Gershgorin sont
+    \begin{subequations}
+        \begin{align}
+            D_1=\{ z\in \eC\tq | z-2 |\leq 1 \}\\
+            D_2=\{ z\in \eC\tq | z-1 |\leq 1/2 \}\\
+            D_3=\{ z\in \eC\tq | z-3 |\leq 1 \}
+        \end{align}
+    \end{subequations}
+
+    Les valeurs propres de la matrice sont sur des bords de disques de Gershgorin, sans être sur tous les bords, comme ça aurait été le cas par le théorème~\ref{THOooTXAPooQqsBCj} si la matrice avait été irréductible. Elles sont sur la figure~\ref{LabelFigDNRRooJWRHgOCw}; notez en particulier les valeurs propres \( \lambda_2\) et \( \lambda_3\) qui sont sur le bord de deux disques mais pas sur le bord des trois disques en même temps.
+
+\newcommand{\CaptionFigDNRRooJWRHgOCw}{Les disques de Gershgorin et les valeurs propres pour l'exemple~\ref{EXooUKQIooQqteHx}.}
+\input{auto/pictures_tex/Fig_DNRRooJWRHgOCw.pstricks}
+
+\end{example}
+
+\begin{example}     \label{EXooDQYDooPxqHjZ}
+    Soit la matrice
+    \begin{equation}
+        A=\begin{pmatrix}
+            0    &   -1    &   0    \\
+            0    &   1    &   2    \\
+            3    &   0    &   2
+        \end{pmatrix}.
+    \end{equation}
+    Nous avons
+    \begin{subequations}
+        \begin{align}
+            D_1&=\{ z\in \eC\tq | z |\leq 1 \},\\
+            D_2&=\{ z\in \eC\tq | z-1 |\leq 2 \},\\
+            D_3&=\{ z\in \eC\tq | z-2 |\leq 3 \},
+        \end{align}
+    \end{subequations}
+    Le polynôme caractéristique est
+    \begin{equation}
+        \chi(\lambda)=-\lambda^3+3\lambda^2-2\lambda-6.
+    \end{equation}
+    Une fois remarqué que \( \lambda_1=-1\) est une racine, les autres sont faciles à trouver (division euclidienne de \( \chi(\lambda)\) par \( \lambda+1\)) : \( \lambda_2=2+i\sqrt{2}\) et \( \lambda_3=2-i\sqrt{ 2 }\).
+
+    La matrice \( A\) est irréductible. En effet les éléments non diagonaux non nuls sont \( A_{12}\), \( A_{23}\) et \( A_{31}\). Ils peuvent former une chaine reliant tous les indices entre eux.
+
+    Les contraintes sur la localisation des valeurs propres est donc qu'elles doivent être dans ou sur les disques de Gershgorin, mais que celles qui sont sur le bord d'un disque doivent être sur le bord de tous les disques en même temps. C'est cela que nous observons sur la figure~\ref{LabelFigDNHRooqGtffLkd}. Notez en particulier la position de la valeur propre \( \lambda_1\).
+
+
+    \newcommand{\CaptionFigDNHRooqGtffLkd}{Les disques de Gershgorin et les valeurs propres pour l'exemple~\ref{EXooDQYDooPxqHjZ}.}
+   \input{auto/pictures_tex/Fig_DNHRooqGtffLkd.pstricks}
+
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Matrices à diagonale dominante}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[\cite{ooFAQUooRcQHZf,ooZGNYooGgPFhl}]        \label{DEFooLSUTooHuXabV}
+    La matrice \( A\in \eM(n,\eK)\) est \defe{à diagonale dominante}{diagonale!dominante} si pour tout \( i\),
+    \begin{equation}
+        \sum_{j\neq i}| A_{ij} |\leq | A_{ii} |
+    \end{equation}
+    où \( | . |\) est la module dans \( \eC\) ou la valeur absolue dans \( \eR\).
+
+    Elle est \defe{à diagonale fortement dominante}{diagonale!fortement dominante} si elle est à diagonale dominante et si il existe un \( i\) tel que
+    \begin{equation}
+        \sum_{j\neq i}| A_{ij} |< | A_{ii} |.
+    \end{equation}
+
+    Elle est \defe{à diagonale strictement dominante}{diagonale!strictement dominante} si
+    \begin{equation}        \label{EQooQLNLooJCLram}
+        \sum_{j\neq i}| A_{ij} |< | A_{ii} |
+    \end{equation}
+    pour tout \( i\) (entier entre \( 1\) et \( n\)).
+\end{definition}
+
+Nous avons les inclusions suivantes :
+\begin{equation}
+    \text{strictement dominante}\subset\text{fortement dominante}\subset\text{dominante}.
+\end{equation}
+
+\begin{lemma}       \label{LEMooMQAEooUCkQxU}
+    Si \( A\) est dans un des deux cas suivant :
+    \begin{itemize}
+        \item diagonale strictement dominante,
+        \item diagonale dominante et irréductible\footnote{Définition~\ref{DEFooXIREooQtlzkO}.}
+    \end{itemize}
+    alors \( A_{ii}\neq 0\) pour tout \( i\).
+\end{lemma}
+
+\begin{proof}
+    Si \( A\) est à diagonale strictement dominante, alors l'inégalité stricte \eqref{EQooQLNLooJCLram} n'est pas possible.
+
+    Si \( A\) est à diagonale dominante, alors si \( A_{ii}=0\), toute la ligne est nulle. Dans ce cas, la matrice ne peut pas être irréductible.
+\end{proof}
+
+\begin{proposition}[\cite{ooFAQUooRcQHZf}]
+    Une matrice à diagonale strictement dominante est inversible.
+\end{proposition}
+
+\begin{proof}
+    Soit une matrice \( A\) à diagonale strictement dominante. Soit \( x\) tel que \( Ax=0\). Le but est de montrer que \( x=0\). Soit un indice \( i_0\) réalisant la norme maximum :
+    \begin{equation}
+        | x_{i_0} |=\| x \|_{\infty}.
+    \end{equation}
+    Nous écrivons la composante \( i_0\) de l'égalité \( Ax=0\) :
+    \begin{equation}
+        \sum_kA_{i_0k}x_k=0,
+    \end{equation}
+    et nous séparons le terme \( k=i_0\) des autres :
+    \begin{equation}
+        \sum_{k\neq i_0}A_{i_0k}x_K+A_{i_0i_0}x_{i_0}=0.
+    \end{equation}
+    Nous prenons le module et majorons les sommes :
+    \begin{equation}
+        | A_{i_0i_0} | |x_{i_0} |\leq \sum_{k\neq i_0}| A_{i_0k} | |x_k |\leq \sum_{k\neq i_0}| A_{i_0k} | |x_{i_0} |.
+    \end{equation}
+    Si \( | x_{i_0} | \) est non nul nous pouvons simplifier :
+    \begin{equation}
+        | A_{i_0i_0} |\leq \sum_{k\neq i_0}| A_{i_0k} |.
+    \end{equation}
+    Hélas, l'hypothèse de diagonale strictement dominante implique l'inégalité stricte dans le sens inverse. Impossible. Nous en déduisons que \( | x_{i_0} |=0\). Donc \( \| x \|_{\infty}=0\), ce qui signifie que \( x=0\).
+
+    Le fait que le noyau de \( A\) se réduise à \( \{ 0 \}\) implique l'inversibilité de \( A\).
+\end{proof}
+
+\begin{proposition}     \label{PROPooTQWUooSLoniQ}
+    Soit \( A\in \eM(n,\eC)\) une matrice qui est dans un des deux cas suivants :
+    \begin{itemize}
+        \item à diagonale strictement dominante
+        \item à diagonale dominante et irréductible
+    \end{itemize}
+    Si \( A=D-M\) où \( D\) est la diagonale de \( A\) (et \( M\) est «le reste») alors \( D\) est inversible et
+    \begin{equation}
+        \rho(D^{-1}M)<1
+    \end{equation}
+    où \( \rho\) est le rayon spectral (thème~\ref{THEMEooOJJFooWMSAtL}).
+\end{proposition}
+
+\begin{proof}
+    Le lemme~\ref{LEMooMQAEooUCkQxU} nous dit que les éléments diagonaux de \( A\) sont non nuls. Cela donne déjà le fait que la matrice \( D\) est inversible et que la produit \( D^{-1}M\) ait un sens. Nous posons \( T=D^{-1}M\). Nous avons alors
+    \begin{equation}
+        T_{ii}=\sum_k(D^{-1})_{ik}M_{ki}.
+    \end{equation}
+    Si \( k=i\) alors \( M_{ki}=0\) et si \( k\neq i\) alors \( D_{ik}=0\). Donc \( T_{ii}=0\) pour tout \( i\).
+
+    En ce qui concerne les autres éléments de \( T\),
+    \begin{equation}
+        T_{ij}=\sum_k(D^{-1})_{ik}M_{kj}=\sum_k\frac{1}{ A_{ik} }\delta_{ik}M_{kj}=-\frac{ A_{ij} }{ A_{ii} }.
+    \end{equation}
+    Notes :
+    \begin{itemize}
+        \item
+    Les hypothèses sur \( A\) jouent pour dire que \( A_{ii}\neq 0\).
+\item
+    Le signe moins est dû au fait que \( M_{ij}=-A_{ij}\) lorsque \( i\neq j\).
+    \end{itemize}
+    En faisant la somme des modules :
+    \begin{equation}
+        \sum_{j\neq i}| T_{ij} |=\sum_{j\neq i}\frac{ | A_{ij} | }{ | A_{ii} | }=\frac{1}{ | A_{ii} | }\sum_{j\neq i}| A_{ij} |\leq 1.
+    \end{equation}
+    La dernière inégalité est le fait que \( A\) soit à diagonale dominante.
+
+    \begin{subproof}
+    \item[Si \( A\) est à diagonale strictement dominante]
+        Alors nous avons l'inégalité stricte
+        \begin{equation}
+            \sum_{j\neq i}| T_{ij} |<1.
+        \end{equation}
+        Et le théorème de Gershgorin~\ref{THOooUJNFooHpvCCF} dit que le spectre de \( T\) est contenu dans l'union des disques
+    \begin{equation}
+        D_i=\{ z\in \eC\tq | z-T_{ii} |\leq r_i \}
+    \end{equation}
+    où
+\begin{equation}
+    r_i=\sum_{j\neq i}| T_{ij} |.
+\end{equation}
+Mais nous avons prouvé que pour tout \( i\), \( T_{ii}=0\) et \( \sum_{j\neq i}| T_{ij} |<1\). Donc toutes ces boules sont contenues dans \( B(0,1)\). Cela prouve que \( \rho(T)<1\).
+
+    \item[Diagonale dominante, irréductible]
+
+        La matrice \( T\) est alors également irréductible parce que les éléments non nuls de \( A\) et de \( T\) sont les mêmes : \( T_{ij}=-A_{ij}/A_{ii}\). Nous utilisons alors le second théorème de Gershgorin~\ref{THOooTXAPooQqsBCj}. Si \( \lambda\) est une valeur propre de \( T\), alors soit
+        \begin{equation}
+            \lambda\in\bigcup_iB\big( 0,r_i \big)
+        \end{equation}
+        soit
+        \begin{equation}
+            \lambda\in\bigcap_i\partial B(0,r_i).
+        \end{equation}
+
+        Vu que \( r_i\leq 1\) pour tout \( i\), dans le premier cas \( \lambda\) est dans l'union des boules \emph{ouvertes} de rayon \( 1\). Le nombre \( \lambda\) est donc une la boule ouverte de rayon \( 1\). Bref, \( | \lambda |<1\).
+
+        Dans le second cas, l'intersection de deux cercles de même centre sont soit vide soit tout le cercle (auquel cas les rayons sont égaux). Dans le second cas, ledit rayon est certainement strictement plus petit que \( 1\) parce que
+        \begin{equation}
+            r_i=\sum_{j\neq i}| T_{ij} |=\sum_{j\neq i}\frac{ | A_{ij} | }{ | A_{ii} | }<1.
+        \end{equation}
+    \end{subproof}
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{M-matrice}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}      \label{DEFooZAWWooEAujPy}
+    Une matrice \( A\in \eM(n,\eR)\) est une \defe{M-matrice}{M-matrice} si
+    \begin{enumerate}
+        \item
+            \( A_{ii}>0\) pour tout \( i\),
+        \item
+            \( A_{ij}\leq 0\) si \( i\neq j\)
+        \item
+            \( A\) est inversible et \( A^{-1}\geq 0\).
+    \end{enumerate}
+\end{definition}
+
+
+\begin{proposition}     \label{PROPooWVHXooCfsvGq}
+    Soit \( A\in \eM(n,\eR)\) telle que \( A_{ii}>0\) pour tout \( i\) et \( A_{ij}\leq 0\) pour tout \( i\neq j\). Nous posons \( A=D-M\) où \( D\) est la diagonale de \( A\).
+
+    La matrice \( A\) est une M-matrice si et seulement si \( \rho(D^{-1}M)<1\).
+\end{proposition}
+
+\begin{proof}
+    En deux morceaux.
+    \begin{subproof}
+        \item[Si \( \rho(D^{-1}M)<1\)]
+            Nous posons encore \( T=D^{-1}M\). Par le théorème~\ref{THOooMNLGooKETwhh}, la matrice \( \mtu-T\) est inversible et
+            \begin{equation}
+                (\mtu-T)^{-1}=\sum_{k=0}^{\infty}T^k.
+            \end{equation}
+            D'autre part, via des calculs déjà faits, et les hypothèses sur les signes des éléments de \( A\),
+            \begin{equation}
+                T_{ij}=-\frac{ A_{ij} }{ A_{ii} }\geq 0.
+            \end{equation}
+            Donc tous les éléments de \( T\) sont positifs (ou nuls). Par conséquent \( T^k\geq 0\) pour tout \( k\) et \( (\mtu-T)^{-1}\) est positive.
+
+            Mais \( A=D-M=D(\mtu-D^{-1}M)=D(\mtu-T)\). Vu que \( D\) et \( \mtu-T\) sont inversibles, nous savons que \( A\) est inversible et
+            \begin{equation}
+                A^{-1}=(\mtu-A)^{-1}D^{-1},
+            \end{equation}
+            qui est un produit de matrices positives. Donc \( A^{-1}\geq 0\).
+
+            Au final, \( A\) est une M-matrice.
+
+        \item[Si \( A\) est une M-matrice]
+
+
+            Soit une valeur propre \( \lambda\) de \( T=D^{-1}M\) est un vecteur propre u : \( Tu=\lambda u\). Vu que \( T\geq 0\) nous avons d'une part \( | \lambda u |=| \lambda | u |\) et d'autre part \( | \lambda u |=| Tu |\leq T| u |\), ce qui donne
+            \begin{equation}
+                | \lambda | |u |\leq T| u |.
+            \end{equation}
+            Dans cette inégalité nous substituons \( T\) par \( \mtu-(\mtu-T)\) pour avoir
+            \begin{equation}
+                | \mu | |u |\leq | u |-(\mtu-T)| u |
+            \end{equation}
+            ou encore
+            \begin{equation}        \label{EQooGFEOooBpiDJR}
+                (\mtu-T)| u |\leq \big( 1-| \lambda | \big)| u |.
+            \end{equation}
+            Mais \( (\mtu-T)^{-1}=A^{-1}D\geq 0\) parce que \( A\) et \( D\) sont positives. Donc en appliquant \( (\mtu-T)^{-1}\) à l'inégalité \eqref{EQooGFEOooBpiDJR}, elle est conservée (proposition~\ref{PROPooGVRVooZEvKcn}\ref{ITEMooQLCJooKIbws}) :
+            \begin{equation}
+                | u |\leq (\mtu-T)^{-1}\big( 1-| \lambda | \big)| u |.
+            \end{equation}
+            Si \( | \lambda |\geq 1\) alors toutes les composantes de \( \big( 1-| \mtu | \big)| u |\) sont négatives et l'inégalité n'est possible qu'avec \( | u |=0\). Dans ce cas, \( \lambda\) n'est pas une valeur propre (le vecteur propre soit être non nul).
+
+            Nous en déduisons que \( | \lambda |<1\) et donc que \( \rho(T)=\rho(D^{-1}M)<1\).
+    \end{subproof}
+\end{proof}
+
+Le théorème suivant résume ce que nous avons vu en donnant une condition suffisante facile à vérifier pour être une M-matrice.
+\begin{theorem}     \label{THOooLZGSooSevggj}
+    Soit \( A\in \eM(n,\eR)\) telle que
+    \begin{enumerate}
+        \item
+            \( A_{ii}>0\)
+        \item
+            \( A_{ij}\leq 0\) pour \( i\neq j\)
+        \item
+            vérifiant une des deux conditions suivantes :
+    \begin{itemize}
+        \item à diagonale strictement dominante
+        \item à diagonale dominante et irréductible.
+    \end{itemize}
+    \end{enumerate}
+    Alors \( A\) est une M-matrice.
+\end{theorem}
+
+\begin{proof}
+    Au vu de la proposition~\ref{PROPooWVHXooCfsvGq}, il suffira de montrer que \( \rho(D^{-1}M)<1\) où \( D\) et \( M\) sont la décomposition \( A=D-M\) habituelle. C'est le cas grâce à la proposition~\ref{PROPooTQWUooSLoniQ}.
+\end{proof}
+
+\begin{proposition}     \label{PROPooZDMQooIZAbKK}
+    Soit \( A\in \eM(n,\eR)\), une M-matrice irréductible. Alors \( A^{-1}>0\).
+\end{proposition}
+
+\begin{proof}
+    Nous posons \( T=D^{-1}M\). En comparant la définition~\ref{DEFooZAWWooEAujPy} de M-matrice et la caractérisation de la proposition~\ref{PROPooWVHXooCfsvGq}, nous avons \( \rho(D^{-1}M)<1\). Par conséquent
+    \begin{equation}
+        (\mtu-T)^{-1}=\sum_{k=0}^{\infty}T^k
+    \end{equation}
+    par la proposition~\ref{PROPooWVHXooCfsvGq}. D'autre part, \( A^{-1}=(\mtu-A)^{-1}D\) où les éléments \( D\) sont strictement positifs. Donc nous devons encore prouver que \( (\mtu-T)^{-1}>0\). Nous savons que \( T\geq 0\), et vu que
+    \begin{equation}
+        \big(\sum_kT^k)_{ij}=\sum_k(T^k)_{ij}
+    \end{equation}
+    il nous suffit de prouver que pour chaque \( (ij)\), un des \( (T^k)_{ij}\) est strictement positif. Soient donc deux indices \( i\) et \( j\). Vu que \( A\) est irréductible, ils sont connectés par une suite d'indice $i=i_0,i_1,\ldots, ,i_r=j$ tels que
+    \begin{equation}
+        T_{i_k,i_{k+1}}=-\frac{ A_{i_k,i_{k+1}} }{ A_{i_k,i_k} }>0.
+    \end{equation}
+    Or les indices \( i_k\) sont choisis de telle sorte que les numérateurs soient non nuls et donc strictement négatifs. Nous avons, en général :
+    \begin{equation}
+        (T^k)_{ij}=\sum_{l_1,\ldots, l_{r-1}}T_{i,l_1}T_{l_1,l_2}\ldots T_{l_{r-1},j}.
+    \end{equation}
+    Chacun des termes est positif ou nul, mais pour \( k=r\), il y a entre autres le terme
+    \begin{equation}
+        T_{i,i_1}T_{i_1,i_2}\cdots T_{i_r,j}\neq 0.
+    \end{equation}
+    Donc \( (T^r)_{ij}>0\) et \( \sum_{k=0}^{\infty}(T^k)_{ij}>0\). Et par conséquent
+    \begin{equation}
+        A^{-1}=(\mtu-T)^{-1}D>0.
+    \end{equation}
+\end{proof}
+
+\begin{theorem} \label{THOooWIFGooBQpddF}
+    Soit une M-matrice \( A\in \eM(n,\eR)\) et \( g\in \eR^n\) tel que \( (Ag)_i\geq 1\) pour tout \( i\). Alors \( \| A^{-1} \|_{\infty}\leq \| g \|_{\infty}\).
+\end{theorem}
+
+\begin{proof}
+    Nous posons  \( u=(1,\ldots, 1)\) et considérons \( x\in \eR^n\). Vu que \( A\) est une M-matrice, nous avons \( A^{-1}\geq 0\), donc
+    \begin{equation}
+        | A^{-1} x |\leq A^{-1}| x |\leq \| x \|_{\infty}A^{-1}u\leq \| x \|_{\infty}g.
+    \end{equation}
+    Justifications :
+    \begin{itemize}
+        \item La première inégalité est la proposition~\ref{PROPooGVRVooZEvKcn}\ref{ITEMooQLCJooKIbws}.
+        \item La seconde provient de
+    \begin{equation}
+        \big( B| x | \big)_i=\sum_kB_{ik}| x_k |\leq\sum_kB_{ik}\| x \|_{\infty}=\| x \|_{\infty}\sum_{k}B_{ik}u_k=\| x \|_{\infty}Bu.
+    \end{equation}
+\item
+    Étant donné que \( A^{-1}\geq 0\) nous conservons l'inégalité et \( Ag\geq u\) implique \( g\geq A^{-1}u\) (c'est la proposition~\ref{PROPooGVRVooZEvKcn}\ref{ITEMooXQOPooPVLjFh}).
+    \end{itemize}
+
+    En ce qui concerne la norme de \( A^{-1}\) nous avons donc
+    \begin{equation}
+        \| A^{-1} \|_{\infty}=\sup_{| x |_{\infty}=1}\| A^{-1}x \|_{\infty}\leq \sup_{\| x \|_{\infty}=1}\| x \|_{\infty}\| g \|_{\infty}=\| g \|_{\infty}.
+    \end{equation}
+\end{proof}
+
+\begin{proposition}     \label{PROPooQBWQooBbeZLO}
+    Une matrice de \( \eM(n,\eR)\) qui
+    \begin{enumerate}
+        \item est symétrique,
+        \item
+            Vérifie une des deux conditions suivantes
+            \begin{itemize}
+                \item
+            est irréductible à diagonale fortement dominante
+        \item
+            est à diagonale strictement dominante,
+            \end{itemize}
+        \item vérifie \( A_{ii}>0\) pour tout \( i\)
+    \end{enumerate}
+     est strictement définie positive.
+\end{proposition}
+
+\begin{proof}
+    D'après le théorème de Gershgorin~\ref{THOooUJNFooHpvCCF}, chaque valeur propre de \( A\) est dans un des disques fermés
+    \begin{equation}
+        D_i=\{ z\in \eC\tq | z-A_{ii} |\leq r_i \}.
+    \end{equation}
+Par hypothèse, les centres de ces disques sont réels et strictement positifs. Mais le fait que \( A\) soit à diagonale dominante donne que le rayon de ces cercles sont plus petits que \( A_{ii}\). Donc \( D_i\) n'intersecte pas \( \mathopen] -\infty , 0 \mathclose[\). Mais le fait que \( A\) soit symétrique implique que les valeurs propres soient réelles (théorème~\ref{ThoeTMXla}\ref{ITEMooJWHLooSfhNSW}). Cela montre que les valeurs propres de \( A\) sont toutes dans \( \mathopen[ 0 , \infty \mathclose[\).
+
+    Si la matrice \( A\) est à diagonale strictement dominante, alors les inégalités sont strictes et le théorème est prouvé.
+
+Sinon nous somme dans le cas irréductible à diagonale fortement dominante et nous avons le théorème de Gershgorin numéro 2~\ref{THOooTXAPooQqsBCj}. Soit une valeur propre \( \lambda\). Soit elle est dans un des disques ouvert (qui est inclus dans \( \mathopen] 0 , \infty \mathclose[\)), soit elle est dans l'intersection des bords des disques. Mais au moins un des disques n'intersecte pas \( 0\) (parce que la diagonale est strictement dominante). Dans ce cas non plus \( \lambda\) ne peut pas être nul.
+
+    Nous en déduisons que dans tous les cas, les valeurs propres sont toutes réelles strictement positives.
+\end{proof}

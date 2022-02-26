@@ -1,0 +1,2407 @@
+% This is part of Le Frido
+% Copyright (c) 2011,2017-2021
+%   Laurent Claessens,Carlotta Donadello
+% See the file fdl-1.3.txt for copying conditions.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{L'aire en dessous d'une courbe}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Soit $f$ une fonction à valeurs dans $\eR^+$.
+
+Nous voudrions pouvoir calculer l'aire au-dessous du graphe de la fonction \( f\). Nous notons $S_f(x)$ l'aire là-dessous de la fonction $f$ entre l'abscisse $0$ et $x$, c'est-à-dire l'aire bleue de la figure~\ref{LabelFigKKRooHseDzC}.
+
+\newcommand{\CaptionFigKKRooHseDzC}{L'aire en dessous d'une courbe. Le rectangle rouge d'aire $f(x)\Delta x$ approxime de combien la surface augmente lorsqu'on passe de $x$ à $x+\Delta x$.}
+\input{auto/pictures_tex/Fig_KKRooHseDzC.pstricks}
+
+Si la fonction $f$ est continue et que $\Delta x$ est assez petit, la fonction ne varie pas beaucoup entre $x$ et $x+\Delta x$. L'augmentation de surface entre $x$ et $x+\Delta x$ peut donc être approximée par le rectangle de surface $f(x)\Delta x$. Ce que nous avons donc, c'est que quand $\Delta x$ est très petit,
+\begin{equation}
+	S_f(x+\Delta x)-S_f(x)=f(x)\Delta x,
+\end{equation}
+ou encore
+\begin{equation}
+	f(x)=\frac{  S_f(x+\Delta x)-S_f(x)}{ \Delta x }.
+\end{equation}
+Nous formalisons la notion de «lorsque \( \Delta x\) est très petit» par une limite :
+\begin{equation}
+	f(x)=\lim_{\Delta x\to 0}\frac{  S_f(x+\Delta x)-S_f(x)}{ \Delta x }.
+\end{equation}
+Donc, la fonction $f$ est la dérivée de la fonction qui représente l'aire là-dessous de $f$. Calculer des surfaces revient donc au travail inverse de calculer des dérivées.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Propriétés des intégrales}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{lemma}			\label{LemIneqnormeintintnorm}
+	Pour toute fonction $u\colon \mathopen[ a , b \mathclose]\to \eR^n$, nous avons
+	\begin{equation}
+		\| \int_a^bu(t)dt\|\leq\int_a^b\| u(t) \|dt
+	\end{equation}
+	pourvu que le membre de gauche ait un sens.
+\end{lemma}
+
+\begin{proof}
+	Étant donné que $\int_a^bu(t)dt$ est un élément de $\eR^n$, par la proposition~\ref{LemSclNormeXi}, il existe un $\xi\in\eR^n$ de norme $1$ tel que
+	\begin{equation}
+		\| \int_a^bu(t)dt \|=\xi\cdot\int_a^b u(t)dt=\int_a^b u(t)\cdot\xi dt\leq\int_a^b\| u(t) \|   \| \xi \|=\int_a^b\| u(t) \|dt.
+	\end{equation}
+\end{proof}
+
+\begin{proposition}[Relations de Chasles]
+    Soit  \( f\) une fonction continue sur l'intervalle \( I\). Si \( a,b,c\in I\) nous avons
+    \begin{equation}
+        \int_a^cf(x)dx=\int_a^bf(x)dx+\int_b^cf(x)dx.
+    \end{equation}
+\end{proposition}
+\index{relations!de Chasles}
+
+Sur la figure~\ref{LabelFigNWDooOObSHB}, la surface de \( a\) à \( c\) est évidemment égale à la somme des surfaces de \( a\) à \( b\) et de \( b\) à \( c\).
+\newcommand{\CaptionFigNWDooOObSHB}{Illustration pour les relations de Chasles.}
+\input{auto/pictures_tex/Fig_NWDooOObSHB.pstricks}
+
+\begin{corollary}
+  \begin{equation}
+        \int_a^bf(x)dx=-\int_b^af(x)dx.
+    \end{equation}
+\end{corollary}
+
+\begin{proposition}[Linéarité de l'intégrale]\label{lineariteintegrale}
+    Si $f$ et $g$ sont deux fonctions continues sur $I\subset\eR$, $a, \, b\in I$ et \( \lambda\in \eR\) nous avons
+    \begin{equation}
+        \int_a^b\big( f(x)+g(x) \big)dx=\int_a^bf(x)dx+\int_a^bg(x)dx,
+    \end{equation}
+    et
+    \begin{equation}
+        \int_a^b \lambda f(x)dx=\lambda\int_a^bf(x)dx.
+    \end{equation}
+\end{proposition}
+
+\begin{proposition}[L'intégrale est monotone]   \label{PropCJIooHqECbq}
+    Soient \( a,b\in I\) avec \( a<b\). Si \( f\geq g\) sur \( \mathopen[ a , b \mathclose]\) alors
+    \begin{equation}
+        \int_a^bf(x)dx\geq \int_a^bg(x)dx.
+    \end{equation}
+\end{proposition}
+
+\begin{corollary}[Positivité] \label{PropHVWooBDRhCX}
+    Si \( a<b\) et \( f\geq 0\) sur \( \mathopen[ a , b \mathclose]\) alors
+    \begin{equation}
+        \int_a^bf(x)dx\geq 0.
+    \end{equation}
+\end{corollary}
+
+Ce résultat n'est qu'une application de la proposition~\ref{PropCJIooHqECbq} car il consiste à prendre comme fonction $g$ la fonction nulle.
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Techniques d'intégration}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Par le théorème \ref{ThoRWXooTqHGbC}, la calcul d'une intégrale consiste essentiellement à trouver une primitive de la fonction à intégrer.  Il est donc indispensable de bien connaitre les dérivées des fonctions usuelles.
+
+Voici un tableau des primitives à connaitre.
+
+\label{PageLCHooMbWjOj}
+\begin{equation*}
+    \begin{array}[]{|c||c|c|c|}
+        \hline
+        \text{Fonction}&\text{Primitive}&\text{Ensemble de définition}&\text{Remarques}\\
+        f(x)&\int f(x)\, dx& \text{de } f&\\
+        \hline\hline
+        x^{\alpha}&\frac{ x^{\alpha+1} }{ \alpha+1 } + C& \text{dépend de }\alpha&  \alpha\in \eR\setminus\{ -1 \}  \\
+        \hline
+        \frac{1}{ x }&\ln\big( | x | \big) + C&x\neq 0&\\
+        \hline
+        \frac{1}{ 1+x^2 }&\arctan(x) + C&\eR&\\
+        \hline
+        \frac{1}{ \sqrt{1-x^2} }&\arcsin(x) + C&\mathopen] -1 , 1 \mathclose[&\\
+        \hline
+        \frac{-1}{ \sqrt{1-x^2} }&\arccos(x) + C&\mathopen] -1 , 1 \mathclose[&\\
+        \hline
+        e^x&e^x + C&\eR&\\
+        \hline
+        \sin(x)&-\cos(x) + C&\eR&\\
+        \hline
+        \cos(x)&\sin(x) + C&\eR&\\
+        \hline
+    1+\tan^2(x)&\tan(x) + C&\text{in intervalle de la forme }\mathopen] -\frac{ \pi }{2} , \frac{ \pi }{2} \mathclose[+k\pi&\\
+        \hline
+    \end{array}
+\end{equation*}
+
+
+
+Notez que au signe près, les fonctions \( \arcsin \) et \( \arccos\) ont la même dérivée.
+
+Si la fonction à intégrer est une combinaison linéaire de fonctions usuelles alors sa primitive peut \^etre calculée en utilisant la proposition~\ref{lineariteintegrale}. Dans les sections suivantes on abordera deux autres cas où la fonction à intégrer peut s'écrire en termes de fonctions dont on connaît une primitive.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégration par parties}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}     \label{PROPooRLFIooQHnyJY}
+    Si \( u\) et \( v\) sont deux fonctions dérivables de dérivées continues sur l'intervalle \( \mathopen[ a , b \mathclose]\) alors
+    \begin{equation}        \label{EQooKISBooQvGMQT}
+        \int_a^b u(x)v'(x)dx=\big[ u(x)v(x) \big]_a^b-\int_a^bu'(x)v(x)dx.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Il s'agit d'utiliser à l'envers la formule de dérivation d'un produit :
+    \begin{equation}
+        uv'=(uv)'-u'v.
+    \end{equation}
+    Les fonctions à gauche et à droite étant égales, elles ont même intégrale sur \( \mathopen[ a , b \mathclose]\) et par linéarité, voir  proposition~\ref{lineariteintegrale}, on a :
+    \begin{equation}
+        \int_a^b u(x)v'(x)dx=\int_a^b (uv)'(x)-\int_a^b u'(x)v(x)dx.
+    \end{equation}
+    La fonction \( uv\) est évidemment une primitive de \( (uv)'\), de telle sorte que l'on puisse un peu simplifier cette expression :
+    \begin{equation}
+        \int_a^b u(x)v'(x)dx= \Big[ u(x)v(x) \Big]_a^b -\int_a^b u'(x)v(x)dx,
+    \end{equation}
+    ce qu'il fallait démontrer.
+\end{proof}
+
+\begin{example} \label{ExWIEooVUgvSp}
+    Un cas typique d'utilisation de l'intégrale par parties est le suivant. Soit à calculer
+    \begin{equation}
+       \int_0^{\pi}x\cos(x)dx.
+    \end{equation}
+    Nous devons écrire \( x\cos(x)\) comme un produit \( u(x)v'(x)\). Il y a (au moins) deux moyens de le faire :
+    \begin{subequations}
+        \begin{numcases}{}
+            u=x\\
+            v'=\cos(x).
+        \end{numcases}
+    \end{subequations}
+    ou
+    \begin{subequations}
+        \begin{numcases}{}
+            u=\cos(x)\\
+            v'=x.
+        \end{numcases}
+    \end{subequations}
+    Nous allons choisir le premier\footnote{Mais nous conseillons vivement au lecteur d'essayer le deuxième pour se rendre compte qu'il ne fonctionne pas.}. Nous avons donc
+    \begin{equation}
+        \begin{aligned}[]
+            u&=x,&v'&=\cos(x)\\
+            u'&=1&v&=\sin(x).
+        \end{aligned}
+    \end{equation}
+    En utilisant la formule d'intégration par parties,
+    \begin{equation}
+        \int_0^{\pi}x\cos(x)dx=\Big[ x\sin(x) \Big]_0^{\pi}-\int_0^{\pi} 1\times \sin(x)dx=\pi\sin(\pi)-\Big[ -\cos(x) \Big]_0^{\pi}=-2.
+    \end{equation}
+\end{example}
+
+Le plus souvent, pour alléger les notations, il est plus pratique d'utiliser l'intégration par parties pour déterminer une primitive. Nous utilisons pour cela la formule (sans doute plus simple à retenir)
+\begin{equation}
+    \int uv'=uv-\int u'v.
+\end{equation}
+
+\begin{example} \label{ExLTJooDZIYWP}
+    Nous reprenons l'exemple~\ref{ExWIEooVUgvSp} en déterminant cette fois une primitive de \( x\cos(x)\) :
+    \begin{equation}\label{EqTQNooVTYkZX}
+        \int x\cos(x)dx=x\sin(x)-\int \sin(x)dx=x\sin(x)+\cos(x) + C, \qquad C \in\eR.
+    \end{equation}
+    Nous retrouvons le résultat numérique de l'exemple précédent en ajoutant les extrêmes d'intégration
+    \begin{equation}
+        \int_0^{\pi} x\cos(x)dx=\big[ x\sin(x)+\cos(x) \big]_0^{\pi}=-2.
+    \end{equation}
+\end{example}
+
+
+\begin{remark}
+    Lorsqu'on calcule des intégrales, il est bon de passer par la primitive (c'est-à-dire en suivant l'exemple~\ref{ExLTJooDZIYWP} et non~\ref{ExWIEooVUgvSp}) parce qu'il est alors facile de vérifier le résultat en calculant la dérivée de la primitive trouvée.
+
+    Par exemple pour vérifier si \eqref{EqTQNooVTYkZX} est correct, il suffit de dériver \( x\sin(x)+\cos(x)\) :
+    \begin{equation}
+        \big( x\sin(x)+\cos(x) \big)'=\sin(x)+x\cos(x)-\sin(x)=x\cos(x).
+    \end{equation}
+    La fonction \( x\sin(x)+\cos(x)\) est donc bien une primitive de \( x\cos(x)\).
+\end{remark}
+
+\begin{example}[Primitive du logarithme]\label{primln}
+    La primitive de la fonction logarithme définie en~\ref{DEFooELGOooGiZQjt} nous offre un bon moment d'intégration par partie.
+
+    Trouver la primitive de la fonction \( x\mapsto \ln(x)\). Pour calculer
+    \begin{equation}
+        \int\ln(x)dx
+    \end{equation}
+    nous écrivons \( \ln(x)=1\times \ln(x)\) et nous posons \( u'=1\) et \( v=\ln(x)\), c'est-à-dire
+    \begin{equation}
+        \begin{aligned}[]
+            u'&=1&v=\ln(x)\\
+            u&=x&v'=\frac{1}{ x }.
+        \end{aligned}
+    \end{equation}
+    La formule d'intégration par parties \eqref{EQooKISBooQvGMQT} donne donc
+    \begin{equation}
+        \int \ln(x)=x\ln(x)-\int x\times \frac{1}{ x }=x\ln(x)-\int 1=x\ln(x)-x+C, \qquad C\in\eR.
+    \end{equation}
+    Il est facile de vérifier par un petit calcul que
+    \begin{equation}
+        \big( x\ln(x)-x \big)'=\ln(x).
+    \end{equation}
+\end{example}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Changement de variables -- pour trouver des primitives}
+%---------------------------------------------------------------------------------------------------------------------------
+
+De la même manière que l'utilisation «à l'envers» de la formule de dérivation du produit avait donné la méthode d'intégration par parties, nous allons voir que que l'utilisation «à l'envers» de la formule de dérivation d'une fonction composée donne lieu à la méthode d'intégration par changement de variables.
+\begin{proposition}     \label{PROPooMVIUooZmvHxS}
+    Soient \( I\) et \( J\) des intervalles de \( \eR\), \( u\colon I\to J\) une fonction qui est dérivable de dérivée continue et \( f\colon J\to \eR\) une fonction admettant une primitive \( F\). Alors la fonction
+    \begin{equation}
+        x\mapsto F\big( u(x) \big)
+    \end{equation}
+    est une primitive de
+    \begin{equation}\label{changvar}
+        f\big( u(x) \big)u'(x).
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Cela est une utilisation immédiate de la formule de dérivée des fonctions composées.
+\end{proof}
+
+\begin{example}
+    Soit à calculer
+    \begin{equation}
+        \int x\sqrt{1-x^2}dx.
+    \end{equation}
+La fonction $g(x) = x\sqrt{1-x^2}$ est le produit de $x$ et de $\sqrt{1-x^2}$. On remarque que la dérivée de $1-x^2$ est $-2x$ : nous avons alors, à un facteur $-2$ près, une expression de la forme \eqref{changvar} où la racine carrée joue le r\^ole de $f$, \( f(t)=\sqrt{t}\),   et $1-x^2$ le r\^ole de $u$.  Une primitive de la fonction \( f(t)=\sqrt{t}\) est $F(t) = 2t^{3/2}/3$.
+
+    Donc la fonction
+      $  \frac{ 2u(x)^{3/2} }{ 3 }=\frac{ 2 }{ 3 }(1-x^2)^{3/2}$
+    est primitive de
+     $   -2x\sqrt{1-x^2} = -2 g(x)$.
+    Autrement dit,
+    \begin{equation}
+        \int -2x\sqrt{1-x^2}\,dx=\frac{ 2 (1-x^2)^{3/2}}{ 3 } + C,
+    \end{equation}
+    et en divisant par \( -2\) nous trouvons la primitive demandée :
+    \begin{equation}
+        \int x\sqrt{1-x^2}\,dx=-\frac{ (1-x^2)^{3/2} }{ 3 } + C.
+    \end{equation}
+\end{example}
+
+L'exemple suivant donne une façon plus économe de retenir la méthode du changement de variables.
+
+\begin{example}\label{exempleprimitivechangvar}
+    Soit à calculer
+    \begin{equation}
+        \int \cos(x) e^{\sin(x)}dx.
+    \end{equation}
+    Vu qu'il y a beaucoup de fonctions trigonométriques dans la fonction à intégrer, nous allons poser \( u(x)=\sin(x)\), et remplacer élément par élément tout ce qui contient du «$x$»  dans l'intégrale demandée par la quantité correspondante en termes de \( u\).
+
+    La difficulté est de savoir ce que nous allons faire du «\( dx\)» dans l'intégrale. Ce \( dx \) marque une variation (infinitésimale) de \( x\). La formule des accroissements finis dit que si \( x\) augmente de la valeur \( dx\), alors \( u(x)\) augmente de $u'(x)dx$, c'est-à-dire que
+    \begin{equation}
+        du=\cos(x)dx.
+    \end{equation}
+
+    Nous avons donc les substitutions suivantes à faire :
+    \begin{subequations}
+        \begin{align}
+            \sin(x)&=u\\
+            du&=\cos(x)dx\\
+            dx&=\frac{ du }{ \cos(x) }.
+        \end{align}
+    \end{subequations}
+    La chose «magique» est que le \( \cos(x)\) se trouvant dans la fonction se simplifie avec le cosinus qui arrive lorsqu'on remplace \( dx\) par \( \frac{ du }{ \cos(x) }\). Les substitutions faites nous restons avec
+    \begin{equation}
+        \int\cos(x) e^{\sin(x)}dx=\int e^{u}du=e^u + C, \qquad \text{où } u= \sin(x).
+    \end{equation}
+   Attention : la réponse doit \^etre impérativement donnée en termes de \( x\) et non de \( u\). Nous écrivons donc
+    \begin{equation}
+        \int \cos(x) e^{\sin(x)}= e^{\sin(x)}+C.
+    \end{equation}
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Changement de variables -- pour calculer des intégrales}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Le théorème \ref{ThoRWXooTqHGbC} fixe la relation entre la recherche des primitives de $f $ et la calcul de l'intégrale de $f$ sur l'intervalle d'extrêmes $a$ et $b$. On a vu dans la section précédente comment utiliser le changement de variable pour trouver une primitive de $f$. Il faut maintenant comprendre comment appliquer ce qu'on a vu dans le calcul d'une intégrale.
+
+En effet nous avons le choix entre
+\begin{itemize}
+\item trouver une primitive de $f$ comme dans la section précédente et appliquer ensuite la formule du corolaire \ref{ThoRWXooTqHGbC} ;
+\item écrire une intégrale pour la nouvelle variable $u = u(x)$ sur l'intervalle entre $u(a)$ et $u(b)$.
+\end{itemize}
+
+Nous allons voir ce deux méthodes dans des exemples.
+
+\begin{example}
+    Soit à  calculer
+    \begin{equation}
+        \int_{1/3}^{1/2}x\sqrt{1-x^2}dx.
+    \end{equation}
+   Les primitives $\int x\sqrt{1-x^2}dx$ ont été trouvé dans l'exemple~\ref{exempleprimitivechangvar}. Une primitive est
+    \begin{equation}
+        F(x)=\int x\sqrt{1-x^2}dx=-\frac{(1-x^2)^{3/2}}{ 3 }.
+    \end{equation}
+    Nous pouvons maintenant calculer l'intégrale de $x\sqrt{1-x^2}$ sur l'intervalle $[1/3, 1/2]$ par la définition
+    \begin{equation}
+        \int_{1/3}^{1/2}x\sqrt{1-x^2}dx=F\left(\frac{ 1 }{2}\right)-F\left(\frac{1}{ 3 }\right)=-\frac{ \sqrt{3} }{ 8 }+\frac{ 16\sqrt{2} }{ 81 }.
+    \end{equation}
+\end{example}
+\begin{remark}
+  Pour que le calcul d'intégrale donne quelque chose de sensé il faut absolument que la primitive soit écrite en tant que fonction de $x$ et non comme fonction de $u$. La méthode que nous allons voir dans l'exemple suivant réduit grandement la probabilité d'oublier ce détail, d'où le fait qu'elle soit de loin la plus utilisée.
+\end{remark}
+\begin{example}
+    Calculons à nouveau
+    \begin{equation}
+        \int_{1/3}^{1/2}x\sqrt{1-x^2}dx.
+    \end{equation}
+    Cette fois nous allons toucher à l'intervalle d'intégration en même temps que faire le changement de variables. Nous savons déjà les substitutions
+    \begin{subequations}
+        \begin{numcases}{}
+            u=1-x^2\\
+            du=-2xdx\\
+            dx=\frac{ du }{ -2x }.
+        \end{numcases}
+    \end{subequations}
+    En ce qui concerne les extrêmes d'intégration, si \( x=1/3\) alors \( u=1-\frac{1}{ 9 }=\frac{ 8 }{ 9 }\) et si \( x=\frac{ 1 }{2}\) alors \( u=\frac{ 3 }{ 4 }\). Nous avons donc encore les substitutions suivantes  :
+    \begin{subequations}
+        \begin{numcases}{}
+            x=1/3\to u=8/9\\
+            x=1/2\to u=3/4
+        \end{numcases}
+    \end{subequations}
+    Le calcul est alors
+    \begin{equation}
+        \int_{1/3}^{1/2}x\sqrt{1-x^2}dx=-\frac{ 1 }{2}\int_{8/9}^{3/4}\sqrt{u}du=-\frac{ 1 }{2}\left[  \frac{ u^{3/2} }{ 3/2 }    \right]_{8/9}^{3/4}=-\frac{ \sqrt{3} }{ 8 }+\frac{ 16\sqrt{2} }{ 81 }.
+    \end{equation}
+    Attention : la dernière égalité n'est pas immédiate; elle demande quelques calculs et une bonne utilisation des règles de puissances.
+\end{example}
+
+La deuxième méthode est plus utilisée et, avec un peu d'exercice, plus rapide à mettre en place que la première.
+
+Jusqu'à présent nous avons utilisé des changements de variables dans lesquels nous exprimions \( u\) en termes de \( x\). Comme le montre l'exemple suivant, il est parfois fructueux d'utiliser le changement de variable dans le sens inverse : avec \( x\) exprimé en termes d'un paramètre.
+
+\begin{example}\label{exemplepassagepolaires}
+    À calculer :
+    \begin{equation}
+        \int_{1/2}^{\sqrt{3}/2}\sqrt{1-x^2}dx.
+    \end{equation}
+    Nous posons \( x=\sin(\theta)\) parce que nous savons que \( 1-\sin^2(\theta)=\cos^2(\theta)\); nous espérons que le changement de variables simplifie l'expression\footnote{Lorsqu'on fait un changement de variables, il s'agit toujours d'\emph{espérer} que l'expression se simplifie. Il n'y a pas moyen de savoir à priori si tel changement de variable va être utile. Il faut essayer.}. Les substitutions à faire dans l'intégrale sont :
+    \begin{subequations}
+        \begin{numcases}{}
+            x=\sin(\theta)\\
+            dx=\cos(\theta)d\theta,
+        \end{numcases}
+    \end{subequations}
+    et en ce qui concerne les bornes, si \( x=1/2\) alors \( \sin(\theta)=\frac{ 1 }{2}\), c'est-à-dire \( \theta=\frac{ \pi }{ 6 }\). Si \( x=\sqrt{3}/2\) alors \( \theta=\frac{ \pi }{ 3 }\). Donc
+    \begin{equation}
+        \int_{1/2}^{\sqrt{3}/2}\sqrt{1-x^2}dx=\int_{\pi/6}^{\pi/3}\sqrt{1-\sin^2(\theta)}\cos(\theta)dt.
+    \end{equation}
+    Nous avons \( 1-\sin^2(\theta)=\cos^2(\theta)\) et vu que \( \theta\in\mathopen[ \frac{ \pi }{ 6 } , \frac{ \pi }{ 3 } \mathclose]\) nous avons toujours \( \cos(\theta)>0\), ce qui donne \( \sqrt{\cos^2(\theta)}=\cos(\theta)\). Nous devons donc calculer
+    \begin{equation}
+        \int_{\pi/6}^{\pi/3}\cos^2(\theta)d\theta.
+    \end{equation}
+    Pour celle-là, il faut utiliser une formule de trigonométrie\footnote{En fait, il y a moyen de terminer le calcul en intégrant deux fois par parties, mais c'est plus compliqué.} :
+    \begin{equation}
+        \cos^2(\theta)=\frac{ 1+\cos(2\theta) }{ 2 }.
+    \end{equation}
+    Donc
+    \begin{equation}
+        \int_{\pi/6}^{\pi/3}\cos^2(\theta)d\theta=\int_{\pi/6}^{\pi/3}\frac{ 1+\cos(2\theta) }{2}d\theta=\left[ \frac{ \theta }{2}\right]_{\pi/6}^{\pi/3}+\int_{\pi/6}^{\pi/3}\frac{ \cos(2\theta) }{2}d\theta,
+    \end{equation}
+    Pour calculer proprement la dernière intégrale nous effectuons un autre changement de variable (facile) en posant $t = 2\theta$, $dt = 2 d\theta$, $t(\pi/6) = \pi/3$ et $t(\pi/3) = 2\pi/3$, nous avons alors
+    \begin{equation}
+        \int_{\pi/6}^{\pi/3}\cos^2(\theta)d\theta=\left[ \frac{ \theta }{2}\right]_{\pi/6}^{\pi/3}+\int_{\pi/3}^{2\pi/3}\frac{ \cos(t) }{4}dt  = \left[ \frac{ \theta }{2}\right]_{\pi/6}^{\pi/3}=\frac{ \pi }{ 6 }-\frac{ \pi }{ 12 }=\frac{ \pi }{ 12 },
+    \end{equation}
+    parce que \( \sin\big( \frac{ 2\pi }{ 3 } \big)=\sin\big( \frac{ \pi }{ 3 } \big)\). Au final,
+    \begin{equation}
+        \int_{1/2}^{\sqrt{3}/2}\sqrt{1-x^2}dx=\frac{ \pi }{ 12 }.
+    \end{equation}
+\end{example}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrations des fractions rationnelles réduites}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Une \defe{fraction rationnelle}{fraction rationnelle} est un quotient de deux polynômes à coefficients réels ou complexes.
+\end{definition}
+Par exemple
+\begin{equation}
+    \frac{ x^5+7x^4-\frac{ x^3 }{2}+x }{ x^2-1 }
+\end{equation}
+est une fraction rationnelle.
+
+Il sera expliqué dans le cours d'algèbre que toute fraction rationnelle peut être écrite sous forme d'une somme d'éléments simples, c'est-à-dire de fractions rationnelles d'un des deux types suivants :
+\begin{subequations}
+    \begin{align}
+        \frac{ \alpha }{ (x-a)^m },&& \alpha,a\in \eR,m\in \eN  \label{CasMMIooZnZpUWi}\\
+        \frac{ \alpha x+\beta }{ (x^2+ax+b)^m };&&\alpha, \beta ,a,b\in \eR,m\in \eN,a^2-4b<0. \label{CasMMIooZnZpUWii}
+    \end{align}
+\end{subequations}
+Nous allons nous contenter de donner un exemple de chaque type.
+
+\begin{enumerate}
+    \item
+        En ce qui concerne le cas \eqref{CasMMIooZnZpUWi} avec \( m=1\), nous avons par exemple
+        \begin{equation}
+            \int\frac{1}{ x-3 }dx=\ln\big( | x-3 | \big)+C .
+        \end{equation}
+        Si vous voulez en être tout à fait sûr, effectuez d'abord le changement de variables \( u=x-3\) qui donne \( dx=du\).
+    \item
+        En ce qui concerne le cas \eqref{CasMMIooZnZpUWi} avec \( m\neq 1\), nous avons par exemple
+        \begin{equation}
+            \int\frac{1}{ (x-1)^4 }dx=-\frac{1}{ 3(x-1)^3 }+C.
+        \end{equation}
+        Encore une fois, pour s'en convaincre, utiliser le changement de variables \( u=x-1\), \( dx=du\) :
+        \begin{equation}
+            \int\frac{1}{ (x-1)^4 }dx=\int\frac{1}{ u^4 }du=\int u^{-4}du=-\frac{ u^{-3} }{ 3 }+C=-\frac{1}{ 3 }\frac{1}{ (x-1)^3 }+C.
+        \end{equation}
+    \item
+        En ce qui concerne le cas \eqref{CasMMIooZnZpUWii} avec \( \alpha\neq 0\), nous avons par exemple
+        \begin{equation}
+            \int\frac{ x }{ x^2+4 }dx=\frac{ 1 }{2}\ln(x^2+4)+C.
+        \end{equation}
+        Pour ce faire, il faut faire le changement de variables \( u=x^2+4\), \( du=2xdx\), \( dx=\frac{ du }{ 2x }\) qui donne
+        \begin{equation}
+            \int \frac{ x }{ x^2+4 }dx=\frac{ 1 }{2}\int\frac{ du }{ u }=\frac{ 1 }{2}\ln(| u |)+C=\frac{ 1 }{2}\ln(| x^2+4 |)+C.
+        \end{equation}
+        Dans ce cas nous pouvons oublier d'écrire la valeur absolue dans le logarithme parce que de toutes façons, \( x^2+4\) est toujours positif.
+    \item
+        En ce qui concerne le cas \eqref{CasMMIooZnZpUWii} avec \( \alpha= 0\), nous avons par exemple
+        \begin{equation}
+            \int\frac{ dx }{ x^2+4 }=\frac{1}{ 4 }\int\frac{ dx }{ (\frac{ x }{2})^2+1 }=\frac{ 1 }{2}\arctan(\frac{ x }{2})+C.
+        \end{equation}
+        où nous avons utilisé la primitive \( \int \frac{dx}{ x^2+1 }dx=\arctan(x)\) du tableau de la page \pageref{PageLCHooMbWjOj}. Pour vous en convaincre vous pouvez faire la dernière étape avec le changement de variables \( u=x/2\), \( dx=2du\).
+\end{enumerate}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Quelques formules à connaitre}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{Aretenir}
+  \begin{subequations}
+    \begin{equation}
+      \int \left(\alpha f(x) + \beta g(x)\right) \, dx = \alpha \int f(x) \, dx + \beta \int g(x) \, dx.
+    \end{equation}
+    \begin{equation}
+      \int f(x) g'(x) \, dx = f(x)g(x) - \int f'(x) g(x) \, dx.
+    \end{equation}
+    \begin{equation}
+      \int f'(u(x))u'(x)\, dx = \int f(t)\, dt, \qquad \text{avec } t = u(x).
+    \end{equation}
+    \begin{equation}
+      \int \frac{f'(x)}{f(x)} \, dx = \log |f(x)| + C, \qquad \text{c'est un cas particulier de la formule précédente.}
+    \end{equation}
+  \end{subequations}
+\end{Aretenir}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Approximation de \texorpdfstring{$ \ln(2)$}{ln(2)}}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{theorem}[Taylor, reste intégral]     \label{THOooDGCJooXKmFTT}
+    Soit une fonction \( f\colon \mathopen[ a , b \mathclose]\to \eR\) de classe \( C^{n+1}\). Alors pour tout \( N\leq n\) nous avons
+    \begin{equation}        \label{EQooSCKCooXcKzCc}
+        f(b)=f(a)+\sum_{k=1}^N\frac{ f^{(k)}(a) }{ k! }(b-a)^k+\frac{1}{ N! }\int_a^b(b-t)^Nf^{(N+1)}(t)dt.
+    \end{equation}
+\end{theorem}
+
+\begin{proof}
+    Notons que dans l'énoncé, \( n\) est fixé; nous faisons une récurrence sur \( N\). Ça ne change pas grand chose, mais il faut être conscient de ce qui est exactement dans l'hypothèse du théorème et ce qui est dans l'hypothèse de récurrence.
+
+    Bref, \( n\) est fixé, la fonction \( f\) est de classe \( C^{n+1}\) et nous vérifions d'abord la formule avec \( N=1\). À droite dans \eqref{EQooSCKCooXcKzCc} nous avons
+    \begin{equation}        \label{EQooETPRooJHcOXh}
+        f(a)+f'(a)(b-a)\int_a^b(b-t)f''(t)dt.
+    \end{equation}
+    Nous évaluons l'intégrale à part en faisant une intégration par parties\footnote{Proposition \ref{PROPooRLFIooQHnyJY}.}. Il s'agit de poser
+    \begin{subequations}
+        \begin{align}
+            u&=b-t\\
+            v'&=f'',
+        \end{align}
+    \end{subequations}
+    de déduire
+    \begin{subequations}
+        \begin{align}
+            u'&=-1\\
+            v&=f'
+        \end{align}
+    \end{subequations}
+    et d'écrire
+    \begin{subequations}
+        \begin{align}
+            \int_a^b(b-t)f''(t)dt&=\left[ (b-t)f'(t) \right]^b_a-\int_a^b(-)f'(t)dt\\
+            &=-(b-a)f'(a)+\int_a^bf'(t)dt\\
+            &=-(b-a)f'(a)+f(b)-f(a).
+        \end{align}
+    \end{subequations}
+    Dans le calcul nous avons utilisé le théorème fondamental du calcul intégral \ref{ThoRWXooTqHGbC}. En remettant ça dans \eqref{EQooETPRooJHcOXh} nous trouvons \( f(b)\) comme il se doit.
+    
+    En ce qui concerne la récurrence, nous devons calculer
+    \begin{equation}        \label{EQooKQWZooGBvtlZ}
+        f(a)+\sum_{k=1}^{N+1}\frac{ f^{(k)(a)} }{ k! }(b-a)^k+\frac{1}{ (N+1)! }\int_a^b(b-t)^{N+1}f^{(N+2)}(t)dt.
+    \end{equation}
+    Ici encore, il s'agit de faire une intégration par partie, et sortir de la somme le terme \( k=N+1\). L'intégration par partie donne
+    \begin{equation}
+        \int_a^b(b-t)^{N+1}f^{(N+2)}(t)dt=-(b-a)^{N+1}f^{(N+1)}(a)+(N+1)\int_a^b(b-t)^Nf^{(N+1)}(t)dt.
+    \end{equation}
+    En remettant tout ensemble, il y a encore deux termes qui se simplifient, et des termes qui se remettent pour former la formule de récurrence. Bref, on obtient que \eqref{EQooKQWZooGBvtlZ} se réduit bien à \( f(b)\).
+\end{proof}
+
+Cette formule avec reste intégral sert par exemple à prouver un encadrement pour \( \ln(2)\), voir la proposition \ref{PROPooHOMYooFclkCU}.
+
+\begin{proposition}[Approximation de \( \ln(2)\)\cite{BIBooSJDCooHjuWeU}]       \label{PROPooHOMYooFclkCU}
+    Pour tout \( n\) nous avons
+    \begin{equation}
+        \left| \ln(2)-\sum_{k=1}^n\frac{ (-1)^{k+1} }{ k } \right|\leq \frac{1}{ n+1 }.
+    \end{equation}
+\end{proposition}
+
+\begin{proof}
+    Nous écrivons la formule de Taylor avec reste intégral du théorème \ref{THOooDGCJooXKmFTT} pour la fonction \( f=\ln\) et pour \( a=1\) et \( b=x\). Cela donne :
+    \begin{equation}
+        \ln(x)=\ln(1)+\sum_{k=1}^N\frac{ \ln^{(k)}(1) }{ k! }(x-1)^k+\frac{1}{ N! }(x-t)^N\ln^{(N+1)}(t)dt.
+    \end{equation}
+    Sachant que la dérivée du logarithme\footnote{Voir la proposition \ref{ExZLMooMzYqfK}.} est \( 1/x\) et faisant une petite récurrence, pour \( k\geq 1\) nous avons
+    \begin{equation}
+        \ln^{(k)}(x)=\frac{ (-1)^{k+1}(k-1)! }{ x^k }.
+    \end{equation}
+    En remplaçant,
+    \begin{equation}
+        \ln(x)=\sum_{k=1}^N\frac{ (-1)^{k+1} }{ k }(x-1)^k+\int_1^x\frac{ (-1)^N(x-t)^N }{ t^{N+1} }dt.
+    \end{equation}
+    C'est le moment de poser \( x=2\) et de faire les simplifications qui s'imposent,
+    \begin{equation}
+        \ln(2)=\sum_{k=1}^N\frac{ (-1)^{k+1} }{ k }+\int_1^2\frac{ (-1)^N(2-t)^N }{ t^{N+1} }dt.
+    \end{equation}
+    Nous déplaçons la somme à gauche, et nous prenons la valeur absolue des deux côtés :
+    \begin{subequations}
+        \begin{align}
+            | \ln(2)-\sum_{k=1}^N\frac{ (-1)^{k+1} }{ k } |&=| \int_1^2\frac{ (-1)^N(2-t)^N }{ t^{N+1} }dt |\\
+            &\leq\int_1^2\int_1^2\frac{ (2-t)^N }{ t^{N+1} }dt \label{SUBEQooZSXEooVcbJpd}\\
+            &\leq \int_1^2(2-t)^N       \label{SUBEQooHGZLooGIhoVt}.
+        \end{align}
+    \end{subequations}
+    Justifications :
+    \begin{itemize}
+        \item Pour \ref{SUBEQooZSXEooVcbJpd}. Majoration en rentrant la valeur absolue dans l'intégrale, suppression de \( (-1)^N\), et le fait que pour \( t\in \mathopen[ 1 , 2 \mathclose]\), \( 2-t\geq 0\).
+        \item Pour \ref{SUBEQooHGZLooGIhoVt}. Majoration en supprimant purement et simplement le dénominateur \( t^N+1\geq 1\).
+    \end{itemize}
+    Ais-je vraiment besoin de vous dire que la dernière intégrale se calcule en posant le changement de variables\footnote{Proposition \ref{PROPooMVIUooZmvHxS}.} \( u=2-t\) ? Le résultat est que
+    \begin{equation}
+        \int_1^2(2-t)^Ndt=\frac{1}{ N+1 }.
+    \end{equation}
+\end{proof}
+
+\begin{example}[\cite{MonCerveau}]      \label{EXooYMEEooMGpUNM}
+    La convergence de l'encadrement \eqref{PROPooHOMYooFclkCU} n'est pas terrible. Pour avoir une erreur de \( \frac{1}{ 10 }\), il faut
+    \begin{equation}
+        \frac{1}{ 10 }=\frac{1}{ n+1 },
+    \end{equation}
+    ce qui demande \( n=9\). Ça reste jouable, même pour les jeunes d'aujourd'hui. Écrivons \( 9\) termes :
+    \begin{equation}
+        | \ln(2)-1+\frac{ 1 }{2}-\frac{1}{ 3 }+\frac{1}{ 4 }-\frac{1}{ 5 }+\frac{1}{ 6 }-\frac{ 1 }{ 7 }+\frac{1}{ 8 }-\frac{1}{ 9 } |\leq \frac{1}{ 10 }.
+    \end{equation}
+    En calculant\footnote{Moi j'ai utilisé Sage, mais si tu es au tableau, débrouilles-toi.},
+    \begin{equation}
+        | \ln(2)-\frac{ 1879 }{ 2520 } |\leq\frac{1}{ 10 }.
+    \end{equation}
+    Voici donc un bel encadrement
+    \begin{equation}
+        \frac{ 1879 }{ 2520 }-\frac{1}{ 10 }\leq \ln(2)\leq \frac{ 1879 }{ 2520 }+\frac{1}{ 10 }.
+    \end{equation}
+    Pour avoir quelque chose avec des virgules, d'abord un peu de calcul mental donne
+    \begin{equation}
+        \frac{ 1879 }{ 2520 }\simeq 0.745634920634921.
+    \end{equation}
+    Donc en majorant et minorant, disons, la troisième décimale\footnote{Notez ici que nous utilisons le fait que la division euclidienne, elle, donne un encadrement pour les fractions. Pensez-y.}, on n'est pas moins précis que le $\frac{1}{ 10 }$. On a
+    \begin{equation}
+        0.744-\frac{1}{ 10 }\leq \ln(2)\leq 0.746+\frac{1}{ 10 }.
+    \end{equation}
+    Bref, on retient l'approximation
+    \begin{equation}
+        0.644\leq \ln(2)\leq 0.846.
+    \end{equation}
+    
+    Pour la quantité de travail, avouez que ce n'est pas terrible comme résultat. Eh oui; le calcul numérique c'est tout un métier; il existe des méthodes nettement plus efficaces que ce que nous venons de faire.
+\end{example}
+
+\begin{proposition}[Formule de Taylor avec reste intégral\cite{VBYOJrU,ooSZKEooLejXAh}]\label{PropAXaSClx}
+    Soient \( X\) et \( Y\) des espaces normés et un ouvert \( \mO\subset X\). Si \( f\in C^m(\mO,Y)\) et si \( [p,x]\subset \mO\) alors
+    \begin{equation}
+        \begin{aligned}[]
+            f(x)=f(p)&+\sum_{k=1}^{m-1}\frac{1}{ k! }(d^kf)_p (x-p)^k \\
+            &+\frac{1}{ (m-1)! }\int_0^1(1-t)^{m-1}(d^mf)_{ p+t(x-p) }(x-p)^m\,dt 
+        \end{aligned}
+    \end{equation}
+    où \( \omega_pu^k\) signifie \( \omega_p(u,\ldots, u)\) lorsque \( \omega\in \Omega^k\). Cette formule est le \defe{développement de Taylor}{Taylor avec reste intégral} à l'ordre \( m-1\).
+\end{proposition}
+\index{formule!Taylor!reste intégral}
+
+\begin{remark}
+    Quelques remarques sur l'énoncé.
+    \begin{enumerate}
+        \item
+            
+Dans le cas \( m=2\), la proposition \ref{PROPooFWZYooUQwzjW} donne de bonnes formules pour calculer \( (d^2f)_a(u,v)\).
+\item
+Notez que l'intégrale n'est pas une intégrale faisant intervenir les espaces \( X\) ou \( Y\). Elle est une simple intégrale d'une fonction \( \eR\to \eR\), comme définie par la mesure de Lebesgue de la définition \ref{DefooYZSQooSOcyYN}.
+\item
+Comme expliqué dans l'exemple \ref{ExZHZYcNH}, toute ces applications de différentielles se réduisent à des termes de la forme
+\begin{equation}
+    f^{(k)}(p)(x-p)^k
+\end{equation}
+dans le cas d'une fonction \( \eR\to\eR\).
+    \end{enumerate}
+\end{remark}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Constructions plus naïves de l'intégrale dans le cas réel}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Les sections~\ref{SecSLOooeMaig} et~\ref{SecZTFooXlkwk} ont donné une construction très complète de la mesure de Lebesgue, et nous avons définit la théorie de l'intégration sur un espace mesuré quelconque dans la définition~\ref{DefTVOooleEst}.
+
+Dans cette section nous allons donner différentes choses plus rapides qui servent souvent de définition dans les cours moins avancés.
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Mesure de Lebesgue, version rapide}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous construisons à présent la mesure de Lebesgue sur \( \eR^n\). Un \defe{pavé}{pavé} dans \( \eR^n\) est un ensemble de la forme
+\begin{equation}
+    B=\prod_{i=1}^n\mathopen[ a_i , b_i \mathclose];
+\end{equation}
+le volume d'un tel pavé est défini par \( \Vol(B)=\prod_i(b_i-a_i)\). Soit maintenant \( A\subset \eR^n\). La \defe{mesure externe}{mesure!externe} de \( A\) est le nombre
+\begin{equation}
+    m^*(A)=\inf\{ \sum_{B\in\mF}\Vol(B)\text{ où } \mF\text{ est un ensemble dénombrable de pavés dont l'union recouvre } A\text{.} \}
+\end{equation}
+
+\begin{definition}  \label{DefKTzOlyH}
+Nous disons que \( A\) est \defe{mesurable}{mesurable!Lebesgue} au sens de Lebesgue si pour tout ensemble \( S\subset \eR^n\) nous avons l'égalité
+\begin{equation}
+    m^*(S)=m^*(A\cap S)+m^*(S\setminus A).
+\end{equation}
+Dans ce cas nous disons que la mesure de Lebesgue de \( A\) est \( m(A)=m^*(A)\).
+\end{definition}
+
+\begin{proposition}     \label{PropNCMToWI}
+    Deux fonctions continues égales presque partout pour la mesure de Lebesgue\footnote{Définition~\ref{DefKTzOlyH}.} sont égales.
+\end{proposition}
+
+\begin{proof}
+    Soient \( f\) et \( g\) deux fonctions continues telles que \( f(x)=g(x)\) pour presque tout \( x\in D\). La fonction \( h=f-g\) est alors presque partout nulle et nous devons prouver qu'elle est nulle sur tout \( D\). La fonction \( h\) est continue; si \( h(a)\neq 0\) pour un certain \( a\in D\) alors \( h\) est non nulle sur un ouvert autour de \( a\) par continuité et donc est non nulle sur un ensemble de mesure non nulle.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Pavés et subdivisions}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+ Nous appelons \defe{pavé}{pavé} de $\eR^p$ toute partie de $\eR^p$ obtenue comme produit de $p$ intervalles de $\eR$. Plus explicitement, une partie $R$ est un pavé de $\eR^p$ si il s'écrit sous la forme
+\[
+R=\left\{(x_1,\ldots, x_p)\in\eR^p \,\big\vert\,x_i\in \mathcal{I}_i,  i=1,\ldots, p  \right\},
+\]
+où $\mathcal{I}_i$ est un intervalle de $\eR$ pour tout $i=1,\ldots, p$.
+\end{definition}
+On appelle pavé fermé de $\eR^p$ le produit de $p$ intervalles fermés
+\[
+R=\prod_{i=1}^{p}[a_i,b_i].
+\]
+On définit de même le pavé ouvert
+\[
+S=\prod_{i=1}^{p}]a_i,b_i[.
+\]
+Un pavé $ R=\prod_{i=1}^{p}\mathcal{I}_i$ est dit borné si tous les intervalles $\mathcal{I}_i$ sont bornés dans $\eR$. Les pavés non bornés sont des produits d'intervalles où un (ou plusieurs) des intervalles n'est pas borné. Par exemple,
+\[
+N=]-\infty, 5]\times [0,13].
+\]
+L'espace $\eR^p$, lui-même, est un pavé de $\eR^p$.
+\begin{definition}
+  Une partie $A$ de $\eR^p$ est dite  \defe{pavable}{pavable} si il existe une famille finie de pavés bornés $R_j$, $j=1,\ldots, n$, et deux à deux disjoints tels que
+\[
+A=\bigcup_{j=1}^{n}R_j.
+\]
+\end{definition}
+Un exemple d'ensemble pavable dans $\eR^2$ est donné à la figure~\ref{LabelFigPolirettangolo}. Il existe beaucoup d'ensembles dans $\eR^2$ qui ne sont pas pavables, par exemple les ellipses.
+\newcommand{\CaptionFigPolirettangolo}{Un ensemble pavable.}
+\input{auto/pictures_tex/Fig_Polirettangolo.pstricks}
+
+Le complémentaire d'un pavé est  un ensemble pavable et, en particulier, tout complémentaire d'un pavé borné est une réunion de  pavés non bornés. Toute union finie et toute intersection d'ensemble pavables est pavable.
+\begin{definition}
+	Soit $R$ un pavé borné de $\eR^p$, pour fixer les idées on peut penser $R=\prod_{i=1}^{p}[a_i,b_i]$. On appelle \defe{longueur}{longueur!d'une arrête} de l'$i$-ème arrête de $R$ le nombre $b_i-a_i$. La \defe{mesure $p$-dimensionnelle de $R$}{}, $m(R)$, est le produit des longueurs
+\[
+m(R)=\prod_{i=1}^{p}(b_i-a_i).
+\]
+\end{definition}
+\begin{example}
+  Dans $\eR^3$, l'ensemble $R=[-1,1]\times[3,4]\times[0,2]$ est un pavé fermé de mesure
+\[
+m(R)= (1+1)\cdot(4-3)\cdot(2-0)=4.
+\]
+Il s'agit du volume usuel du parallélépipède rectangle.
+\end{example}
+
+\begin{example}
+ L'ensemble $R=\mathopen] -1 , 1 \mathclose[\times[3,4]\times[0,2]$ est un pavé de $\eR^3$. Il n'est ni fermé ni ouvert, sa mesure est encore $4$.
+\end{example}
+
+Si $R$ est un pavé non borné on peut encore définir sa mesure. La notion de mesure se généralise en deux étapes. D'abord on dit que la longueur d'une arête non bornée est $\infty$. Ensuite, on adopte la convention $0\cdot \infty=0$. Il faut remarquer que avec cette généralisation tout point et toute droite dans $\eR^2$ ont mesure nulle.
+
+Afin de définir les intégrales, nous allons intensivement faire appel à la notion de subdivision d'intervalles, voir définition~\ref{DefSubdivisionIntervalle} et la discussion qui suit.
+
+Lorsqu'on considère un pavé borné $R=\prod_{i=1}^p\mI_i$ de $\eR^p$, on note $\sdS_i$ l'ensemble des subdivisions de l'intervalle $\mI_i$. La notion de subdivision de généralise au cas des pavés.
+\begin{definition}
+	Soir $R$ un pavé fermé borné de $\eR^p$, pour fixer les idées on peut penser à $R=\prod_{i=1}^p\mathopen[ a_i , b_i \mathclose]$. On appelle \defe{subdivision}{subdivision} finie de $R$ les éléments de l'ensemble $\mathcal{S}=\prod_{i=1}^{p}\mathcal{S}_i$,
+\[
+\mathcal{S}=\left\{ (Y_{1},\ldots, Y_{p})\,\big\vert\, Y_{i}=(y_{i,j})_{j=1}^{n_i}\in\mathcal{S}_i,\, i=1,\ldots,p\right\}.
+\]
+On peut définir de même l'ensemble des subdivisions d'un pavé non borné.
+ \end{definition}
+ Souvent, une subdivision d'un pavé $R=\prod_{i=1}^p\mI_i$ sera noté $\sigma=(y_{i,j})_{j=1}^{n_i}$. Dans cette notation, on sous-entend que pour chaque $i$ fixé, les nombres $y_{i,j}$ (il y en a $n_i$) forment une subdivision de l'intervalle $\mI_i$. Afin de vous familiariser avec ces notations, repérez bien tous les éléments de la figure~\ref{LabelFigUneCellule}.
+\newcommand{\CaptionFigUneCellule}{Une cellule d'une subdivision d'un pavé de $\eR^2$. La cellule grisée est $R_{(4,2)}$.}
+\input{auto/pictures_tex/Fig_UneCellule.pstricks}
+
+%On désigne par
+%\[
+%\delta(Y_i)=\max_{0\leq j\leq n}| y_{i,j}- y_{i,j-1}|,
+%\]
+%le pas de la subdivision $Y_i$ dans $\mathcal{S}_i$ et par
+%\[
+%\delta(\sigma)=\max_{0\leq i\leq p}\delta(Y_i),
+%\]
+%le pas de la subdivision $\sigma$ dans $\mathcal{S}$.
+
+\begin{definition}
+	Si $\sigma$ est une subdivision d'un pavé $R$, un \defe{raffinement}{raffinement!subdivision d'un pavé} de $\sigma$ est une subdivision de $R$ obtenue en fixant plus de points dans chaque intervalle.
+\end{definition}
+
+La subdivision $\sigma$ de $R$ détermine $n_1n_2\ldots n_p$ pavés fermés de la forme
+\[
+R_{(k_1,\ldots,k_p)}=\{(x_1,\ldots, x_p)\in\eR^p\,\big\vert\, y_{i,k_{i-1}}\leq x_i\leq y_{i,k_i}\},
+\]
+où $k_i$ est dans $\{1,\ldots, n_i\}$ et $i$ dans $\{1,\ldots, p\}$. On les appelles \defe{cellules}{cellule d'un pavage} de $\sigma$. On remarque que les cellules de $\sigma$ sont toujours deux à deux disjointes (sauf au plus sur leurs bords).
+\begin{lemma}\label{meas_sous}
+	Soit $R$ un pavé borné de $\eR^p$ et soit $\sigma=(y_{i,j})_{j=1}^{n_i}$ une subdivision de $R$.
+On a
+\[
+m(R)=\sum_{(k_1,\ldots,k_p)\in K} m(R_{(k_1,\ldots,k_p)}),
+\]
+où $K=\{1,\ldots,n_1\}\times\{1,\ldots,n_2\}\times\ldots \times\{1,\ldots,n_p\}$.
+\end{lemma}
+Le lemme~\ref{meas_sous} suggère de définir la mesure d'un ensemble borné pavable $P=\bigcup_{j=1}^{n}R_j$ comme la somme des mesures des pavés disjoints $R_j$, $j=1,\ldots, n$.
+\begin{definition}
+Une application $f:\eR^p\to\eR$ est dite \defe{application en escalier}{application!en escalier} sur $\eR^m$ si
+  \begin{itemize}
+  \item $f$ est une application bornée,
+\item il existe une subdivision $\sigma$ de $\eR^p$ telle que la restriction de $f$  est une application constante sur toute cellule $R_k$ de $\sigma$
+\[
+f_{\vert_{R_k}}=C_k, \qquad C_k\in\eR,
+\]
+%Pour tout $k=(k_1,\ldots,k_p)$ dans $ K=\{1,\ldots,n_1\}\times\{1,\ldots,n_2\}\times\ldots \times\{1,\ldots,n_p\}$.
+
+Une telle subdivision $\sigma$ est dite \defe{associée}{associée!subdivision}\index{subdivision!associée à une fonction} à $f$.
+  \end{itemize}
+\end{definition}
+\begin{example}
+  La fonction $f$ de $\eR^2$ dans $\eR$ définie par
+  \begin{equation}
+    f(x,y)=\left\{
+    \begin{array}{ll}
+      1&\qquad \textrm{si } (x,y) \in [0,3]\times[-1,2],\\
+2 &\textrm{sinon.}
+    \end{array}\right.
+  \end{equation}
+est une application en escalier. Exercice : donner une subdivision de $\eR^2$ associée à cette fonction.
+\end{example}
+
+\begin{example}
+  La fonction $f$ de $\eR^2$ dans $\eR$ définie par
+  \begin{equation}
+    f(x,y)=\left\{
+    \begin{array}{ll}
+      \frac{1}{m^2+n^2},&\qquad \textrm{si } (x,y) \in [m,m+1]\times[n,n+1], \quad m,\,n\in\eN_0,\\
+0, &\textrm{sinon}
+    \end{array}\right.
+  \end{equation}
+est une application en escalier. Observez que, dans ce cas, il n'existe pas une subdivision finie de $\eR^2$ associée à $f$.
+\end{example}
+\begin{remark}
+ Si la subdivision $\sigma$ est associée à $f$ alors tout raffinement de $\sigma$ (c'est-à-dire, toute subdivision obtenue en fixant plus de points dans chaque intervalle) a la même propriété.
+
+Si $f$ et $g$ sont deux applications en escalier sur $R$ et $\sigma_f$ et $\sigma_g$ sont des subdivisions de $R$ associées respectivement à $f$ et $g$, alors on peut construire une troisième subdivision de $R$ qui est associée à $f$ et à $g$ en même temps. Soient $\sigma_f=(Y_{1},\ldots, Y_{p})$ et $\sigma_g=(Z_{1},\ldots, Z_{p})$, où $Y_{i}=(y_{i,j})_{j=1}^{m_i}$ et $Z_{i}=(z_{i,j})_{j=1}^{n_i}$ sont des subdivisions de l'intervalle $[a_i, b_i]$, pour $i=1,\ldots, p$. La subdivision de $[a_i, b_i]$ obtenue par l'union de $Y_i$ et $Z_i$ est encore une subdivision finie, qu'on appellera $\bar Y_i$. La subdivision $\bar \sigma = (\bar Y_{1},\ldots,\bar Y_{p})$ de $R$ est un raffinement de $\sigma_f $ et de $\sigma_g$, donc elle est associée à la fois à $f$ et à $g$.
+
+Cela nous permet de prouver que si $f$ et $g$ sont des applications en escalier, alors $f+g$, $fg$, $\min\{f,g\}$, $\max\{f,g\}$ et $|f|$ sont des applications en escalier.
+\end{remark}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrale d'une fonction en escalier}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+  Soit $f$ une fonction de $\eR^m$ dans $\eR^n$. Le \defe{support}{support} de $f$ est la fermeture de l'ensemble des points $x$ tels que $f(x)\neq 0$.
+\end{definition}
+\begin{definition}
+Une application en escalier $f$ est dite \defe{intégrable}{fonction!en escalier intégrable} si son support est compact.
+\end{definition}
+Soit $f$ une application en escalier sur $\eR^p$. Soit $\sigma$ une subdivision de  $\eR^p$ associée à $f$ et appelons $R_k$ les cellules de $\sigma$, avec $k=(k_1,\ldots,k_p)$ dans $ K=\{1,\ldots,n_1\}\times\{1,\ldots,n_2\}\times\ldots \times\{1,\ldots,n_p\}$. Alors
+\[
+f_{\vert_{R_k}}=C_k, \qquad C_k\in\eR.
+\]
+
+\begin{definition}
+On définit l'\defe{intégrale}{intégrale!fonction en escalier} de $f$ sur $\eR^p$ par
+\[
+\int_{\eR^p}f\,dV=\sum_{k\in K}C_km(R_k).
+\]
+\end{definition}
+L'intégrale ainsi définie est un nombre réel. La proposition suivante nous dit que l'intégrale est «bien définie», au sens que sa valeur ne dépend pas de la subdivision associée à $f$ qu'on utilise dans le calcul.
+\begin{proposition}
+Soit $f$ une application en escalier intégrable sur $\eR^p$. Soient $\sigma_1$ et $\sigma_2$ deux subdivisions de $\eR^p$ associées à  $f$. L'intégrale de $f$ ne dépend pas de la subdivision choisie.
+\end{proposition}
+On ne donne pas une preuve complète de cette proposition. En fait elle est une conséquence de la formule de réduction introduite dans la suite de ce chapitre.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Intégrales partielles}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Soit $f$ de $\eR^p$ dans $\eR$ une fonction continue, nulle hors du pavé borné $R$. Posons  $R=\prod_{i=1}^{p}[a_i,b_i]$, pour fixer les idées. Pour chaque $i$ dans $\{1,\ldots, p\}$ fixé, on peut associer à $f$ la fonction $F_i$ de $p-1$ variables définie par
+\[
+F_i(x_1,\ldots, x_{i-1}, x_{i+1}, \ldots, x_p)=\int_{a_i}^{b_i}f(x_1,\ldots, x_{i-1},y, x_{i+1}, \ldots, x_p)\, dy.
+\]
+La fonction $F_i$ est l'intégrale partielle de $f$ par rapport à la $i$-ème variable.
+En particulier, si $f(x_1,\ldots, x_p)=g(x_i)h(x_1,\ldots, x_{i-1}, x_{i+1}, \ldots, x_p)$ on obtient
+\[
+F_i=\int_{a_i}^{b_i}g(y)h(x_1,\ldots, x_{i-1}, x_{i+1}, \ldots, x_p)\, dy= h\cdot\int_{a_i}^{b_i}g \, dy.
+\]
+La fonction d'une seule variable qu'on obtient à partir de $f$ en fixant $x_1,\ldots, x_{i-1}, x_{i+1}, \ldots, x_p$ et qui associe à $x_i$ la valeur $f(x_1,\ldots, x_{i-1}, x_i, x_{i+1}, \ldots, x_p)$, est appelée $x_i$-ème section de $f$ en $x_1,\ldots, x_{i-1}, x_{i+1}, \ldots, x_p$.
+
+\begin{example}
+  Soit $f$ la fonction de $\eR^2$ dans $\eR$ définie par
+  \begin{equation}
+	  f(x,y)=\begin{cases}
+		  x+3y	&	\text{si }(x,y)\in\mathopen[ 9 , 10 \mathclose]\times\mathopen] \pi , 5 \mathclose]\\
+		  0	&	 \text{sinon}.
+	  \end{cases}
+  \end{equation}
+ Les intégrales partielles de $f$ sont
+\[
+F_1(y)=\int_{9}^{10}x+3y\,dx=\left[\frac{x^2}{2}+3xy\right]_{x=9}^{x=10}=\frac{19}{2}+3y,
+\]
+\[
+F_2(x)=\int_{\pi}^{5}x+3y\,dy=\left[xy+\frac{3y^2}{2}\right]_{y=\pi}^{y=5}=x(5-\pi)+\frac{3}{2}(25-\pi^2).
+\]
+\end{example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Réduction d'une intégrale multiple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Soit $R=[a,b]\times[c,d]$ un pavé fermé et borné de $\eR^2$ et soit $f$ une application en escalier intégrable sur $\eR^2$ telle que le support de $f$ soit contenu dans $R$. On considère la subdivision $\sigma$ de $R$ définie par les subdivisions
+\[
+a=x_0\leq x_1\leq\ldots\leq x_m=b,
+\]
+ \[
+c=y_0\leq y_1\leq\ldots\leq y_n=d.
+\]
+Les cellules de $\sigma$ sont
+\[
+R_{i,j}=[x_{i},x_{i+1}]\times[y_{j},y_{j+1}], \quad\qquad i=0,\ldots,m-1, \quad j=0,\ldots,n-1.
+\]
+La mesure de $R$ est la somme des mesures des $R_{i,j}$
+\begin{equation}
+  \begin{aligned}
+    m(R)=&\sum_{(i,j)\in \{0,\ldots, m-1\}\times\{0,\ldots, n-1\}} m(R_{i,j})=\\
+&=\sum_{j=0}^{n-1}\sum_{i=0}^{m-1}(x_{i+1}-x_{i})\cdot(y_{i+1}-y_{i})=\\
+&=\sum_{i=0}^{m-1}(x_{i+1}-x_{i})\cdot\sum_{j=0}^{n-1}(y_{i+1}-y_{i})=\\
+&= (b-a)\cdot(d-c).
+  \end{aligned}
+\end{equation}
+Si $f$ est constante sur chaque cellule de $\sigma$ on peut écrire $f$ de la forme suivante
+\[
+f(x,y)=\sum_{j=0}^{n-1}\sum_{i=0}^{m-1}C_{i,j}\,\chi_{R_{i,j}}
+\]
+où les $C_{i,j}$ sont des constantes réelles et $\chi_{R_{i,j}}$ est la \defe{fonction caractéristique}{fonction!caractéristique} de $R_{i,j}$
+\begin{equation}
+  \chi_{R_{i,j}}(x,y)=\left\{
+      \begin{array}{ll}
+      1,\qquad &\textrm{si } (x,y)\in R_{i,j} ,\\
+0, & \textrm{sinon}.
+      \end{array}\right.
+\end{equation}
+Comme $(x,y)$ est dans $R_{i,j}$ si et seulement si $x\in[x_{i},x_{i+1}]$ et $ y\in[y_{j},y_{j+1}]$, on vérifie que la fonction $\chi_{R_{i,j}}$ est égal au produit des fonctions caractéristiques des intervalles $[x_{i},x_{i+1}]$ et $[y_{j},y_{j+1}]$
+\[
+ \chi_{R_{i,j}}(x,y)=\chi_{[x_{i},x_{i+1}]}(x)\cdot\chi_{[y_{j},y_{j+1}]}(y).
+\]
+On peut donc écrire la fonction $f$ de la façon suivante
+\[
+f(x,y)=\sum_{j=0}^{n-1}\sum_{i=0}^{m-1}C_{i,j}\,\chi_{[x_{i},x_{i+1}]}(x)\cdot\chi_{[y_{j},y_{j+1}]}(y).
+\]
+Comme on suppose que le support de $f$ est une partie de $R$, l'intégrale de $f$ sur $\eR^2$ est
+\begin{equation}
+  \begin{aligned}
+\int_{\eR^2}f \,dV = \sum_{j=0}^{n-1}\sum_{i=0}^{m-1}C_{i,j}\,m(R_{i,j})=\sum_{j=0}^{n-1}\sum_{i=0}^{m-1}C_{i,j}\,(x_{i+1}-x_i)\cdot(y_{j+1}-y_j).
+ \end{aligned}
+\end{equation}
+Cette intégrale peut être réduite à la composition de deux intégrales partielles. Il suffit de remarquer que la valeur de l'intégrale de la fonction caractéristique d'un intervalle est la longueur de l'intervalle,
+\begin{equation}
+  \begin{aligned}
+    C_{i,j}(x_{i+1}-x_i)&\cdot(y_{j+1}-y_j)=\\
+&=C_{i,j}\left(\int_{x_i}^{x_{i+1}}\chi_{[x_{i},x_{i+1}]}(x)\, dx \right)\cdot \left(\int_{y_j}^{y_{j+1}}\chi_{[y_{ j},y_{ j+1}]}(y)\, dy \right)=\\
+&=C_{i,j}\left(\int_{a}^{b}\chi_{[x_{i},x_{i+1}]}(x)\, dx \right)\cdot \left(\int_{c}^{d}\chi_{[y_{ j},y_{ j+1}]}(y)\, dy \right),
+  \end{aligned}
+\end{equation}
+et utiliser les propriétés de linéarité de l'intégrale
+\begin{equation}
+  \begin{aligned}
+   \int_{\eR^2}f \,dV =& \sum_{j=0}^{n-1}\sum_{i=0}^{m-1}C_{i,j}\,\left(\int_{a}^{b}\chi_{[x_{i},x_{i+1}]}(x)\, dx \right)\cdot \left(\int_{c}^{d}\chi_{[y_{ j},y_{ j+1}]}(y)\, dy \right)=\\
+&=\int_{c}^{d}\int_{a}^{b}\sum_{j=0}^{n-1}\sum_{i=0}^{m-1}C_{i,j}\,\chi_{[x_{i},x_{i+1}]}(x)\cdot \chi_{[y_{ j},y_{ j+1}]}(y)\, dx dy=\\
+&=\int_{c}^{d}\int_{a}^{b} f\, dx dy.
+  \end{aligned}
+\end{equation}
+De même on obtient
+\begin{equation}
+  \begin{aligned}
+   \int_{\eR^2}f \,dV =&\int_{a}^{b}\int_{c}^{d}\sum_{j=0}^{n-1}\sum_{i=0}^{m-1}C_{i,j}\,\chi_{[x_{i},x_{i+1}]}(x)\cdot \chi_{[y_{ j},y_{ j+1}]}(y)\, dx dy=\\
+&=\int_{a}^{b}\int_{c}^{d} f\, dx dy.
+  \end{aligned}
+\end{equation}
+En général, on prouve la proposition suivante
+\begin{proposition}
+ Soit $f$ une application en escalier intégrable sur $\eR^p$ et soit $R$ un pavé borné dans $\eR^p$ qui contient le support de $f$. Comme d'habitude, pour fixer les idées nous écrivons $=\prod_{i=1}^p[a_i,b_i]$. Alors
+ \begin{equation}
+   \begin{aligned}
+     \int_{\eR^p}f(x_1,\ldots, x_p) \, dV =& \int_{a_p}^{b_p}\int_{a_{p-1}}^{b_{p-1}}\cdots\int_{a_1}^{b_1} f(x_1,\ldots, x_p) \, dx_1\cdots dx_p=\\
+&=\int_{a_{s_p}}^{b_{s_p}}\int_{a_{s_{p-1}}}^{b_{s_{p-1}}}\cdots\int_{a_{s_1}}^{b_{s_1}} f(x_1,\ldots, x_p) \, dx_1\cdots dx_p,
+   \end{aligned}
+ \end{equation}
+pour toute permutation $(s_1,\ldots,s_p)$ de l'ensemble $\{1,\ldots p\}$.
+\end{proposition}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Propriétés de l'intégrale}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soient $f$ et $g$ deux fonctions en escalier intégrables de $\eR^p$ dans $\eR$, et soient $a$ et $b$ dans $\eR$.
+\begin{description}
+\item[Linéarité de l'intégrale] :
+  \begin{itemize}
+  \item Additivité : $f+g$ est intégrable et
+\[
+\int_{\eR^p} (f+g)\, dV = \int_{\eR^p} f\, dV+ \int_{\eR^p} g\, dV,
+\]
+\item Homogénéité : $\lambda f$ est intégrable pour tout réel $\lambda$
+\[
+\int_{\eR^p} \lambda  f\, dV = \lambda\int_{\eR^p} f\, dV,
+\]
+  \end{itemize}
+\item[Monotonie] Si $f\leq g$ alors
+\[
+ \int_{\eR^p} f\, dV\leq \int_{\eR^p} g\, dV,
+\]
+\item[Inégalité fondamentale]
+  \[
+\lvert \int_{\eR^p}f\,dV\rvert \leq\int_{\eR^p}\lvert f\rvert\,dV.
+\]
+Cette dernière inégalité s'obtient de la façon suivante :
+\[
+\lvert\int_{\eR^p}f\,dV\rvert =\lvert \sum_{k\in K} C_k m(R_k)\rvert \leq\sum_{k\in K}\lvert C_k\rvert m(R_k)=\int_{\eR^p}|f|\,dV.
+\]
+\item[Inégalité de Čebičeff]  Si $f$ est une application en escalier alors pour tout $a>0$ dans $\eR$ l'ensemble $\{x\in\eR^p\,:\, |f(x)|\geq a\}$ est pavable et borné, et l'inégalité suivante est satisfaite
+\[
+m\left(\{x\in\eR^p\,:\, |f(x)|\geq a\}\right)\leq \frac{1}{a} \int_{\eR^p}\lvert f\rvert\,dV.
+\]
+\end{description}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Intégrales multiples, cas général}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous voulons généraliser la définition d'intégrale multiple au cas des domaines non pavables et de fonctions qui ne sont pas en escalier. Il y a plusieurs méthodes de le faire et ici on ne considère qu'une seule, introduite par Riemann.
+\begin{definition} Soit $f: \eR^p\to \eR$ une fonction.
+  \begin{itemize}
+	  \item Pour toute application en escalier intégrable $f_*$ telle que $f_*\leq f$, l'intégrale de $f_*$ est dit une \defe{somme inférieure}{somme!inférieure} de $f$.
+	  \item Pour toute application en escalier intégrable $f^*$ telle que $f_*\geq f$, l'intégrale de $f^*$ est dit une \defe{somme supérieure}{somme!supérieure} de $f$.
+  \end{itemize}
+\end{definition}
+Soient $\sum_* f$ et  $\sum^* f$ les ensembles des sommes inférieures et supérieures de $f$. Grâce à la propriété de  monotonie de l'intégrale on sait que si $a$ est dans $\sum_* f$ et  $b$ est dans $\sum^* f$ alors $a\leq b$.
+\begin{definition}
+  La fonction $f$ est intégrable (au sens de Riemann) si $\sum_* f$ et  $\sum^* f$ ne sont pas vides et
+\[
+\inf \Sigma^* f=I =\sup \Sigma_* f.
+\]
+Dans ce cas, la valeur $I$ est appelée intégrale de $f$ sur $\eR^p$.
+\end{definition}
+\begin{remark}
+  Toute fonction intégrable est bornée et à support compact. En effet, si le support de la  fonction n'est pas compact alors soit $\sum_* f$ soit $\sum^* f$ doit être vide !
+\end{remark}
+L'intégrale qu'on vient de définir possède toutes les propriétés de l'intégrale pour les fonctions en escalier. Le produit de deux fonctions intégrables est intégrable.
+
+Il y a des cas où l'intégrabilité d'une fonction n'est pas évidente. Cependant, dans la plupart des exercices et des exemples de ce cours, nous nous aidons avec le critère suivant
+\begin{proposition}
+  Toute fonction continue à support compact est intégrable.
+\end{proposition}
+Cette proposition n'est à priori pas étonnante, vu qu'une fonction continue sur un support compact est bornée (théorème de Weierstrass~\ref{ThoWeirstrassRn}).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Réduction d'une intégrale multiple}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+On n'utilise jamais la définition pour calculer la valeur d'une intégrale multiple. La méthode plus efficace, en pratique, est de réduire l'intégrale à la composition de plusieurs intégrales d'une variable.
+\begin{theorem}[de Fubini]\label{fub}
+ Soit $f$ une fonction intégrable de $\eR^2$ dans $\eR$. Si pour tout $x$ dans $\eR$ la section $f(x,\cdot)$ est intégrable par rapport à $y$, alors
+\[
+\int_{\eR^2}f(x,y)\,dV=\int_{\eR}\left(\int_{\eR}f(x,y)\,dx\right)\,dy.
+\]
+De même, si pour tout $y$ dans $\eR$ la section $f(\cdot, y)$ est intégrable par rapport à $x$, alors
+\[
+\int_{\eR^2}f(x,y)\,dV=\int_{\eR}\left(\int_{\eR}f(x,y)\,dy\right)\,dx.
+\]
+\end{theorem}		\label{ThoSectionINte}
+En général, on ne peut pas dire que les sections d'une fonction intégrable sont intégrables, donc il faut vraiment se souvenir des hypothèses du théorème~\ref{fub}. En dimension plus haute, on a le même résultat
+\begin{theorem}
+ Soit $f$ une fonction intégrable de $\eR^p$ dans $\eR$. Si pour tout $(p-1)$-uple $(x_1,\ldots, x_{i-1},x_{i+1}, \ldots, x_p)$ dans $\eR^{p-1}$ la section $f(x_1,\ldots, x_{i-1},\cdot,x_{i+1}, \ldots, x_p)$ est intégrable par rapport à $x_i$, alors
+\[
+\int_{\eR^p}f \,dV=\int_{\eR}\left(\int_{\eR^{p-1}}f \,dV\right)\,dx_i.
+\]
+\end{theorem}
+
+ Si $f$ est une fonction positive et intégrable de $\eR^2$ dans $\eR$ on peut interpréter l'intégrale de $f$ comme le volume du solide au-dessous du graphe de $f$.  Avec cette interprétation,  l'intégrale partielle par rapport à $x$ pour $y=y_0$ fixé est l'aire de la tranche qu'on obtient en coupant le solide par le plan $y=y_0$.
+
+ \begin{example}
+   Le premier exemple à faire est celui d'une fonction en escalier intégrable et positive. Soit $f\colon \eR^2\to \eR$ la fonction
+\begin{equation}
+	f(x,y)=\begin{cases}
+		1	&	\text{si }(x,y)\in R_1=\mathopen] -1 , 3 \mathclose]\times\mathopen[ 4 , 5 \mathclose]\\
+		3	&	 \text{si }(x,y)\in R_2=\mathopen] 13 , 15 \mathclose[\times\mathopen[ 0 , 2 \mathclose[\\
+		0	&	 \text{dans les autres cas.}
+	\end{cases}
+\end{equation}
+L'intégrale de $f$ sur $\eR^2$ est $1\cdot m(R_1)+ 3\cdot m(R_2)= 16$. On voit tout de suite qu'il s'agit de la somme du volume des deux parallélépipèdes de hauteurs respectives $1$ et $3$ et bases $R_1$ et $R_2$.
+ \end{example}
+
+\begin{example}
+On veut calculer le volume du solide $S$, borné par le paraboloïde elliptique $x^2+2y^2+z=16$ et le plans $x=2$, $x=0$, $y=2$ $y=0$, $z=0$. On observe que la portion de  paraboloïde elliptique qui nous intéresse est le graphe de la fonction $f(x,y)=16-x^2-2y^2$ pour $(x,y)$ dans $R=[0,2]\times[0,2]$. La fonction $f$ est continue ainsi que ses sections, donc on peut appliquer le théorème~\ref{fub} et décomposer l'intégrale double en deux intégrales simples :
+\begin{equation}
+  \begin{aligned}
+   & \int_R 16-x^2-2y^2 \,dV= \int_{0}^2\int_{0}^2f(x,y)\,dx dy= \\
+&=\int_0^2 \left[(16-2y^2)x-\frac{x^3}{3}\right]_{x=0}^{x=2}\, dy =\\
+& = \left[ \left(32-\frac{8}{3}\right) y -\frac{4y^3}{3}\right]_{x=0}^{x=2}= 64- \frac{16+32}{3}=48.
+  \end{aligned}
+\end{equation}
+Vérifiez, comme exercice, qu'on obtient le même résultat en intégrant d'abord par rapport à $y$ et puis par rapport à $x$.
+\end{example}
+
+\begin{example}
+  Dans les hypothèses du théorème~\ref{fub}  l'ordre des intégrations partielles ne change pas la valeur de l'intégrale. En fait, si les calculs sont faits par des êtres humains l'ordre d'intégration peut faire une certaine différence comme dans cet exemple. On veut évaluer la valeur de l'intégrale
+\[
+\int_{\eR^2}f(x,y)\, dV
+\]
+où
+\begin{equation}
+	f(x,y)=\begin{cases}
+		y\sin(x,y)	&	\text{si }(x,y)\in\mathopen[ 1,2 ,  \mathclose]\times\mathopen[ 0 , \pi \mathclose]\\
+		0	&	 \text{sinon.}
+	\end{cases}
+\end{equation}
+Les deux sections de $f(x,y)=y\sin(xy)$ sont continues. Si on intègre d'abord par rapport à $y$ on obtient
+\[
+-\int_1^2\frac{ \pi\cos(\pi x) }{ x }dx+\int_1^2\frac{ \sin(\pi x) }{ x^2 }dx,
+\]
+qui n'est pas du tout immédiat, alors que, si on intègre d'abord par rapport à $x$ on obtient
+\[
+\int_0^\pi \cos y - \cos(2y)\,dy.
+\]
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Intégrales sur des parties de $\eR^2$ }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+On veut évaluer l'intégrale de la fonction $f(x,y)=\sqrt{1-x^2}$ sur son domaine, la boule unité $B((0,0),1)$. La théorie introduite jusqu'ici n'est pas suffisante pour résoudre  ce problème, parce que $B((0,0),1)$ n'est pas pavable. Les parties bornées de $\eR^p$ sur lesquelles on peut intégrer des fonctions sont dites mesurables (au sens de Riemann) parce que, comme on verra dans la suite, la mesure d'une partie de $\eR^p$ est l'intégrale (si il existe) de sa fonction caractéristique.
+
+On peut dire qu'une partie de $\eR^p$  est mesurable si son bord est <<assez régulier>>. Dans $\eR^2$ il est suffisant que le bord de $A$ soit une réunion finie de courbes paramétrées continues. En particulier, on est très souvent dans un des deux cas suivants
+\begin{description}
+\item[Régions du premier type] $A$ est borné et contenu entre les graphes de deux fonctions continues de $x$
+\[
+A=\{(x,y)\in\eR^2 \,:\, a\leq x\leq b, \, g_1(x)\leq y\leq g_2(x)\},
+\]
+avec $g_1$ et $g_2$ continues.
+\item[Régions du deuxième type] $A$ est borné et contenu entre les graphes de deux fonctions continues de $y$
+\[
+A=\{(x,y)\in\eR^2 \,:\, c\leq y\leq d, \, h_1(y)\leq x\leq h_2(y)\},
+\]
+avec $h_1$ et $h_2$ continues.
+\end{description}
+%\ref{LabelFigRegioniPrimoeSecondoTipo}
+\newcommand{\CaptionFigRegioniPrimoeSecondoTipo}{Régions du premier et du deuxième type}
+\input{auto/pictures_tex/Fig_RegioniPrimoeSecondoTipo.pstricks}
+
+\begin{example}
+ Il y a des régions qui sont des deux types au même temps, comme les boules centrées à l'origine, le triangle de sommets  $(0,0)$, $(0,a)$ et $(b,0)$, ou la région $C$ délimité par les courbes $y=2x$ et $y=x^2$. Cette dernière admet les représentations suivantes
+\[
+C= \{(x,y)\in\eR^2 \,:\, 0\leq x\leq 1, \, x^2\leq y\leq 2x\},
+\]
+et
+\[
+C= \{(x,y)\in\eR^2 \,:\, 0\leq y\leq 1, \, y/2\leq x\leq \sqrt{y}\}.
+\]
+\end{example}
+\begin{definition}
+  Soit $f$ une fonction de $\eR^2$ dans $\eR$ dont le support  $A$ est une région du premier ou du deuxième type. On définit la fonction $\bar f$ comme
+ \begin{equation}
+ \bar f(x,y) = \left\{ \begin{array}{ll}
+     f(x,y), \qquad & \textrm{si } (x,y)\in A,\\
+  0 , & \textrm{sinon.}
+    \end{array}\right.
+  \end{equation}
+  La fonction $f$ est dite \defe{intégrable}{intégrable!fonction non en escalier} si $\bar f$ est intégrable, et la valeur de son intégrale est
+\[
+\int_A f\, dV=\int_{\eR^2} \bar f\, dV.
+\]
+\end{definition}
+Une fonction continue définie sur une région du premier ou du deuxième type est toujours intégrable.
+
+Pour fixer les idées on suppose ici que $A$ est du premier type et contenue dans le pavé borné $R=[a,b]\times [c,d]$. En suivant la définition on obtient
+\begin{equation}
+  \begin{aligned}
+    \int_A f\, dV&=\int_{\eR^2} \bar f\, dV=\\
+    &= \int_a^b\int_c^d \bar f\, dy dx=\\
+&= \int_a^b\left(\int_c^{g_1(x)} \bar f\, dy+\int_{g_1(x)}^{g_2(x)} \bar f\, dy+\int_{g_2(x)}^d \bar f\, dy\right)\, dx= \\
+&= \int_a^b\int_{g_1(x)}^{g_2(x)}  f\, dy dx.
+  \end{aligned}
+\end{equation}
+De même, si $A$ est du deuxième type on obtient
+\begin{equation}
+     \int_A f\, dV=\int_c^d\int_{h_1(y)}^{h_2(y)}  f\, dx dy.
+\end{equation}
+\begin{example}
+	On peut maintenant résoudre notre problème de départ, évaluer l'intégrale de la fonction $f(x,y)=\sqrt{1-x^2}$ sur $B((0,0),1)$. Nous choisissons de décrire la boule unité de $\eR^2$ comme une région du premier type : $B((0,0),1)=\{(x,y)\, :\, x\in[-1,1], \, -\sqrt{1-x^2}\leq y\leq \sqrt{1-x^2} \}$.
+	\begin{equation}
+		I=\int_{B}\sqrt{1-x^2}\, dV=\int_{-1}^1\int_{-\sqrt{1-x^2}}^{\sqrt{1-x^2}}\sqrt{1-x^2}dydx
+	\end{equation}
+	La première intégrale à effectuer, par rapport à $y$, est l'intégrale d'une fonction constante. Ne pas oublier que l'on intègre $\sqrt{1-x^2}$ par rapport à $y$; c'est bien une constante et l'intégrale consiste seulement à multiplier par $y$ :
+	\begin{equation}
+		I=\int_{-1}^1\left[ y\sqrt{1-x^2} \right]_{y=-\sqrt{1-x^2}}^{y=\sqrt{1-x^2}}dx=2\int_{-1}^1(1-x^2)dx.
+	\end{equation}
+	Cela est à nouveau une intégrale simple à effectuer. Le résultat est
+	\begin{equation}
+		2\int_{-1}^1(1-x^2)dx=2\left[ x-\frac{ x^3 }{ 3 } \right]_{x=-1}^{x=1}=\frac{ 8 }{ 3 }.
+	\end{equation}
+\end{example}
+\begin{remark}
+	Toutes les techniques d'intégration à une variable restent valables. Par exemple, lorsqu'une des intégrales est l'intégrale d'une fonction impaire sur un intervalle symétrique par rapport à zéro, l'intégrale vaut zéro.
+\end{remark}
+
+\begin{normaltext}   \label{NORMooDSNXooFhyHkx}
+Par le lemme~\ref{LemooPJLNooVKrBhN} nous savons que la mesure d'une région bornée de \( \eR^2\) est l'intégrale de sa fonction caractéristique, si elle existe.
+
+La mesure d'une région bornée de $\eR^2$ est dite son \defe{aire}{aire}, et celle d'une région bornée de $\eR^3$ est son \defe{volume}{volume!région bornée dans $\eR^3$}. Voir aussi la remarque~\ref{RemLongIntUn}.
+\end{normaltext}
+
+\begin{example}\label{exint}
+  On veut calculer l'aire de la région de la figure~\ref{LabelFigExampleIntegration} définie par
+\[
+A=\{(x,y)\in\eR^2\,\vert\, 0\leq x\leq 1, x^3-1\leq y\leq x \}.
+\]
+On considère l'intégrale
+\[
+\int_{\eR^2} \chi_{A}\, dV= \int_0^1\int^{x}_{x^3+1} 1 \, dy\, dx= \int_0^1 -x^3+x+1\, dx= -\frac{1}{4}+\frac{1}{2}+1=\frac{5}{4}.
+\]
+\end{example}
+\newcommand{\CaptionFigExampleIntegration}{La région $A$ de l'exemple~\ref{exint}}
+\input{auto/pictures_tex/Fig_ExampleIntegration.pstricks}
+
+\begin{example}
+Parfois la région sur laquelle on veut intégrer peut être décrite indifféremment de deux façons, mais la fonction à intégrer nous force a choisir un ordre particulier. Vérifiez que la fonction $f(x,y)=\sin(y^2)$ sur la région triangulaire de sommets $(0,0)$, $(0, 2)$, $(2,2)$ doit être intégrée d'abord par rapport à $x$.
+\end{example}
+
+Si une région bornée n'est pas de premier ou de deuxième type on peut normalement la découper en morceaux plus faciles à décrire. On utilise alors la propriété suivante.
+\begin{lemma}
+  Soit $A$ un sous-ensemble borné de $\eR^2$ et soient $B_1$ et $B_2$ deux parties de $A$ telles que $B_1\cap B_2=\emptyset$ et $B_1\cup B_2= A$. Alors, pour toute fonction $f$ intégrable sur $A$ (et en particulier pour sa fonction caractéristique) on a
+\[
+\int_{A}f \, dV= \int_{B_1}f \, dV+\int_{B_2}f \, dV.
+\]
+\end{lemma}
+
+\begin{example}\label{exint2}
+La région $D$ que nous voyons sur la figure~\ref{LabelFigExampleIntegrationdeux} est bornée par la parabole $y^2=2x+6$ et la droite $y=x-1$. La région $D$ est une région du deuxième type. Nous pouvons aussi la décrire comme l'union de deux régions du premier type $D_1$ et $D_2$,
+\[
+D_1=\{(x,y)\,:\, -3\leq x \leq -1,\, -\sqrt{2x+6}\leq y \leq \sqrt{2x+6}\},
+\]
+ et
+\[
+D_2=\{(x,y)\,:\, -3\leq x \leq -1, \, x-1\leq y \leq \sqrt{2x+6}\}.
+\]
+\newcommand{\CaptionFigExampleIntegrationdeux}{La région $D$ de l'exemple~\ref{exint2}}
+\input{auto/pictures_tex/Fig_ExampleIntegrationdeux.pstricks}
+\end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Intégrales sur des parties de $\eR^3$}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Dans ces notes nous n'avons pas l'ambition de traiter d'une façon rigoureuse l'étude des ensembles mesurables de $\eR^3$. Comme dans la section précédente on se limitera à considérer des cas particuliers.
+\begin{definition}\label{primotipo_solida}
+	Soit $E$ une région de  $\eR^3$. On dit que $E$ est une \defe{région solide de premier type}{premier type!région solide} si $E$ est contenue entre les graphes de deux fonctions continues de $x$ et $y$.
+\[
+E=\{(x,y,z)\in\eR^3\, \vert \, (x,y)\in A\subset \eR^2, u_1(x,y)\leq z\leq u_2(x,y) \}.
+\]
+\end{definition}
+Le sous-ensemble de $A$  de $\eR^2$ qui apparaît dans la définition~\ref{primotipo_solida} est la projection (ou l'ombre) de $E$ sur le plan $x$-$y$.
+
+\begin{example}\label{cornet}
+ La région $E$ donnée par une portion de sphère collée à un cône est une région solide de premier type
+ \begin{equation}
+     E=\{(x,y,z)\in\eR^3\, \vert \, (x,y)\in \overline{  B\big((0,0),1\big)}, \sqrt{x^2+y^2}\leq z\leq \sqrt{1-x^2-y^2} \}.
+ \end{equation}
+L'ombre de $E$ est la boule unité de $\eR^2$. L'ensemble $\sqrt{x^2+y^2}\leq z$ est un cône posé sur sa pointe tandis que l'ensemble $z\leq\sqrt{ 1-x^2-y^2 }$ est la demi-sphère. L'ensemble $E$ contient les points entre les deux, voir la figure~\ref{LabelFigCornetGlace}.
+\newcommand{\CaptionFigCornetGlace}{Il faut voir ça en trois dimensions.}
+\input{auto/pictures_tex/Fig_CornetGlace.pstricks}
+
+\end{example}
+
+Si la fonction $f$, à intégrer sur $E$, et ses sections sont intégrables  alors on peut réduire l'intégrale
+\begin{equation}
+  \begin{aligned}
+     \int_E  f(x,y,z)\, dV&=\int_A\left(\int_{u_1(x,y)}^{u_2(x,y)}f(x,y,z)\, dz \right) \, dV=\\
+&=\int_A\left(F(x,y,u_2(x,y))-F(x,y,u_1(x,y))\right)\, dV,
+  \end{aligned}
+\end{equation}
+où $F$ est une primitive de $f$ par rapport à la variable $z$, c'est-à-dire en considérant $x$ et $y$ comme des constantes. Il faut ensuite évaluer la partie qui reste comme dans la section précédente. Comme le calcul des aires dans $\eR^2$, le calcul des volumes dans $\eR^3$ est fait par des intégrales. En fait le \defe{volume}{volume!d'une région solide} d'une région solide dans $\eR^3$ est sa mesure.
+\begin{definition}
+   La mesure d'une région de  $\eR^3$ est l'intégrale de sa fonction caractéristique.
+\end{definition}
+Soit $E$ une région solide du premier type, nous pouvons évaluer son volume par l'intégrale
+\[
+\int_A\left(u_2(x,y)-u_1(x,y)\right)\, dV.
+\]
+Parfois c'est plus intéressant de calculer le volume avec la formule de réduction contraire : l'intégrale double d'abord et puis l'intégrale simple par rapport à $z$. On parle alors de calcul de volume «par tranche».
+
+\begin{example}
+On veut calculer le volume de la boule de rayon $a$, centrée à l'origine $B=\{(x,y,z)\in\eR^3\,\vert\, x^2+y^2+z^2\leq a^2 \}$. On peut décrire $B$ par
+\[
+  B=\left\{(x,y,z)\in\eR^3\,\vert\, (x,y)\in D_a, -\sqrt{a^2-x^2-y^2}\leq z\leq \sqrt{a^2-x^2-y^2}  \right\},
+\]
+où $D_a$ est le disque de rayon $a$ centré en $(0,0)$, donc le volume $B$ sera
+\[
+2 \int_{D_a}\sqrt{a^2-x^2-y^2} dV.
+\]
+Cette intégrale est un peu ennuyeuse à calculer. On peut simplifier le calcul en observant que pour $\bar z$ fixé dans l'intervalle $[-a,a]$ la section de la boule au niveau $\bar z$ est un disque de rayon $\sqrt{a^2-z^2}$. L'aire d'un tel disque est  $\pi (a^2+z^2)$. Si on réduit l'intégrale de volume de la façon
+\[
+\int_{B} 1\, dV=\int_{-a}^{a}  \sqrt{a^2-z^2}\, dz,
+\]
+on obtient tout de suite la valeur cherchée : le volume de $B$ est $4/3 \pi a^3$.
+\end{example}
+\begin{example}
+	On calcule l'intégrale de $f(x,y,z)=z$ sur la pyramide $P$ bornée par le plans $x=0$, $y=0$, $x+y+z=1$, $x+y+z/2=1$. On remarque tout de suite que le plans $x+y+z=1$, $x+y+z/2=1$ se coupent en la droite $x+y=1$, $z=0$ (on se souvient qu'\emph{une} droite dans $\eR^3$, c'est \emph{deux} équations). Cela veut dire que la projection de $P$ sur le plan $x$-$y$ est le  triangle $T$ borné par les droites $x=z=0$, $y=z=0$ et $x+y=1$, $z=0$.
+On  décrit donc $P$ par
+\[
+P=\{(x,y,z)\in\eR^3\,\vert\, (x,y)\in T, \, 1-2x-2y\leq z\leq 1-x-y\}
+\]
+et $T$ par
+\[
+T=\{(x,y)\in\eR^2\,\vert\, 0\leq x\leq 1,\,  0\leq y\leq 1-x\},
+\]
+donc l'intégrale de $f$ sur $P$ est
+\[
+\int_pf(x,y,z)\, dV= \int_{0}^{1}\int_{0}^{1-x}\int_{1-2x-2y}^{1-x-y}z \,dz\,dy\,dx=-\frac{1}{ 24 }.
+\]
+Notez que lorsque $x$ et $y$ sont entre $0$ et $1$, nous avons bien $1-2x-2y<1-x-y$, d'où le fait que nous mettons $1-2x-2y$ dans la borne inférieure de l'intégrale.
+\end{example}
+
+De façon analogue on définit les régions solides du deuxième et du troisième type.
+
+%---------------------------------------------------------------------------------------------------------------------------
+					\subsection[Fonctions et ensembles non bornés]{Intégrales de fonctions non bornées sur des ensembles non bornés}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Soit $f\colon \eR^n\to \overline{ \eR }$, une fonction positive. On dit qu'elle est \defe{intégrable}{intégrable!fonction positive} sur $E\subset\eR^n$ si
+\begin{enumerate}
+    \item $\forall r>0$, la fonction $f_r(x)=f(x)\mtu_{f<r}$ est intégrable sur $E_r$;
+\item la limite $\lim_{r\to\infty}\int_{E_r}f_r$ est finie.
+\end{enumerate}
+Dans ce cas, on pose
+\begin{equation}
+	\int_Ef=\lim_{r\to\infty}\int_{E_r}f_r.
+\end{equation}
+
+\begin{theorem}	\label{ThoFnTestIntnnBorn}
+Soit $E$ mesurable dans $\eR^n$ et $f\colon E\to \overline{ \eR }$. Si $f$ est mesurable et si il existe $g\colon E\to \overline{ \eR }$ intégrable sur $E$ telle que $| f(x) |\leq g(x)$ pour tout $x\in E$, alors $f$ est intégrable sur~$E$.
+
+Réciproquement, si $f$ est intégrable sur $E$, alors $f$ est mesurable.
+\end{theorem}
+
+\begin{lemma}\label{LemTHBSEs}
+    Si \( f\) est une fonction sur \( \mathopen[ a , \infty [\), alors nous avons la formule
+    \begin{equation}
+        \lim_{b\to \infty}\int_a^bf(x)dx=\int_a^{\infty}f(x)dx
+    \end{equation}
+    au sens où si un des deux membres existe, alors l'autre existe et est égal.
+\end{lemma}
+
+\begin{proof}
+    Supposons que le membre de gauche existe. Cela signifie que la fonction
+    \begin{equation}
+        \psi(x)=\int_a^xf
+    \end{equation}
+    est bornée. Soit \( M\), un majorant. Pour toute fonction simple \( \varphi\) dominant \( f\), on a \( \int\varphi\leq M\), donc l'ensemble sur lequel on prend le supremum pour calculer \( \int_a^{\infty}f\) est majoré par \( M\) et possède donc un supremum. Nous avons donc
+    \begin{equation}
+        \int_a^{\infty}f\leq\lim_{b\to\infty}\int_a^bf.
+    \end{equation}
+\end{proof}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Lemme de Morse}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}[Lemme de Morse]     \label{LemNQAmCLo}
+    Soit \( f\in C^3(\mU,\eR)\) où \( \mU\) est un ouvert de \( \eR^n\) contenant \( 0\). Nous supposons que \( df_0=0\) et que \( d^2f_0\) est non dégénérée\footnote{En tant qu'application bilinéaire.} et de signature \( (p,n-p)\). Alors il existe un \( C^1\)-difféomorphisme \( \varphi\) entre deux voisinages de \( 0\) dans \( \eR^n\) tel que
+    \begin{enumerate}
+        \item
+            \( \varphi(0)=0\),
+        \item
+            si \( \varphi(x)=u\) alors
+            \begin{equation}
+                f(x)-f(0)=u_1^2+\cdots +u_p^2-u_{p+1}^2-\ldots-u_n^2.
+            \end{equation}
+    \end{enumerate}
+    Une autre façon de dire est qu'il existe un \( C^1\)-difféomorphisme local \( \psi\) tel que
+    \begin{equation}
+        (f\circ\psi)(x)-f(0)=x_1^2+\cdots +x_p^2-x_{p+1}^2-\ldots-x_n^2.
+    \end{equation}
+\end{lemma}
+\index{lemme!de Morse}
+\index{développement!Taylor}
+\index{application!différentiable}
+\index{forme!quadratique}
+\index{théorème!inversion locale!utilisation}
+\index{action de groupe!sur des matrices}
+\index{extrémum}
+
+\begin{proof}
+    Nous allons noter \( Hf\) la matrice hessienne de \( f\), c'est-à-dire \( Hf_a=d^2f_a\in\aL^{(2)}(\eR^n,\eR)\). Écrivons la formule de Taylor avec reste intégral (proposition~\ref{PropAXaSClx} avec \( p=0\) et \( m=2\)) :
+    \begin{equation}
+        f(x)-f(0)=\underbrace{df_0(x)}_{=0}+\int_0^1(1-t)\underbrace{d^2f_{tx}(x,x)}_{x^t(Hf)_{tx}x=\langle Hf_{tx}x, x\rangle }dt=x^tQ(x)x
+    \end{equation}
+    avec
+    \begin{equation}
+        Q(x)=\int_0^1(1-t)(Hf)_{tx}dt
+    \end{equation}
+    qui est une intégrale dans \( \aL^{(2)}(\eR^n,\eR)\). Nous prouvons à présent que \( Q\) est de classe \( C^1\) en utilisant le résultat de différentiabilité sous l'intégrale~\ref{PropAOZkDsh}. Pour cela nous passons aux composantes (de la matrice) et nous considérons
+    \begin{equation}
+        \begin{aligned}
+            h_{kl}\colon U\times\mathopen[ 0 , 1 \mathclose]&\to \eR \\
+            h_{kl}(x,t)&=(1-t)\frac{ \partial^2f  }{ \partial x_k\partial x_l }(tx).
+        \end{aligned}
+    \end{equation}
+    Étant donné que \( f\) est de classe \( C^3\), la dérivée de \( h_{kl}\) par rapport à \( x_i\) ne pose pas de problèmes :
+    \begin{equation}
+        \frac{ \partial h_{kl} }{ \partial x_i }=t(t-1)\frac{ \partial^3f  }{ \partial x_i\partial x_k\partial x_l }(tx),
+    \end{equation}
+    qui est encore continue à la fois en \( t\) et en \( x\). La proposition~\ref{PropAOZkDsh} nous montre à présent que
+    \begin{equation}
+        Q_{kl}(x)=\int_0^1(1-t)h_{kl}(tx)dt
+    \end{equation}
+    est une fonction \( C^1\). Étant donné que les composantes de \( Q\) sont \( C^1\), la fonction \( Q\) est également \( C^1\).
+
+    Nous avons \( Q(0)=\frac{ 1 }{2}(Hf)_0\in S_n\cap \GL(n,\eR)\), d'abord parce que \( f\) est \( C^2\) (et donc la matrice hessienne est symétrique), ensuite par hypothèse \( d^2f_0\) est non dégénérée.
+    %TODO : prouver que la matrice hessienne est symétrique lorsque f est C^2 (ou vérifier que c'est déjà fait), et référentier ici.
+
+    À partir de là, le lemme~\ref{LemWLCvLXe} donne un voisinage \( V\) de \( Q(0)\) dans \( S_n\) et une application \( \phi\) de classe \( C^1\)
+    \begin{equation}
+            \phi\colon V\to \GL(n,\eR) \\
+    \end{equation}
+    telle que pour tout \( A\in V\),
+    \begin{equation}
+        \phi(A)^tQ(0)\phi(A)=A.
+    \end{equation}
+    Si on pose \( M=\phi\circ Q\), et si \( x\) est dans un voisinage de zéro, \( Q\) étant continue nous avons \( Q(x)\in V\) et donc
+    \begin{equation}
+        Q(x)=M(x)^tQ(0)M(x).
+    \end{equation}
+    Notons que l'application \( \eM\colon \eR\to \GL(n,\eR)\) est de classe \( C^1\) parce que \( Q\) et \( \phi\) le sont.
+
+    Nous avons
+    \begin{equation}
+        f(x)-f(0)=x^tQ(x)x=x^tM(x)^tQ(0)M(x)x=y(x)^tQ(0)y(x)
+    \end{equation}
+    où \( y(x)=M(x)x=(\phi\circ Q)(x)x\) est encore une fonction de classe \( C^1\) parce que la multiplication est une application \(  C^{\infty}\).
+
+    D'un autre côté le théorème de Sylvester~\ref{ThoQFVsBCk} nous donne une matrice inversible \( P\) telle que
+    \begin{equation}
+        Q(0)=P^t\begin{pmatrix}
+            \mtu_p    &       \\
+            &   -\mtu_{n-p}
+        \end{pmatrix}P.
+    \end{equation}
+    Et nous posons enfin \( u=\varphi(x)=Py(x)\) qui est toujours de classe \( C^1\) et qui donne
+    \begin{subequations}
+        \begin{align}
+            f(x)-f(0)&=y^tQ(0)y\\
+            &=y^tP^t\begin{pmatrix}
+                \mtu    &       \\
+                    &   -\mtu
+            \end{pmatrix}Py\\
+            &=u^t\begin{pmatrix}
+                \mtu    &       \\
+                    &   -\mtu
+            \end{pmatrix}u\\
+            &=u_1^2+\cdots +u_p^2-u_{p+1}^2-\ldots -u_n^2.
+        \end{align}
+    \end{subequations}
+
+    Nous devons maintenant montrer que, quitte à réduire son domaine à un ouvert plus petit, \( \varphi\) est un \( C^1\)-difféomorphisme. Dans la chaine qui donne \( \varphi\), seule l'application
+    \begin{equation}
+        \begin{aligned}
+            g\colon U\subset \eR^n&\to \eR^n \\
+            x&\mapsto M(x)x
+        \end{aligned}
+    \end{equation}
+    est sujette à caution. Nous allons appliquer le théorème d'inversion locale. Nous savons que \( g\) est de classe \( C^1\) et donc différentiable; calculons la différentielle en utilisant la formule \eqref{EqOWQSoMA} :
+    \begin{equation}
+        dg_0(x)=\Dsdd{ g(tx) }{t}{0}=\Dsdd{ tM(tx)x }{t}{0}=M(0)x.
+    \end{equation}
+    Note que nous avons utilisé la règle de Leibnitz pour la dérivée d'un produit, mais le second terme s'est annulé. Donc \( dg_0=M(0)\in \GL(n,\eR)\) et \( g\) est localement un \( C^1\)-difféomorphisme.
+
+    Il suffit de restreindre \( \varphi\) au domaine sur lequel \( g\) est un \( C^1\)-difféomorphisme pour que \( \varphi\) devienne lui-même un \( C^1\)-difféomorphisme.
+
+\end{proof}
+
+\begin{definition}
+    Un point \( a\) est un \defe{point critique}{point critique!définition} de la fonction différentiable \( f\) si \( df_a=0\).
+\end{definition}
+
+\begin{corollary}[\cite{XPautfO}]
+    Les points critiques non dégénérés d'une fonction \( C^3\) sont isolés.
+\end{corollary}
+
+\begin{proof}
+    Soit \( a\) un point critique non dégénéré. Par le lemme de Morse~\ref{LemNQAmCLo}, il existe un \( C^1\)-difféomorphisme \( \psi\) et un entier \( p\) tel que
+    \begin{equation}
+        (f\circ \psi)(x)=x_1^2+\cdots +x_p^2-x_{p+1}^2-\ldots -x_n^2+f(a)
+    \end{equation}
+    sur un voisinage \( \mU\) de \( a\). Vue la formule générale \( df_x(u)=\nabla f(x)\cdot u\), si \( x\) est un point critique de \( f\), alors \( \nabla f(x)=0\). Dans notre cas, les points critiques de \( f\circ \psi\) dans \( \mU\) doivent vérifier \( x_i=0\) pour tout \( i\), et donc \( x=a\).
+
+    Nous devons nous assurer que la fonction \( f\) elle-même n'a pas de points critiques dans \( \mU\). Pour cela nous utilisons la formule générale de dérivation de fonction composée :
+    \begin{equation}
+        \nabla(f\circ\psi)(x)=\sum_k \frac{ \partial f }{ \partial y_k }\big( g(x) \big)\nabla g_k(x).
+    \end{equation}
+    Si \( \psi(x)\) est une point critique de \( f\), alors le membre de droite est le vecteur nul parce que tous les \( \partial_kf\big( \psi(x) \big)\) sont nuls. Par conséquent le membre de gauche est également nul, et \( x\) est un point critique de \( f\circ\psi\). Or nous venons de voir que \( f\circ\psi\) n'a pas de points critiques dans \( \mU\).
+
+    Donc \( f\) n'a pas de points critiques dans un voisinage d'un point critique non dégénéré.
+\end{proof}
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+\section{Autres intégrales sympathiques}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Intégrale de Wallis}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}[\cite{BIBooBKPHooAHRmLD}]     \label{LEMooMGUVooIIQSmC}
+    Soit \( n>0\). En posant \( I_n=\int\sin^n(x)dx\), nous avons :
+    \begin{equation}
+        I_n=\frac{ \cos(x)\sin^{n-1}(x) }{ n }+\frac{ n-1 }{ n }I_{n-2},
+    \end{equation}
+    c'est-à-dire
+    \begin{equation}
+        \int\sin^n(x)dx=\frac{ n-1 }{ n }\int\sin^{n-2}(t)dt-\frac{ \sin^{n-1}(x)\cos(x) }{ n }.
+    \end{equation}
+
+    De la même manière,
+    \begin{equation}        \label{EQooWJMIooSgBbJx}
+        \int\cos^n(x)dx=\frac{ \cos^{n-1}(x)\sin(x) }{ n }+\frac{ n-1 }{ n }\int\cos^{n-2}(x)dx.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Nous posons \( I_n=\int\sin^n(t)dt\), et nous y allons par récurrence. D'abord pour \( n=1\). Dans ce cas, la formule à démontrer se réduit à
+    \begin{equation}
+        \int\sin(x)dx=\cos(x).
+    \end{equation}
+    Pas de problèmes.
+
+    Pour \( n\geq 2\), nous évaluons l'intégrale \( I_n\) en utilisant une intégration par partie\footnote{Proposition \ref{PROPooRLFIooQHnyJY}.} en posant
+    \begin{subequations}
+        \begin{numcases}{}
+            u=\sin^{n-1}(t)\\
+            v'=\sin(t)
+        \end{numcases}
+    \end{subequations}
+    et en déduisant
+    \begin{subequations}
+        \begin{numcases}{}
+            u'=(n-1)\sin^{n-2}(t)\cos(t)\\
+            v=-\cos(t).
+        \end{numcases}
+    \end{subequations}
+    Nous avons alors le calcul
+    \begin{subequations}
+        \begin{align}
+            I_n&=-\cos(x)\sin^{n-1}(x)+\int(n-1)\sin^{n-2}(x)\cos^2(x)dx\\
+            &=-\cos(x)\sin^{n-1}(x)+(n-1)\int\sin^{n-2}\underbrace{\cos^2(x)}_{=1-\sin^2(x)}dx\\
+            &=\cos(x)\sin^{n-1}(x)+(n-1)\underbrace{\int\sin^{n-2}(x)dx}_{=I_{n-2}}-(n-1)\underbrace{\int\sin^n(x)}_{=I_n}dx
+        \end{align}
+    \end{subequations}
+    Nous avons donc déjà prouvé que
+    \begin{equation}
+        I_n=\cos(x)\sin^{n-1}(x)+(n-1)(I_{n-2}-I_n).
+    \end{equation}
+    En isolant \( I_n\),
+    \begin{equation}
+        I_n=\frac{ \cos(x)\sin^{n-1}(x) }{ n }+\frac{ n-1 }{ n }I_{n-2}.
+    \end{equation}
+
+    La formule \eqref{EQooWJMIooSgBbJx} se démontre de la même façon.
+\end{proof}
+
+\begin{lemma}[\cite{BIBooFMRSooRYnhNf,BIBooSZLCooXWYESD}]       \label{LEMooUOIBooLyMDft}
+    Nous posons
+    \begin{equation}
+        W_n=\int_0^{\pi/2}\cos^n(t)dt.
+    \end{equation}
+    Alors :
+    \begin{enumerate}
+        \item
+            une formule de récurrence :
+            \begin{equation}        \label{EQooILMZooBUgJpk}
+                W_n=\frac{ n-1 }{ n }W_{n-2},
+            \end{equation}
+        \item et une formule un peu explicite :
+            \begin{equation}        \label{EQooUYIDooEpHCnP}
+                W_{2n}=\frac{ (2n)! }{ (2^nn!)^2 }\frac{ \pi }{2}.
+            \end{equation}
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    Le nombre \( W_n\) est seulement la seconde intégrale du lemme \ref{LEMooMGUVooIIQSmC}, évaluée entre \( 0\) et \( \pi/2\). En partant donc de \eqref{EQooWJMIooSgBbJx}, nous avons
+    \begin{equation}
+        W_n=\int_0^{\pi/2}\cos^n(x)dx=\left[ \frac{ \cos^{n-1}(x)\sin(x) }{ n } \right]_0^{\pi/2}+\frac{ n-1 }{ n }\int_0^{\pi/2}\cos^{n-2}(x)dx.
+    \end{equation}
+    Le terme aux bords disparaît grâce aux valeurs trigonométriques remarquables\footnote{Par exemple la proposition \ref{PROPooMWMDooJYIlis}\ref{ITEMooQKPKooEPeHER}.}. Il reste immédiatement
+    \begin{equation}
+        W_n=\frac{ n-1 }{ n }W_{n-2}.
+    \end{equation}
+    À partir de là, nous démontrons \eqref{EQooUYIDooEpHCnP} par récurrence. D'abord pour \( n=0\), c'est l'égalité \( W_0=\pi/2\) qui est correcte parce que
+    \begin{equation}
+        \int_0^{\pi/2}\cos^0(x)dx=\int_0^{\pi/2}1dx.
+    \end{equation}
+    Pour la récurrence elle-même,
+    \begin{subequations}
+        \begin{align}
+            W_{2(n+1)}&=\frac{ 2n+1 }{ 2(n+1) }W_{2n}\\
+            &=\frac{ 2n+1 }{ 2n+2 }\frac{ (2n)! }{ (2^nn!)^2 }\frac{ \pi }{ 2 }\\
+            &\text{\ldots pas mal de petits calculs \ldots}\\
+            &=\frac{ (2n+2)! }{ \big( (n+1)!2^{n+1} \big)^2 }\frac{ \pi }{2}.
+        \end{align}
+    \end{subequations}
+    Voilà.
+\end{proof}
+
+Maintenant, la suite \( (W_n)\) se divise en ses termes pairs et ses termes impairs. Pour les pairs, nous avons une formule assez explicite donnée par le lemme \ref{LEMooUOIBooLyMDft}. Pour les termes impairs, nous n'avons rien. Dans tous les cas, nous avons la formule de récurrence
+\begin{equation}
+    W_n=\frac{ n-1 }{ n }W_{n-2}
+\end{equation}
+qui ne sert à rien pour déduire des choses sur les termes impairs à partir de ce que l'on sait des termes pairs.
+
+Sommes-nous perdus ? Non. La situation se débloque grâce au lemme suivant.
+
+\begin{lemma}       \label{LEMooZFBVooQsOuOx}
+    La suite donnée par
+    \begin{equation}
+        W_n=\int_0^{\pi/2}\cos^n(x)dx
+    \end{equation}
+    est décroissante.
+\end{lemma}
+
+\begin{proof}
+    Vu que l'intégrale est sur \( \mathopen[ 0 , \pi/2 \mathclose]\), le nombre \( \cos(x)\) prend ses valeurs dans \( \mathopen[ 0 , 1 \mathclose]\). Nous avons donc
+    \begin{equation}
+        \cos^{n+1}(x)\leq \cos^n(x).
+    \end{equation}
+    Les intégrales suivent les mêmes inégalités.
+\end{proof}
+
+Ce lemme permet de relancer le jeu parce que les termes impairs sont coincés entre les termes pairs, qui décroissent. Les termes impairs doivent donc décroître à la même vitesse. Le lemme suivant met cela en musique.
+
+\begin{lemma}       \label{LEMooAXTEooLBXQuM}
+    Nous posons
+    \begin{equation}
+        W_n=\int_0^{\pi/2}\cos^n(x)dx
+    \end{equation}
+    La fonction \( \alpha\colon \eN\to \eR\) définie par \( W_n=\alpha(n)W_{n-1}\) vérifie \( \lim_{n\to \infty} \alpha(n)=1\).
+\end{lemma}
+
+\begin{proof}
+    Parce que nous en aurons besoin, nous triturons d'abord un peu la formule de récurrence \eqref{EQooILMZooBUgJpk}. D'abord nous l'inversons un peu pour avoir
+    \begin{equation}
+        W_n=\frac{ n+2 }{ n }W_{n+2},
+    \end{equation}
+    et ensuite nous écrivons
+    \begin{equation}        \label{EQooYINNooBUKUYB}
+        W_{n-1}=\frac{ n+1 }{ n }W_{n+1}.
+    \end{equation}
+    Ne vous posez pas de questions, ça va être utile. Le fait que la suite soit décroissante (lemme \ref{LEMooZFBVooQsOuOx}) nous permet d'écrire
+    \begin{equation}
+        W_{n+2}\leq W_n\leq W_{n-1}.
+    \end{equation}
+    En y remplaçant \( W_n\) par \( \alpha(n)W_{n+1}\) et \( W_{n-1}\) par \eqref{EQooYINNooBUKUYB},
+    \begin{equation}
+        W_{n+1}\leq \alpha(n)W_{n+1}\leq \frac{ n+1 }{ n }W_{n+1}.
+    \end{equation}
+    Nous simplifions par \( W_{n+1}\) et nous trouvons l'encadrement, valable pour tout \( n\) :
+    \begin{equation}
+        1\leq \alpha(n)\leq \frac{ n+1 }{ n }.
+    \end{equation}
+    Nous en déduisons par la règle de l'étau que \( \alpha(n)\to 1\).
+\end{proof}
+
+\begin{lemma}       \label{LEMooWQZAooOXAPQO}
+    Soit
+    \begin{equation}
+        W_n=\int_0^{\pi/2}\cos^n(x)dx.
+    \end{equation}
+    Encore plusieurs choses à dire.
+    \begin{enumerate}
+        \item
+            Pour tout \( n\) nous avons
+            \begin{equation}        \label{EQooLOLFooMIwMXN}
+                nW_nW_{n-1}=\frac{ \pi }{2}.
+            \end{equation}
+            \item
+                Nous avons l'équivalence de suites\footnote{Définition \ref{DEFooEWRTooKgShmT}.}
+                \begin{equation}
+                    W_n\sim\sqrt{ \frac{ \pi }{ 2n } }.
+                \end{equation}
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    En deux parties
+    \begin{subproof}
+        \item[La suite constante]
+            Nous posons \( K_n=nW_nW_{n-1}\). Grâce aux formules de récurrence \eqref{EQooILMZooBUgJpk} que nous écrivons sous la forme
+            \begin{subequations}
+                \begin{align}
+                    W_n&=\frac{ n-1 }{ n }W_{n-2}\\
+                    W_{n+1}&=\frac{ n }{ n+1 }W_{n-1},
+                \end{align}
+            \end{subequations}
+            nous avons
+            \begin{equation}
+                K_{n+1}=(n+1)W_{n+1}W_n=(n+1)\frac{ n }{ n+1 }\frac{ n-1 }{ n }W_{n-2}W_{n_2}=(n-1)W_{n-1}W_{n-2}=K_{n-1}.
+            \end{equation}
+            Nous avons montré que \( K_{n+1}=K_{n-1}\).
+
+            Il nous reste à prouver que \( K_1=K_2=\frac{ \pi }{2}\). Pour cela nous avons immédiatement \( W_0=\frac{ \pi }{2}\) ainsi que
+            \begin{equation}
+                W_1=\int_0^{\pi/2}\cos(t)dt=1.
+            \end{equation}
+            Pour \( W_2\), il ne faut pas calculer d'intégrales, mais seulement utiliser la formule \eqref{EQooUYIDooEpHCnP}. Nous trouvons vite \( W_2=\frac{ \pi }{ 4 }\). Donc
+            \begin{equation}
+                K_1=W_1W_0=\frac{ \pi }{2}
+            \end{equation}
+            et
+            \begin{equation}
+                K_2=2W_2W_1=\frac{ \pi }{2}.
+            \end{equation}
+        \item[L'équivalence de suites]
+            Soit la fonction \( \alpha\)  définie par \( W_n=\alpha(n)W_{n-1}\). Le lemme \ref{LEMooAXTEooLBXQuM} nous dit que \( \alpha(n)\to 1\). Nous l'utilisons dans \eqref{EQooLOLFooMIwMXN} :
+            \begin{equation}
+                \frac{ \pi }{2}=nW_nW_{n-1}=n\alpha(n)W_{n-1}^2.
+            \end{equation}
+            Donc
+            \begin{equation}
+                W_{n-1}^2=\frac{ \pi }{ 2n\alpha(n) },
+            \end{equation}
+            et
+            \begin{equation}
+                W_{n-1}\sqrt{ \frac{1}{ \alpha(n) } }\sqrt{ \frac{ \pi }{ 2n } }.
+            \end{equation}
+            Vu que le coefficient \( \sqrt{ 1/\alpha(n) }\) tend vers \( 1\) pour \( n\to 1\), nous avons l'équivalence demandée.
+    \end{subproof}
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Formule de Stirling}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}[\cite{BIBooFRPFooFDvXrp}]     \label{LEMooDXJOooOGFcIv}
+    Si \( n\in \eN\) nous avons la formule
+    \begin{equation}
+        \ln(1+\frac{1}{ n })=2\sum_{k=0}^{\infty} \frac{1}{ 2k+1 } \left( \frac{1}{ 2n+1 } \right)^{2k+1}
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Il s'agit d'utiliser astucieusement le développement de la proposition \ref{PROPooKPBIooJdNsqX}. Nous avons d'une part
+    \begin{equation}
+        \ln(1+t)=\sum_{k=1}^{\infty}(-1)^{k+1}\frac{ x^k }{ k }
+    \end{equation}
+    et d'autre part,
+    \begin{equation}
+        -\ln(1-t)=\sum_{k=1}^{\infty}\frac{ x^k }{ k }.
+    \end{equation}
+    Cela permet de calculer, en utilisant l'associativité de la série\footnote{Proposition \ref{PROPooUEBWooUQBQvP}.}
+    \begin{subequations}\label{EQooYVXHooNDetVx}
+        \begin{align} 
+            \ln\left( \frac{ 1+t }{ 1-t } \right)&=\ln(1+t)-\ln(1-t)\\
+            &=\sum_{k=1}^{\infty}\left( \frac{ (-1)^{k+1}x^k }{ k }+\frac{ x^k }{ k } \right)\\
+            &=2\sum_{k=0}^{\infty}\frac{ x^{2k+1} }{ 2k+1 }     \label{SUBEQooIIOBooXYoHkK}
+        \end{align}
+    \end{subequations}
+    parce que tous les termes pairs s'annulent, tandis que les termes impairs sont doublés. Notez que la somme dans \eqref{SUBEQooIIOBooXYoHkK} commence à \( k=0\), contrairement aux autres qui commencent à \( 1\).
+   
+    Et là c'est l'astuce : on écrit l'égalité \eqref{EQooYVXHooNDetVx} avec le \( t\) qu'il faut pour que
+    \begin{equation}
+        \frac{ 1+t }{ 1-t }=1+\frac{1}{ n }.
+    \end{equation}
+    Nous posons donc \( t=\frac{1}{ 2n+1 }\) nous avons
+    \begin{equation}
+        \ln\left( 1+\frac{1}{ n } \right)=2\sum_{k=0}^{\infty}  \frac{1}{ 2k+1 } \left( \frac{1}{ 2n+1 } \right)^{2k+1},
+    \end{equation}
+    ce qu'il fallait.
+\end{proof}
+
+
+\begin{lemma}[Formule de Stirling\cite{MEHuVnb,BIBooZRVYooGKkFmy,BIBooFMRSooRYnhNf,BIBooFRPFooFDvXrp,BIBooEFYIooBvytzQ}]        \label{LemCEoBqrP}
+    Nous avons l'équivalence de suites\footnote{Définition \ref{DEFooEWRTooKgShmT}.}
+    \begin{equation}
+        n!\sim \left( \frac{ n }{ e } \right)^n\sqrt{2\pi n}.
+    \end{equation}
+\end{lemma}
+\index{formule de Stirling}
+
+\begin{proof}
+    Nous posons
+    \begin{equation}
+        a_n=\frac{ n! }{ \sqrt{ 2n } \left( \frac{ n }{ e } \right)^n }
+    \end{equation}
+    et \( b_n=\ln(a_n)\).
+    \begin{subproof}
+        \item[Une formule pour \( b_n-b_{n+1}\)]
+            Nous faisons un beau calcul qui utilise les formules de la proposition \ref{PROPooLAOWooEYvXmI} ainsi que \( \ln(e)=1\) :
+            \begin{subequations}        \label{SUBEQSooZTABooBukFGM}
+                \begin{align}
+                    b_n-b_{n+1}&=\ln\left( \frac{ a_n }{ a_{n+1} } \right)\\
+                    &=\ln\left(     \frac{ (n+1)^{n+1/2} }{ n^{n+1/2} }\frac{1}{ e }    \right)\\
+                    &=\ln\left( (\frac{ n+1 }{ n })^{n+1/2} \right)-1\\
+                    &=\left( n+\frac{1}{ 2 } \right)\ln(1+\frac{1}{ n })-1.
+                \end{align}
+            \end{subequations}
+        \item[La suite \( (b_n)\) est décroissante]
+            Nous écrivons l'égalité \eqref{SUBEQSooZTABooBukFGM} en utilisant le lemme \ref{LEMooDXJOooOGFcIv} :
+            \begin{subequations}
+                \begin{align}
+                    b_n-b_{n+1}&=(n+\frac{ 1 }{2})\ln(1+\frac{1}{ n })-1\\
+                    &=\frac{ 1 }{2}(2n+1)2\sum_{k=0}^{\infty}\frac{1}{ 2k+1 }\left( \frac{1}{ 2n+1 } \right)^{2k+1}-1\\
+                    &=(2n+1)\sum_{k=1}^{\infty}\frac{1}{ 2k+1 }\left( \frac{1}{ 2n+1 } \right)^{2k+1}\\
+                    &=\sum_{k=1}^{\infty}  \frac{1}{ 2k+1 }  \left( \frac{1}{ 2n+1 } \right)^{2k}.
+                \end{align}
+            \end{subequations}
+            Notez que le terme \( k=0\) s'est simplifié avec le \( -1\). Vu que le tout est une somme de termes positifs, nous avons
+            \begin{equation}
+                b_n-b_{n+1}>0
+            \end{equation}
+            et la suite est décroissante.
+        \item[Majoration pour \( b_n-b_{n+1}\)]
+            Vu que \( \frac{1}{ 2k+1 }<1\), nous pouvons majorer :
+            \begin{equation}
+                b_n-b_{n+1}\leq \sum_{k=1}^{\infty}\left( \frac{1}{ (2n+1)^2 } \right)^k.
+            \end{equation}
+            Nous remarquons que cela est une série géométrique déjà traitée dans la proposition \ref{PROPooWOWQooWbzukS}. Nous faisons un peu de calcul en partant de 
+            \begin{equation}
+                \sum_{k=1}^{\infty}q^n=\frac{ q }{ 1-q }
+            \end{equation}
+            avec \( q=\frac{1}{ (2n+1)^2 }\). Après quelques simplifications,
+            \begin{equation}
+                b_n-b_{n+1}\leq \frac{1}{ 4 }\frac{ 1 }{ n(n+1) }
+            \end{equation}
+        \item[Le coup de la somme télescopique]
+            Nous avons
+            \begin{equation}
+                b_1-b_n=(b_1-b_2)+(b_2-b_3)+\ldots+(b_{n_1}-b_n).
+            \end{equation}
+            Chacun de ces termes est majoré; nous avons donc
+            \begin{equation}
+                b_1-b_n<\frac{1}{ 4 }\sum_{m=1}^{n-1}\frac{1}{ m(m+1) }\leq \frac{1}{ 4 }\sum_{m=1}^{\infty}\frac{1}{ m(m+1) }=\frac{1}{ 4 }
+            \end{equation}
+            grâce au lemme \ref{LEMooKDHPooPlFTIT} pour la dernière somme.
+        \item[La suite \( b_n\) est bornée vers le bas]
+
+            Vu que \( b_1=1-\frac{ \ln(2) }{2}\), nous avons
+            \begin{equation}
+                b_n>b_1-\frac{1}{ 4 }=\frac{ 3 }{ 4 }-\frac{ \ln(2) }{ 2 }.
+            \end{equation}
+            En utilisant la majoration de l'exemple \ref{EXooYMEEooMGpUNM} nous trouvons
+            \begin{equation}
+                0.327\leq b_n\leq 0.427.
+            \end{equation}
+            Cet encadrement n'est pas très important. Le point est que la suite \( (b_n)\) soit bornée vers le bas; savoir que la borne est strictement positive n'est pas indispensable.
+
+        \item[Une limite pour \( (a_n)\)]
+            La suite \( (b_n)\) est décroissante et bornée vers le bas, donc elle est convergente par le lemme \ref{LemSuiteCrBorncv}. Vu que l'exponentielle est une fonction continue\footnote{Parce qu'elle est dérivable, voir par exemple le théorème \ref{ThoKRYAooAcnTut}.}, la suite \( a_n= e^{b_n}\) est également convergente.
+
+            Vu que \( \lim_{n\to \infty} b_n>0\), nous avons \( \lim_{n\to \infty} a_n= e^{\lim_{n\to \infty} b_n}>1\).
+
+            L'important est que nous sachions que \( (a_n)\) est une suite convergente. Nous notons \( L\) sa limite :
+            \begin{equation}
+                \lim_{n\to \infty} \frac{ n! }{ \sqrt{ 2n }\left( \frac{ n }{ e } \right)^n }=L.
+            \end{equation}
+            Ou encore :
+            \begin{equation}
+                \lim_{n\to \infty} \frac{ n! }{ L\sqrt{ 2n }\left( \frac{ n }{ e } \right)^n }=1.
+            \end{equation}
+            Autrement dit, en posant
+            \begin{equation}        \label{EQyiBooFVCCooJbGpsW}
+                n!=\alpha(n)L\sqrt{ 2n }\left( \frac{ n }{ e } \right)^n,
+            \end{equation}
+            nous avons \( \lim_{n\to \infty} \alpha(n)=1\).
+
+        \item[Introduction de Wallis]
+            Nous avons déjà parlé dans le lemme \ref{LEMooUOIBooLyMDft} du nombre
+            \begin{equation}
+                W_{2n}=\frac{ (2n)! }{ (2^nn!)^2 }\frac{ \pi }{2}.
+            \end{equation}
+            Le lemme \ref{LEMooWQZAooOXAPQO} implique que la suite \( I_n=W_{2n}\) est équivalente à \( \sqrt{ \pi/4n }\). 
+            
+            Cela étant dit, nous faisons un gros calcul en remplaçant les factorielles dans \( W_{2n}\) par la formule \eqref{EQyiBooFVCCooJbGpsW}. Après pas mal de calculs\footnote{Si vous êtes en manque de papier de brouillon, c'est le moment de vous inquiéter.}, nous trouvons
+            \begin{equation}
+                I_n=\frac{ \alpha(2n) }{ \alpha(n)^2 }\frac{1}{ \sqrt{ n } }\frac{ \pi }{ 2n }.
+            \end{equation}
+            Nous avons donc
+            \begin{equation}
+                \sqrt{ \frac{ \pi }{ 4n } }\sim \frac{ \alpha(2n) }{ \alpha(n)^2 }\frac{ \pi }{ \sqrt{ n } }\frac{1}{ 2L }.
+            \end{equation}
+            Il existe donc une fonction \( \beta(n)\) avec \( \beta(n)\to 1\) telle que
+            \begin{equation}
+                \frac{ \sqrt{ \pi } }{2}\frac{1}{ \sqrt{ n } }=\beta(n)\frac{ \alpha(2n) }{ \alpha(n)^2 }\frac{ \pi }{ \sqrt{ n } }\frac{1}{ 2L }.
+            \end{equation}
+            En simplifiant par \( 1/\sqrt{ n }\),
+            \begin{equation}
+                \frac{ \sqrt{ \pi } }{2}=\beta(n)\frac{ \alpha(2n) }{ \alpha(n)^2 }\frac{\pi}{ 2L }.
+            \end{equation}
+            Nous prenons à présent la limite \( n\to \infty\) en nous rappelant que \( \alpha\) et \( \beta \) donnent \( 1\). Après simplifications, nous trouvons
+            \begin{equation}
+                L=\sqrt{ \pi }.
+            \end{equation}
+            
+        \item[La fin]
+            Nous introduisons la valeur \( L=\sqrt{ \pi }\) dans l'expression \eqref{EQyiBooFVCCooJbGpsW} de la factorielle :
+            \begin{equation}
+                n!=\alpha(n)\sqrt{ 2\pi n }\left( \frac{ n }{ e } \right)^n.
+            \end{equation}
+    \end{subproof}
+    La dernière équation est exactement ce qui signifie l'équivalence de suite demandée.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{La fonction sinus cardinal, intégrale de Dirichlet}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    La fonction \defe{sinus cardinal}{sinus cardinal} est
+    \begin{equation}
+        f(t)=\begin{cases}
+            1    &   \text{si } t=0 \\
+            \frac{ \sin(t) }{ t }    &    \text{sinon. }
+        \end{cases}
+    \end{equation}
+\end{definition}
+Elle sert à plein de choses. Entre autres, le lemme \ref{LEMooEEWSooZwLSAP} montrera que la fonction \( x\mapsto | \sin(x)/x |\) a une intégrale sur \( \eR\) qui vaut \( \infty\). Cela nous permettra de donner un exemple d'une fonction dans \( L^1(\eR)\) dont la transformée de Fourier n'est pas dans \( L^1(\eR)\) (lemme \ref{LEMooROPHooOSguhN}).
+
+\begin{normaltext}
+    Le but que nous nous fixons maintenant est de prouver que
+    \begin{equation}
+        \int_{0}^{\infty}\frac{ \sin(t) }{ t }dt=\frac{ \pi }{2}.
+    \end{equation}
+
+    Un adage dit que si un théorème est trop long, c'est qu'il n'a pas assez de lemmes. Nous allons faire plein de lemmes.
+\end{normaltext}
+
+\begin{lemma}       \label{LEMooMJFBooAjtNjV}
+    La fonction sinus cardinal est continue.
+\end{lemma}
+
+\begin{proof}
+    Elle est continue en zéro parce que le lemme \ref{LEMooZYNEooYkwsWD} nous donne
+    \begin{equation}
+        \lim_{t\to 0}\frac{ \sin(t) }{ t }=1.
+    \end{equation}
+\end{proof}
+
+Nous commençons par une mauvaise nouvelle.
+\begin{lemma}[\cite{MonCerveau}]           \label{LEMooEEWSooZwLSAP}
+    Nous avons
+    \begin{equation}
+        \int_{\eR}| \frac{ \sin(x) }{ x } |dx=\infty.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Soit \( \delta>0\) tel que sur l'intervalle \( \mathopen[ \frac{ \pi }{2}-\delta , \frac{ \pi }{ 2 }+\delta \mathclose]\), nous ayons \( \sin(x)>0.9\)\footnote{Ça existe par une astucieuse combinaison du théorème \ref{ThoValInter} des valeurs intermédiaires, de la valeur remarquable \( \sin(\pi/2)=1\) (de \eqref{SUBEQSooBTNPooSvCAHO}) et du fait que \( \sin\) est continue (proposition \ref{PROPooZXPVooBjONka}).} .
+
+    Les intervalles \( I_k=\mathopen[ \frac{ \pi }{2}-\delta+2k\pi , \frac{ \pi }{2}+\delta+2k\pi \mathclose]\) sont disjoints et la fonction que nous intégrons est partout positive. Nous découpons
+    \begin{equation}
+        \eR=C+\bigcup_{k=0}^{\infty}\mathopen[ \frac{ \pi }{2}-\delta+2k\pi , \frac{ \pi }{2}+\delta+2k\pi \mathclose]
+    \end{equation}
+    où \( C\) est le complémentaire qu'il faut pour faire \( \eR\).
+
+    La \( \sigma\)-additivité de l'intégrale de Lebesgue (proposition \ref{PROPooDWYNooWKJmEV}) nous indique que
+    \begin{equation}
+        \int_{\eR}\big| \frac{ \sin(x) }{ x } \big|= \int_C\big| \frac{ \sin(x) }{ x } \big|+  \sum_{k=0}^{\infty}\int_{I_k}\big| \frac{ \sin(x) }{ x } \big|dx
+    \end{equation}
+    Vu que tous les termes sont positifs, nous obtenons une majoration en en supprimant un. Allons-y :
+    \begin{subequations}        \label{SUBEQSooSRAYooEOBwiC}
+        \begin{align}
+            \int_{\eR}\big| \frac{ \sin(x) }{ x } \big|dx&\geq \sum_{k=0}^{\infty}\int_{I_k}\big| \frac{ \sin(x) }{ x } \big|dx\\
+            &\geq\sum_{k=0}^{\infty}0.9\int_{I_k}\frac{ 1 }{ x }dx\\
+            &\geq 0.9\sum_{k=0}^{\infty}2\delta\frac{1}{ \frac{ \pi }{2}-\delta+2k\pi }     \label{SUBEQooKMURooVuIpCo}\\
+            &\geq 1.8\delta\sum_{k=0}^{\infty}\frac{1}{ 2\pi(k+1) }     \label{SUBEQooJCQOooYqUCps}\\
+            &=\frac{ 1.8\delta }{ 2\pi }\sum_{k=0}^{\infty}\frac{1}{ k+1 }.
+        \end{align}
+    \end{subequations}
+    Justifications :
+    \begin{itemize}
+        \item Pour \eqref{SUBEQooKMURooVuIpCo}, nous avons majoré \( \frac{1}{ x }\) par \( \frac{1}{ \frac{ \pi }{ 2 }+\delta+2k\pi }\) sur \( I_k\).
+        \item Pour \eqref{SUBEQooJCQOooYqUCps}, nous avons dit que \( \frac{ \pi }{2}+\delta<2\pi\).
+    \end{itemize}
+    La dernière somme dans \eqref{SUBEQSooSRAYooEOBwiC} diverge.
+
+    Donc la fonction sinus cardinal n'est pas dans \( L^1(\eR)\).
+\end{proof}
+
+La mauvaise nouvelle suivante en est un corolaire immédiat.
+\begin{lemma}       \label{LEMooBEQRooHaugKj}
+    La fonction \( t\mapsto \frac{ \sin(t) }{ t }\) n'est pas intégrable sur \( \mathopen[ 0 , \infty \mathclose[\) au sens de Lebesgue.
+\end{lemma}
+
+\begin{proof}
+    Le lemme \ref{LEMooEEWSooZwLSAP} nous dit que \( \int_0^{\infty}| f |=\infty\). Dans ce cas, \( \int_0^{\infty}f\) n'existe pas par le lemme \ref{LEMooMWKTooIKomSw}.
+\end{proof}
+
+Donc l'intégrale \( \int_0^{\infty}\frac{ \sin(t) }{ t }dt\) n'existe pas parce que la définition de l'intégrale de Lebesgue ne permet pas de profiter des compensations qui arrivent entre les valeurs positives et négatives.
+
+Nous définissons donc
+\begin{equation}        \label{EQooWAQLooTFOPbl}
+    \int_0^{\infty}\frac{ \sin(t) }{ t }dt=\lim_{b\to \infty} \int_0^b\frac{ \sin(t) }{ t }dt.
+\end{equation}
+Pour chaque \( b\), l'intégrale existe sans problèmes (fonction continue sur le compact \( \mathopen[ 0 , b \mathclose]\)), et les compensations se font. Il n'est pas pas sans espoir que la limite \eqref{EQooWAQLooTFOPbl} existe et valle un nombre fini.
+
+\begin{lemma}[\cite{BIBooCFXJooWrArNT}]     \label{LEMooTFVZooRAmjUN}
+    La limite
+    \begin{equation}
+        \lim_{b\to \infty}\int_0^b\frac{ \sin(t) }{ t }dt
+    \end{equation}
+    existe dans \( \eR\).
+\end{lemma}
+
+\begin{proof}
+    En plusieurs parties.
+    \begin{subproof}
+        \item[Découpage]
+
+            Nous découpons l'intervalle \( \mathopen[ 0 , b \mathclose]\) en morceaux du type \( \mathopen[ k\pi , (k+1)\pi \mathclose]\) et un morceau restant lorsque \( b\) n'est pas un multiple de \( \pi\) :
+            \begin{equation}
+                \mathopen[ 0 , b \mathclose]=\bigcup_{k=0}^{N(b)-1}\mathopen[ k\pi , (k+1)\pi \mathclose]\cup\mathopen[ N(b)\pi , b \mathclose]
+            \end{equation}
+            où \( N(b)\) est un entier bien choisi\quext{Il me semble que le traitement de ce terme manque dans \cite{BIBooCFXJooWrArNT}.}. En tout cas \( \lim_{b\to \infty}N(b)=\infty\).
+
+        \item[Majoration 1]
+
+            Pour chaque \( b\in \eR^+\) nous avons
+            \begin{equation}
+                \int_0^b\frac{ \sin(t) }{ t }dt=\sum_{k=0}^{N(b)}\int_{\mathopen\big[ k\pi , (k+1)\pi \mathclose\big]}\frac{ \sin(t) }{ t }dt+\int_{\mathopen[ \big( N(b)+1 \big)\pi , b \mathclose]}\frac{ \sin(t) }{ t }
+            \end{equation}
+            Dans le dernier terme, nous majorons \( | \sin(t) |\leq 1\) et \( \frac{1}{ t }\leq \big( N(b)+1 \big)\pi\). Cela donne
+            \begin{equation}
+                \left|  \int_{\mathopen\big[ \big(N(b)+1\big)\pi  , b \mathclose\big]}\frac{ \sin(t) }{ t } \right|\leq \frac{ b-\big( N(b)+1 \big)\pi }{ \big( N(b)+1 \big)\pi }\leq \frac{1}{ N(b)+1 }
+            \end{equation}
+            où nous avons encore majoré \( b\leq \big( N(b)+2 \big)\pi\).
+
+        \item[Majoration 2]
+
+            En ce qui concerne les autres termes, sur l'intervalle \( \mathopen[ k\pi , (k+1)\pi \mathclose]\), nous avons \( \sin(t)=(-1)^k| \sin(t) |\). Nous avons alors
+            \begin{equation}        \label{EQooHZPRooFuwRWQ}
+                \int_0^b\frac{ \sin(t) }{ t }dt=\sum_{k=0}^{N(b)}(-1)^k\int_{k\pi}^{(k+1)\pi}\frac{ | \sin(t) | }{ t }dt+\alpha(b)
+            \end{equation}
+            où \( | \alpha(b) |\leq \frac{1}{ N(b)+1 }\); l'important est que \( \lim_{b\to \infty}\alpha(b)=0\).
+            
+        \item[Une suite alternée]
+
+            L'inégalité \eqref{EQooHZPRooFuwRWQ} nous incite à étudier la série \( \sum_{k=0}^{\infty}(-1)^ka_k\) en ayant posé
+            \begin{equation}
+                a_k=\int_{k\pi}^{(k+1)\pi}\frac{ | \sin(t) | }{ t }dt.
+            \end{equation}
+            Nous montrons à présent que la suite \( (a_k)\) vérifie les conditions du critère des séries alternées \ref{THOooOHANooHYfkII}.
+
+            D'abord, \( a_{k+1}\leq a_k\). En effet en utilisant le changement de variables\footnote{Le théorème \ref{THOooUMIWooZUtUSg} est toujours bon à citer.} \( u=t-\pi\),
+            \begin{equation}
+                a_{k+1}=\int_{(k+1)\pi}^{(k+2)\pi}\frac{ | \sin(t) | }{ t }dt=\int_{k\pi}^{(k+1)\pi}\frac{ | \sin(u+\pi) | }{ u+\pi }du=\int_{k\pi}^{(k+1)\pi}\frac{ | \sin(u) | }{ u+\pi }du<a_k.
+            \end{equation}
+            Nous avons utilisé le fait que \( | \sin(u+\pi) |=| \sin(u) |\) pour tout \( u\).
+
+            De plus, vu que \( | \sin(t) |\leq 1\) et que \( t\in\mathopen[ k\pi , (k+1)\pi \mathclose]\), nous avons
+            \begin{equation}
+                \int_{k\pi}^{(k+1)\pi}\frac{ | \sin(t) | }{ t }\leq \int_{k\pi}^{(k+1)\pi}\frac{1}{ k\pi }=\frac{ (k+1)\pi-k\pi }{ k\pi }=\frac{1}{ k }.
+            \end{equation}
+            Donc \( a_k\leq\frac{1}{ k }\to 0\).
+
+            Le critère des séries alternées \ref{THOooOHANooHYfkII} nous dit que
+            \begin{equation}
+                \sum_{k=0}^{\infty}(-1)^ka_k<\infty.
+            \end{equation}
+
+        \item[Conclusion]
+            Nous repartons de \eqref{EQooHZPRooFuwRWQ} :
+            \begin{equation} 
+                \int_0^b\frac{ \sin(t) }{ t }dt=\sum_{k=0}^{N(b)}(-1)^k\int_{k\pi}^{(k+1)\pi}\frac{ | \sin(t) | }{ t }dt+\alpha(b).
+            \end{equation}
+            Cette égalité est valable pour tout \( b\in \eR^+\). Le passage à la limite \( b\to 0\) à droite donne un nombre fini; donc à gauche aussi, et nous avons prouvé que
+            \begin{equation}
+                \lim_{b\to\infty} \int_0^b\frac{ \sin(t) }{ t }dt<\infty.
+            \end{equation}
+    \end{subproof}
+\end{proof}
+Notre tache n'est donc pas sans espoir. Au moins l'intégrale que nous cherchons à évaluer est finie.
+
+\begin{lemma}       \label{LEMooARPIooDPSGwR}
+    Soit \( x\in \mathopen] 0 , \infty \mathclose[\). L'intégrale
+    \begin{equation}
+        F(x)=\int_0^{\infty} e^{-tx}\frac{ \sin(t) }{ t }dt
+    \end{equation}
+    existe au sens de Lebesgue usuel.
+\end{lemma}
+
+\begin{proof}
+    Vu qu'en \( t=0\) nous avons \( \frac{ \sin(t) }{ t }=1\), il n'y a pas de problèmes de ce côté. Lorsque \( t>1\) nous avons la majoration
+    \begin{equation}
+        |  e^{-tx}\frac{ \sin(t) }{ t } |\leq |  e^{-tx} |.
+    \end{equation}
+    Lorsque \( t\) est assez grand, le lemme \ref{LEMooNYFVooXjFShk} nous donne aussi la majoration
+    \begin{equation}
+        |  e^{-tx} |\leq \frac{1}{ t^2 }.
+    \end{equation}
+    La proposition \ref{PropBKNooPDIPUc}\ref{ITEMooJFSXooHmgmEj} implique que \( \int_1^{\infty}\frac{1}{ t^2 }<\infty\). Et les majorations font que la proposition \ref{PROPooGTMVooPHcrRl} nous donne le résultat.
+\end{proof}
+
+\begin{lemma}[\cite{BIBooCFXJooWrArNT}]     \label{LEMooRDCSooBrWmep}
+    Il existe une constante \( C\in \eR\) telle que
+    \begin{equation}
+        I(x)=\int_0^{\infty} e^{-tx}\frac{ \sin(t) }{ t }dt=-\arctan(x)+C
+    \end{equation}
+    pour tout \( x>0\).
+\end{lemma}
+
+\begin{proof}
+    En permutant dérivée et intégrale, nous allons prouver que \( I'(x)=-\frac{1}{ 1+x^2 }\).
+
+    \begin{subproof}
+        \item[Permuter]
+            Nous posons
+            \begin{equation}
+                f(x,t)= e^{-tx}\frac{ \sin(t) }{ t },
+            \end{equation}
+            et nous vérifions les hypothèses du théorème \ref{ThoMWpRKYp}.
+
+            \begin{enumerate}
+                \item
+                    Pour chaque \( x>0\) fixé, la fonction \( t\mapsto f(x,t)\) est intégrable sur \( \mathopen[ 0 , \infty \mathclose[\), c'est le lemme \ref{LEMooARPIooDPSGwR}.
+                    \item
+                        Pour \( t>0\) fixé, la fonction \( x\mapsto f(x,t)\) est dérivable.
+                    \item
+                        Nous avons la dérivée partielle
+                        \begin{equation}
+                            \frac{ \partial f }{ \partial x }(x,t)=- e^{-tx}\sin(t)
+                        \end{equation}
+                        qui vérifie
+                        \begin{equation}
+                            | \frac{ \partial f }{ \partial x }(x,t) |\leq  e^{-tx},
+                        \end{equation}
+                        alors que la fonction \( t\mapsto  e^{-tx}\) est intégrable sur \( \mathopen[ 0 , \infty \mathclose[\).
+            \end{enumerate}
+            Nous pouvons donc dériver sous l'intégrale et obtenir
+            \begin{equation}
+                F'(x)=-\int_0^{\infty} e^{-xt}\sin(t)dt.
+            \end{equation}
+        \item[Quelques intégrations par partie]
+            Nous posons
+            \begin{equation}
+                J(x)=\int_0^{\infty} e^{-xt}\sin(t)dt,
+            \end{equation}
+            et nous allons la faire par parties\footnote{Proposition \ref{PROPooRLFIooQHnyJY}.}, en deux fois.
+
+            D'abord en posant \( u= e^{-xt}\) et \( v'=\sin(t)\) nous avons
+            \begin{equation}
+                J(x)=\left[ - e^{-xt}\cos(t) \right]_{t=0}^{t=\infty}-\int_0^{\infty}(-)x e^{-xt}(-)\cos(t)dt=1-x\int_0^{\infty} e^{-xt}\cos(t)dt.
+            \end{equation}
+            Nous faisons l'intégrale encore par parties en posant \( u= e^{-xt}\) et \( v'=\cos(t)\) :
+            \begin{equation}
+                \int_0^{\infty} e^{-xt}\cos(t)dt=\left[  e^{-xt}\sin(t) \right]_0^{\infty}-\int_0^{\infty}(-) e^{-xt}\sin(t)dt=J(x).
+            \end{equation}
+            Donc
+            \begin{subequations}
+                \begin{align}
+                    J(x)&=1-x\int_0^{\infty} e^{-xt}\cos(t)dt\\
+                    &=1-x\int_0^{\infty} e^{-xt}\cos(t)dt\\
+                    &=1-x\Big( x\underbrace{\int_0^{\infty} e^{-xt}\sin(t)dt}_{J(x)} \Big)\\
+                    &=1-x^2J(x).
+                \end{align}
+            \end{subequations}
+            Voilà qui prouve que \( J(x)=\frac{1}{ 1+x^2 }\), et donc que
+            \begin{equation}
+                F'(x)=-J(x)=-\frac{1}{ 1+x^2 }.
+            \end{equation}
+            
+        \item[Et enfin]
+
+            Le théorème \ref{THOooUSVGooOAnCvC}\ref{ITEMooMNHLooOVhIIb} nous dit que la dérivée de la fonction \( \arctan\) est précisément \( 1/(1+x)\). Donc \( F\) et \( \arctan\) ont la même dérivée (au signe près). Donc il existe \( C\in \eR\) tel que
+            \begin{equation}
+                F(x)=-\arctan(x)+C
+            \end{equation}
+            pour tout \( x>0\).
+
+    \end{subproof}
+\end{proof}
+
+\begin{lemma}       \label{LEMooEOYHooVIMCCa}
+    Nous avons
+    \begin{equation}
+        F(x)=\int_0^{\infty} e^{-xt}\frac{ \sin(t) }{ t }dt=-\arctan(x)+\frac{ \pi }{2}
+    \end{equation}
+    pour tout \( x>0\).
+\end{lemma}
+
+\begin{proof}
+    Le but de ce lemme est de fixer la constante laissée arbitraire dans le lemme \ref{LEMooRDCSooBrWmep}. Nous savons qu'il existe \( C\in \eR\) tel que
+    \begin{equation}        \label{EQooTZGXooUxfAjT}
+        F(x)=-\arctan(x)+C.
+    \end{equation}
+    Le but est de prendre la limite \( x\to\infty\) des deux côtés.
+
+    Par le lemme \ref{LEMooSFALooVRBdNb}, nous avons \( | \frac{ \sin(t) }{ t } |\leq 1\) sur \( \mathopen[ 0 , \infty \mathclose[\). Donc
+    \begin{equation}
+        F(x)\leq \int_0^{\infty} e^{-xt}dt=\left[ -\frac{1}{ x } e^{-xt} \right]_{t=0}^{t=\infty}=\frac{1}{ x }.
+    \end{equation}
+    Vu que \( F(x)\leq \frac{1}{ x }\) pour tout \( x\), nous avons certainement \( \lim_{x\to \infty} F(x)=0\).
+
+    D'autre part,
+    \begin{equation}
+        \lim_{x\to \infty} \arctan(x)=\frac{ \pi }{2}.
+    \end{equation}
+    
+    En passant à la limite dans \eqref{EQooTZGXooUxfAjT}, nous avons
+    \begin{equation}
+        0=-\frac{ \pi }{2}+C,
+    \end{equation}
+    et donc \( C=\pi/2\).
+\end{proof}
+
+Nous avons maintenant la formule
+\begin{equation}
+    F(x)=\int_0^{\infty} e^{-tx}\frac{ \sin(t) }{ t }dt=-\arctan(x)+\frac{ \pi }{2}
+\end{equation}
+qui est valable pour tout \( x>0\).
+
+Notre but sera de prendre la limite \( x\to 0\) des deux côtés. Vu que \( \arctan\) est continue, le membre de droite ne pose pas de problèmes et donne \( \pi/2\). Pour le membre de gauche, il faut encore permuter une limite et une intégrale.
+
+Pour la suite, nous allons étudier\cite{BIBooCFXJooWrArNT}
+\begin{equation}
+    \int_0^{\infty}(1- e^{-xt})\frac{ \sin(t) }{ t }dt.
+\end{equation}
+Cette intégrale n'existe pas au sens de Lebesgue et est définie par
+\begin{equation}
+    L(x)=\lim_{b\to \infty} \int_0^b(1- e^{-xt})\frac{ \sin(t) }{ t }dt.
+\end{equation}
+Rien n'indique cependant pour l'instant que cette limite existe.
+
+\begin{lemma}[\cite{BIBooCFXJooWrArNT}]     \label{LEMooZGODooLaBuHo}
+    Soit \( x>0\). Nous posons
+    \begin{equation}        \label{EQooJXWMooRbbCtt}
+        L_k(x)=\int_{k\pi}^{(k+1)\pi}(1- e^{-tx})\frac{ | \sin(t) | }{ t }dt.
+    \end{equation}
+    La suite \( (L_k(x))_{k\in \eN}\) satisfait le critère des séries alternées\footnote{Théorème \ref{THOooOHANooHYfkII}.}, c'est-à-dire que cette suite est positive, décroissante à limite nulle.
+\end{lemma}
+
+\begin{proof}
+    Notons que chacune des intégrales \( L_k(x)\) est sans problèmes : fonction continue sur un compact. Trois éléments à prouver.
+    \begin{subproof}
+        \item[Positive]
+            Vu que dans toute notre histoire, \( x,t>0\), nous avons \( 1- e^{-tx}>0\) et donc toute la fonction intégrée est positive.
+        \item[Tend vers zéro]
+            Vu que \( 1- e^{-tx}<1\), nous avons
+            \begin{equation}        \label{EQooCGAQooDSvbln}
+                L_k(x)\leq \int_{k\pi}^{(k+1)\pi}\frac{1}{ t }dt\leq \pi\frac{1}{ k\pi }=\frac{1}{ k }.
+            \end{equation}
+            Donc \( \lim_{k\to \infty} L_k(x)=0\).
+        \item[Décroissante]
+            Nous devons à présent prouver que \( L_k(x)\) est décroissante en \( k\) lorsque \( x\) est fixé.
+
+            Nous avons \( L_{k+1}(0)=L_k(0)\) pour tout \( k\). Nous allons montrer que \( L'_{k+1}(x)<L'_k(x)\) pour tout \( x>0\). De cette façon nous aurons bien \( L_{k+1}(x)<L_k(x)\) pour tout \( k\) et \( x\).
+
+            En permutant (encore) intégrale et dérivée,
+            \begin{subequations}
+                \begin{align}
+                    L_{k+1}'(x)&=\int_{(k+1)\pi}^{(k+2)\pi} e^{-tx}| \sin(t) |dt        \label{EQooAGGCooSoPHnz}\\
+                    &=\int_{k\pi}^{(k+1)\pi} e^{-(u+\pi)x}| \sin(u+\pi) |       \label{SUBEQooEWZSooQtZBYI}\\
+                    &= e^{-\pi x}\int_{k\pi}^{(k+1)\pi} e^{-ux}| \sin(u) |du    \label{SUBEQooYGDQooLWqrvg}\\
+                    &= e^{-\pi x}L_k'(x).
+                \end{align}
+            \end{subequations}
+            Justifications :
+            \begin{itemize}
+                \item Pour \eqref{EQooAGGCooSoPHnz}, permuter dérivée et intégrale; je ne donne pas tout le détail. Ça a déjà été fait.
+                \item Pour \eqref{SUBEQooEWZSooQtZBYI}, nous avons fait le changement de variables \( u=t-\pi\).
+                \item Pour \eqref{SUBEQooYGDQooLWqrvg}, nous avons utilisé le fait que \( | \sin(u+\pi) |=| \sin(u) |\) ainsi que \(  e^{-(u+\pi)x}= e^{-ux} e^{-\pi x}\) par \eqref{EQooEWIHooDRAQGR}.
+            \end{itemize}
+            Nous avons donc prouvé que
+            \begin{equation}
+                L_{k+1}'(x)= e^{-\pi x}L'_{k}(x)<L_k'(x).
+            \end{equation}
+    \end{subproof}
+\end{proof}
+
+\begin{lemma}       \label{LEMooSWFDooGLfwoD}
+    Pour chaque \( x>0\), nous avons la limite
+    \begin{equation}
+        \lim_{b\to \infty} \int_0^{b}(1- e^{-tx})\frac{ \sin(t) }{ t }dt=\sum_{k=0}^{\infty}(-1)^kL_k(x)<\infty.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Nous fixons (provisoirement) \( b\) et nous découpons l'intervalle d'intégration comme
+    \begin{equation}
+        \mathopen[ 0 , b \mathclose]=\bigcup_{k=1}^N\mathopen[ k\pi , (k+1)\pi \mathclose]\cup\mathopen\big[ (N+1)\pi  , b \mathclose\big]
+    \end{equation}
+    où \( N\) est une fonction de \( b\); quelque chose comme \( N(b)\) est le plus grand entier tel que \(\big( N(b)+1 \big)\pi\leq \pi\). Sur chacun des intervalles nous avons \( \sin(t)=(-1)^k| \sin(t) |\). Nous avons donc
+    \begin{equation}       \label{EQooGBEDooSeuwMN}
+        \begin{aligned}[]
+            \int_0^b(1- e^{-tx})\frac{ \sin(t) }{ t }dt&=\sum_{k=0}^{N(b)}(-1)^k\int_{k\pi}^{(k+1)\pi}(1- e^{-tx})\frac{ | \sin(t) | }{ t }dt\\
+                &\quad+\int_{(N+1)\pi}^b(1- e^{-tx})\frac{ \sin(t) }{ t }dt
+        \end{aligned}
+    \end{equation}
+    Le premier terme est \( \sum_{k=0}^{N(b)}L_k(x)\), dont nous savons que la limite \( b\to \infty\) existe parce que \( L_k(x)\) vérifie le critère des séries alternées (lemme \ref{LEMooZGODooLaBuHo}). En ce qui concerne le second terme,
+    \begin{equation}
+        \big|\int_{(N+1)\pi}^b (1- e^{-tx})\frac{ \sin(t) }{ t }\big| <  \frac{  b-( N+1 )\pi    }{ ( N+1 )\pi }<\frac{1}{ N(b)+1 }.
+    \end{equation}
+    La dernière inégalité est le fait que \( N(b)\) est choisi pour avoir \( b-\big( N(b)+1 \big)\pi<\pi\).
+
+            Les deux termes de \eqref{EQooGBEDooSeuwMN} ont donc une limite lorsque \( b\to \infty\). Nous pouvons donc passer à la limite en sommant les deux limites :
+            \begin{equation}
+                \int_0^{\infty}(1- e^{-tx})\frac{ \sin(t) }{ t }dt=\sum_{k=0}^{\infty}(-1)^kL_k(x).
+            \end{equation}
+            Cette égalité est valable pour chaque \( x>0\). 
+            
+            Le fait que la limite soit finie est dans le critère des séries alternées. Pour chaque \( x\), la suite \( L_k(x)\) vérifie ce critère par le lemme \ref{LEMooZGODooLaBuHo}.
+\end{proof}
+
+\begin{lemma}       \label{LEMooNZVSooDbZCZx}
+    Nous avons
+    \begin{equation}
+        \lim_{x\to 0^+} \int_0^{\infty}(1- e^{-tx})\frac{ \sin(t) }{ t }dt=0.
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    La définition de l'intégrale ainsi que le lemme \ref{LEMooSWFDooGLfwoD} nous ont déjà donné
+    \begin{equation}
+        \int_0^{\infty}(1- e^{-tx})\frac{ \sin(t) }{ t }dt=\lim_{b\to \infty} \int_0^b(1- e^{-tx})\frac{ \sin(t) }{ t }dt=\sum_{k=0}^{\infty}(-1)^kL_k(x)
+    \end{equation}
+    ainsi que l'assurance que le tout est un nombre réel fini\footnote{De toutes façons, il n'existe pas de nombres réels infinis, mais vous voyez ce que je veux dire.}.
+
+    \begin{subproof}
+        \item[Majoration pour la série alternée]
+
+            Nous majorons un peu. Pour \( x>0\) et \( N\in \eN\) nous avons
+            \begin{subequations}        \label{SUBEQSQooLIGNooNAzpmi}
+                \begin{align}
+                    | \sum_{k=0}^N(-1)^kL_k(x) |&\leq \sum_{k=0}^N| L_k(x) |\\
+                    &=\sum_{k=0}^N\big|   \int_{k\pi}^{(k+1)\pi}(1- e^{-tx})\frac{ | \sin(t) | }{ t }dt   \big| \label{EQooIIVVooJvHFhS}\\
+                    &\leq \sum_{k=0}^N\int_{k\pi}^{(N+1)\pi}(1- e^{-tx})\frac{ | \sin(t) | }{ t }dt\\
+                    &=\int_0^{(N+1)\pi}(1- e^{-tx})\frac{ | \sin(t) | }{ t }dt\\
+                    &\leq \int_0^{(N+1)\pi}tx\frac{ | \sin(t) | }{ t }dt    \label{SUBEQooZPVVooTBZzdl}\\
+                    &\leq \int_0^{(N+1)\pi}xdt\\
+                    &=x(N+1)\pi.
+                \end{align}
+            \end{subequations}
+            Justifications :
+            \begin{itemize}
+                \item Pour \eqref{EQooIIVVooJvHFhS} c'est la définition \eqref{EQooJXWMooRbbCtt}.
+                \item Pour \eqref{SUBEQooZPVVooTBZzdl}, c'est le fait que \( 0\leq 1- e^{-u}\leq u\) pour tout \( u\geq 0\) ainsi que la sous-additivité de l'intégrale de la proposition \ref{PropOPSCooVpzaBt}.
+            \end{itemize}
+
+        \item[Majoration pour l'intégrale]
+            
+            Nous fixons \( N\in \eN\), et nous avons :
+            \begin{subequations}        \label{SUBEQSooSBSJooMAkJPh}
+                \begin{align}
+                    \big| \lim_{b\to \infty} \int_0^b(1-e^{-tx})\frac{ \sin(t) }{ t } dt\big|&=\big| \sum_{k=0}^{\infty}(-1)^kL_k(x) \big|\\
+                    &=\big| \sum_{k=0}^N(-1)^kL_k(x)+\sum_{k=N+1}^{\infty}(-1)^kL_k(x) \big|\\
+                    &\leq\big| \sum_{k=0}^N(-1)^kL_k(x) \big|+\big| \sum_{k=N+1}^{\infty}(-1)^kL_k(x) \big|\\
+                    &\leq\big| \sum_{k=0}^N(-1)^kL_k(x) \big|+L_{N+1}(x)    \label{SUBEQooYFWDooYKhYtd}\\
+                    &\leq\big| \sum_{k=0}^N(-1)^kL_k(x) \big|+\frac{1}{ N+1 }    \label{SUBEQooDDRGooNDfxqO}\\
+                \end{align}
+            \end{subequations}
+            Justifications :
+            \begin{itemize}
+                \item Pour \eqref{SUBEQooYFWDooYKhYtd} c'est le reste du critère des séries alternées, théorème \ref{THOooOHANooHYfkII}\ref{ITEMooWEPWooXhLMYL}.
+                \item Pour \eqref{SUBEQooDDRGooNDfxqO} c'est la majoration \eqref{EQooCGAQooDSvbln} déjà faite.
+            \end{itemize}
+
+        \item[Les deux ensemble]
+            Pour chaque \( N\) et pour chaque \( x>0\) nous avons, en mettant \eqref{SUBEQSQooLIGNooNAzpmi} au bout de \eqref{SUBEQSooSBSJooMAkJPh} :
+            \begin{equation}
+                \big| \int_0^{\infty}(1- e^{-tx})\frac{ \sin(t) }{ t }dt \big|\leq x(N+1)\pi+\frac{1}{ N+1 }.
+            \end{equation}
+            En prenant la limite \( x\to 0\) nous trouvons
+            \begin{equation}
+                \lim_{x\to 0} \int_0^{\infty}(1- e^{-tx})\frac{ \sin(t) }{ t }dt\leq \frac{1}{ N+1 }
+            \end{equation}
+            pour tout \( N\). Donc cette limite est nulle :
+            \begin{equation}
+                \lim_{x\to 0} \int_0^{\infty}(1- e^{-tx})\frac{ \sin(t) }{ t }dt=0.
+            \end{equation}
+    \end{subproof}
+\end{proof}
+
+Maintenant que nous avons fait plein de lemmes, nous pouvons énoncer notre résultat principal, et le démontrer facilement.
+
+\begin{theorem}[Intégrale de Dirichlet\cite{BIBooCFXJooWrArNT}]
+    Nous avons
+    \begin{equation}
+        \lim_{b\to \infty} \int_0^b\frac{ \sin(t) }{ t }dt=\frac{ \pi }{2}.
+    \end{equation}
+\end{theorem}
+\index{intégrale de Dirichlet}
+
+Nous avons écrit \( \lim_{b\to \infty} \int_0^b\frac{ \sin(t) }{ t }dt\) et non \( \int_0^{\infty}\frac{ \sin(t) }{ t }dt\) parce que cette dernière intégrale n'existe pas vraiment au sens de Lebesgue, voir le lemme \ref{LEMooBEQRooHaugKj}. Dans la suite nous écrirons cependant \( \int_0^{\infty}\frac{ \sin(t) }{ t }dt\), en gardant en tête que cela n'est défini que via la limite.
+
+\begin{proof}
+    Nous nommons \( D\) la valeur que nous cherchons. Le lemme \ref{LEMooTFVZooRAmjUN} nous assure que
+    \begin{equation}
+        D=\lim_{b\to \infty} \int_0^b\frac{ \sin(t) }{ t }<\infty.
+    \end{equation}
+    Le lemme \ref{LEMooEOYHooVIMCCa} nous donne, quant à lui,
+    \begin{equation}
+        \lim_{b\to \infty} \int_0^b e^{-tx}\frac{ \sin(t) }{ t }dt=-\arctan(x)+\frac{ \pi }{2}.
+    \end{equation}
+    Vu que les deux limites existent, on peut permuter somme et limite\footnote{C'est une phrase un peu grandiloquente pour dire que \( \lim_{b\to a} f(b)-\lim_{b\to a} g(b)=\lim_{b\to a} (f(b)-g(b))  \). Ici nous avons \( a=\infty\) et les fonctions \( f\) et \( g\) sont celles définies par les intégrales.} :
+    \begin{subequations}
+        \begin{align}
+            D+\arctan(x)-\frac{ \pi }{2}&=\lim_{b\to \infty} \big(    \int_0^b\frac{ \sin(t) }{ t } +  \int_0^b e^{-tx}\frac{ \sin(t) }{ t }dt  \big)\\
+            &=\lim_{b\to \infty} \int_0^b(1- e^{-xt})\frac{ \sin(t) }{ t }dt.    \label{SUBEQooXIUNooPZnCPb}
+        \end{align}
+    \end{subequations}
+     Pour \eqref{SUBEQooXIUNooPZnCPb}, nous avons des fonctions bornées sur un intervalle borné (\( \mathopen] 0 , b \mathclose[\)), donc il n'y a pas de mal à sommer les intégrales.
+         
+         Donc pour tout \( x>0\), nous avons
+         \begin{equation}
+             D+\arctan(x)-\frac{ \pi }{2}=\int_0^{\infty}(1- e^{-xt})\frac{ \sin(t) }{ t }dt.
+         \end{equation}
+         Nous passons à la limite \( x\to 0\) en utilisant le lemme \ref{LEMooNZVSooDbZCZx} et le fait que \( \arctan(0)=0\) (lemme \ref{LEMooPQNCooDkEUyw}) :
+         \begin{equation}
+             D-\frac{ \pi }{2}=0,
+         \end{equation}
+         c'est-à-dire que résultat annoncé.
+\end{proof}
