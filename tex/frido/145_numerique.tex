@@ -14,20 +14,20 @@ D'autres lectures agréables dans \cite{GianlucaB}.
 Quelques réflexions en vrac sur ce sujet.
 
 \begin{enumerate}
-    \item
-        Les erreurs de représentation de nombres : troncature et propogation de décalales (\emph{drift}),
-    \item
-        Erreur de compensation (\emph{cancellation}),
-    \item
-        Conditionnement, stabilité : les réponses peuvent fortement dépendre des paramètres,
-    \item
-        Si on utilise une méthode itérative, comment savoir à quel moment on s'arrête ? Calculer la différence \( | x_k-x_{k-1} |\) mène t-il à une erreur de cancellation ?
-    \item
-        Lors d'une implémentation, les matrices des systèmes à résoudre sont souvent très grandes et/ou très creuses. Cela pose la question de la manière de les enregistrer.
-    \item
-        Pour la parallélisation, il faut faire attention au fait que parfois créer un nouveau processus demande plus de ressources que le mini-calcul qu'on voulait faire. Donc il ne faut pas toujours paralléliser tout ce qui est théoriquement parallélisable.
-    \item
-        Le fait que certaines méthodes sont non-déterministes (Monté-Carlo) mène à des problèmes pour les tests unitaires des implémentations.
+	\item
+	      Les erreurs de représentation de nombres : troncature et propogation de décalales (\emph{drift}),
+	\item
+	      Erreur de compensation (\emph{cancellation}),
+	\item
+	      Conditionnement, stabilité : les réponses peuvent fortement dépendre des paramètres,
+	\item
+	      Si on utilise une méthode itérative, comment savoir à quel moment on s'arrête ? Calculer la différence \( | x_k-x_{k-1} |\) mène t-il à une erreur de cancellation ?
+	\item
+	      Lors d'une implémentation, les matrices des systèmes à résoudre sont souvent très grandes et/ou très creuses. Cela pose la question de la manière de les enregistrer.
+	\item
+	      Pour la parallélisation, il faut faire attention au fait que parfois créer un nouveau processus demande plus de ressources que le mini-calcul qu'on voulait faire. Donc il ne faut pas toujours paralléliser tout ce qui est théoriquement parallélisable.
+	\item
+	      Le fait que certaines méthodes sont non-déterministes (Monté-Carlo) mène à des problèmes pour les tests unitaires des implémentations.
 \end{enumerate}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -42,88 +42,88 @@ Dans cette section, les séquences de chiffres écrites entre crochet sont à co
 
 Si nous avons \( m\) bits pour coder un entier relatif, une idée serait de prendre le premier bit pour le signe (\( 0\) pour positif et \( 1\) pour négatif) et les autres pour la valeur absolue. Deux inconvénients :
 \begin{enumerate}
-    \item
-        Il y a deux codages pour le zéro, donc gaspillage.
-    \item
-        L'algorithme pour faire la somme passe mal. Par exemple pour faire \( 1+(-1)\), le \( 1\) est codé comme \( [001]\) et le \( -1\) par \( [101]\) et la somme se ferait naïvement comme
-        \begin{equation*}
-            \begin{array}[]{ccc}
-                0&0&1\\
-                1&0&1\\
-                \hline
-                1&1&0\\
-            \end{array}
-        \end{equation*}
-        Donc le résultat est \( [110]\) qui s'interprète comme \( -2\). Complètement faux.
+	\item
+	      Il y a deux codages pour le zéro, donc gaspillage.
+	\item
+	      L'algorithme pour faire la somme passe mal. Par exemple pour faire \( 1+(-1)\), le \( 1\) est codé comme \( [001]\) et le \( -1\) par \( [101]\) et la somme se ferait naïvement comme
+	      \begin{equation*}
+		      \begin{array}[]{ccc}
+			      0 & 0 & 1 \\
+			      1 & 0 & 1 \\
+			      \hline
+			      1 & 1 & 0 \\
+		      \end{array}
+	      \end{equation*}
+	      Donc le résultat est \( [110]\) qui s'interprète comme \( -2\). Complètement faux.
 \end{enumerate}
 Une solution est d'utiliser le \defe{complément à deux}{complément!à deux}, qui est la façon usuelle de représenter des entiers signés.
 \begin{description}
-    \item[Les entiers positifs] se codent normalement, en laissant à zéro le premier bit (donc si nous disposons de \( m\) bits, nous codons sur \( m-1\) bits).
-    \item[Les entiers négatifs] se codent en trois étapes.
-        \begin{itemize}
-            \item coder la valeur absolue
-            \item inverser tous les bits (d'où le nom de «complément à deux» )
-            \item soustraire \( 1\).
-        \end{itemize}
+	\item[Les entiers positifs] se codent normalement, en laissant à zéro le premier bit (donc si nous disposons de \( m\) bits, nous codons sur \( m-1\) bits).
+	\item[Les entiers négatifs] se codent en trois étapes.
+	      \begin{itemize}
+		      \item coder la valeur absolue
+		      \item inverser tous les bits (d'où le nom de «complément à deux» )
+		      \item soustraire \( 1\).
+	      \end{itemize}
 \end{description}
 
 \begin{example}
-    Pour coder \( -1\) nous faisons
-    \begin{itemize}
-        \item Nous codons \( 1\) : \( [001]\)
-        \item Nous inversons tous les bits : \( [110]\)
-        \item Nous faisons \( -1\) : \( [101]\).
-    \end{itemize}
+	Pour coder \( -1\) nous faisons
+	\begin{itemize}
+		\item Nous codons \( 1\) : \( [001]\)
+		\item Nous inversons tous les bits : \( [110]\)
+		\item Nous faisons \( -1\) : \( [101]\).
+	\end{itemize}
 \end{example}
 
 Avec ce système, la somme passe bien : calculer \( 1+(-1)\) donne
-    \begin{equation*}
-        \begin{array}[]{ccc}
-            0&0&1\\
-            1&0&1\\
-            \hline
-            1&1&0\\
-            \hline
-        \end{array}
-    \end{equation*}
+\begin{equation*}
+	\begin{array}[]{ccc}
+		0 & 0 & 1 \\
+		1 & 0 & 1 \\
+		\hline
+		1 & 1 & 0 \\
+		\hline
+	\end{array}
+\end{equation*}
 La réponse est donc \( [110]\) qu'il faut interpréter via le complément à deux.
 \begin{equation}
-    110\stackrel{+1}{\longrightarrow}111\stackrel{\text{complément}}{\longrightarrow}000.
+	110\stackrel{+1}{\longrightarrow}111\stackrel{\text{complément}}{\longrightarrow}000.
 \end{equation}
 Et ce dernier \( [000]\) s'interprète comme zéro.
 
 \begin{definition}[Entier signé en complément à deux\cite{ooAPFIooUfhqqG}]
-    La suite de bits \( [a_{m-1}\ldots a_0]\) s'interprète via la formule
-    \begin{equation}        \label{EQooXFHKooHRXDmZ}
-        -a_{m-1}2^{m-1}+\sum_{i=0}^{m-2}a_i2^i.
-    \end{equation}
+	La suite de bits \( [a_{m-1}\ldots a_0]\) s'interprète via la formule
+	\begin{equation}        \label{EQooXFHKooHRXDmZ}
+		-a_{m-1}2^{m-1}+\sum_{i=0}^{m-2}a_i2^i.
+	\end{equation}
 \end{definition}
 
 Le premier bit donne effectivement le signe du nombre, mais l'interprétation d'un nombre n'est pas aussi simple que ce que l'on pourrait croire de prime abord.
 
 \begin{example}[Entier signé en \( 8\) bits]
-    Que pouvons nous faire avec \( 8\) bits ? Le plus grand nombre est codé par \( [01111111]\) qui vaut \( \sum_{k=0}^62^k=2^7-1=127\). (avez-vous utilisé la somme \eqref{EqASYTiCK} ?)
+	Que pouvons nous faire avec \( 8\) bits ? Le plus grand nombre est codé par \( [01111111]\) qui vaut \( \sum_{k=0}^62^k=2^7-1=127\). (avez-vous utilisé la somme \eqref{EqASYTiCK} ?)
 
-    Le plus petit nombre codable en \( 8\) bits n'est pas \( [11111111]\) mais bien \( [10000000]\) (cela est plus clair en regardant la formule \eqref{EQooXFHKooHRXDmZ} qu'en tentant de suivre la construction du complément à deux) qui signifie \( -2^7=-128\).
+	Le plus petit nombre codable en \( 8\) bits n'est pas \( [11111111]\) mais bien \( [10000000]\) (cela est plus clair en regardant la formule \eqref{EQooXFHKooHRXDmZ} qu'en tentant de suivre la construction du complément à deux) qui signifie \( -2^7=-128\).
 
-    Nous pouvons donc coder tous les nombres de \( -128\) à \( 127\).
+	Nous pouvons donc coder tous les nombres de \( -128\) à \( 127\).
 \end{example}
 
 Plus généralement un système qui codes des entiers signés en \( N\) bits utilisant le complément à deux peut coder de \( -(2^{N-1})\) à \( 2^{N-1}-1\).
 
 \begin{normaltext}[Le dépassement]
-    Que se passe-t-il lorsque nous commettons un dépassement ? Calculons sur \( 3\) bits la somme \( [011]+[001]\) qui revient à ajouter \( 1\) au nombre le plus grand :
-    \begin{equation*}
-        \begin{array}[]{ccc}
-            0&1&1\\
-            0&0&1\\
-            \hline
-            1&0&0\\
-        \end{array}
-    \end{equation*}
-    qui signifie \( -2^2=-4\). Lors d'un dépassement, nous retombons automatiquement sur le plus petit.
+	Que se passe-t-il lorsque nous commettons un dépassement ? Calculons sur \( 3\) bits la somme \( [011]+[001]\) qui revient à ajouter \( 1\) au nombre le plus grand :
+	\begin{equation*}
+		\begin{array}[]{ccc}
+			0 & 1 & 1 \\
+			0 & 0 & 1 \\
+			\hline
+			1 & 0 & 0 \\
+		\end{array}
+	\end{equation*}
+	qui signifie \( -2^2=-4\). Lors d'un dépassement, nous retombons automatiquement sur le plus petit.
 
-    Ce phénomène est bien connu des personnes qui programment sans faire attention dans certains languages de programmation qui ne font pas attention à votre place.
+	Ce phénomène est bien connu des personnes qui programment sans faire attention dans certains languages de programmation qui ne font pas attention à votre place.
 \end{normaltext}
 
 
@@ -143,20 +143,20 @@ Plus généralement un système qui codes des entiers signés en \( N\) bits uti
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{definition}[Représentation en virgule flottante\cite{BIBooFMSZooPmMDKU}]     \label{DEFooLYONooBNskty}
-    La \defe{représentation en virgule flottante normalisée}{Représentation!virgule flottante normalisée} en base \( b\) d'un nombre est la donnée de
-    \begin{enumerate}
-        \item
-            Un bit \( s\) pour le signe
-        \item
-            Un entier \emph{non signé} \( q\) de \( e\) chiffres pour l'exposant
-        \item
-            Une suite de chiffres \( [a_1\ldots a_m]\) pour la mantisse.
-    \end{enumerate}
-    Ces données s'interprètent via la formule
-    \begin{equation}        \label{EQooAGWJooRuBbBn}
-        \fl( s,q,[a_1,\ldots, a_m]  )=(-1)^s\sum_{j=1}^mb^ja_j\times b^{q-d}
-    \end{equation}
-    où \( d=b^{e-1}\) est le \defe{décalage}{décalage}.
+	La \defe{représentation en virgule flottante normalisée}{Représentation!virgule flottante normalisée} en base \( b\) d'un nombre est la donnée de
+	\begin{enumerate}
+		\item
+		      Un bit \( s\) pour le signe
+		\item
+		      Un entier \emph{non signé} \( q\) de \( e\) chiffres pour l'exposant
+		\item
+		      Une suite de chiffres \( [a_1\ldots a_m]\) pour la mantisse.
+	\end{enumerate}
+	Ces données s'interprètent via la formule
+	\begin{equation}        \label{EQooAGWJooRuBbBn}
+		\fl( s,q,[a_1,\ldots, a_m]  )=(-1)^s\sum_{j=1}^mb^ja_j\times b^{q-d}
+	\end{equation}
+	où \( d=b^{e-1}\) est le \defe{décalage}{décalage}.
 \end{definition}
 Une idée à retenir est que l'exposant est un entier non signé parce qu'il est plus simple d'introduire un décalage dans la formule \eqref{EQooAGWJooRuBbBn} que de compliquer l'écriture de l'exposant.
 
@@ -168,110 +168,110 @@ En écriture binaire, la représentation en virgule flottante est un peu différ
 
 Nous commençons par une description informelle de la précision simple avant de donner la définition. La représentation en \defe{précision simple}{précision!simple} d'un nombre se fait sur \( 32\) bits répartis comme suit :
 \begin{enumerate}
-    \item
-        \( 1\) bit pour le signe,
-    \item
-        \( 8\) bits pour l'exposant interprété comme nombre entier non signé
-    \item
-        \( 23\) bits pour la mantisse
+	\item
+	      \( 1\) bit pour le signe,
+	\item
+	      \( 8\) bits pour l'exposant interprété comme nombre entier non signé
+	\item
+	      \( 23\) bits pour la mantisse
 \end{enumerate}
 Soit le triple
 \begin{equation}
-    \big( s,q,[a_1,\ldots, a_{23}] \big)
+	\big( s,q,[a_1,\ldots, a_{23}] \big)
 \end{equation}
 Dans le cas générique, l'idée est de donner \( 24\) bits pour la mantisse, mais en gardant en tête le fait que de toutes façons, le premier bit doit être \( 1\), sinon il suffirait de décaler, c'est-à-dire changer l'exposant. Par conséquent la mantisse ne reçoit que \( 23\) bits; il y a un «\( 1\)» sous-entendu en première position. Donc la mantisse \( [a_1,\ldots, a_{23}]\) est à lire comme le nombre
 \begin{equation}
-    1,a_1\ldots a_{23}=1+\sum_{j=1}^{23}a_j2^{-j}.
+	1,a_1\ldots a_{23}=1+\sum_{j=1}^{23}a_j2^{-j}.
 \end{equation}
 \begin{example}
-    La mantisse \( [011100\ldots 0]\) signifie \(1,0111=1+2^{-2}+2^{-3}+2^{-4}=1+\frac{1}{ 4 }+\frac{1}{ 8 }+\frac{1}{ 16 } \).
+	La mantisse \( [011100\ldots 0]\) signifie \(1,0111=1+2^{-2}+2^{-3}+2^{-4}=1+\frac{1}{ 4 }+\frac{1}{ 8 }+\frac{1}{ 16 } \).
 \end{example}
 Cela pour justifier la formule
 \begin{equation}
-    \SimplePrec\big( s,q,[a_1,\ldots, a_{23}] \big)=(-1)^s\big( 1+\sum_{j=1}^{23}a_j2^{-j} \big)2^{q-127}.
+	\SimplePrec\big( s,q,[a_1,\ldots, a_{23}] \big)=(-1)^s\big( 1+\sum_{j=1}^{23}a_j2^{-j} \big)2^{q-127}.
 \end{equation}
 Notons :
 \begin{enumerate}
-    \item
-        Le «\( 1+\)» dans la parenthèse correspond au \( 1\) implicite en première position de la mantisse.
-    \item
-        Il y a un décalage de \( 127\) dans l'exposant, parce que \( q\) est un entier non signé.
+	\item
+	      Le «\( 1+\)» dans la parenthèse correspond au \( 1\) implicite en première position de la mantisse.
+	\item
+	      Il y a un décalage de \( 127\) dans l'exposant, parce que \( q\) est un entier non signé.
 \end{enumerate}
 
 Notons que cette règle du \( 1\) implicite dans la mantisse empêche d'écrire le nombre \( 0\), et ne permet pas d'écrire des nombres franchement petits parce que le \( 1\) implicite est en \emph{première} position dans la mantisse.
 
 D'où l'idée de donner une règle particulière lorsque l'exposant vaut \( 0\). Lorsque l'exposant est \( q=0\), alors nous ne considérons pas de \( 1\) implicite dans la mantisse, et le décalage de l'exposant est \( -126\) au lieu de \( -127\). D'où la formule
 \begin{equation}
-    \SimplePrec(s,q=0,[a_1\ldots a_{23}])=(-1)^s2^{-216}\sum_{j=1}^{23}a_j2^{-j}.
+	\SimplePrec(s,q=0,[a_1\ldots a_{23}])=(-1)^s2^{-216}\sum_{j=1}^{23}a_j2^{-j}.
 \end{equation}
 En particulier, si \( q=0\) et \( a=[0\ldots 0]\), nous avons le nombre zéro exact (il y a deux possibilités pour le code).
 
-Enfin, nous avons des cas particuliers lorsque l'exposant est maximum, c'est-à-dire lorsque \( q=[1111\,1111]=2^8-1=255\). Dans ce cas, le nombre codé est soit \( +\infty\) soit \( \NaN\). Nous posons 
+Enfin, nous avons des cas particuliers lorsque l'exposant est maximum, c'est-à-dire lorsque \( q=[1111\,1111]=2^8-1=255\). Dans ce cas, le nombre codé est soit \( +\infty\) soit \( \NaN\). Nous posons
 \begin{equation}
-\SimplePrec(s,q=255,a=0)=+\infty
+	\SimplePrec(s,q=255,a=0)=+\infty
 \end{equation}
-et 
+et
 \begin{equation}
- \SimplePrec(s,q=255,a\neq 0)=NaN.
+	\SimplePrec(s,q=255,a\neq 0)=NaN.
 \end{equation}
- Il y a en réalité plusieurs valeurs différentes de \( \NaN\), mais nous n'entrons pas dans ces détails\cite{ooPOZNooQlGiUN}.
+Il y a en réalité plusieurs valeurs différentes de \( \NaN\), mais nous n'entrons pas dans ces détails\cite{ooPOZNooQlGiUN}.
 
 \begin{definition}[Représentation en simple précision (binaire)]        \label{DEFooEIOZooYLDVjs}
-    La représentation en \defe{précision simple}{précision!simple} d'un nombre se fait sur \( 32\) bits répartis comme suit :
-    \begin{enumerate}
-        \item
-            \( 1\) bit pour le signe,
-        \item
-            \( 8\) bits pour l'exposant interprété comme nombre entier non signé
-        \item
-            \( 23\) bits pour la mantisse
-    \end{enumerate}
+	La représentation en \defe{précision simple}{précision!simple} d'un nombre se fait sur \( 32\) bits répartis comme suit :
+	\begin{enumerate}
+		\item
+		      \( 1\) bit pour le signe,
+		\item
+		      \( 8\) bits pour l'exposant interprété comme nombre entier non signé
+		\item
+		      \( 23\) bits pour la mantisse
+	\end{enumerate}
 
-    Un nombre est représenté par un triple
-    \begin{equation}
-        \big( s,q,[a_1,\ldots, a_{23}] \big)
-    \end{equation}
+	Un nombre est représenté par un triple
+	\begin{equation}
+		\big( s,q,[a_1,\ldots, a_{23}] \big)
+	\end{equation}
 
-    Selon que l'exposant \( q-d\) soit égal à \( 0\), \( 2^8-1=255\) ou autre chose, les règles d'interprétation sont différentes. Il y a donc trois cas.
-    \begin{description}
-        \item[Exposant \( q\) générique\cite{ooMPTNooYbSwJS}]
-           Si \( q\neq 0\) et \( q\neq 255\) alors le nombre est \defe{normalisée}{nombre!normalisée}. La règle de lecture est alors
-           \begin{equation}        \label{EQooEFEKooIrUaKj}
-                \SimplePrec\big( s,q,[a_1,\ldots, a_{23}] \big)=(-1)^s\big( 1+\sum_{j=1}^{23}a_j2^{-j} \big)2^{q-127}.
-            \end{equation}
-        \item[Exposant \( q\) égal à \( 0\)] Le nombre est dit \defe{dénormalisé}{nombre!dénormalisé} et la règle de lecture est
-            \begin{equation}        \label{EQooRTBFooIplydi}
-                \SimplePrec\big( s,q,[a_1,\ldots, a_{23}] \big)=(-1)^s2^{-126}\sum_{j=1}^{23}a_j2^{-j}.
-            \end{equation}
-        \item[Exposant \( q\) égal à \( 255\)]
-            La règle de lecture est alors au cas pas cas ou à peu près.
-            \begin{enumerate}
-                \item
-                    \( \SimplePrec(s,q=255,a=0)=+\infty\).
-                \item
-                    \( \SimplePrec(s,q=255,a\neq 0)=\NaN\).
-            \end{enumerate}
-    \end{description}
+	Selon que l'exposant \( q-d\) soit égal à \( 0\), \( 2^8-1=255\) ou autre chose, les règles d'interprétation sont différentes. Il y a donc trois cas.
+	\begin{description}
+		\item[Exposant \( q\) générique\cite{ooMPTNooYbSwJS}]
+		      Si \( q\neq 0\) et \( q\neq 255\) alors le nombre est \defe{normalisée}{nombre!normalisée}. La règle de lecture est alors
+		      \begin{equation}        \label{EQooEFEKooIrUaKj}
+			      \SimplePrec\big( s,q,[a_1,\ldots, a_{23}] \big)=(-1)^s\big( 1+\sum_{j=1}^{23}a_j2^{-j} \big)2^{q-127}.
+		      \end{equation}
+		\item[Exposant \( q\) égal à \( 0\)] Le nombre est dit \defe{dénormalisé}{nombre!dénormalisé} et la règle de lecture est
+		      \begin{equation}        \label{EQooRTBFooIplydi}
+			      \SimplePrec\big( s,q,[a_1,\ldots, a_{23}] \big)=(-1)^s2^{-126}\sum_{j=1}^{23}a_j2^{-j}.
+		      \end{equation}
+		\item[Exposant \( q\) égal à \( 255\)]
+		      La règle de lecture est alors au cas pas cas ou à peu près.
+		      \begin{enumerate}
+			      \item
+			            \( \SimplePrec(s,q=255,a=0)=+\infty\).
+			      \item
+			            \( \SimplePrec(s,q=255,a\neq 0)=\NaN\).
+		      \end{enumerate}
+	\end{description}
 \end{definition}
 
 Vous pouvez jouer avec la simple précision dans \cite{ooOSFYooHCgMRL}.
 
 \begin{example}[Plus petit normalisé]
-    Pour faire un nombre normalisé, il faut au minimum \( q=1\). En prenant \( a_j=0\) nous obtenons le plus petit nombre normalisé possible en simple précision. La formule \eqref{EQooEFEKooIrUaKj} donne
-    \begin{equation}
-        \SimplePrec(1,q=1,a=0)=2^{1-127}=2^{-126}\simeq 1.17549435082229\times 10^{-38}.
-    \end{equation}
+	Pour faire un nombre normalisé, il faut au minimum \( q=1\). En prenant \( a_j=0\) nous obtenons le plus petit nombre normalisé possible en simple précision. La formule \eqref{EQooEFEKooIrUaKj} donne
+	\begin{equation}
+		\SimplePrec(1,q=1,a=0)=2^{1-127}=2^{-126}\simeq 1.17549435082229\times 10^{-38}.
+	\end{equation}
 \end{example}
 
 \begin{example}[Plus grand normalisé]
-    L'exposant \( q\) ne peut pas être maximum, sous peine de tomber dans les règles spéciales de \( +\infty\) ou \( \NaN\). Donc \( q=[1111\,1110]=2^{8}-2=254\). En ce qui concerne la mantisse, il faut la prendre maximale, c'est-à-dire \( a_j=1\) pour tout \( j\). Nous avons alors le nombre
-        \begin{subequations}
-            \begin{align}
-                \SimplePrec(1,q=254,a=[1\ldots 1])&=\big( 1+\sum_{j=1}^{23}2^{-j} \big)2^{254-127}=(1-\frac{1}{ 2^{24} })2^{128}\\
-                &=3.40282346638528859811704183484516925440\times 10^{38}  \label{EQooFRPYooRnxiFP}
-            \end{align}
-        \end{subequations}
-    où nous avons utilisé la somme \eqref{EqASYTiCK} (et Sage pour le dernier calcul).
+	L'exposant \( q\) ne peut pas être maximum, sous peine de tomber dans les règles spéciales de \( +\infty\) ou \( \NaN\). Donc \( q=[1111\,1110]=2^{8}-2=254\). En ce qui concerne la mantisse, il faut la prendre maximale, c'est-à-dire \( a_j=1\) pour tout \( j\). Nous avons alors le nombre
+	\begin{subequations}
+		\begin{align}
+			\SimplePrec(1,q=254,a=[1\ldots 1]) & =\big( 1+\sum_{j=1}^{23}2^{-j} \big)2^{254-127}=(1-\frac{1}{ 2^{24} })2^{128}     \\
+			                                   & =3.40282346638528859811704183484516925440\times 10^{38}  \label{EQooFRPYooRnxiFP}
+		\end{align}
+	\end{subequations}
+	où nous avons utilisé la somme \eqref{EqASYTiCK} (et Sage pour le dernier calcul).
 \end{example}
 
 Notons ceci avec Sage :
@@ -280,17 +280,17 @@ Notons ceci avec Sage :
 La précisions du nombre donné en \eqref{EQooFRPYooRnxiFP} aurait été embarrassante si le type avait été un nombre en simple précision. Précision technique : en Python, le type \info{int} n'a pas de limite supérieure à part la mémoire.
 
 \begin{example}[Plus petit non nul dénormalisé]
-    Pour être dénormalisé il faut \( q=0\) (ce qui est toutefois assez logique si nous voulons un petit nombre), et pour ne pas être nul, il faut une mantisse non nulle. Donc \( a=[0\ldots 01]\). La formule \eqref{EQooRTBFooIplydi} donne alors
-    \begin{equation}
-        \SimplePrec(s=0,q=0,a=[0\ldots 01])=2^{-126}2^{-23}=2^{-149}\simeq 1.40129846432482\times 10^{-45}.
-    \end{equation}
+	Pour être dénormalisé il faut \( q=0\) (ce qui est toutefois assez logique si nous voulons un petit nombre), et pour ne pas être nul, il faut une mantisse non nulle. Donc \( a=[0\ldots 01]\). La formule \eqref{EQooRTBFooIplydi} donne alors
+	\begin{equation}
+		\SimplePrec(s=0,q=0,a=[0\ldots 01])=2^{-126}2^{-23}=2^{-149}\simeq 1.40129846432482\times 10^{-45}.
+	\end{equation}
 \end{example}
 
 \begin{example}[Plus grand dénormalisé]      \label{EXEMooRHENooGwumoA}
-    Pour être dénormalisé il faut toujours \( q=0\), mais cette fois nous prenons la plus grande mantisse possible :
-    \begin{equation}
-        \SimplePrec(s=0,q=0,a=[1\ldots 1])=2^{-126}\sum_{j=1}^{23}2^{-j}=2^{-216}(1-2^{-23})= 1.17549421069244\times 10^{-38}
-    \end{equation}
+	Pour être dénormalisé il faut toujours \( q=0\), mais cette fois nous prenons la plus grande mantisse possible :
+	\begin{equation}
+		\SimplePrec(s=0,q=0,a=[1\ldots 1])=2^{-126}\sum_{j=1}^{23}2^{-j}=2^{-216}(1-2^{-23})= 1.17549421069244\times 10^{-38}
+	\end{equation}
 \end{example}
 
 Notons ceci avec Sage :
@@ -318,9 +318,9 @@ Le nombre de chiffres significatifs correct dans l'approximation est donné par 
 	Si nous voulons donner \( x\in \eR\) à un ordinateur, nous sommes soumis à deux erreurs :
 	\begin{enumerate}
 		\item
-			D'abord, vu que nous ne pouvons pas taper sur le clavier toutes les décimales de \( x\), nous faisons une \defe{erreur de troncature}{erreur!troncature}.
+		      D'abord, vu que nous ne pouvons pas taper sur le clavier toutes les décimales de \( x\), nous faisons une \defe{erreur de troncature}{erreur!troncature}.
 		\item
-			L'ordinateur devant convertir cela en base deux, il commet une seconde erreur, dite \defe{erreur d'assignation}{erreur!assignation}.
+		      L'ordinateur devant convertir cela en base deux, il commet une seconde erreur, dite \defe{erreur d'assignation}{erreur!assignation}.
 	\end{enumerate}
 \end{remark}
 
@@ -346,7 +346,7 @@ Que faire si le premier chiffre rejeté est un \( 5\) ? En première approximati
 \end{remark}
 
 \begin{example}
-    Si on doit entrer le nombre \( 0.38358546\) dans un ordinateur qui ne garde que \( 3\) chiffres significatifs, il faut taper \( 0.384\) au clavier (erreur classique dans les exercices).
+	Si on doit entrer le nombre \( 0.38358546\) dans un ordinateur qui ne garde que \( 3\) chiffres significatifs, il faut taper \( 0.384\) au clavier (erreur classique dans les exercices).
 \end{example}
 
 %---------------------------------------------------------------------------------------------------------------------------
@@ -355,36 +355,36 @@ Que faire si le premier chiffre rejeté est un \( 5\) ? En première approximati
 
 Soit une machine ne pouvant retenir que \( 3\) chiffres significatifs et effectuant les arrondis vers le haut lorsque le chiffre à éliminer est un \( 5\). Nous notons \( \oplus\) et \( \ominus\) les opérations d'addition et soustraction avec arrondis\cite{ooAGVZooTIcZZb}. Les égalités comprenant plus de trois chiffres significatifs sont des égalités au sens de la machine. Nous écrirons donc sans états d'âme :
 \begin{equation}
-    1\oplus0.555=1.555=1.56.
+	1\oplus0.555=1.555=1.56.
 \end{equation}
 
 Considérons la suite numérique
 \begin{subequations}
-    \begin{numcases}{}
-        x_0=1.00\\
-        x_n=(x_{n-1}\ominus y)\oplus y
-    \end{numcases}
+	\begin{numcases}{}
+		x_0=1.00\\
+		x_n=(x_{n-1}\ominus y)\oplus y
+	\end{numcases}
 \end{subequations}
 avec \( y=-0.555\).
 
 Nous avons
 \begin{equation}
-    x_1=(1\oplus 0.555)\ominus 0.555=1.56\ominus 0.555=1.005=1.01
+	x_1=(1\oplus 0.555)\ominus 0.555=1.56\ominus 0.555=1.005=1.01
 \end{equation}
 et ensuite
 \begin{equation}
-    x_2=(1.01\oplus 0.555)\ominus 0.555=1.565\ominus 0.555=1.57\ominus 0.555=1.015=1.02.
+	x_2=(1.01\oplus 0.555)\ominus 0.555=1.565\ominus 0.555=1.57\ominus 0.555=1.015=1.02.
 \end{equation}
 Et ainsi de suite. La suite est donc croissante alors que la définition nous donnerait envie d'avoir \( x_n=x_0\) pour tout \( n\).
 
 \begin{remark}
-    En réalité, cette suite se stabilise à \( x_n=10\) pour tout \( n\) à partir de \( n=845\). En effet,
-    \begin{equation}
-        (10\oplus 0.555)\ominus 0.555=10.555\ominus 0.555=10.6\ominus 0.555=10.045=10.
-    \end{equation}
-    Le fait est qu'à ce moment, l'erreur de troncature est assez loin dans les décimales pour que le premier chiffre négligé soit un ``0'' au lieu d'un ``5''.
+	En réalité, cette suite se stabilise à \( x_n=10\) pour tout \( n\) à partir de \( n=845\). En effet,
+	\begin{equation}
+		(10\oplus 0.555)\ominus 0.555=10.555\ominus 0.555=10.6\ominus 0.555=10.045=10.
+	\end{equation}
+	Le fait est qu'à ce moment, l'erreur de troncature est assez loin dans les décimales pour que le premier chiffre négligé soit un ``0'' au lieu d'un ``5''.
 
-    Notons toutefois que cette stabilité n'est pas là pour nous rassurer parce qu'elle n'en est pas moins complètement fausse.
+	Notons toutefois que cette stabilité n'est pas là pour nous rassurer parce qu'elle n'en est pas moins complètement fausse.
 \end{remark}
 
 La règle de troncature adoptée dans Sage est d'arrondir au nombre pair le plus proche lorsque le premier nombre à négliger est un \( 5\). Donc \( 12.5\) s'arrondit à \( 12\) plutôt que \( 13\).
@@ -393,9 +393,9 @@ La règle de troncature adoptée dans Sage est d'arrondir au nombre pair le plus
 	Soient les expressions (algébriquement égales) :
 	\begin{enumerate}
 		\item
-			\(A= x(x+1)\)
+		      \(A= x(x+1)\)
 		\item
-			\(B= x^2+x\)
+		      \(B= x^2+x\)
 	\end{enumerate}
 	Nous savons que
 	\begin{equation}
@@ -418,9 +418,9 @@ La règle de troncature adoptée dans Sage est d'arrondir au nombre pair le plus
 
 \begin{enumerate}
 	\item
-		Si on a plusieurs nombres à additionner ou soustraire, il vaut mieux commencer par sommer ou soustraire ceux dont on sait qu'ils ont le même ordre de grandeur. Il n'y a donc pas tout à fait «associativité» des erreurs.
+	      Si on a plusieurs nombres à additionner ou soustraire, il vaut mieux commencer par sommer ou soustraire ceux dont on sait qu'ils ont le même ordre de grandeur. Il n'y a donc pas tout à fait «associativité» des erreurs.
 	\item
-		Les opérations délicates sont l'addition et la soustraction. La multiplication et la division sont sans dangers, à part l'erreur de dépassement du maximum. Dans une multiplication, on perd au pire quelques chiffres significatifs, mais certainement les derniers, pas les premiers.
+	      Les opérations délicates sont l'addition et la soustraction. La multiplication et la division sont sans dangers, à part l'erreur de dépassement du maximum. Dans une multiplication, on perd au pire quelques chiffres significatifs, mais certainement les derniers, pas les premiers.
 \end{enumerate}
 
 %---------------------------------------------------------------------------------------------------------------------------
@@ -430,25 +430,25 @@ La règle de troncature adoptée dans Sage est d'arrondir au nombre pair le plus
 Lorsque deux nombres sont de même ordre de grandeur, avec plusieurs nombres significatifs identiques. La cancellation est le fait que, suite à la soustraction, tous les chiffres significatifs ou presque se sont simplifiés et qu'il ne reste plus que des chiffres non significatifs.
 
 \begin{example}[\cite{ooIZQWooYJmQmW}]
-    Sur une machine ne gardant que \( 4\) chiffres significatifs, faire
-    \begin{equation}
-        0.5678\times 10^6-0.5677\times 10^6 = 0.0001\times 10^6=0.1000\times 10^3.
-    \end{equation}
-    Le fait est que les trois derniers zéros ne sont pas significatifs, mais maintenant la machine nous fait croire qu'ils le sont.
+	Sur une machine ne gardant que \( 4\) chiffres significatifs, faire
+	\begin{equation}
+		0.5678\times 10^6-0.5677\times 10^6 = 0.0001\times 10^6=0.1000\times 10^3.
+	\end{equation}
+	Le fait est que les trois derniers zéros ne sont pas significatifs, mais maintenant la machine nous fait croire qu'ils le sont.
 
-    Une autre façon de voir ce problème est d'imaginer qu'il faille calculer la différence 
-    \begin{equation}
-        0.5678\,289798\times 10^6 - 0.5677\,3136907
-    \end{equation}
-    sur cette machine. Certes la machine nous autorise à avoir \( 4\) chiffres significatifs, donc au moment d'entrer les nombres nous perdons un beau paquet de chiffres. Mais au moment de faire la différence, nous perdons (presque) tout le reste. Donc là où nous pouvions espérer avoir \( 4\) chiffres significatifs de la différence, nous n'en avons que \( 1\). Les trois derniers zéros de la réponse (\( 0.1000\times 10^3\)) sont faux.
+	Une autre façon de voir ce problème est d'imaginer qu'il faille calculer la différence
+	\begin{equation}
+		0.5678\,289798\times 10^6 - 0.5677\,3136907
+	\end{equation}
+	sur cette machine. Certes la machine nous autorise à avoir \( 4\) chiffres significatifs, donc au moment d'entrer les nombres nous perdons un beau paquet de chiffres. Mais au moment de faire la différence, nous perdons (presque) tout le reste. Donc là où nous pouvions espérer avoir \( 4\) chiffres significatifs de la différence, nous n'en avons que \( 1\). Les trois derniers zéros de la réponse (\( 0.1000\times 10^3\)) sont faux.
 \end{example}
 
 \begin{remark}  \label{REMooRQIJooNLdAZE}
-    L'erreur de cancellation provoque des chiffres significatifs faux, mais ne provoque pas de faute dans l'\emph{ordre de grandeur} des réponses\quext{Est-ce bien vrai, cela ?}. Donc si nous voulons nous assurer que \( a\) et \( b\) sont égaux «à erreur numérique près», le test
-    \begin{equation}
-        | a-b |<\epsilon
-    \end{equation}
-    est valide, malgré l'erreur de cancellation qui ne manquera pas de se produire dans le calcul de la différence.
+	L'erreur de cancellation provoque des chiffres significatifs faux, mais ne provoque pas de faute dans l'\emph{ordre de grandeur} des réponses\quext{Est-ce bien vrai, cela ?}. Donc si nous voulons nous assurer que \( a\) et \( b\) sont égaux «à erreur numérique près», le test
+	\begin{equation}
+		| a-b |<\epsilon
+	\end{equation}
+	est valide, malgré l'erreur de cancellation qui ne manquera pas de se produire dans le calcul de la différence.
 \end{remark}
 
 \begin{example}
@@ -462,9 +462,9 @@ Lorsque deux nombres sont de même ordre de grandeur, avec plusieurs nombres sig
 	On a :
 	\begin{subequations}
 		\begin{align}
-			\sqrt{b^2-4ac}&=\sqrt{\tilde b}= | \tilde b | \\
-			x_1&=\frac{ -b-\sqrt{b^2-4ac} }{ 2a }\\
-			x_2&=\frac{ -b+\sqrt{b^2-4ac} }{ 2a }
+			\sqrt{b^2-4ac} & =\sqrt{\tilde b}= | \tilde b |    \\
+			x_1            & =\frac{ -b-\sqrt{b^2-4ac} }{ 2a } \\
+			x_2            & =\frac{ -b+\sqrt{b^2-4ac} }{ 2a }
 		\end{align}
 	\end{subequations}
 	Si \( b>0\), nous avons une erreur de cancellation dans \( x_2\) parce qu'on fait la différence entre deux nombres presque égaux. Donc \( x_2\) mal calculé. Par contre \( x_1\) est bien calculé.
@@ -476,7 +476,7 @@ Lorsque deux nombres sont de même ordre de grandeur, avec plusieurs nombres sig
 	Avec \( a=10^{-3}\), \( b=0.8\), \( c=-1.2\times 10^{-5}\). À la main nous obtenons : \( x_1=-800\), \( x_2=1.5\times 10^{-5}\), et un ordinateur se tromperait \ldots
 
 
-\lstinputlisting{tex/sage/sageSnip001.sage}
+	\lstinputlisting{tex/sage/sageSnip001.sage}
 
 	Donc Sage ne tombe pas dans le piège.
 \end{example}
@@ -486,8 +486,8 @@ Comment résoudre ce problème ? Ou, autre façon de poser la question : comment
 Utilisons les relations coefficients-racines :
 \begin{subequations}
 	\begin{align}
-		x_1+x_2&=-b/a\\
-		x_1x_2&=c/a
+		x_1+x_2 & =-b/a \\
+		x_1x_2  & =c/a
 	\end{align}
 \end{subequations}
 La première lie les deux racines par des opérations de addition et soustractions, et donc n'est pas intéressantes. La seconde est bien. Si nous connaissons \( x_1\), nous calculons
@@ -531,12 +531,12 @@ Quitte à redéfinir \( x_1\) et \( x_2\), la solution bien calculée est :
 Les erreurs de cancellation ne se résolvent pas en augmentant la précision des nombres donnés.
 
 \begin{example}[Dans la vie réelle]
-    La préparation de l'exemple~\ref{EXooJXIGooQtotMc} nous a porté à calculer la différence entre \( \exp(x)\) et \( f_{30}(x)\) où \( f_{30}\) est censée être une bonne approximation de l'exponentielle. Des erreurs de cancellation sont donc à craindre.
+	La préparation de l'exemple~\ref{EXooJXIGooQtotMc} nous a porté à calculer la différence entre \( \exp(x)\) et \( f_{30}(x)\) où \( f_{30}\) est censée être une bonne approximation de l'exponentielle. Des erreurs de cancellation sont donc à craindre.
 
-Et en effet, le code suivant produit un résultat non déterministe :
-\lstinputlisting{tex/sage/sageSnip016.sage}
+	Et en effet, le code suivant produit un résultat non déterministe :
+	\lstinputlisting{tex/sage/sageSnip016.sage}
 
-Voir la question ici :\\ \url{https://ask.sagemath.org/question/37946/undeterministic-numerical-approximation/}
+	Voir la question ici :\\ \url{https://ask.sagemath.org/question/37946/undeterministic-numerical-approximation/}
 
 \end{example}
 
@@ -546,13 +546,13 @@ Voir la question ici :\\ \url{https://ask.sagemath.org/question/37946/undetermin
 
 Pour calculer la dérivée de \( f\) en \( a\), il est loisible d'utiliser la formule
 \begin{equation}
-    f'(a)=\lim_{h\to 0} \frac{ f(a+h)-f(a) }{ h }.
+	f'(a)=\lim_{h\to 0} \frac{ f(a+h)-f(a) }{ h }.
 \end{equation}
 Le numérateur est alors sujet à une erreur d'absorption dans le calcul de \( a+h\) et ensuite une erreur de cancellation dans le calcul de la différence.
 
 En utilisant la formule
 \begin{equation}
-    f'(a)=\lim_{h\to 0} \frac{ f(a+h)-f(a-h) }{ 2h }
+	f'(a)=\lim_{h\to 0} \frac{ f(a+h)-f(a-h) }{ 2h }
 \end{equation}
 nous pouvons espérer avoir une erreur de cancellation plus petite.
 
@@ -563,13 +563,13 @@ nous pouvons espérer avoir une erreur de cancellation plus petite.
 
 L'addition d'un nombre avec un nombre très différent peut faire perdre de l'information sur le plus petit. Par exemple avec \( 4\) chiffres significatifs,
 \begin{equation}
-    0.5678\oplus 0.0001237=0.5679
+	0.5678\oplus 0.0001237=0.5679
 \end{equation}
 où nous avons perdu presque toute l'information du petit nombre.
 
 Une situation particulièrement ennuyeuse est celle où justement c'est le petit nombre qui nous intéresse parce que le grand est censé se simplifier :
 \begin{equation}
-    (0.0001327\oplus 0.5678)\ominus 0.5678=0.5679\ominus 0.5678=0.0001
+	(0.0001327\oplus 0.5678)\ominus 0.5678=0.5679\ominus 0.5678=0.0001
 \end{equation}
 qui ne possède qu'un seul chiffre significatif correct alors que voyant le calcul, la réponse aurait pu être trouvée.
 
@@ -587,80 +587,80 @@ Moralité : si certains manipulations algébrique peuvent faire apparaitre des s
 	est dit \defe{stable}{stable} autour de \( d_0\in D\) si
 	\begin{enumerate}
 		\item
-			la solution $x=x(d)$ existe et est unique pour tout $d$;
+		      la solution $x=x(d)$ existe et est unique pour tout $d$;
 		\item \label{ItemProbStableB}
-			Pour tout $\eta>0$, et pour tout $d_0$, il existe un nombre $K>0$ tel que $\| d-d_0\|<\eta$ entraine $\|x(d)-x(d_0)\|\;\leq\;K\;\|d-d_0\|$.
+		      Pour tout $\eta>0$, et pour tout $d_0$, il existe un nombre $K>0$ tel que $\| d-d_0\|<\eta$ entraine $\|x(d)-x(d_0)\|\;\leq\;K\;\|d-d_0\|$.
 	\end{enumerate}
-    La seconde condition est le fait que \( x\) soit Lipschitz\footnote{Définition~\ref{DEFooQHVEooDbYKmz}.} sur un voisinage de \( d_0\).
+	La seconde condition est le fait que \( x\) soit Lipschitz\footnote{Définition~\ref{DEFooQHVEooDbYKmz}.} sur un voisinage de \( d_0\).
 \end{definition}
 
 \begin{example}[Stabilité de la différence]    \label{ExooXJONooTAYZVc}
-    Prenons le problème qui consiste à calculer la différence entre deux nombres : \( x=a-b\). Cela se traduit par
-    \begin{equation}
-        \begin{aligned}
-            F\colon \eR\times \eR^2&\to \eR \\
-            x&\mapsto x-a+b.
-        \end{aligned}
-    \end{equation}
-    Nous avons :
-    \begin{subequations}
-        \begin{align}
-            \big| x(a,b)-x(a',b') \big|&=| a-b-a'+b' |\\
-            &\leq| a-a' |+| b-b' |\\
-            &=\|  (a,b)-(a',b')  \|_1
-        \end{align}
-    \end{subequations}
-    où nous avons utilisé la norme \( \| . \|_1\) sur \( \eR^2\). Par la proposition~\ref{PropLJEJooMOWPNi} sur les équivalences de normes, le nombre \( K=\sqrt{2}\) fonctionne pour toute valeurs de \( \eta\).
+	Prenons le problème qui consiste à calculer la différence entre deux nombres : \( x=a-b\). Cela se traduit par
+	\begin{equation}
+		\begin{aligned}
+			F\colon \eR\times \eR^2 & \to \eR        \\
+			x                       & \mapsto x-a+b.
+		\end{aligned}
+	\end{equation}
+	Nous avons :
+	\begin{subequations}
+		\begin{align}
+			\big| x(a,b)-x(a',b') \big| & =| a-b-a'+b' |           \\
+			                            & \leq| a-a' |+| b-b' |    \\
+			                            & =\|  (a,b)-(a',b')  \|_1
+		\end{align}
+	\end{subequations}
+	où nous avons utilisé la norme \( \| . \|_1\) sur \( \eR^2\). Par la proposition~\ref{PropLJEJooMOWPNi} sur les équivalences de normes, le nombre \( K=\sqrt{2}\) fonctionne pour toute valeurs de \( \eta\).
 
-    La problème de la différence est donc un problème stable.
+	La problème de la différence est donc un problème stable.
 \end{example}
 
 \begin{example}[Stabilité de la multiplication]
-    Si \( a\) est fixé, le problème de calculer \( ab\) (\( b\) est la donnée) est stable. En effet ce problème est donné par la fonction \( F(x,b)=x-ab\), dont la solution est \( x(b)=ab\). Nous avons donc
-    \begin{equation}
-        \big| x(b)-x(b') \big|=| ab-ab' |=| a | |b-b' |.
-    \end{equation}
-    La constante de Lipschitz de ce problème est donc \( | a |\).
+	Si \( a\) est fixé, le problème de calculer \( ab\) (\( b\) est la donnée) est stable. En effet ce problème est donné par la fonction \( F(x,b)=x-ab\), dont la solution est \( x(b)=ab\). Nous avons donc
+	\begin{equation}
+		\big| x(b)-x(b') \big|=| ab-ab' |=| a | |b-b' |.
+	\end{equation}
+	La constante de Lipschitz de ce problème est donc \( | a |\).
 \end{example}
 
 \begin{definition}
-    Le nombre
-    \begin{equation}        \label{EqDefAABSOLU}
-	    K_{abs}(d_0,\eta):=\sup_{d\text{ tel que }|d_0-d|<\eta}\frac{\| x(d)-x(d_0)\|_X}{\|d-d_0\|_D}
-    \end{equation}
-    est appelé le \defe{conditionnement absolu}{conditionnement!absolu} du problème autour de $d_0$.
+	Le nombre
+	\begin{equation}        \label{EqDefAABSOLU}
+		K_{abs}(d_0,\eta):=\sup_{d\text{ tel que }|d_0-d|<\eta}\frac{\| x(d)-x(d_0)\|_X}{\|d-d_0\|_D}
+	\end{equation}
+	est appelé le \defe{conditionnement absolu}{conditionnement!absolu} du problème autour de $d_0$.
 
 	Soit $F(x,d)=0$ un problème stable de conditionnement absolu $K_{\text{abs}}(d,\eta)$.  Le conditionnement relatif est défini par
-    \begin{equation}        \label{DEFEQooSXDBooYbvGrC}
+	\begin{equation}        \label{DEFEQooSXDBooYbvGrC}
 		K_{\text{rel}}(d,\eta):=K_{\text{abs}}(d,\eta)\frac{\| d \|_D}{\|x(d)\|_X}.
 	\end{equation}
 	Le problème est dit \defe{bien conditionné}{bien!conditionné} près de $d$ si $K_{\text{rel}}(d,\eta)$ est petit.
 \end{definition}
 
 \begin{example}[Mauvais conditionnement de la différence]
-    Reprenons le problème de la différence, mais en fixant \( a\). Nous avons donc \( x(b)=a-b\) et le conditionnement absolu est
-    \begin{equation}
-        \sup\frac{ | x(b)-x(b_0) | }{ | b-b_0 | }=1
-    \end{equation}
-    Le conditionnement relatif est :
-    \begin{equation}
-        K_{rel}(b_0,\eta)=\frac{ | b | }{ | a-b | }.
-    \end{equation}
-    Et donc le problème est mal conditionné autour de \( a\).
+	Reprenons le problème de la différence, mais en fixant \( a\). Nous avons donc \( x(b)=a-b\) et le conditionnement absolu est
+	\begin{equation}
+		\sup\frac{ | x(b)-x(b_0) | }{ | b-b_0 | }=1
+	\end{equation}
+	Le conditionnement relatif est :
+	\begin{equation}
+		K_{rel}(b_0,\eta)=\frac{ | b | }{ | a-b | }.
+	\end{equation}
+	Et donc le problème est mal conditionné autour de \( a\).
 
-    Autrement dit, si \( a'\) est un nombre proche de \( a\), calculer la différence \( a-a'\) est un problème mal conditionné.
+	Autrement dit, si \( a'\) est un nombre proche de \( a\), calculer la différence \( a-a'\) est un problème mal conditionné.
 \end{example}
 
 \begin{example}[Bon conditionnement de la multiplication]
-    Pour le problème \( F(x,b)=x-ab\) nous avons
-    \begin{equation}
-        K_{abs}=\sup_{b'}\frac{ | ab-ab' | }{ | b-b' | }=| a |.
-    \end{equation}
-    Et aussi
-    \begin{equation}
-        K_{rel}=a\frac{ | b | }{ | ab | }=1.
-    \end{equation}
-    Le conditionnement relatif du problème de la multiplication est donc toujours \( 1\). Il est donc un toujours un problème bien conditionné.
+	Pour le problème \( F(x,b)=x-ab\) nous avons
+	\begin{equation}
+		K_{abs}=\sup_{b'}\frac{ | ab-ab' | }{ | b-b' | }=| a |.
+	\end{equation}
+	Et aussi
+	\begin{equation}
+		K_{rel}=a\frac{ | b | }{ | ab | }=1.
+	\end{equation}
+	Le conditionnement relatif du problème de la multiplication est donc toujours \( 1\). Il est donc un toujours un problème bien conditionné.
 \end{example}
 
 Ne pas confondre :
@@ -699,7 +699,7 @@ Un résultat pratique pour étudier le conditionnement d'un problème est le sui
 \end{corollary}
 
 \begin{lemma}   \label{LemITCxqyS}
-	 Tout  problème de la forme $x=x(d)$ avec $d\in\eR$ et $x \in C^1(\eR)$ est stable.
+	Tout  problème de la forme $x=x(d)$ avec $d\in\eR$ et $x \in C^1(\eR)$ est stable.
 \end{lemma}
 
 \begin{proof}
@@ -723,8 +723,8 @@ Un résultat pratique pour étudier le conditionnement d'un problème est le sui
 	La fonction
 	\begin{equation}
 		x(d)=\begin{cases}
-			0   &   \text{si }x\geq 0\\
-			x   &   \text{si }x>0
+			0 & \text{si }x\geq 0 \\
+			x & \text{si }x>0
 		\end{cases}
 	\end{equation}
 	est continue, mais pas $C^1$ (non dérivable en $x=0$). La dérivée est partout bornée par $1$, et donc le problème est stable.
@@ -732,8 +732,8 @@ Un résultat pratique pour étudier le conditionnement d'un problème est le sui
 	Un autre exemple très classique serait de prendre $x(d)=| d |$. Dans ce cas, on peut prendre n'importe que $\eta$ et $K=1$. Le calcul est que
 	\begin{subequations}
 		\begin{align}
-			| x(d)-x(d_0) |&<K| d-d_0 |\\
-			\big| | d |-| d_0 | \big|&<| d-d_0 |.
+			| x(d)-x(d_0) |           & <K| d-d_0 | \\
+			\big| | d |-| d_0 | \big| & <| d-d_0 |.
 		\end{align}
 	\end{subequations}
 	Cette dernière inéquation est correcte, comme on peut le voir en mettant au carré les deux membres.
@@ -828,110 +828,110 @@ Pour l'équation \( f(x)=0\), il existe une infinité de fonctions \( g\) pour l
 
 Exemple : \( f(x)=x^2-2-\ln(x)\), nous pouvons faire
 \begin{enumerate}
-    \item
-        \( x=x^2-2-\ln(x)+x\)
-    \item
-        Poser \( x^2=2+\ln(x)\) et donc
-        \begin{subequations}
-            \begin{align}
-                x=-\sqrt{2+\ln(x)}\\
-                x=\sqrt{2+\ln(x)}.
-            \end{align}
-        \end{subequations}
-    \item
-        Ou encore
-        \begin{equation}
-            x=\frac{ 2+\ln(x) }{ x }
-        \end{equation}
-        où nous savons déjà que \( x\neq 0\) parce que \( x=0\) n'est pas dans le domaine de \( f\).
-    \item
-        Ou par l'exponentielle :
-        \begin{equation}
-            x= e^{x^2-2}.
-        \end{equation}
+	\item
+	      \( x=x^2-2-\ln(x)+x\)
+	\item
+	      Poser \( x^2=2+\ln(x)\) et donc
+	      \begin{subequations}
+		      \begin{align}
+			      x=-\sqrt{2+\ln(x)} \\
+			      x=\sqrt{2+\ln(x)}.
+		      \end{align}
+	      \end{subequations}
+	\item
+	      Ou encore
+	      \begin{equation}
+		      x=\frac{ 2+\ln(x) }{ x }
+	      \end{equation}
+	      où nous savons déjà que \( x\neq 0\) parce que \( x=0\) n'est pas dans le domaine de \( f\).
+	\item
+	      Ou par l'exponentielle :
+	      \begin{equation}
+		      x= e^{x^2-2}.
+	      \end{equation}
 \end{enumerate}
 Dans tous ces cas nous pouvons construire une suite \( (x_n)\) en posant un nombre arbitraire pour \( x_0\) et ensuite la récurrence
 \begin{equation}
-    x_{n+1}=g(x_n).
+	x_{n+1}=g(x_n).
 \end{equation}
 
 Graphiquement, la solution de l'équation est l'intersection entre les courbes \( y=x\) et \( y=g(x)\). Un petit dessin pour montrer la convergence :
 
 \begin{center}
-   \input{auto/pictures_tex/Fig_UEGEooHEDIJVPn.pstricks}
+	\input{auto/pictures_tex/Fig_UEGEooHEDIJVPn.pstricks}
 \end{center}
 
 Attention : cette méthode ne converge pas toujours. Parfois elle converge de façon monotone, et parfois pas. Le choix de la fonction \( g\) qui fait \( x=g(x)\) peut énormément changer la vitesse de convergence.
 
 \begin{theorem}[Condition suffisante pour existence d'un point fixe]
-    Une fonction continue \( f\colon \mathopen[ a , b \mathclose]\to \mathopen[ a , b \mathclose]\) admet au moins un point fixe dans \( \mathopen[ a , b \mathclose]\).
+	Une fonction continue \( f\colon \mathopen[ a , b \mathclose]\to \mathopen[ a , b \mathclose]\) admet au moins un point fixe dans \( \mathopen[ a , b \mathclose]\).
 \end{theorem}
 
 \begin{theorem}[Condition suffisante pour l'unicité]
-    Soit \( f\) continue sur \( \mathopen[ a , b \mathclose]\) avec \( g(x)\in\mathopen[ a , b \mathclose]\) pour tout \( x\in\mathopen[ a , b \mathclose]\). Supposons qu'il existe \( 0<k<1\) tel que pour tout \( x\in\mathopen[ a , b \mathclose]\) nous ayons \( | g'(x) |\leq k\) alors
-    \begin{enumerate}
-        \item
-            La fonction \( g\) possède un unique point fixe dans \( \mathopen[ a , b \mathclose]\).
-        \item
-            Pour tout \( x_0\in\mathopen[ a , b \mathclose]\), tous les termes de la suite \( x_{n+1}=g(x_n)\) sont dans \( \mathopen[ a , b \mathclose]\).
-        \item
-            Ladite suite \( (x_n)\) converge vers le point fixe.
-    \end{enumerate}
+	Soit \( f\) continue sur \( \mathopen[ a , b \mathclose]\) avec \( g(x)\in\mathopen[ a , b \mathclose]\) pour tout \( x\in\mathopen[ a , b \mathclose]\). Supposons qu'il existe \( 0<k<1\) tel que pour tout \( x\in\mathopen[ a , b \mathclose]\) nous ayons \( | g'(x) |\leq k\) alors
+	\begin{enumerate}
+		\item
+		      La fonction \( g\) possède un unique point fixe dans \( \mathopen[ a , b \mathclose]\).
+		\item
+		      Pour tout \( x_0\in\mathopen[ a , b \mathclose]\), tous les termes de la suite \( x_{n+1}=g(x_n)\) sont dans \( \mathopen[ a , b \mathclose]\).
+		\item
+		      Ladite suite \( (x_n)\) converge vers le point fixe.
+	\end{enumerate}
 \end{theorem}
 
 \begin{theorem}
-    Soit \( f\) continue sur \( \mathopen[ a , b \mathclose]\) avec \( g(x)\in\mathopen[ a , b \mathclose]\) pour tout \( x\in\mathopen[ a , b \mathclose]\). Supposons
-    \begin{enumerate}
-        \item
-    qu'il existe \( 0<k<1\) tel que pour tout \( x\in\mathopen[ a , b \mathclose]\) nous ayons \( | g'(x) |\leq k\) et
-\item
-    \( g\) est \( p\) fois dérivable sur \( \mathopen[ a , b \mathclose]\).
-\item
-    \( g'(\alpha)=g''(\alpha)=\ldots=g^{(p-1)}(\alpha)\) et \( g^{(p)}(\alpha)\neq 0\) où \( \alpha\) est l'unique point fixe.
-    \end{enumerate}
-    Alors la suite \( (x_n)\) converge avec un ordre \( p\).
+	Soit \( f\) continue sur \( \mathopen[ a , b \mathclose]\) avec \( g(x)\in\mathopen[ a , b \mathclose]\) pour tout \( x\in\mathopen[ a , b \mathclose]\). Supposons
+	\begin{enumerate}
+		\item
+		      qu'il existe \( 0<k<1\) tel que pour tout \( x\in\mathopen[ a , b \mathclose]\) nous ayons \( | g'(x) |\leq k\) et
+		\item
+		      \( g\) est \( p\) fois dérivable sur \( \mathopen[ a , b \mathclose]\).
+		\item
+		      \( g'(\alpha)=g''(\alpha)=\ldots=g^{(p-1)}(\alpha)\) et \( g^{(p)}(\alpha)\neq 0\) où \( \alpha\) est l'unique point fixe.
+	\end{enumerate}
+	Alors la suite \( (x_n)\) converge avec un ordre \( p\).
 \end{theorem}
 
 
 
 \begin{example}
-    Nous reprenons
-    \begin{equation}
-        f(x)=x^2-2-\ln(x).
-    \end{equation}
-    Et nous voulons résoudre \( f(x)=0\). Graphiquement c'est l'intersection entre \( y=x^2-2\) et \( y=\ln(x)\). Il est vite tracé de savoir qu'il y a deux solutions  : \( \alpha_1\in\mathopen[ 0 , 1 \mathclose]\) et \( \alpha_2\in\mathopen[ \sqrt{2} , 2 \mathclose]\).
+	Nous reprenons
+	\begin{equation}
+		f(x)=x^2-2-\ln(x).
+	\end{equation}
+	Et nous voulons résoudre \( f(x)=0\). Graphiquement c'est l'intersection entre \( y=x^2-2\) et \( y=\ln(x)\). Il est vite tracé de savoir qu'il y a deux solutions  : \( \alpha_1\in\mathopen[ 0 , 1 \mathclose]\) et \( \alpha_2\in\mathopen[ \sqrt{2} , 2 \mathclose]\).
 
-    Déjà un petit problème : l'intervalle \( \mathopen[ 0 , 1 \mathclose]\) ne va pas parce que \( f\) n'y est pas continue. Un petit raffinement d'analyse nous fournit \( \alpha_1\in\mathopen[ e^{-2} , 1 \mathclose]\).
+	Déjà un petit problème : l'intervalle \( \mathopen[ 0 , 1 \mathclose]\) ne va pas parce que \( f\) n'y est pas continue. Un petit raffinement d'analyse nous fournit \( \alpha_1\in\mathopen[ e^{-2} , 1 \mathclose]\).
 
-    Nous avons au moins les fonctions de points fixes suivantes :
-    \begin{subequations}
-        \begin{align}
-            g_1(x)=\sqrt{ 2+\ln(x) }\\
-            g_2(x)=e^{x^2-2}.
-        \end{align}
-    \end{subequations}
-    Pour la première, il y avait un \( \pm\) qui a été négligé parce que nous savons que les deux solutions cherchées sont positives.
-    Travaillons avec la première. D'abord
-    \begin{equation}
-        g'_1(x)=\frac{ 1 }{ 2x\sqrt{ 2-\ln(x) } }.
-    \end{equation}
-    Nous avons \( \lim_{x\to e^{-2}} g'_2(x)=+\infty\). Il ne sera donc pas possible de trouver \( 0<k<1\) tel que \( | g'(x) |\leq k\). Tentons quand même la méthode :
-    \begin{equation}
-        x_0=0.5
-    \end{equation}
-    Il se fait que cela est plus proche de \( \alpha_1\) que de \( \alpha_2\). Mais en réalité la suite converge vers \( \alpha_2\).
+	Nous avons au moins les fonctions de points fixes suivantes :
+	\begin{subequations}
+		\begin{align}
+			g_1(x)=\sqrt{ 2+\ln(x) } \\
+			g_2(x)=e^{x^2-2}.
+		\end{align}
+	\end{subequations}
+	Pour la première, il y avait un \( \pm\) qui a été négligé parce que nous savons que les deux solutions cherchées sont positives.
+	Travaillons avec la première. D'abord
+	\begin{equation}
+		g'_1(x)=\frac{ 1 }{ 2x\sqrt{ 2-\ln(x) } }.
+	\end{equation}
+	Nous avons \( \lim_{x\to e^{-2}} g'_2(x)=+\infty\). Il ne sera donc pas possible de trouver \( 0<k<1\) tel que \( | g'(x) |\leq k\). Tentons quand même la méthode :
+	\begin{equation}
+		x_0=0.5
+	\end{equation}
+	Il se fait que cela est plus proche de \( \alpha_1\) que de \( \alpha_2\). Mais en réalité la suite converge vers \( \alpha_2\).
 
-    Passons à la seconde méthode.
-    \begin{equation}
-        g'_2(x)=2xe^{x^2-2}.
-    \end{equation}
-    Sur l'intervalle \( \mathopen[ e^{-2} , 1 \mathclose]\), \( g'_2\) est croissante et prend toutes ses valeurs dans \( \mathopen[ e^{-2} , 1 \mathclose]\). Nous pouvons prouver que
-    \begin{equation}
-        | g'_2(x) |\leq 2e^{-1}<1.
-    \end{equation}
-    Donc poser \( k=2e^{-1}\) fait fonctionner la proposition. Donc quel que soit le \( x_0\) pris dans cet intervalle, nous aurons une suite convergente vers un point fixe à l'intérieur de l'intervalle. C'est-à-dire convergente vers \( \alpha_1\).
+	Passons à la seconde méthode.
+	\begin{equation}
+		g'_2(x)=2xe^{x^2-2}.
+	\end{equation}
+	Sur l'intervalle \( \mathopen[ e^{-2} , 1 \mathclose]\), \( g'_2\) est croissante et prend toutes ses valeurs dans \( \mathopen[ e^{-2} , 1 \mathclose]\). Nous pouvons prouver que
+	\begin{equation}
+		| g'_2(x) |\leq 2e^{-1}<1.
+	\end{equation}
+	Donc poser \( k=2e^{-1}\) fait fonctionner la proposition. Donc quel que soit le \( x_0\) pris dans cet intervalle, nous aurons une suite convergente vers un point fixe à l'intérieur de l'intervalle. C'est-à-dire convergente vers \( \alpha_1\).
 
-    Cela est un exemple de problème pour lequel changer de fonction \( g\) change réellement la vie.
+	Cela est un exemple de problème pour lequel changer de fonction \( g\) change réellement la vie.
 \end{example}
 
 %---------------------------------------------------------------------------------------------------------------------------
@@ -939,77 +939,77 @@ Attention : cette méthode ne converge pas toujours. Parfois elle converge de fa
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{definition}      \label{DEFooSUTRooAcXXjj}
-    Une suite \( (x_n)\) a une convergence \defe{quadratique}{convergence!quadratique} vers \( \alpha\) si elle converge vers \( \alpha\) et si il existe un \( C\) tel que pour tout \( n\) nous ayons
-    \begin{equation}    \label{EQooMWBIooLGashp}
-        \| x_{n+1}-\alpha \|\leq C\| x_n-\alpha \|^2.
-    \end{equation}
+	Une suite \( (x_n)\) a une convergence \defe{quadratique}{convergence!quadratique} vers \( \alpha\) si elle converge vers \( \alpha\) et si il existe un \( C\) tel que pour tout \( n\) nous ayons
+	\begin{equation}    \label{EQooMWBIooLGashp}
+		\| x_{n+1}-\alpha \|\leq C\| x_n-\alpha \|^2.
+	\end{equation}
 \end{definition}
 Il est bien entendu possible de parler de convergence quadratique si la relation \eqref{EQooMWBIooLGashp} a lieu seulement à partir d'un certain indice.
 
 Le lemme suivant donne l'importance du choix de point de départ lorsqu'on utilise une méthode itérative dont la convergence est quadratique.
 \begin{lemma}       \label{LEMooLQMAooICcmrn}
-    Soit une suite \( x_n\to \alpha\) de convergence quadratique. Si \( \| x_0-\alpha \|\leq r\) alors
-    \begin{equation}        \label{EQooVYRIooTxetPn}
-        \| x_n-\alpha \|\leq \frac{1}{ C }(Cr)^{2^n}
-    \end{equation}
+	Soit une suite \( x_n\to \alpha\) de convergence quadratique. Si \( \| x_0-\alpha \|\leq r\) alors
+	\begin{equation}        \label{EQooVYRIooTxetPn}
+		\| x_n-\alpha \|\leq \frac{1}{ C }(Cr)^{2^n}
+	\end{equation}
 \end{lemma}
 
 \begin{proof}
-    Nous pourrions directement prouver la formule \eqref{EQooVYRIooTxetPn} par récurrence, mais nous allons la reconstruire un peu. Nous cherchons
-    \begin{equation}        \label{EQooZCZVooHqpkqs}
-        \| x_n-\alpha \|\leq C^{k(n)}r^{2^n}.
-    \end{equation}
-    Nous avons les inégalités
-    \begin{subequations}
-        \begin{align}
-            \| x_{n+1}-\alpha \|&\leq C\| x_n-\alpha \|^2\\
-            &\leq CC^{2k(n)}r^{2^{n+1}}\\
-            &=C^{2k(n)+1}r^{2^{n+1}}
-        \end{align}
-    \end{subequations}
-    d'où nous voyons que la fonction \( k\) doit vérifier
-    \begin{subequations}
-        \begin{numcases}{}
-            k(0)=0\\
-            k(n+1)=2k(n)+1
-        \end{numcases}
-    \end{subequations}
-    La première équation est l'hypothèse \( \| x_0-\alpha \|\leq r\) comparée à la formule \eqref{EQooZCZVooHqpkqs}. Il est vite vérifié que \( k(n)=2^n-1\). D'où le résultat.
+	Nous pourrions directement prouver la formule \eqref{EQooVYRIooTxetPn} par récurrence, mais nous allons la reconstruire un peu. Nous cherchons
+	\begin{equation}        \label{EQooZCZVooHqpkqs}
+		\| x_n-\alpha \|\leq C^{k(n)}r^{2^n}.
+	\end{equation}
+	Nous avons les inégalités
+	\begin{subequations}
+		\begin{align}
+			\| x_{n+1}-\alpha \| & \leq C\| x_n-\alpha \|^2   \\
+			                     & \leq CC^{2k(n)}r^{2^{n+1}} \\
+			                     & =C^{2k(n)+1}r^{2^{n+1}}
+		\end{align}
+	\end{subequations}
+	d'où nous voyons que la fonction \( k\) doit vérifier
+	\begin{subequations}
+		\begin{numcases}{}
+			k(0)=0\\
+			k(n+1)=2k(n)+1
+		\end{numcases}
+	\end{subequations}
+	La première équation est l'hypothèse \( \| x_0-\alpha \|\leq r\) comparée à la formule \eqref{EQooZCZVooHqpkqs}. Il est vite vérifié que \( k(n)=2^n-1\). D'où le résultat.
 \end{proof}
 
 Si le point de départ est choisi de façon à avoir \( Cr<1\) alors nous avons là un très bon majorant parce qu'il s'agit d'un majorant convergeant très rapidement vers zéro. Si au contraire \( Cr>1\) alors ce majorant ne sert à rien.
 
 \begin{normaltext}
-    Le fait d'avoir une convergence quadratique signifie que le nombre décimales correctes double (environ) à chaque itération, dans n'importe quelle base. En effet supposons que \( x_n\) ait \( k\) décimales correctes; cela signifie que \( | x_n-\alpha |\sim 10^{-k}\). Donc
-    \begin{equation}
-        | x_{n+1}-\alpha |\lessapprox M 10^{-2k}.
-    \end{equation}
-    Cela est le double de décimales correctes de \( | x_n-\alpha |\), moins l'ordre de grandeur de \( M\).
+	Le fait d'avoir une convergence quadratique signifie que le nombre décimales correctes double (environ) à chaque itération, dans n'importe quelle base. En effet supposons que \( x_n\) ait \( k\) décimales correctes; cela signifie que \( | x_n-\alpha |\sim 10^{-k}\). Donc
+	\begin{equation}
+		| x_{n+1}-\alpha |\lessapprox M 10^{-2k}.
+	\end{equation}
+	Cela est le double de décimales correctes de \( | x_n-\alpha |\), moins l'ordre de grandeur de \( M\).
 
-    Pour la méthode de bisection, le nombre de décimales augmente de \( 1\) à chaque itération, mais seulement en base \( 2\). En base \( 10\), de façon générique\footnote{C'est-à-dire sauf coup de malchance ou coup de chance.} il faut entre \( 3\) et \( 4\) itérations pour avoir une décimale de plus.
+	Pour la méthode de bisection, le nombre de décimales augmente de \( 1\) à chaque itération, mais seulement en base \( 2\). En base \( 10\), de façon générique\footnote{C'est-à-dire sauf coup de malchance ou coup de chance.} il faut entre \( 3\) et \( 4\) itérations pour avoir une décimale de plus.
 \end{normaltext}
 
 \begin{normaltext}[Condition d'arrêt\cite{ooGYJXooIWExXK}]       \label{NTooVXLXooXlAGEq}
-    D'autre part, lorsqu'une méthode a une convergence quadratique, nous avons un test d'arrêt. Pour ce voir, nous avons la limite
-    \begin{equation}
-        \lim_{n\to \infty} \frac{ | x_{n+1}-\alpha | }{ | x_n-\alpha | }\leq\lim_{n\to \infty} \frac{ C| x_n-\alpha |^2 }{ | x_n-\alpha | }=0.
-    \end{equation}
-    Cette limite est alors également valable sans les valeurs absolues et si nous soustrayons \( x_n-\alpha\) au numérateur, la limite devient \( -1\) :
-    \begin{equation}
-        -1=\lim_{n\to \infty} \frac{ x_{n+1}-x_n }{ x_n-\alpha }.
-    \end{equation}
-    Ou encore
-    \begin{equation}
-        \lim_{n\to \infty} \frac{ x_n-x_{n+1} }{ x_n-\alpha }=1.
-    \end{equation}
-    Cela a pour conséquence que si \( n\) est grand,
-    \begin{enumerate}
-        \item
-            \( x_{n+1}\) a le même ordre de grandeur que \( x_n-\alpha\).
-        \item
-            \( x_n-x_{n+1}\) et \( x_n-\alpha\) ont le même signe.
-    \end{enumerate}
-    Donc si nous voulons une approximation de \( \alpha\) avec une erreur \( \epsilon\), il suffit d'arrêter le calcul lorsque \( | x_{n+1}-x_n |\leq \epsilon\). Et ce faisant nous savons de plus si l'approximation est par excès ou par défaut.
+	D'autre part, lorsqu'une méthode a une convergence quadratique, nous avons un test d'arrêt. Pour ce voir, nous avons la limite
+	\begin{equation}
+		\lim_{n\to \infty} \frac{ | x_{n+1}-\alpha | }{ | x_n-\alpha | }\leq\lim_{n\to \infty} \frac{ C| x_n-\alpha |^2 }{ | x_n-\alpha | }=0.
+	\end{equation}
+	Cette limite est alors également valable sans les valeurs absolues et si nous soustrayons \( x_n-\alpha\) au numérateur, la limite devient \( -1\) :
+	\begin{equation}
+		-1=\lim_{n\to \infty} \frac{ x_{n+1}-x_n }{ x_n-\alpha }.
+	\end{equation}
+	Ou encore
+	\begin{equation}
+		\lim_{n\to \infty} \frac{ x_n-x_{n+1} }{ x_n-\alpha }=1.
+	\end{equation}
+	Cela a pour conséquence que si \( n\) est grand,
+	\begin{enumerate}
+		\item
+		      \( x_{n+1}\) a le même ordre de grandeur que \( x_n-\alpha\).
+		\item
+		      \( x_n-x_{n+1}\) et \( x_n-\alpha\) ont le même signe.
+	\end{enumerate}
+	Donc si nous voulons une approximation de \( \alpha\) avec une erreur \( \epsilon\), il suffit d'arrêter le calcul lorsque \( | x_{n+1}-x_n |\leq \epsilon\). Et ce faisant nous savons de plus si l'approximation est par excès ou par défaut.
 \end{normaltext}
 
 %---------------------------------------------------------------------------------------------------------------------------
@@ -1017,63 +1017,63 @@ Si le point de départ est choisi de façon à avoir \( Cr<1\) alors nous avons 
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{proposition}[Convergence d'une méthode de point fixe\cite{ooGYJXooIWExXK}]      \label{PROPooRPHKooLnPCVJ}
-    Soit \( g\colon \eR\to \eR\) de classe \( C^1\) et \( \alpha\) un point fixe attractif\footnote{Définition~\ref{DEFooTMZUooMoBDGC}.} de \( g\). Soit \( k\) tel que \( | g'(\alpha) |<k<1\) et \( \delta\) tel que \( \| g' \|_{B(\alpha,\delta)}<k\).
+	Soit \( g\colon \eR\to \eR\) de classe \( C^1\) et \( \alpha\) un point fixe attractif\footnote{Définition~\ref{DEFooTMZUooMoBDGC}.} de \( g\). Soit \( k\) tel que \( | g'(\alpha) |<k<1\) et \( \delta\) tel que \( \| g' \|_{B(\alpha,\delta)}<k\).
 
-    Alors
-    \begin{enumerate}
-        \item       \label{ITEMooOQKMooTRSvUo}
-            La fonction \( g\) est \( k\)-contractante\footnote{Définition~\ref{DEFooRSLCooAsWisu}} sur \( B(\alpha,\delta)\).
-        \item       \label{ITEMooFTAQooPBsBcR}
-            Nous avons \( g\big( B(\alpha,\delta) \big)\subset B(\alpha,\delta)\).
-        \item       \label{ITEMooFSOAooKlcxih}
-            Pour tout \( x_0\in B(\alpha,\delta)\) la suite \( x_{n+1}=g(x_n)\) converge vers \( \alpha\) et
-            \begin{equation}
-                | x_n-\alpha |\leq | x_0-\alpha |k^n.
-            \end{equation}
-    \end{enumerate}
-    Si de plus \( g'(\alpha)=0\) et \( g\) est de classe \( C^2\) alors nous avons convergence quadratique (définition~\ref{DEFooSUTRooAcXXjj}).
+	Alors
+	\begin{enumerate}
+		\item       \label{ITEMooOQKMooTRSvUo}
+		      La fonction \( g\) est \( k\)-contractante\footnote{Définition~\ref{DEFooRSLCooAsWisu}} sur \( B(\alpha,\delta)\).
+		\item       \label{ITEMooFTAQooPBsBcR}
+		      Nous avons \( g\big( B(\alpha,\delta) \big)\subset B(\alpha,\delta)\).
+		\item       \label{ITEMooFSOAooKlcxih}
+		      Pour tout \( x_0\in B(\alpha,\delta)\) la suite \( x_{n+1}=g(x_n)\) converge vers \( \alpha\) et
+		      \begin{equation}
+			      | x_n-\alpha |\leq | x_0-\alpha |k^n.
+		      \end{equation}
+	\end{enumerate}
+	Si de plus \( g'(\alpha)=0\) et \( g\) est de classe \( C^2\) alors nous avons convergence quadratique (définition~\ref{DEFooSUTRooAcXXjj}).
 \end{proposition}
 
 \begin{proof}
-    Vu que \( \alpha\) est un point fixe attractif de \( g\) nous pouvons considérer un \( k\) tel que \( | g'(\alpha) |<k<1\). Et comme \( g\) est de classe \( C^1\), la fonction \( g'\) est continue et donc bornée sur toute boule du type \( \overline{ B(\alpha,\delta) }\). Soit \( \delta\) le plus grand nombre tel que \( \| g' \|_{\overline{ B(\alpha,\delta) }}\leq k\). Nous notons \( I=\overline{ B(\alpha,\delta) } \) pour cette valeur de \( \delta\).
+	Vu que \( \alpha\) est un point fixe attractif de \( g\) nous pouvons considérer un \( k\) tel que \( | g'(\alpha) |<k<1\). Et comme \( g\) est de classe \( C^1\), la fonction \( g'\) est continue et donc bornée sur toute boule du type \( \overline{ B(\alpha,\delta) }\). Soit \( \delta\) le plus grand nombre tel que \( \| g' \|_{\overline{ B(\alpha,\delta) }}\leq k\). Nous notons \( I=\overline{ B(\alpha,\delta) } \) pour cette valeur de \( \delta\).
 
-    Pour tout \( x\in I\) nous avons, en utilisant le théorème des accroissements finis~\ref{ThoAccFinis}\ref{ITEMooXRQKooDBFpdQ} :
-    \begin{subequations}        \label{SUBEQooYXLHooSCnnRA}
-        \begin{align}
-            | g(x)-\alpha |&=| g(x)-g(\alpha) |\\
-            &\leq\sup_{t\in I}| g'(t) | |x-\alpha |\\
-            &\leq k| x-\alpha |\\
-            &<\delta
-        \end{align}
-    \end{subequations}
-    parce que \( k<1\) et \(| x-\alpha |\leq \delta\). Par conséquent \( g(x)\in B(\alpha,\delta)\). Cela prouve le point~\ref{ITEMooFTAQooPBsBcR}. Pour le point~\ref{ITEMooOQKMooTRSvUo}, soient \( x,y\in B(\alpha,\delta)\) et
-    \begin{equation}
-        | g(x)-g(y) |\leq \sup_{a\in I}| g'(a) | |x-y |\leq k| x-y |.
-    \end{equation}
-    Pout le point~\ref{ITEMooFSOAooKlcxih} nous avons \( | g(x_n)-\alpha |\leq k| x_n-\alpha |\), c'est-à-dire
-    \begin{equation}
-        | x_{n+1}-\alpha |\leq k| x_n-\alpha |.
-    \end{equation}
-    Le résultat annoncé s'obtient par récurrence sur \( n\).
+	Pour tout \( x\in I\) nous avons, en utilisant le théorème des accroissements finis~\ref{ThoAccFinis}\ref{ITEMooXRQKooDBFpdQ} :
+	\begin{subequations}        \label{SUBEQooYXLHooSCnnRA}
+		\begin{align}
+			| g(x)-\alpha | & =| g(x)-g(\alpha) |                    \\
+			                & \leq\sup_{t\in I}| g'(t) | |x-\alpha | \\
+			                & \leq k| x-\alpha |                     \\
+			                & <\delta
+		\end{align}
+	\end{subequations}
+	parce que \( k<1\) et \(| x-\alpha |\leq \delta\). Par conséquent \( g(x)\in B(\alpha,\delta)\). Cela prouve le point~\ref{ITEMooFTAQooPBsBcR}. Pour le point~\ref{ITEMooOQKMooTRSvUo}, soient \( x,y\in B(\alpha,\delta)\) et
+	\begin{equation}
+		| g(x)-g(y) |\leq \sup_{a\in I}| g'(a) | |x-y |\leq k| x-y |.
+	\end{equation}
+	Pout le point~\ref{ITEMooFSOAooKlcxih} nous avons \( | g(x_n)-\alpha |\leq k| x_n-\alpha |\), c'est-à-dire
+	\begin{equation}
+		| x_{n+1}-\alpha |\leq k| x_n-\alpha |.
+	\end{equation}
+	Le résultat annoncé s'obtient par récurrence sur \( n\).
 
-    En ce qui concerne la convergence quadratique, c'est du Taylor (proposition~\ref{PropDevTaylorPol}). Développons \( g(x_n)\) autour de \( g(\alpha)\) :
-    \begin{equation}
-        g(x_n)=g(\alpha)+g'(\alpha)(x_n-\alpha)+\frac{ 1 }{2}(x_n-\alpha)^2\epsilon(x_n-\alpha)
-    \end{equation}
-    avec \( \lim_{t\to 0} \epsilon(t)=0\). En posant \( C=\frac{ 1 }{2}\sup_{t<\delta}| \epsilon(t) | \) nous avons $| g(x_n)-g(\alpha) |\leq C|x_n-\alpha  |^2$, c'est-à-dire
-    \begin{equation}
-        | x_{n+1}-\alpha |\leq C| x_n-\alpha |^2.
-    \end{equation}
+	En ce qui concerne la convergence quadratique, c'est du Taylor (proposition~\ref{PropDevTaylorPol}). Développons \( g(x_n)\) autour de \( g(\alpha)\) :
+	\begin{equation}
+		g(x_n)=g(\alpha)+g'(\alpha)(x_n-\alpha)+\frac{ 1 }{2}(x_n-\alpha)^2\epsilon(x_n-\alpha)
+	\end{equation}
+	avec \( \lim_{t\to 0} \epsilon(t)=0\). En posant \( C=\frac{ 1 }{2}\sup_{t<\delta}| \epsilon(t) | \) nous avons $| g(x_n)-g(\alpha) |\leq C|x_n-\alpha  |^2$, c'est-à-dire
+	\begin{equation}
+		| x_{n+1}-\alpha |\leq C| x_n-\alpha |^2.
+	\end{equation}
 \end{proof}
 
 Ce corolaire est une paraphrase de la proposition~\ref{PROPooRPHKooLnPCVJ}. Il en retient seulement les points intéressants en pratique.
 
 \begin{corollary}     \label{CORooHKZCooEXRzcW}
-    Soit \( \alpha\) une solution de l'équation \( x=g(x)\), avec \( g\) continue sur un voisinage de \( \alpha\) et dérivable dans l'intérieur. Nous supposons que
-    \begin{equation}
-        | g'(\alpha) |<1.
-    \end{equation}
-    Alors il existe un rayon \( \delta\) tel que si \( x_0\in B(\alpha,\delta)\), la suite \( (x_n)\) converge vers \( \alpha\).
+	Soit \( \alpha\) une solution de l'équation \( x=g(x)\), avec \( g\) continue sur un voisinage de \( \alpha\) et dérivable dans l'intérieur. Nous supposons que
+	\begin{equation}
+		| g'(\alpha) |<1.
+	\end{equation}
+	Alors il existe un rayon \( \delta\) tel que si \( x_0\in B(\alpha,\delta)\), la suite \( (x_n)\) converge vers \( \alpha\).
 \end{corollary}
 
 Certes cette proposition demande moins d'hypothèses, mais en réalité, il ne donne pas de vrais moyens de choisir un point de départ \( x_0\). Avec les deux théorèmes précédents, nous pouvions prendre \( x_0\) n'importe où dans \( \mathopen[ a , b \mathclose]\). Le fait est que pour choisir \( x_0\) nous pouvons tracer et donner à la main un \( x_0\) proche de ce qui semble être \( \alpha\). Si ça ne converge pas, il faut donner un \(x_0\) plus proche. La proposition nous assure que si nous jouons bien à choisir \( x_0\) très proche, la suite finira par converger.
@@ -1092,46 +1092,46 @@ L'objectif de la méthode de Newton est d'évaluer une racine \( \alpha\) de l'�
 C'est la méthode de Newton qui est à l'origine de la suite de la proposition \ref{PROPooSTQXooHlIGVf} donnant une suite dans \( \eQ\) qui converge vers \( \sqrt{ A} \).
 
 \begin{definition}      \label{DEFooXSOQooAnWqKM}
-    Le nombre \( \alpha\) est une \defe{racine simple}{racine!simple} de l'équation \( f(x)=0\) si \( f(\alpha)=0\) et \( f'(\alpha)\neq 0\). Le nombre \( \alpha\) est une \defe{racine multiple}{racine!multiple} d'ordre \( r\) de \( f(x)=0\) si\index{multiplicité!racine de \( f(x)=0\)}
-    \begin{equation}
-        f(\alpha)=f'(\alpha)=\ldots=f^{(r-1)(\alpha)}=0
-    \end{equation}
-    et \( f^{(r)}(\alpha)\neq 0\).
+	Le nombre \( \alpha\) est une \defe{racine simple}{racine!simple} de l'équation \( f(x)=0\) si \( f(\alpha)=0\) et \( f'(\alpha)\neq 0\). Le nombre \( \alpha\) est une \defe{racine multiple}{racine!multiple} d'ordre \( r\) de \( f(x)=0\) si\index{multiplicité!racine de \( f(x)=0\)}
+	\begin{equation}
+		f(\alpha)=f'(\alpha)=\ldots=f^{(r-1)(\alpha)}=0
+	\end{equation}
+	et \( f^{(r)}(\alpha)\neq 0\).
 \end{definition}
 
 \begin{example}
-    La fonction \( x\mapsto x^3\) en \( x=0\) est une racine d'ordre \( 3\).
+	La fonction \( x\mapsto x^3\) en \( x=0\) est une racine d'ordre \( 3\).
 \end{example}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{«Justification» par la formule par Taylor}
 %---------------------------------------------------------------------------------------------------------------------------
 
-    Soit une fonction \( f\) continue et dérivable sur \( \mathopen[ a , b \mathclose]\). Soit \( \alpha\) une racine de \( f\) et \( x_n\) une de ses approximations.  Nous notons l'erreur \( \theta\) et nous avons \( \alpha=x_n+\theta\). Du coup nous avons \( f(x_n+\theta)=f(\alpha)=0\).
+Soit une fonction \( f\) continue et dérivable sur \( \mathopen[ a , b \mathclose]\). Soit \( \alpha\) une racine de \( f\) et \( x_n\) une de ses approximations.  Nous notons l'erreur \( \theta\) et nous avons \( \alpha=x_n+\theta\). Du coup nous avons \( f(x_n+\theta)=f(\alpha)=0\).
 
-    Écrivons la série de Taylor du théorème~\ref{ThoTaylor} autour de \( x_n\) : il existe une fonction \( \epsilon\colon \eR\to \eR\) telle que \( \lim_{t\to 0} \epsilon(t)=0\) telle que
-    \begin{equation}        \label{EQooOPUBooYaznay}
-        f(\alpha)=f(x_n+\theta)=f(x_n)+\theta f'(x_n)+\frac{ \theta^2 }{ 2 }\epsilon(\theta).
-    \end{equation}
-    Nous isolons le \( \theta\) du terme d'ordre \( 1\) en nous souvenant que le membre de gauche est nul :
-    \begin{equation}
-        \theta=-\frac{ f(x_n)-\theta^2\epsilon(\theta) }{ f'(x_n) }
-    \end{equation}
-    Vu que \( \alpha=x_n+\theta\), nous pouvons écrire
-    \begin{equation}
-        \alpha=x_n-\frac{ f(x_n)+\theta^2\epsilon(\theta) }{ f'(x_n) }.
-    \end{equation}
-    Il est donc raisonnable de poser
-    \begin{equation}
-        x_{n+1}=x_n-\frac{ f(x_n) }{ f'(x_n) }
-    \end{equation}
-    en espérant que cela soit une meilleure approximation de \( \alpha\) que \( x_n\).
+Écrivons la série de Taylor du théorème~\ref{ThoTaylor} autour de \( x_n\) : il existe une fonction \( \epsilon\colon \eR\to \eR\) telle que \( \lim_{t\to 0} \epsilon(t)=0\) telle que
+\begin{equation}        \label{EQooOPUBooYaznay}
+	f(\alpha)=f(x_n+\theta)=f(x_n)+\theta f'(x_n)+\frac{ \theta^2 }{ 2 }\epsilon(\theta).
+\end{equation}
+Nous isolons le \( \theta\) du terme d'ordre \( 1\) en nous souvenant que le membre de gauche est nul :
+\begin{equation}
+	\theta=-\frac{ f(x_n)-\theta^2\epsilon(\theta) }{ f'(x_n) }
+\end{equation}
+Vu que \( \alpha=x_n+\theta\), nous pouvons écrire
+\begin{equation}
+	\alpha=x_n-\frac{ f(x_n)+\theta^2\epsilon(\theta) }{ f'(x_n) }.
+\end{equation}
+Il est donc raisonnable de poser
+\begin{equation}
+	x_{n+1}=x_n-\frac{ f(x_n) }{ f'(x_n) }
+\end{equation}
+en espérant que cela soit une meilleure approximation de \( \alpha\) que \( x_n\).
 
-    En tout cas l'erreur sur \( x_{n+1}\) est
-    \begin{equation}
-        \alpha-x_{n+1}=x_n+\theta-x_n+\frac{ f(x_n)+\theta^2\epsilon(\theta) }{ f'(x_n) }=\theta+\frac{ f(x_n)+\theta^2\epsilon(\theta) }{ f'(n_n) },
-    \end{equation}
-    qui ne doit pas être fondamentalement plus grand que \( \theta\) dès que \( \theta\) est petit, surtout que si \( x_n\) est une approximation de \( \alpha\), nous pouvons espérer que \( f(x_n)\) soit également petit. Là où les choses peuvent déraper en grand, c'est si \( f'(x_n)\) est petit.
+En tout cas l'erreur sur \( x_{n+1}\) est
+\begin{equation}
+	\alpha-x_{n+1}=x_n+\theta-x_n+\frac{ f(x_n)+\theta^2\epsilon(\theta) }{ f'(x_n) }=\theta+\frac{ f(x_n)+\theta^2\epsilon(\theta) }{ f'(n_n) },
+\end{equation}
+qui ne doit pas être fondamentalement plus grand que \( \theta\) dès que \( \theta\) est petit, surtout que si \( x_n\) est une approximation de \( \alpha\), nous pouvons espérer que \( f(x_n)\) soit également petit. Là où les choses peuvent déraper en grand, c'est si \( f'(x_n)\) est petit.
 
 Cette méthode de Newton ne converge pas toujours. Le pire est lorsque par malheur il y a une bosse pas loin de la racine. Alors il y a un risque de tomber sur \( f'(x_{n+1})=0\) ou en tout cas très proche de zéro. Dans ce cas le point \( x_{n+2}\) est envoyé très loin.
 
@@ -1142,30 +1142,30 @@ Cette méthode de Newton ne converge pas toujours. Le pire est lorsque par malhe
 
 Nous savons que pour résoudre \( f(x)=0\) par une méthode de point fixe, il y a de nombreux choix possibles de fonctions \( g\) telles que \( g(x)=x\) donne la même solution que \( f(x)=0\). Soit \( \alpha\) une solution de \( f(x)=0\) et cherchons une fonction \( g\) de la forme
 \begin{equation}        \label{EQooYVFIooJXnJXa}
-    g(x)=x-kf(x).
+	g(x)=x-kf(x).
 \end{equation}
 Nous savons par la proposition~\ref{PROPooRPHKooLnPCVJ} que la fonction \( g\) donne une convergence quadratique lorsque \( g'(\alpha)=0\). Pour la forme \eqref{EQooYVFIooJXnJXa} nous avons \( g'(\alpha)=1-kf'(\alpha)\), ce qui nous donne l'idée de poser \( k=\frac{1}{ f'(\alpha) }\).
 
 Le fait est que \( f'(\alpha)\) n'est pas connu, mais nous pouvons l'approximer par \( f'(x)\) lorsque \( x\) est proche de \( \alpha\). D'où l'idée de considérer la fonction
 \begin{equation}
-    g(x)=x-\frac{ f(x) }{ f'(x) },
+	g(x)=x-\frac{ f(x) }{ f'(x) },
 \end{equation}
 et donc la suite \( x_{n+1}=g(x_n)\) c'est-à-dire
 \begin{equation}
-    x_{n+1}=x-\frac{ f(x_n) }{ f'(x_n) }.
+	x_{n+1}=x-\frac{ f(x_n) }{ f'(x_n) }.
 \end{equation}
 Dès que \( x_n\) est proche de \( \alpha\), sous l'hypothèse (raisonnable par continuité) que \( f'(x_n)\) soit proche de \( f'(\alpha)\), la méthode devrait donner une convergence quadratique.
 
 \begin{remark}
-    Cette justification par points fixes n'est pas vraiment différente de celle par Taylor parce que Taylor est utilisé dans la preuve de la proposition~\ref{PROPooRPHKooLnPCVJ}.
+	Cette justification par points fixes n'est pas vraiment différente de celle par Taylor parce que Taylor est utilisé dans la preuve de la proposition~\ref{PROPooRPHKooLnPCVJ}.
 \end{remark}
 
 \begin{definition}[Méthode de Newton]
-    La \defe{méthode de Newton}{Méthode!de Newton} pour la fonction \( f\) est la suite définie par récurrence
-    \begin{equation}
-        x_{n+1}=x_n-\frac{ f(x_n)  }{ f'(x_n) }.
-    \end{equation}
-    Cette définition ne précise pas la valeur de \( x_0\), ni de condition d'arrêt.
+	La \defe{méthode de Newton}{Méthode!de Newton} pour la fonction \( f\) est la suite définie par récurrence
+	\begin{equation}
+		x_{n+1}=x_n-\frac{ f(x_n)  }{ f'(x_n) }.
+	\end{equation}
+	Cette définition ne précise pas la valeur de \( x_0\), ni de condition d'arrêt.
 \end{definition}
 
 %---------------------------------------------------------------------------------------------------------------------------
@@ -1173,111 +1173,111 @@ Dès que \( x_n\) est proche de \( \alpha\), sous l'hypothèse (raisonnable par 
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{theorem}[Convergence quadratique de la méthode de Newton\cite{ooGYJXooIWExXK}]       \label{THOooDOVSooWsAFkx}
-    Soit \( f\) une fonction continue vérifiant \( f(\alpha)=0\) et \( f'(\alpha)\neq 0\). Nous considérons la fonction
-    \begin{equation}
-        g(x)=x-\frac{ f(x) }{ f'(x) }
-    \end{equation}
-    que nous supposons être de classe \( C^2\).
+	Soit \( f\) une fonction continue vérifiant \( f(\alpha)=0\) et \( f'(\alpha)\neq 0\). Nous considérons la fonction
+	\begin{equation}
+		g(x)=x-\frac{ f(x) }{ f'(x) }
+	\end{equation}
+	que nous supposons être de classe \( C^2\).
 
-    Si \( C\) est une majoration de \( \| g'' \|\) sur un intervalle contenant \( \alpha\), alors en posant \( \delta=1/C\) nous avons
-    \begin{enumerate}
-        \item       \label{ITEMooVXSKooWCVWQc}
-            La boule \( B(\alpha,\delta)\) est préservée par \( g\) : \( g\big( B(\alpha,\delta) \big)\subset B(\alpha,\delta)\).
-        \item       \label{ITEMooZPSXooGgbfhG}
-            Pour tout \( x_0\in B(\alpha,\delta)\) nous avons convergence quadratique vers \( \alpha\) de la suite définie par \( x_{n+1}=g(x_n)\).
-        \item       \label{ITEMooZCXZooCjeWPl}
-            Nous avons l'estimation
-            \begin{equation}        \label{EQooFAIPooDpoNWK}
-                | x_n-\alpha |\leq \frac{1}{ C }\big( C| x_0-\alpha | \big)^{2^n}
-            \end{equation}
-            où \( C\) est la constante de la définition de convergence quadratique.
-    \end{enumerate}
+	Si \( C\) est une majoration de \( \| g'' \|\) sur un intervalle contenant \( \alpha\), alors en posant \( \delta=1/C\) nous avons
+	\begin{enumerate}
+		\item       \label{ITEMooVXSKooWCVWQc}
+		      La boule \( B(\alpha,\delta)\) est préservée par \( g\) : \( g\big( B(\alpha,\delta) \big)\subset B(\alpha,\delta)\).
+		\item       \label{ITEMooZPSXooGgbfhG}
+		      Pour tout \( x_0\in B(\alpha,\delta)\) nous avons convergence quadratique vers \( \alpha\) de la suite définie par \( x_{n+1}=g(x_n)\).
+		\item       \label{ITEMooZCXZooCjeWPl}
+		      Nous avons l'estimation
+		      \begin{equation}        \label{EQooFAIPooDpoNWK}
+			      | x_n-\alpha |\leq \frac{1}{ C }\big( C| x_0-\alpha | \big)^{2^n}
+		      \end{equation}
+		      où \( C\) est la constante de la définition de convergence quadratique.
+	\end{enumerate}
 \end{theorem}
 
 \begin{proof}
-    Nous commençons par calculer la dérivée de \( g\) :
-    \begin{equation}
-        g'(x)=-\frac{ f(x)f''(x) }{ f'(x)^2 },
-    \end{equation}
-    d'où nous déduisons que \( g'(\alpha)=0\). Ensuite nous utilisons abondamment la formule des accroissements finis (théorème~\ref{val_medio_2}) en commençant par
-    \begin{equation}        \label{EQooZITHooEbGVKG}
-        | g(t)-g(\alpha) |\leq \| g' \|_{\mathopen[ t , \alpha \mathclose]}| t-\alpha |
-    \end{equation}
-    où par \( \| f \|_A\) nous entendons la norme uniforme de \( f\) sur \( A\), c'est-à-dire \( \| f \|_A=\sup_{x\in A}\| f(x) \|\). Note : nous écrivons \( \mathopen[ t , \alpha \mathclose]\), mais ça pourrait être \( \mathopen[ \alpha , t \mathclose]\).
+	Nous commençons par calculer la dérivée de \( g\) :
+	\begin{equation}
+		g'(x)=-\frac{ f(x)f''(x) }{ f'(x)^2 },
+	\end{equation}
+	d'où nous déduisons que \( g'(\alpha)=0\). Ensuite nous utilisons abondamment la formule des accroissements finis (théorème~\ref{val_medio_2}) en commençant par
+	\begin{equation}        \label{EQooZITHooEbGVKG}
+		| g(t)-g(\alpha) |\leq \| g' \|_{\mathopen[ t , \alpha \mathclose]}| t-\alpha |
+	\end{equation}
+	où par \( \| f \|_A\) nous entendons la norme uniforme de \( f\) sur \( A\), c'est-à-dire \( \| f \|_A=\sup_{x\in A}\| f(x) \|\). Note : nous écrivons \( \mathopen[ t , \alpha \mathclose]\), mais ça pourrait être \( \mathopen[ \alpha , t \mathclose]\).
 
-    Si \( x\in\mathopen[ t , \alpha \mathclose]\) alors
-    \begin{subequations}
-        \begin{align}
-            | g'(x) |&=| g'(x)-g'(\alpha) |\\
-            &\leq \| g'' \|_{\mathopen[ x , \alpha \mathclose]}| x-\alpha |\\
-            &\leq \| g'' \|_{\mathopen[ x , \alpha \mathclose]}| t-\alpha |\\
-            &\leq \| g'' \|_{\mathopen[ t , \alpha \mathclose]}| t-\alpha |.
-        \end{align}
-    \end{subequations}
-    En particulier, \( \| g' \|_{\mathopen[ t , \alpha \mathclose]}\leq \| g'' \|_{\mathopen[ t , \alpha \mathclose]}| t-\alpha |\), et nous pouvons continuer les majorations \eqref{EQooZITHooEbGVKG} :
-    \begin{equation}
-        | g(t)-g(\alpha) |\leq \| g'' \|_{\mathopen[ t , \alpha \mathclose]}| t-\alpha |^2.
-    \end{equation}
+	Si \( x\in\mathopen[ t , \alpha \mathclose]\) alors
+	\begin{subequations}
+		\begin{align}
+			| g'(x) | & =| g'(x)-g'(\alpha) |                                           \\
+			          & \leq \| g'' \|_{\mathopen[ x , \alpha \mathclose]}| x-\alpha |  \\
+			          & \leq \| g'' \|_{\mathopen[ x , \alpha \mathclose]}| t-\alpha |  \\
+			          & \leq \| g'' \|_{\mathopen[ t , \alpha \mathclose]}| t-\alpha |.
+		\end{align}
+	\end{subequations}
+	En particulier, \( \| g' \|_{\mathopen[ t , \alpha \mathclose]}\leq \| g'' \|_{\mathopen[ t , \alpha \mathclose]}| t-\alpha |\), et nous pouvons continuer les majorations \eqref{EQooZITHooEbGVKG} :
+	\begin{equation}
+		| g(t)-g(\alpha) |\leq \| g'' \|_{\mathopen[ t , \alpha \mathclose]}| t-\alpha |^2.
+	\end{equation}
 
-    La fonction \( g\) étant de classe \( C^2\), la dérivée seconde \( g''\) est bornée (nous supposons déjà travailler sur un compact contenant \( \alpha\)). Soit \( C\) une borne. Nous sommes en mesure de prouver le point~\ref{ITEMooVXSKooWCVWQc} avec \( \delta=1/C\). En effet si \( t\in B(\alpha,1/C)\) alors
-    \begin{equation}
-        | g(t)-\alpha |=| g(t)-g(\alpha) |\leq C| t-\alpha |^2\leq C\frac{1}{ C^2 }=\frac{1}{ C },
-    \end{equation}
-    ce qui prouve que \( g(t)\in B(\alpha,1/C)\).
+	La fonction \( g\) étant de classe \( C^2\), la dérivée seconde \( g''\) est bornée (nous supposons déjà travailler sur un compact contenant \( \alpha\)). Soit \( C\) une borne. Nous sommes en mesure de prouver le point~\ref{ITEMooVXSKooWCVWQc} avec \( \delta=1/C\). En effet si \( t\in B(\alpha,1/C)\) alors
+	\begin{equation}
+		| g(t)-\alpha |=| g(t)-g(\alpha) |\leq C| t-\alpha |^2\leq C\frac{1}{ C^2 }=\frac{1}{ C },
+	\end{equation}
+	ce qui prouve que \( g(t)\in B(\alpha,1/C)\).
 
-    Le point~\ref{ITEMooZPSXooGgbfhG} se prouve de la même manière : si \( x_n\in B(\alpha,1/C)\) alors
-    \begin{equation}
-        | x_{n+1}-\alpha |=| g(x_n)-g(\alpha) |\leq C| x_n-\alpha |^2,
-    \end{equation}
-    ce qui est bien la convergence quadratique.
+	Le point~\ref{ITEMooZPSXooGgbfhG} se prouve de la même manière : si \( x_n\in B(\alpha,1/C)\) alors
+	\begin{equation}
+		| x_{n+1}-\alpha |=| g(x_n)-g(\alpha) |\leq C| x_n-\alpha |^2,
+	\end{equation}
+	ce qui est bien la convergence quadratique.
 
-    La majoration du point~\ref{ITEMooZCXZooCjeWPl} s'obtient par récurrence sur \( n\). Pour \( n=0\), la relation \eqref{EQooFAIPooDpoNWK} devient \( | x_0-\alpha |\leq | x_0-\alpha |\) qui est vraie. Ensuite par la convergence quadratique et la récurrence,
-    \begin{equation}
-        | x_{n+1}-\alpha |\leq C| x_n-\alpha |^2\leq C\big[  \frac{1}{ C }(C| x_0-\alpha |)^{2^n}  \big]^2=\frac{1}{ C }\big[ M| x_0-\alpha | \big]^{2^{n+1}}.
-    \end{equation}
+	La majoration du point~\ref{ITEMooZCXZooCjeWPl} s'obtient par récurrence sur \( n\). Pour \( n=0\), la relation \eqref{EQooFAIPooDpoNWK} devient \( | x_0-\alpha |\leq | x_0-\alpha |\) qui est vraie. Ensuite par la convergence quadratique et la récurrence,
+	\begin{equation}
+		| x_{n+1}-\alpha |\leq C| x_n-\alpha |^2\leq C\big[  \frac{1}{ C }(C| x_0-\alpha |)^{2^n}  \big]^2=\frac{1}{ C }\big[ M| x_0-\alpha | \big]^{2^{n+1}}.
+	\end{equation}
 \end{proof}
 
 \begin{normaltext}
-    Dans le cas pratiques, nous commençons souvent par résoudre l'équation \( f(x)=0\) par dichotomie. Au moment où nous sommes assez proche de la solution nous commençons Newton.
+	Dans le cas pratiques, nous commençons souvent par résoudre l'équation \( f(x)=0\) par dichotomie. Au moment où nous sommes assez proche de la solution nous commençons Newton.
 
-    La raison est que la dichotomie fonctionne toujours : nous allons toujours nous approcher de la solution. Si par contre le point de départ est mal choisit, la méthode de Newton peut envoyer n'importe où, y compris très loin de la solution.
+	La raison est que la dichotomie fonctionne toujours : nous allons toujours nous approcher de la solution. Si par contre le point de départ est mal choisit, la méthode de Newton peut envoyer n'importe où, y compris très loin de la solution.
 \end{normaltext}
 
 La proposition suivante nous indique que dans le cas d'une fonction convexe, le choix de point de départ de la méthode de Newton n'est pas tellement crucial parce qu'ils sont tous bons. De plus la convergence se faisant de façon décroissante (si on part de la droite), nous savons que le résultat sera une approximation par excès de \( \alpha\).
 \begin{proposition}[Newton dans le cas convexe]     \label{PROPooVTSAooAtSLeI}
-    Soit \( f\) de classe \( C^2\) et une racine \( \alpha\) telle que \( f'(\alpha)>0\). Soit \( b>\alpha \) tel que \( f\) soit convexe sur \( \mathopen[ \alpha , b \mathclose]\).
+	Soit \( f\) de classe \( C^2\) et une racine \( \alpha\) telle que \( f'(\alpha)>0\). Soit \( b>\alpha \) tel que \( f\) soit convexe sur \( \mathopen[ \alpha , b \mathclose]\).
 
-    Alors pour tout \( x_0\in\mathopen[ \alpha , b \mathclose]\) la suite de la méthode de Newton est
-    \begin{enumerate}
-        \item
-            décroissante
-        \item
-            reste dans \( \mathopen[ \alpha , b \mathclose]\)
-        \item
-            converge vers \( \alpha\).
-    \end{enumerate}
+	Alors pour tout \( x_0\in\mathopen[ \alpha , b \mathclose]\) la suite de la méthode de Newton est
+	\begin{enumerate}
+		\item
+		      décroissante
+		\item
+		      reste dans \( \mathopen[ \alpha , b \mathclose]\)
+		\item
+		      converge vers \( \alpha\).
+	\end{enumerate}
 \end{proposition}
 \index{méthode!Newton!cas convexe}
 \index{convexité!méthode de Newton}
 
 \begin{proof}
-    Nous savons par la proposition~\ref{PropYKwTDPX}\ref{ITEMooLLSIooFwkxtV} que la fonction \( f'\) est croissante, et par hypothèse \( f'(\alpha)>0\), donc sur \( \mathopen[ \alpha , b \mathclose]\) nous avons \( f'>0\). Par conséquent, nous avons aussi \( f>0\) sur \( \mathopen[ \alpha , b \mathclose]\).
+	Nous savons par la proposition~\ref{PropYKwTDPX}\ref{ITEMooLLSIooFwkxtV} que la fonction \( f'\) est croissante, et par hypothèse \( f'(\alpha)>0\), donc sur \( \mathopen[ \alpha , b \mathclose]\) nous avons \( f'>0\). Par conséquent, nous avons aussi \( f>0\) sur \( \mathopen[ \alpha , b \mathclose]\).
 
-    Le graphe de \( f\) est au dessus de la tangente de \( f\) en \( x=x_n\) (proposition~\ref{PROPooQPOSooDZlUAJ}). Si nous nommons \( t_x\) la fonction qui donne la tangente en \( x\) nous avons \( t_{x_n}(\alpha)<0\) parce que \( f(\alpha)=0\). Par conséquent
-    \begin{equation}
-        t_{x_n}(x)=0
-    \end{equation}
-    pour \( \alpha<x<x_n\). Cela prouve que \( x_{n+1}\in\mathopen[ \alpha , b \mathclose]\), et que \( (x_n)\) est une suite décroissante
+	Le graphe de \( f\) est au dessus de la tangente de \( f\) en \( x=x_n\) (proposition~\ref{PROPooQPOSooDZlUAJ}). Si nous nommons \( t_x\) la fonction qui donne la tangente en \( x\) nous avons \( t_{x_n}(\alpha)<0\) parce que \( f(\alpha)=0\). Par conséquent
+	\begin{equation}
+		t_{x_n}(x)=0
+	\end{equation}
+	pour \( \alpha<x<x_n\). Cela prouve que \( x_{n+1}\in\mathopen[ \alpha , b \mathclose]\), et que \( (x_n)\) est une suite décroissante
 
-    Étant donné que \( (x_n)\) est une suite décroissante dans le compact \( \mathopen[ \alpha , b \mathclose]\), elle est convergente. Notons \( \beta\) sa limite. Nous avons la relation de récurrence
-    \begin{equation}
-        x_{n+1}=x_n-\frac{ f(x_n) }{ f'(x_n) }.
-    \end{equation}
-    En passant à la limite \( n\to \infty\) nous avons l'équation
-    \begin{equation}
-        \beta=\beta-\frac{ f(\beta) }{ f'(\beta) }.
-    \end{equation}
-    Vu que \( f(x)>0\) sur \( \mathopen] \alpha , b \mathclose]\) nous avons automatiquement \( \beta=\alpha\).
+	Étant donné que \( (x_n)\) est une suite décroissante dans le compact \( \mathopen[ \alpha , b \mathclose]\), elle est convergente. Notons \( \beta\) sa limite. Nous avons la relation de récurrence
+	\begin{equation}
+		x_{n+1}=x_n-\frac{ f(x_n) }{ f'(x_n) }.
+	\end{equation}
+	En passant à la limite \( n\to \infty\) nous avons l'équation
+	\begin{equation}
+		\beta=\beta-\frac{ f(\beta) }{ f'(\beta) }.
+	\end{equation}
+	Vu que \( f(x)>0\) sur \( \mathopen] \alpha , b \mathclose]\) nous avons automatiquement \( \beta=\alpha\).
 \end{proof}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
@@ -1287,13 +1287,13 @@ La proposition suivante nous indique que dans le cas d'une fonction convexe, le 
 Nous avons vu dans la proposition \ref{PROPooSTQXooHlIGVf} une suite dont la limite était \( \sqrt{ A }\).
 
 \begin{example}\label{EXooDLSVooMHPpcl}
-    Utilisation de la méthode de Newton pour calculer \( \sqrt{ A }\). La première idée serait d'appliquer le théorème \ref{THOooDOVSooWsAFkx} à la fonction \( f(x)=x-\sqrt{ A }\). Je vous laisse voir pourquoi ça ne marche pas.
+	Utilisation de la méthode de Newton pour calculer \( \sqrt{ A }\). La première idée serait d'appliquer le théorème \ref{THOooDOVSooWsAFkx} à la fonction \( f(x)=x-\sqrt{ A }\). Je vous laisse voir pourquoi ça ne marche pas.
 
-    Nous faisons \( f(x)=x^2-A\). Le calcul donne :
-    \begin{equation}
-        g(x)=x-\frac{ x^2-A }{ 2x }=\frac{ 1 }{2}\big( x+\frac{ A }{ x } \big).
-    \end{equation}
-    Cela explique la formule \eqref{EQooOUIVooUqWhXe}.
+	Nous faisons \( f(x)=x^2-A\). Le calcul donne :
+	\begin{equation}
+		g(x)=x-\frac{ x^2-A }{ 2x }=\frac{ 1 }{2}\big( x+\frac{ A }{ x } \big).
+	\end{equation}
+	Cela explique la formule \eqref{EQooOUIVooUqWhXe}.
 \end{example}
 
 %---------------------------------------------------------------------------------------------------------------------------
@@ -1328,7 +1328,7 @@ Le problème $F_0$ fournit un nombre $x_1$ qui nous permet de sélectionner le p
 Au moment de calculer le conditionnement de $F_n$, nous ne devons pas voir $x_{n-1}$ comme fonction de $x_0$ et de la donnée $f$. Il ne faut donc pas dériver à travers les $x_n$.
 
 \begin{proposition}
-    Si une racine est multiple, alors l'ordre de convergence de la méthode de Newton est \( 1\).
+	Si une racine est multiple, alors l'ordre de convergence de la méthode de Newton est \( 1\).
 \end{proposition}
 
 Voici un algorithme possible :
@@ -1337,12 +1337,12 @@ Voici un algorithme possible :
 
 Commentaires :
 \begin{enumerate}
-    \item
-        Notons que dans un langage vraiment numérique comme Matlab, il faut passer \( f'\) en argument.
-    \item
-        Dans le \info{while} il faudrait mettre \( x_{n+1}-x_n\) (en valeur absolue), mais cette différence est aussi utilisée pour calculer \( x_{n+1}\) donc on la calcule une seule fois.
-    \item
-        Il faudrait faire une vérification sur \( f(x_n)\neq 0\). Il n'y a pas tellement de choix que de changer le point initial.
+	\item
+	      Notons que dans un langage vraiment numérique comme Matlab, il faut passer \( f'\) en argument.
+	\item
+	      Dans le \info{while} il faudrait mettre \( x_{n+1}-x_n\) (en valeur absolue), mais cette différence est aussi utilisée pour calculer \( x_{n+1}\) donc on la calcule une seule fois.
+	\item
+	      Il faudrait faire une vérification sur \( f(x_n)\neq 0\). Il n'y a pas tellement de choix que de changer le point initial.
 \end{enumerate}
 
 %---------------------------------------------------------------------------------------------------------------------------
@@ -1353,15 +1353,15 @@ L'algorithme de Newton a les caractéristiques suivantes :
 \begin{enumerate}
 
 	\item
-		Pour résoudre le problème numéro $n$, il faut avoir résolu le problème numéro $n-1$.
+	      Pour résoudre le problème numéro $n$, il faut avoir résolu le problème numéro $n-1$.
 	\item
-		Aucune des solutions $x_n$ aux problèmes intermédiaires n'est une solution au problème de départ (à moins d'un coup de chance).
+	      Aucune des solutions $x_n$ aux problèmes intermédiaires n'est une solution au problème de départ (à moins d'un coup de chance).
 	\item
-		Étant donné que la donnée du problème $F_n$ est la fonction $f$ de départ, nous avons $d_m=d_n=d$ pour tout $m$ et $n$.
+	      Étant donné que la donnée du problème $F_n$ est la fonction $f$ de départ, nous avons $d_m=d_n=d$ pour tout $m$ et $n$.
 \end{enumerate}
 
 \begin{theorem}     \label{THOooMACHooLofCVu}
-    Soit \( f\) continue sur un voisinage de \( \alpha\), racine simple. Alors il existe un voisinage de \( \alpha\) de rayon \( \sigma\) tel que pour tout \( x_0\) dans ce voisinage, la méthode converge vers \( \alpha\) avec ordre de convergence \( p=2\).
+	Soit \( f\) continue sur un voisinage de \( \alpha\), racine simple. Alors il existe un voisinage de \( \alpha\) de rayon \( \sigma\) tel que pour tout \( x_0\) dans ce voisinage, la méthode converge vers \( \alpha\) avec ordre de convergence \( p=2\).
 \end{theorem}
 
 Donc dès qu'on a continuité autour de la solution recherchée, il suffit de prendre \( x_0\) assez proche pour que tout se passe bien. Cela se fait par localisation des racines, par exemples en traçant la fonction avec un bon niveau de zoom. Le fait est qu'on cherche disons \( 3\) décimales à la main (travail sur ordinateur et graphique) et Newton donne les \( 20\) décimales suivantes à la vitesse de la lumière.
@@ -1372,36 +1372,36 @@ Donc dès qu'on a continuité autour de la solution recherchée, il suffit de pr
 
 Nous allons nous lancer dans un exemple : le cas de la racine carrée. Soit à calculer une approximation numérique de \( \sqrt{ 2 }\). Il s'agit d'une racine de la fonction \( f(x)=x^2+2\). La fonction de la méthode de Newton associée est :
 \begin{equation}
-    g(x)=x-\frac{ f(x) }{ f'(x) }=\frac{ x^2-2 }{ 2x }.
+	g(x)=x-\frac{ f(x) }{ f'(x) }=\frac{ x^2-2 }{ 2x }.
 \end{equation}
 Cherchons un intervalle autour de \( \sqrt{ 2 }\) sur lequel nous avons convergence de la méthode de Newton. Cela s'obtient grace à la proposition~\ref{PROPooRPHKooLnPCVJ} qui nous informe qu'il suffit de trouver un intervalle autour de \( \sqrt{ 2 }\) sur lequel \( | g'(x) |\leq 1\).
 
 Nous avons
 \begin{equation}
-    g'(x)=\frac{ x^2-2 }{ 2x^2 },
+	g'(x)=\frac{ x^2-2 }{ 2x^2 },
 \end{equation}
 et nous cherchons à résoudre \( | g'(x) |\leq 1\). D'abord \( g'(x)=1\) n'a aucune solutions alors que \( g'(\sqrt{ 2 })=0\). Donc nous avons \(  g'(x) \leq 1\) pour tout \( x\in \eR^+\). Par contre l'équation \( g'(x)=-1\) a des solutions : \( x=\pm\sqrt{ 2/3 }\).
 
 Nous avons donc convergence de la méthode de Newton pour \( x_0\) dans un intervalle de la forme
 \begin{equation}
-    \mathopen[ \sqrt{ 2/3 } , \sqrt{ 2 }+\ldots \mathclose]
+	\mathopen[ \sqrt{ 2/3 } , \sqrt{ 2 }+\ldots \mathclose]
 \end{equation}
 où les les trois points représentent l'expression qu'il faut pour que ce soit symétrique autour de \( \sqrt{ 2 }\). La valeur précise n'a pas tellement d'importance parce, vu que nous sommes en train de chercher \( \sqrt{ 2 }\), il est peu probable que nous ayons déjà en main une bonne approximation de nombres du type \( \sqrt{ 2/3 }\).
 
 \begin{proposition}
-La méthode de Newton pour la fonction \( f(x)=x^2-2\) converge vers \( \sqrt{ 2 }\) pour toute valeur de départ dans \( \mathopen] 0 , +\infty \mathclose[\).
+	La méthode de Newton pour la fonction \( f(x)=x^2-2\) converge vers \( \sqrt{ 2 }\) pour toute valeur de départ dans \( \mathopen] 0 , +\infty \mathclose[\).
 \end{proposition}
 
 \begin{proof}
-    La fonction \( f(x)=x^2-2\) est convexe et \( f'(\sqrt{ 2 })=2\sqrt{ 2 }>0\). Donc la méthode converge vers \( \sqrt{ 2 }\) pour tout \( x_0\geq \sqrt{ 2 }\) par la proposition~\ref{PROPooVTSAooAtSLeI}.
+	La fonction \( f(x)=x^2-2\) est convexe et \( f'(\sqrt{ 2 })=2\sqrt{ 2 }>0\). Donc la méthode converge vers \( \sqrt{ 2 }\) pour tout \( x_0\geq \sqrt{ 2 }\) par la proposition~\ref{PROPooVTSAooAtSLeI}.
 
-    Si par contre \( x_0\in\mathopen] 0 , \sqrt{ 2 } \mathclose[\) nous avons
-        \begin{equation}
-            x_1=\frac{ x_0^2+2 }{ 2x_0 }.
-        \end{equation}
-    En posant \( h(x)=(x^2+2)/2x\) et en résolvant \( h'(x)=0\) nous trouvons \( x=\sqrt{ 2 }\). Et là, \( h(\sqrt{ 2 })=\sqrt{ 2 }\). Donc \( h(x)\) est toujours plus grand que \( \sqrt{ 2 }\) pour tout \( x\in\mathopen] 0 , \sqrt{ 2 } \mathclose[\).
+	Si par contre \( x_0\in\mathopen] 0 , \sqrt{ 2 } \mathclose[\) nous avons
+		\begin{equation}
+			x_1=\frac{ x_0^2+2 }{ 2x_0 }.
+		\end{equation}
+		En posant \( h(x)=(x^2+2)/2x\) et en résolvant \( h'(x)=0\) nous trouvons \( x=\sqrt{ 2 }\). Et là, \( h(\sqrt{ 2 })=\sqrt{ 2 }\). Donc \( h(x)\) est toujours plus grand que \( \sqrt{ 2 }\) pour tout \( x\in\mathopen] 0 , \sqrt{ 2 } \mathclose[\).
 
-    En d'autres termes, si \( x_0\in\mathopen] 0 , \sqrt{ 2 } \mathclose[\) alors \( x_1\geq \sqrt{ 2 }\) et nous retombons dans le premier cas.
+		En d'autres termes, si \( x_0\in\mathopen] 0 , \sqrt{ 2 } \mathclose[\) alors \( x_1\geq \sqrt{ 2 }\) et nous retombons dans le premier cas.
 \end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
@@ -1414,7 +1414,7 @@ Cela se remarque en voyant que la méthode de Newton demande plutôt \( 20\) it�
 
 Nous pouvons modifier la formule avec
 \begin{equation}
-    x_{n+1}=x_n-r\frac{ f(x_n) }{ f'(x_n) }.
+	x_{n+1}=x_n-r\frac{ f(x_n) }{ f'(x_n) }.
 \end{equation}
 Il est possible de prouver que cette suite est à nouveau à convergence quadratique.
 
@@ -1440,58 +1440,58 @@ Un des problèmes de la méthode de Newton est que l'on doit pouvoir calculer la
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{lemma}       \label{LemXdObnV}
-    Soient \( A\) et \( B\) deux matrices inversibles telles que la matrice \( (A+\epsilon B)\) soit inversible pour tout \( \epsilon\) assez petit. Alors il existe une matrice \( X(\epsilon)\) telle que
-    \begin{equation}
-        (A+\epsilon B)^{-1}=(A^{-1}+\epsilon X)
-    \end{equation}
-    et telle que \( \lim_{\epsilon\to 0}X(\epsilon)=-A^{-1} BA^{-1}\).
+	Soient \( A\) et \( B\) deux matrices inversibles telles que la matrice \( (A+\epsilon B)\) soit inversible pour tout \( \epsilon\) assez petit. Alors il existe une matrice \( X(\epsilon)\) telle que
+	\begin{equation}
+		(A+\epsilon B)^{-1}=(A^{-1}+\epsilon X)
+	\end{equation}
+	et telle que \( \lim_{\epsilon\to 0}X(\epsilon)=-A^{-1} BA^{-1}\).
 \end{lemma}
 
 \begin{proof}
-    Le candidat matrice \( X\) est relativement simple à trouver en écrivant
-    \begin{equation}
-        (A+\epsilon B)(A^{-1}+\epsilon X)=\mtu+\epsilon AX+\epsilon BA^{-1}+\epsilon^2BX.
-    \end{equation}
-    En imposant que cela soit \( \mtu\), nous trouvons
-    \begin{equation}
-        X(\epsilon)=-(A+\epsilon B)^{-1} BA^{-1}.
-    \end{equation}
-    La matrice \( X(\epsilon)\) étant un inverse à droite de \( (A+\epsilon B)\), son déterminant est non nul et \( X\) est inversible. Par conséquent elle est également inversible au sens usuel. Le calcul de la limite est direct :
-    \begin{equation}
-        \lim_{\epsilon\to 0}-(A+\epsilon B)^{-1} BA^{-1}=A^{-1} BA^{-1}
-    \end{equation}
-    parce que l'inverse est une fonction continue sur \( \eM(n,\eR)\).
+	Le candidat matrice \( X\) est relativement simple à trouver en écrivant
+	\begin{equation}
+		(A+\epsilon B)(A^{-1}+\epsilon X)=\mtu+\epsilon AX+\epsilon BA^{-1}+\epsilon^2BX.
+	\end{equation}
+	En imposant que cela soit \( \mtu\), nous trouvons
+	\begin{equation}
+		X(\epsilon)=-(A+\epsilon B)^{-1} BA^{-1}.
+	\end{equation}
+	La matrice \( X(\epsilon)\) étant un inverse à droite de \( (A+\epsilon B)\), son déterminant est non nul et \( X\) est inversible. Par conséquent elle est également inversible au sens usuel. Le calcul de la limite est direct :
+	\begin{equation}
+		\lim_{\epsilon\to 0}-(A+\epsilon B)^{-1} BA^{-1}=A^{-1} BA^{-1}
+	\end{equation}
+	parce que l'inverse est une fonction continue sur \( \eM(n,\eR)\).
 \end{proof}
 
 \begin{remark}
-    Un calcul naïf nous permet de trouver le même résultat de façon plus heuristique. En effet un développement usuel (dans \( \eR\)) est
-    \begin{equation}
-        \frac{1}{ a+\epsilon b }=\frac{1}{ a }-\frac{ \epsilon b }{ a^2 }+\ldots
-    \end{equation}
-    Si nous récrivons cela avec des matrices, nous écrivons (attention : passage heuristique!) :
-    \begin{equation}
-        (A+\epsilon B)^{-1}=A^{-1}-\epsilon A^{-1} BA^{-1}+\ldots
-    \end{equation}
-    Notons le choix de généraliser \( b/a^2\) par \( a^{-1} ba^{-1}\). Dans les réels les deux écritures sont équivalentes, mais pas dans les matrices.
+	Un calcul naïf nous permet de trouver le même résultat de façon plus heuristique. En effet un développement usuel (dans \( \eR\)) est
+	\begin{equation}
+		\frac{1}{ a+\epsilon b }=\frac{1}{ a }-\frac{ \epsilon b }{ a^2 }+\ldots
+	\end{equation}
+	Si nous récrivons cela avec des matrices, nous écrivons (attention : passage heuristique!) :
+	\begin{equation}
+		(A+\epsilon B)^{-1}=A^{-1}-\epsilon A^{-1} BA^{-1}+\ldots
+	\end{equation}
+	Notons le choix de généraliser \( b/a^2\) par \( a^{-1} ba^{-1}\). Dans les réels les deux écritures sont équivalentes, mais pas dans les matrices.
 
-    Étudions si \( A^{-1}-\epsilon A^{-1}BA^{-1}\) est bien un inverse à \( \epsilon^2\) près de \( (A+\epsilon B)\) :
-    \begin{equation}
-        (A+\epsilon B)(A^{-1}+\epsilon A^{-1} BA^{-1})=1-\epsilon BA^{-1}+\epsilon BA^{-1}-\epsilon^2BA^{-1}BA^{-1}=1-\epsilon^2BA^{-1} BA^{-1}.
-    \end{equation}
-    Par conséquent, à des termes en \( \epsilon^2\) près la matrice \( A^{-1}-\epsilon A^{-1}BA^{-1}\) est bien un inverse de \( A+\epsilon B\).
+	Étudions si \( A^{-1}-\epsilon A^{-1}BA^{-1}\) est bien un inverse à \( \epsilon^2\) près de \( (A+\epsilon B)\) :
+	\begin{equation}
+		(A+\epsilon B)(A^{-1}+\epsilon A^{-1} BA^{-1})=1-\epsilon BA^{-1}+\epsilon BA^{-1}-\epsilon^2BA^{-1}BA^{-1}=1-\epsilon^2BA^{-1} BA^{-1}.
+	\end{equation}
+	Par conséquent, à des termes en \( \epsilon^2\) près la matrice \( A^{-1}-\epsilon A^{-1}BA^{-1}\) est bien un inverse de \( A+\epsilon B\).
 \end{remark}
 
 \begin{theorem}[Méthode de Newton\cite{ChambertNewton}]\label{ThoHGpGwXk}
-    Soit \( f\colon \eR^n\to \eR^n\) une application de classe \( C^2\) et un point \( a\in \eR^n\) tel que \( f(a)=0\). Nous supposons que \( df_a\) est inversible.
+	Soit \( f\colon \eR^n\to \eR^n\) une application de classe \( C^2\) et un point \( a\in \eR^n\) tel que \( f(a)=0\). Nous supposons que \( df_a\) est inversible.
 
-    Alors il existe un voisinage \( V\) de \( a\) tel que pour tout \( x_0\in V\) la suite définie par récurrence
-    \begin{equation}
-        x_{n+1}=x_n-(df_a)^{-1}\big( f(x_n) \big)
-    \end{equation}
-    converge vers \( a\). De plus la vitesse est quadratique au sens où il existe \( C>1\) tel que
-    \begin{equation}        \label{EqtkiDXt}
-        \| x_n-a \|\leq C^{-1-2^n}.
-    \end{equation}
+	Alors il existe un voisinage \( V\) de \( a\) tel que pour tout \( x_0\in V\) la suite définie par récurrence
+	\begin{equation}
+		x_{n+1}=x_n-(df_a)^{-1}\big( f(x_n) \big)
+	\end{equation}
+	converge vers \( a\). De plus la vitesse est quadratique au sens où il existe \( C>1\) tel que
+	\begin{equation}        \label{EqtkiDXt}
+		\| x_n-a \|\leq C^{-1-2^n}.
+	\end{equation}
 \end{theorem}
 \index{Newton!méthode}
 \index{méthode!Newton}
@@ -1500,59 +1500,59 @@ Un des problèmes de la méthode de Newton est que l'on doit pouvoir calculer la
 \index{suite!définie par itération}
 
 \begin{proof}
-    Étant donné que \( df_a\) est inversible et que \( df\) est continue, l'application \( df_x\) est continue\footnote{Nous pouvons voir \( df\) comme l'application qui à \( x\) fait correspondre la matrice \( df_x\in\eM(n,\eR)\). Cette application étant continue et la non inversibilité d'une matrice étant donnée par l'annulation du déterminant, les matrices inversibles forment un ouvert dans l'ensemble des matrices.} pour tout \( x\) dans un voisinage de \( a\). Nous prenons \( r>0\) tel que \( df_x\) est inversible pour tout \( x\in B(a,r)\).
+	Étant donné que \( df_a\) est inversible et que \( df\) est continue, l'application \( df_x\) est continue\footnote{Nous pouvons voir \( df\) comme l'application qui à \( x\) fait correspondre la matrice \( df_x\in\eM(n,\eR)\). Cette application étant continue et la non inversibilité d'une matrice étant donnée par l'annulation du déterminant, les matrices inversibles forment un ouvert dans l'ensemble des matrices.} pour tout \( x\) dans un voisinage de \( a\). Nous prenons \( r>0\) tel que \( df_x\) est inversible pour tout \( x\in B(a,r)\).
 
-    Nous considérons la fonction
-    \begin{equation}
-        \begin{aligned}
-                F\colon B(a,r)&\to \eR^n \\
-                x&\mapsto x-(df_x)^{-1}\big( f(x) \big).
-            \end{aligned}
-        \end{equation}
-        Cela est une application \( C^1\). La clef est de montrer que l'application de \( F\) à un point \( a+h\) rapproche de \( a\) pourvu que \( h\) soit assez petit. Nous avons la formule suivante :
-        \begin{equation}        \label{EqyDLQeE}
-            F(a+h)-F(a)=h-\big( df_{a+h} \big)^{-1}\big( f(a+h) \big).
-        \end{equation}
-        Nous allons maintenant utiliser un développement de Taylor par rapport à \( h\) en suivant la formule \eqref{EquQtpoN}. Nous avons
-        \begin{equation}
-            f(a+h)=f(a)+df_a(h)+\| h \|^2\xi(h)
-        \end{equation}
-        où \( \xi\colon \eR^n\to \eR^n\) est une fonction qui tend vers une constante lorsque \( h\to 0\). Nous avons aussi
-        \begin{equation}
-            df_{a+h}=df_a+\| h \|\tau(h)
-        \end{equation}
-        où \( \tau\colon \eR^n\to \eM(n,\eR)\) est une application qui tend vers une constante lorsque \( h\to 0\). En ce qui concerne l'inverse nous utilisons le lemme\footnote{Pour l'inversibilité de \( \| h \|\tau(h)\), notons que \( df_a\) est inversible et que par hypothèse la somme \( df_a+\| h \|\tau(h)\) est inversible.}~\ref{LemXdObnV} :
-        \begin{equation}
-            \big( df_a+\| h \|\tau(h) \big)^{-1}=(df_a)^{-1}+\| h \|A(h)
-        \end{equation}
-        où \( A\) est une autre matrice fonction de \(h\) qui tend vers une constante lorsque \( h\) tend vers zéro. En substituant le tout dans \eqref{EqyDLQeE} nous trouvons
-        \begin{equation}
-            F(a+h)-F(a)=\| h \|^2(df_a)^{-1}\xi(h)+\| h \|\big( A(h)\circ df_a \big)(h)+\| h \|^3A(h)\xi(h).
-        \end{equation}
-        En ce qui concerne la norme nous utilisons le fait que si \( T\) est un opérateur, \( \| Tx \|\leq \| T \|\| x \|\). Nous trouvons
-        \begin{subequations}
-            \begin{align}
-                \| F(a+h)-F(a) \|&\leq \| h \|^2\| (df_a)^{-1} \|\| \xi(h) \|+\| h \|^2\| A(h)\circ df_a \|+\| h \|^3\| A(h) \|\| \xi(h) \|\\
-                &=\| h \|^2\alpha(h)
-            \end{align}
-        \end{subequations}
-    pour une certaine fonction \( \alpha\colon \eR^n\to \eR\) qui tend vers une constante lorsque \( h\to 0\).
+	Nous considérons la fonction
+	\begin{equation}
+		\begin{aligned}
+			F\colon B(a,r) & \to \eR^n                              \\
+			x              & \mapsto x-(df_x)^{-1}\big( f(x) \big).
+		\end{aligned}
+	\end{equation}
+	Cela est une application \( C^1\). La clef est de montrer que l'application de \( F\) à un point \( a+h\) rapproche de \( a\) pourvu que \( h\) soit assez petit. Nous avons la formule suivante :
+	\begin{equation}        \label{EqyDLQeE}
+		F(a+h)-F(a)=h-\big( df_{a+h} \big)^{-1}\big( f(a+h) \big).
+	\end{equation}
+	Nous allons maintenant utiliser un développement de Taylor par rapport à \( h\) en suivant la formule \eqref{EquQtpoN}. Nous avons
+	\begin{equation}
+		f(a+h)=f(a)+df_a(h)+\| h \|^2\xi(h)
+	\end{equation}
+	où \( \xi\colon \eR^n\to \eR^n\) est une fonction qui tend vers une constante lorsque \( h\to 0\). Nous avons aussi
+	\begin{equation}
+		df_{a+h}=df_a+\| h \|\tau(h)
+	\end{equation}
+	où \( \tau\colon \eR^n\to \eM(n,\eR)\) est une application qui tend vers une constante lorsque \( h\to 0\). En ce qui concerne l'inverse nous utilisons le lemme\footnote{Pour l'inversibilité de \( \| h \|\tau(h)\), notons que \( df_a\) est inversible et que par hypothèse la somme \( df_a+\| h \|\tau(h)\) est inversible.}~\ref{LemXdObnV} :
+	\begin{equation}
+		\big( df_a+\| h \|\tau(h) \big)^{-1}=(df_a)^{-1}+\| h \|A(h)
+	\end{equation}
+	où \( A\) est une autre matrice fonction de \(h\) qui tend vers une constante lorsque \( h\) tend vers zéro. En substituant le tout dans \eqref{EqyDLQeE} nous trouvons
+	\begin{equation}
+		F(a+h)-F(a)=\| h \|^2(df_a)^{-1}\xi(h)+\| h \|\big( A(h)\circ df_a \big)(h)+\| h \|^3A(h)\xi(h).
+	\end{equation}
+	En ce qui concerne la norme nous utilisons le fait que si \( T\) est un opérateur, \( \| Tx \|\leq \| T \|\| x \|\). Nous trouvons
+	\begin{subequations}
+		\begin{align}
+			\| F(a+h)-F(a) \| & \leq \| h \|^2\| (df_a)^{-1} \|\| \xi(h) \|+\| h \|^2\| A(h)\circ df_a \|+\| h \|^3\| A(h) \|\| \xi(h) \| \\
+			                  & =\| h \|^2\alpha(h)
+		\end{align}
+	\end{subequations}
+	pour une certaine fonction \( \alpha\colon \eR^n\to \eR\) qui tend vers une constante lorsque \( h\to 0\).
 
-    En posant \( C=\lim_{h\to 0}\alpha(h) \) nous avons la majoration
-    \begin{equation}        \label{EqSYiuYF}
-        \| F(x)-a \|\leq C\| x-a \|^2.
-    \end{equation}
-    Nous pouvons également supposer que \( C>1\). Afin de prouver la vitesse de convergence \eqref{EqtkiDXt}, nous allons encore redéfinir \( r\) en demandant \( r<1/C^2\). De cette manière nous avons
-    \begin{equation}
-        \| x_0-a \|\leq \frac{1}{ C^2 }
-    \end{equation}
-    et la récurrence sur \( n\) est :
-    \begin{equation}
-        \| x_{n+1}-a \|=\| F(x_n)-a \|\leq C\| x_n-a \|^2\leq C\big( C^{-1-2^n} \big)^2=C^{-1-2^{n+1}}.
-    \end{equation}
-    Note : ce dernier calcul est le lemme~\ref{LEMooLQMAooICcmrn} appliqué à \( r=(1/C^2)\).
+	En posant \( C=\lim_{h\to 0}\alpha(h) \) nous avons la majoration
+	\begin{equation}        \label{EqSYiuYF}
+		\| F(x)-a \|\leq C\| x-a \|^2.
+	\end{equation}
+	Nous pouvons également supposer que \( C>1\). Afin de prouver la vitesse de convergence \eqref{EqtkiDXt}, nous allons encore redéfinir \( r\) en demandant \( r<1/C^2\). De cette manière nous avons
+	\begin{equation}
+		\| x_0-a \|\leq \frac{1}{ C^2 }
+	\end{equation}
+	et la récurrence sur \( n\) est :
+	\begin{equation}
+		\| x_{n+1}-a \|=\| F(x_n)-a \|\leq C\| x_n-a \|^2\leq C\big( C^{-1-2^n} \big)^2=C^{-1-2^{n+1}}.
+	\end{equation}
+	Note : ce dernier calcul est le lemme~\ref{LEMooLQMAooICcmrn} appliqué à \( r=(1/C^2)\).
 \end{proof}
 
 \begin{remark}
-    La valeur de la constante \( C\) a été fixée par l'équation \eqref{EqSYiuYF}. Certes nous pouvons toujours choisir \( C\) plus grand afin d'augmenter la vitesse de convergence, mais le point de départ \( x_0\) devant être dans une boule de taille \( 1/C^2\) autour de \( a\), demander \( C \) plus grand revient à demander un point de départ plus précis.
+	La valeur de la constante \( C\) a été fixée par l'équation \eqref{EqSYiuYF}. Certes nous pouvons toujours choisir \( C\) plus grand afin d'augmenter la vitesse de convergence, mais le point de départ \( x_0\) devant être dans une boule de taille \( 1/C^2\) autour de \( a\), demander \( C \) plus grand revient à demander un point de départ plus précis.
 \end{remark}
