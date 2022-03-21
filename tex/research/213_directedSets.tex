@@ -92,7 +92,7 @@ It turns out that the end point of the lifted path only depends on the class of 
 \section{Haar measure}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-\begin{theorem}[Kakutani\cite{BIBooNYIOooTIiwbz,BIBooAWWDooUzosWY}]     \label{THOooWXQFooQrWcLY}
+\begin{theorem}[Kakutani fixed point\cite{BIBooNYIOooTIiwbz,BIBooAWWDooUzosWY}]     \label{THOooWXQFooQrWcLY}
     Let \( X\) be an Hausdorff locally convex\footnote{Locally convex, definition \ref{DEFooCGJBooSvDpyC}.} topological vector space. Let \( K\) be compact in \( X\) and \( \mS\) be a group of linear endomorphisms of \( X\) such that
     \begin{enumerate}
         \item
@@ -287,8 +287,101 @@ It turns out that the end point of the lifted path only depends on the class of 
     \end{subproof}
 \end{proof}
 
-%TODOooGPUAooSiCkrm Quand ceci est prouvé, poster un lien vers ici sur la question
-% https://math.stackexchange.com/questions/4402056/use-of-zorn-lemma-in-a-proof-of-kakutani-theorem
+We recall the regular left action. If \( G\) is a group, \( u\) is a map \( u\colon G\to E\) and \( s\in G\), we write
+\begin{equation}
+    (L_su)(x)=u(s^{-1}x).
+\end{equation}
+
+\begin{theorem}[Haar measure\cite{BIBooNYIOooTIiwbz}]
+    Let \( G\) be a compact topological group\footnote{Definition \ref{DEFooCHZVooHnvSgW}.}. There exists a unique linear form \( m\colon C^0(G,\eC)\to \eC\) such that
+    \begin{enumerate}
+        \item
+            \( m(f)\geq 0\) for every \( f\geq 0\).
+        \item
+            \( m(1)=1\),
+        \item
+            \( m(L_sf)=m(f)\) for every \( f\in C^0(G,\eC)\) and \( s\in G\).
+        \item
+            \( m(R_sf)=f(f)\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    For \( f\in C^0(G,\eC)\) we consider \( C_f\), the set of convex combinations of the functions of the form \( L_s(f)\). In other words, \( g\in C_f\) is there exists \( \{ (a_i,s_i)\in \eR^+\times G \}_{i=1,\ldots, N}\) such that \( a_i>0\), \( \sum_ia_i=1\) and \( g(x)=\sum_ia_if(s_ix)\).
+
+    Since \( f\) is continuous in the compact space \( G\), we define
+    \begin{equation}
+        \| f \|=\max_{x\in G}| f(x) |.
+    \end{equation}
+    If \( g\in C_f\) we have \( \| g \|\leq \| f \|\) because
+    \begin{subequations}
+        \begin{align}
+            \| g \|&=\max_{x\in G}| \sum_ia_if(s_ix) |\\
+            &\leq\sum_i\max_{x\in G}| a_if(s_ix) |\\
+            &\leq \sum_ia_i\max_{x\in G}| f(s_ix) |\\
+            &=\sum_ia_i\| f \|\\
+            &=\| f \|.
+        \end{align}
+    \end{subequations}
+    For \( x\in G\) we also define
+    \begin{equation}
+        C_f(x)=\{ g(x)\tq g\in C_f \}.
+    \end{equation}
+    This is a bounded set in \( \eC\) because each element is bounded by \( \| f \|\). The closure \( \overline{ C_f(x) }\) is then compact in \( \eC\). The function \( f\) being continuous, it is uniformly continuous on \( \overline{ C_f(x) }\) (proposition \ref{PROPooSHBAooVRdAFM}.). Let \( \epsilon>0\) and an open neighbourhood \( V\) of \( e\) as in the definition of uniform continuity. If \( x,y\in V\) we have
+    \begin{equation}
+        | (L_sf)(x)-(L_sf)(y) |=| f(s^{-1}x)-f(s^{-1} y) |<\epsilon
+    \end{equation}
+    because \( (s^{-1}y)^{-1}(s^{-1}x)=y^{-1}x\).
+
+    This shows that the set \( \{ L_s(f) \}_{s\in G}\) is equicontinuous\footnote{Definition \ref{DEFooDHQDooFfIvsX}.}. Now we prove that \( C_f\) is equicontinuous. Let \( g\in C_f\) and \( x,y\in V\). We have
+    \begin{subequations}
+        \begin{align}
+            | g(x)-g(y) |&=\Big|   \sum_ia_i\big[ f(s_ix)-f(x_iy) \big]   \Big|\\
+            &\leq \sum_ia_i| s_{s_i^{-1}}(x)-L_{s_i^{-1}}(y) |\\
+            &\leq \sum_ia_i\epsilon\\
+            &=\epsilon,
+        \end{align}
+    \end{subequations}
+    so \( C_f\) is equicontinuous. The Ascoli theorem \ref{ThoKRbtpah} implies that \( C_f\) is relatively compact in \( C^0(G,\eC)\), which means that \( K_f=\overline{ C_f }\) is compact.
+
+    The action
+    \begin{equation}
+        \begin{aligned}
+            L\colon G\times C^0(G,\eC)&\to C^0(G,\eC) \\
+            (g,u)&\mapsto L_g(u) 
+        \end{aligned}
+    \end{equation}
+    is isometric: \( \| L_s(u) \|=\| u \|\) and leaves \( C_f\) invariant.
+    \begin{subproof}
+    \item[\( L_s(C_f)\subset C_f\)]
+        We write
+        \begin{equation}
+            \begin{aligned}
+                \psi\colon \eR^N\times G^N&\to C_f \\
+                (a_i), (s_i)&\mapsto \sum_ia_iL_{s_i}(f). 
+            \end{aligned}
+        \end{equation}
+        If \( g\in C_f\) we have
+        \begin{equation}
+                g(x)=\psi\big( (a_i), (s_i) \big)(x)=\sum_ia_if(s_ix),
+        \end{equation}
+        so that
+        \begin{subequations}
+            \begin{align}
+                (L_sg)(x) &=\sum_ia_if(s_is^{-1}x)\\
+                &=\psi\big( (a_i),(s_is^{-1}) \big)(x).
+            \end{align}
+        \end{subequations}
+        This shows that \( L_s(g)\in C_f\).
+    \item[\(C_f\subset L_s( C_f)\)]
+        The same kind of computation shows that
+        \begin{equation}
+            \psi\big( (a_i),(s_i) \big)=L_s\Big( \psi\big( (a_i), (s_is) \big) \Big).
+        \end{equation}
+    \end{subproof}
+    
+\end{proof}
+<++>
 
 \begin{definition}      \label{DEFooXIKEooWOxHlr}
     Let \( G\) be a topological group. A \defe{Haar measure}{Haar measure} on \( G\) is a positive measure\footnote{Definition \ref{DefBTsgznn}.} \( \mu\) such that
