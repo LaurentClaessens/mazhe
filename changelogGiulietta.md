@@ -1,5 +1,16 @@
 # Giulietta's changelog
 
+## Differential geometry (March 2022)
+
+- Kakutani theorem
+- Immersions are local embeddings.
+
+## SU(2) (February 2022)
+
+- Put some order in the statements about the Lie group structure of SU(2).
+- Add some statement about analyticity
+- Lie group smooth morphisms have constant rank.
+
 ## Manifolds (January 2021)
 
 Be more precise and systematic about
