@@ -3,6 +3,18 @@
 %   Laurent Claessens
 % See the file LICENCE.txt for copying conditions.
 
+\begin{probleme}
+    Dans toute la partie sur la méthode des différences finies, il y a un flottement entre \( \Omega\) et \( \bar \Omega\).
+
+    D'une part je ne vois pas bien pourquoi on ne peut pas se contenter de travailler avec une fonction \( u\colon \Omega\to \eR\) avec \( \Omega\) ouvert dans \( \eR\) et \( u\) même pas définie sur le bord.
+
+    Mais d'autre part, de nombreuses sources demandent de la régularité sur un fermé, à commencer par wikipédia :
+
+    \url{https://fr.wikipedia.org/wiki/Méthode_des_différences_finies}
+
+    Si vous avez une idée sur la question, écrivez-moi, ou répondez directement sur la page de discussion de la page Wikipédia, sur laquelle j'ai laissé une question.
+\end{probleme}
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Problèmes de dimension un}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -25,7 +37,7 @@ Soit \( u\colon \eR\to \eR\) une fonction et \( h>0\). Nous définissons les op�
 \end{definition}
 Nous ne noterons pas toujours la dépendance en \( h\), c'est-à-dire que nous noterons \( D^+u\) au lieu de \( D^+_hu\) lorsque cela ne pose pas de problème.
 
-Notons que \( u''\) peut être approximé par \( D^+D^+u\), \( D^0D^+\), \( D^+D^-\), et encore de nombreuses autres possibilités.
+Notons que \( u''\) peut être approximé par \( D_h^+D_h^+u\), \( D_h^0D_h^+\), \( D_h^+D_h^-\), et encore de nombreuses autres possibilités.
 
 Voici un lemme qui dit que tout cela n'est pas si mal, pourvu que \( u\) soit assez régulière.
 
@@ -33,23 +45,23 @@ Voici un lemme qui dit que tout cela n'est pas si mal, pourvu que \( u\) soit as
 	Soit un ouvert connexe \( \Omega\) de \( \eR\), soit \( x\in \Omega\) et \( h>0\) tel que \( \overline{ B(x,h) }\subset \Omega\).
 	\begin{enumerate}
 		\item
-		      Si \( u\in C^2(\overline{ \Omega })\) alors
+		      Si \( u\in C^2( \Omega )\) alors
 		      \begin{equation}
-			      | u'(x)-D^+u(x) |\leq \frac{ h }{2}\| u'' \|_{\overline{ \Omega }}
+			      | u'(x)-D_h^+u(x) |\leq \frac{ h }{2}\| u'' \|_{\Omega}
 		      \end{equation}
 		      et
 		      \begin{equation}
-			      | u'(x)-D^-u(x) |\leq \frac{ h }{2}\| u'' \|_{\overline{ \Omega }}.
+			      | u'(x)-D_h^-u(x) |\leq \frac{ h }{2}\| u'' \|_{\Omega}.
 		      \end{equation}
 		\item       \label{ITEMooSAWJooJUTWAb}
-		      Si \( u\in C^3(\overline{ \Omega })\) alors
+		      Si \( u\in C^3(\Omega)\) alors
 		      \begin{equation}
-			      | u'(x)-D^0(x) |\leq \frac{ h^2 }{2}\| u^{(3)} \|_{\overline{ \Omega }}
+			      | u'(x)-D_h^0(x) |\leq \frac{ h^2 }{2}\| u^{(3)} \|_{\Omega}
 		      \end{equation}
 		\item       \label{ITEMooRWUHooZJLKuL}
-		      Si \( u\in C^4(\overline{ \Omega })\) alors
+		      Si \( u\in C^4(\Omega)\) alors
 		      \begin{equation}
-			      | u''(x)-D^-D^+u(x) |\leq \frac{ h^2 }{ 12 }\| u^{(4)} \|_{\overline{ \Omega }}.
+			      | u''(x)-D_h^-D_h^+u(x) |\leq \frac{ h^2 }{ 12 }\| u^{(4)} \|_{\Omega}.
 		      \end{equation}
 	\end{enumerate}
 \end{lemma}
@@ -59,8 +71,7 @@ Voici un lemme qui dit que tout cela n'est pas si mal, pourvu que \( u\) soit as
 	\begin{equation}        \label{EQooBLIIooWHXbqD}
 		D^-D^+u(x)=\frac{ (D^+u)(x)-(D^+u)(x-h) }{ h }=\frac{ u(x+h)-2u(x)+u(x-h) }{ h^2 }
 	\end{equation}
-	Nous allons y mettre les approximations de \( u(x+h)\) et \( u(x-h)\) par Taylor, proposition~\ref{PropResteTaylorc} :
-%TODO: cette prop. ne fait pas état d'une écriture avec \theta_1 ou \theta_2... ce qui est utile pour la preuve plus bas, j'en conviens ! Il faut trouver autre chose.
+    Nous allons y mettre les approximations de \( u(x+h)\) et \( u(x-h)\) par Taylor, proposition~\ref{PropResteTaylorc}\ref{ITEMooVGBVooGXXvIz} :
 	\begin{equation}
 		u(x+h)=u(x)+hu'(x)+\frac{ h^2 }{2}u''(x)+\frac{ h^3 }{ 6 }u'''(x)+\frac{ h^4 }{ 24 }u^{(4)}(x+\theta_1h)
 	\end{equation}
@@ -76,24 +87,24 @@ Voici un lemme qui dit que tout cela n'est pas si mal, pourvu que \( u\) soit as
 	\end{equation}
 	ce qui donne
 	\begin{equation}
-		(D^-D^+u)(x)=u''(x)+\frac{ h^2 }{ 24 }\Big( u^{(4)}(x+\theta_1h)+u^{(4)}(x-\theta_2h) \Big).
+		(D^-D^+u)(x)=u''(x)+\frac{ h^2 }{ 4! }\Big( u^{(4)}(x+\theta_1h)+u^{(4)}(x-\theta_2h) \Big).
 	\end{equation}
-	Chacun des deux termes dans la parenthèse peut être majoré par \( \| u^{(4)} \|_{\overline{ \Omega }}\). Notons que c'est une majoration très sauvage parce que \( x+\theta_1h\) ne prend ses valeurs que dans \( \mathopen[ x , x+h \mathclose]\) avec \( h\) supposé petit. Quoi qu'il en soit nous ne pouvons pas dire mieux que
+    Chacun des deux termes dans la parenthèse peut être majoré par \( \| u^{(4)} \|_{\Omega}\) parce que \( x+\theta_1h\) ne prend ses valeurs que dans \( \mathopen[ x , x+h \mathclose]\subset\overline{ B(x,h) }\subset\Omega\). Quoi qu'il en soit nous ne pouvons pas dire mieux que
 	\begin{equation}
 		| u''(x)-D^-D^+u(x) |\leq \frac{ h^2 }{ 12 }\| u^{(4)} \|_{\overline{ \Omega }}.
 	\end{equation}
 \end{proof}
 
 \begin{remark}[\cite{MonCerveau}]
-	Lorsque nous écrivons
+    Si nous avons l'égalité
 	\begin{equation}        \label{EQooHSPFooTJIoFy}
-		| u'(x)-D^+u(x) |\leq \delta
+		| u'(x)-D_h^+u(x) |\leq \delta
 	\end{equation}
-	pour tout \( x\), nous ne pouvons pas écrire
+	pour tout \( x\), il faut faire attention en écrivant
 	\begin{equation}
-		\| u'-D^+u \|_{\infty}\leq \delta
+		\| u'-D_h^+u \|_{\infty}\leq \delta
 	\end{equation}
-	parce que l'inégalité \eqref{EQooHSPFooTJIoFy} n'est valable que pour les \( x\) tels que \( \mathopen[ x-h , x+h \mathclose]\subset \Omega\), de telle sorte que l'inégalité n'est pas spécialement correcte sur \( \overline{ \Omega }\).
+    parce que l'inégalité \eqref{EQooHSPFooTJIoFy} n'est valable que pour les \( x\) tels que \( \mathopen[ x-h , x+h \mathclose]\subset \Omega\), de telle sorte que l'inégalité n'est pas spécialement correcte sur \( \overline{ \Omega }\). Il faut donc d'abord se mettre d'accord sur ce que signifie \( \| . \|_{\infty}\). Est-ce une norme supremum sur \( \Omega\) ou sur \( \bar \Omega\) ?
 \end{remark}
 
 %---------------------------------------------------------------------------------------------------------------------------
@@ -112,7 +123,7 @@ Soit \( \Omega=\mathopen] 0 , 1 \mathclose[\) et l'équation différentielle
 			u(1)=\beta
 		\end{cases}
 	\end{equation}
-	où \( c\) est une fonction positive et \( \alpha,\beta\in \eR\). Nous considérons \( h>0\) assez petit pour que le reste ait un sens. Si nous cherchons des solutions dans \( C^4(\overline{ \Omega })\), le lemme~\ref{LEMooZECZooVKxOZZ} nous dit que
+	où \( c\) est une fonction positive et \( \alpha,\beta\in \eR\). Nous considérons \( h>0\) assez petit pour que le reste ait un sens. Si nous cherchons des solutions dans \( C^4(\Omega)\), le lemme~\ref{LEMooZECZooVKxOZZ} nous dit que
 	\begin{equation}
 		| u''(x)-D^-D^+u(x) |=\eta(h^2)
 	\end{equation}
@@ -137,7 +148,7 @@ Soit \( \Omega=\mathopen] 0 , 1 \mathclose[\) et l'équation différentielle
 	pour \( k=0,\ldots, N+1\). Avec cela nous avons
 	\begin{subequations}
 		\begin{align}
-			\overline{ \Omega } & =\bigcup_{k=0}^{N}\mathopen[ x_k , x_{k+1} \mathclose]  \\
+			\overline{ \Omega } & =\bigcup_{k=0}^{N}\mathopen[ x_k , x_{k+1} \mathclose] \\
 			x_0                 & =0                                                      \\
 			x_{N+1}             & =1.
 		\end{align}
@@ -165,13 +176,13 @@ Soit \( \Omega=\mathopen] 0 , 1 \mathclose[\) et l'équation différentielle
 		u_h(x_{N+1})=\beta.
 	\end{equation}
 
-	En posant \( c_i=c(x_i)\) et \( u_i=u_h(x_i)\), les inconnues du problème sont les nombres \( u_i\) (\( i=1,\ldots, N\)). Elles sont immédiatement résolues pour \( u_0\) et \( u_{N+1}\). Pour les autres, il faut écrire et résoudre un système d'équations linéaire.
+    Nous posons \( c_i=c(x_i)\) et \( u_i=u_h(x_i)\). Les nombres \( u_0\) et \( u_{N+1}\) sont donnés par les conditions aux bords, et    les inconnues du problème sont donc les nombres \( u_i\) (\( i=1,\ldots, N\)). Pour les déterminer, nous devons résoudre un système d'équations linéaire.
 
 	L'écriture du système linéaire à résoudre consiste essentiellement à écrire \eqref{EQooZMVMooTqlpkF} en séparant les cas \( i=1\) et \( i=N\) parce que nous connaissons déjà les valeurs de \( u_0\) et \( u_{N+1}\). Le système que nous avons est :
 	\begin{subequations}
 		\begin{numcases}{}
-			\left( \frac{ 2 }{ h^2 }+c_1 \right)u_1-\frac{1}{ h^2 }u_2=f_1+\frac{ \alpha }{ h^2 }     & \( i=1\)        \\
-			\left( \frac{ 2 }{ h^2 }+c_N \right)u_N-\frac{1}{ h^2 }u_{N-1}=f_N+\frac{ \beta }{ h^2 }  & \( i=N\)        \\
+			\left( \frac{ 2 }{ h^2 }+c_1 \right)u_1-\frac{1}{ h^2 }u_2=f_1+\frac{ \alpha }{ h^2 }  & $i=1$\\
+			\left( \frac{ 2 }{ h^2 }+c_N \right)u_N-\frac{1}{ h^2 }u_{N-1}=f_N+\frac{ \beta }{ h^2 }  &\( i=N\) \\
 			\left( \frac{ 2 }{ h^2 }+c_i \right)u_i-\frac{1}{ h^2 }u_{i+1}-\frac{1}{ h^2 }u_{i-1}=f_i & autres.
 		\end{numcases}
 	\end{subequations}
@@ -587,17 +598,17 @@ Nous voulons mettre les équations sous la forme du système
 \begin{equation}
 	L_hU=F.
 \end{equation}
-Sur la ligne numéro \( I\) de \( A=L_h\), les éléments non nuls sont :
+Sur la ligne numéro \( I\) de \( L_h\), les éléments non nuls sont :
 \begin{subequations}        \label{SUBEQQooSRQNooYrCNhj}
 	\begin{align}
-		A_{I,I}=4        \\
-		A_{I,I+1}=-1     \\
-		A_{I,I-1}=-1     \\
-		A_{I,I+N_x-1}=-1 \\
-		A_{I,I-N_x+1}=-1
+		L_{I,I}=4        \\
+		L_{I,I+1}=-1     \\
+		L_{I,I-1}=-1     \\
+		L_{I,I+N_x-1}=-1 \\
+		L_{I,I-N_x+1}=-1
 	\end{align}
 \end{subequations}
-pour peu qu'ils existent. Par exemple pour \( I=1\), il n'y a pas d'élément \( A_{I,I-1}\). Les indices \( I\) et \( J\) de \( A_{I,J}\) vont de \( 1\) à \( \varphi(N_x-1,N_y-1)=(N_y-1)(N_x-1)\).
+pour peu qu'ils existent. Par exemple pour \( I=1\), il n'y a pas d'éléments \( L_{I,I-1}\). Les indices \( I\) et \( J\) de \( L_{I,J}\) vont de \( 1\) à \( \varphi(N_x-1,N_y-1)=(N_y-1)(N_x-1)\).
 
 Voici un dessin de notre situation :
 
@@ -618,6 +629,7 @@ Voici un dessin de notre situation :
 \end{itemize}
 
 Notons que \( f_{0,0}\) ne joue aucun rôle dans notre histoire parce que dans les équations \eqref{EQooPWXBooPimUrU}, chaque point \( (i,j)\) du maillage n'est lié qu'aux quatre points situés «à côté».
+
 
 \begin{proposition} \label{PROPooWGTRooVjWhYY}
 	La matrice \(L_h\) est
@@ -646,11 +658,12 @@ Notons que \( f_{0,0}\) ne joue aucun rôle dans notre histoire parce que dans l
 		\item[Diagonale fortement dominante]
 		En ce qui concerne la dominance de la diagonale, il faut sommer sur les lignes. Or chaque ligne contient (en valeur absolue) un \( 4\) sur la diagonale et au plus quatre éléments qui valent \( 1\). D'où
 		\begin{equation}
-			| A_{II} |\geq \sum_{J\neq I}| A_{IJ} |.
+			| L_{II} |\geq \sum_{J\neq I}| L_{IJ} |.
 		\end{equation}
 		La première ligne n'est jamais complète : elle contient un \( 4\) sur l'élément \( (1,1)\) et au maximum, deux \( 1\), plus à droite. Donc la matrice \( L_h\) est à diagonale fortement dominante.
 
 		\item[M-matrice]
+            
 		D'après ce que nous venons de voir (proposition~\ref{PROPooWGTRooVjWhYY}), le théorème~\ref{THOooLZGSooSevggj} s'applique et \( L_h\) est une M-matrice\footnote{Notons que c'est ici que nous sommes content d'avoir posé \( -\Delta u=f\) dans le système \eqref{SYSooTANLooRgnIMp}, avec un signe négatif devant le laplacien. Sinon tous les signes auraient changé, et la matrice \( -L_h\) aurait été une M-matrice, au lieu de \( L_h\).}.
 
 		\item[Inverse strictement positif]
@@ -664,7 +677,7 @@ Notons que \( f_{0,0}\) ne joue aucun rôle dans notre histoire parce que dans l
 		Prenons par exemple l'élément \( (I,I-N_x+1)\) qui vaut \( -1\). Son symétrique est l'élément \( (I-N_x+1,I)\) qui se trouve sur la ligne \( I-N_x+1\). Sur cette dernière ligne nous avons un \( -1\) sur la colonne \( I-N_x+1+N_x-1=I\). Donc l'élément \( (I-N_x+1,I)\) vaut bien \( -1\) et la matrice est symétrique.
 
 		\item[Strictement définie positive]
-		Puisque la matrice \( L_h\) est symétrique, irréductible à diagonale fortement dominante (proposition~\ref{PROPooWGTRooVjWhYY}), et comme ses éléments diagonaux sont strictement positifs (ils valent \( 4\)), la proposition~\ref{PROPooQBWQooBbeZLO} nous dit que \( L_h\) est strictement définie positive.
+		Vu que la matrice \( L_h\) est symétrique, irréductible à diagonale fortement dominante (proposition~\ref{PROPooWGTRooVjWhYY}), et comme ses éléments diagonaux sont strictement positifs (ils valent \( 4\)), la proposition~\ref{PROPooQBWQooBbeZLO} nous dit que \( L_h\) est strictement définie positive.
 	\end{subproof}
 \end{proof}
 
@@ -683,7 +696,7 @@ Soit un ouvert \( \Omega\subset \eR^n\) et un opérateur différentiel \( L\) su
 pour une fonction \( f\) donnée.
 
 \begin{probleme}
-	La définition suivante est une invention personnelle, n'est pas précise et mérite des commentaires de la part du lecteur.
+    La définition suivante est une invention personnelle, n'est pas précise et mérite des commentaires de la part \randomGender{du lecteur}{de la lectrice}.
 \end{probleme}
 \begin{definition}[\cite{MonCerveau}]
 	Un \defe{schéma numérique}{schéma numérique} de pas \( h\) pour \( Lu=f\) est la donnée de
@@ -740,11 +753,11 @@ Notons que le lien entre \( h\) et le choix des \( x_i\) fait partie de la défi
 	\end{equation}
 	où \( u_i=u_h(x_i)\) est la solution approchée.
 
-	Le schéma discret \( (L_hu_h)(x_i)=f_i\) est \defe{convergent}{convergent!schéma discret} si \( \lim_{h\to 0} \| e_h \|=0\). Si de plus, il existe une constante \( C\), et \( p>0\), tels que
+	Le schéma discret \( (L_hu_h)(x_i)=f_i\) est \defe{convergent}{schéma discret convergeant} si \( \lim_{h\to 0} \| e_h \|=0\). Si de plus, il existe une constante \( C\), et \( p>0\), tels que
 	\begin{equation}
 		\| e_h \|\leq Ch^p,
 	\end{equation}
-	alors nous disons que le schéma est convergent à l'\defe{ordre}{ordre!de convergence d'un schéma} \( p\).
+	alors nous disons que le schéma est convergeant à l'\defe{ordre}{ordre!de convergence d'un schéma} \( p\).
 \end{definition}
 
 Si l'erreur de consistance est petite, le \emph{problème} est bien approximé par le système linéaire. Cela n'implique cependant pas que la solution trouvée soit bien approximée.
@@ -799,7 +812,7 @@ En ce qui concerne la discrétisation, nous définissons le maillage \( \Omega_h
 \begin{equation}
 	(L_hv)_i=-\frac{ v_{i+1}-2v_i+v_{i-1} }{ h^2 }+c(x_i)v_i.
 \end{equation}
-Ceci est la définition de l'opérateur \( L_h\), et le vecteur \( v\) solution de \( L_hv=0\), est la solution du problème au sens de la méthode des différences finies (pour peu qu'il existe, soit unique et tout ça).
+Cela est la définition de l'opérateur \( L_h\), et le vecteur \( v\) solution de \( L_hv=0\), est la solution du problème au sens de la méthode des différences finies (pour peu qu'il existe, soit unique et tout ça).
 
 Pour calculer l'erreur de consistance, nous considérons une fonction \( u\) et nous posons \( u_i=u(x_i)\). Le vecteur \( (u_i)\) ainsi construit est approximé par \( v\) (on espère). Nous avons :
 \begin{equation}
@@ -892,9 +905,9 @@ Bien entendu, en tant qu'opérateur linéaire sur un espace de dimension finie, 
 	En deux parties.
 	\begin{enumerate}
 		\item
-		      Si un schéma discret est consistant et stable, alors il est convergent.
+		      Si un schéma discret est consistant et stable, alors il est convergeant.
 		\item
-		      Si de plus il est consistant à l'ordre \( p\), alors il est convergent à l'ordre \( p\).
+		      Si de plus il est consistant à l'ordre \( p\), alors il est convergeant à l'ordre \( p\).
 	\end{enumerate}
 \end{theorem}
 
@@ -932,7 +945,7 @@ Nous avions développé le schéma dont l'opérateur sur \( \Omega_h\) est (voir
 			      \| L_h^{-1} \|_{\infty}\leq \frac{1}{ 8 },
 		      \end{equation}
 		\item
-		      convergent à l'ordre \( 2\) pour la norme \( \| . \|_{\infty}\).
+		      convergeant à l'ordre \( 2\) pour la norme \( \| . \|_{\infty}\).
 	\end{enumerate}
 \end{proposition}
 
