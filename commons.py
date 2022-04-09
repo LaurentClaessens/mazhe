@@ -33,12 +33,6 @@ def has_to_be_printed(future_reference):
 
 
 ok_hash = []
-ok_hash.append("1f374a8a4a0071d1db807a8257760bc83f11f7ba")
-ok_hash.append("a8db9be870431e38ab5addfc754877240cf167cd")
-ok_hash.append("0d75b3780ea7d9bd55ef6cbfd5824cb6e363a8a4")
-ok_hash.append("bfb2ebd2f7279744595abcf0d48472cd7b780fa5")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
@@ -707,6 +701,12 @@ ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 
+ok_hash.append("1f374a8a4a0071d1db807a8257760bc83f11f7ba")
+ok_hash.append("a8db9be870431e38ab5addfc754877240cf167cd")
+ok_hash.append("0d75b3780ea7d9bd55ef6cbfd5824cb6e363a8a4")
+ok_hash.append("bfb2ebd2f7279744595abcf0d48472cd7b780fa5")
+ok_hash.append("50d88b920efdadbca2e12768d85793f79f89dd70")
+ok_hash.append("50d88b920efdadbca2e12768d85793f79f89dd70")
 ok_hash.append("d260b522b9299c67cb8ee1da63559ea23ea813a2")
 ok_hash.append("8efb329819614dcbfe3145f01e1c6155118d54ca")
 ok_hash.append("205c1ed81d73768dad1f929b7235c373025b876e")
