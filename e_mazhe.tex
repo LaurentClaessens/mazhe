@@ -334,7 +334,7 @@
     \DeclareMathOperator{\Span}{Vect}
 }
 {
-    \DeclareMathOperator{\rank}{rank}
+    \DeclareMathOperator{\rank}{rk}
     \DeclareMathOperator{\Span}{Span}
 }
 
@@ -1065,10 +1065,17 @@
 \newcommand*{\GL}{\textup{GL}}      % Le groupe linéaire; je crois qu'ontologiquement c'est mieux que le DeclareMathOperator
 
 
-\newcommand{\subprooflabel}[1]{\underline{\bf #1}}
+%\input{subproof}
 
-\newenvironment{subproof}{\let\Olddescriptionlabel\descriptionlabel\let\descriptionlabel\subprooflabel \begin{description}}{\end{description}\let\descriptionlabel\Olddescriptionlabel}
 
+\newcounter{subproofcount}
+\renewcommand{\thesubproofcount}{\roman{subproofcount}}
+\newcommand{\subprooflabel}[1]{\hbox to \leftmargin{\hfill(\thesubproofcount)\hspace\labelsep}\underline{\bf #1}}
+\newcommand{\subproofitem}[1][]{\refstepcounter{subproofcount}\csname @item\endcsname[#1]}
+
+\newenvironment{subproof}{\let\item=\subproofitem
+  \list{subproofcount}{\usecounter{subproofcount}\let\makelabel=\subprooflabel}}%
+  {\endlist}
 
 % See also the file 'src_front_back_matter/157_thematique.tex' in which we
 % open and close the intermediate file 'theme.toc'
