@@ -1045,6 +1045,7 @@
 
 % Configuration for nomencl        1338719836
 
+\def\pagedeclaration#1{, \hyperlink{page.#1}{page\nobreakspace#1}}
 \makenomenclature
 \renewcommand{\nomname}{Liste des notations}
 %
@@ -1065,10 +1066,13 @@
 \newcommand*{\GL}{\textup{GL}}      % Le groupe linéaire; je crois qu'ontologiquement c'est mieux que le DeclareMathOperator
 
 
+% from https://tex.stackexchange.com/a/640423/109167
 \newcounter{subproofcount}
 \renewcommand{\thesubproofcount}{\roman{subproofcount}}
 \newcommand{\subprooflabel}[1]{\hbox to \leftmargin{\hfill(\thesubproofcount)\hspace\labelsep}\underline{\bf #1}}
-\newcommand{\subproofitem}[1][]{\refstepcounter{subproofcount}\csname @item\endcsname[#1]}
+\makeatletter
+\newcommand{\subproofitem}[1][]{\@hyper@itemtrue\refstepcounter{subproofcount}\csname @item\endcsname[#1]}
+\makeatother
 
 \newenvironment{subproof}{\let\item=\subproofitem
   \list{subproofcount}{\usecounter{subproofcount}\let\makelabel=\subprooflabel}}%
