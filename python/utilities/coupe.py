@@ -23,7 +23,8 @@ def get_cut_numbers(lines):
     return answer
 
 
-def do_work():
+def split_thematic():
+    """Create the files for the thematic index."""
     thm_filename = Path(".").resolve() / "158_thematique.tex"
     lines = open(thm_filename, 'r').read().splitlines()
     numbers = get_cut_numbers(lines)
@@ -37,4 +38,54 @@ def do_work():
         print(f"\\input{{{base}}}")
 
 
-do_work()
+def get_thm_files(front_dir):
+    """Yield the _*thm.tex files"""
+    for elem in front_dir.iterdir():
+        if elem.suffix != '.tex':
+            continue
+        if not elem.name.endswith("_thm.tex"):
+            continue
+        yield elem
+
+
+def no_label(line):
+    """Remove \\label{{}}"""
+    if "\\label" not in line:
+        return line
+
+    init = line.find("\\label{")
+    return line[0:init]
+
+
+def get_title_line(content):
+    """Return the line with InternalLinks"""
+    for line in content.splitlines():
+        if "InternalLinks" in line:
+            return no_label(line).strip()
+
+
+def get_title(content):
+    """return the title of the given index."""
+    title_line = get_title_line(content)
+    sub = title_line.replace("\\InternalLinks{", "")
+    title = sub[:-1]
+    return title
+
+
+def add_comment():
+    """For each input{xxx_thm} we add a comment with the title."""
+    base_dir = (Path('.') / ".." / "..").resolve()
+    front_dir = base_dir / "tex" / "front_back_matter"
+    commented = []
+    for elem in get_thm_files(front_dir):
+        content = elem.read_text()
+        title = get_title(content)
+        input_line = f"\\input{{{elem.stem}}}  % {title}"
+        commented.append((elem.stem, input_line))
+
+    commented.sort(key=lambda x: x[0])
+    for foo in commented:
+        print(foo[1])
+
+
+add_comment()
