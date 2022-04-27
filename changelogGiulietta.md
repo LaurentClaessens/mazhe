@@ -1,5 +1,10 @@
 # Giulietta's changelog
 
+## Differential geometry (April 2022)
+
+- Measure and positive linear form (Kakutani-Riesz representation theorem).
+- Frobenius theorem
+
 ## Differential geometry (March 2022)
 
 - Kakutani theorem
