@@ -20,9 +20,11 @@ fi
 function make_dir()
 {
     target=$1
-    cd $target
-    # for f in $(ls $target/*.tex); do echo $f ; latexindent -w  $f ;done
-    for f in $(ls $target/*.tex); do echo $f ;done
+    for f in $(ls $target/*.tex); do 
+        echo $f
+        latexindent -w $f 
+        ./replace_dollar_mathex.py $f $f
+    done
 }
 
 
