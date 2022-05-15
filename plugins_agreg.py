@@ -13,6 +13,13 @@ frido_mark_list.append("% SCRIPT MARK -- FRIDO")
 frido_mark_list.append("% SCRIPT MARK -- DÉVELOPPEMENTS POSSIBLES")
 frido_mark_list.append("% SCRIPT MARK -- FINAL")
 
+research_mark_list = []
+research_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
+research_mark_list.append("% SCRIPT MARK -- GARDE MES NOTES")
+research_mark_list.append("% SCRIPT MARK -- TOC")
+research_mark_list.append("% SCRIPT MARK -- RESEARCH PART")
+research_mark_list.append("% SCRIPT MARK -- FINAL")
+
 mazhe_mark_list = []
 mazhe_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
 mazhe_mark_list.append("% SCRIPT MARK -- GARDE MAZHE")
