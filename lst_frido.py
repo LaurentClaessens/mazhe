@@ -8,6 +8,9 @@ from commons import has_to_be_printed
 myRequest = PytexTools.Request("mesure")
 myRequest.ok_hash = commons.ok_hash
 myRequest.original_filename = "mazhe.tex"
+myRequest.bibliography = {"json_bib": "mazhe.json",
+                          "template_bbl": "bbl_template.tex"
+                          }
 
 # L'ordre dans les plugin est important parce que set_<boolean>
 # retourne un code latex sans les commentaires
@@ -22,13 +25,17 @@ myRequest.add_plugin(plugin, "before_pytex")
 # by himself instead of hard-code it in the function.
 
 # If you change the '4' here, you have to change it also in 'split_book.py'
-myRequest.add_plugin(plugins_agreg.split_toc("frido",4),
-                                             "before_compilation")
+myRequest.add_plugin(plugins_agreg.split_toc("frido", 4),
+                     "before_compilation")
 
-myRequest.add_plugin(plugins_agreg.set_boolean("isFrido","true"),"before_pytex")
-myRequest.add_plugin(plugins_agreg.set_pdftitle("Le Frido"),"before_pytex")
-myRequest.add_plugin(plugins_agreg.set_commit_hexsha,"after_pytex")
-myRequest.add_plugin(plugins_agreg.assert_MonCerveau_first,"after_compilation")
+myRequest.add_plugin(plugins_agreg.set_boolean("isFrido", "true"),
+                     "before_pytex")
+myRequest.add_plugin(plugins_agreg.set_pdftitle("Le Frido"),
+                     "before_pytex")
+myRequest.add_plugin(plugins_agreg.set_commit_hexsha,
+                     "after_pytex")
+myRequest.add_plugin(plugins_agreg.assert_MonCerveau_first,
+                     "after_compilation")
 
-myRequest.new_output_filename="0-lefrido.pdf"
+myRequest.new_output_filename = "0-lefrido.pdf"
 myRequest.has_to_be_printed = has_to_be_printed
