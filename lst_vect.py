@@ -15,6 +15,9 @@ myRequest.original_filename = "mazhe.tex"
 myRequest.add_plugin(PytexTools.accept_all_input, "options")
 plugin = PytexTools.keep_script_marks(plugins_agreg.frido_mark_list)
 myRequest.add_plugin(plugin, "before_pytex")
+myRequest.bibliography = {"json_bib": "mazhe.json",
+                          "template_bbl": "bbl_template.tex"
+                          }
 
 
 # the plugin "split_doc" should better be of type "medicament"

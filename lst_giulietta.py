@@ -14,6 +14,9 @@ def print_future_reference(future_reference):
 
 myRequest = PytexTools.Request("mesure")
 myRequest.ok_hash=commons.ok_hash
+myRequest.bibliography = {"json_bib": "mazhe.json",
+                          "template_bbl": "bbl_template.tex"
+                          }
 
 # L'ordre dans les plugin est important parce que set_isFrido retourne un code latex sans les commentaires
 # alors que keep_script_marks compte dessus pour faire sa sélection.
