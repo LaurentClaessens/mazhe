@@ -8,7 +8,7 @@ from commons import has_to_be_printed
 myRequest = PytexTools.Request("mesure")
 myRequest.ok_hash = commons.ok_hash
 myRequest.original_filename = "mazhe.tex"
-myRequest.bibliography = {"json_bib": "mazhe.json",
+myRequest.bibliography = {"json_bib": "bib_mazhe.json",
                           "template_bbl": "bbl_template.tex"
                           }
 

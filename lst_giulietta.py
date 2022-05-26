@@ -14,7 +14,7 @@ def print_future_reference(future_reference):
 
 myRequest = PytexTools.Request("mesure")
 myRequest.ok_hash=commons.ok_hash
-myRequest.bibliography = {"json_bib": "mazhe.json",
+myRequest.bibliography = {"json_bib": "bib_mazhe.json",
                           "template_bbl": "bbl_template.tex"
                           }
 

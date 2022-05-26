@@ -2,8 +2,9 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
-## Frido 2021 (5 faute pour l'instant)
+## Frido 2021 (6 faute pour l'instant)
 
+- Volume 3. Lemme 27.130. L'utilisation de Hölder pour obtenir (27.485b) est incorrecte parce qu'elle demande `0<p<q` alors qu'ici, avec l'hypothèse `1<p<2`, nous avons `q>2`. Merci [Oliver Díaz](https://math.stackexchange.com/questions/3208736/clarkson-inequality-for-complex-numbers/4457490#4457490). Ça ne ruine peut-être pas toute la preuve, [voir ici](https://math.stackexchange.com/questions/1607683/how-to-prove-clarksons-inequality).
 - Volume 1. Lemme 10.42. Ce lemme est juste faux : la suite 1/n est un contre-exemple.
 - Volume 2. Théorème 14.33. Il faut ajouter l'hypothèse que mu(E_n) et nu(E_n) sont finis. Manque découvert par Alain Vigne.
 - Volume 1. Remarque 9.159. L'équation (9.321) est fausse. La réalité est que (f - a 1)^2e_2=0 et non que (f - alpha 1)^2e_2=0. Heureusement, la conclusion ne change pas.
