@@ -1,5 +1,5 @@
-# -*- coding: utf8 -*-
 from yanntricks import *
+
 def FWJuNhU():
     pspict,fig = SinglePicture("FWJuNhU")
     pspict.dilatation(1)
@@ -31,10 +31,10 @@ def FWJuNhU():
     a2.put_mark(0,0,"\( x-y\)",pspict=pspict)
     a3=C3.center()
     a3.parameters.symbol=""
-    a3.put_mark(0,0,"\( x^2y\)",pspict=pspict)
+    a3.put_mark(0,0,"\( x+y\)",pspict=pspict)
     a4=C4.center()
     a4.parameters.symbol=""
-    a4.put_mark(0,0,"\( x+y\)",pspict=pspict)
+    a4.put_mark(0,0,"\( x^2y\)",pspict=pspict)
 
 
     pspict.axes.no_graduation()
