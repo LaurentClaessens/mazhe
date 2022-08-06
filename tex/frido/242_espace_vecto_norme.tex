@@ -1,0 +1,1522 @@
+% This is part of Le Frido
+% Copyright (c) 2008-2022
+%   Laurent Claessens
+% See the file fdl-1.3.txt for copying conditions.
+
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Accroissements finis}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}       \label{LEMooYQZZooVybqjK}
+	Soit une fonction \( f\colon E\to V\) (espaces vectoriels normés) différentiable en \( a\in E\). Alors il existe une fonction \( \alpha\colon E\to V\) telle que
+	\begin{subequations}
+		\begin{numcases}{}
+			\lim_{h\to 0} \frac{ \alpha(h) }{ \| h \| }=0\\
+			f(a+h)=f(a)+df_a(h)+\alpha(h).
+		\end{numcases}
+	\end{subequations}
+\end{lemma}
+
+\begin{proof}
+	Il s'agit seulement de poser
+	\begin{equation}
+		\alpha(h)=f(a+h)-f(a)-df_a(h).
+	\end{equation}
+	Le fait que \( \alpha(h)/\| h \|\to 0\) est alors la définition de la différentiabilité de \( f\).
+\end{proof}
+
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Notations pour les applications linéaires}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[\cite{ooAISYooXtUafT}]         \label{DEFooTLQUooJvknvi}
+	Soient \( E\) et \( F\) deux espaces vectoriels normés.
+	\begin{enumerate}
+        \item
+            Si \( E\) et \( F\) sont deux espaces vectoriels (pas spécialement normés) nous notons \( \aL(E,F)\)\nomenclature[Y]{\( \aL(E,F)\)}{Les applications linéaires de \( E\) vers \( F\)} l'ensemble des applications linéaires de \( E\) vers \( F\).
+		\item Un \defe{morphisme d'espaces vectoriels normés}{morphisme!espace vectoriel normé} est une application linéaire \( E\to F\) continue pour la topologie de la norme opérateur.
+
+            L'ensemble des applications linéaires bornées\footnote{Nous avons vu dans la proposition~\ref{PROPooQZYVooYJVlBd} que la continuité était équivalente à être bornée pour la norme opérateur de la définition \ref{DefNFYUooBZCPTr}.} entre \( E\) et \( F\) est noté \( \cL(E,F)\)\nomenclature[B]{\( \cL(E,F)\)}{applications linéaires bornées (continues)}.
+		\item
+		      Un \defe{isomorphisme}{isomorphisme!espace vectoriel normé} est un morphisme continu inversible dont l'inverse est continu. Nous notons \( \GL(E,F)\) l'ensemble des isomorphismes entre \( E\) et \( F\).
+	\end{enumerate}
+\end{definition}
+ 
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{(non ?) Différentiabilité des applications linéaires}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{lemma}       \label{LemooXXUGooUqCjmp}
+	Soit une application linéaire \( f\).
+	\begin{enumerate}
+		\item
+		      Si \( f\) est continue, alors elle est différentiable et \( df_a(u)=f(u)\) pour tout \( a\) et \( u\).
+		\item
+		      Si \( f\) n'est pas continue, alors elle n'est pas différentiable.
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	La linéarité de \( f\) donne :
+	\begin{equation}
+		f(a+h)-f(a)-f(h)=0,
+	\end{equation}
+	et donc prendre \( T=f\) dans la définition~\ref{DefDifferentiellePta} fait fonctionner la limite. De plus \( T\) est alors continue par hypothèse; elle est donc bien la différentielle de \( f\).
+
+	Supposons que \( f\) ne soit pas continue, prenons une application linéaire continue \( T\), et calculons
+	\begin{equation}        \label{EQooFLYMooEKTeOC}
+		\frac{ f(a+h)-f(a)-T(h) }{ \| h \| }=\frac{ (f-T)(h) }{ \| h \| }=(f-T)(e_h)
+	\end{equation}
+	où \( e_h\) est le vecteur unitaire dans la direction de \( h\). Vu que \( f\) n'est pas continue et que \( T\) l'est, l'application \( f-T\) n'est pas continue. Elle n'est pas pas bornée par la proposition~\ref{PROPooQZYVooYJVlBd}. Il existe alors un vecteur \( h\) tel que \( \| (f-T)(e_h) \|>1\) (et même plus grand que ce qu'on veut).
+
+	Donc la limite de \eqref{EQooFLYMooEKTeOC} pour \( h\to 0\) ne peut pas être nulle.
+\end{proof}
+
+\begin{lemma}   \label{LemLLvgPQW}
+	Une application linéaire continue est de classe \(  C^{\infty}\).
+\end{lemma}
+
+\begin{proof}
+	Soit \( a\in E\). Étant donné que \( f\) est linéaire et continue, elle est différentiable et
+	\begin{equation}
+		\begin{aligned}
+			df\colon E & \to \cL(E,F) \\
+			a          & \mapsto f
+		\end{aligned}
+	\end{equation}
+	est une fonction constante et en particulier continue; nous avons donc \( f\in C^1\). Pour la différentielle seconde nous avons \( d(df)_a=0\) parce que \( df(a+h)-df(a)=f-f=0\). Toutes les différentielles suivantes sont nulles.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Dérivation en chaine et formule de Leibnitz}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition} \label{PropOYtgIua}
+	Soient \( f_i\colon U\to F_i\), des fonctions de classe \( C^r\) où \( U\) est ouvert dans l'espace vectoriel normé \( E\) et les \( F_i\) sont des espaces vectoriels normés. Alors l'application
+	\begin{equation}
+		\begin{aligned}
+			f=f_1\times \cdots\times f_n\colon U & \to F_1\times \cdots\times F_n            \\
+			x                                    & \mapsto \big( f_1(x),\ldots, f_n(x) \big)
+		\end{aligned}
+	\end{equation}
+	est de classe \( C^r\) et
+	\begin{equation}
+		d^rf=d^rf_1\times\ldots d^rf_n.
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Soit \( x\in U\) et \( h\in E\). La différentiabilité des fonctions \( f_i\) donne
+	\begin{equation}
+		f_i(x+h)=f_i(x)+(df_i)_x(h)+\alpha_i(h)
+	\end{equation}
+	avec \( \lim_{h\to 0} \alpha_i(h)/\| h \|=0\). Par conséquent
+	\begin{subequations}
+		\begin{align}
+			f(x+h) & =\big( \ldots, f_i(x)+(df_i)_x(h)+\alpha_i(h),\ldots \big)                                                        \\
+			       & = \big( \ldots,f_i(x),\ldots \big)+ \big( \ldots,(df_i)_x(h),\ldots \big)+ \big( \ldots,\alpha_i(h),\ldots \big).
+		\end{align}
+	\end{subequations}
+	Mais la définition~\ref{DefFAJgTCE} de la norme dans un espace produit donne
+	\begin{equation}
+		\lim_{h\to 0} \frac{ \| \big( \alpha_1(h),\ldots, \alpha_n(h) \big) \| }{ \| h \| }=0,
+	\end{equation}
+	ce qui nous permet de noter \( \alpha(h)=\big( \alpha_1(h),\ldots, \alpha_n(h) \big)\) et avoir \( \lim_{h\to 0} \alpha(h)/\| h \|=0\). Avec tout ça nous avons bien
+	\begin{equation}
+		f(x+h)=f(x)+\big( (df_1)_x(h)+\cdots +(df_n)_x(h) \big)+\alpha(h),
+	\end{equation}
+	ce qui signifie que \( f\) est différentiable et
+	\begin{equation}
+		df_x=\big( df_1,\ldots, df_n \big).
+	\end{equation}
+\end{proof}
+
+\begin{theorem}     \label{THOooIHPIooIUyPaf}
+	Soient des espaces vectoriels normés \( E,V\) et \( W\). Nous considérons deux fonctions \( f\colon E\to V\) et \( g\colon V\to W\). Nous supposons que :
+	\begin{enumerate}
+		\item
+		      \( f\) est différentiable en \( a\in E\)
+		\item
+		      \( g\) est différentiable en \( f(a)\in V\)
+		\item
+		      \( df_a\) est de norme finie\quext{Je ne suis pas totalement certain que cette hypothèse soit nécessaire, mais en tout cas, elle est utilisée.}.
+	\end{enumerate}
+	Alors \( g\circ f\colon E\to W\) est différentiable en \( a\) et
+	\begin{equation}
+		f(g\circ f)_a(u)=df_{f(a)}\big( df_a(u) \big),
+	\end{equation}
+	ou encore
+	\begin{equation}
+		f(g\circ f)_a=dg_{f(a)}\circ df_a.
+	\end{equation}
+\end{theorem}
+
+\begin{proof}
+	En utilisant le lemme \ref{LEMooYQZZooVybqjK} pour les fonctions \( f\) et \( g\), nous avons
+	\begin{equation}        \label{EQooXNWZooJSPjRS}
+		f(a+h)=f(a)+df_a(h)+\alpha(h)
+	\end{equation}
+	et
+	\begin{equation}        \label{EQooIQZZooWPyMbE}
+		g\big( f(a)+k \big)=g\big( f(a) \big)+dg_{f(a)}(k)+\beta(k).
+	\end{equation}
+	L'application \( dg_{f(a)}\circ df_a\) est une application linéaire, et est notre candidat différentielle. En suivant la définition \ref{DefDifferentiellePta}, nous allons calculer
+	\begin{equation}
+		\lim_{h\to 0} \frac{ (g\circ f)(a+h)-(g\circ f)(a)-(dg_{f(a)}\circ df_a)(h) }{ \| h \| }.
+	\end{equation}
+	Si cette limite existe et vaut zéro, alors nous aurons prouvé que le candidat différentielle est correct.
+
+	Pour cela, nous emboîtons les formules \eqref{EQooXNWZooJSPjRS} et \eqref{EQooIQZZooWPyMbE} l'une dans l'autre pour avoir :
+	\begin{equation}
+		g(a+h)=g\big( f(a)+df_a(h)+\alpha(h) \big)=g\big( f(a) \big)+dg_{f(a)}\big( df_a(h)+\alpha(h) \big)+\beta\big( df_a(h)+\alpha(h) \big).
+	\end{equation}
+	Vu que \( dg_{f(a)}\) est linéaire, le deuxième terme peut être coupé en deux et après recombinaisons,
+	\begin{equation}
+		(g\circ f)(a+h)-(g\circ f)(a)-(df_{f(a)}\circ df_a)(h)=dg_{f(a)}\big( \alpha(h) \big)+\beta\big( df_a(h)+\alpha(h) \big).
+	\end{equation}
+	Étant donné que \( dg_{f(a)}\) est linéaire,
+	\begin{equation}
+		\frac{ dg_{f(a)}\big(\alpha(h)\big) }{ \| h \| }=dg_{f(a)}\left( \frac{ \alpha(h) }{ \| h \| } \right)\to 0.
+	\end{equation}
+	Il nous reste à voir que
+	\begin{equation}        \label{EQooUQNUooFgNyJp}
+		\lim_{h\to 0} \frac{ \beta\big( df_a(h)+\alpha(h) \big) }{ \| h \| }
+	\end{equation}
+	existe au vaut zéro. Vu que \( df_a\) est linéaire, il existe \( M>0\) tel que\footnote{Ce \( M\) est par exemple la norme opérateur de \( df_a\), comme nous l'assure le lemme \ref{LEMooIBLEooLJczmu}. C'est pour ce passage-ci que nous avons supposé que \( df_a\) était de norme finie.} \( \| df_a(h) \|\leq M\| h \|\). D'autre part, vu que \( \alpha(h)/\| h \|\to 0\), nous avons \( \| \alpha(h) \|\leq \| h \|\) pour tout \( h\) suffisamment petit.
+
+	Donc si \( h\) est assez petit, nous avons
+	\begin{equation}        \label{EQooEQJBooSmacrD}
+		\| df_a(h)+\alpha(h) \|\leq (M+1)\| h \|.
+	\end{equation}
+	Soit \( \epsilon>0\). Soit \( \delta>0\) tel que \( \| h \|\leq \delta\) implique \( \beta(h)/\| h \|\leq \epsilon\) et \eqref{EQooEQJBooSmacrD} en même temps. Soit \( r\) tel que \( (M+1)r<\delta\); et notons que \( r<\delta\). Nous considérons alors \( h\in B(0,r)\) et nous calculons :
+	\begin{equation}
+		\frac{ \beta\big( df_a(h)+\alpha(h) \big) }{ \| h \| }=\frac{ \beta\big( df_a(h)+\alpha(h) \big) }{ \| df_a(h)+\alpha(h) \| }\frac{ \| df_a(h)+\alpha(h) \| }{ \| h \| }\leq (M+1)\epsilon.
+	\end{equation}
+	La limite \eqref{EQooUQNUooFgNyJp} existe donc et vaut zéro.
+\end{proof}
+
+\begin{theorem}[Différentielle de fonctions composées\cite{SNPdukn}]    \label{ThoAGXGuEt}
+	Soient \( E\), \( F\) et \( G\) des espaces vectoriels normés, \( U\) ouvert dans \( E\) et \( V\) ouvert dans \( F\). Soient des applications de classe \( C^r\) (\( r\geq 1\))
+	\begin{subequations}
+		\begin{align}
+			f\colon U\to V \\
+			g\colon V\to G.
+		\end{align}
+	\end{subequations}
+	Nous supposons que \( df_x\) et \( dg_{f(x)}\) sont de norme finie.
+
+	Alors l'application \( g\circ f\colon V\to G\) est de classe \( C^r\) et
+	\begin{equation}\label{EqHFmezmr}
+		d(g\circ f)_x=dg_{f(x)}\circ df_x.
+	\end{equation}
+\end{theorem}
+
+\begin{proof}
+	Nous nous fixons \( x\in U\). La fonction \( f\) est différentiable en \( x\in U\) et \( g\) en \( f(x)\), donc nous pouvons écrire
+	\begin{equation}
+		f(x+h)=f(x)+df_x(h)+\alpha(h)
+	\end{equation}
+	et
+	\begin{equation}
+		g\big( f(x)+u \big)=g\big( f(x) \big)+dg_{f(x)}(u)+\beta(u)
+	\end{equation}
+	où la fonction \( \alpha\) a la propriété que
+	\begin{equation}
+		\lim_{h\to 0} \frac{ \| \alpha(h) \| }{ \| h \| }=0;
+	\end{equation}
+	et la même chose pour \( \beta\). La fonction composée en \( x+h\) s'écrit donc
+	\begin{equation}    \label{EqCXcfhfH}
+		(g\circ f)(x+h)=g\big( f(x)+df_x(h)+\alpha(h) \big)=g\big( f(x) \big)+dg_{f(x)}\big( df_x(h)+\alpha(h) \big)+\beta\big( df_x(h)+\alpha(h) \big).
+	\end{equation}
+	Nous montrons que tous les «petits» termes de cette formule peuvent être groupés. D'abord si \( h\) est proche de \( 0\), nous avons\footnote{Ici nous utilisons l'hypothèse de norme finie pour la différentielle.}
+	\begin{equation}
+		\frac{ \| df_x(h)+\alpha(h) \| }{ \| h \| }\leq\frac{ \| df_x \|\| h \| }{ \| h \| }+\frac{ \| \alpha(h) \| }{ \| h \| }.
+	\end{equation}
+	Si \( h\) est petit, le second terme est arbitrairement petit, donc en prenant n'importe que \( M>\| df_x \|\) nous avons
+	\begin{equation}
+		\frac{ \| df_x(h)+\alpha(h) \| }{ \| h \| }\leq M.
+	\end{equation}
+	Par ailleurs, nous avons
+	\begin{equation}
+		\frac{ \| \beta\big( df_x(h)+\alpha(h) \big) \| }{ \| h \| }=\frac{  \| \beta\big( df_x(h)+\alpha(h) \big) \|  }{ \| df_x(h)+\alpha(h) \| }\frac{  \| df_x(h)+\alpha(h) \|  }{ \| h \| }\leq M\frac{  \| \beta\big( df_x(h)+\alpha(h) \big) \|  }{   \| df_x(h)+\alpha(h) \| }.
+	\end{equation}
+	Vu que la fraction est du type \( \frac{ \beta( f(h)) }{ f(h) }\) avec \( \lim_{h\to 0} f(h)=0\), la fraction tend vers zéro lorsque \( h\to 0\). En posant
+	\begin{equation}
+		\gamma_1(h)=\beta\big( df_x(h)+\alpha(h) \big)
+	\end{equation}
+	nous avons \( \lim_{h\to 0} \gamma_1(h)/\| h \|=0\).
+
+	L'autre candidat à être un petit terme dans \eqref{EqCXcfhfH} est traité en utilisant le lemme~\ref{LEMooFITMooBBBWGI} :
+	\begin{equation}
+		\| dg_{f(x)}\big( \alpha(h) \big) \|\leq \| dg_{f(x)} \|\| \alpha(h) \|.
+	\end{equation}
+	Donc
+	\begin{equation}
+		\frac{ \| dg_{f(x)}\big( \alpha(h) \big) \| }{ \| h \| }\leq \| dg_{f(x)} \|\frac{ \| \alpha(h) \| }{ \| h \| },
+	\end{equation}
+	ce qui nous permet de poser
+	\begin{equation}
+		\gamma_2(h)=dg_{f(x)}\big( \alpha(h) \big)
+	\end{equation}
+	avec \( \gamma_2\) qui a la même propriété que \( \gamma_1\). Avec tout cela, en posant \( \gamma=\gamma_1+\gamma_2\) nous récrivons
+	\begin{equation}
+		(g\circ f)(x+h)=g\big( f(x) \big)+dg_{f(x)}\big( df_x(h) \big)+\gamma(h)
+	\end{equation}
+	avec \( \lim_{h\to 0} \frac{ \gamma(h) }{ \| h \| }=0\). Tout cela pour dire que
+	\begin{equation}
+		\lim_{h\to 0} \frac{ (g\circ f)(x+h)-(g\circ f)(x)-\big( dg_{f(x)}\circ df_x \big)(h) }{ \| h \| }=0,
+	\end{equation}
+	ce qui signifie que
+	\begin{equation}
+		d(g\circ f)_x=dg_{f(x)}\circ df_x.
+	\end{equation}
+	Nous avons donc montré que si \( f\) et \( g\) sont différentiables, alors \( g\circ f\) est différentiable avec différentielle donnée par \eqref{EqHFmezmr}.
+
+	Nous passons à la régularité. Nous supposons maintenant que \( f\) et \( g\) sont de classe \( C^r\) et nous considérons l'application
+	\begin{equation}
+		\begin{aligned}
+			\varphi\colon L(F,G)\times L(E,F) & \to L(E,G)        \\
+			(A,B)                             & \mapsto A\circ B.
+		\end{aligned}
+	\end{equation}
+	Montrons que l'application \( \varphi\) est continue en montrant qu'elle est bornée\footnote{Proposition~\ref{PROPooQZYVooYJVlBd}.}. Pour cela nous écrivons la norme opérateur
+	\begin{equation}
+		\| \varphi \|=\sup_{\| (A,B) \|=1}\| \varphi(A,B) \|=\sup_{\| (A,B) \|=1}\| A\circ B \|\leq\sup_{\| (A,B) \|=1}\| A \|\| B \|\leq 1.
+	\end{equation}
+	Justifications : d'une part la norme opérateur est une norme algébrique\footnote{Lemme \ref{LEMooFITMooBBBWGI}.}, et d'autre part la définition \ref{DefFAJgTCE} de la norme sur un espace produit pour la dernière majoration. L'application \( \varphi\) est donc continue et donc \(  C^{\infty}\) par le lemme~\ref{LemLLvgPQW}. Nous considérons également l'application
+	\begin{equation}
+		\begin{aligned}
+			\psi\colon U & \to L(F,G)\times L(E,F)             \\
+			x            & \mapsto \big( dg_{f(x)},df_x \big).
+		\end{aligned}
+	\end{equation}
+	Vu que \( f\) et \( g\) sont \( C^1\), l'application \( \psi\) est continue. Ces deux applications \( \varphi\) et \( \psi\) sont choisies pour avoir
+	\begin{equation}
+		(\varphi\circ\psi)(x)=\varphi\big( dg_{f(x)},df_x \big)=dg_{f(x)}\circ df_x,
+	\end{equation}
+	c'est-à-dire \( \varphi\circ\psi=d(g\circ f)\). Les applications \( \varphi\) et \( \psi\) étant continues, l'application \( d(g\circ f)\) est continue, ce qui prouve que \( g\circ f\) est \( C^1\).
+
+	Si \( f\) et \( g\) sont \( C^r\) alors \( dg\in C^{r-1}\) et \( dg\circ f\in C^{r-1}\) où il ne faut pas se tromper : \( dg\colon F\to L(F,G)\) et \( f\colon U\to F\); la composée est \( dg\circ f\colon x\mapsto dg_{f(x)}\in L(F,G)\).
+
+	Pour la récurrence nous supposons que \( f,g\in C^{r-1}\) implique \( g\circ f\in C^{r-1}\) pour un certain \( r\geq 2\) (parce que nous venons de prouver cela avec \( r=1\) et \( r=2\)). Soient \( f,g\in C^r\) et montrons que \( g\circ f\in C^r\). Par la proposition~\ref{PropOYtgIua} nous avons
+	\begin{equation}
+		\psi=dg\circ f\times df\in C^{r-1},
+	\end{equation}
+	et donc \( d(g\circ f)=\varphi\circ\psi\in C^{r-1}\), ce qui signifie que \( g\circ f\in C^r\).
+\end{proof}
+
+\begin{proposition}[\cite{MonCerveau}]      \label{PROPooRCZOooSgvpSE}
+	Soit une application \( f\colon E\to V\) de classe \( C^1\). Soit une application linéaire \( \varphi\colon V \to W\). Alors \( \varphi\circ f\) est de classe \( C^p\).
+\end{proposition}
+
+\begin{proof}
+	Toute la preuve est un grand jeu de cohérence des espaces en présence, alors soyez attentifs et capable de dire précisément à quel espace appartient chacun de objets entrant en jeu.
+
+	Nous posons \( V_0=V\) et \( V_{k+1}=\aL(E,V_k)\). Idem pour les espaces \( W_k\). Ensuite nous posons
+	\begin{equation}
+		\begin{aligned}
+			\varphi_1\colon \aL(E,V) & \to \aL(E,W)                 \\
+			\alpha                   & \mapsto \varphi\circ \alpha.
+		\end{aligned}
+	\end{equation}
+	et
+	\begin{equation}
+		\begin{aligned}
+			\varphi_k\colon \aL(E,V_{k-1}) & \to \aL(E,W_{k-1})                 \\
+			\alpha                         & \mapsto \varphi_{k-1}\circ \alpha.
+		\end{aligned}
+	\end{equation}
+	Notez la cohérence : si \( a\in E\), \( \alpha(a)\in V_{k-1}=\aL(E,V_{k-2})\), et donc
+	\begin{equation}
+		(\varphi_{k-1}\circ\alpha)(a)=\varphi_{k-1}\big( \alpha(a) \big).
+	\end{equation}
+	À droite nous avons \( \varphi_{k-1}\big( \alpha(a) \big)\in \aL(E,W_{k-2})=V_{k-1}\).
+
+	De plus, \( \varphi\) est linéaire; ça se prouve par récurrence en partant de \( \varphi_1\) et en se basant sur le fait que \( \varphi\) est linéaire.
+
+	C'est parti pour une récurrence.
+
+	\begin{subproof}
+		\spitem[Énoncé]
+		Nous allons prouver par récurrence que
+		\begin{equation}
+			d^k(\varphi\circ f)=\varphi_k\circ d^kf.
+		\end{equation}
+		pour tout \( k\leq p\).
+		\spitem[Initialisation]
+
+		D'abord, \( f\) est de classe \( C^p\), donc différentiable et \( \varphi\) est linéaire donc différentiable. Donc la composée est différentiable et le théorème \ref{THOooIHPIooIUyPaf} nous donne la différentiabilité de \( \varphi\circ f\) ainsi que la formule
+		\begin{equation}
+			d(\varphi\circ f)_a(u)=d\varphi_{f(a)}\big( df_a(u) \big)=(\varphi\circ df_a)(u)=\varphi_1(df_a)(u).
+		\end{equation}
+		Donc \( d(\varphi\circ f)_a=\varphi_1(df_a)\), ce qui signifie
+		\begin{equation}
+			d(\varphi\circ f)=\varphi_1\circ df.
+		\end{equation}
+		C'est bon pour \( k=1\).
+
+
+		\spitem[La pas de récurrence]
+
+		Vu que \( f\) est de classe \( C^p\), \( d^kf\) est encore différentiable. Vu que \( \varphi_k\) est encore linéaire, nous pouvons encore utiliser la règle de différentiation de fonctions composées sur l'application \( \varphi_k\circ d^kf\). Nous avons :
+		\begin{equation}
+			d^{k+1}(\varphi\circ f)_a(u)=d\big( d^k(\varphi\circ f) \big)_a(u)=d(\varphi_k\circ d^kf)_a(u).
+		\end{equation}
+		C'est le moment d'utiliser la formule de différentiation en chaine :
+		\begin{equation}
+			d^{k+1}(\varphi\circ f)_a(u)=\big( (d\varphi_k)_{d^kf_a}\circ d^{k+1}f_a \big)(u).
+		\end{equation}
+		Mais \( \varphi_k\) étant linéaire, \( (d\varphi_k)_{d^kf_a}=\varphi_k\), donc
+		\begin{equation}
+			d^{k+1}(\varphi\circ f)_a(u)=(\varphi_k\circ d^{k+1}f_a)(u).
+		\end{equation}
+		Donc, en oubliant l'application au vecteur \( u\),
+		\begin{equation}
+			d^{k+1}(\varphi\circ f)_a=\varphi_k\circ d^{k+1}f_a=\varphi_{k+1}\big( d^{k+1}f_a \big)=(\varphi_{k+1}\circ d^{k+1}f)(a).
+		\end{equation}
+		Nous avons donc bien
+		\begin{equation}
+			d^{k+1}(\varphi\circ f)=\varphi_{k+1}\circ d^{k+1}f.
+		\end{equation}
+	\end{subproof}
+\end{proof}
+
+\begin{lemma}       \label{LemooTJSZooWkuSzv}
+	Si \( f\colon U\to V\) est un difféomorphisme\footnote{Définition~\ref{DefAQIQooYqZdya}} alors pour tout \( a\in U\), l'application \( df_a\) est inversible et
+	\begin{equation}
+		(df_a)^{-1}=(df^{-1})_{f(a)}.
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	Il suffit d'apercevoir qu'en vertu de la règle de différentiation en chaine \eqref{EqHFmezmr},
+	\begin{equation}
+		(df_a)(df^{-1})_{f(a)}=d(f\circ f^{-1})_{f(a)}=\id.
+	\end{equation}
+\end{proof}
+
+\begin{proposition}     \label{PROPooNONAooCyAtce}
+	Soient des ouverts \( A\) de \( \eR^p\) et \( B\) de \( \eR^m\). Si il existe un difféomorphisme \( f\colon A\to B\), alors \( p=m\).
+\end{proposition}
+
+\begin{proof}
+	Vu que \( f\) est un difféomorphisme, le lemme \ref{LemooTJSZooWkuSzv} fait son travail : l'application linéaire \( df_a\colon \eR^p\to \eR^m\) est inversible d'inverse \( df^{-1}_{f(a)}\colon \eR^m\to \eR^m\).
+
+	Or une application linéaire ne peut pas être bijective entre espaces de dimensions différentes (finies). Donc \( p=m\).
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Différentiation de produit}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si nous avons deux application \( f\colon E\to V\) et \( g\colon E\to W\), alors nous voudrions considérer la fonction
+\begin{equation}
+	\begin{aligned}
+		f\otimes g\colon E & \to V\otimes W            \\
+		a                  & \mapsto f(a)\otimes g(a).
+	\end{aligned}
+\end{equation}
+Le problème avec cette notation est que très souvent, les applications \( f\) et \( g\) sont des éléments d'espaces vectoriels. Si par exemple \( f\in \aL(E,V)\) et \( g\in \aL(E,W)\), nous avons \( f\otimes g\in \aL(E,V)\otimes \aL(E,W)\). Dans le Frido nous ne nous permettons pas de dire calmement que \( \aL(E,V)\otimes \aL(E,W)=\aL(E,V\otimes W)\). Et je ne vous dit même pas à quel point il n'est pas évident, si \( f\in C^{\infty}(E,V)\) et \( g\in  C^{\infty}(E,W)\) que nous aurions \( f\otimes g\in C^{\infty}(E,V)\otimes  C^{\infty}(E,W)= C^{\infty}(E,V\otimes W)\).
+
+Tout cela pour dire que nous n'allons pas nous lancer dans des abus de notations. Non. Au lieu de cela, nous introduisons une notation. Pour rappel, dans tout le Frido, \( \Fun(A,B)\) désigne l'ensemble de toutes les application de \( A\) vers \( B\) sans suppositions de régularité. Pour les puristes, nous précisions que si \( f\in\Fun(A,B)\), nous supposons que \( f\) est définie sur tout \( A\). hum \ldots sauf mention du contraire.
+\begin{definition}      \label{DEFooMVNDooFWFtRn}
+	Si \( f\in \Fun(E,V)\) et \( g\in \Fun(E,W)\), alors nous définissons
+	\begin{equation}
+		\begin{aligned}
+			f\tilde\otimes g\colon E & \to V\otimes W            \\
+			a                        & \mapsto f(a)\otimes g(a).
+		\end{aligned}
+	\end{equation}
+\end{definition}
+
+\begin{proposition}     \label{PROPooCRVXooEGxdZl}
+	Soient des applications continues \( f\colon E\to V\) et \( g\colon E\to W\) entre espaces vectoriels de dimension finies. Alors la fonction \( f\tilde\otimes g\colon E\to V\otimes W\) est continue.
+\end{proposition}
+
+\begin{proof}
+	Soient \( a\in E\) ainsi qu'une suite \( x_k\to a\) dans \( E\). Nous voulons prouver que \( f\tilde\otimes g(x_k)\stackrel{V\otimes W}{\longrightarrow}f(a)\otimes g(a)\). Nous avons :
+	\begin{equation}        \label{EQooSNXUooXrYOeY}
+		\| f(x_k)\otimes g(x_k)-f(a)\otimes g(a) \|\leq \| f(x_k)\otimes g(x_k)-f(x_k)\otimes g(a) \|+\| f(x_k)\otimes g(a)-f(a)\otimes g(a) \|.
+	\end{equation}
+	Ensuite en utilisant la classe d'équivalence \eqref{SUBEQooSHBJooJLPVbK},
+	\begin{equation}
+		f(x_k)\otimes g(x_k)-f(x_k)\otimes g(a)=f(x_k)\otimes \big( g(x_k)-g(a) \big),
+	\end{equation}
+	et en ce qui concerne les normes,
+	\begin{equation}
+		\|   f(x_k)\otimes g(x_k)-f(x_k)\otimes g(a)\|  =\|f(x_k)\|  \|\otimes \big( g(x_k)-g(a) \big)\|.
+	\end{equation}
+	Mais par hypothèse, \( f(x_k)\to f(a)\) et \( g(x_k)\to g(a)\). Donc le tout tend vers zéro lorsque \( k\to \infty\).
+
+	Le même raisonnement fonctionne avec le second terme de \eqref{EQooSNXUooXrYOeY}.
+\end{proof}
+
+Lorsque nous parlons de différentielle de produit de fonctions, nous voulons étudier la différentiabilité de \( f\tilde\otimes g\) sous l'hypothèse de différentiabilité de \( f\) et \( g\). Et aussi, si \( f\) et \( g\) sont de classe \( C^p\), est-ce que \( f\tilde\otimes g\) est également de classe \( C^p\) ?
+
+Nous voudrions avoir une formule du type
+\begin{equation}
+	d(f\tilde\otimes g)=df\tilde\otimes g+f\tilde\otimes dg,
+\end{equation}
+mais ça ne colle pas au niveau des espaces. En effet, en évaluant cela en \( a\in E\), nous avons à gauche \( d(f\tilde\otimes g)_a\in\aL(E,V\otimes W)\), tandis qu'à droite nous avons \( df_a\otimes g(a)\in \aL(E,V)\otimes W\) et \( f(a)\otimes dg_a\in V\otimes \aL(E,W)\).
+
+Nous pourrions bien entendu dire que \( V\otimes \aL(E,W)\) est isomorphe à \( \aL(E,V\otimes W)\) et hop voilà, on n'en parle plus. Ce serait passer sur deux points importants. D'abord est-ce que \( V\otimes \aL(E,W)\) est vraiment isomorphe à \( \aL(E,V\otimes W)\) ? Et ensuite, l'isomorphisme implique une utilisation du théorème \ref{THOooIHPIooIUyPaf} qui est tout sauf une trivialité.
+
+Bref, fidèle au principe fridesque de ne pas cacher des difficultés techniques sous des abus de notations, nous allons écrire les choses explicitement.
+
+\begin{lemma}
+	Si \( E\), \( V\) et \( W\) sont de dimension finie, les applications
+	\begin{equation}        \label{EQooVWXRooCesUqH}
+		\begin{aligned}
+			\psi\colon \aL(E,V)\otimes W & \to \aL(E,V\otimes W)                      \\
+			f\otimes w                   & \mapsto \Big( u\mapsto f(u)\otimes w \Big)
+		\end{aligned}
+	\end{equation}
+	et
+	\begin{equation}
+		\begin{aligned}
+			\varphi\colon V\otimes \aL(E,W) & \to \aL(E,V\otimes W)                       \\
+			v\otimes g                      & \mapsto \big( a\mapsto v\otimes g(a) \big).
+		\end{aligned}
+	\end{equation}
+	sont des isomorphismes d'espaces vectoriels.
+\end{lemma}
+Dans le meilleur des mondes, ces applications devraient être affublés d'indices \( V\) et \( W\).
+
+\begin{proof}
+	Nous donnons des détails à propos de \( \psi\). Pour \( \varphi\) c'est la même chose.
+	\begin{subproof}
+		\spitem[Linéaire]
+		La formule \eqref{EQooVWXRooCesUqH} définit \( \psi\) en particulier sur une base de \( \aL(E,V)\otimes W\) par la proposition \ref{PROPooTHDPooWgjUwk}\ref{ITEMooQCILooUncdGl}. Ce que signifie réellement la formule \eqref{EQooVWXRooCesUqH} est que \( \psi\) est ainsi définie sur la base et est prolongée par continuité.
+		\spitem[Injective]
+		Si pour un \( f\) et un \( w\) fixé nous avons \( \psi(f\otimes w)=0\), alors il y a deux cas : soit \( w=0\) soit \( w\neq0\). Dans le premier cas, \( f\otimes w=0\), et dans le second cas, nous remarquons que
+		\begin{equation}
+			0=\psi(f\otimes w)(a)=f(a)\otimes w
+		\end{equation}
+		pour tout \( a\in E\). Cela implique \( f(a)=0\) pour tout \( a\) et donc \( f=0\), ce qui signifie que \( f\otimes w=0\).
+		\spitem[Bijective]
+		En utilisant la proposition \ref{PROPooTHDPooWgjUwk} et le lemme \ref{LEMooJXFIooKDzRWR}\ref{ITEMooPMLWooNbTyJI}, nous avons égalité des dimensions entre \( \aL(E,V)\otimes W\) et \( \aL(E,V\otimes W)\).
+
+		Une application linéaire injective entre deux espaces vectoriels de même dimension (finie) est une bijection.
+	\end{subproof}
+\end{proof}
+
+\begin{proposition}     \label{PROPooZOAFooRMeBgI}
+	Soient des espaces vectoriels normés de dimension finie. Soient \( f\colon E\to V\) et \( g\colon E\to W\) des fonctions de classe \( C^1\). Alors \( f\tilde\otimes g\colon E\to V\otimes W\) est de classe \( C^1\) nous avons les formules
+	\begin{equation}        \label{EQooSUSCooBhZXFC}
+		d(f\tilde\otimes g)_a(u)=df_a(u)\otimes g(a)+f(a)\otimes dg_a(u)
+	\end{equation}
+	ainsi que
+	\begin{equation}        \label{EQooOCEEooUrsIDd}
+		d(f\tilde\otimes g)=\psi\circ(df\tilde\otimes g)+\varphi\circ(f\tilde\otimes dg).
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Nous commençons par prouver que \( f\tilde\otimes g\) est différentiable en injectant le candidat \eqref{EQooSUSCooBhZXFC} dans la définition. Au numérateur nous avons :
+	\begin{equation}        \label{EQooOMXSooYsAiKh}
+		(f\tilde\otimes g)(a+h)-(f\tilde\otimes g)(a)-df_a(h)\otimes g(a)-f(a)\otimes dg_a(h).
+	\end{equation}
+	Le lemme \ref{LEMooYQZZooVybqjK} assure qu'il existe une fonction \( \alpha\colon E\to V\) telle que \( \lim_{h\to 0} \alpha(h)/\| h \|\) et \( f(a+h)+f(a)+df_a(h)+\alpha(h)\). Même chose pour \( g\). Nous avons donc
+	\begin{equation}
+		(f\tilde\otimes g)(a+h)=f(a+h)\otimes g(a+h)=\big( f(a)+df_a(h)+\alpha(h) \big)\otimes \big( g(a)+dg_a(h)+\beta(h) \big)
+	\end{equation}
+	qui se développe en \( 9\) termes. En effectuant les différences dans \eqref{EQooOMXSooYsAiKh}, nous nous retrouvons avec un numérateur qui vaut
+	\begin{equation}
+		f(a)\otimes \beta(h)+df_a(h)\otimes dg_a(h)+df_a(h)\otimes \beta(h)+\alpha(h)\otimes g(a)+\alpha(h)\otimes dg_a(h)+\alpha(h)\otimes \beta(h).
+	\end{equation}
+	Nous pouvons prouver terme à terme qu'en divisant par \( \| h \|\) nous avons une limite qui vaut zéro. Par exemple,
+	\begin{equation}
+		\lim_{h\to 0} \frac{ f(a)\otimes \beta(h) }{ \| h \| }
+	\end{equation}
+	se calcule en prenant la norme du numérateur et en utilisant le lemme \ref{LEMooQPXHooJWfpmk} :
+	\begin{equation}
+		\frac{ \| f(a)\otimes \beta(h) \| }{ \| h \| }=\frac{ \| f(a) \|\| \beta(h) \| }{ \| h \| }\to 0.
+	\end{equation}
+	Tous les termes contenant \( \alpha(h)\) ou \( \beta(h)\) se traitent de la même manière. Le dernier terme à traiter est
+	\begin{equation}
+		\lim_{h\to 0} \frac{ df_a(h)\otimes dg_a(h) }{ \| h \| }.
+	\end{equation}
+	En prenant la norme du numérateur, en utilisant encore le lemme \ref{LEMooQPXHooJWfpmk} et en utilisant le lemme \ref{LEMooIBLEooLJczmu}, nous avons
+	\begin{equation}
+		\| df_a(h)\otimes dg_a(h) \|=\| df_a(h) \|\| dg_a(h) \|\leq \| df_a \|\| dg_a \|\| h \|^2,
+	\end{equation}
+	donc
+	\begin{equation}
+		\lim_{h\to 0} \frac{ df_a(h)\otimes dg_a(h) }{ \| h \| }=0.
+	\end{equation}
+	Notons que l'utilisation du lemme \ref{LEMooIBLEooLJczmu} requière que \( df_a\) soit continue, ce qui n'est pas évident en dimension infinie : une application linéaire n'est pas spécialement continue. C'est donc ici que nous utilisons le fait que \( E\), \( V\) et \( W\) sont de dimension finie\quext{Il y a surement moyen de paufiner, et d'affaiblir cette hypothèse, mais je ne me lance pas là-dedans.}.
+
+	Ceci prouve que \( f\tilde\otimes g\) est différentiable et nous donne la formule \eqref{EQooSUSCooBhZXFC} pour appliquer sa différentielle à un élément de \( E\). La formule \eqref{EQooOCEEooUrsIDd} est un corolaire : elle se vérifie en l'appliquant à \( a\) puis à \( u\).
+
+	Pour terminer nous devons prouver que \( d(f\tilde\otimes g)\) est continue. Vu que \( f\) et \( g\) sont de classe \( C^1\), les applications \( f\), \( g\), \( df\) et \( dg\) sont continues. Les applications \( \psi\) et \( \varphi\) sont également continues parce que linéaires sur des espaces de dimensioy finie. La proposition \ref{PROPooCRVXooEGxdZl} appliquée à \( df\) et \( g\) montre que \( df\tilde\otimes g\) est continue. La composition avec \( \psi\) qui est linéaire conserve la continuité.
+
+	Dons le membre de droite de \eqref{EQooOCEEooUrsIDd} est continu et \( f\tilde\otimes g\) est a une différentielle continue. Elle est donc de classe \( C^1\).
+\end{proof}
+
+Il est temps de démontrer le truc difficile, à savoir que si \( f\) et \( g\) sont de classe \( C^p\), alors \( f\tilde\otimes g\) est également de classe \( C^p\).
+
+\begin{proposition}     \label{PROPooAWZFooMlhoCN}
+	Nous applellons \( P_k\) la propriété suivante :
+	\begin{quote}
+		Pour tout \( p\geq k\), pour tout espaces vectoriels normés \( E\), \( V\), \( W\) de dimension finies et pour toutes applications \( f\colon E\to V\) et \( g\colon E\to W\) de classe \( C^k\), la fonction \( f\tilde\otimes g\) est de classe \( C^k\).
+	\end{quote}
+	\begin{enumerate}
+		\item       \label{ITEMooDQRYooAEdxrW}
+		      La propriété \( P_k\) est vraie pour tout \( k\).
+		\item       \label{ITEMooUUIFooGDyTMM}
+		      Si \( f\colon E\to V\) et \( g\colon E\to W\) sont de classe \( C^p\), alors \( f\tilde\otimes g\colon E\to V\otimes W\) est de classe \( C^p\).
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	Le gros de la preuve est le point \ref{ITEMooDQRYooAEdxrW}. Le point \ref{ITEMooUUIFooGDyTMM} est alors une utilisation de la propriété \( P_p\) avec \( p=k\).
+
+	Pour \( k=0\). Si \( f\) et \( g\) sont de classe \( C^p\) avec \( p\geq k\), alors \( f\) et \( g\) sont a fortiori continues. La proposition \ref{PROPooCRVXooEGxdZl} montre alors que \( f\tilde\otimes g\) est continue.
+
+	Bien que ce ne soit pas tout à fait nécessaire, nous prouvons que \( P_1\) est également vraie avant de passer à la récurrence. Si \( f\) et \( g\) sont de classe \( C^p\) avec \( p\geq 1\), alors elles sont de classe \( C^1\) et la proposition \ref{PROPooZOAFooRMeBgI} s'applique : \( f\tilde\otimes g\) est de classe \( C^1\).
+
+	Nous faisons la récurrence en supposant que \( P_k\) est vraie, et en prouvant que \( P_{k+1}\) est vraie. Soit \( p\geq k+1\) ainsi que des applications \( f\colon E\to V\) et \( g\colon E\to W\) de classe \( C^{k+1}\). La proposition \ref{PROPooZOAFooRMeBgI} dit que \( f\tilde\otimes g\) est de classe \( C^1\) et que
+	\begin{equation}
+		d(f\tilde\otimes g)=\psi\circ(df\tilde\otimes g)+\varphi\circ(f\tilde\otimes dg).
+	\end{equation}
+	À droite, \( df\) et \( g\) sont de classe \( C^k\) parce que \( f\) et \( g\) sont de classe \( C^{k+1}\). Donc \( df\tilde\otimes g\) est de classe \( C^k\) par l'hypothèse de récurrence appliquée aux espaces \( \aL(E,V)\) et \( W\). La proposition \ref{PROPooRCZOooSgvpSE} nous assure alors que \( \psi\circ(df\tilde\otimes g)\) est de classe \( C^k\) également.
+
+	Nous avons prouvé que \( d(f\tilde\otimes g)\) est de classe \( C^k\), donc \( f\tilde\otimes g\) est de classe \( C^{k+1}\). Cela nous fait la récurrence.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Formule des accroissements finis}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition} \label{PropDQLhSoy}
+	Soient \( a<b\) dans \( \eR\) et deux fonctions
+	\begin{subequations}
+		\begin{align}
+			f\colon \mathopen[ a , b \mathclose]\to E \\
+			g\colon \mathopen[ a , b \mathclose]\to \eR
+		\end{align}
+	\end{subequations}
+	continues sur \( \mathopen[ a , b \mathclose]\) et dérivables sur \( \mathopen] a , b \mathclose[\). Si pour tout \( t\in\mathopen] a , b \mathclose[\) nous avons \( \| f'(t) \|\leq g'(t)\) alors
+	\begin{equation}
+		\| f(b)-f(a) \|\leq g(b)-g(a).
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Soit \( \epsilon>0\) et la fonction
+	\begin{equation}
+		\begin{aligned}
+			\varphi_{\epsilon}\colon \mathopen[ a , b \mathclose] & \to \eR                                  \\
+			t                                                     & \mapsto \| f(t)-f(a) \|-g(t)-\epsilon t.
+		\end{aligned}
+	\end{equation}
+	Cela est une fonction continue réelle à variable réelle. En particulier pour tout \( u\in\mathopen] a , b \mathclose[\) la fonction \( \varphi_{\epsilon}\) est continue sur le compact \( \mathopen[ u , b \mathclose]\) et donc y atteint son minimum en un certain point \( c\in\mathopen[ u , b \mathclose]\); c'est le bon vieux théorème de Weierstrass~\ref{ThoWeirstrassRn}. Nous commençons par montrer que pour tout \( u\), ledit minimum ne peut être que \( b\). Pour cela nous allons montrer que si \( t\in\mathopen[ u , b [\), alors \( \varphi_{\epsilon}(s)<\varphi_{\epsilon}(t)\) pour un certain \( s>t\). Par continuité si \( s\) est proche de \( t\) nous avons
+			\begin{equation}
+				\left\|  \frac{ f(s)-f(t) }{ s-t }  \right\|-\frac{ \epsilon }{2}<\| f'(t) \|<g'(t)+\frac{ \epsilon }{2}=\frac{ g(s)-g(t) }{ s-t }+\frac{ \epsilon }{2}.
+			\end{equation}
+			Ces inégalités proviennent de la limite
+			\begin{equation}
+				\lim_{s\to t} \frac{ f(s)-f(t) }{ s-t }=f'(t),
+			\end{equation}
+			donc si \( s\) et \( t\) sont proches,
+			\begin{equation}
+				\left\| \frac{ f(s)-f(t) }{ s-t }-f'(t) \right\|
+			\end{equation}
+			est petit. Si \( s>t\) nous pouvons oublier des valeurs absolues et transformer l'inégalité en
+			\begin{equation}
+				\| f(s)-f(t) \|<g(s)-g(t)+\epsilon(s-t).
+			\end{equation}
+			Utilisant cela et l'inégalité triangulaire,
+			\begin{subequations}
+				\begin{align}
+					\varphi_{\epsilon}(s) & \leq\| f(s)-f(t) \|+\| f(t)-f(a) \|-g(s)-\epsilon s                  \\
+					                      & \leq g(s)-g(t)+\epsilon s-\epsilon t+\| f(t)-f(a) \|-g(s)-\epsilon s \\
+					                      & =\varphi_{\epsilon}(t).
+				\end{align}
+			\end{subequations}
+			Donc nous avons bien \( \varphi_{\epsilon}(s)<\varphi_{\epsilon}(t)\) avec l'inégalité stricte. Par conséquent pour tout \( u\in\mathopen] a , b \mathclose[\) nous avons \( \varphi_{\epsilon}(b)<\varphi_{\epsilon}(u)\) et en prenant la limite \( u\to a\) nous avons
+	\begin{equation}
+		\varphi_{\epsilon}(b)\leq \varphi_{\epsilon}(a).
+	\end{equation}
+	Cette inégalité donne immédiatement
+	\begin{equation}
+		\| f(b)-f(a) \|\leq g(b)-g(a)+\epsilon(b-a)
+	\end{equation}
+	pour tout \( \epsilon>0\) et donc
+	\begin{equation}
+		\| f(b)-f(a) \|\leq g(b)-g(a).
+	\end{equation}
+\end{proof}
+
+\begin{theorem}[Théorème des accroissements finis]\label{ThoNAKKght}
+	Soient \( E\) et \( F\) des espaces vectoriels normés, \( U \) ouvert dans \( E\) et une application différentiable \( f\colon U\to F\). Pour tout segment \( \mathopen[ a , b \mathclose]\subset U\) nous avons
+	\begin{equation}
+		\| f(b)-f(a) \|\leq\left( \sup_{x\in\mathopen[ a , b \mathclose]}\| df_x \| \right)\| b-a \|.
+	\end{equation}
+\end{theorem}
+\index{théorème!accroissements finis}
+
+
+\begin{proof}
+	Nous prenons les applications
+	\begin{equation}
+		\begin{aligned}
+			k\colon \mathopen[ 0 , 1 \mathclose] & \to E                          \\
+			t                                    & \mapsto f\big( (1-t)a+tb \big)
+		\end{aligned}
+	\end{equation}
+	et
+	\begin{equation}
+		\begin{aligned}
+			g\colon \mathopen[ 0 , 1 \mathclose] & \to \eR                                                              \\
+			t                                    & \mapsto t\sup_{x\in\mathopen[ a , b \mathclose]}\| df_x \|\| b-a \|.
+		\end{aligned}
+	\end{equation}
+	Pour tout \( t\) nous avons \( g'(t)=M\| b-a \|\) où il n'est besoin de dire ce qu'est \( M\). D'un autre côté nous avons aussi
+	\begin{equation}
+		\begin{aligned}[]
+			k'(t) & =\lim_{\epsilon\to 0}\frac{ f\big( (1-t-\epsilon)a+(t+\epsilon)b \big)-f\big( (1-t)a+tb \big) }{ \epsilon } \\
+			      & =\Dsdd{ f\big( (1-t)a+tb+\epsilon(b-a) \big)  }{\epsilon}{0}                                                \\
+			      & =df_{(1-t)a+tb}(b-a)
+		\end{aligned}
+	\end{equation}
+	où nous avons utilisé l'hypothèse de différentiabilité de \( f\) sur \( \mathopen[ a , b \mathclose]\) et donc en \( (1-t)a+tb\). Nous avons donc
+	\begin{equation}
+		\| k'(t) \|\leq \| b-a \|\| df_{(1-t)a+tb} \|\leq M\| b-a \|=g'(t)
+	\end{equation}
+	La proposition~\ref{PropDQLhSoy} est donc utilisable et
+	\begin{equation}
+		\| k(1)-k(0) \|=g(1)-g(0),
+	\end{equation}
+	c'est-à-dire
+	\begin{equation}
+		\| f(b)-f(a) \|=M\| b-a \|
+	\end{equation}
+	comme il se doit.
+\end{proof}
+
+\begin{proposition} \label{ProFSjmBAt}
+	Soient \( E\) et \( F\) des espaces vectoriels normés, \( U \) ouvert dans \( E\) et une application \( f\colon U\to F\). Soient \( a,b\in U\) tels que \( \mathopen[ a , b \mathclose]\subset U\). Nous posons \( u=(b-a)/\| b-a \|\) et nous supposons que pour tout \( x\in\mathopen[ a , b \mathclose]\), la dérivée directionnelle
+	\begin{equation}
+		\frac{ \partial f }{ \partial u }(x)=\Dsdd{ f(x+tu) }{t}{0}
+	\end{equation}
+	existe. Nous supposons de plus que \( \frac{ \partial f }{ \partial u }(x)\) est continue en \( x=a\). Alors
+	\begin{equation}
+		\| f(b)-f(a) \|\leq\left( \sup_{x\in\mathopen[ a , b \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \| \right)\| b-a \|.
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Nous posons évidemment
+	\begin{equation}
+		M=\sup_{x\in\mathopen[ a , b \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \|
+	\end{equation}
+	et nous considérons les fonctions
+	\begin{equation}
+		k(t)=f\big( (1-t)a+tb \big)
+	\end{equation}
+	et
+	\begin{equation}
+		g(t)=tM\| b-a \|.
+	\end{equation}
+	Pour alléger les notations nous posons \( x=(1-t)a+tb\) et nous calculons avec un petit changement de variables dans la limite :
+	\begin{equation}
+		k'(t)=\Dsdd{  f\big( x+\epsilon(b-a) \big)  }{\epsilon}{0}=\| b-a \|\Dsdd{ f\big( x+\frac{ \epsilon }{ \| b-a \| }(b-a) \big) }{\epsilon}{0}=\| b-a \|\frac{ \partial f }{ \partial u }(x),
+	\end{equation}
+	et donc encore une fois nous avons
+	\begin{equation}
+		\| k'(t) \|\leq g'(t),
+	\end{equation}
+	ce qui donne
+	\begin{equation}
+		\| k(1)-k(0) \|=g(1)-g(0),
+	\end{equation}
+	c'est-à-dire
+	\begin{equation}
+		\| f(b)-f(a) \|\leq \sup_{x\in\mathopen[ a , b \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \|\| b-a \|.
+	\end{equation}
+\end{proof}
+
+\begin{theorem} \label{ThoOYwdeVt}
+	Soient \( E,V\) deux espaces vectoriels normés, une application \( f\colon E\to V\), un point \( a\in E\) tel que pour tout \( u\in E\), la dérivée
+	\begin{equation}
+		\Dsdd{ f(x+tu) }{t}{0}
+	\end{equation}
+	existe pour tout \( x\in B(a,r)\) et est continue (par rapport à \( x\)) en \( x=a\). Nous supposons de plus que
+	\begin{equation}
+		\frac{ \partial f }{ \partial u }(a)=0
+	\end{equation}
+	pour tout \( u\in E\). Alors \( f\) est différentiable en \( a\) et
+	\begin{equation}
+		df_a=0
+	\end{equation}
+\end{theorem}
+
+\begin{proof}
+	Soit \( \epsilon>0\). Pourvu que \( \| h \|\) soit assez petit pour que \( a+h\in B(a,r)\), la proposition~\ref{ProFSjmBAt} nous donne
+	\begin{equation}
+		\| f(a+h)-f(a) \|\leq \sup_{x\in\mathopen[ a , a+h \mathclose]}\| \frac{ \partial f }{ \partial u }(x) \|  |h |
+	\end{equation}
+	où \( u=h/\| h \|\). Par continuité de \( \partial_uf(x)\) en \( x=a\) et par le fait que cela vaut \( 0\) en \( x=a\), il existe un \( \delta>0\) tel que si \( \| h \|<\delta\) alors
+	\begin{equation}
+		\| \frac{ \partial f }{ \partial u }(a+h) \|\leq \epsilon.
+	\end{equation}
+	Pour de tels \( h\) nous avons
+	\begin{equation}
+		\| f(a+h)-f(a) \|\leq \epsilon\| h \|,
+	\end{equation}
+	ce qui prouve que l'application linéaire \( T(u)=0\) convient parfaitement pour faire fonctionner la définition \ref{DefDifferentiellePta}.
+	%
+	%    Nous ne supposons plus que les dérivées directionnelles de \( f\) sont nulles en \( x=a\). Alors nous posons, pour \( x\in U\),
+	%    \begin{equation}    \label{EqCUgHXHy}
+	%        g(x)=f(x)-\Dsdd{ f(a+s(x-a)) }{s}{0}.
+	%    \end{equation}
+	%    Le fait que cette fonction soit bien définie est encore un coup de hypothèses sur les dérivées directionnelles de \( f\) qui sont bien définies autour de \( a\). Cette nouvelle fonction \( g\) satisfait à \( \frac{ \partial g }{ \partial v }(a)=0\) pour tout \( v\in E\) parce que
+	%    \begin{subequations}
+	%        \begin{align}
+	%            \frac{ \partial g }{ \partial v }(a)&=\Dsdd{ g(a+tv) }{t}{0}\\
+	%            &=\Dsdd{ f(a+tv)-\Dsdd{ f\big( a+s(tv) \big) }{s}{0} }{t}{0}\\
+	%            &=\frac{ \partial f }{ \partial v }(a)-\Dsdd{ t\frac{ \partial f }{ \partial v }(a) }{t}{0}\\
+	%            &=0.
+	%        \end{align}
+	%    \end{subequations}
+	%    Pour la dérivée par rapport à \( s\) nous avons effectué le changement de variables \( s\to ts\), ce qui explique la présence d'un \( t\) en facteur. La fonction \( g\) est donc différentiable en \( a\).
+	%
+	%
+	% Position 229262367
+	% Attention : ce qui suit est faux. Mais il y a peut-être moyen d'adapter.
+	%\spitem[Dérivées non nulles]
+	%
+	%    Nous allons montrer que la fonction
+	%    \begin{equation}
+	%        l(x)=\Dsdd{ f\big( a+s(x-a) \big) }{t}{0}
+	%    \end{equation}
+	%    est différentiable en \( x=a\), de différentielle \( T(u)=l(u+a)\). Cela fournira la différentiabilité de \( f\) parce que \eqref{EqCUgHXHy} donnerait alors \( f\) comme somme de deux fonctions différentiables.
+	%
+	%    En premier lieu nous devons montrer que \( T\) ainsi définie est linéaire.
+	%
+	%    Notre but est donc de prouver que
+	%    \begin{equation}
+	%        \lim_{h \to 0}\frac{ \| l(x+h)-l(x)-l(h) \| }{ \| h \| }=0.
+	%    \end{equation}
+	%    Un premier pas est de calculer
+	%    \begin{subequations}
+	%        \begin{align}
+	%            l(x+h)-l(x)-l(h)&=\lim_{s\to 0}\frac{ f\big( s(x+h) \big)-f(0)-f(sx)+f(0)-f(sh)+f(0) }{ s }\\
+	%            &=\lim_{s\to 0}\frac{ f\big( s(x+h) \big)-f(sx)-f(sh)+f(0) }{ s }.
+	%        \end{align}
+	%    \end{subequations}
+	%    Ensuite nous étudions le numérateur en utilisant la proposition~\ref{ProFSjmBAt}:
+	%    \begin{subequations}
+	%        \begin{align}
+	%            \| f\big( s(x+h) \big)-f(sx)-f(sh)+f(0) \|&\leq  \| f\big( s(x+h) \big)-f(sx)\| + \|f(sh)-f(0) \|  \\
+	%            &\leq \sup_{z\in\mathopen[ sx , sx+sh \mathclose]}\| \frac{ \partial f }{ \partial h }(z) \|\| sh \|\\
+	%            &\quad +\sup_{z\in\mathopen[ 0 , sh \mathclose]}\| \frac{ \partial f }{ \partial h }(z) \|\| sh \|.
+	%        \end{align}
+	%    \end{subequations}
+	%    La division par \( s\) se passe bien et nous avons
+	%    \begin{subequations}
+	%        \begin{align}
+	%            \| l(x+h)-l(x)-l(h) \|&\leq \lim_{s\to 0}  \sup_{z\in\mathopen[ sx , sx+sh \mathclose]}\| \frac{ \partial f }{ \partial h }(z) \|\| h \|+ \sup_{z\in\mathopen[ 0 , sh \mathclose]}\| \frac{ \partial f }{ \partial h }(z) \|\| h \|\\
+	%            &=2\| h \|\| \frac{ \partial f }{ \partial h }(0) \|        \label{SubeqVMMoSDH}\\
+	%            &=2\| h \|^2\| \frac{ \partial f }{ \partial u }(0) \|
+	%        \end{align}
+	%    \end{subequations}
+	%    où nous avons posé \( u=h/\| h \|\). Pour l'égalité \eqref{SubeqVMMoSDH} nous avons utilisé la continuité de \( \frac{ \partial f }{ \partial h }(z)\) en \( z=0\). Du coup
+	%    \begin{equation}
+	%        \lim_{y\to 0} \frac{ \| f(x+h)-f(x)-f(h) \| }{ \| h \| }=\lim_{h\to 0} 2\| h \|\| \frac{ \partial f }{ \partial u }(0) \|=0.
+	%    \end{equation}
+	%    Cela prouve que \( l\) est bien différentiable en \( x=0\).
+	%
+	%    \end{subproof}
+	%
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Applications multilinéaires}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous avons déjà parlé d'applications multilinéaires dans la définition \ref{DefFRHooKnPCT}.
+
+\begin{lemma}[Leibnitz pour les formes bilinéaires\cite{SNPdukn}]\label{LemFRdNDCd}
+	Si \( B\colon E\times F\to G\) est bilinéaire et continue, elle est \(  C^{\infty}\) et
+	\begin{equation}    \label{EqXYJgDBt}
+		dB_{(x,y)}(u,v)=B(x,v)+B(u,y).
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	D'abord le membre de droite de \eqref{EqXYJgDBt} est une application linéaire et continue, donc c'est un bon candidat à être différentielle. Nous allons prouver que ça l'est, ce qui prouvera la différentiabilité de \( B\). Avec ce candidat, le numérateur de la définition \eqref{DefDifferentiellePta} s'écrit dans notre cas
+	\begin{equation}
+		B\big( (x,y)+(u,v) \big)-B(x,y)-B(x,v)-B(u,y)=B(u,v).
+	\end{equation}
+	Il reste à voir que
+	\begin{equation}
+		\lim_{ (u,v)\to (0,0) } \frac{ B(u,v) }{ \| (u,v) \| }=0
+	\end{equation}
+	Par l'équation \eqref{EqYLnbRbC} nous avons
+	\begin{equation}
+		\frac{ \| B(u,v) \| }{ \| (u,v) \| }\leq \frac{ \| B \|\| u \|\| v \| }{ \| u \| }=\| B \|\| v \|
+	\end{equation}
+	parce que \( \| (u,v) \|\geq \| u \|\). À partir de là il est maintenant clair que
+	\begin{equation}
+		\lim_{(u,v)\to (0,0)}\frac{ \| B(u,v) \| }{ \| (u,v) \| }=0,
+	\end{equation}
+	ce qu'il fallait.
+\end{proof}
+
+\begin{proposition}[Règle de Leibnitz\cite{SNPdukn}]
+	Soient \( E,F_1,F_2\) des espaces vectoriels normés, \( U\) ouvert dans \( E\) et des applications de classe \( C^r\) (\( r\geq 1\))
+	\begin{subequations}
+		\begin{align}
+			f_1\colon U\to F_1 \\
+			f_2\colon U\to F_2 \\
+		\end{align}
+	\end{subequations}
+	et \( B\in\cL(F_1\times F_2,G)\). Alors l'application
+	\begin{equation}
+		\begin{aligned}
+			\varphi\colon U & \to G                              \\
+			x               & \mapsto B\big( f_1(x),f_2(x) \big)
+		\end{aligned}
+	\end{equation}
+	est de classe \( C^r\) et
+	\begin{equation}    \label{EqMNGBXWc}
+		d\varphi_x(u)=\varphi\big( (df_1)_x(u),f_2(x) \big)+\varphi\big( f_1(x),(df_2)_x(u) \big).
+	\end{equation}
+\end{proposition}
+\index{Leibnitz!applications entre espaces vectoriels normés}
+
+\begin{proof}
+	Par hypothèse \( B\) est continue (c'est la définition de l'espace \( \cL\)), et donc \(  C^{\infty}\) par le lemme~\ref{LemFRdNDCd}. Par ailleurs la fonction \( f_1\times f_2\) est de classe \( C^r\) parce que \( f_1\) et \( f_2\) le sont et parce que la proposition~\ref{PropOYtgIua} le dit. L'application composée \( B\circ(f_1\times f_2)\) est donc également de classe \( C^r\) par le théorème~\ref{ThoAGXGuEt}.
+
+	Il ne nous reste donc qu'à prouver la formule~\ref{EqMNGBXWc}. En utilisant la différentielle du produit cartésien\footnote{Proposition~\ref{PropOYtgIua}.} nous avons
+	\begin{equation}
+		f\big( B\circ(f_1\times f_2) \big)_x(h)=dB_{(f_1\times f_2)(x)}\big( (df_1)_x(h),(df_2)_x(h) \big).
+	\end{equation}
+	Nous développons cela en utilisant le lemme~\ref{LemFRdNDCd} :
+	\begin{subequations}
+		\begin{align}
+			d\big( B\circ(f_1\times f_2) \big)_x(h) & =dB_{\big( f_1(x),f_2(x) \big)}\big( (df_1)_x(h),(df_2)_x(h) \big) \\
+			                                        & =B\big( f_1(x),(df_2)_x(h) \big)+B\big( (df_1)_x(h),f_2(x) \big),
+		\end{align}
+	\end{subequations}
+	comme souhaité.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Différentielle partielle}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}[Différentielle partielle]    \label{VJM_CtSKT}
+	Soient \( E\), \( F\) et \( G\) des espaces vectoriels normés et une fonction \( f\colon E\times F\to G\). Nous définissons sa \defe{différentielle partielle}{différentielle!partielle} sur l'espace \( E\) par
+	\begin{equation}
+		\begin{aligned}
+			d_1f_{(x_0,y_0)}\colon E & \to G                                 \\
+			u                        & \mapsto \Dsdd{ f(x_0+tu,y_0 }{t}{0} .
+		\end{aligned}
+	\end{equation}
+	La différentielle \( d_2\) se définit de la même façon.
+\end{definition}
+
+\begin{proposition}[\cite{SNPdukn}] \label{PropLDN_nHWDF}
+	Soient \( E_1\), \( E_2\) et \( F\) des espaces vectoriels normés, soit un ouvert \( U\subset E_1\times E_2\) et une fonction \( f\colon U\to F\).
+	\begin{enumerate}
+		\item   \label{ItemRDD_oPmXVi}
+		      Si \( f\) est différentiable alors les différentielles partielles existent et
+		      \begin{subequations}
+			      \begin{align}
+				      d_1f_{(x_0,y_0)}(u)=df_{(x_0,y_0)}(u,0) \\
+				      d_2f_{(x_0,y_0)}(v)=df_{(x_0,y_0)}(0,v)
+			      \end{align}
+		      \end{subequations}
+		      où \( u\in E_1\) et \( v\in E_2\).
+		\item
+		      Si \( f\) est différentiable alors
+		      \begin{equation}
+			      df_{(x_0,y_0)}(u,v)=d_1f_{(x_,y_0)}(u)+d_2f_{(x_0,y_0)}(v).
+		      \end{equation}
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	Nous posons \( \alpha=(x_0,y_0)\in U\) et
+	\begin{equation}
+		\begin{aligned}
+			j_{\alpha}^{(1)}\colon E_1 & \to E_1\times E_2 \\
+			x                          & \mapsto (x,y_0).
+		\end{aligned}
+	\end{equation}
+	C'est une fonction de classe \(  C^{\infty}\) et
+	\begin{equation}
+		(dj_{\alpha}^{(1)})_{x_0}(u)=\Dsdd{ j_{\alpha}^{(1)}(x_0+tu) }{t}{0}=\Dsdd{ (x_0+tu,y_0) }{t}{0}=(u,0).
+	\end{equation}
+	D'autre part
+	\begin{subequations}
+		\begin{align}
+			(d_1f)_{\alpha}(u) & =\Dsdd{ f(x_0+tu,y_0) }{t}{0}                     \\
+			                   & =\Dsdd{ (f\circ j_{\alpha}^{(1)})(x_0+tu) }{t}{0} \\
+			                   & =\big( d(f\circ j_{\alpha}^{(1)}) \big)_{x_0}(u).
+		\end{align}
+	\end{subequations}
+	À ce moment nous utilisons la règle des différentielles composées~\ref{ThoAGXGuEt} pour dire que
+	\begin{equation}
+		(d_1f)_{\alpha}(u)=df_{j_{\alpha}^{(1)}(x_0)}\circ (dj_{\alpha}^{(1)})_{x_0}(u)=df_{\alpha}(u,0).
+	\end{equation}
+	Voilà qui prouve déjà le point~\ref{ItemRDD_oPmXVi}.
+
+	Pour la suite nous considérons les fonctions
+	\begin{equation}
+		\begin{aligned}[]
+			P_1(x,y) & =x, &  &  & J_1(u) & =(u,0), \\
+			P_2(x,y) & =y, &  &  & J_2(v) & =(0,v)
+		\end{aligned}
+	\end{equation}
+	et nous avons l'égalité évidente
+	\begin{equation}
+		J_1\circ P_1+J_2\circ P_2=\mtu
+	\end{equation}
+	sur \( E_1\times E_2\). En appliquant \( df_{\alpha}\) à cette dernière égalité, en appliquant à \( (u,v)\) et en utilisant la linéarité de \( df_{\alpha}\) nous trouvons
+	\begin{subequations}
+		\begin{align}
+			df_{\alpha}(u,v) & =df_{\alpha}\big( (J_1\circ P_1)(u,v) \big)+df_{\alpha}\big( (J_2\circ P_2)(u,v) \big) \\
+			                 & =df_{\alpha}(u,0)+df_{\alpha}(0,v)                                                     \\
+			                 & =(d_1f)_{\alpha}(u)+(d_2f)_{\alpha}(v)
+		\end{align}
+	\end{subequations}
+	où nous avons utilisé le point~\ref{ItemRDD_oPmXVi} pour la dernière égalité.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{L'inverse, sa différentielle}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Si \( E\) est un espace de Banach, nous sommes intéressés à l'espace \( \GL(E)\) des endomorphismes inversibles de \( E\) sur \( E\). Cet ensemble est métrique par la formule usuelle
+\begin{equation}
+	\| T \|=\sup_{\| x \|=1}\| T(x) \|_E.
+\end{equation}
+
+\begin{proposition}[Thème~\ref{THEMEooPQKDooTAVKFH}]     \label{PropQAjqUNp}
+	Soit \( E\) un espace de Banach (espace vectoriel normé complet). Si \( A\) est un endomorphisme de \( E\) satisfaisant  \( \| A \|<1\) pour la norme opérateur, alors \( (\mtu-A)\) est inversible et son inverse est donné par
+	\begin{equation}
+		(\mtu-A)^{-1}=\sum_{k=0}^{\infty}A^k.
+	\end{equation}
+\end{proposition}
+\index{série!donnant \( (1-A)^{-1}\)}
+
+\begin{proof}
+	Étant donné que la norme opérateur est une norme algébrique (lemme~\ref{LEMooFITMooBBBWGI}), nous avons \( \| A^k \|\leq \| A \|^k\). Par conséquent la série \( \| A^k \|\) est majorée par la série géométrique qui converge\footnote{Proposition \ref{PROPooWOWQooWbzukS}.}. Par conséquent \( \sum_{k}A^k\) est une série absolument convergente et donc convergente par la proposition~\ref{PropAKCusNM} et le fait que \( \aL(E)\) est complet (proposition~\ref{LemCAIPooPMNbXg}).
+
+	Montrons à présent que la somme est l'inverse de \( \mtu-A\) en utilisant le produit terme à terme autorisé par la proposition \ref{PROPooMZZQooEhQsgQ} :
+	\begin{equation}
+		\sum_{k=0}^nA^k(\mtu-A)=\sum_{k=0}^n(A^k-A^{k+1})=\mtu-A^{n+1}.
+	\end{equation}
+	Par conséquent
+	\begin{equation}
+		\| \mtu-\sum_{k=0}^nA^k(\mtu-A) \|=\| A^{n+1} \|\leq \| A \|^{n+1}\to 0.
+	\end{equation}
+\end{proof}
+
+\begin{theorem}[Inverse dans \( \GL(E)\)\cite{laudenbach2000calcul,SNPdukn}]    \label{ThoCINVBTJ}
+	Soient \( E\) et \( F\) des espaces vectoriels normés.
+	\begin{enumerate}
+		\item
+		      L'ensemble \( \GL(E)\) est ouvert dans \( \End(E)\).
+		\item
+		      L'application inverse
+		      \begin{equation}
+			      \begin{aligned}
+				      i\colon \GL(E,F) & \to \GL(F,E)   \\
+				      u                & \mapsto u^{-1}
+			      \end{aligned}
+		      \end{equation}
+		      est de classe \( C^{\infty}\) et
+		      \begin{equation}
+			      di_{u_0}(h)=-u_0^{-1}\circ h\circ u_0^{-1}
+		      \end{equation}
+		      pour tout \( h\in\End(E)\)
+	\end{enumerate}
+\end{theorem}
+\index{différentielle!de \( u\mapsto u^{-1}\)}
+
+\begin{proof}
+	Nous supposons que \( \GL(E,F)\) n'est pas vide, sinon ce n'est pas du jeu.
+	\begin{subproof}
+
+		\spitem[Cas de dimension finie]
+
+		Si la dimension de \( E\) et \( F\) est finie, elles doivent être égales, sinon il n'y a pas de fonctions inversibles \( E\to F\). L'ensemble \( \GL(E,F)\) est donc naturellement \( \GL(n,\eR)\). Un élément de \( \eM(n,\eR)\) est dans \( \GL(n,\eR)\) si et seulement si son déterminant est non nul. Le déterminant étant une fonction continue (polynomiale) en les entrées de la matrice, l'ensemble \( \GL(n,\eR)\) est ouvert dans \( \eM(n,\eR)\).
+
+		Même idée pour la régularité de la fonction \( i\colon \GL(n,\eR)\to \GL(n,\eR)\), \( X\mapsto X^{-1}\). Les entrées de \( X^{-1}\) sont les cofacteurs de \( X\) divisé par \( \det(X)\), et donc des polynômes en les entrées de \( X\) divisés par un polynôme qui ne s'annule pas sur \( \GL(n,\eR)\), et donc sur un ouvert autour de \( X\) et de \( X^{-1}\). Bref, tout est \(  C^{\infty}\).
+
+		Le reste de la preuve parle de la dimension infinie.
+
+		\spitem[Ouvert autour de l'identité]
+
+		Nous commençons par prouver que \( B(\mtu,1)\subset \GL(E)\). Pour cela il suffit de remarquer que si \( \| u \|<1\) alors le lemme~\ref{PropQAjqUNp} nous donne un inverse de \( (1+u)\) en la personne de \( \sum_{k=0}^{\infty}(-u)^k\).
+
+		\spitem[Ouvert en général]
+
+		Soit maintenant \( u_0\in\GL(E)\). Si \( \| u \|<\frac{1}{ \| u_0^{-1} \| }\) alors \( \| u_0^{-1}u \|<1\), ce qui signifie que
+		\begin{equation}
+			\mtu+u_0^{-1}u
+		\end{equation}
+		est inversible. Mais \( u_0+u=u_0(\mtu+u_0^{-1}u)\), donc \( u_0+u\in\GL(E)\) ce qui signifie que
+		\begin{equation}
+			B\left( u_0,\frac{1}{ \| u_0^{-1} \| } \right)\subset \GL(E).
+		\end{equation}
+
+		\spitem[Différentielle en l'identité]
+
+		Nous commençons par prouver que \( di_{\mtu}(u)=-u\). Pour cela nous posons
+		\begin{equation}
+			\alpha(h)=\sum_{k=2}^{\infty}(-1)^kh^k
+		\end{equation}
+		et nous calculons
+		\begin{equation}
+			di_{\mtu}(u)=\Dsdd{ i(\mtu+tu) }{t}{0}=\Dsdd{ \mtu-tu+\alpha(tu) }{t}{0}.
+		\end{equation}
+		Il suffit de prouver que \( \Dsdd{ \alpha(tu) }{t}{0}=0\) pour conclure que \( di_{\mtu}(u)=-u\). Pour cela, nous remarquons que \( \alpha(0)=0\) et donc que
+		\begin{subequations}
+			\begin{align}
+				\Dsdd{ \alpha(tu) }{t}{0} & =\lim_{t\to 0} \frac{ \alpha(tu)-\alpha(0) }{ t }            \\
+				                          & =\lim_{t\to 0} \sum_{k=2}^{\infty}(-1)^k\frac{ (tu)^k }{ t } \\
+				                          & =-\lim_{t\to 0} u\sum_{k=1}^{\infty}(-1)^kt^ku^k.
+			\end{align}
+		\end{subequations}
+		La norme de ce qui est dans la limite est majorée par
+		\begin{equation}
+			\| u \|\sum_{k=1}^{\infty}\| tu \|^k=\| u \|\left( \frac{1}{ 1-\| tu \| }-1 \right),
+		\end{equation}
+		et cela tend vers zéro lorsque \( t\to\infty\). Nous avons utilisé la somme~\ref{EqRGkBhrX} de la série géométrique. Nous avons bien prouvé que \( di_{\mtu}(u)=-u\).
+
+		\spitem[Différentielle en général]
+		Soit maintenant \( u_0\in\GL(E)\) et \( h\in\End(E)\) tel que \( u_0+h\in \GL(E)\); par le premier point, il suffit de prendre \( \| h \|\) suffisamment petit. Vu que \( u_0+h=u_0(\mtu+u_0^{-1}h)\) nous avons
+		\begin{equation}
+			(u_0+h)^{-1}=(\mtu+u_0^{-1}h)^{-1}u_0^{-1}.
+		\end{equation}
+		Nous pouvons donc calculer
+		\begin{equation}
+			(u_0+h)^{-1}=\big( \mtu-u_0^{-1}h+\alpha(u_0^{-1}h) \big)u_0^{-1}=u_0^{-1}-u_0^{-1}hu_0^{-1}+\alpha(u_0^{-1}h)u_0^{-1},
+		\end{equation}
+		et ensuite
+		\begin{equation}
+			di_{u_0}(h)=\Dsdd{ i(u_0+th) }{t}{0}=\Dsdd{ u_0^{-1}-tu_0^{-1}hu_0^{-1}+\alpha(tu_0^{-1}h)u_0^{-1} }{t}{0},
+		\end{equation}
+		mais nous avons déjà vu que
+		\begin{equation}
+			\Dsdd{ \alpha(th) }{t}{0}=0,
+		\end{equation}
+		donc
+		\begin{equation}
+			di_{u_0}(h)=-u_0^{-1}hu_0^{-1}
+		\end{equation}
+		Cela donne la différentielle de l'application inverse.
+
+		\spitem[Continuité de l'inverse]
+
+		L'application \( i\) est continue parce que différentiable.
+		\spitem[L'inverse est \(  C^{\infty}\)]
+
+		Nous allons écrire la fonction inverse comme une composée. Soient les applications
+		\begin{equation}
+			\begin{aligned}
+				B\colon \cL(F,E)\times \cL(F,E) & \to \cL\big( \cL(E,F),\cL(F,E) \big) \\
+				B(\psi_1,\psi_2)(A)             & = -\psi_1\circ A\circ\psi_2
+			\end{aligned}
+		\end{equation}
+		et
+		\begin{equation}
+			\begin{aligned}
+				\Delta\colon \cL(F,E) & \to \cL(F,E)\times \cL(F,E) \\
+				\varphi               & \mapsto (\varphi,\varphi)
+			\end{aligned}
+		\end{equation}
+		Nous avons alors
+		\begin{equation}
+			di=B\circ\Delta\circ i.
+		\end{equation}
+		L'application \( \Delta\) est de classe \(  C^{\infty}\). Nous devons voir que \( B\) l'est aussi. Pour le voir nous commençons par prouver qu'elle est bornée :
+		\begin{equation}
+			\begin{aligned}[]
+				\| B \| & =\sup_{\| \psi_1 \|,\| \psi_2 \|=1}\| B(\psi_1,\psi_2) \|_{\aL\big( L(E,F),L(F,E) \big)}      \\
+				        & =\sup_{  \| \psi_1 \|,\| \psi_2 \|=1 }\sup_{\| A \|=1}\| \psi_1\circ A\circ\psi_2 \|_{L(F,E)} \\
+				        & \leq \sup_{\| \psi_1 \|,\| \psi_2 \|=1}\sup_{\| A \|=1}\| \psi_1 \|\| A \|\| \psi_2 \|        \\
+				        & \leq 1.
+			\end{aligned}
+		\end{equation}
+		Donc \( B\) est bien bornée et par conséquent continue. Une application bilinéaire continue est \(  C^{\infty}\) par le lemme~\ref{LemFRdNDCd}. La décomposition \( di=B\circ \Delta\circ i\) nous donne donc que \( i\in C^{\infty}\) dès que \( i\) est continue, ce que nous avions déjà montré.
+	\end{subproof}
+\end{proof}
+
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Exponentielle de matrice}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{secAOnIwQM}
+
+\begin{proposition}     \label{PropPEDSooAvSXmY}
+	Soit \( V\) un espace vectoriel de dimension finie et \( A\in\End(V)\). La série
+	\begin{equation}
+		\exp(A)=\mtu+A+\frac{ A^2 }{ 2 }+\frac{ A^3 }{ 3 }+\ldots =\sum_{k=1}^{\infty}\frac{ A^k }{ k! }.
+	\end{equation}
+	converge normalement dans \( \big( \End(V),\| . \|_{op} \big)\).  L'\defe{exponentielle}{exponentielle!de matrice} de la matrice \( A\) est cette matrice.
+\end{proposition}
+
+\begin{proof}
+	Vu que la norme opérateur est une norme d'algèbre par le lemme~\ref{LEMooFITMooBBBWGI}, nous avons pour tout \( k\) la majoration \( \| A^k \|\leq \| A \|^k\). Nous avons donc
+	\begin{equation}
+		\sum_{k=0}^{\infty}\frac{ \| A^k \| }{ k! }\leq \sum_k\frac{ \| A \|^k }{ k! }.
+	\end{equation}
+	La dernière somme converge en vertu de la convergence de la série exponentielle donnée en exemple~\ref{ExIJMHooOEUKfj}.
+\end{proof}
+
+Étant donné que c'est une limite, il y a une question de convergence et donc de topologie. C'est pour cela que nous ne pouvions pas introduire l'exponentielle de matrice avant d'avoir introduit la norme des matrices. La convergence de la série pour toute matrice sera prouvée au passage dans la proposition~\ref{PropFMqsIE}.
+
+
+La fonction exponentielle \(  x\mapsto e^{x}\) n'est pas un polynôme en \( x\), mais nous avons le résultat marrant suivant.
+\begin{proposition} \label{PropFMqsIE}
+	Si \( u\) est un endomorphisme, alors \( \exp(u)\) est un polynôme en \( u\)\footnote{Nan, mais j'te jure : \( \exp\) n'est pas un polynôme, mais \( \exp(u)\) est un polynôme de \( u\).}.
+\end{proposition}
+
+\begin{proof}
+	Nous considérons l'application
+	\begin{equation}
+		\begin{aligned}
+			\varphi_u\colon \eK[X] & \to \End(E)  \\
+			P                      & \mapsto P(u)
+		\end{aligned}
+	\end{equation}
+	Étant donné que l'image de \( \varphi_u\) est un fermé dans \( \End(E)\), il suffit de montrer que la série
+	\begin{equation}
+		\sum_{k=0}^{\infty}\frac{ \varphi_u(X)^k }{ k! }
+	\end{equation}
+	converge dans \( \End(E)\) pour qu'elle converge dans \( \Image(\varphi_u)\). Pour ce faire nous nous rappelons de la norme opérateur\footnote{Définition~\ref{DefNFYUooBZCPTr}.} et de la propriété fondamentale \( \| A^k \|\leq \| A \|^k\). En notant \( A=\varphi_u(X)\),
+	\begin{equation}
+		\left\| \sum_{k=n}^m\frac{ A^k }{ k! } \right\|\leq \sum_{k=n}^m\frac{ \| A^k \| }{ k! }\leq \sum_{k=n}^m\frac{ \| A \|^k }{ k! },
+	\end{equation}
+	ce qui est une morceau du développement de \(  e^{\| A \|}\). La limite \( n\to\infty\) est donc zéro par la convergence de l'exponentielle réelle. La suite des sommes partielles de  \( e^{A}\) est donc de Cauchy. La série converge donc parce que nous sommes dans un espace vectoriel réel de dimension finie (\( \End(E)\)).
+\end{proof}
+% TODO : et tant qu'on y est, justifier la convergence de la série de l'exponentielle réelle.
+
+\begin{normaltext}
+	Pourquoi \( \exp(u)\) est-il un polynôme d'endomorphisme alors que \( \exp\) n'est pas un polynôme ? Lorsque nous disons que la fonction \( x\mapsto \exp(x)\) n'est pas un polynôme, nous sommes en train de localiser la fonction \( \exp\) à l'intérieur de l'espace de toutes les fonctions \( \eR\to \eR\), c'est-à-dire à l'intérieur d'un espace de dimension infinie. Au contraire lorsqu'on parle de \( \exp(u)\) et qu'on le compare aux endomorphismes \( P(u)\), nous sommes en train de repérer \( \exp(u)\) à l'intérieur de l'espace des matrices qui est de dimension finie. Il n'est donc pas étonnant que l'on parvienne moins à faire la distinction.
+
+	Si par contre nous considérons \( \exp\) en tant qu'application \( \exp\colon \End(E)\to \End(E)\), ce n'est pas un polynôme.
+
+	Si \( u\) et \( v\) sont des endomorphismes, nous aurons des polynômes \( P\) et \( Q\) tels que \( e^u=P(u)\) et \( e^v=Q(v)\); mais nous n'aurons en général évidemment pas \( P=Q\). En cela, \( \exp\) n'est pas un polynôme.
+\end{normaltext}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Espace dual}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\label{SECooKOJNooQVawFY}
+
+\begin{definition}
+	Soit un espace vectoriel normé \( (V,\| . \|)\) sur le corps \( \eC\) ou \( \eR\) (que nous nommons \( \eK\)). Son \defe{dual topologique}{dual topologique}, noté \( V'\) est l'ensemble des applications linéaires continues \( V\to \eK\).
+\end{definition}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Topologies}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Il est possible de mettre sur \( V'\) (au moins) deux topologies distinctes. La première est la topologie de la norme opérateur; rien de nouveau pour elle. La seconde est la topologie \( *\)-faible dont nous avons déjà un peu parlé dans la définition~\ref{DefHUelCDD}.
+
+En termes de notations, nous allons noter les seminormes de la topologie faible par
+\begin{equation}
+	p_x(\varphi)=| \varphi(x) |
+\end{equation}
+pour \( x\in V\) et \( \varphi\in V'\). À droite, les barres dénotent soit la valeur absolue (si \( \eK=\eR\)), soit le module (si \( \eK=\eC\)).
+
+\begin{lemma}       \label{LEMooFMAUooQBIeTh}
+	Soit \( \varphi\in V'\) et \( x\in V\). Alors
+	\begin{equation}
+		p_x(\varphi)\leq\frac{ \| \varphi \| }{ \| x \| }.
+	\end{equation}
+	Si \( \varphi_0\in V'\), si \( r>0\) et si \( x\in V\) nous avons aussi :
+	\begin{equation}
+		B(\varphi_0,r)\subset B_x(\varphi_0,\frac{ r }{ \| x \| }).
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	En posant \( x'=x/\| x \|\) nous avons
+	\begin{equation}
+		p_x(\varphi)=| \varphi(x) |=\frac{1}{ \| x \| }| \varphi(x') |\leq \frac{1}{ \| x \| }\| \varphi \|.
+	\end{equation}
+
+	En ce qui concerne la seconde affirmation, si \( \varphi\in B(\varphi_0,r)\) alors en notant \( x'=x/\| x \|\) nous avons :
+	\begin{equation}
+		p_x(\varphi_0-\varphi)=| \varphi_0(x)-\varphi(x) |=\frac{1}{ \| x \| }| \varphi_0(x')-\varphi(x') |\leq\frac{1}{ \| x \| }\|\varphi_0-\varphi  \|\leq \frac{ r }{ \| x \| }.
+	\end{equation}
+	Donc \( \varphi\in B_x\big( \varphi_0,\frac{ r }{ \| x \| } \big)\).
+\end{proof}
+
+\begin{proposition}
+	En ce qui concerne la convergence d'une suite \( (\varphi_k)\) dans \( V'\) mais si elle vérifie
+	\begin{equation}
+		\varphi_k\stackrel{\| . \|}{\longrightarrow}\varphi
+	\end{equation}
+	alors
+	\begin{equation}
+		\varphi_k\stackrel{*}{\longrightarrow}\varphi.
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Soit une suite \( (\varphi_k)\) dans \( V'\), convergente vers \( \varphi\) pour la topologie de la norme.  Soit \( x\in V\), et \( x'=x/\| x \|\). Nous avons
+	\begin{equation}
+		p_x(\varphi_k-\varphi)=\frac{1}{ \| x \| }| \varphi_k(x')-\varphi(x) |\leq\frac{1}{ \| x \| }\| \varphi_k-\varphi \|\to 0.
+	\end{equation}
+\end{proof}
+
+\begin{lemma}       \label{LEMooEAVEooAFveHn}
+	La translation dans \( V'\) est une opération continue pour la topologie de la norme opérateur et pour celle de la topologie \( *\).
+\end{lemma}
+
+\begin{proof}
+	Soit une suite \( \varphi_k\) tendant vers \( 0\); nous devons prouver que \( \tau_{\sigma}(\varphi_k)\to \tau_{\sigma}(0)=\sigma\). Et ce, pour chacune des deux topologies.
+
+	\begin{subproof}
+		\spitem[Norme opérateur]
+
+		L'hypothèse \( \varphi_k\stackrel{\| . \|}{\longrightarrow} 0\) signifie que \( \| \varphi_k \|\to 0\), c'est-à-dire que
+		\begin{equation}
+			\sup_{\| v \|=1}| \varphi_k(v) |\to 0.
+		\end{equation}
+		Nous avons alors
+		\begin{equation}
+			\| \tau_{\sigma}(\varphi_k)-\sigma \|=\sup_{\| v \|=1}| \tau_{\sigma}(\varphi_k)v-\sigma(v) |=\sup_{\| v \|=1}| \varphi_k(v) |\to 0.
+		\end{equation}
+		Donc d'accord pour \( \tau_{\sigma}(\varphi)\to \sigma\).
+
+		\spitem[Topologie \( *\)]
+
+		Nous supposons maintenant que \( \varphi_k\stackrel{*}{\longrightarrow}0\). Pour tout \( v\in V\) nous avons
+		\begin{equation}
+			p_v\big( \tau_{\sigma}(\varphi_k)-\sigma \big)=\big| \tau_{\sigma}(\varphi_k)v-\sigma(v) \big|=| \varphi_k(v) |=p_v(\varphi_k).
+		\end{equation}
+		Mais par hypothèse, \( p_v(\varphi_k)\to 0\).
+	\end{subproof}
+\end{proof}
+
+Pour la suite, nous allons préfixer par \( N\) les concepts liés à la topologie de \( V'\) associée à la norme opérateur et par \( *\), les concepts de la topologie \( *\).
+
+\begin{proposition}     \label{PROPooFGXAooFRWweD}
+	Soit un espace vectoriel normé \( V\). Un \( *\)-ouvert et toujours un \( N\)-ouvert.
+\end{proposition}
+
+\begin{proof}
+	Soit un \( *\)-ouvert \( \mO\) de \( V'\). Il existe donc \( x\in V\) et \( r>0\) tels que \( B_x(\varphi,r)\subset \mO\). Nous avons alors, en utilisant le lemme~\ref{LEMooFMAUooQBIeTh},
+	\begin{equation}
+		B(\varphi,r\| x \|)\subset B_x(\varphi,r)\subset \mO.
+	\end{equation}
+	Donc \( \mO\) est un \( N\)-ouvert.
+\end{proof}
+
+\begin{corollary}
+	Soit un espace topologique \( X\). Si \( f\colon (V',*)\to X\) est continue, alors \( f\colon (V',\| . \|)\to X\) est continue.
+\end{corollary}
+
+\begin{proof}
+	Soit un ouvert \( \mO\) de \( X\). Vu que \( f\) est \( *\)-continue, la partie \( f^{-1}(\mO)\) est un \( *\)-ouvert de \( V'\). Il est onc un \( N\)-ouvert de \( V'\) par la proposition~\ref{PROPooFGXAooFRWweD}.
+\end{proof}
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Module de continuité}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}      \label{DEFooYARJooYyzMMP}
+	Soient deux espaces topologiques normés \( X\) et \( Y\),  ainsi qu'une application \( f\colon X\to Y\). Le \defe{module de continuité}{module!de continuité} de \( f\) est la fonction
+	\begin{equation}
+		\begin{aligned}
+			\omega_f\colon \eR^+ & \to \eR^+\cup\{ \infty \}       \\
+			h                    & \mapsto\sup_{\substack{x,y\in X \\d_X(x,y)< h}} d_Y\big( f(x),f(y) \big).
+		\end{aligned}
+	\end{equation}
+	Écrite de façon plus compacte,
+	\begin{equation}        \label{EQooKWUVooSORHXN}
+		\omega_f(h)=\sup_{| x-y |<h}\| f(x)-f(y) \|.
+	\end{equation}
+	Nous définissons aussi \( \omega_f(h)=0\) pour \( h\leq 0\) parce que le lemme \ref{LemeERapq} fera grand cas de la continuité en zéro du module de continuité.
+\end{definition}
+
+Notons que le module de continuité est une fonction croissante.
+
+\begin{lemma}   \label{LemLUbgYeo}
+	Soit \( f\in C^0\big( \mathopen[ 0 , 1 \mathclose],\eC \big)\) et \( \omega\) son module de continuité. Si \( \lambda\) et \( h\) sont strictement positifs avec \( \lambda h\in\mathopen[ 0 , 1 \mathclose]\) alors
+	\begin{equation}
+		\phi(\lambda h)\leq (\lambda+1)\omega(h).
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	La fonction \( \omega\) est décroissante, et pour \( h,k>0\) nous avons \( \omega(h+k)\leq\omega(h)+\omega(k)\). Par récurrence pour tout \( k\in \eN\) nous avons
+	\begin{equation}
+		\omega(kh)\leq k\omega(h).
+	\end{equation}
+	En écrivant cela pour \( k=\lceil \lambda\rceil\), nous avons
+	\begin{equation}
+		\omega(\lambda h)\leq \omega(kh)\leq k\omega(h)\leq (\lambda+1)\omega(h).
+	\end{equation}
+\end{proof}
+
+\begin{lemma}   \label{LemeERapq}
+	Une fonction \( f\colon X\to Y\) est uniformément continue\footnote{Définition \ref{DEFooYIPXooQTscbG}.} si et seulement si son module de continuité vérifie
+	\begin{equation}
+		\lim_{h\to 0} \omega_f(h)=0.
+	\end{equation}
+	Autrement dit, si et seulement si sont module de continuité est continue en zéro.\footnote{Dans ce lemme, nous avons deux espaces métriques, mais nous allons noter \( d\) la distance des deux côtés.}.
+\end{lemma}
+
+\begin{proof}
+	Nous commençons par supposer que \( f\) est uniformément continue. Soit \( \epsilon>0\). Par uniforme continuité, il existe \( \delta>0\) tel que \( d\big( f(x),f(y) \big)\leq \epsilon\) dès que \( d(x,y)\leq \delta\). Si \( h\in B(0,\delta)\), alors
+	\begin{equation}
+		\omega_f(h)\leq \omega_f(\delta)=\sup_{\substack{x,y\in X\\d(x,y)\leq \delta}}d\big( f(x),f(y) \big)\leq \epsilon.
+	\end{equation}
+	Cela prouve que \( \lim_{h\to 0} \omega_f(h)=0\).
+
+	Dans l'autre sens, si \( \epsilon>0\) est fixé, il suffit de prendre \( \delta\) tel que \( \omega_f(h)\leq \epsilon\) pour tout \( h\leq \delta\) pour faire fonctionner la définition de l'uniforme continuité.
+\end{proof}
+
+\begin{lemma}[\cite{ooCPZDooOqIIEz}]        \label{LEMooKPPSooPIncvn}
+	Soient des espaces métriques \( E\) et \( E'\) et une suite de fonctions \( (f_i)_{i\geq 0}\) qui converge uniformément vers \( f\). Alors pour chaque \( \delta>0\) nous avons
+	\begin{equation}
+		\limsup_{i\to \infty}\omega_{f_i}(\delta)\leq \omega_f(\delta).
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	Soient \( \delta>0\) ainsi que \( x,y\in E\) tels que \( \| x-y \|\leq \delta\). Pour chaque \( i\) nous avons
+	\begin{subequations}
+		\begin{align}
+			| f_i(x)-f_i(y) | & \leq | f_i(x)-f(x) |+| f(x)-f(y) |+| f(y)-f_i(y) | \\
+			                  & \leq | f(x)-f(y) |+2\| f_i-f \|_{\infty}           \\
+			                  & \leq \omega_f(\delta)+2\| f_i-f \|_{\infty}.
+		\end{align}
+	\end{subequations}
+	Nous prenons le supremum de cela sur \( \{  x,y\in E\tq \| x-y \|\leq \delta \}\) pour obtenir :
+	\begin{equation}
+		\omega_{f_i}(\delta)\leq \omega_f(\delta)+2\| f_i-f \|_{\infty}.
+	\end{equation}
+	La tentation est grande à ce point de prendre la limite des deux côtés pour \( i\to \infty\). Cependant, rien ne nous permet de dire que la suite \( i\mapsto   \omega_{f_i}(\delta)  \) ait une limite. Nous pouvons cependant prendre la limite supérieures\footnote{Définition \ref{ooMVZAooVVCOnP}.} et obtenir
+	\begin{equation}
+		\limsup_{i\to \infty}\omega_{f_i}(\delta)\leq \omega_f(\delta).
+	\end{equation}
+\end{proof}
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Mini introduction aux nombres \texorpdfstring{\( p\)}{p}-adiques}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\subsection{La flèche d'Achille}\label{s:un}
+
+C'est un grand classique que je donne ici juste comme introduction pour montrer que des séries infinies peuvent donner des nombres finis de manière tout à fait intuitive.
+
+Achille tire une flèche vers un arbre situé à \( \unit{10}{\meter}\) de lui. Disons que la flèche avance à une vitesse constante de \( \unit{1}{\meter\per\second}\). Il est clair que la flèche mettra \( \unit{10}{\second}\) pour toucher l'arbre. En \( \unit{5}{\second}\), elle aura parcouru la moitié de son chemin. On le note :
+\[
+	\text{temps}=5s+\ldots
+\]
+Reste \( \unit{5}{\meter}\) à faire. En \( \unit{2.5}{\second}\), elle aura fait la moitié de ce chemin chemin, soit \( 2.5m=\frac{10}{4}m\). On le note :
+\[
+	\text{temps}=\frac{10}{2}s+\frac{10}{4}s+
+\]
+Reste \( 2.5m\) à faire. La moitié de ce trajet, soit \( \frac{10}{8}m\), est parcouru en \( \frac{10}{8}s\); on le note encore, mais c'est la dernière fois !
+
+\[
+	\text{temps}=\frac{10}{2}s+\frac{10}{4}s+\frac{10}{8}s+
+\]
+En continuant ainsi à regarder la flèche qui parcours des demi-trajets puis des moitiés de demi-trajets et encore des moitiés de moitiés de demi-trajets, et en sachant que le temps total est \( 10s\), on trouve :
+\[
+	10\left( \frac{1}{2}+\frac{1}{4}+\frac{1}{8}+\frac{1}{16}+\ldots  \right)=10.
+\]
+On doit donc croire que la somme jusqu'à l'infini des inverses des puissances de deux vaut \( 1\) :
+\[
+	\sum_{n=1}^{\infty}\frac{1}{2^n}=1.
+\]
+Cela peut être démontré à la loyale.
+
+\subsection{La tortue et Achille}
+
+Maintenant qu'on est convaincu que des sommes infinies peuvent représenter des nombres tout à fait normaux, passons à un truc plus marrant.
+
+Achille, qui marche peinard à \( \unit{10}{\meter\per\hour}\), part avec \( 1m\) d'avance sur une tortue qui avance à \( \unit{1}{\meter\per\hour}\). Le temps que la tortue arrive au point de départ d'Achille, Achille aura parcouru \( 10m\), et le temps que la tortue mettra pour arriver à ce point, eh bien, Achille ne sera déjà plus là : il sera à \( 100m\). Si la tortue tient bon pendant un temps infini, et si l'on est confiant en le genre de raisonnements faits à la section~\ref{s:un}, elle rattrapera Achille dans
+\[
+	1m+10m+100m+1000m+\ldots
+\]
+Autant dire que ça ne risque pas d'arriver. Et pourtant, mettons en équations :
+\begin{subequations}
+	\begin{numcases}{}
+		x_{\text{Achile}}(t)=1+10t\\
+		x_{\text{tortue}}(t)=t.
+	\end{numcases}
+\end{subequations}
+La tortue rejoint Achille au temps \( t\) tel que \( x_{\text{Achille}(t)}=x_{\text{tortue}}(t)\). Un mini calcul donne \( t=-1/9\). Physiquement, c'est une situation logique. Peut-on en déduire une égalité mathématique du style de
+\[
+	1+10+100+1000+\ldots=-\frac{1}{9}\; ???
+\]
+Là où les choses deviennent jolies, c'est quand on cherche à voir ce que peut bien être la valeur d'un hypothétique \( x=1+10+100+1000+\ldots\). En effet, logiquement on devrait avoir
+\begin{equation*}
+	\begin{split}
+		\frac{x}{10}&=\frac{1}{10}+1+10+100+\ldots\\
+		&=\frac{1}{10}+x.
+	\end{split}
+\end{equation*}
+Reste à résoudre l'équation du premier degré : \( \frac{x}{10}=x+\frac{1}{10}\). Ai-je besoin de donner la solution ?
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Dans les nombres \texorpdfstring{\( p\)}{p}-adiques, c'est vrai}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Nous nous proposons d'apprendre sur les nombres \( p\)-adiques juste ce qu'il faut pour montrer que l'égalité
+\begin{equation}
+	\sum_{k=0}^{\infty}10^k=-\frac{1}{ 9 }
+\end{equation}
+est vraie dans les nombres \( 5\)-adiques. Tout ce qu'il faut est sur \wikipedia{fr}{Nombre_p-adique}{wikipedia}.
+
+Soit \( a\in \eN\) et \( p\), un nombre premier. La \defe{valuation}{valuation!\( p\)-adique} \( p\)-adique de \( a\) est l'exposant de \( p\) dans la décomposition de \( a\) en nombres premiers. On la note \( v_p(a)\). Pour un rationnel on définit
+\begin{equation}
+	v_p\left( \frac{ a }{ b } \right)=v_p(a)-v_p(b)
+\end{equation}
+La \defe{valeur absolue}{valeur absolue!\( p\)-adique} \( p\)-adique de \( r\in \eQ\) est
+\begin{equation}
+	| r |_p=p^{-v_p(r)}.
+\end{equation}
+Nous posons \( | 0 |_p=0\). De là nous considérons la distance
+\begin{equation}
+	d_p(x,y)=| x-y |_p.
+\end{equation}
+
+\begin{lemma}
+	L'espace \( (\eQ,d_p)\) est un espace métrique\footnote{Définition~\ref{DefMVNVFsX}}.
+\end{lemma}
+\index{topologie!\( p\)-adique}
+
+Nous considérons maintenant \( p=5\). Étant donné que \( a=5\cdot 2\) nous avons \( v_5(10)=1\) et
+\begin{equation}
+	v_5\left( \frac{1}{ 9 } \right)=v_5(1)-v_5(9)=0.
+\end{equation}
+Nous avons
+\begin{equation}
+	\sum_{k=0}^N10^k+\frac{1}{ 9 }=\frac{ 10^{N+1} }{ 9 }
+\end{equation}
+mais
+\begin{equation}
+	v_p\left( \frac{ 10^{N+1} }{ 9 } \right)=v_5(10^{N+1})-v_5(9)=N+1.
+\end{equation}
+Par conséquent
+\begin{equation}
+	d_5\big( \sum_{k=0}^N10^k,-\frac{1}{ 9 } \big)=| \frac{ 10^{N+1} }{ 9 } |_p=p^{-(N+1)}.
+\end{equation}
+En passant à la limite,
+\begin{equation}
+	\lim_{N\to \infty} d_5\big( \sum_{k=0}^N10^k,-\frac{1}{ 9 } \big)=0,
+\end{equation}
+ce qui signifie que\footnote{Voir la définition~\ref{DefGFHAaOL} de la convergence d'une série dans un espace métrique.}
+\begin{equation}
+	\sum_{k=0}^{\infty}10^k=-\frac{1}{ 9 }.
+\end{equation}
