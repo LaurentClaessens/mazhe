@@ -2,9 +2,14 @@ from pytex.src import PytexTools
 import commons
 import plugins_agreg
 
+from commons import has_to_be_printed
+
 myRequest = PytexTools.Request("mesure")
 myRequest.ok_hash = commons.ok_hash
 myRequest.original_filename = "mazhe.tex"
+myRequest.bibliography = {"json_bib": "bib_mazhe.json",
+                          "template_bbl": "bbl_template.tex"
+                          }
 
 # L'ordre dans les plugin est important parce que set_<boolean>
 # retourne un code latex sans les commentaires
@@ -29,3 +34,4 @@ myRequest.add_plugin(plugins_agreg.assert_MonCerveau_first,
                      "after_compilation")
 
 myRequest.new_output_filename = "0-book.pdf"
+myRequest.has_to_be_printed = has_to_be_printed
