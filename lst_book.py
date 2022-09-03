@@ -28,7 +28,8 @@ myRequest.add_plugin(plugins_agreg.split_toc("book", 4), "before_compilation")
 
 myRequest.add_plugin(plugins_agreg.set_boolean("isBook", "true"),
                      "before_pytex")
-myRequest.add_plugin(plugins_agreg.set_pdftitle("Le Frido"), "before_pytex")
+myRequest.add_plugin(plugins_agreg.set_pdftitle("Le Frido 2022"),
+                     "before_pytex")
 myRequest.add_plugin(plugins_agreg.set_commit_hexsha, "after_pytex")
 myRequest.add_plugin(plugins_agreg.assert_MonCerveau_first,
                      "after_compilation")
