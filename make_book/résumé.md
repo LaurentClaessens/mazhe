@@ -1,4 +1,16 @@
-# Les textes de quatrième de couverture.
+# Les petits textes à rentrer dans thebookedition
+
+titre:
+Le Frido 2022 volume 1
+Le Frido 2022 volume 2
+Le Frido 2022 volume 3
+Le Frido 2022 volume 4
+Auteur:
+Laurent Claessens
+
+
+
+
 
 
 ## Texte pour le site

@@ -1,7 +1,7 @@
 import pygit2
 import os
 import sys
-from python.splittoc import Book
+from make_book.splittoc import Book
 
 dprint = print
 

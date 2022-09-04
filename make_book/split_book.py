@@ -9,6 +9,7 @@ from pdfrw import PdfReader, PdfWriter
 
 from splittoc import Book
 from options import Options
+_ = sys
 
 """
 This script generates the pdf's for printing/commercialization
@@ -65,7 +66,7 @@ def pepper(imprimeur):
     if imprimeur == "lulu":
         return ""
     if imprimeur == "thebookedition":
-        return "(c) 2015 David Revoy  pour les illustrations de " \
+        return "(c) 2015-2022 David Revoy  pour les illustrations de " \
                "couverture CC-BY, \\url{https://www.peppercarrot.com/}"
     raise ValueError(f"Unknown printer : {imprimeur}")
 
@@ -132,7 +133,7 @@ def split_book(book, options):
     print("Title: ", book.get_chapter(n=1).title())
     print("Number of pages: ", book.tot_pages())
     print("Creating front matter")
-    book.extract_sub_pdf(2,
+    book.extract_sub_pdf(1,
                          book.volume_first_page(1, n_volumes) - 1,
                          "front.pdf")
     for volume in range(1, n_volumes + 1):
@@ -147,13 +148,14 @@ def split_book(book, options):
 def concatenate(options):
     for imprimeur in options.imprimeurs:
         for v in range(1, options.n_volumes + 1):
-            print(f"Concatenating for {imprimeur}, volume {v}")
             first = PdfReader(first_filename(v, imprimeur)+".pdf")
             front = PdfReader("front.pdf")
             matter = PdfReader(matter_filename(v))
 
             out_filename = options.out_dir \
                 / f"book_{options.year}_{v}_{imprimeur}.pdf"
+            print(f"Concatenating for {imprimeur}, "
+                  f"volume {v} -> {out_filename}")
             outpdf = PdfWriter(out_filename)
             outpdf.addpages(first.pages)
 
@@ -178,9 +180,9 @@ Si vous voulez voir ce que ça donne, vous devez
     - supprimer la ligne 'sys.exit(1)' dans ce script
     """
     print(text)
-    sys.exit(1)
 
-    options = Options(4, date.year, ["thebookedition"])
+    options = Options(n_volumes=4,
+                      year=date.year, imprimeurs=["thebookedition"])
     pdf_filename = "../0-book.pdf"
     toc_filename = "../Inter_book-mazhe_pytex.toc"
 
