@@ -26,10 +26,16 @@ function install_pytex()
     echo "bonjour"
     pak_dir=$VENV_DIR/lib/python3.10/site-packages
     pytex_dir=$pak_dir/pytex
-    if [ ! -d "$DIRECTORY" ]; then
+    if [ ! -d "$pytex_dir" ]; then
       echo "$pytex_dir does not exist."
       cd $pak_dir
       git clone git@github.com:LaurentClaessens/pytex.git
+    fi
+    if [[ -d "$pytex_dir" ]]
+    then
+      echo "$pytex_dir exists on your filesystem."
+      cd $pytex_dir
+      git pull 
     fi
 }
 
