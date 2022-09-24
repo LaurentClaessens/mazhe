@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# apt install  make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
 
 # You may have to hack
-# cd /usr/lib/x86_64-linux-gnu
-# sudo ln -s libffi.so.7 libffi.so.6
 
 #
 # git clone https://github.com/pyenv/pyenv.git
