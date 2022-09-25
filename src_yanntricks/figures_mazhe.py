@@ -9,7 +9,7 @@ import sys
 from yanntricksPWMCooGWYCczZn import PWMCooGWYCczZn
 from yanntricksATJSooefYkmCbP import ATJSooefYkmCbP
 from yanntricksJOQVoolPTsYPZK import JOQVoolPTsYPZK
-from yanntricksGMRNooCNBpIl import GMRNooCNBpIl 
+from yanntricksGMRNooCNBpIl import GMRNooCNBpIl
 from yanntricksCWKJooppMsZXjw import CWKJooppMsZXjw
 from yanntricksDNRRooJWRHgOCw import DNRRooJWRHgOCw
 from yanntricksDNHRooqGtffLkd import DNHRooqGtffLkd
@@ -46,7 +46,7 @@ from yanntricksBNHLooLDxdPA import BNHLooLDxdPA
 from yanntricksMBFDooRFPyNW import CQIXooBEDnfK
 from yanntricksMBFDooRFPyNW import KGQXooZFNVnW
 from yanntricksSQNPooPTrLRQ import SQNPooPTrLRQ
-from yanntricksGVDJooYzMxLW import GVDJooYzMxLW  
+from yanntricksGVDJooYzMxLW import GVDJooYzMxLW
 from yanntricksQOBAooZZZOrl import QOBAooZZZOrl
 from yanntricksVSZRooRWgUGu import VSZRooRWgUGu
 from yanntricksDDCTooYscVzA import DDCTooYscVzA
@@ -212,7 +212,10 @@ from yanntricksDistanceEuclide import DistanceEuclide
 from yanntricksLesSpheres import LesSpheres
 from yanntricksDistanceEnsemble import DistanceEnsemble
 from yanntricksAccumulationIsole import AccumulationIsole
-from yanntricksSenoTopologo import SenoTopologo
+
+#from yanntricksSenoTopologo import SenoTopologo
+from yanntrickssenotopologo import senotopologo
+
 from yanntricksRegioniPrimoeSecondoTipo import RegioniPrimoeSecondoTipo
 from yanntricksPolirettangolo import Polirettangolo
 from yanntricksParamTangente import ParamTangente
@@ -230,7 +233,6 @@ from yanntricksCbCartTui import CbCartTui
 from yanntricksCbCartTuii import CbCartTuii
 from yanntricksCbCartTuiii import CbCartTuiii
 from yanntricksPHTVjfk import PHTVjfk
-from yanntrickssenotopologo import senotopologo
 from yanntricksQXyVaKD import QXyVaKD
 from yanntricksTriangleRectangle import TriangleRectangle
 from yanntricksTracerUn import TracerUn
@@ -383,7 +385,6 @@ append_picture(XTGooSFFtPu,2)
 #append_picture(CurvilignesPolaires,2)
 append_picture(JWINooSfKCeA,2)
 #append_picture(IntBoutCercle,2)
-append_picture(senotopologo,2)
 append_picture(ratrap,2)
 append_picture(CSCvi,2)
 append_picture(IYAvSvI,2)
@@ -542,7 +543,8 @@ append_picture(ContourTgNDivergence,1)
 append_picture(SpiraleLimite,1)
 append_picture(Cardioid,1)
 append_picture(ArcLongueurFinesse,1)
-append_picture(SenoTopologo,1)
+#append_picture(SenoTopologo,1)
+append_picture(senotopologo,2)
 append_picture(TraceCycloide,2)
 append_picture(Osculateur,1)
 append_picture(JGuKEjH,1)
