@@ -1,5 +1,8 @@
+#!venv/bin/python3
+
 from pytex.src import PytexTools
 import commons
+from pytex.src.run_me import RunMe
 import plugins_agreg
 
 from commons import has_to_be_printed
@@ -25,8 +28,10 @@ myRequest.add_plugin(PytexTools.keep_script_marks(plugins_agreg.mazhe_mark_list)
 myRequest.add_plugin(plugins_agreg.set_boolean("isGiulietta","true"),"before_pytex")
 myRequest.add_plugin(plugins_agreg.set_commit_hexsha,"after_pytex")
 
+myRequest.prefix = "guilietta"
 myRequest.new_output_filename="0-giulietta.pdf"
 
 myRequest.original_filename="mazhe.tex"
 myRequest.print_future_reference = print_future_reference
 myRequest.has_to_be_printed = has_to_be_printed
+RunMe(myRequest)
