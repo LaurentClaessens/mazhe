@@ -2,7 +2,11 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
-## Frido 2021 (7 faute pour l'instant)
+## Frido 2022
+
+- Volume 1. Proposition-Définition 1.201. « alors toute décomposition en permutations sera ... » -> « alors toute décomposition en TRANSPOSITIONS sera en quantité paire. »
+
+## Frido 2021 (7 faute)
 
 - Volume 2. Proposition 14.237. Si la série n'est pas absolument convergente, la proposition est fausse. En effet, l'intégrale ne dépend pas de l'ordre d'intégration (c'est un des points forts de l'intégrale de Lebesgue), alors que la série dépend de l'ordre des termes.
 - Volume 3. Lemme 27.130. L'utilisation de Hölder pour obtenir (27.485b) est incorrecte parce qu'elle demande `0<p<q` alors qu'ici, avec l'hypothèse `1<p<2`, nous avons `q>2`. Merci [Oliver Díaz](https://math.stackexchange.com/questions/3208736/clarkson-inequality-for-complex-numbers/4457490#4457490). Ça ne ruine peut-être pas toute la preuve, [voir ici](https://math.stackexchange.com/questions/1607683/how-to-prove-clarksons-inequality).
