@@ -4,7 +4,8 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2022
 
-- Volume 1. Proposition-Définition 1.201. « alors toute décomposition en permutations sera ... » -> « alors toute décomposition en TRANSPOSITIONS sera en quantité paire. »
+- Volume 1. Proposition-Définition 1.201. « alors toute décomposition en permutations sera ... » -> « alors toute décomposition en TRANSPOSITIONS sera en quantité paire. ». Trouvée par Quentin Guyot.
+- Volume 1. Proposition 3.118 (triplet pythagoriciens). L'équation (3.141) est fausse d'un facteur 4. Il faut séparer en deux cas suivant que z+y ou z-y est divisible en 4. Ensuite on peut continuer en adaptant un peu. Trouvée par Quentin Guyot.
 
 ## Frido 2021 (7 faute)
 
