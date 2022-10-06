@@ -4,7 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2022
 
-- Volume 1. Proposition-définition 4.134. Une structure réelle n'est pas une involution. La condition (1) est sigma^2=id et non sigma^2=sigma.
+- Volume 1. Proposition-définition 4.134. Une structure réelle n'est pas une involution. La condition (1) est sigma^2=id et non sigma^2=sigma. Trouvée par Quentin Guyot.
 - Volume 1. Définition 4.119. Le dual algébrique n'est pas GL(E,K), mais L(E,K). Pour rappel, GL contient les applications linéaires inversibles (le G est pour «groupe»), alors que L contient toutes les applications linéaires.
 - Volume 1. Proposition-Définition 1.201. « alors toute décomposition en permutations sera ... » -> « alors toute décomposition en TRANSPOSITIONS sera en quantité paire. ». Trouvée par Quentin Guyot.
 - Volume 1. Proposition 3.118 (triplet pythagoriciens). L'équation (3.141) est fausse d'un facteur 4. Il faut séparer en deux cas suivant que z+y ou z-y est divisible en 4. Ensuite on peut continuer en adaptant un peu. Trouvée par Quentin Guyot.
