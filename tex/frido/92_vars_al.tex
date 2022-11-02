@@ -187,19 +187,66 @@ pour chaque \( t\) tel que cette espérance existe.
 \subsection{Loi d'une variable aléatoire}
 %---------------------------------------------------------------------------------------------------------------------------
 
-La \defe{loi}{loi!d'une variable aléatoire} de la variable aléatoire \( X\), notée \( P_X\) est la mesure image de \( P\) par \( X\), c'est-à-dire
-\begin{equation}
-	P_X(B)=P(X\in B)
-\end{equation}
-pour tout borélien \( B\subset\eR^d\). Note :
-\begin{equation}
-	P(X\in B)=P\big( \{ \omega\in\Omega\tq X(\omega)\in B \} \big)=P\big( X^{-1}(B) \big).
-\end{equation}
-En particulier \( P_X\) est une mesure de probabilité sur \( \eR^d\) parce que
-\begin{equation}
-	P_X(\eR^d)=P(\Omega)=1.
-\end{equation}
-Si \( Q\) est une mesure de probabilité sur \( \eR^d\), nous notons \( X\sim Q\) si \( P_X=Q\). Nous disons alors que «\( X\) suit la loi \( Q\)».
+\begin{propositionDef}[Loi d'une variable aléatoire\cite{BIBooXYCNooXgKIrP}]        \label{DEFooBKJVooRJdMeA}
+    Soient un espace probabilisé \( (\Omega,\tribF,P)\) ainsi qu'une variable aléatoire \( X\colon \Omega\to \eR^n\). En définissant
+    \begin{equation}
+        \begin{aligned}
+            P_X\colon \Borelien(\eR^n)&\to \eR^+ \\
+            B&\mapsto (P\circ X^{-1})(B), 
+        \end{aligned}
+    \end{equation}
+    le triple \( (\eR^n,\Borelien(\eR^n),P_X)\) est un espace probabilisé.
+
+    La mesure \( P_X\) est la \defe{loi}{loi d'une variable aléatoire} de la variable aléatoire \( X\)
+\end{propositionDef}
+
+\begin{lemma}       \label{LEMooHVFJooBDZYnT}
+    Soient un espace probabilité \( (\Omega,\tribA,P)\) ainsi qu'une variable aléatoire \( X\colon \Omega\to \eR^n\). Nous considérons un autre espace probabilisé \( (S,\tribA_S,\mu)\) ainsi que l'application
+    \begin{equation}
+        \begin{aligned}
+            Y\colon \Omega\times S&\to \eR^n \\
+            (\omega,s)&\mapsto X(\omega). 
+        \end{aligned}
+    \end{equation}
+    Alors :
+    \begin{enumerate}
+        \item   \label{ITEMooDSIKooSqdyJb}
+                L'application \( Y\) est une variable aléatoire sur\footnote{Produit de tribus, définition \ref{DefTribProfGfYTuR}; produit de mesure, définition \ref{ThoWWAjXzi}.} \( \big( \Omega\times S,\tribA\otimes\tribA_S,P\otimes\mu \big)\).
+            \item   \label{ITEMooQMMHooPcGKoD}
+                La loi de \( Y\) est la même\footnote{La même; pas seulement la même à abus de notation près. Ce lemme est une partie du bout manquant dont il est question dans \cite{BIBooWPRAooVIOYhF}.} que celle de \( X\).     
+        \end{enumerate}
+\end{lemma}
+
+
+\begin{proof}
+    Tout repose sur le fait que \( Y\) soit la même chose que \( X\), mais «diagonalisé» sur \( S\). Commençons par prouver que si \( B\subset \eR^n\), alors \( Y^{-1}(B)=X^{-1}(B)\times S\).
+    \begin{subproof}
+        \spitem[Dans un sens]
+        Soit \( (\omega,s)\in X^{-1}(B)\times S\). Alors \( Y(\omega,s)=X(\omega)\in B\). Nous avons donc bien \( X^{-1}(B)\times S\subset Y^{-1}(B)\).
+        \spitem[Dans l'autre sens]
+        % -------------------------------------------------------------------------------------------- 
+        Soit \( (\omega,s)\in Y^{-1}(B)\). Nous avons \( X(\omega)= Y(\omega,s)\in B\), donc \( \omega\in X^{-1}(B)\) et donc \( (\omega,s)\in X^{-1}(B)\times S\).
+    \end{subproof}
+    Passons maintenant à la preuve proprement dite.
+    \begin{subproof}
+        \spitem[Pour \ref{ITEMooDSIKooSqdyJb}]
+        % -------------------------------------------------------------------------------------------- 
+        Soit un borélien \( B\subset \eR^n\). Nous avons \( Y^{-1}(B)=X^{-1}(B)\times S\). La partie \( X^{-1}(B)\) est un borélien de \( \Omega\), et \( S\) est un borélien de \( S\). Donc \( X^{-1}(B)\times S\) est un borélien de \( \Omega\times S\). L'application \( Y\) est donc mesurable. Elle est une variable aléatoire.
+        \spitem[Pour \ref{ITEMooQMMHooPcGKoD}]
+        % -------------------------------------------------------------------------------------------- 
+        Soit un borélien \( B\) de \( \eR^n\). Nous avons
+        \begin{subequations}
+            \begin{align}
+                P_Y(B)&=(P\otimes \mu)\big( Y^{-1}(B) \big)\\
+                &=(P\otimes \mu)\big( X^{-1}(B)\times S \big)\\
+                &=P\big( X^{-1}(N) \big)\mu(S)\\
+                &=P\big( X^{-1}(B) \big)\\
+                &=P_X(B).
+            \end{align}
+        \end{subequations}
+        Nous avons utilisé le fait que \( \mu(S)=1\).
+    \end{subproof}
+\end{proof}
 
 La proposition suivante permet de calculer en pratique les intégrales qui définissent par exemple l'espérance mathématique d'une variable aléatoire.
 \begin{proposition}[Théorème de transfert\cite{ThjoTrnSaada}]\label{PropintdPintdPXeR}
@@ -210,7 +257,6 @@ La proposition suivante permet de calculer en pratique les intégrales qui défi
 	dès que \( f\colon \eR^d\to \bar\eR\) est telle qu'une des deux intégrales existe. En particulier, ça marche si \( f\) est borélienne.
 \end{proposition}
 \index{théorème!transfert}
-% TODO : donner une preuve de ce théorème.
 
 
 En utilisant cette proposition nous trouvons une formule pratique pour l'espérance d'une variable aléatoire réelle:
