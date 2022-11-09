@@ -92,15 +92,8 @@ Le théorème suivant est une paraphrase du théorème de la convergence dominé
 	\end{equation}
 \end{lemma}
 
-\begin{probleme}
-	À mon avis si on a un ouvert connexe par arcs dans un espace vectoriel normé, alors il est connexe par arcs de classe \( C^1\), c'est-à-dire que deux points peuvent être liés par un chemin de classe \( C^1\).
 
-	Je n'en suis pas certain.
-
-	Si vous êtes sûr de vous, vous pouvez affaiblir les hypothèses du théorème \ref{ThoLDpRmXQ} et supprimer la définition \ref{DEFooHOXOooKUqTQU} qui ne sert à rien d'autre.
-\end{probleme}
-
-\begin{lemma}       \label{LEMooEYARooNExmiw}
+\begin{lemma}[\cite{BIBooUZAPooFduUIw}]       \label{LEMooEYARooNExmiw}
     Soit un espace métrique \( V\). Soient un compact \( K\) et un ouvert \( U\) contenant \( K\). Alors il existe \( \delta>0\) tel que
     \begin{equation}
         \{ x\in V\tq d(x,K)<\delta \}\subset U.
@@ -148,6 +141,105 @@ Le théorème suivant est une paraphrase du théorème de la convergence dominé
         Si \( x\in V\) vérifie \( d(x,K)<\delta\), alors il existe \( y\in K\) tel que \( d(x,y)<\delta\). Par minimalité de \( \delta\), nous avons \( f(y)\leq \delta\) et donc \( B(y,\delta)\subset U\). En particulier \( x\in B(y,\delta)\subset U\).
     \end{subproof}
 \end{proof}
+
+\begin{proposition}[\cite{BIBooUZAPooFduUIw}]       \label{PROPooGRXXooWcZyJG}
+    Tout ouvert connexe par arcs d'un espace vectoriel normé est connexe par arcs de classe \( C^1\).
+\end{proposition}
+
+\begin{proof}
+    Soient un espace vectoriel normé \( V\), et un ouvert connexe par arcs \( U\). Nous considérons \( x,y\in U\) et un chemin continu \( \gamma\colon \mathopen[ 0 , 1 \mathclose]\to U\) joignant \( x\) à \( y\). 
+    
+    \begin{subproof}
+        \spitem[Utilisation du lemme]
+    % -------------------------------------------------------------------------------------------- 
+    La partie \( \gamma\big( \mathopen[ 0 , 1 \mathclose] \big)\) est compacte parce qu'elle est l'image par une application continue d'un compact (théorème \ref{ThoImCompCotComp}). Par le lemme \ref{LEMooEYARooNExmiw}, il existe \( \delta>0\) tel que pour tout \( t\in \mathopen[ 0 , 1 \mathclose]\), \( B\big( \gamma(t),\delta \big)\subset U\).
+    \spitem[Uniforme continuité]
+    % -------------------------------------------------------------------------------------------- 
+    L'application \( \gamma\) est continue sur le compact \( \mathopen[ 0 , 1 \mathclose]\). Le théorème de Heine \ref{PROPooBWUFooYhMlDp} nous dit que \( \gamma\) est alors uniformément continue : il existe \( \eta>0\) tel que pour tout \( t,t'\in\mathopen[ 0 , 1 \mathclose]\) tels que \( | t-t' |<\eta\), nous ayons \( d\big( \gamma(t),\gamma(t') \big)<\delta\).
+    \spitem[La courbe]
+    % -------------------------------------------------------------------------------------------- 
+    Nous considérons une subdivision \( 0=t_0<t_1<\ldots <t_n=1\) telle que \( | t_i-t_{i-1} |<\eta\)\footnote{Êtes-vous capable d'en prouver l'existence ? Prenez un entier \( z>\eta\) et \( t_k=k/z\). Notez l'utilisation du lemme \ref{LemooMWOUooVWgaEi} que je me lasserai jamais de citer.}. Nous notons \( P_i=\gamma(t_i)\) et \( Q_i=\gamma(t_{i+1})\). Soient les applications\footnote{Ce sont des courbes de Bézier d'ordre \( 3\) de points de contrôle \( P_i\), \( P_i\), \( Q_i\) et \( Q_i\).}
+    \begin{equation}
+        \begin{aligned}
+            \varphi_i\colon \eR&\to V \\
+            t&\mapsto t^3Q_i+3t^2(1-t)Q_i+3t(1-t)^2P_i+(1-t)^3P_i. 
+        \end{aligned}
+    \end{equation}
+    Nous considérons ensuite les reparamétrisations des \( \varphi_i\) de \( \mathopen[ 0 , 1 \mathclose]\) vers \( \mathopen[ t_i , t_{i+1} \mathclose]\) :
+    \begin{equation}
+        \begin{aligned}
+            \sigma_i\colon \eR&\to V \\
+        t&\mapsto \varphi_i\left( \frac{ t-t_i }{ t_{i+1}-t_i } \right).
+        \end{aligned}
+    \end{equation}
+    Ces applications sont de classe \( C^1\). Enfin nous posons
+    \begin{equation}        \label{EQooIQHHooGspmQJ}
+        \begin{aligned}
+            \psi\colon \mathopen[ 0 , 1 \mathclose]&\to V \\
+            t&\mapsto \sigma_i(t)&\text{si \( t\in\mathopen[ t_i , t_{i+1} \mathclose]\)}. 
+        \end{aligned}
+    \end{equation}
+    \spitem[Ce qu'il faut voir]
+    % -------------------------------------------------------------------------------------------- 
+    Petite pause pour lister les choses que nous devons vérifier.
+    \begin{itemize}
+        \item \( \psi(0)=\gamma(0)\), \( \psi(1)=\gamma(1)\)
+        \item \( \psi\) est continue.
+        \item \( \psi\) est à valeurs dans \( U\).
+        \item \( \psi\) est de classe \( C^1\).
+    \end{itemize}
+    On y va\ldots
+    \spitem[\( \psi(0)\) et \( \psi(1)\)]
+    % -------------------------------------------------------------------------------------------- 
+     Nous avons
+     \begin{equation}
+         \psi(0)=\sigma_0(0)=\varphi_0(0)=P_0=\gamma(0),
+     \end{equation}
+     et, utilisant le fait que \( t_n=1\),
+     \begin{equation}
+         \psi(1)=\sigma_{n-1}(1)=\varphi_{n-1}\left( \frac{ 1-t_{n-1} }{ t_n-t_{n-1} } \right)=\varphi_{n-1}(1)=Q_{n-1}=\gamma(t_n)=\gamma(1).
+     \end{equation}
+     \spitem[\( \psi\) est continue]
+     % -------------------------------------------------------------------------------------------- 
+     Nous devons vérifier la continuité aux raccords, c'est à dire que nous devons prouver \( \sigma_i(t_{i+1})=\sigma_{i+1}(t_i)\). D'une part \( \sigma_i(t_{i+1})=\phi_i(1)=Q_i=\gamma(t_{i+1})\), et d'autre part \( \sigma_{i+1}(t_i)=\varphi_{i+1}(0)=P_{i+1}=\gamma(t_{i+1})\). C'est bon.
+     \spitem[À valeurs dans \( U\)]
+     % -------------------------------------------------------------------------------------------- 
+     Nous devons vérifier que \( \varphi_i\big( \mathopen[ 0 , 1 \mathclose] \big)\subset U\). Nous avons bien sûr \( P_i\in B(P_i,\delta)\), mais nous avons aussi \( Q_i\in B(P_i,\delta)\). En effet, \( | t_{i+1}-t_i |<\eta\) de telle sorte que \( Q_i=\gamma(t_{i+1})\in B\big( \gamma(t_i),\delta \big)=B(P_i,\delta)\). Le nombre \( \eta\) a été choisit pour ça.
+
+     Le nombre \( \delta\) a été choisit pour avoir également \( B(P_i,\delta)\subset U\). Bref, \( P_i\) et \( Q_i\) sont dans \( B(P_i,\delta)\) qui est convexe\footnote{Une boule est convexe, proposition \ref{PROPooUQLUooDQfYLT}.} et contenue dans \( U\). Pour \( t\in \mathopen[ t_i , t_{i+1} \mathclose[\), le point \( \varphi_i(t)\) est une combinaison convexe de \( P_i\) et \( Q_i\) : 
+             \begin{equation}
+                 t^3+3t^2(1-t)+3t(1-t)^2+(1-t)^3=1.
+             \end{equation}
+             Donc \( \varphi_i(t)\in B(P_i,\delta)\subset U\).
+
+             \spitem[\( \psi\) est de classe \( C^1\)]
+     % -------------------------------------------------------------------------------------------- 
+             Nous avons \( \varphi_i'(t)=6t(1-t)(Q_i-P_i)\). Donc pour tout \( i\) nous avons \( \varphi_i'(1)=\varphi'(0)=0\). En ce qui concerne \( \psi'\) nous avons
+             \begin{equation}
+                 \lim_{t\to t_i^+} \psi'(t)=\psi'(t_i)=0
+             \end{equation}
+             et
+             \begin{equation}
+                 \lim_{t\to t_i^-} \psi'(t)=\lim_{t\to 1} \varphi_{i-1}(t)=0,
+             \end{equation}
+             d'où la continuité de \( \psi'\).
+
+             Nous en déduisons que \( \psi\) est de classe \( C^1\) par le théorème \ref{THOooPZTAooTASBhZ}.
+    \end{subproof}
+\end{proof}
+
+\begin{remark}
+    Quelle est la forme de l'image de la courbe \( C^1\) définie en \eqref{EQooIQHHooGspmQJ} ? L'image est une ligne brisée : une suite de segments de droites. Elle fait un angle à chaque raccord. Il est contre-intuitif qu'une ligne faisant des angles puisse être de classe \( C^1\), mais c'est pourtant le cas. Le fait est que \( \psi'\) s'annule à chacun de ces raccords, de telle sorte que \( \psi'\) est quand même continu.
+\end{remark}
+
+
+\begin{probleme}            % ooYMVSooBZesak
+	À mon avis si on a un ouvert connexe par arcs dans un espace vectoriel normé, alors il est connexe par arcs de classe \( C^1\), c'est-à-dire que deux points peuvent être liés par un chemin de classe \( C^1\).
+
+	Je n'en suis pas certain.
+
+	Si vous êtes sûr de vous, vous pouvez affaiblir les hypothèses du théorème \ref{ThoLDpRmXQ} et supprimer la définition \ref{DEFooHOXOooKUqTQU} qui ne sert à rien d'autre.
+\end{probleme}
 
 \begin{definition}      \label{DEFooHOXOooKUqTQU}
 	Soit un espace vectoriel normé \( E\). Un ouvert \( \Omega\) est dit connexe par arcs de classe \( C^1\) si pour tout choix de \( a,b\in \Omega\), il existe une application \( \gamma\colon \mathopen[ 0 , 1 \mathclose]\to \Omega\) de classe \( C^1\) telle que \( \gamma(0)=a\) et \( \gamma(1)=b\).
