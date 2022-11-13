@@ -1,5 +1,8 @@
 # Journal des changements du Frido
 
+## Novembre 2022
+
+- L'index est classé avec les é compté comme un e. Grâce à un script en lua.
 
 ## Décembre 2021
 
