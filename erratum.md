@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2022 (6 fautes)
 
+- Volume 2. Proposition 10.7. Les parties O_i ne recouvrent pas K parce que les x_i eux-même ne sont pas dedans.
 - Volume 4. Théorème 36.109. La formule (36.358) donnée pour P(X<=x) est complètement fausse.
 - Volume 1. Théorème 9.253. La preuve de f injective => f_L injective est circulaire à cause du moment où on dit que g_L est injective. Encore une découverte par Quentin Guyot.
 - Volume 1. Théorème 6.29. La dernière ligne de la démonstration est fausse. Si kp+lq=0 avec p et q premiers entre eux, nous ne pouvons pas déduire que k=l=0. Prenez par exemple p=3, q=5 et cherchez l,k tels que 3k+5l=0. Facile: k=5, l=-3. Trouvée par Quentin Guyot.
