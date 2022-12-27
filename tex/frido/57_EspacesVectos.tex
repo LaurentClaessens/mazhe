@@ -131,6 +131,146 @@ Nous savons qu'une telle équation ne peut avoir de solutions que si \( \det(A-\
 \end{proof}
 
 
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Théorème de Perron-Frobenius}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}
+    Pour une matrice \( T\), nous notons \( T\geq 0\) si \( T_{ij}\geq 0\) pour tout \( i\) et \( j\). Dans ce cas nous disons que \( T\) est \defe{positive}{matrice positive}.
+
+    Une matrice carré positive est \defe{primitive}{matrice primitive} si il existe un entier \( k>0\) tel que \( T^k>0\).
+\end{definition}
+
+\begin{definition}      \label{DEFooRFQCooQrLPVw}
+    Si \( T\) est une matrice \( n\times n\) et si \( x\in \eR^n\), nous notons
+    \begin{equation}
+        xT=\sum_{ij}x_iT_{ij}e_j.
+    \end{equation}
+    Et nous disons que \( x\in \eR^n\) est un \defe{vecteur propre à gauche}{vecteur propre à gauche} pour la valeur propre à gauche \( \lambda\in \eC\) si \( xT=\lambda x\).
+\end{definition}
+
+\begin{theorem}[Perron-Frobenius\cite{BIBooKTXZooEXpuZY}]
+    Soit une matrice positive et primitive \( T\). Il existe une valeur propre \( \rho\) telle que
+    \begin{enumerate}
+        \item
+            \( \rho>0\),
+        \item
+            La matrice \( T\) a des vecteurs propres strictement positifs à gauche et à droite pour la valeur propre \( \rho\).
+        \item
+            Pour toute valeur propre \( \lambda\neq \rho\) nous avons \( \rho>| \lambda |\)
+        \item
+            Les espaces propres à gauche et à droite de \( T\) pour la valeur propre \( \rho\) sont de dimension \( 1\).
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Nous divisons la preuve en trois parties. La première va tout démontrer pour les vecteurs propres à gauche, la seconde fera la même chose pour les vecteurs propre à droite, et la troisième fera la synthèse.
+    \begin{center}
+         -- À gauche --
+    \end{center}
+    Soit \( D=\{ x\in \eR^n\tq x\neq 0, x\geq 0 \}\). Nous considérons l'application
+    \begin{equation}
+        \begin{aligned}
+            r\colon D&\to \eR \\
+            x&\mapsto \min_j\frac{ (xT)_j }{ x_j } 
+        \end{aligned}
+    \end{equation}
+    où la fraction vaut \( \infty\) si \( x_j=0\). 
+
+    \begin{subproof}
+        \spitem[\( r\) est majorée supérieurement]
+        % -------------------------------------------------------------------------------------------- 
+            Pour chaque \( j\) (y compris ceux pour qui \( x_j=0\)) nous avons l'inégalité suivante dans \( \eR\) :
+            \begin{equation}
+                x_j r(x)\leq (xT)_j.
+            \end{equation}
+            En multipliant par \( e_j\) et en faisant la somme, \( r(x)x\leq xT\). Nous posons \( u=\sum_ie_i\) et nous prenons le produit scalaire :
+            \begin{equation}        \label{EQooBRRSooUtIPXc}
+                r(x)x\cdot u\leq xT\cdot u=x\cdot Tu.
+            \end{equation}
+            En posant \( K=\max_j\sum_{i}T_{ij}\) nous avons \( Tu\leq Ku\) parce que
+            \begin{equation}
+                (Tu)_k=\sum_{l}T_{kl}\underbrace{u_l}_{=1}=\sum_lT_{kl}\leq K= (Ku)_k.
+            \end{equation}
+            Pour tout \( x\in D\) nous avons \( r(x)\leq K\). Nous utilisons ça pour continuer \eqref{EQooBRRSooUtIPXc} :
+            \begin{equation}
+                r(x)x\cdot u\leq xT\cdot u=x\cdot Tu\leq Kx\cdot u.
+            \end{equation}
+            Vu que \( x\geq 0\) et \( u\geq 0\), nous avons \( x\cdot u\geq 0\) nous nous pouvons simplifier : \( r(x)\leq K\) pour tout \( x\in D\).
+
+        \spitem[Une minoration]
+        % -------------------------------------------------------------------------------------------- 
+            Nous savons que \( T\) est une matrice positive et même primitive, de telle sorte que \( T\) n'ait aucune colonne nulle. Donc
+            \begin{equation}
+                r(u)=\min_j\frac{ \sum_iu_iT_{ij} }{ u_j }=\min_j\sum_iT_{ij}>0.
+            \end{equation}
+            Nous avons donc
+            \begin{equation}
+                r(u)>0.
+            \end{equation}
+        \spitem[Définition de \( \rho\)]
+        % -------------------------------------------------------------------------------------------- 
+            Nous posons
+            \begin{equation}
+                \rho=\sup_{x\in D}r(x).
+            \end{equation}
+            Vu que que nous avons déjà prouvé nous avons \( 0<\rho\leq K\).
+
+            Notons que si \(\lambda\in \eR\), nous avons \( r(x)=r(\lambda x)\), de telle sorte que
+            \begin{equation}
+                \rho=\sup_{\substack{x\in D\\\| x \|\leq 1}}r(x).
+            \end{equation}
+        \spitem[Un compact]
+        % -------------------------------------------------------------------------------------------- 
+            En posant
+            \begin{equation}
+                D'=\big( D\cap \overline{ B(0,1) } \big)\setminus B(0,\epsilon)
+            \end{equation}
+            avec \( \epsilon<1\), nous avons \( r(D')=r(D)\) parce que \( r(x)=r(\lambda x)\). La partie \( D'\) est évidemment bornée. 
+
+            Vu que \( D\) et \( \overline{ B(0,1) }\) sont fermés, l'intersection est fermée (lemme \ref{LemQYUJwPC}\ref{ITEMooBHIGooMvkUtX}). La différence entre un fermé et un ouvert est fermée (lemme \ref{LEMooSFMZooBguLdf}). Donc \( D'\) est fermé. Le théorème de Borel-Lebesgue \ref{ThoXTEooxFmdI} nous dit alors que \( D'\) est compact.
+
+        \spitem[\( r\) est continue]
+        % -------------------------------------------------------------------------------------------- 
+            Sur \( D'\), chacune des applications \( x\mapsto (xT)_j/x_j\) est continue. Donc le minimum est continu et \( r\colon D'\to \eR\) est une application continue sur un compact.
+
+        \spitem[\( v\) et \( \rho\)]
+        % -------------------------------------------------------------------------------------------- 
+            Le théorème de Weierstrass \ref{ThoWeirstrassRn} nous indique que \( r\) est bornée et atteint ses bornes sur \( D'\). Il existe \( v\in D'\) tel que \( r(v)\geq r(x)\) pour tout \( x\in D'\). Vu que par définition
+            \begin{equation}
+                \rho=\sup_{\substack{x\in D\\\| x \|\leq 1}}r(x)=\sup_{x\in D'}r(x),
+            \end{equation}
+            nous avons en fait \( r(v)=\rho\).
+
+        \spitem[Un mini sous-résultat]
+        % -------------------------------------------------------------------------------------------- 
+        Nous démontrons un sous-résultat qui sera utilisé quelque fois dans la suite. Si \( x\in \eR^n\) vérifie \( x\geq 0\) et \( (xT)_j\geq \rho x_j\) pour tout \( j\), alors
+        \begin{enumerate}
+            \item
+                \( xT=\rho x\), c'est à dire que \( x\) est un vecteur propre à gauche de \( T\).
+            \item
+                \( x>0\).
+        \end{enumerate}
+        Par hypothèse du théorème, il existe \( k>0\) tel que \( T^k>0\). Nous posons \( y=xT^k\). Alors, si \( xT-\rho x\neq 0\) nous avons
+        \begin{equation}
+            yT-\rho y=(xT-\rho x)T^k>0.
+        \end{equation}
+        La dernière inégalité est parce que  \( xT-\rho x\geq 0\) et \( T^k>0\). En développant, cette inégalité signifie que pour tout \( j\),
+        \begin{equation}
+            \sum_iy_iT_{ij}>\rho y_j,
+        \end{equation}
+        ou encore que $\rho<\frac{ \sum_iy_iT_{ij} }{ y_j }$ pour tout \( j\). En particulier pour le \( j\) qui réalise le minimum, \( \rho<r(y)\), ce qui contredit ma maximalité de \( \rho\). Nous en déduisons que \( xT-\rho x=0\).
+        
+        À partir de là, nous déduisons que \( x>0\). En effet, en appliquant \( k\) fois l'égalité \( xT=\rho x\), nous avons \( xT^k=\rho^k x\). Comme \( x\geq 0\) et \( T^k>0\), nous avons \( xT^k>0\). Vu que \( \rho\neq 0\) nous en déduisons que \( x>0\).
+
+        \spitem[\( v\) et \( \rho\), suite]
+        % -------------------------------------------------------------------------------------------- 
+        Nous avons \( r(v)=\rho\). En particulier pour tout \( j\) nous avons \( \rho v_j \leq \sum_iv_iT_{ij}\). Et comme \( v\in D'\) nous avons aussi \( v\geq 0\). En vertu de notre sous-résultat, nous déduisons que \( v\) est un vecteur propre à gauche de \( T\) : \( vT=\rho v\), et que \( v>0\).
+
+    \end{subproof}
+\end{proof}
+
+
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Polynômes d'endomorphismes}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
