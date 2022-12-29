@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2012-2013,2015,2018-2021
+% Copyright (c) 2012-2013,2015,2018-2022
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
@@ -141,14 +141,105 @@ Le lemme suivant est intuitivement rien d'autre que le fait que la somme des pro
 	\end{subproof}
 \end{proof}
 
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Matrice stochastique}
+%---------------------------------------------------------------------------------------------------------------------------
+
 \begin{definition}      \label{DefGJEBooZvuIAV}
 	Une matrice dont tous les éléments sont positifs ou nuls et donc la somme de toutes les lignes sont \( 1\) est une \defe{matrice stochastique}{matrice stochastique}.
 \end{definition}
 Notons que l'ensemble des matrices stochastiques est un fermé dans l'ensemble des matrices.
 
+\begin{proposition}[\cite{BIBooOHTZooXCTwxj}]       \label{PROPooBYELooKLsthC}
+    Soient:
+    \begin{enumerate}
+        \item
+            Un ensemble \( F\), un ensemble au plus dénombrable \( E\),
+        \item
+            Des variables aléatoires indépendantes et identiquement distribuées \( Z_n\colon \Omega\to F\),
+        \item
+            Une variable aléatoire \( X_0\colon \Omega\to E\), indépendante des \( Z_n\)
+        \item
+            Une application \( f\colon E\times F \to E\).
+    \end{enumerate}
+    Alors la définition par récurrence 
+    \begin{equation}
+        \begin{aligned}
+            X_{n+1}\colon \Omega&\to E \\
+            \omega&\mapsto f\big( X_n(\omega),Z_{n+1}(\omega) \big) 
+        \end{aligned}
+    \end{equation}
+    est une chaine de Markov homogène.
+\end{proposition}
+
+\begin{proof}
+    Nous commençons par construire des applications \( g_n\colon E\times F^n\to E\) telles que \( X_n(\omega)=g_n\big( X_0(\omega), Z_1(\omega),\ldots, Z_n(\omega) \big)\). D'abord nous posons \( g_1=f\). Ensuite, pour la récurrence nous posons
+    \begin{equation}
+        \begin{aligned}
+            g_{n+1}\colon E\times F^{n+1}&\to E \\
+            (i,x_1,\ldots, x_{n+1})&\mapsto f\big( g_n(i,x_1,\ldots, x_n), x_{n+1} \big). 
+        \end{aligned}
+    \end{equation}
+    Nous vérifions que c'est bon :
+    \begin{subequations}
+        \begin{align}
+            g_{n+1}(i,x_1,\ldots, x_{n+1})&= f\big( g_n(i,x_1,\ldots, x_n), x_{n+1} \big)\\
+            &=f\big( X_n(\omega),z_{n+1}(\omega) \big)\\
+            &=X_{n+1}(\omega).
+        \end{align}
+    \end{subequations}
+    Et maintenant il faut vérifier que les \( X_n\) forment une chaine de Markov homogène. C'est un bon calcul, et nous commençons par une étape simple :
+    \begin{subequations}
+        \begin{align}
+            \clubsuit=P(X_{n+1}=j|X_n=x_n,\ldots, X_0=x_0)&=P\big( f(X_n,Z_{n+1})=j|X_n=x_n,\ldots, X_0=x_0 \big)\\
+            &=P\big( f(x_n,Z_{n+1})=j|X_n=x_n,\ldots, X_0=x_0 \big)  
+        \end{align}
+    \end{subequations}
+    Pour la seconde ligne, nous avons utilisé le lemme \ref{LEMooVYDTooGELPRY}. Pour la suite, nous nous souvenons que \( X_k=g_k(X_0,Z_1,\ldots, Z_k)\). Nous pouvons exprimer le conditionnement de la façon suivante :
+    \begin{subequations}
+        \begin{align}
+            B&=\{ \omega\in \Omega\tq X_n(\omega)=x_n,\ldots, X_0(\omega)=x_0 \}\\
+            &=  \bigcap_{k=1}^n\{ X_k=x_k \}  \cap   \{ X_0=x_0 \}\\
+            &=  \bigcap_{k=1}^n\{ g_k(X_0, Z_1,\ldots, Z_k) \}  \cap   \{ X_0=x_0 \}\\
+        \end{align}
+    \end{subequations}
+    Maintenant, en considérant l'application
+    \begin{equation}
+        \begin{aligned}
+            g\colon E\times F^n&\to E^{n+1} \\
+            \big( i,(z_1,\ldots, z_n) \big)&\mapsto \begin{pmatrix}
+                i    \\ 
+                g_1(i,z_1)    \\ 
+                \vdots    \\ 
+                g_n(i,z_1,\ldots, z_n)    
+            \end{pmatrix},
+        \end{aligned}
+    \end{equation}
+    nous avons 
+    \begin{equation}
+        B=\{ \omega\in\Omega\tq g\big( X_0(\omega), Z_1(\omega),\ldots, Z_n(\omega)  \big)=(x_0,x_1,\ldots, x_n) \}.
+    \end{equation}
+    Le lemme \ref{LEMooWAOSooBsGucQ} dit que les variables aléatoires \( f(X_n, Z_{n+1})\) et \( g(X_0,Z_1,\ldots, Z_n)\) sont indépendantes.
+\end{proof}
+<++>
+
 \begin{lemma}       \label{LEMooQBOIooMNbJlV}
-	Si \( U\) est une matrice stochastique\footnote{Définition~\ref{DefGJEBooZvuIAV}.}, alors il existe une chaine de Markov dont la matrice de transition est \( U\).
+    Si \( P\) est une matrice stochastique\footnote{Définition~\ref{DefGJEBooZvuIAV}.} \( N\times N\) ainsi qu'un ensemble \( E\) de cardinal \( N\), alors il existe une chaine de Markov dont la matrice de transition est \( P\).
 \end{lemma}
+
+\begin{proof}
+    Nous considérons des variables aléatoires \( Z_n\colon \Omega \to \mathopen[ 0 , 1 \mathclose] \) indépendantes et uniformes sur \( \mathopen[ 0 , 1 \mathclose]\). Nous considérons aussi une variable aléatoire \( X_0\colon \Omega\to E\), indépendante des \( Z_n\).
+
+    Ensuite nous construisons les variables aléatoires \( X_n\colon \Omega\to E\) par récurrence en posant
+    \begin{equation}
+        \begin{aligned}[]
+        X_{n+1}(\omega)=j&&\text{si} \sum_{k=0}^{j-1}P_{X_n(\omega),k}\leq Z_{n+1}(\omega)<\sum_{k=0}^jP_{X_n(\omega),k}.
+        \end{aligned}
+    \end{equation}
+    %TODOooRWJLooHkwdAc finir à partir d'ici
+\end{proof}
+<++>
 
 
 \begin{example}
@@ -179,8 +270,8 @@ Notons que l'ensemble des matrices stochastiques est un fermé dans l'ensemble d
 	Une chaine de Markov est \defe{finie}{chaine!de Markov!finie} si l'ensemble \( E\) dans lequel elle prend ses valeurs est fini.
 \end{definition}
 
-\begin{proposition}[\cite{GMbugcT}]
-	Si \( (X_n)\) est une chaine de Markov irréductible sur un ensemble fini, alors pour tout ensemble \( A\subset E\) nous avons
+\begin{proposition}[\cite{GMbugcT}]     \label{PROPooCAORooMEaxtq}
+    Si \( (X_n)\) est une chaine de Markov irréductible\footnote{Chaine de Markov irréductible, définition \ref{DEFooGKRQooFNuwRm}.} sur un ensemble fini, alors pour toute partie \( A\subset E\) nous avons
 	\begin{equation}
 		P(\tau_A<\infty)=\lim_{n\to \infty} P(\tau_A\leq n)=1
 	\end{equation}
@@ -200,14 +291,12 @@ Les propositions à venir vont montrer que
 \begin{proposition}[\cite{MarkGuy}] \label{PropOJumFwe}
     Toute matrice stochastique\footnote{Définition \ref{DefGJEBooZvuIAV}.} admet un état stationnaire.
 \end{proposition}
+Je crois que pour prouver ça, il faut utiliser le théorème de Perron-Frobenius \ref{THOooRSPJooMCFeeP}.
 
 \begin{proposition}[\cite{MarkGuy}]     \label{PropUMPpOHW}
 	Soit une chaine de Markov irréductible finie. Alors il existe une unique loi stationnaire \( \pi\) et de plus nous avons \( \pi_i>0\) pour tout état \( i\) de \( E\).
 \end{proposition}
 
-\begin{definition}
-	Une chaine de Markov finie est \defe{régulière}{chaine!de Markov!régulière} si il existe un \( n\in \eN\) tel que \( P^n\) a uniquement des éléments strictement positifs.
-\end{definition}
 
 \begin{theorem}[\cite{GMbugcT}]
 	Soit \( P\) la matrice de transition d'une chaine de Markov régulière sur un ensemble \( E\) de cardinal \( N\). Alors il existe des nombres \( \pi_1,\ldots, \pi_N\) tels que
@@ -516,12 +605,14 @@ La matrice de transition de cette chaine de Markov est une matrice infinie «dan
 
 Le \defe{graphe de transition}{graphe!de transition (chaine de Markov)} d'une chaine de Markov est le graphe dont les sommets sont les éléments de l'espace des états de la chaine et dont les sommets sont reliés par des arrêtes pondérées par la probabilité de transition correspondante.
 
-\begin{definition}
+\begin{definition}[\cite{GMbugcT}]      \label{DEFooGKRQooFNuwRm}
 	Une chaine de Markov est \defe{irréductible}{irréductible!chaine de Markov}\index{chaine!de Markov!irréductible} si pour tout \( x,y\in E\), il existe \( n\) tel que \( p^n(x,y)>0\) où
 	\begin{equation}
 		p^n(x,y)=P(X_n=y|X_0=x).
 	\end{equation}
 	Le nombre \( n\) peut dépendre de \( x\) et \( y\).
+
+	Une chaine de Markov finie est \defe{régulière}{chaine de Markov régulière} si il existe un \( n\in \eN\) tel que \( P^n\) a uniquement des éléments strictement positifs.
 \end{definition}
 
 \begin{lemma}
