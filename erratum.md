@@ -4,7 +4,8 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2022 (11 fautes)
 
-- volume 2. Proposition 12.61. Équation (12.112). Suppose l'uniforme continuité alors qu'on ne l'a pas. C'est le même type que l'erreur du lemme 14.61 en 2018. Heureusement cette fois l'énoncé est correct. C'est Quentin Guyot qui a trouvé cette faute.
+- Volume 2. Équation (12.216). Cela prouve la linéaire indépendance, pas le fait que les polynômes soient premiers entre eux. Vue par Quentin Guyot.
+- Volume 2. Proposition 12.61. Équation (12.112). Suppose l'uniforme continuité alors qu'on ne l'a pas. C'est le même type que l'erreur du lemme 14.61 en 2018. Heureusement cette fois l'énoncé est correct. C'est Quentin Guyot qui a trouvé cette faute.
 - Volume 2. Proposition 11.208. Les | x | au dénominateur devraient être au numérateur.
 - volume 2. Lemme 11.207. La norme de x doit venir au numérateur.
 - Volume 2. Proposition 10.7. Les parties O_i ne recouvrent pas K parce que les x_i eux-même ne sont pas dedans.
