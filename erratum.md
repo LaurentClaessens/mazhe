@@ -2,9 +2,10 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
-## Frido 2022 (6 fautes)
+## Frido 2022 (11 fautes)
 
-- Volume 2. Proposition 11.208.
+- volume 2. Proposition 12.61. Équation (12.112). Suppose l'uniforme continuité alors qu'on ne l'a pas. C'est le même type que l'erreur du lemme 14.61 en 2018. Heureusement cette fois l'énoncé est correct. C'est Quentin Guyot qui a trouvé cette faute.
+- Volume 2. Proposition 11.208. Les | x | au dénominateur devraient être au numérateur.
 - volume 2. Lemme 11.207. La norme de x doit venir au numérateur.
 - Volume 2. Proposition 10.7. Les parties O_i ne recouvrent pas K parce que les x_i eux-même ne sont pas dedans.
 - Volume 4. Théorème 36.109. La formule (36.358) donnée pour P(X<=x) est complètement fausse.
