@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2022 (11 fautes)
 
+- Volume 2. Proposition 12.397. La preuve ne fonctionne qu'avec x_k>0. Il faut faire un cas séparé pour x_k<0 en utilisant a^(-x_k)=1/a^(x_k), et ensuite un cas général. Merci Quentin Guyot.
 - Volume 2. Proposition 12.186. Une fonction peut être strictement croissante avec une dérivée qui s'annule en un point. Par exemple x^3 est strictement croissante alors que sa dérivée s'annulle en zéro. Quentin Guyot.
 - Volume 2. Équation (12.216). Cela prouve la linéaire indépendance, pas le fait que les polynômes soient premiers entre eux. Vue par Quentin Guyot.
 - Volume 2. Proposition 12.61. Équation (12.112). Suppose l'uniforme continuité alors qu'on ne l'a pas. C'est le même type que l'erreur du lemme 14.61 en 2018. Heureusement cette fois l'énoncé est correct. C'est Quentin Guyot qui a trouvé cette faute.
