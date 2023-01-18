@@ -2,8 +2,9 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
-## Frido 2022 (11 fautes)
+## Frido 2022 (15 fautes)
 
+- Volume 2. Proposition 12.407. La fonction x |-> x^a n'est pas croissante sur les négatifs quand a>0. Prenez par exemple a=3. La deuxième partie de l'énoncé est donc fausse. Quentin Guyot.
 - Volume 2. Proposition 12.397. La preuve ne fonctionne qu'avec x_k>0. Il faut faire un cas séparé pour x_k<0 en utilisant a^(-x_k)=1/a^(x_k), et ensuite un cas général. Merci Quentin Guyot.
 - Volume 2. Proposition 12.186. Une fonction peut être strictement croissante avec une dérivée qui s'annule en un point. Par exemple x^3 est strictement croissante alors que sa dérivée s'annulle en zéro. Quentin Guyot.
 - Volume 2. Équation (12.216). Cela prouve la linéaire indépendance, pas le fait que les polynômes soient premiers entre eux. Vue par Quentin Guyot.
