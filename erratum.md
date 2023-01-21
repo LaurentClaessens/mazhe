@@ -2,7 +2,7 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](http://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
-## Frido 2022 (15 fautes)
+## Frido 2022 (16 fautes)
 
 - Volume 2. Proposition 12.425. Équations (12.1211). Il manque des supremum sur x dans K un peu partout. En particulier, la première inégalité est fausse. Elle devient une égalité si on ajoute un sup. Quentin Guyot.
 - Volume 2. Proposition 12.411. La conclusion du point (iii) est un peu rapide. D'abord elle mélange deux epsilon différents, et ensuite elle ne traite que les x+epsilon, et non les x-epsilon. Trouvé par Quentin Guyot.
