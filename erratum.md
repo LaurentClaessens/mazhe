@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2022 (16 fautes)
 
+- Volume 3. Définition 17.32 et lemme 17.33. Une condition locale sur f'(a) ne peut évidemment pas donner d'informations sur la divergence de la suite. La définition de point répulsif ne dit rien sur ce qu'il se passe lorsque la suite est convergente vers autre chose que a. Bref, la seconde partie de la définition n'est pas correcte et donc la seconde partie du lemme ne va pas. Vous pouvez utiliser le lemme comme définition; c'est ce que presque tout le monde fait. Quentin Guyot.
 - Volume 2. Proposition 12.425. Équations (12.1211). Il manque des supremum sur x dans K un peu partout. En particulier, la première inégalité est fausse. Elle devient une égalité si on ajoute un sup. Quentin Guyot.
 - Volume 2. Proposition 12.411. La conclusion du point (iii) est un peu rapide. D'abord elle mélange deux epsilon différents, et ensuite elle ne traite que les x+epsilon, et non les x-epsilon. Trouvé par Quentin Guyot.
 - Volume 2. Proposition 12.407. La fonction x |-> x^a n'est pas croissante sur les négatifs quand a>0. Prenez par exemple a=3. La deuxième partie de l'énoncé est donc fausse. Quentin Guyot.
