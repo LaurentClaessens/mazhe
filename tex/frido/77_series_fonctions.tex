@@ -1104,7 +1104,7 @@ Nous allons voir Picard. Les autres théorème de point fixe que sont Brouwer, S
 \begin{proof}
 	Si \( | \varphi'(a)|<1 \) alors il existe \( k\) tel que \( | \varphi'(a) |<k<1\) et par continuité il existe un voisinage \( V\) de \( a\) dans lequel \( | \varphi'(x) |<k\) pour tout \( x\in V\). En utilisant le théorème des accroissements finis\footnote{Proposition \ref{PropUTenzfQ}.} nous avons
 	\begin{equation}
-		| x_n-a |=\big| f(x_{n-1}-a) \big|\leq k| x_{n-1}-a |
+		| x_n-a |=\big|  \varphi(x_n)-a  \big|\leq k| x_{n-1}-a |
 	\end{equation}
 	et par récurrence
 	\begin{equation}
@@ -1234,7 +1234,7 @@ La première inégalité \eqref{EqKErdim} donne une estimation de l'erreur calcu
 \begin{remark}
 	Ce théorème comporte deux parties d'intérêts différents. La première partie est un théorème de point fixe usuel, qui sera utilisé pour prouver l'existence de certaines équations différentielles.
 
-	La seconde partie est intéressante d'un point de vie numérique. En effet, ce qu'elle nous enseigne est que si à chaque pas de calcul de la récurrence \( x_{n+1}=f(x_n)\) nous commettons une erreur d'ordre de grandeur \( \epsilon\), alors le procédé (la suite \( (v_n)\)) ne converge plus spécialement vers le point fixe, mais tend vers le point fixe avec une erreur majorée par \( \epsilon/(k-1)\).
+	La seconde partie est intéressante d'un point de vue numérique. En effet, ce qu'elle nous enseigne est que si à chaque pas de calcul de la récurrence \( x_{n+1}=f(x_n)\) nous commettons une erreur d'ordre de grandeur \( \epsilon\), alors le procédé (la suite \( (v_n)\)) ne converge plus spécialement vers le point fixe, mais tend vers le point fixe avec une erreur majorée par \( \epsilon/(1-k)\).
 \end{remark}
 
 \begin{remark}
@@ -1248,19 +1248,6 @@ La première inégalité \eqref{EqKErdim} donne une estimation de l'erreur calcu
 	\end{equation}
 	ce qui prouve que \( f(x)\) est un point fixe de \( f^p\). Par unicité nous avons alors \( f(x)=x\), c'est-à-dire que \( x\) est également un point fixe de \( f\).
 \end{remark}
-
-Si la fonction n'est pas Lipschitz mais presque, nous avons une variante.
-\begin{proposition}
-	Soit \( E\) un ensemble compact\footnote{Notez cette hypothèse plus forte} et si \( f\colon E\to E\) est une fonction telle que
-	\begin{equation}        \label{EqLJRVvN}
-		\| f(x)-f(y) \|< \| x-y \|
-	\end{equation}
-	pour tout \( x\neq y\) dans \( E\) alors \( f\) possède un unique point fixe.
-\end{proposition}
-
-\begin{proof}
-	La suite \( x_{n+1}=f(x_n)\) possède une sous-suite convergente. La limite de cette sous-suite est un point fixe de \( f\) parce que \( f\) est continue. L'unicité est due à l'aspect strict de l'inégalité \eqref{EqLJRVvN}.
-\end{proof}
 
 \begin{theorem}[Équation de Fredholm]\index{Fredholm!équation}\index{équation!Fredholm}     \label{ThoagJPZJ}
 	Soit \( K\colon \mathopen[ a , b \mathclose]\times \mathopen[ a , b \mathclose]\to \eR\) et \( \varphi\colon \mathopen[ a , b \mathclose]\to \eR\), deux fonctions continues. Alors si \( \lambda\) est suffisamment petit, l'équation
@@ -1283,7 +1270,7 @@ Si la fonction n'est pas Lipschitz mais presque, nous avons une variante.
 			                               & \leq  | \lambda |\| K \|_{\infty}| b-a |\| f-g \|_{\infty}
 		\end{align}
 	\end{subequations}
-	Si \( \lambda\) est assez petit, et si \( p\) est assez grand, l'application \( \Phi^p\) est donc une contraction. Elle possède donc un unique point fixe par le théorème de Picard~\ref{ThoEPVkCL}.
+	Nous choississons \( \lambda\) assez petit pour avoir \( | \lambda |\| K \|_{\infty}| b-a |<1\). Dans ce cas, l'application \( \Phi\) est une contraction. Elle possède donc un unique point fixe par le théorème de Picard~\ref{ThoEPVkCL}.
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1350,16 +1337,18 @@ Le théorème de Cauchy-Arzella \ref{ThoHNBooUipgPX} sera pour plus tard parce q
 		Pour que l'application \( \Phi\) soit utile nous devons montrer que pour tout \( y\in \mF\),
 		\begin{itemize}
 			\item l'application \( \Phi(y)\) est bien définie,
-			\item pour tout \( t\in\overline{ B(y_0,r) }\) nous avons \( \Phi(y)(t)\in\overline{ B(t_0,T) }\),
+			\item pour tout \( t\in\overline{ B(t_0,T) }\) nous avons \( \Phi(y)(t)\in\overline{ B(y_0,r) }\),
 			\item l'application \( \Phi(y)\colon  \overline{ B(t_0,T) } \to \overline{ B(y_0,r)}\) est continue.
 		\end{itemize}
 		Attention : nous ne prétendons pas que \( \Phi\) elle-même soit continue. C'est parti.
 		\begin{subproof}
 			\spitem[\( \Phi(y)\) est bien définie]
+			%------------------------------------
 
 			Il faut montrer que l'intégrale converge. Le calcul de \( \Phi(y)(t)\) ne se fait qu'avec \( t\in \overline{ B(t_0,T) }\). Vu que \( u\) prend ses valeurs dans \( \mathopen[ t_0 , t \mathclose]\) et que \( y\in\mF\), le nombre \( y(u)\) est toujours dans \( \overline{ B(y_0,r) }\). Ceci pour dire que dans l'intégrale, la fonction \( f\) n'est considérée que sur \( \mathopen[ t_0 , t \mathclose]\times \overline{ B(y_0,r) }\subset V\times W\). La fonction \( f\) est donc uniformément majorable, et l'intégrale ne pose pas de problèmes.
 
-			\spitem[\( \Phi(y)(t)\in \overline{ B(t_0,T) }\)]
+			\spitem[\( \Phi(y)(t)\in \overline{ B(y_0,r) }\)]
+			%------------------------------------
 
 			Prouvons que \( \Phi(y)(t)\in\overline{ B(y_0,r) }\). Pour cela, notons que
 			\begin{equation}
@@ -1368,6 +1357,7 @@ Le théorème de Cauchy-Arzella \ref{ThoHNBooUipgPX} sera pour plus tard parce q
 			Étant donné que \( t\in\overline{ B(t_0,T) }\) nous avons \( | t-t_0 |\leq r/M\) et donc \( | \Phi(y)(t)-y_0 |\leq r\).
 
 			\spitem[\( \Phi(y)\) est continue]
+			%------------------------------------
 
 			Nous pourrions invoquer le théorème~\ref{ThoKnuSNd}, mais nous allons le faire à la main. Soit \( s_0\in B(t_0,T)\) et prouvons que \( \Phi(y)\) est continue en \( s_0\). Pour cela nous prenons \( s\in B(s_0,\delta)\) et nous calculons :
 			\begin{equation}
@@ -1387,10 +1377,10 @@ Le théorème de Cauchy-Arzella \ref{ThoHNBooUipgPX} sera pour plus tard parce q
 		pour tout \( x,y\in\mF\), et pour tout \( t\in\overline{ B(t_0,T) }\). Pour \( p=0\) la formule \eqref{EqRAdKxT} est vérifiée parce que \( \| x-y \|_{\infty}\) est le supremum de \( \| x(t)-y(t) \|\) pour \( t\in\overline{ B(t_0,T) }\). Supposons que la formule soit vraie pour \( p\) et calculons pour \( p+1\). Pour tout \( t\in\overline{ B(t_0,T) }\) nous avons
 		\begin{subequations}
 			\begin{align}
-				\big\| \Phi^{p+1}(x)(t)-\Phi^{p+1}(y)(t) \big\| & \leq \left| \int_{t_0}^t\big\| f\big( u,\Phi^p(x)(u) \big)-f\big( u,\Phi^p(y)(u) \big) \big\|du \right|                                                                  \\
-				                                                & \leq \left| \int_{t_0}^tk\| \Phi^p(x)(u)-\Phi^p(y)(u) \|du \right|                  \label{subIKYixF}                                                                    \\
-				                                                & \leq \left| \int_{t_0}^tk\frac{ k^p| t-t_0 | }{ p! }\| x-y \|_{\infty} \right|                          & \label{subxkNjiV}                                              \\
-				                                                &                                                                                                         & = \frac{ k^{p+1}| t-t_0 |^{p+1} }{ (p+1)! }\| x-y \|_{\infty}.
+				\big\| \Phi^{p+1}(x)(t)-\Phi^{p+1}(y)(t) \big\| & \leq \left| \int_{t_0}^t\big\| f\big( u,\Phi^p(x)(u) \big)-f\big( u,\Phi^p(y)(u) \big) \big\|du \right|                     \\
+				                                                & \leq \left| \int_{t_0}^tk\| \Phi^p(x)(u)-\Phi^p(y)(u) \|du \right|                  \label{subIKYixF}                       \\
+				                                                & \leq \left| \int_{t_0}^tk\frac{ k^p| t-t_0 | }{ p! }\| x-y \|_{\infty} \right|                          & \label{subxkNjiV} \\
+				                                                & = \frac{ k^{p+1}| t-t_0 |^{p+1} }{ (p+1)! }\| x-y \|_{\infty}.
 			\end{align}
 		\end{subequations}
 		Justifications :
@@ -1400,13 +1390,13 @@ Le théorème de Cauchy-Arzella \ref{ThoHNBooUipgPX} sera pour plus tard parce q
 		\end{itemize}
 		La formule \eqref{EqRAdKxT} est maintenant établie. Nous pouvons maintenant montrer que \( \Phi^p\) est une contraction pour un certain \( p\). Pour tout \( t\in \overline{ B(t_0,T) }\) nous avons
 		\begin{equation}
-			\| \Phi^p(x)(t)-\Phi^p(y)(t) \|\leq \frac{ k^p }{ t! }| t-t_0 |^p\| x-y \|_{\infty}     \leq \frac{ k^pT^p }{ p! }\| x-y \|_{\infty}
+			\| \Phi^p(x)(t)-\Phi^p(y)(t) \|\leq \frac{ k^p }{ p! }| t-t_0 |^p\| x-y \|_{\infty}     \leq \frac{ k^pT^p }{ p! }\| x-y \|_{\infty}
 		\end{equation}
 		où nous avons utilisé le fait que \( | t-t_0 |^p<T^p\). En prenant le supremum sur \( t\) des deux côtés il vient
 		\begin{equation}
 			\| \Phi^p(x)-\Phi^p(y) \|_{\infty}\leq\frac{ k^pT^p }{ p! }\| x-y \|_{\infty}.
 		\end{equation}
-		Le membre de droite tend vers zéro lorsque \( p\to\infty\) parce que \( k<1\) et \( T^p/p!\to 0\)\footnote{C'est le terme général du développement de \(  e^{T}\) qui est une série convergente.}. Nous concluons donc que \( \Phi^p\) est une contraction pour un certain \( p\).
+		Le membre de droite tend vers zéro lorsque \( p\to\infty\) parce que \( k^pT^p/p!\to 0\)\footnote{Parce que les factorielles vont plus vite que les puissances.}. Nous concluons donc que \( \Phi^p\) est une contraction pour un certain \( p\).
 
 		\spitem[Conclusion]
 
@@ -1414,7 +1404,7 @@ Le théorème de Cauchy-Arzella \ref{ThoHNBooUipgPX} sera pour plus tard parce q
 
 		\spitem[Unicité]
 
-		Nous passons maintenant à la partie «prolongement maximum» du théorème. Soient \( x_1\) et \( x_2\) deux solutions maximales du problème \eqref{XtiXON} sur des intervalles \( I_1\) et \( I_2\) respectivement. Les intervalles \( I_1\) et \( I_2\) contiennent \( \overline{ B(t_0,r) }\) sur lequel \( x_1=x_2\) par unicité.
+		Nous passons maintenant à la partie «prolongement maximum» du théorème. Soient \( x_1\) et \( x_2\) deux solutions maximales du problème \eqref{XtiXON} sur des intervalles \( I_1\) et \( I_2\) respectivement. Les intervalles \( I_1\) et \( I_2\) contiennent \( \overline{ B(t_0,T) }\) sur lequel \( x_1=x_2\) par unicité.
 
 		Nous allons maintenant montrer que pour tout \( t\geq t_0\) pour lequel \( x_1\) ou \( x_2\) est défini, \( x_1(t)\) et \( x_2(t)\) sont définis et sont égaux. Le raisonnement sur \( t\leq t_0\) est similaire.
 
@@ -1469,7 +1459,7 @@ Sous quelques hypothèses, nous pouvons nous assurer de l'existence d'une soluti
 	Démontrons quelques faits à propos de \( \Phi\).
 	\begin{subproof}
 		\spitem[\( \Phi\) est bien définie]
-		Nous devons commencer par prouver que cette application est bien définie. Si \( y\in E\) alors \( f\) et \( y\) sont continues; l'application \( s\mapsto f\big(s,y(s)\big)\) est donc également continue. L'intégrale de cette fonction sur le compact \( \mathopen[ t_0 , t \mathclose]\) ne pose alors pas de problèmes. En ce qui concerne la continuité de \( \phi(y)\) sous l'hypothèse que \( y\) soit continue,
+		Nous devons commencer par prouver que cette application est bien définie. Si \( y\in E\) alors \( f\) et \( y\) sont continues; l'application \( s\mapsto f\big(s,y(s)\big)\) est donc également continue. L'intégrale de cette fonction sur le compact \( \mathopen[ t_0 , t \mathclose]\) ne pose alors pas de problèmes. En ce qui concerne la continuité de \( \Phi(y)\) sous l'hypothèse que \( y\) soit continue,
 		\begin{equation}
 			\| \Phi(y)(t)-\Phi(y)(t') \|\leq \int_t^{t'}\| f(s,y(s)) \|ds\leq M| t-t' |
 		\end{equation}
