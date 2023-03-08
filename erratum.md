@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2022 (16 fautes)
 
+- Volume 3. Lemme 18.81(3). Il s'agit du produit de 'n' réflexions et non 'n+1' (l'énoncé n'est donc formellement pas faux). Cela est parce que si f est une isométrie, f-id peut n'avoir pas de points fixes, et donc le rang(f-id) vaut au maximum 'n'.
 - Volume 3. Lemme 17.82. Il faut considérer un intervalle fermé I=[a,b], sinon il n'y a pas de garanties que f soit définie en a et b. Heureusement tout point d'un ouvert de R possède un voisinage fermé contenu dans l'ouvert.
 - Volume 3. Juste en-dessous de (17.162). L'application Phi n'est pas supposée contractante. Il n'est donc pas spécialement vrai que `k<1`. Il n'en reste pas moins que la factorielle va plus vite que les puissances; donc k^pT^p/p! -> 0. Notez que la justification "c'est le terme général de l'exponentielle" n'est pas excellente parce que pour justifier que la série exponentielle converge, il faut justement étudier n^p/p!. Trouvée par Quentin Guyot.
 - Volume 3. Proposition 17.40. Cette proposition est probablement fausse. En effet si x_{n+1}=f(x_n) et que x est une limite de (x_n), alors x est un point fixe de f. Ça c'est vrai. Mais si on considère une sous-suite, disons \( y_n\), elle ne vérifie pas y_{n+1}=f(y_n). Et on ne peut même pas dire qu'il existe un p tel que y_{n+1} = f^p(y_n). Quentin Guyot.
