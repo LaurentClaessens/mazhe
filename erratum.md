@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2022 (16 fautes)
 
+- Volume 3. Proposition 22.11. Il y a une confusion de signe autour de l'équation (22.27). Le cercle est centré en -omega/s et non en omega/s. Tel que les choses sont écrites, il faut des + et non des - dans les parenthèses.
 - Volume 3. Lemme 18.81(3). Il s'agit du produit de 'n' réflexions et non 'n+1' (l'énoncé n'est donc formellement pas faux). Cela est parce que si f est une isométrie, f-id peut n'avoir pas de points fixes, et donc le rang(f-id) vaut au maximum 'n'.
 - Volume 3. Lemme 17.82. Il faut considérer un intervalle fermé I=[a,b], sinon il n'y a pas de garanties que f soit définie en a et b. Heureusement tout point d'un ouvert de R possède un voisinage fermé contenu dans l'ouvert.
 - Volume 3. Juste en-dessous de (17.162). L'application Phi n'est pas supposée contractante. Il n'est donc pas spécialement vrai que `k<1`. Il n'en reste pas moins que la factorielle va plus vite que les puissances; donc k^pT^p/p! -> 0. Notez que la justification "c'est le terme général de l'exponentielle" n'est pas excellente parce que pour justifier que la série exponentielle converge, il faut justement étudier n^p/p!. Trouvée par Quentin Guyot.
@@ -12,14 +13,14 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 - Volume 2. Proposition 12.425. Équations (12.1211). Il manque des supremum sur x dans K un peu partout. En particulier, la première inégalité est fausse. Elle devient une égalité si on ajoute un sup. Quentin Guyot.
 - Volume 2. Proposition 12.411. La conclusion du point (iii) est un peu rapide. D'abord elle mélange deux epsilon différents, et ensuite elle ne traite que les x+epsilon, et non les x-epsilon. Trouvé par Quentin Guyot.
 - Volume 2. Proposition 12.407. La fonction x |-> x^a n'est pas croissante sur les négatifs quand a>0. Prenez par exemple a=3. La deuxième partie de l'énoncé est donc fausse. Quentin Guyot.
-- Volume 2. Proposition 12.397. La preuve ne fonctionne qu'avec x_k>0. Il faut faire un cas séparé pour x_k<0 en utilisant a^(-x_k)=1/a^(x_k), et ensuite un cas général. Merci Quentin Guyot.
+- Volume 2. Proposition 12.397. La preuve ne fonctionne qu'avec x_k>0. Il faut faire un cas séparé pour `x_k<0` en utilisant a^(-x_k)=1/a^(x_k), et ensuite un cas général. Merci Quentin Guyot.
 - Volume 2. Proposition 12.186. Une fonction peut être strictement croissante avec une dérivée qui s'annule en un point. Par exemple x^3 est strictement croissante alors que sa dérivée s'annulle en zéro. Quentin Guyot.
 - Volume 2. Équation (12.216). Cela prouve la linéaire indépendance, pas le fait que les polynômes soient premiers entre eux. Vue par Quentin Guyot.
 - Volume 2. Proposition 12.61. Équation (12.112). Suppose l'uniforme continuité alors qu'on ne l'a pas. C'est le même type que l'erreur du lemme 14.61 en 2018. Heureusement cette fois l'énoncé est correct. C'est Quentin Guyot qui a trouvé cette faute.
 - Volume 2. Proposition 11.208. Les | x | au dénominateur devraient être au numérateur.
 - volume 2. Lemme 11.207. La norme de x doit venir au numérateur.
 - Volume 2. Proposition 10.7. Les parties O_i ne recouvrent pas K parce que les x_i eux-même ne sont pas dedans.
-- Volume 4. Théorème 36.109. La formule (36.358) donnée pour P(X<=x) est complètement fausse.
+- Volume 4. Théorème 36.109. La formule (36.358) donnée pour `P(X<=x)` est complètement fausse.
 - Volume 1. Théorème 9.253. La preuve de f injective => f_L injective est circulaire à cause du moment où on dit que g_L est injective. Encore une découverte par Quentin Guyot.
 - Volume 1. Théorème 6.29. La dernière ligne de la démonstration est fausse. Si kp+lq=0 avec p et q premiers entre eux, nous ne pouvons pas déduire que k=l=0. Prenez par exemple p=3, q=5 et cherchez l,k tels que 3k+5l=0. Facile: k=5, l=-3. Trouvée par Quentin Guyot.
 - Volume 1. Proposition-définition 4.134. Une structure réelle n'est pas une involution. La condition (1) est sigma^2=id et non sigma^2=sigma. Trouvée par Quentin Guyot.
