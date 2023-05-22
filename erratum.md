@@ -4,6 +4,8 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2022 (16 fautes)
 
+- Volume 2. Proposition 27.38. La partie «égalité» est fausse.
+- Volume 3. Proposition 27.29. La partie «Injective» prouve en réalité que psi est bien définie. Il n'y a donc pas de preuve de l'injectivité. Quentinn Guyot.
 - Volume 3. Proposition 22.11. Il y a une confusion de signe autour de l'équation (22.27). Le cercle est centré en -omega/s et non en omega/s. Tel que les choses sont écrites, il faut des + et non des - dans les parenthèses.
 - Volume 3. Lemme 18.81(3). Il s'agit du produit de 'n' réflexions et non 'n+1' (l'énoncé n'est donc formellement pas faux). Cela est parce que si f est une isométrie, f-id peut n'avoir pas de points fixes, et donc le rang(f-id) vaut au maximum 'n'.
 - Volume 3. Lemme 17.82. Il faut considérer un intervalle fermé I=[a,b], sinon il n'y a pas de garanties que f soit définie en a et b. Heureusement tout point d'un ouvert de R possède un voisinage fermé contenu dans l'ouvert.
