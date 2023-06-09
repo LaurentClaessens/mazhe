@@ -4,6 +4,8 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2022 (16 fautes)
 
+- Volume 3. Corolaire 27.142. L'équation (27.576) est dans le mauvais sens, et ça ruine la démonstration. Je ne suis même pas sûr que le résultat soit vrai. Quentin Guyot.
+- Volume 3. Proposition 27.143. L'équation (27.579) est dans le mauvais sens, et ça ruine la démonstration. Le résultat est cependant correct. Quentin Guyot.
 - Volume 3. Lemme 27.83. La seconde partie n'est pas correcte. Quentin Guyot.
 - Volume 3. Les équations (27.303) sont un peu confuses et il manque une inégalité. Quentin Guyot.
 - Volume 2. Proposition 27.38. La partie «égalité» est fausse. La condition f+g=0 n'est pas suffisante pour avoir l'égalité de Minkowsky. Quentin Guyot
