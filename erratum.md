@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2022 (16 fautes)
 
+- Volume 3. Équation (27.664). Rien ne garantit que Z est non vide. Il est possible que ||h||=1 alors que `| h(x) |<1` pour tout x. Ce maque se retrouve un peu partout sur internet chez les gens qui citent Zuily et Queffélec. Je n'ai pas ce livre sous la main pour voir comment ils s'en sortent. Cette faute a été trouvée grâce à une remarque de Quentin Guyot.
 - Volume 3. Corolaire 27.142. L'équation (27.576) est dans le mauvais sens, et ça ruine la démonstration. Je ne suis même pas sûr que le résultat soit vrai. Quentin Guyot.
 - Volume 3. Proposition 27.143. L'équation (27.579) est dans le mauvais sens, et ça ruine la démonstration. Le résultat est cependant correct. Quentin Guyot.
 - Volume 3. Lemme 27.83. La seconde partie n'est pas correcte. Quentin Guyot.
