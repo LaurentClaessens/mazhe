@@ -4,7 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2022 (16 fautes)
 
-- Volume 3. Équation (27.664). Rien ne garantit que Z est non vide. Il est possible que ||h||=1 alors que `| h(x) |<1` pour tout x. Ce maque se retrouve un peu partout sur internet chez les gens qui citent Zuily et Queffélec. Je n'ai pas ce livre sous la main pour voir comment ils s'en sortent. Cette faute a été trouvée grâce à une remarque de Quentin Guyot.
+- Volume 3. Équation (27.664). Rien ne garantit que Z est non vide. Il est possible que ||h||=1 alors que `| h(x) |<1` pour tout x. En fait le but de cette partie de la preuve n'est pas de trouver une extension qui vérifie `|| h ||<1`, mais seulement de trouver une extension qui vérifie `| h |<1`.
 - Volume 3. Corolaire 27.142. L'équation (27.576) est dans le mauvais sens, et ça ruine la démonstration. Je ne suis même pas sûr que le résultat soit vrai. Quentin Guyot.
 - Volume 3. Proposition 27.143. L'équation (27.579) est dans le mauvais sens, et ça ruine la démonstration. Le résultat est cependant correct. Quentin Guyot.
 - Volume 3. Lemme 27.83. La seconde partie n'est pas correcte. Quentin Guyot.
@@ -19,7 +19,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 - Volume 3. Définition 17.32 et lemme 17.33. Une condition locale sur f'(a) ne peut évidemment pas donner d'informations sur la divergence de la suite. La définition de point répulsif ne dit rien sur ce qu'il se passe lorsque la suite est convergente vers autre chose que a. Bref, la seconde partie de la définition n'est pas correcte et donc la seconde partie du lemme ne va pas. Vous pouvez utiliser le lemme comme définition; c'est ce que presque tout le monde fait. Quentin Guyot.
 - Volume 2. Proposition 12.425. Équations (12.1211). Il manque des supremum sur x dans K un peu partout. En particulier, la première inégalité est fausse. Elle devient une égalité si on ajoute un sup. Quentin Guyot.
 - Volume 2. Proposition 12.411. La conclusion du point (iii) est un peu rapide. D'abord elle mélange deux epsilon différents, et ensuite elle ne traite que les x+epsilon, et non les x-epsilon. Trouvé par Quentin Guyot.
-- Volume 2. Proposition 12.407. La fonction x |-> x^a n'est pas croissante sur les négatifs quand a>0. Prenez par exemple a=3. La deuxième partie de l'énoncé est donc fausse. Quentin Guyot.
+- Volume 2. Proposition 12.407. La fonction x |-> x^a n'est pas croissante sur les négatifs quand a>0. Prenez par exemple a=3. La deuxième partie de l'énoncé est donc faux. Quentin Guyot.
 - Volume 2. Proposition 12.397. La preuve ne fonctionne qu'avec x_k>0. Il faut faire un cas séparé pour `x_k<0` en utilisant a^(-x_k)=1/a^(x_k), et ensuite un cas général. Merci Quentin Guyot.
 - Volume 2. Proposition 12.186. Une fonction peut être strictement croissante avec une dérivée qui s'annule en un point. Par exemple x^3 est strictement croissante alors que sa dérivée s'annulle en zéro. Quentin Guyot.
 - Volume 2. Équation (12.216). Cela prouve la linéaire indépendance, pas le fait que les polynômes soient premiers entre eux. Vue par Quentin Guyot.
