@@ -7,7 +7,7 @@
 ## Décembre 2021
 
 - Série de Laurent
-- Mise en ordre autour des coefficients de Fourier, et de la différence entre Fejèr et Fourier proprement dit.
+- Mise en ordre autour des coefficients de Fourier, et de la différence entre Fejér et Fourier proprement dit.
 - Corolaire à Banach Steinhaus avec des seminormes.
 
 ## Novembre 2021
