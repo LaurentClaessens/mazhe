@@ -6,7 +6,10 @@ import dirmanage
 from yanntricks import SinglePicture
 from yanntricks import phyFunction
 from sage.all import var, exp
-_ = dirmanage
+_ = dirmanage, exp
+
+
+dprint = print
 
 
 def SBTooEasQsT():
@@ -15,7 +18,8 @@ def SBTooEasQsT():
     pspict.dilatation_Y(0.1)
 
     x = var('x')
-    for c in numpy.linspace(-5, 5, 2):
+    for c in numpy.linspace(-5, 5, 10):
+        dprint("fait pour ", c)
         f = phyFunction(c*exp(x)).graph(-4, 2)
         pspict.DrawGraphs(f)
 
