@@ -32,13 +32,29 @@ append_picture(JOQVoolPTsYPZK,1)
 ```
 
 
-Sage
+## modifier une image
 
-Launch Sage in the directory `src_phystricks`
+Changer et compiler
+```
+    set name SBTooEasQsT
 
-## Get Sage
+    rm ./build/build_giulietta/src_yanntricks/yanntricks$name.py
+    rm ./build/build_giulietta/src_yanntricks/Fig_$name.pstricks.recall
+    rm ./build/build_giulietta/auto/pictures_tikz/tikz$name.pdf
+    rm ./build/build_giulietta/auto/pictures_tikz/tikz$name.md5
+    rm ./build/build_giulietta/auto/pictures_tex/Fig_$name.pstricks
+    rm ./Fig_$name.pstricks
+    rm ./Fig_$name.comment
+    rm ./src_yanntricks/Fig_$name.pstricks.recall
+    rm ./auto/pictures_tikz/tikz$name.pdf
+    rm ./auto/pictures_tikz/tikz$name.md5
+    rm ./auto/pictures_tex/Fig_$name.pstricks
+    rm ./$name.yanntricks.aux
 
-- Download
-- Unzip
-- Copy to `~/.Sage` so that the directory `~/.Sage` contains the bash executable `sage`.
+    nvim src_yanntricks/yanntricks$name.py
+    cd src_yanntricks
+    ./yanntricks$name.py
+    mv ../Fig_$name.pstricks ../auto/pictures_tex/
 
+    ./lst_actu.py
+```
