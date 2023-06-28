@@ -33,7 +33,7 @@ Cette approximation ne serait pas trop mauvaise tant que \( n\) est assez grand 
 \end{equation}
 et donc
 \begin{equation}
-	p\simeq \frac{ \ln\left( \frac{ | x_n -x_{n-1}| }{ | x_{n-1}-x_{n-2} } \right) }{ \ln \left(\frac{ | x_{n-1}-x_{n-2} | }{ | x_{n-1}-x_{n-3} | } \right)}.
+	p\simeq \frac{ \ln\left( \frac{ | x_n -x_{n-1}| }{ | x_{n-1}-x_{n-2} | } \right) }{ \ln \left(\frac{ | x_{n-1}-x_{n-2} | }{ | x_{n-1}-x_{n-3} | } \right)}.
 \end{equation}
 Avec cette approximation, en réalité nous calculons une suite \( (p_i)\) qui sont les approximations de \( p\) à partir des termes \( i\) à \(i+3 \) de la suite \( (x_n)\). Il s'agit d'une suite d'estimations de \( p\).
 
@@ -133,13 +133,13 @@ La méthode du \( \Delta^2\) de Aitken est une méthode d'accélération de la c
 
 Soit \( (x_n)\) une suite qui converge. Nous voudrions une nouvelle suite \( (y_n)\) telle que
 \begin{equation}
-	\lim_{n\to \infty} \frac{ y_n-\alpha }{ x_n-\alpha }
+	\lim_{n\to \infty} \frac{ y_n-\alpha }{ x_n-\alpha }=0.
 \end{equation}
 C'est la définition d'une convergence accélérée.
 
 La façon de faire est :
 \begin{equation}
-	y_n=\frac{ x_{n+2}x_n-x_{n+1}^2 }{ x_{n+2}-2x_{n+1}+x_n }=x_n-\frac{ (x_{n+1}-x_n) }{ x_{n+2}-2x_{x+1}+x_n }.
+	y_n=\frac{ x_{n+2}x_n-x_{n+1}^2 }{ x_{n+2}-2x_{n+1}+x_n }=x_n-\frac{ (x_{n+1}-x_n) }{ x_{n+2}-2x_{n+1}+x_n }.
 \end{equation}
 La première expression a deux cancellations (la seconde une seule) et de plus la première est \( y_n\) elle-même alors que la seconde est une correction.
 
@@ -396,7 +396,7 @@ Il y a ce théorème des valeurs intermédiaires.
 
 Pour démarrer une bisection, il est toujours bon de prendre l'intervalle \( \mathopen[ a , b \mathclose]\) de façon à ne contenir qu'une seule solution.
 
-Soit donc un premier intervalle \( \mathopen[ a_0 , b_O \mathclose]\) tel que \( f(a_0)f(b_0)<0\) et ne contenant qu'une seule solution. À chaque itération nous considérons la moitié de l'intervalle précédent, mais la moitié contenant la solution.
+Soit donc un premier intervalle \( \mathopen[ a_0 , b_0 \mathclose]\) tel que \( f(a_0)f(b_0)<0\) et ne contenant qu'une seule solution. À chaque itération nous considérons la moitié de l'intervalle précédent, mais la moitié contenant la solution.
 
 Le test d'arrêt de la méthode de bisection se base uniquement sur la taille de l'intervalle qui reste. En effet si nous avons
 \begin{equation}
@@ -421,7 +421,7 @@ où \( x_n\) est le point du milieu de \( \mathopen[ a_n , b_n \mathclose]\).
 \end{normaltext}
 
 \begin{normaltext}
-	Certes la méthode de bisection assure la convergence vers une solution, mais elle n'assure pas la convergence monotone. Il peut arriver que \( | \bar x-x_n |<| \bar x-x_{n+1} |\). C'est le cas lorsque la solution est très proche du milieu de l'intervalle choisit. Le \( x_0\) est alors proche de \( \bar x\) alors que \( x_1\) sera à une distance de \( \bar x\) d'environ un quart de l'intervalle de départ.
+	Certes la méthode de bisection assure la convergence vers une solution, mais elle n'assure pas la convergence monotone. Il peut arriver que \( | \bar x-x_n |<| \bar x-x_{n+1} |\). C'est le cas lorsque la solution est très proche du milieu de l'intervalle choisi. Le \( x_0\) est alors proche de \( \bar x\) alors que \( x_1\) sera à une distance de \( \bar x\) d'environ un quart de l'intervalle de départ.
 \end{normaltext}
 
 Supposons déjà avoir trouvé un intervalle \( \mathopen[ a , b \mathclose]\) dans lequel se trouve une unique solution à \( f(x)=0\). Voici un algorithme possible.
@@ -434,7 +434,7 @@ Plusieurs remarques :
 	      Le fait de retourner le nombre d'itérations effectuées permet à l'utilisateur de savoir la précision et si le nombre maximum d'itérations est dépassé. Si ce \info{n} retourné est égal à \info{nmax}, l'utilisateur sait que le \info{x} retourné n'est pas fiable.
 	\item
 	      La ligne \info{from \_\_future\_\_ import division} fait en sorte que l'opération \info{/} est bien la division usuelle. Sinon, le défaut en python 2 est que \info{/} soit la division \emph{entière}, c'est-à-dire que \( 1/2=0\) en python 2.
-	      En python 3, le symbole \info{/} désigne bien la division usuelle, mais Sage utilise Python 2.
+	      En python 3, le symbole \info{/} désigne bien la division usuelle, mais Sage utilise Python 2\footnote{Cela était vrai au moment d'écrire l'exemple. Aujourd'hui, Sage utilise la version 3. Il n'y a aucune raison d'importer \info{future}.}.
 	\item
 	      Même si l'intervalle \( \mathopen[ a , b \mathclose]\) contient plus d'une solution, la méthode fonctionne et donne une solution. Il est simplement éventuellement très compliqué de savoir laquelle.
 	\item
@@ -538,7 +538,7 @@ Que le nombre de d'évaluations de \( f\) intervienne est logique parce que chaq
 	Pour faire la somme, il faudra déjà un peu casser les nombres pour les écrire de façon à pouvoir les sommer. En effet, il faut écrire les deux nombres avec le même exposant de \( 10\) (le plus grand), pour pouvoir les mettre en colonne :
 	\begin{subequations}
 		\begin{align}
-			0.1404\times 10^1    & \to 0.1404\times 10^1   \\
+			0.1403\times 10^1    & \to 0.1403\times 10^1   \\
 			0.4112\times 10^{-3} & \to 0.00004\times 10^1.
 		\end{align}
 	\end{subequations}
@@ -565,16 +565,14 @@ Que le nombre de d'évaluations de \( f\) intervienne est logique parce que chaq
 		\fl(a)=0.1403\times 10^1,
 	\end{equation}
 
-	Le nom de l'erreur qui consiste à avoir \( x\oplus y=x\) est ``relation annirmale''.
+	Nous avons donc \( x\oplus y=x\). Le nom de l'erreur qui consiste à avoir \( x\oplus y=x\) est \defe{relation anormale}{relation anormale}.
 
 	Calculons \( b\).
 
 	Les nombres \( y\) et \( z\) ont même ordre de grandeur, donc pas d'erreur au moment de les mettre sous forme sommable.
-	\begin{subequations}
-		\begin{align}
-			\fl(x)+\fl(y)=0.00010\times 10^{-3}.
-		\end{align}
-	\end{subequations}
+	\begin{equation}
+		\fl(y)+\fl(z)=0.00010\times 10^{-3}.
+	\end{equation}
 	Cela est renormalisé et arrondi : \( \fl(x)\oplus\fl(y)=0.1000\times 10^{-6}\).
 
 	Notons que nous avons ici commis potentiellement une erreur de cancellation parce que entre \( y\) et \( z\), il y a \( 3\) chiffres sur \( 4\) qui sont identiques. Seul le chiffre \( 1\) est significatif en réalité.
@@ -608,7 +606,7 @@ Que le nombre de d'évaluations de \( f\) intervienne est logique parce que chaq
 \end{example}
 
 \begin{example}
-	Soient \( x=0.1\times 10^{21}\) et \( y=0.5\times 10^20\) et les expressions
+	Soient \( x=0.1\times 10^{21}\) et \( y=0.5\times 10^{20}\) et les expressions
 	\begin{enumerate}
 		\item
 		      \( z_1=\frac{ x-y }{ y }+\frac{ x+y }{ x }\)
@@ -646,9 +644,13 @@ Que le nombre de d'évaluations de \( f\) intervienne est logique parce que chaq
 	\begin{remark}
 		En réalité le \( z_1\) n'est pas tout à fait calculable de façon exacte sur la machine parce qu'elle doit d'abord convertir en binaire, ce qui n'est pas toujours possible. Mais sur notre machine qui fonctionne en base \( 10\), il n'y a pas de problèmes.
 	\end{remark}
-
-
 \end{example}
+
+\begin{probleme}
+	Dans l'exemple suivant, je ne sais plus du tout ce qu'est la fonction \( g\). Par conséquent, je ne sais pas quel est le signe à indiquer dans \( g(x_2)\) du dernier tableau.
+
+	Si vous avez tout suivi jusqu'ici, écrivez-moi pour éclaircir ces points.
+\end{probleme}
 
 \begin{example}
 
@@ -685,13 +687,13 @@ Que le nombre de d'évaluations de \( f\) intervienne est logique parce que chaq
 	\begin{equation*}
 		\begin{array}[]{|c|c|c|c|c|c|}
 			\hline
-			n    & a_n  & b_n  & x_n  & g(x_n) & | b_n-a_n | \\
+			n      & a_n    & b_n    & x_n    & g(x_n) & | b_n-a_n | \\
 			\hline\hline
-			<++> & <++> & <++> & <++> & <++>   & 0.5         \\
+			\ldots & \ldots & \ldots & \ldots & \ldots & 0.5         \\
 			\hline
-			<++> & <++> & <++> & <++> & <++>   & 0.25        \\
+			\ldots & \ldots & \ldots & \ldots & \ldots & 0.25        \\
 			\hline
-			<++> & <++> & <++> & <++> & <++>   & 0.125       \\
+			\ldots & \ldots & \ldots & \ldots & \ldots & 0.125       \\
 			\hline
 		\end{array}
 	\end{equation*}
@@ -708,13 +710,13 @@ Que le nombre de d'évaluations de \( f\) intervienne est logique parce que chaq
 	\begin{equation*}
 		\begin{array}[]{|c|c|c|c|c|c|}
 			\hline
-			n & a_n   & b_n     & x_n  & g(x_n)              & | b_n-a_n | \\
+			n & a_n    & b_n     & x_n    & g(x_n)              & | b_n-a_n | \\
 			\hline\hline
-			0 & 1 (+) & 1.5 (-) & <++> & -0.162\times 10^{0} & 0.5         \\
+			0 & 1 (+)  & 1.5 (-) & \ldots & -0.162\times 10^{0} & 0.5         \\
 			\hline
-			1 & <++>  & <++>    & <++> & <++>                & 0.25        \\
+			1 & \ldots & \ldots  & \ldots & \ldots              & 0.25        \\
 			\hline
-			2 & <++>  & <++>    & <++> & <++>                & 0.125       \\
+			2 & \ldots & \ldots  & \ldots & \ldots              & 0.125       \\
 			\hline
 		\end{array}
 	\end{equation*}
@@ -722,13 +724,13 @@ Que le nombre de d'évaluations de \( f\) intervienne est logique parce que chaq
 	\begin{equation*}
 		\begin{array}[]{|c|c|c|c|c|c|}
 			\hline
-			n & a_n   & b_n     & x_n      & g(x_n)              & | b_n-a_n | \\
+			n & a_n    & b_n     & x_n      & g(x_n)              & | b_n-a_n | \\
 			\hline\hline
-			0 & 1 (+) & 1.5 (-) & 1.25 (-) & -0.162\times 10^{0} & 0.5         \\
+			0 & 1 (+)  & 1.5 (-) & 1.25 (-) & -0.162\times 10^{0} & 0.5         \\
 			\hline
-			1 & <++>  & <++>    & <++>     & <++>                & 0.25        \\
+			1 & \ldots & \ldots  & ..       & \ldots              & 0.25        \\
 			\hline
-			2 & <++>  & <++>    & <++>     & <++>                & 0.125       \\
+			2 & \ldots & \ldots  & \ldots   & \ldots              & 0.125       \\
 			\hline
 		\end{array}
 	\end{equation*}
@@ -742,7 +744,7 @@ Que le nombre de d'évaluations de \( f\) intervienne est logique parce que chaq
 			\hline
 			1 & 1.25 (-) & 1.5(+)   & 1.375(+)  & +0.284\times 10^{-1} & 0.25        \\
 			\hline
-			2 & 1.25(-)  & 1.375(+) & 1.3125(-) & )0.738\times 10^{-1} & 0.125       \\
+			2 & 1.25(-)  & 1.375(+) & 1.3125(-) & 0.738\times 10^{-1}  & 0.125       \\
 			\hline
 		\end{array}
 	\end{equation*}
@@ -848,7 +850,7 @@ Après la base canonique et la base de Lagrange, nous voyons la base de Newton. 
 \end{definition}
 Notons que ces polynômes n'utilisent pas le dernier point des \( x_i\). Le polynôme passant par les points est
 \begin{equation}
-	P_n(x)=x_0+\sum_{i=1}^nc_i\prod_{j=0}^{n-1}(x-x_j).
+	P_n(x)=x_0+\sum_{i=1}^nc_i\prod_{j=0}^{i-1}(x-x_j).
 \end{equation}
 Le calcul des \( c_i\) n'est pas absolument évident. Mais si nous ajoutons un point d'interpolation, les polynômes déjà calculés sont encore bons; en particulier
 \begin{equation}
@@ -889,7 +891,7 @@ Nous avons alors
 Cela donne effectivement une méthode de récurrence pour trouver les coefficients \( c_i\).
 
 \begin{remark}
-	Pour calculer \( c_0\), il faut seulement calculer \( f[x_0]=f(x_0)\). Mais pour calculer \( c_1\) il faut \( f[x_0] \) et \( f[x_1]\). Et pour \( c_2\) il faut \( f[x_0,x_1,x_2]\) qui demande \( f[x_0,x_1]\) et \( f[x_0,x_1]\), qui demande etc.
+	Pour calculer \( c_0\), il faut seulement calculer \( f[x_0]=f(x_0)\). Mais pour calculer \( c_1\) il faut \( f[x_0] \) et \( f[x_1]\). Et pour \( c_2\) il faut \( f[x_0,x_1,x_2]\) qui demande \( f[x_0,x_1]\) et \( f[x_1,x_2]\), qui demande etc.
 
 	Il faut donc calculer en réalité tous les \( f[x_i]\) pour terminer le calcul. Par contre, pour ajouter un point, il ne faut pas tout recalculer, et même pas tout conserver en mémoire. Il faut seulement garder en mémoire la dernière diagonale.
 \end{remark}
@@ -926,7 +928,7 @@ Cela donne effectivement une méthode de récurrence pour trouver les coefficien
 			\hline
 			5   & 2      & \frac{ 2-4 }{ -1 }=2                & \frac{ f[x_0,x_1,x_2]-f[x_1,x_2,x_3] }{ x_0-x_3 }=\frac{ 4 }{ 40 }                          \\
 			\hline
-			6   & 4      & <++>                                & <++>                                                                                        \\
+			6   & 4      & \ldots                              & \ldots                                                                                      \\
 			\hline
 		\end{array}
 	\end{equation*}
@@ -936,8 +938,6 @@ Cela donne effectivement une méthode de récurrence pour trouver les coefficien
 	\end{equation}
 
 \end{example}
-<++>
-
 
 Un exercice typique serait de donner tout pour \( 3\) points puis de demander le polynôme qui aurait un quatrième point.
 
@@ -962,18 +962,14 @@ où \( \omega_i>0\) est une pondération. Souvent on prend \( \omega_i=1\), mais
 \end{normaltext}
 
 \begin{example}
-	La qualité d'une expérience peut être influencée par des paramètres extérieurs comme l'humidité, le vent, etc. Donc il est normal d'avoir des expériences moins précises que d'autres. On le pèse moins.
-\end{example}
-
-\begin{example}
-	Dans un questionnaire, il se met des questions volontairement contradictoires. Si quelqu'un répond «oui» aux deux questions, il y a une indication que la personne a répondu un peu n'importe comment, et il faut moins peser ses réponses.
+	La qualité d'une expérience peut être influencée par des paramètres extérieurs comme l'humidité, le vent, etc. Donc il est normal d'avoir des mesures moins précises que d'autres. On les pèse moins.
 \end{example}
 
 Soit \( g\in \mF\), et une base \( \{ g_i \}_{i=0,\ldots, n}\) de \( \mF\). Nous écrivons
 \begin{equation}
 	g=a_0g_0+a_1g_1+\cdots +a_ng_n
 \end{equation}
-La fonction donnée \( E\) donnée en \eqref{EQooJGQVooKwZZVJ}, est, à partir du moment où \( \mF\) et une base sont choisis, une fonction des paramètres \( a_i\) que nous nommons \( F(a_0,\ldots, a_i)\). Il faut minimiser \( F\), c'est-à-dire poser
+La fonction donnée \( E\) donnée en \eqref{EQooJGQVooKwZZVJ}, est, à partir du moment où \( \mF\) et une base sont choisis, une fonction des paramètres \( a_i\) que nous nommons \( F(a_0,\ldots, a_n)\). Il faut minimiser \( F\), c'est-à-dire poser
 \begin{equation}
 	\frac{ \partial F }{ \partial a_j }=0
 \end{equation}
@@ -1022,7 +1018,7 @@ Sur l'ensemble des fonctions \( \eR\to\eR\) nous considérons la relation d'équ
 \end{proof}
 
 \begin{normaltext}
-	Ce lemme est gentil, mais ne nous donne pas de méthodes pour trouver ce minimum. Nous allons donc écrire explicitement un système d'équations permettant de le trouver. Si \( \{ g_{\alpha} \} \) est une base (finie) de \( \mF\) alors nous cherchons le minimisant sous la forme \( f=\sum_{\alpha}a_{\alpha}g_{\alpha}\).
+	Ce lemme est gentil, mais ne nous donne pas de méthodes pour trouver ce minimum. Nous allons donc écrire explicitement un système d'équations permettant de le trouver. Si \( \{ g_{\alpha} \} \) est une base (finie) de \( \mF\) alors nous cherchons le minimisant sous la forme \( g=\sum_{\alpha}a_{\alpha}g_{\alpha}\).
 
 	Nous devons minimiser
 	\begin{equation}
@@ -1042,7 +1038,7 @@ Sur l'ensemble des fonctions \( \eR\to\eR\) nous considérons la relation d'équ
 	\end{equation}
 	Il y a une équation pour chaque valeur de \( \alpha\).
 
-	La matrice \( A\in\eM(n+1),\eR\) donnée par  \( \langle g_{\alpha}, g_{\beta}\rangle \) étant strictement définie positive (c'est un produit scalaire), le système a une unique solution. Et comme cette matrice est de plus symétrique, elle est diagonalisable par le théorème spectral~\ref{ThoeTMXla}. Toutes ses valeurs propres sont strictement positives.
+	La matrice \( A\in\eM(n+1,\eR)\) donnée par  \( \langle g_{\alpha}, g_{\beta}\rangle \) étant strictement définie positive (c'est un produit scalaire), le système a une unique solution. Et comme cette matrice est de plus symétrique, elle est diagonalisable par le théorème spectral~\ref{ThoeTMXla}. Toutes ses valeurs propres sont strictement positives.
 
 	Notons pour la curiosité que si l'on considère la matrice \( B\in\eM(m\times n)\) donnée par
 	\begin{equation}
@@ -1055,7 +1051,7 @@ Sur l'ensemble des fonctions \( \eR\to\eR\) nous considérons la relation d'équ
 \subsection{Droite de régression}
 %---------------------------------------------------------------------------------------------------------------------------
 
-La droite de régression est la cas particulier \( n=1\), c'est-à-dire un système \( 2\times 2\). Nous cherchons \( P=a_0+a_1x\). Et la base choisie est \( g_0(x)=1\), \( g_1(x)=x\). Nous avons
+La droite de régression est le cas particulier \( n=1\), c'est-à-dire un système \( 2\times 2\). Nous cherchons \( P=a_0+a_1x\). Et la base choisie est \( g_0(x)=1\), \( g_1(x)=x\). Nous avons
 \begin{subequations}
 	\begin{align}
 		\langle g_0, g_0\rangle =\sum_i\omega_ig_0(x_i)g_0(x_i)=\sum_i\omega_i \\
@@ -1098,8 +1094,8 @@ Pour calculer les produits \( \langle f, g_{\alpha}\rangle \) il suffit de savoi
 	Nous avons
 	\begin{subequations}
 		\begin{align}
-			\langle g, g_0\rangle =\sum_if(x_i)=165 \\
-			\langle f, f_1\rangle =\sum_if(x_i)x_i=810.
+			\langle f, g_0\rangle =\sum_if(x_i)=165 \\
+			\langle f, g_1\rangle =\sum_if(x_i)x_i=810.
 		\end{align}
 	\end{subequations}
 	et donc le système

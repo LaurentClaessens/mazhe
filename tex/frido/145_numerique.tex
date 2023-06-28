@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (C) 2010-2013,2016-2017, 2019-2021
+% Copyright (C) 2010-2013,2016-2017, 2019-2021, 2023
 %   Laurent Claessens
 % See the file LICENCE.txt for copying conditions.
 
@@ -15,7 +15,7 @@ Quelques réflexions en vrac sur ce sujet.
 
 \begin{enumerate}
 	\item
-	      Les erreurs de représentation de nombres : troncature et propogation de décalales (\emph{drift}),
+	      Les erreurs de représentation de nombres : troncature et propagation de décalales (\emph{drift}),
 	\item
 	      Erreur de compensation (\emph{cancellation}),
 	\item
@@ -202,7 +202,7 @@ Notons que cette règle du \( 1\) implicite dans la mantisse empêche d'écrire 
 
 D'où l'idée de donner une règle particulière lorsque l'exposant vaut \( 0\). Lorsque l'exposant est \( q=0\), alors nous ne considérons pas de \( 1\) implicite dans la mantisse, et le décalage de l'exposant est \( -126\) au lieu de \( -127\). D'où la formule
 \begin{equation}
-	\SimplePrec(s,q=0,[a_1\ldots a_{23}])=(-1)^s2^{-216}\sum_{j=1}^{23}a_j2^{-j}.
+	\SimplePrec(s,q=0,[a_1\ldots a_{23}])=(-1)^s2^{-126}\sum_{j=1}^{23}a_j2^{-j}.
 \end{equation}
 En particulier, si \( q=0\) et \( a=[0\ldots 0]\), nous avons le nombre zéro exact (il y a deux possibilités pour le code).
 
@@ -235,7 +235,7 @@ Il y a en réalité plusieurs valeurs différentes de \( \NaN\), mais nous n'ent
 	Selon que l'exposant \( q-d\) soit égal à \( 0\), \( 2^8-1=255\) ou autre chose, les règles d'interprétation sont différentes. Il y a donc trois cas.
 	\begin{description}
 		\item[Exposant \( q\) générique\cite{ooMPTNooYbSwJS}]
-			Si \( q\neq 0\) et \( q\neq 255\) alors le nombre est \defe{normalisée}{nombre!normalisée}. La règle de lecture est alors
+			Si \( q\neq 0\) et \( q\neq 255\) alors le nombre est \defe{normalisé}{nombre!normalisé}. La règle de lecture est alors
 			\begin{equation}        \label{EQooEFEKooIrUaKj}
 				\SimplePrec\big( s,q,[a_1,\ldots, a_{23}] \big)=(-1)^s\big( 1+\sum_{j=1}^{23}a_j2^{-j} \big)2^{q-127}.
 			\end{equation}
@@ -277,7 +277,7 @@ Vous pouvez jouer avec la simple précision dans \cite{ooOSFYooHCgMRL}.
 Notons ceci avec Sage :
 \lstinputlisting{tex/sage/sageSnip003.sage}
 
-La précisions du nombre donné en \eqref{EQooFRPYooRnxiFP} aurait été embarrassante si le type avait été un nombre en simple précision. Précision technique : en Python, le type \info{int} n'a pas de limite supérieure à part la mémoire.
+La précision du nombre donné en \eqref{EQooFRPYooRnxiFP} aurait été embarrassante si le type avait été un nombre en simple précision. Précision technique : en Python, le type \info{int} n'a pas de limite supérieure à part la mémoire.
 
 \begin{example}[Plus petit non nul dénormalisé]
 	Pour être dénormalisé il faut \( q=0\) (ce qui est toutefois assez logique si nous voulons un petit nombre), et pour ne pas être nul, il faut une mantisse non nulle. Donc \( a=[0\ldots 01]\). La formule \eqref{EQooRTBFooIplydi} donne alors
@@ -289,7 +289,7 @@ La précisions du nombre donné en \eqref{EQooFRPYooRnxiFP} aurait été embarra
 \begin{example}[Plus grand dénormalisé]      \label{EXEMooRHENooGwumoA}
 	Pour être dénormalisé il faut toujours \( q=0\), mais cette fois nous prenons la plus grande mantisse possible :
 	\begin{equation}
-		\SimplePrec(s=0,q=0,a=[1\ldots 1])=2^{-126}\sum_{j=1}^{23}2^{-j}=2^{-216}(1-2^{-23})= 1.17549421069244\times 10^{-38}
+		\SimplePrec(s=0,q=0,a=[1\ldots 1])=2^{-126}\sum_{j=1}^{23}2^{-j}=2^{-126}(1-2^{-23})= 1.17549421069244\times 10^{-38}
 	\end{equation}
 \end{example}
 
@@ -427,7 +427,7 @@ La règle de troncature adoptée dans Sage est d'arrondir au nombre pair le plus
 \subsection{Erreur de ``cancellation''}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Lorsque deux nombres sont de même ordre de grandeur, avec plusieurs nombres significatifs identiques. La cancellation est le fait que, suite à la soustraction, tous les chiffres significatifs ou presque se sont simplifiés et qu'il ne reste plus que des chiffres non significatifs.
+Lorsque deux nombres sont de même ordre de grandeur, avec plusieurs nombres significatifs identiques, la cancellation est le fait que, suite à la soustraction, tous les chiffres significatifs ou presque se sont simplifiés et qu'il ne reste plus que des chiffres non significatifs.
 
 \begin{example}[\cite{ooIZQWooYJmQmW}]
 	Sur une machine ne gardant que \( 4\) chiffres significatifs, faire
@@ -462,7 +462,7 @@ Lorsque deux nombres sont de même ordre de grandeur, avec plusieurs nombres sig
 	On a :
 	\begin{subequations}
 		\begin{align}
-			\sqrt{b^2-4ac} & =\sqrt{\tilde b}= | \tilde b |    \\
+			\sqrt{b^2-4ac} & =\sqrt{\tilde b^2}= | \tilde b |  \\
 			x_1            & =\frac{ -b-\sqrt{b^2-4ac} }{ 2a } \\
 			x_2            & =\frac{ -b+\sqrt{b^2-4ac} }{ 2a }
 		\end{align}
@@ -599,7 +599,7 @@ Moralité : si certains manipulations algébrique peuvent faire apparaitre des s
 	\begin{equation}
 		\begin{aligned}
 			F\colon \eR\times \eR^2 & \to \eR        \\
-			x                       & \mapsto x-a+b.
+			\big( x,(a,b) \big)     & \mapsto x-a+b.
 		\end{aligned}
 	\end{equation}
 	Nous avons :
@@ -660,7 +660,7 @@ Moralité : si certains manipulations algébrique peuvent faire apparaitre des s
 	\begin{equation}
 		K_{rel}=a\frac{ | b | }{ | ab | }=1.
 	\end{equation}
-	Le conditionnement relatif du problème de la multiplication est donc toujours \( 1\). Il est donc un toujours un problème bien conditionné.
+	Le conditionnement relatif du problème de la multiplication est donc toujours \( 1\). Il est donc toujours un problème bien conditionné.
 \end{example}
 
 Ne pas confondre :
@@ -707,7 +707,7 @@ Un résultat pratique pour étudier le conditionnement d'un problème est le sui
 
 	Prenons \( \eta>0\) et \( d_0\in\eR\) et puis un \( d\) tel que \( | d-d_0 |<\eta\). Par le théorème des bornes atteintes, la fonction \( x'\) est bornée sur l'intervalle \( [d_0-\eta,d_0+\eta]\). Appelons \( K\) un majorant de \( x'\) sur cet intervalle. La fonction
 	\begin{equation}
-		f(d)=x(d_0)+K| d-d_0 |
+		x(d)=x(d_0)+K| d-d_0 |
 	\end{equation}
 	majore \( x(d)\), et donc on a
 	\begin{equation}
@@ -723,8 +723,8 @@ Un résultat pratique pour étudier le conditionnement d'un problème est le sui
 	La fonction
 	\begin{equation}
 		x(d)=\begin{cases}
-			0 & \text{si }x\geq 0 \\
-			x & \text{si }x>0
+			0 & \text{si }d\geq 0 \\
+			x & \text{si }d<0
 		\end{cases}
 	\end{equation}
 	est continue, mais pas \( C^1\) (non dérivable en \( x=0\)). La dérivée est partout bornée par \( 1\), et donc le problème est stable.
@@ -915,7 +915,7 @@ Attention : cette méthode ne converge pas toujours. Parfois elle converge de fa
 	\begin{equation}
 		g'_1(x)=\frac{ 1 }{ 2x\sqrt{ 2-\ln(x) } }.
 	\end{equation}
-	Nous avons \( \lim_{x\to e^{-2}} g'_2(x)=+\infty\). Il ne sera donc pas possible de trouver \( 0<k<1\) tel que \( | g'(x) |\leq k\). Tentons quand même la méthode :
+	Nous avons \( \lim_{x\to e^{-2}} g'_1(x)=+\infty\). Il ne sera donc pas possible de trouver \( 0<k<1\) tel que \( | g'(x) |\leq k\). Tentons quand même la méthode :
 	\begin{equation}
 		x_0=0.5
 	\end{equation}
@@ -1050,7 +1050,7 @@ Si le point de départ est choisi de façon à avoir \( Cr<1\) alors nous avons 
 	\begin{equation}
 		| g(x)-g(y) |\leq \sup_{a\in I}| g'(a) | |x-y |\leq k| x-y |.
 	\end{equation}
-	Pout le point~\ref{ITEMooFSOAooKlcxih} nous avons \( | g(x_n)-\alpha |\leq k| x_n-\alpha |\), c'est-à-dire
+	Pour le point~\ref{ITEMooFSOAooKlcxih} nous avons \( | g(x_n)-\alpha |\leq k| x_n-\alpha |\), c'est-à-dire
 	\begin{equation}
 		| x_{n+1}-\alpha |\leq k| x_n-\alpha |.
 	\end{equation}
@@ -1080,7 +1080,7 @@ Certes cette proposition demande moins d'hypothèses, mais en réalité, il ne d
 
 Notons que le corolaire~\ref{CORooHKZCooEXRzcW} a encore l'inconvénient de demander de calculer \( g'(\alpha)\) alors que \( \alpha\) est inconnu. La résolution de l'inéquation \( | g'(x) |<1\) nous donne un certain nombre d'intervalles dans \( \eR\).
 
-Soient \( I_n\) les intervalles solutions de l'inéquation.  Si \( \alpha\in I_n\) alors la méthode converge. Sinon, c'est pas garantit. En tout cas nous ne devons pas savoir réellement \( \alpha\) pour appliquer le théorème. Il suffit de savoir que \( \alpha\) est dans un des \( I_n\).
+Soient \( I_n\) les intervalles solutions de l'inéquation.  Si \( \alpha\in I_n\) alors la méthode converge. Sinon, c'est pas garanti. En tout cas nous ne devons pas savoir réellement \( \alpha\) pour appliquer le théorème. Il suffit de savoir que \( \alpha\) est dans un des \( I_n\).
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Méthode de Newton}
@@ -1094,24 +1094,24 @@ C'est la méthode de Newton qui est à l'origine de la suite de la proposition \
 \begin{definition}      \label{DEFooXSOQooAnWqKM}
 	Le nombre \( \alpha\) est une \defe{racine simple}{racine!simple} de l'équation \( f(x)=0\) si \( f(\alpha)=0\) et \( f'(\alpha)\neq 0\). Le nombre \( \alpha\) est une \defe{racine multiple}{racine!multiple} d'ordre \( r\) de \( f(x)=0\) si\index{multiplicité!racine de \( f(x)=0\)}
 	\begin{equation}
-		f(\alpha)=f'(\alpha)=\ldots=f^{(r-1)(\alpha)}=0
+		f(\alpha)=f'(\alpha)=\ldots=f^{(r-1)}(\alpha)=0
 	\end{equation}
 	et \( f^{(r)}(\alpha)\neq 0\).
 \end{definition}
 
 \begin{example}
-	La fonction \( x\mapsto x^3\) en \( x=0\) est une racine d'ordre \( 3\).
+	La fonction \( x\mapsto x^3\) admet une racine d'ordre \( 3\) en \( x=0\).
 \end{example}
 
 %---------------------------------------------------------------------------------------------------------------------------
-\subsection{«Justification» par la formule par Taylor}
+\subsection{«Justification» par la formule de Taylor}
 %---------------------------------------------------------------------------------------------------------------------------
 
 Soit une fonction \( f\) continue et dérivable sur \( \mathopen[ a , b \mathclose]\). Soit \( \alpha\) une racine de \( f\) et \( x_n\) une de ses approximations.  Nous notons l'erreur \( \theta\) et nous avons \( \alpha=x_n+\theta\). Du coup nous avons \( f(x_n+\theta)=f(\alpha)=0\).
 
 Écrivons la série de Taylor du théorème~\ref{ThoTaylor} autour de \( x_n\) : il existe une fonction \( \epsilon\colon \eR\to \eR\) telle que \( \lim_{t\to 0} \epsilon(t)=0\) telle que
 \begin{equation}        \label{EQooOPUBooYaznay}
-	f(\alpha)=f(x_n+\theta)=f(x_n)+\theta f'(x_n)+\frac{ \theta^2 }{ 2 }\epsilon(\theta).
+	f(\alpha)=f(x_n+\theta)=f(x_n)+\theta f'(x_n)+\theta^2\epsilon(\theta).
 \end{equation}
 Nous isolons le \( \theta\) du terme d'ordre \( 1\) en nous souvenant que le membre de gauche est nul :
 \begin{equation}
@@ -1129,7 +1129,7 @@ en espérant que cela soit une meilleure approximation de \( \alpha\) que \( x_n
 
 En tout cas l'erreur sur \( x_{n+1}\) est
 \begin{equation}
-	\alpha-x_{n+1}=x_n+\theta-x_n+\frac{ f(x_n)+\theta^2\epsilon(\theta) }{ f'(x_n) }=\theta+\frac{ f(x_n)+\theta^2\epsilon(\theta) }{ f'(n_n) },
+	\alpha-x_{n+1}=x_n+\theta-x_n+\frac{ f(x_n)+\theta^2\epsilon(\theta) }{ f'(x_n) }=\theta+\frac{ f(x_n)+\theta^2\epsilon(\theta) }{ f'(x_n) },
 \end{equation}
 qui ne doit pas être fondamentalement plus grand que \( \theta\) dès que \( \theta\) est petit, surtout que si \( x_n\) est une approximation de \( \alpha\), nous pouvons espérer que \( f(x_n)\) soit également petit. Là où les choses peuvent déraper en grand, c'est si \( f'(x_n)\) est petit.
 
@@ -1152,7 +1152,7 @@ Le fait est que \( f'(\alpha)\) n'est pas connu, mais nous pouvons l'approximer 
 \end{equation}
 et donc la suite \( x_{n+1}=g(x_n)\) c'est-à-dire
 \begin{equation}
-	x_{n+1}=x-\frac{ f(x_n) }{ f'(x_n) }.
+	x_{n+1}=x_n-\frac{ f(x_n) }{ f'(x_n) }.
 \end{equation}
 Dès que \( x_n\) est proche de \( \alpha\), sous l'hypothèse (raisonnable par continuité) que \( f'(x_n)\) soit proche de \( f'(\alpha)\), la méthode devrait donner une convergence quadratique.
 
@@ -1197,7 +1197,7 @@ Dès que \( x_n\) est proche de \( \alpha\), sous l'hypothèse (raisonnable par 
 \begin{proof}
 	Nous commençons par calculer la dérivée de \( g\) :
 	\begin{equation}
-		g'(x)=-\frac{ f(x)f''(x) }{ f'(x)^2 },
+		g'(x)=\frac{ f(x)f''(x) }{ f'(x)^2 },
 	\end{equation}
 	d'où nous déduisons que \( g'(\alpha)=0\). Ensuite nous utilisons abondamment la formule des accroissements finis (théorème~\ref{val_medio_2}) en commençant par
 	\begin{equation}        \label{EQooZITHooEbGVKG}
@@ -1233,14 +1233,14 @@ Dès que \( x_n\) est proche de \( \alpha\), sous l'hypothèse (raisonnable par 
 
 	La majoration du point~\ref{ITEMooZCXZooCjeWPl} s'obtient par récurrence sur \( n\). Pour \( n=0\), la relation \eqref{EQooFAIPooDpoNWK} devient \( | x_0-\alpha |\leq | x_0-\alpha |\) qui est vraie. Ensuite par la convergence quadratique et la récurrence,
 	\begin{equation}
-		| x_{n+1}-\alpha |\leq C| x_n-\alpha |^2\leq C\big[  \frac{1}{ C }(C| x_0-\alpha |)^{2^n}  \big]^2=\frac{1}{ C }\big[ M| x_0-\alpha | \big]^{2^{n+1}}.
+		| x_{n+1}-\alpha |\leq C| x_n-\alpha |^2\leq C\big[  \frac{1}{ C }(C| x_0-\alpha |)^{2^n}  \big]^2=\frac{1}{ C }\big[ C| x_0-\alpha | \big]^{2^{n+1}}.
 	\end{equation}
 \end{proof}
 
 \begin{normaltext}
-	Dans le cas pratiques, nous commençons souvent par résoudre l'équation \( f(x)=0\) par dichotomie. Au moment où nous sommes assez proche de la solution nous commençons Newton.
+	Dans les cas pratiques, nous commençons souvent par résoudre l'équation \( f(x)=0\) par dichotomie. Au moment où nous sommes assez proche de la solution nous commençons Newton.
 
-	La raison est que la dichotomie fonctionne toujours : nous allons toujours nous approcher de la solution. Si par contre le point de départ est mal choisit, la méthode de Newton peut envoyer n'importe où, y compris très loin de la solution.
+	La raison est que la dichotomie fonctionne toujours : nous allons toujours nous approcher de la solution. Si par contre le point de départ est mal choisi, la méthode de Newton peut envoyer n'importe où, y compris très loin de la solution.
 \end{normaltext}
 
 La proposition suivante nous indique que dans le cas d'une fonction convexe, le choix de point de départ de la méthode de Newton n'est pas tellement crucial parce qu'ils sont tous bons. De plus la convergence se faisant de façon décroissante (si on part de la droite), nous savons que le résultat sera une approximation par excès de \( \alpha\).
@@ -1281,7 +1281,7 @@ La proposition suivante nous indique que dans le cas d'une fonction convexe, le 
 \end{proof}
 
 %--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Racine carré par la méthode de Newton}
+\subsection{Racine carrée par la méthode de Newton}
 %---------------------------------------------------------------------------------------------------------------------------
 
 Nous avons vu dans la proposition \ref{PROPooSTQXooHlIGVf} une suite dont la limite était \( \sqrt{ A }\).
@@ -1460,7 +1460,7 @@ Un des problèmes de la méthode de Newton est que l'on doit pouvoir calculer la
 	\begin{equation}
 		\lim_{\epsilon\to 0}-(A+\epsilon B)^{-1} BA^{-1}=A^{-1} BA^{-1}
 	\end{equation}
-	parce que l'inverse est une fonction continue sur \( \eM(n,\eR)\).
+	parce que l'inverse est une fonction continue sur \( \GL(n,\eR)\).
 \end{proof}
 
 \begin{remark}
@@ -1476,7 +1476,7 @@ Un des problèmes de la méthode de Newton est que l'on doit pouvoir calculer la
 
 	Étudions si \( A^{-1}-\epsilon A^{-1}BA^{-1}\) est bien un inverse à \( \epsilon^2\) près de \( (A+\epsilon B)\) :
 	\begin{equation}
-		(A+\epsilon B)(A^{-1}+\epsilon A^{-1} BA^{-1})=1-\epsilon BA^{-1}+\epsilon BA^{-1}-\epsilon^2BA^{-1}BA^{-1}=1-\epsilon^2BA^{-1} BA^{-1}.
+		(A+\epsilon B)(A^{-1}+\epsilon A^{-1} BA^{-1})=\mtu-\epsilon BA^{-1}+\epsilon BA^{-1}-\epsilon^2BA^{-1}BA^{-1}=\mtu-\epsilon^2BA^{-1} BA^{-1}.
 	\end{equation}
 	Par conséquent, à des termes en \( \epsilon^2\) près la matrice \( A^{-1}-\epsilon A^{-1}BA^{-1}\) est bien un inverse de \( A+\epsilon B\).
 \end{remark}
