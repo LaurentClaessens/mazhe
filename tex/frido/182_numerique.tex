@@ -32,7 +32,7 @@ où \( s\) est le nombre de permutations effectives effectuées. Nous précisons
 
 Mettons un système \( Ax=b\) qu'il faut résoudre pour plusieurs \( b\) différents. C'est typiquement le cas où l'on voudrait calculer l'inverse de \( A\). Mais on va directement se calmer. Soient donc à résoudre \( Ax_1=b_1\), \ldots, \( Ax_n=b_n\).
 
-Les opérations (avec ou sans pivot) que nous faisons ne dépendent que de la matrice \( A\), mais aucune décisions concernant les pivots ou la matrice des multiplicateurs ne dépend de \( b\). Autre façon de dire : si le système \(  (A|b_1)  \) devient \( (U|y_1)\), le système \( (A|b_i)\) devient \( (U|y_i)\) avec le même \( U\).
+Les opérations (avec ou sans pivot) que nous faisons ne dépendent que de la matrice \( A\), mais aucune décision concernant les pivots ou la matrice des multiplicateurs ne dépend de \( b\). Autre façon de dire : si le système \(  (A|b_1)  \) devient \( (U|y_1)\), le système \( (A|b_i)\) devient \( (U|y_i)\) avec le même \( U\).
 
 Nous ne sommes donc pas obligés de faire tout le travail autant de fois qu'il n'y a de systèmes à résoudre. Donc si on a plusieurs systèmes à résoudre avec la même matrice, on fait mieux de retenir une fois pour toute la décomposition \( LU\) (avec ou sans pivots), avant de vraiment résoudre.
 
@@ -72,11 +72,9 @@ Et il existe un algorithme facile pour l'inverse d'une matrice triangulaire.
 \subsection{Cholesky}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Le commandant Cholesky travaillait sur le tir de canon (chose éminemment liée à de nombreuses mathématiques ingénieuses). La méthode de Cholesky est encore utilisée aujourd'hui dans les vrais problèmes.
-
 La méthode de Gauss s'applique sans hypothèses sur la matrice \( A\), à part qu'elle doit être de petite dimension, comme pour toute méthode directe. Souvent nous savons des choses sur la matrice. Ici nous allons supposer que \( A\) est symétrique et définie positive.
 
-Comment numériquement vérifier ces hypothèses ? En ce qui concerne la symétrique, il suffit de faire le test complet :
+Comment numériquement vérifier ces hypothèses ? En ce qui concerne la symétrie, il suffit de faire le test complet :
 \begin{equation}
 	A^t=A.
 \end{equation}
@@ -99,9 +97,9 @@ Ce lemme est un moyen déjà de faire quelques vérifications. Et si les éléme
 \end{lemma}
 
 \begin{proof}
-	Le fait que \( \Delta_k(A)\) soit symétrique est évidemment. Le fait qu'elle soit définie positive l'est moins. Soit \( y\in \eR^k\) et le vecteur \( \tau y\in \eR^n\), qui est «complété» avec des zéros.
+	Le fait que \( \Delta_k(A)\) soit symétrique est évident. Le fait qu'elle soit définie positive l'est moins. Soit \( y\in \eR^k\) et le vecteur \( \tau y\in \eR^n\), qui est «complété» avec des zéros.
 
-	Nous avons \( \langle \Delta_k(A)y, y\rangle_k=\langle A\tau y, \tau \rangle_n\). En effet
+	Nous avons \( \langle \Delta_k(A)y, y\rangle_k=\langle A\tau y, \tau y \rangle_n\). En effet
 	\begin{equation}
 		\langle \Delta_k(A)y, y\rangle =\sum_{i=1}^k\sum_{l=1}^kA_{il}y_ly_i.
 	\end{equation}
@@ -124,7 +122,7 @@ Ce lemme est un moyen déjà de faire quelques vérifications. Et si les éléme
 \begin{proof}
 	Il suffit de se rendre compte que le coefficient \( ii\) de l'égalité \( \mtu=TT^{-1}\) donne
 	\begin{equation}
-		1=\sum_lT_{il}(T^{-1})li.
+		1=\sum_lT_{il}(T^{-1})_{li}.
 	\end{equation}
 	Dans la somme il ne reste que le terme \( l=i\).
 \end{proof}
@@ -190,7 +188,7 @@ Nous allons chercher une décomposition de type \( LU\) sous la forme \( A=LL^t\
 	\begin{equation}
 		(B^{-1}C^t)_{ii}=1.
 	\end{equation}
-	Cela conclu l'existence de la décomposition de Cholesky.
+	Cela conclut l'existence de la décomposition de Cholesky.
 
 	En ce qui concerne l'unicité, soient \( A=BB^t=CC^t\). Nous regroupons les supérieures et les inférieures :
 	\begin{equation}        \label{EQooRRJHooJrFBLn}
@@ -222,7 +220,7 @@ Prenons la matrice
 Elle est symétrique et définie positive. Nous posons
 \begin{subequations}        \label{EQooFMWUooFdTgiF}
 	\begin{numcases}{}
-		l_{11}=\sqrt{ a_{11} }
+		l_{11}=\sqrt{ a_{11} }\\
 		l_{i1}=a_{i1}/l_{11}
 	\end{numcases}
 \end{subequations}
@@ -258,9 +256,9 @@ Nous trouvons des méthodes itératives lorsque les matrices sont grandes, ce qu
 
 Nous allons chercher des méthodes de la forme \( x_{n+1}=Bx_n+q\); ce sont des méthodes stationnaires. La convergence d'une méthode est toujours liée à la matrice \( B\) et en général, la convergence ne dépend pas du choix du vecteur initial. Nous faisons donc souvent \( x_0=0\) et donc \( x_1=q\). Voilà donc une itération de faite gratuitement.
 
-Nous notons \( e_k\) le \defe{vecteur d'erreur}{erreur} qui est défini par \( e_k=x-x_k\). Et le \defe{vecteur résidu}{résidu!méthode itérative} \( r_k=b-Ax_k\). Attention : ici \( k\) n'est pas un indice mais un numéro de vecteur.
+Nous notons \( e_k\) le \defe{vecteur d'erreur}{erreur} qui est défini par \( e_k=x-x_k\). Et le \defe{vecteur résidu}{résidu!méthode itérative} \( r_k=q-Bx_k\). Attention : ici \( k\) n'est pas un indice mais un numéro de vecteur.
 
-Notons que si \( x\) est solution, alors \( b-Ax=0\), ce qui motive le vecteur résidu.
+Notons que si \( x\) est solution, alors \( q-Bx=0\), ce qui motive le vecteur résidu.
 
 Les conditions d'arrêt d'un algorithme seraient
 \begin{subequations}
@@ -398,11 +396,12 @@ Notons que par définition de la matrice d'une application linéaire,
 	Dans plusieurs sens\ldots
 	\begin{subproof}
 		\spitem[\ref{ITEMooYULAooVqgOnt} implique~\ref{ITEMooNLVXooYSQKwO}]
+		%-----------------------------------------------------------
 
 		Nous notons \( j^*\) la taille de la matrice \( K\) dans \eqref{EQooGGZKooUyXSJk}. Nous avons \(  B_{ij}=0  \) si
 		\begin{subequations}
 			\begin{numcases}{}
-				J^*+1\leq i\leq n\\
+				j^*+1\leq i\leq n\\
 				1\leq j\leq j^*.
 			\end{numcases}
 		\end{subequations}
@@ -410,7 +409,9 @@ Notons que par définition de la matrice d'une application linéaire,
 		\begin{equation}
 			A_{ij}=A_{\sigma(i_0),\sigma(j_0)}=B_{i_0,j_0}=0.
 		\end{equation}
+
 		\spitem[\ref{ITEMooNLVXooYSQKwO} implique~\ref{ITEMooYULAooVqgOnt}]
+		%-----------------------------------------------------------
 		Soit une partition \( I,J\) comme indiquée dans l'hypothèse. Soit \( j^*\) le nombre d'éléments dans \( J\). Soit \( \sigma\) une permutation de \( \{ 1,\ldots, n \}\) telle que \( \sigma\{ j^*+1,\ldots, n \}=I\) et \( \sigma\{ 1,\ldots, j^* \}=J\). Nous posons ensuite \( B=\sigma^tA\sigma\). Par construction si \( i\in I\) et \( j\in J\) alors \( A_{ij}=0\).
 
 		Mais si
@@ -426,7 +427,7 @@ Notons que par définition de la matrice d'une application linéaire,
 
 		Soient \( i\) et \( j\) deux indices non connectés : il n'existe pas de chaines partant de \( i\) et arrivant à \( j\). Nous notons \( I \) l'ensemble des indices connectés à \( i\), et \( J\) les autres. Pat hypothèses ces ensembles sont non vides.
 
-		Si \( k\in i\) et \( l\in J\) alors \( A_{kl}=0\) parce que sinon on aurait une chaine de \( i\) à \( k\) puis de \( k\) à \( l\) et donc de \( i\) à \( l\), ce qui signifierait que \( l\) est connecté à \( i\).
+		Si \( k\in I\) et \( l\in J\) alors \( A_{kl}=0\) parce que sinon on aurait une chaine de \( i\) à \( k\) puis de \( k\) à \( l\) et donc de \( i\) à \( l\), ce qui signifierait que \( l\) est connecté à \( i\).
 
 		\spitem[\ref{ITEMooNLVXooYSQKwO} implique~\ref{ITEMooVNOHooRUNpwG}]
 		Soit une partition \( I,J\) comme dans l'hypothèse. Si \( j\in J\) est connecté à \( i\in I\) alors il existe une chaine
@@ -497,7 +498,7 @@ Notons la somme sur la ligne \( i\), pas sur la colonne : la somme est horizonta
 	\begin{equation}
 		| A_{ii} -\lambda|\leq \sum_{k\neq i}| A_{ik} |\frac{ | u_k | }{ | u_i | }\leq \sum_{k\neq i}| A_{ik} |
 	\end{equation}
-	pare que \( | u_i |\geq | u_k |\). Notons que sur la ligne précédente, \( | . |\) est le module dans \( \eC\), pas la valeur absolue dans \( \eR\).
+	parce que \( | u_i |\geq | u_k |\). Notons que sur la ligne précédente, \( | . |\) est le module dans \( \eC\), pas la valeur absolue dans \( \eR\).
 \end{proof}
 
 \begin{theorem}[Gershgorin 2\cite{ooZGNYooGgPFhl}]      \label{THOooTXAPooQqsBCj}
@@ -507,7 +508,7 @@ Notons la somme sur la ligne \( i\), pas sur la colonne : la somme est horizonta
 \begin{proof}
 	Soit une valeur propre \( \lambda\) de \( A\) telle que \( \lambda\in \partial\big( \bigcup_iD_i \big)\). Alors \( \lambda\) n'est dans l'intérieur d'aucune boule et nous avons \( | \lambda-A_{ii} |\geq r_i\) pour tout \( i\).
 
-	Soit un vecteur propre \( u\) de \( A\) tel que \( \| u \|_{\infty}=1\). Nous posons \( I= \{ 1\leq i\leq n \tq | u_i |=1 \}  \) et \( J=\{ 1\leq j\leq n\tq | i_j |<1 \}\). Par hypothèse \( I\) n'est pas vide, et de plus \( I\cap J=\emptyset\) et \( I\cup J=\{ 1,\ldots, n \}\) parce qu'aucune composante de \( u\) n'a un module\footnote{Les composantes de \( u\) sont à priori dans \( \eC\), et non spécialement dans \( \eR\), même si \( A\) est une matrice réelle.} plus grand que \( 1\).
+	Soit un vecteur propre \( u\) de \( A\) tel que \( \| u \|_{\infty}=1\). Nous posons \( I= \{ 1\leq i\leq n \tq | u_i |=1 \}  \) et \( J=\{ 1\leq j\leq n\tq | u_j |<1 \}\). Par hypothèse \( I\) n'est pas vide, et de plus \( I\cap J=\emptyset\) et \( I\cup J=\{ 1,\ldots, n \}\) parce qu'aucune composante de \( u\) n'a un module\footnote{Les composantes de \( u\) sont à priori dans \( \eC\), et non spécialement dans \( \eR\), même si \( A\) est une matrice réelle.} plus grand que \( 1\).
 
 	La \( i\)\ieme composante de la relation \( Au=\lambda u\) peut s'écrire
 	\begin{equation}
@@ -656,7 +657,7 @@ Nous avons les inclusions suivantes :
 	\end{equation}
 	et nous séparons le terme \( k=i_0\) des autres :
 	\begin{equation}
-		\sum_{k\neq i_0}A_{i_0k}x_K+A_{i_0i_0}x_{i_0}=0.
+		\sum_{k\neq i_0}A_{i_0k}x_k+A_{i_0i_0}x_{i_0}=0.
 	\end{equation}
 	Nous prenons le module et majorons les sommes :
 	\begin{equation}
@@ -783,7 +784,7 @@ Nous avons les inclusions suivantes :
 
 		Mais \( A=D-M=D(\mtu-D^{-1}M)=D(\mtu-T)\). Vu que \( D\) et \( \mtu-T\) sont inversibles, nous savons que \( A\) est inversible et
 		\begin{equation}
-			A^{-1}=(\mtu-A)^{-1}D^{-1},
+			A^{-1}=(\mtu-T)^{-1}D^{-1},
 		\end{equation}
 		qui est un produit de matrices positives. Donc \( A^{-1}\geq 0\).
 
@@ -792,13 +793,13 @@ Nous avons les inclusions suivantes :
 		\spitem[Si \( A\) est une M-matrice]
 
 
-		Soit une valeur propre \( \lambda\) de \( T=D^{-1}M\) est un vecteur propre u : \( Tu=\lambda u\). Vu que \( T\geq 0\) nous avons d'une part \( | \lambda u |=| \lambda | u |\) et d'autre part \( | \lambda u |=| Tu |\leq T| u |\), ce qui donne
+		Soit une valeur propre \( \lambda\) de \( T=D^{-1}M\) et un vecteur propre u : \( Tu=\lambda u\). Vu que \( T\geq 0\) nous avons d'une part \( | \lambda u |=| \lambda| | u |\) et d'autre part \( | \lambda u |=| Tu |\leq T| u |\), ce qui donne
 		\begin{equation}
 			| \lambda | |u |\leq T| u |.
 		\end{equation}
 		Dans cette inégalité nous substituons \( T\) par \( \mtu-(\mtu-T)\) pour avoir
 		\begin{equation}
-			| \mu | |u |\leq | u |-(\mtu-T)| u |
+			| \lambda | |u |\leq | u |-(\mtu-T)| u |
 		\end{equation}
 		ou encore
 		\begin{equation}        \label{EQooGFEOooBpiDJR}
@@ -808,7 +809,7 @@ Nous avons les inclusions suivantes :
 		\begin{equation}
 			| u |\leq (\mtu-T)^{-1}\big( 1-| \lambda | \big)| u |.
 		\end{equation}
-		Si \( | \lambda |\geq 1\) alors toutes les composantes de \( \big( 1-| \mtu | \big)| u |\) sont négatives et l'inégalité n'est possible qu'avec \( | u |=0\). Dans ce cas, \( \lambda\) n'est pas une valeur propre (le vecteur propre soit être non nul).
+		Si \( | \lambda |\geq 1\) alors toutes les composantes de \( \big( 1-| \lambda | \big)| u |\) sont négatives et l'inégalité n'est possible qu'avec \( | u |=0\). Dans ce cas, \( \lambda\) n'est pas une valeur propre (le vecteur propre soit être non nul).
 
 		Nous en déduisons que \( | \lambda |<1\) et donc que \( \rho(T)=\rho(D^{-1}M)<1\).
 	\end{subproof}
@@ -845,7 +846,7 @@ Le théorème suivant résume ce que nous avons vu en donnant une condition suff
 	\begin{equation}
 		(\mtu-T)^{-1}=\sum_{k=0}^{\infty}T^k
 	\end{equation}
-	par la proposition~\ref{PROPooWVHXooCfsvGq}. D'autre part, \( A^{-1}=(\mtu-A)^{-1}D\) où les éléments \( D\) sont strictement positifs. Donc nous devons encore prouver que \( (\mtu-T)^{-1}>0\). Nous savons que \( T\geq 0\), et vu que
+	par la proposition~\ref{PROPooWVHXooCfsvGq}. D'autre part, \( A^{-1}=(\mtu-T)^{-1}D\) où les éléments \( D\) sont strictement positifs. Donc nous devons encore prouver que \( (\mtu-T)^{-1}>0\). Nous savons que \( T\geq 0\), et vu que
 	\begin{equation}
 		\big(\sum_kT^k)_{ij}=\sum_k(T^k)_{ij}
 	\end{equation}
@@ -889,7 +890,7 @@ Le théorème suivant résume ce que nous avons vu en donnant une condition suff
 
 	En ce qui concerne la norme de \( A^{-1}\) nous avons donc
 	\begin{equation}
-		\| A^{-1} \|_{\infty}=\sup_{| x |_{\infty}=1}\| A^{-1}x \|_{\infty}\leq \sup_{\| x \|_{\infty}=1}\| x \|_{\infty}\| g \|_{\infty}=\| g \|_{\infty}.
+		\| A^{-1} \|_{\infty}=\sup_{\| x \|_{\infty}=1}\| A^{-1}x \|_{\infty}\leq \sup_{\| x \|_{\infty}=1}\| x \|_{\infty}\| g \|_{\infty}=\| g \|_{\infty}.
 	\end{equation}
 \end{proof}
 
@@ -919,7 +920,7 @@ Le théorème suivant résume ce que nous avons vu en donnant une condition suff
 
 		Si la matrice \( A\) est à diagonale strictement dominante, alors les inégalités sont strictes et le théorème est prouvé.
 
-		Sinon nous somme dans le cas irréductible à diagonale fortement dominante et nous avons le théorème de Gershgorin numéro 2~\ref{THOooTXAPooQqsBCj}. Soit une valeur propre \( \lambda\). Soit elle est dans un des disques ouvert (qui est inclus dans \( \mathopen] 0 , \infty \mathclose[\)), soit elle est dans l'intersection des bords des disques. Mais au moins un des disques n'intersecte pas \( 0\) (parce que la diagonale est strictement dominante). Dans ce cas non plus \( \lambda\) ne peut pas être nul.
+		Sinon nous somme dans le cas irréductible à diagonale fortement dominante et nous avons le théorème de Gershgorin numéro 2~\ref{THOooTXAPooQqsBCj}. Soit une valeur propre \( \lambda\). Soit elle est dans un des disques ouvert (qui est inclus dans \( \mathopen] 0 , \infty \mathclose[\)), soit elle est dans l'intersection des bords des disques. Mais au moins un des disques n'intersecte pas \( 0\) (parce que la diagonale est fortement dominante). Dans ce cas non plus \( \lambda\) ne peut pas être nul.
 
 	Nous en déduisons que dans tous les cas, les valeurs propres sont toutes réelles strictement positives.
 \end{proof}
