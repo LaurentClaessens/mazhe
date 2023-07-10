@@ -19,7 +19,7 @@ Les chaines de Markov interviennent pour la description des systèmes dont l'év
 		P(X_{n+1}=x_{n+1}|X_n=x_n,\ldots,X_0=x_0)=P(X_{n+1}=x_{n+1}|X_n=x_n).
 	\end{equation}
 \end{definition}
-Pour une chaine de Markov, il n'est pas important de savoir l'historique pour prédire la futur : \( X_{n+1}\) est seulement déterminé par \( X_n\).
+Pour une chaine de Markov, il n'est pas important de savoir l'historique pour prédire le futur : \( X_{n+1}\) est seulement déterminé par \( X_n\).
 
 \begin{remark}
 	Il existe une théorie des chaines de Markov à temps continu ou avec \( E\) non dénombrable, mais ce n'est pas au programme.
@@ -61,7 +61,7 @@ Le lemme suivant est intuitivement rien d'autre que le fait que la somme des pro
 	Nous avons le calcul
 	\begin{subequations}
 		\begin{align}
-			\sum_{y\in E}p_x(x,y) & =\sum_{y\in E}P(X_{n+1}=y|X_n=x)                      \\
+			\sum_{y\in E}p_n(x,y) & =\sum_{y\in E}P(X_{n+1}=y|X_n=x)                      \\
 			                      & =  P(\Omega|X_n=x)        \label{SUBEQooIRGEooHDOxOd} \\
 			                      & =\frac{ P(\Omega\cap X_n=x) }{ P(X_n=x) }             \\
 			                      & =1\label{SUBEQooBRMTooQJiKfR}.
@@ -79,7 +79,7 @@ Le lemme suivant est intuitivement rien d'autre que le fait que la somme des pro
 \end{remark}
 
 \begin{lemmaDef}[Produit de matrices de transition]         \label{LEMooZIEPooXHGnvy}
-	Soient deux processus de Markov \( (X_n)\) et \( (Y_n)\) sur le même ensemble \( E\). En notons \( p\) et \( q\) leurs matrices de transition\footnote{Qui n'est pas spécialement une matrice, voir la définition \ref{DEFooKQROooYvJvvl}.} alors
+	Soient deux processus de Markov \( (X_n)\) et \( (Y_n)\) sur le même ensemble \( E\). Si nous notons \( p\) et \( q\) leurs matrices de transition\footnote{Qui n'est pas spécialement une matrice, voir la définition \ref{DEFooKQROooYvJvvl}.} alors
 	\begin{enumerate}
 		\item       \label{ITEMooWNWXooCKOYpE}
 		      La somme \( \sum_{x\in E}p(a,x)q(x,b)\) converge pour tout \( a,b\in E\).
@@ -114,7 +114,7 @@ Le lemme suivant est intuitivement rien d'autre que le fait que la somme des pro
 		\end{equation}
 		alors que \( \int_Ep(a,x)dm(x)=1\) par le lemme \ref{LEMooQNIWooQBMlge}.
 
-		Vu que la fonction \( x\mapsto p(a,x)q(x,b)\) est dominée par la fonction \( x\mapsto p(a,x)\) et que cette dernière est intégrable, le lemme \ref{LemPfHgal} conclu à l'intégrabilité de la première. Bref, l'intégrale \eqref{EQooCNNCooGJRWyi} existe et est finie.
+		Vu que la fonction \( x\mapsto p(a,x)q(x,b)\) est dominée par la fonction \( x\mapsto p(a,x)\) et que cette dernière est intégrable, le lemme \ref{LemPfHgal} conclut à l'intégrabilité de la première. Bref, l'intégrale \eqref{EQooCNNCooGJRWyi} existe et est finie.
 		\spitem[Pour \ref{ITEMooEZIEooFEbwhj}]
 		Il n'y a rien à prouver, c'est seulement une définition.
 		\spitem[Pour \ref{ITEMooKEFXooMLREkO}]
@@ -147,7 +147,7 @@ Le lemme suivant est intuitivement rien d'autre que le fait que la somme des pro
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{definition}      \label{DefGJEBooZvuIAV}
-	Une matrice dont tous les éléments sont positifs ou nuls et donc la somme de toutes les lignes sont \( 1\) est une \defe{matrice stochastique}{matrice stochastique}.
+	Une matrice dont tous les éléments sont positifs ou nuls et dont la somme de toutes les lignes sont \( 1\) est une \defe{matrice stochastique}{matrice stochastique}.
 \end{definition}
 Notons que l'ensemble des matrices stochastiques est un fermé dans l'ensemble des matrices.
 
@@ -179,19 +179,44 @@ Notons que l'ensemble des matrices stochastiques est un fermé dans l'ensemble d
 	Une chaine de Markov est \defe{finie}{chaine!de Markov!finie} si l'ensemble \( E\) dans lequel elle prend ses valeurs est fini.
 \end{definition}
 
+\begin{probleme}		\label{PROBooNEMXooLbPpIN}
+	Je ne suis pas totalement certain du lemme suivant (\ref{LEMooYKFZooUEOWbi}). Soyez \randomGender{prudent}{prudente}, et écrivez-moi si vous avez une démonstration ou un contre-exemple.
 
-\begin{proposition}[\cite{MarkGuy}] \label{PropOJumFwe}
-	Toute matrice stochastique\footnote{Définition \ref{DefGJEBooZvuIAV}.} admet un état stationnaire.
+	Le lemme \ref{LEMooQBOIooMNbJlV} donne une partie.
+\end{probleme}
+
+\begin{lemma}		\label{LEMooYKFZooUEOWbi}
+	Une matrice est stochastique\footnote{Matrice stochastique, définition \ref{DefGJEBooZvuIAV}.} si et seulement si elle est la matrice de transition d'une chaine de Markov sur un ensemble fini.
+\end{lemma}
+
+\begin{definition}
+	Soit une matrice stochastique \( p\). Une \defe{loi stationnaire}{loi stationnaire} pour \( p\) est un vecteur \( \mu\) tel que
+	\begin{enumerate}
+		\item
+		      \( \mu=\mu P\),
+		\item
+		      \( \mu_j\geq 0\) pour tout \( j\),
+		\item
+		      \( \sum_i\mu_i=1\).
+	\end{enumerate}
+\end{definition}
+
+Lorsque nous parlons d'une chaine de Markov sur un ensemble fini \( E\), la matrice stochastique est indexée par les éléments de \( E\), et, par exemple, la condition \( \mu=\mu P\) s'écrit
+\begin{equation}
+	\mu_j=\sum_{i\in E}\mu_ip_{ij}
+\end{equation}
+pour tout \( j\in E\).
+
+Notez que dans ce cas si \( A\subset E\), nous pouvons définir \( \mu(A)=\sum_{i\in A}\mu_i\). Cette application \( \mu\) est alors une mesure positive\footnote{Définition \ref{DefBTsgznn}.} sur \( E\).
+
+\begin{proposition}[\cite{MarkGuy}]     \label{PropUMPpOHW}
+	Soit une chaine de Markov irréductible\footnote{Définition \ref{DEFooGKRQooFNuwRm}.} finie. Alors il existe une unique loi stationnaire \( \pi\) et de plus nous avons \( \pi_i>0\) pour tout état \( i\) de \( E\).
 \end{proposition}
 Je crois que pour prouver ça, il faut utiliser le théorème de Perron-Frobenius \ref{THOooRSPJooMCFeeP}.
 
-\begin{proposition}[\cite{MarkGuy}]     \label{PropUMPpOHW}
-	Soit une chaine de Markov irréductible finie. Alors il existe une unique loi stationnaire \( \pi\) et de plus nous avons \( \pi_i>0\) pour tout état \( i\) de \( E\).
-\end{proposition}
-
 
 \begin{theorem}[\cite{GMbugcT}]
-	Soit \( P\) la matrice de transition d'une chaine de Markov régulière sur un ensemble \( E\) de cardinal \( N\). Alors il existe des nombres \( \pi_1,\ldots, \pi_N\) tels que
+	Soit \( P\) la matrice de transition d'une chaine de Markov régulière\footnote{Définition \ref{DEFooGKRQooFNuwRm}.} sur un ensemble \( E\) de cardinal \( N\). Alors il existe des nombres \( \pi_1,\ldots, \pi_N\) tels que
 	\begin{enumerate}
 		\item
 		      \( \pi_i>0\) pour tout \( i=1,\ldots, N\)
@@ -249,11 +274,11 @@ Je crois que pour prouver ça, il faut utiliser le théorème de Perron-Frobeniu
 		\end{equation}
 		En faisant la différence, et en nous souvenant que \( 0<1-2d<1\),
 		\begin{equation}
-			M_{k+1}-m_k\leq (1-2d)(M_k-m_k),
+			M_{k+1}-m_{k+1}\leq (1-2d)(M_k-m_k),
 		\end{equation}
 		ce qui signifie que
 		\begin{equation}
-			M_{k+1}-m_k\leq (1-2d)^k(M_0-m_0),
+			M_{k+1}-m_{k+1}\leq (1-2d)^k(M_0-m_0),
 		\end{equation}
 		et donc que les deux limites sont égales.
 
@@ -262,9 +287,9 @@ Je crois que pour prouver ça, il faut utiliser le théorème de Perron-Frobeniu
 		Pour tout vecteur \( x\), la suite \( P^kx\) tend vers un vecteur dont toutes les composantes sont égales. En particulier pour le vecteur \( e_i\) de la base canonique,
 		\begin{equation}
 			P^ke_i\to\begin{pmatrix}
-				\pi_1  \\
+				\pi_i  \\
 				\vdots \\
-				\pi_1
+				\pi_i
 			\end{pmatrix}.
 		\end{equation}
 		Mais \( P^ke_i\) est la \( i\)\ieme\ colonne de la matrice \( P^k\). Cela prouve la convergence annoncée \( P^k\to \Pi\).
@@ -276,12 +301,12 @@ Je crois que pour prouver ça, il faut utiliser le théorème de Perron-Frobeniu
 \end{proof}
 
 \begin{theorem}[\cite{MarkGuy}]     \label{ThoQSuLZoz}
-	Si \( (X_n)\) est une chaine de Markov finie, irréductible et apériodique de loi stationnaire \( \pi\), alors
+	Si \( (X_n)\) est une chaine de Markov finie, irréductible\footnote{Irréductible, définition \ref{DEFooGKRQooFNuwRm}.} et apériodique\footnote{Définition \ref{DEFooBNBVooBuWQqi}.} de loi stationnaire \( \pi\), alors
 	\begin{enumerate}
 		\item
-		      La suite de matrices stochastiques \( P^k\) converge vers la matrice
+		      La suite de matrices stochastiques \( p^k\) converge vers la matrice
 		      \begin{equation}
-			      P^k\to\Pi=\begin{pmatrix}
+			      p^k\to\Pi=\begin{pmatrix}
 				      \pi    \\
 				      \vdots \\
 				      \pi
@@ -290,7 +315,7 @@ Je crois que pour prouver ça, il faut utiliser le théorème de Perron-Frobeniu
 		\item
 		      Nous avons convergence des variables aléatoires au sens où
 		      \begin{equation}
-			      P(X_k=\mu P^k)\to \pi.
+			      P(X_k=\mu p^k)\to \pi.
 		      \end{equation}
 	\end{enumerate}
 \end{theorem}
@@ -351,12 +376,13 @@ Nous utilisons maintenant l'hypothèse d'indépendance des variables aléatoires
 L'événement \( A\) est indépendant de l'événement \( \{ X_n=x_n \}\). Nous avons donc successivement
 \begin{subequations}
 	\begin{align}
-		P\big( X_{n+1}=x_{n+1}| X_n=x_n,\ldots,X_0=x_0 \big) & =P\big( Y_{n+1}=x_{n+1}-x_n| X_n=x_n,\ldots,X_0=x_0 \big)  \\
-		                                                     & =P\big( Y_{n+1}=x_{n+1}-x_n|  Y_i=x_i-x_{i-1},X_0=x_0\big) \\
-		                                                     & =P(Y_{n+1}=x_{n+1}-x_n)        \label{EqEDQkUcm_c}         \\
-		                                                     & =P(Y_{n+1}=x_{x+1}-x_n|X_n=x_n)    \label{EqEDQkUcm_d}     \\
-		                                                     & =P(Y_{n+1}=x_{n+1}-X_n|X_n=x_n)        \label{EqEDQkUcm_e} \\
-		                                                     & =P(X_{n+1}=x_{n+1}|X_n=x_n).
+		P\big( X_{n+1}=x_{n+1}| & X_n=x_n,\ldots,X_0=x_0 \big)    \nonumber                                                                  \\
+		                        & =P\big( Y_{n+1}=x_{n+1}-x_n| X_n=x_n,\ldots,X_0=x_0 \big)                                                  \\
+		                        & =P\big( Y_{n+1}=x_{n+1}-x_n|  Y_i=x_i-x_{i-1},X_0=x_0\big)                                                 \\
+		                        & =P(Y_{n+1}=x_{n+1}-x_n)                                    & \text{cf. justif.}        \label{EqEDQkUcm_c} \\
+		                        & =P(Y_{n+1}=x_{n+1}-x_n|X_n=x_n)                            & \text{cf. justif.}   \label{EqEDQkUcm_d}      \\
+		                        & =P(Y_{n+1}=x_{n+1}-X_n|X_n=x_n)                            & \text{cf. justif.}   \label{EqEDQkUcm_e}      \\
+		                        & =P(X_{n+1}=x_{n+1}|X_n=x_n).
 	\end{align}
 \end{subequations}
 Justifications :
@@ -451,7 +477,7 @@ La matrice de transition de cette chaine de Markov est une matrice infinie «dan
 				P(X_2=x_2|X_0=x_0) & =\sum_{y\in E}P(X_2=x_2,X_1=y|X_0=x_0)                 \\
 				                   & =\sum_{y\in E}P(X_2=x_2|X_1=y,X_0=x_0)P(X_1=y|X_0=x_0) \\
 				                   & =\sum_{y\in E}P(X_2=x_2|X_1=y)P(X_1=y|X_0=x_0)         \\
-				                   & =\sum_{y\in E}p(x_2,y)p(y,x_0) \label{subEqyExdyyxz}   \\
+				                   & =\sum_{y\in E}p(y,x_2)p(x_0,y) \label{subEqyExdyyxz}   \\
 				                   & =Q^2_{x_2,x_0}.
 			\end{align}
 		\end{subequations}
@@ -495,7 +521,7 @@ La matrice de transition de cette chaine de Markov est une matrice infinie «dan
 \subsection{Graphe de transition}
 %---------------------------------------------------------------------------------------------------------------------------
 
-Le \defe{graphe de transition}{graphe!de transition (chaine de Markov)} d'une chaine de Markov est le graphe dont les sommets sont les éléments de l'espace des états de la chaine et dont les sommets sont reliés par des arrêtes pondérées par la probabilité de transition correspondante.
+Le \defe{graphe de transition}{graphe!de transition (chaine de Markov)} d'une chaine de Markov est le graphe dont les sommets sont les éléments de l'espace des états de la chaine et dont les sommets sont reliés par des arêtes pondérées par la probabilité de transition correspondante.
 
 \begin{definition}[\cite{GMbugcT}]      \label{DEFooGKRQooFNuwRm}
 	Une chaine de Markov est \defe{irréductible}{irréductible!chaine de Markov}\index{chaine!de Markov!irréductible} si pour tout \( x,y\in E\), il existe \( n\) tel que \( p^n(x,y)>0\) où
@@ -577,9 +603,9 @@ Le \defe{graphe de transition}{graphe!de transition (chaine de Markov)} d'une ch
 	Il est donné explicitement par
 	\begin{subequations}
 		\begin{align}
-			\{ X_1=x_1,X_0=x_0 \} & =\{ (\omega_0,\omega_1)\tq G\big( X_0(\omega_0),Y_1(\omega_1)=x_1,X_0(\omega_0)=x_0 \big) \}                           \\
-			                      & =\{ (\omega_0,\omega_1)\tq G\big( x_0,Y_1(\omega_1)=x_1,X_0(\omega_0)=x_0 \big) \}                                     \\
-			                      & =\{ \omega_0\in \Omega_0\tq X_0(\omega_0)=x_0 \}\times \{ \omega_1\in \Omega\tq G\big( x_0,Y_1(\omega_1)=x_1 \big) \}.
+			\{ X_1=x_1,X_0=x_0 \} & =\{ (\omega_0,\omega_1)\tq G\big( X_0(\omega_0),Y_1(\omega_1)\big)=x_1,X_0(\omega_0)=x_0  \}                           \\
+			                      & =\{ (\omega_0,\omega_1)\tq G\big( x_0,Y_1(\omega_1)=x_1\big),X_0(\omega_0)=x_0  \}                                     \\
+			                      & =\{ \omega_0\in \Omega_0\tq X_0(\omega_0)=x_0 \}\times \{ \omega_1\in \Omega\tq G\big( x_0,Y_1(\omega_1)\big)=x_1  \}.
 		\end{align}
 	\end{subequations}
 	Le premier terme du produit cartésien est dans \( \sigma(X_0)\), tandis que le second est dans \( \sigma(Y_1)\). Étant donné la définition des tribus produit (définition~\ref{DefTribProfGfYTuR}) nous avons
@@ -590,18 +616,18 @@ Le \defe{graphe de transition}{graphe!de transition (chaine de Markov)} d'une ch
 	\begin{equation}
 		\{ X_n=x_n,\ldots, X_0=x_0 \}\in\sigma(X_0,Y_1,\ldots, Y_n).
 	\end{equation}
-	Nous sommes donc à calculer
+	Nous en sommes donc à calculer
 	\begin{subequations}
 		\begin{align}
-			\diamondsuit & =P(X_{n+1}=x_{n+1}|X_n=X_n,\ldots, X_0=X_0)                                                                                                  \\
-			             & =P\big( \underbrace{G(x_n,Y_{n+1})=x_{n+1}}_{\in\sigma(Y_{n+1})}|\underbrace{X_n=x_n,\ldots, X_0=x_0}_{\in\sigma X_0,Y_1,\ldots, Y_n} \big).
+			\diamondsuit & =P(X_{n+1}=x_{n+1}|X_n=X_n,\ldots, X_0=x_0)                                                                                                    \\
+			             & =P\big( \underbrace{G(x_n,Y_{n+1})=x_{n+1}}_{\in\sigma(Y_{n+1})}|\underbrace{X_n=x_n,\ldots, X_0=x_0}_{\in\sigma (X_0,Y_1,\ldots, Y_n)} \big).
 		\end{align}
 	\end{subequations}
 	Les tribus \( \sigma(Y_{n+1})\) et \( \sigma(X_0,Y_1,\ldots, Y_n)\) étant indépendantes nous avons
 	\begin{subequations}
 		\begin{align}
 			\diamondsuit & =P\big( G(x_n,Y_{n+1})=x_{n+1} \big)                              \\
-			             & =P\big( G(x_n,Y_{n+1})=x_{n+1}|X_n=X_n \big)       \label{jdvyUK} \\
+			             & =P\big( G(x_n,Y_{n+1})=x_{n+1}|X_n=x_n \big)       \label{jdvyUK} \\
 			             & =P\big( G(X_n,Y_{n+1})=x_{n+1}|X_n=x_n \big)                      \\
 			             & =P(X_{n+1}=x_{n+1}|X_n=x_n).
 		\end{align}
@@ -650,7 +676,7 @@ Les probabilités de transition de la chaine de Markov définie dans la proposit
 	\begin{subequations}
 		\begin{align}
 			g_{n+1}(i,x_1,\ldots, x_{n+1}) & = f\big( g_n(i,x_1,\ldots, x_n), x_{n+1} \big) \\
-			                               & =f\big( X_n(\omega),z_{n+1}(\omega) \big)      \\
+			                               & =f\big( X_n(\omega),Z_{n+1}(\omega) \big)      \\
 			                               & =X_{n+1}(\omega).
 		\end{align}
 	\end{subequations}
@@ -751,17 +777,21 @@ Les probabilités de transition de la chaine de Markov définie dans la proposit
 	Nous calculons facilement cette probabilité :
 	\begin{subequations}
 		\begin{align}
-			\{ f(i,Z_1)=j \} & =\{ \omega\in\Omega\tq f\big( i,Z_1(\omega) \big)=j \}                                                    \\
-			                 & =\{ \omega\in\Omega\tq \sum_{k=0}^{j-1}P_{ik}\leq Z_1(\omega)<\sum_{k=0}^{j}P_{ik} \}                     \\
-			                 & =\{ \omega\in\Omega\tq Z_1(\omega)\in\mathopen[ \sum_{k=1}^{j-1}P_{ik} , \sum_{k=1}P_{ik} \mathclose[ \}.
+			\{ f(i,Z_1)=j \} & =\{ \omega\in\Omega\tq f\big( i,Z_1(\omega) \big)=j \}                                                                  \\
+			                 & =\{ \omega\in\Omega\tq \sum_{k=0}^{j-1}P_{ik}\leq Z_1(\omega)<\sum_{k=0}^{j}P_{ik} \}                                   \\
+			                 & =\{ \omega\in\Omega\tq Z_1(\omega)\in\mathopen\lbrack \sum_{k=1}^{j-1}P_{ik} , \sum_{k=1}^jP_{ik} \mathclose\lbrack \}.
 		\end{align}
 	\end{subequations}
-	Vu que \( Z_1\) est uniforme sur \( \mathopen[ 0 , 1 \mathclose]\), la probabilité de cet ensemble est la mesure de Lebesgue de l'intervalle \( \mathopen[ \sum_{k=1}^{j-1}P_{ik} , \sum_{k=1}P_{ik} \mathclose[\), c'est à dire \( P_{ij}\).
+	Vu que \( Z_1\) est uniforme sur \( \mathopen[ 0 , 1 \mathclose]\), la probabilité de cet ensemble est la mesure de Lebesgue de l'intervalle \( \mathopen[ \sum_{k=1}^{j-1}P_{ik} , \sum_{k=1}^jP_{ik} \mathclose[\), c'est à dire \( P_{ij}\).
 \end{proof}
 
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 \subsubsection{Exemple : la file de réparation de machines à laver}
 %///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+\begin{normaltext}
+	David Madore parle de file d'attente\cite{BIBooOSYQooOLuSYF}. En bref, il est inexplicable qu'une file d'attente soit durablement longue sans s'allonger à l'infini.
+\end{normaltext}
 
 Nous considérons un magasin de réparation d'électroménager. Durant le jour \( n\), un nombre aléatoire \( Z_{n}\) de machines en panne arrivent au magasin. Une machine est réparée chaque jour (aucune si le magasin est vide). Nous supposons que les \( Z_n\) soient indépendantes et identiquement distribuées, et nous posons \( X_n\), le nombre de machines en magasin le jour \( n\).
 
@@ -779,9 +809,9 @@ Cela est une chaine de Markov en vertu de la proposition~\ref{PropqiMdHh}. Ici l
 Les probabilités de transitions sont
 \begin{equation}
 	p(x,y)=\begin{cases}
-		0      & \text{si } x\leq y-2 \\
-		P(Z=0) & \text{si } x=y-1     \\
-		P(Z=k) & \text{si } x=y+k-1
+		0      & \text{si } y\leq x-2 \\
+		P(Z=0) & \text{si } y=x-1     \\
+		P(Z=k) & \text{si } y=x+k-1
 	\end{cases}
 \end{equation}
 pour \( x\neq 0\).
@@ -826,7 +856,7 @@ C'est le temps mis pour atteindre \( x\) à partir de l'instant \( p\).
 			  & =\sum_{z_i}P(X_{p+k}=x,X_{p+k-i}=z_i|X_{p+2}=z_2,X_{p+1}=z_1,X_p=x)                                  \\
 			  & \qquad\underbrace{P(X_{p+2}=z_2|X_{p+1}=z_1,X_p=x)}_{P(X_{p+2}=z_2|X_{p+1}=z_1)=p(z_1,z_2)}p(x,z_1)  \\
 			  & =\ldots                                                                                              \\
-			  & =\sum_{z_i}p(x,z_1)p(z_1,z_2)\ldots p(z_{k-1},z_{k-1})p(z_{k-1},x).
+			  & =\sum_{z_i}p(x,z_1)p(z_1,z_2)\ldots p(z_{k-2},z_{k-1})p(z_{k-1},x).
 		\end{align}
 	\end{subequations}
 	À ce point ci, nous avons éliminé toute référence à \( p\) grâce à l'homogénéité de la chaine. Nous pouvons refaire le calcul à l'envers pour reconstituer l'expression de départ sans le \( p\) :
@@ -909,7 +939,7 @@ où \( Q\) est une matrice \( N-r\times N-r\).
 	\end{equation}
 	Nous considérons \( (Y_k)\) la chaine de Markov construite par le lemme \ref{LEMooQBOIooMNbJlV} à partir de la matrice \( P\), ainsi que \( (Y'_k)\) celle construite à partir de \( P'\).
 
-	Les chaines \( X\) et \( Y\) ont la même matrice de transition, mais l'intérrêt de \( Y\) est d'être définie sur le même espace que \( Y'\). Nous allons procéder de la façon suivante :
+	Les chaines \( X\) et \( Y\) ont la même matrice de transition, mais l'intérêt de \( Y\) est d'être définie sur le même espace que \( Y'\). Nous allons procéder de la façon suivante :
 	\begin{enumerate}
 		\item
 		      Prouver le résultat sur \( Y'\)
@@ -923,9 +953,8 @@ où \( Q\) est une matrice \( N-r\times N-r\).
 	%TODOooQLLOooQymTIq. terminer cette preuve.
 \end{proof}
 
-
 %--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Récurrent et transcient}
+\subsection{Récurrent et transient}
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{definition}\label{DefWknULk}
@@ -1047,7 +1076,7 @@ C'est une variable aléatoire à valeurs dans \( \eN\cup\{ \infty \}\).
 			p^s(y,x)>0
 		\end{align}
 	\end{subequations}
-	et nous calculons majorons en passant par quelques intermédiaires :
+	et nous minorons en passant par quelques intermédiaires :
 	\begin{subequations}
 		\begin{align}
 			P(X_{n+r+s}=y|X_0=y) & \geq P(X_{n+r+s}=y,X_{n+s}=x,X_s=x|X_0=y)               \\
@@ -1080,7 +1109,7 @@ C'est une variable aléatoire à valeurs dans \( \eN\cup\{ \infty \}\).
 	ce qui signifie que \( y\) est récurrent.
 \end{proof}
 
-Nous rappelons que \( T(x)\) est le temps que première atteinte de l'état \( x\). Nous notons\nomenclature[M]{\( \pi(x)\)}{lié au temps de retour}
+Nous rappelons que \( T(x)\) est le temps de première atteinte de l'état \( x\). Nous notons\nomenclature[M]{\( \pi(x)\)}{lié au temps de retour}
 \begin{equation}        \label{EqKyuLYk}
 	\pi(x)=\frac{1}{ E\big( T(x)|X_0=x \big) }.
 \end{equation}
@@ -1568,11 +1597,11 @@ En effet \( p^3(C,C)\neq 0\) par le chemin \( C\to A\to B\to C\) tandis que \( p
 	pour tout \( k\geq N\).
 \end{proposition}
 
-La proposition suivante va nous permettre de parler de \defe{chaine apériodique}{chaine!de Markov!apériodique}
-\index{apériodique!chaine de Markov}.
-\begin{proposition}
+\begin{propositionDef}		\label{DEFooBNBVooBuWQqi}
 	Si une chaine de Markov est irréductible, alors un état est apériodique si et seulement si tous les états sont apériodiques.
-\end{proposition}
+
+	Dans ce cas nous disons que la chaine est \defe{apériodique}{chaine de Markov apériodique}.
+\end{propositionDef}
 
 \begin{proof}
 	Soit \( x\) un état apériodique de la chaine de Markov \( (X_n)_{n\in \eN}\). En vertu de la proposition~\ref{PropSaOysS} il existe \( N_x\) tel que \( p^k(x,x)\neq 0\) pour tout \( k\geq N_x\). Soit \( y\in E\). Étant donné que la chaine est irréductible, il existe \( r\) et \( s\) tels que\( p^r(x,y)>0\) et \( p^s(y,x)>0\). Nous avons
