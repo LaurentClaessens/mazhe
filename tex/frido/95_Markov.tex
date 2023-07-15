@@ -182,7 +182,7 @@ Notons que l'ensemble des matrices stochastiques est un fermé dans l'ensemble d
 \begin{probleme}		\label{PROBooNEMXooLbPpIN}
 	Je ne suis pas totalement certain du lemme suivant (\ref{LEMooYKFZooUEOWbi}). Soyez \randomGender{prudent}{prudente}, et écrivez-moi si vous avez une démonstration ou un contre-exemple.
 
-	Le lemme \ref{LEMooQBOIooMNbJlV} donne une partie.
+	Le lemme \ref{LEMooQBOIooMNbJlV} donne une partie de la preuve, je crois.
 \end{probleme}
 
 \begin{lemma}		\label{LEMooYKFZooUEOWbi}
@@ -209,11 +209,20 @@ pour tout \( j\in E\).
 
 Notez que dans ce cas si \( A\subset E\), nous pouvons définir \( \mu(A)=\sum_{i\in A}\mu_i\). Cette application \( \mu\) est alors une mesure positive\footnote{Définition \ref{DefBTsgznn}.} sur \( E\).
 
+\begin{definition}[\cite{GMbugcT}]      \label{DEFooGKRQooFNuwRm}
+	Une chaine de Markov est \defe{irréductible}{irréductible!chaine de Markov}\index{chaine!de Markov!irréductible} si pour tout \( x,y\in E\), il existe \( n\) tel que \( p^n(x,y)>0\) où
+	\begin{equation}
+		p^n(x,y)=P(X_n=y|X_0=x).
+	\end{equation}
+	Le nombre \( n\) peut dépendre de \( x\) et \( y\).
+
+	Une chaine de Markov finie est \defe{régulière}{chaine de Markov régulière} si il existe un \( n\in \eN\) tel que \( P^n\) a uniquement des éléments strictement positifs.
+\end{definition}
+
 \begin{proposition}[\cite{MarkGuy}]     \label{PropUMPpOHW}
 	Soit une chaine de Markov irréductible\footnote{Définition \ref{DEFooGKRQooFNuwRm}.} finie. Alors il existe une unique loi stationnaire \( \pi\) et de plus nous avons \( \pi_i>0\) pour tout état \( i\) de \( E\).
 \end{proposition}
 Je crois que pour prouver ça, il faut utiliser le théorème de Perron-Frobenius \ref{THOooRSPJooMCFeeP}.
-
 
 \begin{theorem}[\cite{GMbugcT}]
 	Soit \( P\) la matrice de transition d'une chaine de Markov régulière\footnote{Définition \ref{DEFooGKRQooFNuwRm}.} sur un ensemble \( E\) de cardinal \( N\). Alors il existe des nombres \( \pi_1,\ldots, \pi_N\) tels que
@@ -299,6 +308,580 @@ Je crois que pour prouver ça, il faut utiliser le théorème de Perron-Frobeniu
 
 	Ensuite la suite \( (m_k)\) étant strictement croissante et \( m_0\) étant égal à \( 0\) dans le cas de \( e_i\) nous avons toujours \( \pi_i>0\) (strictement).
 \end{proof}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Graphe de transition}
+%---------------------------------------------------------------------------------------------------------------------------
+
+Le \defe{graphe de transition}{graphe!de transition (chaine de Markov)} d'une chaine de Markov est le graphe dont les sommets sont les éléments de l'espace des états de la chaine et dont les sommets sont reliés par des arêtes pondérées par la probabilité de transition correspondante.
+
+\begin{lemma}
+	Une chaine de Markov homogène est irréductible si et seulement si son graphe de transition est connexe.
+\end{lemma}
+
+\begin{proof}
+	Pour chaque couple \( (x,y)\in E^2\) nous avons
+	\begin{equation}
+		\begin{aligned}[]
+			p^n(x,y) & =\sum_{z_i\in E}P(X_n=y,X_{n-1}=z_{n-1},\ldots,X_1=z_1,X_0=x)       \\
+			         & =\sum_{z_i}p(z_{n-1},y)p(z_{n-2},z_{n-1})\ldots p(z_1,z_2)p(x,z_1).
+		\end{aligned}
+	\end{equation}
+	La positivité d'un des termes de la somme signifie que le graphe est connexe tandis que la positivité de \( p^n(x,y)\) signifie que la chaine est irréductible.
+\end{proof}
+
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Nombre de visites}
+%---------------------------------------------------------------------------------------------------------------------------
+
+La fonction
+\begin{equation}
+	\frac{1}{ n }\sum_{k=1}^n\mtu_{\{ X_k=x \}}
+\end{equation}
+est la \defe{fréquence empirique}{fréquence!empirique} de la chaine de Markov.
+
+Soit \( x\) un état récurrent, c'est-à-dire que \( P\big( T(x)<\infty|X_0=x \big)=1\). Nous classons les visites de la façon suivante :
+\begin{subequations}    \label{SubEqsDefTirectempsretou}
+	\begin{align}
+		T_1(x) & =T(x)=\inf\{ k\geq 1\tq X_k=x \}         \\
+		T_2(x) & =\inf\{ k\geq 1\tq X_{T_1(x)+k}=x \}     \\
+		       & \vdots                                   \\
+		T_n(x) & =\inf\{ k\geq 1\tq X_{T_{n-1}(x)+k}=x \}
+	\end{align}
+\end{subequations}
+La variable aléatoire \( T_i\) représente le temps entre la visite numéro \( i-1\) et la visite numéro \( i\) (si \( X_0\neq x\), sinon il faut décaler). Nous définissons l'instant la visite numéro \( n\) :
+\begin{equation}
+	S_n=\sum_{k=1}^nT_k(x).
+\end{equation}
+
+\begin{lemma}
+	Les variables aléatoires \( T_i\) sont indépendantes.
+\end{lemma}
+
+\begin{proof}
+	Nous choisissons \( n\) des \( T_i\) et nous calculons la probabilité
+	\begin{equation}
+		\spadesuit=P(T_{i_1}=k_1,T_{i_2}=k_2,\ldots,T_{i_n}=k_n)
+	\end{equation}
+	où nous supposons \( i_1>i_2>\ldots>i_n\). Nous décomposons cette probabilité en sommant sur toutes les histoires de la chaine de Markov compatibles avec les nombres \( k_i\) donnés :
+	\begin{equation}
+		\spadesuit=\sum_{\substack{\{ z_j \}\\\text{compatibles}}}P(X_j=z_j,j=1,\ldots,N).
+	\end{equation}
+	Notons qu'ici, le numéro du dernier terme de la somme n'est pas certain parce que tous les \( T_i\) ne sont pas fixés. Nous l'avons noté \( N\), mais en réalité il est différent d'un terme à l'autre de la somme. Il est certain que \( z_N=x\) et \( z_{N-k_1}=x\) et si \( N-k_1<j<N\), alors \( z_j\neq x\). Cela est simplement le fait que nous demandions aux \( z_i\) de respecter les conditions données par les \( k_i\). Nous avons
+	\begin{subequations}
+		\begin{align}
+			\spadesuit & =\sum_{\{ z_j \}} P(X_N=x,X_j=z_j,N-k_1<j<N|X_j=z_j,j\leq N-k_1)P(X_j=z_j,j<N-k_1) \\
+			           & =\sum_{\{ z_j \}} P(X_N=x,X_j=z_j,N-k_1<j<N|X_{N-k_1}=x)P(X_j=z_j,j<N-k_1)         \\
+		\end{align}
+	\end{subequations}
+	Le premier facteur est \( P(T_{i_1}=k_1)\) tandis que le second facteur est précisément \( P(T_{i_j}=k_j,j>1)\). Nous avons donc montré que
+	\begin{equation}
+		P(T_{i_1}=k_1,T_{i_2}=k_2,\ldots,T_{i_n}=k_n)=P(T_{i_1}=k_1)P(T_{i_j}=k_j,j>1),
+	\end{equation}
+	et donc les \( T_i\) sont indépendants.
+\end{proof}
+
+\begin{definition}[Temps de première atteinte]		\label{DEFooDWLAooINqgep}
+	Soit \( (X_k)\) une chaine de Markov dont l'espace des états est noté \( E\). Pour chaque \(  x\in E\) nous notons
+	\begin{equation}
+		T(x)=\inf\{ k\geq 1\tq X_k=x \}.
+	\end{equation}
+	Ce nombre est le	\defe{temps de première atteinte}{temps de première atteinte} de l'état \( x\).
+
+	Si \( X_0=x\), alors \( T(x)\) est le \defe{temps de retour}{temps de retour} en \( x\). Si \( p\in \eN\) nous notons
+	\begin{equation}
+		T_p(x)=\inf\{ k\geq 1\tq X_{k+p}=x \}
+	\end{equation}
+	C'est le temps mis pour atteindre \( x\) à partir de l'instant \( p\).
+\end{definition}
+
+\begin{lemma}       \label{LembyftKs}
+	Soit \( (X_k)\) une chaine de Markov dont l'espace des états est noté \( E\). Pour chaque \( x\in E\) nous considérons les temps de premier atteinte\footnote{Définition \ref{DEFooDWLAooINqgep}.} \( T\) et \( T_p\). Alors nous avons
+	\begin{equation}
+		P(T_p(x)=k|X_p=y)=P(T(x)=k|X_0=y).
+	\end{equation}
+\end{lemma}
+
+\begin{remark}
+	La loi des grands nombres est encore vraie sans l'hypothèse de variables aléatoires dans \( L^1\) pourvu qu'elles soient positives. Alors dans la conclusion de la loi nous devons accepter la possibilité que l'espérance soit infinie.
+\end{remark}
+
+\begin{proposition} \label{PropMrkIrreLoishLCkpjkptXk}
+	Soit \( (X_n)\) est une chaine de Markov irréductible. Nous notons \( T\) le temps de première atteinte\footnote{Définition \ref{}.} Alors
+	\begin{enumerate}
+		\item
+		      Si \( x\) est un état récurrent, alors \( T(X)<\infty\) presque surement.
+		\item
+		      Nous avons une égalité entre les lois
+		      \begin{equation}    \label{PropMrkIrreLoishLCkpjkptXkItemii}
+			      \hL\big( X_{k+T(x)}|T(x)<\infty \big)=\hL(X_k|X_0=x).
+		      \end{equation}
+	\end{enumerate}
+\end{proposition}
+
+\begin{definition}\label{DefWknULk}
+	Un état \( x\) est \defe{récurrent}{récurrent!état}\index{état!récurrent} si \( P(T(x)=\infty|X_0=x)=0\), c'est-à-dire si la probabilité de ne jamais retourner en \( x\) lorsqu'on y est passé est nulle. L'état \( x\) est \defe{transient}{transient!état} ou \defe{transitoire}{transitoire!état}\index{état!transitoire} dans le cas contraire.
+
+	Si \( x\) est un état récurrent, et si \( E\big( T(x)|X_0=x \big)<\infty\), nous disons que \( x\) est \defe{récurrent positif}{récurrent!positif}\index{état!récurrent positif}. Si \( E\big( T(x)|X_0=x \big)=\infty\) alors nous disons que est \defe{récurrent nul}{récurrent!nul}.
+\end{definition}
+
+
+%--------------------------------------------------------------------------------------------------------------------------- 
+\subsection{Récurrent et transient}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{definition}		\label{DEFooPVHHooBkIDpW}
+	Nous introduisons une variable aléatoire qui compte le nombre de fois que la chaine de Markov passe par l'état \( x\) :
+	\begin{equation}    \label{EqDefNxmtuXkn}
+		N_x=\sum_{k=0}^{\infty}\mtu_{\{ X_k=x\}}.
+	\end{equation}
+	C'est une variable aléatoire à valeurs dans \( \eN\cup\{ \infty \}\).
+\end{definition}
+
+\begin{proposition} \label{PropEquivEPrecuequiv}
+	Les deux propriétés suivantes sont équivalentes à dire que \( x\) est récurrent\footnote{La variable aléatoire \( N_x\) est définie par \ref{DEFooPVHHooBkIDpW}.}:
+	\begin{enumerate}
+		\item
+		      \( P(N_x<\infty|X_0=x)=0\)
+		\item
+		      \( E(N_x|X_0=x)=\infty\).
+	\end{enumerate}
+	Les deux propriétés suivantes sont équivalentes à dire que \( x\) est transient :
+	\begin{enumerate}
+		\item   \label{ItemiMnGpD}
+		      \( P(N_x<\infty|X_0=x)=1\)
+		\item
+		      \( E(N_x|X_0=x)<\infty\).
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	En tant que événements, nous avons l'égalité
+	\begin{equation}
+		N_x<\infty=\bigcup_{n\in\eN}\{\underbrace{ X_n=x,X_{n+k}\neq x\forall k\geq 1}_{F_n} \}.
+	\end{equation}
+	Nous avons donc
+	\begin{equation}    \label{Eqreprencalculstd}
+		P(N_x<\infty|X_0=x)=\sum_{n=0}^{\infty}P(F_n|X_0=x),
+	\end{equation}
+	et
+	\begin{subequations}
+		\begin{align}
+			P(F_n|X_0=x) & =P(X_{n+k}\neq x, \forall k\geq 1,X_n=x|X_0=x)                          \\
+			             & =P(X_{n+k}\neq x,k\geq 1|X_n=x,X_0=x)P(X_n=x|X_0=x)                     \\
+			             & =P(X_{n+k}\neq x,k\geq 1|X_n=x)P(X_n=x|X_0=x)  \label{subEqPFnXkneqxii} \\
+			             & =P(X_k\neq x,k\geq 1|X_0=x)P(X_n=x|X_0=x)  \label{subEqPFnXkneqxi}      \\
+			             & =P(T(x)=\infty|X_0=x)P(X_n=x|X_0=x)    \label{subEqPFnXkneqxiii}
+		\end{align}
+	\end{subequations}
+	Justifications :
+	\begin{enumerate}
+		\item
+		      Pour \eqref{subEqPFnXkneqxii}, nous utilisons le fait que la chaine soit «sans mémoire».
+		\item
+		      Pour \eqref{subEqPFnXkneqxi}, nous utilisons le fait que la chaine soit homogène.
+		\item
+		      Pour \eqref{subEqPFnXkneqxiii}, l'événement \( X_k\neq x\) pour tout \( k\geq 1\) est exactement l'événement \( T(x)=\infty\).
+	\end{enumerate}
+	En nous servant de la proposition~\ref{PropInversSumIntFub} (théorème de Fubini et mesure de comptage), nous permutons l'espérance et la somme dans l'expression
+	\begin{subequations}        \label{EqPEEEntstq}
+		\begin{align}
+			\sum_{n=0}^{\infty}P(X_n=x|X_0=x) & =\sum_{n=0}^{\infty}E(\mtu_{\{ X_n=x \}}|X_0=x)           \\
+			                                  & =E\big( \sum_{n=0}^{\infty}\mtu_{\{ X_n=x \}}|X_0=x \big) \\
+			                                  & =E(N_x|X_0=x).
+		\end{align}
+	\end{subequations}
+	Voyons ce passage plus en détail. D'abord, en général nous avons
+	\begin{equation}
+		E(Y|X=x_0)=\int_{\{ X=x_0 \}}Y(\omega)dP(\omega)
+		=\int_{\Omega}\mtu_{\{ X=x_0 \}}(\omega)Y(\omega)dP(\omega).
+	\end{equation}
+	Dans notre cas,
+	\begin{equation}
+		E\big( \mtu_{\{ X_n=x \}}|X_0=x \big)=\int_{\Omega}\mtu_{X_0=x}(\omega)\mtu_{\{ X_n=x \}}(\omega)dP(\omega).
+	\end{equation}
+	La fonction qui correspond à la proposiiton~\ref{PropInversSumIntFub} est
+	\begin{equation}
+		f(n,\omega)=f_n(\omega)=\delta_{X_0(\omega),x}\delta_{X_n(\omega),x},
+	\end{equation}
+	qui est bien une fonction positive et mesurable.
+
+	Nous reprenons à présent le calcul \eqref{Eqreprencalculstd} en remplaçant les éléments par leurs valeurs que nous avons calculées :
+	\begin{equation}    \label{EqPnxXzTxarn}
+		P(N_x<\infty|X_0=x)=P\big(T(x)=\infty|X_0=x\big)E(N_x|X_0=x).
+	\end{equation}
+	Si \( x\) est récurrent, nous avons \( P\big( T(x)=\infty|X_0=x \big)=0\), mais la relation \eqref{EqPnxXzTxarn} ne permet pas de conclure que le membre de gauche est nul parce qu'il reste la possibilité que \( E(N_x|X_0=x)=\infty\). Nous devons donc faire un pas en arrière et écrire cette espérance comme la limite des sommes partielles :
+	\begin{equation}
+		P(N_x<\infty|X_0=x)=\lim_{N\to \infty} \sum_{n=0}^NP\big( T(x)=\infty|X_0=x \big)P(X_n=x|X_0=x)=0
+	\end{equation}
+	parce que tous les termes de la suite des sommes partielles sont nuls. Nous avons donc bien que \( P(N_x<\infty|X_0=x)=0\). Il s'ensuit immédiatement que \( E(N_x|X_0=x)=1\).
+
+	Nous devons maintenant démontrer l'implication inverse. Supposons que \( P(N_x<\infty|X_0=x)=0\). Dans ce cas nous avons immédiatement \( P(N_x=\infty|X_0=x)=1\) et \( E(N_x|X_0=x)=\infty\). L'équation \eqref{EqPnxXzTxarn} nous indique alors que
+	\begin{equation}
+		P\big( T(x)=\infty|X_0=x \big)=0,
+	\end{equation}
+	c'est-à-dire que \( x\) est récurrent.
+\end{proof}
+
+%---------------------------------------------------------------------------------------------------------------------------
+\subsection{Chaînes irréductibles}
+%---------------------------------------------------------------------------------------------------------------------------
+
+\begin{proposition}     \label{Proptoustanstousrecirrsi}
+	Soit \( (X_n)\) une chaine de Markov irréductible.
+	\begin{enumerate}
+		\item
+		      Un état \( x\) est récurrent si et seulement si tous les états sont récurrents.
+		\item
+		      Un état \( x\) est transient si et seulement si tous les états sont transients.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	Soient \( x\) et \( y\) des états de la chaine de Markov. Nous devons tester la valeur de \( P(X_n=y|X_0=y)\). Afin d'exploiter l'hypothèse d'irréductibilité, nous considérons \( r,s\in\eN\) tels que
+	\begin{subequations}
+		\begin{align}
+			p^r(x,y)>0 \\
+			p^s(y,x)>0
+		\end{align}
+	\end{subequations}
+	et nous minorons en passant par quelques intermédiaires :
+	\begin{subequations}
+		\begin{align}
+			P(X_{n+r+s}=y|X_0=y) & \geq P(X_{n+r+s}=y,X_{n+s}=x,X_s=x|X_0=y)               \\
+			                     & =P(X_{n+r+s}=y|X_{n+s}=x,X_s=x,X_0=y)                   \\
+			                     & \qquad P(X_{n+s}=x|X_s=x,X_0=y)P(X_s=x|X_0=y)\nonumber.
+		\end{align}
+	\end{subequations}
+	Les deux premiers facteurs se calculent en utilisant la propriété de Markov et l'homogénéité de la chaine. Pour le premier,
+	\begin{equation}
+		P(X_{n+s}=x|X_s=x,X_0=y)=P(X_{n+s}=x|X_s=x)=P(X_n=x|X_0=x).
+	\end{equation}
+	Nous avons donc
+	\begin{equation}        \label{EqRmuXtG}
+		\sum_{n\in\eN}P(X_{n+r+s}=y|X_0=y)\geq p^r(x,y)p^s(y,x)\sum_{n\in\eN}P(X_n=x|X_0=x).
+	\end{equation}
+	En réutilisant Fubini, avec la mesure de comptage, nous permutons somme et probabilité\footnote{Un autre exemple de telle utilisation dans \eqref{EqPEEEntstq}.} comme ceci :
+	\begin{equation}
+		\sum_{n\in \eN}P(X_{n+r+s}=y|X_0=y)\geq KE(N_x|X_0=x)
+	\end{equation}
+	où \( K\) est une constante strictement positive, par hypothèse d'irréductibilité de la chaine de Markov.
+
+	Si \( x\) est un état récurrent, alors le membre de gauche est infini par la proposition \ref{PropEquivEPrecuequiv} et donc
+	\begin{equation}
+		\sum_{n\in\eN}P(X_{n+r+s}=y|X_0=y)=\infty.
+	\end{equation}
+	Aux \( r+s\) premiers termes près (qui ne changent pas la somme), nous avons
+	\begin{equation}
+		\sum_{n\in\eN}P(X_n=y|X_0=y)=\infty,
+	\end{equation}
+	ce qui signifie que \( y\) est récurrent.
+\end{proof}
+
+Nous rappelons\footnote{Définition \ref{DEFooDWLAooINqgep}.} que \( T(x)\) est le temps de première atteinte de l'état \( x\). Nous notons\nomenclature[M]{\( \pi(x)\)}{lié au temps de retour}
+\begin{equation}        \label{EqKyuLYk}
+	\pi(x)=\frac{1}{ E\big( T(x)|X_0=\infty \big) }.
+\end{equation}
+Étant donné que \( T(x)\) est un entier positif ou nul nous avons \( E\big( T(x)|X_0=x \big)\in\mathopen[ 1 , \infty \mathclose]\) et donc \( \pi(x)\in\mathopen[ 0 , 1 \mathclose]\).
+
+Si \( x\) est un état transient, alors \( T(x)=\infty\) lorsque \( X_0=x\) et donc \( E\big( T(x)|X_0=x \big)=0\) et \( \pi(x)=0\). Si \( x\) est récurrent par contre, \( P\big( T(x)<\infty|X_0=x \big)=1\) et il n'y a pas de garanties sur la valeur de \( E\big( T(x)|X_0=x \big)\).
+
+\begin{corollary}       \label{CorLhpRsk}
+	Un état récurrent est récurrent positif si et seulement si \( \pi(x)>0\). Un état récurrent est récurrent nul si et seulement si \( \pi(x)=0\).
+\end{corollary}
+
+\begin{proof}
+	C'est la formule \eqref{EqKyuLYk}.
+\end{proof}
+
+
+\begin{proposition}     \label{PropjOjDux}
+	Si \( (X_n)\) est une chaine de Markov irréductible et si \( x\in E\) alors
+	\begin{equation}        \label{EqPiEndempropropkeu}
+		\pi(x)=\lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^n\mtu_{\{ X_k=x \}}
+	\end{equation}
+	presque surement.
+\end{proposition}
+
+\begin{proof}
+	Étant donné que la chaine est irréductible, les états sont soit tous transient soit tous récurrents par la proposition~\ref{Proptoustanstousrecirrsi}. Nous commençons par considérer que \( x\) est transient.
+
+	En comparant la définition \eqref{EqDefNxmtuXkn} de \( N_x\) et le membre de droite de \eqref{EqPiEndempropropkeu}, nous avons pour chaque \( n\) l'inégalité
+	\begin{equation}    \label{EqkkueusnfracunENx}
+		\frac{1}{ n }\sum_{k=1}^n\mtu_{\{ X_k=x \}}\leq\frac{1}{ n }E(N_x).
+	\end{equation}
+	Dans le cas d'un élément transient, nous avons \( \pi(x)=0\), donc il serait bon de montrer que \( E(N_x)<\infty\), de sorte que prendre la limite \( n\to\infty\) dans \eqref{EqkkueusnfracunENx} donne zéro.
+
+	Nous décomposons le calcul en deux morceaux :
+	\begin{equation}
+		E(N_x)=E\big( N_x|T(x)=\infty \big)P\big( T(x)=\infty \big)+E\big( N_x|T(x)<\infty \big)P\big( T(x)<\infty \big).
+	\end{equation}
+	Le fait que le premier terme soit fini découle immédiatement du fait que \( T(x)=\infty\) implique \( X_k\neq x\) pour tout \( k\geq 1\). Dans ce cas l'espérance de \( N_x\) est évidemment finie.
+
+	Pour le second terme nous avons
+	\begin{subequations}
+		\begin{align}
+			E\big( N_x|T(x)<\infty \big) & =E\big( \sum_{k=0}^{\infty}\mtu_{\{ X_k=x \}}|T(x)<\infty \big)  \\
+			                             & =\sum_{k=1}^{\infty}E\big( \mtu_{\{ X_k=x \}}|T(x)<\infty \big).
+		\end{align}
+	\end{subequations}
+	Pour inverser la somme et l'espérance, nous avons utilisé le théorème de Fubini-Tonelli qui est encore valable pour des fonctions qui prennent la valeur \( \infty\). Le fait d'inverser ne signifie pas que ni la somme ni l'intégrale soit finie. D'ailleurs c'est exactement ce que nous sommes en train de déterminer.
+
+	Étant donné que nous voulons seulement savoir si cette somme est finie ou non, nous pouvons nous restreindre à la somme depuis \( k=1\) et oublier le premier terme. D'autre part nous avons
+	\begin{equation}
+		\sum_{k=1}^{\infty}\mtu_{\{ X_k=x \}}=\sum_{j=0}^{\infty}\mtu_{\{ X_{j+T(x)}=x \}}
+	\end{equation}
+	parce que les \( T(x)\) premiers termes sont par définition nuls. Nous regardons donc
+	\begin{subequations}
+		\begin{align}
+			\sum_{j=0}^{\infty}E\big( \mtu_{X_{j+T(x)}=x}|T(x)<\infty \big) & =\sum_{j}P\big( X_{j+T(x)}=x|T(x)<\infty \big)                                                 \\
+			                                                                & =\sum_jP(X_j=x|X_0=x)  \label{subeqsumkPXjXzsezii}                                             \\
+			                                                                & =\sum_jE\big( \mtu_{\{ X_j=x \}}|X_0=x \big)                                                   \\
+			                                                                & =E\big( \sum_j\mtu_{X_j=x}|X_0=x \big)                                                         \\
+			                                                                & =E(N_x|X_0=x)                                                                                  \\
+			                                                                & <\infty                                            & \text{parce que } x\text{ est transient.}
+		\end{align}
+	\end{subequations}
+	L'équation \eqref{subeqsumkPXjXzsezii} provient de la proposition~\ref{PropMrkIrreLoishLCkpjkptXk} et plus précisément de l'égalité entre les lois \eqref{PropMrkIrreLoishLCkpjkptXkItemii}. Nous avons terminé la preuve dans le cas où \( x\) est transient.
+
+	Nous passons maintenant au cas où \( x\) est récurrent, c'est-à-dire \( P(T(x)<\infty|X_0=x)=1\). Les variables aléatoires \( T_i\) définies en \eqref{SubEqsDefTirectempsretou} pour \( i\geq 2\) sont indépendantes et identiquement distribuées et
+	\begin{equation}
+		\hL\big( T_k(x) \big)\sim\hL\big( T(X)|X_0=x \big).
+	\end{equation}
+	La loi des grands nombres nous indique que
+	\begin{subequations}        \label{EqlgnMarkdemked}
+		\begin{align}
+			\frac{ S_n }{ n }=\frac{ T_1(x) }{ n }+\frac{1}{ n }\sum_{k=2}^nT_k(x)\stackrel{p.s.}{\longrightarrow} & E\big( T_2(x) \big)       \\
+			                                                                                                       & =E\big( T(x)|X_0=x \big).
+		\end{align}
+	\end{subequations}
+
+	Nous posons pour \( m\in\eN\)
+	\begin{equation}    \label{EqDennmsumjmtu}
+		n(m)=\sum_{j=1}^m\mtu_{\{ X_j=x \}}
+	\end{equation}
+	qui est le nombre de visites de \( x\) avant l'instant \( m\). Nous avons évidemment \( n(m)\leq m\). Mais \( S_n\) est l'instant de la \( n\)ième visite, par conséquent \( S_{n(m)}\) est l'instant de la dernière visite avant le moment \( m\). Pour tout \( m\) nous avons les inégalités
+	\begin{equation}
+		S_{n(m)}\leq m<S_{n(m)+1}.
+	\end{equation}
+	Nous divisons par \( n(m)\) et nous effectuons la limite \( m\to\infty\):
+	\begin{equation}    \label{EqdrembSnm}
+		\frac{ S_n(m) }{ n(m) }\leq \frac{ m }{ n(m) }\leq\frac{ S_{n(m)}+1 }{ n(m) }
+	\end{equation}
+	En ce qui concerne la limite de \( n(m)\), nous utilisons la définition \eqref{EqDennmsumjmtu} :
+	\begin{equation}
+		\lim_{m\to \infty}  n(m)=\lim_{m\to \infty} \sum_{n=1}^m\mtu_{\{ X_j=x \}}=\sum_{j=1}^{\infty}\mtu_{\{ X_j=x \}}\stackrel{p.s.}{\longrightarrow}\infty
+	\end{equation}
+	par la proposition \ref{PropEquivEPrecuequiv}. Plus précisément, la limite vaut \( N_x\) qui vaut presque surement \( \infty\) dans le cas où \( x\) est récurrent. Par ailleurs la loi des grands nombres \eqref{EqlgnMarkdemked} nous enseigne en particulier que
+	\begin{equation}
+		\frac{ S_{n(m)} }{ n(m) }\stackrel{p.s.}{\longrightarrow} E\big( T(x)|X_0=x \big).
+	\end{equation}
+	Le terme de droite dans \eqref{EqdrembSnm} se traite de façon usuelle :
+	\begin{equation}
+		\frac{ S_{n(m)+1} }{ n(m) }=\frac{ S_{n(m)+1} }{ n(m)+1 }\frac{ n(m)+1 }{ n(m) }.
+	\end{equation}
+	Le dernier facteur tend vers \( 1\) et le tout a pour limite \( E\big( T(x)|X_0=x \big)\). Par conséquent nous avons
+	\begin{equation}
+		\frac{ m }{ n(m) }\stackrel{p.s.}{\longrightarrow}E\big( T(x)|X_0=x \big)
+	\end{equation}
+	et
+	\begin{equation}
+		\frac{ n(m) }{ n }=\frac{1}{ m }\sum_{j=1}^m\mtu_{\{ X_j=x \}}\to\frac{1}{ E\big( T(x)|X_0=x \big) }=\pi(x).
+	\end{equation}
+\end{proof}
+
+
+La proposition suivante nous permet de parler de chaine de Markov \defe{récurrence positive}{chaine!de Markov!récurrente positive}.
+\begin{proposition}     \label{PropUyLCzp}
+	Soit \( (x_n)\) une chaine de Markov irréductible.
+	\begin{enumerate}
+		\item
+		      Un état \( x\) est transient si et seulement si tous les états sont transients.
+		\item
+		      Un état est récurrent positif  si et seulement si tous les états sont récurrents positifs.
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	Nous rappelons (proposition~\ref{PropjOjDux}) que si la chaine est irréductible
+	\begin{equation}        \label{EqZZMqsm}
+		\pi(x)=\lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^n\mtu_{[X_k=x]}
+	\end{equation}
+	Notons aussi que
+	\begin{equation}
+		\sum_{k=1}^N\mtu_{X_k=x}=\begin{cases}
+			0                                      & \text{si } N<T(x) \\
+			\sum_{k=0}^{N-T(x)}\mtu_{X_{k+T(x)}=x} & \text{si } N>T(x)
+		\end{cases}
+	\end{equation}
+	où dans la seconde ligne nous avons effectué le changement de variable de sommation \( k'=k+T(x)\). Dans la limite \eqref{EqZZMqsm} nous sommes toujours dans le cas où \( N\) est assez grand. Nous pouvons donc écrire
+	\begin{equation}
+		\pi(x)=\lim_{N\to \infty} \frac{1}{ N }\sum_{k=0}^{N-T(x)}\mtu_{X_{k+T(x)}=x}.
+	\end{equation}
+	Nous pouvons aussi écrire
+	\begin{equation}
+		\frac{1}{ N-T(x) } \sum_{k=0}^{N-T(x)}\mtu_{X_{k+T(x)}=x}=\frac{ N }{ N-T(x) }\frac{1}{ N } \sum_{k=0}^{N-T(x)}\mtu_{X_{k+T(x)}=x}.
+	\end{equation}
+	Dans cette dernière égalité le membre de droite tend vers \( \pi(x)\) et nous avons
+	\begin{equation}
+		\lim_{N\to \infty} \frac{1}{ N-T(x) } \sum_{k=0}^{N-T(x)}\mtu_{X_{k+T(x)}=x}=\pi(x)
+	\end{equation}
+	ou encore
+	\begin{equation}
+		\lim_{N\to \infty} \frac{1}{ N} \sum_{k=0}^{N}\mtu_{X_{k+T(x)}=x}=\pi(x)
+	\end{equation}
+	Étant donné que \( \pi(x)\) est une constante nous avons évidemment \( E(\pi(x))=\pi(x)\). Nous pouvons cependant considérer les variables aléatoires
+	\begin{equation}
+		Z_n=\frac{1}{ n }\sum_{k=1}^n\mtu_{X_{k+T(x)}=x}
+	\end{equation}
+	et remarquer que \( Z_n\stackrel{p.s.}{\longrightarrow} \pi(x)\) avec \( 0\leq Z_n\leq 1\). Le théorème de la convergence dominée (\ref{ThoConvDomLebVdhsTf}) nous permet d'inverser la limite et l'espérance et écrire
+	\begin{subequations}
+		\begin{align}
+			\pi(x) & =\lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^nE\big( \mtu_{X_{k+T(x)}=x} \big) \\
+			       & =\lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^nP\big( X_{k+T(x)}=x \big).
+		\end{align}
+	\end{subequations}
+	Par le lemme~\ref{LembyftKs} nous avons
+	\begin{equation}
+		P(X_{k+T(x)}=x)=P(X_k=k|X_0=x)
+	\end{equation}
+	et \( \pi(x)\) prend la forme
+	\begin{equation}        \label{EqurCteK}
+		\pi(x)=\lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^nP(X_k=x|X_0=x).
+	\end{equation}
+
+	Soit maintenant un état \( x\) positif récurrent et \( y\), un autre état. Par définition~\ref{DefWknULk} et par corolaire~\ref{CorLhpRsk} nous avons \( \pi(x)>0\). Nous devons prouver que \( \pi(y)>0\).
+
+	Étant donné que la chaine est irréductible il existe \( r\) et \( s\) tels que
+	\begin{subequations}
+		\begin{numcases}{}
+			p^r(x,y)=P(X_r=y|X_0=x)>0\\
+			p^s(x,y)=P(X_s=x|X_0=y)>0
+		\end{numcases}
+	\end{subequations}
+	Nous reprenons l'équation \eqref{EqRmuXtG} multipliée par \( 1/N\) :
+	\begin{equation}
+		\frac{1}{ N }\sum_{n=1}^NP(X_{r+s+n=y|X_0=y})\geq \underbrace{p^r(x,y)p^s(y,x)}_{\geq 0}\underbrace{\frac{1}{ N }\sum_{n=1}^NP(X_n=x|X_0=x)}_{\to \pi(x)}
+	\end{equation}
+	et nous prenons la limite lorsque \( N\to\infty\). À \(r+s\) termes près, nous trouvons à gauche l'expression \eqref{EqurCteK} de \( \pi(y)\). Par conséquent
+	\begin{equation}
+		\pi(y)\geq\lim_{N\to \infty} \frac{1}{ n }\sum_{n=1}^NP(X_{r+s+n}=y|X_0=y)\geq \alpha\pi(x)
+	\end{equation}
+	où \( \alpha\) est une constante positive. Le nombre \( \pi(x)\) étant strictement positif par hypothèse nous avons montré que \( \pi(y)>0\), c'est-à-dire que \( y\) est récurrent positif.
+\end{proof}
+
+%-------------------------------------------------------
+\subsection{Périodique et irréductible}
+%----------------------------------------------------
+
+Nous voudrions savoir sous quelles conditions la variable aléatoire \( X_n\) converge en loi vers quelque chose lorsque \( n\to \infty\). Une telle loi limite doit dépendre de la loi initiale\footnote{Lorsque la loi limite ne dépend pas de la loi initiale, nous disons que la chaine de Markov est ergodique, nous y reviendrons.} comme le montre l'exemple de la chaine de Markov
+\begin{equation}
+	\xymatrix{%
+		A\ar@(dl,ul)^1  & C\ar[l]_{1/2}\ar[r]^{1/2} &  B\ar@(dr,ur)_1
+	}
+\end{equation}
+Si \( X_0=C\), alors la loi limite est
+\begin{equation}
+	\frac{ 1 }{2}(\delta_A+\delta_B).
+\end{equation}
+Si par contre \( X_0=B\), la loi limite est \(\delta_B\). Notons que la chaine de Markov proposée ici est irréductible.
+
+Notons qu'il n'y a pas toujours de lois limite comme le montre l'exemple
+\begin{equation}
+	\xymatrix{%
+		A\ar@<1ex>[r]^1  & B\ar@<1ex>[l]^1
+	}
+\end{equation}
+avec \( X_0=A\). La loi en est
+\begin{equation}
+	X_k=\begin{cases}
+		\delta_A & \text{si } k\text{ est pair}    \\
+		\delta_B & \text{si } k\text{ est impair}.
+	\end{cases}
+\end{equation}
+
+
+\begin{lemma}
+	Si nous avons une loi limite
+	\begin{equation}    \label{EqmbQMAY}
+		P(X_n=x)\to l(x),
+	\end{equation}
+	et que la chaine est irréductible, alors nous avons \( l=\pi\).
+\end{lemma}
+
+\begin{proof}
+	D'après la proposition~\ref{PropjOjDux} nous avons
+	\begin{equation}
+		\frac{1}{ n }\sum_{k=1}^nP(X_k=x)\to \pi(x).
+	\end{equation}
+	Par le lemme~\ref{LemyGjMqM} sur la moyenne de Cesàro et l'hypothèse \eqref{EqmbQMAY}, nous avons aussi
+	\begin{equation}
+		\frac{1}{ n }\sum_{k=1}^nP(X_k=x)\to l(x).
+	\end{equation}
+	Du coup \( \pi(x)=l(x)\).
+\end{proof}
+
+\begin{lemma}[\cite{MarkGuy}]
+	Si \( \pi\) est une loi stationnaire et si \( x\) est un étant transient, alors \( \pi(x)=0\).
+\end{lemma}
+Ce lemme (qui peut être prouvé rigoureusement) est principalement dû au fait que la chaine de Markov ne visite un état transitoire qu'un nombre fini de fois par la proposition~\ref{PropEquivEPrecuequiv}\ref{ItemiMnGpD}.
+
+\begin{definition}  \label{DefCxvOaT}
+	Un état \( x\in E\) est \defe{apériodique}{état!apériodique}\index{apériodique!état d'une chaine de Markov} si
+	\begin{equation}
+		\pgcd\{ n\geq 1\tq p^n(x,x)>0 \}=1.
+	\end{equation}
+\end{definition}
+Mettons que tous les \( n\) tels que \( p^n(x,x)>0\) ont \( 2\) comme diviseur. L'état n'est alors pas apériodique, mais on voit que si \( X_0=x\), alors les états impairs ne peuvent pas être sur \( x\). Cela est une forme de périodicité.
+
+Si un état est apériodique, il existe \( r\) et \( s\) premiers entre eux tels que \( p^r(x,x)\) et \( p^s(x,x)\) sont non nuls. En particulier pour tout \( n\in r\eN+s\eN\), \( P(X_n=x)\neq 0\). Par conséquent la proposition~\ref{PropLAbRSE} nous indique qu'à partir d'un certain moment tous les \( X_k\) pourraient être \( x\).
+
+L'état \( C\) de la chaine de Markov suivante est apériodique :
+\begin{equation}
+	\xymatrix{%
+		A\ar@<0.5ex>[rr]^1  && B\ar@<0.5ex>[ll]^{2/3}\ar[dl]^{1/3}\\
+		&C\ar[ul]^1
+	}
+\end{equation}
+En effet \( p^3(C,C)\neq 0\) par le chemin \( C\to A\to B\to C\) tandis que \( p^5(C,C)\neq 0\) également par le chemin \( C\to A\to B\to A\to B\to C\). Or \( \pgcd\{ 3,5 \}=1\).
+
+\begin{proposition}[\cite{MarkGuy}]     \label{PropSaOysS}
+	Soit \( (X_n)\), une chaine de Markov irréductible. Un état \( x\) est apériodique si et seulement si il existe \( N\) tel que
+	\begin{equation}
+		p^k(x,x)=P(X_k=x|X_0=x)>0
+	\end{equation}
+	pour tout \( k\geq N\).
+\end{proposition}
+
+\begin{propositionDef}		\label{DEFooBNBVooBuWQqi}
+	Si une chaine de Markov est irréductible, alors un état est apériodique si et seulement si tous les états sont apériodiques.
+
+	Dans ce cas nous disons que la chaine est \defe{apériodique}{chaine de Markov apériodique}.
+\end{propositionDef}
+
+\begin{proof}
+	Soit \( x\) un état apériodique de la chaine de Markov \( (X_n)_{n\in \eN}\). En vertu de la proposition~\ref{PropSaOysS} il existe \( N_x\) tel que \( p^k(x,x)\neq 0\) pour tout \( k\geq N_x\). Soit \( y\in E\). Étant donné que la chaine est irréductible, il existe \( r\) et \( s\) tels que \( p^r(x,y)>0\) et \( p^s(y,x)>0\). Nous avons
+	\begin{equation}
+		p^{k+r+s}(y,y)=P(X_{k+r+s}=y|X_0=y)\geq p^s(x,y)P(X_k=x|X_0=x)p^r(y,x).
+	\end{equation}
+	Si \( k\) est assez grand, cette quantité est strictement positive. Donc il suffit de prendre \( N_y=N_x+r+s\) pour savoir que \( y\) est également apériodique.
+\end{proof}
+
+\begin{example}
+	Quelle est la différence entre une chaine irréductible et une chaine apériodique ? Une chaine est irréductible lorsque aucune sous-chaine ne peut piéger le système. Pour toute paire d'états \( x,y\in E\), il existe un \( n\) tel qu'il soit possible d'aller de \( x\) à \( y\) en \( n\) pas. Une chaine est apériodique lorsqu'après un temps suffisamment long, \emph{tous} les états soient possibles en même temps.
+
+	Un exemple de chaine irréductible non apériodique :
+	\begin{equation}
+		\xymatrix{%
+		A \ar@/^/[r]^-{1}    &   B\ar@/^/[l]^{1}\\
+		}
+	\end{equation}
+	Cette chaine est irréductible parce que le graphe est connexe, par contre il n'est pas apériodique parce que si \( X_0=A\) il n'est pas possible d'être dans l'état \( A\) après un nombre impair de pas.
+
+	Plus formellement, \( p^n(A,A)=1\) dès que \( n\) est pair; le PGCD de la définition~\ref{DefCxvOaT} n'est donc certainement pas \( 1\).
+\end{example}
 
 \begin{theorem}[\cite{MarkGuy}]     \label{ThoQSuLZoz}
 	Si \( (X_n)\) est une chaine de Markov finie, irréductible\footnote{Irréductible, définition \ref{DEFooGKRQooFNuwRm}.} et apériodique\footnote{Définition \ref{DEFooBNBVooBuWQqi}.} de loi stationnaire \( \pi\), alors
@@ -515,37 +1098,6 @@ La matrice de transition de cette chaine de Markov est une matrice infinie «dan
 		\end{subequations}
 		Pour \eqref{SUBEQooOWSUooTlUXAs}, nous avons utilisé la propriété de Markov.
 	\end{subproof}
-\end{proof}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Graphe de transition}
-%---------------------------------------------------------------------------------------------------------------------------
-
-Le \defe{graphe de transition}{graphe!de transition (chaine de Markov)} d'une chaine de Markov est le graphe dont les sommets sont les éléments de l'espace des états de la chaine et dont les sommets sont reliés par des arêtes pondérées par la probabilité de transition correspondante.
-
-\begin{definition}[\cite{GMbugcT}]      \label{DEFooGKRQooFNuwRm}
-	Une chaine de Markov est \defe{irréductible}{irréductible!chaine de Markov}\index{chaine!de Markov!irréductible} si pour tout \( x,y\in E\), il existe \( n\) tel que \( p^n(x,y)>0\) où
-	\begin{equation}
-		p^n(x,y)=P(X_n=y|X_0=x).
-	\end{equation}
-	Le nombre \( n\) peut dépendre de \( x\) et \( y\).
-
-	Une chaine de Markov finie est \defe{régulière}{chaine de Markov régulière} si il existe un \( n\in \eN\) tel que \( P^n\) a uniquement des éléments strictement positifs.
-\end{definition}
-
-\begin{lemma}
-	Une chaine de Markov homogène est irréductible si et seulement si son graphe de transition est connexe.
-\end{lemma}
-
-\begin{proof}
-	Pour chaque couple \( (x,y)\in E^2\) nous avons
-	\begin{equation}
-		\begin{aligned}[]
-			p^n(x,y) & =\sum_{z_i\in E}P(X_n=y,X_{n-1}=z_{n-1},\ldots,X_1=z_1,X_0=x)       \\
-			         & =\sum_{z_i}p(z_{n-1},y)p(z_{n-2},z_{n-1})\ldots p(z_1,z_2)p(x,z_1).
-		\end{aligned}
-	\end{equation}
-	La positivité d'un des termes de la somme signifie que le graphe est connexe tandis que la positivité de \( p^n(x,y)\) signifie que la chaine est irréductible.
 \end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
@@ -828,18 +1380,8 @@ Sauf mention expresse du contraire, nous considérons toujours une chaine de Mar
 \end{definition}
 Il n'est pas spécialement impossible d'arriver sur un état absorbant, mais il est impossible d'en sortir.
 
-Si \( x\in E\), nous notons
-\begin{equation}
-	T(x)=\inf\{ k\geq 1\tq X_k=x \},
-\end{equation}
-le \defe{premier temps d'atteinte}{premier temps d'atteinte} de l'état \( x\). Si \( X_0=x\), alors \( T(x)\) est le \defe{temps de retour}{temps de retour} en \( x\). Si \( p\in \eN\) nous notons
-\begin{equation}
-	T_p(x)=\inf\{ k\geq 1\tq X_{k+p}=x \}.
-\end{equation}
-C'est le temps mis pour atteindre \( x\) à partir de l'instant \( p\).
-
 \begin{proposition}
-	La loi de la variable aléatoire \( [T_p(x)|X_p=x]\) est la même que celle de la variable aléatoire \( [T(x)|X_0=x]\).
+	En notant \( T\) le temps de première atteinte\footnote{Définition \ref{DEFooDWLAooINqgep}.}, a loi de la variable aléatoire \( [T_p(x)|X_p=x]\) est la même que celle de la variable aléatoire \( [T(x)|X_0=x]\).
 \end{proposition}
 
 \begin{proof}
@@ -951,433 +1493,6 @@ où \( Q\) est une matrice \( N-r\times N-r\).
 
 	Pour la suite, voir \cite{GMbugcT} en utilisant la proposition \ref{PROPooUNBDooVhXZxi}.
 	%TODOooQLLOooQymTIq. terminer cette preuve.
-\end{proof}
-
-%--------------------------------------------------------------------------------------------------------------------------- 
-\subsection{Récurrent et transient}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{definition}\label{DefWknULk}
-	Un état \( x\) est \defe{récurrent}{récurrent!état}\index{état!récurrent} si \( P(T(x)=\infty|X_0=x)=0\), c'est-à-dire si la probabilité de ne jamais retourner en \( x\) lorsqu'on y est passé est nulle. L'état \( x\) est \defe{transient}{transient!état} ou \defe{transitoire}{transitoire!état}\index{état!transitoire} dans le cas contraire.
-
-	Si \( x\) est un état récurrent, et si \( E\big( T(x)|X_0=x \big)<\infty\), nous disons que \( x\) est \defe{récurrent positif}{récurrent!positif}\index{état!récurrent positif}. Si \( E\big( T(x)|X_0=x \big)=\infty\) alors nous disons que est \defe{récurrent nul}{récurrent!nul}.
-\end{definition}
-
-Nous introduisons une variable aléatoire qui compte le nombre de fois que la chaine de Markov passe par l'état \( x\) :
-\begin{equation}    \label{EqDefNxmtuXkn}
-	N_x=\sum_{k=0}^{\infty}\mtu_{\{ X_k=x\}}.
-\end{equation}
-C'est une variable aléatoire à valeurs dans \( \eN\cup\{ \infty \}\).
-
-\begin{proposition} \label{PropEquivEPrecuequiv}
-	Les deux propriétés suivantes sont équivalentes à dire que \( x\) est récurrent:
-	\begin{enumerate}
-		\item
-		      \( P(N_x<\infty|X_0=x)=0\)
-		\item
-		      \( E(N_x|X_0=x)=\infty\).
-	\end{enumerate}
-	Les deux propriétés suivantes sont équivalentes à dire que \( x\) est transient :
-	\begin{enumerate}
-		\item   \label{ItemiMnGpD}
-		      \( P(N_x<\infty|X_0=x)=1\)
-		\item
-		      \( E(N_x|X_0=x)<\infty\).
-	\end{enumerate}
-\end{proposition}
-
-\begin{proof}
-	En tant que événements, nous avons l'égalité
-	\begin{equation}
-		N_x<\infty=\bigcup_{n\in\eN}\{\underbrace{ X_n=x,X_{n+k}\neq x\forall k\geq 1}_{F_n} \}.
-	\end{equation}
-	Nous avons donc
-	\begin{equation}    \label{Eqreprencalculstd}
-		P(N_x<\infty|X_0=x)=\sum_{n=0}^{\infty}P(F_n|X_0=x),
-	\end{equation}
-	et
-	\begin{subequations}
-		\begin{align}
-			P(F_n|X_0=x) & =P(X_{n+k}\neq x, \forall k\geq 1,X_n=x|X_0=x)                          \\
-			             & =P(X_{n+k}\neq x,k\geq 1|X_n=x,X_0=x)P(X_n=x|X_0=x)                     \\
-			             & =P(X_{n+k}\neq x,k\geq 1|X_n=x)P(X_n=x|X_0=x)  \label{subEqPFnXkneqxii} \\
-			             & =P(X_k\neq x,k\geq 1|X_0=x)P(X_n=x|X_0=x)  \label{subEqPFnXkneqxi}      \\
-			             & =P(T(x)=\infty|X_0=x)P(X_n=x|X_0=x)    \label{subEqPFnXkneqxiii}
-		\end{align}
-	\end{subequations}
-	Justifications :
-	\begin{enumerate}
-		\item
-		      Pour \eqref{subEqPFnXkneqxii}, nous utilisons le fait que la chaine soit «sans mémoire».
-		\item
-		      Pour \eqref{subEqPFnXkneqxi}, nous utilisons le fait que la chaine soit homogène.
-		\item
-		      Pour \eqref{subEqPFnXkneqxiii}, l'événement \( X_k\neq x\) pour tout \( k\geq 1\) est exactement l'événement \( T(x)=\infty\).
-	\end{enumerate}
-	En nous servant de la proposition~\ref{PropInversSumIntFub} (théorème de Fubini et mesure de comptage), nous permutons l'espérance et la somme dans l'expression
-	\begin{subequations}        \label{EqPEEEntstq}
-		\begin{align}
-			\sum_{n=0}^{\infty}P(X_n=x|X_0=x) & =\sum_{n=0}^{\infty}E(\mtu_{\{ X_n=x \}}|X_0=x)           \\
-			                                  & =E\big( \sum_{n=0}^{\infty}\mtu_{\{ X_n=x \}}|X_0=x \big) \\
-			                                  & =E(N_x|X_0=x).
-		\end{align}
-	\end{subequations}
-	Voyons ce passage plus en détail. D'abord, en général nous avons
-	\begin{equation}
-		E(Y|X=x_0)=\int_{\{ X=x_0 \}}Y(\omega)dP(\omega)
-		=\int_{\Omega}\mtu_{\{ X=x_0 \}}(\omega)Y(\omega)dP(\omega).
-	\end{equation}
-	Dans notre cas,
-	\begin{equation}
-		E\big( \mtu_{\{ X_n=x \}}|X_0=x \big)=\int_{\Omega}\mtu_{X_0=x}(\omega)\mtu_{\{ X_n=x \}}(\omega)dP(\omega).
-	\end{equation}
-	La fonction qui correspond à la proposiiton~\ref{PropInversSumIntFub} est
-	\begin{equation}
-		f(n,\omega)=f_n(\omega)=\delta_{X_0(\omega),x}\delta_{X_n(\omega),x},
-	\end{equation}
-	qui est bien une fonction positive et mesurable.
-
-	Nous reprenons à présent le calcul \eqref{Eqreprencalculstd} en remplaçant les éléments par leurs valeurs que nous avons calculées :
-	\begin{equation}    \label{EqPnxXzTxarn}
-		P(N_x<\infty|X_0=x)=P\big(T(x)=\infty|X_0=x\big)E(N_x|X_0=x).
-	\end{equation}
-	Si \( x\) est récurrent, nous avons \( P\big( T(x)=\infty|X_0=x \big)=0\), mais la relation \eqref{EqPnxXzTxarn} ne permet pas de conclure que le membre de gauche est nul parce qu'il reste la possibilité que \( E(N_x|X_0=x)=\infty\). Nous devons donc faire un pas en arrière et écrire cette espérance comme la limite des sommes partielles :
-	\begin{equation}
-		P(N_x<\infty|X_0=x)=\lim_{N\to \infty} \sum_{n=0}^NP\big( T(x)=\infty|X_0=x \big)P(X_n=x|X_0=x)=0
-	\end{equation}
-	parce que tous les termes de la suite des sommes partielles sont nuls. Nous avons donc bien que \( P(N_x<\infty|X_0=x)=0\). Il s'ensuit immédiatement que \( E(N_x|X_0=x)=1\).
-
-	Nous devons maintenant démontrer l'implication inverse. Supposons que \( P(N_x<\infty|X_0=x)=0\). Dans ce cas nous avons immédiatement \( P(N_x=\infty|X_0=x)=1\) et \( E(N_x|X_0=x)=\infty\). L'équation \eqref{EqPnxXzTxarn} nous indique alors que
-	\begin{equation}
-		P\big( T(x)=\infty|X_0=x \big)=0,
-	\end{equation}
-	c'est-à-dire que \( x\) est récurrent.
-\end{proof}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Chaînes irréductibles}
-%---------------------------------------------------------------------------------------------------------------------------
-
-\begin{proposition}     \label{Proptoustanstousrecirrsi}
-	Soit \( (X_n)\) une chaine de Markov irréductible.
-	\begin{enumerate}
-		\item
-		      Un état \( x\) est récurrent si et seulement si tous les états sont récurrents.
-		\item
-		      Un état \( x\) est transient si et seulement si tous les états sont transients.
-	\end{enumerate}
-\end{proposition}
-
-\begin{proof}
-	Soient \( x\) et \( y\) des états de la chaine de Markov. Nous devons tester la valeur de \( P(X_n=y|X_0=y)\). Afin d'exploiter l'hypothèse d'irréductibilité, nous considérons \( r,s\in\eN\) tels que
-	\begin{subequations}
-		\begin{align}
-			p^r(x,y)>0 \\
-			p^s(y,x)>0
-		\end{align}
-	\end{subequations}
-	et nous minorons en passant par quelques intermédiaires :
-	\begin{subequations}
-		\begin{align}
-			P(X_{n+r+s}=y|X_0=y) & \geq P(X_{n+r+s}=y,X_{n+s}=x,X_s=x|X_0=y)               \\
-			                     & =P(X_{n+r+s}=y|X_{n+s}=x,X_s=x,X_0=y)                   \\
-			                     & \qquad P(X_{n+s}=x|X_s=x,X_0=y)P(X_s=x|X_0=y)\nonumber.
-		\end{align}
-	\end{subequations}
-	Les deux premiers facteurs se calculent en utilisant la propriété de Markov et l'homogénéité de la chaine. Pour le premier,
-	\begin{equation}
-		P(X_{n+s}=x|X_s=x,X_0=y)=P(X_{n+s}=x|X_s=x)=P(X_n=x|X_0=x).
-	\end{equation}
-	Nous avons donc
-	\begin{equation}        \label{EqRmuXtG}
-		\sum_{n\in\eN}P(X_{n+r+s}=y|X_0=y)\geq p^r(x,y)p^s(y,x)\sum_{n\in\eN}P(X_n=x|X_0=x).
-	\end{equation}
-	En réutilisant Fubini comme dans l'équation \eqref{EqPEEEntstq}, nous avons
-	\begin{equation}
-		\sum_{n\in \eN}P(X_{n+r+s}=y|X_0=y)\geq KE(N_x|X_0=x)
-	\end{equation}
-	où \( K\) est une constante strictement positive, par hypothèse d'irréductibilité de la chaine de Markov.
-
-	Si \( x\) est un état récurrent, alors le membre de gauche est infini par la proposition \eqref{PropEquivEPrecuequiv} et donc
-	\begin{equation}
-		\sum_{n\in\eN}P(X_{n+r+s}=y|X_0=y)=\infty.
-	\end{equation}
-	Aux \( r+s\) premiers termes près (qui ne changent pas la somme), nous avons
-	\begin{equation}
-		\sum_{n\in\eN}P(X_n=y|X_0=y)=\infty,
-	\end{equation}
-	ce qui signifie que \( y\) est récurrent.
-\end{proof}
-
-Nous rappelons que \( T(x)\) est le temps de première atteinte de l'état \( x\). Nous notons\nomenclature[M]{\( \pi(x)\)}{lié au temps de retour}
-\begin{equation}        \label{EqKyuLYk}
-	\pi(x)=\frac{1}{ E\big( T(x)|X_0=\infty \big) }.
-\end{equation}
-Étant donné que \( T(x)\) est un entier positif ou nul nous avons \( E\big( T(x)|X_0=x \big)\in\mathopen[ 1 , \infty \mathclose]\) et donc \( \pi(x)\in\mathopen[ 0 , 1 \mathclose]\).
-
-Si \( x\) est un état transient, alors \( T(x)=\infty\) lorsque \( X_0=x\) et donc \( E\big( T(x)|X_0=x \big)=0\) et \( \pi(x)=0\). Si \( x\) est récurrent par contre, \( P\big( T(x)<\infty|X_0=x \big)=1\) et il n'y a pas de garanties sur la valeur de \( E\big( T(x)|X_0=x \big)\).
-
-\begin{corollary}       \label{CorLhpRsk}
-	Un état récurrent est récurrent positif si et seulement si \( \pi(x)>0\). Un état récurrent est récurrent nul si et seulement si \( \pi(x)=0\).
-\end{corollary}
-
-\begin{proof}
-	C'est la formule \eqref{EqKyuLYk}.
-\end{proof}
-
-\begin{proposition} \label{PropMrkIrreLoishLCkpjkptXk}
-	Soit \( (X_n)\) est une chaine de Markov irréductible.
-	\begin{enumerate}
-		\item
-		      Si \( x\) est un état récurrent, alors \( T(X)<\infty\) presque surement.
-		\item
-		      Nous avons une égalité entre les lois
-		      \begin{equation}    \label{PropMrkIrreLoishLCkpjkptXkItemii}
-			      \hL\big( X_{k+T(x)}|T(x)<\infty \big)=\hL(X_k|X_0=x).
-		      \end{equation}
-	\end{enumerate}
-\end{proposition}
-
-%---------------------------------------------------------------------------------------------------------------------------
-\subsection{Nombre de visites}
-%---------------------------------------------------------------------------------------------------------------------------
-
-La fonction
-\begin{equation}
-	\frac{1}{ n }\sum_{k=1}^n\mtu_{\{ X_k=x \}}
-\end{equation}
-est la \defe{fréquence empirique}{fréquence!empirique} de la chaine de Markov.
-
-Soit \( x\) un état récurrent, c'est-à-dire que \( P\big( T(x)<\infty|X_0=x \big)=1\). Nous classons les visites de la façon suivante :
-\begin{subequations}    \label{SubEqsDefTirectempsretou}
-	\begin{align}
-		T_1(x) & =T(x)=\inf\{ k\geq 1\tq X_k=x \}         \\
-		T_2(x) & =\inf\{ k\geq 1\tq X_{T_1(x)+k}=x \}     \\
-		       & \vdots                                   \\
-		T_n(x) & =\inf\{ k\geq 1\tq X_{T_{n-1}(x)+k}=x \}
-	\end{align}
-\end{subequations}
-La variable aléatoire \( T_i\) représente le temps entre la visite numéro \( i-1\) et la visite numéro \( i\) (si \( X_0\neq x\), sinon il faut décaler). Nous définissons l'instant la visite numéro \( n\) :
-\begin{equation}
-	S_n=\sum_{k=1}^nT_k(x).
-\end{equation}
-
-\begin{lemma}
-	Les variables aléatoires \( T_i\) sont indépendantes.
-\end{lemma}
-
-\begin{proof}
-	Nous choisissons \( n\) des \( T_i\) et nous calculons la probabilité
-	\begin{equation}
-		\spadesuit=P(T_{i_1}=k_1,T_{i_2}=k_2,\ldots,T_{i_n}=k_n)
-	\end{equation}
-	où nous supposons \( i_1>i_2>\ldots>i_n\). Nous décomposons cette probabilité en sommant sur toutes les histoires de la chaine de Markov compatibles avec les nombres \( k_i\) donnés :
-	\begin{equation}
-		\spadesuit=\sum_{\substack{\{ z_j \}\\\text{compatibles}}}P(X_j=z_j,j=1,\ldots,N).
-	\end{equation}
-	Notons qu'ici, le numéro du dernier terme de la somme n'est pas certain parce que tous les \( T_i\) ne sont pas fixés. Nous l'avons noté \( N\), mais en réalité il est différent d'un terme à l'autre de la somme. Il est certain que \( z_N=x\) et \( z_{N-k_1}=x\) et si \( N-k_1<j<N\), alors \( z_j\neq x\). Cela est simplement le fait que nous demandions aux \( z_i\) de respecter les conditions données par les \( k_i\). Nous avons
-	\begin{subequations}
-		\begin{align}
-			\spadesuit & =\sum_{\{ z_j \}} P(X_N=x,X_j=z_j,N-k_1<j<N|X_j=z_j,j\leq N-k_1)P(X_j=z_j,j<N-k_1) \\
-			           & =\sum_{\{ z_j \}} P(X_N=x,X_j=z_j,N-k_1<j<N|X_{N-k_1}=x)P(X_j=z_j,j<N-k_1)         \\
-		\end{align}
-	\end{subequations}
-	Le premier facteur est \( P(T_{i_1}=k_1)\) tandis que le second facteur est précisément \( P(T_{i_j}=k_j,j>1)\). Nous avons donc montré que
-	\begin{equation}
-		P(T_{i_1}=k_1,T_{i_2}=k_2,\ldots,T_{i_n}=k_n)=P(T_{i_1}=k_1)P(T_{i_j}=k_j,j>1),
-	\end{equation}
-	et donc les \( T_i\) sont indépendants.
-\end{proof}
-
-\begin{proposition}     \label{PropjOjDux}
-	Si \( (X_n)\) est une chaine de Markov irréductible et si \( x\in E\) alors
-	\begin{equation}        \label{EqPiEndempropropkeu}
-		\pi(x)=\lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^n\mtu_{\{ X_k=x \}}
-	\end{equation}
-	presque surement.
-\end{proposition}
-
-\begin{proof}
-	Étant donné que la chaine est irréductible, les états sont soit tous transient soit tous récurrents par la proposition~\ref{Proptoustanstousrecirrsi}. Nous commençons par considérer que \( x\) est transient.
-
-	En comparant la définition \eqref{EqDefNxmtuXkn} de \( N_x\) et le membre de droite de \eqref{EqPiEndempropropkeu}, nous avons pour chaque \( n\) l'inégalité
-	\begin{equation}    \label{EqkkueusnfracunENx}
-		\frac{1}{ n }\sum_{k=1}^n\mtu_{\{ X_k=x \}}\leq\frac{1}{ n }E(N_x).
-	\end{equation}
-	Dans le cas d'un élément transient, nous avons \( \pi(x)=0\), donc il serait bon de montrer que \( E(N_x)<\infty\), de sorte que prendre la limite \( n\to\infty\) dans \eqref{EqkkueusnfracunENx} donne zéro.
-
-	Nous décomposons le calcul en deux morceaux :
-	\begin{equation}
-		E(N_x)=E\big( N_x|T(x)=\infty \big)P\big( T(x)=\infty \big)+E\big( N_x|T(x)<\infty \big)P\big( T(x)<\infty \big).
-	\end{equation}
-	Le fait que le premier terme soit fini découle immédiatement du fait que \( T(x)=\infty\) implique \( X_k\neq x\) pour tout \( k\geq 1\). Dans ce cas l'espérance de \( N_x\) est évidemment finie.
-
-	Pour le second terme nous avons
-	\begin{subequations}
-		\begin{align}
-			E\big( N_x|T(x)<\infty \big) & =E\big( \sum_{k=0}^{\infty}\mtu_{\{ X_k=x \}}|T(x)<\infty \big)  \\
-			                             & =\sum_{k=1}^{\infty}E\big( \mtu_{\{ X_k=x \}}|T(x)<\infty \big).
-		\end{align}
-	\end{subequations}
-	Pour inverser la somme et l'espérance, nous avons utilisé le théorème de Fubini-Tonelli qui est encore valable pour des fonctions qui prennent la valeur \( \infty\). Le fait d'inverser ne signifie pas que ni la somme ni l'intégrale soit finie. D'ailleurs c'est exactement ce que nous sommes en train de déterminer.
-
-	Étant donné que nous voulons seulement savoir si cette somme est finie ou non, nous pouvons nous restreindre à la somme depuis \( k=1\) et oublier le premier terme. D'autre part nous avons
-	\begin{equation}
-		\sum_{k=1}^{\infty}\mtu_{\{ X_k=x \}}=\sum_{j=0}^{\infty}\mtu_{\{ X_{j+T(x)}=x \}}
-	\end{equation}
-	parce que les \( T(x)\) premiers termes sont par définition nuls. Nous regardons donc
-	\begin{subequations}
-		\begin{align}
-			\sum_{j=0}^{\infty}E\big( \mtu_{X_{j+T(x)}=x}|T(x)<\infty \big) & =\sum_{j}P\big( X_{j+T(x)}=x|T(x)<\infty \big)                                                 \\
-			                                                                & =\sum_jP(X_j=x|X_0=x)  \label{subeqsumkPXjXzsezii}                                             \\
-			                                                                & =\sum_jE\big( \mtu_{\{ X_j=x \}}|X_0=x \big)                                                   \\
-			                                                                & =E\big( \sum_j\mtu_{X_j=x}|X_0=x \big)                                                         \\
-			                                                                & =E(N_x|X_0=x)                                                                                  \\
-			                                                                & <\infty                                            & \text{parce que } x\text{ est transient.}
-		\end{align}
-	\end{subequations}
-	L'équation \eqref{subeqsumkPXjXzsezii} provient de la proposition~\ref{PropMrkIrreLoishLCkpjkptXk} et plus précisément de l'égalité entre les lois \eqref{PropMrkIrreLoishLCkpjkptXkItemii}. Nous avons terminé la preuve dans le cas où \( x\) est transient.
-
-	Nous passons maintenant au cas où \( x\) est récurrent, c'est-à-dire \( P(T(x)<\infty|X_0=x)=1\). Les variables aléatoires \( T_i\) définies en \eqref{SubEqsDefTirectempsretou} pour \( i\geq 2\) sont indépendantes et identiquement distribuées et
-	\begin{equation}
-		\hL\big( T_k(x) \big)\sim\hL\big( T(X)|X_0=x \big).
-	\end{equation}
-	La loi des grands nombres nous indique que
-	\begin{subequations}        \label{EqlgnMarkdemked}
-		\begin{align}
-			\frac{ S_n }{ n }=\frac{ T_1(x) }{ n }+\frac{1}{ n }\sum_{k=2}^nT_k(x)\stackrel{p.s.}{\longrightarrow} & E\big( T_2(x) \big)       \\
-			                                                                                                       & =E\big( T(x)|X_0=x \big).
-		\end{align}
-	\end{subequations}
-	\begin{remark}
-		La loi des grands nombres est encore vraie sans l'hypothèse de variables aléatoires dans \( L^1\) pourvu qu'elles soient positives. Alors dans la conclusion de la loi nous devons accepter la possibilité que l'espérance soit infinie.
-	\end{remark}
-	Nous posons pour \( m\in\eN\)
-	\begin{equation}    \label{EqDennmsumjmtu}
-		n(m)=\sum_{j=1}^m\mtu_{\{ X_j=x \}}
-	\end{equation}
-	qui est le nombre de visites de \( x\) avant l'instant \( m\). Nous avons évidemment \( n(m)\leq m\). Mais \( S_n\) est l'instant de la \( n\)ième visite, par conséquent \( S_{n(m)}\) est l'instant de la dernière visite avant le moment \( m\). Pour tout \( m\) nous avons les inégalités
-	\begin{equation}
-		S_{n(m)}\leq m<S_{n(m)+1}.
-	\end{equation}
-	Nous divisons par \( n(m)\) et nous effectuons la limite \( m\to\infty\):
-	\begin{equation}    \label{EqdrembSnm}
-		\frac{ S_n(m) }{ n(m) }\leq \frac{ m }{ n(m) }\leq\frac{ S_{n(m)}+1 }{ n(m) }
-	\end{equation}
-	En ce qui concerne la limite de \( n(m)\), nous utilisons la définition \eqref{EqDennmsumjmtu} :
-	\begin{equation}
-		\lim_{m\to \infty}  n(m)=\lim_{m\to \infty} \sum_{n=1}^m\mtu_{\{ X_j=x \}}=\sum_{j=1}^{\infty}\mtu_{\{ X_j=x \}}\stackrel{p.s.}{\longrightarrow}\infty
-	\end{equation}
-	par la proposition \ref{PropEquivEPrecuequiv}. Plus précisément, la limite vaut \( N_x\) qui vaut presque surement \( \infty\) dans le cas où \( x\) est récurrent. Par ailleurs la loi des grands nombres \eqref{EqlgnMarkdemked} nous enseigne en particulier que
-	\begin{equation}
-		\frac{ S_{n(m)} }{ n(m) }\stackrel{p.s.}{\longrightarrow} E\big( T(x)|X_0=x \big).
-	\end{equation}
-	Le terme de droite dans \eqref{EqdrembSnm} se traite de façon usuelle :
-	\begin{equation}
-		\frac{ S_{n(m)+1} }{ n(m) }=\frac{ S_{n(m)+1} }{ n(m)+1 }\frac{ n(m)+1 }{ n(m) }.
-	\end{equation}
-	Le dernier facteur tend vers \( 1\) et le tout a pour limite \( E\big( T(x)|X_0=x \big)\). Par conséquent nous avons
-	\begin{equation}
-		\frac{ m }{ n(m) }\stackrel{p.s.}{\longrightarrow}E\big( T(x)|X_0=x \big)
-	\end{equation}
-	et
-	\begin{equation}
-		\frac{ n(m) }{ n }=\frac{1}{ m }\sum_{j=1}^m\mtu_{\{ X_j=x \}}\to\frac{1}{ E\big( T(x)|X_0=x \big) }=\pi(x).
-	\end{equation}
-\end{proof}
-
-\begin{lemma}       \label{LembyftKs}
-	Soit \( (X_k)\) une chaine de Markov dont l'espace des états est noté \( E\). Pour chaque \(  x\in E\) nous notons
-	\begin{equation}
-		T(x)=\inf\{ k\geq 1\tq X_k=x \}
-	\end{equation}
-	et
-	\begin{equation}
-		T_p(x)=\inf\{ k\geq 1\tq X_{k+p}=x \}
-	\end{equation}
-	Alors nous avons
-	\begin{equation}
-		P(T_p(x)=k|X_p=y)=P(T(x)=k|X_0=y).
-	\end{equation}
-\end{lemma}
-
-La proposition suivante nous permet de parler de chaine de Markov \defe{récurrence positive}{chaine!de Markov!récurrente positive}.
-\begin{proposition}     \label{PropUyLCzp}
-	Soit \( (x_n)\) une chaine de Markov irréductible.
-	\begin{enumerate}
-		\item
-		      Un état \( x\) est transient si et seulement si tous les états sont transients.
-		\item
-		      Un état est récurrent positif  si et seulement si tous les états sont récurrents positifs.
-	\end{enumerate}
-\end{proposition}
-
-\begin{proof}
-	Nous rappelons (proposition~\ref{PropjOjDux}) que si la chaine est irréductible
-	\begin{equation}        \label{EqZZMqsm}
-		\pi(x)=\lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^n\mtu_{[X_k=x]}
-	\end{equation}
-	Notons aussi que
-	\begin{equation}
-		\sum_{k=1}^N\mtu_{X_k=x}=\begin{cases}
-			0                                      & \text{si } N<T(x) \\
-			\sum_{k=0}^{N-T(x)}\mtu_{X_{k+T(x)}=x} & \text{si } N>T(x)
-		\end{cases}
-	\end{equation}
-	où dans la seconde ligne nous avons effectué le changement de variable de sommation \( k'=k+T(x)\). Dans la limite \eqref{EqZZMqsm} nous sommes toujours dans le cas où \( N\) est assez grand. Nous pouvons donc écrire
-	\begin{equation}
-		\pi(x)=\lim_{N\to \infty} \frac{1}{ N }\sum_{k=0}^{N-T(x)}\mtu_{X_{k+T(x)}=x}.
-	\end{equation}
-	Nous pouvons aussi écrire
-	\begin{equation}
-		\frac{1}{ N-T(x) } \sum_{k=0}^{N-T(x)}\mtu_{X_{k+T(x)}=x}=\frac{ N }{ N-T(x) }\frac{1}{ N } \sum_{k=0}^{N-T(x)}\mtu_{X_{k+T(x)}=x}.
-	\end{equation}
-	Dans cette dernière égalité le membre de droite tend vers \( \pi(x)\) et nous avons
-	\begin{equation}
-		\lim_{N\to \infty} \frac{1}{ N-T(x) } \sum_{k=0}^{N-T(x)}\mtu_{X_{k+T(x)}=x}=\pi(x)
-	\end{equation}
-	ou encore
-	\begin{equation}
-		\lim_{N\to \infty} \frac{1}{ N} \sum_{k=0}^{N}\mtu_{X_{k+T(x)}=x}=\pi(x)
-	\end{equation}
-	Étant donné que \( \pi(x)\) est une constante nous avons évidemment \( E(\pi(x))=\pi(x)\). Nous pouvons cependant considérer les variables aléatoires
-	\begin{equation}
-		Z_n=\frac{1}{ n }\sum_{k=1}^n\mtu_{X_{k+T(x)}=x}
-	\end{equation}
-	et remarquer que \( Z_n\stackrel{p.s.}{\longrightarrow} \pi(x)\) avec \( 0\leq Z_n\leq 1\). Le théorème de la convergence dominée (\ref{ThoConvDomLebVdhsTf}) nous permet d'inverser la limite et l'espérance et écrire
-	\begin{subequations}
-		\begin{align}
-			\pi(x) & =\lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^nE\big( \mtu_{X_{k+T(x)}=x} \big) \\
-			       & =\lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^nP\big( X_{k+T(x)}=x \big).
-		\end{align}
-	\end{subequations}
-	Par le lemme~\ref{LembyftKs} nous avons
-	\begin{equation}
-		P(X_{k+T(x)}=x)=P(X_k=k|X_0=x)
-	\end{equation}
-	et \( \pi(x)\) prend la forme
-	\begin{equation}        \label{EqurCteK}
-		\pi(x)=\lim_{n\to \infty} \frac{1}{ n }\sum_{k=1}^nP(X_k=x|X_0=x).
-	\end{equation}
-
-	Soit maintenant un état \( x\) positif récurrent et \( y\), un autre état. Par définition~\ref{DefWknULk} et par corolaire~\ref{CorLhpRsk} nous avons \( \pi(x)>0\). Nous devons prouver que \( \pi(y)>0\).
-
-	Étant donné que la chaine est irréductible il existe \( r\) et \( s\) tels que
-	\begin{subequations}
-		\begin{numcases}{}
-			p^r(x,y)=P(X_r=y|X_0=x)>0\\
-			p^s(x,y)=P(X_s=x|X_0=y)>0
-		\end{numcases}
-	\end{subequations}
-	Nous reprenons l'équation \eqref{EqRmuXtG} multipliée par \( 1/N\) :
-	\begin{equation}
-		\frac{1}{ N }\sum_{n=1}^NP(X_{r+s+n=y|X_0=y})\geq \underbrace{p^r(x,y)p^s(y,x)}_{\geq 0}\underbrace{\frac{1}{ N }\sum_{n=1}^NP(X_n=x|X_0=x)}_{\to \pi(x)}
-	\end{equation}
-	et nous prenons la limite lorsque \( N\to\infty\). À \(r+s\) termes près, nous trouvons à gauche l'expression \eqref{EqurCteK} de \( \pi(y)\). Par conséquent
-	\begin{equation}
-		\pi(y)\geq\lim_{N\to \infty} \frac{1}{ n }\sum_{n=1}^NP(X_{r+s+n}=y|X_0=y)\geq \alpha\pi(x)
-	\end{equation}
-	où \( \alpha\) est une constante positive. Le nombre \( \pi(x)\) étant strictement positif par hypothèse nous avons montré que \( \pi(y)>0\), c'est-à-dire que \( y\) est récurrent positif.
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1515,113 +1630,6 @@ En ce qui concerne les notations, l'hypothèse \( f\in L^1(E,\mu)\) signifie
 \section{Convergence vers l'équilibre}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Nous voudrions savoir sous quelles conditions la variable aléatoire \( X_n\) converge en loi vers quelque chose lorsque \( n\to \infty\). Une telle loi limite doit dépendre de la loi initiale\footnote{Lorsque la loi limite ne dépend pas de la loi initiale, nous disons que la chaine de Markov est ergodique, nous y reviendrons.} comme le montre l'exemple de la chaine de Markov
-\begin{equation}
-	\xymatrix{%
-		A\ar@(dl,ul)^1  & C\ar[l]_{1/2}\ar[r]^{1/2} &  B\ar@(dr,ur)_1
-	}
-\end{equation}
-Si \( X_0=C\), alors la loi limite est
-\begin{equation}
-	\frac{ 1 }{2}(\delta_A+\delta_B).
-\end{equation}
-Si par contre \( X_0=B\), la loi limite est \(\delta_B\). Notons que la chaine de Markov proposée ici est irréductible.
-
-Notons qu'il n'y a pas toujours de lois limite comme le montre l'exemple
-\begin{equation}
-	\xymatrix{%
-		A\ar@<1ex>[r]^1  & B\ar@<1ex>[l]^1
-	}
-\end{equation}
-avec \( X_0=A\). La loi en est
-\begin{equation}
-	X_k=\begin{cases}
-		\delta_A & \text{si } k\text{ est pair}    \\
-		\delta_B & \text{si } k\text{ est impair}.
-	\end{cases}
-\end{equation}
-
-\begin{lemma}
-	Si nous avons une loi limite
-	\begin{equation}    \label{EqmbQMAY}
-		P(X_n=x)\to l(x),
-	\end{equation}
-	et que la chaine est irréductible, alors nous avons \( l=\pi\).
-\end{lemma}
-
-\begin{proof}
-	D'après la proposition~\ref{PropjOjDux} nous avons
-	\begin{equation}
-		\frac{1}{ n }\sum_{k=1}^nP(X_k=x)\to \pi(x).
-	\end{equation}
-	Par le lemme~\ref{LemyGjMqM} sur la moyenne de Cesàro et l'hypothèse \eqref{EqmbQMAY}, nous avons aussi
-	\begin{equation}
-		\frac{1}{ n }\sum_{k=1}^nP(X_k=x)\to l(x).
-	\end{equation}
-	Du coup \( \pi(x)=l(x)\).
-\end{proof}
-
-\begin{lemma}[\cite{MarkGuy}]
-	Si \( \pi\) est une loi stationnaire et si \( x\) est un étant transient, alors \( \pi(x)=0\).
-\end{lemma}
-Ce lemme (qui peut être prouvé rigoureusement) est principalement dû au fait que la chaine de Markov ne visite un état transitoire qu'un nombre fini de fois par la proposition~\ref{PropEquivEPrecuequiv}\ref{ItemiMnGpD}.
-
-\begin{definition}  \label{DefCxvOaT}
-	Un état \( x\in E\) est \defe{apériodique}{état!apériodique}\index{apériodique!état d'une chaine de Markov} si
-	\begin{equation}
-		\pgcd\{ n\geq 1\tq p^n(x,x)>0 \}=1.
-	\end{equation}
-\end{definition}
-Mettons que tous les \( n\) tels que \( p^n(x,x)>0\) ont \( 2\) comme diviseur. L'état n'est alors pas apériodique, mais on voit que si \( X_0=x\), alors les états impairs ne peuvent pas être sur \( x\). Cela est une forme de périodicité.
-
-Si un état est apériodique, il existe \( r\) et \( s\) premiers entre eux tels que \( p^r(x,x)\) et \( p^s(x,x)\) sont non nuls. En particulier pour tout \( n\in r\eN+s\eN\), \( P(X_n=x)\neq 0\). Par conséquent la proposition~\ref{PropLAbRSE} nous indique qu'à partir d'un certain moment tous les \( X_k\) pourraient être \( x\).
-
-L'état \( C\) de la chaine de Markov suivante est apériodique :
-\begin{equation}
-	\xymatrix{%
-		A\ar@<0.5ex>[rr]^1  && B\ar@<0.5ex>[ll]^{2/3}\ar[dl]^{1/3}\\
-		&C\ar[ul]^1
-	}
-\end{equation}
-En effet \( p^3(C,C)\neq 0\) par le chemin \( C\to A\to B\to C\) tandis que \( p^5(C,C)\neq 0\) également par le chemin \( C\to A\to B\to A\to B\to C\). Or \( \pgcd\{ 3,5 \}=1\).
-
-\begin{proposition}[\cite{MarkGuy}]     \label{PropSaOysS}
-	Soit \( (X_n)\), une chaine de Markov irréductible. Un état \( x\) est apériodique si et seulement si il existe \( N\) tel que
-	\begin{equation}
-		p^k(x,x)=P(X_k=x|X_0=x)>0
-	\end{equation}
-	pour tout \( k\geq N\).
-\end{proposition}
-
-\begin{propositionDef}		\label{DEFooBNBVooBuWQqi}
-	Si une chaine de Markov est irréductible, alors un état est apériodique si et seulement si tous les états sont apériodiques.
-
-	Dans ce cas nous disons que la chaine est \defe{apériodique}{chaine de Markov apériodique}.
-\end{propositionDef}
-
-\begin{proof}
-	Soit \( x\) un état apériodique de la chaine de Markov \( (X_n)_{n\in \eN}\). En vertu de la proposition~\ref{PropSaOysS} il existe \( N_x\) tel que \( p^k(x,x)\neq 0\) pour tout \( k\geq N_x\). Soit \( y\in E\). Étant donné que la chaine est irréductible, il existe \( r\) et \( s\) tels que \( p^r(x,y)>0\) et \( p^s(y,x)>0\). Nous avons
-	\begin{equation}
-		p^{k+r+s}(y,y)=P(X_{k+r+s}=y|X_0=y)\geq p^s(x,y)P(X_k=x|X_0=x)p^r(y,x).
-	\end{equation}
-	Si \( k\) est assez grand, cette quantité est strictement positive. Donc il suffit de prendre \( N_y=N_x+r+s\) pour savoir que \( y\) est également apériodique.
-\end{proof}
-
-\begin{example}
-	Quelle est la différence entre une chaine irréductible et une chaine apériodique ? Une chaine est irréductible lorsque aucune sous-chaine ne peut piéger le système. Pour toute paire d'états \( x,y\in E\), il existe un \( n\) tel qu'il soit possible d'aller de \( x\) à \( y\) en \( n\) pas. Une chaine est apériodique lorsqu'après un temps suffisamment long, \emph{tous} les états soient possibles en même temps.
-
-	Un exemple de chaine irréductible non apériodique :
-	\begin{equation}
-		\xymatrix{%
-		A \ar@/^/[r]^-{1}    &   B\ar@/^/[l]^{1}\\
-		}
-	\end{equation}
-	Cette chaine est irréductible parce que le graphe est connexe, par contre il n'est pas apériodique parce que si \( X_0=A\) il n'est pas possible d'être dans l'état \( A\) après un nombre impair de pas.
-
-	Plus formellement, \( p^n(A,A)=1\) dès que \( n\) est pair; le PGCD de la définition~\ref{DefCxvOaT} n'est donc certainement pas \( 1\).
-\end{example}
-
-Si \( E\) est fini et si la chaine de Markov est irréductible, alors en posant \( N=\max_{x\in E}N(x)\), la matrice \( P^k\) a des éléments non nuls sur toute la diagonale pour tout \( k>N\). Ces éléments diagonaux ne sont autre que les \( p^k(x,x)\).
 
 \begin{theorem}[Convergence en loi des chaine de Markov]
 	Si \( (X_n)\) est
