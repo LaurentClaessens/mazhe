@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2022 (16 fautes)
 
+- Volume 1. Proposition 3.19. Complètement faux. Par exemple q=9 divise 3^4, mais 9 ne divise pas 3. Il vaut mieux regarder le lemme 3.20 qui dit que q divise a si et seulement si il divise a^n.
 - Volume 4. Les équations (30.29) et (30.30) ne sont pas correctes. En réalité f_i(phi_i)>alpha et f_i=0 sur D(L_i). Pour cela il faut un petit corolaire du théorème de Hahn-Banach.
 - Volume 3. Équation (27.664). Rien ne garantit que Z est non vide. Il est possible que ||h||=1 alors que `| h(x) |<1` pour tout x. En fait le but de cette partie de la preuve n'est pas de trouver une extension qui vérifie `|| h ||<1`, mais seulement de trouver une extension qui vérifie `| h |<1`.
 - Volume 3. Corolaire 27.142. L'équation (27.576) est dans le mauvais sens, et ça ruine la démonstration. Je ne suis même pas sûr que le résultat soit vrai. Quentin Guyot.
