@@ -2,9 +2,9 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](https://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
-## Frido 2022 (16 fautes)
+## Frido 2022 (31 fautes)
 
-- Volume 1. Proposition 3.19. Complètement faux. Par exemple q=9 divise 3^4, mais 9 ne divise pas 3. Il vaut mieux regarder le lemme 3.20 qui dit que q divise a si et seulement si il divise a^n.
+- Volume 1. Proposition 3.19. Complètement faux. Par exemple q=9 divise 3^4, mais 9 ne divise pas 3. Là où la proposition 3.19 est utilisée, il faut utiliser le lemme 3.20 qui dit que q divise a si et seulement si il divise a^n.
 - Volume 4. Les équations (30.29) et (30.30) ne sont pas correctes. En réalité f_i(phi_i)>alpha et f_i=0 sur D(L_i). Pour cela il faut un petit corolaire du théorème de Hahn-Banach.
 - Volume 3. Équation (27.664). Rien ne garantit que Z est non vide. Il est possible que ||h||=1 alors que `| h(x) |<1` pour tout x. En fait le but de cette partie de la preuve n'est pas de trouver une extension qui vérifie `|| h ||<1`, mais seulement de trouver une extension qui vérifie `| h |<1`.
 - Volume 3. Corolaire 27.142. L'équation (27.576) est dans le mauvais sens, et ça ruine la démonstration. Je ne suis même pas sûr que le résultat soit vrai. Quentin Guyot.
@@ -50,8 +50,8 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 ## Frido 2020 (12 fautes)
 
 - Volume 3. Proposition 26.105. Il me semble que les fonctions proposées ne séparent pas les points. Par exemple e_k(0)=e_k(T) pour tout k. Il y a peut-être une faute dans la définition des fonctions de base.
-- Volume 1. Proposition 1.115. Le epsilon est un élément de K, pas de Q. Donc après avoir fait la majoration qui arrive à 2epsilon, il faut encore prouver qu'il existe un élément de K dont le double est plus petit que epsilon. Autrement dit, il faut trouver epsilon' tel que 2epsilon' < epsilon.
-    D'habitude, en analyse, on laisse tomber parce que epsilon est un élément de R et on n'a qu'à prendre epsilon'=epsilon/2. Ici ce n'est pas aussi simple. Il faut trouver un morphisme de Q vers K qui respecte l'ordre.
+- Volume 1. Proposition 1.115. Le epsilon est un élément de K, pas de Q. Donc après avoir fait la majoration qui arrive à 2epsilon, il faut encore prouver qu'il existe un élément de K dont le double est plus petit que epsilon. Autrement dit, il faut trouver epsilon' tel que `2epsilon' < epsilon`.
+    D'habitude, en analyse, on ne justifie pas plus loin parce que epsilon est un élément de R et on n'a qu'à prendre epsilon'=epsilon/2. Ici ce n'est pas aussi simple. Il faut trouver un morphisme de Q vers K qui respecte l'ordre.
     Merci à Patrice Goyer pour avoir découvert ce petit bijou.
 - Volume 1. Proposition 1.108. Il faut démontrer que S est un corps, et prouver que phi est un morphisme. De plus il manque l'expression d'un isomorphisme sigma entre A et A'. Une bonne partie des 'a' et 'b' sont en réalité des 'sigma(a)' et 'sigma(b)'. La proposition 1.104 fait une partie de ce travail.
 - Volume 1. Proposition 1.28. Dans la partie «L'autre sens», rien ne va. Les A et B sont mélangés et phi n'est pas injective (mais de toutes façons elle devait aller dans l'autre sens).
