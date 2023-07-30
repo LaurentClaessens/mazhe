@@ -473,7 +473,7 @@ Les notions de polynômes étrangers entre eux ou de polynômes premiers entre e
 	Le contenu d'un polynôme sera surtout utilisé juste pour savoir si il est inversible ou non. Dans un anneau intègre, ça demande un peu d'abus de langage, mais comme le lemme \ref{LEMooSFHMooQoKsPV} dit que si un pcgd est inversible, ils le sont tous, au moins discuter de l'inversibilité du contenu dans un anneau intègre a un sens et est bien défini.
 \end{normaltext}
 
-\begin{definition}[Polynôme primitif\cite{BIBooVOBZooEbyWWm}]           \label{DEFooDVOOooKaPZQC} \label{DEFooAIYGooRAEfHU}
+\begin{definition}[Polynôme primitif\cite{BIBooVOBZooEbyWWm}]           \label{DEFooDVOOooKaPZQC}
 	Il existe deux notions de polynômes primitifs. Vu qu'il existe des anneaux unitaires qui sont des corps finis\quext{Je pense à \( \eZ/n\eZ\), mais faites attention, j'ai pas vérifié. Écrivez-moi pour me dire si c'est un bon exemple.}, il faut faire attention au contexte.
 	\begin{enumerate}
 		\item		\label{ITEMooCNHAooVfIYEW}
@@ -663,16 +663,58 @@ La notion de polynôme primitif au sens du pgcd est particulière aux polynômes
 	Pour une définition générale d'une racine simple de l'équation \( f(x)=0\), voir la définition~\ref{DEFooXSOQooAnWqKM}. La proposition~\ref{PropHSQooASRbeA} nous indique que toute racine est de multiplicité au moins égale à \( 1\).
 \end{normaltext}
 
-\begin{proposition}     \label{PROPooQCZSooVokxXQ}
+
+\begin{lemma}		\label{LEMooZUUVooQgsdXs}
+	Soient un anneau \( A\) ainsi que \( x,r\in A\). Nous avons
+	\begin{equation}
+		x^n-r^n=(x-r)\sum_{k=0}^{n-1}x^kr^{n-k-1}.
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	Nous effectuons la distribution, et nous calculons un peu :
+	\begin{subequations}
+		\begin{align}
+			(x-r)\sum_{k=0}^{n-1}x^kr^{n-k} & =\sum_{k=0}^{n-1}x^{k+1}r^{n-k-1}-\sum_{k=0}^{n-1}x^kr^{n-k} \\
+			                                & =\sum_{k=1}^{n}x^kr^{n-k}-\sum_{k=0}^{n-1}x^kr^{n-k}         \\
+			                                & = - r^n +\sum_{k=1}^{n-1}(x^kr^{n-k}-x^kr^{n-k})+x^n         \\
+			                                & = x^n-r^n.
+		\end{align}
+	\end{subequations}
+\end{proof}
+
+\begin{proposition}[\cite{BIBooNVMLooSsZrwi}]     \label{PROPooQCZSooVokxXQ}
 	Soient un anneau \( A\), un polynôme \( P\in A[X]\) de degré \( n\), ainsi qu'une racine \( \alpha\in A\) de \( P\). Alors il existe un polynôme \( Q\in A[X]\) de degré \( n-1\) tel que \( P=(X-\alpha)Q\).
 \end{proposition}
 
+\begin{proof}
+	D'après le lemme \ref{LEMooZUUVooQgsdXs}, pour chaque \( k\), nous avons \( x^k-r^k=(x-r)S_k(x)\) où \( S_k\) est un polynôme de degré \( k-1\) (ou moins).
+
+	Soit un polynôme \( P\) tel que \( P(\alpha)=0\). Nous pouvons écrire
+	\begin{subequations}
+		\begin{align}
+			P(x) & =P(x)-P(\alpha)                             \\
+			     & =\sum_{k=0}^na_kx^k-\sum_{k=0}^na_k\alpha^k \\
+			     & =\sum_{k=1}^na_k(x^k-\alpha^k)              \\
+			     & =\sum_{k=1}^na_k(x-\alpha)S_k(x)            \\
+			     & =(x-\alpha)\sum_{k=1}^na_lS_k(x)            \\
+			     & =(x-\alpha)Q(x)
+		\end{align}
+		où \( Q\) est le polynômde de degré \( n-1\) donné par \( Q=\sum_{k=1}^na_kS_k\).
+	\end{subequations}
+\end{proof}
 
 \begin{proposition} \label{PropahQQpA}
-	L'élément \( \alpha\in A\) est une racine de multiplicité \( h\) du
-	polynôme \( P\) si et seulement si il existe \( Q\in A[X]\) tel que
-	\( P=(X-\alpha)^hQ\) avec \( Q(\alpha)\neq 0\).
+	L'élément \( \alpha\in A\) est une racine de multiplicité\footnote{Multiplicité d'une racine, définition \ref{DEFooTGZYooCYiKQa}.} \( h\) du polynôme \( P\) si et seulement si il existe \( Q\in A[X]\) tel que \( P=(X-\alpha)^hQ\) avec \( Q(\alpha)\neq 0\).
 \end{proposition}
+
+\begin{proof}
+	Par définition de la multiplicité de \( \alpha\), le polynôme \( P\) est divisible par \( (X-\alpha)^h\) mais pas par \( (X-\alpha)^{h+1}\). Il existe donc un polynôme \( Q\) tel que
+	\begin{equation}
+		P=(X-\alpha)^hQ.
+	\end{equation}
+	Si \( Q(\alpha)\) était nul, la proposition \ref{PROPooQCZSooVokxXQ} nous dirait que \( Q =(X-\alpha)S \) pour un cetain polynôme \( S\). Cela ferait \( P=(X-\alpha)^{h+1}S\), ce qui est contraire à l'hypothèse sur la multiplicité.
+\end{proof}
 
 \begin{lemma}       \label{LemIeLhpc}
 	Soient \( P\) et \( Q\) des polynômes non nuls de \( A[X]\) et \( \alpha\in A\). Alors
