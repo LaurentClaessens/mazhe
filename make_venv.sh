@@ -2,14 +2,14 @@
 
 set -u
 
-# git clone https://github.com/pyenv/pyenv.git
-# cd .pyenv/bin
-# ./pyenv install 3.10.4
+# sudo apt install  build-essential zlib1g-dev libffi-dev libssl-dev libreadline-dev libsqlite3-dev liblzma-dev libbz2-dev
+# git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+# ~/.pyenv/bin/pyenv install -v 3.10.12
 
 MAIN_DIR=$(pwd)
 VENV_DIR="$MAIN_DIR/venv"
 BIN_DIR="$VENV_DIR/bin"
-PYTHON_VERSION=3.10.4   # version 3.10 hard-coded in yann_dirmanage.py
+PYTHON_VERSION=3.10.12  
 pak_dir=$VENV_DIR/lib/python3.10/site-packages
 
 PYTHON3="$HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3"
@@ -72,6 +72,6 @@ cd "$BIN_DIR" || exit 1
 ./pip3 install -r "$MAIN_DIR/requirements.txt"
 
 
-install_custom pytex clone git@github.com:LaurentClaessens/pytex.git
+install_custom pytex git@github.com:LaurentClaessens/pytex.git
 install_custom yanntricks https://github.com/LaurentClaessens/yanntricks
 install_sage
