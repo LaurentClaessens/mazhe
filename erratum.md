@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2022 (31 fautes)
 
+- Volume 1. Proposition 9.228. Même erreur. Les manipulations de colonnes font intervenir des multiplications à droite. La proposition 9.229 doit donc être également adaptée.
 - Volume 1. Théorème 3.28 (de Cauchy). Le groupe doit être cyclique, sinon le théorème est faux. En effet si G est un groupe non cyclique d'ordre n, il ne contient aucun élément d'ordre n.
 - Volume 1. Proposition 3.19. Complètement faux. Par exemple q=9 divise 3^4, mais 9 ne divise pas 3. Là où la proposition 3.19 est utilisée, il faut utiliser le lemme 3.20 qui dit que q divise a si et seulement si il divise a^n.
 - Volume 4. Les équations (30.29) et (30.30) ne sont pas correctes. En réalité f_i(phi_i)>alpha et f_i=0 sur D(L_i). Pour cela il faut un petit corolaire du théorème de Hahn-Banach.
