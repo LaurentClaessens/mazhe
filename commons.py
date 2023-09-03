@@ -31,15 +31,7 @@ def has_to_be_printed(future_reference):
 # Le 19 décembre 2019, il y avait exactement 1000 places libres.
 
 
-ok_hash = []
-ok_hash.append("fc2fb3318320473c76797c039f2aa42829edd167")
-ok_hash.append("24221f3dbb445971194c6dc4b7e8ee4e6e43a153")
-ok_hash.append("5e2a6f84ca3d289ac81e550fe0b905b00a63a545")
-ok_hash.append("bb8b40a8158b19467701f0299a12c1b442838915")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
+ok_hash: list[str] = []
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
@@ -593,6 +585,13 @@ ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 
+ok_hash.append("fc2fb3318320473c76797c039f2aa42829edd167")
+ok_hash.append("24221f3dbb445971194c6dc4b7e8ee4e6e43a153")
+ok_hash.append("5e2a6f84ca3d289ac81e550fe0b905b00a63a545")
+ok_hash.append("bb8b40a8158b19467701f0299a12c1b442838915")
+ok_hash.append("2ca2626bcb72344ea43f2b7059b6d46edfa02238")
+ok_hash.append("a13d5a34f9e56de9a2b3886421f9a9fdfc40ab85")
+ok_hash.append("f9c9d25242c98bf15ad2d5b4e93d1b29e83010e7")
 ok_hash.append("c9e264ee3b40ac8e3db102a5ab7207a4e15ab8bc")
 ok_hash.append("5cc886de7101284791f96e7a71216bc73cb9b0b6")
 ok_hash.append("b43bce2d0eb9cad84868e407d108c38c6ff38c98")
