@@ -1,4 +1,8 @@
+#!venv/bin/python3
+
 from pytex.src import PytexTools
+from pytex.src.run_me import RunMe
+
 import commons
 import plugins_agreg
 
@@ -34,5 +38,8 @@ myRequest.add_plugin(plugins_agreg.set_commit_hexsha, "after_pytex")
 myRequest.add_plugin(plugins_agreg.assert_MonCerveau_first,
                      "after_compilation")
 
+myRequest.prefix = sys.argv[1]
 myRequest.new_output_filename = "0-book.pdf"
 myRequest.has_to_be_printed = has_to_be_printed
+
+RunMe(myRequest)

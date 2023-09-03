@@ -2,6 +2,13 @@
 
 - Créer la nouvelle entrée dans `isbn.json`.
 
+```
+cd testing
+./testing.sh
+./lst_lefrifo.py --verif
+nvim lst_book.py 2023
+```
+
 
 Faire du large:
 ```
