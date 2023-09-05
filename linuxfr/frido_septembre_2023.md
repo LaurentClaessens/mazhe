@@ -3,8 +3,6 @@
 - Nombre incroyable d'erreurs trouvées par Quentin Guyot.
 - Applications multilinéaire et tenseurs
 
-À vérifier : il me semble que les numéros de volumes dans la table des matières sont faux.
-
 
 A,Y :  "intègre, factoriel, principal, euclidien"
 A,B : "primitif, premier, inversible, non-inversible"

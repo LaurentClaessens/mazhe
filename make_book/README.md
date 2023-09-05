@@ -19,4 +19,9 @@ Faire du large:
     rm first_5*
 ```
 
+Faire les fichiers
+```
+    cd make_book
+    ./split_book.py
+```
 
