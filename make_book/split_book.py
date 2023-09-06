@@ -18,14 +18,7 @@ by thebookedition.com.
 Usage
 -----
 
-- compile with
-  ```
-  pytex lst_book.py
-  ```
-  this generates 0-book.pdf which will be used here to extract the
-  TOC/matters.
-- launch this script
-
+Step by step in `README.md`.
 
 Number of volumes
 -----------------
@@ -54,7 +47,7 @@ def matter_filename(volume):
     return f"matter_{volume}.pdf"
 
 
-def isbn(title, year, volume, imprimeur=None):
+def isbn(year, volume, imprimeur=None):
     volume_key = f"v{volume}"
     year_key = str(year)
     with open("isbn.json", 'r') as json_file:
@@ -86,7 +79,7 @@ def latex_code(options, volume, imprimeur):
 
     substitutions = [["TITLE", title],
                      ["NUMBER", str(volume)],
-                     ["RISBN", isbn(title, year=year, volume=volume,
+                     ["RISBN", isbn(year=year, volume=volume,
                                     imprimeur=imprimeur)],
                      ["YEAR+1", str(year+1)],
                      ["YEAR", str(year)],
@@ -119,7 +112,7 @@ def make_5_pages(options):
             os.system("pdflatex " + filename)
 
 
-def split_book(book, options):
+def split_book(book: Book, options):
     """
     Split the book into some volumes
 
