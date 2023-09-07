@@ -23,11 +23,12 @@ Faire du large:
 
 Faire les fichiers
 ```
+    ./lst_book.py 2023
     cd make_book
     ./split_book.py
 ```
+Le faire assez de fois pour que la coupure ne soit pas au milieu d'un chapitre.
 
-Vérifier que la coupure ne se fait pas au milieur d'un chapitre.
 
 
 ## Proposer dans thebookedition.com

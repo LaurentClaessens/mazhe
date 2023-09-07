@@ -7,8 +7,9 @@ import datetime
 
 from pdfrw import PdfReader, PdfWriter
 
-from splittoc import Book
-from options import Options
+import dirmanage
+from src.book import Book
+from src.options import Options
 _ = sys
 
 """
@@ -163,27 +164,19 @@ def make_the_work():
     """Make the whole work."""
     currentDateTime = datetime.datetime.now()
     date = currentDateTime.date()
-
-    text = f"""Vous ne devriez pas utiliser ce script. En effet ceci
-produirait des nouveaux volumes avec les ISBN
-déjà attribués à l'année {date.year}.
-Si vous voulez voir ce que ça donne, vous devez
-    - modifier le fichier 'isbn.json' en mettant des ISBN
-      qui vous appartiennent ou avec des xxxxx
-    - supprimer la ligne 'sys.exit(1)' dans ce script
-    """
-    print(text)
-
     options = Options(n_volumes=4,
                       year=date.year, imprimeurs=["thebookedition"])
     pdf_filename = "../0-book.pdf"
-    toc_filename = "../Inter_book-mazhe_pytex.toc"
+    toc_filename = f"../Inter_{date.year}-mazhe_pytex.toc"
+
+    pdf_path = dirmanage.init_dir / ".." / pdf_filename
+    toc_path = dirmanage.init_dir / ".." / toc_filename
 
     # Creating the 5 first pages
     make_5_pages(options)
 
     # Creating the front and matter of the 4 books.
-    book = Book(toc_filename, pdf_filename)
+    book = Book(toc_path, pdf_path)
     split_book(book, options)
 
     # Concatenating the files
