@@ -1,5 +1,7 @@
 #!venv/bin/python3
 
+from pathlib import Path
+
 from pytex.src import PytexTools
 from pytex.src.run_me import RunMe
 import commons
@@ -10,7 +12,7 @@ from commons import has_to_be_printed
 
 myRequest = PytexTools.Request("mesure")
 myRequest.ok_hash = commons.ok_hash
-myRequest.original_filename = "mazhe.tex"
+myRequest.original_filename = Path('.').resolve() / "mazhe.tex"
 myRequest.bibliography = {"json_bib": "bib_mazhe.json",
                           "template_bbl": "bbl_template.tex"
                           }
@@ -28,7 +30,8 @@ myRequest.add_plugin(plugin, "before_pytex")
 # by himself instead of hard-code it in the function.
 
 # If you change the '4' here, you have to change it also in 'split_book.py'
-myRequest.add_plugin(plugins_agreg.split_toc("frido", 4),
+project_name = "lefrido"
+myRequest.add_plugin(plugins_agreg.split_toc(project_name, 4),
                      "before_compilation")
 
 myRequest.add_plugin(plugins_agreg.set_boolean("isFrido", "true"),
@@ -39,8 +42,8 @@ myRequest.add_plugin(plugins_agreg.set_commit_hexsha,
                      "after_pytex")
 myRequest.add_plugin(plugins_agreg.assert_MonCerveau_first,
                      "after_compilation")
-myRequest.prefix = "lefrido"
 
+myRequest.prefix = project_name
 myRequest.new_output_filename = "0-lefrido.pdf"
 myRequest.has_to_be_printed = has_to_be_printed
 

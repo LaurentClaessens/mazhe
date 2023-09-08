@@ -28,8 +28,12 @@ class Book(object):
 
         dprint("mon pdf", pdf_filename)
         dprint("ma toc", toc_filename)
+        if not "lefrido" in toc_filename.name:
+            raise
 
-        self.pdf_reader = PdfReader(self.pdf_filename)
+        self.pdf_reader: PdfReader
+        if self.pdf_filename.is_file():
+            self.pdf_reader = PdfReader(self.pdf_filename)
 
     def splitlines(self):
         """
