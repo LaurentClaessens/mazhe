@@ -29,6 +29,11 @@ Faire les fichiers
 ```
 Le faire assez de fois pour que la coupure ne soit pas au milieu d'un chapitre.
 
+```
+git tag 2023
+git commit -a
+git push origin 2023
+```
 
 
 ## Proposer dans thebookedition.com
