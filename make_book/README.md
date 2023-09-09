@@ -6,7 +6,7 @@
 cd testing
 ./testing.sh
 ./lst_lefrifo.py --verif
-./lst_book.py 2023
+./lst_book.py
 ```
 
 Vérification du nombre de pages. Le max est 900.

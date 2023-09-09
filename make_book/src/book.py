@@ -1,5 +1,7 @@
 """Represent a LaTeX book."""
 
+import sys
+import traceback
 from pathlib import Path
 
 from pdfrw import PdfReader, PdfWriter
@@ -23,22 +25,21 @@ class Book(object):
     """
 
     def __init__(self, toc_filename: Path, pdf_filename: Path):
-        self.toc_filename = toc_filename
-        self.pdf_filename = pdf_filename
+        self.toc_filename = toc_filename.resolve()
+        self.pdf_filename = pdf_filename.resolve()
 
-        dprint("mon pdf", pdf_filename)
-        dprint("ma toc", toc_filename)
-        if not "lefrido" in toc_filename.name:
-            raise
+        if not self.toc_filename.is_file():
+            traceback.print_stack()
+            print("The toc file does not exist:")
+            print(self.toc_filename)
+            sys.exit(1)
 
         self.pdf_reader: PdfReader
         if self.pdf_filename.is_file():
             self.pdf_reader = PdfReader(self.pdf_filename)
 
     def splitlines(self):
-        """
-        Return a list of lines.
-        """
+        """Return a list of lines."""
         with open(self.toc_filename, 'r') as f:
             text = f.read()
         return text.split("\n")

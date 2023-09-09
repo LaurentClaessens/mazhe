@@ -124,7 +124,7 @@ def split_book(book: Book, options):
     n_volumes = options.n_volumes
 
     # - 'front.pdf' contains thematic index, toc, indexes
-    print("Title: ", book.get_chapter(n=1).title())
+    print("Title: ", book.get_chapter(n=1).title)
     print("Number of pages: ", book.tot_pages())
     print("Creating front matter")
     book.extract_sub_pdf(1,
@@ -166,11 +166,11 @@ def make_the_work():
     date = currentDateTime.date()
     options = Options(n_volumes=4,
                       year=date.year, imprimeurs=["thebookedition"])
-    pdf_filename = "../0-book.pdf"
-    toc_filename = f"../Inter_{date.year}-mazhe_pytex.toc"
+    pdf_filename = "0-book.pdf"
+    toc_filename = f"Inter_{date.year}-mazhe_pytex.toc"
 
-    pdf_path = dirmanage.init_dir / ".." / pdf_filename
-    toc_path = dirmanage.init_dir / ".." / toc_filename
+    pdf_path = dirmanage.frido_dir / pdf_filename
+    toc_path = dirmanage.frido_dir / toc_filename
 
     # Creating the 5 first pages
     make_5_pages(options)

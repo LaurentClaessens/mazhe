@@ -45,7 +45,6 @@ myRequest.add_plugin(plugins_agreg.assert_MonCerveau_first,
                      "after_compilation")
 
 myRequest.prefix = date.year
-
 myRequest.new_output_filename = "0-book.pdf"
 myRequest.has_to_be_printed = has_to_be_printed
 
