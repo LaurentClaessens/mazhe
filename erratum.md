@@ -2,7 +2,12 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](https://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
-## Frido 2022 (31 fautes)
+## Frido 2023
+
+- Volume 4. Définition 30.14. La topologie choisie sur les fonctions C^infini à support dans un compact n'est pas la bonne. Par danarmk.
+
+
+## Frido 2022 (34 fautes)
 
 - Volume 1. Proposition 9.228. Même erreur. Les manipulations de colonnes font intervenir des multiplications à droite. La proposition 9.229 doit donc être également adaptée.
 - Volume 1. Théorème 3.28 (de Cauchy). Le groupe doit être cyclique, sinon le théorème est faux. En effet si G est un groupe non cyclique d'ordre n, il ne contient aucun élément d'ordre n.
