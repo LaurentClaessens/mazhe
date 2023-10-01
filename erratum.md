@@ -4,8 +4,8 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2023
 
+- Volume 1. Lemme 1.115. Dans le point (ii si omega est dans B), la définition de varphi demande implicitement que sigma(omega) != omega. Il faut justifier que c'est le cas. Trouvée et corrigée par Patrice Goyer.
 - Volume 4. Définition 30.14. La topologie choisie sur les fonctions C^infini à support dans un compact n'est pas la bonne. Par danarmk.
-
 
 ## Frido 2022 (34 fautes)
 
