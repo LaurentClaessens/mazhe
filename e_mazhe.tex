@@ -1067,7 +1067,6 @@
 	\ifthenelse{\equal{#1}{Y}}{\item[\textbf{Analyse}]}{}%
 	\ifthenelse{\equal{#1}{T}}{\item[\textbf{Topologie et théorie des ensembles}]}{}%
 }
-% Note pour moi-même : si cette liste est changée, il faut changer mon raccourci dans Vim.
 \newcommand*{\Sp}{\textup{Sp}}
 \newcommand*{\GL}{\textup{GL}}      % Le groupe linéaire; je crois qu'ontologiquement c'est mieux que le DeclareMathOperator
 
@@ -1077,20 +1076,26 @@
 % LIMITATION. 
 %
 % This subproof allows to make two nested subproofs. One should generalize.
-\newcounter{subproofcountMem}
-\newcounter{subproofcount}
-\renewcommand{\thesubproofcount}{\roman{subproofcount}}
-\newcommand{\subprooflabel}[1]{\hspace{-0.5cm}(\thesubproofcount)\hspace\labelsep\underline{\bf #1}}
-\makeatletter
+%\newcounter{subproofcountMem}
+%\newcounter{subproofcount}
+%\renewcommand{\thesubproofcount}{\roman{subproofcount}}
+%\newcommand{\subprooflabel}[1]{\hspace{-0.5cm}(\thesubproofcount)\hspace\labelsep\underline{\bf #1}}
+%\makeatletter
+%
+%\newcommand{\spitem}[1][]{\@hyper@itemtrue\refstepcounter{subproofcount}\csname @item\endcsname[#1]}
+%\makeatother
+%\newenvironment{subproof}{
+%	\setcounter{subproofcountMem}{\value{subproofcount}}
+%	\list{subproofcount}{\usecounter{subproofcount}\let\makelabel=\subprooflabel}}%
+%{\endlist
+%	\setcounter{subproofcount}{\value{subproofcountMem}}
+%}
+%
 
-\newcommand{\spitem}[1][]{\@hyper@itemtrue\refstepcounter{subproofcount}\csname @item\endcsname[#1]}
-\makeatother
-\newenvironment{subproof}{
-	\setcounter{subproofcountMem}{\value{subproofcount}}
-	\list{subproofcount}{\usecounter{subproofcount}\let\makelabel=\subprooflabel}}%
-{\endlist
-	\setcounter{subproofcount}{\value{subproofcountMem}}
-}
+\usepackage{enumitem}
+\setlist[enumerate,1]{label=\arabic{enumi}}
+\setlist[enumerate,2]{label=\arabic{enumi}.\arabic*}
+\NewDocumentCommand{\spitem}{o}{\item {\bfseries\boldmath \underline{#1}\enspace}}
 
 \newenvironment{proofpart}{\begin{center}\rule{3cm}{0.1pt}}
 		{\rule{3cm}{0.1pt}\end{center}}
