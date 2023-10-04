@@ -1,11 +1,23 @@
 # Compilation 
 
+
+## tl;rr
+
+
+```
+    git clone https://github.com/LaurentClaessens/mazhe
+    ce mazhe
+    ./make_venv.sh
+    ./lst_lefrido.py
+```
+
+
 Here we explain how to compile Le Frido and Guilietta.
 
 ## Download
 
 ```
-git clone https://github.com/LaurentClaessens/mazhe
+    git clone https://github.com/LaurentClaessens/mazhe
 ```
 
 ## Compile everything (easy)
@@ -19,36 +31,18 @@ makeindex mazhe
 
 ## Compiler le Frido
 
-### pyenv
+Installer les prérequis.
 
-J'explique ici comment installer [pyenv](https://github.com/pyenv/pyenv).
+Les paquets suivants sont peut-être utiles pour installer python, mais je ne suis pas certain:
 
+Ubuntu 22.04
 ```
-# git clone https://github.com/pyenv/pyenv.git
-# cd .pyenv/bin
-# ./pyenv install 3.10.4
+    sudo apt install  build-essential zlib1g-dev libffi-dev libssl-dev libreadline-dev libsqlite3-dev liblzma-dev libbz2-dev
 ```
+Dites-moi si c'est vraiment nécessaire, et les lignes correspondantes pour les autres systèmes.
 
-Si il vous indique des dépendances manquantes, un ou plusieurs des paquets suivants peuvent vous aider:
+Ensuite : 
 ```
-apt install  libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libncurses5-dev libncursesw5-dev  libffi-dev liblzma-dev python-openssl 
+    ./make_venv.sh
 ```
-Si vous avez un problème avec libffi, il faut peut-être aussi faire la manipulation suivante:
-``` 
-cd /usr/lib/x86_64-linux-gnu
-sudo ln -s libffi.so.7 libffi.so.6  # adaptez les numéros
-``` 
-
-
-### Le Frido
-```
-git clone https://github.com/LaurentClaessens/mazhe
-cd mazhe
-./make_venv.sh
-./lst_frido.py
-```
-
-Vous pouvez vérifier les références vers le futur :
-```
-./lst_frido.py --verif
-```
+Ce script installe la bonne version de python via [pyenv](https://github.com/pyenv/pyenv) en utilisant celui qui est déjà dans `~/.pyenv` si il existe. Sinon, ça installe dans ce répertoire-ci.

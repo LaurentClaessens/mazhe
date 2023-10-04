@@ -9,69 +9,69 @@ set -u
 MAIN_DIR=$(pwd)
 VENV_DIR="$MAIN_DIR/venv"
 BIN_DIR="$VENV_DIR/bin"
-PYTHON_VERSION=3.10.12  
-pak_dir=$VENV_DIR/lib/python3.10/site-packages
+PYTHON_VERSION=3.10.12
 
-PYTHON3="$HOME/.pyenv/versions/$PYTHON_VERSION/bin/python3"
 
-echo "le python3 sera $PYTHON3"
+function install_pyenv()
+{
+  # Install the pyenv and fix the variable $PYTHON3
 
+
+  pyenv_dir=$HOME/.pyenv
+  PYTHON3="$pyenv_dir/versions/$PYTHON_VERSION/bin/python3"
+	if [ -e "$PYTHON3" ]; then
+  	echo "The pyenv binary $PYTHON3 exists."
+		return
+  fi
+
+  if [ ! -d "$pyenv_dir" ]; then
+    pyenv_dir=$MAIN_DIR/.pyenv
+  fi
+
+  echo "Nous allons installer python $PYTHON_VERSION dans $pyenv_dir"
+  echo "Si il y a des erreurs, ceci peut aider:"
+  echo "sudo apt install  build-essential zlib1g-dev libffi-dev libssl-dev libreadline-dev libsqlite3-dev liblzma-dev libbz2-dev"
+
+  read -p "Est-ce ok pour vous ?" -n 1 -r
+  echo  
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    git clone https://github.com/pyenv/pyenv.git $pyenv_dir
+    cd $pyenv_dir
+    git pull
+    yes n | $pyenv_dir/bin/pyenv install -v $PYTHON_VERSION
+  fi
+
+  PYTHON3="$pyenv_dir/versions/$PYTHON_VERSION/bin/python3"
+}
 
 function install_pytex()
 {
-    echo "bonjour"
-    pytex_dir=$pak_dir/pytex
+    pytex_dir=$MAIN_DIR/pytex
     if [ ! -d "$pytex_dir" ]; then
-      echo "$pytex_dir does not exist."
-      cd $pak_dir
-      git clone git@github.com:LaurentClaessens/pytex.git
+      git clone git@github.com:LaurentClaessens/pytex.git $pytex_dir
     fi
-    if [[ -d "$pytex_dir" ]]
-    then
-      echo "$pytex_dir exists on your filesystem."
-      cd $pytex_dir
-      git pull 
-    fi
+    cd $pytex_dir
+    git pull 
 }
 
-function install_custom()
+function create_venv()
 {
-    pak_name=$1
-    github_url=$2
-    echo "bonjour"
-    site_dir=$VENV_DIR/lib/python3.10/site-packages
-    pak_dir=$site_dir/$pak_name
-    if [ ! -d "$pak_dir" ]; then
-      echo "$pak_dir does not exist."
-      cd $site_dir
-      git clone $github_url
-    fi
-    if [[ -d "$pak_dir" ]]
-    then
-      echo "$pak_dir exists on your filesystem."
-      cd $pak_dir
-      git pull 
-    fi
+  echo "Creating the virtual environment"
+  "$PYTHON3" -m venv "$VENV_DIR"
+  cd "$BIN_DIR" || exit 1
+  ./pip3 install --upgrade pip
 }
 
-function install_sage()
+
+function pip_requirements()
 {
-  # Assume that sage is installed on your system.
-  ln -s /usr/lib/python3/dist-packages/sage $pak_dir
+  cd "$BIN_DIR" || exit 1
+  ./pip3 install -r "$MAIN_DIR/requirements.txt"
 }
 
 
-echo "Creating the virtual environment"
-"$PYTHON3" -m venv "$VENV_DIR"
-
-
-cd "$BIN_DIR" || exit 1
-./pip3 install --upgrade pip
-
-cd "$BIN_DIR" || exit 1
-./pip3 install -r "$MAIN_DIR/requirements.txt"
-
-
-install_custom pytex git@github.com:LaurentClaessens/pytex.git
-install_custom yanntricks https://github.com/LaurentClaessens/yanntricks
-install_sage
+install_pyenv
+install_pytex
+create_venv
+pip_requirements
