@@ -1,3 +1,5 @@
+Il faut laisser les labels dans la version imprimée, sinon les gens m'envoient des corrections
+avec les numéros.
 
 
 - Créer la nouvelle entrée dans `isbn.json`.
