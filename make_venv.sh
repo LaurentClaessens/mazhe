@@ -16,17 +16,7 @@ function install_pyenv()
 {
   # Install the pyenv and fix the variable $PYTHON3
 
-
-  pyenv_dir=$HOME/.pyenv
-  PYTHON3="$pyenv_dir/versions/$PYTHON_VERSION/bin/python3"
-	if [ -e "$PYTHON3" ]; then
-  	echo "The pyenv binary $PYTHON3 exists."
-		return
-  fi
-
-  if [ ! -d "$pyenv_dir" ]; then
-    pyenv_dir=$MAIN_DIR/.pyenv
-  fi
+  pyenv_dir=$MAIN_DIR/.pyenv
 
   echo "Nous allons installer python $PYTHON_VERSION dans $pyenv_dir"
   echo "Si il y a des erreurs, ceci peut aider:"
