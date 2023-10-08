@@ -22,15 +22,19 @@ function install_pyenv()
   echo "Si il y a des erreurs, ceci peut aider:"
   echo "sudo apt install  build-essential zlib1g-dev libffi-dev libssl-dev libreadline-dev libsqlite3-dev liblzma-dev libbz2-dev"
 
-  read -p "Est-ce ok pour vous ?" -n 1 -r
-  echo  
-  if [[ $REPLY =~ ^[Yy]$ ]]
-  then
-    git clone https://github.com/pyenv/pyenv.git $pyenv_dir
-    cd $pyenv_dir
-    git pull
-    yes n | $pyenv_dir/bin/pyenv install -v $PYTHON_VERSION
-  fi
+  git clone https://github.com/pyenv/pyenv.git $pyenv_dir
+  cd $pyenv_dir
+  echo ""
+  echo ""
+  echo ""
+  echo "install version $PYTHON_VERSION"
+  echo $(pwd)
+  echo ""
+  echo ""
+  git pull
+  cd $pyenv_dir/bin
+  export PYENV_ROOT="$pyenv_dir"
+  ./pyenv install -s -v $PYTHON_VERSION
 
   PYTHON3="$pyenv_dir/versions/$PYTHON_VERSION/bin/python3"
 }
