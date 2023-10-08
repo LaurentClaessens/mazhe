@@ -12,6 +12,15 @@ import plugins_agreg
 
 from commons import has_to_be_printed
 
+
+def print_future_reference(future_reference):
+    """Print the future reference."""
+    for filename in future_reference.concerned_files:
+        if "front_back_matter" in filename:
+            return
+    future_reference.output()
+
+
 config = read_json_file(sys.argv[1])
 pdf_title = config["pdf_title"]
 
@@ -21,6 +30,7 @@ myRequest.bibliography = config["bibliography"]
 
 is_frido_part: bool = config.get("is_frido_part", False)
 is_giulietta_part: bool = config.get("is_giulietta_part", False)
+is_giulietta: bool = config.get("is_giulietta", False)
 is_frido: bool = config.get("is_frido", False)
 
 title_plugin = plugins_agreg.set_pdftitle(pdf_title)
@@ -32,7 +42,7 @@ if is_frido_part:
     myRequest.add_plugin(title_plugin, "before_pytex")
 
 if is_giulietta_part:
-    frido_plugin = plugins_agreg.set_boolean("isGiulietta", 'true')
+    frido_plugin = plugins_agreg.set_boolean("isFrido", 'false')
     giulietta_plugin = plugins_agreg.set_boolean("isGiulietta", 'true')
     myRequest.add_plugin(frido_plugin, "before_pytex")
     myRequest.add_plugin(giulietta_plugin, "before_pytex")
@@ -56,10 +66,17 @@ if is_frido:
     myRequest.add_plugin(PytexTools.accept_all_input, "options")
     myRequest.add_plugin(frido_mark_plug, "before_pytex")
 
+if is_giulietta:
+    giu_mark_list = plugins_agreg.mazhe_mark_list
+    giu_mark_plug = PytexTools.keep_script_marks(giu_mark_list)
+    is_giulietta_plug = plugins_agreg.set_boolean("isGiulietta", "true")
+    myRequest.add_plugin(plugins_agreg.set_commit_hexsha, "after_pytex")
+    myRequest.add_plugin(PytexTools.accept_all_input, "options")
+    myRequest.add_plugin(giu_mark_plug, "before_pytex")
+    myRequest.add_plugin(is_giulietta_plug, "before_pytex")
+
 
 myRequest.prefix = pdf_title
-
-
 myRequest.original_filename = Path('.').resolve() / "mazhe.tex"
 
 myRequest.ok_filenames_list = ["e_mazhe"]
@@ -72,5 +89,6 @@ myRequest.ok_filenames_list = ok_filenames
 
 myRequest.new_output_filename = f"0-{pdf_title}.pdf"
 myRequest.has_to_be_printed = has_to_be_printed
+myRequest.print_future_reference = print_future_reference
 
 RunMe(myRequest)
