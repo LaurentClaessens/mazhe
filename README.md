@@ -13,9 +13,7 @@
 Il y a plusieurs façons de contribuer.
 
 - Le lire et m'écrire quand un passage semble obscur, mal justifié voire faux.
-- Rédiger un résultat manquant avec sa preuve à la main sur du papier et m'envoyer un scan. Sans rire : une bête photo d'une preuve manuscrite est un moyen très efficace d'ajouter un résultat dans le Frido.
-
-N'essayez d'écrire directement du code LaTeX pour le Frido que si vous êtes aventureux.
+- Rédiger un résultat manquant avec sa preuve à la main sur du papier et m'envoyer une photo de votre feuille.
 
 Dans tous les cas, utilisez au maximum le système de labels du Frido pour faire des références. Ne dites pas "le théorème de Dini" ou (pire) "le théorème 12.316". Dites le "ThoUFPLEZh".
 
