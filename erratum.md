@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2023
 
+- Volume 3. Proposition 18.63. Il est faux parce que la réciproque n'est pas continue en 1. De plus la notion de différentielle n'est pas définie quand une application n'est pas définie sur un ouvert d'un espace vectoriel. Pour S^1 c'est donc compliqué. Il faut alors aussi adapter la partie "norme" du lemme 27.140. Par Quentin Guyot.
 - Volume 1. Lemme 1.115. Dans le point (ii si omega est dans B), la définition de varphi demande implicitement que sigma(omega) != omega. Il faut justifier que c'est le cas. Trouvée et corrigée par Patrice Goyer.
 - Volume 4. Définition 30.14. La topologie choisie sur les fonctions C^infini à support dans un compact n'est pas la bonne. Par danarmk.
 
