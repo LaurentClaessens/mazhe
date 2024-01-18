@@ -941,13 +941,14 @@ Nous écrivons \( a=b\mod p\) essentiellement si il existe \( k\in \eZ\) tel que
 
 %TODOooEXYZooSqMOom. Énoncer et prouver cette proposition pour un corps un peu plus général.
 % en particulier pour utilisation dans LemZrUUOz.
-\begin{proposition}[\cite{ooPTQCooIWykWP}]     \label{PropBinomFExOiL}
+\begin{proposition}[Formule binomiale\cite{ooPTQCooIWykWP}]     \label{PropBinomFExOiL}
 	Pour tout \( x\), \( y\in\eR\) et \( n\in\eN\), nous avons
 	\begin{equation}        \label{EqNewtonB}
 		(x+y)^n=\sum_{k=0}^n{n\choose k}x^{n-k}y^k
 	\end{equation}
 	où les coefficients binomiaux sont donnés dans le lemme \ref{LEMooUTDTooXAmvdF}.
 \end{proposition}
+\index{formule binomiale}
 
 \begin{proof}
 	La preuve se fait par récurrence. La vérification pour \( n=0\) et \( n=1\) se fait aisément pour peu que l'on se rappelle que \( x^0=1\) et que \( 0!=1\), ce qui donne entre autres \( {0\choose 0}=1\).
@@ -1024,6 +1025,63 @@ Tant que nous sommes à démontrer des égalités, en voici une.
 
 \begin{proof}
 	Nous utilisons la formule du binôme de la proposition~\ref{PropBinomFExOiL} et le fait que les coefficients binomiaux non extrêmes sont divisibles par \( p\) et donc nuls.
+\end{proof}
+
+%-------------------------------------------------------
+\subsection{Théorème multinomial}
+%----------------------------------------------------
+
+\begin{definition}[multiindices\cite{BIBooPZIKooWOsgst}]		\label{DEFooCQPRooFeWeOS}
+	Un \defe{multiindice}{multiindice} pour \( \eR^n\) est un élément de \( \eN^n\). Sa taille est définie par
+	\begin{equation}
+		| \alpha |=\sum_i\alpha_i.
+	\end{equation}
+	Nous disons que \( \beta\leq \alpha\) lorsque \( \beta_i\leq \alpha_i\) pour tout \( i\).
+
+	Nous définissons sa factorielle par
+	\begin{equation}
+		\alpha!=\prod_{k=1}^n(\alpha_k!)=\alpha_1!\times\ldots \times \alpha_n!.
+	\end{equation}
+	En ce qui concerne les coefficients binomiaux, nous posons
+	\begin{equation}		\label{EQooKBURooKFBxnt}
+		\binom{ \alpha }{ \beta }=\frac{ \alpha! }{ (\alpha-\beta)!\beta! }=\prod_{i=1}^n\binom{ \alpha_i }{ \beta_i }.
+	\end{equation}
+
+	Si \( x\in \eR^n\) et si \( \alpha\in \eN^n\), nous notons
+	\begin{equation}
+		x^{\alpha}=\prod_{i=1}^nx_i^{\alpha_i}.
+	\end{equation}
+\end{definition}
+
+\begin{proposition}[Théorème multinomial\cite{BIBooPZIKooWOsgst}]		\label{PROPooNHAUooQvuytn}
+	Soit \( x\in \eR^n\), et \( \alpha\in \eN^n\). Nous avons
+	\begin{equation}
+		(x_1+\ldots+x_n)^k=\sum_{\substack{ \alpha\in \eN^n \\ | \alpha |=k }  } \frac{ k! }{ \alpha! }x^{\alpha}.
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Le cas \( n=2\) est la formule binomiale \ref{PropBinomFExOiL} :
+	\begin{subequations}
+		\begin{align}
+			(x_1+x_2)^k & = \sum_{l=0}^k\binom{ k }{ l }x_1^lx_2^{k-l}                                              \\
+			            & = \sum_{l=0}^k\frac{ k! }{ l!(k-l)! }x_1^lx_2^{k-l}                                       \\
+			            & = \sum_{\alpha_1+\alpha_2=k}\frac{ k! }{ \alpha_1!\alpha_2! }x_1^{\alpha_1}x_2^{\alpha_2} \\
+			            & = \sum_{\substack{ \alpha\in \eN^2                                                        \\ | \alpha |=k }  }\frac{ k! }{ \alpha! }x^{\alpha}.
+		\end{align}
+	\end{subequations}
+	Et maintenant, nous faisons une récurrence sur \( n\), en tenant \( k\) fixé. Nous supposons que la formule est démontrée pour tout \( n\leq N\), et nous allons avec \( N+1\). Soit \( x=(x_1,\ldots,x_{N+1})\), et posons \( y=(x_1,\ldots,x_N)\). Nous avons
+	\begin{subequations}
+		\begin{align}
+			(x_1+\ldots+x_{N+1})^k & =\big( (x_1+\ldots+x_{N})+x_{N+1} \big)^k                        \\
+			                       & =\sum_{i+j=k} \frac{ k! }{ i!j! } (x_1+\ldots+x_N)^ix_{N+1}^j    \\
+			                       & =\sum_{i+j=k}\frac{ k! }{ i!j! }\sum_{\substack{ \alpha\in \eN^N \\ | \alpha |=i }  }x^{j}_{N+1}\frac{ i! }{ \alpha! }y^{\alpha}\\
+			                       & = \sum_{j=0}^k\sum_{\substack{ \alpha\in \eN^N                   \\ | \alpha |=k-j }  }x_{N+1}\frac{ k! }{ j! }\frac{1}{ \alpha!}y^{\alpha}\\
+			                       & = \sum_{\substack{ \beta\in \eN^{N+1}                            \\ | \beta |=k }  }  \frac{ k! }{ \beta_{N+1}!\alpha! }  x_{N+1}^{\beta_{N+1}}x_1^{\alpha_1}\ldots x_N^{\alpha_N}                                                           & \text{cf. justif.} \label{SUBEQooTQFGooHyUhCi}\\
+			                       & = \sum_{\substack{ \beta\in \eN^{N+1}                            \\ | \beta |=k }  }x^{\beta}\frac{ k! }{ \beta! }.
+		\end{align}
+	\end{subequations}
+	Justification pour \eqref{SUBEQooTQFGooHyUhCi}. Les deux sommes ensemble font une somme sur tous \( \beta=(\alpha,j)\in \eN^{N+1}\) avec \( | \beta |=| \alpha |+j=(k-j)+j=k\).
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
