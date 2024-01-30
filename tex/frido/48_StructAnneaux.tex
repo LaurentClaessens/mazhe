@@ -954,13 +954,15 @@ Nous écrivons \( a=b\mod p\) essentiellement si il existe \( k\in \eZ\) tel que
 	La preuve se fait par récurrence. La vérification pour \( n=0\) et \( n=1\) se fait aisément pour peu que l'on se rappelle que \( x^0=1\) et que \( 0!=1\), ce qui donne entre autres \( {0\choose 0}=1\).
 
 	Supposons que la formule \eqref{EqNewtonB} soit vraie pour \( n\geq1\), et prouvons la pour \( n+1\). Nous avons
-	\begin{equation}        \label{EqBinTrav}
-		\begin{aligned}[]
-			(x+y)^{n+1} & = (x+y)\cdot \sum_{k=0}^n{n\choose k}x^{n-k}y^k                                                     \\
-			            & = \sum_{k=0}^n{n\choose k}x^{n-k+1}y^k+\sum_{k=0}^n{n\choose k}x^{n-k}y^{k+1}                       \\
+	\begin{subequations}\label{EqBinTrav}
+		\begin{align}
+			(x+y)^{n+1} & = (x+y)\cdot \sum_{k=0}^n{n\choose k}x^{n-k}y^k                                                  \label{SUBEQooBEUCooHSRtug}  \\
+			            & = \sum_{k=0}^n{n\choose k}x^{n-k+1}y^k+\sum_{k=0}^n{n\choose k}x^{n-k}y^{k+1}                     \label{SUBEQooRURMooGVIbbL} \\
 			            & = x^{n+1}+ \sum_{k=1}^n{n\choose k}x^{n-k+1}y^k+\sum_{k=0}^{n-1}{n\choose k}x^{n-k}y^{k+1}+y^{n+1}.
-		\end{aligned}
-	\end{equation}
+		\end{align}
+	\end{subequations}
+	Notez le passage de \eqref{PROPooYCLBooOLoDnM} à \eqref{SUBEQooRURMooGVIbbL} qui demande crucialement la commutativité de la multiplication. La formule binomiale ne se généralise pas de façon directe à un anneau non commutatif.
+
 	La seconde grande somme peut être transformée en posant \( i=k+1\) :
 	\begin{equation}
 		\sum_{k=0}^{n-1}{n\choose k}x^{n-k}y^{k+1} = \sum_{i=1}^n{n\choose i-1}x^{n-(i-1)}y^{i-1+1},
@@ -1082,6 +1084,59 @@ Tant que nous sommes à démontrer des égalités, en voici une.
 		\end{align}
 	\end{subequations}
 	Justification pour \eqref{SUBEQooTQFGooHyUhCi}. Les deux sommes ensemble font une somme sur tous \( \beta=(\alpha,j)\in \eN^{N+1}\) avec \( | \beta |=| \alpha |+j=(k-j)+j=k\).
+\end{proof}
+
+\begin{lemma}[\cite{MonCerveau}]			\label{LEMooBSYRooDboTor}
+	Soit une application \(f \colon \eN^n\to \eR  \). Nous avons
+	\begin{equation}
+		\sum_{\substack{ \alpha\in\eN^n \\ | \alpha |=2 }  }\frac{1}{ \alpha!}f(\alpha)=\frac{1}{ 2}\sum_{k,l}f(e_k+e_l).
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	Nous avons
+	\begin{equation}
+		\{ \alpha\in \eN^n\tq | \alpha |=2 \}=\{ e_k+e_l\tq k,l=1,\ldots,n \},
+	\end{equation}
+	mais nous ne pouvons pas sommer en faisant \( \sum_{\substack{ \alpha\in \eN^2 \\ | \alpha |=2 }  }=\sum_{k,l}\) parce que à droite, les termes \( (k,l)\) et \( (l,k)\) sont identiques.
+
+	Au lieu de ça, remarquons que nous avons une bijection
+	\begin{equation}
+		\begin{aligned}
+			\varphi\colon \{ (k,l)\in \{ 1,\ldots,n \}^2\tq k\leq n \} & \to \{ e_k+e_l \}_{k,l=1,\ldots,n} \\
+			(k,l)                                                      & \mapsto e_k+e_l.
+		\end{aligned}
+	\end{equation}
+	Prouvons que cette application est injective. Si \( \varphi(k,l)=\varphi(s,t)\), alors \( e_k+e_l=e_s+e_t\). Le produit scalaire avec \( e_k\) donne
+	\begin{equation}
+		1+\delta_{kl}=\delta_{st}+\delta_{tk}.
+	\end{equation}
+	\begin{subproof}
+		\spitem[Si \( k<l\)]
+		%-----------------------------------------------------------
+		Alors \( 1=\delta_{sk}+\delta_{tk}\). Nous avons donc forcément \( k=s\) ou \( k=t\), mais pas les deux en même temps.
+		\begin{subproof}
+			\spitem[Si \( s=k\)]
+			%-----------------------------------------------------------
+			Dans ce csa \( t\neq k\), et nous avons \( e_k+e_l=e_k+e_t\), donc \( e_l=e_t\) et donc \( l=t\). Nous avons donc \( (k,l)=(s,t)\), ce qu'il fallait.
+			\spitem[Si \( t=k\)]
+			%-----------------------------------------------------------
+			Alors \( e_l=e_s\) et donc \( l=s\), ce qui donnerait \( (k,l)=(l,k)\), ce qui est impossible parce que \( k<l\).
+		\end{subproof}
+		\spitem[Si \( k=l\)]
+		%-----------------------------------------------------------
+		Alors \( 2e_k=e_s+t_t\). Le produit scalaire avec \( e_k\) donne \( 2=\delta_{sk}+\delta_{tk}\) et donc \( s=t=k\).
+	\end{subproof}
+	Nous pouvons donc sommer de la façon suivante :
+	\begin{subequations}
+		\begin{align}
+			\sum_{\substack{ \alpha\in \eN^n                                                                                   \\ | \alpha |=2 }  }\frac{1}{ \alpha!}f(\alpha)&=\sum_{k\leq l}\frac{1}{ (e_k+e_l)!}f(e_k+e_l)\\
+			 & =\sum_{k<l}f(e_k+e_l)+\sum_k\frac{1}{ 2}f(2e_k)                                                                 \\
+			 & =\frac{1}{ 2}\sum_{k\neq l}f(e_k+e_l)+\sum_k\frac{1}{ 2}f(2e_k) & \text{cf. justif.}		\label{SUBEQooZERNooOeAAgb} \\
+			 & =\frac{1}{ 2}\sum_{k,l}f(e_k+e_l).
+		\end{align}
+	\end{subequations}
+	Justification pour \eqref{SUBEQooZERNooOeAAgb}. Nous avons \( f(e_l+e_l)=f(e_l+e_k)\). Donc \( \sum_{k<l} f(e_k+e_l)=\sum_{k>l}f(e_k+e_l)\).
 \end{proof}
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
