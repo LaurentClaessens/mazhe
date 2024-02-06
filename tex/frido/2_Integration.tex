@@ -697,6 +697,31 @@ Cette formule avec reste intégral sert par exemple à prouver un encadrement po
 	\end{subequations}
 \end{proof}
 
+
+\begin{proposition}[Taylor à l'ordre \( m=1\)\cite{MonCerveau}]		\label{PROPooJFSRooGJcLyv}
+	Soit une fonction \(f \colon \eR^n\to \eR  \) de classe \( C^{2}\) sur un ouvert convexe \( U\). Soient \( a\in U\) et \( h\in \eR^n\) tel que \( a+h\in U\). Alors
+	\begin{equation}
+		f(a+h)=h\cdot (\nabla f)(a)+h\cdot Q(a,h)h
+	\end{equation}
+	où \(Q(a,h) \colon \eR^n\to \eR^n  \) est l'opérateur linéaire dont les éléments de matrice sont donnés par
+	\begin{equation}
+		Q(a,h)_{kl}=\int_0^1(1-t)(\partial_{kl}f)(a+th)dt.
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Nous commençons par écrire la formule Taylor avec reste intégral du théorème \ref{THOooFKZZooAgecfp} avec \( m=1\) :
+	\begin{subequations}
+		\begin{align}
+			f(a+h) & =\sum_kh_k(\partial_kf)(a)+2\sum_{\substack{ \alpha\in \eN^n                                                                                \\ | \alpha |=2 }  }\frac{ h^{\alpha} }{ \alpha! }\int_0^1(1-t)(\partial^{\alpha}f)(a+th)dt\\
+			       & =  h\cdot(\nabla f)(a)+  \frac{ 1 }{2}\sum_{k,l}2h_kh_l\int_0^1(1-t)(\partial_{kl}f)(a+th)dt & \text{cf. justif}		\label{SUBEQooJLEYooPbiCji} \\
+			       & = h\cdot(\nabla f)(a)+\sum_lh_lQ(a,h)h                                                                                                      \\
+			       & = h\cdot(\nabla f)(a)+h\cdot Q(a,h)h                                                                                                        \\
+		\end{align}
+	\end{subequations}
+	Justification pour \eqref{SUBEQooJLEYooPbiCji}. Nous avons utilisé la formule du lemme \ref{LEMooBSYRooDboTor} ainsi que le fait que \( h^{e_k+e_l}=h_kh_l\).
+\end{proof}
+
 \begin{proposition}[Formule de Taylor avec reste intégral\cite{VBYOJrU,ooSZKEooLejXAh}]\label{PropAXaSClx}
 	Soient \( X\) et \( Y\) des espaces normés et un ouvert \( \mO\subset X\). Si \( f\in C^m(\mO,Y)\) et si \( [a,a+h]\subset \mO\) alors
 	\begin{equation}
@@ -1507,7 +1532,14 @@ Dans ce cas, on pose
 %---------------------------------------------------------------------------------------------------------------------------
 
 \begin{lemma}[Lemme de Morse]     \label{LemNQAmCLo}
-	Soit \( f\in C^3(\mU,\eR)\) où \( \mU\) est un ouvert de \( \eR^n\) contenant \( 0\). Nous supposons que \( df_0=0\) et que \( d^2f_0\) est non dégénérée\footnote{En tant qu'application bilinéaire.} et de signature \( (p,n-p)\). Alors il existe un \( C^1\)-difféomorphisme \( \varphi\) entre deux voisinages de \( 0\) dans \( \eR^n\) tel que
+	Soit \( f\in C^3(\mU,\eR)\) où \( \mU\) est un ouvert de \( \eR^n\) contenant \( 0\). Nous supposons que
+	\begin{enumerate}
+		\item
+		      \( df_0=0\)
+		\item
+		      La matrice  \( H_{kl}=(\partial_{kl}f)(0) \) est non dégénérée et de signature \( (p,n-p)\).
+	\end{enumerate}
+	Alors il existe un \( C^1\)-difféomorphisme \( \varphi\) entre deux voisinages de \( 0\) dans \( \eR^n\) tel que
 	\begin{enumerate}
 		\item
 		      \( \varphi(0)=0\),
@@ -1531,35 +1563,22 @@ Dans ce cas, on pose
 \index{extrémum}
 
 \begin{proof}
-	Nous allons noter \( Hf\) la matrice hessienne de \( f\), c'est-à-dire \( Hf_a=d^2f_a\in\aL^{(2)}(\eR^n,\eR)\). Écrivons la formule de Taylor avec reste intégral (proposition~\ref{PropAXaSClx} avec \( p=0\) et \( m=2\)) :
+
+	Nous utilisons le théorème de Taylor avec reste intégral sous la forme de la proposition \ref{PROPooJFSRooGJcLyv} avec \( a=0\) :
 	\begin{equation}
-		f(x)-f(0)=\underbrace{df_0(x)}_{=0}+\int_0^1(1-t)\underbrace{d^2f_{tx}(x,x)}_{x^t(Hf)_{tx}x=\langle Hf_{tx}x, x\rangle }dt=x^tQ(x)x
+		f(x)=x\cdot (\nabla f)(0)+x\cdot Q(x)x
 	\end{equation}
 	avec
 	\begin{equation}
-		Q(x)=\int_0^1(1-t)(Hf)_{tx}dt
+		Q(x)_{kl}=\int_0^1(1-t)(\partial_{kl}f)(tx)dt.
 	\end{equation}
-	qui est une intégrale dans \( \aL^{(2)}(\eR^n,\eR)\). Nous prouvons à présent que \( Q\) est de classe \( C^1\) en utilisant le résultat de différentiabilité sous l'intégrale~\ref{PropAOZkDsh}. Pour cela nous passons aux composantes (de la matrice) et nous considérons
+	Par hypothèse sur \( df_0=0\), le premier terme est nul. En ce qui concerne \( Q\), nous avons
 	\begin{equation}
-		\begin{aligned}
-			h_{kl}\colon U\times\mathopen[ 0 , 1 \mathclose] & \to \eR                                                      \\
-			h_{kl}(x,t)                                      & =(1-t)\frac{ \partial^2f  }{ \partial x_k\partial x_l }(tx).
-		\end{aligned}
+		Q(0)_{kl}=\int_0^1(1-t)(\partial_{kl}f)(0)=\frac{ 1 }{2}H_{kl}.
 	\end{equation}
-	Étant donné que \( f\) est de classe \( C^3\), la dérivée de \( h_{kl}\) par rapport à \( x_i\) ne pose pas de problèmes :
-	\begin{equation}
-		\frac{ \partial h_{kl} }{ \partial x_i }=t(t-1)\frac{ \partial^3f  }{ \partial x_i\partial x_k\partial x_l }(tx),
-	\end{equation}
-	qui est encore continue à la fois en \( t\) et en \( x\). La proposition~\ref{PropAOZkDsh} nous montre à présent que
-	\begin{equation}
-		Q_{kl}(x)=\int_0^1(1-t)h_{kl}(tx)dt
-	\end{equation}
-	est une fonction \( C^1\). Étant donné que les composantes de \( Q\) sont \( C^1\), la fonction \( Q\) est également \( C^1\).
+	Étant donné que \( f\) est de classe \( C^2\), le théorème de Schwaz \ref{Schwarz} dit que \( H\) est une matrice symétrique. Elle est également inversible par hypothèse.
 
-	Nous avons \( Q(0)=\frac{ 1 }{2}(Hf)_0\in S_n\cap \GL(n,\eR)\), d'abord parce que \( f\) est \( C^2\) (et donc la matrice hessienne est symétrique), ensuite par hypothèse \( d^2f_0\) est non dégénérée.
-	%TODO : prouver que la matrice hessienne est symétrique lorsque f est C^2 (ou vérifier que c'est déjà fait), et référentier ici.
-
-	À partir de là, le lemme~\ref{LemWLCvLXe} donne un voisinage \( V\) de \( Q(0)\) dans \( S_n\) et une application \( \phi\) de classe \( C^1\)
+	À partir de là, le lemme~\ref{LemWLCvLXe} donne un voisinage \( V\) de \( Q(0)\) dans l'ensemble \( S_n\) des matrices symétriques et une application \( \phi\) de classe \( C^1\)
 	\begin{equation}
 		\phi\colon V\to \GL(n,\eR) \\
 	\end{equation}
@@ -1574,10 +1593,20 @@ Dans ce cas, on pose
 	Notons que l'application \( M\colon \eR\to \GL(n,\eR)\) est de classe \( C^1\) parce que \( Q\) et \( \phi\) le sont.
 
 	Nous avons
-	\begin{equation}
-		f(x)-f(0)=x^tQ(x)x=x^tM(x)^tQ(0)M(x)x=y(x)^tQ(0)y(x)
-	\end{equation}
-	où \( y(x)=M(x)x=(\phi\circ Q)(x)x\) est encore une fonction de classe \( C^1\) parce que la multiplication est une application \(  C^{\infty}\).
+	\begin{subequations}
+		\begin{align}
+			f(x)-f(0) & = x\cdot Q(x)x                                                          \\
+			          & = x\cdot M(x)^tQ(0)M(x)x                                                \\
+			          & = M(x)x\cdot Q(0)M(x)x   & \text{cf. justif}	\label{SUBEQooPDUKooHDpkHu} \\
+			          & = y(x)\cdot Q(0)y(x)     & \text{cf. justif}	\label{SUBEQooEJGYooRHWmzV} \\
+		\end{align}
+	\end{subequations}
+	Justifications.
+	\begin{itemize}
+		\item
+		      Pour \ref{SUBEQooPDUKooHDpkHu}. Voir la proposition \ref{PROPooFAVAooDevBrT} et le blabla \ref{NORMooFUZYooWeXjp}.
+		\item	 Pour \ref{SUBEQooEJGYooRHWmzV}. Nous notons \( y(x)=M(x)x=(\phi\circ Q)(x)x\), qui est encore une fonction de classe \( C^1\) parce que la multiplication est une application \(  C^{\infty}\).
+	\end{itemize}
 
 	D'un autre côté le théorème de Sylvester~\ref{ThoQFVsBCk} nous donne une matrice inversible \( P\) telle que
 	\begin{equation}
@@ -1589,16 +1618,16 @@ Dans ce cas, on pose
 	Et nous posons enfin \( u=\varphi(x)=Py(x)\) qui est toujours de classe \( C^1\) et qui donne
 	\begin{subequations}
 		\begin{align}
-			f(x)-f(0) & =y^tQ(0)y                                     \\
-			          & =y^tP^t\begin{pmatrix}
-				                   \mtu &       \\
-				                        & -\mtu
-			                   \end{pmatrix}Py                        \\
-			          & =u^t\begin{pmatrix}
-				                \mtu &       \\
-				                     & -\mtu
-			                \end{pmatrix}u                            \\
-			          & =u_1^2+\cdots +u_p^2-u_{p+1}^2-\ldots -u_n^2.
+			f(x)-f(0) & = y\cdot Q(0)y                                 \\
+			          & = y\cdot P^t\begin{pmatrix}
+				                        \mtu &       \\
+				                             & -\mtu
+			                        \end{pmatrix}Py                    \\
+			          & = u\cdot\begin{pmatrix}
+				                    \mtu &       \\
+				                         & -\mtu
+			                    \end{pmatrix}u                         \\
+			          & = u_1^2+\cdots +u_p^2-u_{p+1}^2-\ldots -u_n^2.
 		\end{align}
 	\end{subequations}
 
