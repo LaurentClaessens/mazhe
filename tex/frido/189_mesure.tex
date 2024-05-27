@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2011-2023
+% Copyright (c) 2011-2024
 %   Laurent Claessens, Carlotta Donadello
 % See the file fdl-1.3.txt for copying conditions.
 
@@ -174,6 +174,15 @@ Lorsque l'intégrale considérée est celle de Riemann, l'égalité \eqref{EQooD
 	\end{equation}
 	Nous avons l'intention de prendre la limite \( b\to \infty\).  Le lemme \ref{LEMooMUHWooZPbMDb} nous assure que la limite de la dernière intégrale existe et vaut zéro. Donc la limite de l'intégrale du milieu existe et vaut celle à gauche.
 \end{proof}
+
+\begin{proposition}[\cite{MonCerveau}]	\label{PROPooSBKEooOlxqRk}
+	Soit une fonction \(f \colon \eR\to \eR  \) intégrable sur \( \eR\). Alors
+	\begin{equation}
+		\lim_{R\to \infty}\int_{-R}^Rf=\int_{\eR}f
+	\end{equation}
+	au sens où la limite de gauche existe et vaut celle de droite.
+\end{proposition}
+
 
 %--------------------------------------------------------------------------------------------------------------------------- 
 \subsection{Mesure de comptage et série}
@@ -1812,3 +1821,107 @@ Notons en particulier que si \( f(x,y)=\varphi(x)\phi(y)\), alors \( \int_{B_m}\
 \begin{equation}		\label{EqFubiniFactori}
 	\int_{B_n\times B_m}\varphi(x)\phi(y)dxdy=\int_{B_n}\varphi(x)dx\int_{B_m}\phi(y)dy.
 \end{equation}
+
+%-------------------------------------------------------
+\subsection{Utiliser Fubini sur \( \eR^n\)}
+%----------------------------------------------------
+
+Nous montrons à présent une série de théorème qui disent que sur \( \eR^n\), nous pouvons intégrer dans l'ordre qu'on veut.
+
+\begin{proposition}[\cite{MonCerveau}]	\label{PROPooODWYooWSlHlU}
+	Si \( f\in L^1(\eR^{n})\), alors
+	\begin{equation}
+		\int_{\eR^n}f=\int_{\eR^{n-1}}\left[   \int_{\eR}f_{(x_1,\ldots,x_{n-1})}(t)t  \right]dx_1,\ldots,dx_{n-1}
+	\end{equation}
+	où, pour \( (x_1,\ldots,x_{n-1})\in \eR^{n-1}\), nous définissons
+	\begin{equation}
+		\begin{aligned}
+			f_{(x_1,\ldots,x_{n-1})}\colon \eR & \to \eR                         \\
+			t                                  & \mapsto f(x_1,\ldots,x_{n-1},t)
+		\end{aligned}
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Il s'agit d'une application du théorème de Fubini \ref{ThoFubinioYLtPI}\ref{ItemQMWiolgiii} avec \( \Omega_1=\eR^{n-1}\) et \( \Omega_2=\eR\).
+\end{proof}
+
+\begin{lemma}[\cite{MonCerveau}]	\label{LEMooEDQUooZudeex}
+	Soit un ouvert \( U\) de \( \eR^n\). Soit une fonction \( C^{\infty}\) à support compact \(f \colon U\to \eR  \). Alors l'application
+	\begin{equation}
+		\begin{aligned}
+			g\colon \eR^n & \to \eR                              \\
+			x             & \mapsto \begin{cases}
+				                        0    & \text{si } x\not\in U \\
+				                        f(x) & \text{si } x\in U
+			                        \end{cases}
+		\end{aligned}
+	\end{equation}
+	est de classe \( C^{\infty}\).
+\end{lemma}
+
+\begin{proposition}[\cite{MonCerveau}]	\label{PROPooCQEIooENbfux}
+	Soit un ouvert \( U\) de \( \eR^n\). Soit une fonction \( C^{\infty}\) à support compact \(f \colon U\to \eR  \). Alors
+	\begin{equation}
+		\int_U\partial_if=0.
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	En deux parties très inégales.
+	\begin{subproof}
+		\spitem[Si \( i=n\)]
+		%-----------------------------------------------------------
+		Nous considérons l'application du lemme \ref{LEMooEDQUooZudeex} :
+		\begin{equation}
+			\begin{aligned}
+				g\colon \eR^n & \to \eR                              \\
+				x             & \mapsto \begin{cases}
+					                        0    & \text{si } x\not\in U \\
+					                        f(x) & \text{si } x\in U
+				                        \end{cases}
+			\end{aligned}
+		\end{equation}
+		Elle est de classe \( C^{\infty}\) et vérifie
+		\begin{equation}
+			\int_U\partial_nf=\int_{\eR^n}\partial_ng.
+		\end{equation}
+		Soit \( a\in \eR^n\). Nous posons
+		\begin{equation}
+			\begin{aligned}
+				h\colon \eR & \to \eR            \\
+				t           & \mapsto g(a+te_n).
+			\end{aligned}
+		\end{equation}
+		Nous avons
+		\begin{subequations}
+			\begin{align}
+				(\partial_ng)(a+ue_n) & =\frac{d}{dt} \left[ g(a+ue_n+te_n)  \right]_{t=0}          \\
+				                      & =\frac{d}{dt} \left[ g\big( a+(t+u)e_n \big)  \right]_{t=0} \\
+				                      & =\frac{d}{dt} \left[ h(t+u)  \right]_{t=0}                  \\
+				                      & =h'(u).
+			\end{align}
+		\end{subequations}
+		Nous pouvons donc déjà calculer une intégrale :
+		\begin{subequations}
+			\begin{align}
+				\int_{\eR}(\partial_ng)(a+te_n)dt & = \int_{\eR}h'(t)dt                                                               \\
+				                                  & =\lim_{R\to\infty}\int_{-R}^Rh'(t)dt      & \text{prop. \ref{PROPooSBKEooOlxqRk}} \\
+				                                  & =\lim_{R\to \infty}\Big( h(R)-h(-R) \Big) & \text{tho. \ref{ThoRWXooTqHGbC}}      \\
+				                                  & =0.
+			\end{align}
+		\end{subequations}
+		La dernière égalité est parce que \( h(R)=g(a+Re_t)\) et que \( g\) est à support compact.
+
+		Nous utilisons la proposition \ref{PROPooODWYooWSlHlU} pour isoler l'intégrale sur \( x_n\) dans \( \int_{\eR^n}\partial_ig\) :
+		\begin{equation}
+			\int_{\eR^n}\partial_ng=\int_{\eR^{n-1}}\left[   \int_{\eR}(\partial g)(a+te_n)dt \right]da_1\ldots da_{n-1}=0.
+		\end{equation}
+
+		\spitem[Si \( i\neq n\)]
+		%-----------------------------------------------------------
+
+		Nous considérons l'application \(\sigma \colon \eR^n\to \eR^n  \) qui permute \( e_i\) et \( e_n\). Nous avons \( \int_{\eR^n}f\circ\sigma=\int_{\eR^n}f\) par le changement de variables, théorème \ref{THOooUMIWooZUtUSg}. Cela nous ramène au cas \( i=n\).
+
+	\end{subproof}
+\end{proof}
