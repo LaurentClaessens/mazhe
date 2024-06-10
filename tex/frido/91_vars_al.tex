@@ -298,7 +298,7 @@ Cela ne devrait pas être sans rappeler les définitions \ref{DefAbsoluCont} et 
 	\end{equation}
 \end{proposition}
 
-\begin{definition}      \label{DefFonrepConj}
+\begin{definition}[densité conjointe]      \label{DefFonrepConj}
 	Soient \( \{ X_i \}_{1\leq i\leq n}\) des variables aléatoires réelles (pas spécialement indépendantes). Une fonction \( f\colon \eR^n\to \eR\) qui satisfait
 	\begin{enumerate}
 		\item
@@ -306,7 +306,7 @@ Cela ne devrait pas être sans rappeler les définitions \ref{DefAbsoluCont} et 
 		\item
 		      \( \int_{\eR^n}f=1\),
 		\item       \label{ItemDefFonrepConjiii}
-		      pour tout \( A_i\subset\eR \) nous avons
+		      Si les parties \( A_i\) sont mesurables dans \( \eR\), nous avons
 		      \begin{equation}
 			      P(\bigcap_{i=1}^n X_i\in A_i)=\int_{\prod_i A_i}f(x_1,\ldots,x_n)dx_1\ldots dx_n
 		      \end{equation}
@@ -349,7 +349,7 @@ Cela ne devrait pas être sans rappeler les définitions \ref{DefAbsoluCont} et 
 		\end{aligned}
 	\end{equation}
 
-	Alors la densité conjointe de variable aléatoire \( X\) est
+	Alors la densité conjointe\footnote{Définition \ref{DefFonrepConj}.} de variable aléatoire \( X\) est
 	\begin{equation}
 		\begin{aligned}
 			g\colon \eR^n & \to \eR                                                      \\
@@ -365,24 +365,61 @@ Cela ne devrait pas être sans rappeler les définitions \ref{DefAbsoluCont} et 
 		%-----------------------------------------------------------
 		Celle-là, elle est facile.
 
-		\spitem[Intégrale \( 1\)]
+		\spitem[Les parties \( \eR^n_{\sigma}\)]
 		%-----------------------------------------------------------
-		Nous prouvons que \( \int_{\eR^n}g=1\). Soit \( \sigma\in S_n\) (une permutation de \( \{ 1,\ldots,n \}\)). Nous considérons la bijection
-		\begin{equation}
-			\begin{aligned}
-				\varphi_{\sigma}\colon \eR^n & \to \eR^n              \\
-				e_i                          & \mapsto e_{\sigma(i)}.
-			\end{aligned}
-		\end{equation}
-		Nous posons
+		Soit \( \sigma\in S_n\) (une permutation de \( \{ 1,\ldots,n \}\)). Nous considérons les parties
 		\begin{equation}
 			\eR^n_{\sigma}=\{ x\in \eR^n\tq x_{\sigma(1)}<\ldots <x_{\sigma(n)} \},
 		\end{equation}
-		et nous avons
+		et la bijection
+		\begin{equation}
+			\begin{aligned}
+				\varphi\colon \eR_{\id}^n & \to \eR^n_{\sigma}                                                 \\
+				x                         & \mapsto \big( x_{\sigma^{-1}(1)},\ldots, x_{\sigma^{-1}(n)} \big).
+			\end{aligned}
+		\end{equation}
+		Nous avons
 		\begin{equation}
 			\eR^n=\bigcup_{\sigma\in S_{n}}\eR^n_{\sigma}\cup Z
 		\end{equation}
-		où \( Z\) est de mesure (le Lebesgue) nulle. Nous prouvons, pour tout \( \sigma\in S_n\), la formule \( \int_{\eR^n_{\sigma}}\prod_{i=1}^nf(x_i)=\int_{\eR^n_{\id}}\prod_{i=1}^nf(x_i)\).
+		où \( Z\) est de mesure (le Lebesgue) nulle. Cela a pour conséquence que
+		\begin{equation}		\label{EQooIEWWooZgORTM}
+			\int_{\eR^n}s(x)dx=\sum_{\sigma\in S_n}\int_{\eR^n_{\sigma}}s(x)dx
+		\end{equation}
+		pour toute fonction \( s\) intégrable.
+
+		\spitem[Une formule intermédiaire]
+		%-----------------------------------------------------------
+		Nous prouvons, pour tout \( \sigma\in S_n\), la formule \( \int_{\eR^n_{\sigma}}\prod_{i=1}^nf(x_i)=\int_{\eR^n_{\id}}\prod_{i=1}^nf(x_i)\). Pour cela nous fixons \( \sigma\in S_n\).
+
+		Vu que le produit est commutatif nous avons
+		\begin{equation}		\label{EQooJEDAooQMmHrb}
+			\prod_{i=1}^nf\big( x_{\sigma^{-1}(i)} \big)=\prod_{i=1}^nf(x_i)
+		\end{equation}
+		Nous faisons un changement de variables (équation \ref{EqRANEooQsFhbC}) avec la fonction \( \varphi\), en tentant compte du fait que \( \det(d\varphi)=\pm 1\) :
+		\begin{subequations}
+			\begin{align}
+				\int_{\eR^n_{\sigma}}\prod_{i=1}^nf(x_i)dx & = \int_{\eR^n_{\id}}\prod_{i=1}^nf\big( x_{\sigma^{-1}(i)} \big)dx         & \text{chm.var.}                      \\
+				                                           & =    \int_{\eR^n_{\id}}\prod_{i=1}^nf(x_i)dx                               & \text{par \eqref{EQooJEDAooQMmHrb}}  \\
+				                                           & =\frac{1}{ n!}\sum_{\sigma\in S_{n}}\int_{\eR^n_{id}}\prod_{i=1}^nf(x_i)dx & | S_n |=n!                           \\
+				                                           & =\frac{1}{ n!}\int_{\eR^n}\prod_{i=1}^nf(x_i)dx                            & \text{par \eqref{EQooIEWWooZgORTM}.}
+			\end{align}
+		\end{subequations}
+		Nous en retenons que
+		\begin{equation}
+			\int_{\eR^n}\prod_{i=1}^nf(x_i)dx=n!\int_{\eR^n_{\sigma}}\prod_{i=1}^nf(x_i)dx.
+		\end{equation}
+
+		\spitem[Intégrale \( 1\)]
+		%-----------------------------------------------------------
+		Nous prouvons que \( \int_{\eR^n}g=1\). Pour cela nous utilisons le théorème de Fubini \ref{ThoFubinioYLtPI}\ref{ItemQMWiolgiii} :
+		\begin{subequations}
+			\begin{align}
+				\int_{\eR^n}\prod_{i=1}^nf(x_i)dx & =\int_{\eR^{n-1}}\left(   \int_{\eR}\prod_{i=1}^nf(x_i)dx_n  \right)dx_1\ldots dx_{n-1}                         \\
+				                                  & =\int_{\eR^{n-1}}\Big(  \prod_{i=1}^{n-1}f(x_i)\underbrace{\int_{\eR}f(x_n)dx_n}_{=1}  \Big)dx_1\ldots dx_{n-1}
+			\end{align}
+		\end{subequations}
+		Par récurrence sur \( n\), nous déduisons que \( \int_{\eR^n}g=1\).
 	\end{subproof}
 
 \end{proof}
