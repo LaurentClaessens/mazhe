@@ -465,6 +465,84 @@ Pour l'espérance de \( f\circ X\), il y a le lemme de transfert \ref{PropintdPi
 \end{proof}
 
 
+\begin{lemma}[\cite{MonCerveau}]        \label{LEMooEHTYooWmMAgf}
+	Soit un espace de probabilité \( \Omega\) ainsi qu'une variable aléatoire \( X\colon \Omega\to \eR\) prenant seulement les valeurs \( \{ y_k \}_{k\in \eN}\). Alors
+	\begin{equation}
+		E(X)=\sum_{k=0}^{\infty}y_kP(X=y_k).
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	Vu que l'application \( X\colon \Omega\to \eR\) ne prend que les valeurs \( y_k\), nous avons \( \Omega=\bigcup_{k=0}^{\infty}X^{-1}(y_k)\), avec une union disjointe. Nous avons
+	\begin{subequations}
+		\begin{align}
+			E(X) & =\int_{\bigcup_iX^{-1}(y_i)}X(\omega)dP(\omega)                                                                \\
+			     & =\sum_{i=0}^{\infty}\int_{X^{-1}(y_k)}\underbrace{X(\omega)}_{=y_k}dP(\omega)      \label{SUBEQooVLTMooOflpAI} \\
+			     & =\sum_{k=0}^{\infty}y_k\int_{X^{-1}(y_k)}dP(\omega)                                                            \\
+			     & =\sum_{k=0}^{\infty}y_kP\big( X^{-1}(y_k) \big)        \label{SUBEQooXRHOooJVuFtY}                             \\
+			     & =\sum_{k=0}^{\infty}y_kP(X=y_k)        \label{SUBEQooHDIBooNxnBwg}
+		\end{align}
+	\end{subequations}
+	Justifications :
+	\begin{itemize}
+		\item
+		      Pour \eqref{SUBEQooVLTMooOflpAI}, nous avons utilisé la \( \sigma\)-additivité de l'intégrale de la proposition \ref{PROPooTFOAooJBwmCV}.
+		\item
+		      Pour \eqref{SUBEQooXRHOooJVuFtY}, l'intégrale de la fonction \( 1\) donne la mesure de la partie, c'est le lemme \ref{LemooPJLNooVKrBhN}.
+		\item
+		      Pour \eqref{SUBEQooHDIBooNxnBwg}, la notation \( P(X=y)\) signifie \( P\big( \{ \omega\in \Omega \tq X(\omega)=y\}\big)\); c'est la mesure de \( X^{-1}(y)\).
+	\end{itemize}
+\end{proof}
+
+\begin{proposition}[\cite{BIBooIUHRooKqqpaZ}]	\label{PROPooHJZWooGCpKLf}
+	Si \(X \colon \Omega\to \eR  \) est une variable aléatoire positive, alors
+	\begin{equation}
+		E(X)=\int_0^{\infty}P(X\geq t)dt.
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Pour chaque \( t\in \eR\) nous définissons
+	\begin{equation}
+		\Omega_t=\{ \omega\in\Omega\tq X(\omega)\geq t \}.
+	\end{equation}
+	\begin{subproof}
+		\spitem[\( P(X\geq t)=E(\mtu_{\Omega_t})\)]
+		%-----------------------------------------------------------
+		En utilisant le lemme \ref{LemooPJLNooVKrBhN}, nous avons
+		\begin{equation}
+			E(\mtu_{\Omega_t})=\int_{\Omega}\mtu_{\Omega_t}d\omega  = P(\Omega_t)  =P(X\geq t).
+		\end{equation}
+
+		\spitem[Une expresion pour \( X(\omega)\)]
+		%-----------------------------------------------------------
+		Soit \( \omega\in \Omega\). Nous allons montrer que \( X(\omega)=\int_0^{\infty}\mtu_{\Omega_t}(\omega)dt\). Pour cela il faut remarquer que :
+		\begin{equation}
+			\mtu_{\Omega_t}(\omega)=\begin{cases}
+				1 & \text{si } X(\omega)\geq t \\
+				0 & \text{sinon. }
+			\end{cases}
+		\end{equation}
+		Avec cela nous avons
+		\begin{equation}
+			\int_{\eR^+}\mtu_{\Omega_t}(\omega)dt=\int_0^{X(\omega)}1dt=X(\omega).
+		\end{equation}
+
+		\spitem[Le calcul]
+		%-----------------------------------------------------------
+		En utilisant les points précédents,
+		\begin{subequations}
+			\begin{align}
+				E(X) & =\int_{\Omega}X(\omega)d\omega                                                                   \\
+				     & =\int_{\Omega}\int_0^{\infty}\mtu_{\Omega_t}(\omega)dt                                           \\
+				     & =\int_0^{\infty}\int_{\Omega}\mtu_{\Omega_t}(\omega)dt & \text{Fubini-Tonelli \eqref{EqJRVtOGx}} \\
+				     & =\int_0^{\infty}E(\mtu_{\Omega_t})dt                                                             \\
+				     & =\int_0^{\infty}P(X\geq t)dt.
+			\end{align}
+		\end{subequations}
+	\end{subproof}
+\end{proof}
+
 La proposition suivante provient du fait que la mesure d'une loi conjointe est le produit des mesures lorsque les variables aléatoires sont indépendantes (proposition~\ref{PropPXXXPXPXPX}).
 \begin{proposition}[\cite{ProbaDanielLi}]           \label{PROPooDKQDooREiSSf}
 	Si les variables aléatoires réelles \( X_1\),\ldots,\( X_n\) sont intégrables et indépendantes, alors leur produit est intégrable et l'espérance\footnote{Espérance d'une variable aléatoire, définition \ref{DEFooQKFBooCBZtRG}.} du produit est égal au produit des espérances :
@@ -509,35 +587,6 @@ La proposition suivante provient du fait que la mesure d'une loi conjointe est l
 
 \begin{proof}
 	L'hypothèse est que \( \int_{\Omega}| X |^p<\infty\), c'est à dire que \( E(| X |^p)<\infty\). La proposition \ref{PROPooESPWooAfLmeW}\ref{ITEMooFJCTooEBeFaz} conclu que \( E(| X |^s)<\infty\) pour tout \( s\leq p\).
-\end{proof}
-
-\begin{lemma}[\cite{MonCerveau}]        \label{LEMooEHTYooWmMAgf}
-	Soit un espace de probabilité \( \Omega\) ainsi qu'une variable aléatoire \( X\colon \Omega\to \eR\) prenant seulement les valeurs \( \{ y_k \}_{k\in \eN}\). Alors
-	\begin{equation}
-		E(X)=\sum_{k=0}^{\infty}y_kP(X=y_k).
-	\end{equation}
-\end{lemma}
-
-\begin{proof}
-	Vu que l'application \( X\colon \Omega\to \eR\) ne prend que les valeurs \( y_k\), nous avons \( \Omega=\bigcup_{k=0}^{\infty}X^{-1}(y_k)\), avec une union disjointe. Nous avons
-	\begin{subequations}
-		\begin{align}
-			E(X) & =\int_{\bigcup_iX^{-1}(y_i)}X(\omega)dP(\omega)                                                                \\
-			     & =\sum_{i=0}^{\infty}\int_{X^{-1}(y_k)}\underbrace{X(\omega)}_{=y_k}dP(\omega)      \label{SUBEQooVLTMooOflpAI} \\
-			     & =\sum_{k=0}^{\infty}y_k\int_{X^{-1}(y_k)}dP(\omega)                                                            \\
-			     & =\sum_{k=0}^{\infty}y_kP\big( X^{-1}(y_k) \big)        \label{SUBEQooXRHOooJVuFtY}                             \\
-			     & =\sum_{k=0}^{\infty}y_kP(X=y_k)        \label{SUBEQooHDIBooNxnBwg}
-		\end{align}
-	\end{subequations}
-	Justifications :
-	\begin{itemize}
-		\item
-		      Pour \eqref{SUBEQooVLTMooOflpAI}, nous avons utilisé la \( \sigma\)-additivité de l'intégrale de la proposition \ref{PROPooTFOAooJBwmCV}.
-		\item
-		      Pour \eqref{SUBEQooXRHOooJVuFtY}, l'intégrale de la fonction \( 1\) donne la mesure de la partie, c'est le lemme \ref{LemooPJLNooVKrBhN}.
-		\item
-		      Pour \eqref{SUBEQooHDIBooNxnBwg}, la notation \( P(X=y)\) signifie \( P\big( \{ \omega\in \Omega \tq X(\omega)=y\}\big)\); c'est la mesure de \( X^{-1}(y)\).
-	\end{itemize}
 \end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
