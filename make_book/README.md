@@ -37,8 +37,13 @@ git commit -a
 git push origin 2023
 ```
 
+## Avant de proposer dans thebookedition.com
+
+Avant de supprimer l'ancienne version, noter les stats de la précédente : ventes et prix.
 
 ## Proposer dans thebookedition.com
+
+
 
 Titre : 
 - Le Frido 2023 -- volume 1

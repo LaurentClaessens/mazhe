@@ -24,7 +24,7 @@
 
 Ces définitions impliquent immédiatement que si \( (X_n)\) est adapté à \( (\tribF_n)\) alors \( X_n\) est \( \tribF_k\)-mesurable pour \( k\geq n\).
 
-\begin{definition}
+\begin{definition}		\label{DEFooESAGooUffeDa}
 	Une \defe{martingale}{martingale} adaptée à la filtration \( (\tribB_n)_{n\in \eN}\) est une suite de variables aléatoires \( M_n\) telle que
 	\begin{enumerate}
 		\item
@@ -165,25 +165,63 @@ Notons en particulier que la variable aléatoire \( M_{\infty}\) est presque sur
 	qui est presque surement finie.
 \end{example}
 
+\begin{proposition}[\cite{BIBooYWQKooSdwvTG}]	\label{PROPooSWTPooOvzYPQ}
+	Si \( (M_n)_{n\in \eN}\) est une sous-martingale, alors
+	\begin{equation}
+		E(M_0)\leq E(M_n)
+	\end{equation}
+	pour tout \( n\).
+\end{proposition}
+
+
+
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\section{Temps d'arrêt et martingale terminée}
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+\begin{definition}[Temps d'arrêt]		\label{DEFooJBYJooKYVAJG}
+	Soit \( (\Omega,\tribF_n,\tribF,P)\) un espace de probabilité filtré. Une application \( T\colon \Omega\to \bar \eN\cup\{ \infty \}\) est un \defe{temps d'arrêt}{temps d'arrêt} adapté à la filtration \( (\tribF_n)\) si pour tout \( n\in \eN\) nous avons \( \{ T\leq n \}\in\tribF_n\).
+
+	Le temps d'arrêt \( T\) est \defe{borné}{borné!temps d'arrêt} si il existe \( k\in \eN\) tel que \( T(\omega)\leq k\) pour presque tout \( \omega\in \Omega\).
+\end{definition}
+
 
 %-------------------------------------------------------
 \subsection{Nombre de montées}
 %----------------------------------------------------
 
-\begin{definition}[\cite{BIBooYWQKooSdwvTG}]	\label{DEFooIUOXooPfASWz}
+\begin{definition}[\cite{BIBooYWQKooSdwvTG,MonCerveau}]	\label{DEFooIUOXooPfASWz}
 	Soient \( a,b\in \eR\) avec \( a<b\). Soit une suite de variables aléatoires \(Z_k \colon \Omega\to \eR  \). Nous définissons les applications \( T_k\) et \( S_k\) par récurrence en posant :
 	\begin{subequations}		\label{EQooVQSIooHGAWau}
 		\begin{align}
-			T_0     & =0                                     \\
-			S_{j+1} & =\min\{ k\leq T_j\tq Z_k\leq a \}      \\
-			T_{j+1} & =\min\{ k\geq S_{j+1}\tq Z_k\geq b \}.
+			T_0     & =0                                  \\
+			S_{j+1} & =\min\{ k\geq T_j\tq Z_k\leq a \}   \\
+			T_{j+1} & =\min\{ k> S_{j+1}\tq Z_k\geq b \}.
 		\end{align}
 	\end{subequations}
 	Dans tout ceci, nous convenons que \( \min(\emptyset)=+\infty\) et \( \max(\emptyset)=0\).
+
+	Le \defe{nombre de montées}{nombre de montées} de \( a\) ) \( b\) est alors la variable aléatoire
+	\begin{equation}
+		U_n(a,b)=\max\{ j\leq n\tq T_j\leq n \}.
+	\end{equation}
 \end{definition}
 
 \begin{proposition}[\cite{MonCerveau}]	\label{PROPooTYOAooEsoEPH}
-	Soit une suite de variable aléatoires \( (Z_k)_{k\in \eN}\). Les applications \( T_k\) et \( S_k\) définies par \eqref{EQooVQSIooHGAWau} sont des variables aléatoires. Elles sont également des temps d'arrêts pour la filtration naturelle\footnote{Définition \ref{DEFooUNRAooOEmCsh}.} des \( (Z_k)_{k\in \eN}\).
+	Soit une suite de variable aléatoires \( (Z_k)_{k\in \eN}\). Les applications \( T_k\) et \( S_k\) définies par \eqref{EQooVQSIooHGAWau} sont des variables aléatoires. Elles sont également des temps d'arrêts\footnote{Définition \ref{DEFooJBYJooKYVAJG}.} pour la filtration naturelle\footnote{Définition \ref{DEFooUNRAooOEmCsh}.} des \( (Z_k)_{k\in \eN}\).
+
+	De plus, tant que \( S_j,T_j<\infty\) nous avons
+	\begin{equation}		\label{EQooTFZKooPeJtgg}
+		0=T_0\leq S_1<T_1
+	\end{equation}
+	et, pour tout \( j\geq 1\),
+	\begin{equation}		\label{EQooCOUAooSgWEmf}
+		T_j<S_{j+1}<T_{j+1},
+	\end{equation}
+	et
+	\begin{equation}		\label{EQooUNTOooXbDmWr}
+		Z_{S_j}\leq a<b\leq Z_{T_j}.
+	\end{equation}
 \end{proposition}
 
 \begin{proof}
@@ -198,20 +236,239 @@ Notons en particulier que la variable aléatoire \( M_{\infty}\) est presque sur
 		\spitem[Si \( T_j\) est un temps d'arrêt, alors \( S_{j+1}\) en est un]
 		%-----------------------------------------------------------
 
-		kmlkml
-	\end{subproof}<++>
+		Nous supposons que \( T_j\) est un temps d'arrêt pour la filtration naturelle des \( (Z_k)_{k\in \eN}\), c'est à dire que pour tout \( n\),
+		\begin{equation}
+			\{ \omega\in \Omega\tq T_k(\omega)\leq n \}\in\tribF_n=\sigma(Z_1,\ldots,Z_n).
+		\end{equation}
+		Nous devons montrer que \( \{ \omega\in\Omega\tq S_j(\omega)\leq n \}\in\tribF_n\). D'abord nous écrivons
+		\begin{equation}		\label{EQooHBWRooGhAIan}
+			\{ \omega\in\Omega\tq S_j(\omega)\leq n \}=\bigcup_{k=1}^n\{ \omega\in \Omega\tq S_j(\omega)=k \}.
+		\end{equation}
+		Ensuite nous comprenons que \( S_j(\omega)=k\) signifie que \( Z_k(\omega)\leq a\) et \( k\leq T_j(\omega)\), et que \( k\) est minimum pour ces deux propriétés. Nous avons donc
+		\begin{equation}
+			\begin{aligned}[]
+				\{ \omega\in \Omega\tq S_j(\omega)=k \} & =\{ \omega\in \Omega\tq k\leq T_j(\omega) \}\cap\{ \omega\in\Omega\tq Z_k(\omega)\leq a \} \\
+				                                        & \quad\setminus \bigcup_{l=1}^k\{ \omega\in \Omega\tq T_j(\omega)=l,Z_l(\omega)>a \}.
+			\end{aligned}
+		\end{equation}
+		Nous rappelons que là dedans, \( k\leq n\) et que nous voulons que le tout soit dans \( \tribF_n=\sigma(Z_1,\ldots,Z_n)\). Comme les tribus sont stables par complémentaires, unions dénombrables et intersections dénombrables\footnote{Définition \ref{DefjRsGSy} et lemme \ref{LemBWNlKfA}.}, nous avons le droit de travailler chaque partie séparément.
+
+		Chaque élément de l'intersection sur \( l\) est de la forme \( \{ T_j=l \}\cap \{ Z_l>a \}\). Et nous avons
+		\begin{equation}
+			\{ T_k=l \}=\{ T_l\leq l \}\setminus \{ T_k\leq l-1 \}.
+		\end{equation}
+		Nous prouvons  bout par bout que pour tout \( m\leq k\leq n\), les parties suivantes sont dans \( \tribF_n\) :
+		\begin{itemize}
+			\item
+			      \( \{ T_j\leq m \}\in\tribF_n\) parce que \( T_j\) est un temps d'arrêt.
+			\item
+			      \( \{ T_j\geq k \}\in\tribF_n\) parce que c'est le complémentaire de \( \{ T_j<k \}=\{ T_k\leq k-1 \}\) et que \( k-1\leq n\).
+			\item
+			      \( \{ Z_k\leq a \}\in\tribF_n\) parce que \( \tribF_n\) est engendrée, entre autres par \( Z_k\). Ici nous utilisons le fait que \( k\leq n\).
+			\item
+			      \( \{ Z_l>a \}\in\tribF_n\) parce que \( \tribF_n\) contient entre autres \( \sigma(Z_l)\).
+		\end{itemize}
+
+		\spitem[Si \( S_j\) est un temps d'arrêt alors \( T_{j+1}\) en est un]
+		%-----------------------------------------------------------
+
+		Même raisonnement que l'autre\quext{Attention. J'ai pas vérifié. Je te conseille de vérifier, et de m'écrire si il y a une difficulté.}.
+	\end{subproof}
+	Et maintenant, les inégalités \eqref{EQooTFZKooPeJtgg}, \eqref{EQooCOUAooSgWEmf} et \eqref{EQooUNTOooXbDmWr}. Notons que dès que \( T_j=\infty\), tous les autres sont \( \infty\) et les inégalités n'ont plus vraiment de sens. Nous supposons donc toujours que \( T_j,S_j<\infty\).
+
+	\begin{subproof}
+		\spitem[\( T_0\leq S_1\)]
+		%-----------------------------------------------------------
+		Nous avons \( S_1=\min\{ k\geq T_0\tq Z_k\leq a \}\). En particulier \( S_1\geq T_0\).
+
+		\spitem[\( S_1<T_1\)]
+		%-----------------------------------------------------------
+		Par définition.
+
+		\spitem[\( T_j<S_{j+1}\) si \( j\geq 1\)]
+		%-----------------------------------------------------------
+		Par définition \( S_{j+1}=\min\{ k\geq T_j\tq Z_k\leq a \}\). En particulier \( S_{j+1}\geq T_j\). Voyons pourquoi pas \( S_{j+1}=T_j\). Vue la définition de \( S_{j+1}\), avoir \( S_{j+1}=T_j\) demanderait \( Z_{T_j}\leq a<b\). Mais \( T_j=\min\{ k>S_j\tq Z_k\leq b \}\). Donc \( Z_{T_j}\geq b\). Contradiction.
+
+		\spitem[\( S_{j+1}<T_{j+1}\)]
+		%-----------------------------------------------------------
+		Par définition.
+
+		\spitem[\( Z_{S_j}\leq a\)]
+		%-----------------------------------------------------------
+		Si \( l=S_j(\omega)\), alors en particulier \( l\in \{ k\geq T_j(\omega)\tq Z_k(\omega)\leq a \}\). En particulier \( Z_l(\omega)\leq a\).
+
+		\spitem[\( b\leq Z_{T_j}\)]
+		%-----------------------------------------------------------
+		Si \( l=T_j(\omega)\), alors \( l\in\{ k>S_j(\omega)\tq Z_k(\omega)\geq b \}\). En particulier \( Z_l(\omega)\geq b\).
+	\end{subproof}
 \end{proof}
 
+\begin{proposition}[\cite{BIBooYWQKooSdwvTG}]	\label{PROPooSGXJooQkbyMH}
+	Nous fixons \( a<b\) dans \( \eR\). Le nombre de montées est croissant et en posant
+	\begin{equation}
+		U_n(\omega)=\lim_{n\to \infty}U_n(\omega),
+	\end{equation}
+	l'application \( U_n\) est une variable aléatoire.
+\end{proposition}
 
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-\section{Temps d'arrêt et martingale terminée}
-%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+\begin{proof}
+	La définition est que \( U_n(\omega)=\max\{ j\leq n\tq T_j(\omega)\leq n \}\). Nous avons
+	\begin{equation}
+		\{ j\leq n\tq T_j(\omega)\leq n \}\subset \{ j\leq n+1\tq T_j(\omega)\leq n+1 \}.
+	\end{equation}
+	Donc le maximum de l'ensemble de droite est plus grand.
 
-\begin{definition}
-	Soit \( (\Omega,\tribF_n,\tribF,P)\) un espace de probabilité filtré. Une application \( T\colon \Omega\to \bar \eN\cup\{ \infty \}\) est un \defe{temps d'arrêt}{temps d'arrêt} adapté à la filtration \( (\tribF_n)\) si pour tout \( n\in \eN\) nous avons \( \{ T\leq n \}\in\tribF_n\).
+	Le fait que la limite soit une variable aléatoire (c'est à dire mesurable) est la proposition \ref{PropooDXBGooSFqrai}.
+\end{proof}
 
-	Le temps d'arrêt \( T\) est \defe{borné}{borné!temps d'arrêt} si il existe \( k\in \eN\) tel que \( T(\omega)\leq k\) pour presque tout \( \omega\in \Omega\).
-\end{definition}
+\begin{theorem}[Inégalité des montées de Doobs\cite{BIBooYWQKooSdwvTG}]	\label{THOooZKNNooVdOxKu}
+	Soit une sous-martingale \( (Z_n)_{n\in \eN}\). Soient \( a<b\) dans \( \eR\). Nous avons
+	\begin{equation}
+		E\big( U_n(a,b) \big)\leq \frac{1}{ b-a}E\Big( (Z_n-a)^+ \Big)\leq \frac{1}{ b-a}\Big( E\big( | Z_n | \big)+| a | \Big).
+	\end{equation}
+\end{theorem}
+
+
+\begin{proposition}[\cite{BIBooYWQKooSdwvTG}]	\label{PROPooMFRFooHMIjsy}
+	Soit une sous-martingale\footnote{Définition \ref{DEFooESAGooUffeDa}.} \( (Z_n)_{n\in \eN}\) telle que \( \sup_n E(Z^+_n)<\infty\). Alors il existe \( \Omega'\subset \Omega\) tel que \( P(\Omega')=1\) et une variable aléatoire \( Z\in L^1(\Omega')\) telle que
+	\begin{equation}
+		Z_n(\omega)\to Z
+	\end{equation}
+	pour tout \( \omega\in \Omega'\).
+\end{proposition}
+
+\begin{proof}
+
+	En plusieurs parties.
+	\begin{subproof}
+		\spitem[\( U(a,b)\in L^1(\Omega)\)]
+		%-----------------------------------------------------------
+
+		Soient \( a<b\in \eR\). Nous considérons également le nombre de montées\footnote{Définition \ref{DEFooIUOXooPfASWz}.} entre \( a\) et \( b\). C'est une suite croissante et la limite est une variable aléatoire (proposition \ref{PROPooSGXJooQkbyMH}). Le théorème de Beppo-Levi \ref{ThoRRDooFUvEAN} nous dit alors que
+		\begin{equation}
+			\lim_{n\to \infty}E\big( U_n(a,b) \big) = E\big( U(a,b) \big)\in\mathopen[ 0,\infty\mathclose].
+		\end{equation}
+		Nous passons à la limite dans l'inégalité montées \ref{THOooZKNNooVdOxKu} :
+		\begin{equation}
+			E\Big( U_n(a,b) \Big)\leq \lim_{n\to\infty}\frac{1}{ b-a}\Big( E\big( | Z_n | \big)+| a | \Big).
+		\end{equation}
+		Dans le membre de droite nous majorons
+		\begin{equation}
+			E\big( | Z_n | \big)\leq E(Z_n^+)\leq \sup_nE(Z_n^+).
+		\end{equation}
+		Nous avons donc
+		\begin{equation}
+			E\Big( U_n(a,b) \Big)\leq \frac{1}{ b-a}\sup_{n\in \eN}\Big( E(Z_n^+)+| a | \Big)<\infty.
+		\end{equation}
+		La dernière inégalité étant l'hypothèse. Nous avons donc démontré que
+		\begin{equation}
+			E\big( U(a,b) \big)<\infty,
+		\end{equation}
+		c'est à dire que \( U(a,b)\in L^1(\Omega)\), et donc \( U(a,b)<\infty\) presque surement. Donc
+		\begin{equation}		\label{EQooJDDJooNYpzru}
+			P\Big( \{ \omega\in \Omega\tq U(a,b)(\omega)=\infty \} \Big)=0.
+		\end{equation}
+
+		\spitem[La partie \( A_{a,b}\)]
+		%-----------------------------------------------------------
+
+		Pour chaque \( a<b\) dans \( \eQ\), nous introduisons cette partie de \( \Omega\) :
+		\begin{equation}
+			A_{a,b}=\{ \omega\in\Omega\tq
+			\begin{cases}
+				\liminf_nZ_n(\omega)  \leq a \\
+				\limsup_nZ_n(\omega)  \geq b
+			\end{cases}
+			\}.
+		\end{equation}
+
+		\spitem[\( T_j,S_j<\infty\) sur \( A_{a,b}\)]
+		%-----------------------------------------------------------
+
+		Soit \( \omega\in A_{a,b}\). Nous prouvons que \( T_j(\omega)<\infty\) et \( S_j(\omega)<\infty\) par récurrence. Pour tout \( N>0\), il existe \( k,>N\) tel que \( Z_k(\omega)\leq a\) et \( Z_l(\omega)\geq b\).
+
+		Si \( T_j(\omega)<\infty\), alors \( S_{j+1}<\infty\). En effet il existe \( k>T_j(\omega)\) tel que \( Z_k(\omega)\leq a\). Et donc \( S_{j+1}(\omega)<\infty\).
+
+		De même si \( S_j(\omega)<\infty\), alors il existe \( k>S_j(\omega)\) tel que \( Z_k(\omega)\geq b\). Donc \( T_{j+1}(\omega)<\infty\).
+
+		\spitem[\( U(a,b)=\infty\) sur \( A_{a,b}\)]
+		%-----------------------------------------------------------
+
+
+		Nous montrons à présent que \( U(\omega)=\infty\) pour tout \( \omega\in A_{a,b}\). Soient \( \omega\in A_{a,b}\), et \( m>0\). Nous posons
+		\begin{equation}
+			N=\max\{ T_m(\omega),m \},
+		\end{equation}
+		et nous considérons \( n>N\). Nous allons prouver qu'alors \( U_n(a,b)\geq m\). Pour rappel \( U_n(\omega)=\max\{ j\leq n\tq T_j(\omega)\leq n \}.\). Vu que \( T_m(\omega)<N<n\) et \( m\leq N<n\), nous avons \( m\in\{ j\leq n\tq T_j(\omega)\leq n \}\), et donc \( U_n(\omega)\geq m\). Nous avons donc prouvé que
+		\begin{equation}
+			\lim_{n\to \infty}U_n(a,b)(\omega)=\infty
+		\end{equation}
+		dès que \( \omega\in A_{a,b}\). En vertu de \eqref{EQooJDDJooNYpzru}, nous avons \( P(A_{a,b})=0\) pour tout \( a<b\in \eR\).
+
+		\spitem[L'union des \( A_{a,b}\)]
+		%-----------------------------------------------------------
+
+		Nous posons
+		\begin{equation}
+			A=\{ \omega\in \Omega\tq \liminf_nZ_n(\omega)<\limsup_nZ_n(\omega) \},
+		\end{equation}
+		et nous prouvons à présent que \( A=\bigcup_{\substack{ a,b\in \eQ \\ a<b }} A_{a,b} \).
+
+		Soit \( \omega\in A\). Il existe \( a,b\in \eQ\) tels que \( \omega\in A_{a,b}\). Nous avons donc
+		\begin{equation}
+			\liminf_nZ_n(\omega)\leq a<b\leq \limsup_nZ_n(\omega),
+		\end{equation}
+		et donc \( \omega\in A\). Dans l'autre sens, nous supposons que \( \omega\in \Omega\) satisfasse \( \liminf_nZ_n(\omega)<\limsup_nZ_n(\omega)\). En utilisant le lemme \ref{LemooHLHTooTyCZYL}\ref{ITEMooGVTMooQsoTCi} (deux fois), nous considérons \( a<b\) dans \( \eQ\) tels que
+		\begin{equation}
+			\liminf_nZ_n(\omega)<a<b<\limsup_nZ_n(\omega).
+		\end{equation}
+		Cela prouve que \( \omega\in A_{a,b}\subset A\).
+
+		\spitem[Convergence presque sure]
+		%-----------------------------------------------------------
+
+		En tant qu'union dénombrable de parties de mesures nulles, nous avons \( P(A)=0\). Le \( \Omega'\) dont on parle dans l'énoncé sera \( A^c\). Vu que \( P(\Omega\setminus \Omega')=0\), le mesure \( P\) restreinte aux parties de \( \Omega'\) est une mesure de probabilité sur \( \Omega'\). Pour \( \omega\in \Omega'\), nous avons
+		\begin{equation}
+			\liminf_nZ_n(\omega)=\limsup_nZ_n(\omega),
+		\end{equation}
+		et donc la suite \( (Z_n(\omega))\) converge dans \( \bar \eR\). Nous considérons la variable aléatoire
+		\begin{equation}
+			\begin{aligned}
+				Z\colon \Omega' & \to \bar \eR                          \\
+				\omega          & \mapsto \lim_{n\to\infty}Z_n(\omega).
+			\end{aligned}
+		\end{equation}
+		Vu que \( Z_n(\omega)\to Z(\omega)\), la proposition \ref{PROPooUOYTooGwGZHz} dit que \( \liminf_n| Z_n(\omega) |=| Z(\omega) |\). Nous pouvons calculer un peu d'espérance :
+		\begin{subequations}		\label{SUBEQSooPEZEooTDliNe}
+			\begin{align}
+				E\big( | Z | \big) & =\int_{\Omega'}| Z(\omega) |dP(\Omega)                                                     \\
+				                   & =\int_{\Omega'}\liminf_n| Z_n(\omega) |dP(\omega)                                          \\
+				                   & \leq \int_{\Omega'}| Z_n(\omega) |dP(\omega)      & \text{lem. Fatou \ref{LemFatouUOQqyk}} \\
+				                   & =\liminf_nE\big(| Z_n |).
+			\end{align}
+		\end{subequations}
+
+		\spitem[Un peu de majoration]
+		%-----------------------------------------------------------
+
+		Nous avons \( | Z_n |=Z_n^++Z_n^-=2Z_n^+-Z_n\), et nous continuons les inégalités \eqref{SUBEQSooPEZEooTDliNe} :
+		\begin{subequations}
+			\begin{align}
+				E(| Z |) & \leq \liminf_{n}\big( E(|Z_n) \big)                                         \\
+				         & =2E(Z_n^+)-E(Z_n)                                                           \\
+				         & \leq 2E(Z_n^+)-E(Z_0)               & \text{prop. \ref{PROPooSWTPooOvzYPQ}} \\
+				         & \leq 2\sup_nE(Z_n^+)-E(Z_0)                                                 \\
+				         & <\infty.
+			\end{align}
+		\end{subequations}
+		Cela termine de prouver que \( Z\in L^1(\Omega',P)\).
+	\end{subproof}
+\end{proof}
+
+%-------------------------------------------------------
+\subsection{Théorèmes d'arrêt}
+%----------------------------------------------------
+
 
 \begin{lemma} \label{LemXYeCLXW}
 	Si \( T\) est un temps d'arrêt presque surement fini, alors\quext{Dans \cite{KXjFWKA}, dans le problème de la ruine du joueur, la seconde assertion est avec une limite sup et non avec une limite normale.}
@@ -271,7 +528,7 @@ Notons en particulier que la variable aléatoire \( M_{\infty}\) est presque sur
 \end{remark}
 
 \begin{theorem}[Premier théorème d'arrêt de Doob\cite{FUFFxBX,BIBooREGHooJpXSyS}] \label{ThoZTrdjtZ}
-	Soient \( (X_n)\) une martingale et \( T\) un temps d'arrêt\footnote{Définition \ref{}.}; tous deux pour la filtration \( (\tribF_n)\). Nous supposons qu'une des trois propriétés suivantes soit vérifiée :
+	Soient \( (X_n)\) une martingale et \( T\) un temps d'arrêt\footnote{Définition \ref{DEFooJBYJooKYVAJG}.}; tous deux pour la filtration \( (\tribF_n)\). Nous supposons qu'une des trois propriétés suivantes soit vérifiée :
 	\begin{enumerate}
 		\item
 		      \( T\) est presque surement bornée : il existe \( c\in \eR\) tel que \( T(\omega)<c\) pour presque tout \( \omega\).
@@ -873,7 +1130,7 @@ En reprenant la valeur \eqref{EqIHhbeCB} de \( \rho\),
 \begin{equation}
 	E(T)=ab.
 \end{equation}
-Et là, on voit que si le joueur amène \( 1000\) euros contre une banque qui en a un million, et si ils jouent toutes les secondes , on en a pour \( 32\) ans de jeu en moyenne.
+Et là, on voit que si le joueur amène \( 1000\) euros contre une banque qui en a un million, et si ils jouent toutes les secondes, on en a pour \( 32\) ans de jeu en moyenne.
 
 Voilà. C'est fini pour la ruine du joueur.
 
