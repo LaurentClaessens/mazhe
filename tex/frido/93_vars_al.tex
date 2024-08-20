@@ -167,7 +167,7 @@ La loi de Poisson de paramètre \( \lambda=2\).
 \subsection{Loi exponentielle}
 %---------------------------------------------------------------------------------------------------------------------------
 
-La loi exponentielle représente le temps qu'il faut attendre pour qu'une particule se désintègre si elle a en permanence une probabilité\quext{Étant donné que \( \lambda\) n'est pas limité à \( 1\), en réalité ce n'est pas une probabilité. Je suis preneur d'une bonne interprétation physique de ce paramètre.} \( \lambda dt\) de se désintégrer entre \( t\) et \( t+dt\). L'espérance est donc \( 1/\lambda\).
+La loi exponentielle représente le temps qu'il faut attendre pour qu'une particule se désintègre si elle a en permanence une probabilité\footnote{Plutôt une densité qu'une probabilité. Vu que \( \lambda\) est fini et que \( dt\) est infinitésimal, \( \lambda dt\) est infinitésimal, et si on veut c'est un bon ordre de grandeur pour la probabilité qu'un événement arrive entre \( t\) et \( t+dt\).} \( \lambda dt\) de se désintégrer entre \( t\) et \( t+dt\). L'espérance est donc \( 1/\lambda\).
 
 Il se passe donc en moyenne \( \lambda\) événements par seconde. La proposition~\ref{PropGMntiy} nous montrera que le nombre d'événements se produisant en une seconde suit une loi de Poisson de paramètre \( \lambda\).
 
@@ -210,6 +210,52 @@ Densité de la loi exponentielle de paramètre \( \lambda=2\).
 	alors \( X\) et \( Y\) sont indépendantes.
 	%TODOooCRUDooOkzPST
 \end{proposition}
+
+\begin{proposition}[Somme de variables aléatoires exponentielles indépendantes\cite{BIBooQMIXooVvDwBw}]	\label{PROPooBZREooUTvonZ}
+	Si les variables aléatoires \(X_1,\ldots,X_n \colon \Omega\to \eR    \) sont indépendantes et suivent une même loi exponentielle de paramètre \( \lambda\), alors la densité de la somme \( \sum_{k=1}^nX_k \) est
+	\begin{equation}		\label{EQooSCJHooUWxrgs}
+		\begin{aligned}
+			h_n\colon \eR & \to \eR                                                                                                                       \\
+			t             & \mapsto \begin{cases}
+				                        0                                                                                      & \text{si } t<0      \\
+				                        \frac{ \displaystyle (\lambda t)^{n-1}\lambda e^{-\lambda t} }{ \displaystyle (n-1)! } & \text{si } t\geq 0.
+			                        \end{cases}
+		\end{aligned}
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Nous y allons par récurrence sur \( n\) en commençant avec \( n=1\). Pour \( n=1\), il suffit de remarquer que la formule \eqref{EQooSCJHooUWxrgs} se réduit à la densité d'une exponentielle :
+	\begin{equation}
+		\begin{aligned}
+			h_1\colon \eR & \to \eR                                             \\
+			x             & \mapsto \begin{cases}
+				                        \lambda e^{-\lambda x} & \text{si } x\geq 0 \\
+				                        0                      & \text{si } x<0.
+			                        \end{cases}
+		\end{aligned}
+	\end{equation}
+	La proposition \ref{PROPooBNUEooOUvpdp} dit que la densité de la somme sera le produit de convolution, et le lemme \ref{LEMooMRWZooHjrnHD} nous assure que c'est commutatif :
+	\begin{equation}
+		h_{n+1}(t)=(h_n*h_1)(t)=(h_1*h_n)(t).
+	\end{equation}
+	Pour \( t\geq 0\), nous avons le calcul suivant :
+	\begin{subequations}
+		\begin{align}
+			h_{n+1}(t) & =\int_{\eR}h_1(t-x)h_n(x)dx                                                                  \\
+			           & =\int_0^t\lambda e^{-\lambda(t-x)}\frac{ (\lambda x)^{n-1} }{ (n-1)! }\lambda e^{-\lambda x} \\
+			           & = \frac{ \lambda^{n+1} }{ (n-1)! }e^{-\lambda t}\int_0^tx^{n-1}dx                            \\
+			           & =\frac{ \lambda^{n+1} }{ (n-1)! }e^{-\lambda t}\frac{ t^n }{ n },
+		\end{align}
+	\end{subequations}
+	qui est bien la valeur attendue dans \eqref{EQooSCJHooUWxrgs} pour \( t\geq 0\).
+
+	Si \( t<0\), alors nous avons
+	\begin{equation}
+		h_{n+1}(t)=\int_{\eR}h_1(t-x)h_n(x)dx.
+	\end{equation}
+	Nous avons \( h_1(t-x)\neq 0\) seulement sur \( t\geq x\). Et nous avons \( h_n(x)\) seulement si \( x\geq 0\). Bref, l'intégrale se fait sur un ensemble vide, et \( h_{n+1}(t)=0\), comme il fallait.
+\end{proof}
 
 
 \begin{proposition} \label{PropTxGcWn}
