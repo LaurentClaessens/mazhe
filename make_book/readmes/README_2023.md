@@ -74,4 +74,3 @@ https://github.com/LaurentClaessens/mazhe/blob/master/erratum.md
 mathématique, agrégation, master
 
 
-À la fin, copier ce fichier vers `readmes/README_2024.md`
