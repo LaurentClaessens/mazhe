@@ -1,6 +1,7 @@
 #!venv/bin/python3
 
 import sys
+import datetime
 from pathlib import Path
 
 from pytex.src import PytexTools
@@ -26,6 +27,8 @@ pdf_title = config["pdf_title"]
 myRequest = PytexTools.Request()
 myRequest.ok_hash = commons.ok_hash
 myRequest.bibliography = config["bibliography"]
+myRequest.prefix = pdf_title
+myRequest.original_filename = Path('.').resolve() / "mazhe.tex"
 
 is_frido_part: bool = config.get("is_frido_part", False)
 is_giulietta_part: bool = config.get("is_giulietta_part", False)
@@ -70,6 +73,8 @@ if is_frido:
     myRequest.add_plugin(frido_mark_plug, "before_pytex")
 
 if is_book:
+    current_year = datetime.datetime.now().year
+    myRequest.prefix = str(current_year)
     n_volumes = config["n_volumes"]
     project_name = config["project_name"]
     split_toc_plug = plugins_agreg.split_toc(project_name, n_volumes)
@@ -97,9 +102,6 @@ if is_giulietta:
     myRequest.add_plugin(giu_mark_plug, "before_pytex")
     myRequest.add_plugin(is_giulietta_plug, "before_pytex")
 
-
-myRequest.prefix = pdf_title
-myRequest.original_filename = Path('.').resolve() / "mazhe.tex"
 
 myRequest.ok_filenames_list = ["e_mazhe"]
 
