@@ -7,11 +7,10 @@ avec les numéros.
 ```
 cd testing
 ./testing.sh
-./lst_lefrifo.py --verif
-./lst_book.py
+./compile_part.py lst_lefrido.json
+./compile_part.py lst_book.json
 ```
-
-Vérification du nombre de pages. Le max est 900.
+Note : le fichier `0-book.pdf` commence direct par l'index thématique. C'est normal.
 
 
 Faire du large:
@@ -30,6 +29,8 @@ Faire les fichiers
     ./split_book.py
 ```
 Le faire assez de fois pour que la coupure ne soit pas au milieu d'un chapitre.
+
+Vérification du nombre de pages. Le max est 900.
 
 ```
 git tag 2023

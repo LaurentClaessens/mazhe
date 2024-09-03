@@ -6,7 +6,6 @@ import pygit2
 
 from make_book.src.book import Book
 
-dprint = print
 
 frido_mark_list = []
 frido_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
@@ -15,6 +14,8 @@ frido_mark_list.append("% SCRIPT MARK -- TOC")
 frido_mark_list.append("% SCRIPT MARK -- FRIDO")
 frido_mark_list.append("% SCRIPT MARK -- DÉVELOPPEMENTS POSSIBLES")
 frido_mark_list.append("% SCRIPT MARK -- FINAL")
+
+book_mark_list = frido_mark_list
 
 research_mark_list = []
 research_mark_list.append("% SCRIPT MARK -- DECLARATIVE PART")
@@ -166,7 +167,6 @@ def assert_MonCerveau_first(options):
     """
     filename = "Inter_frido-mazhe_pytex.bbl"
     bbl_filename = options.bibliographie()
-    dprint("The bibliography filename is: ", bbl_filename)
     if not os.path.exists(bbl_filename):
         print(f"Le fichier {bbl_filename} n'existe pas. C'est pas très normal.  Si cela persiste à la prochaine compilation, posez-vous des questions.")
         return None
