@@ -24,18 +24,19 @@ Faire du large:
 
 Faire les fichiers
 ```
-    ./lst_book.py 2023
     cd make_book
-    ./split_book.py
+    ./split_book.py 2024
 ```
-Le faire assez de fois pour que la coupure ne soit pas au milieu d'un chapitre.
 
-Vérification du nombre de pages. Le max est 900.
+- Vérification dans `make_book/output`
+- Le faire assez de fois pour que la coupure ne soit pas au milieu d'un chapitre.
+
+- Vérification du nombre de pages. Le max est 900.
 
 ```
-git tag 2023
+git tag 2024
 git commit -a
-git push origin 2023
+git push origin 2024
 ```
 
 ## Avant de proposer dans thebookedition.com
