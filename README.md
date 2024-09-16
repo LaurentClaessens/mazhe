@@ -22,23 +22,65 @@ Dans tous les cas, utilisez au maximum le système de labels du Frido pour faire
 ## Compilation
 
 
-### compiler le frido tl;dr  (trop long; donne un résumé)
-
-
 ```
     git clone https://github.com/LaurentClaessens/mazhe
     cd mazhe
+```
+
+### Partie facile
+
+
+```
+    pdflatex mazhe.tex
+```
+fera déjà une bonne partie du boulot, mais pas la bibliogrpahie.
+
+### Principe général pour la suite
+
+Pour compiler correctement le Frido, il faut lancer un script en python. Pour ne pas avoir à utiliser le python du système (on ne veut pas y faire de `pip install`), on va :
+
+- compiler python 3.10.12 dans `~/.pyenv/versions`
+- créer dans `mazhe` un sous-répertoire `venv/bin` qui contiendra un lien vers `~/.pyenv/versions/3.10.12/python3`
+- Faire des `pip install` dans `venv/lib`.
+
+De cette façon, on va pouvoir utiliser un python tout propre avec tout ce qu'il nous faut sans toucher au précieux python du système. Il ne faut jamais toucher au python [installé sur votre système](https://xkcd.com/1987/).
+
+
+### Si vous n'avez pas encore pyenv
+
+
+Note : adaptez `~/.pyenv` si vous voulez installer python ailleurs.
+
+```
+sudo apt install  build-essential zlib1g-dev libffi-dev libssl-dev libreadline-dev libsqlite3-dev liblzma-dev libbz2-dev
+
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+cd ~/.pyenv/bin
+./pyenv install -s -v 3.10.12
+```
+
+### compiler le frido tl;dr  (trop long; donne un résumé)
+
+
+Note : si vous n'avez pas installé python dans `~/.pyenv` vous devez éditer le fichier `make_venv.sh` et adapter la ligne
+```
+pyenv_dir=~/.pyenv
+```
+
+
+Pour créer le répertoire `venv` :
+```
     ./make_venv.sh
+```
+
+Vous pouvez maintenant compiler le Frido et Giulietta
+```
     ./compile_part.py lst_lefrido.json
+    ./compile_part.py lst_giulietta.json
 ```
 
 ### compiler une partie du frido : tl;dr
 
-```
-    git clone https://github.com/LaurentClaessens/mazhe
-    cd mazhe
-    ./make_venv.sh
-```
 
 - Éditer le fichier `lst_example.json` (en ayant changé son nom parce comme il est suivi par git, il ne faut pas compter dessus).
 - Modifier la liste `tex_files` pour contenir la liste des fichiers à compiler.
@@ -47,15 +89,3 @@ Dans tous les cas, utilisez au maximum le système de labels du Frido pour faire
 ```
     ./compile_part.py lst_example.json
 ```
-
-### Détails (plus geeky)
-
-- Le script `make_venv.sh` installe python 3.10.12 dans le répertoire `pyenv`. Si vous avez déjà pyenv[1], vous pouvez changer la variable `pyenv_dir` dans `make_venv.sh` pour utiliser la version que vous avez déjà.
-
-- Si l'installation de python 3.10.12 rate, vous pouvez essayer de changer le shebang dans `compile_part.py` pour utiliser la version de python de votre système. Faites toutefois attention que j'ai tendance à utiliser des annotation de types comme `list[str]` qui ne fonctionnent pas avec python `<3.10`.
-
-- Le script `make_venv.sh` installe aussi le module `pytex` qui sert à toutes sortes de manipulation LaTeX avant et après la compilation proprement dite.
-
-
-
-[1] Si vous ne savez pas ce que c'est, vous ne l'avez pas.

@@ -39,19 +39,29 @@ git commit -a
 git push origin 2024
 ```
 
+## Copier les fichiers bouquin vers mon ftp
+
+
 ## Avant de proposer dans thebookedition.com
 
 Avant de supprimer l'ancienne version, noter les stats de la précédente : ventes et prix.
 
 ## Proposer dans thebookedition.com
 
+Les choix à faire :
+papier
+dos carré collé
+A4
+sensation tactile
+noir et blanc
+vente : oui
 
 
 Titre : 
-- Le Frido 2023 -- volume 1
-- Le Frido 2023 -- volume 2
-- Le Frido 2023 -- volume 3
-- Le Frido 2023 -- volume 4
+- Le Frido 2024 -- volume 1
+- Le Frido 2024 -- volume 2
+- Le Frido 2024 -- volume 3
+- Le Frido 2024 -- volume 4
 
 Auteur :
 Laurent Claessens
@@ -65,15 +75,24 @@ Le Frido est un cours de mathématique libre et contributif recouvrant (presque)
 
 Comme point de départ, l'existence de l'ensemble des naturels est supposée. Ensuite tout est construit avec les démonstrations : groupes, corps, analyse réelle, espaces topologiques, probabilités et bien d'autres.
 
-Téléchargement du pdf, des sources LaTeX et de la version en préparation de l'année prochaine :
+Téléchargement du pdf, des sources LaTeX et dernières mises à jour : 
 https://laurent.claessens-donadello.eu/frido.html
 
 Gardez un oeil sur erratum :
 https://github.com/LaurentClaessens/mazhe/blob/master/erratum.md
+
+Une nouvelle version tous les mois de septembre.
 
 ## les mots-clefs
 
 mathématique, agrégation, master
 
 
-À la fin, copier ce fichier vers `readmes/README_2024.md`
+
+## Mettre à jour sur mon site
+
+
+## Quand tout est fini
+
+
+Copier ce fichier vers `readmes/README_2024.md`
