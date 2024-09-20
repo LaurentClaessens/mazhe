@@ -2,6 +2,10 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](https://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
+## Frido 2024
+
+- Volume 2. Proposition-Definition 10.51. Le point (2) est faux : la norme opérateur n'est une norme que sur la partie des applications linéaires bornées.
+
 ## Frido 2023
 
 - Volume 1. Proposition-Définition 1.380. La définition d'ordre sur Q est complètement fausse. Cela se voit directement en considérant le cas où `b<0` alors que tous les autres sont positifs.
