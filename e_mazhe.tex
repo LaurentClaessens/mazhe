@@ -511,7 +511,7 @@
 			\scaleto{%
 				\scalerel*[\widthof{\ensuremath{#1}}]{\kern-.6pt\bigwedge\kern-.6pt}%
 				{\rule[-\textheight/2]{1ex}{\textheight}}%WIDTH-LIMITED BIG WEDGE
-			}{\textheight}% 
+			}{\textheight}%
 		}{0.5ex}}%
 	\stackon[1pt]{#1}{\tmpbox}%
 }
@@ -946,7 +946,7 @@
 
 % This counter is defined in SystemeCorr.sty.
 %\ifbool{isFrido}{}{
-%    \renewcommand{\theCountExercice}{\arabic{CountExercice}}       
+%    \renewcommand{\theCountExercice}{\arabic{CountExercice}}
 %}
 
 
@@ -959,18 +959,13 @@
 
 
 % Possibilité d’omettre une preuve en définissant l’argument optionnel inBook=False
-\usepackage{keycommand}
 \usepackage{verbatim}  % Fournit l’environnement comment
 
-\NewCommandCopy\oldproof\proof
-\NewCommandCopy\endoldproof\endproof
-
-\renewkeyenvironment{proof}[inBook=True]{%
-  \ifthenelse{\equal{\commandkey{inBook}}{False}}{\emph{Voir la version en ligne}\comment}{\oldproof}
+\newenvironment{Oproof}[1][]{%
+  \ifbool{isBook}{\emph{Voir la version en ligne}\comment}{\proof[#1]}
 }{
-  \ifthenelse{\equal{\commandkey{inBook}}{False}}{\endcomment}{\endoldproof}
+  \ifbool{isBook}{\endcomment}{\endproof}
 }
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -1282,19 +1277,19 @@
 
 % The following uses xstring in order to replace specific characters by %xx codes.
 % See the table http://www.utf8-chartable.de/
-\providecommand{\MakeUTFPerCent}[1]{% 
-	\StrSubstitute{#1}({\%28}[\result]% 
-	\expandafter\StrSubstitute\expandafter{\result}){\%29}[\result]% 
-	\expandafter\StrSubstitute\expandafter{\result}{à}{\%C3\%A0}[\result]% 
-	\expandafter\StrSubstitute\expandafter{\result}{â}{\%C3\%A2}[\result]% 
-	\expandafter\StrSubstitute\expandafter{\result}{ç}{\%C3\%A7}[\result]% 
-	\expandafter\StrSubstitute\expandafter{\result}{è}{\%C3\%A8}[\result]% 
-	\expandafter\StrSubstitute\expandafter{\result}{é}{\%C3\%A9}[\result]% 
-	\expandafter\StrSubstitute\expandafter{\result}{ê}{\%C3\%AA}[\result]% 
-	\expandafter\StrSubstitute\expandafter{\result}{ù}{\%C3\%B9}[\result]% 
-	\expandafter\StrSubstitute\expandafter{\result}{û}{\%C3\%BB}[\result]% 
-	\expandafter\StrSubstitute\expandafter{\result}{ô}{\%C3\%B4}[\result]% 
-	\expandafter\StrSubstitute\expandafter{\result}_{\_}[\result]% 
+\providecommand{\MakeUTFPerCent}[1]{%
+	\StrSubstitute{#1}({\%28}[\result]%
+	\expandafter\StrSubstitute\expandafter{\result}){\%29}[\result]%
+	\expandafter\StrSubstitute\expandafter{\result}{à}{\%C3\%A0}[\result]%
+	\expandafter\StrSubstitute\expandafter{\result}{â}{\%C3\%A2}[\result]%
+	\expandafter\StrSubstitute\expandafter{\result}{ç}{\%C3\%A7}[\result]%
+	\expandafter\StrSubstitute\expandafter{\result}{è}{\%C3\%A8}[\result]%
+	\expandafter\StrSubstitute\expandafter{\result}{é}{\%C3\%A9}[\result]%
+	\expandafter\StrSubstitute\expandafter{\result}{ê}{\%C3\%AA}[\result]%
+	\expandafter\StrSubstitute\expandafter{\result}{ù}{\%C3\%B9}[\result]%
+	\expandafter\StrSubstitute\expandafter{\result}{û}{\%C3\%BB}[\result]%
+	\expandafter\StrSubstitute\expandafter{\result}{ô}{\%C3\%B4}[\result]%
+	\expandafter\StrSubstitute\expandafter{\result}_{\_}[\result]%
 }
 
 %\expandafter\StrSubstitute\expandafter{\result}{#}{\%23}[\result]%       If you want a # in the URL you still have to write \# in the source.
@@ -1305,18 +1300,18 @@
 % Typical use is
 % \wikipedia{fr}{Norme_(mathématiques)}{Norme}
 % It creates the link \href to the right page on wikipedia, replacing special characters by their respective %xx codes.
-\providecommand{\wikipedia}[3]{% 
+\providecommand{\wikipedia}[3]{%
 	\saveexpandmode\noexpandarg
-	\MakeUTFPerCent{#2}% 
+	\MakeUTFPerCent{#2}%
 	\restoreexpandmode
-	\href{http://#1.wikipedia.org/wiki/\result}{#3}% 
+	\href{http://#1.wikipedia.org/wiki/\result}{#3}%
 }
 
-\providecommand{\wikiversity}[3]{% 
+\providecommand{\wikiversity}[3]{%
 	\saveexpandmode\noexpandarg
-	\MakeUTFPerCent{#2}% 
+	\MakeUTFPerCent{#2}%
 	\restoreexpandmode
-	\href{http://#1.wikiversity.org/wiki/\result}{#3}% 
+	\href{http://#1.wikiversity.org/wiki/\result}{#3}%
 }
 
 
