@@ -7,7 +7,7 @@ avec les numéros.
 ```
 cd testing
 ./testing.sh
-./compile_part.py lst_lefrido.json
+./compile_part.py lst_lefrido.json      <-- attendre que la compilation soit terminée
 ./compile_part.py lst_book.json
 ```
 Note : le fichier `0-book.pdf` commence direct par l'index thématique. C'est normal.
