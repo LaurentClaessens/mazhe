@@ -4,9 +4,10 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2024
 
+- Volume 1. Définition 1.475. La valeur absolue doit prendre ses valeurs dans K et non dans R parce qu'à ce moment R n'est pas défini.
 - Volume 2. Proposition-Definition 10.51. Le point (2) est faux : la norme opérateur n'est une norme que sur la partie des applications linéaires bornées.
 
-## Frido 2023
+## Frido 2023 (5 fautes)
 
 - Volume 1. Proposition-Définition 1.380. La définition d'ordre sur Q est complètement fausse. Cela se voit directement en considérant le cas où `b<0` alors que tous les autres sont positifs.
 - Volume 3. Proposition 20.154. La factorielle devant le reste devrait être m! et non (m-1)!. Ça change quelques coefficients dans le lemme de Morse 20.201. De toutes façons pour la version 2024, la proposition 20.154 va être changée en faveur de THOooFKZZooAgecfp.
