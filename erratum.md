@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2024
 
+- Volume 1. Définition 7.68 (DefIRKNooJJlmiD). La définition de la connexité n'est pas bonne. La définition donnée est celle d'un ESPACE connexe. La définition d'une PARTIE connexe est qu'il doit être connexe pour la topologie induite. Du coup 7.69 (LEMooKXHQooAyVQsT) n'a aucun sens.
 - Volume 1. Définition 1.475. La valeur absolue doit prendre ses valeurs dans K et non dans R parce qu'à ce moment R n'est pas défini.
 - Volume 2. Proposition-Definition 10.51. Le point (2) est faux : la norme opérateur n'est une norme que sur la partie des applications linéaires bornées.
 
