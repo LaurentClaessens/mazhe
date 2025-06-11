@@ -4,6 +4,8 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2024
 
+- volume 1. Proposition 7.242 (PROPooGXGQooLRTwvH). Conséquence de l'erreur précédente, la partie «somme» n'a aucun sens. Il faut juste utiliser la topologie produit et c'est tout.
+- volume 1. Proposition 7.341 (PROPooGXGQooLRTwvH). Je n'ai pas de contre-exemple sous la main, mais à mon avis c'est faux. 
 - volume 2. Lemme 15.158 (LEMooRVSIooKcpWoK). La fonction proposée dans le preuve ne marche pas parce que la fonction \varphi tend vers 1 lorsque x->infini. Sa primitive ne peut pas être constante. (trouvée par Quentin Guyot)
 - Volume 1. Définition 7.68 (DefIRKNooJJlmiD). La définition de la connexité n'est pas bonne. La définition donnée est celle d'un ESPACE connexe. La définition d'une PARTIE connexe est qu'il doit être connexe pour la topologie induite. Du coup 7.69 (LEMooKXHQooAyVQsT) n'a aucun sens.
 - Volume 1. Définition 1.475. La valeur absolue doit prendre ses valeurs dans K et non dans R parce qu'à ce moment R n'est pas défini.
