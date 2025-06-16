@@ -131,18 +131,26 @@
 \begin{definition}\label{DefooApplicFct}
 	Soit \(\ G\) une relation binaire entre deux ensembles \(E\) et \( F\). Si, pour tout \(x \in E\), et tous \(y,\ y' \in F\), les relations \(x\mR_G y\) et \(x\mR_G y'\) entraînent \( y = y'\), alors on peut associer à chaque \( x \in E\) apparaissant comme première composante dans \( G \), l'élément unique \(y \in F\) qui est en relation avec \(x\) dans \(G\). Cette association définit une \defe{fonction}{fonction} de \(E\) dans \(F\).
 
-	Le plus souvent, on désigne par \(f \) une fonction entre deux ensembles; lorsqu'il est nécessaire de les préciser, on note \( f: E \to F \). Pour marquer l'association, à \(x \in E \), du \(y \in F\) correspondant à travers \( f \), on note cet élément \( f(x) \): ainsi, \( f(x) \in F \), et il est appelé \defe{image de \( x \) par \( f \)}{image!par une fonction, cas général}.
+	Le plus souvent, les fonctions entre deux ensembles sont désignées par \(f \), ou selon le contexte, par une autre lettre, souvent minuscule. On notera presque toujours les ensembles concernés par la fonction, et on adopte alors la notation \( f: E \to F \).
 
-	L'ensemble des \( x \in E \) pour lesquels il existe \( y \in F\) tel que \(x\mR_G y\) est noté \(D_f \), ou bien \( \Dom f \); on l'appelle \defe{domaine de définition de \( f \)}{domaine! de définition d'une fonction}, ou encore \defe{ensemble de définition de \( f \)}{ensemble!de définition d'une fonction}. Lorsque \(\Dom(f) = E\), on dit que \( f \) est une \defe{application}{application}.
+	Pour marquer l'association, à \(x \in E \), du \(y \in F\) correspondant à travers \( f \), on note cet élément \( f(x) \): ainsi, \( f(x) \in F \), et il est appelé \defe{image de \( x \) par \( f \)}{image!par une fonction, cas général}.
+
+	L'ensemble des \( x \in E \) pour lesquels il existe \( y \in F\) tel que \(x\mR_G y\) est noté \(D_f \), ou bien \( \Dom f \); on l'appelle \defe{domaine de définition de \( f \)}{domaine! de définition d'une fonction} \index{fonction!domaine de définition}, ou encore \defe{ensemble de définition de \( f \)}{fonction!ensemble de définition}. Lorsque \(\Dom(f) = E\), on dit que \( f \) est une \defe{application}{application}.
 \end{definition}
 
 \begin{remark}[Lien entre fonction et relation]\label{RemLienFctRelation}
-	Si \( f: X \to y \) est une fonction de relation sous-jacente \( G \), alors:
+	Si \( f: E \to F \) est une fonction de relation sous-jacente \( G \), alors:
 	\begin{itemize}
-		\item \( \Dom f = \{ x \in X \tq \exists y \in Y: (x, y) \in G\} \);
-		\item \( \Im f = \{ y \in Y \tq \exists x \in X: (x, y) \in G\} \);
+		\item \( \Dom f = \{ x \in E \tq \exists y \in F: (x, y) \in G\} \);
+		\item \( \Im f = \{ y \in F \tq \exists x \in E: (x, y) \in G\} \);
 		\item \( \Graph f = G \).
 	\end{itemize}
+\end{remark}
+
+\begin{remark}	\label{REMooFonctionDomaineEntier}
+	Dans le Frido, on prend comme convention que, quand on écrit \( f: E \to F \), alors \( \Dom f = E \). C'est un choix qui n'est peut-être pas standard, mais qui évite des complications sur ce qu'est réellement le domaine de définition. En particulier, dans le Frido, on ne verra que très rarement \( f \) \og tout seul\fg.
+
+	En revanche, on ne sait rien sur \( \Im f \) a priori. Il ne faut pas déduire de la notation que l'ensemble image \( \Im f \) serait \( F \) tout entier.
 \end{remark}
 
 \begin{normaltext}\label{NORooLMBYooYjUoju}
@@ -581,7 +589,7 @@
 \begin{lemma}[\cite{BIBooQHFRooOYlEiR}]		\label{LEMooHPUNooPmViwi}
 	Pour tous ensembles \( A\), \( B\), \( C\) nous avons
 	\begin{gather}
-		A\cap(B\cup C)=(A\cap B)\cup (A\cap C); \text{ et}
+		A\cap(B\cup C)=(A\cap B)\cup (A\cap C);\\ \text{et }
 		A\cup(B\cap C)=(A\cup B)\cap (A\cup C).
 	\end{gather}
 \end{lemma}
@@ -634,8 +642,12 @@
 \begin{lemma}       \label{LemPropsComplement}
 	Quelques propriétés à propos des complémentaires\footnote{Définition \ref{DEFooJLBVooMyCQMO}.}. Si \( E\) est un ensemble et si \( A\) et \( B\) sont des sous-ensembles de \( E\), nous avons
 	\begin{enumerate}
-		\item			\label{ITEMooWIYBooKMLVnZ}
-		      \( \complement \complement A =A\), en d'autres termes, \( E\setminus(E\setminus A)=A\),
+		\item       \label{ITEMooComplementDisjoint}
+		      \(A \cap ( E \setminus A) = \varnothing \).
+		\item       \label{ITEMooComplementPartition}
+		      \( A \) et \( E \setminus A \) forment une partition\footnote{Définition~\ref{DefPartitionEnsembles}.} de \( E \).
+		\item       \label{ITEMooWIYBooKMLVnZ}
+		      \( \complement \complement A =A\), en d'autres termes, \( E\setminus(E\setminus A)=A\).
 		\item       \label{ItemLemPropComplementiii}
 		      \( A\setminus B=A\cap\complement B\).
 		\item       \label{ITEMooNHDUooWtURqQ}
@@ -646,20 +658,33 @@
 \end{lemma}
 
 \begin{proof}
-	Plusieurs points.
+	Point par point.
 	\begin{subproof}
+		\spitem[Pour \ref{ITEMooComplementDisjoint}]
+		%-----------------------------------------------------------
+		Par définition même du complémentaire, on ne peut avoir en même temps \( x \in A \) et \(x \notin A \).
+
+		\spitem[Pour \ref{ITEMooComplementPartition}]
+		%-----------------------------------------------------------
+		On a clairement \( A \subset E \) et \( E \setminus A \subset E \). Le point précédent nous justifie que l'intersection est vide. On a aussi \( A \cup ( E \setminus A) \subset E \) : prouvons l'inclusion inverse.
+
+		Si \( x \in E \), alors ou bien \( x \in A \), ou bien \( x \not\in A\), et donc par définition du complémentaire, \( x \in E \setminus A \).
+
 		\spitem[Pour \ref{ITEMooWIYBooKMLVnZ}]
 		%-----------------------------------------------------------
-		Deux inclusions à faire. Nous posons \( B=E\setminus A\).
+		On peut faire une preuve avec une double inclusion.
 		\begin{subproof}
 			\spitem[Si \( x\in E\setminus(E\setminus A)\)]
 			%-----------------------------------------------------------
-			Il y a deux possibilités : \( x\in A\) ou \( x\not\in A\). Si \( x\not\in A\), alors \( x\in B\). Et donc \( x\not\in E\setminus B\), ce qui est contraire à l'hypothèse. Donc la possibilité \( x\not\in A\) est exclue et donc \( x\in A\).
+			Alors  \( x\not\in E\setminus A \). Par l'absurde, si \( x\not\in A\), alors \( x \in E \setminus A \), ce qui est contradictoire. Ainsi, la possibilité \( x\not\in A\) est exclue et donc \( x\in A\).
 
 			\spitem[Si \( x\in A\)]
 			%-----------------------------------------------------------
-			Alors \( x\not\in B\), c'est à dire \( x\in E\setminus B=E\setminus(E\setminus )\).
+			Alors \( x\not\in (E\setminus A) \).  c'est à dire \( x\in E\setminus B=E\setminus(E\setminus A )\).
 		\end{subproof}
+
+		Une autre preuve consiste à utiliser le point \ref{ITEMooComplementPartition} d'abord avec \( A \), ensuite avec \( E \setminus A\). Dans les deux cas, on partitionne \( E \) en deux; l'un des ensembles est \( E \setminus A \), l'autre est respectivement \( A \) et \( E \setminus (E \setminus A) \), qui sont dès lors nécessairement égaux.
+
 		\spitem[Pour \ref{ItemLemPropComplementiii}]
 		En deux parties.
 		\begin{subproof}
@@ -922,6 +947,43 @@
 		f=g\circ\pi.
 	\end{equation}
 \end{example}
+
+%-----------------------------------------------------------
+\subsection{Relations ternaires, opérations}
+\label{SUBooRelationsTernaires}
+%-----------------------------------------------------------
+
+\begin{normaltext}	\label{NORMooRelationsTernaires}
+	Comme pour les fonctions construites sur base des relations binaires, on peut en construire pour les relations ternaires\footnote{Voire des relations avec plus d'ensembles, mais nous n'en avons pas (encore) besoin.}.
+\end{normaltext}
+
+\begin{normaltext}	\label{NORMooFonctionDeuxVariables}
+	Soit \( G \) une relation ternaire sur les ensembles  \( E_1,\ E_2, \ E_3 \). Supposons que, étant donnés \(x_1 \in E_1 \) et \(x_2 \in E_2 \), il existe un unique \(x_3 \in E_3 \) tel que \( (x_1, x_2, x_3) \in G \). On définit alors la fonction
+	\begin{equation}
+		\begin{aligned}
+			f\colon E_1 \times E_2 & \to E_3                                          \\
+			(x_1, x_2)             & \mapsto \text{le }x_3\text{ dans la relation }G.
+		\end{aligned}
+	\end{equation}
+\end{normaltext}
+
+\begin{definition}  \label{DEFooOperation}
+	On appelle \defe{opération}{opération sur un ensemble} sur l'ensemble \( E \) une fonction définie sur \( E \times E \) et à valeurs dans  \( E \). Cette opération peut être notée sous forme préfixe (\( f(x, y) \) ) ou sous forme infixe, c'est-à-dire entre les deux éléments que l'on opère ( \( x * y \) ).
+	On parle aussi parfois de \defe{loi de composition interne}{composition, loi interne} sur \( E \).
+\end{definition}
+
+\begin{definition}[élément régulier\cite{BIBooYNNEooAunyKF}]        \label{DEFooIJIEooZaAdSs}
+	Soit un ensemble \( E\) muni d'une opération \( *\colon E\times E\to E\). Un élément \( s\in E\) est \defe{régulier à gauche}{élément régulier à gauche} si pour tout \( x,y\in E\) nous avons
+	\begin{equation}
+		s*x=s*y\Rightarrow x=y.
+	\end{equation}
+	L'élément \( s\) est régulier à droite si pour tout \( x,y\in E\) nous avons
+	\begin{equation}
+		x*s=y*s\Rightarrow x=y.
+	\end{equation}
+	Il est \defe{régulier}{élément régulier} si il est régulier à gauche et à droite.
+\end{definition}
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 \section{Cardinalité}
@@ -2322,18 +2384,6 @@ Nous donnons deux preuves de ce lemme.
 \subsection{Addition sur les naturels}
 \label{SUBooAdditionNaturels}
 %---------------------------------------------------------------------------------------------------------------------------
-
-\begin{definition}[élément régulier\cite{BIBooYNNEooAunyKF}]        \label{DEFooIJIEooZaAdSs}
-	Soit un ensemble \( E\) muni d'une opération \( *\colon E\times E\to E\). Un élément \( s\in E\) est \defe{régulier à gauche}{élément régulier à gauche} si pour tout \( x,y\in E\) nous avons
-	\begin{equation}
-		s*x=s*y\Rightarrow x=y.
-	\end{equation}
-	L'élément \( s\) est régulier à droite si pour tout \( x,y\in E\) nous avons
-	\begin{equation}
-		x*s=y*s\Rightarrow x=y.
-	\end{equation}
-	Il est \defe{régulier}{élément régulier} si il est régulier à gauche et à droite.
-\end{definition}
 
 \begin{propositionDef}[\cite{RWWJooJdjxEK,MonCerveau}]      \label{PROPooVFOXooXmwpFh}
 	Il existe une unique fonction \( f\colon \eN\times \eN\to \eN\) vérifiant
@@ -4121,15 +4171,15 @@ Autrement dit, les nombres en écriture de position se classent par ordre lexico
 
 
 \begin{definition}	\label{DEFooRelatifsDiviseurParite}
-Soit \( a, b \in \eZ \). On étend les notions de divisibilité et de parité de la définition \ref{DEFooDivisibleNombrePairImpair} en disant que:
-\begin{enumerate}
-\item
-\( a \) est divisible par \( b \) si \( |a| \) est divisible par \( |b| \);
-\item
-\( a \) est pair si \( |a| \) est pair;
-\item
-\( b \) est impair si \( |b| \) est impair.
-\end{enumerate}
+	Soit \( a, b \in \eZ \). On étend les notions de divisibilité et de parité de la définition \ref{DEFooDivisibleNombrePairImpair} en disant que:
+	\begin{enumerate}
+		\item
+		      \( a \) est divisible par \( b \) si \( |a| \) est divisible par \( |b| \);
+		\item
+		      \( a \) est pair si \( |a| \) est pair;
+		\item
+		      \( b \) est impair si \( |b| \) est impair.
+	\end{enumerate}
 \end{definition}
 
 \begin{proposition} \label{PROPooYJBMooZrzkNX}
