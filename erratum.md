@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2024
 
+- volume 1. Lemme 8.94 (LEMooEYPSooLCoPlY). L'ensemble des endomorphismes n'est pas un corps parce qu'il y a plein de non-inversibles. 
 - volume 1. Proposition 7.242 (PROPooGXGQooLRTwvH). Conséquence de l'erreur précédente, la partie «somme» n'a aucun sens. Il faut juste utiliser la topologie produit et c'est tout.
 - volume 1. Proposition 7.341 (PROPooGXGQooLRTwvH). Je n'ai pas de contre-exemple sous la main, mais à mon avis c'est faux. 
 - volume 2. Lemme 15.158 (LEMooRVSIooKcpWoK). La fonction proposée dans le preuve ne marche pas parce que la fonction \varphi tend vers 1 lorsque x->infini. Sa primitive ne peut pas être constante. (trouvée par Quentin Guyot)
