@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2024
 
+- volume 1. Exemple 1.294 (ExVYZPzub). Il manque la classe des éléments du type (a,b)(c)(d).
 - volume 1. Lemme 8.94 (LEMooEYPSooLCoPlY). L'ensemble des endomorphismes n'est pas un corps parce qu'il y a plein de non-inversibles. 
 - volume 1. Proposition 7.242 (PROPooGXGQooLRTwvH). Conséquence de l'erreur précédente, la partie «somme» n'a aucun sens. Il faut juste utiliser la topologie produit et c'est tout.
 - volume 1. Proposition 7.341 (PROPooGXGQooLRTwvH). Je n'ai pas de contre-exemple sous la main, mais à mon avis c'est faux. 
