@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2008, 2009, 2011-2024
+% Copyright (c) 2008, 2009, 2011-2025
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
@@ -35,9 +35,9 @@ Les généralités sur les suites et séries de fonctions, c'est dans la section
 	La première égalité est le théorème~\ref{ThoUnifCvIntRiem}, les autres sont de simples manipulations rhétoriques.
 \end{proof}
 
-Le théorème suivant est une paraphrase du théorème de la convergence dominée de Lebesgue (\ref{ThoConvDomLebVdhsTf}).
+Le théorème suivant est une paraphrase du théorème de la convergence dominée de Lebesgue \ref{ThoConvDomLebVdhsTf}.
 \begin{theorem}     \label{ThoockMHn}
-	Soient des fonctions \( (f_n)_{n\in \eN}\) telles que \( \sum_{n=0}^Nf_n\) soit intégrable sur \( (\Omega,\tribA,\mu)\) pour chaque \( N\). Nous supposons que la somme converge simplement vers
+	Soient des fonctions \( f_n \colon \Omega\to \eC )_{n\in \eN}\) telles que \( \sum_{n=0}^Nf_n\) soit intégrable sur \( (\Omega,\tribA,\mu)\) pour chaque \( N\). Nous supposons que la somme converge simplement vers
 	\begin{equation}
 		f(x)=\sum_{n=0}^{\infty}f_n(x)
 	\end{equation}
@@ -55,33 +55,94 @@ Le théorème suivant est une paraphrase du théorème de la convergence dominé
 			      \lim_{N\to \infty} \int_{\Omega}\sum_{n=0}^Nf_nd\mu=\int_{\Omega}\sum_{n=0}^{\infty}f_n,
 		      \end{equation}
 		\item
+		      Nous avons la formule
 		      \begin{equation}
 			      \lim_{N\to \infty} \int_{\Omega}\left| \sum_{n=0}^Nf_n-\sum_{n=0}^{\infty}f_n \right| =\lim_{N\to \infty} \int_{\Omega}\left| \sum_{n=N}^{\infty}f_n \right| =0.
 		      \end{equation}
 	\end{enumerate}
-	%TODOooKFICooETmtZY. Prouver ça.
 \end{theorem}
 
+\begin{proof}
+	Nous posons \( s_n=\sum_{k=0}^nf_n\). Par hypothèse nous avons \( s_n\in L^1(\Omega)\), et \( s_n\to f\) par définition du symbole \( \sum_{n=0}^{\infty}\). Le théorème de convergence dominée de Lebesgue \ref{ThoConvDomLebVdhsTf} s'applique. Point par point en remplaçant \( f_n\) par \( s_n\) on est bon.
+\end{proof}
 
-\begin{theorem} \label{ThoCSGaPY}
+
+\begin{theorem}[\cite{MonCerveau}] \label{ThoCSGaPY}
 	Soit \( f_n\) des fonctions \( C^1\mathopen[ a , b \mathclose]\) telles que
 	\begin{enumerate}
 		\item
 		      la série \( \sum_n f_n(x_0)\) converge pour un certain \( x_0\in\mathopen[ a , b \mathclose]\),
 		\item
-		      la série des dérivées \( \sum_n f'_n\) converge uniformément sur \( \mathopen[ a , b \mathclose]\).
+		      la série des dérivées \( \sum_n f'_n\) converge uniformément sur \( \mathopen[ a , b \mathclose]\) vers une fonction \( G\).
 	\end{enumerate}
-	Alors la série \( \sum_n f_n\) converge vers une fonction \( F\) et
+	Alors
 	\begin{enumerate}
-		\item
-		      La convergence est uniforme sur \( \mathopen[ a , b \mathclose]\).
+		\item		\label{ITEMooNBHUooMvbJoP}
+		      La série \( \sum_n f_n\) converge vers une fonction \( F\) et
 		\item
 		      La fonction \( F\) est dérivable
+		\item		\label{ITEMooTYLMooQdSdoK}
+		      La convergence est uniforme sur \( \mathopen[ a , b \mathclose]\).
 		\item
 		      \( F'(x)=\sum_nf'_n(x)\).
 	\end{enumerate}
-	%TODOooQXTOooZSQoJM. Prouver ça.
 \end{theorem}
+
+\begin{proof}
+	En plusieurs étapes.
+	\begin{subproof}
+		\spitem[Théorème fondamental]
+		%-----------------------------------------------------------
+		Posons \( s_n=\sum_{k=0}^nf_k\) et \( d_n=\sum_{k=0}^nf'_k\). Pour chaque \( n\) nous avons \( d_n=s'_n\) et donc, en vertu du théorème fondamental de l'analyse \ref{ThoRWXooTqHGbC} nous avons, pour tout \( x\in \mathopen[ a,b\mathclose]\) :
+		\begin{equation}		\label{EQooXKRPooMcdCQz}
+			s_n(x)=\int_{x_0}^xs_n'(t)dt+s_n(x_0)=\int_{x_0}^x\sum_{k=0}^nf_n'(t)dt+s_n(x_0).
+		\end{equation}
+		Nous voulons prendre la limite en permutant avec l'intégrale à droite.
+
+		\spitem[Permuter limite et intégrale]
+		%-----------------------------------------------------------
+
+		Nous utilisons le théorème \ref{ThoockMHn}. Par hypothèse nous avons la convergence uniforme \( \sum_nf'_n\stackrel{ unif}{\longrightarrow} G\). En tant que limite uniforme de fonctions continues (les sommes partielles), la fonction \( G\) est continue par \ref{PropCZslHBx}.
+
+		La fonction \( G\) est continue sur le compact \( \mathopen[ a,b\mathclose]\). Elle est donc majorée, et nous considérons un majorant \( a\).
+
+		Soit \( \epsilon>0\) et \( N_{\epsilon}\) tel que \( \| \sum_{k=0}^nf'_n-G \|_{\infty}<\epsilon\) pour tout \( n\geq N_{\epsilon}\). Avec ça, les nombres \(  \| \sum_{k=0}^nf'_k) \|_{\infty}\) sont majorés par \( a+\epsilon\). Pour chacun des \( n<N_{\epsilon}\), en tant que somme finie de fonctions continues sur un compact, \( \| \sum_{k=0}^nf_k \|<a_n\) pour certaines bornes \( a_n\).
+
+		En posant \( M=\max\{ a_0,\ldots,a_{N_{\epsilon}}, a+\epsilon \}\), nous avons
+		\begin{equation}
+			| \sum_{k=0}^nf'_k(x) |<M
+		\end{equation}
+		pour tout \( n\) et pour tout \( x\) dans \( \mathopen[ a,b\mathclose]\).
+
+		Tout cela pour dire que nous pouvons prendre la limite des deux côtés de \eqref{EQooXKRPooMcdCQz} et la permuter avec l'intégrale.
+
+		\spitem[La limite]
+		%-----------------------------------------------------------
+		La fonction \( G\) étant une limite uniforme de fonctions continues sur le compact \( \mathopen[ a,b\mathclose]\), elle est continue et donc bornée. Donc elle est intégrable sur tout intervalle de \( \mathopen[ a,b\mathclose]\). Nous avons le calcul suivant :
+		\begin{subequations}		\label{EQooZXHUooXgSDFo}
+			\begin{align}
+				\lim_{n\to \infty}s_n(x) & =\int_{x_0}^x\underbrace{\sum_{k=0}^{\infty}f'_k(t)}_{=G(t)}dt+\lim_{n\to \infty}s_n(x_0) \\
+				                         & = \int_{x_0}^xG(t)dt+\sum_{k=0}^{\infty}f_n(x_0)<\infty.
+			\end{align}
+		\end{subequations}
+		Voila qui prouve le point \ref{ITEMooNBHUooMvbJoP}.
+
+		\spitem[Question de dérivées]
+		%-----------------------------------------------------------
+		Nous considérons la fonction
+		\begin{equation}
+			\begin{aligned}
+				H\colon \mathopen[ a,b\mathclose] & \to \eR                     \\
+				x                                 & \mapsto \int_{x_0}^xG(t)dt.
+			\end{aligned}
+		\end{equation}
+		L'application \( G\) est continue en tant que limite uniforme de fonctions continues (les sommes partielles des \( f'_k\)). Donc la proposition \ref{PropEZFRsMj} dit que \( H\) est dérivable (donc continue) et que \( H'=G\). Mais ce que dit \eqref{EQooZXHUooXgSDFo}, c'est que \( F=H+cst\). Donc \( F'=H'=G\).
+
+		\spitem[Pour \ref{ITEMooTYLMooQdSdoK}]
+		%-----------------------------------------------------------
+		Vu que \( F\) est continue, la proposition \ref{PROPooFWVIooCzXojO} dit que la convergence est uniforme sur tout compact; en particulier sur \( \mathopen[ a,b\mathclose]\).
+	\end{subproof}
+\end{proof}
 
 %---------------------------------------------------------------------------------------------------------------------------
 \subsection{Différentiabilité}
@@ -92,6 +153,7 @@ Le théorème suivant est une paraphrase du théorème de la convergence dominé
 	\begin{equation}
 		\left( \sum_{n=0}^{\infty}T_n \right)(v)=\sum_{n=0}^{\infty}T_n(v).
 	\end{equation}
+	%TODOooQXTOooZSQoJM. Prouver ça.
 \end{lemma}
 
 
