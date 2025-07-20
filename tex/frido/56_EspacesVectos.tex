@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2008-2024
+% Copyright (c) 2008-2025
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
@@ -1010,6 +1010,112 @@ Un tel polynôme s'écrit sous la forme
 	\end{equation}
 	ce qui prouve que \( \alpha\) est une racine de l'unité. Nous avons donc prouvé que toutes les racines de \( P_{2^k}\) sont des racines de l'unité et donc que les racines de \( P\) sont racines de l'unité.
 \end{proof}
+
+%-------------------------------------------------------
+\subsection{Différentielle d'applications multilinéaires}
+%----------------------------------------------------
+
+Notre objectif est de calculer \( df_a(h)\) lorsque \(f \colon E_1\times \ldots\times E_n\to F  \) est une application multilinéaire. Nous mettons dans ce lemme l'essentiel de la combinatoire du problème.
+\begin{lemma}[\cite{BIBChatGPT}]	\label{LEMooOHRGooBKevzM}
+	Soient des espaces de Banach\footnote{Définition \ref{}.} \( E_1,\ldots,E_n\) et \( F\). Soit une application multilinéaire \(f \colon E_1\times\ldots E_n\to F  \). Soient \( a_i,h_i\in E_i\). Pour chaque partie \( I\subset\{ 1,\ldots,n \}\) nous posons
+	\begin{equation}
+		x_{I,i}=\begin{cases}
+			h_i & \text{si } i\in I \\
+			a_i & \text{sinon. }
+		\end{cases}
+	\end{equation}
+	Alors
+	\begin{equation}		\label{EQooTNALooHjpmWv}
+		f(a_1+h_1,\ldots,a_n+h_n)=\sum_{I\subset\{ 1,\ldots,n \}}f(x_{I,1},\ldots,x_{I,n}).
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	Nous faisons une récurrence sur \( n\) en commençant par \( n=1\). Nous avons, par linéarité de \( f\),
+	\begin{equation}
+		f(a_1+h_1)=f(a_1)+f(h_1)=f(x_{\emptyset,1})+f(x_{\{ 1 \},1})=\sum_{I\subset\{ 1 \}}f(x_{I,1}).
+	\end{equation}
+
+	Nous supposons que la formule \eqref{EQooTNALooHjpmWv} est vraie pour \( n\) et nous étudions le cas \( n+1\). Pour rappel, les éléments \( a_i\) et \( h_i\) sont fixés. Nous posons \( s=a_{n+1}+h_{n+1}\) et nous considérons l'application
+	\begin{equation}
+		\begin{aligned}
+			f\colon E_1\times \ldots\times E_n & \to F                        \\
+			(y_1,\ldots,y_n)                   & \mapsto f(y_1,\ldots,y_n,s).
+		\end{aligned}
+	\end{equation}
+	C'est une application \( n\)-multilinéaire sur laquelle l'hypothèse de récurrence fonctionne :
+	\begin{subequations}
+		\begin{align}
+			f(a_1+h_1,\ldots,a_n+h_n,a_{n+1}+h_{n+1}) & = g(a_1+h_1,\ldots,a_n+h_n)                                                      \\
+			                                          & =\sum_{J\subset\{ 1,\ldots,n \}}f(x_{J,1},\ldots,x_{J,n},s)                      \\
+			                                          & =\sum_{J\subset\{ 1,\ldots,n \}}f(x_{J,1},\ldots,x_{J,n},a_{n+1}+h_{n+1})        \\
+			                                          & =\sum_{J\subset\{ 1,\ldots,n \}}\Big( f(x_{J,1},\ldots,x_{J,n},a_{n+1})\nonumber \\
+			                                          & \qquad+f(x_{J,1},\ldots,x_{J,n}+h_{n+1}) \Big).\label{SUBEQooRCIFooUQdjXS}
+		\end{align}
+	\end{subequations}
+	En ce qui concerne l'ensemble des parties nous avons
+	\begin{equation}
+		\mP(1,\ldots,n+1)=\mP(1,\ldots,n)\bigcup_{J\in \mP(1,\ldots,n)}J\cup\{ n+1 \}.
+	\end{equation}
+	Nous avons donc
+	\begin{equation}		\label{EQooKDGYooVFgPWb}
+		\begin{aligned}[]
+			\sum_{I\in\mP(1,\ldots,n+1)}f(x_{I,1},\ldots,x_{I,n+1}) & =\sum_{I\in\mP(1,\ldots,n)}f(x_{I,1},\ldots,x_{I,n}, x_{I,n+1})\nonumber                                    \\
+			                                                        & \quad + \sum_{J\in\mP(1,\ldots,n)}f(x_{J\cup\{ n+ \},1},\ldots,x_{J\cup\{ n+1 \},n},x_{J\cup\{ n+1 \}},n+1)
+		\end{aligned}
+	\end{equation}
+	Notez que nous sommons sur \( J\subset\{ 1,\ldots,n \}\). Donc à tous les coups, \( x_{I,n+1}=a_i\) et \( x_{J\cup\{ n+1 \},n+1}=h_i\), et ce que nous avons dans \eqref{EQooKDGYooVFgPWb} est la même chose que \eqref{SUBEQooRCIFooUQdjXS}.
+\end{proof}
+
+
+\begin{proposition}[\cite{MonCerveau}]	\label{PROPooNDCPooWRdSQV}
+	Soient des espaces de Banach \( E_1,\ldots,E_n\) ainsi que \( F\). Soit une application \( n\)-multilinéaire \(f \colon E_1\times \ldots\times E_n\to F  \) que nous supposons être continue. Nous considérons \( a=(a_1,\ldots,a_n)\in E_1\times\ldots\times E_n\) et \( h=(h_1,\ldots,h_n)\in E_1\times\ldots\times E_n\). Alors \( f\) est différentiable et
+	\begin{equation}
+		df_a(h)=f(h_1,a_2,\ldots,a_n)+\ldots+f(a_1,\ldots,a_{n-1},h_n).
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Notre candidat différentielle est l'application
+	\begin{equation}
+		T(h_1,\ldots,h_n)=f(h_1,a_2,\ldots,a_n)+\ldots+f(a_1,\ldots,a_{n-1},h_n),
+	\end{equation}
+	et pour faire tourner la définition \eqref{EqCritereDefDiff} de la différentielle, nous devons étudier
+	\begin{equation}
+		f(a_1+h_1,\ldots,a_n+h_n)-f(a_1,\ldots,a_n)-T(h_1,\ldots,h_n).
+	\end{equation}
+	Nous reprenons les notations du lemme \ref{LEMooOHRGooBKevzM}. En notons \( \mS\) l'ensemble des singletons de \( \{ 1,\ldots,n \}\) nous avons
+	\begin{subequations}
+		\begin{align}
+			f(a_1+h_1, & \ldots,a_n+h_n)  -f(a_1,\ldots,a_n)-T(h_1,\ldots,h_n)                                                                                                       \\
+			           & =\sum_{I\subset\{ 1,\ldots,n \}}f(x_1^{(I)},\ldots,x_n^{(I)})  -f(x_1^{(\emptyset)},\ldots,x_n^{(\emptyset)}) - \sum_{I\in\mS}f(x_1^{(I)},\ldots,x_n^{(I)}) \\
+			           & =\sum_{I\in\mF}f(x_1^{(I)},\ldots,x_n^{(I)})
+		\end{align}
+	\end{subequations}
+	où \( \mS\) est l'ensemble des parties de \( \{ 1,\ldots,n \}\) contenant au moins deux éléments. Notre tâche est est maintenant d'évaluer la norme de ça. Nous avons supposé que \( f\) était continue; donc la proposition \ref{PROPooDQBOooByBvmj} donne
+	\begin{equation}
+		\| f(x_1^{(I)},\ldots,x_n^{(I)}) \|\leq \lambda\| x_1^{(I)} \|\ldots\| x_n^{(I)} \|
+	\end{equation}
+	pour un certain \( \lambda\in \eR^+\). Par ailleurs, étant donnée la norme produit \ref{DefZTHxrHA}, nous avons \( \| h_i \|\leq \| h \|\) pour tout \( i\). Étant donné que nous nous apprêtons à faire \( h\to 0\), nous pouvons supposer que \( \| h_i \|\leq \| a_j \|\) pour tout \( i\) et \( j\). Et enfin nous posons \( M=\max\{ \| a_j \| \}\). Avec tout ça si \( I\in\mF\),
+	\begin{equation}
+		\| x_1^{(I)} \|\ldots\| x_n^{(I)} \|\leq \| h \|^2M^{n-2}.
+	\end{equation}
+	Nous avons donc la majoration
+	\begin{subequations}
+		\begin{align}
+			\| f(a_1+h_1,\ldots,a_n+h_n)-f(a_1,\ldots,a_n)-T(h_1,\ldots,h_n) \| & \leq \sum_{I\in\mF}\| f(x_1^{(I)},\ldots,x_n^{(I)}) \| \\
+			                                                                    & \leq \sum_{I\in\mF}\lambda\| h \|^2M^{n-2}             \\
+			                                                                    & =\lambda \| h \|^2(2M)^{n-2}.
+		\end{align}
+	\end{subequations}
+	parce que l'ensemble \( \mF\) est fini et contient \( 2^{n-2}\) éléments. Et enfin
+	\begin{equation}
+		\frac{
+			\| f(a_1+h_1,\ldots,a_n+h_n)-f(a_1,\ldots,a_n)-T(h_1,\ldots,h_n) \| \|
+		}{ \| h \| }\leq\frac{ \lambda (2M)^{n-2}\| h \|^2 }{ \| h \| }=\lambda\| h \| (2M)^{n-2}\stackrel{ h\to 0}{\longrightarrow} 0.
+	\end{equation}
+\end{proof}
+
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Orientation}
