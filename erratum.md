@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2024
 
+- Volume 2. Lemme 15.18 (LemmbWnFI). Critère d'Abel. Il faut d'abord choisir \( r\), et ensuite dire «la suite a_nz^n est bornée». 
 - volume 1. Exemple 1.294 (ExVYZPzub). Il manque la classe des éléments du type (a,b)(c)(d).
 - volume 1. Lemme 8.94 (LEMooEYPSooLCoPlY). L'ensemble des endomorphismes n'est pas un corps parce qu'il y a plein de non-inversibles. 
 - volume 1. Proposition 7.242 (PROPooGXGQooLRTwvH). Conséquence de l'erreur précédente, la partie «somme» n'a aucun sens. Il faut juste utiliser la topologie produit et c'est tout.
@@ -138,7 +139,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
     ce cas, la remarque qui suit la définition de la mesure ne s'applique pas (remarque 13.24), et il n'est en réalité pas garanti d'avoir mu(vide)=0.
 - Volumes 1 et 2. Définition de la limite. Induit en erreur à moitié par mon manque d'attention et à moitié par Wikipédia, la définition de la limite d'une fonction était incorrecte, et surtout incohérente avec les théorèmes démontrés plus bas.
 
-    La définition correcte de la limite se fait *en excluant* le point vers lesquel on fait tendre x.
+    La définition correcte de la limite se fait *en excluant* le point vers lesquels on fait tendre x.
 - Volume 1. Définition 4.8. La définition du pgcd dans un anneau n'est pas correcte. 'd' est un pgcd de 'a' et 'b' si tout diviseur commun de 'a' et 'b' divise 'd' ET SI 'd' divise 'a' et 'b'.
 - Volume 3. Définition 24.63. La définition d'espace réflexif n'est pas correcte; il faut parler de bidual. Du coup l'énoncé du théorème 24.64 (qui est probablement bien vrai quand même) est à prendre avec des précautions.
 - Volume 1. Proposition 4.70. Je suis presque certain qu'il faut ajouter l'hypothèse que I est un idéal propre, c'est-à-dire que l'inclusion de I dans A est stricte.
