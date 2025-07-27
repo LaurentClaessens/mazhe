@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2024
 
+- Volume 2. Proposition 12.125 (PROPooHXJAooGaDtme). Dans la partie 'juste un bloc', la justification du fait que '| lambda | ≤ 1' est fausse et s'appuie sur le lemme LEMooGCJEooOAynZW qui est également faux. J'ai également des doutes sur la véracité de LEMooKPWKooOacXju.
 - Volume 2. Lemme 15.18 (LemmbWnFI). Critère d'Abel. Il faut d'abord choisir \( r\), et ensuite dire «la suite a_nz^n est bornée». 
 - volume 1. Exemple 1.294 (ExVYZPzub). Il manque la classe des éléments du type (a,b)(c)(d).
 - volume 1. Lemme 8.94 (LEMooEYPSooLCoPlY). L'ensemble des endomorphismes n'est pas un corps parce qu'il y a plein de non-inversibles. 
