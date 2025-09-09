@@ -1,7 +1,3 @@
-Il faut laisser les labels dans la version imprimée, sinon les gens m'envoient des corrections
-avec les numéros.
-
-
 - Créer la nouvelle entrée dans `isbn.json`.
 
 ```
@@ -32,6 +28,7 @@ Faire les fichiers
 - Le faire assez de fois pour que la coupure ne soit pas au milieu d'un chapitre.
 
 - Vérification du nombre de pages. Le max est 900.
+- Vérification que les labels sont bien écrits
 
 ```
 git tag 2024
