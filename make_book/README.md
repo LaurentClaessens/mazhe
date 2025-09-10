@@ -1,11 +1,18 @@
+- remplacer 2025 par 2026 partout dans ce fichier.
 - Créer la nouvelle entrée dans `isbn.json`.
 
 ```
-cd testing
-./testing.sh
-./compile_part.py lst_lefrido.json      <-- attendre que la compilation soit terminée
-./compile_part.py lst_book.json
+    cd testing
+    ./testing.sh
 ```
+
+Puis dans le répertoire normal:
+```
+    ./compile_part.py lst_lefrido.json     
+-- attendre la fin
+    ./compile_part.py lst_book.json
+```
+
 Note : le fichier `0-book.pdf` commence direct par l'index thématique. C'est normal.
 
 
@@ -16,12 +23,13 @@ Faire du large:
     rm *.pdf
     rm *.aux
     rm first_5*
+    rm output/*.pdf
 ```
 
 Faire les fichiers
 ```
     cd make_book
-    ./split_book.py 2024
+    ./split_book.py 2025
 ```
 
 - Vérification dans `make_book/output`
@@ -31,9 +39,9 @@ Faire les fichiers
 - Vérification que les labels sont bien écrits
 
 ```
-git tag 2024
+git tag 2025
 git commit -a
-git push origin 2024
+git push origin 2025
 ```
 
 ## Copier les fichiers bouquin vers mon ftp
@@ -55,10 +63,10 @@ vente : oui
 
 
 Titre : 
-- Le Frido 2024 -- volume 1
-- Le Frido 2024 -- volume 2
-- Le Frido 2024 -- volume 3
-- Le Frido 2024 -- volume 4
+- Le Frido 2025 -- volume 1
+- Le Frido 2025 -- volume 2
+- Le Frido 2025 -- volume 3
+- Le Frido 2025 -- volume 4
 
 Auteur :
 Laurent Claessens
@@ -92,4 +100,4 @@ mathématique, agrégation, master
 ## Quand tout est fini
 
 
-Copier ce fichier vers `readmes/README_2024.md`
+Copier ce fichier vers `readmes/README_2025.md`
