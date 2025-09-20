@@ -1077,7 +1077,18 @@ et de faire tourner la définition \ref{DEFooLNEXooYMQjRo}. La même chose tient
 	\begin{equation}
 		\sum_{i\in I}f(i)=\sum_{j\in J}f\big( \varphi^{-1}(j) \big).
 	\end{equation}
+	%TODOooVIEIooZgsQZb. Prouver ça.
 \end{lemma}
+
+\begin{lemma}[\cite{MonCerveau}]	\label{LEMooQDFLooVTwJQq}
+	Soit un groupe \( G\) ainsi qu'une application \(f \colon E\to G  \). Soient deux parties \( A,B\subset E\) telles que \( A\cup B=E\) et \( A\cap B=\emptyset\). Alors
+	\begin{equation}
+		\sum_{i\in E}f(i)=\sum_{i\in A}f(i)+\sum_{i\in B}f(i).
+	\end{equation}
+	%TODOooLLGDooAMffOw. Prouver ça.
+\end{lemma}
+
+
 
 \begin{lemma}		\label{LEMooNDBYooAGEkmw}
 	Soit un ensemble \( A\) fini pouvant être écrit comme une union disjointe \( A=\bigcup_{k=1}^nA_k\); nous supposons que les \( A_i\) sont non vides. Soient un groupe commutatif \( (G,+)\) et une application \( f\colon A\to G\). Alors
@@ -2591,6 +2602,65 @@ Le théorème fondamental de l'arithmétique permet de décomposer des nombres e
 	Donc \( q\) divise \( p_i\) et \( p_1\) et donc \( q=1\) parce que \( p_i\) et \( p_1\) sont des nombres premiers distincts.
 \end{proof}
 
+%-------------------------------------------------------
+\subsection{Double comptage}
+%----------------------------------------------------
+
+Lorsqu'on veut compter le nombre d'éléments d'un ensemble, il arrive souvent d'entendre «nous partitionnons cet ensemble en telles parties, mais ce faisant nous avons compté chaque élément 3 fois. Donc on doit diviser par 3». Cela arrive très souvent en combinatoire et dans les problèmes de dénombrement. La proposition suivante est ce qui se cache derrière ce raisonnement.
+
+\begin{proposition}[\cite{MonCerveau}]	\label{PROPooURPFooYSdyKW}
+	Soit un ensemble \( A=\{ a_1,\ldots,a_n \}\). Nous considérons des parties \( A_j\subset A\) (\( j=1,\ldots,s\)) telles que
+	\begin{enumerate}
+		\item
+		      \( \bigcup_{j=1}^sA_j=A\),
+		\item
+		      Pour chaque \( a\in A\), il \( \Card\{ j\tq a\in A_j \}=k\), c'est à dire que chaque élément de \( A\) se trouve dans exactement \( k\) des parties \( A_j\).
+	\end{enumerate}
+	Alors
+	\begin{equation}
+		\Card(A)=\frac{1}{ k}\sum_{j=1}^s\Card(A_j).
+	\end{equation}
+\end{proposition}
+
+\begin{proof}
+	Nous allons mettre les éléments de \( A\) un par un dans un ensemble \( E\) et les retirer au fur et à mesure des différents \( A_j\). Nous commençons par poser
+	\begin{subequations}
+		\begin{numcases}{}
+			E_0=\emptyset\\
+			A_j^{(0)}=A_j.
+		\end{numcases}
+	\end{subequations}
+	Ensuite, pour chaque \( i=1,\ldots,n\) nous posons
+	\begin{subequations}
+		\begin{numcases}{}
+			E_i=\{ a_1,\ldots,a_i \}\\
+			A_j^{(i)}=A_j^{(i-1)}\setminus\{ a_i \}.
+		\end{numcases}
+	\end{subequations}
+	Première remarque facile : \( \Card(E_i)=i\).
+
+	Ensuite fixons nous un \( i\) pour voir comment évoluent les cardinaux des \( A_j^{(i)}\) avec \( i\). Nous posons \( S=\{ j=1,\ldots,s\tq a_i\in A_j \}\). Par hypothèse \( \Card(S)=k\). Le lemme \ref{LEMooQDFLooVTwJQq} nous permet de couper la somme sur \( j=1,\ldots,n\) en une somme sur \( j\in S\) et une sur \( j\neq S\) :
+	\begin{subequations}
+		\begin{align}
+			\sum_{j=1}^{n}\Card(A_j^{(i)}) & =\sum_{j\in S}\Card\big( A^{(i-1)}_j\setminus\{ a_i \} \big)+\sum_{j\not\in S}\Card\big( A^{(i-1)}_j\setminus\{ a_i \} \big) \\
+			                               & =\sum_{j\in S}\Big( \Card\big( A_j^{(i-1)} \big)-1 \Big)+\sum_{j\not\in S}\Card(A_j^{(i-1)})                                 \\
+			                               & =\sum_{j=1}^n\Card(A_j^{(i-1)})-k.
+		\end{align}
+	\end{subequations}
+	Avec une récurrence sur \( i\) nous trouvons cette intéressante formule :
+	\begin{equation}
+		\sum_{j=1}^s\Card(A_j^{(i)})=\sum_{j=1}^s\Card(A_j)-ki.
+	\end{equation}
+	Nous évaluons cela en \( i=n\) :
+	\begin{equation}		\label{EQooGWBXooDqXwTW}
+		\sum_{j=1}^s\Card(A_j^{(n)})=\sum_{j=1}^s\Card(A_j)-kn.
+	\end{equation}
+	Mais \( A_j^{(n)}=A_j\setminus\{ a_1,\ldots,a_n \}=\emptyset\). Donc le membre de gauche de \eqref{EQooGWBXooDqXwTW} est nul. Donc
+	\begin{equation}
+		n=\frac{1}{ k}\sum_{j=1}^s\Card(A_j),
+	\end{equation}
+	c'est à dire ce que nous voulions.
+\end{proof}
 
 %-------------------------------------------------------
 \subsection{Binôme de Newton}
@@ -2624,7 +2694,7 @@ Le théorème fondamental de l'arithmétique permet de décomposer des nombres e
 	Nous considérons ces deux ensembles :
 	\begin{subequations}
 		\begin{align}
-			A & =\{ I=(i_1,\ldots,i_k)\tq 1\leq i_1<\ldots <i_k\leq n \}                     \\
+			A & =\{ I=(i_1,\ldots,i_k)\in\{ 0,\ldots,n \}^k\tq 1\leq i_1<\ldots <i_k\leq n \} \\
 			C & =\big\{ \text{parties de cardinal \( k\) dans \( \{ 1,\ldots,n \}\)} \big\}.
 		\end{align}
 	\end{subequations}

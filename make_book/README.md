@@ -53,6 +53,14 @@ Avant de supprimer l'ancienne version, noter les stats de la précédente : vent
 
 ## Proposer dans thebookedition.com
 
+Choisir des images de couvertures. 
+Pour 2025 j'ai oublié de mettre celle-ci :
+https://www.davidrevoy.com/data/images/blog/2025/2025-01-03_new-year-illustration_by-david-revoy.jpg
+Ce serait bien de trouver celle de 2026.
+
+
+- Désactiver uMatrix
+
 Les choix à faire :
 papier
 dos carré collé
