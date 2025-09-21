@@ -2691,21 +2691,84 @@ Lorsqu'on veut compter le nombre d'éléments d'un ensemble, il arrive souvent d
 \end{proof}
 
 \begin{lemma}[\cite{MonCerveau}]		\label{LEMooUTDTooXAmvdF}
-	Nous considérons ces deux ensembles :
-	\begin{subequations}
-		\begin{align}
-			A & =\{ I=(i_1,\ldots,i_k)\in\{ 0,\ldots,n \}^k\tq 1\leq i_1<\ldots <i_k\leq n \} \\
-			C & =\big\{ \text{parties de cardinal \( k\) dans \( \{ 1,\ldots,n \}\)} \big\}.
-		\end{align}
-	\end{subequations}
-	Il existe une bijection entre \( A\) et \( C\).
+	Deux énoncés de dénombrement.
+	\begin{enumerate}
+		\item
+		      Soit un ensemble \( E\) de cardinal \( n\). Nous posons
+		      \begin{equation}
+			      B_k  =\big\{ \text{parties de cardinal \( k\) dans \( E\)} \big\}.
+		      \end{equation}
+		      Alors
+		      \begin{equation}
+			      \Card(B_k)={n\choose k}.
+		      \end{equation}
 
-	Nous avons de plus\footnote{Pour le coefficient binomial, définition \ref{DEFooHXNFooOBKgqD}.}
-	\begin{equation}        \label{EQooSPVNooHoPnOe}
-		\Card(A)=\Card(C)={n\choose k}
-	\end{equation}
-	%TODOooGOFJooKrymcy. Prouver ça.
+		\item
+		      Soit
+		      \begin{subequations}
+			      \begin{align}
+				      A_k  =\{ I=(i_1,\ldots,i_k)\in\{ 0,\ldots,n \}^k\tq 1\leq i_1<\ldots <i_k\leq n \} \\
+			      \end{align}
+		      \end{subequations}
+		      Alors
+		      \begin{equation}        \label{EQooSPVNooHoPnOe}
+			      \Card(A_k)={n\choose k}
+		      \end{equation}
+	\end{enumerate}
 \end{lemma}
+
+\begin{proof}
+	Nous faisons en détail la démonstration pour \( B_k\), en utilisant la proposition \ref{PROPooURPFooYSdyKW}. Nous fixons \( n\) et nous faisons une récurrence sur \( k\).
+	\begin{subproof}
+		\spitem[Le partitionnement de \( B_{k+1}\)]
+		D'abord nous posons
+		\begin{equation}
+			\begin{aligned}
+				f\colon B_k & \to \partP(B_{k+1})                              \\
+				A           & \mapsto \{ A\cup\{ a \}\tq a\in E\setminus A \}.
+			\end{aligned}
+		\end{equation}
+		où \( \partP\) désigne l'ensemble des parties. Notez que
+		\begin{equation}
+			B_{k+1}=\bigcup_{A\in B_k}f(A).
+		\end{equation}
+
+		\spitem[Combien de multi-compatage (1)]
+		%-----------------------------------------------------------
+		Prouvons que
+		\begin{equation}
+			\{ A\in B_k\tq S\in f(A) \}= \{ S\setminus\{ a \}\tq q\in S \}.
+		\end{equation}
+		Pour prouver la première inclusion, nous considérons \( A\in B_k\) tel que \( S\in f(A)\). Alors \( S=A\cup\{ a \}\) pour un certain \( a\in E\setminus A\) et donc \( S\setminus\{ a \}=A\).
+
+		Pour l'inclusion dans l'autre sens, nous considérons \( a\in S\). Alors \( S\setminus\{ a \}\in B_k\), ce qui fait que \( a\in E\setminus\big( S\setminus\{ a \} \big)\) et donc \( S\in f\big( S\setminus\{ a \} \big)\).
+		\spitem[Combien de multi-compatage (2)]
+		%-----------------------------------------------------------
+		Nous avons donc
+		\begin{equation}
+			\Card\big( \{ A\in B_k\tq S\in f(A) \} \big)=\Card\{ S\setminus\{ a \}\tq a\in S \}=\Card(S)=k+1
+		\end{equation}
+
+		\spitem[Le cardinal recherché]
+		%-----------------------------------------------------------
+		La proposition \ref{PROPooURPFooYSdyKW} nous donne alors
+		\begin{equation}
+			\Card(B_{k+1})=\frac{1}{ k+1}\sum_{A\in B_k}\Card\big( f(A) \big).
+		\end{equation}
+		Mais \( \Card\big( f(A) \big)=n-k\) et par hypothèse de récurrence \( \Card(B_k)={n\choose k}\) Donc
+		\begin{subequations}
+			\begin{align}
+				\Card(B_{k+1}) & =\binom{ n }{ k }\frac{ n-k }{ k+1 }           \\
+				               & = \frac{ n! }{ k!(n-k)! }\frac{ (n-k) }{ k+1 } \\
+				               & =\frac{ n! }{ (k+1)!(n-k-1)! }                 \\
+				               & =\frac{ n! }{ (k+1)!\big( n-(k+1) \big)! }     \\
+				               & =\binom{ n }{ k+1 }.
+			\end{align}
+		\end{subequations}
+	\end{subproof}
+
+	En ce qui concerne la démonstration pour \( A_k\), c'est du même tonneau. Si \( I\in A_k\), alors pour chaque \( l\in \{ 0,\ldots,n \}\setminus I\) nous avons un élément de \( A_{k+1}\) en l'insérant «au bon endroit» dans \( I\). Je te laisse te débrouiller pour construire la fonction \( f\) correspondante et pour vérifier que tout va bien\quext{Moi j'ai pas vérifié ni même essayé. Donc écrivez-moi si ça bloque réellement quelque part.}.
+\end{proof}
 
 
 %-------------------------------------------------------
