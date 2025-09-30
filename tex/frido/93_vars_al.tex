@@ -111,9 +111,9 @@ La loi binomiale lorsque \( p=0.7\) et \( n=10\).       % attention : nombres co
 \begin{proposition}[\cite{MonCerveau}]	\label{PROPooJGAQooSSmybt}
 	Si \(X \colon \Omega\to \{ 0,1 \}  \) est une variable aléatoire de Bernoulli, alors
 	\begin{enumerate}
-		\item
+		\item		\label{ITEMooOKZQooOmIOJj}
 		      \( E(X)=p\),
-		\item
+		\item		\label{ITEMooAWMOooOGhKzB}
 		      \( \Var(X)=p(1-p)\).
 	\end{enumerate}
 \end{proposition}
@@ -155,8 +155,8 @@ La loi binomiale lorsque \( p=0.7\) et \( n=10\).       % attention : nombres co
 	\end{equation}
 \end{definition}
 
-\begin{proposition}\label{PROPooIBZKooYikwjJ}
-	Si \(X \colon \Omega\to \{ 1,\ldots,n \}  \) est binomial de paramètres \( n,p\) aors
+\begin{proposition}[\cite{MonCerveau,BIBooLDIPooRKBZxS}]    \label{PROPooIBZKooYikwjJ}
+	Si \(X \colon \Omega\to \{ 1,\ldots,n \}  \) est binomial de paramètres \( n,p\) alors
 	\begin{enumerate}
 		\item
 		      Pour chaque \( k=1,\ldots,n\) nous avons
@@ -164,12 +164,62 @@ La loi binomiale lorsque \( p=0.7\) et \( n=10\).       % attention : nombres co
 			      P(X=k)=\binom{ n }{ k }p^k(1-p)^{n-k}.
 		      \end{equation}
 		\item
+		      Pour l'espérance :
+		      \begin{equation}
+			      E(X)=np.
+		      \end{equation}
+		\item
+		      Pour la variance :
 		      \begin{equation}
 			      \Var(X)=np(1-p).
 		      \end{equation}
 	\end{enumerate}
 	%TODOooRYNHooIVgFNl. Prouver ça.
 \end{proposition}
+
+\begin{proof}
+	Soient des variables aléatoires de Bernoulli indépendantes \( (Y_i \colon \Omega\to \{ 0,1 \})_{i=1,\ldots,n}\) telles que \( X=Y_1+\ldots+Y_n\).
+	\begin{subproof}
+		\spitem[Pour \( P(X=k)\)]
+		%-----------------------------------------------------------
+		Nous considérons l'ensemble \( C_k=\{ s\in \{ 0,1 \}^n\tq \sum_is_i=k \}\) du lemme \ref{LEMooUTDTooXAmvdF}. Pour chaque \( s\in C_k\) nous posons
+		\begin{equation}
+			\Omega_s=\{ \omega\in \Omega\tq\forall i, Y_i(\omega)=s_i  \}.
+		\end{equation}
+		Nous avons \( P(X=k)=\sum_{s\in C_k}P(\Omega_s)\). Étant donné que les variables aléatoires \( Y_i\) sont indépendantes et que
+		\begin{equation}
+			P(Y_i=s_i)=\begin{cases}
+				p   & \text{si } s_i=1  \\
+				1-p & \text{si } s_i=0,
+			\end{cases}
+		\end{equation}
+		nous avons
+		\begin{equation}
+			P(\Omega_s)=\prod_{i=1}^nP(Y_i=s_i)=p^k(1-p)^{n-k}.
+		\end{equation}
+		Pour le voir, vous pouvez couper le produit en deux parties : les facteurs avec \( s_i=1\) et ceux avec \( s_i=0\). Enfin nous pouvons faire le calcul
+		\begin{subequations}
+			\begin{align}
+				P(X=k) & =\sum_{s\in C_k}P(\Omega_s)                                            \\
+				       & =\sum_{s\in C_k}p^k(1-p)^{n-k}                                         \\
+				       & =\Card(C_k)p^{k}(1-p)^{n-k}                                            \\
+				       & =\binom{ n }{ k }p^k(1-p)^{n-k} & \text{lem. \ref{LEMooUTDTooXAmvdF}.}
+			\end{align}
+		\end{subequations}
+
+		\spitem[Pour l'espérance]
+		%-----------------------------------------------------------
+		Par additivité de l'intégrale,
+		\begin{equation}
+			E(X)=\int_{\Omega}X=\int_{\Omega}\sum_iY_i=\sum_i\int_{\Omega}Y_i=\sum_iE(Y_i).
+		\end{equation}
+		Vu que \( Y_i\) est de Bernoulli nous avons \( E(Y_i)=p\) par \ref{PROPooJGAQooSSmybt}\ref{ITEMooOKZQooOmIOJj}. Nous avons donc \( E(X)=np\).
+
+		\spitem[Pour la variance]
+		%-----------------------------------------------------------
+		Les variables aléatoires \( Y_i\) étant indépendantes, le lemme \ref{LemVarXpYsmindep} permet de juste les additionner. La valeur de \(\Var(Y_i)=p(1-p) \) est donnée dans le lemme \ref{PROPooJGAQooSSmybt}\ref{ITEMooAWMOooOGhKzB}. Donc \( \Var(X)=np(1-p)\).
+	\end{subproof}
+\end{proof}
 
 
 %---------------------------------------------------------------------------------------------------------------------------
