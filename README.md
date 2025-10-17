@@ -39,7 +39,7 @@ fera déjà une bonne partie du boulot, mais pas la bibliogrpahie.
 
 Pour compiler correctement le Frido, il faut lancer un script en python. Pour ne pas avoir à utiliser le python du système (on ne veut pas y faire de `pip install`), on va :
 
-- compiler python 3.10.12 dans `~/.pyenv/versions`
+- compiler python 3.10.12 dans `mazhe/.pyenv/versions`
 - créer dans `mazhe` un sous-répertoire `venv/bin` qui contiendra un lien vers `~/.pyenv/versions/3.10.12/python3`
 - Faire des `pip install` dans `venv/lib`.
 
@@ -49,23 +49,18 @@ De cette façon, on va pouvoir utiliser un python tout propre avec tout ce qu'il
 ### Si vous n'avez pas encore pyenv
 
 
-Note : adaptez `~/.pyenv` si vous voulez installer python ailleurs.
 
 ```
-sudo apt install  build-essential zlib1g-dev libffi-dev libssl-dev libreadline-dev libsqlite3-dev liblzma-dev libbz2-dev
+    sudo apt install  build-essential zlib1g-dev libffi-dev libssl-dev libreadline-dev libsqlite3-dev liblzma-dev libbz2-dev
 
-git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-cd ~/.pyenv/bin
-./pyenv install -s -v 3.10.12
+    git clone https://github.com/pyenv/pyenv.git ./pyenv
+    cd pyenv/bin
+    ./pyenv install -v 3.10.12
 ```
 
 ### compiler le frido tl;dr  (trop long; donne un résumé)
 
 
-Note : si vous n'avez pas installé python dans `~/.pyenv` vous devez éditer le fichier `make_venv.sh` et adapter la ligne
-```
-pyenv_dir=~/.pyenv
-```
 
 
 Pour créer le répertoire `venv` :
