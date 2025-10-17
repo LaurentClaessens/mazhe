@@ -3,8 +3,6 @@
 set -ue
 
 # sudo apt install  build-essential zlib1g-dev libffi-dev libssl-dev libreadline-dev libsqlite3-dev liblzma-dev libbz2-dev
-# git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-# ~/.pyenv/bin/pyenv install -v 3.10.12
 
 MAIN_DIR=$(pwd)
 VENV_DIR="$MAIN_DIR/venv"
@@ -14,6 +12,14 @@ PYTHON_VERSION=3.10.12
 # Adapter à votre situation.
 pyenv_dir=./pyenv
 PYTHON3="$pyenv_dir/versions/$PYTHON_VERSION/bin/python3"
+
+function install_pyenv()
+{
+    # Ceci est encore bogué parce que ça installe dans ~/.pyenv/versions
+    git clone https://github.com/pyenv/pyenv.git ./pyenv
+    cd pyenv/bin
+    ./pyenv install -v 3.10.12
+}
 
 
 function install_pytex()

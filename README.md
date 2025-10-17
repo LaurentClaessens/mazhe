@@ -53,14 +53,10 @@ De cette façon, on va pouvoir utiliser un python tout propre avec tout ce qu'il
 ```
     sudo apt install  build-essential zlib1g-dev libffi-dev libssl-dev libreadline-dev libsqlite3-dev liblzma-dev libbz2-dev
 
-    git clone https://github.com/pyenv/pyenv.git ./pyenv
-    cd pyenv/bin
-    ./pyenv install -v 3.10.12
+    ./make_venv.sh
 ```
 
 ### compiler le frido tl;dr  (trop long; donne un résumé)
-
-
 
 
 Pour créer le répertoire `venv` :
