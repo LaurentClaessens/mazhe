@@ -1,7 +1,7 @@
 """Represent a LaTeX book."""
 
-import sys
-import traceback
+from typing import Any
+
 from pathlib import Path
 
 from pdfrw import PdfReader, PdfWriter
@@ -14,7 +14,7 @@ from src.utilities import dprint
 from src.utilities import ciao
 
 
-_ = dprint, ciao, base_dir
+_:Any = dprint, ciao, base_dir
 
 
 class Book(object):
@@ -29,10 +29,7 @@ class Book(object):
         self.pdf_filename = pdf_filename.resolve()
 
         if not self.toc_filename.is_file():
-            traceback.print_stack()
-            print("The toc file does not exist:")
-            print(self.toc_filename)
-            sys.exit(1)
+            self.toc_filename.touch()
 
         self.pdf_reader: PdfReader
         if self.pdf_filename.is_file():
