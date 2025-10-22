@@ -1,3 +1,5 @@
+Repasser les showlabels à tiny au lieu de small.
+
 - remplacer 2025 par 2026 partout dans ce fichier.
 - Créer la nouvelle entrée dans `isbn.json`.
 
