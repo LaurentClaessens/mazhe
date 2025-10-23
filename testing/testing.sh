@@ -122,6 +122,7 @@ check_spelling()
     one_spelling " Cesaro "  # Cesàro
     one_spelling " la théorème " 
     one_spelling " [Vv]oila " 
+    one_spelling " fonction lipscitz " 
 }
 
 test_picture ()
