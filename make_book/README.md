@@ -1,6 +1,7 @@
 Repasser les showlabels à tiny au lieu de small.
 
 - remplacer 2025 par 2026 partout dans ce fichier.
+- Voir si il y a une image de nouvelle année sur pepper et carot
 - Créer la nouvelle entrée dans `isbn.json`.
 
 ```
