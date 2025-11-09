@@ -669,7 +669,7 @@ Que le nombre de d'évaluations de \( f\) intervienne est logique parce que chaq
 		      \begin{equation}
 			      \alpha\simeq 1.358500220734946,
 		      \end{equation}
-		      quelle est l'erreur relative ?
+		      quelle est l'erreur relative\footnote{Définition \ref{DEFooRUHVooGgoyiP}.} ?
 	\end{enumerate}
 
 	Note : si c'est pour chercher à la main des approximations pour démarrer, il est évidemment préférable de dessiner \( f_1(x)=2x^2-4x+2\) et \( f_2(x)=- e^{-x}\) séparément.
@@ -682,78 +682,18 @@ Que le nombre de d'évaluations de \( f\) intervienne est logique parce que chaq
 
 	Nous voyons trois racines : \( \alpha_1\in\mathopen[ 0,0.5 ,  \mathclose]\), \( \alpha_2\in\mathopen[ 1, 1.5 \mathclose]\) et \( \alpha_0\in\mathopen[ -4 , -3.5 \mathclose]\).
 
-	La plus grande solution est \( \alpha_2\). Nous pouvons déjà remplir le tableau des précisions :
+	Note: ce serait une très intéressante question de savoir prouver qu'il y a exactement \( 3\) racines et qu'elles sont dans ces intervalles\quext{Si vous avez une idée de comment faire, écrivez-moi.}.
 
-	\begin{equation*}
-		\begin{array}[]{|c|c|c|c|c|c|}
-			\hline
-			n      & a_n    & b_n    & x_n    & g(x_n) & | b_n-a_n | \\
-			\hline\hline
-			\ldots & \ldots & \ldots & \ldots & \ldots & 0.5         \\
-			\hline
-			\ldots & \ldots & \ldots & \ldots & \ldots & 0.25        \\
-			\hline
-			\ldots & \ldots & \ldots & \ldots & \ldots & 0.125       \\
-			\hline
-		\end{array}
-	\end{equation*}
+	La plus grande solution est \( \alpha_2\). Pour le reste, python fait très bien le boulot.
 
-	Et nous calculons les valeurs de \( f\) aux points d'extrémité de l'intervalle. Note que seul le signe nous importe :
-	\begin{subequations}
-		\begin{align}
-			f(1)\simeq -0.368 \\
-			f(1.5)\simeq 0.278.
-		\end{align}
-	\end{subequations}
-	Voici donc le tableau avec le signe de \( f\) indiqué :
+	\lstinputlisting{tex/frido/codeSnip_6.py}
 
-	\begin{equation*}
-		\begin{array}[]{|c|c|c|c|c|c|}
-			\hline
-			n & a_n    & b_n     & x_n    & g(x_n)              & | b_n-a_n | \\
-			\hline\hline
-			0 & 1 (+)  & 1.5 (-) & \ldots & -0.162\times 10^{0} & 0.5         \\
-			\hline
-			1 & \ldots & \ldots  & \ldots & \ldots              & 0.25        \\
-			\hline
-			2 & \ldots & \ldots  & \ldots & \ldots              & 0.125       \\
-			\hline
-		\end{array}
-	\end{equation*}
-	Puis :
-	\begin{equation*}
-		\begin{array}[]{|c|c|c|c|c|c|}
-			\hline
-			n & a_n    & b_n     & x_n      & g(x_n)              & | b_n-a_n | \\
-			\hline\hline
-			0 & 1 (+)  & 1.5 (-) & 1.25 (-) & -0.162\times 10^{0} & 0.5         \\
-			\hline
-			1 & \ldots & \ldots  & ..       & \ldots              & 0.25        \\
-			\hline
-			2 & \ldots & \ldots  & \ldots   & \ldots              & 0.125       \\
-			\hline
-		\end{array}
-	\end{equation*}
-	Et enfin :
-	\begin{equation*}
-		\begin{array}[]{|c|c|c|c|c|c|}
-			\hline
-			n & a_n      & b_n      & x_n       & g(x_n)               & | b_n-a_n | \\
-			\hline\hline
-			0 & 1 (+)    & 1.5 (-)  & 1.25 (-)  & -0.162\times 10^{0}  & 0.5         \\
-			\hline
-			1 & 1.25 (-) & 1.5(+)   & 1.375(+)  & +0.284\times 10^{-1} & 0.25        \\
-			\hline
-			2 & 1.25(-)  & 1.375(+) & 1.3125(-) & 0.738\times 10^{-1}  & 0.125       \\
-			\hline
-		\end{array}
-	\end{equation*}
-	Note que les \( f(x_n)\) restent toujours du même ordre de grandeur. Si un moment on voit un \( 1.6\times 10^{7}\), c'est qu'une erreur a été commise.
+	Au bout de 10 itérations, on trouve ceci comme estimation : \( \hat \alpha = 1.358642578125\). En ce qui concerne l'erreur relative, elle vaut
+	\begin{equation}
+		| \frac{ \alpha-\hat \alpha }{ \alpha } |\simeq 0.00010479.
+	\end{equation}
 
-	En ce qui concerne le calcul de l'erreur relative, la première chose à faire est de vérifier que le \( \alpha\) proposé est dans l'intervalle qui nous reste. Sinon c'est qu'une erreur a été commise.
-
-	De plus notre approximation est \( x_n=1.3125\), dont déjà deux chiffres sont corrects. En deux itérations de bisection en partant de \( 0.5\), nous ne pouvons pas nous attendre à mieux.
-
+	Pour être propre, vous devriez modifier le programme pour qu'il vous calcule l'erreur relative à chaque étape.
 \end{example}
 
 
@@ -865,21 +805,21 @@ Les différences divisées sont des façons d'approximer les dérivées.
 	Soient \( n+1\) nœuds \( x_i\) pour la fonction \( f\). La \defe{différence divisée}{différence!divisée} sont :
 	\begin{description}
 		\item[Ordre \( 0\)]
-			\begin{equation}
-				f[x_i]=f(x_i)
-			\end{equation}
+		      \begin{equation}
+			      f[x_i]=f(x_i)
+		      \end{equation}
 		\item[Ordre \( 1\)]
-			\begin{equation}
-				f[x_i,x_j]=\frac{ f[x_i]-f[x_j] }{ x_i-x_j }.
-			\end{equation}
+		      \begin{equation}
+			      f[x_i,x_j]=\frac{ f[x_i]-f[x_j] }{ x_i-x_j }.
+		      \end{equation}
 		\item[Ordre \( 2\)]
-			\begin{equation}
-				f[x_i,x_j,x_k]=\frac{ f[x_i,x_j]-f[x_j,x_k] }{ x_i-x_k }.
-			\end{equation}
+		      \begin{equation}
+			      f[x_i,x_j,x_k]=\frac{ f[x_i,x_j]-f[x_j,x_k] }{ x_i-x_k }.
+		      \end{equation}
 		\item[Ordre \( n\)]
-			\begin{equation}
-				f[x_0,\ldots, x_n]=\frac{ f[x_0,\ldots, x_{n-1}]-f[x_1,\ldots, x_n] }{ x_0-x_n }.
-			\end{equation}
+		      \begin{equation}
+			      f[x_0,\ldots, x_n]=\frac{ f[x_0,\ldots, x_{n-1}]-f[x_1,\ldots, x_n] }{ x_0-x_n }.
+		      \end{equation}
 	\end{description}
 \end{definition}
 Les ordres font référence à l'ordre de dérivation qui est approximé.
