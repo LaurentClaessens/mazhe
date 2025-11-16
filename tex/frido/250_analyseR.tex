@@ -114,6 +114,30 @@
 	Si \( \| x \|>R\) alors la suite \( \| \alpha_k \|\| x \|^r\) n'est pas bornée. En tant que série de termes positifs non bornés nous avons \( \sum_{n=0}^{\infty}\| \alpha_n \|\| x \|^n=\infty\).
 \end{proof}
 
+\begin{lemma}[\cite{MonCerveau}]	\label{LEMooZDPSooXxPkYs}
+	Soit une application \(f \colon E\to F  \) analytique sur \( \overline{B(x_0,R)}\) s'écrivant sous la forme
+	\begin{equation}
+		f(x)=\sum_{k=0}^{\infty}a_k(x-x_0)
+	\end{equation}
+	avec \( a_k(x)=\sum_{\alpha\in\Lambda_k}a_{\alpha}x^{\alpha}\).
+
+	Il existe \( C>0\) tel que pour tout \( \epsilon>0\) il existe \( N\in \eN\) tel que pour tout \( k\geq N\) nous ayons
+	\begin{equation}
+		| a_{\alpha} |<\frac{ \epsilon }{ C }R^{-k}.
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	Soit \( \epsilon>0\). Nous considérons \( x\in B(x_0,R)\), en choisissant de telle sorte à avoir \( \| x-x_0 \|=R\). Nous avons donc, par définition d'une application analytique :
+	\begin{equation}
+		\sum_{k=0}^{\infty}\| a_k \|\| x-x_0 \|^k=\sum_{k=0}^{\infty}\| a_k \|R^k<\infty.
+	\end{equation}
+	Par la proposition \ref{PROPooYDFUooTGnYQg}, il existe alors \( N\) tel que si \( k\geq N\) alors \( \| a_k \|R^k<\epsilon\). Vu que \( \max_{\alpha\in\Lambda_k}| a_{\alpha} |\) est une norme (lemme \ref{LEMooORANooRLJYWw}) et que toutes les normes sont équivalentes, il existe \( C'>0\) tel que  \( C| a_{\alpha} |R^k<\epsilon\) et donc en posant \( C=1/C'\) nous avons bien
+	\begin{equation}
+		| a_{\alpha} |<C\epsilon R^{-k}.
+	\end{equation}
+\end{proof}
+
 
 \begin{proposition}[\cite{MonCerveau}]	\label{PROPooMGWOooTeCDRk}
 	Toute application linéaire est analytique.
@@ -447,6 +471,190 @@ La proposition suivante est dédiée à la petite fugue BWV 578.
 \end{proof}
 
 %-------------------------------------------------------
+\subsection{Intégrale par rapport à une des variables}
+%----------------------------------------------------
+
+
+\begin{proposition}[\cite{MonCerveau,BIBChatGPTDifficile}]	\label{PROPooBHKJooUZUKnc}
+	Soit une application analytique\footnote{Définition \ref{}.}
+	\begin{equation}
+		\begin{aligned}
+			f\colon \eR\times \eR^m & \to \eR                                                                                        \\
+			(t,\lambda)             & \mapsto \sum_{k=0}^{\infty}\sum_{\alpha\in\Lambda^{(m+1)}_{k}}a_{k,\alpha}(t,\lambda)^{\alpha}
+		\end{aligned}
+	\end{equation}
+	que nous supposons être analytique sur un voisinage de \( (0,0)\). Nous avons :
+	\begin{enumerate}
+		\item		\label{ITEMooMWMSooRoXLgL}
+		      L'application
+		      \begin{equation}
+			      \begin{aligned}
+				      f\colon \eR\times \eR^m & \to \eR                         \\
+				      (t,\lambda)             & \mapsto \int_0^t f(s,\lambda)ds
+			      \end{aligned}
+		      \end{equation}
+		      est analytique sur un voisinage de \( (0,0)\).
+		\item		\label{ITEMooSRHFooAjKHFg}
+		      En posant
+		      \begin{equation}
+			      \begin{aligned}
+				      \theta\colon \Lambda & \to\{ 0,1 \}                      \\
+				      \alpha               & \mapsto \begin{cases}
+					                                     0 & \text{si } \alpha_1=0 \\
+					                                     1 & \text{sinon },
+				                                     \end{cases}
+			      \end{aligned}
+		      \end{equation}
+		      nous avons
+		      \begin{equation}
+			      g(t,\lambda)=\sum_{k=0}^{\infty}\sum_{\alpha\in\Lambda_k}\theta(\alpha)\frac{ a_{k-1,(\alpha_1-1,\alpha')} }{ \alpha_1+1 }(t,\lambda)^{\alpha}.
+		      \end{equation}
+		\item		\label{ITEMooACJMooQHkdPY}
+		      Il existe \( 0<q<1\)et un polynôme \( P\) de degré \( m-1\) tel que
+		      \begin{equation}
+			      | b_k(t,\lambda) |\leq P(k)q^{-k}.
+		      \end{equation}
+	\end{enumerate}
+	Le point \ref{ITEMooACJMooQHkdPY} n'est pas très utile, mais il introduit des techniques qui pourraient servir plus tard.
+\end{proposition}
+
+\begin{proof}
+	Nous supposons que \( f\) est analytique sur \( \overline{B(0,R_t)}\times \overline{B(0,R_{\lambda})}\), et qu'elle se présente sous la forme\footnote{Lemme \ref{LEMooIEXNooPOHokX}.}
+	\begin{equation}
+		f(t,\lambda) =\sum_{k=0}^{\infty}a_k(t,\lambda)  =\sum_{k=0}^{\infty}\sum_{\alpha\in \Lambda_k}a_{k,\alpha}(t,\lambda)^{\alpha}.
+	\end{equation}
+	\begin{subproof}
+		\spitem[Permuter somme et intégrale]
+		%-----------------------------------------------------------
+		Notre premier objectif est de permuter la somme et l'intégrale dans
+		\begin{equation}
+			g(t,\lambda)=\int_{0}^t\sum_{k=0}^{\infty}a_k(s,\lambda)ds.
+		\end{equation}
+		Pour cela nous utilisons la convergence dominée de Lebesgue (théorème \ref{ThoConvDomLebVdhsTf}) en fixant \( \lambda\in B(0,\rho)\) et en posant
+		\begin{equation}
+			f_k(t)=a_k(t,\lambda)
+		\end{equation}
+		et
+		\begin{equation}
+			h(t)=\sum_{k=0}^{\infty}| f_k(t) |.
+		\end{equation}
+		\begin{subproof}
+			\spitem[\( h(t)<\infty\)]
+			%-----------------------------------------------------------
+			Nous avons \( f_k(t)=a_k(t,\lambda)\) et donc \( | f_k(t) |\leq \| a_k \|\| (t,\lambda) \|^k\). En sommant,
+			\begin{equation}
+				\sum_{k=0}^{\infty}| f_k(t) |\leq \sum_{k=0}^{\infty}\| a_k \|\| (t,\lambda) \|^k<\infty.
+			\end{equation}
+			\spitem[\( | f_k(t) |\leq | h(t) |\)]
+			%-----------------------------------------------------------
+			Parce que \( | h(t) |\) est la somme de plein de termes positifs, dont \( | f_k(t) |\).
+
+			\spitem[\( h\in L^1\big( \mathopen[ 0,t\mathclose] \big)\)]
+			%-----------------------------------------------------------
+			Nous allons prouver que \( h\) est continue comme somme uniformément convergente de fonctions continues (théorème \ref{ThoSerUnifCont}). Pour tout \( t\in B(0,R_t)\) nous avons
+			\begin{equation}
+				| f_k(t) |\leq \| a_k \|\| (R_t,R_{\lambda}) \|^k.
+			\end{equation}
+			Donc en posant \( M_k= \| a_k \|\| (R_t,R_{\lambda}) \|^k\), nous avons \( \sum_{k=0}^{\infty}M_k<\infty\) et \( | f_k(t) |\leq M_k\) pour tout \( t\) et tout \( k\). Le critère de Weierstrass \ref{ThoCritWeierstrass} nous dit que la série converge uniformément. Donc \( h\) est continue. Donc elle est dans \( L^1\big( \mathopen[ 0,t\mathclose] \big)\) en tant que fonction continue sur un compact.
+		\end{subproof}
+		Nous utilisons le théorème de la convergence dominée :
+		\begin{equation}
+			g(t,\lambda)=\sum_{k=0}^{\infty}\int_0^ta_k(s)ds
+		\end{equation}
+
+		\spitem[Intégration et un peu de calcul]
+		%-----------------------------------------------------------
+		L'intégration n'est pas très compliquée à effectuer. En termes de notations, si \( \alpha\in\Lambda\) est un multiindice, nous notons \( \alpha'=(\alpha_2,\ldots,\alpha_n)\). Voici un peu de calcul :
+		\begin{subequations}
+			\begin{align}
+				\int_0^ta_k(s)ds & =\int_0^t\sum_{\alpha\in \Lambda_k}a_{k,\alpha}(s,\lambda)^{\alpha}                              \\
+				                 & =\sum_{\alpha\in\Lambda_k}\frac{ a_{k,\alpha} }{ \alpha_1+1 }(t,\lambda)^{(\alpha_1+1,\alpha')}.
+			\end{align}
+		\end{subequations}
+		En posant
+		\begin{equation}
+			\begin{aligned}
+				\theta\colon \Lambda & \to \{ 0,1 \}                     \\
+				\alpha               & \mapsto \begin{cases}
+					                               1 & \text{si } \alpha_1>0 \\
+					                               0 & \text{si }\alpha_1=0,
+				                               \end{cases}
+			\end{aligned}
+		\end{equation}
+		nous avons
+		\begin{equation}
+			\sum_{\alpha\in \Lambda_k}\frac{ a_{k,\alpha} }{ \alpha_1+1 }(t,\lambda)^{(\alpha_1+1,\alpha')}=\sum_{\beta\in\Lambda_{k+1}}\theta(\beta)\frac{ a_{k,(\beta_1-1,\beta')} }{ \beta_1 }(t,\lambda)^{\beta}.
+		\end{equation}
+		Nous posons donc, pour \( k\geq 1\) :
+		\begin{equation}
+			b_k(t,\lambda)=\sum_{\beta\in\Lambda_k}\theta(\beta)\frac{ a_{k-1,(\beta_1-1,\beta')} }{ \beta_1 }(t,\lambda)^{\beta},
+		\end{equation}
+		et pour \( k=0\) nous posons \( b_0(t,\lambda)=0\) (ce qui est cohérent avec \( \theta(\beta)=0\) dans ce cas). Au final voici une belle forme pour \( g(t,\lambda)\) :
+		\begin{equation}
+			g(t,\lambda)=\sum_{k=0}^{\infty}b_k(t,\lambda).
+		\end{equation}
+		Cela prouve déjà le point \ref{ITEMooSRHFooAjKHFg}, mais nous n'avons pas encore prouvé que \( g\) est analytique.
+
+		\spitem[Pour \ref{ITEMooMWMSooRoXLgL} : \( g\) est analytique]
+		%-----------------------------------------------------------
+
+		Nous devons prouver que \( \sum_{k=0}^{\infty}\| b_k \|\| (t,\lambda) \|^k<\infty\). Pour cela, nous allons nous souvenir que l'ensemble des applications \( k\)-multilinéaires a les normes de la définition \ref{DEFooTAUWooNDJJEO} et du lemme \ref{LEMooORANooRLJYWw}. Nous utilisons deux fois l'équivalence entre ces deux normes\footnote{Théorème \ref{ThoNormesEquiv}.} :
+		\begin{subequations}
+			\begin{align}
+				\| b_k \| & \leq C_1\max_{\alpha\in\Lambda_k}\Big| \theta(\alpha)\frac{ a_{k-1,(\alpha_1-1,\alpha')} }{ \alpha_1+1 }  \Big| \\
+				          & \leq C_1\max_{\alpha\in\Lambda_k}|  a_{k-1,(\alpha_1-1,\alpha') }|                                              \\
+				          & \leq C_1C_2\| a_{k-1} \|.
+			\end{align}
+		\end{subequations}
+		Nous avons alors
+		\begin{equation}
+			\| b_k \|\| (t,\lambda) \|^k  \leq C_1C_2\| a_{k-1} \|\| (t,\lambda) \|^k =C\| (t,\lambda) \|\| a_{k-1} \|\| (t,\lambda) \|^k,
+		\end{equation}
+		et donc
+		\begin{subequations}
+			\begin{align}
+				\sum_{k=0}^{\infty}\| b_k \|\| (t,\lambda) \|^k & \leq C_1C_2\sum_{k=1}^{\infty}\| a_{k-1} \|\| (t,\lambda) \|^k          & \text{\( b_0=0\)} \\
+				                                                & =\| (t,\lambda) \|C_1C_2\sum_{k=0}^{\infty}\| a_k \|\| (t,\lambda) \|^k                     \\
+				                                                & <\infty.
+			\end{align}
+		\end{subequations}
+	\end{subproof}
+
+	\spitem[Prouver \ref{ITEMooACJMooQHkdPY}]
+	%-----------------------------------------------------------
+	Pour rappel, \( R_t\) et \( R_{\lambda}\) définissent un voisinage de \( (0,0)\) sur lequel \( f\) est analytique. Voir tout en-haut de la preuve. Nous choisissons \( (t,\lambda)\) de telle sorte que \( | t |<R_t\) et \( | \lambda |<R_{\lambda}\). Et nous considérons \( r_t,r_{\lambda}\) tels que \( | t |<r_t<R_t\) et \( | \lambda |<r_{\lambda}<R_{\lambda}\).
+
+	Nous devons majorer la norme de
+	\begin{equation}		\label{EQooJGTDooDhcKFF}
+		b_k(t,\lambda)=\sum_{\alpha\in\Lambda_k}\theta(\alpha)\frac{ a_{k-1,(\alpha_1+1,\alpha')} }{ \alpha_1+1 }t^{\alpha_1}\lambda^{\alpha'}.
+	\end{equation}
+	Étant donnée le lemme \ref{LEMooZDPSooXxPkYs},
+	\begin{equation}
+		| a_{k-1,(\alpha_1-1,\alpha')} |\leq CR_t^{-(\alpha_1-1)}R_{\lambda}^{| \alpha' |}.
+	\end{equation}
+	De plus étant donné notre choix de \( t\) et \( \lambda\) nous avons \( | t |^{\alpha_1}\leq r_t^{\alpha_1}\) et \( | \lambda |^{\alpha'}\leq | r_{\lambda} |^{| \alpha' |}\) parce que \( | \lambda |^{\alpha'}=\prod| \lambda_i^{\alpha'_i} |\) et que pour chaque \( i\) nous avons \( | \lambda_i |\leq r_{\lambda}\).
+
+	En prenant la valeur absolue de \eqref{EQooJGTDooDhcKFF}, en majorant \( \theta(\alpha)\leq 1\) et \( 1/(\alpha_1+1)\leq 1\) nous avons
+	\begin{equation}
+		| b_k(t,\lambda) |\leq C\sum_{\alpha\in\Lambda_k}R_t\left( \frac{ r_t }{ R_t } \right)^{\alpha_1}\left( \frac{ r_{\lambda} }{ R_{\lambda} } \right)^{| \alpha' |}.
+	\end{equation}
+	Nous posons \( q=\max(r_t/R_t,r_{\lambda}/R_{\lambda})\), nous avons \( 0<q<1\) et la majoration
+	\begin{equation}		\label{EQooDGFQooLyiGKd}
+		| b_k(t,\lambda) |\leq CR_t\sum_{\alpha\in\Lambda_k}q^{| \alpha |}=R_tCq^k\Card(\Lambda_k).
+	\end{equation}
+	Ici nous travaillons avec \( m+1\) variables, donc quand nous écrivons \( \Lambda_k\), nous voulons dire \( \Lambda_k^{(m+1)}\) et la proposition \ref{PROPooRBMVooIGkctj} nous donne
+	\begin{equation}
+		\Card(\Lambda_k)=\binom{ n+1+k-1 }{ m+1-1 }=\binom{ m+k }{ m }=\frac{ (m+k)! }{ m!k! }=\frac{1}{ m!}\prod_{l=1}^m(l+l)=P(k)
+	\end{equation}
+	où \( P\) est n polynôme de degré \( m-1\). En absorbant le facteur \( R_tC\) dans une redéfinition de \( P\), la relation \eqref{EQooDGFQooLyiGKd} donne
+	\begin{equation}
+		| b_k(t,\lambda) |\leq P(kq^k)
+	\end{equation}
+	comme demandé.
+\end{proof}
+
+
+%-------------------------------------------------------
 \subsection{Différentielle}
 %----------------------------------------------------
 
@@ -561,11 +769,38 @@ La proposition suivante est dédiée à la petite fugue BWV 578.
 \subsection{Cauchy-Lipschitz analytique}
 %----------------------------------------------------
 
+\begin{probleme}
+	Le lemme \ref{LEMooRRUMooRqDwYr} est de ceux qui demanderaient une bonne relecture. Soyez \randomGender{attentif}{attentive} en lisant la preuve; il peut encore y avoir pas mal de pièges que je n'aurais pas vus. Si ça peut vous motiver à relire avec un œil critique, sachez que la preuve est entièrement due à chatGPT.
+\end{probleme}
+
+\begin{lemma}[\cite{BIBChatGPT}]	\label{LEMooRRUMooRqDwYr}
+	Soit une application \(f \colon \eR\times \eR^m\to \eR  \) analytique sur un voisinage de \( (0,0)\). Nous posons
+	\begin{equation}
+		g(t,\lambda)=\int_{0}^tf(s,\lambda)ds.
+	\end{equation}
+	Alors \( g\) est analytique sur un voisinage de \( (0,0)\).
+\end{lemma}
+
+\begin{proof}
+	Nous notons \( \Lambda_k^{(n)}\) l'ensemble des multiindices de longueur \( n\) dont la somme des composantes vaut \( k\).
+	Si \( (t_0,\lambda_0)\) est un point où \( f\) est analytique. Pour un point \( (t,\lambda)\) dans un voisinage nous avons
+	\begin{equation}
+		f(t,\lambda)=\sum_{k=0}^{\infty}\sum_{\alpha\in\Lambda_k^{(m+1)}}a_{k,\alpha}\big( (t-t_0),(\lambda-\lambda_0) \big)^{\alpha}.
+	\end{equation}
+	Nous pouvons réarranger les termes comme montré dans \ref{PROPooZMXDooHLRvCd} :
+	\begin{subequations}
+		\begin{align}
+			f(t,\lambda) & =\sum_{k=0}^{\infty}\sum_{\alpha\in\Lambda_k^{(m+1)}}a_{k,\alpha}\big( (t-t_0),(\lambda-\lambda_0) \big)^{\alpha}  \\
+			             & =\sum_{l=0}^{\infty}\sum_{\alpha\in \Gamma_l}a_{| \alpha |,\alpha}\big( (t-t_0),(\lambda-\lambda_0) \big)^{\alpha} \\
+			             & =\sum_{l=0}^{\infty}\sum_{\beta\in \Lambda^{(m)}}a_{| \beta |+1,(l\beta)}(t-t_0)^l(\lambda-\lambda_0)^{\beta}.
+		\end{align}
+	\end{subequations}
+\end{proof}
+
+
 Vous saviez qu'en anglais ce théorème était nommé « Picard–Lindelöf » au lieu de Cauchy-Lipschitz ?
 
-% https://math.stackexchange.com/questions/5101596/analytic-picard-lindel%c3%b6f-theorem
-
-\begin{theorem}[\cite{BIBChatGPT}]	\label{THOooZEBOooQJOSQj}
+\begin{theorem}[Cauchy-Lipschitz analytique\cite{BIBChatGPT}]	\label{THOooZEBOooQJOSQj}
 	Soient \( n,m\in \eN\), soit \( U\) un voisinage de \( 0\) dans \( \eR^n\) et \( P\) un voisinage de \( 0\) dans \( \eR^m\). Nous considérons \( y_0\in U\) et une application analytique\footnote{Définition \ref{DEFooAIHMooKbWsBt}.} \(f \colon U\times P\to \eR^n  \).
 
 	Alors
@@ -589,10 +824,11 @@ Vous saviez qu'en anglais ce théorème était nommé « Picard–Lindelöf » a
 		      \end{equation}
 		      est analytique.
 	\end{enumerate}
+	%TODOooYTNTooHUngNA. Prouver ça.
+	% Quand la démonstration sera finie, poser [1] comme exemple de théorème manquant sur internet dans un des commentaires sur linuxfr.
+	% [1] https://math.stackexchange.com/questions/5101596/analytic-picard-lindel%c3%b6f-theorem
 \end{theorem}
 
-% Quand la démonstration sera finie, poser [1] comme exemple de théorème manquant sur internet dans un des commentaires sur linuxfr.
-% [1] https://math.stackexchange.com/questions/5101596/analytic-picard-lindel%c3%b6f-theorem
 
 %-------------------------------------------------------
 \subsection{Série de puissance sur \( \eC\)}
