@@ -1,13 +1,13 @@
 from __future__ import division
 
-def bissection(f, a, b, toll, mmax):
+def bissection(f, a, b, toll, nmax):
     """
     f : une fonction
     a,b : les limites de l'intervalle
     toll : la tolérance. C'est l'amplitude de l'intervalle à partir duquel nous nous arrêtons.
     nmax : le nombre maximum d'itérations.
 
-    Nous supposons que \( b>a\).
+    Nous supposons que b>a.
 
     Retourne un tuple (x,n) où 'x' est la solution approchée et 'n' est le nombre d'itérations effectuées
     """
