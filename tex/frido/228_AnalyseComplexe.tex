@@ -7,6 +7,8 @@
 \section{Analyse complexe en plusieurs variables}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+Pour rappel, la définition d'une application holomorphe est \ref{DefMMpjJZ} et elle est directement donnée en plusieurs variables.
+
 \begin{definition}[\cite{BIBooQYDXooDWJciq}]
 	Nous définissons le \defe{polydisque}{polydisque} centré en \( a\in \eC^n\) et de «rayons» \( r\in \eC^n\) par
 	\begin{equation}
@@ -21,15 +23,15 @@
 	\end{equation}
 \end{definition}
 
-\begin{definition}[\cite{BIBooQYDXooDWJciq}]		\label{DEFooPJBSooPyaALD}
-	Soit un ouvert\footnote{La topologie sur \( \eC^n\) est celle de la norme définie en \ref{DEFooGUXNooXwCsrq}.} \( D\) dans \( \eC^n\). Nous disons que \( f\colon D\to \eC\) est \defe{holomorphe}{holomorphe} si
-	\begin{enumerate}
-		\item
-		      \( f\) est continue sur \( D\),
-		\item
-		      pour tout \( z\in D\) et pour tout \( 1\leq j\leq n\), le nombre \( \frac{ \partial f }{ \partial z_j }(z)\) existe et est fini.
-	\end{enumerate}
-\end{definition}
+\begin{proposition}	\label{PROPooKGOIooWRIoAq}
+	Une application \(f \colon \Omega\to \eC  \) est holomorphe si et seulement si pour tout \( j\in\{ 1,\ldots,n \}\) et pour tout \( z_1,\ldots,z_{j-1}, j_{j+1},\ldots,j_n\in \Omega\), l'application partielle
+	\begin{equation}
+		z\mapsto f(z_1,\ldots,z_{j_1}, z,z_{j+1},\ldots,z_n)
+	\end{equation}
+	est holomorphe.
+	%TODOooCRAUooMxNCzY. Prouver ça.
+\end{proposition}
+
 
 \begin{definition}[\cite{BIBooXNQTooNgvlKd}]
 	Soient des ouverts \( B_1\) et \( B_2\) dans \( \eC^n\). Nous disons que \( f\colon B_1\to B_2\) est \defe{biholomorphe}{biholomorphe} si
@@ -55,16 +57,35 @@
 \end{theorem}
 
 %-------------------------------------------------------
+\subsection{Espace de fonctions holomorphes}
+%----------------------------------------------------
+
+\begin{proposition}	\label{PROPooFFXSooBLoTSq}
+	Soit \( z_0\in \eC^n\) et
+	\begin{equation}
+		X=\{\varphi \colon\overline{B(z_0),r}\to \eC^{m}\tq
+		\begin{cases}
+			\varphi\text{ est holomorphe sur \( B(z_0,r)\)} \\
+			\varphi\text{ est continue sur \( \overline{B(z_0,a)}\)}.
+		\end{cases}
+		\}
+	\end{equation}
+	Alors \( (X,\|  \|_{\infty})\) est fermé dans \( \big( C^0(z_0,r),\| . \|_{î} \big)\).
+	%TODOooCJOKooNtQTYq. Prouver ça.
+\end{proposition}
+
+
+%-------------------------------------------------------
 \subsection{Cauchy-Lipschitz holomorphe}
 %----------------------------------------------------
 
-\begin{proposition}[Cauchy-Lipschitz holomorphe\cite{BIBChatGPTDifficile}]	\label{PROPooYYYDooXeEcVw}
-	Soient \( (t_0,y_0,\lambda_0)\in \eC\times \eC^n\times \Lambda\)	 (ici \( \Lambda=C^m\)) ainsi qu'une application \(f \colon \eC\times \eC^n\times \Lambda\to \eC^n  \) holomorphe sur un voisinage de \( (t_0,y_0,\lambda_0)\).
+\begin{proposition}[Cauchy-Lipschitz holomorphe\cite{BIBChatGPTDifficile, MonCerveau}]	\label{PROPooYYYDooXeEcVw}
+	Soient \( (t_0,y_0,\lambda_0)\in \eC\times \eC^n\times \Lambda\)	 (ici \( \Lambda=C^m\)) ainsi qu'une application \(f \colon \eC\times \eC^n\times \Lambda\to \eC^n  \) holomorphe\footnote{Définition \ref{DefMMpjJZ}.} sur un voisinage de \( (t_0,y_0,\lambda_0)\).
 	Alors :
 	\begin{enumerate}
 		\item
 		      Il existe \( a,\rho>0\) tels que le système
-		      \begin{subequations}
+		      \begin{subequations}		\label{SUBEQSooPTXEooQMupUi}
 			      \begin{numcases}{}
 				      (\partial_ty)(t,\lambda)=f\big( t,y(t,\lambda),\lambda \big)\\
 				      y(t_0,\lambda)=y_0
@@ -82,8 +103,211 @@
 \end{proposition}
 
 \begin{proof}
-	Soit \( R>0\) tel que \( f\) soit holomorphe sur
-	\begin{equation}
-		U=\overline{B(t_0,R)}\times \overline{B(y_0,R)}\times \overline{B(\lambda_0,R)}.
-	\end{equation}
+	En plusieurs parties.
+	\begin{subproof}
+		\spitem[Sécurité]
+		%-----------------------------------------------------------
+
+		Soit \( R>0\) tel que \( f\) soit holomorphe sur
+		\begin{equation}
+			U=\overline{B(t_0,R)}\times \overline{B(y_0,R)}\times \overline{B(\lambda_0,R)}.
+		\end{equation}
+		Vu que \( U\) est compact et que \( f\) y est continue, elle est majorée et nous posons
+		\begin{equation}
+			\sup_{(t,y,\lambda)\in U}| f(t,y,\lambda) |\leq M.
+		\end{equation}
+
+		\spitem[Une application \( g\) intermédiaire]
+		%-----------------------------------------------------------
+
+		Nous fixons ensuite \( (t_1,\lambda_1)\in B(t_0,R)\times B(\lambda_0,R)\) ainsi que l'application
+		\begin{equation}
+			\begin{aligned}
+				g\colon \overline{B(y_0,R)} & \to \eC^n                   \\
+				y                           & \mapsto g(t_1,y,\lambda_1).
+			\end{aligned}
+		\end{equation}
+		Cette application est holomorphe par la proposition \ref{PROPooKGOIooWRIoAq}. Nous appliquons à chaque composante \( g_i\) l'estimateur de Cauchy (proposition \ref{PROPooRKVVooNmfHkz}\ref{ITEMooMWMSooRoXLgL}) avec la majoration \( 1/R\geq 1/(R-r)\) :
+		\begin{equation}
+			| g_i'(y) |\leq \frac{1}{ R}\sup_{| w-y_0 |=R}| g(w) |\leq \frac{ M }{ R }.
+		\end{equation}
+		La norme sur \( \eC^n\) est celle de la définition \ref{DEFooGUXNooXwCsrq}, et nous avons donc
+		\begin{equation}
+			\| g'(z) \|  =\sqrt{ \langle g'(z), g'(z) \rangle }
+			=\sqrt{ \sum_{i=1}^n| g_i(z) |^2 }
+			\leq\sqrt{\sum_{i=1}^n\frac{ M }{ R }}
+			\leq \frac{ \sqrt{n}M }{ R }.
+		\end{equation}
+
+		\spitem[Une condition Lipschitz]
+		%-----------------------------------------------------------
+		Soient \( y,z\in B(y_0,R)\). Nous utilisons les accroissements finis \ref{val_medio_2} :
+		\begin{equation}
+			\| g(y)-g(z) \|\leq \sup_{x\in \mathopen[ y,z,\mathclose]}\| dg_x \|\| y-z \|.
+		\end{equation}
+		Mais nous savons que pour une application holomorphe, la différentielle est l'application qui consiste à multiplier par la dérivée complexe (proposition \ref{PropKJUDooJfqgYS}). Donc en posant
+		\begin{equation}
+			L=\frac{ \sqrt{n}M }{ R }
+		\end{equation}
+		nous avons
+		\begin{equation}
+			\| f(t_1,yl_1)-f(t_1,z,\lambda_1) \|\leq L\| y-z \|.
+		\end{equation}
+
+		\spitem[L'espace de Banach pour la contraction]
+		%-----------------------------------------------------------
+		Soient \( a,\rho<R\). Nous posons
+		\begin{equation}
+			X=\{\varphi \colon\overline{B(t_0),a}\times \overline{B(\lambda_0,\rho)}\to \eC^{n}\tq
+			\begin{cases}
+				\varphi\text{ est holomorphe sur \( B(t_0,a)\times B(\lambda_0,\rho)\)}                     \\
+				\varphi\text{ est continue sur \( \overline{B(t_0,a)}\times \overline{B(\lambda_0,\rho)}\)} \\
+				\| \varphi-y_0 \|\leq r
+			\end{cases}
+			\}
+		\end{equation}
+		Et maintenant on parle de fermeture et de complétude.
+		\begin{enumerate}
+			\item
+			      Par le lemme \ref{LemdLKKnd}), l'espace \( \big( C^0(\ldots),\| . \|_{\infty} \big)\) est de Banach
+			\item
+			      Nous considérons \( \mF=\big( X,\| . \|_{\infty} \big)\).
+			\item
+			      La partie \( \mF\) est fermée dans \( C^0(\ldots)\) par proposition \ref{PROPooFFXSooBLoTSq}.
+			\item
+			      En tant que fermé dans un complet, la partie \( \mF\) est complète.
+		\end{enumerate}
+		Nous pourrions donc utiliser le théorème de Picard sur \( \mF\).
+
+		\spitem[La suite]
+		%-----------------------------------------------------------
+		Nous allons définir la contraction \( \mF\to\mF\) qui à \( \varphi\) fait correspondre
+		\begin{equation}
+			\phi(t,\lambda)=y_0+\int_{t_0}^tf\big( s,\varphi(s,\lambda),\lambda \big)ds
+		\end{equation}
+		Nous allons maintenant prouver ce qu'il faut pour que cette application soit bien définie et soit une contraction.
+
+		Pour la suite nous considérons \( \varphi\in \mF\) et nous posons
+		\begin{equation}
+			\begin{aligned}
+				\phi\colon \overline{B(t_0,a)}\times \overline{B(\lambda_0,\rho)} & \to \eC^n                                                            \\
+				(t,\lambda)                                                       & \mapsto y_0+\int_{t_0}^tf\big( s,\varphi(s,\lambda),\lambda \big)ds.
+			\end{aligned}
+		\end{equation}
+		Nous allons prouver que si \( a\) et \( \rho\) sont bien choisis, \( \phi\in \mF\).
+
+		\spitem[L'intégrale a un sens]
+		%-----------------------------------------------------------
+		Si on fixe \( \lambda_1\in \overline{B(\lambda_0,\rho)}\) l'application
+		\begin{equation}
+			\begin{aligned}
+				g\colon \mathopen[ t_0,t\mathclose] & \to \eC^n                                             \\
+				s                                   & \mapsto f\big( s,\varphi(s,\lambda_1),\lambda_1 \big)
+			\end{aligned}
+		\end{equation}
+		est continue en tant que composée d'applications continues. Donc l'intégrale sur le compact \( \mathopen[ t_0,t\mathclose]\) ne pose pas de problèmes.
+
+		\spitem[\( \phi\) est continue sur l'ouvert]
+		%-----------------------------------------------------------
+		Attention que l'intégrale \( \int_{t_0}^t\) est l'intégrale sur le segment dans \( \eC\) joignant \( t_0\) à \( t\). Il n'est donc pas vrai que \( \int_{t_0}^{t+\delta}=\int_{t_0}^t+\int_t^{t+\delta}\). La définition plus explicite est que
+		\begin{equation}
+			\phi(t,\lambda)=y_0+\int_{t_0}^tf\big( s,\varphi(s,\lambda),\lambda \big)ds=y_0+\int_{0}^1f\Big( \gamma(u),\varphi\big( \gamma(u),\lambda \big),\lambda  \Big)du
+		\end{equation}
+		avec \( \gamma(u)=tu+(1-u)t_0\).
+
+		De même, en prenant \( \delta\in \eC\) tel que \( t+\delta\) reste dans \( \overline{(t_0,a)}\) nous avons
+		\begin{equation}
+			\phi(t+\delta,\lambda+\delta)=y_0+\int_0^1f\Big( \sigma(u),\varphi\big( \sigma(u),\lambda \big),\lambda \Big)du
+		\end{equation}
+		avec \( \sigma(u)=(t+\delta)u+(1-u)t_0\).
+
+		Nous avons donc
+		\begin{equation}
+			\| \phi(t,\lambda)-\phi(t+\delta,\lambda+\delta) \|\leq \int_{0}^1\| f\Big( \sigma(u),\varphi\big( \sigma(u),\lambda+\delta \big),\lambda+\delta \Big)-f\Big( \gamma(u),\varphi\big( \gamma(u),\lambda \big),\lambda \Big) \|du.
+		\end{equation}
+		Là dedans, tout est continu en \( \delta\) et \( \gamma(u)-\sigma(u)=\delta u\). Nous avons donc bien
+		\begin{equation}
+			\lim_{\delta\to 0}\| \phi(t,\lambda)-\phi(t+\delta,\lambda+\delta) \|=0,
+		\end{equation}
+		et donc la continuité de \( \phi\).
+
+		\spitem[\( \phi\) est holomorphe sur le fermé]
+		%-----------------------------------------------------------
+		C'est la proposition \ref{PROPooSQXZooBzIrji} qui le dit.
+
+		\spitem[Si \( a<rM\) alors \( \phi\in \mF\)]
+		%-----------------------------------------------------------
+		Nous avons supposé que \( \| \varphi-y_0 \|<r\). Nous prouvons à présent que si \( a<rM\) alors \( \| \phi-y_0 \|<r\). Soit donc \( (t,\lambda)\in \overline{B(t_0,a)}\times \overline{B(\lambda_0,\rho)}\). Nous avons
+		\begin{equation}
+			\| \phi(t,\lambda)-y_0 \|\leq\int_{t_0}^t\| f\big( s,\varphi(s,\lambda),\lambda \big) \|ds<aM.
+		\end{equation}
+
+		\spitem[L'application \( T\)]
+		%-----------------------------------------------------------
+		Tout ce que nous venons de faire nous permet de considérer l'application
+		\begin{equation}
+			\begin{aligned}
+				T\colon \mF           & \to \mF                                                        \\
+				T(\varphi)(t,\lambda) & = y_0+\int_{t_0}^tf\big( s,\varphi(s,\lambda),\lambda \big)ds.
+			\end{aligned}
+		\end{equation}
+
+		\spitem[Si \( aL<1\) alors \( T\) est une contraction]
+		%-----------------------------------------------------------
+		Soient \( \varphi,\phi\in\mF\) ainsi que \( (t,\lambda)\in\overline{B(t_0,a)}\times\overline{B(\lambda_0,\rho)}\). Nous avons
+		\begin{subequations}
+			\begin{align}
+				\| T(\phi)-T(\varphi) \| & \leq \int_{t_0}^t\| f\big( s,\varphi(s,\lambda),\lambda \big)-f\big( s,\phi(s,\lambda),\lambda \big) \|ds \\
+				                         & \leq L\int_{t_0}^t\| \varphi(s,t)-\phi(s,t) \|                                                            \\
+				                         & \leq aL \| \varphi-\phi \|_{\infty}.
+			\end{align}
+		\end{subequations}
+		Donc si \( aL<1\), l'application \( T\) est une contraction.
+
+		\spitem[Picard]
+		%-----------------------------------------------------------
+		Nous appliquons le théorème de point fixe de Picard \ref{ThoEPVkCL} et nous considérons l'unique point fixe \( \varphi_0\in\mF\) de \( T\).
+
+		\spitem[Point fixe \( \Rightarrow\) solution]
+		%-----------------------------------------------------------
+		Nous prouvons que \( \varphi_0\) est une solution. Vu que \( \varphi_0\in \mF\), nous savons déjà qu'elle vérifie
+		\begin{equation}
+			\varphi_0(t,\lambda)=y_0+\int_{t_0}^tf\big( s,\varphi_0(s,\lambda),\lambda \big)ds.
+		\end{equation}
+		Nous fixons \( \lambda_1\in B(\lambda_0,\rho)\) et nous considérons la fonction
+		\begin{equation}
+			\begin{aligned}
+				g\colon B(t_0,a) & \to \eC^n                       \\
+				t                & \mapsto \varphi_0(t,\lambda_1),
+			\end{aligned}
+		\end{equation}
+		c'est à dire
+		\begin{equation}
+			g(t)=y_0+\int_{t_0}^tf\big( s,g(s,\lambda_1),\lambda_1 \big)ds.
+		\end{equation}
+		C'est le moment d'utiliser \ref{PROPooSOAWooDZswKV}\ref{ITEMooJWJOooCNjrDl} :
+		\begin{equation}
+			g'(z)=f\big( t,g(s,\lambda_1),\lambda_1 \big).
+		\end{equation}
+		Donc \( \varphi_0\) est bien une solution.
+
+		\spitem[Solution \( \Rightarrow\) point fixe]
+		%-----------------------------------------------------------
+		Nous prouvons que si \( y\) est une solution de \eqref{SUBEQSooPTXEooQMupUi} alors \( T(y)=y\). Nous fixons \( \lambda_1\in\Lambda\) et nous posons \( g(t)=y(t,\lambda_1)\). Donc
+		\begin{equation}
+			g'(t)=f\big( t,y(t,\lambda_1),\lambda_1 \big).
+		\end{equation}
+		Nous avons alors, en utilisant le théorème \ref{THOooMFFMooBvJdFK} :
+		\begin{subequations}
+			\begin{align}
+				T(y)(t,\lambda_1) & =y_0+\int_{t_0}^tf\big( s,y(s,\lambda_1),\lambda_1 \big)ds \\
+				                  & =y_0+\int_{t_0}^tg'(s)                                     \\
+				                  & =y_0+g(t)-g(t_0)                                           \\
+				                  & =y_0+g(t)-\underbrace{y(t_0,\lambda_1)}_{=y_0}             \\
+				                  & =g(t)                                                      \\
+				                  & =y(t,\lambda_1).
+			\end{align}
+		\end{subequations}
+		Nous avons donc bien \( T(y)=y\).
+	\end{subproof}
 \end{proof}
