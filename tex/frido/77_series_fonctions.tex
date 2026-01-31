@@ -1,5 +1,5 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2011-2015,2017-2020,2023-2025
+% Copyright (c) 2011-2015,2017-2020,2023-2026
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
@@ -460,17 +460,102 @@ Nous prouvons le théorème pour la norme \( \| . \|_2\).
 \subsection{Critères de convergence uniforme}
 %---------------------------------------------------------------------------------------------------------------------------
 
+%-----------------------------------
+\subsubsection{Critère de Weierstrass}
+
+
 Afin de tester l'uniforme convergence d'une intégrale, nous avons le \defe{critère de Weierstrass}{critère!Weierstrass}:
-\begin{theorem}     \label{ThoCritWeiIntUnifCv}
+\begin{theorem}[Critère de Weierstrass]     \label{ThoCritWeiIntUnifCv}
 	Soit \( f(x,t)\colon [\alpha,\beta]\times[a,\infty[ \to \eR\), une fonction dont la restriction à toute demi-droite \( x=c\) est mesurable. Si \( | f(x,t) |< \varphi(t)\) et \( \int_a^{\infty}\varphi(t)dt\) existe, alors l'intégrale
 	\begin{equation}
 		\int_0^{\infty}f(x,t)dt
 	\end{equation}
 	est uniformément convergente.
+	%TODOooRWOVooJduvaU. Prouver ça.
 \end{theorem}
 
+%-----------------------------------
+\subsubsection{Critère d'Abel}
+
+
+\begin{lemma}[Transformation d'Abel\cite{BIBooVMEDooNFFqpc,MonCerveau}]	\label{LEMooZBARooCFlMyM}
+	Soient deux suites \( (u_n)\) et \( (v_n)\) dans \( \eC\). Soit \( p\leq q\) dans \( \eN\setminus\{ 0 \}\). En posant
+	\begin{equation}
+		V_n=\sum_{k=1}^nv_k,
+	\end{equation}
+	nous avons
+	\begin{equation}		\label{EQooVCMBooOiwCVi}
+		\sum_{n=p}^qu_nv_n=-u_pV_{p-1}+\sum_{n=p}^{q-1}(u_n-u_{n+1})V_n+u_qV_q.
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	Nous fixons \( p\) et nous faisons une récurrence sur \( q\) en commençant par \( q=p\). En posant \( q=p\) dans \eqref{EQooVCMBooOiwCVi}, le membre de gauche se réduit à \( u_pv_p\) et celui de droite devient
+	\begin{equation}
+		-u_pV_{p-1}+0+u_pV_p=u_p(V_p-V_{p-1})=u_pv_p.
+	\end{equation}
+
+	Pour la récurrence, nous notons
+	\begin{equation}
+		f(q)=-u_pV_{p-1}+\sum_{n=p}^{q-1}(u_n-u_{n+1})V_n+u_qV_q
+	\end{equation}
+	et
+	\begin{equation}
+		g(q)=\sum_{n=p}^qu_nv_n.
+	\end{equation}
+	Nous avons déjà montré que \( f(p)=g(p)\), et maintenant nous prouvons que \( f(q+1)=g(q+1)\) sous l'hypothèse que \( f(q)=g(q)\). Pour cela nous calculons \( f(q+1)-g(q+1)\).
+	\begin{equation}
+		\diamondsuit = f(q+1)+g(q+1)  =-u_pV_{p-1}+\sum_{n=p}^q(u_n-n_{n+1})V_n+u_{q+1}V_{q+1}-\sum_{n=p}^{q+1}u_nv_n
+	\end{equation}
+	En ce qui concerne la dernière somme, en utilisant l'hypothèse de récurrence, nous avons
+	\begin{equation}
+		\sum_{n=p}^{q+1}u_nv_q=g(q)+u_{q+1}v_{q+1}=f(q)+u_{q+1}v_{q+1}.
+	\end{equation}
+	Donc
+	\begin{equation}
+		\diamondsuit = \underline{-u_pV_{p-1}}+\underline{\sum_{n=p}^{q-1}(u_n-u_{n+1})V_n}+(\underline{u_q}-u_{q+1})V_q+u_{q+1}V_{q+1}-f(q)-u_{q+1}v_{q+1}
+	\end{equation}
+	Notez que les termes soulignés forment \( f(q)\). Nous avons donc
+	\begin{equation}
+		\diamondsuit=f(q)-u_{q+1}V_q+u_{q+1}V_{q+1}-f(q)-u_{q+1}v_{q+1}=u_{q+1}(-V_q+V_{q+1}-v_{q+1})=0.
+	\end{equation}
+\end{proof}
+
+\begin{proposition}[\cite{BIBooVMEDooNFFqpc}]	\label{PROPooZELPooQrHBuv}
+	Soit \( \eK\) étant \( \eR\) ou \( \eC\). Soit une suite \( (u_n)\) dans \( \eK\) et une suite \( (v_n)\) dans un espace de Banach sur \( \eK\). Si
+	\begin{enumerate}
+		\item
+		      \( u_n\to 0\),
+		\item		\label{ITEMooZAFCooSOaOXw}
+		      \( \sum_{k=0}^{\infty}| u_{k+1}-u_k |\) converge,
+		\item
+		      \( s_n=\sum_{k=0}^{n}v_k\) est bornée,
+	\end{enumerate}
+	alors la série \( \sum_{k=0}^{\infty}u_nv_n\) converge.
+\end{proposition}
+
+\begin{proof}
+	Soient \( p,q\in \eN\). Par le lemme \ref{LEMooZBARooCFlMyM}, nous avons
+	\begin{equation}
+		\sum_{k=p}^qu_kv_k=-u_pV_{p-1}+\sum_{k=p}^{q-1}(u_k-u_{k-1})V_k+u_qV_q,
+	\end{equation}
+	et en prenant la norme\footnote{Et en utilisant \ref{LEMooGEVOooKeVQbb}.}, et en notant \( \alpha=\sup_{k\geq 1}| V_k |\) (qui est fini par hypothèse), nous avons
+	\begin{subequations}
+		\begin{align}
+			\| \sum_{k=p}^qu_kv_k \| & \leq | u_p |\| V_{p-1} \|+\sum_{k=p}^{q-1}| u_k-u_{k+1} |\| V_k \|+| u_q |\| V_q \| \\
+			                         & \leq\alpha\Big( | u_p |+\sum_{k=p}^{q-1}| u_n-u_{n+1} |+| u_q | \Big).
+		\end{align}
+	\end{subequations}
+	L'hypothèse \ref{ITEMooZAFCooSOaOXw} nous permet d'utiliser le critère de Cauchy \ref{PROPooNNMFooUHMcSE} pour les séries et dire que si \( p\) est grand,
+	\begin{equation}
+		\| \sum_{k=p}^qu_kv_k \|\leq \alpha\Big(  | u_p |+\sum_{k=p}^{q-1}| u_n-u_{n+1} |+| u_q | \Big)<\epsilon.
+	\end{equation}
+	Cela signifie que la suite des sommes partielles \( S_n=\sum_{k=0}^nu_kv_k\) est de Cauchy dans l'espace complet \( E\). Donc elle converge.
+\end{proof}
+
+
 Le théorème suivant est le \defe{critère d'Abel}{critère!Abel pour intégrales} :
-\begin{theorem}     \label{ThoAbelIntUnif}
+\begin{theorem}[Critère d'Abel\cite{BIBooVMEDooNFFqpc}]     \label{ThoAbelIntUnif}
 	Supposons que \( f(x,t)=\varphi(x,t)\psi(x,t)\) où \( \varphi\) et \( \psi\) sont bornées et intégrables en \( t\) au sens de Riemann sur tout compact \( [a,b]\), \( b\geq a\). Supposons que :
 	\begin{enumerate}
 		\item \( \left| \int_a^{T}\varphi(x,t)dt \right| \leq M\) où \( M\) est indépendant de \( T\) et de \( x\),
@@ -490,7 +575,7 @@ Le théorème suivant est le \defe{critère d'Abel}{critère!Abel pour intégral
 	\begin{equation}
 		\int_0^T\sin(xt)dt=-\frac{ 1 }{ x }\big( \cos(xT)-\cos(x) \big),
 	\end{equation}
-	qui n'est pas bornée en \( x\). Poser \( \varphi(x,t)=\sin(xt)\) \emph{ne fonctionne pas} pour assurer la convergence uniforme sur un intervalle qui contient des \( x\) arbitrairement proches de \( 0\). Le critère d'Abel avec \( \varphi(x,t)=\sin(xt)\) ne permet que de conclure à l'uniforme convergence \emph{sur tout compact} ne contenant pas \( 0\). C'est toutefois souvent suffisant pour étudier la continuité ou la dérivabilité en se servant coup du compact, voir \ref{NORMooZWECooHvRgBw}.
+	qui n'est pas bornée en \( x\). Poser \( \varphi(x,t)=\sin(xt)\) \emph{ne fonctionne pas} pour assurer la convergence uniforme sur un intervalle qui contient des \( x\) arbitrairement proches de \( 0\). Le critère d'Abel avec \( \varphi(x,t)=\sin(xt)\) ne permet que de conclure à l'uniforme convergence \emph{sur tout compact} ne contenant pas \( 0\). C'est toutefois souvent suffisant pour étudier la continuité ou la dérivabilité en se servant coup du compact. Voir \ref{NORMooZWECooHvRgBw}.
 	%1403337912512
 \end{remark}
 
