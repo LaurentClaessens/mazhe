@@ -4,6 +4,7 @@ Ce fichier contient les fautes découvertes dans les versions imprimées du Frid
 
 ## Frido 2025
 
+- Volume 1. Lemme 7.180 (LEMooDYYYooHZitMZ). Au moins le point (2) est faux dans un espace métrique en général. Rappel : un espace métrique n'est pas spécialement vectoriel.
 - Volume 1. Lemme 8.137 (LEMooWRCIooWkMpoF). La seconde partie est fausse. Par exemple la matrice f qui inverse e_1 et e_2 vérifie N(f)=0 alors que f != 0.
 - Volume 1. Proposition 3.84 (PropXHMLooRnJKRi). Triplets pythagoriciens. Si x et y sont premiers entre eux, il n'est pas vrai que x+y et x-y sont premiers entre eux; cela ruine une bonne partie de ce qui suit. Trouvée et corrigée par bibi6. https://github.com/LaurentClaessens/mazhe/issues/267
 
