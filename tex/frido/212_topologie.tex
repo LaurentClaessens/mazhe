@@ -1,11 +1,57 @@
 % This is part of Mes notes de mathématique
-% Copyright (c) 2022-2024
+% Copyright (c) 2022-2024, 2026
 %   Laurent Claessens
 % See the file fdl-1.3.txt for copying conditions.
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 \section{Connexité par arcs}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+%-------------------------------------------------------
+\subsection{Composition d'arcs}
+%----------------------------------------------------
+
+Un petit lemme pour commencer.
+
+\begin{lemma}[\cite{MonCerveau}]	\label{LEMooMMTBooYExLZH}
+	Deux façons de «normaliser» des chemins.
+	\begin{enumerate}
+		\item		\label{ITEMooEKYEooMDHSHH}
+		      Soient un espace topologique \( X\) et \( a,b,c\in X\). Nous supposons qu'il existe des applications continues \(\gamma_1,\gamma_2 \colon \mathopen[ 0,1\mathclose]\to X  \) telles que \( \gamma_1(0)=a\), \( \gamma_1(1)=b\), \( \gamma_2(0)=b\) et \( \gamma_2(1)=c\).
+
+		      Alors il existe une application continue \(\gamma \colon \mathopen[ 0,1\mathclose]\to X  \) telle que \( \gamma(0)=a\) et \( \gamma(1)=c\).
+		\item		\label{ITEMooSBTKooKOtFfw}
+		      Soient \( \alpha\leq t_1<t_2\leq \beta\) dans \( \eR\). Si nous avons une application continue \(\delta \colon \mathopen[ \alpha,\beta\mathclose]\to X  \) telle que \( \sigma(t_1)=a\) et \( \sigma(t_2)=b\), alors il existe une application continue \(\gamma \colon \mathopen[ 0,1\mathclose]\to X  \) telle que \( \gamma(0)=a\) et \( \gamma(1)=b\).
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	En deux parties.
+	\begin{subproof}
+		\spitem[Pour \ref{ITEMooEKYEooMDHSHH}]
+		%-----------------------------------------------------------
+		Il suffit de poser
+		\begin{equation}
+			\begin{aligned}
+				\gamma\colon \mathopen[ 0,1\mathclose] & \to X                                         \\
+				t                                      & \mapsto \begin{cases}
+					                                                 \gamma_1(2t)   & \text{si } t\leq 1/2 \\
+					                                                 \gamma_2(2t-1) & \text{si }t>1/2.
+				                                                 \end{cases}
+			\end{aligned}
+		\end{equation}
+		C'est une application continue, en particulier en \( t=1/2\) parce que \( \gamma_2(2t-1)=\gamma_1(2t)\) lorsque \( t=1/2\).
+
+		\spitem[Pour \ref{ITEMooSBTKooKOtFfw}]
+		%-----------------------------------------------------------
+		Il suffit de poser \( \gamma(t)=\sigma\big( (t_2-t_2)t+t_1 \big)\).
+	\end{subproof}
+\end{proof}
+
+%-------------------------------------------------------
+\subsection{Connexité par arcs}
+%----------------------------------------------------
+
 
 \begin{definition}      \label{DEFooOXVCooBizpgK}
 	Une partie \( A\) d'un espace topologique est \defe{connexe par arcs}{connexe par arc} si pour tout \( a,b \in A\), il existe une application continue \( \gamma\colon \mathopen[ 0 , 1 \mathclose]\to A\) telle que \( \gamma(0)=a\) et \( \gamma(1)=b\).
@@ -32,45 +78,90 @@ Beaucoup d'espaces connexe sont connexes par arcs. La proposition suivante couvr
 
 
 \begin{lemma}       \label{LEMooTVQMooFxrFaT}
-	Soient deux espaces topologiques \( X\) et \( Y\), ainsi qu'un homéomorphisme\footnote{Définition \ref{DEFooYPGQooMAObTO}.} \(f \colon X\to Y  \). L'espace \( X\) est connexe par arcs\footnote{Définition \ref{DEFooOXVCooBizpgK}} si et seulement si \( Y\) l'est.
+	Soient des espaces topologiques \( X\) et \( Y\). Nous considérons une partie connexe par arcs\footnote{Définition \ref{DEFooOXVCooBizpgK}} \(A\subset X\). Si \(f \colon X\to Y  \) est continue, alors \( f(A) \) est connexe par arcs.
 \end{lemma}
 
-\begin{normaltext}
-	Voici une idée de la preuve.
+\begin{proof}
+	Soient \( x,y\in f(A)\). Nous considérons \( a,b\in A\) tels que \( x=f(a)\) et \( y=f(b)\). Étant donné que \( A\) est connexe par arcs, il existe une application continue \(f \colon \mathopen[ 0,1\mathclose]\to A  \) telle que \( \gamma(0)=a\) et \( \gamma(1)=b\).
 
-	On montre en réalité que l'image d'un connexe par arcs
-	par une application continue est un connexe par arcs, ce qui
-	implique chaque sens de l'équivalence de l'énoncé.
+	Le chemin
+	\begin{equation}
+		\begin{aligned}
+			\sigma\colon \mathopen[ 0,1\mathclose] & \to Y                     \\
+			t                                      & \mapsto (f\circ\gamma)(t)
+		\end{aligned}
+	\end{equation}
+	est à valeurs dans \( f(A)\) et vérifie \( \sigma(0)=x\) et \( \sigma(1)=y\). Il est continu en tant que composée d'applications continues\footnote{Proposition \ref{PROPooCNTBooTkOJuK}.}.
+\end{proof}
 
-	Soient \( p\) et \( q\) des points de \( F\). Il existe un chemin reliant
-	un antécédent de \( p\) et un antécédent de \( q\) (dans \( E\)). L'image
-	de ce chemin est un chemin reliant \( p\) et \( q\) (dans \( F\)) puisque
-	composé d'applications continues.
-\end{normaltext}
 
 \begin{lemma}       \label{LEMooQFQFooDlxkw}
 	Une sphère de \( \eR^n\) est connexe par arcs si \( n >1\)
 \end{lemma}
 
-\begin{normaltext}
-	Une idée de la preuve.
+\begin{proof}
+	En plein de parties. Nous commençons par considérer seulement la sphère unité \( S=\{ x\in \eR^,n\tq \| x \|=1 \}\).
+	\begin{subproof}
+		\spitem[Pour le cercle (\( n=2\))]
+		%-----------------------------------------------------------
+		Nous considérons les chemins parcourant le haut et le bas du cercle :
+		\begin{equation}
+			\begin{aligned}
+				H\colon \mathopen[ -1,1\mathclose] & \to S^1                              \\
+				t                                  & \mapsto \big( t,\sqrt{ 1-t^2 } \big)
+			\end{aligned}
+		\end{equation}
+		et
+		\begin{equation}
+			\begin{aligned}
+				B\colon \mathopen[ -1,1\mathclose] & \to S^1                                \\
+				t                                  & \mapsto \big( t,-\sqrt{ 1-t^2 } \big).
+			\end{aligned}
+		\end{equation}
+		Soient \( a,b\in S^1\). Si ils sont tous les deux dans l'image de \( h\), le lemme \ref{LEMooMMTBooYExLZH}\ref{ITEMooSBTKooKOtFfw} construit un chemin continu dans \( S^1\) allant de \( a\) à \( b\) à l'aide de \( H\). Si ils sont tous les deux dans l'image de \( B\), c'est la même chose en utilisant \( B\).
 
-	On voit qu'un cercle est connexe par arcs car on a un
-	paramétrage en sinus et cosinus. Pour une sphère \( S\) de centre
-	\( a\) en dimension \( n > 2\), on se donne \( p\) et \( q\) sur \( S\) et on
-	définit \( P\) le plan affine passant par \( a\), \( p\) et \( q\). Alors \( P\cap S\) est un cercle, donc on peut relier \( p\) à \( q\) par un chemin
-	dans cette intersection.
+		Si l'un est dans l'image de \( H\) et l'autre dans l'image de \( B\), nous commençons par utiliser \ref{LEMooMMTBooYExLZH}\ref{ITEMooSBTKooKOtFfw} (avec \( H\) ou \( B\) suivant le signe de \( a_2\)) pour joindre \( a\) à \( (1,0)\) et idem pour joindre \( b\) à \( (1,0)\). Le lemme \ref{LEMooMMTBooYExLZH}\ref{ITEMooEKYEooMDHSHH} permet alors de composer les deux chemins.
 
-	Pour voir sur une formule que \( P \cap S\) est un cercle, on peut
-	écrire \( x - a = \lambda(a-p) + \mu(a-q)\) l'équation (en \( x\)) du
-	plan \( P\), et \( \module{x-a}^2 = R^2\) l'équation (en \( x\)) de la
-	sphère. En injectant, on obtient une équation du second degré en
-	\( \lambda,\mu\) qui se révèle être l'équation d'un cercle à une
-	transformation affine près.
-\end{normaltext}
+		\spitem[Si \( n>2\), cas non antipodaux]
+		%-----------------------------------------------------------
+		Soient \( a,b\in S\). Nous supposons que \( a\) et \( b\) ne sont pas alignés avec \( 0\). Nous considérons le plan \( P=\{ \alpha a+\mu b\tq \lambda,\mu\in \eR \}\). Les éléments de \( P\) qui sont sur \( S\) sont ceux qui vérifient \( \| \lambda a+\mu b \|^2=(\lambda a+\mu b)\cdot (\lambda a+\mu b)=1\), c'est à dire
+		\begin{equation}
+			\lambda^2\| a \|^2+2\lambda\mu a\cdot b+\mu\| b \|^2=1.
+		\end{equation}
+		Ici \( \| a \|=\| b \|=1\). Résolvons\footnote{En suivant la proposition \ref{PROPooEZIKooKjJroH}.} ça pour avoir \( \mu\) en termes de \( \lambda\) :
+		\begin{equation}
+			\mu=- \lambda \alpha\pm\sqrt{ \lambda^2(\alpha^2-1)+1 }
+		\end{equation}
+		où nous avons noté \( \alpha=a\cdot b\). Grâce à Cauchy-Schwarz (théorème \ref{ThoAYfEHG}) nous avons \( | \alpha |= | a\cdot b |\leq \| a \|\| b \|=1\). Donc \( (\alpha^1-1)\in \mathopen] -1,0\mathclose]\). Nous pouvons donc considérer
+		\begin{equation}
+			\begin{aligned}
+				\gamma\colon \mathopen[ 0,1\mathclose] & \to S                                                                           \\
+				\lambda                                & \mapsto \lambda a+\big( -\alpha \lambda+\sqrt{ \lambda^2(\alpha^2-1)+1 } \big).
+			\end{aligned}
+		\end{equation}
+		Par construction nous avons toujours \( \gamma(t)\in S\). Mais nous avons aussi \( \gamma(0)=b\) et \( \gamma(1)=a\). En plus \( \gamma\) est continue entre autres parce que la racine carrée est continue par la proposition \ref{PROPooLMIMooKGDHUw}.
+
+		\spitem[Si \( a\) et \( b\) sont antipodaux]
+		%-----------------------------------------------------------
+		Alors nous prenons un point \( c\) ailleurs, et nous appliquons deux fois le cas non antipodal : une fois pour joindre \( a\) à \( c\) et une fois pour joindre \( c\) à \( b\).
+	\end{subproof}
+	Si ce n'est pas la sphère unité, alors nous avons \( m\in \eR^n\) et \( R\in \eR^+\) tels que
+	\begin{equation}
+		S=\{ x\in \eR^n\tq \| x-m \|=R \}.
+	\end{equation}
+	Nous considérons la sphère unité \( S_0=\{ x\in \eR^n\tq\| x \|=1 \}\) que nous savons déjà être connexe par arcs. Nous avons la bijection continue
+	\begin{equation}
+		\begin{aligned}
+			f\colon S_0 & \to S         \\
+			x           & \mapsto Rx+m.
+		\end{aligned}
+	\end{equation}
+	Si \( a,b\in S\), alors la connexité par arcs de \( S_0\) permet de trouver une application continue \(\gamma_0 \colon \mathopen[ 0,1,\mathclose]\to S_0  \) telle que \( \gamma_0(0)=f^{-1}(a)\) et \( \gamma_0(1)=f^{-1}(b)\). Il suffit maintenant de prendre \( \gamma=f\circ\gamma_0\) pour avoir une application continue qui joint \( a\) et \( b\) dans \( S\).
+\end{proof}
 
 \begin{lemma}       \label{LEMooDYNSooOmJbYq}
 	Un ouvert connexe par arcs dans \( \eR^n\) (\( n \geq 2\)) reste connexe par arcs même si on lui enlève un point.
+	%TODOooIUSQooPXjwyt. Prouver ça.
 \end{lemma}
 
 \begin{normaltext}
