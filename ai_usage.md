@@ -36,7 +36,7 @@ Prenons un exemple : la fonction f(x)=0 si x différent de 0 et f(0)=1.
 Quelle est sa limite en 0 ? Pourquoi ?
 ```
 
-Réponse : 
+Réponse chatGPT : 
 
 ```
 Pour étudier la limite quand x→0, on regarde ce que deviennent les valeurs de la fonction 
@@ -48,8 +48,23 @@ lim f(x)=0
 x→0
 ```
 
+Réponse Mistral :
+
+```
+[blablabla]
+
+0<| x-a |< delta
+
+[blablabla]
+
+La limite d'une fonction en un point ne dépend pas de la valeur de la fonction en ce point.
+
+[blablabla]
+```
+
+
 Même en ayant précisé que je suis étudiant en France, il me balance toute une explication sur la limite ÉPOINTÉE.
-Il se fait que la limite POINTÉE est tellement insignifiante sur internet qu'elle est passée complètement sous le radar de l'entrainement de chatGPT.
+Il se fait que la limite POINTÉE est tellement insignifiante sur internet qu'elle est passée complètement sous le radar de l'entrainement de chatGPT et de Mistral.
 
 
 ## Exemples de contributions IA
