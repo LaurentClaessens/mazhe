@@ -23,7 +23,7 @@ Donc tout ce qui est dans le Frido passe par (au moins) deux rédactions : vers 
 ## Attention l'IA fait de erreurs
 
 La plupart des démonstrations fournies par chatGPT (version gratuite) sont correctes. Mais parfois elles sont fausses, et les erreurs sont presque toujours subtiles.
-Je ne conseillerait à aucun étudiant d'utiliser une IA pour créer des démonstrations. Il faut vraiment avoir le niveau pour parfaitement comprendre une démonstration.
+Je ne conseillerais à aucun étudiant d'utiliser une IA pour créer des démonstrations. Il faut vraiment avoir le niveau pour parfaitement comprendre une démonstration.
 
 ## Attention l'IA ne sait que ce qu'il y a sur internet
 
@@ -62,16 +62,28 @@ La limite d'une fonction en un point ne dépend pas de la valeur de la fonction 
 [blablabla]
 ```
 
+Si vous ne voyez pas le problème, voici du contexte.
+La définition de limite utilisée partout dans le monde est avec  `0<| x-a |<delta`. C'est ce qu'on nomme (très) rarement la limite ÉPOITÉE.
+Dans l'enseignement en France[1], la définition de limite est avec `| x-a |<delta`. C'est ce qu'on nomme la limité POINTÉE.
 
-Même en ayant précisé que je suis étudiant en France, il me balance toute une explication sur la limite ÉPOINTÉE.
+Même en m'étant fait passer pour un  étudiant en France, il me balance toute une explication sur la limite ÉPOINTÉE.
 Il se fait que la limite POINTÉE est tellement insignifiante sur internet qu'elle est passée complètement sous le radar de l'entrainement de chatGPT et de Mistral.
 
+Tout ça pour dire que si vous êtes étudiant en France, chatGPT peut vous induire en erreur[2] si vous lui posez des questions sur la limite.
+
+[1] Et, scandaleusement, sur Wikipédia. Wikipédia fr est le seul Wikipédia au monde à prendre la défintion POINTÉE.
+[2] En réalité c'est plutôt votre prof de math qui vous a induit en erreur en vous donnant, sans vous avertir du danger, une définition pas du tout standard de la limite.
+
+## Première conclusion
+
+N'utilisez une IA que si vous avez vraiment le niveau. Vous devez être capable de comprendre la démonstration et détecter des erreurs très fines, parfois dues à des conventions un peu différentes.
 
 ## Exemples de contributions IA
 
 ### Souvent : formule
 
 Souvent la contribution de l'IA se limite à me rappeler un théorème qui m'avait échappé.
+Par exemple en combinatoire, j'ignore énormément de formules de récurrence sur les coefficients binomiaux.
 
 
 ### Vainqueur : humains
