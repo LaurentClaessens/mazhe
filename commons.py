@@ -32,7 +32,7 @@ def has_to_be_printed(future_reference):
 
 
 ok_hash: list[str] = []
-ok_hash.append("<++>")
+ok_hash.append("68ad6196d327475bd100d01120a4c5f94e8749fa")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
