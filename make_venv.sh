@@ -7,7 +7,7 @@ set -ue
 MAIN_DIR=$(pwd)
 VENV_DIR="$MAIN_DIR/venv"
 BIN_DIR="$VENV_DIR/bin"
-PYTHON_VERSION=3.10.12
+PYTHON_VERSION=3.13.1
 
 # Adapter à votre situation.
 pyenv_dir=$MAIN_DIR/pyenv
@@ -25,7 +25,7 @@ function compile_python()
 {
   echo $PYENV_ROOT
   cd pyenv/bin
-  PYENV_ROOT=$pyenv_dir ./pyenv install -s -v 3.10.12
+  PYENV_ROOT=$pyenv_dir ./pyenv install -s -v $PYTHON_VERSION
 }
 
 function install_pytex()
