@@ -31,11 +31,11 @@ Je ne conseillerais à aucun étudiant d'utiliser une IA pour créer des démons
 
 Je n'ai rien contre une contribution qui aurait été faire par de l'IA. Mais j'ai quelque chose contre un copié-collé d'une sortie de l'IA.
 
-1. Régigez la preuve vous même
+1. Rédigez la preuve vous même
 2. Ayez le niveau. Si vous ne pensez pas avoir le niveau pour comprendre la preuve, ne me l'envoyez pas.
 
 
-# Autres réflexions
+# Autres réflexions et exemples d'utilisation de l'IA pour la mathématique
 
 
 ## Attention l'IA ne sait que ce qu'il y a sur internet
@@ -92,7 +92,7 @@ Tout ça pour dire que si vous êtes étudiant en France, chatGPT peut vous indu
 
 N'utilisez une IA que si vous avez vraiment le niveau. Vous devez être capable de comprendre la démonstration et détecter des erreurs très fines, parfois dues à des conventions un peu différentes.
 
-## Un exemples où les humains ont été plus forts
+## Un exemples où les humains ont été plus forts (février 2026)
 
 Voici un exemple dans lequel les humains ont fait un bien meilleur travail que l'IA. Pour cette question :
 
@@ -103,7 +103,7 @@ Tant chatGPT que Mistral m'ont donné une démonstration de ce que je voulais. M
 Les humains n'ont pas été longs à me faire remarquer que l'énoncé était faux. Ça explique pourquoi je ne comprenais pas les démonstrations de l'IA.
 
 
-## Un cas où l'IA a été plus forte
+## Un cas où l'IA a été plus forte (2025)
 
 Pour autant que le sache, [2] est le seul texte sur internet donnant la définition d'une application analytique en-dehors du cadre des fonctions de R dans R.
 L'essentiel de l'énorme pile de résultats menant à la démonstration de Cauchy-Lipschitz analytique a donc été produit avec de l'IA.
@@ -117,7 +117,25 @@ Les humains n'ont par contre pas été d'une grande aide :
 https://math.stackexchange.com/questions/5113042/analytic-picard-lindel%c3%b6f-theorem
 
 
+[2] https://www.ams.org/journals/proc/1965-016-05/S0002-9939-1965-0184092-2/S0002-9939-1965-0184092-2.pdf
+
+
+## L'IA fait encore des erreurs incroyablement basiques (mai 2026)
+
+Oui, l'IA m'a fait une preuve de Cauchy-Lipchitz analytique. Impressionnant.
+
+Mais en lui demandant de relire ma preuve du lemme LEMooUXWKooKEjyrb, Mistral est parvenu à me dire que \( S\) n'était pas spécialement ouvert en donnant un contre-exemple. Je passe les détails, mais Mistral m'a dit (avec exactement ces mots) :
+
+> Alors S=]−1,0[ ∪ ]0,1[, qui n'est pas ouvert (car 0∉S mais 0 est adhérent à S).
+
+Il s'agit d'une faute incroyablement basique sur de la topologie réelle. On n'accepterait pas qu'un étudiant de première année écrive ça sur sa feuille !
+
+Cela dit, j'ai quand même gagné un peu en discutant avec l'AI.
+
+1. Mistral m'a montré que je devais supposer que \( I_1\) et \( I_2\) sont ouverts.
+2. chatGPT m'a signalé que j'avais écrit à certains endroits \( A\cap B\) au lieu de \( A_1\cap A_2\).
+
+
 -------
 
 
-[2] https://www.ams.org/journals/proc/1965-016-05/S0002-9939-1965-0184092-2/S0002-9939-1965-0184092-2.pdf
