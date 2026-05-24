@@ -17,6 +17,12 @@ Il y a plusieurs façons de contribuer.
 
 Dans tous les cas, utilisez au maximum le système de labels du Frido pour faire des références. Ne dites pas "le théorème de Dini" ou (pire) "le théorème 12.316". Dites le "ThoUFPLEZh".
 
+## ai-declaration
+
+[![AI-DECLARATION: hint](https://img.shields.io/badge/䷼%20AI--DECLARATION-hint-ecfccb?labelColor=ecfccb)](https://ai-declaration.md)
+
+Voir le fichier `AI-DECLARATION.md` pour plus de détails.
+
 
 
 ## Compilation
