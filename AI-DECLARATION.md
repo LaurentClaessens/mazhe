@@ -21,6 +21,18 @@
 
 Donc tout ce qui est dans le Frido passe par (au moins) deux rédactions : vers ma feuille puis vers LaTeX.
 
+## Le cas des résultats intermédiaires
+
+Je dois faire la démonstration de A.
+
+Si je lis un humain, dans la démonstration de A écrire « en vertu de la proposition B, blabla », souvent je me permets de copier l'énoncé de B dans le Frido et de continuer (j'écris alors B dans ma liste de chose à faire).
+
+Si une IA écrit « en vertu de la proposition B », alors soit je retrouve un énoncé de B par un humain sur internet, soit je demande à l'IA de démontrer B avant de continuer.
+
+Bref, il n'y a pas de résultats dans démonstration dans le Frido dont l'énoncé viendrait seulement d'une IA.
+
+
+
 ## Trouver les parties assistées par IA
 
 Les démonstrations qui ont bénéficié d'une aide IA sont marquées de ces labels dans la biblio : 
