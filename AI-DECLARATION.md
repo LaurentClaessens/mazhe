@@ -41,6 +41,8 @@ Les démonstrations qui ont bénéficié d'une aide IA sont marquées de ces lab
 2. BIBChatGPT
 3. BIBChatGPTDifficile
 
+Ce sont les références numéro 2,3 et 4.
+
 Je répète : il n'y a aucun copié-collé de la sortie d'un LLM vers le Frido. Si une théorème a une de ces sources, ça veut dire que j'ai posé des questions à une IA pour la démonstration, et que certaines de ses suggestions ont été suivies.
 
 
@@ -157,6 +159,12 @@ Cela dit, j'ai quand même gagné un peu en discutant avec l'AI.
 2. chatGPT m'a signalé que j'avais écrit à certains endroits \( A\cap B\) au lieu de \( A_1\cap A_2\).
 
 
--------
+## Les humains aussi sont des perroquets stochastiques qui font des erreurs
 
+Préambule : je ne veux pas jeter la moindre faute sur Arnaud Girand qui a fait un travail monumental et qui est cité à de nombreuses reprises dans le Frido. L'erreur est humaine.
+Cela étant dit : 
+
+https://math.webgirand.eu/pdf/dvp_agreg/schr.pdf
+
+Vous pouvez toujours chercher l'erreur dedans ... elle est subtile. Et elle se retrouve à l'identique dans énormément de recueils de développements pour l'agrégation.
 
