@@ -4,7 +4,9 @@ from typing import Any
 
 from pathlib import Path
 
-from pdfrw import PdfReader, PdfWriter
+from pdfrw import PdfWriter
+from pdfrw import PdfReader
+from pdfrw import PdfParseError
 from pdfrw import PdfDict
 
 from .dirmanage import base_dir
@@ -33,7 +35,11 @@ class Book(object):
 
         self.pdf_reader: PdfReader
         if self.pdf_filename.is_file():
-            self.pdf_reader = PdfReader(self.pdf_filename)
+            try:
+                self.pdf_reader = PdfReader(self.pdf_filename)
+            except PdfParseError:
+                print(f"impossible de lire {self.pdf_filename}")
+                raise
 
     def splitlines(self):
         """Return a list of lines."""
