@@ -24,7 +24,7 @@
 def has_to_be_printed(future_reference):
     """Print the future reference."""
     for filename in future_reference.concerned_files:
-        if "front_back_matter" in filename:
+        if "front_back_matter" in str(filename):
             return False
     return True
 
@@ -33,13 +33,13 @@ def has_to_be_printed(future_reference):
 
 ok_hash: list[str] = []
 ok_hash.append("70cb4ac0be8f5be9a82c7ce69d03686474f35aef")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
-ok_hash.append("<++>")
+ok_hash.append("c9c50ca69a58645dc601366e87b01b9ca08c2c9d")
+ok_hash.append("a844953fe222be70d1ba85342330560a6fa1baf5")
+ok_hash.append("70d62e5e784e8843949a01823f943792d4a9dcb9")
+ok_hash.append("1764f7815fc2336d02fad732ef7d01bde07883fd")
+ok_hash.append("6a036b51427ca33755359c6b0ec657cf40999d0a")
+ok_hash.append("f0e84446b14bad72797789d191acecf57ea9e57f")
+ok_hash.append("5b5a021194dd89ce8357c4e86700b76d672bc097")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
 ok_hash.append("<++>")
