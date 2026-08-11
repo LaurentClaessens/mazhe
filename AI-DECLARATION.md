@@ -31,6 +31,13 @@ Si une IA écrit « en vertu de la proposition B », alors soit je retrouve un �
 
 Bref, il n'y a pas de résultats dans démonstration dans le Frido dont l'énoncé viendrait seulement d'une IA.
 
+## Cas d'usage
+
+### Canard en plasitque
+
+Pour la proposition PROPooITHUooXrBYMG, pour moi la démonstration donnée sur [cut the knot](https://www.cut-the-knot.org/blue/JCT/JCT_Part7.shtml) n'est pas claire. Je l'ai donnée à ChatGPT et à Mistral et après en avoir parlé pendant un bon bout de temps, j'ai fini par écrire une preuve moi-même.
+
+Bref, cette démonstration est entièrement de moi, mais j'en ai dégagé la philosophie générale en discutant avec l'IA. La preuve donnée par cut-the-knot n'est finalement pratiquement pas utilisée.
 
 
 ## Trouver les parties assistées par IA
