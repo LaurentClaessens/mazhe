@@ -35,9 +35,11 @@ Bref, il n'y a pas de résultats dans démonstration dans le Frido dont l'énonc
 
 ### Canard en plasitque
 
-Pour la proposition PROPooITHUooXrBYMG, pour moi la démonstration donnée sur [cut the knot](https://www.cut-the-knot.org/blue/JCT/JCT_Part7.shtml) n'est pas claire. Je l'ai donnée à ChatGPT et à Mistral et après en avoir parlé pendant un bon bout de temps, j'ai fini par écrire une preuve moi-même.
+Pour la proposition PROPooITHUooXrBYMG, la démonstration donnée sur [cut the knot](https://www.cut-the-knot.org/blue/JCT/JCT_Part7.shtml) n'est pas claire pour moi. Je l'ai donnée à ChatGPT et à Mistral et après en avoir parlé pendant un bon bout de temps, j'ai fini par écrire une preuve moi-même.
 
 Bref, cette démonstration est entièrement de moi, mais j'en ai dégagé la philosophie générale en discutant avec l'IA. La preuve donnée par cut-the-knot n'est finalement pratiquement pas utilisée.
+
+Cependant les échanges que j'ai eu avec chatGpt n'ont pas été tout à fait vains. C'est lui qui m'a montré l'importance du produit scalaire 'u. v_i' qui intervient de façon centrale dans les propositions  PROPooOCXJooSDeEoB et PROPooCYYSooHVnjDl.
 
 
 ## Trouver les parties assistées par IA
@@ -110,7 +112,7 @@ Si vous ne voyez pas le problème, voici du contexte.
 La définition de limite utilisée partout dans le monde est avec  `0<| x-a |<delta`. C'est ce qu'on nomme (très) rarement la limite ÉPOINTÉE.
 Dans l'enseignement en France[1], la définition de limite est avec `| x-a |<delta`. C'est ce qu'on nomme la limité POINTÉE.
 
-Même en m'étant fait passer pour un  étudiant en France, il me balance toute une explication sur la limite ÉPOINTÉE.
+Même en m'étant fait passer pour un étudiant en France, il me balance toute une explication sur la limite ÉPOINTÉE.
 Il se fait que la limite POINTÉE est tellement insignifiante sur internet qu'elle est passée complètement sous le radar de l'entrainement de chatGPT et de Mistral.
 
 Tout ça pour dire que si vous êtes étudiant en France, chatGPT peut vous induire en erreur[2] si vous lui posez des questions sur la limite.
