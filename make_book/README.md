@@ -1,6 +1,8 @@
-Repasser les showlabels à tiny au lieu de small.
+# Choses à faire à propos du livre
 
-- remplacer 2025 par 2026 partout dans ce fichier.
+
+- passer les showlabels à tiny au lieu de small.
+- remplacer 2026 par 2027 partout dans ce fichier.
 - Créer la nouvelle entrée dans `isbn.json`.
 
 
@@ -40,7 +42,7 @@ Faire du large:
 Faire les fichiers
 ```
     cd make_book
-    ./split_book.py 2025
+    ./split_book.py 2026
 ```
 
 - Vérification dans `make_book/output`
@@ -50,9 +52,9 @@ Faire les fichiers
 - Vérification que les labels sont bien écrits
 
 ```
-git tag 2025
+git tag 2026
 git commit -a
-git push origin 2025
+git push origin 2026
 ```
 
 ## Copier les fichiers bouquin vers mon ftp
@@ -65,8 +67,8 @@ Avant de supprimer l'ancienne version, noter les stats de la précédente : vent
 ## Proposer dans thebookedition.com
 
 Choisir des images de couvertures. 
-Pour 2025 j'ai oublié de mettre celle-ci :
-https://www.davidrevoy.com/data/images/blog/2025/2025-01-03_new-year-illustration_by-david-revoy.jpg
+Pour 2026 j'ai oublié de mettre celle-ci :
+https://www.davidrevoy.com/data/images/blog/2026/2026-01-03_new-year-illustration_by-david-revoy.jpg
 Ce serait bien de trouver celle de 2026.
 
 
@@ -82,10 +84,10 @@ vente : oui
 
 
 Titre : 
-- Le Frido 2025 -- volume 1
-- Le Frido 2025 -- volume 2
-- Le Frido 2025 -- volume 3
-- Le Frido 2025 -- volume 4
+- Le Frido 2026 -- volume 1
+- Le Frido 2026 -- volume 2
+- Le Frido 2026 -- volume 3
+- Le Frido 2026 -- volume 4
 
 Auteur :
 Laurent Claessens
@@ -119,4 +121,6 @@ mathématique, agrégation, master
 ## Quand tout est fini
 
 
-Copier ce fichier vers `readmes/README_2025.md`
+- Copier ce fichier vers `readmes/README_2026.md`
+- Remettre les showlabel à small : `\renewcommand{\showlabelfont}{\small\color{green}}`
+- Demander des nouveaux isbn
