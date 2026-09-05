@@ -60,7 +60,7 @@ def pepper(imprimeur):
     if imprimeur == "lulu":
         return ""
     if imprimeur == "thebookedition":
-        return "(c) 2015-2022 David Revoy  pour les illustrations de " \
+        return "(c) 2015-2026 David Revoy  pour les illustrations de " \
                "couverture CC-BY, \\url{https://www.peppercarrot.com/}"
     raise ValueError(f"Unknown printer : {imprimeur}")
 
@@ -164,7 +164,7 @@ def make_the_work():
     """Make the whole work."""
     currentDateTime = datetime.datetime.now()
     date = currentDateTime.date()
-    options = Options(n_volumes=4,
+    options = Options(n_volumes=5,
                       year=date.year, imprimeurs=["thebookedition"])
     pdf_filename = "0-book.pdf"
     toc_filename = f"Inter_{date.year}-mazhe_pytex.toc"

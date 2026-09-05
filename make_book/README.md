@@ -22,7 +22,7 @@ La dernière ici est chouette : https://www.peppercarrot.com/fr/webcomic/ep39_Th
 Puis dans le répertoire normal:
 ```
     ./compile_part.py lst_lefrido.json     
--- attendre la fin
+.............................................. attendre la fin
     ./compile_part.py lst_book.json
 ```
 
@@ -32,10 +32,7 @@ Note : le fichier `0-book.pdf` commence direct par l'index thématique. C'est no
 Faire du large:
 ```
     cd make_book
-    rm *.log
-    rm *.pdf
-    rm *.aux
-    rm first_5*
+    rm *.log *.pdf *.aux firsts_5_*
     rm output/*.pdf
 ```
 
@@ -48,7 +45,7 @@ Faire les fichiers
 - Vérification dans `make_book/output`
 - Le faire assez de fois pour que la coupure ne soit pas au milieu d'un chapitre.
 
-- Vérification du nombre de pages. Le max est 900.
+- Vérification du nombre de pages. Le max est 750.
 - Vérification que les labels sont bien écrits
 
 ```
@@ -67,12 +64,16 @@ Avant de supprimer l'ancienne version, noter les stats de la précédente : vent
 ## Proposer dans thebookedition.com
 
 Choisir des images de couvertures. 
-Pour 2026 j'ai oublié de mettre celle-ci :
-https://www.davidrevoy.com/data/images/blog/2026/2026-01-03_new-year-illustration_by-david-revoy.jpg
-Ce serait bien de trouver celle de 2026.
+Trouver l'image de l'année 2027
+
+Attention : si on prend une nouvelle image, il faut changer les dates dans `(c) 2015-2026 David Revoy` dans `split_book.py`.
+
+On trouve les dessins de l'année ici : https://www.davidrevoy.com/
+Et il suffit de cliquer quelque fois sur "Next" pour trouver celle de 2027.
 
 
 - Désactiver uMatrix
+
 
 Les choix à faire :
 papier
@@ -97,17 +98,22 @@ Catégorie : scolaire -> études supérieures
 
 ## Résumé
 
-Le Frido est un cours de mathématique libre et contributif recouvrant (presque) l'ensemble de la matière du niveau de l'agrégation de mathématiques. Les démonstrations sont très détaillées; rien n'est considéré comme évident.
+Le Frido est un cours de mathématique libre recouvrant (presque) l'ensemble de la  
+matière du niveau de l'agrégation de mathématiques. Les démonstrations sont très détaillées; rien 
+n'est considéré comme évident.
 
-Comme point de départ, l'existence de l'ensemble des naturels est supposée. Ensuite tout est construit avec les démonstrations : groupes, corps, analyse réelle, espaces topologiques, probabilités et bien d'autres.
+Comme point de départ, l'existence de l'ensemble des naturels est supposée. Ensuite tout est      
+construit avec les démonstrations : groupes, corps, analyse réelle et complexe, topologie,         
+probabilités et bien d'autres.
 
-Téléchargement du pdf, des sources LaTeX et dernières mises à jour : 
+Téléchargement du pdf, des sources LaTeX et dernières mises à jour :
 https://laurent.claessens-donadello.eu/frido.html
 
 Gardez un oeil sur erratum :
 https://github.com/LaurentClaessens/mazhe/blob/master/erratum.md
 
 Une nouvelle version tous les mois de septembre.
+
 
 ## les mots-clefs
 
@@ -121,6 +127,6 @@ mathématique, agrégation, master
 ## Quand tout est fini
 
 
-- Copier ce fichier vers `readmes/README_2026.md`
+- Copier ce fichier vers `readmes/README_2027.md`
 - Remettre les showlabel à small : `\renewcommand{\showlabelfont}{\small\color{green}}`
 - Demander des nouveaux isbn
