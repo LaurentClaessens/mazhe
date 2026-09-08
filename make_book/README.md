@@ -102,8 +102,8 @@ Le Frido est un cours de mathématique libre recouvrant (presque) l'ensemble de 
 matière du niveau de l'agrégation de mathématiques. Les démonstrations sont très détaillées; rien 
 n'est considéré comme évident.
 
-Comme point de départ, l'existence de l'ensemble des naturels est supposée. Ensuite tout est      
-construit avec les démonstrations : groupes, corps, analyse réelle et complexe, topologie,         
+Comme point de départ, l'existence de l'ensemble des naturels est supposée. Ensuite tout est
+construit avec les démonstrations : groupes, corps, analyse réelle et complexe, topologie,
 probabilités et bien d'autres.
 
 Téléchargement du pdf, des sources LaTeX et dernières mises à jour :

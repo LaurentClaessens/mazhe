@@ -68,6 +68,45 @@ Je n'ai rien contre une contribution qui aurait été faire par de l'IA. Mais j'
 2. Ayez le niveau. Si vous ne pensez pas avoir le niveau pour comprendre la preuve, ne me l'envoyez pas.
 
 
+# L'IA dans la bibliographie ?
+
+
+
+Un fait objectif : pour certaines théorèmes, j'ai obtenu des idées en demandant à des LLM. Lisez le AI-DECLARATION.md pour avoir des exemples et du pourquoi.
+
+Question : que citer dans ce cas ?
+
+## Un certain nombre de contraintes.
+
+
+1. La majorité des sources ne citent pas leurs sources. Quelques exemples dont jamais personne ne s'est plaint :
+   - [Dans celui-ci](https://www.math.toronto.edu/mgualt/courses/17-1300/docs/17-1300-notes.pdf) l'auteur  prévient même qu'il ne se foulera pas pour donner des sources correctes
+   - [Une page d'un wikibook](https://en.wikibooks.org/wiki/Math_for_Non-Geeks/_Derivative_and_local_extrema)
+   - [Une page sur le site d'un prof](https://webusers.imj-prg.fr/~jean-yves.ducloux/U4AH36/TD/Regle_Abel.pdf)
+   - [Une réponse sur math.stackexchange](https://math.stackexchange.com/questions/5106243/unconditional-convergence-and-analytic-map?noredirect=1#comment10996978_5106243https://math.stackexchange.com/questions/5106243/unconditional-convergence-and-analytic-map?noredirect=1#comment10996978_5106243)
+
+2. Au niveau du Frido, les citations ne servent pas à signaler les auteurs originaux des démonstrations. Ce sont forcément des gens [ou les LLM et c'est le creux de mon questionnement ici] qui ont lu la démonstration quelque part et qui l'ont rerédigée.
+
+3. Contrairement à la quasi totalité des ressources mathématiques, le Frido cite ses sources théorème par théorème. En général, les gens citent (au mieux) vite fait trois livres de référence par chapitre, sans préciser d'où viennent chacune des démonstrations séparément.
+
+## Vocabulaire
+
+Quand je dis «l'idée de la démonstration vient de X», je ne veux pas dire que X a eu l'idée. Je dis simplement que X est la première source qui me soit tombée sous la main ayant eu l'idée. En cela je suis l'usage. L'article Wikipédia [espace vectoriel](https://fr.wikipedia.org/wiki/Espace_vectoriel) cite par exemple le livre [Abstract linear spaces](https://mathshistory.st-andrews.ac.uk/HistTopics/Abstract_linear_spaces/). Je n'ai pas vérifié mais je suis quasiment certain que John J. O'Connor et Edmund F. Robertson n'ont pas inventé le concept de somme direct d'espaces vectoriels et en regardant leur bibliographie, je suis assuré que personne dans leur bibliographie non plus n'a inventé ce concept.
+
+
+## Ma réponse
+
+
+Avec ceci en tête, que faire quand l'idée d'une démonstration vient d'un LLM ? La réponse actuelle --qui n'est peut-être pas optimale-- est que quand une idée provient d'un LLM, je cite le LLM dans la bibliographie. Pour plus de transparence j'ai également modifié l'ordre d'insertion dans la bibliographie. Maintenant :
+
+- la référence `[1]` précise qu'une partie non triviale soit de l'énoncé soit de la démonstration est de moi.
+- la référence `[2]` précise qu'une partie non triviale soit de l'énoncé soit de la démonstration est de mistral.
+- la référence `[3]` précise qu'une partie non triviale soit de l'énoncé soit de la démonstration est de chatGPT.
+- la référence `[4]` précise qu'une partie non triviale soit de l'énoncé soit de la démonstration est de chatGPT, mais que j'ai dû me battre pour lui faire cracher quelque chose de correct.
+
+
+Les gens qui se plaisent à dire que les LLM produisent du texte qui est seulement vraisemblable, mais souvent faux sont donc invités à relire attentivement les résultats avec les références 2, 3 et 4. Pour l'instant il n'y en a pas qui soient entrés dans [l'erratum](https://github.com/LaurentClaessens/mazhe/blob/master/erratum.md). Ces gens sont également invités à répondre [à cette question](https://math.stackexchange.com/questions/5113042/analytic-picard-lindel%C3%B6f-theorem). Ou ou à trouver des fautes dans les démonstration de Cauchy-Lipschitz holomorphe et analytique données dans le Frido.
+
 # Autres réflexions et exemples d'utilisation de l'IA pour la mathématique
 
 
