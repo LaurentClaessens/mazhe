@@ -56,6 +56,7 @@ git push origin 2026
 
 ## Copier les fichiers bouquin vers mon ftp
 
+Y compris le `0-book.pdf` qu'il faut renommer en  `LeFrido2026.pdf`.
 
 ## Avant de proposer dans thebookedition.com
 
