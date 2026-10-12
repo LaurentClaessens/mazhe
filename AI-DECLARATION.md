@@ -46,6 +46,15 @@ Cependant les échanges que j'ai eu avec chatGpt n'ont pas été tout à fait va
 Pour démontrer PROPooBXAZooNpGjjJ, je ne connaissais pas la technique du déterminant de deux vecteurs. C'est mistral qui me l'a montrée.
 Si j'avais sorti cette démonstration d'un livre, personne ne serait venu dire « Tu aurais du réfléchir plus pour découvrir par toi même, en utilisant un livre pour avoir la réponse, tu suis la voie de la facilité ».
 
+### Retrouver des résultats
+
+Parfois certains résultats ne sont pas faciles à retrouver dans le Frido. C'est pour ça qu'il y a un index thématique. Vibe de Mistral est assez efficace pour les retrouver.
+Par exemple avec cette demande : 
+«
+Je voudrais savoir si le Frido démontre qu'un système d'équations linéaire a une unique solution SSI son déterminant est non nul. Est-ce que ce résultat est quelque part ?
+»
+il me retrouve la proposition PropYQNMooZjlYlA qui prouve qu'une application linéaire est un automorphisme si et seulement si son déterminant est non nul.
+
 
 ## Trouver les parties assistées par IA
 
