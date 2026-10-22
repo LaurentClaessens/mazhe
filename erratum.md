@@ -2,7 +2,7 @@
 
 Ce fichier contient les fautes découvertes dans les versions imprimées du Frido. Elles sont en principe corrigées au fur et à mesure dans la [version courante](https://laurent.claessens-donadello.eu/pdf/lefrido.pdf).
 
-## Frido 2027
+## Frido 2026
 
 - Volume 1. Proposition 1.282 (PROPooQRZYooKVZTCJ). À propos des classes de conjugaison de S4. Le point (3) est faux : c'est 3 et non 6. Le point (6) est alors redondant. Débusquée par louleke7. https://github.com/LaurentClaessens/mazhe/issues/280
 
