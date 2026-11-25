@@ -188,7 +188,7 @@ Tant chatGPT que Mistral m'ont donné une démonstration de ce que je voulais. M
 Les humains n'ont pas été longs à me faire remarquer que l'énoncé était faux. Ça explique pourquoi je ne comprenais pas les démonstrations de l'IA.
 
 
-## Un cas où l'IA a été plus forte (2025)
+## Un cas où l'IA a été plus forte : applications analytiques (2025)
 
 Pour autant que le sache, [2] est le seul texte sur internet donnant la définition d'une application analytique en-dehors du cadre des fonctions de R dans R.
 L'essentiel de l'énorme pile de résultats menant à la démonstration de Cauchy-Lipschitz analytique a donc été produit avec de l'IA.
@@ -203,6 +203,7 @@ https://math.stackexchange.com/questions/5113042/analytic-picard-lindel%c3%b6f-t
 
 
 [2] https://www.ams.org/journals/proc/1965-016-05/S0002-9939-1965-0184092-2/S0002-9939-1965-0184092-2.pdf
+
 
 
 ## L'IA fait encore des erreurs incroyablement basiques (mai 2026)
