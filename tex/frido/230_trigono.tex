@@ -1990,17 +1990,82 @@ Avec cette définition, la multiplication dans \( \eC\) par un élément de \( S
 \section{Graphes planaires}
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-\begin{definition}	\label{DEFooUGRYooObDort}
-	Un \defe{graphe}{graphe} est un ensemble fini muni d'une liste de paires (non ordonnées) de points distincts.
+\begin{definition}[graphe planaire\cite{BIBooZAWHooZZyGWL}]	\label{DEFooBBXEooKVtuTc}
+	Un \defe{graphe planaire}{graphe planaire} est un couple \( (V,S)\) où \( V\) est un ensemble de points de \( \eR^2\) et \( S\) est un ensemble de segments de \( \eR^2\) tels que :
+	\begin{enumerate}
+		\item
+		      Les extrémités des éléments de \( S\) sont des points dans \( V\).
+		\item
+		      Deux segments différents ont un ensemble d'extrémités différents,
+		\item
+		      L'intérieur d'un segment ne contient aucun point de \( V\) ni aucun point d'aucun autre segment.
+	\end{enumerate}
 \end{definition}
 
-\begin{definition}		\label{DEFooMKITooBoixZB}
-	Un graphe \( (E,L)\) est \defe{planaire}{graphe planaire} si il existe une injection \(\phi \colon E\to \eR^2  \) telle que pour tout \( l_1=\{ a_1,b_1 \}\) et \( l_2=\{ a_2,b_2 \}\) dans \( L\),
-	\begin{equation}
-		\mathopen[ \phi(a_1),\phi(b_1)\mathclose]\cap \mathopen[ \phi(a_2),\phi(b_2)\mathclose]\subset \{ \phi(a_1), \phi(b_1) \}
-	\end{equation}
-	où \( \mathopen[ x,y\mathclose]\) est le segment de droite joignant \( x\) à \( y\).
+\begin{definition}[graphe planaire connexe]	\label{DEFooPDPWooFDcUcr}
+	Nous disons que \( (V,S)\) est un graphe planaire \defe{connexe}{connexe} si pour toute paire de sommets \( a,b\), il existe une suite de sommets \( a=x_1,\ldots,x_n=b\) tels que \( \mathopen[ x_i,x_{i+1}\mathclose]\in S\) pour tout \( i\).
 \end{definition}
+
+\begin{definition}[cycle\cite{BIBooBDDFooMIgoaf}]	\label{DEFooXWIYooILrgLL}
+	Dans un graphe planaire, un \defe{cycle}{cycle!graphe planaire} est une suite de sommets \( a_1,\ldots,a_n\in V\) tels que
+	\begin{enumerate}
+		\item
+		      Pour tout \( i\), \( \mathopen[ a_i,a_{i+1}\mathclose]\in S\)
+		\item
+		      \( a_1=a_n\).
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[arbre\cite{BIBooBTAGooELFvZs}]	\label{DEFooYTGWooAULOGa}
+	Un \defe{arbre}{arbre!graphe planaire} est un graphe planaire qui n'a pas de cycles.
+\end{definition}
+
+
+\begin{lemma}[\cite{BIBooMistral}]	\label{LEMooUHDFooFAukfG}
+	Soit un graphe planaire connexe \( G=(V,S)\). Nous posons \( n=\Card(V)\). Pour tout \( 1\leq k\leq n\), il existe \( V_k\subset V\) et \( S_k\subset S\) tels que \( \Card(V_k)=k\) et \( \Card(S_k)=k-1\) et tels que \( (V_k,S_k)\) est connexe.
+\end{lemma}
+
+\begin{proof}
+	Pour \( k=1\) nous prenons un élément \( a\in V\) et \( V_1=\{ a \}\), \( S_1=\emptyset\). Le lemme \ref{LEMooKNKEooYQeDdo}\ref{ITEMooSUOYooUvgjRG}\ref{ITEMooTCMVooUTOqLw} fait le reste.
+
+	Nous supposons maintenant que le lemme est vrai pour \( k<n\), et nous le prouvons pour \( k+1\). Soit \( a\in V_k\) et \( b\in V\setminus V_k\). Vu que \( G\) est connexe, nous avons un chemin de sommets \( a=x_1\),\ldots,\( x_n=b\). Nous posons
+	\begin{equation}
+		l=\min\{ i\tq x_i\neq V_k \},
+	\end{equation}
+	et nous considérons \( V_{k=1}=V_k\cup\{ x_l \}\) et \( V_{k+1}=V_k\cup\{ [x_{l-1},x_l] \}\). D'abord par construction \( x_l\not\in S_k\), donc \( \Card(V_{k+1})=\Card(V_k)+1\). Et même chose pour le segment : étant donné que celui qu'on ajoute a \( x_l\) comme extrémité, et donc n'est pas dans \( S_k\). Donc \( \Card(S_{k+1})=\Card(S_k)+1\). Le graphe \( (V_{k+1}, S_{k+1})\) est encore connexe. En effet si \( a,b\in V_{k+1}\), nous supposons que \( a\in V_k\) (parce qu'ils ne peuvent pas être tous les deux dans \( V_{k+1}\setminus V_k\)). Il y a deux possibilités : \( b=x_l\) ou \( b\neq x_l\). Si \( a\neq x_l\), alors \( a\in V_k\) et donc \( a\) et \( b\) sont reliés par un chemin dans \( (V_k,S_{k})\). Si \( b=x_l\), alors on commence par \( [b,x_{k-1}] \) et ensuite on prend un chemin qui lie \( x_{l-1}\) à \( a\).
+\end{proof}
+
+
+\begin{lemma}[\cite{BIBooZAWHooZZyGWL}]	\label{LEMooOXVEooGgvOnp}
+	Si \( G=(V,S)\) est un graphe planaire connexe, alors
+	\begin{equation}
+		\Card(S)\geq \Card(V)-1.
+	\end{equation}
+\end{lemma}
+
+\begin{proof}
+	Posons \( n=\Card(V)\). Le lemme \ref{LEMooUHDFooFAukfG} pris avec \( k=n\) donne \( S_n\subset S\) et que
+	\begin{equation}
+		\Card(S)\geq \Card(S_n)=n-1=\Card(V)-1.
+	\end{equation}
+\end{proof}
+
+
+\begin{proposition}[\cite{BIBooZAWHooZZyGWL}]	\label{PROPooPOEJooYHGsUD}
+	Soit un graphe planaire \( G=(V,S)\) tel que \( \Card(S)\leq \Card(v)-1\). Alors
+	\begin{enumerate}
+		\item
+		      \( G\) est un arbre.
+		\item		\label{ITEMooANWEooEsAeEw}
+		      \( \Card(S)=\Card(V)-1\).
+	\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+	Nous savons par le lemme \ref{LEMooOXVEooGgvOnp} que \( \Card(S)\geq \Card(V)-1\). Donc \( \Card(S)=\Card(V)-1\) et le point \ref{ITEMooANWEooEsAeEw} est prouvé.
+
+	Montrons maintenant que \( G\) est un arbre, en supposant que ce n'est pas le cas, c'est à dire que nous supposons que \( G\) possède un cycle. Soit \( e\) un segment dans ce cycle. Nous considérons maintenant \( S'=S\setminus\{ e \}\). Le graphe \( (V,S')\) est encore un graphe connexe parce que les extrémités de \( e\) sont encore reliées par l'autre côté du cycle. Il a \( \Card(V)\) sommets et \( \Card(S)-1\) arrêtes. Le lemme \ref{LEMooOXVEooGgvOnp} donne alors \( \Card(S)-1\geq \Card(V)-1\), ce qui contredit l'hypothèse, et donc conclu cette démonstration par l'absurde.
+\end{proof}
 
 
 %+++++++++++++++++++++++++++++++++++++++++++++++++++++++
